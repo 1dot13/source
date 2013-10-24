@@ -13219,11 +13219,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>1651</uiIndex>
-    <szItemName>LBE Tactical Vest</szItemName>
-    <szLongItemName>3.11 VTAC LBE Tactical Vest</szLongItemName>
-    <szItemDesc>Customisable tactical utility with a hydration pocket, high impact fastening grips, and hidden document pockets.</szItemDesc>
-    <szBRName>VTAC LBE Tactical Vest</szBRName>
-    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our VTAC NAS pouches or standard MOLLE gear.</szBRDesc>
+    <szItemName>MLBE Vest</szItemName>
+    <szLongItemName>3.11 Tactical Vest</szLongItemName>
+    <szItemDesc>Customisable tactical utility with high impact fastening grips, and hidden document pockets.</szItemDesc>
+    <szBRName>3.11 Tactical Vest</szBRName>
+    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our standard NAS gear.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1652</uiIndex>
@@ -13237,24 +13237,24 @@
     <uiIndex>1653</uiIndex>
     <szItemName>Holster Pouch</szItemName>
     <szLongItemName>3.11 Holster Pouch</szLongItemName>
-    <szItemDesc>The 3.11 Holster Pouch is an adjustable holster to accommodate a variety of handguns and attaches to compatible 1.13 garments that are Back-Up Belt compatible.</szItemDesc>
+    <szItemDesc>The 3.11 Holster Pouch is an adjustable holster to accommodate a variety of handguns and attaches to compatible 3.11.</szItemDesc>
     <szBRName>3.11 Holster Pouch</szBRName>
-    <szBRDesc>Features include adjustable locking straps to keep handgun secure and a hook-side Velcro" backing.</szBRDesc>
+    <szBRDesc>Features include adjustable locking straps to keep handgun secure and a hook-side Velcro backing.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1654</uiIndex>
-    <szItemName>Mini Grenade Pouch</szItemName>
-    <szLongItemName>3.11 Mini Grenade Pouch</szLongItemName>
+    <szItemName>Mini Frag Pouch</szItemName>
+    <szLongItemName>3.11 Mini Frag Pouch</szLongItemName>
     <szItemDesc>Made of durable 1000D nylon and a quality Velcro closure, the Grenade MOLLE pouch is high quality at a great price.</szItemDesc>
     <szBRName>3.11 Grenade Pouch</szBRName>
-    <szBRDesc>The 3.11 Frag Pouch is built to accommodate any standard sized grenade.</szBRDesc>
+    <szBRDesc>The 3.11 Frag Pouch is built to accommodate 2 small grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1655</uiIndex>
-    <szItemName>Double MP5 Pouch</szItemName>
-    <szLongItemName>MP5 Bungee/Cover Double</szLongItemName>
+    <szItemName>Double MP5</szItemName>
+    <szLongItemName>Double MP5 Pouch</szLongItemName>
     <szItemDesc>Engineered for tactical and law enforcement use, the MP5 Double Bungee Cover Pouch provides quick and secure access to any standard 9mm magazine.</szItemDesc>
-    <szBRName>MP5 Bungee/Cover Double</szBRName>
+    <szBRName>Double MP5 Pouch</szBRName>
     <szBRDesc>Featuring complete compatibility with 3.11 NAS and MOLLE web gear platforms.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -13263,11 +13263,11 @@
     <szLongItemName>3.11 H2O Carrier</szLongItemName>
     <szItemDesc>The high impact locking clip keeps a water bottle secure and is easily accessible by attaching to any standard MOLLE web platform.</szItemDesc>
     <szBRName>H2O Carrier</szBRName>
-    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS web platforms, providing an ideal hydration.</szBRDesc>
+    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS web platforms.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1657</uiIndex>
-    <szItemName>3.11 Single AR Mag</szItemName>
+    <szItemName>3.11 Single AR</szItemName>
     <szLongItemName>3.11 Single Mag Pouch</szLongItemName>
     <szItemDesc>3.11 Single Mag Pouch attaches quickly to any MOLLE compatible system to hold one AR magazine.</szItemDesc>
     <szBRName>3.11 Single Mag Pouch</szBRName>
@@ -13276,18 +13276,18 @@
   <ITEM>
     <uiIndex>1658</uiIndex>
     <szItemName>Med Pouch</szItemName>
-    <szLongItemName>Med Pouch</szLongItemName>
-    <szItemDesc>With MOLLE attachment system compatibility for the 3.11 system, the Med Pouch adds mesh interior pockets.</szItemDesc>
+    <szLongItemName>3.11 Med Pouch</szLongItemName>
+    <szItemDesc>With MOLLE attachment system compatibility for the 3.11 system, the Med Pouch adds a mesh interior pocket.</szItemDesc>
     <szBRName>3.11 Med Pouch</szBRName>
-    <szBRDesc>The 6.6 Medic Pouch meshes seamlessly with 3.11 bags, packs, and duffels, providing a quick and efficient first aid solution for any application or environment.</szBRDesc>
+    <szBRDesc>The 3.11 Medic Pouch meshes seamlessly with 3.11 bags, providing a quick first aid solution for any application or environment.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1659</uiIndex>
-    <szItemName>Double Pistol Mag</szItemName>
-    <szLongItemName>3.11 Double Pistol Magazine Pouch</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
-    <szBRName>Double Magazine Holster Pouch</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szItemName>Double Pistol</szItemName>
+    <szLongItemName>3.11 Double Pistol Mag</szLongItemName>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistolâ€™s magazine and provide quick access when itâ€™s time to reload.</szItemDesc>
+    <szBRName>3.11 Double Pistol Mag</szBRName>
+    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1660</uiIndex>
@@ -13299,8 +13299,8 @@
   </ITEM>
   <ITEM>
     <uiIndex>1661</uiIndex>
-    <szItemName>3.11 Explosives Pouch</szItemName>
-    <szLongItemName>3.11 Vertical Explosives Pouch</szLongItemName>
+    <szItemName>3.11 Explosives</szItemName>
+    <szLongItemName>3.11 Explosives Pouch</szLongItemName>
     <szItemDesc>The 3.11 Vertical Explosives Pouch features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
     <szBRName>3.11 Explosives Pouch</szBRName>
     <szBRDesc>The 3.11 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
@@ -13315,71 +13315,71 @@
   </ITEM>
   <ITEM>
     <uiIndex>1663</uiIndex>
-    <szItemName>Shotgun Bandolier (VTAC)</szItemName>
-    <szLongItemName>7 RD Shotgun Bandolier (VTAC)</szLongItemName>
-    <szItemDesc>The VTAC Shotgun Bandolier holds 7 shotgun shell rounds.</szItemDesc>
-    <szBRName>Modular LBE - 12 Gauge Pouch</szBRName>
+    <szItemName>Shotgun Bandolier</szItemName>
+    <szLongItemName>7 RD Shotgun Bandolier</szLongItemName>
+    <szItemDesc>The NAS Shotgun Bandolier holds 7 shotgun shell rounds.</szItemDesc>
+    <szBRName>7 RD Shotgun Bandolier</szBRName>
     <szBRDesc>The 7 RD Shotgun Bandolier keeps your shotgun reloads within easy reach.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1664</uiIndex>
-    <szItemName>Document Drop Pouch</szItemName>
+    <szItemName>Documents</szItemName>
     <szLongItemName>Document Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear, in this case maps and other paperwork.</szItemDesc>
-    <szBRName>Small Drop Pouch</szBRName>
+    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital maps and other paperwork.</szItemDesc>
+    <szBRName>Document Drop Pouch</szBRName>
     <szBRDesc>Designed to provide expandable storage space on demand, the Document Drop Pouch remains folded and compact when not in use</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1665</uiIndex>
-    <szItemName>Molle Holster</szItemName>
-    <szLongItemName>MOLLE Drop Leg Ambi Holster</szLongItemName>
+    <szItemName>Drop Holster</szItemName>
+    <szLongItemName>Drop Leg Holster</szLongItemName>
     <szItemDesc>The LBT-6099Z is an ambidextrous, modular style universal holster.</szItemDesc>
-    <szBRName>MOLLE Drop Leg Ambi Holster</szBRName>
+    <szBRName>Drop Leg Ambi Holster</szBRName>
     <szBRDesc>Versatility comes from the number of carry modes and weapon configurations allowed by this holster.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1666</uiIndex>
     <szItemName>Casualty Response Kit</szItemName>
-    <szLongItemName>Casualty Response Kit - Medic/Leg Rig Bag</szLongItemName>
+    <szLongItemName>Casualty Response Kit</szLongItemName>
     <szItemDesc>Trauma shear storage for quick access and MOLLE style attachment system compatible.</szItemDesc>
-    <szBRName>Casualty Response Kit - Medic/Leg Rig Bag</szBRName>
+    <szBRName>Casualty Response Kit</szBRName>
     <szBRDesc>Here we have a Trauma shear storage for quick access and MOLLE style attachment system compatible.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1667</uiIndex>
-    <szItemName>Black M.O.L.L.E. Vest</szItemName>
-    <szLongItemName>Black M.O.L.L.E. Modular Tactical Vest</szLongItemName>
-    <szItemDesc>This black tactical vest is almost completely covered in molle compatible webbing, making it easy to attach all the molle gear you need.</szItemDesc>
-    <szBRName>Black M.O.L.L.E. Modular Tactical Vest</szBRName>
+    <szItemName>Black MOLLE</szItemName>
+    <szLongItemName>Black Modular Vest</szLongItemName>
+    <szItemDesc>This black tactical vest is almost completely covered in MOLLE compatible webbing, making it easy to attach all the gear you need.</szItemDesc>
+    <szBRName>Black Modular Vest</szBRName>
     <szBRDesc>This military vest has hanging loops for added storage and features two inner mesh pockets with zippers, perfect to carry smaller items that cannot be attached to the molle webbing.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1668</uiIndex>
-    <szItemName>Multicam Military Vest</szItemName>
-    <szLongItemName>Multicam Military Tactical Molle Vest</szLongItemName>
+    <szItemName>Multicam Vest</szItemName>
+    <szLongItemName>Multicam Molle Vest</szLongItemName>
     <szItemDesc>The Multicam MOLLE  tactical vest is mounted on tough mesh material for superior ventilation, and is equipped with a multitude of ammo pouches and holsters for all your firearms.</szItemDesc>
-    <szBRName>Multicam Military Tactical Molle Vest</szBRName>
+    <szBRName>Multicam Molle Vest</szBRName>
     <szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1669</uiIndex>
-    <szItemName>Throwing Knife Sheath</szItemName>
-    <szLongItemName>Nylon Throwing Knife Sheath</szLongItemName>
+    <szItemName>TK Sheath</szItemName>
+    <szLongItemName>Throwing Knife Sheath</szLongItemName>
     <szItemDesc>3.11 modular pouches are designed to give you maximum flexibiity when creating your personal rig.</szItemDesc>
-    <szBRName>Nylon Throwing Knife Pouch</szBRName>
+    <szBRName>Throwing Knife Sheath</szBRName>
     <szBRDesc>Swift access to your blades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1670</uiIndex>
-    <szItemName>Shotgun Ammo Pouch</szItemName>
-    <szLongItemName>3.11 Shotgun Ammo Pouch (VTAC)</szLongItemName>
+    <szItemName>12G Pouch</szItemName>
+    <szLongItemName>3.11 Shotgun Ammo Pouch</szLongItemName>
     <szItemDesc>Versatile shotgun pouch gives you quick access to the rounds you need.</szItemDesc>
-    <szBRName>3.11 Shotgun Ammo Pouch (VTAC)</szBRName>
+    <szBRName>3.11 Shotgun Ammo Pouch</szBRName>
     <szBRDesc>The quick and simple 3.11 Shotgun Ammo Pouch provides easy and reliable access to standard shotgun rounds.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1671</uiIndex>
-    <szItemName>Small Drop Pouch</szItemName>
+    <szItemName>Small Drop</szItemName>
     <szLongItemName>Small Drop Pouch</szLongItemName>
     <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
     <szBRName>Small Drop Pouch</szBRName>
@@ -13387,7 +13387,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1672</uiIndex>
-    <szItemName>Sniper Ammo Pouch</szItemName>
+    <szItemName>Sniper Pouch</szItemName>
     <szLongItemName>Sniper Ammo Pouch</szLongItemName>
     <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
     <szBRName>Sniper Ammo Pouch</szBRName>
@@ -13395,7 +13395,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1673</uiIndex>
-    <szItemName>Rifle Ammo Pouch</szItemName>
+    <szItemName>Rifle Pouch</szItemName>
     <szLongItemName>Rifle Ammo Pouch</szLongItemName>
     <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
     <szBRName>Rifle Ammo Pouch</szBRName>
@@ -13411,80 +13411,80 @@
   </ITEM>
   <ITEM>
     <uiIndex>1675</uiIndex>
-    <szItemName>Molle Revolver Pouch</szItemName>
-    <szLongItemName>Molle Revolver Pouch -  M81 US Woodland</szLongItemName>
-    <szItemDesc>Nylon Revolver pouch made in China. Fits most Molle Systems.</szItemDesc>
-    <szBRName>Molle Revolver Pouch -  M81 US Woodland</szBRName>
-    <szBRDesc>Nylon Revolver pouch made in China. Fits most Molle Systems.</szBRDesc>
+    <szItemName>Revolver Pouch</szItemName>
+    <szLongItemName>Revolver Pouch</szLongItemName>
+    <szItemDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szItemDesc>
+    <szBRName>Revolver Pouch</szBRName>
+    <szBRDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1676</uiIndex>
-    <szItemName>Specter Thigh Rig</szItemName>
-    <szLongItemName>Specter Modular Thigh Rig</szLongItemName>
+    <szItemName>Specter Rig</szItemName>
+    <szLongItemName>Specter Thigh Rig</szLongItemName>
     <szItemDesc>This rig features 4 rows of MOLLE compatible modular webbing strips and a loop for a Gasmask.</szItemDesc>
-    <szBRName>Specter Modular Thigh Rig</szBRName>
-    <szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they want and need for the mission at hand.</szBRDesc>
+    <szBRName>Specter Thigh Rig</szBRName>
+    <szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they need for the mission at hand.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1677</uiIndex>
-    <szItemName>Russian Pistol Holster</szItemName>
-    <szLongItemName>Russian MOLLE pistol holster</szLongItemName>
-    <szItemDesc>This holster may be using for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szItemDesc>
-    <szBRName>Russian MOLLE pistol holster</szBRName>
-    <szBRDesc>This holster may be using for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szBRDesc>
+    <szItemName>Russian Holster</szItemName>
+    <szLongItemName>Russian Pistol holster</szLongItemName>
+    <szItemDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szItemDesc>
+    <szBRName>Russian Pistol holster</szBRName>
+    <szBRDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1678</uiIndex>
     <szItemName>Rifle Grenade</szItemName>
-    <szLongItemName>3.11 Double Rifle Grenade</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szItemDesc>
+    <szLongItemName>3.11 Rifle Grenade</szLongItemName>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szItemDesc>
     <szBRName>3.11 Double Rifle Grenade</szBRName>
-    <szBRDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szBRDesc>
+    <szBRDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1679</uiIndex>
     <szItemName>Pistol Mag</szItemName>
-    <szLongItemName>3.11 Single Pistol Magazine Pouch</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
-    <szBRName>Single Pistol Magazine Pouch</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szLongItemName>3.11 Single Pistol Mag</szLongItemName>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistol magazine and provide quick access when it's time to reload.</szItemDesc>
+    <szBRName>3.11 Single Pistol Pouch</szBRName>
+    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1680</uiIndex>
-    <szItemName>TAG AR Pouch</szItemName>
-    <szLongItemName>TAG Modular AR Mag</szLongItemName>
-    <szItemDesc>The TAG MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szItemDesc>
-    <szBRName>Stacked Single Mag Pouch w/ cover</szBRName>
+    <szItemName>AR Pouch</szItemName>
+    <szLongItemName>Modular AR Mag</szLongItemName>
+    <szItemDesc>The NAS MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szItemDesc>
+    <szBRName>Stacked Double AR Pouch</szBRName>
     <szBRDesc>The TAG MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1681</uiIndex>
-    <szItemName>Kit Drop Pouch</szItemName>
+    <szItemName>Kit Pouch</szItemName>
     <szLongItemName>Kit Drop Pouch</szLongItemName>
-    <szItemDesc>Designed to provide expandable storage space on demand, the Kitl Drop Pouch is perfect for storing your Camo.</szItemDesc>
-    <szBRName>Small Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Kitl Drop Pouch is perfect for storing your Camo.</szBRDesc>
+    <szItemDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szItemDesc>
+    <szBRName>Kit Drop Pouch</szBRName>
+    <szBRDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1682</uiIndex>
     <szItemName>MAT-V</szItemName>
-    <szLongItemName>TT Modular Tactical Assault Vest</szLongItemName>
-    <szItemDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szItemDesc>
-    <szBRName>TT Modular Tactical Assault Vest</szBRName>
+    <szLongItemName>TT Modular Vest</szLongItemName>
+    <szItemDesc>The TT Modular Adjustable Tactical Vest is a modern update to the traditional modular vest.</szItemDesc>
+    <szBRName>TT Modular Tactical Vest</szBRName>
     <szBRDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1683</uiIndex>
     <szItemName>S.T.R.I.K.E.</szItemName>
-    <szLongItemName>S.T.R.I.K.E. - ELITE VEST</szLongItemName>
-    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11. section for all pouch options.</szItemDesc>
-    <szBRName>S.T.R.I.K.E. - ELITE VEST</szBRName>
-    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11. section for all pouch options.</szBRDesc>
+    <szLongItemName>S.T.R.I.K.E. Vest</szLongItemName>
+    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szItemDesc>
+    <szBRName>S.T.R.I.K.E. Elite Vest</szBRName>
+    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1684</uiIndex>
     <szItemName>Drop Pouch</szItemName>
-    <szLongItemName>Drop Pouch</szLongItemName>
+    <szLongItemName>Medium Drop Pouch</szLongItemName>
     <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
     <szBRName>Medium Drop Pouch</szBRName>
     <szBRDesc>Designed to provide expandable storage space on demand,  our Drop Pouch remains folded and compact when not in use.</szBRDesc>
@@ -13499,43 +13499,43 @@
   </ITEM>
   <ITEM>
     <uiIndex>1686</uiIndex>
-    <szItemName>Grenade Pouch</szItemName>
-    <szLongItemName>MK 2 Grenade Pouch</szLongItemName>
+    <szItemName>Triple Grenade</szItemName>
+    <szLongItemName>Triple Grenade Pouch</szLongItemName>
     <szItemDesc>Heavy duty pockets for the safe storage of three MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Grenade Pouch</szBRName>
+    <szBRName>Triple Grenade Pouch</szBRName>
     <szBRDesc>Heavy duty pockets for the safe storage of three  MK 2 Defensive Grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1687</uiIndex>
     <szItemName>Flashbang Pouch</szItemName>
-    <szLongItemName>Flashbang Pouch</szLongItemName>
+    <szLongItemName>Triple Flashbang Pouch</szLongItemName>
     <szItemDesc>Safely store up to three Flashbang Grenades.</szItemDesc>
-    <szBRName>Flashbang Pouch</szBRName>
+    <szBRName>Triple Flashbang Pouch</szBRName>
     <szBRDesc>Safely store up to three Flashbang Grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1688</uiIndex>
     <szItemName>Triple Pistol Mag</szItemName>
     <szLongItemName>Triple Pistol Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to  three single stack pistol magazines.</szItemDesc>
-    <szBRName>Triple Pistol Magazine Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to  three single stack pistol magazines.</szBRDesc>
+    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szItemDesc>
+    <szBRName>Triple Pistol Mag Pouch</szBRName>
+    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1689</uiIndex>
     <szItemName>Triple SMG Mag</szItemName>
     <szLongItemName>Triple SMG Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to  three single stack SMG magazines.</szItemDesc>
+    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines.</szItemDesc>
     <szBRName>Triple SMG Mag Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to  three single stack SMG magazines..</szBRDesc>
+    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines..</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1690</uiIndex>
     <szItemName>Large Thigh Rig</szItemName>
-    <szLongItemName>Large Modular Tactical Thigh Rig</szLongItemName>
-    <szItemDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szItemDesc>
-    <szBRName>Large Modular Tactical Thigh Rig</szBRName>
-    <szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
+    <szLongItemName>Large Modular Thigh Rig</szLongItemName>
+    <szItemDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szItemDesc>
+    <szBRName>Large Modular Thigh Rig</szBRName>
+    <szBRDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1691</uiIndex>
@@ -13543,31 +13543,31 @@
     <szLongItemName>Sniper Drag Bag</szLongItemName>
     <szItemDesc>Carry your sniper rifle with style and protected from bad weather.</szItemDesc>
     <szBRName>Sniper Drag Bag</szBRName>
-    <szBRDesc>Those heavy sniper rifles can be a real pain to carry over long distances. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
+    <szBRDesc>This bag can hold a two long guns and two pistols plus quite a bit of gear. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1692</uiIndex>
     <szItemName>Sporting Clay Vest</szItemName>
     <szLongItemName>Sporting Clay Vest</szLongItemName>
-    <szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shelll pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
+    <szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
     <szBRName>Sporting Clay Vest</szBRName>
-    <szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shelll pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
+    <szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1693</uiIndex>
-    <szItemName>Heavy Assault Vest</szItemName>
-    <szLongItemName>Condor Heavy Assault Vest</szLongItemName>
+    <szItemName>Condor Vest</szItemName>
+    <szLongItemName>Condor Assault Vest</szLongItemName>
     <szItemDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szItemDesc>
     <szBRName>Condor Heavy Assault Vest</szBRName>
     <szBRDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1694</uiIndex>
-    <szItemName>Archer Assault Vest</szItemName>
-    <szLongItemName>FSBE LBV Load Bearing Molle Assault Vest</szLongItemName>
-    <szItemDesc>Chinese made Special force load bearing vest with1-inch molle webbing cross straps for attaching molle pouches.</szItemDesc>
-    <szBRName>FSBE LBV Load Bearing Molle Assault Vest</szBRName>
-    <szBRDesc>Chinese made Special force load bearing vest with1-inch molle webbing cross straps for attaching molle pouches.</szBRDesc>
+    <szItemName>Archer Vest</szItemName>
+    <szLongItemName>Archer Assault Vest</szLongItemName>
+    <szItemDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szItemDesc>
+    <szBRName>Archer Assault Vest</szBRName>
+    <szBRDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1695</uiIndex>
@@ -13579,10 +13579,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>1696</uiIndex>
-    <szItemName>Double Grenade Pouch</szItemName>
-    <szLongItemName>MK 2 Grenade Pouch</szLongItemName>
+    <szItemName>Double Grenade</szItemName>
+    <szLongItemName>Double Grenade Pouch</szLongItemName>
     <szItemDesc>Heavy duty pockets for the safe storage of two MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Grenade Pouch</szBRName>
+    <szBRName>Double Grenade Pouch</szBRName>
     <szBRDesc>Heavy duty pockets for the safe storage of two  MK 2 Defensive Grenades.</szBRDesc>
   </ITEM>
 </ITEMLIST>
