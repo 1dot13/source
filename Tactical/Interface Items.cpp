@@ -3918,7 +3918,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				if ( pSoldier )
 					pObjShown = pSoldier->GetUsedWeapon(pObject);
 
-				FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObjShown );
+				FLOAT overheatjampercentage = GetGunOverheatDisplayPercentage( pObjShown );
 												
 				UINT32 red, green, blue;
 				UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
@@ -6750,7 +6750,8 @@ void RenderItemDescriptionBox( )
 			iter != (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.end(); ++iter, ++cnt) {
 
 			//Madd: again, only do this if the slot isn't hidden
-			if( iter->exists() && gItemDescAttachmentsXY[cnt].sHeight > 0 && gItemDescAttachmentsXY[cnt].sWidth > 0 ){
+			if( iter->exists() && gItemDescAttachmentsXY[cnt].sHeight > 0 && gItemDescAttachmentsXY[cnt].sWidth > 0 )
+			{
 				sCenX = gsInvDescX + gItemDescAttachmentsXY[cnt].sX;
 				sCenY = gsInvDescY + gItemDescAttachmentsXY[cnt].sY;
 				INVRenderItem( guiSAVEBUFFER, NULL, gpItemDescObject, sCenX, sCenY, gItemDescAttachmentsXY[cnt].sWidth, gItemDescAttachmentsXY[cnt].sHeight, DIRTYLEVEL2, NULL, (UINT8)(RENDER_ITEM_ATTACHMENT1 + cnt), FALSE, 0, gubItemDescStatusIndex );
@@ -6759,9 +6760,9 @@ void RenderItemDescriptionBox( )
 				DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
 
 				// Flugente: overheating
-				if ( gGameExternalOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente FTW 1.1
+				if ( gGameExternalOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente
 				{
-					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( &(*iter));
+					FLOAT overheatjampercentage = GetGunOverheatDisplayPercentage( &(*iter));
 								
 					UINT32 red, green, blue;
 					UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
@@ -6940,7 +6941,7 @@ void RenderItemDescriptionBox( )
 						// Record length
 						INT16 indent = StringPixLength( gTemperatureDesc[0], ITEMDESC_FONT );
 						
-						FLOAT overheatjampercentage = GetGunOverheatJamPercentage( gpItemDescObject);
+						FLOAT overheatjampercentage = GetGunOverheatDisplayPercentage( gpItemDescObject);
 
 						UINT32 red, green, blue;
 						UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );

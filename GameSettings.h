@@ -1215,9 +1215,9 @@ typedef struct
 	// Flugente: Weapon Overheating
 	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
+	BOOLEAN fDisplayOverheatJamPercentage;			// Should we display temperature/jam threshold (true) or temperature/damage threshold (false)?
 	UINT8	ubOverheatThermometerRedOffset;			// amount of red colour while temperature is below threshold
 	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels left alone in the landscape ;-)
-	FLOAT	iOverheatTemperatureGlobalModfier;		// a global modifier to the single shot temperature value, if one feels that all values should be lower/higher
 	
 	// Flugente: Weapon Mounting
 	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?

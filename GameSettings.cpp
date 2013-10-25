@@ -1487,9 +1487,9 @@ void LoadGameExternalOptions()
 	// Flugente: These settings control the behavior of Weapon Overheating, its severity, and its display.
 	gGameExternalOptions.fWeaponOverheating								= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING",FALSE);
 	gGameExternalOptions.fDisplayOverheatThermometer					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER",TRUE);
+	gGameExternalOptions.fDisplayOverheatJamPercentage					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_JAMPERCENTAGE",TRUE);
 	gGameExternalOptions.ubOverheatThermometerRedOffset					= iniReader.ReadInteger("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET", 100, 0, 255);
 	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
-	gGameExternalOptions.iOverheatTemperatureGlobalModfier			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_TEMPERATURE_GLOBAL_MODIFIER", 1.0f, 0.1f, 10.0f);
 		
 #ifdef ENABLE_ZOMBIES
 	//################# Tactical Zombie Settings ##################

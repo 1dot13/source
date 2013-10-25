@@ -486,8 +486,8 @@ extern void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo,
 
 extern BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier );
 extern BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier );
-extern FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx );	// Flugente FTW 1: Get percentage: temperature/damagethreshold
-extern FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx );		// Flugente FTW 1: Get percentage: temperature/jamthreshold
+extern FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx );	// Flugente: Get percentage: temperature/damagethreshold
+extern FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx );		// Flugente: Get percentage: temperature/jamthreshold
 
 extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed );
 extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
@@ -533,6 +533,7 @@ FLOAT GetTemperatureModifier( OBJECTTYPE *pObj );
 FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj );
 FLOAT GetGunOverheatDamagePercentage( OBJECTTYPE * pObj );	// Flugente: Get percentage: temperature/damagethreshold
 FLOAT GetGunOverheatJamPercentage( OBJECTTYPE * pObj );		// Flugente: Get percentage: temperature/jamthreshold
+FLOAT GetGunOverheatDisplayPercentage( OBJECTTYPE * pObj );	// Flugente: Get displyed overheat percentage - either GetGunOverheatDamagePercentage or GetGunOverheatJamPercentage
 FLOAT GetOverheatJamThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );

@@ -15749,6 +15749,10 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength()
 	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
 		value *= 0.75f;
 
+	// tanks won't surrender that easy
+	if ( TANK(this) )
+		value *= 10;
+
 	return value;
 }
 

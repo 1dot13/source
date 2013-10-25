@@ -1452,7 +1452,7 @@ BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier )
 }
 
 
-// Flugente FTW 1: Get percentage: temperature/damagethreshold
+// Flugente: Get percentage: temperature/damagethreshold
 FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx )
 {
 	FLOAT damagethreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingDamageThreshold;
@@ -1465,7 +1465,7 @@ FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx )
 	return usTemperature/ damagethreshold ;
 }
 
-// Flugente FTW 1: Get percentage: temperature/jamthreshold
+// Flugente: Get percentage: temperature/jamthreshold
 FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx )
 {
 	FLOAT jamthreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingJamThreshold;
@@ -12159,9 +12159,6 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 		modificator += AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].temperatureModificator;
 
 		singleshottemperature *= modificator;
-
-		// multiply again for global modifer
-		singleshottemperature *= gGameExternalOptions.iOverheatTemperatureGlobalModfier;
 	}
 
 	return singleshottemperature;
@@ -12191,6 +12188,15 @@ FLOAT   GetGunOverheatJamPercentage( OBJECTTYPE * pObj )
 	jamthreshold = max( (FLOAT)(1.0), jamthreshold);
 
 	return temperature/ jamthreshold ;
+}
+
+// Flugente: Get displyed overheat percentage - either GetGunOverheatDamagePercentage or GetGunOverheatJamPercentage
+FLOAT GetGunOverheatDisplayPercentage( OBJECTTYPE * pObj )
+{
+	if ( !gGameExternalOptions.fDisplayOverheatJamPercentage )
+		return GetGunOverheatDamagePercentage(pObj);
+
+	return GetGunOverheatJamPercentage(pObj);
 }
 
 FLOAT GetOverheatJamThresholdModifier( OBJECTTYPE *pObj )

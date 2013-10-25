@@ -11577,7 +11577,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
-				iFloatModifier[0] = Weapon[ gpItemDescObject->usItem ].usOverheatingSingleShotTemperature * gGameExternalOptions.iOverheatTemperatureGlobalModfier;
+				iFloatModifier[0] = Weapon[ gpItemDescObject->usItem ].usOverheatingSingleShotTemperature;
 				if ( Item[gpItemDescObject->usItem].usItemClass & IC_GUN )
 					iFloatModifier[0] *= gItemSettings.fOverheatTemperatureModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
 				else if ( Item[gpItemDescObject->usItem].usItemClass & IC_LAUNCHER )
