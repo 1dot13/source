@@ -165,7 +165,7 @@ BOOLEAN fDontUseRandom = TRUE;//dnl ch8 210909
 BOOLEAN fDontUseClick = FALSE;//dnl ch7 210909
 BOOLEAN fShowHighGround = FALSE;//dnl ch2 210909
 BOOLEAN fRaiseWorld = FALSE;//dnl ch3 210909
-BOOLEAN gfVanillaMode = TRUE;//dnl ch33 091009
+BOOLEAN gfVanillaMode = FALSE;//dnl ch33 091009 //dnl ch74 191013 by default is better to save all maps in newest format
 BOOLEAN gfResizeMapOnLoading = FALSE;
 
 INT32 TestButtons[10];
@@ -1379,14 +1379,13 @@ void HandleJA2ToolbarSelection( void )
 //
 //	Select action to be taken based on the user's current key press (if any)
 //
-
 extern INT8 gbCurrSelect;
 extern void DeleteSelectedMercsItem();
 void HandleKeyboardShortcuts( )
 {
 	static INT32 iSavedMode;
 	static BOOLEAN fShowTrees = TRUE;
-	while( DequeueEvent( &EditorInputEvent ) )
+	while( PeekSpecificEvent(KEY_DOWN | KEY_UP | KEY_REPEAT) && DequeueEvent( &EditorInputEvent ) )//dnl ch74 221013
 	{
 		if( !HandleSummaryInput( &EditorInputEvent ) && !HandleTextInput( &EditorInputEvent ) && EditorInputEvent.usEvent == KEY_DOWN )
 		{

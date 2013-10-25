@@ -1249,7 +1249,7 @@ typedef enum ePOCKET_TYPE
 #define FIRST_ARMOUR 161
 #define FIRST_MISC 201
 #define FIRST_KEY 271
-
+#define OLD_MAXITEMS 351//dnl ch74 191013
 #define NOTHING NONE
 typedef enum
 {

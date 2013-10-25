@@ -559,13 +559,21 @@ void TrashWorldItems()
 	}
 }
 
-//dnl ch33 150909
+//dnl ch33 150909 //dnl ch74 191013
 void SaveWorldItemsToMap(HWFILE fp, float dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
-	UINT32 i, uiBytesWritten, uiActualNumWorldItems;
+	UINT32 i, uiBytesWritten, uiActualNumWorldItems=0;
 	OLD_WORLDITEM_101 oldWorldItem;
 
-	uiActualNumWorldItems = GetNumUsedWorldItems();
+	for(i=0; i<guiNumWorldItems; i++)
+	{
+		if(gWorldItems[i].fExists)
+		{
+			if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION && gWorldItems[i].object.usItem >= OLD_MAXITEMS)
+				continue;
+			uiActualNumWorldItems++;
+		}
+	}
 	FileWrite(fp, &uiActualNumWorldItems, sizeof(UINT32), &uiBytesWritten);
 	for(i=0; i<guiNumWorldItems; i++)
 	{
@@ -573,6 +581,8 @@ void SaveWorldItemsToMap(HWFILE fp, float dMajorMapVersion, UINT8 ubMinorMapVers
 		{
 			if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
 			{
+				if(gWorldItems[i].object.usItem >= OLD_MAXITEMS)
+					continue;
 				oldWorldItem = gWorldItems[i];
 				FileWrite(fp, &oldWorldItem, sizeof(OLD_WORLDITEM_101), &uiBytesWritten);
 			}
@@ -704,7 +714,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 			{ //all armed bombs are buried
 				dummyItem.bVisible = BURIED;
 			}
-
+#if 0//dnl ch74 201013 this is already done in OBJECTTYPE::Load()
 			//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
 			//this should fix that...
 			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++)
@@ -716,7 +726,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				CreateItem(Item [ dummyItem.object.usItem ].defaultattachments[cnt],100,&defaultAttachment);
 				dummyItem.object.AttachObject(NULL,&defaultAttachment, FALSE);
 			}
-
+#endif
 			AddItemToPoolAndGetIndex( dummyItem.sGridNo, &dummyItem.object, dummyItem.bVisible, dummyItem.ubLevel, dummyItem.usFlags, dummyItem.bRenderZHeightAboveLevel, dummyItem.soldierID, &iItemIndex );
 			gWorldItems[ iItemIndex ].ubNonExistChance = dummyItem.ubNonExistChance;
 		}

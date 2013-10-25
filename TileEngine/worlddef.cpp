@@ -2284,10 +2284,9 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 
 	if( uiFlags & MAP_WORLDLIGHTS_SAVED )
 	{
-
 		SaveMapLights( hfile );
 	}
-
+#if 0//dnl ch74 191013 from 050611 Scheinworld reported problem with basement levels and similar maps which doesn't need entry points so decide to remove this check completely
 	if(gMapInformation.sCenterGridNo == -1 || gMapInformation.ubEditorSmoothingType == SMOOTHING_NORMAL && (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl ch17 290909
 	{
 		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center and at least one of (N,S,E,W) entry point should be set.");
@@ -2295,6 +2294,8 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 		FileClose(hfile);
 		return(FALSE);
 	}
+#endif
+	gMapInformation.ubMapVersion = ubMinorMapVersion;//dnl ch74 241013 all this years MapInfo saves incorrect version :-(
 	SaveMapInformation(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 
 	if( uiFlags & MAP_FULLSOLDIER_SAVED )
@@ -2602,6 +2603,8 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 
 	// Read Map Information
 	pSummary->MapInfo.Load(&pBuffer, dMajorMapVersion);
+	if(pSummary->MapInfo.ubMapVersion != ubMinorMapVersion)//dnl ch74 241013 stupid fix because MapInfo is incorrectly saved in all previous mapeditor if you edit existing map
+		pSummary->MapInfo.ubMapVersion = ubMinorMapVersion;
 
 	if(uiFlags & MAP_FULLSOLDIER_SAVED)
 	{
@@ -2882,7 +2885,8 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	gfCaves = FALSE;
 
 	// Flugente: select loadscreen hint
-	SetNewLoadScreenHint();
+	if(!gfEditMode)//dnl ch74 211013
+		SetNewLoadScreenHint();
 
 	SetRelativeStartAndEndPercentage(0, 0, 1, L"Trashing world...");
 #ifdef JA2TESTVERSION
@@ -2919,7 +2923,8 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		// We enlarge the map
 		SetWorldSize(iNewMapWorldRows, iNewMapWorldCols);
 
-		// Uncheck "vanilla map saving", because it is not allowed on maps > 160x160		
+		// Uncheck "vanilla map saving", because it is not allowed on maps > 160x160
+		gfVanillaMode = FALSE;//dnl ch74 191013
 		UnclickEditorButton(OPTIONS_VANILLA_MODE);
 
 		// Reset
@@ -2933,12 +2938,14 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		// We still have the "normal" map size AND the map is saved in vanilla format
 		if ((iRowSize <= OLD_WORLD_ROWS && iRowSize <= OLD_WORLD_COLS) && (dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION))
 		{
-			 // Check "vanilla map saving"
+			// Check "vanilla map saving"
+			gfVanillaMode = TRUE;//dnl ch74 191013
 			ClickEditorButton(OPTIONS_VANILLA_MODE);
 		}
 		else
 		{
 			// Uncheck "vanilla map saving"
+			gfVanillaMode = FALSE;//dnl ch74 191013
 			UnclickEditorButton(OPTIONS_VANILLA_MODE);
 		}
 	}

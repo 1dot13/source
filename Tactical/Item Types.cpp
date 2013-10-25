@@ -1125,13 +1125,18 @@ OLD_OBJECTTYPE_101& OLD_OBJECTTYPE_101::operator=(OBJECTTYPE& src)
 	if((void*)this != (void*)&src)
 	{
 		memset(this, 0, sizeof(OLD_OBJECTTYPE_101));
+		if(src.usItem >= OLD_MAXITEMS)//dnl ch74 191013
+		{
+			this->fFlags = OBJECT_UNDROPPABLE;
+			return(*this);
+		}
 		this->usItem = src.usItem;
 		this->ubNumberOfObjects = src.ubNumberOfObjects;
-		this->ubWeight = (UINT8)CalculateObjectWeight(&src);//dnl??? need test, probably this should be calculated after you create old object
 		this->fFlags = src.fFlags;
 		this->ubMission = src.ubMission;
 		this->ubNumberOfObjects = src.ubNumberOfObjects;
 		this->usItem = src.usItem;
+		this->ubWeight = Item[this->usItem].ubWeight * this->ubNumberOfObjects;//dnl ch74 191013
 		if(ubNumberOfObjects == 1)
 		{
 			this->ugYucky.bGunStatus = (INT8)src[0]->data.gun.bGunStatus;
@@ -1158,6 +1163,8 @@ OLD_OBJECTTYPE_101& OLD_OBJECTTYPE_101::operator=(OBJECTTYPE& src)
 				this->ugYucky.usGunAmmoItem = src[0]->data.gun.usGunAmmoItem;
 				this->ugYucky.bGunAmmoStatus = (INT8)src[0]->data.gun.bGunAmmoStatus;
 				this->ugYucky.ubGunState = src[0]->data.gun.ubGunState;
+				if(this->ugYucky.ubGunAmmoType && this->ugYucky.ubGunShotsLeft)//dnl ch74 191013
+					this->ubWeight += Item[this->ugYucky.usGunAmmoItem].ubWeight;
 				break;
 			}
 
@@ -1211,9 +1218,10 @@ OLD_OBJECTTYPE_101& OLD_OBJECTTYPE_101::operator=(OBJECTTYPE& src)
 			int i = 0;
 			for(attachmentList::iterator iter=src[0]->attachments.begin(); iter!=src[0]->attachments.end(); ++iter)
 			{
-				//dnl??? this part should check if attachment is valid for 1.12, but then means you will lost some stuff from NIV, and if you wnat play map in older 1.13 versions this is not good
-				//if(iter->usItem)
-				//	;
+				//dnl ch74 191013 check if attachment is valid for 1.12, that means you will lost some stuff from NIV if save in Vanilla mode, so you should always save map in newest format if want play map in 1.13
+				if(iter->usItem >= OLD_MAXITEMS || iter->usItem == NONE)
+					continue;
+				this->ubWeight += Item[iter->usItem].ubWeight;
 				this->usAttachItem[i] = iter->usItem;
 				this->bAttachStatus[i] = (INT8)(*iter)[0]->data.objectStatus;
 				if(++i >= OLD_MAX_ATTACHMENTS_101)

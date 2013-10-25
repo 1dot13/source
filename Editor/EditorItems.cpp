@@ -907,7 +907,11 @@ void AddSelectedItemToWorld( INT32 sGridNo )
 			fEditorCreateItemFromKeyboard = FALSE;
 		}
 		else
+		{
+			if(!eInfo.pusItemIndex)//dnl ch74 181013
+				return;
 			CreateItem( eInfo.pusItemIndex[eInfo.sSelItemIndex], 100, &gTempObject );
+		}
 	}
 	usFlags = 0;
 	switch( gTempObject.usItem )

@@ -30,9 +30,6 @@
 #define X2_BUTTON_DOWN				0x8040
 #define X2_BUTTON_UP				0x8050
 #define X2_BUTTON_REPEAT			0x8060
-//#define MIDDLE_BUTTON_UP						0x1000//dnl
-//#define MIDDLE_BUTTON_DOWN						0x2000//dnl
-
 
 #define SHIFT_DOWN								0x01
 #define CTRL_DOWN									0x02
@@ -117,25 +114,24 @@ BOOLEAN InputEventInside(InputAtom *Event, UINT32 uiX1, UINT32 uiY1, UINT32 uiX2
 INT16 GetMouseWheelDeltaValue( UINT32 wParam );
 
 extern void DequeueAllKeyBoardEvents();
-
+extern BOOLEAN PeekSpecificEvent(UINT32 uiMaskFlags);//dnl ch74 221013
 
 extern BOOLEAN	gfKeyState[256];	// TRUE = Pressed, FALSE = Not Pressed
 
 extern INT16	gusMouseXPos;		// X position of the mouse on screen
 extern INT16	gusMouseYPos;		// y position of the mouse on screen
-extern INT16 gsMouseWheelDeltaValue;//dnl
+extern INT16 gsMouseWheelDeltaValue;//dnl ch4 210909
 extern BOOLEAN	gfLeftButtonState;	// TRUE = Pressed, FALSE = Not Pressed
 extern BOOLEAN	gfRightButtonState; // TRUE = Pressed, FALSE = Not Pressed
-extern BOOLEAN	gfMiddleButtonState;//dnl TRUE = Pressed, FALSE = Not Pressed
+extern BOOLEAN	gfMiddleButtonState;//dnl ch4 210909 TRUE = Pressed, FALSE = Not Pressed
 
 extern BOOLEAN		gfSGPInputReceived;
-
 
 #define _KeyDown(a)		gfKeyState[(a)]
 #define _LeftButtonDown	gfLeftButtonState
 #define _RightButtonDown	gfRightButtonState
-#define _MiddleButtonDown	gfMiddleButtonState//dnl
-#define _WheelValue			gsMouseWheelDeltaValue//dnl
+#define _MiddleButtonDown	gfMiddleButtonState//dnl ch4 210909
+#define _WheelValue			gsMouseWheelDeltaValue//dnl ch4 210909
 #define _MouseXPos				gusMouseXPos
 #define _MouseYPos				gusMouseYPos
 

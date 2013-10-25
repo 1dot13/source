@@ -56,6 +56,7 @@
 	#include "drugs and alcohol.h"
 	#include "Food.h"
 	#include "opplist.h"
+	#include "Sys Globals.h"//dnl ch74 201013
 #endif
 
 #ifdef JA2UB
@@ -7842,6 +7843,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		{
 			(*pObj).fFlags |= OBJECT_UNDROPPABLE;
 		}
+#if 0//dnl ch74 201013 create default attachments rather at gun status instead of 100%
 		for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
 			if(Item [ usItem ].defaultattachments[cnt] == 0)
 				break;
@@ -7851,8 +7853,20 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 			CreateItem(Item [ usItem ].defaultattachments[cnt],100,&defaultAttachment);
 			pObj->AttachObject(NULL,&defaultAttachment, FALSE);
 		}
+#else
+		if(gGameOptions.ubAttachmentSystem || gfEditMode)
+		{
+			for(UINT8 cnt=0; cnt<MAX_DEFAULT_ATTACHMENTS; cnt++)
+			{
+				if(Item[usItem].defaultattachments[cnt] == NONE)
+					break;
+				OBJECTTYPE defaultAttachment;
+				CreateItem(Item[usItem].defaultattachments[cnt], (*pObj)[0]->data.gun.bGunStatus, &defaultAttachment);
+				pObj->AttachObject(NULL, &defaultAttachment, FALSE);
+			}
+		}
+#endif
 	}
-
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateItem: return %d",fRet));
 	return( fRet );

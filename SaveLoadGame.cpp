@@ -141,6 +141,7 @@
 
 #include "connect.h"
 #include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
+#include "Sys Globals.h"//dnl ch74 201013
 
 /////////////////////////////////////////////////////
 //
@@ -2602,8 +2603,8 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 			// are now used. Due to this, we only have to reduce for the sizes of bDirtLevel and sObjectFlag, but not sRepairThreshold (sizeof(ObjectData) is now 40).
 			// But of course, we now 'read' the values for sRepairThreshold, but there weren't any in older map versions, resulting in garbage values - we therefore set that manually to 100
 			// Of course, once the ObjectData-Class is altered, this has to be altered as well!
-			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) - (sizeof(this->data.bDirtLevel) + sizeof(this->data.sObjectFlag) ) );
-
+			//dnl ch74 241013 We cannot change past so hardcode 32 simply because that was sizeof(ObjectData) before current and all future changes ;-)
+			LOADDATA(&(this->data), *hBuffer, /*sizeof(ObjectData) - (sizeof(this->data.bDirtLevel) + sizeof(this->data.sObjectFlag) )*/32);
 			this->data.sRepairThreshold = 100;
 		}
 		else
@@ -2797,7 +2798,7 @@ BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorM
 		LOADDATA( &OldSavedObject101, *hBuffer, sizeof(OLD_OBJECTTYPE_101) );
 		(*this) = OldSavedObject101;
 	}
-
+#if 0//dnl ch74 201013 only inseparable attachments should always exist but rather at gun status instead of 100%, if default attachments is missing then problem is map which should be fixed by modders with latest mapeditor or have really old savegame but that should not be fix just by magically add missing default attachment :-)
 	RemoveProhibitedAttachments(NULL, this, (*this).usItem);
 
 	//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
@@ -2811,7 +2812,22 @@ BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorM
 		CreateItem(Item [ (*this).usItem ].defaultattachments[cnt],100,&defaultAttachment);
 		this->AttachObject(NULL,&defaultAttachment, FALSE);
 	}
-
+#else
+	if(this->usItem && (gGameOptions.ubAttachmentSystem || gfEditMode))
+	{
+		RemoveProhibitedAttachments(NULL, this, this->usItem);
+		//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
+		//this should fix that...
+		for(UINT8 cnt=0; cnt<MAX_DEFAULT_ATTACHMENTS; cnt++)
+		{
+			if(Item[this->usItem].defaultattachments[cnt] == NONE || !(gGameOptions.ubAttachmentSystem && Item[Item[this->usItem].defaultattachments[cnt]].inseparable || gfEditMode))
+				break;
+			OBJECTTYPE defaultAttachment;
+			CreateItem(Item[this->usItem].defaultattachments[cnt], (*this)[0]->data.gun.bGunStatus, &defaultAttachment);
+			this->AttachObject(NULL, &defaultAttachment, FALSE);
+		}
+	}
+#endif
 	return TRUE;
 }
 

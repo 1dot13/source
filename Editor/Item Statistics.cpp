@@ -1755,7 +1755,7 @@ void ReEvaluateAttachmentStatii()
 				case 5: usAttachment = UNDER_GLAUNCHER;	break;
 				default: Assert(0); continue;
 			}
-			if( ValidItemAttachment( gpItem, usAttachment, TRUE ) )
+			if( ValidItemAttachment( gpItem, usAttachment, TRUE, FALSE ) )//dnl ch74 211013
 				EnableButton( guiAttachmentButton[ i ] );
 			else
 				DisableButton( guiAttachmentButton[ i ] );

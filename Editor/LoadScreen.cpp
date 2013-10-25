@@ -46,8 +46,6 @@
 	#include <vfs/Core/vfs.h>//dnl ch37 110909
 #endif
 
-INT16 gsMouseWheelDeltaValue;
-
 //===========================================================================
 
 BOOLEAN gfErrorCatch = FALSE;
@@ -1117,6 +1115,7 @@ UINT32 ProcessFileIO()
 			fRaiseWorld = FALSE;//dnl ch3 210909
 			ShowHighGround(4);//dnl ch41 210909
 			SetRenderCenter(WORLD_COLS/2, WORLD_ROWS/2);//dnl ch43 280909
+			gsSelectedMercGridNo = 0;//dnl ch74 241013 to prevent CTD in IndicateSelectedMerc after loading
 			if( gfShowPits )
 				AddAllPits();
 
@@ -1271,10 +1270,3 @@ UINT32 LoadSaveScreenShutdown( )
 }
 
 #endif
-
-
-
-
- 
-
-
