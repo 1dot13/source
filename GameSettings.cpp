@@ -1040,7 +1040,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sEnemyRegularCtHBonusPercent = iniReader.ReadInteger("Tactical Difficulty Settings", "REGULAR_CTH_BONUS_PERCENT", 0, -100, 500);
 	gGameExternalOptions.sEnemyEliteCtHBonusPercent = iniReader.ReadInteger("Tactical Difficulty Settings", "ELITE_CTH_BONUS_PERCENT", 10, -100, 500);
 
-	// Damage the enemz suffer is reduced by this percentage - applies during tactical combat only
+	// Enemy equipment quality modifiers
+	gGameExternalOptions.sEnemyAdminEquipmentQualityModifier	= iniReader.ReadInteger("Tactical Difficulty Settings", "ADMIN_EQUIPMENT_QUALITY_MODIFIER", 0, -5, 10);
+	gGameExternalOptions.sEnemyRegularEquipmentQualityModifier	= iniReader.ReadInteger("Tactical Difficulty Settings", "REGULAR_EQUIPMENT_QUALITY_MODIFIER", 0, -5, 10);
+	gGameExternalOptions.sEnemyEliteEquipmentQualityModifier	= iniReader.ReadInteger("Tactical Difficulty Settings", "ELITE_EQUIPMENT_QUALITY_MODIFIER", 0, -5, 10);
+
+	// Damage the enemy suffer is reduced by this percentage - applies during tactical combat only
 	gGameExternalOptions.sEnemyAdminDamageResistance	 = iniReader.ReadInteger("Tactical Difficulty Settings", "ADMIN_DAMAGE_RESISTANCE", 0, -50, 95);
 	gGameExternalOptions.sEnemyRegularDamageResistance = iniReader.ReadInteger("Tactical Difficulty Settings", "REGULAR_DAMAGE_RESISTANCE", 0, -50, 95);
 	gGameExternalOptions.sEnemyEliteDamageResistance = iniReader.ReadInteger("Tactical Difficulty Settings", "ELITE_DAMAGE_RESISTANCE", 0, -50, 95);

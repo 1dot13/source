@@ -343,6 +343,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			//else
 			bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
 
+			// Equipment quality modifier
+			if ( gGameExternalOptions.sEnemyAdminEquipmentQualityModifier != 0 )
+				bRating += gGameExternalOptions.sEnemyAdminEquipmentQualityModifier;
+
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -438,6 +442,11 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			//	bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ARMY );
 			//else
 				bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
+
+			// Equipment quality modifier
+			if ( gGameExternalOptions.sEnemyRegularEquipmentQualityModifier != 0 )
+				bRating += gGameExternalOptions.sEnemyRegularEquipmentQualityModifier;
+				
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -662,6 +671,11 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			//	bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ELITE );
 			//else
 				bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
+
+			// Equipment quality modifier
+			if ( gGameExternalOptions.sEnemyEliteEquipmentQualityModifier != 0 )
+				bRating += gGameExternalOptions.sEnemyEliteEquipmentQualityModifier;
+
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;

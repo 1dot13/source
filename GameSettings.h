@@ -329,6 +329,10 @@ typedef struct
 	INT16 sEnemyRegularCtHBonusPercent;
 	INT16 sEnemyEliteCtHBonusPercent;
 
+	INT8 sEnemyAdminEquipmentQualityModifier;
+	INT8 sEnemyRegularEquipmentQualityModifier;
+	INT8 sEnemyEliteEquipmentQualityModifier;
+
 	INT8 sEnemyAdminDamageResistance;	
 	INT8 sEnemyRegularDamageResistance;
 	INT8 sEnemyEliteDamageResistance;
