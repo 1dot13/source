@@ -2245,7 +2245,8 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 						for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
 						{	// TODO: index ammo crates in sector, don't loop over entire inventory for each mag/gun
 
-							if(		Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubMagType >= AMMO_BOX // item is ammo box/crate
+							if(		Item[ pInventoryPoolList[i].object.usItem ].usItemClass == IC_AMMO	// really looking at ammo? Class indexes also exist for other item classes!
+								&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubMagType >= AMMO_BOX // item is ammo box/crate
 								&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubAmmoType	// same ammo type
 									==	Magazine[ Item[loop].ubClassIndex ].ubAmmoType							//	as the mag we found?
 								&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubCalibre	// same calibre
