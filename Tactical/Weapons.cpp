@@ -4621,8 +4621,10 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				// When it hits the ground, leave on map...
 				if ( Item[ usWeaponIndex ].usItemClass == IC_THROWING_KNIFE )
 				{
+					// silversurfer: We better don't do this randomly. It looks strange when the knife suddenly appears at the other side of a wall 
+					// or other structure that it can't pass. We want the knife on that side of the structure where it hit.
 					//dnl ch67 080913
-					INT8 bMaxLeft, bMaxRight, bMaxUp, bMaxDown, bXOffset, bYOffset, ubSearchRange;
+/*					INT8 bMaxLeft, bMaxRight, bMaxUp, bMaxDown, bXOffset, bYOffset, ubSearchRange;
 					INT32 iGridNo = NOWHERE;
 					for(ubSearchRange = 0; ubSearchRange < 4 && iGridNo == NOWHERE; ubSearchRange++)
 					{
@@ -4636,7 +4638,61 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 									break;
 								iGridNo = NOWHERE;
 							}
+					}*/
+
+					// by default knife at same tile as structure
+					INT32 iGridNo = sGridNo;
+
+					// we hit a wall structure
+					if ( pStructure != NULL )
+					{
+						if (pStructure->ubWallOrientation == INSIDE_TOP_RIGHT || pStructure->ubWallOrientation == OUTSIDE_TOP_RIGHT)
+						{
+							if ( pBullet->qIncrX > 0)
+							{
+								// heading east so place knife on west, in same tile
+							}
+							else
+							{
+								// place to east of structure
+								iGridNo += 1;
+							}
+						}
+						else
+						{
+							if (pBullet->qIncrY > 0)
+							{
+								// heading south so place knife to north, in same tile of structure
+							}
+							else
+							{
+								iGridNo += WORLD_ROWS;
+							}
+						}
 					}
+					// something else that blocks our way
+					else if ( FindStructure(iGridNo, STRUCTURE_BLOCKSMOVES) )
+					{
+						if ( pBullet->qIncrX > 0)
+						{
+							// heading east
+						}
+						else
+						{
+							// heading west, place to east of structure
+							iGridNo += 1;
+						}
+						if (pBullet->qIncrY > 0)
+						{
+							// heading south
+						}
+						else
+						{
+							// heading north, place to south of structure
+							iGridNo += WORLD_ROWS;
+						}
+					}
+
 					if(iGridNo != NOWHERE)
 					{
 						UINT16 usItem = pBullet->fromItem;
@@ -4650,7 +4706,19 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 								}
 						}
 						CreateItem(usItem, (pBullet->ubItemStatus>1 ? pBullet->ubItemStatus-Random(2) : pBullet->ubItemStatus), &gTempObject);
-						AddItemToPool(iGridNo, &gTempObject, -1, 0, 0, -1);
+
+						if ( pBullet->bEndCubesAboveLevelZ >= 3 )
+						{
+							// roof
+							AddItemToPool( iGridNo, &gTempObject, -1, 1, 0, -1 );
+						}
+						else
+						{
+							// ground level
+							AddItemToPool( iGridNo, &gTempObject, -1, 0, 0, -1 );
+						}
+
+//						AddItemToPool(iGridNo, &gTempObject, -1, 0, 0, -1);
 						NotifySoldiersToLookforItems();
 					}
 /*

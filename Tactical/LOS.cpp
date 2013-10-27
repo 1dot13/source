@@ -6538,26 +6538,26 @@ void MoveBullet( INT32 iBullet )
 							{
 								if (pStructure->fFlags & STRUCTURE_PERSON)
 								{
-								if(!(UsingNewCTHSystem() || pBullet->fFragment || (pBullet->usFlags & BULLET_FLAG_BUCKSHOT)) && fIntended && pBullet->sHitBy < 0 && pBullet->pFirer->ubTargetID == pStructure->usStructureID)//dnl ch60 010913 don't hit target if CTH roll decide to miss
-								{
-									gpLocalStructure[iStructureLoop] = NULL;
-//SendFmtMsg("shoot me, miss me, lucky me :-)");
-								}
-								else
-								{
-									// hit someone!
-									fStopped = BulletHitMerc( pBullet, pStructure, fIntended );
-									if (fStopped)
+									if(!(UsingNewCTHSystem() || pBullet->fFragment || (pBullet->usFlags & BULLET_FLAG_BUCKSHOT)) && fIntended && pBullet->sHitBy < 0 && pBullet->pFirer->ubTargetID == pStructure->usStructureID)//dnl ch60 010913 don't hit target if CTH roll decide to miss
 									{
-										// remove bullet function now called from within BulletHitMerc, so just quit
-										return;
+										gpLocalStructure[iStructureLoop] = NULL;
+//SendFmtMsg("shoot me, miss me, lucky me :-)");
 									}
 									else
 									{
-										// set pointer to null so that we don't consider hitting this person again
-										gpLocalStructure[iStructureLoop] = NULL;
+										// hit someone!
+										fStopped = BulletHitMerc( pBullet, pStructure, fIntended );
+										if (fStopped)
+										{
+											// remove bullet function now called from within BulletHitMerc, so just quit
+											return;
+										}
+										else
+										{
+											// set pointer to null so that we don't consider hitting this person again
+											gpLocalStructure[iStructureLoop] = NULL;
+										}
 									}
-								}
 								}
 								else if (pStructure->fFlags & STRUCTURE_WALLNWINDOW && pBullet->qCurrZ >= qWindowBottomHeight && pBullet->qCurrZ <= qWindowTopHeight)
 								{
@@ -6573,7 +6573,9 @@ void MoveBullet( INT32 iBullet )
 											iRemainingImpact = HandleBulletStructureInteraction( pBullet, pStructure, &fHitStructure );
 											if ( iRemainingImpact <= 0 )
 											{
-												// check angle of knife and place on ground appropriately
+												// silversurfer: Bugfix for JaggZilla Bug #637
+												// This is now done in function BulletHitStructure(). Otherwise we would create two items.
+/*												// check angle of knife and place on ground appropriately
 												OBJECTTYPE Object;
 												INT32	iKnifeGridNo;
 
@@ -6616,7 +6618,7 @@ void MoveBullet( INT32 iBullet )
 												}
 
 												// Make team look for items
-												NotifySoldiersToLookforItems( );
+												NotifySoldiersToLookforItems( );*/
 
 												// bullet must end here!
 												StopBullet( pBullet->iBullet );
