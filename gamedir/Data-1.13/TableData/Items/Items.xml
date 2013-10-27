@@ -1968,7 +1968,7 @@
 		<uiIndex>51</uiIndex>
 		<szItemName>LAW</szItemName>
 		<szLongItemName>M72A4 LAW</szLongItemName>
-		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner.</szItemDesc>
+		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner. Extend before firing...</szItemDesc>
 		<szBRName>M72A4 LAW</szBRName>
 		<szBRDesc>The M72A2 Light Anti-Tank Weapon is a light-weight shoulder-fired rocket launcher which can penetrate a foot of tank armour or destroy small battlefield fortifications.  A one-shot weapon of awesome destructive power.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -11248,7 +11248,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>157</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -11273,7 +11272,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>159</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -11298,7 +11296,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>158</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -11323,7 +11320,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>270</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>800</usPrice>
 		<bReliability>-3</bReliability>
@@ -11348,7 +11344,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>267</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>700</usPrice>
 		<Metal>1</Metal>
@@ -11372,7 +11367,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>268</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -11400,7 +11394,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>269</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>600</usPrice>
 		<Metal>1</Metal>
@@ -11426,7 +11419,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>325</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>90</usPrice>
 		<Metal>1</Metal>
@@ -11452,7 +11444,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>322</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>180</usPrice>
 		<Metal>1</Metal>
@@ -11478,7 +11469,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>324</ubGraphicNum>
 		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>270</usPrice>
 		<Metal>1</Metal>
@@ -12487,7 +12477,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>154</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>334</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -12512,7 +12501,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>153</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -12537,7 +12525,6 @@
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>55</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>1167</usPrice>
 		<Metal>1</Metal>
@@ -12561,7 +12548,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>241</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>667</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -12589,7 +12575,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>242</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>1000</usPrice>
 		<Metal>1</Metal>
@@ -12615,7 +12600,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>342</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>300</usPrice>
 		<Metal>1</Metal>
@@ -12641,7 +12625,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>24</ItemSize>
 		<usPrice>450</usPrice>
 		<Metal>1</Metal>
@@ -13714,7 +13697,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>404</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>600</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -13739,7 +13721,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>406</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>800</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -15538,7 +15519,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>405</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>400</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -16350,7 +16330,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>560</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>1200</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -41532,7 +41511,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>765</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>540</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -41559,7 +41537,6 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>766</ubGraphicNum>
 		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>360</usPrice>
 		<ubCoolness>8</ubCoolness>
