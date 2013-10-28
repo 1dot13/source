@@ -3457,6 +3457,27 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 						continue;
 					}
 					break;
+
+				case 3:
+					if ( pTeamSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED )
+					{
+						continue;
+					}
+					break;
+
+				case 4:
+					if ( pTeamSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED )
+					{
+						continue;
+					}
+					break;
+
+				case 5:
+					if ( pTeamSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED )
+					{
+						continue;
+					}
+					break;
 				}
 
 				// TO LOS check to killed
@@ -3502,8 +3523,32 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 				break;
 
 			case 2:
-				usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
+				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+					usQuoteNum = QUOTE_AIM_BUDDY_3_GOOD;
+				else
+					usQuoteNum = QUOTE_NON_AIM_BUDDY_3_GOOD;
 				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
+				break;
+
+			case 3:
+				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+					usQuoteNum = QUOTE_AIM_BUDDY_4_GOOD;
+				else
+					usQuoteNum = QUOTE_NON_AIM_BUDDY_4_GOOD;
+				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
+				break;
+
+			case 4:
+				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+					usQuoteNum = QUOTE_AIM_BUDDY_5_GOOD;
+				else
+					usQuoteNum = QUOTE_NON_AIM_BUDDY_5_GOOD;
+				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
+				break;
+
+			case 5:
+				usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
+				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
 				break;
 			}
 			TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
@@ -3529,7 +3574,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 	BOOLEAN	fCanWeSeeLocation = ( SoldierTo3DLocationLineOfSightTest( pKillerSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) != 0 );
 
 	// Are we killing mike?
-	if ( pKilledSoldier->ubProfile == MIKE && pKillerSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+	if ( pKilledSoldier->ubProfile == MIKE && ( pKillerSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC || (  pKillerSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC && gMercProfiles[pKillerSoldier->ubProfile].bLearnToHate == 255 ) ) )
 	{
 		// Can we see?
 		if ( fCanWeSeeLocation )

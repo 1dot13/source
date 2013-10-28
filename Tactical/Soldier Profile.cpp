@@ -834,6 +834,9 @@ BOOLEAN LoadMercProfiles(void)
 		// ARM: this is also being done inside the profile editor, but put it here too, so this project's code makes sense
 		gMercProfiles[ uiLoop ].bHatedCount[0]	= gMercProfiles[ uiLoop ].bHatedTime[0];
 		gMercProfiles[ uiLoop ].bHatedCount[1]	= gMercProfiles[ uiLoop ].bHatedTime[1];
+		gMercProfiles[ uiLoop ].bHatedCount[2]	= gMercProfiles[ uiLoop ].bHatedTime[2];
+		gMercProfiles[ uiLoop ].bHatedCount[3]	= gMercProfiles[ uiLoop ].bHatedTime[3];
+		gMercProfiles[ uiLoop ].bHatedCount[4]	= gMercProfiles[ uiLoop ].bHatedTime[4];
 		gMercProfiles[ uiLoop ].bLearnToHateCount = gMercProfiles[ uiLoop ].bLearnToHateTime;
 		gMercProfiles[ uiLoop ].bLearnToLikeCount = gMercProfiles[ uiLoop ].bLearnToLikeTime;
 
@@ -2034,12 +2037,16 @@ INT8 WhichBuddy( UINT8 ubCharNum, UINT8 ubBuddy )
 
 	pProfile = &( gMercProfiles[ ubCharNum ] );
 
-	for (bLoop = 0; bLoop < 3; bLoop++)
+	for (bLoop = 0; bLoop < 5; bLoop++)
 	{
 		if ( pProfile->bBuddy[bLoop] == ubBuddy )
 		{
 			return( bLoop );
 		}
+	}
+	if( pProfile->bLearnToLike == ubBuddy && pProfile->bLearnToLikeCount == 0 )
+	{
+		return( 5 );
 	}
 	return( -1 );
 }
@@ -2051,12 +2058,16 @@ INT8 WhichHated( UINT8 ubCharNum, UINT8 ubHated )
 
 	pProfile = &( gMercProfiles[ ubCharNum ] );
 
-	for (bLoop = 0; bLoop < 3; bLoop++)
+	for (bLoop = 0; bLoop < 5; bLoop++)
 	{
 		if ( pProfile->bHated[bLoop] == ubHated )
 		{
 			return( bLoop );
 		}
+	}
+	if( pProfile->bLearnToHate == ubHated && pProfile->bLearnToHateCount == 0 )
+	{
+		return( 5 );
 	}
 	return( -1 );
 }
@@ -2161,10 +2172,20 @@ BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID )
 	UINT8	bBuddyID;
 
 	// loop through the list of people the merc is buddies with
-	for(ubCnt=0; ubCnt< 3; ubCnt++)
+	for(ubCnt=0; ubCnt< 6; ubCnt++)
 	{
 		//see if the merc has a buddy on the team
-		bBuddyID = gMercProfiles[ ubMercID ].bBuddy[ubCnt];
+		if( ubCnt<5 )
+		{
+			bBuddyID = gMercProfiles[ ubMercID ].bBuddy[ubCnt];
+		}
+		else
+		{
+			bBuddyID = gMercProfiles[ ubMercID ].bLearnToLike;
+			// ignore learn to like, if he's not a buddy yet
+			if( gMercProfiles[ ubMercID ].bLearnToLikeCount > 0 )
+				continue;
+		}
 
 		//If its not a valid 'buddy'
 		if( bBuddyID < 0 )

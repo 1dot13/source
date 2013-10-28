@@ -510,9 +510,19 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 	// find out if the merc has a buddy working for the player
 	// loop through the list of people the merc considers buddies
-	for(i=0; i<5; i++)
+	for(i=0; i<6; i++)
 	{
-		bMercID = gMercProfiles[ pSoldier->ubProfile ].bBuddy[i];
+		if( i<5 )
+		{
+			bMercID = gMercProfiles[ pSoldier->ubProfile ].bBuddy[i];
+		}
+		else
+		{
+			bMercID = gMercProfiles[ pSoldier->ubProfile ].bLearnToLike;
+			// ignore learn to like, if he's not a buddy yet
+			if( gMercProfiles[ pSoldier->ubProfile ].bLearnToLikeCount > 0 )
+				continue;
+		}
 
 		if( bMercID < 0 )
 			continue;
@@ -526,6 +536,12 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 				usBuddyQuote = QUOTE_RENEWING_CAUSE_BUDDY_1_ON_TEAM;
 			else if( i == 1 )
 				usBuddyQuote = QUOTE_RENEWING_CAUSE_BUDDY_2_ON_TEAM;
+			else if( i == 2 )
+				usBuddyQuote = QUOTE_RENEWING_CAUSE_BUDDY_3_ON_TEAM;
+			else if( i == 3 )
+				usBuddyQuote = QUOTE_RENEWING_CAUSE_BUDDY_4_ON_TEAM;
+			else if( i == 4 )
+				usBuddyQuote = QUOTE_RENEWING_CAUSE_BUDDY_5_ON_TEAM;
 			else
 				usBuddyQuote = QUOTE_RENEWING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM;
 
@@ -541,7 +557,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 	// see if someone the merc hates is on the team
 	// loop through the list of people the merc hates
-	for(i=0; i<2; i++)
+	for(i=0; i<5; i++)
 	{
 		bMercID = gMercProfiles[ pSoldier->ubProfile ].bHated[ i ];
 
@@ -570,9 +586,14 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 			{
 				if( i == 0 )
 					usReasonQuote = QUOTE_HATE_MERC_1_ON_TEAM_WONT_RENEW;
-				else
+				else if( i == 1 )
 					usReasonQuote = QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW;
-
+				else if( i == 2 )
+					usReasonQuote = QUOTE_HATE_MERC_3_ON_TEAM_WONT_RENEW;
+				else if( i == 3 )
+					usReasonQuote = QUOTE_HATE_MERC_4_ON_TEAM_WONT_RENEW;
+				else if( i == 4 )
+					usReasonQuote = QUOTE_HATE_MERC_5_ON_TEAM_WONT_RENEW;
 				// use first hated in case there are multiple
 				break;
 			}

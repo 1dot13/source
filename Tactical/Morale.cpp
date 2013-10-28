@@ -1244,7 +1244,7 @@ void HourlyMoraleUpdate( void )
 					if (bOpinion == HATED_OPINION)
 					{
 						bHated = WhichHated( pSoldier->ubProfile, pOtherSoldier->ubProfile );
-						if ( bHated >= 2 )
+						if ( bHated >= 5 )
 						{
 							// learn to hate which has become full-blown hatred, full strength
 							fFoundHated = TRUE;

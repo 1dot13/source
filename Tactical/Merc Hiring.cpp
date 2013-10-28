@@ -716,6 +716,15 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 							case 1:
 								TacticalCharacterDialogue( pTeamSoldier, QUOTE_HATED_2_ARRIVES );
 								break;
+							case 2:
+								TacticalCharacterDialogue( pTeamSoldier, QUOTE_HATED_3_ARRIVES );
+								break;
+							case 3:
+								TacticalCharacterDialogue( pTeamSoldier, QUOTE_HATED_4_ARRIVES );
+								break;
+							case 4:
+								TacticalCharacterDialogue( pTeamSoldier, QUOTE_HATED_5_ARRIVES );
+								break;
 							default:
 								break;
 						}

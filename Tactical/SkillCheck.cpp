@@ -840,6 +840,27 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 								TacticalCharacterDialogue( pTeamSoldier, 	QUOTE_BUDDY_2_GOOD );
 								break;
 							case 2:
+								// buddy #3 did something good!
+								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_3_GOOD );
+								else
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_3_GOOD );
+								break;
+							case 3:
+								// buddy #4 did something good!
+								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_4_GOOD );
+								else
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_4_GOOD );
+								break;
+							case 4:
+								// buddy #5 did something good!
+								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_5_GOOD );
+								else
+									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_5_GOOD );
+								break;
+							case 5:
 								// learn to like buddy did something good!
 								TacticalCharacterDialogue( pTeamSoldier, QUOTE_LEARNED_TO_LIKE_WITNESSED );
 								break;

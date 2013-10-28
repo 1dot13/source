@@ -364,8 +364,8 @@ typedef enum
 	ONEQUARTER_EVOLUTION,
 } CharacterEvolution;
 
-#define BUDDY_MERC( prof, bud ) ((prof)->bBuddy[0] == (bud) || (prof)->bBuddy[1] == (bud) || (prof)->bBuddy[2] == (bud) )
-#define HATED_MERC( prof, hat ) ((prof)->bHated[0] == (hat) || (prof)->bHated[1] == (hat) || (prof)->bHated[2] == (hat) )
+#define BUDDY_MERC( prof, bud ) ((prof)->bBuddy[0] == (bud) || (prof)->bBuddy[1] == (bud) || (prof)->bBuddy[2] == (bud) || (prof)->bBuddy[3] == (bud) || (prof)->bBuddy[4] == (bud) || ( (prof)->bLearnToLike == (bud) && (prof)->bLearnToLikeCount == 0 ) )
+#define HATED_MERC( prof, hat ) ((prof)->bHated[0] == (hat) || (prof)->bHated[1] == (hat) || (prof)->bHated[2] == (hat) || (prof)->bHated[3] == (hat) || (prof)->bHated[4] == (hat) || ( (prof)->bLearnToHate == (hat) && (prof)->bLearnToHateCount == 0 ) )
 
 #define BUDDY_OPINION +25
 #define HATED_OPINION -25

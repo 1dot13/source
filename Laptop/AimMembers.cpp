@@ -102,7 +102,7 @@
 #define SIZE_MERC_ADDITIONAL_INFO 160 * 2
 
 #define	MERC_ANNOYED_WONT_CONTACT_TIME_MINUTES	6 * 60
-#define	NUMBER_HATED_MERCS_ONTEAM							3
+#define	NUMBER_HATED_MERCS_ONTEAM							6
 
 #define		STATS_X						IMAGE_OFFSET_X + 121
 #define		STATS_Y						IMAGE_OFFSET_Y + 66
@@ -3350,7 +3350,17 @@ BOOLEAN CanMercBeHired()
 	for(i=0; i< NUMBER_HATED_MERCS_ONTEAM; i++)
 	{
 		//see if someone the merc hates is on the team
-		bMercID = gMercProfiles[ gbCurrentSoldier ].bHated[i];
+		if( i< NUMBER_HATED_MERCS_ONTEAM - 1 )
+		{
+			bMercID = gMercProfiles[ gbCurrentSoldier ].bHated[i];
+		}
+		else
+		{
+			bMercID = gMercProfiles[ gbCurrentSoldier ].bLearnToHate;
+			// ignore learn to hate, if he's not a foe yet
+			if( gMercProfiles[ gbCurrentSoldier ].bLearnToHateCount > 0 )
+				continue;
+		}
 
 		if( bMercID < 0 )
 			continue;
@@ -3368,7 +3378,17 @@ BOOLEAN CanMercBeHired()
 			for(j=0; j< NUMBER_HATED_MERCS_ONTEAM; j++)
 			{
 				//if a buddy is on the team, the merc will join
-				bMercID = gMercProfiles[ gbCurrentSoldier ].bBuddy[j];
+				if( i< NUMBER_HATED_MERCS_ONTEAM - 1 )
+				{
+					bMercID = gMercProfiles[ gbCurrentSoldier ].bBuddy[j];
+				}
+				else
+				{
+					bMercID = gMercProfiles[ gbCurrentSoldier ].bLearnToLike;
+					// ignore learn to like, if he's not a buddy yet
+					if( gMercProfiles[ gbCurrentSoldier ].bLearnToLikeCount > 0 )
+						continue;
+				}
 
 				if( bMercID < 0 )
 					continue;
@@ -3382,6 +3402,18 @@ BOOLEAN CanMercBeHired()
 					else if(j == 1 )
 					{
 						InitVideoFaceTalking(gbCurrentSoldier, QUOTE_JOINING_CAUSE_BUDDY_2_ON_TEAM);
+					}
+					else if(j == 2 )
+					{
+						InitVideoFaceTalking(gbCurrentSoldier, QUOTE_JOINING_CAUSE_BUDDY_3_ON_TEAM);
+					}
+					else if(j == 3 )
+					{
+						InitVideoFaceTalking(gbCurrentSoldier, QUOTE_JOINING_CAUSE_BUDDY_4_ON_TEAM);
+					}
+					else if(j == 4 )
+					{
+						InitVideoFaceTalking(gbCurrentSoldier, QUOTE_JOINING_CAUSE_BUDDY_5_ON_TEAM);
 					}
 					else
 					{
@@ -3420,6 +3452,48 @@ BOOLEAN CanMercBeHired()
 				{
 					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_2);
 //					DelayMercSpeech( gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_2, 750, TRUE, FALSE );
+					fRetVal = TRUE;
+				}
+			}
+			else if( i == 2)
+			{
+				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
+				{
+					WaitForMercToFinishTalkingOrUserToClick();
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_3_ON_TEAM);
+					fRetVal = FALSE;
+				}
+				else
+				{
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_3);
+					fRetVal = TRUE;
+				}
+			}
+			else if( i == 3)
+			{
+				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
+				{
+					WaitForMercToFinishTalkingOrUserToClick();
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_4_ON_TEAM);
+					fRetVal = FALSE;
+				}
+				else
+				{
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_4);
+					fRetVal = TRUE;
+				}
+			}
+			else if( i == 4)
+			{
+				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
+				{
+					WaitForMercToFinishTalkingOrUserToClick();
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_5_ON_TEAM);
+					fRetVal = FALSE;
+				}
+				else
+				{
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_5);
 					fRetVal = TRUE;
 				}
 			}

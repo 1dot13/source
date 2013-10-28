@@ -954,12 +954,15 @@ void UpdateBuddyAndHatedCounters( void )
 
 					ubOtherProfileID = pOtherSoldier->ubProfile;
 
-					for ( iLoop = 0; iLoop < 4; iLoop++ )
+					for ( iLoop = 0; iLoop < 7; iLoop++ )
 					{
 						switch( iLoop )
 						{
 							case 0:
 							case 1:
+							case 2:
+							case 3:
+							case 4:
 								if (pProfile->bHated[iLoop] == ubOtherProfileID)
 								{
 									// arrgs, we're on assignment with the person we loathe!
@@ -978,9 +981,30 @@ void UpdateBuddyAndHatedCounters( void )
 											{
 												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
 											}
-											else
+											else if (iLoop == 1)
 											{
 												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+											}
+											else if (iLoop == 2)
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+											}
+											else if (iLoop == 3)
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+											}
+											else if (iLoop == 4)
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
 											}
 											StopTimeCompression();
 										}
@@ -994,9 +1018,21 @@ void UpdateBuddyAndHatedCounters( void )
 												{
 													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED1 );
 												}
-												else
+												else if (iLoop == 1)
 												{
 													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED2 );
+												}
+												else if (iLoop == 2)
+												{
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED3 );
+												}
+												else if (iLoop == 3)
+												{
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED4 );
+												}
+												else if (iLoop == 4)
+												{
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED5 );
 												}
 
 												// Leave now! ( handle equipment too )....
@@ -1011,9 +1047,30 @@ void UpdateBuddyAndHatedCounters( void )
 												{
 													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
 												}
-												else
+												else if (iLoop == 1) 
 												{
 													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+												}
+												else if (iLoop == 2) 
+												{
+													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+													else
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+												}
+												else if (iLoop == 3) 
+												{
+													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+													else
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+												}
+												else if (iLoop == 4) 
+												{
+													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+													else
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
 												}
 												pProfile->ubTimeTillNextHatedComplaint = TIME_BETWEEN_HATED_COMPLAINTS - 1;
 											}
@@ -1043,15 +1100,36 @@ void UpdateBuddyAndHatedCounters( void )
 											{
 												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
 											}
-											else
+											else if (iLoop == 1) 
 											{
 												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+											}
+											else if (iLoop == 2) 
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+											}
+											else if (iLoop == 3) 
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+											}
+											else if (iLoop == 4) 
+											{
+												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+												else
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
 											}
 										}
 									}
 								}
 								break;
-							case 2:
+							case 5:
 								if (pProfile->bLearnToHate == ubOtherProfileID)
 								{
 									if ( pProfile->bLearnToHateCount > 0 )
@@ -1071,8 +1149,9 @@ void UpdateBuddyAndHatedCounters( void )
 										else if (pProfile->bLearnToHateCount == 0)
 										{
 											// set as bHated[2];
+											// anv: nope, we don't want to overwrite possible standard foe, instead added extra check to WhichHated(), CanMercBeHired()
 											if (OKToCheckOpinion(ubOtherProfileID)) {
-											pProfile->bHated[2] = pProfile->bLearnToHate;
+											//pProfile->bHated[2] = pProfile->bLearnToHate;
 											pProfile->bMercOpinion[ubOtherProfileID] = HATED_OPINION;
 											}
 #ifdef JA2UB
@@ -1125,15 +1204,16 @@ void UpdateBuddyAndHatedCounters( void )
 									}
 								}
 								break;
-							case 3:
+							case 6:
 								if (pProfile->bLearnToLikeCount > 0	&& pProfile->bLearnToLike == ubOtherProfileID)
 								{
 									pProfile->bLearnToLikeCount--;
 									if (pProfile->bLearnToLikeCount == 0)
 									{
 										// add to liked!
+										// anv: nope, we don't want to overwrite possible standard buddy, instead added extra check to WhichBuddy(), DoesMercHaveABuddyOnTheTeam(), CanMercBeHired()
 										if (OKToCheckOpinion(ubOtherProfileID)) {
-										pProfile->bBuddy[2] = pProfile->bLearnToLike;
+										//pProfile->bBuddy[2] = pProfile->bLearnToLike;
 										pProfile->bMercOpinion[ubOtherProfileID] = BUDDY_OPINION;
 										}
 									}

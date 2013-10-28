@@ -3371,13 +3371,34 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
                         // buddy #2 died!
                         TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_TWO_KILLED );
                         break;
-                    case 2:
-                        // learn to like buddy died!
-                        TacticalCharacterDialogue( pTeamSoldier, QUOTE_LEARNED_TO_LIKE_MERC_KILLED );
-                        break;
-                    default:
-                        break;
-                }
+					case 2:
+						// buddy #3 died!
+						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_THREE_KILLED );
+						else
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_THREE_KILLED );
+						break;
+					case 3:
+						// buddy #4 died!
+						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_FOUR_KILLED );
+						else
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_FOUR_KILLED );
+						break;
+					case 4:
+						// buddy #5 died!
+						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_FIVE_KILLED );
+						else
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_FIVE_KILLED );
+						break;
+					case 5:
+						// learn to like buddy died!
+						TacticalCharacterDialogue( pTeamSoldier, QUOTE_LEARNED_TO_LIKE_MERC_KILLED );
+						break;
+					default:
+						break;
+				}
 #ifdef JA2UB
 #else
 				// anv: handle Speck witnessing his employee death
@@ -7075,6 +7096,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                                         pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED);
                                         pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED);
                                         pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED);
+                                        pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED);
+                                        pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED);
+                                        pTeamSoldier->usQuoteSaidExtFlags &= (~SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED);
 
                                         // toggle stealth mode....
                                         gfUIStanceDifferent = TRUE;
