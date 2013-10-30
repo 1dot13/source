@@ -2856,8 +2856,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							{
 								if((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true)
 								{
-									sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
-									sBPCost = GetBPsToJumpThroughWindows( lSoldier, TRUE );
+									//Moa: no jumping with backpack
+									//sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
+									//sBPCost = GetBPsToJumpThroughWindows( lSoldier, TRUE );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+									break;
 								}
 								else
 								{
@@ -2946,8 +2949,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						{
 							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
 							{
-								sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
-								sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
+								//Moa: no jumping whith backpack
+								//sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
+								//sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								break;
 							}
 							else
 							{

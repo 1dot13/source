@@ -2135,10 +2135,14 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 	INT32						iItemIndexToDelete;
 	BOOLEAN					fShouldSayCoolQuote = FALSE;
 	BOOLEAN					fDidSayCoolQuote = FALSE;
-	BOOLEAN		 fSaidBoobyTrapQuote = FALSE;
+	BOOLEAN					fSaidBoobyTrapQuote = FALSE;
+	UINT16					sAPCost;//Moa: added for deduct points
+	BOOLEAN					fItemTaken = FALSE;//Moa: added for deduct points
 #ifdef JA2UB
 	UINT16					usItem=0;
 #endif
+
+	sAPCost = GetAPsToPickupItem( pSoldier, sGridNo );
 	// OK. CHECK IF WE ARE DOING ALL IN THIS POOL....
 	if ( iItemIndex == ITEM_PICKUP_ACTION_ALL || iItemIndex == ITEM_PICKUP_SELECTION )
 	{
@@ -2244,6 +2248,10 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 								fFailedAutoPlace = TRUE;
 								// continue, to try and place ay others...
 								continue;
+							}
+							else
+							{
+								fItemTaken = TRUE;
 							}
 							/*
 							// handle theft.. will return true if theft has failed ( if soldier was caught )
@@ -2395,10 +2403,20 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 						gfDontChargeAPsToPickup = TRUE;
 						HandleAutoPlaceFail( pSoldier, iItemIndex, sGridNo );
 					}
+					else
+					{
+						fItemTaken = TRUE;
+					}
 				}
 
 			}
 		}
+	}
+
+	if (fItemTaken)
+	{
+		//deduct Points
+		DeductPoints( pSoldier, sAPCost, 0 );
 	}
 
 	// OK, check if potentially a good candidate for cool quote

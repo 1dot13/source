@@ -2618,7 +2618,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fTurnBased = ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) );
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
-	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) );
+	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND);//Moa: added backpack check
 	fNonSwimmer = !( IS_MERC_BODY_TYPE( s ) );
 	if ( fNonSwimmer )
 	{
@@ -3570,11 +3570,56 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				{
 					ubAPCost = max(1, (INT16)((ubAPCost * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
 				}
-				///////////////////////////////////////////////////////////////////////////////////////////////
-				// SANDRO - moved backpack check to here
-				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
+
+				// Moa: scuba fins and swimming background
+				if ( s->inv[LEGPOS].exists() && HasItemFlag( s->inv[LEGPOS].usItem, SCUBA_FINS ) )
 				{
-					ubAPCost += APBPConstants[AP_MODIFIER_PACK];
+					if ( TERRAIN_IS_HIGH_WATER( gpWorldLevelData[ newLoc ].ubTerrainID) )
+					{
+						ubAPCost /= 2;
+					}
+					else
+					{
+						ubAPCost *= 2;
+					}
+				}
+				if ( TERRAIN_IS_HIGH_WATER( gpWorldLevelData[ newLoc ].ubTerrainID ) )
+					ubAPCost = (ubAPCost * (100 + s->GetBackgroundValue(BG_SWIMMING))) / 100;
+
+				// SANDRO - moved backpack check to here
+				// Moa: backpack penalty
+				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
+				//{
+				//	ubAPCost += APBPConstants[AP_MODIFIER_PACK];
+				//}
+				if ( UsingNewInventorySystem() == true && gGameExternalOptions.fBackPackWeightLowersAP )
+				{
+					INT8 bSlot= FindBackpackOnSoldier( s );
+					if ( bSlot != ITEM_NOT_FOUND )
+					{
+						UINT16 usBPPenalty = APBPConstants[AP_MODIFIER_PACK];
+						if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
+						{
+							OBJECTTYPE * pObj = &( s->inv[ BPACKPOCKPOS ] );
+							UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
+							// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
+							// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
+							// are activated where something can be carried. So we have to add the weights of those slots as well.
+							std::vector<INT8> vbLBESlots;
+							GetLBESlots( BPACKPOCKPOS, vbLBESlots );
+							for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
+							{
+								pObj = &( s->inv[ vbLBESlots[ i ] ] );
+								usBackPackWeight += CalculateObjectWeight( pObj );
+							}
+							usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+						}
+						else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
+						{
+							//apply full penalty
+						}
+						ubAPCost += usBPPenalty;
+					}
 				}
 
 				if (nextCost == TRAVELCOST_FENCE)
@@ -4579,6 +4624,18 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				{
 					sMovementAPsCost = max(1, (INT16)((sMovementAPsCost * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
 				}
+
+				// Moa: scuba fins and swimming background
+				if ( pSold->inv[LEGPOS].exists() && HasItemFlag( pSold->inv[LEGPOS].usItem, SCUBA_FINS ) )
+				{
+					if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+						sMovementAPsCost /= 2;
+					else
+						sMovementAPsCost *= 2;
+				}
+				if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+					sMovementAPsCost = (sMovementAPsCost * (100 + pSold->GetBackgroundValue(BG_SWIMMING))) / 100;
+
 				// Check if doors if not player's merc (they have to open them manually)
 				if ( sSwitchValue == TRAVELCOST_DOOR && pSold->bTeam != gbPlayerNum )
 				{
@@ -4598,8 +4655,37 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					}
 				}
 				// Check for backpack
-				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
-					sMovementAPsCost += APBPConstants[AP_MODIFIER_PACK];
+				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
+				//	sMovementAPsCost += APBPConstants[AP_MODIFIER_PACK];
+				if ( UsingNewInventorySystem() == true && gGameExternalOptions.fBackPackWeightLowersAP )
+				{
+					INT8 bSlot= FindBackpackOnSoldier( pSold );
+					if ( bSlot != ITEM_NOT_FOUND )
+					{
+						UINT16 usBPPenalty = APBPConstants[AP_MODIFIER_PACK];
+						if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
+						{
+							OBJECTTYPE * pObj = &( pSold->inv[ BPACKPOCKPOS ] );
+							UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
+							// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
+							// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
+							// are activated where something can be carried. So we have to add the weights of those slots as well.
+							std::vector<INT8> vbLBESlots;
+							GetLBESlots( BPACKPOCKPOS, vbLBESlots );
+							for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
+							{
+								pObj = &( pSold->inv[ vbLBESlots[ i ] ] );
+								usBackPackWeight += CalculateObjectWeight( pObj );
+							}
+							usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+						}
+						else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
+						{
+							//apply full penalty
+						}
+						sMovementAPsCost += usBPPenalty;
+					}
+				}
 
 				sPoints += sMovementAPsCost + sExtraCostStand;
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4637,6 +4723,32 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					sPointsSwat += sMovementAPsCost + APBPConstants[AP_MODIFIER_SWAT];
 					sPointsRun += sMovementAPsCost + APBPConstants[AP_MODIFIER_RUN];
 				}
+
+				// Moa: scuba fins and swimming background
+				if ( pSold->inv[LEGPOS].exists() && HasItemFlag( pSold->inv[LEGPOS].usItem, SCUBA_FINS ) )
+				{
+					if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+					{
+						sPointsWalk /= 2;
+						sPointsCrawl /= 2;
+						sPointsSwat /= 2;
+						sPointsRun /= 2;
+					}
+					else
+					{
+						sPointsWalk *= 2;
+						sPointsCrawl *= 2;
+						sPointsSwat *= 2;
+						sPointsRun *= 2;
+					}
+				}
+				if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+				{
+					sPointsWalk = (sPointsWalk * (100 + pSold->GetBackgroundValue(BG_SWIMMING))) / 100;
+					sPointsCrawl = (sPointsCrawl * (100 + pSold->GetBackgroundValue(BG_SWIMMING))) / 100;
+					sPointsSwat = (sPointsSwat * (100 + pSold->GetBackgroundValue(BG_SWIMMING))) / 100;
+					sPointsRun = (sPointsRun * (100 + pSold->GetBackgroundValue(BG_SWIMMING))) / 100;
+				}
 				// walking with weapon raised?
 				if (!(pSold->MercInWater()) && ( (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIRE ) ))
 				{
@@ -4662,12 +4774,45 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					}
 				}
 				// Check for backpack
-				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
+				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
+				//{
+				//	sPointsWalk += APBPConstants[AP_MODIFIER_PACK];
+				//	sPointsCrawl += APBPConstants[AP_MODIFIER_PACK];
+				//	sPointsSwat += APBPConstants[AP_MODIFIER_PACK];
+				//	sPointsRun += APBPConstants[AP_MODIFIER_PACK];
+				//}
+				// Moa: apply penalty for heavily packed backpack (wobble penalty)
+				if ( UsingNewInventorySystem() == true && gGameExternalOptions.fBackPackWeightLowersAP )
 				{
-					sPointsWalk += APBPConstants[AP_MODIFIER_PACK];
-					sPointsCrawl += APBPConstants[AP_MODIFIER_PACK];
-					sPointsSwat += APBPConstants[AP_MODIFIER_PACK];
-					sPointsRun += APBPConstants[AP_MODIFIER_PACK];
+					INT8 bSlot= FindBackpackOnSoldier( pSold );
+					if ( bSlot != ITEM_NOT_FOUND )
+					{
+						UINT16 usBPPenalty = APBPConstants[AP_MODIFIER_PACK];
+						if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
+						{
+							OBJECTTYPE * pObj = &( pSold->inv[ BPACKPOCKPOS ] );
+							UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
+							// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
+							// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
+							// are activated where something can be carried. So we have to add the weights of those slots as well.
+							std::vector<INT8> vbLBESlots;
+							GetLBESlots( BPACKPOCKPOS, vbLBESlots );
+							for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
+							{
+								pObj = &( pSold->inv[ vbLBESlots[ i ] ] );
+								usBackPackWeight += CalculateObjectWeight( pObj );
+							}
+							usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+						}
+						else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
+						{
+							//apply full penalty
+						}
+						sPointsWalk += usBPPenalty;
+						sPointsCrawl += usBPPenalty;
+						sPointsSwat += usBPPenalty;
+						sPointsRun += usBPPenalty;
+					}
 				}
 				if ( sExtraCostStand )
 				{

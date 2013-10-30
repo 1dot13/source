@@ -510,7 +510,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			INT8 bSlot= FindBackpackOnSoldier( pSoldier );
 			if ( bSlot != ITEM_NOT_FOUND )
 			{
-				UINT16 usBPPenalty = APBPConstants[ AP_MODIFIER_PACK ];
+				UINT16 usBPPenalty = APBPConstants[AP_MODIFIER_PACK];
 				if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
 				{
 					OBJECTTYPE * pObj = &( pSoldier->inv[ BPACKPOCKPOS ] );
@@ -582,6 +582,51 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 	// Get switch value...
 	sSwitchValue = gubWorldMovementCosts[ sGridNo ][ bDir ][ pSoldier->pathing.bLevel ];
 
+#if 1 //Moa: set to 0 to use original copy and paste code from ActionPointCost()
+	if ( sSwitchValue == TRAVELCOST_FENCE )
+	{
+		// If we are changeing stance ( either before or after getting there....
+		// We need to reflect that...
+		switch(usMovementMode)
+		{
+			case SIDE_STEP:
+			case SIDE_STEP_WEAPON_RDY:
+			case SIDE_STEP_DUAL_RDY:
+			case WALK_BACKWARDS:
+			case RUNNING:
+			case WALKING :
+			case WALKING_WEAPON_RDY:
+			case WALKING_DUAL_RDY:
+			case WALKING_ALTERNATIVE_RDY :
+			case SIDE_STEP_ALTERNATIVE_RDY:
+
+				// Add here cost to go from crouch to stand AFTER fence hop....
+				// Since it's AFTER.. make sure we will be moving after jump...
+				if ( ( bPathIndex + 2 ) < bPathLength )
+				{
+					sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
+				}
+				break;
+
+			case SWATTING:
+			case START_SWAT:
+			case SWAT_BACKWARDS:
+
+				// Add cost to stand once there BEFORE....
+				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
+				break;
+
+			case CRAWLING:
+
+				// Can't do it here.....
+				break;
+		}
+	}
+
+	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode );
+
+	return (sPoints);
+#else
 	// Tile cost should not be reduced based on movement mode...
 	if ( sSwitchValue == TRAVELCOST_FENCE )
 	{
@@ -756,6 +801,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 	}
 
 	return( sPoints );
+#endif
 }
 
 
