@@ -304,55 +304,59 @@ void IMPPrejudiceDisplay()
 
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, LAPTOP_SCREEN_UL_X + 2, LAPTOP_SCREEN_WEB_UL_Y + 40, LAPTOP_SCREEN_LR_X - 2,	LAPTOP_SCREEN_WEB_UL_Y + 20 + 5 * DROPDOWN_MARKUP_Y, Get16BPPColor( FROMRGB( 100, 100, 100 ) ) );
 
-	usPosX = LAPTOP_SCREEN_UL_X + 5;
-	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 50;
+	// only display if at least the first dropdown has been initialized (otherwise text will be written outside of the laptop)
+	if ( DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().IsDisplayed() )
+	{
+		usPosX = LAPTOP_SCREEN_UL_X + 5;
+		usPosY = LAPTOP_SCREEN_WEB_UL_Y + 50;
 		
-	// Appearance
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOULOOK], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		// Appearance
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOULOOK], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDAPPEARANCEIS], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDAPPEARANCEIS], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_IMPORTANTTOYOU], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_IMPORTANTTOYOU], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 				
-	// Refinement
-	usPosX = LAPTOP_SCREEN_UL_X + 5;
-	usPosY += DROPDOWN_MARKUP_Y;
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUHAVE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		// Refinement
+		usPosX = LAPTOP_SCREEN_UL_X + 5;
+		usPosY += DROPDOWN_MARKUP_Y;
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUHAVE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDCARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDCARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ABOUTTHAT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ABOUTTHAT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Hated Nations
-	usPosX = LAPTOP_SCREEN_UL_X + 5;
-	usPosY += DROPDOWN_MARKUP_Y;
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		// Hated Nations
+		usPosX = LAPTOP_SCREEN_UL_X + 5;
+		usPosY += DROPDOWN_MARKUP_Y;
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ADHATEEVERYONE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ADHATEEVERYONE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Racism
-	usPosX = LAPTOP_SCREEN_UL_X + 5;
-	usPosY += DROPDOWN_MARKUP_Y;
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		// Racism
+		usPosX = LAPTOP_SCREEN_UL_X + 5;
+		usPosY += DROPDOWN_MARKUP_Y;
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_RACISTAGAINSTNON], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_RACISTAGAINSTNON], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACE>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_PEOPLE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACE>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_PEOPLE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Sexism
-	usPosX = LAPTOP_SCREEN_UL_X + 5;
-	usPosY += DROPDOWN_MARKUP_Y;
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		// Sexism
+		usPosX = LAPTOP_SCREEN_UL_X + 5;
+		usPosY += DROPDOWN_MARKUP_Y;
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().GetLastX();
-	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_DOT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		usPosX = 10 + DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().GetLastX();
+		DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_DOT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	}
 }
 
 

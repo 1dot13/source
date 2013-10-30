@@ -128,6 +128,11 @@ public:
 	 */
 	UINT16	GetLastX()					{ return musStartX + GetTotalWidth(); }
 
+	/*
+	 * Are we displayed?
+	 */
+	BOOLEAN	IsDisplayed()				{ return mfMouseRegionsCreated; }
+
 	// call to open/close the drop down
 	void OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 	void CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
