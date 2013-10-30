@@ -5637,14 +5637,13 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				}
 				BOOLEAN showAttachmentPopups = FALSE;
 
-				if(		guiCurrentItemDescriptionScreen == MAP_SCREEN 
-				&&		fShowMapInventoryPool 
-				&&		(	(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-						&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-						&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
-						)
-				&&		CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
-				)
+				if(	guiCurrentItemDescriptionScreen == MAP_SCREEN 
+					&&	fShowMapInventoryPool 
+					&&	( (Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
+					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
+					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) )
+					&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
+					&&	attachList.size()>0 )	// silversurfer: no need to show popups if we have nothing to display
 				{
 					showAttachmentPopups = TRUE;
 				}
