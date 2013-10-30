@@ -111,7 +111,7 @@ public:
 	/*
 	 * Set help text decribing what can be selected
 	 */
-	void SetHelpText( STR16 aText )			{ wcscat( mHelpText, aText ); }
+	void SetHelpText( STR16 aText )			{ swprintf( mHelpText, L"" ); wcscat( mHelpText, aText ); }
 
 	/*
 	 * Get key of selected entry
