@@ -27767,4 +27767,9 @@
 		<itemIndex>605</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1698</attachmentIndex>
+		<itemIndex>1697</itemIndex>
+		<APCost>35</APCost>
+	</ATTACHMENT>
 </ATTACHMENTLIST>

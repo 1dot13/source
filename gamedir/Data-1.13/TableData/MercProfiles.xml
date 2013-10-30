@@ -54,17 +54,19 @@
 <!-- major Skill (7)	Deputy/Squadleader 			-->
 <!-- major Skill (8)	Technician/Engineer			-->
 <!-- major Skill (9)	Paramedic/Doctor			-->
+<!-- major Skill (20)	Covert Ops			-->
 
-<!-- minor Skill (10)	Ambidexterous				-->
-<!-- minor Skill (11)	Melee						-->	
-<!-- minor Skill (12)   Throwing					-->
+<!-- minor Skill (10)	Ambidexterous			-->
+<!-- minor Skill (11)	Melee						  -->	
+<!-- minor Skill (12) Throwing				  -->
 <!-- minor Skill (13)	Night Ops					-->
 <!-- minor Skill (14)	Stealthy					-->	
 <!-- minor Skill (15)	Athletics					-->
-<!-- minor Skill (16)	Bodybuilding				-->
-<!-- minor Skill (17)	Demolitions					-->
+<!-- minor Skill (16)	Bodybuilding			-->
+<!-- minor Skill (17)	Demolitions				-->
 <!-- minor Skill (18)	Teaching					-->
 <!-- minor Skill (19)	Scouting					-->
+<!-- minor Skill (21)	Radio Operator		-->
 
 <!-- STOMP Character Traits -->
 
@@ -17325,7 +17327,7 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>0</bNewSkillTrait1>
+		<bNewSkillTrait1>21</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
@@ -22614,7 +22616,7 @@
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>21</bNewSkillTrait3>
 		<bBuddy1>240</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -23845,7 +23847,7 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>19</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait2>21</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>

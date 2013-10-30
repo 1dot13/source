@@ -263,6 +263,7 @@
     <szDetailedExploredName>Drassen Airport</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <sRadioScanModifier>2</sRadioScanModifier>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B14</SectorGrid>
@@ -453,6 +454,7 @@
     <sWaterType>2</sWaterType>
     <usNaturalDirt>300</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>2</sRadioScanModifier>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D3</SectorGrid>
@@ -574,6 +576,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>2</sRadioScanModifier>
    </SECTOR>  
    <SECTOR>
     <SectorGrid>D16</SectorGrid>
@@ -1142,6 +1145,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>1</sRadioScanModifier>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H14</SectorGrid>
@@ -1243,6 +1247,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>850</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>2</sRadioScanModifier>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I9</SectorGrid>
@@ -1411,6 +1416,8 @@
     <szDetailedExploredName>Tixa</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>1000</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>1</sRadioScanModifier>
     <usPrisonRoomNumber00>5</usPrisonRoomNumber00>
     <usPrisonRoomNumber01>6</usPrisonRoomNumber01>
     <usPrisonRoomNumber02>7</usPrisonRoomNumber02>
@@ -1956,6 +1963,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>1</usCurfewValue>
+    <sRadioScanModifier>2</sRadioScanModifier>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N4</SectorGrid>
@@ -1966,6 +1974,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <sRadioScanModifier>2</sRadioScanModifier>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N5</SectorGrid>
@@ -1995,6 +2004,7 @@
     <szDetailedExploredName>Coastal, road</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>140</usNaturalDirt>
+    <sRadioScanModifier>1</sRadioScanModifier>
     <usPrisonRoomNumber00>3</usPrisonRoomNumber00>
    </SECTOR>
    <SECTOR>
