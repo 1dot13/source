@@ -45,7 +45,7 @@
 
 #define	IMP_MINOR_TRAIT__SPACE_BTN_BUTTONS									( 38 + 5 )
 
-#define	IMP_MINOR_TRAIT__TRAITS_TO_START_RIGHT_COL			4
+#define	IMP_MINOR_TRAIT__TRAITS_TO_START_RIGHT_COL			5
 
 #define	IMP_MINOR_TRAIT__NONE_BTN_LOC_X											( LAPTOP_SCREEN_UL_X + 136 )
 #define	IMP_MINOR_TRAIT__NONE_BTN_LOC_Y											( LAPTOP_SCREEN_WEB_UL_Y + 306 )
@@ -78,7 +78,7 @@ INT32 giIMPMinorTraitAnswerButtonImage[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS
 INT32 giIMPMinorlTraitFinsihButton;
 INT32 giIMPMinorlTraitFinsihButtonImage;
 
-INT8	gbLastSelectedMinorTrait[ 10 ];
+INT8	gbLastSelectedMinorTrait[ NUM_MINOR_TRAITS ];
 
 //image handle
 UINT32	guiIMT_GreyGoldBox;
@@ -191,7 +191,7 @@ void EnterIMPMinorTrait( void )
 	}
 
 	//reset last selected trait
-	memset( gbLastSelectedMinorTrait, -1, 10 );
+	memset( gbLastSelectedMinorTrait, -1, NUM_MINOR_TRAITS );
 }
 
 
@@ -512,14 +512,17 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			iCurrentImpPage = IMP_MAIN_PAGE;
 
-			if( CameBackToMinorTraitPageButNotFinished() )
+			fButtonPendingFlag = TRUE;	
+
+			/*i´f( CameBackToMinorTraitPageButNotFinished() )
 			{
+
 			}
 			else
 			{
 				//We are finished on this page
 				iCurrentProfileMode = IMP__ATTRIBUTES;
-			}
+			}*/
 		}
 	}
 }
@@ -652,6 +655,10 @@ void AddSelectedMinorTraitsToSkillsList()
 				case IMP_SKILL_TRAITS_NEW_SCOUTING:
 					AddSkillToSkillList( SCOUTING_NT );
 					break;
+
+				case IMP_SKILL_TRAITS_NEW_RADIO_OPERATOR:
+					AddSkillToSkillList( RADIO_OPERATOR_NT );
+					break;
 						
 				default:
 					break;
@@ -668,7 +675,7 @@ void HandleLastSelectedMinorTrait( INT8 bNewTrait )
 	if (bNewTrait == -1)
 	{
 		// we only want to delete the last selected trait from list
-		for( iCnt=9; iCnt>=0; iCnt-- )
+		for( iCnt=NUM_MINOR_TRAITS-1; iCnt>=0; iCnt-- )
 		{
 			if ( gbLastSelectedMinorTrait[ iCnt ] > 0 )
 			{
@@ -680,7 +687,7 @@ void HandleLastSelectedMinorTrait( INT8 bNewTrait )
 	}
 	else
 	{
-		for( iCnt=0; iCnt<9; iCnt++ )
+		for( iCnt=0; iCnt<NUM_MINOR_TRAITS-1; iCnt++ )
 		{
 			gbLastSelectedMinorTrait[ (iCnt + 1) ] = gbLastSelectedMinorTrait[ iCnt ];
 		}
@@ -768,7 +775,7 @@ INT8 GetLastSelectedMinorTrait( void )
 {
 	INT16 iCnt;
 
-	for( iCnt=9; iCnt>=0; iCnt-- )
+	for( iCnt=NUM_MINOR_TRAITS-1; iCnt>=0; iCnt-- )
 	{
 		if ( gbLastSelectedMinorTrait[ iCnt ] > 0 )
 		{
@@ -1430,6 +1437,23 @@ void AssignMinorTraitHelpText( UINT8 ubNumber )
 				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[6]);
 				wcscat( apStr, atStr );
 			}
+			break;
+		}
+		case IMP_SKILL_TRAITS_NEW_RADIO_OPERATOR:
+		{
+			swprintf( apStr, L"" );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[0]);
+			wcscat( apStr, atStr );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[1]);
+			wcscat( apStr, atStr );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[2]);
+			wcscat( apStr, atStr );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[3]);
+			wcscat( apStr, atStr );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[4]);
+			wcscat( apStr, atStr );
+			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[5]);
+			wcscat( apStr, atStr );
 			break;
 		}
 		case IMP_SKILL_TRAITS_NEW_MINOR_NONE:

@@ -374,6 +374,9 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		// HEADROCK HAM 5: Deactivated until the release of HAM 5.1.
 		FireFragments( MercPtrs[ubOwner], sX, sY, sZ, usItem, ubDirection );
 	}
+
+	// Flugente: Items can have secondary explosions
+	HandleBuddyExplosions(ubOwner, sX, sY, sZ, sGridNo, usItem, fLocate, bLevel, ubDirection );
 }
 
 
@@ -2225,6 +2228,13 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			bSmokeEffectType = CREATURE_SMOKE_EFFECT;
 			fBlastEffect	= FALSE;
 			break;
+
+		case EXPLOSV_SIGNAL_SMOKE:
+
+			fSmokeEffect	= TRUE;
+			bSmokeEffectType = SIGNAL_SMOKE_EFFECT;
+			fBlastEffect	= FALSE;
+			break;
 		}
 	}
 
@@ -2872,6 +2882,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	case EXPLOSV_TEARGAS:
 	case EXPLOSV_SMOKE:
 	case EXPLOSV_CREATUREGAS:
+	case EXPLOSV_SIGNAL_SMOKE:
 
 		fSmokeEffect = TRUE;
 		break;
@@ -3992,6 +4003,25 @@ void HandleExplosionQueue( void )
 
 				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
 				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
+			}
+			else if ( (*pObj)[0]->data.ubWireNetworkFlag & ANY_ARTILLERY_FLAG )
+			{
+				UINT8 cnt = 0;
+				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_1 )	cnt += 1;
+				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_2 )	cnt += 2;
+				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_4 )	cnt += 4;
+
+				// determine gridno to attack - smoke signal required. Otherwise, it is assumed the radio operator ordered the bombing of his OWN position
+				// if we cannot even find a radio operator, all bets are off - target a random gridno
+				INT32 sTargetGridNo = -1;
+				if ( GetRandomSignalSmokeGridNo(&sTargetGridNo) || GetRadioOperatorSignal((*pObj)[0]->data.misc.ubBombOwner, &sTargetGridNo) || (sTargetGridNo = RandomGridNo()) )
+				{
+					for ( UINT8 i = 0; i < cnt; ++i)
+						ArtilleryStrike(pObj->usItem, sGridNo, sTargetGridNo);
+				}
+
+				// not needed anymore
+				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 			}
 			else
 			{
@@ -5376,3 +5406,23 @@ void HandleSeeingPowerGenFan( UINT32 sGridNo )
 	}
 }
 #endif
+
+void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
+{
+	// Flugente: Items can have secondary explosions
+	if ( Item[usItem].usBuddyItem )
+	{
+		if ( Item[Item[usItem].usBuddyItem].flare )
+		{
+			if( !sZ || !FindBuilding(sGridNo) )
+			{
+				// Add a light effect...
+				NewLightEffect( sGridNo, (UINT8)Explosive[Item[Item[usItem].usBuddyItem].ubClassIndex].ubDuration , (UINT8)Explosive[Item[Item[usItem].usBuddyItem].ubClassIndex].ubStartRadius );
+			}
+		}
+		else if ( Item[Item[usItem].usBuddyItem ].usItemClass & (IC_GRENADE|IC_BOMB) )
+		{
+			IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[usItem].usBuddyItem, bLevel, ubDirection );						
+		}
+	}
+}

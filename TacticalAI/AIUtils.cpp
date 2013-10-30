@@ -589,6 +589,10 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			bMinPointsNeeded = APBPConstants[AP_HANDCUFF];
 			break;
 
+		case AI_ACTION_USE_SKILL:
+			bMinPointsNeeded = 10;	// TODO
+			break;
+
 		default:
 #ifdef BETAVERSION
 			//NumMessage("AffordableAction - Illegal action type = ",pSoldier->aiData.bAction);
@@ -1909,9 +1913,8 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-
 	// smoke
-	if (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & MAPELEMENT_EXT_SMOKE)	
+	if (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & (MAPELEMENT_EXT_SMOKE|MAPELEMENT_EXT_SIGNAL_SMOKE) )	
 		return TRUE;
 
 	return InGas(pSoldier,sGridNo);

@@ -778,7 +778,11 @@ void GiveItemsToPC( UINT8 ubProfileId )
 		if (PROFILE_HAS_SKILL_TRAIT(ubProfileId, SCOUTING_NT))
 		{
 			GiveIMPRandomItems(pProfile,IMP_SCOUTING);
-		}		
+		}
+		if (PROFILE_HAS_SKILL_TRAIT(ubProfileId, RADIO_OPERATOR_NT))
+		{
+			GiveIMPRandomItems(pProfile,IMP_RADIO_OPERATOR);
+		}
 	}
 	else
 	{

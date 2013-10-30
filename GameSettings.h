@@ -1575,6 +1575,18 @@ typedef struct
 	INT16	sCOCloseDetectionRangeSoldierCorpse;
 	BOOLEAN fCOElitesDetectNextTile;
 
+	// RADIO OPERATOR
+	INT16 bVOArtillerySectorFrequency;	// ability to call an a artillery strike from a sector every '_' minutes. Only applies if ordered from enemy/militia
+	UINT8 usVOMortarCountDivisor;
+	UINT8 usVOMortarShellDivisor;
+	UINT8 usVOMortarPointsAdmin;
+	UINT8 usVOMortarPointsTroop;
+	UINT8 usVOMortarPointsElite;
+	UINT8 usVOMortarRadius;
+	UINT8 usVOMortarSignalShellRadius;
+	INT8  sVOScanAssignmentBaseRange;
+	INT8  sVOListeningHearingBonus;
+
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.
@@ -1948,6 +1960,13 @@ typedef struct
 	FLOAT fDamageBreathModifierExplosive;
 	FLOAT fDamageHealthMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 	FLOAT fDamageBreathMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
+
+	// ------------ ENERGY MODIFIERS -----------------
+	// Flugente: energy consumption settings (energy-consumption of attached non-vanilla batteries)
+	FLOAT	energy_cost_radioset_activate;
+	FLOAT	energy_cost_radioset_jam;
+	FLOAT	energy_cost_radioset_scan;
+	FLOAT	energy_cost_radioset_scan_assignment;
 
 }ITEM_SETTINGS;
 

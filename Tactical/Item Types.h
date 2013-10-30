@@ -714,16 +714,18 @@ extern OBJECTTYPE gTempObject;
 #define TRIPWIRE_NETWORK_LVL_3				0x00400000	//4194304
 #define TRIPWIRE_NETWORK_LVL_4				0x00800000	//8388608
 
-/*#define TRIPWIRE_NETWORK_LVL_1		0x01000000	//16777216
-#define TRIPWIRE_NETWORK_LVL_2		0x02000000	//33554432
-#define TRIPWIRE_NETWORK_LVL_3		0x04000000	//67108864
-#define TRIPWIRE_NETWORK_LVL_4		0x08000000	//134217728
+#define ARTILLERY_STRIKE_COUNT_1			0x01000000	//16777216
+#define ARTILLERY_STRIKE_COUNT_2			0x02000000	//33554432
+#define ARTILLERY_STRIKE_COUNT_4			0x04000000	//67108864
+/*#define TRIPWIRE_NETWORK_LVL_4		0x08000000	//134217728
 
 #define PLAYER_NET_1_LVL_4		0x10000000	//268435456
 #define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
 #define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
+
+#define ANY_ARTILLERY_FLAG	(ARTILLERY_STRIKE_COUNT_1|ARTILLERY_STRIKE_COUNT_2|ARTILLERY_STRIKE_COUNT_4)
 
 // -------- added by Flugente: various item flags --------
 // flags used for various item properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
@@ -759,9 +761,9 @@ extern OBJECTTYPE gTempObject;
 #define SCUBA_FINS				0x00800000	//8388608	// this item speed up swimming, but slows walking and running
 
 #define TRIPWIREROLL			0x01000000	//16777216	// this item is a tripwire roll
-/*#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
-#define PLAYER_NET_3_LVL_3		0x04000000	//67108864
-#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+#define RADIO_SET				0x02000000	//33554432	// item can be used to radio militia/squads in other sectors
+#define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
+#define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
 
 #define PLAYER_NET_1_LVL_4		0x10000000	//268435456
 #define PLAYER_NET_2_LVL_4		0x20000000	//536870912
@@ -1855,6 +1857,9 @@ enum
 	// Flugente: added covert ops
 	IMP_COVERT,
 	IMP_COVERT_EXP,
+
+	// Flugente: added radio operator
+	IMP_RADIO_OPERATOR,
 
 	MAX_IMP_ITEM_TYPES
 };

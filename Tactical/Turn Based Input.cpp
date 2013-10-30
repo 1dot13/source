@@ -114,7 +114,8 @@
 #include "fresh_header.h"
 
 
-#include "IMP Skill Trait.h"	// added by Flugente
+#include "IMP Skill Trait.h"			// added by Flugente
+#include "SkillMenu.h"					// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2495,7 +2496,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '$':
-				ChangeCurrentSquad( 13 );
+				{
+					// Flugente: trait skill selection menu. Yes, screw squad 13				
+					INT32 usMapPos;
+					if ( GetMouseMapPos( &usMapPos ) )
+					{
+						TraitsMenu(usMapPos);
+					}
+				}
+				//ChangeCurrentSquad( 13 );
 				break;
 
 			case '%':

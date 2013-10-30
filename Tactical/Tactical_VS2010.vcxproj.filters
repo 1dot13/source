@@ -264,6 +264,9 @@
     <ClInclude Include="Food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SkillMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Air Raid.cpp">
@@ -645,6 +648,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_Background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

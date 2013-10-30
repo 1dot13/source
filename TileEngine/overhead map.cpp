@@ -1307,13 +1307,24 @@ void RenderOverheadOverlays()
 	{ //loop through all soldiers.
 		end = MAX_NUM_SOLDIERS;
 	}
-	if(is_networked)end = MAX_NUM_SOLDIERS;
 
-	
+	if(is_networked)
+		end = MAX_NUM_SOLDIERS;
+
 	SGPRect HostileArea = {0,0,0,0};
+
+	// Flugente: is one of the player's mercs scanning for jam signals while someone is actually jamming signals?
+	BOOLEAN showjammers = FALSE;
+	if ( PlayerTeamIsScanning() && SectorJammed() )
+		showjammers = TRUE;
+
+	UINT16 jamcolour = Get16BPPColor( FROMRGB( 36, 219, 151 ) );
+
+	BOOLEAN marklastenemy = FALSE;
+	if ( gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] && gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft )
+		marklastenemy = TRUE;
 	
-	
-	for( i = 0; i < end; i++ )
+	for( i = 0; i < end; ++i )
 	{
 		//First, check to see if the soldier exists and is in the sector.
 		pSoldier = MercPtrs[ i ];
@@ -1325,14 +1336,16 @@ void RenderOverheadOverlays()
 			continue;
 		
 		//DBrot: mark his general area as hostile
-		if(!gfEditMode && gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] /*&& gfUseBiggerOverview */&& gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft){
-			if(pSoldier->bTeam == ENEMY_TEAM){
+		// Flugente: also do that if the we scanned a jamming person
+		if(!gfEditMode && (showjammers || marklastenemy ) )
+		{
+			if ( ( marklastenemy && pSoldier->bTeam == ENEMY_TEAM ) || ( showjammers && pSoldier->IsJamming() ) )
+			{
 				UINT8 ubGridSquareX, ubGridSquareY;
 				
 				ubGridSquareX = sX / (gusGridFrameX / gubGridDivisor); 	//( pSoldier->sGridNo / WORLD_COLS ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
 				ubGridSquareY = sY / (gusGridFrameY / gubGridDivisor);	//( pSoldier->sGridNo - ( ( pSoldier->sGridNo / WORLD_COLS ) * WORLD_COLS ) ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
-				
-				
+								
 				HostileArea.iLeft = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * ubGridSquareX));
 				HostileArea.iTop = iOffsetVertical + (((gusGridFrameY / gubGridDivisor) * ubGridSquareY));
 				HostileArea.iRight = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * (ubGridSquareX + 1)));
@@ -1340,9 +1353,14 @@ void RenderOverheadOverlays()
 				if(gGameExternalOptions.ubMarkerMode == SHARPBORDER)
 					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 255, pDestBuf);
 					
-				if(gGameExternalOptions.ubMarkerMode == HATCHED){
-					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 0xF000, pDestBuf);
-					Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &HostileArea, 0xF000 );
+				if(gGameExternalOptions.ubMarkerMode == HATCHED)
+				{
+					UINT16 colour = 0xF000;
+					if ( showjammers && pSoldier->IsJamming() )
+						colour = jamcolour;
+
+					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, colour, pDestBuf);
+					Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &HostileArea, colour );
 				}
 			}
 		}
@@ -1352,10 +1370,7 @@ void RenderOverheadOverlays()
 		sX += 2;
 		sY -= 5;
 		//sScreenY -= 7;	//height of doll
-
-				
-
-
+		
 		if( !gfTacticalPlacementGUIActive && pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
 

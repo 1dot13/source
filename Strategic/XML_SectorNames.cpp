@@ -48,6 +48,7 @@ typedef struct
 	UINT8			sWaterType;			// Food System
 	UINT16			usNaturalDirt;		// Dirt System
 	UINT8			usCurfewValue;		// Covert Ops
+	INT8			sRadioScanModifier;	// Radio Operator
 	UINT16			usPrisonRoomNumber[MAX_PRISON_ROOMS];	// Prisoner System
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
@@ -145,6 +146,7 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "sWaterType") == 0 ||
 				strcmp(name, "usNaturalDirt") == 0 ||
 				strcmp(name, "usCurfewValue") == 0 ||
+				strcmp(name, "sRadioScanModifier") == 0 ||
 				strcmp(name, "usPrisonRoomNumber00") == 0 ||
 				strcmp(name, "usPrisonRoomNumber01") == 0 ||
 				strcmp(name, "usPrisonRoomNumber02") == 0 ||
@@ -284,6 +286,13 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 				SectorExternalData[ubSectorId][2].usCurfewValue = pData->usCurfewValue;
 				SectorExternalData[ubSectorId][3].usCurfewValue = pData->usCurfewValue;
 
+				INT8 radioscanmod = max(-3, pData->sRadioScanModifier);
+				radioscanmod = min(3, pData->sRadioScanModifier);
+				SectorExternalData[ubSectorId][0].sRadioScanModifier = pData->sRadioScanModifier;
+				SectorExternalData[ubSectorId][1].sRadioScanModifier = pData->sRadioScanModifier;
+				SectorExternalData[ubSectorId][2].sRadioScanModifier = pData->sRadioScanModifier;
+				SectorExternalData[ubSectorId][3].sRadioScanModifier = pData->sRadioScanModifier;
+
 				for(UINT8 i = 0; i <MAX_PRISON_ROOMS; ++i)
 				{
 					SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i]  = pData->usPrisonRoomNumber[i];
@@ -294,6 +303,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 				pData->sWaterType = 0;
 				pData->usNaturalDirt = 100;
 				pData->usCurfewValue = 0;
+				pData->sRadioScanModifier = 0;
 			}	
 		}
 
@@ -357,6 +367,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
 			pData->usCurfewValue = (UINT8) atoi(pData->szCharData);
+		}
+		else if(strcmp(name, "sRadioScanModifier") == 0)
+		{
+			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
+			pData->sRadioScanModifier = (INT8) atoi(pData->szCharData);
 		}
 		else if(strcmp(name, "usPrisonRoomNumber00") == 0)
 		{

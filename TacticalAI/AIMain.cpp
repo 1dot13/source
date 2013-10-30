@@ -2286,6 +2286,15 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 			break;
 
+		case AI_ACTION_USE_SKILL:
+			{
+				UINT8 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
+
+				pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
+				ActionDone( pSoldier );
+			}
+			break;
+
         default:
 #ifdef BETAVERSION
             NumMessage("ExecuteAction - Illegal action type = ",pSoldier->aiData.bAction);
@@ -2365,6 +2374,10 @@ void ATTACKTYPE::InitAttackType(ATTACKTYPE *pAttack)//dnl ch69 140913
 
 void HandleInitialRedAlert( INT8 bTeam, UINT8 ubCommunicate)
 {
+	// Flugente radio operator: if the sector is jammed, no radio communication possible
+	if ( SectorJammed() )
+		return;
+
 	/*
 	if (ubCommunicate)
 	{

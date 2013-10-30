@@ -50,5 +50,12 @@ void ToggleHostileTrapsView();
 
 void SwitchMinesDrawModeForNetworks();
 
+// ----------------------------- trait range display after this ----------------------------------------
+// added by Flugente: display of ranges and areas of effects for traits
+void DisplayTraitRange(const BOOLEAN& forceUpdate = FALSE);
+
+void ToggleTraitRangeView(BOOLEAN fOn = TRUE);
+void SetTraitToDisplay( UINT32 aTrait );
+void SetGridNoForTraitDisplay( INT32 sGridNo );
 
 #endif

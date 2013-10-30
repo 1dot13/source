@@ -145,6 +145,9 @@ extern CHAR16 WeaponType[MAXITEMS][30];
 extern CHAR16 Message[][STRING_LENGTH];
 extern CHAR16 TeamTurnString[][STRING_LENGTH];
 extern STR16 pMilitiaControlMenuStrings[]; //lal
+extern STR16 pTraitSkillsMenuStrings[];		//Flugente
+extern STR16 pTraitSkillsMenuDescStrings[]; //Flugente
+extern STR16 pTraitSkillsDenialStrings[]; //Flugente
 //extern STR16 pTalkToAllMenuStrings[];
 extern STR16 pAssignMenuStrings[];
 extern STR16 pTrainingStrings[];
@@ -703,6 +706,21 @@ enum
 };
 
 extern STR16		szCovertTextStr[];
+
+enum
+{
+	STR_POWERPACK_BEGIN,
+	STR_POWERPACK_FULL,
+	STR_POWERPACK_GOOD,
+	STR_POWERPACK_HALF,
+	STR_POWERPACK_LOW,
+	STR_POWERPACK_EMPTY,
+	STR_POWERPACK_END,
+
+	TEXT_POWERPACK_STR
+};
+
+extern STR16 gPowerPackDesc[];
 
 enum
 {
@@ -2415,6 +2433,20 @@ extern STR16		szCareLevelText[];
 extern STR16		szRacistText[];
 extern STR16		szSexistText[];
 
+enum
+{
+	TEXT_SKILL_DENIAL_REQ,
+	TEXT_SKILL_DENIAL_X_AP,
+	TEXT_SKILL_DENIAL_X_TXT,
+	TEXT_SKILL_DENIAL_X_TXT_ORHIGHER,
+	TEXT_SKILL_DENIAL_X_TXT_ORHIGHER_OR,
+	TEXT_SKILL_DENIAL_X_MINUTES,
+	TEXT_SKILL_DENIAL_NOMORTAR,
+	TEXT_SKILL_DENIAL_ITSCOMPLICATED,
+	TEXT_SKILL_DENIAL_NODEMON,
+
+	TEXT_SKILL_DENIAL_MAX,
+};
 
 // Enumeration support
 typedef struct Str8EnumLookupType {

@@ -86,6 +86,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Demolitions",
 	L"Teaching",
 	L"Scouting",
+	L"Radio Operator",
 
 	L"None",
 	L"I.M.P. Minor Traits",
@@ -253,6 +254,16 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s CtH with covert melee weapons\n",
 	L"+%d%s chance of instakill with covert melee weapons\n",
 	L"Disguise AP cost lowered by %d%s.\n",
+};
+
+STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
+{
+	L"Can use communications equipment\n", 
+	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
+	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
+	L"Communications can be jammed sector-wide.\n",
+	L"If communications are jammed, a operator can scan for the jamming device.\n",
+	L"Can call in militia reinforcements from neighbouring sectors.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsNone[]=

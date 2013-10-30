@@ -494,6 +494,7 @@ typedef struct
 	UINT8		usWaterType;			// type of water source in this sector
 	UINT16		usNaturalDirt;			// extra dirt percentage when firing in this sector
 	UINT8		usCurfewValue;			// determines wether mercs disguising as civilian are automatically discovered (certain sectors are 'restricted' to civilians)
+	INT8		sRadioScanModifier;		// modifies the scan range of the radio scan assignment in this sector
 	UINT16		usPrisonRoomNumber[MAX_PRISON_ROOMS];		// room numbers of prisons
 
 } SECTOR_EXT_DATA;

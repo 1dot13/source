@@ -573,7 +573,7 @@ void UpdateAniTiles( )
 							//				if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
 							//					ubExpType == EXPLOSV_SMOKE )
 							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
-								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS )
+								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS || ubExpType == EXPLOSV_SIGNAL_SMOKE )
 							{
 								// Do sound....
 								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );

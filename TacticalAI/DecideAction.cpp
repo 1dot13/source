@@ -2609,6 +2609,43 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				return(AI_ACTION_NONE);
 			}
 		}
+
+		// Flugente: trait skills
+		// if we are a radio operator
+		if ( HAS_SKILL_TRAIT( pSoldier, RADIO_OPERATOR_NT ) > 0 && pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE) )
+		{
+			UINT32 tmp;
+			INT32 skilltargetgridno = 0;
+			
+			// call reinforcements if we haven't yet done so
+			if ( !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition && MoreFriendsThanEnemiesinNearbysectors(pSoldier->bTeam, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ) )
+			{
+				// if frequencies are jammed...
+				if ( SectorJammed() )
+				{
+					// if we are jamming, turn it off, otherwise, bad luck...
+					if ( pSoldier->IsJamming() )
+					{
+						pSoldier->usAISkillUse = SKILLS_RADIO_TURNOFF;
+						pSoldier->aiData.usActionData = skilltargetgridno;
+						return(AI_ACTION_USE_SKILL);
+					}
+				}
+				// frequencies are clear, lets call for help
+				else
+				{
+					// raise alarm!
+					return( AI_ACTION_RED_ALERT );
+				}
+			}
+			// if we can't call in artillery, jam frequencies, so that the palyer can't use radio skills
+			else if ( !pSoldier->IsJamming() && !pSoldier->CanAnyArtilleryStrikeBeOrdered(&tmp) )
+			{
+				pSoldier->usAISkillUse = SKILLS_RADIO_JAM;
+				pSoldier->aiData.usActionData = skilltargetgridno;
+				return(AI_ACTION_USE_SKILL);
+			}		
+		}
     }	
 		//RELOADING
 
@@ -3990,6 +4027,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	return(AI_ACTION_NONE);
 }
 
+// Flugente: dummies if we do not want to check for any conditions or taboos
+BOOLEAN SoldierCondTrue(SOLDIERTYPE *pSoldier)			{ return TRUE; }
+BOOLEAN SoldierCondFalse(SOLDIERTYPE *pSoldier)			{ return FALSE; }
+
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 {
 	INT32	iCoverPercentBetter, iOffense, iDefense, iChance;
@@ -4363,6 +4404,64 @@ INT16 ubMinAPCost;
 		}
 	}
 
+	// Flugente: trait skills
+	// if we are a radio operator
+	if ( HAS_SKILL_TRAIT( pSoldier, RADIO_OPERATOR_NT ) > 0 && pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE) )
+	{
+		// check: would it be possible to call in artillery from neighbouring sectors?
+		UINT32 tmp;
+		INT32 skilltargetgridno = 0;
+		// can we call in artillery?
+		if ( pSoldier->CanAnyArtilleryStrikeBeOrdered(&tmp) )
+		{
+			// if frequencies are jammed...
+			if ( SectorJammed() )
+			{
+				// if we are jamming, turn it off, otherwise, bad luck...
+				if ( pSoldier->IsJamming() )
+				{
+					pSoldier->usAISkillUse = SKILLS_RADIO_TURNOFF;
+					pSoldier->aiData.usActionData = skilltargetgridno;
+					return(AI_ACTION_USE_SKILL);
+				}
+			}
+			// frequencies are clear, order a strike
+			else if ( GetBestAoEGridNo(pSoldier, &skilltargetgridno, max(1, gSkillTraitValues.usVOMortarRadius - 2), 1, 2, SoldierCondTrue, SoldierCondFalse) )
+			{
+				pSoldier->usAISkillUse = SKILLS_RADIO_ARTILLERY;
+				pSoldier->aiData.usActionData = skilltargetgridno;
+				return(AI_ACTION_USE_SKILL);
+			}
+		}
+		// no access to artillery... we can still call reinforcements if we haven't yet done so
+		else if ( !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition && MoreFriendsThanEnemiesinNearbysectors(pSoldier->bTeam, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ) )
+		{
+			// if frequencies are jammed...
+			if ( SectorJammed() )
+			{
+				// if we are jamming, turn it off, otherwise, bad luck...
+				if ( pSoldier->IsJamming() )
+				{
+					pSoldier->usAISkillUse = SKILLS_RADIO_TURNOFF;
+					pSoldier->aiData.usActionData = skilltargetgridno;
+					return(AI_ACTION_USE_SKILL);
+				}
+			}
+			// frequencies are clear, lets call for help
+			else
+			{
+				// raise alarm!
+				return( AI_ACTION_RED_ALERT );
+			}
+		}
+		// if we can't call in artillery or reinforcements, then nobody else from our team can. So we better jam communications, so that the player cannot use these skills either
+		else if ( !pSoldier->IsJamming() )
+		{
+			pSoldier->usAISkillUse = SKILLS_RADIO_JAM;
+			pSoldier->aiData.usActionData = skilltargetgridno;
+			return(AI_ACTION_USE_SKILL);
+		}		
+	}
 
 	BestShot.ubPossible  = FALSE;	// by default, assume Shooting isn't possible
 	BestThrow.ubPossible = FALSE;	// by default, assume Throwing isn't possible

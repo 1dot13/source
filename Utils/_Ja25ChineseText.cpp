@@ -88,6 +88,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"爆破",// L"Demolitions",
 	L"教学",// L"Teaching",
 	L"侦察",// L"Scouting",
+	L"Radio Operator",
 
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
@@ -255,6 +256,17 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"伪装状态下使用近战武器攻击时，秒杀几率增加 +%d%s\n",//L"+%d%s chance of instakill with covert melee weapons\n",
 	L"伪装动作消耗的AP降低 %d%s\n",//L"Disguise AP cost lowered by %d%s.\n",
 };
+
+STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
+{
+	L"Can use communications equipment\n", 
+	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
+	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
+	L"Communications can be jammed sector-wide.\n",
+	L"If communications are jammed, a operator can scan for the jamming device.\n",
+	L"Can call in militia reinforcements from neighbouring sectors.\n",
+};
+
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"无奖励",// L"No bonuses",

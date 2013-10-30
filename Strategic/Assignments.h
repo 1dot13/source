@@ -56,6 +56,7 @@ enum
 	VEHICLE,
 	IN_TRANSIT,
 	REPAIR,
+	RADIO_SCAN,						// added by Flugente
 	TRAIN_SELF,
 	TRAIN_TOWN,
 	TRAIN_MOBILE,					// HEADROCK HAM 3.6: Training mobile militia.

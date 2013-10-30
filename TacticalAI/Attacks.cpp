@@ -24,6 +24,9 @@
 #include "message.h"
 #include "Vehicles.h"
 #include "Soldier Functions.h"//dnl ch69 140913
+#include "Reinforcement.h"		// added by Flugente
+#include "Town Militia.h"		// added by Flugente
+#include "Queen Command.h"		// added by Flugente
 #endif
 
 extern INT16 DirIncrementer[8];
@@ -3190,4 +3193,285 @@ UINT8 UnderFire::Chance(INT8 bTeam)
 			cth = ubUnderFireCTH[i];
 	}
 	return(cth);
+}
+
+// Flugente AI functions
+// determine a gridno that would allow us to hit as many enemies as possible given an effect with radius aRadius tiles
+// return true if sufficent gridno is found
+// pGridNo will be the GridNo
+// aRadius is the area effect radius to use
+// uCheckFriends: 0 - do not consider friends at all 1 - consider with negative weight else: ignore any location that might also hit friends
+// sucess only if at a rating of at least aMinRating can be achieved
+// any enemy soldiers not fulfilling cond will be excluded from this calculation
+// if an enemy soldier fulfils taboo, make sure to not hit him at all!
+BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, UINT8 uCheckFriends, UINT8 aMinRating, SOLDIER_CONDITION cond, SOLDIER_CONDITION taboo)
+{
+	UINT8 ubLoop, ubLoop2;
+	INT32 sGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS], sTabooTile[MAXMERCS];
+	UINT8 ubFriendCnt = 0,ubOpponentCnt = 0, ubTabooCnt = 0, ubOpponentID[MAXMERCS];
+	INT32	bMaxLeft,bMaxRight,bMaxUp,bMaxDown, i, j;
+	INT8	bPersOL, bPublOL;
+	SOLDIERTYPE *pFriend;
+	static INT16	sExcludeTile[100]; // This array is for storing tiles that we have
+	UINT8 ubNumExcludedTiles = 0;		// already considered, to prevent duplication of effort
+
+	INT32 lowestX  = 999999;
+	INT32 highestX = 0;
+	INT32 lowestY  = 999999;
+	INT32 highestY = 0;
+	
+	// make lists of enemies and friends
+	for (ubLoop = 0; ubLoop < guiNumMercSlots; ++ubLoop)
+	{
+		pFriend = MercSlots[ubLoop];
+
+		if ( !pFriend || !pFriend->bActive || !pFriend->bInSector )
+			continue;
+
+		if (pFriend->stats.bLife == 0)
+			continue;
+
+		// dying or captured friends are 'helpless' anyway, we are willing to sacrifice them :-)
+		if ( uCheckFriends && pSoldier->bSide == pFriend->bSide && pFriend->stats.bLife > OKLIFE && !(pFriend->bSoldierFlagMask & SOLDIER_POW) )
+		{
+			// active friend, remember where he is so that we DON'T blow him up!
+			// this includes US, since we don't want to blow OURSELVES up either
+			sFriendTile[ubFriendCnt] = pFriend->sGridNo;
+			ubFriendCnt++;
+		}
+		else
+		{
+			// if an enemy fulfills taboo, we will remember his tile and be careful not to ever hit it!
+			if ( taboo(pFriend) )
+			{
+				sTabooTile[ubTabooCnt] = pFriend->sGridNo;
+				++ubTabooCnt;
+				continue;
+			}
+
+			// Special stuff for Carmen the bounty hunter
+			if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pFriend->ubProfile != 64)
+				continue;
+
+			// check wether this guy fulfills the target condition
+			if ( !cond(pFriend) )
+				continue;
+			
+			bPersOL = pSoldier->aiData.bOppList[pFriend->ubID];
+			bPublOL = gbPublicOpplist[pSoldier->bTeam][pFriend->ubID];
+
+			if ( bPersOL == SEEN_CURRENTLY || bPublOL == SEEN_CURRENTLY )
+			{
+				// active KNOWN opponent, remember where he is so that we DO blow him up!
+				sOpponentTile[ubOpponentCnt] = pFriend->sGridNo;
+			}
+			else if ( bPersOL == SEEN_LAST_TURN || bPersOL == HEARD_LAST_TURN )
+			{
+				// cheat; only allow throw if person is REALLY within 2 tiles of where last seen
+				if ( SpacesAway( pFriend->sGridNo, gsLastKnownOppLoc[ pSoldier->ubID ][ pFriend->ubID ] ) < 3 )
+				{
+					sOpponentTile[ubOpponentCnt] = gsLastKnownOppLoc[ pSoldier->ubID ][ pFriend->ubID ];
+				}
+			}			
+			else
+			{
+				continue;
+			}
+
+			// also remember who he is (which soldier #)
+			ubOpponentID[ubOpponentCnt] = pFriend->ubID;
+
+			// update lowest and highest x and y values
+			lowestX  = min(lowestX,  sOpponentTile[ubOpponentCnt] % MAXCOL );
+			highestX = max(highestX, sOpponentTile[ubOpponentCnt] % MAXCOL );
+			lowestY  = min(lowestY,  sOpponentTile[ubOpponentCnt] / MAXCOL );
+			highestY = max(highestY, sOpponentTile[ubOpponentCnt] / MAXCOL );
+
+			ubOpponentCnt++;
+		}
+	}
+
+	// no/not enough enemies found -> no area effect location advisable
+	if ( !ubOpponentCnt || ubOpponentCnt < aMinRating )
+		return FALSE;
+
+	BOOLEAN fGridNoFound = FALSE;
+	INT32 bestGridNo = -1;
+	INT8 bestGridNoCnt = aMinRating;
+
+	INT32 currentSoldierGridNo = -1;	
+
+	INT8 enemiesnear = 0;
+	INT8 friendsnear = 0;
+		
+	// look at the squares near each known opponent and try to find the one
+	// place where a tossed projectile would do the most harm to the opponents
+	// while avoiding one's friends
+	for (ubLoop = 0; ubLoop < ubOpponentCnt; ++ubLoop)
+	{
+		currentSoldierGridNo = sOpponentTile[ubLoop];
+
+		// determine maximum horizontal limits
+		bMaxLeft  = max(currentSoldierGridNo % MAXCOL - aRadius, lowestX);
+		bMaxRight = min(currentSoldierGridNo % MAXCOL + aRadius, highestX);
+
+		// determine maximum vertical limits
+		bMaxDown  = max(currentSoldierGridNo / MAXCOL - aRadius, lowestY);
+		bMaxUp	  = min(currentSoldierGridNo / MAXCOL + aRadius, highestY);
+
+		// evaluate every tile for its opponent-damaging potential
+		for (i = bMaxLeft; i <= bMaxRight; ++i)
+		{
+			for (j = bMaxDown; j <= bMaxUp; ++j)
+			{
+				// calculate the next potential gridno near this opponent
+				sGridNo = i + (MAXCOL * j);
+
+				// this shouldn't ever happen
+				if ((sGridNo < 0) || (sGridNo >= GRIDSIZE))
+					continue;
+
+				if ( PythSpacesAway( currentSoldierGridNo, sGridNo ) > aRadius )
+					continue;
+
+				// if this tile is taboo, don't even think about targetting it!
+				for (ubLoop2 = 0; ubLoop2 < ubTabooCnt; ++ubLoop2)
+				{
+					if (sTabooTile[ubLoop2] == sGridNo)
+						continue;
+				}
+								
+				// Check to see if we have considered this tile before:
+				for (ubLoop2 = 0; ubLoop2 < ubNumExcludedTiles; ++ubLoop2)
+				{
+					if (sExcludeTile[ubLoop2] == sGridNo)
+						continue;
+				}
+
+				// add this tile to the list of alreay checked tiles
+				if ( ubNumExcludedTiles < 100 )
+				{
+					sExcludeTile[ubNumExcludedTiles] = sGridNo;
+					++ubNumExcludedTiles;
+				}
+				
+				// loop over all enemies and friends to determine how many are in range
+				enemiesnear = 0;
+				friendsnear = 0;
+
+				// check whether there are any friends near this gridno
+				for (ubLoop2 = 0; ubLoop2 < ubFriendCnt; ++ubLoop2)
+				{
+					if ( PythSpacesAway(sFriendTile[ubLoop2], sGridNo) <= aRadius )
+						++friendsnear;
+				}
+
+				// ignore this location if friends are found and we want to absolutely ignore friendly fire
+				if ( friendsnear && uCheckFriends > 1 )
+					continue;
+
+				// check whether there are any enemies near this gridno
+				for (ubLoop2 = 0; ubLoop2 < ubOpponentCnt; ++ubLoop2)
+				{
+					if ( PythSpacesAway(sOpponentTile[ubLoop2], sGridNo) <= aRadius )
+					{
+						++enemiesnear;
+					}
+				}
+
+				if ( enemiesnear - friendsnear >= bestGridNoCnt )
+				{
+					bestGridNoCnt = enemiesnear - friendsnear;
+
+					bestGridNo = sGridNo;
+					fGridNoFound = TRUE;
+				}		
+			}
+		}
+	}
+
+	*pGridNo = bestGridNo;
+
+	return fGridNoFound;
+}
+
+// Get the ID of the farthest opponent  we can see, with an optional minimum range
+// puID - ID of the farthest opponent pSoldier can see
+// sRange - only return an true and give an idea if opponent found is further away than this
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT8* puID, INT16 sRange)
+{
+	INT32 sGridNo;
+	UINT32 uiLoop;
+	INT32 iRange = 0;;
+	INT8	*pbPersOL;
+	SOLDIERTYPE * pOpp;
+	BOOLEAN found = FALSE;
+	
+	*puID = NOBODY;
+
+	// look through this man's personal & public opplists for opponents known
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	{
+		pOpp = MercSlots[ uiLoop ];
+
+		// if this merc is inactive, at base, on assignment, or dead
+		if (!pOpp)
+		{
+			continue;			// next merc
+		}
+
+		// if this merc is neutral/on same side, he's not an opponent
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpp ) || (pSoldier->bSide == pOpp->bSide))
+		{
+			continue;			// next merc
+		}
+
+		// Special stuff for Carmen the bounty hunter
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
+		{
+			continue;	// next opponent
+		}
+
+		pbPersOL = pSoldier->aiData.bOppList + pOpp->ubID;
+
+		// if this opponent is not seen personally
+		if (*pbPersOL != SEEN_CURRENTLY)
+		{
+			continue;			// next merc
+		}
+
+		// since we're dealing with seen people, use exact gridnos
+		sGridNo = pOpp->sGridNo;
+
+		// if we are standing at that gridno(!, obviously our info is old...)
+		if (sGridNo == pSoldier->sGridNo)
+		{
+			continue;			// next merc
+		}
+
+		// I hope this will be good enough; otherwise we need a fractional/world-units-based 2D distance function
+		//sRange = PythSpacesAway( pSoldier->sGridNo, sGridNo);
+		iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+
+		if (iRange > sRange)
+		{
+			sRange = iRange;
+			*puID = uiLoop;
+			found = TRUE;
+		}
+	}
+
+	return( found );
+}
+
+// are there more allies than friends in adjacent sectors?
+BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY, INT8 aZ)
+{
+	UINT16 enemyteam = NumEnemiesInFiveSectors(aX, aY) - NumEnemiesInAnySector(aX, aY, aZ);
+	UINT16 militiateam = CountAllMilitiaInFiveSectors(aX, aY) - CountAllMilitiaInSector(aX, aY);
+
+	if ( ausTeam == ENEMY_TEAM )
+		return (enemyteam > militiateam);
+
+	return (militiateam > enemyteam);
 }

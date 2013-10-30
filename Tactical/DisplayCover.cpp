@@ -67,6 +67,15 @@ enum MINES_VALUES
 	MAX_MINES
 };
 
+// Flugente: trait display
+enum TRAIT_VALUES
+{
+	TRAIT_ALL = MAX_MINES + 1,
+	TRAIT_1,
+	TRAIT_2,
+	MAX_TRAIT
+};
+
 
 struct CoverCell
 {
@@ -75,8 +84,9 @@ struct CoverCell
 	BOOLEAN fInverseColor;
 
 	INT8	bMines;
+	INT8	bTrait;
 
-	CoverCell() : sGridNo(NOWHERE), bCover(INVALID_COVER), fInverseColor(FALSE), bMines(MINES_ALL) {}
+	CoverCell() : sGridNo(NOWHERE), bCover(INVALID_COVER), fInverseColor(FALSE), bMines(MINES_ALL), bTrait(TRAIT_ALL) {}
 
 };
 
@@ -111,6 +121,13 @@ enum MINES_DRAW_MODE {
 	MINES_DRAW_MAX
 };
 
+// Flugente: trait draw mode
+enum TRAIT_DRAW_MODE {
+	TRAIT_DRAW_OFF,
+	TRAIT_DRAW_RANGE,
+	TRAIT_DRAW_MAX
+};
+
 
 //******	Local Variables	*********************************************
 
@@ -123,6 +140,8 @@ DWORD guiCoverNextUpdateTime = 0;
 COVER_DRAW_MODE gubDrawMode = COVER_DRAW_OFF;
 
 MINES_DRAW_MODE gubDrawModeMine = MINES_DRAW_OFF;	// Flugente: mines display
+
+TRAIT_DRAW_MODE gubDrawModeTrait = TRAIT_DRAW_OFF;	// Flugente: mines display
 
 
 //*******	Local Function Prototypes ***********************************
@@ -138,7 +157,7 @@ void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
 
 void	RemoveMinesObjectsFromViewArea();	// added by Flugente, has to be declared here
-
+void	RemoveTraitObjectsFromViewArea();
 
 void	CalculateCover();
 void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
@@ -746,11 +765,6 @@ void ToggleHostileTrapsView()
 void ToggleTrapNetworkView()
 {
 	SwitchMinesDrawModeForNetworks();
-	/*if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) {
-		SwitchMineViewOff();
-	} else {
-		SwitchToTrapNetworkView();
-	}*/
 }
 
 void SwitchMinesDrawModeForNetworks()
@@ -797,19 +811,6 @@ void SwitchMinesDrawModeForNetworks()
 			DisplayMines(TRUE);
 			break;
 	}
-
-	/*switch(gubDrawModeMine)
-	{
-	case MINES_DRAW_OFF:
-		SwitchToTrapNetworkView();
-		break;
-	case MINES_DRAW_PLAYERTEAM_NETWORKS:
-		SwitchToHostileTrapsView();
-		break;
-	default:
-		SwitchMineViewOff();
-		break;
-	}*/
 }
 ///END key binding functions
 
@@ -1254,3 +1255,270 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 	}
 }
 
+// ----------------------------- trait range display after this ----------------------------------------
+// added by Flugente
+
+//*******	Local Function Prototypes ***********************************
+
+TileDefines GetTileTraitIndex( const INT8& bTrait );
+
+void	AddTraitObjectsToViewArea();
+
+void	CalculateTraitRange();
+
+BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ );
+
+UINT32 usDisplayTrait = NO_SKILLTRAIT_NT;
+INT32	sTraitgridNo = NOWHERE;
+
+///BEGIN key binding functions
+void ToggleTraitRangeView(BOOLEAN fOn)
+{
+	if ( fOn )
+	{
+		gubDrawModeTrait = TRAIT_DRAW_RANGE;
+		gubDrawMode		 = COVER_DRAW_OFF;
+		gubDrawModeMine  = MINES_DRAW_OFF;
+	}
+	else
+	{
+		gubDrawModeTrait = TRAIT_DRAW_OFF;
+		SetTraitToDisplay( NO_SKILLTRAIT_NT );
+		SetGridNoForTraitDisplay( NOWHERE );
+	}
+
+	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trait ranges");
+	DisplayTraitRange(TRUE);
+}
+
+void SetTraitToDisplay( UINT32 aTrait )
+{
+	usDisplayTrait = aTrait;
+}
+
+void SetGridNoForTraitDisplay( INT32 sGridNo )
+{
+	sTraitgridNo = sGridNo;
+}
+
+void DisplayTraitRange( const BOOLEAN& forceUpdate )
+{
+	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == -1 )
+	{
+		return;
+	}
+
+	if ( forceUpdate || ( !gfScrollPending && !gfScrollInertia && GetTickCount() > guiMinesNextUpdateTime ) )
+	{
+		CalculateTraitRange();
+		guiMinesNextUpdateTime = GetTickCount() + gGameExternalOptions.ubCoverDisplayUpdateWait;
+	}
+}
+
+void CalculateTraitRange()
+{
+	INT32 ubX, ubY, ubZ;
+	SOLDIERTYPE* pSoldier;
+
+	RemoveTraitObjectsFromViewArea();
+
+	if ( gubDrawModeTrait == TRAIT_DRAW_OFF )
+		return;
+	
+	if( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) )
+		return;
+
+	UINT16 range1 = 0;
+	UINT16 range2 = 0;
+	switch ( usDisplayTrait )
+	{
+	case RADIO_OPERATOR_NT:
+		{
+			// we 'mark' the map position with which we called the menu, so that the player sees where he is targetting
+
+		}
+		break;
+
+	default:
+		return;
+	}
+
+	//remove other displays
+	if( gubDrawModeMine != MINES_DRAW_OFF )
+		RemoveMinesObjectsFromViewArea();
+		
+	if ( gubDrawMode != COVER_DRAW_OFF )
+		RemoveCoverObjectsFromViewArea();
+			
+	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	
+	INT16 usTmp;
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMineMinCellX, &usTmp );
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMineMaxCellX, &usTmp );
+
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMineMinCellY );
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMineMaxCellY );
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+
+				GetGridNoForViewPort( ubX, ubY, sGridNo );
+
+				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
+				{
+					continue;
+				}
+
+				if ( !NewOKDestination( pSoldier, sGridNo, false, (INT8) ubZ ) )
+				{
+					continue;
+				}
+
+				// do not show stuff on roofs if ground is shown
+				if ( ubZ == I_ROOF_LEVEL && !IsTheRoofVisible( sGridNo ) )
+				{
+					continue;
+				}
+
+				// do not show stuff on ground if roof is shown
+				if ( ubZ == I_GROUND_LEVEL && IsTheRoofVisible( sGridNo ) )
+				{
+					continue;
+				}
+				
+				if ( range1 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range1 )
+					gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait = TRAIT_1;
+				else if ( range2 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range2 )
+					gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait = TRAIT_2;
+				// mark the gridno we are targetting
+				else if ( PythSpacesAway(sTraitgridNo, sGridNo) == 1 )
+					gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait = TRAIT_1;
+				else
+					gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait = MAX_TRAIT;
+			}
+		}
+	}
+
+	AddTraitObjectsToViewArea();
+}
+
+void AddTraitObjectsToViewArea()
+{
+	if (gsMineMaxCellY == -1)
+	{
+		return;
+	}
+	INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT8& bTrait = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait;
+
+				if ( bTrait != -1 && ( bTrait == TRAIT_1 || bTrait == TRAIT_2 ) )
+				{
+					TileDefines tile = GetTileTraitIndex( bTrait );
+					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN) ubZ );
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}
+
+TileDefines GetTileTraitIndex( const INT8& bTrait )
+{
+	switch(bTrait) 
+	{
+		case TRAIT_1:
+			return SPECIALTILE_COVER_5; // green
+		case TRAIT_2:
+			return SPECIALTILE_COVER_2; // orange
+		case TRAIT_ALL:
+			return SPECIALTILE_COVER_3; // yellow
+		case MAX_TRAIT:
+		default:
+			return SPECIALTILE_COVER_1; // red
+	}
+}
+
+BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+{
+	INT32 ubTX, ubTY;
+
+	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
+	{
+		if ( ubTX < 0 || ubTX > WORLD_COLS )
+		{
+			continue;
+		}
+
+		for ( ubTY = ubY-1; ubTY <= ubY+1; ++ubTY )
+		{
+			if ( ubTY < 0 || ubTY > WORLD_ROWS )
+			{
+				continue;
+			}
+
+			INT8& bTrait = gCoverViewArea[ ubTX ][ ubTY ][ ubZ ].bTrait;
+
+			if ( bTrait == TRAIT_1 || bTrait == TRAIT_2 )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+void RemoveTraitObjectsFromViewArea()
+{
+	if (gsMineMaxCellY == -1)
+	{
+		return;
+	}
+	INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT8& bTrait = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bTrait;
+
+				if ( bTrait != -1 || TraitTileHasAdjTile( ubX, ubY, ubZ ))
+				{
+					TileDefines tile = GetTileTraitIndex( bTrait );
+					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
+					bTrait = -1;
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}

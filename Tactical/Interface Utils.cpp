@@ -508,6 +508,13 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 		{
 			sValue = 100;
 		}
+		else if ( HasItemFlag(pObject->usItem, POWER_PACK) )
+		{
+			if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+			{
+				sValue = (INT16) ( 100 *  (*pObject)[0]->data.bTemperature / (FLOAT)OVERHEATING_MAX_TEMPERATURE );
+			}
+		}
 		else
 		{
 			sValue = (INT16) (100 * GetGunOverheatJamPercentage( pObject) );

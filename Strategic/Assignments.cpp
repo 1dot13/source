@@ -64,6 +64,7 @@
 	#include "Morale.h"
 	#include "Food.h"
 	#include "Tactical Save.h"		// added by Flugente
+	#include "Campaign Types.h"		// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -90,6 +91,9 @@ class SOLDIERTYPE;
 #include "mercs.h"
 #include "ub_config.h"
 #endif
+
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -426,6 +430,12 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
 // Flugente: assigned mercs can move equipemnt in city sectors
 void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
+// Flugente: handle radio scanning assignments
+void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
+// reset scan flags in all sectors
+void ClearSectorScanResults();
 
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
@@ -2249,6 +2259,9 @@ void UpdateAssignments()
 	// HEADROCK HAM 3.6: See what effect, if any, our Facility Staffers have on global variables.
 	UpdateGlobalVariablesFromFacilities();
 
+	// reset scan flags in all sectors
+	ClearSectorScanResults();
+
 	// run through sectors and handle each type in sector
 	for(sX = 0 ; sX < MAP_WORLD_X; sX++ )
 	{
@@ -2271,6 +2284,9 @@ void UpdateAssignments()
 
 					// handle any training
 					HandleTrainingInSector( sX, sY, bZ );
+
+					// handle training of character in sector
+					HandleRadioScanInSector( sX, sY, bZ );
 
 					// handle processing of prisoners
 					HandlePrisonerProcessingInSector( sX, sY, bZ );
@@ -4871,6 +4887,152 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 }
 
+
+// handle radio scanning assignments
+void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt=0;
+	UINT8 numberofradiooperators = 0;
+
+	// no underground scanning
+	if (bZ != 0)
+		return;
+
+	// if sector not under our control, has enemies in it, or is currently in combat mode
+	if (!SectorOursAndPeaceful( sMapX, sMapY, bZ ))
+		return;
+
+	// we will count the number of radio operators in this sector that have scanned successfully this hour. The higher this number, the higher the chance to detect enemy patrols!
+	// search team for radio operators in this sector that performed this assignemnt successfully
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ MercPtrs[0]->bTeam ].bLastID; uiCnt++, pSoldier++)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
+		{
+			if( ( pSoldier->bAssignment == RADIO_SCAN ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			{
+				++numberofradiooperators;
+
+				// use up radio energy
+				pSoldier->DepleteActiveRadioSetEnergy(FALSE, TRUE);
+			}
+		}
+	}
+
+	if ( !numberofradiooperators )
+		return;
+	
+	INT8 range = gSkillTraitValues.sVOScanAssignmentBaseRange;
+
+	UINT8 ubSectorId = SECTOR(sMapX, sMapY);
+	if ( ubSectorId >= 0 && ubSectorId < 256  )
+		range += SectorExternalData[ubSectorId][0].sRadioScanModifier;
+
+	if ( range < 1 )
+		return;
+
+	UINT8 normalgroupsize = 0;
+	switch( gGameOptions.ubDifficultyLevel )
+	{
+		case DIF_LEVEL_EASY:
+			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeNovice;
+			break;
+		case DIF_LEVEL_MEDIUM:
+			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeExperienced;
+			break;
+		case DIF_LEVEL_HARD:
+			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeExpert;
+			break;
+		case DIF_LEVEL_INSANE:
+			default:
+			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeInsane;
+			break;
+	}
+
+	normalgroupsize *= 2;
+
+	FLOAT detect_basechance = 1.0f - pow(0.5f, numberofradiooperators);
+	FLOAT detect_rangefactor = .0f;
+	FLOAT detect_sizefactor = .0f;
+	FLOAT detect_chance = .0f;
+	FLOAT scandirectionmalus = .2f;
+	FLOAT scanexactnumbermalus = .3f;
+	UINT8 patrolsize = 0;
+		
+	// run through sectors and handle each type in sector
+	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			// is this sector within range?
+			FLOAT euklid_dist = (sX - sMapX)*(sX - sMapX) + (sY - sMapY)*(sY - sMapY);
+			detect_rangefactor = euklid_dist / (range*range);
+			//detect_rangefactor *= detect_rangefactor;
+
+			if ( detect_rangefactor > 1.0f )
+				continue;
+
+			detect_rangefactor = 1.01f - detect_rangefactor;
+
+			patrolsize = NumEnemiesInSector( sX, sY );
+
+			// no or single enemies -> skip this
+			if ( patrolsize < 2 )
+				continue;
+
+			detect_sizefactor = sqrt((FLOAT)(patrolsize) / (FLOAT)(normalgroupsize));
+
+			detect_chance = detect_basechance * detect_rangefactor * detect_sizefactor;
+
+			UINT32 scanresult = Random(100);
+			if ( scanresult < 100 * detect_chance )
+			{
+				// enemy patrol detected
+				SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
+
+				if ( scanresult < 100 * (detect_chance - scanexactnumbermalus) )
+				{
+					// our scan was very good, we even got the exact enemy numbers
+					SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
+				}
+
+				// we roll again to decide wether we know the direction this patrol is moving in
+				scanresult = Random(100);
+
+				if ( scanresult < 100 * (detect_chance - scandirectionmalus) )
+				{
+					// we were succesful in deducting the direction they are moving in
+					SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+				}
+			}
+		}
+	}
+
+	// award experience to all radio operators
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ MercPtrs[0]->bTeam ].bLastID; uiCnt++, pSoldier++)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
+		{
+			if( ( pSoldier->bAssignment == RADIO_SCAN ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			{
+				StatChange( pSoldier, WISDOMAMT, 5, TRUE );
+				StatChange( pSoldier, EXPERAMT, 3, TRUE );
+			}
+		}
+	}
+}
+
+// reset scan flags in all sectors
+void ClearSectorScanResults()
+{
+	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			SectorInfo[ SECTOR( sX, sY ) ].uiFlags &= ~(SF_ASSIGN_NOTICED_ENEMIES_HERE|SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
+		}
+	}
+}
 
 int TownTrainerQsortCompare(const void *pArg1, const void *pArg2)
 {
@@ -7799,6 +7961,17 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				}
 			}
 
+			// radio scan
+			if( pSoldier->CanUseRadio() )
+			{
+				// unshade line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_RADIO_SCAN );
+			}
+			else
+			{
+				// shade line
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_RADIO_SCAN );
+			}
 
 			// patient
 			if( CanCharacterPatient( pSoldier ) )
@@ -10267,7 +10440,42 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
 					}
-				break;
+					break;
+				case( ASSIGN_MENU_RADIO_SCAN ):
+					if( pSoldier->CanUseRadio() )
+					{
+						// stop showing menu
+						fShowAssignmentMenu = FALSE;
+						giAssignHighLine = -1;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if( ( pSoldier->bAssignment != RADIO_SCAN ) )
+						{
+							SetTimeOfAssignmentChangeForMerc( pSoldier );
+						}
+
+						// remove from squad
+						if( pSoldier->bOldAssignment == VEHICLE )
+						{
+							TakeSoldierOutOfVehicle( pSoldier );
+						}
+						RemoveCharacterFromSquads(	pSoldier );
+
+						ChangeSoldiersAssignment( pSoldier, RADIO_SCAN );
+
+						AssignMercToAMovementGroup( pSoldier );
+
+						MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						// set assignment for group
+						SetAssignmentForList( ( INT8 ) RADIO_SCAN, 0 );
+					}
+					break;
 				case( ASSIGN_MENU_TRAIN ):
 					if( CanCharacterPractise( pSoldier ) )
 					{
@@ -12498,6 +12706,30 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 			}
 			break;
 
+		case( RADIO_SCAN ):
+			if( pSoldier->CanUseRadio() )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != RADIO_SCAN )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, RADIO_SCAN );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
+
 		case( FACILITY_INTERROGATE_PRISONERS ):
 			if( pSoldier->CanProcessPrisoners() )
 			{
@@ -13598,6 +13830,10 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = !CanCharacterRepair( pSoldier ) || HasCharacterFinishedRepairing( pSoldier );
 					break;
 
+				case RADIO_SCAN:
+					fNothingToDo = !pSoldier->CanUseRadio();
+					break;
+
 				case FACILITY_INTERROGATE_PRISONERS:
 					fNothingToDo = !pSoldier->CanProcessPrisoners();
 					break;
@@ -13776,6 +14012,14 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 							SetSoldierAssignment( pSoldier, REPAIR, pSelectedSoldier->flags.fFixingSAMSite, pSelectedSoldier->flags.fFixingRobot, pSelectedSoldier->bVehicleUnderRepairID );
 							fItWorked = TRUE;
 						}
+					}
+					break;
+				case ( RADIO_SCAN ):
+					if ( pSoldier->CanUseRadio() )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, RADIO_SCAN, bParam, 0,0 );
+						fItWorked = TRUE;
 					}
 					break;
 				case( TRAIN_SELF ):

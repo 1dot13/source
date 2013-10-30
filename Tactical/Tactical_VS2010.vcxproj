@@ -83,6 +83,7 @@
     <ClInclude Include="ShopKeeper Interface.h" />
     <ClInclude Include="ShopKeeper Quotes.h" />
     <ClInclude Include="SkillCheck.h" />
+    <ClInclude Include="SkillMenu.h" />
     <ClInclude Include="Soldier Add.h" />
     <ClInclude Include="Soldier Ani.h" />
     <ClInclude Include="Soldier Control.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Rotting Corpses.cpp" />
     <ClCompile Include="ShopKeeper Interface.cpp" />
     <ClCompile Include="SkillCheck.cpp" />
+    <ClCompile Include="SkillMenu.cpp" />
     <ClCompile Include="Soldier Add.cpp" />
     <ClCompile Include="Soldier Ani.cpp" />
     <ClCompile Include="Soldier Control.cpp" />

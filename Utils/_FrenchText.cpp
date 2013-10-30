@@ -1650,6 +1650,7 @@ STR16 pAssignmentStrings[] =
 	L"Transport", // in a vehicle
 	L"Transit", // in transit - abbreviated form
 	L"Réparation", // repairing
+	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
 	L"Formation", // training themselves  
 	L"Milice", // training a town to revolt
 	L"Milice M.", //training moving militia units	
@@ -1737,6 +1738,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Transport",
 	L"Transit",
 	L"Réparation",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Formation", 
 	L"Milice",
 	L"Forme la milice mobile",//!!! Too long ? -> It is OK
@@ -1785,6 +1787,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Transport",
 	L"Transit",
 	L"Réparation",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Formation", 
 	L"Milice",
 	L"Milice mobile",
@@ -1914,6 +1917,7 @@ STR16 pAssignMenuStrings[] =
 	L"Patient(e)", // the merc is receiving medical attention
 	L"Transport", // the merc is in a vehicle
 	L"Réparation", // the merc is repairing items 
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Formation", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
 	L"Construction", // the merc is using/staffing a facility
@@ -1940,6 +1944,43 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Tous : À couvert!",
 	//L"All: Trouver materiel",
 	L"Annuler", // cancel this menu
+};
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
 };
 
 //STR16 pTalkToAllMenuStrings[] =
@@ -2154,7 +2195,10 @@ STR16 gzMercSkillTextNew[] =
 	L"Instructeur",
 	L"Reconnaissance",
 	// covert ops is a major trait that was added later
-	L"Espionnage",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
+	L"Espionnage",		// 20	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
+
+	// new minor traits
+	L"Radio Operator",	// 21
 	// second names for major skills
 	L"Mitrailleur",
 	L"Bombardier",
@@ -2166,17 +2210,18 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingénieur",
 	L"Chirurgien",
 	// placeholders for minor traits
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"Espion",				// 30
+	L"Placeholder",		// 40
+	L"Espion",			// 41
+	L"Placeholder",		// for radio operator (minor trait)
 	L"Plus...",
 };
 //////////////////////////////////////////////////////////
@@ -6356,6 +6401,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Reconnaissance : Rien n'échappe à votre vigilance ! ± ",
 	// Covert ops
 	L"Déguisement : Vous ferez passer 007 pour un amateur ! ± ",		// TODO.Translate
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7843,6 +7890,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 #endif //FRENCH

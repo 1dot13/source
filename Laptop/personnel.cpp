@@ -8084,7 +8084,27 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[6], apreduction, L"%");
 				wcscat( apStr, atStr );
 				break;
-			}			
+			}
+
+			// Flugente: Radio Operator
+			case RADIO_OPERATOR_NT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[0]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[1]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[2]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[3]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[4]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[5]);
+				wcscat( apStr, atStr );
+				break;
+			}
+
 			case NO_SKILLTRAIT_NT:
 			{
 				swprintf( apStr, L"" );

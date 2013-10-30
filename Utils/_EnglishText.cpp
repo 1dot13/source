@@ -1646,6 +1646,7 @@ STR16 pAssignmentStrings[] =
 	L"Vehicle", // in a vehicle
 	L"In Trans", // in transit - abbreviated form
 	L"Repair", // repairing
+	L"Radio Scan",	// scanning for nearby patrols
 	L"Practice", // training themselves  
 	L"Militia", // training a town to revolt 
 	L"M.Militia", //training moving militia units
@@ -1655,7 +1656,7 @@ STR16 pAssignmentStrings[] =
 	L"Staff", // operating a strategic facility
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Rest", // Resting at a facility
-	L"Prison",		// Flugente: interrogate prisoners
+	L"Prison",		// interrogate prisoners
 	L"Dead", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"POW", // Prisoner of war - captured
@@ -1734,6 +1735,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Vehicle",
 	L"In Transit",
 	L"Repair",
+	L"Radio Scan",
 	L"Practice", 
 	L"Training Militia",
 	L"Training Mobile Militia",	// Missing
@@ -1782,6 +1784,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Vehicle",
 	L"In Transit",
 	L"Repair",
+	L"Radio Scan",
 	L"Practice", 
 	L"Train Militia",
 	L"Train Mobiles",	// Missing
@@ -1911,6 +1914,7 @@ STR16 pAssignMenuStrings[] =
 	L"Patient", // the merc is receiving medical attention
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Train", // the merc is training
 	L"Move Item",	// move items
 	L"Facility", // the merc is using/staffing a facility
@@ -1937,6 +1941,43 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"All: Take cover",
 	//L"All: Find items",
 	L"Cancel", // cancel this menu
+};
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
 };
 
 //STR16 pTalkToAllMenuStrings[] =
@@ -2151,28 +2192,33 @@ STR16 gzMercSkillTextNew[] =
 	L"Scouting",		// 19
 	// covert ops is a major trait that was added later
 	L"Covert Ops",		// 20
+
+	// new minor traits
+	L"Radio Operator",	// 21
+
 	// second names for major skills
-	L"Machinegunner",	// 21
+	L"Machinegunner",	// 22
 	L"Bombardier",
 	L"Sniper",
 	L"Ranger",
-	L"Gunfighter",		// 25
+	L"Gunfighter",		// 26
 	L"Martial Arts",
 	L"Squadleader",
 	L"Engineer",
-	L"Doctor",			// 20	
+	L"Doctor",			// 30	
 	// placeholders for minor traits
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"Spy",				// 40
+	L"Placeholder",		// 40
+	L"Spy",				// 41
+	L"Placeholder",		// for radio operator (minor trait)
 	L"More...",
 };
 //////////////////////////////////////////////////////////
@@ -6356,6 +6402,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Scouting: Nothing can escape your notice! ± ",
 	// Covert ops
 	L"Covert Operations: You make 007 look like an amateur! ± ",
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
 };
 
 STR16 NewInvMessage[] = 
@@ -7842,6 +7890,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 #endif //ENGLISH

@@ -159,4 +159,8 @@ extern void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo );
 extern void HandleSeeingPowerGenFan( UINT32 sGridNo );
 extern void HandleSeeingFortifiedDoor( UINT32 sGridNo );//Ja25 UB
 #endif
+
+// Flugente: handle secondary explosive effects
+void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection );
+
 #endif

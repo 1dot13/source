@@ -13020,3 +13020,84 @@ FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fAimCap, FLOA
 	
 	return fAimChance;
 }
+
+extern BOOLEAN	IsRoofPresentAtGridNo( INT32 sGridNo );
+
+// Flugente: fire item from A to B (intended for mortarshells and launchable grenades)
+BOOLEAN ArtilleryStrike( UINT16 usItem, UINT32 usStartingGridNo, UINT32 usTargetMapPos )
+{
+	FLOAT				dForce, dDegrees;
+	INT16				sDestX, sDestY, sSrcX, sSrcY;
+	vector_3			vForce, vDirNormal;	
+	INT16				sStartZ = ( 1 * 256 ) + 50;
+	INT16				sEndZ	= 0;
+
+	// radius is way smaller for signal shells, otherwise the inaccuraccy would increase too much
+	INT8				bRadius	= gSkillTraitValues.usVOMortarRadius;
+	if ( HasItemFlag(usItem, SIGNAL_SHELL) )
+		bRadius = gSkillTraitValues.usVOMortarSignalShellRadius;
+
+	INT32 sTargetGridNo = GetArtilleryTargetGridNo( usTargetMapPos, bRadius );
+
+	if ( TileIsOutOfBounds(sTargetGridNo) )
+		return FALSE;
+
+	UINT8 ubLevel		= 0;
+	if ( IsRoofPresentAtGridNo( sTargetGridNo ) )
+		ubLevel = 1;
+	
+	// create shell
+	OBJECTTYPE shellobj;
+	CreateItem( usItem, 100, &shellobj );
+
+	// Get basic launch params...		
+	if ( !GetArtilleryLaunchParams(usStartingGridNo, sTargetGridNo, sStartZ, sEndZ, usItem, &shellobj, &dForce, &dDegrees) )
+		return FALSE;
+
+	// Get XY from gridno
+	ConvertGridNoToCenterCellXY( sTargetGridNo,   &sDestX, &sDestY );
+	ConvertGridNoToCenterCellXY( usStartingGridNo, &sSrcX,  &sSrcY );
+
+	// OK, get direction normal
+	vDirNormal.x = (float)(sDestX - sSrcX);
+	vDirNormal.y = (float)(sDestY - sSrcY);
+	vDirNormal.z = 0;
+
+	// NOmralize
+	vDirNormal = VGetNormal( &vDirNormal );
+
+	// From degrees, calculate Z portion of normal
+	vDirNormal.z	= (float)sin( dDegrees );
+
+	// Do force....
+	vForce.x = dForce * vDirNormal.x;
+	vForce.y = dForce * vDirNormal.y;
+	vForce.z = dForce * vDirNormal.z;
+			
+	float				dX			= (float)sSrcX;
+	float				dY			= (float)sSrcY;
+	float				dZ			= (float)sStartZ;
+	float				dForceX		= vForce.x;
+	float				dForceY		= vForce.y;
+	float				dForceZ		= vForce.z;
+	
+	if ( Weapon[ usItem ].sSound != NO_WEAPON_SOUND  )
+	{
+		PlayJA2Sample( Weapon[ usItem ].sSound, RATE_11025, SoundVolume( HIGHVOLUME, usStartingGridNo ), 1, SoundDir( usStartingGridNo ) );
+	}
+	
+	INT32 iID = CreatePhysicalObject( &shellobj, -1,  dX, dY, dZ, dForceX, dForceY, dForceZ, 0, THROW_ARM_ITEM, 0, FALSE );
+
+	// OJW - 20091002 - Explosives
+	/*if (is_networked && is_client)
+	{
+		if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
+		{
+			send_grenade( &shellobj , dLifeSpan,dX, dY, dZ, dForceX, dForceY, dForceZ, sTargetGridNo, pSoldier->ubID, ubActionCode, uiActionData, iID , false);
+		}
+	}*/
+
+	//REAL_OBJECT* pObject = &( ObjectSlots[ iID ] );
+	
+	return TRUE;
+}

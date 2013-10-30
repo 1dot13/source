@@ -1646,6 +1646,7 @@ STR16 pAssignmentStrings[] =
 	L"交通工具", // in a vehicle
 	L"在途中",// in transit - abbreviated form
 	L"修理", // repairing
+	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
 	L"锻炼", // training themselves
 	L"民兵", // training a town to revolt
 	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
@@ -1734,6 +1735,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"交通工具",
 	L"在途中",
 	L"修理",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"锻炼",
 	L"训练民兵",
 	L"训练游击队",
@@ -1782,6 +1784,7 @@ STR16 pLongAssignmentStrings[] =
 	L"交通工具",
 	L"在途中",
 	L"修理",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"练习",
 	L"训练民兵",
 	L"训练游击队", //L"Train Mobiles",
@@ -1909,8 +1912,9 @@ STR16 pAssignMenuStrings[] =
 	L"编队",
 	L"医生",
 	L"病人",
-	L"交通工具",
+	L"交通工具",	
 	L"修理",
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"训练",
 	L"搬运物品",	// move items	// TODO.Translate
 	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
@@ -1937,6 +1941,43 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"全体: 隐蔽",
 	//L"All: Find items",
 	L"取消", // cancel this menu
+};
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
 };
 
 //STR16 pTalkToAllMenuStrings[] =
@@ -2143,36 +2184,41 @@ STR16 gzMercSkillTextNew[] =
 	L"近战",
 	L"投掷",
 	L"夜战",
-	L"潜行",		// 15
+	L"潜行",		// 14
 	L"运动员",
 	L"健身",
 	L"爆破",
 	L"教学",
-	L"侦察",		// 20
+	L"侦察",		// 19
 	// covert ops is a major trait that was added later
 	L"特工",		// L"Covert Ops",
+
+	// new minor traits
+	L"Radio Operator",	// 21
+
 	// second names for major skills
 	L"机枪手",
 	L"掷弹兵",
 	L"狙击手",
-	L"游骑兵",
-	L"枪斗术",		// 25
+	L"游骑兵",		// 25
+	L"枪斗术",
 	L"武术家",
 	L"班长",
 	L"工兵",
 	L"军医",
 	// placeholders for minor traits
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"间谍",				// 30
+	L"Placeholder",		// 40
+	L"间谍",				// 41
+	L"Placeholder",		// for radio operator (minor trait)
 	L"更多...",
 };
 //////////////////////////////////////////////////////////
@@ -6356,6 +6402,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"侦查：没有什么东西你觉察不到！ ± ",
 	// Covert ops
 	L"特工: 你让詹姆斯邦德甘拜下风！ ± ",		// L"Covert Operations: You make 007 look like an amateur! ± ",
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7841,6 +7889,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

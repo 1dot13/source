@@ -283,6 +283,7 @@ enum
 	EXPLOSV_CREATUREGAS,
 	EXPLOSV_BURNABLEGAS,
 	EXPLOSV_FLASHBANG,
+	EXPLOSV_SIGNAL_SMOKE,
 };
 
 #define AMMO_DAMAGE_ADJUSTMENT_BUCKSHOT( x ) (x / 4)
@@ -538,5 +539,7 @@ FLOAT GetOverheatJamThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
+
+BOOLEAN ArtilleryStrike( UINT16 usItem, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
 
 #endif

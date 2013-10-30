@@ -4630,6 +4630,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		BOOLEAN foundThrowing = FALSE;
 		BOOLEAN foundHtH = FALSE;
 		BOOLEAN foundMelee = FALSE;
+		BOOLEAN fRadioSetFound = FALSE;
 
 		// FIRST FIND OUT THE COMPOSITION OF OUR GEAR
 		for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
@@ -4653,6 +4654,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				else if (Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
 						 Item[pCreateStruct->Inv[bLoop].usItem].uiIndex != 0 )
 					foundMelee = TRUE;
+				else if ( HasItemFlag(pCreateStruct->Inv[bLoop].usItem, RADIO_SET) )
+					fRadioSetFound = TRUE;
 			}
 		}
 
@@ -5188,6 +5191,31 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 							return( TRUE ); // We no longer need to continue from here
 						}
 					}
+				}
+			}
+		}
+
+		// Flugente: new traits
+		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned ) )
+		{
+			// if we have a radio set, give us the corresponding trait so we can use it...
+			if ( fRadioSetFound )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = RADIO_OPERATOR_NT;
+					ATraitAssigned = TRUE;
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = RADIO_OPERATOR_NT;
+					BTraitAssigned = TRUE;
+				}
+				else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				{
+					pSoldier->stats.ubSkillTraits[2] = RADIO_OPERATOR_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE ); // We no longer need to continue from here
 				}
 			}
 		}

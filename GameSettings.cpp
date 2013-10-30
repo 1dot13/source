@@ -2349,6 +2349,18 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.sCOCloseDetectionRange				= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE", 10, 0, 100);
 	gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse	= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE_SOLDIER_CORPSE", 5, 0, 100);
 	gSkillTraitValues.fCOElitesDetectNextTile				= iniReader.ReadBoolean("Covert Ops","COVERT_ELITES_DETECT_NEXTTILE", TRUE);
+
+	// Flugente: RADIO OPERATOR
+	gSkillTraitValues.bVOArtillerySectorFrequency		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ARTILLERY_SECTOR_FREQUENCY",  120, 20, 1440);
+	gSkillTraitValues.usVOMortarCountDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_COUNT_DIVISOR",			 6, 5,  20);
+	gSkillTraitValues.usVOMortarShellDivisor			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SHELL_DIVISOR",			30, 2, 100);
+	gSkillTraitValues.usVOMortarPointsAdmin				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_ADMIN",			10, 0, 100);
+	gSkillTraitValues.usVOMortarPointsTroop				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_TROOP",			15, 0, 100);
+	gSkillTraitValues.usVOMortarPointsElite				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_ELITE",			25, 0, 100);
+	gSkillTraitValues.usVOMortarRadius					= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_RADIUS",				10, 5, 100);
+	gSkillTraitValues.usVOMortarSignalShellRadius		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SIGNAL_SHELL_RADIUS",	 2, 2, 100);
+	gSkillTraitValues.sVOScanAssignmentBaseRange		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ASSIGNMENT_SCAN_BASE_RANGE",	 5, 0, 20);
+	gSkillTraitValues.sVOListeningHearingBonus			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_LISTENING_HEARING_BONUS",		20, 0, 100);
 }
 //DBrot: Grids
 void LoadModSettings(){
@@ -2724,6 +2736,11 @@ void LoadItemSettings()
 	gItemSettings.fDamageHealthMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
 	gItemSettings.fDamageBreathMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
 
+	// ------------ ENERGY MODIFIERS -----------------
+	gItemSettings.energy_cost_radioset_activate						= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_ACTIVATE",			  100.00f, 1.00f,  1000.0f);
+	gItemSettings.energy_cost_radioset_jam							= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_JAM",				   10.00f, 1.00f,  1000.0f);
+	gItemSettings.energy_cost_radioset_scan							= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_SCAN",					3.00f, 1.00f,  1000.0f);
+	gItemSettings.energy_cost_radioset_scan_assignment				= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_SCAN_ASSIGNMENT",	 3000.00f, 1.00f, 30000.0f);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

@@ -3946,6 +3946,23 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 			}
 
+			// Flugente: display energy level of power packs
+			if ( HasItemFlag(pObject->usItem, POWER_PACK) )
+			{
+				if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+				{
+					FLOAT energylevel = (*pObject)[0]->data.bTemperature / (FLOAT)OVERHEATING_MAX_TEMPERATURE;
+
+					UINT32 red   = (UINT32) ( 255 * ( 1.0 - max(0, 2*energylevel - 1.0) ) );
+					UINT32 green = (UINT32) ( 255 * ( min(1.0, 2*energylevel) ) );
+					UINT32 blue  = 0;
+										
+					UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
+
+					DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER);
+				}
+			}
+
 			// display symbol if we are leaning our weapon on something
 			// display only if eapon resting is allowed, display is allowed, item is a gun/launcher, we are a person, we hold the gun in our hand, and we are resting the gun
 			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
@@ -6771,6 +6788,22 @@ void RenderItemDescriptionBox( )
 
 					DrawItemUIBarEx( &(*iter), DRAW_ITEM_TEMPERATURE, sCenX+4, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, colour, colour, TRUE, guiSAVEBUFFER );
 				}
+				// Flugente: display energy level of power packs
+				else if ( HasItemFlag(iter->usItem, POWER_PACK) )
+				{
+					if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+					{
+						FLOAT energylevel = (*iter)[0]->data.bTemperature / (FLOAT)OVERHEATING_MAX_TEMPERATURE;
+
+						UINT32 red   = (UINT32) ( 255 * ( 1.0 - max(0, 2*energylevel - 1.0) ) );
+						UINT32 green = (UINT32) ( 255 * ( min(1.0, 2*energylevel) ) );
+						UINT32 blue  = 0;
+										
+						UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
+
+						DrawItemUIBarEx( &(*iter), DRAW_ITEM_TEMPERATURE, sCenX+4, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, colour, colour, TRUE, guiSAVEBUFFER );
+					}
+				}
 			}
 		}
 
@@ -7007,6 +7040,54 @@ void RenderItemDescriptionBox( )
 
 							SetFontForeground( ForegroundColor );
 							swprintf( pStr, L"%s", gFoodDesc[7] ); // "."
+							mprintf( gItemDescTextRegions[regionindex].sLeft + indent + 2, gItemDescTextRegions[regionindex].sTop, pStr );
+
+							// to get the text to the left side...
+							swprintf( pStr, L"");
+
+							FindFontRightCoordinates( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gItemDescTextRegions[regionindex].sRight - gItemDescTextRegions[regionindex].sLeft ,gItemDescTextRegions[regionindex].sBottom - gItemDescTextRegions[regionindex].sTop ,pStr, BLOCKFONT2, &usX, &usY);
+
+							mprintf( usX, usY, pStr );
+						}
+					}
+					else if ( HasItemFlag(gpItemDescObject->usItem, POWER_PACK) )
+					{
+						if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+						{
+							FLOAT energylevel = (*gpItemDescObject)[0]->data.bTemperature / (FLOAT)OVERHEATING_MAX_TEMPERATURE;
+
+							UINT32 red   = (UINT32) ( 255 * ( 1.0 - max(0, 2*energylevel - 1.0) ) );
+							UINT32 green = (UINT32) ( 255 * ( min(1.0, 2*energylevel) ) );
+							UINT32 blue  = 0;
+
+							UINT8 stringNum = 5;
+							if ( energylevel > 0.8f )
+								stringNum = 1;
+							else if ( energylevel > 0.6f )
+								stringNum = 2;
+							else if ( energylevel > 0.4f )
+								stringNum = 3;
+							else if ( energylevel > 0.2f )
+								stringNum = 4;
+
+							// UDB system displays a string with colored condition text.
+							int regionindex = 7;
+							SetFontForeground( ForegroundColor );
+							swprintf( pStr, L"%s", gPowerPackDesc[STR_POWERPACK_BEGIN] ); // "Temperature is "
+							mprintf( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, pStr );
+							// Record length
+							INT16 indent = StringPixLength( gPowerPackDesc[STR_POWERPACK_BEGIN], ITEMDESC_FONT );
+						
+							swprintf( pStr, L"%s", gPowerPackDesc[stringNum] );
+
+							SetRGBFontForeground( red, green, blue );
+
+							mprintf( gItemDescTextRegions[regionindex].sLeft+indent+2, gItemDescTextRegions[regionindex].sTop, pStr );
+							// Record length
+							indent += StringPixLength( gPowerPackDesc[stringNum], ITEMDESC_FONT );
+
+							SetFontForeground( ForegroundColor );
+							swprintf( pStr, L"%s", gPowerPackDesc[STR_POWERPACK_END] ); // "."
 							mprintf( gItemDescTextRegions[regionindex].sLeft + indent + 2, gItemDescTextRegions[regionindex].sTop, pStr );
 
 							// to get the text to the left side...

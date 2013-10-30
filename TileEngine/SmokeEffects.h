@@ -11,6 +11,7 @@ enum
 	MUSTARDGAS_SMOKE_EFFECT,
 	CREATURE_SMOKE_EFFECT,
 	BURNABLEGAS_SMOKE_EFFECT,
+	SIGNAL_SMOKE_EFFECT,		// added by Flugente for artillery
 };
 
 #define SMOKE_EFFECT_INDOORS			0x01
@@ -68,5 +69,7 @@ void ResetSmokeEffects();
 
 void UpdateSmokeEffectGraphics( );
 
+// Flugente: get the gridno and blevel of a random smoke signal, if one exists
+BOOL GetRandomSignalSmokeGridNo(INT32* psGridNo);
 
 #endif

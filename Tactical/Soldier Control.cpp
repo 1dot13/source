@@ -1022,6 +1022,10 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usStarveDamageStrength = 0;
 		this->bAIIndex = 0;
 		this->usSoldierProfile = 0;
+
+		this->usAISkillUse = 0;
+		for (UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)		this->usSkillCounter[i]  = 0;
+		for (UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i)	this->usSkillCooldown[i] = 0;
     }
     return *this;
 }
@@ -16897,6 +16901,994 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	// remove in a few revisions - the code has already been fixed, so this won't be necessary anymore soon^^
 	this->bPoisonLife = min(this->bPoisonLife, this->bPoisonSum );
 	this->bPoisonBleeding = min(this->bPoisonBleeding, this->bBleeding);
+
+	// if we are dead or dying, we cannot continue radio work
+	if ( this->stats.bLife < OKLIFE )
+		this->SwitchOffRadio();
+
+	// effects eventually run out
+	for (UINT8 counter = 0; counter < SOLDIER_COUNTER_MAX; ++counter)
+	{
+		usSkillCounter[counter]	= max(0, usSkillCounter[counter] - 1 );
+	}
+}
+
+// check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
+BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
+{
+	if ( fAPCheck )
+	{
+		if ( this->bCollapsed )
+			return FALSE;
+	}
+
+	BOOLEAN canuse = FALSE;
+		
+	switch ( iSkill )
+	{
+		// radio operator
+	case SKILLS_RADIO_ARTILLERY:
+	case SKILLS_RADIO_JAM:
+	case SKILLS_RADIO_SCAN_FOR_JAM:
+	case SKILLS_RADIO_LISTEN:
+	case SKILLS_RADIO_CALLREINFORCEMENTS:
+		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE ) ) && CanUseRadio() )
+			canuse = TRUE;
+		break;
+		
+	case SKILLS_RADIO_TURNOFF:
+		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE ) ) && (IsJamming() || IsScanning() || IsRadioListening()) )
+			canuse = TRUE;
+		break;
+		
+	default:
+		break;
+	}
+	
+	return( canuse );
+}
+
+// use a skill. For safety reasons, this calls CanUseSkill again
+BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
+{
+	if ( !CanUseSkill(iSkill, TRUE) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot use skill" );
+		return FALSE;
+	}
+
+	switch ( iSkill )
+	{
+		// radio operator
+	// the call for SKILLS_RADIO_ARTILLERY is only used by the AI
+	case SKILLS_RADIO_ARTILLERY:
+		{
+			UINT32 sector = 0;
+			if ( this->CanAnyArtilleryStrikeBeOrdered(&sector) )
+			{
+				return OrderArtilleryStrike(sector, usMapPos, this->bTeam );
+			}
+		}
+		break;
+
+	case SKILLS_RADIO_JAM:
+		return JamCommunications();
+		break;
+
+	case SKILLS_RADIO_SCAN_FOR_JAM:
+		return ScanForJam();
+		break;
+
+	case SKILLS_RADIO_LISTEN:
+		return RadioListen();
+		break;
+
+	case SKILLS_RADIO_CALLREINFORCEMENTS:
+		// called separately
+		//return RadioCallReinforcements();
+		break;
+
+	case SKILLS_RADIO_TURNOFF:
+		return SwitchOffRadio();
+		break;
+
+	default:
+		break;
+	}
+
+	return FALSE;
+}
+
+// is the AI allowed to use a skill? we have to check how much breath and life using this skill would cost, as otherwise the AI might commit suicide by casting
+BOOLEAN SOLDIERTYPE::IsAIAllowedtoUseSkill( INT8 iSkill )
+{
+	if ( CanUseSkill(iSkill, TRUE) )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static CHAR16 skilldescarray[500];
+
+// print a small description of the skill if we can use it, or its requirements if we cannot
+STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
+{
+	CHAR16	atStr[  200 ];
+	swprintf(skilldescarray, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_REQ] );
+		
+	if ( CanUseSkill(iSkill, TRUE) )
+	{
+		return pTraitSkillsMenuDescStrings[iSkill];
+	}
+	else
+	{
+		if ( iSkill >= SKILLS_RADIO_FIRST && iSkill <= SKILLS_RADIO_LAST )
+		{
+			swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_RADIO] );
+			wcscat( skilldescarray, atStr );
+		}
+
+		switch ( iSkill )
+		{
+			// radio operator
+			case SKILLS_RADIO_ARTILLERY:
+			case SKILLS_RADIO_JAM:
+			case SKILLS_RADIO_SCAN_FOR_JAM:
+			case SKILLS_RADIO_LISTEN:
+			case SKILLS_RADIO_CALLREINFORCEMENTS:
+			case SKILLS_RADIO_TURNOFF:
+				
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], gzMercSkillTextNew[RADIO_OPERATOR_NT] );
+				wcscat( skilldescarray, atStr );
+
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"a working radio set" );
+				wcscat( skilldescarray, atStr );
+
+				break;
+
+			default:
+				break;
+		}
+	}
+	
+	return skilldescarray;
+}
+
+BOOLEAN SOLDIERTYPE::CanUseRadio()
+{
+	// new inventory system required, as the radio set has to be in a specific slot
+	if ( !UsingNewInventorySystem() )
+		return FALSE;
+
+	// only radio operators can use this equipment
+	if ( !NUM_SKILL_TRAITS( this, RADIO_OPERATOR_NT ) )
+		return FALSE;
+
+	if ( !EnoughPoints( this, APBPConstants[AP_RADIO], 0, FALSE ) )
+		return FALSE;
+
+	// only player mercs use new inventory system
+	if ( this->bTeam == OUR_TEAM )
+	{
+		OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
+
+		if ( pObj && HasItemFlag(pObj->usItem, RADIO_SET) )
+		{
+			//search power pack
+			attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter)
+			{
+				// do we have a power pack on our armor?
+				if ( iter->exists() && HasItemFlag(iter->usItem, POWER_PACK) )
+				{
+					// Hack (or clever use of unused memory, depending on your view):
+					// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
+					// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
+					// The cooling down represents its energy depleting.
+					if ( (*iter)[0]->data.bTemperature > 0.0f )
+						return( TRUE );
+				}
+			}
+		}
+	}
+	else
+	{
+		INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+		{
+			if (inv[bLoop].exists() )
+			{
+				OBJECTTYPE* pObj = &(inv[bLoop]);
+
+				if ( pObj && HasItemFlag(pObj->usItem, RADIO_SET) )
+				{
+					//search power pack
+					attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter)
+					{
+						// do we have a power pack on our armor?
+						if ( iter->exists() && HasItemFlag(iter->usItem, POWER_PACK) )
+						{
+							// Hack (or clever use of unused memory, depending on your view):
+							// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
+							// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
+							// The cooling down represents its energy depleting.
+							if ( (*iter)[0]->data.bTemperature > 0.0f )
+								return( TRUE );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::UseRadio()
+{
+	BOOLEAN success = FALSE;
+
+	// new inventory system required, as the radio set has to be in a specific slot
+	if ( UsingNewInventorySystem() )
+	{
+		// only player mercs use new inventory system
+		if ( this->bTeam == OUR_TEAM )
+		{
+			// check for fail depending on status of radio set
+			OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
+
+			if ( pObj && HasItemFlag(pObj->usItem, RADIO_SET) )
+			{
+				// status % chance of success
+				if ( Chance( (*pObj)[0]->data.objectStatus ) )
+					success = TRUE;
+			}
+		}
+		else
+		{
+			INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+			{
+				if (inv[bLoop].exists() )
+				{
+					OBJECTTYPE* pObj = &(inv[bLoop]);
+
+					if ( pObj && HasItemFlag(pObj->usItem, RADIO_SET) )
+					{
+						// status % chance of success
+						if ( Chance( (*pObj)[0]->data.objectStatus ) )
+							success = TRUE;
+
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	// even if we fail, we still use up AP, use animation an use up batteries
+	DepleteActiveRadioSetEnergy(TRUE);
+
+	if ( this->bInSector && (this->ubBodyType == REGMALE || this->ubBodyType == BIGMALE) )
+	{
+		switch( gAnimControl[ this->usAnimState ].ubEndHeight )
+		{
+		case ANIM_STAND:
+			this->EVENT_InitNewSoldierAnim( AI_RADIO, 0 , FALSE );
+			break;
+
+		case ANIM_CROUCH:
+			this->EVENT_InitNewSoldierAnim( AI_CR_RADIO, 0 , FALSE );
+			break;
+		}
+	}
+
+	DeductPoints(this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], 0);
+
+	// we gain a bit of experience... - even more if we are the one who began the communication
+	StatChange( this, EXPERAMT, this->bInSector ? 8 : 4, TRUE );
+	StatChange( this, MECHANAMT,	1, TRUE );
+	
+	if ( !success )
+	{
+		RadioFail();
+
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::HasMortar()
+{
+	UINT16 mortaritem = 0;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+	{
+		if (inv[bLoop].exists() == true && Item[inv[bLoop].usItem].mortar )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::GetSlotOfSignalShellIfMortar(UINT8* pbLoop)
+{
+	UINT16 mortaritem = 0;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+	{
+		if (inv[bLoop].exists() == true && Item[inv[bLoop].usItem].mortar )
+		{
+			mortaritem = inv[bLoop].usItem;
+			break;
+		}
+	}
+
+	if ( mortaritem )
+	{
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+		{
+			if (inv[bLoop].exists() == true )
+			{
+				if ( Item[inv[bLoop].usItem].usItemClass == IC_BOMB && HasItemFlag(inv[bLoop].usItem, SIGNAL_SHELL) && ValidLaunchable( inv[bLoop].usItem, mortaritem ) )
+				{
+					(*pbLoop) = bLoop;
+					return TRUE;
+				}
+
+				if ( Item[inv[bLoop].usItem].mortar )
+				{
+					OBJECTTYPE* pAttObj =  FindAttachmentByClass( &(inv[bLoop]), IC_BOMB );
+
+					if ( pAttObj )
+					{
+						if ( HasItemFlag(inv[bLoop].usItem, SIGNAL_SHELL) )
+						{
+							(*pbLoop) = bLoop;
+							return TRUE;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::CanAnyArtilleryStrikeBeOrdered(UINT32* pSectorID)		// can any artillery strikes be ordered by this guy's team from the neighbouring sectors?
+{
+	if ( this->bSectorZ )
+		return FALSE;
+
+	// if we are AI-controlled, we have to wait for our timer to run out
+	if ( this->bTeam != gbPlayerNum && this->usSkillCounter[SOLDIER_COUNTER_RADIO_ARTILLERY] )
+		return FALSE;
+
+	// check wether we can call artillery from the 4 adjacent sectors
+	for (UINT8 i = 0; i < 4; ++i)
+	{
+		INT16 loopX = this->sSectorX;
+		INT16 loopY = this->sSectorY;
+
+		if ( i == 0 )		++loopY;
+		else if ( i == 1 )	++loopX;
+		else if ( i == 2 )	--loopY;
+		else if ( i == 3 )	--loopX;
+
+		if ( loopX < 1 || loopX >= MAP_WORLD_X - 1 || loopY < 1 || loopY >= MAP_WORLD_Y - 1 )
+			continue;
+		
+		if ( IsValidArtilleryOrderSector( loopX, loopY, this->bSectorZ, this->bTeam ) )
+		{
+			*pSectorID = (UINT32)SECTOR( loopX, loopY );
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridNo, UINT8 bTeam )
+{
+	if ( !CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot use skill" );
+		return FALSE;
+	}
+
+	// check wether radio frequencies are jammed. Not possible to do this in CanUseSkill(), as CanUseRadio() only checks if we theoretically
+	if ( SectorJammed() )
+	{
+		// only display message and play sound on our team - no need to signify to player that AI is trying to call in artillery
+		if ( bTeam == OUR_TEAM ||  bTeam == MILITIA_TEAM )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Radio frequencies are jammed. No communication possible." );
+		
+			PlayJA2SampleFromFile( "Sounds\\radioerror.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+		}
+		
+		return FALSE;
+	}
+
+	// sector number is in UINT32, even though INT16 would be normal
+	INT16 sSectorX = SECTORX( (UINT8)usSectorNr );
+	INT16 sSectorY = SECTORY( (UINT8)usSectorNr );
+
+	// just to make sure...
+	if ( !IsValidArtilleryOrderSector( sSectorX, sSectorY, this->bSectorZ, bTeam ) )
+		return FALSE;
+
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	// determine from where the shells will come
+	INT32 sStartingGridNo = gMapInformation.sNorthGridNo;
+	if ( sSectorX < this->sSectorX )
+		sStartingGridNo = gMapInformation.sWestGridNo;
+	else if ( sSectorX > this->sSectorX )
+		sStartingGridNo = gMapInformation.sEastGridNo;
+	else if ( sSectorY > this->sSectorY )
+		sStartingGridNo = gMapInformation.sSouthGridNo;
+
+	if (sStartingGridNo == -1)
+		sStartingGridNo = gMapInformation.sCenterGridNo;
+	
+	if ( TileIsOutOfBounds(sStartingGridNo) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Incorrect GridNo for firing Artillery!");
+		return FALSE;
+	}
+
+	// if a strike is ordered from the ENEMY_TEAM or MILITIA_TEAM, the number of mortars depends on the number of enemies/militia in that sector
+	// number of waves depends on the number and quality of enemies/soldiers
+	// only HE shells will be fired this way
+	if ( bTeam == ENEMY_TEAM || bTeam == MILITIA_TEAM )
+	{
+		INT16 nummortars = 0;	// number of mortars determines size of wave (1 - 4)
+		INT16 numwaves	 = 0;	// number of waves
+		INT16 numshells  = 0;	// number of shells
+			
+		SECTORINFO *pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
+		
+		if ( bTeam == ENEMY_TEAM )
+		{
+			// we also have to account for mobile groups
+			GROUP *pGroup = gpGroupList;
+			while( pGroup )
+			{
+				if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+				{
+					nummortars += pGroup->ubGroupSize;
+					numshells  += gSkillTraitValues.usVOMortarPointsTroop * pGroup->ubGroupSize;
+				}
+				pGroup = pGroup->next;
+			}
+
+			nummortars	+= pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites;
+			nummortars  /= gSkillTraitValues.usVOMortarCountDivisor;
+			numshells   +=  gSkillTraitValues.usVOMortarPointsAdmin * pSector->ubNumAdmins + gSkillTraitValues.usVOMortarPointsTroop * pSector->ubNumTroops + gSkillTraitValues.usVOMortarPointsElite * pSector->ubNumElites;
+		}
+		else if ( bTeam == MILITIA_TEAM )
+		{
+			nummortars	= (SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ ELITE_MILITIA ]) / gSkillTraitValues.usVOMortarCountDivisor;
+			numshells   = gSkillTraitValues.usVOMortarPointsAdmin * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + gSkillTraitValues.usVOMortarPointsTroop * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + gSkillTraitValues.usVOMortarPointsElite * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+		}
+
+		if ( gSkillTraitValues.usVOMortarShellDivisor * nummortars < 1 )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Not enough mortar shells in sector to start a barrage!");
+			return FALSE;
+		}
+
+		numwaves = numshells / (gSkillTraitValues.usVOMortarShellDivisor * nummortars);
+
+		if ( !numwaves )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Not enough mortar shells in sector to start a barrage!");
+			return FALSE;
+		}
+
+		// send a signal shell at first. This marks the area that the shells will come in
+		static UINT16 usSignalShellIndex = 1700;
+		if ( HasItemFlag(usSignalShellIndex, SIGNAL_SHELL) || GetFirstItemWithFlag(&usSignalShellIndex, SIGNAL_SHELL) )
+			ArtilleryStrike(usSignalShellIndex, sStartingGridNo, sTargetGridNo);
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell item found in Items.xml!");
+			return FALSE;
+		}
+
+		// we just 'plant' the mortar shells as bombs. We time them so that they will be fired at the beginning of the next turn
+		// for every 'wave' of shells, we just plant one and then clone them when firing
+		// create mortar shell item
+		OBJECTTYPE shellobj;
+		CreateItem( 140, 100, &shellobj );	// 140 is mortar HE shell
+
+		shellobj.fFlags |= OBJECT_ARMED_BOMB;
+		shellobj[0]->data.misc.bDetonatorType = BOMB_TIMED;
+		shellobj[0]->data.misc.usBombItem = shellobj.usItem;
+		shellobj[0]->data.misc.ubBombOwner = this->ubID + 2;
+		
+		// delay in RT is one turn. In TB we have to make that 2 turns, as otherwise the attack can happen instantly.
+		// Also use 2 if we are AI, otherwise the shells will fly immediately at the player's turn, giving him no chance to react (blame the way turns are handled)
+
+		shellobj[0]->data.misc.bDelay = 1;
+		if ( bTeam == ENEMY_TEAM || !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+			shellobj[0]->data.misc.bDelay += 1;
+
+		// now set special flags - we simply abuse the ubWireNetworkFlag
+		switch ( nummortars )
+		{
+		case 1: 
+			shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_1;
+			break;
+
+		case 2: 
+			shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_2;
+			break;
+
+		case 3: 
+			shellobj[0]->data.ubWireNetworkFlag = (ARTILLERY_STRIKE_COUNT_1|ARTILLERY_STRIKE_COUNT_2);
+			break;
+
+		case 4: 
+		default:
+			shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_4;
+			break;
+		}
+				
+		for (INT16 i = 0; i < numwaves; ++i)
+		{
+			AddItemToPool( sStartingGridNo, &shellobj, HIDDEN_ITEM, 1, WORLD_ITEM_ARMED_BOMB, 0 );
+		}
+
+		// update the sector Artillery time
+		pSector->uiTimeAIArtillerywasOrdered = GetWorldTotalMin();
+
+		// extra xp for succesfully ordering an artillery strike
+		StatChange( this, EXPERAMT, 10, TRUE );
+		
+		// we add a bit to the counter, thus the AI has to wait a bit between ordering strikes (otherwise they'll instantly order all available strikes)
+		this->usSkillCounter[SOLDIER_COUNTER_RADIO_ARTILLERY] = 2;
+	}
+	else if ( bTeam == OUR_TEAM )
+	{
+		// if we call a strike from our mercs, everything gets more complicated. We don't calculate the number of mortars or shells as an estimate, we have to search the inventory 
+		// of every merc fit for shelling in that sector for mortars and shells. But thanks to this, we can also other shell-types, like mustard or phosphor
+		// we already know from IsValidArtilleryOrderSector(..) that someone in there must have a radio set and a mortar, no need to check that again
+		// sadly, we have to run over this 2 times. On the first run, we have to search for all mortar items and remember them (there can be different mortar systems, can't fire a 40mm shell with a 60mm mortar)
+
+		// as of 2013-09-25, I say it is no longer necessary to fire a signal shell first. The player can fire a signal shell (by mortar or hand) manually to mark one or more targets if he wants
+		// if he does not do so, active vox operators will be targetted. Who knows, the vox operator might be doing a heroic last stand for all we know...
+		UINT8	radiooperatorID = 0;
+		//BOOLEAN signalshellfired = FALSE;
+		UINT8 mortaritemcnt = 0;
+		UINT16 mortararray[5];
+		for (UINT8 i = 0; i < 5; ++i)
+			mortararray[i] = 0;
+				
+		SOLDIERTYPE* pSoldier = NULL;
+		INT32 cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+		INT32 lastid = gTacticalStatus.Team[ bTeam ].bLastID;
+		for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+		{
+			// check if soldier exists in this sector
+			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ|| pSoldier->bAssignment > ON_DUTY )
+				continue;
+
+			if ( pSoldier->CanUseRadio() )
+				radiooperatorID = cnt;
+
+			/*if ( !signalshellfired )
+			{		
+				UINT8 bSlot = 0;
+				if ( pSoldier->GetSlotOfSignalShellIfMortar(&bSlot) )
+				{
+					OBJECTTYPE* pSlotObj = &(pSoldier->inv[bSlot]);
+
+					if ( Item[pSlotObj->usItem].mortar )
+					{
+						pSlotObj =  FindAttachmentByClass( &(pSoldier->inv[bSlot]), IC_BOMB );
+
+						if ( pSlotObj )
+						{
+							ArtilleryStrike(pSlotObj->usItem, sStartingGridNo, sTargetGridNo);
+
+							DeductAmmo( pSoldier, bSlot );
+
+							signalshellfired = TRUE;
+						}
+					}
+					else if ( HasItemFlag(pSoldier->inv[bSlot].usItem, SIGNAL_SHELL) )
+					{
+						ArtilleryStrike(pSlotObj->usItem, sStartingGridNo, sTargetGridNo);
+
+						pSlotObj->ubNumberOfObjects--;
+
+						if ( !pSlotObj->exists() )
+						{
+							// Delete object
+							DeleteObj( pSlotObj );
+						}
+
+						signalshellfired = TRUE;
+					}
+					else
+					{
+						// somethings wrong... we were promised either a signal shell or a mortar with one loaded, but there is none... betrayal!
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell found even though there should be one, cannot commence barrage!");
+						return FALSE;
+					}
+				}
+			}*/
+
+			INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+			{
+				if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].mortar )
+				{
+					// if not already in list, remember this mortar
+					if ( mortararray[0] != pSoldier->inv[bLoop].usItem &&
+						mortararray[1] != pSoldier->inv[bLoop].usItem &&
+						mortararray[2] != pSoldier->inv[bLoop].usItem &&
+						mortararray[3] != pSoldier->inv[bLoop].usItem &&
+						mortararray[4] != pSoldier->inv[bLoop].usItem )
+						mortararray[mortaritemcnt++] = pSoldier->inv[bLoop].usItem;
+				}
+
+				if ( mortaritemcnt >= 5)
+					break;
+			}
+
+			if ( mortaritemcnt >= 5)
+					break;
+		}
+
+		// safety check, this shouldn't be happening
+		if ( !mortaritemcnt )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No mortars found, cannot commence barrage!");
+			return FALSE;
+		}
+
+		// no signal shell -> no barrage
+		/*if ( !signalshellfired )
+		{
+			if ( radiooperatorID )
+				DelayedTacticalCharacterDialogue( MercPtrs[ radiooperatorID ], QUOTE_OUT_OF_AMMO );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell object found, cannot commence barrage!");
+			return FALSE;
+		}*/
+
+		// depending on wether the mortars have ammunition, a radio operator will give a different dialogue
+		BOOLEAN shellsfired = FALSE;
+		
+		// second loop: check for all mortar shells and 'fire' them		
+		cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+		for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+		{
+			// check if soldier exists in this sector
+			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ|| pSoldier->bAssignment > ON_DUTY )
+				continue;
+			
+			INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+			{
+				if (pSoldier->inv[bLoop].exists() == true )
+				{
+					if ( Item[pSoldier->inv[bLoop].usItem].mortar )
+					{
+						OBJECTTYPE* pAttObj =  FindAttachmentByClass( &(pSoldier->inv[bLoop]), IC_BOMB );
+
+						// as of 2013-09-25, also fire these, as they are no longer necessary for a barrage
+						// only fire if not signal shell, we already fired one, no need to do so again
+						if ( pAttObj )//&& !HasItemFlag(pAttObj->usItem, SIGNAL_SHELL) )
+						{
+							// create mortar shell item
+							OBJECTTYPE shellobj;
+							CreateItem( pAttObj->usItem, 100, &shellobj );
+
+							// plant bomb data
+							shellobj.fFlags |= OBJECT_ARMED_BOMB;
+							shellobj[0]->data.misc.bDetonatorType = BOMB_TIMED;								
+							shellobj[0]->data.misc.usBombItem = shellobj.usItem;
+							shellobj[0]->data.misc.ubBombOwner = this->ubID + 2;
+
+							// In realtime the player could choose to put down a bomb right before a turn expires, so add 1 to the setting in RT
+							shellobj[0]->data.misc.bDelay = 1;
+							if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+								shellobj[0]->data.misc.bDelay++;
+
+							shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_1;
+
+							AddItemToPool( sStartingGridNo, &shellobj, HIDDEN_ITEM, 1, WORLD_ITEM_ARMED_BOMB, 0 );
+
+							shellsfired = TRUE;
+
+							DeductAmmo( pSoldier, bLoop );
+						}
+					}
+
+					if ( Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_BOMB )
+					{					
+						// found a bomb - if this fits any found mortar, fire it
+						for ( UINT8 i = 0; i < mortaritemcnt; ++i)
+						{
+							if ( ValidLaunchable( pSoldier->inv[bLoop].usItem, mortararray[i] ) )
+							{
+								OBJECTTYPE* pShellObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
+
+								// only fire if not signal shell, we already fired one, no need to do so again
+								if ( pShellObj && !HasItemFlag(pShellObj->usItem, SIGNAL_SHELL) )
+								{
+									// create mortar shell item
+									OBJECTTYPE shellobj;
+									CreateItem( pShellObj->usItem, 100, &shellobj );
+
+									// plant bomb data
+									shellobj.fFlags |= OBJECT_ARMED_BOMB;
+									shellobj[0]->data.misc.bDetonatorType = BOMB_TIMED;								
+									shellobj[0]->data.misc.usBombItem = shellobj.usItem;
+									shellobj[0]->data.misc.ubBombOwner = this->ubID + 2;
+
+									// In realtime the player could choose to put down a bomb right before a turn expires, so add 1 to the setting in RT
+									shellobj[0]->data.misc.bDelay = 1;
+									if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+										shellobj[0]->data.misc.bDelay++;
+
+									shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_1;
+
+									for(INT16 j = 0; j < pShellObj->ubNumberOfObjects; ++j)	
+									{
+										AddItemToPool( sStartingGridNo, &shellobj, HIDDEN_ITEM, 1, WORLD_ITEM_ARMED_BOMB, 0 );
+
+										shellsfired = TRUE;
+									}
+
+									// remove the shells: Delete object
+									DeleteObj( pShellObj );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if ( radiooperatorID )
+		{
+			pSoldier = MercPtrs[ radiooperatorID ];
+
+			// also drain the other guy's radio batteries
+			pSoldier->UseRadio();
+
+			if ( shellsfired )
+				TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND, BATTLE_SOUND_OK2 , 500 );
+			else
+				DelayedTacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_AMMO );
+		}
+
+		if ( shellsfired )
+		{
+			// extra xp for succesfully ordering an artillery strike
+			StatChange( this, EXPERAMT, 10, TRUE );
+
+			// we add a bit to the counter, thus the AI has to wait a bit between ordering strikes (otherwise they'll instantly order all available strikes)
+			this->usSkillCounter[SOLDIER_COUNTER_RADIO_ARTILLERY] = 2;
+		}
+	}
+	else
+		// how did this even happen?
+		return FALSE;
+	
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::IsJamming()
+{
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING) && CanUseRadio() );
+}
+
+BOOLEAN SOLDIERTYPE::JamCommunications()
+{
+	// not possible if already jamming
+	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already jamming signal, no need to do so again!");
+		return FALSE;
+	}
+	
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	// stop other radio activities
+	SwitchOffRadio();
+
+	// add flag
+	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_JAMMING;
+
+	// play sound
+	PlayJA2SampleFromFile( "Sounds\\radioerror2.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::IsScanning()
+{
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING) && CanUseRadio() );
+}
+
+BOOLEAN SOLDIERTYPE::ScanForJam()
+{
+	// not possible if already scanning
+	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already scanning for jam signals, no need to do so again!");
+		return FALSE;
+	}
+	
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	// stop other radio activities
+	SwitchOffRadio();
+
+	// add flag
+	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_SCANNING;
+
+	// play sound
+	PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::IsRadioListening()
+{
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING) && CanUseRadio() );
+}
+
+BOOLEAN SOLDIERTYPE::RadioListen()
+{
+	// not possible if already scanning
+	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already listening for nearby sounds, no need to do so again!");
+		return FALSE;
+	}
+	
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	// stop other radio activities
+	SwitchOffRadio();
+
+	// add flag
+	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_LISTENING;
+
+	// play sound
+	PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+
+	return TRUE;
+}
+
+// Flugente: order reinforcements from src sector to target sector
+extern BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 sSrcMapX, INT16 sSrcMapY, UINT16 sNumber );
+
+BOOLEAN SOLDIERTYPE::RadioCallReinforcements( UINT32 usSector, UINT16 sNumber )
+{
+	if( !gGameExternalOptions.gfAllowReinforcements )
+		return FALSE;
+
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	// check wether radio frequencies are jammed. Not possible to do this in CanUseSkill(), as CanUseRadio() only checks if we can theoretically order
+	if ( SectorJammed() )
+	{
+		// error message and sound is handled in UseRadio()
+		return FALSE;
+	}
+		
+	// Flugente: order reinforcements from src sector to target sector
+	if ( CallMilitiaReinforcements( this->sSectorX, this->sSectorY, SECTORX( usSector ), SECTORY( usSector ), sNumber ) )
+	{
+		CHAR16 pStr2[128];
+		GetSectorIDString( SECTORX( usSector ), SECTORY( usSector ), 0, pStr2, FALSE );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s orders reinforcements from %s", this->name, pStr2 );
+
+		// play sound
+		PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::SwitchOffRadio()
+{
+	// erasing the flags is enough
+	bSoldierFlagMask &= ~(SOLDIER_RADIO_OPERATOR_JAMMING|SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING);
+
+	return TRUE;
+}
+
+// display and error sound used either when the radio set fails or the sector is jammed - the player knows of the error, but cannot be sure of the cause
+void
+SOLDIERTYPE::RadioFail()
+{
+	// only display message and play sound if on player team
+	if ( this->bTeam == gbPlayerNum && this->bInSector )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Radio action failed!" );
+		
+		PlayJA2SampleFromFile( "Sounds\\radioerror.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+	}
+}
+
+void SOLDIERTYPE::DepleteActiveRadioSetEnergy(BOOLEAN fActivation, BOOLEAN fAssignment)
+{
+	if ( !CanUseRadio() )
+		return;
+	
+	FLOAT cost = 0;
+	if ( fActivation )
+		cost = gItemSettings.energy_cost_radioset_activate;
+	else if ( fAssignment )		
+		cost = gItemSettings.energy_cost_radioset_scan_assignment;
+	else if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+		cost = gItemSettings.energy_cost_radioset_jam;
+	else if ( bSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
+		cost = gItemSettings.energy_cost_radioset_scan;
+	else
+		// nothing to do here..
+		return;
+
+	OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
+
+	if ( pObj && HasItemFlag(pObj->usItem, RADIO_SET) )
+	{
+		//search power pack
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter)
+		{
+			// do we have a power pack on our armor?
+			if ( iter->exists() && HasItemFlag(iter->usItem, POWER_PACK) )
+			{
+				(*iter)[0]->data.bTemperature = max(0.0f, (*iter)[0]->data.bTemperature - cost);
+				
+				if ( (*iter)[0]->data.bTemperature <= 0.0f )
+				{
+					// destroy batteries
+					iter->RemoveObjectsFromStack(1);
+					if (iter->exists() == false)
+						pObj->RemoveAttachment( &(*iter) );
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s radio set is out of energy.", this->GetName() );
+				}
+
+				// there can only be one battery on a radio set
+				return;
+			}
+		}
+	}
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
@@ -20004,3 +20996,133 @@ BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber )
 	return( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) );
 }
 
+BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo)
+{
+	// get the 'real owner'
+	if ( usOwner > 1 )
+	{
+		// a merc planted this - if he's a radio operator, use his gridno
+		SOLDIERTYPE* pSoldier = MercPtrs[usOwner - 2];
+
+		if ( pSoldier && pSoldier->CanUseRadio() && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+		{
+			*psTargetGridNo = pSoldier->sGridNo;
+			pSoldier->bSide;
+			return TRUE;
+		}
+	}
+	// check for the side that ordered this
+	else
+	{
+		UINT8 bTeam = MILITIA_TEAM;
+		if ( usOwner )
+			bTeam = ENEMY_TEAM;
+
+		SOLDIERTYPE* pSoldier = NULL;
+		INT32 cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+		INT32 lastid = gTacticalStatus.Team[ bTeam ].bLastID;
+		for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+		{
+			if ( pSoldier && pSoldier->CanUseRadio() && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				*psTargetGridNo = pSoldier->sGridNo;
+				pSoldier->bSide;
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 bTeam )
+{
+	// is the sector valid?
+	if ( bSectorZ > 0 ||sSectorX < 1 || sSectorX >= MAP_WORLD_X - 1 || sSectorY < 1 || sSectorY >= MAP_WORLD_Y - 1 )
+		return FALSE;
+	
+	BOOLEAN fEnemies = (NumEnemiesInAnySector( sSectorX, sSectorY, bSectorZ )  > 0);
+	BOOLEAN fMilitia = (GetNumberOfMilitiaInSector( sSectorX, sSectorY, (INT16) bSectorZ ) > 0);
+	BOOLEAN fMercs   = (PlayerMercsInSector( (UINT8) sSectorX, (UINT8) sSectorY, (UINT8) bSectorZ ) > 0);
+	
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sSectorX, sSectorY ) ] );
+
+	// sector must be free of members of an opposing team
+	if ( bTeam == ENEMY_TEAM )
+	{
+		if ( !fEnemies || fMilitia || fMercs )
+			return FALSE;
+
+		// cannot fire if artillery was used recently
+		if ( GetWorldTotalMin() < pSectorInfo->uiTimeAIArtillerywasOrdered + gSkillTraitValues.bVOArtillerySectorFrequency )
+			return FALSE;
+	}
+	else if ( bTeam == MILITIA_TEAM )
+	{
+		if ( fEnemies || !fMilitia )
+			return FALSE;
+
+		// cannot fire if artillery was used recently
+		if ( GetWorldTotalMin() < pSectorInfo->uiTimeAIArtillerywasOrdered + gSkillTraitValues.bVOArtillerySectorFrequency )
+			return FALSE;
+	}
+	else if ( bTeam == OUR_TEAM )
+	{
+		if ( fEnemies || !fMercs )
+			return FALSE;
+				
+		// we can relay orders only if someone in the sector has a working radio set and a mortar
+		BOOLEAN activeradio = FALSE;
+		BOOLEAN mortarfound = FALSE;
+		SOLDIERTYPE* pSoldier = NULL;
+		INT32 cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+		INT32 lastid = gTacticalStatus.Team[ bTeam ].bLastID;
+		for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+		{
+			// check if soldier exists in this sector, and is on duty
+			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ || pSoldier->bAssignment > ON_DUTY )
+				continue;
+
+			if ( pSoldier->CanUseRadio() )
+				activeradio = TRUE;
+
+			if ( pSoldier->HasMortar() )
+				mortarfound = TRUE;
+		}
+
+		if ( !activeradio || !mortarfound )
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+BOOLEAN SectorJammed()
+{
+	// check every soldier: are we jamming frequencies?
+	SOLDIERTYPE* pSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	INT32 lastid = MAX_NUM_SOLDIERS;
+	for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+	{
+		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->IsJamming() )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN PlayerTeamIsScanning()
+{
+	// check every soldier: are we jamming frequencies?
+	SOLDIERTYPE* pSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	INT32 lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+	{
+		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->IsScanning() )
+			return TRUE;
+	}
+
+	return FALSE;
+}

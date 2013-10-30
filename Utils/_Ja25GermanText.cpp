@@ -85,6 +85,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Sprengmeister",		// alt. "Kampfmittel"
 	L"Ausbilder",			// alt. "Lehren"
 	L"Aufklärer",			// alt. "Spähen"
+	L"Radio Operator",
 
 	L"Keine",
 	L"B.S.E. Nebenfertigkeiten",
@@ -253,6 +254,17 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s Trefferwahrscheinlichkeit für sofortigen Totschlag mit Covert-Ops Nahkampfwaffen\n",
 	L"Verringerte AP Kosten für verdeckte Operationen durch %d%s.\n",
 };
+
+STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
+{
+	L"Can use communications equipment\n", 
+	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
+	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
+	L"Communications can be jammed sector-wide.\n",
+	L"If communications are jammed, a operator can scan for the jamming device.\n",
+	L"Can call in militia reinforcements from neighbouring sectors.\n",
+};
+
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"Keine Boni",

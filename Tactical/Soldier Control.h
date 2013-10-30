@@ -353,34 +353,34 @@ enum
 
 // -------- added by Flugente: various flags for soldiers --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
-#define SOLDIER_DRUGGED				0x00000001	//1			// Soldier is on drugs
-#define SOLDIER_NO_AP				0x00000002	//2			// Soldier has no APs this turn (fix for reinforcement bug)
-#define SOLDIER_COVERT_CIV			0x00000004	//4			// Soldier is currently disguised as a civilian
-#define SOLDIER_COVERT_SOLDIER		0x00000008	//8			// Soldier is currently disguised as an enemy soldier
+#define SOLDIER_DRUGGED						0x00000001	//1			// Soldier is on drugs
+#define SOLDIER_NO_AP						0x00000002	//2			// Soldier has no APs this turn (fix for reinforcement bug)
+#define SOLDIER_COVERT_CIV					0x00000004	//4			// Soldier is currently disguised as a civilian
+#define SOLDIER_COVERT_SOLDIER				0x00000008	//8			// Soldier is currently disguised as an enemy soldier
 
-#define SOLDIER_DAMAGED_VEST		0x00000010	//16		// Soldier's vest is damaged (and thus can't be taken off)
-#define SOLDIER_COVERT_NPC_SPECIAL	0x00000020	//32		// Special flag for NPCs when recruited (used for covert stuff)
-#define SOLDIER_NEW_VEST   			0x00000040	//64		// Soldier is wearing new vest. if having both vest and pants, he can disguise
-#define SOLDIER_NEW_PANTS			0x00000080	//128		// Soldier is wearing new pants
+#define SOLDIER_DAMAGED_VEST				0x00000010	//16		// Soldier's vest is damaged (and thus can't be taken off)
+#define SOLDIER_COVERT_NPC_SPECIAL			0x00000020	//32		// Special flag for NPCs when recruited (used for covert stuff)
+#define SOLDIER_NEW_VEST   					0x00000040	//64		// Soldier is wearing new vest. if having both vest and pants, he can disguise
+#define SOLDIER_NEW_PANTS					0x00000080	//128		// Soldier is wearing new pants
 
-#define SOLDIER_DAMAGED_PANTS		0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
-#define SOLDIER_HEADSHOT			0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
-#define SOLDIER_POW					0x00000400	//1024		// we are a prisoner of war
-#define SOLDIER_ASSASSIN			0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
+#define SOLDIER_DAMAGED_PANTS				0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
+#define SOLDIER_HEADSHOT					0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
+#define SOLDIER_POW							0x00000400	//1024		// we are a prisoner of war
+#define SOLDIER_ASSASSIN					0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
 
-#define SOLDIER_POW_PRISON			0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
-#define SOLDIER_EQUIPMENT_DROPPED	0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that.
-#define SOLDIER_ACCESSTEAMMEMBER	0x00004000	//16384		// this merc is accessing another team member'S inventory (via abusing the stealing mechanic)
-#define SOLDIER_REDOFLASHLIGHT		0x00008000	//32768		// this flag signifies that we somehow interacted with the items in our hands. Thus we have to possible redo lighting from flashlights
+#define SOLDIER_POW_PRISON					0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
+#define SOLDIER_EQUIPMENT_DROPPED			0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that.
+#define SOLDIER_ACCESSTEAMMEMBER			0x00004000	//16384		// this merc is accessing another team member'S inventory (via abusing the stealing mechanic)
+#define SOLDIER_REDOFLASHLIGHT				0x00008000	//32768		// this flag signifies that we somehow interacted with the items in our hands. Thus we have to possible redo lighting from flashlights
 
-#define SOLDIER_LIGHT_OWNER			0x00010000	//65536		// we 'own' at least one light source (via flashlights)
-#define SOLDIER_AIRDROP_BONUS       0x00020000	//131072	// backgrounds: special AP bonus during the first turn of an airdrop
-#define SOLDIER_ASSAULT_BONUS		0x00040000	//262144	// backgrounds: our first turn in an assault
-/*#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+#define SOLDIER_LIGHT_OWNER					0x00010000	//65536		// we 'own' at least one light source (via flashlights)
+#define SOLDIER_AIRDROP_BONUS				0x00020000	//131072	// backgrounds: special AP bonus during the first turn of an airdrop
+#define SOLDIER_ASSAULT_BONUS				0x00040000	//262144	// backgrounds: our first turn in an assault
+#define SOLDIER_RADIO_OPERATOR_LISTENING	0x00080000	//524288	// radio operator is listening with his set
 
-#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
-#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
-#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
+#define SOLDIER_RADIO_OPERATOR_JAMMING		0x00100000	//1048576	// radio operator is jamming frequencies
+#define SOLDIER_RADIO_OPERATOR_SCANNING		0x00200000	//2097152	// radio operator is scanning for jammers
+/*#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
 #define PLAYER_NET_4_LVL_2		0x00800000	//8388608
 
 #define PLAYER_NET_1_LVL_3		0x01000000	//16777216
@@ -421,6 +421,36 @@ enum
 	MTA_REMOVE_FORTIFY,
 	MTA_FILL_SANDBAG,
 	NUM_MTA,
+};
+
+//Flugente skills from traits and other sources
+enum{
+	// psyker skills
+	SKILLS_FIRST = 0,
+
+	// radio operator
+	SKILLS_RADIO_FIRST = SKILLS_FIRST,
+	SKILLS_RADIO_ARTILLERY = SKILLS_RADIO_FIRST,
+	SKILLS_RADIO_JAM,
+	SKILLS_RADIO_SCAN_FOR_JAM,
+	SKILLS_RADIO_LISTEN,
+	SKILLS_RADIO_CALLREINFORCEMENTS,
+	SKILLS_RADIO_TURNOFF,
+	SKILLS_RADIO_LAST = SKILLS_RADIO_TURNOFF,
+
+	SKILLS_MAX,
+};
+
+// Flugente: certain skills/traits/taints add effects that require a counter, here are enums for these
+enum {
+	SOLDIER_COUNTER_RADIO_ARTILLERY,		// there is actually no need for an artillery timer, but we use one to forbid the same AI guy ordering multiple strikes at once
+	
+	SOLDIER_COUNTER_MAX = 20,				// enough space for fillers
+};
+
+// Flugente: certain skills/traits/taints require a cooldown timer 
+enum {
+	SOLDIER_COOLDOWN_MAX = 20,				// enough space for fillers
 };
 
 // enum of uniform pieces
@@ -1297,12 +1327,17 @@ public:
 
 	UINT16	usSoldierProfile;		// Flugente: allow linking to a xml-based profile specifiying name, visuals, traits etc.
 
-	// Flugente: sector ID for move items assignemnt
+	// Flugente: sector ID for move items assignment
 	UINT8	usItemMoveSectorID;
 
+	// Flugente: skill stuff
+	UINT8	usAISkillUse;							// this variable allows the AI to remember which skill it wants to use
+	UINT16	usSkillCounter[SOLDIER_COUNTER_MAX];	// counters used for various skill/trait/taint effects
+	UINT32	usSkillCooldown[SOLDIER_COOLDOWN_MAX];	// cooldown used for various skill/trait/taint effects
+	
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
-	UINT8	ubFiller[7];	
+	UINT8	ubFiller[20];
 	
 #ifdef JA2UB
 	//ja25
@@ -1610,6 +1645,38 @@ public:
 
 	void		SoldierPropertyUpkeep();					// update functions for various properties (updating counters, resetting flags etc.)
 
+	// Flugente: functions for skill usage
+	// traits can allow use of certain skills
+	// check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
+	BOOLEAN CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck = TRUE );
+
+	// use a skill. For safety reasons, this calls CanUseSkill again (it is possible to switch the soldier while the menu is open)
+	BOOLEAN UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID );
+
+	// is the AI allowed to use a skill? we have to check how much breath and life using this skill would cost, as otherwise the AI might commit suicide by casting
+	BOOLEAN IsAIAllowedtoUseSkill( INT8 iSkill );
+
+	// print a small description of the skill if we can use it, or its requirements if we cannot
+	STR16	PrintSkillDesc( INT8 iSkill);
+
+	// Flugente: functions for the radio operator trait
+	BOOLEAN CanUseRadio();							// can we use radio, if we even have one?
+	BOOLEAN UseRadio();								// simply drain the batteries
+	BOOLEAN HasMortar();
+	BOOLEAN GetSlotOfSignalShellIfMortar(UINT8* pbLoop); // if we have a mortar and a fitting signal shell, return the inventory slot it is in
+	BOOLEAN CanAnyArtilleryStrikeBeOrdered(UINT32* pSectorID);		// can any artillery strikes be ordered by this guy's team from the neighbouring sectors?
+	BOOLEAN OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridNo, UINT8 bTeam );
+	BOOLEAN IsJamming();							// are we currently jamming communication frequencies?
+	BOOLEAN JamCommunications();
+	BOOLEAN IsScanning();
+	BOOLEAN ScanForJam();
+	BOOLEAN IsRadioListening();
+	BOOLEAN RadioListen();
+	BOOLEAN RadioCallReinforcements( UINT32 usSector, UINT16 sNumber );
+	BOOLEAN SwitchOffRadio();
+	void	RadioFail();							// display and error sound used either when the radio set fails or the sector is jammed - the player knows of the error, but cannot be sure of the cause
+	void	DepleteActiveRadioSetEnergy(BOOLEAN fActivation = FALSE, BOOLEAN fAssignment = FALSE);
+
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	
@@ -1737,7 +1804,12 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 BOOLEAN AIDecideHipOrShoulderStance( SOLDIERTYPE * pSoldier, INT32 iGridNo );
 BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier );
 
-BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber );		// Flugente: determine if this (new) trait has two stages
+// added by Flugente
+BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber );						// determine if this (new) trait has two stages
+BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo);	// retrieve the gridno of a radio operator who (or whose team) ordered an artillery strike
+BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 bTeam );		// can an artillery strike be ordered FROM this sector
+BOOLEAN SectorJammed();
+BOOLEAN PlayerTeamIsScanning();
 
 //typedef struct
 class OLDSOLDIERTYPE_101

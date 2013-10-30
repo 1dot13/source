@@ -33,6 +33,7 @@
 #include "MilitiaSquads.h"
 #include "Reinforcement.h"
 #include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
+#include "message.h"				// added by Flugente for ScreenMsg()
 
 // Debug defines
 
@@ -1811,6 +1812,105 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	}
 	
 	gfStrategicMilitiaChangesMade = FALSE;
+}
+
+// Flugente: order sNumber reinforcements from src sector to target sector
+BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 sSrcMapX, INT16 sSrcMapY, UINT16 sNumber )
+{
+	UINT8 uiNumGreen = 0, uiNumReg = 0, uiNumElite = 0;
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sTargetMapX, sTargetMapY ) ] );
+
+	guiDirNumber = 0;
+
+	UINT8 insertioncode = INSERTION_CODE_CENTER;
+	UINT8 movetype = THROUGH_STRATEGIC_MOVE;
+
+	// determine from which direction militia should enter (and exit if this isn't possible)
+	if ( sTargetMapX == sSrcMapX + 1 && sTargetMapY == sSrcMapY )
+	{
+		insertioncode = INSERTION_CODE_WEST;
+		movetype = EAST_STRATEGIC_MOVE;		
+	}
+	else if ( sTargetMapX == sSrcMapX - 1 && sTargetMapY == sSrcMapY )
+	{
+		insertioncode = INSERTION_CODE_EAST;
+		movetype = WEST_STRATEGIC_MOVE;
+	}
+	else if ( sTargetMapX == sSrcMapX && sTargetMapY == sSrcMapY + 1 )
+	{
+		insertioncode = INSERTION_CODE_NORTH;
+		movetype = SOUTH_STRATEGIC_MOVE;
+	}
+	else if ( sTargetMapX == sSrcMapX && sTargetMapY == sSrcMapY - 1 )
+	{
+		insertioncode = INSERTION_CODE_SOUTH;
+		movetype = NORTH_STRATEGIC_MOVE;
+	}
+	else
+	{
+		// no proper direction here... get out
+		return FALSE;
+	}
+
+	// test wether travel from src to target is possible ( we cannot open the src map information, we'll rely on the xml data instead
+	if( SectorInfo[ SECTOR(sSrcMapX,sSrcMapY) ].ubTraversability[ movetype ] == GROUNDBARRIER || SectorInfo[ SECTOR(sSrcMapX,sSrcMapY) ].ubTraversability[ movetype ] == EDGEOFWORLD )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia cannot traverse to this sector due to the terrain." );
+		return FALSE;
+	}
+
+	guiDirNumber = 0;
+		
+	ZeroMemory( gpAttackDirs, sizeof( gpAttackDirs ) );
+
+	gpAttackDirs[ guiDirNumber ][0] = uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+	gpAttackDirs[ guiDirNumber ][1] = uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+	gpAttackDirs[ guiDirNumber ][2] = uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+	gpAttackDirs[ guiDirNumber ][3] = INSERTION_CODE_CENTER;
+
+	guiDirNumber = insertioncode + 1;
+	UINT16 sMilitiaMoved = 0;
+	while ( sMilitiaMoved < sNumber && CountMilitia(pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector && MoveOneBestMilitiaMan( sSrcMapX, sSrcMapY, sTargetMapX, sTargetMapY ) )
+	{
+		++sMilitiaMoved;
+
+		gpAttackDirs[ guiDirNumber ][0] += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] - uiNumGreen;
+		gpAttackDirs[ guiDirNumber ][1] += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] - uiNumReg;
+		gpAttackDirs[ guiDirNumber ][2] += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] - uiNumElite;
+		gpAttackDirs[ guiDirNumber ][3] = insertioncode;
+
+		uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+		uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+		uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+	}
+
+	guiDirNumber = 5;
+
+	if ( !sMilitiaMoved )
+		return FALSE;
+
+	// we need to se this falg. If it wasn't set prior to this, we remove it again afterwards, otherwise all militia will join us if we are in combat
+	BOOLEAN wantreinforcements = (gTacticalStatus.uiFlags & WANT_MILITIA_REINFORCEMENTS);
+	gTacticalStatus.uiFlags |= WANT_MILITIA_REINFORCEMENTS;
+
+	if (is_networked)
+	{
+		if (gfStrategicMilitiaChangesMade)
+		{
+			RemoveMilitiaFromTactical();
+			if(is_server && gMilitiaEnabled == 1)
+				PrepareMilitiaForTactical(FALSE);
+		}
+	}
+	else
+		PrepareMilitiaForTactical(FALSE);
+
+	if ( !wantreinforcements )
+		gTacticalStatus.uiFlags &= ~WANT_MILITIA_REINFORCEMENTS;
+	
+	gfStrategicMilitiaChangesMade = FALSE;
+
+	return TRUE;
 }
 
 void MSCallBack( UINT8 ubResult )

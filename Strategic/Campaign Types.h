@@ -491,8 +491,10 @@ typedef struct SECTORINFO
 	
 	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
 	UINT8	uiInterrogationHundredsLeft;
+
+	UINT32	uiTimeAIArtillerywasOrdered;			// Flugente: updated every time an artillery strike is ordered from the militia
 	
-	INT8	bPadding[ 36 ];
+	INT8	bPadding[ 29 ];
 
 }SECTORINFO;
 

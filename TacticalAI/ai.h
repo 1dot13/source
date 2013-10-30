@@ -103,6 +103,7 @@ typedef enum
 
 	AI_ACTION_JUMP_WINDOW,			// added by Flugente: jump through a window
 	AI_ACTION_FREE_PRISONER,		// added by Flugente: free a prisoner
+	AI_ACTION_USE_SKILL,			// added by Flugente: perform a skill, which one is stored in usAISkillUse
 } ActionType;
 
 

@@ -4699,6 +4699,12 @@ void HandleIMPCharProfileResultsMessage( void)
 				wcscpy(pString, MissingIMPSkillsDescriptions[11]);
 				AddEmailRecordToList( pString );
 			}
+			// Radio Operator
+			if ( ProfileHasSkillTrait( iCurrentIMPSlot, RADIO_OPERATOR_NT ) > 0 )
+			{
+				wcscpy(pString, MissingIMPSkillsDescriptions[15]);
+				AddEmailRecordToList( pString );
+			}
 	}
 	else
 	{

@@ -1654,6 +1654,7 @@ STR16 pAssignmentStrings[] =
 	L"Pojazd", // in a vehicle
 	L"Podróż", // in transit - abbreviated form
 	L"Naprawa", // repairing
+	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
 	L"Praktyka", // training themselves  
 	L"Samoobr.", // training a town to revolt 
 	L"R.Samoobr.", //training moving militia units
@@ -1742,6 +1743,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Pojazd",
 	L"Podróż",
 	L"Naprawa",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Praktyka",
 	L"Trenuje samoobronę",
 	L"Training Mobile Militia",	// TODO.Translate
@@ -1790,6 +1792,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Pojazd",
 	L"W podróży",
 	L"Naprawa",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Praktyka",
 	L"Trenuj samoobronę",
 	L"Train Mobiles",		// TODO.Translate
@@ -1919,6 +1922,7 @@ STR16 pAssignMenuStrings[] =
 	L"Pacjent", // the merc is receiving medical attention
 	L"Pojazd", // the merc is in a vehicle
 	L"Naprawa", // the merc is repairing items 
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Szkolenie", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
@@ -1946,6 +1950,44 @@ STR16 pMilitiaControlMenuStrings[] =
 	//L"Wszyscy: Szukajcie przedmiotów",
 	L"Anuluj", // cancel this menu
 };
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
+};
+
 
 //STR16 pTalkToAllMenuStrings[] =
 //{
@@ -2158,7 +2200,9 @@ STR16 gzMercSkillTextNew[] =
 	L"Uczenie",
 	L"Zwiad",
 	// covert ops is a major trait that was added later
-	L"Covert Ops",		// 10	// TODO.Translate
+	L"Covert Ops",		// 20	// TODO.Translate
+	// new minor traits
+	L"Radio Operator",	// 21
 	// second names for major skills
 	L"Strzelec RKMu",
 	L"Bombardier",
@@ -2169,17 +2213,18 @@ STR16 gzMercSkillTextNew[] =
 	L"Dowódca Drużyny",
 	L"Inżynier",
 	L"Doktor",
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"Spy",				// 40	// TODO.Translate
+	L"Placeholder",		// 40
+	L"Spy",				// 41	// TODO.Translate
+	L"Placeholder",		// for radio operator (minor trait)
 	L"Więcej...",
 };
 //////////////////////////////////////////////////////////
@@ -6371,6 +6416,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Zwiadowca: Nic nie umknie twej uwadze! ± ",
 	// Covert ops
 	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7869,6 +7916,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 #endif //POLISH

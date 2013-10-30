@@ -1646,6 +1646,7 @@ STR16 pAssignmentStrings[] =
 	L"Транспорт",	// in a vehicle
 	L"В пути",	// in transit - abbreviated form
 	L"Ремонт",	// repairing
+	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
 	L"Практика",	// training themselves  
 	L"Ополчение",		// training a town to revolt 
 	L"Мобил.гр.", //training moving militia units		//M.Militia
@@ -1734,6 +1735,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Транспорт",
 	L"В пути",
 	L"Ремонт",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Практика", 
 	L"Ополчение",
 	L"Тренирует мобильную группу",	//Training Mobile Militia
@@ -1782,6 +1784,7 @@ STR16 pLongAssignmentStrings[] =
 	L"В транспорте",
 	L"В пути",
 	L"Ремонтирует",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Практикуется", 
 	L"Тренирует ополчение",
 	L"Тренирует мобильную группу",	//Train Mobiles
@@ -1911,6 +1914,7 @@ STR16 pAssignMenuStrings[] =
 	L"Пациент", // the merc is receiving medical attention
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Обучение", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
 	L"Удобства", // the merc is using/staffing a facility	//Facility
@@ -1938,6 +1942,44 @@ STR16 pMilitiaControlMenuStrings[] =
 	//L"Всем искать предметы",
 	L"Отмена", // cancel this menu
 };
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
+};
+
 
 //STR16 pTalkToAllMenuStrings[] =
 //{
@@ -2151,6 +2193,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Разведчик",	//Scouting
 	// covert ops is a major trait that was added later
 	L"Covert Ops",		// 20	// TODO.Translate
+	// new minor traits
+	L"Radio Operator",	// 21
 	// second names for major skills
 	L"Пулемётчик",	//Machinegunner
 	L"Артиллерист",	//Bombardier
@@ -2161,17 +2205,18 @@ STR16 gzMercSkillTextNew[] =
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"Шпион",				// 30
+	L"Placeholder",		// 40
+	L"Шпион",			// 41
+	L"Placeholder",		// for radio operator (minor trait)
 	L"Ещё...",
 };
 //////////////////////////////////////////////////////////
@@ -6356,6 +6401,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Разведчик: Ничто не скроется от вашего зоркого взгляда! ± ",	//Scouting: Nothing can escape your notice!
 	// Covert ops
 	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7843,6 +7890,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 #endif //RUSSIAN

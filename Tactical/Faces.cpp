@@ -2196,6 +2196,21 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				bNumRightIcons++;
 			}
 
+			// Flugente: icons for radio operator actions (not the assignment)
+			if ( MercPtrs[ pFace->ubSoldierID ]->bAssignment != RADIO_SCAN )
+			{
+				if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
+					bNumRightIcons++;
+				}
+				else if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
+					bNumRightIcons++;
+				}
+			}
+
 			switch( pSoldier->bAssignment )
 			{
 				case DOCTOR:
@@ -2268,6 +2283,11 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 						usMaximumPts	-= ( usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR );
 					}
 
+					break;
+
+				case RADIO_SCAN:
+					sIconIndex_Assignment  = 19;
+					fDoIcon_Assignment		= TRUE;
 					break;
 
 				case MOVE_EQUIPMENT:

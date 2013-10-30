@@ -1009,7 +1009,8 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 	{
 		// Check LOS!
-		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pTMilitiaSoldier->sGridNo,  pTMilitiaSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
+		// Flugente: active radio sets allows us to give individual orders even without a line of sight
+		if ( pSoldier->CanUseRadio() || SoldierTo3DLocationLineOfSightTest( pSoldier, pTMilitiaSoldier->sGridNo,  pTMilitiaSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ATTACK );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_HOLD );
@@ -1069,7 +1070,11 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 	//pSoldier = GetSelectedAssignSoldier( FALSE ); //do not use
 	
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-	{	
+	{
+		// Flugente: active radio sets also count as radio
+		if ( pSoldier->CanUseRadio() )
+			return TRUE;
+
 		//bSlot = FindObj( pSoldier, EXTENDEDEAR );
 		bSlot = FindHearingAid(pSoldier);
 		//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Position: %d", bSlot );

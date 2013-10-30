@@ -161,19 +161,20 @@ typedef enum
 
 	// Flugente: new traits have to go here, even if they are major traits, as otherwise the existing traits in profiles get mixed up
 	COVERT_NT, // 20
+	RADIO_OPERATOR_NT, //21		// a minor trait
 
 	NUM_SKILLTRAITS_NT
 } SkillTraitNew;
 
 #define NUM_MAJOR_TRAITS 10
-#define NUM_MINOR_TRAITS 10
+#define NUM_MINOR_TRAITS 11
 
 #define NUM_ORIGINAL_MAJOR_TRAITS 9
 
 // Flugente: I've had it with this hardcoding madness. Without this, adding or removing a new trait would crash anything related to a bubblehelp display of traits
 // always check every use of these enums and every use of the skill-strings if you add a new trait
-#define NEWTRAIT_MERCSKILL_EXPERTOFFSET	NUM_MAJOR_TRAITS + NUM_MINOR_TRAITS
-#define NEWTRAIT_MERCSKILL_OFFSET_ALL	NEWTRAIT_MERCSKILL_EXPERTOFFSET + NUM_MAJOR_TRAITS
+#define NEWTRAIT_MERCSKILL_EXPERTOFFSET	(NUM_MAJOR_TRAITS + NUM_MINOR_TRAITS)
+#define NEWTRAIT_MERCSKILL_OFFSET_ALL	(NEWTRAIT_MERCSKILL_EXPERTOFFSET + NUM_MAJOR_TRAITS)
 
 // SANDRO - new set of character traits
 typedef enum

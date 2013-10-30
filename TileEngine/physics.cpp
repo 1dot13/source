@@ -2867,3 +2867,38 @@ INT32 RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadi
 
 	return( sGridNo );
 }
+
+UINT32 GetArtilleryTargetGridNo( UINT32 sTargetGridNo, INT8 bRadius )
+{
+	return RandomGridFromRadius( sTargetGridNo, 1, bRadius );
+}
+
+BOOLEAN GetArtilleryLaunchParams( UINT32 sStartingGridNo, UINT32 sTargetGridNo, INT16 sStartZ, INT16 sEndZ, UINT16 usLauncher, OBJECTTYPE* pObj, FLOAT* pdForce, FLOAT* pdDegrees)
+{
+	FLOAT		dMagForce, dMaxForce, dMinForce;
+	FLOAT		dDegrees		= OUTDOORS_START_ANGLE;
+	INT16		sMinRange		= MIN_MORTAR_RANGE;
+
+	sStartZ			= 256;
+
+	// Find force for basic
+	INT32 sFinalGridNo = 0;
+	FindBestForceForTrajectory( sStartingGridNo, sTargetGridNo, sStartZ, sEndZ, dDegrees, pObj, &sFinalGridNo, &dMagForce );
+
+	INT32 uiMaxRange = GetModifiedGunRange(usLauncher) / CELL_X_SIZE;
+
+	dMaxForce = CalculateForceFromRange( NULL, (INT16) uiMaxRange, (FLOAT)( PI/4 ) );
+			
+	if ( dMagForce > dMaxForce )
+		dMagForce = dMaxForce;
+
+	dMinForce = CalculateForceFromRange( NULL, (INT16)( sMinRange / 10 ), (FLOAT)( PI / 4 ) );
+
+	if ( dMagForce < dMinForce )
+		dMagForce = dMinForce;
+		
+	(*pdForce)		= dMagForce;
+	(*pdDegrees) 	= dDegrees;
+
+	return TRUE;
+}

@@ -1655,6 +1655,7 @@ STR16 pAssignmentStrings[] =
 	L"Fahrzeug", // in a vehicle
 	L"Transit", // in transit - abbreviated form
 	L"Repar.", // repairing
+	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
 	L"Üben", // training themselves
 	L"Miliz", // training a town to revolt 
 	L"M.Miliz", //training moving militia units		
@@ -1739,6 +1740,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Üben", 
 	L"Miliz",
 	L"Trainiere Mobile Miliz",
@@ -1785,6 +1787,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
+	L"Radio Scan",	// radio scan	// TODO.Translate
 	L"Üben", 
 	L"Miliz",
 	L"Trainiere Mobile",
@@ -1910,6 +1913,7 @@ STR16 pAssignMenuStrings[] =
 	L"Patient", // the merc is receiving medical attention
 	L"Fahrzeug", // the merc is in a vehicle
 	L"Repar.", // the merc is repairing items 
+	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Training", // the merc is training
 	L"Umzug",	// move items
 	L"Betrieb", // the merc is using/staffing a facility
@@ -1937,6 +1941,44 @@ STR16 pMilitiaControlMenuStrings[] =
 	//L"All: Find items",
 	L"Abbrechen",		// cancel this menu
 };
+
+//Flugente
+STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+{
+	// radio operator
+	L"Artillery Strike",
+	L"Jam communications",
+	L"Scan frequencies",
+	L"Eavesdrop",
+	L"Call reinforcements",
+	L"Switch off radio set",
+};
+
+//Flugente: short description of the above skills for the skill selection menu
+STR16 pTraitSkillsMenuDescStrings[] =
+{
+	// radio operator
+	L"Order an artillery strike from sector...",
+	L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"Scan for jamming signals.",
+	L"Use your radio equipment to continously listen for enemy movement",
+	L"Call in reinforcements from neighbouring sectors.",
+	L"Turn off radio set to save batteries.",
+};
+
+STR16 pTraitSkillsDenialStrings[] =
+{
+	L"Requires:\n",
+	L" - %d AP\n",
+	L" - %s\n",
+	L" - %s or higher\n",
+	L" - %s or higher or\n",
+	L" - %d minutes to be ready\n",
+	L" - mortar positions in neighbouring sectors\n",
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - posession by a demon",
+};
+
 
 //STR16 pTalkToAllMenuStrings[] =
 //{
@@ -2162,6 +2204,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Aufklärer",
 	// covert ops is a major trait that was added later
 	L"Geheimagent",
+	// new minor traits
+	L"Funker",	// 21
 	// second names for major skills
 	L"MG-Veteran",
 	L"Artillerist",
@@ -2173,17 +2217,18 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingenieur",
 	L"Arzt",
 	// placeholders for minor traits
-	L"Placeholder",		// 30
+	L"Placeholder",		// 31
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 35
+	L"Placeholder",		// 36
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 39
-	L"Spion",				// 30
+	L"Placeholder",		// 40
+	L"Spion",			// 41
+	L"Placeholder",		// for radio operator (minor trait)
 	L"Mehr...",
 };
 
@@ -6181,6 +6226,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Aufklärer: Sie sind über die Maßen aufmerksam, haben ein sehr reges Auge und einen nimmermüden Geist. ± ",
 	// Covert ops
 	L"Geheimagent: Neben Ihnen schaut 007 wie der reinste Amateur aus! ± ",
+	// Radio Operator
+	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7667,6 +7714,18 @@ STR16		szSexistText[]=
 	L"somewhat sexist",
 	L"very sexist",
 	L"a Gentleman",
+};
+
+// Flugente: power pack texts
+STR16 gPowerPackDesc[] =
+{
+	L"Batteries are ",
+	L"full",
+	L"good",
+	L"at half",
+	L"low",
+	L"depleted",
+	L"."
 };
 
 #endif //GERMAN

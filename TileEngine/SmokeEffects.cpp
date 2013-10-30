@@ -126,6 +126,10 @@ INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags )
 	{
 		return( BURNABLEGAS_SMOKE_EFFECT );
 	}
+	else if ( ubWorldFlags & MAPELEMENT_EXT_SIGNAL_SMOKE )
+	{
+		return( SIGNAL_SMOKE_EFFECT );
+	}
 	else
 	{
 		return( NO_SMOKE_EFFECT );
@@ -157,10 +161,15 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 			return( MAPELEMENT_EXT_BURNABLEGAS );
 			break;
 
-	case CREATURE_SMOKE_EFFECT:
+		case CREATURE_SMOKE_EFFECT:
 
-		return( MAPELEMENT_EXT_CREATUREGAS );
-		break;
+			return( MAPELEMENT_EXT_CREATUREGAS );
+			break;
+
+		case SIGNAL_SMOKE_EFFECT:
+
+			return( MAPELEMENT_EXT_SIGNAL_SMOKE );
+			break;
 
 		default:
 
@@ -250,7 +259,8 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 			//ubStartRadius			= 1;
 			//break;
 
-	case EXPLOSV_CREATUREGAS:
+		case EXPLOSV_CREATUREGAS:
+
 			bSmokeEffectType	=	CREATURE_SMOKE_EFFECT;
 			break;
 
@@ -259,10 +269,13 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 			//bSmokeEffectType	=	CREATURE_SMOKE_EFFECT;
 			//ubDuration				= 2;
 			//ubStartRadius			= 0;
-		break;
+			//break;
+
+		case EXPLOSV_SIGNAL_SMOKE:
+
+			bSmokeEffectType = SIGNAL_SMOKE_EFFECT;
+			break;
 	}
-
-
 
 	pSmoke->ubDuration	= (UINT8)Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
 	pSmoke->ubRadius	= (UINT8)Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
@@ -372,99 +385,117 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 	{
 		case NORMAL_SMOKE_EFFECT:
 
-		if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-		{
-			strcpy( AniParams.zCachedFile, "TILECACHE\\smkechze.STI" );
-		}
-		else
-		{
-		if ( fDissipating )
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\smalsmke.STI" );
-		}
-		else
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\SMOKE.STI" );
-		}
-		}
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\smkechze.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\smalsmke.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\SMOKE.STI" );
+				}
+			}
 			break;
 
 		case TEARGAS_SMOKE_EFFECT:
 
-		if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-		{
-			strcpy( AniParams.zCachedFile, "TILECACHE\\tearchze.STI" );
-		}
-		else
-		{
-		if ( fDissipating )
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\smaltear.STI" );
-		}
-		else
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\TEARGAS.STI" );
-		}
-		}
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\tearchze.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\smaltear.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\TEARGAS.STI" );
+				}
+			}
 			break;
 
 		case MUSTARDGAS_SMOKE_EFFECT:
 
-		if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-		{
-			strcpy( AniParams.zCachedFile, "TILECACHE\\mustchze.STI" );
-		}
-		else
-		{
-		if ( fDissipating )
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\smalmust.STI" );
-		}
-		else
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\MUSTARD2.STI" );
-		}
-		}
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\mustchze.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\smalmust.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\MUSTARD2.STI" );
+				}
+			}
 			break;
 
 		case BURNABLEGAS_SMOKE_EFFECT:
 
-		if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-		{
-			strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMCHZE.STI" );
-		}
-		else
-		{
-		if ( fDissipating )
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\smalflam.STI" );
-		}
-		else
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMETH2.STI" );
-		}
-		}
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMCHZE.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\smalflam.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMETH2.STI" );
+				}
+			}
 			break;
 
 		case CREATURE_SMOKE_EFFECT:
 
-		if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-		{
-			strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-		}
-		else
-		{
-		if ( fDissipating )
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-		}
-		else
-		{
-			 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-		}
-		}
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
+				}
+			}
 			break;
 
+		case SIGNAL_SMOKE_EFFECT:
+
+			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
+				}
+				else
+				{
+					 strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
+				}
+			}
+			break;
 	}
 
 	// Create tile...
@@ -944,18 +975,52 @@ void UpdateSmokeEffectGraphics( )
 		//if the smoke is active
 		if( gSmokeEffectData[ uiCnt ].fAllocated )
 		{
-		if ( gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF )
-		{
-		bLevel = 1;
-		}
-		else
-		{
-		bLevel = 0;
-		}
+			if ( gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF )
+			{
+				bLevel = 1;
+			}
+			else
+			{
+				bLevel = 0;
+			}
 
 			SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, ERASE_SPREAD_EFFECT, bLevel, uiCnt );
 
 			SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, TRUE, bLevel, uiCnt );
+		}
 	}
+}
+
+BOOL GetRandomSignalSmokeGridNo(INT32* psGridNo)
+{
+	UINT32		uiCnt;
+	//SMOKEEFFECT *pSmoke;
+	//INT8		bLevel;
+
+	INT32 smokearray[50];
+	for (UINT8 i = 0; i < 50; ++i)
+		smokearray[i] = -1;
+
+	UINT8 cnt = 0;
+
+	//loop through and save the number of smoke effects
+	for( uiCnt=0; uiCnt < guiNumSmokeEffects; uiCnt++)
+	{
+		if ( gSmokeEffectData[ uiCnt ].fAllocated && gSmokeEffectData[ uiCnt ].bType == SIGNAL_SMOKE_EFFECT )
+		{
+			smokearray[cnt++] = uiCnt;
+
+			if ( cnt >= 50 )
+				break;
+		}
 	}
+
+	if ( !cnt )
+		return FALSE;
+
+	UINT8 target = Random(cnt);
+
+	(*psGridNo) = gSmokeEffectData[ smokearray[target] ].sGridNo;
+
+	return TRUE;
 }

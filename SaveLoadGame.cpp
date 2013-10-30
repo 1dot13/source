@@ -2054,8 +2054,148 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraWisdom, sizeof(bExtraWisdom), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraExpLevel, sizeof(bExtraExpLevel), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bSoldierFlagMask, sizeof(bSoldierFlagMask), sizeof(INT32), numBytesRead);
-				
+		
 		if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			this->bFoodLevel = 0;
+			this->bDrinkLevel = 0;
+			this->usStarveDamageHealth = 0;
+			this->usStarveDamageHealth = 0;
+
+			for(int i = 0; i < sizeof(bFoodLevel); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(bDrinkLevel); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usStarveDamageHealth); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usStarveDamageStrength); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >=  MULTITURN_ACTIONS )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->bOverTurnAPS, sizeof(bOverTurnAPS), sizeof(INT16), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->sMTActionGridNo, sizeof(sMTActionGridNo), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bAIIndex, sizeof(bAIIndex), sizeof(INT16), numBytesRead);
+		}
+		else
+		{
+			this->bOverTurnAPS = 0;
+			this->sMTActionGridNo = 0;
+			this->usMultiTurnAction = 0;
+			this->bAIIndex = 0;
+
+			for(int i = 0; i < sizeof(bOverTurnAPS); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(sMTActionGridNo); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usMultiTurnAction); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(bAIIndex); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			this->usSoldierProfile = 0;
+			this->usItemMoveSectorID = 0;
+
+			for(int i = 0; i < sizeof(usSoldierProfile); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usItemMoveSectorID); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+		}
+		
+		if ( guiCurrentSaveGameVersion >=  TRAIT_RADIO_OPERATOR )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			this->usAISkillUse = 0;
+
+			for(UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)
+				this->usSkillCounter[i] = 0;
+
+			for(UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i)
+				this->usSkillCooldown[i] = 0;
+
+			// Flugente: okay, this part will be a bit weird, so bear with me
+			// ubFiller had length 7 before this revision - we still need to read those. We have to do that, otherwise the next read functions will read the filler
+			UINT8 blarg[7];
+			numBytesRead = ReadFieldByField(hFile, &blarg, 7, sizeof(UINT8), numBytesRead);
+
+			// usAISkillUse forms one block with usSoldierProfile and usItemMoveSectorID and thus does not need additional padding
+			buffer += 3;
+			
+			for(int i = 0; i < sizeof(usAISkillUse); ++i)
+				buffer++;			
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usSkillCounter)-6; ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usSkillCooldown); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+						
+			for(int i = 0; i < sizeof(ubFiller); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			// we now have to substract the 7 bytes we read from the old ubFiller, but have to account for usAISkillUse
+			buffer -= 6;
+		}
+
+		/*if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
 		{
 			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
@@ -2073,8 +2213,31 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				{
 					numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
 					numBytesRead = ReadFieldByField(hFile, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
-										
-					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+
+					if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
+					{
+						numBytesRead = ReadFieldByField(hFile, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
+						numBytesRead = ReadFieldByField(hFile, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
+						numBytesRead = ReadFieldByField(hFile, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
+						numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+					}
+					else
+					{
+						for(UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)
+							this->usSkillCounter[i] = 0;
+
+						for(UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i)
+							this->usSkillCooldown[i] = 0;
+
+						this->usAISkillUse = 0;
+
+						// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
+						const UINT8 tmp = sizeof(usSkillCounter) + sizeof(usSkillCooldown) + sizeof(usAISkillUse);
+						UINT8 blarg[tmp];
+						numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
+				
+						numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+					}
 				}
 				else
 				{
@@ -2164,7 +2327,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				buffer++;
 			while((buffer%4) > 0)
 				buffer++;
-		}
+		}*/
 
 #ifdef JA2UB
 		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);

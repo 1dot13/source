@@ -298,3 +298,24 @@ FLOAT AICalcRecoilForShot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon, UINT8 ubS
 
 // HEADROCK HAM 4: Calculate average recoil offset for a shot.
 FLOAT AICalcRecoilForShot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon, UINT8 ubShotNum);
+
+// Flugente AI functions
+typedef BOOLEAN (*SOLDIER_CONDITION)( SOLDIERTYPE *pSoldier );
+
+// determine a gridno that would allow us to hit as many enemies as possible given an effect with radius aRadius tiles
+// return true if sufficent gridno is found
+// pGridNo will be the GridNo
+// aRadius is the area effect radius to use
+// uCheckFriends: 0 - do not consider friends at all 1 - consider with negative weight else: ignore any location that might also hit friends
+// sucess only if at a rating of at least aMinRating can be achieved
+// any enemy soldiers not fulfilling cond will be excluded from this calculation
+// if an enemy soldier fulfils taboo, make sure to not hit him at all!
+BOOLEAN GetBestAoEGridNo(SOLDIERTYPE *pSoldier, INT32* pGridNo, INT16 aRadius, UINT8 uCheckFriends, UINT8 aMinRating, SOLDIER_CONDITION cond, SOLDIER_CONDITION taboo);
+
+// Get the ID of the farthest opponent  we can see, with an optional minimum range
+// puID - ID of the farthest opponent pSoldier can see
+// sRange - only return true and give an idea if opponent found is further away than this
+BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT8* puID, INT16 sRange);
+
+// are there more allies than friends in adjacent sectors?
+BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY, INT8 aZ);
