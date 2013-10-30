@@ -1649,7 +1649,14 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	if ( 1 )
 	{
 		INT8 type = -1;
-		if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+
+		// silversurfer: Don't replace tanks!
+		if ( pCreateStruct->bBodyType != TANK_NE && pCreateStruct->bBodyType != TANK_NW )
+		{
+			// We have a function for this
+			type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
+
+/*		if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
 		{
 			switch( pCreateStruct->ubSoldierClass )
 			{
@@ -1678,6 +1685,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 				type = 3;
 				break;
 			}
+		}*/
 		}
 
 		if ( type > -1 )
