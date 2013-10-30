@@ -5098,6 +5098,14 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Продолжить тренировку мобильного подразделения в %s (%s %d)?",
 	L"Тренировка мобильного подразделения в секторе %d обойдётся в $ %d. %s",
 	L"Тренировка мобильного подразделения ополченцев обойдётся в $",
+	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.", // TODO.Translate
+	L"liberate more town sectors", // TODO.Translate
+	L"liberate new town sectors", // TODO.Translate
+	L"liberate more towns", // TODO.Translate
+	L"regain your lost progress", // TODO.Translate
+	L"progress further", // TODO.Translate
+	L"recruit more rebels", // TODO.Translate
+	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.", // TODO.Translate
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

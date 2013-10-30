@@ -5084,6 +5084,14 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
 	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	// TODO.Translate
 	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
+	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.", // TODO.Translate
+	L"liberate more town sectors", // TODO.Translate
+	L"liberate new town sectors", // TODO.Translate
+	L"liberate more towns", // TODO.Translate
+	L"regain your lost progress", // TODO.Translate
+	L"progress further", // TODO.Translate
+	L"recruit more rebels", // TODO.Translate
+	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.", // TODO.Translate
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

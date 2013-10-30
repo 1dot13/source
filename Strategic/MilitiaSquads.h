@@ -65,4 +65,8 @@ UINT8 ManualMobileMovementAllowed( UINT8 ubSector );
 // HEADROCK HAM 4: Initialize all manual restrictions;
 void InitManualMobileRestrictions();
 
+//Moa: for mobile militia: militia deserters and maximum allowed
+extern void MobileMilitiaDeserters( INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOLEAN fPrintMessage );
+extern UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage );
+
 #endif

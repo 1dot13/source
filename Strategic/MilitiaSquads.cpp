@@ -25,6 +25,8 @@
 	#include "Auto Resolve.h"
 	#include "Vehicles.h"
 	#include "Tactical Save.h"
+	#include "Campaign.h"
+	#include "message.h"
 #endif
 
 #include "connect.h"
@@ -514,14 +516,15 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 				ubNumEnemiesNearTarget > 0 )
 		{
 			// Both sectors threatened. 
-
-			if (gGameExternalOptions.gfAllowReinforcements && !gGameExternalOptions.gfAllowReinforcementsOnlyInCity)
+			//Moa: removed below: reinforcement is handled elsewhere, the function below is even better then 50%/50% because it leaves
+			//a chance to make one sector fully defended instead of possibly two losses. Talking about unfull groups - full groups wont change anyway.
+			/*if (gGameExternalOptions.gfAllowReinforcements && !gGameExternalOptions.gfAllowReinforcementsOnlyInCity)
 			{
 				// Militia will spread out between the two sectors to maximize defensive capability, since they can 
 				// always reinforce one another if either sector is attacked.
 				ubChanceToSpreadOut = 100;
 			}
-			else
+			else*/
 			{
 				// Militia chance to spread out is based on whether the Origin or the Destination are under greater
 				// threat. If the destination is more threatened, militia are more likely to reinforce it 
@@ -531,20 +534,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 				ubChanceToSpreadOut = __min( 100, (ubNumEnemiesNearOrigin * 100) / usTotalNumEnemies );
 			}
 		}
-		else if (NumEnemiesInFiveSectors( sMapX, sMapY ) > 0 &&
-				NumEnemiesInFiveSectors( sTMapX, sTMapY ) > 0 )
-		{
-			// Both sectors threatened. Militia will spread out between them, to maximize defensive capability.
-			ubChanceToSpreadOut = 100;
-		}	
 
-		else if (NumEnemiesInFiveSectors( sMapX, sMapY ) > 0 &&
-				NumEnemiesInFiveSectors( sTMapX, sTMapY ) == 0 )
-		{
-			// Source sector is threatened, while destination is not. The group does not
-			// move at all, as it is already in a good position to defend.
-			return;
-		}
 		else
 		{
 			///////////////////////////////////////////////////////
@@ -573,6 +563,19 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// this ignores any of the possible options above.
 			if (gubManualRestrictMilitia[ SECTOR(sTMapX, sTMapY) ] == MANUAL_MOBILE_NO_LEAVE )
 			{
+				ubChanceToSpreadOut = 0;
+			}
+
+			
+			if (!gGameExternalOptions.gfAllowMilitiaSpread )
+			{
+				// Spreading is not allowed by user. Let them fill up the target sector.
+				ubChanceToSpreadOut = 0;
+			}
+			else if ( !gGameExternalOptions.gfAllowMilitiaSpreadWhenFollowing && PlayerMercsInSector_MSE( (UINT8) sTMapX, (UINT8) sTMapY, FALSE ) )
+			{
+				// There is a Player in targetsector or about to arrive, but spreading is not allowed by user.
+				// Let them fill up the target sector
 				ubChanceToSpreadOut = 0;
 			}
 		}
@@ -1488,7 +1491,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	// moving squad, if it is not a SAM site
 	if( ( fSourceCityAllowsRoaming ) && (!IsThisSectorASAMSector(	sMapX, sMapY, 0 )) )
 	{
-		if( !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector
+		if( !gGameExternalOptions.gfAllowMilitiaFollowPlayer || !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector, or they are not forced to follow
 		{
 			if( GetWorldHour() % 2 )return;
 
@@ -1569,6 +1572,9 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 							pEnemyGroup->ubNextX = targetX;
 							pEnemyGroup->ubNextY = targetY;
 		*/
+						//Moa: handle deserters before moving in hostile territory
+						MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
+
 							gfMSBattle = TRUE;
 
 			//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
@@ -2249,5 +2255,361 @@ void InitManualMobileRestrictions()
 		}
 		// By default, all other sectors are "go".
 		gubManualRestrictMilitia[x] = MANUAL_MOBILE_NO_RESTRICTION;
+	}
+}
+
+
+extern BOOLEAN IsMercOnTeam(UINT8 ubMercID);
+// @brief Calculates the contingent for mobile militia. 
+// Calculates current active mobile militia and compares to variable maximum limit which can be altered by external data.
+// @param printMessage Set to TRUE to get a screenmessage telling the player which maximum is reached. No message is generated when the maximum is not yet reached (<=100).
+// @return The current percentage (0% - 255%). If the feature is deactivated allways 0 is returned.
+UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage )
+{
+	///////////////////////
+	// Check for maximum mobiles allowed
+	//
+	if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode > 1 )
+	{
+		//what we need to know
+		UINT16 iActiveMobiles = 0, iCurrentMax = 0;
+		UINT16 iTownSectorsUnderPlayerControl = 0, iTownSectorsLiberatedAtLeastOnce = 0;
+		UINT8 iTownsUnderPlayerControl = 0, iCurrentProgress = 0, iMaxProgress = 0, iNumRebelsInPlayerTeam = 0;
+
+		//temp values for sectors we gonna check
+		INT8 iCurrT_ID, test;
+		UINT16 iStrategicMapID, iSectorInfoID;
+		SECTORINFO *pSectorInfo;
+		
+		// start gathering data
+		if (gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 8U)		// check for TownsLiberated is active
+			for ( iCurrT_ID = 0; iCurrT_ID < NUM_TOWNS; iCurrT_ID++)	// for each town
+			{
+				if ( GetTownSectorsUnderControl( iCurrT_ID ) == GetTownSectorSize( iCurrT_ID ) )
+					iTownsUnderPlayerControl++;										// remember player has that town under control
+			}
+
+		for ( iSectorInfoID = 0; iSectorInfoID < 255; iSectorInfoID++)				// for each sector ...
+		{
+			iStrategicMapID = SECTOR_INFO_TO_STRATEGIC_INDEX(iSectorInfoID);
+			pSectorInfo = &( SectorInfo[ iSectorInfoID ] );
+			iCurrT_ID = StrategicMap[ iStrategicMapID ].bNameId;
+
+			if ( iCurrT_ID != BLANK_SECTOR )
+			{
+				// we have found a town (no sam site)
+
+				if ( StrategicMap[ iStrategicMapID ].fEnemyControlled == FALSE )
+					iTownSectorsUnderPlayerControl++;								// remember player currently controls that town sector
+
+				if ( pSectorInfo->fSurfaceWasEverPlayerControlled == TRUE )
+					iTownSectorsLiberatedAtLeastOnce++;								// remember player had allready liberated that town sector once
+
+				if ( MilitiaTrainingAllowedInTown( iCurrT_ID ) == FALSE )	// considered as mobile only if in that town training is taboo (Tixa, Omerta..)
+					iActiveMobiles += CountMilitia( pSectorInfo );
+					//for ( UINT8 militiaLevel = 0; militiaLevel < MAX_MILITIA_LEVELS; militiaLevel++ )
+					//	iActiveMobiles += pSectorInfo->ubNumberOfCivsAtLevel[ militiaLevel ];	// remember number of roaming militia in that town sector (green, regular, elite, ..)
+			}
+			
+			//else if ( StrategicMap[ iStrategicMapID ].bSAMCondition > 0 ) //faster then below, but not safe
+			else if ( MilitiaTrainingAllowedInSector( SECTORX(iSectorInfoID), SECTORY(iSectorInfoID), 0 ) == FALSE ) 
+			{
+				// we are in wilderness
+
+				//for ( UINT8 militiaLevel = 0; militiaLevel < MAX_MILITIA_LEVELS; militiaLevel++ )
+				//		iActiveMobiles += pSectorInfo->ubNumberOfCivsAtLevel[ militiaLevel ];	// remember number of roaming militia in that sector (green, regular, elite, ..)
+				iActiveMobiles += CountMilitia( pSectorInfo );
+			}
+		}
+		
+		if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 64U )				// check for rebels in player team is active
+		{
+			if ( gProfilesRPC != NULL )
+			{
+				UINT16 rebelStructSize = sizeof ( gProfilesRPC );
+				for (UINT16 rebelPC = 0; rebelPC < rebelStructSize; rebelPC++)
+				{
+					if ( IsMercOnTeam ( gProfilesRPC[ rebelPC ].ProfilId ) ) iNumRebelsInPlayerTeam++;
+				}
+			}
+			//if ( IsMercOnTeam ( IRA ) ) iNumRebelsInPlayerTeam++;
+			//if ( IsMercOnTeam ( DIMITRI ) ) iNumRebelsInPlayerTeam++;
+			//if ( IsMercOnTeam ( CARLOS ) ) iNumRebelsInPlayerTeam++;
+			//if ( IsMercOnTeam ( MIGUEL ) ) iNumRebelsInPlayerTeam++;
+			//if ( IsMercOnTeam ( DYNAMO ) ) iNumRebelsInPlayerTeam++;
+			//if ( IsMercOnTeam ( ENRICO ) ) iNumRebelsInPlayerTeam++;
+		}
+		
+		if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 16U )				// check for current progress is active
+			iCurrentProgress = CurrentPlayerProgressPercentage();
+		if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 32U )				// check for max progress is active
+			iMaxProgress = HighestPlayerProgressPercentage();
+		//end gathering data
+		/////////////////////
+		// calc maximum (note: the modifier was initilized allready with MOBILE_MILITIA_MAX_ACTIVE_MODIFIER * MAX_MILITIA_PER_SECTOR)
+		UINT8 iModeMatch = 0;	//takes the mode which matches the maximum used in order to build a message later on (0=no match 1..6)
+		UINT16 iCalc;
+		if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 128U )				// we are using the highest value
+		{
+			iCurrentMax = 0;
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 2U )			// check for town sectors under player control is active
+			{
+				iCalc = (UINT16) ( iTownSectorsUnderPlayerControl * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 1;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 4U )			// check for town sectors liberated at least once is active
+			{
+				iCalc = (UINT16) (iTownSectorsLiberatedAtLeastOnce * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 2;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 8U )
+			{
+				iCalc = (UINT16) (iTownsUnderPlayerControl * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 3 );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 3;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 16U )
+			{
+				iCalc = (UINT16) (iCurrentProgress * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 20 / 100 );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 4;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 32U )
+			{
+				iCalc = (UINT16) (iMaxProgress * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 20 / 100 );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 5;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 64U )
+			{
+				iCalc = (UINT16) (iNumRebelsInPlayerTeam * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 3 );
+				if ( iCurrentMax <= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 6;
+				}
+			}
+		}
+		else	// we are using lowest value
+		{
+			iCurrentMax = (UINT16) -1;
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 2U )
+			{
+				iCalc = (UINT16) ( iTownSectorsUnderPlayerControl * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 1;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 4U )
+			{
+				iCalc = (UINT16) (iTownSectorsLiberatedAtLeastOnce * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 2;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 8U )
+			{
+				iCalc = (UINT16) (iTownsUnderPlayerControl * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 3 );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 3;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 16U )
+			{
+				iCalc = (UINT16) (iCurrentProgress * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 20 / 100 );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 4;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 32U )
+			{
+				iCalc = (UINT16) (iMaxProgress * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 20 / 100 );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 5;
+				}
+			}
+			if ( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 64U )
+			{
+				iCalc = (UINT16) (iNumRebelsInPlayerTeam * gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier * 3 );
+				if ( iCurrentMax >= iCalc )
+				{
+					iCurrentMax = iCalc;
+					iModeMatch = 6;
+				}
+			}
+		}
+		/////////////////////
+		//Notify player
+		if ( iActiveMobiles >= iCurrentMax )
+		{	
+			if ( printMessage && iModeMatch > 0 )//fail safe to avoid in-buffer == out-buffer
+			{
+				// providing feedback why player cant train more.
+				CHAR16 sString[200];
+				swprintf( sString, pMilitiaConfirmStrings[15], iActiveMobiles, iCurrentMax, pMilitiaConfirmStrings[15 + iModeMatch] );//We reached maximum (..active../..max..)..make this..to do sth
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sString );
+				DoScreenIndependantMessageBox(sString, MSG_BOX_FLAG_OK, NULL);
+			}
+		}
+		return ( iCurrentMax == 0 ? 255 : (iActiveMobiles * 100 / iCurrentMax) );
+		//return ( iCurrentMax == 0 ? 255 : max( 255, (iActiveMobiles * 100 / iCurrentMax) ) );
+
+	}//end check for maximum mobile militia allowed
+
+	return 0;
+}
+
+
+//@brief Checks for militia quota and removes randomly some of militia if there are too many.
+// Deserting works only if the feature is enabled and the sector is threatened by an adjacent enemy presence.
+// The chance to generate deserters raises with the quota.
+//@param sMapX, sMapY Strategic sector coordinate which will be checked.
+//@param fDeleteEquipment If the militia has any equipment it will be deleted when he is a deserter.
+//@param fPrintMessage Notifies player that some militia have deserted.
+//@auth Moa
+void MobileMilitiaDeserters(INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOLEAN fPrintMessage)
+{
+	// if more then allowed mobiles are active some of them will desert (green and only some regulars, elites will never desert)
+	UINT8 desertersGreen = 0, desertersRegular = 0;
+	BOOLEAN enemiesNear = FALSE;
+
+	// feature not activated, return
+	if (!( gGameExternalOptions.gbMobileMilitiaMaxActiveMode & 1U ) )
+		return;
+
+	// Training allowed here therefore not a sector for mobile militia, return
+	if ( gfMilitiaAllowedInTown [ GetTownIdForSector( sMapX, sMapY ) ] )
+		return;
+
+	// This is a SAM site therefore no mobile militia here, return
+	if (IsThisSectorASAMSector( sMapX, sMapY, 0 ))
+		return;
+
+	///////////////////////
+	// check enemy presence to decide if mobiles are threatened and some will desert.
+	// Note: cant use NumEnemiesInFiveSectors() as it does not work for omerta or when reinforcements are deactivated, also it uses generateDirectionInfo(), which is used for militia movement.
+	UINT8 eAdmins = 0, eTroops = 0, eElites = 0;
+	
+	//enemies in current sector
+	GetNumberOfEnemiesInSector( sMapX, sMapY, &eAdmins, &eTroops, &eElites );
+	if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+		enemiesNear = TRUE;
+
+	if ( ( sMapX > MINIMUM_VALID_X_COORDINATE ) && !enemiesNear )
+	{
+		//left side
+		GetNumberOfEnemiesInSector( sMapX - 1, sMapY, &eAdmins, &eTroops, &eElites );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+			enemiesNear = TRUE;
+	}
+	if ( ( sMapX < MAXIMUM_VALID_X_COORDINATE ) && !enemiesNear)
+	{
+		//right side
+		GetNumberOfEnemiesInSector( sMapX + 1, sMapY, &eAdmins, &eTroops, &eElites );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+			enemiesNear = TRUE;
+	}
+	if ( ( sMapY > MINIMUM_VALID_Y_COORDINATE ) && !enemiesNear )
+	{
+		//top side
+		GetNumberOfEnemiesInSector( sMapX, sMapY - 1, &eAdmins, &eTroops, &eElites );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+			enemiesNear = TRUE;
+	}
+	if ( ( sMapY < MAXIMUM_VALID_Y_COORDINATE ) && !enemiesNear)
+	{
+		//bottom side
+		GetNumberOfEnemiesInSector( sMapX, sMapY + 1, &eAdmins, &eTroops, &eElites );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+			enemiesNear = TRUE;
+	}
+
+	/////////////////////////
+	//calc number of deserters
+	if ( enemiesNear )		//if deserting feature is active, this is a sector where mobile militia is allowed and there is a threat at target
+	{
+		UINT8 quota = GetMobileMilitiaQuota( FALSE );
+
+		if (quota > 100)	//more active then allowed
+		{
+			UINT8 militiaGreen = SectorInfo[ SECTOR( sMapX, sMapY) ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+			UINT8 militiaRegular = SectorInfo[ SECTOR( sMapX, sMapY) ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+
+			desertersGreen = (quota - 100) * militiaGreen / 100;
+			desertersGreen = Random( min( militiaGreen, desertersGreen ) );//cant remove more then actually exist in that group
+
+			desertersRegular = (quota - 100) * militiaRegular / 200;
+			desertersRegular = Random( min ( militiaRegular, desertersRegular ) );
+		}
+	}
+
+	////////////////////////
+	//remove militia
+	if ( desertersRegular + desertersGreen > 0 )
+	{
+		StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, desertersGreen );
+		StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, desertersRegular );
+
+		///////////////////////////
+		//remove equipment
+		if ( fDeleteEquip && gGameExternalOptions.fMilitiaUseSectorInventory)
+		{
+			SOLDIERCREATE_STRUCT trashIt;
+			UINT8 cnt = desertersGreen;
+			while ( cnt > 0 )
+			{
+				TakeMilitiaEquipmentfromSector( sMapX, sMapY, 0, &trashIt, SOLDIER_CLASS_GREEN_MILITIA);
+				cnt--;
+			}
+			cnt = desertersRegular;
+			while ( cnt > 0 )
+			{
+				TakeMilitiaEquipmentfromSector( sMapX, sMapY, 0, &trashIt, SOLDIER_CLASS_REG_MILITIA);
+				cnt--;
+			}
+		}
+
+		///////////////////////////
+		//notify player
+		if ( fPrintMessage )
+		{
+			CHAR16 sSector[16];
+			GetShortSectorString( sMapX, sMapY, sSector );
+
+			//using screen message to have it logged. Cant use msgBox as it prevents showing the autoresolve screen.
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMilitiaConfirmStrings[ 22 ], ( desertersRegular + desertersGreen ), sSector );
+		}
+	}
+	//clean up
+	if (gfStrategicMilitiaChangesMade)
+	{
+		ResetMilitia();
 	}
 }

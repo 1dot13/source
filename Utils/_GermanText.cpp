@@ -4946,6 +4946,14 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Mobile Milizen in %s (%s %d) weitertrainieren?", // HEADROCK HAM 3.6: Mobile Militia
 	L"Mobile Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
 	L"Eine mobile Milizeinheit für diese Stadt zu trainieren kostet $", // HEADROCK HAM 3.6: Mobile Militia
+	L"Sie können keine weiteren mobilen Milizen ausbilden, da das Maximum erreicht wurde (%d/%d). Sie müssen zunächst %s um weitere zu trainieren.",
+	L"weitere Stadtteile befreien",
+	L"neue Stadtteile befreien",
+	L"mehr Städte erobern",
+	L"den verlorenen Fortschritt wieder aufholen",
+	L"weiter fortschreiten",
+	L"mehr Rebellen rekrutieren",
+	L"Der Miliztruppführer muss Sie leider darüber informieren, dass %d Mitstreiter im Angesicht des Feindes desertierten im Sektor %s.",
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

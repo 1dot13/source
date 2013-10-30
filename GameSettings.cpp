@@ -1881,6 +1881,12 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.gfmusttrainroaming							= iniReader.ReadBoolean("Mobile Militia Training Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
 
+	//Moa: Mode to determine maximum allowed mobile militia for training / deserting.
+	gGameExternalOptions.gbMobileMilitiaMaxActiveMode				= (UINT8) iniReader.ReadInteger("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODE",0,0,255);
+	
+	//Moa: modifier for the maximum (make sure this is read after iMaxMilitiaPerSector)
+	gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier			= iniReader.ReadFloat("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODIFIER", 0.5, 0.01, 10.0) * gGameExternalOptions.iMaxMilitiaPerSector;
+
 	gGameExternalOptions.guiCreateEachNHours						= iniReader.ReadInteger("Mobile Militia Training Settings","CREATE_MOBILE_MILITIA_SQUAD_EACH_N_HOURS",24, 1, 96);
 
 	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
@@ -1921,7 +1927,15 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
 	gGameExternalOptions.fAllowMobileReinforceSAM				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MOBILE_MILITIA_REINFORCE_SAM_GARRISONS", FALSE);
 
-	
+	// Moa: If enabled militia will follow player (default HAM behavier), set to FALSE if they should do what they want.
+	gGameExternalOptions.gfAllowMilitiaFollowPlayer				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_FOLLOW_PLAYER", TRUE);
+
+	// Moa: If enabled militia will spread (default HAM behavier) or set to FALSE to fill up the destination group to maximum.
+	gGameExternalOptions.gfAllowMilitiaSpread					= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_SPREAD", TRUE);
+
+	// Moa: If enabled militia will spread when following or set to FALSE to fill up the destination group to maximum.
+	gGameExternalOptions.gfAllowMilitiaSpreadWhenFollowing		= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_SPREAD_WHEN_FOLLOWING", FALSE);
+
 	// SANDRO - added several bonuses for militia 
 	//################# Militia Strength Settings ##################
 

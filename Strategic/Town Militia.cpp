@@ -844,6 +844,16 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 
 	gfYesNoPromptIsForContinue = TRUE;
 
+	//Moa: prevent continue training when at/above maximum
+	if ( ubMilitiaType == MOBILE_MILITIA )
+	{
+		if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
+		{
+			MilitiaTrainingRejected( MOBILE_MILITIA );
+			return;
+		}
+	}
+
 	// is there enough loyalty to continue training
 	if( DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) == FALSE )
 	{

@@ -453,6 +453,12 @@ typedef struct
 	BOOLEAN gfAllowMilitiaGroups;
 	BOOLEAN gfmusttrainroaming;
 	BOOLEAN gflimitedRoaming;
+	BOOLEAN gfAllowMilitiaFollowPlayer;			//Moa: TRUE try to follow, FALSE do what they want
+	BOOLEAN gfAllowMilitiaSpreadWhenFollowing;	//Moa: TRUE spread normal, FALSE dont spread when following
+	BOOLEAN gfAllowMilitiaSpread;				//Moa: TRUE spread normal, FALSE fill up to max
+	UINT8	gbMobileMilitiaMaxActiveMode;		//Moa: Used to check if the maximum of mobile militia is reached (for training/deserting). THIS IS A MODE
+	FLOAT	gfpMobileMilitiaMaxActiveModifier;	//Moa: const multiplier for the mode used (precalculated with MOBILE_MILITIA_MAX_ACTIVE_MODIFIER * MAX_MILITIA_PER_SECTOR).
+	
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
@@ -832,7 +838,7 @@ typedef struct
 	// HEADROCK HAM B1: Allows reducing the chance of scoring a hit fractionally, if CTH = Minimum CTH
 	UINT16 usMinimumCTHDivisor;
 
-	// HEADROCK HAM B1: Allows Restricted Roaming Militia to move through previously visited sectors, even if restricted.
+	// HEADROCK HAM B1: Allows Restricted Roaming Militia to move through previously visited sectors.
 	BOOLEAN fUnrestrictVisited;
 
 	// HEADROCK HAM B1: Allows the capture of towns to dynamically alter roaming restrictions

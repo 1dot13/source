@@ -15198,6 +15198,10 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 	//	return( FALSE );
 	//}
 
+
+	if ( 100 <= GetMobileMilitiaQuota( FALSE ) )
+		return ( FALSE );
+
 	// If we've reached this, then all is well.
 	return( TRUE );
 
@@ -15216,6 +15220,10 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		DoScreenIndependantMessageBox( New113HAMMessage[5], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
+
+	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
+		return ( FALSE );
+
 
 	///////////////////////////////
 	// Test for required Leadership
