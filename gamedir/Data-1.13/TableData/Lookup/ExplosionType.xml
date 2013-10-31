@@ -40,4 +40,8 @@
 		<id>9</id>
 		<name>Flashbang</name>
 	</ExplosionType>
+	<ExplosionType>
+		<id>10</id>
+		<name>Signal Shell</name>
+	</ExplosionType>
 </JA2Data>
