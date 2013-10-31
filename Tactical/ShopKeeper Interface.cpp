@@ -53,6 +53,7 @@
 	#include "PATHAI.h"
 	#include "Points.h"
 	#include "InterfaceItemImages.h"
+	#include "Encyclopedia_new.h"
 #endif
 
 #ifdef JA2UB
@@ -2838,6 +2839,9 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 
 	//blt the item
 	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), g_bUsePngItemImages ? 0 : pItem->ubGraphicNum, sCenX, sCenY, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), fHighlighted );
+
+	//Moa: encyclopedia item visibility
+	EncyclopediaSetItemAsVisible( usItemIndex, ENC_ITEM_DISCOVERED_INSPECTABLE );
 
 	//Display the status of the item
 	DrawItemUIBarEx( pItemObject, 0, (INT16)(usPosX+2), (INT16)(usPosY+2+20), 2, 20, 	Get16BPPColor( FROMRGB( 140, 136, 119 ) ), Get16BPPColor( FROMRGB( 140, 136, 119 ) ), TRUE, guiRENDERBUFFER );//guiSAVEBUFFER

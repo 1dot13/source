@@ -193,11 +193,14 @@ typedef PARSE_STAGE;
 #define EMAILOTHER								"Email\\EmailOther.xml"
 #define EMAILINSURANCE 							"Email\\EmailInsurance.xml"
 
-#define ENCYCLOPEDIALOCATIONFILENAME			"Encyclopedia\\EncyclopediaLocations.xml"
-#define ENCYCLOPEDIAPROFILEFILENAME				"Encyclopedia\\EncyclopediaProfiles.xml"
-#define ENCYCLOPEDIAINVENTORYFILENAME			"Encyclopedia\\EncyclopediaInventory.xml"
-#define ENCYCLOPEDIAOTHERFILENAME				"Encyclopedia\\EncyclopediaOthers.xml"
-#define ENCYCLOPEDIAQUESTSFILENAME				"Encyclopedia\\EncyclopediaQuests.xml"
+// WANNE: Old encyclopedia. Not used anymore ..
+#ifdef ENABLE_ENCYCLOPEDIA
+	#define ENCYCLOPEDIALOCATIONFILENAME			"Encyclopedia\\EncyclopediaLocations.xml"
+	#define ENCYCLOPEDIAPROFILEFILENAME				"Encyclopedia\\EncyclopediaProfiles.xml"
+	#define ENCYCLOPEDIAINVENTORYFILENAME			"Encyclopedia\\EncyclopediaInventory.xml"
+	#define ENCYCLOPEDIAOTHERFILENAME				"Encyclopedia\\EncyclopediaOthers.xml"
+	#define ENCYCLOPEDIAQUESTSFILENAME				"Encyclopedia\\EncyclopediaQuests.xml"
+#endif
 
 #define BRIEFINGROOMFILENAME					"BriefingRoom\\BriefingRoom.xml"
 

@@ -234,6 +234,12 @@
     <ClInclude Include="DropDown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Encyclopedia_new.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Encyclopedia_Data_new.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -477,6 +483,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DropDown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Encyclopedia_new.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Encyclopedia_Data_new.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

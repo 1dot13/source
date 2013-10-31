@@ -1,9 +1,11 @@
 #ifndef __ENCYCLOPEDIA_H
 #define __ENCYCLOPEDIA_H
 
-#include "Cursors.h"
-#include "soldier profile type.h"
+#include "Types.h"
 #include "Quests.h"
+#include "soldier profile type.h"
+
+
 enum
 {
 	ENCYCLOPEDIA_SLOGAN,

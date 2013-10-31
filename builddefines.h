@@ -4,7 +4,10 @@
 #include "Language Defines.h"
 
 //----- Encyclopedia and Briefing room - by Jazz -----
-//#define ENABLE_ENCYCLOPEDIA		// WANNE: Be aware, encyclopedia uses a hugh amount of memory and the exe takes forever to start. There seems to be some memory leaks
+// WANNE: Do not disable that define. It is the old encyclopedia which uses a lot of memory
+// The reworked encyclopedia (by Moa) is already coded in the source (without a define)
+//#define ENABLE_ENCYCLOPEDIA		
+
 #define ENABLE_BRIEFINGROOM
 //----- End encyclopedia and Briefing room - by Jazz -----
 

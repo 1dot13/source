@@ -1,7 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
-	#include "Laptop All.h"
+	//#include "Laptop All.h"
 	#include "laptop.h"
 	#include "aim.h"
 	#include "Utilities.h"
@@ -10,13 +10,18 @@
 	#include "Text.h"
 	#include "Encrypted File.h"
 	#include "Soldier Profile.h"
+	#include "Sound Control.h"
+	#include "Campaign Types.h"
+	#include "Quests.h"
+	#include "Tactical Save.h"
+	#include "Encyclopedia_Data.h"
 #endif	
 
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
-#include "Quests.h"
 
-#include "Tactical Save.h"
+
+
+
+
 
 #define MAX_FILTR_LOCATION_BUTTONS 11
 #define FILTR_INVENTORY_BUTTONS 5
@@ -125,12 +130,51 @@ void BackupBRandEncyclopedia ( ENCYCLOPEDIA_LOCATION *EncyBackup, ENCYCLOPEDIA_L
 
 BOOLEAN DisplayEncyclopediaLocationText()
 {
+	//DumpMemoryInfoIntoFile( "ExtremeMemoryDump.txt", FALSE );
 	return(TRUE);
 }
 
 void GameInitEncyclopediaLocation()
-{
+{/*
+	UINT32 typeSize = 0,total = 0;
+	CHAR buffer[150];
 
+	typeSize = sizeof (ENCYCLOPEDIA_LOCATION);
+	//backup data
+	total += sizeof(gEncyclopediaLocationDataBackup);
+	total += sizeof(gEncyclopediaProfilesDataBackup);
+	total += sizeof(gEncyclopediaInventoryDataBackup);
+	total += sizeof(gEncyclopediaOldProfilesDataBackup);
+	total += sizeof(gEncyclopediaQuestsDataBackup);
+	//actual data
+	total += sizeof(gEncyclopediaLocationData);
+	total += sizeof(gEncyclopediaProfilesData);
+	total += sizeof(gEncyclopediaInventoryData);
+	total += sizeof(gEncyclopediaOldProfilesData);
+	total += sizeof(gEncyclopediaQuestsData);
+	//save data
+	total += sizeof(saveEncyclopediaLocationData);
+	total += sizeof(saveEncyclopediaProfilesData);
+	total += sizeof(saveEncyclopediaInventoryData);
+	total += sizeof(saveEncyclopediaOldProfilesData);
+	total += sizeof(saveEncyclopediaQuestsData);
+	//working data
+	total += sizeof(gEncyclopediaDataTemp);
+	total /= 1024*1024;
+	sprintf(buffer,"Memory usage by Encyclopedia: %d MegaBytes\n",total);
+	OutputDebugString( buffer );
+	int tmpFlag = _CrtSetDbgFlag( _CRTDBG_REPORT_FLAG );
+  
+	// Turn on leak-checking bit.
+	tmpFlag |= _CRTDBG_LEAK_CHECK_DF;
+  
+	// Turn off CRT block checking bit.
+	tmpFlag &= ~_CRTDBG_CHECK_CRT_DF;
+  
+	// Set flag to the new value.
+	_CrtSetDbgFlag( tmpFlag );
+
+	DumpMemoryInfoIntoFile( "ExtremeMemoryDump.txt", FALSE );*/
 }
 
 void ResetTemp()
@@ -153,7 +197,7 @@ UINT32 i,NUM_TEMP;
   else
 		NUM_TEMP = NUM_SECTOR;
 		
-  	for(i=0; i<NUM_SECTOR; i++)
+  	for(i=0; i<NUM_TEMP; i++)
 	{
 			gEncyclopediaDataTemp[i].uiIndex = i;
 			
@@ -796,7 +840,7 @@ void InitLocationFiltrButtons()
 void InitSoundButtons()
 {
 	UINT16	usPosY, i;
-	guiSoundButtonsImage =	LoadButtonImage("BriefingRoom\\BUTTONF.sti", -1,0,-1,1,-1 );
+	guiSoundButtonsImage =	LoadButtonImage("BriefingRoom\\BUTTONF.sti", BUTTON_NO_IMAGE, 0, BUTTON_NO_IMAGE, 1, BUTTON_NO_IMAGE );
 
 	usPosY = ENCYCLOPEDIA_LOCATION_FILTER_Y;
 	for(i=0; i<MAX_MISSION_BUTTONS; i++)

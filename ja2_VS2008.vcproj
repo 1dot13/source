@@ -433,6 +433,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Laptop\Encyclopedia_Data_new.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Laptop\Encyclopedia_new.h"
+				>
+			</File>
+			<File
 				RelativePath="Fade Screen.h"
 				>
 			</File>
@@ -652,6 +660,14 @@
 			</File>
 			<File
 				RelativePath="Credits.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Laptop\Encyclopedia_Data_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Laptop\Encyclopedia_new.cpp"
 				>
 			</File>
 			<File

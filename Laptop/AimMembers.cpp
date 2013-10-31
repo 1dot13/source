@@ -46,6 +46,7 @@
 	#include "Quests.h"
 	#include "strategicmap.h"
 	#include "Personnel.h"
+	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
 #endif
 
 #include "Strategic Town Loyalty.h"
@@ -1668,6 +1669,8 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 				{
 					PosX += WEAPONBOX_SIZE_X_NSGI;
 				}
+				//Moa: update encyclopedia item visibility when item gets displayed
+				EncyclopediaSetItemAsVisible( usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
 			}
 		}
 	}
@@ -1740,6 +1743,9 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 					DisplayWrappedString( (UINT16)(PosX-1), wnameY, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 				PosX += WEAPONBOX_SIZE_X;
+
+				//Moa: update encyclopedia item visibility when item gets displayed
+				EncyclopediaSetItemAsVisible( usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
 			}
 		}
 	}

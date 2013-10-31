@@ -2,7 +2,7 @@
 #define __Encyclopedia_Data_H
 
 #include "Encyclopedia.h"
-#include "Encyclopedia_Data.h"
+//#include "Encyclopedia_Data.h"
 
 void GameInitEncyclopediaLocation();
 BOOLEAN EnterEncyclopediaLocation();

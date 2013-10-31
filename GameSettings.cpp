@@ -1162,6 +1162,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableSoldierTooltipHealth		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HEALTH", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipEnergy		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ENERGY", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipMorale		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_MORALE", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipShock			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_SHOCK", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipSuppressionPoints = iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_SUPPRESSION", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipTraits		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_TRAITS", TRUE); // added by SANDRO
 	gGameExternalOptions.fEnableSoldierTooltipHelmet		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HELMET", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipVest			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_VEST", TRUE);
@@ -1710,14 +1712,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gBriefingRoom						= FALSE;
 #endif
 	
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
 	if (!is_networked)
 		gGameExternalOptions.gEncyclopedia					= iniReader.ReadBoolean("Laptop Settings", "ENCYCLOPEDIA", FALSE);
 	else
 		gGameExternalOptions.gEncyclopedia					= FALSE;
-#else
-	gGameExternalOptions.gEncyclopedia						= FALSE;
-#endif
+//#else
+//	gGameExternalOptions.gEncyclopedia						= FALSE;
+//#endif
+	// Moa: visibility of items in encyclopedia see ENC_ITEM_VISIBILITY_T
+	gGameExternalOptions.ubEncyclopediaItemMask	= (UINT8)iniReader.ReadInteger("Laptop Settings", "ENCYCLOPEDIA_ITEM_MASK", 1, 1, 4);
 
 	gGameExternalOptions.fDisableLaptopTransition			= iniReader.ReadBoolean("Laptop Settings", "DISABLE_LAPTOP_TRANSITION", FALSE);
 	gGameExternalOptions.fFastWWWSitesLoading				= iniReader.ReadBoolean("Laptop Settings", "FAST_WWW_SITES_LOADING", FALSE);
@@ -1885,7 +1889,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gbMobileMilitiaMaxActiveMode				= (UINT8) iniReader.ReadInteger("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODE",0,0,255);
 	
 	//Moa: modifier for the maximum (make sure this is read after iMaxMilitiaPerSector)
-	gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier			= iniReader.ReadFloat("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODIFIER", 0.5, 0.01, 10.0) * gGameExternalOptions.iMaxMilitiaPerSector;
+	gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier			= iniReader.ReadFloat("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODIFIER", 0.5, 0.01f, 10.0f) * gGameExternalOptions.iMaxMilitiaPerSector;
 
 	gGameExternalOptions.guiCreateEachNHours						= iniReader.ReadInteger("Mobile Militia Training Settings","CREATE_MOBILE_MILITIA_SQUAD_EACH_N_HOURS",24, 1, 96);
 

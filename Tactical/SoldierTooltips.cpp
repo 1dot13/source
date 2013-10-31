@@ -25,6 +25,7 @@
 #include "SkillCheck.h"
 #include "soldier profile type.h"
 #include "Soldier macros.h"
+#include "Encyclopedia_new.h"	///< Encyclopedia item visibility
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -230,7 +231,11 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_ENERGY], pStrInfo, pSoldier->bBreath );
 			if ( gGameExternalOptions.fEnableSoldierTooltipMorale )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_MORALE], pStrInfo, pSoldier->aiData.bMorale );
-						
+			//Moa: show shock and suppression values in debug tooltip
+			if ( gGameExternalOptions.fEnableSoldierTooltipShock )
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SHOCK], pStrInfo, pSoldier->aiData.bShock );
+			if ( gGameExternalOptions.fEnableSoldierTooltipSuppressionPoints )
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SUPPRESION], pStrInfo, pSoldier->ubSuppressionPoints );
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Added by SANDRO - show enemy skills
 			if ( gGameExternalOptions.fEnableSoldierTooltipTraits )
@@ -282,11 +287,26 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if ( ubTooltipDetailLevel >= DL_Full )
 		{
 			if ( gGameExternalOptions.fEnableSoldierTooltipHelmet )
+			{
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_HELMET], pStrInfo, pSoldier->inv[HELMETPOS].usItem ? ItemNames[ pSoldier->inv[HELMETPOS].usItem ] : gzTooltipStrings[STR_TT_NO_HELMET] );
+				//Moa: encyclopedia item visibility
+				if ( pSoldier->inv[HELMETPOS].usItem )
+					EncyclopediaSetItemAsVisible( pSoldier->inv[HELMETPOS].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+			}
 			if ( gGameExternalOptions.fEnableSoldierTooltipVest )
+			{
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_VEST], pStrInfo, pSoldier->inv[VESTPOS].usItem ? ItemNames[ pSoldier->inv[VESTPOS].usItem ] : gzTooltipStrings[STR_TT_NO_VEST] );
+				//Moa: encyclopedia item visibility
+				if ( pSoldier->inv[VESTPOS].usItem )
+					EncyclopediaSetItemAsVisible( pSoldier->inv[VESTPOS].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+			}
 			if ( gGameExternalOptions.fEnableSoldierTooltipLeggings )
+			{
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_LEGGINGS], pStrInfo, pSoldier->inv[LEGPOS].usItem ? ItemNames[ pSoldier->inv[LEGPOS].usItem ] : gzTooltipStrings[STR_TT_NO_LEGGING] );
+				//Moa: encyclopedia item visibility
+				if ( pSoldier->inv[LEGPOS].usItem )
+					EncyclopediaSetItemAsVisible( pSoldier->inv[LEGPOS].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+			}
 		}
 		else
 		{
@@ -338,6 +358,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				{
 					swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_NVG], pStrInfo,
 						iNVG ? ItemNames[ pSoldier->inv[ iNVG ].usItem ] : gzTooltipStrings[STR_TT_NO_NVG] );
+					//Moa: encyclopedia item visibility
+					if ( iNVG )
+						EncyclopediaSetItemAsVisible( pSoldier->inv[ iNVG ].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
 				}
 				else
 				{
@@ -350,9 +373,19 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		else // gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug
 		{
 			if ( gGameExternalOptions.fEnableSoldierTooltipHeadItem1 )
+			{
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_HEAD_POS_1], pStrInfo, ItemNames[ pSoldier->inv[HEAD1POS].usItem ] );
+				//Moa: encyclopedia item visibility
+				if ( pSoldier->inv[HEAD1POS].usItem )
+					EncyclopediaSetItemAsVisible( pSoldier->inv[ HEAD1POS ].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+			}
 			if ( gGameExternalOptions.fEnableSoldierTooltipHeadItem2 )
+			{
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_HEAD_POS_2], pStrInfo, ItemNames[ pSoldier->inv[HEAD2POS].usItem ] );
+				//Moa: encyclopedia item visibility
+				if ( pSoldier->inv[HEAD2POS].usItem )
+					EncyclopediaSetItemAsVisible( pSoldier->inv[ HEAD2POS ].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+			}
 		}
 		// head slots info code block end
 
@@ -474,6 +507,9 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 		// display exact weapon model
 		swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_WEAPON], pStrInfo,
 			WeaponInHand( pSoldier ) ? ItemNames[ pSoldier->inv[ubSlot].usItem ] : gzTooltipStrings[STR_TT_NO_WEAPON] );
+		//Moa: encyclopedia item visibility
+		if ( pSoldier->inv[ubSlot].usItem )
+			EncyclopediaSetItemAsVisible( pSoldier->inv[ ubSlot ].usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
 	}
 	else
 	{

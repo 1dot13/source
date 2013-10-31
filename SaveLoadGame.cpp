@@ -112,6 +112,7 @@
 	// HEADROCK HAM 3.6: Yet another include, goddammit
 	#include "Town Militia.h"
 	#include "Items.h"
+	#include "Encyclopedia_new.h"
 #endif
 
 #include		"BobbyR.h"
@@ -4143,6 +4144,15 @@ if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 	#endif	
 
 	}
+
+	if ( !SaveEncyclopediaItemVisibility( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Encyclopedia item visibility" );
+		goto FAILED_TO_SAVE;
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
+	#endif
+	}
 //Close the saved game file
 	FileClose( hFile );
 
@@ -5753,6 +5763,21 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	}
 
+	if ( guiCurrentSaveGameVersion >= ENCYCLOPEDIA_ITEM_VISIBILITY )
+	{
+		// no progress bar change, loads these 16k way to fast to even notice
+		if ( !LoadEncyclopediaItemVisibility( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaItemVisibility failed") );
+			FileClose( hFile );
+			return (FALSE);
+		}
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
+	#endif
+	}
+	else
+		EncyclopediaInitItemsVisibility();
 	//
 	//Close the saved game file
 	//

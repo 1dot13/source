@@ -711,6 +711,8 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipHealth;
 	BOOLEAN fEnableSoldierTooltipEnergy;
 	BOOLEAN fEnableSoldierTooltipMorale;
+	BOOLEAN fEnableSoldierTooltipShock;	//Moa: debug tooltip only
+	BOOLEAN fEnableSoldierTooltipSuppressionPoints; //Moa: debug tooltip only
 	BOOLEAN fEnableSoldierTooltipTraits; // added by SANDRO
 	BOOLEAN fEnableSoldierTooltipHelmet;
 	BOOLEAN fEnableSoldierTooltipVest;
@@ -1287,7 +1289,8 @@ typedef struct
 
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;
-			
+	UINT8 ubEncyclopediaItemMask;					//Moa: visibility of items in encyclopedia, see ENC_ITEM_VISIBILITY_T
+
 	UINT8	ubMapItemChanceOverride;				//Madd: special map override, mostly for debugging
 	UINT8	ubNumPItems;							//Madd: set number of PItem files to be used - default 3
 	BOOLEAN	fUseXmlTileSets;						//Madd: move this variable here, it should be mod dependent

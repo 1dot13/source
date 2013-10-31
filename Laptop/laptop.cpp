@@ -83,6 +83,8 @@
 	#include "Strategic Status.h"
 	#include "Arms Dealer Init.h"
 	#include "GameSettings.h"
+	#include "Encyclopedia_new.h"
+	#include "Encyclopedia_Data_new.h"
 #endif
 
 #include "connect.h"
@@ -790,8 +792,10 @@ UINT32 LaptopScreenInit()
 	GameInitPersonnel();
 	
 	//legion
-	GameInitEncyclopedia();
-	GameInitEncyclopediaLocation();
+/*	GameInitEncyclopedia();
+	GameInitEncyclopediaLocation();*/
+	GameInitEncyclopedia_NEW();
+	GameInitEncyclopediaData_NEW();
 	GameInitBriefingRoom();
 	GameInitBriefingRoomEnter();
 
@@ -1240,11 +1244,13 @@ void RenderLaptop()
 		break;
 		
 		case LAPTOP_MODE_ENCYCLOPEDIA: //LEGION
-			RenderEncyclopedia();
+//			RenderEncyclopedia();
+			RenderEncyclopedia_NEW();
 			break;
 			
-		case LAPTOP_MODE_ENCYCLOPEDIA_LOCATION:
-			RenderEncyclopediaLocation(FALSE);
+		case LAPTOP_MODE_ENCYCLOPEDIA_DATA:
+//			RenderEncyclopediaLocation(FALSE);
+			RenderEncyclopediaData_NEW();
 			break;
 			
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
@@ -1559,7 +1565,7 @@ void EnterNewLaptopMode()
 		if( gLaptopProgramStates[ LAPTOP_PROGRAM_WEB_BROWSER ] == LAPTOP_PROGRAM_MINIMIZED )
 		{
 		
-			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_LOCATION || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
+			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
 			{
 				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
 			}
@@ -1656,11 +1662,13 @@ void EnterNewLaptopMode()
 	{
 		//legion
 		case LAPTOP_MODE_ENCYCLOPEDIA:
-			EnterEncyclopedia();
+//			EnterEncyclopedia();
+			EnterEncyclopedia_NEW();
 			break;
 			
-		case LAPTOP_MODE_ENCYCLOPEDIA_LOCATION:
-			EnterEncyclopediaLocation();
+		case LAPTOP_MODE_ENCYCLOPEDIA_DATA:
+//			EnterEncyclopediaLocation();
+			EnterEncyclopediaData_NEW();
 			break;
 			
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
@@ -1859,11 +1867,13 @@ void HandleLapTopHandles()
 	{
 		//legion
 		case LAPTOP_MODE_ENCYCLOPEDIA:
-			HandleEncyclopedia();
+//			HandleEncyclopedia();
+			HandleEncyclopedia_NEW();
 			break; 
 			
-		case LAPTOP_MODE_ENCYCLOPEDIA_LOCATION:
-			HandleEncyclopediaLocation();
+		case LAPTOP_MODE_ENCYCLOPEDIA_DATA:
+//			HandleEncyclopediaLocation();
+			HandleEncyclopediaData_NEW();
 			break; 				
 
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
@@ -2397,12 +2407,14 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 	{
 	
 		case LAPTOP_MODE_ENCYCLOPEDIA:
-			ExitEncyclopedia();
+			ExitEncyclopedia_NEW();
+//			ExitEncyclopedia();
 			//InitEncyklopediaBool();
 			break;			
 			
-		case LAPTOP_MODE_ENCYCLOPEDIA_LOCATION:
-			ExitEncyclopediaLocation();
+		case LAPTOP_MODE_ENCYCLOPEDIA_DATA:
+//			ExitEncyclopediaLocation();
+			ExitEncyclopediaData_NEW();
 			break;
 		
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
@@ -5621,7 +5633,7 @@ void SetCurrentToLastProgramOpened( void )
 		break;
 		case( LAPTOP_PROGRAM_WEB_BROWSER ):
 		// last www mode
-			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_LOCATION || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
+			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
 			{
 				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
 			}

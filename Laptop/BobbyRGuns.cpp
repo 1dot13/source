@@ -22,6 +22,7 @@
 	#include "english.h"
 	// HEADROCK HAM 4
 	#include "input.h"
+	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
 #endif
 
 
@@ -2444,6 +2445,9 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 	//Display Items description
 	LoadBRDesc(usIndex,sText);
 	DisplayWrappedString(BOBBYR_ITEM_DESC_START_X, usPosY, BOBBYR_ITEM_DESC_START_WIDTH, 2, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+
+	//Moa: update encyclopedia item visibility when item gets displayed
+	EncyclopediaSetItemAsVisible( usIndex, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
 }
 
 /*

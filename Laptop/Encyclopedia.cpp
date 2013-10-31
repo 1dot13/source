@@ -1,19 +1,26 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
-	#include "Laptop All.h"
-	#include "timer control.h"
+	//#include "Laptop All.h"
+	#include "Types.h"
+	#include "WCheck.h"
+	#include "Cursors.h"
 	#include "Debug.h"
+	#include "Utilities.h"
+	#include "timer control.h"
+	#include "Font Control.h"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "email.h"
 	#include "Game Clock.h"
 	#include "Text.h"
 	#include "soldier profile type.h"
+	#include "laptop.h"
+	#include "Encyclopedia.h"	
+	#include "Encyclopedia_Data.h"
 #endif
 
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
+
 
 
 // Link Images
@@ -261,7 +268,7 @@ void SelectEncyclopediaLocationButton(MOUSE_REGION * pRegion, INT32 iReason )
 		
 		IDPageEncyData = PAGEENCYCLOPEDIALOCATION; 
 		
-		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_LOCATION;	
+		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_DATA;	
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
@@ -289,7 +296,7 @@ void SelectEncyclopediaCharacterButton(MOUSE_REGION * pRegion, INT32 iReason )
 		
 		IDPageEncyData = PAGEENCYCLOPEDIACHARACTER; 
 		
-		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_LOCATION;
+		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_DATA;
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
@@ -316,7 +323,7 @@ void SelectEncyclopediaQuestsButton(MOUSE_REGION * pRegion, INT32 iReason )
 		
 		IDPageEncyData = PAGEENCYCLOPEDIAQUESTS; 
 		
-		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_LOCATION; 
+		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_DATA; 
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
@@ -343,7 +350,7 @@ void SelectEncyclopediaInentoryButton(MOUSE_REGION * pRegion, INT32 iReason )
 		
 		IDPageEncyData = PAGEENCYCLOPEDIAINVENTORY; 
 		
-		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_LOCATION;
+		if(!fFirstTimeInEncyclopedia) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA_DATA;
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{

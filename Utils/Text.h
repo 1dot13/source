@@ -55,6 +55,14 @@ extern STR16	pSectorPageText[];
 extern STR16	pEncyclopediaHelpText[];
 extern STR16	pEncyclopediaTypeText[];
 extern STR16	pEncyclopediaSkrotyText[];
+extern STR16	pEncyclopediaFilterLocationText[];
+extern STR16	pEncyclopediaSubFilterLocationText[];
+extern STR16	pEncyclopediaFilterCharText[];
+extern STR16	pEncyclopediaSubFilterCharText[];
+extern STR16	pEncyclopediaFilterItemText[];
+extern STR16	pEncyclopediaSubFilterItemText[];
+extern STR16	pEncyclopediaFilterQuestText[];
+extern STR16	pEncyclopediaSubFilterQuestText[];
 extern STR16	pEncyclopediaShortCharacterText[];
 extern STR16	pEncyclopediaHelpCharacterText[];
 extern STR16	pEncyclopediaShortInventoryText[];
@@ -565,6 +573,8 @@ enum
 	STR_TT_CAT_CURRENT_HEALTH,
 	STR_TT_CAT_CURRENT_ENERGY,
 	STR_TT_CAT_CURRENT_MORALE,
+	STR_TT_CAT_SHOCK,		///< Moa: shows current shock value. Only for debug tooltip.
+	STR_TT_CAT_SUPPRESION,	///< Moa: shows current supression value. Only for debug tooltip.
 	STR_TT_CAT_HELMET,
 	STR_TT_CAT_VEST,
 	STR_TT_CAT_LEGGINGS,

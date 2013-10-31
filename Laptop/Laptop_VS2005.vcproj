@@ -435,6 +435,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Encyclopedia_Data_new.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Encyclopedia_new.h"
+				>
+			</File>
+			<File
 				RelativePath=".\files.h"
 				>
 			</File>
@@ -738,6 +746,14 @@
 			</File>
 			<File
 				RelativePath=".\Encyclopedia_Data.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Encyclopedia_Data_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Encyclopedia_new.cpp"
 				>
 			</File>
 			<File

@@ -81,6 +81,7 @@
 	#include "random.h"					// added by Flugente
 	#include "Explosion Control.h"		// added by Flugente
 	#include "Food.h"					// added by Flugente
+	#include "Encyclopedia_new.h"	//Moa: enc. item visibility
 #endif
 
 #ifdef JA2UB
@@ -3710,7 +3711,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		{
 			RestoreExternBackgroundRect( sX, sY, sWidth, sHeight );
 		}
-
+		//Moa: set encyclopedia item visibility
+		EncyclopediaSetItemAsVisible( pItem->uiIndex, ENC_ITEM_DISCOVERED );
 	}
 
 	SetFont( ITEM_FONT );

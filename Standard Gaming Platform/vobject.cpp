@@ -413,6 +413,7 @@ BOOLEAN DeleteVideoObjectFromIndex( UINT32 uiVObject	)
 			if( CountVideoObjectNodes() != guiVObjectSize )
 			{
 				guiVObjectSize = guiVObjectSize;
+				DebugBreakpoint();
 			}
 #endif
 			return TRUE;

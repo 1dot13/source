@@ -254,6 +254,182 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"Aéro.",
 };
 
+//TODO.Translate
+STR16	pEncyclopediaFilterLocationText[] =
+{//major location filter button text max 7 chars
+//..L"------v"
+	L"All",//0
+	L"City",
+	L"SAM",
+	L"Mine",
+	L"Airport",
+	L"Wilder.",
+	L"Underg.",
+	L"Facil.",
+	L"Other",
+//filter button tooltip
+//..L"---------------------------------------------------------------------v"
+	L"Show All",//facility index + 1
+	L"Show Cities",
+	L"Show SAM sites",
+	L"Show mines",
+	L"Show airports",
+	L"Show sectors in wilderness",
+	L"Show underground sectors",
+	L"Show sectors with facilities\n[|L|B]toggle filter\n[|R|B]reset filter",
+	L"Show Other sectors",
+};
+
+STR16 pEncyclopediaSubFilterLocationText[] =
+{//item subfilter button text max 7 chars
+//..L"------v"
+	L"",//reserved. Insert new city filters above!
+	L"",//reserved. Insert new SAM filters above!
+	L"",//reserved. Insert new mine filters above!
+	L"",//reserved. Insert new airport filters above!
+	L"",//reserved. Insert new wilderness filters above!
+	L"",//reserved. Insert new underground sector filters above!
+	L"",//reserved. facility filter texts are dynamicly loaded, leave this marker empty!
+	L"",//reserved. Insert new other filters above!
+};
+//TODO.Translate
+STR16	pEncyclopediaFilterCharText[] =
+{//major char filter button text
+//..L"------v"
+	L"All",//0
+	L"A.I.M.",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"IMP",
+	L"Other",//add new filter buttons before other
+//filter button tooltip
+//..L"---------------------------------------------------------------------v"
+	L"Show All",//Other index + 1
+	L"Show A.I.M. members",
+	L"Show M.E.R.C staff",
+	L"Show Rebels",
+	L"Show Non-hirable Characters",
+	L"Show Player created Characters",
+	L"Show Other\n[|L|B] toggle filter\n[|R|B] reset filter",
+};
+//TODO.Translate
+STR16	pEncyclopediaSubFilterCharText[] =
+{//item subfilter button text
+//..L"------v"
+	L"",//reserved. Insert new AIM filters above!
+	L"",//reserved. Insert new MERC filters above!
+	L"",//reserved. Insert new RPC filters above!
+	L"",//reserved. Insert new NPC filters above!
+	L"",//reserved. Insert new IMP filters above!
+//Other-----v"
+	L"Vehic.",
+	L"EPC",
+	L"",//reserved. Insert new Other filters above!
+};
+//TODO.Translate
+STR16	pEncyclopediaFilterItemText[] = 
+{//major item filter button text max 7 chars
+//..L"------v"
+	L"All",//0
+	L"Gun",
+	L"Ammo",
+	L"Armor",
+	L"LBE",
+	L"Attach.",
+	L"Misc",//add new filter buttons before misc
+//filter button tooltip
+//..L"---------------------------------------------------------------------v"
+	L"Show All",//misc index + 1
+	L"Show Guns\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Show Amunition\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Show Armor Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Show LBE Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Show Attachments\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Show Misc Items\n[|L|B] toggle filter\n[|R|B] reset filter",
+};
+//TODO.Translate
+STR16 pEncyclopediaSubFilterItemText[] =
+{//item subfilter button text max 7 chars
+//..L"------v"
+//Guns......v"
+	L"Pistol",
+	L"M.Pist.",
+	L"SMG",
+	L"Rifle",
+	L"SN Rif.",
+	L"AS Rif.",
+	L"MG",
+	L"Shotgun",
+	L"H.Weap.",
+	L"",//reserved. insert new gun filters above!
+//Amunition.v"
+	L"Pistol",
+	L"M.Pist.",
+	L"SMG",
+	L"Rifle",
+	L"SN Rif.",
+	L"AS Rif.",
+	L"MG",
+	L"Shotgun",
+	L"H.Weap.",
+	L"",//reserved. insert new ammo filters above!
+//Armor.....v"
+	L"Helmet",
+	L"Vest",
+	L"Pant",
+	L"Plate",
+	L"",//reserved. insert new armor filters above!
+//LBE.......v"
+	L"Tight",
+	L"Vest",
+	L"Combat",
+	L"Backp.",
+	L"Pocket",
+	L"Other",
+	L"",//reserved. insert new LBE filters above!
+//Attachments"
+	L"Optic",
+	L"Side",
+	L"Muzzle",
+	L"Extern.",
+	L"Intern.",
+	L"Other",
+	L"",//reserved. insert new attachment filters above!
+//Misc......v"
+	L"Blade",
+	L"T.Knife",
+	L"Punch",
+	L"Grenade",
+	L"Bomb",
+	L"Medikit",
+	L"Kit",
+	L"Face",
+	L"Other",
+	L"",//reserved. insert new misc filters above!
+//add filters for a new button here
+};
+//TODO.Translate
+STR16 pEncyclopediaFilterQuestText[] =
+{//major quest filter button text max 7 chars
+//..L"------v"
+	L"All",
+	L"Active",
+	L"Compl.",
+//filter button tooltip
+//..L"---------------------------------------------------------------------v"
+	L"Show All",//misc index + 1
+	L"Show Active Quests",
+	L"Show Completed Quests",
+};
+
+STR16 pEncyclopediaSubFilterQuestText[] =
+{//Quest subfilter button text max 7 chars, not used, but needed if any subfilters are added
+//..L"------v"
+	L"",//reserved. insert new active quest subfilters above!
+	L"",//reserved. insert new completed quest subfilters above!
+};
+
 STR16	pEncyclopediaShortInventoryText[] = 
 {
 	L"Tout", //0
@@ -6173,6 +6349,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Santé |Actuel : %d\n",
 	L"%s|Current |Breath: %d\n",	// TODO.Translate
 	L"%s|Current |Morale: %d\n",
+	L"%s|Current |S|hock: %d\n",//TODO.Translate
+	L"%s|Current |S|uppression Points: %d\n",//TODO.Translate
 	// Full info
 	L"%s|Casque : %s\n",
 	L"%s|Veste : %s\n",
