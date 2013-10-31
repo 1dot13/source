@@ -7298,6 +7298,7 @@
 		<szBRName>Duckbill</szBRName>
 		<szBRDesc>Attach this metal object to the end of a shotgun barrel for a real deadly effect. It causes buckshot fired from the shotgun to spread out along a horizontal line instead of its standard circular pattern. Say good-bye to  anyone who gets into its path.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>90</ubGraphicNum>
@@ -40948,6 +40949,7 @@
 		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
 		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicNum>365</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -40977,6 +40979,7 @@
 		<szBRName>Full Shotgun Choke</szBRName>
 		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicNum>365</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -41006,6 +41009,7 @@
 		<szBRName>Rifled Shotgun Choke</szBRName>
 		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicNum>365</ubGraphicNum>
 		<ubWeight>2</ubWeight>
