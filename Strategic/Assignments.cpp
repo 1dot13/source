@@ -15623,6 +15623,10 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
+		return ( FALSE );
+
+
 	///////////////////////////////
 	// Test for required Leadership
 

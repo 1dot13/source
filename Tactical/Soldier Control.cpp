@@ -6890,11 +6890,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		fContinue = TRUE;
 	}
 	else
-	{
 #endif
+	{
 		iDest = FindBestPath( this, sDestGridNo, this->pathing.bLevel, usMovementAnim, COPYROUTE, fFlags );
 		fContinue = (iDest != 0);
-//	}
+	}
 
 	// Only if we can get a path here
 	if ( fContinue )

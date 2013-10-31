@@ -33,7 +33,6 @@
 #include "MilitiaSquads.h"
 #include "Reinforcement.h"
 #include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
-#include "message.h"				// added by Flugente for ScreenMsg()
 
 // Debug defines
 
@@ -2377,7 +2376,7 @@ UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage )
 		UINT8 iTownsUnderPlayerControl = 0, iCurrentProgress = 0, iMaxProgress = 0, iNumRebelsInPlayerTeam = 0;
 
 		//temp values for sectors we gonna check
-		INT8 iCurrT_ID, test;
+		INT8 iCurrT_ID;
 		UINT16 iStrategicMapID, iSectorInfoID;
 		SECTORINFO *pSectorInfo;
 		
