@@ -4346,8 +4346,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 #endif
 
 					// ATE: This key will select everybody in the sector
-					if (! (gTacticalStatus.uiFlags & INCOMBAT) )
-					{
+					// Buggler: Disabled check for all merc display cover in turnbased mode
+					//if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
+					//{
 						SOLDIERTYPE *		pSoldier;
 						INT32						cnt;
 
@@ -4362,7 +4363,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							}
 						}
 						EndMultiSoldierSelection( TRUE );
-					}
+					//}
 				}
 				break;
 
@@ -6186,7 +6187,7 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 	SOLDIERTYPE *		pSoldier;
 	INT32						cnt;
 
-	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect )
+	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		// check if our currently selected guy is amoung the
@@ -6243,7 +6244,7 @@ void HandleStealthChangeFromUIKeys(	)
 	SOLDIERTYPE *		pSoldier;
 	INT32						cnt;
 
-	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect )
+	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		// check if our currently selected guy is amoung the
@@ -6287,7 +6288,7 @@ void TestCapture( )
 
 	gStrategicStatus.uiFlags &= (~STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE );
 
-	// loop through sodliers and pick 3 lucky ones....
+	// loop through soldiers and pick 3 lucky ones....
 	for ( cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID, pSoldier=MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
 	{
 		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive && pSoldier->bInSector )

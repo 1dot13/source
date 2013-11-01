@@ -530,11 +530,29 @@ void CalculateCover()
 					CalculateCoverForSoldier( pSoldier, sGridNo, ubZ, bCover );
 					fInverseColor = FALSE;
 				}
-				else if ( gubDrawMode == COVER_DRAW_MERC_VIEW ) // single view from your merc
+				else if ( gubDrawMode == COVER_DRAW_MERC_VIEW )
 				{
 					// reset cover value
 					bCover = MAX_COVER;
-					CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bCover );
+					if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect ) // view of selected mercs
+					{
+						// OK, loop through all guys who are 'multi-selected' and
+						INT32	cnt;
+						cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+						for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+						{
+							if ( pSoldier->bActive && pSoldier->bInSector )
+							{
+								if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
+								{
+									CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bCover );
+								}
+							}
+						}
+					}
+					else // single view from your merc
+						CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bCover );
+					
 					fInverseColor = TRUE; // we don't want to show the cover for the enemy
 				}
 			}

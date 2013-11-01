@@ -2106,7 +2106,7 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 					//StartLooseCursor( sMapPos, 0 );
 				}
 
-				if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && pIntTile == NULL )
+				if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && pIntTile == NULL && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 				{
 					HandleMultiSelectionMove( sDestGridNo );
 				}
@@ -5153,7 +5153,7 @@ UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 		return( GAME_SCREEN );
 	}
 
-	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect )
+	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// OK, loop through all guys who are 'multi-selected' and
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -5464,7 +5464,7 @@ void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 
 
 	// OK, loop through all guys who are 'multi-selected' and
-	// check if our currently selected guy is amoung the
+	// check if our currently selected guy is among the
 	// lucky few.. if not, change to a guy who is...
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
@@ -5507,7 +5507,7 @@ void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 
 void StopRubberBandedMercFromMoving( )
 {
-	if ( !gTacticalStatus.fAtLeastOneGuyOnMultiSelect )
+	if ( !gTacticalStatus.fAtLeastOneGuyOnMultiSelect || ( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		return;
 	}
@@ -5515,7 +5515,7 @@ void StopRubberBandedMercFromMoving( )
 	INT32						cnt;
 
 	// OK, loop through all guys who are 'multi-selected' and
-	// check if our currently selected guy is amoung the
+	// check if our currently selected guy is among the
 	// lucky few.. if not, change to a guy who is...
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
