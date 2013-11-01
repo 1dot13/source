@@ -1843,24 +1843,24 @@ Name		               	- description (optional)
 		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>2</QuoteExpGenderCode>
 		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
-		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
+		<QuoteExpPassingDislike>1</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
 		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
-	</PROFILE>
-	<PROFILE>
-		<uiIndex>167</uiIndex>
-		<Name>Tex</Name>
-		<QuoteExpHeadShotOnly>1</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
-		<QuoteExpGenderCode>1</QuoteExpGenderCode>
+		<QuoteExpGenderCode>2</QuoteExpGenderCode>
 		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>1</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
 		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
-	</PROFILE>
-	<PROFILE>
-		<uiIndex>168</uiIndex>
-		<Name>Biggins</Name>
+		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>0</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
+		<QuoteExpPassingDislike>1</QuoteExpPassingDislike>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
+		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>0</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
+		<QuoteExpPassingDislike>1</QuoteExpPassingDislike>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>2</QuoteExpGenderCode>
