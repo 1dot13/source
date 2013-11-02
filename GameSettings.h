@@ -1956,6 +1956,7 @@ typedef struct
 	FLOAT fHandlingModifierLauncher;
 
 	// -------------- ARMOR MODIFIERS ----------------
+	FLOAT fCamoLBEoverArmorModifier;
 
 	// ------------ EXPLOSIVE MODIFIERS --------------
 	// Grenade Damage Modifiers

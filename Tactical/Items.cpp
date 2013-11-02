@@ -12362,6 +12362,12 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 		if ( pSoldier->inv[bLoop].exists() == true )
 		{
 			ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
+			if ( UsingNewInventorySystem() )
+				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
+				{
+					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus );
+				}
 		}
 	}
 
@@ -12372,11 +12378,6 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 		{
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
-			//CHRISL: to prevent camo overlap, don't count armor vest camo if we're weaing an LBE vest that grants a bonus
-			if(bLoop == VESTPOCKPOS && pSoldier->inv[VESTPOS].exists() == true && Item[pSoldier->inv[bLoop].usItem].camobonus > 0)
-			{
-				ttl -= Item[pSoldier->inv[VESTPOS].usItem].camobonus;
-			}
 		}
 
 		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
@@ -12398,7 +12399,15 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
 	{
 		if ( pSoldier->inv[bLoop].exists() == true )
+		{
 			ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
+			if ( UsingNewInventorySystem() )
+				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
+				{
+					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus );
+				}
+		}
 	}
 
 	// CHRISL: Add additional loop for LBE items while using new inventory system
@@ -12429,7 +12438,15 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
 	{
 		if ( pSoldier->inv[bLoop].exists() == true )
+		{
 			ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
+			if ( UsingNewInventorySystem() )
+				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
+				{
+					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus );
+				}
+		}
 	}
 
 	// CHRISL: Add additional loop for LBE items while using new inventory system
@@ -12459,7 +12476,15 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
 	{
 		if ( pSoldier->inv[bLoop].exists() == true )
+		{
 			ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
+			if ( UsingNewInventorySystem() )
+				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
+				{
+					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus );
+				}
+		}
 	}
 
 	// CHRISL: Add additional loop for LBE items while using new inventory system

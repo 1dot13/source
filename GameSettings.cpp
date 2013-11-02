@@ -2733,6 +2733,7 @@ void LoadItemSettings()
 	gItemSettings.fHandlingModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","HANDLING_LAUNCHER_MODIFIER", 1.0f, 0.1f, 5.0f);
 
 	// -------------- ARMOR MODIFIERS ----------------
+	gItemSettings.fCamoLBEoverArmorModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_ARMOR_MODIFIER", 0.2f, 0.0f, 1.0f);
 
 	// ------------ EXPLOSIVE MODIFIERS --------------
 	gItemSettings.fDamageHealthModifierExplosive					= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_EXPLOSIVE_MODIFIER", 1.0f, 0.1f, 5.0f);
