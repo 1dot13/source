@@ -2051,7 +2051,6 @@ void HandleKeyboardShortcuts( )
 						if( gfEditingDoor )
 							KillDoorEditing();
 						iCurrentAction = ACTION_QUIT_GAME;
-						return;
 					}
 					break;
 				case 'z':
@@ -2313,7 +2312,7 @@ UINT32 PerformSelectedAction( void )
 			break;
 
 		case ACTION_QUIT_GAME:
-			gfProgramIsRunning = FALSE;
+			//gfProgramIsRunning = FALSE;//dnl ch75 251013 throw exception on exit without showing message box
 		case ACTION_EXIT_EDITOR:
 			if( EditModeShutdown( ) )
 			{
@@ -2741,6 +2740,11 @@ UINT32 ProcessEditscreenMessageBoxResponse()
 		{
 			gfConfirmExitFirst = FALSE;
 			iEditorToolbarState = TBAR_MODE_EXIT_EDIT;
+			if(iCurrentAction == ACTION_QUIT_GAME)//dnl ch75 251013
+			{
+				iEditorToolbarState = TBAR_MODE_QUIT_GAME;
+				gfProgramIsRunning = FALSE;
+			}
 		}
 		return EDIT_SCREEN;
 	}

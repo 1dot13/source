@@ -2162,6 +2162,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	RemoveCharacterFromSquads( pSoldier );
 
 	WORLDITEM			WorldItem;
+	std::vector<WORLDITEM> pWorldItem(1);//dnl ch75 271013
 
 	// Is this the first one..?
 	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
@@ -2186,9 +2187,9 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 				WorldItem.bVisible = FALSE;
 				WorldItem.bRenderZHeightAboveLevel = 0;
 				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
-
-				AddWorldItemsToUnLoadedSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, 0, 
-					gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
+				//dnl ch75 271013
+				pWorldItem[0] = WorldItem;
+				AddWorldItemsToUnLoadedSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, 0, gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, pWorldItem, FALSE );
 			}
 		}
 
@@ -2219,9 +2220,9 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 				WorldItem.bVisible = FALSE;
 				WorldItem.bRenderZHeightAboveLevel = 0;
 				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
-
-				AddWorldItemsToUnLoadedSector( gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0, 
-					gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
+				//dnl ch75 271013
+				pWorldItem[0] = WorldItem;
+				AddWorldItemsToUnLoadedSector( gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0, gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, pWorldItem, FALSE );
 			}
 		}
 

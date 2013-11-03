@@ -113,9 +113,9 @@
 #include "connect.h"
 #include "fresh_header.h"
 
-
 #include "IMP Skill Trait.h"			// added by Flugente
 #include "SkillMenu.h"					// added by Flugente
+#include "Map Screen Interface Map Inventory.h"//dnl ch75 021113
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2368,7 +2368,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ClearDisplayedListOfTacticalStrings( );
 				}
 				break;
-
+#if 0//dnl ch75 021113
+			case '\"':
+				Testing(1);
+				break;
+			case '\'':
+				Testing(2);
+				break;
+#endif
 			case '1':
 
 				if( fAlt )
@@ -2496,6 +2503,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '$':
+				if(fCtrl && gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch75 021113
+					DisplaySectorItemsInfo();
+				else
 				{
 					// Flugente: trait skill selection menu. Yes, screw squad 13				
 					INT32 usMapPos;
@@ -3416,23 +3426,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 			case 'I':
-				//CHRISL: This will create a large number of objects for checking overloading
-				if( fAlt && fCtrl )
+				//CHRISL: This will create a large number of objects for checking overloading //dnl ch75 251013
+				if(fAlt && fCtrl)
 				{
-					INT32	tempMapPos = usMapPos;
-					if( CHEATER_CHEAT_LEVEL( ) )
+					if(CHEATER_CHEAT_LEVEL())
 					{
-						for(UINT16 i = 1; i < 1300; i++)
+						for(UINT16 i=FIRST_WEAPON; i<MAXITEMS; i++)
 						{
-							if(i == OWNERSHIP || i == CHALICE)
+							if(i == 1580 || Item[i].ubWeight == 0 && !(i == 257 || i == 1006 || i == 1026 || i == 1183))//dnl!!! items 257, 1006, 1026, 1183 had weight 0 which need to be changed in xml
 								continue;
-							//tempMapPos = sMapPos + (i / 200);
 							CreateItem(i, 100, &gTempObject);
-							AddItemToPool( tempMapPos, &gTempObject, VISIBLE , 0, WORLD_ITEM_REACHABLE, 0 );
+							AddItemToPool(usMapPos, &gTempObject, VISIBLE , 0, WORLD_ITEM_REACHABLE, 0);
 						}
 					}
 				}
-
+				break;
 			case 'i':
 
 				if( fAlt )

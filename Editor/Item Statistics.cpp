@@ -1430,6 +1430,7 @@ void ToggleAttachment( GUI_BUTTON *btn, INT32 reason )
 	{
 		INT32 i;
 		UINT16 usAttachment = 0;
+		ResizeWorldItems();//dnl ch75 021113 to prevent memory corruption during resize if somehow in created item we manage to put invalid attachment (DRAGUNOV with SNIPERCOPE problem in older mapeditors)
 		for( i = 0; i < NUM_ATTACHMENT_BUTTONS; i++ )
 		{	//Loop through and find the button that was just modified
 			switch( i )
@@ -1469,6 +1470,7 @@ void ToggleCeramicPlates( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
+		ResizeWorldItems();//dnl ch75 021113 just precaution to prevent eventual memory corruption during resize if somehow AttachObject find invalid attachment
 		gfCeramicPlates ^= TRUE;
 		if( gfCeramicPlates )
 		{
@@ -1490,6 +1492,7 @@ void ToggleDetonator( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
+		ResizeWorldItems();//dnl ch75 021113 just precaution to prevent eventual memory corruption during resize if somehow AttachObject find invalid attachment
 		if( !gfDetonator )
 		{
 			gfDetonator = TRUE;

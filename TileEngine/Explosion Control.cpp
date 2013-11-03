@@ -3893,7 +3893,7 @@ void HandleExplosionQueue( void )
 
 	uiCurrentTime = GetJA2Clock();
 	// WDS 07/25/2008 - Avoid error where gWorldItems and/or gWorldBombs is nil
-	if (gWorldBombs && gWorldItems) {
+	if (gWorldBombs && !gWorldItems.empty()) {//dnl ch75 271013
 	for ( uiIndex = 0; uiIndex < gubElementsOnExplosionQueue; uiIndex++ )
 	{
 		if ( gExplosionQueue[ uiIndex ].fExists && uiCurrentTime >= gExplosionQueue[ uiIndex ].uiTimeStamp )

@@ -30,7 +30,7 @@
 #endif
 
 //Global dynamic array of all of the items in a loaded map.
-WORLDITEM *		gWorldItems = NULL;
+std::vector<WORLDITEM> gWorldItems;//dnl ch75 261013
 UINT32				guiNumWorldItems = 0;
 
 WORLDBOMB *		gWorldBombs = NULL;
@@ -393,42 +393,15 @@ void FindPanicBombsAndTriggers( void )
 	}
 }
 
-INT32 GetFreeWorldItemIndex( void )
+UINT32 GetFreeWorldItemIndex(void)//dnl ch75 271013
 {
 	UINT32 uiCount;
-	WORLDITEM *newWorldItems;
-	UINT32	uiOldNumWorldItems;
-
-	for(uiCount=0; uiCount < guiNumWorldItems; uiCount++)
-	{
-		if ( gWorldItems[ uiCount ].fExists == FALSE )
-			return( (INT32)uiCount );
-	}
-
-	uiOldNumWorldItems = guiNumWorldItems;
-	// grow by 3/2 as a better strategy, minimum 10
-	guiNumWorldItems = max(10, guiNumWorldItems * 3 / 2);
-	//Allocate new table with max+10 items.
-	newWorldItems = new WORLDITEM [ guiNumWorldItems ];
-	if (newWorldItems == NULL)
-	{
-		return( -1 );
-	}
-
-	if (gWorldItems)
-	{
-		for (unsigned int x = 0; x < uiOldNumWorldItems; ++x)
-		{
-			newWorldItems[x] = gWorldItems[x];
-		}
-		delete[] gWorldItems;
-	}
-	gWorldItems = newWorldItems;
-
-	// Return uiCount.....
-	return( uiCount );
+	for(uiCount=0; uiCount<gWorldItems.size(); uiCount++)
+		if(gWorldItems[uiCount].fExists == FALSE)
+			return(uiCount);
+	ResizeWorldItems();
+	return(uiCount);
 }
-
 
 UINT32 GetNumUsedWorldItems( void )
 {
@@ -446,7 +419,22 @@ UINT32 GetNumUsedWorldItems( void )
 	return( uiNumItems );
 }
 
-
+void ResizeWorldItems(void)//dnl ch75 271013
+{
+#ifdef INVFIX_Moa
+	// grow by 3/2 as a better strategy, minimum 10
+	guiNumWorldItems = max(10, guiNumWorldItems * 3 / 2);
+	//Allocate new table with max+10 items.
+	gWorldItems.resize(guiNumWorldItems);
+#else
+	guiNumWorldItems = gWorldItems.size();
+	if(guiNumWorldItems - GetNumUsedWorldItems() < 100)
+	{
+		gWorldItems.resize(guiNumWorldItems + 100);
+		guiNumWorldItems = gWorldItems.size();
+	}
+#endif
+}
 
 INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
 {
@@ -538,7 +526,7 @@ void RemoveItemFromWorld( INT32 iItemIndex )
 void TrashWorldItems()
 {
 	UINT32 i;
-	if( gWorldItems )
+	if( !gWorldItems.empty() )//dnl ch75 271013
 	{
 		for( i = 0; i < guiNumWorldItems; i++ )
 		{
@@ -547,9 +535,9 @@ void TrashWorldItems()
 				RemoveItemFromPool( gWorldItems[ i ].sGridNo, i, gWorldItems[ i ].ubLevel );
 			}
 		}
-		delete[] gWorldItems;
-		gWorldItems = NULL;
-		guiNumWorldItems = 0;
+#ifdef INVFIX_Moa//dnl ch75 311013
+		gWorldItems.clear();
+#endif
 	}
 	if ( gWorldBombs )
 	{
@@ -847,7 +835,7 @@ void DeleteWorldItemsBelongingToQueenIfThere( void )
 
 
 // Refresh item pools
-void RefreshWorldItemsIntoItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems )
+void RefreshWorldItemsIntoItemPools( std::vector<WORLDITEM>& pItemList, INT32 iNumberOfItems )//dnl ch75 271013
 {
 	INT32			i;
 

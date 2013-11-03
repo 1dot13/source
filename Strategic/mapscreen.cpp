@@ -7394,8 +7394,29 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case ')':
 					SelectAllCharactersInSquad( 19 ); // internal squad #s start at 0
 					break;
-
-
+				case '\''://dnl ch75 021113
+#ifdef _DEBUG
+					// temporary add soldiers to your list for equipment inspection and general testing
+					for(UINT32 ubLoop=0; ubLoop<guiNumMercSlots&&gGameExternalOptions.fEnableInventoryPoolQ; ubLoop++)
+					{
+						if(MercSlots[ubLoop] != NULL && MercSlots[ubLoop]->bTeam == ENEMY_TEAM && MercSlots[ubLoop]->bActive)
+						{
+							for(int i=0; i<CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; i++)
+							{
+								if(gCharactersList[i].usSolID == MercSlots[ubLoop]->ubID)
+									break;
+								if(gCharactersList[i].usSolID == 0 && gCharactersList[i].fValid == FALSE)
+								{
+									gCharactersList[i].usSolID = MercSlots[ubLoop]->ubID;
+									gCharactersList[i].fValid = TRUE;
+									break;
+								}
+							}
+						}
+					}
+					fTeamPanelDirty = TRUE;
+#endif
+					break;
 				case 'a':
 						if( fAlt )
 						{
@@ -7880,6 +7901,24 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							IssueHeadMinerQuote( (INT8) (1 + Random(MAX_NUMBER_OF_MINES - 1)), (UINT8) (1 + Random(2)));
 						}
 					#endif
+					break;
+				case 'Q'://dnl ch75 021113
+#ifdef _DEBUG
+					extern UINT8 gInventoryPoolIndex;
+					if(fShowMapInventoryPool == TRUE && gInventoryPoolIndex == '0')
+					{
+						if(gGameExternalOptions.fEnableInventoryPoolQ)
+						{
+							gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"InventoryPoolQ disabled.");
+						}
+						else
+						{
+							gGameExternalOptions.fEnableInventoryPoolQ = TRUE;
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"InventoryPoolQ enabled.");
+						}
+					}
+#endif
 					break;
 				case 'r':
 					if( gfPreBattleInterfaceActive )

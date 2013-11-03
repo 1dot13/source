@@ -3671,7 +3671,7 @@ UINT32 ItemFitness_WithAmmo( OBJECTTYPE* pObj, UINT8 idx, UINT32 uiBullets )
 }
 
 // retreives the next free slot in pWorldItem (we want to keep it short and not add too many items) 
-UINT32 GetNextFreeIndex( WORLDITEM* pWorldItem, UINT32 uiMaxCount, UINT32 uiCount )
+UINT32 GetNextFreeIndex( std::vector<WORLDITEM>& pWorldItem, UINT32 uiMaxCount, UINT32 uiCount )//dnl ch75 271013
 {
 	for( ; uiCount < uiMaxCount; ++uiCount )
 	{
@@ -3711,10 +3711,10 @@ struct ItemSearchStruct {
 };
 
 // evaluate an object an remember it if it is the best so far
-void EvaluateObjForItem( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi )
+void EvaluateObjForItem( std::vector<WORLDITEM>& pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi )//dnl ch75 271013
 {
 	// safety first
-	if ( !pWorldItem || !pObj || !pSi )
+	if ( pWorldItem.empty() || !pObj || !pSi )
 		// THIS SHOULDN'T HAPPEN!
 		return;
 
@@ -3732,10 +3732,10 @@ void EvaluateObjForItem( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount
 }
 
 // special version of EvaluateObjForItem(): we take the existing ammo count into consideration
-void EvaluateObjForItem_WithAmmo( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi, UINT32 uiBullets )
+void EvaluateObjForItem_WithAmmo( std::vector<WORLDITEM>& pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi, UINT32 uiBullets )//dnl ch75 271013
 {
 	// safety first
-	if ( !pWorldItem || !pObj || !pSi )
+	if ( pWorldItem.empty() || !pObj || !pSi )
 		// THIS SHOULDN'T HAPPEN!
 		return;
 
@@ -3754,10 +3754,10 @@ void EvaluateObjForItem_WithAmmo( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT3
 
 // forward declaration for default parameter
 // if pSi has an entry, move gun from pWorldItem into pp
-void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake = 1 );
+void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake = 1 );//dnl ch75 271013
 
 // if pSi has an entry, move gun from pWorldItem into pp
-void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake )
+void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake )//dnl ch75 271013
 {
 	if ( pSi->found && !pSi->done )
 	{
@@ -3869,7 +3869,7 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	BOOLEAN fReturn					= FALSE;
 	UINT32 uiTotalNumberOfRealItems = 0;
 	UINT32 uiNumOriginalItems		= 0;
-	WORLDITEM* pWorldItem			= NULL;
+	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
 	SOLDIERCREATE_STRUCT tmp;
 	UINT32 uiCount					= 0;
 	INT32 dummygridno				= NOWHERE;
@@ -3895,8 +3895,8 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 		if( uiTotalNumberOfRealItems > 0 )
 		{
 			// allocate space for the list
-			pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
-			
+			pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
+
 			// now load into mem
 			LoadWorldItemsFromTempItemFile(  sTargetX,  sTargetY, 0, pWorldItem );
 		}
@@ -3939,8 +3939,8 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	UINT32 uiNewInvSize = max(uiTotalNumberOfRealItems, existingitemsfound + numnewitems);
 
 	// create a bigger inventory wit big enough size
-	WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiNewInvSize ];
-	
+	std::vector<WORLDITEM> pWorldItem_tmp(uiNewInvSize);//dnl ch75 271013
+
 	// copy over old inventory
 	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
 	{
@@ -3976,7 +3976,6 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 		
 	// use the new map
 	uiTotalNumberOfRealItems = uiNewInvSize;
-	delete[] pWorldItem;
 	pWorldItem = pWorldItem_tmp;
 	/////////////////////////////// ADD ITEMS FROM STRUCT TO SECTOR /////////////////////////////////////////////////////
 		
@@ -4053,7 +4052,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 {
 	BOOLEAN fReturn					= FALSE;
 	UINT32 uiTotalNumberOfRealItems = 0;
-	WORLDITEM* pWorldItem			= NULL;
+	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
 	UINT32 uiCount					= 0;
 	INT32 dummygridno				= NOWHERE;					// this gridno will be the new position of items we create (ammo crates)
 	BOOLEAN fNightTime				= NightTime();	
@@ -4105,7 +4104,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		if( uiTotalNumberOfRealItems > 0 )
 		{
 			// allocate space for the list
-			pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
+			pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
 
 			if ( !uiTotalNumberOfRealItems )
 				return;
@@ -4629,7 +4628,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 							for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)
 								newammo += (*pObj)[i]->data.ubShotsLeft;
 
-							UINT32 addammo = min(usSelectedGunBulletsNeeded - usSelectedGunBulletCount, newammo);
+							UINT32 addammo = min((UINT32)(usSelectedGunBulletsNeeded - usSelectedGunBulletCount), newammo);//dnl ch75 271013
 
 							SpawnFittingAmmo( pp, &(pp->Inv[ HANDPOS ]), ammotype, addammo );
 
@@ -4726,7 +4725,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		UINT32 uiNewInvSize = uiTotalNumberOfRealItems + 1;
 
 		// create a bigger inventory wit big enough size
-		WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiNewInvSize ];
+		std::vector<WORLDITEM> pWorldItem_tmp(uiNewInvSize);//dnl ch75 271013
 
 		// copy over old inventory
 		for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
@@ -4747,7 +4746,6 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 
 		// use the new map
 		uiTotalNumberOfRealItems = uiNewInvSize;
-		delete[] pWorldItem;
 		pWorldItem = pWorldItem_tmp;
 	}
 	///////////////////////////////// 3rd loop afterwork /////////////////////////////////////////////////////////

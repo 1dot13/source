@@ -102,7 +102,7 @@ public:
 #define SIZEOF_WORLDITEM_POD (offsetof(WORLDITEM, endOfPod))
 #define _OLD_SIZEOF_WORLDITEM_POD (offsetof(_OLD_WORLDITEM, endOfPod))
 
-extern WORLDITEM		*gWorldItems;
+extern std::vector<WORLDITEM> gWorldItems;//dnl ch75 261013
 extern UINT32				guiNumWorldItems;
 
 INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID );
@@ -133,7 +133,8 @@ extern INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel);
 // Flugente: is there a planted tripwire at this gridno? fKnown = TRUE: only return true if we know of that one already
 extern INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKnown = TRUE );
 
-void RefreshWorldItemsIntoItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems );
+void ResizeWorldItems(void);//dnl ch75 271013
+void RefreshWorldItemsIntoItemPools( std::vector<WORLDITEM>& pItemList, INT32 iNumberOfItems );//dnl ch75 271013
 void CoolDownWorldItems( );			// Flugente: Cool/decay down all items in this sector
 
 #endif

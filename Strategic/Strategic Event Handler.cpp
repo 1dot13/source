@@ -423,12 +423,9 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	INT32			sStartGridNo;
 	UINT32		uiNumWorldItems, uiLoop;
 	BOOLEAN		fOk;
-	WORLDITEM * pTemp = 0;
+	std::vector<WORLDITEM> pTemp;//dnl ch75 271013
 	UINT8			ubLoop;
-	
 
-	
-//#if 0
 	if (uiReason == NPC_SYSTEM_EVENT_ACTION_PARAM_BONUS + NPC_ACTION_RETURN_STOLEN_SHIPMENT_ITEMS )
 	{
 		if ( gMercProfiles[ PABLO ].bMercStatus == MERC_IS_DEAD )
@@ -504,11 +501,7 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 		{
 			return;
 		}
-		pTemp = new WORLDITEM[	uiNumWorldItems];
-		if (!pTemp)
-		{
-			return;
-		}
+		pTemp.resize(uiNumWorldItems);//dnl ch75 271013
 		fOk = LoadWorldItemsFromTempItemFile( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, pTemp );
 		if (fOk)
 		{
@@ -522,13 +515,6 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 			AddWorldItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 0, uiNumWorldItems, pTemp, TRUE );
 		}
 	}
-
-	if (pTemp) {
-		delete [] pTemp;
-	}
-	
-//#endif
-
 }
 
 void AddSecondAirportAttendant( void )

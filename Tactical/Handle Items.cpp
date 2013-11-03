@@ -6207,28 +6207,6 @@ BOOLEAN ContinuePastBoobyTrapInMapScreen( OBJECTTYPE *pObject, SOLDIERTYPE *pSol
 	return( TRUE );
 }
 
-// Well, clears all item pools
-void ClearAllItemPools( )
-{
-	INT32 cnt;
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
-	{
-		RemoveItemPool( cnt, 0 );
-		RemoveItemPool( cnt, 1 );
-	}
-}
-
-
-// Refresh item pools
-void RefreshItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems )
-{
-	ClearAllItemPools( );
-
-	RefreshWorldItemsIntoItemPools(	pItemList, iNumberOfItems );
-}
-
-
 INT32 FindNearestAvailableGridNoForItem( INT32 sSweetGridNo, INT8 ubRadius )
 {
 	INT32 sTop, sBottom;

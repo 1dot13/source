@@ -2621,7 +2621,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		{
 			pp->Inv[ i ] = spp->Inv[ i ];
 			//WarmSteel - if someone in the map editor placed a wrong attachment on this gun, fix it.
-			RemoveProhibitedAttachments(NULL, &pp->Inv[i], pp->Inv[i].usItem);
+			AttachDefaultAttachments(&pp->Inv[i]);//RemoveProhibitedAttachments(NULL, &pp->Inv[i], pp->Inv[i].usItem);//dnl ch75 261013
 			//return;
 		}
 	}

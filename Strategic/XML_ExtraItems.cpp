@@ -209,6 +209,8 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 	}
 
 	strcat(fileName, ".xml");
+	if(!FileExists(fileName))//dnl ch75 261013 just to avoid sdd::exception under debug from VFS when file not exist
+		return;
 
 	// Open extra items file
 	HWFILE hFile;

@@ -483,9 +483,13 @@ LBENODE* OBJECTTYPE::GetLBEPointer(unsigned int index)
 
 bool OBJECTTYPE::exists()
 {
+#if 0//dnl ch75 011113
 	if(this == NULL)
 		return(FALSE);
 	return (ubNumberOfObjects > 0 && usItem != NOTHING);
+#else
+	return(this && ubNumberOfObjects && usItem);
+#endif
 }
 
 void OBJECTTYPE::SpliceData(OBJECTTYPE& sourceObject, unsigned int numToSplice, StackedObjects::iterator beginIter)
@@ -1671,7 +1675,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 					(*this)[x]->attachments.resize(usAttachmentSlotIndexVector.size());
 			}
 		}*/
-		RemoveProhibitedAttachments(NULL, this, this->usItem);
+		AttachDefaultAttachments(this);//RemoveProhibitedAttachments(NULL, this, this->usItem);//dnl ch75 261013
 		//just a precaution
 		//ADB ubWeight has been removed, see comments in OBJECTTYPE
 		//this->ubWeight = CalculateObjectWeight(this);

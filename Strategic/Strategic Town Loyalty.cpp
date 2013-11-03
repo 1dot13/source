@@ -1111,7 +1111,7 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 {
 	// remove random items in sector
 	UINT32 uiNumberOfItems = 0, iCounter = 0;
-	WORLDITEM *pItemList;
+	std::vector<WORLDITEM> pItemList;//dnl ch75 271013
 	UINT32 uiNewTotal = 0;
 	CHAR16 wSectorName[ 128 ];
 
@@ -1138,7 +1138,7 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 			return;
 		}
 
-		pItemList = new WORLDITEM[ uiNumberOfItems ];
+		pItemList.resize(uiNumberOfItems);//dnl ch75 271013
 
 		// now load items
 		LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, ( UINT8 )sSectorZ, pItemList );
@@ -1167,9 +1167,6 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 		{
 			AddWorldItemsToUnLoadedSector( sSectorX, sSectorY, ( UINT8 )sSectorZ, 0, uiNumberOfItems, pItemList, TRUE );
 		}
-
-		// mem free
-		delete[]( pItemList );
 	}
 	else	// handle a loaded sector
 	{

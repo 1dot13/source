@@ -6105,7 +6105,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
 
-	WORLDITEM* pWorldItem_Target			= NULL;
+	std::vector<WORLDITEM> pWorldItem_Target;//dnl ch75 271013
 
 	// now loop over all sectors from which we take stuff, and move the equipment
 	std::map<UINT8, UINT8>::iterator itend = sectormercmap.end();
@@ -6136,11 +6136,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		UINT32 uiTotalNumberOfRealItems_Target = 0;
 
 		// use the new map
-		if ( pWorldItem_Target )
-		{
-			delete[] pWorldItem_Target;
-			pWorldItem_Target = NULL;
-		}
+		 pWorldItem_Target.clear();//dnl ch75 021113
 
 		if( ( gWorldSectorX == targetX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
 		{
@@ -6157,8 +6153,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			if( uiTotalNumberOfRealItems_Target > 0 )
 			{
 				// allocate space for the list
-				pWorldItem_Target = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
-			
+				pWorldItem_Target.resize(uiTotalNumberOfRealItems_Target);//dnl ch75 271013
+
 				// now load into mem
 				LoadWorldItemsFromTempItemFile(  targetX,  targetY, bZ, pWorldItem_Target );
 			}
@@ -6236,7 +6232,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		WORLDITEM* pWorldItem_tmp = NULL;
 		if( ( gWorldSectorX != targetX ) || ( gWorldSectorY != targetY ) || (gbWorldSectorZ != bZ ) )
 		{
-			pWorldItem_tmp = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
+			std::vector<WORLDITEM> pWorldItem_tmp(uiTotalNumberOfRealItems_Target);//dnl ch75 271013
 
 			// copy over old inventory
 			UINT32 newcount = 0;
@@ -6250,11 +6246,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			}
 
 			// use the new map
-			if ( pWorldItem_Target )
-			{
-				delete[] pWorldItem_Target;
-				pWorldItem_Target = NULL;
-			}
+			 pWorldItem_Target.clear();//dnl ch75 021113
 
 			pWorldItem_Target = pWorldItem_tmp;
 		}
@@ -6269,12 +6261,6 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		{
 			//Save the Items to the the file
 			SaveWorldItemsToTempItemFile( targetX, targetY, bZ, uiTotalNumberOfRealItems_Target, pWorldItem_Target );
-		}
-		
-		if ( pWorldItem_tmp )
-		{
-			delete[] pWorldItem_tmp;
-			pWorldItem_tmp = NULL;
 		}
 
 		// award a bit of experience to the movers

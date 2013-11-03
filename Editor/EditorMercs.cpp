@@ -1680,7 +1680,7 @@ void IndicateSelectedMerc( INT16 sID )
 		}
 	}
 	//if we made it this far, then we have a new merc cursor indicator to draw.
-	if( gpSelected == NULL || gpSelected->pSoldier )
+	if( gpSelected && gpSelected->pSoldier )//dnl ch75 261013
 		gsSelectedMercGridNo = gpSelected->pSoldier->sGridNo;
 	else
 	{

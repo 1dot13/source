@@ -457,7 +457,7 @@ void HourlyStealUpdate()
 					// we loop over this sector's inventory and look for something shiny. We will pick it up if we hae enough space in our inventory
 					// open sector inv
 					UINT32 uiTotalNumberOfRealItems = 0;
-					WORLDITEM* pWorldItem			= NULL;
+					std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
 					BOOLEAN fReturn					= FALSE;
 
 					if( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
@@ -479,7 +479,7 @@ void HourlyStealUpdate()
 						if( uiTotalNumberOfRealItems > 0 )
 						{
 							// allocate space for the list
-							pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
+							pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
 
 							if ( !uiTotalNumberOfRealItems )
 								continue;

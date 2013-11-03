@@ -524,6 +524,8 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj );
 // silversurfer: returns the SleepModifier from the characters inventory
 UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier );
 
+void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments=TRUE);//dnl ch75 261013
+
 #endif
 
 

@@ -2448,7 +2448,7 @@ BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAt
 		}
 		else
 		{
-			if ( fAttemptingAttachment && ValidAttachmentClass( usAttachment, pObj->usItem ) )
+			if ( fAttemptingAttachment && fDisplayMessage && ValidAttachmentClass( usAttachment, pObj->usItem ) )//dnl ch75 251013
 			{
 				// well, maybe the player thought he could
 				CHAR16	zTemp[ 100 ];
@@ -5594,7 +5594,7 @@ IMPORTANT: If you use AttachObject/RemoveAttachment with fRemoveProhibited TRUE 
 */
 void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usItem, BOOLEAN fOnlyRemoveWhenSlotsChange)
 {
-	if(!pObj->exists())
+	if(!pObj->exists() || !(*pObj)[0]->AttachmentListSize())//dnl ch75 261013
 		return;
 
 	if(UsingNewAttachmentSystem()==true){
@@ -5708,20 +5708,26 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 							}
 							else
 							{
-								// put it on the ground
-								INT32 sGridNo = 1;
-
-								if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)
+								// put it on the ground //dnl ch75 281013
+								INT32 sGridNo = NOWHERE;
+								UINT8 ubLevel = 0;
+								for(int i=0; i<guiNumWorldItems; i++)
 								{
-									AutoPlaceObjectInInventoryStash(&(*iter), sGridNo);
-									//AddItemToPool( sGridNo, &(*iter), 1, pathing, WORLD_ITEM_REACHABLE, 0 );
+									if(gWorldItems[i].fExists && (pObj == &gWorldItems[i].object))
+									{
+										sGridNo = gWorldItems[i].sGridNo;
+										ubLevel = gWorldItems[i].ubLevel;
+										break;
+									}
 								}
-								else
+								if(sGridNo != NOWHERE)
 								{
-									AddItemToPool( sGridNo, &(*iter), 1, 0, WORLD_ITEM_REACHABLE, 0 );
-								}																
+									if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)
+										AutoPlaceObjectInInventoryStash(&(*iter), sGridNo);
+									else
+										AddItemToPool(sGridNo, &(*iter), 1, ubLevel, WORLD_ITEM_REACHABLE, 0);
+								}
 							}
-
 							iter = tempAttachList.erase(iter);
 						}
 						else
@@ -7860,17 +7866,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 			pObj->AttachObject(NULL,&defaultAttachment, FALSE);
 		}
 #else
-		if(gGameOptions.ubAttachmentSystem || gfEditMode)
-		{
-			for(UINT8 cnt=0; cnt<MAX_DEFAULT_ATTACHMENTS; cnt++)
-			{
-				if(Item[usItem].defaultattachments[cnt] == NONE)
-					break;
-				OBJECTTYPE defaultAttachment;
-				CreateItem(Item[usItem].defaultattachments[cnt], (*pObj)[0]->data.gun.bGunStatus, &defaultAttachment);
-				pObj->AttachObject(NULL, &defaultAttachment, FALSE);
-			}
-		}
+		AttachDefaultAttachments(pObj);//dnl ch75 261013
 #endif
 	}
 
@@ -15328,4 +15324,22 @@ UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier )
 	}
 
 	return( modifier );
+}
+
+void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments)//dnl ch75 261013
+{
+	if(pObj->usItem && gGameOptions.ubAttachmentSystem)
+	{
+		RemoveProhibitedAttachments(NULL, pObj, pObj->usItem);
+		//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
+		//this should fix that...
+		for(UINT8 cnt=0; cnt<MAX_DEFAULT_ATTACHMENTS; cnt++)
+		{
+			if(Item[pObj->usItem].defaultattachments[cnt] == NONE || !(gGameOptions.ubAttachmentSystem && Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable || fAllDefaultAttachments))
+				break;
+			OBJECTTYPE defaultAttachment;
+			CreateItem(Item[pObj->usItem].defaultattachments[cnt], (*pObj)[0]->data.gun.bGunStatus, &defaultAttachment);
+			pObj->AttachObject(NULL, &defaultAttachment, FALSE);
+		}
+	}
 }
