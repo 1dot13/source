@@ -4296,7 +4296,17 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				if( fAlt )
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					// Flugente: alternate for people without mousewheel who want to aim auto-only weapons
+					if ( gGameExternalOptions.bAimedBurstEnabled && gGameExternalOptions.bAimedBurstAlternateKey && gCurrentUIMode == CONFIRM_ACTION_MODE )
+					{
+						SOLDIERTYPE *		pSoldier;
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+						{
+							HandleRightClickAdjustCursor( pSoldier, usMapPos );
+						}
+					}
+					else if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						TeleportSelectedSoldier();
 					}

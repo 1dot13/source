@@ -785,7 +785,8 @@ typedef struct
 	INT32 uStaminaHit;
 	//enable ext mouse key
 	BOOLEAN bAltAimEnabled;	
-	BOOLEAN bAimedBurstEnabled;	
+	BOOLEAN bAimedBurstEnabled;
+	BOOLEAN bAimedBurstAlternateKey;		// Flugente: some users cannot use the mousewheel and are thus unable to aim auto-only weapons. This solves this by allowing to aim via a key command
 	INT16 uAimedBurstPenalty;
 	BOOLEAN	bWeSeeWhatMilitiaSeesAndViceVersa;
 	BOOLEAN	bAllowWearSuppressor;

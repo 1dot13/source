@@ -1321,8 +1321,9 @@ void LoadGameExternalOptions()
 	
 	// Use aimed burst
 	gGameExternalOptions.bAimedBurstEnabled				= iniReader.ReadBoolean("Tactical Interface Settings","USE_AIMED_BURST",FALSE);
-			
-	// Penalcy for aimed burst
+	gGameExternalOptions.bAimedBurstAlternateKey		= iniReader.ReadBoolean("Tactical Interface Settings","AIMED_BURST_ALTERNATE_KEY",FALSE);
+						
+	// Penalty for aimed burst
 	gGameExternalOptions.uAimedBurstPenalty				= iniReader.ReadInteger("Tactical Interface Settings","AIMING_BURST_PENALTY",2, 0, 10);
 	
 	// We could see all what can see militia
