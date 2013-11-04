@@ -17266,6 +17266,9 @@ BOOLEAN SOLDIERTYPE::GetSlotOfSignalShellIfMortar(UINT8* pbLoop)
 
 BOOLEAN SOLDIERTYPE::CanAnyArtilleryStrikeBeOrdered(UINT32* pSectorID)		// can any artillery strikes be ordered by this guy's team from the neighbouring sectors?
 {
+	if ( !gSkillTraitValues.fROAllowArtillery )
+		return FALSE;
+
 	if ( this->bSectorZ )
 		return FALSE;
 
@@ -17450,6 +17453,10 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		for (INT16 i = 0; i < numwaves; ++i)
 		{
 			AddItemToPool( sStartingGridNo, &shellobj, HIDDEN_ITEM, 1, WORLD_ITEM_ARMED_BOMB, 0 );
+
+			// if option is set, delay each wave by one turn
+			if ( gSkillTraitValues.fROArtilleryDistributedOverTurns )
+				shellobj[0]->data.misc.bDelay += 1;
 		}
 
 		// update the sector Artillery time
@@ -17582,7 +17589,12 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			// check if soldier exists in this sector
 			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ|| pSoldier->bAssignment > ON_DUTY )
 				continue;
-			
+
+			INT8 shelldelay = 1;
+			// In realtime the player could choose to put down a bomb right before a turn expires, so add 1 to the setting in RT
+			if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+				++shelldelay;
+									
 			INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
 			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 			{
@@ -17596,6 +17608,10 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 						// only fire if not signal shell, we already fired one, no need to do so again
 						if ( pAttObj )//&& !HasItemFlag(pAttObj->usItem, SIGNAL_SHELL) )
 						{
+							// if option is set, delay each wave by one turn
+							if ( gSkillTraitValues.fROArtilleryDistributedOverTurns )
+								++shelldelay;
+
 							// create mortar shell item
 							OBJECTTYPE shellobj;
 							CreateItem( pAttObj->usItem, 100, &shellobj );
@@ -17606,10 +17622,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 							shellobj[0]->data.misc.usBombItem = shellobj.usItem;
 							shellobj[0]->data.misc.ubBombOwner = this->ubID + 2;
 
-							// In realtime the player could choose to put down a bomb right before a turn expires, so add 1 to the setting in RT
-							shellobj[0]->data.misc.bDelay = 1;
-							if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
-								shellobj[0]->data.misc.bDelay++;
+							shellobj[0]->data.misc.bDelay = shelldelay;
 
 							shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_1;
 
@@ -17633,6 +17646,10 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 								// only fire if not signal shell, we already fired one, no need to do so again
 								if ( pShellObj && !HasItemFlag(pShellObj->usItem, SIGNAL_SHELL) )
 								{
+									// if option is set, delay each wave by one turn
+									if ( gSkillTraitValues.fROArtilleryDistributedOverTurns )
+										++shelldelay;
+
 									// create mortar shell item
 									OBJECTTYPE shellobj;
 									CreateItem( pShellObj->usItem, 100, &shellobj );
@@ -17643,10 +17660,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 									shellobj[0]->data.misc.usBombItem = shellobj.usItem;
 									shellobj[0]->data.misc.ubBombOwner = this->ubID + 2;
 
-									// In realtime the player could choose to put down a bomb right before a turn expires, so add 1 to the setting in RT
-									shellobj[0]->data.misc.bDelay = 1;
-									if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
-										shellobj[0]->data.misc.bDelay++;
+									shellobj[0]->data.misc.bDelay = shelldelay;
 
 									shellobj[0]->data.ubWireNetworkFlag = ARTILLERY_STRIKE_COUNT_1;
 

@@ -1580,7 +1580,9 @@ typedef struct
 	BOOLEAN fCOElitesDetectNextTile;
 
 	// RADIO OPERATOR
-	INT16 bVOArtillerySectorFrequency;	// ability to call an a artillery strike from a sector every '_' minutes. Only applies if ordered from enemy/militia
+	BOOLEAN fROAllowArtillery;						// artillery can be forbidden for all teams with this setting
+	BOOLEAN fROArtilleryDistributedOverTurns;		// shells don't come in at once, but over multiple turns
+	INT16 bVOArtillerySectorFrequency;				// ability to call an a artillery strike from a sector every '_' minutes. Only applies if ordered from enemy/militia
 	UINT8 usVOMortarCountDivisor;
 	UINT8 usVOMortarShellDivisor;
 	UINT8 usVOMortarPointsAdmin;
