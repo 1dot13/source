@@ -217,10 +217,7 @@ SkillSelection::Setup( UINT32 aVal )
 		default:
 			break;
 		}
-
-		// certain traits have skills whose effects depend on wether eomeone is near to us (squadleader, commissar). We therefore display our radius of effect while this display is open
-		ToggleTraitRangeView(TRUE);
-
+				
 		// cancel option
 		swprintf( pStr, L"Cancel" );				
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_SkillSelection, 0 ) );
@@ -322,6 +319,11 @@ ArtillerySector::Setup( UINT32 aVal )
 		swprintf( pStr, L"Cancel" );				
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_ArtillerySector, 0 ) );
 		GetPopup()->addOption( *pOption );
+
+		// certain traits have skills whose effects depend on wether someone is near to us (squadleader, commissar). We therefore display our radius of effect while this display is open
+		SetTraitToDisplay(RADIO_OPERATOR_NT);
+		SetGridNoForTraitDisplay(sTraitsMenuTargetGridNo);
+		ToggleTraitRangeView(TRUE);
 	}
 
 	// same y, different x
@@ -386,6 +388,11 @@ ArtilleryTeam::Setup( UINT32 aVal )
 		swprintf( pStr, L"Cancel" );				
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_ArtilleryTeam, 0 ) );
 		GetPopup()->addOption( *pOption );
+
+		// certain traits have skills whose effects depend on wether someone is near to us (squadleader, commissar). We therefore display our radius of effect while this display is open
+		SetTraitToDisplay(RADIO_OPERATOR_NT);
+		SetGridNoForTraitDisplay(sTraitsMenuTargetGridNo);
+		ToggleTraitRangeView(TRUE);
 	}
 
 	// same y, different x
