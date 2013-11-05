@@ -24,6 +24,8 @@ struct
 }
 typedef enemyRankParseData;
 
+BOOLEAN localizedTextOnly_BG;
+
 UINT16 num_found_background = 0;	// the correct number is set on reading the xml
 
 #define XML_BACKGROUND_AP_MAX		 8
@@ -43,7 +45,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(BACKGROUND_VALUES)*pData->maxArraySize);
+			if ( !localizedTextOnly_BG )
+				memset(pData->curArray,0,sizeof(BACKGROUND_VALUES)*pData->maxArraySize);
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -51,7 +54,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		{
 			pData->curElement = ELEMENT;
 
-			memset(&pData->curBackground,0,sizeof(BACKGROUND_VALUES));
+			if ( !localizedTextOnly_BG )
+				memset(&pData->curBackground,0,sizeof(BACKGROUND_VALUES));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -168,10 +172,17 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 			
 			if(pData->curBackground.uiIndex < pData->maxArraySize)
 			{
-				pData->curArray[pData->curBackground.uiIndex] = pData->curBackground;
+				if ( localizedTextOnly_BG )
+				{
+					wcscpy(pData->curArray[pData->curBackground.uiIndex].szName,pData->curBackground.szName);
+					wcscpy(pData->curArray[pData->curBackground.uiIndex].szShortName,pData->curBackground.szShortName);
+					wcscpy(pData->curArray[pData->curBackground.uiIndex].szDescription,pData->curBackground.szDescription);
+				}
+				else
+					pData->curArray[pData->curBackground.uiIndex] = pData->curBackground;
 			}
 		
-			num_found_background = pData->curBackground.uiIndex;
+			num_found_background = pData->curBackground.uiIndex;	
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
@@ -540,7 +551,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
-BOOLEAN ReadInBackgrounds(STR fileName)
+BOOLEAN ReadInBackgrounds(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -551,6 +562,8 @@ BOOLEAN ReadInBackgrounds(STR fileName)
 	enemyRankParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Backgrounds.xml" );
+
+	localizedTextOnly_BG = localizedVersion;
 		
 	// Open file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );

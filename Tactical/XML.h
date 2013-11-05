@@ -465,7 +465,7 @@ extern BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion);
 extern void LoadIMPPortraitsTEMP();
 
 // Flugente: backgrounds
-extern BOOLEAN ReadInBackgrounds(STR fileName );
+extern BOOLEAN ReadInBackgrounds(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN WriteBackgrounds( STR fileName);
 
 //Enabled\Disabled profile sound by Jazz
