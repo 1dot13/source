@@ -1368,7 +1368,7 @@ void InitStrategicAI()
 
 		if( iStartPop )
 		{
-			if( gGarrisonGroup[ i ].ubSectorID != SEC_P3 )
+			if( gGarrisonGroup[ i ].ubSectorID != SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) )
 			{
 				// if population is less than maximum
 				if( iStartPop != iMaxEnemyGroupSize )
@@ -2125,7 +2125,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 			{
 				pSector = &SectorInfo[ SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) ];
 
-				if( gGarrisonGroup[ i ].ubSectorID != SEC_P3 )
+				if( gGarrisonGroup[ i ].ubSectorID != SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) )
 				{
 					EliminateSurplusTroopsForGarrison( pGroup, pSector );
 					pSector->ubNumAdmins = (UINT8)(pSector->ubNumAdmins + pGroup->pEnemyGroup->ubNumAdmins);
@@ -2314,8 +2314,8 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			{
 				//Wake up the queen now, if she hasn't woken up already.
 				WakeUpQueen();
-				if( pGroup->ubSectorX == 9 && pGroup->ubSectorY == 1 ||
-						pGroup->ubSectorX == 3 && pGroup->ubSectorY == 16 )
+				if( pGroup->ubSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && pGroup->ubSectorY == gGameExternalOptions.ubDefaultArrivalSectorY ||
+						pGroup->ubSectorX == gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY == gModSettings.ubSAISpawnSectorY )
 				{
 					SendGroupToPool( &pGroup );
 					if( !pGroup )
@@ -2956,7 +2956,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		//KM : Sep 9, 1999
 		//If the player owns sector P3, any troops that spawned there were causing serious problems, seeing battle checks
 		//were not performed!
-		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( 3, 16 ) ].fEnemyControlled )
+		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) ].fEnemyControlled )
 		{ //Queen can no longer send reinforcements from the palace if she doesn't control it!
 			return;
 		}
@@ -2994,7 +2994,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		}
 
 
-		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, (UINT8)iReinforcementsApproved, 0 );
+		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0 );
 		ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 		//Madd: unlimited reinforcements?
@@ -3161,7 +3161,7 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 	if( iRandom < giReinforcementPool )
 	{ //use the pool and send the requested amount from SECTOR P3 (queen's palace)
 		iReinforcementsApproved = min( iReinforcementsRequested, giReinforcementPool );
-		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, (UINT8)iReinforcementsApproved, 0 );
+		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0 );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 
 		//Madd: unlimited reinforcements?
@@ -3824,7 +3824,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	if( ubSAIVersion < 20 )
 	{
 		gArmyComp[ QUEEN_DEFENCE ].bDesiredPopulation = 32;
-		SectorInfo[ SEC_P3 ].ubNumElites = 32;
+		SectorInfo[ SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) ].ubNumElites = 32;
 	}
 	if( ubSAIVersion < 21 )
 	{
@@ -3860,9 +3860,9 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	}
 	if( ubSAIVersion < 23 )
 	{
-		if( gWorldSectorX != 3 || gWorldSectorY != 16 || !gbWorldSectorZ )
+		if( gWorldSectorX != gModSettings.ubSAISpawnSectorX || gWorldSectorY != gModSettings.ubSAISpawnSectorY || !gbWorldSectorZ )
 		{
-			SectorInfo[ SEC_P3 ].ubNumElites = 32;
+			SectorInfo[ SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) ].ubNumElites = 32;
 		}
 	}
 	if( ubSAIVersion < 24 )
@@ -3978,7 +3978,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	if( ubSAIVersion < 28 )
 	{
 		GROUP *pNext;
-		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( 3, 16 ) ].fEnemyControlled )
+		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) ].fEnemyControlled )
 		{ //Eliminate all enemy groups in this sector, because the player owns the sector, and it is not
 			//possible for them to spawn there!
 			pGroup = gpGroupList;
@@ -3987,7 +3987,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 				pNext = pGroup->next;
 				if( !pGroup->fPlayer )
 				{
-					if( pGroup->ubSectorX == 3 && pGroup->ubSectorY == 16 && !pGroup->ubPrevX && !pGroup->ubPrevY )
+					if( pGroup->ubSectorX == gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY == gModSettings.ubSAISpawnSectorY && !pGroup->ubPrevX && !pGroup->ubPrevY )
 					{
 						ClearPreviousAIGroupAssignment( pGroup );
 						RemovePGroup( pGroup );
@@ -4333,7 +4333,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 			if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
 			{
-				ubSourceSectorID = SEC_P3;
+				ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 			}
 
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
@@ -4403,7 +4403,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubTargetSectorID = SEC_B2;
 
 						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-							ubSourceSectorID = SEC_P3;
+							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
 						stagesector1 = ubSourceSectorID;
@@ -4421,7 +4421,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubTargetSectorID = SEC_H3;
 
 						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-							ubSourceSectorID = SEC_P3;
+							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = SEC_M2;
 						stagesector1 = ubSourceSectorID;
@@ -4439,7 +4439,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubTargetSectorID = SEC_H8;
 
 						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-							ubSourceSectorID = SEC_P3;
+							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
 						stagesector1 = ubSourceSectorID;
@@ -4470,7 +4470,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 							ubTargetSectorID = SEC_I13;
 
 							if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-								ubSourceSectorID = SEC_P3;
+								ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 						}
 
 						stagesector0 = ubSourceSectorID;
@@ -4499,7 +4499,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubTargetSectorID = SEC_L11;
 
 						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-							ubSourceSectorID = SEC_P3;
+							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
 						stagesector1 = ubSourceSectorID;
@@ -4584,11 +4584,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					ubTargetSectorID = SEC_H3;
 
 					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-						ubSourceSectorID = SEC_P3;
+						ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
-					pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
-					pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
-					pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops, groupelites );
+					pGroup1 = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops, groupelites );
+					pGroup2 = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, grouptroops, groupelites );
 					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
 					totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
@@ -4620,7 +4620,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 				if ( fAttack_Cambria )
 				{
-					ubSourceSectorID = SEC_P3;
+					ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 					// if the SAM was liberated by the player, we cannot stage there... 
 					// however, the SAM itself is also a very promising target... If we conquer that, the player cannot move his forces via helicopter, thus he cannot reinforce his other cities against simultaneous attacks
@@ -4681,7 +4681,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					ubTargetSectorID = SEC_I13;
 
 					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-						ubSourceSectorID = SEC_P3;
+						ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 					pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
@@ -4721,7 +4721,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					ubTargetSectorID = SEC_L11;
 
 					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-						ubSourceSectorID = SEC_P3;
+						ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 					pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
@@ -4811,7 +4811,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
 			pSector = &SectorInfo[ ubSectorID ];
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 4);
-			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, ubNumSoldiers, 0 );
 
 			//Madd: unlimited reinforcements?
 			if ( !gfUnlimitedTroops )
@@ -4873,7 +4873,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 				if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
 				{
-					ubSourceSectorID = SEC_P3;
+					ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 				}
 
 				int groupCnt = 0;
@@ -4957,7 +4957,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 				if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
 				{
-					ubSourceSectorID = SEC_P3;
+					ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 				}
 
 				int groupCnt = 0;
@@ -4990,7 +4990,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 		case NPC_ACTION_SEND_SOLDIERS_TO_OMERTA:
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
-			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, (UINT8)(ubNumSoldiers/7) ); //add 1 elite to normal, and 2 for hard
+			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, ubNumSoldiers, (UINT8)(ubNumSoldiers/7) ); //add 1 elite to normal, and 2 for hard
 			ubNumSoldiers = (UINT8)(ubNumSoldiers + ubNumSoldiers / 7);
 
 			//Madd: unlimited reinforcements
@@ -5021,7 +5021,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				giReinforcementPool -= ubNumSoldiers;
 
 			giReinforcementPool = max( giReinforcementPool, 0 );
-			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, 0, ubNumSoldiers );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, 0, ubNumSoldiers );
 			MoveSAIGroupToSector( &pGroup, ubSectorID, STAGE, REINFORCEMENTS );
 
 			// WANNE: This should fix the assertion in UC in the cutscene!
@@ -5604,7 +5604,7 @@ void RequestHighPriorityGarrisonReinforcements( INT32 iGarrisonID, UINT8 ubSoldi
 	}
 	else
 	{ //There are no groups that have enough troops.	Send a new force from the palace instead.
-		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubSoldiersRequested, 0 );
+		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, ubSoldiersRequested, 0 );
 		pGroup->ubMoveType = ONE_WAY;
 		pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
 		gGarrisonGroup[ iGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
@@ -6095,14 +6095,14 @@ void TransferGroupToPool( GROUP **pGroup )
 //NOTE:	Make sure you call SetEnemyGroupSector() first if the group is between sectors!!	See example in ReassignAIGroup()...
 void SendGroupToPool( GROUP **pGroup )
 {
-	if( (*pGroup)->ubSectorX == 3 && (*pGroup)->ubSectorY == 16 )
+	if( (*pGroup)->ubSectorX == gModSettings.ubSAISpawnSectorX && (*pGroup)->ubSectorY == gModSettings.ubSAISpawnSectorY )
 	{
 		TransferGroupToPool( pGroup );
 	}
 	else
 	{
 		(*pGroup)->ubSectorIDOfLastReassignment = (UINT8)SECTOR( (*pGroup)->ubSectorX, (*pGroup)->ubSectorY );
-		MoveSAIGroupToSector( pGroup, SEC_P3, EVASIVE, REINFORCEMENTS );
+		MoveSAIGroupToSector( pGroup, SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), EVASIVE, REINFORCEMENTS );
 	}
 }
 

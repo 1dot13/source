@@ -231,8 +231,8 @@ extern UINT16 MAP_LEVEL_STRING_Y;
 #define ORTA_SECTOR_X 4
 #define ORTA_SECTOR_Y 11
 
-#define TIXA_SECTOR_X 9
-#define TIXA_SECTOR_Y 10
+#define TIXA_SECTOR_X		gModSettings.ubTixaPrisonSectorX //9
+#define TIXA_SECTOR_Y		gModSettings.ubTixaPrisonSectorY //10
 
 // what are we showing?..teams/vehicles
 // Show values

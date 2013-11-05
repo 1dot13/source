@@ -1964,7 +1964,7 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 							pFinalWaypoint = GetFinalWaypoint( pGroup );
 							if( pFinalWaypoint )
 							{
-								if( pFinalWaypoint->x == 3 && pFinalWaypoint->y == 16 )
+								if( pFinalWaypoint->x == gModSettings.ubSAISpawnSectorX && pFinalWaypoint->y == gModSettings.ubSAISpawnSectorY )
 								{
 									swprintf( wSubString, L" - group returning to pool.");
 								}
@@ -2006,7 +2006,7 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 								pFinalWaypoint = GetFinalWaypoint( pGroup );
 								if( pFinalWaypoint )
 								{
-									if( pFinalWaypoint->x == 3 && pFinalWaypoint->y == 16 )
+									if( pFinalWaypoint->x == gModSettings.ubSAISpawnSectorX && pFinalWaypoint->y == gModSettings.ubSAISpawnSectorY )
 									{
 										swprintf( wSubString, L" - group returning to pool.");
 									}

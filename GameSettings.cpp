@@ -2372,6 +2372,10 @@ void LoadSkillTraitsExternalSettings()
 //DBrot: Grids
 void LoadModSettings(){
 	CIniReader iniReader(MOD_SETTINGS_FILE);
+
+	gModSettings.ubSAISpawnSectorX = iniReader.ReadInteger("AI", "STRATEGIC_AI_SPAWN_SECTOR_X", 3);
+	gModSettings.ubSAISpawnSectorY = iniReader.ReadInteger("AI", "STRATEGIC_AI_SPAWN_SECTOR_Y", 16);
+
 	gModSettings.ubHideoutSectorX = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_X", 10, 1, 16);
 	gModSettings.ubHideoutSectorY = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_Y", 1, 1, 16);
 	gModSettings.ubHideoutSectorZ = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_Z", 1, 0, 3);
@@ -2452,9 +2456,12 @@ void LoadModSettings(){
 	//[Grumm]
 
 	//[Tixa]
-	gModSettings.ubDyanmoPrisonSectorX = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_X", 9);
-	gModSettings.ubDyanmoPrisonSectorY = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_Y", 10);
-	gModSettings.ubDyanmoPrisonSectorZ = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_Z", 0);
+	gModSettings.ubTixaPrisonSectorX = iniReader.ReadInteger("Tixa", "PRISON_SECTOR_X", 9);
+	gModSettings.ubTixaPrisonSectorY = iniReader.ReadInteger("Tixa", "PRISON_SECTOR_Y", 10);
+
+	gModSettings.ubDyanmoCaptiveSectorX = iniReader.ReadInteger("Tixa", "DYNAMO_CAPTIVE_SECTOR_X", 9);
+	gModSettings.ubDyanmoCaptiveSectorY = iniReader.ReadInteger("Tixa", "DYNAMO_CAPTIVE_SECTOR_Y", 10);
+	gModSettings.ubDyanmoCaptiveSectorZ = iniReader.ReadInteger("Tixa", "DYNAMO_CAPTIVE_SECTOR_Z", 0);
 
 	//[Cambria]
 	gModSettings.ubHospitalSectorX = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_X", 8);

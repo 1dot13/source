@@ -1710,6 +1710,10 @@ typedef struct
 //DBrot: Grids
 typedef struct
 {
+	//AI
+	UINT8 ubSAISpawnSectorX;
+	UINT8 ubSAISpawnSectorY;
+	
 	//defines the basement and the bottom of the stairs
 	UINT8 ubHideoutSectorX;
 	UINT8 ubHideoutSectorY;
@@ -1746,7 +1750,6 @@ typedef struct
 	UINT8 ubAirport2X;
 	UINT8 ubAirport2Y;
 
-
 	//BobbyR stuff
 	UINT8 ubBobbyRShipDestSectorX;
 	UINT8 ubBobbyRShipDestSectorY;
@@ -1775,10 +1778,13 @@ typedef struct
 	//[Grumm]
 
 	//[Tixa]
-	//Dynamo Prison Sector
-	UINT8 ubDyanmoPrisonSectorX;
-	UINT8 ubDyanmoPrisonSectorY;
-	UINT8 ubDyanmoPrisonSectorZ;
+	UINT8 ubTixaPrisonSectorX;
+	UINT8 ubTixaPrisonSectorY;
+
+	//Dynamo Captive Sector
+	UINT8 ubDyanmoCaptiveSectorX;
+	UINT8 ubDyanmoCaptiveSectorY;
+	UINT8 ubDyanmoCaptiveSectorZ;
 
 	//[Cambria]
 	//Hospital Sector
