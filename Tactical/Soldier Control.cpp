@@ -14279,6 +14279,9 @@ INT8	SOLDIERTYPE::GetHearingBonus()
 	else
 		bonus += this->GetBackgroundValue(BG_PERC_HEARING_DAY);
 	
+	if ( this->IsRadioListening() )
+		bonus += gSkillTraitValues.sVOListeningHearingBonus;
+
 	return bonus;
 }
 
@@ -16885,6 +16888,10 @@ UINT8	SOLDIERTYPE::GetMoraleThreshold()
 INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 {
 	INT16 bonus = 0;
+
+	// if we are listening on our radio, our mind will be somewhere else... we will be less focused
+	if ( this->IsRadioListening() )
+		bonus -= 3;
 					
 	return bonus;
 }
