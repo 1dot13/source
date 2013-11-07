@@ -1033,19 +1033,21 @@ void SaveSeenAndUnseenItems( void )
 	pSaveList.clear();//dnl ch75 271013
 #else
 	UINT32 i, uiTotalNumberOfVisibleItems, uiNumOfSlots, uiNumberOfSeenItems;
+	WORLDITEM *pipl;
 
-	uiNumOfSlots = min(MAP_INVENTORY_POOL_SLOT_COUNT * ((UINT32)iLastInventoryPoolPage + 1), pInventoryPoolList.size());// Best guess if all without going into loop
+	// Idea of this change is avoiding resize and clear of pInventoryPool and pUnSeenItems and twice loading tempfile to increase inventory closing time
+	uiNumOfSlots = min(MAP_INVENTORY_POOL_SLOT_COUNT * ((UINT32)iLastInventoryPoolPage + 1), pInventoryPoolList.size());// Best guess without going into loop
 	uiNumberOfSeenItems = 0;
 	uiTotalNumberOfVisibleItems = 0;
-	for(i=0; i<uiNumOfSlots; i++)
+	for(i=0; i<uiNumOfSlots; i++)// Calculate total number of objects and throw out empty item slots
 	{
-		if(pInventoryPoolList[i].fExists && pInventoryPoolList[i].object.ubNumberOfObjects)
+		pipl = &pInventoryPoolList[i];
+		if(pipl->fExists && pipl->object.ubNumberOfObjects)
 		{
-			uiTotalNumberOfVisibleItems += pInventoryPoolList[i].object.ubNumberOfObjects;
+			uiTotalNumberOfVisibleItems += pipl->object.ubNumberOfObjects;
 			if(i > uiNumberOfSeenItems)
-				pInventoryPoolList[uiNumberOfSeenItems++] = pInventoryPoolList[i];
-			else
-				uiNumberOfSeenItems++;
+				pInventoryPoolList[uiNumberOfSeenItems] = *pipl;
+			uiNumberOfSeenItems++;
 		}
 	}
 	uiNumOfSlots = ((uiNumberOfSeenItems + uiNumberOfUnSeenItems) / MAP_INVENTORY_POOL_SLOT_COUNT + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
@@ -2086,6 +2088,7 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	//Sort the sector inventory
 	SortSectorInventory( pInventoryPoolList, fNumShown );
 #else
+	// Decide to use pointers instead of iterators which slightly decrease inventory loading time when have huge number of items, also pInventoryPoolList and pUnSeenItems will resize only if needed
 	UINT32 i, uiTotalNumberOfItems, uiNumberOfSeenItems, uiNumOfSlots;
 	WORLDITEM *pwi, *pipl, *pusi;
 	if(sMapX == gWorldSectorX && gWorldSectorY == sMapY && gbWorldSectorZ == sMapZ)// if map is already loaded use gWorldItems[] and guiNumWorldItems to build lists
@@ -2126,31 +2129,31 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		Assert(LoadWorldItemsFromTempItemFile(sMapX, sMapY, (INT8)sMapZ, pInventoryPoolList));
 		uiNumberOfSeenItems = uiTotalNumberOfItems;
 		uiNumberOfUnSeenItems = 0;
-		for(i=0; i<uiTotalNumberOfItems; i++)
+		pipl = &pInventoryPoolList.front();
+		pusi = &pUnSeenItems.front();
+		for(i=0; i<uiTotalNumberOfItems; i++, pipl++)
 		{
-			if(!IsMapScreenWorldItemVisibleInMapInventory(&pInventoryPoolList[i]))
+			if(!IsMapScreenWorldItemVisibleInMapInventory(pipl))
 			{
-				if(pInventoryPoolList[i].fExists)
+				if(pipl->fExists)
 				{
-					/*uiNumOfSlots = (uiNumberOfUnSeenItems / MAP_INVENTORY_POOL_SLOT_COUNT + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
-					if(pUnSeenItems.size() <= uiNumberOfUnSeenItems)
-						pUnSeenItems.resize(uiNumOfSlots);*/
-					pUnSeenItems[uiNumberOfUnSeenItems++] = pInventoryPoolList[i];
+					*pusi++ = *pipl;
+					uiNumberOfUnSeenItems++;
 				}
-				pInventoryPoolList[i].fExists = FALSE;
-				pInventoryPoolList[i].object.usItem = NONE;
-				pInventoryPoolList[i].object.ubNumberOfObjects = 0;
+				pipl->fExists = FALSE;
+				pipl->object.usItem = NONE;
+				pipl->object.ubNumberOfObjects = 0;
 			}
 		}
 	}
+	// Clear out rest of the pInventoryPoolList slots
 	uiNumOfSlots = pInventoryPoolList.size();
 	pipl = &pInventoryPoolList[uiNumberOfSeenItems];
-	for(i=uiNumberOfSeenItems; i<uiNumOfSlots; i++)
+	for(i=uiNumberOfSeenItems; i<uiNumOfSlots; i++, pipl++)
 	{
 		pipl->fExists = FALSE;
 		pipl->object.usItem = NONE;
 		pipl->object.ubNumberOfObjects = 0;
-		pipl++;
 	}
 	SortSectorInventory(pInventoryPoolList, uiNumberOfSeenItems);
 #endif
@@ -3059,6 +3062,7 @@ void ResizeInventoryList( void )
 		giDesiredNumMapInventorySlots = max(iOptimalSizeWithExtraEmptySlots + MAP_INVENTORY_POOL_SLOT_COUNT, giDesiredNumMapInventorySlots);
 		fExtraPage = TRUE;
 	}
+	// Only resize if need to extend slot number, also never clear pInventoryPoolList and pUnSeenItems to avoid performance decrease, and both of them must be same size
 	if(giDesiredNumMapInventorySlots > (INT32)pInventoryPoolList.size())
 		pInventoryPoolList.resize(giDesiredNumMapInventorySlots);
 	if(giDesiredNumMapInventorySlots > (INT32)pUnSeenItems.size())
@@ -3494,7 +3498,6 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 #endif
 }
 
-
 void SortSectorInventory( std::vector<WORLDITEM>& pInventory, UINT32 uiSizeOfArray )
 {
 #if 0//dnl ch75 011113 return code from v1.12 as current one is terrible slow
@@ -3564,10 +3567,13 @@ void SortSectorInventory( std::vector<WORLDITEM>& pInventory, UINT32 uiSizeOfArr
 		}
 	}
 #else
-	qsort( (LPVOID)&pInventory.front(), (size_t) uiSizeOfArray, sizeof(WORLDITEM), MapScreenSectorInventoryCompare );
+#if _ITERATOR_DEBUG_LEVEL > 1//dnl ch75 061113 under debug VS2010 throws exceptions after qsort but not under VS2005 and VS2008, all release version seems to work fine
+	std::sort(pInventory.begin(), pInventory.begin() + uiSizeOfArray);
+#else
+	qsort((LPVOID)&pInventory.front(), (size_t)uiSizeOfArray, sizeof(WORLDITEM), MapScreenSectorInventoryCompare);
+#endif
 #endif
 }
-
 
 INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 {
@@ -3578,15 +3584,16 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 	UINT16		ubItem1Quality;
 	UINT16		ubItem2Quality;
 
-	//dnl ch75 011113 without this fix sort will create mess when use empty slots with improper flags settings created badly somewhere else in code
-	if(!(pFirst->fExists && pFirst->object.ubNumberOfObjects && pFirst->object.usItem))
+	//dnl ch75 071113 without below fix sort will create mess when use empty slots because fExists remain TRUE after item is removed from inventory so decide to rather check ubNumberOfObjects
+#if 0
+	if(!(pFirst->fExists && pFirst->object.ubNumberOfObjects && pFirst->object.usItem) && (pFirst->fExists | pFirst->object.ubNumberOfObjects | pFirst->object.usItem))
 	{
 		pFirst->fExists = FALSE;
 		pFirst->object.ubNumberOfObjects = 0;
 		pFirst->object.usItem = NONE;
 		return(1);
 	}
-	if(!(pSecond->fExists && pSecond->object.ubNumberOfObjects && pSecond->object.usItem))
+	if(!(pSecond->fExists && pSecond->object.ubNumberOfObjects && pSecond->object.usItem) && (pSecond->fExists | pSecond->object.ubNumberOfObjects | pSecond->object.usItem))
 	{
 		pSecond->fExists = FALSE;
 		pSecond->object.ubNumberOfObjects = 0;
@@ -3597,6 +3604,12 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 		return(1);
 	if(!pSecond->fExists)
 		return(-1);
+#else
+	if(!pFirst->object.ubNumberOfObjects)
+		return(1);
+	if(!pSecond->object.ubNumberOfObjects)
+		return(-1);
+#endif
 
 	usItem1Index = pFirst->object.usItem;
 	usItem2Index = pSecond->object.usItem;
@@ -5068,6 +5081,7 @@ void RefreshSeenAndUnseenPools()
 	// Finally, resort the inventory.
 	SortSectorInventory( pInventoryPoolList, pInventoryPoolList.size() );
 #else
+	//!!! pInventoryPoolList and pUnSeenItems must be the same size so never clear neither of them as entering here will throw exception risk CTD if not same
 	UINT32 i, j, uiNumOfSlots, uiUnSeenSlots;
 	WORLDITEM *pipl, *pusi, *pwi;
 	// Move previously unseen items from pUnSeenItems to pInventoryPoolList from the end as there are probably most free slots
