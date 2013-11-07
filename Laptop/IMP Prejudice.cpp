@@ -42,7 +42,7 @@
 
 #define	IMP_PREJUDICE__TITLE_X						LAPTOP_SCREEN_UL_X - 111
 #define	IMP_PREJUDICE__TITLE_Y						iScreenHeightOffset + 53
-#define	IMP_PREJUDICE__TITLE_WIDTH					( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X )
+#define	IMP_PREJUDICE__TITLE_WIDTH					( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111)
 
 //*******************************************************************
 //
@@ -298,6 +298,7 @@ void HandleIMPPrejudice( void )
 void IMPPrejudiceDisplay()
 {
 	UINT16 usPosX, usPosY;
+	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
 
 	//Display the title
 	DrawTextToScreen( L"I.M.P. Prejudices", IMP_PREJUDICE__TITLE_X, IMP_PREJUDICE__TITLE_Y, IMP_PREJUDICE__TITLE_WIDTH, FONT14ARIAL, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );

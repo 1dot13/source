@@ -45,10 +45,6 @@
 #define	IMP_CHARACTER_TRAIT__TEXT_OFFSET_X											65
 #define	IMP_CHARACTER_TRAIT__TEXT_OFFSET_Y											12
 
-#define	IMP_CHARACTER_TRAIT__TITLE_X											LAPTOP_SCREEN_UL_X - 111
-#define	IMP_CHARACTER_TRAIT__TITLE_Y											iScreenHeightOffset + 53
-#define	IMP_CHARACTER_TRAIT__TITLE_WIDTH												( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X )
-
 #define	IMP_CHARACTER_TRAIT__GREY_BOX_OFFSET_X									5
 #define	IMP_CHARACTER_TRAIT__GREY_BOX_OFFSET_Y									7
 
@@ -174,14 +170,16 @@ void EnterIMPCharacterTrait( void )
 
 void RenderIMPCharacterTrait( void )
 {
+	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
+
 	//render the metal background graphic
 	RenderProfileBackGround();
 
 	//Display the title
 	if ( gGameOptions.fNewTraitSystem )
-		DrawTextToScreen( gzIMPCharacterTraitText[IMP_NUMBER_CHARACTER_TRAITS], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, ( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X ), FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPCharacterTraitText[IMP_NUMBER_CHARACTER_TRAITS], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	else
-		DrawTextToScreen( gzIMPAttitudesText[IMP_NUMBER_ATTITUDES], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, ( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X ), FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPAttitudesText[IMP_NUMBER_ATTITUDES], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	IMPCharacterTraitDisplayCharacterTraits();
 }

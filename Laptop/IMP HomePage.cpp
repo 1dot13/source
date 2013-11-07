@@ -129,7 +129,6 @@ void RenderImpHomePage( void )
 	// render the	activation string
 	DisplayPlayerActivationString( );
 
-
 	return;
 }
 

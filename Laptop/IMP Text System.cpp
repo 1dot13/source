@@ -133,7 +133,7 @@ void InitializeImpRecordLengthList( void )
 
 void PrintImpText( void )
 {
-	INT16 sWidth = LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1;
+	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
 
 	// looks at current page and prints text needed
 	switch( iCurrentImpPage )
@@ -167,6 +167,7 @@ void PrintImpText( void )
 		break;
 		case ( IMP_MAIN_PAGE ):
 		// title
+			
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X - 111, LAPTOP_SCREEN_WEB_UL_Y + 19, sWidth, IMP_MAIN_1, FONT14ARIAL, FONT_WHITE, TRUE, CENTER_JUSTIFIED);
 
 			// set up for IMP text for title box area

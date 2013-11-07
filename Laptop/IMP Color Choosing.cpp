@@ -384,6 +384,8 @@ void EnterIMPColorChoice( void )
 
 void RenderIMPColorChoice( void )
 {
+	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
+
 	//render the metal background graphic
 	RenderProfileBackGround();
 
@@ -397,14 +399,14 @@ void RenderIMPColorChoice( void )
 		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 127, LAPTOP_SCREEN_WEB_UL_Y + 50,  ( 426 - 200 ), 2, FONT10ARIAL, 142, gzIMPColorChoosingText[2],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 
 		// title
-		DrawTextToScreen( gzIMPColorChoosingText[0], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, ( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X ), FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPColorChoosingText[0], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 	else
 	{
 		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 127, LAPTOP_SCREEN_WEB_UL_Y + 50,  ( 426 - 200 ), 2, FONT10ARIAL, 142, gzIMPColorChoosingText[3],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 
 		// title
-		DrawTextToScreen( gzIMPColorChoosingText[1], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, ( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X ), FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPColorChoosingText[1], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 
 	// figure and frame

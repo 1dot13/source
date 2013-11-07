@@ -92,8 +92,10 @@ void CreateIMPCharacterAndDisabilityEntranceButtons( void )
 
 void WriteIMPCharacterAndDisabilityEntranceText( void )
 {
+	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
+
 	//Display the title
-	DrawTextToScreen( pCharacterTraitBeginIMPStrings[ 0 ], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, ( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X ), FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( pCharacterTraitBeginIMPStrings[ 0 ], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// The personality part
 	DisplayWrappedString( LAPTOP_SCREEN_UL_X + 106, LAPTOP_SCREEN_WEB_UL_Y + 63,  ( 400 - 100 ), 2, FONT12ARIAL, FONT_WHITE, pCharacterTraitBeginIMPStrings[ 1 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
