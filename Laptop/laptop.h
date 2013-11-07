@@ -192,6 +192,8 @@ enum{
 #define LAPTOP_SCREEN_WEB_UL_Y								(LAPTOP_SCREEN_UL_Y + 19)
 #define LAPTOP_SCREEN_WEB_LR_Y								(LAPTOP_SCREEN_WEB_UL_Y + LAPTOP_SCREEN_HEIGHT)
 #define LAPTOP_SCREEN_WEB_DELTA_Y							19 //LAPTOP_SCREEN_WEB_UL_Y - LAPTOP_SCREEN_UL_Y
+#define LAPTOP_TITLE_Y										(LAPTOP_SCREEN_WEB_UL_Y + 12)
+#define LAPTOP_TEXT_WIDTH									((LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111))
 
 // the laptop on/off button 
 #define ON_X												iScreenWidthOffset + 113

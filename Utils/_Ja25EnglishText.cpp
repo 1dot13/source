@@ -453,7 +453,6 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Reduced sight range.",
 };
 
-
 STR16 gzIMPProfileCostText[]=
 {
 	L"The profile cost is $%d. Authorize payment?",

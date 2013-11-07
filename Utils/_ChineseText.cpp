@@ -7934,7 +7934,17 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％医疗保证金\n", //L" %s%d%% insurance cost\n",
 };
 
+STR16		szBackgroundTitleText[] =	// TODO.Translate
+{
+	L"I.M.P. Background",
+};
+
 // Flugente: personality
+STR16		szPersonalityTitleText[] =	// TODO.Translate
+{
+	L"I.M.P. Prejudices",
+};
+
 STR16		szPersonalityDisplayText[]=	// TODO.Translate
 {
 	L"You look",

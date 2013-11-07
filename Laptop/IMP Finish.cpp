@@ -634,9 +634,8 @@ BOOLEAN RenderCharProfileFinishFace( void )
 */
 void RenderCharFullName( void )
 {
-
 	CHAR16 sString[ 64 ];
-	INT16 sX, sY;
+	//INT16 sX, sY;
 
 	// render the characters full name
 	SetFont( FONT14ARIAL );
@@ -645,9 +644,10 @@ void RenderCharFullName( void )
 
 	swprintf( sString, pIMPFinishStrings[ 0 ], pFullName );
 
+	DrawTextToScreen( sString, LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
-	FindFontCenterCoordinates(LAPTOP_SCREEN_UL_X - 111, 0, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 0 , sString , FONT14ARIAL, &sX, &sY);
-	mprintf( sX, iScreenHeightOffset + LAPTOP_SCREEN_WEB_DELTA_Y + 33, sString );
+	//FindFontCenterCoordinates(LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, 0 , sString , FONT14ARIAL, &sX, &sY);
+	//mprintf( sX, iScreenHeightOffset + LAPTOP_SCREEN_WEB_DELTA_Y + 33, sString );
 	return;
 }
 

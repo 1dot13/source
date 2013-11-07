@@ -41,8 +41,6 @@
 #define	IMP_PREJUDICE__COLOR						FONT_MCOLOR_WHITE
 
 #define	IMP_PREJUDICE__TITLE_X						LAPTOP_SCREEN_UL_X - 111
-#define	IMP_PREJUDICE__TITLE_Y						iScreenHeightOffset + 53
-#define	IMP_PREJUDICE__TITLE_WIDTH					( LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111)
 
 //*******************************************************************
 //
@@ -297,11 +295,10 @@ void HandleIMPPrejudice( void )
 
 void IMPPrejudiceDisplay()
 {
-	UINT16 usPosX, usPosY;
-	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
+	UINT16 usPosX, usPosY;	
 
 	//Display the title
-	DrawTextToScreen( L"I.M.P. Prejudices", IMP_PREJUDICE__TITLE_X, IMP_PREJUDICE__TITLE_Y, IMP_PREJUDICE__TITLE_WIDTH, FONT14ARIAL, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( szPersonalityTitleText[0], IMP_PREJUDICE__TITLE_X, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, LAPTOP_SCREEN_UL_X + 2, LAPTOP_SCREEN_WEB_UL_Y + 40, LAPTOP_SCREEN_LR_X - 2,	LAPTOP_SCREEN_WEB_UL_Y + 20 + 5 * DROPDOWN_MARKUP_Y, Get16BPPColor( FROMRGB( 100, 100, 100 ) ) );
 

@@ -171,14 +171,12 @@ void EnterIMPDisabilityTrait( void )
 
 
 void RenderIMPDisabilityTrait( void )
-{
-	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
-
+{	
 	//render the metal background graphic
 	RenderProfileBackGround();
 
 	// Display title
-	DrawTextToScreen( gzIMPDisabilityTraitText[IMP_DISABILITIES_NUMBER], LAPTOP_SCREEN_UL_X - 111, iScreenHeightOffset + 53, sWidth, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( gzIMPDisabilityTraitText[IMP_DISABILITIES_NUMBER], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	IMPDisabilityTraitDisplayDisabilityTraits();
 }

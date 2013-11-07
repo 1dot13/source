@@ -51,7 +51,6 @@
 #define	IMP_BACKGROUND__TEXT_OFFSET_Y											12
 
 #define	IMP_BACKGROUND__TITLE_X											LAPTOP_SCREEN_UL_X - 111
-#define	IMP_BACKGROUND__TITLE_Y											iScreenHeightOffset + 53
 
 #define	IMP_BACKGROUND__GREY_BOX_OFFSET_X									5
 #define	IMP_BACKGROUND__GREY_BOX_OFFSET_Y									7
@@ -366,10 +365,8 @@ void IMPBackgroundDisplaySkills()
 	UINT16 usBoxPosX, usBoxPosY;
 	HVOBJECT	hImageHandle;
 
-	INT16 sWidth = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X + 1) + (2 * 111);
-
 	//Display the title
-	DrawTextToScreen( L"I.M.P. Background", IMP_BACKGROUND__TITLE_X, IMP_BACKGROUND__TITLE_Y, sWidth, IMP_BACKGROUND__TITLE_FONT, IMP_BACKGROUND__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( szBackgroundTitleText[0], IMP_BACKGROUND__TITLE_X, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, IMP_BACKGROUND__TITLE_FONT, IMP_BACKGROUND__COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// Stats
 	GetVideoObject(&hImageHandle, guiIMPBackground_GreyGoldBox );

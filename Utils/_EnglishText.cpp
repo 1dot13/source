@@ -7934,7 +7934,17 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% insurance cost\n",
 };
 
+STR16		szBackgroundTitleText[] = 
+{
+	L"I.M.P. Background",
+};
+
 // Flugente: personality
+STR16		szPersonalityTitleText[] = 
+{
+	L"I.M.P. Prejudices",
+};
+
 STR16		szPersonalityDisplayText[]=
 {
 	L"You look",

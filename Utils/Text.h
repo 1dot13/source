@@ -2432,6 +2432,9 @@ enum
 	PERSONALITYTEXT_PEOPLE,
 	PERSONALITYTEXT_MAX,
 };
+
+extern STR16		szBackgroundTitleText[];
+extern STR16 		szPersonalityTitleText[];
 extern STR16		szPersonalityDisplayText[];
 extern STR16		szPersonalityHelpText[];
 extern STR16		szRaceText[];
