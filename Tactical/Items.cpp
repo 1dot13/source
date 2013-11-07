@@ -10444,8 +10444,10 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon(pObj);
 	OBJECTTYPE* pObjUsedInHand = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
  
-	//if (ubNumBullet < 2)
-	if (ubNumBullet < Weapon[pObjUsed->usItem].ubRecoilDelay)
+	// silversurfer: The first bullet should never return recoil. If function CalcPreRecoilOffset( ) in LOS.cpp wants to know
+	// what recoil to expect for the second bullet in the volley it should ask for the second bullet and does so from now on.
+	// ubRecoilDelay is 0 for almost all weapons so we need to have a failsafe here for the first bullet.
+	if (ubNumBullet < 2 || ubNumBullet <= Weapon[pObjUsed->usItem].ubRecoilDelay)
 	{
 		// The first bullet in a volley never has recoil - it hasn't "set in" yet. Only the second+ bullets
 		// will have any recoil.

@@ -8835,7 +8835,8 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 	INT8 bGunRecoilY;
 
 	// Get the gun's recoil values for our first bullet.
-	GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, 1 );
+	// silversurfer: The first bullet will never be affected by recoil so ask for number 2 instead.
+	GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, 2 );
 
 	// Calculate the Distance Ratio for later use.
 	FLOAT dDistanceRatio = (FLOAT)uiRange / (FLOAT)gGameCTHConstants.NORMAL_RECOIL_DISTANCE;
@@ -8893,8 +8894,7 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 	// We can adjust by up to one recoil-length away - not much, but helpful.
 
 	// Randomly determine whether the soldier has compensated by moving his muzzle.
-	/*
-	if (PreRandom(100) < uiPreRecoilAbility)
+/*	if (PreRandom(100) < uiPreRecoilAbility)
 	{
 		// The soldier is smart enough to compensate for recoil by not aiming for the center of the target.
 		// He will attempt to adjust his aim by one recoil's length, causing the second bullet to impact
@@ -8922,8 +8922,7 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 			// Set final muzzle compensation
 			dOffsetY = dIdealOffsetY + (dError * bErrorDirection);
 	}
-	*/
-
+*/
 	// Randomly determine whether the soldier has compensated by applying counter-force.
 	if (PreRandom(100) < uiPreRecoilAbility)
 	{
@@ -9039,9 +9038,21 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	INT8 bGunRecoilY;
 
 	if( fSecondHandBurst )
-		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, (pShooter->bDoBurst/2-2) );
+		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, (pShooter->bDoBurst/2) );
 	else
-		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, pShooter->bDoBurst-1 );
+	{
+		// silversurfer: We need to count differently for primary weapon depending on single or dual wielding guns.
+		// For single wielding bDoBurst counts 1, 2, 3, 4, 5... because we fire only one gun.
+		// For dual wielding the primary counts 1, 3, 5, 7... and the secondary gets the even numbers.
+		if ( pShooter->IsValidSecondHandBurst() )
+		{
+			GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, (pShooter->bDoBurst / 2 + pShooter->bDoBurst % 2) );
+		}
+		else
+		{
+			GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, pShooter->bDoBurst );
+		}
+	}
 
 	// If no recoil, then we shouldn't be here anyway.
 	if(bGunRecoilX == 0 && bGunRecoilY == 0)
@@ -9455,9 +9466,21 @@ FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccur
 				// fire that many bullets?
 				UINT32 uiRoundsRemaining;
 				if ( pShooter->ubAttackingHand == SECONDHANDPOS && pShooter->IsValidSecondHandBurst() ) 
-					uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst/2 - 2);
+					uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst/2);
 				else
-					uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst - 1);
+				{
+					// silversurfer: We need to count differently for primary weapon depending on single or dual wielding guns.
+					// For single wielding bDoBurst counts 1, 2, 3, 4, 5... because we fire only one gun.
+					// For dual wielding the primary counts 1, 3, 5, 7... and the secondary gets the even numbers.
+					if ( pShooter->IsValidSecondHandBurst() )
+					{
+						uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst / 2 + pShooter->bDoBurst % 2);
+					}
+					else
+					{
+						uiRoundsRemaining = uiIntendedBullets - pShooter->bDoBurst;
+					}
+				}
 
 				BOOLEAN fEnoughBullets = true;
 				if (uiRoundsRemaining < uiStepsToReachTargetWhileDecelerating)
