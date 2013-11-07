@@ -9194,6 +9194,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 			{
 				pSoldier->bCamo = __min( 100, pSoldier->bCamo + iJungleCamoAdded );
 			}
+			// update with amount that we really used
+			bPointsToUse = __min( bPointsToUse, (iJungleCamoAdded + 1) / 2 );
 		}
 		// Second, check if we have an item with major URBAN camobonus
 		else if ( (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].camobonus) && 
@@ -9234,6 +9236,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 			{
 				pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + iUrbanCamoAdded );
 			}
+			// update with amount that we really used
+			bPointsToUse = __min( bPointsToUse, (iUrbanCamoAdded + 1) / 2 );
 		}
 		// Third, check if we have an item with major DESERT camobonus
 		else if ( (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].camobonus) && 
@@ -9274,6 +9278,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 			{
 				pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + iDesertCamoAdded );
 			}
+			// update with amount that we really used
+			bPointsToUse = __min( bPointsToUse, (iDesertCamoAdded + 1) / 2 );
 		}
 		// Fourth, check if we have an item with major SNOW camobonus
 		else if ( (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].camobonus) && 
@@ -9314,6 +9320,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 			{
 				pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + iSnowCamoAdded );
 			}
+			// update with amount that we really used
+			bPointsToUse = __min( bPointsToUse, (iSnowCamoAdded + 1) / 2 );
 		}
 		else // the item has no major camo, return
 			return( FALSE );

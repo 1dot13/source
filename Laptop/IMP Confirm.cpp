@@ -338,7 +338,11 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 */
 			// SANDRO - changed to find the actual profile cost
 			//if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
-			if( LaptopSaveInfo.iCurrentBalance < iGetProfileCost() ) 
+
+			// silversurfer: We need to store the profile cost here because right now our new IMP doesn't occupy a slot yet.
+			// However function iGetProfileCost() will already calculate price including that slot. We would charge too much money after the IMP is created below.
+			INT32 iIMPCost = iGetProfileCost();
+			if( LaptopSaveInfo.iCurrentBalance < iIMPCost ) 
 			{
 				// not enough
 				 return;
@@ -352,7 +356,7 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 			// charge the player
 			// SANDRO - changed to find the actual profile cost
 			//AddTransactionToPlayersBook(IMP_PROFILE, (UINT8)(LaptopSaveInfo.iIMPIndex), GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
-			AddTransactionToPlayersBook(IMP_PROFILE, (UINT8)(LaptopSaveInfo.iIMPIndex), GetWorldTotalMin( ), - ( iGetProfileCost() ) );
+			AddTransactionToPlayersBook(IMP_PROFILE, (UINT8)(LaptopSaveInfo.iIMPIndex), GetWorldTotalMin( ), - ( iIMPCost ) );
 
 			AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
 			AddCharacterToPlayersTeam( );
@@ -1519,6 +1523,10 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	{
 		LaptopSaveInfo.iIMPIndex = iProfileId;
 
+		// silversurfer: Store current IMP cost. Function iGetProfileCost() already takes the new slot into account.
+		// If we create the IMP first we would charge too much.
+		INT32 iIMPCost = iGetProfileCost();
+
 		// read in the profile
 		//if ( !gMercProfiles[ iProfileId ].Load(hFile, false) )
 		if ( !gMercProfiles[ iProfileId ].Load(hFile, isOldVersion, false, false) )
@@ -1534,7 +1542,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 		DistributeInitialGear(&gMercProfiles[iProfileId]);
 
 		// Changed to find actual IMP cost - SANDRO
-		if( LaptopSaveInfo.iCurrentBalance < iGetProfileCost() )
+		if( LaptopSaveInfo.iCurrentBalance < iIMPCost )
 		{
 			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 3 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 
@@ -1558,7 +1566,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 		fCharacterIsMale = ( gMercProfiles[ iProfileId ].bSex == MALE );
 		fLoadingCharacterForPreviousImpProfile = TRUE;
 		// Changed to find actual IMP cost - SANDRO
-		AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( iGetProfileCost() ) );
+		AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( iIMPCost ) );
 		AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
 		LaptopSaveInfo.iIMPIndex = iProfileId;
 		AddCharacterToPlayersTeam( );
@@ -1773,7 +1781,8 @@ INT32 iGetProfileCost()
 	{
 		INT32 iIMPProfileCost;
 
-		iIMPProfileCost = gGameExternalOptions.iIMPProfileCost * CountFilledIMPSlots(-1);
+		// silversurfer: When we create an IMP he doesn't occupy a slot yet so we need to add 1 to get the correct price in advance.
+		iIMPProfileCost = gGameExternalOptions.iIMPProfileCost * ( CountFilledIMPSlots(-1) + 1 );
 
 		if (iIMPProfileCost >= gGameExternalOptions.iIMPProfileCost)
 			return(iIMPProfileCost);
