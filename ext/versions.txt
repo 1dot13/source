@@ -1,4 +1,4 @@
-7z(lzma) : 4.65
+7z(lzma) : 9.22
 utfcpp   : 2.3.4
 libpng   : 1.2.50
 zlib     : 1.2.8

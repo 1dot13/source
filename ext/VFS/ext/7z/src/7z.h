@@ -10,7 +10,7 @@ EXTERN_C_BEGIN
 
 #define k7zStartHeaderSize 0x20
 #define k7zSignatureSize 6
-SZIP_API extern Byte k7zSignature[k7zSignatureSize];
+extern Byte k7zSignature[k7zSignatureSize];
 #define k7zMajorVersion 0
 
 enum EIdEnum
@@ -76,10 +76,10 @@ typedef struct
 } CSzFolder;
 
 void SzFolder_Init(CSzFolder *p);
-SZIP_API UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
+UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
 int SzFolder_FindBindPairForInStream(CSzFolder *p, UInt32 inStreamIndex);
-SZIP_API UInt32 SzFolder_GetNumOutStreams(CSzFolder *p);
-SZIP_API UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
+UInt32 SzFolder_GetNumOutStreams(CSzFolder *p);
+UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
 
 SRes SzFolder_Decode(const CSzFolder *folder, const UInt64 *packSizes,
     ILookInStream *stream, UInt64 startPos,
@@ -159,9 +159,9 @@ typedef struct
   CBuf FileNames;  /* UTF-16-LE */
 } CSzArEx;
 
-SZIP_API void SzArEx_Init(CSzArEx *p);
+void SzArEx_Init(CSzArEx *p);
 void SzArEx_Free(CSzArEx *p, ISzAlloc *alloc);
-SZIP_API UInt64 SzArEx_GetFolderStreamPos(const CSzArEx *p, UInt32 folderIndex, UInt32 indexInFolder);
+UInt64 SzArEx_GetFolderStreamPos(const CSzArEx *p, UInt32 folderIndex, UInt32 indexInFolder);
 int SzArEx_GetFolderFullPackSize(const CSzArEx *p, UInt32 folderIndex, UInt64 *resSize);
 
 /*
@@ -170,7 +170,7 @@ if dest == NULL, the return value specifies the required size of the buffer,
 if dest != NULL, the return value specifies the number of 16-bit characters that
   are written to the dest, including the null-terminating character. */
 
-SZIP_API size_t SzArEx_GetFileNameUtf16(const CSzArEx *p, size_t fileIndex, UInt16 *dest);
+size_t SzArEx_GetFileNameUtf16(const CSzArEx *p, size_t fileIndex, UInt16 *dest);
 
 SRes SzArEx_Extract(
     const CSzArEx *db,
@@ -196,7 +196,7 @@ SZ_ERROR_INPUT_EOF
 SZ_ERROR_FAIL
 */
 
-SZIP_API SRes SzArEx_Open(CSzArEx *p, ILookInStream *inStream, ISzAlloc *allocMain, ISzAlloc *allocTemp);
+SRes SzArEx_Open(CSzArEx *p, ILookInStream *inStream, ISzAlloc *allocMain, ISzAlloc *allocTemp);
 
 EXTERN_C_END
 

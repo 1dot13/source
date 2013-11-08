@@ -1,14 +1,12 @@
 /* Xz.h - Xz interface
-2009-04-15 : Igor Pavlov : Public domain */
+2011-01-09 : Igor Pavlov : Public domain */
 
 #ifndef __XZ_H
 #define __XZ_H
 
 #include "Sha256.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+EXTERN_C_BEGIN
 
 #define XZ_ID_Subblock 1
 #define XZ_ID_Delta 3
@@ -140,7 +138,7 @@ typedef enum
   CODER_STATUS_NOT_SPECIFIED,               /* use main error code instead */
   CODER_STATUS_FINISHED_WITH_MARK,          /* stream was finished with end mark. */
   CODER_STATUS_NOT_FINISHED,                /* stream was not finished */
-  CODER_STATUS_NEEDS_MORE_INPUT,            /* you must provide more input bytes */
+  CODER_STATUS_NEEDS_MORE_INPUT             /* you must provide more input bytes */
 } ECoderStatus;
 
 typedef enum
@@ -222,7 +220,8 @@ typedef struct
   Byte buf[XZ_BLOCK_HEADER_SIZE_MAX];
 } CXzUnpacker;
 
-SRes XzUnpacker_Create(CXzUnpacker *p, ISzAlloc *alloc);
+void XzUnpacker_Construct(CXzUnpacker *p, ISzAlloc *alloc);
+void XzUnpacker_Init(CXzUnpacker *p);
 void XzUnpacker_Free(CXzUnpacker *p);
 
 /*
@@ -234,8 +233,9 @@ finishMode:
 Returns:
   SZ_OK
     status:
-      LZMA_STATUS_FINISHED_WITH_MARK
-      LZMA_STATUS_NOT_FINISHED
+      CODER_STATUS_NOT_FINISHED,
+      CODER_STATUS_NEEDS_MORE_INPUT - maybe there are more xz streams,
+                                      call XzUnpacker_IsStreamWasFinished to check that current stream was finished
   SZ_ERROR_DATA - Data error
   SZ_ERROR_MEM  - Memory allocation error
   SZ_ERROR_UNSUPPORTED - Unsupported properties
@@ -249,8 +249,6 @@ SRes XzUnpacker_Code(CXzUnpacker *p, Byte *dest, SizeT *destLen,
 
 Bool XzUnpacker_IsStreamWasFinished(CXzUnpacker *p);
 
-#ifdef __cplusplus
-}
-#endif
+EXTERN_C_END
 
 #endif

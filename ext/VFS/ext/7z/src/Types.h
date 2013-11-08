@@ -1,5 +1,5 @@
 /* Types.h -- Basic types
-2010-03-11 : Igor Pavlov : Public domain */
+2010-10-09 : Igor Pavlov : Public domain */
 
 #ifndef __7Z_TYPES_H
 #define __7Z_TYPES_H
@@ -18,21 +18,6 @@
 #define EXTERN_C_BEGIN
 #define EXTERN_C_END
 #endif
-#endif
-
-//#ifdef __cplusplus
-#if defined(_WIN32) && defined(_MSC_VER)
-#	if !defined(SZIP_STATIC)
-#		if defined(SZIP_EXPORT)
-#			define SZIP_API __declspec(dllexport)
-#		else
-#			define SZIP_API __declspec(dllimport)
-#		endif
-#	else
-#		define SZIP_API
-#	endif
-#else
-#	define SZIP_API
 #endif
 
 EXTERN_C_BEGIN
@@ -92,9 +77,11 @@ typedef unsigned long UInt64;
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 typedef __int64 Int64;
 typedef unsigned __int64 UInt64;
+#define UINT64_CONST(n) n
 #else
 typedef long long int Int64;
 typedef unsigned long long int UInt64;
+#define UINT64_CONST(n) n ## ULL
 #endif
 
 #endif
@@ -211,8 +198,8 @@ typedef struct
   Byte buf[LookToRead_BUF_SIZE];
 } CLookToRead;
 
-SZIP_API void LookToRead_CreateVTable(CLookToRead *p, int lookahead);
-SZIP_API void LookToRead_Init(CLookToRead *p);
+void LookToRead_CreateVTable(CLookToRead *p, int lookahead);
+void LookToRead_Init(CLookToRead *p);
 
 typedef struct
 {
@@ -245,6 +232,22 @@ typedef struct
 
 #define IAlloc_Alloc(p, size) (p)->Alloc((p), size)
 #define IAlloc_Free(p, a) (p)->Free((p), a)
+
+#ifdef _WIN32
+
+#define CHAR_PATH_SEPARATOR '\\'
+#define WCHAR_PATH_SEPARATOR L'\\'
+#define STRING_PATH_SEPARATOR "\\"
+#define WSTRING_PATH_SEPARATOR L"\\"
+
+#else
+
+#define CHAR_PATH_SEPARATOR '/'
+#define WCHAR_PATH_SEPARATOR L'/'
+#define STRING_PATH_SEPARATOR "/"
+#define WSTRING_PATH_SEPARATOR L"/"
+
+#endif
 
 EXTERN_C_END
 

@@ -1,5 +1,5 @@
 /* Lzma2Enc.c -- LZMA2 Encoder
-2010-03-24 : Igor Pavlov : Public domain */
+2010-09-24 : Igor Pavlov : Public domain */
 
 /* #include <stdio.h> */
 #include <string.h>
@@ -141,7 +141,7 @@ static SRes Lzma2EncInt_EncodeSubblock(CLzma2EncInt *p, Byte *outBuf,
 
     PRF(printf("               "));
 
-    outBuf[destPos++] = (Byte)(LZMA2_CONTROL_LZMA | (mode << 5) | (u >> 16) & 0x1F);
+    outBuf[destPos++] = (Byte)(LZMA2_CONTROL_LZMA | (mode << 5) | ((u >> 16) & 0x1F));
     outBuf[destPos++] = (Byte)(u >> 8);
     outBuf[destPos++] = (Byte)u;
     outBuf[destPos++] = (Byte)(pm >> 8);
@@ -240,9 +240,7 @@ static SRes Progress(ICompressProgress *p, UInt64 inSize, UInt64 outSize)
 
 /* ---------- Lzma2 ---------- */
 
-extern struct _CLzma2Enc;
-
-typedef struct _CLzma2Enc
+typedef struct
 {
   Byte propEncoded;
   CLzma2EncProps props;
@@ -271,7 +269,7 @@ static SRes Lzma2Enc_EncodeMt1(CLzma2EncInt *p, CLzma2Enc *mainEncoder,
 
   if (mainEncoder->outBuf == 0)
   {
-    mainEncoder->outBuf = IAlloc_Alloc(mainEncoder->alloc, LZMA2_CHUNK_SIZE_COMPRESSED_MAX);
+    mainEncoder->outBuf = (Byte *)IAlloc_Alloc(mainEncoder->alloc, LZMA2_CHUNK_SIZE_COMPRESSED_MAX);
     if (mainEncoder->outBuf == 0)
       return SZ_ERROR_MEM;
   }

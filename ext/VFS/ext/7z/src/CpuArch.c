@@ -1,5 +1,5 @@
 /* CpuArch.c -- CPU specific code
-2009-12-12: Igor Pavlov : Public domain */
+2010-10-26: Igor Pavlov : Public domain */
 
 #include "CpuArch.h"
 
@@ -71,28 +71,14 @@ static void MyCPUID(UInt32 function, UInt32 *a, UInt32 *b, UInt32 *c, UInt32 *d)
   *d = d2;
 
   #else
-    #ifdef ORIGINAL_7ZIP
- 	__asm__ __volatile__ (
- 		"cpuid"
- 		: "=a" (*a) ,
- 		  "=b" (*b) ,
- 		  "=c" (*c) ,
- 		  "=d" (*d)
-		: "0" (function)) ;
-    #else
-		// 
-		// Original code doesn't compile on linux for a shared library build
-		// Use proposed fix from the 7-Zip forum on SourceForge
-		// http://sourceforge.net/projects/sevenzip/forums/forum/45797/topic/3768042
-		//
-    __asm__ __volatile__("pushl %%ebx	\n\t" /* save %ebx */
-		"cpuid		\n\t"
-		"movl %%ebx, %1	\n\t" /* save what cpuid just put in %ebx */
-		"popl %%ebx 	\n\t" /* restore the old %ebx */
-		: "=a"(*a), "=r"(*b), "=c"(*c), "=d"(*d)
-		: "a"(function)
-		: "cc");
-    #endif
+
+  __asm__ __volatile__ (
+    "cpuid"
+    : "=a" (*a) ,
+      "=b" (*b) ,
+      "=c" (*c) ,
+      "=d" (*d)
+    : "0" (function)) ;
 
   #endif
   

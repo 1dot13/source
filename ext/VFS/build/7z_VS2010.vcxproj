@@ -46,7 +46,6 @@
     <ClInclude Include="..\ext\7z\src\MtCoder.h" />
     <ClInclude Include="..\ext\7z\src\Ppmd.h" />
     <ClInclude Include="..\ext\7z\src\Ppmd7.h" />
-    <ClInclude Include="..\ext\7z\src\Ppmd8.h" />
     <ClInclude Include="..\ext\7z\src\RotateDefs.h" />
     <ClInclude Include="..\ext\7z\src\Sha256.h" />
     <ClInclude Include="..\ext\7z\src\Threads.h" />
@@ -85,9 +84,6 @@
     <ClCompile Include="..\ext\7z\src\Ppmd7.c" />
     <ClCompile Include="..\ext\7z\src\Ppmd7Dec.c" />
     <ClCompile Include="..\ext\7z\src\Ppmd7Enc.c" />
-    <ClCompile Include="..\ext\7z\src\Ppmd8.c" />
-    <ClCompile Include="..\ext\7z\src\Ppmd8Dec.c" />
-    <ClCompile Include="..\ext\7z\src\Ppmd8Enc.c" />
     <ClCompile Include="..\ext\7z\src\Sha256.c" />
     <ClCompile Include="..\ext\7z\src\Threads.c" />
     <ClCompile Include="..\ext\7z\src\Xz.c" />

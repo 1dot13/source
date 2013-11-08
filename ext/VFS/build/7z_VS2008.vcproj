@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="7z"
 	ProjectGUID="{9AD14886-DB5C-4EFF-AE17-35F9BD684692}"
 	RootNamespace="7z"
@@ -595,22 +595,6 @@
 		</File>
 		<File
 			RelativePath="..\ext\7z\src\Ppmd7Enc.c"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8.c"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8.h"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8Dec.c"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8Enc.c"
 			>
 		</File>
 		<File

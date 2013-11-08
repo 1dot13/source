@@ -596,22 +596,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\ext\7z\src\Ppmd8.c"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8.h"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8Dec.c"
-			>
-		</File>
-		<File
-			RelativePath="..\ext\7z\src\Ppmd8Enc.c"
-			>
-		</File>
-		<File
 			RelativePath="..\ext\7z\src\RotateDefs.h"
 			>
 		</File>
