@@ -2267,8 +2267,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	BOOLEAN		fSimilarItems = FALSE, fSameItem = FALSE, fNoSpace = FALSE;
 	UINT16		usSimilarItem = NOTHING;
 	INT16		ubSlotIndex = 0;
-	INT32		iLoop2 = 0;
-	INT16		sTimesToRun = 0;
+//	INT32		iLoop2 = 0;
+//	INT16		sTimesToRun = 0;
 	UINT8		curSlot = 0;
 	UINT8		ubVolumeTaken;
 	BOOLEAN		foundValidAttachment = FALSE;
@@ -2324,7 +2324,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	//Do we want to check all attachment slots or just the one in slotcount?
 	if(slotCount == -1){
 		//Loop through slots
-		for(UINT8 curSlot = 0; curSlot < (*pObj)[subObject]->attachments.size() && !foundValidAttachment; curSlot++){
+		UINT32 uiSlots = min((*pObj)[subObject]->attachments.size(), usAttachmentSlotIndexVector.size());//dnl??? ch76 091113 ugly fix as AK74 after attach/remove GL will have more attachments then usAttachmentSlotIndexVector which lead to CTD
+		for(UINT8 curSlot = 0; curSlot < uiSlots && !foundValidAttachment; curSlot++){
 			//Any attachment that is already in this slot will go here.
 			OBJECTTYPE * pAttachment;
 

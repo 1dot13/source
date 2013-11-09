@@ -2860,6 +2860,18 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 
 }
 
+BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl??? ch76 091113
+{
+	UINT32 uiLoop = 0;
+	while(Attachment[uiLoop][0] | Launchable[uiLoop][0])
+	{
+		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem || Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem)
+			return(TRUE);
+		uiLoop++;
+	}
+	return(FALSE);
+}
+
 BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos, BOOLEAN fOn, BOOLEAN fFromMerc   )
 {
 	BOOLEAN			fFound = FALSE;
@@ -2946,7 +2958,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 				// don't consider for UI purposes
 				continue;
 			}
-
+#if 0//dnl??? ch76 091113
 			if ( ValidAttachment( pObject->usItem, pTestObject ) ||
 					 ValidAttachment( pTestObject->usItem, pObject ) ||
 					 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
@@ -2957,6 +2969,9 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 			//		 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
 			//		 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
 			//		 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
+#else
+			if(IsMutuallyValidAttachmentOrLaunchable(pObject->usItem, pTestObject->usItem))
+#endif
 			{
 				fFoundAttachment = TRUE;
 
@@ -3053,11 +3068,14 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 			// don't consider for UI purposes
 			continue;
 		}
-
+#if 0//dnl??? ch76 091113
 		if ( ValidAttachment( pObject->usItem, pTestObject ) ||
 				 ValidAttachment( pTestObject->usItem, pObject ) ||
 				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
 				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
+#else
+		if(IsMutuallyValidAttachmentOrLaunchable(pObject->usItem, pTestObject->usItem))
+#endif
 		{
 			fFoundAttachment = TRUE;
 
@@ -5490,8 +5508,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 //CHRISL: This function is designed to recreate the attachment tooltips
 void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 {
-	UINT32	slotCount = 0;
-
+	UINT32		slotCount = 0;
 	//WarmSteel - Copied most of this from bobby rays attachment listing. No need to reinvent the wheel.
 	BOOLEAN		fAttachmentsFound = FALSE;
 	// Contains entire string of attachment names
@@ -5504,6 +5521,15 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	std::vector<UINT16>	attachList, parseList;
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObject);
 	UINT64		point = GetAvailableAttachmentPoint(pObject, 0); //Madd: Common Attachment Framework
+
+	//dnl??? ch76 081113
+	std::vector<UINT16> attachedList;
+	for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)// attached item list rather create here then inside loop to gain performance
+	{
+		OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
+		if(pAttachment2->exists())
+			attachedList.push_back(pAttachment2->usItem);
+	}
 
 	//start by deleting the currently defined regions if they exist
 	//BOB : also, clean up the popup boxes (in case they're still around)
@@ -5565,14 +5591,12 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 				UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
 				attachList.clear();
-			
 				//Print all attachments that fit on this item.
 				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
 				{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
 					usAttachment = 0;
-				
 					//Madd: Common Attachment Framework
-					if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE)) 
+					if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE))
 					{
 						usAttachment = usLoop;
 						if( !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
@@ -5590,7 +5614,6 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 								attachList.push_back(usAttachment);
 						}
 					}
-
 					usAttachment = 0;
 					if(Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
 					{	//search primary item attachments.xml
@@ -5602,6 +5625,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 					else
 					{	//search for attachments/launchables made valid by other attachments
+#if 0//dnl??? ch76 081113
 						for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)
 						{
 							OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
@@ -5613,6 +5637,18 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 									usAttachment = Launchable[usLoop][0];
 							}
 						}
+#else
+						UINT32 cnt = attachedList.size();
+						UINT16 *p = cnt ? &attachedList.front() : NULL;
+						while(cnt)
+						{
+							if(Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+								usAttachment = Attachment[usLoop][0];
+							else if(Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+								usAttachment = Launchable[usLoop][0];
+							cnt--, p++;
+						}
+#endif
 					}
 					if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0 && Item[usLoop].usItemClass == 0)
 						break;
@@ -5743,7 +5779,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						}
 					}
 				}
-			
+
 				if (fAttachmentsFound)
 				{
 					// Add extra empty line and attachment list title
