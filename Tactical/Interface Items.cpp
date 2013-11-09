@@ -2860,7 +2860,7 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 
 }
 
-BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl??? ch76 091113
+BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl ch76 091113
 {
 	UINT32 uiLoop = 0;
 	while(Attachment[uiLoop][0] | Launchable[uiLoop][0])
@@ -2958,7 +2958,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 				// don't consider for UI purposes
 				continue;
 			}
-#if 0//dnl??? ch76 091113
+#if 0//dnl ch76 091113
 			if ( ValidAttachment( pObject->usItem, pTestObject ) ||
 					 ValidAttachment( pTestObject->usItem, pObject ) ||
 					 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
@@ -3068,7 +3068,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 			// don't consider for UI purposes
 			continue;
 		}
-#if 0//dnl??? ch76 091113
+#if 0//dnl ch76 091113
 		if ( ValidAttachment( pObject->usItem, pTestObject ) ||
 				 ValidAttachment( pTestObject->usItem, pObject ) ||
 				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
@@ -5522,7 +5522,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObject);
 	UINT64		point = GetAvailableAttachmentPoint(pObject, 0); //Madd: Common Attachment Framework
 
-	//dnl??? ch76 081113
+	//dnl ch76 081113
 	std::vector<UINT16> attachedList;
 	for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)// attached item list rather create here then inside loop to gain performance
 	{
@@ -5625,7 +5625,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 					else
 					{	//search for attachments/launchables made valid by other attachments
-#if 0//dnl??? ch76 081113
+#if 0//dnl ch76 081113
 						for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)
 						{
 							OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
