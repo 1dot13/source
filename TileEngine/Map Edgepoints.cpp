@@ -1,3 +1,4 @@
+	#include <cmath>		// added by Flugente
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
