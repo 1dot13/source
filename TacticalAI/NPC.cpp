@@ -51,7 +51,7 @@
 #endif
 	#include "Soldier Profile.h"
 	
-	#include "Encyclopedia.h"
+	#include "BriefingRoom_Data.h"
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

@@ -88,8 +88,7 @@
 #endif
 
 #include "connect.h"
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
+#include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"
 #include "BriefingRoomM.h"
 
@@ -3185,19 +3184,11 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 			{ 
 			    IDPageEncyData = PAGENONE;
 				UnLoadMenuButtons ();
-				bEncyclopediaLocation = FALSE;
-				bEncyclopediaCharacter = FALSE;
-				bEncyclopediaInventory = FALSE;
-				bEncyclopediaQuests  = FALSE;
 				bBriefingRoom  = FALSE;
 				bBriefingRoomSpecialMission = FALSE;	
 			}
 	
-			if ( IDPageEncyData == PAGEENCYCLOPEDIALOCATION )  guiCurrentWWWMode = LAPTOP_MODE_ENCYCLOPEDIA;//{ bEncyclopediaLocation = TRUE; InitData (); } 
-			else if ( IDPageEncyData == PAGEENCYCLOPEDIACHARACTER )  guiCurrentWWWMode = LAPTOP_MODE_ENCYCLOPEDIA;//{ bEncyclopediaCharacter = TRUE; InitData (); } 
-			else if ( IDPageEncyData == PAGEENCYCLOPEDIAINVENTORY )  guiCurrentWWWMode = LAPTOP_MODE_ENCYCLOPEDIA;//{ bEncyclopediaInventory = TRUE; InitData (); } 
-			else if ( IDPageEncyData == PAGEENCYCLOPEDIAQUESTS )  guiCurrentWWWMode = LAPTOP_MODE_ENCYCLOPEDIA;//{ bEncyclopediaQuests = TRUE; InitData (); } 
-			else if ( IDPageEncyData == PAGEBRIEFINGROOM )  guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoom = TRUE; InitData (); }
+			if ( IDPageEncyData == PAGEBRIEFINGROOM )  guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoom = TRUE; InitData (); }
 			else if ( IDPageEncyData == PAGEBRIEFINGROOMSPECIALMISSION )  guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoomSpecialMission = TRUE; InitData (); } 
 			
 			if(guiCurrentWWWMode!=LAPTOP_MODE_NONE)

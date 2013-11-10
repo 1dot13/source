@@ -24,6 +24,7 @@
 	#include "WorldDat.h"
 	#include "Facilities.h"
 	#include "Soldier macros.h"
+	#include "strategicmap.h"
 #endif
 
 //forward declarations of common classes to eliminate includes

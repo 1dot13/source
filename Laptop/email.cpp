@@ -25,6 +25,7 @@
 	#include <string>
 #endif
 #include "soldier profile type.h"
+#include "strategicmap.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

@@ -32,6 +32,7 @@
 #include "Render Fun.h"
 // HEADROCK HAM B2.7: Allow calling a CTH approximation function for the CTH display ("F" key)
 #include "UI Cursors.h"
+#include "soldier profile type.h"
 #endif
 
 //forward declarations of common classes to eliminate includes

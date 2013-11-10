@@ -14,8 +14,7 @@
 	#include "soldier profile type.h"
 #endif
 
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
+#include "BriefingRoom_Data.h"
 #include "BriefingRoomM.h"
 
 // Link Images
@@ -304,10 +303,6 @@ void SelectBriefingRoomEnterLocationButton(MOUSE_REGION * pRegion, INT32 iReason
 	
 		if ( gBriefingRoomData[0].Hidden == TRUE ) 
 		{
-			bEncyclopediaLocation = FALSE;
-			bEncyclopediaCharacter = FALSE;
-			bEncyclopediaInventory = FALSE;
-			bEncyclopediaQuests  = FALSE;
 			bBriefingRoomSpecialMission = FALSE;
 			bBriefingRoom  = TRUE;
 			
@@ -628,10 +623,6 @@ void ProcessPlayerInputActivationBriefingRoomEnterString( void )
 	{
 	
 	/*
-		bEncyclopediaLocation = FALSE;
-		bEncyclopediaCharacter = FALSE;
-		bEncyclopediaInventory = FALSE;
-		bEncyclopediaQuests  = FALSE;
 		bBriefingRoom  = FALSE;
 		bBriefingRoomSpecialMission = TRUE;
 		

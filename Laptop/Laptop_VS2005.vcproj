@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BriefingRoom_Data.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BriefingRoomM.h"
 				>
 			</File>
@@ -424,14 +428,6 @@
 			</File>
 			<File
 				RelativePath=".\email.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Encyclopedia.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Encyclopedia_Data.h"
 				>
 			</File>
 			<File
@@ -721,6 +717,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BriefingRoom_Data.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BriefingRoomM.cpp"
 				>
 			</File>
@@ -738,14 +738,6 @@
 			</File>
 			<File
 				RelativePath=".\email.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Encyclopedia.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Encyclopedia_Data.cpp"
 				>
 			</File>
 			<File
@@ -945,6 +937,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_BriefingRoom.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_ConditionsForMercAvailability.cpp"
 				>
 			</File>
@@ -962,10 +958,6 @@
 			</File>
 			<File
 				RelativePath=".\XML_EmailMercLevelUp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\XML_EncyclopediaLocation.cpp"
 				>
 			</File>
 			<File

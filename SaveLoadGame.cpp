@@ -134,7 +134,7 @@
 
 #include "LuaInitNPCs.h"
 #include "Vehicles.h"
-#include "Encyclopedia_Data.h"
+#include "BriefingRoom_Data.h"
 
 #include <vfs/Core/vfs.h>
 //rain
@@ -4134,13 +4134,13 @@ if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 
 	}
 	
-	if( !SaveEncyclopediaToSaveGameFile( hFile ) )
+	if( !SaveBriefingRoomToSaveGameFile( hFile ) )
 	{
-		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Briefing Room & Encyclopedia");
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Briefing Room");
 		goto FAILED_TO_SAVE;
 
 	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "Briefing Room & Encyclopedia" );
+		SaveGameFilePosition( FileGetPos( hFile ), "Briefing Room" );
 	#endif	
 
 	}
@@ -5746,19 +5746,19 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
 	{
 		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Briefing Room & Encyclopedia..." );
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Briefing Room..." );
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
-		if( !LoadEncyclopediaFromLoadGameFile( hFile ) )
+		if( !LoadBriefingRoomFromLoadGameFile( hFile ) )
 		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaFromLoadGameFile failed" ) );
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBriefingRoomFromLoadGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
 
 	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Briefing Room & Load Encyclopedia" );
+		LoadGameFilePosition( FileGetPos( hFile ), "Briefing Room" );
 	#endif
 
 	}

@@ -138,8 +138,7 @@
 #include "ShopKeeper Interface.h"
 #include "Cheats.h"
 #include "GameVersion.h"
-#include "Encyclopedia.h"
-#include "Encyclopedia_Data.h"
+#include "BriefingRoom_Data.h"
 #include "Encyclopedia_new.h"
 #include "Encyclopedia_Data_new.h"
 #endif

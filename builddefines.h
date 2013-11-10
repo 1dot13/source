@@ -3,13 +3,13 @@
 
 #include "Language Defines.h"
 
-//----- Encyclopedia and Briefing room - by Jazz -----
-// WANNE: Do not disable that define. It is the old encyclopedia which uses a lot of memory
-// The reworked encyclopedia (by Moa) is already coded in the source (without a define)
-//#define ENABLE_ENCYCLOPEDIA		
-
+//----- Briefing Room (Mission based JA2 like in JA/DG) - by Jazz -----
+// Once enabled here and also enabled in the ja2_options.ini (BRIEFING_ROOM), 
+// you can access the briefing room feature from the laptop
+// Of course, you also need a briefing room 1.13-MOD, otherwise you have a blank briefing room.
+// There are 2 examples (Briefing Room Example 1.zip, Briefing Room Example 2.zip) in the documents svn folder:
+// https://ja2svn.dyndns.org/source/ja2/trunk/Documents/1.13%20Modding/Modding%20Examples
 #define ENABLE_BRIEFINGROOM
-//----- End encyclopedia and Briefing room - by Jazz -----
 
 // -----------------------------
 // *****************************

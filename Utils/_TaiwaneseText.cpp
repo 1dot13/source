@@ -11,7 +11,6 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
-		#include "Encyclopedia.h"
 	#endif
 #endif
 

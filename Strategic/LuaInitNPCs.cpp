@@ -43,6 +43,7 @@
 
 #include "LOS.h"
 #include "Music Control.h"
+#include "NPC.h"
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
@@ -70,6 +71,7 @@ extern "C" {
 
 #include "Encrypted File.h"
 
+#include "BriefingRoom_Data.h"
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
 //-------------------------- UB ------------------------------

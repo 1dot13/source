@@ -14,8 +14,7 @@
 	#include "soldier profile type.h"
 #endif
 
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
+#include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"
 
 // Link Images
@@ -248,10 +247,6 @@ void SelectBriefingRoomLocationButton(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		bEncyclopediaLocation = FALSE;
-		bEncyclopediaCharacter = FALSE;
-		bEncyclopediaInventory = FALSE;
-		bEncyclopediaQuests  = FALSE;
 		bBriefingRoom  = TRUE;
 		if(!fFirstTimeInBriefingRoom) guiCurrentLaptopMode = LAPTOP_MODE_BRIEFING_ROOM;	
 	}

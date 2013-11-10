@@ -29,7 +29,7 @@
 	#include "vsurface.h"			//fill extra buffer with black color
 	#include "Text.h"
 	#include "WordWrap.h"
-
+    #include "Quests.h"
 #endif
 
 /** @ingroup ENCYCLOPEDIA

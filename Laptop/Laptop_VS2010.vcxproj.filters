@@ -219,12 +219,6 @@
     <ClInclude Include="BriefingRoomM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Encyclopedia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Encyclopedia_Data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IMP Background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -238,6 +232,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Encyclopedia_Data_new.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BriefingRoom_Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -461,15 +458,6 @@
     <ClCompile Include="BriefingRoomM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Encyclopedia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Encyclopedia_Data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XML_EncyclopediaLocation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XML_Email.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -489,6 +477,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Encyclopedia_Data_new.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BriefingRoom_Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_BriefingRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

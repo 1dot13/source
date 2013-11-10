@@ -13,8 +13,7 @@
 #include "Strategic Town Loyalty.h"
 #include "qarray.h"
 #include "XML_Language.h"
-#include "Encyclopedia_Data.h"
-#include "Encyclopedia.h"
+#include "BriefingRoom_Data.h"
 #include "Inventory Choosing.h"		// added by Flugente
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -499,7 +498,7 @@ extern BOOLEAN ReadInEmailMercLevelUp(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInEmailOther(STR fileName, BOOLEAN localizedVersion);
 //extern BOOLEAN ReadInInsurance(STR fileName, BOOLEAN localizedVersion);
 
-extern BOOLEAN ReadInEncyclopediaLocation(STR fileName, BOOLEAN localizedVersion, ENCYCLOPEDIA_LOCATION *Ency, UINT32 FileType2 );
+extern BOOLEAN ReadInBriefingRoom(STR fileName, BOOLEAN localizedVersion, BRIEFINGROOM_M_DATA *Ency, UINT32 FileType2 );
 
 extern BOOLEAN ReadInNewVehicles(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteNewVehicles(STR fileName);

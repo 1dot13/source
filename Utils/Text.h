@@ -6,8 +6,6 @@
 #include "mapscreen.h"
 #include "XML_Language.h"
 
-#include "Encyclopedia.h"
-
 #define STRING_LENGTH 255
 
 enum

@@ -80,8 +80,7 @@
 
 #include "Civ Quotes.h"
 #include "LuaInitNPCs.h"
-#include "Encyclopedia.h"
-#include "Encyclopedia_Data.h"
+#include "BriefingRoom_Data.h"
 #include "AimArchives.h"
 #include "connect.h"
 
@@ -1252,84 +1251,18 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
-#ifdef ENABLE_ENCYCLOPEDIA
-	//encyklopedia
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENCYCLOPEDIALOCATIONFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaLocationData, 0), ENCYCLOPEDIALOCATIONFILENAME);
-	
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaLocationData, 0), fileName);
-		}
-#endif
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENCYCLOPEDIAPROFILEFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaProfilesData, 1), ENCYCLOPEDIAPROFILEFILENAME);
-	
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaProfilesData, 1), fileName);
-		}
-#endif
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENCYCLOPEDIAINVENTORYFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaInventoryData, 2), ENCYCLOPEDIAINVENTORYFILENAME);
-	
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaInventoryData, 2), ENCYCLOPEDIAINVENTORYFILENAME);
-		}
-#endif
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENCYCLOPEDIAQUESTSFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaQuestsData, 3), ENCYCLOPEDIAQUESTSFILENAME);
-	
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaQuestsData, 3), fileName);
-		}
-#endif
-
-BackupBRandEncyclopedia ( gEncyclopediaLocationData, gEncyclopediaLocationDataBackup , 0);
-BackupBRandEncyclopedia ( gEncyclopediaProfilesData, gEncyclopediaProfilesDataBackup, 1);
-BackupBRandEncyclopedia ( gEncyclopediaInventoryData, gEncyclopediaInventoryDataBackup , 2);
-BackupBRandEncyclopedia ( gEncyclopediaQuestsData, gEncyclopediaQuestsDataBackup, 3);
-
-
-#endif //ENABLE_ENCYCLOPEDIA
-
 #ifdef ENABLE_BRIEFINGROOM
 	strcpy(fileName, directoryName);
 	strcat(fileName, BRIEFINGROOMFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gBriefingRoomData, 4), BRIEFINGROOMFILENAME);
+	SGP_THROW_IFFALSE(ReadInBriefingRoom(fileName,FALSE,gBriefingRoomData, 4), BRIEFINGROOMFILENAME);
 	
 #ifndef ENGLISH
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gBriefingRoomData, 4), fileName);
+			SGP_THROW_IFFALSE(ReadInBriefingRoom(fileName,TRUE,gBriefingRoomData, 4), fileName);
 		}
 #endif
 
