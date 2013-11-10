@@ -22,6 +22,7 @@
 	#include "meanwhile.h"
 	#include "Exit Grids.h"
 	#include "Interface.h"			// added by Flugente for zBackground
+	#include "renderworld.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -1194,16 +1195,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 					sGridNo = pSoldier->sInsertionGridNo;
 				}
 			}
-
-			// Flugente backgrounds
-			if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_CENTER && pSoldier->GetBackgroundValue(BG_AIRDROP) )
-			{
-				fCalculateDirection = FALSE;
-				pSoldier->ubInsertionDirection = Random( DIRECTION_IRRELEVANT );
-
-				pSoldier->bSoldierFlagMask |= SOLDIER_AIRDROP_BONUS;
-			}
-
+			
 			// add this flag whenever we enter strategically enter a sector (= we attack a sector)
 			pSoldier->bSoldierFlagMask |= SOLDIER_ASSAULT_BONUS;
 			
@@ -1500,6 +1492,26 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 		fUpdateFinalPosition = FALSE;
 	}
 
+	// Flugente: if we are airdropping, center screen on the action adn remove soldier initially. He will be dropped into the sector by the helicopter
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+	{
+		pSoldier->bSoldierFlagMask &= ~SOLDIER_AIRDROP;
+	
+		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 )
+		{
+			gfIgnoreScrolling = FALSE;
+			INT16 sNewCenterWorldX, sNewCenterWorldY;
+			ConvertGridNoToCenterCellXY( sGridNo, &sNewCenterWorldX, &sNewCenterWorldY );
+		
+			SetRenderCenter( sNewCenterWorldX, sNewCenterWorldY );
+			gfIgnoreScrolling = TRUE;
+			
+			pSoldier->RemoveSoldierFromGridNo( );
+			pSoldier->bInSector = FALSE;
+
+			return;
+		}
+	}
 
 	// If this is a special insertion location, get path!
 	if ( ubInsertionCode == INSERTION_CODE_ARRIVING_GAME )
@@ -1524,7 +1536,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 			pSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
 		}
 	}
-
+	
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )

@@ -636,12 +636,7 @@ UINT32	MainGameScreenHandle(void)
 			InternalLocateGridNo( gGameExternalOptions.iInitialMercArrivalLocation, TRUE );
 #endif			
 		// Start heli Run...
-#ifdef JA2UB
-		StartHelicopterRun( gGameUBOptions.LOCATEGRIDNO ); //gMapInformation.sNorthGridNo );
-#else
-		//StartHelicopterRun( gMapInformation.sNorthGridNo );
-		StartHelicopterRun( gGameExternalOptions.iInitialMercArrivalLocation );
-#endif
+		StartHelicopterRun();
 
 		// Update clock by one so that our DidGameJustStatrt() returns now false for things like LAPTOP, etc...
 		SetGameTimeCompressionLevel( TIME_COMPRESS_X1 );

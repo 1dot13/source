@@ -3197,9 +3197,8 @@ void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoU
 			*pfGoUp = TRUE;
 		}
 	}
-
 	// IF we are higher...
-	if ( pSoldier->pathing.bLevel > 0 )
+	else //if ( pSoldier->pathing.bLevel > 0 )
 	{
 		if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
 		{

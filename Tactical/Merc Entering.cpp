@@ -386,10 +386,6 @@ BOOLEAN		gfFirstHeliRun;
 
 void HandleFirstHeliDropOfGame( );
 
-
-
-
-
 void ResetHeliSeats( )
 {
 	gbNumHeliSeatsOccupied = 0;
@@ -415,13 +411,16 @@ void AddMercToHeli( UINT8 ubID )
 	}
 }
 
+// Flugente: we might want to set the helicopter dropoff point without starting it at the same time
+void SetHelicopterDroppoint( INT32 sGridNo )
+{
+	gsGridNoSweetSpot = sGridNo;
+}
 
-void StartHelicopterRun( INT32 sGridNoSweetSpot )
+void StartHelicopterRun()
 {
 	INT16 sX, sY;
-
-	gsGridNoSweetSpot = sGridNoSweetSpot;
-
+	
 	if ( gbNumHeliSeatsOccupied == 0 )
 	{
 		return;
@@ -431,7 +430,7 @@ void StartHelicopterRun( INT32 sGridNoSweetSpot )
 	PauseGame();
 	LockPauseState( 20 );
 
-	ConvertGridNoToCenterCellXY( sGridNoSweetSpot, &sX, &sY );
+	ConvertGridNoToCenterCellXY( gsGridNoSweetSpot, &sX, &sY );
 
 	gsHeliXPos					= sX - ( 2 * CELL_X_SIZE );
 	gsHeliYPos					= sY - ( 10 * CELL_Y_SIZE );
@@ -444,15 +443,14 @@ void StartHelicopterRun( INT32 sGridNoSweetSpot )
 	gbHeliRound					= 1;
 
 	gubHeliState				= HELI_APPROACH;
-	guiHeliLastUpdate		= GetJA2Clock( );
+	guiHeliLastUpdate			= GetJA2Clock( );
 
 	// Start sound
 	uiSoundSample = PlayJA2Sample( HELI_1, RATE_11025, 0, 10000, MIDDLEPAN );
 	fFadingHeliIn				= TRUE;
 
-	gfHandleHeli			= TRUE;
-
-	gfFirstGuyDown		= TRUE;
+	gfHandleHeli				= TRUE;
+	gfFirstGuyDown				= TRUE;
 
 	guiPendingOverrideEvent = LU_BEGINUILOCK;
 }
@@ -462,12 +460,10 @@ void HandleHeliDrop( )
 {
 	UINT8 ubScriptCode;
 	UINT32	uiClock;
-	//INT16 sWorldX, sWorldY;
 	INT32 iVol;
 	INT32 cnt;
 	ANITILE_PARAMS	AniParams;
-
-
+	
 	if ( gfHandleHeli )
 	{
 		if ( gCurrentUIMode != LOCKUI_MODE )
@@ -503,7 +499,7 @@ void HandleHeliDrop( )
 			// Remove heli
 			DeleteAniTile( gpHeli );
 
-		RebuildCurrentSquad( );
+			RebuildCurrentSquad( );
 
 			// Remove sound
 			if( uiSoundSample!=NO_SAMPLE )
@@ -559,7 +555,7 @@ void HandleHeliDrop( )
 			// Remove heli
 			DeleteAniTile( gpHeli );
 
-		RebuildCurrentSquad( );
+			RebuildCurrentSquad( );
 
 			// Remove sound
 			if( uiSoundSample!=NO_SAMPLE )
@@ -603,7 +599,7 @@ void HandleHeliDrop( )
 					iVol=__min( HIGHVOLUME, iVol+5);
 					SoundSetVolume(uiSoundSample, iVol);
 					if(iVol==HIGHVOLUME)
-							fFadingHeliIn=FALSE;
+						fFadingHeliIn=FALSE;
 				}
 				else
 				{
@@ -631,7 +627,7 @@ void HandleHeliDrop( )
 						UnLockPauseState();
 						UnPauseGame();
 
-			RebuildCurrentSquad( );
+						RebuildCurrentSquad( );
 
 						HandleFirstHeliDropOfGame( );
 					}
@@ -646,7 +642,7 @@ void HandleHeliDrop( )
 					UnLockPauseState();
 					UnPauseGame();
 
-			RebuildCurrentSquad( );
+					RebuildCurrentSquad( );
 
 					HandleFirstHeliDropOfGame( );
 				}
@@ -681,15 +677,9 @@ void HandleHeliDrop( )
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
 						// Change insertion code
-#ifdef JA2UB
-						//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
-#else
-						//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
-#endif
+						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gsGridNoSweetSpot;
+
 						// HEADROCK HAM 3.5: Externalized!
 						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 						//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
@@ -876,9 +866,8 @@ void BeginMercEntering( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	ResetHeliSeats( );
 
 	AddMercToHeli( pSoldier->ubID );
-
-
-	StartHelicopterRun( sGridNo );
+	
+	StartHelicopterRun();
 
 	// Make sure AI does nothing.....
 	PauseAIUntilManuallyUnpaused();
@@ -887,13 +876,19 @@ void BeginMercEntering( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 void HandleFirstHeliDropOfGame( )
 {
+	// Flugente: always call people to area
+	CallAvailableEnemiesTo( gsGridNoSweetSpot );
+
 	// Are we in the first heli drop?
 	if ( gfFirstHeliRun )
 	{
-		SyncStrategicTurnTimes();
+#ifdef JA2UB
+		SetHelicopterDroppoint( gGameUBOptions.LOCATEGRIDNO );
+#else
+		SetHelicopterDroppoint( gGameExternalOptions.iInitialMercArrivalLocation );
+#endif
 
-		// Call people to area
-		CallAvailableEnemiesTo( gsGridNoSweetSpot );
+		SyncStrategicTurnTimes();
 
 		// Move to header file...
 		// HEADROCK HAM 3.5: Externalized!
@@ -935,12 +930,10 @@ void HandleFirstHeliDropOfGame( )
 		}
 
 		gfFirstHeliRun = FALSE;
-
 	}
 
 	// Send message to turn on ai again....
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
-
 }
 
 

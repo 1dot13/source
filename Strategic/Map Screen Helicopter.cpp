@@ -1040,6 +1040,9 @@ UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad )
 				pSoldier->ubStrategicInsertionCode = ubInsertionCode;
 				pSoldier->usStrategicInsertionData = usInsertionData;
 			}
+
+			// Flugente: we are leaving the helicopter and instantly deploy into combat - this must be an airdrop
+			pSoldier->bSoldierFlagMask |= SOLDIER_AIRDROP;
 		}
 	}
 
