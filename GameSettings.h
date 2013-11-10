@@ -1322,6 +1322,28 @@ typedef struct
 
 typedef struct
 {
+	BOOLEAN fTauntShowInLog;
+	INT16 sModDelay;
+	UINT16 sMinDelay;
+	UINT16 sMaxDelay;
+	UINT8 ubTauntFireGunChance;
+	UINT8 ubTauntFireLauncherChance;
+	UINT8 ubTauntThrowKnifeChance;
+	UINT8 ubTauntThrowGrenadeChance;
+	UINT8 ubTauntChargeKnifeChance;
+	UINT8 ubTauntChargeFistsChance;
+	UINT8 ubTauntStealChance;
+	UINT8 ubTauntRunAwayChance;
+	UINT8 ubTauntSeekNoiseChance;
+	UINT8 ubTauntAlertChance;
+	UINT8 ubTauntGotHitChance;
+	UINT8 ubTauntGotMissedChance;
+	UINT8 ubTauntNoticedUnseenChance;
+
+} TAUNTS_SETTINGS;
+
+typedef struct
+{
 	UINT8 ubMaxNumberOfTraits;
 	UINT8 ubNumberOfMajorTraitsAllowed;
 
@@ -1998,6 +2020,8 @@ extern GAME_EXTERNAL_OPTIONS gGameExternalOptions;
 
 extern SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
 
+extern TAUNTS_SETTINGS gTauntsSettings;
+
 // HEADROCK HAM 4: CTH constants read from a separate INI file
 extern CTH_CONSTANTS gGameCTHConstants;
 
@@ -2014,6 +2038,7 @@ void LoadItemSettings(); // silversurfer: reads item property modifiers
 void LoadGameAPBPConstants();
 // HEADROCK HAM 4: Read CTH/Shooting coefficients from file
 void LoadCTHConstants();
+void LoadTauntsSettings();
 void FreeGameExternalOptions();
 
 void InitGameOptions();

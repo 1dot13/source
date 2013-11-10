@@ -56,6 +56,9 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 #include "connect.h"
 
+// anv: for taunts on miss
+#include "Civ Quotes.h"
+
 //rain
 //#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
 extern INT8 gbCurrentRainIntensity;
@@ -4868,6 +4871,14 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 							LocateGridNo( sGridNo );
 						}
 					}
+				}
+				// anv: make missed guy taunt his shooter
+				if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
+						( ( MercPtrs[pAttacker->ubOppNum]->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) ||
+						( MercPtrs[pAttacker->ubOppNum]->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) )
+					&& MercPtrs[pAttacker->ubOppNum]->bVisible != -1 )
+				{
+					PossiblyStartEnemyTaunt(MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED, pAttacker);
 				}
 			}
 
@@ -10212,7 +10223,14 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 				LocateGridNo( pBullet->sGridNo );
 			}
 		}
-
+		//anv: make missed guy taunt his shooter
+		if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
+				( ( MercPtrs[pAttacker->ubOppNum]->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) ||
+				( MercPtrs[pAttacker->ubOppNum]->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) )
+			&& MercPtrs[pAttacker->ubOppNum]->bVisible != -1 )
+		{
+			PossiblyStartEnemyTaunt(MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED, pAttacker);
+		}
 	}
 
 	// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - bullet missed") );

@@ -205,6 +205,76 @@ extern BACKGROUND_VALUES zBackground[NUM_BACKGROUND];
 
 extern UINT16 num_found_background;		// the correct number is set on reading the xml
 
+// anv: enums for externalised taunts
+enum {
+
+	// progress
+	TAUNT_PROGRESS_LT,
+	TAUNT_PROGRESS_GT,
+
+	// taunting person's stats
+	TAUNT_EXP_LEVEL_LT,
+	TAUNT_EXP_LEVEL_GT,
+	TAUNT_HEALTH_LT,
+	TAUNT_HEALTH_GT,
+	TAUNT_HEALTH_MAX_LT,
+	TAUNT_HEALTH_MAX_GT,
+	TAUNT_ENERGY_LT,
+	TAUNT_ENERGY_GT,
+	TAUNT_ENERGY_MAX_LT,
+	TAUNT_ENERGY_MAX_GT,
+	TAUNT_MORALE_LT,
+	TAUNT_MORALE_GT,
+
+	// enemy/milita profiles
+	TAUNT_PROFILE_ADMIN,
+	TAUNT_PROFILE_ARMY,
+	TAUNT_PROFILE_ELITE,
+	TAUNT_PROFILE_GREEN,
+	TAUNT_PROFILE_REGULAR,
+	TAUNT_PROFILE_VETERAN,
+
+	// facts
+	TAUNT_FACT_TRUE,
+	TAUNT_FACT_FALSE,
+
+	// taunt target's stats
+	TAUNT_TARGET_TYPE,
+	TAUNT_TARGET_EXP_LEVEL_LT,
+	TAUNT_TARGET_EXP_LEVEL_GT,
+	TAUNT_TARGET_HEALTH_LT,
+	TAUNT_TARGET_HEALTH_GT,
+	TAUNT_TARGET_HEALTH_MAX_LT,
+	TAUNT_TARGET_HEALTH_MAX_GT,
+	TAUNT_TARGET_ENERGY_LT,
+	TAUNT_TARGET_ENERGY_GT,
+	TAUNT_TARGET_ENERGY_MAX_LT,
+	TAUNT_TARGET_ENERGY_MAX_GT,
+	TAUNT_TARGET_MORALE_LT,
+	TAUNT_TARGET_MORALE_GT,
+	TAUNT_TARGET_APPEARANCE,
+
+	// taunt target's profile
+	TAUNT_TARGET_MERC_PROFILE,
+
+	TAUNT_MAX,
+};
+
+typedef struct
+{
+	UINT16		uiIndex;
+	CHAR16		szText[320];
+	UINT64		uiFlags;
+	INT16		value[TAUNT_MAX];
+
+} TAUNT_VALUES;
+
+#define NUM_TAUNT 2048
+
+extern TAUNT_VALUES zTaunt[NUM_TAUNT];
+
+extern UINT16 num_found_taunt;		// the correct number is set on reading the xml
+
 extern		int INTERFACE_WIDTH;		//			640
 extern		int INTERFACE_HEIGHT;		//			120
 extern		int INV_INTERFACE_HEIGHT;	//			140

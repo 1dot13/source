@@ -80,14 +80,19 @@ enum //enemy taunts - SANDRO
 	TAUNT_FIRE_LAUNCHER,
 	TAUNT_THROW,
 	TAUNT_CHARGE_KNIFE,
+	TAUNT_CHARGE_FISTS,
+	TAUNT_STEAL,
 	TAUNT_RUN_AWAY,
 	TAUNT_SEEK_NOISE,
 	TAUNT_ALERT,
 	TAUNT_GOT_HIT,
 	TAUNT_NOTICED_UNSEEN_MERC,
+	TAUNT_THROW_GRENADE,
+	TAUNT_GOT_MISSED,
 };
 
-void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType ); //enemy taunts - SANDRO
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget = NULL );
+void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget = NULL ); //enemy taunts - SANDRO // anv: added pTarget argument
 
 void InitCivQuoteSystem( );
 

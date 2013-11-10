@@ -35,6 +35,10 @@
 #endif
 #include "connect.h"
 
+// for enemy taunts
+#include "Soldier Profile.h"
+#include "Campaign.h"
+
 #define			DIALOGUE_DEFAULT_WIDTH			200
 #define			EXTREAMLY_LOW_TOWN_LOYALTY	20
 #define			HIGH_TOWN_LOYALTY						80
@@ -1041,16 +1045,84 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 }
 //--------------------------------------------------------------
 
+// anv: start enemy taunt with probabilty depending on taunt settings
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget )
+{
+ 	switch(iTauntType)
+	{
+		case TAUNT_FIRE_GUN:
+			if( Random(100) > gTauntsSettings.ubTauntFireGunChance )
+				return;
+			break;
+		case TAUNT_FIRE_LAUNCHER:
+			if( Random(100) > gTauntsSettings.ubTauntFireLauncherChance )
+				return;
+			break;
+		case TAUNT_THROW:
+			if( Random(100) > gTauntsSettings.ubTauntThrowKnifeChance )
+				return;
+			break;
+		case TAUNT_CHARGE_KNIFE:
+			if( Random(100) > gTauntsSettings.ubTauntChargeKnifeChance )
+				return;
+			break;
+		case TAUNT_CHARGE_FISTS:
+			if( Random(100) > gTauntsSettings.ubTauntChargeFistsChance )
+				return;
+			break;
+		case TAUNT_STEAL:
+			if( Random(100) > gTauntsSettings.ubTauntStealChance )
+				return;
+			break;
+		case TAUNT_RUN_AWAY:
+			if( Random(100) > gTauntsSettings.ubTauntRunAwayChance)
+				return;
+			break;
+		case TAUNT_SEEK_NOISE:
+			if( Random(100) > gTauntsSettings.ubTauntSeekNoiseChance )
+				return;
+			break;
+		case TAUNT_ALERT:
+			if( Random(100) > gTauntsSettings.ubTauntAlertChance )
+				return;
+			break;
+		case TAUNT_GOT_HIT:
+			if( Random(100) > gTauntsSettings.ubTauntGotHitChance )
+				return;
+			break;
+		case TAUNT_NOTICED_UNSEEN_MERC:
+			if( Random(100) > gTauntsSettings.ubTauntNoticedUnseenChance )
+				return;
+			break;
+		case TAUNT_THROW_GRENADE:
+			if( Random(100) > gTauntsSettings.ubTauntThrowGrenadeChance )
+				return;
+			break;
+		case TAUNT_GOT_MISSED:
+			if( Random(100) > gTauntsSettings.ubTauntGotMissedChance )
+				return;
+			break;
+		default:
+			break;
+	}
+	StartEnemyTaunt( pCiv, iTauntType, pTarget );
+}
+
 // SANDRO - soldier taunts 
-void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType )
+void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget )
 {
 	INT16	sX, sY;
 	UINT8	ubEntryID = 0;
 	INT16	sScreenX, sScreenY;
 	UINT16	iTauntNumber;
-	STR16	sTauntText;
+	CHAR16	sTauntText[320];
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 	CHAR16	gzTauntQuote[ 320 ];
+	CHAR pFileName[320] = "NPCData\\TauntsEdt\\";
+	TAUNT_VALUES zApplicableTaunts[1024];
+	UINT16	iApplicableTaunts = 0;
+	BOOLEAN fApplicableAttitude[6];
+
 
 #ifdef ENABLE_ZOMBIES
 	// Flugente: zombies don't talk
@@ -1064,47 +1136,435 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType )
 		return;
 	}
 
-	switch(iTauntType)
+	// anv: check all taunts, and remember those applicable
+	for(UINT16 i=1; i<num_found_taunt; i++)
 	{
-		case TAUNT_FIRE_GUN:
-			iTauntNumber = Random(15);
-			sTauntText = sEnemyTauntsFireGun[iTauntNumber];
-			break;
-		case TAUNT_FIRE_LAUNCHER:
-			iTauntNumber = Random(4);
-			sTauntText = sEnemyTauntsFireLauncher[iTauntNumber];
-			break;
-		case TAUNT_THROW:
-			iTauntNumber = Random(7);
-			sTauntText = sEnemyTauntsThrow[iTauntNumber];
-			break;
-		case TAUNT_CHARGE_KNIFE:
-			iTauntNumber = Random(5);
-			sTauntText = sEnemyTauntsChargeKnife[iTauntNumber];
-			break;
-		case TAUNT_RUN_AWAY:
-			iTauntNumber = Random(7);
-			sTauntText = sEnemyTauntsRunAway[iTauntNumber];
-			break;
-		case TAUNT_SEEK_NOISE:
-			iTauntNumber = Random(4);
-			sTauntText = sEnemyTauntsSeekNoise[iTauntNumber];
-			break;
-		case TAUNT_ALERT:
-			iTauntNumber = Random(3);
-			sTauntText = sEnemyTauntsAlert[iTauntNumber];
-			break;
-		case TAUNT_GOT_HIT:
-			iTauntNumber = Random(7);
-			sTauntText = sEnemyTauntsGotHit[iTauntNumber];
-			break;
-		case TAUNT_NOTICED_UNSEEN_MERC:
-			iTauntNumber = Random(7);
-			sTauntText = sEnemyTauntsNoticedMerc[iTauntNumber];
-			break;
-		default:
-			return;
-			break;
+		// check if attitudes are ok
+		switch( pCiv->aiData.bAttitude )
+		{
+			case CUNNINGAID:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_CUNNING_AID) )
+					continue;
+				break;
+			case CUNNINGSOLO:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_CUNNING_SOLO) )
+					continue;
+				break;
+			case BRAVEAID:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_BRAVE_AID) )
+					continue;
+			case BRAVESOLO:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_BRAVE_SOLO) )
+					continue;
+				break;
+			case DEFENSIVE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_DEFENSIVE) )
+					continue;
+				break;
+			case AGGRESSIVE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_A_AGGRESSIVE) )
+					continue;
+				break;
+			default:
+				break;
+		}
+		// check if situation is ok
+		switch(iTauntType)
+		{
+			case TAUNT_FIRE_GUN:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_FIRE_GUN) )
+					continue;
+				break;
+			case TAUNT_FIRE_LAUNCHER:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_FIRE_LAUNCHER) )
+					continue;
+				break;
+			case TAUNT_THROW:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_THROW_KNIFE) )
+					continue;
+				break;
+			case TAUNT_CHARGE_KNIFE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_CHARGE_KNIFE) )
+					continue;
+				break;
+			case TAUNT_CHARGE_FISTS:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_CHARGE_FISTS) )
+					continue;
+				break;
+			case TAUNT_STEAL:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_STEAL) )
+					continue;
+				break;
+			case TAUNT_RUN_AWAY:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_RUN_AWAY) )
+					continue;
+				break;
+			case TAUNT_SEEK_NOISE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_SEEK_NOISE) )
+					continue;
+				break;
+			case TAUNT_ALERT:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_ALERT) )
+					continue;
+				break;
+			case TAUNT_GOT_HIT:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_GOT_HIT) )
+					continue;
+				break;
+			case TAUNT_NOTICED_UNSEEN_MERC:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_NOTICED_UNSEEN) )
+					continue;
+				break;
+			case TAUNT_THROW_GRENADE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_THROW_GRENADE) )
+					continue;
+				break;
+			case TAUNT_GOT_MISSED:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_S_GOT_MISSED) )
+					continue;
+				break;
+			default:
+				return;
+				break;
+		}
+
+		// class and predefined profiles
+		switch( pCiv->ubSoldierClass )
+		{
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_ADMIN) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_ADMIN] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ADMIN] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			case SOLDIER_CLASS_ARMY:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_ARMY) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_ARMY] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ARMY] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			case SOLDIER_CLASS_ELITE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_ELITE) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_ELITE] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ELITE] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			case SOLDIER_CLASS_GREEN_MILITIA:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_GREEN) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_GREEN] != -1 ) && !( zTaunt[ i ].value[TAUNT_PROFILE_GREEN] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			case SOLDIER_CLASS_REG_MILITIA:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_REGULAR) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_ARMY] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ARMY] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			case SOLDIER_CLASS_ELITE_MILITIA:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_C_VETERAN) )
+					continue;
+				if( (zTaunt[ i ].value[TAUNT_PROFILE_ARMY] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ARMY] == pCiv->usSoldierProfile ) )
+					continue;
+				break;
+			default:
+				return;
+				break;
+		}
+
+		// gender
+		switch( pCiv->ubBodyType )
+		{
+			case REGMALE:
+			case BIGMALE:
+			case STOCKYMALE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_G_MALE) )
+					continue;
+				break;
+			case REGFEMALE:
+				if( !(zTaunt[ i ].uiFlags & TAUNT_G_FEMALE) )
+					continue;
+				break;
+			default:
+				return;
+				break;
+		}
+
+		// energy, health
+		if( zTaunt[ i ].value[TAUNT_ENERGY_GT] != -1 )
+		{
+			if( pCiv->bBreath <= zTaunt[ i ].value[TAUNT_ENERGY_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_ENERGY_LT] != -1 )
+		{
+			if( pCiv->bBreath >= zTaunt[ i ].value[TAUNT_ENERGY_LT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_ENERGY_MAX_GT] != -1 )
+		{
+			if( pCiv->bBreathMax <= zTaunt[ i ].value[TAUNT_ENERGY_MAX_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_ENERGY_MAX_LT] != -1 )
+		{
+			if( pCiv->bBreathMax >= zTaunt[ i ].value[TAUNT_ENERGY_MAX_LT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_HEALTH_GT] != -1 )
+		{
+			if( pCiv->stats.bLife <= zTaunt[ i ].value[TAUNT_HEALTH_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_HEALTH_GT] != -1 )
+		{
+			if( pCiv->stats.bLife <= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_HEALTH_LT] != -1 )
+		{
+			if( pCiv->stats.bLife >= zTaunt[ i ].value[TAUNT_HEALTH_LT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_HEALTH_MAX_GT] != -1 )
+		{
+			if( pCiv->stats.bLifeMax <= zTaunt[ i ].value[TAUNT_HEALTH_MAX_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_HEALTH_MAX_LT] != -1 )
+		{
+			if( pCiv->stats.bLifeMax >= zTaunt[ i ].value[TAUNT_HEALTH_MAX_LT] )
+				continue;
+		}
+		// morale
+		if( zTaunt[ i ].value[TAUNT_MORALE_GT] != -1 )
+		{
+			if( pCiv->aiData.bMorale <= zTaunt[ i ].value[TAUNT_MORALE_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_MORALE_LT] != -1 )
+		{
+			if( pCiv->aiData.bMorale >= zTaunt[ i ].value[TAUNT_MORALE_LT] )
+				continue;
+		}
+		// experience
+		if( zTaunt[ i ].value[TAUNT_EXP_LEVEL_GT] != -1 )
+		{
+			if( pCiv->stats.bExpLevel <= zTaunt[ i ].value[TAUNT_EXP_LEVEL_GT] )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_LT] != -1 )
+		{
+			if( pCiv->stats.bExpLevel >= zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_LT] )
+				continue;
+		}
+
+		// game progress
+		if( zTaunt[ i ].value[TAUNT_PROGRESS_GT] != -1 )
+		{
+			if( zTaunt[ i ].value[TAUNT_PROGRESS_GT] >= CurrentPlayerProgressPercentage() )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_PROGRESS_LT] != -1 )
+		{
+			if( zTaunt[ i ].value[TAUNT_PROGRESS_GT] <= CurrentPlayerProgressPercentage() )
+				continue;
+		}
+
+		// facts
+		if( zTaunt[ i ].value[TAUNT_FACT_TRUE] != -1 )
+		{
+			if( gubFact[ zTaunt[ i ].value[TAUNT_FACT_TRUE] ] != TRUE )
+				continue;
+		}
+		if( zTaunt[ i ].value[TAUNT_FACT_FALSE] != -1 )
+		{
+			if( gubFact[ zTaunt[ i ].value[TAUNT_FACT_FALSE] ] != FALSE )
+				continue;
+		}
+
+		// target limitations
+		if( pTarget != NULL )
+		{
+			// target merc profile
+			if( zTaunt[ i ].value[TAUNT_TARGET_MERC_PROFILE] != -1 )
+			{
+				if( pTarget->ubProfile != zTaunt[ i ].value[TAUNT_TARGET_MERC_PROFILE] )
+					continue;
+			}
+			// target type
+			if( zTaunt[ i ].value[TAUNT_TARGET_TYPE] != -1 )
+			{
+				if( pTarget->ubProfile != zTaunt[ i ].value[TAUNT_TARGET_TYPE] )
+					continue;
+			}
+			// target gender
+			switch( pTarget->ubBodyType )
+			{
+				case REGMALE:
+				case BIGMALE:
+				case STOCKYMALE:
+					if( !(zTaunt[ i ].uiFlags & TAUNT_T_MALE) )
+						continue;
+					break;
+				case REGFEMALE:
+					if( !(zTaunt[ i ].uiFlags & TAUNT_T_FEMALE) )
+						continue;
+					break;
+				default:
+					return;
+					break;
+			}
+			// target appearance
+			if( zTaunt[ i ].value[TAUNT_TARGET_APPEARANCE] != -1 )
+			{
+				// check if pTarget has his own predefined profile (ubProfile = 200 for generated characters)
+				if( pTarget->ubProfile != 200 )
+				{
+					if( gMercProfiles[pTarget->ubProfile].bAppearance != zTaunt[ i ].value[TAUNT_TARGET_APPEARANCE] )
+						continue;
+				}
+				else
+					continue;
+			}
+
+			// target type
+			switch( zTaunt[ i ].value[TAUNT_TARGET_TYPE] )
+			{
+				case 0:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
+						continue;
+					break;
+				case 1:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
+						continue;
+					break;
+				case 2:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__MERC )
+						continue;
+					break;
+				case 3:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__NPC )
+						continue;
+					break;
+				case 4:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__EPC )
+						continue;
+					break;
+				case 5:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__NPC_WITH_UNEXTENDABLE_CONTRACT )
+						continue;
+					break;
+				case 6:
+					if( pTarget->ubWhatKindOfMercAmI != MERC_TYPE__VEHICLE )
+						continue;
+					break;
+				default:
+					break;
+			}
+
+			// target energy, health
+			if( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_GT] != -1 )
+			{
+				if( pTarget->bBreath <= zTaunt[ i ].value[TAUNT_TARGET_ENERGY_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_LT] != -1 )
+			{
+				if( pTarget->bBreath >= zTaunt[ i ].value[TAUNT_TARGET_ENERGY_LT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_GT] != -1 )
+			{
+				if( pTarget->bBreathMax <= zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_LT] != -1 )
+			{
+				if( pTarget->bBreathMax >= zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_LT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] != -1 )
+			{
+				if( pTarget->stats.bLife <= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] != -1 )
+			{
+				if( pTarget->stats.bLife <= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_LT] != -1 )
+			{
+				if( pTarget->stats.bLife >= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_LT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_GT] != -1 )
+			{
+				if( pTarget->stats.bLifeMax <= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_LT] != -1 )
+			{
+				if( pTarget->stats.bLifeMax >= zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_LT] )
+					continue;
+			}
+			// morale
+			if( zTaunt[ i ].value[TAUNT_TARGET_MORALE_GT] != -1 )
+			{
+				if( pTarget->aiData.bMorale <= zTaunt[ i ].value[TAUNT_TARGET_MORALE_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_MORALE_LT] != -1 )
+			{
+				if( pTarget->aiData.bMorale >= zTaunt[ i ].value[TAUNT_TARGET_MORALE_LT] )
+					continue;
+			}
+			// experience
+			if( zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_GT] != -1 )
+			{
+				if( pTarget->stats.bExpLevel <= zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_GT] )
+					continue;
+			}
+			if( zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_LT] != -1 )
+			{
+				if( pTarget->stats.bExpLevel >= zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_LT] )
+					continue;
+			}
+		}
+		else // pTarget==NULL
+		{
+			if( ( zTaunt[ i ].value[TAUNT_TARGET_MERC_PROFILE] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_APPEARANCE] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_ENERGY_MAX_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_HEALTH_MAX_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_EXP_LEVEL_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_MORALE_GT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_MORALE_LT] != -1 ) ||
+				( zTaunt[ i ].value[TAUNT_TARGET_TYPE] != -1 ) )
+					continue;
+
+		}
+		// everything ok, current taunt is applicable, remember it
+		zApplicableTaunts[iApplicableTaunts] = zTaunt[i];
+		iApplicableTaunts++;	
+	}
+	// are there any applicable taunts?
+	if( iApplicableTaunts > 0 )
+	{
+		// use random one
+		swprintf( sTauntText, zApplicableTaunts[ Random(iApplicableTaunts) ].szText );
+	}
+	else
+	{
+		return;
 	}
 
 	// Determine location...
@@ -1176,9 +1636,15 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType )
 	gCivQuoteData.bActive = TRUE;
 
 	gCivQuoteData.uiTimeOfCreation = GetJA2Clock( );
-
-	gCivQuoteData.uiDelayTime = FindDelayForString( gzCivQuote ) + 1500;
+	
+	gCivQuoteData.uiDelayTime = min( gTauntsSettings.sMaxDelay , max( gTauntsSettings.sMinDelay, FindDelayForString( gzTauntQuote ) + gTauntsSettings.sModDelay ) );
 
 	gCivQuoteData.pCiv = pCiv;
 
+	if(gTauntsSettings.fTauntShowInLog == TRUE)
+	{
+		CHAR16 LogMsg[320];
+		swprintf( LogMsg, L"%s: %s", pCiv->GetName(), gzTauntQuote );
+		ScreenMsg( FONT_GRAY2, MSG_INTERFACE, LogMsg );
+	}
 }

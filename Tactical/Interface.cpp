@@ -110,6 +110,8 @@ UINT16 num_found_soldier_profiles[6];	// the correct number is set on reading th
 
 BACKGROUND_VALUES zBackground[NUM_BACKGROUND];				// Flugente: backgrounds
 
+TAUNT_VALUES zTaunt[NUM_TAUNT];	// anv: externalised taunts
+
 BOOLEAN	gfInMovementMenu = FALSE;
 INT32		giMenuAnchorX, giMenuAnchorY;
 

@@ -383,6 +383,8 @@ void InitDependingGameStyleOptions()
 	LoadSkillTraitsExternalSettings();
 	// HEADROCK HAM 4: CTH constants
 	LoadCTHConstants();
+	// Load externalised taunts settings
+	LoadTauntsSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

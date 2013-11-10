@@ -1195,6 +1195,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Taunts.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_TonyInventory.cpp"
 				>
 			</File>

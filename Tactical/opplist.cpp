@@ -2539,9 +2539,10 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 			// SANDRO - if this is an enemy guy, who was unaware of us till now, and the combat didn't started yet, throw "taunt" and indicator we have been seen
 			if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->bTeam != gbPlayerNum )
 			{
-				if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
+				//if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
+				if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN )
 				{
-					StartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN_MERC );
+					PossiblyStartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN_MERC, pOpponent );
 				}
 				ShowRadioLocator( pSoldier->ubID, 1 );
 			}

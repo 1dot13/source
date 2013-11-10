@@ -1133,11 +1133,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\XML_MercStartingGear.cpp"
+				RelativePath=".\XML_Merchants.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\XML_Merchants.cpp"
+				RelativePath=".\XML_MercStartingGear.cpp"
 				>
 			</File>
 			<File
@@ -1190,6 +1190,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_SpreadPatterns.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Taunts.cpp"
 				>
 			</File>
 			<File

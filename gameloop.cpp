@@ -136,6 +136,8 @@ BOOLEAN InitializeGame(void)
 	LoadModSettings();
 	// silversurfer: load item settings modifiers
 	LoadItemSettings();
+	// Load externalised taunts settings
+	LoadTauntsSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB
