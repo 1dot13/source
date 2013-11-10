@@ -1,0 +1,1583 @@
+<?xml version="1.0" encoding="utf-8"?>                                                                              
+<TAUNTS>
+  <TAUNT>
+    <szText>Taunt! (320 letters)</szText>
+   
+    <!-- attitudes: taunt will be only used by enemies with specifed attitudes - if none is specified, assuming all can use -->
+	<!-- proposed interpretation: aggressive = blood-thirsty, brave = cocky, cunning = snarky, defensive = level-headed  -->
+    <aggressive>0</aggressive>
+	<cunning>0</cunning> 				<!-- covers both cunning solo and cunning aid -->
+	<cunning_solo>0</cunning_solo>
+	<cunning_aid>0</cunning_aid>
+	<defensive>0</defensive>
+	<brave>0</brave>					<!-- covers both brave solo and brave aid -->
+	<brave_solo>0</brave_solo>
+	<brave_aid>0</brave_aid>
+   
+    <!-- situations: taunt will be only used in specified situations -->
+	<fire_gun>0</fire_gun>
+	<fire_launcher>0</fire_launcher>
+	<charge_knife>0</charge_knife>
+	<charge_fists>0</charge_fists>
+	<steal>0</steal>
+	<throw_knife>0</throw_knife>
+	<throw_grenade>0</throw_grenade>
+	<alert>0</alert>
+	<seek_noise>0</seek_noise>
+	<noticed_unseen>0</noticed_unseen>
+	<run_away>0</run_away>
+	<got_hit>0</got_hit>
+	<got_missed>0</got_missed>
+	
+	<!-- class: only specific type of enemy will use -->
+	<!-- enemy soldiers -->
+	<admin>0</admin>	
+	<army>0</army>
+	<elite>0</elite>
+	<!-- milita -->
+	<green>0</green>		
+	<regular>0</regular>
+	<veteran>0</veteran>
+	
+	<!-- soldier/milita profiles: only specific profile will use -->
+	<!-- for adding extra customization and badassery to named enemies -->
+	<!-- enemy soldiers -->
+	<admin_profile>0</admin_profile>	
+	<army_profile>0</army_profile>
+	<elite_profile>0</elite_profile>
+	<!-- milita -->
+	<green_profile>0</green_profile>		
+	<regular_profile>0</regular_profile>
+	<veteran_profile>0</veteran_profile>
+	
+	<!-- enemy stats: only used if specific skill of taunting guy is lower/higher than-->
+	<male>0</male>
+	<female>0</female>
+	<exp_level_gt>0</exp_level_gt>	<!-- greater than -->
+	<exp_level_lt>0</exp_level_lt>	<!-- less than -->
+	<health_gt>0</health_gt>
+	<health_lt>0</health_lt>
+	<health_max_gt>0</health_max_gt>
+	<health_max_lt>0</health_max_lt>
+	<energy_gt>0</energy_gt>
+	<energy_lt>0</energy_lt>
+	<energy_max_gt>0</energy_max_gt>
+	<energy_max_lt>0</energy_max_lt>
+	<morale_gt>0</morale_gt>
+	<morale_lt>0</morale_lt>
+	
+	<!-- progress: taunt will be used only if game progress is higher or lower than specified -->
+	<progress_gt>0</progress_gt>
+	<progress_lt>0</progress_lt>
+	
+	<!-- fact: taunt will be used only if specified fact is set -->
+	<fact_true>0</fact_true>
+	<fact_false>0</fact_false>
+	
+	<!-- target type: only used if taunt target is of specified type -->
+	<!--0 - IMP
+		1 - AIM
+		2 - MERC
+		3 - NPC
+		4 - EPC (escortee)
+		4 - NPC with unextendable contract
+		6 - vehicle
+		-->
+	<target_type>0</target_type>
+	
+	<!-- target stats: only used if specific skill of taunt target is lower/higher than -->
+	<!-- note: not all situation have specified taunt target, e.g. run away -->
+	<target_male>0</target_male>
+	<target_female>0</target_female>
+	<target_exp_level_gt>0</target_exp_level_gt>
+	<target_exp_level_lt>0</target_exp_level_lt>
+	<target_health_gt>0</target_health_gt>
+	<target_health_lt>0</target_health_lt>
+	<target_health_max_gt>0</target_health_max_gt>
+	<target_health_max_lt>0</target_health_max_lt>
+	<target_energy_gt>0</target_energy_gt>
+	<target_energy_lt>0</target_energy_lt>
+	<target_energy_max_gt>0</target_energy_max_gt>
+	<target_energy_max_lt>0</target_energy_max_lt>
+	<target_morale_gt>0</target_morale_gt>
+	<target_morale_lt>0</target_morale_lt>
+	
+	<!-- merc profiles: will be used only to taunt specific profile -->
+	<target_merc_profile>0</target_merc_profile>
+	
+  </TAUNT>
+  <TAUNT>
+	<szText>Sucker!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Suck on this!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Say hello to my lil' friend!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come get some!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>You're mine!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Die!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>You scared, motherfucker?</szText>
+	<fire_gun>1</fire_gun>
+	<charge_knife>1</charge_knife>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>This gonna hurt!</szText>
+	<fire_gun>1</fire_gun>
+	<charge_knife>1</charge_knife>
+  </TAUNT>
+  <TAUNT>
+	<szText>Eat shit and die!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Send me a postcard from HELL!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come to daddy!</szText>
+	<fire_gun>1</fire_gun>
+	<charge_knife>1</charge_knife>
+	<male>1</male>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come to momma!</szText>
+	<fire_gun>1</fire_gun>
+	<charge_knife>1</charge_knife>
+	<female>1</female>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll chop your balls off!</szText>
+	<aggressive>1</aggressive>
+	<charge_knife>1</charge_knife>
+	<target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+	<szText>You'll be six feet under in no time!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Gonna send ya home in a pine box, loser!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey, wanna play?</szText>
+	<fire_gun>1</fire_gun>
+	<charge_knife>1</charge_knife>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey, gimme that!</szText>
+	<steal>1</steal>
+  </TAUNT>
+  <TAUNT>
+	<szText>Nice toy!</szText>
+	<steal>1</steal>
+  </TAUNT>
+  <TAUNT>
+	<szText>You should have stayed home, bitch!</szText>
+	<fire_gun>1</fire_gun>
+	<target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+	<szText>You should have stayed home, fucker!</szText>
+	<fire_gun>1</fire_gun>
+	<target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+	<szText>Die, vermin!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Feeling scared?</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Dance for me!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>How fun!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Dakka-dakka-dakka!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Guns don't kill people, I do!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm the best!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Kneel before me, loser!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come on! I don't got all day!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Eat lead!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm better than you!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You fucked with the wrong man!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+	<male>1</male>
+  </TAUNT>
+  <TAUNT>
+	<szText>You fucked with the wrong woman!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+	<female>1</female>
+  </TAUNT>
+  <TAUNT>
+	<szText>Stop wasting my time!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You deserve it!</szText>
+	<fire_gun>1</fire_gun>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Yeah!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>That's right!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>You're dead.</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>How ya like it?</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>You had it coming!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<szText>Why, hello there!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Say "cheese"!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Yippie ki-yay, mister Falcon!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Could you just please die?</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Garbage day!</szText>
+	<fire_gun>1</fire_gun>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Barbecue time!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Suck it down!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Bam!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Kaboom!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Dodge this!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>I like it!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hahaha!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Die in fire, bitch!</szText>
+	<fire_launcher>1</fire_launcher>
+	<aggressive>1</aggressive>
+	<target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+	<szText>Die in fire, son-of-a-bitch!</szText>
+	<fire_launcher>1</fire_launcher>
+	<aggressive>1</aggressive>
+	<target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+	<szText>Say your prayers!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hell yeah!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>There's no kill like overkill!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>My gun's bigger than yours!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>I got a present for ya!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>Watch and learn.</szText>
+	<fire_launcher>1</fire_launcher>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Special delivery!</szText>
+	<fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+	<szText>You should see your face now!</szText>
+	<fire_launcher>1</fire_launcher>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Didn't see THAT coming, ha?</szText>
+	<fire_launcher>1</fire_launcher>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Check mate!</szText>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I always wanted to do this.</szText>
+	<fire_launcher>1</fire_launcher>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Peace through power!</szText>
+	<fire_launcher>1</fire_launcher>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>This job ain't that bad.</szText>
+	<fire_launcher>1</fire_launcher>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Now I remember why I joined army!</szText>
+	<fire_launcher>1</fire_launcher>
+	<regular>1</regular>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Ooh, somebody stop me!</szText>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>You're welcome!</szText>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>There goes the neighborhood!</szText>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Denied!</szText>
+	<fire_launcher>1</fire_launcher>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Gonna scalp ya, sucker!</szText>
+	<charge_knife>1</charge_knife>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come to papa.</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Show me your guts!</szText>
+	<charge_knife>1</charge_knife>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll rip you to pieces!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Motherfucker!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I can smell your fear!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll bash your skull in!</szText>
+	<charge_fists>1</charge_fists>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll stomp on your head till you're dead!</szText>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Chaaarge!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Guns are for pussies!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Your ass is mine!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll rip you fucking legs out of your ass!</szText>
+	<charge_fists>1</charge_fists>
+	<aggressive>1</aggressive>
+  </TAUNT>
+   <TAUNT>
+	<szText>Welcome to world of pain. I'll be your guide!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll slice ya up like a mango!</szText>
+	<charge_knife>1</charge_knife>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Heads are gonna roll!</szText>
+	<charge_knife>1</charge_knife>
+  </TAUNT>
+  <TAUNT>
+	<szText>Closing in!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Ready or not, here I come!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>It's time to get personal!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Stop me if you can!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>You and me! No rules! Come on, coward!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You don't leave me a choice!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll kill you!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who needs guns anyway?</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll stab you until you say "ouch, I'm dead"!</szText>
+	<charge_knife>1</charge_knife>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>How 'bout a facelift?</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+  </TAUNT>
+  <TAUNT>
+	<szText>It's Christmas! And you've been VERY naughty!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<throw_grenade>1</throw_grenade>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I warn you! I watched "Enter the Dragon" TWICE!</szText>
+	<charge_fists>1</charge_fists>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hugs!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I promise it won't hurt... much.</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Tag!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Shit, I can't believe I'm doing this!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Catch!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>Here ya go!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>Pop goes the weasel.</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>This one's for you.</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>Muahaha!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Catch this, swine!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Choke on this!</szText>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>Snack on that!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>How 'bout some acupuncture?</szText>
+	<throw_knife>1</throw_knife>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Bullseye!</szText>
+	<throw_knife>1</throw_knife>
+	<cunning>1</cunning>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Here's a token of my gratitude!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Do you like shiny things?</szText>
+	<throw_knife>1</throw_knife>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Here, keep it!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>No returns!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+	<szText>Incoming!</szText>
+	<throw_grenade>1</throw_grenade>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Take cover!</szText>
+	<throw_grenade>1</throw_grenade>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Grenade!</szText>
+	<throw_grenade>1</throw_grenade>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Have more where it came from!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Fire in the hole!</szText>
+	<throw_knife>1</throw_knife>
+	<throw_grenade>1</throw_grenade>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>They're here!</szText>
+	<alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+	<szText>Now the fun can start!</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I've waited for this looong time.</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Sucker with the lowest body count buys drinks!</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>They have no idea what they are in for...</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Everyone get ready!</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Killing time!</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>I call dibs on any rocket launchers we loot from corpses!</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Finally! Some carnage!</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, I can't wait to get my hands on them!</szText>
+	<alert>1</alert>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Finally, my training will pay off.</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Everybody, wake up!</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Time to earn my paycheck...</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Now I'll be able to prove myself.</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>We have tactical advantage!</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Maybe I'll get a medal!</szText>
+	<alert>1</alert>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>We're under attack!</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, ain't that just great?</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Can't guy get a nap around here?</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy attack. That's something new.</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Yay. 'Cause nobody saw that coming.</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm totally gonna desert as soon as we start losing.</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Fantastic.</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>"Surely they wouldn't dare to attack you." Riiight.</szText>
+	<alert>1</alert>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Thanks for turning my shitty day into complete disaster, assholes!</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Everybody stay calm, and we will make it through.</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Take positions!</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I hoped this would never happen...</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Fire at will!</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>It was bound to happen eventually.</szText>
+	<alert>1</alert>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I heard that!</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who's there?</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+   <TAUNT>
+	<szText>What was that?</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey! What the...</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Show yourself!</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>I warn you... my detection skills are at their PEAK!</szText>
+	<seek_noise>1</seek_noise>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>What the hell was that?</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm not deaf, you know?</szText>
+	<seek_noise>1</seek_noise>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey!</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Come out, coward!</szText>
+	<seek_noise>1</seek_noise>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey! Who's making all that racket?</szText>
+	<seek_noise>1</seek_noise>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Just show yourself, wherever you are!</szText>
+	<seek_noise>1</seek_noise>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey! I've heard something suspicious!</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Anybody there?</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Shoulda check it out.</szText>
+	<seek_noise>1</seek_noise>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Is someone being clever?</szText>
+	<seek_noise>1</seek_noise>
+	<cunning>1</cunning>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Strange noises...</szText>
+	<seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+	<szText>Can someone else check it out, please?</szText>
+	<seek_noise>1</seek_noise>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>It was just a wind... wait a sec, there's no wind!</szText>
+	<seek_noise>1</seek_noise>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Show yourself! We're friendly... and don't know how to fight.</szText>
+	<seek_noise>1</seek_noise>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Da'ffff...!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Big mistake!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Holy crap!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy!!!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Alert! Alert!</szText>
+	<alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+	<szText>There is one!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Intruders!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>We've got company!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Prepare to suffer!</szText>
+	<charge_knife>1</charge_knife>
+	<charge_fists>1</charge_fists>
+	<noticed_unseen>1</noticed_unseen>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Holy shit!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, hi.</szText>
+	<noticed_unseen>1</noticed_unseen>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I spy with my little eye!</szText>
+	<noticed_unseen>1</noticed_unseen>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I have a sigthing!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy forces!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy detected!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy over here!</szText>
+	<noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+	<szText>We're in some real shit...</szText>
+	<run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+	<szText>It was all part of my plan!</szText>
+	<run_away>1</run_away>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>I've had enough!</szText>
+	<run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh my God!</szText>
+	<run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+	<szText>They ain't paying us enough for this shit...</szText>
+	<run_away>1</run_away>
+	<defensive>1</defensive>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>When did things go so wrong?</szText>
+	<run_away>1</run_away>
+	<defensive>1</defensive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll be back! With friends!</szText>
+	<run_away>1</run_away>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You'll pay for that... the other day!</szText>
+	<run_away>1</run_away>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You're not playing fair!</szText>
+	<run_away>1</run_away>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Don't think you I will forgive ya!</szText>
+	<run_away>1</run_away>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Mommy!</szText>
+	<run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll be back when you least expect me, fucker!</szText>
+	<run_away>1</run_away>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll leave you alive... for now.</szText>
+	<run_away>1</run_away>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enough is enough!</szText>
+	<run_away>1</run_away>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Screw this! I'm outta here!</szText>
+	<run_away>1</run_away>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Screw this! I'm not even a real soldier!</szText>
+	<run_away>1</run_away>
+	<admin>1</admin>
+	<green>1</green>
+  </TAUNT>
+  <TAUNT>
+	<szText>Tactical retreat!</szText>
+	<run_away>1</run_away>
+	<brave>1</brave>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>I've seen enough.</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Nope, nope, nope.</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Run to the hills!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Let's call it a draw.</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>They said "join the army". Not for this shit!</szText>
+	<run_away>1</run_away>
+	<defensive>1</defensive>
+	<regular>1</regular>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I regret nothing!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Game over, man!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Let's be friends!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Party's over!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Violence is not an answer!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm too beatiful to die!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Screw you guys, I'm going home!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Make love, not war!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I, ehrm, left the lights on in my place. Gotta go!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Leave me your phone number, and I'll get back to ya!</szText>
+	<run_away>1</run_away>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Aaaggh!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>I see red...</szText>
+	<got_hit>1</got_hit>
+	<health_lt>40</health_lt>
+  </TAUNT>
+   <TAUNT>
+	<szText>Damn, I'm barely conscious.</szText>
+	<got_hit>1</got_hit>
+	<energy_lt>40</energy_lt>
+  </TAUNT>
+  <TAUNT>
+	<szText>Ugh!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>This... hurts!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>You will regret... uhh... this.</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>Crap!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>What the...!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>Ouch!</szText>
+	<got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+	<szText>You fuck!</szText>
+	<got_hit>1</got_hit>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, you piece of shit!</szText>
+	<got_hit>1</got_hit>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Fuck, you'll pay for that!</szText>
+	<got_hit>1</got_hit>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>You fucked with the wrong guy!</szText>
+	<got_hit>1</got_hit>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Now you have... pissed me off.</szText>
+	<got_hit>1</got_hit>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>It was nothing!</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm still here!</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Didn't feel a thing!</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Pain is just a weakness leaving my body!</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Pain is just an illusion!</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who do you think you are?</szText>
+	<got_hit>1</got_hit>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, come on!</szText>
+	<got_hit>1</got_hit>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Why me?!</szText>
+	<got_hit>1</got_hit>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>This hurts you more then it hurts me.</szText>
+	<got_hit>1</got_hit>
+	<defensive>1</defensive>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm allergic to pain!</szText>
+	<got_hit>1</got_hit>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey, Cordona! Queen Dee Dee says hi!</szText>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>57</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll get promotion me for killing you, rebel scum!</szText>
+	<brave>1</brave>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>57</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Holy shit, it's Gus Tarballs! We're fucked!</szText>
+	<elite>1</elite>
+	<noticed_unseen>1</noticed_unseen>
+	<target_merc_profile>16</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey, it's a guy from "Wild, Wild East"! I'm your biggest fan!</szText>
+	<cunning>1</cunning>
+	<noticed_unseen>1</noticed_unseen>
+	<target_merc_profile>167</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Bang-bang! Just like in "Attack of the Clydesdales"!</szText>
+	<cunning>1</cunning>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>167</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Much Dust, Many Bullets!</szText>
+	<cunning>1</cunning>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>167</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Get back on your Honda, and travel away!</szText>
+	<cunning>1</cunning>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>167</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Forgive me, for I have sinned!</szText>
+	<cunning>1</cunning>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>247</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Where's your God now?!</szText>
+	<fire_launcher>1</fire_launcher>
+	<target_merc_profile>247</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Father, what about the fifth commandment? You hypocrite!</szText>
+	<got_missed>1</got_missed>
+	<target_merc_profile>247</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Get back to your grave, you freakin' zombie!</szText>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>187</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Now that's an easy target!</szText>
+	<fire_gun>1</fire_gun>
+	<target_merc_profile>253</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Enemy detected! Damn, he's hard to miss...</szText>
+	<noticed_unseen>1</noticed_unseen>
+	<target_merc_profile>253</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm doing world a favor getting rid of your ugly face!</szText>
+	<fire_gun>1</fire_gun>
+	<target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey babe, give me your number, and I'll stop shooting!</szText>
+	<cunning>1</cunning>
+	<male>1</male>
+	<fire_gun>1</fire_gun>
+	<target_female>1</target_female>
+	<target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hey handsome, give me your number, and I'll stop shooting!</szText>
+	<cunning>1</cunning>
+	<female>1</female>
+	<fire_gun>1</fire_gun>
+	<target_male>1</target_male>
+	<target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who's that psycho chick?</szText>
+	<got_missed>1</got_missed>
+	<target_merc_profile>23</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Aren't you a bit old for this, geezer?</szText>
+	<got_missed>1</got_missed>
+	<target_merc_profile>187</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+	<szText>Marry me!</szText>
+	<cunning>1</cunning>
+	<male>1</male>
+	<got_missed>1</got_missed>
+	<target_female>1</target_female>
+	<target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<szText>Pathetic!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Try again, I dare ya.</szText>
+	<got_missed>1</got_missed>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Don't make me go over there!</szText>
+	<got_missed>1</got_missed>
+	<brave>1</brave>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>You've just made a big mistake!</szText>
+	<got_missed>1</got_missed>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'll take that gun out of your cold hands!</szText>
+	<got_missed>1</got_missed>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>You'll regret missing!</szText>
+	<got_missed>1</got_missed>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who were you shootin' at?</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Who learned you to shoot?</szText>
+	<got_missed>1</got_missed>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>You'll pay for that!</szText>
+	<got_missed>1</got_missed>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Son of a bitch!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>You suck!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Lame!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Are you even trying?</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Ha, you wish!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Learn how to shoot, rookie!</szText>
+	<got_missed>1</got_missed>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<szText>In your dream!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>I'm not impressed!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>That ain't gonna happen.</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Booooo!</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Children shouldn't play with guns!</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Nice try!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>My grandma's a better shot!</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>That shot was bad and you should feel bad!</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Close enough.</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Can't touch this!</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Oh, don't let the disappointment get to you.</szText>
+	<got_missed>1</got_missed>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<szText>Get back in the kitchen, where you belong, woman!</szText>
+	<got_missed>1</got_missed>
+	<brave>1</brave>
+	<target_male>1</target_male>
+	<target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+	<szText>Was close.</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Try harder!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Whew!</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Hell no!</szText>
+	<got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+	<szText>Maybe next time!</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Not today!</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>Close, but no cigar.</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<szText>That woke me up.</szText>
+	<got_missed>1</got_missed>
+	<defensive>1</defensive>
+  </TAUNT>
+</TAUNTS>
