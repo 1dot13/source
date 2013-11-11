@@ -3894,8 +3894,18 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
+					// Flugente: alternate for people without mousewheel who want to aim auto-only weapons
+					if ( gGameExternalOptions.bAimedBurstEnabled && gGameExternalOptions.bAimedBurstAlternateKey && gCurrentUIMode == CONFIRM_ACTION_MODE )
+					{
+						SOLDIERTYPE *		pSoldier;
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+						{
+							HandleWheelAdjustCursor( pSoldier, usMapPos, 1,brstmode );
+						}
+					}
 					// nothing in hand and the Options Screen button for whichever panel we're in must be enabled
-					if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
+					else if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
 						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ OPTIONS_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 					{
 						if( !fDisableMapInterfaceDueToBattle )
@@ -4296,17 +4306,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				if( fAlt )
 				{
-					// Flugente: alternate for people without mousewheel who want to aim auto-only weapons
-					if ( gGameExternalOptions.bAimedBurstEnabled && gGameExternalOptions.bAimedBurstAlternateKey && gCurrentUIMode == CONFIRM_ACTION_MODE )
-					{
-						SOLDIERTYPE *		pSoldier;
-
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-						{
-							HandleRightClickAdjustCursor( pSoldier, usMapPos );
-						}
-					}
-					else if ( CHEATER_CHEAT_LEVEL( ) )
+					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						TeleportSelectedSoldier();
 					}

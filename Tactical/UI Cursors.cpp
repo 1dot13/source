@@ -31,6 +31,7 @@
 	#include "PATHAI.H"
 	#include "SkillCheck.h" // added by SANDRO
 	#include "message.H" //ddd
+	#include "english.h"		// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -3343,189 +3344,196 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 	switch( ubCursor )
 	{
 		case TARGETCURS:
-
-//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"cbef=%d",CalcChanceToHitGun( pSoldier, sMapPos, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation ) );
-		if(pSoldier->bDoAutofire && (gfKeyState[18] || brstmode) ) //накрутка кол-ва пулей в очереди
 			{
-				INT16	sCurAPCosts;
-
-				if(pSoldier->bDoAutofire==1 && sDelta<0) return;
-
-				if(usShotsLeft > pSoldier->bDoAutofire )
+				if(pSoldier->bDoAutofire && (gfKeyState[ ALT ] || brstmode) ) //накрутка кол-ва пулей в очереди	// Flugente: how the fuck is this comment useful?
 				{
-					//Calculate how many bullets we need to fire to add at least one more AP
-					sAPCosts = sCurAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
-					while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts <= sCurAPCosts && usShotsLeft > pSoldier->bDoAutofire)	//Increment the bullet count until we run out of APs or we spend the whole AP
+					INT16	sCurAPCosts;
+
+					if(pSoldier->bDoAutofire==1 && sDelta<0)
+						return;
+
+					if(usShotsLeft > pSoldier->bDoAutofire )
 					{
-						pSoldier->bDoAutofire++;
-						sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
-					}
+						//Calculate how many bullets we need to fire to add at least one more AP
+						sAPCosts = sCurAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+						while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts <= sCurAPCosts && usShotsLeft > pSoldier->bDoAutofire)	//Increment the bullet count until we run out of APs or we spend the whole AP
+						{
+							pSoldier->bDoAutofire++;
+							sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+						}
 
-					//we've stepped over the border and used up one more ap, now let's make sure that it is spent to maximize the bullets
+						//we've stepped over the border and used up one more ap, now let's make sure that it is spent to maximize the bullets
 
-					sCurAPCosts = sAPCosts;
+						sCurAPCosts = sAPCosts;
 
-					do
-					{
-						pSoldier->bDoAutofire+=sDelta;
-						sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
-					}
-					while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts == sCurAPCosts && usShotsLeft >= pSoldier->bDoAutofire);
-					pSoldier->bDoAutofire--;
-
-					sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
-
-					if(!EnoughPoints( pSoldier, sAPCosts, 0, FALSE ))		//We've not enough points to fire those bullets
-					{
-						pSoldier->flags.autofireLastStep = TRUE;
+						do
+						{
+							pSoldier->bDoAutofire+=sDelta;
+							sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+						}
+						while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts == sCurAPCosts && usShotsLeft >= pSoldier->bDoAutofire);
 						pSoldier->bDoAutofire--;
+
+						sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+
+						if(!EnoughPoints( pSoldier, sAPCosts, 0, FALSE ))		//We've not enough points to fire those bullets
+						{
+							pSoldier->flags.autofireLastStep = TRUE;
+							pSoldier->bDoAutofire--;
+						}
+						else
+							pSoldier->flags.autofireLastStep = FALSE; //both last step conditions are false
 					}
 					else
-						pSoldier->flags.autofireLastStep = FALSE; //both last step conditions are false
+					{
+						if(sDelta<0) 
+						{
+							pSoldier->flags.autofireLastStep = FALSE;
+						pSoldier->bDoAutofire--;
+						}
+						else
+						pSoldier->flags.autofireLastStep = TRUE;
+					}
+
+					return;
 				}
 				else
 				{
-					if(sDelta<0) 
+					sGridNo					= sMapPos;
+					bTargetLevel	= (INT8)gsInterfaceLevel;
+
+					// Look for a target here...
+					if ( gfUIFullTargetFound )
 					{
-						pSoldier->flags.autofireLastStep = FALSE;
-					pSoldier->bDoAutofire--;
+						// Get target soldier, if one exists
+						pTSoldier = MercPtrs[ gusUIFullTargetID ];
+						sGridNo = pTSoldier->sGridNo;
+						bTargetLevel = pSoldier->pathing.bLevel;
+
+						if ( !HandleCheckForBadChangeToGetThrough( pSoldier, pTSoldier, sGridNo , bTargetLevel ) )
+						{
+							return;
+						}
 					}
-					else
-					pSoldier->flags.autofireLastStep = TRUE;
-				}
-				return;
-			}
-///////////////////////////////
-				sGridNo					= sMapPos;
-				bTargetLevel	= (INT8)gsInterfaceLevel;
 
-				// Look for a target here...
-				if ( gfUIFullTargetFound )
-				{
-					// Get target soldier, if one exists
-					pTSoldier = MercPtrs[ gusUIFullTargetID ];
-					sGridNo = pTSoldier->sGridNo;
-					bTargetLevel = pSoldier->pathing.bLevel;
+					bFutureAim = maxAimLevels;
 
-					if ( !HandleCheckForBadChangeToGetThrough( pSoldier, pTSoldier, sGridNo , bTargetLevel ) )
+					//Find the actual maximum aim that can be done.				
+					while( bFutureAim > 0 )
 					{
-						return;
+						//Can afford this many?
+						sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, bFutureAim );
+						if( !maxAimCanAfford && EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
+						{
+							maxAimCanAfford = bFutureAim;
+						}
+						//Find the least amount of aiming needed to get maximum CtH
+						//Give some slack, but don't let the slack accumulate.
+						//dd???{
+						//hitChance = CalcChanceToHitGun( pSoldier, sMapPos, bFutureAim, pSoldier->bAimShotLocation );
+						//if( hitChance >= maxCtH - 3){
+						//	minAimForCtH = bFutureAim;
+						//	if(hitChance >= maxCtH) maxCtH = hitChance;
+						//}
+						//ddd???}
+						//Loop to 0.
+						--bFutureAim;
 					}
-				}
 
-
-				bFutureAim = maxAimLevels;
-
-				//Find the actual maximum aim that can be done.				
-				while( bFutureAim > 0 ){
-					//Can afford this many?
-					sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, bFutureAim );
-					if( !maxAimCanAfford && EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) ){
-						maxAimCanAfford = bFutureAim;
-					}
-					//Find the least amount of aiming needed to get maximum CtH
-					//Give some slack, but don't let the slack accumulate.
-					//dd???{
-					//hitChance = CalcChanceToHitGun( pSoldier, sMapPos, bFutureAim, pSoldier->bAimShotLocation );
-					//if( hitChance >= maxCtH - 3){
-					//	minAimForCtH = bFutureAim;
-					//	if(hitChance >= maxCtH) maxCtH = hitChance;
-					//}
-					//ddd???}
-					//Loop to 0.
-					--bFutureAim;
-				}
-
-				bFutureAim = oldAim + sDelta;
-				if( bFutureAim < REFINE_AIM_1 ) return;
-
-
-				//Do it.
-				if( bFutureAim < REFINE_AIM_1 ){
-					//Went too low.  Set to max aim.
-					bFutureAim = maxAimCanAfford;
-					gfDisplayFullCountRing = TRUE;
-				}else if( bFutureAim <= maxAimCanAfford ){
-					//Aim level is doable.  No modification needed.
-					gfDisplayFullCountRing = FALSE;
-				}else{
-					//Aim too high.  Give indicator that is is maxed, then reset aim refinement.
-					if ( gfDisplayFullCountRing )
+					bFutureAim = oldAim + sDelta;
+					if( bFutureAim < REFINE_AIM_1 )
 						return;
-					else{
-						//Display ring to indicate maximum aim reached.
-						bFutureAim = oldAim;
+
+					//Do it.
+					if( bFutureAim < REFINE_AIM_1 )
+					{
+						//Went too low.  Set to max aim.
+						bFutureAim = maxAimCanAfford;
 						gfDisplayFullCountRing = TRUE;
 					}
+					else if( bFutureAim <= maxAimCanAfford )
+					{
+						//Aim level is doable.  No modification needed.
+						gfDisplayFullCountRing = FALSE;
+					}
+					else
+					{
+						//Aim too high.  Give indicator that is is maxed, then reset aim refinement.
+						if ( gfDisplayFullCountRing )
+							return;
+						else{
+							//Display ring to indicate maximum aim reached.
+							bFutureAim = oldAim;
+							gfDisplayFullCountRing = TRUE;
+						}
+					}
+					//Apply.
+					pSoldier->aiData.bShownAimTime = bFutureAim;
+
+					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"caft=%d",CalcChanceToHitGun( pSoldier, sMapPos, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation ) );
 				}
-				//Apply.
-				pSoldier->aiData.bShownAimTime = bFutureAim;
-
-//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"caft=%d",CalcChanceToHitGun( pSoldier, sMapPos, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation ) );
+			}
 			break;
-
 
 		case PUNCHCURS:
-
-			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + (sDelta*REFINE_PUNCH_2) );
-if(bFutureAim<0) return;
-			if ( bFutureAim <= REFINE_PUNCH_2 )
 			{
-				sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, (INT8)(bFutureAim / 2) );
+				bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + (sDelta*REFINE_PUNCH_2) );
+				if(bFutureAim < 0 )
+					return;
 
-				// Determine if we can afford!
-				if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
+				if ( bFutureAim <= REFINE_PUNCH_2 )
 				{
-					pSoldier->aiData.bShownAimTime+= (sDelta*REFINE_PUNCH_2);
-					if ( pSoldier->aiData.bShownAimTime > REFINE_PUNCH_2 )
-						pSoldier->aiData.bShownAimTime = REFINE_PUNCH_2;
-					gfDisplayFullCountRing = FALSE;
+					sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, (INT8)(bFutureAim / 2) );
+
+					// Determine if we can afford!
+					if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
+					{
+						pSoldier->aiData.bShownAimTime+= (sDelta*REFINE_PUNCH_2);
+						if ( pSoldier->aiData.bShownAimTime > REFINE_PUNCH_2 )
+							pSoldier->aiData.bShownAimTime = REFINE_PUNCH_2;
+						gfDisplayFullCountRing = FALSE;
+					}
+					else
+						gfDisplayFullCountRing = TRUE;
 				}
 				else
 					gfDisplayFullCountRing = TRUE;
 			}
-			else
-				gfDisplayFullCountRing = TRUE;
-			
 			break;
-							
-
 
 		case KNIFECURS:
-
-			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + (sDelta*REFINE_KNIFE_2) );
-if(bFutureAim<0) return;
-			if ( bFutureAim <= REFINE_KNIFE_2 )
 			{
-				sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, (INT8)(bFutureAim / 2) );
+				bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + (sDelta*REFINE_KNIFE_2) );
+				if(bFutureAim<0)
+					return;
 
-				// Determine if we can afford!
-				if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
+				if ( bFutureAim <= REFINE_KNIFE_2 )
 				{
-					pSoldier->aiData.bShownAimTime+= REFINE_KNIFE_2;
-					if ( pSoldier->aiData.bShownAimTime > REFINE_KNIFE_2 )
-						pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
-					gfDisplayFullCountRing = FALSE;
+					sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, (INT8)(bFutureAim / 2) );
+
+					// Determine if we can afford!
+					if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
+					{
+						pSoldier->aiData.bShownAimTime+= REFINE_KNIFE_2;
+						if ( pSoldier->aiData.bShownAimTime > REFINE_KNIFE_2 )
+							pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
+						gfDisplayFullCountRing = FALSE;
+					}
+					else
+						gfDisplayFullCountRing = TRUE;
 				}
 				else
 					gfDisplayFullCountRing = TRUE;
 			}
-			else
-				gfDisplayFullCountRing = TRUE;
-
 			break;
 
 		case TOSSCURS:
-
 			//IncrementAimCubeUI( );
 			break;
 
 		default:
-
 			ErasePath( TRUE );
-
 	}
-
 }
 
 //обработка колеса без прицельной очереди if прицельная очередь отключена в .ини
