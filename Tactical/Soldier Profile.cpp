@@ -105,8 +105,9 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 //Random Stats 
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
 void RandomStats();
-
 void RandomStartSalary();
+INT32 RandomAbsoluteRange( INT32 iValue, INT32 iMin, INT32 iMax, INT32 iRange, BOOLEAN fBellCurve );
+INT8 RandomPercentRange( UINT8 iPRange, BOOLEAN fBellCurve );
 
 INT8 gbSkillTraitBonus[NUM_SKILLTRAITS_OT] =
 {
@@ -442,6 +443,7 @@ void RandomStats()
 	MERCPROFILESTRUCT * pProfile;
 	UINT8 Exp = gGameExternalOptions.ubMercRandomExpRange;
 	UINT8 Stats = gGameExternalOptions.ubMercRandomStatsRange;
+	BOOLEAN Type = gGameExternalOptions.fMercRandomBellDistribution;
 
 	// not randomizing
 	if ( gGameExternalOptions.ubMercRandomStats == 0 )
@@ -453,19 +455,19 @@ void RandomStats()
 		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 		{
 			pProfile = &(gMercProfiles[cnt]);
-			// Buggler: +/- random range will be limited due to proximity to min/max allowed value, slightly different for EXP as can ignore 0
-			pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
-			pProfile->bLifeMax += Random( 2 * min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1  ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1 ) ) );
-			pProfile->bLife = pProfile->bLifeMax;
-			pProfile->bAgility += Random( 2 * min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) );
-			pProfile->bDexterity += Random( 2 * min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) );
-			pProfile->bStrength += Random( 2 * min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) );
-			pProfile->bLeadership += Random( 2 * min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) );
-			pProfile->bWisdom += Random( min( Stats, 2 * min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) );
-			pProfile->bMarksmanship += Random( 2 * min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) );
-			pProfile->bMechanical += Random( 2 * min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) );
-			pProfile->bExplosive += Random( 2 * min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) );
-			pProfile->bMedical += Random( 2 * min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) );
+			// Buggler: +/- random range will be limited due to min/max allowed value
+			pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
+			pProfile->bLifeMax		= RandomAbsoluteRange( pProfile->bLifeMax, 1, 100, Stats, Type );
+			pProfile->bLife			= pProfile->bLifeMax;
+			pProfile->bAgility		= RandomAbsoluteRange( pProfile->bAgility, 1, 100, Stats, Type );
+			pProfile->bDexterity	= RandomAbsoluteRange( pProfile->bDexterity, 1, 100, Stats, Type );
+			pProfile->bStrength		= RandomAbsoluteRange( pProfile->bStrength, 1, 100, Stats, Type );
+			pProfile->bLeadership	= RandomAbsoluteRange( pProfile->bLeadership, 1, 100, Stats, Type );
+			pProfile->bWisdom		= RandomAbsoluteRange( pProfile->bWisdom, 1, 100, Stats, Type );
+			pProfile->bMarksmanship	= RandomAbsoluteRange( pProfile->bMarksmanship, 1, 100, Stats, Type );
+			pProfile->bMechanical	= RandomAbsoluteRange( pProfile->bMechanical, 1, 100, Stats, Type );
+			pProfile->bExplosive	= RandomAbsoluteRange( pProfile->bExplosive, 1, 100, Stats, Type );
+			pProfile->bMedical		= RandomAbsoluteRange( pProfile->bMedical, 1, 100, Stats, Type );
 		}
 	}
 
@@ -479,38 +481,38 @@ void RandomStats()
 				pProfile = &(gMercProfiles[cnt]);
 				
 				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
-					pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
+					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
 
 				if ( gRandomStatsValue[cnt].RandomLife == TRUE )
-					pProfile->bLifeMax += Random( 2 * min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1  ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1 ) ) );
-					pProfile->bLife = pProfile->bLifeMax;
+					pProfile->bLifeMax		= RandomAbsoluteRange( pProfile->bLifeMax, 1, 100, Stats, Type );
+					pProfile->bLife			= pProfile->bLifeMax;
 
 				if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
-					pProfile->bAgility += Random( 2 * min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) );
+					pProfile->bAgility		= RandomAbsoluteRange( pProfile->bAgility, 1, 100, Stats, Type );
 				
 				if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
-					pProfile->bDexterity += Random( 2 * min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) );
+					pProfile->bDexterity	= RandomAbsoluteRange( pProfile->bDexterity, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
-					pProfile->bStrength += Random( 2 * min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) );
+					pProfile->bStrength		= RandomAbsoluteRange( pProfile->bStrength, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
-					pProfile->bLeadership += Random( 2 * min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) );
+					pProfile->bLeadership	= RandomAbsoluteRange( pProfile->bLeadership, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
-					pProfile->bWisdom += Random( min( Stats, 2 * min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) );
+					pProfile->bWisdom		= RandomAbsoluteRange( pProfile->bWisdom, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
-					pProfile->bMarksmanship += Random( 2 * min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) );
+					pProfile->bMarksmanship	= RandomAbsoluteRange( pProfile->bMarksmanship, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
-					pProfile->bMechanical += Random( 2 * min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) );
+					pProfile->bMechanical	= RandomAbsoluteRange( pProfile->bMechanical, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )	
-					pProfile->bExplosive += Random( 2 * min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) );
+					pProfile->bExplosive	= RandomAbsoluteRange( pProfile->bExplosive, 1, 100, Stats, Type );
 					
 				if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
-					pProfile->bMedical += Random( 2 * min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) );
+					pProfile->bMedical		= RandomAbsoluteRange( pProfile->bMedical, 1, 100, Stats, Type );
 			}
 		}
 	}
@@ -525,7 +527,7 @@ void RandomStats()
 				pProfile = &(gMercProfiles[cnt]);
 
 				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
-					pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
+					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
 
 				bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * pProfile->bExpLevel );
 
@@ -593,12 +595,13 @@ void RandomStartSalary()
 	if ( gGameExternalOptions.fMercRandomStartSalary == TRUE )
 	{
 		UINT8 SalaryPercentMod = gGameExternalOptions.ubMercRandomStartSalaryPercentMod;
+		BOOLEAN Type = gGameExternalOptions.fMercRandomBellDistribution;
 		FLOAT SalaryMod;
 
 		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 		{
 			pProfile = &(gMercProfiles[cnt]);
-			SalaryMod =  1 + ( (FLOAT) Random ( 2 * SalaryPercentMod + 1 ) - (FLOAT) SalaryPercentMod ) / 100;
+			SalaryMod =  1 + (FLOAT) RandomPercentRange( SalaryPercentMod, Type ) / 100;
 			// random non-zero salary 
 			if ( pProfile->sSalary |= 0 )
 				pProfile->sSalary = RoundOffSalary( (UINT32)( pProfile->sSalary * SalaryMod ) );
@@ -611,6 +614,57 @@ void RandomStartSalary()
 		}
 	}
 }
+
+INT32 RandomAbsoluteRange( INT32 iValue, INT32 iMin, INT32 iMax, INT32 iRange, BOOLEAN fBellCurve )
+{
+	INT32 iRValue;
+	
+	if (iMin > iMax)
+		Assert(0);
+	
+	//no random if value at or out of random limits
+	if ( iValue <= iMin || iValue >= iMax )
+		return( iValue );
+
+	//reduce random range due to the min limits
+	if ( iRange > iValue - iMin )
+		iRange = iValue - iMin;
+	
+	//reduce random range due to the max limits
+	if ( iRange > iMax - iValue )
+		iRange = iMax - iValue;
+
+	//bell curve random distribution
+	if ( fBellCurve )
+		iRValue = iValue - iRange + Random( iRange + 1 ) + Random( iRange + 1 );
+	
+	//uniform random distribution
+	else
+		iRValue = iValue - iRange + Random( 2 * iRange + 1 );
+
+	//calculated random value
+	return( iRValue );
+}
+
+INT8 RandomPercentRange( UINT8 iPRange, BOOLEAN fBellCurve )
+{
+	INT8 bRPValue;
+
+	if (iPRange < 0 || iPRange > 100 )
+		Assert(0);
+
+	//bell curve random distribution
+	if ( fBellCurve )
+		bRPValue = Random ( iPRange + 1 ) + Random ( iPRange + 1 ) - iPRange;
+	
+	//uniform random distribution
+	else
+		bRPValue = Random ( 2 * iPRange + 1 ) - iPRange;
+		
+	//percent range -100 to 100
+	return( bRPValue );
+}
+
 // WANNE - BMP: DONE!
 BOOLEAN LoadMercProfiles(void)
 {

@@ -1384,8 +1384,10 @@ void InitStrategicAI()
 			if( iAdminChance )
 			{
 				pSector->ubNumAdmins = iAdminChance * iStartPop / 100;
+				cnt -= pSector->ubNumAdmins;
 			}
-			else while( cnt-- )
+			
+			while( cnt-- )
 			{ //for each person, randomly determine the types of each soldier.
 				{
 					iRandom = Random( 100 );
@@ -1399,6 +1401,7 @@ void InitStrategicAI()
 					}
 				}
 			}
+			
 			switch( gGarrisonGroup[ i ].ubComposition )
 			{
 				case CAMBRIA_DEFENCE:
@@ -1419,10 +1422,13 @@ void InitStrategicAI()
 
 			}
 		}
-		if( iAdminChance && pSector->ubNumAdmins < gubMinEnemyGroupSize )
+		
+		// fill up deficit with admins if total enemies less than min enemy group size
+		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites < gubMinEnemyGroupSize )
 		{
-			pSector->ubNumAdmins = gubMinEnemyGroupSize;
+			pSector->ubNumAdmins = gubMinEnemyGroupSize - pSector->ubNumTroops - pSector->ubNumElites;
 		}
+
 		//Calculate weight (range is -20 to +20 before multiplier).
 		//The multiplier of 3 brings it to a range of -96 to +96 which is
 		//close enough to a plus/minus 100%.	The resultant percentage is then
