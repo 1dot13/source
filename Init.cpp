@@ -1002,22 +1002,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, BACKGROUNDSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInBackgrounds(fileName,FALSE), BACKGROUNDSFILENAME);
-	
-	// Externalised taunts
-	strcpy(fileName, directoryName);
-	strcat(fileName, TAUNTSFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), TAUNTSFILENAME);
-
-	//Madd: Simple localization
-	// The idea here is that we can have a separate xml file that's named differently
-	// but only contains the relevant tags that need to be localized
-	// then when the file is read in using the same xml reader code, it will only overwrite
-	// the tags that are contained in the localized file.	This only works for items.xml 
-	// since I tweaked the xml_items.cpp to make it work :p
-	// So for instance, the german file would be called German.Items.xml and would only contain
-	// the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
-	
+			
 #ifndef ENGLISH
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
@@ -1026,8 +1011,22 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		SGP_THROW_IFFALSE(ReadInBackgrounds(fileName,TRUE), BACKGROUNDSFILENAME);
 	}
 #endif
-	//////////////////
 
+	// Externalised taunts
+	strcpy(fileName, directoryName);
+	strcat(fileName, TAUNTSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), TAUNTSFILENAME);
+
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), TAUNTSFILENAME);
+	}
+#endif
+	
 	// IMP Portraits List by Jazz
 	strcpy(fileName, directoryName);
 	strcat(fileName, IMPPORTRAITS);

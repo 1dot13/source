@@ -23,6 +23,8 @@ struct
 }
 typedef enemyRankParseData;
 
+BOOLEAN localizedTextOnly_Taunts;
+
 UINT16 num_found_taunt = 0;	// the correct number is set on reading the xml
 
 static void XMLCALL
@@ -35,15 +37,24 @@ tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		if(strcmp(name, "TAUNTS") == 0 && pData->curElement == ELEMENT_NONE)
 		{
 			pData->curElement = ELEMENT_LIST;
+
+			if ( !localizedTextOnly_Taunts )
+				memset(pData->curArray,0,sizeof(TAUNT_VALUES)*pData->maxArraySize);
+
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "TAUNT") == 0 && pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT;
+
+			if ( !localizedTextOnly_Taunts )
+				memset(&pData->curTaunt,0,sizeof(TAUNT_VALUES));
+
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
-			   (strcmp(name, "szText") == 0 ||
+			   (strcmp(name, "uiIndex") == 0 ||
+				strcmp(name, "szText") == 0 ||
 				strcmp(name, "aggressive") == 0 ||
 				strcmp(name, "defensive") == 0 ||
 				strcmp(name, "cunning") == 0 ||
@@ -148,61 +159,74 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 			//if(pData->curTaunt.uiIndex < pData->maxArraySize)
 			if(num_found_taunt < pData->maxArraySize)
 			{
-				// no attitude specified -> set all
-				if( !(pData->curTaunt.uiFlags & TAUNT_A_AGGRESSIVE) &&
-					!(pData->curTaunt.uiFlags & TAUNT_A_DEFENSIVE) &&
-					!(pData->curTaunt.uiFlags & TAUNT_A_BRAVE_AID) &&
-					!(pData->curTaunt.uiFlags & TAUNT_A_BRAVE_SOLO) &&
-					!(pData->curTaunt.uiFlags & TAUNT_A_CUNNING_AID) &&
-					!(pData->curTaunt.uiFlags & TAUNT_A_CUNNING_SOLO) )
-				{
-					pData->curTaunt.uiFlags |= TAUNT_A_AGGRESSIVE;
-					pData->curTaunt.uiFlags |= TAUNT_A_DEFENSIVE;
-					pData->curTaunt.uiFlags |= TAUNT_A_BRAVE_AID;
-					pData->curTaunt.uiFlags |= TAUNT_A_BRAVE_SOLO;
-					pData->curTaunt.uiFlags |= TAUNT_A_CUNNING_AID;
-					pData->curTaunt.uiFlags |= TAUNT_A_CUNNING_SOLO;
+				if ( localizedTextOnly_Taunts )
+				{			
+					MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->curTaunt.uiIndex].szText, sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) );
+					pData->curArray[pData->curTaunt.uiIndex].szText[sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) - 1] = '\0';
 				}
-				// no gender specified -> set all
-				if( !(pData->curTaunt.uiFlags & TAUNT_G_FEMALE) &&
-					!(pData->curTaunt.uiFlags & TAUNT_G_MALE) )
+				else
 				{
-					pData->curTaunt.uiFlags |= TAUNT_G_FEMALE;
-					pData->curTaunt.uiFlags |= TAUNT_G_MALE;
-				}
-				if( !(pData->curTaunt.uiFlags & TAUNT_T_FEMALE) &&
-					!(pData->curTaunt.uiFlags & TAUNT_T_MALE) )
-				{
-					pData->curTaunt.uiFlags |= TAUNT_T_FEMALE;
-					pData->curTaunt.uiFlags |= TAUNT_T_MALE;
-				}
+					// no attitude specified -> set all
+					if( !(pData->curTaunt.uiFlags & TAUNT_A_AGGRESSIVE) &&
+						!(pData->curTaunt.uiFlags & TAUNT_A_DEFENSIVE) &&
+						!(pData->curTaunt.uiFlags & TAUNT_A_BRAVE_AID) &&
+						!(pData->curTaunt.uiFlags & TAUNT_A_BRAVE_SOLO) &&
+						!(pData->curTaunt.uiFlags & TAUNT_A_CUNNING_AID) &&
+						!(pData->curTaunt.uiFlags & TAUNT_A_CUNNING_SOLO) )
+					{
+						pData->curTaunt.uiFlags |= TAUNT_A_AGGRESSIVE;
+						pData->curTaunt.uiFlags |= TAUNT_A_DEFENSIVE;
+						pData->curTaunt.uiFlags |= TAUNT_A_BRAVE_AID;
+						pData->curTaunt.uiFlags |= TAUNT_A_BRAVE_SOLO;
+						pData->curTaunt.uiFlags |= TAUNT_A_CUNNING_AID;
+						pData->curTaunt.uiFlags |= TAUNT_A_CUNNING_SOLO;
+					}
+					// no gender specified -> set all
+					if( !(pData->curTaunt.uiFlags & TAUNT_G_FEMALE) &&
+						!(pData->curTaunt.uiFlags & TAUNT_G_MALE) )
+					{
+						pData->curTaunt.uiFlags |= TAUNT_G_FEMALE;
+						pData->curTaunt.uiFlags |= TAUNT_G_MALE;
+					}
+					if( !(pData->curTaunt.uiFlags & TAUNT_T_FEMALE) &&
+						!(pData->curTaunt.uiFlags & TAUNT_T_MALE) )
+					{
+						pData->curTaunt.uiFlags |= TAUNT_T_FEMALE;
+						pData->curTaunt.uiFlags |= TAUNT_T_MALE;
+					}
 
-				// no class specified -> set all enemies
-				if( !(pData->curTaunt.uiFlags & TAUNT_C_ADMIN) &&
-					!(pData->curTaunt.uiFlags & TAUNT_C_ARMY) &&
-					!(pData->curTaunt.uiFlags & TAUNT_C_ELITE) &&
-					!(pData->curTaunt.uiFlags & TAUNT_C_GREEN) &&
-					!(pData->curTaunt.uiFlags & TAUNT_C_REGULAR) &&
-					!(pData->curTaunt.uiFlags & TAUNT_C_VETERAN) )
-				{
-					pData->curTaunt.uiFlags |= TAUNT_C_ADMIN;
-					pData->curTaunt.uiFlags |= TAUNT_C_ARMY;
-					pData->curTaunt.uiFlags |= TAUNT_C_ELITE;
-					pData->curTaunt.uiFlags |= TAUNT_C_GREEN;
-					pData->curTaunt.uiFlags |= TAUNT_C_REGULAR;
-					pData->curTaunt.uiFlags |= TAUNT_C_VETERAN;
-				}
-				//pData->curArray[pData->curTaunt.uiIndex] = pData->curTaunt;
-				pData->curArray[num_found_taunt-1] = pData->curTaunt;
-				pData->curTaunt.uiFlags = 0;
-				for(UINT16 i = 0; i < TAUNT_MAX; i++)
-				{
-					pData->curTaunt.value[i] = (-1);
+					// no class specified -> set all enemies
+					if( !(pData->curTaunt.uiFlags & TAUNT_C_ADMIN) &&
+						!(pData->curTaunt.uiFlags & TAUNT_C_ARMY) &&
+						!(pData->curTaunt.uiFlags & TAUNT_C_ELITE) &&
+						!(pData->curTaunt.uiFlags & TAUNT_C_GREEN) &&
+						!(pData->curTaunt.uiFlags & TAUNT_C_REGULAR) &&
+						!(pData->curTaunt.uiFlags & TAUNT_C_VETERAN) )
+					{
+						pData->curTaunt.uiFlags |= TAUNT_C_ADMIN;
+						pData->curTaunt.uiFlags |= TAUNT_C_ARMY;
+						pData->curTaunt.uiFlags |= TAUNT_C_ELITE;
+						pData->curTaunt.uiFlags |= TAUNT_C_GREEN;
+						pData->curTaunt.uiFlags |= TAUNT_C_REGULAR;
+						pData->curTaunt.uiFlags |= TAUNT_C_VETERAN;
+					}
+					//pData->curArray[pData->curTaunt.uiIndex] = pData->curTaunt;
+					pData->curArray[num_found_taunt-1] = pData->curTaunt;
+					pData->curTaunt.uiFlags = 0;
+					for(UINT16 i = 0; i < TAUNT_MAX; i++)
+					{
+						pData->curTaunt.value[i] = (-1);
+					}
 				}
 			}
 		
 			num_found_taunt++;
 			//num_found_taunt = pData->curTaunt.uiIndex;	
+		}
+		else if(strcmp(name, "uiIndex") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curTaunt.uiIndex	= (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "szText") == 0 )
 		{
@@ -579,6 +603,8 @@ BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion)
 	enemyRankParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading EnemyTaunts.xml" );
+
+	localizedTextOnly_Taunts = localizedVersion;
 		
 	// Open file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
