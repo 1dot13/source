@@ -51093,4 +51093,95 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1702</uiIndex>
+		<szItemName>SMALL_SMOKE</szItemName>
+		<szLongItemName>SMALL_SMOKE</szLongItemName>
+		<szItemDesc></szItemDesc>
+		<szBRName>SMALL_SMOKE</szBRName>
+		<szBRDesc></szBRDesc>
+		<usItemClass>256</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>96</ubClassIndex>
+		<ubCursor>6</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>98</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>52</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1703</uiIndex>
+		<szItemName>GAS_EXPLOSION</szItemName>
+		<szLongItemName>GAS_EXPLOSION</szLongItemName>
+		<szItemDesc>GAS_EXPLOSION</szItemDesc>
+		<szBRName>GAS_EXPLOSION</szBRName>
+		<szBRDesc>GAS_EXPLOSION</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ubClassIndex>97</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubWeight>11</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>60</ItemSize>
+		<usPrice>500</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1704</uiIndex>
+		<szItemName>FRAG_EXPLOSION</szItemName>
+		<szLongItemName>FRAG_EXPLOSION</szLongItemName>
+		<szItemDesc>FRAG_EXPLOSION</szItemDesc>
+		<szBRName>FRAG_EXPLOSION</szBRName>
+		<szBRDesc>FRAG_EXPLOSION</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ubClassIndex>98</ubClassIndex>
+		<ubCursor>6</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>49</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>40</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<buddyitem>4512</buddyitem>	
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
