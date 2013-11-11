@@ -1438,6 +1438,10 @@ typedef enum
 	SMALL_CREATURE_GAS,
 	LARGE_CREATURE_GAS,
 	VERY_SMALL_CREATURE_GAS=270, // Renumbered because the original 160 was lost
+	SMALL_SMOKE=1702,			//	sevenfm - item for small smoke effect after explosion
+	MOLOTOV_EXPLOSION=979,				//	molotov - small fire explosion
+	GAS_EXPLOSION=1703,				//	molotov - small fire explosion
+	FRAG_EXPLOSION=1704,				//	molotov - small fire explosion
 
 	// armor
 	FLAK_JACKET=161,					//= FIRST_ARMOUR, ( We're out of space! )

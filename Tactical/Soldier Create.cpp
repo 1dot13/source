@@ -936,10 +936,22 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 					if ( i != NO_SLOT && Random( 5 ) < SoldierDifficultyLevel( &Soldier ))
 					{
 						// start camouflaged
-						Soldier.bCamo = (INT8)Item[Soldier.inv[ i ].usItem].camobonus;
-						Soldier.urbanCamo = (INT8)Item[Soldier.inv[ i ].usItem].urbanCamobonus;
-						Soldier.desertCamo = (INT8)Item[Soldier.inv[ i ].usItem].desertCamobonus;
-						Soldier.snowCamo = (INT8)Item[Soldier.inv[ i ].usItem].snowCamobonus;
+						Soldier.bCamo = (INT8)__min( gGameExternalOptions.bCamoKitArea, Item[Soldier.inv[ i ].usItem].camobonus );
+						Soldier.urbanCamo = (INT8)__min( gGameExternalOptions.bCamoKitArea, Item[Soldier.inv[ i ].usItem].urbanCamobonus );
+						Soldier.desertCamo = (INT8)__min( gGameExternalOptions.bCamoKitArea, Item[Soldier.inv[ i ].usItem].desertCamobonus );
+						Soldier.snowCamo = (INT8)__min( gGameExternalOptions.bCamoKitArea, Item[Soldier.inv[ i ].usItem].snowCamobonus );
+
+						// silversurfer: With the new balance setting for kit camo we would probably not see camouflaged soldiers anymore
+						// (the default for gGameExternalOptions.bCamoKitArea is 5 which is less than the required 50 to be shown as camouflaged).
+						// So let's give him some bonus to worn camo if kit camo is too low.
+						if ( Soldier.bCamo > 0 )
+							Soldier.wornCamo = __max(0, ( 50 - Soldier.bCamo ) );
+						if ( Soldier.urbanCamo > 0 )
+							Soldier.wornUrbanCamo = __max(0, ( 50 - Soldier.urbanCamo ) );
+						if ( Soldier.desertCamo > 0 )
+							Soldier.wornDesertCamo = __max(0, ( 50 - Soldier.desertCamo ) );
+						if ( Soldier.snowCamo > 0 )
+							Soldier.wornSnowCamo = __max(0, ( 50 - Soldier.snowCamo ) );
 					}
 				}
 			}
@@ -1224,7 +1236,8 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 		if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT ) )
 		{
 			// set camouflaged to 100 automatically
-			pSoldier->bCamo = 100;
+			// silversurfer: No, set it to the new limit for camo kits.
+			pSoldier->bCamo = gGameExternalOptions.bCamoKitArea;	// 100
 		}
 		//if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED ) )
 		//{

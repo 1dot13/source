@@ -46,6 +46,8 @@ enum
 #ifdef JA2UB	
 	SLM_REMOVE_EXIT_GRID,
 #endif
+	// sevenfm
+	SLM_MINE_PRESENT,
 };
 
 typedef struct
@@ -88,6 +90,8 @@ void AddRemoveObjectToMapTempFile( INT32 uiMapIndex, UINT16 usIndex );
 
 void SaveBloodSmellAndRevealedStatesFromMapToTempFile();
 
+// sevenfm
+void SaveMineFlagFromMapToTempFile();
 
 BOOLEAN SaveRevealedStatusArrayToRevealedTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 

@@ -1340,6 +1340,18 @@ void LoadGameExternalOptions()
 	// Civils don't make too much actions (for faster civils turn)
 	gGameExternalOptions.bLazyCivilians						= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_LAZY_CIVILIANS",FALSE);	
 	
+	// Neutral civilians can detect and avoid player's mines
+	gGameExternalOptions.bNeutralCiviliansAvoidPlayerMines			= iniReader.ReadBoolean("Tactical Interface Settings","CIVILIANS_AVOID_PLAYER_MINES",FALSE);
+
+	// Add smoke after regular explosions
+	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);
+
+	// Attachments now can explode
+	gGameExternalOptions.bAllowExplosiveAttachments				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_EXPLOSIVE_ATTACHMENTS",FALSE);
+
+	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
+	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
+
 	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
 	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
 	 
@@ -1372,6 +1384,7 @@ void LoadGameExternalOptions()
 
 	// SANDRO - Improved camo applying and camo can be removed
 	gGameExternalOptions.fCamoRemoving						= iniReader.ReadBoolean("Tactical Gameplay Settings", "CAMO_REMOVING", TRUE);
+	gGameExternalOptions.bCamoKitArea						= iniReader.ReadInteger("Tactical Gameplay Settings", "CAMO_KIT_USABLE_AREA", 5, 0, 100);
 
 	// SANDRO - Enhanced close combat system
 	gGameExternalOptions.fEnhancedCloseCombatSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENHANCED_CLOSE_COMBAT_SYSTEM", TRUE);
@@ -2748,7 +2761,8 @@ void LoadItemSettings()
 	gItemSettings.fHandlingModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","HANDLING_LAUNCHER_MODIFIER", 1.0f, 0.1f, 5.0f);
 
 	// -------------- ARMOR MODIFIERS ----------------
-	gItemSettings.fCamoLBEoverArmorModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_ARMOR_MODIFIER", 0.2f, 0.0f, 1.0f);
+	gItemSettings.fCamoLBEoverVestModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_VEST_MODIFIER", 0.2f, 0.0f, 1.0f);
+	gItemSettings.fCamoLBEoverPantsModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_PANTS_MODIFIER", 0.2f, 0.0f, 1.0f);
 
 	// ------------ EXPLOSIVE MODIFIERS --------------
 	gItemSettings.fDamageHealthModifierExplosive					= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_EXPLOSIVE_MODIFIER", 1.0f, 0.1f, 5.0f);

@@ -6213,7 +6213,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					if ( guiCurrentScreen == GAME_SCREEN )
 					{
 						// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
-						IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemPointerSoldier->sX, gpItemPointerSoldier->sY, (INT16) (gpWorldLevelData[gpItemPointerSoldier->sGridNo].sHeight), gpItemPointerSoldier->sGridNo, gpItemDescObject->usItem, gpItemPointerSoldier->pathing.bLevel, gpItemPointerSoldier->ubDirection );
+						IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemPointerSoldier->sX, gpItemPointerSoldier->sY, (INT16) (gpWorldLevelData[gpItemPointerSoldier->sGridNo].sHeight), gpItemPointerSoldier->sGridNo, gpItemDescObject->usItem, gpItemPointerSoldier->pathing.bLevel, gpItemPointerSoldier->ubDirection, gpItemDescObject );
 					}
 					else if ( (guiCurrentScreen == MAP_SCREEN) || (guiCurrentScreen == MSG_BOX_SCREEN) )
 					{
@@ -13272,7 +13272,7 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 			if ( screen == GAME_SCREEN )
 			{
 				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
-				IgniteExplosion( gpItemDescSoldier->ubID, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, pObj->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+				IgniteExplosion( gpItemDescSoldier->ubID, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, pObj->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection, pObj );
 			}
 			else
 			{
@@ -13411,7 +13411,7 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 				if ( screen == GAME_SCREEN )
 				{
 					// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
-					IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+					IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection, gpItemDescObject );
 				}
 				else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
 				{
@@ -13581,7 +13581,7 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 			if ( screen == GAME_SCREEN )
 			{
 				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
-				IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+				IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection, gpItemDescObject );
 			}
 			else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
 			{

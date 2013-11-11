@@ -273,7 +273,7 @@ void RecountExplosions( void )
 extern void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsDmg );
 
 // GENERATE EXPLOSION
-void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
+void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
@@ -377,13 +377,25 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 
 	// Flugente: Items can have secondary explosions
 	HandleBuddyExplosions(ubOwner, sX, sY, sZ, sGridNo, usItem, fLocate, bLevel, ubDirection );
+
+	// sevenfm: handle explosive items from attachments
+	if( gGameExternalOptions.bAllowExplosiveAttachments )
+		HandleAttachedExplosions(ubOwner, sX, sY, sZ, sGridNo, usItem, fLocate, bLevel, ubDirection, pObj );
+	
+	// sevenfm: add smoke effect if not in room and not underground, only for normal explosions
+	if(!InARoom( sGridNo, &tmp ) && !gbWorldSectorZ && gGameExternalOptions.bAddSmokeAfterExplosion)
+	{
+		if( Explosive[ Item[ usItem ].ubClassIndex ].ubType == 0 )
+		{
+			NewSmokeEffect( sGridNo, SMALL_SMOKE, 0, NOBODY );
+		}
+	}
 }
 
 
-
-void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection )
+void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj )
 {
-	InternalIgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, usItem, TRUE, bLevel, ubDirection );
+	InternalIgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, usItem, TRUE, bLevel, ubDirection,  pObj );
 }
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams )
@@ -4043,7 +4055,7 @@ void HandleExplosionQueue( void )
 				// bomb objects only store the SIDE who placed the bomb! :-(
 				if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 				{
-					IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
+					IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
 				}
 				else
 				{
@@ -4204,7 +4216,7 @@ void DecayBombTimers( void )
 								}
 
 								// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
-								IgniteExplosion( gubPersonToSetOffExplosions, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+								IgniteExplosion( gubPersonToSetOffExplosions, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, pObj );
 
 								DeleteObj( pObj );
 							}
@@ -4365,7 +4377,7 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 									gubPersonToSetOffExplosions = ubID;
 
 									// ignite explosions manually - this item is not in the WorldBobms-structure, so we can't add it to the queue
-									IgniteExplosion( ubID, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+									IgniteExplosion( ubID, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, pObj );
 
 									DeleteObj( pObj );
 								}
@@ -5423,6 +5435,58 @@ void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sG
 		else if ( Item[Item[usItem].usBuddyItem ].usItemClass & (IC_GRENADE|IC_BOMB) )
 		{
 			IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[usItem].usBuddyItem, bLevel, ubDirection );						
+		}
+	}
+}
+
+// sevenfm: handle explosive items from attachments
+void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj)
+{
+	BOOLEAN binderFound = FALSE; 
+	attachmentList::iterator iterend;
+	attachmentList::iterator iter;
+	UINT8 direction;
+	
+	if(pObj==NULL)
+		return;
+
+	// check all attachments, search for ELASTIC or DUCT_TAPE;
+	iterend = (*pObj)[0]->attachments.end();
+	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_MISC )
+		{
+			if(Item[iter->usItem].uiIndex == ELASTIC || Item[iter->usItem].uiIndex == DUCT_TAPE )
+			{
+				binderFound = TRUE;			
+				break;
+			}
+		}
+	}
+
+	if( !binderFound )
+		return;	
+
+	// search for attached explosives
+	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
+		{ 			
+			if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
+				direction=Random(8);
+			else
+				direction=ubDirection;
+			if( Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 )				
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );	
+		}
+		if ( gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
+		{
+			if(Item[iter->usItem].gascan)
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
+			if(Item[iter->usItem].alcohol)
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, MOLOTOV_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
+			if(Item[iter->usItem].marbles)
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, FRAG_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
 		}
 	}
 }

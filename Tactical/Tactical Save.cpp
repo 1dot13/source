@@ -955,6 +955,9 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 	//Save the Blood, smell and the revealed status for map elements
 	SaveBloodSmellAndRevealedStatesFromMapToTempFile();
 
+	// sevenfm
+	SaveMineFlagFromMapToTempFile();
+
 	// handle all reachable before save
 	HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 

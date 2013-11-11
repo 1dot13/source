@@ -5683,7 +5683,7 @@ void HandleTexBecomingCamoed()
 	if( pSoldier != NULL )
 	{
 		//make him camoed
-		pSoldier->bCamo = 100;
+		pSoldier->bCamo = gGameExternalOptions.bCamoKitArea;	// 100
 		pSoldier->CreateSoldierPalettes(  );
 	}
 

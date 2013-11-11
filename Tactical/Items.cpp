@@ -8652,11 +8652,11 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 			// blow it up!
 			if ( gTacticalStatus.ubAttackBusyCount )
 			{
-				IgniteExplosion( pSoldier->ubAttackerID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+				IgniteExplosion( pSoldier->ubAttackerID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
 			}
 			else
 			{
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ bSlot ] );
 			}
 
 			//ADB when something in a stack blows up the whole stack goes, so no need to worry about number of items
@@ -8721,7 +8721,7 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, IN
 	if ( fBlowsUp )
 	{
 		// OK, Ignite this explosion!
-		IgniteExplosion( ubOwner, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pObject->usItem, bLevel, DIRECTION_IRRELEVANT );
+		IgniteExplosion( ubOwner, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pObject->usItem, bLevel, DIRECTION_IRRELEVANT, pObject );
 
 		// SANDRO - merc records
 		if ( (pObject->fFlags & OBJECT_ARMED_BOMB) && ((*pObject)[0]->data.misc.ubBombOwner > 1) )
@@ -8873,8 +8873,9 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	// I've messed this part a little to be more clean, the different camouflaged traits have been merged into one
 	if ( gGameOptions.fNewTraitSystem)
 	{
-		// reduce camouflage by 2% per tile of deep water
-		// and 1% for medium water
+		// silversurfer: We only allow painting the face and hands now so in medium water camo shouldn't wear off anymore.
+		// reduce camouflage by 1% //2% per tile of deep water
+		// and 0% //1% for medium water
 		if ( pSoldier->bCamo > 0 )
 		{
 			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
@@ -8882,19 +8883,19 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->MercInDeepWater( ) )
 				{
 					pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					//pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
 				}
-				else
+/*				else
 				{
 					pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
+				}*/
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-					pSoldier->bCamo = __max( 0, pSoldier->bCamo - 2 );
-				else
-					pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
+					pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );	// 2
+				//else
+				//	pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
 			}
 
 			if ( pSoldier->bCamo <= 0 )
@@ -8910,19 +8911,19 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->MercInDeepWater( ) )
 				{
 					pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					//pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
 				}
-				else
+/*				else
 				{
 					pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
+				}*/
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-					pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 2);
-				else
-					pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
+					pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);	// 2
+				//else
+				//	pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
 			}
 
 			if ( pSoldier->urbanCamo <= 0 )
@@ -8938,19 +8939,19 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->MercInDeepWater( ) )
 				{
 					pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					//pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
 				}
-				else
+/*				else
 				{
 					pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
+				}*/
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-					pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 2);
-				else
-					pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
+					pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);	// 2
+				//else
+				//	pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
 			}
 
 			if ( pSoldier->desertCamo <= 0 )
@@ -8966,19 +8967,19 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->MercInDeepWater( ) )
 				{
 					pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					//pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
 				}
-				else
+/*				else
 				{
 					pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
+				}*/
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-					pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 2);
-				else
-					pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
+					pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);	// 2
+				//else
+				//	pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
 			}
 
 			if ( pSoldier->snowCamo <= 0 )
@@ -8995,9 +8996,9 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->bCamo > 0 )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
-				pSoldier->bCamo = __max( 0, pSoldier->bCamo - 2 );
-			else
-				pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
+				pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );	// 2
+			//else
+			//	pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
 
 			if ( (pSoldier->bCamo)== 0)
 				camoWoreOff = TRUE;
@@ -9005,9 +9006,9 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->urbanCamo > 0 )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
-				pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 2);
-			else
-				pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
+				pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);	// 2
+			//else
+			//	pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
 			
 			if ( (pSoldier->urbanCamo)== 0)
 				camoWoreOff = TRUE;
@@ -9015,9 +9016,9 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->desertCamo > 0 )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
-				pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 2);
-			else
-				pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
+				pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);	// 2
+			//else
+			//	pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
 			
 			if ( (pSoldier->desertCamo)== 0)
 				camoWoreOff = TRUE;
@@ -9025,9 +9026,9 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->snowCamo > 0 )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
-				pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 2);
-			else
-				pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
+				pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);	// 2
+			//else
+			//	pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
 			
 			if ( (pSoldier->snowCamo)== 0)
 				camoWoreOff = TRUE;
@@ -9149,33 +9150,32 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	if (gGameExternalOptions.fCamoRemoving)
 	{
-		int iJungleCamoTotal = pSoldier->bCamo + pSoldier->wornCamo;
-		int iUrbanCamoTotal = pSoldier->urbanCamo + pSoldier->wornUrbanCamo;
-		int iDesertCamoTotal = pSoldier->desertCamo + pSoldier->wornDesertCamo;
-		int iSnowCamoTotal = pSoldier->snowCamo + pSoldier->wornSnowCamo;
 
-		int totalCamo = iJungleCamoTotal + iUrbanCamoTotal + iDesertCamoTotal + iSnowCamoTotal;
+		int totalCamo = pSoldier->bCamo + pSoldier->urbanCamo + pSoldier->desertCamo + pSoldier->snowCamo;
 
 		// First, check if we have an item with major JUNGLE camobonus
 		if ( (Item[pObj->usItem].camobonus > Item[pObj->usItem].urbanCamobonus) && 
 			 (Item[pObj->usItem].camobonus > Item[pObj->usItem].desertCamobonus) &&
 			 (Item[pObj->usItem].camobonus > Item[pObj->usItem].snowCamobonus) )
 		{
-			if (iJungleCamoTotal >= 100)
+			if ( pSoldier->bCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].camobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
-			bPointsToUse = (100 - (iJungleCamoTotal) + 1 ) / 2;
+			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->bCamo ) );
+			// check how much of the kit we need for that
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].camobonus / 100.0 ) );
+			// limit to what we have in the kit
 			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 			// determine how much we will add
-			int iJungleCamoAdded = (int)(Item[pObj->usItem].camobonus * bPointsToUse * 2 / 100 );
+			int iJungleCamoAdded = (int)(Item[pObj->usItem].camobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
-			if ( (totalCamo + iJungleCamoAdded) > 100 )
+			if ( (totalCamo + iJungleCamoAdded) > gGameExternalOptions.bCamoKitArea )
 			{
 				// first, determine how much we actually want to remove
-				int iCamoToRemove = (totalCamo + iJungleCamoAdded) - 100;
+				int iCamoToRemove = (totalCamo + iJungleCamoAdded) - gGameExternalOptions.bCamoKitArea;
 
 				// reduce camo.. IMPORTANT - third value is type of camo to skip (0=skip-none, 1=jungle, 2=urban, 3=desert,4=snow)
 				iRemainingCamoAfterRemoving = ReduceCamoFromSoldier( pSoldier, iCamoToRemove, 1 ); // "1" - we want to keep the JUNGLE camo
@@ -9188,36 +9188,39 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 					return( FALSE );
 				else // otherwise apply the camo
 				{
-					pSoldier->bCamo = __min( 100, pSoldier->bCamo + iJungleCamoAdded );
+					pSoldier->bCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->bCamo + iJungleCamoAdded );
 				}
 			}
 			else // everything's fine, apply!!
 			{
-				pSoldier->bCamo = __min( 100, pSoldier->bCamo + iJungleCamoAdded );
+				pSoldier->bCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->bCamo + iJungleCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = __min( bPointsToUse, (iJungleCamoAdded + 1) / 2 );
+			bPointsToUse = ( (FLOAT)iJungleCamoAdded / ( (FLOAT)Item[pObj->usItem].camobonus / 100.0 ) );
 		}
 		// Second, check if we have an item with major URBAN camobonus
 		else if ( (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].camobonus) && 
 			 (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].desertCamobonus) &&
 			 (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].snowCamobonus) )
 		{
-			if (iUrbanCamoTotal >= 100)
+			if ( pSoldier->urbanCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].urbanCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
-			bPointsToUse = (100 - (iUrbanCamoTotal) + 1 ) / 2;
+			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->urbanCamo ) );
+			// check how much of the kit we need for that
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].urbanCamobonus / 100.0 ) );
+			// limit to what we have in the kit
 			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 			// determine how much we will add
-			int iUrbanCamoAdded = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse * 2 / 100 );
+			int iUrbanCamoAdded = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
-			if ( (totalCamo + iUrbanCamoAdded) > 100 )
+			if ( (totalCamo + iUrbanCamoAdded) > gGameExternalOptions.bCamoKitArea )
 			{
 				// first, determine how much we actually want to remove
-				int iCamoToRemove = (totalCamo + iUrbanCamoAdded) - 100;
+				int iCamoToRemove = (totalCamo + iUrbanCamoAdded) - gGameExternalOptions.bCamoKitArea;
 
 				// reduce camo.. IMPORTANT - third value is type of camo to skip (0=skip-none, 1=jungle, 2=urban, 3=desert,4=snow)
 				iRemainingCamoAfterRemoving = ReduceCamoFromSoldier( pSoldier, iCamoToRemove, 2 ); // "2" - we want to keep the URBAN camo
@@ -9230,36 +9233,39 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 					return( FALSE );
 				else // otherwise apply the camo
 				{
-					pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + iUrbanCamoAdded );
+					pSoldier->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->urbanCamo + iUrbanCamoAdded );
 				}
 			}
 			else // everything's fine, apply!!
 			{
-				pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + iUrbanCamoAdded );
+				pSoldier->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->urbanCamo + iUrbanCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = __min( bPointsToUse, (iUrbanCamoAdded + 1) / 2 );
+			bPointsToUse = ( (FLOAT)iUrbanCamoAdded / ( (FLOAT)Item[pObj->usItem].urbanCamobonus / 100.0 ) );
 		}
 		// Third, check if we have an item with major DESERT camobonus
 		else if ( (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].camobonus) && 
 			 (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].urbanCamobonus) &&
 			 (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].snowCamobonus) )
 		{
-			if (iDesertCamoTotal >= 100)
+			if ( pSoldier->desertCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].desertCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
-			bPointsToUse = (100 - (iDesertCamoTotal) + 1 ) / 2;
+			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->desertCamo ) );
+			// check how much of the kit we need for that
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].desertCamobonus / 100.0 ) );
+			// limit to what we have in the kit
 			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 			// determine how much we will add
-			int iDesertCamoAdded = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse * 2 / 100 );
+			int iDesertCamoAdded = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
-			if ( (totalCamo + iDesertCamoAdded) > 100 )
+			if ( (totalCamo + iDesertCamoAdded) > gGameExternalOptions.bCamoKitArea )
 			{
 				// first, determine how much we actually want to remove
-				int iCamoToRemove = (totalCamo + iDesertCamoAdded) - 100;
+				int iCamoToRemove = (totalCamo + iDesertCamoAdded) - gGameExternalOptions.bCamoKitArea;
 
 				// reduce camo.. IMPORTANT - third value is type of camo to skip (0=skip-none, 1=jungle, 2=urban, 3=desert,4=snow)
 				iRemainingCamoAfterRemoving = ReduceCamoFromSoldier( pSoldier, iCamoToRemove, 3 ); // "3" - we want to keep the DESERT camo
@@ -9272,36 +9278,39 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 					return( FALSE );
 				else // otherwise apply the camo
 				{
-					pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + iDesertCamoAdded );
+					pSoldier->desertCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->desertCamo + iDesertCamoAdded );
 				}
 			}
 			else // everything's fine, apply!!
 			{
-				pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + iDesertCamoAdded );
+				pSoldier->desertCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->desertCamo + iDesertCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = __min( bPointsToUse, (iDesertCamoAdded + 1) / 2 );
+			bPointsToUse = ( (FLOAT)iDesertCamoAdded / ( (FLOAT)Item[pObj->usItem].desertCamobonus / 100.0 ) );
 		}
 		// Fourth, check if we have an item with major SNOW camobonus
 		else if ( (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].camobonus) && 
 			 (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].urbanCamobonus) &&
 			 (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].desertCamobonus) )
 		{
-			if (iSnowCamoTotal >= 100)
+			if ( pSoldier->snowCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].snowCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
-			bPointsToUse = (100 - (iSnowCamoTotal) + 1 ) / 2;
+			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->snowCamo ) );
+			// check how much of the kit we need for that
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].snowCamobonus / 100.0 ) );
+			// limit to what we have in the kit
 			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 			// determine how much we will add
-			int iSnowCamoAdded = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse * 2 / 100 );
+			int iSnowCamoAdded = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
-			if ( (totalCamo + iSnowCamoAdded) > 100 )
+			if ( (totalCamo + iSnowCamoAdded) > gGameExternalOptions.bCamoKitArea )
 			{
 				// first, determine how much we actually want to remove
-				int iCamoToRemove = (totalCamo + iSnowCamoAdded) - 100;
+				int iCamoToRemove = (totalCamo + iSnowCamoAdded) - gGameExternalOptions.bCamoKitArea;
 
 				// reduce camo.. IMPORTANT - third value is type of camo to skip (0=skip-none, 1=jungle, 2=urban, 3=desert,4=snow)
 				iRemainingCamoAfterRemoving = ReduceCamoFromSoldier( pSoldier, iCamoToRemove, 4 ); // "4" - we want to keep the SNOW camo
@@ -9314,15 +9323,15 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 					return( FALSE );
 				else // otherwise apply the camo
 				{
-					pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + iSnowCamoAdded );
+					pSoldier->snowCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->snowCamo + iSnowCamoAdded );
 				}
 			}
 			else // everything's fine, apply!!
 			{
-				pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + iSnowCamoAdded );
+				pSoldier->snowCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->snowCamo + iSnowCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = __min( bPointsToUse, (iSnowCamoAdded + 1) / 2 );
+			bPointsToUse = ( (FLOAT)iSnowCamoAdded / ( (FLOAT)Item[pObj->usItem].snowCamobonus / 100.0 ) );
 		}
 		else // the item has no major camo, return
 			return( FALSE );
@@ -9334,28 +9343,26 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		//get total camo bonus for kit -- note that camo kits now require the camobonus tag to be set
 		//int itemCamo = Item[pObj->usItem].camobonus + Item[pObj->usItem].urbanCamobonus + Item[pObj->usItem].desertCamobonus + Item[pObj->usItem].snowCamobonus;
 
-		int totalCamo = pSoldier->bCamo + pSoldier->wornCamo + pSoldier->urbanCamo+pSoldier->wornUrbanCamo+pSoldier->desertCamo+pSoldier->wornDesertCamo+pSoldier->snowCamo+pSoldier->wornSnowCamo;
-		if ((totalCamo) >= 100)
+		int iKitCamo = pSoldier->bCamo + pSoldier->urbanCamo + pSoldier->desertCamo + pSoldier->snowCamo;
+		if ( iKitCamo >= gGameExternalOptions.bCamoKitArea )
 		{
 			// nothing more to add
 			return( FALSE );
 		}
 
-		// points are used up at a rate of 50% kit = 100% cammo on guy
-		// add 1 to round off
-		bPointsToUse = (100 - (totalCamo) + 1 ) / 2;
+		bPointsToUse = (gGameExternalOptions.bCamoKitArea - iKitCamo);
 		bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 		//figure out proportions of each to be applied, one item can theoretically have more than one camouflage type this way
-		int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse * 2 / 100 );
-		int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse * 2 / 100 );
-		int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse * 2 / 100 );
-		int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse * 2 / 100 );
+		int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / 100 );
+		int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse / 100 );
+		int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / 100 );
+		int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / 100 );
 
-		pSoldier->bCamo = __min( 100, pSoldier->bCamo + jungle );
-		pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + urban );
-		pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + desert );
-		pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + snow );
+		pSoldier->bCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->bCamo + jungle );
+		pSoldier->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->urbanCamo + urban );
+		pSoldier->desertCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->desertCamo + desert );
+		pSoldier->snowCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->snowCamo + snow );
 	}
 
 	UseKitPoints( pObj, bPointsToUse, pSoldier );
@@ -9400,7 +9407,8 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 	// if not a clothes item, nothing to see here
 	if ( clothestype == 0 || clothestype > CLOTHES_MAX )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_UNIFORM_FOUND] );
+		// silversurfer: This produces an annoying message whenever any invalid item is used on the char so I removed it.
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_UNIFORM_FOUND] );
 		return( FALSE);
 	}
 	
@@ -12372,8 +12380,18 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 			if ( UsingNewInventorySystem() )
 				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
 				{
-					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus );
+					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus );
+				}
+				else if ( bLoop == LEGPOS )
+				{
+					FLOAT fLegPenalty = 0;
+					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+					// Using thigh rigs. Only apply partial bonus from armor pants.
+					if ( fLegPenalty > 0 )
+						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].camobonus * fLegPenalty / 2 );
 				}
 		}
 	}
@@ -12396,7 +12414,7 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 			ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
-	return __min( ttl, 100 );
+	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
 }
 INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12411,8 +12429,18 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 			if ( UsingNewInventorySystem() )
 				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
 				{
-					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus );
+					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus );
+				}
+				else if ( bLoop == LEGPOS )
+				{
+					FLOAT fLegPenalty = 0;
+					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+					// Using thigh rigs. Only apply partial bonus from armor pants.
+					if ( fLegPenalty > 0 )
+						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].urbanCamobonus * fLegPenalty / 2 );
 				}
 		}
 	}
@@ -12435,7 +12463,7 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 			ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
-	return __min( ttl, 100 );
+	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
 }
 INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12450,8 +12478,18 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 			if ( UsingNewInventorySystem() )
 				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
 				{
-					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus );
+					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus );
+				}
+				else if ( bLoop == LEGPOS )
+				{
+					FLOAT fLegPenalty = 0;
+					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+					// Using thigh rigs. Only apply partial bonus from armor pants.
+					if ( fLegPenalty > 0 )
+						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].desertCamobonus * fLegPenalty / 2 );
 				}
 		}
 	}
@@ -12473,7 +12511,7 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
 			ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
-	return __min( ttl, 100 );
+	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
 }
 INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12488,8 +12526,18 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 			if ( UsingNewInventorySystem() )
 				if ( bLoop == VESTPOS && pSoldier->inv[VESTPOCKPOS].exists() )
 				{
-					// silversurver: Using LBE vest. Only apply partial bonus from armor vest.
-					ttl -= ( ( 1.0 - gItemSettings.fCamoLBEoverArmorModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus );
+					// silversurfer: Using LBE vest. Only apply partial bonus from armor vest.
+					ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverVestModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus );
+				}
+				else if ( bLoop == LEGPOS )
+				{
+					FLOAT fLegPenalty = 0;
+					// depending on how many leg LBE we use the camo effect of the armor pants is higher or lower
+					fLegPenalty += pSoldier->inv[LTHIGHPOCKPOS].exists();
+					fLegPenalty += pSoldier->inv[RTHIGHPOCKPOS].exists();
+					// Using thigh rigs. Only apply partial bonus from armor pants.
+					if ( fLegPenalty > 0 )
+						ttl -= (INT16)( ( 1.0 - gItemSettings.fCamoLBEoverPantsModifier ) * Item[ pSoldier->inv[bLoop].usItem ].snowCamobonus * fLegPenalty / 2 );
 				}
 		}
 	}
@@ -12511,7 +12559,7 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
 			ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
-	return __min( ttl, 100 );
+	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
 }
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)

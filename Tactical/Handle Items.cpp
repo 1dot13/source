@@ -1835,7 +1835,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				if ( iResult < -20 && Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
 				{
 					// OOPS! ... BOOM!
-					IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[ HANDPOS ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+					IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[ HANDPOS ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection, &pSoldier->inv[ HANDPOS ] );
 					pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1);
 				}
 			}
@@ -5019,7 +5019,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 					if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
 					{
 						// OOPS! ... BOOM!
-						IgniteExplosion( NOBODY, gpTempSoldier->sX, gpTempSoldier->sY, (INT16) (gpWorldLevelData[gpTempSoldier->sGridNo].sHeight), gpTempSoldier->sGridNo, gpTempSoldier->inv[ HANDPOS ].usItem, gpTempSoldier->pathing.bLevel, gpTempSoldier->ubDirection );
+						IgniteExplosion( NOBODY, gpTempSoldier->sX, gpTempSoldier->sY, (INT16) (gpWorldLevelData[gpTempSoldier->sGridNo].sHeight), gpTempSoldier->sGridNo, gpTempSoldier->inv[ HANDPOS ].usItem, gpTempSoldier->pathing.bLevel, gpTempSoldier->ubDirection, &gpTempSoldier->inv[ HANDPOS ] );
 					}
 
 					return;
@@ -5774,7 +5774,9 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 		*/
 	}
 
-	if (pSoldier->bSide == 0)
+	// sevenfm
+	// pSoldier->aiData.bNeutral is needed to prevent neutral civs stepping on player's mines
+	if (pSoldier->bSide == 0 || (pSoldier->aiData.bNeutral && gGameExternalOptions.bNeutralCiviliansAvoidPlayerMines))	
 	{
 		fCheckFlag = MAPELEMENT_PLAYER_MINE_PRESENT;
 	}
@@ -5815,7 +5817,15 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 		if (pMapElement->uiFlags & fCheckFlag)
 		{
 			// already know there's a mine there
-			continue;
+// sevenfm
+// if we try to step on known (planted by player) mine we should consider it wrong
+			if(!fCheckAroundGridNo)
+			{
+				*psProblemGridNo = sNextGridNo;
+				return( TRUE );
+			}else{
+				continue;
+			}
 		}
 
 		// check for boobytraps

@@ -40,6 +40,8 @@ void AddRemoveExitGridToUnloadedMapTempFile( UINT32 usGridNo, INT16 sSectorX, IN
 void RemoveSavedStructFromMap( INT32 uiMapIndex, UINT16 usIndex );
 void AddObjectFromMapTempFileToMap( INT32 uiMapIndex, UINT16 usIndex );
 void AddBloodOrSmellFromMapTempFileToMap( MODIFY_MAP *pMap );
+// sevenfm
+void AddMineFlagFromMapTempFileToMap( MODIFY_MAP *pMap );
 void SetSectorsRevealedBit( UINT32	usMapIndex );
 void SetMapRevealedStatus();
 void DamageStructsFromMapTempFile( MODIFY_MAP * pMap );
@@ -450,7 +452,10 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 			case SLM_BLOOD_SMELL:
 				AddBloodOrSmellFromMapTempFileToMap( pMap );
 				break;
-
+// sevenfm
+			case SLM_MINE_PRESENT:
+				AddMineFlagFromMapTempFileToMap( pMap );
+				break;
 			case SLM_DAMAGED_STRUCT:
 				DamageStructsFromMapTempFile( pMap );
 				break;
@@ -665,8 +670,23 @@ void RemoveSavedStructFromMap( INT32 uiMapIndex, UINT16 usIndex )
 }
 
 
+// sevenfm
+void SaveMineFlagFromMapToTempFile()
+{
+	MODIFY_MAP Map;
+	INT32	cnt;	
 
-
+	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	{
+		if( gpWorldLevelData[cnt].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+		{	
+			memset( &Map, 0, sizeof( MODIFY_MAP ) );
+			Map.usGridNo	= cnt;
+			Map.ubType			= SLM_MINE_PRESENT;
+			SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		}
+	}
+}
 void SaveBloodSmellAndRevealedStatesFromMapToTempFile()
 {
 	MODIFY_MAP Map;
@@ -786,6 +806,11 @@ void AddBloodOrSmellFromMapTempFileToMap( MODIFY_MAP *pMap )
 	gpWorldLevelData[ pMap->usGridNo ].ubSmellInfo = (UINT8)pMap->usSubImageIndex;
 }
 
+//sevenfm
+void AddMineFlagFromMapTempFileToMap( MODIFY_MAP *pMap )
+{
+	gpWorldLevelData[ pMap->usGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+}
 
 
 BOOLEAN SaveRevealedStatusArrayToRevealedTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )

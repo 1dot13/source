@@ -900,7 +900,6 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bAIScheduleProgress = src.bAIScheduleProgress;
 		this->sOffWorldGridNo = src.sOffWorldGridNo;
 		this->pAniTile = src.pAniTile;
-		this->bCamo = src.bCamo;
 		this->sAbsoluteFinalDestination = src.sAbsoluteFinalDestination;
 		this->ubHiResDirection = src.ubHiResDirection;
 		this->ubHiResDesiredDirection = src.ubHiResDesiredDirection;
@@ -997,16 +996,18 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->lastFlankSpot = src.lastFlankSpot;
 		this->sniper = src.sniper;
 		this->origDir = src.origDir;
-		this->wornCamo = src.wornCamo;
 
-		this->urbanCamo = src.urbanCamo;	// Madd: new camo types
-		this->wornUrbanCamo = src.wornUrbanCamo;
+		this->bCamo = __min( gGameExternalOptions.bCamoKitArea, src.bCamo);
+		this->wornCamo = __min( ( 100 - gGameExternalOptions.bCamoKitArea ), src.wornCamo );
 
-		this->desertCamo = src.desertCamo;
-		this->wornDesertCamo = src.wornDesertCamo;
+		this->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, src.urbanCamo);	// Madd: new camo types
+		this->wornUrbanCamo = __min( ( 100 - gGameExternalOptions.bCamoKitArea ), src.wornUrbanCamo );
 
-		this->snowCamo = src.snowCamo;
-		this->wornSnowCamo = src.wornSnowCamo;
+		this->desertCamo = __min( gGameExternalOptions.bCamoKitArea, src.desertCamo);
+		this->wornDesertCamo = __min( ( 100 - gGameExternalOptions.bCamoKitArea ), src.wornDesertCamo );
+
+		this->snowCamo = __min( gGameExternalOptions.bCamoKitArea, src.snowCamo);
+		this->wornSnowCamo = __min( ( 100 - gGameExternalOptions.bCamoKitArea ), src.wornSnowCamo );
 
 		this->bScopeMode = USE_BEST_SCOPE;
 

@@ -342,6 +342,7 @@ typedef struct
 	INT8 bAssignedTraitsRarity;
 
 	BOOLEAN fCamoRemoving;
+	INT8	bCamoKitArea;	// silversurfer added this. It defines how much of the body can be painted with camo kits (usually face and hands).
 	BOOLEAN fEnhancedCloseCombatSystem;
 
 	//BOOLEAN fImprovedInterruptSystem;
@@ -791,6 +792,10 @@ typedef struct
 	BOOLEAN	bWeSeeWhatMilitiaSeesAndViceVersa;
 	BOOLEAN	bAllowWearSuppressor;
 	BOOLEAN	bLazyCivilians;
+	BOOLEAN	bNeutralCiviliansAvoidPlayerMines;		//sevenfm:  Neutral civilians can detect mines with MAPELEMENT_PLAYER_MINE_PRESENT flag set
+	BOOLEAN	bAddSmokeAfterExplosion;				
+	BOOLEAN	bAllowExplosiveAttachments;				
+	BOOLEAN	bAllowSpecialExplosiveAttachments;		
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
 	FLOAT uShotHeadPenalty;
@@ -1197,7 +1202,7 @@ typedef struct
 	BOOLEAN fShowSkillsInHirePage;
 
 	UINT8 ubMercRandomStats;
-
+	
 	BOOLEAN fMercRandomBellDistribution;
 	
 	UINT8 ubMercRandomStatsRange;
@@ -1989,7 +1994,8 @@ typedef struct
 	FLOAT fHandlingModifierLauncher;
 
 	// -------------- ARMOR MODIFIERS ----------------
-	FLOAT fCamoLBEoverArmorModifier;
+	FLOAT fCamoLBEoverVestModifier;
+	FLOAT fCamoLBEoverPantsModifier;
 
 	// ------------ EXPLOSIVE MODIFIERS --------------
 	// Grenade Damage Modifiers

@@ -919,9 +919,10 @@ void SetAutoFaceInActive(INT32 iFaceIndex )
 
 BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier)
 {
-	INT8	worn = -1;
+	// silversurfer: Worn camo is not relevant for the face anymore. Only camo kits can paint our face.
+//	INT8	worn = -1;
 	INT8	applied = -1;
-	INT16	wornCamo[4];
+//	INT16	wornCamo[4];
 	INT16	appliedCamo[4];
 
 	//reset gCamoFace
@@ -934,27 +935,27 @@ BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier)
 	appliedCamo[1] = pSoldier->urbanCamo;
 	appliedCamo[2] = pSoldier->desertCamo;
 	appliedCamo[3] = pSoldier->snowCamo;
-	wornCamo[0] = pSoldier->wornCamo;
+/*	wornCamo[0] = pSoldier->wornCamo;
 	wornCamo[1] = pSoldier->wornUrbanCamo;
 	wornCamo[2] = pSoldier->wornDesertCamo;
-	wornCamo[3] = pSoldier->wornSnowCamo;
+	wornCamo[3] = pSoldier->wornSnowCamo;*/
 	
 	for(INT8 loop = 0; loop < 4; loop ++)
 	{
-		if(wornCamo[loop] > 50)
-			worn = loop;
-		if(appliedCamo[loop] > 50)
+//		if(wornCamo[loop] > 50)
+//			worn = loop;
+		if(appliedCamo[loop] > 0 )	//50)
 			applied = loop;
 	}
 
 	
 	BOOLEAN isCamoFace = FALSE;
 
-	if(applied != -1 && worn != -1)
+	if(applied != -1)	// && worn != -1)
 	{
 		isCamoFace = TRUE;
 
-		if(appliedCamo[applied] >= wornCamo[worn])
+//		if(appliedCamo[applied] >= wornCamo[worn])
 		{
 			if(applied == 0)
 				gCamoFace[pSoldier->ubProfile].gCamoface = TRUE;
@@ -967,7 +968,7 @@ BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier)
 		
 			return TRUE;
 		}
-		else
+/*		else
 		{
 			isCamoFace = TRUE;
 
@@ -992,7 +993,7 @@ BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier)
 		if(applied == 2 || worn == 2)
 			gCamoFace[pSoldier->ubProfile].gDesertCamoface = TRUE;
 		if(applied == 3 || worn == 3)
-			gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;
+			gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;*/
 	}
 
 	return isCamoFace;
