@@ -447,7 +447,8 @@ void AddTextToMineBox( void )
 	ubMineIndex = GetMineIndexForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
 
 	// name of town followed by "mine"
-	swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( ubMineIndex ) ], pwMineStrings[ 0 ] );
+	//swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( ubMineIndex ) ], pwMineStrings[ 0 ] );
+	swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( ubMineIndex ) ], MineralsName[gMineStatus[ubMineIndex].ubMineType].sType );
 	AddMonoString( &hStringHandle, wString );
 
 	// blank line
@@ -551,7 +552,8 @@ void AddTextToMineBox( void )
 		// ore type (silver/gold
 		swprintf( wString, L"%s:", pwMineStrings[ 11 ]);
 		AddMonoString( &hStringHandle, wString );
-		AddSecondColumnMonoString( &hStringHandle, (gMineStatus[ubMineIndex].ubMineType == SILVER_MINE) ? pwMineStrings[ 1 ] : pwMineStrings[ 2 ] );
+		AddSecondColumnMonoString( &hStringHandle, MineralsName[gMineStatus[ubMineIndex].ubMineType].sMinerals );
+		//AddSecondColumnMonoString( &hStringHandle, (gMineStatus[ubMineIndex].ubMineType == SILVER_MINE) ? pwMineStrings[ 1 ] : pwMineStrings[ 2 ] );
 	}
 
 

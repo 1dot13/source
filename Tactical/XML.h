@@ -209,6 +209,7 @@ typedef PARSE_STAGE;
 
 #define LAYOUTMAINMENU							"Layout\\LayoutMainMenu.xml"
 
+#define MINERALSFILENAME						"Map\\Minerals.xml"
 
 #define AIMAVAILABILITY							"AimAvailability.xml"
 #define CIVGROUPNAMESFILENAME					"CivGroupNames.xml"
@@ -501,9 +502,9 @@ extern BOOLEAN WriteInActionItems( STR fileName);
 extern BOOLEAN ReadInEmailMercAvailable(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInEmailMercLevelUp(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInEmailOther(STR fileName, BOOLEAN localizedVersion);
-//extern BOOLEAN ReadInInsurance(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInBriefingRoom(STR fileName, BOOLEAN localizedVersion, BRIEFINGROOM_M_DATA *Ency, UINT32 FileType2 );
+extern BOOLEAN ReadInMinerals(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInNewVehicles(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteNewVehicles(STR fileName);

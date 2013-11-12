@@ -20,6 +20,17 @@ typedef struct
 	INT32 IconY;
 }	ICON_FILE;
 
+typedef struct
+{
+	UINT32 uiIndex;
+	CHAR16 sType[50];
+	UINT16 Type;
+	CHAR16 sMinerals[50];
+	
+} MINERALS_VALUES;
+
+extern MINERALS_VALUES MineralsName[255];
+
 extern ICON_FILE gHiddenIcon[ 256 ];
 
 extern UINT32	guiIcon2[256];

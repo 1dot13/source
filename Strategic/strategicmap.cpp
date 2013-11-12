@@ -3416,6 +3416,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 	INT8		bTownNameID;
 	UINT8 ubSectorID = 0;
 	UINT8 ubLandType = 0;
+	UINT8 ubMineIndex;
 
 	if( sSectorX <= 0 || sSectorY <= 0 || bSectorZ < 0 )
 	{
@@ -3719,6 +3720,13 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 							wcscat( zString, pTownNames[ bTownNameID ] );
 							if( fDetailed )
 							{
+								/*
+								ubMineIndex = GetMineIndexForSector( sSectorX, sSectorY );
+								if ( gMineStatus[ubMineIndex].sSectorX == sSectorX && gMineStatus[ubMineIndex].sSectorY == sSectorY )
+								{
+									swprintf( zString, L" %s", MineralsName[gMineStatus[ubMineIndex].ubMineType].sType );
+								}
+								*/
 								switch( ubSectorID )
 								{ //Append the word, "mine" for town sectors containing a mine.
 									case SEC_B2:

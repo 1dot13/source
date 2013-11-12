@@ -416,6 +416,7 @@ UINT32 guiMapBorderHeliSectors;
 // list of map sectors that player isn't allowed to even highlight
 BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
 
+MINERALS_VALUES MineralsName[255];
 
 INT16 sBaseSectorList[ MAX_TOWNS - 1 ];/*={
 	// NOTE: These co-ordinates must match the top left corner of the 3x3 town tiles cutouts in Interface/MilitiaMaps.sti!
@@ -5068,7 +5069,8 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 	ubMineIndex = GetMineIndexForSector( sMapX, sMapY );
 
 	// display associated town name, followed by "mine"
-	swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( GetMineIndexForSector( sMapX, sMapY ) ) ],  pwMineStrings[ 0 ] );
+	//swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( GetMineIndexForSector( sMapX, sMapY ) ) ],  pwMineStrings[ 0 ] );
+	swprintf( wString, L"%s %s", pTownNames[ GetTownAssociatedWithMine( GetMineIndexForSector( sMapX, sMapY ) ) ],  MineralsName[gMineStatus[ubMineIndex].ubMineType].sType );
 	AdjustXForLeftMapEdge(wString, &sScreenX, MapMineLabelsFont);
 	mprintf( ( sScreenX - StringPixLength( wString, MapMineLabelsFont ) / 2 ) , sScreenY + ubLineCnt * GetFontHeight( MapMineLabelsFont ) , wString );
 	ubLineCnt++;

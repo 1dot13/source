@@ -1271,16 +1271,31 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
-BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
+	BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 
 #endif //ENABLE_BRIEFINGROOM
 
-		UINT8 p;
-		for(p=0; p<NUM_PROFILES; p++)
-		{
-			gAimOldArchives[p].FaceID = -1;
-		}
+	// Mine Types (Minerals)
+	strcpy(fileName, directoryName);
+	strcat(fileName, MINERALSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInMinerals(fileName,FALSE), MINERALSFILENAME);
+	
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInMinerals(fileName,TRUE), fileName);
+	}
+#endif
 
+	// Old AIM Archive
+	UINT8 p;
+	for(p=0; p<NUM_PROFILES; p++)
+	{
+		gAimOldArchives[p].FaceID = -1;
+	}
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, OLDAIMARCHIVEFILENAME);

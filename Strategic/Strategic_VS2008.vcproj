@@ -767,6 +767,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Minerals.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_Roaming.cpp"
 				>
 			</File>

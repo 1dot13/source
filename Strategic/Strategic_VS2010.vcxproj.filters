@@ -341,5 +341,8 @@
     <ClCompile Include="XML_SquadNames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_Minerals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

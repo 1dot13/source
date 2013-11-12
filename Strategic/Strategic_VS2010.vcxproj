@@ -131,6 +131,7 @@
     <ClCompile Include="XML_ExtraItems.cpp" />
     <ClCompile Include="XML_Facilities.cpp" />
     <ClCompile Include="XML_FacilityTypes.cpp" />
+    <ClCompile Include="XML_Minerals.cpp" />
     <ClCompile Include="XML_Roaming.cpp" />
     <ClCompile Include="XML_SectorNames.cpp" />
     <ClCompile Include="XML_SquadNames.cpp" />
