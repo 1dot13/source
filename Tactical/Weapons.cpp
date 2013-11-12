@@ -11090,7 +11090,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 }
 
 
-INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
+INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, OBJECTTYPE* pObject)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcmaxtossrange");
 	INT32 iRange = 0;
@@ -11147,7 +11147,11 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 			// Altered by Digicrab on 14 March, 2004
 			// Reversed a Ja2Gold change that made grenades of weight 3 or more have the same throw distance as those of weight 3.
 			INT32 iThrowingStrength = ( EffectiveStrength( pSoldier, FALSE ) * 2 + 100 ) / 3;
-			iRange = 2 + ( iThrowingStrength / (3 + (Item[usItem].ubWeight) / 3 ));
+			// sevenfm: calculate total weight of object with all attachments
+			if(pObject!= NULL)
+				iRange = 2 + ( iThrowingStrength / (3 + (CalculateObjectWeight(pObject)) / 3 ));
+			else
+				iRange = 2 + ( iThrowingStrength / (3 + (Item[usItem].ubWeight) / 3 ));
 		}
 		else
 		{	// not as aerodynamic!
@@ -11401,7 +11405,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	}
 	else
 	{
-		iMaxRange = CalcMaxTossRange( pSoldier, usHandItem , TRUE ) * CELL_X_SIZE;
+		iMaxRange = CalcMaxTossRange( pSoldier, usHandItem , TRUE , &pSoldier->inv[HANDPOS]) * CELL_X_SIZE;
 
 		//NumMessage("MAX RANGE = ",maxRange);
 

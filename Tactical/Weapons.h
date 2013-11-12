@@ -490,7 +490,7 @@ extern BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier );
 extern FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx );	// Flugente: Get percentage: temperature/damagethreshold
 extern FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx );		// Flugente: Get percentage: temperature/jamthreshold
 
-extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed );
+extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, OBJECTTYPE* pObject =NULL );
 extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 
 extern void ChangeWeaponMode( SOLDIERTYPE * pSoldier );

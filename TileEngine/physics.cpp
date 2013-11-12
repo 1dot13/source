@@ -2194,7 +2194,7 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 
 	dDegrees = (FLOAT)( PI/4 );
 
-	uiMaxRange = CalcMaxTossRange( pSoldier, pItem->usItem, fArmed );
+	uiMaxRange = CalcMaxTossRange( pSoldier, pItem->usItem, fArmed, pItem );
 
 	dMagForce = CalculateForceFromRange( pItem->usItem, (INT16) uiMaxRange, dDegrees );
 

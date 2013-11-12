@@ -5464,22 +5464,23 @@ void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		}
 	}
 
-	if( !binderFound )
-		return;	
-
 	// search for attached explosives
 	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 	{
 		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
 		{ 			
-			if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
-				direction=Random(8);
-			else
-				direction=ubDirection;
-			if( Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 )				
+			// no need for binder if both item and attachment are tripwire-activated
+			if( ( Item[pObj->usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
+				( binderFound && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
+			{
+				if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
+					direction=Random(8);
+				else
+					direction=ubDirection;
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );	
+			}
 		}
-		if ( gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
+		if ( binderFound && gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
 		{
 			if(Item[iter->usItem].gascan)
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	

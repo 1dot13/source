@@ -5077,6 +5077,8 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 					else
 						AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 				}
+				// sevenfm: we now know there is something nasty here
+				gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 			}
 		}
 	}
