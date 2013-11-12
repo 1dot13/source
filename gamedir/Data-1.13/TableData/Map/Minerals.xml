@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MINERALS>
+  <TYPE>
+	<uiIndex>0</uiIndex>
+	<sNameType>Mine</sNameType>
+    <sMineral>Silver</sMineral>
+  </TYPE>
+  <TYPE>
+	<uiIndex>1</uiIndex>
+	<sNameType>Mine</sNameType>
+    <sMineral>Gold</sMineral>
+  </TYPE>
+</MINERALS>
