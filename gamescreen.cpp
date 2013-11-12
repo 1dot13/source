@@ -1210,6 +1210,12 @@ void InitHelicopterEntranceByMercs( void )
 		gfTacticalDoHeliRun = TRUE;
 		gfFirstHeliRun			= TRUE;
 
+#ifdef JA2UB
+		SetHelicopterDroppoint( gGameUBOptions.LOCATEGRIDNO );
+#else
+		SetHelicopterDroppoint( gGameExternalOptions.iInitialMercArrivalLocation );
+#endif
+
 		gTacticalStatus.fDidGameJustStart = FALSE;
 	}
 }

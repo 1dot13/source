@@ -882,12 +882,6 @@ void HandleFirstHeliDropOfGame( )
 	// Are we in the first heli drop?
 	if ( gfFirstHeliRun )
 	{
-#ifdef JA2UB
-		SetHelicopterDroppoint( gGameUBOptions.LOCATEGRIDNO );
-#else
-		SetHelicopterDroppoint( gGameExternalOptions.iInitialMercArrivalLocation );
-#endif
-
 		SyncStrategicTurnTimes();
 
 		// Move to header file...
