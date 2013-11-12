@@ -92,136 +92,136 @@
 		<pIndex>22</pIndex>
 		<pName>大形弹链包</pName>
 	</POCKET>
-  <POCKET>
-    <pIndex>23</pIndex>
-    <pName>Large Pistol Holster</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>24</pIndex>
-    <pName>Shotgun Shells</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>25</pIndex>
-    <pName>Shotgun Holster</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>26</pIndex>
-    <pName>Throwing Knife</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>27</pIndex>
-    <pName>General Misc</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>28</pIndex>
-    <pName>Small Explosive</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>29</pIndex>
-    <pName>Short Rifle Mag x2</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>30</pIndex>
-    <pName>Revolver Holster</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>31</pIndex>
-    <pName>Combat Pack Gun Sling</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>32</pIndex>
-    <pName>Combat Pack Small</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>33</pIndex>
-    <pName>Explosives</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>34</pIndex>
-    <pName>Sniper Mag</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>35</pIndex>
-    <pName>Canteen</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>36</pIndex>
-    <pName>First Aid Pocket</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>37</pIndex>
-    <pName>Carabiner Face</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>38</pIndex>
-    <pName>Carabiner Ring</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>39</pIndex>
-    <pName>Grenadex3</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>40</pIndex>
-    <pName>Pistol Magx2</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>41</pIndex>
-    <pName>Rifle Grenadex2</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>42</pIndex>
-    <pName>7 RD Shotgun Shells</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>43</pIndex>
-    <pName>SMG Magx2</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>44</pIndex>
-    <pName>Kits</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>45</pIndex>
-    <pName>AR Magx2</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>46</pIndex>
-    <pName>AR Magx1</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>47</pIndex>
-    <pName>Flash Bang</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>48</pIndex>
-    <pName>Pistol Magx3</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>49</pIndex>
-    <pName>AR Magx3</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>50</pIndex>
-    <pName>Mini Grenade</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>51</pIndex>
-    <pName>SMG Magx3</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>52</pIndex>
-    <pName>Small Knife</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>53</pIndex>
-    <pName>Sniper Rifle Gun Sling</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>54</pIndex>
-    <pName>Flash Bang</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>55</pIndex>
-    <pName>Grenadex2</pName>
-  </POCKET>
+	<POCKET>
+		<pIndex>23</pIndex>
+		<pName>大手枪套</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>24</pIndex>
+		<pName>霰弹</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>25</pIndex>
+		<pName>霰弹枪套</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>26</pIndex>
+		<pName>飞刀</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>27</pIndex>
+		<pName>杂物</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>28</pIndex>
+		<pName>小型炸药</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>29</pIndex>
+		<pName>短步枪弹夹x2</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>30</pIndex>
+		<pName>左轮枪套</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>31</pIndex>
+		<pName>战斗包步枪背带</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>32</pIndex>
+		<pName>小战斗包</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>33</pIndex>
+		<pName>炸药</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>34</pIndex>
+		<pName>狙击枪弹夹</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>35</pIndex>
+		<pName>水壶</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>36</pIndex>
+		<pName>急救口袋</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>37</pIndex>
+		<pName>竖钩面</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>38</pIndex>
+		<pName>竖钩环</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>39</pIndex>
+		<pName>手雷x3</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>40</pIndex>
+		<pName>手枪弹夹x2</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>41</pIndex>
+		<pName>步枪榴弹x2</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>42</pIndex>
+		<pName>7发霰弹</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>43</pIndex>
+		<pName>冲锋枪弹夹x2</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>44</pIndex>
+		<pName>工具</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>45</pIndex>
+		<pName>突击步枪弹夹x2</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>46</pIndex>
+		<pName>突击步枪弹夹x1</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>47</pIndex>
+		<pName>闪光弹</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>48</pIndex>
+		<pName>手枪弹夹x3</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>49</pIndex>
+		<pName>突击步枪弹夹x3</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>50</pIndex>
+		<pName>迷你手雷</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>51</pIndex>
+		<pName>冲锋枪弹夹x3</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>52</pIndex>
+		<pName>小刀</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>53</pIndex>
+		<pName>狙击步枪背带</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>54</pIndex>
+		<pName>闪光弹</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>55</pIndex>
+		<pName>手雷x2</pName>
+	</POCKET>
 </POCKETLIST>

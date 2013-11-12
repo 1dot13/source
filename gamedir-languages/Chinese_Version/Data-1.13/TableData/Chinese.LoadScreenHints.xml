@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>                                                                                                
+﻿<?xml version="1.0" encoding="utf-8"?>                                                                                                
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
@@ -23,625 +23,625 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
-    <szName>Most machineguns have replacable barrels. Use this to rapidly cool down your gun during combat.</szName>
+    <szName>大部分机枪都有可替换枪管。在战斗中可通过频繁更换枪管来达到降温的目的。</szName>
     <overheat>1</overheat>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
-    <szName>Use your knife on a corpse to retrieve its uniform, or pick up the corpse.</szName>
+    <szName>在一具尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
-    <szName>Spies can use enemy uniforms to disguise as soldiers.</szName>
+    <szName>间谍可以通过穿上敌方的衣服来达到伪装目的。</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>You can toggle between different scopes and sights by pressing [.].</szName>
+    <szName>通过按[.]可以在不同的瞄具间进行切换。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>Leaving food around for a few days will spoil it, making it unhealthy.</szName>
+    <szName>食物放置时间太长，会腐败，导致有害健康。当然对天朝臣民无效。</szName>
     <food>1</food>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
-    <szName>You can clean poisoning by taking an antidote, or the DOCTOR assignment.</szName>
+    <szName>使用解毒剂或者速度就医可以有效减缓中毒症状。</szName>
     <food>1</food>
     <zombie>1</zombie>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
+    <szName>如果 'M' 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>Don't forget to check out Jagged Alliance: Flashback on Kickstarter!</szName>
+    <szName>不要忘记时常去Kickstarter关注下 Jagged Alliance: Flashback!</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Doorway blocked? Press [X] when beside someone to swap places.</szName>
+    <szName>门被堵了？请按 [X] 和堵门的那家伙交换位置！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.ja-galaxy-forum.com</szName>
+    <szName>需要帮助？那就在战略界面按 [H]。然后去 www.ja-galaxy-forum.com 看看。</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets size of auto-fire volley.</szName>
+    <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL]在各种开火模式下提高命中概率. [ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
+    <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用. 操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <szName>石迁再世！[CTRL]+[鼠标左键]点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
-    <szName>EOD flag signals. Mind you, the blue flag you may put in a tile on ground to mark a mine or trap you've spotted is also seen and reacted to by the enemy.</szName>
+    <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Colour your vision! Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
+    <szName>在战术界面按住 [END] 不放，可以显示你现在的视野范围。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical screen shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
+    <szName>红色警报！在战术界面按住 [DEL] 可以显示敌人的视野，红色表示被发现，绿色表示隐藏的很好。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Jagged windowing. Shoot the glass (where necessary), face the open window and climb through it with [SHIFT]+[J].</szName>
+    <szName>开枪打碎窗户玻璃，然后面向窗户然后按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
-    <szName>While in sector inventory, click empty inventory slots for a list of items you may want to put there.</szName>
+    <szName>在区域仓库界面，在身上携行具空余的格子上左键，就会显示出可以在这个格子上放置的物品。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
-    <szName>While in sector inventory, click empty attachment slots for a list of compatible attachments.</szName>
+    <szName>在区域仓库界面，在空闲的武器配件格上左键，就会显示可供装备的配件。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [CTRL] click empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>在区域仓库界面，在身上携行具空余的格子上左键 + [CTRL]，就能显示已经分类好的物品选项！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), least damaged items are used.</szName>
+    <szName>当通过快捷方式选取物品时，比如点击空闲携行具格子, 伤害小的物品会被优先显示。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[X] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
+    <szName>按下 [CTRL]+[SHIFT]+[X]可以开关即时潜行。 当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
+    <szName>当你在即时潜行模式下按下 [CTRL]+[X] 进入回合模式，前提是你必须发现敌人。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>24</uiIndex>
-    <szName>Illuminate night time enemies with flares to increase your chance of shooting them.</szName>
+    <szName>在夜间使用照明弹来发现敌人，可以有效提高你的射击命中度。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>25</uiIndex>
-    <szName>Your merc under fire and cant get back? Cover them with smoke grenades.</szName>
+    <szName>你的佣兵陷入重围？使用烟雾弹来帮助他们脱困。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>26</uiIndex>
-    <szName>Depending on your settings, fully repairing a gun cleans it as well.</szName>
+    <szName>基于你的游戏设定，请确保你的枪械得到良好的保养。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>27</uiIndex>
-    <szName>Shops not only sell, but also buy some of your gear. They are quite picky though.</szName>
+    <szName>商店不仅卖东西，其实他们也买东西。当然通常他们都是很挑剔的！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
-    <szName>Afraid enemy will interrupt you? Shoot their legs and hope they fall.</szName>
+    <szName>害怕敌人会中断你？打断他们的腿或者让他们扑街！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>29</uiIndex>
-    <szName>It is harder to hit a running enemy.</szName>
+    <szName>跑动中的敌人很难被击中。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>Open a useful sector menu with [CTRL]+[.]</szName>
+    <szName>按下 [CTRL]+[.] 你会看到一个有趣的菜单。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
-    <szName>Increase the number of bullets on automatic fire with [RIGHT-MOUSE-BUTTON].</szName>
+    <szName>[鼠标右键]也可以设定连发数目。</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
-    <szName>Merge alcohol with rag to create a molotov cocktail.</szName>
+    <szName>酒精+破布可以制成大杀器 - 燃烧弹！</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
-    <szName>Some NPCs can be bribed...</szName>
+    <szName>游戏中有些人是可以被贿赂收买的...</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
-    <szName>Sneaking while running seems unintuitive, but it works.</szName>
+    <szName>一边潜行一边奔跑看上去是反科学的，但其实系统支持。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>35</uiIndex>
-    <szName>You can quickly kill a prone enemy with a knife.</szName>
+    <szName>你可以轻松地用一把水果刀干掉一个匍匐在地的敌人！</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>36</uiIndex>
-    <szName>If the enemy is alerted, they might call in reinforcements...</szName>
+    <szName>当一个敌人处于警戒状态，它们可能呼叫增援...</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
-    <szName>Bobby Ray's website will be available if you progress.</szName>
+    <szName>随着你的进展，淘宝会向你开放！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
-    <szName>Sneaking near unalerted enemies trains your agility, but is risky.</szName>
+    <szName>潜行靠近一名没有发现你的敌人，可以提升你的敏捷，但是很危险！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>39</uiIndex>
-    <szName>Punching increases your dexterity and strength.</szName>
+    <szName>肉搏战可以提升你的灵巧和力量。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>40</uiIndex>
-    <szName>Doctoring and arming bombs will increase your wisdom.</szName>
+    <szName>拆装炸弹可以训练你的智慧！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
-    <szName>Remote bombs can be detonated with a remote detonator - put it in your hands and press [RIGHT-MOUSE-BUTTON].</szName>
+    <szName>遥控炸弹必须通过遥控雷管类控制。将遥控雷管放在手里，按[鼠标右键].</szName>
     <items>1</items>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
-    <szName>If you want to manually move items, you can use the MOVEITEM-assignment inside cities.</szName>
+    <szName>移动物品功能可以让你在同一城市不同地区内转移物品。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
-    <szName>You can toggle firemodes with [B].</szName>
+    <szName>按[B]切换开火模式.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
-    <szName>Pressing [SHIFT]+[R] in tactical screen orders your entire team to reload.</szName>
+    <szName>在战术界面按 [SHIFT]+[R] 可以控制所有成员换弹夹。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
-    <szName>Press [S] to stand, [C] to crouch, [P] to go prone an [R] to stand and run.</szName>
+    <szName>按下 [S] 站起来, [C] 半蹲, [P] 匍匐，而[R]站起来，跑路！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
-    <szName>Press [Z] to toggle sneak mode.</szName>
+    <szName>按下[Z]切换潜行模式。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
-    <szName>Throwing knives can instantly kill an enemy if he is unalerted.</szName>
+    <szName>对一名非警戒状态下的敌人使用飞刀可以一击毙命！</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
-    <szName>You can open a useful description box by clicking [RIGHT-MOUSE-BUTTON] on an item.</szName>
+    <szName>[鼠标右键]一个物品可以打开详细说明。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
-    <szName>Long-term mercenary contracts are cheaper. In the long term.</szName>
+    <szName>从长远来看，一份长期的佣兵合同更加划算！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
-    <szName>Not paying M.E.R.C. bills might have consequences...</szName>
+    <szName>如果你想赖 M.E.R.C.的账，那么黎叔会生气，后果很严重 ...</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>51</uiIndex>
-    <szName>If the enemy conquers your sectors, they might take your stuff.</szName>
+    <szName>如果敌人占领你的地区，他们可能会扫荡你存留在该地区的物资。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
-    <szName>Doctors can instantly restore some life lost via surgery - this will drain your medical supplies a lot.</szName>
+    <szName>医生可以通过外科手术立刻恢复一些你损失的生命值。这样做会极大地消耗你的医疗包。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>53</uiIndex>
-    <szName>Taking too many drugs has consequences.</szName>
+    <szName>过量使用兴奋剂会导致不了效果。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>54</uiIndex>
-    <szName>If you'll ever get airborne, those SAM sites might come in handy.</szName>
+    <szName>如果你喜欢空降战术，那么小心那些防空导弹了！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>55</uiIndex>
-    <szName>At the start of the combat use [SHIFT]+[B] shortcut to drop all backpacks your mercs carry. At the end of combat use [CTRL]+[SHIFT]+[F] shortcut to pick them all back up.</szName>
+    <szName>在战斗一开始，按下 [SHIFT]+[B] 可以放下所有佣兵身上的大背包。战斗结束后，可以按下 [CTRL]+[SHIFT]+[F] 来捡起它们。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>56</uiIndex>
-    <szName>You can destroy blue flags on mines by throwing grenades on them. Enemy may step on unflagged mine. Then again, you may as well.</szName>
+    <szName>你可以用手雷将地雷上的小蓝旗炸掉，这样敌人就有可能踩上地雷，当然你也会。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Use [L] shortcut to face direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
+    <szName>按下[L] 来调整你的面朝方向。再按一下 [L] 可以举枪。 </szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
-    <szName>Always try to end turn with your mercs at least crouched. It protects you from unintentional friendly fire.</szName>
+    <szName>请尽量在回合结束时保证人物至少处于半蹲状态，以免降低友方误伤的可能性。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on first target and drag it around the desired area.</szName>
+    <szName>你可以对某一区域进行火力压制，只需要选择连发模式和子弹数量，按住 [鼠标左键] 点上第一个目标，然后拖动鼠标划出你想要火力压制的地区即可。</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
-    <szName>Cambria has hospital where you can heal your mercs.</szName>
+    <szName>Cambria的医院可以为你提供治疗。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
-    <szName>Bipods only give bonuses if you are lying prone or when gun is mounted.</szName>
+    <szName>脚架只有当你在匍匐状态或者武器架在某样事物上才会提供增益。</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>62</uiIndex>
-    <szName>Heavy weapons take a lot of energy if you fire or even hold them ready while standing. Go prone to save energy.</szName>
+    <szName>重武器在你处于举枪或者发射状态下或消耗大量精力。请保持匍匐来节省精力。</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>63</uiIndex>
-    <szName>Whenever you can, always use cover.</szName>
+    <szName>只要条件许可，请尽量选择遮蔽物。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>64</uiIndex>
-    <szName>Rebel militia can take away some enemy fire from your mercs. Don't count on them to do all the work though.</szName>
+    <szName>民兵可以帮助你吸引部分敌人火力，但是你不能指望他们能干所有的事情。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>Mobile militia can follow mercs while travelling on map. It will follow merc group as long as you keep 1 sector close to them. Make sure you wait for them to arrive to your position before moving again.</szName>
+    <szName>游击队会主动跟随你的佣兵队，但是你和他们之间的距离必须保持在一个地区以下。所以有时候你需要停下来等他们。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
-    <szName>In the militia redistribution menu, holding [CTRL] will move 5 militia. [SHIFT] will move all in a sector.</szName>
+    <szName>在民兵重分配界面下， 按住[CTRL] 可以移除5个民兵。按住 [SHIFT] 可以移除所有。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>67</uiIndex>
-    <szName>Mobile militia can help you when you attack a town if you keep them with you and call them as reinforcements before battle.</szName>
+    <szName>游击队，会帮助你一起攻击敌人的地区，如果他们和你相邻。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
-    <szName>Sector inventory. On top of the screen you can see many buttons that help you sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
+    <szName>在地区背包界面的上方，你会发现很多按键。通过这些按键，你可以快速察看某类物品。</szName>
     <lore>1</lore>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>69</uiIndex>
-    <szName>HP ammo does great damage but is easily stopped by body armor. AP ammo can penetrate body armor but does less damage.</szName>
+    <szName>空尖对于无护甲的目标可以造成大量伤害。穿甲弹可以轻易击穿护甲，但是伤害较小。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
-    <szName>Use HP ammo to kill bloodcats.</szName>
+    <szName>打老虎，要先喝三碗酒，然后用空尖弹。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>71</uiIndex>
-    <szName>Helping locals will boost their loyalty. Talking to them may sometimes reveal some useful information as well.</szName>
+    <szName>帮助住民可以提升地区忠诚度。高忠诚度会带来不少回报，比如额外的消息等。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>72</uiIndex>
-    <szName>You need to have enough loyalty in town before you can train militia there.</szName>
+    <szName>只有当地区忠诚度达到一定程度后，你才能训练民兵。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
-    <szName>Mercs with teaching skill train militia faster.</szName>
+    <szName>有教学技能的佣兵，能快速训练民兵。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
-    <szName>Shortcut [O] opens up options menu in game.</szName>
+    <szName>快捷键 [O] 可以打开系统菜单。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
-    <szName>Shortcut [ALT]+[S] will quicksave game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
+    <szName>快捷键 [ALT]+[S] 可以快速存储游戏进度。 [ALT]+[L] 可以快速读取游戏进度。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>76</uiIndex>
-    <szName>Shortcut [CTRL]+[S] will open up save menu instantly.</szName>
+    <szName>快捷键 [CTRL]+[S] 可以立刻打开存储界面。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
-    <szName>In the main menu holding [ALT] while clicking 'Continue saved game' option will instantly load last saved game.</szName>
+    <szName>在主菜单上按住 [ALT] 再点击 '继续游戏' 会立刻打开最近的进度。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
-    <szName>Yellow shirts are admin type of enemies that have worst equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
+    <szName>黄衫敌人是最基础的敌方士兵，他们的装备是最差的。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
-    <szName>Red shirts are Deidranna's regular army and will face you most of the game.</szName>
+    <szName>红衫是敌方的正规军，大多数情况下你遇到的都是他们</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
-    <szName>Black shirts are mercenaries hired by Deidranna. They have best equipment and weapons and are toughest of enemies. Higher difficulty levels increase their numbers.</szName>
+    <szName>黑衫是敌方的精锐。他们有些最好的武器装备，而且也更难对付。在高难度游戏下，他们的数量会增加。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
-    <szName>Green militia can be trained further to become regular militia. Regular militia is more useful but costs more to train and maintain.</szName>
+    <szName>绿色民兵可以通过再次训练变成正规反抗军。正规反抗军会更加有用，但是花费更多时间去训练和更多的资金去维持。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
-    <szName>Veteran militia can't be trained. Militia can become veteran after combat if they performed well.</szName>
+    <szName>通过正规训练手段是不能获得精英民兵的，只有通过战斗手段，正规民兵才可能升级为精英。当然开挂不计！</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
-    <szName>Try to bandage dying merc as soon as possible, or otherwise the merc may bleed to death.</szName>
+    <szName>垂死状态的佣兵需要及时地进行包扎，否则会因为流血不止而死亡。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>84</uiIndex>
-    <szName>Always try to give a sidearm to your snipers. Snipers are of limited use in close combat situations.</szName>
+    <szName>请尽量给你的狙击手配一个观察员，因为他们在近距离作战中很弱！</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
-    <szName>Stun grenades can help you render enemy helpless. You can steal equipment from helpless enemies.</szName>
+    <szName>震撼弹可以暂时瘫痪敌人，你可以从他们身上偷取物品。</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>86</uiIndex>
-    <szName>Try to stun or suppress enemies before throwing tear gas grenade at them. That will prevent them from getting out of tear gas range.</szName>
+    <szName>在向敌人使用催泪弹之前，请先使用震撼弹或者火力压制瘫痪他们。这就可以防止他们逃出催泪瓦斯范围</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
-    <szName>Always check if enemy has gas mask before using tear gas on him. Hold [ALT] key while targeting enemy to see his details. Amount of details depend on the distance from selected merc.</szName>
+    <szName>在使用催泪弹之前，请先确认敌人没有带防毒面具。 按住 [ALT] 点敌人可以看到详细信息。佣兵和敌人的距离将决定多少信息可以被察看。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
-    <szName>Make sure you have your gun fully loaded at all times [ALT]+[R].</szName>
+    <szName>请确保你的弹夹永远都是满的。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
-    <szName>Don't forget to use cover.</szName>
+    <szName>不要忘记使用掩蔽体来保护自己。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
-    <szName>If trees get in your LOS (line of sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
+    <szName>按 [T] 可以清除树冠的显示。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
-    <szName>L.B.E. stands for Load Bearing Equipment.</szName>
+    <szName>L.B.E. 就是携行具。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
-    <szName>Switch between ground and rooftop targets with the [TAB] key.</szName>
+    <szName>使用 [TAB] 在地面目标和房顶目标之间进行切换。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>93</uiIndex>
-    <szName>Shoot from behind cover and know how many AP's it takes to get your butt back down again.</szName>
+    <szName>尽量从掩体后面进行射击，同时请预留足够的行动点来让自己可以脱离险境。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
-    <szName>Pay attention to what your mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
+    <szName>注意你的佣兵所听到的一切动静，有时候可以帮你避免大麻烦。因为他们会告诉你敌人从哪里来</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
-    <szName>You'll see a white "Ping" blink on the location of any overheard sounds.</szName>
+    <szName>当你听到异响时，地图上会有白色的闪烁来提醒你。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
-    <szName>Firing your weapon can draw some heat away from an injured merc or someone who's in it knee deep!</szName>
+    <szName>火力吸引可以帮助你受困的队友得到更多的喘息机会。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>
-    <szName>Stay away from light sources at night and try to use them to your advantage.</szName>
+    <szName>夜袭的时候尽量避免光源处。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
-    <szName>Press [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
+    <szName>按下 [ALT]+[Z] 使所有的队员进入潜行模式, 而 [=] 可以选取他们所有人。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
-    <szName>Relying on sound is even more important at night, you'll hear more than you can see without the proper equipment.</szName>
+    <szName>在夜晚，听风辨音很重要，因为通常你听到的比你看到的多。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
-    <szName>Night Ops are probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
+    <szName>夜视仪是必备的装备，如果你手上只有把小手枪或者冲锋枪。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [G] to toggle on/off the light around your merc.</szName>
+    <szName>按下[G] 可以开关佣兵的自发光。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
-    <szName>If you get caught in a thunder storm, be on your toes, a flash of lightning can give away your position and the rain makes it harder to see.</szName>
+    <szName>当你遇到雷暴天气的时候，请小心。因为闪电会暴露你的位置，而大雨会遮挡你的视线。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>103</uiIndex>
-    <szName>Don't stay bunched together either, a stray bullet or grenade can do serious damage to your whole squad.</szName>
+    <szName>不要聚集在一起，因为一发流弹，或者一颗手雷，就会要了所有人的命。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>104</uiIndex>
-    <szName>Every move you make, determines how the battle unfolds.</szName>
+    <szName>请记住，你的每一步行动都会对战斗产生影响。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
-    <szName>Always deal with the present threat before carrying out a plan.</szName>
+    <szName>永远先处理眼前的威胁，再计划下一步该怎么办。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
-    <szName>When moving on a roof top, try to move in straight lines, moving diagonally can slow you down.</szName>
+    <szName>在房顶上，请尽量直线行进，因为斜线行进会降低你的速度。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>107</uiIndex>
-    <szName>Marbles can be surprisingly useful in a fist fight.</szName>
+    <szName>弹子球在肉搏战中会有奇妙的作用。</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on your mercs. It will slow the squad down.</szName>
+    <szName>如果你想行进速度快点，请任务你的负重没有超过100%。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
-    <szName>Counting bullets during a fight is tough. Don't be surprised when your mercs forget how many they have left.</szName>
+    <szName>在战斗中计算子弹数量是非常困难的，所以当你的佣兵忘记还剩多少子弹的时候别感到惊讶。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
-    <szName>Each mercenary have different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <szName>不同的佣兵和NPC交谈会有不同的结果，佣兵的背景会决定效果如何。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
-    <szName>Each mercenary have different needs for sleep ranging from 3 to 12 hours to fully regenerate energy. "Night Ops" trait allows to reduce this time even further.</szName>
+    <szName>不同的佣兵对于睡眠时长的需求是不一样的。有 "夜行" 技能的队员相对睡眠时间较短。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
-    <szName>Each mercenary have different tolerance for number of deaths in your squad and your overall reputation in Arulco.</szName>
+    <szName>不同的佣兵对于死亡队员的数量容忍度是不一样的。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>113</uiIndex>
-    <szName>If you have two people in team that don't like each other, avoid keeping them in the same sector for more than an hour.</szName>
+    <szName>如果你的队伍中有两个人互相敌视，请不要将他们放在同一地区超过一小时。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
-    <szName>Certain merceries can not gain stats at all. You can’t teach an old dog new tricks.</szName>
+    <szName>有些佣兵是不具备更大的成长空间的，你别指望教会他们一些新东西。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
-    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。 </szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
-    <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try out the 1.13 multiplayer mode.</szName>
+    <szName>联网模式可以让你和真实玩家一起协作完成任务或者互相对抗。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <szName>按下[CTRL]+[SHIFT]+[G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in your current sector inventory at once.</szName>
+    <szName>按下[CTRL]+[SHIFT]+[S]可以卖掉当前地区的所有物品。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
-    <szName>[CTRL]+[SHIFT]+[E] will load your vehicle with as much items as possible from your current sector. [SHIFT]+[E] will unload all items from vehicle to your current sector.</szName>
+    <szName>[CTRL]+[SHIFT]+[E] 可以将你的车辆后备箱尽量装满。 [SHIFT]+[E] 则是清空你的车辆后备箱。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
-    <szName>If you can't hit a target from your current location, you can try to suppress it with auto fire and then change to a better position.</szName>
+    <szName>如果你无法击中目标，不如就尝试火力压制吧。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
-    <szName>Exploring the farms and city sectors can help you find lots of useful items, like gas for your vehicle.</szName>
+    <szName>探索各个地区会有不小的收获，比如汽油什么的。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over your merc will open up merc's menu similar to the one you have on strategic screen map.</szName>
+    <szName>在战术界面，按住[鼠标右键] 点击佣兵也可以打开指令菜单。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

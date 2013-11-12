@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>                                                              
+﻿<?xml version="1.0" encoding="utf-8"?>                                                              
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
 
-A hint can appear according to its flags. So a int that only has the <food>-tag will only appear if playing with the food system. 
+A hint can appear according to its flags. So a hint that only has the <food>-tag will only appear if playing with the food system. 
 
 The other tags determine in what category this hint falls, and will be displayed accordingly
 -->                                                                                                 
@@ -23,121 +23,121 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
-    <szName>Most machineguns have replacable barrels. Use this to rapidly cool down your gun during combat.</szName>
+    <szName>大部分机枪都有可替换枪管。在战斗中可通过频繁更换枪管来达到降温的目的。</szName>
     <overheat>1</overheat>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
-    <szName>Use your knife on a corpse to retrieve its uniform, or pick up the corpse.</szName>
+    <szName>在一具尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
-    <szName>Spies can use enemy uniforms to disguise as soldiers.</szName>
+    <szName>间谍可以通过穿上敌方的衣服来达到伪装目的。</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>You can toggle between different scopes and sights by pressing'.'.</szName>
+    <szName>通过按[.]可以在不同的瞄具间进行切换。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>Leaving food around for a few days will spoil it, making it unhealthy.</szName>
+    <szName>食物放置时间太长，会腐败，导致有害健康。当然对天朝臣民无效。</szName>
     <food>1</food>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
-    <szName>You can clean poisoning by taking an antidote, or the DOCTOR assignment.</szName>
+    <szName>使用解毒剂或者速度就医可以有效减缓中毒症状。</szName>
     <food>1</food>
     <zombie>1</zombie>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
+    <szName>如果 'M' 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>Don't forget to check out Jagged Alliance: Flashback on Kickstarter!</szName>
+    <szName>不要忘记时常去Kickstarter关注下 Jagged Alliance: Flashback!</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Don't be lame! Drop backpacks with [SHIFT]+[B] in tactical to enhance movement and enable climbing.</szName>
+    <szName>门被堵了？请按 [X] 和堵门的那家伙交换位置！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.ja-galaxy-forum.com</szName>
+    <szName>需要帮助？那就在战略界面按 [H]。然后去 www.ja-galaxy-forum.com 看看。</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit in all fire modes with the mouse [WHEEL]. [ALT]+[WHEEL] sets size of auto-fire volley.</szName>
+    <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL]在各种开火模式下提高命中概率. [ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Facilities granted. Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
+    <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用. 操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of Thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <szName>石迁再世！[CTRL]+[鼠标左键]点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
-    <szName>EOD flag signals. Mind you, the blue flag you may put in a tile on ground to mark a mine or trap you've spotted is also seen and reacted to by the enemy.</szName>
+    <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样。</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Colour your vision! Holding [END] in tactical shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
+    <szName>在战术界面按住 [END] 不放，可以显示你现在的视野范围。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
+    <szName>红色警报！在战术界面按住 [DEL] 可以显示敌人的视野，红色表示被发现，绿色表示隐藏的很好。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Jagged windowing. Shoot the glass (where necessary), face the open window and climb through it with [SHIFT]+[J].</szName>
+    <szName>开枪打碎窗户玻璃，然后面向窗户然后按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
-    <szName>While in sector inventory, click empty inventory slots for a list of items you may want to put there.</szName>
+    <szName>在区域仓库界面，在身上携行具空余的格子上左键，就会显示出可以在这个格子上放置的物品。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
-    <szName>While in sector inventory, click empty attachment slots for a list of compatible attachments.</szName>
+    <szName>在区域仓库界面，在空闲的武器配件格上左键，就会显示可供装备的配件。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [CTRL] click empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>在区域仓库界面，在身上携行具空余的格子上左键 + [CTRL]，就能显示已经分类好的物品选项！</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>When choosing items via popup menus (accessible through clicking empty inventory/attachment slots), least damaged items are used.</szName>
+    <szName>当通过快捷方式选取物品时，比如点击空闲携行具格子, 伤害小的物品会被优先显示。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[X] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
+    <szName>按下 [CTRL]+[SHIFT]+[X]可以开关即时潜行。 当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
+    <szName>当你在即时潜行模式下按下 [CTRL]+[X] 进入回合模式，前提是你必须发现敌人。</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

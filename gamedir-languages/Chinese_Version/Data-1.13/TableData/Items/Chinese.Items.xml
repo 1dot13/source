@@ -7188,17 +7188,17 @@
 		<uiIndex>898</uiIndex>
 		<szItemName>FP6</szItemName>
 		<szLongItemName>Fabarm FP6</szLongItemName>
-		<szItemDesc>基于SDASS的缩短版，作为战术散弹枪使用。</szItemDesc>
+		<szItemDesc>基于SDASS的缩短版，作为战术霰弹枪使用。</szItemDesc>
 		<szBRName>Fabarm FP6</szBRName>
-		<szBRDesc>一款意大利警用/民用散弹枪，特别适用于室内作战。带有皮卡汀尼导轨泵动方式装弹。</szBRDesc>
+		<szBRDesc>一款意大利警用/民用霰弹枪，特别适用于室内作战。带有皮卡汀尼导轨泵动方式装弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
 		<szItemName>SDASS</szItemName>
 		<szLongItemName>Fabarm SDASS</szLongItemName>
-		<szItemDesc>一款新的意大利战术散弹枪，带有导轨可加装各种特殊附件。</szItemDesc>
+		<szItemDesc>一款新的意大利战术霰弹枪，带有导轨可加装各种特殊附件。</szItemDesc>
 		<szBRName>Fabarm SDASS</szBRName>
-		<szBRDesc>一款意大利警用/民用散弹枪。带有皮卡汀尼导轨泵动方式装弹。</szBRDesc>
+		<szBRDesc>一款意大利警用/民用霰弹枪。带有皮卡汀尼导轨泵动方式装弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -11019,1368 +11019,1368 @@
 	<ITEM>
 		<uiIndex>1377</uiIndex>
 		<szItemName>5.56x45mm Barrel</szItemName>
-		<szLongItemName>5.56x45mm Replacable Barrel</szLongItemName>
-		<szItemDesc>A replacable barrel for the caliber 5.56x45mm. Fits most light NATO machineguns.</szItemDesc>
+		<szLongItemName>5.56x45mm可替换枪管</szLongItemName>
+		<szItemDesc>5.56x45mm口径的可替换枪管。适用于大部分北约标准轻机枪。</szItemDesc>
 		<szBRName>5.56x45mm Replacable Barrel</szBRName>
-		<szBRDesc>A sensible machinegunner always packs a backup barrel for those intense firefights.</szBRDesc>
+		<szBRDesc>一个明智的机枪手总会为激烈的交火冲突准备好一个备用枪管。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1378</uiIndex>
 		<szItemName>7.62x51mm Barrel</szItemName>
-		<szLongItemName>7.62x51mm Replacable Barrel</szLongItemName>
-		<szItemDesc>This is a replacable barrel for most of NATO's 7.62x51mm MGs. No sense in letting wear and tear stop you from killing, eh?</szItemDesc>
+		<szLongItemName>7.62x51mm可替换枪管</szLongItemName>
+		<szItemDesc>7.62x51mm口径的可替换枪管，适用于大部分北约标准机枪。没有理由让武器损耗停止你的杀戮，不是吗？</szItemDesc>
 		<szBRName>7.62x51mm Replacable Barrel</szBRName>
-		<szBRDesc>Special coating guarantees a life long quality. Note that the guarantee expires after two years.</szBRDesc>
+		<szBRDesc>特殊的涂层可以确保较长的使用期限。注意，它的保质期只有2年。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1379</uiIndex>
 		<szItemName>7.62x54R Barrel</szItemName>
-		<szLongItemName>7.62x54R Replacable Barrel</szLongItemName>
-		<szItemDesc>A replacable barrel for heavy russian machineguns.</szItemDesc>
+		<szLongItemName>7.62x54R可替换枪管</szLongItemName>
+		<szItemDesc>适用于7.62x54R口径的俄罗斯重机枪。</szItemDesc>
 		<szBRName>7.62x54R Replacable Barrel</szBRName>
-		<szBRDesc>Order now, original russian-made hardware.</szBRDesc>
+		<szBRDesc>立即订购吧，俄罗斯原产的纯正装备。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1380</uiIndex>
 		<szItemName>5.45x39mm Barrel</szItemName>
-		<szLongItemName>5.45x39mm Replacable Barrel</szLongItemName>
-		<szItemDesc>An alternate barrel for the RPK-74.</szItemDesc>
+		<szLongItemName>5.45x39mm可替换枪管</szLongItemName>
+		<szItemDesc>RPK-74专用的一种可替换枪管。</szItemDesc>
 		<szBRName>5.45x39mm Replacable Barrel</szBRName>
-		<szBRDesc>Pack this, along with your trusted RPK-74, for your travel to the world's most dangerous places.</szBRDesc>
+		<szBRDesc>装上它，和你所信赖的RPK-74，去世界上最危险的地方探险吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1381</uiIndex>
 		<szItemName>7.62x39mm Barrel</szItemName>
-		<szLongItemName>7.62x39mm Replacable Barrel</szLongItemName>
-		<szItemDesc>This replacable barrel fits most WP machineguns.</szItemDesc>
+		<szLongItemName>7.62x39mm可替换枪管</szLongItemName>
+		<szItemDesc>这个可替换枪管适用于大部分华约机枪。</szItemDesc>
 		<szBRName>7.62x39mm Replacable Barrel</szBRName>
-		<szBRDesc>AK-based weapons are well-known for their durability, but there is no such a thing as 'too prepared'. Grab yours now, special price this week!</szBRDesc>
+		<szBRDesc>AK系列武器本来就以耐用著称，但是常言道有备无患。来一个吧，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1382</uiIndex>
 		<szItemName>12g Crate</szItemName>
-		<szLongItemName>12 Gauge Ammo Crate</szLongItemName>
-		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12号口径霰弹箱</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12g Crate</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1383</uiIndex>
 		<szItemName>12g Crate BS</szItemName>
-		<szLongItemName>12 Gauge Ammo Crate, Buckshot</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12号口径霰弹箱，鹿弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12g Crate Buckshot</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1384</uiIndex>
 		<szItemName>12g Crate LB</szItemName>
-		<szLongItemName>12 Gauge Ammo Crate, Lock-Buster</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12号口径霰弹箱，破门弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12g Crate Lock-Buster</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1385</uiIndex>
 		<szItemName>12g Crate FL</szItemName>
-		<szLongItemName>12 Gauge Ammo Crate, Flechette</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12号口径霰弹箱，箭型弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12g Crate Flechette</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1386</uiIndex>
 		<szItemName>Dart Crate</szItemName>
-		<szLongItemName>Tranquilizer Dart Crate</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>麻醉飞镖箱</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>Dart Crate</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1387</uiIndex>
 		<szItemName>Minirockets Crate AP</szItemName>
-		<szLongItemName>Minirockets Ammo Crate, AP</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>迷你火箭箱，穿甲弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>Minirockets Crate AP</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1388</uiIndex>
 		<szItemName>Minirockets Crate HE</szItemName>
-		<szLongItemName>Minirockets Ammo Crate, HE</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>迷你火箭箱，空尖弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>Minirockets Crate HE</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1389</uiIndex>
 		<szItemName>Minirockets Crate HEAP</szItemName>
-		<szLongItemName>Minirockets Ammo Crate, HEAP</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>迷你火箭箱，穿甲爆炸弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>Minirockets Crate HEAP</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1390</uiIndex>
 		<szItemName>CAWS Crate AP</szItemName>
-		<szLongItemName>CAWS Ammo Crate, AP</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>CAWS弹药箱，穿甲弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>CAWS Crate AP</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1391</uiIndex>
 		<szItemName>CAWS Crate BS</szItemName>
-		<szLongItemName>CAWS Ammo Crate, Buckshot</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>CAWS弹药箱，鹿弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>CAWS Crate Buckshot</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1392</uiIndex>
 		<szItemName>12.3x50mm Crate FL</szItemName>
-		<szLongItemName>12.3x50mm Ammo Crate, Flechette</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12.3x50mm弹药箱，箭型弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12.3x50mm Crate Flechette</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1393</uiIndex>
 		<szItemName>12.3x50mm Crate BS</szItemName>
-		<szLongItemName>12.3x50mm Ammo Crate, Buckshot</szLongItemName>
-		<szItemDesc>A really big box of ammunition.	I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12.3x50mm弹药箱，鹿弹</szLongItemName>
+		<szItemDesc>好大一个弹药箱。我不觉得你能把它装到背包里去。</szItemDesc>
 		<szBRName>12.3x50mm Crate Buckshot</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1394</uiIndex>
 		<szItemName>.38 Box</szItemName>
-		<szLongItemName>.38 Box</szLongItemName>
-		<szItemDesc>These 158 grain Winchester standard .38 Special round tip ammunition has been the tried and true round in law enforcement.</szItemDesc>
+		<szLongItemName>.38弹药盒</szLongItemName>
+		<szItemDesc>这种158格令的Winchester标准.38 Special圆头弹是在执法部门久经考验的弹药。</szItemDesc>
 		<szBRName>.38 Box</szBRName>
-		<szBRDesc>These 158 grain Winchester standard .38 Special round tip ammunition has been the tried and true round in law enforcement.</szBRDesc>
+		<szBRDesc>这种158格令的Winchester标准.38 Special圆头弹是在执法部门久经考验的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1395</uiIndex>
 		<szItemName>.38 Box HP</szItemName>
-		<szLongItemName>.38 Box, HP</szLongItemName>
-		<szItemDesc>Although this .38 Special hollow point ammo tends to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szItemDesc>
+		<szLongItemName>.38弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>虽然.38 Special空尖弹对付护甲表现不佳，但是却可以对无护甲目标造成大面积深度创伤。</szItemDesc>
 		<szBRName>.38 Box HP</szBRName>
-		<szBRDesc>Although this .38 Special hollow point ammo tends to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szBRDesc>
+		<szBRDesc>虽然.38 Special空尖弹对付护甲表现不佳，但是却可以对无护甲目标造成大面积深度创伤。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1396</uiIndex>
 		<szItemName>.38 Box AP</szItemName>
-		<szLongItemName>.38 Box, AP</szLongItemName>
-		<szItemDesc>This box contains .38 caliber armor piercing ammunition. While its armor piercing abilities are due to its steel construction, it tends to create smaller wounds than lead ammo.</szItemDesc>
+		<szLongItemName>.38弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个盒子装的是.38口径穿甲弹。虽然它的穿甲能力取决于钢的构造，但是却比铅弹造成的创伤要小。</szItemDesc>
 		<szBRName>.38 Box AP</szBRName>
-		<szBRDesc>Turn your classic .38 into a force to be reckoned with. Our own custom loaded .38 Full Metal Jacket round guarantees to stop any armored attacker dead in his tracks.</szBRDesc>
+		<szBRDesc>将你的经典.38武器变成不可小觑的火力。我们自制的.38全金属外壳圆头弹可以确保任何穿有护甲的入侵者倒在行进的路上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1397</uiIndex>
 		<szItemName>.38 Box G</szItemName>
-		<szLongItemName>.38 Box, Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+		<szLongItemName>.38弹药盒，葛雷瑟弹</szLongItemName>
+		<szItemDesc>葛雷瑟弹药有空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szItemDesc>
 		<szBRName>.38 Box Glaser</szBRName>
-		<szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+		<szBRDesc>葛雷瑟弹药有空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1398</uiIndex>
 		<szItemName>.38 Box M</szItemName>
-		<szLongItemName>.38 Box, Match</szLongItemName>
-		<szItemDesc>150 rounds of wadcutter ammo, designed to be used on the gunrange to shoot at paper targets. Still more precise than standard ball ammo, though.</szItemDesc>
+		<szLongItemName>.38弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>150格令平头弹，设计用来射击射程范围内的靶纸。还是要比普通球状子弹精准的。</szItemDesc>
 		<szBRName>.38 Box Match</szBRName>
-		<szBRDesc>Precisely loaded .38 Special match ammo with wadcutter bullets. When precision is more important than anything else!</szBRDesc>
+		<szBRDesc>精确装填的.38 Special比赛弹，装有冲孔型弹丸。如果对你而言精确比其它一切都重要的话！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1399</uiIndex>
 		<szItemName>.38 Box HPS</szItemName>
-		<szLongItemName>.38 Box, HPS</szLongItemName>
-		<szItemDesc>These bullets promise to penetrate better than standard hollow points.</szItemDesc>
+		<szLongItemName>.38弹药盒，特别空尖弹</szLongItemName>
+		<szItemDesc>这类弹药承诺比普通空尖弹有更好的穿透效果。</szItemDesc>
 		<szBRName>.38 Box HPS</szBRName>
-		<szBRDesc>New solid copper bullets of hollow point shape! They are better at penetrating than the usual lead-core/brass-jacket hollowpoints.</szBRDesc>
+		<szBRDesc>最新固态铜弹丸制成的空尖弹！它们要比铅核/黄铜外壳的空尖弹有更好的穿透性。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1400</uiIndex>
 		<szItemName>9x19mm Box</szItemName>
-		<szLongItemName>9x19mm Box</szLongItemName>
-		<szItemDesc>These rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒</szLongItemName>
+		<szItemDesc>这些做工精良的115格令菲奥奇圆头弹是经济适用男/女防身的理想选择。</szItemDesc>
 		<szBRName>9x19mm Box</szBRName>
-		<szBRDesc>These rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szBRDesc>
+		<szBRDesc>这些做工精良的115格令菲奥奇圆头弹是经济适用男/女防身的理想选择。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1401</uiIndex>
 		<szItemName>9x19mm Box C</szItemName>
-		<szLongItemName>9x19mm Box, Cold</szLongItemName>
-		<szItemDesc>These bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>这些经过特殊设计的低速弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szItemDesc>
 		<szBRName>9x19mm Box Cold</szBRName>
-		<szBRDesc>These bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+		<szBRDesc>这些经过特殊设计的低速弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1402</uiIndex>
 		<szItemName>9x19mm Box HP</szItemName>
-		<szLongItemName>9x19mm Box, HP</szLongItemName>
-		<szItemDesc>This box contains federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这个盒子装有”联邦“外壳的空尖弹。它结合了空间弹的伤害特性和标准弹丸的穿透能力。</szItemDesc>
 		<szBRName>9x19mm Box HP</szBRName>
-		<szBRDesc>This box contains federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szBRDesc>
+		<szBRDesc>这个盒子装有”联邦“外壳的空尖弹。它结合了空间弹的伤害特性和标准弹丸的穿透能力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1403</uiIndex>
 		<szItemName>9x19mm Box AP</szItemName>
-		<szLongItemName>9x19mm Box, AP</szLongItemName>
-		<szItemDesc>Punch holes in armored targets with impunity with these armor piercing bullets.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>用这些穿甲子弹在穿有护甲的目标身上打一个完美无缺的洞吧。</szItemDesc>
 		<szBRName>9x19mm Box AP</szBRName>
-		<szBRDesc>Punch holes in armored targets with impunity with these armor piercing bullets.</szBRDesc>
+		<szBRDesc>用这些穿甲子弹在穿有护甲的目标身上打一个完美无缺的洞吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1404</uiIndex>
 		<szItemName>9x19mm Box HP C</szItemName>
-		<szLongItemName>9x19mm Box, HP Cold</szLongItemName>
-		<szItemDesc>These hollow point bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>这些经过特殊设计的低速空尖弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szItemDesc>
 		<szBRName>9x19mm Box HP Cold</szBRName>
-		<szBRDesc>These hollow point bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+		<szBRDesc>这些经过特殊设计的低速空尖弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1405</uiIndex>
 		<szItemName>9x19mm Box AP C</szItemName>
-		<szLongItemName>9x19mm Box, AP Cold</szLongItemName>
-		<szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，低速穿甲弹</szLongItemName>
+		<szItemDesc>这些经过特殊设计的低速穿甲弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szItemDesc>
 		<szBRName>9x19mm Box AP Cold</szBRName>
-		<szBRDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+		<szBRDesc>这些经过特殊设计的低速穿甲弹可以降低枪口噪声，以一定程度上牺牲击倒力为代价。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1406</uiIndex>
 		<szItemName>9x19mm Box G</szItemName>
-		<szLongItemName>9x19mm Box, Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，葛雷瑟弹</szLongItemName>
+		<szItemDesc>葛雷瑟弹药有标准空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szItemDesc>
 		<szBRName>9x19mm Box Glaser</szBRName>
-		<szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+		<szBRDesc>葛雷瑟弹药有标准空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1407</uiIndex>
 		<szItemName>9x19mm Box T</szItemName>
-		<szLongItemName>9x19mm Box, Tracer</szLongItemName>
-		<szItemDesc>More spraying, less praying. This ammo will put your burst-fire on target every time.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>多些扫射，少些祈祷。这个曳光弹可以让你的扫射轨迹准准地对向目标。</szItemDesc>
 		<szBRName>9x19mm Box Tracer</szBRName>
-		<szBRDesc>More spraying, less praying. This ammo will put your burst-fire on target every time.</szBRDesc>
+		<szBRDesc>多些扫射，少些祈祷。这个曳光弹可以让你的扫射轨迹准准地对向目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1408</uiIndex>
 		<szItemName>9x19mm Box AET</szItemName>
-		<szLongItemName>9x19mm Box, AET</szLongItemName>
-		<szItemDesc>The punch of a hollow point, with the penetration of an armor piercing round make this the ultimate CQB ammo for your 9mm subgun.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，AET弹</szLongItemName>
+		<szItemDesc>改良的THV超高速弹，这些全钢细柱形弹头设计具备更高的能量传输效率。结合了空尖弹和穿甲弹的特性，是你CQB作战用9mm冲锋枪的究极选择。</szItemDesc>
 		<szBRName>9x19mm Box AET</szBRName>
-		<szBRDesc>The punch of a hollow point, with the penetration of an armor piercing round make this the ultimate CQB ammo for your 9mm subgun.</szBRDesc>
+		<szBRDesc>结合了空尖弹和穿甲弹的特性，是你CQB作战用9mm冲锋枪的究极选择。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1409</uiIndex>
 		<szItemName>9x19mm Box M</szItemName>
-		<szLongItemName>9x19mm Box, Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
+		<szLongItemName>9x19mm弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>高质量弹丸大大提升了武器射程和表现。</szItemDesc>
 		<szBRName>9x19mm Box Match</szBRName>
-		<szBRDesc>High quality ball ammunition to boost weapon range and performance.</szBRDesc>
+		<szBRDesc>高质量弹丸大大提升了武器射程和表现。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1410</uiIndex>
 		<szItemName>.45 ACP Box</szItemName>
-		<szLongItemName>.45 ACP Box</szLongItemName>
-		<szItemDesc>This .45 standard round tip ball ammunition offers a trade-off between the wound characteristics of hollow point and the penetration abilities of armor piercing ammo.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒</szLongItemName>
+		<szItemDesc>.45标准弹丸提供了空尖弹伤害和穿甲弹穿透力的一个平衡版本。</szItemDesc>
 		<szBRName>.45 ACP Box</szBRName>
-		<szBRDesc>This .45 standard round tip ball ammunition offers a trade-off between the wound characteristics of hollow point and the penetration abilities of armor piercing ammo.</szBRDesc>
+		<szBRDesc>.45标准弹丸提供了空尖弹伤害和穿甲弹穿透力的一个平衡版本。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1411</uiIndex>
 		<szItemName>.45 ACP Box HP</szItemName>
-		<szLongItemName>.45 ACP Box, HP</szLongItemName>
-		<szItemDesc>This box contains .45 caliber hollow point ammunition that expands in soft tissue on impact, causing a large of amount of bleeding and nerve trauma.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>.45 ACP空尖弹可以放大所造成的软组织挫伤，导致大面积出血和神经创伤。</szItemDesc>
 		<szBRName>.45 ACP Box HP</szBRName>
-		<szBRDesc>Turns your sub machine gun into a lean mean killing machine. This box contains .45 caliber hollow point ammunition expand in soft tissue on impact, causing a large of amount of bleeding and nerve trauma.</szBRDesc>
+		<szBRDesc>让你的冲锋枪变成冷酷可怕的杀人机器。这箱空尖弹可以放大所造成的软组织挫伤，导致大面积出血和神经创伤。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1412</uiIndex>
 		<szItemName>.45 ACP Box AP</szItemName>
-		<szLongItemName>.45 ACP Box, AP</szLongItemName>
-		<szItemDesc>This box contains .45 caliber armor piercing ammunition. While this ammunition offers better penetration than either ball or hollow point ammo, it tends to do less damage.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这是一盒.45 ACP穿甲弹。虽然这些子弹穿透性能优秀，但是却没有标准弹丸或空尖弹的伤害高。</szItemDesc>
 		<szBRName>.45 ACP Box AP</szBRName>
-		<szBRDesc>Some of the best pistol ammunition money can buy is this hand-loaded Armor Piercing ammunition. It will quickly send a Kevlar vest to the scrap heap.</szBRDesc>
+		<szBRDesc>可以买到的最好的一类手动装填穿甲手枪弹药。它可以迅速将凯夫拉背心变成一堆垃圾。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1413</uiIndex>
 		<szItemName>.45 ACP Box G</szItemName>
-		<szLongItemName>.45 ACP Box, Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒，葛雷瑟弹</szLongItemName>
+		<szItemDesc>葛雷瑟弹药有标准空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szItemDesc>
 		<szBRName>.45 ACP Box Glaser</szBRName>
-		<szBRDesc>50 rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>50发葛雷瑟弹带给你打碎骨头的快感。完美的击倒力，能量完全传送给目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1414</uiIndex>
 		<szItemName>.45 ACP Box AET</szItemName>
-		<szLongItemName>.45 ACP Box, AET</szLongItemName>
-		<szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒，AET弹</szLongItemName>
+		<szItemDesc>AET弹足足有穿甲弹两倍的冲击力和扩张力，但是它会让你的武器变得不稳定。</szItemDesc>
 		<szBRName>.45 ACP Box AET</szBRName>
-		<szBRDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szBRDesc>
+		<szBRDesc>AET弹足足有穿甲弹两倍的冲击力和扩张力，但是它会让你的武器变得不稳定。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1415</uiIndex>
 		<szItemName>.45 ACP Box M</szItemName>
-		<szLongItemName>.45 ACP Box, Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
+		<szLongItemName>.45 ACP弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>高质量弹丸大大提升了武器射程和表现。</szItemDesc>
 		<szBRName>.45 ACP Box Match</szBRName>
-		<szBRDesc>These SMG rounds put a whole new spin on "distance learning."</szBRDesc>
+		<szBRDesc>这些冲锋枪子弹无疑可以给目标来上一轮“远程教育”。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1416</uiIndex>
 		<szItemName>.357 Box</szItemName>
-		<szLongItemName>.357 Magnum Box</szLongItemName>
-		<szItemDesc>This box contains .357 Magnum standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szItemDesc>
+		<szLongItemName>.357麦格农弹药盒</szLongItemName>
+		<szItemDesc>这个盒子装有.357麦格农标准弹丸。它的威力决定了其在手枪子弹中的优越性不容置疑。</szItemDesc>
 		<szBRName>.357 Magnum Box</szBRName>
-		<szBRDesc>This box contains .357 Magnum standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szBRDesc>
+		<szBRDesc>这个盒子装有.357麦格农标准弹丸。它的威力决定了其在手枪子弹中的优越性不容置疑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1417</uiIndex>
 		<szItemName>.357 Box HP</szItemName>
-		<szLongItemName>.357 Magnum Box, HP</szLongItemName>
-		<szItemDesc>This box contains .357 hollow point ammunition. The hollow point allows for substantial expansion on impact, thus creating a large but shallow wound.</szItemDesc>
+		<szLongItemName>.357麦格农弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这个盒子装有.357麦格农空尖弹。空心弹头可以产生扩散性伤害，因此造成大面积较浅伤口。</szItemDesc>
 		<szBRName>.357 Magnum Box HP</szBRName>
-		<szBRDesc>Want that last gunfight to go out with a bang? Then we've got the deal for you. The Federal's own .357 Jacketed Hollow Point Hydra-Shok guarantees to deliver.</szBRDesc>
+		<szBRDesc>希望最后的枪战以一声巨响结束？没问题！联盟公司的.357外壳Hydra-Shok空尖弹可确保达到此效果。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1418</uiIndex>
 		<szItemName>.357 Box AP</szItemName>
-		<szLongItemName>.357 Magnum Box, AP</szLongItemName>
-		<szItemDesc>While these rounds of steel .357 armor piercing ammunition can penetrate walls and body armor, they only create small wound channels with minimal blood loss.</szItemDesc>
+		<szLongItemName>.357麦格农弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>虽然这些钢制圆头.357穿甲弹可以穿透护甲甚至墙面，然而它们只会对肉体造成狭小的弹道伤口，出血很少。</szItemDesc>
 		<szBRName>.357 Magnum Box AP</szBRName>
-		<szBRDesc>While these rounds of steel .357 armor piercing ammunition can penetrate walls and body armor, they only create small wound channels with minimal blood loss.</szBRDesc>
+		<szBRDesc>虽然这些钢制圆头.357穿甲弹可以穿透护甲甚至墙面，然而它们只会对肉体造成狭小的弹道伤口，出血很少。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1419</uiIndex>
 		<szItemName>.357 Box G</szItemName>
-		<szLongItemName>.357 Magnum Box, Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+		<szLongItemName>.357麦格农弹药箱，葛雷瑟弹</szLongItemName>
+		<szItemDesc>葛雷瑟弹药有标准空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szItemDesc>
 		<szBRName>.357 Magnum Box Glaser</szBRName>
-		<szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+		<szBRDesc>葛雷瑟弹药有标准空尖弹双倍的冲击力。遗憾的是其穿甲能力要弱很多。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1420</uiIndex>
 		<szItemName>.357 Box AET</szItemName>
-		<szLongItemName>.357 Magnum Box, AET</szLongItemName>
-		<szItemDesc>Even if the enemy's armor stops all else, it won't stop these!</szItemDesc>
+		<szLongItemName>.357麦格农弹药箱，AET弹</szLongItemName>
+		<szItemDesc>即便敌人宣称其护甲能挡住一切子弹，它必定也挡不住AET高能量弹！</szItemDesc>
 		<szBRName>.357 Magnum Box AET</szBRName>
-		<szBRDesc>Even if the enemy's armor stops all else, it won't stop these!</szBRDesc>
+		<szBRDesc>即便敌人宣称其护甲能挡住一切子弹，它必定也挡不住AET高能量弹！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1421</uiIndex>
 		<szItemName>12g Box</szItemName>
-		<szLongItemName>12 Gauge Box</szLongItemName>
-		<szItemDesc>These 12 gauge slugs can punch through barriers and light armor with ease.</szItemDesc>
+		<szLongItemName>12号霰弹盒</szLongItemName>
+		<szItemDesc>这些12号口径霰弹可以轻松打穿障碍物和轻型护甲。</szItemDesc>
 		<szBRName>12g Box</szBRName>
-		<szBRDesc>This box contains 25 12 gauge slugs that can punch through barriers and light armor with ease.</szBRDesc>
+		<szBRDesc>这些12号口径霰弹可以轻松打穿障碍物和轻型护甲。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1422</uiIndex>
 		<szItemName>12g Box BS</szItemName>
-		<szLongItemName>12 Gauge Box, Buckshot</szLongItemName>
-		<szItemDesc>Favored by law enforcement personnel, Buckshot is very effective in urban firefights against unarmored opponents.</szItemDesc>
+		<szLongItemName>12号霰弹盒，鹿弹</szLongItemName>
+		<szItemDesc>深受执法人员热爱，鹿弹在巷战中对付无护甲对手十分有效。</szItemDesc>
 		<szBRName>12g Box Buckshot</szBRName>
-		<szBRDesc>The ideal short-range man-stopper round. Law enforcement personnel worldwide favor this round for its effectiveness in urban firefights against unarmored opponents.</szBRDesc>
+		<szBRDesc>理想的短距离压制弹药。深受全球各地执法人员的喜爱，在巷战中对付无护甲对手十分有效。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1423</uiIndex>
 		<szItemName>12g Box FL</szItemName>
-		<szLongItemName>12 Gauge Box, Flechette</szLongItemName>
-		<szItemDesc>There's no better way to tear the opposition to shreds than to tear through their armor with tiny pieces of flying metal.</szItemDesc>
+		<szLongItemName>12号霰弹盒，箭型弹</szLongItemName>
+		<szItemDesc>用这些箭型弹飞射出的细小金属碎片扯碎护甲和目标的骨肉，没有比这更好的办法。</szItemDesc>
 		<szBRName>12g Box Flechette</szBRName>
-		<szBRDesc>There's no better way to tear the opposition to shreds than to tear through their armor with tiny pieces of flying metal.</szBRDesc>
+		<szBRDesc>用这些箭型弹飞射出的细小金属碎片扯碎护甲和目标的骨肉，没有比这更好的办法。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1424</uiIndex>
 		<szItemName>12g Box LB</szItemName>
-		<szLongItemName>12 Gauge Box, Lock-Buster</szLongItemName>
-		<szItemDesc>Useful for opening locked doors with a decided lack of finesse, these shells have little lethal application.</szItemDesc>
+		<szLongItemName>12号霰弹盒，破门弹</szLongItemName>
+		<szItemDesc>在没有啥高端技术情况下，用这些子弹开锁十分便捷，而且它们几乎不会致命。</szItemDesc>
 		<szBRName>12g Box Lock-Buster</szBRName>
-		<szBRDesc>Skilled lockpick artists are expensive, these shells are a lot cheaper and a lot louder.</szBRDesc>
+		<szBRDesc>娴熟的开锁艺术家是昂贵的，相比之下采用这些弹药更加实惠，不幸噪音也很大。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1425</uiIndex>
 		<szItemName>CAWS Box AP</szItemName>
-		<szLongItemName>CAWS Ammo Box, AP</szLongItemName>
-		<szItemDesc>These rounds contain a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
+		<szLongItemName>CAWS弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这些弹药里装了单个铁钨合金弹丸，可以撕碎大部分护甲以及汽车引擎缸。</szItemDesc>
 		<szBRName>CAWS Box AP</szBRName>
-		<szBRDesc>Each of these 25 rounds in this box contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
+		<szBRDesc>这个盒子里的25发弹药里装了单个铁钨合金弹丸，可以撕碎大部分护甲以及汽车引擎缸。认真的雇佣兵们离开基地时必备。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1426</uiIndex>
 		<szItemName>CAWS Box BS</szItemName>
-		<szLongItemName>CAWS Box, Buckshot</szLongItemName>
-		<szItemDesc>This tungsten buckshot ammunition can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szItemDesc>
+		<szLongItemName>CAWS弹药盒，鹿弹</szLongItemName>
+		<szItemDesc>这种钨制鹿弹具有穿甲弹一样的穿透力，可以像空尖弹一样造成大面积创伤，而且摒弃了这两种弹药的缺点。</szItemDesc>
 		<szBRName>CAWS Box Buckshot</szBRName>
-		<szBRDesc>These 25 rounds of tungsten buckshot can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szBRDesc>
+		<szBRDesc>这25发钨制鹿弹具有穿甲弹一样的穿透力，可以像空尖弹一样造成大面积创伤，而且摒弃了这两种弹药的缺点。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1427</uiIndex>
 		<szItemName>5.45x39mm Box AP</szItemName>
-		<szLongItemName>5.45x39mm Box, AP</szLongItemName>
-		<szItemDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
+		<szLongItemName>5.45x39mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个盒子里装着5.45mm轻装甲穿透杀伤性弹药。它的金属外壳设计不仅提高了穿墙能力，甚至可以同时穿透好几个目标的身体。</szItemDesc>
 		<szBRName>5.45x39mm Box AP</szBRName>
-		<szBRDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
+		<szBRDesc>这个盒子里装着5.45mm轻装甲穿透杀伤性弹药。它的金属外壳设计不仅提高了穿墙能力，甚至可以同时穿透好几个目标的身体。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1428</uiIndex>
 		<szItemName>5.45x39mm Box HP</szItemName>
-		<szLongItemName>5.45x39mm Box, HP</szLongItemName>
-		<szItemDesc>This box contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
+		<szLongItemName>5.45x39mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这个盒子里装着5.45mm加壳空尖弹。它同时具有撞击开花的特性和在目标体内翻滚产生巨大创口的能力。</szItemDesc>
 		<szBRName>5.45x39mm Box HP</szBRName>
-		<szBRDesc>This box contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
+		<szBRDesc>这个盒子里装着5.45mm加壳空尖弹。它同时具有撞击开花的特性和在目标体内翻滚产生巨大创口的能力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1429</uiIndex>
 		<szItemName>5.45x39mm Box T</szItemName>
-		<szLongItemName>5.45x39mm Box, Tracer</szLongItemName>
-		<szItemDesc>Tracer ammunition in 5.45mm caliber. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szItemDesc>
+		<szLongItemName>5.45x39mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>5.45mm口径的曳光弹。除了弹道发光的功能外，曳光弹还能在点射和自动发射模式增加准确度。</szItemDesc>
 		<szBRName>5.45x39mm Box Tracer</szBRName>
-		<szBRDesc>Tracer ammunition in 5.45mm caliber. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szBRDesc>
+		<szBRDesc>5.45mm口径的曳光弹。除了弹道发光的功能外，曳光弹还能在点射和自动发射模式增加准确度。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1430</uiIndex>
 		<szItemName>5.45x39mm Box C</szItemName>
-		<szLongItemName>5.45x39mm Box, Cold</szLongItemName>
-		<szItemDesc>This box holds 5.45 light armor piercing subsonic ammo.</szItemDesc>
+		<szLongItemName>5.45x39mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>这个盒子装有5.45mm亚音速穿甲弹。</szItemDesc>
 		<szBRName>5.45x39mm Box Cold</szBRName>
-		<szBRDesc>This box contains 5.45 light armor piercing subsonic ammo.</szBRDesc>
+		<szBRDesc>这个盒子装有5.45mm亚音速穿甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1431</uiIndex>
 		<szItemName>5.45x39mm Box HP C</szItemName>
-		<szLongItemName>5.45x39mm Box, HP Cold</szLongItemName>
-		<szItemDesc>This box holds 5.45 subsonic hollow point ammo.</szItemDesc>
+		<szLongItemName>5.45x39mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>这个盒子装有5.45mm亚音速空尖弹。</szItemDesc>
 		<szBRName>5.45x39mm Box HP Cold</szBRName>
-		<szBRDesc>Extra punch minus the noise with this 5.45mm ammo.</szBRDesc>
+		<szBRDesc>这是额外伤害并且低噪音版本的5.45mm子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1432</uiIndex>
 		<szItemName>5.56x45mm Box AP</szItemName>
-		<szLongItemName>5.56x45mm Box, AP</szLongItemName>
-		<szItemDesc>This NATO standard light armor piercing ammunition has the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个北约保准轻装甲穿透杀伤性弹药具有在目标体内翻滚造成大面积伤害的能力，很难想象这样小的子弹会有这种威力。</szItemDesc>
 		<szBRName>5.56x45mm Box AP</szBRName>
-		<szBRDesc>NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
+		<szBRDesc>这个北约保准轻装甲穿透杀伤性弹药具有在目标体内翻滚造成大面积伤害的能力，很难想象这样小的子弹会有这种威力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1433</uiIndex>
 		<szItemName>5.56x45mm Box HP</szItemName>
-		<szLongItemName>5.56x45mm Box, HP</szLongItemName>
-		<szItemDesc>This 5.56 hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>5.56mm空尖弹是民用.223狩猎弹的变种。像其他.223子弹一样，它的设计目的是最大化神经创伤和造成大量失血。</szItemDesc>
 		<szBRName>5.56x45mm Box HP</szBRName>
-		<szBRDesc>This 5.56 hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szBRDesc>
+		<szBRDesc>5.56mm空尖弹是民用.223狩猎弹的变种。像其他.223子弹一样，它的设计目的是最大化神经创伤和造成大量失血。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1434</uiIndex>
 		<szItemName>5.56x45mm Box C</szItemName>
-		<szLongItemName>5.56x45mm Box, Cold</szLongItemName>
-		<szItemDesc>Pump em' full of holes without waking up the countryside. Cold loaded ammo is 40% quieter than standard ball rounds.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>不需要惊动村落就可以把他们打成筛子。低速装填子弹比标准弹丸要安静40﹪。</szItemDesc>
 		<szBRName>5.56x45mm Box Cold</szBRName>
-		<szBRDesc>Pump em' full of holes without waking up the countryside. Cold loaded ammo is 40% quieter than standard ball rounds.</szBRDesc>
+		<szBRDesc>不需要惊动村落就可以把他们打成筛子。低速装填子弹比标准弹丸要安静40﹪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1435</uiIndex>
 		<szItemName>5.56x45mm Box HP C</szItemName>
-		<szLongItemName>5.56x45mm Box, HP Cold</szLongItemName>
-		<szItemDesc>Extra punch minus the noise with this 5.56mm ammo.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>这是额外伤害并且低噪音版本的5.56mm子弹。</szItemDesc>
 		<szBRName>5.56x45mm Box HP Cold</szBRName>
-		<szBRDesc>Extra punch minus the noise with this 5.56mm ammo.</szBRDesc>
+		<szBRDesc>这是额外伤害并且低噪音版本的5.56mm子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1436</uiIndex>
 		<szItemName>5.56x45mm Box G</szItemName>
-		<szLongItemName>5.56x45mm Box, Glaser</szLongItemName>
-		<szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，葛雷瑟弹</szLongItemName>
+		<szItemDesc>完美的击倒力，能量完全传送给目标。</szItemDesc>
 		<szBRName>5.56x45mm Box Glaser</szBRName>
-		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>完美的击倒力，能量完全传送给目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1437</uiIndex>
 		<szItemName>5.56x45mm Box M</szItemName>
-		<szLongItemName>5.56x45mm Box, Match</szLongItemName>
-		<szItemDesc>This match grade ammo will add extra range to your 5.56mm assault rifle.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>这个比赛级弹药可以额外增加你的5.56mm突击步枪射程。</szItemDesc>
 		<szBRName>5.56x45mm Box Match</szBRName>
-		<szBRDesc>This match grade ammo will add extra range to your 5.56mm assault rifle.</szBRDesc>
+		<szBRDesc>这个比赛级弹药可以额外增加你的5.56mm突击步枪射程。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1438</uiIndex>
 		<szItemName>5.56x45mm Box T</szItemName>
-		<szLongItemName>5.56x45mm Box, Tracer</szLongItemName>
-		<szItemDesc>Tracer ammo ensures putting those shots on target when it counts.</szItemDesc>
+		<szLongItemName>5.56x45mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>曳光弹可以确保射出的子弹一个个都打到目标身上。</szItemDesc>
 		<szBRName>5.56x45mm Box Tracer</szBRName>
-		<szBRDesc>Tracer ammo ensures putting those shots on target when it counts.</szBRDesc>
+		<szBRDesc>曳光弹可以确保射出的子弹一个个都打到目标身上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1439</uiIndex>
 		<szItemName>7.62x51mm Box AP</szItemName>
-		<szLongItemName>7.62x51mm Box, AP</szLongItemName>
-		<szItemDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个子弹受到了全球各地武装部队的关注，因为它可以在超远距离外打穿钢盔。</szItemDesc>
 		<szBRName>7.62x51mm Box AP</szBRName>
-		<szBRDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
+		<szBRDesc>这个子弹受到了全球各地武装部队的关注，因为它可以在超远距离外打穿钢盔。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1440</uiIndex>
 		<szItemName>7.62x51mm Box HP</szItemName>
-		<szLongItemName>7.62x51mm Box, HP</szLongItemName>
-		<szItemDesc>If power is what you demand, more power is what you'll get with these rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>如果你追求力量，采用这个Cor-Bon公司的.308 Winchester战术弹药，7.62x51mm子弹的民用版本，可以满足你的需求。</szItemDesc>
 		<szBRName>7.62x51mm Box HP</szBRName>
-		<szBRDesc>If power is what you demand, more power is what you'll get with these rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round.</szBRDesc>
+		<szBRDesc>如果你追求力量，采用这个Cor-Bon公司的.308 Winchester战术弹药，7.62x51mm子弹的民用版本，可以满足你的需求。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1441</uiIndex>
 		<szItemName>7.62x51mm Box C</szItemName>
-		<szLongItemName>7.62x51mm Box, Cold</szLongItemName>
-		<szItemDesc>Cold loaded ammo for muted marauding.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>低速装填，悄然袭击。</szItemDesc>
 		<szBRName>7.62x51mm Box Cold</szBRName>
-		<szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
+		<szBRDesc>低速装填，悄然袭击。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1442</uiIndex>
 		<szItemName>7.62x51mm Box HP C</szItemName>
-		<szLongItemName>7.62x51mm Box, HP Cold</szLongItemName>
-		<szItemDesc>Cold loaded ammo for muted marauding.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>低速装填，悄然袭击。</szItemDesc>
 		<szBRName>7.62x51mm Box HP Cold</szBRName>
-		<szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
+		<szBRDesc>低速装填，悄然袭击。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1443</uiIndex>
 		<szItemName>7.62x51mm Box G</szItemName>
-		<szLongItemName>7.62x51mm Box, Glaser</szLongItemName>
-		<szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，葛雷瑟弹</szLongItemName>
+		<szItemDesc>完美的击倒力，能量完全传送给目标。</szItemDesc>
 		<szBRName>7.62x51mm Box Glaser</szBRName>
-		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>完美的击倒力，能量完全传送给目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1444</uiIndex>
 		<szItemName>7.62x51mm Box T</szItemName>
-		<szLongItemName>7.62x51mm Box, Tracer</szLongItemName>
-		<szItemDesc>Light up your targets literally and figuratively with a mag full of tracers.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>来一梭子曳光弹，清清楚楚地照亮目标的轮廓吧。</szItemDesc>
 		<szBRName>7.62x51mm Box Tracer</szBRName>
-		<szBRDesc>Light up your targets literally and figuratively with a mag full of tracers.</szBRDesc>
+		<szBRDesc>来一梭子曳光弹，清清楚楚地照亮目标的轮廓吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1445</uiIndex>
 		<szItemName>7.62x51mm Box M</szItemName>
-		<szLongItemName>7.62x51mm Box, Match</szLongItemName>
-		<szItemDesc>7.62x51mm match ammo for extra long-range dueling.</szItemDesc>
+		<szLongItemName>7.62x51mm弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>7.62x51mm比赛弹，专门为超远距离决斗者们而准备。</szItemDesc>
 		<szBRName>7.62x51mm Box Match</szBRName>
-		<szBRDesc>7.62mm match grade extends the reach of your long-arm.</szBRDesc>
+		<szBRDesc>7.62mm比赛弹延长了你第三个胳膊的距离。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1446</uiIndex>
 		<szItemName>7.62x39mm Box AP</szItemName>
-		<szLongItemName>7.62x39mm Box, AP</szLongItemName>
-		<szItemDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这盒7.62mm华约生产的穿甲弹因其可以打穿几乎所有类型的护甲以及给那些不听话的人们沉痛的打击而闻名。</szItemDesc>
 		<szBRName>7.62x39mm Box AP</szBRName>
-		<szBRDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szBRDesc>
+		<szBRDesc>这盒7.62mm华约生产的穿甲弹因其可以打穿几乎所有类型的护甲以及给那些不听话的人们沉痛的打击而闻名。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1447</uiIndex>
 		<szItemName>7.62x39mm Box HP</szItemName>
-		<szLongItemName>7.62x39mm Box, HP</szLongItemName>
-		<szItemDesc>This box of 7.62 Warsaw Pact jacketed hollow point ammunition won't penetrate body armor as well as its armor piercing counterpart, but it makes up for it by making larger wound cavities.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这盒7.62mm华约外壳的空尖弹不像对应穿甲弹一样可以轻易穿透护甲，但是它可以在目标身体上制造一个巨大的洞。</szItemDesc>
 		<szBRName>7.62x39mm Box HP</szBRName>
-		<szBRDesc>This box of 7.62 Warsaw Pact jacketed hollow point ammunition won't penetrate body armor as well as its armor piercing counterpart, but it makes up for it by making larger wound cavities.</szBRDesc>
+		<szBRDesc>这盒7.62mm华约外壳的空尖弹不像对应穿甲弹一样可以轻易穿透护甲，但是它可以在目标身体上制造一个巨大的洞。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1448</uiIndex>
 		<szItemName>7.62x39mm Box T</szItemName>
-		<szLongItemName>7.62x39mm Box, Tracer</szLongItemName>
-		<szItemDesc>A box of tracer ammunition in 7.62x39mm. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>这是一盒7.62x39mm曳光弹。除了可以发光以外，曳光弹还可以在点射和自动模式增加命中率。</szItemDesc>
 		<szBRName>7.62x39mm Box Tracer</szBRName>
-		<szBRDesc>Ranging and shot placement (and detection) are even easier with these rounds of 7.62x39mm tracer.</szBRDesc>
+		<szBRDesc>远程瞄准以及射击定位（发现目标）在7.62x39mm曳光弹的帮助下变得更容易。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1449</uiIndex>
 		<szItemName>7.62x39mm Box M</szItemName>
-		<szLongItemName>7.62x39mm Box, Match</szLongItemName>
-		<szItemDesc>A box of 7.62x39mm Match ammunition for precision shooting.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>一盒用于精确瞄准射击的7.62x39mm比赛弹。</szItemDesc>
 		<szBRName>7.62x39mm Box Match</szBRName>
-		<szBRDesc>Scarce and hard to come by, this Match ammo will change your SKS into a Designated Marksman rifle.</szBRDesc>
+		<szBRDesc>虽然稀有且很难找到，这盒比赛弹确实可以让你的SKS武器变成神枪手的专用步枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1450</uiIndex>
 		<szItemName>4.7x33mm Box AP</szItemName>
-		<szLongItemName>4.7x33mm Box, AP</szLongItemName>
-		<szItemDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szItemDesc>
+		<szLongItemName>4.7x33mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>虽然把无壳子弹放在盒子里有些可笑，但是这些G11使用的4.7x33mm弹药可不是闹着玩的。</szItemDesc>
 		<szBRName>4.7x33mm Box AP</szBRName>
-		<szBRDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szBRDesc>
+		<szBRDesc>虽然把无壳子弹放在盒子里有些可笑，但是这些G11使用的4.7x33mm弹药可不是闹着玩的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1451</uiIndex>
 		<szItemName>7.62x39mm Box C</szItemName>
-		<szLongItemName>7.62x39mm Box, Cold</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>为华约7.62x39mm口径武器所准备的亚音速全金属外壳子弹。</szItemDesc>
 		<szBRName>7.62x39mm Box Cold</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szBRDesc>东盟组织使用的无声轻装甲穿透型子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1452</uiIndex>
 		<szItemName>7.62x39mm Box HP C</szItemName>
-		<szLongItemName>7.62x39mm Box, HP Cold</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szLongItemName>7.62x39mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>为华约7.62x39mm口径武器所准备的亚音速全金属外壳空尖弹。</szItemDesc>
 		<szBRName>7.62x39mm Box HP Cold</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szBRDesc>如果你有把AK而且想成为无声杀手，这个子弹正是为你而存在。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1453</uiIndex>
 		<szItemName>5.7x28mm Box AP</szItemName>
-		<szLongItemName>5.7x28mm Box, AP</szLongItemName>
-		<szItemDesc>This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
+		<szLongItemName>5.7x28mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这种塑料手枪子弹对有护甲和无护甲目标同样有效。</szItemDesc>
 		<szBRName>5.7x28mm Box AP</szBRName>
-		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 100 round box	of 5.7mm pistol ammo.</szBRDesc>
+		<szBRDesc>你憎恨那些穿着厚厚护甲的敌人吗？用我们这100发5.7mm手枪子弹跟那些躺在敌人和审判日之间的所有类型的护甲说Goodbye吧！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1454</uiIndex>
 		<szItemName>5.7x28mm Box HP</szItemName>
-		<szLongItemName>5.7x28mm Box, HP</szLongItemName>
-		<szItemDesc>These rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
+		<szLongItemName>5.7x28mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这种5.7mm空尖弹在普通5.7mm弹药基础上增强了伤害能力同时保留了大部分穿甲能力。</szItemDesc>
 		<szBRName>5.7x28mm Box HP</szBRName>
-		<szBRDesc>Get the job done right the first time. You're kill-rate will be the best around if you use this 5.7mm Hollow Point ammunition. Your victim's chance at survival: roughly zero per cent, give or take a few points.</szBRDesc>
+		<szBRDesc>第一次爽快地完成任务。使用这些5.7mm子弹让你的杀敌率保持最佳。你的目标存活率基本为0，不算小数点的话。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1455</uiIndex>
 		<szItemName>5.7x28mm Box AET</szItemName>
-		<szLongItemName>5.7x28mm Box, AET</szLongItemName>
-		<szItemDesc>Armored or not, reduce your attacker to bloody tatters with a burst of AET ammo.</szItemDesc>
+		<szLongItemName>5.7x28mm弹药盒，AET弹</szLongItemName>
+		<szItemDesc>不论有没有护甲，来一梭子AET弹让你的敌人变回一滩烂泥血汤。</szItemDesc>
 		<szBRName>5.7x28mm Box AET</szBRName>
-		<szBRDesc>Armored or not, reduce your attacker to bloody tatters with a burst of AET ammo.</szBRDesc>
+		<szBRDesc>不论有没有护甲，来一梭子AET弹让你的敌人变回一滩烂泥血汤。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1456</uiIndex>
 		<szItemName>Dart Box</szItemName>
-		<szLongItemName>Box of Tranquilizer Darts</szLongItemName>
-		<szItemDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szItemDesc>
+		<szLongItemName>麻醉镖盒</szLongItemName>
+		<szItemDesc>通常用来撂倒大型野兽，这些飞镖可以让他在想说“有点麻啊”之前就倒下。</szItemDesc>
 		<szBRName>Tranquilizer Darts</szBRName>
-		<szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.' This practical box contains 10 Darts.</szBRDesc>
+		<szBRDesc>通常用来撂倒大型野兽，这些飞镖可以让他在想说“有点麻啊”之前就倒下。这个盒子里装了10支飞镖。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1457</uiIndex>
 		<szItemName>.50 BMG Box AP</szItemName>
-		<szLongItemName>.50 BMG Box, AP</szLongItemName>
-		<szItemDesc>This nice little box contains .50 BMG bullets.</szItemDesc>
+		<szLongItemName>.50 BMG弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个漂亮的小盒子里装的可是.50 BMG子弹。</szItemDesc>
 		<szBRName>.50 BMG Box AP</szBRName>
-		<szBRDesc>This nice little box contains 15 .50 BMG bullets.</szBRDesc>
+		<szBRDesc>这个漂亮的小盒子里装的可是.50 BMG子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1458</uiIndex>
 		<szItemName>9x39mm Box AP</szItemName>
-		<szLongItemName>9x39mm Box, AP</szLongItemName>
-		<szItemDesc>Heavier than regular 9mm ammo, this spam can contains ammunition for a unique set of Russian firearms.</szItemDesc>
+		<szLongItemName>9x39mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>比普通的9mm子弹更重，这个盒子装的是俄国武器专用的弹药。</szItemDesc>
 		<szBRName>9x39mm Box AP</szBRName>
-		<szBRDesc>Heavier than regular 9mm ammo, this spam can contains 80 rounds of ammunition for a unique set of Russian firearms.</szBRDesc>
+		<szBRDesc>比普通的9mm子弹更重，这个盒子装的是80发俄国武器专用的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1459</uiIndex>
 		<szItemName>4.6x30mm Box AP</szItemName>
-		<szLongItemName>4.6x30mm Box, AP</szLongItemName>
-		<szItemDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szItemDesc>
+		<szLongItemName>4.6x30mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>专门为HK MP-7定制的特殊子弹，每个子弹跟步枪子弹差不多大，并有同样的威力。</szItemDesc>
 		<szBRName>4.6x30mm Box AP</szBRName>
-		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+		<szBRDesc>专门为HK MP-7定制的特殊子弹，每个子弹跟步枪子弹差不多大，并有同样的威力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1460</uiIndex>
 		<szItemName>4.6x30mm Box AET</szItemName>
-		<szLongItemName>4.6x30mm Box, AET</szLongItemName>
-		<szItemDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szItemDesc>
+		<szLongItemName>4.6x30mm弹药盒，AET弹</szLongItemName>
+		<szItemDesc>专门为HK MP-7定制的特殊子弹，每个子弹跟步枪子弹差不多大，并有同样的威力。</szItemDesc>
 		<szBRName>4.6x30mm Box AET</szBRName>
-		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+		<szBRDesc>专门为HK MP-7定制的特殊子弹，每个子弹跟步枪子弹差不多大，并有同样的威力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1461</uiIndex>
 		<szItemName>7.62x25mm Box AP</szItemName>
-		<szLongItemName>7.62x25mm Box, AP</szLongItemName>
-		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szItemDesc>
+		<szLongItemName>7.62x25mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>如果你能连续命中目标的话，穿甲能力就显得不是十分重要了。</szItemDesc>
 		<szBRName>7.62x25mm Box AP</szBRName>
-		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szBRDesc>
+		<szBRDesc>如果你能连续命中目标的话，穿甲能力就显得不是十分重要了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1462</uiIndex>
 		<szItemName>7.62x25mm Box HP</szItemName>
-		<szLongItemName>7.62x25mm Box, HP</szLongItemName>
-		<szItemDesc>Great for use on unarmored foes and common household pests.</szItemDesc>
+		<szLongItemName>7.62x25mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>适用范围：光脚大汉和屋子里的害虫。</szItemDesc>
 		<szBRName>7.62x25mm Box HP</szBRName>
-		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
+		<szBRDesc>适用范围：光脚大汉和屋子里的害虫。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1463</uiIndex>
 		<szItemName>7.62x25mm Box C</szItemName>
-		<szLongItemName>7.62x25mm Box, Cold</szLongItemName>
-		<szItemDesc>Cold loaded ammo, when you need a small, but authoritative voice.</szItemDesc>
+		<szLongItemName>7.62x25mm弹药盒，低速弹</szLongItemName>
+		<szItemDesc>低速装填子弹，如果你需要发出一个细小但是让人胆寒的声音。</szItemDesc>
 		<szBRName>7.62x25mm Box Cold</szBRName>
-		<szBRDesc>Cold loaded ammo, when you need a small, but authoritative voice.</szBRDesc>
+		<szBRDesc>低速装填子弹，如果你需要发出一个细小但是让人胆寒的声音。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1464</uiIndex>
 		<szItemName>7.62x25mm Box HP C</szItemName>
-		<szLongItemName>7.62x25mm Box, HP Cold</szLongItemName>
-		<szItemDesc>Quiet and heavy hitting as a Russian blizzard.</szItemDesc>
+		<szLongItemName>7.62x25mm弹药盒，低速空尖弹</szLongItemName>
+		<szItemDesc>像西伯利亚暴风雪一般悄然地铺天盖地而来。</szItemDesc>
 		<szBRName>7.62x25mm Box HP Cold</szBRName>
-		<szBRDesc>Quiet and heavy hitting as a Russian blizzard.</szBRDesc>
+		<szBRDesc>像西伯利亚暴风雪一般悄然地铺天盖地而来。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1465</uiIndex>
 		<szItemName>7.62x25mm Box AET</szItemName>
-		<szLongItemName>7.62x25mm Box, AET</szLongItemName>
-		<szItemDesc>AET rounds for Russian SMGs (and cheap Chinese copies).</szItemDesc>
+		<szLongItemName>7.62x25mm弹药盒，AET弹</szLongItemName>
+		<szItemDesc>为俄国冲锋枪特制的AET弹，也适用于廉价的中国山寨品。</szItemDesc>
 		<szBRName>7.62x25mm Box AET</szBRName>
-		<szBRDesc>New for the 7.62x25mm caliber: We now have AET rounds available, so you can take advantage of this technology if you are using Russian made SMGs.</szBRDesc>
+		<szBRDesc>7.62x25mm口径新产品快讯：我们现在有AET弹了，所以你可以给你的俄制冲锋枪试试这个最新科技产品。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1466</uiIndex>
 		<szItemName>12.7x108mm Box AP</szItemName>
-		<szLongItemName>12.7x108mm Box, AP</szLongItemName>
-		<szItemDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szItemDesc>
+		<szLongItemName>12.7x108mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>12.7mm子弹可以用于在合适范围内击穿轻装甲机车。</szItemDesc>
 		<szBRName>12.7x108mm Box AP</szBRName>
-		<szBRDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szBRDesc>
+		<szBRDesc>12.7mm子弹可以用于在合适范围内击穿轻装甲机车。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1467</uiIndex>
 		<szItemName>9x18mm Box</szItemName>
-		<szLongItemName>9x18mm Box</szLongItemName>
-		<szItemDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szItemDesc>
+		<szLongItemName>9x18mm弹药盒</szLongItemName>
+		<szItemDesc>9x18mm马卡洛夫子弹是一种便宜但十分有效的弹药。</szItemDesc>
 		<szBRName>9x18mm Box</szBRName>
-		<szBRDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szBRDesc>
+		<szBRDesc>9x18mm马卡洛夫子弹是一种便宜但十分有效的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1468</uiIndex>
 		<szItemName>9x18mm Box HP</szItemName>
-		<szLongItemName>9x18mm Box, HP</szLongItemName>
-		<szItemDesc>These hollowpoint 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szItemDesc>
+		<szLongItemName>9x18mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这些9x18mm马卡洛夫空尖弹是一种十分便宜却有效的弹药。</szItemDesc>
 		<szBRName>9x18mm Box HP</szBRName>
-		<szBRDesc>These hollowpoint 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+		<szBRDesc>这些9x18mm马卡洛夫空尖弹是一种十分便宜却有效的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1469</uiIndex>
 		<szItemName>9x18mm Box AP</szItemName>
-		<szLongItemName>9x18mm Box, AP</szLongItemName>
-		<szItemDesc>These armor piercing 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szItemDesc>
+		<szLongItemName>9x18mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这些9x18mm马卡洛夫穿甲弹是一种十分便宜却有效的弹药。</szItemDesc>
 		<szBRName>9x18mm Box AP</szBRName>
-		<szBRDesc>These armor piercing 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+		<szBRDesc>这些9x18mm马卡洛夫穿甲弹是一种十分便宜却有效的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1470</uiIndex>
 		<szItemName>9x18mm Box G</szItemName>
-		<szLongItemName>9x18mm Box, Glaser</szLongItemName>
-		<szItemDesc>A box filled with 12 Glaser rounds in the 9x18mm pistol caliber.</szItemDesc>
+		<szLongItemName>9x18mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>一盒子装满了12发手枪弹夹用9x18mm曳光弹。</szItemDesc>
 		<szBRName>9x18mm Box Glaser</szBRName>
-		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
+		<szBRDesc>9x18mm口径的曳光弹，用这些小不点多打几个洞吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1471</uiIndex>
 		<szItemName>.40 S&amp;W Box</szItemName>
-		<szLongItemName>.40 S&amp;W Box</szLongItemName>
-		<szItemDesc>.40 S&amp;W emerged in the late 1990s as "middle of the road" round with more stopping power than the 9mm and more penetration than the .45ACP.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒</szLongItemName>
+		<szItemDesc>.40史密斯＆韦森在1990年末十分低调地出现，比9mm压制力更大，比.45ACP穿透性更强。</szItemDesc>
 		<szBRName>.40 S&amp;W Box</szBRName>
-		<szBRDesc>.40S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
+		<szBRDesc>.40史密斯＆韦森是在警界响当当的子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1472</uiIndex>
 		<szItemName>.40 S&amp;W Box HP</szItemName>
-		<szLongItemName>.40 S&amp;W Box, HP</szLongItemName>
-		<szItemDesc>This hollow point ammo gives increased punch to the the .40 S&amp;W's already significant stopping power.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这个空尖弹头给.40史密斯＆韦森原有的出色压制力增加了更多的分量。</szItemDesc>
 		<szBRName>.40 S&amp;W Box HP</szBRName>
-		<szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
+		<szBRDesc>空尖弹的扩张力大大增加了这个手枪子弹的威力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1473</uiIndex>
 		<szItemName>.40 S&amp;W Box AP</szItemName>
-		<szLongItemName>.40 S&amp;W Box, AP</szLongItemName>
-		<szItemDesc>Punch holes in the competition with these handy AP rounds.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>在决斗中用这个便捷的穿甲弹给对手身上来几个洞吧。</szItemDesc>
 		<szBRName>.40 S&amp;W Box AP</szBRName>
-		<szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
+		<szBRDesc>在决斗中用这个便捷的穿甲弹给对手身上来几个洞吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1474</uiIndex>
 		<szItemName>.40 S&amp;W Box G</szItemName>
-		<szLongItemName>.40 S&amp;W Box, Glaser</szLongItemName>
-		<szItemDesc>All of the man-stopping power, none of the over-penetration all packed into .40 S&amp;W rounds.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>完美的击倒力，能量完全传送给目标，所有特性集中于.40史密斯＆韦森弹中。</szItemDesc>
 		<szBRName>.40 S&amp;W Box Glaser</szBRName>
-		<szBRDesc>All of the man-stopping power, none of the over-penetration all packed into .40 S&amp;W rounds.</szBRDesc>
+		<szBRDesc>完美的击倒力，能量完全传送给目标，所有特性集中于.40史密斯＆韦森弹中。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1475</uiIndex>
 		<szItemName>.40 S&amp;W Box M</szItemName>
-		<szLongItemName>.40 S&amp;W Box, Match</szLongItemName>
-		<szItemDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>不论是决斗射击还是生死较量，比赛弹都能够让你无所不及。</szItemDesc>
 		<szBRName>.40 S&amp;W Box Match</szBRName>
-		<szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
+		<szBRDesc>不论是决斗射击还是生死较量，比赛弹都能够让你无所不及。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1476</uiIndex>
 		<szItemName>.40 S&amp;W Box AET</szItemName>
-		<szLongItemName>.40 S&amp;W Box, AET</szLongItemName>
-		<szItemDesc>A fruitful marriage of penerating power and game-stopping expansion in .40 caliber.</szItemDesc>
+		<szLongItemName>.40史密斯＆韦森弹药盒，AET弹</szLongItemName>
+		<szItemDesc>.40口径子弹穿透性和压制扩张力完美结合的产物。</szItemDesc>
 		<szBRName>.40 S&amp;W Box AET</szBRName>
-		<szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
+		<szBRDesc>如果你用这个强大的AET子弹追击护甲目标，那么他必定倒下而且没有机会再起来。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1477</uiIndex>
 		<szItemName>7.62x54R Box AP</szItemName>
-		<szLongItemName>7.62x54R Box, AP</szLongItemName>
-		<szItemDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection.</szItemDesc>
+		<szLongItemName>7.62x54R弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>为你的武器库增加一个7.62x54R弹膛长程穿透性弹药藏品。</szItemDesc>
 		<szBRName>7.62x54R Box AP</szBRName>
-		<szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds.</szBRDesc>
+		<szBRDesc>为你的武器库增加一个7.62x54R弹膛长程穿透性弹药藏品。这个盒子装有50发弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1478</uiIndex>
 		<szItemName>7.62x54R Box T</szItemName>
-		<szLongItemName>7.62x54R Box, Tracer</szLongItemName>
-		<szItemDesc>Ranging and shot placement are easy with these rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szItemDesc>
+		<szLongItemName>7.62x54R弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>在这个7.62mm俄制曳光弹的帮助下瞄准和射击变得更容易。除了可以发光以外，曳光弹还可以在点射和自动模式增加命中率。</szItemDesc>
 		<szBRName>7.62x54R Box Tracer</szBRName>
-		<szBRDesc>Ranging and shot placement are easy with these rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szBRDesc>
+		<szBRDesc>在这个7.62mm俄制曳光弹的帮助下瞄准和射击变得更容易。除了可以发光以外，曳光弹还可以在点射和自动模式增加命中率。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1479</uiIndex>
 		<szItemName>7.62x54R Box M</szItemName>
-		<szLongItemName>7.62x54R Box, Match</szLongItemName>
+		<szLongItemName>7.62x54R弹药盒，比赛弹</szLongItemName>
 		<szItemDesc>7.62x54R Match ammunition.</szItemDesc>
 		<szBRName>7.62x54R Box Match</szBRName>
-		<szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds of Match Ammunition.</szBRDesc>
+		<szBRDesc>为你的武器库增加一个7.62x54R弹膛长程穿透性弹药藏品。这个盒子装有50发比赛弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1480</uiIndex>
 		<szItemName>.338 Lapua Box AP</szItemName>
-		<szLongItemName>.338 Lapua Box, AP</szLongItemName>
-		<szItemDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szItemDesc>
+		<szLongItemName>.338拉普麦格农弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>大型狩猎和长程狙击的最终选择，这个强大的子弹可以让目标原地倒下。</szItemDesc>
 		<szBRName>.338 Lapua Box AP</szBRName>
-		<szBRDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szBRDesc>
+		<szBRDesc>大型狩猎和长程狙击的最终选择，这个强大的子弹可以让目标原地倒下。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1481</uiIndex>
 		<szItemName>.44 Box</szItemName>
-		<szLongItemName>.44 Magnum Box</szLongItemName>
-		<szItemDesc>This box contains .44 standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szItemDesc>
+		<szLongItemName>.44麦格农弹药盒</szLongItemName>
+		<szItemDesc>这个盒子装有.44标准弹丸。它的威力决定了其在战斗手枪中的绝对优势。</szItemDesc>
 		<szBRName>.44 Magnum Box</szBRName>
-		<szBRDesc>This box contains .44 standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szBRDesc>
+		<szBRDesc>这个盒子装有.44标准弹丸。它的威力决定了其在战斗手枪中的绝对优势。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1482</uiIndex>
 		<szItemName>.44 Box HP</szItemName>
-		<szLongItemName>.44 Magnum Box, HP</szLongItemName>
-		<szItemDesc>These .44 rounds have had their points drilled out to maximize their effectiveness against targets without armor.</szItemDesc>
+		<szLongItemName>.44麦格农弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这些.44子弹的弹头被磨空，因而可以最大化对无护甲目标的有效伤害。</szItemDesc>
 		<szBRName>.44 Magnum Box HP</szBRName>
-		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
+		<szBRDesc>专为了不起的神枪手们准备，或者你只是想把东西打个稀巴烂。这些.44空尖弹会让你过上充实的一天。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1483</uiIndex>
 		<szItemName>.44 Box AP</szItemName>
-		<szLongItemName>.44 Magnum Box, AP</szLongItemName>
-		<szItemDesc>Made primarily of brass, these rounds are designed to defeat most kinds of body armor and feature a teflon coating to minimize barrel wear.</szItemDesc>
+		<szLongItemName>.44麦格农弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>主要成分是黄铜，这些子弹的设计目的是在穿透大部分护甲的同时，其特氟龙包壳还能最大程度降低枪管损耗。</szItemDesc>
 		<szBRName>.44 Magnum Box AP</szBRName>
-		<szBRDesc>Made primarily of brass, these rounds are designed to defeat most kinds of body armor and feature a teflon coating to minimize barrel wear.</szBRDesc>
+		<szBRDesc>主要成分是黄铜，这些子弹的设计目的是在穿透大部分护甲的同时，其特氟龙包壳还能最大程度降低枪管损耗。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1484</uiIndex>
 		<szItemName>.44 Box G</szItemName>
-		<szLongItemName>.44 Magnum Box, Glaser</szLongItemName>
-		<szItemDesc>If these rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with.</szItemDesc>
+		<szLongItemName>.44麦格农弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>如果这些搜搜闪过的曳光弹还不够抒发你的观点，那么这个观点根本就不值得去“说”出来了。</szItemDesc>
 		<szBRName>.44 Magnum Box Glaser</szBRName>
-		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>完美的击倒力，能量完全传送给目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1485</uiIndex>
 		<szItemName>.44 Box AET</szItemName>
-		<szLongItemName>.44 Magnum Box, AET</szLongItemName>
-		<szItemDesc>Advanced high speed rounds that make body armor a joke.</szItemDesc>
+		<szLongItemName>.44麦格农弹药盒，AET弹</szLongItemName>
+		<szItemDesc>升级版的高度弹让那些所谓的护甲变成笑话。</szItemDesc>
 		<szBRName>.44 Magnum Box AET</szBRName>
-		<szBRDesc>Advanced high speed rounds that make body armor a joke.</szBRDesc>
+		<szBRDesc>升级版的高度弹让那些所谓的护甲变成笑话。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1486</uiIndex>
 		<szItemName>10mm Box</szItemName>
-		<szLongItemName>10mm Box</szLongItemName>
-		<szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+		<szLongItemName>10mm弹药盒</szLongItemName>
+		<szItemDesc>1797年Jeff Cooper的设计，10mm子弹有.40史密斯＆韦森弹相当的威力，但是却没有它出名。</szItemDesc>
 		<szBRName>10mm Box</szBRName>
-		<szBRDesc>Developed for its stopping power, 10mm is not an uncommon ordninance for police and counter-terrorist agents.</szBRDesc>
+		<szBRDesc>专注于压制力的一种设计，10mm子弹在警力部队和反恐部队任务中并不是十分罕见。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1487</uiIndex>
 		<szItemName>10mm Box HP</szItemName>
-		<szLongItemName>10mm Box, HP</szLongItemName>
-		<szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+		<szLongItemName>10mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>1797年Jeff Cooper的设计，10mm子弹有.40史密斯＆韦森弹相当的威力，但是却没有它出名。</szItemDesc>
 		<szBRName>10mm Box HP</szBRName>
-		<szBRDesc>10mm HP is perfect for detering persistent foes.</szBRDesc>
+		<szBRDesc>10mm空尖弹用来对付那些硬骨头再好也不过了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1488</uiIndex>
 		<szItemName>10mm Box AP</szItemName>
-		<szLongItemName>10mm Box, AP</szLongItemName>
-		<szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+		<szLongItemName>10mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>1797年Jeff Cooper的设计，10mm子弹有.40史密斯＆韦森弹相当的威力，但是却没有它出名。</szItemDesc>
 		<szBRName>10mm Box AP</szBRName>
-		<szBRDesc>Targets in armor are no match for an AP round in their 10 ring.</szBRDesc>
+		<szBRDesc>用穿甲弹在有护甲的目标身上来个10环简直太容易了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1489</uiIndex>
 		<szItemName>10mm Box G</szItemName>
-		<szLongItemName>10mm Box, Glaser</szLongItemName>
-		<szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+		<szLongItemName>10mm弹药盒，曳光弹</szLongItemName>
+		<szItemDesc>完美的击倒力，能量完全传送给目标。</szItemDesc>
 		<szBRName>10mm Box Glaser</szBRName>
-		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>完美的击倒力，能量完全传送给目标。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1490</uiIndex>
 		<szItemName>10mm Box AET</szItemName>
-		<szLongItemName>10mm Box, AET</szLongItemName>
-		<szItemDesc>The pinnacle of terminal ballistics combines armor defeating capability with the punch of a hollow point bullet in one small deadly package.</szItemDesc>
+		<szLongItemName>10mm弹药盒，AET弹</szLongItemName>
+		<szItemDesc>这个小巧的空尖弹头子弹是终点弹道效应和穿甲性完美结合的顶峰产物。</szItemDesc>
 		<szBRName>10mm Box AET</szBRName>
-		<szBRDesc>10mm AET doesn't brake for armor or tough organic matter. Burn down the burliest opponent regardless of ballistic armor.</szBRDesc>
+		<szBRDesc>10mm AET子弹不会被护甲或者坚硬的骨头挡住。它完全无视弹道学装甲，灭掉最强壮的敌人。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1491</uiIndex>
 		<szItemName>10mm Box M</szItemName>
-		<szLongItemName>10mm Box, Match</szLongItemName>
-		<szItemDesc>Increased range and performance are features of this hard hitting round.</szItemDesc>
+		<szLongItemName>10mm弹药盒，比赛弹</szLongItemName>
+		<szItemDesc>这个十分有力的子弹具有增强的射程和良好的表现力。</szItemDesc>
 		<szBRName>10mm Box Match</szBRName>
-		<szBRDesc>Increased range and performance are features of this hard hitting round.</szBRDesc>
+		<szBRDesc>这个十分有力的子弹具有增强的射程和良好的表现力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1492</uiIndex>
 		<szItemName>12.3x50mm Box BS</szItemName>
-		<szLongItemName>12.3x50mm Box, Buckshot</szLongItemName>
-		<szItemDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szItemDesc>
+		<szLongItemName>12.3x50mm弹药盒，鹿弹</szLongItemName>
+		<szItemDesc>12.3mm是一个为重型枪械准备的重型子弹，因为32号口径拥有十分宽的直径。</szItemDesc>
 		<szBRName>12.3x50mm Box Buckshot</szBRName>
-		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
+		<szBRDesc>12.3mm是一个为重型枪械准备的重型子弹，因为32号口径拥有十分宽的直径。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1493</uiIndex>
 		<szItemName>12.3x50mm Box FL</szItemName>
-		<szLongItemName>12.3x50mm Box, Flechette</szLongItemName>
-		<szItemDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szItemDesc>
+		<szLongItemName>12.3x50mm弹药盒，箭型弹</szLongItemName>
+		<szItemDesc>一见面就来一波箭型弹造成的大范围穿甲性金属碎片，你的对手就完全被切成肉块了。</szItemDesc>
 		<szBRName>12.3x50mm Box Flechette</szBRName>
-		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
+		<szBRDesc>一见面就来一波箭型弹造成的大范围穿甲性金属碎片，你的对手就完全被切成肉块了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1494</uiIndex>
 		<szItemName>9x21mm Box AP</szItemName>
-		<szLongItemName>9x21mm Box, AP</szLongItemName>
-		<szItemDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szItemDesc>
+		<szLongItemName>9x21mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>采用了新的压制工艺，9x21mm钨核使得弹药有能耐穿透100米开外目标身上的护甲。</szItemDesc>
 		<szBRName>9x21mm Box AP</szBRName>
-		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away. This box contains 100 rounds.</szBRDesc>
+		<szBRDesc>采用了新的压制工艺，9x21mm钨核使得弹药有能耐穿透100米开外目标身上的护甲。这个盒子装了100发弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1495</uiIndex>
 		<szItemName>7.62x37mm Box AP</szItemName>
-		<szLongItemName>7.62x37mm Box, AP</szLongItemName>
-		<szItemDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szItemDesc>
+		<szLongItemName>7.62x37mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>这个7.62mm口径弹药专门为需要消音的狙击枪而准备。</szItemDesc>
 		<szBRName>7.62x37mm Box AP</szBRName>
-		<szBRDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szBRDesc>
+		<szBRDesc>这个7.62mm口径弹药专门为需要消音的狙击枪而准备。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1496</uiIndex>
 		<szItemName>5.45x18mm Box AP</szItemName>
-		<szLongItemName>5.45x18mm Box, AP</szLongItemName>
-		<szItemDesc>These armor piercing 5.45x18mm rounds are an inexpensive but effective ammunition.</szItemDesc>
+		<szLongItemName>5.45x18mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>5.45x18mm口径穿甲弹是十分便宜而效果显著的弹药。</szItemDesc>
 		<szBRName>5.45x18mm Box AP</szBRName>
-		<szBRDesc>These armor piercing 5.45x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+		<szBRDesc>5.45x18mm口径穿甲弹是十分便宜而效果显著的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1497</uiIndex>
 		<szItemName>5.45x18mm Box HP</szItemName>
-		<szLongItemName>5.45x18mm Box, HP</szLongItemName>
-		<szItemDesc>These hollowpoint 5.45x18mm rounds are an inexpensive but effective ammunition.</szItemDesc>
+		<szLongItemName>5.45x18mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>这些5.45x18mm口径空尖弹是十分便宜而效果显著的弹药。</szItemDesc>
 		<szBRName>5.45x18mm Box HP</szBRName>
-		<szBRDesc>These hollowpoint 5.45x18mm rounds are an inexpensive but effective ammunition.</szBRDesc>
+		<szBRDesc>这些5.45x18mm口径空尖弹是十分便宜而效果显著的弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1498</uiIndex>
 		<szItemName>.50 AE Box AP</szItemName>
-		<szLongItemName>.50 Action Express Box, AP</szLongItemName>
-		<szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
+		<szLongItemName>.50 AE弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>如果你更喜欢昂贵不实用而且不稳定的手枪而不是实用的步枪，你需要适合这个枪的子弹。</szItemDesc>
 		<szBRName>.50 Action Express Box AP</szBRName>
-		<szBRDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
+		<szBRDesc>如果你更喜欢昂贵不实用而且不稳定的手枪而不是实用的步枪，你需要适合这个枪的子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1499</uiIndex>
 		<szItemName>.50 AE Box HP</szItemName>
-		<szLongItemName>.50 Action Express Box, HP</szLongItemName>
-		<szItemDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szItemDesc>
+		<szLongItemName>.50 AE弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>采用空尖弹头，这些本来就很强大的.50 AE弹对付无护甲目标更是如削泥一般。</szItemDesc>
 		<szBRName>.50 Action Express Box HP</szBRName>
-		<szBRDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szBRDesc>
+		<szBRDesc>采用空尖弹头，这些本来就很强大的.50 AE弹对付无护甲目标更是如削泥一般。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1500</uiIndex>
 		<szItemName>.454 C Box</szItemName>
-		<szLongItemName>.454 Casull Box</szLongItemName>
-		<szItemDesc>.454 Casull is a round developed for some truly large revolvers.</szItemDesc>
+		<szLongItemName>.454 Casull弹药盒</szLongItemName>
+		<szItemDesc>.454 Casull是专门为一些大型左轮枪射击研发的子弹。</szItemDesc>
 		<szBRName>.454 Casull Box</szBRName>
-		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
+		<szBRDesc>.454 Casull是专门为一些大型左轮枪射击研发的子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1501</uiIndex>
 		<szItemName>.454 C Box HP</szItemName>
-		<szLongItemName>.454 Casull Box, HP</szLongItemName>
-		<szItemDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szItemDesc>
+		<szLongItemName>.454 Casull弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>.454 Casull空尖弹为你而准备，如果你确实打算用左轮枪去打猎。</szItemDesc>
 		<szBRName>.454 Casull Box HP</szBRName>
-		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
+		<szBRDesc>.454 Casull空尖弹为你而准备，如果你确实打算用左轮枪去打猎。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1502</uiIndex>
 		<szItemName>.454 C Box AP</szItemName>
-		<szLongItemName>.454 Casull Box, AP</szLongItemName>
-		<szItemDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szItemDesc>
+		<szLongItemName>.454 Casull弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>.454 Casull穿甲弹几乎可以满足任何自卫型弹药的要求。</szItemDesc>
 		<szBRName>.454 Casull Box AP</szBRName>
-		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
+		<szBRDesc>.454 Casull穿甲弹几乎可以满足任何自卫型弹药的要求。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1503</uiIndex>
 		<szItemName>.45 WM Box</szItemName>
-		<szLongItemName>.45 WM Box</szLongItemName>
-		<szItemDesc>.45WM is a round developed for some truly large hand cannons.</szItemDesc>
+		<szLongItemName>.45 WM弹药盒</szLongItemName>
+		<szItemDesc>.45温彻斯特麦格农是为一些大型手炮研发制造的弹药。</szItemDesc>
 		<szBRName>.45 WM Box</szBRName>
-		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
+		<szBRDesc>一些大口径手枪使用的标准弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1504</uiIndex>
 		<szItemName>.45 WM Box HP</szItemName>
-		<szLongItemName>.45 WM Box, HP</szLongItemName>
-		<szItemDesc>Hollowpoint ammo for the Wildey pistol and other .45 WinMag pistols.</szItemDesc>
+		<szLongItemName>.45 WM弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>为Wildey手枪和一些.45温彻斯特麦格农口径手枪使用的空尖弹。</szItemDesc>
 		<szBRName>.45 WM Box HP</szBRName>
-		<szBRDesc>Hollowpoint ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
+		<szBRDesc>为Wildey手枪和一些.45温彻斯特麦格农口径手枪使用的空尖弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1505</uiIndex>
 		<szItemName>.45 WM Box AP</szItemName>
-		<szLongItemName>.45 WM Box, AP</szLongItemName>
-		<szItemDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szItemDesc>
+		<szLongItemName>.45 WM弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>为Wildey手枪和一些.45温彻斯特麦格农口径手枪使用的穿甲弹。</szItemDesc>
 		<szBRName>.45 WM Box AP</szBRName>
-		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
+		<szBRDesc>为Wildey手枪和一些.45温彻斯特麦格农口径手枪使用的穿甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1506</uiIndex>
 		<szItemName>.50 Beowulf Box AP</szItemName>
-		<szLongItemName>.50 Beowulf Box, AP</szLongItemName>
-		<szItemDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szItemDesc>
+		<szLongItemName>.50贝奥武夫弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>高动力的.50贝奥武夫子弹是用来打爆各种车辆的最佳选择。</szItemDesc>
 		<szBRName>.50 Beowulf Box AP</szBRName>
-		<szBRDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szBRDesc>
+		<szBRDesc>高动力的.50贝奥武夫子弹是用来打爆各种车辆的最佳选择。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1507</uiIndex>
 		<szItemName>.50 Beowulf Box HP</szItemName>
-		<szLongItemName>.50 Beowulf Box, HP</szLongItemName>
-		<szItemDesc>These highpowered .50 Beowulf hollowpoint rounds pack a big punch for a big gun.</szItemDesc>
+		<szLongItemName>.50贝奥武夫弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>高动力的.50贝奥武夫空尖弹是为大型枪支使用的有力弹药。</szItemDesc>
 		<szBRName>.50 Beowulf Box HP</szBRName>
-		<szBRDesc>These highpowered .50 Beowulf hollowpoint rounds pack a big punch for a big gun.</szBRDesc>
+		<szBRDesc>高动力的.50贝奥武夫空尖弹是为大型枪支使用的有力弹药。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1508</uiIndex>
 		<szItemName>.300 WM Box AP</szItemName>
-		<szLongItemName>.300 WinMag Box, AP</szLongItemName>
-		<szItemDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szItemDesc>
+		<szLongItemName>.300 WM弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>.300温彻斯特麦格农可以看做是标准狩猎子弹，当然这些穿甲弹实际是为那些穿了凯夫拉胸甲的“驯鹿”们准备的。</szItemDesc>
 		<szBRName>.300 WinMag Box AP</szBRName>
-		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
+		<szBRDesc>.300温彻斯特麦格农可以看做是标准狩猎子弹，当然这些穿甲弹实际是为那些穿了凯夫拉胸甲的“驯鹿”们准备的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1509</uiIndex>
 		<szItemName>.300 WM Box HP</szItemName>
-		<szLongItemName>.300 WinMag Box, HP</szLongItemName>
-		<szItemDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szItemDesc>
+		<szLongItemName>.300 WM弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>.300温彻斯特麦格农可以看做是标准狩猎子弹，特别是加了扩展的空尖弹头后。</szItemDesc>
 		<szBRName>.300 WinMag Box HP</szBRName>
-		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
+		<szBRDesc>.300温彻斯特麦格农可以看做是标准狩猎子弹，特别是加了扩展的空尖弹头后。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1510</uiIndex>
 		<szItemName>7.92x57mm Box AP</szItemName>
-		<szLongItemName>7.92x57mm Box, AP</szLongItemName>
-		<szItemDesc>The German Army's AP rifle ammunition in WW-II.</szItemDesc>
+		<szLongItemName>7.92x57mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>德军在二战中步枪所使用的穿甲弹药。</szItemDesc>
 		<szBRName>7.92x57mm Box AP</szBRName>
-		<szBRDesc>50 rounds of armorpiercing ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
+		<szBRDesc>这50发穿甲弹可用于你古老的毛瑟Gewehr 98或者Kar 98k系列。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1511</uiIndex>
 		<szItemName>7.92x57mm Box HP</szItemName>
-		<szLongItemName>7.92x57mm Box, HP</szLongItemName>
-		<szItemDesc>The German Army's HP rifle ammunition in WW-II.</szItemDesc>
+		<szLongItemName>7.92x57mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>德军在二战中步枪所使用的穿甲弹药。</szItemDesc>
 		<szBRName>7.92x57mm Box HP</szBRName>
-		<szBRDesc>50 rounds of Softpoint ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
+		<szBRDesc>这50发软头弹可用于你古老的毛瑟Gewehr 98或者Kar 98k系列。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1512</uiIndex>
 		<szItemName>12.7x97mm Box Sub AP</szItemName>
-		<szLongItemName>12.7x97mm Box, Subsonic AP</szLongItemName>
-		<szItemDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szItemDesc>
+		<szLongItemName>12.7x97mm弹药盒，亚音速穿甲弹</szLongItemName>
+		<szItemDesc>这个盒子装的是用于俄式VSSK和VKS系列狙击枪的12.7mm亚音速子弹。</szItemDesc>
 		<szBRName>12.7x97mm Box Subsonic AP</szBRName>
-		<szBRDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szBRDesc>
+		<szBRDesc>这个盒子装的是用于俄式VSSK和VKS系列狙击枪的12.7mm亚音速子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1513</uiIndex>
 		<szItemName>5.56x45mm SCF Box AP</szItemName>
-		<szLongItemName>5.56x45mm SCF Box, AP</szLongItemName>
-		<szItemDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szItemDesc>
+		<szLongItemName>5.56x45mm SCF弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>新研发出的合成包壳箭型弹，专门用于最新的斯太尔高级近战步枪。</szItemDesc>
 		<szBRName>5.56x45mm SCF Box AP</szBRName>
-		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
+		<szBRDesc>新研发出的合成包壳箭型弹，专门用于最新的斯太尔高级近战步枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1514</uiIndex>
 		<szItemName>.30-06 Box AP</szItemName>
-		<szLongItemName>.30-06 Box, AP</szLongItemName>
-		<szItemDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szItemDesc>
+		<szLongItemName>.30-06弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>如果你手边恰好有一把M1加兰德，这些子弹正好能派上用场。</szItemDesc>
 		<szBRName>.30-06 Box AP</szBRName>
-		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
+		<szBRDesc>如果你手边恰好有一把M1加兰德，这些子弹正好能派上用场。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1515</uiIndex>
 		<szItemName>.30 Car Box</szItemName>
-		<szLongItemName>.30 Car Box</szLongItemName>
-		<szItemDesc>Steel Core ammo for the old M1 Carbine.</szItemDesc>
+		<szLongItemName>.30卡宾弹药盒</szLongItemName>
+		<szItemDesc>用于老式M1卡宾枪的钢核子弹。</szItemDesc>
 		<szBRName>.30 Car Box</szBRName>
-		<szBRDesc>Steel Core ammo for the old M1 Carbine.</szBRDesc>
+		<szBRDesc>用于老式M1卡宾枪的钢核子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1516</uiIndex>
 		<szItemName>.30 Car Box AP</szItemName>
-		<szLongItemName>.30 Car Box, AP</szLongItemName>
-		<szItemDesc>Full Metal Jacket ammo for the old M1 Carbine.</szItemDesc>
+		<szLongItemName>.30卡宾弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>用于老式M1卡宾枪的全金属外壳子弹。</szItemDesc>
 		<szBRName>.30 Car Box AP</szBRName>
-		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
+		<szBRDesc>用于老式M1卡宾枪的全金属外壳子弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1517</uiIndex>
 		<szItemName>.30 Car Box HP</szItemName>
-		<szLongItemName>.30 Car Box, HP</szLongItemName>
-		<szItemDesc>Hollowpoint ammo for the old M1 Carbine.</szItemDesc>
+		<szLongItemName>.30卡宾弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>用于老式M1卡宾枪的空尖弹。</szItemDesc>
 		<szBRName>.30 Car Box HP</szBRName>
-		<szBRDesc>Hollowpoint ammo for the old M1 Carbine.</szBRDesc>
+		<szBRDesc>用于老式M1卡宾枪的空尖弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1518</uiIndex>
 		<szItemName>6x35mm Box AP</szItemName>
-		<szLongItemName>6x35mm Box, AP</szLongItemName>
-		<szItemDesc>Full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szItemDesc>
+		<szLongItemName>6x35mm弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>请用6x35mm口径个人自卫武器PDW的全金属外壳子弹，如果其空尖弹不能满足你的需求。</szItemDesc>
 		<szBRName>6x35mm Box AP</szBRName>
-		<szBRDesc>Full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
+		<szBRDesc>请用6x35mm口径个人自卫武器PDW的全金属外壳子弹，如果其空尖弹不能满足你的需求。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1519</uiIndex>
 		<szItemName>6x35mm Box HP</szItemName>
-		<szLongItemName>6x35mm Box, HP</szLongItemName>
-		<szItemDesc>Hollowpoint ammo for 6x35mm PDW-class guns.</szItemDesc>
+		<szLongItemName>6x35mm弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>6x35mm PDW系列武器用的空尖弹。</szItemDesc>
 		<szBRName>6x35mm Box HP</szBRName>
-		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: hollowpoint bullets for anti-personnel work.</szBRDesc>
+		<szBRDesc>这是为你全新闪亮的6x35mm PDW武器准备的子弹：空尖弹可用于对付士兵的任务。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1520</uiIndex>
 		<szItemName>6.8x43mm SPC Box AP</szItemName>
-		<szLongItemName>6.8x43mm SPC Box, AP</szLongItemName>
-		<szItemDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szItemDesc>
+		<szLongItemName>6.8x43mm SPC弹药盒，穿甲弹</szLongItemName>
+		<szItemDesc>新型6.8x43mmSPC特种部队弹药。比北约标准5.56mm弹药有更长的射程和更好的效果。</szItemDesc>
 		<szBRName>6.8x43mm SPC Box AP</szBRName>
-		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
+		<szBRDesc>新型6.8x43mmSPC特种部队弹药。比北约标准5.56mm弹药有更长的射程和更好的效果。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1521</uiIndex>
 		<szItemName>6.8x43mm SPC Box HP</szItemName>
-		<szLongItemName>6.8x43mm SPC Box, HP</szLongItemName>
-		<szItemDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szItemDesc>
+		<szLongItemName>6.8x43mm SPC弹药盒，空尖弹</szLongItemName>
+		<szItemDesc>6.8x43mm SPC特别用处子弹，在特种行动部队的参与下研发而成，他们希望这些子弹比5.56x45mm更具杀伤力。现已投入使用。</szItemDesc>
 		<szBRName>6.8x43mm SPC Box HP</szBRName>
-		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
+		<szBRDesc>6.8x43mm SPC特别用处子弹，在特种行动部队的参与下研发而成，他们希望这些子弹比5.56x45mm更具杀伤力。现已投入使用。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1522</uiIndex>
 		<szItemName>KAC Masterkey</szItemName>
 		<szLongItemName>KAC Masterkey</szLongItemName>
-		<szItemDesc>The 12-gauge Masterkey shotgun can be mounted under standard rifles as a breaching tool when used with special ammo.</szItemDesc>
+		<szItemDesc>这个12口径枪管下挂式散弹枪可以装载在标准步枪下，使用特殊的弹药作为破门工具。</szItemDesc>
 		<szBRName>KAC Masterkey</szBRName>
-		<szBRDesc>Tired of having to pack an Assault Rifle and an additional Shotgun? With this specially adapted shotgun, you can carry 2 in 1!</szBRDesc>
+		<szBRDesc>厌倦了一手突击步枪一手散弹枪？现在这种特别调整式散弹枪可以附加在步枪下，做到二合一了！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1523</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。不过要注意这些地雷的放置方向。可以远程引爆。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1524</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1525</uiIndex>
 		<szItemName>Rifle Sling</szItemName>
-		<szLongItemName>Rifle Sling</szLongItemName>
-		<szItemDesc>This simple sling prevents you from losing your gun in the heat of combat.</szItemDesc>
+		<szLongItemName>步枪背带</szLongItemName>
+		<szItemDesc>这些简单的背带可以防止你在热战中弄丢你的宝贝武器。</szItemDesc>
 		<szBRName>Rifle Sling</szBRName>
-		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
+		<szBRDesc>不必浪费时间把你的步枪放回背包。有了这个你可以直接放下手里的步枪并迅速抽出配枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1526</uiIndex>
 		<szItemName>Remote Defuse</szItemName>
-		<szLongItemName>Remote Defuse</szLongItemName>
-		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
+		<szLongItemName>远程解除器</szLongItemName>
+		<szItemDesc>将这个装置装到炸弹里，你就可以从远处安全解除炸弹的引爆装置，前提是你知道正确的信号频率。</szItemDesc>
 		<szBRName>Remote Defuse</szBRName>
-		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>
+		<szBRDesc>将这个装置装到炸弹里，你就可以从远处安全解除炸弹的引爆装置，前提是你知道正确的信号频率。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1527</uiIndex>
 		<szItemName>Remote Combo</szItemName>
-		<szLongItemName>Remote Combo</szLongItemName>
-		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
+		<szLongItemName>远程组合装置</szLongItemName>
+		<szItemDesc>这个组合装置同时具备启动和解除炸弹的功能。你邪恶的惊天布局里可少不了这些家伙们。 </szItemDesc>
 		<szBRName>Remote Combo</szBRName>
-		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>
+		<szBRDesc>把整座城市炸开花，或者做一个拆除末日炸弹拯救世界的英雄？有了这个，你可以随心所欲。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1528</uiIndex>
 		<szItemName>Tripwire Stun Grenade</szItemName>
-		<szLongItemName>Tripwire Stun Grenade</szLongItemName>
-		<szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线眩晕手雷</szLongItemName>
+		<szItemDesc>装配了绊线的标准眩晕手雷，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Stun Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1529</uiIndex>
 		<szItemName>Tripwire Tear Gas</szItemName>
-		<szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
-		<szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线催泪手雷</szLongItemName>
+		<szItemDesc>装配了绊线的标准催泪手雷，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Tear Gas Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1530</uiIndex>
 		<szItemName>Tripwire Mustard Gas</szItemName>
-		<szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
-		<szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线芥子气手雷</szLongItemName>
+		<szItemDesc>装配了绊线的标准芥子气手雷，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Mustard Gas Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1531</uiIndex>
 		<szItemName>Tripwire Mini Grenade</szItemName>
-		<szLongItemName>Tripwire Mini Grenade</szLongItemName>
-		<szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线迷你手雷</szLongItemName>
+		<szItemDesc>装配了绊线的标准迷你手雷，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Mini Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1532</uiIndex>
 		<szItemName>Tripwire Grenade</szItemName>
-		<szLongItemName>Tripwire Grenade Mine</szLongItemName>
-		<szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线MK2手雷</szLongItemName>
+		<szItemDesc>装配了绊线的标准MK2手雷，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1533</uiIndex>
 		<szItemName>Tripwire Flare</szItemName>
-		<szLongItemName>Tripwire Emergency Flare</szLongItemName>
-		<szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线应急照明弹</szLongItemName>
+		<szItemDesc>装配了绊线的应急照明弹，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Emergency Flare</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1534</uiIndex>
 		<szItemName>Tripwire Smoke Grenade</szItemName>
-		<szLongItemName>Tripwire Smoke Grenade</szLongItemName>
-		<szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szLongItemName>绊线烟雾弹</szLongItemName>
+		<szItemDesc>这个烟雾弹装配了绊线系统，可以用作临时简易的，但是十分有效的特殊地雷。</szItemDesc>
 		<szBRName>Tripwire Smoke Grenade</szBRName>
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1535</uiIndex>
 		<szItemName>Barrage</szItemName>
-		<szLongItemName>Barrage Drug</szLongItemName>
-		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+		<szLongItemName>冲锋药物</szLongItemName>
+		<szItemDesc>这个作战用药可以在短时间内大大提升体力。副作用包括大大增加侵略性，并有可能引发心脏病。</szItemDesc>
 		<szBRName>Barrage Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1536</uiIndex>
 		<szItemName>Reflex</szItemName>
-		<szLongItemName>Reflex Drug</szLongItemName>
-		<szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
+		<szLongItemName>反应力药物</szLongItemName>
+		<szItemDesc>这个作战用药可以在有效时间内提高反应能力，缩短反应时间。有效时间后作用相反。可能引发妄想症。</szItemDesc>
 		<szBRName>Reflex Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1537</uiIndex>
 		<szItemName>Occulin</szItemName>
-		<szLongItemName>Occulin Drug</szLongItemName>
-		<szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
+		<szLongItemName>视觉药物</szLongItemName>
+		<szItemDesc>临时增强视力范围，但是会给眼部造成较大负担。</szItemDesc>
 		<szBRName>Occulin Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1538</uiIndex>
 		<szItemName>Stim</szItemName>
-		<szLongItemName>Stim Drug</szLongItemName>
-		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
+		<szLongItemName>兴奋药物</szLongItemName>
+		<szItemDesc>大大增加身体的耐力和忍受力，但是你的意志有可能会失控。</szItemDesc>
 		<szBRName>Stim Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1539</uiIndex>
 		<szItemName>Antidote</szItemName>
-		<szLongItemName>Antidote</szLongItemName>
-		<szItemDesc>This antidote can cure poison over time. WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
+		<szLongItemName>解药</szLongItemName>
+		<szItemDesc>这个万能解药可以在一段时间后缓慢消除中毒影响。警告：可能导致暂时失明和重度偏头痛。</szItemDesc>
 		<szBRName>Antidote</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1540</uiIndex>
 		<szItemName>Sandbags</szItemName>
-		<szLongItemName>Sandbags, empty</szLongItemName>
-		<szItemDesc>A bunch of rugged, empty bags. What could you possibly store in there?</szItemDesc>
+		<szLongItemName>空沙袋</szLongItemName>
+		<szItemDesc>一捆粗布袋子。你到底想往里面装什么？</szItemDesc>
 		<szBRName>Sandbags, empty</szBRName>
-		<szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>
+		<szBRDesc>傻瓜才不去加固他的驻扎地，特别是在如此低廉的价格下！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1541</uiIndex>
 		<szItemName>Sandbags</szItemName>
-		<szLongItemName>Sandbags, filled</szLongItemName>
-		<szItemDesc>Whenever you need fortification, flood control, or cheap weight lifting equipment, these come in handy.</szItemDesc>
+		<szLongItemName>满沙袋</szLongItemName>
+		<szItemDesc>不管你是想加固驻防，挡住洪水还是练习举重，这袋便宜的家伙总是很好用。</szItemDesc>
 		<szBRName>Sandbags</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1542</uiIndex>
 		<szItemName>Concertina</szItemName>
-		<szLongItemName>Concertina Stack</szLongItemName>
-		<szItemDesc>A cheap way of denying access to areas. Be careful, don't hurt yourself while planting this.</szItemDesc>
+		<szLongItemName>铁丝网</szLongItemName>
+		<szItemDesc>一个简易的方法来说“禁止入内”。注意不要在放置时弄伤了自己。</szItemDesc>
 		<szBRName>Concertina Stack</szBRName>
-		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
+		<szBRDesc>用来为你的基地做细致的加护，并且在布置时慢慢让它们拉破你的工作服。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1543</uiIndex>
 		<szItemName>Shovel</szItemName>
-		<szLongItemName>Shovel</szLongItemName>
-		<szItemDesc>Perfect for digging your own grave, hitting people over the head (and then dig their grave) or building makeshift fortifications.</szItemDesc>
+		<szLongItemName>铲子</szLongItemName>
+		<szItemDesc>非常适合给你自己挖好坟墓，敲别人的脑袋（并给他们挖好坟墓），或者建造临时的驻防。</szItemDesc>
 		<szBRName>Shovel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1544</uiIndex>
 		<szItemName>Calory Bars</szItemName>
-		<szLongItemName>Calory Bars</szLongItemName>
-		<szItemDesc>Because normal food is sooo 2011.</szItemDesc>
+		<szLongItemName>卡路里条</szLongItemName>
+		<szItemDesc>为什么选择它？因为普通的食品太老土了。</szItemDesc>
 		<szBRName>Calory Bars</szBRName>
-		<szBRDesc>Calories, without distracting taste.</szBRDesc>
+		<szBRDesc>卡路里条，没有让人恶心的味道。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1545</uiIndex>
 		<szItemName>MRE</szItemName>
 		<szLongItemName>MRE</szLongItemName>
-		<szItemDesc>An individual food ration in use with the US military.</szItemDesc>
+		<szItemDesc>美军现役的个人速食餐包。</szItemDesc>
 		<szBRName>MRE</szBRName>
-		<szBRDesc>If its good for the US army, it better be good enough for you.</szBRDesc>
+		<szBRDesc>如果美军都在使用，那么肯定是有品质保障了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1546</uiIndex>
 		<szItemName>EPA</szItemName>
 		<szLongItemName>EPA</szLongItemName>
-		<szItemDesc>German army food. Beware the Raviolis! </szItemDesc>
+		<szItemDesc>德军用单兵食物包。小心里面的意大利饺！ </szItemDesc>
 		<szBRName>EPA</szBRName>
-		<szBRDesc>This box of german army food will bring you through the day. Note the cookies, which also serve as burning material.</szBRDesc>
+		<szBRDesc>这一盒德军食物包可以供你度过一天。注意，里面的饼干还可以用来引火！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1547</uiIndex>
 		<szItemName>Calorie Mate</szItemName>
-		<szLongItemName>Calorie Mate</szLongItemName>
-		<szItemDesc>It better taste better than it looks...</szItemDesc>
+		<szLongItemName>卡路里马黛茶</szLongItemName>
+		<szItemDesc>看起来很恶心，喝起来...</szItemDesc>
 		<szBRName>Calorie Mate</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -12388,607 +12388,607 @@
 		<uiIndex>1548</uiIndex>
 		<szItemName>Peak EPA</szItemName>
 		<szLongItemName>Peak EPA</szLongItemName>
-		<szItemDesc>A small bottle of vitamins and steroids.</szItemDesc>
+		<szItemDesc>一小瓶维生素和类固醇饮料。</szItemDesc>
 		<szBRName>Peak EPA</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1549</uiIndex>
 		<szItemName>Hotdog</szItemName>
-		<szLongItemName>Hotdog</szLongItemName>
-		<szItemDesc>Butchery leftovers with old bread. Enjoy.</szItemDesc>
+		<szLongItemName>热狗</szLongItemName>
+		<szItemDesc>肉摊子剩的烂肉加上过期的面包，请慢慢享用。</szItemDesc>
 		<szBRName>Hotdog</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1550</uiIndex>
 		<szItemName>Hamburger</szItemName>
-		<szLongItemName>Hamburger</szLongItemName>
-		<szItemDesc>For some obscure reason, this is also sold outside Hamburg.</szItemDesc>
+		<szLongItemName>汉堡包</szLongItemName>
+		<szItemDesc>不知道什么原因，这玩意不光是在德国汉堡有卖。</szItemDesc>
 		<szBRName>Hamburger</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1551</uiIndex>
 		<szItemName>Fries</szItemName>
-		<szLongItemName>French Fries</szLongItemName>
-		<szItemDesc>Or 'Freedom Fries', as some people like to call them.</szItemDesc>
+		<szLongItemName>炸薯条</szLongItemName>
+		<szItemDesc>所谓的法国式马铃薯，一般配着鸡块和洋葱圈一起吃。</szItemDesc>
 		<szBRName>Fries</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1552</uiIndex>
 		<szItemName>Pizza</szItemName>
-		<szLongItemName>Pizza</szLongItemName>
-		<szItemDesc>Favourite food of couch potatoes and sewer-based squads of tortoise ninjas everywhere.</szItemDesc>
+		<szLongItemName>披萨</szLongItemName>
+		<szItemDesc>住在下水道里的忍者神龟们的最爱。</szItemDesc>
 		<szBRName>Pizza</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1553</uiIndex>
 		<szItemName>Spam</szItemName>
-		<szLongItemName>Spam</szLongItemName>
-		<szItemDesc>Spam, spam, spam, spam, spam, spam, baked beans, spam, spam, spam and spam.</szItemDesc>
+		<szLongItemName>火腿</szLongItemName>
+		<szItemDesc>火腿，火腿，火腿，火腿，火腿，火腿，炸豆子，火腿，火腿，火腿还是火腿。</szItemDesc>
 		<szBRName>Spam</szBRName>
-		<szBRDesc>A viking's favourite food.</szBRDesc>
+		<szBRDesc>北欧海盗最喜欢的食物。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1554</uiIndex>
 		<szItemName>Spam 2</szItemName>
-		<szLongItemName>Spam in a can</szLongItemName>
-		<szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam, wonderful spam!</szItemDesc>
+		<szLongItemName>罐装火腿</szLongItemName>
+		<szItemDesc>火腿，火腿，火腿，火腿，火腿，火腿，，火腿，火腿，可爱的火腿，美妙的火腿！</szItemDesc>
 		<szBRName>Spam 2</szBRName>
-		<szBRDesc>Hey, at least it doesn't fill up your mailbox...</szBRDesc>
+		<szBRDesc>嘿，至少你不能把它塞到你的电子邮箱里...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1555</uiIndex>
 		<szItemName>C. vegetables</szItemName>
-		<szLongItemName>Canned vegetables</szLongItemName>
-		<szItemDesc>These vegetables will stay edible forever, much to children's dismay.</szItemDesc>
+		<szLongItemName>罐装蔬菜</szLongItemName>
+		<szItemDesc>这些蔬菜可以永久保存，是小孩子们的噩梦。</szItemDesc>
 		<szBRName>C. vegetables</szBRName>
-		<szBRDesc>Nutritious, long-lasting, and animal-friendly.</szBRDesc>
+		<szBRDesc>有营养，可长期保存，并且对人畜无害。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1556</uiIndex>
 		<szItemName>C. scorpions</szItemName>
-		<szLongItemName>Canned scorpions</szLongItemName>
-		<szItemDesc>How about something exotic? Like poisonous insects?</szItemDesc>
+		<szLongItemName>罐装蝎子</szLongItemName>
+		<szItemDesc>要不要来一些刺激的？比如毒虫子？</szItemDesc>
 		<szBRName>C. scorpions</szBRName>
-		<szBRDesc>We were assured this is actually eaten in some place we forgot.</szBRDesc>
+		<szBRDesc>我们可以确定有很多人在吃这些东西，比如贝爷。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1557</uiIndex>
 		<szItemName>Cat food</szItemName>
-		<szLongItemName>Canned cat food</szLongItemName>
-		<szItemDesc>Seriously? You really think about eating this? You should rethink this assignment...</szItemDesc>
+		<szLongItemName>罐装猫食</szLongItemName>
+		<szItemDesc>真的？你确实想吃这些？你最好重新考虑一下...</szItemDesc>
 		<szBRName>Cat food</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1558</uiIndex>
 		<szItemName>Baked beans</szItemName>
-		<szLongItemName>Canned baked beans</szLongItemName>
-		<szItemDesc>Tip: Best served with spam.</szItemDesc>
+		<szLongItemName>罐装烤豆子</szLongItemName>
+		<szItemDesc>建议：可以用两篇火腿夹着吃。</szItemDesc>
 		<szBRName>Baked beans</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1559</uiIndex>
 		<szItemName>Steak</szItemName>
-		<szLongItemName>Steak</szLongItemName>
-		<szItemDesc>The best arulcan steak you'll find in .. Arulco.</szItemDesc>
+		<szLongItemName>牛排</szLongItemName>
+		<szItemDesc>Arulco式牛排，你能在Arulco这里买到的最好的牛排...</szItemDesc>
 		<szBRName>Steak</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1560</uiIndex>
 		<szItemName>Bean stew</szItemName>
-		<szLongItemName>Bean stew</szLongItemName>
-		<szItemDesc>A mexican-style bean stew. Really hot!</szItemDesc>
+		<szLongItemName>炖豆子</szLongItemName>
+		<szItemDesc>纯正墨西哥风味炖豆子，好烫啊！</szItemDesc>
 		<szBRName>Bean stew</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1561</uiIndex>
 		<szItemName>French toast</szItemName>
-		<szLongItemName>French toast</szLongItemName>
-		<szItemDesc>Mhmm, breakfast!</szItemDesc>
+		<szLongItemName>法国吐司</szLongItemName>
+		<szItemDesc>哦，早餐有咯！</szItemDesc>
 		<szBRName>French toast</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1562</uiIndex>
 		<szItemName>Crepes</szItemName>
-		<szLongItemName>Crepes</szLongItemName>
-		<szItemDesc>A spinach and mushroom crepe.</szItemDesc>
+		<szLongItemName>薄煎饼</szLongItemName>
+		<szItemDesc>夹了菠菜和蘑菇的薄煎饼。</szItemDesc>
 		<szBRName>Crepes</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1563</uiIndex>
 		<szItemName>Pasta</szItemName>
-		<szLongItemName>Pasta</szLongItemName>
-		<szItemDesc>Italian pasta.</szItemDesc>
+		<szLongItemName>通心粉</szLongItemName>
+		<szItemDesc>就是意大利面条咯。</szItemDesc>
 		<szBRName>Pasta</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1564</uiIndex>
 		<szItemName>Omelet</szItemName>
-		<szLongItemName>Omelet</szLongItemName>
-		<szItemDesc>Omelet du fromage. Or not?</szItemDesc>
+		<szLongItemName>煎蛋卷</szLongItemName>
+		<szItemDesc>奶酪煎蛋卷？还是别的？</szItemDesc>
 		<szBRName>Omelet</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1565</uiIndex>
 		<szItemName>Cow meat</szItemName>
-		<szLongItemName>Cow meat</szLongItemName>
-		<szItemDesc>Sure, you can eat it right now. Cooking is for wussies, eh?</szItemDesc>
+		<szLongItemName>生牛肉</szLongItemName>
+		<szItemDesc>行啊，你可以现在就吃。懦夫才需要吃熟食，不是吗？</szItemDesc>
 		<szBRName>Cow meat</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1566</uiIndex>
 		<szItemName>Bloodcat meat</szItemName>
-		<szLongItemName>Bloodcat meat</szLongItemName>
-		<szItemDesc>You have to be a tough guy to kill them, but an even tougher guy to eat them!</szItemDesc>
+		<szLongItemName>血猫肉</szLongItemName>
+		<szItemDesc>你需要十分勇猛才能搞定它们，需要更勇猛去生吃了它们！</szItemDesc>
 		<szBRName>Bloodcat meat</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1567</uiIndex>
 		<szItemName>Bread</szItemName>
-		<szLongItemName>Bread loaf</szLongItemName>
-		<szItemDesc>A loaf of bread, made from grain of local farms.</szItemDesc>
+		<szLongItemName>面包条</szLongItemName>
+		<szItemDesc>一条面包，新鲜的当地农场谷物制品。</szItemDesc>
 		<szBRName>Bread</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1568</uiIndex>
 		<szItemName>Applepie</szItemName>
-		<szLongItemName>Applepie</szLongItemName>
-		<szItemDesc>A delicious applepie made from tasty arulcan apples. Don't you do anything naughty with it!</szItemDesc>
+		<szLongItemName>苹果派</szLongItemName>
+		<szItemDesc>用Arulco特产苹果做成的可口的苹果派。不要用它做猥琐的事情！</szItemDesc>
 		<szBRName>Applepie</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1569</uiIndex>
 		<szItemName>Water drum</szItemName>
-		<szLongItemName>Water drum</szLongItemName>
-		<szItemDesc>A rusty old water barrel.</szItemDesc>
+		<szLongItemName>水桶</szLongItemName>
+		<szItemDesc>一个锈迹斑斑的旧水桶。</szItemDesc>
 		<szBRName>Water drum</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1570</uiIndex>
 		<szItemName>PET bottle</szItemName>
-		<szLongItemName>PET bottle</szLongItemName>
-		<szItemDesc>A bottle with 1 liter of still mineral water.</szItemDesc>
+		<szLongItemName>PET塑料瓶</szLongItemName>
+		<szItemDesc>一瓶容量一升的罐装蒸馏矿泉水。</szItemDesc>
 		<szBRName>PET bottle</szBRName>
-		<szBRDesc>1 liter of healthy mineral water, in a one-use bottle.</szBRDesc>
+		<szBRDesc>一升的干净矿泉水，装在一次性塑料瓶里。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1571</uiIndex>
 		<szItemName>Vegetable juice</szItemName>
-		<szLongItemName>Vegetable juice</szLongItemName>
-		<szItemDesc>A drink that is so nutritious, it also stills your hunger (a bit).</szItemDesc>
+		<szLongItemName>蔬菜汁</szLongItemName>
+		<szItemDesc>非常有营养的饮品，还可以缓解一点点饥饿。</szItemDesc>
 		<szBRName>Vegetable juice</szBRName>
-		<szBRDesc>For those without teeth who want to eat vegetables.</szBRDesc>
+		<szBRDesc>为那些想吃蔬菜却没有牙齿的可怜人。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1572</uiIndex>
 		<szItemName>Milk</szItemName>
-		<szLongItemName>Milk</szLongItemName>
-		<szItemDesc>Cow milk, 1 liter.</szItemDesc>
+		<szLongItemName>牛奶</szLongItemName>
+		<szItemDesc>一升牛奶</szItemDesc>
 		<szBRName>Milk</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1573</uiIndex>
 		<szItemName>Energy drink</szItemName>
-		<szLongItemName>Energy drink</szLongItemName>
-		<szItemDesc>You can almost taste the yummy chemicals that went into this.</szItemDesc>
+		<szLongItemName>能量饮料1号</szLongItemName>
+		<szItemDesc>你几乎可以品尝出溶入这个饮料里的各种营养物质的美妙味道。</szItemDesc>
 		<szBRName>Energy drink</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1574</uiIndex>
 		<szItemName>Energy drink 2</szItemName>
-		<szLongItemName>Energy drink 2</szLongItemName>
-		<szItemDesc>Both tastes and refreshes like a kick in the belly.</szItemDesc>
+		<szLongItemName>能量饮料2号</szLongItemName>
+		<szItemDesc>美妙的口感和提神功能一起让你精神为之一振。</szItemDesc>
 		<szBRName>Energy drink 2</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1575</uiIndex>
 		<szItemName>Coffee</szItemName>
-		<szLongItemName>Coffee</szLongItemName>
-		<szItemDesc>Apparently some people can get hooked to this stuff.</szItemDesc>
+		<szLongItemName>咖啡</szLongItemName>
+		<szItemDesc>似乎有些人确实会对这些东西上瘾。</szItemDesc>
 		<szBRName>Coffee</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1576</uiIndex>
 		<szItemName>Cleaning Kit</szItemName>
-		<szLongItemName>Gun Cleaning Kit</szLongItemName>
-		<szItemDesc>Contains everything necessary to clean your gun in the field.</szItemDesc>
+		<szLongItemName>枪支清洁套装</szLongItemName>
+		<szItemDesc>包含了你在战场清洁枪支所需要的所有道具。</szItemDesc>
 		<szBRName>Cleaning Kit</szBRName>
-		<szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
+		<szBRDesc>即便是最可怕的毁灭性的武器也需要时不时地清洁维护一下。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1577</uiIndex>
 		<szItemName>Clothes</szItemName>
-		<szLongItemName>Civilian Clothes</szLongItemName>
-		<szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
+		<szLongItemName>市民服装</szLongItemName>
+		<szItemDesc>Arulco当地常见的市民服装。绝对没有名牌值钱货。</szItemDesc>
 		<szBRName>Civilian Clothes</szBRName>
-		<szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
+		<szBRDesc>什么时候BR也开始卖这种垃圾二手衣服了？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1578</uiIndex>
 		<szItemName>Dart</szItemName>
-		<szLongItemName>Neurotoxin Dart</szLongItemName>
-		<szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
+		<szLongItemName>神经毒素飞镖</szLongItemName>
+		<szItemDesc>暗杀的首选。沾一点点毒液在皮肤上不用几秒目标就嗝屁了。绝对没得救。</szItemDesc>
 		<szBRName>Neurotoxin Dart</szBRName>
-		<szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
+		<szBRDesc>嘿帅哥，来看看我们新进的超酷毒镖，可以杀死一头大象！不过要小心别碰到针头，像海关部可怜的小王那样。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1579</uiIndex>
 		<szItemName>Garotte</szItemName>
-		<szLongItemName>Garotte</szLongItemName>
-		<szItemDesc>In skilled hands, a deadly weapon. In unskilled hands, you better use your fists.</szItemDesc>
+		<szLongItemName>绞刑架</szLongItemName>
+		<szItemDesc>职业杀手专用的杀人玩具。新手还是算了，不如用拳头来的快。</szItemDesc>
 		<szBRName>Garotte</szBRName>
-		<szBRDesc>Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
+		<szBRDesc>便携，不易被发现，不需要维护。当然需要考虑的是你的绞刑者有可能会看到你的模样。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1580</uiIndex>
 		<szItemName>Body</szItemName>
-		<szLongItemName>Dead Body</szLongItemName>
-		<szItemDesc>A fresh corpse.</szItemDesc>
+		<szLongItemName>死尸</szLongItemName>
+		<szItemDesc>一具新鲜的尸体。</szItemDesc>
 		<szBRName>Dead Body</szBRName>
 		<szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1581</uiIndex>
 		<szItemName>Rifle Grenade Device</szItemName>
-		<szLongItemName>Rifle Grenade Device</szLongItemName>
-		<szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
+		<szLongItemName>步枪榴弹发射装置</szLongItemName>
+		<szItemDesc>这个小玩意可以让你的步枪发射榴弹。需要装填弹夹，而且很显然，装了这玩意步枪就只能用来发射榴弹了。</szItemDesc>
 		<szBRName>Rifle Grenade Device</szBRName>
-		<szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
+		<szBRDesc>可以将你手上的二战步枪转换为二战榴弹发射器。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1582</uiIndex>
 		<szItemName>Oatmeal</szItemName>
-		<szLongItemName>Oatmeal</szLongItemName>
-		<szItemDesc>Favourite food of horses, but not children, everywhere.</szItemDesc>
+		<szLongItemName>燕麦片</szLongItemName>
+		<szItemDesc>马最喜欢的食物，小孩子们童年的噩梦。</szItemDesc>
 		<szBRName>Oatmeal</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1583</uiIndex>
 		<szItemName>Rice</szItemName>
-		<szLongItemName>Bag of rice</szLongItemName>
-		<szItemDesc>One of the most consumed goods ever.</szItemDesc>
+		<szLongItemName>一袋米</szLongItemName>
+		<szItemDesc>消耗量最大的一种食物。</szItemDesc>
 		<szBRName>Bag of rice</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1584</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1585</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1586</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1587</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1588</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1589</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1590</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szLongItemName>M18阔刀地雷</szLongItemName>
+		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1591</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1592</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1593</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1594</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1595</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1596</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1597</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1598</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1599</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1600</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1601</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1602</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1603</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1604</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1605</uiIndex>
 		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szLongItemName>绊线</szLongItemName>
+		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1606</uiIndex>
 		<szItemName>Black shirt</szItemName>
-		<szLongItemName>Black shirt</szLongItemName>
-		<szItemDesc>Part of the uniform of Arulco's elite guard. Pretending to be one of them carries the death penalty.</szItemDesc>
+		<szLongItemName>黑色衬衫</szLongItemName>
+		<szItemDesc>Arulco精英士兵制服的一部分。假冒精英士兵在Arulco可是死罪。</szItemDesc>
 		<szBRName>Black shirt</szBRName>
 		<szBRDesc>Not for sale through BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1607</uiIndex>
 		<szItemName>Blue shirt</szItemName>
-		<szLongItemName>Blue shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable blue T-shirt.</szItemDesc>
+		<szLongItemName>蓝色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的蓝色T恤衫。</szItemDesc>
 		<szBRName>Blue shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1608</uiIndex>
 		<szItemName>Brown shirt</szItemName>
-		<szLongItemName>Brown shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable brown T-shirt.</szItemDesc>
+		<szLongItemName>棕色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的棕色T恤衫。</szItemDesc>
 		<szBRName>Brown shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1609</uiIndex>
 		<szItemName>Green shirt</szItemName>
-		<szLongItemName>Green shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
+		<szLongItemName>绿色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的绿色T恤衫。</szItemDesc>
 		<szBRName>Green shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1610</uiIndex>
 		<szItemName>Grey shirt</szItemName>
-		<szLongItemName>Grey shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable grey T-shirt.</szItemDesc>
+		<szLongItemName>灰色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的灰色T恤衫。</szItemDesc>
 		<szBRName>Grey shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1611</uiIndex>
 		<szItemName>Yellow shirt</szItemName>
-		<szLongItemName>Yellow shirt</szLongItemName>
-		<szItemDesc>Part of the uniform of the armed administrative branch of the arulcan army.</szItemDesc>
+		<szLongItemName>黄色衬衫</szLongItemName>
+		<szItemDesc>Arulco武装督察员制服的一部分。他们率属于Arulco军队。</szItemDesc>
 		<szBRName>Yellow shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1612</uiIndex>
 		<szItemName>White shirt</szItemName>
-		<szLongItemName>White shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable yellow T-shirt.</szItemDesc>
+		<szLongItemName>白色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的白色T恤衫。</szItemDesc>
 		<szBRName>White shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1613</uiIndex>
 		<szItemName>Purple shirt</szItemName>
-		<szLongItemName>Purple shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable purple T-shirt.</szItemDesc>
+		<szLongItemName>紫色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的紫色T恤衫。</szItemDesc>
 		<szBRName>Purple shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1614</uiIndex>
 		<szItemName>Red shirt</szItemName>
-		<szLongItemName>Red shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szLongItemName>红色衬衫</szLongItemName>
+		<szItemDesc>警告：穿着红色的普通士兵制服谈话可能会大大增加你的莫名死亡率。</szItemDesc>
 		<szBRName>Red shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1615</uiIndex>
 		<szItemName>Jean shirt</szItemName>
-		<szLongItemName>Jean shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szLongItemName>牛仔色衬衫</szLongItemName>
+		<szItemDesc>警告：穿着牛仔服谈话可能会大大增加你的莫名死亡率。</szItemDesc>
 		<szBRName>Jean shirt</szBRName>
-		<szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
+		<szBRDesc>牛仔色？是什么玩意颜色？愚蠢的名字。在我们那会儿，大家都穿黑色的衣服，简单。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1616</uiIndex>
 		<szItemName>Light green shirt</szItemName>
-		<szLongItemName>Light green shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable light green yellow T-shirt.</szItemDesc>
+		<szLongItemName>淡绿色衬衫</szLongItemName>
+		<szItemDesc>一件非常不显眼的淡绿色T恤衫。</szItemDesc>
 		<szBRName>Light green shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>很显然我们现在也兜售衣服了。好吧，这是一件T恤衫，你不知道什么是T恤衫？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1617</uiIndex>
 		<szItemName>Beige pants</szItemName>
-		<szLongItemName>Beige pants</szLongItemName>
-		<szItemDesc>Pants. Be sure to wear a pair if you leave the house.</szItemDesc>
+		<szLongItemName>米黄色裤子</szLongItemName>
+		<szItemDesc>出门前最好穿上你的裤子。</szItemDesc>
 		<szBRName>Beige pants</szBRName>
-		<szBRDesc>We also sell pants. In beige. Sigh. What has this shop come to? Does anyone even read this?</szBRDesc>
+		<szBRDesc>我们也开始卖裤子了。米黄色的，哎。我们的店到底怎么了？有人会看这些垃圾？</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1618</uiIndex>
 		<szItemName>Black pants</szItemName>
-		<szLongItemName>Black army trousers</szLongItemName>
-		<szItemDesc>Part of the arulcan elite guard uniform.</szItemDesc>
+		<szLongItemName>黑色军裤</szLongItemName>
+		<szItemDesc>Arulco精英士兵制服的一部分。</szItemDesc>
 		<szBRName>Black pants</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1619</uiIndex>
 		<szItemName>Bluejeans</szItemName>
-		<szLongItemName>Bluejeans</szLongItemName>
-		<szItemDesc>A pair of no-name bluejeans.</szItemDesc>
+		<szLongItemName>牛仔裤</szLongItemName>
+		<szItemDesc>一件没有牌子的牛仔裤。</szItemDesc>
 		<szBRName>Bluejeans</szBRName>
-		<szBRDesc>You know, I used to wear them before they were cool.</szBRDesc>
+		<szBRDesc>你知道吗，在牛仔裤出名之前我就在穿它们了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1620</uiIndex>
 		<szItemName>Army trousers</szItemName>
-		<szLongItemName>Army trousers</szLongItemName>
-		<szItemDesc>Standard army pants.</szItemDesc>
+		<szLongItemName>军裤</szLongItemName>
+		<szItemDesc>军队普通士兵的裤子</szItemDesc>
 		<szBRName>Army trousers</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1621</uiIndex>
 		<szItemName>Jean pants</szItemName>
-		<szLongItemName>Jean pants</szLongItemName>
-		<szItemDesc>Pants. This might be useful, don't you think?</szItemDesc>
+		<szLongItemName>牛仔色裤子</szLongItemName>
+		<szItemDesc>你不觉得裤子在某些方面很有用吗？</szItemDesc>
 		<szBRName>Jean pants</szBRName>
-		<szBRDesc>42 little jeans had to lose their skin to create this jean pair of pants. So please buy it.</szBRDesc>
+		<szBRDesc>牛仔店为了做这件裤子可以说丢尽了颜面。所以请买下它吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1622</uiIndex>
 		<szItemName>Tan pants</szItemName>
-		<szLongItemName>Tan pants</szLongItemName>
-		<szItemDesc>Pants. Of limited use as a weapon, if you ask me. But you propably don't, I know you.</szItemDesc>
+		<szLongItemName>鞣革色裤子</szLongItemName>
+		<szItemDesc>裤子作为武器功能有限，如果你非要问的话。不过我知道你不会这样问的。</szItemDesc>
 		<szBRName>Tan pants</szBRName>
-		<szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
+		<szBRDesc>我们不确定这个裤子和鞣革有什么关系，不过还是请买下它吧。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1623</uiIndex>
 		<szItemName>random NATO AR number 1</szItemName>
 		<szLongItemName>random NATO AR 1</szLongItemName>
-		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+		<szItemDesc>如果你看到这个信息，说明Flugente还没有做好这个道具，是他的错！</szItemDesc>
 		<szBRName>random NATO AR 1</szBRName>
 		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
 	</ITEM>
@@ -12996,624 +12996,624 @@
 		<uiIndex>1624</uiIndex>
 		<szItemName>random WP AR number 1</szItemName>
 		<szLongItemName>random WP AR 1</szLongItemName>
-		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+		<szItemDesc>如果你看到这个信息，说明Flugente还没有做好这个道具，是他的错！</szItemDesc>
 		<szBRName>random WP AR 1</szBRName>
 		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1625</uiIndex>
 		<szItemName>Handcuffs</szItemName>
-		<szLongItemName>Handcuffs</szLongItemName>
-		<szItemDesc>If you want to arrest someone, it is helpful to keep them from using their hands.</szItemDesc>
+		<szLongItemName>手铐</szLongItemName>
+		<szItemDesc>如果你想逮捕某人，你最好别让他们的手到处乱摸。</szItemDesc>
 		<szBRName>Handcuffs</szBRName>
-		<szBRDesc>Standard police handcuffs.</szBRDesc>
+		<szBRDesc>标准警用手铐。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1626</uiIndex>
 		<szItemName>Stun Gun</szItemName>
-		<szLongItemName>Stun Gun</szLongItemName>
-		<szItemDesc>If applied correctly, this stun gun will hit anyone it touches with over 2 million volts. In case you find yourself in need of a drooling, helpless victim.</szItemDesc>
+		<szLongItemName>电击枪</szLongItemName>
+		<szItemDesc>使用正确的情况下，电击枪会以200万伏特击中碰到它的人。当你需要一个流着口水无力瘫软的敌人时可派上用场。</szItemDesc>
 		<szBRName>Stun Gun</szBRName>
-		<szBRDesc>At 2 million V, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
+		<szBRDesc>200万伏特足以让最强壮的人瘫倒在地上。电池单卖！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1627</uiIndex>
 		<szItemName>Pepper Spray</szItemName>
-		<szLongItemName>Pepper Spray</szLongItemName>
-		<szItemDesc>Well, its better than flailing your ams helplessly.</szItemDesc>
+		<szLongItemName>胡椒粉喷雾剂</szLongItemName>
+		<szItemDesc>好吧，这总比毫无目标地挥舞手臂要有效果。</szItemDesc>
 		<szBRName>Pepper Spray</szBRName>
-		<szBRDesc>Repel any thug with this pepper spray. Spray into his face for best effect.</szBRDesc>
+		<szBRDesc>用胡椒粉喷雾剂击退暴徒吧。记住对着脸喷可以获得最佳疗效。.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1628</uiIndex>
 		<szItemName>Spray Canister</szItemName>
-		<szLongItemName>Pepper Spray Canister</szLongItemName>
-		<szItemDesc>If you think you need to carry several of these, consider moving out of town.</szItemDesc>
+		<szLongItemName>胡椒粉喷雾罐</szLongItemName>
+		<szItemDesc>如果你觉得背着几个罐子还不够的话，你该考虑离开这个患难之地了。</szItemDesc>
 		<szBRName>Pepper Spray Canister</szBRName>
-		<szBRDesc>Though one might think so, putting this on your food is not the best idea you could have.</szBRDesc>
+		<szBRDesc>可能有些人会这么想，但是我们真的不建议你把它们喷到食物上。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1629</uiIndex>
 		<szItemName>Scuba Mask</szItemName>
-		<szLongItemName>Scuba Mask</szLongItemName>
-		<szItemDesc>This mask, in conjunction with a diving bottle, allows you to stay underwater.</szItemDesc>
+		<szLongItemName>潜水面罩</szLongItemName>
+		<szItemDesc>这个面具再加一个潜水瓶，你就可以潜水了。</szItemDesc>
 		<szBRName>Scuba Mask</szBRName>
-		<szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
+		<szBRDesc>如果你想到水底爽爽的话，记住用这个面罩保护眼睛，否则你什么都看不清楚。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1630</uiIndex>
 		<szItemName>Diving Bottle</szItemName>
-		<szLongItemName>Diving Bottle</szLongItemName>
-		<szItemDesc>Contains enough oxygen to stay underwater for many minutes.</szItemDesc>
+		<szLongItemName>潜水瓶</szLongItemName>
+		<szItemDesc>装有足够你在水下待上几分钟的氧气。</szItemDesc>
 		<szBRName>Diving Bottle</szBRName>
-		<szBRDesc>Standard equipment for divers.</szBRDesc>
+		<szBRDesc>潜水员的标准装备。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1631</uiIndex>
 		<szItemName>Scuba Fins</szItemName>
-		<szLongItemName>Scuba Fins</szLongItemName>
-		<szItemDesc>What you'll lose in maneuverability on land you'll gain in water.</szItemDesc>
+		<szLongItemName>潜水鞋</szLongItemName>
+		<szItemDesc>也许在陆上会显得很蹩脚，但是到水里却十分自如。</szItemDesc>
 		<szBRName>Scuba Fins</szBRName>
-		<szBRDesc>Not only can you swim much faster with these, you'll also be the star of every penguin-themed costume party.</szBRDesc>
+		<szBRDesc>穿上它不但游得飞快，而且还会让你拿到各种cosplay大赛最佳可笑企鹅奖！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1632</uiIndex>
 		<szItemName>Binders</szItemName>
-		<szLongItemName>Stack of Binders</szLongItemName>
-		<szItemDesc>Surprisingly, this also works on people, as a very poor man's handcuff.</szItemDesc>
+		<szLongItemName>捆绑带</szLongItemName>
+		<szItemDesc>这些捆绑带不但可以捆住导线，还可以当做手铐使用。</szItemDesc>
 		<szBRName>Stack of Binders</szBRName>
-		<szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
+		<szBRDesc>用于分类导线。这一包应该足够你用上一阵子。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1633</uiIndex>
 		<szItemName>Dart Crate</szItemName>
-		<szLongItemName>Neurotoxin Dart Crate</szLongItemName>
-		<szItemDesc>A hundred insanely poisonous darts. Why do you need so many?</szItemDesc>
+		<szLongItemName>神经毒素飞镖箱</szLongItemName>
+		<szItemDesc>100发可怕的毒镖。你干嘛需要这么多？</szItemDesc>
 		<szBRName>Neurotoxin Dart Crate</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.	Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在可以批量提供几种弹药。请在下订单前看清楚成箱弹药的价格和重量。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1634</uiIndex>
 		<szItemName>M99</szItemName>
 		<szLongItemName>M99</szLongItemName>
-		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed, and you are not an elephant.</szItemDesc>
+		<szItemDesc>非常有力的动物麻醉镖。过量会致命，记住你是人不是大象。</szItemDesc>
 		<szBRName>M99</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1635</uiIndex>
 		<szItemName>LAM-Flashlight</szItemName>
-		<szLongItemName>Rifle LAM-Flashlight Combo</szLongItemName>
-		<szItemDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is ON.</szItemDesc>
+		<szLongItemName>步枪激光瞄具战术灯组合</szLongItemName>
+		<szItemDesc>这个激光瞄具和战术灯组合专用于现代步枪RIS附件系统。战术灯默认为开。</szItemDesc>
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1636</uiIndex>
 		<szItemName>Flashlight</szItemName>
-		<szLongItemName>Flashlight</szLongItemName>
-		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the hea.</szItemDesc>
+		<szLongItemName>战术灯</szLongItemName>
+		<szItemDesc>我是光！不，不对，我只是一个手电筒。我还是有点用处的，起码手边没武器时，可以用我来敲别人的脑袋。</szItemDesc>
 		<szBRName>Flashlight</szBRName>
-		<szBRDesc>We say: let there be light! Batteries included.</szBRDesc>
+		<szBRDesc>我们说：要有光！内附电池。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1637</uiIndex>
 		<szItemName>Flashlight</szItemName>
-		<szLongItemName>Flashlight</szLongItemName>
-		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head. Flashlight is ON.</szItemDesc>
+		<szLongItemName>战术灯</szLongItemName>
+		<szItemDesc>我是光！不，不对，我只是一个手电筒。我还是有点用处的，起码手边没武器时，可以用我来敲别人的脑袋。战术灯默认为开。</szItemDesc>
 		<szBRName>Flashlight</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
-  <ITEM>
-    <uiIndex>1638</uiIndex>
-    <szItemName>Letter Opener</szItemName>
-    <szLongItemName>Letter Opener</szLongItemName>
-    <szItemDesc>An official USPS letter opener. Boldly engraved on the handle is the warning property of the government - "do not remove from postal station".</szItemDesc>
-    <szBRName>Letter Opener</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1639</uiIndex>
-    <szItemName>Hedge Trimmer</szItemName>
-    <szLongItemName>Hedge Trimmer</szLongItemName>
-    <szItemDesc>An effective implement used for prunning.</szItemDesc>
-    <szBRName>Hedge Trimmer</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1640</uiIndex>
-    <szItemName>Tripwire Roll</szItemName>
-    <szLongItemName>Tripwire Roll</szLongItemName>
-    <szItemDesc>TRipwire can be deployed directly frm this roll.</szItemDesc>
-    <szBRName>Tripwire Roll</szBRName>
-    <szBRDesc>A roll of tripwire. In case you need to boobytrap your house, your car, and your cat.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1641</uiIndex>
-    <szItemName>Large Holster</szItemName>
-    <szLongItemName>Large Holster</szLongItemName>
-    <szItemDesc>This pistol holster can store a larger pistol and up to two spare magazines. It also has a pocket for additional equipment.</szItemDesc>
-    <szBRName>Large Holster</szBRName>
-    <szBRDesc>This pistol holster can store a larger pistol and up to two spare magazines.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1642</uiIndex>
-    <szItemName>SG Holster</szItemName>
-    <szLongItemName>Shotgun holster</szLongItemName>
-    <szItemDesc>This is the perfect holster to store a small handheld shotgun in.</szItemDesc>
-    <szBRName>Shotgun holster</szBRName>
-    <szBRDesc>This is the perfect holster to store a small handheld shotgun in.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1643</uiIndex>
-    <szItemName>SMG Leg Rig</szItemName>
-    <szLongItemName>SMG Leg Rig</szLongItemName>
-    <szItemDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szItemDesc>
-    <szBRName>SMG Leg Rig</szBRName>
-    <szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1644</uiIndex>
-    <szItemName>TK Rig</szItemName>
-    <szLongItemName>Leg Rig Throwing Knives</szLongItemName>
-    <szItemDesc>Stealthy assasins like their knives. This rig can hold several knives.</szItemDesc>
-    <szBRName>TK Rig</szBRName>
-    <szBRDesc>Stealthy assasins like their knives. This rig can hold several knives.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1645</uiIndex>
-    <szItemName>Pistol Magazines</szItemName>
-    <szLongItemName>Pistol Magazines</szLongItemName>
-    <szItemDesc>A leg rig with three pouches for pistol magazines.</szItemDesc>
-    <szBRName>Pistol Magazines</szBRName>
-    <szBRDesc>A leg rig with three pouches for pistol magazines.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1646</uiIndex>
-    <szItemName>Equipment Pouch</szItemName>
-    <szLongItemName>Equipment Pouch</szLongItemName>
-    <szItemDesc>A versatile leg pouch with pockets to carry various items.</szItemDesc>
-    <szBRName>Equipment Pouch</szBRName>
-    <szBRDesc>A versatile leg pouch with pockets to carry various items.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1647</uiIndex>
-    <szItemName>Bomb Pouch</szItemName>
-    <szLongItemName>Bomb Pouch</szLongItemName>
-    <szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
-    <szBRName>Bomb Pouch</szBRName>
-    <szBRDesc>A leg rig suitable for the safe transport of explosives.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1648</uiIndex>
-    <szItemName>12g S Rig</szItemName>
-    <szLongItemName>12g Shotgun Rig</szLongItemName>
-    <szItemDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szItemDesc>
-    <szBRName>12g Shotgun Rig</szBRName>
-    <szBRDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1649</uiIndex>
-    <szItemName>Thigh Rig</szItemName>
-    <szLongItemName>3.11 Thigh Rig</szLongItemName>
-    <szItemDesc>The face of the rig features MOLLE attachment straps which can accommodate all of our NAS accessories and pouches providing rapid access to critical gear.</szItemDesc>
-    <szBRName>3.11 Thigh Rig</szBRName>
-    <szBRDesc>A highly useful accessory used by sportsmen, patrol officers, and tactical operators across the country, the 3.11 Thigh Rig is a lightweight, reliable, and completely customizable.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1650</uiIndex>
-    <szItemName>3.11 Pouch</szItemName>
-    <szLongItemName>3.11 Horizontal Pouch</szLongItemName>
-    <szItemDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
-    <szBRName>3.11 Horizontal Pouch</szBRName>
-    <szBRDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1651</uiIndex>
-    <szItemName>MLBE Vest</szItemName>
-    <szLongItemName>3.11 Tactical Vest</szLongItemName>
-    <szItemDesc>Customisable tactical utility with high impact fastening grips, and hidden document pockets.</szItemDesc>
-    <szBRName>3.11 Tactical Vest</szBRName>
-    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our standard NAS gear.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1652</uiIndex>
-    <szItemName>Ammo Belt</szItemName>
-    <szLongItemName>3.11 Ammo Belt</szLongItemName>
-    <szItemDesc>Customize your load bearing equipment according to your wishes! This pouch is medium-sized.</szItemDesc>
-    <szBRName>Modular LBE - Medium Ammo Belt</szBRName>
-    <szBRDesc>Customize your load bearing equipment according to your wishes! This pouch is medium-sized.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1653</uiIndex>
-    <szItemName>Holster Pouch</szItemName>
-    <szLongItemName>3.11 Holster Pouch</szLongItemName>
-    <szItemDesc>The 3.11 Holster Pouch is an adjustable holster to accommodate a variety of handguns and attaches to compatible 3.11.</szItemDesc>
-    <szBRName>3.11 Holster Pouch</szBRName>
-    <szBRDesc>Features include adjustable locking straps to keep handgun secure and a hook-side Velcro backing.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1654</uiIndex>
-    <szItemName>Mini Frag Pouch</szItemName>
-    <szLongItemName>3.11 Mini Frag Pouch</szLongItemName>
-    <szItemDesc>Made of durable 1000D nylon and a quality Velcro closure, the Grenade MOLLE pouch is high quality at a great price.</szItemDesc>
-    <szBRName>3.11 Grenade Pouch</szBRName>
-    <szBRDesc>The 3.11 Frag Pouch is built to accommodate 2 small grenades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1655</uiIndex>
-    <szItemName>Double MP5</szItemName>
-    <szLongItemName>Double MP5 Pouch</szLongItemName>
-    <szItemDesc>Engineered for tactical and law enforcement use, the MP5 Double Bungee Cover Pouch provides quick and secure access to any standard 9mm magazine.</szItemDesc>
-    <szBRName>Double MP5 Pouch</szBRName>
-    <szBRDesc>Featuring complete compatibility with 3.11 NAS and MOLLE web gear platforms.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1656</uiIndex>
-    <szItemName>H2O Carrier</szItemName>
-    <szLongItemName>3.11 H2O Carrier</szLongItemName>
-    <szItemDesc>The high impact locking clip keeps a water bottle secure and is easily accessible by attaching to any standard MOLLE web platform.</szItemDesc>
-    <szBRName>H2O Carrier</szBRName>
-    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS web platforms.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1657</uiIndex>
-    <szItemName>3.11 Single AR</szItemName>
-    <szLongItemName>3.11 Single Mag Pouch</szLongItemName>
-    <szItemDesc>3.11 Single Mag Pouch attaches quickly to any MOLLE compatible system to hold one AR magazine.</szItemDesc>
-    <szBRName>3.11 Single Mag Pouch</szBRName>
-    <szBRDesc>A Velcro cover keeps your magazine secure in any environment, and the Single Magazine Pouch is compatible with NAS System web platforms for quick integration into your loadout.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1658</uiIndex>
-    <szItemName>Med Pouch</szItemName>
-    <szLongItemName>3.11 Med Pouch</szLongItemName>
-    <szItemDesc>With MOLLE attachment system compatibility for the 3.11 system, the Med Pouch adds a mesh interior pocket.</szItemDesc>
-    <szBRName>3.11 Med Pouch</szBRName>
-    <szBRDesc>The 3.11 Medic Pouch meshes seamlessly with 3.11 bags, providing a quick first aid solution for any application or environment.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1659</uiIndex>
-    <szItemName>Double Pistol</szItemName>
-    <szLongItemName>3.11 Double Pistol Mag</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistolâ€™s magazine and provide quick access when itâ€™s time to reload.</szItemDesc>
-    <szBRName>3.11 Double Pistol Mag</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1660</uiIndex>
-    <szItemName>Knife Holster</szItemName>
-    <szLongItemName>Nylon Knife Sheath</szLongItemName>
-    <szItemDesc>A small, compact clip on nylon sheath that accepts most combat Knifes.</szItemDesc>
-    <szBRName>Nylon Knife Holster</szBRName>
-    <szBRDesc>A quick and easy Knife sheath.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1661</uiIndex>
-    <szItemName>3.11 Explosives</szItemName>
-    <szLongItemName>3.11 Explosives Pouch</szLongItemName>
-    <szItemDesc>The 3.11 Vertical Explosives Pouch features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
-    <szBRName>3.11 Explosives Pouch</szBRName>
-    <szBRDesc>The 3.11 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1662</uiIndex>
-    <szItemName>Syringe Pouch</szItemName>
-    <szLongItemName>3.11 Syringe Pouch</szLongItemName>
-    <szItemDesc>Designed to keep a syringe secure. The high impact and locking clip with MOLLE compatibility make this compact pouch ideal for a small item.</szItemDesc>
-    <szBRName>3.11 Syringe Pouch</szBRName>
-    <szBRDesc>Engineered to mesh seamlessly with 3.11 bags, belts, and packs, the Syringe Pouch keeps your sensitive medical equipment safe and secure.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1663</uiIndex>
-    <szItemName>Shotgun Bandolier</szItemName>
-    <szLongItemName>7 RD Shotgun Bandolier</szLongItemName>
-    <szItemDesc>The NAS Shotgun Bandolier holds 7 shotgun shell rounds.</szItemDesc>
-    <szBRName>7 RD Shotgun Bandolier</szBRName>
-    <szBRDesc>The 7 RD Shotgun Bandolier keeps your shotgun reloads within easy reach.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1664</uiIndex>
-    <szItemName>Documents</szItemName>
-    <szLongItemName>Document Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital maps and other paperwork.</szItemDesc>
-    <szBRName>Document Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Document Drop Pouch remains folded and compact when not in use</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1665</uiIndex>
-    <szItemName>Drop Holster</szItemName>
-    <szLongItemName>Drop Leg Holster</szLongItemName>
-    <szItemDesc>The LBT-6099Z is an ambidextrous, modular style universal holster.</szItemDesc>
-    <szBRName>Drop Leg Ambi Holster</szBRName>
-    <szBRDesc>Versatility comes from the number of carry modes and weapon configurations allowed by this holster.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1666</uiIndex>
-    <szItemName>Casualty Response Kit</szItemName>
-    <szLongItemName>Casualty Response Kit</szLongItemName>
-    <szItemDesc>Trauma shear storage for quick access and MOLLE style attachment system compatible.</szItemDesc>
-    <szBRName>Casualty Response Kit</szBRName>
-    <szBRDesc>Here we have a Trauma shear storage for quick access and MOLLE style attachment system compatible.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1667</uiIndex>
-    <szItemName>Black MOLLE</szItemName>
-    <szLongItemName>Black Modular Vest</szLongItemName>
-    <szItemDesc>This black tactical vest is almost completely covered in MOLLE compatible webbing, making it easy to attach all the gear you need.</szItemDesc>
-    <szBRName>Black Modular Vest</szBRName>
-    <szBRDesc>This military vest has hanging loops for added storage and features two inner mesh pockets with zippers, perfect to carry smaller items that cannot be attached to the molle webbing.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1668</uiIndex>
-    <szItemName>Multicam Vest</szItemName>
-    <szLongItemName>Multicam Molle Vest</szLongItemName>
-    <szItemDesc>The Multicam MOLLE  tactical vest is mounted on tough mesh material for superior ventilation, and is equipped with a multitude of ammo pouches and holsters for all your firearms.</szItemDesc>
-    <szBRName>Multicam Molle Vest</szBRName>
-    <szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1669</uiIndex>
-    <szItemName>TK Sheath</szItemName>
-    <szLongItemName>Throwing Knife Sheath</szLongItemName>
-    <szItemDesc>3.11 modular pouches are designed to give you maximum flexibiity when creating your personal rig.</szItemDesc>
-    <szBRName>Throwing Knife Sheath</szBRName>
-    <szBRDesc>Swift access to your blades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1670</uiIndex>
-    <szItemName>12G Pouch</szItemName>
-    <szLongItemName>3.11 Shotgun Ammo Pouch</szLongItemName>
-    <szItemDesc>Versatile shotgun pouch gives you quick access to the rounds you need.</szItemDesc>
-    <szBRName>3.11 Shotgun Ammo Pouch</szBRName>
-    <szBRDesc>The quick and simple 3.11 Shotgun Ammo Pouch provides easy and reliable access to standard shotgun rounds.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1671</uiIndex>
-    <szItemName>Small Drop</szItemName>
-    <szLongItemName>Small Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
-    <szBRName>Small Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Small Drop Pouch remains folded and compact when not in use.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1672</uiIndex>
-    <szItemName>Sniper Pouch</szItemName>
-    <szLongItemName>Sniper Ammo Pouch</szLongItemName>
-    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
-    <szBRName>Sniper Ammo Pouch</szBRName>
-    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1673</uiIndex>
-    <szItemName>Rifle Pouch</szItemName>
-    <szLongItemName>Rifle Ammo Pouch</szLongItemName>
-    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
-    <szBRName>Rifle Ammo Pouch</szBRName>
-    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1674</uiIndex>
-    <szItemName>Knife Sheath</szItemName>
-    <szLongItemName>Leather Knife Sheath</szLongItemName>
-    <szItemDesc>Clip point Bowie knife and drop loop sheath with front arch over the guard.</szItemDesc>
-    <szBRName>Leather Knife Sheath</szBRName>
-    <szBRDesc>Clip point Bowie knife and drop loop sheath with front arch over the guard.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1675</uiIndex>
-    <szItemName>Revolver Pouch</szItemName>
-    <szLongItemName>Revolver Pouch</szLongItemName>
-    <szItemDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szItemDesc>
-    <szBRName>Revolver Pouch</szBRName>
-    <szBRDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1676</uiIndex>
-    <szItemName>Specter Rig</szItemName>
-    <szLongItemName>Specter Thigh Rig</szLongItemName>
-    <szItemDesc>This rig features 4 rows of MOLLE compatible modular webbing strips and a loop for a Gasmask.</szItemDesc>
-    <szBRName>Specter Thigh Rig</szBRName>
-    <szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they need for the mission at hand.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1677</uiIndex>
-    <szItemName>Russian Holster</szItemName>
-    <szLongItemName>Russian Pistol holster</szLongItemName>
-    <szItemDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szItemDesc>
-    <szBRName>Russian Pistol holster</szBRName>
-    <szBRDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1678</uiIndex>
-    <szItemName>Rifle Grenade</szItemName>
-    <szLongItemName>3.11 Rifle Grenade</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szItemDesc>
-    <szBRName>3.11 Double Rifle Grenade</szBRName>
-    <szBRDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1679</uiIndex>
-    <szItemName>Pistol Mag</szItemName>
-    <szLongItemName>3.11 Single Pistol Mag</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistol magazine and provide quick access when it's time to reload.</szItemDesc>
-    <szBRName>3.11 Single Pistol Pouch</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1680</uiIndex>
-    <szItemName>AR Pouch</szItemName>
-    <szLongItemName>Modular AR Mag</szLongItemName>
-    <szItemDesc>The NAS MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szItemDesc>
-    <szBRName>Stacked Double AR Pouch</szBRName>
-    <szBRDesc>The TAG MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1681</uiIndex>
-    <szItemName>Kit Pouch</szItemName>
-    <szLongItemName>Kit Drop Pouch</szLongItemName>
-    <szItemDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szItemDesc>
-    <szBRName>Kit Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1682</uiIndex>
-    <szItemName>MAT-V</szItemName>
-    <szLongItemName>TT Modular Vest</szLongItemName>
-    <szItemDesc>The TT Modular Adjustable Tactical Vest is a modern update to the traditional modular vest.</szItemDesc>
-    <szBRName>TT Modular Tactical Vest</szBRName>
-    <szBRDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1683</uiIndex>
-    <szItemName>S.T.R.I.K.E.</szItemName>
-    <szLongItemName>S.T.R.I.K.E. Vest</szLongItemName>
-    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szItemDesc>
-    <szBRName>S.T.R.I.K.E. Elite Vest</szBRName>
-    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1684</uiIndex>
-    <szItemName>Drop Pouch</szItemName>
-    <szLongItemName>Medium Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
-    <szBRName>Medium Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand,  our Drop Pouch remains folded and compact when not in use.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1685</uiIndex>
-    <szItemName>3.11 Large Mag</szItemName>
-    <szLongItemName>3.11 Large Mag</szLongItemName>
-    <szItemDesc>Modular pouch that can hold oversized ammunition.</szItemDesc>
-    <szBRName>3.11 Large Mag</szBRName>
-    <szBRDesc>Modular pouch that can hold oversized ammunition.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1686</uiIndex>
-    <szItemName>Triple Grenade</szItemName>
-    <szLongItemName>Triple Grenade Pouch</szLongItemName>
-    <szItemDesc>Heavy duty pockets for the safe storage of three MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Triple Grenade Pouch</szBRName>
-    <szBRDesc>Heavy duty pockets for the safe storage of three  MK 2 Defensive Grenades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1687</uiIndex>
-    <szItemName>Flashbang Pouch</szItemName>
-    <szLongItemName>Triple Flashbang Pouch</szLongItemName>
-    <szItemDesc>Safely store up to three Flashbang Grenades.</szItemDesc>
-    <szBRName>Triple Flashbang Pouch</szBRName>
-    <szBRDesc>Safely store up to three Flashbang Grenades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1688</uiIndex>
-    <szItemName>Triple Pistol Mag</szItemName>
-    <szLongItemName>Triple Pistol Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szItemDesc>
-    <szBRName>Triple Pistol Mag Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1689</uiIndex>
-    <szItemName>Triple SMG Mag</szItemName>
-    <szLongItemName>Triple SMG Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines.</szItemDesc>
-    <szBRName>Triple SMG Mag Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines..</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1690</uiIndex>
-    <szItemName>Large Thigh Rig</szItemName>
-    <szLongItemName>Large Modular Thigh Rig</szLongItemName>
-    <szItemDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szItemDesc>
-    <szBRName>Large Modular Thigh Rig</szBRName>
-    <szBRDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1691</uiIndex>
-    <szItemName>Sniper Bag</szItemName>
-    <szLongItemName>Sniper Drag Bag</szLongItemName>
-    <szItemDesc>Carry your sniper rifle with style and protected from bad weather.</szItemDesc>
-    <szBRName>Sniper Drag Bag</szBRName>
-    <szBRDesc>This bag can hold a two long guns and two pistols plus quite a bit of gear. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1692</uiIndex>
-    <szItemName>Sporting Clay Vest</szItemName>
-    <szLongItemName>Sporting Clay Vest</szLongItemName>
-    <szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
-    <szBRName>Sporting Clay Vest</szBRName>
-    <szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1693</uiIndex>
-    <szItemName>Condor Vest</szItemName>
-    <szLongItemName>Condor Assault Vest</szLongItemName>
-    <szItemDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szItemDesc>
-    <szBRName>Condor Heavy Assault Vest</szBRName>
-    <szBRDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1694</uiIndex>
-    <szItemName>Archer Vest</szItemName>
-    <szLongItemName>Archer Assault Vest</szLongItemName>
-    <szItemDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szItemDesc>
-    <szBRName>Archer Assault Vest</szBRName>
-    <szBRDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1695</uiIndex>
-    <szItemName>Carabiner</szItemName>
-    <szLongItemName>Carabiner</szLongItemName>
-    <szItemDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners.</szItemDesc>
-    <szBRName>Carabiner</szBRName>
-    <szBRDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1696</uiIndex>
-    <szItemName>Double Grenade</szItemName>
-    <szLongItemName>Double Grenade Pouch</szLongItemName>
-    <szItemDesc>Heavy duty pockets for the safe storage of two MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Double Grenade Pouch</szBRName>
-    <szBRDesc>Heavy duty pockets for the safe storage of two  MK 2 Defensive Grenades.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1697</uiIndex>
-    <szItemName>Radio Set</szItemName>
-    <szLongItemName>Radio set</szLongItemName>
-    <szItemDesc>A standard issue radio set for short-range communications in the field.</szItemDesc>
-    <szBRName>Radio set</szBRName>
-    <szBRDesc>The Departmento Munitorum made this the standard radio set for all Cadian Infantry regiments in the 39th millenium. If it's good enough for them, it better be good enough for you.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1698</uiIndex>
-    <szItemName>Radio battery</szItemName>
-    <szLongItemName>Radio Set battery</szLongItemName>
-    <szItemDesc>A battery used in standard field equipment. Quite heavy, but can last for weeks if you conserve it.</szItemDesc>
-    <szBRName>Radio battery</szBRName>
-    <szBRDesc>A standard issue field battery for radio sets.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1699</uiIndex>
-    <szItemName>Flare Internal</szItemName>
-    <szLongItemName>Flare Internal</szLongItemName>
-    <szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
-    <szBRName>Flare Internal</szBRName>
-    <szBRDesc></szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1700</uiIndex>
-    <szItemName>Mortar Signal Shell</szItemName>
-    <szLongItemName>60mm Mortar Signal Shell</szLongItemName>
-    <szItemDesc>This mortar shell is used to mark an area for further bombardment.</szItemDesc>
-    <szBRName>60mm Mortar Signal Shell</szBRName>
-    <szBRDesc>The red smoke from this signal shell clearly marks an area - visible even at night.</szBRDesc>
-  </ITEM>
-  <ITEM>
-    <uiIndex>1701</uiIndex>
-    <szItemName>Signal Flare</szItemName>
-    <szLongItemName>Signal Flare</szLongItemName>
-    <szItemDesc>Mark a target very visibly with this red smoke.</szItemDesc>
-    <szBRName>Signal Flare</szBRName>
-    <szBRDesc>Nothing says ATTACK HERE like a giant column of red smoke.</szBRDesc>
-  </ITEM>
+	<ITEM>
+		<uiIndex>1638</uiIndex>
+		<szItemName>Letter Opener</szItemName>
+		<szLongItemName>开信刀</szLongItemName>
+		<szItemDesc>美国邮政管理局官方用开信刀。把手上印着政府警告的大字样：“不要从邮局拿走”。</szItemDesc>
+		<szBRName>Letter Opener</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1639</uiIndex>
+		<szItemName>Hedge Trimmer</szItemName>
+		<szLongItemName>修枝机</szLongItemName>
+		<szItemDesc>十分高效的修枝机器。</szItemDesc>
+		<szBRName>Hedge Trimmer</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1640</uiIndex>
+		<szItemName>Tripwire Roll</szItemName>
+		<szLongItemName>绊线卷</szLongItemName>
+		<szItemDesc>可以直接从这个线卷中拉取并设置绊线。</szItemDesc>
+		<szBRName>Tripwire Roll</szBRName>
+		<szBRDesc>一卷绊线，你可以用它们将你的房子，车子和熟睡的猫团团围住。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1641</uiIndex>
+		<szItemName>Large Holster</szItemName>
+		<szLongItemName>大型手枪套</szLongItemName>
+		<szItemDesc>这个手枪套可以装下一个大型手枪和2条单独的弹夹。它还有一个附加的物品带。</szItemDesc>
+		<szBRName>Large Holster</szBRName>
+		<szBRDesc>这个手枪套可以装下一个大型手枪和2条单独的弹夹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1642</uiIndex>
+		<szItemName>SG Holster</szItemName>
+		<szLongItemName>散弹枪套</szLongItemName>
+		<szItemDesc>这个枪套可以完美地装下一个小型手持散弹枪。</szItemDesc>
+		<szBRName>Shotgun holster</szBRName>
+		<szBRDesc>这个枪套可以完美地装下一个小型手持散弹枪。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1643</uiIndex>
+		<szItemName>SMG Leg Rig</szItemName>
+		<szLongItemName>冲锋枪腿袋</szLongItemName>
+		<szItemDesc>可以装冲锋枪弹药的腿袋，SAS部队在人质救援行动中使用过。</szItemDesc>
+		<szBRName>SMG Leg Rig</szBRName>
+		<szBRDesc>可以装冲锋枪弹药的腿袋，SAS部队在人质救援行动中使用过。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1644</uiIndex>
+		<szItemName>TK Rig</szItemName>
+		<szLongItemName>飞刀腿袋</szLongItemName>
+		<szItemDesc>秘密暗杀者热爱他们的刀具。这个腿袋可以装下好几把刀。</szItemDesc>
+		<szBRName>TK Rig</szBRName>
+		<szBRDesc>秘密暗杀者热爱他们的刀具。这个腿袋可以装下好几把刀。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1645</uiIndex>
+		<szItemName>Pistol Magazines</szItemName>
+		<szLongItemName>手枪弹夹腿袋</szLongItemName>
+		<szItemDesc>这个腿袋有三个可以装手枪弹夹的口袋。</szItemDesc>
+		<szBRName>Pistol Magazines</szBRName>
+		<szBRDesc>这个腿袋有三个可以装手枪弹夹的口袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1646</uiIndex>
+		<szItemName>Equipment Pouch</szItemName>
+		<szLongItemName>设备腿袋</szLongItemName>
+		<szItemDesc>多功能腿袋，它的多个口袋可以装下不同的物品。</szItemDesc>
+		<szBRName>Equipment Pouch</szBRName>
+		<szBRDesc>多功能腿袋，它的多个口袋可以装下不同的物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1647</uiIndex>
+		<szItemName>Bomb Pouch</szItemName>
+		<szLongItemName>炸弹腿袋</szLongItemName>
+		<szItemDesc>这个腿袋经设计适用于安全地携带炸药。</szItemDesc>
+		<szBRName>Bomb Pouch</szBRName>
+		<szBRDesc>这个腿袋经设计适用于安全地携带炸药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1648</uiIndex>
+		<szItemName>12g S Rig</szItemName>
+		<szLongItemName>12口径散弹腿袋</szLongItemName>
+		<szItemDesc>这个腿袋可以装下12口径散弹，并且不会挡住裤子口袋。</szItemDesc>
+		<szBRName>12g Shotgun Rig</szBRName>
+		<szBRDesc>这个腿袋可以装下12口径散弹，并且不会挡住裤子口袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1649</uiIndex>
+		<szItemName>Thigh Rig</szItemName>
+		<szLongItemName>3.11腿袋</szLongItemName>
+		<szItemDesc>腿袋的正面符合MOLLE系统捆绑模式，可以附加NAS口袋和附件，达到快速取放重要工具的目的。</szItemDesc>
+		<szBRName>3.11 Thigh Rig</szBRName>
+		<szBRDesc>运动员、巡查官和指挥官们最常用的携行具，3.11腿袋轻便、可靠并且可以完全自定制。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1650</uiIndex>
+		<szItemName>3.11 Pouch</szItemName>
+		<szLongItemName>3.11垂直腿袋</szLongItemName>
+		<szItemDesc>这个MOLLE口袋是一个大格间加底部的两个挂孔和顶部的等宽拉链口。</szItemDesc>
+		<szBRName>3.11 Horizontal Pouch</szBRName>
+		<szBRDesc>这个MOLLE口袋是一个大格间加底部的两个挂孔和顶部的等宽拉链口。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1651</uiIndex>
+		<szItemName>MLBE Vest</szItemName>
+		<szLongItemName>3.11战术背心</szLongItemName>
+		<szItemDesc>可自定制战术装备，配有高密度系带和隐藏的文件袋。</szItemDesc>
+		<szBRName>3.11 Tactical Vest</szBRName>
+		<szBRDesc>我们的MOLLE战术背心是用金属网线加固制作，其结构完全兼容标准NAS附件设备，可以让您随心定制。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1652</uiIndex>
+		<szItemName>Ammo Belt</szItemName>
+		<szLongItemName>3.11弹药袋</szLongItemName>
+		<szItemDesc>根据你的需求自定义携行具设备！这个口袋是中等大小的。</szItemDesc>
+		<szBRName>Modular LBE - Medium Ammo Belt</szBRName>
+		<szBRDesc>根据你的需求自定义携行具设备！这个口袋是中等大小的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1653</uiIndex>
+		<szItemName>Holster Pouch</szItemName>
+		<szLongItemName>3.11枪械袋</szLongItemName>
+		<szItemDesc>这个3.11枪械袋可以调节装配不同类型的枪支，并且可以附加到其他兼容的3.11携行具上。</szItemDesc>
+		<szBRName>3.11 Holster Pouch</szBRName>
+		<szBRDesc>特点包括可调节锁带用来保护枪支，和维可牢粘贴背衬。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1654</uiIndex>
+		<szItemName>Mini Frag Pouch</szItemName>
+		<szLongItemName>3.11迷你手雷袋</szLongItemName>
+		<szItemDesc>由耐用的尼龙1000D和高质量维可牢衬里制成，这个MOLLE手雷袋高质量决定了高价格。</szItemDesc>
+		<szBRName>3.11 Grenade Pouch</szBRName>
+		<szBRDesc>这个3.11手雷袋可以用来装2个小手雷。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1655</uiIndex>
+		<szItemName>Double MP5</szItemName>
+		<szLongItemName>双MP5背袋</szLongItemName>
+		<szItemDesc>专门为战术和执法人员设计使用，这个MP5双链口袋为标准9mm弹夹提供安全和便利的取放。</szItemDesc>
+		<szBRName>Double MP5 Pouch</szBRName>
+		<szBRDesc>可以完美兼容3.11的NAS附件和MOLLE平台。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1656</uiIndex>
+		<szItemName>H2O Carrier</szItemName>
+		<szLongItemName>3.11水壶背袋</szLongItemName>
+		<szItemDesc>高质量卡锁可以确保水壶的安全，并且可以附加在任何标准MOLLE平台上，仍然十分容易取放。</szItemDesc>
+		<szBRName>H2O Carrier</szBRName>
+		<szBRDesc>这个3.11水壶背袋尺寸正好适合一个标准水壶，并且可以附加到MOLLE和NAS系统平台上。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1657</uiIndex>
+		<szItemName>3.11 Single AR</szItemName>
+		<szLongItemName>3.11单弹夹背袋</szLongItemName>
+		<szItemDesc>>3.11单弹夹背袋可以快速添加到所有MOLLE兼容平台上，用于容纳一个突击步枪弹夹。</szItemDesc>
+		<szBRName>3.11 Single Mag Pouch</szBRName>
+		<szBRDesc>维可牢衬里让你的弹夹倍加安全，并且这个单弹夹背袋可以快速整合到NAS平台中以增加你的负载能力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1658</uiIndex>
+		<szItemName>Med Pouch</szItemName>
+		<szLongItemName>3.11医疗背袋</szLongItemName>
+		<szItemDesc>3.11系列背袋可以兼容MOLLE附件系统，这个医疗背袋有一个内衬网袋。</szItemDesc>
+		<szBRName>3.11 Med Pouch</szBRName>
+		<szBRDesc>这个3.11医疗背袋可以无缝粘接3.11被袋系统，可以在任何环境中快速实行急救措施。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1659</uiIndex>
+		<szItemName>Double Pistol</szItemName>
+		<szLongItemName>3.11双手枪弹夹背袋</szLongItemName>
+		<szItemDesc>3.11战术背袋系统有了新的NAS弹夹袋。这个弹夹袋可以安全地携带你的手枪弹夹并在需要时可以快速取用。</szItemDesc>
+		<szBRName>3.11 Double Pistol Mag</szBRName>
+		<szBRDesc>NAS弹夹袋可以装下各种类型弹夹。记得为你的手枪弹夹选择适合的弹夹袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1660</uiIndex>
+		<szItemName>Knife Holster</szItemName>
+		<szLongItemName>尼龙刀套</szLongItemName>
+		<szItemDesc>一个小巧速开型尼龙刀套，可以装下几乎所有类型的战斗刀具。</szItemDesc>
+		<szBRName>Nylon Knife Holster</szBRName>
+		<szBRDesc>一个简单快捷的刀套。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1661</uiIndex>
+		<szItemName>3.11 Explosives</szItemName>
+		<szLongItemName>3.11炸药背袋</szLongItemName>
+		<szItemDesc>3.11垂直炸药背袋有一个带拉链的格间可以安全携带炸药。整个顶部都可以挂到MOLLE系统上。</szItemDesc>
+		<szBRName>3.11 Explosives Pouch</szBRName>
+		<szBRDesc>3.11垂直炸药背袋为各种设备提供轻便且四季通用的存放环境。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1662</uiIndex>
+		<szItemName>Syringe Pouch</szItemName>
+		<szLongItemName>3.11注射器背袋</szLongItemName>
+		<szItemDesc>可以用来安全存放注射器。结实且可以挂载到MOLLE兼容系统上，这个口袋最适合存放一些小物品。</szItemDesc>
+		<szBRName>3.11 Syringe Pouch</szBRName>
+		<szBRDesc>经过设计可以无缝连接3.11背袋、腰袋和背包。这个注射器背袋可以确保你精贵的医疗设施的安全。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1663</uiIndex>
+		<szItemName>Shotgun Bandolier</szItemName>
+		<szLongItemName>7发散弹带</szLongItemName>
+		<szItemDesc>这个NAS散弹带可以容纳7发散弹。</szItemDesc>
+		<szBRName>7 RD Shotgun Bandolier</szBRName>
+		<szBRDesc>这个NAS散弹带可以让你快捷取用散弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1664</uiIndex>
+		<szItemName>Documents</szItemName>
+		<szLongItemName>文件挂袋</szLongItemName>
+		<szItemDesc>这个文件挂袋可以挂载到各种MOLLE兼容系统或标准背带上，用来存放重要的地图和文件。</szItemDesc>
+		<szBRName>Document Drop Pouch</szBRName>
+		<szBRDesc>可以根据需求提供拓展储存空间，不用的时候这个文件挂袋可以折叠储存起来。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1665</uiIndex>
+		<szItemName>Drop Holster</szItemName>
+		<szLongItemName>挂式腿部枪套</szLongItemName>
+		<szItemDesc>这个LBT-6099Z是左右通用的模式化兼容型枪套。</szItemDesc>
+		<szBRName>Drop Leg Ambi Holster</szBRName>
+		<szBRDesc>这个枪套可以调整多种不同的携带形式，以适应添加了不同附件的枪支。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1666</uiIndex>
+		<szItemName>Casualty Response Kit</szItemName>
+		<szLongItemName>事故应急箱</szLongItemName>
+		<szItemDesc>快捷取放应急剪刀，并且兼容MOLLE附件系统。</szItemDesc>
+		<szBRName>Casualty Response Kit</szBRName>
+		<szBRDesc>我们这个事故应急箱可以快捷取放应急剪刀，并且兼容MOLLE附件系统。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1667</uiIndex>
+		<szItemName>Black MOLLE</szItemName>
+		<szLongItemName>黑色MOLLE背心</szLongItemName>
+		<szItemDesc>这个黑色战术背心密密麻麻全是MOLLE兼容网，非常易于添加你需要的各种MOLLE零部件。</szItemDesc>
+		<szBRName>Black Modular Vest</szBRName>
+		<szBRDesc>这个军用背心有可以添加储存单元的挂钩和两个带拉链的内置包网，最适合装下不能兼容MOLLE体系的小物件。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1668</uiIndex>
+		<szItemName>Multicam Vest</szItemName>
+		<szLongItemName>Multicam MOLLE背心</szLongItemName>
+		<szItemDesc>Multicam MOLLE战术背心装载在结实的网材上，具有极好的透气性，并且可以挂载各种类型的弹药背袋和各种武器枪套。</szItemDesc>
+		<szBRName>Multicam Molle Vest</szBRName>
+		<szBRDesc>Multicam MOLLE战术背心是军用背心中实用性和耐用性最高的MOLLE兼容背心。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1669</uiIndex>
+		<szItemName>TK Sheath</szItemName>
+		<szLongItemName>投掷刀具套</szLongItemName>
+		<szItemDesc>3.11系列模块化套袋可以为你在定制个人背袋系统时提供最大的便利。</szItemDesc>
+		<szBRName>Throwing Knife Sheath</szBRName>
+		<szBRDesc>可以快速取出你的刀具。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1670</uiIndex>
+		<szItemName>12G Pouch</szItemName>
+		<szLongItemName>3.11散弹弹药袋</szLongItemName>
+		<szItemDesc>便利的散弹枪弹药袋可以让你快捷取用子弹。</szItemDesc>
+		<szBRName>3.11 Shotgun Ammo Pouch</szBRName>
+		<szBRDesc>这个简易而快捷的3.11散弹枪弹药袋为你的标准散弹提供便捷和安全的存放。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1671</uiIndex>
+		<szItemName>Small Drop</szItemName>
+		<szLongItemName>小型挂袋</szLongItemName>
+		<szItemDesc>我们的挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要物件。</szItemDesc>
+		<szBRName>Small Drop Pouch</szBRName>
+		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋不用时可以折叠收起。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1672</uiIndex>
+		<szItemName>Sniper Pouch</szItemName>
+		<szLongItemName>狙击枪子弹背袋</szLongItemName>
+		<szItemDesc>我们的弹药背袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要弹药。</szItemDesc>
+		<szBRName>Sniper Ammo Pouch</szBRName>
+		<szBRDesc>我们的弹药背袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1673</uiIndex>
+		<szItemName>Rifle Pouch</szItemName>
+		<szLongItemName>步枪子弹背袋</szLongItemName>
+		<szItemDesc>我们的弹药背袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要弹药。</szItemDesc>
+		<szBRName>Rifle Ammo Pouch</szBRName>
+		<szBRDesc>我们的弹药背袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1674</uiIndex>
+		<szItemName>Knife Sheath</szItemName>
+		<szLongItemName>皮革刀套</szLongItemName>
+		<szItemDesc>Bowie削刃尖刀刀鞘，带有挂绳和前端弧套跨过护具。</szItemDesc>
+		<szBRName>Leather Knife Sheath</szBRName>
+		<szBRDesc>Bowie削刃尖刀刀鞘，带有挂绳和前端弧套跨过护具。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1675</uiIndex>
+		<szItemName>Revolver Pouch</szItemName>
+		<szLongItemName>左轮枪背袋</szLongItemName>
+		<szItemDesc>中国制造的M81美国丛林尼龙左轮枪套。适用于大部分MOLLE系统。</szItemDesc>
+		<szBRName>Revolver Pouch</szBRName>
+		<szBRDesc>中国制造的M81美国丛林尼龙左轮枪套。适用于大部分MOLLE系统。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1676</uiIndex>
+		<szItemName>Specter Rig</szItemName>
+		<szLongItemName>Specter腿袋</szLongItemName>
+		<szItemDesc>这个腿袋有四排MOLLE兼容网带和一个挂防毒面具用的环绳。</szItemDesc>
+		<szBRName>Specter Thigh Rig</szBRName>
+		<szBRDesc>这个腿袋有四排MOLLE兼容网带，可以用来根据任务需要配置不同背袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1677</uiIndex>
+		<szItemName>Russian Holster</szItemName>
+		<szLongItemName>俄国手枪套</szLongItemName>
+		<szItemDesc>这个MOLLE枪套可以用来存放加装了消音器的Glock、PMM、APS、GSh-18和PB手枪。</szItemDesc>
+		<szBRName>Russian Pistol holster</szBRName>
+		<szBRDesc>这个MOLLE枪套可以用来存放加装了消音器的Glock、PMM、APS、GSh-18和PB手枪。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1678</uiIndex>
+		<szItemName>Rifle Grenade</szItemName>
+		<szLongItemName>3.11步枪榴弹</szLongItemName>
+		<szItemDesc>3.11战术背袋系统有了新的NAS弹夹袋。这个弹夹袋可以安全地携带你的步枪榴弹。</szItemDesc>
+		<szBRName>3.11 Double Rifle Grenade</szBRName>
+		<szBRDesc>3.11战术背袋系统有了新的NAS弹夹袋。这个弹夹袋可以安全地携带你的步枪榴弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1679</uiIndex>
+		<szItemName>Pistol Mag</szItemName>
+		<szLongItemName>3.11单手枪弹夹</szLongItemName>
+		<szItemDesc>3.11战术背袋系统有了新的NAS弹夹袋。这个弹夹袋可以安全地携带你的手枪弹夹并在需要时可以快速取用。</szItemDesc>
+		<szBRName>3.11 Single Pistol Pouch</szBRName>
+		<szBRDesc>NAS弹夹袋可以装下各种类型弹夹。记得为你的手枪弹夹选择适合的弹夹袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1680</uiIndex>
+		<szItemName>AR Pouch</szItemName>
+		<szLongItemName>模块突击枪弹夹</szLongItemName>
+		<szItemDesc>这个NAS MOLLE弹夹袋可以装下2个30发5.56mm口径M16/M4系列步枪子弹。</szItemDesc>
+		<szBRName>Stacked Double AR Pouch</szBRName>
+		<szBRDesc>这个NAS MOLLE弹夹袋可以装下2个30发5.56mm口径M16/M4系列步枪子弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1681</uiIndex>
+		<szItemName>Kit Pouch</szItemName>
+		<szLongItemName>工具箱挂袋</szLongItemName>
+		<szItemDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szItemDesc>
+		<szBRName>Kit Drop Pouch</szBRName>
+		<szBRDesc>这个挂袋可以提供拓展储存空间，最适合用来装你的迷彩油。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1682</uiIndex>
+		<szItemName>MAT-V</szItemName>
+		<szLongItemName>TT模块背心</szLongItemName>
+		<szItemDesc>TT可调节式战术背心是传统模块背心的现代升级版。</szItemDesc>
+		<szBRName>TT Modular Tactical Vest</szBRName>
+		<szBRDesc>TT可调节式战术背心是传统模块背心的现代升级版。最新的MAT-V设计兼顾了功能组合和舒适度。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1683</uiIndex>
+		<szItemName>S.T.R.I.K.E.</szItemName>
+		<szLongItemName>S.T.R.I.K.E.背心</szLongItemName>
+		<szItemDesc>里面两个带拉链地图口袋，肩部可添加附件D型环。参考3.11的可添加附件选项。</szItemDesc>
+		<szBRName>S.T.R.I.K.E. Elite Vest</szBRName>
+		<szBRDesc>里面两个带拉链地图口袋，肩部可添加附件D型环。参考3.11的可添加附件选项。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1684</uiIndex>
+		<szItemName>Drop Pouch</szItemName>
+		<szLongItemName>中型挂袋</szLongItemName>
+		<szItemDesc>我们的挂袋可以挂载到MOLLE兼容的所有系统以及标准背带上，以取放重要物件。</szItemDesc>
+		<szBRName>Medium Drop Pouch</szBRName>
+		<szBRDesc>根据个人需求提供拓展储存空间，这个小型挂袋不用时可以折叠收起。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1685</uiIndex>
+		<szItemName>3.11 Large Mag</szItemName>
+		<szLongItemName>3.11大弹夹袋</szLongItemName>
+		<szItemDesc>模块背袋用来装大体积弹药。</szItemDesc>
+		<szBRName>3.11 Large Mag</szBRName>
+		<szBRDesc>模块背袋用来装大体积弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1686</uiIndex>
+		<szItemName>Triple Grenade</szItemName>
+		<szLongItemName>三手雷背袋</szLongItemName>
+		<szItemDesc>这个口袋负责安全存放三个MK2自卫手雷。</szItemDesc>
+		<szBRName>Triple Grenade Pouch</szBRName>
+		<szBRDesc>这个口袋负责安全存放三个MK2自卫手雷。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1687</uiIndex>
+		<szItemName>Flashbang Pouch</szItemName>
+		<szLongItemName>三闪光弹背袋</szLongItemName>
+		<szItemDesc>这个背袋用来安全存放最多三个闪光弹。</szItemDesc>
+		<szBRName>Triple Flashbang Pouch</szBRName>
+		<szBRDesc>这个背袋用来安全存放最多三个闪光弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1688</uiIndex>
+		<szItemName>Triple Pistol Mag</szItemName>
+		<szLongItemName>三手枪弹夹袋</szLongItemName>
+		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹夹。</szItemDesc>
+		<szBRName>Triple Pistol Mag Pouch</szBRName>
+		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个手枪弹夹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1689</uiIndex>
+		<szItemName>Triple SMG Mag</szItemName>
+		<szLongItemName>三冲锋枪弹夹袋</szLongItemName>
+		<szItemDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹夹。</szItemDesc>
+		<szBRName>Triple SMG Mag Pouch</szBRName>
+		<szBRDesc>可以附加到任何MOLLE兼容系统，并且可装下最多三个冲锋枪弹夹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1690</uiIndex>
+		<szItemName>Large Thigh Rig</szItemName>
+		<szLongItemName>大型模块腿袋</szLongItemName>
+		<szItemDesc>这个腿袋有五排MOLLE兼容模块网带可以自定义设置腿袋从而达到特定的携带需求。</szItemDesc>
+		<szBRName>Large Modular Thigh Rig</szBRName>
+		<szBRDesc>这个腿袋有五排MOLLE兼容模块网带可以自定义设置腿袋从而达到特定的携带需求。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1691</uiIndex>
+		<szItemName>Sniper Bag</szItemName>
+		<szLongItemName>狙击枪背包</szLongItemName>
+		<szItemDesc>可以非常帅气地带着你的狙击枪，并且保护其不受天气影响。</szItemDesc>
+		<szBRName>Sniper Drag Bag</szBRName>
+		<szBRDesc>这个背包可以装下两把长枪两把手枪外加不少配件。这个狙击枪背包非常易于长途运输，并且还可以放很多有用的装备。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1692</uiIndex>
+		<szItemName>Sporting Clay Vest</szItemName>
+		<szLongItemName>休闲防弹衣</szLongItemName>
+		<szItemDesc>这个简单易用，性价比高的防弹背心在很大范围内有完美的防护性。前后四层口袋中间提供防护，后背网格的间隙也保护周到。</szItemDesc>
+		<szBRName>Sporting Clay Vest</szBRName>
+		<szBRDesc>这个简单易用，性价比高的防弹背心在很大范围内有完美的防护性。前后四层口袋中间提供防护，后背网格的间隙也保护周到。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1693</uiIndex>
+		<szItemName>Condor Vest</szItemName>
+		<szLongItemName>秃鹫突击背心</szLongItemName>
+		<szItemDesc>当任务变得艰难时，你需要重型突击背心。这个背心自身就是个MOLLE系统，因此射手可以根据自身需求进行配置。</szItemDesc>
+		<szBRName>Condor Heavy Assault Vest</szBRName>
+		<szBRDesc>当任务变得艰难时，你需要重型突击背心。这个背心自身就是个MOLLE系统，因此射手可以根据自身需求进行配置。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1694</uiIndex>
+		<szItemName>Archer Vest</szItemName>
+		<szLongItemName>射手突击背心</szLongItemName>
+	 <szItemDesc>中国制造的特种部队载具背心，有可以支持MOLLE系统的挂带。</szItemDesc>
+		<szBRName>Archer Assault Vest</szBRName>
+		<szBRDesc>中国制造的特种部队载具背心，有可以支持MOLLE系统的挂带。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1695</uiIndex>
+		<szItemName>Carabiner</szItemName>
+		<szLongItemName>竖钩</szLongItemName>
+		<szItemDesc>这个形状非常适宜挂东西，其栏框可以装载登山用绳索。</szItemDesc>
+		<szBRName>Carabiner</szBRName>
+		<szBRDesc>这个形状非常适宜挂东西，其栏框可以装载登山用绳索。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1696</uiIndex>
+		<szItemName>Double Grenade</szItemName>
+		<szLongItemName>双手雷背袋</szLongItemName>
+		<szItemDesc>这个口袋负责安全存放两个MK2自卫手雷。</szItemDesc>
+		<szBRName>Double Grenade Pouch</szBRName>
+		<szBRDesc>这个口袋负责安全存放两个MK2自卫手雷。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1697</uiIndex>
+		<szItemName>Radio Set</szItemName>
+		<szLongItemName>Radio set</szLongItemName>
+		<szItemDesc>A standard issue radio set for short-range communications in the field.</szItemDesc>
+		<szBRName>Radio set</szBRName>
+		<szBRDesc>The Departmento Munitorum made this the standard radio set for all Cadian Infantry regiments in the 39th millenium. If it's good enough for them, it better be good enough for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1698</uiIndex>
+		<szItemName>Radio battery</szItemName>
+		<szLongItemName>Radio Set battery</szLongItemName>
+		<szItemDesc>A battery used in standard field equipment. Quite heavy, but can last for weeks if you conserve it.</szItemDesc>
+		<szBRName>Radio battery</szBRName>
+		<szBRDesc>A standard issue field battery for radio sets.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1699</uiIndex>
+		<szItemName>Flare Internal</szItemName>
+		<szLongItemName>Flare Internal</szLongItemName>
+		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szBRName>Flare Internal</szBRName>
+		<szBRDesc></szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1700</uiIndex>
+		<szItemName>Mortar Signal Shell</szItemName>
+		<szLongItemName>60mm Mortar Signal Shell</szLongItemName>
+		<szItemDesc>This mortar shell is used to mark an area for further bombardment.</szItemDesc>
+		<szBRName>60mm Mortar Signal Shell</szBRName>
+		<szBRDesc>The red smoke from this signal shell clearly marks an area - visible even at night.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1701</uiIndex>
+		<szItemName>Signal Flare</szItemName>
+		<szLongItemName>Signal Flare</szLongItemName>
+		<szItemDesc>Mark a target very visibly with this red smoke.</szItemDesc>
+		<szBRName>Signal Flare</szBRName>
+		<szBRDesc>Nothing says ATTACK HERE like a giant column of red smoke.</szBRDesc>
+	</ITEM>
 </ITEMLIST>
