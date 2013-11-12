@@ -1821,13 +1821,13 @@ STR16 pAssignmentStrings[] =
 	L"交通工具", // in a vehicle
 	L"在途中",// in transit - abbreviated form
 	L"修理", // repairing
-	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
+	L"无线电扫描",	// scanning for nearby patrols
 	L"锻炼", // training themselves
 	L"民兵", // training a town to revolt
 	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
-	L"搬运物品",	// move items // TODO.Translate
+	L"搬运物品",	// move items
 	L"兼职", // L"Staff", // operating a strategic facility //ham3.6
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
@@ -1910,13 +1910,13 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"交通工具",
 	L"在途中",
 	L"修理",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"无线电扫描",	// radio scan
 	L"锻炼",
 	L"训练民兵",
 	L"训练游击队",
 	L"教练",
 	L"学员",
-	L"搬运物品",	// move items // TODO.Translate
+	L"搬运物品",	// move items
 	L"兼职",
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休养",
@@ -1959,13 +1959,13 @@ STR16 pLongAssignmentStrings[] =
 	L"交通工具",
 	L"在途中",
 	L"修理",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"无线电扫描",	// radio scan
 	L"练习",
 	L"训练民兵",
 	L"训练游击队", //L"Train Mobiles",
 	L"训练队友",
 	L"学员",
-	L"搬运物品",	// move items // TODO.Translate
+	L"搬运物品",	// move items
 	L"兼职",  //L"Staff Facility",
 	L"休养",  //L"Rest at Facility",
 	L"审讯俘虏", // L"Interrogate prisoners",
@@ -2089,9 +2089,9 @@ STR16 pAssignMenuStrings[] =
 	L"病人",
 	L"交通工具",	
 	L"修理",
-	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"无线电扫描", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"训练",
-	L"搬运物品",	// move items	// TODO.Translate
+	L"搬运物品",	// move items
 	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -2119,40 +2119,40 @@ STR16 pMilitiaControlMenuStrings[] =
 };
 
 //Flugente
-STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+STR16 pTraitSkillsMenuStrings[] =
 {
 	// radio operator
-	L"Artillery Strike",
-	L"Jam communications",
-	L"Scan frequencies",
-	L"Eavesdrop",
-	L"Call reinforcements",
-	L"Switch off radio set",
+	L"火炮攻击", //L"Artillery Strike",
+	L"通讯干扰", //L"Jam communications",
+	L"扫描频率", //L"Scan frequencies",
+	L"监听", //L"Eavesdrop",
+	L"呼叫支援", //L"Call reinforcements",
+	L"关闭接收器", //L"Switch off radio set",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
 	// radio operator
-	L"Order an artillery strike from sector...",
-	L"Fill all radio frequencies with white noise, making communications impossible.",
-	L"Scan for jamming signals.",
-	L"Use your radio equipment to continously listen for enemy movement",
-	L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set to save batteries.",
+	L"命令某分区发动火炮攻击。", //L"Order an artillery strike from sector...",
+	L"所有通讯频率加入空白噪音，阻断正常通讯。", //L"Fill all radio frequencies with white noise, making communications impossible.",
+	L"查找干扰信号源。", //L"Scan for jamming signals.",
+	L"使用无线电设备持续监听敌军动向。", //L"Use your radio equipment to continously listen for enemy movement",
+	L"从邻区呼叫支援。", //L"Call in reinforcements from neighbouring sectors.",
+	L"关闭无线电设备以节约电池。", //L"Turn off radio set to save batteries.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
 {
-	L"Requires:\n",
+	L"需要:\n", //L"Requires:\n",
 	L" - %d AP\n",
 	L" - %s\n",
-	L" - %s or higher\n",
-	L" - %s or higher or\n",
-	L" - %d minutes to be ready\n",
-	L" - mortar positions in neighbouring sectors\n",
-	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
-	L" - posession by a demon",
+	L" - %s或更高\n", //L" - %s or higher\n",
+	L" - %s或更高，或\n", //L" - %s or higher or\n",
+	L" - %d分钟后就绪\n", //L" - %d minutes to be ready\n",
+	L" - 临区的迫击炮位置\n", //L" - mortar positions in neighbouring sectors\n",
+	L" - %s|或%s|和%s或%s或更高\n" //L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - 恶魔的财产", //L" - posession by a demon"
 };
 
 //STR16 pTalkToAllMenuStrings[] =
@@ -5320,14 +5320,14 @@ STR16 pMilitiaConfirmStrings[] =
 	L"继续在%s (%s %d)训练巡逻民兵吗？", // L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
 	L"在%d地区训练巡逻民兵将花费$%d。%s", // L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
 	L"训练一队民兵要花费$", // L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia
-	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.", // TODO.Translate
-	L"liberate more town sectors", // TODO.Translate
-	L"liberate new town sectors", // TODO.Translate
-	L"liberate more towns", // TODO.Translate
-	L"regain your lost progress", // TODO.Translate
-	L"progress further", // TODO.Translate
-	L"recruit more rebels", // TODO.Translate
-	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.", // TODO.Translate
+	L"你无法训练更多的游击队因为已经达到上限(%d/%d)。你必须先%s才能训练更多。", //L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.",
+	L"解放更多城镇分区", //L"liberate more town sectors",
+	L"解放新的城镇分区", //L"liberate new town sectors",
+	L"解放更多城镇", //L"liberate more towns",
+	L"恢复失去的进度", //L"regain your lost progress",
+	L"继续进度", //L"progress further",
+	L"雇佣更多反抗军", //L"recruit more rebels",
+	L"民兵队长通报你，有%d名民兵在%s分区遭遇敌军时逃跑了。", //L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.",
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -6324,7 +6324,7 @@ STR16 gzLateLocalizedString[] =
 
 	L"你得先关闭物品信息界面！",
 
-	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65	// TODO.Translate
+	L"无法快进 - 该分区有敌对的市民和/或血猫。", // 65	//L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.",
 };
 
 // HEADROCK HAM 3.5: Added sector name
@@ -6347,8 +6347,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|当|前 |生|命: %d\n",
 	L"%s|当|前|精|力: %d\n",	
 	L"%s|当|前|士|气: %d\n",
-	L"%s|Current |S|hock: %d\n",//TODO.Translate
-	L"%s|Current |S|uppression Points: %d\n",//TODO.Translate
+	L"%s|当|前|惊|慌|度: %d\n", //L"%s|Current |S|hock: %d\n",
+	L"%s|当|前|压|制点数: %d\n",//L"%s|Current |S|uppression Points: %d\n",
 	// Full info
 	L"%s|头|盔: %s\n",
 	L"%s|防|弹|衣: %s\n",
@@ -6439,7 +6439,7 @@ STR16 New113Message[] =
 	L"注意: 敌人尸体被发现!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",		
 	L"AP不够！需要%d，你只有%d。",	//L"Insufficient AP Points! Cost %d, you have %d.",
-	L"提示: %s",	// TODO.Translate
+	L"提示: %s",
 };
 
 STR16 New113HAMMessage[] = 
@@ -6580,7 +6580,7 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Covert ops
 	L"特工: 你让詹姆斯邦德甘拜下风！ ± ",		// L"Covert Operations: You make 007 look like an amateur! ± ",
 	// Radio Operator
-	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
+	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ",	//L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
 };
 
 STR16 NewInvMessage[] = 
@@ -7933,161 +7933,161 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％医疗保证金\n", //L" %s%d%% insurance cost\n",
 };
 
-STR16		szBackgroundTitleText[] =	// TODO.Translate
+STR16		szBackgroundTitleText[] =
 {
-	L"I.M.P. Background",
+	L"I.M.P.佣兵背景", //L"I.M.P. Background",
 };
 
 // Flugente: personality
-STR16		szPersonalityTitleText[] =	// TODO.Translate
+STR16		szPersonalityTitleText[] =
 {
-	L"I.M.P. Prejudices",
+	L"I.M.P.佣兵偏见", //L"I.M.P. Prejudices",
 };
 
-STR16		szPersonalityDisplayText[]=	// TODO.Translate
+STR16		szPersonalityDisplayText[]=
 {
-	L"You look",
-	L"and appearance is",
-	L"important to you.",
-	L"You have",
-	L"and care",
-	L"about that.",
-	L"You are",
-	L"and hate everyone",
-	L".",
-	L"racist against non-",
-	L"people.",
+	L"你看上去", //L"You look",
+	L"而且长相对你而言", //L"and appearance is",
+	L"重要。", //L"important to you.",
+	L"你举止", //L"You have",
+	L"而且", //L"and care",
+	L"在乎这些。", //L"about that.",
+	L"你是", //L"You are",
+	L"并且讨厌所有", //L"and hate everyone",
+	L"者.",
+	L"种族主义者，讨厌非", //L"racist against non-",
+	L"人。", //L"people.",
 };
 
 // texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
 STR16		szPersonalityHelpText[]=
 {
-	L"How do you look?",
-	L"How important are the looks of others to you?",
-	L"What are your manners?",
-	L"How important are the manners of other people to you?",
-	L"What is your nationality?",
-	L"What nation o you dislike?",
-	L"How much do you dislike that nation?",
-	L"How racist are you?",
-	L"What is your race? You will be\nracist against all other races.",
-	L"How sexist are you against the other gender?",
+	L"你长得怎样？", //L"How do you look?",
+	L"别人的长相对你而言是否重要？", //L"How important are the looks of others to you?",
+	L"你行为举止如何？", //L"What are your manners?",
+	L"别人的行为举止对你而言是否重要？", //L"How important are the manners of other people to you?",
+	L"你是哪个国家的？", //L"What is your nationality?",
+	L"你讨厌哪个国家？", //L"What nation o you dislike?",
+	L"你有多讨厌那个国家？", //L"How much do you dislike that nation?",
+	L"你的种族主义情结如何？", //L"How racist are you?",
+	L"你是哪个种族？你讨厌所有非本族人。", //L"What is your race? You will be\nracist against all other races.",
+	L"你的性别歧视程度如何？", //L"How sexist are you against the other gender?",
 };
 
 STR16		szRaceText[]=
 {
-	L"white",
-	L"black",
-	L"asian",
-	L"eskimo",
-	L"hispanic",
+	L"白种",
+	L"黑种",
+	L"亚洲",
+	L"爱斯基摩",
+	L"拉美裔",
 };
 
 STR16		szAppearanceText[]=
 {
-	L"average",
-	L"ugly",
-	L"homely",
-	L"attractive",
-	L"like a babe",
+	L"很普通",
+	L"很丑",
+	L"是大众脸",
+	L"很吸引人",
+	L"像个孩子",
 };
 
 STR16		szRefinementText[]=
 {
-	L"average manners",
-	L"manners of a slob",
-	L"manners of a snob",
+	L"正常", //L"average manners",
+	L"邋遢", //L"manners of a slob",
+	L"讲究", //L"manners of a snob",
 };
 
 STR16		szNationalityText[]=
 {
-	L"american",		// 0
-	L"arab",
-	L"australian",
-	L"british",
-	L"canadian",
-	L"cuban",			// 5
-	L"danish",
-	L"french",
-	L"russian",
-	L"nigerian",
-	L"swiss",			// 10
-	L"jamaican",
-	L"polish",
-	L"chinese",
-	L"irish",
-	L"south african",	// 15
-	L"hungarian",
-	L"scottish",
-	L"arulcan",
-	L"german",
-	L"african",			// 20
-	L"italian",
-	L"dutch",
-	L"romanian",
-	L"metaviran",
+	L"美国人",		// 0
+	L"阿拉伯人",
+	L"澳大利亚人",
+	L"英国人",
+	L"加拿大人",
+	L"古巴人",			// 5
+	L"丹麦人",
+	L"法国人",
+	L"俄国人",
+	L"尼日利亚人",
+	L"瑞士人",			// 10
+	L"牙买加人",
+	L"波兰人",
+	L"中国人",
+	L"爱尔兰人",
+	L"南非人",	// 15
+	L"匈牙利人",
+	L"苏格兰人",
+	L"Arulco人",
+	L"德国人",
+	L"非洲人",			// 20
+	L"意大利人",
+	L"荷兰人",
+	L"罗马利亚人",
+	L"metavira人",
 
 	// newly added from here on
-	L"greek",			// 25
-	L"estonian",
-	L"venezuelan",
-	L"japanese",
-	L"turkish",
-	L"indian",			// 30
-	L"mexican",
-	L"norwegian",
-	L"spanish",
-	L"brasilian",
-	L"finnish",			// 35
-	L"iranian",
-	L"israeli",
-	L"bulgarian",
-	L"swedish",
-	L"iraqi",			// 40
-	L"syrian",
-	L"belgian",
-	L"portoguese",
+	L"希腊人",			// 25
+	L"爱沙尼亚人",
+	L"委内瑞拉人",
+	L"日本人",
+	L"土耳其人",
+	L"印度人",			// 30
+	L"墨西哥人",
+	L"挪威人",
+	L"西班牙人",
+	L"巴西人",
+	L"芬兰人",			// 35
+	L"伊朗人",
+	L"以色列人",
+	L"保加利亚人",
+	L"瑞典人",
+	L"伊拉克人",			// 40
+	L"叙利亚人",
+	L"比利时人",
+	L"葡萄牙人",
 };
 
 // special text used if we do not hate any nation (value of -1)
 STR16		szNationalityText_Special[]=
 {
-	L"do not hate any other nationality.",		// used in personnel.cpp
-	L"of no origin",		// used in IMP generation
+	L"不讨厌别国人。",		// used in personnel.cpp //L"do not hate any other nationality.",
+	L"无国籍",		// used in IMP generation //L"of no origin",
 };
 
 STR16		szCareLevelText[]=
 {
-	L"not",
-	L"somewhat",
-	L"extremely",
+	L"不",
+	L"有点",
+	L"非常",
 };
 
 STR16		szRacistText[]=
 {
-	L"not",
-	L"somewhat",
-	L"very",
+	L"不",
+	L"有点",
+	L"非常",
 };
 
 STR16		szSexistText[]=
 {
-	L"no sexist",
-	L"somewhat sexist",
-	L"very sexist",
-	L"a Gentleman",
+	L"非性别歧视",
+	L"有些性别歧视",
+	L"极端性别歧视",
+	L"尊重异性",
 };
 
 // Flugente: power pack texts
 STR16 gPowerPackDesc[] =
 {
-	L"Batteries are ",
-	L"full",
-	L"good",
-	L"at half",
-	L"low",
-	L"depleted",
-	L"."
+	L"电池", //L"Batteries are ",
+	L"是满的", //L"full",
+	L"正常", //L"good",
+	L"剩余一半", //L"at half",
+	L"电量低", //L"low",
+	L"耗尽了", //L"depleted",
+	L"。"
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
