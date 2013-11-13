@@ -2415,7 +2415,12 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 				pSoldier = MercPtrs[ usStructureID ];
 
-				sDamage = 1;
+				// silversurfer: Don't hurt civilians. Throwing objects at civilians to kill them is a lame exploit.
+				if ( pSoldier->aiData.bNeutral )
+					sDamage = 0;
+				else
+					sDamage = 1;
+
 				sBreath = 0;
 
 				pSoldier->EVENT_SoldierGotHit( NOTHING, sDamage, sBreath, pSoldier->ubDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
