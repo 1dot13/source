@@ -1722,8 +1722,9 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
                 {
                     if ( pSoldier->IsZombie() ) // Madd:  Zombies randomly moan...
                         pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_LAUGH1 ) );
-#endif
+
                 }
+#endif
             }
         case AI_ACTION_APPROACH_MERC:				 // walk up to someone to talk
         case AI_ACTION_TRACK:								 // track by ground scent
