@@ -396,6 +396,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 							else
 								pSoldier->usAniCode = 34;
 						}
+						else if(pSoldier->usAnimState == ROBOT_BURST_SHOOT)	//silversurfer: Bugfix JaggZilla #532 6 round burst limitation
+						{
+							if(pSoldier->bDoBurst < pSoldier->bDoAutofire)
+								pSoldier->usAniCode = 4;
+							else
+								pSoldier->usAniCode = 34;
+						}
 					}
 
 					OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
