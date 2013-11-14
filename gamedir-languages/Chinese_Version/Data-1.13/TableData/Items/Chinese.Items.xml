@@ -13579,23 +13579,23 @@
 	<ITEM>
 		<uiIndex>1697</uiIndex>
 		<szItemName>Radio Set</szItemName>
-		<szLongItemName>Radio set</szLongItemName>
-		<szItemDesc>A standard issue radio set for short-range communications in the field.</szItemDesc>
+		<szLongItemName>无线电设备</szLongItemName>
+		<szItemDesc>作战用标准配置的短程通讯无线电设备。</szItemDesc>
 		<szBRName>Radio set</szBRName>
-		<szBRDesc>The Departmento Munitorum made this the standard radio set for all Cadian Infantry regiments in the 39th millenium. If it's good enough for them, it better be good enough for you.</szBRDesc>
+		<szBRDesc>卡迪安步兵团第39编队所使用的由监听部门专制的标准配置无线电设备（战锤40K桌面游戏术语）。专业水平，值得拥有。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1698</uiIndex>
 		<szItemName>Radio battery</szItemName>
-		<szLongItemName>Radio Set battery</szLongItemName>
-		<szItemDesc>A battery used in standard field equipment. Quite heavy, but can last for weeks if you conserve it.</szItemDesc>
+		<szLongItemName>无线电设备用电池</szLongItemName>
+		<szItemDesc>标准战地设备使用的电池。非常笨重，不过如果节约点用，可以坚持好几周。</szItemDesc>
 		<szBRName>Radio battery</szBRName>
-		<szBRDesc>A standard issue field battery for radio sets.</szBRDesc>
+		<szBRDesc>无线电收发器所使用的标准配置战地电池。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1699</uiIndex>
 		<szItemName>Flare Internal</szItemName>
-		<szLongItemName>Flare Internal</szLongItemName>
+		<szLongItemName>内置照明</szLongItemName>
 		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
 		<szBRName>Flare Internal</szBRName>
 		<szBRDesc></szBRDesc>
@@ -13603,17 +13603,17 @@
 	<ITEM>
 		<uiIndex>1700</uiIndex>
 		<szItemName>Mortar Signal Shell</szItemName>
-		<szLongItemName>60mm Mortar Signal Shell</szLongItemName>
-		<szItemDesc>This mortar shell is used to mark an area for further bombardment.</szItemDesc>
+		<szLongItemName>60mm迫击炮信号弹</szLongItemName>
+		<szItemDesc>这种迫击炮专门用来标记需要进行轰炸的区域。</szItemDesc>
 		<szBRName>60mm Mortar Signal Shell</szBRName>
-		<szBRDesc>The red smoke from this signal shell clearly marks an area - visible even at night.</szBRDesc>
+		<szBRDesc>信号弹发出的红烟即便在漆黑的夜晚也清晰可见。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1701</uiIndex>
 		<szItemName>Signal Flare</szItemName>
-		<szLongItemName>Signal Flare</szLongItemName>
-		<szItemDesc>Mark a target very visibly with this red smoke.</szItemDesc>
+		<szLongItemName>信号弹</szLongItemName>
+		<szItemDesc>用红烟清楚地标记靶子。</szItemDesc>
 		<szBRName>Signal Flare</szBRName>
-		<szBRDesc>Nothing says ATTACK HERE like a giant column of red smoke.</szBRDesc>
+		<szBRDesc>没有什么比一柱红烟能够更好地指示进攻地点。</szBRDesc>
 	</ITEM>
 </ITEMLIST>
