@@ -494,18 +494,18 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		//if we are just reviewing the page
-		if( iCurrentProfileMode == IMP__FINISH )
-		{
-			//go back tot he done screen
-			iCurrentImpPage = IMP_FINISH;
-		}
-		// Flugente: setting determines wether we see the background page
-		else if ( gGameOptions.fBackGround )
+		// Flugente: setting determines whether we see the background page
+		if ( gGameOptions.fBackGround )
 		{
 			iCurrentImpPage = IMP_BACKGROUND;
 
 			fButtonPendingFlag = TRUE;
+		}
+		//if we are just reviewing the page
+		else if( iCurrentProfileMode == IMP__FINISH )
+		{
+			//go back to the done screen
+			iCurrentImpPage = IMP_FINISH;
 		}
 		else
 		{
@@ -513,7 +513,7 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 
 			fButtonPendingFlag = TRUE;	
 
-			/*i´f( CameBackToMinorTraitPageButNotFinished() )
+			if( CameBackToMinorTraitPageButNotFinished() )
 			{
 
 			}
@@ -521,7 +521,7 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 			{
 				//We are finished on this page
 				iCurrentProfileMode = IMP__ATTRIBUTES;
-			}*/
+			}
 		}
 	}
 }

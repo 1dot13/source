@@ -3367,7 +3367,7 @@ STR16 pwMineStrings[] =
 	L"Produceert",
 	L"Status",
 	L"Prod. Tempo",
-	L"Ertstype",				// 10
+	L"Resource",				// 10	L"Ertstype",	// TODO.Translate
 	L"Gezag Dorp",
 	L"Loyaliteit Dorp",
 //	L"Mijnwerkers",
@@ -3942,6 +3942,7 @@ STR16 pImpButtonText[] =
 	L"Analyseren", 			// analyzing your profile results
 	L"OK",
 	L"Character", // Change from "Voice"
+	L"None",
 };
 
 STR16 pExtraIMPStrings[] =

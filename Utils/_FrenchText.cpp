@@ -3374,7 +3374,7 @@ STR16 pwMineStrings[] =
 	L"Production",
 	L"État",
 	L"Productivité",
-	L"Type de minerai",				// 10
+	L"Resource",				// 10	L"Type de minerai",	// TODO.Translate
 	L"Contrôle de la ville",
 	L"Loyauté de la ville",
 //	L"Mineurs au travail",
@@ -3948,6 +3948,7 @@ STR16 pImpButtonText[] =
 	L"Analyse", 			// analyzing your profile results
 	L"OK",
 	L"Caractère", // Change from "Voice"
+	L"Aucune",
 };
 
 STR16 pExtraIMPStrings[] =

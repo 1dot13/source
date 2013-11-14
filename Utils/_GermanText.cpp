@@ -3361,7 +3361,7 @@ STR16 pwMineStrings[] =
 	L"Produziert",
 	L"Status",
 	L"Produktionsrate",
-	L"Erzart",				// 10
+	L"Resource",				// 10	L"Erzart",	// TODO.Translate
 	L"Kontrolle über Stadt",
 	L"Loyalität der Stadt",
 //	L"Minenarbeiter",
@@ -3896,6 +3896,7 @@ STR16 pImpButtonText[] =
 	L"Analyse wird durchgeführt",	// analyzing your profile results
 	L"OK",
 	L"Charakter", // Change from "Voice"
+	L"Keine",
 };
 
 STR16 pExtraIMPStrings[] =

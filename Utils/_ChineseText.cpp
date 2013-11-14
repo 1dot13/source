@@ -3370,7 +3370,7 @@ STR16 pwMineStrings[] =
 	L"生产",
 	L"状态",
 	L"生产率",
-	L"矿石类型",			// 10
+	L"Resource",			// 10	L"矿石类型",	// TODO.Translate
 	L"占领度",
 	L"忠诚度",
 //	L"在岗矿工",
@@ -3945,6 +3945,7 @@ STR16 pImpButtonText[] =
 	L"分析...", 		// analyzing your profile results
 	L"完成",
 	L"性格", // Change from "Voice" - SANDRO
+	L"无",	//"None",
 };
 
 STR16 pExtraIMPStrings[] =

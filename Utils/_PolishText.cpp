@@ -3377,7 +3377,7 @@ STR16 pwMineStrings[] =
 	L"Produkuje",
 	L"Stan",
 	L"Tempo produkcji",
-	L"Typ złoża",				// 10
+	L"Resource",				// 10	L"Typ złoża",	// TODO.Translate
 	L"Kontrola miasta",
 	L"Lojalność miasta",
 //	L"Górnicy",
@@ -3954,6 +3954,7 @@ STR16 pImpButtonText[] =
 	L"Analizuję...", 			// analyzing your profile results
 	L"OK",
 	L"Postać", // Change from "Voice"
+	L"Brak",
 };
 
 STR16 pExtraIMPStrings[] =

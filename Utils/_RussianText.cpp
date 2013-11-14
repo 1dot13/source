@@ -3368,7 +3368,7 @@ STR16 pwMineStrings[] =
 	L"Идет добыча",
 	L"Статус",
 	L"Уровень добычи",
-	L"Тип руды",				// 10
+	L"Resource",				// 10	L"Тип руды",	// TODO.Translate
 	L"Принадлежность",
 	L"Лояльность",
 //	L"Работ.шахтеры",
@@ -3943,6 +3943,7 @@ STR16 pImpButtonText[] =
 	L"Анализ данных", 		// analyzing your profile results
 	L"Готово",
 	L"Личные качества", 			// Character
+	L"Нет",
 };
 
 STR16 pExtraIMPStrings[] =

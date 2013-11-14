@@ -3372,7 +3372,7 @@ STR16 pwMineStrings[] =
 	L"Producing",
 	L"Status",
 	L"Production Rate",
-	L"Ore Type",				// 10
+	L"Resource",				// 10
 	L"Town Control",
 	L"Town Loyalty",
 //	L"Working Miners",
@@ -3949,6 +3949,7 @@ STR16 pImpButtonText[] =
 	L"Analyzing", 			// analyzing your profile results
 	L"OK",
 	L"Character", // Change from "Voice"
+	L"None",
 };
 
 STR16 pExtraIMPStrings[] =

@@ -227,7 +227,7 @@ void AddIMPBackgroundButtons()
 		
 	// next button
 	giIMPBackgroundButtonImage[0]=	LoadButtonImage( "LAPTOP\\voicearrows.sti" ,-1,1,-1,3,-1 );
-	giIMPBackgroundButton[0] = CreateIconAndTextButton( giIMPBackgroundButtonImage[0], pImpButtonText[13], FONT12ARIAL,
+	giIMPBackgroundButton[0] = CreateIconAndTextButton( giIMPBackgroundButtonImage[0], pImpButtonText[ 13 ], FONT12ARIAL,
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
@@ -236,7 +236,7 @@ void AddIMPBackgroundButtons()
 	
 	// previous button
 	giIMPBackgroundButtonImage[ 1 ]=	LoadButtonImage( "LAPTOP\\voicearrows.sti" ,-1,0,-1,2,-1 );
-	giIMPBackgroundButton[ 1 ] = CreateIconAndTextButton( giIMPBackgroundButtonImage[ 1 ], pImpButtonText[12], FONT12ARIAL,
+	giIMPBackgroundButton[ 1 ] = CreateIconAndTextButton( giIMPBackgroundButtonImage[ 1 ], pImpButtonText[ 12 ], FONT12ARIAL,
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
@@ -395,7 +395,7 @@ void IMPBackgroundDisplaySkills()
 
 		//draw the text to the screenx
 		if ( uiCnt == IMP_BACKGROUND_NONE )
-			DrawTextToScreen( L"None", usPosX, usPosY, 0, IMP_BACKGROUND__FONT, IMP_BACKGROUND__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			DrawTextToScreen( pImpButtonText[ 26 ], usPosX, usPosY, 0, IMP_BACKGROUND__FONT, IMP_BACKGROUND__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		else
 			DrawTextToScreen( zBackground[ background ].szShortName, usPosX, usPosY, 0, IMP_BACKGROUND__FONT, IMP_BACKGROUND__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		
