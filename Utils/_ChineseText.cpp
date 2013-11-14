@@ -2369,7 +2369,7 @@ STR16 gzMercSkillTextNew[] =
 	L"特工",		// L"Covert Ops",
 
 	// new minor traits
-	L"Radio Operator",	// 21
+	L"无线电操作员",	// 21
 
 	// second names for major skills
 	L"机枪手",
@@ -3370,7 +3370,7 @@ STR16 pwMineStrings[] =
 	L"生产",
 	L"状态",
 	L"生产率",
-	L"Resource",			// 10	L"矿石类型",	// TODO.Translate
+	L"Resource",			// TODO.Translate
 	L"占领度",
 	L"忠诚度",
 //	L"在岗矿工",
@@ -7955,7 +7955,7 @@ STR16		szPersonalityDisplayText[]=
 	L"在乎这些。", //L"about that.",
 	L"你是", //L"You are",
 	L"并且讨厌所有", //L"and hate everyone",
-	L"者.",
+	L"者。",
 	L"种族主义者，讨厌非", //L"racist against non-",
 	L"人。", //L"people.",
 };
@@ -8066,9 +8066,9 @@ STR16		szCareLevelText[]=
 
 STR16		szRacistText[]=
 {
-	L"不",
-	L"有点",
-	L"非常",
+	L"非",
+	L"正常",
+	L"极端",
 };
 
 STR16		szSexistText[]=

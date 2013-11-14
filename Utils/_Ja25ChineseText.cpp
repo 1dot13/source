@@ -88,7 +88,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"爆破",// L"Demolitions",
 	L"教学",// L"Teaching",
 	L"侦察",// L"Scouting",
-	L"Radio Operator",
+	L"无线电操作员", //L"Radio Operator",
 
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
