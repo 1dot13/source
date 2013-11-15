@@ -11095,6 +11095,7 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcmaxtossrange");
 	INT32 iRange = 0;
 	UINT16	usSubItem = NOTHING;
+	UINT16 itemWeight;
 
 	if ( EXPLOSIVE_GUN( usItem ) )
 	{
@@ -11134,29 +11135,33 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 	}
 	else
 	{
+		// sevenfm: calculate total weight of object with all attachments
+		if(pObject!= NULL)
+			itemWeight = CalculateObjectWeight(pObject);
+		else
+			itemWeight=Item[usItem].ubWeight;
 //		if ( Item[ usItem ].fFlags & ITEM_UNAERODYNAMIC )
 		if ( Item[ usItem ].unaerodynamic )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcmaxtossrange: not aerodynamic");
 			iRange = 1;
 		}
-		else if ( Item[ usItem ].usItemClass == IC_GRENADE )
-		{
+		// sevenfm: this formula should be used only for hand grenades and not launched grenades
+		else if ( Item[ usItem ].usItemClass == IC_GRENADE && Item[usItem].ubCursor == TOSSCURS)
+		{		
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcmaxtossrange: grenade");
 			// start with the range based on the soldier's strength and the item's weight
 			// Altered by Digicrab on 14 March, 2004
 			// Reversed a Ja2Gold change that made grenades of weight 3 or more have the same throw distance as those of weight 3.
 			INT32 iThrowingStrength = ( EffectiveStrength( pSoldier, FALSE ) * 2 + 100 ) / 3;
-			// sevenfm: calculate total weight of object with all attachments
-			if(pObject!= NULL)
-				iRange = 2 + ( iThrowingStrength / (3 + (CalculateObjectWeight(pObject)) / 3 ));
-			else
-				iRange = 2 + ( iThrowingStrength / (3 + (Item[usItem].ubWeight) / 3 ));
+			// sevenfm: changed weight ratio from 3 to 2.5, also new formula will give more steps of range
+			//iRange = 2 + ( iThrowingStrength / (3 + itemWeight / 3 ));
+			iRange = 2 + ( iThrowingStrength * 5 ) / ( 15 + itemWeight * 2 );
 		}
 		else
 		{	// not as aerodynamic!
 			// start with the range based on the soldier's strength and the item's weight
-			iRange = 2 + ( ( EffectiveStrength( pSoldier, FALSE ) / ( 5 + Item[usItem].ubWeight) ) );
+			iRange = 2 + ( ( EffectiveStrength( pSoldier, FALSE ) / ( 5 + itemWeight) ) );
 		}
 
 		// adjust for thrower's remaining breath (lose up to 1/2 of range)
@@ -11171,7 +11176,8 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 				// better max range due to expertise
 				iRange += ((iRange * gSkillTraitValues.ubTHBladesMaxRange ) / 100);
 			}
-			else if ( (Item[ usItem ].usItemClass == IC_GRENADE) && (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT )) )
+			// sevenfm: add range only for hand grenades and not launched grenades
+			else if ( (Item[ usItem ].usItemClass == IC_GRENADE) && Item[usItem].ubCursor == TOSSCURS && (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT )) )
 			{
 				// better max range due to expertise
 				iRange += ((iRange * gSkillTraitValues.ubDEMaxRangeToThrowGrenades) / 100);

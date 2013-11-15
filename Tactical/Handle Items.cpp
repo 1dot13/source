@@ -1820,7 +1820,9 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				gTempObject[0]->data.bDefuseFrequency = 0;
 
 				// we now know there is something nasty here
-				gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+				// sevenfm: do not add mine present flag if remote detonator attached
+				if(! HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_REMOTEDET | AC_DEFUSE) ) )
+					gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 
 				if (pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1) == 0) {
 					AddItemToPool( sGridNo, &gTempObject, BURIED, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
@@ -4844,7 +4846,9 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		}
 		else
 		{
-			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+			// sevenfm: do not allow arming bombs with only REMOTE_DET attached
+//			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, L"No detonator or remote detonator found!", GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 		}
 	}
 	else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) )	)
@@ -5073,12 +5077,14 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 
 					// Flugente: tripwire was called through a messagebox, but has to be buried nevertheless
 					if ( Item[ (&gTempObject)->usItem ].tripwire == 1 )
+					{
 						AddItemToPool( gsTempGridNo, &gTempObject, BURIED, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
+						// sevenfm: set flag only if planting tripwire
+						gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+					}
 					else
 						AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
-				}
-				// sevenfm: we now know there is something nasty here
-				gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+				}				
 			}
 		}
 	}
@@ -5930,14 +5936,20 @@ void MineSpottedDialogueCallBack( void )
 	// WDS - Automatically flag mines
 	if (gGameExternalOptions.automaticallyFlagMines) {
 		// play a locator at the location of the mine
-		SetItemPoolLocator( pItemPool );
+		// sevenfm: only if it's not our mine
+		if (! gpWorldLevelData[ pItemPool->sGridNo ].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+			SetItemPoolLocator( pItemPool );
 
 		AddBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
 	} else {
 		guiPendingOverrideEvent = LU_BEGINUILOCK;
 
 		// play a locator at the location of the mine
-		SetItemPoolLocatorWithCallback( pItemPool, MineSpottedLocatorCallback );
+		// sevenfm:	only if it's not our mine
+		if (gpWorldLevelData[ pItemPool->sGridNo ].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+			MineSpottedLocatorCallback();
+		else
+			SetItemPoolLocatorWithCallback( pItemPool, MineSpottedLocatorCallback );
 	}
 }
 

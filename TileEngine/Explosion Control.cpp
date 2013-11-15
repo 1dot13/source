@@ -5476,8 +5476,16 @@ void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 				if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
 					direction=Random(8);
 				else
-					direction=ubDirection;
-				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );	
+					direction=ubDirection;				
+				if( Item[iter->usItem].uiIndex == TRIP_KLAXON )
+				{
+					PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
+					CallAvailableEnemiesTo( sGridNo );
+				} else if( Item[iter->usItem].uiIndex == TRIP_FLARE )
+				{
+					NewLightEffect( sGridNo, (UINT8)Explosive[iter->usItem].ubDuration, (UINT8)Explosive[iter->usItem].ubStartRadius );
+				} else
+					IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );	
 			}
 		}
 		if ( binderFound && gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
