@@ -53,10 +53,13 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 	{
 		if (fCityInfoBox && uiNumFacilities == 0 && !fHeaderAdded )
 		{
-			// For a city info box, always show this line on the left side.
-			swprintf( szFacilityString, L"%s:", pwTownInfoStrings[ 8 ] );
-			AddMonoString( uiHandle, szFacilityString );
-			fHeaderAdded = TRUE;
+			// For a city info box, always show this line on the left side if not hidden
+			if( gfHiddenTown[ GetTownIdForSector( sMapX, sMapY ) ] )
+			{
+				swprintf( szFacilityString, L"%s:", pwTownInfoStrings[ 8 ] );
+				AddMonoString( uiHandle, szFacilityString );
+				fHeaderAdded = TRUE;
+			}
 		}
 		// Facility type exists at this location?
 		if (gFacilityLocations[SECTOR(sMapX,sMapY)][cnt].fFacilityHere)
@@ -82,9 +85,9 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 		}
 	}
 
-	if( uiNumFacilities == 0 && fCityInfoBox )
+	if( uiNumFacilities == 0 && fCityInfoBox && gfHiddenTown[ GetTownIdForSector( sMapX, sMapY ) ])
 	{
-		// Add "NONE" on the right side. Only happens when the sector is a city.
+		// Add "NONE" on the right side. Only happens when the sector is a non-hidden city.
 		AddSecondColumnMonoString( uiHandle, sFacilitiesStrings[0] );
 		return;
 	}

@@ -393,17 +393,21 @@ void AddTextToTownBox( void )
 	AddSectorToBox();
 
 	// town size
+	if( gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
+	{
 	swprintf( wString, L"%s:", pwTownInfoStrings[ 0 ] );
 	AddMonoString( &hStringHandle, wString );
 	swprintf( wString, L"%d",	GetTownSectorSize( ubTownId ) );
 	AddSecondColumnMonoString( &hStringHandle, wString );
+	}
 
 	// main facilities
 	// HEADROCK HAM 3.6: This function now does all the work of assembling a facility entry.
 	AddFacilitiesToBox( bCurrentTownMineSectorX, bCurrentTownMineSectorY, &hStringHandle, TRUE );
 
 	// the concept of control is only meaningful in sectors where militia can be trained
-	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) )
+	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) &&
+		gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
 	{
 		// town control
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 2 ] );
@@ -413,7 +417,8 @@ void AddTextToTownBox( void )
 	}
 
 	// the concept of town loyalty is only meaningful in towns where loyalty is tracked
-	if( gTownLoyalty[ ubTownId ].fStarted && gfTownUsesLoyalty[ ubTownId ])
+	if( gTownLoyalty[ ubTownId ].fStarted && gfTownUsesLoyalty[ ubTownId ] &&
+		gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
 	{
 		// town loyalty
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 5 ] );
@@ -424,7 +429,7 @@ void AddTextToTownBox( void )
 
 	// if the town has a mine
 	sMineSector = GetMineSectorForTown( ubTownId );
-	if( sMineSector != -1 )
+	if( sMineSector != -1 && gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
 	{
 		// Associated Mine: Sector
 	swprintf( wString, L"%s:",	pwTownInfoStrings[ 4 ] );
@@ -696,34 +701,62 @@ void AddCommonInfoToBox(void)
 {
 	CHAR16 wString[ 64 ];
 	UINT32 hStringHandle = 0;
-	BOOLEAN fUnknownSAMSite = FALSE;
+	BOOLEAN fHiddenSite = FALSE;
 	UINT8 ubMilitiaTotal = 0;
 	UINT8 ubNumEnemies;
+	UINT16 usSectorValue = 0;
 
+	// get the sector value
+	usSectorValue = SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY );	
 
+	// check for hidden town
+	if( !gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
+		fHiddenSite = TRUE;
+	
+	// check for unknown SAM Site
+	else
+	{
+		for (UINT16 x=0; x < MAX_NUMBER_OF_SAMS; x++)
+		{
+			// SAM Site 4 in Meduna is within town limits, so it's always known
+			if ( usSectorValue == SEC_N4 && x == 3)
+				fHiddenSite = FALSE;
+			
+			else if ( pSamList[x] == usSectorValue )
+			{
+				if ( !fSamSiteFound[ x ] )
+				{
+					fHiddenSite = TRUE;
+				}
+			}
+		}
+	}
+	
+	/*// ABOVE GROUND HARDCODED
+	if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
 	switch( SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
 	{
 		case SEC_D2: //Chitzena SAM
 			if( !fSamSiteFound[ SAM_SITE_ONE ] )
-				fUnknownSAMSite = TRUE;
+				fHiddenSite = TRUE;
 			break;
 		case SEC_D15: //Drassen SAM
 			if( !fSamSiteFound[ SAM_SITE_TWO ] )
-				fUnknownSAMSite = TRUE;
+				fHiddenSite = TRUE;
 			break;
 		case SEC_I8: //Cambria SAM
 			if( !fSamSiteFound[ SAM_SITE_THREE ] )
-				fUnknownSAMSite = TRUE;
+				fHiddenSite = TRUE;
 			break;
 		// SAM Site 4 in Meduna is within town limits, so it's always controllable
 		default:
 			break;
 	}
-
+	*/
 
 	// in sector where militia can be trained,
 	// control of the sector matters, display who controls this sector.	Map brightness no longer gives this!
-	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) && !fUnknownSAMSite )
+	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) && !fHiddenSite )
 	{
 		// controlled:
 		swprintf( wString, L"%s:", pwMiscSectorStrings[ 4 ] );
