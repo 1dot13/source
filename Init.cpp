@@ -732,6 +732,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SAMSITESFILENAME);
 	SGP_THROW_IFFALSE(ReadInSAMInfo(fileName),SAMSITESFILENAME);
 
+	// Buggler: load helisites
+	strcpy(fileName, directoryName);
+	strcat(fileName, HELISITESFILENAME);
+	SGP_THROW_IFFALSE(ReadInHeliInfo(fileName),HELISITESFILENAME);
+
 #ifdef JA2UB
 	if ( gGameUBOptions.EnemyXML == TRUE ) 
 	{
@@ -1271,7 +1276,7 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
-	BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
+BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 
 #endif //ENABLE_BRIEFINGROOM
 
@@ -1291,11 +1296,11 @@ if ( ReadXMLEmail == TRUE )
 #endif
 
 	// Old AIM Archive
-	UINT8 p;
-	for(p=0; p<NUM_PROFILES; p++)
-	{
-		gAimOldArchives[p].FaceID = -1;
-	}
+		UINT8 p;
+		for(p=0; p<NUM_PROFILES; p++)
+		{
+			gAimOldArchives[p].FaceID = -1;
+		}
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, OLDAIMARCHIVEFILENAME);

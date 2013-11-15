@@ -51,19 +51,16 @@
 #define AIRPORT2_X	gModSettings.ubAirport2X //3
 #define AIRPORT2_Y	gModSettings.ubAirport2Y //14
 
+// refueling sites definitions
+#define MAX_NUMBER_OF_REFUEL_SITES	2 //30
+
+
 // enums for skyrider monologue
 enum{
 	SKYRIDER_MONOLOGUE_EVENT_DRASSEN_SAM_SITE = 0,
 	SKYRIDER_MONOLOGUE_EVENT_OTHER_SAM_SITES,
 	SKYRIDER_MONOLOGUE_EVENT_ESTONI_REFUEL,
 	SKYRIDER_MONOLOGUE_EVENT_CAMBRIA_HOSPITAL,
-};
-
-enum
-{
-	DRASSEN_REFUELING_SITE = 0,
-	ESTONI_REFUELING_SITE,
-	NUMBER_OF_REFUEL_SITES,
 };
 
 // the sam site enums
@@ -75,9 +72,12 @@ enum{
 	NUMBER_OF_SAM_SITES,
 };
 
-// list of refueling site's sector locations
-extern	UINT8 ubRefuelList[ NUMBER_OF_REFUEL_SITES ][ 2 ];
-
+enum
+{
+	DRASSEN_REFUELING_SITE = 0,
+	ESTONI_REFUELING_SITE,
+	NUMBER_OF_REFUELING_SITES,
+};
 
 // is the helicopter available to player?
 extern BOOLEAN fHelicopterAvailable;
@@ -128,7 +128,8 @@ extern BOOLEAN fShowCambriaHospitalHighLight;
 extern INT32 iTotalAccumulatedCostByPlayer;
 extern UINT32 guiTimeOfLastSkyriderMonologue;
 extern BOOLEAN fSkyRiderSetUp;
-extern BOOLEAN fRefuelingSiteAvailable[ NUMBER_OF_REFUEL_SITES ];
+extern BOOLEAN fRefuelingSiteAvailable[ MAX_NUMBER_OF_REFUEL_SITES ];
+extern BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
 
 extern UINT8 gubHelicopterHitsTaken;
 extern BOOLEAN gfSkyriderSaidCongratsOnTakingSAM;

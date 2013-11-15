@@ -40,6 +40,8 @@
 	#include "Scheduling.h"
 	// HEADROCK HAM 3.5: Added facility-based skyrider costs modifier
 	#include "Facilities.h"
+	#include "Debug Control.h"
+	#include "expat.h"
 #endif
 
 #include "Vehicles.h"
@@ -110,21 +112,21 @@ BOOLEAN	fSAMSitesDisabledFromAttackingPlayer = FALSE;
 // helicopter destroyed
 BOOLEAN fHelicopterDestroyed = FALSE;
 
+/*Buggler: externalized to HeliSites.xml
 // list of sector locations where SkyRider can be refueled
-UINT8 ubRefuelList[ NUMBER_OF_REFUEL_SITES ][ 2 ] =
+UINT8 ubRefuelList[ MAX_NUMBER_OF_REFUEL_SITES ][ 2 ] =
 {
 	{ 13, 2 },		// Drassen airport
 	{	6, 9 },		// Estoni
 };
 
-
-INT32 sRefuelStartGridNo[ NUMBER_OF_REFUEL_SITES ] ={
+INT32 iRefuelHeliGridNo[ MAX_NUMBER_OF_REFUEL_SITES ] ={
 	9001, // drassen
 	13067, // estoni
-};
+};*/
 
 // whether or not helicopter can refuel at this site
-BOOLEAN fRefuelingSiteAvailable[ NUMBER_OF_REFUEL_SITES ] = { FALSE, FALSE };
+BOOLEAN fRefuelingSiteAvailable[ MAX_NUMBER_OF_REFUEL_SITES ];		//No need to externalize as all sectors are enemy controlled on gamestart
 
 // is the heli in the air?
 BOOLEAN fHelicopterIsAirBorne = FALSE;
@@ -185,7 +187,336 @@ void HandleSkyRiderMonologueAboutCambriaHospital( UINT32 uiSpecialCode );
 void HandleSkyRiderMonologueAboutOtherSAMSites( UINT32 uiSpecialCode );
 void HandleSkyRiderMonologueAboutEstoniRefuel( UINT32 uiSpecialCode );
 
+// refueling sites externalization stuff
+UINT8	NUMBER_OF_REFUEL_SITES;
 
+// coordinates X,Y of sam sites on strategic map
+INT16 sRefuelSectorX[ MAX_NUMBER_OF_REFUEL_SITES ];
+INT16 sRefuelSectorY[ MAX_NUMBER_OF_REFUEL_SITES ];
+
+BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
+
+// heli graphics grid no
+INT32 iRefuelHeliGridNo[ MAX_NUMBER_OF_REFUEL_SITES ];
+// skyrider standing grid no
+INT32 iRefuelSkyriderGridNo[ MAX_NUMBER_OF_REFUEL_SITES ];
+
+#define MAX_CHAR_DATA_LENGTH			500
+#define INVALID_REFUELSITE_INDEX			-1
+
+
+typedef enum
+{
+	HELISITE_ELEMENT_NONE = 0,
+	HELISITE_ELEMENT_HELIINFO,
+	HELISITE_ELEMENT_REFUELLIST,
+	HELISITE_ELEMENT_REFUEL,
+	HELISITE_ELEMENT_INDEX,
+	HELISITE_ELEMENT_REFUELSECTOR,
+	HELISITE_ELEMENT_REFUELSECTOR_X,
+	HELISITE_ELEMENT_REFUELSECTOR_Y,
+	HELISITE_ELEMENT_REFUEL_HIDDEN,
+	HELISITE_ELEMENT_REFUEL_HELI_GRIDNO,
+	HELISITE_ELEMENT_REFUEL_SKYRIDER_GRIDNO,
+} HELISITE_PARSE_STAGE;
+
+typedef struct
+{
+	UINT32	uiIndex;
+	INT16	refuelSectorX;
+	INT16	refuelSectorY;
+	BOOLEAN	refuelHidden;
+	INT32	refuelHeliGridNo;
+	INT32	refuelSkyriderGridNo;
+} heliInfo;
+
+typedef struct
+{
+	HELISITE_PARSE_STAGE	curElement;
+
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	heliInfo				curHeliInfo;
+	UINT32					uiHighestIndex;
+
+	UINT32					currentDepth;
+	UINT32					maxReadDepth;
+} helisiteParseData;
+
+static void XMLCALL
+helisiteStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
+{
+	helisiteParseData * pData = (helisiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
+	{
+
+		if(strcmp(name, "HELI_INFO") == 0 && pData->curElement == HELISITE_ELEMENT_NONE)
+		{
+			pData->curElement = HELISITE_ELEMENT_HELIINFO;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "REFUELLIST") == 0 && pData->curElement == HELISITE_ELEMENT_HELIINFO)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELLIST;
+
+			memset( sRefuelSectorX,				0,	sizeof(sRefuelSectorX)			);
+			memset( sRefuelSectorY,				0,	sizeof(sRefuelSectorY)			);
+			memset( fRefuelingSiteHidden,			0,	sizeof(fRefuelingSiteHidden)		);
+			memset( iRefuelHeliGridNo,			0,	sizeof(iRefuelHeliGridNo)		);
+			memset( iRefuelSkyriderGridNo,		0,	sizeof(iRefuelSkyriderGridNo)	);
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "REFUEL") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELLIST)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			memset( &pData->curHeliInfo, 0, sizeof(heliInfo) );
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelIndex") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_INDEX;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelSector") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELSECTOR;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "x") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELSECTOR)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELSECTOR_X;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "y") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELSECTOR)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELSECTOR_Y;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelHidden") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL_HIDDEN;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelHeliGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL_HELI_GRIDNO;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelSkyriderGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL_SKYRIDER_GRIDNO;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		pData->szCharData[0] = '\0';
+	}
+
+	pData->currentDepth++;
+
+}
+
+static void XMLCALL
+helisiteCharacterDataHandle(void *userData, const XML_Char *str, int len)
+{
+	helisiteParseData * pData = (helisiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth && strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
+		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
+}
+
+
+static void XMLCALL
+helisiteEndElementHandle(void *userData, const XML_Char *name)
+{
+	helisiteParseData * pData = (helisiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
+	{
+		if(strcmp(name, "HELI_INFO") == 0 && pData->curElement == HELISITE_ELEMENT_HELIINFO)
+		{
+			pData->curElement = HELISITE_ELEMENT_NONE;
+		}
+		else if(strcmp(name, "REFUELLIST") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELLIST)
+		{
+			pData->curElement = HELISITE_ELEMENT_HELIINFO;
+
+			NUMBER_OF_REFUEL_SITES = pData->uiHighestIndex;
+		}
+		else if(strcmp(name, "REFUEL") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELLIST;
+
+			if ( pData->curHeliInfo.uiIndex != INVALID_REFUELSITE_INDEX )
+			{
+				pData->curHeliInfo.uiIndex--;	
+				sRefuelSectorX [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorX;
+				sRefuelSectorY [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorY;
+				fRefuelingSiteHidden [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHidden;
+				iRefuelHeliGridNo [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHeliGridNo;
+				iRefuelSkyriderGridNo [ pData->curHeliInfo.uiIndex ]	= pData->curHeliInfo.refuelSkyriderGridNo;
+			}
+		}
+		else if(strcmp(name, "refuelIndex") == 0 && pData->curElement == HELISITE_ELEMENT_INDEX)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			pData->curHeliInfo.uiIndex = atol(pData->szCharData);
+			if ( !pData->curHeliInfo.uiIndex || pData->curHeliInfo.uiIndex > MAX_NUMBER_OF_REFUEL_SITES )
+			{
+				pData->curHeliInfo.uiIndex = INVALID_REFUELSITE_INDEX;
+			}
+			else if ( pData->curHeliInfo.uiIndex > pData->uiHighestIndex )
+			{
+				pData->uiHighestIndex = pData->curHeliInfo.uiIndex;
+			}
+		}
+		else if(strcmp(name, "refuelSector") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELSECTOR)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+		}
+		else if(strcmp(name, "x") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELSECTOR_X)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELSECTOR;
+
+			pData->curHeliInfo.refuelSectorX = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "y") == 0 && pData->curElement == HELISITE_ELEMENT_REFUELSECTOR_Y)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUELSECTOR;
+
+			pData->curHeliInfo.refuelSectorY = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "refuelHidden") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL_HIDDEN )
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			pData->curHeliInfo.refuelHidden = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if(strcmp(name, "refuelHeliGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL_HELI_GRIDNO )
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			pData->curHeliInfo.refuelHeliGridNo = atol(pData->szCharData);
+			if ( pData->curHeliInfo.refuelHeliGridNo >= WORLD_MAX )
+			{
+				pData->curHeliInfo.refuelHeliGridNo = 0;
+			}
+		}
+		else if(strcmp(name, "refuelSkyriderGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL_SKYRIDER_GRIDNO )
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			pData->curHeliInfo.refuelSkyriderGridNo = atol(pData->szCharData);
+			if ( pData->curHeliInfo.refuelSkyriderGridNo >= WORLD_MAX )
+			{
+				pData->curHeliInfo.refuelSkyriderGridNo = 0;
+			}
+		}
+		pData->maxReadDepth--;
+	}
+
+	pData->currentDepth--;
+}
+
+BOOLEAN ReadInHeliInfo(STR fileName)
+{
+	HWFILE		hFile;
+	UINT32		uiBytesRead;
+	UINT32		uiFSize;
+	CHAR8 *		lpcBuffer;
+	XML_Parser	parser = XML_ParserCreate(NULL);
+
+	helisiteParseData pData;
+
+	// Open file
+	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+	if ( !hFile )
+		return( FALSE );
+
+	uiFSize = FileGetSize(hFile);
+	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
+
+	//Read in block
+	if ( !FileRead( hFile, lpcBuffer, uiFSize, &uiBytesRead ) )
+	{
+		MemFree(lpcBuffer);
+		return( FALSE );
+	}
+
+	lpcBuffer[uiFSize] = 0; //add a null terminator
+
+	FileClose( hFile );
+
+
+	XML_SetElementHandler(parser, helisiteStartElementHandle, helisiteEndElementHandle);
+	XML_SetCharacterDataHandler(parser, helisiteCharacterDataHandle);
+
+
+	memset(&pData,0,sizeof(pData));
+	NUMBER_OF_REFUEL_SITES = 0;
+	XML_SetUserData(parser, &pData);
+
+
+    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	{
+		CHAR8 errorBuf[511];
+
+		sprintf(errorBuf, "XML Parser Error in HeliSites.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));
+		LiveMessage(errorBuf);
+
+		MemFree(lpcBuffer);
+		return FALSE;
+	}
+
+	MemFree(lpcBuffer);
+
+	XML_ParserFree(parser);
+
+	return TRUE;
+}
+
+BOOLEAN WriteInInfo(STR fileName)
+{
+	HWFILE		hFile;
+
+	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	if ( !hFile )
+		return( FALSE );
+
+	{
+		INT8 cnt;
+
+
+		FilePrintf(hFile,"<HELI_INFO>\r\n");
+		FilePrintf(hFile,"\t<REFUELLIST>\r\n");
+		for(cnt = 0; cnt < NUMBER_OF_REFUEL_SITES; cnt++)
+		{
+			FilePrintf(hFile,"\t\t<REFUEL>\r\n");
+
+			FilePrintf(hFile,"\t\t\t<refuelIndex>%d</refuelIndex>\r\n",cnt+1);
+
+			FilePrintf(hFile,"\t\t\t<refuelSector>\r\n");
+			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",sRefuelSectorX[cnt]);
+			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",sRefuelSectorY[cnt]);
+			FilePrintf(hFile,"\t\t\t</refuelSector>\r\n");
+
+			FilePrintf(hFile,"\t\t\t<refuelHidden>%d</refuelHidden>\r\n", fRefuelingSiteHidden[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<refuelHeliGridNo>%d</refuelHeliGridNo>\r\n", iRefuelHeliGridNo[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<refuelSkyriderGridNo>%d</refuelSkyriderGridNo>\r\n", iRefuelSkyriderGridNo[cnt] );
+
+			FilePrintf(hFile,"\t\t</REFUEL>\r\n");
+		}
+		FilePrintf(hFile,"\t</REFUELLIST>\r\n");
+		FilePrintf(hFile,"</HELI_INFO>\r\n");
+	}
+	FileClose( hFile );
+
+	return TRUE;
+}
 
 void InitializeHelicopter( void )
 {
@@ -467,7 +798,7 @@ INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable )
 		if( ( fRefuelingSiteAvailable[ iCounter ] ) || ( fMustBeAvailable == FALSE ) )
 		{
 			// find if sector is under control, find distance from heli to it
-			iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( pVehicleList[ iHelicopterVehicleId ].sSectorX , pVehicleList[ iHelicopterVehicleId ].sSectorY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( ubRefuelList[ iCounter ][ 0 ], ubRefuelList[ iCounter ][ 1 ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
+			iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( pVehicleList[ iHelicopterVehicleId ].sSectorX , pVehicleList[ iHelicopterVehicleId ].sSectorY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
 
 			if( iDistance < iShortestDistance )
 			{
@@ -491,7 +822,7 @@ INT32 DistanceToNearestRefuelPoint( INT16 sX, INT16 sY )
 	// don't notify player during these checks!
 	iClosestLocation = LocationOfNearestRefuelPoint( FALSE );
 
-	iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( sX, sY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( ubRefuelList[ iClosestLocation ][ 0 ], ubRefuelList[ iClosestLocation ][ 1 ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
+	iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( sX, sY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iClosestLocation ], sRefuelSectorY[ iClosestLocation ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
 	return( iDistance );
 }
 
@@ -908,7 +1239,7 @@ BOOLEAN IsRefuelSiteInSector( INT16 sMapX, INT16 sMapY )
 
 	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
 	{
-		if ( ( ubRefuelList[ iCounter ][ 0 ] == sMapX ) && ( ubRefuelList[ iCounter ][ 1 ] == sMapY ) )
+		if ( ( sRefuelSectorX[ iCounter ] == sMapX ) && ( sRefuelSectorY[ iCounter ] == sMapY ) )
 		{
 			return(TRUE);
 		}
@@ -928,8 +1259,8 @@ void UpdateRefuelSiteAvailability( void )
 	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
 	{
 		// if enemy controlled sector (ground OR air, don't want to fly into enemy air territory)
-		if( ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubRefuelList[ iCounter ][ 0 ], ubRefuelList[ iCounter ][ 1 ] ) ].fEnemyControlled == TRUE ) ||
-				( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubRefuelList[ iCounter ][ 0 ], ubRefuelList[ iCounter ][ 1 ] ) ].fEnemyAirControlled == TRUE ) ||
+		if( ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyControlled == TRUE ) ||
+				( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyAirControlled == TRUE ) ||
 				( ( iCounter == ESTONI_REFUELING_SITE ) && ( CheckFact( FACT_ESTONI_REFUELLING_POSSIBLE, 0 ) == FALSE ) ) )
 		{
 			// mark refueling site as unavailable
@@ -943,8 +1274,8 @@ void UpdateRefuelSiteAvailability( void )
 			// reactivate a grounded helicopter, if here
 			if ( !fHelicopterAvailable && !fHelicopterDestroyed && fSkyRiderAvailable && ( iHelicopterVehicleId != -1 ) )
 			{
-				if( ( pVehicleList[ iHelicopterVehicleId ].sSectorX == ubRefuelList[ iCounter ][ 0 ]) &&
-					( pVehicleList[ iHelicopterVehicleId ].sSectorY == ubRefuelList[ iCounter ][ 1 ]) )
+				if( ( pVehicleList[ iHelicopterVehicleId ].sSectorX == sRefuelSectorX[ iCounter ]) &&
+					( pVehicleList[ iHelicopterVehicleId ].sSectorY == sRefuelSectorY[ iCounter ]) )
 				{
 					// no longer grounded
 					DoScreenIndependantMessageBox( pSkyriderText[ 5 ], MSG_BOX_FLAG_OK, NULL );
@@ -1328,7 +1659,7 @@ void HandleAnimationOfSectors( void )
 	if( fShowEstoniRefuelHighLight )
 	{
 		fOldShowEstoniRefuelHighLight = TRUE;
-		HandleBlitOfSectorLocatorIcon( ubRefuelList[ ESTONI_REFUELING_SITE ][ 0 ], ubRefuelList[ ESTONI_REFUELING_SITE ][ 1 ], 0, LOCATOR_COLOR_RED );
+		HandleBlitOfSectorLocatorIcon( sRefuelSectorX[ ESTONI_REFUELING_SITE ], sRefuelSectorY[ ESTONI_REFUELING_SITE ], 0, LOCATOR_COLOR_RED );
 		fSkipSpeakersLocator = TRUE;
 	}
 	else if( fOldShowEstoniRefuelHighLight )
@@ -1580,7 +1911,7 @@ void HandleHelicopterOnGroundGraphic( void )
 	for( ubSite = 0; ubSite < NUMBER_OF_REFUEL_SITES; ubSite++ )
 	{
 		// is this refueling site sector the loaded sector ?
-		if ( ( ubRefuelList[ ubSite ][ 0 ] == gWorldSectorX ) && ( ubRefuelList[ ubSite ][ 1 ] == gWorldSectorY ) )
+		if ( ( sRefuelSectorX[ ubSite ] == gWorldSectorX ) && ( sRefuelSectorY[ ubSite ] == gWorldSectorY ) )
 		{
 			// YES, so find out if the chopper is landed here
 			if ( IsHelicopterOnGroundAtRefuelingSite( ubSite ) )
@@ -1594,7 +1925,7 @@ void HandleHelicopterOnGroundGraphic( void )
 					gMercProfiles[ SKYRIDER ].sSectorX = gWorldSectorX;
 					gMercProfiles[ SKYRIDER ].sSectorY = gWorldSectorY;
 					gMercProfiles[ SKYRIDER ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-					gMercProfiles[ SKYRIDER ].usStrategicInsertionData = sRefuelStartGridNo[ubSite] - 639; // Stand near the heli
+					gMercProfiles[ SKYRIDER ].usStrategicInsertionData = iRefuelSkyriderGridNo[ubSite]; // iRefuelHeliGridNo[ubSite] - 639, Stand near the heli
 					gMercProfiles[ SKYRIDER ].fUseProfileInsertionInfo = TRUE;
 				}
 			}
@@ -1642,7 +1973,7 @@ void HandleHelicopterOnGroundSkyriderProfile( void )
 	for( ubSite = 0; ubSite < NUMBER_OF_REFUEL_SITES; ubSite++ )
 	{
 		// is this refueling site sector the loaded sector ?
-		if ( ( ubRefuelList[ ubSite ][ 0 ] == gWorldSectorX ) && ( ubRefuelList[ ubSite ][ 1 ] == gWorldSectorY ) )
+		if ( ( sRefuelSectorX[ ubSite ] == gWorldSectorX ) && ( sRefuelSectorY[ ubSite ] == gWorldSectorY ) )
 		{
 			// YES, so find out if the chopper is landed here
 			if ( IsHelicopterOnGroundAtRefuelingSite( ubSite ) )
@@ -1711,8 +2042,8 @@ BOOLEAN IsHelicopterOnGroundAtRefuelingSite( UINT8 ubRefuelingSite )
 	Assert( iHelicopterVehicleId != -1 );
 
 	// on the ground, but is it at this site or at another one?
-	if ( ( ubRefuelList[ ubRefuelingSite ][ 0 ] == pVehicleList[ iHelicopterVehicleId ].sSectorX ) &&
-			( ubRefuelList[ ubRefuelingSite ][ 1 ] == pVehicleList[ iHelicopterVehicleId ].sSectorY ) )
+	if ( ( sRefuelSectorX[ ubRefuelingSite ] == pVehicleList[ iHelicopterVehicleId ].sSectorX ) &&
+			( sRefuelSectorY[ ubRefuelingSite ] == pVehicleList[ iHelicopterVehicleId ].sSectorY ) )
 	{
 		return(TRUE);
 	}
@@ -1947,7 +2278,7 @@ void AddHeliPeice( INT32 sGridNo, UINT16 sOStruct )
 
 void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 {
- 	INT32 sGridNo = sRefuelStartGridNo[ ubSite ];
+ 	INT32 sGridNo = iRefuelHeliGridNo[ ubSite ];
 	INT16 sOStruct = 0;
 	INT16	sGridX, sGridY;
 	INT16	sCentreGridX, sCentreGridY;
@@ -1994,12 +2325,12 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 	else
 	{
 		// remove from the world
-		RemoveStruct( sRefuelStartGridNo[ ubSite ], ( UINT16 )(sOStruct ));
-		RemoveStruct( sRefuelStartGridNo[ ubSite ], ( UINT16 )(sOStruct + 1 ));
-		RemoveStruct( sRefuelStartGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct + 2));
-		RemoveStruct( sRefuelStartGridNo[ ubSite ], ( UINT16 )(sOStruct + 3));
-		RemoveStruct( sRefuelStartGridNo[ ubSite ], ( UINT16 )(sOStruct + 4));
-		RemoveStruct( sRefuelStartGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct +5));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct ));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 1 ));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct + 2));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 3));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 4));
+		RemoveStruct( iRefuelHeliGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct +5));
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
@@ -2302,7 +2633,7 @@ void MakeHeliReturnToBase( void )
 		pVehicleList[ iHelicopterVehicleId ].pMercPath = ClearStrategicPathList( pVehicleList[ iHelicopterVehicleId ].pMercPath, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
 
 		// plot path to that sector
-		pVehicleList[ iHelicopterVehicleId ].pMercPath = AppendStrategicPath( MoveToBeginningOfPathList( BuildAStrategicPath( NULL, GetLastSectorIdInVehiclePath( iHelicopterVehicleId ) , ( INT16 )( CALCULATE_STRATEGIC_INDEX( ubRefuelList[ iLocation ][ 0 ], ubRefuelList[ iLocation ][ 1 ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE /*, FALSE */ ) ), pVehicleList[ iHelicopterVehicleId ].pMercPath );
+		pVehicleList[ iHelicopterVehicleId ].pMercPath = AppendStrategicPath( MoveToBeginningOfPathList( BuildAStrategicPath( NULL, GetLastSectorIdInVehiclePath( iHelicopterVehicleId ) , ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iLocation ], sRefuelSectorY[ iLocation ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE /*, FALSE */ ) ), pVehicleList[ iHelicopterVehicleId ].pMercPath );
 		pVehicleList[ iHelicopterVehicleId ].pMercPath = MoveToBeginningOfPathList( pVehicleList[ iHelicopterVehicleId ].pMercPath );
 
 		// rebuild the movement waypoints

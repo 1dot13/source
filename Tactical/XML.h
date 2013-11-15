@@ -159,6 +159,7 @@ typedef PARSE_STAGE;
 #define MOVEMENTCOSTFILENAME					"Map\\MovementCosts.xml"
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
+#define HELISITESFILENAME						"Map\\HeliSites.xml"
 #define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
 #define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
 #define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
@@ -381,6 +382,10 @@ extern BOOLEAN WriteInAltSectors(STR fileName);
 //Lesh: samsite info
 extern BOOLEAN ReadInSAMInfo(STR fileName);
 extern BOOLEAN WriteInSAMInfo(STR fileName);
+
+// Buggler: helisite externalization
+extern BOOLEAN ReadInHeliInfo(STR fileName);
+extern BOOLEAN WriteInHeliInfo(STR fileName);
 
 // Lesh: army externalization
 extern BOOLEAN ReadInGarrisonInfo(STR fileName);

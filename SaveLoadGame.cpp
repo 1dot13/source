@@ -334,8 +334,7 @@ typedef struct
 	UINT32	uiTimeOfLastSkyriderMonologue;
 	BOOLEAN fShowCambriaHospitalHighLight;
 	BOOLEAN fSkyRiderSetUp;
-	BOOLEAN fRefuelingSiteAvailable[ NUMBER_OF_REFUEL_SITES ];
-
+	BOOLEAN fRefuelingSiteAvailable[ MAX_NUMBER_OF_REFUEL_SITES ];
 
 	//Meanwhile stuff
 	MEANWHILE_DEFINITION	gCurrentMeanwhileDef;
@@ -7989,7 +7988,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.uiTimeOfLastSkyriderMonologue = guiTimeOfLastSkyriderMonologue;
 	sGeneralInfo.fSkyRiderSetUp = fSkyRiderSetUp;
 
-	memcpy( &sGeneralInfo.fRefuelingSiteAvailable, &fRefuelingSiteAvailable, NUMBER_OF_REFUEL_SITES * sizeof( BOOLEAN ) );
+	memcpy( &sGeneralInfo.fRefuelingSiteAvailable, &fRefuelingSiteAvailable, MAX_NUMBER_OF_REFUEL_SITES * sizeof( BOOLEAN ) );
 
 
 	//Meanwhile stuff
@@ -8518,8 +8517,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	guiTimeOfLastSkyriderMonologue = sGeneralInfo.uiTimeOfLastSkyriderMonologue;
 	fSkyRiderSetUp = sGeneralInfo.fSkyRiderSetUp;
 
-	memcpy( &fRefuelingSiteAvailable, &sGeneralInfo.fRefuelingSiteAvailable, NUMBER_OF_REFUEL_SITES * sizeof( BOOLEAN ) );
-
+	memcpy( &fRefuelingSiteAvailable, &sGeneralInfo.fRefuelingSiteAvailable, MAX_NUMBER_OF_REFUEL_SITES * sizeof( BOOLEAN ) );
 
 	//Meanwhile stuff
 	memcpy( &gCurrentMeanwhileDef, &sGeneralInfo.gCurrentMeanwhileDef, sizeof( MEANWHILE_DEFINITION ) );
