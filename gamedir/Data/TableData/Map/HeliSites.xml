@@ -9,6 +9,9 @@ Fields index:
 	refuelSector			- refuel site coordinates.
 	
 	refuelHidden			- code not used/saved at the moment.
+	
+	refuelHeliTileIndex	- Heli tile index number in map tileset.
+					The 6 heli tiles must be in the same sequence as original.
 				  
 	refuelHeliGridNo		- Show heli graphics when landed in sector. Require heli tiles in map tileset
 					to display correctly. Else, will show tiles that occupies the same tile index.
@@ -27,6 +30,8 @@ Maximum 2 refuel sites can be used in game.
 				<x>13</x>
 				<y>2</y>
 			</refuelSector>
+			<refuelHidden>0</refuelHidden>
+			<refuelHeliTileIndex>399</refuelHeliTileIndex>
 			<refuelHeliGridNo>9001</refuelHeliGridNo>
 			<refuelSkyriderGridNo>8362</refuelSkyriderGridNo>
 		</REFUEL>
@@ -36,6 +41,8 @@ Maximum 2 refuel sites can be used in game.
 				<x>6</x>
 				<y>9</y>
 			</refuelSector>
+			<refuelHidden>0</refuelHidden>
+			<refuelHeliTileIndex>435</refuelHeliTileIndex>
 			<refuelHeliGridNo>13067</refuelHeliGridNo>
 			<refuelSkyriderGridNo>12428</refuelSkyriderGridNo>
 		</REFUEL>
