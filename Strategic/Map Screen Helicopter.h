@@ -128,6 +128,7 @@ extern BOOLEAN fShowCambriaHospitalHighLight;
 extern INT32 iTotalAccumulatedCostByPlayer;
 extern UINT32 guiTimeOfLastSkyriderMonologue;
 extern BOOLEAN fSkyRiderSetUp;
+extern UINT8 NUMBER_OF_REFUEL_SITES;
 extern BOOLEAN fRefuelingSiteAvailable[ MAX_NUMBER_OF_REFUEL_SITES ];
 extern BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
 

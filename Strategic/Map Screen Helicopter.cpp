@@ -196,6 +196,9 @@ INT16 sRefuelSectorY[ MAX_NUMBER_OF_REFUEL_SITES ];
 
 BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
 
+// heli tile index no in tileset
+INT32 iRefuelHeliTileIndex[ MAX_NUMBER_OF_REFUEL_SITES ];
+
 // heli graphics grid no
 INT32 iRefuelHeliGridNo[ MAX_NUMBER_OF_REFUEL_SITES ];
 // skyrider standing grid no
@@ -216,6 +219,7 @@ typedef enum
 	HELISITE_ELEMENT_REFUELSECTOR_X,
 	HELISITE_ELEMENT_REFUELSECTOR_Y,
 	HELISITE_ELEMENT_REFUEL_HIDDEN,
+	HELISITE_ELEMENT_REFUEL_HELI_TILE_INDEX,
 	HELISITE_ELEMENT_REFUEL_HELI_GRIDNO,
 	HELISITE_ELEMENT_REFUEL_SKYRIDER_GRIDNO,
 } HELISITE_PARSE_STAGE;
@@ -226,6 +230,7 @@ typedef struct
 	INT16	refuelSectorX;
 	INT16	refuelSectorY;
 	BOOLEAN	refuelHidden;
+	INT32	refuelHeliTileIndex;
 	INT32	refuelHeliGridNo;
 	INT32	refuelSkyriderGridNo;
 } heliInfo;
@@ -261,7 +266,8 @@ helisiteStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 
 			memset( sRefuelSectorX,				0,	sizeof(sRefuelSectorX)			);
 			memset( sRefuelSectorY,				0,	sizeof(sRefuelSectorY)			);
-			memset( fRefuelingSiteHidden,			0,	sizeof(fRefuelingSiteHidden)		);
+			memset( fRefuelingSiteHidden,		0,	sizeof(fRefuelingSiteHidden)	);
+			memset( iRefuelHeliTileIndex,		0,	sizeof(iRefuelHeliTileIndex)	);
 			memset( iRefuelHeliGridNo,			0,	sizeof(iRefuelHeliGridNo)		);
 			memset( iRefuelSkyriderGridNo,		0,	sizeof(iRefuelSkyriderGridNo)	);
 
@@ -298,6 +304,11 @@ helisiteStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 		else if(strcmp(name, "refuelHidden") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
 		{
 			pData->curElement = HELISITE_ELEMENT_REFUEL_HIDDEN;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "refuelHeliTileIndex") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL_HELI_TILE_INDEX;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "refuelHeliGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL)
@@ -354,6 +365,7 @@ helisiteEndElementHandle(void *userData, const XML_Char *name)
 				sRefuelSectorX [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorX;
 				sRefuelSectorY [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorY;
 				fRefuelingSiteHidden [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHidden;
+				iRefuelHeliTileIndex [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHeliTileIndex;
 				iRefuelHeliGridNo [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHeliGridNo;
 				iRefuelSkyriderGridNo [ pData->curHeliInfo.uiIndex ]	= pData->curHeliInfo.refuelSkyriderGridNo;
 			}
@@ -393,6 +405,12 @@ helisiteEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = HELISITE_ELEMENT_REFUEL;
 
 			pData->curHeliInfo.refuelHidden = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if(strcmp(name, "refuelHeliTileIndex") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL_HELI_TILE_INDEX )
+		{
+			pData->curElement = HELISITE_ELEMENT_REFUEL;
+
+			pData->curHeliInfo.refuelHeliTileIndex = atol(pData->szCharData);
 		}
 		else if(strcmp(name, "refuelHeliGridNo") == 0 && pData->curElement == HELISITE_ELEMENT_REFUEL_HELI_GRIDNO )
 		{
@@ -503,6 +521,8 @@ BOOLEAN WriteInInfo(STR fileName)
 			FilePrintf(hFile,"\t\t\t</refuelSector>\r\n");
 
 			FilePrintf(hFile,"\t\t\t<refuelHidden>%d</refuelHidden>\r\n", fRefuelingSiteHidden[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<refuelHeliTileIndex>%d</refuelHeliTileIndex>\r\n", iRefuelHeliTileIndex[cnt] );
 
 			FilePrintf(hFile,"\t\t\t<refuelHeliGridNo>%d</refuelHeliGridNo>\r\n", iRefuelHeliGridNo[cnt] );
 
@@ -2263,74 +2283,75 @@ BOOLEAN CanHelicopterTakeOff( void )
 	return( FALSE );
 }
 
-void AddHeliPeice( INT32 sGridNo, UINT16 sOStruct )
+void AddHeliPiece( INT32 iGridNo, UINT16 sOStruct )
 {
 	UINT16 usDummy;
 
 	// ATE: Check first if already exists....
-	if ( !TypeExistsInStructLayer( sGridNo, sOStruct, &usDummy ) )
+	if ( !TypeExistsInStructLayer( iGridNo, sOStruct, &usDummy ) )
 	{
 		// place in the world
-		AddStructToTail( sGridNo, sOStruct );
+		AddStructToTail( iGridNo, sOStruct );
 	}
 }
 
 
 void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 {
- 	INT32 sGridNo = iRefuelHeliGridNo[ ubSite ];
-	INT16 sOStruct = 0;
+ 	INT32 iGridNo = iRefuelHeliGridNo[ ubSite ];
+	INT32 iTileIndexNo = iRefuelHeliTileIndex[ ubSite ];
+	//INT16 sOStruct = 0;
 	INT16	sGridX, sGridY;
 	INT16	sCentreGridX, sCentreGridY;
 
 	// find out what slot it is by which site
-	if( ubSite == 0 )
-	{
-		// drassen
-		sOStruct = FIRSTOSTRUCT1;
-	}
-	else
-	{
-		// estoni
-		sOStruct = FOURTHOSTRUCT1;
-	}
+	//if( ubSite == 0 )
+	//{
+	//	// drassen
+	//	sOStruct = FIRSTOSTRUCT1;
+	//}
+	//else
+	//{
+	//	// estoni
+	//	sOStruct = FOURTHOSTRUCT1;
+	//}
 
 
 	// are we adding or taking away
 	if( fAdd )
 	{
-		AddHeliPeice( sGridNo, sOStruct );
-		AddHeliPeice( sGridNo, ( UINT16 )( sOStruct + 1));
-		AddHeliPeice( ( sGridNo - 800 ), ( UINT16 )( sOStruct + 2 ));
-		AddHeliPeice( sGridNo, ( UINT16 )(sOStruct + 3 ));
-		AddHeliPeice( sGridNo, ( UINT16 )(sOStruct + 4));
-		AddHeliPeice( ( sGridNo - 800 ), ( UINT16 )(sOStruct + 5));
+		AddHeliPiece( iGridNo, ( UINT16 ) iTileIndexNo );	// AddHeliPiece( iGridNo, sOStruct );
+		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 1 ) );
+		AddHeliPiece( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
+		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 3 ) );
+		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 4 ) );
+		AddHeliPiece( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
 
 	// ATE: If any mercs here, bump them off!
-		ConvertGridNoToXY( sGridNo, &sCentreGridX, &sCentreGridY );
+		ConvertGridNoToXY( iGridNo, &sCentreGridX, &sCentreGridY );
 
 	for( sGridY = sCentreGridY - 5; sGridY < sCentreGridY + 5; sGridY++ )
 	{
 		for( sGridX = sCentreGridX - 5; sGridX < sCentreGridX + 5; sGridX++ )
 		{
-			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			iGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
 
-		 	BumpAnyExistingMerc( sGridNo );
+		 	BumpAnyExistingMerc( iGridNo );
 		}
 	}
 	}
 	else
 	{
 		// remove from the world
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct ));
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 1 ));
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct + 2));
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 3));
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ], ( UINT16 )(sOStruct + 4));
-		RemoveStruct( iRefuelHeliGridNo[ ubSite ] - 800, ( UINT16 )(sOStruct +5));
+		RemoveStruct( iGridNo, ( UINT16 )iTileIndexNo );
+		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 1 ) );
+		RemoveStruct( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
+		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 3 ) );
+		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 4 ) );
+		RemoveStruct( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );

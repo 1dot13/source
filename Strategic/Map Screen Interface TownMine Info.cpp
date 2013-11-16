@@ -701,52 +701,53 @@ void AddCommonInfoToBox(void)
 {
 	CHAR16 wString[ 64 ];
 	UINT32 hStringHandle = 0;
-	BOOLEAN fHiddenSite = FALSE;
+	BOOLEAN fKnownSite = FALSE;
 	UINT8 ubMilitiaTotal = 0;
 	UINT8 ubNumEnemies;
 	UINT16 usSectorValue = 0;
 
 	// get the sector value
-	usSectorValue = SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY );	
+	usSectorValue = SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
 
-	// check for hidden town
-	if( !gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
-		fHiddenSite = TRUE;
+	BOOLEAN fVisited = (SectorInfo[ usSectorValue ].uiFlags & SF_ALREADY_VISITED);
+	UINT8 ubTownId = GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
+
+	// visited sector check
+	if ( fVisited )
+		fKnownSite = TRUE;
+
+	// known town check, exclude TownId 0 for non-town sectors
+	else if( gfHiddenTown[ ubTownId ] && ubTownId != 0 )
+		fKnownSite = TRUE;
 	
-	// check for unknown SAM Site
+	// known SAM Site check
 	else
 	{
 		for (UINT16 x=0; x < MAX_NUMBER_OF_SAMS; x++)
 		{
-			// SAM Site 4 in Meduna is within town limits, so it's always known
-			if ( usSectorValue == SEC_N4 && x == 3)
-				fHiddenSite = FALSE;
-			
-			else if ( pSamList[x] == usSectorValue )
+			if ( pSamList[x] == usSectorValue )
 			{
-				if ( !fSamSiteFound[ x ] )
-				{
-					fHiddenSite = TRUE;
-				}
+				if ( fSamSiteFound[ x ] )
+					fKnownSite = TRUE;
 			}
 		}
 	}
 	
 	/*// ABOVE GROUND HARDCODED
-	if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
-	switch( SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
+	fKnownSite = TRUE;
+	switch( usSectorValue )
 	{
 		case SEC_D2: //Chitzena SAM
 			if( !fSamSiteFound[ SAM_SITE_ONE ] )
-				fHiddenSite = TRUE;
+				fKnownSite = FALSE;
 			break;
 		case SEC_D15: //Drassen SAM
 			if( !fSamSiteFound[ SAM_SITE_TWO ] )
-				fHiddenSite = TRUE;
+				fKnownSite = FALSE;
 			break;
 		case SEC_I8: //Cambria SAM
 			if( !fSamSiteFound[ SAM_SITE_THREE ] )
-				fHiddenSite = TRUE;
+				fKnownSite = FALSE;
 			break;
 		// SAM Site 4 in Meduna is within town limits, so it's always controllable
 		default:
@@ -756,7 +757,7 @@ void AddCommonInfoToBox(void)
 
 	// in sector where militia can be trained,
 	// control of the sector matters, display who controls this sector.	Map brightness no longer gives this!
-	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) && !fHiddenSite )
+	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) && fKnownSite )
 	{
 		// controlled:
 		swprintf( wString, L"%s:", pwMiscSectorStrings[ 4 ] );
@@ -799,7 +800,7 @@ void AddCommonInfoToBox(void)
 		// Sector contains Militia training facility?
 		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
 		{
-			if (gFacilityLocations[SECTOR(bCurrentTownMineSectorX, bCurrentTownMineSectorY)][ubCounter].fFacilityHere)
+			if (gFacilityLocations[usSectorValue][ubCounter].fFacilityHere)
 			{
 				if (gFacilityTypes[ubCounter].ubMilitiaTrainersAllowed)
 				{
@@ -810,7 +811,7 @@ void AddCommonInfoToBox(void)
 		if (fMilitiaTrainingAllowed)
 		{
 			// Show percent completed
-			swprintf( wString, L"%d%%%%", SectorInfo[ SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].ubMilitiaTrainingPercentDone );
+			swprintf( wString, L"%d%%%%", SectorInfo[ usSectorValue ].ubMilitiaTrainingPercentDone );
 			AddSecondColumnMonoString( &hStringHandle, wString );
 		}
 		else
@@ -826,7 +827,7 @@ void AddCommonInfoToBox(void)
 		// Sector contains Mobile training facility?
 		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
 		{
-			if (gFacilityLocations[SECTOR(bCurrentTownMineSectorX, bCurrentTownMineSectorY)][ubCounter].fFacilityHere)
+			if (gFacilityLocations[usSectorValue][ubCounter].fFacilityHere)
 			{
 				if (gFacilityTypes[ubCounter].ubMobileMilitiaTrainersAllowed)
 				{
@@ -838,7 +839,7 @@ void AddCommonInfoToBox(void)
 		if (fMobileTrainingAllowed)
 		{
 			// Show percentage completed
-			swprintf( wString, L"%d%%%%", SectorInfo[ SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].ubMobileMilitiaTrainingPercentDone );
+			swprintf( wString, L"%d%%%%", SectorInfo[ usSectorValue ].ubMobileMilitiaTrainingPercentDone );
 			AddSecondColumnMonoString( &hStringHandle, wString );
 		}
 		else
