@@ -1582,12 +1582,6 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 		UINT16 wnameY = AIM_MEMBER_WEAPON_NAME_Y;
 		PosX = WEAPONBOX_X_NSGI+3;		// + 3 ( 1 to take care of the shadow, +2 to get past the weapon box border )
 		PosY = WEAPONBOX_Y_NSGI;
-		if(is_networked && guiCurrentLaptopMode == LAPTOP_MODE_MERC_FILES)
-		{
-			PosX+=0;
-			PosY+=24;
-			wnameY-=26;
-		}
 
 		//tais: disable Weaponbox Mouseregions to stop crashing when changing kit selection and hovering over item
 		//tooltips for weaponbox
@@ -1649,15 +1643,6 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 				SetRegionHelpEndCallback( &(gWeaponboxFasthelpRegion[ubItemCount-1]), HelpTextDoneCallback );
 				MSYS_EnableRegion( &gWeaponboxFasthelpRegion[ubItemCount-1] );
 
-				// WANNE: In a multiplayer game also display the items name on the MERC website
-				if (is_networked && guiCurrentLaptopMode == LAPTOP_MODE_MERC_FILES)
-				{
-					//if this will only be a single line, center it in the box
-					if( ( DisplayWrappedString( (UINT16)(PosX-1), wnameY, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( AIM_M_WEAPON_TEXT_FONT ) ) == 1 )
-						DisplayWrappedString( (UINT16)(PosX-1), (UINT16)(wnameY+GetFontHeight( AIM_M_WEAPON_TEXT_FONT )/2), AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-					else
-						DisplayWrappedString( (UINT16)(PosX-1), wnameY, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-				}
 
 				if(ubColumnCount == WEAPONBOX_COLUMNS) 
 				{
@@ -1679,12 +1664,6 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 		UINT16 wnameY = AIM_MEMBER_WEAPON_NAME_Y;
 		PosX = WEAPONBOX_X+3;		// + 3 ( 1 to take care of the shadow, +2 to get past the weapon box border )
 		PosY = WEAPONBOX_Y;
-		if(is_networked && guiCurrentLaptopMode == LAPTOP_MODE_MERC_FILES)
-		{
-			PosX+=20;
-			PosY-=28;
-			wnameY-=28;
-		}
 
 		for(i=0; i<gMercProfiles[ubMercID].inv.size(); i++)
 		{
