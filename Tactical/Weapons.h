@@ -379,8 +379,8 @@ typedef struct
  UINT16 ManualReloadSound;
  BOOLEAN EasyUnjam; // Guns where each bullet has its own chamber (like revolvers) are easyer to unjam 
 
- INT8	bRecoilX;		// HEADROCK HAM 4: Recoil now measured in points of muzzle deviation X and Y.
- INT8	bRecoilY;		// Positive values indicated upwards (Y) and rightwards (X). Negatives are down (-Y) and left (-X).
+ FLOAT	bRecoilX;		// HEADROCK HAM 4: Recoil now measured in points of muzzle deviation X and Y.
+ FLOAT	bRecoilY;		// Positive values indicated upwards (Y) and rightwards (X). Negatives are down (-Y) and left (-X).
 							// Note that each value is an array. Each item in the array determines recoil
 							// for a different bullet in the sequence. Not all values have to be filled,
 							// but the last filled value will determine the recoil for longer volleys.

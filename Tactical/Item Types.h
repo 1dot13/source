@@ -1099,8 +1099,8 @@ typedef struct
 	INT16 aimlevelsmodifier[3];
 	// HEADROCK HAM 4: New modifiers that do not require a stance array, since they affect the gun objectively, not
 	// subjectively.
-	INT16 RecoilModifierX;
-	INT16 RecoilModifierY;
+	FLOAT RecoilModifierX;
+	FLOAT RecoilModifierY;
 	INT16 PercentRecoilModifier;
 	INT16 percentaccuracymodifier;
 	FLOAT scopemagfactor;

@@ -241,7 +241,7 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMuzzleOffsetX, FLOAT *dMuzzleOffsetY, UINT32 uiRange );
 void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuzzleOffsetY, OBJECTTYPE *pWeapon, UINT32 uiRange );
 // HEADROCK HAM 5: New function, completely replaces the Counter Force Frequency check.
-FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, INT8 bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets );
+FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, FLOAT bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets );
 
 // HEADROCK HAM 4: Required for shooting mechanic
 extern INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier ); 

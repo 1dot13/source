@@ -8831,8 +8831,8 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 
 	// We can also anticipate the recoil of the weapon, which we should set here.
 
-	INT8 bGunRecoilX;
-	INT8 bGunRecoilY;
+	FLOAT bGunRecoilX;
+	FLOAT bGunRecoilY;
 
 	// Get the gun's recoil values for our first bullet.
 	// silversurfer: The first bullet will never be affected by recoil so ask for number 2 instead.
@@ -8936,8 +8936,8 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 
 		// The basic ideal is CF = -Recoil. If we can achieve this, then our muzzle will be completely stationary
 		// after the first bullet is fired, allowing us to adjust CF as we please during the following CF check.
-		FLOAT dIdealCounterForceX = (FLOAT)-bGunRecoilX;
-		FLOAT dIdealCounterForceY = (FLOAT)-bGunRecoilY;
+		FLOAT dIdealCounterForceX = -bGunRecoilX;
+		FLOAT dIdealCounterForceY = -bGunRecoilY;
 
 		// But we also want the volley to be moving at least somewhat toward the target. Therefore, lets figure
 		// out where our muzzle is, and adjust in that direction by as much force as could be undone by the next
@@ -9034,8 +9034,8 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	// shooters might be overwhelmed and start firing towards the sky.
 
 	// Get X/Y recoil parameters from the gun.
-	INT8 bGunRecoilX;
-	INT8 bGunRecoilY;
+	FLOAT bGunRecoilX;
+	FLOAT bGunRecoilY;
 
 	if( fSecondHandBurst )
 		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, (pShooter->bDoBurst/2) );
@@ -9227,7 +9227,7 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	
 }
 
-FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, INT8 bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets )
+FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, FLOAT bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets )
 {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// HEADROCK HAM 5: New Counter-Force Calculation

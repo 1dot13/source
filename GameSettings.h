@@ -1992,6 +1992,9 @@ typedef struct
 	// Handling modifiers
 	FLOAT fHandlingModifierGun[9];
 	FLOAT fHandlingModifierLauncher;
+	// Recoil modifiers
+	FLOAT fRecoilXModifierGun[9];
+	FLOAT fRecoilYModifierGun[9];
 
 	// -------------- ARMOR MODIFIERS ----------------
 	FLOAT fCamoLBEoverVestModifier;

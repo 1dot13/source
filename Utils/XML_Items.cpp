@@ -1201,12 +1201,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "RecoilModifierX")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.RecoilModifierX  = (INT16) atol(pData->szCharData);
+			pData->curItem.RecoilModifierX  = (FLOAT) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "RecoilModifierY")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.RecoilModifierY  = (INT16) atol(pData->szCharData);
+			pData->curItem.RecoilModifierY  = (FLOAT) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "PercentRecoilModifier") == 0)
 		{

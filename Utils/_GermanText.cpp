@@ -7319,6 +7319,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|r|a|l |M|o|d|i|f|i|k|a|t|o|r",
 	L"|S|c|h|i|m|m|e|l |R|a|t|e",
 	L"|B|e|s|t|e |L|a|s|e|r |R|e|i|c|h|w|e|i|t|e",
+	L"|P|r|o|z|e|n|t|u|a|l|e|r |R|ü|c|k|s|t|o|ß |M|o|d|i|f|i|k|a|t|o|r",	// 65
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -7339,8 +7340,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nWenn befestigt an einer Fernwaffe verändert\ndieser Gegenstand die größte effektive Reichweite.\n \nDie größte effektive Reichweite bestimmt,\nwie weit eine Kugel fliegt, bevor sie schnell in Richtung Boden fällt.\n \nHöher ist besser.",
 	L"\n \nWenn befestigt an einer Fernwaffe bietet\ndieser Gegenstand eine zusätzlich Zielvergrößerung an,\nwas Schüsse auf große Entfernung vergleichsweise einfacher macht.\n \nEin hoher Vergrößerungsfaktor wirkt sich allerdings nachteilig aus\nbei Zielen, die näher als die optimale Entfernung sind.\n\nHöher ist besser.",
 	L"\n \nWenn befestigt an einer Fernwaffe blendet\ndieser Gegenstand einen Punkt über das Ziel ein,\nwas das Treffen deutlich vereinfacht.\n\nDieser Effekt ist nur bis zu einer bestimmten Entfernung nützlich, darüber hinaus vermindert und schließlich verschwindet der Effekt.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den horizontalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den vertikalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den horizontalen Rückstoß um den genannten Wert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den vertikalen Rückstoß um den genannten Wert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\nseine Waffe im Feuerstoß oder Dauerfeuer unter Kontrolle zu behalten.\n\n Ein hoher Wert kann auch körperlich schwachen Schützen helfen, Waffen mit starkem Rückstoß zu kontrollieren. \n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndem Rückstoß der Waffe im Feuerstoß oder Dauerfeuer wirksam entgegenzuwirken.\n\n Ein hoher Wert erlaubt dem Schützen,\n die Waffe besser auf das Ziel auszurichten,\n was im Ergebnis die Genauigkeit von Feuerstößen erhöht. \n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndie Kraft, welche er benötigt, um dem Rückstoß im Feuerstoß oder Dauerfeuer entgegenzuwirken, öfter anzupassen.\n\n Ein höherer Wert macht Feuerstöße generell genauer,\n insbesondere lange Feuerstöße,\nvorausgesetzt, der Schütze kann dem Rückstoß wirksam entgegenwirken. \n \nHöher ist besser.",
@@ -7388,6 +7389,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nProzentsatz des Gegenstandes der mit einem\n Bissen aufgebraucht wird.\n \nWeniger ist besser.",
 	L"\n \nDie Moral wird um diese Zahl modifiziert.\n \nHöher ist besser.",
 	L"\n \nDer Gegenstand wird mit der Zeit schlecht.\nIst mehr als 50% verschimmelt wird er giftig.\nDies ist die Rate in der Schimmel entsteht.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den Rückstoß um den genannten Prozentwert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7444,6 +7446,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nIn jeder Runde kühlt die Temperatur um diesen Wert ab.\nAnbauten an der Waffe können diesen Wert beinflussen.\n \nHöher ist besser.",
 	L"\n \nWenn die Temperatur der Waffe über diese Wert steigt,\nkann die Waffe leicht blockieren.",
 	L"\n \nWenn die Temperatur der Waffe über diesen Wert steigt,\nkann die Waffe Schaden davon tragen.",
+	L"\n \nDer horizontale Rückstoß wurde prozentual geändert\ndurch Munition, Erweiterungen oder inhärenter\nFähigkeiten.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin reduzierter Rückstoß erleichtert es bei einer Salve die\nMündung auf das Ziel zu richten!\n \nNiedriger ist besser.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.

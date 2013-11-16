@@ -9832,6 +9832,15 @@ INT16 BonusReduceMore( INT16 bonus, INT16 status, INT16 statusCutoff = 100 )
 		return bonus;
 }
 
+// Scale bonus with item status. Status < 50% creates a penalty!
+FLOAT BonusReduceMoreFloat( FLOAT bonus, INT16 status, INT16 statusCutoff = 100 )
+{
+	if ( bonus > 0 && status < statusCutoff && statusCutoff > 0 && statusCutoff <= 100 )
+		return ( ( ( (FLOAT)status * 100.0f ) / (FLOAT)statusCutoff - 50.0f ) * bonus ) / 50.0f;
+	else // A penalty can't be reduced by status!
+		return bonus;
+}
+
 // Some items either work or they don't...
 INT16 BonusOnOff( INT16 bonus, INT16 status )
 {
@@ -10452,7 +10461,7 @@ INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 	return( bonus );
 }
 
-void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *bRecoilY, UINT8 ubNumBullet )
+void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT *bRecoilX, FLOAT *bRecoilY, UINT8 ubNumBullet )
 {
 	*bRecoilX = 0;
 	*bRecoilY = 0;
@@ -10476,6 +10485,12 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 	*bRecoilX = Weapon[pObjUsed->usItem].bRecoilX;
 	*bRecoilY = Weapon[pObjUsed->usItem].bRecoilY;
 
+	// modify by ini values
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+	{
+		*bRecoilX *= gItemSettings.fRecoilXModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		*bRecoilY *= gItemSettings.fRecoilYModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	}
 	// Apply a percentage-based modifier. This can increase or decrease BOTH axes. At most, it can eliminate
 	// recoil on the gun.
 
@@ -10483,19 +10498,22 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 	INT16 sPercentRecoilModifier = __max(-100, (GetBasePercentRecoilModifier( pObjUsed ) + GetAttachmentPercentRecoilModifier( pObjUsedInHand ) ));
 
 
-	*bRecoilX += (*bRecoilX * sPercentRecoilModifier ) / 100;
-	*bRecoilY += (*bRecoilY * sPercentRecoilModifier ) / 100;
+	*bRecoilX *= ( (FLOAT)( 100 + sPercentRecoilModifier ) / 100 );
+	*bRecoilY *= ( (FLOAT)( 100 + sPercentRecoilModifier ) / 100 );
 
 	// Apply a flat modifier. This acts on either axis, and if powerful enough can "reverse polarity" of either
 	// axis recoil. For instance, it can make a gun that normally pulls LEFT start pulling RIGHT instead.
 
-	INT8 bRecoilAdjustX = 0;
-	INT8 bRecoilAdjustY = 0;
+	FLOAT bRecoilAdjustX = 0;
+	FLOAT bRecoilAdjustY = 0;
 
 	//GetFlatRecoilModifier( pObj, &bRecoilAdjustX, &bRecoilAdjustY );
 	GetBaseFlatRecoilModifier( pObj, &bRecoilAdjustX, &bRecoilAdjustY );
 	GetAttachmentFlatRecoilModifier( &pSoldier->inv[HANDPOS], &bRecoilAdjustX, &bRecoilAdjustY);
 	//JMich TODO: Currently no check for dual wielding
+	// silversurfer: I don't think that we need a check for dual wielding here. This function is supposed to return weapon recoil value.
+	// It doesn't matter if this gun is wielded by someone else, with right, left hand or with the toes. The gun always produces the same recoil.
+	// Controlling recoil when firing two guns is more difficult but this should be checked outside this function.
 
 	*bRecoilX = __max(0, *bRecoilX + bRecoilAdjustX);
 	*bRecoilY = __max(0, *bRecoilY + bRecoilAdjustY);
@@ -10507,15 +10525,15 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 // HEADROCK HAM 4: This function calculates the flat recoil adjustment for a gun. Flat adjustment increases
 // or decreases recoil by a specific number of points in either the vertical or horizontal axes (or both).
 // It can potentially cause a weapon it reverse its recoil direction.
-void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
+void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY )
 {
-	INT8 bRecoilAdjustX = 0;
-	INT8 bRecoilAdjustY = 0;
+	FLOAT bRecoilAdjustX = 0;
+	FLOAT bRecoilAdjustY = 0;
 	if (pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		// Inherent item modifiers
-		bRecoilAdjustX += BonusReduceMore( Item[pObj->usItem].RecoilModifierX, (*pObj)[0]->data.objectStatus );
-		bRecoilAdjustY += BonusReduceMore( Item[pObj->usItem].RecoilModifierY, (*pObj)[0]->data.objectStatus );
+		bRecoilAdjustX += BonusReduceMoreFloat( Item[pObj->usItem].RecoilModifierX, (*pObj)[0]->data.objectStatus );
+		bRecoilAdjustY += BonusReduceMoreFloat( Item[pObj->usItem].RecoilModifierY, (*pObj)[0]->data.objectStatus );
 
 		// Ammo item modifiers
 		bRecoilAdjustX += Item[(*pObj)[0]->data.gun.usGunAmmoItem].RecoilModifierX;
@@ -10525,10 +10543,10 @@ void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *
 	*bRecoilModifierX = bRecoilAdjustX;
 	*bRecoilModifierY = bRecoilAdjustY;
 }
-void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
+void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY )
 {
-	INT8 bRecoilAdjustX = 0;
-	INT8 bRecoilAdjustY = 0;
+	FLOAT bRecoilAdjustX = 0;
+	FLOAT bRecoilAdjustY = 0;
 	if (pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		// Attachment item modifiers
@@ -10536,8 +10554,8 @@ void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, 
 		{
 			if (iter->exists())
 			{
-				bRecoilAdjustX += BonusReduceMore( Item[iter->usItem].RecoilModifierX, (*iter)[0]->data.objectStatus );
-				bRecoilAdjustY += BonusReduceMore( Item[iter->usItem].RecoilModifierY, (*iter)[0]->data.objectStatus );
+				bRecoilAdjustX += BonusReduceMoreFloat( Item[iter->usItem].RecoilModifierX, (*iter)[0]->data.objectStatus );
+				bRecoilAdjustY += BonusReduceMoreFloat( Item[iter->usItem].RecoilModifierY, (*iter)[0]->data.objectStatus );
 			}
 		}
 	}
@@ -10545,17 +10563,17 @@ void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, 
 	*bRecoilModifierX += bRecoilAdjustX;
 	*bRecoilModifierY += bRecoilAdjustY;
 }
-void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
+void GetFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY )
 {
 
-	INT8 bRecoilAdjustX = 0;
-	INT8 bRecoilAdjustY = 0;
+	FLOAT bRecoilAdjustX = 0;
+	FLOAT bRecoilAdjustY = 0;
 
 	if (pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		// Inherent item modifiers
-		bRecoilAdjustX += BonusReduceMore( Item[pObj->usItem].RecoilModifierX, (*pObj)[0]->data.objectStatus );
-		bRecoilAdjustY += BonusReduceMore( Item[pObj->usItem].RecoilModifierY, (*pObj)[0]->data.objectStatus );
+		bRecoilAdjustX += BonusReduceMoreFloat( Item[pObj->usItem].RecoilModifierX, (*pObj)[0]->data.objectStatus );
+		bRecoilAdjustY += BonusReduceMoreFloat( Item[pObj->usItem].RecoilModifierY, (*pObj)[0]->data.objectStatus );
 
 		// Ammo item modifiers
 		bRecoilAdjustX += Item[(*pObj)[0]->data.gun.usGunAmmoItem].RecoilModifierX;
@@ -10566,8 +10584,8 @@ void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRec
 		{
 			if (iter->exists())
 			{
-				bRecoilAdjustX += BonusReduceMore( Item[iter->usItem].RecoilModifierX, (*iter)[0]->data.objectStatus );
-				bRecoilAdjustY += BonusReduceMore( Item[iter->usItem].RecoilModifierY, (*iter)[0]->data.objectStatus );
+				bRecoilAdjustX += BonusReduceMoreFloat( Item[iter->usItem].RecoilModifierX, (*iter)[0]->data.objectStatus );
+				bRecoilAdjustY += BonusReduceMoreFloat( Item[iter->usItem].RecoilModifierY, (*iter)[0]->data.objectStatus );
 			}
 		}
 	}

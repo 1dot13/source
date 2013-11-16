@@ -2704,8 +2704,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			if(UsingNewCTHSystem() == true){
 				do
 				{
-					INT8 bRecoilX = 0;
-					INT8 bRecoilY = 0;
 					pSoldier->bDoAutofire++;
 					dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
 					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
@@ -5306,8 +5304,6 @@ L_NEWAIM:
 				if(UsingNewCTHSystem() == true){
 					do
 					{
-						INT8 bRecoilX = 0;
-						INT8 bRecoilY = 0;
 						pSoldier->bDoAutofire++;
 						dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
 						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );

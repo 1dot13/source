@@ -687,12 +687,12 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "bRecoilX") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.bRecoilX = (INT8) atol(pData->szCharData);
+			pData->curWeapon.bRecoilX = (FLOAT) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "bRecoilY") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.bRecoilY = (INT8) atol(pData->szCharData);
+			pData->curWeapon.bRecoilY = (FLOAT) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "ubRecoilDelay") == 0)
 		{

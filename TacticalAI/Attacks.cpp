@@ -3137,12 +3137,12 @@ BOOLEAN AIDetermineStealingWeaponAttempt( SOLDIERTYPE * pSoldier, SOLDIERTYPE * 
 // recoil system. 
 FLOAT AICalcRecoilForShot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon, UINT8 ubShotNum)
 {
-	INT8 bRecoilX = 0;
-	INT8 bRecoilY = 0;
+	FLOAT bRecoilX = 0;
+	FLOAT bRecoilY = 0;
 	GetRecoil( pSoldier, pWeapon, &bRecoilX, &bRecoilY, ubShotNum );
 	// Return average shooter's ability to control this gun.
 	// HEADROCK HAM 4: TODO: Incorporate items that alter max counter-force.
-	FLOAT AverageRecoil = __max(0, ((FLOAT)sqrt( (FLOAT)(bRecoilX * bRecoilX) + (FLOAT)(bRecoilY * bRecoilY) ) - (gGameCTHConstants.RECOIL_MAX_COUNTER_FORCE * 0.7f) ) );
+	FLOAT AverageRecoil = __max(0, ( sqrt( (bRecoilX * bRecoilX) + (bRecoilY * bRecoilY) ) - (gGameCTHConstants.RECOIL_MAX_COUNTER_FORCE * 0.7f) ) );
 	return AverageRecoil;
 }
 

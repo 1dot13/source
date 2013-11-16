@@ -306,10 +306,10 @@ BOOLEAN HasFastBurst( OBJECTTYPE * pObj );
 INT16 GetMagSizeBonus( OBJECTTYPE * pObj, UINT8 subObject = 0 );
 
 // HEADROCK HAM 4: This function now calculates and returns the weapon's recoil as X/Y offsets.
-void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *bRecoilY, UINT8 ubNumBullet );
-void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY);
-void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY);
-void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY );
+void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT *bRecoilX, FLOAT *bRecoilY, UINT8 ubNumBullet );
+void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY);
+void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY);
+void GetFlatRecoilModifier( OBJECTTYPE *pObj, FLOAT *bRecoilModifierX, FLOAT *bRecoilModifierY );
 INT16 GetBasePercentRecoilModifier( OBJECTTYPE *pObj );
 INT16 GetAttachmentPercentRecoilModifier( OBJECTTYPE *pObj);
 INT16 GetPercentRecoilModifier( OBJECTTYPE *pObj );

@@ -3151,11 +3151,33 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
-		INT8 bDummy;
-		INT8 bRecoilModifier;
-		GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifier, &bDummy );
+		///////////////////// PERCENT RECOIL MODIFIER
+		if ( GetPercentRecoilModifier( gpItemDescObject ) != 0 )
+		{
+			if ( UsingNewCTHSystem() == true )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 65 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 65 ], szUDBAdvStatsExplanationsTooltipText[ 64 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 				}
+				cnt++;
+			}
+		}
+
+		FLOAT bRecoilModifierX;
+		FLOAT bRecoilModifierY;
+		GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifierX, &bRecoilModifierY );
 		///////////////////// LATERAL RECOIL MODIFIER
-		if (bRecoilModifier != 0 )
+		if (bRecoilModifierX != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -3176,9 +3198,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
-		GetFlatRecoilModifier( gpItemDescObject, &bDummy, &bRecoilModifier );
 		///////////////////// VERTICAL RECOIL MODIFIER
-		if (bRecoilModifier != 0 )
+		if (bRecoilModifierY != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -5047,11 +5068,25 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			cnt++;
 		}
 	}
+
+	///////////////////// PERCENT RECOIL MODIFIER
+	if ( GetPercentRecoilModifier( gpItemDescObject ) != 0 )
+	{
+		if ( UsingNewCTHSystem() == true )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 62, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
+	}
+
+	FLOAT bRecoilModifierX;
+	FLOAT bRecoilModifierY;
+	GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifierX, &bRecoilModifierY );
 	///////////////////// LATERAL RECOIL MODIFIER
-	INT8 bRecoilModifier;
-	INT8 bDummy;
-	GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifier, &bDummy );
-	if (bRecoilModifier != 0)
+	if (bRecoilModifierX != 0)
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -5063,9 +5098,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 
-	GetFlatRecoilModifier( gpItemDescObject, &bDummy, &bRecoilModifier );
 	///////////////////// VERTICAL RECOIL MODIFIER
-	if (bRecoilModifier != 0 )
+	if (bRecoilModifierY != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -7450,21 +7484,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Set line to draw into
 				ubNumLine = 20;				
 
-				INT8 iFinalRecoilX = 0;
-				INT8 iFinalRecoilY = 0;
+				FLOAT iFinalRecoilX = 0;
+				FLOAT iFinalRecoilY = 0;
 
 				// Get final Recoil
 				GetRecoil( gpItemDescSoldier, gpItemDescObject, &iFinalRecoilX, &iFinalRecoilY, 3 );
 
 				// Get base Recoil
-				INT8 iRecoilX = Weapon[ gpItemDescObject->usItem ].bRecoilX;
-				INT8 iRecoilY = Weapon[ gpItemDescObject->usItem ].bRecoilY;
+				FLOAT iRecoilX = Weapon[ gpItemDescObject->usItem ].bRecoilX;
+				FLOAT iRecoilY = Weapon[ gpItemDescObject->usItem ].bRecoilY;
 
 				if (iRecoilX == -127) { iRecoilX = 0; } // -127 means "invalid". These guns don't actually have any recoil parameters.
 				if (iRecoilY == -127) { iRecoilY = 0; }
 
-				FLOAT dBaseRecoil = sqrt((FLOAT)((iRecoilX * iRecoilX)+(iRecoilY * iRecoilY)));
-				FLOAT dFinalRecoil = sqrt((FLOAT)((iFinalRecoilX * iFinalRecoilX) + (iFinalRecoilY * iFinalRecoilY)));
+				// modify by ini values
+				if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN )
+				{
+					iRecoilX *= gItemSettings.fRecoilXModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
+					iRecoilY *= gItemSettings.fRecoilYModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
+				}
+
+				FLOAT dBaseRecoil = sqrt( ((iRecoilX * iRecoilX)+(iRecoilY * iRecoilY)) );
+				FLOAT dFinalRecoil = sqrt( ((iFinalRecoilX * iFinalRecoilX) + (iFinalRecoilY * iFinalRecoilY)) );
 				FLOAT dRecoilModifier = dFinalRecoil - dBaseRecoil;
 
 				// Set Y coordinates
@@ -9130,8 +9171,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	INT16 iModifier[3];
 	FLOAT iFloatModifier[3];
 
-	INT8 bDummyValue;
-	INT8 bRecoilModifier;
+	FLOAT bRecoilModifierX;
+	FLOAT bRecoilModifierY;
 
 	///////////////////// INDEX
 	swprintf( pStr, gzItemDescGenIndexes[0] );
@@ -9851,7 +9892,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// RANGE MODIFIER
-	iModifier[0] = GetRangeBonus( gpItemDescObject );
+	iModifier[0] = GetRangeBonus( gpItemDescObject ) / CELL_X_SIZE;
 	iModifier[1] = iModifier[0];
 	iModifier[2] = iModifier[0];
 	if (iModifier[0] != 0 )
@@ -9873,26 +9914,14 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					wcscat( pStr, L"%" );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
 				}
 				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
 					swprintf( pStr, L"%d", iModifier[cnt2] );
-					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
 				}
 				else
 				{
@@ -9988,12 +10017,12 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
-	///////////////////// LATERAL RECOIL MODIFIER
-	GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifier, &bDummyValue );
-	iModifier[0] = bRecoilModifier;
-	iModifier[1] = bRecoilModifier;
-	iModifier[2] = bRecoilModifier;
-	if (iModifier[0] != 0 && UsingNewCTHSystem() == true )
+	///////////////////// PERCENT RECOIL MODIFIER
+	iModifier[0] = GetPercentRecoilModifier( gpItemDescObject );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+
+	if ( iModifier[0] != 0 && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -10011,12 +10040,67 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
 					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				mprintf( usX, usY, pStr );
+			}
+		}
+		cnt++;
+	}
+
+	GetFlatRecoilModifier( gpItemDescObject, &bRecoilModifierX, &bRecoilModifierY );
+	///////////////////// LATERAL RECOIL MODIFIER
+	iFloatModifier[0] = bRecoilModifierX;
+	iFloatModifier[1] = bRecoilModifierX;
+	iFloatModifier[2] = bRecoilModifierX;
+
+	if (iFloatModifier[0] != 0 && UsingNewCTHSystem() == true )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+			// Print Values
+			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+			{
+				SetFontForeground( 5 );
+				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+				if (iFloatModifier[cnt2] > 0)
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else if (iFloatModifier[cnt2] < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else
@@ -10031,11 +10115,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// VERTICAL RECOIL MODIFIER
-	GetFlatRecoilModifier( gpItemDescObject, &bDummyValue, &bRecoilModifier );
-	iModifier[0] = bRecoilModifier;
-	iModifier[1] = bRecoilModifier;
-	iModifier[2] = bRecoilModifier;
-	if (iModifier[0] != 0 && UsingNewCTHSystem() == true )
+	iFloatModifier[0] = bRecoilModifierY;
+	iFloatModifier[1] = bRecoilModifierY;
+	iFloatModifier[2] = bRecoilModifierY;
+
+	if (iFloatModifier[0] != 0 && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -10049,16 +10133,16 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iModifier[cnt2] > 0)
+				if (iFloatModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
-				else if (iModifier[cnt2] < 0)
+				else if (iFloatModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else
