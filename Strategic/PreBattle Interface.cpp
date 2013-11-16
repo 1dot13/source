@@ -1318,12 +1318,12 @@ void RenderPreBattleInterface()
 					//HP
 					swprintf( str, L"%d%%", ubHPPercent );
 					x = 189 + (25-StringPixLength( str, BLOCKFONT2)) / 2;
-					wcscat( str, L"%" );
+					wcscat( str, sSpecialCharacters[0] );
 					mprintf( x + xResOffset, y, str );
 					//BP
 					swprintf( str, L"%d%%", ubBPPercent );
 					x = 217 + (25-StringPixLength( str, BLOCKFONT2)) / 2;
-					wcscat( str, L"%" );
+					wcscat( str, sSpecialCharacters[0] );
 					mprintf( x + xResOffset, y, str );
 
 					line++;

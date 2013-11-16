@@ -8094,4 +8094,11 @@ STR16 gPowerPackDesc[] =
 	L"."
 };
 
+// WANNE: Special characters like % or someting else should go here
+// We can't put them directly in the CPP code files, because they need special encoding (UTF8) for some languages (e.g: Chinese)
+STR16 sSpecialCharacters[] =
+{
+	L"%",		// Percentage character
+};
+
 #endif //ITALIAN
