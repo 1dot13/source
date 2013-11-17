@@ -982,32 +982,32 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	<VEHICLE>
 		<uiIndex>160</uiIndex>
 		<Name>Hummer</Name>
-		<LongName>Hummer</LongName>
-		<ShortName>Hummer</ShortName>
+		<LongName>悍马</LongName>
+		<ShortName>悍马</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>161</uiIndex>
 		<Name>Eldorado</Name>
-		<LongName>Eldorado</LongName>
-		<ShortName>Eldor.</ShortName>
+		<LongName>凯迪拉克</LongName>
+		<ShortName>凯迪拉克</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>162</uiIndex>
 		<Name>Truck</Name>
-		<LongName>Ice cream truck</LongName>
-		<ShortName>Truck</ShortName>
+		<LongName>冰激凌卡车</LongName>
+		<ShortName>卡车</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>163</uiIndex>
 		<Name>Heli</Name>
-		<LongName>Helicopter</LongName>
-		<ShortName>Heli</ShortName>
+		<LongName>直升机</LongName>
+		<ShortName>直升机</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>164</uiIndex>
 		<Name>Tank</Name>
-		<LongName>Tank</LongName>
-		<ShortName>Tank</ShortName>
+		<LongName>坦克</LongName>
+		<ShortName>坦克</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>165</uiIndex>
@@ -1215,9 +1215,9 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>199</uiIndex>
-		<Name>None</Name>
-		<LongName></LongName>
-		<ShortName></ShortName>
+		<Name>Jeep</Name>
+		<LongName>吉普车</LongName>
+		<ShortName>吉普车</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>200</uiIndex>
