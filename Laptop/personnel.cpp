@@ -390,7 +390,7 @@ INT32 GetNumberOfInventoryItemsOnCurrentMerc( void );
 void CreateDestroyPersonnelInventoryScrollButtons( void );
 void EnableDisableInventoryScrollButtons( void );
 void PersonnelINVStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void EmployementInfoButtonCallback(GUI_BUTTON *btn,INT32 reason);
+void PersonnelEmploymentStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void PersonnelStatStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void HandleSliderBarClickCallback( MOUSE_REGION *pRegion, INT32 iReason );
 
@@ -1689,10 +1689,10 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				UINT8 loc = 21;
 				UINT8 regionnr = 12;
 
-				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), L"Background:");
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[47]); //L"Background:"
 							
 				if ( !gMercProfiles[pSoldier->ubProfile].usBackground )
-					swprintf(sString, L"unknown");
+					swprintf(sString, pwMiscSectorStrings[3]); //L"unknown"
 				else
 					swprintf(sString, zBackground[ gMercProfiles[pSoldier->ubProfile].usBackground ].szShortName);
 
@@ -1724,7 +1724,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				UINT8 loc = 22;
 				UINT8 regionnr = 8;
 
-				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), L"Personality:");
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[48]); //L"Personality:"
 
 				swprintf(sString, L"->");
 				
@@ -5618,7 +5618,7 @@ void CreateDestroyStartATMButton( void )
 		giPersonnelATMStartButtonImage[ PERSONNEL_EMPLOYMENT_BTN ]=	LoadButtonImage( "LAPTOP\\AtmButtons.sti" ,-1,2,-1,3,-1 );
 		giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] = QuickCreateButton( giPersonnelATMStartButtonImage[ PERSONNEL_EMPLOYMENT_BTN ] , iScreenWidthOffset + 519, iScreenHeightOffset + 110,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										MSYS_NO_CALLBACK, (GUI_CALLBACK)EmployementInfoButtonCallback );
+										MSYS_NO_CALLBACK, (GUI_CALLBACK)PersonnelEmploymentStartButtonCallback );
 
 		// set text and what not
 		SpecifyButtonText( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ,gsAtmStartButtonText[ 3 ] );
@@ -5926,7 +5926,7 @@ void PersonnelStatStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
 }
 
 
-void EmployementInfoButtonCallback(GUI_BUTTON *btn,INT32 reason)
+void PersonnelEmploymentStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -6487,28 +6487,143 @@ void HandlePersonnelKeyboard( void )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+	//while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+	while (DequeueEvent(&InputEvent) == TRUE)
 	{
-		if ( (InputEvent.usEvent == KEY_DOWN ) && (InputEvent.usParam >= '0' ) && ( InputEvent.usParam <= '9') )
+		if ( InputEvent.usEvent == KEY_DOWN )
 		{
-			if( ( fShowAtmPanel ) && ( fATMFlags != 0 ) )
+			switch (InputEvent.usParam)
 			{
-				iValue = ( INT32 )( InputEvent.usParam - '0' );
+				case '0':
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
+					if( ( fShowAtmPanel ) && ( fATMFlags != 0 ) )
+					{
+						iValue = ( INT32 )( InputEvent.usParam - '0' );
 
-				for( iCounter = 0; iCounter < ( INT32 )wcslen( sTransferString ) ; iCounter++ );
-				sTransferString[ iCounter ] = ( sZero[ 0 ] + ( UINT16 )iValue );
-				sTransferString[ iCounter + 1 ] = 0;
-				fPausedReDrawScreenFlag=TRUE;
+						for( iCounter = 0; iCounter < ( INT32 )wcslen( sTransferString ) ; iCounter++ );
+						sTransferString[ iCounter ] = ( sZero[ 0 ] + ( UINT16 )iValue );
+						sTransferString[ iCounter + 1 ] = 0;
+						fPausedReDrawScreenFlag=TRUE;
 
-				// gone too far
-				if( StringPixLength( sTransferString, ATM_FONT ) >= ATM_DISPLAY_WIDTH - 10 )
-				{
-					sTransferString[ iCounter ] = 0;
-				}
+						// gone too far
+						if( StringPixLength( sTransferString, ATM_FONT ) >= ATM_DISPLAY_WIDTH - 10 )
+						{
+							sTransferString[ iCounter ] = 0;
+						}
+					}
+				break;
+				case UPARROW:
+					if ( fCurrentTeamMode )
+					{
+						if( gubPersonnelInfoState > PERSONNEL_STAT_BTN )
+							gubPersonnelInfoState--;
+						else
+							gubPersonnelInfoState = PERSONNEL_INV_BTN;
+
+						fReDrawScreenFlag = TRUE;
+
+						uiCurrentInventoryIndex = 0;
+						guiSliderPosition = 0;
+
+						//if the selected merc is valid, and they are a POW, change to the inventory display
+						if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
+							gubPersonnelInfoState = PERSONNEL_EMPLOYMENT_BTN;
+
+						fPausedReDrawScreenFlag = TRUE;
+					}
+				break;
+				case DNARROW:
+					if ( fCurrentTeamMode )
+					{
+						if( gubPersonnelInfoState < PERSONNEL_NUM_BTN-1 )
+							gubPersonnelInfoState++;
+						else
+							gubPersonnelInfoState = PERSONNEL_STAT_BTN;
+
+						fReDrawScreenFlag = TRUE;
+
+						uiCurrentInventoryIndex = 0;
+						guiSliderPosition = 0;
+
+						//if the selected merc is valid, and they are a POW, change to the inventory display
+						if( currentTeamIndex != -1 && Menptr[currentTeamList[currentTeamIndex]].bAssignment == ASSIGNMENT_POW && gubPersonnelInfoState == PERSONNEL_INV_BTN)
+							gubPersonnelInfoState = PERSONNEL_STAT_BTN;
+						
+						fPausedReDrawScreenFlag = TRUE;
+					}
+				break;
+				case LEFTARROW:
+					fReDrawScreenFlag = TRUE;
+					PrevPersonnelFace( );
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case RIGHTARROW:
+					fReDrawScreenFlag = TRUE;
+					NextPersonnelFace( );
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_TAB:
+					if ( !fCurrentTeamMode )
+					{
+						fCurrentTeamMode = TRUE;
+						// how many people do we have?..if you have someone set default to 0
+						if( maxCurrentTeamIndex >= 0 )
+							// get id of first merc in list
+							currentTeamIndex = 0;
+						else
+							currentTeamIndex = -1;
+					}
+					else
+					{
+						fCurrentTeamMode = FALSE;
+						// how many departed people?
+						if (GetNumberOfPastMercsOnPlayersTeam() > 0) {
+							iCurrentPersonSelectedId = 0;
+						} else {
+							iCurrentPersonSelectedId = -1;
+						}
+						//Switch the panel on the right to be the stat panel
+						gubPersonnelInfoState = PERSONNEL_STAT_BTN;
+					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
 			}
 		}
-
-		HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+		else if( InputEvent.usEvent == KEY_REPEAT )
+		{
+			switch (InputEvent.usParam)
+			{
+				case LEFTARROW:
+					fReDrawScreenFlag = TRUE;
+					PrevPersonnelFace( );
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case RIGHTARROW:
+					fReDrawScreenFlag = TRUE;
+					NextPersonnelFace( );
+					uiCurrentInventoryIndex = 0;
+					guiSliderPosition = 0;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+			}
+		}
 	}
 }
 
@@ -8785,22 +8900,22 @@ void AssignPersonalityHelpText( SOLDIERTYPE* pSoldier, MOUSE_REGION* pMouseregio
 	
 	if ( pSoldier )
 	{
-		swprintf(atStr, L"- You look %s and appearance is %s important to you.\n", szAppearanceText[gMercProfiles[ pSoldier->ubProfile ].bAppearance], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bAppearanceCareLevel] );
+		swprintf(atStr, L"- %s %s %s %s %s\n", szPersonalityDisplayText[0], szAppearanceText[gMercProfiles[ pSoldier->ubProfile ].bAppearance], szPersonalityDisplayText[1], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bAppearanceCareLevel], szPersonalityDisplayText[2] );
 		wcscat( apStr, atStr );
 
-		swprintf(atStr, L"- You have %s and care %s about that.\n", szRefinementText[gMercProfiles[ pSoldier->ubProfile ].bRefinement], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bRefinementCareLevel] );
+		swprintf(atStr, L"- %s %s %s %s %s\n", szPersonalityDisplayText[3], szRefinementText[gMercProfiles[ pSoldier->ubProfile ].bRefinement], szPersonalityDisplayText[4], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bRefinementCareLevel], szPersonalityDisplayText[5] );
 		wcscat( apStr, atStr );
 
 		if ( gMercProfiles[ pSoldier->ubProfile ].bHatedNationality < 0 )
-			swprintf(atStr, L"- You are %s and %s\n", szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szNationalityText_Special[0] );
+			swprintf(atStr, L"- %s %s %s\n", szPersonalityDisplayText[6], szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szNationalityText_Special[0] );
 		else
-			swprintf(atStr, L"- You are %s and hate everyone %s %s.\n", szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationality], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationalityCareLevel] );
+			swprintf(atStr, L"- %s %s %s %s %s.\n", szPersonalityDisplayText[6], szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szPersonalityDisplayText[7], szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationality], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationalityCareLevel] );
 		wcscat( apStr, atStr );
 
-		swprintf(atStr, L"- You are %s racist against non-%s people.\n", szRacistText[gMercProfiles[ pSoldier->ubProfile ].bRacist], szRaceText[gMercProfiles[ pSoldier->ubProfile ].bRace] );
+		swprintf(atStr, L"- %s %s %s-%s %s\n", szPersonalityDisplayText[6], szRacistText[gMercProfiles[ pSoldier->ubProfile ].bRacist], szPersonalityDisplayText[9], szRaceText[gMercProfiles[ pSoldier->ubProfile ].bRace], szPersonalityDisplayText[10] );
 		wcscat( apStr, atStr );
 
-		swprintf(atStr, L"- You are %s.\n", szSexistText[gMercProfiles[ pSoldier->ubProfile ].bSexist] );
+		swprintf(atStr, L"- %s %s.\n", szPersonalityDisplayText[6], szSexistText[gMercProfiles[ pSoldier->ubProfile ].bSexist] );
 		wcscat( apStr, atStr );
 	}
 	else

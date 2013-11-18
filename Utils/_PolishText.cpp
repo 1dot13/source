@@ -2323,6 +2323,9 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Attitudes:",	// WANNE: For old traits display instead of "Character:"!
 
 	L"Zombies: %d\n", // TODO.Translate
+
+	L"Background:", // TODO.Translate
+	L"Personality:", // TODO.Translate
 };
 
 
@@ -8032,58 +8035,58 @@ STR16		szRefinementText[]=
 
 STR16		szNationalityText[]=
 {
-	L"american",		// 0
-	L"arab",
-	L"australian",
-	L"british",
-	L"canadian",
-	L"cuban",			// 5
-	L"danish",
-	L"french",
-	L"russian",
-	L"nigerian",
-	L"swiss",			// 10
-	L"jamaican",
-	L"polish",
-	L"chinese",
-	L"irish",
-	L"south african",	// 15
-	L"hungarian",
-	L"scottish",
-	L"arulcan",
-	L"german",
-	L"african",			// 20
-	L"italian",
-	L"dutch",
-	L"romanian",
-	L"metaviran",
+	L"American",		// 0
+	L"Arab",
+	L"Australian",
+	L"British",
+	L"Canadian",
+	L"Cuban",			// 5
+	L"Danish",
+	L"French",
+	L"Russian",
+	L"Nigerian",
+	L"Swiss",			// 10
+	L"Jamaican",
+	L"Polish",
+	L"Chinese",
+	L"Irish",
+	L"South African",	// 15
+	L"Hungarian",
+	L"Scottish",
+	L"Arulcan",
+	L"German",
+	L"African",			// 20
+	L"Italian",
+	L"Dutch",
+	L"Romanian",
+	L"Metaviran",
 
 	// newly added from here on
-	L"greek",			// 25
-	L"estonian",
-	L"venezuelan",
-	L"japanese",
-	L"turkish",
-	L"indian",			// 30
-	L"mexican",
-	L"norwegian",
-	L"spanish",
-	L"brasilian",
-	L"finnish",			// 35
-	L"iranian",
-	L"israeli",
-	L"bulgarian",
-	L"swedish",
-	L"iraqi",			// 40
-	L"syrian",
-	L"belgian",
-	L"portoguese",
+	L"Greek",			// 25
+	L"Estonian",
+	L"Venezuelan",
+	L"Japanese",
+	L"Turkish",
+	L"Indian",			// 30
+	L"Mexican",
+	L"Norwegian",
+	L"Spanish",
+	L"Brasilian",
+	L"Finnish",			// 35
+	L"Iranian",
+	L"Israeli",
+	L"Bulgarian",
+	L"Swedish",
+	L"Iraqi",			// 40
+	L"Syrian",
+	L"Belgian",
+	L"Portoguese",
 };
 
 // special text used if we do not hate any nation (value of -1)
 STR16		szNationalityText_Special[]=
 {
-	L"do not hate any other nationality.",		// used in personnel.cpp
+	L"and do not hate any other nationality.",		// used in personnel.cpp
 	L"of no origin",		// used in IMP generation
 };
 

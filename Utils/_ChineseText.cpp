@@ -2314,6 +2314,9 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"态度:",	// WANNE: For old traits display instead of "Character:"!
 
 	L"僵尸: %d\n", // Zombies: %d\n
+
+	L"Background:", // TODO.Translate
+	L"Personality:", // TODO.Translate
 };
 
 
@@ -8029,7 +8032,7 @@ STR16		szNationalityText[]=
 	L"意大利人",
 	L"荷兰人",
 	L"罗马利亚人",
-	L"metavira人",
+	L"Metavira人",
 
 	// newly added from here on
 	L"希腊人",			// 25
