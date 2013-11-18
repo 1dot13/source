@@ -5731,6 +5731,12 @@ void RenderIconsPerSectorForSelectedTown( void )
 	{
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
+		
+		// skip sectors that's beyond sector P16
+		if( sCurrentSectorValue > SEC_P16 )
+		{
+			continue;
+		}
 
 		sSectorX = SECTORX( sCurrentSectorValue );
 		sSectorY = SECTORY( sCurrentSectorValue );
@@ -6128,6 +6134,12 @@ BOOLEAN IsThisMilitiaTownSectorAllowable( INT16 sSectorIndexValue )
 	// is this sector allowed to be clicked on?
 	sBaseSectorValue = GetBaseSectorForCurrentTown( );
 	sGlobalMapSector = sBaseSectorValue + ( ( sSectorIndexValue % MILITIA_BOX_ROWS ) + ( sSectorIndexValue / MILITIA_BOX_ROWS ) * 16 );
+	
+	// skip sectors that's beyond sector P16
+	if( sGlobalMapSector > SEC_P16 )
+	{
+		return( FALSE );
+	}	
 
 	sSectorX = SECTORX( sGlobalMapSector );
 	sSectorY = SECTORY( sGlobalMapSector );
@@ -6358,6 +6370,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 	{
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
+		
+		// skip sectors that's beyond sector P16
+		if( sCurrentSectorValue > SEC_P16 )
+		{
+			continue;
+		}
 
 		sSectorX = SECTORX( sCurrentSectorValue );
 		sSectorY = SECTORY( sCurrentSectorValue );
@@ -6642,6 +6660,12 @@ void RenderShadingForUnControlledSectors( void )
 	{
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
+		
+		// skip sectors that's beyond sector P16
+		if( sCurrentSectorValue > SEC_P16 )
+		{
+			continue;
+		}
 
 		sSectorX = SECTORX( sCurrentSectorValue );
 		sSectorY = SECTORY( sCurrentSectorValue );
@@ -7506,6 +7530,12 @@ BOOLEAN CanMilitiaAutoDistribute( void )
 	{
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
+		
+		// skip sectors that's beyond sector P16
+		if( sCurrentSectorValue > SEC_P16 )
+		{
+			continue;
+		}
 
 		sSectorX = SECTORX( sCurrentSectorValue );
 		sSectorY = SECTORY( sCurrentSectorValue );
@@ -7829,6 +7859,12 @@ BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSec
 	{
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
+		
+		// skip sectors that's beyond sector P16
+		if( sCurrentSectorValue > SEC_P16 )
+		{
+			continue;
+		}
 
 		sSectorX = SECTORX( sCurrentSectorValue );
 		sSectorY = SECTORY( sCurrentSectorValue );

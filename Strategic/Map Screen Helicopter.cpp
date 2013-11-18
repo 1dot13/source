@@ -2322,10 +2322,10 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 	{
 		AddHeliPiece( iGridNo, ( UINT16 ) iTileIndexNo );	// AddHeliPiece( iGridNo, sOStruct );
 		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 1 ) );
-		AddHeliPiece( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
+		AddHeliPiece( ( iGridNo - WORLD_COLS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
 		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 3 ) );
 		AddHeliPiece( iGridNo, ( UINT16 )( iTileIndexNo + 4 ) );
-		AddHeliPiece( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
+		AddHeliPiece( ( iGridNo - WORLD_COLS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
@@ -2348,10 +2348,10 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 		// remove from the world
 		RemoveStruct( iGridNo, ( UINT16 )iTileIndexNo );
 		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 1 ) );
-		RemoveStruct( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
+		RemoveStruct( ( iGridNo - WORLD_COLS * 5 ), ( UINT16 )( iTileIndexNo + 2 ) );	// ( iGridNo - 800 )
 		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 3 ) );
 		RemoveStruct( iGridNo, ( UINT16 )( iTileIndexNo + 4 ) );
-		RemoveStruct( ( iGridNo - WORLD_ROWS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
+		RemoveStruct( ( iGridNo - WORLD_COLS * 5 ), ( UINT16 )( iTileIndexNo + 5 ) );	// ( iGridNo - 800 )
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
