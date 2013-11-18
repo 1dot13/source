@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CITY_INFO>
+	<CITYLIST>
+		<CITY>
+			<uiIndex>1</uiIndex>
+			<townName>Varrez</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>2</uiIndex>
+			<townName> </townName>
+		</CITY>		
+	</CITYLIST>
+</CITY_INFO>
