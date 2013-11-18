@@ -1854,7 +1854,7 @@ STR16 pMilitiaButtonString[] =
 	L"自动", // auto place the militia troops for the player
 	L"完成", // done placing militia troops
 	L"遣散", // HEADROCK HAM 3.6: Disband militia
-	L"全部重新分配", // move all milita troops to unassigned pool	// TODO.Translate
+	L"全部重新分配", // move all milita troops to unassigned pool
 };
 
 STR16 pConditionStrings[] =
@@ -2315,8 +2315,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"僵尸: %d\n", // Zombies: %d\n
 
-	L"Background:", // TODO.Translate
-	L"Personality:", // TODO.Translate
+	L"背景：", // TODO.Translate
+	L"性格：", // TODO.Translate
 };
 
 
@@ -3484,7 +3484,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示套装包\n|R|i|g|h|t |C|l|i|c|k: 只显示套装包", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示杂项物品\n|R|i|g|h|t |C|l|i|c|k: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换搬运中的物品", // Flugente: move item display	// TODO.Translate
+	L"|L|e|f|t |C|l|i|c|k: 切换搬运中的物品", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -5403,7 +5403,7 @@ STR16		zOptionsToggleText[] =
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
 	L"反转鼠标滚轮", 					//L"Invert mouse wheel",
-	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
+	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5622,7 +5622,7 @@ STR16	gzGIOScreenText[] =
 	
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
-	L"佣兵故事背景", //L"Merc Story Backgrounds",	// TODO.Translate
+	L"佣兵故事背景", //L"Merc Story Backgrounds",
 	L"生存模式与食物系统",
 	L"Bobby Ray 供货量",
 };
@@ -5945,7 +5945,7 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"鼠标已锁定，鼠标移动范围强制限制在游戏窗口内部区域。",			// 104
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
-	L"保持佣兵间距开启",	// TODO.Translate
+	L"保持佣兵间距开启",
 	L"保持佣兵间距关闭",
 };
 
@@ -6480,7 +6480,7 @@ STR16 New113HAMMessage[] =
 	L"要在战斗中合并两样物品，你必须先把它们捡起来。", // L"To merge two items during combat, you must pick them both up first.",
 };
 
-// HEADROCK HAM 5: Text dealing exclusively with Item Transformations. // TODO.Translate
+// HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
 STR16 gzTransformationMessage[] = 
 {
 	L"没有可用的转换方案", //L"No available adjustments",
@@ -6892,7 +6892,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. 性格缺陷",
 };
 
-STR16 gzIMPDisabilityTraitEmailTextDeaf[] =// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextDeaf[] =
 {
 	L"我们觉得你肯定会因为这不是语音信息很高兴。", //L"We bet you're glad this isn't voicemail.",
 	L"你不是小时候去迪厅去多了，就是离大规模火炮轰击太近，或者就是太老了。总之，你的队友最好开始学习手语了。", // L"You've either visited to many discos in your teens, or were to close a massive artillery bombardment. Or just old. Either way, your team better learn sign language.",
@@ -7163,7 +7163,7 @@ STR16 gzItemDescGenIndexes[] =
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|说|明|页|面:\n \n显示该物品基本的文字描述。",
-	L"|常|规|性|能|页|面:\n \n显示该物品的详细性能数据。\n \nWeapons: Click again to see second page.",	// TODO.Translate
+	L"|常|规|性|能|页|面:\n \n显示该物品的详细性能数据。\n \n武器：再次点击进入第二页。",
 	L"|进|阶|性|能|页|面:\n \n显示使用该物品的额外效果。",
 };
 
@@ -7569,7 +7569,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n每次会吃掉多少\n 百分比单位\n \n该数值越低越好",	// L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",
 	L"\n \n可以改变相应量士气 \n \n该数值越高越好",	// L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",
 	L"\n \n这个物品随时间而便腐败\n 超过50%腐败会产生毒性 \n这是食物的霉变率\n \n该数值越低越好",	// L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",
-	L"当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
+	L"\n \n当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7626,7 +7626,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n每回合自动冷却所降低的温度值。",
 	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
 	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
-	L"这个武器的后座力大小因为所使用的弹药，附\n件，或内部构造而获得该比例大小的修正。如\n果没有点射或自动模式，这个值无效。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nThis weapon's recoil strength is being\nmodified by this percentage value by its ammo,\nattachments, or inherent abilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
+	L"\n \n这个武器的后座力大小因为所使用的弹药，附\n件，或内部构造而获得该比例大小的修正。如\n果没有点射或自动模式，这个值无效。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nThis weapon's recoil strength is being\nmodified by this percentage value by its ammo,\nattachments, or inherent abilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7788,7 +7788,7 @@ STR16	szCovertTextStr[]=
 	L"%s的伪装要被识破了。", // L"%s's disguise will not hold.",
 	L"%s在偷窃的时候被抓了！", // L"%s was caught stealing!",
 	L"%s在试图调整%s的物品栏。", // L"%s tried to manipulate %s's inventory."
-	L"%s太靠近精英士兵了。",	// TODO.Translate
+	L"%s太靠近精英士兵了。",
 };
 
 STR16	szCorpseTextStr[]=
@@ -7847,7 +7847,7 @@ STR16	szMTATextStr[]=
 	L"%s必须停止%s", //L"%s had to stop %s.",
 };
 
-STR16	szInventoryArmTextStr[]= // TODO.Translate
+STR16	szInventoryArmTextStr[]=
 {
 	L"炸毁 (%d AP)", //L"Blow up (%d AP)",
 	L"炸毁", //L"Blow up",
