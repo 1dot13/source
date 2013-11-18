@@ -23,6 +23,10 @@
 		<ubIndex>3</ubIndex>
 		<szFacilityName>监狱区</szFacilityName>
 		<szFacilityShortName>监狱</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
@@ -175,6 +179,36 @@
 			<ubAssignmentType>DOCTOR</ubAssignmentType>  
 			<szTooltipText>在战地对伤员进行抢救。提高医疗效果。</szTooltipText> 
 		</ASSIGNMENT> 
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>20</ubIndex>
+		<szFacilityName>军营酒吧</szFacilityName>
+		<szFacilityShortName>酒吧</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>FACILITY_EAT</ubAssignmentType>
+			<szTooltipText>占领了敌军军营的同时，你也占领了他们的酒吧。你的佣兵们可以进去大吃大喝一番了。</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>21</ubIndex>
+		<szFacilityName>军事监狱</szFacilityName>
+		<szFacilityShortName>监狱</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>22</ubIndex>
+		<szFacilityName>城镇监狱</szFacilityName>
+		<szFacilityShortName>监狱</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 	
 </FACILITYTYPES>
