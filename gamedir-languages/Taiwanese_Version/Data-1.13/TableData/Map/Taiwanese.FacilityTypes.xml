@@ -176,5 +176,35 @@
 			<szTooltipText>Perform urgent life-saving treatment on your wounded men in field conditions. Increases the DOCTOR's efficiency.</szTooltipText> 
 		</ASSIGNMENT> 
 	</FACILITYTYPE>
+
+  <FACILITYTYPE>
+    <ubIndex>20</ubIndex>
+    <szFacilityName>Army Barracks Cantina</szFacilityName>
+    <szFacilityShortName>Cantina</szFacilityShortName>
+    <ASSIGNMENT>
+      <ubAssignmentType>FACILITY_EAT</ubAssignmentType>
+      <szTooltipText>By taking over the armies barracks, you've also taken over the cantina inside. Your mercs can eat here.</szTooltipText>
+    </ASSIGNMENT>
+  </FACILITYTYPE>
+
+  <FACILITYTYPE>
+    <ubIndex>21</ubIndex>
+    <szFacilityName>Military Prison</szFacilityName>
+    <szFacilityShortName>Prison</szFacilityShortName>
+    <ASSIGNMENT>
+      <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+      <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+    </ASSIGNMENT>
+  </FACILITYTYPE>
+
+  <FACILITYTYPE>
+    <ubIndex>22</ubIndex>
+    <szFacilityName>Town Prison</szFacilityName>
+    <szFacilityShortName>Prison</szFacilityShortName>
+    <ASSIGNMENT>
+      <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+      <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+    </ASSIGNMENT>
+  </FACILITYTYPE>
 	
 </FACILITYTYPES>

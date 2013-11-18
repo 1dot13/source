@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CITY_INFO>
+	<CITYLIST>
+		<CITY>
+			<uiIndex>1</uiIndex>
+			<townName>Omerta</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>2</uiIndex>
+			<townName>Drassen</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>3</uiIndex>
+			<townName>Alma</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>4</uiIndex>
+			<townName>Grumm</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>5</uiIndex>
+			<townName>Tixa</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>6</uiIndex>
+			<townName>Cambria</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>7</uiIndex>
+			<townName>San Mona</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>8</uiIndex>
+			<townName>Estoni</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>9</uiIndex>
+			<townName>Orta</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>10</uiIndex>
+			<townName>Balime</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>11</uiIndex>
+			<townName>Meduna</townName>
+		</CITY>
+		<CITY>
+			<uiIndex>12</uiIndex>
+			<townName>Chitzena</townName>
+		</CITY>
+	</CITYLIST>
+</CITY_INFO>
