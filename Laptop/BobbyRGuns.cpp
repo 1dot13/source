@@ -3769,6 +3769,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '2':
 					// 2nd item on screen
@@ -3780,6 +3782,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '3':
 					// 3rd item on screen
@@ -3790,6 +3794,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '4':
 					// 4th item on screen
@@ -3801,6 +3807,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '!':
 					// 1st item on screen all at once
@@ -3812,6 +3820,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], TRUE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '@':
 					// 2nd item on screen all at once
@@ -3823,6 +3833,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], TRUE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '#':
 					// 3rd item on screen all at once
@@ -3833,6 +3845,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], TRUE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '$':
 					// 4th item on screen all at once
@@ -3844,6 +3858,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], TRUE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				default:
 					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
@@ -3896,6 +3912,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '2':
 					// 2nd item on screen
@@ -3907,6 +3925,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '3':
 					// 3rd item on screen
@@ -3917,6 +3937,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case '4':
 					// 4th item on screen
@@ -3928,6 +3950,8 @@ void HandleBobbyRGunsKeyBoardInput()
 						else
 							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
 					}
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
 				break;
 			}
 		}
