@@ -6078,12 +6078,21 @@ STR16 pNewNoiseStr[] =
 	L"%s słyszy %s ODGŁOS SKRZYPNIĘCIA dochodzący z %s.",
 	L"%s słyszy %s PLUSK dochodzący z %s.",
 	L"%s słyszy %s ODGŁOS UDERZENIA dochodzący z %s.",
+	L"%s słyszy %s ODGŁOS STRZAŁU dochodzący z %s.", // anv: without this, all further noise notifications were off by 1!		// TODO.Translate
 	L"%s słyszy %s WYBUCH dochodzący z %s.",
 	L"%s słyszy %s KRZYK dochodzący z %s.",
 	L"%s słyszy %s ODGŁOS UDERZENIA dochodzący z %s.",
 	L"%s słyszy %s ODGŁOS UDERZENIA dochodzący z %s.",
 	L"%s słyszy %s ŁOMOT dochodzący z %s.",
 	L"%s słyszy %s TRZASK dochodzący z %s.",
+	L"",											 // anv: placeholder for silent alarm		// TODO.Translate
+	L"%s słyszy czyjś %s GŁOS dochodzący z %s.", // anv: report enemy taunt to player		// TODO.Translate
+};
+
+// TODO.Translate
+STR16 pTauntUnknownVoice[] =
+{
+	L"Nieznany głos",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =

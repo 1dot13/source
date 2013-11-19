@@ -6053,12 +6053,21 @@ STR16 pNewNoiseStr[] =
 	L"%s sente uno %s SCRICCHIOLIO proveniente da %s.",
 	L"%s sente un %s TONFO NELL'ACQUA proveniente da %s.",
 	L"%s sente un %s URTO proveniente da %s.",
+	L"%s hears a %s GUNFIRE coming from %s.", // anv: without this, all further noise notifications were off by 1!		// TODO.Translate
 	L"%s sente una %s ESPLOSIONE verso %s.",
 	L"%s sente un %s URLO verso %s.",
 	L"%s sente un %s IMPATTO verso %s.",
 	L"%s sente un %s IMPATTO a %s.",
 	L"%s sente un %s SCHIANTO proveniente da %s.",
 	L"%s sente un %s FRASTUONO proveniente da %s.",
+	L"",											 // anv: placeholder for silent alarm		// TODO.Translate
+	L"%s hears someone's %s VOICE coming from %s.", // anv: report enemy taunt to player		// TODO.Translate
+};
+
+// TODO.Translate
+STR16 pTauntUnknownVoice[] =
+{
+	L"Unknown Voice",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =

@@ -2683,6 +2683,48 @@ void HandleDialogueEnd( FACETYPE *pFace )
 					fTextBoxMouseRegionCreated = FALSE;
 				}
 
+				// anv: after merc finishes his quote, we want enemy to answer
+				if ( gbUIHandlerID == DIALOGUE_TACTICAL_UI )
+				{
+					SOLDIERTYPE *pSoldier = FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE );
+					UINT8 ubSeenEnemies[ MAX_NUM_SOLDIERS ];
+					UINT8 ubSeenEnemiesCnt = 0;
+					switch( gTacticalStatus.ubLastQuoteSaid )
+					{					
+						case QUOTE_SEE_ENEMY:
+						case QUOTE_SEE_ENEMY_VARIATION:
+						case QUOTE_IN_TROUBLE_SLASH_IN_BATTLE:
+							// select random enemy, who we see, who sees us and isn't deaf
+							for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
+							{
+								if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
+									&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )
+								{
+									ubSeenEnemies[ubSeenEnemiesCnt] = cnt; 
+									ubSeenEnemiesCnt++;
+								}
+							}
+							if( ubSeenEnemiesCnt > 0 )
+							{
+								if( gTacticalStatus.ubLastQuoteSaid == QUOTE_SEE_ENEMY )
+									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_R_ENEMY_DETECTED, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+								else if( gTacticalStatus.ubLastQuoteSaid == QUOTE_SEE_ENEMY_VARIATION )
+									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_R_1ST_ENEMY_DETECTED, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+								else if( gTacticalStatus.ubLastQuoteSaid == QUOTE_IN_TROUBLE_SLASH_IN_BATTLE )
+									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_R_MULTIPLE_ENEMIES, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+							}
+							break;
+						case QUOTE_CLOSE_CALL:
+							PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_R_BULLET_FLEW_BY, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+							break;
+						case QUOTE_UNDER_HEAVY_FIRE:
+							PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_R_UNDER_HEAVY_FIRE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+							break;
+						default:
+							break;
+					}
+				}
+				
 				break;
 
 			case DIALOGUE_NPC_UI:

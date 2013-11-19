@@ -1329,12 +1329,22 @@ typedef struct
 
 typedef struct
 {
+	BOOLEAN fTauntShowPopupBox;
 	BOOLEAN fTauntShowInLog;
+	BOOLEAN fTauntMakeNoise;
+	BOOLEAN fTauntOnlyVisibleEnemies;
+	BOOLEAN fTauntShowPopupBoxIfHeard;
+	BOOLEAN fTauntShowInLogIfHeard;
+	BOOLEAN fTauntAlwaysShowPopupBox;
+	BOOLEAN fTauntAlwaysShowInLog;
+	UINT16 sVolume;
 	INT16 sModDelay;
 	UINT16 sMinDelay;
 	UINT16 sMaxDelay;
 	UINT8 ubTauntFireGunChance;
 	UINT8 ubTauntFireLauncherChance;
+	UINT8 ubTauntAttackBladeChance;
+	UINT8 ubTauntAttackHTHChance;
 	UINT8 ubTauntThrowKnifeChance;
 	UINT8 ubTauntThrowGrenadeChance;
 	UINT8 ubTauntChargeKnifeChance;
@@ -1343,9 +1353,21 @@ typedef struct
 	UINT8 ubTauntRunAwayChance;
 	UINT8 ubTauntSeekNoiseChance;
 	UINT8 ubTauntAlertChance;
+	UINT8 ubTauntSuspiciousChance;
 	UINT8 ubTauntGotHitChance;
+	UINT8 ubTauntGotDeafenedBlindedChance;
+	UINT8 ubTauntGotRobbedChance;
 	UINT8 ubTauntGotMissedChance;
+	UINT8 ubTauntKillChance;
+	UINT8 ubTauntHeadPopChance;
+	UINT8 ubTauntHitChance;
+	UINT8 ubTauntMissChance;
+	UINT8 ubTauntOutOfAmmoChance;
+	UINT8 ubTauntReloadChance;
 	UINT8 ubTauntNoticedUnseenChance;
+	UINT8 ubTauntSayHiChance;
+	UINT8 ubTauntInformAboutChance;
+	UINT8 ubRiposteChance;
 
 } TAUNTS_SETTINGS;
 

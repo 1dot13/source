@@ -29,6 +29,9 @@
 #include "Queen Command.h"		// added by Flugente
 #endif
 
+// anv: for enemy taunts
+#include "Civ Quotes.h"
+
 extern INT16 DirIncrementer[8];
 
 //
@@ -2491,6 +2494,14 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 	{
 		// try to reload it
 		bCanAttack = TryToReload( pSoldier );
+		if( bCanAttack == TRUE )
+		{
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
+		}
+		else
+		{
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_OUT_OF_AMMO );
+		}
 	}
 	else if (bCanAttack == NOSHOOT_NOWEAPON)
 	{

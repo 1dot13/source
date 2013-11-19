@@ -3203,23 +3203,57 @@ void LoadCTHConstants()
 void LoadTauntsSettings()
 {
 	CIniReader iniReader(TAUNTS_SETTINGS_FILE);
-	gTauntsSettings.fTauntShowInLog				= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_IN_LOG", TRUE );
-	gTauntsSettings.sModDelay						= iniReader.ReadInteger("Taunts Settings","TAUNT_MIN_DELAY",100, -32767, 32767 );
+	gTauntsSettings.fTauntShowPopupBox				= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_POPUP_BOX", TRUE );
+	gTauntsSettings.fTauntShowInLog					= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_IN_LOG", TRUE );
+	gTauntsSettings.fTauntMakeNoise					= iniReader.ReadBoolean("Taunts Settings","TAUNT_MAKE_NOISE", TRUE );
+	gTauntsSettings.fTauntOnlyVisibleEnemies		= iniReader.ReadBoolean("Taunts Settings","TAUNT_ONLY_VISIBLE_ENEMIES", FALSE );
+	gTauntsSettings.fTauntShowPopupBoxIfHeard		= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_POPUP_BOX_IF_HEARD", TRUE );
+	gTauntsSettings.fTauntShowInLogIfHeard			= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_IN_LOG_IF_HEARD", TRUE );
+	gTauntsSettings.fTauntAlwaysShowPopupBox		= iniReader.ReadBoolean("Taunts Settings","TAUNT_ALWAYS_SHOW_POPUP_BOX", FALSE );
+	gTauntsSettings.fTauntAlwaysShowInLog			= iniReader.ReadBoolean("Taunts Settings","TAUNT_ALWAYS_SHOW_IN_LOG", FALSE );
+	gTauntsSettings.sVolume							= iniReader.ReadInteger("Taunts Settings","TAUNT_VOLUME",30, 0, 65535 );
+	gTauntsSettings.sModDelay						= iniReader.ReadInteger("Taunts Settings","TAUNT_MOD_DELAY",100, -32767, 32767 );
 	gTauntsSettings.sMinDelay						= iniReader.ReadInteger("Taunts Settings","TAUNT_MIN_DELAY",500, 0, 65535 );
 	gTauntsSettings.sMaxDelay						= iniReader.ReadInteger("Taunts Settings","TAUNT_MAX_DELAY",5000, 0, 65535 );
 	gTauntsSettings.ubTauntFireGunChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_FIRE_GUN_CHANCE",12, 0, 100);
 	gTauntsSettings.ubTauntFireLauncherChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_FIRE_LAUNCHER_CHANCE",25, 0, 100);
+	gTauntsSettings.ubTauntAttackBladeChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_ATTACK_BLADE",15, 0, 100);
+	gTauntsSettings.ubTauntAttackHTHChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_ATTACK_HTH",15, 0, 100);
+
 	gTauntsSettings.ubTauntThrowKnifeChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_THROW_KNIFE_CHANCE",33, 0, 100);
 	gTauntsSettings.ubTauntThrowGrenadeChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_THROW_GRENADE_CHANCE",33, 0, 100);
-	gTauntsSettings.ubTauntChargeKnifeChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_CHARGE_KNIFE_CHANCE",25, 0, 100);
-	gTauntsSettings.ubTauntChargeFistsChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_CHARGE_FISTS_CHANCE",25, 0, 100);
+	gTauntsSettings.ubTauntChargeKnifeChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_CHARGE_BLADE_CHANCE",33, 0, 100);
+	gTauntsSettings.ubTauntChargeFistsChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_CHARGE_HTH_CHANCE",33, 0, 100);
+
 	gTauntsSettings.ubTauntStealChance				= iniReader.ReadInteger("Taunts Settings","TAUNT_STEAL_CHANCE",25, 0, 100);
-	gTauntsSettings.ubTauntRunAwayChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_RUN_AWAY_CHANCE",20, 0, 100);
+
+	gTauntsSettings.ubTauntRunAwayChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_RUN_AWAY_CHANCE",33, 0, 100);
 	gTauntsSettings.ubTauntSeekNoiseChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_SEEK_NOISE_CHANCE",33, 0, 100);
 	gTauntsSettings.ubTauntAlertChance				= iniReader.ReadInteger("Taunts Settings","TAUNT_ALERT_CHANCE",33, 0, 100);
+	gTauntsSettings.ubTauntSuspiciousChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_SUSPICIOUS_CHANCE",33, 0, 100);
+
 	gTauntsSettings.ubTauntGotHitChance				= iniReader.ReadInteger("Taunts Settings","TAUNT_GOT_HIT_CHANCE",25, 0, 100);
+	gTauntsSettings.ubTauntGotDeafenedBlindedChance	= iniReader.ReadInteger("Taunts Settings","TAUNT_GOT_BLINDED_DEAFENED_CHANCE",33, 0, 100);
+	gTauntsSettings.ubTauntGotRobbedChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_GOT_ROBBED_CHANCE",33, 0, 100);
+
 	gTauntsSettings.ubTauntGotMissedChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_GOT_MISSED_CHANCE",12, 0, 100);
-	gTauntsSettings.ubTauntNoticedUnseenChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_NOTICED_UNSEEN_MERC_CHANCE",10, 0, 100);
+
+	gTauntsSettings.ubTauntHitChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_HIT_CHANCE",12, 0, 100);
+
+	gTauntsSettings.ubTauntKillChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_KILL_CHANCE",33, 0, 100);
+	gTauntsSettings.ubTauntHeadPopChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_HEAD_POP_CHANCE",100, 0, 100);
+
+	gTauntsSettings.ubTauntMissChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_MISS_CHANCE",12, 0, 100);
+
+	gTauntsSettings.ubTauntOutOfAmmoChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_OUT_OF_AMMO",12, 0, 100);
+	gTauntsSettings.ubTauntReloadChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_RELOAD",12, 0, 100);
+
+	gTauntsSettings.ubTauntNoticedUnseenChance	= iniReader.ReadInteger("Taunts Settings","TAUNT_NOTICED_UNSEEN_MERC_CHANCE",12, 0, 100);
+	gTauntsSettings.ubTauntSayHiChance			= iniReader.ReadInteger("Taunts Settings","TAUNT_SAY_HI",12, 0, 100);
+	gTauntsSettings.ubTauntInformAboutChance	= iniReader.ReadInteger("Taunts Settings","TAUNT_INFORM_ABOUT",12, 0, 100);
+
+	gTauntsSettings.ubRiposteChance		= iniReader.ReadInteger("Taunts Settings","TAUNT_RIPOSTE",12, 0, 100);
+
 
 }
 void FreeGameExternalOptions()

@@ -3029,10 +3029,17 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			}
 		}
 
+		// anv: taunt on attack
+		PossiblyStartEnemyTaunt( pSoldier, TAUNT_ATTACK_BLADE, pTargetSoldier ); 
+
 		// WDS 07/19/2008 - Random number use fix
 		if ( iDiceRoll < iHitChance )
 		{
 			fGonnaHit = TRUE;
+
+			// anv: taunts on hit
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_HIT_BLADE, pTargetSoldier ); 
+			PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_HIT_BLADE, pSoldier ); 
 
 			// CALCULATE DAMAGE!
 			// attack HITS, calculate damage (base damage is 1-maximum knife sImpact)
@@ -3100,6 +3107,11 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		}
 		else
 		{
+			// anv: taunts on miss
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_MISS_BLADE, pTargetSoldier );
+			if( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
+				PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_MISSED_BLADE, pSoldier ); 
+
 			// if it was another team shooting at someone under our control
 			if ( (pSoldier->bTeam != Menptr[ pTargetSoldier->ubID ].bTeam ) )
 			{
@@ -3583,6 +3595,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						StatChange( pSoldier, DEXTAMT, 3, FALSE );
 						StatChange( pSoldier, AGILAMT, 3, FALSE );
 					}
+
+					// anv: enemy taunt on getting robbed
+					PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_ROBBED, pSoldier );
 				}
 				else
 				{
@@ -3613,6 +3628,10 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - steal") );
 			// #endif
 			// FreeUpAttacker( (UINT8) pSoldier->ubID );
+
+			// anv: enemy taunt on steal
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_STEAL, pTargetSoldier );
+
 		}
 
 		// -----------------------------------
@@ -3620,6 +3639,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		// -----------------------------------
 		else
 		{
+			// anv: enemy taunt on attack
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_ATTACK_HTH, pTargetSoldier );
+
 			// SANDRO - new mercs' records 
 			if ( pSoldier->bTeam == gbPlayerNum && pSoldier->ubProfile != NO_PROFILE )
 			{
@@ -3811,6 +3833,17 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				SWeaponHit.fHit							= TRUE;
 				SWeaponHit.ubSpecial				= FIRE_WEAPON_NO_SPECIAL;
 				AddGameEvent( S_WEAPONHIT, (UINT16) 20, &SWeaponHit );
+
+				// anv: enemy taunts on hit
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_HIT_HTH, pTargetSoldier );
+				PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_HIT_HTH, pSoldier );
+			}
+			else
+			{
+				// anv: enemy taunts on miss
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_MISS_HTH, pTargetSoldier );
+				if( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
+					PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_MISSED_HTH, pSoldier );
 			}
 			// 0verhaul:  And this too
 			// else
@@ -4872,18 +4905,25 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 						}
 					}
 				}
-				// anv: make missed guy taunt his shooter
-				if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
-						( ( MercPtrs[pAttacker->ubOppNum]->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) ||
-						( MercPtrs[pAttacker->ubOppNum]->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) )
-					&& MercPtrs[pAttacker->ubOppNum]->bVisible != -1 )
-				{
-					PossiblyStartEnemyTaunt(MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED, pAttacker);
-				}
 			}
 
 			pBullet->usLastStructureHit = usStructureID;
-
+			// anv: enemy taunt on miss
+			if( pBullet->pFirer != NULL && pBullet->pFirer->ubOppNum != NOBODY )
+			{
+				if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_GUN )
+				{
+					if( MercPtrs[ pBullet->pFirer->ubOppNum ]->aiData.bOppList[  pBullet->pFirer->ubID ] == SEEN_CURRENTLY )
+						PossiblyStartEnemyTaunt( MercPtrs[ pBullet->pFirer->ubOppNum ], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer );
+					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_GUNFIRE, MercPtrs[ pBullet->pFirer->ubOppNum ] );
+				}
+				else if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_THROWING_KNIFE )
+				{
+					if( MercPtrs[ pBullet->pFirer->ubOppNum ]->aiData.bOppList[  pBullet->pFirer->ubID ] == SEEN_CURRENTLY )
+						PossiblyStartEnemyTaunt( MercPtrs[ pBullet->pFirer->ubOppNum ], TAUNT_GOT_MISSED_THROWING_KNIFE, pBullet->pFirer );
+					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_THROWING_KNIFE,MercPtrs[ pBullet->pFirer->ubOppNum ] );
+				}
+			}
 		}
 	}
 }
@@ -10223,18 +10263,27 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 				LocateGridNo( pBullet->sGridNo );
 			}
 		}
-		//anv: make missed guy taunt his shooter
-		if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
-				( ( MercPtrs[pAttacker->ubOppNum]->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) ||
-				( MercPtrs[pAttacker->ubOppNum]->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( MercPtrs[pAttacker->ubOppNum]->ubSoldierClass ) ) )
-			&& MercPtrs[pAttacker->ubOppNum]->bVisible != -1 )
-		{
-			PossiblyStartEnemyTaunt(MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED, pAttacker);
-		}
 	}
 
 	// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - bullet missed") );
 	// FreeUpAttacker( ubAttackerID );
+
+	// anv: enemy taunt on miss
+	if ( pAttacker != NULL && pAttacker->ubOppNum != NOBODY )
+	{
+		if( Item[ pAttacker->usAttackingWeapon ].usItemClass & IC_GUN )
+		{
+			if( MercPtrs[pAttacker->ubOppNum]->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
+				PossiblyStartEnemyTaunt( MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pAttacker );
+			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_GUNFIRE, MercPtrs[pAttacker->ubOppNum] );
+		}
+		else if( Item[ pAttacker->usAttackingWeapon ].usItemClass & IC_THROWING_KNIFE )
+		{
+			if( MercPtrs[pAttacker->ubOppNum]->aiData.bOppList[ pAttacker->ubID ] == SEEN_CURRENTLY )
+				PossiblyStartEnemyTaunt( MercPtrs[pAttacker->ubOppNum], TAUNT_GOT_MISSED_THROWING_KNIFE, pAttacker );
+			PossiblyStartEnemyTaunt( pAttacker, TAUNT_MISS_THROWING_KNIFE, MercPtrs[pAttacker->ubOppNum] );
+		}
+	}
 }
 
 UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime, UINT8 ubMode )

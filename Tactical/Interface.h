@@ -265,6 +265,7 @@ typedef struct
 	UINT16		uiIndex;
 	CHAR16		szText[320];
 	UINT64		uiFlags;
+	UINT64		uiFlags2;
 	INT16		value[TAUNT_MAX];
 
 } TAUNT_VALUES;

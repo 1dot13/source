@@ -71,12 +71,12 @@ extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 // HEADROCK HAM 3.6: Moved to header
 //void MakeBloodcatsHostile( void );
 
-void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType );
-void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
-void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType);
+void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType, STR16 zNoiseMessage );
+void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
+void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage = NULL );
 UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2);
 void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
-void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir );
+void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir,  STR16 zNoiseMessage = NULL );
 void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumNewEnemies );
 
 void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
@@ -2537,15 +2537,18 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 			DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3, String( "ManSeesMan: ID %d(%S) to ID %d NEW TO ME",pSoldier->ubID,pSoldier->name,pOpponent->ubID) );	
 #endif
 			// SANDRO - if this is an enemy guy, who was unaware of us till now, and the combat didn't started yet, throw "taunt" and indicator we have been seen
-			if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->bTeam != gbPlayerNum )
+			if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
 			{
-				//if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
-				if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN )
-				{
-					PossiblyStartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN_MERC, pOpponent );
-				}
-				ShowRadioLocator( pSoldier->ubID, 1 );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN, pOpponent );
 			}
+			// anv: we're already in fight, but we still can say hi to new enemy
+			else if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN )
+			{
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_SAY_HI, pOpponent );
+			}
+
+			ShowRadioLocator( pSoldier->ubID, 1 );
+
 
 			// if we also haven't seen him earlier this turn
 			if (pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN)
@@ -2566,8 +2569,6 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						SetFactTrue( FACT_FIRST_BATTLE_BEING_FOUGHT );
 					}
 				}
-
-
 			}
 			else
 			{
@@ -2583,6 +2584,10 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
          (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
 			{
 				SetNewSituation( pSoldier );  // force the looker to re-evaluate
+				// anv: simulate informing buddies about detected enemy's position
+				if(gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY)
+					PossiblyStartEnemyTaunt( pSoldier, TAUNT_INFORM_ABOUT, pOpponent );
+
 			}
 			else
 			{
@@ -3460,7 +3465,7 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 		{
 			// Say quote!
 			TacticalCharacterDialogue( pSoldier, QUOTE_IN_TROUBLE_SLASH_IN_BATTLE );
-
+			//pSoldier->ubLastEnemyAttackingProvokingQuote = 
 			pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_IN_SHIT;
 
 			return;
@@ -3550,6 +3555,7 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 				else
 				{
 					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
+					//pSoldier->ubLastEnemyDetectedProvokingQuote = pSoldier->aiData.ubCaller;
 				}
 #else
 				//ddd TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
@@ -5481,7 +5487,7 @@ UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 	}
 }
 
-void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
+void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
 {
 	EV_S_NOISE	SNoise;
 
@@ -5491,6 +5497,8 @@ void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 	SNoise.ubTerrType = ubTerrType;
 	SNoise.ubVolume = ubVolume;
 	SNoise.ubNoiseType = ubNoiseType;
+	swprintf( SNoise.zNoiseMessage, L"%s", zNoiseMessage );
+	//SNoise.zNoiseMessage = zNoiseMessage;
 
 	if ( gTacticalStatus.ubAttackBusyCount )
 	{
@@ -5502,7 +5510,7 @@ void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 		// AddGameEvent( S_NOISE, 0, &SNoise );
 
 		// now call directly
-		OurNoise( SNoise.ubNoiseMaker, SNoise.sGridNo, SNoise.bLevel, SNoise.ubTerrType, SNoise.ubVolume, SNoise.ubNoiseType );
+		OurNoise( SNoise.ubNoiseMaker, SNoise.sGridNo, SNoise.bLevel, SNoise.ubTerrType, SNoise.ubVolume, SNoise.ubNoiseType, SNoise.zNoiseMessage );
 
 	}
 
@@ -5577,7 +5585,7 @@ void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 }
 
 
-void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
+void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -5599,7 +5607,7 @@ void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 #endif
 
 	// see if anyone actually hears this noise, sees ubNoiseMaker, etc.
-	ProcessNoise(ubNoiseMaker, sGridNo, bLevel, ubTerrType,	ubVolume,	ubNoiseType);
+	ProcessNoise(ubNoiseMaker, sGridNo, bLevel, ubTerrType,	ubVolume,	ubNoiseType, zNoiseMessage );
 
 	if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && (ubNoiseMaker < TOTAL_SOLDIERS) && !gfDelayResolvingBestSightingDueToDoor )
 	{
@@ -5616,7 +5624,7 @@ void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 
 
 void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,
-	UINT8 ubNoiseType )
+	UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 //	SOLDIERTYPE *pSoldier;
 
@@ -5639,7 +5647,7 @@ void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType
 #endif
 
 	// see if anyone actually hears this noise, sees noiseMaker, etc.
-	ProcessNoise(ubNoiseMaker,sGridNo,bLevel,ubTerrType,ubVolume,ubNoiseType);
+	ProcessNoise(ubNoiseMaker,sGridNo,bLevel,ubTerrType,ubVolume,ubNoiseType,zNoiseMessage);
 
 	// if noiseMaker is SOMEBODY
 	if (ubNoiseMaker < TOTAL_SOLDIERS)
@@ -5677,7 +5685,7 @@ void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType
 
 
 
-void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType)
+void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType, STR16 zNoiseMessage )
 {
 	SOLDIERTYPE *pSoldier;
 	UINT8 bLoop, bTeam;
@@ -5799,7 +5807,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 
 			if (gTacticalStatus.Team[bTeam].bHuman)
 			{
-				if (gbPublicOpplist[bTeam][ubNoiseMaker] == SEEN_CURRENTLY)
+				if (gbPublicOpplist[bTeam][ubNoiseMaker] == SEEN_CURRENTLY && ubNoiseType != NOISE_VOICE)
 				{
 					continue;
 				}
@@ -5867,6 +5875,12 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				}
 				*/
 
+				// anv: special exception: we want to report enemy taunt, because of text content
+				if ( ubNoiseType == NOISE_VOICE )
+				{
+					bTellPlayer = TRUE;
+				}
+
 				if ( MercPtrs[ ubNoiseMaker ]->stats.bLife == 0 )
 				{
 					// this guy is dead (just dying) so don't report to player
@@ -5913,7 +5927,11 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 					// ChrisL: Crows will fly away if they hear any noise
 					if ( !( pSoldier->aiData.bNeutral && ubNoiseType == NOISE_GUNFIRE ) && pSoldier->ubBodyType != CROW )
 					{
-						continue;		// then who cares whether he can also hear the guy?
+						// anv: we want to report taunt even if we see noisemaker
+						if(ubNoiseType != NOISE_VOICE)
+						{
+							continue;		// then who cares whether he can also hear the guy?
+						}
 					}
 				}
 
@@ -6063,7 +6081,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				{
 					// the merc that heard it the LOUDEST is the one to comment
 					// should add level to this function call
-					TellPlayerAboutNoise(MercPtrs[ubHeardLoudestBy],ubNoiseMaker,sGridNo,bLevel,ubLoudestEffVolume,ubNoiseType, ubLoudestNoiseDir);
+					TellPlayerAboutNoise(MercPtrs[ubHeardLoudestBy],ubNoiseMaker,sGridNo,bLevel,ubLoudestEffVolume,ubNoiseType, ubLoudestNoiseDir, zNoiseMessage);
 
 					if ( ubNoiseType == NOISE_MOVEMENT)
 					{
@@ -6159,7 +6177,8 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubN
 	if ( gTacticalStatus.uiFlags & INCOMBAT )
 	{
 		// ATE: Funny things happen to ABC stuff if bNewSituation set....
-		if ( gTacticalStatus.ubCurrentTeam == pSoldier->bTeam )
+		// anv: added exception to NOISE_VOICE
+		if ( gTacticalStatus.ubCurrentTeam == pSoldier->bTeam && ubNoiseType != NOISE_VOICE )
 		{
 			return( 0 );
 		}
@@ -6623,7 +6642,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
     plan_lib->update_plan(pSoldier->bAIIndex, pSoldier, ai_input);
 }
 
-void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir )
+void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir, STR16 zNoiseMessage )
 {
 	UINT8 ubVolumeIndex;
 
@@ -6656,7 +6675,47 @@ void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGri
 		#endif
 	}
 
-	if ( bLevel == pSoldier->pathing.bLevel || ubNoiseType == NOISE_EXPLOSION || ubNoiseType == NOISE_SCREAM || ubNoiseType == NOISE_ROCK_IMPACT || ubNoiseType == NOISE_GRENADE_IMPACT )
+	// anv: special treatment of NOISE_VOICE - also display taunt message
+	if( ubNoiseType == NOISE_VOICE )
+	{
+		// information about direction etc. only displayed if we don't see noise maker
+		if( gbPublicOpplist[gbPlayerNum][ubNoiseMaker] != SEEN_CURRENTLY && pSoldier->aiData.bOppList[ubNoiseMaker] != SEEN_CURRENTLY )
+		{
+			if( bLevel == pSoldier->pathing.bLevel && ubNoiseType == NOISE_VOICE )
+			{
+				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], pDirectionStr[ubNoiseDir] );
+			}
+			else if ( bLevel > pSoldier->pathing.bLevel )
+			{
+				// from above!
+				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[6] );
+			}
+			else
+			{
+				// from below!
+				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[7] );
+			}
+		}
+		if( ubVolumeIndex > 0 ) // definite noise - we're able to recognize words
+		{
+			// do we know who said that?
+			if( gbPublicOpplist[gbPlayerNum][ubNoiseMaker] == SEEN_CURRENTLY || pSoldier->aiData.bOppList[ubNoiseMaker] == SEEN_CURRENTLY )
+			{
+				if(  gTauntsSettings.fTauntShowPopupBox == TRUE )
+					ShowTauntPopupBox( MercPtrs[ubNoiseMaker], zNoiseMessage );
+				if(  gTauntsSettings.fTauntShowInLog == TRUE )
+					ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", MercPtrs[ubNoiseMaker]->GetName(), zNoiseMessage );
+			}
+			else
+			{
+				if( gTauntsSettings.fTauntShowPopupBox == TRUE && gTauntsSettings.fTauntShowPopupBoxIfHeard == TRUE )
+					ShowTauntPopupBox( MercPtrs[ubNoiseMaker], zNoiseMessage );
+				if( gTauntsSettings.fTauntShowInLog == TRUE && gTauntsSettings.fTauntShowInLogIfHeard == TRUE )
+					ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", pTauntUnknownVoice[0], zNoiseMessage );
+			}
+		}
+	}
+	else if ( bLevel == pSoldier->pathing.bLevel || ubNoiseType == NOISE_EXPLOSION || ubNoiseType == NOISE_SCREAM || ubNoiseType == NOISE_ROCK_IMPACT || ubNoiseType == NOISE_GRENADE_IMPACT )
 	{
 		ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], pDirectionStr[ubNoiseDir] );
 	}

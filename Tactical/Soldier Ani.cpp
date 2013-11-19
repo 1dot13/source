@@ -63,6 +63,9 @@
 #include "Food.h"
 #endif
 
+// anv: for enemy taunts
+#include "Civ Quotes.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -3748,7 +3751,33 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))
 				send_death(pSoldier);						
 		}
-				
+
+		// anv: enemy taunts after kill
+		SOLDIERTYPE *pKillerSoldier = NULL;
+		if(pSoldier->ubAttackerID != NOBODY)
+		{
+			pKillerSoldier = MercPtrs[pSoldier->ubAttackerID];
+		}
+		else if(pSoldier->ubPreviousAttackerID != NOBODY)
+		{
+			pKillerSoldier = MercPtrs[pSoldier->ubPreviousAttackerID];
+		}
+		if(pKillerSoldier != NULL)
+		{
+			if( pSoldier->usAnimState == JFK_HITDEATH )
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_HEAD_POP, pSoldier );
+			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_GUN )
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_GUNFIRE, pSoldier );
+			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_BLADE )
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_BLADE, pSoldier );
+			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_PUNCH )
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_HTH, pSoldier );
+			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE )
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_THROWING_KNIFE, pSoldier );
+			else
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL, pSoldier );
+		}
+
 		// Cancel services here...
 		pSoldier->ReceivingSoldierCancelServices( );
 		pSoldier->GivingSoldierCancelServices( );

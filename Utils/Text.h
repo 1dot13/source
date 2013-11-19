@@ -298,6 +298,7 @@ extern STR16 gzMiscString[];
 
 extern STR16 wMapScreenSortButtonHelpText[];
 extern STR16 pNewNoiseStr[];
+extern STR16 pTauntUnknownVoice[]; // anv: for enemy taunts
 extern STR16 gzLateLocalizedString[];
 
 extern STR16 gzCWStrings[];

@@ -211,6 +211,7 @@ typedef struct
 	UINT8 ubTerrType;
 	UINT8 ubVolume;
 	UINT8 ubNoiseType;
+	CHAR16 zNoiseMessage[320];
 } EV_S_NOISE;
 
 

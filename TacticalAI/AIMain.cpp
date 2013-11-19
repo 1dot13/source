@@ -1926,21 +1926,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
         case AI_ACTION_TOSS_PROJECTILE:       // throw grenade at/near opponent(s)
             LoadWeaponIfNeeded(pSoldier);
             // drop through here...
-			// randomly decide whether to say civ quote
-            if ( pSoldier->bVisible != -1 )
-            {
-                // ATE: Make sure it's a person :)
-                if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE )
-                {
-                    // SANDRO - SOLDIER TAUNTS
-                    if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
-						( ( pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) ) || 
-						( pSoldier->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) ) ) )
-                    {
-						PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_GRENADE );
-                    }
-                }
-            }
+			PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_GRENADE );
+
 
         case AI_ACTION_KNIFE_MOVE:            // preparing to stab opponent
             if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE) // if statement because toss falls through
@@ -1952,36 +1939,26 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
         case AI_ACTION_FIRE_GUN:              // shoot at nearby opponent
         case AI_ACTION_THROW_KNIFE:						// throw knife at nearby opponent
             // randomly decide whether to say civ quote
-            if ( pSoldier->bVisible != -1 )//&& pSoldier->bTeam != MILITIA_TEAM )
+
+            if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, MercPtrs[pSoldier->ubOppNum] );
+            else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
+                PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, MercPtrs[pSoldier->ubOppNum] );
+            else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_KNIFE, MercPtrs[pSoldier->ubOppNum] );
+            else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
             {
-                // ATE: Make sure it's a person :)
-                if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE )
-                {
-                    // SANDRO - SOLDIER TAUNTS
-                    if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
-						( ( pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) ) ||
-						( pSoldier->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) ) ) )
-                    {
-                        if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
-							PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, MercPtrs[pSoldier->ubOppNum] );
-                        else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
-                            PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, MercPtrs[pSoldier->ubOppNum] );
-                        else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
-                            PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW, MercPtrs[pSoldier->ubOppNum] );
-                        else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
-                        {
-                            if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
-                                PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_KNIFE );
-                            else if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH )
-								StartEnemyTaunt( pSoldier, TAUNT_CHARGE_FISTS );
-                        }
-                    }
-                    // CC, ATE here - I put in some TEMP randomness...
-                    else if ( Random( 50 ) == 0 )
-                    {
-                        StartCivQuote( pSoldier );
-                    }
-                }
+                if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
+                    PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_BLADE );
+                else if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH )
+					PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_HTH );
+            }
+
+            // CC, ATE here - I put in some TEMP randomness...
+            if ( Random( 50 ) == 0 && gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == FALSE &&
+					IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE && pSoldier->bVisible != -1)
+            {
+                StartCivQuote( pSoldier );
             }
 #ifdef RECORDNET
             fprintf(NetDebugFile,"\tExecuteAction: %d calling HandleItem(), inHand %d, actionData %d, anitype %d, oldani %d\n",
@@ -2067,10 +2044,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             }
             
             // SANDRO - ENEMY TAUNTS
-            if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 )
-            {
-                  PossiblyStartEnemyTaunt( pSoldier, TAUNT_ALERT );
-            }
+            PossiblyStartEnemyTaunt( pSoldier, TAUNT_ALERT );
+
             //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Debug: AI radios your position!" );
             // DROP THROUGH HERE!
         case AI_ACTION_YELLOW_ALERT:          // tell friends opponent(s) heard
@@ -2088,6 +2063,9 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
             // ATE: Change to an animation!
             AIDecideRadioAnimation( pSoldier );
+
+			// SANDRO - ENEMY TAUNTS
+            PossiblyStartEnemyTaunt( pSoldier, TAUNT_SUSPICIOUS );
 
             break;
 
@@ -2285,6 +2263,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             if(bSlot != NO_SLOT)
             {
                 ReloadGun( pSoldier, &(pSoldier->inv[pSoldier->aiData.usActionData]), &(pSoldier->inv[bSlot]) );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
                 ActionDone( pSoldier );
             }
             break;
