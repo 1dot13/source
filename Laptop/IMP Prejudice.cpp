@@ -124,7 +124,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDown_Appearance //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Appearance;
 	for(UINT8 i = 0; i < NUM_APPEARANCES; ++i)
-		entryvecDropDown_Appearance.push_back( std::make_pair<INT16, STR16>(i, szAppearanceText[i]) );
+		entryvecDropDown_Appearance.push_back( std::make_pair(i, szAppearanceText[i]) );
 	
 	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().SetEntries(entryvecDropDown_Appearance);
 	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_APPEARANCE] );
@@ -135,7 +135,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDown_AppearanceCare //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_AppearanceCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
-		entryvecDropDown_AppearanceCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
+		entryvecDropDown_AppearanceCare.push_back( std::make_pair(i, szCareLevelText[i]) );
 	
 	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().SetEntries(entryvecDropDown_AppearanceCare);
 	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_APPEARANCECARE] );
@@ -148,7 +148,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDown_Refinement //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Refinement;
 	for(UINT8 i = 0; i < NUM_REFINEMENT; ++i)
-		entryvecDropDown_Refinement.push_back( std::make_pair<INT16, STR16>(i, szRefinementText[i]) );
+		entryvecDropDown_Refinement.push_back( std::make_pair(i, szRefinementText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().SetEntries(entryvecDropDown_Refinement);
 	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_REFINEMENT] );
@@ -159,7 +159,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_REFINEMENTCARE> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_RefinementCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
-		entryvecDropDown_RefinementCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
+		entryvecDropDown_RefinementCare.push_back( std::make_pair(i, szCareLevelText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().SetEntries(entryvecDropDown_RefinementCare);
 	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_REFINEMENTCARE] );
@@ -172,7 +172,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_NATIONALITY> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Nationality;
 	for(UINT8 i = 0; i < NUM_NATIONALITIES; ++i)
-		entryvecDropDown_Nationality.push_back( std::make_pair<INT16, STR16>(i, szNationalityText[i]) );
+		entryvecDropDown_Nationality.push_back( std::make_pair(i, szNationalityText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().SetEntries(entryvecDropDown_Nationality);
 	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_NATIONALITY] );
@@ -183,10 +183,10 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_HatedNationality;
 	// we can also hate no nation at all...
-	entryvecDropDown_HatedNationality.push_back( std::make_pair<INT16, STR16>(-1, szNationalityText_Special[1]) );
+	entryvecDropDown_HatedNationality.push_back( std::make_pair(-1, szNationalityText_Special[1]) );
 
 	for(UINT8 i = 0; i < NUM_NATIONALITIES; ++i)
-		entryvecDropDown_HatedNationality.push_back( std::make_pair<INT16, STR16>(i, szNationalityText[i]) );
+		entryvecDropDown_HatedNationality.push_back( std::make_pair(i, szNationalityText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().SetEntries(entryvecDropDown_HatedNationality);
 	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_HATEDNATIONALITY] );
@@ -197,7 +197,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_HatedNationalityCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
-		entryvecDropDown_HatedNationalityCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
+		entryvecDropDown_HatedNationalityCare.push_back( std::make_pair(i, szCareLevelText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().SetEntries(entryvecDropDown_HatedNationalityCare);
 	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_HATEDNATIONALITYCARE] );
@@ -210,7 +210,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_RACIST> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Racist;
 	for(UINT8 i = 0; i < NUM_RACIST; ++i)
-		entryvecDropDown_Racist.push_back( std::make_pair<INT16, STR16>(i, szRacistText[i]) );
+		entryvecDropDown_Racist.push_back( std::make_pair(i, szRacistText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().SetEntries(entryvecDropDown_Racist);
 	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_RACIST] );
@@ -222,7 +222,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_RACE> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Race;
 	for(UINT8 i = 0; i < NUM_RACES; ++i)
-		entryvecDropDown_Race.push_back( std::make_pair<INT16, STR16>(i, szRaceText[i]) );
+		entryvecDropDown_Race.push_back( std::make_pair(i, szRaceText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().SetEntries(entryvecDropDown_Race);
 	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_RACE] );
@@ -234,7 +234,7 @@ void EnterIMPPrejudice( void )
 	////////////////// DropDownTemplate<DROPDOWNNR_SEXIST> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Sexist;
 	for(UINT8 i = 0; i < NUM_SEXIST; ++i)
-		entryvecDropDown_Sexist.push_back( std::make_pair<INT16, STR16>(i, szSexistText[i]) );
+		entryvecDropDown_Sexist.push_back( std::make_pair(i, szSexistText[i]) );
 
 	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().SetEntries(entryvecDropDown_Sexist);
 	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_SEXIST] );

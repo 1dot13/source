@@ -28,6 +28,7 @@
 #include <vfs/vfs_config.h>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 namespace vfs
 {

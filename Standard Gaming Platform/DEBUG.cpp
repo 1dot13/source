@@ -419,7 +419,7 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 	basicInformation << " in file " << sourceFileName << "]";
 
 	std::stringstream outputString;
-	outputString << "{ " << GetTickCount() << " } " << basicInformation;
+	outputString << "{ " << GetTickCount() << " } " << basicInformation.str();
 
 	//Build the output strings
 	if( message )
