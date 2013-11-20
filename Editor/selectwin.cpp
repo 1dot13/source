@@ -1071,16 +1071,18 @@ void DisplaySelectionWindowGraphicalInformation()
 			mprintf( 2, 2, pDisplaySelectionWindowGraphicalInformationText[0],
 				gTilesets[0].TileSurfaceFilenames[ pNode->uiObjIndx ],
 				pNode->uiIndex, gTilesets[0].zName,
+				gTileTypeStartIndex[pNode->uiObjIndx]+pNode->uiIndex,
 				gTileSurfaceName[ pNode->uiObjIndx ] );
 		}
 		else
 		{
 			mprintf( 2, 2, pDisplaySelectionWindowGraphicalInformationText[1],
 				gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ pNode->uiObjIndx ],
-				pNode->uiIndex, gTileSurfaceName[ pNode->uiObjIndx ] );
+				pNode->uiIndex, gTileTypeStartIndex[pNode->uiObjIndx]+pNode->uiIndex,
+				gTileSurfaceName[ pNode->uiObjIndx ] );
 		}
 	}
-	mprintf( 350, 2, pDisplaySelectionWindowGraphicalInformationText[2],  gTilesets[ giCurrentTilesetID ].zName );
+	mprintf( 390, 2, pDisplaySelectionWindowGraphicalInformationText[2],  gTilesets[ giCurrentTilesetID ].zName );
 }
 
 //----------------------------------------------------------------------------------------------

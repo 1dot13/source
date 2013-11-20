@@ -1515,9 +1515,9 @@ STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 //selectwin.cpp
 STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 {
-	L"%S[%d] is from default tileset %s (%S)",
-	L"File:  %S, subindex:  %d (%S)",
-	L"Current Tileset:  %s",
+	L"%S[%d] from default tileset %s (%d, %S)",
+	L"File: %S, subindex: %d (%d, %S)",
+	L"Tileset:  %s",
 };
 
 //Cursor Modes.cpp

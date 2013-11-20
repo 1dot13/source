@@ -1492,9 +1492,9 @@ STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 //selectwin.cpp
 STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 {
-	L"%S[%d]来自默认区块%s(%S)", //L"%S[%d] is from default tileset %s (%S)",
-	L"文件：%S，副版本：%d(%S)", //L"File:  %S, subindex:  %d (%S)",
-	L"当前分区：%s", //L"Current Tileset:  %s",
+	L"%S[%d]来自默认区块%s(%d，%S)", //L"%S[%d] from default tileset %s (%d, %S)",
+	L"文件：%S，副版本：%d(%d，%S)", //L"File: %S, subindex: %d (%d, %S)",
+	L"当前分区： %s", //L"Tileset:  %s",
 };
 
 //Cursor Modes.cpp

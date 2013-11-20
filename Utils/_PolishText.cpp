@@ -1500,9 +1500,9 @@ STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 //selectwin.cpp
 STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 {
-	L"%S[%d] pochodzi z domyŚlnego zestawu %s (%S)",
-	L"Plik:  %S, podindeks:  %d (%S)",
-	L"Aktualny zestaw:  %s",
+	L"%S[%d] z domyŚlnego zestawu %s (%d, %S)",
+	L"Plik: %S, podindeks: %d (%d, %S)",
+	L"Zestaw:  %s",
 };
 
 //Cursor Modes.cpp
