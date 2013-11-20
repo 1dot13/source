@@ -133,11 +133,7 @@ tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 				strcmp(name, "miss_hth") == 0 ||
 				strcmp(name, "miss_throwing_knife") == 0 ||
 
-				strcmp(name, "riposte_bullet_flew_by") == 0 ||
-				strcmp(name, "riposte_under_heavy_fire") == 0 ||
-				strcmp(name, "riposte_enemy_detected") == 0 ||
-				strcmp(name, "riposte_1st_enemy_detected") == 0 ||
-				strcmp(name, "riposte_multiple_enemies") == 0 ||
+				strcmp(name, "riposte_quote") == 0 ||
 
 				strcmp(name, "enemy") == 0 ||
 				strcmp(name, "admin") == 0 ||
@@ -652,32 +648,10 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 			pData->curTaunt.uiFlags	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_MISS_THROWING_KNIFE: 0;
 		}
 
-
-
-		if(strcmp(name, "riposte_bullet_flew_by") == 0)
+		if(strcmp(name, "riposte_quote") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curTaunt.uiFlags	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_R_BULLET_FLEW_BY: 0;
-		}
-		else if(strcmp(name, "riposte_under_heavy_fire") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curTaunt.uiFlags	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_R_UNDER_HEAVY_FIRE: 0;
-		}
-		else if(strcmp(name, "riposte_enemy_detected") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curTaunt.uiFlags	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_R_ENEMY_DETECTED: 0;
-		}
-		else if(strcmp(name, "riposte_1st_enemy_detected") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curTaunt.uiFlags2	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_R_1ST_ENEMY_DETECTED: 0;
-		}
-		else if(strcmp(name, "riposte_multiple_enemies") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curTaunt.uiFlags2	|= (UINT16) atol(pData->szCharData) ? TAUNT_S_R_MULTIPLE_ENEMIES: 0;
+			pData->curTaunt.value[TAUNT_RIPOSTE_QUOTE] = (INT16) atol(pData->szCharData);
 		}
 
 		if(strcmp(name, "enemy") == 0)

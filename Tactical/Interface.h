@@ -257,6 +257,9 @@ enum {
 	// taunt target's profile
 	TAUNT_TARGET_MERC_PROFILE,
 
+	// which merc quote should be riposted
+	TAUNT_RIPOSTE_QUOTE,
+
 	TAUNT_MAX,
 };
 

@@ -499,15 +499,7 @@ enum
 #define TAUNT_S_MISS_HTH							0x0800000000000000	//
 #define TAUNT_S_MISS_THROWING_KNIFE					0x1000000000000000	//
 
-// ripostes to merc quotes
-#define TAUNT_S_R_BULLET_FLEW_BY					0x2000000000000000	//
-#define TAUNT_S_R_UNDER_HEAVY_FIRE					0x4000000000000000	//
-#define TAUNT_S_R_ENEMY_DETECTED					0x8000000000000000	//
-
 // NEW FLAGS, starting from the beginning (UINT128 is redundant? yeah, right)
-
-#define TAUNT_S_R_1ST_ENEMY_DETECTED				0x0000000000000001	//1
-#define TAUNT_S_R_MULTIPLE_ENEMIES					0x0000000000000002	//2
 
 // class
 #define TAUNT_C_ADMIN		   						0x0000000000000004	//4

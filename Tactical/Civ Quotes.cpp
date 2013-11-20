@@ -1229,11 +1229,7 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *p
 				return;
 			break;
 
-		case TAUNT_R_1ST_ENEMY_DETECTED:
-		case TAUNT_R_ENEMY_DETECTED:
-		case TAUNT_R_MULTIPLE_ENEMIES:
-		case TAUNT_R_BULLET_FLEW_BY:
-		case TAUNT_R_UNDER_HEAVY_FIRE:
+		case TAUNT_RIPOSTE:
 			if( Random(100)+1 > gTauntsSettings.ubRiposteChance)
 				return;
 			break;
@@ -1534,24 +1530,8 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget )
 				break;
 
 			// ripostes to merc quotes
-			case TAUNT_R_BULLET_FLEW_BY:
-				if( !(zTaunt[ i ].uiFlags & TAUNT_S_R_BULLET_FLEW_BY) )
-					continue;
-				break;
-			case TAUNT_R_UNDER_HEAVY_FIRE:
-				if( !(zTaunt[ i ].uiFlags & TAUNT_S_R_UNDER_HEAVY_FIRE) )
-					continue;
-				break;
-			case TAUNT_R_ENEMY_DETECTED:
-				if( !(zTaunt[ i ].uiFlags & TAUNT_S_R_ENEMY_DETECTED) )
-					continue;
-				break;
-			case TAUNT_R_1ST_ENEMY_DETECTED:
-				if( !(zTaunt[ i ].uiFlags2 & TAUNT_S_R_1ST_ENEMY_DETECTED) )
-					continue;
-				break;
-			case TAUNT_R_MULTIPLE_ENEMIES:
-				if( !(zTaunt[ i ].uiFlags2 & TAUNT_S_R_MULTIPLE_ENEMIES) )
+			case TAUNT_RIPOSTE:
+				if( !(gTacticalStatus.ubLastQuoteSaid == zTaunt[ i ].value[TAUNT_RIPOSTE_QUOTE]) )
 					continue;
 				break;
 
