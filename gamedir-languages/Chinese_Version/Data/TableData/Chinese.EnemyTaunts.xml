@@ -1250,1624 +1250,1935 @@
     <szText>I looked for you, I found you and now I will kill you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>322</uiIndex>
+    <uiIndex>310</uiIndex>
     <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>327</uiIndex>
+    <uiIndex>311</uiIndex>
     <szText>Is that the best you can do?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>328</uiIndex>
+    <uiIndex>312</uiIndex>
     <szText>Your life is over, asshole!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>329</uiIndex>
+    <uiIndex>313</uiIndex>
     <szText>Very pretty, but can you fight?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>330</uiIndex>
+    <uiIndex>314</uiIndex>
     <szText>Howdy, pardner!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>331</uiIndex>
+    <uiIndex>315</uiIndex>
     <szText>I deliver justice... one bullet at a time!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>332</uiIndex>
+    <uiIndex>316</uiIndex>
     <szText>Viva la revolution!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>333</uiIndex>
+    <uiIndex>317</uiIndex>
     <szText>Keep a place in hell for your queen!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>334</uiIndex>
+    <uiIndex>318</uiIndex>
     <szText>Your move, creep!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>335</uiIndex>
+    <uiIndex>319</uiIndex>
     <szText>Shit, for a moment I thought I threw a pin...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>336</uiIndex>
+    <uiIndex>320</uiIndex>
     <szText>Shit, shit, shit...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>337</uiIndex>
+    <uiIndex>321</uiIndex>
     <szText>We're all gonna die.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>338</uiIndex>
+    <uiIndex>322</uiIndex>
     <szText>God help me.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>339</uiIndex>
+    <uiIndex>323</uiIndex>
     <szText>We're in some real pretty shit now!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>340</uiIndex>
+    <uiIndex>324</uiIndex>
     <szText>It is no dream! This is really happening!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>341</uiIndex>
+    <uiIndex>325</uiIndex>
     <szText>Goddamnit.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>342</uiIndex>
+    <uiIndex>326</uiIndex>
     <szText>I got a bad feeling on this one.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>343</uiIndex>
+    <uiIndex>327</uiIndex>
     <szText>It's a goddamn commando squad!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>344</uiIndex>
+    <uiIndex>328</uiIndex>
     <szText>Why this shit always happens to me!?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>345</uiIndex>
+    <uiIndex>329</uiIndex>
     <szText>I can't deal with this anymore</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>346</uiIndex>
+    <uiIndex>330</uiIndex>
     <szText>What the hell am I going to do now?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>347</uiIndex>
+    <uiIndex>331</uiIndex>
     <szText>I should get the hell out of here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>348</uiIndex>
+    <uiIndex>332</uiIndex>
     <szText>Oh no, how could this happen?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>349</uiIndex>
+    <uiIndex>333</uiIndex>
     <szText>I will not fight those bastards alone!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>350</uiIndex>
+    <uiIndex>334</uiIndex>
     <szText>Where is the goddamn cavalry?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>351</uiIndex>
+    <uiIndex>335</uiIndex>
     <szText>I am outta here.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>352</uiIndex>
+    <uiIndex>336</uiIndex>
     <szText>Doctor is in!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>353</uiIndex>
+    <uiIndex>337</uiIndex>
     <szText>Operation succesful!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>354</uiIndex>
+    <uiIndex>338</uiIndex>
     <szText>I'll carve ya up like a chicken!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>355</uiIndex>
+    <uiIndex>339</uiIndex>
     <szText>Bleed for me!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>356</uiIndex>
+    <uiIndex>340</uiIndex>
     <szText>I can't believe they're paying me for that!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>357</uiIndex>
+    <uiIndex>341</uiIndex>
     <szText>You taste like chicken!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>358</uiIndex>
+    <uiIndex>342</uiIndex>
     <szText>You know what would nice right now? Fava beans and a glass of chianti!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>359</uiIndex>
+    <uiIndex>343</uiIndex>
     <szText>Chop chop chop!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>360</uiIndex>
+    <uiIndex>344</uiIndex>
     <szText>Fresh meat!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>361</uiIndex>
+    <uiIndex>345</uiIndex>
     <szText>I'll drink your blood!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>362</uiIndex>
+    <uiIndex>346</uiIndex>
     <szText>I'll gut you like a fish!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>363</uiIndex>
+    <uiIndex>347</uiIndex>
     <szText>Let's see what's inside this pinata!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>364</uiIndex>
+    <uiIndex>348</uiIndex>
     <szText>When I'm finished with you, you'll sing soprano!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>365</uiIndex>
+    <uiIndex>349</uiIndex>
     <szText>You could use some shave!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>366</uiIndex>
+    <uiIndex>350</uiIndex>
     <szText>Don't worry, it's disinfected!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>367</uiIndex>
+    <uiIndex>351</uiIndex>
     <szText>Show me what you've got!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>368</uiIndex>
+    <uiIndex>352</uiIndex>
     <szText>Time for harakiri, asshole!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>369</uiIndex>
+    <uiIndex>353</uiIndex>
     <szText>Hey, you've got untied shoelace!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>370</uiIndex>
+    <uiIndex>354</uiIndex>
     <szText>There's a mustard on your shirt!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>371</uiIndex>
+    <uiIndex>355</uiIndex>
     <szText>Mmmmmincemeat!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>372</uiIndex>
+    <uiIndex>356</uiIndex>
     <szText>Nice ears, Jumbo! They'll look fine on my necklace!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>373</uiIndex>
+    <uiIndex>357</uiIndex>
     <szText>I'll break your every single bone!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>374</uiIndex>
+    <uiIndex>358</uiIndex>
     <szText>Need a nose job?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>375</uiIndex>
+    <uiIndex>359</uiIndex>
     <szText>Normally I wouldn't hit a woman... oh, who am I kidding!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>376</uiIndex>
+    <uiIndex>360</uiIndex>
     <szText>See? Girls can fight too!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>377</uiIndex>
+    <uiIndex>361</uiIndex>
     <szText>Girls power!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>378</uiIndex>
+    <uiIndex>362</uiIndex>
     <szText>Aaand you're dead.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>379</uiIndex>
+    <uiIndex>363</uiIndex>
     <szText>Next!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>380</uiIndex>
+    <uiIndex>364</uiIndex>
     <szText>That's just a beginning, fuckers!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>381</uiIndex>
+    <uiIndex>365</uiIndex>
     <szText>Time to loot a corpse, I guess.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>382</uiIndex>
+    <uiIndex>366</uiIndex>
     <szText>Nice job getting yourself killed.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>383</uiIndex>
+    <uiIndex>367</uiIndex>
     <szText>You OK? You look kinda... dead!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>384</uiIndex>
+    <uiIndex>368</uiIndex>
     <szText>Another one to my collection.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>385</uiIndex>
+    <uiIndex>369</uiIndex>
     <szText>You could at least TRY to die with some dignity.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>386</uiIndex>
+    <uiIndex>370</uiIndex>
     <szText>That door revolved one time too many...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>387</uiIndex>
+    <uiIndex>371</uiIndex>
     <szText>Rot in hell, you backstabbing bastard.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>388</uiIndex>
+    <uiIndex>372</uiIndex>
     <szText>Take a hike, Mike! Damn, that sounded better in my head.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>389</uiIndex>
+    <uiIndex>373</uiIndex>
     <szText>I'll give you my autograph Gillitt... in the condolence book!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>390</uiIndex>
+    <uiIndex>374</uiIndex>
     <szText>I knew I was better than you, Gillitt!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>391</uiIndex>
+    <uiIndex>375</uiIndex>
     <szText>I just whacked Miguel Cordona! Finally, Queen will hear about me!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>392</uiIndex>
+    <uiIndex>376</uiIndex>
     <szText>Pathetic.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>393</uiIndex>
+    <uiIndex>377</uiIndex>
     <szText>Amateur.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>394</uiIndex>
+    <uiIndex>378</uiIndex>
     <szText>Let this be a lesson for all of you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>395</uiIndex>
+    <uiIndex>379</uiIndex>
     <szText>You asked for it.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>396</uiIndex>
+    <uiIndex>380</uiIndex>
     <szText>Your luck ran out.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>397</uiIndex>
+    <uiIndex>381</uiIndex>
     <szText>Time to pay the piper!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>398</uiIndex>
+    <uiIndex>382</uiIndex>
     <szText>Someone, go check his pulse.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>399</uiIndex>
+    <uiIndex>383</uiIndex>
     <szText>Someone, go check her pulse.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>400</uiIndex>
+    <uiIndex>384</uiIndex>
     <szText>Adios!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>401</uiIndex>
+    <uiIndex>385</uiIndex>
     <szText>Oh, Foxy. I didn't even have a time to read you my poem....</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>402</uiIndex>
+    <uiIndex>386</uiIndex>
     <szText>Serves you right, you slut!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>403</uiIndex>
+    <uiIndex>387</uiIndex>
     <szText>In the name of all male population around the globe: we're going to miss you.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>404</uiIndex>
+    <uiIndex>388</uiIndex>
     <szText>Oh, too bad. She was kinda cute.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>405</uiIndex>
+    <uiIndex>389</uiIndex>
     <szText>Goodnight sweet prince.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>406</uiIndex>
+    <uiIndex>390</uiIndex>
     <szText>OK, I think it's pretty safe to assume he's dead.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>407</uiIndex>
+    <uiIndex>391</uiIndex>
     <szText>OK, I think it's pretty safe to assume she's dead.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>408</uiIndex>
+    <uiIndex>392</uiIndex>
     <szText>Diagnosis: negative!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>409</uiIndex>
+    <uiIndex>393</uiIndex>
     <szText>It didn't have end up like this.!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>410</uiIndex>
+    <uiIndex>394</uiIndex>
     <szText>I think I'll skip a lunch today.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>411</uiIndex>
+    <uiIndex>395</uiIndex>
     <szText>Hahaha! Fucking awesome!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>412</uiIndex>
+    <uiIndex>396</uiIndex>
     <szText>Fuck yeah! I love this job!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>413</uiIndex>
+    <uiIndex>397</uiIndex>
     <szText>It's OK, you weren't using it anyway.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>414</uiIndex>
+    <uiIndex>398</uiIndex>
     <szText>Boom, head shot!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>415</uiIndex>
+    <uiIndex>399</uiIndex>
     <szText>Wow!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>416</uiIndex>
+    <uiIndex>400</uiIndex>
     <szText>Mind blown!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>417</uiIndex>
+    <uiIndex>401</uiIndex>
     <szText>I wasn't even trying.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>418</uiIndex>
+    <uiIndex>402</uiIndex>
     <szText>Did somebody take a picture?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>419</uiIndex>
+    <uiIndex>403</uiIndex>
     <szText>Pop goes the zit!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>420</uiIndex>
+    <uiIndex>404</uiIndex>
     <szText>I warned you about mexican food!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>421</uiIndex>
+    <uiIndex>405</uiIndex>
     <szText>What can I say, I'm a better draw.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>422</uiIndex>
+    <uiIndex>406</uiIndex>
     <szText>I'm gonna miss your cinematography...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>423</uiIndex>
+    <uiIndex>407</uiIndex>
     <szText>Ashes to ashes, dust to dust.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>424</uiIndex>
+    <uiIndex>408</uiIndex>
     <szText>Holy shit! Kill it before it breeds!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>425</uiIndex>
+    <uiIndex>409</uiIndex>
     <szText>No offense lady, but I wouldn't touch you with a stick!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>426</uiIndex>
+    <uiIndex>410</uiIndex>
     <szText>Next time try shooting with open eyes!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>427</uiIndex>
+    <uiIndex>411</uiIndex>
     <szText>Stop shaking! I can't hit you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>428</uiIndex>
+    <uiIndex>412</uiIndex>
     <szText>Shit, Lynx! I wanted to hang your head over the chimney!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>429</uiIndex>
+    <uiIndex>413</uiIndex>
     <szText>And I've made contact with you! Prepare to die!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>430</uiIndex>
+    <uiIndex>414</uiIndex>
     <szText>Couple? We're not married!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>431</uiIndex>
+    <uiIndex>415</uiIndex>
     <szText>I don't know, maybe I'll send them my CV after I kill you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>432</uiIndex>
+    <uiIndex>416</uiIndex>
     <szText>PX? What the fuck does it even mean?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>433</uiIndex>
+    <uiIndex>417</uiIndex>
     <szText>No shit, Sherlock!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>434</uiIndex>
+    <uiIndex>418</uiIndex>
     <szText>It will be one-way trip for you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>435</uiIndex>
+    <uiIndex>419</uiIndex>
     <szText>Oh yes, by all means! Move out in the open!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>436</uiIndex>
+    <uiIndex>420</uiIndex>
     <szText>Luck is for wusses, real professionals depend on their skill!</szText>
-    <brave>1</brave>
   </TAUNT>
   <TAUNT>
-    <uiIndex>437</uiIndex>
+    <uiIndex>421</uiIndex>
     <szText>What? I can SEE you and HEAR you, you moron!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>438</uiIndex>
+    <uiIndex>422</uiIndex>
     <szText>Yeah, and don't even think about a lunch break!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>439</uiIndex>
+    <uiIndex>423</uiIndex>
     <szText>I'm  sorry, didn't catch the name!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>440</uiIndex>
+    <uiIndex>424</uiIndex>
     <szText>Doesn't matter, you'll be dead soon enough.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>441</uiIndex>
+    <uiIndex>425</uiIndex>
     <szText>So THAT'S why she didn't get my postcard.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>442</uiIndex>
+    <uiIndex>426</uiIndex>
     <szText>Indeed I do!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>443</uiIndex>
+    <uiIndex>427</uiIndex>
     <szText>You know there's no such animal, right?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>444</uiIndex>
+    <uiIndex>428</uiIndex>
     <szText>Not yet. But soon you'll meet him!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>445</uiIndex>
+    <uiIndex>429</uiIndex>
     <szText>Trouble is my second name!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>446</uiIndex>
+    <uiIndex>430</uiIndex>
     <szText>Like a bulldog!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>447</uiIndex>
+    <uiIndex>431</uiIndex>
     <szText>You should be!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>448</uiIndex>
+    <uiIndex>432</uiIndex>
     <szText>Your wish is my order!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>449</uiIndex>
+    <uiIndex>433</uiIndex>
     <szText>Nobody ever does.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>450</uiIndex>
+    <uiIndex>434</uiIndex>
     <szText>Just wait, and this trouble will run into YOU!.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>451</uiIndex>
+    <uiIndex>435</uiIndex>
     <szText>Scoundrel? I'll make you eat those words!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>452</uiIndex>
+    <uiIndex>436</uiIndex>
     <szText>No, thank you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>453</uiIndex>
+    <uiIndex>437</uiIndex>
     <szText>Will see who's about to teach whom!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>454</uiIndex>
+    <uiIndex>438</uiIndex>
     <szText>You're right!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>455</uiIndex>
+    <uiIndex>439</uiIndex>
     <szText>You don't deserve a chance!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>456</uiIndex>
+    <uiIndex>440</uiIndex>
     <szText>Horoscopes lie!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>457</uiIndex>
+    <uiIndex>441</uiIndex>
     <szText>Ding dong!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>458</uiIndex>
+    <uiIndex>442</uiIndex>
     <szText>It's still not too late!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>459</uiIndex>
+    <uiIndex>443</uiIndex>
     <szText>We'll check ourselves!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>460</uiIndex>
+    <uiIndex>444</uiIndex>
     <szText>Need bubbles, sir?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>461</uiIndex>
+    <uiIndex>445</uiIndex>
     <szText>Did you just call me an ass!?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>462</uiIndex>
+    <uiIndex>446</uiIndex>
     <szText>Whatever.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>463</uiIndex>
+    <uiIndex>447</uiIndex>
     <szText>I didn't understand a single word!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>464</uiIndex>
+    <uiIndex>448</uiIndex>
     <szText>It will only get closer!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>465</uiIndex>
+    <uiIndex>449</uiIndex>
     <szText>I'm not really evil... just misunderstood.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>471</uiIndex>
+    <uiIndex>450</uiIndex>
     <szText>You're the disease and I'm the cure.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>472</uiIndex>
+    <uiIndex>451</uiIndex>
     <szText>I'm gonna blow your head off!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>473</uiIndex>
+    <uiIndex>452</uiIndex>
     <szText>Jerk on this you cocky shit licker!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>475</uiIndex>
+    <uiIndex>453</uiIndex>
     <szText>I eat Green Berets for breakfast!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>476</uiIndex>
+    <uiIndex>454</uiIndex>
     <szText>You cowboys are finished!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>477</uiIndex>
+    <uiIndex>455</uiIndex>
     <szText>Take this, you maggot!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>478</uiIndex>
+    <uiIndex>456</uiIndex>
     <szText>I'm going to cut out your living guts!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>479</uiIndex>
+    <uiIndex>457</uiIndex>
     <szText>Long live the queen!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>480</uiIndex>
+    <uiIndex>458</uiIndex>
     <szText>Here is your freedom you son of a bitch!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>481</uiIndex>
+    <uiIndex>459</uiIndex>
     <szText>Don't make me angry!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>482</uiIndex>
+    <uiIndex>460</uiIndex>
     <szText>I must break you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>484</uiIndex>
+    <uiIndex>461</uiIndex>
     <szText>This is for the Queen!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>485</uiIndex>
+    <uiIndex>462</uiIndex>
     <szText>The Queen says: Die!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>486</uiIndex>
+    <uiIndex>463</uiIndex>
     <szText>Dying ain't much of a living, boy!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>487</uiIndex>
+    <uiIndex>464</uiIndex>
     <szText>Dying ain't much of a living, girl!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>488</uiIndex>
+    <uiIndex>465</uiIndex>
     <szText>Is that the best you can do?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>489</uiIndex>
+    <uiIndex>466</uiIndex>
     <szText>Your life is over, asshole!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>490</uiIndex>
+    <uiIndex>467</uiIndex>
     <szText>Very pretty, but can you fight?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>491</uiIndex>
+    <uiIndex>468</uiIndex>
     <szText>Howdy, pardner!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>492</uiIndex>
+    <uiIndex>469</uiIndex>
     <szText>I deliver justice... one bullet at a time!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>493</uiIndex>
+    <uiIndex>470</uiIndex>
     <szText>Viva la revolution!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>494</uiIndex>
+    <uiIndex>471</uiIndex>
     <szText>Your move, creep!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>495</uiIndex>
+    <uiIndex>472</uiIndex>
     <szText>Shit, for a moment I thought I threw a pin...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>496</uiIndex>
+    <uiIndex>473</uiIndex>
     <szText>It's about to turn into full tournee!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>497</uiIndex>
+    <uiIndex>474</uiIndex>
     <szText>"Stupid fools"? Are you even trying?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>498</uiIndex>
+    <uiIndex>475</uiIndex>
     <szText>As you wish!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>499</uiIndex>
+    <uiIndex>476</uiIndex>
     <szText>Hey! I'm a lady!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>500</uiIndex>
+    <uiIndex>477</uiIndex>
     <szText>I'll dig you one! Six feet under!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>501</uiIndex>
+    <uiIndex>478</uiIndex>
     <szText>I guess there's no more room in hell...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>502</uiIndex>
+    <uiIndex>479</uiIndex>
     <szText>Is this some kind of a joke?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>503</uiIndex>
+    <uiIndex>480</uiIndex>
     <szText>They're coming to get us!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>504</uiIndex>
+    <uiIndex>481</uiIndex>
     <szText>Great, that's exactly what this country needs. A fucking zombie apocalypse!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>505</uiIndex>
+    <uiIndex>482</uiIndex>
     <szText>Remember, shoot the head, shoot the head...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>506</uiIndex>
+    <uiIndex>483</uiIndex>
     <szText>Really? I mean.. c'mon!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>507</uiIndex>
+    <uiIndex>484</uiIndex>
     <szText>That's just fucked up!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>508</uiIndex>
+    <uiIndex>485</uiIndex>
     <szText>What's next? Werewolves? Vampires?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>509</uiIndex>
+    <uiIndex>486</uiIndex>
     <szText>Come for me! Come on, you rotting corpse!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>510</uiIndex>
+    <uiIndex>487</uiIndex>
     <szText>I'll send you back to hell!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>511</uiIndex>
+    <uiIndex>488</uiIndex>
     <szText>We'll need more paramedics!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>512</uiIndex>
+    <uiIndex>489</uiIndex>
     <szText>Oh shit! It can smell my brain!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>513</uiIndex>
+    <uiIndex>490</uiIndex>
     <szText>It's not zombie! He's infected!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>514</uiIndex>
+    <uiIndex>491</uiIndex>
     <szText>Is this running one or walking one? I'm confused...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>515</uiIndex>
+    <uiIndex>492</uiIndex>
     <szText>It's alive!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>516</uiIndex>
+    <uiIndex>493</uiIndex>
     <szText>Maybe it's friendly.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>517</uiIndex>
+    <uiIndex>494</uiIndex>
     <szText>It's alive... ish.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>518</uiIndex>
+    <uiIndex>495</uiIndex>
     <szText>Nothing's ever real until it's real.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>519</uiIndex>
+    <uiIndex>496</uiIndex>
     <szText>They live!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>520</uiIndex>
+    <uiIndex>497</uiIndex>
     <szText>There must be some rational explanation. Virus, space radiation, maybe a meteor...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>521</uiIndex>
+    <uiIndex>498</uiIndex>
     <szText>I will not negotiate with undead!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>522</uiIndex>
+    <uiIndex>499</uiIndex>
     <szText>So there IS a life after death!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>523</uiIndex>
+    <uiIndex>500</uiIndex>
     <szText>Don't use the Z word!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>524</uiIndex>
+    <uiIndex>501</uiIndex>
     <szText>Holy shit. Plot twist!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>525</uiIndex>
+    <uiIndex>502</uiIndex>
     <szText>Fuck, I think I forgot to take my pills.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>526</uiIndex>
+    <uiIndex>503</uiIndex>
     <szText>That's it, no more drugs for me.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>527</uiIndex>
+    <uiIndex>504</uiIndex>
     <szText>I knew that movie was based on a true story!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>528</uiIndex>
+    <uiIndex>505</uiIndex>
     <szText>You're one spooky motherfucker, man.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>529</uiIndex>
+    <uiIndex>506</uiIndex>
     <szText>Oooh. Zombies. How original.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>530</uiIndex>
+    <uiIndex>507</uiIndex>
     <szText>Zombie over here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>531</uiIndex>
+    <uiIndex>508</uiIndex>
     <szText>Fuck global warming, we've got real problems here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>532</uiIndex>
+    <uiIndex>509</uiIndex>
     <szText>Undead!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>533</uiIndex>
+    <uiIndex>510</uiIndex>
     <szText>This is a bad dream!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>534</uiIndex>
+    <uiIndex>511</uiIndex>
     <szText>Blasphemy!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>535</uiIndex>
+    <uiIndex>512</uiIndex>
     <szText>Come on! It wasn't even 17 seconds!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>536</uiIndex>
+    <uiIndex>513</uiIndex>
     <szText>At a certain point in your life you realize you know more dead people than living.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>537</uiIndex>
+    <uiIndex>514</uiIndex>
     <szText>I'm scared to pieces!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>538</uiIndex>
+    <uiIndex>515</uiIndex>
     <szText>It's amazing how fast the world can go from bad to total shit storm.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>539</uiIndex>
+    <uiIndex>516</uiIndex>
     <szText>It could be worse. They could be nazi!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>540</uiIndex>
+    <uiIndex>517</uiIndex>
     <szText>Where's my lawnmower when I need it?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>541</uiIndex>
+    <uiIndex>518</uiIndex>
     <szText>It's againt the nature, you freak!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>542</uiIndex>
+    <uiIndex>519</uiIndex>
     <szText>Dead should stay dead.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>543</uiIndex>
+    <uiIndex>520</uiIndex>
     <szText>Hmmm... I bet I would make a cool zombie myself.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>544</uiIndex>
+    <uiIndex>521</uiIndex>
     <szText>No! I don't want to become one of you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>545</uiIndex>
+    <uiIndex>522</uiIndex>
     <szText>Stay away from my precious gray matter!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>546</uiIndex>
+    <uiIndex>523</uiIndex>
     <szText>Please, don't eat me! I'm fat and have too much sugar in my blood!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>547</uiIndex>
+    <uiIndex>524</uiIndex>
     <szText>Aaaah! Should I cut it off now?!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>548</uiIndex>
+    <uiIndex>525</uiIndex>
     <szText>They're gonna eat me! Oh my GOOOOOOD!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>549</uiIndex>
+    <uiIndex>526</uiIndex>
     <szText>Not my face! My beautiful face!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>550</uiIndex>
+    <uiIndex>527</uiIndex>
     <szText>The PAIN!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>551</uiIndex>
+    <uiIndex>528</uiIndex>
     <szText>Suddenly, I'm getting a real hankering for brains!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>552</uiIndex>
+    <uiIndex>529</uiIndex>
     <szText>Does it hurt to be dead?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>553</uiIndex>
+    <uiIndex>530</uiIndex>
     <szText>And stay dead! This time!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>554</uiIndex>
+    <uiIndex>531</uiIndex>
     <szText>You're dead... again.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>555</uiIndex>
+    <uiIndex>532</uiIndex>
     <szText>Rest in pieces!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>556</uiIndex>
+    <uiIndex>533</uiIndex>
     <szText>If it's stands up again, I'm gonna shit myself.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>557</uiIndex>
+    <uiIndex>534</uiIndex>
     <szText>Stay down!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>558</uiIndex>
+    <uiIndex>535</uiIndex>
     <szText>Get back where you came from!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>559</uiIndex>
+    <uiIndex>536</uiIndex>
     <szText>Zed is dead.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>560</uiIndex>
+    <uiIndex>537</uiIndex>
     <szText>Yeah! See ya!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>561</uiIndex>
+    <uiIndex>538</uiIndex>
     <szText>Punish!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>562</uiIndex>
+    <uiIndex>539</uiIndex>
     <szText>Bingo!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>563</uiIndex>
+    <uiIndex>540</uiIndex>
     <szText>I think you'll enjoy this.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>564</uiIndex>
+    <uiIndex>541</uiIndex>
     <szText>I'll squash you like a bug!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>565</uiIndex>
+    <uiIndex>542</uiIndex>
     <szText>Here comes Johnny!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>566</uiIndex>
+    <uiIndex>543</uiIndex>
     <szText>Somebody call an ambulance!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>567</uiIndex>
+    <uiIndex>544</uiIndex>
     <szText>My God, you're so ugly, you could be a modern-art masterpiece!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>568</uiIndex>
+    <uiIndex>545</uiIndex>
     <szText>Hey babe, I'll drive you crazy even without a driver's license!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>569</uiIndex>
+    <uiIndex>546</uiIndex>
     <szText>OK, go fetch the rest of the team... I'll wait!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>570</uiIndex>
+    <uiIndex>547</uiIndex>
     <szText>Watch out, the lightning may strike... Oh, it just did!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>571</uiIndex>
+    <uiIndex>548</uiIndex>
     <szText>Are you always this stupid or is it a special occasion?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>572</uiIndex>
+    <uiIndex>549</uiIndex>
     <szText>Look what you've made me do...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>573</uiIndex>
+    <uiIndex>550</uiIndex>
     <szText>Struggle is the enemy, but lead is the remedy!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>573</uiIndex>
+    <uiIndex>551</uiIndex>
     <szText>Cause of death: acute lead poisoning!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>574</uiIndex>
+    <uiIndex>552</uiIndex>
     <szText>Oh yeah! Barbie's in town!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>575</uiIndex>
+    <uiIndex>553</uiIndex>
     <szText>Look who's come to the picnic!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>576</uiIndex>
+    <uiIndex>554</uiIndex>
     <szText>You've got to be crazy to come here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>577</uiIndex>
+    <uiIndex>555</uiIndex>
     <szText>Now, you've got my attention!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>578</uiIndex>
+    <uiIndex>556</uiIndex>
     <szText>You're so cute when you're trying to shoot!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>579</uiIndex>
+    <uiIndex>557</uiIndex>
     <szText>You're so cute when you're trying to shoot!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>580</uiIndex>
+    <uiIndex>558</uiIndex>
     <szText>Hey babe, you should have known how to please me by now...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>581</uiIndex>
+    <uiIndex>559</uiIndex>
     <szText>Blast it! You've spent so much bullets, you've got me confused!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>582</uiIndex>
+    <uiIndex>560</uiIndex>
     <szText>How about that? I've got a superpower and I didn't even know about it - I can dodge bullets!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>583</uiIndex>
+    <uiIndex>561</uiIndex>
     <szText>You think shooting me is gonna solve your problems?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>584</uiIndex>
+    <uiIndex>562</uiIndex>
     <szText>Bored! Bored! Bored! You're boring...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>585</uiIndex>
+    <uiIndex>563</uiIndex>
     <szText>Oh, I'm laughing at your superior skills!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>586</uiIndex>
+    <uiIndex>564</uiIndex>
     <szText>Is that your best?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>587</uiIndex>
+    <uiIndex>565</uiIndex>
     <szText>It's official: YOU SUCK!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>588</uiIndex>
+    <uiIndex>566</uiIndex>
     <szText>You cannot hurt me!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>589</uiIndex>
+    <uiIndex>567</uiIndex>
     <szText>Aw, come on, why so serious? Can't you take a joke?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>588</uiIndex>
+    <uiIndex>568</uiIndex>
     <szText>I'm not angry! You will know when I'm angry!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>589</uiIndex>
+    <uiIndex>569</uiIndex>
     <szText>Let's not make a big deal out of nothing!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>590</uiIndex>
+    <uiIndex>570</uiIndex>
     <szText>Are you trying to piss me off?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>591</uiIndex>
+    <uiIndex>571</uiIndex>
     <szText>Do you want to hurt me on purpose?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>592</uiIndex>
+    <uiIndex>572</uiIndex>
     <szText>Oh… I'd love to smack you right now!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>593</uiIndex>
+    <uiIndex>573</uiIndex>
     <szText>I'm going to beat the crap out of you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>594</uiIndex>
+    <uiIndex>574</uiIndex>
     <szText>If you shoot me again, I'm going to wrap your gun around your neck!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>595</uiIndex>
+    <uiIndex>575</uiIndex>
     <szText>That's it, you're fucking dead!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>596</uiIndex>
+    <uiIndex>576</uiIndex>
     <szText>I'll punch you, I'll stab you, I'll strangle you! You know... that's what friends do!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>597</uiIndex>
+    <uiIndex>577</uiIndex>
     <szText>Hey lads, this one's in pains, we should put an end to his misery!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>598</uiIndex>
+    <uiIndex>578</uiIndex>
     <szText>God will find a way to get you back, and it ain't gonna be pretty.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>599</uiIndex>
+    <uiIndex>579</uiIndex>
     <szText>The army... I should have known better!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>600</uiIndex>
+    <uiIndex>580</uiIndex>
     <szText>Coming here... What was I thinking?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>601</uiIndex>
+    <uiIndex>581</uiIndex>
     <szText>I can't believe I've came here with such idiots.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>602</uiIndex>
+    <uiIndex>582</uiIndex>
     <szText>No weapons! No friends! No hope!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>603</uiIndex>
+    <uiIndex>583</uiIndex>
     <szText>If it were up to me, I would have never joined the army, but my mom had to force me...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>604</uiIndex>
+    <uiIndex>584</uiIndex>
     <szText>HELP! I've run into an unstoppable monster!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>605</uiIndex>
+    <uiIndex>585</uiIndex>
     <szText>Hey guys, I think this one's pregnant!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>606</uiIndex>
+    <uiIndex>586</uiIndex>
     <szText>Gee, whales can fight?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>607</uiIndex>
+    <uiIndex>587</uiIndex>
     <szText>Are you lost? The auditions for "Free Willy" are that way!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>608</uiIndex>
+    <uiIndex>588</uiIndex>
     <szText>This one's delusional - he thinks he's a killer whale! </szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>609</uiIndex>
+    <uiIndex>589</uiIndex>
     <szText>How appropriate, you fight like a big fat cow!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>610</uiIndex>
+    <uiIndex>590</uiIndex>
     <szText>Over here, you morons! </szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>611</uiIndex>
+    <uiIndex>591</uiIndex>
     <szText>Go to hell, Hellar!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>612</uiIndex>
+    <uiIndex>592</uiIndex>
     <szText>Hey honey, what are you doing here? You couldn't handle the washing machine?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>613</uiIndex>
+    <uiIndex>593</uiIndex>
     <szText>It must be this time of the month!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>614</uiIndex>
+    <uiIndex>594</uiIndex>
     <szText>Damn, does this chick have PMS too? Because it looks like she already has mad cow disease!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>615</uiIndex>
+    <uiIndex>595</uiIndex>
     <szText>Look guys, I've found fossils!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>616</uiIndex>
+    <uiIndex>596</uiIndex>
     <szText>Look guys, I've found fossils!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>617</uiIndex>
+    <uiIndex>597</uiIndex>
     <szText>Look guys, I've found fossils!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>618</uiIndex>
+    <uiIndex>598</uiIndex>
     <szText>Look guys, dinosaurs are still alive!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>619</uiIndex>
+    <uiIndex>599</uiIndex>
     <szText>Look guys, dinosaurs are still alive!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>620</uiIndex>
+    <uiIndex>600</uiIndex>
     <szText>Look guys, dinosaurs are still alive!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>621</uiIndex>
+    <uiIndex>601</uiIndex>
     <szText>Are you trying to shoot me or did your gun just fart?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>622</uiIndex>
+    <uiIndex>602</uiIndex>
     <szText>Are you trying to shoot me or did your gun just fart?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>623</uiIndex>
+    <uiIndex>603</uiIndex>
     <szText>Don't ever stop trying, who knows, maybe a miracle will happen!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>624</uiIndex>
+    <uiIndex>604</uiIndex>
     <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>625</uiIndex>
+    <uiIndex>605</uiIndex>
     <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>626</uiIndex>
+    <uiIndex>606</uiIndex>
     <szText>OK, keep shooting, I'll yawn when you hit something!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>627</uiIndex>
+    <uiIndex>607</uiIndex>
     <szText>Excellence is not a skill. It's an attitude.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>628</uiIndex>
+    <uiIndex>608</uiIndex>
     <szText>Trust me. I'm a professional!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>629</uiIndex>
+    <uiIndex>609</uiIndex>
     <szText>You spread bullets the same way you spread your legs...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>630</uiIndex>
+    <uiIndex>610</uiIndex>
     <szText>Nice boobs! Are these real?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>631</uiIndex>
+    <uiIndex>611</uiIndex>
     <szText>You and your gun.. BANG! BANG! What the fuck, are you tryin' to bang everyone?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>632</uiIndex>
+    <uiIndex>612</uiIndex>
     <szText>Poor thing! He's bleeding.. Hold on, I'll find you a tampon.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>633</uiIndex>
+    <uiIndex>613</uiIndex>
     <szText>Oh, poor thing ... she broke her nails!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>634</uiIndex>
+    <uiIndex>614</uiIndex>
     <szText>You look tired, maybe we should put you to sleep... permanently!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>635</uiIndex>
+    <uiIndex>615</uiIndex>
     <szText>I see you and now I can see through you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>636</uiIndex>
+    <uiIndex>616</uiIndex>
     <szText>Little enemies... little wounds!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>637</uiIndex>
+    <uiIndex>617</uiIndex>
     <szText>I really hate needless violence.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>638</uiIndex>
+    <uiIndex>618</uiIndex>
     <szText>Wow, you're even dumber than you look.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>639</uiIndex>
+    <uiIndex>619</uiIndex>
     <szText>You remind me of a younger, dumber Schwarzenegger!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>640</uiIndex>
+    <uiIndex>620</uiIndex>
     <szText>Were your parents siblings?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>641</uiIndex>
+    <uiIndex>621</uiIndex>
     <szText>Now, we know that we aren't all that cute, but what the fuck happened to you?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>642</uiIndex>
+    <uiIndex>622</uiIndex>
     <szText>I could apply you a make up with a shotgun, and you'd still look better!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>643</uiIndex>
+    <uiIndex>623</uiIndex>
     <szText>Wow! Who let the gorilla out of the cage?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>643</uiIndex>
+    <uiIndex>624</uiIndex>
     <szText>Wow, you're pretty ... fucking ugly!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>644</uiIndex>
+    <uiIndex>625</uiIndex>
     <szText>Holy shit, they brought in transvestites!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>645</uiIndex>
+    <uiIndex>626</uiIndex>
     <szText>Girl, with that hair...you must be a saint - saint Bernard!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>646</uiIndex>
+    <uiIndex>627</uiIndex>
     <szText>Did you noticed how "awesome" ends with "me", and "ugly" starts with "u"?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>647</uiIndex>
+    <uiIndex>628</uiIndex>
     <szText>As an outsider, what do you think of the human race?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>648</uiIndex>
+    <uiIndex>629</uiIndex>
     <szText>You remind me of my Chinese friend… Ug Lee!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>649</uiIndex>
+    <uiIndex>630</uiIndex>
     <szText>Well, if it ain't my favorite porn star!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>650</uiIndex>
+    <uiIndex>631</uiIndex>
     <szText>You know, I could slap you right now, but I don't want a slut on my hand!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>651</uiIndex>
+    <uiIndex>632</uiIndex>
     <szText>Guys, don't shoot the cushions!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>652</uiIndex>
+    <uiIndex>633</uiIndex>
     <szText>It was about time for a magic trick... Bam, he's gone!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>653</uiIndex>
+    <uiIndex>634</uiIndex>
     <szText>How about a date - just you, me and a roll of duct tape?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>654</uiIndex>
+    <uiIndex>635</uiIndex>
     <szText>How about a date - just you, me and a roll of duct tape?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>655</uiIndex>
+    <uiIndex>636</uiIndex>
     <szText>Are you tryin' to make me look good?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>656</uiIndex>
+    <uiIndex>637</uiIndex>
     <szText>Hey, stop shooting! I'm on the phone with my mom!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>657</uiIndex>
+    <uiIndex>638</uiIndex>
     <szText>Ouch, I'm hit, I'm hit... No, just kiddin'!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>658</uiIndex>
+    <uiIndex>639</uiIndex>
     <szText>Guys, what should we do with this one, shoot him or starve him to death?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>659</uiIndex>
+    <uiIndex>640</uiIndex>
     <szText>Guys, what should we do with this one, shoot her or starve her to death?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>660</uiIndex>
+    <uiIndex>641</uiIndex>
     <szText>Hey boy, what do you have in that backpack? Sandwiches?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>661</uiIndex>
+    <uiIndex>642</uiIndex>
     <szText>Hey girl, what do you have in that backpack? Sandwiches?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>662</uiIndex>
+    <uiIndex>643</uiIndex>
     <szText>Idiots! Idiots everywhere!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>663</uiIndex>
+    <uiIndex>644</uiIndex>
     <szText>You fight so badly you make even the onions cry.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>664</uiIndex>
+    <uiIndex>645</uiIndex>
     <szText>I guess the only fan you have is on the ceiling.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>665</uiIndex>
+    <uiIndex>646</uiIndex>
     <szText>How's that karma tasting? Not so good?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>666</uiIndex>
+    <uiIndex>647</uiIndex>
     <szText>Do you always take yourself so seriously?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>667</uiIndex>
+    <uiIndex>648</uiIndex>
     <szText>Because of you, they put the word failure in the dictionary.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>668</uiIndex>
+    <uiIndex>649</uiIndex>
     <szText>Go bore someone else with your existence.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>669</uiIndex>
+    <uiIndex>650</uiIndex>
     <szText>When I saw your sister for the first time I thought she's the ugliest creature on earth, well, I was mistaken!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>670</uiIndex>
+    <uiIndex>651</uiIndex>
     <szText>Look at me, now back at you, now back to me... Do you still think you are cool?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>671</uiIndex>
+    <uiIndex>652</uiIndex>
     <szText>Look at me, now back at you, now back to me... Do you still think you are cool?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>672</uiIndex>
+    <uiIndex>653</uiIndex>
     <szText>Everyone deserves a happy ending, except you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>673</uiIndex>
+    <uiIndex>654</uiIndex>
     <szText>Wait till my brother hears about this, he's gonna kick your ass!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>674</uiIndex>
+    <uiIndex>655</uiIndex>
     <szText>Oh my god, my heart almost stopped beauting!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>675</uiIndex>
+    <uiIndex>656</uiIndex>
     <szText>I'm scared to death!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>676</uiIndex>
+    <uiIndex>657</uiIndex>
     <szText>Gee, that gave me goose bumps!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>677</uiIndex>
+    <uiIndex>658</uiIndex>
     <szText>Speak of the devil!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>678</uiIndex>
+    <uiIndex>659</uiIndex>
     <szText>Sometimes the road less traveled is less traveled for a reason!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>679</uiIndex>
+    <uiIndex>660</uiIndex>
     <szText>OK, that was the last straw!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>680</uiIndex>
+    <uiIndex>661</uiIndex>
     <szText>If I throw a stick, will you go away?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>681</uiIndex>
+    <uiIndex>662</uiIndex>
     <szText>How can I miss you if you won't go away?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>682</uiIndex>
+    <uiIndex>663</uiIndex>
     <szText>Hold my beer and watch this!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>683</uiIndex>
+    <uiIndex>664</uiIndex>
     <szText>Hahaha! Jesus, he fell funny!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>684</uiIndex>
+    <uiIndex>665</uiIndex>
     <szText>Hahaha! Jesus, she fell funny!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>685</uiIndex>
+    <uiIndex>666</uiIndex>
     <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>686</uiIndex>
+    <uiIndex>667</uiIndex>
     <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>687</uiIndex>
+    <uiIndex>668</uiIndex>
     <szText>I thought your purpose was to die!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>688</uiIndex>
+    <uiIndex>669</uiIndex>
     <szText>Hey, dickless! Over here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>689</uiIndex>
+    <uiIndex>670</uiIndex>
     <szText>Hey clown, have you came here to amuse me?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>690</uiIndex>
+    <uiIndex>671</uiIndex>
     <szText>Are you a parking ticket? 'Cause you've got fine written all over you!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>691</uiIndex>
+    <uiIndex>672</uiIndex>
     <szText>Yo Pops, are you the one who invented electricity?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>692</uiIndex>
+    <uiIndex>673</uiIndex>
     <szText>Nice wig honey, what's it made of? Your mom's chest hair?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>693</uiIndex>
+    <uiIndex>674</uiIndex>
     <szText>Excuse me is that your nose, or did a bus park on your face?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>694</uiIndex>
+    <uiIndex>675</uiIndex>
     <szText>Did your parents have any children that lived?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>695</uiIndex>
+    <uiIndex>676</uiIndex>
     <szText>You are a sad strange little man, and you have my pity!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>696</uiIndex>
+    <uiIndex>677</uiIndex>
     <szText>Never seen so many backwards ass country fucks in my life.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>697</uiIndex>
+    <uiIndex>678</uiIndex>
     <szText>Frankly, my dear, I don't give a damn!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>698</uiIndex>
+    <uiIndex>679</uiIndex>
     <szText>If I had a dick, this is where I would tell you to suck it!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>699</uiIndex>
+    <uiIndex>680</uiIndex>
     <szText>That's what I thought. You're a gutless turd!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>700</uiIndex>
+    <uiIndex>681</uiIndex>
     <szText>What? Hello? I can't hear anything!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>701</uiIndex>
+    <uiIndex>682</uiIndex>
     <szText>Argh! My ears are bleeding!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>702</uiIndex>
+    <uiIndex>683</uiIndex>
     <szText>What's this ringing?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>703</uiIndex>
+    <uiIndex>684</uiIndex>
     <szText>Huh? It's all silent...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>704</uiIndex>
+    <uiIndex>685</uiIndex>
     <szText>Suddenly all went quiet. What the hell?</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>705</uiIndex>
+    <uiIndex>686</uiIndex>
     <szText>Fuck, my eyeballs!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>706</uiIndex>
+    <uiIndex>687</uiIndex>
     <szText>I can't see shit!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>707</uiIndex>
+    <uiIndex>688</uiIndex>
     <szText>Who turned off the light?!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>708</uiIndex>
+    <uiIndex>689</uiIndex>
     <szText>Oh, my eyes!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>709</uiIndex>
+    <uiIndex>690</uiIndex>
     <szText>Oh God, I'm blind!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>710</uiIndex>
+    <uiIndex>691</uiIndex>
     <szText>Holy shit, priest was right! It DOES make you blind!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>711</uiIndex>
+    <uiIndex>692</uiIndex>
     <szText>Somebody help me! I can't see!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>712</uiIndex>
+    <uiIndex>693</uiIndex>
     <szText>You think I won't get you 'cause I'm blind? I can smell your stench!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>713</uiIndex>
+    <uiIndex>694</uiIndex>
     <szText>My eyes are on fire!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>714</uiIndex>
+    <uiIndex>695</uiIndex>
     <szText>Cover me, I'm reloading!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>715</uiIndex>
+    <uiIndex>696</uiIndex>
     <szText>I'm out, reloading!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>716</uiIndex>
+    <uiIndex>697</uiIndex>
     <szText>I'm out, reloading!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>717</uiIndex>
+    <uiIndex>698</uiIndex>
     <szText>Gotta reload!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>718</uiIndex>
+    <uiIndex>699</uiIndex>
     <szText>Reloading!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>719</uiIndex>
+    <uiIndex>700</uiIndex>
     <szText>I'm all out!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>720</uiIndex>
+    <uiIndex>701</uiIndex>
     <szText>I'm running dry over here!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>721</uiIndex>
+    <uiIndex>702</uiIndex>
     <szText>Need more ammo!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>722</uiIndex>
+    <uiIndex>703</uiIndex>
     <szText>I'm out of bullets!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>723</uiIndex>
+    <uiIndex>704</uiIndex>
     <szText>I'm leaking!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>724</uiIndex>
+    <uiIndex>705</uiIndex>
     <szText>I'm bleeding!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>725</uiIndex>
+    <uiIndex>706</uiIndex>
     <szText>Everyone, throw whatever you're doing and help me!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>726</uiIndex>
+    <uiIndex>707</uiIndex>
     <szText>Mmmm... blood.</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>727</uiIndex>
+    <uiIndex>708</uiIndex>
     <szText>I need medical attention!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>728</uiIndex>
+    <uiIndex>709</uiIndex>
     <szText>I'm spilling blood!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>729</uiIndex>
+    <uiIndex>710</uiIndex>
     <szText>I... can't... catch a breath...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>730</uiIndex>
+    <uiIndex>711</uiIndex>
     <szText>My... lungs...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>731</uiIndex>
+    <uiIndex>712</uiIndex>
     <szText>Gas! Oh...</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>732</uiIndex>
+    <uiIndex>713</uiIndex>
     <szText>I can't breath!</szText>
   </TAUNT>
   <TAUNT>
-    <uiIndex>733</uiIndex>
+    <uiIndex>714</uiIndex>
     <szText>It burns!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>715</uiIndex>
+    <szText>Don't worry, I'll send you some!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>716</uiIndex>
+    <szText>I'll show you!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>717</uiIndex>
+    <szText>You'll wish you wouldn't ask!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>718</uiIndex>
+    <szText>You got it wrong, let me educate you!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>719</uiIndex>
+    <szText>Was that a rhetorical question?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>720</uiIndex>
+    <szText>Now whose fault is it, if your cocksucker boss buys second hand guns?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>721</uiIndex>
+    <szText>And soon so will be you!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>722</uiIndex>
+    <szText>The only thing layin' low here, is you bitch!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>723</uiIndex>
+    <szText>Yeah right, that's why you're sweating!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>724</uiIndex>
+    <szText>Guess again! That wasn't your horoscope!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>725</uiIndex>
+    <szText>Advice for today: avoid long travels, new relationships and BULLETS!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>726</uiIndex>
+    <szText>Mine said I will kill a lot of people today! I hope it will come true too!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>727</uiIndex>
+    <szText>Do people seriously believe in these things? Pathetic.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>728</uiIndex>
+    <szText>Tough? I could make that shot with eyes closed.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>729</uiIndex>
+    <szText>And that's just the beginning!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>730</uiIndex>
+    <szText>He loves you no more!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>731</uiIndex>
+    <szText>OK, this one's out. Next!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>732</uiIndex>
+    <szText>You'll be sorry for saying that!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>733</uiIndex>
+    <szText>Well, now we can play hide and seek!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>734</uiIndex>
+    <szText>You're right! It's the whole company here!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>735</uiIndex>
+    <szText>No, loser! You should have used the plural! Guys, lot's of guys!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>736</uiIndex>
+    <szText>Will see about that...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>737</uiIndex>
+    <szText>No, it doesn't, but don't worry, we'll be gentle!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>738</uiIndex>
+    <szText>Nice grammar, asshole!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>739</uiIndex>
+    <szText>Need supplies, wacko?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>740</uiIndex>
+    <szText>Here, I'll give you some!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>741</uiIndex>
+    <szText>No, you just suck, that's it! No air involved!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>742</uiIndex>
+    <szText>Never got this - why bring a knife to a gun fight?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>743</uiIndex>
+    <szText>Funny indeed, we had so much fun with him as a target practice!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>744</uiIndex>
+    <szText>I know some jokes too. For example: you're a joke!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>745</uiIndex>
+    <szText>Hey man, the gun isn't stupid, you are!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>746</uiIndex>
+    <szText>Suits you fine, huh?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>747</uiIndex>
+    <szText>Relax! Why make such a fuss?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>748</uiIndex>
+    <szText>The only thing you're gonna get is your butt kicked!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>749</uiIndex>
+    <szText>Oh yeah? Wait for the next one!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>750</uiIndex>
+    <szText>It was just a warning shot!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>751</uiIndex>
+    <szText>I'll scratch you to death!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>752</uiIndex>
+    <szText>That's not a scratch. It's a fucking canyon!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>753</uiIndex>
+    <szText>No. You need to die!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>754</uiIndex>
+    <szText>I'll dig you one too with it!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>755</uiIndex>
+    <szText>Kiss my ass!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>756</uiIndex>
+    <szText>Fireball? What the fuck do you think this is? Street Fighter Alpha 3?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>757</uiIndex>
+    <szText>It's OK, I'm here. Follow my voice!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>758</uiIndex>
+    <szText>That's what she said!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>759</uiIndex>
+    <szText>Please, let it be a close encounter of the sexy kind!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>760</uiIndex>
+    <szText>We are here, we are queer... fuck, that sounded wrong!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>761</uiIndex>
+    <szText>We are here, we are queer... wait, that came out wrong... oops, this too!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>762</uiIndex>
+    <szText>I'm ready any time you are!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>763</uiIndex>
+    <szText>Why not? Have you never had a threesome?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>764</uiIndex>
+    <szText>Now, now, you're hurting our feelings!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>765</uiIndex>
+    <szText>Come on, there's always a room to try something new!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>766</uiIndex>
+    <szText>Don't worry, it will be just a "gun bang"!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>767</uiIndex>
+    <szText>Guys, she just needs a loaded gun!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>768</uiIndex>
+    <szText>Come over here, I'll give you some.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>769</uiIndex>
+    <szText>Is that how it's called these days?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>770</uiIndex>
+    <szText>I bet that's what you've said the first time too!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>771</uiIndex>
+    <szText>What did you just say? Wolf? We've got plenty of them...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>772</uiIndex>
+    <szText>Oh, now I'm getting jelous.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>773</uiIndex>
+    <szText>I can help you to deal with the grief, if you want!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>774</uiIndex>
+    <szText>We've got plenty of bears too... Hans, come over here!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>775</uiIndex>
+    <szText>Where? Where?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>776</uiIndex>
+    <szText>Maybe I could help you with that?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>777</uiIndex>
+    <szText>You need to empty the chamber...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>778</uiIndex>
+    <szText>But that's nothing new for you, eh?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>779</uiIndex>
+    <szText>Damn, that doesn't even deserve a witty response!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>780</uiIndex>
+    <szText>Are you even listening what you're saying?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>781</uiIndex>
+    <szText>Oh, I'll give you one! Just you wait!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>782</uiIndex>
+    <szText>You should consider changing your masseur. I volunteer!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>783</uiIndex>
+    <szText>Yeah, I bet you did. God.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>784</uiIndex>
+    <szText>Oooh. Not today!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>785</uiIndex>
+    <szText>No!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>786</uiIndex>
+    <szText>Anything for you, princess.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>787</uiIndex>
+    <szText>I work this way on women.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>788</uiIndex>
+    <szText>Are you doing this on purpose?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>789</uiIndex>
+    <szText>Pffft.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>790</uiIndex>
+    <szText>Pffft.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>791</uiIndex>
+    <szText>I'm just going to pretend I didn't hear that.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>792</uiIndex>
+    <szText>Hold on! I'll just drop my clothes, get my rescue tube and I'm coming to save you!</szText>
   </TAUNT>
 </TAUNTS>
