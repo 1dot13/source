@@ -802,7 +802,7 @@ void RenderSelectedItemBlownUp()
 	INT16 sScreenX, sScreenY, xp, yp;
 	ITEM_POOL	*pItemPool;
 	CHAR16 szItemName[ SIZE_ITEM_NAME ];
-	INT32 i;
+	INT32 i, iStackIndex;
 	INT16 sWidth, sHeight, sOffsetX, sOffsetY;
 
 	GetGridNoScreenPos( gsItemGridNo, 0, &sScreenX, &sScreenY );
@@ -866,20 +866,27 @@ void RenderSelectedItemBlownUp()
 		mprintf( xp, yp, L"%d", Item[ gpItem->usItem ].uiIndex );
 	}
 
-	//Count the number of items in the current pool, and display that.
+	//Display current item stack index and number of items in stack
 	i = 0;
 	GetItemPoolFromGround( gsItemGridNo, &pItemPool );
 	Assert( pItemPool );
+	//Count the number of items in the current pool
 	while( pItemPool )
 	{
 		i++;
+		if ( gpItemPool == pItemPool )
+			iStackIndex = i;
 		pItemPool = pItemPool->pNext;
 	}
 	xp = sScreenX;
 	yp = sScreenY + 10;
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_YELLOW );
-	mprintf( xp, yp, L"%d", i );
+	//Omit current item stack index if only 1 item in stack
+	if ( i == 1 )
+		mprintf( xp, yp, L"%d", i );
+	else
+		mprintf( xp - 6, yp, L"%d/%d", iStackIndex , i );	
 
 	//If the item is hidden, render a blinking H (just like DG)
 	if( gWorldItems[ gpItemPool->iItemIndex ].bVisible == HIDDEN_ITEM ||
