@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MapEditorD|Win32">
+      <Configuration>MapEditorD</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MapEditor|Win32">
+      <Configuration>MapEditor</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_WithDebugInfo|Win32">
+      <Configuration>Release_WithDebugInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animated ProgressBar.h" />
+    <ClInclude Include="bink.h" />
+    <ClInclude Include="Cinematics Bink.h" />
+    <ClInclude Include="Cinematics.h" />
+    <ClInclude Include="Cursors.h" />
+    <ClInclude Include="Debug Control.h" />
+    <ClInclude Include="dsutil.h" />
+    <ClInclude Include="Encrypted File.h" />
+    <ClInclude Include="Event Manager.h" />
+    <ClInclude Include="Event Pump.h" />
+    <ClInclude Include="ExportStrings.h" />
+    <ClInclude Include="Font Control.h" />
+    <ClInclude Include="ImportStrings.h" />
+    <ClInclude Include="INIReader.h" />
+    <ClInclude Include="KeyMap.h" />
+    <ClInclude Include="LocalizedStrings.h" />
+    <ClInclude Include="maputility.h" />
+    <ClInclude Include="MercTextBox.h" />
+    <ClInclude Include="message.h" />
+    <ClInclude Include="Multi Language Graphic Utils.h" />
+    <ClInclude Include="Multilingual Text Code Generator.h" />
+    <ClInclude Include="Music Control.h" />
+    <ClInclude Include="PopUpBox.h" />
+    <ClInclude Include="popup_callback.h" />
+    <ClInclude Include="popup_class.h" />
+    <ClInclude Include="popup_definition.h" />
+    <ClInclude Include="Quantize Wrap.h" />
+    <ClInclude Include="Quantize.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Sound Control.h" />
+    <ClInclude Include="STIConvert.h" />
+    <ClInclude Include="Text Input.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="Timer Control.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Utils All.h" />
+    <ClInclude Include="Win Util.h" />
+    <ClInclude Include="WordWrap.h" />
+    <ClInclude Include="XMLWriter.h" />
+    <ClInclude Include="XML_auto_parse.h" />
+    <ClInclude Include="XML_Language.h" />
+    <ClInclude Include="XML_Parser.h" />
+    <ClInclude Include="XML_SenderNameList.h" />
+    <ClInclude Include="_Ja25DutchText.h" />
+    <ClInclude Include="_Ja25EnglishText.h" />
+    <ClInclude Include="_Ja25FrenchText.h" />
+    <ClInclude Include="_Ja25GermanText.h" />
+    <ClInclude Include="_Ja25ItalianText.h" />
+    <ClInclude Include="_Ja25PolishText.h" />
+    <ClInclude Include="_Ja25RussianText.h" />
+    <ClInclude Include="_Ja25TaiwaneseText.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Animated ProgressBar.cpp" />
+    <ClCompile Include="Cinematics Bink.cpp" />
+    <ClCompile Include="Cinematics.cpp" />
+    <ClCompile Include="Cursors.cpp" />
+    <ClCompile Include="Debug Control.cpp" />
+    <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="Encrypted File.cpp" />
+    <ClCompile Include="Event Manager.cpp" />
+    <ClCompile Include="Event Pump.cpp" />
+    <ClCompile Include="ExportStrings.cpp" />
+    <ClCompile Include="Font Control.cpp" />
+    <ClCompile Include="ImportStrings.cpp" />
+    <ClCompile Include="INIReader.cpp" />
+    <ClCompile Include="KeyMap.cpp" />
+    <ClCompile Include="LocalizedStrings.cpp" />
+    <ClCompile Include="MapUtility.cpp" />
+    <ClCompile Include="MercTextBox.cpp" />
+    <ClCompile Include="message.cpp" />
+    <ClCompile Include="Multi Language Graphic Utils.cpp" />
+    <ClCompile Include="Multilingual Text Code Generator.cpp" />
+    <ClCompile Include="Music Control.cpp" />
+    <ClCompile Include="PopUpBox.cpp" />
+    <ClCompile Include="popup_class.cpp" />
+    <ClCompile Include="popup_definition.cpp" />
+    <ClCompile Include="Quantize Wrap.cpp" />
+    <ClCompile Include="Quantize.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Sound Control.cpp" />
+    <ClCompile Include="STIConvert.cpp" />
+    <ClCompile Include="Text Input.cpp" />
+    <ClCompile Include="Text Utils.cpp" />
+    <ClCompile Include="Timer Control.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Win Util.cpp" />
+    <ClCompile Include="WordWrap.cpp" />
+    <ClCompile Include="XMLProperties.cpp" />
+    <ClCompile Include="XMLWriter.cpp" />
+    <ClCompile Include="XML_Items.cpp" />
+    <ClCompile Include="XML_Language.cpp" />
+    <ClCompile Include="XML_SenderNameList.cpp" />
+    <ClCompile Include="_ChineseText.cpp" />
+    <ClCompile Include="_DutchText.cpp" />
+    <ClCompile Include="_EnglishText.cpp" />
+    <ClCompile Include="_FrenchText.cpp" />
+    <ClCompile Include="_GermanText.cpp" />
+    <ClCompile Include="_ItalianText.cpp" />
+    <ClCompile Include="_Ja25ChineseText.cpp" />
+    <ClCompile Include="_Ja25DutchText.cpp" />
+    <ClCompile Include="_Ja25EnglishText.cpp" />
+    <ClCompile Include="_Ja25FrenchText.cpp" />
+    <ClCompile Include="_Ja25GermanText.cpp" />
+    <ClCompile Include="_Ja25ItalianText.cpp" />
+    <ClCompile Include="_Ja25PolishText.cpp" />
+    <ClCompile Include="_Ja25RussianText.cpp" />
+    <ClCompile Include="_Ja25TaiwaneseText.cpp" />
+    <ClCompile Include="_PolishText.cpp" />
+    <ClCompile Include="_RussianText.cpp" />
+    <ClCompile Include="_TaiwaneseText.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{082F6E91-D049-4314-BE9D-D9509E853B01}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Utils</RootNamespace>
+    <ProjectName>Utils</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Debug.props" />
+    <Import Project="..\ja2_Editor.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Editor.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

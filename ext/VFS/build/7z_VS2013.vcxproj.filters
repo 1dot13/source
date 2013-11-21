@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\ext\7z\src\7z.h" />
+    <ClInclude Include="..\ext\7z\src\7zAlloc.h" />
+    <ClInclude Include="..\ext\7z\src\7zBuf.h" />
+    <ClInclude Include="..\ext\7z\src\7zCrc.h" />
+    <ClInclude Include="..\ext\7z\src\7zFile.h" />
+    <ClInclude Include="..\ext\7z\src\7zVersion.h" />
+    <ClInclude Include="..\ext\7z\src\Alloc.h" />
+    <ClInclude Include="..\ext\7z\src\Bcj2.h" />
+    <ClInclude Include="..\ext\7z\src\Bra.h" />
+    <ClInclude Include="..\ext\7z\src\CpuArch.h" />
+    <ClInclude Include="..\ext\7z\src\Delta.h" />
+    <ClInclude Include="..\ext\7z\src\LzFind.h" />
+    <ClInclude Include="..\ext\7z\src\LzFindMt.h" />
+    <ClInclude Include="..\ext\7z\src\LzHash.h" />
+    <ClInclude Include="..\ext\7z\src\Lzma2Dec.h" />
+    <ClInclude Include="..\ext\7z\src\Lzma2Enc.h" />
+    <ClInclude Include="..\ext\7z\src\Lzma86.h" />
+    <ClInclude Include="..\ext\7z\src\LzmaDec.h" />
+    <ClInclude Include="..\ext\7z\src\LzmaEnc.h" />
+    <ClInclude Include="..\ext\7z\src\LzmaLib.h" />
+    <ClInclude Include="..\ext\7z\src\MtCoder.h" />
+    <ClInclude Include="..\ext\7z\src\Ppmd.h" />
+    <ClInclude Include="..\ext\7z\src\Ppmd7.h" />
+    <ClInclude Include="..\ext\7z\src\RotateDefs.h" />
+    <ClInclude Include="..\ext\7z\src\Sha256.h" />
+    <ClInclude Include="..\ext\7z\src\Threads.h" />
+    <ClInclude Include="..\ext\7z\src\Types.h" />
+    <ClInclude Include="..\ext\7z\src\Xz.h" />
+    <ClInclude Include="..\ext\7z\src\XzCrc64.h" />
+    <ClInclude Include="..\ext\7z\src\XzEnc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ext\7z\src\7zAlloc.c" />
+    <ClCompile Include="..\ext\7z\src\7zBuf.c" />
+    <ClCompile Include="..\ext\7z\src\7zBuf2.c" />
+    <ClCompile Include="..\ext\7z\src\7zCrc.c" />
+    <ClCompile Include="..\ext\7z\src\7zCrcOpt.c" />
+    <ClCompile Include="..\ext\7z\src\7zDec.c" />
+    <ClCompile Include="..\ext\7z\src\7zFile.c" />
+    <ClCompile Include="..\ext\7z\src\7zIn.c" />
+    <ClCompile Include="..\ext\7z\src\7zStream.c" />
+    <ClCompile Include="..\ext\7z\src\Alloc.c" />
+    <ClCompile Include="..\ext\7z\src\Bcj2.c" />
+    <ClCompile Include="..\ext\7z\src\Bra.c" />
+    <ClCompile Include="..\ext\7z\src\Bra86.c" />
+    <ClCompile Include="..\ext\7z\src\BraIA64.c" />
+    <ClCompile Include="..\ext\7z\src\CpuArch.c" />
+    <ClCompile Include="..\ext\7z\src\Delta.c" />
+    <ClCompile Include="..\ext\7z\src\LzFind.c" />
+    <ClCompile Include="..\ext\7z\src\LzFindMt.c" />
+    <ClCompile Include="..\ext\7z\src\Lzma2Dec.c" />
+    <ClCompile Include="..\ext\7z\src\Lzma2Enc.c" />
+    <ClCompile Include="..\ext\7z\src\Lzma86Dec.c" />
+    <ClCompile Include="..\ext\7z\src\Lzma86Enc.c" />
+    <ClCompile Include="..\ext\7z\src\LzmaDec.c" />
+    <ClCompile Include="..\ext\7z\src\LzmaEnc.c" />
+    <ClCompile Include="..\ext\7z\src\LzmaLib.c" />
+    <ClCompile Include="..\ext\7z\src\MtCoder.c" />
+    <ClCompile Include="..\ext\7z\src\Ppmd7.c" />
+    <ClCompile Include="..\ext\7z\src\Ppmd7Dec.c" />
+    <ClCompile Include="..\ext\7z\src\Ppmd7Enc.c" />
+    <ClCompile Include="..\ext\7z\src\Sha256.c" />
+    <ClCompile Include="..\ext\7z\src\Threads.c" />
+    <ClCompile Include="..\ext\7z\src\Xz.c" />
+    <ClCompile Include="..\ext\7z\src\XzCrc64.c" />
+    <ClCompile Include="..\ext\7z\src\XzDec.c" />
+    <ClCompile Include="..\ext\7z\src\XzEnc.c" />
+    <ClCompile Include="..\ext\7z\src\XzIn.c" />
+  </ItemGroup>
+</Project>
