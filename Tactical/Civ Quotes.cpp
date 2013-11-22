@@ -1047,7 +1047,7 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 //--------------------------------------------------------------
 
 // anv: start enemy taunt with probabilty depending on taunt settings
-void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget )
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )
 {
 	// taunts disabled?
 	if( gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == FALSE )
@@ -1243,7 +1243,7 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *p
 }
 
 // SANDRO - soldier taunts 
-void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget )
+void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )
 {
 	UINT16	iTauntNumber;
 	CHAR16	sTauntText[320];	

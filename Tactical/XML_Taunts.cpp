@@ -21,7 +21,7 @@ struct
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
-typedef enemyRankParseData;
+typedef tauntParseData;
 
 BOOLEAN localizedTextOnly_Taunts;
 
@@ -30,7 +30,7 @@ UINT16 num_found_taunt = 0;	// the correct number is set on reading the xml
 static void XMLCALL
 tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
-	enemyRankParseData * pData = (enemyRankParseData *)userData;
+	tauntParseData * pData = (tauntParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
 	{
@@ -202,7 +202,7 @@ tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 static void XMLCALL
 tauntCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
-	enemyRankParseData * pData = (enemyRankParseData *)userData;
+	tauntParseData * pData = (tauntParseData *)userData;
 
 	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
@@ -214,7 +214,7 @@ tauntCharacterDataHandle(void *userData, const XML_Char *str, int len)
 static void XMLCALL
 tauntEndElementHandle(void *userData, const XML_Char *name)
 {
-	enemyRankParseData * pData = (enemyRankParseData *)userData;
+	tauntParseData * pData = (tauntParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) 
 	{
@@ -272,8 +272,8 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 						pData->curTaunt.uiFlags2 |= TAUNT_C_VETERAN;
 					}
 
-					//pData->curArray[pData->curTaunt.uiIndex] = pData->curTaunt;
-					pData->curArray[num_found_taunt-1] = pData->curTaunt;
+					pData->curArray[pData->curTaunt.uiIndex] = pData->curTaunt;
+					//pData->curArray[num_found_taunt-1] = pData->curTaunt;
 				}
 			}	
 			num_found_taunt++;
@@ -931,7 +931,7 @@ BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion)
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
-	enemyRankParseData pData;
+	tauntParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading EnemyTaunts.xml" );
 
@@ -962,11 +962,10 @@ BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion)
 
 
 	memset(&pData,0,sizeof(pData));
-	pData.curArray = zTaunt;
+	pData.curArray = &(zTaunt[num_found_taunt]);
 	pData.maxArraySize = NUM_TAUNT;
 
 	XML_SetUserData(parser, &pData);
-
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];

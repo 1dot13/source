@@ -206,7 +206,7 @@ extern BACKGROUND_VALUES zBackground[NUM_BACKGROUND];
 extern UINT16 num_found_background;		// the correct number is set on reading the xml
 
 // anv: enums for externalised taunts
-enum {
+enum TAUNTPROPERTY{
 
 	// progress
 	TAUNT_PROGRESS_LT,

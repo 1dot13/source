@@ -5917,30 +5917,30 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 				}
 			}
 			DecayIndividualOpplist( this );
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_BLINDED, MercPtrs[ubAttackerID]);
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_DEAFENED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, MercPtrs[ubAttackerID]);
 			break;
 
 		case FIRE_WEAPON_BLINDED:
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_BLINDED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, MercPtrs[ubAttackerID]);
 			break;
 
 		case FIRE_WEAPON_DEAFENED:
 			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier is deafened" );		
 			this->bDeafenedCounter = bDeafValue;
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_DEAFENED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, MercPtrs[ubAttackerID]);
 			break;
 		};
 
 		if ( usWeaponIndex == STRUCTURE_EXPLOSION )
 		{
 			ubReason = TAKE_DAMAGE_STRUCTURE_EXPLOSION;
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_HIT_STRUCTURE_EXPLOSION, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_STRUCTURE_EXPLOSION, MercPtrs[ubAttackerID]);
 		}
 		else
 		{
 			ubReason = TAKE_DAMAGE_EXPLOSION;
-			PossiblyStartEnemyTaunt( this, TAUNT_S_GOT_HIT_EXPLOSION, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, MercPtrs[ubAttackerID]);
 		}
 	}
 	else

@@ -74,7 +74,7 @@ enum
 	NUM_CIV_QUOTES
 };
 
-enum //enemy taunts - SANDRO
+enum TAUNTTYPE//enemy taunts - SANDRO
 {
 	// actions
 	TAUNT_FIRE_GUN,
@@ -154,8 +154,8 @@ enum //enemy taunts - SANDRO
 	TAUNT_RIPOSTE	
 };
 
-void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget = NULL );
-void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType, SOLDIERTYPE *pTarget = NULL ); //enemy taunts - SANDRO // anv: added pTarget argument
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget = NULL );
+void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget = NULL ); //enemy taunts - SANDRO // anv: added pTarget argument
 void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote );
 
 void InitCivQuoteSystem( );
