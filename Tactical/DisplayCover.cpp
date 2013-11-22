@@ -1007,7 +1007,7 @@ void CalculateMines()
 	BOOLEAN fWithMineDetector = FALSE;
 	if ( pSoldier && gubDrawModeMine == MINES_DRAW_DETECT_ENEMY )
 	{
-		if ( FindMetalDetectorInHand(pSoldier) )
+		if ( FindMetalDetectorInHand(pSoldier) != NO_SLOT )
 			fWithMineDetector = TRUE;
 
 		// TODO: perhaps even consume batteries one day...

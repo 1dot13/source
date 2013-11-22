@@ -8018,11 +8018,14 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 		else
 			ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_4;
 
+		// sevenfm: fixed incorrect hierarchy calculation
+		if(netnr == 0)
+			hierarchytimesfour -= 4;
 		if ( 0 == hierarchytimesfour )
 			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_1;
-		else if ( 1 == hierarchytimesfour )
+		else if ( 4 == hierarchytimesfour )
 			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_2;
-		else if ( 2 == hierarchytimesfour )
+		else if ( 8 == hierarchytimesfour )
 			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_3;
 		else
 			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_4;
