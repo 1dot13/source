@@ -1860,7 +1860,7 @@
 		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner.</szItemDesc>
 		<szBRName>M72A4 LAW</szBRName>
 		<szBRDesc>The M72A2 Light Anti-Tank Weapon is a light-weight shoulder-fired rocket launcher which can penetrate a foot of tank armour or destroy small battlefield fortifications.  A one-shot weapon of awesome destructive power.</szBRDesc>
-		<usItemClass>2</usItemClass>
+		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>51</ubClassIndex>
 		<ubCursor>3</ubCursor>
