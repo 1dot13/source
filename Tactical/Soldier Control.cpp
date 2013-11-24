@@ -16209,6 +16209,49 @@ void	SOLDIERTYPE::DropSectorEquipment()
 	}
 }
 
+// sevenfm: take item from inventory to HANDPOS
+void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
+{
+	INT8 i;
+	OBJECTTYPE* pObj = NULL;
+	INT8 invsize = (INT8)this->inv.size();
+
+	if ( !UsingNewInventorySystem() )
+		return;
+	
+	if(this->inv[HANDPOS].exists())
+		return;
+
+	if(Item[item].tripwire)
+		return;
+	
+	// search for item with same id
+	for ( i = 0; i < invsize; i++)
+	{
+		if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == item ) )
+		{
+			this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
+			return;
+		}
+	}
+
+	// search for any item with class IC_BOMB
+	// take tripwire-activated item only if used item is tripwire activated
+	for ( i = 0; i < invsize; i++)
+	{	
+		if ( this->inv[i].exists() == true &&
+			Item[ this->inv[i].usItem ].usItemClass == IC_BOMB &&
+			Item[ this->inv[i].usItem ].ubCursor == BOMBCURS &&
+			!Item[ this->inv[i].usItem ].tripwire &&
+			( ( Item[ this->inv[i].usItem ].tripwireactivation && Item[item].tripwireactivation ) ||
+				( !Item[ this->inv[i].usItem ].tripwireactivation && !Item[item].tripwireactivation ) ) )
+		{
+			this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
+			return;
+		}
+	}
+}
+
 //  Flugente: switch hand item for gunsling weapon, or pistol, or knife
 void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 {

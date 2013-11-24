@@ -65,6 +65,8 @@
 	// added by Flugente
 	#include "drugs and alcohol.h"
 	#include "Food.h"
+	// added by sevenfm - this is needed for _keydown(SHIFT) to work
+	#include "english.h"
 #endif
 
 #ifdef JA2UB
@@ -79,6 +81,8 @@
 
 ITEM_POOL_LOCATOR				FlashItemSlots[ NUM_ITEM_FLASH_SLOTS ];
 UINT32									guiNumFlashItemSlots = 0;
+// sevenfm: remember network settings for last planted tripwire
+UINT8 gubLastTripwire = 0;
 
 
 LEVELNODE *AddItemGraphicToWorld( INVTYPE *pItem, INT32 sGridNo, UINT8 ubLevel );
@@ -1820,12 +1824,17 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				gTempObject[0]->data.bDefuseFrequency = 0;
 
 				// we now know there is something nasty here
-				// sevenfm: do not add mine present flag if remote detonator attached
-				if(! HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_REMOTEDET | AC_DEFUSE) ) )
-					gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+				gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 
 				if (pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1) == 0) {
 					AddItemToPool( sGridNo, &gTempObject, BURIED, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
+					// sevenfm: take another item with same id from inventory, only REALTIME
+					if(gGameExternalOptions.bImprovedBombPlanting &&
+						!( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
+						!pSoldier->inv[HANDPOS].exists() && _KeyDown( SHIFT ))
+					{	
+						pSoldier->TakeNewBombFromIventory(gTempObject.usItem);
+					}
 				}
 			}
 			else
@@ -4877,8 +4886,12 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		wcscpy( gzUserDefinedButton[13], L"4-B" );
 		wcscpy( gzUserDefinedButton[14], L"4-C" );
 		wcscpy( gzUserDefinedButton[15], L"4-D" );
-
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
+		
+		// sevenfm: if SHIFT is pressed - plant tripwire with last network settings
+		if( gGameExternalOptions.bImprovedBombPlanting && _KeyDown( SHIFT ) && gubLastTripwire > 0 )
+			BombMessageBoxCallBack(gubLastTripwire);
+		else
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
 }
 
@@ -4971,6 +4984,10 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (gpTempSoldier)
 	{
+		// sevenfm: remember last tripwire network settings
+		if(Item[ gpTempSoldier->inv[HANDPOS].usItem ].tripwire )
+			gubLastTripwire = ubExitValue;
+
 		if (Item[ gpTempSoldier->inv[HANDPOS].usItem ].remotetrigger )
 		{
 			SetOffBombsByFrequency( gpTempSoldier->ubID, ubExitValue );

@@ -1726,6 +1726,9 @@ public:
 
 	void		DropSectorEquipment();
 
+	// sevenfm: Take new bomb with id = usItem from iventory to HANDPOS
+	void 		TakeNewBombFromIventory(UINT16 usItem);
+
 	// Flugente: switch hand item for gunsling weapon, or pistol, or knife
 	void		SwitchWeapons( BOOLEAN fKnife = FALSE, BOOLEAN fSideArm = FALSE );
 

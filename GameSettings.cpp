@@ -1352,6 +1352,9 @@ void LoadGameExternalOptions()
 	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
 	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
 
+	// Automatically take new mine from inventory, use last tripwire network settings
+	gGameExternalOptions.bImprovedBombPlanting				= iniReader.ReadBoolean("Tactical Interface Settings","IMPROVED_BOMB_PLANTING",FALSE);
+
 	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
 	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
 	 

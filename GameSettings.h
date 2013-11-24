@@ -796,6 +796,7 @@ typedef struct
 	BOOLEAN	bAddSmokeAfterExplosion;				
 	BOOLEAN	bAllowExplosiveAttachments;				
 	BOOLEAN	bAllowSpecialExplosiveAttachments;		
+	BOOLEAN	bImprovedBombPlanting;
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
 	FLOAT uShotHeadPenalty;
