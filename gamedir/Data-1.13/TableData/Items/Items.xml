@@ -28630,7 +28630,7 @@
 		<szItemDesc>With this baby, you can turn a pool party into a BBQ.  Literally.</szItemDesc>
 		<szBRName>RPO-M Shmel</szBRName>
 		<szBRDesc>With the RPO-A Shmel thermobaric rocket launcher, you can turn a pool party into a BBQ.  Literally.  NEWS UPDATE: We now stock the improved Shmel-M.</szBRDesc>
-		<usItemClass>2</usItemClass>
+		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>918</ubClassIndex>
 		<ubCursor>3</ubCursor>
