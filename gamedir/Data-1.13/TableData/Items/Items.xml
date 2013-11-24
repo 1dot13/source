@@ -28554,7 +28554,7 @@
 		<szItemDesc>WARNING: DO NOT AIM AT FACE.</szItemDesc>
 		<szBRName>RPG-26 Aglen</szBRName>
 		<szBRDesc>For the times when flowers just don't cut it: say it with high explosive rocket propelled grenades.</szBRDesc>
-		<usItemClass>2</usItemClass>
+		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>916</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -28592,7 +28592,7 @@
 		<szItemDesc>A top of the line RPG launcher with improved range and accuracy.</szItemDesc>
 		<szBRName>RPG-27 Tavolga</szBRName>
 		<szBRDesc>The RPG-27 Tavolga is a further development of rocket propelled grenade launchers, and is endowed with increased range and accuracy.</szBRDesc>
-		<usItemClass>2</usItemClass>
+		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>917</ubClassIndex>
 		<ubCursor>3</ubCursor>
