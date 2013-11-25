@@ -681,7 +681,7 @@ samsiteEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = SAMSITE_ELEMENT_SAM;
 
 			pData->curSamInfo.samGridNoA = atol(pData->szCharData);
-			if ( pData->curSamInfo.samGridNoA >= WORLD_MAX )
+			if ( pData->curSamInfo.samGridNoA >= MAX_ALLOWED_WORLD_MAX )
 			{
 				pData->curSamInfo.samGridNoA = 0;
 			}
@@ -691,7 +691,7 @@ samsiteEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = SAMSITE_ELEMENT_SAM;
 
 			pData->curSamInfo.samGridNoB = atol(pData->szCharData);
-			if ( pData->curSamInfo.samGridNoB >= WORLD_MAX )
+			if ( pData->curSamInfo.samGridNoB >= MAX_ALLOWED_WORLD_MAX )
 			{
 				pData->curSamInfo.samGridNoB = 1;
 			}
@@ -3416,7 +3416,6 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 	INT8		bTownNameID;
 	UINT8 ubSectorID = 0;
 	UINT8 ubLandType = 0;
-	UINT8 ubMineIndex;
 
 	if( sSectorX <= 0 || sSectorY <= 0 || bSectorZ < 0 )
 	{
@@ -3721,7 +3720,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 							if( fDetailed )
 							{
 								/*
-								ubMineIndex = GetMineIndexForSector( sSectorX, sSectorY );
+								UINT8 ubMineIndex = GetMineIndexForSector( sSectorX, sSectorY );
 								if ( gMineStatus[ubMineIndex].sSectorX == sSectorX && gMineStatus[ubMineIndex].sSectorY == sSectorY )
 								{
 									swprintf( zString, L" %s", MineralsName[gMineStatus[ubMineIndex].ubMineType].sType );

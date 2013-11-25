@@ -417,7 +417,7 @@ helisiteEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = HELISITE_ELEMENT_REFUEL;
 
 			pData->curHeliInfo.refuelHeliGridNo = atol(pData->szCharData);
-			if ( pData->curHeliInfo.refuelHeliGridNo >= WORLD_MAX )
+			if ( pData->curHeliInfo.refuelHeliGridNo >= MAX_ALLOWED_WORLD_MAX )
 			{
 				pData->curHeliInfo.refuelHeliGridNo = 0;
 			}
@@ -427,7 +427,7 @@ helisiteEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = HELISITE_ELEMENT_REFUEL;
 
 			pData->curHeliInfo.refuelSkyriderGridNo = atol(pData->szCharData);
-			if ( pData->curHeliInfo.refuelSkyriderGridNo >= WORLD_MAX )
+			if ( pData->curHeliInfo.refuelSkyriderGridNo >= MAX_ALLOWED_WORLD_MAX )
 			{
 				pData->curHeliInfo.refuelSkyriderGridNo = 0;
 			}
