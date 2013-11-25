@@ -1049,6 +1049,9 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 // anv: start enemy taunt with probabilty depending on taunt settings
 void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )
 {
+	if (is_networked)	// No taunts in multiplayer
+		return;
+
 	// taunts disabled?
 	if( gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == FALSE )
 	{

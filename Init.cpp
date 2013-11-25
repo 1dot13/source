@@ -1017,41 +1017,45 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	}
 #endif
 
+	// WANNE: Only in a singleplayer game...
 	// Externalised taunts
-	GETFILESTRUCT FileInfo;
-	char tauntFileNamePattern[MAX_PATH];
-	strcpy(tauntFileNamePattern, directoryName);
-	strcat(tauntFileNamePattern, TAUNTSFILENAMEBEGINNING"*"TAUNTSFILENAMEENDING);
-	if( GetFileFirst(tauntFileNamePattern, &FileInfo) )
+	if (!is_networked)
 	{
-		strcpy(fileName, directoryName);
-		strcat(fileName, FileInfo.zFileName);
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), fileName);
-		}
-#endif
-		while( GetFileNext(&FileInfo) )
+		GETFILESTRUCT FileInfo;
+		char tauntFileNamePattern[MAX_PATH];
+		strcpy(tauntFileNamePattern, directoryName);
+		strcat(tauntFileNamePattern, TAUNTSFILENAMEBEGINNING"*"TAUNTSFILENAMEENDING);
+		if( GetFileFirst(tauntFileNamePattern, &FileInfo) )
 		{
 			strcpy(fileName, directoryName);
 			strcat(fileName, FileInfo.zFileName);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
-#ifndef ENGLISH
+	#ifndef ENGLISH
 			AddLanguagePrefix(fileName);
 			if ( FileExists(fileName) )
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 				SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), fileName);
 			}
-#endif
+	#endif
+			while( GetFileNext(&FileInfo) )
+			{
+				strcpy(fileName, directoryName);
+				strcat(fileName, FileInfo.zFileName);
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+				SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
+	#ifndef ENGLISH
+				AddLanguagePrefix(fileName);
+				if ( FileExists(fileName) )
+				{
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+					SGP_THROW_IFFALSE(ReadInTaunts(fileName,TRUE), fileName);
+				}
+	#endif
+			}
+			GetFileClose(&FileInfo);
 		}
-		GetFileClose(&FileInfo);
 	}
 
 	// IMP Portraits List by Jazz

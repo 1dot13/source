@@ -1708,24 +1708,28 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
         case AI_ACTION_LEAVE_WATER_GAS:       // seek nearest spot of ungassed land
         case AI_ACTION_SEEK_NOISE:            // seek most important noise heard
         case AI_ACTION_RUN_AWAY:              // run away from nearby opponent(s)
-            // SANDRO - ENEMY TAUNTS
-            if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
-				( ( pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 ) ||
-				( pSoldier->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 ) ) )
-            {
-                if (pSoldier->aiData.bAction == AI_ACTION_SEEK_NOISE )
-                    PossiblyStartEnemyTaunt( pSoldier, TAUNT_SEEK_NOISE );
-                else if (pSoldier->aiData.bAction == AI_ACTION_RUN_AWAY )
-                    PossiblyStartEnemyTaunt( pSoldier, TAUNT_RUN_AWAY );
-#ifdef ENABLE_ZOMBIES
-				if ( Random( 5 ) == 0 )
-                {
-                    if ( pSoldier->IsZombie() ) // Madd:  Zombies randomly moan...
-                        pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_LAUGH1 ) );
 
-                }
-#endif
-            }
+			if (!is_networked)
+			{
+				// SANDRO - ENEMY TAUNTS
+				if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && 
+					( ( pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 ) ||
+					( pSoldier->bTeam == MILITIA_TEAM && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 ) ) )
+				{
+					if (pSoldier->aiData.bAction == AI_ACTION_SEEK_NOISE )
+						PossiblyStartEnemyTaunt( pSoldier, TAUNT_SEEK_NOISE );
+					else if (pSoldier->aiData.bAction == AI_ACTION_RUN_AWAY )
+						PossiblyStartEnemyTaunt( pSoldier, TAUNT_RUN_AWAY );
+	#ifdef ENABLE_ZOMBIES
+					if ( Random( 5 ) == 0 )
+					{
+						if ( pSoldier->IsZombie() ) // Madd:  Zombies randomly moan...
+							pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_LAUGH1 ) );
+
+					}
+	#endif
+				}
+			}
         case AI_ACTION_APPROACH_MERC:				 // walk up to someone to talk
         case AI_ACTION_TRACK:								 // track by ground scent
         case AI_ACTION_EAT:									 // monster approaching corpse
@@ -1955,11 +1959,14 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             }
 
             // CC, ATE here - I put in some TEMP randomness...
-            if ( Random( 50 ) == 0 && gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == FALSE &&
-					IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE && pSoldier->bVisible != -1)
-            {
-                StartCivQuote( pSoldier );
-            }
+			if (!is_networked)
+			{
+				if ( Random( 50 ) == 0 && gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == FALSE &&
+						IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE && pSoldier->bVisible != -1)
+				{
+					StartCivQuote( pSoldier );
+				}
+			}
 #ifdef RECORDNET
             fprintf(NetDebugFile,"\tExecuteAction: %d calling HandleItem(), inHand %d, actionData %d, anitype %d, oldani %d\n",
                 pSoldier->ubID,pSoldier->inv[HANDPOS].item,pSoldier->aiData.usActionData,pSoldier->anitype[pSoldier->anim],pSoldier->oldani);
