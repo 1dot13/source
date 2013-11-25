@@ -1251,7 +1251,11 @@ typedef enum ePOCKET_TYPE
 #define FIRST_ARMOUR 161
 #define FIRST_MISC 201
 #define FIRST_KEY 271
+#ifdef JA2EDITOR
 #define OLD_MAXITEMS 351//dnl ch74 191013
+#else
+#define OLD_MAXITEMS MAXITEMS
+#endif
 #define NOTHING NONE
 typedef enum
 {

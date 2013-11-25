@@ -919,7 +919,7 @@ void RenderEditorInfo( )
 	{
 		INT16 sGridX, sGridY;
 		GetMouseXY(&sGridX, &sGridY);
-		swprintf(FPSText, L"%4d %4d %6d", sGridX, sGridY, iMapIndexD);
+		swprintf(FPSText, L"%4d %4d %6d ", sGridX, sGridY, iMapIndexD);
 	}
 	else
 		swprintf(FPSText, L"                  ");
@@ -1045,8 +1045,6 @@ void ProcessEditorRendering()
 			RenderDoorLockInfo();
 	}
 
-
-
 	if( fSaveBuffer )
 		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 2 * iScreenHeightOffset + 360, SCREEN_WIDTH, 120 );
 
@@ -1054,9 +1052,8 @@ void ProcessEditorRendering()
 	//It is set to false when before we save the buffer, so the buttons don't get
 	//rendered with hilites, in case the mouse is over one.
 	gfRenderHilights = TRUE;
-
-	RenderButtonsFastHelp();
-
+	if(!gfSummaryWindowActive)//dnl ch77 131113
+		RenderButtonsFastHelp();
 }
 
 

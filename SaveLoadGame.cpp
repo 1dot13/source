@@ -2976,20 +2976,7 @@ BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorM
 		this->AttachObject(NULL,&defaultAttachment, FALSE);
 	}
 #else
-	if(this->usItem && (gGameOptions.ubAttachmentSystem || gfEditMode))
-	{
-		RemoveProhibitedAttachments(NULL, this, this->usItem);
-		//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
-		//this should fix that...
-		for(UINT8 cnt=0; cnt<MAX_DEFAULT_ATTACHMENTS; cnt++)
-		{
-			if(Item[this->usItem].defaultattachments[cnt] == NONE || !(gGameOptions.ubAttachmentSystem && Item[Item[this->usItem].defaultattachments[cnt]].inseparable || gfEditMode))
-				break;
-			OBJECTTYPE defaultAttachment;
-			CreateItem(Item[this->usItem].defaultattachments[cnt], (*this)[0]->data.gun.bGunStatus, &defaultAttachment);
-			this->AttachObject(NULL, &defaultAttachment, FALSE);
-		}
-	}
+	AttachDefaultAttachments(this);//dnl ch75 261013
 #endif
 	return TRUE;
 }

@@ -159,7 +159,8 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	}
 
 	//dnl ch49 061009
-	FileDelete(cOutputName);// If file exist FileOpen will not truncate, so delete.
+	if(FileExists(cOutputName))//dnl ch77 111113
+		FileDelete(cOutputName);// If file exist FileOpen will not truncate, so delete.
 	HWFILE hFile = FileOpen(cOutputName, FILE_ACCESS_WRITE|FILE_CREATE_ALWAYS, FALSE);
 	if(!hFile)
 		return;

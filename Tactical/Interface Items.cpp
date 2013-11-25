@@ -5015,6 +5015,23 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		return FALSE;
 	}
 
+	//dnl ch77 251113 create attachment slots if not exist for NAS or remove empty slots for OAS
+	if(UsingNewAttachmentSystem())
+	{
+		if((*pObject)[ubStatusIndex]->attachments.empty())
+			InitItemAttachments(pObject);
+	}
+	else
+	{
+		attachmentList::iterator iter = (*pObject)[ubStatusIndex]->attachments.begin();
+		while(iter != (*pObject)[ubStatusIndex]->attachments.end())
+		{
+			if((*iter).exists())
+				++iter;
+			else
+				iter = (*pObject)[ubStatusIndex]->attachments.erase(iter);
+		}
+	}
 
 	//Set the current screen
 	guiCurrentItemDescriptionScreen = guiCurrentScreen;

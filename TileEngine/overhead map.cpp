@@ -99,6 +99,11 @@ INT32 giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
 INT32 giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
 
 extern BOOLEAN gfValidLocationsChanged;//dnl ch45 051009
+#ifdef JA2EDITOR
+extern UINT32 guiBigMap;//dnl ch77 121113
+#else
+#define guiBigMap FRAME_BUFFER
+#endif
 
 void HandleOverheadUI( );
 void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason);
@@ -860,7 +865,6 @@ INT16 GetModifiedOffsetLandHeight( INT32 sGridNo )
 	return( sModifiedTileHeight );
 }
 
-
 void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS, BOOLEAN fFromMapUtility )
 {
 	INT8				bXOddFlag = 0;
@@ -872,8 +876,10 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 	BOOLEAN			fEndRenderRow = FALSE, fEndRenderCol = FALSE;
 	INT32			usTileIndex;
 	INT16				sX, sY;
-	UINT32			uiDestPitchBYTES;
-	UINT8				*pDestBuf;
+	//dnl ch77 111113 moved declarations from below
+	UINT32			uiDestPitchBYTES, uiSrcPitchBYTES, uiBigMap=(fFromMapUtility?guiBigMap:FRAME_BUFFER);
+	UINT8			*pDestBuf, *pSrcBuf, ubBitDepth;
+	UINT16			usWidth, usHeight;
 	LEVELNODE		*pNode;
 	SMALL_TILE_DB	*pTile;
 	INT16				sHeight;
@@ -894,10 +900,10 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		// Black color for the background!
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, sStartPointX_S, sStartPointY_S, sEndXS,	sEndYS, 0 );
 
-		if(gfTacticalPlacementGUIActive)//dnl ch45 021009 Skip overwrite buttons area which is not refresh during scroll
-			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-160, 0);
+		if(gfTacticalPlacementGUIActive)//dnl ch45 021009 Skip overwrite buttons area which is not refresh during scroll //dnl ch77 211113
+			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-160, 0);
 		else
-			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-120, 0);
+			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-120, 0);
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		InvalidateScreen();
@@ -913,8 +919,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 
 		// Zero out area!
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, (INT16)(640), (INT16)(gsVIEWPORT_WINDOW_END_Y), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+		pDestBuf = LockVideoSurface(uiBigMap, &uiDestPitchBYTES);//dnl ch77 211113
 
 		// Nur Karte und position der gebäude
 		do
@@ -1239,37 +1244,33 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			}
 			while( !fEndRenderCol );
 		}
-
-		UnLockVideoSurface( FRAME_BUFFER );
-
+		//dnl ch77 211113
+		UnLockVideoSurface(uiBigMap);
 		// OK, blacken out edges of smaller maps...
 		if ( gMapInformation.ubRestrictedScrollID != 0 )
 		{
 			CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 			CalculateRestrictedMapCoords( EAST, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 			CalculateRestrictedMapCoords( SOUTH, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 			CalculateRestrictedMapCoords( WEST, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		}
 		//DBrot: bigger overview code
 		if(!fFromMapUtility){//LJDOldSM
 			if(gfUseBiggerOverview && iResolution >= _1680x1050){
-				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
+				BltVideoObjectFromIndex(uiBigMap, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
 			}else{	
-			BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
+			BltVideoObjectFromIndex(uiBigMap, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
 			}
 		}
-		// Update the save buffer
-		UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
-		UINT8	*pDestBuf, *pSrcBuf;
-		UINT16 usWidth, usHeight;
-		UINT8	ubBitDepth;
+		else
+			return;
 		// Update saved buffer - do for the viewport size ony!
 		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 		pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);

@@ -29,6 +29,7 @@
 	#include "PreBattle Interface.h"
 	#include "Tactical Placement GUI.h"//dnl ch45 071009
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
+	#include "World Items.h"//dnl ch77 191113
 #endif
 
 #include "SaveLoadScreen.h"
@@ -233,6 +234,9 @@ void GameLoop(void)
 	POINT		MousePos;
 	UINT32		uiOldScreen=guiCurrentScreen;
 	clock_t		startTime = clock(); // decrease CPU load patch from defrog
+
+	if(_LeftButtonDown | _RightButtonDown)//dnl ch77 191113 to prevent memory corruption during resize
+		ResizeWorldItems();
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse position");
 	GetCursorPos(&MousePos);

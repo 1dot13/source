@@ -428,7 +428,7 @@ void ResizeWorldItems(void)//dnl ch75 271013
 	gWorldItems.resize(guiNumWorldItems);
 #else
 	guiNumWorldItems = gWorldItems.size();
-	if(guiNumWorldItems - GetNumUsedWorldItems() < 100)
+	if(guiNumWorldItems - GetNumUsedWorldItems() < 50)
 	{
 		gWorldItems.resize(guiNumWorldItems + 100);
 		guiNumWorldItems = gWorldItems.size();
