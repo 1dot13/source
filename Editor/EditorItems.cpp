@@ -332,7 +332,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//every pair of items (odd rounded up) requires 60 pixels for width.
 	//the minimum buffer size is 420.	Height is always 80 pixels.
 
-	eInfo.sWidth = (eInfo.sNumItems > 12) ? (((INT32) eInfo.sNumItems+1)/2)*60 : SCREEN_HEIGHT - 120;
+	eInfo.sWidth = (eInfo.sNumItems > 12) ? (((INT32) eInfo.sNumItems+1)/2)*60 : 360;//dnl ch77 251113 was (SCREEN_HEIGHT - 120) but editor crash if resolution is 1024x768
 	eInfo.sHeight = 80;
 	// Create item buffer
 	GetCurrentVideoSettings( &usUselessWidth, &usUselessHeight, &ubBitDepth );
