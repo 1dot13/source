@@ -374,13 +374,13 @@ enum
 #define SOLDIER_REDOFLASHLIGHT				0x00008000	//32768		// this flag signifies that we somehow interacted with the items in our hands. Thus we have to possible redo lighting from flashlights
 
 #define SOLDIER_LIGHT_OWNER					0x00010000	//65536		// we 'own' at least one light source (via flashlights)
-#define SOLDIER_AIRDROP_BONUS				0x00020000	//131072	// backgrounds: special AP bonus during the first turn of an airdrop
+#define SOLDIER_AIRDROP_TURN				0x00020000	//131072	// we are entering a sector via airdrop this turn
 #define SOLDIER_ASSAULT_BONUS				0x00040000	//262144	// backgrounds: our first turn in an assault
 #define SOLDIER_RADIO_OPERATOR_LISTENING	0x00080000	//524288	// radio operator is listening with his set
 
 #define SOLDIER_RADIO_OPERATOR_JAMMING		0x00100000	//1048576	// radio operator is jamming frequencies
 #define SOLDIER_RADIO_OPERATOR_SCANNING		0x00200000	//2097152	// radio operator is scanning for jammers
-#define SOLDIER_AIRDROP						0x00400000	//4194304	// soldier is entering the sector via airdrop from a helicopter
+#define SOLDIER_AIRDROP						0x00400000	//4194304	// soldier is entering the sector via airdrop from a helicopter. Sligthly different from SOLDIER_AIRDROP_TURN
 /*#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
 
 #define PLAYER_NET_1_LVL_3		0x01000000	//16777216
@@ -535,7 +535,7 @@ enum
 
 //Flugente skills from traits and other sources
 enum{
-	// psyker skills
+	// first skill
 	SKILLS_FIRST = 0,
 
 	// radio operator

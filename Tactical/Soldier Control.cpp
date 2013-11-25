@@ -16896,7 +16896,7 @@ INT16	SOLDIERTYPE::GetAPBonus()
 {
 	INT16 bonus = 0;
 	
-	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_BONUS )
+	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN )
 		bonus += this->GetBackgroundValue(BG_AIRDROP);
 
 	if ( this->bSoldierFlagMask & SOLDIER_ASSAULT_BONUS )
@@ -16975,9 +16975,19 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 {
 	INT16 bonus = 0;
 
+	// drugs can alter our perception
+	if ( this->drugs.bDrugEffect[ DRUG_TYPE_PERCEPTION ] )
+		bonus += 2;
+	else if ( this->drugs.bDrugSideEffect[ DRUG_TYPE_PERCEPTION ] )
+		bonus -= 2;
+
 	// if we are listening on our radio, our mind will be somewhere else... we will be less focused
 	if ( this->IsRadioListening() )
 		bonus -= 3;
+
+	// if we are airdropping and do not have the 'airdrop' background, we receive a substantial malus to our interrupt level. Roping down takes a lot of attention
+	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN && (this->GetBackgroundValue(BG_AIRDROP) == 0) )
+		bonus -= 8;
 					
 	return bonus;
 }
@@ -16985,7 +16995,7 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 void SOLDIERTYPE::SoldierPropertyUpkeep()
 {
 	// these flags are only used for the first turn, and thus always removed
-	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_BONUS|SOLDIER_ASSAULT_BONUS);
+	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN|SOLDIER_ASSAULT_BONUS);
 
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
