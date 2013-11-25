@@ -2687,33 +2687,35 @@ void HandleDialogueEnd( FACETYPE *pFace )
 				if ( gbUIHandlerID == DIALOGUE_TACTICAL_UI )
 				{
 					SOLDIERTYPE *pSoldier = FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE );
-					UINT8 ubSeenEnemies[ MAX_NUM_SOLDIERS ];
-					UINT8 ubSeenEnemiesCnt = 0;
-					switch( gTacticalStatus.ubLastQuoteSaid )
-					{					
-						case QUOTE_CLOSE_CALL:					
-						case QUOTE_UNDER_HEAVY_FIRE:
-						case QUOTE_TAKEN_A_BREATING:
-							if( pSoldier->ubPreviousAttackerID != NOBODY && !( MercPtrs[pSoldier->ubPreviousAttackerID]->bDeafenedCounter > 0 ) )
-								PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
-							break;
-						default:
-							// select random enemy, who we see, who sees us and isn't deaf
-							for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
-							{
-								if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
-									&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )
+					if ( pSoldier )
+					{
+						UINT8 ubSeenEnemies[ MAX_NUM_SOLDIERS ];
+						UINT8 ubSeenEnemiesCnt = 0;
+						switch( gTacticalStatus.ubLastQuoteSaid )
+						{					
+							case QUOTE_CLOSE_CALL:					
+							case QUOTE_UNDER_HEAVY_FIRE:
+							case QUOTE_TAKEN_A_BREATING:
+								if( pSoldier->ubPreviousAttackerID != NOBODY && !( MercPtrs[pSoldier->ubPreviousAttackerID]->bDeafenedCounter > 0 ) )
+									PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+								break;
+							default:
+								// select random enemy, who we see, who sees us and isn't deaf
+								for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
 								{
-									ubSeenEnemies[ubSeenEnemiesCnt] = cnt; 
-									ubSeenEnemiesCnt++;
+									if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
+										&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )
+									{
+										ubSeenEnemies[ubSeenEnemiesCnt] = cnt; 
+										ubSeenEnemiesCnt++;
+									}
 								}
-							}
-							if( ubSeenEnemiesCnt > 0 )
-
-								PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
-							}
-							break;
-					}			
+								if( ubSeenEnemiesCnt > 0 )
+									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+								}
+								break;
+						}
+					}
 				break;
 
 			case DIALOGUE_NPC_UI:
