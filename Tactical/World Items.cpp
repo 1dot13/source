@@ -468,6 +468,10 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 	// Flugente: we can arm bombs in our inventory and then throw them out, which will cause them to be added to the world. Only way to identify those items is via a check for their bDetonatorType
 	if (usFlags & WORLD_ITEM_ARMED_BOMB || ( (Item[pObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_REMOTE ) ) ) )
 	{
+		// sevenfm: added flag WORLD_ITEM_ARMED_BOMB
+		// this fixes bug with remote explosives not being removed after activation, if they were armed in inventory and thrown afterwards
+		gWorldItems[ iItemIndex ].usFlags |= WORLD_ITEM_ARMED_BOMB;
+	
 		iReturn = AddBombToWorld( iItemIndex );
 		if (iReturn == -1)
 		{
@@ -488,10 +492,7 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 						pSoldier = MercPtrs[ soldierID ];
 					}
 				}
-		// sevenfm: added flag WORLD_ITEM_ARMED_BOMB
-		// this fixes bug with remote explosives not being removed after activation, if they were armed in inventory and thrown afterwards
-		gWorldItems[ iItemIndex ].usFlags |= WORLD_ITEM_ARMED_BOMB;
-
+				
 				if (pSoldier != NULL)
 				{
 					// if soldier is on our team, or is AI and we are the server
