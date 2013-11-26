@@ -488,6 +488,9 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 						pSoldier = MercPtrs[ soldierID ];
 					}
 				}
+		// sevenfm: added flag WORLD_ITEM_ARMED_BOMB
+		// this fixes bug with remote explosives not being removed after activation, if they were armed in inventory and thrown afterwards
+		gWorldItems[ iItemIndex ].usFlags |= WORLD_ITEM_ARMED_BOMB;
 
 				if (pSoldier != NULL)
 				{
