@@ -40,6 +40,8 @@
 	#include "GameVersion.h"
 	#include "Campaign Types.h"
 	#include "GameSettings.h"
+	#include "EditorTerrain.h"//dnl ch78 261113
+	#include "Render Dirty.h"//dnl ch78 271113
 #endif
 
 #include <vfs/Core/vfs.h>
@@ -271,6 +273,10 @@ void CreateSummaryWindow()
 
 	DisableEditorTaskbar();
 	DisableAllTextFields();
+	//dnl ch78 261113
+	HideTerrainTileButtons();
+	DisableEditorRegion(ITEM_REGION_ID);
+	RestoreBackgroundRects();
 
 	GetCurrentWorldSector( &gsSectorX, &gsSectorY );
 	gsSelSectorX = gsSectorX;
@@ -480,6 +486,11 @@ void DestroySummaryWindow()
 	KillTextInputMode();
 	EnableEditorTaskbar();
 	EnableAllTextFields();
+	//dnl ch78 261113
+	if(iCurrentTaskbar == TASK_TERRAIN)
+		ShowTerrainTileButtons();
+	else if(iCurrentTaskbar == TASK_ITEMS)
+		EnableEditorRegion(ITEM_REGION_ID);
 
 	if( gpWorldItemsSummaryArray )
 	{

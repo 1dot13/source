@@ -45,13 +45,11 @@
 	#include "Soldier Find.h"
 	#include "lighting.h"
 	#include "Keys.h"
-
 	#include "InterfaceItemImages.h"
+	#include "renderworld.h"//dnl ch78 271113
 #endif
 
 void RenderEditorInfo();
-
-//extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 
 //editor icon storage vars
 INT32	giEditMercDirectionIcons[2];
@@ -91,7 +89,7 @@ void DisableEditorRegion( INT8	bRegionID )
 	switch( bRegionID )
 	{
 		case BASE_TERRAIN_TILE_REGION_ID:
-		case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+		case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8://dnl ch78 261113
 			MSYS_DisableRegion( &TerrainTileButtonRegion[ bRegionID ] );
 			break;
 		case ITEM_REGION_ID:
@@ -345,6 +343,17 @@ void DoTaskbar(void)
 			SetMercEditingMode( MERC_TEAMMODE );
 			fBuildingShowRoofs = FALSE;
 			UpdateRoofsView();
+			//dnl ch78 261113
+			if(gfShowPlayers)
+				ClickEditorButton(MERCS_PLAYERTOGGLE);
+			if(gfShowEnemies)
+				ClickEditorButton(MERCS_ENEMYTOGGLE);
+			if(gfShowCreatures)
+				ClickEditorButton(MERCS_CREATURETOGGLE);
+			if(gfShowRebels)
+				ClickEditorButton(MERCS_REBELTOGGLE);
+			if(gfShowCivilians)
+				ClickEditorButton(MERCS_CIVILIANTOGGLE);
 			break;
 		case TASK_TERRAIN:
 			ClickEditorButton( TAB_TERRAIN );
@@ -1052,9 +1061,8 @@ void ProcessEditorRendering()
 	//It is set to false when before we save the buffer, so the buttons don't get
 	//rendered with hilites, in case the mouse is over one.
 	gfRenderHilights = TRUE;
-	if(!gfSummaryWindowActive)//dnl ch77 131113
+	if(!gfSummaryWindowActive && !gfScrollInertia)//dnl ch77 131113 //dnl ch78 271113
 		RenderButtonsFastHelp();
 }
-
 
 #endif

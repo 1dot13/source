@@ -323,8 +323,8 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			return;
 	}
 	//Allocate memory to store all the item pointers.
-	eInfo.pusItemIndex = (UINT16*)MemAlloc( sizeof(UINT16) * eInfo.sNumItems );
-
+	if(eInfo.sNumItems)//dnl ch78 271113
+		eInfo.pusItemIndex = (UINT16*)MemAlloc( sizeof(UINT16) * eInfo.sNumItems );
 	//Disable the appropriate scroll buttons based on the saved scroll index if applicable
 	//Left most scroll position
 	DetermineItemsScrolling();

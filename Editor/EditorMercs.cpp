@@ -1773,7 +1773,7 @@ void SetupTextInputForMercProfile()
 	INT16 sNum;
 
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-
+	AddUserInputField(NULL);//dnl ch78 271113 to avoid automatic textbox selection and enable shortcut keys while not typing
 	sNum = gpSelected->pDetailedPlacement->ubProfile;
 	if( sNum == NO_PROFILE )
 		str[0] = '\0';
@@ -1887,7 +1887,7 @@ void ExtractAndUpdateMercProfile()
 
 	//if the string is blank, returning -1, then set the value to NO_PROFILE
 	//because ubProfile is unsigned.
-	sNum = (INT16)min( GetNumericStrictValueFromField( 0 ), NUM_PROFILES-1 );//dnl ch54 101009
+	sNum = (INT16)min(GetNumericStrictValueFromField(1), NUM_PROFILES-1);//dnl ch54 101009 //dnl ch78 271113
 	if( sNum == -1 )
 	{
 		gpSelected->pDetailedPlacement->ubProfile = NO_PROFILE;

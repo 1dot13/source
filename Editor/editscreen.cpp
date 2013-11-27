@@ -2168,6 +2168,10 @@ void HandleKeyboardShortcuts( )
 						gfRenderWorld = TRUE;
 					}
 					break;
+#ifdef dnlTEST
+				case '\'':
+					break;
+#endif
 				default:
 					iCurrentAction = ACTION_NULL;
 					break;
@@ -4614,7 +4618,8 @@ UINT32	EditScreenHandle( void )
 	// If editing mercs, handle that stuff
 	ProcessMercEditing();
 
-	EnsureStatusOfEditorButtons();
+	if(!gfSummaryWindowActive)//dnl ch78 261113
+		EnsureStatusOfEditorButtons();
 
 	// Handle scrolling of the map if needed
 	if( !gfGotoGridNoUI && !gfKeyboardItemCreationUI && iDrawMode != DRAW_MODE_SHOW_TILESET && !gfSummaryWindowActive &&

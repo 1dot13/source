@@ -3778,9 +3778,10 @@ void ScrollWorld( )
 			// If here, set scroll pending to false
 			gfScrollPending = FALSE;
 
-
 			// INcrement scroll intertia
 			gfScrollInertia++;
+			if(gfScrollInertia == 1)//dnl ch78 271113
+				RestoreBackgroundRects();
 
 			// Now we actually begin our scrolling
 			HandleScrollDirections( ScrollFlags, sScrollXStep, sScrollYStep, &sTempRenderCenterX, &sTempRenderCenterY, FALSE );
