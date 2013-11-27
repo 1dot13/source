@@ -205,8 +205,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	//This needs to be loaded before AmmoTypes and Items because SpreadPatterns can be referenced by name or index.
 	strcpy(fileName, directoryName);
 	strcat(fileName, SPREADPATTERNSFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	ReadInSpreadPatterns(fileName);
+	if (FileExists(fileName))
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		ReadInSpreadPatterns(fileName);
+	}
 
 	// WANNE: Enemy drops - begin
 	strcpy(fileName, directoryName);
