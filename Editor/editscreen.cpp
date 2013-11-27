@@ -2309,8 +2309,13 @@ UINT32 PerformSelectedAction( void )
 			}
 			break;
 
-		case ACTION_RADAR_MAP://dnl ch9 071009
+		case ACTION_RADAR_MAP://dnl ch9 071009 //dnl ch78 271113
 			ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pPerformSelectedActionText[0], gubFilename);
+			fBuildingShowRoofs = TRUE;
+			UpdateRoofsView();
+			fBuildingShowWalls = TRUE;
+			UpdateWallsView();
+			fBuildingShowRoomInfo = FALSE;
 			MarkWorldDirty();
 			return(MAPUTILITY_SCREEN);
 			break;

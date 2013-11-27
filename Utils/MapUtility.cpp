@@ -24,6 +24,7 @@
 //dnl ch77 131113
 #include "Editor Taskbar Utils.h"
 #include "Text Input.h"
+#include "Cursor Control.h"//dnl ch78 271113
 
 #define MINIMAP_X_SIZE	88//RADAR_WINDOW_WIDTH
 #define MINIMAP_Y_SIZE	44//RADAR_WINDOW_HEIGHT
@@ -128,7 +129,7 @@ UINT32 MapUtilScreenHandle(void)
 	INT32 cnt, iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
 	FLOAT dX, dY, dStartX, dStartY;
 
-	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE)
+	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE || ((_LeftButtonDown|_RightButtonDown|_MiddleButtonDown) ? InputEvent.usParam = ESC : 0))//dnl ch78 271113
 	{
 		if(InputEvent.usParam == ESC)
 		{
@@ -152,6 +153,7 @@ UINT32 MapUtilScreenHandle(void)
 	if(gfMapUtilityWindowActive)
 	{
 		GetVideoSurface(&ghVSurface, gui8BitMiniMap);
+		SetCurrentCursorFromDatabase(VIDEO_NO_CURSOR);//dnl ch78 271113
 		return(MAPUTILITY_SCREEN);
 	}
 	else
