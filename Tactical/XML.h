@@ -237,8 +237,10 @@ typedef PARSE_STAGE;
 #define VEHICLESFILENAME						"Vehicles.xml"
 #define SQUADNAMEFILENAME						"SquadNames.xml"
 #define BACKGROUNDSFILENAME						"Backgrounds.xml"
+
+#define TAUNTSFOLDERNAME						"EnemyTaunts\\"
 #define TAUNTSFILENAME							"EnemyTaunts.xml"
-#define TAUNTSFILENAMEBEGINNING					"EnemyTaunts\\EnemyTaunts"
+#define TAUNTSFILENAMEBEGINNING					"EnemyTaunts"		// You can add additional taunt files next to the "EnemyTaunts.xml" file. They have to start with "EnemyTaunts*.xml" (e.g: EnemyTauntsKill.xml)
 #define TAUNTSFILENAMEENDING					".xml"
 
 #define ENEMY_ADMIN_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyAdmin.xml"

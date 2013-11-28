@@ -1027,10 +1027,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		GETFILESTRUCT FileInfo;
 		char tauntFileNamePattern[MAX_PATH];
 		strcpy(tauntFileNamePattern, directoryName);
+		strcat(tauntFileNamePattern, TAUNTSFOLDERNAME);
 		strcat(tauntFileNamePattern, TAUNTSFILENAMEBEGINNING"*"TAUNTSFILENAMEENDING);
 		if( GetFileFirst(tauntFileNamePattern, &FileInfo) )
 		{
 			strcpy(fileName, directoryName);
+			strcat(fileName, TAUNTSFOLDERNAME);
 			strcat(fileName, FileInfo.zFileName);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 			SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
@@ -1045,6 +1047,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 			while( GetFileNext(&FileInfo) )
 			{
 				strcpy(fileName, directoryName);
+				strcat(fileName, TAUNTSFOLDERNAME);
 				strcat(fileName, FileInfo.zFileName);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 				SGP_THROW_IFFALSE(ReadInTaunts(fileName,FALSE), fileName);
