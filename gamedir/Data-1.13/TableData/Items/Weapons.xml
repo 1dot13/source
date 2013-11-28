@@ -44,7 +44,7 @@
 		<Handling>0</Handling>
 		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>     
+		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 		<HeavyGun>0</HeavyGun>
 	</WEAPON>
 	<WEAPON>
@@ -75,9 +75,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>2</uiIndex>
@@ -114,9 +114,9 @@
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>3</uiIndex>
@@ -147,9 +147,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>4</uiIndex>
@@ -187,9 +187,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4100</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>5</uiIndex>
@@ -221,9 +221,9 @@
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>68</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>6</uiIndex>
@@ -256,9 +256,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>73</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>7</uiIndex>
@@ -289,9 +289,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>92</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>8</uiIndex>
@@ -322,9 +322,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>9</uiIndex>
@@ -364,9 +364,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>103</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>10</uiIndex>
@@ -406,9 +406,9 @@
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>89</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>11</uiIndex>
@@ -447,9 +447,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>123</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>12</uiIndex>
@@ -487,9 +487,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>5</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>114</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>114.0</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>13</uiIndex>
@@ -529,8 +529,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -570,9 +570,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>119</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9700</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>15</uiIndex>
@@ -611,9 +611,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>5000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>79</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>16</uiIndex>
@@ -652,9 +652,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4100</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4300</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>86</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4700</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>17</uiIndex>
@@ -686,9 +686,9 @@
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>3800</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4500</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9360</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>18</uiIndex>
@@ -722,8 +722,8 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>180</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -759,9 +759,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>210</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>20</uiIndex>
@@ -800,8 +800,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21240</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>118</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -842,8 +842,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4100</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -880,8 +880,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4560</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12700</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -920,8 +920,8 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4100</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>24000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -962,8 +962,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4500</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18100</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>121</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1003,9 +1003,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>5000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5400</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>26</uiIndex>
@@ -1044,9 +1044,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>6000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>6500</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>27</uiIndex>
@@ -1085,8 +1085,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1126,8 +1126,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4600</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>132</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1167,8 +1167,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4600</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11180</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1210,8 +1210,8 @@
 		<ubAimLevels>4</ubAimLevels>
 		<ubRecoilDelay>3</ubRecoilDelay>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>26000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1245,9 +1245,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>155</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>32</uiIndex>
@@ -1280,9 +1280,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>160</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>33</uiIndex>
@@ -1321,9 +1321,9 @@
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4800</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>7600</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>387</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>34</uiIndex>
@@ -1363,9 +1363,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4700</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>25000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>35</uiIndex>
@@ -1404,9 +1404,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4700</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>50</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17550</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>36</uiIndex>
@@ -1446,9 +1446,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>22</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5400</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>70</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>37</uiIndex>
@@ -1504,7 +1504,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>5</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
 	</WEAPON>
@@ -1529,9 +1529,9 @@
 		<MaxDistForMessyDeath>30</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>1300</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>42</uiIndex>
@@ -1672,9 +1672,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>3</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>200</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>51</uiIndex>
@@ -1698,7 +1698,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>4000</usOverheatingSingleShotTemperature>
 	</WEAPON>
@@ -1775,8 +1775,8 @@
 		<nAccuracy>73</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>30000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>900</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1808,8 +1808,8 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -1939,9 +1939,8 @@
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>10</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>60000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>60000</usOverheatingDamageThreshold>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>62</uiIndex>
@@ -1984,9 +1983,8 @@
 		<nAccuracy>33</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>3</Handling>
-		<usOverheatingJamThreshold>6000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>800</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>60000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>60000</usOverheatingDamageThreshold>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>64</uiIndex>
@@ -2034,8 +2032,8 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>30000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>900</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -2068,9 +2066,9 @@
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>74</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>67</uiIndex>
@@ -2107,9 +2105,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>98</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>68</uiIndex>
@@ -2146,9 +2144,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>99</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>69</uiIndex>
@@ -2187,9 +2185,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>5</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>103</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11250</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>297</uiIndex>
@@ -2283,9 +2281,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>106</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>331</uiIndex>
@@ -2324,8 +2322,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>121</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -2365,8 +2363,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -2406,9 +2404,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>3300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3400</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>215</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4450</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>89</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>334</uiIndex>
@@ -2440,9 +2438,9 @@
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>21</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>7600</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>214</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>7000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>335</uiIndex>
@@ -2474,8 +2472,8 @@
 		<nAccuracy>89</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>240</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -2509,9 +2507,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>337</uiIndex>
@@ -2542,9 +2540,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>338</uiIndex>
@@ -2576,9 +2574,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>339</uiIndex>
@@ -2610,9 +2608,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>78</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>340</uiIndex>
@@ -2646,9 +2644,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>135</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>341</uiIndex>
@@ -2680,9 +2678,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>148</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>342</uiIndex>
@@ -2722,9 +2720,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>4</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>112</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>343</uiIndex>
@@ -2763,9 +2761,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>109</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>344</uiIndex>
@@ -2805,9 +2803,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>116</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>345</uiIndex>
@@ -2846,9 +2844,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>346</uiIndex>
@@ -2886,9 +2884,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>347</uiIndex>
@@ -2927,9 +2925,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>6700</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>348</uiIndex>
@@ -2963,8 +2961,8 @@
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>123</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3004,9 +3002,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>7654</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>89</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>350</uiIndex>
@@ -3045,8 +3043,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5400</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>122</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3079,9 +3077,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4700</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>593</uiIndex>
@@ -3212,9 +3210,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>602</uiIndex>
@@ -3254,8 +3252,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3296,9 +3294,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>604</uiIndex>
@@ -3337,9 +3335,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>112</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>605</uiIndex>
@@ -3378,9 +3376,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>606</uiIndex>
@@ -3419,8 +3417,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3460,9 +3458,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>123</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>608</uiIndex>
@@ -3501,9 +3499,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>114</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>609</uiIndex>
@@ -3542,8 +3540,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3584,8 +3582,8 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5100</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15700</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3626,9 +3624,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4300</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5100</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>612</uiIndex>
@@ -3667,9 +3665,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5500</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>613</uiIndex>
@@ -3708,9 +3706,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>614</uiIndex>
@@ -3749,8 +3747,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3790,9 +3788,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5100</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>616</uiIndex>
@@ -3833,8 +3831,8 @@
 		<ubAimLevels>5</ubAimLevels>
 		<ubRecoilDelay>2</ubRecoilDelay>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3874,9 +3872,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4100</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>89</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>618</uiIndex>
@@ -3910,8 +3908,8 @@
 		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>22</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5875</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>235</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -3951,9 +3949,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4500</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>620</uiIndex>
@@ -3985,8 +3983,8 @@
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>21</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>240</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -4019,9 +4017,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>622</uiIndex>
@@ -4052,9 +4050,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>79</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>623</uiIndex>
@@ -4085,9 +4083,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>624</uiIndex>
@@ -4126,8 +4124,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20574</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -4161,9 +4159,9 @@
 		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>626</uiIndex>
@@ -4202,9 +4200,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>114</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>627</uiIndex>
@@ -4244,9 +4242,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>26</Handling>
-		<usOverheatingJamThreshold>5000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>6000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>63</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>628</uiIndex>
@@ -4285,9 +4283,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>629</uiIndex>
@@ -4326,8 +4324,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10700</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -4362,9 +4360,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>185</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3320</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>631</uiIndex>
@@ -4396,9 +4394,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>86</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>632</uiIndex>
@@ -4435,9 +4433,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4900</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>26200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>633</uiIndex>
@@ -4475,9 +4473,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>3900</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>131</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>634</uiIndex>
@@ -4510,9 +4508,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>193</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>635</uiIndex>
@@ -4545,9 +4543,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>3900</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>636</uiIndex>
@@ -4580,9 +4578,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4100</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4900</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>637</uiIndex>
@@ -4613,9 +4611,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3900</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>638</uiIndex>
@@ -4646,9 +4644,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3600</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>639</uiIndex>
@@ -4681,8 +4679,8 @@
 		<nAccuracy>92</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>7140</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>234</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -4716,8 +4714,8 @@
 		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>23</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5950</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>238</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -4758,9 +4756,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>3</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>96</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10300</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>642</uiIndex>
@@ -4800,9 +4798,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>5</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>103</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>643</uiIndex>
@@ -4842,9 +4840,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>644</uiIndex>
@@ -4876,9 +4874,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>645</uiIndex>
@@ -4911,9 +4909,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>81</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>646</uiIndex>
@@ -4952,9 +4950,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>27000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>647</uiIndex>
@@ -4993,8 +4991,8 @@
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10300</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5034,8 +5032,8 @@
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5076,9 +5074,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>25</Handling>
-		<usOverheatingJamThreshold>4500</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>68</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>28000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>650</uiIndex>
@@ -5118,9 +5116,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>57</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>651</uiIndex>
@@ -5158,8 +5156,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4500</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18340</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>131</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5198,8 +5196,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4500</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>28500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5240,8 +5238,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>23200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5277,9 +5275,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>21</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>191</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>2400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>655</uiIndex>
@@ -5318,9 +5316,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>135</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20700</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>656</uiIndex>
@@ -5359,8 +5357,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19300</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5394,8 +5392,8 @@
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>32</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>260</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5426,9 +5424,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>79</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>659</uiIndex>
@@ -5467,8 +5465,8 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16605</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>123</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5508,9 +5506,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>661</uiIndex>
@@ -5550,9 +5548,9 @@
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4600</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5200</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>662</uiIndex>
@@ -5590,8 +5588,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4700</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5400</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>24400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5626,9 +5624,9 @@
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>72</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>664</uiIndex>
@@ -5668,8 +5666,8 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15360</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5709,8 +5707,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5750,8 +5748,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5791,8 +5789,8 @@
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>7920</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>132</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5833,8 +5831,8 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -5875,9 +5873,9 @@
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>27000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>670</uiIndex>
@@ -5911,9 +5909,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>87</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>671</uiIndex>
@@ -5953,9 +5951,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13125</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>672</uiIndex>
@@ -5994,9 +5992,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>119</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>673</uiIndex>
@@ -6035,9 +6033,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>112</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>674</uiIndex>
@@ -6069,9 +6067,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>170</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>7000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>675</uiIndex>
@@ -6103,9 +6101,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>676</uiIndex>
@@ -6137,9 +6135,9 @@
 		<nAccuracy>60</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>165</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6840</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>114</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>677</uiIndex>
@@ -6179,9 +6177,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>4</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>109</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>678</uiIndex>
@@ -6212,9 +6210,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>679</uiIndex>
@@ -6247,9 +6245,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>680</uiIndex>
@@ -6287,9 +6285,9 @@
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>160</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>681</uiIndex>
@@ -6327,9 +6325,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>682</uiIndex>
@@ -6362,9 +6360,9 @@
 		<nAccuracy>92</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>375</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3900</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>260</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>683</uiIndex>
@@ -6396,8 +6394,8 @@
 		<nAccuracy>82</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>136</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -6432,9 +6430,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>193</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4900</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>685</uiIndex>
@@ -6467,9 +6465,9 @@
 		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>207</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>686</uiIndex>
@@ -6507,8 +6505,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>60000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>60000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -6549,9 +6547,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>21</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>63</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>688</uiIndex>
@@ -6591,9 +6589,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>107</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>689</uiIndex>
@@ -6623,9 +6621,9 @@
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>73</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>690</uiIndex>
@@ -6655,9 +6653,9 @@
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>74</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>691</uiIndex>
@@ -6696,8 +6694,8 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>123</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -6737,9 +6735,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>4</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>109</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>693</uiIndex>
@@ -6772,9 +6770,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>180</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>694</uiIndex>
@@ -6806,9 +6804,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>136</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>695</uiIndex>
@@ -6841,9 +6839,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>77</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>696</uiIndex>
@@ -6877,8 +6875,8 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>160</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -6912,9 +6910,9 @@
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>35</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4900</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>380</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>260</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>698</uiIndex>
@@ -6949,9 +6947,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>206</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>699</uiIndex>
@@ -6991,9 +6989,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>23</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>25375</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>700</uiIndex>
@@ -7033,9 +7031,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>22</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>59</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>701</uiIndex>
@@ -7074,9 +7072,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>112</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>702</uiIndex>
@@ -7115,9 +7113,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>107</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>703</uiIndex>
@@ -7149,8 +7147,8 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>85</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7190,8 +7188,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7232,9 +7230,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>67</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20475</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>706</uiIndex>
@@ -7273,9 +7271,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>67</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17550</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>707</uiIndex>
@@ -7307,9 +7305,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>708</uiIndex>
@@ -7348,9 +7346,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9300</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>709</uiIndex>
@@ -7385,9 +7383,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>187</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4300</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>710</uiIndex>
@@ -7421,8 +7419,8 @@
 		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4420</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>221</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7455,9 +7453,9 @@
 		<nAccuracy>3</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>135</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>712</uiIndex>
@@ -7496,8 +7494,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11160</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7538,8 +7536,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7580,8 +7578,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7622,8 +7620,8 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7658,9 +7656,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4500</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>81</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>717</uiIndex>
@@ -7691,9 +7689,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>86</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>718</uiIndex>
@@ -7725,9 +7723,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>719</uiIndex>
@@ -7759,9 +7757,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>81</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>720</uiIndex>
@@ -7800,9 +7798,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>103</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>721</uiIndex>
@@ -7836,9 +7834,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>722</uiIndex>
@@ -7869,9 +7867,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>723</uiIndex>
@@ -7904,8 +7902,8 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -7945,9 +7943,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>725</uiIndex>
@@ -7986,9 +7984,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>5</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>142</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>726</uiIndex>
@@ -8027,9 +8025,9 @@
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5300</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>70</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>26000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>727</uiIndex>
@@ -8068,9 +8066,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>116</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>728</uiIndex>
@@ -8103,9 +8101,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>170</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>2100</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>729</uiIndex>
@@ -8140,9 +8138,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>189</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>730</uiIndex>
@@ -8181,9 +8179,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>731</uiIndex>
@@ -8216,9 +8214,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>143</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>732</uiIndex>
@@ -8251,9 +8249,9 @@
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>142</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>733</uiIndex>
@@ -8288,8 +8286,8 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6755</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>193</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -8324,8 +8322,8 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3700</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -8360,8 +8358,8 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3680</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>184</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -8394,9 +8392,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>170</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18752</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>737</uiIndex>
@@ -8435,9 +8433,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>738</uiIndex>
@@ -8469,9 +8467,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>77</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>739</uiIndex>
@@ -8504,9 +8502,9 @@
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>210</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>740</uiIndex>
@@ -8545,9 +8543,9 @@
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4200</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4800</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>72</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>741</uiIndex>
@@ -8586,9 +8584,9 @@
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>144</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>742</uiIndex>
@@ -8627,9 +8625,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4400</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>743</uiIndex>
@@ -8668,8 +8666,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -8702,9 +8700,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>76</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>745</uiIndex>
@@ -8743,9 +8741,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>157</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3115</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>89</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>746</uiIndex>
@@ -8777,8 +8775,8 @@
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4875</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>195</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -8811,9 +8809,9 @@
 		<nAccuracy>55</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>5000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>4000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>138</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>748</uiIndex>
@@ -8853,9 +8851,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>24375</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>749</uiIndex>
@@ -8894,9 +8892,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>22500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>750</uiIndex>
@@ -8935,9 +8933,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>22500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>751</uiIndex>
@@ -8976,9 +8974,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>4</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>752</uiIndex>
@@ -9017,9 +9015,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>136</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>22500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>753</uiIndex>
@@ -9053,9 +9051,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>754</uiIndex>
@@ -9086,9 +9084,9 @@
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>143</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>755</uiIndex>
@@ -9127,8 +9125,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -9168,8 +9166,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>132</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -9209,9 +9207,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>137</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19900</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>758</uiIndex>
@@ -9242,9 +9240,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>759</uiIndex>
@@ -9277,9 +9275,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>760</uiIndex>
@@ -9312,8 +9310,8 @@
 		<nAccuracy>70</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14960</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>187</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -9353,9 +9351,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>8</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>114</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>762</uiIndex>
@@ -9393,9 +9391,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>135</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>763</uiIndex>
@@ -9433,9 +9431,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>142</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>764</uiIndex>
@@ -9471,9 +9469,9 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>3</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>765</uiIndex>
@@ -9509,9 +9507,9 @@
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>8200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>766</uiIndex>
@@ -9542,9 +9540,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>200</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>90</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>767</uiIndex>
@@ -9575,9 +9573,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>168</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>90</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>768</uiIndex>
@@ -9609,9 +9607,9 @@
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>146</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>90</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>769</uiIndex>
@@ -9647,9 +9645,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>176</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6250</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>770</uiIndex>
@@ -9680,9 +9678,9 @@
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>300</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>771</uiIndex>
@@ -9714,9 +9712,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>148</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>772</uiIndex>
@@ -9748,9 +9746,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>200</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>773</uiIndex>
@@ -9789,9 +9787,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>116</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>774</uiIndex>
@@ -9824,9 +9822,9 @@
 		<nAccuracy>76</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>65650</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>775</uiIndex>
@@ -9858,9 +9856,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>776</uiIndex>
@@ -9893,8 +9891,8 @@
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>170</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -9927,8 +9925,8 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5700</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -9962,9 +9960,9 @@
 		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>210</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>779</uiIndex>
@@ -9999,9 +9997,9 @@
 		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4300</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>195</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>780</uiIndex>
@@ -10040,9 +10038,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>47</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>781</uiIndex>
@@ -10081,8 +10079,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10121,9 +10119,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18252</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>783</uiIndex>
@@ -10153,9 +10151,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>784</uiIndex>
@@ -10188,8 +10186,8 @@
 		<nAccuracy>86</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20400</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>173</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10229,9 +10227,9 @@
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>127</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>8800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>117</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>786</uiIndex>
@@ -10262,9 +10260,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>787</uiIndex>
@@ -10302,8 +10300,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>135</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10342,8 +10340,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>31000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10380,9 +10378,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>790</uiIndex>
@@ -10420,8 +10418,8 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>27900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10460,8 +10458,8 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>28300</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10500,8 +10498,8 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>24600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10540,8 +10538,8 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>24900</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>145</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10582,9 +10580,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>118</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>795</uiIndex>
@@ -10622,8 +10620,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10662,8 +10660,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>132</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10703,8 +10701,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>16000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>132</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -10736,9 +10734,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>3200</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>70</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>799</uiIndex>
@@ -10770,9 +10768,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>800</uiIndex>
@@ -10802,9 +10800,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>84</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>887</uiIndex>
@@ -10837,9 +10835,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>888</uiIndex>
@@ -10872,9 +10870,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>889</uiIndex>
@@ -10907,9 +10905,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>81</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>890</uiIndex>
@@ -10941,9 +10939,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>891</uiIndex>
@@ -10977,9 +10975,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>81</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>892</uiIndex>
@@ -11012,9 +11010,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>893</uiIndex>
@@ -11046,9 +11044,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>894</uiIndex>
@@ -11081,9 +11079,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>120</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>896</uiIndex>
@@ -11122,8 +11120,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -11158,9 +11156,9 @@
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>19</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>190</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6400</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>898</uiIndex>
@@ -11192,9 +11190,9 @@
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>899</uiIndex>
@@ -11227,9 +11225,9 @@
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>900</uiIndex>
@@ -11260,9 +11258,9 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>901</uiIndex>
@@ -11285,9 +11283,9 @@
 		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>1100</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>3200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>902</uiIndex>
@@ -11311,9 +11309,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>903</uiIndex>
@@ -11338,9 +11336,9 @@
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>904</uiIndex>
@@ -11364,9 +11362,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>600</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>905</uiIndex>
@@ -11390,9 +11388,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>906</uiIndex>
@@ -11417,9 +11415,9 @@
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>6600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>907</uiIndex>
@@ -11443,9 +11441,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>600</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>908</uiIndex>
@@ -11470,9 +11468,9 @@
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>909</uiIndex>
@@ -11501,9 +11499,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>910</uiIndex>
@@ -11527,9 +11525,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>911</uiIndex>
@@ -11553,9 +11551,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>600</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>912</uiIndex>
@@ -11580,9 +11578,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>913</uiIndex>
@@ -11606,9 +11604,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>914</uiIndex>
@@ -11633,8 +11631,8 @@
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1600</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -11660,8 +11658,8 @@
 		<MaxDistForMessyDeath>11</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1300</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -11686,7 +11684,7 @@
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1400</usOverheatingSingleShotTemperature>
 	</WEAPON>
@@ -11712,7 +11710,7 @@
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1500</usOverheatingSingleShotTemperature>
 	</WEAPON>
@@ -11738,7 +11736,7 @@
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1900</usOverheatingSingleShotTemperature>
 	</WEAPON>
@@ -11765,9 +11763,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>921</uiIndex>
@@ -11792,9 +11790,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>922</uiIndex>
@@ -11819,9 +11817,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>400</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1015</uiIndex>
@@ -11898,9 +11896,9 @@
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>82</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1065</uiIndex>
@@ -11939,8 +11937,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21240</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>143</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -11979,8 +11977,8 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>23300</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>128</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12020,9 +12018,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>95</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1069</uiIndex>
@@ -12054,9 +12052,9 @@
 		<nAccuracy>82</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>170</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>4700</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1070</uiIndex>
@@ -12094,8 +12092,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>25500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>126</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12136,9 +12134,9 @@
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1072</uiIndex>
@@ -12176,8 +12174,8 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>27000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12209,8 +12207,8 @@
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>83</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12245,8 +12243,8 @@
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12286,9 +12284,9 @@
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>23</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>6500</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>28000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1076</uiIndex>
@@ -12326,9 +12324,9 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>15</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>62</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>17500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1077</uiIndex>
@@ -12366,8 +12364,8 @@
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>14</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>26800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>137</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12402,9 +12400,9 @@
 		<nAccuracy>43</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>3</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>119</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>60</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1177</uiIndex>
@@ -12443,9 +12441,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>6</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>11500</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1178</uiIndex>
@@ -12485,9 +12483,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>118</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1179</uiIndex>
@@ -12527,9 +12525,9 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1187</uiIndex>
@@ -12569,8 +12567,8 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>17</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>13000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>130</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12611,9 +12609,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>70</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>27000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>125</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1190</uiIndex>
@@ -12652,8 +12650,8 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>2</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12693,9 +12691,9 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>21700</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1192</uiIndex>
@@ -12726,9 +12724,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1193</uiIndex>
@@ -12762,8 +12760,8 @@
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>7</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12797,9 +12795,9 @@
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>1</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>115</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1195</uiIndex>
@@ -12838,8 +12836,8 @@
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>12</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>14200</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12874,8 +12872,8 @@
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>16</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12800</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>122</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
@@ -12924,9 +12922,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>13</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>124</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>19200</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1333</uiIndex>
@@ -12964,9 +12962,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>129</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>12800</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1334</uiIndex>
@@ -13004,9 +13002,9 @@
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>140</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>9600</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>64</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1352</uiIndex>
@@ -13035,9 +13033,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 		<Handling>11</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>1200</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1353</uiIndex>
@@ -13092,9 +13090,9 @@
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
-		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
-		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1579</uiIndex>
@@ -13162,6 +13160,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1636</uiIndex>
@@ -13184,25 +13183,25 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 	<WEAPON>
-   <uiIndex>1638</uiIndex>
-   <szWeaponName>Letter Opener</szWeaponName>
-   <ubWeaponClass>6</ubWeaponClass>
-   <ubShotsPer4Turns>20</ubShotsPer4Turns>
-   <ubImpact>12</ubImpact>
-   <ubDeadliness>4</ubDeadliness>
-   <usReloadDelay>200</usReloadDelay>
-   <ubAttackVolume>2</ubAttackVolume>
-   <MaxDistForMessyDeath>7</MaxDistForMessyDeath>
- </WEAPON>
- <WEAPON>
-   <uiIndex>1639</uiIndex>
-   <szWeaponName>Hedge Trimmer</szWeaponName>
-   <ubWeaponClass>6</ubWeaponClass>
-   <ubShotsPer4Turns>11</ubShotsPer4Turns>
-   <ubImpact>25</ubImpact>
-   <ubDeadliness>6</ubDeadliness>
-   <usReloadDelay>200</usReloadDelay>
-   <ubAttackVolume>2</ubAttackVolume>
-   <MaxDistForMessyDeath>7</MaxDistForMessyDeath>
- </WEAPON>
+		<uiIndex>1638</uiIndex>
+		<szWeaponName>Letter Opener</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>20</ubShotsPer4Turns>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1639</uiIndex>
+		<szWeaponName>Hedge Trimmer</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>6</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
 </WEAPONLIST>
