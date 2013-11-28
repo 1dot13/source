@@ -238,7 +238,7 @@ typedef PARSE_STAGE;
 #define SQUADNAMEFILENAME						"SquadNames.xml"
 #define BACKGROUNDSFILENAME						"Backgrounds.xml"
 #define TAUNTSFILENAME							"EnemyTaunts.xml"
-#define TAUNTSFILENAMEBEGINNING					"EnemyTaunts"
+#define TAUNTSFILENAMEBEGINNING					"EnemyTaunts\\EnemyTaunts"
 #define TAUNTSFILENAMEENDING					".xml"
 
 #define ENEMY_ADMIN_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyAdmin.xml"

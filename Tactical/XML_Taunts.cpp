@@ -55,6 +55,7 @@ tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		else if(pData->curElement == ELEMENT &&
 			   (strcmp(name, "uiIndex") == 0 ||
 				strcmp(name, "szText") == 0 ||
+				strcmp(name, "szCensoredText") == 0 ||
 
 				strcmp(name, "aggressive") == 0 ||
 				strcmp(name, "defensive") == 0 ||
@@ -233,6 +234,8 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 				{			
 					MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->curTaunt.uiIndex].szText, sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) );
 					pData->curArray[pData->curTaunt.uiIndex].szText[sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) - 1] = '\0';
+					MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->curTaunt.uiIndex].szCensoredText, sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) );
+					pData->curArray[pData->curTaunt.uiIndex].szCensoredText[sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) - 1] = '\0';
 				}
 				else
 				{
@@ -296,6 +299,13 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 			
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curTaunt.szText, sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) );
 			pData->curTaunt.szText[sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) - 1] = '\0';
+		}
+		else if(strcmp(name, "szCensoredText") == 0 )
+		{
+			pData->curElement = ELEMENT;
+			
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curTaunt.szCensoredText, sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) );
+			pData->curTaunt.szCensoredText[sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "aggressive") == 0)
 		{

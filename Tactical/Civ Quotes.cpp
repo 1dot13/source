@@ -45,6 +45,8 @@
 #define			HIGH_TOWN_LOYALTY						80
 #define			CIV_QUOTE_HINT							99
 
+#define			MAX_APPLICABLE_TAUNTS			512
+
 extern void CaptureTimerCallback( void );
 
 BOOLEAN gfSurrendered = FALSE;
@@ -136,6 +138,11 @@ QUOTE_SYSTEM_STRUCT	gCivQuoteData;
 CHAR16	gzCivQuote[ 320 ];
 UINT16	gusCivQuoteBoxWidth;
 UINT16	gusCivQuoteBoxHeight;
+
+// anv: store times, when enemy taunt will be finished (so they won't taunt 50 times / second)
+UINT32	uiTauntFinishTimes[ TOTAL_SOLDIERS ];
+
+TAUNT_VALUES zApplicableTaunts[NUM_TAUNT];
 
 //--------------------------------------------------------------
 void CopyNumEntriesIntoQuoteStruct( ) //  Not used 
@@ -1029,10 +1036,14 @@ BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+// anv: used now
 //is allowed remove. Not used and remove from SaveLoadGame.cpp.
 BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
+
+	// anv: reset uiTauntFinishTimes after game is loaded (so enemies can taunt after guiBaseJA2Clock is decreased)
+	memset( &uiTauntFinishTimes, 0, sizeof( uiTauntFinishTimes ) );
 
 	FileRead( hFile, &gCivQuotes, sizeof( gCivQuotes ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( gCivQuotes ) )
@@ -1062,6 +1073,12 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTY
 	{
 		return;
 	}
+	// is enemy blocked from taunting at the moment?
+	if( uiTauntFinishTimes[pCiv->ubID] > GetJA2Clock() )
+	{
+		
+		return;
+	}
 	// check if generated person
 	if ( !(IS_MERC_BODY_TYPE( pCiv )) || !(pCiv->ubProfile == NO_PROFILE) )
 	{
@@ -1079,7 +1096,7 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTY
 		return;
 	}
 	// only enemies that are able to speak at the moment can taunt
-	if ( pCiv->stats.bLife < OKLIFE || pCiv->bCollapsed )
+	if ( pCiv->stats.bLife < OKLIFE || pCiv->bBreathCollapsed )
 	{
 		return;
 	}
@@ -1248,13 +1265,9 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTY
 // SANDRO - soldier taunts 
 void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )
 {
-	UINT16	iTauntNumber;
-	CHAR16	sTauntText[320];	
+	CHAR16	sTauntText[ 320 ];	
 	CHAR16	gzTauntQuote[ 320 ];
-	TAUNT_VALUES zApplicableTaunts[1024];
 	UINT16	iApplicableTaunts = 0;
-	BOOLEAN fApplicableAttitude[6];
-
 
 #ifdef ENABLE_ZOMBIES
 	// Flugente: zombies don't talk
@@ -1262,11 +1275,12 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		return;
 #endif
 
+	// gCivQuoteData.bActive is checked in ShowTauntPopupBox() instead, taunt can be shown in log though!
 	// if we have a different quote on, return, this one is not important
-	if ( gCivQuoteData.bActive )
-	{
-		return;
-	}
+	//if ( gCivQuoteData.bActive )
+	//{
+	//	return;
+	//}
 
 	// anv: check all taunts, and remember those applicable
 	for(UINT16 i=0; i<num_found_taunt; i++)
@@ -1876,44 +1890,58 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		}
 		// everything ok, current taunt is applicable, remember it
 		zApplicableTaunts[iApplicableTaunts] = zTaunt[i];
-		iApplicableTaunts++;	
+		iApplicableTaunts++;
+		if(iApplicableTaunts >= MAX_APPLICABLE_TAUNTS)
+			continue;
 	}
 	// are there any applicable taunts?
 	if( iApplicableTaunts > 0 )
 	{
 		// use random one
-		swprintf( sTauntText, zApplicableTaunts[ Random(iApplicableTaunts) ].szText );
+		// use censored version if setting is set
+		UINT16 iChosenTaunt = Random(iApplicableTaunts); 
+		if( gTauntsSettings.fTauntCensoredMode == TRUE && zApplicableTaunts[ iChosenTaunt ].szCensoredText[0] != 0 )
+		{
+			swprintf( sTauntText, zApplicableTaunts[ iChosenTaunt ].szCensoredText );
+		}
+		else
+		{
+			swprintf( sTauntText, zApplicableTaunts[ iChosenTaunt ].szText );
+		}
+#ifdef TAIWANESE
+		swprintf( gzTauntQuote, L"%s", sTauntText );
+#else
+		swprintf( gzTauntQuote, L"\"%s\"", sTauntText );
+#endif
+
+		// block this enemy from taunting for a time being
+		uiTauntFinishTimes[pCiv->ubID] = GetJA2Clock() + min( gTauntsSettings.sMaxDelay , max( gTauntsSettings.sMinDelay, FindDelayForString( gzTauntQuote ) + gTauntsSettings.sModDelay ) ); 
+
+		if( gTauntsSettings.fTauntMakeNoise == TRUE )
+			MakeNoise( pCiv->ubID, pCiv->sGridNo, pCiv->pathing.bLevel, pCiv->bOverTerrainType, gTauntsSettings.sVolume, NOISE_VOICE, gzTauntQuote );
+		else
+		{
+			if(gTauntsSettings.fTauntShowPopupBox == TRUE)
+			{	
+				if( gbPublicOpplist[gbPlayerNum][pCiv->ubID] == SEEN_CURRENTLY || gTauntsSettings.fTauntAlwaysShowPopupBox == TRUE )
+				{
+					ShowTauntPopupBox( pCiv, gzTauntQuote );
+				}
+			}
+			if(gTauntsSettings.fTauntShowInLog == TRUE)
+			{
+				if( gbPublicOpplist[gbPlayerNum][pCiv->ubID] == SEEN_CURRENTLY || gTauntsSettings.fTauntAlwaysShowInLog == TRUE )
+				{
+					ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", pCiv->GetName(), gzTauntQuote );
+				}
+			}
+		}
 	}
 	else
 	{
 		return;
 	}
 
-#ifdef TAIWANESE
-	swprintf( gzTauntQuote, L"%s", sTauntText );
-#else
-	swprintf( gzTauntQuote, L"\"%s\"", sTauntText );
-#endif
-
-	if( gTauntsSettings.fTauntMakeNoise == TRUE )
-		MakeNoise( pCiv->ubID, pCiv->sGridNo, pCiv->pathing.bLevel, pCiv->bOverTerrainType, gTauntsSettings.sVolume, NOISE_VOICE, gzTauntQuote );
-	else
-	{
-		if(gTauntsSettings.fTauntShowPopupBox == TRUE)
-		{	
-			if( gbPublicOpplist[gbPlayerNum][pCiv->ubID] == SEEN_CURRENTLY || gTauntsSettings.fTauntAlwaysShowPopupBox == TRUE )
-			{
-				ShowTauntPopupBox( pCiv, gzTauntQuote );
-			}
-		}
-		if(gTauntsSettings.fTauntShowInLog == TRUE)
-		{
-			if( gbPublicOpplist[gbPlayerNum][pCiv->ubID] == SEEN_CURRENTLY || gTauntsSettings.fTauntAlwaysShowInLog == TRUE )
-			{
-				ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", pCiv->GetName(), gzTauntQuote );
-			}
-		}
-	}
 }
 
 void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote )
@@ -1921,6 +1949,12 @@ void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote )
 	INT16	sX, sY;
 	INT16	sScreenX, sScreenY;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
+
+	// stop if other civ quote is already being shown 
+	if( gCivQuoteData.bActive == TRUE )
+	{
+		return;
+	}
 
 	// Determine location...
 	// Get location of civ on screen.....

@@ -1330,6 +1330,7 @@ typedef struct
 
 typedef struct
 {
+	BOOLEAN fTauntCensoredMode;
 	BOOLEAN fTauntShowPopupBox;
 	BOOLEAN fTauntShowInLog;
 	BOOLEAN fTauntMakeNoise;

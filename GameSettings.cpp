@@ -3206,6 +3206,7 @@ void LoadCTHConstants()
 void LoadTauntsSettings()
 {
 	CIniReader iniReader(TAUNTS_SETTINGS_FILE);
+	gTauntsSettings.fTauntCensoredMode				= iniReader.ReadBoolean("Taunts Settings","TAUNT_CENSORED_MODE", FALSE );
 	gTauntsSettings.fTauntShowPopupBox				= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_POPUP_BOX", TRUE );
 	gTauntsSettings.fTauntShowInLog					= iniReader.ReadBoolean("Taunts Settings","TAUNT_SHOW_IN_LOG", TRUE );
 	gTauntsSettings.fTauntMakeNoise					= iniReader.ReadBoolean("Taunts Settings","TAUNT_MAKE_NOISE", TRUE );
