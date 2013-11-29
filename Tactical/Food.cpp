@@ -371,8 +371,8 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 
 	FLOAT  temperaturemodifier  = (FLOAT)(3 + sectortemperaturemod)/3;
 	
-	FLOAT specialfoodmodifier  = (100 + pSoldier->GetBackgroundValue(BG_PERC_FOOD) ) / 100;
-	FLOAT specialdrinkmodifier = (100 + pSoldier->GetBackgroundValue(BG_PERC_WATER)) / 100;
+	FLOAT specialfoodmodifier  = (100.0 + pSoldier->GetBackgroundValue(BG_PERC_FOOD) ) / 100.0;
+	FLOAT specialdrinkmodifier = (100.0 + pSoldier->GetBackgroundValue(BG_PERC_WATER)) / 100.0;
 	
 	// due to digestion, reduce our food and drink levels
 	pSoldier->bFoodLevel  = max(pSoldier->bFoodLevel  - (INT32) (specialfoodmodifier  * activitymodifier * gGameExternalOptions.usFoodDigestionHourlyBaseFood), FOOD_MIN);
