@@ -2954,6 +2954,18 @@ BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorM
 				}
 			}
 		}
+#ifndef JA2EDITOR//dnl ch79 281113
+		if(Item[this->usItem].randomitem > 0)
+		{
+			if(CreateItem(this->usItem, (*this)[0]->data.gun.bGunStatus, &gTempObject))
+				*this = gTempObject;
+			else
+			{
+				this->usItem = 0;
+				this->ubNumberOfObjects = 0;
+			}
+		}
+#endif
 	}
 	else
 	{

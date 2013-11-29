@@ -2901,7 +2901,11 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	// Read JA2 Version ID
 	LOADDATA(&dMajorMapVersion, pBuffer, sizeof(FLOAT));
 	LOADDATA(&ubMinorMapVersion, pBuffer, sizeof(UINT8));
-
+	if(pMajorMapVersion && pMinorMapVersion)//dnl ch79 291113
+	{
+		*pMajorMapVersion = dMajorMapVersion;
+		*pMinorMapVersion = ubMinorMapVersion;
+	}
 	INT32 iRowSize = OLD_WORLD_ROWS;
 	INT32 iColSize = OLD_WORLD_COLS;
 	if(dMajorMapVersion >= 7.00)

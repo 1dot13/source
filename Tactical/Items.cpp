@@ -7789,10 +7789,10 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 
 #else //non-editor version
 
-	if (usItem == 0)
+	if(usItem == 0 || Item[usItem].randomitem > 0)//dnl ch79 291113 don't recreate random item from game as GetItemFromRandomItem obviously fail to create real item
 	{
 		DebugBreakpoint();
-		return( FALSE );
+		return(FALSE);
 	}
 
 #endif

@@ -87,6 +87,9 @@ void AudioGapListInit( CHAR8 *zSoundFile, AudioGapList	*pGapList )
 	pDestFileName[counter+3]='p';
 	pDestFileName[counter+4]='\0';
 
+	if(!FileExists(pDestFileName))//dnl ch79 291113
+		return;
+
 	pFile = FileOpen(pDestFileName, FILE_ACCESS_READ, FALSE );
 	if( pFile )
 	{

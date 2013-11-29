@@ -3001,7 +3001,10 @@ void HandleMercInventoryPanel( INT16 sX, INT16 sY, INT8 bEvent )
 							SpecifyItemToEdit( gpMercSlotItem[ x ], -1 );
 					}
 					if( bEvent == GUI_RCLICK_EVENT ) //user r-clicked, so enable item choosing
+					{
+						gfRenderMercInfo = TRUE;//dnl ch79 271113
 						gfMercGetItem = TRUE;
+					}
 					gbCurrSelect = x;
 					return;
 				}

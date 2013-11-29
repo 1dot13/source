@@ -99,7 +99,7 @@ UINT32 MapUtilScreenInit(void)
 	}
 	// Create big map buffer which contains whole map for radar map generation
 	vs_desc.usWidth = (640 * WORLD_COLS / OLD_WORLD_COLS);
-	vs_desc.usHeight = (320 * WORLD_ROWS / OLD_WORLD_ROWS) + 10;// +10, without this additional lines editor will crash as renderer go beyond them
+	vs_desc.usHeight = (320 * WORLD_ROWS / OLD_WORLD_ROWS) + 50;//!!! without this additional lines editor will crash as renderer go beyond them
 	vs_desc.ubBitDepth = ubBitDepth;
 	if(!GetVideoSurface(&ghVSurface, guiBigMap))
 	{
@@ -108,7 +108,7 @@ UINT32 MapUtilScreenInit(void)
 	}
 	else if(!(ghVSurface->usWidth == vs_desc.usWidth && ghVSurface->usHeight == vs_desc.usHeight))
 	{
-		DeleteVideoSurfaceFromIndex( guiBigMap );
+		DeleteVideoSurfaceFromIndex(guiBigMap);
 		if(AddVideoSurface(&vs_desc, (UINT32*)&guiBigMap) == FALSE)
 			return(ERROR_SCREEN);
 	}
@@ -122,14 +122,14 @@ UINT32 MapUtilScreenHandle(void)
 	InputAtom InputEvent;
 	SGPPaletteEntry pPalette[256];
 	CHAR8 zFilename[260], zFilename2[260];
-	UINT8 *pDataPtr;
+	UINT8 *pDataPtr, ubMinorMapVersion;
 	UINT16 *pDestBuf, *pSrcBuf;
 	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES, uiRGBColor, bR, bG, bB, bAvR, bAvG, bAvB;
 	INT16 s16BPPSrc, sDest16BPPColor, sX1, sX2, sY1, sY2, sTop, sBottom, sLeft, sRight;
 	INT32 cnt, iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
-	FLOAT dX, dY, dStartX, dStartY;
+	FLOAT dX, dY, dStartX, dStartY, dMajorMapVersion;
 
-	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE || ((_LeftButtonDown|_RightButtonDown|_MiddleButtonDown) ? InputEvent.usParam = ESC : 0))//dnl ch78 271113
+	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE || (_RightButtonDown ? InputEvent.usParam = ESC : 0))//dnl ch78 291113
 	{
 		if(InputEvent.usParam == ESC)
 		{
@@ -152,7 +152,6 @@ UINT32 MapUtilScreenHandle(void)
 	}
 	if(gfMapUtilityWindowActive)
 	{
-		GetVideoSurface(&ghVSurface, gui8BitMiniMap);
 		SetCurrentCursorFromDatabase(VIDEO_NO_CURSOR);//dnl ch78 271113
 		return(MAPUTILITY_SCREEN);
 	}
@@ -160,7 +159,6 @@ UINT32 MapUtilScreenHandle(void)
 	{
 		DisableEditorTaskbar();
 		DisableAllTextFields();
-		MapUtilScreenInit();
 	}
 	sDest16BPPColor = -1;
 	bAvR = bAvG = bAvB = 0;
@@ -177,15 +175,20 @@ UINT32 MapUtilScreenHandle(void)
 			return(MAPUTILITY_SCREEN);
 		}
 		sprintf(zFilename, "%s", FListNode->FileInfo.zFileName);
-		// OK, load maps and do overhead shrinkage of them...
-		if(!LoadWorld(zFilename))
+		// OK, load maps and do overhead shrinkage of them... //dnl ch79 291113
+		if(!LoadWorld(zFilename, &dMajorMapVersion, &ubMinorMapVersion))
 			return(ERROR_SCREEN);
+		if(strcmp(gzCommandLine, "-DOMAPSCNV") == 0)
+			if(!(dMajorMapVersion == MAJOR_MAP_VERSION && ubMinorMapVersion == MINOR_MAP_VERSION && gMapInformation.ubMapVersion == MINOR_MAP_VERSION))
+				if(!SaveWorld(zFilename))
+					return(ERROR_SCREEN);
 	}
 	// Render small map
 	//iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);// Horizontal start postion of the overview map
 	//iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;// Vertical start position of the overview map
 	iOffsetHorizontal = iOffsetVertical = 0;
-	ColorFillVideoSurfaceArea(guiBigMap, 0, 0, (INT16)(SCREEN_WIDTH), (INT16)(SCREEN_HEIGHT), Get16BPPColor(FROMRGB(0, 0, 0)));
+	MapUtilScreenInit();//dnl ch79 291113
+	//ColorFillVideoSurfaceArea(guiBigMap, 0, 0, (INT16)(640 * WORLD_COLS / OLD_WORLD_COLS), (INT16)(320 * WORLD_ROWS / OLD_WORLD_ROWS), Get16BPPColor(FROMRGB(0, 0, 0)));
 	InitNewOverheadDB((UINT8)giCurrentTilesetID);
 	gfOverheadMapDirty = TRUE;
 	//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code

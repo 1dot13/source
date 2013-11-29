@@ -1524,10 +1524,10 @@ UINT32 InitializeJA2(void)
 #ifdef JA2BETAVERSION
 #ifdef JA2EDITOR
 	// CHECK COMMANDLINE FOR SPECIAL UTILITY
-	if ( strcmp( gzCommandLine, "-DOMAPS" ) == 0 )
+	if(strcmp(gzCommandLine, "-DOMAPS") == 0 || strcmp(gzCommandLine, "-DOMAPSCNV") == 0)//dnl ch79 291113
 	{
 		GenerateAllMapsInit();//dnl ch49 061009
-		return( MAPUTILITY_SCREEN );
+		return(MAPUTILITY_SCREEN);
 	}
 #endif
 #endif
