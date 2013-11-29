@@ -14296,9 +14296,9 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 	
 	resistance += this->GetBackgroundValue(BG_RESI_PHYSICAL);
 
-	// resistance is between -100% and 100%
-	resistance = max(  0, resistance);
-	resistance = min(100, resistance);
+	// resistance is between -100% and 95%
+	resistance = max(-100, resistance);
+	resistance = min(  95, resistance);
 
 	return( resistance );
 }
@@ -16983,7 +16983,7 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 		bonus -= 3;
 
 	// if we are airdropping and do not have the 'airdrop' background, we receive a substantial malus to our interrupt level. Roping down takes a lot of attention
-	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN && (this->GetBackgroundValue(BG_AIRDROP) == 0) )
+	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN && (this->GetBackgroundValue(BG_AIRDROP) <= 0) )
 		bonus -= 8;
 					
 	return bonus;

@@ -1492,7 +1492,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 		fUpdateFinalPosition = FALSE;
 	}
 
-	// Flugente: if we are airdropping, center screen on the action adn remove soldier initially. He will be dropped into the sector by the helicopter
+	// Flugente: if we are airdropping, center screen on the action and remove soldier initially. He will be dropped into the sector by the helicopter
 	if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
 	{
 		pSoldier->bSoldierFlagMask &= ~SOLDIER_AIRDROP;

@@ -8008,7 +8008,7 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     }
 
 	// Flugente: add personal bonus to suppresion tolerance
-	bTolerance += pSoldier->GetSuppressionResistanceBonus();
+	bTolerance = (bTolerance * (100 + pSoldier->GetSuppressionResistanceBonus() ) / 100);
 
     bTolerance = __max(bTolerance, gGameExternalOptions.ubSuppressionToleranceMin);
     bTolerance = __min(bTolerance, gGameExternalOptions.ubSuppressionToleranceMax);

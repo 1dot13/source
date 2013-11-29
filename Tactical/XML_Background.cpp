@@ -368,7 +368,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "resistance_physical") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_RESI_PHYSICAL] = min(XML_BACKGROUND_RESI_MAX, max(-XML_BACKGROUND_RESI_MAX, (INT8) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_RESI_PHYSICAL] = min(10, max(-10, (INT8) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "resistance_alcohol") == 0)
 		{
@@ -388,12 +388,12 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "betterprices_guns") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_PRICES_GUNS] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_PRICES_GUNS] = min(10, max(-10, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "betterprices") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_PRICES] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_PRICES] = min(10, max(-10, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "capitulation") == 0)
 		{
@@ -403,7 +403,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "speed_run") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_SPEED_RUNNING] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_SPEED_RUNNING] = min(30, max(-30, (INT16) atol(pData->szCharData) ));
 		}	
 		else if(strcmp(name, "speed_bandaging") == 0)
 		{
@@ -418,7 +418,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "carrystrength") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_CARRYSTRENGTH] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_CARRYSTRENGTH] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "food") == 0)
 		{
@@ -433,7 +433,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "sleep") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_SLEEP] = min(2, max(-2, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_SLEEP] = min(1, max(-1, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "meleedamage") == 0)
 		{
@@ -448,12 +448,12 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "camo") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_CAMO] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_CAMO] = min(10, max(-20, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "stealth") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_STEALTH] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_STEALTH] = min(10, max(-20, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "increased_maxcth") == 0)
 		{
@@ -463,32 +463,32 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "hearing_night") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_HEARING_NIGHT] = min(10, max(-10, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_HEARING_NIGHT] = min(2, max(-5, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "hearing_day") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_HEARING_DAY] = min(10, max(-10, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_HEARING_DAY] = min(2, max(-5, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "approach_friendly") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_APPROACH_FRIENDLY] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_APPROACH_FRIENDLY] = min(20, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "approach_direct") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_APPROACH_DIRECT] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_APPROACH_DIRECT] = min(20, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "approach_threaten") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_APPROACH_THREATEN] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_APPROACH_THREATEN] = min(20, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "approach_recruit") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_APPROACH_RECRUIT] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_APPROACH_RECRUIT] = min(20, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "breachingcharge") == 0)
 		{
@@ -498,7 +498,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "cth_vs_creatures") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_CTH_CREATURE] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_CTH_CREATURE] = min(10, max(-10, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "insurance") == 0)
 		{
