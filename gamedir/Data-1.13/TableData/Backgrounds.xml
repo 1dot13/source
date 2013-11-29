@@ -16,7 +16,7 @@
     <ap_tropical>0</ap_tropical>
     <ap_mountain>0</ap_mountain>
     
-    <!-- stat effectiveness modifiers, values from -10 to 10 -->
+    <!-- % stat effectiveness modifiers, values from -10 to 10 -->
     <agility>0</agility>
     <strength>0</strength>
     <dexterity>0</dexterity>
@@ -33,7 +33,7 @@
     <ap_fortify>0</ap_fortify>                        <!-- +- % APs needed for task, -40 to 40 -->
     <ap_artillery>0</ap_artillery>                    <!-- +- % APs needed for task, -40 to 40 -->
     <ap_inventory>0</ap_inventory>                    <!-- +- % APs needed for task, -40 to 40 -->
-    <ap_airdrop>0</ap_airdrop>                        <!-- look into other direction after airdrop + +-AP in first turn after airdrop, -10 to 10 -->
+    <ap_airdrop>0</ap_airdrop>                        <!-- +-AP in first turn after airdrop, -40 to 40 + no interrupt penalty if > 0-->
     <ap_assault>0</ap_assault>                        <!-- +- AP in first turn if attacking, -10 to 10 -->
     
     <!-- +-% travel speed modifiers, -20 to 20-->
@@ -46,38 +46,38 @@
     <resistance_poison>0</resistance_poison>
     <resistance_fear>0</resistance_fear>
     <resistance_suppression>0</resistance_suppression>
-    <resistance_physical>0</resistance_physical>
+    <resistance_physical>0</resistance_physical>      <!-- -10 to 10 -->
     <resistance_alcohol>0</resistance_alcohol>
     
     <!--various boni-->
-    <interrogation>0</interrogation>                  <!-- +- prisoner interrogation strength, -50 to 300 -->
-    <prisonguard>0</prisonguard>                      <!-- +- prison guard strength, -50 to 300 -->
-    <betterprices_guns>0</betterprices_guns>          <!-- +- % prices when trading guns and ammo, -20 to 20 -->
-    <betterprices>0</betterprices>                    <!-- +- % prices when trading armour, lbe, blades, kits etc., -20 to 20 -->
+    <interrogation>0</interrogation>                  <!-- +- % prisoner interrogation strength, -50 to 300 -->
+    <prisonguard>0</prisonguard>                      <!-- +- % prison guard strength, -50 to 300 -->
+    <betterprices_guns>0</betterprices_guns>          <!-- +- % prices when trading guns and ammo, -10 to 10 -->
+    <betterprices>0</betterprices>                    <!-- +- % prices when trading armour, lbe, blades, kits etc., -10 to 10 -->
     <capitulation>0</capitulation>                    <!-- +- % total team strength when asking enemy for surrender, -50 to 100 -->
-    <speed_run>0</speed_run>                          <!-- +- running speed, -50 to 50 -->
-    <speed_bandaging>0</speed_bandaging>              <!-- +- bandaging speed, -50 to 50 -->
+    <speed_run>0</speed_run>                          <!-- +- % running speed, -30 to 30 -->
+    <speed_bandaging>0</speed_bandaging>              <!-- +- % bandaging speed, -50 to 50 -->
     <drink_energyregen>0</drink_energyregen>          <!-- +- % breath restored by drinking, -80 to 300 -->
-    <carrystrength>0</carrystrength>                  <!-- +- % strength for weight calculations, -50 to 50 -->
+    <carrystrength>0</carrystrength>                  <!-- +- % strength for weight calculations, -20 to 20 -->
     <food>0</food>                                    <!-- +- % need for food, -50 to 100 -->
     <water>0</water>                                  <!-- +- % need for water, -50 to 100 -->
-    <sleep>0</sleep>                                  <!-- +- need for sleep, -2 to 2 -->
-    <meleedamage>0</meleedamage>                      <!-- +- damage with melee attacks, -10 to 10 -->
-    <cth_blades>0</cth_blades>                        <!-- +- cth with blade weapons, -10 to 10 -->
-    <camo>0</camo>                                    <!-- +- effectiveness, -20 to 20 -->
-    <stealth>0</stealth>                              <!-- +- effectiveness, -20 to 20 -->
+    <sleep>0</sleep>                                  <!-- +- need for sleep, -1 to 1 -->
+    <meleedamage>0</meleedamage>                      <!-- +- % damage with melee attacks, -10 to 10 -->
+    <cth_blades>0</cth_blades>                        <!-- +- % cth with blade weapons, -10 to 10 -->
+    <camo>0</camo>                                    <!-- +- % effectiveness, -20 to 10 -->
+    <stealth>0</stealth>                              <!-- +- % effectiveness, -20 to 10 -->
     <increased_maxcth>0</increased_maxcth>            <!-- +- max possible cth, -5 to 5 -->
-    <hearing_night>0</hearing_night>                  <!-- +- hearing range, -10 to 10 -->
-    <hearing_day>0</hearing_day>                      <!-- +- hearing range, -10 to 10 -->
+    <hearing_night>0</hearing_night>                  <!-- +- hearing range, -5 to 2 -->
+    <hearing_day>0</hearing_day>                      <!-- +- hearing range, -5 to 2 -->
         
-    <!-- +- % approach effectiveness, -50 to 50 -->
+    <!-- +- % approach effectiveness, -50 to 20 -->
     <approach_friendly>0</approach_friendly>
     <approach_direct>0</approach_direct>
     <approach_threaten>0</approach_threaten>
     <approach_recruit>0</approach_recruit>
     
     <breachingcharge>0</breachingcharge>              <!-- +- success chance with door braching charges, -100 to 100 -->
-    <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -20 to 20 -->
+    <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
     <insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
     
     <!-- on/off properties: 1 for on, 0 for off -->      
@@ -127,7 +127,7 @@
     <szShortName>Convict</szShortName>
     <szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
     <resistance_poison>5</resistance_poison>
-    <resistance_physical>2</resistance_physical>
+    <resistance_physical>5</resistance_physical>
     <meleedamage>2</meleedamage>
   </BACKGROUND>
   <BACKGROUND>
@@ -512,12 +512,10 @@
    <resistance_poison>-20</resistance_poison>
    <resistance_fear>-20</resistance_fear>
    <resistance_suppression>-20</resistance_suppression>
-   <resistance_physical>-20</resistance_physical>
+   <resistance_physical>-10</resistance_physical>
    <resistance_alcohol>-20</resistance_alcohol>
-   <speed_run>-20</speed_run>
-   <carrystrength>-50</carrystrength>
-   <capitulation>-50</capitulation>
-   <sleep>2</sleep> 
+   <speed_run>-10</speed_run>
+   <sleep>1</sleep> 
  </BACKGROUND>
  <BACKGROUND>
    <uiIndex>46</uiIndex>
@@ -599,7 +597,7 @@
    <approach_direct>-15</approach_direct>
    <approach_recruit>-15</approach_recruit>
    <interrogation>-15</interrogation>
-   <camo>10</camo><!-- only urban camo? -->
+   <camo>8</camo><!-- only urban camo? -->
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>54</uiIndex>
@@ -607,7 +605,7 @@
    <szShortName>B-Movie Star</szShortName>
    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
    <approach_friendly>20</approach_friendly>
-   <camo>10</camo>
+   <camo>4</camo>
    <capitulation>5</capitulation>
    <!-- easier to recognise in disguise? -->
   </BACKGROUND>
@@ -647,7 +645,7 @@
    <wisdom>-7</wisdom>
    <ap_urban>-5</ap_urban>
    <approach_recruit>-5</approach_recruit>
-   <carrystrength>10</carrystrength>
+   <carrystrength>6</carrystrength>
    <resistance_alcohol>10</resistance_alcohol>
    <druguse>1</druguse>
   </BACKGROUND>
@@ -688,8 +686,8 @@
    <szName>Wrestler</szName>
    <szShortName>Wrestler</szShortName>
    <szDescription>It might be more of a spectacle than actual fight, but getting thrown &#10;around a ring without breaking a neck still takes a lot of skill.</szDescription>
-   <resistance_physical>10</resistance_physical>
-   <carrystrength>25</carrystrength> 
+   <resistance_physical>7</resistance_physical>
+   <carrystrength>15</carrystrength> 
    <speed_run>5</speed_run>
   </BACKGROUND>
   <BACKGROUND>
@@ -770,7 +768,7 @@
    <food>-10</food>
    <water>-10</water>
    <sleep>-1</sleep> 
-   <hearing_night>3</hearing_night>
+   <hearing_night>2</hearing_night>
    <level_underground>1</level_underground>
    <no_male>1</no_male>
    <no_female>1</no_female>
@@ -780,7 +778,6 @@
    <szName>Butt Monkey</szName>
    <szShortName>Butt Monkey</szShortName>
    <szDescription>One would expect a constant abuse and ridicule you withstand to finally &#10;lead you to reconsidering your life choices. Nope.</szDescription>
-   <resistance_physical>20</resistance_physical>
    <resistance_fear>10</resistance_fear>
    <leadership>-10</leadership>
    <approach_threaten>-50</approach_threaten>
@@ -800,7 +797,7 @@
    <travel_foot>3</travel_foot>
    <carrystrength>4</carrystrength>
    <stealth>6</stealth>
-   <cth_vs_creatures>15</cth_vs_creatures>
+   <cth_vs_creatures>10</cth_vs_creatures>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>72</uiIndex>
