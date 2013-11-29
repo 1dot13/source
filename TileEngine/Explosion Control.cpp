@@ -2371,6 +2371,8 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 				{
 					// item was destroyed
 					RemoveItemFromPool( sGridNo, pItemPool->iItemIndex, bLevel );
+					// sevenfm: if no other bomb exists here
+					CheckForBuriedBombsAndRemoveFlags( sGridNo, bLevel );
 				}
 				pItemPool = pItemPoolNext;
 			}
@@ -3897,6 +3899,7 @@ void HandleExplosionQueue( void )
 	INT32 sGridNo;
 	OBJECTTYPE * pObj;
 	UINT8		 ubLevel;
+	BOOLEAN fAttFound = FALSE;
 
 	if ( !gfExplosionQueueActive )
 	{
@@ -3929,8 +3932,11 @@ void HandleExplosionQueue( void )
 				//RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, 0 );
 			}
 			else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE )
-			{
-				NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
+			{				
+				// sevenfm: changed pObj->usItem to Item[pObj->usItem].ubClassIndex as it should be correct explosives index
+				// NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
+				NewLightEffect( sGridNo, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubDuration, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubStartRadius );
+
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 			}
 			// Flugente: handle tripwire gun traps here...
@@ -3966,21 +3972,21 @@ void HandleExplosionQueue( void )
 					// fire with this gun, if possible. Afterwards place it on the floor
 					OBJECTTYPE object(*pAttGun);
 					CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
+				} else {
+					// sevenfm: blow attached items with tripwireactivation = TRUE
+					// no preplaced (owner=NOBODY) tripwire with explosive attachments allowed
+					if ( gGameExternalOptions.bAllowExplosiveAttachments && (*pObj)[0]->data.misc.ubBombOwner > 1 )
+					{
+						fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, 
+										sGridNo, (*pObj)[0]->data.misc.usBombItem, FALSE, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+				}
 				}
 				
 				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
 				// if no other bomb exists here
-				if ( FindWorldItemForBombInGridNo(sGridNo, ubLevel) == -1 )
-				{
-					// make sure no one thinks there is a bomb here any more!
-					if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
-					{
-						RemoveBlueFlag( sGridNo, ubLevel );
-					}
-					gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
-				}
+				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
 				
 				// delete the flag, otherwise wire will only work once
 				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
@@ -4000,15 +4006,7 @@ void HandleExplosionQueue( void )
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
 				// if no other bomb exists here
-				if ( FindWorldItemForBombInGridNo(sGridNo, ubLevel) == -1 )
-				{
-					// make sure no one thinks there is a bomb here any more!
-					if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
-					{
-						RemoveBlueFlag( sGridNo, ubLevel );
-					}
-					gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
-				}
+				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
 				
 				// delete the flag, otherwise wire will only work once
 				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
@@ -4044,12 +4042,7 @@ void HandleExplosionQueue( void )
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 
 				// make sure no one thinks there is a bomb here any more!
-				if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
-				{
-					RemoveBlueFlag( sGridNo, ubLevel );
-				}
-				gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
-
+				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel);
 				// BOOM!
 
 				// bomb objects only store the SIDE who placed the bomb! :-(
@@ -4063,6 +4056,11 @@ void HandleExplosionQueue( void )
 					IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
 				}
 			}
+/*			if ( FindWorldItemForBuriedBombInGridNo(sGridNo, ubLevel) != -1 )
+			{
+				gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+				gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_ENEMY_MINE_PRESENT;
+			}*/
 
 			// Bye bye bomb
 			gExplosionQueue[ uiIndex ].fExists = FALSE;
@@ -5440,15 +5438,131 @@ void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sG
 }
 
 // sevenfm: handle explosive items from attachments
-void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj)
+BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj)
 {
-	BOOLEAN binderFound = FALSE; 
+	BOOLEAN binderFound = FALSE;
+	BOOLEAN detonator = FALSE;
+	BOOLEAN fAttFound = FALSE;
 	attachmentList::iterator iterend;
 	attachmentList::iterator iter;
 	UINT8 direction;
 	
 	if(pObj==NULL)
-		return;
+		return FALSE;
+
+	binderFound = FindBinderAttachment ( pObj );
+	detonator = CheckExplosiveTypeAsDetonator( Explosive[ Item[ usItem ].ubClassIndex ].ubType );
+
+	// search for attached explosives
+	iterend = (*pObj)[0]->attachments.end();
+	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
+		{ 			
+			// no need for binder if both item and attachment are tripwire-activated
+			if( ( Item[pObj->usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
+				( binderFound && detonator && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
+			{
+				if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
+					direction=Random(8);
+				else
+					direction=ubDirection;				
+				if( Item[iter->usItem].uiIndex == TRIP_KLAXON )
+				{
+					PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
+					// CallAvailableEnemiesTo( sGridNo );
+					MakeNoise( NOBODY, sGridNo, bLevel, gpWorldLevelData[ sGridNo ].ubTerrainID, (UINT8)Explosive[ Item[iter->usItem].ubClassIndex ].ubVolume, NOISE_EXPLOSION );
+				} else if( Item[iter->usItem].uiIndex == TRIP_FLARE )
+				{
+					NewLightEffect( sGridNo, (UINT8)Explosive[ Item[iter->usItem].ubClassIndex ].ubDuration, (UINT8)Explosive[iter->usItem].ubStartRadius );
+				} else
+				{
+					IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );
+			}
+				fAttFound = TRUE;
+		}
+		}
+		if ( binderFound && detonator && gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
+		{
+			if(Item[iter->usItem].gascan)
+			{
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
+				fAttFound = TRUE;
+			}
+			if(Item[iter->usItem].alcohol)
+			{
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, MOLOTOV_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
+				fAttFound = TRUE;
+			}
+			if(Item[iter->usItem].marbles)
+			{
+				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, FRAG_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
+				fAttFound = TRUE;
+		}
+	}
+	}
+	return fAttFound;
+}
+
+void CheckForBuriedBombsAndRemoveFlags( INT32 sGridNo, INT8 bLevel )
+{
+	if ( FindWorldItemForBuriedBombInGridNo(sGridNo, bLevel) == -1 )
+	{
+		// make sure no one thinks there is a bomb here any more!
+		if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+		{
+			RemoveBlueFlag( sGridNo, bLevel );
+		}
+		gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+	}
+}
+
+// sevenfm: calculate total average volatility of item+attachments
+UINT16 CalcTotalVolatility(OBJECTTYPE * pObj)
+{
+	BOOLEAN binderFound = FALSE;
+	BOOLEAN detonator = FALSE;
+	attachmentList::iterator iterend;
+	attachmentList::iterator iter;
+	UINT16 totalVolatility;
+	UINT8 num;
+	UINT16 usItem;
+	UINT16 classIndex;
+	
+	if(pObj==NULL)
+		return 0;
+
+	usItem = pObj->usItem;
+	classIndex = Item[ usItem ].ubClassIndex;
+	
+	totalVolatility = Explosive[ classIndex ].ubVolatility;
+	num = 1;
+
+	binderFound = FindBinderAttachment ( pObj );
+	detonator = CheckExplosiveTypeAsDetonator( Explosive[ classIndex ].ubType );
+
+	// search for attached explosives
+	iterend = (*pObj)[0]->attachments.end();
+	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
+		{ 			
+			// no need for binder if both item and attachment are tripwire-activated
+			if( ( Item[usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
+				( binderFound && detonator && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
+			{
+				totalVolatility += Explosive[Item[iter->usItem].ubClassIndex].ubVolatility;
+				num++;
+			}
+		}
+	}
+	return totalVolatility / num;
+}
+
+BOOLEAN FindBinderAttachment (OBJECTTYPE * pObj)
+{
+	attachmentList::iterator iterend;
+	attachmentList::iterator iter;
 
 	// check all attachments, search for ELASTIC or DUCT_TAPE;
 	iterend = (*pObj)[0]->attachments.end();
@@ -5458,44 +5572,15 @@ void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		{
 			if(Item[iter->usItem].uiIndex == ELASTIC || Item[iter->usItem].uiIndex == DUCT_TAPE )
 			{
-				binderFound = TRUE;			
-				break;
+				return TRUE;
 			}
 		}
 	}
+	return FALSE;
+}
 
-	// search for attached explosives
-	for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-	{
-		if ( iter->exists() && Item[iter->usItem].usItemClass & (IC_GRENADE|IC_BOMB) )
-		{ 			
-			// no need for binder if both item and attachment are tripwire-activated
-			if( ( Item[pObj->usItem].tripwireactivation && Item[iter->usItem].tripwireactivation ) ||
-				( binderFound && Explosive[Item[iter->usItem].ubClassIndex].ubVolatility > 0 ) )
-			{
-				if(Item[iter->usItem].directional && ubDirection == DIRECTION_IRRELEVANT)
-					direction=Random(8);
-				else
-					direction=ubDirection;				
-				if( Item[iter->usItem].uiIndex == TRIP_KLAXON )
-				{
-					PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
-					CallAvailableEnemiesTo( sGridNo );
-				} else if( Item[iter->usItem].uiIndex == TRIP_FLARE )
-				{
-					NewLightEffect( sGridNo, (UINT8)Explosive[iter->usItem].ubDuration, (UINT8)Explosive[iter->usItem].ubStartRadius );
-				} else
-					IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, Item[iter->usItem].uiIndex, bLevel, direction , NULL );	
-			}
-		}
-		if ( binderFound && gGameExternalOptions.bAllowSpecialExplosiveAttachments && iter->exists() && Item[iter->usItem].usItemClass & IC_MISC )
-		{
-			if(Item[iter->usItem].gascan)
-				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
-			if(Item[iter->usItem].alcohol)
-				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, MOLOTOV_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
-			if(Item[iter->usItem].marbles)
-				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, FRAG_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );	
-		}
-	}
+BOOLEAN CheckExplosiveTypeAsDetonator(UINT16 ubType)
+{
+	// attached explosives are allowed only for EXPLOSV_NORMAL, EXPLOSV_STUN and EXPLOSV_FLASHBANG types
+	return ( ubType == EXPLOSV_NORMAL || ubType == EXPLOSV_STUN || ubType == EXPLOSV_FLASHBANG );
 }

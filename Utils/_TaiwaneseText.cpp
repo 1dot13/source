@@ -3193,6 +3193,23 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Demand surrender",
 	L"Offer surrender",
 	L"Talk",
+
+	// TODO.Translate
+    // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
+    L"Disarm trap",
+    L"Inspect trap",
+    L"Remove blue flag",
+    L"Blow up!",
+    L"Activate tripwire",
+    L"Deactivate tripwire",
+    L"Reveal tripwire",
+    L"No detonator or remote detonator found!",
+    L"This bomb is already armed!",
+    L"Safe",
+    L"Mostly safe",
+    L"Risky",
+    L"Dangerous",
+    L"High danger!",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

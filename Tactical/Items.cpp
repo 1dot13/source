@@ -8507,10 +8507,21 @@ INT8 CheckItemForDamage( UINT16 usItem, INT32 iMaxDamage )
 	return( bDamage );
 }
 
-BOOLEAN CheckForChainReaction( UINT16 usItem, INT16 bStatus, INT16 bDamage, BOOLEAN fOnGround )
+//BOOLEAN CheckForChainReaction( UINT16 usItem, INT16 bStatus, INT16 bDamage, BOOLEAN fOnGround )
+BOOLEAN CheckForChainReaction( OBJECTTYPE * pObj , INT16 bStatus, INT16 bDamage, BOOLEAN fOnGround )
 {
 	INT32 iChance;
+        UINT16 usItem;
 
+        if(pObj == NULL)
+                return FALSE;
+
+        usItem = pObj->usItem;
+        
+        // sevenfm: if ALLOW_EXPLOSIVE_ATTACHMENTS = TRUE calculate total average volatility of (item + explosive attachments)
+        if(gGameExternalOptions.bAllowExplosiveAttachments && pObj)
+                iChance = CalcTotalVolatility( pObj );
+        else
 	iChance = Explosive[Item[usItem].ubClassIndex].ubVolatility;
 	if (iChance > 0)
 	{
@@ -8591,7 +8602,7 @@ BOOLEAN DamageItem( OBJECTTYPE * pObject, INT32 iDamage, BOOLEAN fOnGround )
 				// FUN STUFF!  Check for explosives going off as a result!
 				if (Item[pObject->usItem].usItemClass & IC_EXPLOSV)
 				{
-					if (CheckForChainReaction( pObject->usItem, (*pObject)[bLoop]->data.objectStatus, bDamage, fOnGround ))
+                                        if (CheckForChainReaction( pObject, (*pObject)[bLoop]->data.objectStatus, bDamage, fOnGround ))
 					{
 						return( TRUE );
 					}

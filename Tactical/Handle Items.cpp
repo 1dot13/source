@@ -110,6 +110,10 @@ void BoobyTrapDialogueCallBack( void );
 void MineSpottedDialogueCallBack( void );
 void MineSpottedLocatorCallback( void );
 void RemoveBlueFlagDialogueCallBack( UINT8 ubExitValue );
+INT32 CheckBombDisarmChance(void);
+void ExtendedDisarmMessageBox(void);
+void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue );
+void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj);
 void MineSpottedMessageBoxCallBack( UINT8 ubExitValue );
 void CheckForPickedOwnership( void );
 void BoobyTrapInMapScreenMessageBoxCallBack( UINT8 ubExitValue );
@@ -1829,14 +1833,9 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				if (pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1) == 0) {
 					AddItemToPool( sGridNo, &gTempObject, BURIED, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 					// sevenfm: take another item with same id from inventory, only REALTIME
-					if(gGameExternalOptions.bImprovedBombPlanting &&
-						!( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
-						!pSoldier->inv[HANDPOS].exists() && _KeyDown( SHIFT ))
-					{	
-						pSoldier->TakeNewBombFromIventory(gTempObject.usItem);
+					HandleTakeNewBombFromIventory(pSoldier, &gTempObject);
 					}
 				}
-			}
 			else
 			{
 				// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
@@ -2546,7 +2545,12 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 					ptr = wcscat(buffer, L"");
 				}
 
+//				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
+				// sevenfm: added extended messagebox (inspect, remove blueflag, blow up). only for realtime
+				if( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) )
 				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
+				else
+				ExtendedDisarmMessageBox();
 			}
 			else
 			{
@@ -4775,6 +4779,13 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	//DBrot: More Rooms
 	UINT16 usRoom;
 
+	// sevenfm: cannot arm already armed bomb (for example, in inventory)
+	if( pSoldier->inv[HANDPOS].fFlags & OBJECT_ARMED_BOMB )
+	{
+		DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ ARM_MESSAGE_ALREADY_ARMED ] , GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+		return;
+	}
+
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 	if (Item[ pSoldier->inv[HANDPOS].usItem].remotetrigger )
@@ -4857,7 +4868,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		{
 			// sevenfm: do not allow arming bombs with only REMOTE_DET attached
 //			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
-			DoMessageBox( MSG_BOX_BASIC_STYLE, L"No detonator or remote detonator found!", GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ ARM_MESSAGE_NO_DETONATOR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 		}
 	}
 	else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) )	)
@@ -5098,6 +5109,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 						AddItemToPool( gsTempGridNo, &gTempObject, BURIED, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 						// sevenfm: set flag only if planting tripwire
 						gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+						HandleTakeNewBombFromIventory(gpTempSoldier, &gTempObject);
 					}
 					else
 						AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
@@ -5423,7 +5435,6 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 
 	if (ubExitValue == MSG_BOX_RETURN_YES)
 	{
-		INT32						iCheckResult;
 		// get the item
 		gTempObject = gWorldItems[ gpBoobyTrapItemPool->iItemIndex ].object;
 
@@ -5440,41 +5451,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				return;
 		}
 
-		// NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
-		// the map. So if we want to detect a bomb placed by the player, owner is > 1, and
-		// owner - 2 gives the ID of the character who planted it
-		if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
-		{
-			// Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
-			INT8 wirecutterbonus = 0;
-			if ( ( (&gpBoobyTrapSoldier->inv[HANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpBoobyTrapSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
-			{
-				// + 10 if item gets activated by tripwire
-				if ( Item[gTempObject.usItem].tripwireactivation == 1 )
-					wirecutterbonus += 10;
-				
-				// + 10 if item is tripwire
-				if ( Item[gTempObject.usItem].tripwire == 1 )
-					wirecutterbonus += 10;
-			}
-
-			if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
-			{
-				// my own boobytrap!
-				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
-			}
-			else
-			{
-				// our team's boobytrap!
-				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
-			}
-		}
-		else
-		{
-			iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
-		}
-
-		if (iCheckResult >= 0)
+		if ( CheckBombDisarmChance() >= 0)
 		{
 
 			if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
@@ -5520,8 +5497,18 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				else
 				{
 					// switch action item to the real item type
+					// sevenfm: added check to only switch action items and not regular explosives
+					// this allows to keep all attachments
+					if( gTempObject.usItem == ACTION_ITEM || !gGameExternalOptions.bAllowExplosiveAttachments )
+					{
 					CreateItem( gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &gTempObject );
-
+					}
+					else
+					{
+						gTempObject.fFlags &= ~(OBJECT_ARMED_BOMB);
+						gTempObject[0]->data.misc.bDetonatorType = 0;
+					}
+					
 					if (is_networked && is_client)
 					{
 						OBJECTTYPE TempAttachment;
@@ -5842,8 +5829,8 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 		if (pMapElement->uiFlags & fCheckFlag)
 		{
 			// already know there's a mine there
-// sevenfm
-// if we try to step on known (planted by player) mine we should consider it wrong
+			// sevenfm
+			// if we try to step on known (planted by player) mine we should consider it wrong
 			if(!fCheckAroundGridNo)
 			{
 				*psProblemGridNo = sNextGridNo;
@@ -5859,7 +5846,9 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 			if (gWorldBombs[uiWorldBombIndex].fExists && gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo == sNextGridNo)
 			{
 				pObj = &( gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].object );
-				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE && !((*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED) && (!((*pObj).fFlags & OBJECT_DISABLED_BOMB)) )
+				// sevenfm: removed OBJECT_KNOWN_TO_BE_TRAPPED check as we don't want to step on bomb even if it's known bomb
+				// if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE && !((*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED) && (!((*pObj).fFlags & OBJECT_DISABLED_BOMB)) )
+				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE && (!((*pObj).fFlags & OBJECT_DISABLED_BOMB)) )
 				{
 					// Flugente: some bombs cannot be found via metal detector
 					if ( fMining && (*pObj)[0]->data.bTrap <= 20 && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
@@ -5876,6 +5865,10 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 							// detected exposives buried nearby...
 							StatChange( pSoldier, EXPLODEAMT, (UINT16) ((*pObj)[0]->data.bTrap), FALSE );
 							StatChange( pSoldier, WISDOMAMT, (UINT16) ((*pObj)[0]->data.bTrap), FALSE );
+
+							// sevenfm: we should stop only if trying to step on bomb or if we found new bomb				
+							if(fCheckAroundGridNo && ( (*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED ) )
+								continue;
 
 							// set item as known
 							(*pObj).fFlags |= OBJECT_KNOWN_TO_BE_TRAPPED;
@@ -5944,17 +5937,28 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 void MineSpottedDialogueCallBack( void )
 {
 	ITEM_POOL * pItemPool;
+	BOOLEAN playerMine = FALSE;
 
 	// ATE: REALLY IMPORTANT - ALL CALLBACK ITEMS SHOULD UNLOCK
 	gTacticalStatus.fLockItemLocators = FALSE;
 
-	GetItemPool( gsBoobyTrapGridNo, &pItemPool, gbBoobyTrapLevel );
+	// sevenfm: added check - if there is MAPELEMENT_PLAYER_MINE_PRESENT flag but there is no mine at tile
+	// this should prevent crash in rare situations
+	if( !GetItemPool( gsBoobyTrapGridNo, &pItemPool, gbBoobyTrapLevel ) || pItemPool == NULL || FindWorldItemForBuriedBombInGridNo( gsBoobyTrapGridNo, gbBoobyTrapLevel ) == -1 )
+	{
+		// remove blue flag and MINE_PRESENT flags
+		RemoveBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
+		return;
+	}
+
+	if(gpWorldLevelData[ pItemPool->sGridNo ].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT)
+		playerMine = TRUE;
 
 	// WDS - Automatically flag mines
 	if (gGameExternalOptions.automaticallyFlagMines) {
 		// play a locator at the location of the mine
 		// sevenfm: only if it's not our mine
-		if (! gpWorldLevelData[ pItemPool->sGridNo ].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+		if ( !playerMine )
 			SetItemPoolLocator( pItemPool );
 
 		AddBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
@@ -5962,8 +5966,8 @@ void MineSpottedDialogueCallBack( void )
 		guiPendingOverrideEvent = LU_BEGINUILOCK;
 
 		// play a locator at the location of the mine
-		// sevenfm:	only if it's not our mine
-		if (gpWorldLevelData[ pItemPool->sGridNo ].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+		// sevenfm:	only if it's not our mine or we found new mine
+		if( playerMine || pItemPool->usFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
 			MineSpottedLocatorCallback();
 		else
 			SetItemPoolLocatorWithCallback( pItemPool, MineSpottedLocatorCallback );
@@ -6837,4 +6841,108 @@ BOOLEAN RemoveFortification( INT32 sGridNo )
 	}
 
 	return FALSE;
+}
+
+INT32 CheckBombDisarmChance(void)
+{
+        // NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
+        // the map. So if we want to detect a bomb placed by the player, owner is > 1, and
+        // owner - 2 gives the ID of the character who planted it
+        if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
+        {
+                // Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
+                INT8 wirecutterbonus = 0;
+                if ( ( (&gpBoobyTrapSoldier->inv[HANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpBoobyTrapSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
+                {
+                        // + 10 if item gets activated by tripwire
+                        if ( Item[gTempObject.usItem].tripwireactivation == 1 )
+                                wirecutterbonus += 10;                          
+                        // + 10 if item is tripwire
+                        if ( Item[gTempObject.usItem].tripwire == 1 )
+                                        wirecutterbonus += 10;
+                }
+
+                if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
+                {
+                        // my own boobytrap!
+                        return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
+                }
+                else
+                {
+                        // our team's boobytrap!
+                        return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
+                }
+        }
+        else
+        {
+                return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
+        }
+}
+
+void ExtendedDisarmMessageBox(void)
+{
+        wcscpy( gzUserDefinedButton[0], TacticalStr[ DISARM_DIALOG_DISARM ] );
+        wcscpy( gzUserDefinedButton[1], TacticalStr[ DISARM_DIALOG_INSPECT ] );
+        wcscpy( gzUserDefinedButton[2], TacticalStr[ DISARM_DIALOG_REMOVE_BLUEFLAG ] );
+        wcscpy( gzUserDefinedButton[3], TacticalStr[ DISARM_DIALOG_BLOWUP ] );
+        DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ DISARM_BOOBYTRAP_PROMPT ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, ExtendedBoobyTrapMessageBoxCallBack, NULL );
+}
+
+void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
+{
+        INT32   iCheckResult;
+		BOOLEAN playerMine = FALSE;
+		
+		if(gpWorldLevelData[gsBoobyTrapGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT)
+			playerMine=TRUE;
+
+        if (ubExitValue == 1)
+        {
+                BoobyTrapMessageBoxCallBack(MSG_BOX_RETURN_YES);
+        }
+        else if (ubExitValue == 2)
+        { 
+                iCheckResult=CheckBombDisarmChance();
+                if(iCheckResult>60)
+                        ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_SAFE ] );
+                else if(iCheckResult>20)
+                        ScreenMsg( FONT_MCOLOR_LTGRAY, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_MOSTLY_SAFE ] );
+                else if(iCheckResult>-20)
+                        ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_RISKY ] );
+                else if(iCheckResult>-40)
+                        ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_DANGEROUS ] );
+                else
+                        ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_HIGH_DANGER ] );
+        }
+        else if (ubExitValue == 3)
+        {
+                RemoveBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
+				if(playerMine)
+					gpWorldLevelData[gsBoobyTrapGridNo].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+        }
+        else if (ubExitValue == 4)
+        {
+/*                if(_KeyDown( SHIFT ) && gGameExternalOptions.bDontRevealTripwire )
+                        gRevealTripwire = TRUE;
+                else
+                        gRevealTripwire = FALSE; */
+                if (gfDisarmingBuriedBomb)
+                {
+                        SetOffBombsInGridNo( gpBoobyTrapSoldier->ubID, gsBoobyTrapGridNo, TRUE, gbBoobyTrapLevel );
+                }
+                else
+                {
+                        SetOffBoobyTrap( gpBoobyTrapItemPool );
+                }       
+        }
+}
+
+void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
+{
+	if(gGameExternalOptions.bImprovedBombPlanting &&
+			!( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
+			!pSoldier->inv[HANDPOS].exists() && _KeyDown( SHIFT ))
+	{	
+		pSoldier->TakeNewBombFromIventory(pObj->usItem);
+	}
 }

@@ -16221,9 +16221,6 @@ void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
 	
 	if(this->inv[HANDPOS].exists())
 		return;
-
-	if(Item[item].tripwire)
-		return;
 	
 	// search for item with same id
 	for ( i = 0; i < invsize; i++)

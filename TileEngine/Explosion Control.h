@@ -164,5 +164,9 @@ extern void HandleSeeingFortifiedDoor( UINT32 sGridNo );//Ja25 UB
 void HandleBuddyExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection );
 
 // sevenfm: handle explosive items from attachments
-void HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj );
+BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection, OBJECTTYPE * pObj );
+void CheckForBuriedBombsAndRemoveFlags( INT32 sGridNo, INT8 bLevel );
+UINT16 CalcTotalVolatility(OBJECTTYPE * pObj);
+BOOLEAN FindBinderAttachment (OBJECTTYPE * pObj);
+BOOLEAN CheckExplosiveTypeAsDetonator(UINT16 ubType);
 #endif

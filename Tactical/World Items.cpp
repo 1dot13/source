@@ -284,6 +284,27 @@ INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel )
 	return( -1 );
 }
 
+INT32 FindWorldItemForBuriedBombInGridNo( INT32 sGridNo, INT8 bLevel )
+{
+        UINT32                                  uiBombIndex;
+        OBJECTTYPE* pObj = NULL;
+
+        for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
+        {
+                if (gWorldBombs[ uiBombIndex ].fExists &&
+                        gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].sGridNo == sGridNo &&
+                        gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].ubLevel == bLevel )
+                {
+                        pObj=&gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].object;
+                        if( pObj && pObj->exists() )
+								//if ( ( (*pObj)[0]->data.misc.bDetonatorType != BOMB_TIMED ) && ( (*pObj)[0]->data.misc.bDetonatorType != BOMB_REMOTE ) ) 
+                                if( !HasAttachmentOfClass( pObj, AC_REMOTEDET | AC_DETONATOR ) )								
+                                        return( gWorldBombs[ uiBombIndex ].iItemIndex );
+                }
+        }
+        return( -1 );		
+}
+
 // Flugente: is there a planted tripwire at this gridno? fKnown = TRUE: only return true if we know of that one already
 INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKnown )
 {
