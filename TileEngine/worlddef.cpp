@@ -4256,7 +4256,7 @@ void LoadMapLights( INT8 **hBuffer )
 		iLSprite = LightSpriteCreate( str, TmpLight.uiLightType );
 		//if this fails, then we will ignore the light.
 		// ATE: Don't add ANY lights of mapscreen util is on
-		if( iLSprite != -1 && guiCurrentScreen != MAPUTILITY_SCREEN )
+		if( iLSprite != -1/* && guiCurrentScreen != MAPUTILITY_SCREEN*/ )//dnl ch79 301113 lights will be reset in map utility screen
 		{
 			if( !gfCaves || gfEditMode )
 			{

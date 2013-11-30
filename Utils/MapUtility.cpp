@@ -25,6 +25,7 @@
 #include "Editor Taskbar Utils.h"
 #include "Text Input.h"
 #include "Cursor Control.h"//dnl ch78 271113
+#include "lighting.h"//dnl ch79 301113
 
 #define MINIMAP_X_SIZE	88//RADAR_WINDOW_WIDTH
 #define MINIMAP_Y_SIZE	44//RADAR_WINDOW_HEIGHT
@@ -175,13 +176,15 @@ UINT32 MapUtilScreenHandle(void)
 			return(MAPUTILITY_SCREEN);
 		}
 		sprintf(zFilename, "%s", FListNode->FileInfo.zFileName);
-		// OK, load maps and do overhead shrinkage of them... //dnl ch79 291113
+		// OK, load maps and do overhead shrinkage of them... //dnl ch79 301113
 		if(!LoadWorld(zFilename, &dMajorMapVersion, &ubMinorMapVersion))
 			return(ERROR_SCREEN);
 		if(strcmp(gzCommandLine, "-DOMAPSCNV") == 0)
 			if(!(dMajorMapVersion == MAJOR_MAP_VERSION && ubMinorMapVersion == MINOR_MAP_VERSION && gMapInformation.ubMapVersion == MINOR_MAP_VERSION))
 				if(!SaveWorld(zFilename))
 					return(ERROR_SCREEN);
+		LightReset();
+		LightSpriteRenderAll();
 	}
 	// Render small map
 	//iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);// Horizontal start postion of the overview map
