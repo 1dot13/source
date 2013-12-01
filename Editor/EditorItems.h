@@ -37,6 +37,7 @@ void RenderEditorItemsInfo();
 void ClearEditorItemsInfo();
 void DisplayItemStatistics();
 void DetermineItemsScrolling();
+void ScrollEditorItemsInfo(BOOLEAN fForward);//dnl ch80 011213
 
 //User actions
 void AddSelectedItemToWorld( INT32 sGridNo );

@@ -74,10 +74,6 @@ BOOLEAN	GetExitGrid( UINT32 usMapIndex, EXITGRID *pExitGrid )
 		}
 		pShadow = pShadow->pNext;
 	}
-	pExitGrid->ubGotoSectorX = 0;
-	pExitGrid->ubGotoSectorY = 0;
-	pExitGrid->ubGotoSectorZ = 0;
-	pExitGrid->usGridNo = 0;
 	return FALSE;
 }
 
@@ -126,13 +122,7 @@ void AddExitGridToWorld( INT32 iMapIndex, EXITGRID *pExitGrid )
 		tail = pShadow;
 		if( pShadow->uiFlags & LEVELNODE_EXITGRID )
 		{ //we have found an existing exitgrid in this node, so replace it with the new information.
-//<SB>
-//			pShadow->iExitGridInfo = ConvertExitGridToINT32( pExitGrid );
-			memcpy(gpExitGrids + guiExitGridsCount, pExitGrid, sizeof(EXITGRID));
-			pShadow->pExitGridInfo = gpExitGrids + guiExitGridsCount;
-			guiExitGridsCount++;
-//</SB>
-			//SmoothExitGridRadius( (INT16)iMapIndex, 0 );
+			memcpy(pShadow->pExitGridInfo, pExitGrid, sizeof(EXITGRID));//dnl ch80 011213
 			return;
 		}
 		pShadow = pShadow->pNext;

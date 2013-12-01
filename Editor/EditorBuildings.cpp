@@ -50,16 +50,15 @@ void GameInitEditorBuildingInfo()
 }
 
 //BEGINNING OF BUILDING UTILITY FUNCTIONS
-void UpdateRoofsView()
+void UpdateRoofsView()//dnl ch80 011213
 {
-	INT32 x;
-	UINT16 usType;
-	for ( x = 0; x < WORLD_MAX; x++ )
+	INT32 x, cnt;
+	UINT16 usType[12] = {FIRSTROOF, SECONDROOF, THIRDROOF, FOURTHROOF, FIRSTSLANTROOF, SECONDSLANTROOF, FIRSTONROOF, SECONDONROOF, FIRSTWALL, SECONDWALL, THIRDWALL, FOURTHWALL};
+	for(cnt=0; cnt<WORLD_MAX; cnt++)
 	{
-		for ( usType = FIRSTROOF; usType <= LASTSLANTROOF; usType++ )
-		{
-			HideStructOfGivenType( x, usType, (BOOLEAN)(!fBuildingShowRoofs) );
-		}
+		x = 12;
+		while(x--)
+			HideStructOfGivenType(cnt, usType[x], !fBuildingShowRoofs);
 	}
 	gfRenderWorld = TRUE;
 }

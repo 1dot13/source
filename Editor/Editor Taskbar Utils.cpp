@@ -402,6 +402,9 @@ void DoTaskbar(void)
 			iDrawMode = DRAW_MODE_LIGHT;
 			TerrainTileDrawMode = TERRAIN_TILES_BRETS_STRANGEMODE;
 			SetupTextInputForMapInfo();
+			//dnl ch80 011213
+			SetEditorSmoothingMode(gMapInformation.ubEditorSmoothingType);
+			ChangeLightDefault(gbDefaultLightType);
 			break;
 		case TASK_OPTIONS:
 			iDrawMode = DRAW_MODE_NOTHING;//dnl ch22 210909

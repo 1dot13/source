@@ -302,14 +302,17 @@ void HideExitGrids()
 void SetEditorMapInfoTaskbarMode( UINT16 usNewMode )
 {
 	BOOLEAN fShowExitGrids = FALSE;
-	UnclickEditorButton( MAPINFO_ADD_LIGHT1_SOURCE );
-	UnclickEditorButton( MAPINFO_DRAW_EXITGRIDS );
-	UnclickEditorButton( MAPINFO_NORTH_POINT );
-	UnclickEditorButton( MAPINFO_WEST_POINT );
-	UnclickEditorButton( MAPINFO_CENTER_POINT );
-	UnclickEditorButton( MAPINFO_EAST_POINT );
-	UnclickEditorButton( MAPINFO_SOUTH_POINT );
-	UnclickEditorButton( MAPINFO_ISOLATED_POINT );
+	if( usNewMode < MAPINFO_RADIO_NORMAL || usNewMode > MAPINFO_RADIO_CAVES )//dnl ch80 011213
+	{
+		UnclickEditorButton( MAPINFO_ADD_LIGHT1_SOURCE );
+		UnclickEditorButton( MAPINFO_DRAW_EXITGRIDS );
+		UnclickEditorButton( MAPINFO_NORTH_POINT );
+		UnclickEditorButton( MAPINFO_WEST_POINT );
+		UnclickEditorButton( MAPINFO_CENTER_POINT );
+		UnclickEditorButton( MAPINFO_EAST_POINT );
+		UnclickEditorButton( MAPINFO_SOUTH_POINT );
+		UnclickEditorButton( MAPINFO_ISOLATED_POINT );
+	}
 	ClickEditorButton( usNewMode );
 	switch( usNewMode )
 	{

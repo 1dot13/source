@@ -1779,24 +1779,28 @@ void SetStructIndexFlagsFromTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT3
 
 }
 
-BOOLEAN HideStructOfGivenType( INT32 iMapIndex, UINT32 fType, BOOLEAN fHide )
+BOOLEAN HideStructOfGivenType(INT32 iMapIndex, UINT32 fType, BOOLEAN fHide)//dnl ch80 011213
 {
-	if ( fHide )
+	if(fHide)
 	{
-		SetRoofIndexFlagsFromTypeRange( iMapIndex, fType, fType, LEVELNODE_HIDDEN	);
+		if(fType >= FIRSTONROOF && fType <= LASTONROOF)
+			SetOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+		else
+			SetRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 	}
 	else
 	{
 		// ONLY UNHIDE IF NOT REAVEALED ALREADY
-		if ( !(gpWorldLevelData[ iMapIndex ].uiFlags & MAPELEMENT_REVEALED ) )
+		if(!(gpWorldLevelData[iMapIndex].uiFlags & MAPELEMENT_REVEALED))
 		{
-			RemoveRoofIndexFlagsFromTypeRange( iMapIndex, fType, fType, LEVELNODE_HIDDEN	);
+			if(fType >= FIRSTONROOF && fType <= LASTONROOF)
+				RemoveOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+			else
+				RemoveRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 		}
 	}
-	return( TRUE );
+	return(TRUE);
 }
-
-
 
 void RemoveStructIndexFlagsFromTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  )
 {
@@ -1938,7 +1942,10 @@ BOOLEAN RemoveShadow( INT32 iMapIndex, UINT16 usIndex )
 			{
 				pOldShadow->pNext = pShadow->pNext;
 			}
-
+#ifdef JA2EDITOR//dnl ch80 011213
+			if(pShadow->uiFlags & LEVELNODE_EXITGRID && pShadow->pExitGridInfo)
+				memset(pShadow->pExitGridInfo, 0, sizeof(EXITGRID));
+#endif
 			// Delete memory assosiated with item
 			MemFree( pShadow );
 			guiLevelNodes--;
@@ -3018,6 +3025,37 @@ BOOLEAN RemoveAllOnRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 	return fRetVal;
 }
 
+void RemoveOnRoofIndexFlagsFromTypeRange(INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags)//dnl ch80 011213
+{
+	LEVELNODE *pOnRoof, *pOldOnRoof;
+	UINT32 fTileType;
+
+	pOnRoof = gpWorldLevelData[iMapIndex].pOnRoofHead;
+	while(pOnRoof && pOnRoof->usIndex != NO_TILE)
+	{
+		GetTileType(pOnRoof->usIndex, &fTileType);
+		pOldOnRoof = pOnRoof;
+		pOnRoof = pOnRoof->pNext;
+		if(fTileType >= fStartType && fTileType <= fEndType)
+			pOldOnRoof->uiFlags &= (~uiFlags);
+	}
+}
+
+void SetOnRoofIndexFlagsFromTypeRange(INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags)//dnl ch80 011213
+{
+	LEVELNODE *pOnRoof, *pOldOnRoof;
+	UINT32 fTileType;
+
+	pOnRoof = gpWorldLevelData[iMapIndex].pOnRoofHead;
+	while(pOnRoof && pOnRoof->usIndex != NO_TILE)
+	{
+		GetTileType(pOnRoof->usIndex, &fTileType);
+		pOldOnRoof = pOnRoof;
+		pOnRoof = pOnRoof->pNext;
+		if(fTileType >= fStartType && fTileType <= fEndType)
+			pOldOnRoof->uiFlags |= uiFlags;
+	}
+}
 
 // Topmost layer
 // #################################################################

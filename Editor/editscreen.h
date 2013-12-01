@@ -84,6 +84,7 @@ void ShowHighGround(INT32 iShowHighGroundCommand);//dnl ch2 210909
 
 extern BOOLEAN fEditorCreateItemFromKeyboard;
 extern UINT16 usEditorTempItem;
+extern UINT16 gusSavedLightLevel;//dnl ch80 011213
 
 #endif
 #endif

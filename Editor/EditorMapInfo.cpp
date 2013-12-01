@@ -131,7 +131,7 @@ void SetupTextInputForMapInfo()
 
 	swprintf( str, L"%d", gsLightRadius );
 	AddTextInputField( iScreenWidthOffset + 120, 2 * iScreenHeightOffset + 394, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
-	swprintf( str, L"%d", gusLightLevel );
+	swprintf( str, L"%d", gfFakeLights ? gusSavedLightLevel : gusLightLevel );//dnl ch80 011213
 	AddTextInputField( iScreenWidthOffset + 120, 2 * iScreenHeightOffset + 414, 25, 18, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
 
 	//Scroll restriction ID
@@ -251,25 +251,28 @@ void ExtractAndUpdateMapInfo()
 		gfEditorForceShadeTableRebuild = FALSE;
 	}
 
-	//extract radius
-	temp = max( min( GetNumericStrictValueFromField( 4 ), 8 ), 1 );
-	if( temp != -1 )
+	//dnl ch80 011213 extract radius
+	temp = max(min(GetNumericStrictValueFromField(4), 8), 1);
+	if(temp != -1)
 		gsLightRadius = (INT16)temp;
-	temp = max( min( GetNumericStrictValueFromField( 5 ), 15 ), 1 );
-	if( temp != -1 && temp != gusLightLevel )
+	temp = max(min(GetNumericStrictValueFromField(5), 15), 1);
+	if(temp != -1 && temp != gusLightLevel)
 	{
 		gusLightLevel = (UINT16)temp;
-		gfRenderWorld = TRUE;
-		ubAmbientLightLevel = (UINT8)(EDITOR_LIGHT_MAX - gusLightLevel);
-		LightSetBaseLevel( ubAmbientLightLevel );
+		if(gfFakeLights)
+			gusLightLevel = EDITOR_LIGHT_FAKE;
+		LightSetBaseLevel((UINT8)(EDITOR_LIGHT_MAX - gusLightLevel));
 		LightSpriteRenderAll();
+		gfRenderWorld = TRUE;
 	}
-
-	temp = (INT8)GetNumericStrictValueFromField( 6 );
-	if( temp == -1 )
+	temp = GetNumericStrictValueFromField(6);
+	if(temp == -1)
 		gMapInformation.ubRestrictedScrollID = 0;
 	else
-		gMapInformation.ubRestrictedScrollID = (UINT8)temp;
+	{
+		gMapInformation.ubRestrictedScrollID = (temp ? 1 : 0);
+		InitRenderParams(gMapInformation.ubRestrictedScrollID);
+	}
 
 	//set up fields for exitgrid information
 	Get16BitStringFromField( 7, str, 10 );

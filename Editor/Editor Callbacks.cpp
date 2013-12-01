@@ -797,6 +797,7 @@ void ItemsLeftScrollCallback(GUI_BUTTON *btn, INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
+#if 0//dnl ch80 011213
 		gfRenderTaskbar = TRUE;
 		if (_KeyDown( 17 ) ) // CTRL
 		{
@@ -814,6 +815,9 @@ void ItemsLeftScrollCallback(GUI_BUTTON *btn, INT32 reason)
 			DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
 		if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
 			EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+#else
+		ScrollEditorItemsInfo(FALSE);
+#endif
 	}
 }
 
@@ -821,6 +825,7 @@ void ItemsRightScrollCallback(GUI_BUTTON *btn, INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
+#if 0//dnl ch80 011213
 		gfRenderTaskbar = TRUE;
 		if (_KeyDown( 17 ) ) // CTRL
 		{
@@ -837,6 +842,9 @@ void ItemsRightScrollCallback(GUI_BUTTON *btn, INT32 reason)
 		EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
 		if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
 			DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+#else
+		ScrollEditorItemsInfo(TRUE);
+#endif
 	}
 }
 

@@ -41,6 +41,8 @@ BOOLEAN RemoveAllOnRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 void SetAllOnRoofShadeLevels( INT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllOnRoofShadeLevels( INT32 iMapIndex, INT8 bShadeDiff );
 BOOLEAN RemoveOnRoofFromLevelNode( INT32 iMapIndex, LEVELNODE *pNode );
+void RemoveOnRoofIndexFlagsFromTypeRange(INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags);//dnl ch80 011213
+void SetOnRoofIndexFlagsFromTypeRange(INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags);//dnl ch80 011213
 
 
 // Land manipulation functions
@@ -76,7 +78,7 @@ BOOLEAN TypeExistsInStructLayer( INT32 iMapIndex, UINT32 fType, UINT16 *pusStruc
 BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
 BOOLEAN AddWallToStructLayer( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fReplace );
 BOOLEAN ReplaceStructIndex( INT32 iMapIndex, UINT16 usOldIndex, UINT16 usNewIndex );
-BOOLEAN HideStructOfGivenType( INT32 iMapIndex, UINT32 fType, BOOLEAN fHide );
+BOOLEAN HideStructOfGivenType(INT32 iMapIndex, UINT32 fType, BOOLEAN fHide);//dnl ch80 011213
 BOOLEAN InsertStructIndex( INT32 iMapIndex, UINT16 usIndex, UINT8 ubLevel );
 void SetAllStructShadeLevels( INT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllStructShadeLevels( INT32 iMapIndex, INT8 bShadeDiff );

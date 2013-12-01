@@ -3474,6 +3474,7 @@ extern INT32 giNumberOfTileTypes; //Madd: for variable number of PItems
 #define LASTPOINTERS			(SELRING - 1)
 #define LASTUIELEM				(WIREFRAMES	- 1)		// Change this entry if adding new types to the end
 #define LASTTIELSETELEM		(GUNS - 1)
+#define LASTONROOF			(MOCKFLOOR - 1)//dnl ch80 011213
 
 //===========================================================================
 

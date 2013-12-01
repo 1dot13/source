@@ -1145,6 +1145,7 @@ void HandleJA2ToolbarSelection( void )
 				gusLightLevel = gusSavedLightLevel;
 			LightSetBaseLevel( (UINT8)(EDITOR_LIGHT_MAX - gusLightLevel) );
 			LightSpriteRenderAll();
+			gfRenderWorld = TRUE;//dnl ch80 011213
 			break;
 
 		case TBAR_MODE_CHANGE_TILESET:
@@ -1448,6 +1449,7 @@ void HandleKeyboardShortcuts( )
 					}
 					LightSetBaseLevel( (UINT8)(EDITOR_LIGHT_MAX - gusLightLevel) );
 					LightSpriteRenderAll();
+					gfRenderWorld = TRUE;//dnl ch80 011213
 					break;
 
 				case SPACE:
@@ -1483,8 +1485,12 @@ void HandleKeyboardShortcuts( )
 					}
 					else if( iCurrentTaskbar == TASK_MERCS && gsSelectedMercID != -1 )
 						ExtractCurrentMercModeInfo( FALSE );
-					else if( iCurrentTaskbar == TASK_MAPINFO )
+					else if(iCurrentTaskbar == TASK_MAPINFO)//dnl ch80 011213
+					{
+						gfFakeLights = FALSE;
+						UnclickEditorButton(MAPINFO_TOGGLE_FAKE_LIGHTS);
 						ExtractAndUpdateMapInfo();
+					}
 					else if( iCurrentTaskbar == TASK_BUILDINGS )
 						ExtractAndUpdateBuildingInfo();
 					else if( gfShowItemStatsPanel && EditingText() )
@@ -2060,6 +2066,7 @@ void HandleKeyboardShortcuts( )
 					// item left scroll
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
+#if 0//dnl ch80 011213
 						if( eInfo.sScrollIndex )
 						{
 							if( EditorInputEvent.usKeyState & CTRL_DOWN )
@@ -2072,6 +2079,9 @@ void HandleKeyboardShortcuts( )
 							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
 								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
 						}
+#else
+						ScrollEditorItemsInfo(FALSE);
+#endif
 					}
 					else
 					{
@@ -2080,12 +2090,13 @@ void HandleKeyboardShortcuts( )
 						if( !gusPreserveSelectionWidth )
 							gusPreserveSelectionWidth = 8;
 					}
-					gfRenderTaskbar = TRUE;
+					//gfRenderTaskbar = TRUE;
 					break;
 				case '.':
 					// item right scroll
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
+#if 0//dnl ch80 011213
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
 							if( EditorInputEvent.usKeyState & CTRL_DOWN )
@@ -2097,6 +2108,9 @@ void HandleKeyboardShortcuts( )
 							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
 								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
 						}
+#else
+						ScrollEditorItemsInfo(TRUE);
+#endif
 					}
 					else
 					{
@@ -2105,12 +2119,13 @@ void HandleKeyboardShortcuts( )
 						if( gusPreserveSelectionWidth > 8 )
 							gusPreserveSelectionWidth = 1;
 					}
-					gfRenderTaskbar = TRUE;
+					//gfRenderTaskbar = TRUE;
 					break;
 				case '<':
 					// item left scroll by page
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
+#if 0//dnl ch80 011213
 						if( eInfo.sScrollIndex )
 						{
 							if( EditorInputEvent.usKeyState & CTRL_DOWN )
@@ -2123,13 +2138,17 @@ void HandleKeyboardShortcuts( )
 							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
 								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
 						}
+#else
+						ScrollEditorItemsInfo(FALSE);
+#endif
 					}
-					gfRenderTaskbar = TRUE;
+					//gfRenderTaskbar = TRUE;
 					break;
 				case '>':
 					// item right scroll by page
 					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
+#if 0//dnl ch80 011213
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
 							if( EditorInputEvent.usKeyState & CTRL_DOWN )
@@ -2141,8 +2160,11 @@ void HandleKeyboardShortcuts( )
 							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
 								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
 						}
+#else
+						ScrollEditorItemsInfo(TRUE);
+#endif
 					}
-					gfRenderTaskbar = TRUE;
+					//gfRenderTaskbar = TRUE;
 					break;
 				case '/':
 					// Buggler: create item with keyboard input
@@ -3789,239 +3811,94 @@ void HandleMouseClicksInGameScreen()
 
 }
 #else
-void HandleMouseClicksInGameScreen()
+void HandleMouseClicksInGameScreen()//dnl ch80 011213
 {
 	static UINT32 iLastMapIndexLB(-1), iLastMapIndexRB(-1), iLastMapIndexMB(-1);
-
 	INT16 sX, sY;
 	BOOLEAN fPrevState;
-	if( !GetMouseXY( &sGridX, &sGridY ) )
+	if(!GetMouseXY(&sGridX, &sGridY))
 		return;
-	if( iCurrentTaskbar == TASK_OPTIONS || iCurrentTaskbar == TASK_NONE )
-	{ //if in taskbar modes which don't process clicks in the world.
+	if(iCurrentTaskbar == TASK_OPTIONS || iCurrentTaskbar == TASK_NONE)// if in taskbar modes which don't process clicks in the world
 		return;
-	}
-	if( !(gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA ) )
-	{	//if mouse cursor not in the game screen.
+	if(!(gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA))// if mouse cursor not in the game screen
 		return;
-	}
-
-	iMapIndex = MAPROWCOLTOPOS( sGridY, sGridX );
-
+	iMapIndex = MAPROWCOLTOPOS(sGridY, sGridX);
 	fPrevState = gfRenderWorld;
-
 	if(_LeftButtonDown)
 	{
 		if(iLastMapIndexLB != iMapIndex && iLastMapIndexLB == -1)
 			iLastMapIndexLB = iMapIndex;
 		gfRenderWorld = TRUE;
-		// Are we trying to erase something?
-		if ( iDrawMode >= DRAW_MODE_ERASE )
+		if(iDrawMode >= DRAW_MODE_ERASE)// Are we trying to erase something?
 		{
-			// Erasing can have a brush size larger than 1 tile
-			for ( sY = (INT16)gSelectRegion.iTop; sY <= (INT16)gSelectRegion.iBottom; sY++ )
+			for(sY=(INT16)gSelectRegion.iTop; sY<=(INT16)gSelectRegion.iBottom; sY++)// Erasing can have a brush size larger than 1 tile
 			{
-				for ( sX = (INT16)gSelectRegion.iLeft; sX <= (INT16)gSelectRegion.iRight; sX++ )
+				for(sX=(INT16)gSelectRegion.iLeft; sX<=(INT16)gSelectRegion.iRight; sX++)
 				{
-					if ( iDrawMode == (DRAW_MODE_LIGHT + DRAW_MODE_ERASE) )
-					{
-						RemoveLight( sX, sY );
-					}
+					if(iDrawMode == (DRAW_MODE_LIGHT + DRAW_MODE_ERASE))
+						RemoveLight(sX, sY);
 					else
-					EraseMapTile( MAPROWCOLTOPOS( sY, sX ) );
+						EraseMapTile(MAPROWCOLTOPOS(sY, sX));
 				}
 			}
-
-			if( iDrawMode == DRAW_MODE_LIGHT + DRAW_MODE_ERASE )
-				LightSpriteRenderAll();	// To adjust building's lighting
+			if(iDrawMode == DRAW_MODE_LIGHT + DRAW_MODE_ERASE)
+				LightSpriteRenderAll();// To adjust building's lighting
 			return;
 		}
-
-		switch ( iDrawMode )
+		switch(iDrawMode)
 		{
-			case DRAW_MODE_SCHEDULEACTION:
-				if( IsLocationSittableExcludingPeople( iMapIndex, FALSE ) )
-				{
-					iDrawMode = DRAW_MODE_SCHEDULECONFIRM;
-					gfFirstPlacement = FALSE;
-				}
-				break;
-			case DRAW_MODE_NORTHPOINT:
-			case DRAW_MODE_WESTPOINT:
-			case DRAW_MODE_EASTPOINT:
-			case DRAW_MODE_SOUTHPOINT:
-			case DRAW_MODE_CENTERPOINT:
-			case DRAW_MODE_ISOLATEDPOINT:
-				if(fDontUseClick)
-					SpecifyEntryPoint(iMapIndex);
-				break;
-
-			case DRAW_MODE_ENEMY:
-			case DRAW_MODE_CREATURE:
-			case DRAW_MODE_REBEL:
-			case DRAW_MODE_CIVILIAN:
-				// Handle adding mercs to the world
-				if( gfFirstPlacement )
-				{
-					AddMercToWorld( iMapIndex );
-					gfFirstPlacement = FALSE;
-				}
-				break;
-
-			case DRAW_MODE_LIGHT:
-				// Add a normal light to the world
-				if( gfFirstPlacement )
-				{
-					PlaceLight( gsLightRadius, sGridX, sGridY, 0 );
-					gfFirstPlacement = FALSE;
-				}
-				break;
-
-			case DRAW_MODE_SAW_ROOM:
-			case DRAW_MODE_ROOM:
-			case DRAW_MODE_CAVES:
-				if( gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION )
-					ProcessAreaSelection( TRUE );
-				break;
-			case DRAW_MODE_NEWROOF:
-				ReplaceBuildingWithNewRoof( iMapIndex );
-				break;
-
-			case DRAW_MODE_WALLS:								PasteSingleWall( iMapIndex );					break;
-			case DRAW_MODE_DOORS:								PasteSingleDoor( iMapIndex );					break;
-			case DRAW_MODE_WINDOWS:							PasteSingleWindow( iMapIndex );				break;
-			case DRAW_MODE_ROOFS:								PasteSingleRoof( iMapIndex );					break;
-			case DRAW_MODE_BROKEN_WALLS:				PasteSingleBrokenWall( iMapIndex );		break;
-			case DRAW_MODE_DECOR:								PasteSingleDecoration( iMapIndex );		break;
-			case DRAW_MODE_DECALS:
-				if( ValidDecalPlacement( iMapIndex ) )
-					PasteSingleDecal( iMapIndex );
-				break;
-			case DRAW_MODE_TOILET:							PasteSingleToilet( iMapIndex );				break;
-			case DRAW_MODE_SMART_WALLS:					PasteSmartWall( iMapIndex );					break;
-			case DRAW_MODE_SMART_DOORS:					PasteSmartDoor( iMapIndex );					break;
-			case DRAW_MODE_SMART_WINDOWS:				PasteSmartWindow( iMapIndex );				break;
-			case DRAW_MODE_SMART_BROKEN_WALLS:	PasteSmartBrokenWall( iMapIndex );		break;
-			case DRAW_MODE_EXITGRID:
-			case DRAW_MODE_FLOORS:
-			case DRAW_MODE_GROUND:
-			case DRAW_MODE_OSTRUCTS:
-			case DRAW_MODE_OSTRUCTS1:
-			case DRAW_MODE_OSTRUCTS2:
-			case DRAW_MODE_DEBRIS:
-				if( fDontUseClick && gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION )
-				{
-					DrawObjectsBasedOnSelectionRegion();
-				}
-				else
-					gfRenderWorld = fPrevState;
-				break;
-			case DRAW_MODE_DOORKEYS:
-				InitDoorEditing( iMapIndex );
-				break;
-			case DRAW_MODE_KILL_BUILDING:
-				KillBuilding( iMapIndex );
-				break;
-			case DRAW_MODE_COPY_BUILDING:
-			case DRAW_MODE_MOVE_BUILDING:
-				if( gfFirstPlacement )
-				{
-					CopyBuilding( iMapIndex );
-					gfFirstPlacement = FALSE;
-				}
+		case DRAW_MODE_FLOORS:
+		case DRAW_MODE_GROUND:
+		case DRAW_MODE_OSTRUCTS:
+		case DRAW_MODE_OSTRUCTS1:
+		case DRAW_MODE_OSTRUCTS2:
+		case DRAW_MODE_DEBRIS:
+			if(fDontUseClick && gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION)
+				DrawObjectsBasedOnSelectionRegion();
+			else
 				gfRenderWorld = fPrevState;
-				break;
-			case DRAW_MODE_BANKS:
-				if(fDontUseClick)
-					PasteBanks(iMapIndex, gsBanksSubIndex, TRUE);
-				break;
-			case DRAW_MODE_ROADS:
-				if(fDontUseClick)
-					PasteRoads(iMapIndex);
-				break;
-			case (DRAW_MODE_GROUND + DRAW_MODE_FILL_AREA):
-				TerrainFill( iMapIndex );
-				//BeginFill( iMapIndex );
-				break;
-			case DRAW_MODE_PLACE_ITEM:
-				if(fDontUseClick && gfFirstPlacement)
-				{
-					AddSelectedItemToWorld(iMapIndex);//dnl ch43 280909
-					gfFirstPlacement = FALSE;
-				}
-				break;
-			default:
-				gfRenderWorld = fPrevState;
-				break;
+			break;
+		case DRAW_MODE_COPY_BUILDING:
+		case DRAW_MODE_MOVE_BUILDING:
+			if(gfFirstPlacement)
+			{
+				CopyBuilding(iMapIndex);
+				gfFirstPlacement = FALSE;
+			}
+			gfRenderWorld = fPrevState;
+			break;
+		default:
+			gfRenderWorld = fPrevState;
+			break;
 		}
 	}
 	else if(_RightButtonDown)
 	{
 		if(iLastMapIndexRB != iMapIndex && iLastMapIndexRB == -1)
 			iLastMapIndexRB = iMapIndex;
+#if 0
 		gfRenderWorld = TRUE;
-		switch( iDrawMode )
+		switch(iDrawMode)
 		{
-			// Handle right clicking on a merc (for editing/moving him)
-			case DRAW_MODE_ENEMY:
-			case DRAW_MODE_CREATURE:
-			case DRAW_MODE_REBEL:
-			case DRAW_MODE_CIVILIAN:
-				HandleRightClickOnMerc( iMapIndex );
-				break;
-			case DRAW_MODE_PLACE_ITEM:
-				if(fDontUseClick)
-					HandleRightClickOnItem(iMapIndex);//dnl ch43 280909
-				break;
-
-			// Handle the right clicks in the main window to bring up the appropriate selection window
-			case DRAW_MODE_WALLS:					iEditorToolbarState = TBAR_MODE_GET_WALL;					break;
-			case DRAW_MODE_DOORS:					iEditorToolbarState = TBAR_MODE_GET_DOOR;					break;
-			case DRAW_MODE_WINDOWS:				iEditorToolbarState = TBAR_MODE_GET_WINDOW;				break;
-			case DRAW_MODE_ROOFS:					iEditorToolbarState = TBAR_MODE_GET_ROOF;					break;
-			case DRAW_MODE_BROKEN_WALLS:	iEditorToolbarState = TBAR_MODE_GET_BROKEN_WALL;	break;
-			case DRAW_MODE_DECOR:					iEditorToolbarState = TBAR_MODE_GET_DECOR;				break;
-			case DRAW_MODE_DECALS:				iEditorToolbarState = TBAR_MODE_GET_DECAL;				break;
-			case DRAW_MODE_FLOORS:				iEditorToolbarState = TBAR_MODE_GET_FLOOR;				break;
-			case DRAW_MODE_TOILET:				iEditorToolbarState = TBAR_MODE_GET_TOILET;				break;
-
-			case DRAW_MODE_ROOM:					iEditorToolbarState = TBAR_MODE_GET_ROOM;					break;
-			case DRAW_MODE_NEWROOF:				iEditorToolbarState = TBAR_MODE_GET_NEW_ROOF;			break;
-			case DRAW_MODE_SLANTED_ROOF:	iEditorToolbarState = TBAR_MODE_GET_ROOM;					break;
-			case DRAW_MODE_DEBRIS:				iEditorToolbarState = TBAR_MODE_GET_DEBRIS;				break;
-			case DRAW_MODE_OSTRUCTS:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS;			break;
-			case DRAW_MODE_OSTRUCTS1:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS1;		break;
-			case DRAW_MODE_OSTRUCTS2:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS2;		break;
-			case DRAW_MODE_BANKS:					iEditorToolbarState = TBAR_MODE_GET_BANKS;				break;
-			case DRAW_MODE_ROADS:					iEditorToolbarState = TBAR_MODE_GET_ROADS;				break;
-
-			case DRAW_MODE_CAVES:
-				if( gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION )
-					ProcessAreaSelection( FALSE );
-				break;
-
-			case DRAW_MODE_SMART_WALLS:
-				EraseWalls( iMapIndex );
-				break;
-			case DRAW_MODE_SMART_BROKEN_WALLS:
-			case DRAW_MODE_SMART_WINDOWS:
-			case DRAW_MODE_SMART_DOORS:
-				RestoreWalls( iMapIndex );
-				break;
-			case DRAW_MODE_EXITGRID:
-				if(GetExitGrid(iMapIndex, &gExitGrid))//dnl ch43 280909
-					ApplyNewExitGridValuesToTextFields();
-				break;
-			default:
-				gfRenderWorld = fPrevState;
-				break;
+		default:
+			gfRenderWorld = fPrevState;
+			break;
 		}
+#endif
 	}
 	else if(_MiddleButtonDown)
 	{
 		if(iLastMapIndexMB != iMapIndex && iLastMapIndexMB == -1)
 			iLastMapIndexMB = iMapIndex;
+#if 0
 		gfRenderWorld = TRUE;
+		switch(iDrawMode)
+		{
+		default:
+			gfRenderWorld = fPrevState;
+			break;
+		}
+#endif
 	}
 	else if(!_LeftButtonDown)
 	{
@@ -4030,13 +3907,10 @@ void HandleMouseClicksInGameScreen()
 			gfRenderWorld = TRUE;
 			switch(iDrawMode)
 			{
-//			case DRAW_MODE_SCHEDULEACTION:
-//				if( IsLocationSittableExcludingPeople( iMapIndex, FALSE ) )
-//				{
-//					iDrawMode = DRAW_MODE_SCHEDULECONFIRM;
-//					gfFirstPlacement = FALSE;
-//				}
-//				break;
+			case DRAW_MODE_SCHEDULEACTION:
+				if(IsLocationSittableExcludingPeople(iMapIndex, FALSE))
+					RegisterCurrentScheduleAction(iMapIndex);
+				break;
 			case DRAW_MODE_NORTHPOINT:
 			case DRAW_MODE_WESTPOINT:
 			case DRAW_MODE_EASTPOINT:
@@ -4045,60 +3919,61 @@ void HandleMouseClicksInGameScreen()
 			case DRAW_MODE_ISOLATEDPOINT:
 				SpecifyEntryPoint(iMapIndex);
 				break;
-//			case DRAW_MODE_ENEMY:
-//			case DRAW_MODE_CREATURE:
-//			case DRAW_MODE_REBEL:
-//			case DRAW_MODE_CIVILIAN:
-//				// Handle adding mercs to the world
-//				if( gfFirstPlacement )
-//				{
-//					AddMercToWorld( iMapIndex );
-//					gfFirstPlacement = FALSE;
-//				}
-//				break;
-//			case DRAW_MODE_LIGHT:
-//				// Add a normal light to the world
-//				if( gfFirstPlacement )
-//				{
-//					PlaceLight( gsLightRadius, sGridX, sGridY, 0 );
-//					gfFirstPlacement = FALSE;
-//				}
-//				break;
-//
-//			case DRAW_MODE_SAW_ROOM:
-//			case DRAW_MODE_ROOM:
-//			case DRAW_MODE_CAVES:
-//				if( gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION )
-//					ProcessAreaSelection( TRUE );
-//				break;
-//			case DRAW_MODE_NEWROOF:
-//				ReplaceBuildingWithNewRoof( iMapIndex );
-//				break;
-//			case DRAW_MODE_WALLS:								PasteSingleWall( iMapIndex );					break;
-//			case DRAW_MODE_DOORS:								PasteSingleDoor( iMapIndex );					break;
-//			case DRAW_MODE_WINDOWS:							PasteSingleWindow( iMapIndex );				break;
-//			case DRAW_MODE_ROOFS:								PasteSingleRoof( iMapIndex );					break;
-//			case DRAW_MODE_BROKEN_WALLS:				PasteSingleBrokenWall( iMapIndex );		break;
-//			case DRAW_MODE_DECOR:								PasteSingleDecoration( iMapIndex );		break;
-//			case DRAW_MODE_DECALS:
-//				if( ValidDecalPlacement( iMapIndex ) )
-//					PasteSingleDecal( iMapIndex );
-//				break;
-///			case DRAW_MODE_TOILET:
-///				PasteSingleToilet(iMapIndex);
-///				break;
-///			case DRAW_MODE_SMART_WALLS:
-///				PasteSmartWall(iMapIndex);
-///				break;
-///			case DRAW_MODE_SMART_DOORS:
-///				PasteSmartDoor(iMapIndex);
-///				break;
-///			case DRAW_MODE_SMART_WINDOWS:
-///				PasteSmartWindow(iMapIndex);
-///				break;
-///			case DRAW_MODE_SMART_BROKEN_WALLS:
-///				PasteSmartBrokenWall(iMapIndex);
-///				break;
+			case DRAW_MODE_ENEMY:
+			case DRAW_MODE_CREATURE:
+			case DRAW_MODE_REBEL:
+			case DRAW_MODE_CIVILIAN:
+				AddMercToWorld(iMapIndex);// Handle adding mercs to the world
+				break;
+			case DRAW_MODE_LIGHT:
+				PlaceLight(gsLightRadius, sGridX, sGridY, 0);// Add a normal light to the world
+				break;
+			case DRAW_MODE_SAW_ROOM:
+			case DRAW_MODE_ROOM:
+			case DRAW_MODE_CAVES:
+				if(gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION)
+					ProcessAreaSelection(TRUE);
+				break;
+			case DRAW_MODE_NEWROOF:
+				ReplaceBuildingWithNewRoof(iMapIndex);
+				break;
+			case DRAW_MODE_WALLS:
+				PasteSingleWall(iMapIndex);
+				break;
+			case DRAW_MODE_DOORS:
+				PasteSingleDoor(iMapIndex);
+				break;
+			case DRAW_MODE_WINDOWS:
+				PasteSingleWindow(iMapIndex);
+				break;
+			case DRAW_MODE_ROOFS:
+				PasteSingleRoof(iMapIndex);
+				break;
+			case DRAW_MODE_BROKEN_WALLS:
+				PasteSingleBrokenWall(iMapIndex);
+				break;
+			case DRAW_MODE_DECOR:
+				PasteSingleDecoration(iMapIndex);
+				break;
+			case DRAW_MODE_DECALS:
+				if(ValidDecalPlacement(iMapIndex))
+					PasteSingleDecal(iMapIndex);
+				break;
+			case DRAW_MODE_TOILET:
+				PasteSingleToilet(iMapIndex);
+				break;
+			case DRAW_MODE_SMART_WALLS:
+				PasteSmartWall(iMapIndex);
+				break;
+			case DRAW_MODE_SMART_DOORS:
+				PasteSmartDoor(iMapIndex);
+				break;
+			case DRAW_MODE_SMART_WINDOWS:
+				PasteSmartWindow(iMapIndex);
+				break;
+			case DRAW_MODE_SMART_BROKEN_WALLS:
+				PasteSmartBrokenWall(iMapIndex);
+				break;
 			case DRAW_MODE_EXITGRID:
 			case DRAW_MODE_FLOORS:
 			case DRAW_MODE_GROUND:
@@ -4111,37 +3986,23 @@ void HandleMouseClicksInGameScreen()
 				else
 					gfRenderWorld = fPrevState;
 				break;
-//			case DRAW_MODE_DOORKEYS:
-//				InitDoorEditing( iMapIndex );
-//				break;
-//			case DRAW_MODE_KILL_BUILDING:
-//				KillBuilding( iMapIndex );
-//				break;
-//			case DRAW_MODE_COPY_BUILDING:
-//			case DRAW_MODE_MOVE_BUILDING:
-//				if( gfFirstPlacement )
-//				{
-//					CopyBuilding( iMapIndex );
-//					gfFirstPlacement = FALSE;
-//				}
-//				gfRenderWorld = fPrevState;
-//				break;
+			case DRAW_MODE_DOORKEYS:
+				InitDoorEditing(iMapIndex);
+				break;
+			case DRAW_MODE_KILL_BUILDING:
+				KillBuilding(iMapIndex);
+				break;
 			case DRAW_MODE_BANKS:
 				PasteBanks(iMapIndex, gsBanksSubIndex, TRUE);
 				break;
 			case DRAW_MODE_ROADS:
 				PasteRoads(iMapIndex);
 				break;
-//			case (DRAW_MODE_GROUND + DRAW_MODE_FILL_AREA):
-//				TerrainFill( iMapIndex );
-//				//BeginFill( iMapIndex );
-//				break;
+			case (DRAW_MODE_GROUND + DRAW_MODE_FILL_AREA):
+				TerrainFill(iMapIndex);
+				break;
 			case DRAW_MODE_PLACE_ITEM:
-				if(gfFirstPlacement)
-				{
-					AddSelectedItemToWorld(iMapIndex);//dnl ch43 280909
-					gfFirstPlacement = FALSE;
-				}
+				AddSelectedItemToWorld(iMapIndex);
 				break;
 			case DRAW_MODE_HIGH_GROUND:
 				if(gpWorldLevelData[iMapIndex].sHeight)
@@ -4162,21 +4023,15 @@ void HandleMouseClicksInGameScreen()
 				break;
 			}
 		}
-		if(!gfFirstPlacement)//dnl??? need additional testing here detected some stacking problem when copy building on building and try undo
+		if(!gfFirstPlacement)
 		{
-			switch( iDrawMode )
+			switch(iDrawMode)
 			{
-			case DRAW_MODE_SCHEDULECONFIRM:
-				if( IsLocationSittableExcludingPeople( iMapIndex, FALSE ) )
-				{
-					RegisterCurrentScheduleAction( iMapIndex );
-				}
-				break;
 			case DRAW_MODE_COPY_BUILDING:
-				PasteBuilding( iMapIndex );
+				PasteBuilding(iMapIndex);
 				break;
 			case DRAW_MODE_MOVE_BUILDING:
-				MoveBuilding( iMapIndex );
+				MoveBuilding(iMapIndex);
 				break;
 			}
 		}
@@ -4187,66 +4042,92 @@ void HandleMouseClicksInGameScreen()
 		if(iMapIndex == iLastMapIndexRB)// RightClick performed on same tile
 		{
 			gfRenderWorld = TRUE;
-
-		switch( iDrawMode )
-		{
-/*
-			// Handle right clicking on a merc (for editing/moving him)
+			switch(iDrawMode)
+			{
 			case DRAW_MODE_ENEMY:
 			case DRAW_MODE_CREATURE:
 			case DRAW_MODE_REBEL:
 			case DRAW_MODE_CIVILIAN:
-				HandleRightClickOnMerc( iMapIndex );
+				HandleRightClickOnMerc(iMapIndex);// Handle right clicking on a merc (for editing/moving him)
 				break;
-*/
 			case DRAW_MODE_PLACE_ITEM:
 				HandleRightClickOnItem(iMapIndex);//dnl ch43 280909
 				break;
-/*
 			// Handle the right clicks in the main window to bring up the appropriate selection window
-			case DRAW_MODE_WALLS:					iEditorToolbarState = TBAR_MODE_GET_WALL;					break;
-			case DRAW_MODE_DOORS:					iEditorToolbarState = TBAR_MODE_GET_DOOR;					break;
-			case DRAW_MODE_WINDOWS:				iEditorToolbarState = TBAR_MODE_GET_WINDOW;				break;
-			case DRAW_MODE_ROOFS:					iEditorToolbarState = TBAR_MODE_GET_ROOF;					break;
-			case DRAW_MODE_BROKEN_WALLS:	iEditorToolbarState = TBAR_MODE_GET_BROKEN_WALL;	break;
-			case DRAW_MODE_DECOR:					iEditorToolbarState = TBAR_MODE_GET_DECOR;				break;
-			case DRAW_MODE_DECALS:				iEditorToolbarState = TBAR_MODE_GET_DECAL;				break;
-			case DRAW_MODE_FLOORS:				iEditorToolbarState = TBAR_MODE_GET_FLOOR;				break;
-			case DRAW_MODE_TOILET:				iEditorToolbarState = TBAR_MODE_GET_TOILET;				break;
-
-			case DRAW_MODE_ROOM:					iEditorToolbarState = TBAR_MODE_GET_ROOM;					break;
-			case DRAW_MODE_NEWROOF:				iEditorToolbarState = TBAR_MODE_GET_NEW_ROOF;			break;
-			case DRAW_MODE_SLANTED_ROOF:	iEditorToolbarState = TBAR_MODE_GET_ROOM;					break;
-			case DRAW_MODE_DEBRIS:				iEditorToolbarState = TBAR_MODE_GET_DEBRIS;				break;
-			case DRAW_MODE_OSTRUCTS:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS;			break;
-			case DRAW_MODE_OSTRUCTS1:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS1;		break;
-			case DRAW_MODE_OSTRUCTS2:			iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS2;		break;
-			case DRAW_MODE_BANKS:					iEditorToolbarState = TBAR_MODE_GET_BANKS;				break;
-			case DRAW_MODE_ROADS:					iEditorToolbarState = TBAR_MODE_GET_ROADS;				break;
-
-			case DRAW_MODE_CAVES:
-				if( gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION )
-					ProcessAreaSelection( FALSE );
+			case DRAW_MODE_WALLS:
+				iEditorToolbarState = TBAR_MODE_GET_WALL;
 				break;
-
+			case DRAW_MODE_DOORS:
+				iEditorToolbarState = TBAR_MODE_GET_DOOR;
+				break;
+			case DRAW_MODE_WINDOWS:
+				iEditorToolbarState = TBAR_MODE_GET_WINDOW;
+				break;
+			case DRAW_MODE_ROOFS:
+				iEditorToolbarState = TBAR_MODE_GET_ROOF;
+				break;
+			case DRAW_MODE_BROKEN_WALLS:
+				iEditorToolbarState = TBAR_MODE_GET_BROKEN_WALL;
+				break;
+			case DRAW_MODE_DECOR:
+				iEditorToolbarState = TBAR_MODE_GET_DECOR;
+				break;
+			case DRAW_MODE_DECALS:
+				iEditorToolbarState = TBAR_MODE_GET_DECAL;
+				break;
+			case DRAW_MODE_FLOORS:
+				iEditorToolbarState = TBAR_MODE_GET_FLOOR;
+				break;
+			case DRAW_MODE_TOILET:
+				iEditorToolbarState = TBAR_MODE_GET_TOILET;
+				break;
+			case DRAW_MODE_ROOM:
+				iEditorToolbarState = TBAR_MODE_GET_ROOM;
+				break;
+			case DRAW_MODE_NEWROOF:
+				iEditorToolbarState = TBAR_MODE_GET_NEW_ROOF;
+				break;
+			case DRAW_MODE_SLANTED_ROOF:
+				iEditorToolbarState = TBAR_MODE_GET_ROOM;
+				break;
+			case DRAW_MODE_DEBRIS:
+				iEditorToolbarState = TBAR_MODE_GET_DEBRIS;
+				break;
+			case DRAW_MODE_OSTRUCTS:
+				iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS;
+				break;
+			case DRAW_MODE_OSTRUCTS1:
+				iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS1;
+				break;
+			case DRAW_MODE_OSTRUCTS2:
+				iEditorToolbarState = TBAR_MODE_GET_OSTRUCTS2;
+				break;
+			case DRAW_MODE_BANKS:
+				iEditorToolbarState = TBAR_MODE_GET_BANKS;
+				break;
+			case DRAW_MODE_ROADS:
+				iEditorToolbarState = TBAR_MODE_GET_ROADS;
+				break;
+			case DRAW_MODE_CAVES:
+				if(gusSelectionType >= SMALLSELECTION && gusSelectionType <= XLARGESELECTION)
+					ProcessAreaSelection(FALSE);
+				break;
 			case DRAW_MODE_SMART_WALLS:
-				EraseWalls( iMapIndex );
+				EraseWalls(iMapIndex);
 				break;
 			case DRAW_MODE_SMART_BROKEN_WALLS:
 			case DRAW_MODE_SMART_WINDOWS:
 			case DRAW_MODE_SMART_DOORS:
-				RestoreWalls( iMapIndex );
+				RestoreWalls(iMapIndex);
 				break;
 			case DRAW_MODE_EXITGRID:
 				if(GetExitGrid(iMapIndex, &gExitGrid))//dnl ch43 280909
 					ApplyNewExitGridValuesToTextFields();
 				break;
-*/
 			default:
 				gfRenderWorld = fPrevState;
 				break;
-		}
-
+			}
 		}
 		iLastMapIndexRB = -1;
 	}
@@ -4254,17 +4135,36 @@ void HandleMouseClicksInGameScreen()
 	{
 		if(iMapIndex == iLastMapIndexMB)// MiddleClick performed on same tile
 		{
+#if 0
 			gfRenderWorld = TRUE;
+			switch(iDrawMode)
+			{
+			default:
+				gfRenderWorld = fPrevState;
+				break;
+			}
+#endif
 		}
 		iLastMapIndexMB = -1;
 	}
 }
 #endif
 
-void HandleMouseWheel(void)//dnl ch4 210909
+void HandleMouseWheel(void)//dnl ch4 210909 //dnl ch80 011213
 {
-	if(_WheelValue)
+	if(_WheelValue && !gfSummaryWindowActive)
 	{
+		if(!GetMouseXY(&sGridX, &sGridY) && (iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE))
+		{
+			if(_WheelValue > 0)
+				while(_WheelValue--)
+					ScrollEditorItemsInfo(FALSE);
+			else
+				while(_WheelValue++)
+					ScrollEditorItemsInfo(TRUE);
+			_WheelValue = 0;
+			return;
+		}
 		switch(iDrawMode)
 		{
 		case DRAW_MODE_SMART_WALLS:

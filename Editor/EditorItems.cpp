@@ -1722,16 +1722,44 @@ void DisplayItemStatistics()
 	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 450, pDisplayItemStatisticsTex[4]);
 }
 
-
+void ScrollEditorItemsInfo(BOOLEAN fForward)//dnl ch80 011213
+{
+	if(fForward)
+	{
+		if(eInfo.sScrollIndex < max(0, (eInfo.sNumItems+1)/2-6))
+		{
+			if(_KeyDown(17))// CTRL
+			{
+				if(_KeyDown(16))// SHIFT
+					eInfo.sScrollIndex = max(0, (eInfo.sNumItems+1)/2-6);
+				else
+					eInfo.sScrollIndex = min(eInfo.sScrollIndex+60, (eInfo.sNumItems+1)/2-6);
+			}
+			else if(_KeyDown(16))
+				eInfo.sScrollIndex = min(eInfo.sScrollIndex+6, (eInfo.sNumItems+1)/2-6);
+			else
+				eInfo.sScrollIndex++;
+		}
+	}
+	else
+	{
+		if(eInfo.sScrollIndex)
+		{
+			if(_KeyDown(17))// CTRL
+			{
+				if(_KeyDown(16))// SHIFT
+					eInfo.sScrollIndex = 0;
+				else
+					eInfo.sScrollIndex = max(eInfo.sScrollIndex-60, 0);
+			}
+			else if(_KeyDown(16))
+				eInfo.sScrollIndex = max(eInfo.sScrollIndex-6, 0);
+			else
+				eInfo.sScrollIndex--;
+		}
+	}
+	DetermineItemsScrolling();
+	gfRenderTaskbar = TRUE;
+}
 
 #endif
-
-
-
-
-
-
-
-
-
-
