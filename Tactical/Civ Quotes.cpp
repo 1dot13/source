@@ -1715,12 +1715,16 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		// target limitations
 		if( pTarget != NULL )
 		{
+
+#ifdef ENABLE_ZOMBIES
 			// target should be zombie
 			if( zTaunt[ i ].uiFlags2 & TAUNT_T_ZOMBIE )
 			{
 				if( pTarget->IsZombie() == FALSE )
 					continue;
 			}
+#endif
+
 			// target merc profile
 			if( zTaunt[ i ].value[TAUNT_TARGET_MERC_PROFILE] != -1 )
 			{
