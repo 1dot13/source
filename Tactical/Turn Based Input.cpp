@@ -2446,6 +2446,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						ChangeSoldiersBodyType( CRIPPLECIV, TRUE );
 					}
 				}
+				else if( fCtrl ) //remapped squad 14 to here
+					ChangeCurrentSquad( 13 );
 				else
 					ChangeCurrentSquad( 3 );
 

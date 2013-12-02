@@ -6521,6 +6521,7 @@ void HandlePersonnelKeyboard( void )
 					}
 				break;
 				case UPARROW:
+				case 'w':
 					if ( fCurrentTeamMode )
 					{
 						if( gubPersonnelInfoState > PERSONNEL_STAT_BTN )
@@ -6541,6 +6542,7 @@ void HandlePersonnelKeyboard( void )
 					}
 				break;
 				case DNARROW:
+				case 's':
 					if ( fCurrentTeamMode )
 					{
 						if( gubPersonnelInfoState < PERSONNEL_NUM_BTN-1 )
@@ -6561,6 +6563,7 @@ void HandlePersonnelKeyboard( void )
 					}
 				break;
 				case LEFTARROW:
+				case 'a':
 					fReDrawScreenFlag = TRUE;
 					PrevPersonnelFace( );
 					uiCurrentInventoryIndex = 0;
@@ -6568,6 +6571,7 @@ void HandlePersonnelKeyboard( void )
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					fReDrawScreenFlag = TRUE;
 					NextPersonnelFace( );
 					uiCurrentInventoryIndex = 0;
@@ -6609,6 +6613,7 @@ void HandlePersonnelKeyboard( void )
 			switch (InputEvent.usParam)
 			{
 				case LEFTARROW:
+				case 'a':
 					fReDrawScreenFlag = TRUE;
 					PrevPersonnelFace( );
 					uiCurrentInventoryIndex = 0;
@@ -6616,6 +6621,7 @@ void HandlePersonnelKeyboard( void )
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					fReDrawScreenFlag = TRUE;
 					NextPersonnelFace( );
 					uiCurrentInventoryIndex = 0;

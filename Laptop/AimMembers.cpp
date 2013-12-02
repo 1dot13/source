@@ -5108,6 +5108,7 @@ void HandleAimMemberKeyBoardInput()
 			switch (InputEvent.usParam)
 			{
 				case LEFTARROW:
+				case 'a':
 					// previous button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5129,6 +5130,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					// next button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5150,6 +5152,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
+				case 'A':
 					// previous button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5171,6 +5174,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
+				case 'D':
 					// next button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5357,6 +5361,7 @@ void HandleAimMemberKeyBoardInput()
 			switch( InputEvent.usParam )
 			{
 				case LEFTARROW:
+				case 'a':
 					// previous button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5373,6 +5378,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					// next button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5389,6 +5395,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
+				case 'A':
 					// previous button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
@@ -5405,6 +5412,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
+				case 'D':
 					// next button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 

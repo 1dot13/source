@@ -519,6 +519,7 @@ void HandleAimFacialIndexKeyBoardInput()
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
 					break;
 				case LEFTARROW:
+				case 'a':
 					if ( MAX_NUMBER_MERCS > (AIM_FI_NUM_MUGSHOTS_X * AIM_FI_NUM_MUGSHOTS_Y) )
 					{
 						// previous page
@@ -548,6 +549,7 @@ void HandleAimFacialIndexKeyBoardInput()
 					}
 					break;
 				case RIGHTARROW:
+				case 'd':
 					if ( MAX_NUMBER_MERCS > (AIM_FI_NUM_MUGSHOTS_X * AIM_FI_NUM_MUGSHOTS_Y) )
 					{
 						// next page

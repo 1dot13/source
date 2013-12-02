@@ -3708,6 +3708,7 @@ void HandleBobbyRGunsKeyBoardInput()
 			switch (InputEvent.usParam)
 			{
 				case LEFTARROW:
+				case 'a':
 					// previous page
 					if( gubCurPage > 0 )
 					{
@@ -3720,6 +3721,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					// next page
 					if( gubCurPage < gubNumPages - 1 )
 					{
@@ -3732,6 +3734,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
+				case 'A':
 					// jump to 10 pages back
 					if( gubCurPage > 0 )
 					{
@@ -3744,6 +3747,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
+				case 'D':
 					// jump to 10 pages forward
 					if( gubCurPage < gubNumPages - 1 )
 					{
@@ -3871,6 +3875,7 @@ void HandleBobbyRGunsKeyBoardInput()
 			switch( InputEvent.usParam )
 			{
 				case LEFTARROW:
+				case 'a':
 					// previous page
 					if( gubCurPage > 0 )
 						gubCurPage--;
@@ -3879,6 +3884,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case RIGHTARROW:
+				case 'd':
 					// next page
 					if( gubCurPage < gubNumPages - 1 )
 						gubCurPage++;
@@ -3887,6 +3893,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
+				case 'A':
 					// jump to 10 pages back
 					if( gubCurPage > 0 )
 						gubCurPage = __max(gubCurPage - 10, 0);
@@ -3895,6 +3902,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
+				case 'D':
 					// jump to 10 pages forward
 					if( gubCurPage < gubNumPages - 1 )
 						gubCurPage = __min(gubNumPages - 1, gubCurPage + 10);
