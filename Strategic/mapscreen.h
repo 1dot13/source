@@ -84,6 +84,7 @@ void CancelPathsOfAllSelectedCharacters();
 INT32 GetPathTravelTimeDuringPlotting( PathStPtr pPath );
 
 void AbortMovementPlottingMode( void );
+void CancelChangeArrivalSectorMode( void );
 
 void ExplainWhySkyriderCantFly( void );
 

@@ -8107,6 +8107,15 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					// if not already in sector inventory
 					if ( !fShowMapInventoryPool )
 					{
+						if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+						{
+							AbortMovementPlottingMode( );
+						}
+						else if ( gfInChangeArrivalSectorMode )
+						{
+							CancelChangeArrivalSectorMode( );
+						}
+
 						// show sector inventory for selected sector
 						ChangeSelectedMapSector( sSelMapX, sSelMapY, ( INT8 ) iCurrentMapSectorZ );
 

@@ -987,6 +987,10 @@ void ToggleAirspaceMode( void )
 		{
 			AbortMovementPlottingMode( );
 		}
+		else if ( gfInChangeArrivalSectorMode )
+		{
+			CancelChangeArrivalSectorMode( );
+		}
 
 		// dirty regions
 		fMapPanelDirty = TRUE;
@@ -1621,6 +1625,10 @@ void TurnOnItemFilterMode( void )
 		{
 			AbortMovementPlottingMode( );
 		}
+		else if ( gfInChangeArrivalSectorMode )
+		{
+			CancelChangeArrivalSectorMode( );
+		}
 
 		// dirty regions
 		fMapPanelDirty = TRUE;
@@ -1671,6 +1679,10 @@ void TurnOnMobileFilterMode( void )
 		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
 		{
 			AbortMovementPlottingMode( );
+		}
+		else if ( gfInChangeArrivalSectorMode )
+		{
+			CancelChangeArrivalSectorMode( );
 		}
 
 		STR16 pwString = NULL;
