@@ -986,13 +986,9 @@ void LoadAndDisplayMercBio( UINT8 ubMercID )
 		
 	LoadEncryptedDataFromFile(MERCBIOFILE, sText, uiStartLoc, MERC_BIO_INFO_TEXT_SIZE);
 
-#ifdef CHINESE
-	if( sText[0] != ChineseSpecString13 )	
+	if( sText[0] != 0 )	
 		DisplayWrappedString(MERC_BIO_TEXT_X, MERC_BIO_TEXT_Y, MERC_BIO_WIDTH, 2, MERC_BIO_FONT, MERC_BIO_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);	
-#else
-	DisplayWrappedString(MERC_BIO_TEXT_X, MERC_BIO_TEXT_Y, MERC_BIO_WIDTH, 2, MERC_BIO_FONT, MERC_BIO_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-#endif	
-
+	
 	//load and display the merc's additioanl info (if any)
 //#ifdef JA2UB	
 	//Ja25 UB
