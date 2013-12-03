@@ -486,6 +486,10 @@ INVTYPE* GearGetRandomArmor(std::vector<INVTYPE*>* pointer, INT8 min_coolness = 
 	if (pointer == NULL)
 		return NULL;
 
+	//safety net for low LBE counts (including 1.13 vanilla!)
+	if (pointer->size() < 20)
+		return pointer->at(Random(pointer->size()));
+
 	std::vector<INVTYPE*> candidates;
 
 	for (std::vector<INVTYPE*>::iterator it = pointer->begin(); it != pointer->end(); it++)
@@ -516,9 +520,9 @@ INVTYPE* GearGetRandomArmor(std::vector<INVTYPE*>* pointer, INT8 min_coolness = 
 	}
 
 	if (candidates.size() < 1)
-		return GearGetRandomArmor(pointer, -1, 1); //get some random, basic armor instead.
+		return NULL;
 
-	return candidates[Random(candidates.size())];
+	return candidates[ Random( candidates.size() ) ];
 }
 
 //generate a random weapon of requested type, class and BR coolness
