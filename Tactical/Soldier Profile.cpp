@@ -106,6 +106,12 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
 void RandomStats();
 void RandomStartSalary();
+
+//Jenilee
+extern void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc);
+extern void InitRandomMercs();
+extern void ExitRandomMercs();
+
 INT32 RandomAbsoluteRange( INT32 iValue, INT32 iMin, INT32 iMax, INT32 iRange, BOOLEAN fBellCurve );
 INT8 RandomPercentRange( UINT8 iPRange, BOOLEAN fBellCurve );
 
@@ -583,6 +589,19 @@ void RandomStats()
 				}
 			}
 		}
+	}
+	// Jenilee: 4th method (see also RandomMerc.cpp)
+	else if (gGameExternalOptions.ubMercRandomStats == 4)
+	{
+		InitRandomMercs();
+
+		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+		{
+			pProfile = &(gMercProfiles[cnt]);
+			RandomizeMerc(cnt, pProfile);
+		}
+
+		ExitRandomMercs();
 	}
 }
 

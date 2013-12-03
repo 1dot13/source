@@ -162,6 +162,7 @@
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="QARRAY.cpp" />
     <ClCompile Include="Rain.cpp" />
+    <ClCompile Include="RandomMerc.cpp" />
     <ClCompile Include="Real Time Input.cpp" />
     <ClCompile Include="Rotting Corpses.cpp" />
     <ClCompile Include="ShopKeeper Interface.cpp" />

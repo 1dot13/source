@@ -893,6 +893,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RandomMerc.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Real Time Input.cpp"
 				>
 			</File>
