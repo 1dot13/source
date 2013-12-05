@@ -1669,6 +1669,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
 					{
+						gTacticalStatus.ubDisablePlayerInterrupts = FALSE;
+
 						gfSaveGame = FALSE;
 						gfCameDirectlyFromGame = TRUE;
 
@@ -3137,11 +3139,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 									}
 								}
-							}
-							else //End turn only if in combat and it is the player's turn
+							} else
+							{
+								//End turn only if in combat and it is the player's turn
+								if ( fCtrl )
+									gTacticalStatus.ubDisablePlayerInterrupts = TRUE;								
 								*puiNewEvent = I_ENDTURN;
 						}
 					}
+				}
 				}
 #ifdef JA2TESTVERSION
 				else if( fCtrl )

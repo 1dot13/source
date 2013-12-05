@@ -5842,6 +5842,8 @@ void CommonEnterCombatModeCode( )
 
     gTacticalStatus.ubInterruptPending  = DISABLED_INTERRUPT;
 
+	gTacticalStatus.ubDisablePlayerInterrupts = FALSE;
+
     // ATE: If we have an item pointer end it!
     CancelItemPointer( );
 
@@ -6036,6 +6038,8 @@ void ExitCombatMode( )
     EndTopMessage( );
 
     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FTM_EXIT_COMBAT ] );// ary-05/05/2009 : add forced turn mode
+
+	gTacticalStatus.ubDisablePlayerInterrupts = FALSE;
 
     // OK, we have exited combat mode.....
     // Reset some flags for no aps to move, etc

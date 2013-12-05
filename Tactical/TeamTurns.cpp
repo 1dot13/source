@@ -168,6 +168,8 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 
 	SetFastForwardMode(FALSE);
 
+	gTacticalStatus.ubDisablePlayerInterrupts = FALSE;
+
 	// Start the turn of player charactors
 
 	//
@@ -2004,6 +2006,10 @@ BOOLEAN InterruptDuel( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"InterruptDuel");
 	BOOLEAN fResult = FALSE;
+
+	// sevenfm: if Ctrl+D pressed - skip all player interrupts for this turn
+	if( !is_networked && !gGameOptions.fImprovedInterruptSystem && pSoldier->bTeam == OUR_TEAM && gTacticalStatus.ubDisablePlayerInterrupts )
+		return FALSE;
 
 	// if opponent can't currently see us and we can see them
 	if ( pSoldier->aiData.bOppList[ pOpponent->ubID ] == SEEN_CURRENTLY && pOpponent->aiData.bOppList[pSoldier->ubID] != SEEN_CURRENTLY )

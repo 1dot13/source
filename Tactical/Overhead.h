@@ -161,7 +161,8 @@ struct TacticalStatusType
     // SANDRO - added these
     UINT8                               ubLastRequesterSurgeryTargetID;
     UINT8                               ubInterruptPending;
-
+	// sevenfm: Ctrl+D disable interrupts
+	BOOLEAN								ubDisablePlayerInterrupts;
     // PADDING GONE!!!!!
 
 };

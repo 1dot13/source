@@ -7202,7 +7202,10 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	{
 		numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubLastRequesterSurgeryTargetID, sizeof(gTacticalStatus.ubLastRequesterSurgeryTargetID), sizeof(UINT8), numBytesRead);
 		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
+       {
 			numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubInterruptPending, sizeof(gTacticalStatus.ubInterruptPending), sizeof(UINT8), numBytesRead);
+           numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubDisablePlayerInterrupts, sizeof(gTacticalStatus.ubDisablePlayerInterrupts), sizeof(BOOLEAN), numBytesRead);
+       }
 		while( (numBytesRead%4) != 0 )	// This is to make sure the total read is of DWORD length
 			numBytesRead = ReadFieldByField(hFile, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
 	}
@@ -7210,6 +7213,7 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	{
 		numBytesRead++;	//&gTacticalStatus.ubLastRequesterSurgeryTargetID added with BUGFIX_NPC_DATA_FOR_BIG_MAPS
 		numBytesRead++;	//&gTacticalStatus.ubInterruptPending added with IMPROVED_INTERRUPT_SYSTEM
+       numBytesRead++; //&gTacticalStatus.ubDisablePlayerInterrupts
 		while( (numBytesRead%4) != 0 )	// This is to make sure the total read is of DWORD length
 			numBytesRead++;
 	}
