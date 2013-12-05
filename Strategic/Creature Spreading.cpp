@@ -301,7 +301,7 @@ void InitCreatureQuest()
 #if (defined JA2UB) 
 //Ja25 No meanwhiles && no creatures
 #else
-	if( fPlayMeanwhile && !gfCreatureMeanwhileScenePlayed )
+	if( fPlayMeanwhile && !gfCreatureMeanwhileScenePlayed && gModSettings.CreatureMeanwhileCutscene == TRUE )
 	{
 		//Start the meanwhile scene for the queen ordering the release of the creatures.
 		HandleCreatureRelease();

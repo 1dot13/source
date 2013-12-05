@@ -1968,6 +1968,8 @@ typedef struct
 	UINT8 ubEndGameVictorySectorY;
 	INT32 iEndGameVictoryGridNo;
 
+	BOOLEAN CreatureMeanwhileCutscene;
+
 }MOD_SETTINGS;
 
 // silversurfer: item property modifiers
