@@ -5020,6 +5020,35 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 		switch( ubType )
 		{
+			case USE_ITEM_NEW:
+				if( (*this)[subObject]->data.objectStatus >0 && usResult != NOTHING)
+				{
+					CreateItem( usResult, 100, &gTempObject );
+					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					(*this)[subObject]->data.objectStatus--;
+				}
+				if( (*this)[subObject]->data.objectStatus >0 && usResult2 != NOTHING )
+				{
+					CreateItem( usResult2, 100, &gTempObject );
+					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					(*this)[subObject]->data.objectStatus--;
+				}
+				if( (*this)[subObject]->data.objectStatus == 0 )
+				{
+					this->RemoveObjectsFromStack(1);
+					if ( pSoldier && pSoldier->bTeam == gbPlayerNum )
+					{
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+					}
+				} else
+				{
+					if (pSoldier && pSoldier->bTeam == gbPlayerNum)
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				}
+				ApplyEquipmentBonuses(pSoldier);
+				return TRUE;
 			case USE_ITEM:
 			case USE_ITEM_HARD:
 				// the merge will combine the two items
@@ -5061,6 +5090,14 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					//RemoveProhibitedAttachments(pSoldier, this, usResult);
 					// HEADROCK HAM 5: Added argument for statusindex.
 					ReInitMergedItem(pSoldier, this, usOldItem, 0);
+
+					// sevenfm: add usResult2 item if defined
+					if( usResult2 != NOTHING )
+					{
+						CreateItem( usResult2, 100, &gTempObject );
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					}
 
 					//AutoPlaceObject( pAttachment );
 					//ADB ubWeight has been removed, see comments in OBJECTTYPE
