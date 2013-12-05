@@ -858,12 +858,13 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 		{
 			if (fLimited)
 			{
+				UINT8 ubTriesLeft2 = 128;
 				do//dnl ch53 111009 This loop should increase search performance, but probably need some counter to prevent eventual endless loop
 				{
 					sXOffset = ((INT16)Random(sXRange)) - sMaxLeft;
 					sYOffset = ((INT16)Random(sYRange)) - sMaxUp;
 					sRandDest = usOrigin + sXOffset + (MAXCOL * sYOffset);
-				}while(!GridNoOnVisibleWorldTile(sRandDest));
+				}while(!GridNoOnVisibleWorldTile(sRandDest) && --ubTriesLeft2);
 	#ifdef BETAVERSION
 				if ((sRandDest < 0) || (sRandDest >= GRIDSIZE))
 				{
@@ -874,10 +875,11 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 			}
 			else
 			{
+				UINT8 ubTriesLeft2 = 128;
 				do//dnl ch53 111009 This loop should increase search performance, but probably need some counter to prevent eventual endless loop
 				{
 					sRandDest = PreRandom(GRIDSIZE);
-				}while(!GridNoOnVisibleWorldTile(sRandDest));
+				}while(!GridNoOnVisibleWorldTile(sRandDest) && --ubTriesLeft2);
 			}
 
 			if ( usRoom && InARoom( sRandDest, &usTempRoom ) && usTempRoom != usRoom )
