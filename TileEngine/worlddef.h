@@ -62,7 +62,7 @@ class SOLDIERTYPE;
 //SB: fix macro syntax flaw
 //#define  LOADDATA( dst, src, size ) memcpy( dst, src, size ); src += size
 #define  LOADDATA( dst, src, size ) { memcpy( dst, src, size ); src += size; }
-
+#define  SKIPDATA( dst, src, size ) { dst = src + size; }//dnl ch81 051213
 
 #define LANDHEAD							0
 #define MAXDIR								8

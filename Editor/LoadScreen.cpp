@@ -88,6 +88,9 @@ INT32 iCurrFileShown;
 INT32	iLastFileClicked;
 INT32 iLastClickTime;
 
+#ifdef USE_VFS
+CHAR8 gzProfileName[FILENAME_BUFLEN];//dnl ch81 021213
+#endif
 CHAR16 gzFilename[FILENAME_BUFLEN];//dnl ch39 190909
 extern INT16 gsSelSectorX;
 extern INT16 gsSelSectorY;
@@ -167,6 +170,7 @@ void LoadSaveScreenEntry()
 
 	iTopFileShown = iTotalFiles = 0;
 #ifdef USE_VFS//dnl ch37 300909
+	gzProfileName[0] = 0;//dnl ch81 021213
 	FDLG_LIST* TempFileList = NULL;
 	vfs::CProfileStack* st = getVFS()->getProfileStack();
 	vfs::CProfileStack::Iterator it = st->begin();
@@ -725,6 +729,20 @@ void SelectFileDialogYPos( UINT16 usRelativeYPos )
 			}
 			iLastClickTime = iCurrClickTime;
 			iLastFileClicked = x;
+			//dnl ch81 021213
+#ifdef USE_VFS
+			gzProfileName[0] = 0;
+			while(FListNode = FListNode->pPrev)
+			{
+				if(FListNode->FileInfo.zFileName[0] == '<')
+				{
+					strcpy(gzProfileName, &FListNode->FileInfo.zFileName[2]);
+					gzProfileName[strlen(gzProfileName)-2] = 0;
+					break;
+				}
+			}
+#endif
+			break;
 		}
 		FListNode = FListNode->pNext;
 	}
@@ -970,7 +988,7 @@ extern BOOLEAN ReEvaluateWorld( const STR8	puiFilename );
 UINT32 ProcessFileIO()
 {
 	INT16 usStartX, usStartY;
-	CHAR8 ubNewFilename[50];
+	CHAR8 ubNewFilename[FILENAME_BUFLEN];//dnl ch81 021213
 	BOOLEAN fAltMap;//dnl ch31 150909
 	switch( gbCurrentFileIOStatus )
 	{

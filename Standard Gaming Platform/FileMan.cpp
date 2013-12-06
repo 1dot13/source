@@ -380,7 +380,7 @@ BOOLEAN	FileDelete( STR strFilename )
 //	Oct 2005: Snap - modified to work with the custom Data directory
 //
 //**************************************************************************
-HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
+HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose, STR strProfilename )//dnl ch81 021213
 {
 #ifdef USE_VFS
 	vfs::Path path(strFilename);
@@ -400,9 +400,18 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 		}
 		else if(uiOptions & FILE_ACCESS_READ)
 		{
-			vfs::COpenReadFile open_r(path, vfs::CVirtualFile::SF_TOP);
-			pFile = &open_r.file();
-			open_r.release();
+			if(strProfilename && strProfilename[0])
+			{
+				vfs::COpenReadFile open_r(vfs::tReadableFile::cast(getVFS()->getFile(path, strProfilename)));
+				pFile = &open_r.file();
+				open_r.release();
+			}
+			else
+			{
+				vfs::COpenReadFile open_r(path, vfs::CVirtualFile::SF_TOP);
+				pFile = &open_r.file();
+				open_r.release();
+			}
 			s_mapFiles[pFile].op = SOperation::READ;
 			return (HWFILE)pFile;
 		}
@@ -560,8 +569,6 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 #endif
 }
 
-
-
 //**************************************************************************
 //
 // FileClose
@@ -579,7 +586,6 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 //		9 Feb 98	DEF - modified to work with the library system
 //
 //**************************************************************************
-
 void FileClose( HWFILE hFile )
 {
 #ifdef USE_VFS

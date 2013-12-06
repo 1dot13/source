@@ -109,7 +109,7 @@ extern void		FileDebug( BOOLEAN f );
 BOOLEAN	FileExists( STR strFilename );
 extern BOOLEAN	FileExistsNoDB( STR strFilename );
 extern BOOLEAN	FileDelete( STR strFilename );
-extern HWFILE	FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose );
+extern HWFILE	FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose=FALSE, STR strProfilename=NULL );//dnl ch81 021213
 
 extern void		FileClose( HWFILE );
 

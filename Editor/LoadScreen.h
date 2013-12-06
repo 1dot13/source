@@ -1,6 +1,8 @@
 #include "BuildDefines.h"
 #include "Fileman.h"
 
+#define FILENAME_BUFLEN (20 + 4 + 1)//dnl ch39 190909 +4 is for ".dat", +1 is for '\0' //dnl ch81 021213
+
 #ifdef JA2EDITOR
 
 #ifndef _JA2_LOAD_SCREEN_
@@ -47,20 +49,11 @@ void InitErrorCatchDialog();
 extern BOOLEAN gfErrorCatch;
 extern CHAR16 gzErrorCatchString[ 256 ];
 
-#define FILENAME_BUFLEN (20 + 4 + 1)//dnl ch39 190909 +4 is for ".dat", +1 is for '\0'
+//dnl ch81 031213
+extern CHAR16 gzFilename[FILENAME_BUFLEN];
+#ifdef USE_VFS
+extern CHAR8 gzProfileName[FILENAME_BUFLEN];
+#endif
 
 #endif
 #endif
-
-
-
-
-
-
-
- 
- 
-
-
-
-

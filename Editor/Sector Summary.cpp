@@ -97,7 +97,7 @@ BOOLEAN LoadSummary(STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion);//dnl c
 
 void RegenerateSummaryInfoForAllOutdatedMaps();
 
-void SetupItemDetailsMode( BOOLEAN fAllowRecursion );
+void SetupItemDetailsMode(BOOLEAN fAllowRecursion);//dnl ch81 051213
 
 INT32 giCurrentViewLevel = ALL_LEVELS_MASK;
 
@@ -545,7 +545,7 @@ void RenderSectorInformation()
 		ePoints++;
 	//start at 10,35
 	SetFontForeground( FONT_ORANGE );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 32,		pRenderSectorInformationText[0], gTilesets[ s->ubTilesetID ].zName ); 
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 32,		pRenderSectorInformationText[0], gTilesets[ s->ubTilesetID ].zName );
 	if( m->ubMapVersion < 10 )
 		SetFontForeground( FONT_RED );
 	mprintf(iScreenWidthOffset+10, iScreenHeightOffset+42, pRenderSectorInformationText[1], s->ubSummaryVersion, s->dMajorMapVersion, m->ubMapVersion);//dnl ch30 240909
@@ -1060,7 +1060,8 @@ void RenderSummaryWindow()
 			{
 				DisableButton( iSummaryButton[ SUMMARY_LOAD ] );
 				SetFontForeground( FONT_LTRED );
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[7] );
+				if( !gfItemDetailsMode )//dnl ch81 031213
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[7] );
 				if( gfTempFile )
 				{
 					SetFontForeground( FONT_YELLOW );
@@ -1073,10 +1074,25 @@ void RenderSummaryWindow()
 					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[9] );
 					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, pRenderSummaryWindowText[10] );
 				}
-				else if(gCustomFileSectorSummary.ubSummaryVersion)//dnl ch30 150909
+				else if(gCustomFileSectorSummary.ubSummaryVersion)//dnl ch30 150909 //dnl ch81 031213
 				{
 					gpCurrentSectorSummary = &gCustomFileSectorSummary;
-					RenderSectorInformation();
+					wcscpy(gszFilename, gzFilename);
+					wcscpy(gszDisplayName, gszFilename);
+					if(gfItemDetailsMode)
+					{
+						SetupItemDetailsMode(TRUE);
+						SetFontForeground(FONT_YELLOW);
+						mprintf(iScreenWidthOffset+10, iScreenHeightOffset+5, pRenderSummaryWindowText[19], gszDisplayName);
+						RenderItemDetails();
+					}
+					else
+					{
+						HideButton(iSummaryButton[SUMMARY_REAL]);
+						HideButton(iSummaryButton[SUMMARY_SCIFI]);
+						HideButton(iSummaryButton[SUMMARY_ENEMY]);
+						RenderSectorInformation();
+					}
 				}
 			}
 			else
@@ -1260,6 +1276,10 @@ void RenderSummaryWindow()
 							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[24] );
 						}
 						ShowButton( iSummaryButton[ SUMMARY_UPDATE ] );
+						//dnl ch81 041213
+						HideButton(iSummaryButton[SUMMARY_REAL]);
+						HideButton(iSummaryButton[SUMMARY_SCIFI]);
+						HideButton(iSummaryButton[SUMMARY_ENEMY]);
 					}
 				}
 				else
@@ -1292,6 +1312,11 @@ void RenderSummaryWindow()
 					}
 					swprintf( gszDisplayName, gszFilename );
 					DisableButton( iSummaryButton[ SUMMARY_LOAD ] );
+					//dnl ch81 031213
+					HideButton(iSummaryButton[SUMMARY_UPDATE]);
+					HideButton(iSummaryButton[SUMMARY_REAL]);
+					HideButton(iSummaryButton[SUMMARY_SCIFI]);
+					HideButton(iSummaryButton[SUMMARY_ENEMY]);
 				}
 				SPECIALCASE_LABEL:
 				if( gfOverrideDirty && gfPersistantSummary )
@@ -1747,6 +1772,8 @@ void SummaryToggleAlternateCallback( GUI_BUTTON *btn, INT32 reason )
 			gfAlternateMaps = FALSE;
 		}
 		gfRenderSummary = TRUE;
+		if(gfItemDetailsMode)//dnl ch81 041213
+			gfSetupItemDetailsMode = TRUE;
 	}
 }
 
@@ -1931,6 +1958,10 @@ BOOLEAN HandleSummaryInput( InputAtom *pEvent )
 			case SHIFT_RIGHTARROW:
 
 				break;
+#ifdef dnlTEST//dnl ch81 051213
+			case '\'':
+				break;
+#endif
 		}
 	}
 	else if( pEvent->usEvent == KEY_UP )
@@ -2124,6 +2155,8 @@ void SummaryToggleLevelCallback( GUI_BUTTON *btn, INT32 reason )
 		if( GetActiveFieldID() == 1 )
 			SelectNextField();
 		gfRenderSummary = TRUE;
+		if(gfItemDetailsMode)//dnl ch81 041213
+			gfSetupItemDetailsMode = TRUE;
 		for( i = SUMMARY_ALL; i <= SUMMARY_B3; i++ )
 		{
 			if( btn->IDNum == iSummaryButton[ i ] )
@@ -3021,6 +3054,8 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 		gpCurrentSectorSummary = gpSectorSummary[ gsSelSectorX - 1][ gsSelSectorY - 1][ giCurrLevel ];
 	
 		gfRenderSummary = TRUE;
+		if(gfItemDetailsMode)//dnl ch81 041213
+			gfSetupItemDetailsMode = TRUE;
 
 		RemoveProgressBar( 0 );
 	}
@@ -3045,11 +3080,11 @@ void ExtractTempFilename()
 BOOLEAN ReEvaluateWorld(const STR8 puiFilename)
 {
 	UINT8 ubLevel;
-	CHAR8 name[50];
+	CHAR8 name[FILENAME_BUFLEN];//dnl ch81 021213
 	INT16 sSectorX, sSectorY;
 	INT8 bSectorZ;
 	BOOLEAN fAltMap;
-	CHAR16 szFileName[50];
+	CHAR16 szFileName[FILENAME_BUFLEN];//dnl ch81 021213
 	swprintf(szFileName, L"%S", puiFilename);
 	GetSectorFromFileName(szFileName, sSectorX, sSectorY, bSectorZ, fAltMap);
 /*
@@ -3223,6 +3258,7 @@ void ApologizeOverrideAndForceUpdateEverything()
 	gusNumberOfMapsToBeForceUpdated = 0;
 }
 
+#if 0//dnl ch81 041213 this function is screwed up so decide to rewrite it
 //CHRISL: ADB changed the way this load file is handled
 extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
@@ -3435,6 +3471,172 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 	}
 	FileClose( hfile );
 }
+#else
+void SetupItemDetailsMode(BOOLEAN fAllowRecursion)
+{
+	UINT32 uiNumItems, uiFileSize, uiBytesRead;
+	INT32 i, j;
+	UINT16 usNumItems, usPEnemyIndex, usNEnemyIndex;
+	UINT8 ubMinorMapVersion;
+	INT8 *pBuffer, *pBufferHead;
+	CHAR8 szFilename[40];
+	HWFILE hfile;
+	FLOAT dMajorMapVersion;
+	OBJECTTYPE *pItem;
+	BASIC_SOLDIERCREATE_STRUCT basic;
+	SOLDIERCREATE_STRUCT priority;
+
+	//Clear memory for all the item summaries loaded
+	if(gpWorldItemsSummaryArray)
+	{
+		delete[] gpWorldItemsSummaryArray;
+		gpWorldItemsSummaryArray = NULL;
+		gusWorldItemsSummaryArraySize = 0;
+	}
+	if(gpPEnemyItemsSummaryArray)
+	{
+		delete[] gpPEnemyItemsSummaryArray;
+		gpPEnemyItemsSummaryArray = NULL;
+		gusPEnemyItemsSummaryArraySize = 0;
+	}
+	if(gpNEnemyItemsSummaryArray)
+	{
+		delete[] gpNEnemyItemsSummaryArray;
+		gpNEnemyItemsSummaryArray = NULL;
+		gusNEnemyItemsSummaryArraySize = 0;
+	}
+	// Don't have one, so generate them
+	if(!gpCurrentSectorSummary->uiNumItemsPosition)
+	{
+		if(gpCurrentSectorSummary->ubSummaryVersion == GLOBAL_SUMMARY_VERSION)
+			gusNumEntriesWithOutdatedOrNoSummaryInfo++;
+		SummaryUpdateCallback(ButtonList[iSummaryButton[SUMMARY_UPDATE]], MSYS_CALLBACK_REASON_LBUTTON_UP);
+		if(!gpCurrentSectorSummary->uiNumItemsPosition)
+			return;
+	}
+	//Open the original map for the sector
+	sprintf(szFilename, "MAPS\\%S", gszFilename);
+	hfile = FileOpen(szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE);
+	if(!hfile)// The file couldn't be found!
+		return;
+	uiFileSize = FileGetSize(hfile);
+	if(!uiFileSize)
+		return;
+	pBuffer = (INT8*)MemAlloc(uiFileSize);
+	pBufferHead = pBuffer;
+	FileRead(hfile, pBuffer, uiFileSize, &uiBytesRead);
+	FileClose(hfile);
+	dMajorMapVersion = *(FLOAT *)pBuffer;
+	if(dMajorMapVersion >= 4.00)
+		ubMinorMapVersion = pBuffer[sizeof(FLOAT)];
+	else
+		ubMinorMapVersion = 0;
+	uiNumItems = 0;
+	if(gpCurrentSectorSummary->uiNumItemsPosition)
+	{
+		// Now fileseek directly to the file position where the number of world items are stored
+		SKIPDATA(pBuffer, pBufferHead, gpCurrentSectorSummary->uiNumItemsPosition);
+		if((UINT32)(pBuffer-pBufferHead) > uiFileSize)
+		{
+L01:
+			if(fAllowRecursion)
+			{
+				gpCurrentSectorSummary->uiNumItemsPosition = 0;
+				SetupItemDetailsMode(FALSE);
+			}
+			return;
+		}
+		// Now load the number of world items from the map
+		LOADDATA(&uiNumItems, pBuffer, sizeof(UINT32));
+		if((UINT32)(pBuffer-pBufferHead) > uiFileSize)
+			goto L01;
+	}
+	// Now compare this number with the number the summary thinks we should have.  If they are different, then the summary doesn't match the map.  What we will do is force regenerate the map so that they do match
+	if(uiNumItems != gpCurrentSectorSummary->usNumItems)
+		goto L01;
+	//Passed the gauntlet, so now allocate memory for it, and load all the world items into this array.
+	ShowButton(iSummaryButton[SUMMARY_SCIFI]);
+	ShowButton(iSummaryButton[SUMMARY_REAL]);
+	ShowButton(iSummaryButton[SUMMARY_ENEMY]);
+	gpWorldItemsSummaryArray = new WORLDITEM[uiNumItems];
+	gusWorldItemsSummaryArraySize = gpCurrentSectorSummary->usNumItems;
+	for(i=0; i<(INT32)uiNumItems; i++)
+		gpWorldItemsSummaryArray[i].Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
+	// Now, do the enemy's items! We need to do two passes. The first pass simply processes all the enemies and counts all the droppable items keeping track of two different values.
+	// The first value is the number of droppable items that come off of enemy detailed placements, the other counter keeps track of the number of droppable items that come off of normal enemy placements.
+	// After doing this, the memory is allocated for the tables that will store all the item summary information, then the second pass will repeat the process, except it will record the actual items.
+	// PASS #1
+	SKIPDATA(pBuffer, pBufferHead, gpCurrentSectorSummary->uiEnemyPlacementPosition);
+	for(i=0; i<gpCurrentSectorSummary->MapInfo.ubNumIndividuals; i++)
+	{
+		basic.Load(&pBuffer, dMajorMapVersion);
+		if((UINT32)(pBuffer-pBufferHead) > uiFileSize)
+			goto L01;
+		if(basic.fDetailedPlacement)// skip static priority placement
+		{
+			priority.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
+			if((UINT32)(pBuffer-pBufferHead) > uiFileSize)
+				goto L01;
+		}
+		else//non detailed placements don't have items, so skip
+			continue;
+		if(basic.bTeam == ENEMY_TEAM)
+		{
+			//Count the items that this enemy placement drops
+			usNumItems = 0;
+			for(j=0; j<9; j++)
+			{
+				pItem = &priority.Inv[gbMercSlotTypes[j]];
+				if(pItem->exists() == true && !((*pItem).fFlags & OBJECT_UNDROPPABLE))
+					usNumItems++;
+			}
+			if(basic.fPriorityExistance)
+				gusPEnemyItemsSummaryArraySize += usNumItems;
+			else
+				gusNEnemyItemsSummaryArraySize += usNumItems;
+		}
+	}
+	// Pass 1 completed, so now allocate enough space to hold all the items
+	if(gusPEnemyItemsSummaryArraySize)
+		gpPEnemyItemsSummaryArray = new OBJECTTYPE[gusPEnemyItemsSummaryArraySize];
+	if(gusNEnemyItemsSummaryArraySize)
+		gpNEnemyItemsSummaryArray = new OBJECTTYPE[ gusNEnemyItemsSummaryArraySize ];
+	// PASS #2
+	// During this pass, simply copy all the data instead of counting it, now that we have already done so
+	usPEnemyIndex = usNEnemyIndex = 0;
+	SKIPDATA(pBuffer, pBufferHead, gpCurrentSectorSummary->uiEnemyPlacementPosition);
+	for(i=0; i<gpCurrentSectorSummary->MapInfo.ubNumIndividuals; i++)
+	{
+		basic.Load(&pBuffer, dMajorMapVersion);
+		if(basic.fDetailedPlacement)// skip static priority placement
+			priority.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
+		else// non detailed placements don't have items, so skip
+			continue;
+		if(basic.bTeam == ENEMY_TEAM)
+		{
+			// Copy the items that this enemy placement drops
+			usNumItems = 0;
+			for(j=0; j<9; j++)
+			{
+				pItem = &priority.Inv[gbMercSlotTypes[j]];
+				if(pItem->exists() == true && !((*pItem).fFlags & OBJECT_UNDROPPABLE))
+				{
+					if(basic.fPriorityExistance)
+					{
+						gpPEnemyItemsSummaryArray[usPEnemyIndex] = *pItem;
+						usPEnemyIndex++;
+					}
+					else
+					{
+						gpNEnemyItemsSummaryArray[usNEnemyIndex] = *pItem;
+						usNEnemyIndex++;
+					}
+				}
+			}
+		}
+	}
+}
+#endif
 
 UINT8 GetCurrentSummaryVersion()
 {

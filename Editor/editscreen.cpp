@@ -1390,6 +1390,8 @@ void HandleKeyboardShortcuts( )
 	{
 		if( !HandleSummaryInput( &EditorInputEvent ) && !HandleTextInput( &EditorInputEvent ) && EditorInputEvent.usEvent == KEY_DOWN )
 		{
+			if(InOverheadMap() && !(EditorInputEvent.usParam == ESC))//dnl ch81 031213
+				return;
 			if( gfGotoGridNoUI )
 			{
 				switch( EditorInputEvent.usParam )
@@ -1526,7 +1528,7 @@ void HandleKeyboardShortcuts( )
 					{
 						KillOverheadMap();
 					}
-					if( iDrawMode == DRAW_MODE_SCHEDULEACTION )
+					else if( iDrawMode == DRAW_MODE_SCHEDULEACTION )//dnl ch81 031213
 					{
 						CancelCurrentScheduleAction();
 					}

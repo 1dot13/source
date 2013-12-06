@@ -1829,7 +1829,7 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 	UINT8			ubType;
 	UINT8			ubTypeSubIndex;
 	UINT8			ubTest = 1;
-	CHAR8			aFilename[ 255 ];
+	CHAR8			aFilename[2*FILENAME_BUFLEN];//dnl ch81 021213
 	UINT8			ubCombine;
 //	UINT8			bCounts[ WORLD_MAX ][8];
 	UINT8**			bCounts = NULL;
@@ -2443,7 +2443,7 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 	UINT32 uiFlags, uiFileSize, uiBytesRead;
 	INT32 i, cnt, iTilesetID;
 	CHAR16 str[2*FILENAME_BUFLEN];
-	CHAR8 szDirFilename[2*FILENAME_BUFLEN], szFilename[FILENAME_BUFLEN];
+	CHAR8 szDirFilename[2*FILENAME_BUFLEN], szFilename[2*FILENAME_BUFLEN];//dnl ch81 021213
 	UINT8 ubCombine, ubMinorMapVersion;
 	UINT8 (*bCounts)[8] = NULL;
 	// Make sure the file exists... if not, then return false
@@ -2453,12 +2453,19 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 	if(ubLevel >= 4)
 		strcat(szFilename, "_a");
 	strcat(szFilename, ".dat");
-	CHAR16 szFileName[40];
+	CHAR16 szFileName[FILENAME_BUFLEN];//dnl ch81 021213
 	swprintf(szFileName, L"%S", pSector);
 	if(ValidMapFileName(szFileName))
 		strcpy(szFilename, pSector);
 	sprintf(szDirFilename, "MAPS\\%s", szFilename);
+#ifdef USE_VFS//dnl ch81 021213
+	if(guiCurrentScreen == LOADSAVE_SCREEN)
+		hfile = FileOpen(szDirFilename, FILE_ACCESS_READ, FALSE, gzProfileName);
+	else
+		hfile = FileOpen(szDirFilename, FILE_ACCESS_READ);
+#else
 	hfile = FileOpen(szDirFilename, FILE_ACCESS_READ, FALSE);
+#endif
 	if(!hfile)
 		return(FALSE);
 	uiFileSize = FileGetSize(hfile);
@@ -2844,7 +2851,7 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	UINT16					usTypeSubIndex;
 	UINT8					ubType;
 	UINT8					ubSubIndex;
-	CHAR8					aFilename[50];
+	CHAR8					aFilename[2*FILENAME_BUFLEN];//dnl ch81 021213
 	UINT8					ubCombine;
 	UINT8					(*bCounts)[8] = NULL;
 	INT8					*pBuffer;
@@ -2865,7 +2872,18 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	else
 		sprintf(aFilename, "MAPS\\%s", puiFilename);
 	// Open file
+#ifdef USE_VFS//dnl ch81 021213
+#ifdef JA2EDITOR
+	if(guiCurrentScreen == LOADSAVE_SCREEN)
+		hfile = FileOpen(aFilename, FILE_ACCESS_READ, FALSE, gzProfileName);
+	else
+		hfile = FileOpen(aFilename, FILE_ACCESS_READ);
+#else
+	hfile = FileOpen(aFilename, FILE_ACCESS_READ);
+#endif
+#else
 	hfile = FileOpen(aFilename, FILE_ACCESS_READ, FALSE);
+#endif
 	if(!hfile)
 	{
 #ifndef JA2EDITOR
