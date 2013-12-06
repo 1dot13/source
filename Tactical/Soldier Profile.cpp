@@ -108,7 +108,7 @@ void RandomStats();
 void RandomStartSalary();
 
 //Jenilee
-extern void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc);
+extern void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc, BOOL random_gear_kits);
 extern void InitRandomMercs();
 extern void ExitRandomMercs();
 
@@ -597,12 +597,14 @@ void RandomStats()
 
 		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 		{
-			pProfile = &(gMercProfiles[cnt]);
-			RandomizeMerc(cnt, pProfile);
+			if (IsProfileIdAnAimOrMERCMerc(cnt)) //affect only AIM and MERC mercs
+			{
+				pProfile = &(gMercProfiles[cnt]);
+				RandomizeMerc(cnt, pProfile, gGameExternalOptions.fMercRandomGearKits);
+			}
 		}
 
-		ExitRandomMercs();
-	}
+		ExitRandomMercs();	}
 }
 
 void RandomStartSalary()

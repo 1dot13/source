@@ -13,8 +13,6 @@
 	#include "Campaign.h"
 #endif
 
-#include <algorithm>
-
 #include "XML.h"
 
 //Jenilee: full randomization of mercs, including traits, gear kits and all statistics.
@@ -77,7 +75,7 @@ bool GenerateRoleSet(UINT8 role_name, UINT8 hlt, UINT8 dex, UINT8 agi, UINT8 str
 void InitRandomMercs()
 {
 												//	HLT		DEX		AGI		STR		WIS		MRK		LDR		MEC		EXP		MED
-	GenerateRoleSet(ROLE_GENERIC,					15,		12,		17,		12,		11,		16,		4,		4,		4,		5);
+	GenerateRoleSet(ROLE_GENERIC,					14,		13,		13,		14,		13,		13,		5,		5,		5,		5);
 
 	GenerateRoleSet(ROLE_MEDIC,						8,		18,		16,		5,		14,		15,		3,		2,		2,		17);
 	GenerateRoleSet(ROLE_MECHANIC,					9,		17,		15,		5,		15,		17,		1,		18,		1,		2);
@@ -780,11 +778,8 @@ INVTYPE* LBEFindSuitableLBE(std::map<UINT16, UINT16> storage, UINT16 lbe_type)
 	return candidates[Random(candidates.size())];
 }
 
-//sort helper function
-BOOL sort_cmp(UINT16 i, UINT16 j) { return (i < j); }
-
 //this is the main randomization function that calls almost all the other functions.
-void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc)
+void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc, BOOL random_gear_kits)
 {
 	//reset merc's stats to basic values so we can increase them
 	merc->bExpLevel = 1;
@@ -802,7 +797,7 @@ void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc)
 
 	//determine character level and points (absolute maximum = 666 points)
 	merc->bExpLevel = Random(9) + 1;
-	INT16 points = 350 + (merc->bExpLevel * 20) + Random(150);
+	INT16 points = 300 + (merc->bExpLevel * 10) + Random(20);
 
 	//determine roles and traits
 	UINT8 roles_to_grant = 1 + Random((UINT16)((float)merc->bExpLevel / 2.0f));
@@ -815,13 +810,8 @@ void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc)
 	std::vector<UINT8> traits;
 	
 	//spend our points budget
-	UINT16 tries = 0;
-
-	while (tries++ < 1000)
+	while (points > 0)
 	{
-		if (points < 1)
-			break;
-
 		UINT8 decider = Random(100);
 
 		if (decider < 30) //30% chance to assign a totally random stat
@@ -897,180 +887,182 @@ void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc)
 	merc->sMedicalDepositAmount = 0; //disabled now.
 	merc->bMedicalDeposit = false;
 
-	//generate gear kits for the merc
-	for (UINT8 kit_id = 0;kit_id < 5; kit_id++)
+	if (random_gear_kits)
 	{
-		std::map<UINT16, UINT16> storage[3]; //this will hold all the items we need to store in LBE.
-
-		GearKitClear(profile_id, kit_id);
-
-		UINT16 kit_cost = 0;
-		INT8 min_kit_level = (kit_id / 2) + (merc->bExpLevel / 4); if (min_kit_level < 1) min_kit_level = 1;
-		INT8 max_kit_level = 1 + (kit_id) + (merc->bExpLevel / 4); if (max_kit_level > 7) max_kit_level = 7;
-
-		//assign armor
-		UINT8 preferred_camo = Random(5) + 1;
-		kit_cost += GearSetSlot(profile_id, kit_id, HELMETPOS, GearGetRandomArmor(&gear_helmets, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 10 : 5));
-		kit_cost += GearSetSlot(profile_id, kit_id, VESTPOS, GearGetRandomArmor(&gear_vests, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 25 : 5));
-		kit_cost += GearSetSlot(profile_id, kit_id, LEGPOS, GearGetRandomArmor(&gear_leggings, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 10 : 5));
-
-		UINT8 head1 = Random(24) - (merc->bExpLevel / 3) - max_kit_level;
-		if (head1 < 1)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_GAS_MASK));
-		else if (head1 < 4)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_HEADSET));
-		else if (HasRole(&roles, ROLE_LEADER) && head1 < 15) //leaders get an extra chance to get a headset
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_HEADSET));
-
-		//assign face gear
-		UINT8 head2 = Random(24) - (merc->bExpLevel / 3) - max_kit_level;
-		if (head2 < 1)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
-		else if (HasTrait(&traits, STEALTHY_NT) && head2 < 3)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
-		else if (HasTrait(&traits, NIGHT_OPS_NT) && head2 < 5)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
-		else if (head2 < 5)
-			kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_SPECTACLES));
-
-		if (kit_id == 0) //kit 1 is always a pistol
+		//generate gear kits for the merc
+		for (UINT8 kit_id = 0;kit_id < 5; kit_id++)
 		{
-			kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level, GUN_PISTOL, -1));
-		}
-		else if (kit_id == 1 || kit_id == 2) //kit 2 and 3 are randomly a shotgun, machinepistol or smg
-		{
-			UINT8 rnd = Random(2);
+			std::map<UINT16, UINT16> storage[3]; //this will hold all the items we need to store in LBE.
 
-			if (rnd == 1)
-				kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_SHOTGUN, -1));
-			else if (rnd == 2)
-				kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_M_PISTOL, -1));
-			else
-				kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_SMG, -1));
-		}
-		else //last 2 kits hold role specific weapons if applicable.
-		{
-			kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeaponForRole(&roles, &traits, min_kit_level, max_kit_level));
-		}
+			GearKitClear(profile_id, kit_id);
 
-		//deal out potential sidearm, ammo and attachments to the main weapon
-		INVTYPE* hand_item = GearGetSlot(profile_id, kit_id, HANDPOS);
+			UINT16 kit_cost = 0;
+			INT8 min_kit_level = (kit_id / 2) + (merc->bExpLevel / 4); if (min_kit_level < 1) min_kit_level = 1;
+			INT8 max_kit_level = 1 + (kit_id) + (merc->bExpLevel / 4); if (max_kit_level > 7) max_kit_level = 7;
 
-		if (hand_item)
-		{
-			WEAPONTYPE* weapon = &Weapon[hand_item->ubClassIndex];
-			BOOL got_second_pistol = false;
+			//assign armor
+			UINT8 preferred_camo = Random(5) + 1;
+			kit_cost += GearSetSlot(profile_id, kit_id, HELMETPOS, GearGetRandomArmor(&gear_helmets, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 10 : 5));
+			kit_cost += GearSetSlot(profile_id, kit_id, VESTPOS, GearGetRandomArmor(&gear_vests, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 25 : 5));
+			kit_cost += GearSetSlot(profile_id, kit_id, LEGPOS, GearGetRandomArmor(&gear_leggings, min_kit_level, max_kit_level, preferred_camo, (preferred_camo == CAMO_ARMOR) ? 10 : 5));
 
-			//ambidexterity has a chance of giving them a second pistol, if they have one.
-			if (weapon->ubWeaponType == GUN_PISTOL && Random(5) < 3 && HasTrait(&traits, AMBIDEXTROUS_NT))
+			UINT8 head1 = Random(24) - (merc->bExpLevel / 3) - max_kit_level;
+			if (head1 < 1)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_GAS_MASK));
+			else if (head1 < 4)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_HEADSET));
+			else if (HasRole(&roles, ROLE_LEADER) && head1 < 15) //leaders get an extra chance to get a headset
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD1POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_HEADSET));
+
+			//assign face gear
+			UINT8 head2 = Random(24) - (merc->bExpLevel / 3) - max_kit_level;
+			if (head2 < 1)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
+			else if (HasTrait(&traits, STEALTHY_NT) && head2 < 3)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
+			else if (HasTrait(&traits, NIGHT_OPS_NT) && head2 < 5)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_NVG));
+			else if (head2 < 5)
+				kit_cost += GearSetSlot(profile_id, kit_id, HEAD2POS, GearGetRandomFaceItem(min_kit_level, max_kit_level, FACEITEM_SPECTACLES));
+
+			if (kit_id == 0) //kit 1 is always a pistol
 			{
-				kit_cost += GearSetSlot(profile_id, kit_id, SECONDHANDPOS, hand_item);
-				got_second_pistol = true;
+				kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level, GUN_PISTOL, -1));
+			}
+			else if (kit_id == 1 || kit_id == 2) //kit 2 and 3 are randomly a shotgun, machinepistol or smg
+			{
+				UINT8 rnd = Random(2);
+
+				if (rnd == 1)
+					kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_SHOTGUN, -1));
+				else if (rnd == 2)
+					kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_M_PISTOL, -1));
+				else
+					kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_SMG, -1));
+			}
+			else //last 2 kits hold role specific weapons if applicable.
+			{
+				kit_cost += GearSetSlot(profile_id, kit_id, HANDPOS, GearGetRandomWeaponForRole(&roles, &traits, min_kit_level, max_kit_level));
 			}
 
-			//ammo
-			INVTYPE* ammo = GearFindAmmoForWeapon(weapon);
-			if (ammo)
+			//deal out potential sidearm, ammo and attachments to the main weapon
+			INVTYPE* hand_item = GearGetSlot(profile_id, kit_id, HANDPOS);
+
+			if (hand_item)
 			{
-				MAGTYPE* mag = &Magazine[ammo->ubClassIndex];
-				UINT8 bullets = (UINT8)(Random(50) + 50) + ((got_second_pistol) ? 30 : 0);
-				UINT8 mags = (UINT8)(bullets / mag->ubMagSize); if (mags < 1) mags = 1; if (mags > 8) mags = 8;
-				UINT8 mags_per_slot = (UINT8)(60 / mag->ubMagSize); if (mags_per_slot < 1) mags_per_slot = 1; if (mags_per_slot > 4) mags_per_slot = 4;
-				UINT8 pos = 0;
-				UINT8 runs = 0;
+				WEAPONTYPE* weapon = &Weapon[hand_item->ubClassIndex];
+				BOOL got_second_pistol = false;
 
-				while (mags > 0)
+				//ambidexterity has a chance of giving them a second pistol, if they have one.
+				if (weapon->ubWeaponType == GUN_PISTOL && Random(5) < 3 && HasTrait(&traits, AMBIDEXTROUS_NT))
 				{
-					if (mags < mags_per_slot)
-						mags_per_slot = mags;
-
-					kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK17POS + pos, ammo, mags_per_slot); 
-					for (int i = 0; i < mags_per_slot; i++) { storage[0][ LBEGetItemSize(ammo) ]++; }
-
-					mags -= mags_per_slot;
-					pos++;
-					runs++;
-
-					if (runs > 2)
-						break;
+					kit_cost += GearSetSlot(profile_id, kit_id, SECONDHANDPOS, hand_item);
+					got_second_pistol = true;
 				}
-			}
 
-			//sidearm for snipers/rifle users (50% chance), and sometimes to just someone randomly (10% chance).
-			if (((weapon->ubWeaponType == GUN_SN_RIFLE || weapon->ubWeaponType == GUN_SN_RIFLE) && Random(2) < 1) || (Random(10) < 1 && weapon->ubWeaponType != GUN_PISTOL))
-			{
-				INVTYPE* pistol = GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_PISTOL, -1);
-
-				if (pistol)
+				//ammo
+				INVTYPE* ammo = GearFindAmmoForWeapon(weapon);
+				if (ammo)
 				{
-					kit_cost += GearSetSlot(profile_id, kit_id, SECONDHANDPOS, pistol);
-					storage[1][ LBEGetItemSize(pistol) ]++;
+					MAGTYPE* mag = &Magazine[ammo->ubClassIndex];
+					UINT8 bullets = (UINT8)(Random(50) + 50) + ((got_second_pistol) ? 30 : 0);
+					UINT8 mags = (UINT8)(bullets / mag->ubMagSize); if (mags < 1) mags = 1; if (mags > 8) mags = 8;
+					UINT8 mags_per_slot = (UINT8)(60 / mag->ubMagSize); if (mags_per_slot < 1) mags_per_slot = 1; if (mags_per_slot > 4) mags_per_slot = 4;
+					UINT8 pos = 0;
+					UINT8 runs = 0;
 
-					weapon = &Weapon[pistol->ubClassIndex];
-					ammo = GearFindAmmoForWeapon(weapon);
-
-					if (ammo)
+					while (mags > 0)
 					{
-						kit_cost += GearSetSlot(profile_id, kit_id, MEDPOCK2POS, ammo, 2); 
-						for (int i = 0; i < 2; i++) { storage[0][ LBEGetItemSize(ammo) ]++; }
+						if (mags < mags_per_slot)
+							mags_per_slot = mags;
+
+						kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK17POS + pos, ammo, mags_per_slot); 
+						for (int i = 0; i < mags_per_slot; i++) { storage[0][ LBEGetItemSize(ammo) ]++; }
+
+						mags -= mags_per_slot;
+						pos++;
+						runs++;
+
+						if (runs > 2)
+							break;
 					}
 				}
+
+				//sidearm for snipers/rifle users (50% chance), and sometimes to just someone randomly (10% chance).
+				if (((weapon->ubWeaponType == GUN_SN_RIFLE || weapon->ubWeaponType == GUN_SN_RIFLE) && Random(2) < 1) || (Random(10) < 1 && weapon->ubWeaponType != GUN_PISTOL))
+				{
+					INVTYPE* pistol = GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_PISTOL, -1);
+
+					if (pistol)
+					{
+						kit_cost += GearSetSlot(profile_id, kit_id, SECONDHANDPOS, pistol);
+						storage[1][ LBEGetItemSize(pistol) ]++;
+
+						weapon = &Weapon[pistol->ubClassIndex];
+						ammo = GearFindAmmoForWeapon(weapon);
+
+						if (ammo)
+						{
+							kit_cost += GearSetSlot(profile_id, kit_id, MEDPOCK2POS, ammo, 2); 
+							for (int i = 0; i < 2; i++) { storage[0][ LBEGetItemSize(ammo) ]++; }
+						}
+					}
+				}
+
+				//attachments
+				INT8 attach_grip = (BOOL)(Random(8) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
+				INT8 attach_muzzle = (BOOL)(Random(20) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 0);
+				INT8 attach_laser = (BOOL)(Random(15) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
+				INT8 attach_sight = (BOOL)(Random(10) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
+				INT8 attach_underbarrel = (BOOL)(Random(15) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 0);
+				std::vector<INVTYPE*> attachments = GearFindAttachmentsForWeapon(hand_item, (BOOL)(attach_grip < 0), (BOOL)(attach_muzzle < 0), (BOOL)(attach_laser < 0), (BOOL)(attach_sight < 0), (BOOL)(attach_underbarrel < 0));
+
+				UINT8 count = 0;
+				for (std::vector<INVTYPE*>::iterator it = attachments.begin(); it != attachments.end(); it++)
+				{
+					kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK23POS + count++, (*it));
+					storage[2][ LBEGetItemSize(*it) ]++;
+				}
 			}
 
-			//attachments
-			INT8 attach_grip = (BOOL)(Random(8) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
-			INT8 attach_muzzle = (BOOL)(Random(20) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 0);
-			INT8 attach_laser = (BOOL)(Random(15) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
-			INT8 attach_sight = (BOOL)(Random(10) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 1);
-			INT8 attach_underbarrel = (BOOL)(Random(15) - Random((merc->bExpLevel / 2)) - Random(kit_id) - 0);
-			std::vector<INVTYPE*> attachments = GearFindAttachmentsForWeapon(hand_item, (BOOL)(attach_grip < 0), (BOOL)(attach_muzzle < 0), (BOOL)(attach_laser < 0), (BOOL)(attach_sight < 0), (BOOL)(attach_underbarrel < 0));
+			//assign random stuff based on role etc
+			std::vector<INVTYPE*> misc_items = GearFindItemsForRole(&roles, &traits);
 
 			UINT8 count = 0;
-			for (std::vector<INVTYPE*>::iterator it = attachments.begin(); it != attachments.end(); it++)
+			for (std::vector<INVTYPE*>::iterator it = misc_items.begin(); it != misc_items.end(); it++)
 			{
-				kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK23POS + count++, (*it));
-				storage[2][ LBEGetItemSize(*it) ]++;
+				kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK1POS + count++, (*it));
+				storage[1][ LBEGetItemSize(*it) ] += 1;
 			}
+
+			//LBE:
+			//storage[0] holds the sizes and counts for ammo. => vest
+			//storage[1] holds the sizes and counts for potential sidearm and "kits" => combat pack
+			//storage[2] holds the sizes and counts for attachments => thigh packs
+
+			INVTYPE* lbe_vest = LBEFindSuitableLBE(storage[0], VEST_PACK);
+			INVTYPE* lbe_cpack = LBEFindSuitableLBE(storage[1], COMBAT_PACK);
+			INVTYPE* lbe_thigh = LBEFindSuitableLBE(storage[2], THIGH_PACK);
+
+			if (lbe_vest)
+				kit_cost += GearSetSlot(profile_id, kit_id, VESTPOCKPOS, lbe_vest);
+
+			if (lbe_cpack)
+				kit_cost += GearSetSlot(profile_id, kit_id, CPACKPOCKPOS, lbe_cpack);
+
+			if (lbe_thigh)
+				kit_cost += GearSetSlot(profile_id, kit_id, LTHIGHPOCKPOS, lbe_thigh);
+
+			//sometimes we get the second thigh slot
+			if ((Random(10) - max_kit_level) < 5) kit_cost += GearSetSlot(profile_id, kit_id, RTHIGHPOCKPOS, GearGetRandomLBE(min_kit_level, max_kit_level, THIGH_PACK));
+
+			//tally up costs of kit 
+			kit_cost = kit_cost * (1 + (max_kit_level / 10));
+			GearKitSetPrice(profile_id, kit_id, kit_cost);
+
+			//make sure this is set to the price of the FIRST gear set and you'll be fine.
+			if (kit_id == 0)
+				merc->usOptionalGearCost = kit_cost; 
 		}
-
-		//assign random stuff based on role etc
-		std::vector<INVTYPE*> misc_items = GearFindItemsForRole(&roles, &traits);
-
-		UINT8 count = 0;
-		for (std::vector<INVTYPE*>::iterator it = misc_items.begin(); it != misc_items.end(); it++)
-		{
-			kit_cost += GearSetSlot(profile_id, kit_id, SMALLPOCK1POS + count++, (*it));
-			storage[1][ LBEGetItemSize(*it) ] += 1;
-		}
-
-		//LBE:
-		//storage[0] holds the sizes and counts for ammo. => vest
-		//storage[1] holds the sizes and counts for potential sidearm and "kits" => combat pack
-		//storage[2] holds the sizes and counts for attachments => thigh packs
-
-		INVTYPE* lbe_vest = LBEFindSuitableLBE(storage[0], VEST_PACK);
-		INVTYPE* lbe_cpack = LBEFindSuitableLBE(storage[1], COMBAT_PACK);
-		INVTYPE* lbe_thigh = LBEFindSuitableLBE(storage[2], THIGH_PACK);
-
-		if (lbe_vest)
-			kit_cost += GearSetSlot(profile_id, kit_id, VESTPOCKPOS, lbe_vest);
-
-		if (lbe_cpack)
-			kit_cost += GearSetSlot(profile_id, kit_id, CPACKPOCKPOS, lbe_cpack);
-
-		if (lbe_thigh)
-			kit_cost += GearSetSlot(profile_id, kit_id, LTHIGHPOCKPOS, lbe_thigh);
-
-		//sometimes we get the second thigh slot
-		if ((Random(10) - max_kit_level) < 5) kit_cost += GearSetSlot(profile_id, kit_id, RTHIGHPOCKPOS, GearGetRandomLBE(min_kit_level, max_kit_level, THIGH_PACK));
-
-		//tally up costs of kit 
-		kit_cost = kit_cost * (1 + (max_kit_level / 10));
-		GearKitSetPrice(profile_id, kit_id, kit_cost);
-
-		//make sure this is set to the price of the FIRST gear set and you'll be fine.
-		if (kit_id == 0)
-			merc->usOptionalGearCost = kit_cost; 
 	}
 }
-

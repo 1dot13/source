@@ -873,6 +873,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
 
 	gGameExternalOptions.ubMercRandomStats					= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_STATS", 0, 0, 4);
+	gGameExternalOptions.fMercRandomGearKits				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_GEAR_KITS", FALSE); //Jenilee
 	gGameExternalOptions.fMercRandomBellDistribution		= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_BELL_DISTRIBUTION", TRUE);
 	gGameExternalOptions.ubMercRandomStatsRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_STAT_RANGE", 10, 0, 50);
 	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);

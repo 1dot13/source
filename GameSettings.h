@@ -1209,7 +1209,9 @@ typedef struct
 	BOOLEAN fMercRandomBellDistribution;
 	
 	UINT8 ubMercRandomStatsRange;
-	
+
+	BOOLEAN fMercRandomGearKits;
+
 	UINT8 ubMercRandomExpRange;
 
 	BOOLEAN fMercRandomStartSalary;
