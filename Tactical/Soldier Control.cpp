@@ -5988,7 +5988,9 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		return;
 	}
 
-	INT16 poisondamage = (INT16) ( (sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage()) / 100 );
+	INT16 poisondamage;
+	if ( ubAttackerID != NOBODY )
+		poisondamage = (INT16) ( (sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage()) / 100 );
 
 	// DEDUCT LIFE
 	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, poisondamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
