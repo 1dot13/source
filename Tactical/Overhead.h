@@ -278,7 +278,7 @@ void ExitCombatMode( );
 void HandleTeamServices( UINT8 ubTeamNum );
 void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier );
 void SetEnemyPresence( );
-void CycleThroughKnownEnemies( );
+void CycleThroughKnownEnemies( BOOLEAN backward = FALSE );
 BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen );
 SOLDIERTYPE * FreeUpAttacker( );
 BOOLEAN PlayerTeamFull( );
@@ -309,6 +309,7 @@ INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSold
 SOLDIERTYPE * CivilianGroupMemberChangesSides( SOLDIERTYPE * pAttacked );
 void CivilianGroupChangesSides( UINT8 ubCivilianGroup );
 void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier );
+void CycleVisibleEnemiesBackward( SOLDIERTYPE *pSrcSoldier );
 UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked );
 void PauseAITemporarily( );
 void PauseAIUntilManuallyUnpaused( );

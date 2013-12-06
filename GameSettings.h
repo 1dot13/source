@@ -780,6 +780,8 @@ typedef struct
 	//** ddd
 	//enable ext mouse key
 	BOOLEAN fExtMouseKeyEnabled;
+	// sevenfm: new mouse commands
+	BOOLEAN bAlternateMouseCommands;
 	// for small progress bar
 	BOOLEAN fSmallSizeProgressbar;
 	// stamina multiplier (for all weapons eg knife fist gun

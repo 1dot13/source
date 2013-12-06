@@ -1318,6 +1318,9 @@ void LoadGameExternalOptions()
 	// *** ddd - BEGIN
 	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
 
+	// sevenfm: new mouse commands
+	gGameExternalOptions.bAlternateMouseCommands			= iniReader.ReadBoolean("Tactical Interface Settings", "ALTERNATE_MOUSE_COMMANDS", FALSE);
+
 	// New setting to change stamina
 	gGameExternalOptions.uStaminaHit						= iniReader.ReadInteger("Tactical Interface Settings", "STAMINA_HIT", 10000);
 	
