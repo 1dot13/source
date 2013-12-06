@@ -6881,10 +6881,29 @@ INT32 CheckBombDisarmChance(void)
 
 void ExtendedDisarmMessageBox(void)
 {
+	CHAR16 buf[256];
+	INT16 disarmAP;
+
+	disarmAP = GetAPsToDisarmMine( gpBoobyTrapSoldier );
+
+	if( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) )
+	{
+		swprintf( buf, L"%s %d", TacticalStr[ DISARM_DIALOG_DISARM ], disarmAP );
+		wcscpy( gzUserDefinedButton[0], buf );
+		swprintf( buf, L"%s %d", TacticalStr[ DISARM_DIALOG_INSPECT ], disarmAP / 2 );
+		wcscpy( gzUserDefinedButton[1], buf );
+		swprintf( buf, L"%s %d", TacticalStr[ DISARM_DIALOG_REMOVE_BLUEFLAG ], disarmAP /2 );
+		wcscpy( gzUserDefinedButton[2], buf );
+		swprintf( buf, L"%s %d", TacticalStr[ DISARM_DIALOG_BLOWUP ], disarmAP /4 );
+		wcscpy( gzUserDefinedButton[3], buf );
+	}
+	else
+	{
         wcscpy( gzUserDefinedButton[0], TacticalStr[ DISARM_DIALOG_DISARM ] );
         wcscpy( gzUserDefinedButton[1], TacticalStr[ DISARM_DIALOG_INSPECT ] );
         wcscpy( gzUserDefinedButton[2], TacticalStr[ DISARM_DIALOG_REMOVE_BLUEFLAG ] );
         wcscpy( gzUserDefinedButton[3], TacticalStr[ DISARM_DIALOG_BLOWUP ] );
+	}
         DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ DISARM_BOOBYTRAP_PROMPT ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, ExtendedBoobyTrapMessageBoxCallBack, NULL );
 }
 
@@ -6892,16 +6911,32 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 {
         INT32   iCheckResult;
 		BOOLEAN playerMine = FALSE;
+		INT16 disarmAP;
+		INT16 disarmBP;
+		BOOLEAN turnbased = FALSE;
+
+		disarmAP = GetAPsToDisarmMine( gpBoobyTrapSoldier );
+		disarmBP = APBPConstants[BP_DISARM_MINE];
+		if( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) )
+			turnbased = TRUE;
 		
 		if(gpWorldLevelData[gsBoobyTrapGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT)
 			playerMine=TRUE;
 
         if (ubExitValue == 1)
         {
+			// this already checks AP in turnbased
                 BoobyTrapMessageBoxCallBack(MSG_BOX_RETURN_YES);
         }
         else if (ubExitValue == 2)
         { 
+			if( turnbased )
+			{
+				if(EnoughPoints(gpBoobyTrapSoldier, disarmAP / 2, disarmBP / 2 , TRUE))
+					DeductPoints(gpBoobyTrapSoldier, disarmAP /2, disarmBP /2, AFTERACTION_INTERRUPT);
+				else
+					return;
+			}
                 iCheckResult=CheckBombDisarmChance();
                 if(iCheckResult>60)
                         ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ INSPECT_RESULT_SAFE ] );
@@ -6916,12 +6951,26 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
         }
         else if (ubExitValue == 3)
         {
+			if( turnbased )
+			{
+				if(EnoughPoints(gpBoobyTrapSoldier, disarmAP / 2 , disarmBP / 2 , TRUE))
+					DeductPoints(gpBoobyTrapSoldier, disarmAP / 2, disarmBP / 2, AFTERACTION_INTERRUPT);
+				else
+					return;
+			}
                 RemoveBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
-				if(playerMine)
+			if( playerMine )
 					gpWorldLevelData[gsBoobyTrapGridNo].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
         }
         else if (ubExitValue == 4)
         {
+			if( turnbased )
+			{
+				if(EnoughPoints(gpBoobyTrapSoldier, disarmAP / 4 , disarmBP / 4 , TRUE))
+					DeductPoints(gpBoobyTrapSoldier, disarmAP / 4, disarmBP / 4, AFTERACTION_INTERRUPT);
+				else
+					return;
+			}
 /*                if(_KeyDown( SHIFT ) && gGameExternalOptions.bDontRevealTripwire )
                         gRevealTripwire = TRUE;
                 else
