@@ -234,8 +234,10 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			//Moa: show shock and suppression values in debug tooltip
 			if ( gGameExternalOptions.fEnableSoldierTooltipShock )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SHOCK], pStrInfo, pSoldier->aiData.bShock );
+			// sevenfm: ubSuppressionPoints always show 0 because this value is cleared after each attack
+			// changed this to ubLastSuppression - it stores suppression points from last attack
 			if ( gGameExternalOptions.fEnableSoldierTooltipSuppressionPoints )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SUPPRESION], pStrInfo, pSoldier->ubSuppressionPoints );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SUPPRESION], pStrInfo, pSoldier->ubLastSuppression );
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Added by SANDRO - show enemy skills
 			if ( gGameExternalOptions.fEnableSoldierTooltipTraits )

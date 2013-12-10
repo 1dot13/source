@@ -1198,6 +1198,15 @@ typedef struct
 
 	UINT8 ubEnemyHitCount;
 
+	// sevenfm: new additional info above soldier
+	UINT8 ubShowSuppressionCount;
+	UINT8 ubShowShockCount;
+	UINT8 ubShowAPCount;
+	UINT8 ubShowMoraleCount;
+	BOOLEAN ubShowSuppressionUseAsterisks;
+	BOOLEAN ubShowSuppressionCountAlt;
+	BOOLEAN ubShowSuppressionScaleAsterisk;
+
 	FLOAT gMercLevelUpSalaryIncreasePercentage;
 
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO

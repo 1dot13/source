@@ -1027,6 +1027,15 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usAISkillUse = 0;
 		for (UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)		this->usSkillCounter[i]  = 0;
 		for (UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i)	this->usSkillCooldown[i] = 0;
+
+		this->ubLastShock = 0;
+		this->ubLastSuppression = 0;
+		this->ubLastAP = 0;
+		this->ubLastMorale = 0;
+		this->ubLastShockFromHit = 0;
+		this->ubLastMoraleFromHit = 0;
+		this->ubLastAPFromHit = 0;
+
     }
     return *this;
 }
@@ -5676,10 +5685,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( this->ubAttackerID != NOBODY && MercPtrs[ this->ubAttackerID ]->bTeam == gbPlayerNum )
 		{
 			HandleMoraleEvent( MercPtrs[ this->ubAttackerID ], MORALE_DID_LOTS_OF_DAMAGE, MercPtrs[ this->ubAttackerID ]->sSectorX, MercPtrs[ this->ubAttackerID ]->sSectorY, MercPtrs[ this->ubAttackerID ]->bSectorZ );
+			this->ubLastMoraleFromHit++;
 		}
 		if (this->bTeam == gbPlayerNum)
 		{
 			HandleMoraleEvent( this, MORALE_TOOK_LOTS_OF_DAMAGE, this->sSectorX, this->sSectorY, this->bSectorZ );
+			this->ubLastMoraleFromHit++;
 		}
 	}
 		
@@ -7732,6 +7743,13 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		// HEADROCK HAM 3.5: After considerable testing, suppression is now cleared after every attack. Total APs lost
 		// is cleared every turn (here) and only acts as reference now (no effect on AP loss).
 		this->ubAPsLostToSuppression = 0;
+		this->ubLastShock = 0;
+		this->ubLastSuppression = 0;
+		this->ubLastAP = 0;
+		this->ubLastMorale = 0;
+		this->ubLastAPFromHit = 0;
+		this->ubLastShockFromHit = 0;
+		this->ubLastMoraleFromHit = 0;
 
 		this->flags.fCloseCall = FALSE;
 
@@ -9888,6 +9906,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	if ( !AM_A_ROBOT( this ) )
 	{
 		DeductPoints( this, sAPCost, sBreathLoss, DISABLED_INTERRUPT );
+		this->ubLastAPFromHit += sAPCost;
 	}
 
 	ubCombinedLoss = (UINT8) sLifeDeduct / 10 + sBreathLoss / 2000;
@@ -9896,6 +9915,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	if ( !AM_A_ROBOT( this ) )
 	{
 		this->aiData.bShock += ubCombinedLoss;
+		this->ubLastShockFromHit += ubCombinedLoss;
 	}
 
 	// start the stopwatch - the blood is gushing!
@@ -9906,13 +9926,13 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 		// If we are already dead, don't show damage!
 		if ( bOldLife != 0 && fShowDamage && sLifeDeduct != 0 && sLifeDeduct < 1000 )
 		{
+			/*
 			// Display damage
 			INT16 sOffsetX, sOffsetY;
 
 			// Set Damage display counter
 			this->flags.fDisplayDamage = TRUE;
 			this->bDisplayDamageCount = 0;
-
 			if ( this->ubBodyType == QUEENMONSTER )
 			{
 				this->sDamageX = 0;
@@ -9924,6 +9944,14 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 				this->sDamageX = sOffsetX;
 				this->sDamageY = sOffsetY;
 			}
+			*/
+			// sevenfm: moved code to function
+			SetDamageDisplayCounter(this);
+			// zero suppression valued stored from last attack
+			this->ubLastShock = 0;
+			this->ubLastSuppression = 0;
+			this->ubLastMorale = 0;
+			this->ubLastAP = 0;
 		}
 	}
 
@@ -21242,3 +21270,29 @@ BOOLEAN PlayerTeamIsScanning()
 
 	return FALSE;
 }
+
+void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier)
+{
+	INT16 sOffsetX, sOffsetY;
+
+	if( pSoldier->flags.fDisplayDamage )
+	{
+		return;
+	}
+
+	pSoldier->flags.fDisplayDamage = TRUE;
+	pSoldier->bDisplayDamageCount = 0;
+
+	if ( pSoldier->ubBodyType == QUEENMONSTER )
+	{
+		pSoldier->sDamageX = 0;
+		pSoldier->sDamageY = 0;
+	}
+	else
+	{
+		GetSoldierAnimOffsets( pSoldier, &sOffsetX, &sOffsetY );
+		pSoldier->sDamageX = sOffsetX;
+		pSoldier->sDamageY = sOffsetY;
+	}
+}
+

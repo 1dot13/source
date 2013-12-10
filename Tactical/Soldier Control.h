@@ -1481,6 +1481,16 @@ public:
 	INT32 sPlotSrcGrid;
 	//std::vector<UINT32>	CTH;
 
+	// sevenfm: remember suppression points, shock from last attack
+	// these counters are used only for showing suppression values above soldier (similar to damage counter)
+	// these values are not saved
+	UINT8	ubLastShock;
+	UINT8	ubLastSuppression;
+	UINT8	ubLastAP;
+	UINT8	ubLastMorale;
+	UINT8	ubLastShockFromHit;
+	UINT8	ubLastAPFromHit;
+	UINT8	ubLastMoraleFromHit;
 
 public:
 	// CREATION FUNCTIONS
@@ -2631,6 +2641,7 @@ public:
 
 void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReason );
 
+void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier);
 
 #endif
 

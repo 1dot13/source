@@ -2603,6 +2603,16 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		*/
 		//assume checksum is ok
 	}
+
+	// sevenfm: initialize other SOLDIERTYPE data
+	this->ubLastShock=0;
+	this->ubLastSuppression=0;
+	this->ubLastAP=0;
+	this->ubLastMorale=0;
+	this->ubLastShockFromHit=0;
+	this->ubLastAPFromHit=0;
+	this->ubLastMoraleFromHit=0;
+
 	return TRUE;
 }
 

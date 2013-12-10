@@ -1029,7 +1029,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fShowHealthBarsOnHead				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", TRUE);
 		
 	// WANNE: Hide the hit count when enemy gets hit
-	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 2);
+	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
+
+	// sevenfm: show additional suppression info above soldier
+	gGameExternalOptions.ubShowSuppressionCount				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT", 0, 0, 2);
+	gGameExternalOptions.ubShowShockCount					= iniReader.ReadInteger("Tactical Interface Settings","SHOW_SHOCK_COUNT", 0, 0, 2);
+	gGameExternalOptions.ubShowAPCount						= iniReader.ReadInteger("Tactical Interface Settings","SHOW_AP_COUNT", 0, 0, 2);
+	gGameExternalOptions.ubShowMoraleCount					= iniReader.ReadInteger("Tactical Interface Settings","SHOW_MORALE_COUNT", 0, 0, 2);
+	gGameExternalOptions.ubShowSuppressionUseAsterisks		= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_USE_ASTERISK", FALSE);
+	gGameExternalOptions.ubShowSuppressionCountAlt			= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT_ALT", FALSE);
+	gGameExternalOptions.ubShowSuppressionScaleAsterisk		= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_SCALE_ASTERISK", FALSE);
 
 	//################# Tactical Difficulty Settings #################
 

@@ -8246,8 +8246,12 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
             // The default is obviously 100%. You can increase or decrease it, at will.
             // PLEASE NOTE that AP loss governs ALL OTHER SUPPRESSION EFFECTS.
-            ubPointsLost = ( ubPointsLost * sFinalSuppressionEffectiveness ) / 100;
+			// sevenfm: commented out duplicated code: we don't want to apply ubFinalSuppressionEffectivness twice
+			// ubPointsLost = ( ubPointsLost * sFinalSuppressionEffectiveness ) / 100;
+
             // This is an upper cap for the number of APs we can lose per attack.
+			// sevenfm: commented out duplicated code:
+			/*
             if (usLimitSuppressionAPsLostPerAttack > 0)
             {
                 if (ubPointsLost > usLimitSuppressionAPsLostPerAttack)
@@ -8257,6 +8261,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     ubPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
                 }
             }
+			*/
 
             // INI-Controlled intensity. SuppressionEffectiveness acts as a percentage applied to the number of lost APs. 
             // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
@@ -8290,6 +8295,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // difficult to perform certain manual tasks. Additionally, he also becomes harder to hit, because the fear 
             // causes him to hide as best as he can from incoming fire.
             // Shock is sliced in half at the start of every turn. Also note that shock may cause "cowering" (see below).
+
+			pSoldier->ubLastShock = 0;
             if (gGameExternalOptions.usSuppressionShockEffect > 0)
             {
                 // Can't get shock if we haven't lost APs.
@@ -8314,6 +8321,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     // from suppression and/or wounds. It is possible to breach the maximum after a good suppressive
                     // attack.
 
+					UINT8 oldShock = pSoldier->aiData.bShock;
                     if ( pSoldier->aiData.bShock + bShockValue <= bShockLimit )
                     {
                         // Shock limit not yet breached. Add shock to character.
@@ -8324,6 +8332,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                         // Original shock was lower than the limit, so add extra shock and breach the limit.
                         pSoldier->aiData.bShock = __min(127, pSoldier->aiData.bShock + bShockValue);
                     }
+					// sevenfm: update ubLastShock
+					pSoldier->ubLastShock = __min(255, pSoldier->aiData.bShock - oldShock );
                     // Else, original shock was already over the limit. No more shock is added.
                 }
                 // HEADROCK: Cowering is the panic that grips a character due to suffering too much suppression shock. If
@@ -8365,6 +8375,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 }
             }
 
+			pSoldier->ubLastMorale = 0;
             // Suppression reduces morale. For every X APs lost, morale goes down by a point. X is defined by INI.
             DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for morale effects"));
             if (APBPConstants[AP_LOST_PER_MORALE_DROP] > 0 && ubPointsLost > 0)
@@ -8372,6 +8383,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 for ( ubLoop2 = 0; ubLoop2 < (ubPointsLost / APBPConstants[AP_LOST_PER_MORALE_DROP]); ubLoop2++ )
                 {
                     HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+					// sevenfm: update ubLastMorale
+					pSoldier->ubLastMorale++;
                 }
             }
 
@@ -8586,6 +8599,32 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 pSoldier->flags.fChangingStanceDueToSuppression = TRUE;
                 pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
             }
+
+			// sevenfm: update suppression, AP values for displaying above soldier
+			pSoldier->ubLastSuppression = pSoldier->ubSuppressionPoints;
+			pSoldier->ubLastAP = ubPointsLost;
+
+			// add suppression valued from hit to shock valued calculated in this function
+			pSoldier->ubLastShock += pSoldier->ubLastShockFromHit;
+			pSoldier->ubLastShockFromHit = 0;
+			pSoldier->ubLastAP += pSoldier->ubLastAPFromHit;
+			pSoldier->ubLastAPFromHit = 0;
+			pSoldier->ubLastMorale += pSoldier->ubLastMoraleFromHit;
+			pSoldier->ubLastMoraleFromHit = 0;
+
+			if( ubPointsLost > 0 )
+			{
+				if( pSoldier->flags.fDisplayDamage )
+				{
+					// prolongate damage show time
+					pSoldier->bDisplayDamageCount = 0;
+				}
+				else
+				{
+					// start new damage show counter
+					SetDamageDisplayCounter( pSoldier );
+				}
+			}
 
             // HEADROCK HAM 3.5: After sufficient testing, suppression clearing now works immediately at the end of
             // the attack. ubAPsLostToSuppression is only cleared at the end of the turn, but no longer plays a role
