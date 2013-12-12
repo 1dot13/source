@@ -5999,7 +5999,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		return;
 	}
 
-	INT16 poisondamage;
+	INT16 poisondamage = 0;
 	if ( ubAttackerID != NOBODY )
 		poisondamage = (INT16) ( (sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage()) / 100 );
 

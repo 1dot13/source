@@ -89,7 +89,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		GetMouseMapPos( &usSoldierGridNo );
 
 		// get the distance to enemy's tile from the selected merc
-		if ( gusSelectedSoldier != NOBODY )
+		if ( gusSelectedSoldier != NOBODY && gusUIFullTargetID != NOBODY )
 		{
 			//CHRISL: Changed the second parameter to use the same information as the 'F' hotkey uses.
 			//iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
