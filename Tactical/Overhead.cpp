@@ -8344,6 +8344,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
                 fCower = false;
                 // SANDRO - STOMP traits
+				// sevenfm: moved bShockForCower calculation to CalcEffectiveShockLevel()
+				INT8 bShockForCower = CalcEffectiveShockLevel( pSoldier );
+				/*
                 INT8 bShockForCower = pSoldier->aiData.bShock;
                 if ( gGameOptions.fNewTraitSystem )
                 {
@@ -8365,6 +8368,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					// Flugente: personal fear resistance
 					bShockForCower = (INT8)((bShockForCower * (100 - pSoldier->GetFearResistanceBonus()) / 100 ) + 0.5);
                 }
+				*/
                 if (bShockForCower >= bTolerance)
                 { 
                     fCower = true; 
@@ -8604,7 +8608,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			pSoldier->ubLastSuppression = pSoldier->ubSuppressionPoints;
 			pSoldier->ubLastAP = ubPointsLost;
 
-			// add suppression valued from hit to shock valued calculated in this function
+			// add suppression values from hit to shock values calculated in this function
 			pSoldier->ubLastShock += pSoldier->ubLastShockFromHit;
 			pSoldier->ubLastShockFromHit = 0;
 			pSoldier->ubLastAP += pSoldier->ubLastAPFromHit;
@@ -8612,19 +8616,17 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			pSoldier->ubLastMorale += pSoldier->ubLastMoraleFromHit;
 			pSoldier->ubLastMoraleFromHit = 0;
 
-			if( ubPointsLost > 0 )
-			{
-				if( pSoldier->flags.fDisplayDamage )
-				{
-					// prolongate damage show time
-					pSoldier->bDisplayDamageCount = 0;
-				}
-				else
-				{
-					// start new damage show counter
+			// determine if any suppression value will be shown
+			BOOLEAN showSuppression = FALSE;
+			if( gGameExternalOptions.ubShowSuppressionCount ||
+				gGameExternalOptions.ubShowShockCount ||
+				gGameExternalOptions.ubShowAPCount ||
+				gGameExternalOptions.ubShowMoraleCount )
+				showSuppression = TRUE;
+
+			// show suppression counters - use original damage counter timer for this
+			if( showSuppression && ubPointsLost > 0 )
 					SetDamageDisplayCounter( pSoldier );
-				}
-			}
 
             // HEADROCK HAM 3.5: After sufficient testing, suppression clearing now works immediately at the end of
             // the attack. ubAPsLostToSuppression is only cleared at the end of the turn, but no longer plays a role
@@ -10575,4 +10577,30 @@ void KillOnePrisoner( SECTORINFO *pSectorInfo )
 			break;
 		}
 	}
+}
+
+INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
+{
+	INT8 bShockForCower = pSoldier->aiData.bShock;
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		// Squadleader's resistance to cowering
+		if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT ))
+		{
+			bShockForCower = (INT8)((bShockForCower * (100 - gSkillTraitValues.ubSLFearResistance * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) /100) + 0.5);
+		}
+		// Check for character traits
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		{
+			bShockForCower = (INT8)((bShockForCower * 23 / 20 ) + 0.5); // +15% as shock
+		}
+		else if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+		{
+			bShockForCower = (INT8)((bShockForCower * 17 / 20 ) + 0.5); // -15% as shock                
+		}
+
+		// Flugente: personal fear resistance
+		bShockForCower = (INT8)((bShockForCower * (100 - pSoldier->GetFearResistanceBonus()) / 100 ) + 0.5);
+	}
+	return bShockForCower;
 }

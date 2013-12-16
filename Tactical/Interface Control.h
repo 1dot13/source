@@ -59,7 +59,10 @@ UINT8 CalcScaleMorale( INT16 data );
 UINT8 CalcScaleAP( INT16 data );
 UINT8 CalcScaleShock( INT16 data );
 
+void DrawCounters( SOLDIERTYPE *pSoldier );
+
 // print counter as number or asterisks ( applying provided scale when displaying asterisks )
 // width is updated as X offset after printing
-void PrintSuppressionCounter( INT16 x, INT16 y, INT16 data, UINT16 &width, UINT8 ubForegound, UINT8 scale = PRINT_SCALE_PLAIN_NUMBER );
+void PrintCounter( INT16 x, INT16 y, INT16 data, UINT16 &width, UINT8 ubForegound, UINT8 scale = PRINT_SCALE_PLAIN_NUMBER );
+void PrintSuppressionCounter( INT16 x, INT16 y, INT16 sX, INT16 sY, UINT8 data, UINT16 &widthDamage, UINT16 &widthSuppression, UINT8 ubForeground, UINT8 scale, UINT8 option);
 #endif

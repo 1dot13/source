@@ -714,6 +714,7 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipMorale;
 	BOOLEAN fEnableSoldierTooltipShock;	//Moa: debug tooltip only
 	BOOLEAN fEnableSoldierTooltipSuppressionPoints; //Moa: debug tooltip only
+	BOOLEAN fEnableSoldierTooltipSuppressionInfo; //sevenfm: additional suppression info
 	BOOLEAN fEnableSoldierTooltipTraits; // added by SANDRO
 	BOOLEAN fEnableSoldierTooltipHelmet;
 	BOOLEAN fEnableSoldierTooltipVest;
@@ -1164,6 +1165,9 @@ typedef struct
 	BOOLEAN fCanJumpThroughClosedWindows;	
 	BOOLEAN fCanClimbOnWalls;
 
+	// sevenfm: show enemy weapon above soldier in tactical
+	BOOLEAN fShowEnemyWeapon;
+
 	//legion by Jazz
 	BOOLEAN fIndividualHiddenPersonNames;
 	
@@ -1197,6 +1201,7 @@ typedef struct
 	BOOLEAN fShowHealthBarsOnHead;
 
 	UINT8 ubEnemyHitCount;
+	UINT8 ubPlayerHitCount;
 
 	// sevenfm: new additional info above soldier
 	UINT8 ubShowSuppressionCount;

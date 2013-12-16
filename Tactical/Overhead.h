@@ -385,5 +385,8 @@ void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo );
 // used when the player kills a prisoner. We kill of high-value prisoners first, to punish this kind of behaviour
 void KillOnePrisoner( SECTORINFO *pSectorInfo );
 
+// sevenfm: calc shock level with modifiers (traits, backgrounds, ...)
+INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier );
+
 #endif
 

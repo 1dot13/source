@@ -2298,6 +2298,89 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 						}
 					}
 				}
+				if ( gGameExternalOptions.fShowEnemyWeapon )
+				{
+					INT16 height = 30;
+					INT32 range;
+					UINT32 maxExactWeaponDistance;
+					BOOLEAN showExactWeaponType = FALSE;
+
+					if( !gGameExternalOptions.fEnemyRank || !gGameExternalOptions.fEnemyNames )
+						height = 10;
+
+					// calc range to target
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						range = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, pSoldier->sGridNo ) / 10;
+
+						// calc max range for exact weapon type based on visible distance
+						maxExactWeaponDistance = (UINT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible( pSoldier->sGridNo, 0, CALC_FROM_WANTED_DIR) ) / 2 ;
+						// apply experience level factor
+						maxExactWeaponDistance *= 1 + (FLOAT(EffectiveExpLevel(MercPtrs[ gusSelectedSoldier ]))/ 10); 
+
+						// check for bad weather conditions
+						if ( gGameExternalOptions.gfAllowLimitedVision )
+							maxExactWeaponDistance *= 1 - (FLOAT (gGameExternalOptions.ubVisDistDecreasePerRainIntensity) / 100);
+
+						if ( maxExactWeaponDistance >= range )
+							showExactWeaponType = TRUE;
+			}
+
+					// for testing - show calculated ranges on screen
+					/*
+					swprintf( NameStr, L"range=%d", range );
+					gprintfdirty( sXPos + 100, sYPos + 10, NameStr );
+					mprintf( sXPos + 100, sYPos + 10, NameStr );
+
+					swprintf( NameStr, L"max dist=%d", maxExactWeaponDistance );
+					gprintfdirty( sXPos + 100, sYPos + 20, NameStr );
+					mprintf( sXPos + 100, sYPos + 20, NameStr );
+					*/
+
+					if ( WeaponInHand( pSoldier ) )
+					{
+						SetFont( TINYFONT1 );
+						SetFontBackground( FONT_MCOLOR_BLACK );
+						SetFontForeground( FONT_ORANGE );					
+
+						if ( showExactWeaponType )
+						{
+							swprintf( NameStr, L"%s", ItemNames[ pSoldier->inv[ HANDPOS ].usItem ] );
+						}
+						else
+						{
+							// display general weapon class
+							switch( Weapon[pSoldier->inv[ HANDPOS ].usItem].ubWeaponClass )
+							{
+							case HANDGUNCLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HANDGUN] );
+								break;
+							case SMGCLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SMG] );
+								break;
+							case RIFLECLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_RIFLE] );
+								break;
+							case MGCLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_MG] );
+								break;
+							case SHOTGUNCLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SHOTGUN] );
+								break;
+							case KNIFECLASS:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_KNIFE] );
+								break;
+							default:
+								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HEAVY_WEAPON] );
+								break;
+							}
+						}
+
+						FindFontCenterCoordinates( sXPos, (INT16)( sYPos + height ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+						gprintfdirty( sX, sY, NameStr );
+						mprintf( sX, sY, NameStr );
+					}
+				}
 			}
 			// Flugente: soldier profiles
 			else if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile )

@@ -6414,6 +6414,11 @@ STR16 gzTooltipStrings[] =
 	L"%s|技能 1: %s\n",
 	L"%s|技能 2: %s\n", 
 	L"%s|技能 3: %s\n",
+    // Additional suppression effects - sevenfm	//  TODO.Translate
+    L"%s|A|Ps lost due to |S|uppression: %d\n",
+    L"%s|Suppression |Tolerance: %d\n",
+    L"%s|Effective |S|hock |Level: %d\n",
+    L"%s|A|I |Morale: %d\n",
 };
 
 STR16 New113Message[] =

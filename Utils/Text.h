@@ -608,6 +608,11 @@ enum
 	STR_TT_SKILL_TRAIT_1,
 	STR_TT_SKILL_TRAIT_2,
 	STR_TT_SKILL_TRAIT_3,
+        // Additional suppression effects info - sevenfm
+        STR_TT_SUPPRESSION_AP,
+        STR_TT_SUPPRESSION_TOLERANCE,
+        STR_TT_EFFECTIVE_SHOCK,
+        STR_TT_AI_MORALE,
 
 	TEXT_NUM_STR_TT
 };

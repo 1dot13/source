@@ -1030,6 +1030,8 @@ void LoadGameExternalOptions()
 		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
+	// sevenfm: added similar option for player hit count
+	gGameExternalOptions.ubPlayerHitCount					= iniReader.ReadInteger("Tactical Interface Settings","PLAYER_HIT_COUNT", 0, 0, 4);
 
 	// sevenfm: show additional suppression info above soldier
 	gGameExternalOptions.ubShowSuppressionCount				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT", 0, 0, 2);
@@ -1179,6 +1181,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableSoldierTooltipMorale		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_MORALE", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipShock			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_SHOCK", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipSuppressionPoints = iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_SUPPRESSION", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipSuppressionInfo = iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_SUPPRESSION_INFO", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipTraits		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_TRAITS", TRUE); // added by SANDRO
 	gGameExternalOptions.fEnableSoldierTooltipHelmet		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HELMET", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipVest			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_VEST", TRUE);
@@ -1301,6 +1304,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fCanJumpThroughClosedWindows		= iniReader.ReadBoolean("Tactical Gameplay Settings","CAN_JUMP_THROUGH_CLOSED_WINDOWS", TRUE);
 	gGameExternalOptions.fCanClimbOnWalls					= iniReader.ReadBoolean("Tactical Gameplay Settings","CAN_CLIMB_ON_WALLS", FALSE);
 	
+	// sevenfm
+	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
+
 	//legion by Jazz
 	gGameExternalOptions.fIndividualHiddenPersonNames		= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_HIDDEN_PERSON_NAMES", FALSE);
 

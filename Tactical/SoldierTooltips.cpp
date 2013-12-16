@@ -69,6 +69,12 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 	INT16		a1,a2;
 	BOOLEAN		fDrawTooltip = FALSE;
 
+	// sevenfm: do not show tooltip if ALT is pressed for adding autofire bullets
+	SOLDIERTYPE *pShooter;
+	GetSoldier( &pShooter, gusSelectedSoldier );
+	if(gfUICtHBar && pShooter && pShooter->bDoAutofire > 1)
+		return;
+
 	if ( gfKeyState[ALT] && pSoldier &&
 		IsPointInScreenRectWithRelative( gusMouseXPos, gusMouseYPos, &aRect, &a1, &a2 ) )
 	{
@@ -238,6 +244,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			// changed this to ubLastSuppression - it stores suppression points from last attack
 			if ( gGameExternalOptions.fEnableSoldierTooltipSuppressionPoints )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_SUPPRESION], pStrInfo, pSoldier->ubLastSuppression );
+			// sevenfm: show additional suppression info
+			if ( gGameExternalOptions.fEnableSoldierTooltipSuppressionInfo )
+			{				 
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_SUPPRESSION_AP], pStrInfo, pSoldier->ubAPsLostToSuppression );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_SUPPRESSION_TOLERANCE], pStrInfo, CalcSuppressionTolerance( pSoldier ) );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_EFFECTIVE_SHOCK], pStrInfo, CalcEffectiveShockLevel( pSoldier ) );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_AI_MORALE], pStrInfo, pSoldier->aiData.bAIMorale );
+			}
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Added by SANDRO - show enemy skills
 			if ( gGameExternalOptions.fEnableSoldierTooltipTraits )

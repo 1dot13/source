@@ -9947,7 +9947,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 			*/
 			// sevenfm: moved code to function
 			SetDamageDisplayCounter(this);
-			// zero suppression valued stored from last attack
+			// zero suppression values stored from last attack
 			this->ubLastShock = 0;
 			this->ubLastSuppression = 0;
 			this->ubLastMorale = 0;
@@ -21277,6 +21277,7 @@ void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier)
 
 	if( pSoldier->flags.fDisplayDamage )
 	{
+		pSoldier->bDisplayDamageCount = 0;
 		return;
 	}
 
