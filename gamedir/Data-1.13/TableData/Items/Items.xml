@@ -50950,7 +50950,7 @@
 		<szLongItemName>Radio set</szLongItemName>
 		<szItemDesc>A standard issue radio set for short-range communications in the field.</szItemDesc>
 		<szBRName>Radio set</szBRName>
-		<szBRDesc>The Departmento Munitorum made this the standard radio set for all Cadian Infantry regiments in the 39th millenium. If it's good enough for them, it better be good enough for you.</szBRDesc>
+		<szBRDesc>This set can be used to radio other squad in other sectors. It can be worn like a backpack. Batteries included.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>97</ubClassIndex>
