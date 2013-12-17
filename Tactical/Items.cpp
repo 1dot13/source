@@ -10178,243 +10178,62 @@ INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN
 // attachments. They are stance-based, meaning that the soldier's stance determines which modifier is referenced.
 // For a "default" value, feed the function a value of ubStance=ANIM_STAND.
 
-INT32 GetFlatBaseModifier( OBJECTTYPE *pObj, UINT8 ubStance )
+
+INT32 GetItemNCTHModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 {
-	INT32 iModifier=0;
+	INT32 iModifier = 0;
 
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	switch( usType )
 	{
-		iModifier += Item[pObj->usItem].flatbasemodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].flatbasemodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	return (iModifier);
-}
+	case NCTHMODIFIER_FLATBASE:
+		iModifier += BonusReduceMore( Item[pObj->usItem].flatbasemodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_PERCENTBASE:
+		iModifier += BonusReduceMore( Item[pObj->usItem].percentbasemodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_FLATAIM:
+		iModifier += BonusReduceMore( Item[pObj->usItem].flataimmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_PERCENTAIM:
+		iModifier += BonusReduceMore( Item[pObj->usItem].percentaimmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_PERCENTCAP:
+		iModifier += BonusReduceMore( Item[pObj->usItem].percentcapmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_PERCENTHANDLING:
+		iModifier += BonusReduceMore( Item[pObj->usItem].percenthandlingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_DROPCOMPENSATION:
+		iModifier += BonusReduceMore( Item[pObj->usItem].percentdropcompensationmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_COUNTERFORCEMAX:
+		iModifier += BonusReduceMore( Item[pObj->usItem].maxcounterforcemodifier[ubRef], (*pObj)[0]->data.objectStatus );
 
-INT32 GetPercentBaseModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
+		if(ubRef == 1)
+			iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_CROUCH;
+		else if (ubRef == 2)
+			iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE;
 
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].percentbasemodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].percentbasemodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-INT32 GetFlatAimModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].flataimmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].flataimmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	return (iModifier);
-}
-
-INT32 GetPercentAimModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].percentaimmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].percentaimmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-INT32 GetPercentCapModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].percentcapmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].percentcapmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-INT32 GetPercentHandlingModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].percenthandlingmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].percenthandlingmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return ((UINT32)iModifier);
-}
-
-INT32 GetDropCompensationModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].percentdropcompensationmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].percentdropcompensationmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-// HEADROCK HAM 4: This function returns the Max Counter Force modifier given by the weapon
-INT32 GetCounterForceMaxModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].maxcounterforcemodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].maxcounterforcemodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
+		break;
+	case NCTHMODIFIER_COUNTERFORCEACCURACY:
+		iModifier += BonusReduceMore( Item[pObj->usItem].counterforceaccuracymodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_COUNTERFORCEFREQUENCY:
+		iModifier += BonusReduceMore( Item[pObj->usItem].counterforcefrequencymodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_TRACKING:
+		iModifier += BonusReduceMore( Item[pObj->usItem].targettrackingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
+		break;
+	case NCTHMODIFIER_AIMLEVELS:
+		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
+		break;
 	}
 
-	if(ubRef == 1)
-		iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_CROUCH;
-	else if (ubRef == 2)
-		iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE;
-
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
+	return iModifier;
 }
 
-// HEADROCK HAM 4: This function returns the Counter Force Accuracy modifier given by the weapon
-INT32 GetCounterForceAccuracyModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].counterforceaccuracymodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].counterforceaccuracymodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-INT32 GetCounterForceFrequencyModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].counterforcefrequencymodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].counterforcefrequencymodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	return (iModifier);
-}
-
-INT32 GetTargetTrackingModifier( OBJECTTYPE *pObj, UINT8 ubStance )
-{
-	INT32 iModifier=0;
-
-	UINT8 ubRef = GetStanceModifierRef( ubStance );
-		
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
-	{
-		iModifier += Item[pObj->usItem].targettrackingmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
-		{
-			if (iter->exists())
-			{
-				iModifier += BonusReduceMore( Item[iter->usItem].targettrackingmodifier[ubRef], (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	iModifier = __max(-100,iModifier);
-	return (iModifier);
-}
-
-INT32 GetAimLevelsModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance )
+// Flugente: unified function (no need to have 12 functions that all do the same thing and clutter the code)
+INT32 GetObjectNCTHModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance, UINT8 usType )
 {
 	INT32 iModifier=0;
 
@@ -10423,40 +10242,33 @@ INT32 GetAimLevelsModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubSta
 	if (pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
-				
-		if ( gGameExternalOptions.fScopeModes && pSoldier )
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+			if( iter->exists() )
 			{
-				if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
-				{
-					iModifier += Item[iter->usItem].aimlevelsmodifier[ubRef];
-				}
-			}
+				// Flugente: if we use scope modes, are a soldier, this is a gun and the attachment a scope/sight, ignore it for the moment
+				if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN && IsAttachmentClass(iter->usItem, (AC_SCOPE|AC_SIGHT|AC_IRONSIGHT) ) )
+					continue;
 
-			// Flugente: check for scope mode
-			if ( Item[pObj->usItem].usItemClass == IC_GUN )
-			{
-				std::map<INT8, OBJECTTYPE*> ObjList;
-				GetScopeLists(pObj, ObjList);
-
-				// only use scope mode if gun is in hand, otherwise an error might occur!
-				if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
-					iModifier += Item[ObjList[pSoldier->bScopeMode]->usItem].aimlevelsmodifier[ubRef];
+				iModifier += GetItemNCTHModifier( (&(*iter)), ubRef, usType);
 			}
 		}
-		else
+
+		// Flugente: check for scope mode	
+		if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN )
 		{
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-			{
-				if (iter->exists())
-				{
-					iModifier += Item[iter->usItem].aimlevelsmodifier[ubRef];
-				}
-			}
+			std::map<INT8, OBJECTTYPE*> ObjList;
+			GetScopeLists(pObj, ObjList);
+
+			// only use scope mode if gun is in hand, otherwise an error might occur!
+			if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
+				iModifier += GetItemNCTHModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
 		}
 	}
+
 	iModifier = __max(-100,iModifier);
+
 	return (iModifier);
 }
 
@@ -10711,7 +10523,7 @@ INT16 GetPercentRecoilModifier( OBJECTTYPE *pObj )
 
 // HEADROCK HAM 4: This is used by functions that get stance-based modifiers from weapons. It turns a ubEndHeight variable
 // as either 0, 1 or 2.
-INT8 GetStanceModifierRef( INT8 ubStance )
+UINT8 GetStanceModifierRef( INT8 ubStance )
 {
 	switch (ubStance)
 	{
@@ -13187,8 +12999,8 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
 			stance = ANIM_PRONE;
 
-		INT32 moda = GetAimLevelsModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], stance );
-		INT32 modb = GetAimLevelsModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		INT32 moda = GetObjectNCTHModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], stance, NCTHMODIFIER_AIMLEVELS );
+		INT32 modb = GetObjectNCTHModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_AIMLEVELS );
 		aimLevels += (INT32) ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	}
 
@@ -13569,7 +13381,7 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		}
 
 		// HEADROCK HAM 4: This modifier from the weapon and its attachments replaces the generic bipod bonus.
-		aimLevels += GetAimLevelsModifier( pSoldier, pObj, ubStance );
+		aimLevels += GetObjectNCTHModifier( pSoldier, pObj, ubStance, NCTHMODIFIER_AIMLEVELS );
 
 		aimLevels += GetAimLevelsTraitModifier( pSoldier, pObj );
 
@@ -15275,7 +15087,7 @@ BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem )
 		// determine maximum allowed coolness
 		rditemmaxcoolness = HighestPlayerProgressPercentage() / 10 + 1 + Item[usRandomItem].randomitemcoolnessmodificator;	// the random item itself can modify coolness
 		
-		// build the list of items to choose from. We will search down the random item class an can even branch into mulitple other random item classes.
+		// build the list of items to choose from. We will search down the random item class and can even branch into mulitple other random item classes.
 		// We only stop if maximum number of items or random item classes is reached
 		AddToRandomListFromRandomItem(usRandomItem);
 

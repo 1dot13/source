@@ -275,22 +275,31 @@ INT16 GetRangeBonus( OBJECTTYPE * pObj );
 // For a "default" value, feed the function a value of ubStance=ANIM_STAND.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-INT32 GetFlatBaseModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetPercentBaseModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetFlatAimModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetPercentAimModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetPercentCapModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetPercentHandlingModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetDropCompensationModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetCounterForceMaxModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetCounterForceAccuracyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetCounterForceFrequencyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetTargetTrackingModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetAimLevelsModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance );	// Flugente: added SOLDIERTYPE* argument
+// Flugente: unified function (no need to have 12 functions that all do the same thing and clutter the code)
+enum {
+	NCTHMODIFIER_FLATBASE = 0,
+	NCTHMODIFIER_PERCENTBASE,
+	NCTHMODIFIER_FLATAIM,
+	NCTHMODIFIER_PERCENTAIM,
+	NCTHMODIFIER_PERCENTCAP,
+	NCTHMODIFIER_PERCENTHANDLING,
+	NCTHMODIFIER_DROPCOMPENSATION,
+	NCTHMODIFIER_COUNTERFORCEMAX,
+	NCTHMODIFIER_COUNTERFORCEACCURACY,
+	NCTHMODIFIER_COUNTERFORCEFREQUENCY,
+	NCTHMODIFIER_TRACKING,
+	NCTHMODIFIER_AIMLEVELS,
+
+	NCTHMODIFIER_MAX,
+};
+
+INT32 GetItemNCTHModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType);
+INT32 GetObjectNCTHModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance, UINT8 type );
+
 INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
 // Returns the character's stance as 0/1/2.
-INT8 GetStanceModifierRef( INT8 ubStance );
+UINT8 GetStanceModifierRef( INT8 ubStance );
 
 INT16 GetDamageBonus( OBJECTTYPE * pObj );
 INT16 GetMeleeDamageBonus( OBJECTTYPE * pObj );

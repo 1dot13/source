@@ -5249,8 +5249,8 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 		return gGameExternalOptions.ubMinimumCTH;
 
 	// Add a flat Base bonus from the item and its attachments.
-	INT32 imoda = GetFlatBaseModifier( pInHand, stance );
-	INT32 imodb = GetFlatBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+	INT32 imoda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_FLATBASE );
+	INT32 imodb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_FLATBASE );
 	fBaseChance += (FLOAT)((gGameExternalOptions.ubProneModifierPercentage * imoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * imodb)/100); 
 
 	// get bonus from effects lasting on the shooter (morale, injury, shock etc.)
@@ -5351,8 +5351,8 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 		fAimChance += CalcNewChanceToHitAimTraitBonus(pSoldier, fAimChance, fDifference, sGridNo, ubAimTime, fScopeMagFactor, uiBestScopeRange);
 
 		// Add percent-based modifier from the gun and its attachments
-		FLOAT moda = (FLOAT)(fAimChance * GetPercentCapModifier( pInHand, stance ) / 100);
-		FLOAT modb = (FLOAT)(fAimChance * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) / 100);
+		FLOAT moda = (FLOAT)(fAimChance * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTCAP ) / 100);
+		FLOAT modb = (FLOAT)(fAimChance * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTCAP ) / 100);
 		fAimChance += (FLOAT)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 		// get aimbonus from effects lasting on the shooter
@@ -5435,8 +5435,8 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 		{
 			fAimPoints += fAimPointFraction * (ubAllowedAimingLevels-x);
 			// Add Flat Modifier from the weapon and its attachments
-			INT32 moda = GetFlatAimModifier( pInHand, stance );
-			INT32 modb = GetFlatAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+			INT32 moda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_FLATAIM );
+			INT32 modb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_FLATAIM );
 			fAimPoints += (FLOAT)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 		}
 
@@ -5521,8 +5521,8 @@ else
 	iChance = (INT32)iCombinedSkill;
 
 	// Add a flat Base bonus from the item and its attachments.
-	INT32 moda = GetFlatBaseModifier( pInHand, stance );
-	INT32 modb = GetFlatBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+	INT32 moda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_FLATBASE );
+	INT32 modb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_FLATBASE );
 	iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	
 	// We now begin adding up factors that may increase or decrease Base CTH. They are pooled together to form a percentage
@@ -5666,8 +5666,8 @@ else
 	}
 
 	// Percent based modifier from the gun and its attachments
-	FLOAT umoda = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
-	FLOAT umodb = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	FLOAT umoda = (iGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTHANDLING )) / 100;
+	FLOAT umodb = (iGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTHANDLING )) / 100;
 	iGunBaseDifficulty += ((gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100); 
 
 	// End gun difficulty modifiers
@@ -5826,8 +5826,8 @@ else
 	}
 
 	// Percentage based-modifier from the weapon and its attachments
-	umoda = (iGunBaseDifficulty * GetPercentBaseModifier( pInHand, stance )) / 100;
-	umodb = (iGunBaseDifficulty * GetPercentBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	umoda = (iGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTBASE )) / 100;
+	umodb = (iGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTBASE )) / 100;
 	iBaseModifier += ((gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100); 
 	
 
@@ -6000,8 +6000,8 @@ else
 			iGunAimDifficulty += iTempPenalty;
 		}
 
-		FLOAT umoda = (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
-		FLOAT umodb = (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		FLOAT umoda = (iGunAimDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTHANDLING )) / 100;
+		FLOAT umodb = (iGunAimDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTHANDLING )) / 100;
 		iGunAimDifficulty += (gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100; 
 
 		// End Gun Handling modifiers
@@ -6159,8 +6159,8 @@ else
 		}
 				
 		// Percent modifier from the weapon and its attachments
-		INT32 moda = GetPercentAimModifier( pInHand, stance );
-		INT32 modb = GetPercentAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		INT32 moda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTAIM );
+		INT32 modb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTAIM );
 		iAimModifier += (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100; 
 
 		// Calculate final max aiming
@@ -6177,8 +6177,8 @@ else
 
 		INT32 uiCap = (INT32)iCombinedSkill;
 		// Add percent-based modifier from the gun and its attachments
-		INT32 uimoda = (INT32)(uiCap * GetPercentCapModifier( pInHand, stance )) / 100;
-		INT32 uimodb = (INT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		INT32 uimoda = (INT32)(uiCap * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTCAP )) / 100;
+		INT32 uimodb = (INT32)(uiCap * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTCAP )) / 100;
 		uiCap += (INT32)((gGameExternalOptions.ubProneModifierPercentage * uimoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * uimodb)/100); 
 
 		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
@@ -6275,8 +6275,8 @@ else
 		{
 			iAimPoints += iAimPointFraction * (ubAllowedAimingLevels-x);
 			// Add Flat Modifier from the weapon and its attachments
-			INT32 moda = GetFlatAimModifier( pInHand, stance );
-			INT32 modb = GetFlatAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+			INT32 moda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_FLATAIM );
+			INT32 modb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_FLATAIM );
 			iAimPoints += (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100; 
 		}
 
@@ -12579,16 +12579,16 @@ FLOAT CalcNewChanceToHitBaseWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, IN
 	}
 
 	// Percentage based handling modifier from the gun and its attachments
-	FLOAT moda = (fGunBaseDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
-	FLOAT modb = (fGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (fGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTHANDLING )) / 100;
+	FLOAT modb = (fGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTHANDLING )) / 100;
 	fGunBaseDifficulty += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	
 	// Now apply Gun Difficulty to the Base Modifier.
 	fBaseModifier -= fGunBaseDifficulty * gGameCTHConstants.BASE_DRAW_COST;
 
 	// Percentage based modifier from the weapon and its attachments
-	moda = (fGunBaseDifficulty * GetPercentBaseModifier( pInHand, stance )) / 100;
-	modb = (fGunBaseDifficulty * GetPercentBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	moda = (fGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTBASE )) / 100;
+	modb = (fGunBaseDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTBASE )) / 100;
 	fBaseModifier += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 
 	return fBaseModifier;
@@ -12921,16 +12921,16 @@ FLOAT CalcNewChanceToHitAimWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT
 	}
 
 	// Percentage based handling modifier from the gun and its attachments
-	FLOAT moda = (fGunAimDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
-	FLOAT modb = (fGunAimDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (fGunAimDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTHANDLING )) / 100;
+	FLOAT modb = (fGunAimDifficulty * GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTHANDLING )) / 100;
 	fGunAimDifficulty += (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100; 
 
 	// Now apply Gun Difficulty to the Aim Modifier
 	fAimModifier -= gGameCTHConstants.AIM_DRAW_COST * fGunAimDifficulty;
 
 	// Percent modifier from the weapon and its attachments
-	INT32 imoda = GetPercentAimModifier( pInHand, stance );
-	INT32 imodb = GetPercentAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+	INT32 imoda = GetObjectNCTHModifier( pSoldier, pInHand, stance, NCTHMODIFIER_PERCENTAIM );
+	INT32 imodb = GetObjectNCTHModifier( pSoldier, pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_PERCENTAIM );
 	fAimModifier += (FLOAT)(gGameExternalOptions.ubProneModifierPercentage * imoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * imodb)/100; 
 	
 	return fAimModifier;

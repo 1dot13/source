@@ -8092,8 +8092,8 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// after the target moves a smaller number of tiles.
 	// silversurfer: uiTilesForMaxPenalty is supposed to be small to allow for fast compensation, right? Why do we ADD the tracking modifier then?
 	// According to the description of the tracking modifier: "Higher is better". So we better subtract and also make the modifiers a FLOAT for better precision.
-	FLOAT moda = (FLOAT)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, stance )) / 100;
-	FLOAT modb = (FLOAT)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (FLOAT)(uiTilesForMaxPenalty * GetObjectNCTHModifier( pShooter, pWeapon, stance, NCTHMODIFIER_TRACKING ) ) / 100;
+	FLOAT modb = (FLOAT)(uiTilesForMaxPenalty * GetObjectNCTHModifier( pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight, NCTHMODIFIER_TRACKING ) ) / 100;
 //	uiTilesForMaxPenalty += (INT16)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 	uiTilesForMaxPenalty -= (INT16)(((FLOAT)gGameExternalOptions.ubProneModifierPercentage * moda + (100 - (FLOAT)gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
@@ -8258,8 +8258,8 @@ void CalcRangeCompensationOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetY, 
 	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
 		stance = ANIM_PRONE;
 
-	FLOAT moda = (iCombinedSkill * GetDropCompensationModifier( pWeapon, stance )) / 100;
-	FLOAT modb = (iCombinedSkill * GetDropCompensationModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (iCombinedSkill * GetObjectNCTHModifier( pShooter, pWeapon, stance, NCTHMODIFIER_DROPCOMPENSATION )) / 100;
+	FLOAT modb = (iCombinedSkill * GetObjectNCTHModifier( pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight, NCTHMODIFIER_DROPCOMPENSATION )) / 100;
 	iCombinedSkill += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	// Limit this to a scale of 0-100.
@@ -8611,8 +8611,8 @@ UINT32 CalcCounterForceFrequency(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon)
 		stance = ANIM_PRONE;
 
 	// Percent Modifier from weapon and its attachments
-	FLOAT moda = (iCounterForceFrequency * GetCounterForceFrequencyModifier( pWeapon, stance )) / 100;
-	FLOAT modb = (iCounterForceFrequency * GetCounterForceFrequencyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (iCounterForceFrequency * GetObjectNCTHModifier( pShooter, pWeapon, stance, NCTHMODIFIER_COUNTERFORCEFREQUENCY )) / 100;
+	FLOAT modb = (iCounterForceFrequency * GetObjectNCTHModifier( pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight, NCTHMODIFIER_COUNTERFORCEFREQUENCY )) / 100;
 	iCounterForceFrequency += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	// Limit to 1-100.
@@ -8650,7 +8650,7 @@ FLOAT CalcCounterForceMax(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT8 uiSt
 	iCounterForceMax /= iDivisor;
 
 	// Add the effects from the weapon and its attachments (foregrip, for instance). This is applied as a percentage.
-	INT32 iModifier = GetCounterForceMaxModifier( pWeapon, uiStance );
+	INT32 iModifier = GetObjectNCTHModifier( pShooter, pWeapon, uiStance, NCTHMODIFIER_COUNTERFORCEMAX );
 	iCounterForceMax += (iCounterForceMax * iModifier) / 100;
 
 	// Limit to 0-100.
@@ -8686,8 +8686,8 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
 		stance = ANIM_PRONE;
 
-	INT32 moda = GetCounterForceAccuracyModifier( pWeapon, stance );
-	INT32 modb = GetCounterForceAccuracyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight );
+	INT32 moda = GetObjectNCTHModifier( pShooter, pWeapon, stance, NCTHMODIFIER_COUNTERFORCEACCURACY );
+	INT32 modb = GetObjectNCTHModifier( pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight, NCTHMODIFIER_COUNTERFORCEACCURACY );
 	INT32 iModifier = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	UINT32 uiCounterForceAccuracy = (UINT32)(iCounterForceAccuracy + ((iCounterForceAccuracy * iModifier) / 100));

@@ -4055,7 +4055,7 @@ INT16 ubMinAPCost;
 
 	ATTACKTYPE BestShot, BestThrow, BestStab ,BestAttack;//dnl ch69 150913
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
-	UINT8	ubBestStance = 1, ubStanceCost;
+	UINT8	ubBestStance = 1;
 	BOOLEAN fChangeStanceFirst; // before firing
 	BOOLEAN fClimb;
 	INT16	ubBurstAPs;

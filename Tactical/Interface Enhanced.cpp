@@ -2747,9 +2747,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 		///////////////////// FLAT BASE MODIFIER
-		if (GetFlatBaseModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetFlatBaseModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetFlatBaseModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATBASE ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATBASE ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATBASE ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2771,9 +2771,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// PERCENT BASE MODIFIER
-		if (GetPercentBaseModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetPercentBaseModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetPercentBaseModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTBASE ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTBASE ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTBASE ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2795,9 +2795,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// FLAT AIM MODIFIER
-		if (GetFlatAimModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetFlatAimModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetFlatAimModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATAIM ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATAIM ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATAIM ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2819,9 +2819,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// PERCENT AIM MODIFIER
-		if (GetPercentAimModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetPercentAimModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetPercentAimModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTAIM ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTAIM ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTAIM ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2843,9 +2843,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// AIMING LEVELS MODIFIER
-		if (GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_AIMLEVELS ) != 0
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_AIMLEVELS ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_AIMLEVELS ) != 0 )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -2921,9 +2921,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// CTH CAP MODIFIER
-		if (GetPercentCapModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetPercentCapModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTCAP ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTCAP ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTCAP ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2945,9 +2945,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// GUN HANDLING MODIFIER
-		if (GetPercentHandlingModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetPercentHandlingModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetPercentHandlingModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTHANDLING ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTHANDLING ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTHANDLING ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2969,9 +2969,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// DROP COMPENSATION MODIFIER
-		if (GetDropCompensationModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetDropCompensationModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetDropCompensationModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_DROPCOMPENSATION ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_DROPCOMPENSATION ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_DROPCOMPENSATION ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -2993,9 +2993,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// TARGET TRACKING MODIFIER
-		if (GetTargetTrackingModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetTargetTrackingModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetTargetTrackingModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_TRACKING ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_TRACKING ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_TRACKING ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -3246,9 +3246,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// MAX COUNTER FORCE MODIFIER
-		if ((GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 ) )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 			{
@@ -3270,9 +3270,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// COUNTER FORCE ACCURACY MODIFIER
-		if (GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 
+			|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -4852,9 +4852,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// FLAT BASE MODIFIER
-	if (GetFlatBaseModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetFlatBaseModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetFlatBaseModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATBASE ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATBASE ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATBASE ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4867,9 +4867,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// PERCENT BASE MODIFIER
-	if (GetPercentBaseModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetPercentBaseModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetPercentBaseModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTBASE ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTBASE ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTBASE ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4882,9 +4882,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// FLAT AIM MODIFIER
-	if (GetFlatAimModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetFlatAimModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetFlatAimModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATAIM ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATAIM ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATAIM ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4897,9 +4897,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// PERCENT AIM MODIFIER
-	if (GetPercentAimModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetPercentAimModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetPercentAimModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTAIM ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTAIM ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTAIM ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4912,9 +4912,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// AIMING LEVELS MODIFIER
-	if (GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0
-		|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_AIMLEVELS ) != 0
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_AIMLEVELS ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_AIMLEVELS ) != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -4951,9 +4951,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// CTH CAP MODIFIER
-	if (GetPercentCapModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetPercentCapModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTCAP ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTCAP ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTCAP ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4966,9 +4966,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// GUN HANDLING MODIFIER
-	if (GetPercentHandlingModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetPercentHandlingModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetPercentHandlingModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTHANDLING ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTHANDLING ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTHANDLING ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4981,9 +4981,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// DROP COMPENSATION MODIFIER
-	if (GetDropCompensationModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetDropCompensationModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetDropCompensationModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_DROPCOMPENSATION ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_DROPCOMPENSATION ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_DROPCOMPENSATION ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -4995,9 +4995,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 	///////////////////// TARGET TRACKING MODIFIER
-	if (GetTargetTrackingModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetTargetTrackingModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetTargetTrackingModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_TRACKING ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_TRACKING ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_TRACKING ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -5128,9 +5128,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// MAX COUNTER FORCE MODIFIER
-	if (GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEMAX ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 		{
@@ -5143,9 +5143,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// COUNTER FORCE ACCURACY MODIFIER
-	if (GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEACCURACY ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -5158,9 +5158,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// COUNTER FORCE FREQUENCY MODIFIER
-	if (GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_STAND ) != 0 
-		|| GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if ( GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
+		|| GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEFREQUENCY ) != 0 )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -6265,7 +6265,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				iHandlingValue *= gItemSettings.fHandlingModifierLauncher;
 
 			// Get modifier
-			INT16 iHandlingModifier = (iHandlingValue * GetPercentHandlingModifier( gpItemDescObject , ANIM_STAND )) / 100;
+			INT16 iHandlingModifier = (iHandlingValue * GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject , ANIM_STAND, NCTHMODIFIER_PERCENTHANDLING )) / 100;
 
 			// Get Final Gun Handling value
 			UINT16 iFinalHandlingValue =  iHandlingValue + iHandlingModifier;
@@ -6338,7 +6338,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
 
 			// Get modifier
-			INT16 iAimLevelsModifier = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
+			INT16 iAimLevelsModifier = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_AIMLEVELS );
 			iAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpItemDescObject );
 
 			// Get Base Value
@@ -9238,9 +9238,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// FLAT BASE MODIFIER
-	iModifier[0] = GetFlatBaseModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetFlatBaseModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetFlatBaseModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATBASE );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATBASE );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATBASE );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9279,9 +9279,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// PERCENT BASE MODIFIER
-	iModifier[0] = GetPercentBaseModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetPercentBaseModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetPercentBaseModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTBASE );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTBASE );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTBASE );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9332,9 +9332,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// FLAT AIM MODIFIER
-	iModifier[0] = GetFlatAimModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetFlatAimModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetFlatAimModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_FLATAIM );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_FLATAIM );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_FLATAIM );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9373,9 +9373,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// PERCENT AIM MODIFIER
-	iModifier[0] = GetPercentAimModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetPercentAimModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetPercentAimModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTAIM );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTAIM );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTAIM );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9426,9 +9426,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// AIMING LEVELS MODIFIER
-	iModifier[0] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_AIMLEVELS );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_AIMLEVELS );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_AIMLEVELS );
 	if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9586,9 +9586,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// CTH CAP MODIFIER
-	iModifier[0] = GetPercentCapModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetPercentCapModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTCAP );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTCAP );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTCAP );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9639,9 +9639,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// GUN HANDLING MODIFIER
-	iModifier[0] = GetPercentHandlingModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetPercentHandlingModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetPercentHandlingModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_PERCENTHANDLING );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_PERCENTHANDLING );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_PERCENTHANDLING );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9692,9 +9692,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// DROP COMPENSATION MODIFIER
-	iModifier[0] = GetDropCompensationModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetDropCompensationModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetDropCompensationModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_DROPCOMPENSATION );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_DROPCOMPENSATION );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_DROPCOMPENSATION );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -9745,9 +9745,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// TARGET TRACKING MODIFIER
-	iModifier[0] = GetTargetTrackingModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetTargetTrackingModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetTargetTrackingModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_TRACKING );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_TRACKING );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_TRACKING );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -10199,9 +10199,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// MAX COUNTER FORCE MODIFIER
-	iModifier[0] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEMAX );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEMAX );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEMAX );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -10252,9 +10252,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// COUNTER FORCE ACCURACY MODIFIER
-	iModifier[0] = GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetCounterForceAccuracyModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEACCURACY );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEACCURACY );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEACCURACY );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
@@ -10305,9 +10305,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// COUNTER FORCE FREQUENCY MODIFIER
-	iModifier[0] = GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, NCTHMODIFIER_COUNTERFORCEFREQUENCY );
+	iModifier[1] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, NCTHMODIFIER_COUNTERFORCEFREQUENCY );
+	iModifier[2] = GetObjectNCTHModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, NCTHMODIFIER_COUNTERFORCEFREQUENCY );
 	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
