@@ -1251,6 +1251,10 @@ typedef struct
 	// Frequency that the screen is updated
 	FLOAT fClockSpeedPercent;
 
+	// sevenfm: improved auto fast forwarding
+	UINT8 ubAutoFastForwardEnemies;
+	UINT8 ubAutoFastForwardMilitia;
+
 	// Flugente: Weapon Overheating
 	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?

@@ -73,6 +73,8 @@ extern void AdjustNoAPToFinishMove( SOLDIERTYPE *pSoldier, BOOLEAN fSet );
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier);
 void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier );
 
+void UpdateFastForwardMode( SOLDIERTYPE* pSoldier );
+
 extern UINT8 gubElementsOnExplosionQueue;
 
 extern BOOLEAN gfWaitingForTriggerTimer;
@@ -1321,6 +1323,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		return;
 	}
 
+
 	if ((pSoldier->aiData.bAction != AI_ACTION_NONE) && pSoldier->aiData.bActionInProgress)
 	{
 		// if action should remain in progress
@@ -1637,6 +1640,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	// 0verhaul:  The decideaction stage does so many path plots and overrides that
 	// relying on a stored path from there is a bad idea.
 	pSoldier->pathing.usPathDataSize = pSoldier->pathing.usPathIndex = pSoldier->pathing.bPathStored = 0;
+
+	UpdateFastForwardMode( pSoldier );
 
 	switch (pSoldier->aiData.bAction)
     {
@@ -2591,5 +2596,92 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 		TacticalRemoveSoldier( pSoldier->ubID );
 	}
 	CheckForEndOfBattle( TRUE );
+}
+
+void UpdateFastForwardMode( SOLDIERTYPE* pSoldier )
+{
+	BOOLEAN action = FALSE;
+	BOOLEAN forward = FALSE;
+	BOOLEAN found = FALSE;
+	UINT16 cnt;
+	SOLDIERTYPE * ps;
+	
+	if( ( gGameExternalOptions.ubAutoFastForwardEnemies == 0 && gGameExternalOptions.ubAutoFastForwardMilitia == 0 ) ||
+		!gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] ||
+		is_networked ||
+		!( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) ||
+		pSoldier->bTeam == OUR_TEAM )
+		return;
+
+	switch ( pSoldier->aiData.bAction )
+	{
+	case AI_ACTION_TOSS_PROJECTILE:
+	case AI_ACTION_KNIFE_MOVE:
+	case AI_ACTION_FIRE_GUN:
+	case AI_ACTION_THROW_KNIFE:
+	case AI_ACTION_PULL_TRIGGER:
+	case AI_ACTION_USE_DETONATOR:
+	case AI_ACTION_OPEN_OR_CLOSE_DOOR:
+	case AI_ACTION_LOWER_GUN:
+	case AI_ACTION_RAISE_GUN:
+	case AI_ACTION_CLIMB_ROOF:
+	case AI_ACTION_STEAL_MOVE:
+	case AI_ACTION_JUMP_WINDOW:
+	case AI_ACTION_USE_SKILL:
+		action = TRUE;
+		break;
+	}
+
+	if ( pSoldier->bTeam == MILITIA_TEAM )
+	{
+		switch( gGameExternalOptions.ubAutoFastForwardMilitia )
+		{
+		case 0:				// default mode
+			forward = gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE];
+			break;
+		case 1:				// auto fast forward this militiaman if he does not see opponents
+			if( pSoldier->aiData.bOppCnt == 0 )
+				forward = TRUE && !action;
+			break;
+		case 2:				// auto fast forward all militia
+			forward = TRUE && !action;
+			break;
+		}
+	}
+	else
+	{
+		switch ( gGameExternalOptions.ubAutoFastForwardEnemies )
+		{
+		case 0:				// default mode
+			forward = gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE];
+			break;
+		case 1:					// auto fast forward enemy soldier only if player team does not see him
+			for ( cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++ )
+			{
+				ps = MercPtrs[ cnt ];
+				found= FALSE;
+				if (ps->bActive && ps->bInSector && ps->stats.bLife >= OKLIFE)
+				{
+					if (ps->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY)
+					{
+						found= TRUE;
+						break;
+					}						
+				}
+			}
+			forward = !found && !action;
+			break;
+		case 2:					// auto fast forward only invisible enemies
+			if( pSoldier->bVisible == -1 )
+				forward = TRUE && !action;
+			break;
+		case 3:					// always auto fast forward movements
+			forward = TRUE && !action;
+			break;
+		}
+	}			
+
+	if ( IsFastForwardMode() != forward )
+		SetFastForwardMode( forward );
 }
 
