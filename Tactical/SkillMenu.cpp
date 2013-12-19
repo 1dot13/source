@@ -264,6 +264,15 @@ SkillSelection::Setup( UINT32 aVal )
 				}
 			}
 			break;
+
+			case VARIOUSSKILLS:
+			{
+				for(UINT32 uiCounter = SKILLS_VARIOUS_FIRST; uiCounter <= SKILLS_VARIOUS_LAST; ++uiCounter)
+				{
+					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc(uiCounter) );
+				}
+			}
+			break;
 		}
 	}
 }
