@@ -183,6 +183,7 @@
 		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
 		<buddyitem>0</buddyitem>
 		<SleepModifier>0</SleepModifier>
+		<usSpotting>0</usSpotting>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -6131,6 +6132,7 @@
 		<BrightLightVisionRangeBonus>80</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usSpotting>50</usSpotting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6167,6 +6169,7 @@
 		<BrightLightVisionRangeBonus>50</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>40</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usSpotting>70</usSpotting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

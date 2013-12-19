@@ -79,6 +79,7 @@
     <breachingcharge>0</breachingcharge>              <!-- +- success chance with door braching charges, -100 to 100 -->
     <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
     <insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
+    <spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
     
     <!-- on/off properties: 1 for on, 0 for off -->      
     <druguse>0</druguse>                              <!-- might use drugs from inventory (the 'Larry'-behaviour) -->
@@ -435,6 +436,7 @@
     <szDescription>Some people display a knack for shooting, and a disturbing &#10;aggression against innocent paper bull's eyes.</szDescription>
     <marksmanship>3</marksmanship>
     <increased_maxcth>1</increased_maxcth>
+    <spotter>5</spotter>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>38</uiIndex>
@@ -789,7 +791,7 @@
    <uiIndex>71</uiIndex>
    <szName>Big Game Hunter</szName>
    <szShortName>Big Game Hunter</szShortName>
-   <szDescription>Travel to pristine nature, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
+   <szDescription>Travel to virgin soil, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
    <ap_desert>1</ap_desert>
    <ap_swamp>2</ap_swamp>
    <ap_urban>-3</ap_urban>
@@ -811,5 +813,21 @@
    <hearing_night>1</hearing_night>
    <breachingcharge>20</breachingcharge>
    <scrounging>1</scrounging>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>73</uiIndex>
+   <szName>Peeper</szName>
+   <szShortName>Peeper</szShortName>
+   <szDescription>Why is this still necessary? Dude, visit the internet...</szDescription>
+   <stealth>4</stealth>
+   <spotter>15</spotter>
+   <no_female>1</no_female>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>74</uiIndex>
+   <szName>Spotter</szName>
+   <szShortName>Spotter</szShortName>
+   <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
+   <spotter>30</spotter>
   </BACKGROUND>
 </BACKGROUNDS>
