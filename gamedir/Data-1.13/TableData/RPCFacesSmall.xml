@@ -269,4 +269,13 @@
 		<MouthX>6</MouthX>
 		<MouthY>23</MouthY>
 	</FACE>
+	<FACE>
+		<uiIndex>30</uiIndex>
+		<Name>Waldo</Name>
+		<FaceIndex>138</FaceIndex>
+		<EyesX>9</EyesX>
+		<EyesY>9</EyesY>
+		<MouthX>9</MouthX>
+		<MouthY>27</MouthY>
+	</FACE>
 </SMALLFACE>
