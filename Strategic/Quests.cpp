@@ -49,6 +49,9 @@
 
 #include "Luaglobal.h"
 
+// anv: Waldo The Mechanic - for fact checking with helicopter
+#include "Vehicles.h"
+
 #define TESTQUESTS
 
 extern SOLDIERTYPE * gpSrcSoldier;
@@ -1307,6 +1310,43 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = ;
 			break;
 */
+		// anv: facts for checking if Waldo can repair helicopter
+
+		case FACT_HELI_DAMAGED_CAN_START_REPAIR:
+			gubFact[usFact] = ( gGameExternalOptions.fWaldoCanRepairHelicopter && 
+				!fHelicopterDestroyed && !fHelicopterIsAirBorne && gubHelicopterHitsTaken == 1 &&
+				pVehicleList[ iHelicopterVehicleId ].sSectorX == gMercProfiles[ WALDO ].sSectorX && pVehicleList[ iHelicopterVehicleId ].sSectorY == gMercProfiles[ WALDO ].sSectorY &&
+				LaptopSaveInfo.iCurrentBalance >= CalculateHelicopterRepairCost( FALSE ) &&
+				gubHelicopterHoursToRepair == 0 && CheckFact( FACT_WALDO_MET, 0 ) );
+			break;
+
+		case FACT_HELI_SERIOUSLY_DAMAGED_CAN_START_REPAIR:
+			gubFact[usFact] = ( gGameExternalOptions.fWaldoCanRepairHelicopter && 
+				!fHelicopterDestroyed && !fHelicopterIsAirBorne && gubHelicopterHitsTaken == 2 &&
+				pVehicleList[ iHelicopterVehicleId ].sSectorX == gMercProfiles[ WALDO ].sSectorX && pVehicleList[ iHelicopterVehicleId ].sSectorY == gMercProfiles[ WALDO ].sSectorY && 
+				LaptopSaveInfo.iCurrentBalance >= CalculateHelicopterRepairCost( TRUE ) &&
+				gubHelicopterHoursToRepair == 0 && CheckFact( FACT_WALDO_MET, 0 ) );
+			break;
+
+		case FACT_HELI_GIVEN_MONEY_CAN_START_REPAIR:
+			gubFact[usFact] = ( ( gGameExternalOptions.fWaldoCanRepairHelicopter && 
+				!fHelicopterDestroyed && !fHelicopterIsAirBorne && gubHelicopterHitsTaken > 0 &&
+				pVehicleList[ iHelicopterVehicleId ].sSectorX == gMercProfiles[ WALDO ].sSectorX && pVehicleList[ iHelicopterVehicleId ].sSectorY == gMercProfiles[ WALDO ].sSectorY && 
+				gubHelicopterHoursToRepair == 0 ) &&
+				( CheckFact(FACT_GIVEN_ENOUGH_TO_REPAIR_HELI, 0) || CheckFact(FACT_GIVEN_ENOUGH_TO_SERIOUSLY_REPAIR_HELI, 0) ) && CheckFact( FACT_WALDO_MET, 0 ) );
+			break;
+
+		case FACT_HELI_CANT_START_REPAIR:
+			gubFact[usFact] = ( !CheckFact(FACT_HELI_GIVEN_MONEY_CAN_START_REPAIR, 0) && !CheckFact(FACT_HELICOPTER_IN_PERFECT_CONDITION, 0));
+			break;			
+
+		case FACT_HELICOPTER_IN_PERFECT_CONDITION:
+			gubFact[usFact] = ( gubHelicopterHitsTaken == 0 );
+			break;
+
+		case FACT_HELICOPTER_LOST:
+			gubFact[usFact] = fHelicopterDestroyed;
+			break;
 
 		default:
 			break;

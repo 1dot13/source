@@ -331,8 +331,14 @@ enum Facts
 	FACT_PABLO_WONT_STEAL = 																	124,
 	FACT_AGENTS_PREVENTED_SHIPMENT,//													125
 
+	// anv: it was 126 in Waldo script
+	FACT_HELICOPTER_IN_PERFECT_CONDITION =																	126,
+
 	FACT_LARGE_AMOUNT_OF_MONEY =															127,
 	FACT_SMALL_AMOUNT_OF_MONEY,//															128
+
+	// anv: it was 130 in Waldo script
+	FACT_HELICOPTER_LOST =																	130, 
 
 	FACT_LOYALTY_OKAY =																				135,
 	FACT_LOYALTY_LOW,//																				136
@@ -530,6 +536,20 @@ enum Facts
 	FACT_PLAYER_KILLED_BOXERS =																368,
 	// HEADROCK HAM 4: Seen Mobile Militia screen after having at least one mobile unit?
 	FACT_MOBILE_RESTRICTIONS_VIEWED =														369,
+
+	// anv: Waldo The Mechanic, facts for his dialogue
+	FACT_HELI_DAMAGED_CAN_START_REPAIR,
+	FACT_HELI_SERIOUSLY_DAMAGED_CAN_START_REPAIR,
+
+	FACT_GIVEN_ENOUGH_TO_REPAIR_HELI,
+	FACT_GIVEN_ENOUGH_TO_SERIOUSLY_REPAIR_HELI,
+
+	FACT_HELI_GIVEN_MONEY_CAN_START_REPAIR,
+	FACT_HELI_CANT_START_REPAIR,
+
+	FACT_WALDO_MET,
+
+
 #ifdef JA2UB	
 	//Ja25 UB
 	FACT_IMPORTED_SAVE_AND_MARY_WAS_DEAD	=										400,

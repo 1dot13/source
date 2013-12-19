@@ -355,6 +355,9 @@ BOOLEAN KillPersonInVehicle( INT32 iId, SOLDIERTYPE *pSoldier );
 // kill everyone in vehicle
 BOOLEAN KillAllInVehicle( INT32 iId );
 
+// anv: for hurting heli passengers on SAM attack
+BOOLEAN HurtPassengersInHelicopter( INT32 iId );
+
 #ifdef JA2TESTVERSION
 // test vehicle stuff
 void VehicleTest( void );

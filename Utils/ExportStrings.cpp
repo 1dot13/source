@@ -173,7 +173,8 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"Repair",						Loc::pRepairStrings,				0,	4);
 	ExportSection(props, L"PreStatBuild",				Loc::sPreStatBuildString,			0,	6);
 	ExportSection(props, L"StatGain",					Loc::sStatGainStrings,				0,	11);
-	ExportSection(props, L"HelicopterEta",				Loc::pHelicopterEtaStrings,			0,	10);
+	ExportSection(props, L"HelicopterEta",				Loc::pHelicopterEtaStrings,			0,	TEXT_NUM_STR_HELI_ETA);
+	ExportSection(props, L"HelicopterRepair",			Loc::pHelicopterRepairRefuelStrings,		0,	TEXT_NUM_STR_HELI_REPAIRS);
 	ExportSection(props, L"MapLevel",					Loc::sMapLevelString,				0,	1);
 	ExportSection(props, L"Loyal",						Loc::gsLoyalString,					0,	1);
 	ExportSection(props, L"Underground",				Loc::gsUndergroundString,			0,	1);

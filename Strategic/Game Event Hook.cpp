@@ -311,6 +311,12 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_HELICOPTER_HOVER_WAY_TOO_LONG:
 			HandleHeliHoverTooLong( );
 			break;
+		case EVENT_HELICOPTER_HOVER_FOR_A_MINUTE:
+			HandleHeliHoverForAMinute( );
+			break;
+		case EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE:
+			ReFuelHelicopterForAMinute( );
+			break;
 		case EVENT_MERC_LEAVE_EQUIP_IN_DRASSEN:
 			HandleEquipmentLeftInDrassen( pEvent->uiParam );
 			break;

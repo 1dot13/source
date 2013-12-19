@@ -45,23 +45,33 @@
 #endif
 
 #include "Vehicles.h"
+#include "NPC.h"
+#include "history.h"
 
 // the amounts of time to wait for hover stuff
-#define TIME_DELAY_FOR_HOVER_WAIT						10		// minutes
-#define TIME_DELAY_FOR_HOVER_WAIT_TOO_LONG	20		// mintues
+// externalised, use gHelicopterSettings.ubHelicopterTimeDelayForHoverWait instead
+//#define TIME_DELAY_FOR_HOVER_WAIT						10		// minutes
+// externalised, use gHelicopterSettings.ubHelicopterTimeDelayForHoverWaitTooLong instead
+//#define TIME_DELAY_FOR_HOVER_WAIT_TOO_LONG	20		// mintues
 
 
 #define MIN_DAYS_BETWEEN_SKYRIDER_MONOLOGUES 1
 
 // refuel delay
-#define REFUEL_HELICOPTER_DELAY							30		// minutes
+// externalised, use gHelicopterSettings.ubHelicopterRefuelTime instead
+//#define REFUEL_HELICOPTER_DELAY							30		// minutes
 
 // total number of sectors one can go
-//#define MAX_HELICOPTER_DISTANCE 25
+// externalised, use gHelicopterSettings.ubHelicopterDistanceWithoutRefuel instead
+//#define MAX_HELICOPTER_DISTANCE 25 
 
 // maximum chance out of a hundred per unsafe sector that a SAM site in decent working condition will hit Skyrider
-#define MAX_SAM_SITE_ACCURACY		33
+// externalised, use gHelicopterSettings.ubHelicopterSAMSiteAccuracy instead
+//#define MAX_SAM_SITE_ACCURACY		33
 
+#define HELICOPTER_RETURN_REASON_NONE 0
+#define HELICOPTER_RETURN_REASON_LOW_FUEL 1
+#define HELICOPTER_RETURN_REASON_DAMAGE 2
 
 extern FACETYPE	*gpCurrentTalkingFace;
 extern UINT8			gubCurrentTalkingID;
@@ -97,7 +107,7 @@ INT32 iHelicopterVehicleId = -1;
 UINT32 guiHelicopterIcon;
 
 // total distance travelled
-//INT32 iTotalHeliDistanceSinceRefuel = 0;
+INT32 iTotalHeliDistanceSinceRefuel = 0;
 
 // total owed to player
 INT32 iTotalAccumulatedCostByPlayer = 0;
@@ -153,6 +163,13 @@ UINT32 guiTimeOfLastSkyriderMonologue = 0;
 
 UINT8 gubHelicopterHitsTaken = 0;
 
+UINT8 gubHelicopterHoursToRepair = 0;
+UINT8 gubHelicopterBasicRepairsSoFar = 0;
+UINT8 gubHelicopterSeriousRepairsSoFar = 0;
+
+UINT8 gubHelicopterHoverTime = 0;
+UINT8 gubHelicopterTimeToFullRefuel = 0;
+
 BOOLEAN gfSkyriderSaidCongratsOnTakingSAM = FALSE;
 UINT8 gubPlayerProgressSkyriderLastCommentedOn = 0;
 
@@ -173,14 +190,14 @@ BOOLEAN DoesSkyriderNoticeEnemiesInSector( UINT8 ubNumEnemies );
 BOOLEAN EndOfHelicoptersPath( void );
 
 // find the location sector of closest refuel point for heli..and the criteria if the sector must be under the players control
-INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable );
+INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable, INT16 sX, INT16 sY );
 
 
 // add the tactical heli graphic
 void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite );
 
 void PaySkyriderBill( void );
-void MakeHeliReturnToBase( void );
+void MakeHeliReturnToBase( UINT8 ubReturnReason );
 
 void HandleSkyRiderMonologueAboutDrassenSAMSite( UINT32 uiSpecialCode );
 void HandleSkyRiderMonologueAboutCambriaHospital( UINT32 uiSpecialCode );
@@ -558,7 +575,7 @@ void InitializeHelicopter( void )
 	fPlotForHelicopter = FALSE;
 	pTempHelicopterPath = NULL;
 
-//	iTotalHeliDistanceSinceRefuel = 0;
+	iTotalHeliDistanceSinceRefuel = 0;
 	iTotalAccumulatedCostByPlayer = 0;
 
 	fHelicopterDestroyed = FALSE;
@@ -691,14 +708,14 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 
 
 	// player pays for travel if Skyrider is NOT returning to base (even if empty while scouting/going for pickup)
-	if ( fHeliReturnStraightToBase == FALSE )
+	if ( fHeliReturnStraightToBase == FALSE || gGameExternalOptions.fHelicopterReturnToBaseIsNotFree )
 	{
 		// charge cost for flying another sector
 		iTotalAccumulatedCostByPlayer += GetCostOfPassageForHelicopter( sX, sY );
 	}
 
 	// accumulate distance travelled
-//	AddSectorToHelicopterDistanceTravelled( );
+	AddSectorToHelicopterDistanceTravelled( );
 
 
 	// check if heli has any real path left
@@ -720,7 +737,8 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			}
 
 			// destination reached, payment due.	If player can't pay, mercs get kicked off and heli flies to base!
-			PaySkyriderBill();
+			if( gGameExternalOptions.fPaySkyriderInBase == FALSE || CheckForArrivalAtRefuelPoint( ) )
+				PaySkyriderBill();
 
 			// WANNE: Fix by Headrock: Always stop time!
 			StopTimeCompression();
@@ -735,23 +753,55 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			else
 				HeliCharacterDialogue( pSkyRider, HELI_HOT_DROP );
 			
-			PaySkyriderBill();
+			if( gGameExternalOptions.fPaySkyriderInBase == FALSE || CheckForArrivalAtRefuelPoint( ) )
+				PaySkyriderBill();
 			StopTimeCompression();
 		}
 
 		if( CheckForArrivalAtRefuelPoint( ) )
 		{
 			ReFuelHelicopter( );
+			OfferHelicopterRepair();
 		}
 	}
+
+	CheckIfHelicopterHasEnoughFuelToReturn( sX, sY );
 
 	return( FALSE );
 }
 
-/*
+BOOLEAN CheckIfHelicopterHasEnoughFuelToReturn( INT16 sX, INT16 sY )
+{
+	// anv: check if we didn't come too far
+	if( !CheckForArrivalAtRefuelPoint() && fHeliReturnStraightToBase == FALSE && gHelicopterSettings.ubHelicopterDistanceWithoutRefuel - iTotalHeliDistanceSinceRefuel < DistanceToNearestRefuelPoint(sX, sY) )
+	{
+		// hovered too long, inform player heli is returning to base
+		HeliCharacterDialogue( pSkyRider, RETURN_TO_BASE );
+
+		// If the sector is safe
+		if ( NumEnemiesInSector( pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY ) == 0 )
+		{
+			// kick everyone out!
+			// anv: possibly show prompt, if option is on, and heli has any passengers
+			if( gHelicopterSettings.fAskBeforeKickingPassengersOut == FALSE || GetNumberInVehicle( iHelicopterVehicleId ) == 0 )
+			{
+				MoveAllInHelicopterToFootMovementGroup( );
+				MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_LOW_FUEL );
+			}
+			else
+				DoMessageBox( MSG_BOX_BASIC_STYLE, pHelicopterEtaStrings[ STR_HELI_ETA_KICK_OUT_PASSENGERS_PROMPT ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, KickOutPassengersBoxCallBack, NULL );
+		}
+		else
+			MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_LOW_FUEL );
+
+		return ( FALSE );
+	}
+	return ( TRUE );
+}
+
 INT32 GetTotalDistanceHelicopterCanTravel( void )
 {
-	return( MAX_HELICOPTER_DISTANCE );
+	return( gHelicopterSettings.ubHelicopterDistanceWithoutRefuel );
 }
 
 INT32 HowFarHelicopterhasTravelledSinceRefueling( void )
@@ -763,7 +813,7 @@ INT32 HowFarHelicopterhasTravelledSinceRefueling( void )
 INT32 HowFurtherCanHelicopterTravel( void )
 {
 	// how many sectors further can we go on remaining fuel?
-	return( MAX_HELICOPTER_DISTANCE - ( HowFarHelicopterhasTravelledSinceRefueling( ) + DistanceOfIntendedHelicopterPath( ) ) );
+	return( gHelicopterSettings.ubHelicopterDistanceWithoutRefuel - ( HowFarHelicopterhasTravelledSinceRefueling( ) + DistanceOfIntendedHelicopterPath( ) ) );
 }
 
 void AddSectorToHelicopterDistanceTravelled( void )
@@ -776,26 +826,38 @@ void AddSectorToHelicopterDistanceTravelled( void )
 
 	return;
 }
-*/
 
-INT32 LocationOfNearestRefuelPoint( BOOLEAN fNotifyPlayerIfNoSafeLZ )
+
+INT32 LocationOfNearestRefuelPoint( BOOLEAN fNotifyPlayerIfNoSafeLZ, UINT8 ubReturnReason, INT16 sX, INT16 sY )
 {
 	INT32 iClosestLocation = -1;
 
+	// anv: update availability before check
+	UpdateRefuelSiteAvailability();
 	// try to find one, any one under the players control
-	iClosestLocation = FindLocationOfClosestRefuelSite( TRUE );
+	iClosestLocation = FindLocationOfClosestRefuelSite( TRUE, sX, sY );
 
 	// no go?...then find
 	if( iClosestLocation == -1 )
 	{
 		if( fNotifyPlayerIfNoSafeLZ )
 		{
-			// no refueling sites available, might wanna warn player about this
-			ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pHelicopterEtaStrings[ 5 ] );
+			switch( ubReturnReason ) 
+			{
+				case HELICOPTER_RETURN_REASON_LOW_FUEL:
+					// no refueling sites available, might wanna warn player about this
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pHelicopterEtaStrings[ STR_HELI_ETA_LOW_ON_FUEL_HOSTILE_TERRITORY ] );
+					break;
+				case HELICOPTER_RETURN_REASON_DAMAGE:
+					// no refueling sites available, might wanna warn player about this
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pHelicopterEtaStrings[ STR_HELI_ETA_HELI_DAMAGED_HOSTILE_TERRITORY ] );
+					break;
+			}
+
 		}
 
 		// find the closest location regardless
-		iClosestLocation = FindLocationOfClosestRefuelSite( FALSE );
+		iClosestLocation = FindLocationOfClosestRefuelSite( FALSE, sX, sY );
 	}
 
 	// always returns a valid refuel point, picking a hostile one if unavoidable
@@ -804,7 +866,7 @@ INT32 LocationOfNearestRefuelPoint( BOOLEAN fNotifyPlayerIfNoSafeLZ )
 	return( iClosestLocation );
 }
 
-INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable )
+INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable, INT16 sX, INT16 sY )
 {
 	INT32 iShortestDistance = 9999;
 	INT32 iCounter = 0;
@@ -815,10 +877,10 @@ INT32 FindLocationOfClosestRefuelSite( BOOLEAN fMustBeAvailable )
 	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
 	{
 		// if this refuelling site is available
-		if( ( fRefuelingSiteAvailable[ iCounter ] ) || ( fMustBeAvailable == FALSE ) )
+		if( ( fRefuelingSiteAvailable[ iCounter ] ) || ( fMustBeAvailable == FALSE && !( ( iCounter == ESTONI_REFUELING_SITE ) && ( CheckFact( FACT_ESTONI_REFUELLING_POSSIBLE, 0 ) == FALSE ) ) ) )
 		{
 			// find if sector is under control, find distance from heli to it
-			iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( pVehicleList[ iHelicopterVehicleId ].sSectorX , pVehicleList[ iHelicopterVehicleId ].sSectorY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
+			iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( sX , sY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
 
 			if( iDistance < iShortestDistance )
 			{
@@ -840,14 +902,14 @@ INT32 DistanceToNearestRefuelPoint( INT16 sX, INT16 sY )
 	INT32 iDistance;
 
 	// don't notify player during these checks!
-	iClosestLocation = LocationOfNearestRefuelPoint( FALSE );
+	iClosestLocation = LocationOfNearestRefuelPoint( FALSE, HELICOPTER_RETURN_REASON_NONE, sX, sY );
 
 	iDistance = ( INT32 )FindStratPath( ( INT16 )( CALCULATE_STRATEGIC_INDEX( sX, sY ) ), ( INT16 )( CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iClosestLocation ], sRefuelSectorY[ iClosestLocation ] ) ) , pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE );
 	return( iDistance );
 }
 
 
-/*
+
 BOOLEAN IsSectorOutOfTheWay( INT16 sX, INT16 sY )
 {
 	// check distance to nearest refuel point
@@ -859,7 +921,6 @@ BOOLEAN IsSectorOutOfTheWay( INT16 sX, INT16 sY )
 
 	return( FALSE );
 }
-*/
 
 
 
@@ -869,17 +930,194 @@ void ReFuelHelicopter( void )
 
 	LandHelicopter( );
 
-/*
-	AddStrategicEvent( EVENT_HELICOPTER_DONE_REFUELING, GetWorldTotalMin() + REFUEL_HELICOPTER_DELAY, 0 );
-
-	// reset distance traveled
-	iTotalHeliDistanceSinceRefuel = 0;
-*/
+	if(gGameExternalOptions.fAlternativeHelicopterFuelSystem)
+	{
+		gubHelicopterTimeToFullRefuel = ( gHelicopterSettings.ubHelicopterRefuelTime * ( iTotalHeliDistanceSinceRefuel ) ) / gHelicopterSettings.ubHelicopterDistanceWithoutRefuel;
+		//AddStrategicEvent( EVENT_HELICOPTER_DONE_REFUELING, GetWorldTotalMin() + gHelicopterSettings.ubHelicopterRefuelTime, 0 );
+		AddStrategicEvent( EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE, GetWorldTotalMin() + 1, 0 );
+		// reset distance traveled
+		//iTotalHeliDistanceSinceRefuel = 0;
+		// reset hover time
+		gubHelicopterHoverTime = 0;
+	}
 
 	return;
 }
 
+void ReFuelHelicopterForAMinute( void )
+{
+	if( CheckForArrivalAtRefuelPoint() == FALSE )
+	{
+		return;
+	}
+	if( iTotalHeliDistanceSinceRefuel <= 0 )
+	{
+		gubHelicopterTimeToFullRefuel = 0;
+		iTotalHeliDistanceSinceRefuel = 0;
+		ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s", pHelicopterRepairRefuelStrings[ STR_HELI_RR_REFUEL_FINISHED ]);
+		
+	}
+	else
+	{
+		gubHelicopterTimeToFullRefuel--;	
+		iTotalHeliDistanceSinceRefuel =  ( gubHelicopterTimeToFullRefuel * gHelicopterSettings.ubHelicopterDistanceWithoutRefuel ) / gHelicopterSettings.ubHelicopterRefuelTime ;
 
+		AddStrategicEvent( EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE, GetWorldTotalMin() + 1, 0 );
+	}
+
+	return;
+}
+
+void OfferHelicopterRepair( void )
+{
+	CHAR16	sHelicopterRepairPromptText[ 320 ];
+	if( !gGameExternalOptions.fAllowWaldoToOfferRepairInStrategic )
+	{
+		return;
+	}
+	if( CheckFact(FACT_HELI_DAMAGED_CAN_START_REPAIR, 0 ) == TRUE )
+	{
+		if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+		{		
+			CharacterDialogue( WALDO, WALDO_REPAIR_PROPOSITION, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+			// popup will be called from HandleDialogueEnd()
+		}
+		else
+		{
+			// no dialogue, show popup right away
+			swprintf( sHelicopterRepairPromptText, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( FALSE ), gHelicopterSettings.ubHelicopterBasicRepairTime );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, sHelicopterRepairPromptText, guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, OfferHelicopterRepairBoxCallBack, NULL );
+		}
+	}
+	else if( CheckFact(FACT_HELI_SERIOUSLY_DAMAGED_CAN_START_REPAIR, 0 ) == TRUE )
+	{
+		if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+		{		
+			CharacterDialogue( WALDO, WALDO_SERIOUS_REPAIR_PROPOSITION, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+		}
+		else
+		{
+			swprintf( sHelicopterRepairPromptText, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname,  CalculateHelicopterRepairCost( TRUE ), gHelicopterSettings.ubHelicopterSeriousRepairTime );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, sHelicopterRepairPromptText, guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, OfferHelicopterRepairBoxCallBack, NULL );
+		}
+	}
+
+	return;
+}
+
+void OfferHelicopterRepairBoxCallBack( UINT8 ubExitValue )
+{
+	if ( ubExitValue == MSG_BOX_RETURN_YES )
+	{
+		StartHelicopterRepair( TRUE, FALSE );
+	}
+	else
+	{
+		if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+			CharacterDialogue( WALDO, WALDO_REPAIR_REFUSED, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+	}
+	return;
+}
+
+void KickOutPassengersBoxCallBack( UINT8 ubExitValue )
+{
+	if ( ubExitValue == MSG_BOX_RETURN_YES )
+	{
+		MoveAllInHelicopterToFootMovementGroup();
+	}
+	else
+	{
+	}
+	MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_LOW_FUEL );
+	return;
+}
+
+UINT16 CalculateHelicopterRepairCost( BOOLEAN fSeriousRepair )
+{
+	if( gGameExternalOptions.fWaldoSubsequentRepairsIncreaseCosts )
+	{
+		if( fSeriousRepair )
+		{
+			return min( gHelicopterSettings.usHelicopterSeriousRepairCost + gHelicopterSettings.usHelicopterSeriousCostIncreaseAfterBasicRepair * gubHelicopterBasicRepairsSoFar +
+			+ gHelicopterSettings.usHelicopterSeriousCostIncreaseAfterSeriousRepair * gubHelicopterSeriousRepairsSoFar, gHelicopterSettings.usHelicopterSeriousRepairCostMax );
+		}
+		else
+		{
+			return min( gHelicopterSettings.usHelicopterBasicRepairCost + gHelicopterSettings.usHelicopterBasicCostIncreaseAfterBasicRepair * gubHelicopterBasicRepairsSoFar +
+			+ gHelicopterSettings.usHelicopterBasicCostIncreaseAfterSeriousRepair * gubHelicopterSeriousRepairsSoFar, gHelicopterSettings.usHelicopterBasicRepairCostMax );
+		}
+
+	}
+	else
+	{
+		if( fSeriousRepair )
+		{
+			return min( gHelicopterSettings.usHelicopterSeriousRepairCost, gHelicopterSettings.usHelicopterSeriousRepairCostMax );
+		}
+		else
+		{
+			return min( gHelicopterSettings.usHelicopterBasicRepairCost, gHelicopterSettings.usHelicopterBasicRepairCostMax );
+		}
+				
+	}
+}
+
+void StartHelicopterRepair( BOOLEAN fInStrategic, BOOLEAN fCalledByGivingMoney )
+{
+	MoveAllInHelicopterToFootMovementGroup( );	
+	if( CheckFact( FACT_HELI_DAMAGED_CAN_START_REPAIR, 0 ) == TRUE )
+	{
+		gubHelicopterHoursToRepair = min( max( 1, ( gHelicopterSettings.ubHelicopterBasicRepairTime - gHelicopterSettings.ubHelicopterBasicRepairTimeVariation + 2*Random(gHelicopterSettings.ubHelicopterBasicRepairTimeVariation) ) ), 255 );
+		AddTransactionToPlayersBook( PAYMENT_TO_NPC, WALDO, GetWorldTotalMin(), -CalculateHelicopterRepairCost(FALSE) );
+		AddHistoryToPlayersLog( HISTORY_HELICOPTER_REPAIR_STARTED, gHelicopterSettings.ubHelicopterBasicRepairTime, GetWorldTotalMin(), pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY );
+		gubHelicopterBasicRepairsSoFar++;
+	}
+	else if( CheckFact( FACT_HELI_SERIOUSLY_DAMAGED_CAN_START_REPAIR, 0 ) == TRUE )
+	{
+		gubHelicopterHoursToRepair = min( max( 1, ( gHelicopterSettings.ubHelicopterSeriousRepairTime - gHelicopterSettings.ubHelicopterSeriousRepairTimeVariation + 2*Random(gHelicopterSettings.ubHelicopterSeriousRepairTimeVariation) ) ), 255 );
+		AddTransactionToPlayersBook( PAYMENT_TO_NPC, WALDO, GetWorldTotalMin(), -CalculateHelicopterRepairCost(TRUE) );
+		AddHistoryToPlayersLog( HISTORY_HELICOPTER_REPAIR_STARTED, gHelicopterSettings.ubHelicopterSeriousRepairTime, GetWorldTotalMin(), pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY );
+		gubHelicopterSeriousRepairsSoFar++;
+	}
+
+	if( gubHelicopterHoursToRepair > 18 && gubHelicopterHoursToRepair < 30 )
+	{
+		if( fInStrategic == TRUE )
+		{
+			if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+				CharacterDialogue( WALDO, WALDO_COME_BACK_TOMORROW, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+		}
+		else
+		{
+			if( !fCalledByGivingMoney )
+				TriggerNPCRecord( WALDO, 15 );
+		}
+	}
+	else
+	{
+		if( fInStrategic == TRUE )
+		{
+			if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+				CharacterDialogue( WALDO, WALDO_COME_BACK_IN_SOME_TIME, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+		}
+		else
+		{
+			if( !fCalledByGivingMoney )
+				TriggerNPCRecord( WALDO, 16 );
+		}
+	}
+	return;
+}
+
+void FinishHelicopterRepair()
+{
+	gubHelicopterHoursToRepair = 0;
+	gubHelicopterHitsTaken = 0;
+	if( gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
+		CharacterDialogue( WALDO, WALDO_REPAIR_COMPLETED, uiExternalStaticNPCFaces[ WALDO_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+	ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s", pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_FINISHED ]);
+	return;
+}
 
 INT32 GetCostOfPassageForHelicopter( INT16 sX, INT16 sY )
 {
@@ -928,7 +1166,7 @@ void SkyriderDestroyed( void )
 
 	// zero out balance due
 	gMercProfiles[ SKYRIDER ].iBalance = 0;
-//	iTotalHeliDistanceSinceRefuel = 0;
+	iTotalHeliDistanceSinceRefuel = 0;
 	iTotalAccumulatedCostByPlayer = 0;
 
 	// remove vehicle and reset
@@ -954,13 +1192,14 @@ BOOLEAN CanHelicopterFly( void )
 		return( FALSE );
 	}
 
-/*
 	// travelled too far?
-	if( iTotalHeliDistanceSinceRefuel > MAX_HELICOPTER_DISTANCE )
+	if( gGameExternalOptions.fAlternativeHelicopterFuelSystem )
 	{
-		return( FALSE );
+		if( iTotalHeliDistanceSinceRefuel > gHelicopterSettings.ubHelicopterDistanceWithoutRefuel )
+		{
+			return( FALSE );
+		}
 	}
-*/
 
 	// is the pilot alive, well, and willing to help us?
 	if( IsHelicopterPilotAvailable( ) == FALSE )
@@ -975,6 +1214,12 @@ BOOLEAN CanHelicopterFly( void )
 
 	// grounded by enemies in sector?
 	if ( CanHelicopterTakeOff() == FALSE )
+	{
+		return ( FALSE );
+	}
+
+	// repair in progress?
+	if( gubHelicopterHoursToRepair > 0 )
 	{
 		return ( FALSE );
 	}
@@ -999,6 +1244,12 @@ BOOLEAN IsHelicopterPilotAvailable( void )
 
 	// Drassen too disloyal to wanna help player?
 	if ( CheckFact( FACT_LOYALTY_LOW, SKYRIDER ) )
+	{
+		return ( FALSE );
+	}
+
+	// anv - helicopter too damaged?
+	if ( gGameExternalOptions.fSeriouslyDamagedSkyriderWontFly == TRUE && gubHelicopterHitsTaken > 1 )
 	{
 		return ( FALSE );
 	}
@@ -1062,10 +1313,52 @@ void StartHoverTime( void )
 	// post event for x mins in future, save start time, if event time - delay = start time, then hover has gone on too long
 	uiStartHoverTime = GetWorldTotalMin( );
 
-	// post event..to call handle hover
-	AddStrategicEvent( EVENT_HELICOPTER_HOVER_TOO_LONG, GetWorldTotalMin() + TIME_DELAY_FOR_HOVER_WAIT, 0 );
+	if( gGameExternalOptions.fAlternativeHelicopterFuelSystem )
+	{
+		AddStrategicEvent( EVENT_HELICOPTER_HOVER_FOR_A_MINUTE, GetWorldTotalMin() + 1, 0 );
+	}
+	else
+	{
+		// post event..to call handle hover
+		AddStrategicEvent( EVENT_HELICOPTER_HOVER_TOO_LONG, GetWorldTotalMin() + gHelicopterSettings.ubHelicopterTimeDelayForHoverWait, 0 );
+	}
 
 	return;
+}
+
+void HandleHeliHoverForAMinute( void )
+{
+	INT16 sX = pVehicleList[ iHelicopterVehicleId ].sSectorX;
+	INT16 sY = pVehicleList[ iHelicopterVehicleId ].sSectorY;
+	if( fHoveringHelicopter == FALSE )
+	{
+		return;
+	}
+	gubHelicopterHoverTime++;
+	if( gubHelicopterHoverTime == 10 )
+	{
+		gubHelicopterHoverTime = 0;
+
+		iTotalHeliDistanceSinceRefuel++;
+		if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sX, sY ) ].fEnemyAirControlled == FALSE )
+		{
+			iTotalAccumulatedCostByPlayer += gGameExternalOptions.usHelicopterHoverCostOnGreenTile;
+		}
+		else
+		{
+			iTotalAccumulatedCostByPlayer += gGameExternalOptions.usHelicopterHoverCostOnRedTile;
+		}
+		
+		if( CheckIfHelicopterHasEnoughFuelToReturn( sX, sY ) == TRUE )
+		{
+			// since now heli can stay hovering longer, reminder every 10 minutes would get irritating
+			if( iTotalHeliDistanceSinceRefuel % 3 == 0 && iTotalHeliDistanceSinceRefuel < gHelicopterSettings.ubHelicopterDistanceWithoutRefuel )
+				// inform player
+				HeliCharacterDialogue( pSkyRider, HOVERING_A_WHILE );
+		}
+	
+	}
+	AddStrategicEvent( EVENT_HELICOPTER_HOVER_FOR_A_MINUTE, GetWorldTotalMin() + 1, 0 );
 }
 
 void HandleHeliHoverLong( void )
@@ -1074,7 +1367,7 @@ void HandleHeliHoverLong( void )
 	if( fHoveringHelicopter )
 	{
 		// proper event, post next one
-		AddStrategicEvent( EVENT_HELICOPTER_HOVER_WAY_TOO_LONG, uiStartHoverTime + TIME_DELAY_FOR_HOVER_WAIT_TOO_LONG, 0 );
+		AddStrategicEvent( EVENT_HELICOPTER_HOVER_WAY_TOO_LONG, uiStartHoverTime + gHelicopterSettings.ubHelicopterTimeDelayForHoverWaitTooLong, 0 );
 
 		// inform player
 		HeliCharacterDialogue( pSkyRider, HOVERING_A_WHILE );
@@ -1107,11 +1400,17 @@ void HandleHeliHoverTooLong( void )
 	// If the sector is safe
 	if ( NumEnemiesInSector( pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY ) == 0 )
 	{
-		// kick everyone out!
-		MoveAllInHelicopterToFootMovementGroup( );
+		// anv: possibly show prompt, if option is on, and heli has any passengers
+		if( gHelicopterSettings.fAskBeforeKickingPassengersOut == FALSE || GetNumberInVehicle( iHelicopterVehicleId ) == 0 )
+		{
+			MoveAllInHelicopterToFootMovementGroup( );
+			MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_LOW_FUEL );
+		}
+		else
+			DoMessageBox( MSG_BOX_BASIC_STYLE, pHelicopterEtaStrings[ STR_HELI_ETA_KICK_OUT_PASSENGERS_PROMPT ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, KickOutPassengersBoxCallBack, NULL );
 	}
-
-	MakeHeliReturnToBase();
+	else
+		MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_LOW_FUEL );
 }
 
 
@@ -1275,12 +1574,14 @@ void UpdateRefuelSiteAvailability( void )
 
 	// Generally, only Drassen is initially available for refuelling
 	// Estoni must first be captured (although player may already have it when he gets Skyrider!)
+	// anv: Estoni should only available after Jake-Shank quest
+	// site availability should not be dependent on SAM zones, or weird things will happen after controlling Estoni (like inability to land in base if it's in SAM zone)
 
 	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
 	{
 		// if enemy controlled sector (ground OR air, don't want to fly into enemy air territory)
 		if( ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyControlled == TRUE ) ||
-				( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyAirControlled == TRUE ) ||
+				//( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyAirControlled == TRUE ) ||
 				( ( iCounter == ESTONI_REFUELING_SITE ) && ( CheckFact( FACT_ESTONI_REFUELLING_POSSIBLE, 0 ) == FALSE ) ) )
 		{
 			// mark refueling site as unavailable
@@ -2123,9 +2424,9 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 	ubChance = bSAMCondition;
 
 	// there's a fair chance of a miss even if the SAM site is in perfect working order
-	if (ubChance > MAX_SAM_SITE_ACCURACY * 3) // Madd - since this is only used for enemy air raids, we'll say that good guy SAMs can have a max of 99% to hit instead of 33%
+	if (ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3) // Madd - since this is only used for enemy air raids, we'll say that good guy SAMs can have a max of 99% to hit instead of 33%
 	{
-		ubChance = MAX_SAM_SITE_ACCURACY * 3;
+		ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3;
 	}
 
 	if( PreRandom( 100 ) < ubChance)
@@ -2189,9 +2490,9 @@ BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY 
 	ubChance = bSAMCondition;
 
 	// there's a fair chance of a miss even if the SAM site is in perfect working order
-	if (ubChance > MAX_SAM_SITE_ACCURACY)
+	if (ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy)
 	{
-		ubChance = MAX_SAM_SITE_ACCURACY;
+		ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy;
 	}
 
 	if( PreRandom( 100 ) < ubChance)
@@ -2206,13 +2507,17 @@ BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY 
 		if ( gubHelicopterHitsTaken == 1 )
 		{
 			HeliCharacterDialogue( pSkyRider, HELI_TOOK_MINOR_DAMAGE );
+			if( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
+				HurtPassengersInHelicopter( iHelicopterVehicleId );
 		}
 		// second hit?
 		else if ( gubHelicopterHitsTaken == 2 )
 		{
 			// going back to base (no choice, dialogue says so)
 			HeliCharacterDialogue( pSkyRider, HELI_TOOK_MAJOR_DAMAGE );
-			MakeHeliReturnToBase();
+			MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_DAMAGE );
+			if( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
+				HurtPassengersInHelicopter( iHelicopterVehicleId );
 		}
 		// third hit!
 		else
@@ -2222,17 +2527,21 @@ BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY 
 
 			// everyone die die die
 			// play sound
-			if ( PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback ) == SOUND_ERROR )
-		{
-		// Destroy here if we cannot play streamed sound sample....
-				SkyriderDestroyed( );
-		}
-		else
-		{
-		// otherwise it's handled in the callback
-		// remove any arrival events for the helicopter's group
-		DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
-		}
+		//	if ( PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback ) == SOUND_ERROR )
+		//{
+		//// Destroy here if we cannot play streamed sound sample....
+		//		SkyriderDestroyed( );
+		//}
+		//else
+		//{
+		//// otherwise it's handled in the callback
+		//// remove any arrival events for the helicopter's group
+		//DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
+		//}
+			// anv - calling SkyriderDestroyed() in callback from playing sound causes sound system to crash, as SkyriderDestroyed causes new sounds (hit battlesnds) to play while blah2 is not removed yet
+			// + if there's a pause while falling heli sound is played, it's possible to cheat by changing passengers assignments
+			PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback );
+			SkyriderDestroyed( );
 
 			// special return code indicating heli was destroyed
 			return( TRUE );
@@ -2593,7 +2902,7 @@ void PaySkyriderBill( void)
 			//CHRISL: This may no longer be the case but I'm not sure of a better way to handle things.
 			MoveAllInHelicopterToFootMovementGroup( );
 
-			MakeHeliReturnToBase();
+			MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_NONE );
 		}
 
 		iTotalAccumulatedCostByPlayer = 0;
@@ -2635,7 +2944,7 @@ void PayOffSkyriderDebtIfAny( )
 
 
 
-void MakeHeliReturnToBase( void )
+void MakeHeliReturnToBase( UINT8 ubReturnReason )
 {
 	INT32 iLocation = 0;
 
@@ -2648,7 +2957,7 @@ void MakeHeliReturnToBase( void )
 	else
 	{
 		// choose destination (closest refueling sector)
-		iLocation = LocationOfNearestRefuelPoint( TRUE );
+		iLocation = LocationOfNearestRefuelPoint( TRUE, ubReturnReason, pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY );
 
 		// null out path
 		pVehicleList[ iHelicopterVehicleId ].pMercPath = ClearStrategicPathList( pVehicleList[ iHelicopterVehicleId ].pMercPath, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );

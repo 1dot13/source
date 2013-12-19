@@ -385,6 +385,8 @@ void InitDependingGameStyleOptions()
 	LoadCTHConstants();
 	// Load externalised taunts settings
 	LoadTauntsSettings();
+	// Load helicopter repair settings
+	LoadHelicopterRepairRefuelSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

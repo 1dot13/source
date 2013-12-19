@@ -32,6 +32,9 @@
 // HEADROCK HAM 3.5: Add facility code for hourly update of detection levels
 #include "Facilities.h"
 #include "Food.h"	// added by Flugente
+// anv: for hourly heli repair
+#include "Vehicles.h"
+#include "Map Screen Helicopter.h" 
 
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
@@ -43,6 +46,12 @@ extern void PayOffSkyriderDebtIfAny( );
 //no UB
 #else
 void HourlyCheckIfSlayAloneSoHeCanLeave();
+#endif
+
+#if (defined JA2UB) 
+//no UB
+#else
+void HourlyHelicopterRepair();
 #endif
 
 void UpdateRegenCounters( void );
@@ -113,6 +122,8 @@ CHAR16	zString[128];
 	HourlyCheckStrategicAI();
 
 	PayOffSkyriderDebtIfAny();
+
+	HourlyHelicopterRepair();
 
 	if ( GetWorldHour() % 6 == 0 ) // 4 times a day
 	{
@@ -563,6 +574,36 @@ void HourlyCheckIfSlayAloneSoHeCanLeave()
 			pSoldier->ubLeaveHistoryCode = HISTORY_SLAY_MYSTERIOUSLY_LEFT;
 			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING_NO_ASK_EQUIP, 0, 0 );
 		}
+	}
+}
+#endif
+
+#if (defined JA2UB) 
+// no JA25 UB
+#else 
+void HourlyHelicopterRepair()
+{
+	if( gubHelicopterHoursToRepair == 0 )
+	{
+		return;
+	}
+	MERCPROFILESTRUCT *pMechanic;
+	pMechanic = &(gMercProfiles[ WALDO ]);
+	if( !pMechanic )
+	{
+		return;
+	}
+	if( !pMechanic->bLife )
+	{
+		return;
+	}
+	if( pVehicleList[ iHelicopterVehicleId ].sSectorX == gMercProfiles[ WALDO ].sSectorX && pVehicleList[ iHelicopterVehicleId ].sSectorX == gMercProfiles[ WALDO ].sSectorX )
+	{
+		gubHelicopterHoursToRepair--;
+	}
+	if( gubHelicopterHoursToRepair == 0 )
+	{
+		FinishHelicopterRepair();
 	}
 }
 #endif

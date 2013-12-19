@@ -1716,14 +1716,15 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		if( pTarget != NULL )
 		{
 
-#ifdef ENABLE_ZOMBIES
 			// target should be zombie
 			if( zTaunt[ i ].uiFlags2 & TAUNT_T_ZOMBIE )
 			{
+			// anv: moved ifdef - if zombies are off, we want to skip any taunts with TAUNT_T_ZOMBIE flag
+#ifdef ENABLE_ZOMBIES
 				if( pTarget->IsZombie() == FALSE )
+#endif
 					continue;
 			}
-#endif
 
 			// target merc profile
 			if( zTaunt[ i ].value[TAUNT_TARGET_MERC_PROFILE] != -1 )

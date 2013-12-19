@@ -1380,7 +1380,34 @@ BOOLEAN KillAllInVehicle( INT32 iId )
 			}
 		}
 	}
+	return ( TRUE );
+}
 
+// anv: for hurting heli passengers on SAM attack
+BOOLEAN HurtPassengersInHelicopter( INT32 iId )
+{
+	INT32 iCounter = 0;
+	// find if vehicle is valid
+	if( VehicleIdIsValid( iId ) == FALSE )
+	{
+		return ( FALSE );
+	}
+
+	// go through list of occupants and hurt them
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+	{
+		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
+		{
+			if( PreRandom(100) < gHelicopterSettings.ubHelicopterPassengerHitChance )
+			{
+				if( InjurePersonInVehicle( iId , pVehicleList[ iId ].pPassengers[ iCounter ], 
+					gHelicopterSettings.ubHelicopterPassengerHitMinDamage + PreRandom( gHelicopterSettings.ubHelicopterPassengerHitMaxDamage - gHelicopterSettings.ubHelicopterPassengerHitMinDamage ) ) == FALSE )
+				{
+					return( FALSE );
+				}
+			}
+		}
+	}
 	return ( TRUE );
 }
 

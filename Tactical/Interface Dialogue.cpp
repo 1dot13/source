@@ -2402,6 +2402,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_MEDICAL_REQUESTOR_2: // at hospital
 			case NPC_ACTION_BUY_VEHICLE_REQUESTOR: // from Dave
 			case NPC_ACTION_KROTT_REQUESTOR:
+			case NPC_ACTION_WALDO_REPAIR_REQUESTOR:
 				// Vince or Willis asks about payment? for medical attention
 				if (ubTargetNPC != gpDestSoldier->ubProfile)
 				{
@@ -4478,6 +4479,11 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					//	}
 				break;
 
+			case NPC_ACTION_WALDO_START_REPAIRS:
+				// it's called after giving him money
+				StartHelicopterRepair( FALSE, TRUE );
+				break;
+
 			default:
 				ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"No code support for NPC action %d", usActionCode );
 				break;
@@ -4668,6 +4674,19 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 			break;
 		case NPC_ACTION_KROTT_REQUESTOR:
 			swprintf( zTemp, TacticalStr[ SPARE_KROTT_PROMPT ], gMercProfiles[ubProfileID].zNickname );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
+			break;
+		// anv: Waldo The Mechanic
+		case NPC_ACTION_WALDO_REPAIR_REQUESTOR:
+			swprintf( zTemp, TacticalStr[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ubProfileID].zNickname );
+			if( CheckFact(FACT_HELI_DAMAGED_CAN_START_REPAIR, 0) == TRUE )
+			{	
+				swprintf( zTemp, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( FALSE ), gHelicopterSettings.ubHelicopterBasicRepairTime);
+			}
+			else
+			{
+				swprintf( zTemp, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( TRUE ),  gHelicopterSettings.ubHelicopterSeriousRepairTime	 );
+			}
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		default:
@@ -4951,6 +4970,16 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 			else
 			{
 				TriggerNPCRecord( SERGEANT, 6 );
+			}
+			break;
+		case NPC_ACTION_WALDO_REPAIR_REQUESTOR:
+			if ( ubExitValue == MSG_BOX_RETURN_YES )
+			{
+				StartHelicopterRepair( FALSE, FALSE );
+			}
+			else
+			{
+				TriggerNPCRecord( WALDO, 17 );
 			}
 			break;
 		case NPC_ACTION_TRIGGER_MARRY_DARYL_PROMPT:

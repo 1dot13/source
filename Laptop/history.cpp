@@ -1178,8 +1178,11 @@ void ProcessHistoryTransactionString(STR16 pString, HistoryUnitPtr pHistory)
 		case HISTORY_SLAUGHTEREDBLOODCATS:
 		case HISTORY_GAVE_CARMEN_HEAD:
 		case HISTORY_SLAY_MYSTERIOUSLY_LEFT:
-			swprintf( pString, pHistoryStrings[ pHistory->ubCode ] );
+		case HISTORY_WALDO:
+		case HISTORY_HELICOPTER_REPAIR_STARTED:
+			swprintf( pString, pHistoryStrings[ pHistory->ubCode ], pHistory->ubSecondCode );
 			break;
+
 	}
 }
 

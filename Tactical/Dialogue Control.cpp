@@ -70,6 +70,8 @@
 
 #include "ub_config.h"
 
+#include "history.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -354,6 +356,8 @@ void InitalizeStaticExternalNPCFaces( void )
 	//}
 	// ... put Skyrider's face at index 0
 	uiExternalStaticNPCFaces.push_back(( UINT32 )InitFace( ( UINT8 )( SKYRIDER ), NOBODY, FACE_FORCE_SMALL ));
+	// anv: and put Waldo too
+	uiExternalStaticNPCFaces.push_back(( UINT32 )InitFace( ( UINT8 )( WALDO ), NOBODY, FACE_FORCE_SMALL ));
 
 	return;
 }
@@ -2682,6 +2686,21 @@ void HandleDialogueEnd( FACETYPE *pFace )
 					MSYS_RemoveRegion( &gTextBoxMouseRegion );
 					fTextBoxMouseRegionCreated = FALSE;
 				}
+				// anv: show repair prompt afer Waldo offered repairs
+				if ( gbUIHandlerID == DIALOGUE_EXTERNAL_NPC_UI && gTacticalStatus.ubLastQuoteProfileNUm == WALDO && 
+					( gTacticalStatus.ubLastQuoteSaid == WALDO_REPAIR_PROPOSITION || gTacticalStatus.ubLastQuoteSaid == WALDO_SERIOUS_REPAIR_PROPOSITION ) )
+				{
+					CHAR16	sHelicopterRepairPromptText[ 320 ];
+					if( CheckFact(FACT_HELI_DAMAGED_CAN_START_REPAIR, 0) == TRUE )
+					{	
+						swprintf( sHelicopterRepairPromptText, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( FALSE ), gHelicopterSettings.ubHelicopterBasicRepairTime );
+					}
+					else
+					{
+						swprintf( sHelicopterRepairPromptText, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( TRUE ),  gHelicopterSettings.ubHelicopterSeriousRepairTime );
+					}
+					DoMessageBox( MSG_BOX_BASIC_STYLE, sHelicopterRepairPromptText, guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, OfferHelicopterRepairBoxCallBack, NULL );
+				}
 
 				// anv: after merc finishes his quote, we want enemy to answer
 				if ( gbUIHandlerID == DIALOGUE_TACTICAL_UI )
@@ -2720,6 +2739,12 @@ void HandleDialogueEnd( FACETYPE *pFace )
 
 			case DIALOGUE_NPC_UI:
 
+				// anv: "meet" Waldo when speaking with him first time
+				if ( gTacticalStatus.ubLastQuoteProfileNUm == WALDO && CheckFact( FACT_WALDO_MET, 0 ) == FALSE && gTacticalStatus.ubLastQuoteSaid == 0 )
+				{
+					AddHistoryToPlayersLog( HISTORY_WALDO, 0, GetWorldTotalMin(), gWorldSectorX, gWorldSectorY );
+					SetFactTrue( FACT_WALDO_MET );
+				}
 
 				// Remove region
 				if ( gTalkPanel.fTextRegionOn )

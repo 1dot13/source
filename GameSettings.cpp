@@ -70,6 +70,9 @@
 // anv: externalised  taunt settings
 #define				TAUNTS_SETTINGS_FILE			"Taunts_Settings.ini"
 
+// anv: helicopter repair settings - enough of these to put them in own file
+#define				HELICOPTER_SETTINGS_FILE			"Helicopter_Settings.ini"
+
 #define				CD_ROOT_DIR						"DATA\\"
 
 GAME_SETTINGS		gGameSettings;
@@ -78,6 +81,7 @@ GAME_OPTIONS		gGameOptions;
 GAME_EXTERNAL_OPTIONS gGameExternalOptions;
 SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
 TAUNTS_SETTINGS gTauntsSettings;
+HELICOPTER_SETTINGS gHelicopterSettings;
 CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
 
 MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
@@ -911,6 +915,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usHelicopterBaseCostPerGreenTile				= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_GREEN_TILE", 100, 0, 60000);
 	gGameExternalOptions.usHelicopterBaseCostPerRedTile					= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_RED_TILE", 1000, 0, 60000);
 
+	// anv: for alternative helicopter fuel system - cost for hovering long enough to burn 1 fuel unit. GREEN = Free airspace, RED = Enemy-controlled airspace.
+	gGameExternalOptions.usHelicopterHoverCostOnGreenTile				= iniReader.ReadInteger("Financial Settings","HELICOPTER_HOVER_COST_ON_GREEN_TILE", 50, 0, 60000);
+	gGameExternalOptions.usHelicopterHoverCostOnRedTile					= iniReader.ReadInteger("Financial Settings","HELICOPTER_HOVER_COST_ON_RED_TILE", 500, 0, 60000);
+
+	// anv: if TRUE, player will have to pay Skyrider even if he returns to base automatically - no more hovering until he runs out of fuel to save money
+	gGameExternalOptions.fHelicopterReturnToBaseIsNotFree				= iniReader.ReadBoolean("Financial Settings","HELICOPTER_RETURN_TO_BASE_IS_NOT_FREE", TRUE);
+
+	// anv: if TRUE, Skyrider will demand money only after safely landing in base
+	gGameExternalOptions.fPaySkyriderInBase					= iniReader.ReadBoolean("Financial Settings","HELICOPTER_PAY_SKYRIDER_IN_BASE", FALSE );
+
 	//tais: percentage that the merc's salary rises when he/she levels up
 	gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage		= (FLOAT)iniReader.ReadInteger("Financial Settings","MERC_LEVEL_UP_SALARY_INCREASE_PERCENTAGE",25, 0, 1000);
 	
@@ -1737,6 +1751,15 @@ void LoadGameExternalOptions()
 
 	//Madd: override map item appearance chance
 	gGameExternalOptions.ubMapItemChanceOverride			= iniReader.ReadInteger("Strategic Gameplay Settings","MAP_ITEM_CHANCE_OVERRIDE", 0, 0, 100);
+
+	// anv: helicopter repairs
+	gGameExternalOptions.fWaldoCanRepairHelicopter					= iniReader.ReadBoolean("Strategic Gameplay Settings","WALDO_CAN_REPAIR_HELICOPTER", TRUE);
+	gGameExternalOptions.fAllowWaldoToOfferRepairInStrategic		= iniReader.ReadBoolean("Strategic Gameplay Settings","WALDO_OFFERS_REPAIR_IN_STRATEGIC", TRUE);
+	gGameExternalOptions.fWaldoSubsequentRepairsIncreaseCosts		= iniReader.ReadBoolean("Strategic Gameplay Settings","WALDO_SUBSEQUENT_REPAIRS_COST_INCREASE", TRUE);
+	gGameExternalOptions.fSeriouslyDamagedSkyriderWontFly			= iniReader.ReadBoolean("Strategic Gameplay Settings","SERIOUSLY_DAMAGED_SKYRIDER_WONT_FLY", TRUE);
+
+	gGameExternalOptions.fAlternativeHelicopterFuelSystem			= iniReader.ReadBoolean("Strategic Gameplay Settings","ALTERNATIVE_HELICOPTER_FUEL_SYSTEM", TRUE);
+	gGameExternalOptions.fHelicopterPassengersCanGetHit				= iniReader.ReadBoolean("Strategic Gameplay Settings","HELICOPTER_PASSENGERS_CAN_GET_HIT", TRUE);
 
 	//################# Morale Settings ##################
 	gGameExternalOptions.sMoraleModAppearance				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_APPEARANCE",				1, 0, 5);
@@ -3291,6 +3314,38 @@ void LoadTauntsSettings()
 
 
 }
+
+void LoadHelicopterRepairRefuelSettings()
+{
+	CIniReader iniReader(HELICOPTER_SETTINGS_FILE);
+	
+	gHelicopterSettings.usHelicopterBasicRepairCost							= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_REPAIR_COST", 2500, 0, 100000);
+	gHelicopterSettings.usHelicopterSeriousRepairCost						= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_REPAIR_COST", 7500, 0, 100000);
+	gHelicopterSettings.ubHelicopterBasicRepairTime							= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_REPAIR_TIME", 8, 1, 255);
+	gHelicopterSettings.ubHelicopterBasicRepairTimeVariation				= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_REPAIR_TIME_VARIATION", 2, 0, 255);
+	gHelicopterSettings.ubHelicopterSeriousRepairTime						= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_REPAIR_TIME", 24, 1, 255);
+	gHelicopterSettings.ubHelicopterSeriousRepairTimeVariation				= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_REPAIR_TIME_VARIATION", 6, 0, 255);
+	gHelicopterSettings.usHelicopterBasicCostIncreaseAfterBasicRepair		= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_COST_INCREASE_AFTER_BASIC_REPAIR", 500, 0, 100000);
+	gHelicopterSettings.usHelicopterBasicCostIncreaseAfterSeriousRepair		= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_COST_INCREASE_AFTER_SERIOUS_REPAIR", 1000, 0, 100000);
+	gHelicopterSettings.usHelicopterSeriousCostIncreaseAfterBasicRepair		= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_COST_INCREASE_AFTER_BASIC_REPAIR", 1500, 0, 100000);
+	gHelicopterSettings.usHelicopterSeriousCostIncreaseAfterSeriousRepair	= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_COST_INCREASE_AFTER_SERIOUS_REPAIR", 3000, 0, 100000);
+	gHelicopterSettings.usHelicopterBasicRepairCostMax						= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_BASIC_REPAIR_COST_MAX", 10000, 0, 100000);
+	gHelicopterSettings.usHelicopterSeriousRepairCostMax					= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_REPAIR_COST_MAX", 25000, 0, 100000);
+
+	gHelicopterSettings.ubHelicopterDistanceWithoutRefuel			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 25, 0, 255);
+	gHelicopterSettings.ubHelicopterHoverTimePerFuelUnit			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 10, 0, 255);
+	gHelicopterSettings.ubHelicopterRefuelTime						= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 30, 0, 255);
+	gHelicopterSettings.ubHelicopterTimeDelayForHoverWait			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_TIME_DELAY_FOR_HOVER_WAIT", 10, 0, 255);
+	gHelicopterSettings.ubHelicopterTimeDelayForHoverWaitTooLong	= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_TIME_DELAY_FOR_HOVER_WAIT_TOO_LONG", 20, 0, 255);
+
+	gHelicopterSettings.fAskBeforeKickingPassengersOut		= iniReader.ReadBoolean("Helicopter Refuel Settings","HELICOPTER_ASK_BEFORE_KICKING_PASSENGERS_OUT", FALSE );
+
+	gHelicopterSettings.ubHelicopterSAMSiteAccuracy			= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_SAM_SITE_ACCURACY", 33, 0, 100);
+	gHelicopterSettings.ubHelicopterPassengerHitChance		= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_CHANCE", 25, 0, 100);
+	gHelicopterSettings.ubHelicopterPassengerHitMaxDamage	= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_MAX_DAMAGE", 10, 0, 100);
+	gHelicopterSettings.ubHelicopterPassengerHitMinDamage	= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_MIN_DAMAGE", 1, 0, 100);
+}
+
 void FreeGameExternalOptions()
 {
 	if (gGameExternalOptions.iaIMPSlots != NULL) // OJW - 20081129 - Fix memory leak when calling LoadGameExternalOptions twice

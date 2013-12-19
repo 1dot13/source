@@ -109,6 +109,9 @@ enum
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	*/
 	
+	EVENT_HELICOPTER_HOVER_FOR_A_MINUTE,
+	EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE,
+
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1
 };

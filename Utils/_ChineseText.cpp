@@ -3304,6 +3304,17 @@ STR16 pHelicopterEtaStrings[] =
   L"选择Skyrider还是“着陆点”？",
   L"Skyrider",
   L"着陆点",
+  L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+  L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+};
+
+STR16 pHelicopterRepairRefuelStrings[]=
+{
+	// anv: Waldo The Mechanic - prompt and notifications
+	L"Do you want %s to start repairs? It will cost $%d, and helicopter will be unavailable for around %d hour(s).",
+	L"Helicopter is currently disassembled. Wait until repairs are finished.",
+	L"Repairs completed. Helicopter is available again.",
+	L"Helicopter is fully refueled.",
 };
 
 STR16 sMapLevelString[] =
@@ -4105,8 +4116,11 @@ STR16 pHistoryStrings[] =
 	L"宰掉了血猫",
 	L"%s被干掉了",
 	L"把一个恐怖分子的头颅给了Carmen。",
+	//76-80
 	L"Slay走了",
 	L"干掉了%s",
+	L"Met Waldo - aircraft mechanic.",
+	L"Helicopter repairs started. Estimated time: %d hour(s).",
 };
 
 STR16 pHistoryLocations[] =

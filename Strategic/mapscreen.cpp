@@ -4617,6 +4617,7 @@ UINT32 MapScreenHandle(void)
 				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset) - yResOffset;
 				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
 				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 74;
 
 				// Map Level string
 				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208);
@@ -4669,6 +4670,7 @@ UINT32 MapScreenHandle(void)
 				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 40) - yResOffset;
 				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
 				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 74;
 
 				// Map Level string
 				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 800)/ 2 + (800 - 208 - 80);
@@ -4720,6 +4722,7 @@ UINT32 MapScreenHandle(void)
 				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 100) - yResOffset;
 				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
 				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 76;
+				MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT	= 97;
 
 				// Map Level string
 				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 1024)/ 2 + (1024 - 208 - 187);
@@ -4958,6 +4961,9 @@ UINT32 MapScreenHandle(void)
 		FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
 
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\pos2_alternate.sti", VObjectDesc.ImageFile);
+		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectorsAlternate));
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 			FilenameForBPP("INTERFACE\\secondary_gun_hidden.sti", VObjectDesc.ImageFile);
@@ -6407,7 +6413,7 @@ UINT32 HandleMapUI( )
 						// plotting for the chopper?
 						if( fPlotForHelicopter == TRUE )
 						{
-/*
+
 							if( IsSectorOutOfTheWay( sMapX, sMapY ) == TRUE )
 							{
 								if( gfAllowSkyriderTooFarQuote == TRUE )
@@ -6417,7 +6423,7 @@ UINT32 HandleMapUI( )
 
 								return( MAP_SCREEN );
 							}
-*/
+
 
 							PlotPathForHelicopter( sMapX, sMapY );
 							fTeamPanelDirty = TRUE;
@@ -8546,6 +8552,7 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex( guiSecItemHiddenVO );
 		DeleteVideoObjectFromIndex( guiSelectedCharArrow );
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectors );
+		DeleteVideoObjectFromIndex( guiMapBorderHeliSectorsAlternate );
 		DeleteVideoObjectFromIndex( guiHelicopterIcon );
 		DeleteVideoObjectFromIndex( guiMINEICON );
 		DeleteVideoObjectFromIndex( guiSectorLocatorGraphicID );
@@ -13322,6 +13329,7 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex( guiSecItemHiddenVO );
 		DeleteVideoObjectFromIndex( guiSelectedCharArrow );
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectors );
+		DeleteVideoObjectFromIndex( guiMapBorderHeliSectorsAlternate );
 		DeleteVideoObjectFromIndex( guiHelicopterIcon );
 		DeleteVideoObjectFromIndex( guiMINEICON );
 		DeleteVideoObjectFromIndex( guiSectorLocatorGraphicID );
@@ -15217,6 +15225,20 @@ void ExplainWhySkyriderCantFly( void )
 		return;
 	}
 
+	// repairs in progress
+	if ( gubHelicopterHoursToRepair > 0 )
+	{
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_IN_PROGRESS ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		return;
+	}
+
+	// anv - helicopter too damaged?
+	if ( gGameExternalOptions.fSeriouslyDamagedSkyriderWontFly == TRUE && gubHelicopterHitsTaken > 1 )
+	{
+		SkyRiderTalk( HELI_TOO_DAMAGED_TO_FLY );
+		return;
+	}
+
 	// no explainable reason
 }
 
@@ -15511,11 +15533,11 @@ BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 
 void CreateBullsEyeOrChopperSelectionPopup( void )
 {
-	wcscpy( gzUserDefinedButton1, pHelicopterEtaStrings[ 8 ] );
-	wcscpy( gzUserDefinedButton2, pHelicopterEtaStrings[ 9 ] );
+	wcscpy( gzUserDefinedButton1, pHelicopterEtaStrings[ STR_HELI_ETA_SKYRIDER ] );
+	wcscpy( gzUserDefinedButton2, pHelicopterEtaStrings[ STR_HELI_ETA_ARRIVALS ] );
 
 	// do a BULLSEYE/CHOPPER message box
-	DoScreenIndependantMessageBox( pHelicopterEtaStrings[ 7 ], MSG_BOX_FLAG_GENERIC_TWO_BUTTONS, BullsEyeOrChopperSelectionPopupCallback );
+	DoScreenIndependantMessageBox( pHelicopterEtaStrings[ STR_HELI_ETA_SELECT_SKYRIDER_OR_ARRIVALS ], MSG_BOX_FLAG_GENERIC_TWO_BUTTONS, BullsEyeOrChopperSelectionPopupCallback );
 }
 
 

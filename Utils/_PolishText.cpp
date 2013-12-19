@@ -3306,10 +3306,22 @@ STR16 pHelicopterEtaStrings[] =
 	L"Całkowity koszt: ", 		// total cost of trip by helicopter
 	L"PCP:  ", 			// ETA is an acronym for "estimated time of arrival" 
 	L"Helikopter ma mało paliwa i musi wylądować na terenie wroga.",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Pasażerowie: ",
-  L"Wybór Skyridera lub pasażerów?",
-  L"Skyrider",
-  L"Pasażerowie",
+	L"Pasażerowie: ",
+	L"Wybór Skyridera lub pasażerów?",
+	L"Skyrider",
+	L"Pasażerowie",
+	L"Helikopter został poważnie uszkodzony i musi wylądować na terenie wroga!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+	L"Helikopter powróci teraz wprost do bazy, czy chcesz najpierw wysadzić pasażerów?"
+
+};
+
+STR16 pHelicopterRepairRefuelStrings[]=
+{
+	// anv: Waldo The Mechanic - prompt and notifications
+	L"Czy chcesz aby %s rozpoczął naprawę? Będzie to kosztować %d$, a helikopter pozostanie niedostępny przez około %d godzin(y).",
+	L"Helikopter jest obecnie rozmontowany. Zaczekaj aż naprawa zostanie ukończona.",
+	L"Helikopter jest znów dostępny do lotu.",
+	L"Helicopter jest zatankowany do pełna.",
 };
 
 STR16 sMapLevelString[] =
@@ -4113,8 +4125,11 @@ STR16 pHistoryStrings[] =
 	L"Wyrżnięto dzikie koty",
 	L"%s zabity(ta)",
 	L"Przekazano Carmenowi głowę terrorysty",
+	//76-80
 	L"Slay odszedł",
 	L"Zabito: %s",
+	L"Spotkanie z Waldo - mechanikiem lotniczym.",
+	L"Rozpoczęto naprawę helikoptera. Szacowany czas: %d godzin(y).",
 };
 
 STR16 pHistoryLocations[] =

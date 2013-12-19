@@ -107,6 +107,8 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 #ifdef CRIPPLED_VERSION
 	L"Crippled version end game check",
 #endif
+	L"HelicopterHoverForAMinute",
+	L"HelicopterRefuelForAMinute",
 };
 
 #endif

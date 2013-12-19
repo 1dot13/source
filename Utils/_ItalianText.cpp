@@ -3294,6 +3294,17 @@ STR16 pHelicopterEtaStrings[] =
   L"Seleziona Skyrider o gli Arrivi Drop-off?",
   L"Skyrider",
   L"Arrivi",
+  L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+  L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+};
+
+STR16 pHelicopterRepairRefuelStrings[]=
+{
+	// anv: Waldo The Mechanic - prompt and notifications
+	L"Do you want %s to start repairs? It will cost $%d, and helicopter will be unavailable for around %d hour(s).",
+	L"Helicopter is currently disassembled. Wait until repairs are finished.",
+	L"Repairs completed. Helicopter is available again.",
+	L"Helicopter is fully refueled.",
 };
 
 STR16 sMapLevelString[] =
@@ -4094,8 +4105,11 @@ STR16 pHistoryStrings[] =
 	L"Massacrati dai Bloodcat",
 	L"%s è stato ucciso",
 	L"Data a Carmen la testa di un terrorista",
+	//76-80
 	L"Massacro sinistro",
 	L"Ucciso %s",
+	L"Met Waldo - aircraft mechanic.",
+	L"Helicopter repairs started. Estimated time: %d hour(s).",
 };
 
 STR16 pHistoryLocations[] =

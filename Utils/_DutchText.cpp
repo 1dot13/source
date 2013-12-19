@@ -3299,6 +3299,17 @@ STR16 pHelicopterEtaStrings[] =
 	L"Selecteer Skyrider of Aanvoer Drop-plaats?",			// L"Select Skyrider or the Arrivals Drop-off?",
 	L"Skyrider",
 	L"Aanvoer",						// L"Arrivals",
+	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+};
+
+STR16 pHelicopterRepairRefuelStrings[]=
+{
+	// anv: Waldo The Mechanic - prompt and notifications
+	L"Do you want %s to start repairs? It will cost $%d, and helicopter will be unavailable for around %d hour(s).",
+	L"Helicopter is currently disassembled. Wait until repairs are finished.",
+	L"Repairs completed. Helicopter is available again.",
+	L"Helicopter is fully refueled.",
 };
 
 STR16 sMapLevelString[] =
@@ -4104,8 +4115,11 @@ STR16 pHistoryStrings[] =
 	L"Afgeslacht door bloodcats",				// ("Slaughtered bloodcats")
 	L"%s was gedood",						// ("%s was killed")
 	L"Carmen kop v.e. terrorist gegeven",		// ("Gave Carmen a terrorist's head")
+	//76-80
 	L"Slay vertrok",						// ("Slay left")
 	L"%s vermoord",						// ("Killed %s")
+	L"Met Waldo - aircraft mechanic.",
+	L"Helicopter repairs started. Estimated time: %d hour(s).",
 };
 
 STR16 pHistoryLocations[] =

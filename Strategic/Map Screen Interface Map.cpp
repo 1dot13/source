@@ -53,6 +53,8 @@
 #include "Facilities.h"
 #include "MilitiaSquads.h"
 
+#include "LaptopSave.h"
+
 UINT16	MAP_GRID_X;
 UINT16  MAP_GRID_Y;
 
@@ -88,6 +90,7 @@ UINT16 MAP_HELICOPTER_ETA_POPUP_Y;
 UINT16 MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
 UINT16 MAP_HELICOPTER_ETA_POPUP_WIDTH;
 UINT16 MAP_HELICOPTER_ETA_POPUP_HEIGHT;
+UINT16 MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT;
 
 // sublevel text string position
 UINT16 MAP_LEVEL_STRING_X;
@@ -412,6 +415,9 @@ UINT32 guiMapBorderEtaPopUp;
 
 // heli pop up
 UINT32 guiMapBorderHeliSectors;
+
+// anv: alternate heli pop up for alternative fuel system
+UINT32 guiMapBorderHeliSectorsAlternate;
 
 // list of map sectors that player isn't allowed to even highlight
 BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
@@ -4577,7 +4583,8 @@ void DisplayDistancesForHelicopter( void )
 {
 	// calculate the distance travelled, the proposed distance, and total distance one can go
 	// display these on screen
-	INT16 sDistanceToGo = 0;//, sDistanceSoFar = 0, sTotalCanTravel = 0;
+	INT16 sDistanceToGo = 0, sDistanceSoFar = 0, sTotalCanTravel = 0;
+	INT16 sRemainingFuel = 0, sDistToRefuelSite = 0;
 	INT16 sX = 0, sY = 0;
 	CHAR16 sString[ 32 ];
 	HVOBJECT hHandle;
@@ -4591,6 +4598,7 @@ void DisplayDistancesForHelicopter( void )
 	UINT32 uiTripCost;
 
 
+
 	if ( GetMouseMapXY( &sMapX, &sMapY ) && !fZoomFlag && ( sMapY >= 13 ) )
 	{
 		sYPosition = MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
@@ -4602,14 +4610,20 @@ void DisplayDistancesForHelicopter( void )
 
 	if( ( sOldYPosition != 0 ) && ( sOldYPosition != sYPosition ) )
 	{
-		RestoreExternBackgroundRect( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition, MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+		if( !gGameExternalOptions.fAlternativeHelicopterFuelSystem )
+			RestoreExternBackgroundRect( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition, MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+		else
+			RestoreExternBackgroundRect( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition, MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT );
 	}
 
 	sOldYPosition = sYPosition;
 
 	// blit in background
 	UINT8 imageIndex = 0;
-	GetVideoObject( &hHandle, guiMapBorderHeliSectors );
+	if( gGameExternalOptions.fAlternativeHelicopterFuelSystem )
+		GetVideoObject( &hHandle, guiMapBorderHeliSectorsAlternate );
+	else
+		GetVideoObject( &hHandle, guiMapBorderHeliSectors );
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
 		imageIndex = 0;
@@ -4620,14 +4634,16 @@ void DisplayDistancesForHelicopter( void )
 		
 	BltVideoObject( FRAME_BUFFER, hHandle, imageIndex, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 
-//	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
+	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
 	sDistanceToGo = ( INT16 )DistanceOfIntendedHelicopterPath( );
 	sTotalOfTrip = sDistanceToGo;		// + ( INT16 ) ( DistanceToNearestRefuelPoint( ( INT16 )( LastSectorInHelicoptersPath() % MAP_WORLD_X ), ( INT16 ) ( LastSectorInHelicoptersPath() / MAP_WORLD_X ) ) );
   sNumSafeSectors = GetNumSafeSectorsInPath( );
   sNumUnSafeSectors = GetNumUnSafeSectorsInPath( );
 
-//	sDistanceSoFar = ( INT16 )HowFarHelicopterhasTravelledSinceRefueling( );
-//	sTotalDistanceOfTrip = ( INT16 )DistanceToNearestRefuelPoint( )
+	//sDistanceSoFar = ( INT16 )HowFarHelicopterhasTravelledSinceRefueling( );
+	//sTotalDistanceOfTrip = ( INT16 )DistanceToNearestRefuelPoint( );
+	sRemainingFuel = ( INT16 )(gHelicopterSettings.ubHelicopterDistanceWithoutRefuel - iTotalHeliDistanceSinceRefuel - sDistanceToGo);
+	sDistToRefuelSite = ( INT16 )DistanceToNearestRefuelPoint( sMapX, sMapY );
 
 	if( sDistanceToGo == 9999)
 	{
@@ -4639,7 +4655,7 @@ void DisplayDistancesForHelicopter( void )
 	SetFontForeground( FONT_LTGREEN );
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%s", pHelicopterEtaStrings[ 0 ] );
+	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_TOTAL_DISTANCE ] );
 	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5, sString );
 
 /*
@@ -4659,21 +4675,21 @@ void DisplayDistancesForHelicopter( void )
 
 	SetFontForeground( FONT_LTGREEN );
 
-	swprintf( sString, L"%s", pHelicopterEtaStrings[ 1 ] );
+	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_SAFE ] );
 	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + GetFontHeight( MAP_FONT ), sString );
 
 	swprintf( sString, L"%d", sNumSafeSectors );
 	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 2 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + GetFontHeight( MAP_FONT ) ), sString );
 
-	swprintf( sString, L"%s", pHelicopterEtaStrings[ 2 ] );
+	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_UNSAFE ] );
 	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 2 * GetFontHeight( MAP_FONT ), sString );
 
 	swprintf( sString, L"%d", sNumUnSafeSectors );
 	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 2 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 2 * GetFontHeight( MAP_FONT ) ), sString );
 
-	swprintf( sString, L"%s", pHelicopterEtaStrings[ 3 ] );
+	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_TOTAL_COST ] );
 	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ), sString );
 
 
@@ -4683,15 +4699,19 @@ void DisplayDistancesForHelicopter( void )
 	UINT32 uiCostRed = __max(0,gGameExternalOptions.usHelicopterBaseCostPerRedTile + gsSkyriderCostModifier);
 	uiTripCost = ( sNumSafeSectors * uiCostGreen ) + ( sNumUnSafeSectors * uiCostRed );
 
+	if( uiTripCost > LaptopSaveInfo.iCurrentBalance )
+		SetFontForeground( FONT_LTRED );
+		
 	swprintf( sString, L"%d", uiTripCost );
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 3 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ) ), sString );
 
-	swprintf( sString, L"%s", pHelicopterEtaStrings[ 4 ] );
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ), sString );
+	SetFontForeground( FONT_LTGREEN );
 
+	swprintf( sString, L"%s", pHelicopterEtaStrings[ STR_HELI_ETA_ETA ] );
+	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 4 * GetFontHeight( MAP_FONT ), sString );
 
 	// get travel time for the last path segment
 	iTime = GetPathTravelTimeDuringPlotting( pTempHelicopterPath );
@@ -4705,13 +4725,34 @@ void DisplayDistancesForHelicopter( void )
 
 
 	// show # of passengers aboard the chopper
-	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ 6 ] );
+	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_PASSENGERS ] );
 	swprintf( sString, L"%d", GetNumberOfPassengersInHelicopter() );
 	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 5 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 5 * GetFontHeight( MAP_FONT ) ), sString );
 
+	// show remaining fuel
+	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 6 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_REMAINING_FUEL ] );
+	swprintf( sString, L"%d", sRemainingFuel );
+	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 6 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	if( sRemainingFuel < sDistToRefuelSite )
+		SetFontForeground( FONT_LTRED );
+	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 6 * GetFontHeight( MAP_FONT ) ), sString );
+	SetFontForeground( FONT_LTGREEN );
 
-	InvalidateRegion( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition,  MAP_HELICOPTER_ETA_POPUP_X + MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, sOldYPosition + MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+	// show distance to the nearest refuel site
+	mprintf( MAP_HELICOPTER_ETA_POPUP_X + 5, sYPosition + 5 + 7 * GetFontHeight( MAP_FONT ), pHelicopterEtaStrings[ STR_HELI_ETA_DISTANCE_TO_REFUEL_SITE ] );
+	swprintf( sString, L"%d", sDistToRefuelSite );
+	FindFontRightCoordinates( MAP_HELICOPTER_ETA_POPUP_X + 5, ( INT16 ) ( MAP_HELICOPTER_ETA_POPUP_Y + 5 + 7 * GetFontHeight( MAP_FONT ) ), MAP_HELICOPTER_ETA_POPUP_WIDTH, 0,  sString, MAP_FONT,  &sX, &sY );
+	if( sRemainingFuel < sDistToRefuelSite )
+		SetFontForeground( FONT_LTRED );
+	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 7 * GetFontHeight( MAP_FONT ) ), sString );
+	SetFontForeground( FONT_LTGREEN );
+
+	if( !gGameExternalOptions.fAlternativeHelicopterFuelSystem )
+		InvalidateRegion( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition,  MAP_HELICOPTER_ETA_POPUP_X + MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, sOldYPosition + MAP_HELICOPTER_ETA_POPUP_HEIGHT );
+	else
+		InvalidateRegion( MAP_HELICOPTER_ETA_POPUP_X, sOldYPosition,  MAP_HELICOPTER_ETA_POPUP_X + MAP_HELICOPTER_ETA_POPUP_WIDTH + 20, sOldYPosition + MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT );
+
 	return;
 }
 

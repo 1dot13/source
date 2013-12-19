@@ -255,7 +255,7 @@ typedef struct
 	INT32 iHelicopterVehicleId;
 
 	// total distance travelled
-	INT32 UNUSEDiTotalHeliDistanceSinceRefuel;
+	INT32 iTotalHeliDistanceSinceRefuel;
 
 	// total owed to player
 	INT32 iTotalAccumulatedCostByPlayer;
@@ -481,7 +481,14 @@ typedef struct
 
 	BOOLEAN HiddenNames[500]; //legion by Jazz
 
-	UINT8		ubFiller[278];		//This structure should be 1588 bytes
+	// anv: amount of hours to repair completion
+	UINT8		ubHelicopterHoursToRepair;
+	UINT8		ubHelicopterBasicRepairsSoFar;
+	UINT8		ubHelicopterSeriousRepairsSoFar;
+	UINT8		ubHelicopterHoverTime;
+	UINT8		ubHelicopterTimeToFullRefuel;
+
+	UINT8		ubFiller[273];		//This structure should be 1588 bytes
 
 } GENERAL_SAVE_INFO;
 
@@ -7912,7 +7919,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.iHelicopterVehicleId = iHelicopterVehicleId;
 
 	// total distance travelled
-//	sGeneralInfo.iTotalHeliDistanceSinceRefuel = iTotalHeliDistanceSinceRefuel;
+	sGeneralInfo.iTotalHeliDistanceSinceRefuel = iTotalHeliDistanceSinceRefuel;
 
 	// total owed by player
 	sGeneralInfo.iTotalAccumulatedCostByPlayer = iTotalAccumulatedCostByPlayer;
@@ -7948,6 +7955,17 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 
 	sGeneralInfo.fSkyriderEmptyHelpGiven = gfSkyriderEmptyHelpGiven;
 	sGeneralInfo.ubHelicopterHitsTaken = gubHelicopterHitsTaken;
+
+	// anv: amount of hours to repair completion
+	sGeneralInfo.ubHelicopterHoursToRepair = gubHelicopterHoursToRepair;
+	// repairs so far (for dynamic cost increase)
+	sGeneralInfo.ubHelicopterBasicRepairsSoFar = gubHelicopterBasicRepairsSoFar;
+	sGeneralInfo.ubHelicopterSeriousRepairsSoFar = gubHelicopterSeriousRepairsSoFar;
+	// hover time
+	sGeneralInfo.ubHelicopterHoverTime = gubHelicopterHoverTime;
+	// time to full refuel
+	sGeneralInfo.ubHelicopterTimeToFullRefuel = gubHelicopterTimeToFullRefuel;
+
 	sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM = gfSkyriderSaidCongratsOnTakingSAM;
 	sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn = gubPlayerProgressSkyriderLastCommentedOn;
 
@@ -8219,7 +8237,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowMobileRestrictionsFlag, sizeof(sGeneralInfo.fShowMobileRestrictionsFlag), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fHelicopterAvailable, sizeof(sGeneralInfo.fHelicopterAvailable), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iHelicopterVehicleId, sizeof(sGeneralInfo.iHelicopterVehicleId), sizeof(INT32), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.UNUSEDiTotalHeliDistanceSinceRefuel, sizeof(sGeneralInfo.UNUSEDiTotalHeliDistanceSinceRefuel), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iTotalHeliDistanceSinceRefuel, sizeof(sGeneralInfo.iTotalHeliDistanceSinceRefuel), sizeof(INT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iTotalAccumulatedCostByPlayer, sizeof(sGeneralInfo.iTotalAccumulatedCostByPlayer), sizeof(INT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fSkyRiderAvailable, sizeof(sGeneralInfo.fSkyRiderAvailable), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.UNUSEDfSkyriderMonologue, sizeof(sGeneralInfo.UNUSEDfSkyriderMonologue), sizeof(BOOLEAN), numBytesRead);
@@ -8361,6 +8379,11 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA ){
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubManualRestrictMilitia, sizeof(sGeneralInfo.ubManualRestrictMilitia), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterHoursToRepair, sizeof(sGeneralInfo.ubHelicopterHoursToRepair), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterBasicRepairsSoFar, sizeof(sGeneralInfo.ubHelicopterBasicRepairsSoFar), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterSeriousRepairsSoFar, sizeof(sGeneralInfo.ubHelicopterSeriousRepairsSoFar), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterHoverTime, sizeof(sGeneralInfo.ubHelicopterHoverTime), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterTimeToFullRefuel, sizeof(sGeneralInfo.ubHelicopterTimeToFullRefuel), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller, sizeof(sGeneralInfo.ubFiller), sizeof(UINT8), numBytesRead);
 	} else {
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
@@ -8414,7 +8437,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	iHelicopterVehicleId = sGeneralInfo.iHelicopterVehicleId;
 
 	// total distance travelled
-//	iTotalHeliDistanceSinceRefuel = sGeneralInfo.iTotalHeliDistanceSinceRefuel;
+	iTotalHeliDistanceSinceRefuel = sGeneralInfo.iTotalHeliDistanceSinceRefuel;
 
 	// total owed to player
 	iTotalAccumulatedCostByPlayer = sGeneralInfo.iTotalAccumulatedCostByPlayer;
@@ -8458,6 +8481,17 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	gfSkyriderEmptyHelpGiven = sGeneralInfo.fSkyriderEmptyHelpGiven;
 	gubHelicopterHitsTaken = sGeneralInfo.ubHelicopterHitsTaken;
+
+	// anv: amount of hours to repair completion
+	gubHelicopterHoursToRepair = sGeneralInfo.ubHelicopterHoursToRepair;
+	// repairs so far (for dynamic cost increase)
+	gubHelicopterBasicRepairsSoFar = sGeneralInfo.ubHelicopterBasicRepairsSoFar;
+	gubHelicopterSeriousRepairsSoFar = sGeneralInfo.ubHelicopterSeriousRepairsSoFar;
+	// hover time
+	gubHelicopterHoverTime = sGeneralInfo.ubHelicopterHoverTime;
+	// time to full refuel
+	gubHelicopterTimeToFullRefuel = sGeneralInfo.ubHelicopterTimeToFullRefuel;
+
 	gfSkyriderSaidCongratsOnTakingSAM = sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM;
 	gubPlayerProgressSkyriderLastCommentedOn = sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn;
 

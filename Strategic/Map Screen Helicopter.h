@@ -23,7 +23,7 @@
 
 #define SPIEL_ABOUT_ESTONI_AIRSPACE 26
 #define CONFIRM_DESTINATION 27
-//#define DESTINATION_TOO_FAR 28		// unused
+#define DESTINATION_TOO_FAR 28		// unused // anv: used now
 #define ALTERNATE_FUEL_SITE 26
 #define ARRIVED_IN_HOSTILE_SECTOR 29
 #define BELIEVED_ENEMY_SECTOR 30		// may become unused
@@ -42,6 +42,15 @@
 #define HELI_GOING_DOWN 54
 #define HELI_PATH_THROUGH_ENEMEY_AIRSPACE 55
 #define HELI_HOT_DROP 56
+#define HELI_TOO_DAMAGED_TO_FLY 57
+
+// anv: Waldo quotes
+#define WALDO_REPAIR_PROPOSITION 22
+#define WALDO_SERIOUS_REPAIR_PROPOSITION 23
+#define WALDO_COME_BACK_TOMORROW 24
+#define WALDO_COME_BACK_IN_SOME_TIME 25
+#define WALDO_REPAIR_REFUSED 26
+#define WALDO_REPAIR_COMPLETED 27
 
 // drassen airport sector
 #define AIRPORT_X	gModSettings.ubAirportX //13
@@ -102,10 +111,10 @@ extern BOOLEAN fHelicopterIsAirBorne;
 
 
 // total distance travelled
-//extern INT32 iTotalHeliDistanceSinceRefuel;
+extern INT32 iTotalHeliDistanceSinceRefuel;
 
 // total owed to player
-//extern INT32 iTotalAccumlatedCostByPlayer;
+extern INT32 iTotalAccumlatedCostByPlayer;
 
 // whether or not skyrider is alive and well? and on our side yet?
 extern BOOLEAN fSkyRiderAvailable;
@@ -133,6 +142,13 @@ extern BOOLEAN fRefuelingSiteAvailable[ MAX_NUMBER_OF_REFUEL_SITES ];
 extern BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
 
 extern UINT8 gubHelicopterHitsTaken;
+extern UINT8 gubHelicopterHoursToRepair;
+extern UINT8 gubHelicopterBasicRepairsSoFar;
+extern UINT8 gubHelicopterSeriousRepairsSoFar;
+
+extern UINT8 gubHelicopterHoverTime;
+extern UINT8 gubHelicopterTimeToFullRefuel;
+
 extern BOOLEAN gfSkyriderSaidCongratsOnTakingSAM;
 extern UINT8 gubPlayerProgressSkyriderLastCommentedOn;
 
@@ -145,7 +161,7 @@ extern BOOLEAN	fSAMSitesDisabledFromAttackingPlayer;
 #endif
 
 
-/* ARM: Max. fuel range system removed
+// ARM: Max. fuel range system removed
 // add another sector to how far helictoper has travelled
 void AddSectorToHelicopterDistanceTravelled( void );
 
@@ -161,16 +177,25 @@ INT32 HowFurtherCanHelicopterTravel( void );
 // check if this sector is out of the way
 BOOLEAN IsSectorOutOfTheWay( INT16 sX, INT16 sY );
 
-*/
+
 
 // how far to nearest refuel point from this sector?
 INT32 DistanceToNearestRefuelPoint( INT16 sX, INT16 sY );
 
 // location of closest
-INT32 LocationOfNearestRefuelPoint( BOOLEAN fNotifyPlayerIfNoSafeLZ );
+INT32 LocationOfNearestRefuelPoint( BOOLEAN fNotifyPlayerIfNoSafeLZ, UINT8 ubReturnReason, INT16 sX, INT16 sY );
 
 // refuel helicopter
 void ReFuelHelicopter( void );
+void ReFuelHelicopterForAMinute( void );
+
+void OfferHelicopterRepair( void );
+void OfferHelicopterRepairBoxCallBack( UINT8 ubExitValue );
+void KickOutPassengersBoxCallBack( UINT8 ubExitValue );
+
+UINT16 CalculateHelicopterRepairCost( BOOLEAN fSeriousRepair );
+void StartHelicopterRepair( BOOLEAN fInStrategic, BOOLEAN fCalledByGivingMoney );
+void FinishHelicopterRepair();
 
 // how much will it cost for helicopter to travel through this sector?
 INT32 GetCostOfPassageForHelicopter( INT16 sX, INT16 sY );
@@ -211,6 +236,9 @@ void HandleHeliHoverLong( void );
 // handle a LONG wait in hover mode
 void HandleHeliHoverTooLong( void );
 
+// anv: for alternative fuel system
+void HandleHeliHoverForAMinute( void );
+
 // start the heli hover time
 void StartHoverTime( void );
 
@@ -219,6 +247,8 @@ void DropOffEveryOneInHelicopter( void );
 
 // handle heli entering this sector
 BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY );
+
+BOOLEAN CheckIfHelicopterHasEnoughFuelToReturn( INT16 sX, INT16 sY );
 
 // check for arrival at refuel
 BOOLEAN CheckForArrivalAtRefuelPoint( void );

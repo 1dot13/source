@@ -52,6 +52,8 @@
 	#include "Soldier Profile.h"
 	
 	#include "BriefingRoom_Data.h"
+
+	#include "Map Screen Helicopter.h"
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -1194,7 +1196,16 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 			{
 				SetFactTrue( FACT_LARGE_AMOUNT_OF_MONEY );
 			}
-			usItemToConsider = MONEY;
+
+			// anv: Waldo!
+			if ((*pObj)[0]->data.money.uiMoneyAmount >= CalculateHelicopterRepairCost( FALSE ) )
+			{
+				SetFactTrue( FACT_GIVEN_ENOUGH_TO_REPAIR_HELI );
+			}
+			if ((*pObj)[0]->data.money.uiMoneyAmount >= CalculateHelicopterRepairCost( TRUE ) )
+			{
+				SetFactTrue( FACT_GIVEN_ENOUGH_TO_SERIOUSLY_REPAIR_HELI );
+			}
 			break;
 		case WINE:
 		case BEER:
@@ -3461,6 +3472,20 @@ BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 		RefreshNPCScriptRecord( SKYRIDER, 22 );
 	}
 
+	// anv: 
+	if ( uiSaveGameVersion < WALDO_CAN_REPAIR_HELICOPTER )
+	{
+		RefreshNPCScriptRecord( WALDO, 5 );
+		RefreshNPCScriptRecord( WALDO, 6 );
+		RefreshNPCScriptRecord( WALDO, 7 );
+		RefreshNPCScriptRecord( WALDO, 13 );
+		RefreshNPCScriptRecord( WALDO, 14 );
+		RefreshNPCScriptRecord( WALDO, 15 );
+		RefreshNPCScriptRecord( WALDO, 16 );
+		RefreshNPCScriptRecord( WALDO, 17 );
+		RefreshNPCScriptRecord( WALDO, 18 );
+	}
+	
 	return( TRUE );
 }
 

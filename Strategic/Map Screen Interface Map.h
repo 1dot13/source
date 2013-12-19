@@ -218,6 +218,7 @@ extern UINT16 MAP_HELICOPTER_ETA_POPUP_Y;
 extern UINT16 MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
 extern UINT16 MAP_HELICOPTER_ETA_POPUP_WIDTH;
 extern UINT16 MAP_HELICOPTER_ETA_POPUP_HEIGHT;
+extern UINT16 MAP_HELICOPTER_ETA_POPUP_ALTERNATE_HEIGHT;
 
 // sublevel text string position
 extern UINT16 MAP_LEVEL_STRING_X;
@@ -325,6 +326,9 @@ extern UINT32 guiMapBorderEtaPopUp;
 
 // heli pop up 
 extern UINT32 guiMapBorderHeliSectors;
+
+// anv: alternate heli pop up for alternative fuel system
+extern UINT32 guiMapBorderHeliSectorsAlternate;
 
 // the currently selected town militia
 extern INT16 sSelectedMilitiaTown;

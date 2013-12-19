@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			WALDO_CAN_REPAIR_HELICOPTER						149 // anv: have to refresh Waldo records
 #define			ENCYCLOPEDIA_ITEM_VISIBILITY					148 // Moa: Items discovered during compain have to be saved.
 #define			TRAIT_RADIO_OPERATOR							147 // Flugente: new trait radio operator
 #define			BACKGROUNDS_FIX_UINT8							146 // Flugente: had to change usBackground-vars from UINT8 to UINT16
@@ -67,7 +68,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								ENCYCLOPEDIA_ITEM_VISIBILITY
+#define			SAVE_GAME_VERSION								WALDO_CAN_REPAIR_HELICOPTER
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

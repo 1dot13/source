@@ -1055,10 +1055,10 @@ void HourlyMoraleUpdate( void )
 			{
 				// skip past ourselves and all inactive mercs
 				if (bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
-																														!(pOtherSoldier->bAssignment == IN_TRANSIT ||
-																															pOtherSoldier->flags.fMercAsleep == TRUE ||
-																															pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ||
-																															pOtherSoldier->bAssignment == ASSIGNMENT_POW))
+					!(pOtherSoldier->bAssignment == IN_TRANSIT ||
+						pOtherSoldier->flags.fMercAsleep == TRUE ||
+						pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ||
+						pOtherSoldier->bAssignment == ASSIGNMENT_POW))
 				{
 					if (fSameGroupOnly)
 					{

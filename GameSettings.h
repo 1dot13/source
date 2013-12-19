@@ -1353,6 +1353,21 @@ typedef struct
 
 	BOOLEAN fNoRemoveRandomSectorItems;//dnl ch68 090913
 
+	// anv: helicopter repair settings
+	BOOLEAN fWaldoCanRepairHelicopter;
+	BOOLEAN fAllowWaldoToOfferRepairInStrategic;
+	BOOLEAN fWaldoSubsequentRepairsIncreaseCosts;
+	BOOLEAN fSeriouslyDamagedSkyriderWontFly;
+
+	BOOLEAN fAlternativeHelicopterFuelSystem;
+	BOOLEAN fHelicopterPassengersCanGetHit;
+
+	UINT16 usHelicopterHoverCostOnGreenTile;
+	UINT16 usHelicopterHoverCostOnRedTile;
+
+	BOOLEAN fHelicopterReturnToBaseIsNotFree;
+	BOOLEAN fPaySkyriderInBase;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
@@ -1399,6 +1414,36 @@ typedef struct
 	UINT8 ubRiposteChance;
 
 } TAUNTS_SETTINGS;
+
+typedef struct
+{
+	UINT16 usHelicopterBasicRepairCost;
+	UINT16 usHelicopterSeriousRepairCost;
+	UINT8 ubHelicopterBasicRepairTime;
+	UINT8 ubHelicopterBasicRepairTimeVariation;
+	UINT8 ubHelicopterSeriousRepairTime;
+	UINT8 ubHelicopterSeriousRepairTimeVariation;
+	UINT16 usHelicopterBasicCostIncreaseAfterBasicRepair;
+	UINT16 usHelicopterBasicCostIncreaseAfterSeriousRepair;
+	UINT16 usHelicopterSeriousCostIncreaseAfterBasicRepair;
+	UINT16 usHelicopterSeriousCostIncreaseAfterSeriousRepair;
+	UINT16 usHelicopterBasicRepairCostMax;
+	UINT16 usHelicopterSeriousRepairCostMax;
+
+	UINT8 ubHelicopterDistanceWithoutRefuel;
+	UINT8 ubHelicopterHoverTimePerFuelUnit;
+	UINT8 ubHelicopterRefuelTime;
+	UINT8 ubHelicopterTimeDelayForHoverWait;
+	UINT8 ubHelicopterTimeDelayForHoverWaitTooLong;
+	BOOLEAN fAskBeforeKickingPassengersOut;
+
+
+	UINT8 ubHelicopterSAMSiteAccuracy;
+	UINT8 ubHelicopterPassengerHitChance;
+	UINT8 ubHelicopterPassengerHitMinDamage;
+	UINT8 ubHelicopterPassengerHitMaxDamage;
+
+} HELICOPTER_SETTINGS;
 
 typedef struct
 {
@@ -2086,6 +2131,8 @@ extern SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
 
 extern TAUNTS_SETTINGS gTauntsSettings;
 
+extern HELICOPTER_SETTINGS gHelicopterSettings;
+
 // HEADROCK HAM 4: CTH constants read from a separate INI file
 extern CTH_CONSTANTS gGameCTHConstants;
 
@@ -2103,6 +2150,7 @@ void LoadGameAPBPConstants();
 // HEADROCK HAM 4: Read CTH/Shooting coefficients from file
 void LoadCTHConstants();
 void LoadTauntsSettings();
+void LoadHelicopterRepairRefuelSettings();
 void FreeGameExternalOptions();
 
 void InitGameOptions();
