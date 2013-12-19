@@ -548,12 +548,18 @@ enum{
 	SKILLS_RADIO_TURNOFF,
 	SKILLS_RADIO_LAST = SKILLS_RADIO_TURNOFF,
 
+	// various
+	SKILLS_VARIOUS_FIRST,
+	SKILLS_SPOTTER = SKILLS_VARIOUS_FIRST,
+	SKILLS_VARIOUS_LAST = SKILLS_SPOTTER,
+
 	SKILLS_MAX,
 };
 
 // Flugente: certain skills/traits/taints add effects that require a counter, here are enums for these
 enum {
 	SOLDIER_COUNTER_RADIO_ARTILLERY,		// there is actually no need for an artillery timer, but we use one to forbid the same AI guy ordering multiple strikes at once
+	SOLDIER_COUNTER_SPOTTER,				// used to determine wether we are a spotter
 	
 	SOLDIER_COUNTER_MAX = 20,				// enough space for fillers
 };
@@ -1800,6 +1806,11 @@ public:
 	void	RadioFail();							// display and error sound used either when the radio set fails or the sector is jammed - the player knows of the error, but cannot be sure of the cause
 	void	DepleteActiveRadioSetEnergy(BOOLEAN fActivation = FALSE, BOOLEAN fAssignment = FALSE);
 
+	// Flugente: spotter
+	BOOLEAN IsSpotting();
+	BOOLEAN CanSpot( INT32 sTargetGridNo = -1 );
+	BOOLEAN BecomeSpotter( INT32 sTargetGridNo );
+
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	
@@ -1933,6 +1944,7 @@ BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo);	// retriev
 BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 bTeam );		// can an artillery strike be ordered FROM this sector
 BOOLEAN SectorJammed();
 BOOLEAN PlayerTeamIsScanning();
+UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam);				// bonus for snipers firing at this location (we get this if there are spotters)
 
 //typedef struct
 class OLDSOLDIERTYPE_101

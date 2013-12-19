@@ -869,6 +869,9 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 	INT16 sNewAP = 0;
 	INT8	bNewBreath;
 
+	// Flugente: if we spend AP, then spotter status ends
+	if ( sAPCost > 0)
+		pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER] = 0;
 
 	// in real time, there IS no AP cost, (only breath cost)
 	if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )

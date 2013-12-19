@@ -2212,6 +2212,21 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
+			// Flugente: spotter
+			if ( MercPtrs[ pFace->ubSoldierID ]->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0 )
+			{
+				if (  MercPtrs[ pFace->ubSoldierID ]->IsSpotting() )
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24 );
+					bNumRightIcons++;
+				}
+				else
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 23 );
+					bNumRightIcons++;
+				}
+			}
+
 			switch( pSoldier->bAssignment )
 			{
 				case DOCTOR:

@@ -1358,6 +1358,13 @@ void CalculateTraitRange()
 		}
 		break;
 
+	case VARIOUSSKILLS:
+		{
+			range1 = gGameExternalOptions.usSpotterRange;
+			range2 = gGameExternalOptions.usSpotterRange * 2;
+		}
+		break;
+
 	default:
 		return;
 	}

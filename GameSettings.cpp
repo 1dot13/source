@@ -1229,6 +1229,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fScopeModes						= iniReader.ReadBoolean("Tactical Gameplay Settings","USE_SCOPE_MODES", FALSE);
 	gGameExternalOptions.fDisplayScopeModes					= iniReader.ReadBoolean("Tactical Gameplay Settings","DISPLAY_SCOPE_MODES", FALSE);
 
+	gGameExternalOptions.usSpotterPreparationTurns			= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_PREPARATIONTURNS", 3, 3,  10);
+	gGameExternalOptions.usSpotterRange						= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_RANGE",			10, 0,  30);
+	gGameExternalOptions.usSpotterMaxCTHBoost				= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_MAX_CTHBOOST",	50, 0, 100);
+		
 	gGameExternalOptions.ubExternalFeeding					= iniReader.ReadInteger("Tactical Gameplay Settings","EXTERNAL_FEEDING", 2, 0, 2);
 	
 	// WANNE: Externalized grid number of new merc when they arrive with the helicopter (by Jazz)
@@ -3012,7 +3016,8 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_HANDCUFF]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_HANDCUFF",50),50);
 	APBPConstants[AP_APPLYITEM]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_APPLYITEM",50),50);	
 	APBPConstants[AP_INVENTORY_ARM]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_ARM",50),50);
-
+	APBPConstants[AP_SPOTTER]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SPOTTER",20),20);
+	
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
 

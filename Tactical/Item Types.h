@@ -765,8 +765,8 @@ extern OBJECTTYPE gTempObject;
 #define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
 #define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
 
-#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
-#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
+#define SPOTTERITEM				0x10000000	//268435456	// binocular
+/*#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
 #define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
@@ -1164,6 +1164,9 @@ typedef struct
 
 	// silversurfer: item provides breath regeneration bonus while resting
 	UINT8	ubSleepModifier;
+
+	// Flugente: spoting effectiveness
+	INT16	usSpotting;
 
 } INVTYPE;
 

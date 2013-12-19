@@ -10179,34 +10179,34 @@ INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN
 // For a "default" value, feed the function a value of ubStance=ANIM_STAND.
 
 
-INT32 GetItemNCTHModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
+INT32 GetItemModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 {
 	INT32 iModifier = 0;
 
 	switch( usType )
 	{
-	case NCTHMODIFIER_FLATBASE:
+	case ITEMMODIFIER_FLATBASE:
 		iModifier += BonusReduceMore( Item[pObj->usItem].flatbasemodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_PERCENTBASE:
+	case ITEMMODIFIER_PERCENTBASE:
 		iModifier += BonusReduceMore( Item[pObj->usItem].percentbasemodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_FLATAIM:
+	case ITEMMODIFIER_FLATAIM:
 		iModifier += BonusReduceMore( Item[pObj->usItem].flataimmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_PERCENTAIM:
+	case ITEMMODIFIER_PERCENTAIM:
 		iModifier += BonusReduceMore( Item[pObj->usItem].percentaimmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_PERCENTCAP:
+	case ITEMMODIFIER_PERCENTCAP:
 		iModifier += BonusReduceMore( Item[pObj->usItem].percentcapmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_PERCENTHANDLING:
+	case ITEMMODIFIER_PERCENTHANDLING:
 		iModifier += BonusReduceMore( Item[pObj->usItem].percenthandlingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_DROPCOMPENSATION:
+	case ITEMMODIFIER_DROPCOMPENSATION:
 		iModifier += BonusReduceMore( Item[pObj->usItem].percentdropcompensationmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_COUNTERFORCEMAX:
+	case ITEMMODIFIER_COUNTERFORCEMAX:
 		iModifier += BonusReduceMore( Item[pObj->usItem].maxcounterforcemodifier[ubRef], (*pObj)[0]->data.objectStatus );
 
 		if(ubRef == 1)
@@ -10215,17 +10215,21 @@ INT32 GetItemNCTHModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 			iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE;
 
 		break;
-	case NCTHMODIFIER_COUNTERFORCEACCURACY:
+	case ITEMMODIFIER_COUNTERFORCEACCURACY:
 		iModifier += BonusReduceMore( Item[pObj->usItem].counterforceaccuracymodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_COUNTERFORCEFREQUENCY:
+	case ITEMMODIFIER_COUNTERFORCEFREQUENCY:
 		iModifier += BonusReduceMore( Item[pObj->usItem].counterforcefrequencymodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_TRACKING:
+	case ITEMMODIFIER_TRACKING:
 		iModifier += BonusReduceMore( Item[pObj->usItem].targettrackingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case NCTHMODIFIER_AIMLEVELS:
+	case ITEMMODIFIER_AIMLEVELS:
 		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
+		break;
+
+	case ITEMMODIFIER_SPOTTER:
+		iModifier += BonusReduceMore( Item[pObj->usItem].usSpotting, (*pObj)[0]->data.objectStatus );
 		break;
 	}
 
@@ -10233,15 +10237,15 @@ INT32 GetItemNCTHModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 }
 
 // Flugente: unified function (no need to have 12 functions that all do the same thing and clutter the code)
-INT32 GetObjectNCTHModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance, UINT8 usType )
+INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance, UINT8 usType )
 {
 	INT32 iModifier=0;
 
 	UINT8 ubRef = GetStanceModifierRef( ubStance );
 		
-	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	if (pObj->exists() )//&& UsingNewCTHSystem() == true)
 	{
-		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
+		iModifier += GetItemModifier( pObj, ubRef, usType);
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
@@ -10251,7 +10255,7 @@ INT32 GetObjectNCTHModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubSt
 				if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN && IsAttachmentClass(iter->usItem, (AC_SCOPE|AC_SIGHT|AC_IRONSIGHT) ) )
 					continue;
 
-				iModifier += GetItemNCTHModifier( (&(*iter)), ubRef, usType);
+				iModifier += GetItemModifier( (&(*iter)), ubRef, usType);
 			}
 		}
 
@@ -10263,7 +10267,7 @@ INT32 GetObjectNCTHModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubSt
 
 			// only use scope mode if gun is in hand, otherwise an error might occur!
 			if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
-				iModifier += GetItemNCTHModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
+				iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
 		}
 	}
 
@@ -12999,8 +13003,8 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
 			stance = ANIM_PRONE;
 
-		INT32 moda = GetObjectNCTHModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], stance, NCTHMODIFIER_AIMLEVELS );
-		INT32 modb = GetObjectNCTHModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight, NCTHMODIFIER_AIMLEVELS );
+		INT32 moda = GetObjectModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], stance, ITEMMODIFIER_AIMLEVELS );
+		INT32 modb = GetObjectModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_AIMLEVELS );
 		aimLevels += (INT32) ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	}
 
@@ -13381,7 +13385,7 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		}
 
 		// HEADROCK HAM 4: This modifier from the weapon and its attachments replaces the generic bipod bonus.
-		aimLevels += GetObjectNCTHModifier( pSoldier, pObj, ubStance, NCTHMODIFIER_AIMLEVELS );
+		aimLevels += GetObjectModifier( pSoldier, pObj, ubStance, ITEMMODIFIER_AIMLEVELS );
 
 		aimLevels += GetAimLevelsTraitModifier( pSoldier, pObj );
 

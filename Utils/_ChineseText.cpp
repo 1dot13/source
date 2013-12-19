@@ -2128,6 +2128,9 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"监听", //L"Eavesdrop",
 	L"呼叫支援", //L"Call reinforcements",
 	L"关闭接收器", //L"Switch off radio set",
+
+	// various
+	L"Spotter",		// TODO.Translate
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2140,6 +2143,9 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"使用无线电设备持续监听敌军动向。", //L"Use your radio equipment to continously listen for enemy movement",
 	L"从邻区呼叫支援。", //L"Call in reinforcements from neighbouring sectors.",
 	L"关闭无线电设备以节约电池。", //L"Turn off radio set to save batteries.",
+
+	// various
+	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2154,16 +2160,6 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s|或%s|和%s或%s或更高\n" //L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - 恶魔的财产", //L" - posession by a demon"
 };
-
-//STR16 pTalkToAllMenuStrings[] =
-//{
-//	L"Attack", // set militia to aggresive
-//	L"Hold Position", // set militia to stationary
-//	L"Retreat", // retreat militia
-//	L"Come to me", // retreat militia
-//	L"Get down", // retreat militia		 
-//	L"Cancel", // cancel this menu
-//};
 
 STR16 pRemoveMercStrings[] =
 {
@@ -2398,6 +2394,7 @@ STR16 gzMercSkillTextNew[] =
 	L"间谍",				// 41
 	L"Placeholder",		// for radio operator (minor trait)
 	L"更多...",
+	L"various",			// for VARIOUSSKILLS	// TODO.Translate
 };
 //////////////////////////////////////////////////////////
 
@@ -7969,6 +7966,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％暴力开门成功率\n", //L" %s%d%% chance of success with door breaching charges\n",
 	L" %s%d%％射击生物准确率(CTH)\n", //L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%％医疗保证金\n", //L" %s%d%% insurance cost\n",
+	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =

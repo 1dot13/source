@@ -1271,6 +1271,11 @@ typedef struct
 	BOOLEAN fScopeModes;							// allow the player to toggle between existing scopes/sights
 	BOOLEAN fDisplayScopeModes;						// allow display of scope modes
 
+	// Flugente: Spotter skill
+	UINT8	usSpotterPreparationTurns;
+	UINT16	usSpotterRange;
+	UINT16	usSpotterMaxCTHBoost;
+	
 	// Flugente: External Feeding
 	UINT8	ubExternalFeeding;						// allow external feeding of guns (0 = no, 1 = only for others, 2 = we can also fed ourselves)
 

@@ -2124,6 +2124,9 @@ STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
 	L"Eavesdrop",
 	L"Call reinforcements",
 	L"Switch off radio set",
+
+	// various
+	L"Spotter",		// TODO.Translate
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2136,6 +2139,9 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Use your radio equipment to continously listen for enemy movement",
 	L"Call in reinforcements from neighbouring sectors.",
 	L"Turn off radio set to save batteries.",
+
+	// various
+	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2150,18 +2156,6 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - posession by a demon",
 };
-
-
-//STR16 pTalkToAllMenuStrings[] =
-//{
-//	L"Attack", // set militia to aggresive
-//	L"Hold Position", // set militia to stationary
-//	L"Retreat", // retreat militia
-//	L"Come to me", // retreat militia
-//	L"Get down", // retreat militia		 
-//	L"Cancel", // cancel this menu
-//};
-
 
 STR16 pRemoveMercStrings[] =
 {
@@ -2393,6 +2387,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Spy",				// 41
 	L"Placeholder",		// for radio operator (minor trait)
 	L"More...",
+	L"various",			// for VARIOUSSKILLS	// TODO.Translate
 };
 //////////////////////////////////////////////////////////
 
@@ -7985,6 +7980,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% chance of success with door breaching charges\n",
 	L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%% insurance cost\n",
+	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate

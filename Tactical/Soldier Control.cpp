@@ -17039,7 +17039,10 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	// effects eventually run out
 	for (UINT8 counter = 0; counter < SOLDIER_COUNTER_MAX; ++counter)
 	{
-		usSkillCounter[counter]	= max(0, usSkillCounter[counter] - 1 );
+		if ( counter == SOLDIER_COUNTER_SPOTTER && usSkillCounter[counter] > 0 )
+			usSkillCounter[counter]	= min(255, usSkillCounter[counter] + 1 );
+		else
+			usSkillCounter[counter]	= max(0, usSkillCounter[counter] - 1 );
 	}
 }
 
@@ -17068,6 +17071,11 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 		
 	case SKILLS_RADIO_TURNOFF:
 		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE ) ) && (IsJamming() || IsScanning() || IsRadioListening()) )
+			canuse = TRUE;
+		break;
+
+	case SKILLS_SPOTTER:
+		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_SPOTTER], 0, FALSE ) ) && CanSpot() )
 			canuse = TRUE;
 		break;
 		
@@ -17120,6 +17128,10 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 
 	case SKILLS_RADIO_TURNOFF:
 		return SwitchOffRadio();
+		break;
+
+	case SKILLS_SPOTTER:
+		return BecomeSpotter(usMapPos);
 		break;
 
 	default:
@@ -17176,6 +17188,17 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"a working radio set" );
 				wcscat( skilldescarray, atStr );
 
+				break;
+				
+			case SKILLS_SPOTTER:
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_SPOTTER] );
+				wcscat( skilldescarray, atStr );
+
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"a binocular" );
+				wcscat( skilldescarray, atStr );
+
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"patience" );
+				wcscat( skilldescarray, atStr );
 				break;
 
 			default:
@@ -18034,6 +18057,81 @@ void SOLDIERTYPE::DepleteActiveRadioSetEnergy(BOOLEAN fActivation, BOOLEAN fAssi
 		}
 	}
 }
+
+// Flugente: spotter
+BOOLEAN SOLDIERTYPE::IsSpotting()
+{
+	if ( this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0 )
+	{
+		// do we still fulfil the requirements?
+		if ( CanSpot() )
+		{
+			// we are only a spotter if we did this long enough
+			if ( this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] >= gGameExternalOptions.usSpotterPreparationTurns )
+				return TRUE;
+			else
+				return FALSE;
+		}
+
+		// no item -> lose status
+		this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] = 0;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::CanSpot( INT32 sTargetGridNo )
+{
+	if ( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->bSoldierFlagMask & SOLDIER_POW) )
+		return FALSE;
+
+	// additional checks if we want to know wether we can target a specific location
+	if ( sTargetGridNo != NOWHERE && PythSpacesAway(this->sGridNo, sTargetGridNo) >= 2 * gGameExternalOptions.usSpotterRange )
+	{
+		UINT16 usSightLimit = this->GetMaxDistanceVisible(sTargetGridNo, this->pathing.bLevel, CALC_FROM_WANTED_DIR);
+		
+		INT32 val = SoldierToVirtualSoldierLineOfSightTest( this, sTargetGridNo, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE, usSightLimit );
+
+		// error if we cannot see the target
+		if ( !val )
+			return FALSE;
+	}
+	
+	// no item -> no spotting
+	if (   !( this->inv[HANDPOS].exists()       && GetObjectModifier( this, &(this->inv[ HANDPOS ]),       gAnimControl[ this->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER ) ) 
+		&& !( this->inv[SECONDHANDPOS].exists() && GetObjectModifier( this, &(this->inv[ SECONDHANDPOS ]), gAnimControl[ this->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER ) ) )
+		return FALSE;
+	
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::BecomeSpotter( INT32 sTargetGridNo )
+{
+	// not possible if already scanning
+	if ( this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already trying to spot, no need to do so again!");
+		return FALSE;
+	}
+
+	if ( !CanSpot( sTargetGridNo ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Cannot spot that location!");
+		return FALSE;
+	}
+
+	// deduct APs
+	DeductPoints(this, APBPConstants[AP_SPOTTER], 0, 0);
+
+	// add to counter
+	this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] = 1;
+
+	// stop any multi-turn action
+	CancelMultiTurnAction(FALSE);
+	
+	return TRUE;
+}
+
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
@@ -20345,6 +20443,10 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	if ( pSoldier == NULL )
 		return( FALSE );
 
+	// Flugente: compatibility with skills
+	if ( uiSkillTraitNumber == VARIOUSSKILLS )
+		return TRUE;
+
 	INT8 bNumMajorTraitsCounted = 0;
 	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
 	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
@@ -21269,6 +21371,78 @@ BOOLEAN PlayerTeamIsScanning()
 	}
 
 	return FALSE;
+}
+
+// bonus for snipers firing at this location (we get this if there are spotters)
+UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam)
+{
+	INT16 bestvalue = 0;
+
+	SOLDIERTYPE* pSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ bTeam ].bFirstID;
+	INT32 lastid = gTacticalStatus.Team[ bTeam ].bLastID;
+	for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
+	{
+		if ( pSoldier != pSniper && pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ 
+			&& pSoldier->IsSpotting() 
+			&& PythSpacesAway(pSoldier->sGridNo, pSniper->sGridNo) <= gGameExternalOptions.usSpotterRange
+			&& PythSpacesAway(pSoldier->sGridNo, sGridNo) >= 2 * gGameExternalOptions.usSpotterRange )
+		{
+			BOOLEAN targetseen = FALSE;
+
+			UINT usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
+
+			if ( usID != NOBODY && SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[usID], 0, NO_DISTANCE_LIMIT, AIM_SHOT_HEAD ) > 0 )
+				targetseen = TRUE;
+			else if ( SoldierToVirtualSoldierLineOfSightTest( pSoldier, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, FALSE, NO_DISTANCE_LIMIT ) > 0 )
+				targetseen = TRUE;
+
+			if ( targetseen )
+			{
+				// spotter items are used to determine effectiveness
+				UINT16 itembonus = 0;
+				if ( pSoldier->inv[HANDPOS].exists() )
+					itembonus += GetObjectModifier( pSoldier, &(pSoldier->inv[ HANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER );
+				
+				if ( pSoldier->inv[SECONDHANDPOS].exists() )
+					itembonus += GetObjectModifier( pSoldier, &(pSoldier->inv[ SECONDHANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER );
+
+				// cap itembonus to prohibit exploit behaviour by adding dozens of attachments on a gun
+				itembonus = min(itembonus, 200);
+								
+				// base spotter effectivity depends on 40% items, 30% experience, 20% marksmanship an 10% leadership -> value between 0 and 1000
+				UINT32 value = 2 * itembonus + 30 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveMarksmanship( pSoldier) + EffectiveLeadership( pSoldier);
+				
+				// lowered effectivity if we're fatigued
+				ReducePointsForFatigue( pSoldier, &value );
+
+				// lowered effectivity if we're wounded
+				value = (value * pSoldier->stats.bLife / pSoldier->stats.bLifeMax);
+
+				// relation between sniper and spotter is important - they need to trust each other
+				INT8 relation = min( 2*BUDDY_OPINION, max( 2*HATED_OPINION, SoldierRelation(pSoldier, pSniper) + SoldierRelation(pSniper, pSoldier) ) );
+
+				// a good relation boosts value tremendously - a bad relation makes spotting useless
+				// the spotter background also alters effectiveness
+				// -> value between 0 and 2300
+				value = (value * ( max(0, 100 + 2 * relation + pSoldier->GetBackgroundValue(BG_PERC_SPOTTER)) )) / 100;
+
+				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4600
+				value = (value * min(pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER], 2 * gGameExternalOptions.usSpotterPreparationTurns)) / gGameExternalOptions.usSpotterPreparationTurns;
+				
+				// reasonable values: 0 to gGameExternalOptions.usSpotterMaxCTHBoost
+				value = (value * gGameExternalOptions.usSpotterMaxCTHBoost) / 4600;
+								
+				if ( value > bestvalue )
+					bestvalue = value;
+			}
+		}
+	}
+
+	// limit value
+	bestvalue = min( gGameExternalOptions.usSpotterMaxCTHBoost, max(0, bestvalue ) );
+
+	return bestvalue;
 }
 
 void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier)

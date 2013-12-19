@@ -80,4 +80,7 @@ void DailyMoraleUpdate( SOLDIERTYPE *pSoldier );
 
 void DecayTacticalMoraleModifiers( void );
 
+// Flugente: calculate A's opinion of B
+INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB);
+
 #endif
