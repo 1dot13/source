@@ -1303,8 +1303,7 @@ INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB)
 {
 	INT8 bOpinion = 0;
 
-	// WANNE: Fix by Headrock: Morale and the ice-cream truck.
-	if ( !OKToCheckOpinion(pSoldierB->ubProfile))
+	if ( !OKToCheckOpinion(pSoldierA->ubProfile) || !OKToCheckOpinion(pSoldierB->ubProfile) )
 		return 0;
 
 	MERCPROFILESTRUCT*	pProfile = &(gMercProfiles[ pSoldierA->ubProfile ]);

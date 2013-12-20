@@ -21392,25 +21392,25 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam)
 
 			UINT usID = WhoIsThere2( sGridNo, pSniper->bTargetLevel );
 
+			// is someone is at the sGridNo, check wether the spotter can see any part of him check wether head can be seen)
 			if ( usID != NOBODY && SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[usID], 0, NO_DISTANCE_LIMIT, AIM_SHOT_HEAD ) > 0 )
 				targetseen = TRUE;
-			else if ( SoldierToVirtualSoldierLineOfSightTest( pSoldier, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, FALSE, NO_DISTANCE_LIMIT ) > 0 )
+			// otherwise check wether we can see the ground floor
+			else if ( SoldierToVirtualSoldierLineOfSightTest( pSoldier, sGridNo, pSniper->pathing.bLevel, ANIM_PRONE, FALSE, NO_DISTANCE_LIMIT ) > 0 )
 				targetseen = TRUE;
 
 			if ( targetseen )
 			{
-				// spotter items are used to determine effectiveness
+				// spotter items are used to determine effectiveness. cap each hand item to a maximum of 100 pts (to keep players from using guns with tons of attachments that have been declared 'spotter items')
 				UINT16 itembonus = 0;
 				if ( pSoldier->inv[HANDPOS].exists() )
-					itembonus += GetObjectModifier( pSoldier, &(pSoldier->inv[ HANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER );
+					itembonus += min(100, GetObjectModifier( pSoldier, &(pSoldier->inv[ HANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER ) );
 				
 				if ( pSoldier->inv[SECONDHANDPOS].exists() )
-					itembonus += GetObjectModifier( pSoldier, &(pSoldier->inv[ SECONDHANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER );
+					itembonus += min(100, GetObjectModifier( pSoldier, &(pSoldier->inv[ SECONDHANDPOS ]), gAnimControl[ pSoldier->usAnimState ].ubEndHeight, ITEMMODIFIER_SPOTTER ) );
 
-				// cap itembonus to prohibit exploit behaviour by adding dozens of attachments on a gun
-				itembonus = min(itembonus, 200);
-								
-				// base spotter effectivity depends on 40% items, 30% experience, 20% marksmanship an 10% leadership -> value between 0 and 1000
+				// base spotter effectivity depends on 40% items, 30% experience, 20% marksmanship an 10% leadership 
+				// the nominal value is between 0 and 1000 (though the actual value can be raised higher, due to effective stat and level boni)
 				UINT32 value = 2 * itembonus + 30 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveMarksmanship( pSoldier) + EffectiveLeadership( pSoldier);
 				
 				// lowered effectivity if we're fatigued
@@ -21418,20 +21418,59 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam)
 
 				// lowered effectivity if we're wounded
 				value = (value * pSoldier->stats.bLife / pSoldier->stats.bLifeMax);
+				
+				// effectivity of spotter and sniper working together in percent
+				UINT16 effectivity = 100;
 
-				// relation between sniper and spotter is important - they need to trust each other
+				// sociable mercs get a bonus, loners get a malus
+				if ( OKToCheckOpinion(pSoldier->ubProfile) )
+				{
+					MERCPROFILESTRUCT*	pProfile = &(gMercProfiles[ pSoldier->ubProfile ]);
+
+					switch( pProfile->bCharacterTrait )
+					{
+					case CHAR_TRAIT_SOCIABLE:
+						effectivity += 10;
+						break;
+
+					case CHAR_TRAIT_LONER:
+						effectivity -= 10;
+						break;
+					}
+				}
+
+				if ( OKToCheckOpinion(pSniper->ubProfile) )
+				{
+					MERCPROFILESTRUCT*	pProfile_Sniper = &(gMercProfiles[ pSniper->ubProfile ]);
+
+					switch( pProfile_Sniper->bCharacterTrait )
+					{
+					case CHAR_TRAIT_SOCIABLE:
+						effectivity += 10;
+						break;
+
+					case CHAR_TRAIT_LONER:
+						effectivity -= 10;
+						break;
+					}
+				}
+
+				// relation between sniper and spotter is important - they need to trust each other (-50 to 50)
 				INT8 relation = min( 2*BUDDY_OPINION, max( 2*HATED_OPINION, SoldierRelation(pSoldier, pSniper) + SoldierRelation(pSniper, pSoldier) ) );
 
+				// relation counts twice. Also account for special background. Effectivity cannot be lower than 0%!
+				effectivity = max(0, effectivity + 2 * relation + pSoldier->GetBackgroundValue(BG_PERC_SPOTTER) );
+				
 				// a good relation boosts value tremendously - a bad relation makes spotting useless
 				// the spotter background also alters effectiveness
-				// -> value between 0 and 2300
-				value = (value * ( max(0, 100 + 2 * relation + pSoldier->GetBackgroundValue(BG_PERC_SPOTTER)) )) / 100;
+				// -> value between 0 and 2000
+				value = (value * effectivity ) / 100;
 
 				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4600
 				value = (value * min(pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER], 2 * gGameExternalOptions.usSpotterPreparationTurns)) / gGameExternalOptions.usSpotterPreparationTurns;
 				
 				// reasonable values: 0 to gGameExternalOptions.usSpotterMaxCTHBoost
-				value = (value * gGameExternalOptions.usSpotterMaxCTHBoost) / 4600;
+				value = (value * gGameExternalOptions.usSpotterMaxCTHBoost) / 4000;
 								
 				if ( value > bestvalue )
 					bestvalue = value;
