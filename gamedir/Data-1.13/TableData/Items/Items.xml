@@ -6128,9 +6128,9 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DayVisionRangeBonus>100</DayVisionRangeBonus>
-		<BrightLightVisionRangeBonus>80</BrightLightVisionRangeBonus>
-		<PercentTunnelVision>70</PercentTunnelVision>
+		<DayVisionRangeBonus>60</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>50</BrightLightVisionRangeBonus>
+		<PercentTunnelVision>40</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<usSpotting>50</usSpotting>
 		<STAND_MODIFIERS />
@@ -6165,9 +6165,9 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
-		<DayVisionRangeBonus>60</DayVisionRangeBonus>
-		<BrightLightVisionRangeBonus>50</BrightLightVisionRangeBonus>
-		<PercentTunnelVision>40</PercentTunnelVision>
+		<DayVisionRangeBonus>100</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>80</BrightLightVisionRangeBonus>
+		<PercentTunnelVision>70</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<usSpotting>70</usSpotting>
 		<STAND_MODIFIERS />
