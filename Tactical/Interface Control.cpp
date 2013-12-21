@@ -1243,11 +1243,13 @@ void DrawCounters( SOLDIERTYPE *pSoldier )
 				{
 				case 0:				// show damage as usual
 					if( pSoldier->sDamage > 0 )
+					{
 						//PrintCounter( sDamageX, sDamageY, pSoldier->sDamage, widthDamage, FONT_MCOLOR_WHITE, PRINT_SCALE_PLAIN_NUMBER );
 						swprintf( pStr, L"-%d ", pSoldier->sDamage );
 						gprintfdirty( sDamageX, sDamageY, pStr );
 						mprintf( sDamageX, sDamageY, pStr );
 						widthDamage += StringPixLength ( pStr, TINYFONT1 );
+					}
 				break;
 				case 1:				// show ? indicator
 					if( pSoldier->sDamage != 0 )
