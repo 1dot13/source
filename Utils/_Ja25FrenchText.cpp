@@ -253,9 +253,9 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"Sera détecté(e) par des actions suspectes ou un paquetage douteux\nou d'être près d'un cadavre encore chaud\n",
 	L"Sera automatiquement détecté(e) avec un\ndéguisement de soldat à %d cases d'un ennemi\n",
 	L"Sera automatiquement détecté(e) avec un déguisement de soldat à %d cases d'un cadavre encore chaud\n",
-	L"+%d%s CTH with covert melee weapons\n",	// TODO.Translate
-	L"+%d%s chance of instakill with covert melee weapons\n",	// TODO.Translate
-	L"Disguise AP cost lowered by %d%s.\n",	// TODO.Translate
+	L"+%d%s de chance de toucher avec une arme d'espion\n",
+	L"+%d%s de chance de tuer un ennemi instantanément avec une arme d'espion\n",
+	L"Le nombre de PA pour se déguiser, est réduit de %d%s\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate

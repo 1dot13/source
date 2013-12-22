@@ -2095,7 +2095,7 @@ STR16 pAssignMenuStrings[] =
 	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Formation", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
-	L"Construction", // the merc is using/staffing a facility
+	L"Affectation", // the merc is using/staffing a facility
 	L"Annuler", // cancel this menu
 };
 
@@ -3402,7 +3402,7 @@ STR16 pwMineStrings[] =
 	L"Production",
 	L"État",
 	L"Productivité",
-	L"Resource",				// 10	// TODO.Translate
+	L"Type de minerai",				// 10
 	L"Contrôle de la ville",
 	L"Loyauté de la ville",
 //	L"Mineurs au travail",
@@ -4501,8 +4501,8 @@ STR16			MercInfo[] =
 	L"Vous ne pouvez engager plus de 18 mercenaires.",
 	L"Acheter paquetage ?",
 	L"Indisponible",											
-	L"Payez sa solde"
-	L"Biographie", // TODO.Translate
+	L"Payez sa solde", //TODO.Translate
+	L"Biographie", //TODO.Translate
 	L"Inventaire",								
 };
 
