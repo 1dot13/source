@@ -35,14 +35,6 @@ enum{
 };
 
 
-/*
-enum{
-	MAP_BORDER_RAISE_LEVEL=0,
-	MAP_BORDER_LOWER_LEVEL,
-};
-*/
-
-
 // HEADROCK HAM 4: Turned these into EXTERNS to allow dynamic modification
 //#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
 extern UINT16 MAP_LEVEL_MARKER_X;
@@ -57,13 +49,8 @@ extern BOOLEAN fShowTeamFlag;
 extern BOOLEAN fShowMilitia;
 extern BOOLEAN fShowAircraftFlag;
 extern BOOLEAN fShowItemsFlag;
-extern BOOLEAN fZoomFlag;
 extern BOOLEAN fShowMobileRestrictionsFlag; // HEADROCK HAM 4: Manual Mobile Militia mode
 //extern BOOLEAN fShowVehicleFlag;
-
-//extern BOOLEAN fMapScrollDueToPanelButton;
-//extern BOOLEAN fCursorIsOnMapScrollButtons;
-//extern BOOLEAN fDisabledMapBorder;
 
 // scroll animation
 extern INT32 giScrollButtonState;
@@ -71,10 +58,8 @@ extern INT32 giScrollButtonState;
 BOOLEAN LoadMapBorderGraphics( void );
 void DeleteMapBorderGraphics( void );
 void RenderMapBorder( void );
-//void RenderMapBorderCorner( void );
 //void ShowDestinationOfPlottedPath( STR16 pLoc );
 //void ResetAircraftButton( void );
-//void HandleMapScrollButtonStates( void );
 
 void ToggleShowTownsMode( void );
 void ToggleShowMinesMode( void );
@@ -91,12 +76,6 @@ void TurnOnItemFilterMode( void );
 // HEADROCK HAM 4: Turn on Mobile Militia Restrictions Filter
 void TurnOnMobileFilterMode( void );
 
-/*
-// enable disable map border
-void DisableMapBorderRegion( void );
-void EnableMapBorderRegion( void );
-*/
-
 // create/destroy buttons for map border region
 void DeleteMapBorderButtons( void );
 BOOLEAN CreateButtonsForMapBorder( void );
@@ -106,8 +85,6 @@ void RenderMapBorderEtaPopUp( void );
 BOOLEAN DoesPlayerHaveAnyMilitia( void );
 // HEADROCK HAM 4: Same with Mobiles.
 UINT8 DoesPlayerHaveAnyMobileMilitia( void );
-
-//void UpdateLevelButtonStates( void );
 
 // create mouse regions for level markers
 void CreateMouseRegionsForLevelMarkers( void );

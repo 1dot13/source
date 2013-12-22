@@ -1008,7 +1008,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			{
 				// if Skyrider, ignore low loyalty until he has monologues, and wait at least a day since the latest monologue to avoid a hot/cold attitude
 				if ( ( ubProfileID == SKYRIDER ) &&
-						( ( guiHelicopterSkyriderTalkState == 0 ) || ( ( GetWorldTotalMin() - guiTimeOfLastSkyriderMonologue ) < ( 24 * 60 ) ) ) )
+						( ( guiHelicopterSkyriderTalkState == 0 ) || ( ( GetWorldTotalMin() - guiTimeOfLastSkyriderMonologue ) < ( 24 * 60 ) ) || 
+						( gHelicopterSettings.fHelicopterTownLoyaltyCheck == FALSE ) ) )
 				{
 					gubFact[usFact] = FALSE;
 				}

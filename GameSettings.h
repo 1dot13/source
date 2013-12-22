@@ -1437,11 +1437,12 @@ typedef struct
 	UINT8 ubHelicopterTimeDelayForHoverWaitTooLong;
 	BOOLEAN fAskBeforeKickingPassengersOut;
 
-
 	UINT8 ubHelicopterSAMSiteAccuracy;
 	UINT8 ubHelicopterPassengerHitChance;
 	UINT8 ubHelicopterPassengerHitMinDamage;
 	UINT8 ubHelicopterPassengerHitMaxDamage;
+
+	BOOLEAN fHelicopterTownLoyaltyCheck;
 
 } HELICOPTER_SETTINGS;
 

@@ -716,8 +716,8 @@ void AddCommonInfoToBox(void)
 	if ( fVisited )
 		fKnownSite = TRUE;
 
-	// known town check, exclude TownId 0 for non-town sectors
-	else if( gfHiddenTown[ ubTownId ] && ubTownId != 0 )
+	// known town check, to exclude non-town sectors
+	else if( gfHiddenTown[ ubTownId ] && ubTownId != BLANK_SECTOR )
 		fKnownSite = TRUE;
 	
 	// known SAM Site check

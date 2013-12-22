@@ -3344,6 +3344,8 @@ void LoadHelicopterRepairRefuelSettings()
 	gHelicopterSettings.ubHelicopterPassengerHitChance		= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_CHANCE", 25, 0, 100);
 	gHelicopterSettings.ubHelicopterPassengerHitMaxDamage	= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_MAX_DAMAGE", 10, 0, 100);
 	gHelicopterSettings.ubHelicopterPassengerHitMinDamage	= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_MIN_DAMAGE", 1, 0, 100);
+
+	gHelicopterSettings.fHelicopterTownLoyaltyCheck			= iniReader.ReadBoolean("Helicopter Other Settings","HELICOPTER_TOWN_LOYALTY_CHECK", TRUE );
 }
 
 void FreeGameExternalOptions()

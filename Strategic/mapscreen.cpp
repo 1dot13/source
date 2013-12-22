@@ -4524,8 +4524,6 @@ UINT32 MapScreenHandle(void)
 
 		guiTacticalInterfaceFlags |= INTERFACE_MAPSCREEN;
 
-//		fDisabledMapBorder = FALSE;
-
 		// handle the sort buttons
 		AddTeamPanelSortButtonsForMapScreen( );
 
@@ -5295,9 +5293,6 @@ UINT32 MapScreenHandle(void)
 	// check if we are going to create or destroy map border graphics?
 	CreateDestroyMapInventoryPoolButtons( FALSE );
 
-	// set up buttons for mapscreen scroll
-//	HandleMapScrollButtonStates( );
-
 
 	// don't process any input until we've been through here once
 	if( gfFirstMapscreenFrame == FALSE )
@@ -5360,8 +5355,6 @@ UINT32 MapScreenHandle(void)
 	}
 
 	HandlePostAutoresolveMessages();
-
-	//	UpdateLevelButtonStates( );
 
 	// NOTE: This must happen *before* UpdateTheStateOfTheNextPrevMapScreenCharacterButtons()
 	CreateDestroyMapCharacterScrollButtons( );
@@ -5493,7 +5486,7 @@ UINT32 MapScreenHandle(void)
 	}
 
 
-	if(	!fShowMapInventoryPool && !gfPauseDueToPlayerGamePause && !IsMapScreenHelpTextUp( )	/* && !fDisabledMapBorder */ )
+	if(	!fShowMapInventoryPool && !gfPauseDueToPlayerGamePause && !IsMapScreenHelpTextUp( ) )
 	{
 		RenderMapCursorsIndexesAnims( );
 	}
@@ -5614,11 +5607,6 @@ UINT32 MapScreenHandle(void)
 
 	// handle dialog
 	HandleDialogue( );
-
-
-	// now the border corner piece
-//	RenderMapBorderCorner( );
-
 
 	// handle display of inventory pop up
 	// HEADROCK HAM 3.5: Externalize!
@@ -6358,12 +6346,7 @@ void RenderMapCursorsIndexesAnims( )
 	if ( fHighlightChanged || gfMapPanelWasRedrawn )
 	{
 		// redraw sector index letters and numbers
-/*
-		if( fZoomFlag )
-			DrawMapIndexSmallMap( fSelectedCursorIsYellow );
-		else
-*/
-			DrawMapIndexBigMap( fSelectedCursorIsYellow );
+		DrawMapIndexBigMap( fSelectedCursorIsYellow );
 	}
 }
 
@@ -6396,82 +6379,70 @@ UINT32 HandleMapUI( )
 			break;
 
 		case MAP_EVENT_PLOT_PATH:
-				GetMouseMapXY(&sMapX, &sMapY);
+			GetMouseMapXY(&sMapX, &sMapY);
 
-/*
-						// translate screen values to map grid values for zoomed in
-						if(fZoomFlag)
-						{
-								sMapX=(UINT16)iZoomX/MAP_GRID_X+sMapX;
-								sMapX=sMapX/2;
-								sMapY=(UINT16)iZoomY/MAP_GRID_Y+sMapY;
-								sMapY=sMapY/2;
-						}
-*/
+			// plotting for the chopper?
+			if( fPlotForHelicopter == TRUE )
+			{
 
+				if( IsSectorOutOfTheWay( sMapX, sMapY ) == TRUE )
+				{
+					if( gfAllowSkyriderTooFarQuote == TRUE )
+					{
+						SkyRiderTalk( DESTINATION_TOO_FAR );
+					}
 
-						// plotting for the chopper?
-						if( fPlotForHelicopter == TRUE )
-						{
-
-							if( IsSectorOutOfTheWay( sMapX, sMapY ) == TRUE )
-							{
-								if( gfAllowSkyriderTooFarQuote == TRUE )
-								{
-									SkyRiderTalk( DESTINATION_TOO_FAR );
-								}
-
-								return( MAP_SCREEN );
-							}
+					return( MAP_SCREEN );
+				}
 
 
-							PlotPathForHelicopter( sMapX, sMapY );
-							fTeamPanelDirty = TRUE;
-						}
-						else
-						{
-							// plot for character
+				PlotPathForHelicopter( sMapX, sMapY );
+				fTeamPanelDirty = TRUE;
+			}
+			else
+			{
+				// plot for character
 
-							// check for valid character
-							Assert ( bSelectedDestChar != -1 );
-							if ( bSelectedDestChar == -1 )
-								break;
+				// check for valid character
+				Assert ( bSelectedDestChar != -1 );
+				if ( bSelectedDestChar == -1 )
+					break;
 
-							// check if last sector in character's path is same as where mouse is
-							if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID] ) != ( sMapX + ( sMapY * MAP_WORLD_X ) ) )
-							{
-								sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) % MAP_WORLD_X );
-								sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) / MAP_WORLD_X );
-								GetCursorPos(&MousePos);
-								ScreenToClient(ghWindow, &MousePos); // In window coords!
-								RestoreBackgroundForMapGrid( sX, sY );
-								// fMapPanelDirty = TRUE;
-							}
+				// check if last sector in character's path is same as where mouse is
+				if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID] ) != ( sMapX + ( sMapY * MAP_WORLD_X ) ) )
+				{
+					sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) % MAP_WORLD_X );
+					sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) / MAP_WORLD_X );
+					GetCursorPos(&MousePos);
+					ScreenToClient(ghWindow, &MousePos); // In window coords!
+					RestoreBackgroundForMapGrid( sX, sY );
+					// fMapPanelDirty = TRUE;
+				}
 
-							//SetFontDestBuffer( FRAME_BUFFER, 0, 0, 640, 480, FALSE );
+				//SetFontDestBuffer( FRAME_BUFFER, 0, 0, 640, 480, FALSE );
 
-							if( ( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == TRUE ) &&
-									( SectorInfo[ ( SECTOR( sMapX, sMapY ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER ) )
-							{
-								// Can we get go there?	(NULL temp character path)
-								if ( GetLengthOfPath( pTempCharacterPath ) > 0 )
-								{
-									PlotPathForCharacter( &Menptr[gCharactersList[bSelectedDestChar].usSolID], sMapX, sMapY, FALSE );
+				if( ( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == TRUE ) &&
+						( SectorInfo[ ( SECTOR( sMapX, sMapY ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER ) )
+				{
+					// Can we get go there?	(NULL temp character path)
+					if ( GetLengthOfPath( pTempCharacterPath ) > 0 )
+					{
+						PlotPathForCharacter( &Menptr[gCharactersList[bSelectedDestChar].usSolID], sMapX, sMapY, FALSE );
 
-									// copy the path to every other selected character
-									CopyPathToAllSelectedCharacters( GetSoldierMercPathPtr( MercPtrs[ gCharactersList[ bSelectedDestChar ].usSolID ] ) );
+						// copy the path to every other selected character
+						CopyPathToAllSelectedCharacters( GetSoldierMercPathPtr( MercPtrs[ gCharactersList[ bSelectedDestChar ].usSolID ] ) );
 
-									StartConfirmMapMoveMode( sMapY );
-									fMapPanelDirty = TRUE;
-									fTeamPanelDirty = TRUE;	// update team panel desinations
-								}
-								else
-								{
-									// means it's a vehicle and we've clicked an off-road sector
-									MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pMapErrorString[ 40 ] );
-								}
-							}
-						}
+						StartConfirmMapMoveMode( sMapY );
+						fMapPanelDirty = TRUE;
+						fTeamPanelDirty = TRUE;	// update team panel desinations
+					}
+					else
+					{
+						// means it's a vehicle and we've clicked an off-road sector
+						MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pMapErrorString[ 40 ] );
+					}
+				}
+			}
 			break;
 
 
@@ -6507,21 +6478,10 @@ UINT32 HandleMapUI( )
 			// Get Current mouse position
 			if ( GetMouseMapXY( &sMapX, &sMapY) )
 			{
-/*
-				if( fZoomFlag == TRUE )
+				// make sure this is a valid sector
+				if( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == FALSE )
 				{
-					// convert to zoom out coords from screen coords
-			sMapX = ( INT16 )( iZoomX / MAP_GRID_X + sMapX ) / 2;
-			sMapY = ( INT16 )( iZoomY / MAP_GRID_Y + sMapY ) / 2;
-					//sMapX = ( INT16 ) ( ( ( iZoomX ) / ( MAP_GRID_X * 2) ) + sMapX / 2 );
-					//sMapX = ( INT16 ) ( ( ( iZoomY ) / ( MAP_GRID_Y * 2) ) + sMapY / 2 );
-				}
-*/
-
-				// not zoomed out, make sure this is a valid sector
-		if( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == FALSE )
-				{
-			// do nothing, return
+					// do nothing, return
 					return( MAP_SCREEN );
 				}
 
@@ -8010,15 +7970,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							if ( ( sMapX == pSoldier->sSectorX ) && ( sMapY == pSoldier->sSectorY ) )
 								break;
 
-/*
-							if( fZoomFlag == TRUE )
-							{
-								// convert to zoom out coords from screen coords
-								sMapX = ( INT16 )( iZoomX / MAP_GRID_X + sMapX ) / 2;
-								sMapY = ( INT16 )( iZoomY / MAP_GRID_Y + sMapY ) / 2;
-							}
-*/
-
 							// cancel movement plotting
 							AbortMovementPlottingMode( );
 
@@ -8686,20 +8637,6 @@ BOOLEAN GetMouseMapXY( INT16 *psMapWorldX, INT16 *psMapWorldY )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	if(fZoomFlag)
-	{
-	if(MousePos.x >MAP_GRID_X+MAP_VIEW_START_X)
-	MousePos.x-=MAP_GRID_X;
-	if(MousePos.x >MAP_VIEW_START_X+MAP_VIEW_WIDTH)
-		MousePos.x=-1;
-	if(MousePos.y > MAP_GRID_Y+MAP_VIEW_START_Y)
-	MousePos.y-=MAP_GRID_Y;
-	if(MousePos.y >MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-11)
-		MousePos.y=-11;
-	if(MousePos.y < MAP_VIEW_START_Y)
-		MousePos.y=-1;
-	}
-
 	return( GetMapXY( (INT16)MousePos.x, (INT16)MousePos.y, psMapWorldX, psMapWorldY ) );
 }
 
@@ -8714,13 +8651,11 @@ BOOLEAN GetMapXY( INT16 sX, INT16 sY, INT16 *psMapWorldX, INT16 *psMapWorldY )
 	sMapX = sX - MAP_VIEW_START_X;//+2*MAP_GRID_X;
 	sMapY = sY - MAP_VIEW_START_Y;
 
-	if(!fZoomFlag)
-	{
-		if ( sMapX < MAP_GRID_X || sMapY < MAP_GRID_Y )
+	if ( sMapX < MAP_GRID_X || sMapY < MAP_GRID_Y )
 	{
 		return( FALSE );
 	}
-	}
+
 	if ( sMapX < 0 || sMapY < 0 )
 	{
 		return( FALSE );
@@ -8753,38 +8688,13 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	Assert( ( sMapX >= 1 ) && ( sMapX <= 16 ) );
 	Assert( ( sMapY >= 1 ) && ( sMapY <= 16 ) );
 
-/*
-	if((fZoomFlag)&&((sMapX > MAP_WORLD_X-1)||(sMapY> MAP_WORLD_Y-1)))
-	return;
-*/
-
 	// if we are not allowed to highlight, leave
-	if( ( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == FALSE )&&( fZoomFlag == FALSE ) )
+	if( ( IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) == FALSE ) )
 	{
 		return;
 	}
-/*
-	else if( ( IsTheCursorAllowedToHighLightThisSector( sMapX , sMapY ) == FALSE )&&( fZoomFlag == TRUE ) && ( fStationary == TRUE ) )
-	{
-		return;
-	}
-	else if( ( IsTheCursorAllowedToHighLightThisSector( ( INT16 ) ( ( ( iZoomX ) / ( MAP_GRID_X * 2 ) ) + sMapX / 2 ) ,( INT16 ) ( ( ( iZoomY ) / ( MAP_GRID_Y * 2 ) ) + sMapY / 2 ) ) == FALSE ) && ( fZoomFlag == TRUE ) &&( fStationary == FALSE ) )
-	{
-		return;
-	}
-*/
 
-
-//	if((!fStationary)||(!fZoomFlag))
-	{
 	GetScreenXYFromMapXY( sMapX, sMapY, &sScreenX, &sScreenY );
-	}
-/*
-	else
-	{
-	GetScreenXYFromMapXYStationary( sMapX, sMapY, &sScreenX, &sScreenY );
-	}
-*/
 
 	// blit in the highlighted sector
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -8795,26 +8705,13 @@ void RenderMapHighlight( INT16 sMapX, INT16 sMapY, UINT16 usLineColor, BOOLEAN f
 	if(gbPixelDepth==16)
 	{
 		// DB Need to add a radar color for 8-bit
-/*
-		if (fZoomFlag)
-		{
-			// draw rectangle for zoom in
-		RectangleDraw( TRUE, sScreenX-MAP_GRID_X,	 sScreenY-MAP_GRID_Y - 1, sScreenX +	MAP_GRID_ZOOM_X - MAP_GRID_X, sScreenY +	MAP_GRID_ZOOM_Y - MAP_GRID_Y - 1, usLineColor, pDestBuf );
-		InvalidateRegion(	sScreenX-MAP_GRID_X - 3, sScreenY-MAP_GRID_Y - 4, sScreenX + DMAP_GRID_ZOOM_X - MAP_GRID_X, sScreenY + DMAP_GRID_ZOOM_Y - MAP_GRID_Y - 1 );
-		}
-	else
-*/
-		{
-			// draw rectangle for zoom out
 		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX +	MAP_GRID_X, sScreenY +	MAP_GRID_Y - 1, usLineColor, pDestBuf );
 		InvalidateRegion(	sScreenX, sScreenY - 2, sScreenX + DMAP_GRID_X + 1, sScreenY + DMAP_GRID_Y - 1 );
-		}
 	}
 
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
 	UnLockVideoSurface( FRAME_BUFFER );
 }
-
 
 
 void PollLeftButtonInMapView( UINT32 *puiNewEvent )
@@ -8901,17 +8798,6 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 					fEndPlotting = FALSE;
 
 					GetMouseMapXY(&sMapX, &sMapY);
-
-/*
-					// translate screen values to map grid values for zoomed in
-					if(fZoomFlag)
-					{
-						sMapX=(UINT16)iZoomX/MAP_GRID_X+sMapX;
-						sMapX=sMapX/2;
-						sMapY=(UINT16)iZoomY/MAP_GRID_Y+sMapY;
-						sMapY=sMapY/2;
-					}
-*/
 
 					// if he clicked on the last sector in his current path
 					if( CheckIfClickOnLastSectorInPath( sMapX, sMapY ) )
@@ -9022,16 +8908,6 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 				{
 					if ( GetMouseMapXY( &sMapX, &sMapY ) )
 					{
-/*
-						if(fZoomFlag)
-						{
-							sMapX=(UINT16)iZoomX/MAP_GRID_X+sMapX;
-							sMapX=sMapX/2;
-							sMapY=(UINT16)iZoomY/MAP_GRID_Y+sMapY;
-							sMapY=sMapY/2;
-						}
-*/
-
 						// HEADROCK HAM 4: Toggle Militia Restrictions manually. This occurs when the Mobile Restrictions
 						// view is turned on. Each click advances the sector's classification by 1. If max is reached,
 						// loops back to start.
@@ -11476,16 +11352,6 @@ void PlotTemporaryPaths( void )
 		if ( fPlotForHelicopter == TRUE )
 		{
 			Assert( fShowAircraftFlag == TRUE );
-/*
-			if( fZoomFlag )
-			{
-				sMapX =	( INT16 )( ( ( iZoomX ) / ( WORLD_MAP_X ) ) + sMapX );
-				sMapX /= 2;
-
-				sMapY =	( INT16 )( ( ( iZoomY ) / ( WORLD_MAP_X ) ) + sMapY );
-				sMapY /= 2;
-			}
-*/
 
 			// plot temp path
 			PlotATemporaryPathForHelicopter( sMapX, sMapY);
@@ -11507,21 +11373,11 @@ void PlotTemporaryPaths( void )
 		// dest char has been selected,
 		if( bSelectedDestChar != -1 )
 		{
-/*
-			if( fZoomFlag )
-			{
-				sMapX =	( INT16 )( ( ( iZoomX ) / ( MAP_GRID_X ) ) + sMapX );
-				sMapX /= 2;
-
-				sMapY =	( INT16 )( ( ( iZoomY ) / ( MAP_GRID_Y ) ) + sMapY );
-				sMapY /= 2;
-			}
-*/
 
 			PlotATemporaryPathForCharacter( &Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ], sMapX, sMapY );
 
 			// check to see if we are drawing path
-		DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface( sMapX, sMapY );
+			DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface( sMapX, sMapY );
 
 			// if we need to draw path, do it
 			if( fDrawTempPath == TRUE )
@@ -12531,15 +12387,6 @@ void UpdateCursorIfInLastSector( void )
 	if ( ( bSelectedDestChar != -1) || ( fPlotForHelicopter == TRUE ) )
 	{
 		GetMouseMapXY(&sMapX, &sMapY);
-
-		// translate screen values to map grid values for zoomed in
-		if(fZoomFlag)
-		{
-			sMapX=(UINT16)iZoomX/MAP_GRID_X+sMapX;
-			sMapX=sMapX/2;
-			sMapY=(UINT16)iZoomY/MAP_GRID_Y+sMapY;
-			sMapY=sMapY/2;
-		}
 
 		if( fShowAircraftFlag == FALSE )
 		{
@@ -14546,17 +14393,6 @@ void CancelOrShortenPlottedPath( void )
 
 	GetMouseMapXY(&sMapX, &sMapY);
 
-/*
-	// translate zoom in to zoom out coords
-	if(fZoomFlag)
-	{
-		sMapX=(UINT16)iZoomX/MAP_GRID_X+sMapX;
-		sMapX=sMapX/2;
-		sMapY=(UINT16)iZoomY/MAP_GRID_Y+sMapY;
-		sMapY=sMapY/2;
-	}
-*/
-
 	// check if we are in aircraft mode
 	if( fShowAircraftFlag == TRUE )
 	{
@@ -16031,8 +15867,7 @@ void SelectAllCharactersInSquad( INT8 bSquadNumber )
 
 BOOLEAN CanDrawSectorCursor( void )
 {
-	if( /*( fCursorIsOnMapScrollButtons == FALSE ) && */
-			( fShowTownInfo == FALSE ) && ( ghTownMineBox == -1 ) &&
+	if( ( fShowTownInfo == FALSE ) && ( ghTownMineBox == -1 ) &&
 			( fShowUpdateBox == FALSE ) && ( GetNumberOfMercsInUpdateList() == 0 ) &&
 			( sSelectedMilitiaTown == 0 ) && ( gfMilitiaPopupCreated == FALSE ) &&
 			( gfStartedFromMapScreen == FALSE ) &&
