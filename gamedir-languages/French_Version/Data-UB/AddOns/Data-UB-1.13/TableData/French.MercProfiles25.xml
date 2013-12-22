@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<MERCPROFILES>
+﻿<MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
 		<zName>Unger Barry</zName>
@@ -52,17 +51,17 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>10</uiIndex>
-		<zName>Simmons Kyle, le Fantôme</zName>
+		<zName>Simmons Kyle, Fantôme</zName>
 		<zNickname>Fantôme</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>11</uiIndex>
-		<zName>Spragg Ernie, le Rouge</zName>
+		<zName>Spragg Ernie, Rouge</zName>
 		<zNickname>Rouge</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>12</uiIndex>
-		<zName>Sheppards Carl, l'Assassin</zName>
+		<zName>Sheppards Carl, Assassin</zName>
 		<zNickname>Assassin</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -87,7 +86,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>17</uiIndex>
-		<zName>Sondergaard Monica, la Miche</zName>
+		<zName>Sondergaard Monica, Miche</zName>
 		<zNickname>Miche</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -97,7 +96,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>19</uiIndex>
-		<zName>Dr Houston Donna, la Mygale</zName>
+		<zName>Dr Houston Donna, Mygale</zName>
 		<zNickname>Mygale</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -107,12 +106,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>21</uiIndex>
-		<zName>Peters John, le Bœuf</zName>
+		<zName>Peters John, Bœuf</zName>
 		<zNickname>Bœuf</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>22</uiIndex>
-		<zName>Hennessy Frank, l'Exécuteur</zName>
+		<zName>Hennessy Frank, Exécuteur</zName>
 		<zNickname>Exécuteur</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -137,7 +136,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>27</uiIndex>
-		<zName>Caporal Anderson Len</zName>
+		<zName>Cpl Anderson Len</zName>
 		<zNickname>Len</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -162,17 +161,17 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>32</uiIndex>
-		<zName>Vlau JP, la Malice</zName>
+		<zName>Vlau JP, Malice</zName>
 		<zNickname>Malice</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>33</uiIndex>
-		<zName>Dr Huang Q, le Dr Q</zName>
+		<zName>Dr Huang Q, Dr Q</zName>
 		<zNickname>Dr Q</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>34</uiIndex>
-		<zName>Smorth Edgar, le Rebelle</zName>
+		<zName>Smorth Edgar, Rebelle</zName>
 		<zNickname>Rebelle</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -182,12 +181,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>36</uiIndex>
-		<zName>Sterling Sheila, la Mire</zName>
+		<zName>Sterling Sheila, Mire</zName>
 		<zNickname>Mire</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>37</uiIndex>
-		<zName>Sanderson Peter, le Loup</zName>
+		<zName>Sanderson Peter, Loup</zName>
 		<zNickname>Loup</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -197,7 +196,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>39</uiIndex>
-		<zName>Jessop Norma, le Fléau</zName>
+		<zName>Jessop Norma, Fléau</zName>
 		<zNickname>Fléau</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -207,17 +206,17 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>41</uiIndex>
-		<zName>Gordon Frankie, le Dingo</zName>
+		<zName>Gordon Frankie, Dingo</zName>
 		<zNickname>Dingo</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>42</uiIndex>
-		<zName>Milton Doug, le Mécano</zName>
+		<zName>Milton Doug, Mécano</zName>
 		<zNickname>Mécano</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>43</uiIndex>
-		<zName>Lamont Bill, le Scapel</zName>
+		<zName>Lamont Bill, Scapel</zName>
 		<zNickname>Scapel</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -227,7 +226,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>45</uiIndex>
-		<zName>Hillman Tim, le Grincheux</zName>
+		<zName>Hillman Tim, Grincheux</zName>
 		<zNickname>Grincheux</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -242,8 +241,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>48</uiIndex>
-		<zName>Walace Jim, le Couguar</zName>
-		<zNickname>Couguar</zNickname>
+		<zName>Walace Jim, Couguar</zName>
+		<zNickname>Cougar</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>49</uiIndex>
@@ -257,37 +256,37 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>51</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
-		<zName/>
-		<zNickname>PGmale2 </zNickname>
+		<zName></zName>
+		<zNickname>PGmale2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>53</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale3</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>54</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>55</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>56</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady3</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>57</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale4</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -297,7 +296,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>59</uiIndex>
-		<zName>Lieutenant Horge, Stogie</zName>
+		<zName>Lt Horge, Stogie</zName>
 		<zNickname>Stogie</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -307,7 +306,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>61</uiIndex>
-		<zName>Colonel Biggins Frédéric</zName>
+		<zName>Col Biggins Frédéric</zName>
 		<zNickname>Frédéric</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -327,7 +326,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>65</uiIndex>
-		<zName>Sicaire</zName>
+		<zName>Slay</zName>
 		<zNickname>Terry</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -337,7 +336,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>67</uiIndex>
-		<zName>Druz Breeham, le Gringalet</zName>
+		<zName>Druz Breeham, Gringalet</zName>
 		<zNickname>Gringalet</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -352,17 +351,17 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>70</uiIndex>
-		<zName>Lieutenant Gillitt Conrad</zName>
+		<zName>Lt Gillitt Conrad</zName>
 		<zNickname>Conrad</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>RPC71</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>72</uiIndex>
-		<zName>Cameron Kévin, le Molosse</zName>
+		<zName>Cameron Kévin, Molosse</zName>
 		<zNickname>Molosse</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -387,7 +386,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>77</uiIndex>
-		<zName>Twoskidoo Rudy</zName>
+		<zName>Deux-skidoo</zName>
 		<zNickname>Rudy</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -402,7 +401,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>80</uiIndex>
-		<zName>Dr Willis Steven, Steve</zName>
+		<zName>Dr Willis Steven</zName>
 		<zNickname>Steve</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -432,7 +431,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>86</uiIndex>
-		<zName>Klauss Peter, le Caïd</zName>
+		<zName>Klauss Peter, Caïd</zName>
 		<zNickname>Caïd</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -497,12 +496,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>99</uiIndex>
-		<zName>Lappus Salvatore, Sal</zName>
+		<zName>Lappus Salvatore</zName>
 		<zNickname>Sal</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>100</uiIndex>
-		<zName>Père Walter John</zName>
+		<zName>Père Walter</zName>
 		<zNickname>Père</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -592,8 +591,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>118</uiIndex>
-		<zName>Kulba John</zName>
-		<zNickname>John</zNickname>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>119</uiIndex>
@@ -678,7 +677,7 @@
 	<PROFILE>
 		<uiIndex>135</uiIndex>
 		<zName>L'oiseau de mauvais augure</zName>
-		<zNickname>Eliot</zNickname>
+		<zNickname>Elliot</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>136</uiIndex>
@@ -797,7 +796,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName>Kline Speck T.</zName>
+		<zName></zName>
 		<zNickname>Speck...</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -822,22 +821,22 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>166</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>167</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -848,7 +847,7 @@
 	<PROFILE>
 		<uiIndex>169</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale4</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>170</uiIndex>
@@ -932,28 +931,28 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>186</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr Shudlem Mitch</zName>
+		<zNickname>Mitch</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>187</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Melfield Howard, Vitriol</zName>
+		<zNickname>Vitriol</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>188</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Fisher Lance</zName>
+		<zNickname>Lance</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>189</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr Leevon Raffitto, Raffi</zName>
+		<zNickname>Raffi</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>190</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dickerson Wink</zName>
+		<zNickname>Wink</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
@@ -963,37 +962,37 @@
 	<PROFILE>
 		<uiIndex>192</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale5</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>193</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale6</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>194</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale7</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>195</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Kulba John</zName>
+		<zNickname>John</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>196</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Elio</zName>
+		<zNickname>Elio</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>197</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Juan</zName>
+		<zNickname>Juan</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>198</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Wahan</zName>
+		<zNickname>Wahan</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>199</uiIndex>
@@ -1147,8 +1146,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>229</uiIndex>
-		<zName>Rivas Manuel</zName>
-		<zNickname>Manuel</zNickname>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>230</uiIndex>

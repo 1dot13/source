@@ -13616,4 +13616,28 @@
 		<szBRName>Signal Flare</szBRName>
 		<szBRDesc>没有什么比一柱红烟能够更好地指示进攻地点。</szBRDesc>
 	</ITEM>
+<ITEM>
+    <uiIndex>1702</uiIndex>
+    <szItemName>SMALL_SMOKE</szItemName>
+    <szLongItemName>SMALL_SMOKE</szLongItemName>
+    <szItemDesc></szItemDesc>
+    <szBRName>SMALL_SMOKE</szBRName>
+    <szBRDesc></szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1703</uiIndex>
+    <szItemName>GAS_EXPLOSION</szItemName>
+    <szLongItemName>GAS_EXPLOSION</szLongItemName>
+    <szItemDesc>GAS_EXPLOSION</szItemDesc>
+    <szBRName>GAS_EXPLOSION</szBRName>
+    <szBRDesc>GAS_EXPLOSION</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1704</uiIndex>
+    <szItemName>FRAG_EXPLOSION</szItemName>
+    <szLongItemName>FRAG_EXPLOSION</szLongItemName>
+    <szItemDesc>FRAG_EXPLOSION</szItemDesc>
+    <szBRName>FRAG_EXPLOSION</szBRName>
+    <szBRDesc>FRAG_EXPLOSION</szBRDesc>
+  </ITEM>
 </ITEMLIST>

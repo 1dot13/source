@@ -894,7 +894,7 @@
     <szLongItemName>Miniroquette PE, 5</szLongItemName>
     <szItemDesc>Ces roquettes conçues pour traverser tous les types de blindages et sont capables d'infliger des blessures spectaculaires.</szItemDesc>
     <szBRName>Miniroquettes PE, 5</szBRName>
-    <szBRDesc>Technologie dernière génération signifie meurtre dernière génération. Ces roquettes perforantes infligent des dégâts a faire mourrir d'envie les artistes d'effets spéciaux Hollywoodiens..</szBRDesc>
+    <szBRDesc>Technologie dernière génération signifie meurtre dernière génération. Ces roquettes perforantes infligent des dégâts a faire mourrir d'envie les artistes d'effets spéciaux Hollywoodiens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>112</uiIndex>
@@ -1794,11 +1794,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>224</uiIndex>
-    <szItemName>Déton. téléc.</szItemName>
-    <szLongItemName>Détonateur télécom.</szLongItemName>
-    <szItemDesc>Ce détonateur télécommandé est utilisé pour faire exploser une charge à distance.</szItemDesc>
-    <szBRName>Détonateur télécom.</szBRName>
-    <szBRDesc>Le must que doit avoir tout expert en explosifs. Ce détonateur télécommandé est utilisé pour faire exploser une charge à distance, au moment que vous jugez opportun !</szBRDesc>
+    <szItemName>Détonateur D.</szItemName>
+    <szLongItemName>Détonateur distance</szLongItemName>
+    <szItemDesc>Ce détonateur à distance est utilisé pour faire exploser une charge avec une télécommande.</szItemDesc>
+    <szBRName>Détonateur à distance</szBRName>
+    <szBRDesc>Le must que doit avoir tout expert en explosifs. Ce détonateur à distance est utilisé pour faire exploser une charge avec une télécommande, au moment que vous jugez opportun !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>225</uiIndex>
@@ -1938,10 +1938,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>242</uiIndex>
-    <szItemName>Téléc. Déton.</szItemName>
-    <szLongItemName>Télécommande déton.</szLongItemName>
-    <szItemDesc>Lorsque vous placez un détonateur télécommandé sur une charge, elle n'explosera que lorsque vous appuyez sur cette télécommande.</szItemDesc>
-    <szBRName>Télécommande déton.</szBRName>
+    <szItemName>Télécom. Ex.</szItemName>
+    <szLongItemName>Télécom. Explosifs</szLongItemName>
+    <szItemDesc>Lorsque vous placez un détonateur à distance sur une charge, elle n'explosera que lorsque vous appuyez sur cette télécommande.</szItemDesc>
+    <szBRName>Télécom. pour explosifs</szBRName>
     <szBRDesc>Ce petit appareil dispose de quatre canaux de présélection et est utilisé pour déclencher les détonateurs à distance. La batterie est éternelle.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -3398,7 +3398,7 @@
     <szLongItemName>5.56x45mm TR, 10</szLongItemName>
     <szItemDesc>Les traçantes sont des cartouches dont l'ogive est recouverte de peinture au phosphore qui s'enflamme avec le frottement de l'air. En plus du spectacle son et lumière, ces munitions facilitent les tirs en rafales.</szItemDesc>
     <szBRName>5.56x45mm TR, 10</szBRName>
-    <szBRDesc>Munitions parfaites pour "allumer" la cible....</szBRDesc>
+    <szBRDesc>Munitions parfaites pour "allumer" la cible...</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>425</uiIndex>
@@ -4306,11 +4306,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>538</uiIndex>
-    <szItemName>12.5x35 CH 5</szItemName>
-    <szLongItemName>12.5x35mm CH, 5</szLongItemName>
-    <szItemDesc>Chargeur rapide de cinq cartouches 12.5x35mm CH pour révolver massif U-94S UDAR.</szItemDesc>
-    <szBRName>12.5x35mm CH, 5</szBRName>
-    <szBRDesc>Chargeur rapide de cinq cartouches 12.5x35mm CH pour révolver massif U-94S UDAR.</szBRDesc>
+    <szItemName>12.3x50 CH 5</szItemName>
+    <szLongItemName>12.3x50mm CH, 5</szLongItemName>
+    <szItemDesc>Chargeur rapide de cinq cartouches 12.3x50mm CH pour révolver massif U-94S UDAR.</szItemDesc>
+    <szBRName>12.3x50mm CH, 5</szBRName>
+    <szBRDesc>Chargeur rapide de cinq cartouches 12.3x50mm CH pour révolver massif U-94S UDAR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>539</uiIndex>
@@ -4514,11 +4514,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>564</uiIndex>
-    <szItemName>12.5x35 FE, 5</szItemName>
-    <szLongItemName>12.5x35mm FIER, 5</szLongItemName>
-    <szItemDesc>Chargeur rapide de cinq cartouches 12.5x35mm FIER Expansive pour révolver massif U-94S UDAR.</szItemDesc>
-    <szBRName>12.5x35mm FIER, 5</szBRName>
-    <szBRDesc>Chargeur rapide de cinq cartouches12.5x35mm FIER Expansive pour révolver massif U-94S UDAR. Les gilets pare-balles n'ont qu'à bien se tenir!</szBRDesc>
+    <szItemName>12.3x50 FE, 5</szItemName>
+    <szLongItemName>12.3x50mm FIER, 5</szLongItemName>
+    <szItemDesc>Chargeur rapide de cinq cartouches 12.3x50mm FIER Expansive pour révolver massif U-94S UDAR.</szItemDesc>
+    <szBRName>12.3x50mm FIER, 5</szBRName>
+    <szBRDesc>Chargeur rapide de cinq cartouches12.3x50mm FIER Expansive pour révolver massif U-94S UDAR. Les gilets pare-balles n'ont qu'à bien se tenir!</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>565</uiIndex>
@@ -4638,7 +4638,7 @@
     <szLongItemName>.45 THV, 50</szLongItemName>
     <szItemDesc>Un chargeur camembert de 50 munitions THV hautes performances. Par contre, vérifiez bien l'état de votre arme après avoir vidé le chargeur.</szItemDesc>
     <szBRName>.45 THV, 50</szBRName>
-    <szBRDesc>Pas à vendre..</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>580</uiIndex>
@@ -4646,7 +4646,7 @@
     <szLongItemName>.45 Glaser, 50</szLongItemName>
     <szItemDesc>Si ces 50 munitions Glaser ne suffisent pas à imposer votre point de vue, alors c'est que ça n'en valait pas la peine.</szItemDesc>
     <szBRName>.45 Glaser, 50</szBRName>
-    <szBRDesc>Pas à vendre..</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>581</uiIndex>
@@ -4654,7 +4654,7 @@
     <szLongItemName>.45 Match, 50</szLongItemName>
     <szItemDesc>Quelqu'un a eu la présence d'esprit discutable de remplir ce chargeur tambour pour Thompson, de munitions haute qualité pour une plus grande portée et précision...</szItemDesc>
     <szBRName>.45 Match, 50</szBRName>
-    <szBRDesc>Pas à vendre..</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>582</uiIndex>
@@ -5228,9 +5228,9 @@
     <uiIndex>653</uiIndex>
     <szItemName>FN FNC</szItemName>
     <szLongItemName>FN FNC</szLongItemName>
-    <szItemDesc>Concept bâtard entre l'AK-47 et le M-16, cette beauté belge chambrée en 5.56x45mm, un cache-flamme intégré et a une sœur jumelle suédoise. Que demander de plus....à part une détente un peu plus souple.</szItemDesc>
+    <szItemDesc>Concept bâtard entre l'AK-47 et le M-16, cette beauté belge chambrée en 5.56x45mm, un cache-flamme intégré et a une sœur jumelle suédoise. Que demander de plus... À part une détente un peu plus souple.</szItemDesc>
     <szBRName>FN FNC</szBRName>
-    <szBRDesc>Concept bâtard entre l'AK-47 et le M-16, cette beauté belge chambrée en 5.56x45mm, un cache-flamme intégré et a une sœur jumelle suédoise. Que demander de plus....</szBRDesc>
+    <szBRDesc>Concept bâtard entre l'AK-47 et le M-16, cette beauté belge chambrée en 5.56x45mm, un cache-flamme intégré et a une sœur jumelle suédoise. Que demander de plus...</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>654</uiIndex>
@@ -6374,7 +6374,7 @@
     <szLongItemName>Bushmaster M4A3</szLongItemName>
     <szItemDesc>Le Bushmaster M4A3, chambré pour les nouvelles balles 6.8mm SPC.</szItemDesc>
     <szBRName>Bushmaster M4A3</szBRName>
-    <szBRDesc>Le célèbre Bushmaster M4A3, maintenant en 6.8mm SPC. Comme bonus supplémentaire, c'est du militaire et il est automatique..</szBRDesc>
+    <szBRDesc>Le célèbre Bushmaster M4A3, maintenant en 6.8mm SPC. Comme bonus supplémentaire, c'est du militaire et il est automatique.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>797</uiIndex>
@@ -7174,7 +7174,7 @@
     <szLongItemName>M14 EBR</szLongItemName>
     <szItemDesc>C'est le canon du M14 monté sur le kit pour la version EBR avec une nouvelle crosse et des rails Picatinny pour profiter des accessoires les plus modernes.</szItemDesc>
     <szBRName>M14 EBR</szBRName>
-    <szBRDesc>Pas à vendre..</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>897</uiIndex>
@@ -7182,7 +7182,7 @@
     <szLongItemName>M21 EBR</szLongItemName>
     <szItemDesc>Le fusil M21 tactical est la version "sniper" du M14. Un fusil précis avec un bon pouvoir d'arrêt. Quelqu'un l'a modifié pour la version EBR qui était initialement conçu pour le M14.</szItemDesc>
     <szBRName>M21 EBR</szBRName>
-    <szBRDesc>Pas à vendre..</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>898</uiIndex>
@@ -7252,7 +7252,7 @@
     <uiIndex>906</uiIndex>
     <szItemName>Milkor MGL</szItemName>
     <szLongItemName>Milkor MGL-140</szLongItemName>
-    <szItemDesc>Le lance-grenades Milkor MGL avec six grenades de 40mm, est le premier multi-tir fabriqué en série au monde. Une arme portable à tir rapide..</szItemDesc>
+    <szItemDesc>Le lance-grenades Milkor MGL avec six grenades de 40mm, est le premier multi-tir fabriqué en série au monde. Une arme portable à tir rapide.</szItemDesc>
     <szBRName>Lance-g. Milkor MGL-140</szBRName>
     <szBRDesc>Le lance-grenades Milkor MGL avec six grenades de 40mm, est le premier multi-tir fabriqué en série au monde. Une arme portable à tir rapide. Il tire six coups de feu en moins de trois secondes, ce qui le rend essentiel pour traiter les situations d'embuscades et des combats urbains.</szBRDesc>
   </ITEM>
@@ -8428,7 +8428,7 @@
     <uiIndex>1053</uiIndex>
     <szItemName>Shuriken</szItemName>
     <szLongItemName>Shuriken</szLongItemName>
-    <szItemDesc>Le plus célèbre silencieux, l'arme de jet du Ninpô Taijutsu..</szItemDesc>
+    <szItemDesc>Le plus célèbre silencieux, l'arme de jet du Ninpô Taijutsu.</szItemDesc>
     <szBRName>Shuriken</szBRName>
     <szBRDesc>Silencieux, rapide et efficace avec les bords tranchant comme un rasoir.</szBRDesc>
   </ITEM>
@@ -8650,7 +8650,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1081</uiIndex>
-    <szItemName>Double Charg.</szItemName>
+    <szItemName>Double Chrg</szItemName>
     <szLongItemName>Double poche Ch.</szLongItemName>
     <szItemDesc>Une double-poche pour transporter deux longs chargeurs.</szItemDesc>
     <szBRName>Double poche Chargeur</szBRName>
@@ -9661,7 +9661,7 @@
     <szItemName>Ch/Gourde/Gr.</szItemName>
     <szLongItemName>Poches Chr/Gourd/Gr</szLongItemName>
     <szItemDesc>Une plateforme de cuisse avec une poche pour chargeur, une poche pour une gourde et deux poches d'une grenade.</szItemDesc>
-    <szBRName>Poche Charg./Gourde/Gr.</szBRName>
+    <szBRName>Poche Chrg/Gourde/Gr.</szBRName>
     <szBRDesc>Cette autre version de plateforme de cuisse pour chargeur, une gourde et des grenades.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -11556,7 +11556,7 @@
     <uiIndex>1444</uiIndex>
     <szItemName>7.62x51 TR</szItemName>
     <szLongItemName>Boîte 7.62x51 TR</szLongItemName>
-    <szItemDesc>Allumez vos objectifs, au propre comme au figuré, avec cette boîte pleine de traçantes..</szItemDesc>
+    <szItemDesc>Allumez vos objectifs, au propre comme au figuré, avec cette boîte pleine de traçantes.</szItemDesc>
     <szBRName>Boîte 7.62x51 TR</szBRName>
     <szBRDesc>Allumez vos objectifs, au propre comme au figuré, avec cette boîte pleine de traçantes.</szBRDesc>
   </ITEM>
@@ -12541,7 +12541,7 @@
     <szItemName>Pain de mie</szItemName>
     <szLongItemName>Pain de mie</szLongItemName>
     <szItemDesc>Une miche de pain, fabriquée à partir de céréales des fermes locales.</szItemDesc>
-    <szBRName>Aliment, pain de mie </szBRName>
+    <szBRName>Aliment, pain de mie</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -13131,475 +13131,475 @@
   </ITEM>
   <ITEM>
     <uiIndex>1640</uiIndex>
-    <szItemName>Tripwire Roll</szItemName>
-    <szLongItemName>Tripwire Roll</szLongItemName>
-    <szItemDesc>TRipwire can be deployed directly frm this roll.</szItemDesc>
-    <szBRName>Tripwire Roll</szBRName>
-    <szBRDesc>A roll of tripwire. In case you need to boobytrap your house, your car, and your cat.</szBRDesc>
+    <szItemName>Roul. Fil Piège</szItemName>
+    <szLongItemName>Rouleau fil piège</szLongItemName>
+    <szItemDesc>Le fil piège se déroule facilement de ce rouleau.</szItemDesc>
+    <szBRName>Rouleau de fil piège</szBRName>
+    <szBRDesc>Un rouleau de fil piège. Dans le cas où vous devez piéger votre maison, votre voiture ou votre chat.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1641</uiIndex>
-    <szItemName>Large Holster</szItemName>
-    <szLongItemName>Large Holster</szLongItemName>
-    <szItemDesc>This pistol holster can store a larger pistol and up to two spare magazines. It also has a pocket for additional equipment.</szItemDesc>
-    <szBRName>Large Holster</szBRName>
-    <szBRDesc>This pistol holster can store a larger pistol and up to two spare magazines.</szBRDesc>
+    <szItemName>Holster grand</szItemName>
+    <szLongItemName>Grand étui pistolet</szLongItemName>
+    <szItemDesc>Cet étui de pistolet peut contenir un grand pistolet et deux chargeurs. Il dispose également d'une poche supplémentaire.</szItemDesc>
+    <szBRName>Grand étui de pistolet</szBRName>
+    <szBRDesc>Cet étui de pistolet peut contenir un grand pistolet et deux chargeurs.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1642</uiIndex>
-    <szItemName>SG Holster</szItemName>
-    <szLongItemName>Shotgun holster</szLongItemName>
-    <szItemDesc>This is the perfect holster to store a small handheld shotgun in.</szItemDesc>
-    <szBRName>Shotgun holster</szBRName>
-    <szBRDesc>This is the perfect holster to store a small handheld shotgun in.</szBRDesc>
+    <szItemName>Holster fusil</szItemName>
+    <szLongItemName>Étui petit fusil</szLongItemName>
+    <szItemDesc>C'est l'étui parfait pour ranger un très petit fusil de chasse.</szItemDesc>
+    <szBRName>Étui petit fusil</szBRName>
+    <szBRDesc>C'est l'étui parfait pour ranger un très petit fusil de chasse comme un Mini-Shotgun.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1643</uiIndex>
-    <szItemName>SMG Leg Rig</szItemName>
-    <szLongItemName>SMG Leg Rig</szLongItemName>
-    <szItemDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szItemDesc>
-    <szBRName>SMG Leg Rig</szBRName>
-    <szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
+    <szItemName>Poche Chrg/M</szItemName>
+    <szLongItemName>Poches Chrg/M</szLongItemName>
+    <szItemDesc>Une plateforme de cuisse pour transporter des munitions pour mitraillette. La même qui est utilisée par les équipes SAS lors des opérations de sauvetage d'otages.</szItemDesc>
+    <szBRName>Poche Chargeur/M</szBRName>
+    <szBRDesc>Cette plateforme de cuisse peut transporter des munitions pour mitraillette. La même qui est utilisée par les équipes SAS lors des opérations de sauvetage d'otages.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1644</uiIndex>
-    <szItemName>TK Rig</szItemName>
-    <szLongItemName>Leg Rig Throwing Knives</szLongItemName>
-    <szItemDesc>Stealthy assasins like their knives. This rig can hold several knives.</szItemDesc>
-    <szBRName>TK Rig</szBRName>
-    <szBRDesc>Stealthy assasins like their knives. This rig can hold several knives.</szBRDesc>
+    <szItemName>Poc. C/lancer</szItemName>
+    <szLongItemName>Poches C/lancer</szLongItemName>
+    <szItemDesc>Pour les agents qui aiment leurs couteaux de lancer. Cette plate-forme peut contenir plusieurs couteaux et une poche.</szItemDesc>
+    <szBRName>Poches Couteau/lancer</szBRName>
+    <szBRDesc>Pour les agents qui aiment leurs couteaux de lancer. Cette plate-forme peut contenir plusieurs couteaux et une poche.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1645</uiIndex>
-    <szItemName>Pistol Magazines</szItemName>
-    <szLongItemName>Pistol Magazines</szLongItemName>
-    <szItemDesc>A leg rig with three pouches for pistol magazines.</szItemDesc>
-    <szBRName>Pistol Magazines</szBRName>
-    <szBRDesc>A leg rig with three pouches for pistol magazines.</szBRDesc>
+    <szItemName>Poche Chrg/P</szItemName>
+    <szLongItemName>Poche Chrg/P</szLongItemName>
+    <szItemDesc>Une plateforme de cuisse avec trois poches pour chargeur de pistolet.</szItemDesc>
+    <szBRName>Poche Chargeur Pistolet</szBRName>
+    <szBRDesc>Une plateforme de cuisse avec trois poches pour chargeur de pistolet.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1646</uiIndex>
-    <szItemName>Equipment Pouch</szItemName>
-    <szLongItemName>Equipment Pouch</szLongItemName>
-    <szItemDesc>A versatile leg pouch with pockets to carry various items.</szItemDesc>
-    <szBRName>Equipment Pouch</szBRName>
-    <szBRDesc>A versatile leg pouch with pockets to carry various items.</szBRDesc>
+    <szItemName>Fourre-tout</szItemName>
+    <szLongItemName>Fourre-tout</szLongItemName>
+    <szItemDesc>Une sacoche de cuisse avec des poches pour ranger divers articles.</szItemDesc>
+    <szBRName>Fourre-tout</szBRName>
+    <szBRDesc>Cette sacoche de cuisse a des poches pour ranger divers articles.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1647</uiIndex>
-    <szItemName>Bomb Pouch</szItemName>
-    <szLongItemName>Bomb Pouch</szLongItemName>
-    <szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
-    <szBRName>Bomb Pouch</szBRName>
-    <szBRDesc>A leg rig suitable for the safe transport of explosives.</szBRDesc>
+    <szItemName>Poche Explosif</szItemName>
+    <szLongItemName>Poche d'explosifs</szLongItemName>
+    <szItemDesc>Une plateforme de cuisse pour transporter des explosifs en toute sécurité.</szItemDesc>
+    <szBRName>Poche pour explosifs</szBRName>
+    <szBRDesc>Cette plateforme de cuisse est faite pour transporter en toute sécurité des explosifs.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1648</uiIndex>
-    <szItemName>12g S Rig</szItemName>
-    <szLongItemName>12g Shotgun Rig</szLongItemName>
-    <szItemDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szItemDesc>
-    <szBRName>12g Shotgun Rig</szBRName>
-    <szBRDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szBRDesc>
+    <szItemName>Platef. cuis. 12</szItemName>
+    <szLongItemName>Platef. cuisse Cal 12</szLongItemName>
+    <szItemDesc>Une plate-forme de cuisse pouvant contenir plusieurs cartouches de calibre 12, sans encombrer les poches de votre pantalon.</szItemDesc>
+    <szBRName>Plateforme cuisse Cal 12</szBRName>
+    <szBRDesc>Cette plate-forme de cuisse peut contenir plusieurs cartouches de calibre 12, sans encombrer les poches de votre pantalon.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1649</uiIndex>
-    <szItemName>Thigh Rig</szItemName>
-    <szLongItemName>3.11 Thigh Rig</szLongItemName>
-    <szItemDesc>The face of the rig features MOLLE attachment straps which can accommodate all of our NAS accessories and pouches providing rapid access to critical gear.</szItemDesc>
-    <szBRName>3.11 Thigh Rig</szBRName>
-    <szBRDesc>A highly useful accessory used by sportsmen, patrol officers, and tactical operators across the country, the 3.11 Thigh Rig is a lightweight, reliable, and completely customizable.</szBRDesc>
+    <szItemName>Plateforme</szItemName>
+    <szLongItemName>Plateforme 3.11</szLongItemName>
+    <szItemDesc>La plate-forme dispose des sangles de fixation MOLLE pouvant accueillir tous nos accessoires et poches NAS pour offrir un accès rapide dans les moments critiques.</szItemDesc>
+    <szBRName>Plateforme 3.11</szBRName>
+    <szBRDesc>Cet accessoire est très utile pour les sportifs, les policiers et les forces spéciales à travers le monde. La plate-forme de cuisse 3.11 est légère, fiable et complètement modulable.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1650</uiIndex>
-    <szItemName>3.11 Pouch</szItemName>
-    <szLongItemName>3.11 Horizontal Pouch</szLongItemName>
-    <szItemDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
-    <szBRName>3.11 Horizontal Pouch</szBRName>
-    <szBRDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
+    <szItemName>Poche 3.11</szItemName>
+    <szLongItemName>P. Horizontale 3.11</szLongItemName>
+    <szItemDesc>Une poche MOLLE avec un grand compartiment muni de deux œillets de drainage au fond et une fermeture à glissière.</szItemDesc>
+    <szBRName>Poche Horizontale 3.11</szBRName>
+    <szBRDesc>Cette poche 10.6 MOLLE (25 x 15 x 9) a un grand compartiment avec deux œillets de drainage au fond et une fermeture à glissière.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1651</uiIndex>
-    <szItemName>MLBE Vest</szItemName>
-    <szLongItemName>3.11 Tactical Vest</szLongItemName>
-    <szItemDesc>Customisable tactical utility with high impact fastening grips, and hidden document pockets.</szItemDesc>
-    <szBRName>3.11 Tactical Vest</szBRName>
-    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our standard NAS gear.</szBRDesc>
+    <szItemName>Gilet MLBE</szItemName>
+    <szLongItemName>Gilet 3.11 Tactical</szLongItemName>
+    <szItemDesc>Un gilet modulable avec de solides bandes d'attaches et des poches cachées pour documents.</szItemDesc>
+    <szBRName>Gilet 3.11 Tactical</szBRName>
+    <szBRDesc>Notre gilet 3.11 Tactical est confectionné en résille synthétique (mesh) renforcée, offrant la structure nécessaire pour porter tout votre équipement et il est totalement compatible avec tous nos accessoires standard NAS.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1652</uiIndex>
-    <szItemName>Ammo Belt</szItemName>
-    <szLongItemName>3.11 Ammo Belt</szLongItemName>
-    <szItemDesc>Customize your load bearing equipment according to your wishes! This pouch is medium-sized.</szItemDesc>
-    <szBRName>Modular LBE - Medium Ammo Belt</szBRName>
-    <szBRDesc>Customize your load bearing equipment according to your wishes! This pouch is medium-sized.</szBRDesc>
+    <szItemName>Poc. SAW 3.11</szItemName>
+    <szLongItemName>Poche SAW 3.11</szLongItemName>
+    <szItemDesc>Personnalisez votre équipement en fonction de vos besoins ! Cette poche est de taille moyenne.</szItemDesc>
+    <szBRName>Poche SAW 3.11</szBRName>
+    <szBRDesc>Personnalisez votre équipement en fonction de vos besoins ! Cette poche est de taille moyenne.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1653</uiIndex>
-    <szItemName>Holster Pouch</szItemName>
-    <szLongItemName>3.11 Holster Pouch</szLongItemName>
-    <szItemDesc>The 3.11 Holster Pouch is an adjustable holster to accommodate a variety of handguns and attaches to compatible 3.11.</szItemDesc>
-    <szBRName>3.11 Holster Pouch</szBRName>
-    <szBRDesc>Features include adjustable locking straps to keep handgun secure and a hook-side Velcro backing.</szBRDesc>
+    <szItemName>Holster 3.11</szItemName>
+    <szLongItemName>Étui 3.11</szLongItemName>
+    <szItemDesc>L'étui 3.11 est réglable pour s'adapter à une grande variété d'armes de poing et d'attaches compatibles 3.11.</szItemDesc>
+    <szBRName>Étui 3.11</szBRName>
+    <szBRDesc>Ce produit comprend une plaque velcro et une patte réglable de verrouillage pour maintenir le pistolet.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1654</uiIndex>
-    <szItemName>Mini Frag Pouch</szItemName>
-    <szLongItemName>3.11 Mini Frag Pouch</szLongItemName>
-    <szItemDesc>Made of durable 1000D nylon and a quality Velcro closure, the Grenade MOLLE pouch is high quality at a great price.</szItemDesc>
-    <szBRName>3.11 Grenade Pouch</szBRName>
-    <szBRDesc>The 3.11 Frag Pouch is built to accommodate 2 small grenades.</szBRDesc>
+    <szItemName>Poche Mini gr.</szItemName>
+    <szLongItemName>Poche Mini gr. 3.11</szLongItemName>
+    <szItemDesc>Fait en nylon 1000D avec fermeture en velcro, la poche grenade MOLLE a un excellent rapport qualité/prix.</szItemDesc>
+    <szBRName>Poche Mini grenade 3.11</szBRName>
+    <szBRDesc>Cette poche est conçue pour deux petites grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1655</uiIndex>
-    <szItemName>Double MP5</szItemName>
-    <szLongItemName>Double MP5 Pouch</szLongItemName>
-    <szItemDesc>Engineered for tactical and law enforcement use, the MP5 Double Bungee Cover Pouch provides quick and secure access to any standard 9mm magazine.</szItemDesc>
-    <szBRName>Double MP5 Pouch</szBRName>
-    <szBRDesc>Featuring complete compatibility with 3.11 NAS and MOLLE web gear platforms.</szBRDesc>
+    <szItemName>Poche Ch. MP5</szItemName>
+    <szLongItemName>Poc. double Ch. MP5</szLongItemName>
+    <szItemDesc>Conçue pour la police et les forces spéciales, la double poche MP5 permet un accès rapide et sécurisé pour n'importe quel chargeur 9mm, avec son rabat élastique.</szItemDesc>
+    <szBRName>Poche double Chrg MP5</szBRName>
+    <szBRDesc>Ce produit est totalement compatible avec les plates-formes MOLLE et 3.11 NAS.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1656</uiIndex>
-    <szItemName>H2O Carrier</szItemName>
-    <szLongItemName>3.11 H2O Carrier</szLongItemName>
-    <szItemDesc>The high impact locking clip keeps a water bottle secure and is easily accessible by attaching to any standard MOLLE web platform.</szItemDesc>
-    <szBRName>H2O Carrier</szBRName>
-    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS web platforms.</szBRDesc>
+    <szItemName>P. Gourde H2O</szItemName>
+    <szLongItemName>Poche G. H2O 3.11</szLongItemName>
+    <szItemDesc>Un clip plus un velcro assure le maintient de la gourde et la facilité de son usage vient de sa fixation sur toutes les plates-formes de style MOLLE.</szItemDesc>
+    <szBRName>Poche Gourde H2O 3.11</szBRName>
+    <szBRDesc>Cette poche H2O 3.11 est dimensionnée pour une gourde standard et s'attache aux plates-formes MOLLE et NAS.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1657</uiIndex>
-    <szItemName>3.11 Single AR</szItemName>
-    <szLongItemName>3.11 Single Mag Pouch</szLongItemName>
-    <szItemDesc>3.11 Single Mag Pouch attaches quickly to any MOLLE compatible system to hold one AR magazine.</szItemDesc>
-    <szBRName>3.11 Single Mag Pouch</szBRName>
-    <szBRDesc>A Velcro cover keeps your magazine secure in any environment, and the Single Magazine Pouch is compatible with NAS System web platforms for quick integration into your loadout.</szBRDesc>
+    <szItemName>P. charg. 3.11</szItemName>
+    <szLongItemName>Poche 1 charg. 3.11</szLongItemName>
+    <szItemDesc>Cette poche 3.11 d'un chargeur de fusil d'assaut, s'attache rapidement sur tous les supports compatibles MOLLE.</szItemDesc>
+    <szBRName>Poche 1 chargeur 3.11</szBRName>
+    <szBRDesc>Cette poche a un rabat velcro pour maintenir efficacement votre chargeur dans n'importe quelle situation. Elle est compatible avec les plates-formes au système NAS pour une intégration rapide dans votre équipement.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1658</uiIndex>
-    <szItemName>Med Pouch</szItemName>
-    <szLongItemName>3.11 Med Pouch</szLongItemName>
-    <szItemDesc>With MOLLE attachment system compatibility for the 3.11 system, the Med Pouch adds a mesh interior pocket.</szItemDesc>
-    <szBRName>3.11 Med Pouch</szBRName>
-    <szBRDesc>The 3.11 Medic Pouch meshes seamlessly with 3.11 bags, providing a quick first aid solution for any application or environment.</szBRDesc>
+    <szItemName>P. 1er soin</szItemName>
+    <szLongItemName>Poche 1er soins 3.11</szLongItemName>
+    <szItemDesc>Avec le système de fixation MOLLE compatible avec la série 3.11, elle ajoute des poches intérieures en résille synthétique.</szItemDesc>
+    <szBRName>Poche 1er soins 3.11</szBRName>
+    <szBRDesc>Cette poche s'adapte à la série 3.11 en offrant une solution rapide et efficace pour les premiers soins dans toutes les situations.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1659</uiIndex>
-    <szItemName>Double Pistol</szItemName>
-    <szLongItemName>3.11 Double Pistol Mag</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistolâ€™s magazine and provide quick access when itâ€™s time to reload.</szItemDesc>
-    <szBRName>3.11 Double Pistol Mag</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szItemName>Poche Chrg/P</szItemName>
+    <szLongItemName>P. double Chrg/P 3.11</szLongItemName>
+    <szItemDesc>3.11 Tactical vous propose une double poche NAS pour bien maintenir les deux chargeurs de votre pistolet et fournira une saisie rapide au moment de recharger.</szItemDesc>
+    <szBRName>Poche double Chrg/P 3.11</szBRName>
+    <szBRDesc>Cette double poche NAS accepte des chargeurs de divers calibres pour pistolet. Assurez-vous de choisir correctement le bon calibre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1660</uiIndex>
-    <szItemName>Knife Holster</szItemName>
-    <szLongItemName>Nylon Knife Sheath</szLongItemName>
-    <szItemDesc>A small, compact clip on nylon sheath that accepts most combat Knifes.</szItemDesc>
-    <szBRName>Nylon Knife Holster</szBRName>
-    <szBRDesc>A quick and easy Knife sheath.</szBRDesc>
+    <szItemName>Étui couteau</szItemName>
+    <szLongItemName>Étui nylon Couteau</szLongItemName>
+    <szItemDesc>Un étui en nylon qui accepte la plupart des couteaux de combat.</szItemDesc>
+    <szBRName>Étui nylon Couteau</szBRName>
+    <szBRDesc>Un étui de couteau, il est pratique et commode.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1661</uiIndex>
-    <szItemName>3.11 Explosives</szItemName>
-    <szLongItemName>3.11 Explosives Pouch</szLongItemName>
-    <szItemDesc>The 3.11 Vertical Explosives Pouch features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
-    <szBRName>3.11 Explosives Pouch</szBRName>
-    <szBRDesc>The 3.11 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
+    <szItemName>Poche Ex. 3.11</szItemName>
+    <szLongItemName>Poche Explosifs 3.11</szLongItemName>
+    <szItemDesc>Cette poche verticale pour explosifs, dispose d'un compartiment avec une fermeture éclair pour un stockage sécurisé des explosifs. La partie supérieure s'attache sur un système MOLLE.</szItemDesc>
+    <szBRName>Poche Explosifs 3.11</szBRName>
+    <szBRDesc>Cette poche verticale 3.11 permet le stockage sécurisé d'explosifs pour un équipement léger.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1662</uiIndex>
-    <szItemName>Syringe Pouch</szItemName>
-    <szLongItemName>3.11 Syringe Pouch</szLongItemName>
-    <szItemDesc>Designed to keep a syringe secure. The high impact and locking clip with MOLLE compatibility make this compact pouch ideal for a small item.</szItemDesc>
-    <szBRName>3.11 Syringe Pouch</szBRName>
-    <szBRDesc>Engineered to mesh seamlessly with 3.11 bags, belts, and packs, the Syringe Pouch keeps your sensitive medical equipment safe and secure.</szBRDesc>
+    <szItemName>Poc. Seringues</szItemName>
+    <szLongItemName>Poche Seringues 3.11</szLongItemName>
+    <szItemDesc>Conçue pour contenir des seringues. Sa résistance aux chocs et sa fixation MOLLE font de cette poche, un petit accessoire idéal.</szItemDesc>
+    <szBRName>Poche Seringues 3.11</szBRName>
+    <szBRDesc>Conçue pour s'attacher facilement sur la série 3.11. La poche de seringues protège votre équipement médical fragile.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1663</uiIndex>
-    <szItemName>Shotgun Bandolier</szItemName>
-    <szLongItemName>7 RD Shotgun Bandolier</szLongItemName>
-    <szItemDesc>The NAS Shotgun Bandolier holds 7 shotgun shell rounds.</szItemDesc>
-    <szBRName>7 RD Shotgun Bandolier</szBRName>
-    <szBRDesc>The 7 RD Shotgun Bandolier keeps your shotgun reloads within easy reach.</szBRDesc>
+    <szItemName>Cartouchière</szItemName>
+    <szLongItemName>Cartouchière de 7</szLongItemName>
+    <szItemDesc>Une cartouchière NAS pour sept cartouches de fusil de chasse.</szItemDesc>
+    <szBRName>Cartouchière de 7 cal 12</szBRName>
+    <szBRDesc>Cette cartouchière garde vos sept cartouches de fusil de chasse à portée de main.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1664</uiIndex>
-    <szItemName>Documents</szItemName>
-    <szLongItemName>Document Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital maps and other paperwork.</szItemDesc>
-    <szBRName>Document Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Document Drop Pouch remains folded and compact when not in use</szBRDesc>
+    <szItemName>Poche document</szItemName>
+    <szLongItemName>P. document MOLLE</szLongItemName>
+    <szItemDesc>Cette poche extensible peut se fixer à tout système compatible MOLLLE ou à une ceinture standard. Elle peut contenir de précieuses cartes ou documents divers.</szItemDesc>
+    <szBRName>Poche document MOLLE</szBRName>
+    <szBRDesc>Conçue pour étendre l'espace de stockage à la demande, cette poche se plie pour devenir plate et compacte quand elle n'est pas utilisée.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1665</uiIndex>
-    <szItemName>Drop Holster</szItemName>
-    <szLongItemName>Drop Leg Holster</szLongItemName>
-    <szItemDesc>The LBT-6099Z is an ambidextrous, modular style universal holster.</szItemDesc>
-    <szBRName>Drop Leg Ambi Holster</szBRName>
-    <szBRDesc>Versatility comes from the number of carry modes and weapon configurations allowed by this holster.</szBRDesc>
+    <szItemName>Holster Molle</szItemName>
+    <szLongItemName>Étui ambid. MOLLE</szLongItemName>
+    <szItemDesc>Le LBT-6099Z est un étui universel ambidextre et modulaire.</szItemDesc>
+    <szBRName>Étui ambidextre MOLLE</szBRName>
+    <szBRDesc>La polyvalence de cet étui vient du nombre de façons de le fixer et des configurations d'armes possibles.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1666</uiIndex>
-    <szItemName>Casualty Response Kit</szItemName>
-    <szLongItemName>Casualty Response Kit</szLongItemName>
-    <szItemDesc>Trauma shear storage for quick access and MOLLE style attachment system compatible.</szItemDesc>
-    <szBRName>Casualty Response Kit</szBRName>
-    <szBRDesc>Here we have a Trauma shear storage for quick access and MOLLE style attachment system compatible.</szBRDesc>
+    <szItemName>P. T/médicale</szItemName>
+    <szLongItemName>Poche Tr. médicale</szLongItemName>
+    <szItemDesc>Pour porter vos instruments chirurgicaux et en disposant d'un accès rapide avec le système de fixation du style MOLLE.</szItemDesc>
+    <szBRName>Poche Trousse médicale</szBRName>
+    <szBRDesc>Cette poche est faite pour porter vos instruments chirurgicaux et dispose d'un accès rapide avec son système de fixation du style MOLLE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1667</uiIndex>
-    <szItemName>Black MOLLE</szItemName>
-    <szLongItemName>Black Modular Vest</szLongItemName>
-    <szItemDesc>This black tactical vest is almost completely covered in MOLLE compatible webbing, making it easy to attach all the gear you need.</szItemDesc>
-    <szBRName>Black Modular Vest</szBRName>
-    <szBRDesc>This military vest has hanging loops for added storage and features two inner mesh pockets with zippers, perfect to carry smaller items that cannot be attached to the molle webbing.</szBRDesc>
+    <szItemName>G. noir MOLLE</szItemName>
+    <szLongItemName>Gilet noir MOLLE</szLongItemName>
+    <szItemDesc>Ce gilet noir tactique est entièrement recouvert de bandes horizontales d'attaches en boucles plates cousues qui faciliteront la fixation de tous les accessoires dont vous avez besoin.</szItemDesc>
+    <szBRName>Gil. noir tactique MOLLE</szBRName>
+    <szBRDesc>Ce gilet militaire a de nombreuses bandes d'attaches en boucles plates cousues pour des fixations supplémentaires et dispose de deux poches intérieures avec fermeture éclair, parfait pour transporter de petits objets.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1668</uiIndex>
-    <szItemName>Multicam Vest</szItemName>
-    <szLongItemName>Multicam Molle Vest</szLongItemName>
-    <szItemDesc>The Multicam MOLLE  tactical vest is mounted on tough mesh material for superior ventilation, and is equipped with a multitude of ammo pouches and holsters for all your firearms.</szItemDesc>
-    <szBRName>Multicam Molle Vest</szBRName>
-    <szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
+    <szItemName>Gilet Multicam</szItemName>
+    <szLongItemName>Gil. Multicam MOLLE</szLongItemName>
+    <szItemDesc>Le gilet tactique Multicam MOLLE a une doublure en maille 3D qui assure une excellente circulation de l'air et il est équipé de nombreuses poches pour diverses munitions et de deux étuis pour vos armes de poing.</szItemDesc>
+    <szBRName>Gilet Multicam MOLLE</szBRName>
+    <szBRDesc>Ce gilet est à la fois solide et très confortable.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1669</uiIndex>
-    <szItemName>TK Sheath</szItemName>
-    <szLongItemName>Throwing Knife Sheath</szLongItemName>
-    <szItemDesc>3.11 modular pouches are designed to give you maximum flexibiity when creating your personal rig.</szItemDesc>
-    <szBRName>Throwing Knife Sheath</szBRName>
-    <szBRDesc>Swift access to your blades.</szBRDesc>
+    <szItemName>Étui C/lancer</szItemName>
+    <szLongItemName>Étui Couteau lancer</szLongItemName>
+    <szItemDesc>Les poches modulaires 3.11 sont conçues pour vous donner un maximum de flexibilité lors de la création de votre configuration personnelle.</szItemDesc>
+    <szBRName>Étui Couteau de lancer</szBRName>
+    <szBRDesc>Pour une saisie rapide à vos lames.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1670</uiIndex>
-    <szItemName>12G Pouch</szItemName>
-    <szLongItemName>3.11 Shotgun Ammo Pouch</szLongItemName>
-    <szItemDesc>Versatile shotgun pouch gives you quick access to the rounds you need.</szItemDesc>
-    <szBRName>3.11 Shotgun Ammo Pouch</szBRName>
-    <szBRDesc>The quick and simple 3.11 Shotgun Ammo Pouch provides easy and reliable access to standard shotgun rounds.</szBRDesc>
+    <szItemName>Poche cal 12</szItemName>
+    <szLongItemName>Poche cal 12</szLongItemName>
+    <szItemDesc>Cette poche polyvalente pour cal 12, vous permet d'accéder rapidement aux cartouches dont vous avez besoin.</szItemDesc>
+    <szBRName>Poche cal 12</szBRName>
+    <szBRDesc>Rapide et simple, cette poche 3.11 offre un accès facile et sûr aux cartouches de calibre 12.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1671</uiIndex>
-    <szItemName>Small Drop</szItemName>
-    <szLongItemName>Small Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
-    <szBRName>Small Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Small Drop Pouch remains folded and compact when not in use.</szBRDesc>
+    <szItemName>Petite poche</szItemName>
+    <szLongItemName>Petite poche</szLongItemName>
+    <szItemDesc>Cette poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour ranger des objets essentiels.</szItemDesc>
+    <szBRName>Petite poche</szBRName>
+    <szBRDesc>Conçue pour offrir un espace de stockage à la demande, cette poche se plie pour devenir plate et compacte quand elle n'est pas l'utilisée.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1672</uiIndex>
-    <szItemName>Sniper Pouch</szItemName>
-    <szLongItemName>Sniper Ammo Pouch</szLongItemName>
-    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
-    <szBRName>Sniper Ammo Pouch</szBRName>
-    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
+    <szItemName>Poche Sniper</szItemName>
+    <szLongItemName>P. munitions Sniper</szLongItemName>
+    <szItemDesc>Cette poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour avoir vos indispensables munitions sous la main.</szItemDesc>
+    <szBRName>Poche munitions Sniper</szBRName>
+    <szBRDesc>Notre poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour avoir vos indispensables munitions sous la main.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1673</uiIndex>
-    <szItemName>Rifle Pouch</szItemName>
-    <szLongItemName>Rifle Ammo Pouch</szLongItemName>
-    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
-    <szBRName>Rifle Ammo Pouch</szBRName>
-    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
+    <szItemName>Poche munitions</szItemName>
+    <szLongItemName>Poche munitions</szLongItemName>
+    <szItemDesc>Cette poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour avoir vos indispensables munitions sous la main.</szItemDesc>
+    <szBRName>Poche munitions</szBRName>
+    <szBRDesc>Notre poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour avoir vos indispensables munitions sous la main.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1674</uiIndex>
-    <szItemName>Knife Sheath</szItemName>
-    <szLongItemName>Leather Knife Sheath</szLongItemName>
-    <szItemDesc>Clip point Bowie knife and drop loop sheath with front arch over the guard.</szItemDesc>
-    <szBRName>Leather Knife Sheath</szBRName>
-    <szBRDesc>Clip point Bowie knife and drop loop sheath with front arch over the guard.</szBRDesc>
+    <szItemName>Étui Couteau</szItemName>
+    <szLongItemName>Étui cuir Couteau</szLongItemName>
+    <szItemDesc>Un étui en cuir pour couteau de style Bowie avec passant pour la ceinture et une fermeture par bouton pression.</szItemDesc>
+    <szBRName>Étui en cuir couteau</szBRName>
+    <szBRDesc>Cet étui en cuir pour couteau de style Bowie a un passant pour la ceinture et une fermeture par bouton pression.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1675</uiIndex>
-    <szItemName>Revolver Pouch</szItemName>
-    <szLongItemName>Revolver Pouch</szLongItemName>
-    <szItemDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szItemDesc>
-    <szBRName>Revolver Pouch</szBRName>
-    <szBRDesc>M81 US Woodland Nylon Revolver pouch made in China. Fits most Molle Systems.</szBRDesc>
+    <szItemName>Holst. Révolver</szItemName>
+    <szLongItemName>Étui Révolver MOLLE</szLongItemName>
+    <szItemDesc>Une poche de révolver en nylon au motif de camouflage M81 Woodland de l'armée américaine, elle est fabriquée en Chine et elle se fixe aux systèmes Molle.</szItemDesc>
+    <szBRName>Étui Révolver MOLLE</szBRName>
+    <szBRDesc>Cette poche de révolver en nylon au motif de camouflage M81 Woodland de l'armée américaine, est fabriquée en Chine et se fixe aux systèmes Molle.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1676</uiIndex>
-    <szItemName>Specter Rig</szItemName>
-    <szLongItemName>Specter Thigh Rig</szLongItemName>
-    <szItemDesc>This rig features 4 rows of MOLLE compatible modular webbing strips and a loop for a Gasmask.</szItemDesc>
-    <szBRName>Specter Thigh Rig</szBRName>
-    <szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they need for the mission at hand.</szBRDesc>
+    <szItemName>Platef. Specter</szItemName>
+    <szLongItemName>Platef. cuisse Specter</szLongItemName>
+    <szItemDesc>Cette plateforme dispose quatre rangées de passants compatibles MOLLE et un mousqueton pour un masque à gaz.</szItemDesc>
+    <szBRName>Platef. cuisse Specter</szBRName>
+    <szBRDesc>Cette plateforme dispose quatre rangées de passants compatibles MOLLE qui vous permettront de configurer cette plateforme de cuisse avec des poches dont vous avez besoin pour accomplir votre mission.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1677</uiIndex>
-    <szItemName>Russian Holster</szItemName>
-    <szLongItemName>Russian Pistol holster</szLongItemName>
-    <szItemDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szItemDesc>
-    <szBRName>Russian Pistol holster</szBRName>
-    <szBRDesc>This MOLLE holster may be used for Glock, PMM, APS, GSh-18, and PB pistols with a silencer.</szBRDesc>
+    <szItemName>Holster russe</szItemName>
+    <szLongItemName>Étui russe Pistolet</szLongItemName>
+    <szItemDesc>Cet étui MOLLE peut être utilisé pour un pistolet Glock, PMM, APS, BA-18 et PB, avec un silencieux.</szItemDesc>
+    <szBRName>Étui russe Pistolet</szBRName>
+    <szBRDesc>Cet étui MOLLE peut être utilisé pour un pistolet Glock, PMM, APS, BA-18 et PB, avec un silencieux.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1678</uiIndex>
-    <szItemName>Rifle Grenade</szItemName>
-    <szLongItemName>3.11 Rifle Grenade</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szItemDesc>
-    <szBRName>3.11 Double Rifle Grenade</szBRName>
-    <szBRDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Pouches will securely carry your Rifle Grenades.</szBRDesc>
+    <szItemName>Poche Gr. 40</szItemName>
+    <szLongItemName>Poche Gr. 40mm 3.11</szLongItemName>
+    <szItemDesc>3.11 Tactical vous propose une double poche NAS pour vos munitions. Ces poches transporteront vos grenades 40mm en toute sécurité.</szItemDesc>
+    <szBRName>Poche Gr. 40mm 3.11</szBRName>
+    <szBRDesc>3.11 Tactical vous propose une double poche NAS pour vos munitions. Ces poches transporteront vos grenades 40mm en toute sécurité.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1679</uiIndex>
-    <szItemName>Pistol Mag</szItemName>
-    <szLongItemName>3.11 Single Pistol Mag</szLongItemName>
-    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches. These Magazine Pouches will securely carry your pistol magazine and provide quick access when it's time to reload.</szItemDesc>
-    <szBRName>3.11 Single Pistol Pouch</szBRName>
-    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines. Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szItemName>Poche Chrg P.</szItemName>
+    <szLongItemName>Poche Chrg P. 3.11</szLongItemName>
+    <szItemDesc>3.11 Tactical vous propose une simple poche NAS pour vos munitions. Cette poche transportera en toute sécurité votre chargeur de pistolet et fournira une saisie rapide quand il est temps de recharger.</szItemDesc>
+    <szBRName>Poche Chrg P. 3.11</szBRName>
+    <szBRDesc>Cette simple poche NAS accepte divers chargeurs. Veillez à choisir correctement le bon chargeur pour votre pistolet.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1680</uiIndex>
-    <szItemName>AR Pouch</szItemName>
-    <szLongItemName>Modular AR Mag</szLongItemName>
-    <szItemDesc>The NAS MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szItemDesc>
-    <szBRName>Stacked Double AR Pouch</szBRName>
-    <szBRDesc>The TAG MOLLE Stacker Magazine Pouch is made to fit (2) 5.56 30 round magazines M16/M4 series rifles</szBRDesc>
+    <szItemName>P. Chrg F/A</szItemName>
+    <szLongItemName>Poche Chargeur F/A</szLongItemName>
+    <szItemDesc>Cette poche MOLLE de NAS accepte deux chargeurs de 30 cartouches 5.56 de la série des M4/M16.</szItemDesc>
+    <szBRName>Poche Chargeur F/A</szBRName>
+    <szBRDesc>Cette poche MOLLE de NAS accepte deux chargeurs de 30 cartouches 5.56 de la série des M4/M16.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1681</uiIndex>
-    <szItemName>Kit Pouch</szItemName>
-    <szLongItemName>Kit Drop Pouch</szLongItemName>
-    <szItemDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szItemDesc>
-    <szBRName>Kit Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand, the Kit Drop Pouch is perfect for storing your Camo.</szBRDesc>
+    <szItemName>Poche Kit</szItemName>
+    <szLongItemName>Poche Kit</szLongItemName>
+    <szItemDesc>Conçue pour offrir un espace de stockage à la demande, cette poche est idéale pour ranger votre kit de camouflage.</szItemDesc>
+    <szBRName>Poche Kit</szBRName>
+    <szBRDesc>Conçue pour offrir un espace de stockage à la demande, cette poche est idéale pour ranger votre kit de camouflage.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1682</uiIndex>
-    <szItemName>MAT-V</szItemName>
-    <szLongItemName>TT Modular Vest</szLongItemName>
-    <szItemDesc>The TT Modular Adjustable Tactical Vest is a modern update to the traditional modular vest.</szItemDesc>
-    <szBRName>TT Modular Tactical Vest</szBRName>
-    <szBRDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szBRDesc>
+    <szItemName>Gilet MAT-V</szItemName>
+    <szLongItemName>Gilet MAT-V</szLongItemName>
+    <szItemDesc>Le gilet MAT-V "Modular Adjustable Tactical Vest" est une version moderne du traditionnel gilet modulaire.</szItemDesc>
+    <szBRName>Gilet modulaire MAT-V</szBRName>
+    <szBRDesc>Le gilet MAT-V "Modular Adjustable Tactical Vest" est une version moderne du traditionnel gilet modulaire. Il a été conçu pour allier fonctionnalité et confort sans sacrifier l'un ou l'autre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1683</uiIndex>
-    <szItemName>S.T.R.I.K.E.</szItemName>
-    <szLongItemName>S.T.R.I.K.E. Vest</szLongItemName>
-    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szItemDesc>
-    <szBRName>S.T.R.I.K.E. Elite Vest</szBRName>
-    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment. See 3.11. section for all pouch options.</szBRDesc>
+    <szItemName>Gilet STRIKE</szItemName>
+    <szLongItemName>Gilet STRIKE ELITE</szLongItemName>
+    <szItemDesc>Trois poches pour deux chargeurs de fusil d'assaut et deux mousquetons aux épaules pour attacher vos accessoires. Aller à la section 3.11 pour voir toutes les propositions de poches.</szItemDesc>
+    <szBRName>Gilet STRIKE ELITE</szBRName>
+    <szBRDesc>Trois poches pour deux chargeurs de fusil d'assaut et deux mousquetons aux épaules pour attacher vos accessoires. Aller à la section 3.11 pour voir toutes les propositions de poches.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1684</uiIndex>
-    <szItemName>Drop Pouch</szItemName>
-    <szLongItemName>Medium Drop Pouch</szLongItemName>
-    <szItemDesc>Our Drop Pouch attaches to any MOLLE compatible system or standard belt to hold vital gear.</szItemDesc>
-    <szBRName>Medium Drop Pouch</szBRName>
-    <szBRDesc>Designed to provide expandable storage space on demand,  our Drop Pouch remains folded and compact when not in use.</szBRDesc>
+    <szItemName>Poche moyenne</szItemName>
+    <szLongItemName>Poche moyenne</szLongItemName>
+    <szItemDesc>Cette poche se fixe sur tous les systèmes compatibles MOLLE ou à une simple ceinture pour ranger des objets essentiels.</szItemDesc>
+    <szBRName>Poche moyenne</szBRName>
+    <szBRDesc>Conçue pour offrir un espace de stockage à la demande, notre poche se plie pour devenir plate et compacte quand elle n'est pas l'utilisée.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1685</uiIndex>
-    <szItemName>3.11 Large Mag</szItemName>
-    <szLongItemName>3.11 Large Mag</szLongItemName>
-    <szItemDesc>Modular pouch that can hold oversized ammunition.</szItemDesc>
-    <szBRName>3.11 Large Mag</szBRName>
-    <szBRDesc>Modular pouch that can hold oversized ammunition.</szBRDesc>
+    <szItemName>Poc. Lg ch 3.11</szItemName>
+    <szLongItemName>Poche Long chrg 3.11</szLongItemName>
+    <szItemDesc>Une poche modulaire pouvant contenir de longs chargeurs.</szItemDesc>
+    <szBRName>Poche Long chrg 3.11</szBRName>
+    <szBRDesc>Cette poche modulaire peut contenir de longs chargeurs.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1686</uiIndex>
-    <szItemName>Triple Grenade</szItemName>
-    <szLongItemName>Triple Grenade Pouch</szLongItemName>
-    <szItemDesc>Heavy duty pockets for the safe storage of three MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Triple Grenade Pouch</szBRName>
-    <szBRDesc>Heavy duty pockets for the safe storage of three  MK 2 Defensive Grenades.</szBRDesc>
+    <szItemName>P. triple Gr.</szItemName>
+    <szLongItemName>Poche triple Grenade</szLongItemName>
+    <szItemDesc>Trois solides poches pour un stockage sécurisé de trois grenades défensives MK2.</szItemDesc>
+    <szBRName>Poche triple Grenade</szBRName>
+    <szBRDesc>Trois solides poches pour un stockage sécurisé de trois grenades défensives MK2.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1687</uiIndex>
-    <szItemName>Flashbang Pouch</szItemName>
-    <szLongItemName>Triple Flashbang Pouch</szLongItemName>
-    <szItemDesc>Safely store up to three Flashbang Grenades.</szItemDesc>
-    <szBRName>Triple Flashbang Pouch</szBRName>
-    <szBRDesc>Safely store up to three Flashbang Grenades.</szBRDesc>
+    <szItemName>Poc. Flashbang</szItemName>
+    <szLongItemName>Poc. triple Flashbang</szLongItemName>
+    <szItemDesc>Porter en toute sécurité jusqu'à trois grenades "Flashbang".</szItemDesc>
+    <szBRName>Poche triple Flashbang</szBRName>
+    <szBRDesc>Porter en toute sécurité jusqu'à trois grenades "Flashbang".</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1688</uiIndex>
-    <szItemName>Triple Pistol Mag</szItemName>
-    <szLongItemName>Triple Pistol Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szItemDesc>
-    <szBRName>Triple Pistol Mag Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack pistol magazines.</szBRDesc>
+    <szItemName>Poc. 3 Chrg P.</szItemName>
+    <szLongItemName>Poche triple Chrg P.</szLongItemName>
+    <szItemDesc>Une poche triple se fixant sur tout système compatible MOLLE et pouvant accueillir jusqu'à trois chargeurs de pistolet.</szItemDesc>
+    <szBRName>Poche triple Chargeur P.</szBRName>
+    <szBRDesc>Cette poche triple se fixe sur tout système compatible MOLLE et peut accueillir jusqu'à trois chargeurs de pistolet.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1689</uiIndex>
-    <szItemName>Triple SMG Mag</szItemName>
-    <szLongItemName>Triple SMG Mag Pouch</szLongItemName>
-    <szItemDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines.</szItemDesc>
-    <szBRName>Triple SMG Mag Pouch</szBRName>
-    <szBRDesc>Attaches to any MOLLE compatible system and can hold up to three single stack SMG magazines..</szBRDesc>
+    <szItemName>Poc. 3 Chrg M.</szItemName>
+    <szLongItemName>Poche triple Chrg M.</szLongItemName>
+    <szItemDesc>Une poche triple se fixant sur tout système compatible MOLLE et pouvant accueillir jusqu'à trois chargeurs standards de mitraillette.</szItemDesc>
+    <szBRName>Poche triple Chargeur M.</szBRName>
+    <szBRDesc>Cette poche triple se fixe sur tout système compatible MOLLE et peut accueillir jusqu'à trois chargeurs standards de mitraillette.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1690</uiIndex>
-    <szItemName>Large Thigh Rig</szItemName>
-    <szLongItemName>Large Modular Thigh Rig</szLongItemName>
-    <szItemDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szItemDesc>
-    <szBRName>Large Modular Thigh Rig</szBRName>
-    <szBRDesc>This rig features 5 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
+    <szItemName>Platef. grande</szItemName>
+    <szLongItemName>Platef. cuisse grande</szLongItemName>
+    <szItemDesc>Une plateforme disposant de cinq rangées de passants compatibles MOLLE qui vous permettront de configurer cette plateforme de cuisse avec exactement les poches dont vous voulez.</szItemDesc>
+    <szBRName>Plateforme cuisse grande</szBRName>
+    <szBRDesc>Cette plateforme dispose cinq rangées de passants compatibles MOLLE qui vous permettront de configurer cette plateforme de cuisse avec exactement les poches dont vous voulez.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1691</uiIndex>
-    <szItemName>Sniper Bag</szItemName>
-    <szLongItemName>Sniper Drag Bag</szLongItemName>
-    <szItemDesc>Carry your sniper rifle with style and protected from bad weather.</szItemDesc>
-    <szBRName>Sniper Drag Bag</szBRName>
-    <szBRDesc>This bag can hold a two long guns and two pistols plus quite a bit of gear. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
+    <szItemName>Housse Sniper</szItemName>
+    <szLongItemName>Housse de sniper</szLongItemName>
+    <szItemDesc>Transportez votre fusil de sniper avec style et en le protégeant des intempéries.</szItemDesc>
+    <szBRName>Housse de sniper</szBRName>
+    <szBRDesc>Cette housse peut contenir deux fusils et deux pistolets, ainsi qu'un peu de matériel et elle facilite le transport sur de longues distances et dispose de poches supplémentaires pour vos objets indispensables.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1692</uiIndex>
-    <szItemName>Sporting Clay Vest</szItemName>
-    <szLongItemName>Sporting Clay Vest</szLongItemName>
-    <szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
-    <szBRName>Sporting Clay Vest</szBRName>
-    <szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
+    <szItemName>Gil. ball-trap</szItemName>
+    <szLongItemName>Gilet de ball-trap</szLongItemName>
+    <szItemDesc>Ce gilet polyvalent au bon rapport qualité/prix, a un large éventail d'usages. Organisez votre chargement entre deux cartouchières doubles (4 au total) et mettez à l'abri vos douilles usagées dans la poche en toile dorsale.</szItemDesc>
+    <szBRName>Gilet de ball-trap</szBRName>
+    <szBRDesc>Ce gilet polyvalent au bon rapport qualité/prix, a un large éventail d'usages. Organisez votre chargement entre deux cartouchières doubles (4 au total) et mettez à l'abri vos douilles usagées dans la poche en toile dorsale.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1693</uiIndex>
-    <szItemName>Condor Vest</szItemName>
-    <szLongItemName>Condor Assault Vest</szLongItemName>
-    <szItemDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szItemDesc>
-    <szBRName>Condor Heavy Assault Vest</szBRName>
-    <szBRDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szBRDesc>
+    <szItemName>Gilet Condor</szItemName>
+    <szLongItemName>Gilet d'assaut Condor</szLongItemName>
+    <szItemDesc>Quand la mission promet d'être salissante, prenez un gilet d'assaut lourd. Ce gilet a un système MOLLE, par conséquent, son porteur peut le configurer en fonction de sa spécialité.</szItemDesc>
+    <szBRName>Gil. d'assaut lourd Condor</szBRName>
+    <szBRDesc>Quand la mission promet d'être salissante, prenez un gilet d'assaut lourd. Ce gilet a un système MOLLE, par conséquent, son porteur peut le configurer en fonction de sa spécialité.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1694</uiIndex>
-    <szItemName>Archer Vest</szItemName>
-    <szLongItemName>Archer Assault Vest</szLongItemName>
-    <szItemDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szItemDesc>
-    <szBRName>Archer Assault Vest</szBRName>
-    <szBRDesc>Chinese made Special force load bearing vest with MOLLE webbing cross straps for attaching MOLLE pouches.</szBRDesc>
+    <szItemName>Gilet Archer</szItemName>
+    <szLongItemName>Gilet Combat Archer</szLongItemName>
+    <szItemDesc>De fabrication chinoise pour les forces spéciales, ce gilet a le système MOLLE pour attacher vos poches.</szItemDesc>
+    <szBRName>Gilet Combat Archer</szBRName>
+    <szBRDesc>De fabrication chinoise pour les forces spéciales, ce gilet a le système MOLLE pour attacher vos poches.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1695</uiIndex>
     <szItemName>Carabiner</szItemName>
     <szLongItemName>Carabiner</szLongItemName>
-    <szItemDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners.</szItemDesc>
+    <szItemDesc>Sa forme très fonctionnelle est facile à tenir ; sa large boucle permet l'usage de nombreux cordages.</szItemDesc>
     <szBRName>Carabiner</szBRName>
-    <szBRDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners</szBRDesc>
+    <szBRDesc>Sa forme très fonctionnelle est facile à tenir ; sa large boucle permet l'usage de nombreux cordages.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1696</uiIndex>
-    <szItemName>Double Grenade</szItemName>
-    <szLongItemName>Double Grenade Pouch</szLongItemName>
-    <szItemDesc>Heavy duty pockets for the safe storage of two MK 2 Defensive Grenades.</szItemDesc>
-    <szBRName>Double Grenade Pouch</szBRName>
-    <szBRDesc>Heavy duty pockets for the safe storage of two  MK 2 Defensive Grenades.</szBRDesc>
+    <szItemName>P. double Gr.</szItemName>
+    <szLongItemName>Poche double Grenade</szLongItemName>
+    <szItemDesc>Deux solides poches pour un stockage sécurisé de deux grenades défensives MK2.</szItemDesc>
+    <szBRName>Poche double Grenade</szBRName>
+    <szBRDesc>Deux solides poches pour un stockage sécurisé de deux grenades défensives MK2.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1697</uiIndex>
-    <szItemName>Radio Set</szItemName>
-    <szLongItemName>Radio set</szLongItemName>
-    <szItemDesc>A standard issue radio set for short-range communications in the field.</szItemDesc>
-    <szBRName>Radio set</szBRName>
-    <szBRDesc>The Departmento Munitorum made this the standard radio set for all Cadian Infantry regiments in the 39th millenium. If it's good enough for them, it better be good enough for you.</szBRDesc>
+    <szItemName>Radio</szItemName>
+    <szLongItemName>Radio militaire</szLongItemName>
+    <szItemDesc>Une radio militaire de campagne pour des communications à courte portée.</szItemDesc>
+    <szBRName>Radio militaire</szBRName>
+    <szBRDesc>Le Munitorum a fourni cette radio à tous les régiments d'infanterie Cadien dans le 39 ème millénaire. Alors, si c'est bon pour eux, ça le sera aussi pour vous.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1698</uiIndex>
-    <szItemName>Radio battery</szItemName>
-    <szLongItemName>Radio Set battery</szLongItemName>
-    <szItemDesc>A battery used in standard field equipment. Quite heavy, but can last for weeks if you conserve it.</szItemDesc>
-    <szBRName>Radio battery</szBRName>
-    <szBRDesc>A standard issue field battery for radio sets.</szBRDesc>
+    <szItemName>Batterie Radio</szItemName>
+    <szLongItemName>Batterie Radio milit.</szLongItemName>
+    <szItemDesc>Une batterie fournie dans l'équipement de campagne du soldat de transmission. Un peu lourde, mais peut durer pendant des semaines si vous l'entretenez.</szItemDesc>
+    <szBRName>Batterie Radio militaire</szBRName>
+    <szBRDesc>Une batterie pour une radio militaire.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1699</uiIndex>
@@ -13611,18 +13611,42 @@
   </ITEM>
   <ITEM>
     <uiIndex>1700</uiIndex>
-    <szItemName>Mortar Signal Shell</szItemName>
-    <szLongItemName>60mm Mortar Signal Shell</szLongItemName>
-    <szItemDesc>This mortar shell is used to mark an area for further bombardment.</szItemDesc>
-    <szBRName>60mm Mortar Signal Shell</szBRName>
-    <szBRDesc>The red smoke from this signal shell clearly marks an area - visible even at night.</szBRDesc>
+    <szItemName>60mm F. rouge</szItemName>
+    <szLongItemName>60mm Fumée rouge</szLongItemName>
+    <szItemDesc>Cet obus de mortier sert pour marquer une zone de bombardement.</szItemDesc>
+    <szBRName>60mm Fumée rouge, 1</szBRName>
+    <szBRDesc>La fumée rouge de cet obus signale clairement une zone (visible même de nuit).</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1701</uiIndex>
-    <szItemName>Signal Flare</szItemName>
-    <szLongItemName>Signal Flare</szLongItemName>
-    <szItemDesc>Mark a target very visibly with this red smoke.</szItemDesc>
-    <szBRName>Signal Flare</szBRName>
-    <szBRDesc>Nothing says ATTACK HERE like a giant column of red smoke.</szBRDesc>
+    <szItemName>Gr. Fum. rouge</szItemName>
+    <szLongItemName>Grenade Fumée rouge</szLongItemName>
+    <szItemDesc>Avec cette fumée rouge, vous signalerez très visiblement une cible.</szItemDesc>
+    <szBRName>Grenade Fumée rouge</szBRName>
+    <szBRDesc>Rien ne dit "ATTAQUEZ ICI", sauf cette colonne de fumée rouge.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1702</uiIndex>
+    <szItemName>SMALL_SMOKE</szItemName>
+    <szLongItemName>SMALL_SMOKE</szLongItemName>
+    <szItemDesc></szItemDesc>
+    <szBRName>SMALL_SMOKE</szBRName>
+    <szBRDesc></szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1703</uiIndex>
+    <szItemName>GAS_EXPLOSION</szItemName>
+    <szLongItemName>GAS_EXPLOSION</szLongItemName>
+    <szItemDesc>GAS_EXPLOSION</szItemDesc>
+    <szBRName>GAS_EXPLOSION</szBRName>
+    <szBRDesc>GAS_EXPLOSION</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1704</uiIndex>
+    <szItemName>FRAG_EXPLOSION</szItemName>
+    <szLongItemName>FRAG_EXPLOSION</szLongItemName>
+    <szItemDesc>FRAG_EXPLOSION</szItemDesc>
+    <szBRName>FRAG_EXPLOSION</szBRName>
+    <szBRDesc>FRAG_EXPLOSION</szBRDesc>
   </ITEM>
 </ITEMLIST>

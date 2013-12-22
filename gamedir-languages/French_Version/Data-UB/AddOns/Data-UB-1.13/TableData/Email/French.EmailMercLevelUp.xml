@@ -303,13 +303,13 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>58</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez averti qu'au vu des résultats de Gaston, le prix de ses services a été augmenté. Personnellement, cela ne me surpend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>59</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Soyez avisés qu'à partir d'aujourd'hui, les honoraires de Stogie ont augmenté pour s'ajuster avec l'augmentation de ses compétences. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
@@ -839,26 +839,26 @@
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez averti qu'au vu des résultats de Gaston, le prix de ses services a été augmenté. Personnellement, cela ne me surpend pas. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez avisé qu'à partir d'aujourd'hui, les honoraires de Stogie ont augmenté. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez informé que l'expérience de Tex lui donne droit à une indemnisation plus élevée. Sa rémunération a donc été augmentée afin de mieux refléter sa valeur. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 			<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note : En raison de l'amélioration des performances de Biggens, ses honoraires ont subi une augmentation. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -908,22 +908,22 @@
 	<EMAIL>
 		<uiIndex>178</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Spooky, ses honoraires ont été augmentés. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Spooky, ses honoraires ont été augmentés. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>179</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances Skitzo, son salaire a été augmenté. ± ± Speck T. Kline ±</Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances Skitzo, son salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>180</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances de la Fouine, son salaire a été augmenté. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de la Fouine, son salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>181</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. L'amélioration des performances de Chose, lui donne droit à une augmentation de salaire. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. L'amélioration des performances de Chose, lui donne droit à une augmentation de salaire. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>182</uiIndex>
@@ -957,23 +957,23 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>188</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé que Lance améliore progressivement ses performances sur le champ de bataille et mérite une augmentation de salaire. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>189</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé que les services exceptionnels du docteur Leevon, lui donne droit à une indemnisation plus équitable. Son salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>190</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>En raison des performances exceptionnelles de Wink et de son gain énorme en expérience, son salaire a été recalculé. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>191</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>En raison de ma performance exceptionnelle sur le champ de bataille, je me sens obligé de vous informer que mon salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>192</uiIndex>
@@ -992,23 +992,23 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>195</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>En raison des performances exceptionnelles de John et de son gain énorme en expérience, son salaire a été recalculé. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>196</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé qu'Elio améliore progressivement ses performances sur le champ de bataille et mérite une augmentation de salaire. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>197</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé que les services exceptionnels de Juan, lui donne droit à une indemnisation plus équitable. Son salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>198</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Wahan, son salaire a été augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>199</uiIndex>
@@ -1118,42 +1118,42 @@
 	<EMAIL>
 		<uiIndex>220</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. Dès maintenant, les honoraires du Postier ont augmenté pour s'ajuster avec l'augmentation de ses compétences. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. Dès maintenant, les honoraires du Postier ont augmenté pour s'ajuster avec l'augmentation de ses compétences. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Reuban, sa rémunération a subi une réévaluation. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Reuban, sa rémunération a subi une réévaluation. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Léon, sa rémunération a subi une réévaluation. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Léon, sa rémunération a subi une réévaluation. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez ne pas répondre. Suite à l'amélioration personnelle de Gary, ses honoraires ont été réévalués. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez ne pas répondre. Suite à l'amélioration personnelle de Gary, ses honoraires ont été réévalués. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note de cette notification. En raison d'une nette amélioration des performances de Radieuse, sa rémunération a été augmentée. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note de cette notification. En raison d'une nette amélioration des performances de Radieuse, sa rémunération a été augmentée. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Mary-Beth, sa rémunération a subi une réévaluation. ± ± Speck T. Kline ± </Message>
+		<Message>Veuillez prendre note. En raison de l'amélioration des performances de Mary-Beth, sa rémunération a subi une réévaluation. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Le présent avis vous informe qu'en raison des performances exemplaires de Sam, ses honoraires ont été révisés. À compter d'aujourd'hui, sa rémunération a été augmentée. ± ± Speck T. Kline ± </Message>
+		<Message>Le présent avis vous informe qu'en raison des performances exemplaires de Sam, ses honoraires ont été révisés. À compter d'aujourd'hui, sa rémunération a été augmentée. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>227</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Le présent avis vous informe qu'en raison de l'efficacité exceptionnelle de Hurl, ses honoraires ont été révisés avec une hausse très importante. ± ± Speck T. Kline ± </Message>
+		<Message>Le présent avis vous informe qu'en raison de l'efficacité exceptionnelle de Hurl, ses honoraires ont été révisés avec une hausse très importante. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>228</uiIndex>
@@ -1253,7 +1253,7 @@
 	<EMAIL>
 		<uiIndex>247</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez informé que le salaire du révérend a augmenté grâce à l'amélioration exceptionnelle de ses compétences. ± ± Speck T. Kline ± </Message>
+		<Message>Soyez informé que le salaire du révérend a augmenté grâce à l'amélioration exceptionnelle de ses compétences. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>248</uiIndex>
@@ -1263,7 +1263,7 @@
 	<EMAIL>
 		<uiIndex>249</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Considérez-vous comme légalement informé qu'en raison de l'amélioration des performances de Mouchard, ses honoraires ont été augmentés. ± ± Speck T. Kline ± </Message>
+		<Message>Considérez-vous comme légalement informé qu'en raison de l'amélioration des performances de Mouchard, ses honoraires ont été augmentés. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>250</uiIndex>
@@ -1278,7 +1278,7 @@
 	<EMAIL>
 		<uiIndex>252</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Considérez-vous comme informé. En raison de l'amélioration des performances de Dynos, son salaire a nécessité un nouveau réajustement. ± ± Speck T. Kline ± </Message>
+		<Message>Considérez-vous comme informé. En raison de l'amélioration des performances de Dynos, son salaire a nécessité un nouveau réajustement. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>253</uiIndex>

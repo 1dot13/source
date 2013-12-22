@@ -10,7 +10,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>Couteau</pName>
+		<pName>Couteau </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
@@ -26,7 +26,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Poche SAW </pName>
+		<pName>Bande munit. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>7</pIndex>
@@ -38,11 +38,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>9</pIndex>
-		<pName>Long chargeur </pName>
+		<pName>Long chrg </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>Chargeur fusil </pName>
+		<pName>Chrg F/A. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
@@ -50,11 +50,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
-		<pName>Chargeur PM </pName>
+		<pName>Chrg M. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Grenade fusil </pName>
+		<pName>Gr. fusil </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>14</pIndex>
@@ -62,15 +62,15 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>15</pIndex>
-		<pName>Chargeur </pName>
+		<pName>Chrg P. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>16</pIndex>
-		<pName>Fine poche </pName>
+		<pName>Mini poche </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>17</pIndex>
-		<pName>Poche exigue </pName>
+		<pName>Petite poche </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
@@ -78,11 +78,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>Chargeur rapide</pName>
+		<pName>Chrg rapide </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>P. médicale </pName>
+		<pName>Tr. 1er soin </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
@@ -90,138 +90,138 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Mousqueton </pName>
+		<pName>x2 bande m. </pName>
 	</POCKET>
 <POCKET>
     <pIndex>23</pIndex>
-    <pName>Large Pistol Holster</pName>
+    <pName>Étui gros pist </pName>
   </POCKET>
   <POCKET>
     <pIndex>24</pIndex>
-    <pName>Shotgun Shells</pName>
+    <pName>Cart. chasse </pName>
   </POCKET>
   <POCKET>
     <pIndex>25</pIndex>
-    <pName>Shotgun Holster</pName>
+    <pName>Étui fusil </pName>
   </POCKET>
   <POCKET>
     <pIndex>26</pIndex>
-    <pName>Throwing Knife</pName>
+    <pName>C. de lancer </pName>
   </POCKET>
   <POCKET>
     <pIndex>27</pIndex>
-    <pName>General Misc</pName>
+    <pName>Fine poche </pName>
   </POCKET>
   <POCKET>
     <pIndex>28</pIndex>
-    <pName>Small Explosive</pName>
+    <pName>Explosifs </pName>
   </POCKET>
   <POCKET>
     <pIndex>29</pIndex>
-    <pName>Short Rifle Mag x2</pName>
+    <pName>P. Chrg F/A. </pName>
   </POCKET>
   <POCKET>
     <pIndex>30</pIndex>
-    <pName>Revolver Holster</pName>
+    <pName>Étui révolver </pName>
   </POCKET>
   <POCKET>
     <pIndex>31</pIndex>
-    <pName>Combat Pack Gun Sling</pName>
+    <pName>Étui Arme Ép. </pName>
   </POCKET>
   <POCKET>
     <pIndex>32</pIndex>
-    <pName>Combat Pack Small</pName>
+    <pName>Gros révolver </pName>
   </POCKET>
   <POCKET>
     <pIndex>33</pIndex>
-    <pName>Explosives</pName>
+    <pName>Explosifs </pName>
   </POCKET>
   <POCKET>
     <pIndex>34</pIndex>
-    <pName>Sniper Mag</pName>
+    <pName>Chrg sniper </pName>
   </POCKET>
   <POCKET>
     <pIndex>35</pIndex>
-    <pName>Canteen</pName>
+    <pName>Gourde </pName>
   </POCKET>
   <POCKET>
     <pIndex>36</pIndex>
-    <pName>First Aid Pocket</pName>
+    <pName>Tr. 1er soin </pName>
   </POCKET>
   <POCKET>
     <pIndex>37</pIndex>
-    <pName>Carabiner Face</pName>
+    <pName>Tr. médicale </pName>
   </POCKET>
   <POCKET>
     <pIndex>38</pIndex>
-    <pName>Carabiner Ring</pName>
+    <pName>Mousqueton </pName>
   </POCKET>
   <POCKET>
     <pIndex>39</pIndex>
-    <pName>Grenadex3</pName>
+    <pName>x3 Grenades </pName>
   </POCKET>
   <POCKET>
     <pIndex>40</pIndex>
-    <pName>Pistol Magx2</pName>
+    <pName>x2 Chrg P. </pName>
   </POCKET>
   <POCKET>
     <pIndex>41</pIndex>
-    <pName>Rifle Grenadex2</pName>
+    <pName>x2 Gr. fusil </pName>
   </POCKET>
   <POCKET>
     <pIndex>42</pIndex>
-    <pName>7 RD Shotgun Shells</pName>
+    <pName>7 Cart. C. 12 </pName>
   </POCKET>
   <POCKET>
     <pIndex>43</pIndex>
-    <pName>SMG Magx2</pName>
+    <pName>x2 Chrg M. </pName>
   </POCKET>
   <POCKET>
     <pIndex>44</pIndex>
-    <pName>Kits</pName>
+    <pName>Kit </pName>
   </POCKET>
   <POCKET>
     <pIndex>45</pIndex>
-    <pName>AR Magx2</pName>
+    <pName>x2 Chrg F/A. </pName>
   </POCKET>
   <POCKET>
     <pIndex>46</pIndex>
-    <pName>AR Magx1</pName>
+    <pName>x1 Chrg F/A. </pName>
   </POCKET>
   <POCKET>
     <pIndex>47</pIndex>
-    <pName>Flash Bang</pName>
+    <pName>x3 FlashBang </pName>
   </POCKET>
   <POCKET>
     <pIndex>48</pIndex>
-    <pName>Pistol Magx3</pName>
+    <pName>x3 Chrg P. </pName>
   </POCKET>
   <POCKET>
     <pIndex>49</pIndex>
-    <pName>AR Magx3</pName>
+    <pName>x3 Chrg F/A. </pName>
   </POCKET>
   <POCKET>
     <pIndex>50</pIndex>
-    <pName>Mini Grenade</pName>
+    <pName>Mini grenade </pName>
   </POCKET>
   <POCKET>
     <pIndex>51</pIndex>
-    <pName>SMG Magx3</pName>
+    <pName>x3 Chrg M. </pName>
   </POCKET>
   <POCKET>
     <pIndex>52</pIndex>
-    <pName>Small Knife</pName>
+    <pName>Couteau petit </pName>
   </POCKET>
   <POCKET>
     <pIndex>53</pIndex>
-    <pName>Sniper Rifle Gun Sling</pName>
+    <pName>Étui Sniper </pName>
   </POCKET>
   <POCKET>
     <pIndex>54</pIndex>
-    <pName>Flash Bang</pName>
+    <pName>FlashBang </pName>
   </POCKET>
   <POCKET>
     <pIndex>55</pIndex>
-    <pName>Grenadex2</pName>
+    <pName>x2 Grenades </pName>
   </POCKET>
 </POCKETLIST>

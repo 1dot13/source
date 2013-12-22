@@ -203,14 +203,14 @@
 	<EMAIL>
 		<!-- Biff -->
 		<uiIndex>40</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>//!!! char length ?
+		<Subject>Augmentation des tarifs.</Subject>
 		<Message>Soyez informé qu'au vu des dernières performances de Biff, ses honoraires ont augmenté. Personnellement, cela ne me surprend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Haywire -->
 		<uiIndex>41</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Ce message a pour but de vous informer de l'augmentation des honoraires de Dingo au vu de sa performance exemplaire. Cette augmentation prend effet sur l'instant. ± ± Kline Speck T. ± </Message>
+		<Message>Ce message a pour but de vous informer de l'augmentation des honoraires de Dingo au vu de sa performance exemplaire. Cette augmentation prend effet sur l'instant. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gasket -->
@@ -301,15 +301,17 @@
 		<Subject>Subject : None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
+		<!-- Gaston -->
 	<EMAIL>
 		<uiIndex>58</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez averti qu'au vu des résultats de Gaston, le prix de ses services a augmenté. Personnellement, cela ne me surpend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
+		<!-- Stogie -->
 	<EMAIL>
 		<uiIndex>59</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez avisé qu'à partir d'aujourd'hui, les honoraires de Stogie ont augmenté.  ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
@@ -837,28 +839,24 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez averti qu'au vu des résultats de Gaston, le prix de ses services a été augmenté. Personnellement, cela ne me surpend pas. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez avisé qu'à partir d'aujourd'hui, les honoraires de Stogie ont augmenté.  ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Soyez informé que l'expérience de Tex lui donne droit à une indemnisation plus élevée. Sa rémunération a donc été augmentée afin de mieux refléter sa valeur. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-			<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Veuillez prendre note : En raison de l'amélioration des performances de Biggens, ses honoraires ont subi une augmentation. ± ± Kline Speck T. ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -1117,38 +1115,38 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Postie</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Reuban</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Leon</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Gary</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Sparky</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Beth</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Sam</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>227</uiIndex>
@@ -1162,8 +1160,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Message : TODO: Manuel</Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>

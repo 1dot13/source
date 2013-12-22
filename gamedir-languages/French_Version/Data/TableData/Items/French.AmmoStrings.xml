@@ -235,4 +235,9 @@
 		<AmmoCaliber>.30-06</AmmoCaliber>
 		<BRCaliber>.30-06</BRCaliber>
 	</AMMO>
+		<AMMO>
+		<uiIndex>47</uiIndex>
+		<AmmoCaliber>.Obus</AmmoCaliber>
+		<BRCaliber>.Obus</BRCaliber>
+	</AMMO>
 </AMMOLIST>
