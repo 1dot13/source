@@ -2686,6 +2686,12 @@ BOOLEAN DoesVehicleGroupHaveAnyPassengers( GROUP *pGroup )
 	return DoesVehicleHaveAnyPassengers( iVehicleID );
 }
 
+BOOLEAN	IsHelicopterInSector(INT16 sX, INT16 sY)
+{
+	if ( pVehicleList[ iHelicopterVehicleId ].sSectorX == sX && pVehicleList[ iHelicopterVehicleId ].sSectorY == sY )
+	{
+		return TRUE;
+	}
 
-
-
+	return FALSE;
+}

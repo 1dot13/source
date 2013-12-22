@@ -66,6 +66,7 @@
 #include "Soldier Functions.h"//dnl ch40 200909
 #include "Text.h" // added by SANDRO
 #include "campaign.h" // yet another one added
+#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #include "Soldier Macros.h"
@@ -309,6 +310,13 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		{
 			return; // no explosive and attackers gun is not fireing HE
 		}
+
+		// Flugente: campaign stats
+		if ( MercPtrs[ ubOwner ]->bTeam == OUR_TEAM )
+		{
+			if ( Item[ usItem ].usItemClass & IC_EXPLOSV )
+				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_EXPLOSIVES, (FLOAT)(Item[usItem].ubWeight) );
+		}
 	}
 
 	// Increment attack counter...
@@ -366,6 +374,9 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < NUM_PROFILES && InARoom( sGridNo, &tmp ) )
 	{
 		HandleLoyaltyForDemolitionOfBuilding( MercPtrs[ubOwner], Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
+
+		// Flugente: campaign stats
+		gCurrentIncident.usIncidentFlags |= INCIDENT_BUILDINGS_DAMAGED;
 	}
 
 	// HEADROCK HAM 5.1: Launch fragments from the explosion.
@@ -2869,6 +2880,15 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 				// skip executing locally because we want the random number generator to be aligned
 				// with the client that spawns set off the explosion/grenade/whatever
 				return;
+			}
+
+			// Flugente: campaign stats
+			if ( Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_MUSTGAS )
+			{
+				if ( IsOurSoldier(pAttacker) )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_MUSTARDGAS_PLAYERSIDE;
+				else
+					gCurrentIncident.usIncidentFlags |= INCIDENT_MUSTARDGAS_ENEMY;
 			}
 		}
 #ifdef JA2BETAVERSION

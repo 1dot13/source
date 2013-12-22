@@ -59,6 +59,7 @@
 	// HEADROCK HAM 4: Include for initializing Manual Restrictions
 	#include "MilitiaSquads.h"
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
+	#include "CampaignStats.h"						// added by Flugente
 #endif
 
 #include "Vehicles.h"
@@ -694,6 +695,9 @@ fFirstTimeInMapScreen = TRUE;
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: first time: init laptop");
 		//Init the laptop here
 		InitLaptopAndLaptopScreens();
+
+		// Flugente campaign stats
+		gCampaignStats.clear();
 
 		InitStrategicLayer();
 

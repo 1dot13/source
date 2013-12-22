@@ -4163,6 +4163,7 @@ STR16 pBookMarkStrings[] =
 	L"Annuler",
 	L"Encyclopedia",
 	L"Briefing Room",
+	L"Campaign History",	// TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -4271,6 +4272,10 @@ STR16 pWebPagesTitles[] =
 	L"Morgue McGillicutty",
 	L"",
 	L"URL introuvable.",
+	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
+	L"Arulco Press Council - Battle Reports",
+	L"Arulco Press Council - Latest News",
+	L"Arulco Press Council - About us",
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -8135,6 +8140,162 @@ STR16 gPowerPackDesc[] =
 STR16 sSpecialCharacters[] =
 {
 	L"%",		// Percentage character
+};
+
+STR16	szSoldierClassName[]=	// TODO.Translate
+{
+	L"Mercenary",
+	L"Green militia",
+	L"Regular militia",
+	L"Elite militia",
+
+	L"Civilian",
+
+	L"Administrator",
+	L"Army Soldier",
+	L"Elite Soldier",
+	L"Tank",
+
+	L"Creature",
+	L"Zombie",
+};
+
+STR16	szCampaignHistoryWebSite[]=
+{
+	L"Arulco Press Council",
+	L"Ministry for Arulcan Information Distribution",
+	L"Arulco Revolutionary Movement",
+	L"The Times International",
+	L"International Times",
+	L"R.I.S. (Recon Intelligence Service)",
+
+	L"A collection of press sources from Arulco",
+	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	
+	L"Conflict Summary",
+	L"Battle reports",
+	L"News",
+	L"About us",
+};
+
+STR16	szCampaignHistoryDetail[]=
+{
+	L"%s, %s %s %s in %s.",
+
+	L"rebel forces",
+	L"the army",
+
+	L"attacked",
+	L"ambushed",
+	L"airdropped",
+
+	L"The attack came from %s.",
+	L"%s were reinforced from %s.",
+	L"The attack came from %s, %s were reinforced from %s.",
+	L"north",
+	L"east",
+	L"south",
+	L"west",
+
+	L"Buildings in the sector were damaged. %s civilians were killed and %s wounded.",
+	L"During the attack, %s and %s called reinforcements.",
+	L"During the attack, %s called reinforcements.",
+	L"Eyewitnesses report the use of chemical weapons from both sides.",
+	L"Chemical weapons were used by %s.",
+	L"In a serious escalation of the conflict, both sides deployed tanks.",
+	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
+	L"Both sides are said to have used snipers.",
+	L"Unverified reports indicate %s snipers were involved in the firefight."
+};
+
+STR16	szCampaignHistoryTimeString[]=
+{
+	L"Deep in the night",		// 23 - 3
+	L"At dawn",					// 3 - 6
+	L"Early in the morning",	// 6 - 8
+	L"In the morning hours",	// 8 - 11
+	L"At noon",					// 11 - 14
+	L"On the afternoon",		// 14 - 18
+	L"On the evening",			// 18 - 21
+	L"During the night",		// 21 - 23
+};
+
+STR16	szCampaignHistoryMoneyTypeString[]=
+{
+	L"Initial funding",
+	L"Mine income",
+	L"Trade",
+	L"Other sources",
+};
+
+STR16	szCampaignHistoryConsumptionTypeString[]=
+{
+	L"Ammunition",
+	L"Explosives",
+	L"Food",
+	L"Medical gear",
+	L"Item maintenance",
+};
+
+STR16	szCampaignHistoryResultString[]=
+{
+	L"In an extremely one-sided battle, the army force was wiped out without much resistance.",
+
+	L"The rebels easily defeated the army, inflicting heavy losses.",
+	L"Without much effort, the rebels inflicted heavy losses upon the army and took several prisoners.",
+
+	L"In a bloody fight, the rebels finally overcame the opposition. The army had severe losses.",
+	L"The rebels had losses but defeated the royalists. Unverified information says several soldiers might have been taken prisoner.",
+
+	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Wether they will be able to hold this position against continued attacks is doubtful.",
+	
+	L"The army's superiority in numbers came into full play. The rebels never had a chance and had to either retreat or be killed or captured.",
+	L"Despite the high number of rebels in this sector, the army easily dispatched them.",
+
+	L"The rebels were clearly unprepared against the army's superiority in numbers an equipment. They were easily defeated.",
+	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
+
+	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
+	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	
+	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
+};
+
+STR16	szCampaignHistoryImportanceString[]=
+{
+	L"Irrelevant",
+	L"Insignificant",
+	L"Notable",
+	L"Noteworthy",
+	L"Significant",
+	L"Interesting",
+	L"Important",
+	L"Very important",
+	L"Grave",
+	L"Major",
+	L"Momentous",
+};
+
+STR16	szCampaignHistoryWebpageString[]=
+{
+	L"Killed",
+	L"Wounded",
+	L"Prisoners",
+	L"Shots fired",
+
+	L"Money earned",
+	L"Consumption",
+	L"Losses",
+	L"Participants",
+
+	L"Promotions",
+	L"Summary",
+	L"Detail",
+	L"Previous",
+
+	L"Next",
+	L"Incident",
+	L"Day",
 };
 
 #endif //FRENCH

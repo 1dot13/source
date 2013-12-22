@@ -49,6 +49,7 @@
 	#include "Drugs And Alcohol.h" // HEADROCK HAM 4: Get drunk level
 	#include "LOS.h" // HEADROCK HAM 4: Required for new shooting mechanism. Alternately, maybe move the functions to LOS.h.
 	#include "Campaign Types.h"	// added by Flugente
+	#include "CampaignStats.h"	// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -2293,6 +2294,17 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	GunIncreaseHeat( pObjAttHand, pSoldier );
 
+	// Flugente: campaign stats
+	gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_SHOT );
+
+	if ( Weapon[Item[(pObjAttHand)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
+	{
+		if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_PLAYERSIDE;
+		else
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_ENEMY;
+	}
+
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	//INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
 
@@ -2918,6 +2930,17 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 
 	GunIncreaseHeat( pObjUsed, pSoldier );
+
+	// Flugente: campaign stats
+	gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_SHOT );
+
+	if ( Weapon[Item[(pObjUsed)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
+	{
+		if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_PLAYERSIDE;
+		else
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_ENEMY;
+	}
 
 	/* //WarmSteel - Replaced with GetReliability( pObj )
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
@@ -4068,25 +4091,37 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		}
 	}
 	
-  // ATE: Check here if the launcher should fail 'cause of bad status.....
-  if ( WillExplosiveWeaponFail( pSoldier, pgunobj ) )
-  {
-	GunIncreaseHeat( pgunobj, pSoldier );
-    // Explode dude!
+	// Flugente: campaign stats
+	gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_SHOT );
 
-    // So we still should have ABC > 0
-    // Begin explosion due to failure...
+	if ( Weapon[Item[(pgunobj)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
+	{
+		if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_PLAYERSIDE;
+		else
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SNIPERS_ENEMY;
+	}
+
+	// ATE: Check here if the launcher should fail 'cause of bad status.....
+	if ( WillExplosiveWeaponFail( pSoldier, pgunobj ) )
+	{
+		GunIncreaseHeat( pgunobj, pSoldier );
+
+		// Explode dude!
+
+		// So we still should have ABC > 0
+		// Begin explosion due to failure...
 		IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, Launchable.usItem, pSoldier->pathing.bLevel );
 
-    // Reduce again for attack end 'cause it has been incremented for a normal attack
-    // Nope, not anymore.
+		// Reduce again for attack end 'cause it has been incremented for a normal attack
+		// Nope, not anymore.
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY BAD EXPLOSIVE CHECK, Now %d", gAnimControl[ pSoldier->usAnimState ].zAnimStr, gTacticalStatus.ubAttackBusyCount ) );
 		DebugAttackBusy( String("@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY BAD EXPLOSIVE CHECK\n", gAnimControl[ pSoldier->usAnimState ].zAnimStr ) );
 		// ReduceAttackBusyCount( pSoldier->ubID, FALSE );
 
-    // So all's well, should be good from here....
-    return( FALSE );
-  }
+		// So all's well, should be good from here....
+		return( FALSE );
+	}
 
 	GunIncreaseHeat( pgunobj, pSoldier );
 

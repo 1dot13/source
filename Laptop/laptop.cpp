@@ -85,6 +85,8 @@
 	#include "GameSettings.h"
 	#include "Encyclopedia_new.h"
 	#include "Encyclopedia_Data_new.h"
+	#include "CampaignHistoryMain.h"		// added by Flugente
+	#include "CampaignHistory_Summary.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -798,6 +800,9 @@ UINT32 LaptopScreenInit()
 	GameInitBriefingRoom();
 	GameInitBriefingRoomEnter();
 
+	// Flugente: campaign history
+	GameInitCampaignHistory();
+
 	// init program states
 	memset( &gLaptopProgramStates, LAPTOP_PROGRAM_MINIMIZED, sizeof( gLaptopProgramStates ) );
 
@@ -1047,7 +1052,10 @@ INT32 EnterLaptop()
 		SetBookMark(ENCYCLOPEDIA_BOOKMARK); 
 		
 	if ( gGameExternalOptions.gBriefingRoom == TRUE && !is_networked )
-		SetBookMark(BRIEFING_ROOM_BOOKMARK); 
+		SetBookMark(BRIEFING_ROOM_BOOKMARK);
+
+	if ( gGameExternalOptions.fCampaignHistoryWebSite && !is_networked )
+		SetBookMark(CAMPAIGNHISTORY_BOOKMARK);
 	
 	LoadLoadPending( );
 
@@ -1420,7 +1428,21 @@ void RenderLaptop()
 			RenderBobbyRShipments();
 			break;
 
+		case LAPTOP_MODE_CAMPAIGNHISTORY_SUMMARY:
+			RenderCampaignHistorySummary();
+			break;
 
+		case LAPTOP_MODE_CAMPAIGNHISTORY_MOSTIMPORTANT:
+			RenderCampaignHistory_MostImportant();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_LATESTNEWS:
+			RenderCampaignHistory_News();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
+			RenderCampaignHistory();
+			break;
 	}
 
 
@@ -1820,7 +1842,24 @@ void EnterNewLaptopMode()
 			break;
 		case LAPTOP_MODE_BROKEN_LINK:
 			EnterBrokenLink();
-		break;
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_SUMMARY:
+			EnterCampaignHistorySummary();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_MOSTIMPORTANT:
+			EnterCampaignHistory_MostImportant();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_LATESTNEWS:
+			EnterCampaignHistory_News();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
+			EnterCampaignHistory();
+			break;
+
 		case LAPTOP_MODE_BOBBYR_SHIPMENTS:
 			EnterBobbyRShipments();
 			break;
@@ -1839,7 +1878,7 @@ void EnterNewLaptopMode()
 
 	if( ( !fLoadPendingFlag) )
 	{
-	CreateDestroyMinimizeButtonForCurrentMode( );
+		CreateDestroyMinimizeButtonForCurrentMode( );
 		guiPreviousLaptopMode = guiCurrentLaptopMode;
 		SetSubSiteAsVisted( );
 	}
@@ -2041,6 +2080,22 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_BOBBYR_SHIPMENTS:
 			HandleBobbyRShipments();
+			break;
+			
+		case LAPTOP_MODE_CAMPAIGNHISTORY_SUMMARY:
+			HandleCampaignHistorySummary();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_MOSTIMPORTANT:
+			HandleCampaignHistory_MostImportant();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_LATESTNEWS:
+			HandleCampaignHistory_News();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
+			HandleCampaignHistory();
 			break;
 	}
 
@@ -2580,6 +2635,22 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_BOBBYR_SHIPMENTS:
 			ExitBobbyRShipments();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_SUMMARY:
+			ExitCampaignHistorySummary();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_MOSTIMPORTANT:
+			ExitCampaignHistory_MostImportant();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_LATESTNEWS:
+			ExitCampaignHistory_News();
+			break;
+
+		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
+			ExitCampaignHistory();
 			break;
 	}
 
@@ -4148,6 +4219,36 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 				fFastLoadFlag =	TRUE;
 			}
 		break;
+
+		case CAMPAIGNHISTORY_BOOKMARK:
+			{
+				// if the option is off, we instead link to a 'broken' website
+				if ( !gGameExternalOptions.fCampaignHistoryWebSite )
+				{
+					guiCurrentWWWMode=LAPTOP_MODE_BROKEN_LINK;
+					guiCurrentLaptopMode=LAPTOP_MODE_BROKEN_LINK;
+
+					return GoToWebPage(LAPTOP_MODE_BROKEN_LINK);
+				}
+
+				guiCurrentWWWMode=LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS;
+				guiCurrentLaptopMode=LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS;
+
+				// do we have to have a World Wide Wait
+				if( LaptopSaveInfo.fVisitedBookmarkAlready[ CAMPAIGNHISTORY_BOOKMARK ] == FALSE )
+				{
+					// reset flag and set load pending flag
+					LaptopSaveInfo.fVisitedBookmarkAlready[ CAMPAIGNHISTORY_BOOKMARK ] = TRUE;
+					fLoadPendingFlag = TRUE;
+				}
+				else
+				{
+					// fast reload
+					fLoadPendingFlag = TRUE;
+					fFastLoadFlag =	TRUE;
+				}
+			}
+			break;
 
 	}
 

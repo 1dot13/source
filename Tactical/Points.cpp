@@ -34,10 +34,11 @@
 	#include "Map Information.h"
 	#include "Interface Items.h"
 	#include "Soldier Control.h"	// added by SANDRO 
-	#include "opplist.h"	// added by SANDRO 
-	#include "lighting.h"	// added by SANDRO 
-	#include "Food.h"		// added by Flugente
-	#include "AIInternals.h"//dnl ch69 150913
+	#include "opplist.h"			// added by SANDRO 
+	#include "lighting.h"			// added by SANDRO 
+	#include "Food.h"				// added by Flugente
+	#include "AIInternals.h"		//dnl ch69 150913
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 #include "connect.h"
 //rain
@@ -2840,6 +2841,12 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 				{
 					(*pObjUsed)[0]->data.gun.ubGunShotsLeft--;
 				}	
+			}
+
+			// Flugente: campaign stats - ammo. explosive consumption is handled elsewhere
+			if ( pSoldier->bTeam == OUR_TEAM )
+			{
+				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_AMMO, (FLOAT)(Item[(*pObjUsed)[0]->data.gun.usGunAmmoItem].ubWeight) / (FLOAT)(Magazine[ Item[ (*pObjUsed)[0]->data.gun.usGunAmmoItem ].ubClassIndex ].ubMagSize ) );
 			}
 		}
 		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[pObj->usItem].cannon || pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )

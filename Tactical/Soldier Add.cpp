@@ -23,6 +23,8 @@
 	#include "Exit Grids.h"
 	#include "Interface.h"			// added by Flugente for zBackground
 	#include "renderworld.h"		// added by Flugente
+	#include "Vehicles.h"			// added by Flugente
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -1195,7 +1197,42 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 					sGridNo = pSoldier->sInsertionGridNo;
 				}
 			}
-			
+
+			// Flugente: campaign stats
+			if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+				gCurrentIncident.usIncidentFlags |= INCIDENT_AIRDROP;
+
+			// problem: soldiers already present in a sector have ubStrategicInsertionCode = 0, which is INSERTION_CODE_NORTH - but they don't actually coem from north, as they are already present
+			// we thus count them as coming from north if they either already have a gridno, or usStrategicInsertionData
+			if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_NORTH && pSoldier->usStrategicInsertionData || pSoldier->sGridNo != NOWHERE )
+			{
+				if ( pSoldier->bSide == gbPlayerNum )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_NORTH;
+				else if ( !pSoldier->aiData.bNeutral )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_NORTH_ENEMY;
+			}
+			else if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_SOUTH )
+			{
+				if ( pSoldier->bSide == gbPlayerNum )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_SOUTH;
+				else if ( !pSoldier->aiData.bNeutral )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_SOUTH_ENEMY;
+			}
+			else if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_EAST )
+			{
+				if ( pSoldier->bSide == gbPlayerNum )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_EAST;
+				else if ( !pSoldier->aiData.bNeutral )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_EAST_ENEMY;
+			}
+			else if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_WEST )
+			{
+				if ( pSoldier->bSide == gbPlayerNum )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_WEST;
+				else if ( !pSoldier->aiData.bNeutral )
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_WEST_ENEMY;
+			}
+
 			// add this flag whenever we enter strategically enter a sector (= we attack a sector)
 			pSoldier->bSoldierFlagMask |= SOLDIER_ASSAULT_BONUS;
 			
@@ -1496,7 +1533,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 	if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
 	{
 		pSoldier->bSoldierFlagMask &= ~SOLDIER_AIRDROP;
-	
+
 		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 )
 		{
 			gfIgnoreScrolling = FALSE;
@@ -1536,7 +1573,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 			pSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
 		}
 	}
-	
+
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )

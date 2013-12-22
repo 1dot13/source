@@ -57,6 +57,7 @@
 	#include "Food.h"
 	#include "opplist.h"
 	#include "Sys Globals.h"//dnl ch74 201013
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -7322,6 +7323,15 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 		if( (usPoints * (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction)))/100) < (*pObj)[bLoop]->data.objectStatus )
 		{
 			(*pObj)[bLoop]->data.objectStatus -= (INT8)(usPoints * (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction) ) )/100);
+
+			// Flugente: campaign stats
+			if ( Item[pObj->usItem].foodtype || Item[pObj->usItem].canteen)
+				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_FOOD, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
+			else if ( Item[pObj->usItem].medical || Item[pObj->usItem].drugtype)
+				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_MEDICAL, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
+			else if ( Item[pObj->usItem].toolkit || HasItemFlag(pObj->usItem, CLEANING_KIT) )
+				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_REPAIR, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
+
 			return( usOriginalPoints );
 		}
 		// Flugente: we no longer destroy canteens upon emtptying them - as we can now refill them
@@ -7360,6 +7370,14 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 			pObj->ubNumberOfObjects--;
 		}*/
 	}
+
+	// Flugente: campaign stats
+	if ( Item[pObj->usItem].foodtype || Item[pObj->usItem].canteen)
+		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_FOOD, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
+	else if ( Item[pObj->usItem].medical || Item[pObj->usItem].drugtype)
+		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_MEDICAL, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
+	else if ( Item[pObj->usItem].toolkit || HasItemFlag(pObj->usItem, CLEANING_KIT) )
+		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_REPAIR, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
 
 	// check if pocket/hand emptied..update inventory, then update panel
 	if( pObj->exists() == false )

@@ -1824,17 +1824,17 @@ void DisplayEmailList()
 		else if(pEmail->fRead)
 		{
 			// message has been read, reset color to black
-		SetFontForeground(FONT_BLACK);
+			SetFontForeground(FONT_BLACK);
 	 //SetFontBackground(FONT_BLACK);
 
 		}
 		else
 		{
-		// defualt, message is not read, set font red
-		SetFontForeground(FONT_RED);
+			// defualt, message is not read, set font red
+			SetFontForeground(FONT_RED);
 	 //SetFontBackground(FONT_BLACK);
 		}
-	SetFontBackground(FONT_BLACK);
+		SetFontBackground(FONT_BLACK);
 
 		//draw the icon, sender, date, subject
 		DrawLetterIcon(iCounter,pEmail->fRead );
@@ -1845,15 +1845,15 @@ void DisplayEmailList()
 		else if ( pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT_NAME_MERC || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT) //|| pEmail->EmailVersion == TYPE_EMAIL_OTHER )
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
 			
-			DrawDate(iCounter, pEmail->iDate, pEmail->fRead );
+		DrawDate(iCounter, pEmail->iDate, pEmail->fRead );
 
 		iCounter++;
 
 		// too many messages onthis page, reset pEmail, so no more are drawn
-	if(iCounter >=MAX_MESSAGES_PAGE)
-	 pEmail=NULL;
+		if(iCounter >= MAX_MESSAGES_PAGE)
+			pEmail=NULL;
 		else
-		pEmail=GetEmailMessage(pPage->iIds[iCounter]);
+			pEmail=GetEmailMessage(pPage->iIds[iCounter]);
 
 	}
 
@@ -3670,7 +3670,7 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 			//Set the book mark so the player can access the site
 			SetBookMark( MERC_BOOKMARK );
 			break;
-
+					
 		case MERC_DIED_ON_OTHER_ASSIGNMENT:
 			ModifyInsuranceEmails( usMessageId, iResults, pMail, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH );
 			break;
@@ -3728,7 +3728,7 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 				}
 			}
 			giPrevMessageId = giMessageId;
-			break;
+		break;
 
 #endif
 	}

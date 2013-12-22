@@ -36,6 +36,7 @@
 	#include "MilitiaSquads.h"
 	// HEADROCK HAM 3.6: Include for Facility Debt
 	#include "Facilities.h"
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #include "Luaglobal.h"
@@ -1869,6 +1870,9 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 #else
 			HandleMeanWhileEventPostingForTownLiberation( bTownId );
 #endif
+
+			// Flugente: campaign stats: if we captured an entire city for the first time, take note of that. We don't have to note the city here, as that is obvious from the sector anyway
+			gCurrentIncident.usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_CITY_LIBERATED;
 		}
 
 		// even taking over non-trainable "towns" like Orta/Tixa for the first time should count as "player activity"

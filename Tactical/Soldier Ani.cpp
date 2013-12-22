@@ -61,6 +61,7 @@
 #include "interface dialogue.h"
 #include "Strategic Status.h"
 #include "Food.h"
+#include "CampaignStats.h"				// added by Flugente
 #endif
 
 // anv: for enemy taunts
@@ -3973,6 +3974,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 				*/
 			}
 		}
+
+		// Flugente: campaign stats
+		gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
 
 		if ( TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE ) )
 		{

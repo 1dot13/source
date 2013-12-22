@@ -113,6 +113,7 @@
 	#include "Town Militia.h"
 	#include "Items.h"
 	#include "Encyclopedia_new.h"
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #include		"BobbyR.h"
@@ -1513,12 +1514,12 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 				}
 				else
 				{
-					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
-					{
-						return(FALSE);
-					}
+				if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
+				{
+					return(FALSE);
 				}
 			}
+		}
 		}
 		if ( this->uiProfileChecksum != this->GetChecksum() )
 		{
@@ -2061,7 +2062,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraWisdom, sizeof(bExtraWisdom), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraExpLevel, sizeof(bExtraExpLevel), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bSoldierFlagMask, sizeof(bSoldierFlagMask), sizeof(INT32), numBytesRead);
-		
+				
 		if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
 		{
 			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
@@ -2220,16 +2221,16 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				{
 					numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
 					numBytesRead = ReadFieldByField(hFile, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
-
+										
 					if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
 					{
 						numBytesRead = ReadFieldByField(hFile, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
 						numBytesRead = ReadFieldByField(hFile, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
 						numBytesRead = ReadFieldByField(hFile, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
-						numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
-					}
-					else
-					{
+					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+				}
+				else
+				{
 						for(UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i)
 							this->usSkillCounter[i] = 0;
 
@@ -4168,7 +4169,19 @@ if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 		SaveGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
 	#endif
 	}
-//Close the saved game file
+
+	// Flugente: campaign stats
+	if( !gCampaignStats.Save( hFile ) || !gCurrentIncident.Save( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Campaign Stats");
+		goto FAILED_TO_SAVE;
+	}
+
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "Campaign Stats" );
+#endif	
+
+	//Close the saved game file
 	FileClose( hFile );
 
 	// This defines, which savegame is highlighted in the load screen
@@ -4713,7 +4726,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 
-
+	
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"The Laptop FILES file..." );
@@ -5793,6 +5806,29 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	else
 		EncyclopediaInitItemsVisibility();
+	if( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Campaign Stats..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if( !gCampaignStats.Load( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCampaignStats.Load failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+
+		// we also have to load the currently active incident
+		if( !gCurrentIncident.Load( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCurrentIncident.Load failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+	}
+
 	//
 	//Close the saved game file
 	//

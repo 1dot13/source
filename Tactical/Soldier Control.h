@@ -328,9 +328,8 @@ enum
 	SOLDIER_CLASS_ELITE_MILITIA,
 	SOLDIER_CLASS_CREATURE,
 	SOLDIER_CLASS_MINER,
-#ifdef ENABLE_ZOMBIES
 	SOLDIER_CLASS_ZOMBIE,
-#endif
+	SOLDIER_CLASS_MAX,
 };
 
 // Flugente: there are now separate gun choices, depending on a soldier's class
@@ -381,10 +380,10 @@ enum
 #define SOLDIER_RADIO_OPERATOR_JAMMING		0x00100000	//1048576	// radio operator is jamming frequencies
 #define SOLDIER_RADIO_OPERATOR_SCANNING		0x00200000	//2097152	// radio operator is scanning for jammers
 #define SOLDIER_AIRDROP						0x00400000	//4194304	// soldier is entering the sector via airdrop from a helicopter. Sligthly different from SOLDIER_AIRDROP_TURN
-/*#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
+#define SOLDIER_FRESHWOUND					0x00800000	//8388608	// campaign stats: soldier was wounded in this battle
 
-#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
-#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
+#define SOLDIER_BATTLE_PARTICIPATION		0x01000000	//16777216	// campaign stats: soldier took part in this battle
+/*#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
 #define PLAYER_NET_3_LVL_3		0x04000000	//67108864
 #define PLAYER_NET_4_LVL_3		0x08000000	//134217728
 

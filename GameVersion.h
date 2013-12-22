@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			CAMPAIGNSTATS									150	// Flugente: store campaign statistics
 #define			WALDO_CAN_REPAIR_HELICOPTER						149 // anv: have to refresh Waldo records
 #define			ENCYCLOPEDIA_ITEM_VISIBILITY					148 // Moa: Items discovered during compain have to be saved.
 #define			TRAIT_RADIO_OPERATOR							147 // Flugente: new trait radio operator
@@ -29,7 +30,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			NO_VEHICLE_SAVE									144 // Flugente: vehicle data isn't saved anymore, as it has long been externalised
 #define			SOLDIER_PROFILES								143	// Flugente: profiles for enemy and militia (possibly any non-NPC/RPC character)
 #define			DYNAMIC_FLASHLIGHTS								142	// Flugente: had to add variables to LIGHTEFFECT-struct
-#define			ENLARGED_OPINIONS								141	// Flugente: increased numberof merc opinions to 255, thus need to change savegame reading
+#define			ENLARGED_OPINIONS								141	// Flugente: increased number of merc opinions to 255, thus need to change savegame reading
 #define			MODULARIZED_AI									140	// Flugente: new savegame version due to modularized AI
 #define			MILITIA_EQUIPMENT								139	// Flugente: militia can equip from sector inventory
 #define			MULTITURN_ACTIONS								138	// Flugente: multiturn actions
@@ -68,7 +69,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								WALDO_CAN_REPAIR_HELICOPTER
+#define			SAVE_GAME_VERSION								CAMPAIGNSTATS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

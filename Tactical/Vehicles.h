@@ -449,5 +449,6 @@ void InitAVehicle(int index, int x, int y);
 
 void InitAllVehicles( );
 
+BOOLEAN	IsHelicopterInSector(INT16 sX, INT16 sY);
 
 #endif

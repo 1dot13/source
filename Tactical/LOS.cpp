@@ -51,6 +51,7 @@
 #include "soldier tile.h"		// added by Flugente
 #include "Sound Control.h"		// added by Flugente
 #include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
+#include "CampaignStats.h"		// added by Flugente
 #include "AIInternals.h"//dnl ch61 180813
 
 //forward declarations of common classes to eliminate includes
@@ -5819,6 +5820,9 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	}
 
 	GunIncreaseHeat( pObj, pThrower );
+
+	// Flugente: campaign stats
+	gCurrentIncident.AddStat( pThrower, CAMPAIGNHISTORY_TYPE_SHOT );
 
 	// Flugente : Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change

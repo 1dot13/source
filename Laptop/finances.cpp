@@ -20,6 +20,7 @@
 	#include "Facilities.h"
 	// HEADROCK HAM 3.6: Militia upkeep
 	#include "Town Militia.h"
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 // the global defines
@@ -231,15 +232,25 @@ UINT32 AddTransactionToPlayersBook (UINT8 ubCode, UINT8 ubSecondCode, UINT32 uiD
 
 	if( !fInFinancialMode )
 	{
-	ClearFinanceList( );
+		ClearFinanceList( );
 	}
 	else
 	{
 		SetFinanceButtonStates( );
 
 		// force update
-	fPausedReDrawScreenFlag = TRUE;
+		fPausedReDrawScreenFlag = TRUE;
 	}
+
+	// Flugente: campaign stats
+	if ( ubCode == ANONYMOUS_DEPOSIT )
+		gCampaignStats.AddMoneyEarned(CAMPAIGN_MONEY_START, iAmount );
+	else if ( ubCode == DEPOSIT_FROM_GOLD_MINE || ubCode == DEPOSIT_FROM_SILVER_MINE )
+		gCampaignStats.AddMoneyEarned(CAMPAIGN_MONEY_MINES, iAmount );
+	else if ( ubCode == SOLD_ITEMS )
+		gCampaignStats.AddMoneyEarned(CAMPAIGN_MONEY_TRADE, iAmount );
+	else
+		gCampaignStats.AddMoneyEarned(CAMPAIGN_MONEY_ETC, iAmount );
 
 	fMapScreenBottomDirty = TRUE;
 

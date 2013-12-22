@@ -828,6 +828,10 @@ typedef struct
 	BOOLEAN fFastWWWSitesLoading;
 	BOOLEAN fDisableStrategicTransition;
 
+	// Flugente: campaign history
+	BOOLEAN	fCampaignHistoryWebSite;	// if set to FALSE, the website won't be displayed, and thus the data cannot be seen
+	INT16	usReportsToLoad;			// number of reports to read when loading a game, older reports will be lost. This is irreversible. -1: read all (default)
+
 	// CPT: Cover System Settings
 	UINT8 ubStealthTraitCoverValue;
 	UINT8 ubStealthEffectiveness;

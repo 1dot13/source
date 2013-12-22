@@ -69,6 +69,7 @@
 	#include "interface Dialogue.h"
 	#include "AIInternals.h" // added by SANDRO
 	#include "Bullets.h" // HEADROCK HAM 5, for use with Bullet Impact.
+	#include "CampaignStats.h"				// added by Flugente
 #endif
 
 #include "Reinforcement.h"
@@ -1693,6 +1694,9 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			pVictim->iHealableInjury = ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100);
 		else if (pVictim->iHealableInjury < 0)
 			pVictim->iHealableInjury = 0;
+
+		// Flugente: campaign stats
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SURGERY;
 	}
 
 	// if any healing points remain, apply that to any remaining bleeding (1/1)
@@ -4603,6 +4607,10 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		}
 		if( iNewLife <= 0 )
 		{ //soldier has been killed
+
+			// Flugente: campaign stats
+			gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
 			if( pAttacker->uiFlags & CELL_MERC )
 			{ //Player killed the enemy soldier -- update his stats as well as any assisters.
 				/////////////////////////////////////////////////////////////////////////////////////
@@ -4798,6 +4806,9 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			{
 				if( pKiller->uiFlags & CELL_MERC )
 				{
+					// Flugente: campaign stats
+					gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
 					/////////////////////////////////////////////////////////////////////////////////////
 					// SANDRO - new mercs' records
 					switch(pTarget->pSoldier->ubSoldierClass)

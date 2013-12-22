@@ -91,6 +91,7 @@
 #include "Strategic Pathing.h"
 #include "Debug Control.h"
 #include "LOS.h" // added by SANDRO
+#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -9529,7 +9530,7 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 		}
 		break;
 	}
-
+	
 	// 0verhaul:  This is also already handled by the animation transitions
 	// if ( ubReason == TAKE_DAMAGE_ELECTRICITY )
 	// {
@@ -9851,6 +9852,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 		this->bPoisonBleeding = 0;
 	}
 
+	// Flugente: note we received a fresh wound
+	if ( sLifeDeduct > 0 )
+		this->bSoldierFlagMask |= SOLDIER_FRESHWOUND;
 
 	// Calculate damage to our items if from an explosion!
 	if ( ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION)
@@ -12929,6 +12933,9 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			pVictim->iHealableInjury = ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100);
 		else if (pVictim->iHealableInjury < 0)
 			pVictim->iHealableInjury = 0;
+
+		// Flugente: campaign stats
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SURGERY;
 	}
 
 	// if any healing points remain, apply that to any remaining bleeding (1/1)
@@ -15803,7 +15810,7 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( this->sSectorX, this->sSectorY ) ] );
 		
 		UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
-		if ( GetNumberOrPrisoners(pSectorInfo, &tmp1, &tmp2, &tmp3, &tmp4) > 0 )
+		if ( GetNumberOfPrisoners(pSectorInfo, &tmp1, &tmp2, &tmp3, &tmp4) > 0 )
 			return TRUE;
 	}
 
@@ -17044,6 +17051,22 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 		else
 			usSkillCounter[counter]	= max(0, usSkillCounter[counter] - 1 );
 	}
+
+	// if there is a combat going and we are in sector, note that in the battle report
+	if ( this->bInSector && (gTacticalStatus.uiFlags & INCOMBAT || gTacticalStatus.fEnemyInSector) )
+	{
+		if ( !(this->bSoldierFlagMask & SOLDIER_BATTLE_PARTICIPATION) )
+		{
+			this->bSoldierFlagMask |= SOLDIER_BATTLE_PARTICIPATION;
+
+			// Flugente: campaign stats
+			gCurrentIncident.AddStat( this, CAMPAIGNHISTORY_TYPE_PARTICIPANT );
+		}
+	}
+	else
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
+	}
 }
 
 // check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
@@ -17859,6 +17882,11 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 	else
 		// how did this even happen?
 		return FALSE;
+
+	if ( bTeam == ENEMY_TEAM )
+		gCurrentIncident.usIncidentFlags |= INCIDENT_ARTILLERY_ENEMY;
+	else
+		gCurrentIncident.usIncidentFlags |= INCIDENT_ARTILLERY_PLAYERSIDE;
 	
 	return TRUE;
 }

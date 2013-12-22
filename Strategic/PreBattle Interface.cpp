@@ -47,6 +47,7 @@
 	// added by SANDRO
 	#include "Tactical Save.h"
 	#include "message.h"
+	#include "CampaignStats.h"				// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -2157,6 +2158,9 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_SLAUGHTEREDBLOODCATS, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 		}
+
+		// Flugente: campaign stats
+		gCurrentIncident.usIncidentFlags |= INCIDENT_WIN;
 	}
 	else
 	{
@@ -2183,6 +2187,29 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				break;
 		}
 	}
+
+	switch( gubEnemyEncounterCode )
+	{
+		case ENEMY_INVASION_CODE:
+			gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACK_ENEMY;
+			break;
+		case ENEMY_ENCOUNTER_CODE:
+		case ENTERING_ENEMY_SECTOR_CODE:
+		case CREATURE_ATTACK_CODE:
+		case ENTERING_BLOODCAT_LAIR_CODE:
+		case FIGHTING_CREATURES_CODE:
+		case HOSTILE_CIVILIANS_CODE:
+		case HOSTILE_BLOODCATS_CODE:
+			gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACK_PLAYERSIDE;
+			break;
+		case ENEMY_AMBUSH_CODE:
+		case BLOODCAT_AMBUSH_CODE:
+			gCurrentIncident.usIncidentFlags |= (INCIDENT_ATTACK_ENEMY|INCIDENT_AMBUSH);
+			break;
+	}
+
+	// Flugente: if battle has ended, close this incident, add it to the global incidents, and clear it
+	FinishIncident(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 }
 
 void HandlePreBattleInterfaceStates()

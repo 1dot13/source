@@ -43,6 +43,7 @@
 	#include "meanwhile.h"
 	#include "Soldier macros.h"
 	#include "Morale.h"
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #ifdef JA2BETAVERSION
@@ -1899,6 +1900,12 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 
 			// Flugente: due to a fix, also note here that the reinforcements get no APs.
 			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
+
+			// Flugente: campaign stats
+			if ( IsOurSoldier(pSoldier) )
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_PLAYERSIDE;
+			else
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_ENEMY;
 		}
 	}
 	

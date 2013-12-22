@@ -27,6 +27,7 @@
 	#include "Random.h"
 	// HEADROCK HAM 3.6: Added for facility string printing...
 	#include "PopUpBox.h"
+	#include "CampaignStats.h"	// added by Flugente
 #endif
 
 #include "postalservice.h"
@@ -381,6 +382,21 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 
 	// also set fact the player knows they own it
 	SectorInfo[ SECTOR( sMapX, sMapY ) ].fPlayer[ bMapZ ] = TRUE;
+
+	// Flugente: campaign stats
+	if ( !SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
+	{
+		//UINT8 ubSector = (UINT8)SECTOR( sMapX, sMapY );
+		//UINT8 ubTraverseType = SectorInfo[ ubSector ].ubTraversability[ 4 ];
+
+		//if ( ubTraverseType ==  )
+
+		if ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
+		{
+			// first liberation of a town sector -> special texts
+			gCurrentIncident.usIncidentFlags |= INCIDENT_FIRST_LIBERATION;
+		}
+	}
 
 	if ( bMapZ == 0 )
 	{

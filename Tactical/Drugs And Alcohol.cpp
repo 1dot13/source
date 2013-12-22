@@ -15,6 +15,7 @@
 	#include "Interface.h"
 	#include "Food.h"			// added by Flugente
 	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
+	#include "CampaignStats.h"	// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -224,9 +225,13 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 			UseKitPoints( pObject, 100, pSoldier );
 		else
 		{
+			UINT16 ptsused = (*pObject)[0]->data.objectStatus;
+
+			gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_MEDICAL, (FLOAT)(ptsused * Item[usItem].ubWeight / 100.0) );
+
 			// remove object
 			pObject->RemoveObjectsFromStack(1);
-		}
+		}	
 	}
 		
 	if ( (ubDrugType & DRUG_ALCOHOL) != 0 )

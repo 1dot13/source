@@ -110,6 +110,7 @@
 #include "Lua Interpreter.h"
 #include "bullets.h"
 #include "Inventory Choosing.h"			// added by Flugente for TakeMilitiaEquipmentfromSector()
+#include "CampaignStats.h"				// added by Flugente
 #endif
 #include "connect.h"
 
@@ -6627,8 +6628,8 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
     {
         SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
 
-		prisonerstobemoved = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
-
+		prisonerstobemoved = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+		
 		DeleteAllPrisoners( pSectorInfo );
 
         if ( usSectorID > 0)
@@ -6651,8 +6652,8 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
     {
         UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
-        prisonerstobemoved = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
-
+        prisonerstobemoved = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+		
 		DeleteAllPrisoners( pSectorInfo );
 
         if ( usSectorID > 0)
@@ -6710,6 +6711,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
                             continue;
                             break;
                     }
+
+					// Flugente: campaign stats
+					gCurrentIncident.AddStat( pTeamSoldier, CAMPAIGNHISTORY_TYPE_PRISONER );
 
                     ++ubNumPrisoners;
 
@@ -6832,6 +6836,38 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
     }
 }
 
+// Flugente: for campaign stats, we want to know how many people were wounded.
+// Each time we are wounded, we set a 'wounded'-flag
+// Once combat ends, we count all these flags and remove them
+void UpdateWoundedFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+{
+    SOLDIERTYPE			*pSoldier;
+    INT32               cnt = 0;
+    UINT8               ubNumPrisoners = 0;
+    UINT8               ubNumPrisonerAdmin = 0;
+    UINT8               ubNumPrisonerTroop = 0;
+    UINT8               ubNumPrisonerElite = 0;
+
+    // Check if the battle is won!
+    // Loop through all mercs and make go
+    for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pSoldier, ++cnt )
+    {
+        // Kill those not already dead.,...
+        if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->bSoldierFlagMask & SOLDIER_FRESHWOUND )
+        {
+			// remove flag, so we are not counted again
+			pSoldier->bSoldierFlagMask &= ~SOLDIER_FRESHWOUND;
+
+			// the dead count as dead, not as wounded
+			if ( pSoldier->stats.bLife <= 0 )
+				continue;
+
+			// Flugente: campaign stats
+			gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_WOUND );
+        }
+    }
+}
+
 void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
     if (!bMapZ) // Battle ended Above-ground
@@ -6933,12 +6969,15 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         }
     }
 
-    if( ( fBattleLost ) || ( fBattleWon ) )
+    if ( fBattleLost || fBattleWon )
     {
         if( !gbWorldSectorZ )
         {
             SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY) ].bLastKnownEnemies = NumEnemiesInSector( gWorldSectorX, gWorldSectorY );
         }
+
+		// Flugente: note number of wounded for campaign stats
+		UpdateWoundedFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
     }
 
     // We should NEVER have a battle lost and won at the same time...
@@ -7012,7 +7051,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         //Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
         LogBattleResults( LOG_DEFEAT );
         gfBlitBattleSectorLocator = FALSE;
-        // If we are the server, we escape this function at the top if we think the game should still be running
+		// If we are the server, we escape this function at the top if we think the game should still be running
         // hence if we get here the game is over for all clients and we should report it
         if (is_networked && is_server)
             game_over();
@@ -7259,10 +7298,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
         if ( gTacticalStatus.bBoxingState == NOT_BOXING ) // if boxing don't do any of this stuff
         {
-            LogBattleResults( LOG_VICTORY );
-
             SetThisSectorAsPlayerControlled( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, TRUE );
             HandleVictoryInNPCSector( gWorldSectorX, gWorldSectorY,( INT16 ) gbWorldSectorZ );
+
+			LogBattleResults( LOG_VICTORY );
+
             if ( CheckFact( FACT_FIRST_BATTLE_BEING_FOUGHT, 0 ) )
             {
                 // ATE: Need to trigger record for this event .... for NPC scripting
@@ -7298,7 +7338,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         //But only if the option is turned ON.
         if(gGameExternalOptions.gfRevealItems)
             RevealAllDroppedEnemyItems();
-
+		
         // If we are the server, we escape this function at the top if we think the game should still be running
         // hence if we get here the game is over for all clients and we should report it
         if (is_networked && is_server)
@@ -10497,7 +10537,7 @@ BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr)
 	return FALSE;
 }
 
-UINT16 GetNumberOrPrisoners( SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
 {
 	if ( !pSectorInfo )
 		return 0;
@@ -10510,7 +10550,7 @@ UINT16 GetNumberOrPrisoners( SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* a
 	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
 }
 
-UINT16 GetNumberOrPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
 {
 	if ( !pSectorInfo )
 		return 0;

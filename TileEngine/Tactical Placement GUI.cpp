@@ -50,6 +50,7 @@
 #include "Map Edgepoints.h"
 #include "renderworld.h"//dnl ch45 051009
 #include "merc entering.h"
+#include "CampaignStats.h"		// added by Flugente
 
 typedef struct MERCPLACEMENT
 {
@@ -395,13 +396,30 @@ void InitTacticalPlacementGUI()
 			
 			// WANNE: We always want to have edgepoints
 			CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
+			
+			// Flugente: campaign stats
+			switch( MercPtrs[ i ]->ubStrategicInsertionCode )
+			{
+				case INSERTION_CODE_NORTH:					
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_NORTH;
+					break;
+				case INSERTION_CODE_EAST:
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_EAST;
+					break;
+				case INSERTION_CODE_SOUTH:
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_SOUTH;
+					break;
+				case INSERTION_CODE_WEST:
+					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_WEST;
+					break;
+			}
 
 			// WANNE - MP: Center
 			if (is_networked && MercPtrs[ i ]->ubStrategicInsertionCode == INSERTION_CODE_CENTER)
 			{
 				gfCenter = TRUE;
-			}
-									
+			}	
+
 			giPlacements++;
 		}
 	}
@@ -411,25 +429,25 @@ void InitTacticalPlacementGUI()
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
 		//Load the faces
-		{	
+		{
 			ubFaceIndex = gMercProfiles[ gMercPlacement[ i ].pSoldier->ubProfile ].ubFaceIndex;
-
-			if ( ( ubFaceIndex < 100 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
-			{
-				sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", ubFaceIndex );
-			} 
-			else if ( ( ubFaceIndex > 99 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
-			{
-				sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", ubFaceIndex );
-			}
-			else if( ubFaceIndex < 100 )
-			{	
-				sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", ubFaceIndex );
-			}
-			else if( ubFaceIndex > 99 )
-			{
-				sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", ubFaceIndex );
-			}		
+			
+		if ( ( ubFaceIndex < 100 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", ubFaceIndex );
+		} 
+		else if ( ( ubFaceIndex > 99 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", ubFaceIndex );
+		}
+		else if( ubFaceIndex < 100 )
+		{	
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", ubFaceIndex );
+		}
+		else if( ubFaceIndex > 99 )
+		{
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", ubFaceIndex );
+		}
 		}
 
 		if( !AddVideoObject( &VObjectDesc, &gMercPlacement[ i ].uiVObjectID ) )
@@ -744,19 +762,19 @@ void RenderTacticalPlacementGUI()
 			gTPClipRect.iLeft = iOffsetHorizontal + 1;
 			gTPClipRect.iTop = iOffsetVertical + 1;
 			gTPClipRect.iBottom = iOffsetVertical + 716;// 318;
-			gTPClipRect.iRight = iOffsetHorizontal + 1434; //634;	
+			gTPClipRect.iRight = iOffsetHorizontal + 1434; //634;
 		}
 		else
 		{
-			BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, iOffsetHorizontal, iOffsetVertical, 640, 320 );
-			InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-			//dnl ch45 051009
-			gTPClipRect.iLeft = iOffsetHorizontal + 1;
-			gTPClipRect.iTop = iOffsetVertical + 1;
-			gTPClipRect.iBottom = iOffsetVertical + 318;
-			gTPClipRect.iRight = iOffsetHorizontal + 634;
+		BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, iOffsetHorizontal, iOffsetVertical, 640, 320 );
+		InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
+		//dnl ch45 051009
+		gTPClipRect.iLeft = iOffsetHorizontal + 1;
+		gTPClipRect.iTop = iOffsetVertical + 1;
+		gTPClipRect.iBottom = iOffsetVertical + 318;
+		gTPClipRect.iRight = iOffsetHorizontal + 634;
 		}
-
+	
 		if( gbCursorMercID == -1 )
 		{
 			// WANNE - MP: Center
@@ -812,7 +830,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iTop = iOffsetVertical + AIRDROPENTRYPTS_BOTTOM_Y;
 				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
 				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
-			}
+		}
 		}
 		else
 		{
@@ -869,34 +887,34 @@ void RenderTacticalPlacementGUI()
 					case INSERTION_CODE_NORTH:
 						if(sWorldScreenY <= PLACEMENT_OFFSET)
 						{
-							sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
-							gTPClipRect.iTop += sY;
-						}
-					break;
-				case INSERTION_CODE_EAST:
+					sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
+					gTPClipRect.iTop += sY;
+				}
+				break;
+			case INSERTION_CODE_EAST:
 						if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET))
 						{
-							sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
-							gTPClipRect.iRight -= sX;
-						}
-					break;
-				case INSERTION_CODE_SOUTH:
+					sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
+					gTPClipRect.iRight -= sX;
+				}
+				break;
+			case INSERTION_CODE_SOUTH:
 						if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET))
 						{
-							sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
-							gTPClipRect.iBottom -= sY;
-						}
-					break;
-				case INSERTION_CODE_WEST:
+					sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
+					gTPClipRect.iBottom -= sY;
+				}
+				break;
+			case INSERTION_CODE_WEST:
 							if(sWorldScreenX <= PLACEMENT_OFFSET)
 							{
-							sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
-							gTPClipRect.iLeft += sX;
-						}
-					break;
+					sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
+					gTPClipRect.iLeft += sX;
 				}
+				break;
 			}
-						
+			}
+
 			// WANNE - MP: Center
 			if (is_networked && gfCenter)
 			{
@@ -950,7 +968,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iTop = iOffsetVertical + AIRDROPENTRYPTS_BOTTOM_Y;
 				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
 				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
-			}
+		}
 		}
 
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -1060,34 +1078,34 @@ void EnsureDoneButtonStatus()
 
 void lockui (bool unlock) //lock onluck ui for lan //hayden
 {
-	if(unlock==0 && islocked==0 && is_client)
-	{
-		islocked=1;
-		DisableButton( iTPButtons[ DONE_BUTTON ] );
-		DisableButton( iTPButtons[ SPREAD_BUTTON ] );
-		DisableButton( iTPButtons[ GROUP_BUTTON ] );
-		DisableButton( iTPButtons[ CLEAR_BUTTON ] );
+		if(unlock==0 && islocked==0 && is_client)
+		{
+			islocked=1;
+			DisableButton( iTPButtons[ DONE_BUTTON ] );
+					DisableButton( iTPButtons[ SPREAD_BUTTON ] );
+						DisableButton( iTPButtons[ GROUP_BUTTON ] );
+							DisableButton( iTPButtons[ CLEAR_BUTTON ] );
 
-		SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
-		DoMessageBox( MSG_BOX_BASIC_STYLE, MPServerMessage[8],  guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,  &CenterRect );
+			SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
+			DoMessageBox( MSG_BOX_BASIC_STYLE, MPServerMessage[8],  guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,  &CenterRect );
 
-		//send loaded
-		send_loaded();
-	}
+			//send loaded
+			send_loaded();
+		}
 
-	if(unlock) //oh yeah ! :)
-	{
-		islocked=3;
-		EnableButton( iTPButtons[ SPREAD_BUTTON ] );
-		EnableButton( iTPButtons[ GROUP_BUTTON ] );
-		EnableButton( iTPButtons[ CLEAR_BUTTON ] );
+		if(unlock) //oh yeah ! :)
+		{
+					islocked=3;
+					EnableButton( iTPButtons[ SPREAD_BUTTON ] );
+					EnableButton( iTPButtons[ GROUP_BUTTON ] );
+					EnableButton( iTPButtons[ CLEAR_BUTTON ] );
 
-		ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags |= BUTTON_DIRTY;
-		gubDefaultButton = CLEAR_BUTTON;
-		PlaceMercs();
-		gMsgBox.bHandled = MSG_BOX_RETURN_OK; //close if still open			
-	}
+					ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+					ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags |= BUTTON_DIRTY;
+					gubDefaultButton = CLEAR_BUTTON;
+					PlaceMercs();
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK; //close if still open
+		}
 }
 
 void TacticalPlacementHandle()
@@ -1114,34 +1132,34 @@ void TacticalPlacementHandle()
 		{
 			switch( InputEvent.usParam )
 			{
-			#ifdef JA2TESTVERSION
-			case ESC:
-				//if (!is_networked)
-					KillTacticalPlacementGUI();
-				break;
-			#endif
-			case ENTER:
-				if( ButtonList[ iTPButtons[ DONE_BUTTON ] ]->uiFlags & BUTTON_ENABLED )
-				{
-					if(!is_client)KillTacticalPlacementGUI();
-					if(is_client)send_donegui(0);
-				}
-				break;
-			case 'c':
-				if(islocked!=1)ClearPlacementsCallback( ButtonList[ iTPButtons[ CLEAR_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
-				break;
-			case 'g':
-				if(islocked!=1)GroupPlacementsCallback( ButtonList[ iTPButtons[ GROUP_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
-				break;
-			case 's':
-				if(islocked!=1)SpreadPlacementsCallback( ButtonList[ iTPButtons[ SPREAD_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
-				break;
-			case 'x':
-				if( InputEvent.usKeyState & ALT_DOWN )
-				{
-					HandleShortCutExitState();
-				}
-				break;
+				#ifdef JA2TESTVERSION
+				case ESC:
+					//if (!is_networked)
+						KillTacticalPlacementGUI();
+					break;
+				#endif
+				case ENTER:
+					if( ButtonList[ iTPButtons[ DONE_BUTTON ] ]->uiFlags & BUTTON_ENABLED )
+					{
+									if(!is_client)KillTacticalPlacementGUI();
+									if(is_client)send_donegui(0);
+					}
+					break;
+				case 'c':
+								if(islocked!=1)ClearPlacementsCallback( ButtonList[ iTPButtons[ CLEAR_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
+								break;
+				case 'g':
+								if(islocked!=1)GroupPlacementsCallback( ButtonList[ iTPButtons[ GROUP_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
+								break;
+				case 's':
+								if(islocked!=1)SpreadPlacementsCallback( ButtonList[ iTPButtons[ SPREAD_BUTTON ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
+								break;
+				case 'x':
+					if( InputEvent.usKeyState & ALT_DOWN )
+					{
+						HandleShortCutExitState();
+					}
+					break;
 			}
 		}
 	}
@@ -1180,7 +1198,7 @@ void TacticalPlacementHandle()
 		// WANNE - MP: Center
 		if ( gfCenter && ( is_networked || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP)) )
 		{
-			if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
+			if (gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
 			{
 				if (gusMouseYPos >= (iOffsetVertical + CENTERENTRYPTS_TOP_Y) &&		// N
 					gusMouseYPos <= (iOffsetVertical + CENTERENTRYPTS_BOTTOM_Y) &&	// S
@@ -1198,7 +1216,7 @@ void TacticalPlacementHandle()
 					gusMouseXPos <= (iOffsetHorizontal + AIRDROPENTRYPTS_RIGHT_X))		// E
 				{
 					gfValidCursor = TRUE;
-				}
+		}
 			}
 		}
 
@@ -1339,21 +1357,21 @@ void PlaceMercs()
 	INT32 i;
 	switch( gubDefaultButton )
 	{
-	case SPREAD_BUTTON: //Place mercs randomly along their side using map edgepoints.
-		ChooseRandomEdgepoints();
-		break;
-	case CLEAR_BUTTON:
-		for( i = 0; i < giPlacements; i++ )
-		{
-			PickUpMercPiece( i );
-		}
-		gubSelectedGroupID = 0;
-		gbSelectedMercID = 0;
-		SetCursorMerc( 0 );
-		gfEveryonePlaced = FALSE;
-		break;
-	default:
-		return;
+		case SPREAD_BUTTON: //Place mercs randomly along their side using map edgepoints.
+			ChooseRandomEdgepoints();
+			break;
+		case CLEAR_BUTTON:
+			for( i = 0; i < giPlacements; i++ )
+			{
+				PickUpMercPiece( i );
+			}
+			gubSelectedGroupID = 0;
+			gbSelectedMercID = 0;
+			SetCursorMerc( 0 );
+			gfEveryonePlaced = FALSE;
+			break;
+		default:
+			return;
 	}
 	gfTacticalPlacementGUIDirty = TRUE;
 }
@@ -1440,27 +1458,27 @@ void MercClickCallback( MOUSE_REGION *reg, INT32 reason )
 {
 	if(islocked != 1)//hayden
 	{
-		if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		INT8 i;
+		for( i = 0; i < giPlacements; i++ )
 		{
-			INT8 i;
-			for( i = 0; i < giPlacements; i++ )
+			if( &gMercPlacement[ i ].region == reg )
 			{
-				if( &gMercPlacement[ i ].region == reg )
+				if( gbSelectedMercID != i )
 				{
-					if( gbSelectedMercID != i )
-					{
 						if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ i ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
 							gubDefaultButton = GROUP_BUTTON;
 
-						gbSelectedMercID = i;
-						gpTacticalPlacementSelectedSoldier = gMercPlacement[ i ].pSoldier;
-						if( gubDefaultButton == GROUP_BUTTON )
-						{
-							gubSelectedGroupID = gpTacticalPlacementSelectedSoldier->ubGroupID;
-						}
+					gbSelectedMercID = i;
+					gpTacticalPlacementSelectedSoldier = gMercPlacement[ i ].pSoldier;
+					if( gubDefaultButton == GROUP_BUTTON )
+					{
+						gubSelectedGroupID = gpTacticalPlacementSelectedSoldier->ubGroupID;
 					}
-					return;
 				}
+				return;
+			}
 			}
 		}
 	}

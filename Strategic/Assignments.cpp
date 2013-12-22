@@ -2678,7 +2678,7 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 	
 	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	*pusMaxPts = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	*pusMaxPts = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
 
 	// no prisoners -> no interrogation (this should not happen)
 	if ( !*pusMaxPts )
@@ -5734,7 +5734,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 		
 	UINT8 prisoners[PRISONER_MAX] = {0};
-	UINT16 numprisoners = GetNumberOrPrisoners( pSectorInfo, &prisoners[PRISONER_SPECIAL], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisoners[PRISONER_SPECIAL], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
 
 	// add interrogation progress from last hour and erase it in data
 	UINT32	interrogationpoints = pSectorInfo->uiInterrogationHundredsLeft;
@@ -5963,7 +5963,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	UINT16 numprisoners = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
 
 	// for now, simply count specials as elites
 	ChangeNumberOfPrisoners( pSectorInfo, -prisonersspecial, prisonersspecial, 0, 0 );

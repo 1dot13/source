@@ -1795,6 +1795,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fFastWWWSitesLoading				= iniReader.ReadBoolean("Laptop Settings", "FAST_WWW_SITES_LOADING", FALSE);
 	gGameExternalOptions.fLaptopMouseCaptured				= iniReader.ReadBoolean("Laptop Settings", "LAPTOP_MOUSE_CAPTURED", FALSE);
 
+	gGameExternalOptions.fCampaignHistoryWebSite			= iniReader.ReadBoolean("Laptop Settings", "CAMPAIGN_HISTORY", TRUE);
+	gGameExternalOptions.usReportsToLoad					= iniReader.ReadInteger("Laptop Settings", "CAMPAIGN_HISTORY_MAX_REPORTS", -1, -1, 100);
+				
 	//################# Bobby Ray Settings ##################
 
 

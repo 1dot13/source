@@ -53,7 +53,8 @@
 #include "Queen Command.h"
 
 #include "Map Edgepoints.h"
-#include "Campaign.h"	// added by Flugente for HighestPlayerProgressPercentage()
+#include "Campaign.h"			// added by Flugente for HighestPlayerProgressPercentage()
+#include "CampaignStats.h"		// added by Flugente
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -2717,6 +2718,12 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 
 			// Flugente: due to a fix, also note here that the reinforcements get no APs.
 			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
+
+			// Flugente: campaign stats
+			if ( IsOurSoldier(pSoldier) )
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_PLAYERSIDE;
+			else
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_ENEMY;
 		}
 	}
 }
@@ -2818,7 +2825,7 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 
 	// only continue if there are prisoners in this sector that need to be placed
 	UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
-	UINT16 numprisoners = GetNumberOrPrisoners(pSector, &tmp1, &tmp2, &tmp3, &tmp4);
+	UINT16 numprisoners = GetNumberOfPrisoners(pSector, &tmp1, &tmp2, &tmp3, &tmp4);
 	if ( !numprisoners )
 		return;
 		

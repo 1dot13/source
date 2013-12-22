@@ -417,7 +417,23 @@
 			<File
 				RelativePath=".\BrokenLink.h"
 				>
+			</File>			
+			<File
+				RelativePath=".\CampaignHistoryData.h"
+				>
 			</File>
+			<File
+				RelativePath=".\CampaignHistoryMain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CampaignHistory_Summary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CampaignStats.h"
+				>
+			</File>			
 			<File
 				RelativePath=".\CharProfile.h"
 				>
@@ -729,6 +745,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CampaignHistoryMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CampaignHistory_Summary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CampaignStats.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CharProfile.cpp"
 				>
 			</File>
@@ -938,6 +966,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_BriefingRoom.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_CampaignStatsEvents.cpp"
 				>
 			</File>
 			<File

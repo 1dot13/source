@@ -15,6 +15,7 @@
 	#include "Isometric Utils.h"
 	#include "Vehicles.h"
 	#include "Game Clock.h"
+	#include "CampaignStats.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -90,7 +91,7 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 
 		StopTimeCompression();
 	}
-
+	
 	return( TRUE );
 }
 

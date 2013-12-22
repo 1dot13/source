@@ -1020,6 +1020,21 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	}
 #endif
 
+	// Flugente: campaign stats
+	strcpy(fileName, directoryName);
+	strcat(fileName, CAMPAIGNSTATSEVENTSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInCampaignStatsEvents(fileName,FALSE), CAMPAIGNSTATSEVENTSFILENAME);
+			
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInCampaignStatsEvents(fileName,TRUE), CAMPAIGNSTATSEVENTSFILENAME);
+	}
+#endif
+
 	// WANNE: Only in a singleplayer game...
 	// Externalised taunts
 	if (!is_networked)
