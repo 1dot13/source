@@ -247,7 +247,7 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"Air.",
 };
 
-//TODO.Translate
+// TODO.Translate
 STR16	pEncyclopediaFilterLocationText[] =
 {//major location filter button text max 7 chars
 //..L"------v"
@@ -285,7 +285,7 @@ STR16 pEncyclopediaSubFilterLocationText[] =
 	L"",//reserved. facility filter texts are dynamicly loaded, leave this marker empty!
 	L"",//reserved. Insert new other filters above!
 };
-//TODO.Translate
+// TODO.Translate
 STR16	pEncyclopediaFilterCharText[] =
 {//major char filter button text
 //..L"------v"
@@ -306,7 +306,7 @@ STR16	pEncyclopediaFilterCharText[] =
 	L"Show Player created Characters",
 	L"Show Other\n[|L|B] toggle filter\n[|R|B] reset filter",
 };
-//TODO.Translate
+// TODO.Translate
 STR16	pEncyclopediaSubFilterCharText[] =
 {//item subfilter button text
 //..L"------v"
@@ -320,7 +320,7 @@ STR16	pEncyclopediaSubFilterCharText[] =
 	L"EPC",
 	L"",//reserved. Insert new Other filters above!
 };
-//TODO.Translate
+// TODO.Translate
 STR16	pEncyclopediaFilterItemText[] = 
 {//major item filter button text max 7 chars
 //..L"------v"
@@ -341,7 +341,7 @@ STR16	pEncyclopediaFilterItemText[] =
 	L"Show Attachments\n[|L|B] toggle filter\n[|R|B] reset filter",
 	L"Show Misc Items\n[|L|B] toggle filter\n[|R|B] reset filter",
 };
-//TODO.Translate
+// TODO.Translate
 STR16 pEncyclopediaSubFilterItemText[] =
 {//item subfilter button text max 7 chars
 //..L"------v"
@@ -402,7 +402,7 @@ STR16 pEncyclopediaSubFilterItemText[] =
 	L"",//reserved. insert new misc filters above!
 //add filters for a new button here
 };
-//TODO.Translate
+// TODO.Translate
 STR16 pEncyclopediaFilterQuestText[] =
 {//major quest filter button text max 7 chars
 //..L"------v"
@@ -2729,7 +2729,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	// TODO.Translate
 	L"Default:",	//17 //WarmSteel - So we can also display default attachments
 	L"Dirt:",	// 18	//added by Flugente
-	L"Space:", // 19 //space left on Molle items //TODO.Translate
+	L"Space:", // 19 //space left on Molle items // TODO.Translate
 
 };
 
@@ -3095,7 +3095,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"MILITIA",
 	L"CIVILIAN",
 	L"ZOMBIE",				// TODO.Translate
-	L"PRISONER",//TODO.Translate
+	L"PRISONER",// TODO.Translate
 	L"Exiting Sector",
 	L"OK",
 	L"Cancel",
@@ -5656,7 +5656,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Merc Story Backgrounds", // TODO.Translate
-	L"Food System",//TODO.Translate
+	L"Food System",// TODO.Translate
 	L"Bobby Ray Quantity",
 };
 
@@ -6395,8 +6395,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Current |Health: %d\n",
 	L"%s|Current |Breath: %d\n",	// TODO.Translate
 	L"%s|Current |Morale: %d\n",
-	L"%s|Current |S|hock: %d\n",//TODO.Translate
-	L"%s|Current |S|uppression Points: %d\n",//TODO.Translate
+	L"%s|Current |S|hock: %d\n",// TODO.Translate
+	L"%s|Current |S|uppression Points: %d\n",// TODO.Translate
 	// Full info
 	L"%s|Helmet: %s\n",
 	L"%s|Vest: %s\n",
@@ -7547,13 +7547,13 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|D|a|m|a|g|e |T|h|r|e|s|h|o|l|d |M|o|d|i|f|i|e|r",
 	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
 	L"|D|i|r|t |M|o|d|i|f|i|e|r",			// TODO.Translate
-	L"|P|o|i|s|o|n |M|o|d|i|f|i|e|r",//TODO.translate
-	L"|F|o|o|d| |P|o|i|n|t|s",//TODO.translate
-	L"|D|r|i|n|k |P|o|i|n|t|s",//TODO.translate
-	L"|P|o|r|t|i|o|n |S|i|z|e",//TODO.translate
-	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",//TODO.translate
-	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",//TODO.translate
-	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",//TODO.translate
+	L"|P|o|i|s|o|n |M|o|d|i|f|i|e|r",// TODO.Translate
+	L"|F|o|o|d| |P|o|i|n|t|s",// TODO.Translate
+	L"|D|r|i|n|k |P|o|i|n|t|s",// TODO.Translate
+	L"|P|o|r|t|i|o|n |S|i|z|e",// TODO.Translate
+	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",// TODO.Translate
+	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",// TODO.Translate
+	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",// TODO.Translate
 	L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
 };
 
@@ -7618,12 +7618,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
 	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
 	L"\n \nA single shot causes this much dirt.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",	// TODO.Translate
-	L"\n \nWhen this item is eaten\nit causes that much poison.\n \nLower is better.",	// TODO.TRANSLATE
-	L"\n \nAmount of energy in kcal.\n \nHigher is better.",	// TODO.TRANSLATE
-	L"\n \nAmount of water in liter.\n \nHigher is better.",	// TODO.TRANSLATE
-	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",	// TODO.TRANSLATE
-	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",	// TODO.TRANSLATE
-	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",	// TODO.TRANSLATE
+	L"\n \nWhen this item is eaten\nit causes that much poison.\n \nLower is better.",	// TODO.Translate
+	L"\n \nAmount of energy in kcal.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nAmount of water in liter.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",	// TODO.Translate
+	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",	// TODO.Translate
 	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
 };
 

@@ -137,7 +137,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s ОД на передёргивание затвора магазинных винтовок\n",
 	L"Плюс 1 клик-прицеливания к оружию типа винтовки\n",
 	L"Плюс %d клик-прицеливания к оружию типа винтовки\n",
-	L"Makes aiming faster with rifle-type guns by one aim click\n",	//TODO.Translate
+	L"Makes aiming faster with rifle-type guns by one aim click\n",	// TODO.Translate
 	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
@@ -146,9 +146,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s к шансу поразить из винтовки\n",
 	L"+%d%s к шансу поразить из ружья\n",
 	L"-%d%s ОД на перезарядку ружья\n",
-	L"-%d%s APs to fire Shotguns\n",	//TODO.Translate
-	L"Adds %d more aim click for Shotguns\n",	//TODO.Translate
-	L"Adds %d more aim clicks for Shotguns\n",	//TODO.Translate
+	L"-%d%s APs to fire Shotguns\n",	// TODO.Translate
+	L"Adds %d more aim click for Shotguns\n",	// TODO.Translate
+	L"Adds %d more aim clicks for Shotguns\n",	// TODO.Translate
 	L"+%d%s к скорости передвижения группы между секторами, если идти пешком\n",
 	L"+%d%s к скорости передвижения группы между секторами, \nесли передвигаться на транспорте (в особенности на вертолёте)\n",
 	L"-%d%s к затрате энергии при переходе между секторами\n",	//меньше тратит сил

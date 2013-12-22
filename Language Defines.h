@@ -84,11 +84,11 @@
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
 
-#define ENGLISH
+//#define ENGLISH
 //#define GERMAN
 //#define RUSSIAN
 //#define DUTCH
-//#define FRENCH
+#define FRENCH
 //#define ITALIAN
 //#define TAIWANESE
 //#define POLISH
