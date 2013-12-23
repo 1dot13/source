@@ -118,8 +118,8 @@ void FillCentreGridnos(BOOLEAN fCenterOnly)
 	INT32 y_base	= world_rows_adjusted/2;
 
 	INT32 totallen  = std::sqrt((float)(world_rows_adjusted * world_rows_adjusted + world_cols_adjusted * world_cols_adjusted));
-	INT32 droplen   = totallen * (1.0f - 2 * xratio);
-	INT32 steplen   = droplen / CENTER_ENTRY_POINTS_ROW;
+	INT32 droplen   = (FLOAT)(totallen * (1.0f - 2 * xratio));
+	FLOAT steplen   = (FLOAT)(droplen) / (FLOAT)(CENTER_ENTRY_POINTS_ROW);
 
 	UINT16 cnt = 0;
 	for(UINT16 i = 0; i < CENTER_ENTRY_POINTS_ROW; ++i)
