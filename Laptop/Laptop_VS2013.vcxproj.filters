@@ -237,6 +237,18 @@
     <ClInclude Include="BriefingRoom_Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CampaignHistory_Summary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CampaignHistoryData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CampaignHistoryMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CampaignStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -483,6 +495,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_BriefingRoom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CampaignHistory_Summary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CampaignHistoryMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CampaignStats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_CampaignStatsEvents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

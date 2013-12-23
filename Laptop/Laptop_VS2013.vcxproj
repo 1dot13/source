@@ -43,6 +43,10 @@
     <ClInclude Include="BriefingRoomM.h" />
     <ClInclude Include="BriefingRoom_Data.h" />
     <ClInclude Include="BrokenLink.h" />
+    <ClInclude Include="CampaignHistoryData.h" />
+    <ClInclude Include="CampaignHistoryMain.h" />
+    <ClInclude Include="CampaignHistory_Summary.h" />
+    <ClInclude Include="CampaignStats.h" />
     <ClInclude Include="CharProfile.h" />
     <ClInclude Include="DropDown.h" />
     <ClInclude Include="email.h" />
@@ -121,6 +125,9 @@
     <ClCompile Include="BriefingRoomM.cpp" />
     <ClCompile Include="BriefingRoom_Data.cpp" />
     <ClCompile Include="BrokenLink.cpp" />
+    <ClCompile Include="CampaignHistoryMain.cpp" />
+    <ClCompile Include="CampaignHistory_Summary.cpp" />
+    <ClCompile Include="CampaignStats.cpp" />
     <ClCompile Include="CharProfile.cpp" />
     <ClCompile Include="DropDown.cpp" />
     <ClCompile Include="email.cpp" />
@@ -175,6 +182,7 @@
     <ClCompile Include="Store Inventory.cpp" />
     <ClCompile Include="XML_AIMAvailability.cpp" />
     <ClCompile Include="XML_BriefingRoom.cpp" />
+    <ClCompile Include="XML_CampaignStatsEvents.cpp" />
     <ClCompile Include="XML_ConditionsForMercAvailability.cpp" />
     <ClCompile Include="XML_DeliveryMethods.cpp" />
     <ClCompile Include="XML_Email.cpp" />
