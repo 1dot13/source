@@ -599,6 +599,8 @@ Campaign_Stats::Load( HWFILE hwFile )
 {
 	if(guiCurrentSaveGameVersion >= CAMPAIGNSTATS)
 	{
+		clear();
+
 		UINT32 numBytesRead = 0;
 
 		numBytesRead = ReadFieldByField(hwFile, &usKills,			sizeof(usKills),			sizeof(UINT32), numBytesRead);
