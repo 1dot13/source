@@ -562,7 +562,7 @@ BOOLEAN	NewEnterSaveLoadScreen()
 			//if it is not the Quick Save slot, and we are loading
 			if( !gfSaveGame || gfSaveGame && gGameSettings.bLastSavedGameSlot != 0 )
 			{
-				gbSelectedSaveLocation = gGameSettings.bLastSavedGameSlot;
+				gbSelectedSaveLocation = gGameSettings.bLastSavedGameSlot%NUM_SLOT;
 				gbSaveGameSelectedLocation[ gbSelectedSaveLocation ] = SLG_SELECTED_SLOT_GRAPHICS_NUMBER;
 
 				//load the save gamed header string
@@ -847,6 +847,22 @@ BOOLEAN	EnterSaveLoadScreen()
 	}
 
 	gfGettingNameFromSaveLoadScreen = FALSE;
+
+	//Go to page with last saved game
+	if ( gGameSettings.bLastSavedGameSlot >= NUM_SLOT)
+	{
+		PAGE_SLOT = gGameSettings.bLastSavedGameSlot/NUM_SLOT;
+		VAL_SLOT_START = (PAGE_SLOT * NUM_SLOT);
+		
+		if ( PAGE_SLOT > 0 ) 
+			EnableButton( guiPrevButton );
+	
+		if (PAGE_SLOT == MAX_PAGE_SLOT ||  PAGE_SLOT > MAX_PAGE_SLOT )
+			DisableButton( guiNextButton );
+
+		DestroySaveLoadTextInputBoxes();
+		NewEnterSaveLoadScreen();
+	}
 
 	return( TRUE );
 }
