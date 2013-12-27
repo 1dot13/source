@@ -2,21 +2,22 @@
 This file defines helicopter refuel sites in game.
 
 Fields index:
-	refuelIndex			- it is UNIQUE number of refuel site. Heli will be initialized at Index 1.
+	refuelIndex				- it is UNIQUE number of refuel site. Heli will be initialized at Index 1.
 					Index 2 need Jake's (ProfileID = 113) dialogue script after freeing Shank (ProfileID = 67)
 					to be available on top of usual conditions of freeing enemy sector and airspace control.
 	
 	refuelSector			- refuel site coordinates.
 	
-	refuelHidden			- code not used/saved at the moment.
+	refuelHidden			- 0: site known on game start; 1: site hidden.
 	
-	refuelHeliTileIndex	- Heli tile index number in map tileset.
-					The 6 heli tiles must be in the same sequence as original.
+	refuelHeliTileIndex		- 1st Heli tile index number in map tileset.
+					The 6 heli tiles must be in the same sequence as original, with 3rd & 6th tile offset
+					by 1 tile to the northeast.
 				  
 	refuelHeliGridNo		- Show heli graphics when landed in sector. Require heli tiles in map tileset
 					to display correctly. Else, will show tiles that occupies the same tile index.
 					
-	refuelSkyriderGridNo - Skyrider standing gridno
+	refuelSkyriderGridNo	- Skyrider standing gridno
 	
 NOTE:
 Helicopter can be initialized in Overhead.lua script.
@@ -30,7 +31,7 @@ Maximum 2 refuel sites can be used in game.
 				<x>13</x>
 				<y>2</y>
 			</refuelSector>
-			<refuelHidden>0</refuelHidden>
+			<refuelHidden>1</refuelHidden>
 			<refuelHeliTileIndex>399</refuelHeliTileIndex>
 			<refuelHeliGridNo>9001</refuelHeliGridNo>
 			<refuelSkyriderGridNo>8362</refuelSkyriderGridNo>
@@ -41,7 +42,7 @@ Maximum 2 refuel sites can be used in game.
 				<x>6</x>
 				<y>9</y>
 			</refuelSector>
-			<refuelHidden>0</refuelHidden>
+			<refuelHidden>1</refuelHidden>
 			<refuelHeliTileIndex>435</refuelHeliTileIndex>
 			<refuelHeliGridNo>13067</refuelHeliGridNo>
 			<refuelSkyriderGridNo>12428</refuelSkyriderGridNo>
