@@ -254,6 +254,9 @@ void InitTacticalPlacementGUI()
 		gfChangedEntrySide = FALSE;
 	#endif
 
+	// WANNE: Make a black background color for the whole screen
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
 	//Enter overhead map
 	GoIntoOverheadMap();
 
@@ -615,7 +618,7 @@ void RenderTacticalPlacementGUI()
 	UINT16 usHatchColor;
 	CHAR16 str[ 128 ];
 	UINT8 *pDestBuf;
-	UINT8 ubColor;
+	UINT8 ubColor;	
 
 	if( gfTacticalPlacementFirstTime )
 	{
