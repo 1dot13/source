@@ -91,7 +91,7 @@ extern UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];
 extern INT8 SquadMovementGroups[ ];
 
 
-// whether helicopted variables have been set up
+// whether helicopter variables have been set up
 BOOLEAN fSkyRiderSetUp = FALSE;
 
 // plotting for a helicopter
@@ -207,11 +207,12 @@ void HandleSkyRiderMonologueAboutEstoniRefuel( UINT32 uiSpecialCode );
 // refueling sites externalization stuff
 UINT8	NUMBER_OF_REFUEL_SITES;
 
-// coordinates X,Y of sam sites on strategic map
+// coordinates X,Y of refuel sites on strategic map
 INT16 sRefuelSectorX[ MAX_NUMBER_OF_REFUEL_SITES ];
 INT16 sRefuelSectorY[ MAX_NUMBER_OF_REFUEL_SITES ];
 
-BOOLEAN fRefuelingSiteHidden[ MAX_NUMBER_OF_REFUEL_SITES ];
+// refuel sites known on game start
+BOOLEAN fRefuelingSiteKnown[ MAX_NUMBER_OF_REFUEL_SITES ];
 
 // heli tile index no in tileset
 INT32 iRefuelHeliTileIndex[ MAX_NUMBER_OF_REFUEL_SITES ];
@@ -283,7 +284,7 @@ helisiteStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 
 			memset( sRefuelSectorX,				0,	sizeof(sRefuelSectorX)			);
 			memset( sRefuelSectorY,				0,	sizeof(sRefuelSectorY)			);
-			memset( fRefuelingSiteHidden,		0,	sizeof(fRefuelingSiteHidden)	);
+			memset( fRefuelingSiteKnown,		0,	sizeof(fRefuelingSiteKnown)		);
 			memset( iRefuelHeliTileIndex,		0,	sizeof(iRefuelHeliTileIndex)	);
 			memset( iRefuelHeliGridNo,			0,	sizeof(iRefuelHeliGridNo)		);
 			memset( iRefuelSkyriderGridNo,		0,	sizeof(iRefuelSkyriderGridNo)	);
@@ -381,7 +382,7 @@ helisiteEndElementHandle(void *userData, const XML_Char *name)
 				pData->curHeliInfo.uiIndex--;	
 				sRefuelSectorX [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorX;
 				sRefuelSectorY [ pData->curHeliInfo.uiIndex ]			= pData->curHeliInfo.refuelSectorY;
-				fRefuelingSiteHidden [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHidden;
+				fRefuelingSiteKnown [ pData->curHeliInfo.uiIndex ]		= !pData->curHeliInfo.refuelHidden;
 				iRefuelHeliTileIndex [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHeliTileIndex;
 				iRefuelHeliGridNo [ pData->curHeliInfo.uiIndex ]		= pData->curHeliInfo.refuelHeliGridNo;
 				iRefuelSkyriderGridNo [ pData->curHeliInfo.uiIndex ]	= pData->curHeliInfo.refuelSkyriderGridNo;
@@ -537,7 +538,7 @@ BOOLEAN WriteInInfo(STR fileName)
 			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",sRefuelSectorY[cnt]);
 			FilePrintf(hFile,"\t\t\t</refuelSector>\r\n");
 
-			FilePrintf(hFile,"\t\t\t<refuelHidden>%d</refuelHidden>\r\n", fRefuelingSiteHidden[cnt] );
+			FilePrintf(hFile,"\t\t\t<refuelHidden>%d</refuelHidden>\r\n", !fRefuelingSiteKnown[cnt] );
 
 			FilePrintf(hFile,"\t\t\t<refuelHeliTileIndex>%d</refuelHeliTileIndex>\r\n", iRefuelHeliTileIndex[cnt] );
 

@@ -2543,6 +2543,7 @@ STR16 pLandTypeStrings[] =
 	L"Aéroport Drassen",
 	L"Aéroport Meduna",
 	L"Site SAM",
+	L"Refuel site", // TODO.Translate
 	L"Base rebelle", //The rebel base underground in sector A10
 	L"Prison Tixa",	//The basement of the Tixa Prison (J9)
 	L"Repaire créatures",	//Any mine sector with creatures in it
@@ -3309,7 +3310,9 @@ STR16 pHelicopterEtaStrings[] =
 	L"Skyrider",
 	L"Arrivée",
 	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->  // TODO.Translate
-	L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?"	// TODO.Translate
+	L"Remaining Fuel:",	// TODO.Translate
+	L"Dist. To Refuel Site:",	// TODO.Translate
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=		// TODO.Translate

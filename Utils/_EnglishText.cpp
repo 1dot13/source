@@ -2539,6 +2539,7 @@ STR16 pLandTypeStrings[] =
 	L"Drassen Airport",
 	L"Meduna Airport",
 	L"SAM site",
+	L"Refuel site",
 	L"Rebel Hideout", //The rebel base underground in sector A10
 	L"Tixa Dungeon",	//The basement of the Tixa Prison (J9)
 	L"Creature Lair",	//Any mine sector with creatures in it

@@ -2536,6 +2536,7 @@ STR16 pLandTypeStrings[] =
 	L"Аэропорт Драссена",
 	L"Аэропорт Медуны",
 	L"База ПВО",
+	L"Refuel site", // TODO.Translate
 	L"Убежище повстанцев",	//The rebel base underground in sector A10
 	L"Подвалы Тиксы",	//The basement of the Tixa Prison (J9)
 	L"Логово тварей",	//Any mine sector with creatures in it
@@ -3297,12 +3298,14 @@ STR16 pHelicopterEtaStrings[] =
 	L"Итого:", 		// total cost of trip by helicopter
 	L"ОВП:", 			// ETA is an acronym for "estimated time of arrival" 
 	L"У вертолета закончилось топливо. Придется совершить посадку на вражеской территории!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Пассажиры:",
-  L"Выбрать вертолет или точку высадки?",
-  L"Вертолёт",
-  L"Высадка",
-  L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+	L"Пассажиры:",
+	L"Выбрать вертолет или точку высадки?",
+	L"Вертолёт",
+	L"Высадка",
+	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->	// TODO.Translate
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?"	// TODO.Translate
+	L"Remaining Fuel:",	// TODO.Translate
+	L"Dist. To Refuel Site:",	// TODO.Translate
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=

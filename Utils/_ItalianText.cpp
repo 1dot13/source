@@ -2529,6 +2529,7 @@ STR16 pLandTypeStrings[] =
 	L"Aeroporto di Drassen",
 	L"Aeroporto di Meduna",
 	L"Postazione SAM",
+	L"Refuel site", // TODO.Translate
 	L"Nascondiglio ribelli", //The rebel base underground in sector A10
 	L"Prigione sotterranea di Tixa",	//The basement of the Tixa Prison (J9)
 	L"Tana della creatura",	//Any mine sector with creatures in it
@@ -3290,12 +3291,14 @@ STR16 pHelicopterEtaStrings[] =
 	L"Costo totale: ", 		// total cost of trip by helicopter
 	L"TPA: ", 			// ETA is an acronym for "estimated time of arrival" 
 	L"L'elicottero ha poco carburante e deve atterrare in territorio nemico!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Passeggeri: ",
-  L"Seleziona Skyrider o gli Arrivi Drop-off?",
-  L"Skyrider",
-  L"Arrivi",
-  L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+	L"Passeggeri: ",
+	L"Seleziona Skyrider o gli Arrivi Drop-off?",
+	L"Skyrider",
+	L"Arrivi",
+	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->	// TODO.Translate
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?"	// TODO.Translate
+	L"Remaining Fuel:",	// TODO.Translate
+	L"Dist. To Refuel Site:",	// TODO.Translate
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=

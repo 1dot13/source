@@ -2539,6 +2539,7 @@ STR16 pLandTypeStrings[] =
 	L"Drassen Airport",
 	L"Meduna Airport",
 	L"SAM site",
+	L"Refuel site",
 	L"Rebel Hideout", //The rebel base underground in sector A10
 	L"Tixa Dungeon",	//The basement of the Tixa Prison (J9)
 	L"Creature Lair",	//Any mine sector with creatures in it
@@ -3301,12 +3302,14 @@ STR16 pHelicopterEtaStrings[] =
 	L"Total Cost: ", 		// total cost of trip by helicopter
 	L"ETA:  ", 			// ETA is an acronym for "estimated time of arrival" 
 	L"Helicopter is low on fuel and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Passengers: ",
-  L"Select Skyrider or the Arrivals Drop-off?",
-  L"Skyrider",
-  L"Arrivals",
-  L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-  L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+	L"Passengers: ",
+	L"Select Skyrider or the Arrivals Drop-off?",
+	L"Skyrider",
+	L"Arrivals",
+	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?"
+	L"Remaining Fuel:",
+	L"Dist. To Refuel Site:",
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=

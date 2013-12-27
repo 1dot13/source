@@ -2545,6 +2545,7 @@ STR16 pLandTypeStrings[] =
 	L"Lotnisko w Drassen",
 	L"Lotnisko w Medunie",
 	L"Rakiety Z-P",
+	L"Refuel site", // TODO.Translate
 	L"Kryjówka rebeliantów", //The rebel base underground in sector A10
 	L"Tixa - Lochy",	//The basement of the Tixa Prison (J9)
 	L"Gniazdo stworzeń",	//Any mine sector with creatures in it
@@ -3312,7 +3313,8 @@ STR16 pHelicopterEtaStrings[] =
 	L"Pasażerowie",
 	L"Helikopter został poważnie uszkodzony i musi wylądować na terenie wroga!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
 	L"Helikopter powróci teraz wprost do bazy, czy chcesz najpierw wysadzić pasażerów?"
-
+	L"Remaining Fuel:",	// TODO.Translate
+	L"Dist. To Refuel Site:",	// TODO.Translate
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=

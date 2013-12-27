@@ -6478,6 +6478,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		BlitSAMGridMarkers( );
 	}
 
+	// sam site text
 	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{
 		// has the sam site here been found?
@@ -6553,6 +6554,86 @@ void ShowSAMSitesOnStrategicMap( void )
 		}
 	}
 
+	// refuel site text
+	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
+	{
+		// has the refuel site here been known or found?
+		if( !fRefuelingSiteKnown[ iCounter ] && !GetSectorFlagStatus( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ], 0, SF_ALREADY_VISITED ) )
+		{
+			continue;
+		}
+
+		// get the sector x and y
+		sSectorX = sRefuelSectorX[ iCounter ];
+		sSectorY = sRefuelSectorY[ iCounter ];
+	
+		GetScreenXYFromMapXY( sSectorX, sSectorY, &sX, &sY );
+		sX += 5;
+		sY += 3;
+
+		if( fShowAircraftFlag )
+		{
+			// write "Refuel Site" centered underneath
+
+			// HEADROCK HAM 5: Font size is now dynamic.
+
+			INT32 MapHeliSiteFont;
+			if (iResolution <= _800x600 )
+			{
+				MapHeliSiteFont = MAP_FONT;
+			}
+			else
+			{
+				MapHeliSiteFont = FONT14ARIAL;
+			}
+
+			INT16 sLabelX = sX + (MAP_GRID_X / 2);
+			INT16 sLabelY;
+			if ( IsThisSectorASAMSector( sSectorX, sSectorY, 0 ) )
+			{
+				if (iResolution <= _800x600 )
+					sLabelY = sY + MAP_GRID_Y + 10;
+				else
+					sLabelY = sY + MAP_GRID_Y + 16;
+			}
+			else
+				sLabelY = sY + MAP_GRID_Y + 2;
+
+			wcscpy( wString, pLandTypeStrings[ REFUEL_SITE ] );
+
+			// we're CENTERING the first string AROUND sX, so calculate the starting X value
+			sLabelX -= StringPixLength( wString, MapHeliSiteFont) / 2;
+
+			// if within view region...render, else don't
+			if( ( sLabelX > MAP_VIEW_START_X + MAP_VIEW_WIDTH  ) || ( sLabelX < MAP_VIEW_START_X ) ||
+					( sLabelY > MAP_VIEW_START_Y + MAP_VIEW_HEIGHT ) || ( sLabelY < MAP_VIEW_START_Y ) )
+			{
+				continue;
+			}
+
+
+			SetFontDestBuffer( guiSAVEBUFFER, MapScreenRect.iLeft + 2, MapScreenRect.iTop, MapScreenRect.iRight, MapScreenRect.iBottom, FALSE );
+
+			// clip blits to mapscreen region
+			ClipBlitsToMapViewRegion( );
+
+			SetFont(MapHeliSiteFont);
+			// Green on green doesn't contrast well, use Yellow
+			if ( fRefuelingSiteAvailable[ iCounter ] )
+				SetFontForeground(FONT_MCOLOR_LTYELLOW);
+			else
+				SetFontForeground(FONT_MCOLOR_LTGRAY);
+			SetFontBackground(FONT_MCOLOR_BLACK);
+
+			// draw the text
+			gprintfdirty( sLabelX, sLabelY, wString );
+			mprintf( sLabelX, sLabelY, wString);
+
+			// restore clip blits
+			RestoreClipRegionToFullScreen( );
+		}
+	}
+
 	return;
 }
 
@@ -6576,6 +6657,7 @@ void BlitSAMGridMarkers( void )
 	// clip to view region
 	ClipBlitsToMapViewRegionForRectangleAndABit( uiDestPitchBYTES );
 
+	// sam site rectangles
 	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{
 		// has the sam site here been found?
@@ -6586,6 +6668,24 @@ void BlitSAMGridMarkers( void )
 
 		// get location on screen
 		GetScreenXYFromMapXY( gpSamSectorX[ iCounter ], gpSamSectorY[ iCounter ], &sScreenX, &sScreenY );
+		sWidth = MAP_GRID_X;
+		sHeight= MAP_GRID_Y;
+
+		// draw rectangle
+		RectangleDraw( TRUE, sScreenX, sScreenY - 1, sScreenX + sWidth, sScreenY + sHeight - 1, usColor, pDestBuf );
+	}
+
+	// refuel site rectangles
+	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
+	{
+		// has the refuel site here been known or found?
+		if( !fRefuelingSiteKnown[ iCounter ] && !GetSectorFlagStatus( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ], 0, SF_ALREADY_VISITED ) )
+		{
+			continue;
+		}
+
+		// get location on screen
+		GetScreenXYFromMapXY( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ], &sScreenX, &sScreenY );
 		sWidth = MAP_GRID_X;
 		sHeight= MAP_GRID_Y;
 
