@@ -167,7 +167,7 @@ STR16 pMenuStrings[] =
 	L"Menu 15", // 15
 	
 	//Briefing Room
-	L"Eintreten",	// TODO.Translate
+	L"Eintreten",
 };
 
 STR16	pOtherButtonsText[] =
@@ -198,7 +198,7 @@ STR16	pSectorPageText[] =
 	L"Typ: ",
 	L"Keine Daten",
 	L"Es gibt keine Missionen. Fügen Sie Missionen zu der Datei TableData\\BriefingRoom\\BriefingRoom.xml hinzu. Die erste Mission muss SICHTBAR sein. Setzen Sie den Wert Hidden = 0.",
-	L"Besprechungszimmer. Bitte drücken sie auf 'Eintreten'.",		// TODO.Translate
+	L"Besprechungszimmer. Bitte drücken sie auf 'Eintreten'.",
 };
 
 STR16	pEncyclopediaTypeText[] = 
@@ -1829,7 +1829,7 @@ STR16 pAssignmentStrings[] =
 	L"Fahrzeug", // in a vehicle
 	L"Transit", // in transit - abbreviated form
 	L"Repar.", // repairing
-	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
+	L"Radio Scan",	// scanning for nearby patrols
 	L"Üben", // training themselves
 	L"Miliz", // training a town to revolt 
 	L"M.Miliz", //training moving militia units		
@@ -1860,7 +1860,7 @@ STR16 pMilitiaButtonString[] =
 	L"Autom.", // auto place the militia troops for the player
 	L"Fertig", // done placing militia troops
 	L"Auflösen", // HEADROCK HAM 3.6: Disband militia
-	L"Zuordnungen aufh.", // move all milita troops to unassigned pool	// TODO.Translate
+	L"Zuordnungen aufh.", // move all milita troops to unassigned pool
 };
 
 STR16 pConditionStrings[] = 
@@ -1914,7 +1914,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"Radio Scan",	// radio scan
 	L"Üben", 
 	L"Miliz",
 	L"Trainiere Mobile Miliz",
@@ -1961,7 +1961,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"Radio Scan",	// radio scan
 	L"Üben", 
 	L"Miliz",
 	L"Trainiere Mobile",
@@ -2117,46 +2117,46 @@ STR16 pMilitiaControlMenuStrings[] =
 };
 
 //Flugente
-STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+STR16 pTraitSkillsMenuStrings[] =
 {
 	// radio operator
-	L"Artillery Strike",
-	L"Jam communications",
-	L"Scan frequencies",
-	L"Eavesdrop",
-	L"Call reinforcements",
-	L"Switch off radio set",
+	L"Artillerie befehligen",
+	L"Kommunikation stören",
+	L"Frequenzen scannen",
+	L"Abhöraktion starten",
+	L"Verstärkung rufen",
+	L"Radiogerät ausschalten",
 
 	// various
-	L"Spotter",		// TODO.Translate
+	L"Spotter",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
 	// radio operator
-	L"Order an artillery strike from sector...",
-	L"Fill all radio frequencies with white noise, making communications impossible.",
-	L"Scan for jamming signals.",
-	L"Use your radio equipment to continously listen for enemy movement",
-	L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set to save batteries.",
+	L"Artillerieanschlag befehligen von einem Sektor...",
+	L"Alle Funkfrequenzen mit weißem Rauschen füllen, sodass eine Kommunikation nicht mehr möglich ist.",
+	L"Nach Störsignalen scannen.",
+	L"Das Radiogerät verwenden, um feindliche Bewegungen zu orten.",
+	L"Verstärkung aus dem Nachbarsektor anfordern.",
+	L"Radiogerät ausschalten, um Batterien zu sparen.",
 
 	// various
-	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
+	L"Bestimmtes Gebiet beobachten, damit Scharfschützen einen Bonus auf deren Treffsicherheit erhalten.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
 {
-	L"Requires:\n",
+	L"Benötigt:\n",
 	L" - %d AP\n",
 	L" - %s\n",
-	L" - %s or higher\n",
-	L" - %s or higher or\n",
-	L" - %d minutes to be ready\n",
-	L" - mortar positions in neighbouring sectors\n",
-	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
-	L" - posession by a demon",
+	L" - %s oder höher\n",
+	L" - %s oder höher oder\n",
+	L" - %d Minuten um fertig zu sein\n",
+	L" - Mörser Positionen in Nachbarsektoren\n",
+	L" - %s |o|d|e|r %s |u|n|d %s oder %s oder höher\n"
+	L" - besessen von einem Dämon",
 };
 
 STR16 pRemoveMercStrings[] ={
@@ -2316,12 +2316,12 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Charakter:",
 	L"Schwächen:",
 
-	L"Persönlichkeit:",	// WANNE: For old traits display instead of "Character:"!
+	L"Persönlichkeit:",
 
 	L"Zombies: %d\n",
 
-	L"Background:", // TODO.Translate
-	L"Personality:", // TODO.Translate
+	L"Werdegang:",
+	L"Personalität:",
 };
 
 
@@ -2402,7 +2402,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Spion",			// 41
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Mehr...",
-	L"various",			// for VARIOUSSKILLS	// TODO.Translate
+	L"diverse",			// for VARIOUSSKILLS
 };
 
 // This is pop up help text for the options that are available to the merc
@@ -3188,22 +3188,21 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Kapitulation anbieten",
 	L"Sprechen",
 
-	// TODO.Translate
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
-    L"Disarm trap",
-    L"Inspect trap",
-    L"Remove blue flag",
-    L"Blow up!",
-    L"Activate tripwire",
-    L"Deactivate tripwire",
-    L"Reveal tripwire",
-    L"No detonator or remote detonator found!",
-    L"This bomb is already armed!",
-    L"Safe",
-    L"Mostly safe",
-    L"Risky",
-    L"Dangerous",
-    L"High danger!",
+    L"Falle entschärfen",
+    L"Falle untersuchen",
+    L"Blaue Flagge entfernen",
+    L"Sprengen!",
+    L"Stolperdraht aktivieren",
+    L"Stolperdraht deaktivieren",
+    L"Stolperdraht freilegen",
+    L"Kein Zünder/Fernzünder gefunden!",
+    L"Diese Bombe ist bereis scharf!",
+    L"Sicher",
+    L"Fast sicher",
+    L"Riskant",
+    L"Gefährlich",
+    L"Hohe Gefahr!",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3388,10 +3387,9 @@ STR16 pwMineStrings[] =
 	L"Produziert",
 	L"Status",
 	L"Produktionsrate",
-	L"Resource",				// 10	L"Erzart",	// TODO.Translate
+	L"Rohstoff",				// 10	L"Erzart",
 	L"Kontrolle über Stadt",
 	L"Loyalität der Stadt",
-//	L"Minenarbeiter",
 };
 
 // blank sector strings
@@ -3493,7 +3491,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Ausrüstung\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Ausrüstung anzeigen", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von anderen Gegenständen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur andere Gegenstände anzeigen", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von zu bewegenden Gegenständen", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -4103,8 +4101,8 @@ STR16 pBookMarkStrings[] =
 	L"Versicherung",
 	L"Abbruch",
 	L"Enzyklopädie",
-	L"Einsatzbesprechung",
-	L"Campaign History",	// TODO.Translate
+	L"Besprechung",
+	L"Geschichte",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4205,10 +4203,10 @@ STR16 pWebPagesTitles[] =
 	L"McGillicuttys Bestattungen",
 	L"",
 	L"URL nicht gefunden.",
-	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
-	L"Arulco Press Council - Battle Reports",
-	L"Arulco Press Council - Latest News",
-	L"Arulco Press Council - About us",
+	L"Arulco Presse Rat - Konflikt-Zusammenfassungen",
+	L"Arulco Presse Rat - Kampfberichte",
+	L"Arulco Presse Rat - Aktuellste Neuigkeiten",
+	L"Arulco Presse Rat - Über uns",
 	L"Bobby Rays - Letzte Lieferungen",
 	L"Enzyklopädie",
 	L"Enzyklopädie - Daten",
@@ -5278,7 +5276,7 @@ STR16 zOptionsToggleText[] =
 	L"Übrige Feinde markieren",				
 	L"Tascheninhalt anzeigen",			
 	L"Mausradrichtung umkehren",
-	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
+	L"Bewegung in Formation",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5395,7 +5393,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
 	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
-	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
+	L"Wenn diese Funktion aktiviert ist und mehrere Sölnder ausgewählt sind, werden sich diese in Formation (in relativen Abständen zueinander) bewegen. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5816,8 +5814,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
-	L"Move in Formation ON",	// TODO.Translate
-	L"Move in Formation OFF",
+	L"In Formation bewegen - EINGESCHALTET",
+	L"In Formation bewegen - AUSGESCHALTET",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -5934,21 +5932,20 @@ STR16 pNewNoiseStr[] =
 	L"%s hört ein KNARREN (%s) von %s.",
 	L"%s hört ein KLATSCHEN (%s) von %s.",
 	L"%s hört einen AUFSCHLAG (%s) von %s.",
-	L"%s hears a %s GUNFIRE coming from %s.", // anv: without this, all further noise notifications were off by 1!		// TODO.Translate
+	L"%s hört ein %s GESCHÜTZFEUER von %s.", // anv: without this, all further noise notifications were off by 1!
 	L"%s hört eine EXPLOSION (%s) von %s.", 
 	L"%s hört einen SCHREI (%s) von %s.",
 	L"%s hört einen AUFSCHLAG (%s) von %s.",
 	L"%s hört einen AUFSCHLAG (%s) von %s.",
 	L"%s hört ein ZERBRECHEN (%s) von %s.",
 	L"%s hört ein ZERSCHMETTERN (%s) von %s.",
-	L"",											 // anv: placeholder for silent alarm		// TODO.Translate
-	L"%s hears someone's %s VOICE coming from %s.", // anv: report enemy taunt to player		// TODO.Translate
+	L"",											// anv: placeholder for silent alarm
+	L"%s hört irgendeine %s STIMME von %s.",		// anv: report enemy taunt to player
 };
 
-// TODO.Translate
 STR16 pTauntUnknownVoice[] =
 {
-	L"Unknown Voice",
+	L"Unbekannte Stimme",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =
@@ -6253,11 +6250,11 @@ STR16 gzTooltipStrings[] =
 	L"%s|Fertigkeit 1: %s\n",
 	L"%s|Fertigkeit 2: %s\n", 
 	L"%s|Fertigkeit 3: %s\n",
-    // Additional suppression effects - sevenfm	//  TODO.Translate
-    L"%s|A|Ps lost due to |S|uppression: %d\n",
-    L"%s|Suppression |Tolerance: %d\n",
-    L"%s|Effective |S|hock |Level: %d\n",
-    L"%s|A|I |Morale: %d\n",
+    // Additional suppression effects - sevenfm
+    L"%s|A|Ps verloren aufgrund von |U|nterdrückung: %d\n",
+    L"%s|Unterdrückungs-|Toleranz: %d\n",
+    L"%s|Effektive |S|chock |Stufe: %d\n",
+    L"%s|K|I |Moral: %d\n",
 };
 
 STR16 New113Message[] =
@@ -7713,14 +7710,14 @@ STR16	szMTATextStr[]=
 	L"%s musste %s stoppen.",
 };
 
-STR16	szInventoryArmTextStr[]= // TODO.Translate
+STR16	szInventoryArmTextStr[]=
 {
-	L"Blow up (%d AP)",
-	L"Blow up",
-	L"Arm (%d AP)",
-	L"Arm",
-	L"Disarm (%d AP)",
-	L"Disarm",
+	L"Sprengen (%d AP)",
+	L"Sprengen",
+	L"Scharf machen (%d AP)",
+	L"Scharf machen",
+	L"Entschärfen (%d AP)",
+	L"Entschärfen",
 };
 
 // TODO.Translate
