@@ -2136,14 +2136,14 @@ STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
 	L"Spotter",		// TODO.Translate
 };
 
-//Flugente: short description of the above skills for the skill selection menu
+//Flugente: short description of the above skills for the skill selection menu	// TODO.Translate
 STR16 pTraitSkillsMenuDescStrings[] =
 {
 	// radio operator
 	L"Order an artillery strike from sector...",
 	L"Fill all radio frequencies with white noise, making communications impossible.",
 	L"Scan for jamming signals.",
-	L"Use your radio equipment to continously listen for enemy movement",
+	L"Use your radio equipment to continously listen for enemy movement.",
 	L"Call in reinforcements from neighbouring sectors.",
 	L"Turn off radio set to save batteries.",
 
@@ -2151,7 +2151,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
 };
 
-STR16 pTraitSkillsDenialStrings[] =
+STR16 pTraitSkillsDenialStrings[] =	// TODO.Translate
 {
 	L"Requires:\n",
 	L" - %d AP\n",
@@ -2161,7 +2161,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %d minutes to be ready\n",
 	L" - mortar positions in neighbouring sectors\n",
 	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
-	L" - posession by a demon",
+	L" - possession by a demon",
 };
 
 STR16 pRemoveMercStrings[] =
@@ -3405,7 +3405,6 @@ STR16 pwMineStrings[] =
 	L"Type de minerai",				// 10
 	L"Contrôle de la ville",
 	L"Loyauté de la ville",
-//	L"Mineurs au travail",
 };
 
 // blank sector strings
