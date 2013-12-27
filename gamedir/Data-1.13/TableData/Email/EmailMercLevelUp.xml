@@ -225,7 +225,7 @@ Message:		The email message body
 	<EMAIL>
 		<!-- Gasket -->
 		<uiIndex>42</uiIndex>
-		<Subject>Subject: None</Subject>
+		<Subject>Notice of Fee Increase</Subject>
 		<Message>Please be advised that, as of this moment, Gasket's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
