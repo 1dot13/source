@@ -3417,7 +3417,7 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 	UINT8				ubNumEnemies = 0;
 	UINT8				ubNumAllies = 0;
 	UINT32			cnt;
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhiles
 #else
 	if ( AreInMeanwhile( ) )
@@ -6733,7 +6733,7 @@ void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGri
 	// if the quote was faint, say something
 	if (ubVolumeIndex == 0)
 	{
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhiles
 #else
 		if ( !AreInMeanwhile( ) && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV) && pSoldier->ubTurnsUntilCanSayHeardNoise == 0)

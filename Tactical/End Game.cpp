@@ -408,7 +408,7 @@ void DoneFadeOutEndCinematic( void )
 // OK, end death UI - fade to smaker....
 void HandleDoneLastEndGameQuote( )
 {
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No queen	
 #else
 EndQueenDeathEndgame( );
@@ -422,7 +422,7 @@ EndQueenDeathEndgame( );
 
 void QueenBitchTimerCallback( void )
 {
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no Ub
 #else
 	HandleQueenBitchDeath( gpKillerSoldier, gsGridNo, gbLevel );

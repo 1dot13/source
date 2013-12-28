@@ -711,7 +711,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					}
 				}
 			}
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25: no queen
 #else
 			else if ( !gfInMeanwhile && gWorldSectorX == 3 && gWorldSectorY == 16 && !gbWorldSectorZ )

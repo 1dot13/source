@@ -659,7 +659,7 @@ void BtnFlowerOrderSendButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 			if ( gubCurrentlySelectedFlowerLocation == 7 )
 			{
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
 				// sent to meduna!

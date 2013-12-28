@@ -2969,7 +2969,7 @@ BOOLEAN SetFaceTalking( INT32 iFaceIndex, CHAR8 *zSoundFile, STR16 zTextString,
 	pFace->fAnimatingTalking = TRUE;
 	pFace->fFinishTalking = FALSE;
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25: No Meanwhiles
 #else
 	if ( !AreInMeanwhile( ) )

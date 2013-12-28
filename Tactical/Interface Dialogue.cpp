@@ -4146,7 +4146,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					// This is not the end, 'cause momma creature is still alive
 					TriggerNPCRecordImmediately( 136, 8 );
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no Ub
 #else
 					EndQueenDeathEndgame( );
@@ -4157,7 +4157,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					// Continue with endgame cimematic..
 					DeleteTalkingMenu( );
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no Ub
 #else
 					EndQueenDeathEndgameBeginEndCimenatic( );
@@ -4169,7 +4169,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 
 				// Just end queen killed dequence.......
 				DeleteTalkingMenu( );
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
 				EndQueenDeathEndgame( );

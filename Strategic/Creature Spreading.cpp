@@ -298,7 +298,7 @@ void InitCreatureQuest()
 		fPlayMeanwhile = TRUE;
 	#endif
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhiles && no creatures
 #else
 	if( fPlayMeanwhile && !gfCreatureMeanwhileScenePlayed && gModSettings.CreatureMeanwhileCutscene == TRUE )
@@ -1568,7 +1568,7 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 		if( gfClearCreatureQuest && giLairID != -1 )
 		{
 			giLairID = 0;
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
 			gfCreatureMeanwhileScenePlayed = FALSE;

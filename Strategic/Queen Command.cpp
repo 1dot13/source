@@ -2056,7 +2056,7 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
      

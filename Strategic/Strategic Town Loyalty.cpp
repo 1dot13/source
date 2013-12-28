@@ -1865,7 +1865,7 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 			// set fact is has been lib'ed and set history event
 			AddHistoryToPlayersLog( HISTORY_LIBERATED_TOWN, bTownId, GetWorldTotalMin(), sSectorX, sSectorY );
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25: No meanhwiles
 #else
 			HandleMeanWhileEventPostingForTownLiberation( bTownId );
@@ -1903,7 +1903,7 @@ void CheckIfEntireTownHasBeenLost( INT8 bTownId, INT16 sSectorX, INT16 sSectorY 
 	if ( MilitiaTrainingAllowedInSector( sSectorX, sSectorY, 0 ) && IsTownUnderCompleteControlByEnemy(bTownId) )
 	{
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhile
 #else
 		// the whole town is under enemy control, check if we libed this town before

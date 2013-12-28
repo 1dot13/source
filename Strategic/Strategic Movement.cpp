@@ -1725,7 +1725,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	if( fExceptionQueue || fCheckForBattle && gTacticalStatus.fEnemyInSector &&
 			FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, TRUE ) &&
 		(pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) ||
-		#if (defined JA2UB) 
+		#ifdef JA2UB
 			//Ja25: NO meanwhiles		
 		#else
 			AreInMeanwhile() ||
@@ -1739,7 +1739,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		//QUEUE BATTLE!
 		//Delay arrival by a random value ranging from 3-5 minutes, so it doesn't get the player
 		//too suspicious after it happens to him a few times, which, by the way, is a rare occurrence.
-#if (defined JA2UB) 
+#ifdef JA2UB
 /*Ja25: No meanwhiles*/
 #else
 		if( AreInMeanwhile() )

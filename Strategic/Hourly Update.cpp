@@ -42,13 +42,13 @@ void HourlyStealUpdate();	// Flugente: certain characters might steal equipment 
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no UB
 #else
 void HourlyCheckIfSlayAloneSoHeCanLeave();
 #endif
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no UB
 #else
 void HourlyHelicopterRepair();
@@ -113,7 +113,7 @@ CHAR16	zString[128];
 
 	HourlyStealUpdate();
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
 	HourlyCheckIfSlayAloneSoHeCanLeave();
@@ -121,13 +121,17 @@ CHAR16	zString[128];
 	// WDS - New AI
 	HourlyCheckStrategicAI();
 
+#ifdef JA2UB
+// no UB
+#else
 	PayOffSkyriderDebtIfAny();
 
 	HourlyHelicopterRepair();
+#endif
+	
 
 	if ( GetWorldHour() % 6 == 0 ) // 4 times a day
-	{
-		UpdateRegenCounters();
+	{		UpdateRegenCounters();
 	}
 
 	// WANNE: This check should avoid the resaving of a loaded auto-save game, when entering tactical
@@ -548,7 +552,7 @@ void HourlyStealUpdate()
 	}
 }
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no JA25 UB
 #else 
 void HourlyCheckIfSlayAloneSoHeCanLeave()
@@ -578,7 +582,7 @@ void HourlyCheckIfSlayAloneSoHeCanLeave()
 }
 #endif
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no JA25 UB
 #else 
 void HourlyHelicopterRepair()

@@ -935,7 +935,7 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 		gfWasInMeanwhile = FALSE;
 		return TRUE;
 	}
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25v No meanwhiles
 #else
 	else if( AreInMeanwhile() )
@@ -1047,7 +1047,7 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 
 	EnableModifiedFileSetCache(cacheResetValue);
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 no meanwhile
 #else
 	if( fShouldBeInMeanwhile )
@@ -1209,7 +1209,7 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 	//
 	// Load in the sectors ITems
 	//
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25v no meanwhiles
 #else
 	if( AreInMeanwhile() )

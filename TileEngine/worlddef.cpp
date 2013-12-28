@@ -3452,7 +3452,7 @@ void TrashWorld( void )
 
 	//Remove the schedules
 	DestroyAllSchedules();
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 no meanwhiles
 #else
 	// on trash world sheck if we have to set up the first meanwhile

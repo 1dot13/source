@@ -1511,7 +1511,7 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 		return( FALSE );
 	}
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 no meanwhiles
 #else
 	if ( AreInMeanwhile( ) )

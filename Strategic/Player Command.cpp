@@ -184,7 +184,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 	INT8 bTownId = 0;
 	UINT8 ubSectorID;
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25: No meanwhiles
 #else
 	if( AreInMeanwhile( ) )
@@ -271,7 +271,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 					{
 						HandleMoraleEvent( NULL, MORALE_TOWN_LIBERATED, sMapX, sMapY, bMapZ );
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25:	no loyalty
 #else
 						HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_TOWN_SECTOR, sMapX, sMapY, bMapZ );
@@ -288,7 +288,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				if ( GetTotalLeftInMine( GetMineIndexForSector( sMapX, sMapY ) ) > 0)
 				{
 					HandleMoraleEvent( NULL, MORALE_MINE_LIBERATED, sMapX, sMapY, bMapZ );
-#if (defined JA2UB) 
+#ifdef JA2UB
 // Ja25:	no loyalty
 #else
 					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_MINE, sMapX, sMapY, bMapZ );
@@ -310,7 +310,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				}
 
 				HandleMoraleEvent( NULL, MORALE_SAM_SITE_LIBERATED, sMapX, sMapY, bMapZ );
-#if (defined JA2UB) 
+#ifdef JA2UB
 // Ja25:	no loyalty
 #else
 				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_SAM, sMapX, sMapY, bMapZ );
@@ -350,7 +350,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				( sMapY >= gModSettings.ubMeanwhileMedunaOutskirtsColMinY && sMapY <= gModSettings.ubMeanwhileMedunaOutskirtsColMaxY ) ) ) ) //col y range
 			{
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhiles
 #else
 				HandleOutskirtsOfMedunaMeanwhileScene();

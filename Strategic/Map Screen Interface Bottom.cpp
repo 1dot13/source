@@ -1322,7 +1322,7 @@ BOOLEAN AllowedToTimeCompress( void )
 		return( FALSE );
 	}
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 no meanwhiles
 #else
 	// meanwhile coming up
@@ -1810,7 +1810,7 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 		return( FALSE );
 	}
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 //Ja25 No meanwhiles
 #else
 	// meanwhile coming up

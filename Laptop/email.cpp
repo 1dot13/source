@@ -3646,7 +3646,7 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 		fSpecialCase = TRUE;
 
 		break;
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no UB
 #else
 		case( MERC_INTRO ):
@@ -6361,7 +6361,7 @@ BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPt
 #ifdef JA2BETAVERSION
 void AddAllEmails()
 {	
-#if (defined JA2UB) 
+#ifdef JA2UB
 //no UB
 #else
 	UINT32 uiCnt;

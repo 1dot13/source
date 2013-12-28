@@ -5773,7 +5773,7 @@ UINT32 MapScreenHandle(void)
 		RenderKeyRingPopup( FALSE );
 	}
 
-#if (defined JA2UB) 
+#ifdef JA2UB
 /* UB */
 #else
 	CheckForMeanwhileOKStart( );	

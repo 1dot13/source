@@ -799,7 +799,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				break;
 
 			case NPC_ACTION_SEND_ENRICO_MIGUEL_EMAIL:
-#if (defined JA2UB) 
+#ifdef JA2UB
 // no UB
 #else
 				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);

@@ -6157,7 +6157,7 @@ void SetEnemyPresence( )
 
         // If we are just starting game, don't do this!
 
-#if (defined JA2UB)     
+#ifdef JA2UB    
         //Ja25: no meanwhiles
         if ( !DidGameJustStart() )
 #else
@@ -7033,7 +7033,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             SetFactTrue( FACT_FIRST_BATTLE_FOUGHT );
             SetFactFalse( FACT_FIRST_BATTLE_BEING_FOUGHT );
             SetTheFirstBattleSector( (INT16) (gWorldSectorX + gWorldSectorY * MAP_WORLD_X) );
-#if (defined JA2UB) 
+#ifdef JA2UB
             //Ja25  no meanwhile
 #else
             HandleFirstBattleEndingWhileInTown( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, FALSE );
@@ -7313,7 +7313,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 SetFactTrue( FACT_FIRST_BATTLE_WON );
                 SetFactFalse( FACT_FIRST_BATTLE_BEING_FOUGHT );
                 SetTheFirstBattleSector( (INT16) (gWorldSectorX + gWorldSectorY * MAP_WORLD_X) );
-#if (defined JA2UB) 
+#ifdef JA2UB
                 //Ja25  no meanwhile
 #else
                 HandleFirstBattleEndingWhileInTown( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, FALSE );
@@ -9210,7 +9210,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
             // Go into combat!
 
             // If we are in a meanwhile... don't enter combat here...
-#if (defined JA2UB) 
+#ifdef JA2UB
             //Ja25 no meanwhiles
 #else
             if ( !AreInMeanwhile( ) )
