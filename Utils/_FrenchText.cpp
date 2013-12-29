@@ -5429,6 +5429,7 @@ STR16		zOptionsToggleText[] =
 	L"Afficher deviation balle",					// Show progress towards stat increase
 	L"Couleur alternative carte",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
+	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Afficher équip. sur portrait",
 	L"Afficher icônes sur portrait",
 	L"Désactiver échange curseur",		            // Disable Cursor Swap
