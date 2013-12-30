@@ -1324,6 +1324,7 @@ void LoadGameExternalOptions()
 	
 	// sevenfm
 	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
+	gGameExternalOptions.ubShowEnemyAdditionalInfo			= iniReader.ReadInteger("Tactical Gameplay Settings","SHOW_ENEMY_ADDITIONAL_INFO", 0, 0, 3);
 
 	//legion by Jazz
 	gGameExternalOptions.fIndividualHiddenPersonNames		= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_HIDDEN_PERSON_NAMES", FALSE);
