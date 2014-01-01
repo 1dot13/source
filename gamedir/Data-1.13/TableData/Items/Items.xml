@@ -51001,6 +51001,7 @@
 		<Attachment>1</Attachment>
 		<Batteries>1</Batteries>
 		<Electronic>1</Electronic>
+		<BR_NewInventory>3</BR_NewInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>134217728</ItemFlag>
 		<STAND_MODIFIERS />
