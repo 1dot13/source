@@ -57,4 +57,47 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine();
 
 extern INT32 giLairID;
 
+// Buggler: creature XML definitions
+// actual infectible sites defined in XML
+extern UINT8 NUMBER_OF_INFECTIBLE_SITES;
+extern UINT8 NUMBER_OF_CREATURE_COMPOSITIONS;
+
+#define MAX_NUMBER_OF_INFECTIBLE_SITES			10
+#define MAX_NUMBER_OF_CREATURE_SECTORS			50
+#define MAX_NUMBER_OF_CREATURE_COMPOSITIONS		30
+
+typedef struct CREATUREHABITAT
+{
+	INT16 sX, sY;
+	UINT8 ubZ;
+	UINT8 ubComposition;
+	BOOLEAN fValid;
+} CREATUREHABITAT;
+
+typedef struct CREATUREPLACEMENT
+{
+	INT16 sAttackSourceX, sAttackSourceY;
+	INT32 iAttackSourceGridNo;
+	INT16 sAltMapX, sAltMapY;
+	UINT8 ubAltMapZ;
+	INT16 sWarpToX, sWarpToY;
+	UINT8 ubWarpToZ;
+	INT32 iWarpToGridNo;
+	INT16 sQueenX, sQueenY;
+	UINT8 ubQueenZ;
+	CREATUREHABITAT Habitat[ MAX_NUMBER_OF_CREATURE_SECTORS ];
+}CREATUREPLACEMENT;
+
+typedef struct CREATURECOMPOSITION
+{
+	UINT8 ubLarvaePercent, ubInfantPercent;
+	UINT8 ubYoungMalePercent, ubYoungFemalePercent;
+	UINT8 ubAdultMalePercent, ubAdultFemalePercent;
+	INT32 iMaxPopulation;
+}CREATURECOMPOSITION;
+
+// This array stores all XML-read creature placement data, valid giLairID starts at 1
+extern CREATUREPLACEMENT gCreaturePlacements[ MAX_NUMBER_OF_INFECTIBLE_SITES + 1 ];
+extern CREATURECOMPOSITION gCreatureComposition[ MAX_NUMBER_OF_CREATURE_COMPOSITIONS ];
+
 #endif

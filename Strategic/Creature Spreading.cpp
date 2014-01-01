@@ -109,6 +109,8 @@
 //inside the function PrepareCreaturesForBattle() in this module.
 //BOOLEAN gfUseCreatureMusic = FALSE; // moved to music control.cpp
 BOOLEAN gfCreatureMeanwhileScenePlayed = FALSE;
+
+// externalize to xml data
 enum
 {
 	QUEEN_LAIR,				//where the queen lives.	Highly protected
@@ -151,6 +153,7 @@ void DeleteCreatureDirectives();
 
 //extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
 
+
 CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
 {
 	CREATURE_DIRECTIVE *curr;
@@ -173,6 +176,7 @@ CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCre
 	return curr;
 }
 
+/* // externalize to xml data
 void InitLairDrassen()
 {
 	CREATURE_DIRECTIVE *curr;
@@ -197,10 +201,32 @@ void InitLairDrassen()
 	curr->next = NewDirective( SEC_D13, 1, MINE_EXIT );
 }
 
-void InitLairCambria()
+void InitLairAlma()
 {
 	CREATURE_DIRECTIVE *curr;
 	giLairID = 2;
+	//initialize the linked list of lairs
+	lair = NewDirective( SEC_K13, 3, QUEEN_LAIR );
+	curr = lair;
+	if( !curr->pLevel->ubNumCreatures )
+	{
+		curr->pLevel->ubNumCreatures = 1;	//for the queen.
+	}
+	curr->next = NewDirective( SEC_J13, 3, LAIR );
+	curr = curr->next;
+	curr->next = NewDirective( SEC_J13, 2, LAIR_ENTRANCE );
+	curr = curr->next;
+	curr->next = NewDirective( SEC_J14, 2, INNER_MINE );
+	curr = curr->next;
+	curr->next = NewDirective( SEC_J14, 1, OUTER_MINE );
+	curr = curr->next;
+	curr->next = NewDirective( SEC_I14, 1, MINE_EXIT );
+}
+
+void InitLairCambria()
+{
+	CREATURE_DIRECTIVE *curr;
+	giLairID = 3;
 	//initialize the linked list of lairs
 	lair = NewDirective( SEC_J8, 3, QUEEN_LAIR );
 	curr = lair;
@@ -219,28 +245,6 @@ void InitLairCambria()
 	curr->next = NewDirective( SEC_H9, 1, OUTER_MINE );
 	curr = curr->next;
 	curr->next = NewDirective( SEC_H8, 1, MINE_EXIT );
-}
-
-void InitLairAlma()
-{
-	CREATURE_DIRECTIVE *curr;
-	giLairID = 3;
-	//initialize the linked list of lairs
-	lair = NewDirective( SEC_K13, 3, QUEEN_LAIR );
-	curr = lair;
-	if( !curr->pLevel->ubNumCreatures )
-	{
-		curr->pLevel->ubNumCreatures = 1;	//for the queen.
-	}
-	curr->next = NewDirective( SEC_J13, 3, LAIR );
-	curr = curr->next;
-	curr->next = NewDirective( SEC_J13, 2, LAIR_ENTRANCE );
-	curr = curr->next;
-	curr->next = NewDirective( SEC_J14, 2, INNER_MINE );
-	curr = curr->next;
-	curr->next = NewDirective( SEC_J14, 1, OUTER_MINE );
-	curr = curr->next;
-	curr->next = NewDirective( SEC_I14, 1, MINE_EXIT );
 }
 
 void InitLairGrumm()
@@ -266,6 +270,36 @@ void InitLairGrumm()
 	curr = curr->next;
 	curr->next = NewDirective( SEC_H3, 1, MINE_EXIT );
 }
+*/
+
+void InitLair(INT32 iChosenMine)
+{
+	CREATURE_DIRECTIVE *curr;
+	giLairID = iChosenMine;
+
+	// initialize the linked list of lairs
+
+	// initialize the queen sector
+	lair = NewDirective( SECTOR( gCreaturePlacements[ giLairID ].sQueenX, gCreaturePlacements[ giLairID ].sQueenY ),
+		gCreaturePlacements[ giLairID ].ubQueenZ, QUEEN_LAIR );
+	curr = lair;	
+	
+	if( !curr->pLevel->ubNumCreatures )
+	{
+		curr->pLevel->ubNumCreatures = 1;	//for the queen.
+	}
+	
+	// initialize valid linked creature sectors
+	for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; i++)
+	{
+		if( gCreaturePlacements[ giLairID ].Habitat[ i ].fValid )
+		{
+			curr->next = NewDirective( SECTOR( gCreaturePlacements[ giLairID ].Habitat[ i ].sX , gCreaturePlacements[ giLairID ].Habitat[ i ].sY ),
+				gCreaturePlacements[ giLairID ].Habitat[ i ].ubZ, gCreaturePlacements[ giLairID ].Habitat[ i ].ubComposition );
+			curr = curr->next;
+		}
+	}
+}
 
 #ifdef JA2BETAVERSION
 extern BOOLEAN gfExitViewer;
@@ -276,13 +310,15 @@ void InitCreatureQuest()
 	UNDERGROUND_SECTORINFO *curr;
 	BOOLEAN fPlayMeanwhile = FALSE;
 	INT32 i=-1;
+	INT32 x=0;
 	INT32 iChosenMine;
 	INT32 iRandom;
-	INT32 iNumMinesInfectible;
+	INT32 iNumMinesInfectible=0;
+	INT32 iNumMinesInfectibleLUA=0;
 	#ifdef JA2BETAVERSION
 		INT32 iOrigRandom;
 	#endif
-	BOOLEAN fMineInfectible[4];
+	BOOLEAN fMineInfectible[MAX_NUMBER_OF_INFECTIBLE_SITES];
 
 	if( giLairID )
 	{
@@ -298,7 +334,7 @@ void InitCreatureQuest()
 		fPlayMeanwhile = TRUE;
 	#endif
 
-#ifdef JA2UB
+#ifdef JA2UB 
 //Ja25 No meanwhiles && no creatures
 #else
 	if( fPlayMeanwhile && !gfCreatureMeanwhileScenePlayed && gModSettings.CreatureMeanwhileCutscene == TRUE )
@@ -325,13 +361,14 @@ void InitCreatureQuest()
 			break;
 	}
 
-	//Determine which of the four maps are infectible by creatures.	Infectible mines
+	//Determine which of the maps are infectible by creatures.	Infectible mines
 	//are those that are player controlled and unlimited.	We don't want the creatures to
 	//infect the mine that runs out.
 
 	//Default them all to infectible
-	memset( fMineInfectible, 1, sizeof( BOOLEAN ) * 4 );
-
+	memset( fMineInfectible, 1, sizeof( BOOLEAN ) * MAX_NUMBER_OF_INFECTIBLE_SITES );
+	
+	/* // externalize to xml data
 	if( gMineStatus[ MINE_DRASSEN ].fAttackedHeadMiner ||
 			//gMineStatus[ MINE_DRASSEN ].uiOreRunningOutPoint ||
 			!gMineStatus[ MINE_DRASSEN ].fInfectible ||
@@ -365,15 +402,39 @@ void InitCreatureQuest()
 	{ //If head miner was attacked, ore will/has run out, or enemy controlled
 		fMineInfectible[ 3 ] = FALSE;
 	}
+	*/
+	
+	// determine mine infectible status
+	for (x = 0; x < MAX_NUMBER_OF_MINES; x++)
+	{
+		if( gMineStatus[ x ].fInfectible )
+		{
+			if( gMineStatus[ x ].fAttackedHeadMiner ||
+				//gMineStatus[ x ].uiOreRunningOutPoint ||
+				!gMineStatus[ x ].fInfectible ||
+				StrategicMap[ gMineStatus[ x ].StrategicIndex() ].fEnemyControlled )
+			{ //If head miner was attacked, ore will/has run out, or enemy controlled
+				fMineInfectible[ iNumMinesInfectibleLUA ] = FALSE;
+			}
+			iNumMinesInfectibleLUA++;
+		}
+	}
 
 	#ifdef JA2BETAVERSION
 	if( guiCurrentScreen == AIVIEWER_SCREEN )
 	{ //If in the AIViewer, allow any mine to get infected
-		memset( fMineInfectible, 1, sizeof( BOOLEAN ) * 4 );
+		memset( fMineInfectible, 1, sizeof( BOOLEAN ) * NUMBER_OF_INFECTIBLE_SITES );
 	}
 	#endif
-
-	iNumMinesInfectible = fMineInfectible[0] + fMineInfectible[1] + fMineInfectible[2] + fMineInfectible[3];
+	
+	//// externalize to xml data
+	//iNumMinesInfectible = fMineInfectible[0] + fMineInfectible[1] + fMineInfectible[2] + fMineInfectible[3];
+	
+	//count min of infectible sites defined in xml and initmines.lua script
+	for (x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); x++)
+	{
+		iNumMinesInfectible += fMineInfectible[x];
+	}
 
 	if( !iNumMinesInfectible )
 	{
@@ -389,18 +450,19 @@ void InitCreatureQuest()
 
 	iChosenMine = 0;
 
-	for( i = 0; i < 4; i++ )
+	for( x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); x++ )
 	{
 		if( iRandom )
 		{
 			iChosenMine++;
-			if( fMineInfectible[i] )
+			if( fMineInfectible[x] )
 			{
 				iRandom--;
 			}
 		}
 	}
 
+	/* // externalize to xml data
 	//Now, choose a start location for the queen.
 	switch( iChosenMine )
 	{
@@ -409,15 +471,15 @@ void InitCreatureQuest()
 			curr = FindUnderGroundSector( 13, 5, 1 );
 			curr->uiFlags |= SF_PENDING_ALTERNATE_MAP;
 			break;
-		case 2: //Cambria
-			InitLairCambria();
-			curr = FindUnderGroundSector( 9, 8, 1 );
-			curr->uiFlags |= SF_PENDING_ALTERNATE_MAP; //entrance
-			break;
-		case 3: //Alma's mine
+		case 2: //Alma's mine
 			InitLairAlma();
 			curr = FindUnderGroundSector( 14, 10, 1 );
 			curr->uiFlags |= SF_PENDING_ALTERNATE_MAP;
+			break;
+		case 3: //Cambria
+			InitLairCambria();
+			curr = FindUnderGroundSector( 9, 8, 1 );
+			curr->uiFlags |= SF_PENDING_ALTERNATE_MAP; //entrance
 			break;
 		case 4: //Grumm's mine
 			InitLairGrumm();
@@ -435,6 +497,15 @@ void InitCreatureQuest()
 			#endif
 			return;
 	}
+	*/
+	
+	//Now, choose a start location for the queen.
+	InitLair( iChosenMine );
+
+	//load alternate map for creature changes
+	curr = FindUnderGroundSector( gCreaturePlacements[ giLairID ].sAltMapX, gCreaturePlacements[ giLairID ].sAltMapY,
+		gCreaturePlacements[ giLairID ].ubAltMapZ );
+	curr->uiFlags |= SF_PENDING_ALTERNATE_MAP;
 
 	//Now determine how often we will spread the creatures.
 	switch( gGameOptions.ubDifficultyLevel )
@@ -520,6 +591,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 			INT32 iAbsoluteMaxPopulation;
 			INT32 iMaxPopulation=-1;
 			INT32 iChanceToPopulate;
+			
+			/* // externalize to xml data
 			switch( node->pLevel->ubCreatureHabitat )
 			{
 				case QUEEN_LAIR: //Defend the queen bonus
@@ -547,6 +620,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 					Assert( 0 );
 					return FALSE;
 			}
+			*/
+
+			iAbsoluteMaxPopulation = gCreatureComposition[ node->pLevel->ubCreatureHabitat ].iMaxPopulation;
 
 			switch( gGameOptions.ubDifficultyLevel )
 			{
@@ -738,11 +814,15 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 
 void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 {
-	INT32 iRandom;
+	INT32 iRandom, i;
 	UINT8 ubSectorX, ubSectorY;
+	INT8 bTownId, bTownSize;
+	UINT8 ubAttackSectorID;
+
 	ubSectorX = (UINT8)((ubSectorID % 16) + 1);
 	ubSectorY = (UINT8)((ubSectorID / 16) + 1);
 
+	/* // externalize to xml data
 	if( !fOverrideTest )
 	{
 		iRandom = PreRandom( 100 );
@@ -750,52 +830,55 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		{
 			case SEC_D13: //DRASSEN
 				if( iRandom < 45 )
-					ubSectorID = SEC_D13;
+					ubAttackSectorID = SEC_D13;
 				else if( iRandom < 70 )
-					ubSectorID = SEC_C13;
+					ubAttackSectorID = SEC_C13;
 				else
-					ubSectorID = SEC_B13;
+					ubAttackSectorID = SEC_B13;
 				break;
 			case SEC_H3: //GRUMM
 				if( iRandom < 35 )
-					ubSectorID = SEC_H3;
+					ubAttackSectorID = SEC_H3;
 				else if( iRandom < 55 )
-					ubSectorID = SEC_H2;
+					ubAttackSectorID = SEC_H2;
 				else if( iRandom < 70 )
-					ubSectorID = SEC_G2;
+					ubAttackSectorID = SEC_G2;
 				else if( iRandom < 85 )
-					ubSectorID = SEC_H1;
+					ubAttackSectorID = SEC_H1;
 				else
-					ubSectorID = SEC_G1;
+					ubAttackSectorID = SEC_G1;
 				break;
 			case SEC_H8: //CAMBRIA
 				if( iRandom < 35 )
-					ubSectorID = SEC_H8;
+					ubAttackSectorID = SEC_H8;
 				else if( iRandom < 55 )
-					ubSectorID = SEC_G8;
+					ubAttackSectorID = SEC_G8;
 				else if( iRandom < 70 )
-					ubSectorID = SEC_F8;
+					ubAttackSectorID = SEC_F8;
 				else if( iRandom < 85 )
-					ubSectorID = SEC_G9;
+					ubAttackSectorID = SEC_G9;
 				else
-					ubSectorID = SEC_F9;
+					ubAttackSectorID = SEC_F9;
 				break;
 			case SEC_I14: //ALMA
 				if( iRandom < 45 )
-					ubSectorID = SEC_I14;
+					ubAttackSectorID = SEC_I14;
 				else if( iRandom < 65 )
-					ubSectorID = SEC_I13;
+					ubAttackSectorID = SEC_I13;
 				else if( iRandom < 85 )
-					ubSectorID = SEC_H14;
+					ubAttackSectorID = SEC_H14;
 				else
-					ubSectorID = SEC_H13;
+					ubAttackSectorID = SEC_H13;
 				break;
 			default:
 				Assert( 0 );
 				return;
 		}
 	}
-	switch( ubSectorID )
+	else
+		ubAttackSectorID = ubSectorID;
+
+	switch( ubAttackSectorID )
 	{
 		case SEC_D13: //DRASSEN
 			gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
@@ -855,7 +938,59 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		default:
 			return;
 	}
-	gubSectorIDOfCreatureAttack = ubSectorID;
+	*/
+	
+	// determine the sector to attack
+	if( !fOverrideTest )
+	{
+		bTownId = StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX ( ubSectorID )].bNameId;
+		bTownSize = GetTownSectorSize( bTownId );
+		iRandom = PreRandom( bTownSize + 1 ) + 1;
+
+		// originating sector has double the chance
+		if( iRandom == bTownSize + 1 )
+			ubAttackSectorID = ubSectorID;
+		else
+		{
+			INT32 j=0;
+			for( i = 0; i < MAP_WORLD_X * MAP_WORLD_Y + 1; i++ )
+			{
+				if( StrategicMap[ i ].bNameId == bTownId )
+				{
+					j++;
+					if( iRandom == j )
+						ubAttackSectorID = STRATEGIC_INDEX_TO_SECTOR_INFO( i );
+				}
+			}
+		}
+	}
+	else
+		ubAttackSectorID = ubSectorID;
+	
+	// determine the attack sector insertion code
+	if( ubAttackSectorID == ubSectorID )		
+	{
+		gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
+		gsCreatureInsertionGridNo = gCreaturePlacements[ giLairID ].iAttackSourceGridNo;
+	}
+	else if ( ubAttackSectorID - ubSectorID < -15 )
+	{
+		gsCreatureInsertionCode = INSERTION_CODE_SOUTH;
+	}
+	else if ( ubAttackSectorID - ubSectorID < 0 )
+	{
+		gsCreatureInsertionCode = INSERTION_CODE_EAST;
+	}
+	else if ( ubAttackSectorID - ubSectorID < 16 )
+	{
+		gsCreatureInsertionCode = INSERTION_CODE_WEST;
+	}
+	else
+	{
+		gsCreatureInsertionCode = INSERTION_CODE_NORTH;
+	}
+
+	gubSectorIDOfCreatureAttack = ubAttackSectorID;
 }
 
 void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
@@ -1046,7 +1181,7 @@ void EndCreatureQuest()
 	}
 
 	//Remove the creatures that are trapped underneath Tixa
-	pSector = FindUnderGroundSector( 9, 10, 2 );
+	pSector = FindUnderGroundSector( gModSettings.ubTixaPrisonSectorX, gModSettings.ubTixaPrisonSectorY, 2 );
 	if( pSector )
 	{
 		pSector->ubNumCreatures = 0;
@@ -1054,7 +1189,7 @@ void EndCreatureQuest()
 
 	//Also find and nuke all creatures on any surface levels!!!
 	//KM: Sept 3, 1999 patch
-	for( i = 0; i < 255; i++ )
+	for( i = 0; i < SEC_P16 + 1; i++ )
 	{
 		SectorInfo[ i ].ubNumCreatures = 0;
 		SectorInfo[ i ].ubCreaturesInBattle = 0;
@@ -1079,6 +1214,7 @@ BOOLEAN MineClearOfMonsters( UINT8 ubMineIndex )
 
 	if( !gMineStatus[ ubMineIndex ].fPrevInvadedByMonsters )
 	{
+		/* // externalize to xml data
 		switch( ubMineIndex )
 		{
 			case MINE_GRUMM:
@@ -1122,6 +1258,19 @@ BOOLEAN MineClearOfMonsters( UINT8 ubMineIndex )
 				#endif
 				break;
 		}
+		*/
+		
+		// Buggler: use the defined underground mine sectors in lua script instead of the hardcoded ones
+		UINT32 i;
+		
+		for( i = 0; i < associatedMineSectors.size(); i++ )
+		{
+			if( associatedMineSectors[ i ].mineID == ubMineIndex )
+			{
+				if( CreaturesInUndergroundSector( SECTOR( associatedMineSectors[ i ].x, associatedMineSectors[ i ].y ), associatedMineSectors[ i ].z ) )
+					return FALSE;
+			}
+		}
 	}
 	else
 	{ //mine was previously invaded by creatures.	Don't allow mine production until queen is dead.
@@ -1133,9 +1282,8 @@ BOOLEAN MineClearOfMonsters( UINT8 ubMineIndex )
 	return TRUE;
 }
 
-void DetermineCreatureTownComposition( UINT8 ubNumCreatures,
-																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
+void DetermineCreatureTownComposition( UINT8 ubNumCreatures, UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
+									  UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
 {
 	INT32 i, iRandom;
 	UINT8 ubYoungMalePercentage = 10;
@@ -1167,9 +1315,8 @@ void DetermineCreatureTownComposition( UINT8 ubNumCreatures,
 	}
 }
 
-void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures,
-																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
+void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures, UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
+																UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
 {
 	SECTORINFO *pSector;
 	INT32 i;
@@ -1292,10 +1439,28 @@ BOOLEAN PrepareCreaturesForBattle()
 		#endif
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					
-		ubCreatureHabitat = MINE_EXIT;
+		// externalize to xml data
+		//ubCreatureHabitat = MINE_EXIT;
+		
+		//assign the B1 underground habitat composition to the attacking creatures
+		for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; i++)
+		{
+			INT16 sX = gCreaturePlacements[ giLairID ].sAttackSourceX;
+			INT16 sY = gCreaturePlacements[ giLairID ].sAttackSourceX;
+			UINT8 ubZ = 1;
+			
+			if( sX == gCreaturePlacements[ giLairID ].Habitat[ i ].sX &&
+				sY == gCreaturePlacements[ giLairID ].Habitat[ i ].sY &&
+				ubZ == gCreaturePlacements[ giLairID ].Habitat[ i ].ubZ )
+			{
+				ubCreatureHabitat = gCreaturePlacements[ giLairID ].Habitat[ i ].ubComposition;
+				break;
+			}
+		}
 		ubNumCreatures = gubNumCreaturesAttackingTown;
 	}
 
+	/* // externalize to xml data
 	switch( ubCreatureHabitat )
 	{
 		case QUEEN_LAIR:
@@ -1335,6 +1500,7 @@ BOOLEAN PrepareCreaturesForBattle()
 			ubAdultFemalePercentage = 30;
 			break;
 		case OUTER_MINE:
+		case FEEDING_GROUNDS:
 		case MINE_EXIT:
 			fQueen = FALSE;
 			ubLarvaePercentage = 0;
@@ -1350,6 +1516,26 @@ BOOLEAN PrepareCreaturesForBattle()
 			#endif
 			return FALSE;
 	}
+	*/
+
+	//out-of-range habitat
+	if( ubCreatureHabitat >= NUMBER_OF_CREATURE_COMPOSITIONS )
+	{
+		AssertMsg( 0, String( "Invalid creature habitat ID of %d for PrepareCreaturesForBattle.", ubCreatureHabitat ) );
+	}
+	
+	//queen sector
+	if( !ubCreatureHabitat )
+		fQueen = TRUE;
+	else
+		fQueen = FALSE;
+
+	ubLarvaePercentage = gCreatureComposition[ ubCreatureHabitat ].ubLarvaePercent;
+	ubInfantPercentage = gCreatureComposition[ ubCreatureHabitat ].ubInfantPercent;
+	ubYoungMalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubYoungMalePercent;
+	ubYoungFemalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubYoungFemalePercent;
+	ubAdultMalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubAdultMalePercent;
+	ubAdultFemalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubAdultFemalePercent;
 
 	//First step is to convert the percentages into the numbers we will use.
 	if( fQueen )
@@ -1423,6 +1609,8 @@ void CreatureNightPlanning()
 {
 	//Check the populations of the mine exits, and factor a chance for them to attack at night.
 	UINT8 ubNumCreatures;
+	
+	/* // externalize to xml data
 	ubNumCreatures = CreaturesInUndergroundSector( SEC_H3, 1 );
 	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
 	{ //10% chance for each creature to decide it's time to attack.
@@ -1442,6 +1630,17 @@ void CreatureNightPlanning()
 	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
 	{ //10% chance for each creature to decide it's time to attack.
 		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 +PreRandom( 429 ), SEC_H8 );
+	}
+	*/
+	
+	UINT8 ubSectorID = SECTOR( gCreaturePlacements[ giLairID ].sAttackSourceX, gCreaturePlacements[ giLairID ].sAttackSourceY );
+
+	// Attacksource B1 underground sector must be a valid creature habitat!
+	ubNumCreatures = CreaturesInUndergroundSector( ubSectorID , 1 );
+
+	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
+	{ //10% chance for each creature to decide it's time to attack.
+		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 +PreRandom( 429 ), ubSectorID );
 	}
 }
 
@@ -1568,7 +1767,7 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 		if( gfClearCreatureQuest && giLairID != -1 )
 		{
 			giLairID = 0;
-#ifdef JA2UB
+#ifdef JA2UB 
 // no UB
 #else
 			gfCreatureMeanwhileScenePlayed = FALSE;
@@ -1578,20 +1777,57 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 		gfClearCreatureQuest = FALSE;
 	#endif
 
+	/* // externalize to xml data
 	switch( giLairID )
 	{
-		case -1:											break; //creature quest finished -- it's okay
-		case 0:												break; //lair doesn't exist yet -- it's okay
-		case 1:		InitLairDrassen();	break;
-		case 2:		InitLairCambria();	break;
-		case 3:		InitLairAlma();			break;
-		case 4:		InitLairGrumm();		break;
+		case -1:
+			break; //creature quest finished -- it's okay
+		case 0:
+			break; //lair doesn't exist yet -- it's okay
+		case 1:
+			InitLairDrassen();
+			break;
+		case 2:
+			InitLairAlma();
+			break;
+		case 3:
+			InitLairCambria();
+			break;
+		case 4:
+			InitLairGrumm();
+			break;
 		default:
 			#ifdef JA2BETAVERSION
 				ScreenMsg( FONT_RED, MSG_ERROR, L"Invalid restoration of creature lair ID of %d.	Save game potentially hosed.", giLairID );
 			#endif
 			break;
 	}
+	*/
+	
+	//count infectible sites defined initmines.lua script
+	INT32 iNumMinesInfectibleLUA=0;
+
+	for (INT32 x = 0; x < MAX_NUMBER_OF_MINES; x++)
+	{
+		if( gMineStatus[ x ].fInfectible )
+			iNumMinesInfectibleLUA++;
+	}
+
+	if( giLairID <= 0 )
+	{
+		//quest finished/lair doesn't exist yet -- it's okay
+	}
+	else if( giLairID <= min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ) )
+	{	
+		InitLair( giLairID );
+	}
+	else
+	{
+		#ifdef JA2BETAVERSION
+			ScreenMsg( FONT_RED, MSG_ERROR, L"Invalid restoration of creature lair ID of %d.	Save game potentially hosed.", giLairID );
+		#endif
+	}
+
 
 	return( TRUE );
 }
@@ -1666,9 +1902,10 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 
 	if( !iSwitchValue )
 	{
-		return FALSE;
+		return( FALSE );
 	}
-
+	
+	/* // externalize to xml data
 	//Now make sure the mercs are in the previously infested mine
 	switch( iSwitchValue )
 	{
@@ -1688,21 +1925,6 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				return TRUE;
 			}
 			break;
-		case 3: //Cambria
-			if( gWorldSectorX == 8 && gWorldSectorY == 9 && gbWorldSectorZ == 3 ||
-					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 3 ||
-					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 2 ||
-					gWorldSectorX == 9 && gWorldSectorY == 8 && gbWorldSectorZ == 2 ||
-					gWorldSectorX == 9 && gWorldSectorY == 8 && gbWorldSectorZ == 1 ||
-					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 1 )
-			{
-				*psSectorX = 8;
-				*psSectorY = 8;
-				*pbSectorZ = 0;
-				*psInsertionGridNo = 13002;//dnl!!!
-				return TRUE;
-			}
-			break;
 		case 2: //Alma
 			if( gWorldSectorX == 13 && gWorldSectorY == 11 && gbWorldSectorZ == 3 ||
 					gWorldSectorX == 13 && gWorldSectorY == 10 && gbWorldSectorZ == 3 ||
@@ -1715,6 +1937,21 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				*psSectorY = 9;
 				*pbSectorZ = 0;
 				*psInsertionGridNo = 9085;//dnl!!!
+				return TRUE;
+			}
+			break;
+		case 3: //Cambria
+			if( gWorldSectorX == 8 && gWorldSectorY == 9 && gbWorldSectorZ == 3 ||
+					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 3 ||
+					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 2 ||
+					gWorldSectorX == 9 && gWorldSectorY == 8 && gbWorldSectorZ == 2 ||
+					gWorldSectorX == 9 && gWorldSectorY == 8 && gbWorldSectorZ == 1 ||
+					gWorldSectorX == 8 && gWorldSectorY == 8 && gbWorldSectorZ == 1 )
+			{
+				*psSectorX = 8;
+				*psSectorY = 8;
+				*pbSectorZ = 0;
+				*psInsertionGridNo = 13002;//dnl!!!
 				return TRUE;
 			}
 			break;
@@ -1735,5 +1972,38 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 			}
 			break;
 	}
+	*/
+
+	//Now make sure the mercs are in the previously infested mine
+	else
+	{
+		// queen sector
+		if( gWorldSectorX == gCreaturePlacements[ iSwitchValue ].sQueenX
+			&& gWorldSectorY == gCreaturePlacements[ iSwitchValue ].sQueenY
+			&& gbWorldSectorZ == gCreaturePlacements[ iSwitchValue ].ubQueenZ )
+		{
+			*psSectorX = gCreaturePlacements[ iSwitchValue ].sWarpToX;
+			*psSectorY = gCreaturePlacements[ iSwitchValue ].sWarpToY;
+			*pbSectorZ = gCreaturePlacements[ iSwitchValue ].ubWarpToZ;
+			*psInsertionGridNo = gCreaturePlacements[ iSwitchValue ].iWarpToGridNo;
+			return( TRUE );
+		}
+		
+		// other creature habitat sector
+		for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; i++)
+		{
+			if( gWorldSectorX == gCreaturePlacements[ iSwitchValue ].Habitat[ i ].sX
+				&& gWorldSectorY == gCreaturePlacements[ iSwitchValue ].Habitat[ i ].sY
+				&& gbWorldSectorZ == gCreaturePlacements[ iSwitchValue ].Habitat[ i ].ubZ )
+			{
+				*psSectorX = gCreaturePlacements[ iSwitchValue ].sWarpToX;
+				*psSectorY = gCreaturePlacements[ iSwitchValue ].sWarpToY;
+				*pbSectorZ = gCreaturePlacements[ iSwitchValue ].ubWarpToZ;
+				*psInsertionGridNo = gCreaturePlacements[ iSwitchValue ].iWarpToGridNo;
+				return( TRUE );
+			}
+		}
+	}
+
 	return( FALSE );
 }

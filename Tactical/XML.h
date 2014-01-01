@@ -172,6 +172,7 @@ typedef PARSE_STAGE;
 #define SECTORNAMESFILENAME						"Map\\SectorNames.xml"
 #define COOLNESSBYSECTORFILENAME				"Map\\CoolnessBySector.xml"
 #define BLOODCATPLACEMENTSFILENAME				"Map\\BloodcatPlacements.xml"
+#define CREATUREPLACEMENTSFILENAME				"Map\\CreaturePlacements.xml"
 #define SECTORLEVEL1NAMESFILENAME				"Map\\SectorNamesLevel_1.xml"
 #define SECTORLEVEL2NAMESFILENAME				"Map\\SectorNamesLevel_2.xml"
 #define SECTORLEVEL3NAMESFILENAME				"Map\\SectorNamesLevel_3.xml"
@@ -452,6 +453,9 @@ extern BOOLEAN ReadInMercOpinions(STR fileName);
 
 // HEADROCK HAM 3.6: Customized Bloodcat Placements
 extern BOOLEAN ReadInBloodcatPlacements(STR fileName);
+
+// Buggler: Customized Creature Placements
+extern BOOLEAN ReadInCreaturePlacements(STR fileName);
 
 // HEADROCK HAM 3.6: Customized Uniform Colors
 extern BOOLEAN ReadInUniforms(STR fileName);

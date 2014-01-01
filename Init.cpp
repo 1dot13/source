@@ -908,6 +908,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInBloodcatPlacements(fileName), BLOODCATPLACEMENTSFILENAME);
 
+	// Buggler: Read in customized Creature Placements
+	strcpy(fileName, directoryName);
+	strcat(fileName, CREATUREPLACEMENTSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInCreaturePlacements(fileName), CREATUREPLACEMENTSFILENAME);
+
 	// HEADROCK HAM 3.6: Read in customized Uniform Colors
 	strcpy(fileName, directoryName);
 	strcat(fileName, UNIFORMCOLORSFILENAME);

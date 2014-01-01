@@ -751,6 +751,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Creatures.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_DynamicRestrictions.cpp"
 				>
 			</File>
