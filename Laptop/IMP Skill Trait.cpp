@@ -529,7 +529,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 			}
 			else
 			{
-				if ( CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubNumberOfMajorTraitsAllowed && CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubMaxNumberOfTraits )
+				if ( CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP && CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubMaxNumberOfTraitsForIMP )
 				{
 					// we can select next one, simply do so
 					gfSkillTraitQuestions[ uiSkillPressed ] = TRUE;
@@ -540,7 +540,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 				}
 				else
 				{
-					if ( gSkillTraitValues.ubNumberOfMajorTraitsAllowed == 2 )
+					if ( gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP == 2 )
 					{
 						//loop through all the skill and reset them
 						for( uiCnt=0; uiCnt<uiCntMax; uiCnt++ )
@@ -643,7 +643,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 			}
 			else
 			{
-				if ( CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubNumberOfMajorTraitsAllowed && CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubMaxNumberOfTraits )
+				if ( CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP && CountNumSkillTraitsSelected( FALSE ) < gSkillTraitValues.ubMaxNumberOfTraitsForIMP )
 				{
 					// we can select next one, simply do so
 					gfSkillTraitQuestions2[ uiSkillPressed ] = TRUE;
@@ -654,7 +654,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 				}
 				else
 				{
-					if ( gSkillTraitValues.ubNumberOfMajorTraitsAllowed == 2 )
+					if ( gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP == 2 )
 					{
 						//loop through all the skill and reset them
 						for( uiCnt=0; uiCnt<uiCntMax; uiCnt++ )

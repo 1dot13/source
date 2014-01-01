@@ -597,6 +597,9 @@ void MercDailyUpdate()
 
 	// HEADROCK HAM 3.6: Pay for militia upkeep
 	HandleMilitiaUpkeepPayment();
+
+	// anv: time for snitches to report
+	HandleSnitchCheck();
 }
 
 /*
@@ -877,6 +880,9 @@ void MercComplainAboutEquipment( UINT8 ubProfile )
 			{
 				// Say quote!
 				TacticalCharacterDialogue( pSoldier, QUOTE_WHINE_EQUIPMENT );
+				// anv: morale hit
+				HandleMoraleEvent( pSoldier, MORALE_BAD_EQUIPMENT, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+				ModifyPlayerReputation(REPUTATION_TOWN_LOST);
 			}
 		}
 	}

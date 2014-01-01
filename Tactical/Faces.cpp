@@ -1345,7 +1345,17 @@ void HandleTalkingAutoFace( INT32 iFaceIndex )
 				// Check if we have finished, set some flags for the final delay down if so!
 				if ( !SoundIsPlaying( pFace->uiSoundID ) && !pFace->fFinishTalking )
 				{
-					SetupFinalTalkingDelay( pFace );
+					if( subsequentsounds.ubMaxSndCounter != 0 && subsequentsounds.ubSndCounter < subsequentsounds.ubMaxSndCounter )
+					{	
+						
+						pFace->uiSoundID = PlayJA2GapSample( subsequentsounds.zSoundFiles[subsequentsounds.ubSndCounter], RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, &(pFace->GapList ) );
+						subsequentsounds.ubSndCounter++;
+					}
+					else
+					{
+						subsequentsounds.ubMaxSndCounter = 0;
+						SetupFinalTalkingDelay( pFace );
+					}
 				}
 			}
 			else
@@ -3002,6 +3012,58 @@ BOOLEAN SetFaceTalking( INT32 iFaceIndex, CHAR8 *zSoundFile, STR16 zTextString,
 	return( TRUE );
 }
 
+
+
+BOOLEAN SetFaceTalkingMultipleSounds( INT32 iFaceIndex, CHAR8 zSoundFiles[][64], UINT8 ubMaxSoundsCount, 
+	STR16 zTextString, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
+{
+	CHAR8 zExistingSoundFiles[10][64];
+	UINT8 ubSoundsCount = 0;
+
+	FACETYPE			*pFace;
+
+	pFace = &gFacesData[ iFaceIndex ];
+
+	// Set face to talking
+	pFace->fTalking = TRUE;
+	pFace->fAnimatingTalking = TRUE;
+	pFace->fFinishTalking = FALSE;
+
+
+	// only play sounds that do exist
+	for( UINT8 i = 0; i < ubMaxSoundsCount; i++ )
+	{
+		if( FileExists(zSoundFiles[i]) )
+		{
+			strcpy(zExistingSoundFiles[ubSoundsCount], zSoundFiles[i]);
+			ubSoundsCount++;
+		}
+	}
+
+	// Play sample
+	if( gGameSettings.fOptions[ TOPTION_SPEECH ] )
+		pFace->uiSoundID = PlayJA2MultipleGapSample( zExistingSoundFiles, ubSoundsCount, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, &(pFace->GapList ) );
+	else
+		pFace->uiSoundID = SOUND_ERROR;
+
+	if ( pFace->uiSoundID != SOUND_ERROR )
+	{
+		pFace->fValidSpeech	= TRUE;
+
+		pFace->uiTalkingFromVeryBeginningTimer = GetJA2Clock( );
+	}
+	else
+	{
+		pFace->fValidSpeech	= FALSE;
+
+		// Set delay based on sound...
+		pFace->uiTalkingTimer = pFace->uiTalkingFromVeryBeginningTimer = GetJA2Clock( );
+
+		pFace->uiTalkingDuration = FindDelayForString( zTextString );
+	}
+
+	return( TRUE );
+}
 
 BOOLEAN ExternSetFaceTalking( INT32 iFaceIndex, UINT32 uiSoundID )
 {

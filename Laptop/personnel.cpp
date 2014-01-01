@@ -8225,7 +8225,13 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				wcscat( apStr, atStr );
 				break;
 			}
-
+			case SNITCH_NT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[0]);
+				wcscat( apStr, atStr );
+				break;
+			}
 			case NO_SKILLTRAIT_NT:
 			{
 				swprintf( apStr, L"" );

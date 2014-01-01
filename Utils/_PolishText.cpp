@@ -2373,9 +2373,11 @@ STR16 gzMercSkillTextNew[] =
 	L"Uczenie",
 	L"Zwiad",
 	// covert ops is a major trait that was added later
-	L"Covert Ops",		// 20	// TODO.Translate
+	L"Tajne Operacje",		// 20
 	// new minor traits
-	L"Radio Operator",	// 21
+	L"Radiooperator",	// 21
+	L"Kapuś",	// 22
+
 	// second names for major skills
 	L"Strzelec RKMu",
 	L"Bombardier",
@@ -2386,20 +2388,21 @@ STR16 gzMercSkillTextNew[] =
 	L"Dowódca Drużyny",
 	L"Inżynier",
 	L"Doktor",
-	L"Placeholder",		// 31
+	L"Placeholder",		// 32
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 36
+	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 40
-	L"Spy",				// 41	// TODO.Translate
+	L"Placeholder",		// 41
+	L"Szpieg",			// 42
 	L"Placeholder",		// for radio operator (minor trait)
+	L"Placeholder",		// for snitch(minor trait)
 	L"Więcej...",
-	L"various",			// for VARIOUSSKILLS	// TODO.Translate
+	L"różne",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
 

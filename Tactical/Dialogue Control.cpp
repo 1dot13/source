@@ -1318,6 +1318,20 @@ void HandleDialogue( )
 		}
 		else if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE )
 		{
+			// anv: handle snitch event
+			if( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE )
+			{
+				gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem->usQuoteNum;
+				gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				gubCurrentTalkingID	= QItem->iFaceIndex;
+
+				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
+
+				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE);
+				ExecuteSnitchCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
+			}
 #ifdef JA2UB
 			//JA25 UB
 			if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
@@ -1414,6 +1428,9 @@ void HandleDialogue( )
 
 BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString );
 
+BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
+
+BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSound1ID, UINT32 *puiSound2ID, UINT32 *puiSound3ID, CHAR8 zSoundFiles[][64], UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
 
 BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 {
@@ -1580,6 +1597,61 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 	return( CharacterDialogue( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, FALSE ) );
 }
 
+BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum, UINT8 ubEventType, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile )
+{
+	// Haydent
+	if(is_client)
+	{
+		return(FALSE); //somewhere amongst all this it causes a puase of merc movement while making the quote which throws out the movement sync between  clients... : hayden.
+	}
+	if ( pSoldier->ubProfile == NO_PROFILE )
+	{
+		return( FALSE );
+	}
+
+#if (defined JA2UB) 
+	//Ja25 no meanwhiles
+#else
+	if ( AreInMeanwhile( ) )
+	{
+		return( FALSE );
+	}
+#endif
+	if (pSoldier->stats.bLife < CONSCIOUSNESS )
+		return( FALSE );
+
+	if (pSoldier->stats.bLife < OKLIFE && usQuoteNum != QUOTE_SERIOUSLY_WOUNDED )
+		return( FALSE );
+
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+		return( FALSE );
+
+	if ( (AM_A_ROBOT( pSoldier )) )
+	{
+		return( FALSE );
+	}
+
+	if( pSoldier->bAssignment == ASSIGNMENT_POW )
+	{
+		return( FALSE );
+	}
+
+	// OK, let's check if this is the exact one we just played, if so, skip.
+	//if ( pSoldier->ubProfile == gTacticalStatus.ubLastQuoteProfileNUm &&
+	//	usQuoteNum == gTacticalStatus.ubLastQuoteSaid )
+	//{
+	//	return( FALSE );
+	//}
+
+	if ( AM_AN_EPC( pSoldier ) && !(gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE) )
+		return( FALSE );
+
+	return( SnitchCharacterDialogue( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, 
+		DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE,
+		ubTargetProfile, ubTargetProfile, ubSecondaryTargetProfile,
+		DIALOGUE_TACTICAL_UI, TRUE, FALSE ) );
+}
+
 // This function takes a profile num, quote num, faceindex and a UI hander ID.
 // What it does is queues up the dialog to be ultimately loaded/displayed
 //				FACEINDEX
@@ -1673,6 +1745,44 @@ BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceI
 
 	QItem->ubCharacterNum = ubCharacterNum;
 	QItem->usQuoteNum			= usQuoteNum;
+	QItem->iFaceIndex			= iFaceIndex;
+	QItem->bUIHandlerID		= bUIHandlerID;
+	QItem->iTimeStamp			= GetJA2Clock( );
+	QItem->fFromSoldier		= fFromSoldier;
+	QItem->fDelayed				= fDelayed;
+
+	// check if pause already locked, if so, then don't mess with it
+	if( gfLockPauseState == FALSE )
+	{
+		QItem->fPauseTime	 = fPausedTimeDuringQuote;
+	}
+
+	fPausedTimeDuringQuote = FALSE;
+
+	// Add to queue
+	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+
+	return( TRUE );
+}
+
+BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex,
+	UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, 
+	UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, 
+	UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
+{
+	DIALOGUE_Q_STRUCT				*QItem;
+
+	// Allocate new item
+	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
+	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
+
+	QItem->ubCharacterNum = ubCharacterNum;
+	QItem->usQuoteNum			= usQuoteNum;
+	QItem->uiSpecialEventFlag		= uiSpecialEventFlag;
+	QItem->uiSpecialEventData		= uiSpecialEventData1;
+	QItem->uiSpecialEventData2	= uiSpecialEventData2;
+	QItem->uiSpecialEventData3	= uiSpecialEventData3;
+	QItem->uiSpecialEventData4	= uiSpecialEventData4;
 	QItem->iFaceIndex			= iFaceIndex;
 	QItem->bUIHandlerID		= bUIHandlerID;
 	QItem->iTimeStamp			= GetJA2Clock( );
@@ -1853,6 +1963,9 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		}
 	}
 
+	// anv: have to do it now for single sounds
+	subsequentsounds.ubMaxSndCounter = 0;
+
 	// Check face index
 	CHECKF( iFaceIndex != -1 );
 
@@ -1883,6 +1996,36 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 	return( TRUE );
 }
 
+BOOLEAN ExecuteSnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, UINT8 ubSnitchEventType, UINT8 ubSnitchTargetID, UINT8 ubSecondarySnitchTargetID )
+{
+	UINT32 uiSound1ID;
+	UINT32 uiSound2ID;
+	UINT32 uiSound3ID;
+	//if( bUIHandlerID == DIALOGUE_SNITCH_UI )
+	{
+		CHAR8 zSoundFiles[10][64];
+
+		SOLDIERTYPE *pSoldier;
+		pSoldier = FindSoldierByProfileID( ubCharacterNum, TRUE );
+		if ( !GetSnitchDialogue( ubCharacterNum,
+			usQuoteNum, DIALOGUESIZE, gzQuoteStr, &uiSound1ID, &uiSound2ID, &uiSound3ID, zSoundFiles, ubSnitchTargetID, ubSecondarySnitchTargetID ) )
+		{
+			return( FALSE );
+		}
+		//SetFaceTalkingMultipleSounds( iFaceIndex, zSoundString1, zSoundString2, zSoundString3, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
+		//SetFaceTalking( iFaceIndex, zSoundString1, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
+		SetFaceTalkingMultipleSounds( iFaceIndex, zSoundFiles, 3, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
+		CreateTalkingUI( DIALOGUE_TACTICAL_UI, iFaceIndex, ubCharacterNum, pSoldier, gzQuoteStr );
+
+		// Set global handleer ID value, used when face desides it's done...
+		gbUIHandlerID = DIALOGUE_TACTICAL_UI;
+
+		guiScreenIDUsedWhenUICreated = guiCurrentScreen;
+
+		return( TRUE );
+	}
+
+}
 
 void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, STR16 zQuoteStr )
 {
@@ -2211,6 +2354,46 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	return( zFileName );
 }
 
+CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, BOOLEAN fName )
+{
+	static CHAR8 zFileName[164];
+	static CHAR8 zFileNameExists[164];
+	UINT8		ubFileNumID;
+
+	if ( fWavFile )
+	{
+		if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+		{
+			// build name of wav file (characternum + quotenum)
+			if(fName)
+			{
+				sprintf( zFileName,"SPEECH\\SNITCH\\NAMES\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				if ( !FileExists( zFileName ) )
+				{
+					sprintf( zFileName,"SPEECH\\SNITCH\\NAMES\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
+			}
+			else
+			{
+				sprintf( zFileName,"SPEECH\\SNITCH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				if ( !FileExists( zFileName ) )
+				{
+					sprintf( zFileName,"SPEECH\\SNITCH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
+			}
+		}
+	}
+	else
+	{
+		// assume EDT files are in EDT directory on HARD DRIVE
+		if(fName)
+			sprintf( zFileName,"MERCEDT\\SNITCH\\NAMES\\%03d.EDT", ubCharacterNum );
+		else
+			sprintf( zFileName,"MERCEDT\\SNITCH\\%03d.EDT", ubCharacterNum );
+	}
+
+	return( zFileName );
+}
 
 // Used to see if the dialog text file exists
 BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, STR8 *ppStr )
@@ -2218,6 +2401,20 @@ BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNu
 	STR8 pFilename;
 
 	pFilename = GetDialogueDataFilename( ubCharacterNum, usQuoteNum, fWavFile );
+
+	if ( ppStr )
+	{
+		(*ppStr ) = pFilename;
+	}
+
+	return( FileExists( pFilename ) );
+}
+
+BOOLEAN SnitchDialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, STR8 *ppStr, BOOLEAN fName )
+{
+	STR8 pFilename;
+
+	pFilename = GetSnitchDialogueDataFilename( ubCharacterNum, usQuoteNum, fWavFile, fName );
 
 	if ( ppStr )
 	{
@@ -2296,6 +2493,190 @@ BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, 
 	return (*puiSoundID != NO_SAMPLE) || fTextAvailable;
 }
 
+
+BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile )
+{
+	CHAR16		pTempString[ 320 ];
+	INT32		iLength		=0;
+	INT32		iCurLocInSourceString	=0 ;
+	INT32		iLengthOfSourceString	= wcslen( pFinishedString );		//Get the length of the source string
+	CHAR16		*pMercNickString		= NULL;
+	CHAR16		*pOtherMercNickString	= NULL;
+
+	CHAR16		*pSubString			= NULL;
+	BOOLEAN		fReplacingMercName	= TRUE;
+
+	CHAR16	sMercNick[ 32 ] = L"$MERCNICK$";	//Will be replaced by the mercs name
+	CHAR16	sOtherMercNick[ 32 ] = L"$MERCNICK2$";	//Will be replaced by the mercs name
+	CHAR16	sSearchString[32];
+
+	//Copy the original string over to the temp string
+	wcscpy( pTempString, pFinishedString );
+
+	//Null out the string
+	pFinishedString[0] = L'\0';
+
+	//Keep looping through to replace all references to the keyword
+	while( iCurLocInSourceString < iLengthOfSourceString )
+	{
+		iLength = 0;
+		pSubString = NULL;
+
+		//Find out if the $MERCNICK$ is in the string
+		pMercNickString = wcsstr( &pTempString[ iCurLocInSourceString ], sMercNick );
+
+		//Find out if the $MERCNICK2$ is in the string
+		pOtherMercNickString = wcsstr( &pTempString[ iCurLocInSourceString ], sOtherMercNick );
+
+		if( pMercNickString != NULL && pOtherMercNickString != NULL )
+		{
+			if( pMercNickString < pOtherMercNickString )
+			{
+				fReplacingMercName = TRUE;
+				pSubString = pMercNickString;
+				wcscpy( sSearchString, sMercNick);
+			}
+			else
+			{
+				fReplacingMercName = FALSE;
+				pSubString = pOtherMercNickString;
+				wcscpy( sSearchString, sOtherMercNick);
+			}
+		}
+		else if( pMercNickString != NULL )
+		{
+			fReplacingMercName = TRUE;
+			pSubString = pMercNickString;
+			wcscpy( sSearchString, sMercNick);
+		}
+		else if( pOtherMercNickString != NULL )
+		{
+			fReplacingMercName = FALSE;
+			pSubString = pOtherMercNickString;
+			wcscpy( sSearchString, sOtherMercNick);
+		}
+		else
+		{
+			pSubString = NULL;
+		}
+
+		// if there is a substring
+		if( pSubString != NULL )
+		{
+			iLength = pSubString - &pTempString[ iCurLocInSourceString ];
+
+			//Copy the part of the source string up to the keyword
+			wcsncat( pFinishedString, &pTempString[ iCurLocInSourceString ], iLength );
+
+			//increment the source string counter by how far in the keyword is and by the length of the keyword
+			iCurLocInSourceString+= iLength + wcslen( sSearchString );
+
+			if( fReplacingMercName )
+			{
+				//add the mercs name to the string
+				wcscat( pFinishedString, gMercProfiles[ ubTargetProfile ].zNickname );
+			}
+			else
+			{
+				//add the mercs name to the string
+				wcscat( pFinishedString, gMercProfiles[ ubSecondaryTargetProfile ].zNickname );
+			}
+		}
+		else
+		{
+			//add the rest of the string
+			wcscat( pFinishedString, &pTempString[ iCurLocInSourceString ] );
+
+			iCurLocInSourceString += wcslen( &pTempString[ iCurLocInSourceString ] );
+		}
+	}
+
+	return( TRUE );
+}
+
+// anv: special version of GetDialogue, message is put together from parts
+BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSound1ID, UINT32 *puiSound2ID, UINT32 *puiSound3ID, CHAR8 zSoundFiles[][64], UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile )
+{
+	STR8 pFilename1;
+	STR8 pFilename2;
+	STR8 pFilename3;
+	CHAR16	zDialogueTextTemp[ QUOTE_MESSAGE_SIZE ];
+	BOOLEAN fTextAvailable = FALSE;
+
+	// first things first	- grab the text (if player has SUBTITLE PREFERENCE ON)
+	//if ( gGameSettings.fOptions[ TOPTION_SUBTITLES ] )
+	{
+
+		if ( SnitchDialogueDataFileExistsForProfile( ubCharacterNum, 0, FALSE, &pFilename1, FALSE ) )
+			 //SnitchDialogueDataFileExistsForProfile( ubCharacterNum, 0, FALSE, &pFilename, TRUE ) && 
+			 //SnitchDialogueDataFileExistsForProfile( ubCharacterNum, 0, FALSE, &pFilename, TRUE ) && )
+		{
+
+			LoadEncryptedDataFromFile( pFilename1, zDialogueText, usQuoteNum * iDataSize, iDataSize );
+			//LoadEncryptedDataFromFile( pFilename2, zDialogueText2, ubSnitchTarget * iDataSize, iDataSize );
+			//LoadEncryptedDataFromFile( pFilename3, zDialogueText3, ubSecondarySnitchTarget * iDataSize, iDataSize );
+			SnitchDialogueReplaceMercNicksWithProperData( zDialogueText, ubTargetProfile, ubSecondaryTargetProfile );
+			//if( ubSnitchTargetID != NOBODY )
+			//{
+			//	wcscpy( zDialogueTextTemp, gMercProfiles[ubTargetProfile].zNickname );
+			//	wcscat( zDialogueTextTemp, zDialogueText );
+			//}
+			//else
+			//{
+			//	wcscpy( zDialogueTextTemp, zDialogueText );
+			//}
+			//if( ubSecondarySnitchTargetID != NOBODY )
+			//{
+			//	wcscat( zDialogueTextTemp, gMercProfiles[ubSecondaryTargetProfile].zNickname );
+			//}
+			//wcscpy( zDialogueText, zDialogueTextTemp );
+			if(zDialogueText[0] == 0)
+			{
+				swprintf( zDialogueText, L"I have no text in the EDT file ( %d ) %S", usQuoteNum, pFilename1 );
+
+#ifndef JA2BETAVERSION
+				return( FALSE );
+#endif
+			}
+			else
+				fTextAvailable = TRUE;
+		}
+		else
+		{
+			swprintf( zDialogueText, L"I have no text in the file ( %d ) %S", usQuoteNum , pFilename1 );
+
+#ifndef JA2BETAVERSION
+			return( FALSE );
+#endif
+		}
+	}
+
+
+	// CHECK IF THE FILE EXISTS, IF NOT, USE DEFAULT!
+	//pFilename1 = GetSnitchDialogueDataFilename( ubCharacterNum, usQuoteNum, TRUE, FALSE );
+	//pFilename2 = GetSnitchDialogueDataFilename( ubCharacterNum, ubSnitchTargetID, TRUE, TRUE );
+	//pFilename3 = GetSnitchDialogueDataFilename( ubCharacterNum, ubSecondarySnitchTargetID, TRUE, TRUE );
+
+	// Copy
+	strcpy( zSoundFiles[0], GetSnitchDialogueDataFilename( ubCharacterNum, ubTargetProfile, TRUE, TRUE ) );
+	strcpy( zSoundFiles[1], GetSnitchDialogueDataFilename( ubCharacterNum, usQuoteNum, TRUE, FALSE ) );
+	strcpy( zSoundFiles[2], GetSnitchDialogueDataFilename( ubCharacterNum, ubSecondaryTargetProfile, TRUE, TRUE ) );
+
+	*puiSound1ID = NO_SAMPLE;
+	*puiSound2ID = NO_SAMPLE;
+	*puiSound3ID = NO_SAMPLE;
+
+	// get speech if applicable
+	if ( gGameSettings.fOptions[ TOPTION_SPEECH ] )
+	{
+		// Load it into memory!
+		*puiSound1ID = SoundLoadSample(	zSoundFiles[0] );
+		*puiSound2ID = SoundLoadSample(	zSoundFiles[0] );
+		*puiSound3ID = SoundLoadSample(	zSoundFiles[0] );
+	}
+
+	return (*puiSound2ID != NO_SAMPLE) || fTextAvailable;
+}
 
 // Handlers for tactical UI stuff
 void HandleTacticalNPCTextUI( UINT8 ubCharacterNum, STR16 zQuoteStr )

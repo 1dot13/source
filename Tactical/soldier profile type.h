@@ -162,12 +162,13 @@ typedef enum
 	// Flugente: new traits have to go here, even if they are major traits, as otherwise the existing traits in profiles get mixed up
 	COVERT_NT, // 20
 	RADIO_OPERATOR_NT, //21		// a minor trait
+	SNITCH_NT, //22		// a minor trait 
 
 	NUM_SKILLTRAITS_NT
 } SkillTraitNew;
 
 #define NUM_MAJOR_TRAITS 10
-#define NUM_MINOR_TRAITS 11
+#define NUM_MINOR_TRAITS 12
 
 #define NUM_ORIGINAL_MAJOR_TRAITS 9
 

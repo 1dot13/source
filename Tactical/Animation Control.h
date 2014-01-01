@@ -129,7 +129,7 @@ typedef struct
 	UINT8		ubEndRoll;
 	UINT8		ubFlags;
 	UINT8		ubAnimHeight;
-	CHAR8		zSoundFile[ 30 ];
+	CHAR8		zSoundFile[ 64 ];
 
 } RANDOM_ANI_DEF;
 

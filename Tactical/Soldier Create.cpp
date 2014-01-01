@@ -1924,7 +1924,8 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->iFaceIndex						= -1;
 
 	// Set morale default
-	pSoldier->aiData.bMorale								= DEFAULT_MORALE;
+	//pSoldier->aiData.bMorale								= DEFAULT_MORALE;
+	pSoldier->aiData.bMorale								= gMoraleSettings.ubDefaultMorale;
 
 	pSoldier->ubAttackerID					= NOBODY;
 	pSoldier->ubPreviousAttackerID	= NOBODY;

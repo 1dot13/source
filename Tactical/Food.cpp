@@ -202,30 +202,30 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 	if ( moralemod > 0 )
 	{
-		while ( moralemod > 0 && moralemod >= gbMoraleEvent[MORALE_GOOD_FOOD].bChange )
+		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_GOOD_FOOD] )//gbMoraleEvent[MORALE_GOOD_FOOD].bChange )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_GOOD_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gbMoraleEvent[MORALE_GOOD_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_GOOD_FOOD];//gbMoraleEvent[MORALE_GOOD_FOOD].bChange;
 		}
 
-		while ( moralemod > 0 && moralemod >= gbMoraleEvent[MORALE_FOOD].bChange )
+		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_FOOD] )//gbMoraleEvent[MORALE_FOOD].bChange )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gbMoraleEvent[MORALE_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_FOOD];//gbMoraleEvent[MORALE_FOOD].bChange;
 		}
 	}
 	else if ( moralemod < 0 )
 	{
-		while ( moralemod < 0 && moralemod <= gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange )
+		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD] )//gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_LOATHSOME_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD];//gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange;
 		}
 
-		while ( moralemod < 0 && moralemod <= gbMoraleEvent[MORALE_BAD_FOOD].bChange )
+		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_BAD_FOOD] )//gbMoraleEvent[MORALE_BAD_FOOD].bChange )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_BAD_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gbMoraleEvent[MORALE_BAD_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_BAD_FOOD];//gbMoraleEvent[MORALE_BAD_FOOD].bChange;
 		}
 	}
 	/////////////////// MORALE //////////////////////

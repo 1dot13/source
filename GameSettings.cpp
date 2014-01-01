@@ -73,6 +73,10 @@
 // anv: helicopter repair settings - enough of these to put them in own file
 #define				HELICOPTER_SETTINGS_FILE			"Helicopter_Settings.ini"
 
+#define				MORALE_SETTINGS_FILE				"Morale_Settings.ini"
+
+#define				REPUTATION_SETTINGS_FILE			"Reputation_Settings.ini"
+
 #define				CD_ROOT_DIR						"DATA\\"
 
 GAME_SETTINGS		gGameSettings;
@@ -82,6 +86,8 @@ GAME_EXTERNAL_OPTIONS gGameExternalOptions;
 SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
 TAUNTS_SETTINGS gTauntsSettings;
 HELICOPTER_SETTINGS gHelicopterSettings;
+MORALE_SETTINGS gMoraleSettings;
+REPUTATION_SETTINGS gReputationSettings;
 CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
 
 MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
@@ -2169,12 +2175,15 @@ void LoadSkillTraitsExternalSettings()
 {
 	CIniReader iniReader(STOMP_SETTINGS_FILE);
 
-	gSkillTraitValues.ubMaxNumberOfTraits = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS", 3, 2, 30);
-	gSkillTraitValues.ubNumberOfMajorTraitsAllowed = iniReader.ReadInteger("Generic Traits Settings","NUMBER_OF_MAJOR_TRAITS_ALLOWED", 2, 2, 20);
+	gSkillTraitValues.ubMaxNumberOfTraits = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS", 5, 2, 30);
+	gSkillTraitValues.ubNumberOfMajorTraitsAllowed = iniReader.ReadInteger("Generic Traits Settings","NUMBER_OF_MAJOR_TRAITS_ALLOWED", 3, 2, 20);
+
+	gSkillTraitValues.ubMaxNumberOfTraitsForIMP = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS_FOR_IMP", 3, 2, 30);
+	gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP = iniReader.ReadInteger("Generic Traits Settings","NUMBER_OF_MAJOR_TRAITS_ALLOWED_FOR_IMP", 2, 2, 20);
 
 	// Allow an exception in number of traits for Special Merc?
-	gSkillTraitValues.fAllowSpecialMercTraitsException = iniReader.ReadBoolean("Generic Traits Settings","ALLOW_EXCEPTION_FOR_SPECIAL_MERC", TRUE); 
-	gSkillTraitValues.ubSpecialMercID = iniReader.ReadInteger("Generic Traits Settings","SPECIAL_MERC_ID", 33, 0, 254);
+	//gSkillTraitValues.fAllowSpecialMercTraitsException = iniReader.ReadBoolean("Generic Traits Settings","ALLOW_EXCEPTION_FOR_SPECIAL_MERC", TRUE); 
+	//gSkillTraitValues.ubSpecialMercID = iniReader.ReadInteger("Generic Traits Settings","SPECIAL_MERC_ID", 33, 0, 254);
 
 	// Allow traits prerequisities for attributes?
 	gSkillTraitValues.fAllowAttributePrereq = iniReader.ReadBoolean("Generic Traits Settings","SET_MINIMUM_ATTRIBUTES_FOR_TRAITS", TRUE); 
@@ -2443,6 +2452,16 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usVOMortarSignalShellRadius		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SIGNAL_SHELL_RADIUS",	 2, 2, 100);
 	gSkillTraitValues.sVOScanAssignmentBaseRange		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ASSIGNMENT_SCAN_BASE_RANGE",	 5, 0, 20);
 	gSkillTraitValues.sVOListeningHearingBonus			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_LISTENING_HEARING_BONUS",		20, 0, 100);
+
+	// anv: SNITCH
+	gSkillTraitValues.ubSNTBaseChance							= iniReader.ReadInteger("Snitch","BASE_CHANCE",  50, 0, 100);
+	gSkillTraitValues.fSNTMercOpinionAboutSnitchBonusModifier	= iniReader.ReadFloat("Snitch","MERC_OPINION_ABOUT_SNITCH_MODIFIER", 0.5, 0.0, 10.0);
+	gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier	= iniReader.ReadFloat("Snitch","SNITCH_OPINION_ABOUT_MERC_MODIFIER", 0.2, 0.0, 10.0);
+	gSkillTraitValues.fSNTSnitchLeadershipBonusModifer	= iniReader.ReadFloat("Snitch","SNITCH_LEADERSHIP_BONUS_MODIFIER", 0.5, 0.0, 10.0);
+	gSkillTraitValues.bSNTSociableMercBonus						= iniReader.ReadInteger("Snitch","SOCIABLE_MERC_BONUS",  10, -100, 100);
+	gSkillTraitValues.bSNTLonerMercBonus					= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -10, -100, 100);
+	gSkillTraitValues.bSNTSameAssignmentBonus				= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -20, -100, 100);
+	gSkillTraitValues.bSNTMercOpinionAboutMercTreshold		= iniReader.ReadInteger("Snitch","MERC_OPINION_ABOUT_MERC_TRESHOLD",  -10, -25, 25);
 }
 //DBrot: Grids
 void LoadModSettings(){
@@ -3350,6 +3369,120 @@ void LoadHelicopterRepairRefuelSettings()
 	gHelicopterSettings.ubHelicopterPassengerHitMinDamage	= iniReader.ReadInteger("Helicopter SAM Settings","HELICOPTER_PASSENGER_HIT_MIN_DAMAGE", 1, 0, 100);
 
 	gHelicopterSettings.fHelicopterTownLoyaltyCheck			= iniReader.ReadBoolean("Helicopter Other Settings","HELICOPTER_TOWN_LOYALTY_CHECK", TRUE );
+}
+
+void LoadMoraleSettings()
+{
+	CIniReader iniReader(MORALE_SETTINGS_FILE);
+
+	gMoraleSettings.ubDefaultMorale						= iniReader.ReadInteger("General Morale Settings","DEFAULT_MORALE", 50, 0, 100);
+
+	gMoraleSettings.bValues[MORALE_KILLED_ENEMY]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_KILLED_ENEMY", 4, -100, 100);
+	gMoraleSettings.bValues[MORALE_SQUADMATE_DIED]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_SQUADMATE_DIED", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_SUPPRESSED]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_SUPPRESSED", -1, -100, 100);
+	gMoraleSettings.bValues[MORALE_AIRSTRIKE]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_AIRSTRIKE", -2, -100, 100);
+	gMoraleSettings.bValues[MORALE_DID_LOTS_OF_DAMAGE]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_DID_LOTS_OF_DAMAGE", 2, -100, 100);
+	gMoraleSettings.bValues[MORALE_TOOK_LOTS_OF_DAMAGE]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_TOOK_LOTS_OF_DAMAGE", -3, -100, 100);
+	gMoraleSettings.bValues[MORALE_ALCOHOL_CRASH]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_ALCOHOL_CRASH", -10, -100, 100);
+	gMoraleSettings.bValues[MORALE_DRUGS_CRASH]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_DRUGS_CRASH", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_CLAUSTROPHOBE_UNDERGROUND]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_CLAUSTROPHOBE_UNDERGROUND", -1, -100, 100);
+	gMoraleSettings.bValues[MORALE_INSECT_PHOBIC_SEES_CREATURE]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_INSECT_PHOBIC_SEES_CREATURE", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_NERVOUS_ALONE]				= iniReader.ReadInteger("Tactical Morale Settings","MORALE_NERVOUS_ALONE", -1, -100, 1000);
+	gMoraleSettings.bValues[MORALE_PSYCHO_UNABLE_TO_PSYCHO]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_PSYCHO_UNABLE_TO_PSYCHO", -1, -100, 100);
+	gMoraleSettings.bValues[MORALE_MALICIOUS_HIT]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_MALICIOUS_HIT", 1, -100, 100);
+	gMoraleSettings.bValues[MORALE_FOOD]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_FOOD", 1, -100, 100);
+	gMoraleSettings.bValues[MORALE_GOOD_FOOD]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_GOOD_FOOD", 5, -100, 100);
+	gMoraleSettings.bValues[MORALE_BAD_FOOD]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_BAD_FOOD", -1, -100, 100);
+	gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_LOATHSOME_FOOD", -5, -100, 100);
+
+	gMoraleSettings.bValues[MORALE_KILLED_CIVILIAN]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_KILLED_CIVILIAN", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_BATTLE_WON]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BATTLE_WON", 4, -100, 100);
+	gMoraleSettings.bValues[MORALE_RAN_AWAY]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_RAN_AWAY", -5, -100, 1000);
+	gMoraleSettings.bValues[MORALE_HEARD_BATTLE_WON]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_HEARD_BATTLE_WON", 2, -100, 100);
+	gMoraleSettings.bValues[MORALE_HEARD_BATTLE_LOST]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_HEARD_BATTLE_LOST", -2, -100, 100);
+	gMoraleSettings.bValues[MORALE_TOWN_LIBERATED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_TOWN_LIBERATED", 5, -100, 100);
+	gMoraleSettings.bValues[MORALE_TOWN_LOST]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_TOWN_LOST", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_MINE_LIBERATED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_MINE_LIBERATED", 8, -100, 1000);
+	gMoraleSettings.bValues[MORALE_MINE_LOST]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_MINE_LOST", -8, -100, 100);
+	gMoraleSettings.bValues[MORALE_SAM_SITE_LIBERATED]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_SAM_SITE_LIBERATED", 3, -100, 100);
+	gMoraleSettings.bValues[MORALE_SAM_SITE_LOST]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_SAM_SITE_LOST", -3, -100, 100);
+	gMoraleSettings.bValues[MORALE_BUDDY_DIED]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BUDDY_DIED", -15, -100, 1000);
+	gMoraleSettings.bValues[MORALE_HATED_DIED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_HATED_DIED", 5, -100, 100);
+	gMoraleSettings.bValues[MORALE_TEAMMATE_DIED]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_TEAMMATE_DIED", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_LOW_DEATHRATE]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_LOW_DEATHRATE", 5, -100, 100);
+	gMoraleSettings.bValues[MORALE_HIGH_DEATHRATE]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_HIGH_DEATHRATE", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_GREAT_MORALE]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_GREAT_MORALE", 2, -100, 1000);
+	gMoraleSettings.bValues[MORALE_POOR_MORALE]				= iniReader.ReadInteger("Strategic Morale Settings","MORALE_POOR_MORALE", -2, -100, 100);
+	gMoraleSettings.bValues[MORALE_MONSTER_QUEEN_KILLED]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_MONSTER_QUEEN_KILLED", 15, -100, 100);
+	gMoraleSettings.bValues[MORALE_DEIDRANNA_KILLED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_DEIDRANNA_KILLED", 25, -100, 1000);
+	gMoraleSettings.bValues[MORALE_MERC_CAPTURED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_MERC_CAPTURED", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_MERC_MARRIED]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_MERC_MARRIED", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_QUEEN_BATTLE_WON]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_QUEEN_BATTLE_WON", 8, -100, 100);
+	gMoraleSettings.bValues[MORALE_SEX]					= iniReader.ReadInteger("Strategic Morale Settings","MORALE_SEX", 5, -100, 100);
+	gMoraleSettings.bValues[MORALE_HEAT_INTOLERANT_IN_DESERT]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_HEAT_INTOLERANT_IN_DESERT",-14, -100, 100);
+	gMoraleSettings.bValues[MORALE_PACIFIST_GAIN_NONCOMBAT]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PACIFIST_GAIN_NONCOMBAT", 1, -100, 1000);
+	gMoraleSettings.bValues[MORALE_BUDDY_FIRED]					= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BUDDY_FIRED", -5, -100, 100);
+	gMoraleSettings.bValues[MORALE_BUDDY_FIRED_EARLY]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BUDDY_FIRED_EARLY", -3, -100, 100);
+	gMoraleSettings.bValues[MORALE_BUDDY_FIRED_ON_BAD_TERMS]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BUDDY_FIRED_ON_BAD_TERMS", -3, -100, 100);
+	gMoraleSettings.bValues[MORALE_BAD_EQUIPMENT]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BAD_EQUIPMENT", -2, -100, 1000);
+	gMoraleSettings.bValues[MORALE_OWED_MONEY]				= iniReader.ReadInteger("Strategic Morale Settings","MORALE_OWED_MONEY", -3, -100, 100);
+	gMoraleSettings.bValues[MORALE_OWED_MONEY_DAYS]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_OWED_MONEY_DAYS", 3, 0, 100);
+	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE", 3, -100, 100);
+	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS]					= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS", 3, 0, 100);
+	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_AGGRESSIVE_BONUS]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS_AGGRESSIVE_BONUS", -1, -100, 100);
+	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS", 2, -100, 100);
+
+	gMoraleSettings.bModifiers[MORALE_MOD_MAX]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MOD_MAX", -1, 0, 100);
+
+	gMoraleSettings.sDrugAndAlcoholModifiers[DRUG_EFFECT_MORALE_MOD]	= iniReader.ReadInteger("Morale Modifiers Settings","DRUG_EFFECT_MORALE_MOD", 150, 0, 10000);
+	gMoraleSettings.sDrugAndAlcoholModifiers[ALCOHOL_EFFECT_MORALE_MOD]	= iniReader.ReadInteger("Morale Modifiers Settings","ALCOHOL_EFFECT_MORALE_MOD", 160, 0, 10000);
+	gMoraleSettings.bModifiers[PHOBIC_LIMIT]	= iniReader.ReadInteger("Morale Modifiers Settings","PHOBIC_LIMIT", 20, 0, 100);
+
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_SOCIABLE_ONE_MERC_NEARBY]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_SOCIABLE_ONE_MERC_NEARBY", -2, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_SOCIABLE_NO_MERCS_NEARBY]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_SOCIABLE_NO_MERCS_NEARBY", -5, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_LONER_ONE_MERC_NEARBY]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_LONER_ONE_MERC_NEARBY", -2, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_LONER_MORE_MERCS_NEARBY]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_LONER_MORE_MERCS_NEARBY", -5, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OPTIMIST]					= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OPTIMIST", 1, -100, 1000);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_AGRESSIVE_VIOLENT_ACTION]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_AGRESSIVE_VIOLENT_ACTION", -5, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_PACIFIST_VIOLENT_ACTION]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_PACIFIST_VIOLENT_ACTION", -5, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_SHOWOFF_AROUND]				= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_SHOWOFF_AROUND", -2, -100, 1000);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_DAUNTLESS_SQUADMATE_DIED]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_DAUNTLESS_SQUADMATE_DIED", 3, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_DAUNTLESS_SUPPRESSED]			= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_DAUNTLESS_SUPPRESSED", 3, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_DAUNTLESS_TOOK_LOTS_OF_DAMAGE]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_DAUNTLESS_TOOK_LOTS_OF_DAMAGE", 3, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_DAUNTLESS_TEAMMATE_DIED]			= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_DAUNTLESS_TEAMMATE_DIED", 2, -100, 100);
+
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_OPTIMIST_GOOD_EVENT]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_OPTIMIST_GOOD_EVENT", 1, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_AGGRESSIVE_GOOD_EVENT]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_AGGRESSIVE_GOOD_EVENT", 1, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_PESSIMIST_GOOD_EVENT]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_PESSIMIST_GOOD_EVENT", -1, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_OPTIMIST_BAD_EVENT]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_OPTIMIST_BAD_EVENT", 1, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_PESSIMIST_BAD_EVENT]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_PESSIMIST_BAD_EVENT", -1, -100, 100);
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_COWARD_BAD_EVENT]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_COWARD_BAD_EVENT", -2, -100, 100);
+
+	gMoraleSettings.bModifiers[MORALE_MODIFIER_MALICIOUS_HOURLY_DECAY]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_MALICIOUS_HOURLY_DECAY", -1, -100, 100);
+}
+
+void LoadReputationSettings()
+{
+	CIniReader iniReader(REPUTATION_SETTINGS_FILE);
+
+	gReputationSettings.bValues[REPUTATION_LOW_DEATHRATE]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_LOW_DEATHRATE", 5, -100, 100);
+	gReputationSettings.bValues[REPUTATION_HIGH_DEATHRATE]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_HIGH_DEATHRATE", -5, -100, 100);
+	gReputationSettings.bValues[REPUTATION_GREAT_MORALE]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_GREAT_MORALE", 3, -100, 100);
+	gReputationSettings.bValues[REPUTATION_POOR_MORALE]			= iniReader.ReadInteger("Reputation Settings","REPUTATION_POOR_MORALE", -3, -100, 100);
+	gReputationSettings.bValues[REPUTATION_BATTLE_WON]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_BATTLE_WON", 2, -100, 100);
+	gReputationSettings.bValues[REPUTATION_BATTLE_LOST]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_BATTLE_LOST", -2, -100, 100);
+	gReputationSettings.bValues[REPUTATION_TOWN_WON]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_TOWN_WON", 5, -100, 100);
+	gReputationSettings.bValues[REPUTATION_TOWN_LOST]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_TOWN_LOST", -5, -100, 100);
+	gReputationSettings.bValues[REPUTATION_SOLDIER_DIED]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_SOLDIER_DIED", -2, -100, 100);
+	gReputationSettings.bValues[REPUTATION_SOLDIER_CAPTURED]	= iniReader.ReadInteger("Reputation Settings","REPUTATION_SOLDIER_CAPTURED", -1, -100, 100);
+	gReputationSettings.bValues[REPUTATION_KILLED_CIVILIAN]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_KILLED_CIVILIAN", -5, -100, 100);
+	gReputationSettings.bValues[REPUTATION_EARLY_FIRING]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_EARLY_FIRING", -3, -100, 100);
+	gReputationSettings.bValues[REPUTATION_KILLED_MONSTER_QUEEN]	= iniReader.ReadInteger("Reputation Settings","REPUTATION_KILLED_MONSTER_QUEEN", 15, -100, 100);
+	gReputationSettings.bValues[REPUTATION_KILLED_DEIDRANNA]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_KILLED_DEIDRANNA", 25, -100, 100);
+	gReputationSettings.bValues[REPUTATION_MERC_COMPLAIN_EQUIPMENT]	= iniReader.ReadInteger("Reputation Settings","REPUTATION_MERC_COMPLAIN_EQUIPMENT", -1, -100, 100);
+	gReputationSettings.bValues[REPUTATION_MERC_OWED_MONEY]			= iniReader.ReadInteger("Reputation Settings","REPUTATION_MERC_OWED_MONEY", -2, -100, 100);
+	gReputationSettings.bValues[REPUTATION_PLAYER_IS_INACTIVE]			= iniReader.ReadInteger("Reputation Settings","REPUTATION_PLAYER_IS_INACTIVE", -3, -100, 100);
+	gReputationSettings.bValues[REPUTATION_MERC_FIRED_ON_BAD_TERMS]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_MERC_FIRED_ON_BAD_TERMS", -3, -100, 100);
 }
 
 void FreeGameExternalOptions()

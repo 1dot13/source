@@ -2369,31 +2369,33 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"Radio Operator",	// 21
+	L"Snitch",	// 22
 
 	// second names for major skills
-	L"Machinegunner",	// 22
+	L"Machinegunner",	// 23
 	L"Bombardier",
 	L"Sniper",
 	L"Ranger",
-	L"Gunfighter",		// 26
+	L"Gunfighter",		// 27
 	L"Martial Arts",
 	L"Squadleader",
 	L"Engineer",
-	L"Doctor",			// 30	
+	L"Doctor",			// 31	
 	// placeholders for minor traits
-	L"Placeholder",		// 31
+	L"Placeholder",		// 32
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 36
+	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 40
-	L"Spy",				// 41
+	L"Placeholder",		// 41
+	L"Spy",				// 42
 	L"Placeholder",		// for radio operator (minor trait)
-	L"More...",			// 43
+	L"Placeholder",		// for snitch (minor trait)
+	L"More...",			// 45
 	L"various",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////

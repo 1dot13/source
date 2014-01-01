@@ -2374,6 +2374,8 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"Radio Operator",	// 21
+	L"Snitch",	// 22	// TODO.Translate
+
 	// second names for major skills
 	L"Mitrailleur",
 	L"Bombardier",
@@ -2385,18 +2387,19 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingénieur",
 	L"Chirurgien",
 	// placeholders for minor traits
-	L"Placeholder",		// 31
+	L"Placeholder",		// 32
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 36
+	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 40
-	L"Espion",			// 41
+	L"Placeholder",		// 41
+	L"Espion",			// 42
 	L"Placeholder",		// for radio operator (minor trait)
+	L"Placeholder",		// for snitch(minor trait)
 	L"Plus...",
 	L"various",			// for VARIOUSSKILLS	// TODO.Translate
 };

@@ -754,7 +754,7 @@ void HandleMercStatsForChangesInFace( )
 
 	if (gGameOptions.fNewTraitSystem)
 	{
-		for ( UINT8 ubCnt = 0; ubCnt < gSkillTraitValues.ubMaxNumberOfTraits; ubCnt++ )
+		for ( UINT8 ubCnt = 0; ubCnt < gSkillTraitValues.ubMaxNumberOfTraitsForIMP; ubCnt++ )
 		{
 			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSkillTraits[ ubCnt ] = ( INT8 )SkillsList[ ubCnt ];
 		}

@@ -2913,11 +2913,11 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 	if (gGameOptions.fNewTraitSystem)
 	{
 		// exception for special merc
-		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && ubProfileID == gSkillTraitValues.ubSpecialMercID)
-		{
-			bMaxTraits++;
-			bMaxMajorTraits++;
-		}
+		//if ( gSkillTraitValues.fAllowSpecialMercTraitsException && ubProfileID == gSkillTraitValues.ubSpecialMercID)
+		//{
+		//	bMaxTraits++;
+		//	bMaxMajorTraits++;
+		//}
 		
 		for ( INT8 bCnt = 0; bCnt < bMaxTraits; bCnt++ )
 		{

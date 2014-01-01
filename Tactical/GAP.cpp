@@ -12,6 +12,8 @@
 	#include "FileMan.h"
 #endif
 
+SUBSEQUENTSOUNDS subsequentsounds;
+
 #if 0
 static void AILCALLBACK timer_func( UINT32 user )
 {
@@ -272,6 +274,33 @@ UINT32 PlayJA2GapSample( CHAR8 *zSoundFile, UINT32 usRate, UINT32 ubVolume, UINT
 	return(SoundPlayStreamedFile( zSoundFile, &spParms));
 }
 
+// anv: for playing multiple sounds in row (with one text)
+UINT32 PlayJA2MultipleGapSample( CHAR8 zSoundFiles[][64], UINT8 ubSoundsCount, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, AudioGapList* pData )
+{
+	SOUNDPARMS spParms;
 
+	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
+
+	spParms.uiSpeed = usRate;
+	spParms.uiVolume =	(UINT32) (	( ubVolume / (FLOAT) HIGHVOLUME ) * GetSpeechVolume( ) );
+	spParms.uiLoop = ubLoops;
+	spParms.uiPan = uiPan;
+	spParms.uiPriority=GROUP_PLAYER;
+
+	subsequentsounds.ubSndCounter = 1;
+	subsequentsounds.ubMaxSndCounter = ubSoundsCount;
+	for( UINT8 i = 0; i < ubSoundsCount; i++ )
+	{
+		strcpy(subsequentsounds.zSoundFiles[i], zSoundFiles[i]);
+	}
+	subsequentsounds.spParams = spParms;
+
+	// Setup Gap Detection, if it is not null
+	if( pData != NULL )
+		AudioGapListInit( zSoundFiles[0], pData );
+
+	return( SoundPlayStreamedFile( zSoundFiles[0], &spParms));
+	// rest of sounds (if there are any) will be called from HandleTalkingAutoFace when current one ends
+}
 
 

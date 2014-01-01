@@ -374,6 +374,11 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"防止血猫偷袭你的队伍\n",// L"Prevents the bloodcats to ambush your squad\n",
 
 };
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+};
+
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"无奖励",// L"No bonuses",

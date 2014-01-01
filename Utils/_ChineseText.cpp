@@ -2369,30 +2369,32 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"无线电操作员",	// 21
+	L"Snitch",	// 22	// TODO.Translate
 
 	// second names for major skills
 	L"机枪手",
 	L"掷弹兵",
 	L"狙击手",
-	L"游骑兵",		// 25
+	L"游骑兵",		// 26
 	L"枪斗术",
 	L"武术家",
 	L"班长",
 	L"工兵",
 	L"军医",
 	// placeholders for minor traits
-	L"Placeholder",		// 31
+	L"Placeholder",		// 32
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 36
+	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 40
-	L"间谍",				// 41
+	L"Placeholder",		// 41
+	L"间谍",				// 42
 	L"Placeholder",		// for radio operator (minor trait)
+	L"Placeholder",		// for snitch (minor trait)
 	L"更多...",
 	L"various",			// for VARIOUSSKILLS	// TODO.Translate
 };

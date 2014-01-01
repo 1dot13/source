@@ -376,7 +376,10 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Prevents enemy ambushes on your squad\n",
 	L"Prevents bloodcat ambushes on your squad\n",
 };
-
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Okazyjnie poinformuje cię o opiniach kolegów z oddziału.\n",
+};
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"No bonuses",

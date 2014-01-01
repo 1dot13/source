@@ -31,6 +31,7 @@ extern	STR16 gzIMPMinorTraitsHelpTextsBodybuilding[];
 extern	STR16 gzIMPMinorTraitsHelpTextsDemolitions[];
 extern	STR16 gzIMPMinorTraitsHelpTextsTeaching[];
 extern	STR16 gzIMPMinorTraitsHelpTextsScouting[];
+extern	STR16 gzIMPMinorTraitsHelpTextsSnitch[];
 extern	STR16 gzIMPMinorTraitsHelpTextsNone[];
 
 extern STR16 gzIMPOldSkillTraitsHelpTexts[];

@@ -20483,11 +20483,11 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	if (gGameOptions.fNewTraitSystem)
 	{
 		// exception for special merc
-		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
-		{
-			bMaxTraits++;
-			bMaxMajorTraits++;
-		}
+		//if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
+		//{
+		//	bMaxTraits++;
+		//	bMaxMajorTraits++;
+		//}
 		
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
@@ -20540,11 +20540,11 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	if (gGameOptions.fNewTraitSystem)
 	{
 		// exception for special merc
-		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
-		{
-			bMaxTraits++;
-			bMaxMajorTraits++;
-		}
+		//if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
+		//{
+		//	bMaxTraits++;
+		//	bMaxMajorTraits++;
+		//}
 		
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{

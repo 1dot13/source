@@ -230,9 +230,9 @@ void PrintImpText( void )
 			if ( gGameOptions.fNewTraitSystem )
 			{
 				CHAR16 sString[400];
-				swprintf( sString, pSkillTraitBeginIMPStrings[ 2 ], gSkillTraitValues.ubNumberOfMajorTraitsAllowed );
+				swprintf( sString, pSkillTraitBeginIMPStrings[ 2 ], gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP );
 				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 57,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, sString,FONT_BLACK,FALSE,CENTER_JUSTIFIED);
-				swprintf( sString, pSkillTraitBeginIMPStrings[ 3 ], gSkillTraitValues.ubMaxNumberOfTraits, gSkillTraitValues.ubMaxNumberOfTraits, gSkillTraitValues.ubMaxNumberOfTraits -2 );
+				swprintf( sString, pSkillTraitBeginIMPStrings[ 3 ], gSkillTraitValues.ubMaxNumberOfTraitsForIMP, gSkillTraitValues.ubMaxNumberOfTraitsForIMP, gSkillTraitValues.ubMaxNumberOfTraitsForIMP -2 );
 				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 155,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, sString,FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 			}
 			else

@@ -229,7 +229,7 @@ enum DialogQuoteIDs
 #define			DIALOGUE_SPECK_CONTACT_PAGE_UI	4
 #define	 DIALOGUE_EXTERNAL_NPC_UI				5
 #define			DIALOGUE_SHOPKEEPER_UI					6
-
+#define			DIALOGUE_SNITCH_UI					7	// anv: special handle for snitch dialogue
 
 #define			DIALOGUE_SPECIAL_EVENT_GIVE_ITEM									0x00000001
 #define			DIALOGUE_SPECIAL_EVENT_TRIGGER_NPC								0x00000002
@@ -277,6 +277,8 @@ enum DialogQuoteIDs
 #define			MULTIPURPOSE_SPECIAL_EVENT_DONE_KILLING_DEIDRANNA			0x00000001
 #define			MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING	0x00000002
 #endif
+
+#define			MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE				0x00000004
 
 #ifdef JA2UB
 enum{
@@ -340,11 +342,18 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEventEx( SOLDIERTYPE *pSoldier, UINT
 // A higher level function used for tactical quotes
 BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 
+BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum, UINT8 ubEventType, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
+
 // A higher level function used for tactical quotes
 BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 
 // A more general purpose function for processing quotes
 BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed );
+
+BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex,
+	UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, 
+	UINT32 uiSpecialEventData3, UINT32 uiSpecialEventData4, 
+	UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed );
 
 // A special event can be setup which can be queued with other speech
 BOOLEAN SpecialCharacterDialogueEvent( UINT32 uiSpecialEventFlag, UINT32 uiSpecialEventData1, UINT32 uiSpecialEventData2, UINT32 uiSpecialEventData3, INT32 iFaceIndex, UINT8 bUIHandlerID );
@@ -354,6 +363,8 @@ BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, 
 
 // execute specific character dialogue
 BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fSoldier );
+
+BOOLEAN ExecuteSnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, UINT8 ubSnitchEventType, UINT8 ubSnitchTargetID, UINT8 ubSecondarySnitchTargetID );
 
 // Called when a face stops talking...
 void HandleDialogueEnd( FACETYPE *pFace );

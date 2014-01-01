@@ -53,6 +53,7 @@ void MercDepartEquipmentBoxCallBack( UINT8 bExitValue );
 BOOLEAN HandleFiredDeadMerc( SOLDIERTYPE *pSoldier );
 void HandleExtendMercsContract( SOLDIERTYPE *pSoldier );
 void HandleSoldierLeavingWithLowMorale( SOLDIERTYPE *pSoldier );
+void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent );
 void HandleSoldierLeavingForAnotherContract( SOLDIERTYPE *pSoldier );
 //BOOLEAN SoldierWantsToDelayRenewalOfContract( SOLDIERTYPE *pSoldier );
 void HandleNotifyPlayerCantAffordInsurance( void );
@@ -743,6 +744,29 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 	}
 }
 
+void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent )
+{
+	INT8									bMercID, bOtherID;
+	INT8									bLastTeamID;
+	SOLDIERTYPE *					pSoldier;
+
+
+	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	// loop through all mercs to find buddies
+	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	{
+		//if the merc is active, in Arulco, not POW and is a buddy
+		if ( WhichBuddy(pSoldier->ubProfile,pFiredSoldier->ubProfile) != (-1) &&
+			pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
+			!(pSoldier->bAssignment == IN_TRANSIT ||
+			pSoldier->bAssignment == ASSIGNMENT_DEAD ||
+			pSoldier->bAssignment == ASSIGNMENT_POW) )
+		{
+			HandleMoraleEvent(pSoldier, bMoraleEvent, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+		}
+	}
+}
 
 void HandleSoldierLeavingWithLowMorale( SOLDIERTYPE *pSoldier )
 {
@@ -751,6 +775,9 @@ void HandleSoldierLeavingWithLowMorale( SOLDIERTYPE *pSoldier )
 		// this will cause him give us lame excuses for a while until he gets over it
 		// 3-6 days (but the first 1-2 days of that are spent "returning" home)
 		gMercProfiles[ pSoldier->ubProfile ].ubDaysOfMoraleHangover = (UINT8) (3 + Random(4));
+
+		// piss off his buddies too
+		HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED_EARLY);
 	}
 }
 
@@ -911,6 +938,9 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 	{
 		EndCurrentContractRenewal( );
 	}
+
+	// anv: let buddies react
+	HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED);
 
 	// ATE: Determine which HISTORY ENTRY to use...
 	if ( pSoldier->ubLeaveHistoryCode == 0 )

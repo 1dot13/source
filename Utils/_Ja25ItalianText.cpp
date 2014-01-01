@@ -374,7 +374,10 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Prevents enemy ambushes on your squad\n",
 	L"Prevents bloodcat ambushes on your squad\n",
 };
-
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+};
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"No bonuses",

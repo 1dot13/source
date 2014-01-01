@@ -373,6 +373,10 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Предотвращает попадание отряда в засады кошек-убийц\n",
 
 };
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+};
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Нет преимуществ",

@@ -9403,6 +9403,10 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 				if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 				{
 					ModifyPlayerReputation(REPUTATION_EARLY_FIRING);
+
+					// piss off his buddies too
+					HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED_EARLY);
+					
 				}
 			}
 		}

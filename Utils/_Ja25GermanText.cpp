@@ -372,6 +372,10 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Verhindert, das Umzingeln der Gruppe durch Bloodcats\n",
 
 };
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+};
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Keine Boni",

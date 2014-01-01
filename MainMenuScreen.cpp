@@ -387,6 +387,10 @@ void InitDependingGameStyleOptions()
 	LoadTauntsSettings();
 	// Load helicopter repair settings
 	LoadHelicopterRepairRefuelSettings();
+	// Load externalised morale settings
+	LoadMoraleSettings();
+	// Load externalised reputation settings
+	LoadReputationSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

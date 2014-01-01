@@ -375,6 +375,10 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Empêche les chats sauvages de prendre en embuscade votre escouade\n",
 
 };
+STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
+{
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+};
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Pas de bonus",

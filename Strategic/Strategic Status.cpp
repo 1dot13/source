@@ -79,9 +79,9 @@ UINT8 CalcDeathRate(void)
 void ModifyPlayerReputation(INT8 bRepChange)
 {
 	INT32 iNewBadRep;
-
+	INT8 bRepChangeValue = gReputationSettings.bValues[bRepChange];
 	// subtract, so that a negative reputation change results in an increase in bad reputation
-	iNewBadRep = (INT32) gStrategicStatus.ubBadReputation - bRepChange;
+	iNewBadRep = (INT32) gStrategicStatus.ubBadReputation - bRepChangeValue;
 
 	// keep within a 0-100 range (0 = Saint, 100 = Satan)
 	iNewBadRep = __max(	0, iNewBadRep );
@@ -171,6 +171,44 @@ BOOLEAN MercThinksHisMoraleIsTooLow( SOLDIERTYPE *pSoldier )
 	else
 	{
 		// within tolerance
+		return(FALSE);
+	}
+}
+
+BOOLEAN MercIsOwedTooMuchMoney( UINT8 ubProfileID )
+{
+	if(gMercProfiles[ ubProfileID ].iBalance >= gMercProfiles[ ubProfileID ].sSalary * gMoraleSettings.bValues[MORALE_OWED_MONEY_DAYS])
+	{
+		return(TRUE);
+	}
+	else
+	{
+		return(FALSE);
+	}
+}
+
+BOOLEAN MercThinksPlayerIsInactiveTooLong( UINT8 ubProfileID )
+{
+	UINT8 ubTolerance;
+	ubTolerance = gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS];
+	if( gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+	{
+		ubTolerance = max(0, ubTolerance + gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS]);
+	}
+	else if( gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+	{
+		ubTolerance = max(0, ubTolerance + gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_AGGRESSIVE_BONUS]);
+	}
+	if( ubTolerance == 0)
+	{
+		return(FALSE);	
+	}
+	if( gStrategicStatus.ubNumberOfDaysOfInactivity >= ubTolerance )
+	{
+		return(TRUE);
+	}
+	else
+	{
 		return(FALSE);
 	}
 }

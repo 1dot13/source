@@ -61,6 +61,7 @@ BOOLEAN BeginStrategicRemoveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fAddRehireButto
 
 
 BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote );
+void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent );
 void CheckIfMercGetsAnotherContract( SOLDIERTYPE *pSoldier );
 void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void );
 

@@ -2,6 +2,9 @@
 #define _GAME_SETTINGS__H_
 
 #include "Types.h"
+#include "Strategic Status.h"
+#include "Morale.h"
+
 
 #define				GAME_INI_FILE					"Ja2.ini"
 
@@ -1454,11 +1457,28 @@ typedef struct
 
 typedef struct
 {
+	UINT8 ubDefaultMorale;
+	UINT8 ubHoursBetweenStrategicDelay;
+	INT8 bValues[64];
+	INT8 bModifiers[32];
+	INT16 sDrugAndAlcoholModifiers[2];
+} MORALE_SETTINGS;
+
+typedef struct
+{
+	INT8 bValues[32];
+} REPUTATION_SETTINGS;
+
+typedef struct
+{
 	UINT8 ubMaxNumberOfTraits;
 	UINT8 ubNumberOfMajorTraitsAllowed;
+	
+	UINT8 ubMaxNumberOfTraitsForIMP;
+	UINT8 ubNumberOfMajorTraitsAllowedForIMP;
 
-	BOOLEAN fAllowSpecialMercTraitsException;
-	UINT8 ubSpecialMercID;
+	//BOOLEAN fAllowSpecialMercTraitsException;
+	//UINT8 ubSpecialMercID;
 
 	BOOLEAN fAllowAttributePrereq;
 
@@ -1724,6 +1744,17 @@ typedef struct
 	UINT8 usVOMortarSignalShellRadius;
 	INT8  sVOScanAssignmentBaseRange;
 	INT8  sVOListeningHearingBonus;
+
+
+	// SNITCH
+	UINT8 ubSNTBaseChance;						// Base chance that snitch will inform about certain event (in percents)
+	FLOAT fSNTMercOpinionAboutSnitchBonusModifier;	// How much chance is influenced by relation between snitch and target
+	FLOAT fSNTSnitchOpinionAboutMercBonusModifier;	// How much chance is influenced by relation between snitch and target
+	FLOAT fSNTSnitchLeadershipBonusModifer;	// How much chance is influenced by snitch's leadership
+	INT8 bSNTSociableMercBonus;				// Bonus to chance if merc is sociable
+	INT8 bSNTLonerMercBonus;					// Bonus to chance if merc is loner
+	INT8 bSNTSameAssignmentBonus;				// Bonus to chance if snitch and merc are on the same assignment
+	INT8 bSNTMercOpinionAboutMercTreshold;		// For reports "merc hates merc" final chance is proportional to dislike in range between treshold (0%) and -25(100%)
 
 } SKILL_TRAIT_VALUES;
 
@@ -2140,6 +2171,10 @@ extern TAUNTS_SETTINGS gTauntsSettings;
 
 extern HELICOPTER_SETTINGS gHelicopterSettings;
 
+extern MORALE_SETTINGS gMoraleSettings;
+
+extern REPUTATION_SETTINGS gReputationSettings;
+
 // HEADROCK HAM 4: CTH constants read from a separate INI file
 extern CTH_CONSTANTS gGameCTHConstants;
 
@@ -2158,6 +2193,8 @@ void LoadGameAPBPConstants();
 void LoadCTHConstants();
 void LoadTauntsSettings();
 void LoadHelicopterRepairRefuelSettings();
+void LoadMoraleSettings();
+void LoadReputationSettings();
 void FreeGameExternalOptions();
 
 void InitGameOptions();
