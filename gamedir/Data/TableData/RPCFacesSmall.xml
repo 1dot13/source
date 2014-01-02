@@ -259,5 +259,14 @@ MouthY		 -  position of mouth Y (required)
 		<EyesY>7</EyesY>
 		<MouthX>8</MouthX>
 		<MouthY>22</MouthY>
+	</FACE>
+	<FACE>
+		<uiIndex>28</uiIndex>
+		<Name>Waldo</Name>
+		<FaceIndex>138</FaceIndex>
+		<EyesX>9</EyesX>
+		<EyesY>9</EyesY>
+		<MouthX>9</MouthX>
+		<MouthY>27</MouthY>
 	</FACE>	
 </SMALLFACE>
