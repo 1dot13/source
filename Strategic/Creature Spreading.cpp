@@ -1447,7 +1447,7 @@ BOOLEAN PrepareCreaturesForBattle()
 		for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; i++)
 		{
 			INT16 sX = gCreaturePlacements[ giLairID ].sAttackSourceX;
-			INT16 sY = gCreaturePlacements[ giLairID ].sAttackSourceX;
+			INT16 sY = gCreaturePlacements[ giLairID ].sAttackSourceY;
 			UINT8 ubZ = 1;
 			
 			if( sX == gCreaturePlacements[ giLairID ].Habitat[ i ].sX &&
