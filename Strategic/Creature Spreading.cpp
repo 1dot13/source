@@ -404,16 +404,16 @@ void InitCreatureQuest()
 	}
 	*/
 	
-	// determine mine infectible status
+	// determine mine infectible status in initmines.lua script
 	for (x = 0; x < MAX_NUMBER_OF_MINES; x++)
 	{
 		if( gMineStatus[ x ].fInfectible )
 		{
 			if( gMineStatus[ x ].fAttackedHeadMiner ||
 				//gMineStatus[ x ].uiOreRunningOutPoint ||
-				!gMineStatus[ x ].fInfectible ||
 				StrategicMap[ gMineStatus[ x ].StrategicIndex() ].fEnemyControlled )
-			{ //If head miner was attacked, ore will/has run out, or enemy controlled
+			{
+				//If head miner was attacked, ore will/has run out, or enemy controlled
 				fMineInfectible[ iNumMinesInfectibleLUA ] = FALSE;
 			}
 			iNumMinesInfectibleLUA++;
@@ -430,7 +430,7 @@ void InitCreatureQuest()
 	//// externalize to xml data
 	//iNumMinesInfectible = fMineInfectible[0] + fMineInfectible[1] + fMineInfectible[2] + fMineInfectible[3];
 	
-	//count min of infectible sites defined in xml and initmines.lua script
+	//count actual infectible sites, use min of infectible sites defined in xml and initmines.lua script in case they do not tally
 	for (x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); x++)
 	{
 		iNumMinesInfectible += fMineInfectible[x];
@@ -1181,7 +1181,8 @@ void EndCreatureQuest()
 	}
 
 	//Remove the creatures that are trapped underneath Tixa
-	pSector = FindUnderGroundSector( gModSettings.ubTixaPrisonSectorX, gModSettings.ubTixaPrisonSectorY, 2 );
+	pSector = FindUnderGroundSector( gModSettings.ubCrepitusFeedingSectorX, gModSettings.ubCrepitusFeedingSectorY,
+		gModSettings.ubCrepitusFeedingSectorZ ); // (9, 10, 2)
 	if( pSector )
 	{
 		pSector->ubNumCreatures = 0;

@@ -2073,12 +2073,19 @@ typedef struct
 	UINT8 ubMeanwhileAddMadlabSector4X;
 	UINT8 ubMeanwhileAddMadlabSector4Y;
 	
+	//[End Game]
 	//victory celebration stuff
 	UINT8 ubEndGameVictorySectorX;
 	UINT8 ubEndGameVictorySectorY;
 	INT32 iEndGameVictoryGridNo;
-
+	
 	BOOLEAN CreatureMeanwhileCutscene;
+
+	//[Creatures]
+	//Crepitus Feeding Sector
+	UINT8 ubCrepitusFeedingSectorX;
+	UINT8 ubCrepitusFeedingSectorY;
+	UINT8 ubCrepitusFeedingSectorZ;
 
 }MOD_SETTINGS;
 

@@ -2672,10 +2672,16 @@ void LoadModSettings(){
 
 	
 	gModSettings.CreatureMeanwhileCutscene = iniReader.ReadBoolean("Meanwhile", "CREATURE_MEANWHILE_CUTSCENE", TRUE);
-
+	
+	//[End Game]
 	gModSettings.ubEndGameVictorySectorX = iniReader.ReadInteger("End Game", "VICTORY_SECTOR_X", 3);
 	gModSettings.ubEndGameVictorySectorY = iniReader.ReadInteger("End Game", "VICTORY_SECTOR_Y", 16);
 	gModSettings.iEndGameVictoryGridNo = iniReader.ReadInteger("End Game", "VICTORY_POSITION", 5687);
+
+	//[Creatures]
+	gModSettings.ubCrepitusFeedingSectorX = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_X", 9);
+	gModSettings.ubCrepitusFeedingSectorY = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_Y", 10);
+	gModSettings.ubCrepitusFeedingSectorZ = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_Z", 2);
 }
 
 // silversurfer: load item property modifiers
