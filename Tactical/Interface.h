@@ -523,7 +523,9 @@ void BeginMultiPurposeLocator( INT32 sGridNo, INT8 bLevel, BOOLEAN fSlideTo );
 void HandleMultiPurposeLocator( );
 void RenderTopmostMultiPurposeLocator( );
 
-
-
+// sevenfm: draw lines in health bar
+void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16 color16, UINT8 *pDestBuf );
+// get cover display code from cover value
+BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 );
 
 #endif

@@ -1207,7 +1207,7 @@ typedef struct
 	BOOLEAN fShowCamouflageFaces;
 
 	BOOLEAN fHideEnemyHealthText;
-	BOOLEAN fShowHealthBarsOnHead;
+	UINT8 ubShowHealthBarsOnHead;
 
 	UINT8 ubEnemyHitCount;
 	UINT8 ubPlayerHitCount;

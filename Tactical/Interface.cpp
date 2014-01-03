@@ -62,6 +62,8 @@
 	#include "weapons.h"
 	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
 	#include "environment.h"
+	// sevenfm: needed for _KeyDown(SHIFT)
+	#include "english.h"
 
 #endif
 
@@ -273,7 +275,7 @@ RECT APRect;
 // HEADROCK HAM 4: Externed this value which tracks whether we've clicked out final aiming click yet.
 extern BOOLEAN gfDisplayFullCountRing;
 
-void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight );
+void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, INT16 interval);
 void PopupDoorOpenMenu( BOOLEAN fClosingDoor );
 
 
@@ -292,6 +294,8 @@ void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 UINT32 CalcUIMessageDuration( STR16 wString );
 
+// sevenfm: this function is needed to show cover in health bar
+extern void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
 
 BOOLEAN InitializeFaceGearGraphics()
 {
@@ -1795,7 +1799,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				pSoldier->flags.fShowLocator = FALSE;
 		}
 		
-		if ( gGameExternalOptions.fShowHealthBarsOnHead )
+		if ( gGameExternalOptions.ubShowHealthBarsOnHead )
 		{
 			// Render the beastie
 			GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
@@ -2021,40 +2025,73 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//new profiles by Jazz	
 		if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesAIM[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesMERC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ))			
 		{
-			if ( gGameExternalOptions.fShowHealthBarsOnHead )
+			if ( gGameExternalOptions.ubShowHealthBarsOnHead )
 			{
-				// Adjust for bars!
-				if ( pSoldier->ubID == gusSelectedSoldier )
+				if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
 				{
-					sXPos += 28;
-					sYPos += 5;
-				}
-				else
-				{
-					sXPos += 30;
+					INT16 interval = gGameExternalOptions.ubShowHealthBarsOnHead;
+					if( interval > 3 )
+						interval -= 2;
+					sXPos += 25;
 					sYPos += 7;
-				}
+					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos-1, (INT16)(sXPos + 40 ), (INT16)(sYPos + 3 + interval*3 ) );
+					if ( iBack != -1 )
+						SetBackgroundRectFilled( iBack );
+					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos), (INT16)(sYPos), 25, interval - 1, interval );
 
-				// Add bars
-				iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) );
-
-				if ( iBack != -1 )
-				{
-					SetBackgroundRectFilled( iBack );
-				}
-				TileElem = gTileDatabase[ usGraphicToUse ];
-				BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
-
-				// Draw life, breath
-				// Only do this when we are a vehicle but on our team
-				if ( pSoldier->ubID == gusSelectedSoldier )
-				{
-					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos + 1), (INT16)(sYPos + 2), 16, 1 );
+					if( gGameExternalOptions.ubShowHealthBarsOnHead > 3 && (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT))
+					{
+						INT16 len;
+						swprintf( NameStr,L"%d", pSoldier->bActionPoints );
+						len = StringPixLength ( NameStr, TINYFONT1 );
+						SetFont( TINYFONT1 );
+						if(pSoldier->bActionPoints > APBPConstants[MIN_APS_TO_INTERRUPT])
+							SetFontForeground( FONT_MCOLOR_LTGRAY );
+						else if(pSoldier->bActionPoints > 10)
+							SetFontForeground( FONT_YELLOW );
+						else
+							SetFontForeground( FONT_MCOLOR_DKRED );
+						gprintfdirty( sXPos-2-len, sYPos-2, NameStr );
+						mprintf( sXPos-2-len, sYPos-2, NameStr );
+						maxWidth = __max( maxWidth, StringPixLength ( NameStr, TINYFONT1 ) );
+					}
 				}
 				else
 				{
-					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
+					// Adjust for bars!
+					if ( pSoldier->ubID == gusSelectedSoldier )
+					{
+						sXPos += 28;
+						sYPos += 5;
+					}
+					else
+					{
+						sXPos += 30;
+						sYPos += 7;
+					}
+
+					// Add bars
+					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) );
+
+					if ( iBack != -1 )
+					{
+						SetBackgroundRectFilled( iBack );
+					}
+					TileElem = gTileDatabase[ usGraphicToUse ];
+					BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+
+					// Draw life, breath
+					// Only do this when we are a vehicle but on our team
+					if ( pSoldier->ubID == gusSelectedSoldier )
+					{
+						DrawBarsInUIBox( pSoldier,	(INT16)(sXPos +1), (INT16)(sYPos + 2), 16, 1, 3);
+					}
+					else
+					{
+						DrawBarsInUIBox( pSoldier,	(INT16)(sXPos -1), (INT16)(sYPos ), 16, 1, 3 );
+					}
 				}
+
 			}
 		}
 		else // ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON ||
@@ -3581,7 +3618,7 @@ void EndOverlayMessage( )
 }
 
 
-void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight )
+void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, INT16 interval )
 {
 	FLOAT											dWidth, dPercentage;
 	//UINT16										usLineColor;
@@ -3591,8 +3628,8 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	UINT16										usLineColor;
 	INT8											bBandage;
 	INT8											bPoisonBandage;
-
-	// Draw breath points
+	INT16		color8;
+	INT16		color16;
 
 	// Draw new size
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -3600,29 +3637,41 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	// region rysowania barow nad najemnikiem
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, ( gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y ) );
 
+	// sevenfm: draw background for alt bar
+	if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
+	{
+		DrawBar( sXPos+2, sYPos, 27, 1 + interval*3, COLOR_BLACK, Get16BPPColor( FROMRGB( 0, 0, 0	) ), pDestBuf );
+		// draw border: light brown for stealth mode, grey for regular		
+		if(pSoldier->bStealthMode)
+		{
+			color8 = COLOR_BROWN;
+			color16 = Get16BPPColor( FROMRGB( 180, 140, 20 ) );
+		}
+		else{
+			color8 = COLOR_DKGREY;
+			color16 = Get16BPPColor( FROMRGB( 120, 120, 120 ) );
+		}
+		if ( pSoldier->ubID == gusSelectedSoldier )
+		{
+			if(gbPixelDepth==16)
+				RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+30, sYPos+1+interval*3, color16, pDestBuf);
+			else
+				RectangleDraw8( TRUE, sXPos+1, sYPos-1, sXPos+30, sYPos+1+interval*3, color8, pDestBuf);
+		}
+	}
+
 	// get amt bandaged
 	bBandage = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
 	// get amount of poisoned bandage
 	bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
 
-
 	// NOW DO BLEEDING
 	if ( pSoldier->bBleeding )
 	{
 		dPercentage = (FLOAT)( pSoldier->bBleeding +	pSoldier->stats.bLife + bBandage )/ (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
-		if(gbPixelDepth==16)
-		{
-			usLineColor = Get16BPPColor( FROMRGB( 240,	240, 20	) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
-		else if(gbPixelDepth==8)
-		{
-		// DB Need to change this to a color from the 8-bit standard palette
-			usLineColor = COLOR_RED;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
+		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 240,	240, 20	) ), pDestBuf );
 	}
 
 	// poisoned bleeding
@@ -3630,34 +3679,14 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	{
 		dPercentage = (FLOAT)( pSoldier->stats.bLifeMax - pSoldier->bBleeding +	pSoldier->bPoisonBleeding )/ (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
-		if(gbPixelDepth==16)
-		{
-			usLineColor = Get16BPPColor( FROMRGB( 240, 20, 240	) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
-		else if(gbPixelDepth==8)
-		{
-		// DB Need to change this to a color from the 8-bit standard palette
-			usLineColor = COLOR_GREEN;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
+		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 240, 20, 240	) ), pDestBuf );
 	}
 
 	if( bBandage )
 	{
 		dPercentage = (FLOAT)( pSoldier->stats.bLife + bBandage ) / (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
-		if(gbPixelDepth==16)
-		{
-			usLineColor = Get16BPPColor( FROMRGB( 222, 132, 132 ) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
-		else if(gbPixelDepth==8)
-		{
-			// DB Need to change this to a color from the 8-bit standard palette
-			usLineColor = COLOR_RED;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
+		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 222, 132, 132	) ), pDestBuf );
 	}
 
 	// poisoned bandage
@@ -3665,79 +3694,28 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	{
 		dPercentage = (FLOAT)( pSoldier->stats.bLife + bPoisonBandage )/ (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
-		if(gbPixelDepth==16)
-		{
-			usLineColor = Get16BPPColor( FROMRGB( 132, 222, 132 ) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
-		else if(gbPixelDepth==8)
-		{
-		// DB Need to change this to a color from the 8-bit standard palette
-			usLineColor = COLOR_GREEN;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
+		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 132, 222, 132	) ), pDestBuf );
 	}
 
 	dPercentage = (FLOAT)pSoldier->stats.bLife / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
-	if(gbPixelDepth==16)
-	{
-		usLineColor = Get16BPPColor( FROMRGB( 200, 0, 0 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-	}
-	else if(gbPixelDepth==8)
-	{
-	// DB Need to change this to a color from the 8-bit standard palette
-		usLineColor = COLOR_RED;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-	}
+	DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 200, 0, 0	) ), pDestBuf );
 
 	// poisoned life
 	if ( pSoldier->bPoisonLife )
 	{
 		dPercentage = (FLOAT)( pSoldier->bPoisonLife )/ (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
-		if(gbPixelDepth==16)
-		{
-			usLineColor = Get16BPPColor( FROMRGB( 0, 200, 0	) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
-		else if(gbPixelDepth==8)
-		{
-		// DB Need to change this to a color from the 8-bit standard palette
-			usLineColor = COLOR_GREEN;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
-		}
+		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 0, 200, 0 ) ), pDestBuf );
 	}
-
 
 	dPercentage = (FLOAT)( pSoldier->bBreathMax ) / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
-	if(gbPixelDepth==16)
-	{
-		usLineColor = Get16BPPColor( FROMRGB( 20, 20, 150 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
-	}
-	else if(gbPixelDepth==8)
-	{
-	// DB Need to change this to a color from the 8-bit standard palette
-		usLineColor = COLOR_BLUE;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
-	}
+	DrawBar( sXPos + 3, sYPos + 1 + interval, (INT32)dWidth, sHeight, COLOR_BLUE, Get16BPPColor( FROMRGB( 20, 20, 150	) ), pDestBuf );
 
 	dPercentage = (FLOAT)( pSoldier->bBreath ) / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
-	if(gbPixelDepth==16)
-	{
-		usLineColor = Get16BPPColor( FROMRGB( 100, 100, 220 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
-	}
-	else if(gbPixelDepth==8)
-	{
-	// DB Need to change this to a color from the 8-bit standard palette
-		usLineColor = COLOR_BLUE;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
-	}
+	DrawBar( sXPos + 3, sYPos + 1 + interval, (INT32)dWidth, sHeight, COLOR_BLUE, Get16BPPColor( FROMRGB( 100, 100, 220 ) ), pDestBuf );	
 
 	/*
 	// morale
@@ -3756,6 +3734,40 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	}
 
 	*/
+
+	// draw suppression shock bar
+	if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
+	{
+		dPercentage = (FLOAT)( __min(100, ( (FLOAT)100 * CalcEffectiveShockLevel( pSoldier ) ) / CalcSuppressionTolerance( pSoldier ) ) ) / (FLOAT)100;
+		dWidth		=	dPercentage * 25;
+		DrawBar( sXPos+3, sYPos+1+2*interval, (INT32)dWidth, sHeight, COLOR_ORANGE, Get16BPPColor( FROMRGB( 220, 140, 0 ) ), pDestBuf );
+	}
+
+	// draw cover indicators
+	if( ( gGameExternalOptions.ubShowHealthBarsOnHead > 1 ) && ( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) || pSoldier->bStealthMode ) )
+	{		
+		INT8 cover = 3;		// MAX_COVER
+		BOOLEAN showCover;
+		INT32 usMapPos;
+
+		if( GetMouseMapPos(&usMapPos) && _KeyDown(SHIFT) )
+		{
+			// draw target tile cover indicator
+			CalculateCoverForSoldier( pSoldier, usMapPos, gsInterfaceLevel, cover );
+			showCover = CoverColorCode( cover, color8, color16 );
+		}
+		else
+		{
+			// draw cover indicator
+			CalculateCoverForSoldier( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, cover );
+			showCover = CoverColorCode( cover, color8, color16 );
+			if ( color8 == COLOR_GREEN)
+				showCover = FALSE;
+		}
+
+		if(showCover)
+			DrawBar( sXPos+33, sYPos+1, 1+sHeight , (interval==3 ? 2 : 3 )*interval-1, color8, color16, pDestBuf );
+	}
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
@@ -5936,5 +5948,45 @@ void RenderTopmostMultiPurposeLocator( )
 	}
 
 	BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, gbMultiPurposeLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+}
+
+void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16 color16, UINT8 *pDestBuf )
+{
+	if( width > 0 )
+	{
+		for( INT32 i=0; i < height; i++ )
+		{
+			if(gbPixelDepth==16)
+				LineDraw( TRUE, x, y+i, x+width, y+i, color16, pDestBuf );
+			else if(gbPixelDepth==8)
+				LineDraw8( TRUE, x, y+i, x+width, y+i, color8, pDestBuf );
+		}
+	}
+}
+
+BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 ){
+	BOOLEAN showCover = TRUE;
+	switch(cover)
+	{
+	case 0:
+		color8 = COLOR_RED;
+		color16 = Get16BPPColor( FROMRGB( 200, 0, 0 ) );
+		break;
+	case 1:
+		color8 = COLOR_ORANGE;
+		color16 = Get16BPPColor( FROMRGB( 220, 140, 0 ) );
+		break;
+	case 2:
+		color8 = COLOR_YELLOW;
+		color16 = Get16BPPColor( FROMRGB( 220, 220, 0 ) );
+		break;
+	case 3:
+		color8 = COLOR_GREEN;
+		color16 = Get16BPPColor( FROMRGB( 0, 200, 0 ) );
+		break;
+	default: 
+		showCover = FALSE;
+	}
+	return showCover;
 }
 
