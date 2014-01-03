@@ -112,8 +112,6 @@ CSEEndElementHandle(void *userData, const XML_Char *name)
 				else
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem;
 			}
-		
-			num_found_background = pData->curItem.uiIndex;	
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
