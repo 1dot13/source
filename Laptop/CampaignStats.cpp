@@ -672,7 +672,7 @@ Campaign_Stats::AddMoneyEarned(UINT8 aType, INT32 aVal)
 void
 Campaign_Stats::AddConsumption(UINT8 aType, FLOAT aVal)
 {
-	if ( aType >= CAMPAIGN_MONEY_MAX )
+	if ( aType >= CAMPAIGN_CONSUMED_MAX )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Error: Unknown consumption type!" );
 		return;
