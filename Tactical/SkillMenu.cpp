@@ -11,6 +11,9 @@
 #include "DisplayCover.h"
 #include "worldman.h"
 
+// sevenfm: need this for correct calculation of traits menu position
+extern INT16 gsInterfaceLevel;
+
 UINT16 usTraitMenuPosX = 0;
 UINT16 usTraitMenuPosY = 0;
 
@@ -143,7 +146,9 @@ TraitSelection::Setup( UINT32 aVal )
 		
 	// grab soldier's x,y screen position
 	INT16 sX, sY;
-	GetSoldierScreenPos( pSoldier, &sX, &sY );
+	// sevenfm: changed TraitsMenu position from soldier to mouse
+	//GetSoldierScreenPos( pSoldier, &sX, &sY );
+	GetGridNoScreenPos( sTraitsMenuTargetGridNo, gsInterfaceLevel, &sX, &sY );
 		
 	if( sX < 0 ) sX = 0;
 	if( sY < 0 ) sY = 0;

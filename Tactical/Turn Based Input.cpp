@@ -970,6 +970,23 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 					{
 						// ATE:
 						if ( gusSelectedSoldier != NOBODY )
+						{
+							// sevenfm: ALT+RMB - TraitsMenu
+							if(_KeyDown(ALT))
+							{
+								switch( gCurrentUIMode )
+								{
+								case MOVE_MODE:
+								case TALKCURSOR_MODE:
+								case ACTION_MODE:
+								case CONFIRM_ACTION_MODE:
+								case LOOKCURSOR_MODE:
+									TraitsMenu(usMapPos);
+									fClickIntercepted = TRUE;
+									break;
+								}
+							}
+							else
 							{
 								// Switch on UI mode
 								switch( gCurrentUIMode )
@@ -1027,6 +1044,7 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 									break;
 
 								}
+							}
 							}
 					}
 					else

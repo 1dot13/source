@@ -59,6 +59,7 @@
 #include "worlddat.h" //for gtileset
 #include "Debug Control.h" //for livelog
 
+#include "SkillMenu.h"						// sevenfm: need this for TraitsMenu
 
 
 #endif
@@ -1226,58 +1227,74 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 								// ATE:
 								if ( gusSelectedSoldier != NOBODY )
 								{
-									// Switch on UI mode
-									switch( gCurrentUIMode )
+									// sevenfm: ALT+RMB - TraitsMenu
+									if(_KeyDown(ALT))
 									{
-									case IDLE_MODE:
-
-										break;
-
-									case CONFIRM_MOVE_MODE:
-									case MOVE_MODE:
-									case TALKCURSOR_MODE:
-
+										switch( gCurrentUIMode )
+										{										
+										case MOVE_MODE:
+										case TALKCURSOR_MODE:
+										case ACTION_MODE:
+										case CONFIRM_ACTION_MODE:
+										case LOOKCURSOR_MODE:
+											TraitsMenu(usMapPos);
+											fClickIntercepted = TRUE;
+											break;
+										}
+									}
+									else
+									{
+										// Switch on UI mode
+										switch( gCurrentUIMode )
 										{
+										case IDLE_MODE:
+
+											break;
+
+										case CONFIRM_MOVE_MODE:
+										case MOVE_MODE:
+										case TALKCURSOR_MODE:
+
 											// We have here a change to action mode
 											*puiNewEvent = M_CHANGE_TO_ACTION;
+											fClickIntercepted = TRUE;
+											break;
+
+										case ACTION_MODE:
+
+											// We have here a change to move mode
+											*puiNewEvent = A_END_ACTION;
+											fClickIntercepted = TRUE;
+											break;
+
+										case CONFIRM_ACTION_MODE:
+
+											if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+											{
+												HandleRightClickAdjustCursor( pSoldier, usMapPos );
+											}
+											fClickIntercepted = TRUE;
+											break;
+
+										case MENU_MODE:
+
+											// If we get a hit here and we're in menu mode, quit the menu mode
+											EndMenuEvent( guiCurrentEvent );
+											fClickIntercepted = TRUE;
+											break;
+
+										case HANDCURSOR_MODE:
+											// If we cannot actually do anything, return to movement mode
+											*puiNewEvent = A_CHANGE_TO_MOVE;
+											break;
+
+										case LOOKCURSOR_MODE:
+
+											// If we cannot actually do anything, return to movement mode
+											*puiNewEvent = A_CHANGE_TO_MOVE;
+											break;
+
 										}
-										fClickIntercepted = TRUE;
-										break;
-
-									case ACTION_MODE:
-
-										// We have here a change to move mode
-										*puiNewEvent = A_END_ACTION;
-										fClickIntercepted = TRUE;
-										break;
-
-									case CONFIRM_ACTION_MODE:
-
-										if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-										{
-											HandleRightClickAdjustCursor( pSoldier, usMapPos );
-										}
-										fClickIntercepted = TRUE;
-										break;
-
-									case MENU_MODE:
-
-										// If we get a hit here and we're in menu mode, quit the menu mode
-										EndMenuEvent( guiCurrentEvent );
-										fClickIntercepted = TRUE;
-										break;
-
-									case HANDCURSOR_MODE:
-										// If we cannot actually do anything, return to movement mode
-										*puiNewEvent = A_CHANGE_TO_MOVE;
-										break;
-
-									case LOOKCURSOR_MODE:
-
-										// If we cannot actually do anything, return to movement mode
-										*puiNewEvent = A_CHANGE_TO_MOVE;
-										break;
-
 									}
 								}
 							}
