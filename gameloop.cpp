@@ -145,6 +145,8 @@ BOOLEAN InitializeGame(void)
 	LoadMoraleSettings();
 	// Load externalised reputation settings
 	LoadReputationSettings();
+	// Load creatures settings
+	LoadCreaturesSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

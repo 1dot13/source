@@ -2174,8 +2174,8 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 #ifdef JA2UB
 /*  Ja25 no creatures  */
 #else			
-			if( gWorldSectorX == gModSettings.ubCrepitusFeedingSectorX && gWorldSectorY == gModSettings.ubCrepitusFeedingSectorY
-				&& gbWorldSectorZ == gModSettings.ubCrepitusFeedingSectorZ ) // (9, 10, 2)
+			if( gWorldSectorX == gCreaturesSettings.ubCrepitusFeedingSectorX && gWorldSectorY == gCreaturesSettings.ubCrepitusFeedingSectorY
+				&& gbWorldSectorZ == gCreaturesSettings.ubCrepitusFeedingSectorZ ) // (9, 10, 2)
 			{
 				InitCreatureQuest(); //Ignored if already active.
 			}

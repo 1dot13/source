@@ -71,11 +71,13 @@
 #define				TAUNTS_SETTINGS_FILE			"Taunts_Settings.ini"
 
 // anv: helicopter repair settings - enough of these to put them in own file
-#define				HELICOPTER_SETTINGS_FILE			"Helicopter_Settings.ini"
+#define				HELICOPTER_SETTINGS_FILE		"Helicopter_Settings.ini"
 
-#define				MORALE_SETTINGS_FILE				"Morale_Settings.ini"
+#define				MORALE_SETTINGS_FILE			"Morale_Settings.ini"
 
-#define				REPUTATION_SETTINGS_FILE			"Reputation_Settings.ini"
+#define				REPUTATION_SETTINGS_FILE		"Reputation_Settings.ini"
+
+#define				CREATURES_SETTINGS_FILE			"Creatures_Settings.ini"
 
 #define				CD_ROOT_DIR						"DATA\\"
 
@@ -88,6 +90,7 @@ TAUNTS_SETTINGS gTauntsSettings;
 HELICOPTER_SETTINGS gHelicopterSettings;
 MORALE_SETTINGS gMoraleSettings;
 REPUTATION_SETTINGS gReputationSettings;
+CREATURES_SETTINGS gCreaturesSettings;
 CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
 
 MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
@@ -1047,7 +1050,7 @@ void LoadGameExternalOptions()
 
 	// Flugente: show health an fatigue bars over currently selected mercs and those we hover our mouse over
 	gGameExternalOptions.ubShowHealthBarsOnHead				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", 1, 0, 5);
-
+		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
 	// sevenfm: added similar option for player hit count
@@ -1689,6 +1692,9 @@ void LoadGameExternalOptions()
 		
 	// Enable/Disable crepitus completely in SCI-FI mode.
 	gGameExternalOptions.fEnableCrepitus				= iniReader.ReadBoolean("Strategic Event Settings", "ENABLE_CREPITUS", TRUE);
+
+	// Crepitus to attack other player-controlled town sectors
+	gGameExternalOptions.fCrepitusAttackAllTowns		= iniReader.ReadBoolean("Strategic Event Settings", "CREPITUS_ATTACK_ALL_TOWNS", FALSE);
 
 	// HEADROCK HAM 3.1: Select which mine will run out. 0 = no mine. 1 = San Mona (unused), 2 = Drassen, 3 = Alma, 4 = Cambria, 5 = Chitzena, 6 = Grumm.
 	gGameExternalOptions.bWhichMineRunsOut				= iniReader.ReadInteger("Strategic Event Settings","WHICH_MINE_SHUTS_DOWN", -1, -1, 256);
@@ -2678,10 +2684,6 @@ void LoadModSettings(){
 	gModSettings.ubEndGameVictorySectorY = iniReader.ReadInteger("End Game", "VICTORY_SECTOR_Y", 16);
 	gModSettings.iEndGameVictoryGridNo = iniReader.ReadInteger("End Game", "VICTORY_POSITION", 5687);
 
-	//[Creatures]
-	gModSettings.ubCrepitusFeedingSectorX = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_X", 9);
-	gModSettings.ubCrepitusFeedingSectorY = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_Y", 10);
-	gModSettings.ubCrepitusFeedingSectorZ = iniReader.ReadInteger("Creatures", "CREPITUS_FEEDING_SECTOR_Z", 2);
 }
 
 // silversurfer: load item property modifiers
@@ -3489,6 +3491,46 @@ void LoadReputationSettings()
 	gReputationSettings.bValues[REPUTATION_MERC_OWED_MONEY]			= iniReader.ReadInteger("Reputation Settings","REPUTATION_MERC_OWED_MONEY", -2, -100, 100);
 	gReputationSettings.bValues[REPUTATION_PLAYER_IS_INACTIVE]			= iniReader.ReadInteger("Reputation Settings","REPUTATION_PLAYER_IS_INACTIVE", -3, -100, 100);
 	gReputationSettings.bValues[REPUTATION_MERC_FIRED_ON_BAD_TERMS]		= iniReader.ReadInteger("Reputation Settings","REPUTATION_MERC_FIRED_ON_BAD_TERMS", -3, -100, 100);
+}
+
+void LoadCreaturesSettings()
+{
+	CIniReader iniReader(CREATURES_SETTINGS_FILE);
+
+	gCreaturesSettings.ubCrepitusFeedingSectorX					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_X", 9);
+	gCreaturesSettings.ubCrepitusFeedingSectorY					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Y", 10);
+	gCreaturesSettings.ubCrepitusFeedingSectorZ					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Z", 2);
+
+	gCreaturesSettings.usCreatureSpreadTimeNovice				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_NOVICE", 510, 5, 14400);
+	gCreaturesSettings.usCreatureSpreadTimeExperienced			= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_EXPERIENCED", 450, 5, 14400);
+	gCreaturesSettings.usCreatureSpreadTimeExpert				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_EXPERT", 390, 5, 14400);
+	gCreaturesSettings.usCreatureSpreadTimeInsane				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_INSANE", 150, 5, 14400);
+
+	gCreaturesSettings.ubQueenReproductionBaseNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_NOVICE", 6, 1, 30);
+	gCreaturesSettings.ubQueenReproductionBaseExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_EXPERIENCED", 7, 1, 30);
+	gCreaturesSettings.ubQueenReproductionBaseExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_EXPERT", 9, 1, 30);
+	gCreaturesSettings.ubQueenReproductionBaseInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_INSANE", 15, 1, 30);
+
+	gCreaturesSettings.ubQueenReproductionBonusNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_NOVICE", 1, 0, 10);
+	gCreaturesSettings.ubQueenReproductionBonusExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_EXPERIENCED", 2, 0, 10);
+	gCreaturesSettings.ubQueenReproductionBonusExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_EXPERT", 3, 0, 10);
+	gCreaturesSettings.ubQueenReproductionBonusInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_INSANE", 5, 0, 10);
+
+	gCreaturesSettings.ubQueenInitBonusSpreadsNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_NOVICE", 1, 0, 10);
+	gCreaturesSettings.ubQueenInitBonusSpreadsExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_EXPERIENCED", 2, 0, 10);
+	gCreaturesSettings.ubQueenInitBonusSpreadsExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_EXPERT", 3, 0, 10);
+	gCreaturesSettings.ubQueenInitBonusSpreadsInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_INSANE", 5, 0, 10);
+
+	gCreaturesSettings.bCreaturePopulationModifierNovice		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_NOVICE", 0, -5, 5);
+	gCreaturesSettings.bCreaturePopulationModifierExperienced	= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_EXPERIENCED", 0, -5, 5);
+	gCreaturesSettings.bCreaturePopulationModifierExpert		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_EXPERT", 0, -5, 5);
+	gCreaturesSettings.bCreaturePopulationModifierInsane		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_INSANE", 0, -5, 5);
+
+	gCreaturesSettings.bCreatureTownAggressivenessNovice		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_NOVICE", -10, -100, 100);
+	gCreaturesSettings.bCreatureTownAggressivenessExperienced	= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_EXPERIENCED", 0, -100, 100);
+	gCreaturesSettings.bCreatureTownAggressivenessExpert		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_EXPERT", 10, -100, 100);
+	gCreaturesSettings.bCreatureTownAggressivenessInsane		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_INSANE", 50, -100, 100);
+
 }
 
 void FreeGameExternalOptions()

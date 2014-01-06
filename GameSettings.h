@@ -696,6 +696,7 @@ typedef struct
 	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;
+	BOOLEAN fCrepitusAttackAllTowns;
 	BOOLEAN fEnableAllWeaponCaches;
 	BOOLEAN fEnableAllTerrorists;
 	BOOLEAN gfRevealItems;
@@ -1471,6 +1472,46 @@ typedef struct
 
 typedef struct
 {
+	//Crepitus Feeding Sector
+	UINT8 ubCrepitusFeedingSectorX;
+	UINT8 ubCrepitusFeedingSectorY;
+	UINT8 ubCrepitusFeedingSectorZ;
+	
+	UINT16 usCreatureSpreadTimeNovice;
+	UINT16 usCreatureSpreadTimeExperienced;
+	UINT16 usCreatureSpreadTimeExpert;
+	UINT16 usCreatureSpreadTimeInsane;
+
+	UINT8 ubQueenReproductionBaseNovice;
+	UINT8 ubQueenReproductionBaseExperienced;
+	UINT8 ubQueenReproductionBaseExpert;
+	UINT8 ubQueenReproductionBaseInsane;
+
+	UINT8 ubQueenReproductionBonusNovice;
+	UINT8 ubQueenReproductionBonusExperienced;
+	UINT8 ubQueenReproductionBonusExpert;
+	UINT8 ubQueenReproductionBonusInsane;
+
+	UINT8 ubQueenInitBonusSpreadsNovice;
+	UINT8 ubQueenInitBonusSpreadsExperienced;
+	UINT8 ubQueenInitBonusSpreadsExpert;
+	UINT8 ubQueenInitBonusSpreadsInsane;
+
+	INT8 bCreaturePopulationModifierNovice;
+	INT8 bCreaturePopulationModifierExperienced;
+	INT8 bCreaturePopulationModifierExpert;
+	INT8 bCreaturePopulationModifierInsane;
+
+	INT8 bCreatureTownAggressivenessNovice;
+	INT8 bCreatureTownAggressivenessExperienced;
+	INT8 bCreatureTownAggressivenessExpert;
+	INT8 bCreatureTownAggressivenessInsane;
+	
+	
+} CREATURES_SETTINGS;
+
+typedef struct
+{
 	UINT8 ubMaxNumberOfTraits;
 	UINT8 ubNumberOfMajorTraitsAllowed;
 	
@@ -2081,12 +2122,6 @@ typedef struct
 	
 	BOOLEAN CreatureMeanwhileCutscene;
 
-	//[Creatures]
-	//Crepitus Feeding Sector
-	UINT8 ubCrepitusFeedingSectorX;
-	UINT8 ubCrepitusFeedingSectorY;
-	UINT8 ubCrepitusFeedingSectorZ;
-
 }MOD_SETTINGS;
 
 // silversurfer: item property modifiers
@@ -2182,6 +2217,8 @@ extern MORALE_SETTINGS gMoraleSettings;
 
 extern REPUTATION_SETTINGS gReputationSettings;
 
+extern CREATURES_SETTINGS gCreaturesSettings;
+
 // HEADROCK HAM 4: CTH constants read from a separate INI file
 extern CTH_CONSTANTS gGameCTHConstants;
 
@@ -2202,6 +2239,7 @@ void LoadTauntsSettings();
 void LoadHelicopterRepairRefuelSettings();
 void LoadMoraleSettings();
 void LoadReputationSettings();
+void LoadCreaturesSettings();
 void FreeGameExternalOptions();
 
 void InitGameOptions();
