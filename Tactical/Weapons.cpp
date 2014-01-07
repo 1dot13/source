@@ -5401,8 +5401,8 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 
 		// apply bonus from traits
 		// Flugente: moved trait modifiers into a member function
-		UINT8 targetprofile = NOBODY;
-		if ( pTarget && pTarget->ubProfile != NOBODY )
+		UINT8 targetprofile = NO_PROFILE;
+		if ( pTarget && pTarget->ubProfile != NO_PROFILE )
 			targetprofile = pTarget->ubProfile;
 
 		fAimModifier += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
@@ -5587,8 +5587,8 @@ else
 	}
 
 	// Flugente: moved trait modifiers into a member function
-	UINT8 targetprofile = NOBODY;
-	if ( pTarget && pTarget->ubProfile != NOBODY )
+	UINT8 targetprofile = NO_PROFILE;
+	if ( pTarget && pTarget->ubProfile != NO_PROFILE )
 		targetprofile = pTarget->ubProfile;
 
 	iTraitModifier = pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
@@ -7168,8 +7168,8 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Modify for traits
 	// Flugente: moved trait modifiers into a member function
-	UINT8 targetprofile = NOBODY;
-	if ( pTarget && pTarget->ubProfile != NOBODY )
+	UINT8 targetprofile = NO_PROFILE;
+	if ( pTarget && pTarget->ubProfile != NO_PROFILE )
 		targetprofile = pTarget->ubProfile;
 
 	iChance += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
