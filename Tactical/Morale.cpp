@@ -1307,35 +1307,35 @@ void HandleSnitchCheck( void )
 			if( MercThinksDeathRateTooHigh( pSoldier->ubProfile ) )
 			{
 				// too high, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_DEATH_RATE,SnitchEvents,ubSnitchEventsCounter);
+				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_DEATH_RATE,SnitchEvents,ubSnitchEventsCounter);
 			}
 
 			// check his morale vs. his morale tolerance once/day (ignores buddies!)
 			if( MercThinksHisMoraleIsTooLow( pSoldier ) )
 			{
 				// too low, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_LOW_MORALE,SnitchEvents,ubSnitchEventsCounter);
+				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_LOW_MORALE,SnitchEvents,ubSnitchEventsCounter);
 			}
 
 			// check his opinion about player's reputation
 			if( MercThinksBadReputationTooHigh( pSoldier->ubProfile ) )
 			{
 				// too high, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_REPUTATION,SnitchEvents,ubSnitchEventsCounter);
+				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_REPUTATION,SnitchEvents,ubSnitchEventsCounter);
 			}
 
 			// check his opinion about player activity
 			if( MercThinksPlayerIsInactiveTooLong( pSoldier->ubProfile ) )
 			{
 				// player inactive, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_PROGRESS,SnitchEvents,ubSnitchEventsCounter);
+				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_PROGRESS,SnitchEvents,ubSnitchEventsCounter);
 			}
 
 			// check if player owes him money
 			if( MercIsOwedTooMuchMoney( pSoldier->ubProfile ) )
 			{
 				// player owes him money, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_OWED_MONEY,SnitchEvents,ubSnitchEventsCounter);
+				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_OWED_MONEY,SnitchEvents,ubSnitchEventsCounter);
 			}
 
 			// check if contract is running out, and will not renew
@@ -1347,7 +1347,7 @@ void HandleSnitchCheck( void )
 					// Only do this if they don't want to renew.....
 					if ( !WillMercRenew( pSoldier, FALSE ) && !(pSoldier->flags.fSignedAnotherContract) )
 					{
-						ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NOBODY,fSameGroupOnly,SNITCH_GONNA_QUIT,SnitchEvents,ubSnitchEventsCounter);
+						ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_GONNA_QUIT,SnitchEvents,ubSnitchEventsCounter);
 					}
 				}
 			}
