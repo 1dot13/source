@@ -123,6 +123,8 @@ extern UINT8 AtHeight[PROFILE_Z_SIZE];
 #define TILE_ON_ROOF						0x01
 #define TILE_PASSABLE						0x02
 
+#define AddPosRelToBase(sBaseGridNo, pTile) (pTile->sPosRelToBase ? (sBaseGridNo + pTile->bXPosRelToBase + pTile->bYPosRelToBase * WORLD_COLS) : sBaseGridNo)//dnl ch83 080114
+
 typedef struct TAG_STRUCTURE_TILE
 {
 	INT16			sPosRelToBase;	// "single-axis"

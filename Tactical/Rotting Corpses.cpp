@@ -659,9 +659,11 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 		for (ubLoop = 0; ubLoop < pDBStructureRef->pDBStructure->ubNumberOfTiles; ubLoop++)
 		{
 			ppTile = pDBStructureRef->ppTile;
-
+#if 0//dnl ch83 080114
 			sTileGridNo = pCorpseDef->sGridNo + ppTile[ ubLoop ]->sPosRelToBase;
-
+#else
+			sTileGridNo = AddPosRelToBase(pCorpseDef->sGridNo, ppTile[ubLoop]);
+#endif
 			//Remove blood
 			RemoveBlood( sTileGridNo, pCorpseDef->bLevel );
 		}

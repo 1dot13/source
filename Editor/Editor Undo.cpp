@@ -509,7 +509,11 @@ BOOLEAN AddToUndoListCmd( INT32 iMapIndex, INT32 iCmdCount )
 		{
 			// this loop won't execute for single-tile structures; for multi-tile structures, we have to
 			// add to the undo list all the other tiles covered by the structure
+#if 0//dnl ch83 080114
 			iCoveredMapIndex = pStructure->sBaseGridNo + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
+#else
+			iCoveredMapIndex = AddPosRelToBase(pStructure->sBaseGridNo, pStructure->pDBStructureRef->ppTile[ubLoop]);
+#endif
 			AddToUndoList( iCoveredMapIndex );
 		}
 		pStructure = pStructure->pNext;
@@ -537,11 +541,19 @@ void CheckMapIndexForMultiTileStructures( UINT32 usMapIndex )
 				// for multi-tile structures we have to add, to the undo list, all the other tiles covered by the structure
 				if (pStructure->fFlags & STRUCTURE_BASE_TILE)
 				{
+#if 0//dnl ch83 080114
 					iCoveredMapIndex = usMapIndex + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
+#else
+					iCoveredMapIndex = AddPosRelToBase(usMapIndex, pStructure->pDBStructureRef->ppTile[ubLoop]);
+#endif
 				}
 				else
 				{
+#if 0//dnl ch83 080114
 					iCoveredMapIndex = pStructure->sBaseGridNo + pStructure->pDBStructureRef->ppTile[ubLoop]->sPosRelToBase;
+#else
+					iCoveredMapIndex = AddPosRelToBase(pStructure->sBaseGridNo, pStructure->pDBStructureRef->ppTile[ubLoop]);
+#endif
 				}
 				AddToUndoList( iCoveredMapIndex );
 			}
