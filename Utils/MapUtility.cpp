@@ -195,7 +195,7 @@ UINT32 MapUtilScreenHandle(void)
 	InitNewOverheadDB((UINT8)giCurrentTilesetID);
 	gfOverheadMapDirty = TRUE;
 	//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code
-	RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + (640 * WORLD_COLS / OLD_WORLD_COLS), iOffsetVertical + (320 * WORLD_ROWS / OLD_WORLD_ROWS), TRUE);
+	RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + (640 * WORLD_COLS / OLD_WORLD_COLS), iOffsetVertical + (320 * WORLD_ROWS / OLD_WORLD_ROWS), guiBigMap);//dnl ch82 090114
 	TrashOverheadMap();
 	// OK, NOW PROCESS OVERHEAD MAP ( SHOULD BE ON THE FRAMEBUFFER )
 	//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code

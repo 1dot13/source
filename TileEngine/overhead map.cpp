@@ -99,11 +99,6 @@ INT32 giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
 INT32 giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
 
 extern BOOLEAN gfValidLocationsChanged;//dnl ch45 051009
-#ifdef JA2EDITOR
-extern UINT32 guiBigMap;//dnl ch77 121113
-#else
-#define guiBigMap FRAME_BUFFER
-#endif
 
 void HandleOverheadUI( );
 void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason);
@@ -445,11 +440,11 @@ void HandleOverheadMap( )
 
 	// Render the overhead map
 	//DBrot: use a bigger overhead map if we have the space
-	if(gfUseBiggerOverview){
-		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FALSE);//dnl ch45 011009
-	}else{
-	RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FALSE);//dnl ch45 011009
-	}
+	if(gfUseBiggerOverview)//dnl ch82 090114
+		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FRAME_BUFFER);
+	else
+		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
+
 	HandleTalkingAutoFaces( );
 
 	if( !gfEditMode )
@@ -865,7 +860,11 @@ INT16 GetModifiedOffsetLandHeight( INT32 sGridNo )
 	return( sModifiedTileHeight );
 }
 
-void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS, BOOLEAN fFromMapUtility )
+//dnl ch82 090114
+#define StartX_M_Offset 12
+#define EndXS_Offset 128
+#define EndYS_Offset 64
+void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS, UINT32 uiVSurface )
 {
 	INT8				bXOddFlag = 0;
 	INT16				sModifiedHeight = 0;
@@ -877,7 +876,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 	INT32			usTileIndex;
 	INT16				sX, sY;
 	//dnl ch77 111113 moved declarations from below
-	UINT32			uiDestPitchBYTES, uiSrcPitchBYTES, uiBigMap=(fFromMapUtility?guiBigMap:FRAME_BUFFER);
+	UINT32			uiDestPitchBYTES, uiSrcPitchBYTES, uiBigMap;
 	UINT8			*pDestBuf, *pSrcBuf, ubBitDepth;
 	UINT16			usWidth, usHeight;
 	LEVELNODE		*pNode;
@@ -886,11 +885,32 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 	HVOBJECT hVObject;
 	INT16				sX1, sX2, sY1, sY2;
 
-	// Get video object for persons...
-	if ( !fFromMapUtility )
+	//dnl ch82 090114 Create big map buffer if existing size is not adequate and also need to contain more of map edge to correctly render cliffs and structures which consist of more then one tile
+	static UINT32 suiBigMap = 0;
+	HVSURFACE hVSurface;
+	VSURFACE_DESC vs_desc;
+	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
+	vs_desc.usWidth = sEndXS + EndXS_Offset;
+	vs_desc.usHeight = sEndYS + EndYS_Offset + 50;//!!! without this additional lines editor will crash as renderer go beyond them
+	vs_desc.ubBitDepth = 16;
+	if(!GetVideoSurface(&hVSurface, suiBigMap))
 	{
-		GetVideoObject( &hVObject, uiPERSONS );
+		if(!AddVideoSurface(&vs_desc, (UINT32*)&suiBigMap))
+			AssertMsg(0, "OverheadMap video surface not created");
 	}
+	else if((UINT32)hVSurface->usWidth * (UINT32)hVSurface->usHeight < vs_desc.usWidth * vs_desc.usHeight)
+	{
+		DeleteVideoSurfaceFromIndex(suiBigMap);
+		if(!AddVideoSurface(&vs_desc, (UINT32*)&suiBigMap))
+			AssertMsg(0, "OverheadMap video surface not created");
+	}
+	uiBigMap = suiBigMap;
+	sStartPointX_M -= StartX_M_Offset;
+	sEndXS += EndXS_Offset;
+	sEndYS += EndYS_Offset;
+	// Get video object for persons...
+	if(uiVSurface == FRAME_BUFFER)
+		GetVideoObject(&hVObject, uiPERSONS);
 
 	if ( gfOverheadMapDirty )
 	{
@@ -905,8 +925,8 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		else
 			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-120, 0);
 #else
-		if(!fFromMapUtility)
-			ColorFillVideoSurfaceArea(uiBigMap, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-(gfTacticalPlacementGUIActive?160:120), 0);
+		if(uiVSurface == FRAME_BUFFER)//dnl ch82 090114
+			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-(gfTacticalPlacementGUIActive?160:120), 0);
 #endif
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
@@ -938,21 +958,18 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			if(bXOddFlag > 0)
 				sTempPosX_S += 4;
 
-
 			do
 			{
 				// / 5->/ 3
-
 				usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-				if ( usTileIndex < GRIDSIZE )
+				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
 				{
 					sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 
 					pNode = gpWorldLevelData[ usTileIndex ].pLandStart;
 					while( pNode != NULL )
 					{
-
 						pTile = &( gSmTileDB[ pNode->usIndex ] );
 
 						sX = sTempPosX_S;
@@ -964,6 +981,11 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 						//BltVideoObjectFromIndex(	FRAME_BUFFER, SGR1, gSmallTileDatabase[ gpWorldLevelData[ usTileIndex ].pLandHead->usIndex ], sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 						//BltVideoObjectFromIndex(	FRAME_BUFFER, SGR1, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
+						if(sHeight != gsRenderHeight)//dnl ch82 061213 incorrect but better then nothing approximation to fill black area in height ground maps
+						{
+							sY = sTempPosY_S;
+							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex);
+						}
 						pNode = pNode->pPrevNode;
 					}
 
@@ -1022,13 +1044,11 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			if(bXOddFlag > 0)
 				sTempPosX_S += 4;
 
-
 			do
 			{
-
 				usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-				if ( usTileIndex < GRIDSIZE )
+				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
 				{
 					sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 					sModifiedHeight = ( GetModifiedOffsetLandHeight( usTileIndex ) / 5 );
@@ -1036,7 +1056,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					pNode = gpWorldLevelData[ usTileIndex ].pObjectHead;
 					while( pNode != NULL )
 					{
-
 						if ( pNode->usIndex < giNumberOfTiles )
 						{
 							// Don't render itempools!
@@ -1064,19 +1083,23 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 							}
 						}
-
 						pNode = pNode->pNext;
 					}
-
 
 					pNode = gpWorldLevelData[ usTileIndex ].pShadowHead;
 					while( pNode != NULL )
 					{
-						if ( pNode->usIndex < giNumberOfTiles )
+						if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
 						{
 							pTile = &( gSmTileDB[ pNode->usIndex ] );
 							sX = sTempPosX_S;
 							sY = sTempPosY_S - sHeight;
+							//dnl ch82 081213
+							sY = sTempPosY_S;
+							if(gTileDatabase[pNode->usIndex].uiFlags & IGNORE_WORLD_HEIGHT)
+								sY -= sModifiedHeight;
+							else
+								sY -= sHeight;
 
 							sY += ( gsRenderHeight / 5 );
 
@@ -1085,15 +1108,13 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 							// RENDER!
 							Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 						}
-
 						pNode = pNode->pNext;
 					}
 
 					pNode = gpWorldLevelData[ usTileIndex ].pStructHead;
-
 					while( pNode != NULL )
 					{
-						if ( pNode->usIndex < giNumberOfTiles )
+						if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
 						{
 							// Don't render itempools!
 							if ( !( pNode->uiFlags & LEVELNODE_ITEM ) )
@@ -1120,7 +1141,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 							}
 						}
-
 						pNode = pNode->pNext;
 					}
 				}
@@ -1145,7 +1165,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 				sAnchorPosX_M ++;
 			}
 
-
 			bXOddFlag = !bXOddFlag;
 			sAnchorPosY_S += 2;
 
@@ -1153,7 +1172,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			{
 				fEndRenderCol = TRUE;
 			}
-
 		}
 		while( !fEndRenderCol );
 
@@ -1186,7 +1204,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 				{
 					usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-					if ( usTileIndex < GRIDSIZE )
+					if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
 					{
 						sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 
@@ -1236,7 +1254,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					sAnchorPosX_M ++;
 				}
 
-
 				bXOddFlag = !bXOddFlag;
 				sAnchorPosY_S += 2;
 
@@ -1250,39 +1267,39 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		}
 		//dnl ch77 211113
 		UnLockVideoSurface(uiBigMap);
-		// OK, blacken out edges of smaller maps...
-		if ( gMapInformation.ubRestrictedScrollID != 0 )
+		//dnl ch82 090114
+		pSrcBuf = LockVideoSurface(uiBigMap, &uiSrcPitchBYTES);
+		pDestBuf = LockVideoSurface(uiVSurface, &uiDestPitchBYTES);
+		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, sStartPointX_S, sStartPointY_S, sStartPointX_S+StartX_M_Offset*4, sStartPointY_S+StartX_M_Offset*2, sEndXS-sStartPointX_S-EndXS_Offset, sEndYS-sStartPointY_S-EndYS_Offset);
+		UnLockVideoSurface(uiBigMap);
+		UnLockVideoSurface(uiVSurface);
+		if(gMapInformation.ubRestrictedScrollID != 0)// OK, blacken out edges of smaller maps...
 		{
-			CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-			CalculateRestrictedMapCoords( EAST, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-			CalculateRestrictedMapCoords( SOUTH, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-			CalculateRestrictedMapCoords( WEST, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
-			ColorFillVideoSurfaceArea( uiBigMap, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			CalculateRestrictedMapCoords(NORTH, &sX1, &sY1, &sX2, &sY2, sEndXS-EndXS_Offset, sEndYS-EndYS_Offset);
+			ColorFillVideoSurfaceArea(uiVSurface, sX1, sY1, sX2, sY2, 0);
+			CalculateRestrictedMapCoords(EAST, &sX1, &sY1, &sX2, &sY2, sEndXS-EndXS_Offset, sEndYS-EndYS_Offset);
+			ColorFillVideoSurfaceArea(uiVSurface, sX1, sY1, sX2, sY2, 0);
+			CalculateRestrictedMapCoords(SOUTH, &sX1, &sY1, &sX2, &sY2, sEndXS-EndXS_Offset, sEndYS-EndYS_Offset);
+			ColorFillVideoSurfaceArea(uiVSurface, sX1, sY1, sX2, sY2, 0);
+			CalculateRestrictedMapCoords(WEST, &sX1, &sY1, &sX2, &sY2, sEndXS-EndXS_Offset, sEndYS-EndYS_Offset);
+			ColorFillVideoSurfaceArea(uiVSurface, sX1, sY1, sX2, sY2, 0);
 		}
 		//DBrot: bigger overview code
-		if(!fFromMapUtility){//LJDOldSM
-			if(gfUseBiggerOverview && iResolution >= _1680x1050){
-				BltVideoObjectFromIndex(uiBigMap, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
-			}else{	
-			BltVideoObjectFromIndex(uiBigMap, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
-			}
+		if(uiVSurface == FRAME_BUFFER)
+		{// Render border!
+			if(gfUseBiggerOverview && iResolution >= _1680x1050)
+				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);
+			else
+				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
 		}
 		else
 			return;
 		// Update saved buffer - do for the viewport size ony!
-		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
+		GetCurrentVideoSettings(&usWidth, &usHeight, &ubBitDepth);
 		pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);
 		pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
-		
 		if(gbPixelDepth == 16)// BLIT HERE
-			Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight );
-		
+			Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight);
 		UnLockVideoSurface(guiRENDERBUFFER);
 		UnLockVideoSurface(guiSAVEBUFFER);
 	}
