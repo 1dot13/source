@@ -417,7 +417,7 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 	}//hayden
 
 	ubType = gbMoraleEvent[bMoraleEvent].ubType;
-	bMoraleMod = gReputationSettings.bValues[bMoraleEvent];//gbMoraleEvent[bMoraleEvent].bChange;
+	bMoraleMod = gMoraleSettings.bValues[bMoraleEvent];//gbMoraleEvent[bMoraleEvent].bChange;
 
 	pProfile = &(gMercProfiles[ pSoldier->ubProfile ]);
 

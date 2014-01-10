@@ -1074,7 +1074,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 								|| ( gubQuest[QUEST_FOOD_ROUTE] == QUESTDONE && gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 4 ) ) && IsTownUnderCompleteControlByPlayer( OMERTA ) );
 			// silversurfer: this is the highest requirement and therefore we will automatically enable recruitment of Miguel
 			if ( gubFact[usFact] )
-				SetFactTrue(40); // Miguel will now be willing to join and so will the other RPC
+				SetFactTrue(FACT_MIGUEL_AND_ALL_REBELS_CAN_BE_RECRUITED); // Miguel will now be willing to join and so will the other RPC
 #endif
 			break;
 
@@ -1304,9 +1304,10 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = !BoxerExists();
 			break;
 
-		case 245: // Can dimitri be recruited? should be true if already true, OR if Miguel has been recruited already OR is available for recruitment
-			gubFact[usFact] = ( gubFact[usFact] || FindSoldierByProfileID( MIGUEL, TRUE ) || gubFact[40] );
-/*
+		case FACT_DIMITRI_CAN_BE_RECRUITED: // Can dimitri be recruited? should be true if already true, OR if Miguel has been recruited already OR is available for recruitment
+			gubFact[usFact] = ( gubFact[usFact] || FindSoldierByProfileID( MIGUEL, TRUE ) || gubFact[FACT_MIGUEL_AND_ALL_REBELS_CAN_BE_RECRUITED] );
+			break;
+/*			
 		case FACT_:
 			gubFact[usFact] = ;
 			break;
