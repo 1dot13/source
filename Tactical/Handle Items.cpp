@@ -2546,10 +2546,7 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 				}
 
 //				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
-				// sevenfm: added extended messagebox (inspect, remove blueflag, blow up). only for realtime
-				if( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) )
-				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
-				else
+				// sevenfm: extended disarm messagebox (inspect, remove blueflag, blow up). works in realtime and turnbased
 				ExtendedDisarmMessageBox();
 			}
 			else

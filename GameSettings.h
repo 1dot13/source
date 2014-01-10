@@ -1201,14 +1201,19 @@ typedef struct
 	//Enemy Rank Legion 2 by Jazz
 	BOOLEAN fEnemyRank;
 
+	// sevenfm: show enemy rank as icon
+	UINT8 ubShowEnemyRankIcon;
+
 	// Flugente: soldier profiles
 	BOOLEAN	fSoldierProfiles_Enemy;
 	BOOLEAN	fSoldierProfiles_Militia;
 	
 	BOOLEAN fShowCamouflageFaces;
 
-	BOOLEAN fHideEnemyHealthText;
+	//BOOLEAN fHideEnemyHealthText;
 	UINT8 ubShowHealthBarsOnHead;
+	UINT8 ubShowCoverIndicator;
+	UINT8 ubShowEnemyHealth;
 
 	UINT8 ubEnemyHitCount;
 	UINT8 ubPlayerHitCount;

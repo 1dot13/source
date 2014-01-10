@@ -1046,10 +1046,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fShowCamouflageFaces				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_CAMOUFLAGE_FACES", FALSE);
 
 	// WANNE: Hide the health text when hovering over a enemy
-	gGameExternalOptions.fHideEnemyHealthText				= iniReader.ReadBoolean("Tactical Interface Settings","HIDE_ENEMY_HEALTH_TEXT", FALSE);
+	//gGameExternalOptions.fHideEnemyHealthText				= iniReader.ReadBoolean("Tactical Interface Settings","HIDE_ENEMY_HEALTH_TEXT", FALSE);
 
 	// Flugente: show health an fatigue bars over currently selected mercs and those we hover our mouse over
 	gGameExternalOptions.ubShowHealthBarsOnHead				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", 1, 0, 5);
+
+	// sevenfm: show health over enemy
+	gGameExternalOptions.ubShowEnemyHealth					= iniReader.ReadInteger("Tactical Interface Settings","SHOW_ENEMY_HEALTH", 1, 0, 6);
+
+	// sevenfm: show cover indicator
+	gGameExternalOptions.ubShowCoverIndicator				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_COVER_INDICATOR", 0, 0, 4);
 		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
@@ -1346,6 +1352,9 @@ void LoadGameExternalOptions()
 
 	//Enemy Rank by Jazz
 	gGameExternalOptions.fEnemyRank							= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_ENEMY_RANK",FALSE);
+	
+	// sevenfm: show enemy rank as icon
+	gGameExternalOptions.ubShowEnemyRankIcon				= iniReader.ReadInteger("Tactical Gameplay Settings","SHOW_ENEMY_RANK_ICON", 0, 0, 2);
 
 	// Flugente: soldier profiles
 
