@@ -67,6 +67,7 @@
 <!-- minor Skill (18)	Teaching					-->
 <!-- minor Skill (19)	Scouting					-->
 <!-- minor Skill (21)	Radio Operator		-->
+<!-- minor Skill (22)	Snitch		-->
 
 <!-- STOMP Character Traits -->
 
@@ -2417,6 +2418,7 @@
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait4>22</bNewSkillTrait4>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17328,7 +17330,7 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>21</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
@@ -17992,7 +17994,7 @@
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>18</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>184</bBuddy1>
 		<bBuddy2>255</bBuddy2>
@@ -18087,7 +18089,7 @@
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>18</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait2>22</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>40</bBuddy1>
 		<bBuddy2>255</bBuddy2>
@@ -21291,6 +21293,7 @@
 		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait4>22</bNewSkillTrait4>
 		<bBuddy1>226</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21386,6 +21389,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait4>22</bNewSkillTrait4>
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21573,7 +21577,7 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>22</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21763,7 +21767,7 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>15</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>22</bNewSkillTrait3>
 		<bBuddy1>182</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -22996,7 +23000,7 @@
 		<bOldSkillTrait2>4</bOldSkillTrait2>
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>22</bNewSkillTrait3>
 		<bBuddy1>236</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -23848,7 +23852,7 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>19</bNewSkillTrait1>
 		<bNewSkillTrait2>21</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>22</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
