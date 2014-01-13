@@ -430,15 +430,15 @@ Incident_Stats::GetAttackerDirString( BOOLEAN fAttacker )
 	switch ( dirs )
 	{
 	case 4:
-		swprintf(helperstr, L"%s, %s, %s and %s", dir1, dir2, dir3, dir4 );
+		swprintf(helperstr, L"%s, %s, %s %s %s", dir1, dir2, dir3, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AND], dir4 );
 		break;
 
 	case 3:
-		swprintf(helperstr, L"%s, %s and %s", dir1, dir2, dir3 );
+		swprintf(helperstr, L"%s, %s %s %s", dir1, dir2, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AND], dir3 );
 		break;
 
 	case 2:
-		swprintf(helperstr, L"%s and %s", dir1, dir2 );
+		swprintf(helperstr, L"%s %s %s", dir1, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AND], dir2 );
 		break;
 
 	case 1:

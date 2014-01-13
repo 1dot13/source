@@ -8209,6 +8209,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"east",
 	L"south",
 	L"west",
+	L"and",
 
 	L"Buildings in the sector were damaged. %d civilians were killed and %d wounded.",
 	L"During the attack, %s and %s called reinforcements.",
@@ -8218,7 +8219,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"In a serious escalation of the conflict, both sides deployed tanks.",
 	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
 	L"Both sides are said to have used snipers.",
-	L"Unverified reports indicate %s snipers were involved in the firefight."
+	L"Unverified reports indicate %s snipers were involved in the firefight.",
 };
 
 STR16	szCampaignHistoryTimeString[]=

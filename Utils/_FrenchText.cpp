@@ -8198,6 +8198,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"east",
 	L"south",
 	L"west",
+	L"and",
 
 	L"Buildings in the sector were damaged. %d civilians were killed and %d wounded.",
 	L"During the attack, %s and %s called reinforcements.",

@@ -746,7 +746,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent )
 {
-	INT8									bMercID, bOtherID;
+	INT8									bMercID;
 	INT8									bLastTeamID;
 	SOLDIERTYPE *					pSoldier;
 
