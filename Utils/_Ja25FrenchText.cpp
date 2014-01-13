@@ -41,7 +41,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Arts martiaux",
 
 	L"aucune",
-	L"Spécialtés IMP",
+	L"IMP : Spécialtés",
 	L"(Expert)",
 
 };
@@ -61,7 +61,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Déguisement",
 
 	L"Personne",
-	L"Traits pincipaux IMP",
+	L"IMP : Traits pincipaux",
 	// second names
 	L"Mitrailleur",
 	L"Bombardier",
@@ -88,10 +88,10 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Sabotage",
 	L"Instructeur",
 	L"Reconnaissance",
-	L"Radio Operator",	// TODO.Translate
+	L"Opérateur radio",
 
 	L"Personne",
-	L"Traits mineurs IMP",
+	L"IMP : Traits mineurs",
 };
 
 //these texts are for help popup windows, describing trait properties
@@ -136,10 +136,10 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L" après le septième",
 	L"-%d%s du nombre de PA nécessaire pour recharger avec un fusil à action manuelle\n",
 	L"Ajoute un niveau de visée en plus pour chaque fusil\n",
-	L"Ajoute %d niveaux de visée pour chaque fusil\n",
-	// TO DO - translate
+	L"Ajoute %d niveau(x) de visée pour chaque fusil\n",
+
 	L"Fait viser plus rapidement avec un : réduit d'un niveau de visée\n",
-	L"Fait viser plus rapidement avec un fusil : réduit de %d niveaux de visée\n",
+	L"Fait viser plus rapidement avec un fusil : réduit de %d niveau(x) de visée\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -147,9 +147,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s de chance de toucher avec un fusil\n",
 	L"+%d%s de chance de toucher avec un fusil à pompe\n",
 	L"-%d%s du nombre de PA nécessaire pour recharger le fusil à pompe\n",
-	L"-%d%s APs to fire Shotguns\n",	// TODO.Translate
-	L"Adds %d more aim click for Shotguns\n",	// TODO.Translate
-	L"Adds %d more aim clicks for Shotguns\n",	// TODO.Translate
+	L"-%d%s PA pour tirer avec les fusils à pompe\n",
+	L"Ajoute un niveau de visée pour les fusils à pompe\n",
+	L"Ajoute %d niveaux de visée pour les fusils à pompe\n",
 	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont à pied\n",
 	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont dans un véhicule (sauf l'hélicoptère)\n",
 	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",
@@ -166,10 +166,10 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"+%d%s de chance de toucher avec un pistolet automatique",
 	L" (en tir manuel seulement)",
 	L"+%d%s de bonus par niveau de visée avec un pistolet, pistolet automatique ou un revolver\n",
-	L"-%d%s du nombre de PA nécessaire pour augmenter un pistolet, pistolet automatique ou un revolver\n",
+	L"-%d%s du nombre de PA nécessaire pour dégainer un pistolet, pistolet automatique ou un revolver\n",
 	L"-%d%s du nombre de PA nécessaire pour recharger un pistolet, pistolet automatique ou un revolver\n",
-	L"Ajoute un niveau de visée en plus pour les pistolets, les pistolets automatiques ou les revolvers\n",
-	L"Ajoute %d niveaux de visée pour chaque pistolet, pistolet automatique ou un revolver\n",
+	L"Ajoute un niveau de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
+	L"Ajoute %d niveaux de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
@@ -208,7 +208,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"+%d%s de PA par tour pour les mercenaires aux alentours\n",
 	L"+%d d'expérience effective pour les mercenaires aux alentours possédant un niveau plus bas que : %s\n",
-	L"+%d effective exp level to count as a standby when counting friends' bonus for suppression\n", // TODO.Translate
+	L"+%d d'expérience effective pour le calcul de l'aide apportée à un coéquipier avec un tir de couverture\n",
 	L"+%d%s de tolérance aux tirs de couverture pour les mercenaires aux alentours et %s pour soi\n",
 	L"+%d de gain de moral pour les mercenaires aux alentours\n",
 	L"-%d de perte de moral pour les mercenaires aux alentours\n",
@@ -258,14 +258,14 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"Le nombre de PA pour se déguiser, est réduit de %d%s\n",
 };
 
-STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]= 
 {
-	L"Can use communications equipment\n", 
-	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
-	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
-	L"Communications can be jammed sector-wide.\n",
-	L"If communications are jammed, a operator can scan for the jamming device.\n",
-	L"Can call in militia reinforcements from neighbouring sectors.\n",
+	L"Peut utiliser du matériel de communication\n", 
+	L"Peut demander des tirs d'artillerie alliés des secteurs voisins.\n",
+	L"Via l'assignation 'Balayer les fréquences', les patrouilles ennemies seront localisées.\n",
+	L"Les communications peuvent être brouillées à l'échelle d'un secteur.\n",
+	L"Si les communications sont brouillées, l'opérateur peut rechercher la source du brouillage.\n",
+	L"Peut appeler la milice des secteurs voisins en renfort.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
@@ -286,14 +286,14 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
-	L"-%d%s du nombre de PA nécessaire pour attaquer avec un couteau\n",
-	L"+%d%s de chance de toucher avec un couteau\n",
+	L"-%d%s du nombre de PA nécessaire pour attaquer avec une arme blanche\n",
+	L"+%d%s de chance de toucher avec une arme blanche\n",
 	L"+%d%s de chance de toucher avec une arme de mêlée\n",
-	L"+%d%s de dégâts par un couteau\n",
+	L"+%d%s de dégâts par une arme blanche\n",
 	L"+%d%s de dégâts par une arme de mêlée\n",
 	L"L'attaque visée par n'importe quelle arme de mêlée cause +%d%s de dégâts\n",
-	L"+%d%s de chance d'esquiver des attaques avec un couteau\n",
-	L"+%d%s de chance d'esquiver une attaque avec un couteau, si vous avez un couteau à la main\n",
+	L"+%d%s de chance d'esquiver des attaques avec une arme blanche\n",
+	L"+%d%s de chance d'esquiver une attaque avec une arme blanche, si vous avez une arme blanche à la main\n",
 	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée\n",
 	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée, si vous avez une arme de mêlée à la main\n",
 
@@ -308,8 +308,8 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d%s de dégâts avec votre lancer de couteau par niveau de visée\n",
 	L"+%d%s de chance d'infliger des dégâts critiques en lançant un couteau, si vous n'êtes pas vue ou entendu\n",
 	L"+%d de dégâts critiques, si vous lancez plusieurs couteaux\n",
-	L"Ajoute %d niveaux de visée pour lancer un couteau\n",
-	L"Ajoute %d niveaux de visée pour lancer un couteau\n",
+	L"Ajoute %d niveau(x) de visée pour lancer un couteau\n",
+	L"Ajoute %d niveau(x) de visée pour lancer un couteau\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -326,7 +326,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"-%d%s du nombre de PA nécessaire pour bouger silencieusement\n",
 	L"+%d%s de chance de bouger silencieusement\n",
 	L"+%d%s en discrétion (étant invisible, si inaperçu)\n",
-	L"Réduit la pénalité due au déplacement silencieux de %d%s\n",
+	L"Réduit la pénalité due au déplacement discrétion de %d%s\n",
 	L"-%d%s de chances d'être interrompu\n",
 
 };
@@ -408,9 +408,9 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"+%d%s en ruse (étant invisible, si inaperçu)\n",
 	L"Élimine la pénalité lorsque vous tirez avec une arme dans chaque main à la suite\n",	// 20
 	L"+%d%s de chance de toucher avec une arme de mêlée\n",
-	L"+%d%s de chance d'esquiver une attaque de mêlée, si vous avez un couteau dans la main\n",
+	L"+%d%s de chance d'esquiver une attaque de mêlée, si vous avez une arme blanche dans la main\n",
 	L"+%d%s de chance d'esquiver une attaque de mêlée, si vous avez quelque chose d'autre dans la main\n",
-	L"+%d%s de chance d'esquiver une attaque au corps à corps, si vous avez un couteau dans la main\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps, si vous avez une arme blanche dans la main\n",
 	L"-%d%s de distance effective nécessaire pour viser votre cible avec n'importe quelle arme\n",
 	L"+%d%s de bonus par niveau de visée\n",
 	L"Fournit un camouflage permanent\n",
@@ -431,11 +431,11 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"+ : A de meilleures performances quand il est tout seul.\n- : Ne gagne aucun moral quand il est en groupe.",
 	L"+ : Son moral diminue plus doucement et remonte plus rapidement que la normale.\n- : A moins de chance de détecter les mines et les pièges.",
 	L"+ : Obtiens un bonus lorsqu'il entraîne la milice et à une meilleure communication.\n- : Ne gagne aucun moral pour les actions des autres mercenaires.",
-	L"+ : Apprend plus rapidement en étant le professeur ou l'élève.\n- : A moins de résistance à la peur et la folie.",
+	L"+ : Apprend plus rapidement en étant le professeur ou l'élève.\n- : A moins de résistance à la peur lors d'un tir de couverture.",
 	L"+ : Son énergie descend un peu plus lentement sauf lorsqu'il est docteur, qu'il répare, qu'il entraîne ou qu'il apprend.\n- : Ses compétences en sagesse, commandement, explosifs, mécanique et médecine s'améliorent légèrement plus lentement.",
 	L"+ : A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps à corps.\n    Obtiens un peu plus de morale lors d'un décès.\n- : A une pénalité lorsqu'il faut de la patience comme réparer des objets, déverrouiller une serrure, enlever des pièges, entraîner la milice.",
 	L"+ : A un bonus lorsqu'il faut de la patience comme réparer des objets, déverrouiller une serrure, enlever des pièges, entraîner la milice.\n- : Sa chance d'interrompre une action ennemie est légèrement diminuée.",
-	L"+ : Augmente la résistance à la folie et la peur.\n    La perte de moral due aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement vulnérable et l'ennemi a sa pénalité due à votre mouvement, réduite.",
+	L"+ : Augmente la résistance à la peur lors d'un tir de couverture.\n    La perte de moral due aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement vulnérable et l'ennemi a sa pénalité due à votre mouvement, réduite.",
 	L"+ : Gagne du moral lorsque vous faites une mission qui n'est pas liée au combat (excepté l'entraînement de milice).\n- : Pas de gains lorsque vous tuez quelqu'un.",
 	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemi, qui peut aussi infliger de lourds dégâts.\n    Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemi.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
 	L"+ : A de meilleures performances lorsqu'un certain type d'ennemi est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemi gagne moins de moral.",
@@ -452,8 +452,8 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"La vue de gros insectes, peut lui poser de gros problèmes\net être dans une zone tropicale lui réduit aussi\nlégèrement ses performances globales.",
 	L"Peut parfois perdre les ordres donnés et ainsi perdre des PA lors d'un combat.",
 	L"Il peut devenir psychopathe et tirer comme un fou de temps en temps\net peut perdre du moral, s'il n'est pas capable d'utiliser son arme.",
-	L"Drastically reduced hearing.",		// TODO.Translate
-	L"Reduced sight range.",				// TODO.Translate
+	L"Audition considérablement réduite.",
+	L"Distance de vision réduit.",
 };
 
 
@@ -477,7 +477,7 @@ STR16	gzIronManModeWarningText[]=
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Contraste: %d/100 %s, Luminosité: %d/100",
+	L"Contraste : %d/100 %s, Luminosité : %d/100",
 	L"Distance de tir : %d/%d cases, chance de toucher : %d/100",
 	L"Distance de tir : %d/%d cases, stabilité du canon : %d/100",
 	L"Désactivation de la couverture de l'affichage",
