@@ -16385,6 +16385,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		if (gGameOptions.fInventoryCostsAP)
 		{
 			UINT8 APCost = 0;
+			UINT8 APTotalCost = 0;
 			if (gGameExternalOptions.uWeightDivisor != 0)
 			{
 				// we need to determine moving costs according to slots
@@ -16427,28 +16428,30 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 				
 				if (this->inv[retrieveslot].exists())
 				{
-					APCost += ( uiAPCostFromSlot[ fromretrieve ] + uiAPCostToSlot [ tohand ] );
+					APCost = ( uiAPCostFromSlot[ fromretrieve ] + uiAPCostToSlot [ tohand ] );
 					INT16 weight = (int)((Item[this->inv[retrieveslot].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
 					APCost += DynamicAdjustAPConstants(weight, weight);
+					APTotalCost += __min(APCost, APBPConstants[AP_INV_MAX_COST]);
 				}
 				if (this->inv[HANDPOS].exists())
 				{
-					APCost += ( uiAPCostFromSlot [ fromhand ] + uiAPCostToSlot [ tostorage ] );
+					APCost = ( uiAPCostFromSlot [ fromhand ] + uiAPCostToSlot [ tostorage ] );
 					INT16 weight = (int)((Item[this->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
 					APCost += DynamicAdjustAPConstants(weight, weight);
+					APTotalCost += __min(APCost, APBPConstants[AP_INV_MAX_COST]);
 				}
 			}
-			APCost = __min(APCost, APBPConstants[AP_INV_MAX_COST]);
-			if (this->bActionPoints >= APCost)
+
+			if (this->bActionPoints >= APTotalCost)
 			{
 				// SANDRO - I dared to change this to use the apropriate function, as that function is actually important for IIS
-				//pSoldier->bActionPoints -= APCost;
-				DeductPoints( this, APCost, 0 );
+				//pSoldier->bActionPoints -= APTotalCost;
+				DeductPoints( this, APTotalCost, 0 );
 
 				SwapObjs(&this->inv[HANDPOS], &this->inv[retrieveslot]);
 
-				// if we store our han item in a different position than the item we retrieve originally was, swap again
-				if ( handobjstorageslot != retrieveslot )
+				// if we store our hand item in a different position than the item we retrieve originally was, swap again
+				if ( handobjstorageslot != retrieveslot && handobjstorageslot != HANDPOS )
 					SwapObjs(&this->inv[retrieveslot], &this->inv[handobjstorageslot]);
 
 				HandleTacticalEffectsOfEquipmentChange(this, HANDPOS, this->inv[retrieveslot].usItem, this->inv[HANDPOS].usItem);
@@ -16456,7 +16459,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 			else
 			{
 				CHAR16	zOutputString[512];
-				swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APCost, this->bActionPoints);
+				swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APTotalCost, this->bActionPoints);
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 			}
 		}
@@ -16464,8 +16467,8 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		{
 			SwapObjs(&this->inv[HANDPOS], &this->inv[retrieveslot]);
 
-			// if we store our han item in a different position than the item we retrieve originally was, swap again
-			if ( handobjstorageslot != retrieveslot )
+			// if we store our hand item in a different position than the item we retrieve originally was, swap again
+			if ( handobjstorageslot != retrieveslot && handobjstorageslot != HANDPOS )
 				SwapObjs(&this->inv[retrieveslot], &this->inv[handobjstorageslot]);
 
 			HandleTacticalEffectsOfEquipmentChange(this, HANDPOS, this->inv[retrieveslot].usItem, this->inv[HANDPOS].usItem);

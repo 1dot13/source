@@ -72,8 +72,8 @@ INT32 giIMPBackgroundAnswerButton[ IMP_BACKGROUND_DISPLAYED_CHOICES ];
 INT32 giIMPBackgroundAnswerButtonImage[ IMP_BACKGROUND_DISPLAYED_CHOICES ];
 
 // this is the Done	buttons
-INT32 giIMPBackgroundFinsihButton;
-INT32 giIMPBackgroundFinsihButtonImage;
+INT32 giIMPBackgroundFinishButton;
+INT32 giIMPBackgroundFinishButtonImage;
 
 INT8	gbLastSelectedBackground[ 10 ];
 
@@ -135,15 +135,15 @@ void EnterIMPBackground( void )
 		return;
 	}
 	
-	giIMPBackgroundFinsihButtonImage =	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
-	giIMPBackgroundFinsihButton = CreateIconAndTextButton( giIMPBackgroundFinsihButtonImage, pImpButtonText[ 24 ], FONT12ARIAL,
+	giIMPBackgroundFinishButtonImage =	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
+	giIMPBackgroundFinishButton = CreateIconAndTextButton( giIMPBackgroundFinishButtonImage, pImpButtonText[ 24 ], FONT12ARIAL,
 																FONT_WHITE, DEFAULT_SHADOW,
 																FONT_WHITE, DEFAULT_SHADOW,
 																TEXT_CJUSTIFIED,
 																LAPTOP_SCREEN_UL_X +	( 350 ), LAPTOP_SCREEN_WEB_UL_Y + ( 340 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 																BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPBackgroundFinishCallback );
 	
-	SetButtonCursor( giIMPBackgroundFinsihButton, CURSOR_WWW);
+	SetButtonCursor( giIMPBackgroundFinishButton, CURSOR_WWW);
 
 	//if we are not DONE and are just reviewing
 	if( iCurrentProfileMode != IMP__FINISH )
@@ -205,8 +205,8 @@ void ExitIMPBackground( void )
 		MSYS_RemoveRegion( &gMR_BackgroundHelpTextRegions[iCnt] );
 	}
 
-	RemoveButton( giIMPBackgroundFinsihButton );
-	UnloadButtonImage( giIMPBackgroundFinsihButtonImage );
+	RemoveButton( giIMPBackgroundFinishButton );
+	UnloadButtonImage( giIMPBackgroundFinishButtonImage );
 }
 
 
@@ -542,8 +542,8 @@ void UpdateDisplaySkills( BOOLEAN fIncrease )
 	// select previous items
 	else
 	{
-		// the last item of our new selection
-		firstitem = max(0, gBackgroundFirstItem - IMP_BACKGROUND_DISPLAYED_CHOICES);
+		// the first item of our new selection
+		firstitem = max(0, gBackgroundFirstItem - IMP_BACKGROUND_DISPLAYED_CHOICES + 1);
 		lastitem  = min(found , firstitem + IMP_BACKGROUND_DISPLAYED_CHOICES - 1);
 	}
 
@@ -746,9 +746,11 @@ void BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason)
 			for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 			{
 				gfBackgroundQuestions[ uiCnt ] = FALSE;
+				ButtonList[ giIMPBackgroundAnswerButton[ uiCnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 			}
 			//Have the NONE trait initially selected
 			gfBackgroundQuestions[ IMP_BACKGROUND_NONE ] = TRUE;
+			ButtonList[ giIMPBackgroundAnswerButton[ IMP_BACKGROUND_NONE ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 			//reset choice
 			usBackground = 0;
@@ -781,9 +783,11 @@ void BtnIMPBackgroundPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 			for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 			{
 				gfBackgroundQuestions[ uiCnt ] = FALSE;
+				ButtonList[ giIMPBackgroundAnswerButton[ uiCnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 			}
 			//Have the NONE trait initially selected
 			gfBackgroundQuestions[ IMP_BACKGROUND_NONE ] = TRUE;
+			ButtonList[ giIMPBackgroundAnswerButton[ IMP_BACKGROUND_NONE ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 			//reset choice
 			usBackground = 0;

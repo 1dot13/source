@@ -652,9 +652,9 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true)
 		{
 			// colour depends on flag
-			UINT16 usMilitia_EQColor = Get16BPPColor( FROMRGB( 31, 123, 129 ) );
+			UINT16 usMilitia_EQColor = Get16BPPColor( FROMRGB( 0, 150, 215 ) );
 			if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
-				usMilitia_EQColor = Get16BPPColor( FROMRGB( 57, 4, 155 ) );
+				usMilitia_EQColor = Get16BPPColor( FROMRGB( 0, 110, 245 ) );
 			if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE )
 				usMilitia_EQColor = Get16BPPColor( FROMRGB( 156, 37, 3 ) );
 
