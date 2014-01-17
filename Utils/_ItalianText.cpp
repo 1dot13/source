@@ -5079,7 +5079,8 @@ STR16			AimAlumniText[] =
 
 	L"Membri dell'A.I.M.",	// Title of the page
 
-	L"FINE"			// Stops displaying information on selected merc
+	L"FINE",			// Stops displaying information on selected merc
+	L"Next page",	// TODO.Translate
 };
 
 

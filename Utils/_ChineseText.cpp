@@ -5092,6 +5092,7 @@ STR16			AimAlumniText[] =
 	L"A.I.M 前成员",
 
 	L"完成",
+	L"Next page",	// TODO.Translate
 };
 
 

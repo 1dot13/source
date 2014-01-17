@@ -240,7 +240,7 @@ BOOLEAN EnterAimArchives()
 
 	usPosX = AIM_ALUMNI_PAGE1_X;
 	
-		guiAlumniPageButton[0] = CreateIconAndTextButton( guiAlumniPageButtonImage, L"Next page"/*AimAlumniText[0]*/, AIM_ALUMNI_PAGE_FONT,
+		guiAlumniPageButton[0] = CreateIconAndTextButton( guiAlumniPageButtonImage, AimAlumniText[5], AIM_ALUMNI_PAGE_FONT,
 														AIM_ALUMNI_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														AIM_ALUMNI_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,

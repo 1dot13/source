@@ -4952,6 +4952,7 @@ STR16 AimAlumniText[] =
 	L"SEITE 3",
 	L"A.I.M.-Veteranen",	// Title of the page
 	L"ENDE",		// Stops displaying information on selected merc
+	L"Nächste",
 };
 
 //AIM Home Page

@@ -5090,7 +5090,8 @@ STR16			AimAlumniText[] =
 
 	L"A.I.M. Alumni",	// Title of the page
 
-	L"DONE"			// Stops displaying information on selected merc
+	L"DONE",			// Stops displaying information on selected merc
+	L"Next page",
 };
 
 

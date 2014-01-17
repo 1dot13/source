@@ -5093,6 +5093,7 @@ STR16			AimAlumniText[] =
 	L"A.I.M. Veteranen",	// Title of the page
 
 	L"OK",			// Stops displaying information on selected merc
+	L"Next page",	// TODO.Translate
 };
 
 

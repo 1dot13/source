@@ -5094,7 +5094,8 @@ STR16			AimAlumniText[] =
 
 	L"Anciens",	// Title of the page
 
-	L"OK"			// Stops displaying information on selected merc
+	L"OK",			// Stops displaying information on selected merc
+	L"Next page",	// TODO.Translate
 };
 
 

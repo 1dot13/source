@@ -5100,7 +5100,8 @@ STR16			AimAlumniText[] =
 	L"Byli członkowie A.I.M.",	// Title of the page
 
 
-	L"OK"			// Stops displaying information on selected merc
+	L"OK",			// Stops displaying information on selected merc
+	L"Next page",	// TODO.Translate
 };
 
 

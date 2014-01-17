@@ -5089,7 +5089,8 @@ STR16			AimAlumniText[] =
 
 	L"A.I.M. Галерея",	// Title of the page
 
-	L"ОК"			// Stops displaying information on selected merc
+	L"ОК",			// Stops displaying information on selected merc
+	L"Next page",	// TODO.Translate
 };
 
 
