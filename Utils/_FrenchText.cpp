@@ -2543,6 +2543,7 @@ STR16 pLandTypeStrings[] =
 	L"Aéroport Drassen",
 	L"Aéroport Meduna",
 	L"Site SAM",
+	L"Refuel site", // TODO.Translate
 	L"Base rebelle", //The rebel base underground in sector A10
 	L"Prison Tixa",	//The basement of the Tixa Prison (J9)
 	L"Repaire créatures",	//Any mine sector with creatures in it
