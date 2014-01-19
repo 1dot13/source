@@ -35,7 +35,7 @@ extern PROGRESSBAR *pBar[ MAX_PROGRESSBARS ];
 typedef struct
 {
 	UINT16			uiIndex;
-	CHAR16			szName[256];			// name of these clothes
+	CHAR16			szName[190];			// text of the hint. Note that this size + any text it is used in msut be < than CHAR16	pzText[ 200 ]; of VIDEO_OVERLAY_DESC if you display this in any logs
 	UINT32			usFlags;				// flags that can be used to determine wether a hint is currently appropriate
 	BOOLEAN			fAlreadyShown;			// to remember if this hint has already been shown in this game (reset on starting exe)
 } LOADSCREENHINT_STRUCT;
