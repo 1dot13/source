@@ -1064,7 +1064,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 								pTile = &( gSmTileDB[ pNode->usIndex ] );
 
 								// Flugente: uninformed hack
-								if ( pTile && pTile->vo )
+								//if ( pTile && pTile->vo )
 								{
 									sX = sTempPosX_S;
 									sY = sTempPosY_S;
@@ -1098,7 +1098,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 							pTile = &( gSmTileDB[ pNode->usIndex ] );
 
 							// Flugente: uninformed hack
-							if ( pTile && pTile->vo )
+							//if ( pTile && pTile->vo )
 							{
 								sX = sTempPosX_S;
 								sY = sTempPosY_S - sHeight;
@@ -1123,7 +1123,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					pNode = gpWorldLevelData[ usTileIndex ].pStructHead;
 					while( pNode != NULL )
 					{
-						if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
+						if ( pNode->usIndex < giNumberOfTiles )//if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213 190113 fix incorrect condition
 						{
 							// Don't render itempools!
 							if ( !( pNode->uiFlags & LEVELNODE_ITEM ) )
@@ -1131,7 +1131,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 								pTile = &( gSmTileDB[ pNode->usIndex ] );
 
 								// Flugente: uninformed hack
-								if ( pTile && pTile->vo )
+								//if ( pTile && pTile->vo )
 								{
 									sX = sTempPosX_S;
 									sY = sTempPosY_S - (gTileDatabase[ pNode->usIndex ].sOffsetHeight/5);
