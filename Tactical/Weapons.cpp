@@ -4234,17 +4234,20 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	return( TRUE );
 }
 
-BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, INT32 sGridNo, INT16 sXPos, INT16 sYPos, INT16 sZPos, BOOLEAN fSoundOnly, BOOLEAN fFreeupAttacker, INT32 iBullet )
+BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, UINT16 usWeaponIndex, INT32 sGridNo, INT16 sXPos, INT16 sYPos, INT16 sZPos, BOOLEAN fSoundOnly, BOOLEAN fFreeupAttacker, INT32 iBullet )
 {
 	ANITILE_PARAMS	AniParams;
-	UINT8						ubAmmoType;
-	UINT16          usItem;
+	UINT8			ubAmmoType = 0;
+	UINT16          usItem = usWeaponIndex;
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
-	OBJECTTYPE* pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs[ ubAttackerID ]->inv[ MercPtrs[ ubAttackerID ]->ubAttackingHand ] );
+	if ( ubAttackerID != NOBODY )
+	{
+		OBJECTTYPE* pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs[ ubAttackerID ]->inv[ MercPtrs[ ubAttackerID ]->ubAttackingHand ] );
 
-	ubAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
-	usItem     = (*pObj).usItem;
+		ubAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
+		usItem     = (*pObj).usItem;
+	}
 
 	memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
 
@@ -4252,14 +4255,14 @@ BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, INT32 sGridNo, INT16 sXPos,
 	{
 		if ( !fSoundOnly )
 		{
-			AniParams.sGridNo							= sGridNo;
+			AniParams.sGridNo						= sGridNo;
 			AniParams.ubLevelID						= ANI_TOPMOST_LEVEL;
-			AniParams.sDelay							= (INT16)( 100 );
+			AniParams.sDelay						= (INT16)( 100 );
 			AniParams.sStartFrame					= 0;
-			AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
-			AniParams.sX									= sXPos;
-			AniParams.sY									= sYPos;
-			AniParams.sZ									= sZPos;
+			AniParams.uiFlags						= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+			AniParams.sX							= sXPos;
+			AniParams.sY							= sYPos;
+			AniParams.sZ							= sZPos;
 
 			strcpy( AniParams.zCachedFile, "TILECACHE\\MINIBOOM.STI" );
 
@@ -4289,14 +4292,14 @@ BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, INT32 sGridNo, INT16 sXPos,
 	{
 		if ( !fSoundOnly )
 		{
-			AniParams.sGridNo							= sGridNo;
+			AniParams.sGridNo						= sGridNo;
 			AniParams.ubLevelID						= ANI_TOPMOST_LEVEL;
-			AniParams.sDelay							= (INT16)( 100 );
+			AniParams.sDelay						= (INT16)( 100 );
 			AniParams.sStartFrame					= 0;
-			AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
-			AniParams.sX									= sXPos;
-			AniParams.sY									= sYPos;
-			AniParams.sZ									= sZPos;
+			AniParams.uiFlags						= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+			AniParams.sX							= sXPos;
+			AniParams.sY							= sYPos;
+			AniParams.sZ							= sZPos;
 
 			strcpy( AniParams.zCachedFile, "TILECACHE\\ZGRAV_D.STI" );
 
@@ -4326,14 +4329,14 @@ BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, INT32 sGridNo, INT16 sXPos,
 	{
 		if ( !fSoundOnly )
 		{
-			AniParams.sGridNo							= sGridNo;
+			AniParams.sGridNo						= sGridNo;
 			AniParams.ubLevelID						= ANI_TOPMOST_LEVEL;
-			AniParams.sDelay							= (INT16)( 100 );
+			AniParams.sDelay						= (INT16)( 100 );
 			AniParams.sStartFrame					= 0;
-			AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
-			AniParams.sX									= sXPos;
-			AniParams.sY									= sYPos;
-			AniParams.sZ									= sZPos;
+			AniParams.uiFlags						= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+			AniParams.sX							= sXPos;
+			AniParams.sY							= sYPos;
+			AniParams.sZ							= sZPos;
 
 			strcpy( AniParams.zCachedFile, "TILECACHE\\ZGRAV_C.STI" );
 
@@ -4396,13 +4399,18 @@ BOOLEAN DoSpecialEffectAmmoMiss( UINT8 ubAttackerID, INT32 sGridNo, INT16 sXPos,
 
 void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange , UINT8 ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
-	SOLDIERTYPE				*pTargetSoldier, *pSoldier;
-	OBJECTTYPE				*pObj;
-	// Get attacker
-	pSoldier				= MercPtrs[ ubAttackerID ];
+	SOLDIERTYPE*			pTargetSoldier = NULL;
+	SOLDIERTYPE*			pSoldier = NULL;
+	OBJECTTYPE*				pObj = NULL;
 
-	// Flugente: check for underbarrel weapons and use that object if necessary
-	pObj = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+	// Get attacker
+	if ( ubAttackerID != NOBODY )
+	{
+		pSoldier		= MercPtrs[ ubAttackerID ];
+
+		// Flugente: check for underbarrel weapons and use that object if necessary
+		pObj			= pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+	}
 
 	// Get Target
 	pTargetSoldier	= MercPtrs[ usSoldierID ];
@@ -4412,7 +4420,7 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 	// CALLAHAN START BUGFIX
 	// Provisions for Fragments, which are resulting from a different weapon than the one we are holding in our hand.
 	UINT8 ubAmmoType = 0;
-	if ( pObj->usItem == usWeaponIndex || EXPLOSIVE_GUN( usWeaponIndex ))	// WANNE: This fixes the bug, that ONE shot LAWs do not explode on a direct target hit!
+	if ( pObj && (pObj->usItem == usWeaponIndex || EXPLOSIVE_GUN( usWeaponIndex ) ) )	// WANNE: This fixes the bug, that ONE shot LAWs do not explode on a direct target hit!
 	{
 		ubAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
 	}
@@ -4437,7 +4445,7 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos ), C1, pTargetSoldier->pathing.bLevel );
 			}
 			// changed rpg type to work only with two flags matching
-			else if ( !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
+			else if ( pSoldier && !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
 				//we shouldn't be able to have an underbarrel firing mode in this step, so we keep the original code :JMich
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("WeaponHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
@@ -4446,9 +4454,12 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 				
 				//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
 				OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pSoldier->inv[pSoldier->ubAttackingHand ]), pSoldier->inv[pSoldier->ubAttackingHand ].usItem );
-				if(pLaunchable){
+				if(pLaunchable)
+				{
 					pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = pLaunchable->usItem;
-				} else {
+				}
+				else
+				{
 					pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
 				}
 			}
@@ -4471,14 +4482,14 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 		return;
 	}
 
-	DoSpecialEffectAmmoMiss( ubAttackerID, pTargetSoldier->sGridNo, sXPos, sYPos, sZPos, FALSE, FALSE, 0 );
+	DoSpecialEffectAmmoMiss( ubAttackerID, usWeaponIndex, pTargetSoldier->sGridNo, sXPos, sYPos, sZPos, FALSE, FALSE, 0 );
 
 	// OK, SHOT HAS HIT, DO THINGS APPROPRIATELY
 	// ATE: This is 'cause of that darn smoke effect that could potentially kill
 	// the poor bastard .. so check
 	if ( !pTargetSoldier->flags.fDoingExternalDeath )
 	{
-		pTargetSoldier->EVENT_SoldierGotHit(	usWeaponIndex, sDamage, sBreathLoss, usDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation, 0, NOWHERE );
+		pTargetSoldier->EVENT_SoldierGotHit( usWeaponIndex, sDamage, sBreathLoss, usDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation, 0, NOWHERE );
 	}
 	// else
 	// {
@@ -4502,17 +4513,16 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	BOOLEAN					fHitSameStructureAsBefore;
 	BULLET *				pBullet;
 	SOLDIERTYPE *		pAttacker = NULL;
-	OBJECTTYPE * pObj;
+	OBJECTTYPE * pObj	= NULL;
 
 	pBullet = GetBulletPtr( iBullet );
     Assert(pBullet);
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
-	pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs [ ubAttackerID ]->inv[MercPtrs[ubAttackerID]->ubAttackingHand] );
-
-	// Get attacker
-	if (ubAttackerID != NOBODY)
+	if ( ubAttackerID != NOBODY )
 	{
+		pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs [ ubAttackerID ]->inv[MercPtrs[ubAttackerID]->ubAttackingHand] );
+
 		pAttacker = MercPtrs[ ubAttackerID ];
 	}
 
@@ -4561,8 +4571,6 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	sGridNo = MAPROWCOLTOPOS( (sYPos/CELL_Y_SIZE), (sXPos/CELL_X_SIZE) );
 	if ( !fHitSameStructureAsBefore )
 	{
-
-
 		if (sZPos > WALL_HEIGHT)
 		{
 			MakeNoise( ubAttackerID, sGridNo, 1, gpWorldLevelData[sGridNo].ubTerrainID, ubHitVolume, NOISE_BULLET_IMPACT );
@@ -4571,18 +4579,19 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 		{
 			MakeNoise( ubAttackerID, sGridNo, 0, gpWorldLevelData[sGridNo].ubTerrainID, ubHitVolume, NOISE_BULLET_IMPACT );
 		}
-
 	}
 
 	if (fStopped)
 	{
 		// marke need another attacker id assignment
-		SOLDIERTYPE				*pSoldier;
+		SOLDIERTYPE				*pSoldier = NULL;
 
 	    // Get attacker
-	    pSoldier				= MercPtrs[ ubAttackerID ];
+		if ( ubAttackerID != NOBODY )
+			pSoldier = MercPtrs[ ubAttackerID ];
+
                  // marke added one 'or' to get this working with HE ammo
-		if ( Item[usWeaponIndex].rocketlauncher || AmmoTypes[ (*pObj)[0]->data.gun.ubGunAmmoType].explosionSize > 1)
+		if ( Item[usWeaponIndex].rocketlauncher || (pObj && AmmoTypes[ (*pObj)[0]->data.gun.ubGunAmmoType].explosionSize > 1 ))
 		{
 			// Reduce attacker count!
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - end of LAW fire") );
@@ -4596,7 +4605,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, (INT8)( sZPos >= WALL_HEIGHT ) );
 				}
 				// changed too to use 2 flag to determine
-				else if ( !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
+				else if ( ubAttackerID != NOBODY && !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
 					//there shouldn't be a way to enter here with an UnderBarrel weapon, so retaining original code :JMich
 				{
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pAttacker->inv[HANDPOS].usItem , pAttacker->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
@@ -4604,9 +4613,12 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 					
 					//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
 					OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pAttacker->inv[pAttacker->ubAttackingHand ]), pAttacker->inv[pAttacker->ubAttackingHand ].usItem );
-					if(pLaunchable){
+					if(pLaunchable)
+					{
 						pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem = pLaunchable->usItem;
-					} else {
+					}
+					else
+					{
 						pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
 					}
 				}
@@ -4661,7 +4673,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			case MGCLASS:
 
 				// Guy has missed, play random sound
-				if (  MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
+				if (  ubAttackerID != NOBODY && MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
 				{
 					if ( !MercPtrs[ ubAttackerID ]->bDoBurst )
 					{
@@ -4678,7 +4690,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 
 			case MONSTERCLASS:
 
-				DoSpecialEffectAmmoMiss( ubAttackerID, sGridNo, sXPos, sYPos, sZPos, FALSE, TRUE, iBullet );
+				DoSpecialEffectAmmoMiss( ubAttackerID, usWeaponIndex, sGridNo, sXPos, sYPos, sZPos, FALSE, TRUE, iBullet );
 
 				RemoveBullet( iBullet );
 				// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - monster attack hit structure") );
@@ -4769,7 +4781,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 						UINT16 usItem = pBullet->fromItem;
 						if(usStructureID == INVALID_STRUCTURE_ID)
 						{
-							for(int i=0; i<MAXITEMS; i++)
+							for(int i=0; i<MAXITEMS; ++i)
 								if(Item[i].bloodieditem == pBullet->fromItem)
 								{
 									usItem = Item[i].uiIndex;// clean the blood from knife, actually this should be done during repair
@@ -4859,7 +4871,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 		else
 		{
 
-			if ( !fStopped || !DoSpecialEffectAmmoMiss( ubAttackerID, sGridNo, sXPos, sYPos, sZPos, FALSE, TRUE, iBullet ) )
+			if ( !fStopped || !DoSpecialEffectAmmoMiss( ubAttackerID, usWeaponIndex, sGridNo, sXPos, sYPos, sZPos, FALSE, TRUE, iBullet ) )
 			{
 				if ( sZPos == 0 )
 				{
@@ -4882,13 +4894,13 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 
 					// Add ripple
 					memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-					AniParams.sGridNo							= sGridNo;
-					AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-					AniParams.usTileType				  = THIRDMISS;
-					AniParams.usTileIndex					= THIRDMISS1;
-					AniParams.sDelay							= 50;
-					AniParams.sStartFrame					= 0;
-					AniParams.uiFlags							= ANITILE_FORWARD;
+					AniParams.sGridNo					= sGridNo;
+					AniParams.ubLevelID					= ANI_STRUCT_LEVEL;
+					AniParams.usTileType				 = THIRDMISS;
+					AniParams.usTileIndex				= THIRDMISS1;
+					AniParams.sDelay					= 50;
+					AniParams.sStartFrame				= 0;
+					AniParams.uiFlags					= ANITILE_FORWARD;
 
 					pNode = CreateAnimationTile( &AniParams );
 
@@ -4897,15 +4909,14 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 					pNode->pLevelNode->sRelativeX	= sXPos;
 					pNode->pLevelNode->sRelativeY	= sYPos;
 					pNode->pLevelNode->sRelativeZ = sZPos;
-
 				}
 
 				memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-				AniParams.sGridNo							= sGridNo;
+				AniParams.sGridNo						= sGridNo;
 				AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-				AniParams.usTileType				  = usMissTileType;
+				AniParams.usTileType				    = usMissTileType;
 				AniParams.usTileIndex					= usMissTileIndex;
-				AniParams.sDelay							= 80;
+				AniParams.sDelay						= 80;
 				AniParams.sStartFrame					= 0;
 				if (fStopped)
 				{
@@ -4932,12 +4943,9 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				// ATE: Show misses...( if our team )
 				if ( gGameSettings.fOptions[ TOPTION_SHOW_MISSES ] )
 				{
-					if ( ubAttackerID != NOBODY )
+					if ( ubAttackerID != NOBODY && MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
 					{
-						if ( MercPtrs[ ubAttackerID ]->bTeam == gbPlayerNum )
-						{
-							LocateGridNo( sGridNo );
-						}
+						LocateGridNo( sGridNo );
 					}
 				}
 			}
@@ -9191,7 +9199,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 }
 
 
-INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType )
+INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType )
 {
 	INT32					iTotalProtection = 0, iSlot;
 	OBJECTTYPE *	pArmour;
@@ -9207,7 +9215,6 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 		iTotalProtection += ArmourProtection( pTarget, (UINT8) pVehicleList[ pTarget->bVehicleID ].sArmourType, &bDummyStatus, iImpact, ubAmmoType, &dummyCoverage );
 
 		//pVehicleList[ pTarget->bVehicleID ].sExternalArmorLocationsStatus[ ubHitLocation ] = bDummyStatus;
-
 	}
 	else
 	{
@@ -9226,7 +9233,6 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 			default:
 				iSlot = VESTPOS;
 				break;
-
 		}
 
 		//zwwooooo - IoV: It can plates for the LBE bulletproof. Like CRIAS, MBSS, HSGI WASATCH...
@@ -9254,53 +9260,53 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 				
 		if ( iImpact > iTotalProtection )
 		{
-		pArmour = &(pTarget->inv[ iSlot ]);
-		if (pArmour->exists() == true)
-		{
-			for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
-				{
-					// bullet got through jacket; apply ceramic plate armour
-					iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
-					if ( (*iter)[0]->data.objectStatus < USABLE )
-					{
-						// destroy plates!
-						pArmour->RemoveAttachment(&(*iter));
-						DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
-//#ifdef ENGLISH
-						if ( pTarget->bTeam == gbPlayerNum )
-						{
-							// report plates destroyed!
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[61], pTarget->name );
-						}
-//#endif
-					}
-					break;//original code only used the first ceramic plate
-				}
-			}
-
-
-			// if the plate didn't stop the bullet...
-			if ( iImpact > iTotalProtection )
+			pArmour = &(pTarget->inv[ iSlot ]);
+			if (pArmour->exists() == true)
 			{
-				iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &((*pArmour)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
-				if ( (*pArmour)[0]->data.objectStatus < USABLE )
-				{
-					//Madd: put any attachments that someone might have added to the armour in the merc's inventory
-					for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-						if ( !AutoPlaceObject( pTarget, &(*iter), FALSE ) && iter->exists())
-						{   // put it on the ground
-							AddItemToPool( pTarget->sGridNo, &(*iter), 1, pTarget->pathing.bLevel, 0 , -1 );
+				for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
+					if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
+					{
+						// bullet got through jacket; apply ceramic plate armour
+						iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+						if ( (*iter)[0]->data.objectStatus < USABLE )
+						{
+							// destroy plates!
+							pArmour->RemoveAttachment(&(*iter));
+							DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
+	//#ifdef ENGLISH
+							if ( pTarget->bTeam == gbPlayerNum )
+							{
+								// report plates destroyed!
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[61], pTarget->name );
+							}
+	//#endif
 						}
+						break;//original code only used the first ceramic plate
 					}
+				}
 
-					DeleteObj( pArmour );//takes care of attachments, no need to remove() or erase()
-					DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
+				// if the plate didn't stop the bullet...
+				if ( iImpact > iTotalProtection )
+				{
+					iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &((*pArmour)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+					if ( (*pArmour)[0]->data.objectStatus < USABLE )
+					{
+						//Madd: put any attachments that someone might have added to the armour in the merc's inventory
+						for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
+							if ( !AutoPlaceObject( pTarget, &(*iter), FALSE ) && iter->exists())
+							{   // put it on the ground
+								AddItemToPool( pTarget->sGridNo, &(*iter), 1, pTarget->pathing.bLevel, 0 , -1 );
+							}
+						}
+
+						DeleteObj( pArmour );//takes care of attachments, no need to remove() or erase()
+						DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
+					}
 				}
 			}
 		}
 	}
-	}
+
 	return( iTotalProtection );
 }
 
@@ -9310,7 +9316,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	UINT16 usAttackingWeapon = 0;
 	INT32 sOrigGridNo = 0;
 	BOOLEAN fFragment = FALSE;
-	if (pBullet == NULL)
+	if (pBullet == NULL && pFirer )
 	{
 		usAttackingWeapon = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType;
 		sOrigGridNo = pFirer->sGridNo;
@@ -9353,7 +9359,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		ubAmmoType = AMMO_KNIFE;
 	}
 	// HEADROCK HAM 5: Added provisions for fragments, which are not fired from the weapon in your hand.
-	else if ( fFragment == FALSE )
+	else if ( !fFragment && pFirer )
 	{
 		// Flugente: check for underbarrel weapons and use that object if necessary
 		OBJECTTYPE* pObj = pFirer->GetUsedWeapon( &pFirer->inv[pFirer->ubAttackingHand] );
@@ -9409,7 +9415,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	}
 	else
 	{
-		iImpact = iOrigImpact - TotalArmourProtection( pFirer, pTarget, ubHitLocation, iOrigImpact, ubAmmoType );
+		iImpact = iOrigImpact - TotalArmourProtection( pTarget, ubHitLocation, iOrigImpact, ubAmmoType );
 	}
 
 	// calc minimum damage
@@ -9431,7 +9437,6 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		{
 			iImpact += (pTarget->bNumPelletsHitBy - 1)  / 2;
 		}
-
 	}
 
 	if (gfNextShotKills)
@@ -9468,7 +9473,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		//}
 
 		////////////////////////////////////////////////////////////////////////////////////
-		if ( gGameOptions.fNewTraitSystem ) // new traits bonuses - SANDRO
+		if ( gGameOptions.fNewTraitSystem && pFirer ) // new traits bonuses - SANDRO
 		{
 			// Throwing skill increases damage of knives here
 			if ( (ubAmmoType == AMMO_KNIFE) && HAS_SKILL_TRAIT( pFirer, THROWING_NT ))
@@ -9609,8 +9614,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	// don't do critical hits against people who are gonna die!
 	if( !IsAutoResolveActive() )
 	{
-
-		if ( AmmoTypes[ubAmmoType].knife && pFirer->aiData.bOppList[ pTarget->ubID ] == SEEN_CURRENTLY && !fFragment )
+		if ( AmmoTypes[ubAmmoType].knife && pFirer && pFirer->aiData.bOppList[ pTarget->ubID ] == SEEN_CURRENTLY && !fFragment )
 		{
 			// is this a stealth attack?
 			if ( pTarget->aiData.bOppList[ pFirer->ubID ] == NOT_HEARD_OR_SEEN && !CREATURE_OR_BLOODCAT( pTarget ) 
@@ -9673,7 +9677,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 			}
 			BOOLEAN fMaliciousHit = FALSE;
 			// SANDRO - Malicious characters inflict stat loss more often
-			if ( gGameOptions.fNewTraitSystem && pFirer->ubProfile != NO_PROFILE && !fFragment)
+			if ( gGameOptions.fNewTraitSystem && pFirer && pFirer->ubProfile != NO_PROFILE && !fFragment)
 			{
 				if ( gMercProfiles[ pFirer->ubProfile ].bCharacterTrait == CHAR_TRAIT_MALICIOUS )
 				{
@@ -9697,9 +9701,10 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLDIER_HIT_TO_GROIN], pTarget->GetName() );
 					}
-					// Gain morale for inflicting critical hit
-					HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
 
+					if ( pFirer )
+						// Gain morale for inflicting critical hit
+						HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
 				}
 				else
 				{
@@ -9902,7 +9907,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 					}
 
 					// SANDRO - Gain morale for inflicting critical hit if malicious character
-					if ( fMaliciousHit )
+					if ( fMaliciousHit && pFirer )
 					{
 						HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
 					}
@@ -10225,9 +10230,12 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 {
-	BOOLEAN						fDoMissForGun = FALSE;
-	SOLDIERTYPE				*pAttacker;
-	BULLET						*pBullet;
+	BOOLEAN			fDoMissForGun = FALSE;
+	SOLDIERTYPE*	pAttacker = NULL;
+	BULLET*			pBullet;
+
+	if ( ubAttackerID == NOBODY )
+		return;
 
 	pAttacker = MercPtrs[ ubAttackerID ];
 
@@ -10237,7 +10245,7 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 		if ( (pAttacker->bTeam != Menptr[ pAttacker->ubOppNum ].bTeam ) )
 		{
 			// if OPPONENT is under our control
-      if (Menptr[ pAttacker->ubOppNum ].bTeam == gbPlayerNum )
+			if (Menptr[ pAttacker->ubOppNum ].bTeam == gbPlayerNum )
 			{
 				// AGILITY GAIN: Opponent "dodged" a bullet shot at him (it missed)
 				StatChange( MercPtrs[ pAttacker->ubOppNum ], AGILAMT, 5, FROM_FAILURE );
@@ -10301,7 +10309,7 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 		// PLAY SOUND AND FLING DEBRIS
 		// RANDOMIZE SOUND SYSTEM
 
-		if ( !DoSpecialEffectAmmoMiss( ubAttackerID, NOWHERE, 0, 0, 0, TRUE, TRUE, 0 ) )
+		if ( !DoSpecialEffectAmmoMiss( ubAttackerID, MercPtrs[ ubAttackerID ]->usAttackingWeapon, NOWHERE, 0, 0, 0, TRUE, TRUE, 0 ) )
 		{
 			PlayJA2Sample( MISS_1 + Random(8), RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		}

@@ -68,7 +68,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 // HEADROCK HAM 4: Changed the name of one argument to avoid confusion with the new CTH system.
 INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usHandItem, INT16 sApertureRatio, BOOLEAN fBuckshot, BOOLEAN fFake );
 // HEADROCK HAM 5: Function for fragments ejected from an explosion.
-INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem );
+INT8 FireFragmentGivenTarget( UINT8 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem );
 
 // Flugente: fire a shot from a gun that has no user (used for traps with attached guns)
 INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT32 gridno, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, INT16 sHitBy);

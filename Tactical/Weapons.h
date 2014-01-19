@@ -480,7 +480,7 @@ extern BOOLEAN IsGunWeaponModeCapable( OBJECTTYPE* pObject, WeaponMode weaponMod
 extern BOOLEAN IsGunBurstCapable( OBJECTTYPE* pObject, BOOLEAN fNotify, SOLDIERTYPE *pSoldier = NULL );
 extern BOOLEAN IsGunAutofireCapable( OBJECTTYPE* pObject );
 extern INT32 CalcBodyImpactReduction( UINT8 ubAmmoType, UINT8 ubHitLocation );
-extern INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType );
+extern INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType );
 extern INT32 ArmourPercent( SOLDIERTYPE * pSoldier );
 
 extern void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT *pdXPos, FLOAT *pdYPos, FLOAT *pdZPos );

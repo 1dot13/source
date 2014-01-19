@@ -123,7 +123,7 @@ void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, UINT8 ubID);
 
 void OpenChatMsgBox(void);
 
-INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake );
+INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake );
 
 void reapplySETTINGS();
 
@@ -155,7 +155,7 @@ extern char	cServerName[30];
 // WANNE: This features seems to work without any errors, so it is enabled :)
 #define ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 
-#define ENABLE_COLLISION (is_server && pBullet->pFirer->ubID<120) || (!is_server && is_client && pBullet->pFirer->ubID<20) || (!is_server && !is_client) 
+#define ENABLE_COLLISION (is_server && pBullet->ubFirerID<120) || (!is_server && is_client && pBullet->ubFirerID<20) || (!is_server && !is_client) 
 extern bool auto_retry;
 extern int giNumTries;
 

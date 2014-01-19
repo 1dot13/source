@@ -56,7 +56,7 @@ typedef struct
 	UINT32	uiLastUpdate;
 	UINT8		ubTilesPerUpdate;
 	UINT16	usClockTicksPerUpdate;
-	SOLDIERTYPE		*pFirer;
+	SOLDIERTYPE		*pFirer;			// Flugente: WARNING! We cannot assume this will be valid. Check wether ubFirerID is NOBODY first
 	INT32	sOrigGridNo;	// HEADROCK HAM 5.1: Original tile does not necessarily have to be the pFirer's tile
 	INT32	sTargetGridNo;
 	INT16		sHitBy;

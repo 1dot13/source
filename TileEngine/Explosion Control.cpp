@@ -104,7 +104,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
 
 // HEADROCK HAM 5.1: Explosion Fragments launcher
-void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
+void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
 
 // Flugente: shoot a gun without anyone operating it (used for makeshift traps wih guns)
 void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECTTYPE* pObj, UINT8 ubDirection = NORTH );
@@ -383,7 +383,7 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	if (Explosive[ Item[ usItem ].ubClassIndex ].usNumFragments > 0 )
 	{
 		// HEADROCK HAM 5: Deactivated until the release of HAM 5.1.
-		FireFragments( MercPtrs[ubOwner], sX, sY, sZ, usItem, ubDirection );
+		FireFragments( ubOwner, sX, sY, sZ, usItem, ubDirection );
 	}
 
 	// Flugente: Items can have secondary explosions
@@ -4992,7 +4992,7 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 // HEADROCK HAM 5.1: This handles launching fragments out of an explosion. The number of fragments is read from
 // the Explosives.XML file, and they each have a set amount of damage and range as well. They are currently
 // fired at completely random trajectories.
-void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
+void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
 {
 	UINT16 usNumFragments = Explosive[Item[usItem].ubClassIndex].usNumFragments;
 	UINT16 ubFragRange = Explosive[Item[usItem].ubClassIndex].ubFragRange;
@@ -5074,7 +5074,7 @@ void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16
 		FLOAT dStartY = (FLOAT)sY + (dRandomY * ((FLOAT)Random(4)+1.0f));
 		FLOAT dStartZ = (FLOAT)sZ + (dRandomZ * ((FLOAT)Random(4)+1.0f));
 
-		FireFragmentGivenTarget( pThrower, dStartX, dStartY, dStartZ, dEndX, dEndY, dEndZ, usItem );
+		FireFragmentGivenTarget( ubOwner, dStartX, dStartY, dStartZ, dEndX, dEndY, dEndZ, usItem );
 	}
 }
 

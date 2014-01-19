@@ -3716,55 +3716,56 @@ void send_bullet(  BULLET * pBullet,UINT16 usHandItem )
 
 void recieveBULLET(RPCParameters *rpcParameters)
 {
-		netb_struct* netb = (netb_struct*)rpcParameters->input;
+	netb_struct* netb = (netb_struct*)rpcParameters->input;
 
-		INT32 net_iBullet=netb->net_bullet.iBullet;
+	INT32 net_iBullet=netb->net_bullet.iBullet;
 
-		SOLDIERTYPE * pFirer=MercPtrs[ netb->net_bullet.ubFirerID ];
+	SOLDIERTYPE * pFirer = NULL;
+	INT8 bTeam = OUR_TEAM;
+	if ( netb->net_bullet.ubFirerID != NOBODY )
+	{
+		pFirer = MercPtrs[ netb->net_bullet.ubFirerID ];
+		bTeam=pFirer->bTeam;
+	}
 
-		INT8 bTeam=pFirer->bTeam;
+	BULLET * pBullet;
 
-		INT32 iBullet;
-		BULLET * pBullet;
-
-		iBullet = CreateBullet( netb->net_bullet.ubFirerID, 0, netb->net_bullet.usFlags,netb->usHandItem );
-		
-		if (iBullet == -1)
-		{
-
+	INT32 iBullet = CreateBullet( netb->net_bullet.ubFirerID, 0, netb->net_bullet.usFlags,netb->usHandItem );
+			
 #ifdef BETAVERSION
-			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Failed to create bullet");		
+	if (iBullet == -1)
+	{
+		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Failed to create bullet");
+	}
 #endif
 
-		}
-
-		//add bullet to bullet table for translation
-		bTable[bTeam][net_iBullet].remote_id = net_iBullet;
-		bTable[bTeam][net_iBullet].local_id = iBullet;
+	//add bullet to bullet table for translation
+	bTable[bTeam][net_iBullet].remote_id = net_iBullet;
+	bTable[bTeam][net_iBullet].local_id = iBullet;
 		
-		pBullet = GetBulletPtr( iBullet );
+	pBullet = GetBulletPtr( iBullet );
 
-		//ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Created Bullet Id: %d",iBullet);		
+	//ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Created Bullet Id: %d",iBullet);		
 
-		pBullet->fCheckForRoof=netb->net_bullet.fCheckForRoof;
-		pBullet->qIncrX=netb->net_bullet.qIncrX;
-		pBullet->qIncrY=netb->net_bullet.qIncrY;
-		pBullet->qIncrZ=netb->net_bullet.qIncrZ;
-		pBullet->sHitBy=netb->net_bullet.sHitBy;
-		pBullet->ddHorizAngle=netb->net_bullet.ddHorizAngle;
-		pBullet->fAimed=netb->net_bullet.fAimed;
-		pBullet->ubItemStatus=netb->net_bullet.ubItemStatus;
-		pBullet->qCurrX=netb->net_bullet.qCurrX;
-		pBullet->qCurrY=netb->net_bullet.qCurrY;
-		pBullet->qCurrZ=netb->net_bullet.qCurrZ;
-		pBullet->iImpact=netb->net_bullet.iImpact;
-		pBullet->iRange=netb->net_bullet.iRange;
-		pBullet->sTargetGridNo=netb->net_bullet.sTargetGridNo;
-		pBullet->bStartCubesAboveLevelZ=netb->net_bullet.bStartCubesAboveLevelZ;
-		pBullet->bEndCubesAboveLevelZ=netb->net_bullet.bEndCubesAboveLevelZ;
-		pBullet->iDistanceLimit=netb->net_bullet.iDistanceLimit;
+	pBullet->fCheckForRoof=netb->net_bullet.fCheckForRoof;
+	pBullet->qIncrX=netb->net_bullet.qIncrX;
+	pBullet->qIncrY=netb->net_bullet.qIncrY;
+	pBullet->qIncrZ=netb->net_bullet.qIncrZ;
+	pBullet->sHitBy=netb->net_bullet.sHitBy;
+	pBullet->ddHorizAngle=netb->net_bullet.ddHorizAngle;
+	pBullet->fAimed=netb->net_bullet.fAimed;
+	pBullet->ubItemStatus=netb->net_bullet.ubItemStatus;
+	pBullet->qCurrX=netb->net_bullet.qCurrX;
+	pBullet->qCurrY=netb->net_bullet.qCurrY;
+	pBullet->qCurrZ=netb->net_bullet.qCurrZ;
+	pBullet->iImpact=netb->net_bullet.iImpact;
+	pBullet->iRange=netb->net_bullet.iRange;
+	pBullet->sTargetGridNo=netb->net_bullet.sTargetGridNo;
+	pBullet->bStartCubesAboveLevelZ=netb->net_bullet.bStartCubesAboveLevelZ;
+	pBullet->bEndCubesAboveLevelZ=netb->net_bullet.bEndCubesAboveLevelZ;
+	pBullet->iDistanceLimit=netb->net_bullet.iDistanceLimit;
 
-		FireBullet( pFirer, pBullet, FALSE );
+	FireBullet( pFirer->ubID, pBullet, FALSE );
 }
 
 void send_changestate (EV_S_CHANGESTATE * SChangeState)

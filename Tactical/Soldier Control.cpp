@@ -15949,7 +15949,7 @@ void	SOLDIERTYPE::StartMultiTurnAction(UINT8 usActionType)
 void	SOLDIERTYPE::CancelMultiTurnAction(BOOLEAN fFinished)
 {
 	// stop action
-	if ( !fFinished )
+	if ( !fFinished && this->usMultiTurnAction )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANCEL], this->GetName(), szMTATextStr[this->usMultiTurnAction] );
 		
 	bOverTurnAPS		= 0;

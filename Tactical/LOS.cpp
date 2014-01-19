@@ -2332,7 +2332,6 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	INT32								iImpact, iDamage;
 	EV_S_WEAPONHIT			SWeaponHit;
 	INT32								sRange;
-	SOLDIERTYPE *				pFirer = pBullet->pFirer;
 	FLOAT								dZPosRelToMerc;
 	UINT8								ubHitLocation = AIM_SHOT_RANDOM;
 	UINT8								ubAttackDirection;
@@ -2348,10 +2347,16 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	BOOLEAN			 fCanSpewBlood = FALSE;
 	INT8				bSpewBloodLevel;
 
+	SOLDIERTYPE * pFirer = NULL;
+	if ( pBullet->ubFirerID != NOBODY )
+	{
+		pFirer = pBullet->pFirer;
+	}
+
 	// HEADROCK HAM 5: Fragments read attacking weapon from explosive, not from firer. Theoretically,
 	// all bullets should read this value...
 	UINT16 usAttackingWeapon = 0;
-	if (pBullet->fFragment)
+	if ( pBullet->ubFirerID == NOBODY || pBullet->fFragment)
 	{
 		usAttackingWeapon = pBullet->fromItem;
 	}
@@ -2387,7 +2392,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	else if (pBullet->fFragment)
 	{
 		// Read ammo type from the explosive data.
-		ubAmmoType = Explosive[Item[pBullet->fromItem].ubClassIndex].ubFragType;
+		ubAmmoType = Explosive[Item[usAttackingWeapon].ubClassIndex].ubFragType;
 	}
 	else
 	{
@@ -2397,7 +2402,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	// HEADROCK HAM 5.1: This is an utter hack, but it may be necessary. This soldier is hit by a fragment,
 	// so he needs to have his animations be interruptible. This takes care of soldiers hitting themselves
 	// with their own fragments.
-	if (pBullet->fFragment && pTarget == pBullet->pFirer)
+	if ( pBullet->ubFirerID != NOBODY && pBullet->fFragment && pTarget == pBullet->pFirer)
 	{
 		if (pTarget->usAniCode >1)
 		{
@@ -2592,7 +2597,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	// Determine damage, checking guy's armour, etc
 	sRange = GetRangeInCellCoordsFromGridNoDiff( pBullet->sOrigGridNo, pTarget->sGridNo );
 
-	if ( gTacticalStatus.uiFlags & GODMODE	&& !(pFirer->flags.uiStatusFlags & SOLDIER_PC))
+	if ( gTacticalStatus.uiFlags & GODMODE && pBullet->ubFirerID != NOBODY && !(pFirer->flags.uiStatusFlags & SOLDIER_PC))
 	{
 		// in god mode, and firer is computer controlled
 		iImpact = 0;
@@ -2600,7 +2605,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 	else if (fIntended)
 	{
-		if (pFirer->aiData.bOppList[pTarget->ubID] == SEEN_CURRENTLY)
+		if ( pBullet->ubFirerID != NOBODY && pFirer->aiData.bOppList[pTarget->ubID] == SEEN_CURRENTLY)
 		{
 			sHitBy = pBullet->sHitBy;
 		}
@@ -2622,7 +2627,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		iDamage = BulletImpact( pFirer, pBullet, pTarget, ubHitLocation, iImpact, sHitBy, &ubSpecial );
 		// handle hit here...
 		// HEADROCK HAM 5: Fragments not counted as shots.
-		if( ( pFirer->bTeam == 0 ) && !(pBullet->fFragment) )
+		if( pBullet->ubFirerID != NOBODY && pFirer->bTeam == OUR_TEAM && !(pBullet->fFragment) )
 		{
 			// SANDRO - new mercs' records 
 			// if we shoot with buckshot or similar, do not count a hit for every pellet
@@ -2641,7 +2646,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		// intentionally shot
 		pTarget->flags.fIntendedTarget = TRUE;
 
-		if ( (pBullet->usFlags & BULLET_FLAG_BUCKSHOT) && ( pTarget->ubID == pFirer->ubTargetID ) )
+		if ( pBullet->ubFirerID != NOBODY && (pBullet->usFlags & BULLET_FLAG_BUCKSHOT) && ( pTarget->ubID == pFirer->ubTargetID ) )
 		{
 			pTarget->bNumPelletsHitBy++;
 		}
@@ -2656,7 +2661,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		// we aimed though, so now that the bullet hits the intended target, we can calculate extra experience
 		// based on the aiming value.
 		
-		if (UsingNewCTHSystem() == true && pFirer->bTeam == gbPlayerNum && pBullet->fAimed) // Only for single shot, first bullet in volley, or first bullet in spread.
+		if ( UsingNewCTHSystem() && pBullet->ubFirerID != NOBODY && pFirer->bTeam == gbPlayerNum && pBullet->fAimed) // Only for single shot, first bullet in volley, or first bullet in spread.
 		{
 			UINT16 usExpGain = 10;
 			usExpGain = (usExpGain * pBullet->sHitBy) / 100;
@@ -2758,7 +2763,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 
 	// check to see if someone was accidentally hit when no target was specified by the player
-	if ( pFirer->bTeam == gbPlayerNum && pFirer->ubTargetID == NOBODY && pTarget->aiData.bNeutral	)
+	if ( pBullet->ubFirerID != NOBODY && pFirer->bTeam == gbPlayerNum && pFirer->ubTargetID == NOBODY && pTarget->aiData.bNeutral	)
 	{
 		if ( pTarget->ubCivilianGroup == KINGPIN_CIV_GROUP || pTarget->ubCivilianGroup == HICKS_CIV_GROUP )
 		{
@@ -2770,30 +2775,28 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			// get touchy
 			pFirer->ubTargetID = pTarget->ubID;
 		}
-
 	}
-
 
 	// Send event for getting hit
 	memset( &(SWeaponHit), 0, sizeof( SWeaponHit ) );
 	SWeaponHit.usSoldierID			= pTarget->ubID;
-	SWeaponHit.uiUniqueId				= pTarget->uiUniqueSoldierIdValue;
+	SWeaponHit.uiUniqueId			= pTarget->uiUniqueSoldierIdValue;
 	// HEADROCK HAM 5: Already defined.
 	SWeaponHit.usWeaponIndex		= usAttackingWeapon;
-	SWeaponHit.sDamage					= (INT16) iDamage;
+	SWeaponHit.sDamage				= (INT16) iDamage;
 	// breath loss is based on original impact of bullet
 	SWeaponHit.sBreathLoss			= (INT16) ( (iImpact * APBPConstants[BP_GET_WOUNDED] * (pTarget->bBreathMax * 100 - pTarget->sBreathRed)) / 10000 );
 	// HEADROCK HAM 5.1: Bullet data contains the correct original GridNo
 	SWeaponHit.usDirection			= GetDirectionFromGridNo( pBullet->sOrigGridNo, pTarget );
-	SWeaponHit.sXPos						= (INT16)pTarget->dXPos;
-	SWeaponHit.sYPos						= (INT16)pTarget->dYPos;
-	SWeaponHit.sZPos						= 20;
-	SWeaponHit.sRange						= sRange;
-	SWeaponHit.ubAttackerID			= pFirer->ubID;
-	SWeaponHit.fHit							= TRUE;
-	SWeaponHit.ubLocation				= ubHitLocation;
+	SWeaponHit.sXPos				= (INT16)pTarget->dXPos;
+	SWeaponHit.sYPos				= (INT16)pTarget->dYPos;
+	SWeaponHit.sZPos				= 20;
+	SWeaponHit.sRange				= sRange;
+	SWeaponHit.ubAttackerID			= pBullet->ubFirerID;
+	SWeaponHit.fHit					= TRUE;
+	SWeaponHit.ubLocation			= ubHitLocation;
 
-	if ( (pFirer->bDoBurst) && (ubSpecial == FIRE_WEAPON_NO_SPECIAL) )
+	if ( pBullet->ubFirerID != NOBODY && pFirer->bDoBurst && (ubSpecial == FIRE_WEAPON_NO_SPECIAL) )
 	{
 		// the animation required by the bullet hit (head explosion etc) overrides the
 		// hit-by-a-burst animation
@@ -2826,7 +2829,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			// adjust for bullet going through person
 			iImpact -= CalcBodyImpactReduction( ubAmmoType, ubHitLocation );
 			// adjust for other side of armour!
-			iImpact -= TotalArmourProtection( pFirer, pTarget, ubHitLocation, iImpact, ubAmmoType );
+			iImpact -= TotalArmourProtection( pTarget, ubHitLocation, iImpact, ubAmmoType );
 			if (iImpact > 0)
 			{
 				pBullet->iImpact = (INT8) iImpact;
@@ -2905,7 +2908,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	return( fStopped );
 }
 
-void BulletHitStructure( BULLET * pBullet, UINT16 usStructureID, INT32 iImpact, SOLDIERTYPE * pFirer, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT qCurrZ, BOOLEAN fStopped )
+void BulletHitStructure( BULLET * pBullet, UINT16 usStructureID, INT32 iImpact, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT qCurrZ, BOOLEAN fStopped )
 {
 	EV_S_STRUCTUREHIT		SStructureHit;
 
@@ -2915,10 +2918,10 @@ void BulletHitStructure( BULLET * pBullet, UINT16 usStructureID, INT32 iImpact, 
 	// HEADROCK HAM 5.1: Bullet already contains this data...
 	SStructureHit.usWeaponIndex = pBullet->fromItem;
 	SStructureHit.bWeaponStatus = pBullet->ubItemStatus;
-	SStructureHit.ubAttackerID	= pFirer->ubID;
+	SStructureHit.ubAttackerID	= pBullet->ubFirerID;
 	SStructureHit.usStructureID = usStructureID;
-	SStructureHit.iImpact				= iImpact;
-	SStructureHit.iBullet				= pBullet->iBullet;
+	SStructureHit.iImpact		= iImpact;
+	SStructureHit.iBullet		= pBullet->iBullet;
 	
 	if (is_networked)
 		SStructureHit.fStopped = fStopped;
@@ -2961,7 +2964,7 @@ void BulletMissed( BULLET *pBullet, SOLDIERTYPE * pFirer )
 			send_miss(&SMiss);
 	}
 
-	ShotMiss( pFirer->ubID, pBullet->iBullet );
+	ShotMiss(  pBullet->ubFirerID, pBullet->iBullet );
 }
 
 UINT32 ChanceOfBulletHittingStructure( INT32 iDistance, INT32 iDistanceToTarget, INT16 sHitBy )
@@ -4048,7 +4051,8 @@ void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle,
 	pBullet->qIncrY = FloatToFixed( (FLOAT) sin( ddHorizAngle ) );
 	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
-INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
+
+INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake )
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet"));
 
@@ -4058,20 +4062,32 @@ INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 	pBullet->bLOSIndexY = CONVERT_WITHINTILE_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrY ) % CELL_Y_SIZE );
 	pBullet->iCurrCubesZ = CONVERT_HEIGHTUNITS_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrZ ) );
 	pBullet->iLoop = 1;
-	pBullet->pFirer = pFirer;
 	pBullet->iImpactReduction = 0;
 	pBullet->sGridNo = MAPROWCOLTOPOS( pBullet->iCurrTileY, pBullet->iCurrTileX );
+
+	if ( ubFirer != NOBODY )
+		pBullet->pFirer = MercPtrs[ ubFirer ];
+	else
+		pBullet->pFirer = NULL;
 
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet: bullet info set"));
 
 	if (fFake)
 	{
-		pBullet->ubTargetID = pFirer->ubCTGTTargetID;
+		if ( ubFirer != NOBODY )
+			pBullet->ubTargetID = pBullet->pFirer->ubCTGTTargetID;
+		else
+			pBullet->ubTargetID = NOBODY;
+
 		return( CalcChanceToGetThrough( pBullet ) );
 	}
 	else
 	{
-		pBullet->ubTargetID = pFirer->ubTargetID;
+		if ( ubFirer != NOBODY )
+			pBullet->ubTargetID = pBullet->pFirer->ubTargetID;
+		else
+			pBullet->ubTargetID = NOBODY;
+
 		//if ( gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ] )
 		//{
 		//	pBullet->uiLastUpdate = 0;
@@ -4100,12 +4116,12 @@ INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 		//	/////////////////////////////////////////////////////////////////////////////////////
 		//}
 
-		if ( Item[ pFirer->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE )
+		if ( ubFirer != NOBODY && Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE )
 		{
 			pBullet->usClockTicksPerUpdate = 30;
 		}
 		// HEADROCK HAM 5: Bomb Fragments
-		else if (pBullet->fFragment)
+		else if (ubFirer == NOBODY && pBullet->fFragment)
 		{
 			pBullet->usClockTicksPerUpdate = 30;
 		}
@@ -4113,10 +4129,10 @@ INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 		{
 			//afp-start  //always a fast bullet 
 			if ( pBullet->usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME /*| BULLET_FLAG_TRACER*/ ) )
-				pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+				pBullet->usClockTicksPerUpdate = (Weapon[ pBullet->pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pBullet->pFirer->inv[pBullet->pFirer->ubAttackingHand]) ) / 10;
 			else
 				if (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS])				
-					pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+					pBullet->usClockTicksPerUpdate = (Weapon[ pBullet->pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pBullet->pFirer->inv[pBullet->pFirer->ubAttackingHand]) ) / 10;
 				else
 					pBullet->usClockTicksPerUpdate = 1;
 			//afp-end
@@ -4597,7 +4613,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 		}
 		if (fFake)
 		{
-			bCTGT = FireBullet( pFirer, pBullet, TRUE );
+			bCTGT = FireBullet( pFirer->ubID, pBullet, TRUE );
 			RemoveBullet( iBullet );
 			return( bCTGT );
 		}
@@ -4610,7 +4626,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 			//			}
 			//hayden
 			if(is_client)send_bullet( pBullet, usHandItem );
-			FireBullet( pFirer, pBullet, FALSE );
+			FireBullet( pFirer->ubID, pBullet, FALSE );
 		}
 	}
 
@@ -5103,7 +5119,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		}
 		if (fFake)
 		{
-			bCTGT = FireBullet( pFirer, pBullet, TRUE );
+			bCTGT = FireBullet( pFirer->ubID, pBullet, TRUE );
 			RemoveBullet( iBullet );
 			return( bCTGT );
 		}
@@ -5118,7 +5134,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			if(is_client)
 				send_bullet( pBullet, usHandItem );
 
-			FireBullet( pFirer, pBullet, FALSE );
+			FireBullet( pFirer->ubID, pBullet, FALSE );
 		}
 	}
 
@@ -5149,7 +5165,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 // Note that this function does not make provisions for Fake Firing. There is no need for it, and it would needlessly
 // complicate things anyway.
 // Also note we receive start coordinates from the bomb itself, because there's nowhere else to get them.
-INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
+INT8 FireFragmentGivenTarget( UINT8 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
 {
 	// Artificial...
 	dStartZ++;
@@ -5214,7 +5230,7 @@ INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStar
 
 	ubImpact =(UINT8) Explosive[Item[usExplosiveItem].ubClassIndex].ubFragDamage;
 
-	iBullet = CreateBullet( pThrower->ubID, false, usBulletFlags, usExplosiveItem );
+	iBullet = CreateBullet( ubOwner, false, usBulletFlags, usExplosiveItem );
 	if (iBullet == -1)
 	{
 		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to create bullet") );
@@ -5289,7 +5305,7 @@ INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStar
 	pBullet->fTracer = false;
 
 	if(is_client)send_bullet( pBullet, usExplosiveItem );
-	FireBullet( pThrower, pBullet, FALSE );
+	FireBullet( ubOwner, pBullet, FALSE );
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - new mercs' records
@@ -5759,7 +5775,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 		}*/
 				
 		if(is_client)send_bullet( pBullet, pObj->usItem );
-		FireBullet( pThrower, pBullet, FALSE );
+		FireBullet( pThrower->ubID, pBullet, FALSE );
 	}
 
 	///////////////////////// SOUND ////////////////////////////
@@ -6153,7 +6169,7 @@ void MoveBullet( INT32 iBullet )
 					{
 						// hit a roof
 						StopBullet( pBullet->iBullet );
-						BulletHitStructure( pBullet, 0, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+						BulletHitStructure( pBullet, 0, 0, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 						return;
 					}
 
@@ -6201,7 +6217,7 @@ void MoveBullet( INT32 iBullet )
 					}
 
 					// this might be a close call
-					if ( MercPtrs[ pStructure->usStructureID ]->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == MercPtrs[ pStructure->usStructureID ]->pathing.bLevel )
+					if ( pBullet->ubFirerID != NOBODY && MercPtrs[ pStructure->usStructureID ]->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == MercPtrs[ pStructure->usStructureID ]->pathing.bLevel )
 					{
 						MercPtrs[ pStructure->usStructureID ]->flags.fCloseCall = TRUE;
 					}
@@ -6214,7 +6230,7 @@ void MoveBullet( INT32 iBullet )
 
 						// apply suppression, regardless of friendly or enemy
 						// except if friendly, not within a few tiles of shooter
-						if ( MercPtrs[ pStructure->usStructureID ]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > MIN_DIST_FOR_SCARE_FRIENDS )
+						if ( pBullet->ubFirerID == NOBODY || MercPtrs[ pStructure->usStructureID ]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > MIN_DIST_FOR_SCARE_FRIENDS )
 						{
 							// buckshot has only a 1 in 2 chance of applying a suppression point
 							// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
@@ -6249,7 +6265,7 @@ void MoveBullet( INT32 iBullet )
 									// else fall through
 								default:
 									MercPtrs[pStructure->usStructureID]->ubSuppressionPoints++;
-									MercPtrs[pStructure->usStructureID]->ubSuppressorID = pBullet->pFirer->ubID;
+									MercPtrs[pStructure->usStructureID]->ubSuppressorID = pBullet->ubFirerID;
 									break;
 								}
 							}
@@ -6322,7 +6338,7 @@ void MoveBullet( INT32 iBullet )
 						if (ubTargetID != NOBODY)
 						{
 							pTarget = MercPtrs[ ubTargetID ];
-							if ( IS_MERC_BODY_TYPE( pTarget ) && pBullet->pFirer->bSide != pTarget->bSide )
+							if ( IS_MERC_BODY_TYPE( pTarget ) && (pBullet->ubFirerID == NOBODY || pBullet->pFirer->bSide != pTarget->bSide) )
 							{
 								// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
 								BOOLEAN fInflictSuppression = FALSE;
@@ -6356,7 +6372,7 @@ void MoveBullet( INT32 iBullet )
 										// else fall through
 									default:
 										pTarget->ubSuppressionPoints++;
-										pTarget->ubSuppressorID = pBullet->pFirer->ubID;
+										pTarget->ubSuppressorID = pBullet->ubFirerID;
 										break;
 									}
 								}
@@ -6368,7 +6384,6 @@ void MoveBullet( INT32 iBullet )
 								pTarget->flags.fCloseCall = TRUE;
 								}
 								*/
-
 							}
 						}
 					}
@@ -6389,13 +6404,13 @@ void MoveBullet( INT32 iBullet )
 //hayden	not hit	ground
 			if(ENABLE_COLLISION)	
 			{
-			if (iCurrAboveLevelZ < 0)
-			{
-				// ground is in the way!
-				StopBullet( pBullet->iBullet );
-				BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
-				return;
-			}
+				if (iCurrAboveLevelZ < 0)
+				{
+					// ground is in the way!
+					StopBullet( pBullet->iBullet );
+					BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+					return;
+				}
 			}
 			// check for the existence of structures
 			if (iNumLocalStructures == 0 && !pRoofStructure)
@@ -6447,20 +6462,20 @@ void MoveBullet( INT32 iBullet )
 //hayden, stop hit ground
 				if(ENABLE_COLLISION)
 				{
-				if (pBullet->qCurrZ + pBullet->qIncrZ * iStepsToTravel < qLandHeight)
-				{
-					// WANNE - BMP: BUGFIX: Had to change abs to _abs64 because FIXEDPT is now INT64
-					//iStepsToTravel = __min( iStepsToTravel, abs( (pBullet->qCurrZ - qLandHeight) / pBullet->qIncrZ ) );
-					iStepsToTravel = __min( iStepsToTravel, _abs64( (pBullet->qCurrZ - qLandHeight) / pBullet->qIncrZ ) );
+					if (pBullet->qCurrZ + pBullet->qIncrZ * iStepsToTravel < qLandHeight)
+					{
+						// WANNE - BMP: BUGFIX: Had to change abs to _abs64 because FIXEDPT is now INT64
+						//iStepsToTravel = __min( iStepsToTravel, abs( (pBullet->qCurrZ - qLandHeight) / pBullet->qIncrZ ) );
+						iStepsToTravel = __min( iStepsToTravel, _abs64( (pBullet->qCurrZ - qLandHeight) / pBullet->qIncrZ ) );
 
-					pBullet->qCurrX += pBullet->qIncrX * iStepsToTravel;
-					pBullet->qCurrY += pBullet->qIncrY * iStepsToTravel;
-					pBullet->qCurrZ += pBullet->qIncrZ * iStepsToTravel;
+						pBullet->qCurrX += pBullet->qIncrX * iStepsToTravel;
+						pBullet->qCurrY += pBullet->qIncrY * iStepsToTravel;
+						pBullet->qCurrZ += pBullet->qIncrZ * iStepsToTravel;
 
-					StopBullet( pBullet->iBullet );
-					BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
-					return;
-				}
+						StopBullet( pBullet->iBullet );
+						BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+						return;
+					}
 				}
 
 				// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
@@ -6542,7 +6557,7 @@ void MoveBullet( INT32 iBullet )
 							{
 								if (pStructure->fFlags & STRUCTURE_PERSON)
 								{
-									if(!(UsingNewCTHSystem() || pBullet->fFragment || (pBullet->usFlags & BULLET_FLAG_BUCKSHOT)) && fIntended && pBullet->sHitBy < 0 && pBullet->pFirer->ubTargetID == pStructure->usStructureID)//dnl ch60 010913 don't hit target if CTH roll decide to miss
+									if(!(UsingNewCTHSystem() || pBullet->fFragment || (pBullet->usFlags & BULLET_FLAG_BUCKSHOT)) && fIntended && pBullet->sHitBy < 0 && pBullet->ubFirerID != NOBODY && pBullet->pFirer->ubTargetID == pStructure->usStructureID)//dnl ch60 010913 don't hit target if CTH roll decide to miss
 									{
 										gpLocalStructure[iStructureLoop] = NULL;
 //SendFmtMsg("shoot me, miss me, lucky me :-)");
@@ -6626,7 +6641,7 @@ void MoveBullet( INT32 iBullet )
 
 												// bullet must end here!
 												StopBullet( pBullet->iBullet );
-												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 												return;
 											}
 										}
@@ -6703,13 +6718,13 @@ void MoveBullet( INT32 iBullet )
 											else if ( iRemainingImpact <= 0 )
 											{
 												StopBullet( pBullet->iBullet );
-												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 												return;
 											}
 											else if (fHitStructure && (gubLocalStructureNumTimesHit[iStructureLoop] == 0) )
 											{
 												// play animation to indicate structure being hit
-												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, FALSE );
+												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, FALSE );
 												gubLocalStructureNumTimesHit[iStructureLoop] = 1;
 											}
 										}
@@ -6741,7 +6756,7 @@ void MoveBullet( INT32 iBullet )
 							if ( 1 /*HandleBulletStructureInteraction( pBullet, pRoofStructure, &fHitStructure ) <= 0 */)
 							{
 								StopBullet( pBullet->iBullet );
-								BulletHitStructure( pBullet, 0, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
+								BulletHitStructure( pBullet, 0, 0, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 								return;
 							}
 							/*
@@ -6839,7 +6854,7 @@ void MoveBullet( INT32 iBullet )
 		}
 
 		// check to see if bullet is close to target
-		if ( pBullet->pFirer->ubTargetID != NOBODY && !(pBullet->pFirer->flags.uiStatusFlags & SOLDIER_ATTACK_NOTICED) && PythSpacesAway( pBullet->sGridNo, pBullet->sTargetGridNo ) <= 3 )
+		if ( pBullet->ubFirerID != NOBODY && pBullet->pFirer->ubTargetID != NOBODY && !(pBullet->pFirer->flags.uiStatusFlags & SOLDIER_ATTACK_NOTICED) && PythSpacesAway( pBullet->sGridNo, pBullet->sTargetGridNo ) <= 3 )
 		{
 			pBullet->pFirer->flags.uiStatusFlags |= SOLDIER_ATTACK_NOTICED;
 		}
@@ -6847,7 +6862,6 @@ void MoveBullet( INT32 iBullet )
 	// unless the distance is integral, after the loop there will be a
 	// fractional amount of distance remaining which is unchecked
 	// but we shouldn't(?) need to check it because the target is there!
-
 }
 
 
