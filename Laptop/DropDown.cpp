@@ -348,9 +348,9 @@ DropDownBase::Display_Drop()
 void
 DropDownBase::DrawTopEntry()
 {
-	if ( mSelectedEntry >= mEntryVector.size() )
-		return;
-
+	// make sure we don't get bogus values
+	mSelectedEntry = min(mSelectedEntry, mEntryVector.size() - 1);
+		
 	//display the name in the list
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX+4, musStartY+4, musStartX+musWidth-4, musStartY+musFontHeight+8, mColorMarked );
 
@@ -450,7 +450,7 @@ DropDownBase::SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reaso
 		pRegion->uiFlags |= BUTTON_CLICKED_ON ;
 
 		mSelectedEntry = (UINT8)MSYS_GetRegionUserData( pRegion, 0 ) + mFirstShownEntry;
-		
+						
 		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
 		
 		DrawTopEntry();

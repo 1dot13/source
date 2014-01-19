@@ -236,13 +236,13 @@ public:
 	// this function has to be implemented!
 	virtual void SetRefresh();
 	
-	static void OpenDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->OpenDropDownRegionCallBack(pRegion, iReason); }
-	static void CloseDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->CloseDropDownRegionCallBack(pRegion, iReason); }
-	static void SelectRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownRegionCallBack(pRegion, iReason); }
-	static void SelectMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownMovementCallBack(pRegion, iReason); }
-	static void SelectArrowDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )				{ return static_cast<DropDownBase*>(mpSelf)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-	static void SelectScrollRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-	static void SelectScrollMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
+	static void OpenDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->OpenDropDownRegionCallBack(pRegion, iReason); }
+	static void CloseDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->CloseDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectRegionDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectMovementDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownMovementCallBack(pRegion, iReason); }
+	static void SelectArrowDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
+	static void SelectScrollRegionDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectScrollMovementDropDown_DropDown(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
 
 	MOUSE_CALLBACK
 	CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
@@ -252,25 +252,25 @@ public:
 		switch ( arg )
 		{
 		case DROPDOWN_OPEN:
-			return &OpenDropDown_DropDown_Appearance;
+			return &OpenDropDown_DropDown;
 			break;
 		case DROPDOWN_CLOSE:
-			return &CloseDropDown_DropDown_Appearance;
+			return &CloseDropDown_DropDown;
 			break;
 		case DROPDOWN_REGION:
-			return &SelectRegionDropDown_DropDown_Appearance;
+			return &SelectRegionDropDown_DropDown;
 			break;
 		case DROPDOWN_MOVEMENT:
-			return &SelectMovementDropDown_DropDown_Appearance;
+			return &SelectMovementDropDown_DropDown;
 			break;
 		case DROPDOWN_ARROW:
-			return &SelectArrowDropDown_DropDown_Appearance;
+			return &SelectArrowDropDown_DropDown;
 			break;
 		case DROPDOWN_SCROLL_REGION:
-			return &SelectScrollRegionDropDown_DropDown_Appearance;
+			return &SelectScrollRegionDropDown_DropDown;
 			break;
 		case DROPDOWN_SCROLL_MOVEMENT:
-			return &SelectScrollMovementDropDown_DropDown_Appearance;
+			return &SelectScrollMovementDropDown_DropDown;
 			break;
 		}
 

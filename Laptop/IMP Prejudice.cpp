@@ -250,17 +250,18 @@ void RenderIMPPrejudice( void )
 	RenderProfileBackGround();
 
 	IMPPrejudiceDisplay();
-
-	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().Display();
-	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().Display();
+	
+	// reversed order - lower boxes first. It is otherwise possible that open boxes are overlayed by closed boxes
 	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().Display();
 }
 
 
