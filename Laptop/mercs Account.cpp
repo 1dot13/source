@@ -523,16 +523,17 @@ void DisplayHiredMercs()
 		usMercIDEnd = usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE;
 	}
 
+	// Flugente: neither do I, so screw this
 	// WANNE.LARRY: I don't understand why this is needed??? I did not change anything on this yet.
 	// At least second page
 	// This approach is needed, because auf LARRY_ROACHBURN
-	if (usMercIDStart > 0)
+	/*if (usMercIDStart > 0)
 	{
 		usMercIDStart++;
-	}
+	}*/
 
 	// Loop through all the mercs
-	for(i=usMercIDStart; i <= (NUMBER_OF_MERCS - 1) ; i++)
+	for(i=usMercIDStart; i < usMercIDEnd/*(NUMBER_OF_MERCS - 1)*/ ; ++i)
 	{
 		// We have no more free rows on the current page
 		if (usCurrentRow == usMercIDEnd - 1)
