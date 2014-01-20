@@ -2543,7 +2543,7 @@ STR16 pLandTypeStrings[] =
 	L"Aéroport Drassen",
 	L"Aéroport Meduna",
 	L"Site SAM",
-	L"Refuel site", // TODO.Translate
+	L"Dépôt",
 	L"Base rebelle", //The rebel base underground in sector A10
 	L"Prison Tixa",	//The basement of the Tixa Prison (J9)
 	L"Repaire créatures",	//Any mine sector with creatures in it
@@ -3167,7 +3167,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Nettoyer votre arme",
 	L"Nettoyer les armes",
 	L"Retirer les habits",
-	L"En faire ses habits",
+	L"En faire sa tenue",
 	L"Inspecter la milice",
 	L"Rééquiper milice",
 	L"Tester déguisement",
@@ -3311,8 +3311,8 @@ STR16 pHelicopterEtaStrings[] =
 	L"Arrivée",
 	L"L'hélicoptère est trop endommagé et doit atterrir en territoire ennemi !",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->
 	L"L'hélicoptère va retourner directement à sa base, voulez-vous faire descendre les passagers ?"
-	L"Remaining Fuel:",	// TODO.Translate
-	L"Dist. To Refuel Site:",	// TODO.Translate
+	L"Carburant restant :",
+	L"Ravitaillement :",
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=
@@ -4164,8 +4164,8 @@ STR16 pBookMarkStrings[] =
 	L"Assurance",
 	L"Annuler",
 	L"Encyclopédie",
-	L"Salle de briefing",
-	L"Campaign History",	// TODO.Translate
+	L"Briefing",
+	L"Comptes rendus",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4198,7 +4198,7 @@ STR16 gsAtmStartButtonText[] =
 	L"Transférer $ ", 		// transfer money to merc -- short form
 	L"Stats", 			// view stats of the merc
 	L"Inventaire", 			// view the inventory of the merc
-	L"Tâche",
+	L"Historique",
 };
 
 STR16 sATMText[ ]=
@@ -4274,10 +4274,10 @@ STR16 pWebPagesTitles[] =
 	L"Morgue McGillicutty",
 	L"",
 	L"URL introuvable.",
-	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
-	L"Arulco Press Council - Battle Reports",
-	L"Arulco Press Council - Latest News",
-	L"Arulco Press Council - About us",
+	L"Conseil de presse : Bilan du conflit",
+	L"Conseil de presse : Rapports",
+	L"Conseil de presse : Dernières Nouvelles",
+	L"Conseil de presse : À propos de nous",
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopédie",
 	L"Encyclopédie : Données",
@@ -4922,7 +4922,7 @@ STR16			CharacterInfo[] =
 
 	// the contract expenses' area
 
-	L"Paie",							
+	L"Tarif",							
 	L"Contrat",				
 	L"1 jour",					
 	L"1 semaine",
@@ -4940,7 +4940,7 @@ STR16			CharacterInfo[] =
 	L"Matériel optionnel :",				// Displays the optional gear cost
 	L"Paquetage",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
 	L"Dépôt médical",			// If the merc required a medical deposit, this is displayed
-	L"Kit 1",				// Text on Starting Gear Selection Button 1 
+	L"Kit 1",				// Text on Starting Gear Selection Button 1
 	L"Kit 2",				// Text on Starting Gear Selection Button 2
 	L"Kit 3",				// Text on Starting Gear Selection Button 3
 	L"Kit 4",				// Text on Starting Gear Selection Button 4
@@ -5096,7 +5096,7 @@ STR16			AimAlumniText[] =
 	L"Anciens",	// Title of the page
 
 	L"OK",			// Stops displaying information on selected merc
-	L"Next page",	// TODO.Translate
+	L"Page suiv.",
 };
 
 
@@ -8146,161 +8146,160 @@ STR16 sSpecialCharacters[] =
 	L"%",		// Percentage character
 };
 
-STR16	szSoldierClassName[]=	// TODO.Translate
+STR16	szSoldierClassName[]=
 {
-	L"Mercenary",
-	L"Green militia",
-	L"Regular militia",
-	L"Elite militia",
+	L"Mercenaire",
+	L"Milicien",
+	L"Soldat",
+	L"Vétéran",
 
-	L"Civilian",
+	L"Civil",
 
-	L"Administrator",
-	L"Army Soldier",
-	L"Elite Soldier",
-	L"Tank",
+	L"Administrateur",
+	L"Militaire",
+	L"Soldat d'élite",
+	L"Char",
 
-	L"Creature",
-	L"Zombie",
+	L"Animal",
+	L"Zombi",
 };
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco Press Council",
-	L"Ministry for Arulcan Information Distribution",
-	L"Arulco Revolutionary Movement",
+	L"Conseil de presse d'Arulco",
+	L"Ministère de l'information d'Arulco",
+	L"Mouvement révolutionnaire d'Arulco",
 	L"The Times International",
 	L"International Times",
-	L"R.I.S. (Recon Intelligence Service)",
+	L"RIS (Renseignements Internationaux Spécialisés)",
 
-	L"A collection of press sources from Arulco",
-	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"Recueille les articles de presse d'Arulco",	// TODO.Translate //A voir fini (to see finished)
+	L"Nous sommes une source d'information neutre. Nous collectons différents articles d'actualité venant d'Arulco. Nous ne jugeons pas ces sources, nous nous contentons de les publier, pour que vous puissiez vous faire votre avis. Nous faisons paraitre des articles de différentes sources, venant :",
 	
-	L"Conflict Summary",
-	L"Battle reports",
-	L"News",
-	L"About us",
+	L"Bilan du conflit",
+	L"Rapports",
+	L"News",	// TODO.Translate //A voir fini (to see finished)
+	L"À propos de nous",
 };
 
 STR16	szCampaignHistoryDetail[]=
 {
-	L"%s, %s %s %s in %s.",
+	L"%s, %s %s %s en %s.",
 
-	L"rebel forces",
-	L"the army",
+	L"la guérilla",
+	L"l'armée",
 
-	L"attacked",
-	L"ambushed",
-	L"airdropped",
+	L"a attaqué",
+	L"a pris en embuscade",
+	L"héliportée a attaqué",
 
-	L"The attack came from %s.",
-	L"%s were reinforced from %s.",
-	L"The attack came from %s, %s were reinforced from %s.",
-	L"north",
-	L"east",
-	L"south",
-	L"west",
-	L"and",
-
-	L"Buildings in the sector were damaged. %d civilians were killed and %d wounded.",
-	L"During the attack, %s and %s called reinforcements.",
-	L"During the attack, %s called reinforcements.",
-	L"Eyewitnesses report the use of chemical weapons from both sides.",
-	L"Chemical weapons were used by %s.",
-	L"In a serious escalation of the conflict, both sides deployed tanks.",
-	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
-	L"Both sides are said to have used snipers.",
-	L"Unverified reports indicate %s snipers were involved in the firefight."
+	L"L'attaque est venue %s.",
+	L"%s a eu des renforts venant %s.",
+	L"L'attaque est venue %s. %s a eu des renforts venant %s.",
+	L"du nord",
+	L"de l'est",
+	L"du sud",
+	L"de l'ouest",
+	L"et",
+	L"Des bâtiments ont été endommagés. Il y a eu %d civils tués et %d blessés.",
+	L"Pendant l'attaque, %s et %s ont appelé des renforts.",
+	L"Pendant l'attaque, %s a appelé des renforts.",
+	L"Les témoins rapportent l'utilisation d'armes chimiques par les deux camps.",
+	L"Des armes chimiques ont été utilisées par %s.",
+	L"L'escalade du conflit s'aggrave ; les deux camps ont déployés des chars.",
+	L"Il y avait %d chars pour renforcer %s. %d d'entre eux ont été détruits dans des combats acharnés.",
+	L"Les deux camps avaient des tireurs d'élite.",
+	L"Des sources non vérifiées indiquent que %s tireurs d'élite ont été impliqués dans le combat."
 };
 
 STR16	szCampaignHistoryTimeString[]=
 {
-	L"Deep in the night",		// 23 - 3
-	L"At dawn",					// 3 - 6
-	L"Early in the morning",	// 6 - 8
-	L"In the morning hours",	// 8 - 11
-	L"At noon",					// 11 - 14
-	L"On the afternoon",		// 14 - 18
-	L"On the evening",			// 18 - 21
-	L"During the night",		// 21 - 23
+	L"Tard dans la nuit",		// 23 - 3
+	L"À l'aube",					// 3 - 6
+	L"Tôt ce matin",	// 6 - 8
+	L"Dans la matinée",	// 8 - 11
+	L"À midi",					// 11 - 14
+	L"Dans l'après-midi",		// 14 - 18
+	L"Dans la soirée",			// 18 - 21
+	L"Dans la nuit",		// 21 - 23
 };
 
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
-	L"Initial funding",
-	L"Mine income",
-	L"Trade",
-	L"Other sources",
+	L"Fond initial",
+	L"Revenu des mines",
+	L"Commerce",
+	L"Autres",
 };
 
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
-	L"Ammunition",
-	L"Explosives",
-	L"Food",
-	L"Medical gear",
-	L"Item maintenance",
+	L"Munition",
+	L"Explosifs",
+	L"Nourriture",
+	L"Matériel médical",
+	L"Maintenance",
 };
 
 STR16	szCampaignHistoryResultString[]=
 {
-	L"In an extremely one-sided battle, the army force was wiped out without much resistance.",
+	L"Dans une bataille extrêmement meurtrière et inégale, l'armée a été anéantie sans trop de résistance.",
 
-	L"The rebels easily defeated the army, inflicting heavy losses.",
-	L"Without much effort, the rebels inflicted heavy losses upon the army and took several prisoners.",
+	L"Les rebelles ont facilement vaincu l'armée, infligeant de lourdes pertes.",
+	L"Sans trop d'effort, les rebelles ont infligé de lourdes pertes à l'armée et ont fait plusieurs prisonniers.",
 
-	L"In a bloody fight, the rebels finally overcame the opposition. The army had severe losses.",
-	L"The rebels had losses but defeated the royalists. Unverified information says several soldiers might have been taken prisoner.",
+	L"Dans un combat meurtrier, les rebelles ont réussi à écraser la partie adversaire. L'armée a subi des pertes sévères.",
+	L"Les rebelles ont subi des pertes, mais ont vaincu les royalistes. Des sources non vérifiées disent que plusieurs soldats auraient été faits prisonniers.",
 
-	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Wether they will be able to hold this position against continued attacks is doubtful.",
+	L"Dans une victoire à la Pyrrhus, les rebelles ont vaincu les royalistes, mais ils ont subi de lourdes pertes. Il n'est pour l'instant pas possible de dire s'ils arriveront à tenir position face à des assauts répétés.",
 	
-	L"The army's superiority in numbers came into full play. The rebels never had a chance and had to either retreat or be killed or captured.",
-	L"Despite the high number of rebels in this sector, the army easily dispatched them.",
+	L"La supériorité numérique de l'armée a été l'élément déterminant de ce combat. Les rebelles n'avaient aucune chance et ont dû se replier pour ne pas être tués ou capturés.",
+	L"Malgré le nombre élevé de rebelles dans ce secteur, l'armée les a facilement repoussés.",
 
-	L"The rebels were clearly unprepared against the army's superiority in numbers an equipment. They were easily defeated.",
-	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
+	L"Les rebelles n'étaient clairement pas préparés à affronter la supériorité numérique de l'armée, ni son niveau d'équipement. Ils ont été aisément vaincus.",
+	L"Même si les rebelles étaient plus nombreux sur le terrain, l'armée était mieux équipée. Les rebelles ont évidemment perdu.",
 
-	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	L"La violence des combats a fait des pertes considérables dans les deux camps, mais à la fin, la supériorité numérique l'armée a fait pencher la balance en sa faveur. La force rebelle a été anéantie. Il pourrait y avoir des survivants, mais nous ne pouvons pas confirmer cette source pour le moment.",
+	L"Lors d'une fusillade intense, l'entraînement supérieur de l'armée arulcaine a fait pencher la balance en sa faveur. Les rebelles ont dû battre en retraite.",
 	
-	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
+	L"Aucun des deux camps n'était prêt à se soumettre. Alors que l'armée a finalement écarté la menace rebelle de la zone, leurs pertes conséquentes ont conduit l'unité à continuer d'exister uniquement de nom. Mais il est clair que les rebelles vont rapidement être à court d'hommes et de femmes si l'armée continue ce taux d'attrition.",
 };
 
 STR16	szCampaignHistoryImportanceString[]=
 {
-	L"Irrelevant",
-	L"Insignificant",
-	L"Notable",
-	L"Noteworthy",
-	L"Significant",
-	L"Interesting",
-	L"Important",
-	L"Very important",
-	L"Grave",
-	L"Major",
-	L"Momentous",
+	L"Hors sujet",
+	L"Fait mineur",
+	L"Fait notable",
+	L"Fait marquant",
+	L"Fait significatif",
+	L"Fait intéressant",
+	L"Fait important",
+	L"Fait très important",
+	L"Fait grave",
+	L"Fait majeur",
+	L"Fait historique",
 };
 
 STR16	szCampaignHistoryWebpageString[]=
 {
-	L"Killed",
-	L"Wounded",
-	L"Prisoners",
-	L"Shots fired",
+	L"Tué",
+	L"Blessé",
+	L"Prisonnier",
+	L"Tir",
 
-	L"Money earned",
-	L"Consumption",
-	L"Losses",
-	L"Participants",
+	L"Compte",
+	L"Logistique",
+	L"Pertes",
+	L"Participant",
 
-	L"Promotions",
-	L"Summary",
-	L"Detail",
-	L"Previous",
+	L"Promotion",
+	L"Bilan",
+	L"Récit",
+	L"Précédent",
 
-	L"Next",
+	L"Suivant",
 	L"Incident",
-	L"Day",
+	L"Jour",
 };
 
 #endif //FRENCH

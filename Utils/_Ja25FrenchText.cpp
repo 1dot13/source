@@ -377,7 +377,7 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
-	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+	L"Vous informera à l'occasion sur les opinions de ses coéquipiers.\n",
 };
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
