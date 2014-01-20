@@ -6668,37 +6668,43 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 
 	UINT8 ubSourceMerc = (UINT8)gusSelectedSoldier;
 	UINT8 ubTargetMerc;
+	INT32 iSourceFace;
+	INT32 iTargetFace;
 	UINT8 ubGroupID = pSoldier->ubGroupID;
 	INT8 bOldPosition = GetTeamSlotFromPlayerID ( MercPtrs[ ubSourceMerc ]->ubID );
 	INT8 bNewPosition = bOldPosition + bDirection;
 	SOLDIERTYPE TempMercPtr = *MercPtrs[ ubSourceMerc ];
-	FACETYPE TempFace = gFacesData[ ubSourceMerc +1 ];
 
 	// check if new position is occupied by another merc? we won't replace an empty slot
 	if ( gTeamPanel[ bNewPosition ].fOccupied && gTeamPanel[ bNewPosition ].ubID != NOBODY )
-				{
+	{
 		ubTargetMerc = gTeamPanel[ bNewPosition ].ubID;
+
+		// store face indexes
+		iSourceFace = MercPtrs[ ubSourceMerc ]->iFaceIndex;
+		iTargetFace = MercPtrs[ ubTargetMerc ]->iFaceIndex;
+		FACETYPE TempFace = gFacesData[ iSourceFace ];
 
 		// swap the data
 		*MercPtrs[ ubSourceMerc ] = *MercPtrs[ ubTargetMerc ];
 		*MercPtrs[ ubTargetMerc ] = TempMercPtr; 
 		// also swap face data, otherwise face gear, opp count etc won't update
-		gFacesData[ ubSourceMerc +1 ] = gFacesData[ ubTargetMerc +1 ];
-		gFacesData[ ubTargetMerc +1 ] = TempFace;
+		gFacesData[ iSourceFace ] = gFacesData[ iTargetFace ];
+		gFacesData[ iTargetFace ] = TempFace;
 
 		// update IDs in the data so they match array index again
 		MercPtrs[ ubSourceMerc ]->ubID = ubSourceMerc;
 		MercPtrs[ ubTargetMerc ]->ubID = ubTargetMerc;
-		gFacesData[ ubSourceMerc +1 ].iID = ubSourceMerc +1;
-		gFacesData[ ubTargetMerc +1 ].iID = ubTargetMerc +1;
+		gFacesData[ iSourceFace ].iID = iSourceFace;
+		gFacesData[ iTargetFace ].iID = iTargetFace;
 
-		// update soldier ID so they match array index again
-		gFacesData[ ubSourceMerc +1 ].ubSoldierID = ubSourceMerc;
-		gFacesData[ ubTargetMerc +1 ].ubSoldierID = ubTargetMerc;
+		// update soldier ID so they match merc index again
+		gFacesData[ iSourceFace ].ubSoldierID = ubSourceMerc;
+		gFacesData[ iTargetFace ].ubSoldierID = ubTargetMerc;
 
 		// update face index in merc data
-		MercPtrs[ ubSourceMerc ]->iFaceIndex = ubSourceMerc +1;
-		MercPtrs[ ubTargetMerc ]->iFaceIndex = ubTargetMerc +1;
+		MercPtrs[ ubSourceMerc ]->iFaceIndex = iSourceFace;
+		MercPtrs[ ubTargetMerc ]->iFaceIndex = iTargetFace;
 
 		// update group info
 		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
