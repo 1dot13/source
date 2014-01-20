@@ -836,7 +836,7 @@
     <uiIndex>104</uiIndex>
     <szItemName>4.7x33 PE 45</szItemName>
     <szLongItemName>4.7x33mm PE, 45</szLongItemName>
-    <szItemDesc>Ce chargeur contient 50 cartouches de 4.7mm. Ces munitions sont aussi efficaces que les 5.56mm OTAN, mais sont 40 pour cent plus légères.</szItemDesc>
+    <szItemDesc>Ce chargeur contient 50 cartouches de 4.7mm. Ces munitions sont aussi efficaces que les 5.56mm OTAN, mais sont 40%%%% plus légères.</szItemDesc>
     <szBRName>4.7mm PE, 45</szBRName>
     <szBRDesc>Un chargeur contenant 50 cartouches de 4.7mm, que nous avons récupéré d'un entrepôt allemand. Si vous aimez l'exceptionnel, laissez-vous tenter.</szBRDesc>
   </ITEM>
@@ -2254,7 +2254,7 @@
     <szLongItemName>Bonnet noir</szLongItemName>
     <szItemDesc>Un bonnet noir de type commando.</szItemDesc>
     <szBRName>Bonnet noir</szBRName>
-    <szBRDesc>Il est à moitié prix ! Pour une durée limitée seulement, achetez ce beau bonnet de commando en coton naturel et avec 50 pour cent de réduction !</szBRDesc>
+    <szBRDesc>Il est à moitié prix ! Pour une durée limitée seulement, achetez ce beau bonnet de commando en coton naturel et avec 50 %%%% de réduction !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>282</uiIndex>
@@ -4822,7 +4822,7 @@
     <szLongItemName>AEK-971</szLongItemName>
     <szItemDesc>Une variante d'AK relativement récente. Ce modèle est chambré en 5.45mm.</szItemDesc>
     <szBRName>AEK-971</szBRName>
-    <szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20 pour cent. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 5.45mm.</szBRDesc>
+    <szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20%%%%. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 5.45mm.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>603</uiIndex>
@@ -4830,7 +4830,7 @@
     <szLongItemName>AEK-973</szLongItemName>
     <szItemDesc>Une variante d'AK relativement récente. Ce modèle est chambré en 7.62mm du Pacte de Varsovie.</szItemDesc>
     <szBRName>AEK-973</szBRName>
-    <szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20 pour cent. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 7.62x39mm.</szBRDesc>
+    <szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20%%%%. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 7.62x39mm.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>604</uiIndex>
@@ -6420,7 +6420,7 @@
     <uiIndex>802</uiIndex>
     <szItemName>Pant. Dyneema</szItemName>
     <szLongItemName>Pantalon Dyneema</szLongItemName>
-    <szItemDesc>Produit sous licence par plusieurs entreprises, le tissu Dyneema est 40 pour cent plus résistant que le Kevlar.</szItemDesc>
+    <szItemDesc>Produit sous licence par plusieurs entreprises, le tissu Dyneema est 40%%%% plus résistant que le Kevlar.</szItemDesc>
     <szBRName>Pantalon Dyneema</szBRName>
     <szBRDesc>Certains, qui ont porté ce pantalon en tissu Dyneema, le trouvent assez désagréable. Mais cependant, recevoir une balle dans son aine non protégée serait considérablement moins agréable.</szBRDesc>
   </ITEM>
@@ -8102,7 +8102,7 @@
     <szLongItemName>Sil. fusil d'assaut</szLongItemName>
     <szItemDesc>Un grand silencieux qui se monte sur la plupart des carabines et des fusils d'assaut. Il permet de réduire le bruit et la flamme, mais il est encore loin d'être silencieux.</szItemDesc>
     <szBRName>Silencieux fusil d'assaut</szBRName>
-    <szBRDesc>Un grand silencieux qui se monte sur la plupart des carabines et des fusils d'assaut. Avertissement : Cet article n'est pas efficace à 100 pour cent, tout seul. Utilisez-le efficacement avec des munitions à faible charge ou subsonique pour avoir un niveau sonore fortement réduit.</szBRDesc>
+    <szBRDesc>Un grand silencieux qui se monte sur la plupart des carabines et des fusils d'assaut. Avertissement : Cet article n'est pas efficace à 100 %%%%, tout seul. Utilisez-le efficacement avec des munitions à faible charge ou subsonique pour avoir un niveau sonore fortement réduit.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1013</uiIndex>
@@ -11476,9 +11476,9 @@
     <uiIndex>1434</uiIndex>
     <szItemName>5.56x45 SB</szItemName>
     <szLongItemName>Boîte 5.56x45 SB</szLongItemName>
-    <szItemDesc>Faire plein de trous sans réveiller la campagne. Ces munitions sont 40 pour cent plus silencieuses que les standards.</szItemDesc>
+    <szItemDesc>Faire plein de trous sans réveiller la campagne. Ces munitions sont 40%%%% plus silencieuses que les standards.</szItemDesc>
     <szBRName>Boîte 5.56x45 SB</szBRName>
-    <szBRDesc>Faire plein de trous sans réveiller la campagne. Ces munitions sont 40 pour cent plus silencieuses que les standards.</szBRDesc>
+    <szBRDesc>Faire plein de trous sans réveiller la campagne. Ces munitions sont 40%%%% plus silencieuses que les standards.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1435</uiIndex>
@@ -12476,7 +12476,7 @@
     <uiIndex>1559</uiIndex>
     <szItemName>Steak</szItemName>
     <szLongItemName>Steak</szLongItemName>
-    <szItemDesc>Vous trouverez le meilleur steak arulcan sur... Arulco.</szItemDesc>
+    <szItemDesc>Vous trouverez le meilleur steak arulcain sur... Arulco.</szItemDesc>
     <szBRName>Viande, steak</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>

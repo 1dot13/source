@@ -1,0 +1,6 @@
+Voulez-vous jouer les campagnes d'Unfinished Business (par exemple: SOG Vietnam 69, Shady Jobs...) avec les dernières fonctionnalités de 1.13 ?
+
+Il suffit de télécharger sur SVN, les fichiers de la campagne que vous désirez jouer et les mettre dans votre répertoire d'installation de JA2 1.13.
+https://ja2svn.dyndns.org/source/ja2/branches/Wanne/UB_113_Addons
+
+Lancez ensuite "INI Editor". Sélectionnez le VFS-Config-File correspondant à votre campagne et l'exécutable UB. Puis cliquez sur "START".

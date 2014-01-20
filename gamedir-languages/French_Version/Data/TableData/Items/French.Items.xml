@@ -2255,7 +2255,7 @@
 		<szLongItemName>Bonnet noir</szLongItemName>
 		<szItemDesc>Un bonnet noir de type commando.</szItemDesc>
 		<szBRName>Bonnet noir</szBRName>
-		<szBRDesc>Il est à moitié prix ! Pour une durée limitée seulement, achetez ce beau bonnet de commando en coton naturel et avec 50 pour cent de réduction !</szBRDesc>
+		<szBRDesc>Il est à moitié prix ! Pour une durée limitée seulement, achetez ce beau bonnet de commando en coton naturel et avec 50%%%% de réduction !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>

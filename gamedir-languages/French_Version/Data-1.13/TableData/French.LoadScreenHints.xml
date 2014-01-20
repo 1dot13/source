@@ -86,7 +86,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL]+[ClicGauche]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
+    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL]+[CLIC GAUCHE]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -122,7 +122,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>Avec l'inventaire de secteur ouvert, [CTRL]+[ClicGauche] sur un emplacement vide de votre inventaire pour afficher une liste de catégories d'objets du secteur.</szName>
+    <szName>Avec l'inventaire de secteur ouvert, [CTRL]+[CLIC GAUCHE] sur un emplacement vide de votre inventaire pour afficher une liste de catégories d'objets du secteur.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -132,7 +132,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Appuyez sur [CTRL]+[Maj]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -177,7 +177,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
-    <szName>[ClicDROIT] pour augmentez le nombre de balles en tir automatique.</szName>
+    <szName>[CLIC DROIT] pour augmentez le nombre de balles en tir automatique.</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
@@ -228,13 +228,13 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
-    <szName>Les explosifs munis d'un détonateur à distance, peuvent être déclenchés avec une télécommande... La mettre dans votre main et [ClicDROIT].</szName>
+    <szName>Les explosifs munis d'un détonateur à distance, peuvent être déclenchés avec une télécommande... La mettre dans votre main et [CLIC DROIT].</szName>
     <items>1</items>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
-    <szName>Si vous souhaitez déplacer les objets manuellement, vous pouvez assigner un de vos mercenaires à la tâche de "Dépl Objet", dans les villes.</szName>
+    <szName>Si vous souhaitez déplacer les objets manuellement, vous pouvez assigner un de vos mercenaires à la tâche de "Dépl obj.", dans les villes.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -254,17 +254,17 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
-    <szName>Appuyez sur [Z] pour basculer en mode silencieux.</szName>
+    <szName>Appuyez sur [Z] pour basculer en mode discrétion.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
-    <szName>Les couteaux de lancer peuvent tuer instantanément un ennemi s'il n'est alerté pas par votre présence.</szName>
+    <szName>Les couteaux de lancer peuvent tuer instantanément un ennemi s'il n'est pas alerté par votre présence.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
-    <szName>Vous pouvez ouvrir la fenêtre de description de l'objet en cliquant dessus [ClicDROIT].</szName>
+    <szName>Vous pouvez ouvrir la fenêtre de description de l'objet en cliquant dessus [CLIC DROIT].</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -319,7 +319,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>Vous pouvez arroser une zone en mode tir automatique. Il suffit de sélectionner le tir automatique, choisissez le nombre de balles, [ClicGAUCHE] sur la cible et faites glisser votre souris autour de la zone souhaitée.</szName>
+    <szName>Vous pouvez arroser une zone en mode tir automatique. Il suffit de sélectionner le tir automatique, choisissez le nombre de balles, [CLIC GAUCHE] sur la cible et faites glisser votre souris autour de la zone souhaitée.</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
@@ -566,7 +566,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>Si vous voulez arriver vite à un endroit, assurez-vous que le poids de vos mercenaires n'excède pas 100 pour cent. Sinon, ça ralentira votre équipe.</szName>
+    <szName>Si vous voulez arriver vite à un endroit, assurez-vous que le poids de vos mercenaires n'excède pas 100 %%%%. Sinon, ça ralentira votre équipe.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -616,7 +616,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement des mercenaires en formation. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement tactique des mercenaires. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -631,7 +631,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
-    <szName>Si vous ne pouvez pas toucher une cible depuis votre position, vous pouvez tenter un tir de suppression en mode automatique puis de vous déplacer vers une meilleure position.</szName>
+    <szName>Si vous ne pouvez pas toucher une cible depuis votre position, vous pouvez tenter un tir de couverture en mode automatique puis de vous déplacer vers une meilleure position.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>

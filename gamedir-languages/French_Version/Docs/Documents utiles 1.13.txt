@@ -1,0 +1,2 @@
+Vous pouvez trouver des documents complémentaires (Des exemples de modifications pour 1.13, outils...) qui sont utiles pour modifier 1,13 et que vous trouverez sur SVN :
+https://ja2svn.dyndns.org/source/ja2/trunk/Documents
