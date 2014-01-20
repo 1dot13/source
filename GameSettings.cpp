@@ -1377,12 +1377,11 @@ void LoadGameExternalOptions()
 	// New setting to change stamina
 	gGameExternalOptions.uStaminaHit						= iniReader.ReadInteger("Tactical Interface Settings", "STAMINA_HIT", 10000);
 	
-	// Alternative system for aiming - progressive method depending on marksmash of Merc
+	// Alternative system for aiming - progressive method depending on marksmanship of Merc
 	gGameExternalOptions.bAltAimEnabled						= iniReader.ReadBoolean("Tactical Interface Settings","ALT_AIMING_ENABLED",FALSE);
 	
 	// Use aimed burst
 	gGameExternalOptions.bAimedBurstEnabled				= iniReader.ReadBoolean("Tactical Interface Settings","USE_AIMED_BURST",FALSE);
-	gGameExternalOptions.bAimedBurstAlternateKey		= iniReader.ReadBoolean("Tactical Interface Settings","AIMED_BURST_ALTERNATE_KEY",FALSE);
 						
 	// Penalty for aimed burst
 	gGameExternalOptions.uAimedBurstPenalty				= iniReader.ReadInteger("Tactical Interface Settings","AIMING_BURST_PENALTY",2, 0, 10);
@@ -1407,9 +1406,6 @@ void LoadGameExternalOptions()
 
 	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
 	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
-
-	// Automatically take new mine from inventory, use last tripwire network settings
-	gGameExternalOptions.bImprovedBombPlanting				= iniReader.ReadBoolean("Tactical Interface Settings","IMPROVED_BOMB_PLANTING",FALSE);
 
 	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
 	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	

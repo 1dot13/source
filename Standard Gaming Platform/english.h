@@ -130,4 +130,7 @@
 #define ENTER				13
 #define SPACE				32
 
+#define COMMA				188
+#define FULLSTOP			190
+
 #endif

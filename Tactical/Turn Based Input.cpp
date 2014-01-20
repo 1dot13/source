@@ -3869,18 +3869,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					// Flugente: alternate for people without mousewheel who want to aim auto-only weapons
-					if ( gGameExternalOptions.bAimedBurstEnabled && gGameExternalOptions.bAimedBurstAlternateKey && gCurrentUIMode == CONFIRM_ACTION_MODE )
-					{
-						SOLDIERTYPE *		pSoldier;
-
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-						{
-							HandleWheelAdjustCursor( pSoldier, usMapPos, 1,brstmode );
-						}
-					}
 					// nothing in hand and the Options Screen button for whichever panel we're in must be enabled
-					else if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
+					if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
 						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ OPTIONS_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 					{
 						if( !fDisableMapInterfaceDueToBattle )
@@ -4224,8 +4214,43 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//else if( gusSelectedSoldier != NOBODY )
 				break;
 
+			case 'z':
+				if( fCtrl && fAlt )
+				{
+					if ( INFORMATION_CHEAT_LEVEL( ) )
+					{
+						ToggleZBuffer();
+					}
+				}
+				else if ( fAlt )
+				{
+					HandleTBToggleStealthAll();
+				}
+				else if ( fCtrl )
+				{
+					// used for "lock" / "unlock" the mouse cursor in windowed mode
+				}
+				else
+				{
+					HandleTBToggleStealth();
+				}
+				break;
+
+			case ',':
+				// Flugente: alternate for people without mousewheel to aim auto-only weapons
+				if ( gGameExternalOptions.bAimedBurstEnabled && gCurrentUIMode == CONFIRM_ACTION_MODE )
+				{
+					SOLDIERTYPE *		pSoldier;
+
+					if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+					{
+						HandleRightClickAdjustCursor( pSoldier, usMapPos );
+					}
+				}
+				break;
+
 			// added by Flugente
-			case  '.':
+			case '.':
 				if ( fCtrl && fAlt ) //jikuja: Create item by reusing old entered number
  				{
 					if ( CHEATER_CHEAT_LEVEL( ) ) 
@@ -4255,28 +4280,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SetScopeMode( usMapPos );
 				}
 
-				break;
-
-			case 'z':
-				if( fCtrl && fAlt )
-				{
-					if ( INFORMATION_CHEAT_LEVEL( ) )
-					{
-						ToggleZBuffer();
-					}
-				}
-				else if ( fAlt )
-				{
-					HandleTBToggleStealthAll();
-								}
-				else if ( fCtrl )
-				{
-					// used for "lock" / "unlock" the mouse cursor in windowed mode
-				}
-				else
-				{
-					HandleTBToggleStealth();
-					}
 				break;
 
 			case '-':
@@ -6580,7 +6583,7 @@ void	QueryTBWheel( UINT32 *puiNewEvent )
 								if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 								{
 									if(	gGameExternalOptions.bAimedBurstEnabled )
-										HandleWheelAdjustCursor( pSoldier, usMapPos, -gViewportRegion.WheelState,brstmode );
+										HandleWheelAdjustCursor( pSoldier, usMapPos, -gViewportRegion.WheelState, brstmode );
 									else
 										HandleWheelAdjustCursorWOAB( pSoldier, usMapPos, -gViewportRegion.WheelState);
 								}

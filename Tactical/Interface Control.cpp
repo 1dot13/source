@@ -714,14 +714,6 @@ void RenderTopmostTacticalInterface( )
 
 	RenderAccumulatedBurstLocations( );
 
-	// HEADROCK HAM 4: The NCTH indicator is now drawn to the FRAMEBUFFER instead of the MOUSEBUFFER. This is
-	// due to size constraints related to drawing directly on the cursor. This indicator follows the mouse, and
-	// is a mouse-cursor in everything but name. See the function itself for more details.
-	if (UsingNewCTHSystem() == true && gfUICtHBar)
-	{
-		DrawCTHIndicator();
-	}
-
 	// Loop through all mercs and make go
 	for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
 	{
@@ -750,6 +742,14 @@ void RenderTopmostTacticalInterface( )
 	if ( gfUIHandleSelectionAboveGuy && gsSelectedGuy != NOBODY )
 	{
 		DrawSelectedUIAboveGuy((UINT16)gsSelectedGuy );
+	}
+
+	// HEADROCK HAM 4: The NCTH indicator is now drawn to the FRAMEBUFFER instead of the MOUSEBUFFER. This is
+	// due to size constraints related to drawing directly on the cursor. This indicator follows the mouse, and
+	// is a mouse-cursor in everything but name. See the function itself for more details.
+	if (UsingNewCTHSystem() == true && gfUICtHBar)
+	{
+		DrawCTHIndicator();
 	}
 
 	// FOR THE MOST PART, DISABLE INTERFACE STUFF WHEN IT'S ENEMY'S TURN

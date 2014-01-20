@@ -4896,7 +4896,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		wcscpy( gzUserDefinedButton[15], L"4-D" );
 		
 		// sevenfm: if SHIFT is pressed - plant tripwire with last network settings
-		if( gGameExternalOptions.bImprovedBombPlanting && _KeyDown( SHIFT ) && gubLastTripwire > 0 )
+		if( _KeyDown( SHIFT ) && gubLastTripwire > 0 )
 			BombMessageBoxCallBack(gubLastTripwire);
 		else
 			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
@@ -6985,8 +6985,7 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 
 void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
 {
-	if(gGameExternalOptions.bImprovedBombPlanting &&
-			!( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
+	if( !( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
 			!pSoldier->inv[HANDPOS].exists() && _KeyDown( SHIFT ))
 	{	
 		pSoldier->TakeNewBombFromIventory(pObj->usItem);
