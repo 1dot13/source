@@ -122,11 +122,7 @@ typedef struct
 	INT32			iVideoOverlay;									// Value for video overlay ( not used too much )
 
 	UINT32		uiSoundID;											// Sound ID if one being played
-
-	UINT32		uiSound1ID;	// anv: snitch 
-	UINT32		uiSound2ID;
-	UINT32		uiSound3ID;
-
+	
 	UINT8			ubSoldierID;										// SoldierID if one specified
 	UINT8			ubCharacterNum;									// Profile ID num
 
