@@ -5147,6 +5147,12 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		FilenameForBPP("INTERFACE\\infobox.sti", ubString);
 		 sForeColour = ITEMDESC_AMMO_FORE;
 
+		// silversurfer: This should never happen but some maps may contain items with invalid ammo types and this leads to graphical glitches
+		// because the game cannot find the right ammo icon in infobox.sti and then uses index 0. Index 0 is the info box itself.
+		// Better reset ammo type to 0 which is standard ball ammo.
+		if ( AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed == 0 || AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal == 0 || AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal == 0 )
+			(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType = 0;
+
 		giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,-1,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,-1 );
 
 		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
