@@ -498,4 +498,17 @@ TUEZ-LES TOUTES !</szDescription>
    <szDescription>Quand on vous propose : C'est à prendre ou à
 laisser, vous choisissez toujours "prendre".</szDescription>
   </BACKGROUND>
+    <BACKGROUND>
+   <uiIndex>73</uiIndex>
+   <szName>Voyeur :</szName>
+   <szShortName>Voyeur</szShortName>
+   <szDescription>Pourquoi insistez-vous ? Allez sur internet...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>74</uiIndex>
+   <szName>Guetteur :</szName>
+   <szShortName>Guetteur</szShortName>
+   <szDescription>C'est votre devoir de choisir les objectifs et l'aider
+dans les calculs de tir comme équipier d'un tireur d'élite.</szDescription>
+  </BACKGROUND>
 </BACKGROUNDS>
