@@ -36,9 +36,9 @@ Composition
 	
 NOTE:
 Quest initialized by 'CheckConditionsForTriggeringCreatureQuest' in StrategicTownLoyalty.lua script OR
-	CREPITUS_FEEDING_SECTOR in Mod_Settings.ini
+	CREPITUS_FEEDING_SECTOR in Creatures_Settings.ini
 Index sequence MUST be the same order as the 'Infectible' sequence at 'InitializeMines' in initmines.lua. 
-All QUEENSECTOR & HABITATSECTOR need to be defined at 'SectorList'.
+All QUEENSECTOR & HABITATSECTOR need to be defined at 'SectorList' in initunderground.lua script.
 Non-linked sites can only be initialized at ' PopulateSectors' in initunderground.lua script on game start.
 	Creatures will obediently stay in sector like the underground enemies.
 -->
