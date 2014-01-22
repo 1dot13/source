@@ -50,6 +50,8 @@ typedef void (*MSGBOX_CALLBACK)( UINT8 bExitValue );
 #define		NUM_CUSTOM_BUTTONS	16
 
 extern		CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
+// sevenfm: color for buttons
+extern UINT16	gzUserDefinedButtonColor[ NUM_CUSTOM_BUTTONS ];
 
 typedef struct
 {

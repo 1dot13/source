@@ -316,7 +316,7 @@ MercPopUpBox * GetPopUpBoxIndex( INT32 iId )
 
 INT32 PrepareMercPopupBox(	INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorderIndex, STR16 pString,
 							UINT16 usWidth, UINT16 usMarginX, UINT16 usMarginTopY, UINT16 usMarginBottomY,
-							UINT16 *pActualWidth, UINT16 *pActualHeight)
+							UINT16 *pActualWidth, UINT16 *pActualHeight, BOOLEAN bFixedWidth)
 {
 	UINT16 usNumberVerticalPixels, usNumberOfLines;
 	UINT16 usTextWidth, usHeight;
@@ -391,9 +391,10 @@ INT32 PrepareMercPopupBox(	INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorder
 	// reset flags
 	guiFlags = 0;
 
-	usStringPixLength = WFStringPixLength( pString, TEXT_POPUP_FONT);
+	usStringPixLength = WFStringPixLength( pString, TEXT_POPUP_FONT);	
 
-	if( usStringPixLength < ( usWidth - ( MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X ) * 2 ) )
+	// sevenfm: change messagbebox width only if bFixedWidth = FALSE
+	if( !bFixedWidth && ( usStringPixLength < ( usWidth - ( MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X ) * 2 ) ) )
 	{
 		usWidth = usStringPixLength + MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X * 2;
 		usTextWidth = usWidth - ( MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X	) * 2 + 1;

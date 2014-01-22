@@ -13338,6 +13338,10 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 			wcscpy( gzUserDefinedButton[14], L"4-C" );
 			wcscpy( gzUserDefinedButton[15], L"4-D" );
 
+           // sevenfm: zero out color values
+           for( INT32 cnt = 0; cnt< NUM_CUSTOM_BUTTONS; cnt++)
+               gzUserDefinedButtonColor[cnt] = 0;
+
 			if ( HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR ) ) )
 			{
 				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombInventoryMessageBoxCallBack, NULL );

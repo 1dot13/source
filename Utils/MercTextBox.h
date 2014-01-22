@@ -13,7 +13,8 @@ BOOLEAN InitMercPopupBox( );
 
 
 // create a pop up box if needed, return id of box..a -1 means couldn't be added
-INT32 PrepareMercPopupBox(	INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorderIndex, STR16 pString, UINT16 usWidth, UINT16 usMarginX, UINT16 usMarginTopY, UINT16 usMarginBottomY, UINT16 *pActualWidth, UINT16 *pActualHeight);
+// sevenfm: added bFixedWidth flag. known issue if using this - text caption is not centered
+INT32 PrepareMercPopupBox( INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorderIndex, STR16 pString, UINT16 usWidth, UINT16 usMarginX, UINT16 usMarginTopY, UINT16 usMarginBottomY, UINT16 *pActualWidth, UINT16 *pActualHeight, BOOLEAN bFixedWidth = FALSE);
 
 
 // remove the current box

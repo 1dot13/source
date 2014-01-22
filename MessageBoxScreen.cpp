@@ -76,6 +76,8 @@ CHAR16		gzUserDefinedButton2[ 128 ];
 
 // Flugente: made an array for user-defined buttons
 CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
+// sevenfm: added color for buttons
+UINT16	gzUserDefinedButtonColor[ NUM_CUSTOM_BUTTONS ];
 
 INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
@@ -231,12 +233,32 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	if ( usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
 		heightincrease = 120;
 	if ( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
+	{		
+		if( ubStyle == MSG_BOX_BASIC_MEDIUM_BUTTONS )
+			heightincrease = 120;
+		else
 		heightincrease = 50;
+	}
 	if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 		heightincrease = 90;
 
+	UINT16 usMBWidth=MSGBOX_DEFAULT_WIDTH;
+	BOOLEAN bFixedWidth = FALSE;
+	// sevenfm: custom width for 16-medium-button  messagebox
+	if( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS && ubStyle == MSG_BOX_BASIC_STYLE )
+	{
+		usMBWidth = MSGBOX_BUTTON_WIDTH * 4;
+		bFixedWidth = TRUE;
+	}
+	// custom width for 8-large-button messagebox
+	if( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS && ubStyle == MSG_BOX_BASIC_MEDIUM_BUTTONS )
+	{
+		usMBWidth = MSGBOX_BUTTON_WIDTH * 4;
+		bFixedWidth = TRUE;
+	}
+
 	// Init message box
-	gMsgBox.iBoxId = PrepareMercPopupBox( iId, ubMercBoxBackground, ubMercBoxBorder, zString, MSGBOX_DEFAULT_WIDTH, 40, 10, 30 + heightincrease, &usTextBoxWidth, &usTextBoxHeight );
+	gMsgBox.iBoxId = PrepareMercPopupBox( iId, ubMercBoxBackground, ubMercBoxBorder, zString, usMBWidth, 40, 10, 30 + heightincrease, &usTextBoxWidth, &usTextBoxHeight, bFixedWidth );
 
 	if( gMsgBox.iBoxId == -1 )
 	{
@@ -379,7 +401,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	{
 		sButtonX = (usTextBoxWidth - 115)/ 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 130 - MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
-				
+
 		for ( INT8 j = 0; j < 4; ++j)
 		{
 			sButtonY += 35;
@@ -397,11 +419,45 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	// Create eight numbered buttons
 	else if ( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
 	{
+		if(ubStyle == MSG_BOX_BASIC_MEDIUM_BUTTONS)
+		{
+			//sBlankSpace = usTextBoxWidth - MSGBOX_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
+			sBlankSpace = usTextBoxWidth - MSGBOX_BUTTON_WIDTH * 4 + MSGBOX_SMALL_BUTTON_X_SEP;
+			sButtonX = sBlankSpace / 2;
+			sButtonY = usTextBoxHeight - 3*MSGBOX_BUTTON_HEIGHT  - heightincrease - 10;
+
+			for ( INT8 i = 0; i < 4; ++i)
+			{
+				// new row
+				sButtonY += MSGBOX_SMALL_BUTTON_WIDTH + 5;
+				// begin from the front
+				//sButtonX = sBlankSpace / 2 -  MSGBOX_BUTTON_WIDTH*2;
+				sButtonX = sBlankSpace / 2;
+				for ( INT8 j = 0; j < 2; ++j)
+				{
+					INT8 k = 2*i + j;
+
+					gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
+						ubFontColor, ubFontShadowColor,
+						ubFontColor, ubFontShadowColor,
+						TEXT_CJUSTIFIED,
+						(INT16)(gMsgBox.sX + sButtonX ), (INT16)(gMsgBox.sY + sButtonY ), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
+						DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
+					MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
+					SetButtonCursor(gMsgBox.uiButton[k], usCursor);
+					ForceButtonUnDirty( gMsgBox.uiButton[k] );
+
+					sButtonX += MSGBOX_BUTTON_WIDTH*2;
+				}
+			}
+		}
+		else
+		{
 		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
 		sButtonX = sBlankSpace / 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease;
 		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
-				
+
 		for ( INT8 i = 0; i < 2; ++i)
 		{
 			// new row
@@ -424,33 +480,57 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 				SetButtonCursor(gMsgBox.uiButton[k], usCursor);
 				ForceButtonUnDirty( gMsgBox.uiButton[k] );
 
-				sButtonX += 75 + MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+				//sButtonX += 75 + MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
 			}
 		}
+	}
 	}
 	// Create sixteen numbered buttons
 	else if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 	{
+		if( ubStyle == MSG_BOX_BASIC_STYLE )
+		{
+			sBlankSpace = usTextBoxWidth - MSGBOX_BUTTON_WIDTH * 4;
+			sButtonX = sBlankSpace / 2;
+			sButtonY = usTextBoxHeight - 2*MSGBOX_BUTTON_HEIGHT  - heightincrease - 10;
+		}
+		else
+		{
 		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
 		sButtonX = sBlankSpace / 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease - 6;
 		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+		}
 				
 		for ( INT8 i = 0; i < 4; ++i)
 		{
+			if( ubStyle == MSG_BOX_BASIC_STYLE )
+			{
 			// new row
+				sButtonY += MSGBOX_BUTTON_HEIGHT+5;
+				// begin from the front
+				sButtonX = sBlankSpace / 2 -  MSGBOX_BUTTON_WIDTH;
+			}
+			else
+			{
+				// new row
 			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH - 2;// + MSGBOX_SMALL_BUTTON_X_SEP;
-
 			// begin from the front
 			sButtonX = sBlankSpace / 2 -  MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+			}
 
 			for ( INT8 j = 0; j < 4; ++j)
 			{
 				INT8 k = 4*i + j;
 				
+				if( ubStyle == MSG_BOX_BASIC_STYLE )
+					sButtonX += MSGBOX_BUTTON_WIDTH;
+				else
 				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+				// sevenfm: added color table for 16-button messagebox
 				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
-														ubFontColor, ubFontShadowColor,
+														gzUserDefinedButtonColor[k] ? gzUserDefinedButtonColor[k] : ubFontColor, ubFontShadowColor,
 														ubFontColor, ubFontShadowColor,
 														TEXT_CJUSTIFIED,
 														(INT16)(gMsgBox.sX + sButtonX ), (INT16)(gMsgBox.sY + sButtonY ), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,

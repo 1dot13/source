@@ -4853,6 +4853,10 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		wcscpy( gzUserDefinedButton[14], L"4-C" );
 		wcscpy( gzUserDefinedButton[15], L"4-D" );
 
+       // sevenfm: zero out color values
+       for( INT32 cnt = 0; cnt< NUM_CUSTOM_BUTTONS; cnt++)
+       	gzUserDefinedButtonColor[cnt] = 0;
+
 		if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) ) )
 		{
 			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
@@ -4894,6 +4898,10 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		wcscpy( gzUserDefinedButton[13], L"4-B" );
 		wcscpy( gzUserDefinedButton[14], L"4-C" );
 		wcscpy( gzUserDefinedButton[15], L"4-D" );
+
+       // sevenfm: zero out color values
+       for( INT32 cnt = 0; cnt< NUM_CUSTOM_BUTTONS; cnt++)
+           gzUserDefinedButtonColor[cnt] = 0;
 		
 		// sevenfm: if SHIFT is pressed - plant tripwire with last network settings
 		if( _KeyDown( SHIFT ) && gubLastTripwire > 0 )
@@ -4912,14 +4920,15 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 
+        // sevenfm: reorganized buttons order for new dialog
 	wcscpy( gzUserDefinedButton[0], TacticalStr[ FILL_CANTEEN_STR ] );
-	wcscpy( gzUserDefinedButton[1], TacticalStr[ CLEAN_ONE_GUN_STR ] );
-	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
+   wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ONE_GUN_STR ] );
+   wcscpy( gzUserDefinedButton[3], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
 	
 	if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-		wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_DISGUISE_STR ] );
+       wcscpy( gzUserDefinedButton[1], TacticalStr[ TAKE_OFF_DISGUISE_STR ] );
 	else
-		wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
+       wcscpy( gzUserDefinedButton[1], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
 
 	if ( gGameExternalOptions.fMilitiaUseSectorInventory )
 	{
@@ -5132,16 +5141,16 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			SectorFillCanteens();
 			break;
 		case 2:
+       	// undisguise or take off custom clothes 
+       	Strip(gpTempSoldier);
+           break;
+       case 3:
 			// clean weapons of selected merc
 			CleanWeapons(FALSE);
 			break;
-		case 3:
+       case 4:
 			// clean weapons of entire team
 			CleanWeapons(TRUE);
-			break;
-		case 4:
-			// undisguise or take off custom clothes 
-			Strip(gpTempSoldier);
 			break;
 		case 5:
 			// militia drops all gear taken from sector inventory
