@@ -3389,8 +3389,9 @@ void LoadMoraleSettings()
 	CIniReader iniReader(MORALE_SETTINGS_FILE);
 
 	gMoraleSettings.ubDefaultMorale						= iniReader.ReadInteger("General Morale Settings","DEFAULT_MORALE", 50, 0, 100);
-
-	gMoraleSettings.bValues[MORALE_KILLED_ENEMY]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_KILLED_ENEMY", 4, -100, 100);
+	gMoraleSettings.ubHoursBetweenStrategicDelay		= iniReader.ReadInteger("General Morale Settings","HOURS_BETWEEN_STRATEGIC_DECAY", 3, 1, 100);
+ 
+ 	gMoraleSettings.bValues[MORALE_KILLED_ENEMY]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_KILLED_ENEMY", 4, -100, 100);
 	gMoraleSettings.bValues[MORALE_SQUADMATE_DIED]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_SQUADMATE_DIED", -5, -100, 100);
 	gMoraleSettings.bValues[MORALE_SUPPRESSED]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_SUPPRESSED", -1, -100, 100);
 	gMoraleSettings.bValues[MORALE_AIRSTRIKE]			= iniReader.ReadInteger("Tactical Morale Settings","MORALE_AIRSTRIKE", -2, -100, 100);

@@ -154,7 +154,7 @@ enum{
 };
 
 
-// squad menu defines
+/*// squad menu defines
 enum{
 	SQUAD_MENU_1,
 	SQUAD_MENU_2,
@@ -178,8 +178,10 @@ enum{
 	SQUAD_MENU_20,
 	SQUAD_MENU_CANCEL,
 	MAX_SQUAD_MENU_STRING_COUNT,
-};
+};*/
 
+#define SQUAD_MENU_CANCEL			ON_DUTY
+#define MAX_SQUAD_MENU_STRING_COUNT SQUAD_MENU_CANCEL + 1
 
 // contract menu defines
 enum{
