@@ -619,7 +619,7 @@ Campaign_Stats::Load( HWFILE hwFile )
 		if( numBytesRead != SIZEOF_CAMPAIGN_STATS_POD )
 			return(FALSE);
 
-		for (UINT8 i = 0; i < usNumIncidents; ++i)
+		for (UINT32 i = 0; i < usNumIncidents; ++i)
 		{
 			Incident_Stats incident;
 			if ( !incident.Load ( hwFile ) )
@@ -648,7 +648,7 @@ Campaign_Stats::AddNewIncident(Incident_Stats arIncident)
 	++usNumIncidents;
 
 	// update kills/wounds/prisoner numbers
-	for (UINT i = 0; i < CAMPAIGNHISTORY_SD_MAX; ++i)
+	for (UINT16 i = 0; i < CAMPAIGNHISTORY_SD_MAX; ++i)
 	{
 		usKills[i]		+= arIncident.usKills[i];
 		usWounds[i]		+= arIncident.usWounds[i];
