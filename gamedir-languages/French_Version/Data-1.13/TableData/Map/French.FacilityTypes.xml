@@ -52,8 +52,8 @@
 	</FACILITYTYPE>
 	<FACILITYTYPE>
 		<ubIndex>7</ubIndex>
-		<szFacilityName>Poste de commandement</szFacilityName>
-		<szFacilityShortName>P.C.</szFacilityShortName>
+		<szFacilityName>Quartier général</szFacilityName>
+		<szFacilityShortName>QG</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>La salle de crise militaire comporte toutes sortes de matériel numérique, conçu pour maintenir une bonne prise sur la situation stratégique à travers le pays. Cela vous aidera à coordonner vos défenses et à recueillir des informations sur les mouvements ennemis dans le désert.</szTooltipText>

@@ -64,7 +64,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Ne soyez plus handicapé ! Déposez vos sacs à dos avec [MAJ]+[B] en carte tactique pour améliorer vos mouvements et grimper sur les toits.</szName>
+    <szName>Une personne bloque une entrée ? Appuyez sur [X] quand vous êtes à côté d'elle pour échanger vos places.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>

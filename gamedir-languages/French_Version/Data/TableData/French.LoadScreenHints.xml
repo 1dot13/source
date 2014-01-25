@@ -28,7 +28,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
-    <szName>Utilisez votre couteau sur un cadavre pour récupérer son uniforme... Ou pour ramasser le corps.</szName>
+    <szName>Utilisez votre couteau sur un cadavre pour récupérer son uniforme... Ou pour ramasser un corps.</szName>
     <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -38,7 +38,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>Vous pouvez changer de mode de visée (lunette, viseur, tir au jugé...) en appuyant sur ";".</szName>
+    <szName>Vous pouvez changer de mode de visée (lunette, viseur...) en appuyant sur ";".</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -64,29 +64,29 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Ne soyez plus handicapé ! Déposez vos sacs à dos avec [SHIFT] + [B] en carte tactique pour améliorer vos mouvements et grimper sur les toits.</szName>
+    <szName>Une personne bloque une entrée ? Appuyez sur [X] quand vous êtes à côté d'elle pour échanger vos places.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Besoin d'aide ? Appuyez sur [H] dans la carte stratégique. Et visiter les gentils ours sur www.ja-galaxy-forum.com</szName>
+    <szName>Besoin d'aide ? Appuyez sur [H]. Et visiter les gentils ours sur www.ja-galaxy-forum.com</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [ROUE] de votre souris. Et [ALT] + [ROUE] pour définir la taille de la salve en auto.</szName>
+    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [MOLETTE] de votre souris. Et [ALT]+[MOLETTE] pour définir la taille de la salve en auto.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Installations attachées. Certains secteurs offrent des installations comme des bars ou des mines, vous pouvez y affecter vos mercenaires sur la carte stratégique. Des infobulles vous donne la fonction de l'installation et apparaissent lors de l'affectation d'un mercenaire comme pour réparation, soins ou formation d'une milice.</szName>
+    <szName>Des secteurs offrent des installations : Bars, mines... Vous pouvez y affecter vos mercenaires sur la carte stratégique. Une infobulle donne la fonction de l'installation et montre l'affectation du mercenaire comme pour réparation, soins...</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL] + [ClicGauche]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
+    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL]+[CLIC GAUCHE]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -97,17 +97,17 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Mettez un peu de couleur dans votre vie ! En laissant appuyée la touche [FIN] dans l'écran tactique, vous afficherez le champs de vision détaillé du mercenaire sélectionné. Depuis le rouge (ne détectera personne) jusqu'au vert (détecte même quelqu'un couché dans l'herbe).</szName>
+    <szName>Mettez un peu de couleur dans votre vie ! En appuyant sur [FIN] sur l'écran tactique, vous affichez le champs de vision du mercenaire sélectionné. Depuis le rouge (ne détecte personne) jusqu'au vert (détecte même quelqu'un couché dans l'herbe).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Alerte rouge ! En appuyant sur [Suppr] dans l'écran tactique, vous ferez apparaître où les ennemis (à votre connaissance) pourraient voir le mercenaire sélectionné. La couleur va du rouge (sera visible même allongé) au vert (dissimulation parfaite).</szName>
+    <szName>Alerte rouge ! En appuyant sur [Suppr] dans l'écran tactique, vous ferez apparaître la zone que peut voir l'ennemi vu par le mercenaire sélectionné. La couleur va du rouge (sera visible même couché) au vert (dissimulation parfaite).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Aubaine des fenêtres. Face à une fenêtre ouverte (Tirez sur le carreau, le cas échéant) et faites [SHIFT] + [J] pour passer de l'autre côté.</szName>
+    <szName>Aubaine des fenêtres. Face à une fenêtre ouverte (Tirez sur le carreau, le cas échéant) et faites [MAJ]+[J] pour passer de l'autre côté.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -122,22 +122,526 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>Avec l'inventaire de secteur ouvert, [Ctrl] + [ClicGauche] sur un emplacement vide de votre inventaire pour afficher une liste de catégories d'objets du secteur.</szName>
+    <szName>Avec l'inventaire de secteur ouvert, [CTRL]+[CLIC GAUCHE] sur un emplacement vide de votre inventaire pour afficher une liste de catégories d'objets du secteur.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>Lors du choix d'objets par l'intermédiaire des menus contextuels (accessible par un clic sur un  emplacement vide de votre inventaire), les meilleurs objets seront sélectionnées.</szName>
+    <szName>Lors du choix d'objets par l'intermédiaire des menus contextuels (accessible par un clic sur un  emplacement vide de votre inventaire), les meilleurs objets seront sélectionnés.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Appuyez sur [Ctrl]+[MAJ]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Appuyez sur [Ctrl]+[x] pour entrer en mode tour par tour, alors que la furtivité en temps réel est activée. Ne fonctionne que si vous avez un ennemi en visuel.</szName>
+    <szName>Appuyez sur [CTRL]+[x] pour entrer en mode tour par tour, alors que la discrétion en temps réel est activée. Ne fonctionne que si vous avez un ennemi en visuel.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+<LOADSCREENHINT>
+    <uiIndex>24</uiIndex>
+    <szName>Quand il fait nuit, éclairez vos ennemis avec des fusées éclairantes pour augmenter vos chances de les toucher.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>25</uiIndex>
+    <szName>Votre mercenaire est sous le feu et ne peut pas se replier ? Couvrez-le avec des grenades fumigènes.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>26</uiIndex>
+    <szName>(En fonction de vos paramètres de jeu) Réparer une arme complètement, la nettoie également.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>27</uiIndex>
+    <szName>Les magasins ne font pas que vendre, mais ils achètent aussi certains objets. Cependant, ils sont très pointilleux.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>28</uiIndex>
+    <szName>Vous craignez que l'ennemi vous interrompe ? Tirez-lui dans les jambes, en espérant que ça le fera chuter.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>29</uiIndex>
+    <szName>C'est très difficile de toucher un ennemi qui court.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>30</uiIndex>
+    <szName>Ouvrez le menu du secteur avec [CTRL]+[.]</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>31</uiIndex>
+    <szName>[CLIC DROIT] pour augmentez le nombre de balles en tir automatique.</szName>
+    <weapons>1</weapons>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>32</uiIndex>
+    <szName>Ajoutez un chiffon à une bouteille d'alcool pour créer un cocktail molotov.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>33</uiIndex>
+    <szName>Certains PNJ peuvent être corrompus...</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>34</uiIndex>
+    <szName>Courir discrètement semble contre intuitif et pourtant ça marche !</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>35</uiIndex>
+    <szName>Vous pouvez rapidement tuer un ennemi avec un couteau.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>36</uiIndex>
+    <szName>Si l'ennemi est alerté, il appellera des renforts...</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>37</uiIndex>
+    <szName>Le site Web de Bobby Ray sera disponible lorsque vous aurez accès à un aérodrome.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>38</uiIndex>
+    <szName>Se faufiler près d'un ennemi sans l'alerter, améliore votre agilité, mais c'est risqué.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>39</uiIndex>
+    <szName>Se battre à mains nues augmente votre dextérité et votre force.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>40</uiIndex>
+    <szName>La pratique des soins et le maniement d'explosifs vont augmenter votre sagesse.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>41</uiIndex>
+    <szName>Les explosifs munis d'un détonateur à distance, peuvent être déclenchés avec une télécommande... La mettre dans votre main et [CLIC DROIT].</szName>
+    <items>1</items>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>42</uiIndex>
+    <szName>Si vous souhaitez déplacer les objets manuellement, vous pouvez assigner un de vos mercenaires à la tâche de "Dépl obj.", dans les villes.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>43</uiIndex>
+    <szName>Vous pouvez changer de mode de tir en appuyant sur [B].</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>44</uiIndex>
+    <szName>Appuyez sur [MAJ]+[R] dans l'écran tactique pour donner l'ordre à toute votre équipe de recharger.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>45</uiIndex>
+    <szName>Appuyez sur [S] pour se lever, [C] pour s'accroupir, [P] pour se coucher et [R] pour se lever et courir.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>46</uiIndex>
+    <szName>Appuyez sur [Z] pour basculer en mode discrétion.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>47</uiIndex>
+    <szName>Les couteaux de lancer peuvent tuer instantanément un ennemi s'il n'est pas alerté par votre présence.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>48</uiIndex>
+    <szName>Vous pouvez ouvrir la fenêtre de description de l'objet en cliquant dessus [CLIC DROIT].</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>49</uiIndex>
+    <szName>Les contrats de mercenaires à long terme sont moins chers... Avec le temps.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>50</uiIndex>
+    <szName>Ne pas payer sa facture chez MERC, peut avoir des conséquences...</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>51</uiIndex>
+    <szName>Si l'ennemi reprend vos secteurs, il peut prendre l'équipement laissé sur place.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>52</uiIndex>
+    <szName>Les médecins peuvent instantanément restaurer un peu de vie perdue par la chirurgie... Cela épuisera beaucoup vos fournitures médicales.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>53</uiIndex>
+    <szName>Prendre trop de drogues peut avoir des conséquences !!!</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>54</uiIndex>
+    <szName>Si vous voyagez par les airs, les sites anti aériens risquent de se révéler importants.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>55</uiIndex>
+    <szName>Au début d'un combat, appuyez sur [MAJ]+[B] pour ôter tous les sacs à dos que vos mercenaires portent. À la fin du combat, faites [CTRL]+[MAJ]+[F] pour les ramasser.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>56</uiIndex>
+    <szName>Vous pouvez détruire les drapeaux bleus des mines en lançant des grenades. Les ennemis peuvent marcher sur une mine sans drapeau. Ceci dit, vous aussi...</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>57</uiIndex>
+    <szName>Appuyez sur [L] pour faire face à une direction. Appuyez encore sur [L] dans la même direction et votre mercenaire épaulera son arme. Il regardera alors par la visée de l'arme, que ce soit une lunette ou un viseur traditionnel.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>58</uiIndex>
+    <szName>Essayez toujours de finir le tour avec vos mercenaires au moins accroupis. Ça les protègera des tirs amis.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>59</uiIndex>
+    <szName>Vous pouvez arroser une zone en mode tir automatique. Il suffit de sélectionner le tir automatique, choisissez le nombre de balles, [CLIC GAUCHE] sur la cible et faites glisser votre souris autour de la zone souhaitée.</szName>
+    <weapons>1</weapons>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>60</uiIndex>
+    <szName>Cambria a un hôpital où vous pouvez soigner vos mercenaires.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>61</uiIndex>
+    <szName>Le bipied donne un bonus quand il est monté sur l'arme que vous avez en main et si vous êtes couché.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>62</uiIndex>
+    <szName>Les armes lourdes consomment beaucoup d'énergie si vous tirez, mais aussi en restant debout l'arme en joue. Allongez-vous pour économiser votre énergie.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>63</uiIndex>
+    <szName>Chaque fois que vous pouvez, mettez-vous à couvert.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>64</uiIndex>
+    <szName>La milice peut couvrir vos mercenaires du feu de l'ennemi. Mais ne comptez pas sur elle pour faire tout le travail.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>65</uiIndex>
+    <szName>La milice mobile peut suivre vos mercenaires pendant leurs déplacements sur la carte. Elle les suivra tant qu'ils resteront à moins d'un secteur de distance. Attendez qu'elle arrive à votre position avant d'avancer à nouveau.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>66</uiIndex>
+    <szName>Dans le menu pour gérer la milice, les touches [CTRL] déplacera 5 milices et [MAJ] déplacera toute la milice dans le secteur.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>67</uiIndex>
+    <szName>La milice mobile peut vous aider quand vous attaquez une ville, si elle est à vos côtés et que vous l'appelez en renfort avant le combat.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>68</uiIndex>
+    <szName>Dans l'inventaire du secteur. En haut de l'écran vous voyez de nombreuses icônes qui vous aident à trier et à filtrer les objets. Placez le curseur sur une icône pour afficher les informations.</szName>
+    <lore>1</lore>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>69</uiIndex>
+    <szName>Les munitions TC font beaucoup de dégâts, mais sont facilement arrêtées par un gilet pare-balles. Les munitions PE pénètrent facilement un gilet pare-balles, mais font moins de dégâts.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>70</uiIndex>
+    <szName>Utilisez des munitions TC pour tuer les chats sauvages.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>71</uiIndex>
+    <szName>Aidez les habitants pour augmenter leur fidélité. Et leur parler, peut parfois vous donner des informations très intéressantes.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>72</uiIndex>
+    <szName>Vous devez avoir suffisamment de loyauté dans une ville avant de pouvoir former une milice.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>73</uiIndex>
+    <szName>Les mercenaires qui ont la compétence "Instructeur", formeront rapidement une milice.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>74</uiIndex>
+    <szName>Appuyez sur [O] pour ouvrir le menu d'options du jeu.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>75</uiIndex>
+    <szName>Appuyez sur [ALT]+[S] pour faire une sauvegarde rapide à l'emplacement "Sauvegarde rapide" et sur [ALT]+[L] pour charger la sauvegarde rapide.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>76</uiIndex>
+    <szName>Appuyez sur [CTRL]+[S] pour ouvrir l'écran "SAUVEGARDE".</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>77</uiIndex>
+    <szName>Dans le menu principal, maintenez la touche [Alt] et cliquez sur "Continuer partie sauvegardée" pour charger la dernière partie sauvegardée.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>78</uiIndex>
+    <szName>Les ennemis en T-shirt jaune sont de l'intendance et ils ont le plus mauvais équipement, mais ils seront remplacés par l'armée régulière peu de temps après votre arrivée à Arulco.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>79</uiIndex>
+    <szName>Les ennemis en T-shirt rouge représentent l'armée régulière de Deidranna et vous aurez affaire à eux durant la plus grande part de la campagne.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>80</uiIndex>
+    <szName>Les ennemis en T-shirt noir sont la Garde de la Reine. Ils ont le meilleur équipement et sont les ennemis les plus redoutables d'Arulco. Si vous augmentez le niveau de difficulté, ils seront plus nombreux.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>81</uiIndex>
+    <szName>La milice en vert peut être formées pour devenir une milice régulière (en bleu). La milice régulière est plus utile, mais coûte plus cher à former et à entretenir.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>82</uiIndex>
+    <szName>Les miliciens peuvent devenir des vétérans (en bleu foncé), mais uniquement par l'expérience au combat, pas par l'apprentissage d'un mercenaire.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>83</uiIndex>
+    <szName>Soignez dès que possible votre mercenaire mourant... Ou sinon il va se vider de son sang.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>84</uiIndex>
+    <szName>Donnez toujours une arme de poing à vos snipers. Ils sont peu efficaces dans un combat rapproché.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>85</uiIndex>
+    <szName>Lancez des grenades assommantes pour vous aider à rendre l'ennemi impuissant. Vous pouvez aussi lui voler son équipement.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>86</uiIndex>
+    <szName>Essayez d'étourdir vos ennemis ou de supprimer leur masque à gaz avant de leur lancer une lacrymogène. Ça les empêchera de sortir du nuage.</szName>
+    <weapons>1</weapons>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>87</uiIndex>
+    <szName>Vérifiez toujours si l'ennemi a un masque à gaz avant de lui lancer une lacrymogène. Maintenez la touche [Alt] tout en ciblant un ennemi pour voir ses détails. Le nombre de détails dépend de la distance entre l'ennemi sélectionné et le mercenaire.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>88</uiIndex>
+    <szName>Appuyez sur [ALT]+[R] à tout moment, pour vous assurer que votre arme est complètement chargée.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>89</uiIndex>
+    <szName>N'oubliez pas de vous mettre à couvert.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>90</uiIndex>
+    <szName>Si des arbres sont dans votre LDM (Ligne De Mire), appuyez sur [T] pour éclaircir les choses. Vous pouvez appuyer sur [SUPPR] pour avoir une meilleure idée de votre entourage.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>91</uiIndex>
+    <szName>LBE (Load Bearing Equipment) pour "Équipement de transport de charge".</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>92</uiIndex>
+    <szName>Appuyez sur [TAB] pour basculer entre les cibles au sol et sur les toits (Et vice versa).</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>93</uiIndex>
+    <szName>Tirez depuis un couvert et faites bien attention aux points d'action qu'il vous faut pour y retourner, accroupi ou couché.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>94</uiIndex>
+    <szName>Faites attention à ce que vos mercenaires entendent, car ça vous épargnera de mauvaises surprises si vous savez par où on vient !</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>95</uiIndex>
+    <szName>Vous verrez un cercle blanc "clignoter" sur l'emplacement de tous les sons entendus.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>96</uiIndex>
+    <szName>Tirer avec votre arme peut drainer l'attention portée à un mercenaire blessé ou un autre qui est dans la panade.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>97</uiIndex>
+    <szName>Restez loin des zones éclairées durant la nuit, mais essayez de les utiliser à votre avantage.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>98</uiIndex>
+    <szName>Appuyez sur [ALT]+[Z] pour passer tous vos mercenaires en mode discrétion (Et vice versa) et [=] seulement pour sélectionner tous vos mercenaires.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>99</uiIndex>
+    <szName>La nuit, avoir une bonne oreille est très important, car vous entendez mieux que vous ne pouvez voir, sauf avec un équipement spécial.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>100</uiIndex>
+    <szName>Les opérations de nuit sont probablement votre meilleur choix au début, si vous utilisez des pistolets et mitraillettes.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>101</uiIndex>
+    <szName>Appuyez sur [G] pour activer/désactiver la zone éclairée autour de vos mercenaires.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>102</uiIndex>
+    <szName>Si vous êtes pris dans un orage... Soyez prudent, car un éclair peut donner votre position et la visibilité est mauvaise à cause de la pluie.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>103</uiIndex>
+    <szName>Ne restez pas groupé... Une balle perdue ou une grenade peut causer de sérieux dégâts à toute votre équipe.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>104</uiIndex>
+    <szName>Chacun de vos mouvements influe sur l'issue de la bataille.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>105</uiIndex>
+    <szName>Gérez toujours la menace immédiate avant de poursuivre votre plan.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>106</uiIndex>
+    <szName>Sur les toits, déplacez-vous en lignes droites. Les déplacements en diagonale peuvent vous ralentir.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>107</uiIndex>
+    <szName>Les billes peuvent se révéler très utile dans une bagarre.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>108</uiIndex>
+    <szName>Si vous voulez arriver vite à un endroit, assurez-vous que le poids de vos mercenaires n'excède pas 100 %%%%. Sinon, ça ralentira votre équipe.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>109</uiIndex>
+    <szName>Ne soyez pas surpris si vos mercenaires oublient le nombre de balles tirées... C'est dur de compter en plein combat.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>110</uiIndex>
+    <szName>Les mercenaires n'ont pas la même efficacité pour discuter avec les PNJ. Leur passif peut avoir un effet. N'espérez pas que Biff soit efficace en utilisant la menace.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>111</uiIndex>
+    <szName>Chaque mercenaire a des besoins de sommeil différents, allant de 3 à 12 heures pour régénérer complètement son énergie. La compétence "Opérations de nuit" permet de réduire ce temps.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>112</uiIndex>
+    <szName>Chaque mercenaire a une tolérance différente sur le nombre de morts dans votre équipe ou à votre réputation sur Arulco.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>113</uiIndex>
+    <szName>Si vous avez deux personnes dans l'équipe qui ne s'aiment pas, évitez de les garder dans le même secteur pendant plus d'une heure.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>114</uiIndex>
+    <szName>Certains mercenaires ne gagnent pas de stats. On n'apprend pas à un vieux singe à faire des grimaces.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>115</uiIndex>
+    <szName>Des manuels de jeux, la liste des raccourcis, le tutoriel de l'éditeur de carte et d'autres documents se trouvent dans le dossier "Docs" qui est dans votre répertoire d'installation JA2.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>116</uiIndex>
+    <szName>Des manuels de jeux, la liste des raccourcis, le tutoriel de l'éditeur de carte et d'autres documents se trouvent dans le dossier "Docs" qui est dans votre répertoire d'installation JA2.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>117</uiIndex>
+    <szName>Vous voulez vous battre contre de vrais joueurs ou jouer avec vos amis ? Essayez le mode multijoueur 1.13.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>118</uiIndex>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement tactique des mercenaires. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>119</uiIndex>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[S] pour vendre tous les objets de l'inventaire d'un secteur.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>120</uiIndex>
+    <szName>[CTRL]+[MAJ]+[E] chargera votre véhicule avec un maximum d'objets du secteur. [MAJ]+[E] déchargera tous les objets du véhicule dans votre secteur.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>121</uiIndex>
+    <szName>Si vous ne pouvez pas toucher une cible depuis votre position, vous pouvez tenter un tir de couverture en mode automatique puis de vous déplacer vers une meilleure position.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>122</uiIndex>
+    <szName>Fouillez les fermes et les villes, ça vous aidera à trouver beaucoup d'objets, comme de l'essence pour votre véhicule.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>123</uiIndex>
+    <szName>Dans l'écran tactique, appuyez et maintenez [BOUTON-DROIT-SOURIS] sur votre mercenaire, ça va ouvrir le menu "Assignation" similaire à celui que vous avez sur l'écran de la carte stratégique.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
