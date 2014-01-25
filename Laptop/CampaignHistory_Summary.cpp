@@ -303,8 +303,8 @@ void SelectCampaignHistorySummaryRegionCallBack(MOUSE_REGION * pRegion, INT32 iR
 MOUSE_REGION	gCampaignHistoryMostImportantLinkRegion[3];
 void SelectCampaignHistoryMostImportantRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
-UINT8	gusMostImportantPage = 0;
-UINT8	gusMostImportantMode = 0;	// 0: Summary, 1: Detail
+UINT32	gusMostImportantPage = 0;
+UINT32	gusMostImportantMode = 0;	// 0: Summary, 1: Detail
 
 // special pics for one-time-events
 UINT32	guiCampaignEventImage;
@@ -864,7 +864,7 @@ void SelectCampaignHistoryMostImportantRegionCallBack(MOUSE_REGION * pRegion, IN
 		UINT32 uiLink = MSYS_GetRegionUserData( pRegion, 0 );
 
 		// only display existing incidents
-		UINT8 numpages = gCampaignStats.usNumIncidents;
+		UINT32 numpages = gCampaignStats.usNumIncidents;
 		/*for(int i = 0; i < CAMPAIGNSTATS_NUM_MOST_IMPORTANT; ++i)
 		{
 			if ( gCampaignStats.importantIncidents[i].usID )
@@ -906,7 +906,7 @@ void SelectCampaignHistoryMostImportantRegionCallBack(MOUSE_REGION * pRegion, IN
 MOUSE_REGION	gCampaignHistoryNewsLinkRegion[4];
 void SelectCampaignHistoryNewsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
-UINT8	gusNewsPage = 0;
+UINT32	gusNewsPage = 0;
 
 void GameInitCampaignHistory_News()
 {
@@ -1018,7 +1018,7 @@ void SelectCampaignHistoryNewsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReas
 		UINT32 uiLink = MSYS_GetRegionUserData( pRegion, 0 );
 
 		// only display existing incidents
-		UINT8 numpages = gCampaignStats.usNumIncidents;
+		UINT32 numpages = gCampaignStats.usNumIncidents;
 		/*for(int i = 0; i < CAMPAIGNSTATS_NUM_LAST_INCIDENTS; ++i)
 		{
 			if ( gCampaignStats.lastIncidents[i].usID )

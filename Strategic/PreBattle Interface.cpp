@@ -2209,7 +2209,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 	}
 
 	// Flugente: if battle has ended, close this incident, add it to the global incidents, and clear it
-	FinishIncident(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+	FinishIncident(sSectorX, sSectorY, (INT8)sSectorZ);
 }
 
 void HandlePreBattleInterfaceStates()
