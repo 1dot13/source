@@ -15,9 +15,9 @@
 #ifdef JA2EDITOR
 	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13.6670 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13.6823 (Development Build)" }; 
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.6670 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.6823 (Development Build)" }; 
 	#endif
 
 // ------------------------------

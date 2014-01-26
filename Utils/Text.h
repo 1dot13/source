@@ -133,6 +133,7 @@ extern STR16 pSummaryUpdateCallbackText[];
 extern STR16 pApologizeOverrideAndForceUpdateEverythingText[];
 //selectwin.cpp
 extern STR16 pDisplaySelectionWindowGraphicalInformationText[];
+extern STR16 pDisplaySelectionWindowButtonText[];
 //Cursor Modes.cpp
 extern STR16 wszSelType[6];
 //--

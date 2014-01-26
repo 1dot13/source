@@ -1169,8 +1169,16 @@ void DeleteSelectedItem()
 						gpCurrItemPoolNode = pIPHead;
 					if( gpCurrItemPoolNode )
 					{
+						//get the item pool at this node's gridno.
 						GetItemPoolFromGround( gpCurrItemPoolNode->sGridNo, &gpItemPool );
 						Assert( gpItemPool );
+
+						MarkMapIndexDirty( gpItemPool->sGridNo );
+						SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
+						if( gsItemGridNo != -1 )
+						{
+							CenterScreenAtMapIndex( gsItemGridNo );
+						}
 					}
 					//remove node
 					HideItemCursor( sGridNo );

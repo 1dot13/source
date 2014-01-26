@@ -113,6 +113,7 @@ void SetEditorBuildingTaskbarMode( UINT16 usNewMode )
 	UnclickEditorButton( BUILDING_COPY_BUILDING );
 	UnclickEditorButton( BUILDING_MOVE_BUILDING );
 	UnclickEditorButton( BUILDING_DRAW_ROOMNUM );
+	UnclickEditorButton( BUILDING_ERASE_ROOMNUM );
 	ClickEditorButton( usNewMode );
 
 	gfRenderDrawingMode = TRUE;

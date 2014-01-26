@@ -4375,8 +4375,18 @@ void ProcessAreaSelection( BOOLEAN fWithLeftButton )
 			DrawObjectsBasedOnSelectionRegion();
 			if( gusCurrRoomNumber > 0 )
 			{
-				gusCurrRoomNumber++;
-				gusMaxRoomNumber++;
+				if( gusCurrRoomNumber == gusMaxRoomNumber )
+					gusMaxRoomNumber++;
+				
+				//retain existing room number
+				if ( _KeyDown( SHIFT ) )
+				{
+					//Do nothing
+				}
+				else
+				{	
+					gusCurrRoomNumber = gusMaxRoomNumber;
+				}
 				if( iCurrentTaskbar == TASK_BUILDINGS && TextInputMode() )
 				{
 					CHAR16 str[4];

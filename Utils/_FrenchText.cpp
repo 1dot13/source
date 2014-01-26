@@ -623,7 +623,7 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Ajouter/remplacer le toit de la construction par un nouveau toit plat.",
 	L"Copier une construction",
 	L"Bouger une construction",
-	L"Dessiner le numéro de pièce",
+	L"Dessiner le numéro de pièce\n(Hold |S|h|i|f|t to reuse room number)",	// TODO.Translate
 	L"Supprimer le numéro de pièce",
 
 	L"Activer le mode supprimer (|E)",
@@ -710,7 +710,7 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Options",
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Terrain fasthelp text
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Buildings fasthelp text
-	L"", //Items fasthelp text
+	L"|S|p|a|c|e: Select next item\n \n|C|t|r|l+|/: Place new item under mouse cursor\n|/: Place same item under mouse cursor", //Items fasthelp text	// TODO.Translate
 	L"|1-|9 : Pose de waypoints\n|C|t|r|l+|C/|C|t|r|l+|V : Copie/colle mercenaire", //Mercs fasthelp text
 	L"|C|t|r|l+|G : Va à la case\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text
 	L"|C|t|r|l+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s).", //Options fasthelp text
@@ -1499,6 +1499,14 @@ STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 	L"%S[%d] appartient à tileset def %s (%S)",
 	L"Fichier :  %S, sousindex :  %d (%S)",
 	L"Tileset utilisé :  %s",
+};
+// TODO.Translate
+STR16 pDisplaySelectionWindowButtonText[] =
+{
+	L"Accept selections (|E|n|t|e|r)",
+	L"Cancel selections (|E|s|c)\nClear selections (|S|p|a|c|e)",
+	L"Scroll window up (|U|p)",
+	L"Scroll window down (|D|o|w|n)",
 };
 
 //Cursor Modes.cpp
@@ -5096,7 +5104,8 @@ STR16			AimAlumniText[] =
 	L"Anciens",	// Title of the page
 
 	L"OK",			// Stops displaying information on selected merc
-	L"Page suiv.",
+	L"Page suiv.",
+
 };
 
 
