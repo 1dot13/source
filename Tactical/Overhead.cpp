@@ -5042,47 +5042,46 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         *psAdjustedGridNo = sGridNo;
     }
 
-	// Flugente: change condition order
-	// OK, if we are looking for a door, it may be in the same tile as us, so find the direction we
-	// have to face to get to the door, not just our initial direction...
-	// If we are in the same tile as a switch, we can NEVER pull it....
-	if (pubDirection && fDoor )
-	{
-		// CHECK IF IT'S THE SAME ONE AS WE'RE ON, IF SO, RETURN THAT!
-		if ( pSoldier->sGridNo == sGridNo && !FindStructure( sGridNo, ( STRUCTURE_SWITCH ) ) )
-		{
-			// This can only happen if a door was to the south to east of us!
+    // CHECK IF IT'S THE SAME ONE AS WE'RE ON, IF SO, RETURN THAT!
+    if ( pSoldier->sGridNo == sGridNo && !FindStructure( sGridNo, ( STRUCTURE_SWITCH ) ) )
+    {
+        // OK, if we are looking for a door, it may be in the same tile as us, so find the direction we
+        // have to face to get to the door, not just our initial direction...
+        // If we are in the same tile as a switch, we can NEVER pull it....
+        if( fDoor && pubDirection )
+        {
+            // This can only happen if a door was to the south to east of us!
 
-			// Do south!
-			//sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
+            // Do south!
+            //sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
 
-			// ATE: Added: Switch behave EXACTLY like doors
-			pDoor = FindStructure( sGridNo, ( STRUCTURE_ANYDOOR ) );
+            // ATE: Added: Switch behave EXACTLY like doors
+            pDoor = FindStructure( sGridNo, ( STRUCTURE_ANYDOOR ) );
 
-			if ( pDoor != NULL )
-			{
-				// Get orinetation
-				ubWallOrientation = pDoor->ubWallOrientation;
+            if ( pDoor != NULL )
+            {
+                // Get orinetation
+                ubWallOrientation = pDoor->ubWallOrientation;
 
-				if ( ubWallOrientation == OUTSIDE_TOP_LEFT || ubWallOrientation == INSIDE_TOP_LEFT )
-				{
-					// To the south!
-					sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
-					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
-				}
+                if ( ubWallOrientation == OUTSIDE_TOP_LEFT || ubWallOrientation == INSIDE_TOP_LEFT )
+                {
+                    // To the south!
+                    sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
+                    (*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
+                }
 
-				if ( ubWallOrientation == OUTSIDE_TOP_RIGHT || ubWallOrientation == INSIDE_TOP_RIGHT )
-				{
-					// TO the east!
-					sSpot = NewGridNo( sGridNo, DirectionInc( EAST ) );
-					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
-				}
-			}
+                if ( ubWallOrientation == OUTSIDE_TOP_RIGHT || ubWallOrientation == INSIDE_TOP_RIGHT )
+                {
+                    // TO the east!
+                    sSpot = NewGridNo( sGridNo, DirectionInc( EAST ) );
+                    (*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
+                }
+            }
+        }
 
-			// Use soldier's direction
-			return( sGridNo );
-		}
-	}
+        // Use soldier's direction
+        return( sGridNo );
+    }
 
     // Look for a door!
     if (fDoor)
@@ -5096,22 +5095,21 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 
     if ( fForceToPerson )
     {
-		if ( psAdjustedGridNo != NULL )
-		{
-			if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
-			{
-				sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
-				*psAdjustedGridNo = sGridNo;
+        if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
+        {
+            sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
+            if ( psAdjustedGridNo != NULL )
+            {
+                *psAdjustedGridNo = sGridNo;
 
-				// Use direction to this guy!
-				if (pubDirection)
-				{
-					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-				}
-			}
-		}
+                // Use direction to this guy!
+                if (pubDirection)
+                {
+                    (*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
+                }
+            }
+        }
     }
-
 
     if ( ( sOkTest = NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) ) > 0)   // no problem going there! nobody on it!
     {
@@ -5140,13 +5138,13 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
             {
                 if ( sDistance < sClosest )
                 {
-                    sClosest        = sDistance;
+                    sClosest                        = sDistance;
                     sCloseGridNo    = sGridNo;
                 }
             }
         }
     }
-
+	
     for (INT8 cnt = 0; cnt < 4; ++cnt)
     {
         // MOVE OUT TWO DIRECTIONS
@@ -5206,14 +5204,10 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 
             // OK, at least get direction to face......
             // Defaults to soldier's facing dir unless we change it!
-            //if ( pDoor != NULL )
-            {
-                // Use direction to the door!
-                if (pubDirection)
-                {
-                    (*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-                }
-            }
+            // Use direction to the door!
+            if (pubDirection)
+                (*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
+
             return( sSpot );
         }
 
@@ -5281,7 +5275,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 
         return( sCloseGridNo );
     }
-
+    
 	return( NOWHERE );
 }
 
@@ -5333,15 +5327,17 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         pDoor = NULL;
     }
 
-    if ( fForceToPerson && psAdjustedGridNo != NULL )
+    if ( fForceToPerson )
     {
         if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
         {
             sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
-            *psAdjustedGridNo = sGridNo;
+            if ( psAdjustedGridNo != NULL )
+            {
+                *psAdjustedGridNo = sGridNo;
+            }
         }
     }
-
 
     if ( ( sOkTest = NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) ) > 0)   // no problem going there! nobody on it!
     {
@@ -5370,8 +5366,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         }
     }
 
-
-    for (INT8 cnt = 0; cnt < 4; cnt++)
+    for (INT8 cnt = 0; cnt < 4; ++cnt)
     {
         // MOVE OUT TWO DIRECTIONS
         sFourGrids[cnt] = sSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
@@ -5439,9 +5434,8 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         if ( sSpot == pSoldier->sGridNo )
         {
             if (pubDirection)
-            {
                 (*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-            }
+
             //*pubDirection = pSoldier->ubDirection;
             return( sSpot );
         }
@@ -5504,12 +5498,10 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         {
             return( NOWHERE );
         }
-
         return( sCloseGridNo );
     }
 
 	return( NOWHERE );
-
 
 
     /*
