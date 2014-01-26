@@ -918,9 +918,14 @@ void HandleDialogue( )
 
 		gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem->usQuoteNum;
 		gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
+				
+		// Flugente: only set up face if we can access correctly
+		if ( QItem->iFaceIndex > 0 )
+		{
+			// Setup face pointer
+			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+		}
 
-		// Setup face pointer
-		gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
 		gubCurrentTalkingID	= QItem->ubCharacterNum;
 #ifdef JA2UB		
 		//Ja25: test
@@ -979,9 +984,14 @@ void HandleDialogue( )
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES )
 		{
 			gfUseAlternateDialogueFile = TRUE;
+			
+			// Flugente: only set up face if we can access correctly
+			if ( QItem->iFaceIndex > 0 )
+			{
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			}
 
-			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
@@ -992,8 +1002,13 @@ void HandleDialogue( )
 		// We could have a special flag, but dialogue as well
 		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
 		{
-			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			// Flugente: only set up face if we can access correctly
+			if ( QItem->iFaceIndex > 0 )
+			{
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			}
+
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
@@ -1037,7 +1052,13 @@ void HandleDialogue( )
 			// Slide to location!
 			SlideToLocation( 0,  QItem->uiSpecialEventData );
 
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			// Flugente: only set up face if we can access correctly
+			if ( QItem->iFaceIndex > 0 )
+			{
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			}
+
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
@@ -1081,8 +1102,13 @@ void HandleDialogue( )
 		}
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_BEGINPREBATTLEINTERFACE )
 		{
-			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			// Flugente: only set up face if we can access correctly
+			if ( QItem->iFaceIndex > 0 )
+			{
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			}
+
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
@@ -1198,8 +1224,13 @@ void HandleDialogue( )
 
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT )
 		{
-			// Setup face pointer
-			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			// Flugente: only set up face if we can access correctly
+			if ( QItem->iFaceIndex > 0 )
+			{
+				// Setup face pointer
+				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+			}
+
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			// set up the mine highlgith events
@@ -1323,8 +1354,14 @@ void HandleDialogue( )
 			{
 				gTacticalStatus.ubLastQuoteSaid = (UINT8)QItem->usQuoteNum;
 				gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
-				// Setup face pointer
-				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				
+				// Flugente: only set up face if we can access correctly
+				if ( QItem->iFaceIndex > 0 )
+				{
+					// Setup face pointer
+					gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
+				}
+
 				gubCurrentTalkingID	= QItem->iFaceIndex;
 
 				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
