@@ -990,7 +990,8 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	else
 	{
 		// OK, Place what objects this guy was carrying on the ground!
-		for ( cnt = 0; cnt < pSoldier->inv.size(); ++cnt )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObj = &( pSoldier->inv[ cnt ] );
 
@@ -2413,7 +2414,6 @@ void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot
 {
 	Assert( pSoldier );
 	Assert( ( iInvSlot >= 0 ) && ( iInvSlot < (INT32)pSoldier->inv.size() ) );
-
 
 	// if not a player soldier
 	if ( pSoldier->bTeam != gbPlayerNum )

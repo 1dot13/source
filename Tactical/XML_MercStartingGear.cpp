@@ -211,14 +211,16 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 				pData->curMercStartingGear.PriceModifier = 0;
 				pData->curMercStartingGear.AbsolutePrice = -1;
 				pData->curMercStartingGear.mGearKitName[0] = '\0';
-				for(unsigned int i = 0; i < pData->curMercStartingGear.inv.size(); i++)
+				UINT32 invsize = pData->curMercStartingGear.inv.size();
+				for(UINT32 i = 0; i < invsize; ++i)
 				{
 					pData->curMercStartingGear.inv[i] = 0;
 					pData->curMercStartingGear.iStatus[i] = 0;
 					pData->curMercStartingGear.iDrop[i] = 0;
 					pData->curMercStartingGear.iNumber[i] = 0;
 				}
-				for(unsigned int i = 0; i < pData->curMercStartingGear.lbe.size(); i++)
+				UINT32 lbesize = pData->curMercStartingGear.lbe.size();
+				for(UINT32 i = 0; i < lbesize; ++i)
 				{
 					pData->curMercStartingGear.lbe[i] = 0;
 					pData->curMercStartingGear.lStatus[i] = 0;

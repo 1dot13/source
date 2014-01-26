@@ -1063,28 +1063,24 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 							{
 								pTile = &( gSmTileDB[ pNode->usIndex ] );
 
-								// Flugente: uninformed hack
-								//if ( pTile && pTile->vo )
+								sX = sTempPosX_S;
+								sY = sTempPosY_S;
+
+								if( gTileDatabase[ pNode->usIndex ].uiFlags & IGNORE_WORLD_HEIGHT )
 								{
-									sX = sTempPosX_S;
-									sY = sTempPosY_S;
-
-									if( gTileDatabase[ pNode->usIndex ].uiFlags & IGNORE_WORLD_HEIGHT )
-									{
-										sY -= sModifiedHeight;
-									}
-									else
-									{
-										sY -= sHeight;
-									}
-
-									sY += ( gsRenderHeight / 5 );
-
-									pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
-
-									// RENDER!
-									Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
+									sY -= sModifiedHeight;
 								}
+								else
+								{
+									sY -= sHeight;
+								}
+
+								sY += ( gsRenderHeight / 5 );
+
+								pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
+
+								// RENDER!
+								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 							}
 						}
 						pNode = pNode->pNext;
@@ -1097,25 +1093,21 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 						{
 							pTile = &( gSmTileDB[ pNode->usIndex ] );
 
-							// Flugente: uninformed hack
-							//if ( pTile && pTile->vo )
-							{
-								sX = sTempPosX_S;
-								sY = sTempPosY_S - sHeight;
-								//dnl ch82 081213
-								sY = sTempPosY_S;
-								if(gTileDatabase[pNode->usIndex].uiFlags & IGNORE_WORLD_HEIGHT)
-									sY -= sModifiedHeight;
-								else
-									sY -= sHeight;
+							sX = sTempPosX_S;
+							sY = sTempPosY_S - sHeight;
+							//dnl ch82 081213
+							sY = sTempPosY_S;
+							if(gTileDatabase[pNode->usIndex].uiFlags & IGNORE_WORLD_HEIGHT)
+								sY -= sModifiedHeight;
+							else
+								sY -= sHeight;
 
-								sY += ( gsRenderHeight / 5 );
+							sY += ( gsRenderHeight / 5 );
 
-								pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
+							pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
 
-								// RENDER!
-								Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
-							}
+							// RENDER!
+							Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 						}
 						pNode = pNode->pNext;
 					}
@@ -1130,28 +1122,24 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 							{
 								pTile = &( gSmTileDB[ pNode->usIndex ] );
 
-								// Flugente: uninformed hack
-								//if ( pTile && pTile->vo )
+								sX = sTempPosX_S;
+								sY = sTempPosY_S - (gTileDatabase[ pNode->usIndex ].sOffsetHeight/5);
+
+								if( gTileDatabase[ pNode->usIndex ].uiFlags & IGNORE_WORLD_HEIGHT )
 								{
-									sX = sTempPosX_S;
-									sY = sTempPosY_S - (gTileDatabase[ pNode->usIndex ].sOffsetHeight/5);
-
-									if( gTileDatabase[ pNode->usIndex ].uiFlags & IGNORE_WORLD_HEIGHT )
-									{
-										sY -= sModifiedHeight;
-									}
-									else
-									{
-										sY -= sHeight;
-									}
-
-									sY += ( gsRenderHeight / 5 );
-
-									pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
-
-									// RENDER!
-									Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
+									sY -= sModifiedHeight;
 								}
+								else
+								{
+									sY -= sHeight;
+								}
+
+								sY += ( gsRenderHeight / 5 );
+
+								pTile->vo->pShadeCurrent= gSmTileSurf[ pTile->fType ].vo->pShades[pNode->ubShadeLevel];
+
+								// RENDER!
+								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
 							}
 						}
 						pNode = pNode->pNext;

@@ -1585,12 +1585,13 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 
 		//tais: disable Weaponbox Mouseregions to stop crashing when changing kit selection and hovering over item
 		//tooltips for weaponbox
-		for(i=0;i<WEAPONBOX_TOTAL_ITEMS;i++) 
+		for(i=0;i<WEAPONBOX_TOTAL_ITEMS; ++i) 
 		{
 			MSYS_DisableRegion(&gWeaponboxFasthelpRegion[i]);
 		}
 
-		for(i=0; i<gMercProfiles[ubMercID].inv.size(); i++)
+		UINT8 invsize = gMercProfiles[ubMercID].inv.size();
+		for(i=0; i<invsize; ++i)
 		{
 			usItem = gMercProfiles[ubMercID].inv[ i ];
 
@@ -1665,7 +1666,8 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 		PosX = WEAPONBOX_X+3;		// + 3 ( 1 to take care of the shadow, +2 to get past the weapon box border )
 		PosY = WEAPONBOX_Y;
 
-		for(i=0; i<gMercProfiles[ubMercID].inv.size(); i++)
+		UINT8 invsize = gMercProfiles[ubMercID].inv.size();
+		for(i=0; i<invsize; ++i)
 		{
 			usItem = gMercProfiles[ubMercID].inv[ i ];
 
@@ -5930,7 +5932,8 @@ void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
 	gMercProfiles[gbCurrentSoldier].bMainGunAttractiveness		= -1;
 	gMercProfiles[gbCurrentSoldier].bArmourAttractiveness			= -1;
 
-	for ( uiLoop = 0; uiLoop < gMercProfiles[gbCurrentSoldier].inv.size(); uiLoop++ )
+	UINT32 invsize = gMercProfiles[ gbCurrentSoldier ].inv.size();
+	for ( uiLoop = 0; uiLoop < invsize; ++uiLoop )
 	{
 		usItem = gMercProfiles[gbCurrentSoldier].inv[ uiLoop ];
 
@@ -5959,7 +5962,8 @@ void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
 	else
 	{
 		UINT16 tempGearCost = 0;
-		for ( uiLoop = 0; uiLoop< gMercProfiles[ gbCurrentSoldier ].inv.size(); uiLoop++ )
+		UINT32 invsize = gMercProfiles[ gbCurrentSoldier ].inv.size();
+		for ( uiLoop = 0; uiLoop< invsize; ++uiLoop )
 		{
 			if ( gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ] != NOTHING )
 			{

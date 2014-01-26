@@ -6374,18 +6374,17 @@ BOOLEAN RemoveRepairItemFromDealersOfferArea( INT16	bSlot )
 
 INT8	GetInvSlotOfUnfullMoneyInMercInventory( SOLDIERTYPE *pSoldier )
 {
-	UINT8	ubCnt;
-
 	//loop through the soldier's inventory
-	for( ubCnt=0; ubCnt < pSoldier->inv.size(); ubCnt++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for( INT8 bCnt=0; bCnt < invsize; ++bCnt)
 	{
 		// Look for MONEY only, not Gold or Silver!!!  And look for a slot not already full
-		if( ( pSoldier->inv[ ubCnt ].usItem == MONEY ) && ( pSoldier->inv[ ubCnt ][0]->data.money.uiMoneyAmount < MoneySlotLimit( ubCnt ) ) )
+		if( ( pSoldier->inv[ bCnt ].usItem == MONEY ) && ( pSoldier->inv[ bCnt ][0]->data.money.uiMoneyAmount < MoneySlotLimit( bCnt ) ) )
 		{
-			return( ubCnt );
+			return( bCnt );
 		}
 	}
-	return( - 1 );
+	return( NO_SLOT );
 }
 
 

@@ -1550,7 +1550,8 @@ INT8 FindBestWeaponIfCurrentIsOutOfRange(SOLDIERTYPE * pSoldier, INT8 bCurrentWe
 	INT8 secondBestWeapon = 0;
 	//search for weapons that meet the range, then sort by damage.
 	//if there are no weapons that meet the range, then use the longest range we can find
-	for (INT8 bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		//if this is a weapon
 		if (Item[pSoldier->inv[bLoop].usItem].usItemClass & (IC_WEAPON | IC_THROWN) && pSoldier->inv[bLoop].exists() == true)
@@ -1618,9 +1619,8 @@ INT8 FindMetalDetectorInHand( SOLDIERTYPE * pSoldier )
 
 INT8 FindLockBomb( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (Item[pSoldier->inv[bLoop].usItem].lockbomb && pSoldier->inv[bLoop].exists() == true)
 		{
@@ -1632,9 +1632,8 @@ INT8 FindLockBomb( SOLDIERTYPE * pSoldier )
 
 INT8 FindUsableObj( SOLDIERTYPE * pSoldier, UINT16 usItem )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if ( pSoldier->inv[bLoop].usItem == usItem
 			&& pSoldier->inv[bLoop].exists() == true
@@ -1649,9 +1648,8 @@ INT8 FindUsableObj( SOLDIERTYPE * pSoldier, UINT16 usItem )
 
 INT8 FindObjExcludingSlot( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 bExcludeSlot )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (bLoop == bExcludeSlot)
 		{
@@ -1686,7 +1684,6 @@ INT8 FindObj( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 bLower, INT8 bUpper )
 
 INT8 FindObjInObjRange( SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2 )
 {
-	INT8		bLoop;
 	UINT16	usTemp;
 
 	if (usItem1 > usItem2 )
@@ -1697,7 +1694,8 @@ INT8 FindObjInObjRange( SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2 )
 		usItem1 = usTemp;
 	}
 
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		usTemp = pSoldier->inv[bLoop].usItem;
 		if ( usTemp >= usItem1 && usTemp <= usItem2 && pSoldier->inv[bLoop].exists() == true)
@@ -1712,9 +1710,8 @@ INT8 FindObjInObjRange( SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2 )
 
 INT8 FindObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (Item[pSoldier->inv[bLoop].usItem].usItemClass & usItemClass && pSoldier->inv[bLoop].exists() == true)
 		{
@@ -1730,13 +1727,13 @@ INT8 FindAIUsableObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass )
 	// the "unusable by AI" flag set.
 
 	// uses & rather than == so that this function can search for any weapon
-	INT8 bLoop;
 
 	// This is for the AI only so:
 
 	// Do not consider tank cannons or rocket launchers to be "guns"
 
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( (Item[pSoldier->inv[bLoop].usItem].usItemClass & usItemClass) && !(pSoldier->inv[bLoop].fFlags & OBJECT_AI_UNUSABLE) && (pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE ) )
@@ -1823,9 +1820,8 @@ BOOLEAN GLGrenadeInSlot(SOLDIERTYPE *pSoldier, INT8 bSlot )
 // for grenade launchers
 INT8 FindGLGrenade( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (GLGrenadeInSlot( pSoldier, bLoop ))
 		{
@@ -1849,10 +1845,13 @@ INT8 FindThrowableGrenade( SOLDIERTYPE * pSoldier )
 			fCheckForFlares = TRUE;
 		}
 	}
+
+	INT8 invsize = (INT8)pSoldier->inv.size();
+
 	if (fCheckForFlares)
 	{
 		// Do a priority check for flares first
-		for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+		for (bLoop = 0; bLoop < invsize; ++bLoop)
 		{
 			if (pSoldier->inv[bLoop].exists() == true) {
 				if ( Item[pSoldier->inv[ bLoop ].usItem].flare )
@@ -1863,7 +1862,7 @@ INT8 FindThrowableGrenade( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( (Item[ pSoldier->inv[ bLoop ].usItem ].usItemClass & IC_GRENADE) && // Try this check instead, to avoid tossing RPG rounds     !GLGrenadeInSlot( pSoldier, bLoop ) &&
@@ -1933,7 +1932,8 @@ INT8 FindLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 {
 	INT8	bLoop;
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("FindLaunchable: weapon=%d",usWeapon));
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( ValidLaunchable( pSoldier->inv[ bLoop ].usItem , usWeapon ) )
@@ -1952,7 +1952,8 @@ INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 {
 	INT8	bLoop;
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("FindNonSmokeLaunchable: weapon=%d",usWeapon));
-	for (bLoop = 0; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( ValidLaunchable( pSoldier->inv[ bLoop ].usItem , usWeapon ) && Explosive[Item[pSoldier->inv[ bLoop ].usItem].ubClassIndex].ubType != EXPLOSV_SMOKE )
@@ -2894,7 +2895,8 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 		}
 
 		// LBENODE has it's ItemSize adjusted based on what it's storing
-		if(pObject->IsActiveLBE(numStacked) == true) {
+		if(pObject->IsActiveLBE(numStacked) == true)
+		{
 			LBENODE* pLBE = pObject->GetLBEPointer(numStacked);
 			if(pLBE)
 			{
@@ -2905,7 +2907,8 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 				UINT16	pIndex, testSize, maxSize;
 				UINT8	pocketCapacity, numberOfSizeIncrements;
 				FLOAT	currentPocketPercent, currentPocketPartOfTotal;
-				for(unsigned int x = 0; x < pLBE->inv.size(); x++)
+				UINT16 invsize = pLBE->inv.size();
+				for(UINT16 x = 0; x < invsize; ++x)
 				{
 					if(LoadBearingEquipment[Item[pObject->usItem].ubClassIndex].lbePocketIndex[x] != 0)
 					{
@@ -2914,7 +2917,7 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 					}
 				}
 				//Now, look through each active pocket
-				for(unsigned int x = 0; x < pLBE->inv.size(); x++)
+				for(UINT16 x = 0; x < invsize; ++x)
 				{
 					if(pLBE->inv[x].exists() == true)
 					{
@@ -2942,7 +2945,7 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 				newSize = 0;
 				maxSize = max(iSize, LoadBearingEquipment[Item[pObject->usItem].ubClassIndex].lbeFilledSize);
 				// Look for the ItemSize of the largest item in this LBENODE
-				for(unsigned int x = 0; x < pLBE->inv.size(); ++x)
+				for(UINT16 x = 0; x < invsize; ++x)
 				{
 					if(pLBE->inv[x].exists() == true)
 					{
@@ -3074,8 +3077,10 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 		if(pItem->usItemClass == IC_LBEGEAR && IsActiveLBE(index) && (UsingNewInventorySystem() == true))
 		{
 			LBENODE* pLBE = GetLBEPointer(index);
-			if (pLBE) {
-				for ( unsigned int subObjects = 0; subObjects < pLBE->inv.size(); subObjects++)
+			if (pLBE)
+			{
+				UINT16 invsize = pLBE->inv.size();
+				for ( UINT16 subObjects = 0; subObjects < pLBE->inv.size(); ++subObjects)
 				{
 					if (pLBE->inv[subObjects].exists() == true)
 					{
@@ -3125,7 +3130,8 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	UINT32		ubStrengthForCarrying;
 
 	//Pulmu: Changes for dynamic ammo weight
-	for( ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
+	UINT8 invsize = pSoldier->inv.size();
+	for( ubLoop = 0; ubLoop < invsize; ++ubLoop)
 	{
 		//ADB the weight of the object is already counting stacked objects, attachments, et al
 		uiTotalWeight += CalculateObjectWeight(&pSoldier->inv[ubLoop]);
@@ -3156,7 +3162,6 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	uiPercent = (UINT32)(((FLOAT)20 * (FLOAT)gGameExternalOptions.iStrengthToLiftHalfKilo) * uiTotalWeight) / ( ubStrengthForCarrying );
 
 	return( uiPercent );
-
 }
 
 void DeleteObj(OBJECTTYPE * pObj )
@@ -3668,8 +3673,8 @@ INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, UINT8 
 	INVTYPE *		pItem;
 
 	//CHRISL: Update this to search for the largest appropriate mag if ubMagSize = ANY_MAGSIZE
-
-	for (bLoop = HANDPOS; bLoop < (INT8)pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for (bLoop = HANDPOS; bLoop < invsize; ++bLoop)
 	{
 		//CHRISL: If in NIV, in combat and backpack is closed, don't look inside
 		if(UsingNewAttachmentSystem() == true && (gTacticalStatus.uiFlags & INCOMBAT) && IsBackpackSlot(bLoop) == true && pSoldier->flags.ZipperFlag == FALSE)
@@ -8445,7 +8450,8 @@ BOOLEAN RemoveObjectFromSoldierProfile( UINT8 ubProfile, UINT16 usItem )
 		return( TRUE );
 	}
 	MERCPROFILESTRUCT* pProfile = &gMercProfiles[ ubProfile ];
-	for (unsigned int bLoop = 0; bLoop < pProfile->inv.size(); bLoop++)
+	UINT8 invsize = pProfile->inv.size();
+	for (UINT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if ( pProfile->inv[ bLoop ] == usItem )
 		{
@@ -8495,9 +8501,9 @@ void SetMoneyInSoldierProfile( UINT8 ubProfile, UINT32 uiMoney )
 
 INT8 FindObjectInSoldierProfile( UINT8 ubProfile, UINT16 usItem )
 {
-
 	MERCPROFILESTRUCT* pProfile = &gMercProfiles[ ubProfile ];
-	for (unsigned int bLoop = 0; bLoop < pProfile->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pProfile->inv.size();
+	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if ( pProfile->bInvNumber[ bLoop ] > 0 )
 		{
@@ -8700,7 +8706,6 @@ BOOLEAN DamageItem( OBJECTTYPE * pObject, INT32 iDamage, BOOLEAN fOnGround )
 
 void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 {
-	INT8				bSlot;
 	BOOLEAN			fBlowsUp;
 	UINT8				ubNumberOfObjects;
 
@@ -8709,7 +8714,8 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 		return;
 	}
 
-	for (bSlot = 0; bSlot < (INT8) pSoldier->inv.size(); bSlot++)
+	UINT8 invsize = pSoldier->inv.size();
+	for (UINT8 bSlot = 0; bSlot < invsize; ++bSlot)
 	{
 		if (pSoldier->inv[bSlot].exists() == false) {
 			continue;
@@ -8744,11 +8750,11 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 {
 	// glass jars etc can be damaged by falling over
-	INT8				bSlot;
 	UINT8				ubNumberOfObjects;
 	BOOLEAN			fPlayedGlassBreak = FALSE;
 
-	for (bSlot = 0; bSlot < (INT8) pSoldier->inv.size(); bSlot++)
+	UINT8 invsize = pSoldier->inv.size();
+	for (UINT8 bSlot = 0; bSlot < invsize; ++bSlot)
 	{
 		if (pSoldier->inv[bSlot].exists() == false) {
 			continue;
@@ -10912,7 +10918,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
 	bool usingGunScope = WeaponReady(pSoldier);
 	// CHRISL:
-	for (int i = BODYPOSSTART; i < BODYPOSFINAL; i++)
+	for (int i = BODYPOSSTART; i < BODYPOSFINAL; ++i )
 	{
 		// More optimization
 		pObj = &( pSoldier->inv[i]);
@@ -11327,15 +11333,14 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			bonus += GetCaveVisionRangeBonus(pSoldier, bLightLevel);
 		}
 	}
+	else if ( bLightLevel < NORMAL_LIGHTLEVEL_DAY )
+	{
+		bonus += GetBrightLightVisionRangeBonus(pSoldier, bLightLevel);
+	}
 
 	if ( bLightLevel < NORMAL_LIGHTLEVEL_NIGHT )
 	{
 		bonus += GetDayVisionRangeBonus(pSoldier, bLightLevel);
-	}
-
-	if ( bLightLevel < NORMAL_LIGHTLEVEL_DAY )
-	{
-		bonus += GetBrightLightVisionRangeBonus(pSoldier, bLightLevel);
 	}
 
 	// Flugente: drugs can alter our sight
@@ -11918,9 +11923,8 @@ BOOLEAN EXPLOSIVE_GUN ( UINT16 x)
 
 INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].rocketlauncher || Item[pSoldier->inv[bLoop].usItem].cannon )
@@ -11934,9 +11938,8 @@ INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier )
 
 INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].rocketlauncher )
@@ -11950,9 +11953,8 @@ INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier )
 
 INT8 FindCannon( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( Item[pSoldier->inv[bLoop].usItem].cannon )
@@ -11967,11 +11969,12 @@ INT8 FindCannon( SOLDIERTYPE * pSoldier )
 INT8 FindUsableCrowbar( SOLDIERTYPE * pSoldier )
 {
 	//JMich_SkillModifiers: Adding a bonus check, to return the best crowbar, and modifying the return value.
-	INT8 bLoop, bonus, FoundCrowbar;
+	INT8 bonus, FoundCrowbar;
 	FoundCrowbar = NO_SLOT;
 	bonus = -101;
 
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( Item[pSoldier->inv[bLoop].usItem].crowbar && pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE && Item[pSoldier->inv[bLoop].usItem].CrowbarModifier > bonus)
@@ -11996,11 +11999,11 @@ OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj )
 	}
 	return( 0 );
 }
+
 INT8 FindToolkit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].toolkit )
@@ -12011,11 +12014,11 @@ INT8 FindToolkit( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 INT8 FindMedKit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].medicalkit  )
@@ -12026,11 +12029,11 @@ INT8 FindMedKit( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].firstaidkit  )
@@ -12041,11 +12044,11 @@ INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 INT8 FindCamoKit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].camouflagekit   )
@@ -12056,14 +12059,16 @@ INT8 FindCamoKit( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 //JMich_SkillModifiers: Adding a function to see if we have an item with disarm bonus
 INT8 FindDisarmKit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop, bonus, FoundKit;
+	INT8 bonus, FoundKit;
 	FoundKit = NO_SLOT;
 	bonus = 0;
 
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( ( ( Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus ) / 100 ) > bonus )
@@ -12075,17 +12080,20 @@ INT8 FindDisarmKit( SOLDIERTYPE * pSoldier )
 	}
 	return( FoundKit );
 }
+
 INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 {
 	//JMich_SkillModifiers: Adding a bonus check, to return the best LocksmithKit, and modifying the return value.
-	INT8 bLoop, bonus, FoundKit;
+	INT8 bonus, FoundKit;
 	FoundKit = NO_SLOT;
 	bonus = -101;
 
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
-		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].locksmithkit   )
+		if (pSoldier->inv[bLoop].exists() == true)
+		{
+			if (Item[pSoldier->inv[bLoop].usItem].locksmithkit )
 			{
 				//JMich_SkillModifiers: If the locksmith kit has a bonus, reduce it based on the status, so we use the best bonus.
 				if (Item[pSoldier->inv[bLoop].usItem].LockPickModifier > 0 )
@@ -12094,9 +12102,9 @@ INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 					{
 						bonus = ( Item[pSoldier->inv[bLoop].usItem].LockPickModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100 );
 						FoundKit = bLoop;
-			}
+					}
 
-		}
+				}
 				//JMich_SkillModifiers: If on the other hand the locksmith is a shoddy one, keep that penalty regardless of status.
 				else
 				{
@@ -12104,18 +12112,17 @@ INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 					{
 						bonus = Item[pSoldier->inv[bLoop].usItem].LockPickModifier;
 						FoundKit = bLoop;
-	}
-}
+					}
+				}
 			}
 		}
 	}
 	return( FoundKit );
 }
+
 INT8 FindWalkman( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; bLoop++)
+	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; bLoop++)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].walkman  )
@@ -12126,14 +12133,15 @@ INT8 FindWalkman( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 INT8 FindTrigger( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
-		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].remotetrigger   )
+		if (pSoldier->inv[bLoop].exists() == true)
+		{
+			if (Item[pSoldier->inv[bLoop].usItem].remotetrigger )
 			{
 				return( bLoop );
 			}
@@ -12141,11 +12149,10 @@ INT8 FindTrigger( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+
 INT8 FindRemoteControl( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; bLoop++)
+	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].robotremotecontrol    )
@@ -12162,7 +12169,7 @@ UINT16 LowestLaunchableCoolness(UINT16 launcherIndex)
 	UINT16 i = 0;
 	UINT16 lowestCoolness = 999;
 
-	for( i = 0; i < MAXITEMS; i++ )
+	for( i = 0; i < MAXITEMS; ++i )
 	{
 		if ( Item[i].usItemClass  == 0 )
 			break;
@@ -12186,7 +12193,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	// WANNE: This should fix the hang on the merc positioning screen (fix by Razer)
 	//while( !usNumMatches )
 	{ //Count the number of valid launchables
-		for( i = 0; i < MAXITEMS; i++ )
+		for( i = 0; i < MAXITEMS; ++i )
 		{
 			if ( Item[i].usItemClass  == 0 )
 				break;
@@ -12199,7 +12206,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	if( usNumMatches )
 	{
 		usRandom = (UINT16)Random( usNumMatches );
-		for( i = 0; i < MAXITEMS; i++ )
+		for( i = 0; i < MAXITEMS; ++i )
 		{
 			if ( Item[i].usItemClass  == 0 )
 				break;
@@ -13437,7 +13444,7 @@ INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 	{
 		if ( pSoldier->inv[bLoop].exists() == true )
 			ttl += GetStealthBonus(&pSoldier->inv[bLoop]);
@@ -14049,7 +14056,7 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 
 	// add up kit points of all medkits
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (ubPocket = HANDPOS; ubPocket < NUM_INV_SLOTS; ubPocket++)
+	for (ubPocket = HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
 		if ( IsMedicalKitItem( &( pSoldier->inv[ ubPocket ] ) ) )
 		{
@@ -15277,7 +15284,8 @@ UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier )
 {
 	UINT8 modifier = 0;
 
-	for ( UINT8 i = 0; i < pSoldier->inv.size(); i++ )
+	UINT8 invsize = pSoldier->inv.size();
+	for ( UINT8 i = 0; i < invsize; ++i )
 	{
 		if( pSoldier->inv[ i ].exists() == true && Item[ pSoldier->inv[i].usItem ].ubSleepModifier > 0 )
 		{

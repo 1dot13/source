@@ -2803,7 +2803,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 {
 	UINT32			uiNumberOfItems;
 	std::vector<WORLDITEM> pWorldItems;//dnl ch75 271013
-	UINT				i;
+	UINT8				i;
 	UINT8				bCount=0;
 	UINT16			uiFlagsForWorldItems=0;
 	UINT16			usFlagsForRottingCorpse=0;
@@ -2837,7 +2837,8 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 
 	//go through and and find out how many items there are
 	uiNumberOfItems = 0;
-	for ( i = 0; i < pSoldier->inv.size(); i++ )
+	UINT8 invsize = pSoldier->inv.size();
+	for ( i = 0; i < invsize; ++i )
 	{
 		if( pSoldier->inv[ i ].exists() == true )
 		{
@@ -2855,8 +2856,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 			//if the item can be dropped
 			if( !( pSoldier->inv[ i ].fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum )
 			{
-
-        uiNumberOfItems++;
+				++uiNumberOfItems;
 			}
 		}
 	}
@@ -2875,7 +2875,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 
 		//loop through all the soldiers items and add them to the world item array
 		bCount = 0;
-		for ( i = 0; i < pSoldier->inv.size(); i++ )
+		for ( i = 0; i < invsize; ++i )
 		{
 			if( pSoldier->inv[ i ].exists() == true )
 			{
@@ -2897,7 +2897,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 						pSoldier->inv[i][0]->data.objectStatus = max(pSoldier->inv[i][0]->data.objectStatus,1); // never below 1%
 					}
 					pWorldItems[ bCount ].object = pSoldier->inv[i];
-					bCount++;
+					++bCount;
 				}
 			}
 		}
@@ -2907,7 +2907,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 
 		//CHRISL: Now that we've copied the dead soldiers items to pWorldItems, we need to actually remove the items from the dead soldier.  Otherwise we have
 		//	actually duplicated the items and there's a chance that these duplicated items will again find their way to sector.
-		for ( i = 0; i < pSoldier->inv.size(); i++ )
+		for ( i = 0; i < invsize; ++i )
 		{
 			if( pSoldier->inv[ i ].exists() == true )
 			{
@@ -3002,7 +3002,8 @@ UINT32 LBENODEChecksum( LBENODE * pNode )
 	uiChecksum *= (pNode->lbeIndex +1);
 	uiChecksum += (pNode->ubID +1);
 
-	for ( uiLoop = 0; uiLoop < pNode->inv.size(); uiLoop++ )
+	UINT32 invsize = pNode->inv.size();
+	for ( uiLoop = 0; uiLoop < invsize; ++uiLoop )
 	{
 		uiChecksum += pNode->inv[ uiLoop ].usItem;
 	}

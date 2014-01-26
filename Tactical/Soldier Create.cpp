@@ -2549,7 +2549,8 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 	memcpy( spp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	//Starts with nothing
-	for( i = 0; i < spp->Inv.size(); i++ )
+	UINT32 invsize = spp->Inv.size();
+	for( i = 0; i < invsize; ++i )
 	{
 		DeleteObj(&spp->Inv[ i ]);
 		spp->Inv[ i ].fFlags |= OBJECT_UNDROPPABLE;
@@ -2628,7 +2629,8 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 
 	//This isn't perfect, however, it blindly brings over the items from the static
 	//detailed placement.	Due to the order of things, other items would
-	for( i = 0; i < spp->Inv.size(); i++ )
+	UINT32 invsize = spp->Inv.size();
+	for( i = 0; i < invsize; ++i )
 	{
 		//copy over static items and empty slots that are droppable (signifies a forced empty slot)
 		if( spp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
@@ -2776,7 +2778,8 @@ void UpdateStaticDetailedPlacementWithProfileInformation( SOLDIERCREATE_STRUCT *
 	spp->bBodyType								= pProfile->ubBodyType;
 
 	// Copy over inv if we want to
-	for ( cnt = 0; cnt < pProfile->inv.size(); cnt++ )
+	UINT32 invsize = pProfile->inv.size();
+	for ( cnt = 0; cnt < invsize; ++cnt )
 	{
 		CreateItems( pProfile->inv[ cnt ], pProfile->bInvStatus[ cnt ], pProfile->bInvNumber[ cnt ], &(spp->Inv[ cnt ]) );
 	}
@@ -3531,7 +3534,6 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 	BOOLEAN success;
     BOOLEAN fRet;
 
-
 	pProfile = &(gMercProfiles[pCreateStruct->ubProfile]);
 
 	// Copy over inv if we want to
@@ -3544,7 +3546,8 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 			// CHRISL: Resort profile items to use LBE pockets properly
 			DistributeInitialGear(pProfile);
 			//place all items that are NOT attachments
-			for ( cnt = 0; cnt < pProfile->inv.size(); cnt++ )
+			UINT32 invsize = pProfile->inv.size();
+			for ( cnt = 0; cnt < pProfile->inv.size(); ++cnt )
 			{
 				if ( pProfile->inv[ cnt ] == NOTHING || Item[pProfile->inv[cnt]].attachment) {
 					continue;
@@ -3564,8 +3567,9 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 					}
 				}
 			}
+
 			//done placing all non attachments, now place all attachments on objects!
-			for ( cnt = 0; cnt < pProfile->inv.size(); cnt++ )
+			for ( cnt = 0; cnt < invsize; ++cnt )
 			{
 				if ( pProfile->inv[ cnt ] == NOTHING) {
 					continue;
@@ -4647,7 +4651,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		BOOLEAN fRadioSetFound = FALSE;
 
 		// FIRST FIND OUT THE COMPOSITION OF OUR GEAR
-		for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+		INT8 invsize = (INT8)pSoldier->inv.size();
+		for (bLoop = 0; bLoop < invsize; ++bLoop)
 		{
 			if (pCreateStruct->Inv[bLoop].exists() == true)
 			{

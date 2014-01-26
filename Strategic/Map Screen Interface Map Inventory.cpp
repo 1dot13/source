@@ -4067,14 +4067,15 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier )
 	{
 		//CHRISL: If we're selling an LBE Item, we need to verify if it's an LBENODE, first.  If it is, we need to sell
 		//	everything stored in the LBENODE before we sell teh LBE Item itself.
-		for(UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ubLoop++)
+		for(UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop)
 		{
 			if(object.IsActiveLBE(ubLoop) == true)
 			{
 				LBENODE* pLBE = object.GetLBEPointer(ubLoop);
 				if(pLBE)
 				{
-					for(unsigned int x = 0; x < pLBE->inv.size(); x++)
+					UINT8 invsize = pLBE->inv.size();
+					for(UINT8 x = 0; x < invsize; ++x)
 					{
 						if(pLBE->inv[x].exists() == true)
 						{

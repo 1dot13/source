@@ -341,7 +341,7 @@ void HourlyLarryUpdate()
 	BOOLEAN						fBar = FALSE;
 	OBJECTTYPE*					pObj = NULL;
 
-	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	for( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
 		pSoldier = MercPtrs[ cnt ];
 

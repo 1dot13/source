@@ -3648,14 +3648,14 @@ UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID )
 	UINT8	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
 	UINT8	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
-
 	//loop through all the mercs on the team
-	for( ubMercCount = ubFirstID; ubMercCount <= ubLastID; ubMercCount++ )
+	for( ubMercCount = ubFirstID; ubMercCount <= ubLastID; ++ubMercCount )
 	{
 		if( Menptr[ ubMercCount ].bActive )
 		{
 			//loop through all the pockets on the merc
-			for( ubPocketCount=0; ubPocketCount<Menptr[ ubMercCount ].inv.size(); ubPocketCount++)
+			UINT8 invsize = Menptr[ ubMercCount ].inv.size();
+			for( ubPocketCount=0; ubPocketCount<invsize; ++ubPocketCount)
 			{
 				//if there is a weapon here
 				if( Item[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].usItemClass == IC_GUN )
@@ -3663,7 +3663,7 @@ UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID )
 					//if the weapon uses the same kind of ammo as the one passed in, return true
 					if( Weapon[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].ubCalibre == Magazine[ Item[ sItemID ].ubClassIndex ].ubCalibre )
 					{
-						ubItemCount++;
+						++ubItemCount;
 					}
 				}
 			}

@@ -1622,7 +1622,8 @@ BOOLEAN DisplayMERCMercsInventory(UINT8 ubMercID)
 			MSYS_DisableRegion(&gMercWeaponboxFasthelpRegion[i]);
 		}
 
-		for(i=0; i<gMercProfiles[ubMercID].inv.size(); i++)
+		UINT8 invsize = gMercProfiles[ ubMercID ].inv.size();
+		for(i=0; i<invsize; ++i)
 		{
 			usItem = gMercProfiles[ubMercID].inv[ i ];
 
@@ -1807,7 +1808,8 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 		gMercProfiles[ubMercID].bMainGunAttractiveness		= -1;
 		gMercProfiles[ubMercID].bArmourAttractiveness			= -1;
 
-		for ( uiLoop = 0; uiLoop < gMercProfiles[ubMercID].inv.size(); uiLoop++ )
+		UINT32 invsize = gMercProfiles[ ubMercID ].inv.size();
+		for ( uiLoop = 0; uiLoop < invsize; ++uiLoop )
 		{
 			usItem = gMercProfiles[ubMercID].inv[ uiLoop ];
 
@@ -1838,7 +1840,8 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 		else
 		{
 			UINT16 tempGearCost = 0;
-			for ( uiLoop = 0; uiLoop< gMercProfiles[ ubMercID ].inv.size(); uiLoop++ )
+			UINT32 invsize = gMercProfiles[ ubMercID ].inv.size();
+			for ( uiLoop = 0; uiLoop< invsize; ++uiLoop )
 			{
 				if ( gMercProfiles[ ubMercID ].inv[ uiLoop ] != NOTHING )
 				{

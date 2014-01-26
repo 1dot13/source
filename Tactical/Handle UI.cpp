@@ -5698,7 +5698,7 @@ void ResetMultiSelection( )
 	// Make them move....
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
@@ -5749,7 +5749,7 @@ UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 
 	// ATE:Check at least for one guy that's in point!
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
 	{
 		// Check if this guy is OK to control....
 		if ( OK_CONTROLLABLE_MERC( pSoldier ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
@@ -5777,7 +5777,7 @@ UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 
 	// ATE: Now loop through our guys and see if any fit!
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pSoldier++ )
 	{
 
 		// Check if this guy is OK to control....
@@ -5804,7 +5804,6 @@ UINT32 UIHandleRubberBandOnTerrain( UI_EVENT *pUIEvent )
 			}
 		}
 	}
-
 
 	return( GAME_SCREEN );
 }
@@ -5978,7 +5977,6 @@ BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive , BOOLEAN fAllowMer
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
 	BOOLEAN			fValidGuy = FALSE;
 
-
 	if ( gusSelectedSoldier != NOBODY )
 	{
 		if ( AM_A_ROBOT( MercPtrs[ gusSelectedSoldier ] ) )
@@ -6008,7 +6006,6 @@ BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive , BOOLEAN fAllowMer
 	{
 		return( FALSE );
 	}
-
 
 	// IF BAD GUY - CHECK VISIVILITY
 	if ( pSoldier->bTeam != gbPlayerNum )
@@ -6742,13 +6739,13 @@ void SetInterfaceHeightLevel( )
 
 
 	// ATE: Use an entry point to determine what height to use....
-	if( gMapInformation.sNorthGridNo != -1 )
+	if( gMapInformation.sNorthGridNo != NOWHERE )
 		sGridNo = gMapInformation.sNorthGridNo;
-	else if( gMapInformation.sEastGridNo != -1 )
+	else if( gMapInformation.sEastGridNo != NOWHERE )
 		sGridNo = gMapInformation.sEastGridNo;
-	else if( gMapInformation.sSouthGridNo != -1 )
+	else if( gMapInformation.sSouthGridNo != NOWHERE )
 		sGridNo = gMapInformation.sSouthGridNo;
-	else if( gMapInformation.sWestGridNo != -1 )
+	else if( gMapInformation.sWestGridNo != NOWHERE )
 		sGridNo = gMapInformation.sWestGridNo;
 	else
 	{

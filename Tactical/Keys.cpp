@@ -194,9 +194,8 @@ BOOLEAN KeyExistsInKeyRing( SOLDIERTYPE *pSoldier, UINT8 ubKeyID, UINT8 * pubPos
 
 BOOLEAN KeyExistsInInventory( SOLDIERTYPE *pSoldier, UINT8 ubKeyID )
 {
-	UINT8 ubLoop;
-
-	for (ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
+	UINT8 invsize = pSoldier->inv.size();
+	for (UINT8 ubLoop = 0; ubLoop < invsize; ++ubLoop)
 	{
 		if (Item[pSoldier->inv[ubLoop].usItem].usItemClass == IC_KEY)
 		{
@@ -742,7 +741,7 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 
 	// Flugente: flat bonus to using door breaching charges
-	iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, pSoldier->GetBackgroundValue(BG_BONUS_BREACHINGCHARGE) );
+	iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, (INT8)pSoldier->GetBackgroundValue(BG_BONUS_BREACHINGCHARGE) );
 	if (iResult >= -20)
 	{
 		// Do explosive graphic....

@@ -1620,7 +1620,8 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		}
 	}
 
-	for( UINT32 iCounter = 0; iCounter < Menptr[ uiMercId ].inv.size(); iCounter++ )
+	UINT32 invsize = Menptr[ uiMercId ].inv.size();
+	for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 	{
 		// slot found,
 		// check if actual item
@@ -1639,7 +1640,6 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	}
 
 	DropKeysInKeyRing( MercPtrs[ uiMercId ], sGridNo, MercPtrs[ uiMercId ]->pathing.bLevel, 1, FALSE, 0, FALSE );
-
 }
 
 
@@ -1886,7 +1886,8 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 		return( -1 );
 	}
 
-	for( UINT32 iCounter = 0; iCounter < Menptr[ uiMercId ].inv.size(); iCounter++ )
+	UINT32 invsize = Menptr[ uiMercId ].inv.size();
+	for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 	{
 		// slot found,
 		// check if actual item

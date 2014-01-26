@@ -6394,7 +6394,8 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 	//Create a temporary item pool, with index in Opponent's inventory as index
 	pItemPool=NULL;
-	for(i=0 ; i<pOpponent->inv.size(); i++)
+	UINT8 invsize = pOpponent->inv.size();
+	for(i=0 ; i<invsize; ++i)
 	{
 		fStealItem = FALSE;
 

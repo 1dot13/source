@@ -2528,7 +2528,8 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 		return;
 	}
 
-	for( ubCounter = 0; ubCounter < pSoldier->inv.size(); ubCounter++ )
+	UINT8 invsize = pSoldier->inv.size();
+	for( ubCounter = 0; ubCounter < invsize; ++ubCounter )
 	{
 		PosX = iScreenWidthOffset + 397 + 3;
 		PosY = iScreenHeightOffset + 200 + 8 +( ubItemCount * ( 29 ) );
@@ -2543,7 +2544,7 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 		{
 			if( uiCurrentInventoryIndex > ubUpToCount )
 			{
-				ubUpToCount++;
+				++ubUpToCount;
 			}
 			else
 			{
@@ -2778,21 +2779,20 @@ void EnableDisableInventoryScrollButtons( void )
 INT32 GetNumberOfInventoryItemsOnCurrentMerc( void )
 {
 	// in current team mode?..nope...move on
-	if (!fCurrentTeamMode) {
+	if (!fCurrentTeamMode)
 		return( 0 );
-	}
 
 	SOLDIERTYPE *pSoldier = &Menptr[currentTeamList[currentTeamIndex]];
 
-	unsigned ubCount = 0;
-	for (unsigned ubCounter = 0; ubCounter < pSoldier->inv.size(); ++ubCounter)
+	INT32 ubCount = 0;
+	UINT8 invsize = pSoldier->inv.size();
+	for (UINT8 ubCounter = 0; ubCounter < invsize; ++ubCounter)
 	{
-		if( ( pSoldier->inv[ ubCounter ].exists() == true) ) {
+		if( ( pSoldier->inv[ ubCounter ].exists() == true) )
 			++ubCount;
-		}
 	}
 
-	return (INT32)ubCount;
+	return ubCount;
 }
 
 void CreateDestroyPersonnelInventoryScrollButtons( void )
@@ -6225,7 +6225,8 @@ INT32 GetFundsOnMerc( SOLDIERTYPE *pSoldier )
 	}
 
 	// run through grunts pockets and count all the spare change
-	for( iCurrentPocket = 0; iCurrentPocket < pSoldier->inv.size(); iCurrentPocket++ )
+	UINT32 invsize = pSoldier->inv.size();
+	for( iCurrentPocket = 0; iCurrentPocket < invsize; ++iCurrentPocket )
 	{
 		if ( Item[ pSoldier->inv[ iCurrentPocket ] .usItem ].usItemClass == IC_MONEY )
 		{
@@ -6249,7 +6250,8 @@ BOOLEAN TransferFundsFromMercToBank( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 	UINT32 iCurrentPocket = 0;
 	INT32 iAmountLeftToTake = iCurrentBalance;
 	// run through grunts pockets and count all the spare change
-	for( iCurrentPocket = 0; iCurrentPocket < pSoldier->inv.size(); iCurrentPocket++ )
+	UINT32 invsize = pSoldier->inv.size();
+	for( iCurrentPocket = 0; iCurrentPocket < invsize; ++iCurrentPocket )
 	{
 		if ( Item[ pSoldier->inv[ iCurrentPocket ] .usItem ].usItemClass == IC_MONEY )
 		{

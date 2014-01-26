@@ -2611,17 +2611,18 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 
 	// WANNE - BMP: FIX: Valid directions are only from 0-7!!
 	//for (cnt=0; cnt <= 8; cnt++)
-	for (cnt=0; cnt < 8; cnt++)
+	for (cnt=0; cnt < 8; ++cnt)
 	{
-    sGridNo = NewGridNo(pSoldier->sGridNo,DirectionInc(cnt));
-    if (sGridNo != pSoldier->sGridNo)
+		sGridNo = NewGridNo(pSoldier->sGridNo,DirectionInc(cnt));
+		if (sGridNo != pSoldier->sGridNo)
+		{
+		    if ( (sCost=ActionPointCost( pSoldier, sGridNo, cnt , pSoldier->usUIMovementMode ) ) < sLowest )
 			{
-       if ( (sCost=ActionPointCost( pSoldier, sGridNo, cnt , pSoldier->usUIMovementMode ) ) < sLowest )
-			{
-					sLowest = sCost;
+				sLowest = sCost;
 			}
 		}
 	}
+
 	return(sLowest);//dnl ch64 290813 100AP made INT8 return obsolete
 }
 

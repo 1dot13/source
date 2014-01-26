@@ -4990,7 +4990,7 @@ BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange)
     UINT8 bLoop;
     SOLDIERTYPE * pSoldier;
 
-    for (bLoop=gTacticalStatus.Team[bTeam].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[bTeam].bLastID; bLoop++, pSoldier++)
+    for (bLoop=gTacticalStatus.Team[bTeam].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[bTeam].bLastID; ++bLoop, pSoldier++)
     {
         if (pSoldier->bActive && pSoldier->bInSector && (pSoldier->stats.bLife >= OKLIFE) && !( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) )
         {
@@ -5042,52 +5042,47 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         *psAdjustedGridNo = sGridNo;
     }
 
-    // CHECK IF IT'S THE SAME ONE AS WE'RE ON, IF SO, RETURN THAT!
-    if ( pSoldier->sGridNo == sGridNo && !FindStructure( sGridNo, ( STRUCTURE_SWITCH ) ) )
-    {
-        // OK, if we are looking for a door, it may be in the same tile as us, so find the direction we
-        // have to face to get to the door, not just our initial direction...
-        // If we are in the same tile as a switch, we can NEVER pull it....
-        if( fDoor )
-        {
-            // This can only happen if a door was to the south to east of us!
+	// Flugente: change condition order
+	// OK, if we are looking for a door, it may be in the same tile as us, so find the direction we
+	// have to face to get to the door, not just our initial direction...
+	// If we are in the same tile as a switch, we can NEVER pull it....
+	if (pubDirection && fDoor )
+	{
+		// CHECK IF IT'S THE SAME ONE AS WE'RE ON, IF SO, RETURN THAT!
+		if ( pSoldier->sGridNo == sGridNo && !FindStructure( sGridNo, ( STRUCTURE_SWITCH ) ) )
+		{
+			// This can only happen if a door was to the south to east of us!
 
-            // Do south!
-            //sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
+			// Do south!
+			//sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
 
-            // ATE: Added: Switch behave EXACTLY like doors
-            pDoor = FindStructure( sGridNo, ( STRUCTURE_ANYDOOR ) );
+			// ATE: Added: Switch behave EXACTLY like doors
+			pDoor = FindStructure( sGridNo, ( STRUCTURE_ANYDOOR ) );
 
-            if ( pDoor != NULL )
-            {
-                // Get orinetation
-                ubWallOrientation = pDoor->ubWallOrientation;
+			if ( pDoor != NULL )
+			{
+				// Get orinetation
+				ubWallOrientation = pDoor->ubWallOrientation;
 
-                if ( ubWallOrientation == OUTSIDE_TOP_LEFT || ubWallOrientation == INSIDE_TOP_LEFT )
-                {
-                    // To the south!
-                    sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
-                    if (pubDirection)
-                    {
-                        (*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
-                    }
-                }
+				if ( ubWallOrientation == OUTSIDE_TOP_LEFT || ubWallOrientation == INSIDE_TOP_LEFT )
+				{
+					// To the south!
+					sSpot = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
+					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
+				}
 
-                if ( ubWallOrientation == OUTSIDE_TOP_RIGHT || ubWallOrientation == INSIDE_TOP_RIGHT )
-                {
-                    // TO the east!
-                    sSpot = NewGridNo( sGridNo, DirectionInc( EAST ) );
-                    if (pubDirection)
-                    {
-                        (*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
-                    }
-                }
-            }
-        }
+				if ( ubWallOrientation == OUTSIDE_TOP_RIGHT || ubWallOrientation == INSIDE_TOP_RIGHT )
+				{
+					// TO the east!
+					sSpot = NewGridNo( sGridNo, DirectionInc( EAST ) );
+					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sSpot, pSoldier );
+				}
+			}
 
-        // Use soldier's direction
-        return( sGridNo );
-    }
+			// Use soldier's direction
+			return( sGridNo );
+		}
+	}
 
     // Look for a door!
     if (fDoor)
@@ -5101,20 +5096,20 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 
     if ( fForceToPerson )
     {
-        if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
-        {
-            sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
-            if ( psAdjustedGridNo != NULL )
-            {
-                *psAdjustedGridNo = sGridNo;
+		if ( psAdjustedGridNo != NULL )
+		{
+			if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
+			{
+				sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
+				*psAdjustedGridNo = sGridNo;
 
-                // Use direction to this guy!
-                if (pubDirection)
-                {
-                    (*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-                }
-            }
-        }
+				// Use direction to this guy!
+				if (pubDirection)
+				{
+					(*pubDirection) = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
+				}
+			}
+		}
     }
 
 
@@ -5137,25 +5132,22 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
             fCheckGivenGridNo = FALSE;
         }
 
-
         if ( fCheckGivenGridNo )
         {
             sDistance = PlotPath( pSoldier, sGridNo,    NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
             if ( sDistance > 0 )
             {
-
                 if ( sDistance < sClosest )
                 {
-                    sClosest                        = sDistance;
+                    sClosest        = sDistance;
                     sCloseGridNo    = sGridNo;
                 }
             }
         }
     }
 
-
-    for (INT8 cnt = 0; cnt < 4; cnt++)
+    for (INT8 cnt = 0; cnt < 4; ++cnt)
     {
         // MOVE OUT TWO DIRECTIONS
         sFourGrids[cnt] = sSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
@@ -5284,12 +5276,13 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         //}     
         if ( TileIsOutOfBounds( sCloseGridNo ) )
         {
-            return( -1 );
+            return( NOWHERE );
         }
+
         return( sCloseGridNo );
     }
-    else
-        return( -1 );
+
+	return( NOWHERE );
 }
 
 
@@ -5340,15 +5333,12 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         pDoor = NULL;
     }
 
-    if ( fForceToPerson )
+    if ( fForceToPerson && psAdjustedGridNo != NULL )
     {
         if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
         {
             sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
-            if ( psAdjustedGridNo != NULL )
-            {
-                *psAdjustedGridNo = sGridNo;
-            }
+            *psAdjustedGridNo = sGridNo;
         }
     }
 
@@ -5371,7 +5361,6 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 
             if ( sDistance > 0 )
             {
-
                 if ( sDistance < sClosest )
                 {
                     sClosest            = sDistance;
@@ -5513,12 +5502,13 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 
         if (TileIsOutOfBounds(sCloseGridNo))
         {
-            return( -1 );
+            return( NOWHERE );
         }
+
         return( sCloseGridNo );
     }
-    else
-        return( -1 );
+
+	return( NOWHERE );
 
 
 
@@ -5564,7 +5554,7 @@ INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSold
     INT32   sSpot;  
     UINT8   ubGuyThere;
 
-    for ( INT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt++ )
+    for ( UINT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; ++cnt )
     {
         sSpot = NewGridNo( pSoldier->sGridNo, DirectionInc( cnt ) );
 
@@ -5582,7 +5572,7 @@ INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSold
             // We've got a guy here....
             // Who is the one we want......
             *psAdjustedTargetGridNo = pTargetSoldier->sGridNo;
-            *pubDirection       = ( UINT8 )cnt;
+            *pubDirection       = cnt;
             return( sSpot );
         }
     }
@@ -5605,7 +5595,6 @@ BOOLEAN UIOKMoveDestination( SOLDIERTYPE *pSoldier, INT32 usMapPos )
         }
     }
 
-
     if ( !NewOKDestination( pSoldier, usMapPos, FALSE, (INT8) gsInterfaceLevel ) )
     {
         return( FALSE );
@@ -5626,8 +5615,7 @@ BOOLEAN UIOKMoveDestination( SOLDIERTYPE *pSoldier, INT32 usMapPos )
     //{
     //  return( FALSE );
     //}
-
-
+	
     return( TRUE);
 }
 
@@ -5637,7 +5625,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
     INT32                           cnt;
     SOLDIERTYPE          *pTeamSoldier, *pTargetSoldier;
     UINT32                  uiPointsUsed;
-    UINT16                  usSoldierIndex, usInHand;
+    UINT16                  usSoldierIndex;
     UINT16                  usKitPts;
     INT8                                        bSlot;
     BOOLEAN                                 fDone;
@@ -5646,7 +5634,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
     cnt = gTacticalStatus.Team[ ubTeamNum ].bFirstID;
 
     // look for all mercs on the same team,
-    for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ ubTeamNum ].bLastID; cnt++,pTeamSoldier++)
+    for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ ubTeamNum ].bLastID; ++cnt, pTeamSoldier++)
     {
         if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive && pTeamSoldier->bInSector )
         {
@@ -5654,10 +5642,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
             // Check for different events!
             // FOR DOING AID
             if ( pTeamSoldier->usAnimState == GIVING_AID || pTeamSoldier->usAnimState == GIVING_AID_PRN )
-            {
-                // Get medkit info
-                usInHand = pTeamSoldier->inv[ HANDPOS ].usItem;
-
+            { 
                 // Get victim pointer
                 usSoldierIndex = WhoIsThere2( pTeamSoldier->sTargetGridNo, pTeamSoldier->pathing.bLevel );
                 if ( usSoldierIndex != NOBODY )
@@ -5717,14 +5702,12 @@ void HandleTeamServices( UINT8 ubTeamNum )
                                 {
                                     pTeamSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
                                 }
-
                             }
                         }
                     }
                 }
             }
         }
-
     }
 }
 
@@ -5732,7 +5715,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 {
     SOLDIERTYPE  *pTargetSoldier;
     UINT32                  uiPointsUsed;
-    UINT16                  usSoldierIndex, usInHand;
+    UINT16                  usSoldierIndex;
     UINT16                  usKitPts;
     INT8                                        bSlot;
     BOOLEAN                                 fDone = FALSE;
@@ -5743,9 +5726,6 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
         // FOR DOING AID
         if ( pTeamSoldier->usAnimState == GIVING_AID || pTeamSoldier->usAnimState == GIVING_AID_PRN )
         {
-            // Get medkit info
-            usInHand = pTeamSoldier->inv[ HANDPOS ].usItem;
-
             // Get victim pointer
             usSoldierIndex = WhoIsThere2( pTeamSoldier->sTargetGridNo, pTeamSoldier->pathing.bLevel );
 
@@ -5853,7 +5833,7 @@ void CommonEnterCombatModeCode( )
 
     // OK, loop thorugh all guys and stop them!
     // Loop through all mercs and make go
-    for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, cnt++ )
+    for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, ++cnt )
     {
         if ( pSoldier->bActive )
         {
@@ -5908,7 +5888,7 @@ void CommonEnterCombatModeCode( )
                     }
                 }
 
-                if ( !gTacticalStatus.fHasEnteredCombatModeSinceEntering )
+                /*if ( !gTacticalStatus.fHasEnteredCombatModeSinceEntering )
                 {
                     // ATE: reset player's movement mode at the very start of
                     // combat
@@ -5916,7 +5896,7 @@ void CommonEnterCombatModeCode( )
                     //{
                     //pSoldier->usUIMovementMode = RUNNING;
                     //}
-                }
+                }*/
             }
         }
     }
@@ -5940,7 +5920,6 @@ void CommonEnterCombatModeCode( )
     SetMusicMode( MUSIC_TACTICAL_BATTLE );
 
     DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CommonEnterCombatMode done");
-
 }
 
 
@@ -5991,7 +5970,7 @@ void EnterCombatMode( UINT8 ubStartingTeam )
         {
             DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode continuing... nobody selected");
             // OK, look through and find one....
-            for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pTeamSoldier++ )
+            for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, pTeamSoldier++ )
             {
                 if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->aiData.bOppCnt > 0 )
                 {
@@ -6021,7 +6000,6 @@ void EnterCombatMode( UINT8 ubStartingTeam )
     }
 
     DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode done");
-
 }
 
 
@@ -10083,7 +10061,7 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
             }
         }
         // Incapacitated or heavily suppressed friends will not be good for our tolerance!
-        else if (pLeader != pSoldier && pLeader->bActive && (pLeader->aiData.bShock > pSoldier->aiData.bShock || pLeader->stats.bLife <= OKLIFE) )
+        else if ( (pLeader->aiData.bShock > pSoldier->aiData.bShock || pLeader->stats.bLife <= OKLIFE) )
         {
             usEffectiveRangeToLeader = PythSpacesAway( pSoldier->sGridNo, pLeader->sGridNo );
             // If they are no more than 5 tiles away,

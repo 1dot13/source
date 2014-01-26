@@ -872,8 +872,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 #endif
 	}
 
-	for ( i = 0; i < pp->Inv.size(); i++ )
-	{ //clear items, but only if they have write status.
+	UINT32 invsize = pp->Inv.size();
+	for( i = 0; i < invsize; ++i )
+	{
+		//clear items, but only if they have write status.
 		if( !(pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
 		{
 			DeleteObj(&pp->Inv[ i ]);
@@ -1008,9 +1010,11 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 
 	// if gun was pre-selected (rcvd negative weapon class) and needs ammo
 	if( bWeaponClass < 0 && bAmmoClips )
-	{ //Linda has added a specific gun to the merc's inventory, but no ammo.  So, we
+	{
+		//Linda has added a specific gun to the merc's inventory, but no ammo.  So, we
 		//will choose ammunition that works with the gun.
-		for( i = 0; i < pp->Inv.size(); i++ )
+		UINT16 invsize = pp->Inv.size();
+		for( i = 0; i < invsize; ++i )
 		{
 			if( Item[ pp->Inv[ i ].usItem ].usItemClass == IC_GUN && pp->Inv[ i ].exists() == true)
 			{
@@ -2596,7 +2600,8 @@ else
 	if ( (SOLDIER_CLASS_ENEMY( bSoldierClass ) || ( gGameExternalOptions.ubMilitiaDropEquipment > 0 && SOLDIER_CLASS_MILITIA( bSoldierClass ) )) && !IsAutoResolveActive() )
 	{
 		// SPECIAL handling for weapons: we'll always drop a weapon type that has never been dropped before
-		for( i = 0; i < pp->Inv.size(); i++ )
+		UINT32 invsize = pp->Inv.size();
+		for( i = 0; i < invsize; ++i )
 		{
 			usItem = pp->Inv[ i ].usItem;
 //TODO: someday maybe 			pp->Inv[i].fFlags &= ~ITEM_REPAIRABLE;
@@ -2684,7 +2689,8 @@ else
 		if( fAmmo )
 		{
 			// now drops ALL ammo found, not just the first slot
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_AMMO )
@@ -2702,7 +2708,8 @@ else
 		if( fWeapon )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER )
@@ -2710,12 +2717,12 @@ else
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
 					else
-						ubNumMatches++;
+						++ubNumMatches;
 				}
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER )
@@ -2735,7 +2742,8 @@ else
 		if( fArmour )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_ARMOUR )
@@ -2743,12 +2751,12 @@ else
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
 					else
-						ubNumMatches++;
+						++ubNumMatches;
 				}
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_ARMOUR )
@@ -2767,7 +2775,8 @@ else
 
 		if( fKnife)
 		{
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				// drops FIRST knife found
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2788,7 +2797,8 @@ else
 		if( fGrenades )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_GRENADE )
@@ -2796,12 +2806,12 @@ else
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
 					else
-						ubNumMatches++;
+						++ubNumMatches;
 				}
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_GRENADE )
@@ -2821,7 +2831,8 @@ else
 		if( fKit )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT )
@@ -2834,7 +2845,7 @@ else
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT )
@@ -2854,7 +2865,8 @@ else
 		if( fFace )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_FACE )
@@ -2862,12 +2874,12 @@ else
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
 					else
-						ubNumMatches++;
+						++ubNumMatches;
 				}
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_FACE )
@@ -2887,7 +2899,8 @@ else
 		if( fMisc )
 		{
 			ubNumMatches = 0;
-			for( i = 0; i < pp->Inv.size(); i++ )
+			UINT32 invsize = pp->Inv.size();
+			for( i = 0; i < invsize; ++i )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 				if( uiItemClass == IC_MISC )
@@ -2895,12 +2908,12 @@ else
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
 					else
-						ubNumMatches++;
+						++ubNumMatches;
 				}
 			}
 			if ( ubNumMatches > 0 )
 			{
-				for( i = 0; i < pp->Inv.size(); i++ )
+				for( i = 0; i < invsize; ++i )
 				{
 					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 					if( uiItemClass == IC_MISC )
@@ -2921,8 +2934,9 @@ else
 	else if (gGameExternalOptions.ubEnemiesItemDrop == 1)
 	{
 		// Loop through the enemy inter
-		for( i = 0; i < pp->Inv.size(); i++ )
-			{
+		UINT32 invsize = pp->Inv.size();
+		for( i = 0; i < invsize; ++i )
+		{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
 
 				// We are allowed to change the object and it is not the first (nothing) object
@@ -2933,7 +2947,7 @@ else
 					if( uiItemClass == IC_GUN)
 					{
 						// Find matching weaponType in the XML
-						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						for (j = 0; j < MAX_DROP_ITEMS; ++j)
 						{
 							// We have no more weapon items->exit from loop
 							if (j > 0 && gEnemyWeaponDrops[j].uiIndex == 0)
@@ -2974,7 +2988,7 @@ else
 					else if (uiItemClass == IC_AMMO)
 					{
 						// Find matching ammo in the XML
-						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						for (j = 0; j < MAX_DROP_ITEMS; ++j)
 						{
 							// We have no more ammo items->exit from loop
 							if (j > 0 && gEnemyAmmoDrops[j].uiIndex == 0)
@@ -2986,7 +3000,7 @@ else
 								uiRandomValue = Random(100);
 
 								if (uiRandomValue == 0)
-									uiRandomValue++;
+									++uiRandomValue;
 
 								// militia
 								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
@@ -3047,7 +3061,6 @@ else
 									}
 								}
 
-
 								break;
 							}
 						}
@@ -3068,7 +3081,7 @@ else
 								uiRandomValue = Random(100);
 
 								if (uiRandomValue == 0)
-									uiRandomValue++;
+									++uiRandomValue;
 
 								// militia
 								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
@@ -3251,7 +3264,8 @@ void ReplaceExtendedGuns( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 	INT8					bWeaponClass;
 	UINT16				usItem, usNewGun, usAmmo, usNewAmmo;
 
-	for ( uiLoop = 0; uiLoop < pp->Inv.size(); uiLoop++ )
+	UINT32 invsize = pp->Inv.size();
+	for ( uiLoop = 0; uiLoop < invsize; ++uiLoop )
 	{
 		usItem = pp->Inv[ uiLoop ].usItem;
 
@@ -3289,7 +3303,8 @@ void ReplaceExtendedGuns( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 
 
 				// must search through inventory and replace ammo accordingly
-				for ( uiLoop2 = 0; uiLoop2 < pp->Inv.size(); uiLoop2++ )
+				UINT32 invsize = pp->Inv.size();
+				for ( uiLoop2 = 0; uiLoop2 < invsize; ++uiLoop2 )
 				{
 					usAmmo = pp->Inv[ uiLoop2 ].usItem;
 					if ( (Item[ usAmmo ].usItemClass & IC_AMMO) )

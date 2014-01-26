@@ -271,7 +271,7 @@ void UpdateOldVersionMap()
 	{
 		gMapInformation.ubMapVersion++;
 		//6)	Change all doors to FIRSTDOOR
-		for( i = 0; i < WORLD_MAX; i++ )
+		for( i = 0; i < WORLD_MAX; ++i )
 		{
 			//NOTE:	Here are the index values for the various doors
 			//DOOR		OPEN		CLOSED
@@ -348,7 +348,8 @@ void UpdateOldVersionMap()
 			//Bug #04)	Assign enemy mercs default army color code if applicable
 			if( curr->pDetailedPlacement )
 			{
-				for( i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
+				INT32 invsize = (INT32)curr->pDetailedPlacement->Inv.size();
+				for( i = 0; i < invsize; ++i )
 				{ //make all items undroppable, even if it is empty.	This will allow for
 					//random item generation, while empty, droppable slots are locked as empty
 					//during random item generation.
@@ -476,7 +477,7 @@ void UpdateOldVersionMap()
 	}
 	if( gMapInformation.ubMapVersion < 13 )
 	{	//replace all merc ammo inventory slots status value with the max ammo that the clip can hold.
-		INT32 i, cnt;
+		INT32 cnt;
 		OBJECTTYPE *pItem;
 		gMapInformation.ubMapVersion++;
 		//Bug 10) Padding on detailed placements is uninitialized.	Clear all data starting at
@@ -486,12 +487,13 @@ void UpdateOldVersionMap()
 		{
 			if( curr->pDetailedPlacement )
 			{
-				for ( i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
+				UINT32 invsize = curr->pDetailedPlacement->Inv.size();
+				for ( UINT32 i = 0; i < invsize; ++i )
 				{
 					pItem = &curr->pDetailedPlacement->Inv[ i ];
 					if( Item[ pItem->usItem ].usItemClass & IC_AMMO )
 					{
-						for( cnt = 0; cnt < pItem->ubNumberOfObjects; cnt++ )
+						for( cnt = 0; cnt < pItem->ubNumberOfObjects; ++cnt )
 						{
 							pItem->shots.ubShotsLeft[ cnt ] = Magazine[ Item[ pItem->usItem ].ubClassIndex ].ubMagSize;
 						}
@@ -571,7 +573,8 @@ void UpdateOldVersionMap()
 		{
 			if( curr->pDetailedPlacement )
 			{
-				for( UINT32 i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
+				UINT32 invsize = curr->pDetailedPlacement->Inv.size();
+				for( UINT32 i = 0; i < invsize; ++i )
 				{
 					if( !curr->pDetailedPlacement->Inv[ i ].usItem )
 					{
@@ -645,7 +648,8 @@ void AutoCalculateItemNoOverwriteStatus()
 	{
 		if( curr->pDetailedPlacement )
 		{
-			for( UINT32 i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
+			UINT32 invsize = curr->pDetailedPlacement->Inv.size();
+			for( UINT32 i = 0; i < invsize; ++i )
 			{
 				pItem = &curr->pDetailedPlacement->Inv[ i ];
 				if( pItem->exists() == true )

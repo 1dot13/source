@@ -80,11 +80,13 @@ bool DestroyLBEIfEmpty(OBJECTTYPE* pObj)
 {
 	if (pObj->IsActiveLBE(0) == true) {
 		LBENODE* pLBE = pObj->GetLBEPointer(0);
-		if (pLBE) {
-			for (unsigned int x = 0; x < pLBE->inv.size(); ++x) {
-				if (pLBE->inv[x].exists() == true) {
+		if (pLBE)
+		{
+			UINT16 plbesize = pLBE->inv.size();
+			for (UINT16 x = 0; x < plbesize; ++x)
+			{
+				if (pLBE->inv[x].exists() == true)
 					return false;
-				}
 			}
 			for (std::list<LBENODE>::iterator iter = LBEArray.begin(); iter != LBEArray.end(); ++iter) {
 				if (iter->uniqueID == pLBE->uniqueID) {
@@ -107,38 +109,44 @@ void DestroyLBE(OBJECTTYPE* pObj)
 		LBENODE* pLBE = pObj->GetLBEPointer(0);
 		if(pLBE)
 		{
-			for(unsigned int x = 0; x < pLBE->inv.size(); x++)
+			UINT16 plbesize = pLBE->inv.size();
+			for(UINT16 x = 0; x < plbesize; ++x)
 			{
 				if(pLBE->inv[x].exists() == true)
 				{
 					pLBE->inv[x].initialize();
 				}
 			}
-			for (std::list<LBENODE>::iterator iter = LBEArray.begin(); iter != LBEArray.end(); ++iter) {
-				if (iter->uniqueID == pLBE->uniqueID) {
+			for (std::list<LBENODE>::iterator iter = LBEArray.begin(); iter != LBEArray.end(); ++iter)
+			{
+				if (iter->uniqueID == pLBE->uniqueID)
+				{
 					LBEArray.erase(iter);
 					break;
 				}
 			}
+
 			(*pObj)[0]->data.lbe.uniqueID = 0;
 			(*pObj)[0]->data.lbe.bLBE = 0;
 			return;
 		}
 	}
+
 	return;
 }
 
 void MoveItemsInSlotsToLBE( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, LBENODE* pLBE, OBJECTTYPE* pObj)
 {
-
-	for(unsigned int i=0; i<LBESlots.size(); i++)	// Go through default pockets one by one
+	UINT16 plbesize = pLBE->inv.size();
+	UINT16 lbesize = LBESlots.size();
+	for(UINT16 i=0; i<lbesize; ++i)	// Go through default pockets one by one
 	{
 		if(pSoldier->inv[LBESlots[i]].exists() == false)	// No item in this pocket
 			continue;
 
 		// Found an item in a default pocket so get it's ItemSize
 		UINT16 dSize = CalculateItemSize(&pSoldier->inv[LBESlots[i]]);
-		for(unsigned int j=0; j<pLBE->inv.size(); j++)	// Search through LBE and see if item fits anywhere
+		for(unsigned int j=0; j<plbesize; ++j)	// Search through LBE and see if item fits anywhere
 		{
 			if(pLBE->inv[j].exists() == true)	// Item already stored in LBENODE pocket
 				continue;
@@ -368,15 +376,19 @@ BOOLEAN MoveItemFromLBEItem( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, OBJECTTYPE
 			}
 		}
 	}
-	if (DestroyLBEIfEmpty(pObj) == false) {
+
+	if (DestroyLBEIfEmpty(pObj) == false)
+	{
 		//we should have copied all the items from the LBE to the soldier
 		//which means the LBE should be empty and destroyed.  However, if it's not empty, we need to force place
 		//some items so that we can empty the LBE without losing anything.
-		for(unsigned int i = 0; i < LBESlots.size(); i++)
+		UINT16 invsize = pSoldier->inv.size();
+		UINT16 lbesize = LBESlots.size();
+		for(UINT16 i = 0; i < lbesize; ++i)
 		{
 			if(pLBE->inv[i].exists() == true)
 			{
-				for(unsigned int j = BIGPOCKSTART; j < pSoldier->inv.size(); j++)
+				for(UINT16 j = BIGPOCKSTART; j < invsize; ++j)
 				{
 					if(pSoldier->inv[j].exists() == false)
 					{
@@ -385,6 +397,7 @@ BOOLEAN MoveItemFromLBEItem( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, OBJECTTYPE
 					}
 				}
 			}
+
 			//Now, check one last time and if we still have an object, drop it to the ground
 			if(pLBE->inv[i].exists() == true)
 			{

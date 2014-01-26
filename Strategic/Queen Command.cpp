@@ -2183,7 +2183,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		pSoldier->pathing.bLevel = 0;
 
 		// OK, drop all items!
-		for ( i = 0; i < pSoldier->inv.size(); i++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( i = 0; i < invsize; ++i )
 		{
 			if( pSoldier->inv[ i ].exists() == true )
 			{
@@ -2216,7 +2217,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		pSoldier->pathing.bLevel = 0;
 
 		// OK, drop all items!
-		for ( i = 0; i < pSoldier->inv.size(); i++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( i = 0; i < invsize; ++i )
 		{
 			if( pSoldier->inv[ i ].exists() == true )
 			{

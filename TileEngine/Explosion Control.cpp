@@ -4202,7 +4202,7 @@ void DecayBombTimers( void )
 	// Flugente: we have to check every inventory for armed bombs and do the countdown for them, too
 	// Flugente: new stuff: we can now also arm bombs in our inventory, and detonate/defuse those bombs remotely
 	// So we have to look at every item in every inventory in this sector
-	for (UINT32 cnt = 0; cnt < guiNumMercSlots; cnt++ )
+	for (UINT32 cnt = 0; cnt < guiNumMercSlots; ++cnt )
 	{
 		SOLDIERTYPE* pSoldier = MercSlots[ cnt ];
 
@@ -4362,7 +4362,7 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 
 	// Flugente: new stuff: we can now also arm bombs in our inventory, and detonate/defuse those bombs remotely
 	// So we have to look at every item in every inventory in this sector
-	for (UINT32 cnt = 0; cnt < guiNumMercSlots; cnt++ )
+	for (UINT32 cnt = 0; cnt < guiNumMercSlots; ++cnt )
 	{
 		SOLDIERTYPE* pSoldier = MercSlots[ cnt ];
 

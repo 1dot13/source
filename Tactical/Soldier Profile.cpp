@@ -882,7 +882,8 @@ BOOLEAN LoadMercProfiles(void)
 		gMercProfiles[uiLoop].bMainGunAttractiveness		= -1;
 		gMercProfiles[uiLoop].bArmourAttractiveness			= -1;
 
-		for ( uiLoop2 = 0; uiLoop2 < gMercProfiles[uiLoop].inv.size(); uiLoop2++ )
+		UINT32 invsize = gMercProfiles[ uiLoop ].inv.size();
+		for ( uiLoop2 = 0; uiLoop2 < invsize; ++uiLoop2 )
 		{
 			usItem = gMercProfiles[uiLoop].inv[ uiLoop2 ];
 
@@ -933,7 +934,7 @@ BOOLEAN LoadMercProfiles(void)
 			//with old binary file optional gear prices which got ported into MercProfiles.xml
 			gMercProfiles[ uiLoop ].usOptionalGearCost = 0;
 			UINT16 tempGearCost = 0;
-			for ( uiLoop2 = 0; uiLoop2< gMercProfiles[ uiLoop ].inv.size(); uiLoop2++ )
+			for ( uiLoop2 = 0; uiLoop2< invsize; ++uiLoop2 )
 			{
 				if ( gMercProfiles[ uiLoop ].inv[ uiLoop2 ] != NOTHING )
 				{
@@ -1771,15 +1772,17 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 		//if(UsingNewInventorySystem() == true)
 		{
 			// Start by direct copy of all BODYPOS items (armor, hands, head and LBE)
-			for(cnt = 0; cnt < (UINT32)BODYPOSFINAL; cnt++)
+			for(cnt = 0; cnt < (UINT32)BODYPOSFINAL; ++cnt)
 			{
 				pNewSoldier->inv[cnt] = pSoldier->inv[cnt];
 			}
+
 			// Next, direct copy of the gunsling and knife pockets
 			pNewSoldier->inv[GUNSLINGPOCKPOS] = pSoldier->inv[GUNSLINGPOCKPOS];
 			pNewSoldier->inv[KNIFEPOCKPOS] = pSoldier->inv[KNIFEPOCKPOS];
 			// Then, try to autoplace everything else
-			for(cnt = BIGPOCKSTART; cnt < pNewSoldier->inv.size(); cnt++ )
+			UINT32 invsize = pNewSoldier->inv.size();
+			for(cnt = BIGPOCKSTART; cnt < invsize; ++cnt )
 			{
 				if(pSoldier->inv[cnt].exists() == true)
 				{

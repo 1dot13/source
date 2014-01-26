@@ -1633,7 +1633,8 @@ void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 	}
 	else
 	{
-		for ( UINT32 cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
 		{
 			if ( fDirtyLevel == DIRTYLEVEL2 )
 			{
@@ -1717,7 +1718,8 @@ std::vector<OBJECTTYPE *> * getSoldierGuns( SOLDIERTYPE *pTeamSoldier )
 	std::vector<OBJECTTYPE *> * guns = new std::vector<OBJECTTYPE *>;
 
 	// Search for gun in soldier inventory
-	for (bLoop = 0; bLoop < pTeamSoldier->inv.size(); bLoop++)
+	UINT32 invsize = pTeamSoldier->inv.size();
+	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (	(Item[pTeamSoldier->inv[bLoop].usItem].usItemClass & IC_GUN) 
 			||  (Item[pTeamSoldier->inv[bLoop].usItem].usItemClass == IC_LAUNCHER) )
@@ -2800,7 +2802,8 @@ BOOLEAN SoldierContainsAnyCompatibleStuff( SOLDIERTYPE *pSoldier, OBJECTTYPE *pT
 
 	if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -2813,7 +2816,8 @@ BOOLEAN SoldierContainsAnyCompatibleStuff( SOLDIERTYPE *pSoldier, OBJECTTYPE *pT
 
 	if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -2898,7 +2902,8 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 	// ATE: If pTest object is NULL, test only for existence of syringes, etc...
 	if ( pTestObject == NULL )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -2948,7 +2953,8 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 	if ( !(Item[ pTestObject->usItem ].hiddenaddon ) )
 	{
 		// First test attachments, which almost any type of item can have....
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -2990,7 +2996,8 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 
 	if ( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3009,7 +3016,8 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 	}
 	else if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3166,7 +3174,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 	// ATE: If pTest object is NULL, test only for existence of syringes, etc...
 	if ( pTestObject == NULL )
 	{
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3213,7 +3222,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 	}
 
 	// First test attachments, which almost any type of item can have....
-	for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+	UINT32 invsize = pSoldier->inv.size();
+	for ( cnt = 0; cnt < invsize; ++cnt )
 	{
 		pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3253,7 +3263,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 	//{
 		if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 		{
-			for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+			UINT32 invsize = pSoldier->inv.size();
+			for ( cnt = 0; cnt < invsize; ++cnt )
 			{
 				pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3273,7 +3284,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 
 		else if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 		{
-			for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+			UINT32 invsize = pSoldier->inv.size();
+			for ( cnt = 0; cnt < invsize; ++cnt )
 			{
 				pObject = &(pSoldier->inv[ cnt ]);
 
@@ -3438,11 +3450,11 @@ void HandleNewlyAddedItems( SOLDIERTYPE *pSoldier, BOOLEAN *fDirtyLevel )
 		return;
 	}
 
-	UINT32 cnt;
 	INT16  sX, sY;
 	OBJECTTYPE		*pObject;
 
-	for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+	UINT32 invsize = pSoldier->inv.size();
+	for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
 	{
 		if ( pSoldier->inv.bNewItemCount[ cnt ] == -2 )
 		{
@@ -3468,27 +3480,25 @@ void HandleNewlyAddedItems( SOLDIERTYPE *pSoldier, BOOLEAN *fDirtyLevel )
 			INVRenderItem( guiSAVEBUFFER, pSoldier, pObject, sX, sY, gSMInvData[ cnt ].sWidth, gSMInvData[ cnt ].sHeight, DIRTYLEVEL2, NULL, 0, TRUE, us16BPPItemCyclePlacedItemColors[ pSoldier->inv.bNewItemCycleCount[ cnt ] ] );
 
 		}
-
 	}
 }
 
 void CheckForAnyNewlyAddedItems( SOLDIERTYPE *pSoldier )
 {
 	// OK, l0ok for any new...
-	for ( UINT32 cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+	UINT32 invsize = pSoldier->inv.size();
+	for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
 	{
 		if ( pSoldier->inv.bNewItemCount[ cnt ] == -1 )
 		{
 			pSoldier->inv.bNewItemCount[ cnt ]	= NEW_ITEM_CYCLES - 1;
 		}
 	}
-
 }
 
 void DegradeNewlyAddedItems( )
 {
 	UINT32 uiTime;
-	UINT32 cnt, cnt2;
 	SOLDIERTYPE		*pSoldier;
 
 	// If time done
@@ -3498,14 +3508,15 @@ void DegradeNewlyAddedItems( )
 	{
 		guiNewlyPlacedItemTimer = uiTime;
 
-		for ( cnt2 = 0; cnt2 < gGameOptions.ubSquadSize; cnt2++ )
+		for ( UINT32 cnt2 = 0; cnt2 < gGameOptions.ubSquadSize; ++cnt2 )
 		{
 			// GET SOLDIER
 			if ( gTeamPanel[ cnt2 ].fOccupied )
 			{
 				pSoldier = MercPtrs[ gTeamPanel[ cnt2 ].ubID ];
 
-				for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+				UINT32 invsize = pSoldier->inv.size();
+				for ( UINT32 cnt = 0; cnt < invsize; ++cnt )
 				{
 					if ( pSoldier->inv.bNewItemCount[ cnt ] > 0 )
 					{

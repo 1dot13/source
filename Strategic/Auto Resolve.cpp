@@ -4256,7 +4256,9 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 		pAttacker->bWeaponSlot = SECONDHANDPOS;
 		return TRUE;
 	}
-	for( UINT32 i = 0; i < pSoldier->inv.size(); i++ )
+
+	UINT8 invsize = pSoldier->inv.size();
+	for( UINT8 i = 0; i < invsize; ++i )
 	{
 		pItem = &pSoldier->inv[ i ];
 
@@ -4297,7 +4299,8 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 
 BOOLEAN AttackerHasKnife( SOLDIERCELL *pAttacker )
 {
-	for( UINT32 i = 0; i < pAttacker->pSoldier->inv.size(); i++ )
+	UINT8 invsize = pAttacker->pSoldier->inv.size();
+	for( UINT8 i = 0; i < invsize; ++i )
 	{
 		if( Item[ pAttacker->pSoldier->inv[ i ].usItem ].usItemClass == IC_BLADE )
 		{
@@ -4312,7 +4315,8 @@ BOOLEAN AttackerHasKnife( SOLDIERCELL *pAttacker )
 BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 {
 	OBJECTTYPE *pItem;
-	for( UINT32 i = 0; i < pSoldier->inv.size(); i++ )
+	UINT8 invsize = pSoldier->inv.size();
+	for( UINT8 i = 0; i < invsize; ++i )
 	{
 		pItem = &pSoldier->inv[ i ];
 		if( Item[ pItem->usItem ].usItemClass == IC_GUN )

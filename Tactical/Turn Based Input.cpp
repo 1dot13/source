@@ -2823,7 +2823,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										{
 											if(MercPtrs[loop]->bActive && MercPtrs[loop]->bInSector)
 											{
-												for(unsigned int pocket=0; pocket < MercPtrs[loop]->inv.size(); pocket++)
+												UINT32 invsize = MercPtrs[loop]->inv.size();
+												for(UINT32 pocket=0; pocket < invsize; ++pocket)
 												{
 													if(MercPtrs[loop]->inv[pocket].usItem == crateItem)
 													{
@@ -7348,7 +7349,7 @@ void HandleTBReloadAll( void )
 				if (! ( gTacticalStatus.fEnemyInSector ) )
 				{
 					SOLDIERTYPE	*pTeamSoldier;
-					INT8		bLoop;
+					UINT8		bLoop;
 					UINT16		bullets;		
 					OBJECTTYPE *pGun, *pAmmo, *pAmmoMags;
 
@@ -7357,9 +7358,9 @@ void HandleTBReloadAll( void )
 					{
 						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 						{
-
 							// Search for gun in soldier inventory
-							for (UINT32 bLoop2 = 0; bLoop2 < pTeamSoldier->inv.size(); bLoop2++)
+							UINT32 invsize = pTeamSoldier->inv.size();
+							for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 							{
 								if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER) )
 								{
@@ -7367,9 +7368,8 @@ void HandleTBReloadAll( void )
 									//if magazine is not full
 									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
 									{
-
 										// Search for ammo in sector
-										for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )
+										for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
 										{
 											if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
 											{
@@ -7410,7 +7410,8 @@ void HandleTBReloadAll( void )
 						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 						{
 							// Search for ammo in soldier inventory
-							for (UINT32 bLoop2 = 0; bLoop2 < pTeamSoldier->inv.size(); bLoop2++)
+							UINT32 invsize = pTeamSoldier->inv.size();
+							for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 							{
 								if ( Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_AMMO )
 								{
@@ -7421,7 +7422,7 @@ void HandleTBReloadAll( void )
 										if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
 										{
 											// Search for ammo in sector
-											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )
+											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
 											{
 												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
 												{
@@ -7442,9 +7443,9 @@ void HandleTBReloadAll( void )
 																(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
 																(*pAmmo)[0]->data.ubShotsLeft -= bullets;
 
-		fCharacterInfoPanelDirty = TRUE;
-		fInterfacePanelDirty = DIRTYLEVEL2;
-	}
+																fCharacterInfoPanelDirty = TRUE;
+																fInterfacePanelDirty = DIRTYLEVEL2;
+															}
 
 															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
 															{
@@ -7458,7 +7459,8 @@ void HandleTBReloadAll( void )
 											//MM: if magazines still are partly empty, look through inventory for boxes and crates
 											if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
 											{
-												for (UINT32 uiLoop = 0; uiLoop < pTeamSoldier->inv.size(); uiLoop++)
+												UINT32 invsize = pTeamSoldier->inv.size();
+												for (UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop)
 												{
 													if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO) && Magazine[Item[pTeamSoldier->inv[uiLoop].usItem].ubClassIndex].ubMagType >= AMMO_BOX )
 													{
@@ -7494,9 +7496,8 @@ void HandleTBReloadAll( void )
 										OBJECTTYPE *pGun2 = FindAttachedWeapon(pGun, IC_GUN);
 										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
 										{
-
 											// Search for ammo in sector
-											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )
+											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
 											{
 												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
 												{
@@ -7535,10 +7536,10 @@ void HandleTBReloadAll( void )
 				else
 				{
 					SOLDIERTYPE	*pTeamSoldier;
-					INT8		bLoop;
+					UINT8		bLoop;
 					OBJECTTYPE *pGun, *pAmmo;
 
-					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop, pTeamSoldier++)
 					{
 						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 						{
@@ -7558,7 +7559,8 @@ void HandleTBReloadAll( void )
 								else
 								{
 									// Search for gun in soldier inventory
-									for (UINT32 bLoop2 = 0; bLoop2 < pTeamSoldier->inv.size(); bLoop2++)
+									UINT32 invsize = pTeamSoldier->inv.size();
+									for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 									{
 										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER) )
 										{
@@ -7566,9 +7568,8 @@ void HandleTBReloadAll( void )
 											//if magazine is not full
 											if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
 											{
-
 												// Search for ammo in soldier inventory
-												for ( UINT32 uiLoop = 0; uiLoop < pTeamSoldier->inv.size(); uiLoop++ )
+												for ( UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop )
 												{
 													if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO ) ) // the item is ammo
 													{
@@ -7590,10 +7591,7 @@ void HandleTBReloadAll( void )
 											}
 										}
 									}
-
-
 								}
-
 							}
 						}
 					}

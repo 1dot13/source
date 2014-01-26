@@ -3179,11 +3179,13 @@ void CreateDestroyDisplayNPCInventoryPopup( UINT8 ubAction )
 				DrawTextToScreen( gMercProfiles[ gNpcListBox.sCurSelectedItem ].zNickname, QUEST_DBS_NPC_INV_POPUP_X, QUEST_DBS_NPC_INV_POPUP_Y+20, QUEST_DBS_NPC_INV_POPUP_WIDTH, QUEST_DBS_FONT_TITLE, QUEST_DBS_COLOR_SUBTITLE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
 				usPosY = QUEST_DBS_NPC_INV_POPUP_Y + 40;
-				for( i=0; i<pSoldier->inv.size(); i++)
+
+				UINT16 invsize = pSoldier->inv.size();
+				for( i=0; i<invsize; ++i)
 				{
-					if (pSoldier->inv[i].exists() == false) {
+					if (pSoldier->inv[i].exists() == false)
 						continue;
-					}
+
 //					if ( !LoadItemInfo( pSoldier->inv[ i ].usItem, zItemName, zItemDesc ) )
 //						Assert(0);
 						wcscpy( zItemName, ShortItemNames[ pSoldier->inv[ i ].usItem ] );
@@ -3691,7 +3693,7 @@ void RefreshAllNPCInventory()
 {
 	UINT16	usCnt;
 	UINT16	usItemCnt;
-	UINT16		usItem;
+	UINT16	usItem;
 
 	for ( usCnt=0; usCnt < TOTAL_SOLDIERS; usCnt++ )
 	{
@@ -3704,7 +3706,8 @@ void RefreshAllNPCInventory()
 			if ( gProfilesRPC[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile || gProfilesNPC[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile || gProfilesVehicle[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile )
 			{
 				//refresh the mercs inventory
-				for ( usItemCnt = 0; usItemCnt< Menptr[ usCnt ].inv.size(); usItemCnt++ )
+				UINT16 invsize = Menptr[ usCnt ].inv.size();
+				for ( usItemCnt = 0; usItemCnt< invsize; ++usItemCnt )
 				{
 					if ( gMercProfiles[ Menptr[ usCnt ].ubProfile ].inv[ usItemCnt ] != NOTHING )
 					{

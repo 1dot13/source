@@ -1141,7 +1141,8 @@ void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fAllValid )
 	if ( ( gpItemPointer != NULL ) && !fAllValid )
 	{
 		// check all inventory positions and mark the ones where cursor item won't fit as invalid
-		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
+		UINT32 invsize = pSoldier->inv.size();
+		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			gbInvalidPlacementSlot[ cnt ] = !CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)cnt, FALSE );
 
@@ -1165,7 +1166,7 @@ void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fAllValid )
 	else
 	{
 		// mark all inventory positions as valid
-		for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+		for ( cnt = 0; cnt < NUM_INV_SLOTS; ++cnt )
 		{
 			gbInvalidPlacementSlot[ cnt ] = FALSE;
 		}

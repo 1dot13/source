@@ -3827,7 +3827,8 @@ OBJECTTYPE* FindRepairableItemInLBENODE(SOLDIERTYPE * pSoldier, OBJECTTYPE * pOb
 	if(pObj->IsActiveLBE(subObject) == true)
 	{
 		LBENODE* pLBE = pObj->GetLBEPointer(subObject);
-		for(UINT8 lbePocket = 0; lbePocket < pLBE->inv.size(); lbePocket++)
+		UINT8 invsize = pLBE->inv.size();
+		for(UINT8 lbePocket = 0; lbePocket < invsize; ++lbePocket)
 		{
 			for(UINT8 ubItemsInPocket = 0; ubItemsInPocket < pLBE->inv[lbePocket].ubNumberOfObjects; ubItemsInPocket++)
 			{
@@ -4035,7 +4036,8 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		if(UsingNewInventorySystem() == true && Item[pObj->usItem].usItemClass == IC_LBEGEAR && pObj->IsActiveLBE(ubLoop) == true)
 		{
 			LBENODE* pLBE = pObj->GetLBEPointer(ubLoop);
-			for(lbeLoop = 0; lbeLoop < pLBE->inv.size(); lbeLoop++)
+			UINT8 invsize = pLBE->inv.size();
+			for(lbeLoop = 0; lbeLoop < invsize; ++lbeLoop)
 			{
 				if(RepairObject(pSoldier, pOwner, &pLBE->inv[lbeLoop], pubRepairPtsLeft))
 				{
