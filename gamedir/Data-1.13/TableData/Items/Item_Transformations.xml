@@ -222,6 +222,261 @@
 		<szTooltipText>Ready for combat.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
+		<usItem>1591</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1592</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1593</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1594</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>	
+	<TRANSFORM>
+		<usItem>1595</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1596</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1597</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1598</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1599</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1600</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1601</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1602</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1603</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1604</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1605</usItem>
+		<usResult1>1524</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>0</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>Transform tripwire</szMenuRowText>
+		<szTooltipText>Make tripwire stackable.</szTooltipText>
+	</TRANSFORM>	
+	<TRANSFORM>
 		<usItem>950</usItem>
 		<usResult1>1635</usResult1>
 		<usResult2>0</usResult2>
