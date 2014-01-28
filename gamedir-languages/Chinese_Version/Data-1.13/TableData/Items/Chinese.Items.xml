@@ -13640,4 +13640,36 @@
     <szBRName>FRAG_EXPLOSION</szBRName>
     <szBRDesc>FRAG_EXPLOSION</szBRDesc>
   </ITEM>
+  <ITEM>
+		<uiIndex>1705</uiIndex>
+		<szItemName>USMC Backpack</szItemName>
+		<szLongItemName>ILBE Gen II Main Ruck</szLongItemName>
+		<szItemDesc>The Improved Load Bearing System (ILBE) backpack was created for use by the United States Marine Corps based on feedback received during initial combat situations that took place during the first US involvement in Iraq.</szItemDesc>
+		<szBRName>USMC Backpack</szBRName>
+		<szBRDesc>The ILBE system consists of three main parts, the Main Pack, the Hydration System, and the Assault Pack.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1706</uiIndex>
+		<szItemName>USMC Assault Pack</szItemName>
+		<szLongItemName>ILBE Gen II Assault</szLongItemName>
+		<szItemDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szItemDesc>
+		<szBRName>USMC Assault Pack</szBRName>
+		<szBRDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1707</uiIndex>
+		<szItemName>TT Range</szItemName>
+		<szLongItemName>TT Extended Range</szLongItemName>
+		<szItemDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szItemDesc>
+		<szBRName>TT Extended Range</szBRName>
+		<szBRDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1708</uiIndex>
+		<szItemName>TT Mod Pack</szItemName>
+		<szLongItemName>TT Modular Pack</szLongItemName>
+		<szItemDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szItemDesc>
+		<szBRName>TT Modular Pack</szBRName>
+		<szBRDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szBRDesc>		
+	</ITEM>
 </ITEMLIST>
