@@ -6499,7 +6499,7 @@ STR16 New113Message[] =
 	L"Attention : Cadavre ennemi trouvé !!!",
 	L"%s [%d cart]\n%s %1.1f %s",
 	L"PA insuffisant ! Coût %d et vous avez %d.",
-	L"Hint: %s",		// TODO.Translate
+	L"Astuce: %s",
 };
 
 STR16 New113HAMMessage[] = 
