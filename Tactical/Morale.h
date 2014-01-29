@@ -154,7 +154,7 @@ extern INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier );
 void HourlyMoraleUpdate( void );
 void HandleSnitchCheck( void );
 void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCounter );
-INT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, SnitchEvent SnitchEvents[], INT8 ubSnitchEventsCounter );
+UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, SnitchEvent SnitchEvents[], UINT8 ubSnitchEventsCounter );
 void DailyMoraleUpdate( SOLDIERTYPE *pSoldier );
 
 void DecayTacticalMoraleModifiers( void );

@@ -777,7 +777,7 @@ void HandleSoldierLeavingWithLowMorale( SOLDIERTYPE *pSoldier )
 		gMercProfiles[ pSoldier->ubProfile ].ubDaysOfMoraleHangover = (UINT8) (3 + Random(4));
 
 		// piss off his buddies too
-		HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED_EARLY);
+		HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED_ON_BAD_TERMS);
 	}
 }
 

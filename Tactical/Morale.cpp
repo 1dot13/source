@@ -954,6 +954,16 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;
 
+		case MORALE_BUDDY_FIRED:
+		case MORALE_BUDDY_FIRED_EARLY:
+		case MORALE_BUDDY_FIRED_ON_BAD_TERMS:
+		case MORALE_BAD_EQUIPMENT:
+		case MORALE_OWED_MONEY:
+		case MORALE_PLAYER_INACTIVE_DAYS:
+			Assert( pSoldier );
+			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
+			break;
+
 		default:
 			// debug message
 			ScreenMsg( MSG_FONT_RED, MSG_BETAVERSION, L"Invalid morale event type = %d.	AM/CC-1", bMoraleEvent );
@@ -1008,10 +1018,14 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			break;
 		case MORALE_BAD_EQUIPMENT:
 			ModifyPlayerReputation(REPUTATION_MERC_COMPLAIN_EQUIPMENT);
+			break;
 		case MORALE_OWED_MONEY:
 			ModifyPlayerReputation(REPUTATION_MERC_OWED_MONEY);
+			break;
 		case MORALE_PLAYER_INACTIVE_DAYS:
 			ModifyPlayerReputation(REPUTATION_PLAYER_IS_INACTIVE);
+			break;
+
 		default:
 			// no reputation impact
 			break;
@@ -1232,9 +1246,8 @@ void HandleSnitchCheck( void )
 	MERCPROFILESTRUCT *		pProfile;
 	BOOLEAN								fSameGroupOnly;
 	// anv: save merc id and his negative morale event for snitches
-	INT8									ubSnitchEventsCounter = 0;
-	INT8									bSnitchesCounter = 0;
-	SnitchEvent								SnitchEvents[64];
+	UINT8									ubSnitchEventsCounter = 0;
+	SnitchEvent								SnitchEvents[NUM_PROFILES];
 
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
@@ -1243,7 +1256,7 @@ void HandleSnitchCheck( void )
 	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
 	{
 		//if the merc is active, in Arulco, not POW
-		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
+		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 			!(pSoldier->bAssignment == IN_TRANSIT ||
 			pSoldier->bAssignment == ASSIGNMENT_DEAD ||
 			pSoldier->bAssignment == ASSIGNMENT_POW) )
@@ -1364,9 +1377,7 @@ void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCount
 	SOLDIERTYPE *pSnitch;
 	BOOLEAN fSleepingSnitch = FALSE;
 
-
-
-	for( UINT8 bCounter = 0; bCounter < ubSnitchEventsCounter; bCounter++ )
+	for( UINT8 bCounter = 0; bCounter < ubSnitchEventsCounter; ++bCounter )
 	{
 		if( SnitchEvents[bCounter].ubEventType != NOBODY )
 		{
@@ -1400,10 +1411,11 @@ void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCount
 				TacticalCharacterDialogueWithSpecialEvent( FindSoldierByProfileID(bSnitchID,TRUE), 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 1,0 );
 		}
 	}
+
 	ubSnitchEventsCounter = 0;
 }
 
-INT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, SnitchEvent SnitchEvents[], INT8 ubSnitchEventsCounter )
+UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, SnitchEvent SnitchEvents[], UINT8 ubSnitchEventsCounter )
 {
 	INT8 bSnitchID;
 	INT16 sSnitchingChance = 0;
@@ -1413,13 +1425,16 @@ INT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProf
 	SOLDIERTYPE * pOtherSoldier;
 
 	pSoldier = FindSoldierByProfileID(ubTargetProfile,FALSE);
-	pOtherSoldier = FindSoldierByProfileID(ubSecondaryTargetProfile,FALSE);
-	
+	pOtherSoldier = FindSoldierByProfileID(ubSecondaryTargetProfile,FALSE);	
 	
 	// loop through all other mercs
 	bSnitchID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSnitch = MercPtrs[ bSnitchID ]; bSnitchID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bSnitchID++,pSnitch++)
 	{
+		// Flugente: we can only store up to 255 (UINT8) snitch events, so get out of here once we reach that! (This shouldn't happen that often anyway, unless you manage to summon all mercenaries in one place)
+		if ( ubSnitchEventsCounter == 255 )
+			break;
+
 		ubSnitchProfile = pSnitch->ubProfile;
 		// skip past ourselves and all inactive mercs
 		if (ProfileHasSkillTrait(ubSnitchProfile,SNITCH_NT) && 
@@ -1490,10 +1505,11 @@ INT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProf
 				SnitchEvents[ubSnitchEventsCounter].ubSnitchID = ubSnitchProfile;
 				SnitchEvents[ubSnitchEventsCounter].ubTargetProfile = ubTargetProfile;
 				SnitchEvents[ubSnitchEventsCounter].ubSecondaryTargetProfile = ubSecondaryTargetProfile;
-				ubSnitchEventsCounter++;
+				++ubSnitchEventsCounter;
 			}
 		}
 	}
+
 	return ubSnitchEventsCounter;
 }
 
