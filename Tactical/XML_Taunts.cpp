@@ -232,10 +232,17 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 			{
 				if ( localizedTextOnly_Taunts )
 				{			
+					// WANNE: Not working
+					/*
 					MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->curTaunt.uiIndex].szText, sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) );
-					pData->curArray[pData->curTaunt.uiIndex].szText[sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) - 1] = '\0';
+					pData->curTaunt.szText[sizeof(pData->curTaunt.szText)/sizeof(pData->curTaunt.szText[0]) - 1] = '\0';
 					MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->curTaunt.uiIndex].szCensoredText, sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) );
-					pData->curArray[pData->curTaunt.uiIndex].szCensoredText[sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) - 1] = '\0';
+					pData->curTaunt.szCensoredText[sizeof(pData->curTaunt.szCensoredText)/sizeof(pData->curTaunt.szCensoredText[0]) - 1] = '\0';
+					*/
+
+					// WANNE: Working
+					wcscpy(zTaunt[pData->curTaunt.uiIndex].szText,pData->curTaunt.szText);
+					wcscpy(zTaunt[pData->curTaunt.uiIndex].szCensoredText,pData->curTaunt.szCensoredText);
 				}
 				else
 				{
