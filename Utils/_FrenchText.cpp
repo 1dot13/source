@@ -2180,15 +2180,15 @@ STR16 pRemoveMercStrings[] =
 
 STR16 pAttributeMenuStrings[] =
 {
-	L"Force",
-	L"Dextérité",
-	L"Agilité",
 	L"Santé",
-	L"Tir",
-	L"Médecine",
-	L"Mécanique",
+	L"Agilité",
+	L"Dextérité",
+	L"Force",
 	L"Commandement",
+	L"Tir",
+	L"Mécanique",
 	L"Explosifs",
+	L"Médecine",
 	L"Annuler",
 };
 
@@ -3318,7 +3318,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Skyrider",
 	L"Arrivée",
 	L"L'hélicoptère est trop endommagé et doit atterrir en territoire ennemi !",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->
-	L"L'hélicoptère va retourner directement à sa base, voulez-vous faire descendre les passagers ?"
+	L"L'hélicoptère va retourner directement à sa base, voulez-vous faire descendre les passagers ?",
 	L"Carburant restant :",
 	L"Ravitaillement :",
 };
@@ -6530,7 +6530,6 @@ STR16 New113HAMMessage[] =
 	L"Coût quotidien",
 	// 21 - 25
 	L"Fonds insuffisants pour payer toute la milice enrôlée ! %d membres de la milice sont partis pour rentrer chez eux.",
-
 	L"Pour voir la description d'un objet pendant un combat, vous devez d'abord le prendre vous-même.", // HAM 5
 	L"Pour attacher un objet à un autre pendant un combat, vous devez d'abord les prendre vous-même.", // HAM 5
 	L"Pour combiner deux objets pendant un combat, vous devez d'abord les prendre vous-même.", // HAM 5

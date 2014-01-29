@@ -6357,7 +6357,6 @@ STR16 New113HAMMessage[] =
 	L"Tagesausgaben",
 	// 21 - 25
 	L"Nicht genug Geld für alle angeworbenen Milzen! %d Milzen wurden entlassen und sind heimgekehrt.",
-	
 	L"Um sich den Status eines Gegenstandes während des Kampfes anzuschauen, müssen Sie den Gegenstand vorher aufheben.", // HAM 5
 	L"Um einen Gegenstand an einen anderen anbringen zu können, müssen Sie beide Gegenstände vorher aufheben.", // HAM 5
 	L"Um zwei Gegenstände miteinander zu verbinden, müssen Sie beide Gegenstände vorher aufheben.", // HAM 5

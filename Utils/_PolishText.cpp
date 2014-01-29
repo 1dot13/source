@@ -6547,8 +6547,6 @@ STR16 New113HAMMessage[] =
 	L"Dzienne wydatki",
 	// 21 - 25
 	L"Brak funduszy do opłacenia wykazanych jednostek samoobrony! %d jednostek opuszcza oddziały i wraca do domu.",
-
-	// TODO.Translate
 	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
 	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
 	L"To merge two items during combat, you must pick them both up first.", // HAM 5
