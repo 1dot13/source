@@ -9030,14 +9030,18 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 		// aimed. To get a good idea of whether or not a shot is likely to hit the target,
 		// we need to take other factors into consideration.
 
-		FLOAT d2DDistance = (FLOAT) PythSpacesAway( pSoldier->sGridNo, sGridNo ) * 10.0f;
+		// distance to target
+		FLOAT d2DDistance = (FLOAT) PythSpacesAway( pSoldier->sGridNo, sGridNo ) * (FLOAT) CELL_X_SIZE;
+		// magnification (1.0 or higher if scope is used)
 		FLOAT dMagFactor = CalcMagFactor( pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand]), d2DDistance, sGridNo, (UINT8)ubAimTime );
-		FLOAT dDistanceFactor = (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
-
-		uiChance = (UINT32)((uiChance * dMagFactor) / dDistanceFactor);
-
+		// basic aperture that is equal for everyone
 		FLOAT dBasicAperture = CalcBasicAperture( );
-		FLOAT dAperture = (dBasicAperture * (100-uiChance)) / 100.0f;
+		// aperture at target distance without magnification
+		FLOAT dAperture = dBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
+		// modify aperture with magnification
+		dAperture = dAperture / dMagFactor;
+		// real aperture for shooter based on CTH calculation
+		dAperture = dAperture * ( 100 - uiChance ) / 100.0f;
 
 		if (dAperture == 0)
 		{
@@ -9045,7 +9049,16 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 		}
 		else
 		{
-			FLOAT dTargetArea = 28.26f; // Calculated area of a target given known homan body size.
+			// silversurfer: This cannot be correct. An aperture of 10 already gives a very good chance to hit. If we take this value and
+			// calculate the target area it's PI * 10 * 10 which results in ~300 (rounded down) and not 28.26. This low number was the reason why AI
+			// was so reluctant to fire their weapons from farther away. It just never got any useful uiChance.
+			//FLOAT dTargetArea = 28.26f; // Calculated area of a target given known human body size.
+			FLOAT dTargetArea = 300.0f; // new definition
+
+			// Aiming at the head is much harder. Assume aperture 5 for this.
+			if ( ubAimPos == AIM_SHOT_HEAD )
+				dTargetArea = 80.0f;
+
 			FLOAT dApertureArea = (FLOAT)(PI * (dAperture * dAperture));
 
 			uiChance = (UINT32)__min(100, (dTargetArea / dApertureArea) * 100);
