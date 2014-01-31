@@ -23,6 +23,7 @@
 	#include "lighting.h"
 	#include "Soldier Create.h"
 	#include "SkillCheck.h" // added by SANDRO
+	#include "Vehicles.h" // added by silversurfer
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1162,6 +1163,10 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 			continue;			// next merc
 		}
 
+		// silversurfer: ignore empty vehicles
+		if ( pOpp->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpp->bVehicleID ) == 0 )
+			continue;
+
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
 		{
@@ -1265,6 +1270,10 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 			continue;			// next merc
 		}
 
+		// silversurfer: ignore empty vehicles
+		if ( pOpp->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpp->bVehicleID ) == 0 )
+			continue;
+
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
 		{
@@ -1356,6 +1365,10 @@ INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 
 		{
 			continue;			// next merc
 		}
+
+		// silversurfer: ignore empty vehicles
+		if ( pOpp->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpp->bVehicleID ) == 0 )
+			continue;
 
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
