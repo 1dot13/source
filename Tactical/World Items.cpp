@@ -28,6 +28,9 @@
 	#include "map screen interface map inventory.h"	// added by Flugente
 #include "connect.h"
 #endif
+#ifdef JA2EDITOR//dnl ch84 290114
+#include "Item Statistics.h"
+#endif
 
 //Global dynamic array of all of the items in a loaded map.
 std::vector<WORLDITEM> gWorldItems;//dnl ch75 261013
@@ -451,8 +454,21 @@ void ResizeWorldItems(void)//dnl ch75 271013
 	guiNumWorldItems = gWorldItems.size();
 	if(guiNumWorldItems - GetNumUsedWorldItems() < 50)
 	{
+#ifdef JA2EDITOR//dnl ch84 290114
+		WORLDITEM *pwi, *pwinew;
+		if(!gWorldItems.empty())
+			pwi = &gWorldItems.front();
+#endif
 		gWorldItems.resize(guiNumWorldItems + 100);
 		guiNumWorldItems = gWorldItems.size();
+#ifdef JA2EDITOR//dnl ch84 290114
+		if(gpItem)
+		{
+			pwinew = &gWorldItems.front();
+			if(pwi != pwinew)
+				gpItem = (OBJECTTYPE *)((PSTR)pwinew + ((PSTR)gpItem - (PSTR)pwi));
+		}
+#endif
 	}
 #endif
 }

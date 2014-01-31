@@ -903,6 +903,8 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 				iCurrFileShown = iTotalFiles - 1;
 			else if( iTopFileShown < iCurrFileShown-7 )
 				iTopFileShown++;
+			else if( iTopFileShown > iCurrFileShown )//dnl ch84 290114
+				iTopFileShown = iCurrFileShown;
 			break;
 		case HOME:
 		case CTRL_HOME:
@@ -940,10 +942,30 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 			curr = curr->pNext;
 			x++;
 		}
-		if( curr )	
+		if( curr )
 		{
 			SetInputFieldStringWith8BitString( 0, curr->FileInfo.zFileName );
 			swprintf( gzFilename, L"%S", curr->FileInfo.zFileName );
+			//dnl ch84 290114
+			if(ValidFilename())
+				SetInputFieldStringWith16BitString(0, gzFilename);
+			else
+			{
+				SetInputFieldStringWith16BitString(0, L"");
+				wcscpy(gzFilename, L"");
+			}
+#ifdef USE_VFS
+			gzProfileName[0] = 0;
+			while(curr = curr->pPrev)
+			{
+				if(curr->FileInfo.zFileName[0] == '<')
+				{
+					strcpy(gzProfileName, &curr->FileInfo.zFileName[2]);
+					gzProfileName[strlen(gzProfileName)-2] = 0;
+					break;
+				}
+			}
+#endif
 		}
 	}
 }
