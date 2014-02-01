@@ -13,9 +13,9 @@ Fields index:
 	samHidden       	- defines whether sam site is hidden from player from the beginning
 				  of game. Changes in this field require starting a new game to take effect.
 			  	  Possible values: 0 - sam site is known and displayed, 1 - sam is hidden.
-	samOrientation    	- comment about this value in game sources signs: "Use 3 if / orientation,
-				  4 if \ orientation". But I didn't notice any difference between 3 and 4.
-				  Probably, this value in not used. Just provide 3 or 4 to this tag.
+	samOrientation    	- This value determines the orientation of the terminal if it is repaired.
+          Use 3 for '/' orientation - from the middle to the lower left
+          Use 4 for '\' orientation - from the middle to the lower right
 	samGridNoA        	- OK. Here is needed some theory to explain these two fields ;)
 	samGridNoB		  It is known that every sam in game should have a control terminal
 				  (its a terminal with blue rectangle on screen and large yellow
@@ -86,7 +86,7 @@ Others not.
 				<y>14</y>
 			</samSector>
 			<samHidden>1</samHidden>
-			<samOrientation>3</samOrientation>
+			<samOrientation>4</samOrientation>
 			<samGridNoA>11913</samGridNoA>
 			<samGridNoB>11912</samGridNoB>
 		</SAM>
