@@ -7601,18 +7601,20 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// is a divisor to the sway of the muzzle. It's about the same as multiplying CTH by a certain amount.
 	// Note that both optical magnification devices (like scopes) and dot-projection devices (like lasers and 
 	// reflex sights) provide this sort of bonus.
-
 	FLOAT iMagFactor = CalcMagFactor( pShooter, pWeapon, d2DDistance, iTargetGridNo, (UINT8)pShooter->aiData.bAimTime );
+
+	// Get effective mag factor for this shooter. This represents his ability to use scopes.
+	FLOAT fEffectiveMagFactor = CalcEffectiveMagFactor( pShooter, iMagFactor );
 
 	// Next step is to apply scope/projection factor to decrease the size of the aperture. This gives us the "Max
 	// Aperture" value - the size of the shooting circle if the gun is as unstable as possible.
-	iMaxAperture = iDistanceAperture / iMagFactor;
+	iMaxAperture = iDistanceAperture / fEffectiveMagFactor;
 
 	// We now use the Muzzle Sway value, calculated by the CTH formula, to decrease the size of the shot aperture.
 	// It is used as a percentage: a 50% muzzle sway value gives a cone with half the maximum radius. A cone with
 	// 0% Muzzle Sway is a single line with no width (meaning all shots will fly right down the center, and all will
 	// hit the target), while a cone with 100% muzzle sway is as wide as possible.
-	iAperture = (FLOAT)((iMaxAperture * uiMuzzleSway) / 100);
+	iAperture = ((iMaxAperture * (FLOAT)uiMuzzleSway) / 100.0f);
 
 	// Aperture ratio below is used for Experience Gain. The smaller the aperture, compared to the size of the
 	// Distance Aperture, the more experience we get.
@@ -7942,6 +7944,47 @@ FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistan
 	}
 
 	return iFinalMagFactor;
+}
+
+// silversurfer: Effectivity in using scopes is determined by this function. Good shooters can use the full potential of scopes.
+// Iron sights and reflex sights always provide full potential.
+FLOAT CalcEffectiveMagFactor( SOLDIERTYPE *pShooter, FLOAT fRealMagFactor )
+{
+	// can't be a scope...
+	if ( fRealMagFactor <= 1.0 )
+		return fRealMagFactor;
+
+	FLOAT fMaxEffectiveMagFactor = fRealMagFactor * gGameCTHConstants.SCOPE_EFFECTIVENESS_MULTIPLIER;
+	FLOAT fFinalEffectiveFactor = 0.1;
+
+	// new trait system grants special thresholds
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		// snipers have most training
+		if ( NUM_SKILL_TRAITS( pShooter, SNIPER_NT ) == 2 )
+			fFinalEffectiveFactor = fMaxEffectiveMagFactor * (FLOAT)gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_SNIPER / 100.0f;
+
+		// marksmen also have sniper training but not as much
+		else if ( NUM_SKILL_TRAITS( pShooter, SNIPER_NT ) == 1 )
+			fFinalEffectiveFactor = fMaxEffectiveMagFactor * (FLOAT)gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN / 100.0f;
+
+		// rangers have some scope training too
+		else if ( NUM_SKILL_TRAITS( pShooter, RANGER_NT ) == 2 )
+			fFinalEffectiveFactor = fMaxEffectiveMagFactor * (FLOAT)gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_RANGER / 100.0f;
+	}
+
+	// this defines the minimum effective magnification any shooter gets
+	FLOAT fFixedPart = fMaxEffectiveMagFactor * (FLOAT)gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM / 100.0f;
+
+	// this is the variable part that is based on the shooters skills (experience and marksmanship)
+	FLOAT fVariablePart = ( fMaxEffectiveMagFactor * (FLOAT)(100 - gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM) / 100.0f ) * 
+		( ( (FLOAT)EffectiveExpLevel( pShooter ) * 10.0f * gGameCTHConstants.AIM_EXP + (FLOAT)EffectiveMarksmanship( pShooter ) * gGameCTHConstants.AIM_MARKS ) / 
+		( gGameCTHConstants.AIM_EXP + gGameCTHConstants.AIM_MARKS ) / 100.0f );
+
+	// now add them together and enforce limits
+	fFinalEffectiveFactor = __min( fMaxEffectiveMagFactor, __max( fFixedPart + fVariablePart, fFinalEffectiveFactor ) );
+
+	return fFinalEffectiveFactor;
 }
 
 // HEADROCK HAM 4: This function calculates and returns the maximum shot aperture as a radius to which the muzzle of

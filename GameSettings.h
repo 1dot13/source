@@ -1815,6 +1815,11 @@ typedef struct
 	FLOAT GRAVITY_COEFFICIENT;				// Changes the way gravity works in the game. Higher values mean bullets don't drop as quickly after reaching max range.
 	FLOAT VERTICAL_BIAS;					// This float can be used to reduce the chance of missing too far upwards or downwards (compared to left/right).
 	FLOAT SCOPE_RANGE_MULTIPLIER;			// Adjusts the minimum effective range of scopes
+	FLOAT SCOPE_EFFECTIVENESS_MULTIPLIER;	// This modifies the maximum effective magnification that is applied to the shooting aperture.
+	UINT16 SCOPE_EFFECTIVENESS_MINIMUM;		// Defines a minimum effectiveness level that every shooter gets. 0 = fully dynamic, no minimum, 100 = no skills required to use scopes
+	UINT16 SCOPE_EFFECTIVENESS_MINIMUM_RANGER;		// the minimum effectiveness for the ranger. He can reach more using the normal formula.
+	UINT16 SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN;	// the minimum effectiveness for the marksman. He can reach more using the normal formula.
+	UINT16 SCOPE_EFFECTIVENESS_MINIMUM_SNIPER;		// the minimum effectiveness for the sniper. He can reach more using the normal formula.
 	FLOAT SIDE_FACING_DIVISOR;				// Deals with a visual error in NCTH relating to shooting at a target who is facing directly perpendicular to the shooters facing.
 	UINT16 BASIC_RELIABILITY_ODDS;			// Determines the base chance to lose one condition point when firing a gun.
 

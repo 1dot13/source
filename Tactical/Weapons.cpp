@@ -9032,14 +9032,18 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 
 		// distance to target
 		FLOAT d2DDistance = (FLOAT) PythSpacesAway( pSoldier->sGridNo, sGridNo ) * (FLOAT) CELL_X_SIZE;
-		// magnification (1.0 or higher if scope is used)
-		FLOAT dMagFactor = CalcMagFactor( pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand]), d2DDistance, sGridNo, (UINT8)ubAimTime );
 		// basic aperture that is equal for everyone
 		FLOAT dBasicAperture = CalcBasicAperture( );
 		// aperture at target distance without magnification
 		FLOAT dAperture = dBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
+
+		// magnification (1.0 or higher if scope is used)
+		FLOAT dMagFactor = CalcMagFactor( pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand]), d2DDistance, sGridNo, (UINT8)ubAimTime );
+		// Get effective mag factor for this shooter. This represents his ability to use scopes.
+		FLOAT fEffectiveMagFactor = CalcEffectiveMagFactor( pSoldier, dMagFactor );
 		// modify aperture with magnification
-		dAperture = dAperture / dMagFactor;
+		dAperture = dAperture / fEffectiveMagFactor;
+
 		// real aperture for shooter based on CTH calculation
 		dAperture = dAperture * ( 100 - uiChance ) / 100.0f;
 

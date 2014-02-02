@@ -297,6 +297,8 @@ UINT32 CalcUIMessageDuration( STR16 wString );
 // sevenfm: this function is needed to show cover in health bar
 extern void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
 
+extern FLOAT Distance2D( FLOAT dDeltaX, FLOAT dDeltaY );
+
 BOOLEAN InitializeFaceGearGraphics()
 {
 	VOBJECT_DESC	VObjectDesc;
@@ -2693,6 +2695,8 @@ BOOLEAN DrawCTHIndicator()
 	SOLDIERTYPE *pSoldier;
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 
+	OBJECTTYPE* pWeapon = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+
 	// Create a Background Rect for us to draw our indicator on. With NCTH, the size and position of this rectangle
 	// is equal exactly to the size of the tactical screen viewport. Unlike the OCTH indicator, the NCTH one can grow
 	// so large as to fill the entire screen.
@@ -2755,7 +2759,7 @@ BOOLEAN DrawCTHIndicator()
 	FLOAT dDeltaY = dEndY - dStartY;
 
 	// Calculate the distance of the shot, using Pythagorean Theorem
-	DOUBLE d2DDistance = sqrt( (DOUBLE) (dDeltaX * dDeltaX + dDeltaY * dDeltaY ));
+	DOUBLE d2DDistance = Distance2D( dDeltaX, dDeltaY );
 	// Round it upwards.
 	INT32 iDistance = (INT32) d2DDistance;
 	if ( d2DDistance != iDistance )
@@ -2763,11 +2767,6 @@ BOOLEAN DrawCTHIndicator()
 		iDistance += 1;
 		d2DDistance = (FLOAT) ( iDistance);
 	}
-
-	// Calculate the Distance Ratio. This will increase or decrease the size of the Shooting Aperture based
-	// on both distance and Magnification Factor.
-	FLOAT iDistanceRatio = (FLOAT)(d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
-	FLOAT iFinalRatio = iDistanceRatio / gCTHDisplay.FinalMagFactor;
 
 	///////////////////////////////////////////////////////////
 	// Now we calculate the Aperture size. This is done using the same method as the shooting formula uses.
@@ -2826,22 +2825,35 @@ BOOLEAN DrawCTHIndicator()
 		}
 	}
 
-	// Calculate the Maximum Aperture. This is the margin of error for the "worst" shot we can have given the
-	// target's actual distance. This will later be used to draw the Outer Circle around the target.
-	FLOAT iMaxAperture = iBasicAperture * iDistanceRatio;
+	// Next, find out how large the aperture can be around the target, given range. The further the target is, the
+	// larger the aperture can be.
+	FLOAT iDistanceAperture = iBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
 
-	// Calculate the aperture for our shot by applying both distance and scope magnification (which work against each
-	// other) to the size of a normal aperture.
-	FLOAT iAperture = iBasicAperture * iFinalRatio;
+	///////////////////////////////////////////////////////////////
+	// To make things easier for us, we now calculate the Magnification Factor for this shot. A Mag Factor
+	// is a divisor to the sway of the muzzle. It's about the same as multiplying CTH by a certain amount.
+	// Note that both optical magnification devices (like scopes) and dot-projection devices (like lasers and 
+	// reflex sights) provide this sort of bonus.
+	FLOAT iMagFactor = CalcMagFactor( pSoldier, pWeapon, d2DDistance, gCTHDisplay.iTargetGridNo, (UINT8)pSoldier->aiData.bAimTime );
 
-	// Apply CTH to the aperture to find out how much smaller it's become thanks to skills and extra aiming.
-	UINT8 actualPct		= __min(gCTHDisplay.MuzzleSwayPercentage,99);
-	iAperture = ((100 - actualPct) * iAperture) / 100;
+	// Get effective mag factor for this shooter. This represents his ability to use scopes.
+	FLOAT fEffectiveMagFactor = CalcEffectiveMagFactor( pSoldier, iMagFactor );
+
+	// Next step is to apply scope/projection factor to decrease the size of the aperture. This gives us the "Max
+	// Aperture" value - the size of the shooting circle if the gun is as unstable as possible.
+	FLOAT iMaxAperture = iDistanceAperture / fEffectiveMagFactor;
+
+	// We now use the Muzzle Sway value, calculated by the CTH formula, to decrease the size of the shot aperture.
+	// It is used as a percentage: a 50% muzzle sway value gives a cone with half the maximum radius. A cone with
+	// 0% Muzzle Sway is a single line with no width (meaning all shots will fly right down the center, and all will
+	// hit the target), while a cone with 100% muzzle sway is as wide as possible.
+	FLOAT iAperture = ( iMaxAperture * (100.0f - (FLOAT)gCTHDisplay.MuzzleSwayPercentage) / 100.0f);
 
 	/////////////////////////////////////////////
 	// Factor in Weapon "Effective Range".
 	UINT16 sEffRange = Weapon[Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubClassIndex].usRange + GetRangeBonus(&(pSoldier->inv[ pSoldier->ubAttackingHand ]));
 	FLOAT iRangeRatio = __max(1.0f, (FLOAT)(d2DDistance / sEffRange));
+	FLOAT iDistanceRatio = (FLOAT)(d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
 	
 	/////////////////////////////////////////////
 	// Factor in Gun Accuracy.
@@ -2858,7 +2870,7 @@ BOOLEAN DrawCTHIndicator()
 
 	// Since bullet dev is only affected by distance, we add it last as a flat modifier.
 	iBasicAperture += iBulletDev;
-	iMaxAperture += iBulletDev;
+	iDistanceAperture += iBulletDev;
 	iAperture += iBulletDev;
 
 	// CHRISL: Moved here so we can base the cursor color on the iAperture value
@@ -3076,7 +3088,7 @@ BOOLEAN DrawCTHIndicator()
 		SetFont( TINYFONT1 );
 
 		// Find coordinates, using full string ("X.X x")
-		swprintf( pStr, L"%3.2f", iMaxAperture );
+		swprintf( pStr, L"%3.2f", iDistanceAperture );
 		FindFontCenterCoordinates( (INT16)MagRect.left, (INT16)MagRect.top-5, (INT16)MagRect.right-(INT16)MagRect.left, 5, pStr, TINYFONT1, &curX, &curY);
 		// Find width of this string.
 		UINT16 usTotalWidth = StringPixLength ( pStr, TINYFONT1 );
@@ -3486,10 +3498,10 @@ BOOLEAN DrawCTHIndicator()
 	sRight = gsVIEWPORT_END_X;
 	sBottom = gsVIEWPORT_WINDOW_END_Y;
 
-	INT16 lastY = 0;
-	INT16 diffY = 0;
-	UINT32 uiAperture = __max(2,(UINT32)iAperture);
-	UINT32 uiMaxAperture = __max(2,(UINT32)iMaxAperture);
+//	INT16 lastY = 0;
+//	INT16 diffY = 0;
+//	UINT32 uiAperture = __max(2,(UINT32)iAperture);
+//	UINT32 uiMaxAperture = __max(2,(UINT32)iDistanceAperture);
 	UINT32 uiApertureBarLength = 10;
 
 	INT32 cnt = 0;
@@ -3513,29 +3525,29 @@ BOOLEAN DrawCTHIndicator()
 	FLOAT RADIANS_IN_CIRCLE = (FLOAT)(PI * 2);
 	INT32 Circ = 0;
 
-	Circ = (INT32)((iMaxAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
+	Circ = (INT32)((iDistanceAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
 	if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 	{
 		// Draw outer circle
 		for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
 		{
-			curX = (INT16)(iMaxAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-			curY = (INT16)((iMaxAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curX = (INT16)(iDistanceAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)((iDistanceAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 			INT16 firstX = curX;
 			INT16 firstY = curY;
 
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
 
 			// Draw a border circle which is 1 point wider
-//			curX = (INT16)((iMaxAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-//			curY = (INT16)(((iMaxAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iDistanceAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iDistanceAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
 //			if (curX != firstX || curY != firstY)
 //				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 
 			// Draw a border circle which is 1 point narrower
-//			curX = (INT16)((iMaxAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-//			curY = (INT16)(((iMaxAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iDistanceAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iDistanceAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
 //			if (curX != firstX || curY != firstY)
 //				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
