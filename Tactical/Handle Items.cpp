@@ -83,6 +83,8 @@ ITEM_POOL_LOCATOR				FlashItemSlots[ NUM_ITEM_FLASH_SLOTS ];
 UINT32									guiNumFlashItemSlots = 0;
 // sevenfm: remember network settings for last planted tripwire
 UINT8 gubLastTripwire = 0;
+// set to TRUE if shift+click was pressed for planting bomb - will use for Improved Bomb Planting feature
+BOOLEAN gfShiftBombPlant = FALSE;
 
 
 LEVELNODE *AddItemGraphicToWorld( INVTYPE *pItem, INT32 sGridNo, UINT8 ubLevel );
@@ -1517,6 +1519,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// Save gridno....
 		pSoldier->aiData.sPendingActionData2	= sGridNo;
 
+		// sevenfm: set shift flag for auto-taking of next mine	from inventory (Improved Bomb Planting)
+		if( fFromUI && _KeyDown(SHIFT) )
+			gfShiftBombPlant = TRUE;
+		else
+			gfShiftBombPlant = FALSE;
+
 		if ( pSoldier->sGridNo != sGridNo )
 		{
 			// SEND PENDING ACTION
@@ -1830,12 +1838,16 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				// we now know there is something nasty here
 				gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 
-				if (pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1) == 0) {
+				if (pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1) == 0) 
+				{
 					AddItemToPool( sGridNo, &gTempObject, BURIED, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 					// sevenfm: take another item with same id from inventory, only REALTIME
 					HandleTakeNewBombFromIventory(pSoldier, &gTempObject);
-					}
+					// sevenfm: change cursor back to action if successfully taken new bomb
+					if ( gfShiftBombPlant && pSoldier->inv[ pSoldier->ubAttackingHand ].exists() )
+						guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
 				}
+			}
 			else
 			{
 				// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
@@ -1932,7 +1944,7 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
 			{
 				
-				//ddd вожможно еще надо добавить условие проверки на класс кидаемого предмета - гранаты
+				//ddd maybe need to add check for throwing item class - grenade
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
 					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
 					pSoldier->usPendingAnimation = LOB_GRENADE_STANCE;
@@ -1940,12 +1952,8 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 					pSoldier->usPendingAnimation = LOB_ITEM;
 				
 			}
-			else
-			{  //ddd вожможно еще надо добавить условие проверки на класс кидаемого предмета - гранаты
-				//INT32 uiItemClass; //такой код тоже работает. фальшвеер и граната из одного класса?
-				//	uiItemClass= Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass;
-				//if( (uiItemClass == IC_GRENADE) && 
-
+			else			
+			{
 
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
 					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
@@ -4904,7 +4912,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
            gzUserDefinedButtonColor[cnt] = 0;
 		
 		// sevenfm: if SHIFT is pressed - plant tripwire with last network settings
-		if( _KeyDown( SHIFT ) && gubLastTripwire > 0 )
+		if( gfShiftBombPlant && gubLastTripwire > 0 )
 			BombMessageBoxCallBack(gubLastTripwire);
 		else
 			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
@@ -4920,10 +4928,10 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 
-        // sevenfm: reorganized buttons order for new dialog
+    // sevenfm: reorganized buttons order for new dialog
 	wcscpy( gzUserDefinedButton[0], TacticalStr[ FILL_CANTEEN_STR ] );
-   wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ONE_GUN_STR ] );
-   wcscpy( gzUserDefinedButton[3], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
+	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ONE_GUN_STR ] );
+	wcscpy( gzUserDefinedButton[3], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
 	
 	if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
        wcscpy( gzUserDefinedButton[1], TacticalStr[ TAKE_OFF_DISGUISE_STR ] );
@@ -5116,6 +5124,9 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 						// sevenfm: set flag only if planting tripwire
 						gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 						HandleTakeNewBombFromIventory(gpTempSoldier, &gTempObject);
+						// sevenfm: change cursor back to action if successfully taken new bomb (also change mode back to action if using tripwire roll)
+						if ( gfShiftBombPlant && gpTempSoldier->inv[ gpTempSoldier->ubAttackingHand ].exists() )
+							guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
 					}
 					else
 						AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
@@ -5507,7 +5518,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 					// this allows to keep all attachments
 					if( gTempObject.usItem == ACTION_ITEM || !gGameExternalOptions.bAllowExplosiveAttachments )
 					{
-					CreateItem( gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &gTempObject );
+						CreateItem( gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &gTempObject );
 					}
 					else
 					{
@@ -6978,10 +6989,6 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				else
 					return;
 			}
-/*                if(_KeyDown( SHIFT ) && gGameExternalOptions.bDontRevealTripwire )
-                        gRevealTripwire = TRUE;
-                else
-                        gRevealTripwire = FALSE; */
                 if (gfDisarmingBuriedBomb)
                 {
                         SetOffBombsInGridNo( gpBoobyTrapSoldier->ubID, gsBoobyTrapGridNo, TRUE, gbBoobyTrapLevel );
@@ -6996,7 +7003,7 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
 {
 	if( !( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
-			!pSoldier->inv[HANDPOS].exists() && _KeyDown( SHIFT ))
+			!pSoldier->inv[HANDPOS].exists() && gfShiftBombPlant )
 	{	
 		pSoldier->TakeNewBombFromIventory(pObj->usItem);
 	}
