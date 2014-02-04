@@ -1506,7 +1506,7 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case DEL:
-					if( iCurrentTaskbar == TASK_ITEMS && gbEditingMode != 0 ) //gbEditingMode != EDITING_NOTHING
+					if( iCurrentTaskbar == TASK_ITEMS )
 						DeleteSelectedItem();
 					else if( gsSelectedMercID != -1 )
 					{

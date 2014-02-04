@@ -398,8 +398,7 @@ void ExecuteItemStatsCmd( /*UINT8*/ UINT16  ubAction )
 		case ITEMSTATS_DEFAULT:
 			break;
 		case ITEMSTATS_DELETE:
-			if( gbEditingMode != EDITING_NOTHING )
-				DeleteSelectedItem();
+			DeleteSelectedItem();
 			break;
 		case ITEMSTATS_SHOW:
 			ShowSelectedItem();

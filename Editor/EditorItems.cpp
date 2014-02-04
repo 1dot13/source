@@ -1136,6 +1136,7 @@ void DeleteSelectedItem()
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->pNext->iItemIndex ].object, gpItemPool->sGridNo );
 		}
 		sGridNo = gpItemPool->sGridNo;
+
 		//remove the item
 		if( gWorldItems[ gpItemPool->iItemIndex ].object.usItem == ACTION_ITEM )
 		{
@@ -1148,8 +1149,13 @@ void DeleteSelectedItem()
 			gpEditingItemPool = NULL;
 		RemoveItemFromPool( sGridNo, gpItemPool->iItemIndex, 0 );
 		gpItemPool = NULL;
+		
 		//determine if there are still any items at this location
-		if( !GetItemPoolFromGround( sGridNo, &gpItemPool ) )
+		if( GetItemPoolFromGround( sGridNo, &gpItemPool ) )
+		{ //reset display for remaining items
+			SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
+		}
+		else
 		{ //no items left, so remove the node from the list.
 			IPListNode *pIPPrev, *pIPCurr;
 			pIPCurr = pIPHead;
