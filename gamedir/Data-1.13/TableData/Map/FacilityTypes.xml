@@ -8,7 +8,7 @@
 			<ubAssignmentType>DOCTOR</ubAssignmentType>
 			<szTooltipText>Perform life-saving surgery on your wounded men, using state-of-the-art equipment. Increases the DOCTOR's efficiency.</szTooltipText>
 			<ubStaffLimit>2</ubStaffLimit>
-			<usPerformance>150</usPerformance>
+			<usPerformance>200</usPerformance>
 			<usKitDegrade>40</usKitDegrade>
 			<CONDITIONS>
 				<ubMinimumMedical>60</ubMinimumMedical>
@@ -307,7 +307,7 @@
 			<ubAssignmentType>DOCTOR</ubAssignmentType>  
 			<szTooltipText>Perform urgent life-saving treatment on your wounded men in field conditions. Increases the DOCTOR's efficiency.</szTooltipText>  
 			<ubStaffLimit>2</ubStaffLimit>  
-			<usPerformance>200</usPerformance>  
+			<usPerformance>150</usPerformance>  
 			<usKitDegrade>40</usKitDegrade>  
 			<CONDITIONS> 
 				<ubMinimumMedical>60</ubMinimumMedical>  
