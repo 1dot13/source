@@ -566,7 +566,7 @@ INT8 NumAvailableMinorTraits()
 	//Count the number of skills selected
 	bNumMajorTraits = CountNumSkillTraitsSelected( FALSE );
 
-	bNumMinorTraits = gSkillTraitValues.ubMaxNumberOfTraits - bNumMajorTraits;
+	bNumMinorTraits = gSkillTraitValues.ubMaxNumberOfTraitsForIMP - bNumMajorTraits;
 
 	bNumMinorTraits = max( 1, bNumMinorTraits );
 
