@@ -4327,7 +4327,10 @@ void DebugSoldierPage2( )
 		SetFontColors(COLOR1);
 		mprintf( 0, LINE_HEIGHT * ubLine, L"GRIDNO:");
 		SetFontColors(COLOR2);
-		mprintf( 150, LINE_HEIGHT * ubLine, L"%d", usMapPos );
+		//dnl ch85 060214
+		INT16 sX, sY;
+		ConvertGridNoToXY(usMapPos, &sX, &sY);
+		mprintf( 150, LINE_HEIGHT * ubLine, L"%d (%d,%d)", usMapPos, sX, sY );
 		ubLine++;
 
 		if ( gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_MOVEMENT_RESERVED )

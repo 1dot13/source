@@ -118,6 +118,31 @@ void CopyOverheadDBShadetablesFromTileset( );
 
 void RenderOverheadOverlays();
 
+//dnl ch85 060214
+#include <math.h>
+#define PointToPointDist(X1, Y1, X2, Y2) (sqrtf((FLOAT)((X2-X1)*(X2-X1) + (Y2-Y1)*(Y2-Y1))))// Calculate distance between two points
+#define PointToLineDist(Xt, Yt, k, l) (sqrtf((FLOAT)((k*Xt-Yt+l) * (k*Xt-Yt+l)) / (k*k + 1)))// Calculate distance between point and line
+VOID PointFromDist(INT32 Xt, INT32 Yt, INT32 k, INT32 l, FLOAT d, INT32 *Xtnew, INT32 *Ytnew)// Calculate closest point to point (Xt,Yt) which lies at distance from line Y=kx+l and normal define by point (Xt,Yt)
+{
+	FLOAT ret1 = sqrtf(d*d * (k*k + 1));
+	FLOAT ret2 = (FLOAT)(Yt + k*Xt);
+	FLOAT ret3 = (FLOAT)(2 * k);
+	FLOAT X1 = (ret1 + ret2 - l) / ret3;
+	FLOAT Y1 = -k*X1 + ret2;
+	FLOAT X2 = (-ret1 + ret2 - l) / ret3;
+	FLOAT Y2 = -k*X2 + ret2;
+	if(((Xt-X1)*(Xt-X1) + (Yt-Y1)*(Yt-Y1)) < ((Xt-X2)*(Xt-X2) + (Yt-Y2)*(Yt-Y2)))
+	{
+		*Xtnew = (INT32)(X1 + 0.5);
+		*Ytnew = (INT32)(Y1 + 0.5);
+	}
+	else
+	{
+		*Xtnew = (INT32)(X2 + 0.5);
+		*Ytnew = (INT32)(Y2 + 0.5);
+	}
+}
+
 void InitNewOverheadDB( UINT8 ubTilesetID )
 {
 	UINT32					uiLoop;
@@ -582,7 +607,6 @@ void GoIntoOverheadMap( )
 	HVOBJECT				hVObject;
 
 	gfInOverheadMap = TRUE;
-	//dnl??? ch45 021009 Add here moving overhead map cords to your current position on big map
 
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
@@ -595,6 +619,53 @@ void GoIntoOverheadMap( )
 	}else{
 	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
 	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
+	//dnl ch85 060214 Calculate overhead map cords from your current position on big map
+	INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
+	FLOAT ddw = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 + OLD_WORLD_ROWS/2)) / 2;
+	FLOAT ddh = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 - OLD_WORLD_ROWS/2)) / 2;
+	Xt = gsRenderCenterX / CELL_X_SIZE;
+	Yt = gsRenderCenterY / CELL_Y_SIZE;
+	k = 1, l = (3*WORLD_ROWS-WORLD_COLS)/4;// p3
+	FLOAT dd = PointToLineDist(Xt, Yt, k, l);
+	if(dd < ddh)
+	{
+		PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
+		Xt = Xtnew, Yt = Ytnew;
+	}
+	else
+	{
+		k = 1, l = (WORLD_ROWS-3*WORLD_COLS)/4;// p1
+		dd = PointToLineDist(Xt, Yt, k, l);
+		if(dd < ddh)
+		{
+			PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
+			Xt = Xtnew, Yt = Ytnew;
+		}
+	}
+	k = -1, l = (WORLD_ROWS+WORLD_COLS)/4;// p4
+	dd = PointToLineDist(Xt, Yt, k, l);
+	if(dd < ddw)
+	{
+		PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
+		Xt = Xtnew, Yt = Ytnew;
+	}
+	else
+	{
+		k = -1, l = 3*(WORLD_ROWS+WORLD_COLS)/4;// p1
+		dd = PointToLineDist(Xt, Yt, k, l);
+		if(dd < ddw)
+		{
+			PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
+			Xt = Xtnew, Yt = Ytnew;
+		}
+	}
+	Xs = (giXB + giXC) / 2;
+	Ys = (giYB + giYC) / 2;
+	dX = Xt - Xs;
+	dY = Yt - Ys;
+	giXA += dX, giYA += dY;
+	giXB += dX, giYB += dY;
+	giXC += dX, giYC += dY;
 	}
 	if(WORLD_MAX == 129600){
 		if(NightTime()){
@@ -751,14 +822,14 @@ void ScrollOverheadMap(void)
 		gfValidLocationsChanged = TRUE;
 		gfTacticalPlacementGUIDirty  = TRUE;
 	}
-	if(uiFlags & SCROLL_LEFT)// Scroll Left  { Y = X + (3*WORLD_ROWS-WORLD_COLS)/4; --> p3 }
+	if(uiFlags & SCROLL_LEFT)// Scroll Left  { Y = X + (3*WORLD_ROWS-WORLD_COLS)/4; --> p1 }
 	{
 		i = 1;
 		if(_KeyDown(SHIFT))
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYA == (giXA + (3*WORLD_ROWS-WORLD_COLS)/4))
+			if(giYA >= (giXA + (3*WORLD_ROWS-WORLD_COLS)/4))//dnl ch85 080214
 				break;
 			--giXA, ++giYA;
 			--giXB, ++giYB;
@@ -772,7 +843,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYC == (giXC + (WORLD_ROWS-3*WORLD_COLS)/4))
+			if(giYC <= (giXC + (WORLD_ROWS-3*WORLD_COLS)/4))//dnl ch85 080214
 				break;
 			++giXA, --giYA;
 			++giXB, --giYB;
@@ -786,7 +857,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYA == (-giXA + (WORLD_ROWS+WORLD_COLS)/4))
+			if(giYA <= (-giXA + (WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
 				break;
 			--giXA, --giYA;
 			--giXB, --giYB;
@@ -800,7 +871,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYB == (-giXB + 3*(WORLD_ROWS+WORLD_COLS)/4))
+			if(giYB >= (-giXB + 3*(WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
 				break;
 			++giXA, ++giYA;
 			++giXB, ++giYB;

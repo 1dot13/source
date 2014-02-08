@@ -6486,7 +6486,7 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 				// THIS ROOM STUFF IS ONLY DONE IN THE EDITOR...
 				// ADJUST BY SHEIGHT
 				sY -= gpWorldLevelData[ usTileIndex ].sHeight;
-				//sY += gsRenderHeight;
+				sY += gsRenderHeight;//dnl ch85 030214
 
 				if ( gusWorldRoomInfo[ usTileIndex ] != NO_ROOM )
 				{

@@ -410,6 +410,12 @@ void PasteBuilding( INT32 iMapIndex )
 	while( curr )
 	{
 		PasteMapElementToNewMapElement( curr->sGridNo, curr->sGridNo + iOffset );
+		//dnl ch85 070214
+		RemoveAllObjectsOfTypeRange(curr->sGridNo + iOffset, GOODRING, GOODRING);
+		RemoveAllTopmostsOfTypeRange(curr->sGridNo + iOffset, ROTATINGKEY, SELRING);
+		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, GUNS, P2ITEMS);
+		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, P3ITEMS, P3ITEMS);
+		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, P4ITEMS, P20ITEMS);
 		curr = curr->next;
 	}
 	MarkWorldDirty();

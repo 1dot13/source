@@ -2398,12 +2398,13 @@ void SetBlueFlagFlags( void )
 
 void InitLoadedWorld( )
 {
+#ifndef JA2EDITOR//dnl ch85 030214 editor allows to load any map so rather skip this check
 	//if the current sector is not valid, dont init the world
 	if( gWorldSectorX == 0 || gWorldSectorY == 0 )
 	{
 		return;
 	}
-
+#endif
 	// COMPILE MOVEMENT COSTS
 	CompileWorldMovementCosts( );
 

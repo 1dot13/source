@@ -1014,8 +1014,9 @@ extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sCli
 
 extern INT32 GetNumberOfMercsInUpdateList( void );
 extern INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier = TRUE );
+#ifdef INVFIX_Moa//dnl ch85 050214
 void DeleteAllItemsInInventoryPool();
-
+#endif
 #ifdef JA2UB
 void HandleWhenPlayerHasNoMercsAndNoLaptop();
 #endif
@@ -1087,6 +1088,7 @@ void BeginDeleteAllCallBack( UINT8 bExitValue )
 	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		fRestoreBackgroundForMessageBox = TRUE;
+#ifdef INVFIX_Moa//dnl ch85 050214
 		if ( gpItemPointer != NULL || InSectorStackPopup( ) || InItemStackPopup( ) || InItemDescriptionBox( ) || InKeyRingPopup( ) )
 		{
 			return;
@@ -1107,6 +1109,12 @@ void BeginDeleteAllCallBack( UINT8 bExitValue )
 			}
 		}
 	}
+#else
+		for(UINT32 i=0; i<pInventoryPoolList.size(); i++)
+			if(pInventoryPoolList[i].object.exists() && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+				pInventoryPoolList[i].object.initialize();
+	}
+#endif
 }
 
 // CHRISL: New functions to handle initialization of inventory coordinates
@@ -7026,13 +7034,20 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case DEL:
+#ifdef INVFIX_Moa//dnl ch85 050214
 					// show the inventory pool?
 					if( fShowMapInventoryPool && _KeyDown( CTRL ) )
 					{
 						DeleteAllItemsInInventoryPool();
 						break;
 					}
-
+#else
+					if(fCtrl && fShowMapInventoryPool && !(gpItemPointer || InSectorStackPopup() || InItemStackPopup() || InItemDescriptionBox() || InKeyRingPopup()))
+					{
+						DoMessageBox(MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_DELETE_ALL], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_YESNO, BeginDeleteAllCallBack, NULL);
+						break;
+					}
+#endif
 					// down one sublevel
 					GoDownOneLevelInMap( );
 					break;
@@ -7479,6 +7494,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case 'D':
+#ifdef INVFIX_Moa//dnl ch85 050214
 					if( fCtrl )
 					{
 						if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) )
@@ -7496,6 +7512,13 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							}
 						}
 					}
+#else
+					if(fCtrl && fShowMapInventoryPool && !(gpItemPointer || InSectorStackPopup() || InItemStackPopup() || InItemDescriptionBox() || InKeyRingPopup()))
+					{
+						DoMessageBox(MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_DELETE_ALL], guiCurrentScreen, (UINT8)MSG_BOX_FLAG_YESNO, BeginDeleteAllCallBack, NULL);
+						break;
+					}
+#endif
 					break;
 				case 'e':
 					if( gfPreBattleInterfaceActive )

@@ -285,7 +285,9 @@ void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason );
 void MapInventoryPoolFilterBtnMoveItemDisplay( GUI_BUTTON *btn, INT32 reason );	// Flugente
 void DisplayCurrentSector( void );
 void ResizeInventoryList( void );
+#ifdef INVFIX_Moa//dnl ch85 050214
 void ClearUpTempUnSeenList( void );
+#endif
 void SaveSeenAndUnseenItems( void );
 void DrawTextOnMapInventoryBackground( void );
 void DrawTextOnSectorInventory( void );
@@ -304,7 +306,9 @@ extern void MAPEndItemPointer( );
 extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ );
 extern BOOLEAN MAPInternalInitItemDescriptionBox( OBJECTTYPE *pObject, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier );
 
+#ifdef INVFIX_Moa//dnl ch85 050214
 void DeleteAllItemsInInventoryPool();
+#endif
 void DeleteItemsOfType( UINT16 usItemType );
 // HEADROCK HAM 5: flag to indicate that all items in the stack will be sold. This is primarily used to
 // figure out the price of the top item in the stack rather than just all of them.
@@ -930,8 +934,7 @@ void CancelSectorInventoryDisplayIfOn( BOOLEAN fExitFromMapScreen )
 	}
 }
 
-
-
+#ifdef INVFIX_Moa//dnl ch85 050214
 void ClearUpTempUnSeenList( void )//dnl ch75 271013
 {
 	// save these items and all the others
@@ -941,6 +944,7 @@ void ClearUpTempUnSeenList( void )//dnl ch75 271013
 	pSaveList = pUnSeenItems;
 	pUnSeenItems.clear();
 }
+#endif
 
 //////////////////////////////////////
 //@brief Saves pSaveList and pInventoryPoolList either into file or into memmory.
@@ -2203,12 +2207,13 @@ void ReBuildWorldItemStashForLoadedSector( INT32 iNumberSeenItems, INT32 iNumber
 	SetNumberOfVisibleWorldItemsInSectorStructureForSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ , uiTotalNumberOfVisibleItems );
 }
 
+#ifdef INVFIX_Moa//dnl ch85 050214
 void DestroyStash( void )
 {
 	// clear out stash
 	pInventoryPoolList.clear();
-
 }
+#endif
 
 void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 {
@@ -3982,6 +3987,7 @@ BOOLEAN	DisplaySectorItemsInfo(void)//dnl ch51 090913 //dnl ch75 021113
 }
 //dnl ch51 081009 finish
 
+#ifdef INVFIX_Moa//dnl ch85 050214
 void DeleteAllItemsInInventoryPool()
 {
 	pInventoryPoolList.clear();
@@ -3997,7 +4003,7 @@ void DeleteAllItemsInInventoryPool()
 	DestroyStash();
 	BuildStashForSelectedSector( sSelMapX, sSelMapY, iCurrentMapSectorZ);
 }
-
+#endif
 
 void DeleteItemsOfType( UINT16 usItemType )
 {
