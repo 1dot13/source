@@ -920,7 +920,7 @@ void HandleDialogue( )
 		gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
 				
 		// Flugente: only set up face if we can access correctly
-		if ( QItem->iFaceIndex > 0 )
+		if ( QItem->iFaceIndex >= 0 )
 		{
 			// Setup face pointer
 			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -986,7 +986,7 @@ void HandleDialogue( )
 			gfUseAlternateDialogueFile = TRUE;
 			
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex > 0 )
+			if ( QItem->iFaceIndex >= 0 )
 			{
 				// Setup face pointer
 				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -1003,7 +1003,7 @@ void HandleDialogue( )
 		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex > 0 )
+			if ( QItem->iFaceIndex >= 0 )
 			{
 				// Setup face pointer
 				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -1053,7 +1053,7 @@ void HandleDialogue( )
 			SlideToLocation( 0,  QItem->uiSpecialEventData );
 
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex > 0 )
+			if ( QItem->iFaceIndex >= 0 )
 			{
 				// Setup face pointer
 				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -1103,7 +1103,7 @@ void HandleDialogue( )
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_BEGINPREBATTLEINTERFACE )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex > 0 )
+			if ( QItem->iFaceIndex >= 0 )
 			{
 				// Setup face pointer
 				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -1225,7 +1225,7 @@ void HandleDialogue( )
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT )
 		{
 			// Flugente: only set up face if we can access correctly
-			if ( QItem->iFaceIndex > 0 )
+			if ( QItem->iFaceIndex >= 0 )
 			{
 				// Setup face pointer
 				gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
@@ -1356,7 +1356,7 @@ void HandleDialogue( )
 				gTacticalStatus.ubLastQuoteProfileNUm = (UINT8)QItem->ubCharacterNum;
 				
 				// Flugente: only set up face if we can access correctly
-				if ( QItem->iFaceIndex > 0 )
+				if ( QItem->iFaceIndex >= 0 )
 				{
 					// Setup face pointer
 					gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
