@@ -3948,8 +3948,9 @@ STR16 pImpPopUpStrings[] =
 	L"Не могу загрузить I.M.P.-персонаж с диска.",
 	L"Вы достигли максимального количества I.M.P.-персонажей.",
 	L"У вас в команде уже есть три I.M.P.-персонажа того же пола.",
-	L"Вы не можете позволить себе такой I.M.P.-персонаж.",
+	L"Вы не можете позволить себе такой I.M.P.-персонаж.",	// 10
 	L"Новый I.M.P.-персонаж присоединился к команде.",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 
@@ -5959,7 +5960,7 @@ STR16 pMessageStrings[] =
 	L"Очереди из гранат используют курсор стрельбы очередями (стрельба по площадям возможна)",
 	L"Очереди из гранат используют курсор метания (стрельба по площадям не возможна)",
 	L"Включены подписи к солдатам", // Changed from Drop All On (Enabled Soldier Tooltips)
-	L"Отключены подписи к солдатам", // Changed from Drop All Off (Disabled Soldier Tooltips)
+	L"Отключены подписи к солдатам", 	// 80	// Changed from Drop All Off (Disabled Soldier Tooltips)
 	L"Гранатометы стреляют под обычным углом",
 	L"Гранатометы стреляют навесом",
 	// forced turn mode strings
@@ -5991,6 +5992,8 @@ STR16 pMessageStrings[] =
 	L"Release mouse cursor from game window boundary.",			// 105
 	L"Move in Formation ON",	// TODO.Translate
 	L"Move in Formation OFF",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 

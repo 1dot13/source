@@ -3950,8 +3950,9 @@ STR16 pImpPopUpStrings[] =
 	L"无法从磁盘上读入I.M.P.人物数据。",
 	L"你已经达到I.M.P.人物上限。",
 	L"你已经达到I.M.P.该性别人物上限。",
-	L"你无法支付此I.M.P.人物的费用。",
+	L"你无法支付此I.M.P.人物的费用。",	// 10
 	L"新的I.M.P.人物加入了你的队伍。",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 
@@ -5961,7 +5962,7 @@ STR16 pMessageStrings[] =
 	L"榴弹发射器点射时使用准星光标（可以扫射）",
 	L"榴弹发射器连发时使用弹道光标(不可以扫射",	//"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"开启敌兵装备提示", // Changed from Drop All On - SANDRO
-	L"关闭敌兵装备提示", // Changed from Drop All Off - SANDRO
+	L"关闭敌兵装备提示", 	// 80	// Changed from Drop All Off - SANDRO
 	L"榴弹发射器以正常仰角发射榴弹",	//"Grenade Launchers fire at standard angles",
 	L"榴弹发射器以较高仰角发射榴弹",	//L"Grenade Launchers fire at higher angles",
 	// forced turn mode strings
@@ -5970,7 +5971,7 @@ STR16 pMessageStrings[] =
 	L"离开战斗",
 	L"强制回合制模式启动，进入战斗",
 	L"自动储存成功。",
-	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.//84
+	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved
 	L"客户端", //"Client",
 	L"旧携行系统不能与新附件系统同时使用.",
 	
@@ -5993,6 +5994,8 @@ STR16 pMessageStrings[] =
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
 	L"保持佣兵间距开启",
 	L"保持佣兵间距关闭",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 

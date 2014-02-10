@@ -3959,8 +3959,9 @@ STR16 pImpPopUpStrings[] =
 	L"Nie można załadować postaci I.M.P. z dysku.",
 	L"Wykorzystałeś już maksymalną liczbę postaci I.M.P.",
 	L"Masz już w oddziale trzy postacie I.M.P. tej samej płci.",					//L"You have already the maximum number of I.M.P characters with that gender on your team.",  BYŁo ->>L"You have already three I.M.P characters with the same gender on your team.",
-	L"Nie stać cię na postać I.M.P.",
+	L"Nie stać cię na postać I.M.P.",	// 10
 	L"Nowa postać I.M.P. dołączyła do oddziału.",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 
@@ -5973,7 +5974,7 @@ STR16 pMessageStrings[] =
 	L"Seria z granatnika używa kursora celowania (dostępny ogień rozproszony)",		//L"Grenade Bursts use Targeting Cursor (Spread fire enabled)", BYŁO -->>L"Grenade Bursts - Using Targeting Cursor (Spread fire enabled)",
 	L"Seria z granatnika używa kursora trajektorii (dostępny ogień rozproszony)",		//L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)", BYŁO -->L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
 	L"Enabled Soldier Tooltips", // Changed from Drop All On - SANDRO
-	L"Disabled Soldier Tooltips", // Changed from Drop All Off - SANDRO
+	L"Disabled Soldier Tooltips", 	// 80	// Changed from Drop All Off - SANDRO
 	L"Granatniki strzelają pod standardowymi kątami",					//L"Grenade Launchers fire at standard angles", BYŁo->>L"Grenade Launchers - Fire at standard angles",
 	L"Granatniki strzelają pod wysokimi kątami",						//L"Grenade Launchers fire at higher angles", BYŁo-->>L"Grenade Launchers - Fire at high angles",
 	// forced turn mode strings
@@ -6007,6 +6008,8 @@ STR16 pMessageStrings[] =
 	L"Release mouse cursor from game window boundary.",			// 105
 	L"Move in Formation ON",	// TODO.Translate
 	L"Move in Formation OFF",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 

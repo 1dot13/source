@@ -92,6 +92,7 @@
 #include "Debug Control.h"
 #include "LOS.h" // added by SANDRO
 #include "CampaignStats.h"		// added by Flugente
+#include "Interface Panels.h"
 #endif
 
 #include "ub_config.h"
@@ -16291,16 +16292,35 @@ void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
 //  Flugente: switch hand item for gunsling weapon, or pistol, or knife
 void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 {
-	// NIV-only
-	if ( !UsingNewInventorySystem() )
-		return;
+	UINT8 pocketsearch, retrieveslot, handobjstorageslot;
+	BOOLEAN handCanMove, searchitemCanMove;
 
 	// The slot we move our hand object from and the new object to is obviously always HANDPOS
 	
+	// first pocket to search in OIV & NIV
+	if ( UsingNewInventorySystem() )
+		pocketsearch = GUNSLINGPOCKPOS;
+	else
+		pocketsearch = BIGPOCK1POS;
+	
 	// The second slot is the one from where we retrieve the object we search
-	UINT8 retrieveslot = GUNSLINGPOCKPOS;
+	if ( UsingNewInventorySystem() )
+		retrieveslot = GUNSLINGPOCKPOS;
+	else // search for gun in OIV
+	{
+		for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
+		{
+			// we use the first gun we can find
+			if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && this->inv[i].ubNumberOfObjects == 1 )
+			{
+				retrieveslot = i;
+				break;
+			}
+		}
+	}
+	
 	// The third slot is where we put our hand item into
-	UINT8 handobjstorageslot = HANDPOS;
+	handobjstorageslot = HANDPOS;
 
 	// if we swap knifes or sidearms, we search for any such item if we do not already have it in our hands. If we do, we instead search for a gun to switch
 	if ( fKnife )
@@ -16308,7 +16328,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		// if we already have a knife in hand, search for a gun instead
 		if ( this->inv[HANDPOS].exists() && Item[this->inv[HANDPOS].usItem].usItemClass & IC_BLADE )
 		{
-			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
 			{
 				// we use the first gun we can find
 				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && this->inv[i].ubNumberOfObjects == 1 )
@@ -16321,7 +16341,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		// search for a knife
 		else
 		{
-			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
 			{
 				// take first blade
 				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_BLADE && this->inv[i].ubNumberOfObjects == 1 )
@@ -16334,10 +16354,11 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	}
 	else if ( fSideArm )
 	{
-		// if we already have a sidearm in hand, search for a gun tat isn't a sidearm instead
-		if ( this->inv[HANDPOS].exists() && Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[HANDPOS].usItem ].ubClassIndex ].ubWeaponClass == HANDGUNCLASS )
+		// if we already have a sidearm in hand, search for a gun that isn't a sidearm instead
+		if ( this->inv[HANDPOS].exists() && Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN 
+			&& Weapon[ Item[ this->inv[HANDPOS].usItem ].ubClassIndex ].ubWeaponClass == HANDGUNCLASS )
 		{
-			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
 			{
 				// we use the first gun we can find
 				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[i].usItem ].ubClassIndex ].ubWeaponClass != HANDGUNCLASS && this->inv[i].ubNumberOfObjects == 1 )
@@ -16350,9 +16371,9 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		// search for a sidearm
 		else
 		{
-			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
 			{
-				// take first blade
+				// take first handgun
 				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[i].usItem ].ubClassIndex ].ubWeaponClass == HANDGUNCLASS && this->inv[i].ubNumberOfObjects == 1 )
 				{
 					retrieveslot = i;
@@ -16363,9 +16384,9 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	}
 
 	// search a slot to put our hand object into
-	for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+	for(UINT8 i = pocketsearch; i < NUM_INV_SLOTS; ++i)
 	{
-		// take first slot that hadn item would fit
+		// take first slot that hand item would fit
 		if ( CanItemFitInPosition(this, &this->inv[HANDPOS], i, FALSE) )
 		{
 			if ( i == retrieveslot || !this->inv[i].exists() )
@@ -16376,77 +16397,34 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 		}
 	}
 	
-	BOOLEAN handcanMove = (CanItemFitInPosition(this, &this->inv[HANDPOS], handobjstorageslot, FALSE) || (this->inv[HANDPOS].exists() == false && this->inv[SECONDHANDPOS].exists() == false));
-	BOOLEAN searchitemCanMove = (CanItemFitInPosition(this, &this->inv[retrieveslot], HANDPOS, FALSE) || this->inv[retrieveslot].exists() == false);
-					
-	if(Item[this->inv[retrieveslot].usItem].twohanded && this->inv[SECONDHANDPOS].exists() == true)
-		handcanMove = FALSE;
+	// check both items can be moved
+	// check HANDPOS item that cannot be moved to inventory
+	if( handobjstorageslot == HANDPOS && this->inv[HANDPOS].exists() == true )
+		handCanMove = FALSE;
+	else
+		handCanMove = (CanItemFitInPosition(this, &this->inv[HANDPOS], handobjstorageslot, FALSE) || (this->inv[HANDPOS].exists() == false && this->inv[SECONDHANDPOS].exists() == false));
 
-	if( handcanMove == TRUE && searchitemCanMove == TRUE)
+	if( Item[this->inv[retrieveslot].usItem].twohanded && this->inv[SECONDHANDPOS].exists() == true )
+		searchitemCanMove = FALSE;
+	else
+		searchitemCanMove = (CanItemFitInPosition(this, &this->inv[retrieveslot], HANDPOS, FALSE) || this->inv[retrieveslot].exists() == false);
+
+	// execute swap 
+	if( handCanMove == TRUE && searchitemCanMove == TRUE)
 	{
 		if (gGameOptions.fInventoryCostsAP)
 		{
-			UINT8 APCost = 0;
-			UINT8 APTotalCost = 0;
-			if (gGameExternalOptions.uWeightDivisor != 0)
-			{
-				// we need to determine moving costs according to slots
-				INT16 fromretrieve = uiNIVSlotType[retrieveslot];
-				INT16 tohand       = uiNIVSlotType[HANDPOS];
-				INT16 fromhand     = uiNIVSlotType[HANDPOS];
-				INT16 tostorage    = uiNIVSlotType[handobjstorageslot];
+			UINT16 APTotalCost = 0;
+			
+			if (this->inv[retrieveslot].exists())
+				APTotalCost += GetInvMovementCost(&this->inv[retrieveslot], retrieveslot, HANDPOS);
 
-				//If these 2 arrays are initiated outside the function, APBPConstants will not have been initialized, and all values will be 0
-				INT16 uiAPCostFromSlot[12] =
-				{
-					APBPConstants[AP_INV_FROM_NONE],
-					APBPConstants[AP_INV_FROM_HANDS],
-					APBPConstants[AP_INV_FROM_EQUIPMENT],
-					APBPConstants[AP_INV_FROM_VEST],
-					APBPConstants[AP_INV_FROM_RIG],
-					APBPConstants[AP_INV_FROM_CPACK],
-					APBPConstants[AP_INV_FROM_BPACK],
-					APBPConstants[AP_INV_FROM_SLING],
-					APBPConstants[AP_INV_FROM_KNIFE],
-					APBPConstants[AP_INV_FROM_FACE],
-					APBPConstants[AP_INV_FROM_BIG_POCKET],
-					APBPConstants[AP_INV_FROM_SMALL_POCKET]
-				};
-				INT16 uiAPCostToSlot[12] =
-				{
-					APBPConstants[AP_INV_TO_NONE],
-					APBPConstants[AP_INV_TO_HANDS],
-					APBPConstants[AP_INV_TO_EQUIPMENT],
-					APBPConstants[AP_INV_TO_VEST],
-					APBPConstants[AP_INV_TO_RIG],
-					APBPConstants[AP_INV_TO_CPACK],
-					APBPConstants[AP_INV_TO_BPACK],
-					APBPConstants[AP_INV_TO_SLING],
-					APBPConstants[AP_INV_TO_KNIFE],
-					APBPConstants[AP_INV_TO_FACE],
-					APBPConstants[AP_INV_TO_BIG_POCKET],
-					APBPConstants[AP_INV_TO_SMALL_POCKET]
-				};
-				
-				if (this->inv[retrieveslot].exists())
-				{
-					APCost = ( uiAPCostFromSlot[ fromretrieve ] + uiAPCostToSlot [ tohand ] );
-					INT16 weight = (int)((Item[this->inv[retrieveslot].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
-					APCost += DynamicAdjustAPConstants(weight, weight);
-					APTotalCost += __min(APCost, APBPConstants[AP_INV_MAX_COST]);
-				}
-				if (this->inv[HANDPOS].exists())
-				{
-					APCost = ( uiAPCostFromSlot [ fromhand ] + uiAPCostToSlot [ tostorage ] );
-					INT16 weight = (int)((Item[this->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
-					APCost += DynamicAdjustAPConstants(weight, weight);
-					APTotalCost += __min(APCost, APBPConstants[AP_INV_MAX_COST]);
-				}
-			}
+			if (this->inv[HANDPOS].exists())
+				APTotalCost += GetInvMovementCost(&this->inv[HANDPOS], HANDPOS, handobjstorageslot);
 
 			if (this->bActionPoints >= APTotalCost)
 			{
-				// SANDRO - I dared to change this to use the apropriate function, as that function is actually important for IIS
+				// SANDRO - I dared to change this to use the appropriate function, as that function is actually important for IIS
 				//pSoldier->bActionPoints -= APTotalCost;
 				DeductPoints( this, APTotalCost, 0 );
 
@@ -20353,9 +20331,15 @@ void HandlePlayerTogglingLightEffects( BOOLEAN fToggleValue )
 	{
 		//Toggle light status
 		if ( gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ] )
+		{
 			gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ] = FALSE;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_MERC_CASTS_LIGHT_OFF ] );
+		}
 		else
+		{
 			gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ] = TRUE;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_MERC_CASTS_LIGHT_ON ] );
+		}
 	}
 
 	//Update all the mercs in the sector

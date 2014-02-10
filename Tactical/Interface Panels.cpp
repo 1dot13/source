@@ -3574,7 +3574,7 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 }
 
 //Jenilee
-INT32 uiLastHandPos = -1;
+INT32 iLastHandPos = -1;
 
 #define SLOT_NONE		0
 #define SLOT_HANDS		1
@@ -3636,7 +3636,7 @@ UINT16 uiOIVSlotType[NUM_INV_SLOTS] = {
 						0, 0, 0, 0, 0, 0	//49-54
 };
 
-UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
+UINT16 GetInvMovementCost(OBJECTTYPE* pObj, INT16 old_pos, INT16 new_pos)
 {
 	if (!(gTacticalStatus.uiFlags & INCOMBAT) || //Not in combat
 		(old_pos == -1 || new_pos == -1)||	//Either position is invalid
@@ -3724,7 +3724,7 @@ UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
 void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32 uiHandPos;
-	// Copyies of values
+	// Copies of values
 	UINT16 usOldItemIndex, usNewItemIndex;
 	UINT16 usItemPrevInItemPointer;
 	UINT16 usCostToMoveItem = 0; //Jenilee
@@ -3826,7 +3826,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 
 			//Jenilee: remember our last selected slot
-			uiLastHandPos = uiHandPos;
+			iLastHandPos = uiHandPos;
 
 
 			// move item into the mouse cursor
@@ -3859,7 +3859,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					return;
 				if (INV_AP_COST)
 					//Jenilee: determine the cost of moving this item around in our inventory
-					usCostToMoveItem = GetInvMovementCost(gpItemPointer, uiLastHandPos, uiHandPos);
+					usCostToMoveItem = GetInvMovementCost(gpItemPointer, iLastHandPos, uiHandPos);
 				
 				// Flugente: backgrounds
 				usCostToMoveItem = (usCostToMoveItem * (100 + gpSMCurrentMerc->GetBackgroundValue(BG_INVENTORY))) / 100;
@@ -3867,14 +3867,14 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( ( usCostToMoveItem == 0 ) || ( gpSMCurrentMerc->bActionPoints >= usCostToMoveItem ) )
 				{
 					fOKToGo = TRUE;
-					//uiLastHandPos = uiHandPos;//dnl ch66 070913 this should be set after we move item
+					//iLastHandPos = uiHandPos;//dnl ch66 070913 this should be set after we move item
 				}
 				else //we dont have enough APs to move it to this slot, show a warning message
 				{
 					// silversurfer: What if our old slot is occupied now (could happen when we swap items)?
 					// We will be stuck with an item at the hand cursor and nowhere to put it -> bad. :-(
 					// So let's check if our old slot is empty and if it is not allow item placement anyway.
-					if ( gpSMCurrentMerc->inv[ uiLastHandPos ].usItem == NULL )
+					if ( gpSMCurrentMerc->inv[ iLastHandPos ].usItem == NULL )
 					{
 						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
 						fOKToGo = FALSE;
@@ -3958,8 +3958,13 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					return;
 				}
 
+				// hold ALT key to swap valid attachment item instead
+				if ( _KeyDown(ALT) )
+				{
+					// do nothing
+				}
 				// we allow attaching on items in any slot
-				if ( ValidAttachment( usNewItemIndex, &(gpSMCurrentMerc->inv[uiHandPos]) ) )
+				else if ( ValidAttachment( usNewItemIndex, &(gpSMCurrentMerc->inv[uiHandPos]) ) )
 				{
 					// it's an attempt to attach; bring up the inventory panel
 					if ( !InItemDescriptionBox( ) )
@@ -4029,7 +4034,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// try to place the item in the cursor into this inventory slot
 				if ( UIHandleItemPlacement( (UINT8) uiHandPos, usOldItemIndex, usNewItemIndex, fDeductPoints ) )
 				{
-					uiLastHandPos = uiHandPos;//dnl ch66 070913
+					iLastHandPos = uiHandPos;//dnl ch66 070913
 					//Jenilee: pay the price
 					//just make sure to handle that if we are putting it back in the SAME slot, the cost should be 0!!!
 					gpSMCurrentMerc->bActionPoints -= usCostToMoveItem;

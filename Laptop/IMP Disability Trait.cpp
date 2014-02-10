@@ -412,12 +412,13 @@ void BtnIMPDisabilityTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		//if we are just reviewing the page
-		if( iCurrentProfileMode == IMP__FINISH )
-		{
-			//go back tot he done screen
-			iCurrentImpPage = IMP_FINISH;
-		}
-		else
+		//if( iCurrentProfileMode == IMP__FINISH )
+		//{
+			//go back to the done screen
+		iCurrentImpPage = IMP_PREJUDICE;
+		fButtonPendingFlag = TRUE;
+		//}
+		/*else
 		{
 			iCurrentImpPage = IMP_PREJUDICE;
 
@@ -431,7 +432,7 @@ void BtnIMPDisabilityTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 				else
 					iCurrentProfileMode = IMP__FINISH;
 			}
-		}
+		}*/
 	}
 }
 

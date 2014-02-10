@@ -375,7 +375,7 @@ void BtnIMPPrejudiceFinishCallback(GUI_BUTTON *btn,INT32 reason)
 			//go back tot he done screen
 			iCurrentImpPage = IMP_FINISH;
 		}
-		// Flugente: setting determines wether we see the background page
+		// Flugente: setting determines whether we see the background page
 		else
 		{
 			// we finished this -> write down our choices
@@ -409,7 +409,7 @@ void BtnIMPPrejudiceFinishCallback(GUI_BUTTON *btn,INT32 reason)
 BOOLEAN CameBackToPrejudicePageButNotFinished()
 {
 	//if we are in a page that comes after this one
-	if( iCurrentProfileMode == IMP__ATTRIBUTES )
+	if( iCurrentProfileMode == IMP__ATTRIBUTES || iCurrentProfileMode == IMP__PERSONALITY )
 	{
 		return( TRUE );
 	}

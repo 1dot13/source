@@ -3940,8 +3940,9 @@ STR16 pImpPopUpStrings[] =
 	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
 	L"You have already three I.M.P characters with the same gender on your team.",
-	L"You cannot afford the I.M.P character.",
+	L"You cannot afford the I.M.P character.",	// 10
 	L"The new I.M.P character has joined your team.",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 
@@ -5951,7 +5952,7 @@ STR16 pMessageStrings[] =
 	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
 	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"Enabled Soldier Tooltips", // Changed from Drop All On - SANDRO
-	L"Disabled Soldier Tooltips", // Changed from Drop All Off - SANDRO
+	L"Disabled Soldier Tooltips", 	// 80	// Changed from Drop All Off - SANDRO
 	L"Grenade Launchers fire at standard angles",
 	L"Grenade Launchers fire at higher angles",
 	// forced turn mode strings
@@ -5986,6 +5987,8 @@ STR16 pMessageStrings[] =
 	L"Release mouse cursor from game window boundary.",			// 105
 	L"Move in Formation ON",	// TODO.Translate
 	L"Move in Formation OFF",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 

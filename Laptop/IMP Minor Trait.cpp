@@ -303,9 +303,14 @@ void BtnIMPMinorTraitAnswerCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 //		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		INT32 iMinorTrait =	MSYS_GetBtnUserData( btn, 0 );
+		if( NumAvailableMinorTraits() > 0 )
+		{
+			INT32 iMinorTrait =	MSYS_GetBtnUserData( btn, 0 );
 
-		HandleIMPMinorTraitAnswers( iMinorTrait );
+			HandleIMPMinorTraitAnswers( iMinorTrait );
+		}
+		else
+			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 12 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 	}
 }
 
@@ -568,19 +573,7 @@ INT8 NumAvailableMinorTraits()
 
 	bNumMinorTraits = gSkillTraitValues.ubMaxNumberOfTraitsForIMP - bNumMajorTraits;
 
-	bNumMinorTraits = max( 1, bNumMinorTraits );
-
-	//if ( bNumMajorTraits == 0 )
-	//	bNumMinorTraits = 3;
-	//else if ( bNumMajorTraits == 1 )
-	//	bNumMinorTraits = 2;
-	//else if ( bNumMajorTraits == 2 )
-	//	bNumMinorTraits = 1;
-	//else
-	//{
-	//	Assert( 0 );
-	//	bNumMinorTraits = 0;
-	//}
+	bNumMinorTraits = max( 0, bNumMinorTraits );
 
 	return(bNumMinorTraits);
 }

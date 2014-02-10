@@ -3953,8 +3953,9 @@ STR16 pImpPopUpStrings[] =
 	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
 	L"You have already the maximum number of I.M.P characters with that gender on your team.",
-	L"You cannot afford the I.M.P character.",
+	L"You cannot afford the I.M.P character.",	// 10
 	L"The new I.M.P character has joined your team.",
+	L"You have already selected the maximum number of traits.",
 };
 
 
@@ -5968,7 +5969,7 @@ STR16 pMessageStrings[] =
 	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
 	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"Enabled Soldier Tooltips", // Changed from Drop All On - SANDRO
-	L"Disabled Soldier Tooltips", // Changed from Drop All Off - SANDRO
+	L"Disabled Soldier Tooltips", 	// 80	// Changed from Drop All Off - SANDRO
 	L"Grenade Launchers fire at standard angles",
 	L"Grenade Launchers fire at higher angles",
 	// forced turn mode strings
@@ -5979,11 +5980,8 @@ STR16 pMessageStrings[] =
 	L"Successfully Saved the Game into the End Turn Auto Save slot.",
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
 	L"Client",
-
-	// TODO.Translate
 	L"You cannot use the Old Inventory and the New Attachment System at the same time.",
 
-	// TODO.Translate
 	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
 	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
 	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
@@ -6003,6 +6001,8 @@ STR16 pMessageStrings[] =
 	L"Release mouse cursor from game window boundary.",			// 105
 	L"Move in Formation ON",
 	L"Move in Formation OFF",
+	L"Artificial Merc Light ON",
+	L"Artificial Merc Light OFF",
 };
 
 

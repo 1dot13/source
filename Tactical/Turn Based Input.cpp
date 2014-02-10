@@ -3245,13 +3245,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						gGameSettings.fOptions[ TOPTION_TRACKING_MODE ] = FALSE;
 
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_TACKING_MODE_OFF ] );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_TRACKING_MODE_OFF ] );
 					}
 					else
 					{
 						gGameSettings.fOptions[ TOPTION_TRACKING_MODE ] = TRUE;
 
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_TACKING_MODE_ON ] );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_TRACKING_MODE_ON ] );
 					}
 				}
 				else
@@ -3521,7 +3521,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'K':
 				// Flugente: reworked this
 				//CHRISL: Swap gunsling
-				if ( gusSelectedSoldier != NOBODY && UsingNewInventorySystem() == true)
+				if ( gusSelectedSoldier != NOBODY )
 				{
 					SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 

@@ -3950,8 +3950,9 @@ STR16 pImpPopUpStrings[] =
 	L"Impossible de charger le profil.",
 	L"Vous avez déjà atteint le nombre maximum d'IMP.",
 	L"Vous avez déjà trois IMP du même sexe dans l'escouade.",
-	L"Vous n'avez pas les moyens.",
+	L"Vous n'avez pas les moyens.",	// 10
 	L"Le nouvel IMP a rejoint votre escouade.",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 
@@ -5965,7 +5966,7 @@ STR16 pMessageStrings[] =
 	L"Curseur de visée pour raf. gre. (Dispersion activée).",
 	L"Curseur de trajectoire raf. gre. (Dispersion desact.).",
 	L"Infobulle soldat activée", // Changed from Drop All On - SANDRO
-	L"Infobulle soldat désactivée", // Changed from Drop All Off - SANDRO
+	L"Infobulle soldat désactivée", 	// 80	// Changed from Drop All Off - SANDRO
 	L"Petit angle pour lance-grenades",
 	L"Grand angle pour lance-grenades",
 	// forced turn mode strings
@@ -5998,6 +5999,8 @@ STR16 pMessageStrings[] =
 	L"Libérer le curseur pour qu'il se déplace hors de la fenêtre.",			// 105
 	L"Déplacement tactique activé",
 	L"Déplacement tactique désactivé",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 

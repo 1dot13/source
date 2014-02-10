@@ -3902,8 +3902,9 @@ STR16 pImpPopUpStrings[] =
 	L"Fehler beim Laden des B.S.E.-Charakters.",
 	L"Sie haben bereits die maximale Anzahl an B.S.E.-Charakteren.",
 	L"Sie haben bereits drei B.S.E.-Charaktere mit dem gleichen Geschlecht.",
-	L"Sie können sich den B.S.E.-Charakter nicht leisten.",
+	L"Sie können sich den B.S.E.-Charakter nicht leisten.",	// 10
 	L"Der neue B.S.E.-Charakter ist nun in ihrem Team.",
+	L"You have already selected the maximum number of traits.",	// TODO.Translate
 };
 
 // button labels used on the IMP site
@@ -5799,7 +5800,7 @@ STR16 pMessageStrings[] =
 	L"Granatenwerfer-Feuerstöße verwenden Ziel-Cursor (Sperrfeuer aktiviert).",
 	L"Granatenwerfer-Feuerstöße verwenden Flugbahn-Cursor (Sperrfeuer deaktiviert).",
 	L"Soldaten-Kurzinfo (\"Tooltips\") aktiviert",		// Changed from Drop All On - SANDRO
-	L"Soldaten-Kurzinfo (\"Tooltips\") deaktiviert",	// Changed from Drop All Off - SANDRO
+	L"Soldaten-Kurzinfo (\"Tooltips\") deaktiviert", 	// 80	// Changed from Drop All Off - SANDRO
 	L"Granatwerfer schießen in flachem Winkel.",
 	L"Granatwerfer schießen in steilem Winkel.",
 	// forced turn mode strings
@@ -5807,7 +5808,7 @@ STR16 pMessageStrings[] =
 	L"Normaler Rundenmodus",
 	L"Verlasse Kampfmodus",
 	L"Erzwungener Rundenmodus ist aktiv, gehe in Kampfmodus",
-	L"Spiel erfolgreich in Position End Turn Auto Save gespeichert.",	// 83
+	L"Spiel erfolgreich in Position End Turn Auto Save gespeichert.",
 	L"..\\Spielstände\\MP_Spielstände",			//The name of the directory where games are saved.
 	L"Client",
 	
@@ -5831,6 +5832,8 @@ STR16 pMessageStrings[] =
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
 	L"In Formation bewegen - EINGESCHALTET",
 	L"In Formation bewegen - AUSGESCHALTET",
+	L"Artificial Merc Light ON",	// TODO.Translate
+	L"Artificial Merc Light OFF",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =

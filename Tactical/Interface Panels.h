@@ -168,4 +168,7 @@ extern UINT8 gubDescBoxLine;
 // Record how many lines there are for the current item in the Advanced tab.
 extern UINT8 gubDescBoxTotalAdvLines;
 
+// Jenilee: determine the cost of moving this item around in our inventory
+UINT16 GetInvMovementCost(OBJECTTYPE* pObj, INT16 old_pos, INT16 new_pos);
+
 #endif
