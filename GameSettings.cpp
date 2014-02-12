@@ -2473,6 +2473,12 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.bSNTLonerMercBonus					= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -10, -100, 100);
 	gSkillTraitValues.bSNTSameAssignmentBonus				= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -20, -100, 100);
 	gSkillTraitValues.bSNTMercOpinionAboutMercTreshold		= iniReader.ReadInteger("Snitch","MERC_OPINION_ABOUT_MERC_TRESHOLD",  -10, -25, 25);
+
+	gSkillTraitValues.ubSNTPassiveReputationGain	= iniReader.ReadInteger("Snitch","PASSIVE_REPUTATION_GAIN",  3, 0, 100);
+	gSkillTraitValues.ubSNTHearingRangeBonus		= iniReader.ReadInteger("Snitch","HEARING_RANGE_BONUS",  1, 0, 100);
+
+	gSkillTraitValues.fSNTPrisonSnitchInterrogationMultiplier	= iniReader.ReadFloat("Snitch","PRISON_SNITCH_INTERROGATION_MULTIPLIER", 3.0, 0.0, 10.0);
+	gSkillTraitValues.fSNTPrisonSnitchGuardStrengthMultiplier	= iniReader.ReadFloat("Snitch","PRISON_SNITCH_GUARD_STRENGTH_MULTIPLIER", 3.0, 0.0, 10.0);
 }
 //DBrot: Grids
 void LoadModSettings(){
@@ -3450,6 +3456,7 @@ void LoadMoraleSettings()
 	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS]					= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS", 3, 0, 100);
 	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_AGGRESSIVE_BONUS]	= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS_AGGRESSIVE_BONUS", -1, -100, 100);
 	gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS", 2, -100, 100);
+	gMoraleSettings.bValues[MORALE_PREVENTED_MISBEHAVIOUR]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_PREVENTED_MISBEHAVIOUR", -1, -100, 100);
 
 	gMoraleSettings.bModifiers[MORALE_MOD_MAX]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MOD_MAX", -1, 0, 100);
 

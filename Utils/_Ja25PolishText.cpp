@@ -379,6 +379,13 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"Okazyjnie poinformuje cię o opiniach kolegów z oddziału.\n",
+	L"Zapobiega złemu zachowaniu kolegów z oddziału (narkotyki, alkohol, kradzieże).\n",
+	L"Może szerzyć propagandę w miastach.\n",
+	L"Może zbierać plotki w miastach.\n",
+	L"Może zostać umieszczony w więzieniu jako tajniak.\n",
+	L"Jeżeli w dobrym nastroju, poprawia twoją reputację o %d każdego dnia.\n",
+	L"+%d zasięg słuchu\n",
+	
 };
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {

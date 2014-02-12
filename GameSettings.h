@@ -1799,7 +1799,10 @@ typedef struct
 	INT8 bSNTLonerMercBonus;					// Bonus to chance if merc is loner
 	INT8 bSNTSameAssignmentBonus;				// Bonus to chance if snitch and merc are on the same assignment
 	INT8 bSNTMercOpinionAboutMercTreshold;		// For reports "merc hates merc" final chance is proportional to dislike in range between treshold (0%) and -25(100%)
-
+	UINT8 ubSNTPassiveReputationGain;			// Reputation gain per day if snitch is happy
+	UINT8 ubSNTHearingRangeBonus;				// Hearing range bonus
+	FLOAT fSNTPrisonSnitchInterrogationMultiplier;	// Undercover snitch interrogation effectivness multiplier (compared to normal interrogation)
+	FLOAT fSNTPrisonSnitchGuardStrengthMultiplier;	// Undercover snitch guarding effectivness multiplier (compared to normal guards)
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

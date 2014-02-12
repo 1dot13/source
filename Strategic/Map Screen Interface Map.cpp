@@ -6396,7 +6396,8 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	if( !sNumberOfEnemies )
 	{
 		// nope - display nothing
-		return;
+		// anv: probability of false enemy reports!
+		//return;
 	}
 
 

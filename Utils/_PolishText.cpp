@@ -1942,6 +1942,12 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Jeniec",
 	L"Szpital",
 	L"Pusty",	// Vehicle is empty
+	L"Więzienny kapuś",	// facility: undercover prisoner (snitch)
+	L"Szerzy propagandę",	// facility: spread propaganda
+	L"Szerzy propagandę",	// facility: spread propaganda (globally)
+	L"Zbiera plotki",			// facility: gather rumours	
+	L"Szerzy propagandę",	// spread propaganda
+	L"Zbiera plotki",			// gather information
 };
 
 
@@ -1990,6 +1996,12 @@ STR16 pLongAssignmentStrings[] =
 	L"Jeniec",
 	L"W szpitalu", // patient in a hospital 
 	L"Pusty",	// Vehicle is empty
+	L"Więzienny kapuś",		// facility: undercover prisoner (snitch)
+	L"Szerz propagandę",	// facility: spread propaganda
+	L"Szerz propagandę",	// facility: spread propaganda (globally)
+	L"Zbieraj plotki",		// facility: gather rumours	
+	L"Szerz propagandę",	// spread propaganda
+	L"Zbieraj plotki",		// gather information
 };
 
 
@@ -2105,7 +2117,8 @@ STR16 pAssignMenuStrings[] =
 	L"Pacjent", // the merc is receiving medical attention
 	L"Pojazd", // the merc is in a vehicle
 	L"Naprawa", // the merc is repairing items 
-	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Nasłuch", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Kapuś", // anv: snitch actions
 	L"Szkolenie", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
@@ -2175,6 +2188,80 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - mortar positions in neighbouring sectors\n",
 	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - possession by a demon",
+};
+
+STR16 pSnitchMenuStrings[] =
+{
+	// snitch
+	L"Drużynowy kapuś",
+	L"Zlecenie w mieście",	
+	L"Anuluj",
+};
+
+STR16 pSnitchMenuDescStrings[] =
+{
+	// snitch
+	L"Przedyskutuj zachowanie kapusia względem jego kolegów.",
+	L"Podejmij zlecenie w sektorze miejskim.",
+	L"Anuluj",
+};
+
+STR16 pSnitchToggleMenuStrings[] =
+{
+	// toggle snitching
+	L"Zgłaszaj skargi",
+	L"Nie zgłaszaj skarg",
+	L"Zapobiegaj złemu zachowaniu",
+	L"Nie zapobiegaj złemu zachowaniu",
+	L"Anuluj",
+};
+
+STR16 pSnitchToggleMenuDescStrings[] =
+{
+	L"Zgłaszaj swojemu dowódcy wszelkie skargi jakie usłyszysz ze strony pozostałych najemników.",
+	L"Niczego nie zgłaszaj.",
+	L"Próbuj powstrzymywać pozostałych najemników przed pijaństwem czy kradzieżami.",
+	L"Nie zwracaj uwagi na zachowanie pozostałych najemników.",
+	L"Anuluj",
+};
+
+STR16 pSnitchSectorMenuStrings[] =
+{
+	// sector assignments
+	L"Szerz propagandę",
+	L"Zbieraj plotki",
+	L"Anuluj",
+};
+
+STR16 pSnitchSectorMenuDescStrings[] =
+{
+	L"Wychwalaj postępowanie najemników aby podnieść lojalność miasta i zaprzeczaj wszelkim negatywnym doniesieniom.",
+	L"Nasłuchuj wszelkich pogłosek o wrogiej aktywności.",
+	L"",
+};
+
+STR16 pSnitchPrisonExposedStrings[] =
+{
+	L"%s został zdemaskowany jako kapuś, ale w porę to spostrzegł i zdołał ujść z życiem.",
+	L"%s został zdemaskowany jako kapuś, ale zdołał załagodzić sytuację i ujść z życiem.",
+	L"%s został zdemaskowany jako kapuś, ale zdołał uniknąć próby zamachu.",
+	L"%s został zdemaskowany jako kapuś, ale strażnicy zdołali zapobiec wybuchowi agresji wśród więźniów.",
+
+	L"%s został zdemaskowany jako kapuś i niemal utopiony przez współwięźniów nim strażnicy zdołali go uratować.",
+	L"%s został zdemaskowany jako kapuś i niemal pobity na śmierć przez współwięźniów nim strażnicy zdołali go uratować.",
+	L"%s został zdemaskowany jako kapuś i niemal zasztyletowany przez współwięźniów nim strażnicy zdołali go uratować.",
+	L"%s został zdemaskowany jako kapuś i niemal uduszony przez współwięźniów nim strażnicy zdołali go uratować.",
+
+	L"%s został zdemaskowany jako kapuś i utopiony w kiblu przez współwięźniów.",
+	L"%s został zdemaskowany jako kapuś i pobity na śmierć przez współwięźniów.",
+	L"%s został zdemaskowany jako kapuś i zasztyletowany przez współwięźniów.",
+	L"%s został zdemaskowany jako kapuś i uduszony przez współwięźniów.",
+};
+
+STR16 pSnitchGatheringRumoursResultStrings[] =
+{
+	L"%s słyszał pogłoski o aktywnośći wroga w %d sektorach.",
+
 };
 
 STR16 pRemoveMercStrings[] =
@@ -7025,6 +7112,8 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s doznaje ciężkich obrażeń w sektorze %s",	//	%s was injured in sector %s. // <--- This is a log message string.
 	// 31 - 35
 	L"%s doznaje ciężkich obrażeń w sektorze %s", //<--- This is a log message string.
+	L"Obecni więźniowie zdają sobie sprawę, iż %s jest najemnikiem.",
+	L"%s jest obecnie powszechnie znany jako kapuś. Odczekaj przynajmniej %d godzin(ę).",
 
 
 };

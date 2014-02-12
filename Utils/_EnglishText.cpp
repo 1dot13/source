@@ -1844,7 +1844,13 @@ STR16 pAssignmentStrings[] =
 	L"Incap.", // abbreviation for incapacitated
 	L"POW", // Prisoner of war - captured
 	L"Hospital", // patient in a hospital	
-	L"Empty",	// Vehicle is empty	
+	L"Empty",	// Vehicle is empty
+	L"Snitch",	// facility: undercover prisoner (snitch)
+	L"Propag.",	// facility: spread propaganda
+	L"Propag.",	// facility: spread propaganda (globally)
+	L"Rumours",	// facility: gather information
+	L"Propag.",	// spread propaganda
+	L"Rumours",	// gather information
 };
 
 
@@ -1934,6 +1940,12 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"POW",
 	L"Hospital", 
 	L"Empty",	// Vehicle is empty
+	L"Undercover Snitch",		// facility: undercover prisoner (snitch)
+	L"Spreading Propaganda",	// facility: spread propaganda
+	L"Spreading Propaganda",	// facility: spread propaganda (globally)
+	L"Gathering Rumours",			// facility: gather rumours	
+	L"Spreading Propaganda",	// spread propaganda
+	L"Gathering Rumours",			// gather information
 };
 
 
@@ -1973,7 +1985,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",	// Missing
 	L"Train Teammate",
 	L"Student",
-	L"MoveItem",	// move items
+	L"Move Item",	// move items
 	L"Staff Facility",	// Missing
 	L"Rest at Facility",	// Missing
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners
@@ -1982,6 +1994,12 @@ STR16 pLongAssignmentStrings[] =
 	L"POW",
 	L"Hospital", // patient in a hospital 
 	L"Empty",	// Vehicle is empty
+	L"Undercover Snitch",		// facility: undercover prisoner (snitch)
+	L"Spread Propaganda",	// facility: spread propaganda
+	L"Spread Propaganda",	// facility: spread propaganda (globally)
+	L"Gather Rumours",			// facility: gather rumours	
+	L"Spread Propaganda",	// spread propaganda
+	L"Gather Rumours",			// gather information
 };
 
 
@@ -2098,8 +2116,9 @@ STR16 pAssignMenuStrings[] =
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
 	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Snitch", // anv: snitch actions
 	L"Train", // the merc is training
-	L"MoveItem",	// move items
+	L"Move Item",	// move items
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
@@ -2167,6 +2186,80 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - mortar positions in neighbouring sectors\n",
 	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - possession by a demon",
+};
+
+STR16 pSnitchMenuStrings[] =
+{
+	// snitch
+	L"Team Informant",
+	L"Town Assignment",	
+	L"Cancel",
+};
+
+STR16 pSnitchMenuDescStrings[] =
+{
+	// snitch
+	L"Discuss snitch's behaviour towards his teammates.",
+	L"Take an assignment in this sector.",
+	L"Cancel",
+};
+
+STR16 pSnitchToggleMenuStrings[] =
+{
+	// toggle snitching
+	L"Report complaints",
+	L"Don't report",
+	L"Prevent misbehaviour",
+	L"Ignore misbehaviour",
+	L"Cancel",
+};
+
+STR16 pSnitchToggleMenuDescStrings[] =
+{
+	L"Report any complaints you hear from other mercs to your commander.",
+	L"Don't report anything.",
+	L"Try to stop other mercs from getting wasted and scrounging.",
+	L"Don't care what other mercs do.",
+	L"Cancel",
+};
+
+STR16 pSnitchSectorMenuStrings[] =
+{
+	// sector assignments
+	L"Spread propaganda",
+	L"Gather rumours",
+	L"Cancel",
+};
+
+STR16 pSnitchSectorMenuDescStrings[] =
+{
+	L"Glorify mercs' actions to increase town loyalty and suppress any bad news. ",
+	L"Keep an ear to the ground on any rumours about enemy forces activity.",
+	L"",
+};
+
+STR16 pSnitchPrisonExposedStrings[] =
+{
+	L"%s was exposed as a snitch but managed to notice it and get out alive.",
+	L"%s was exposed as a snitch but managed to defuse situation and get out alive.",
+	L"%s was exposed as a snitch but managed to avoid assassination attempt.",
+	L"%s was exposed as a snitch but guards managed to prevent any violence outbursts.",
+
+	L"%s was exposed as a snitch and almost drowned by other inmates before guards saved him.",
+	L"%s was exposed as a snitch and almost beaten to death before guards saved him.",
+	L"%s was exposed as a snitch and almost stabbed to death before guards saved him.",
+	L"%s was exposed as a snitch and strangled to death before guards saved him.",
+
+	L"%s was exposed as a snitch and drowned in toilet by other inmates.",
+	L"%s was exposed as a snitch and beaten to death by other inmates.",
+	L"%s was exposed as a snitch and shanked to death by other inmates.",
+	L"%s was exposed as a snitch and strangled to death by other inmates.",
+};
+
+STR16 pSnitchGatheringRumoursResultStrings[] =
+{
+	L"%s heard rumours about enemy activity in %d sectors.",
+
 };
 
 STR16 pRemoveMercStrings[] =
@@ -7006,6 +7099,8 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s was injured in sector %s.", // <--- This is a log message string.
 	// 31 - 35
 	L"%s was severely injured in sector %s.", //<--- This is a log message string.
+	L"There are currently prisoners here who are aware of %s's identity.",
+	L"%s is currently well known as a mercenary snitch. Wait at least %d more hours.",
 
 
 };
@@ -7070,6 +7165,11 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Leadership",
 	L"Trainer Explosives",
 	L"Interrogate Prisoners",	// added by Flugente
+	L"Undercover Snitch",
+	// 36-40
+	L"Spread Propaganda",
+	L"Spread Propaganda",	// spread propaganda (globally)
+	L"Gather Rumours",
 };
 STR16 Additional113Text[]=
 {
@@ -7885,10 +7985,10 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d elites, %d regulars and %d amins were interrogated.",
+	L"%d elites, %d regulars and %d admins were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
-	L"%d elites, %d regulars and %d amins joined our cause.",
+	L"%d elites, %d regulars and %d admins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
 	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",

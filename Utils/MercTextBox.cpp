@@ -27,7 +27,7 @@
 #define		MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_Y		10
 
 #define		MERC_BACKGROUND_WIDTH										350
-#define		MERC_BACKGROUND_HEIGHT									200
+#define		MERC_BACKGROUND_HEIGHT									207
 
 // the max number of pop up boxes availiable to user
 #define MAX_NUMBER_OF_POPUP_BOXES 10

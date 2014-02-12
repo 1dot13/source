@@ -71,8 +71,42 @@ enum
 	ASSIGNMENT_UNCONCIOUS,			// unused
 	ASSIGNMENT_POW,
 	ASSIGNMENT_HOSPITAL,
-	ASSIGNMENT_EMPTY,	
+	ASSIGNMENT_EMPTY,
+	FACILITY_PRISON_SNITCH,
+	FACILITY_SPREAD_PROPAGANDA,
+	FACILITY_SPREAD_PROPAGANDA_GLOBAL,
+	FACILITY_GATHER_RUMOURS,
+	SNITCH_SPREAD_PROPAGANDA,
+	SNITCH_GATHER_RUMOURS,
 	NUM_ASSIGNMENTS,
+};
+
+// strings for snitch exposition
+enum
+{
+	SNITCH_PRISON_EXPOSED_FINE_WISDOM,
+	SNITCH_PRISON_EXPOSED_FINE_LEADERSHIP,
+	SNITCH_PRISON_EXPOSED_FINE_EXPLEVEL,
+	SNITCH_PRISON_EXPOSED_FINE_GUARDS,
+
+	SNITCH_PRISON_EXPOSED_WOUNDED_DROWN,	
+	SNITCH_PRISON_EXPOSED_WOUNDED_BEATEN,
+	SNITCH_PRISON_EXPOSED_WOUNDED_KNIFED,
+	SNITCH_PRISON_EXPOSED_WOUNDED_STRANGLED,
+
+	SNITCH_PRISON_EXPOSED_DEAD_DROWN,	
+	SNITCH_PRISON_EXPOSED_DEAD_BEATEN,
+	SNITCH_PRISON_EXPOSED_DEAD_KNIFED,
+	SNITCH_PRISON_EXPOSED_DEAD_STRANGLED,
+
+	NUM_SNITCH_PRISON_EXPOSED,
+};
+
+// strings for snitch gathering rumours
+enum
+{
+	SNITCH_GATHERING_RUMOURS_RESULT,
+	NUM_SNITCH_GATHERING_RUMOURS_RESULT,
 };
 
 #define NO_ASSIGNMENT		127 //used when no pSoldier->ubDesiredSquad
@@ -150,6 +184,9 @@ BOOLEAN CanCharacterVehicle( SOLDIERTYPE *pCharacter );
 // can character be added to squad
 INT8 CanCharacterSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue );
 
+// can character snitch
+BOOLEAN CanCharacterSnitch( SOLDIERTYPE *pCharacter );
+
 // if merc could train militia here, do they have sufficient loyalty?
 BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSoldier );
 BOOLEAN DoesTownHaveRatingToTrainMilitia( INT8 bTownId );
@@ -196,6 +233,8 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
+UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
+
 // Flugente: determine max items we can move, and the sector distance
 
 // get bonus tarining pts due to an instructor for this student
@@ -230,6 +269,10 @@ extern INT32 ghMoveBox;
 extern INT32 ghFacilityBox;
 extern INT32 ghFacilityAssignmentBox;
 //extern INT32 ghUpdateBox;
+// anv: snitch menus
+extern INT32 ghSnitchBox;
+extern INT32 ghSnitchToggleBox;
+extern INT32 ghSnitchSectorBox;
 
 
 extern MOUSE_REGION	gAssignmentScreenMaskRegion;
@@ -300,6 +343,17 @@ void FacilityMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void );
 void FacilityAssignmentMenuMvtCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 void FacilityAssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// anv: snitch menus
+void CreateDestroyMouseRegionsForSnitchMenu( void );
+void SnitchMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+void SnitchMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+void CreateDestroyMouseRegionsForSnitchToggleMenu( void );
+void SnitchToggleMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+void CreateDestroyMouseRegionsForSnitchSectorMenu( void );
+void SnitchSectorMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+void SnitchSectorMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // contract menu
 void CreateDestroyMouseRegionsForContractMenu( void );
@@ -391,6 +445,11 @@ extern SOLDIERTYPE *gpFacilityStaffer;
 
 // SANDRO - function to award record points for militia training
 void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 sZ, UINT8 ubMilitiaTrained, BOOLEAN fMobile );
+
+// anv: decrease town loyalty hits
+UINT32 HandlePropagandaBlockingBadNewsInTown( INT8 bTownId, UINT32 uiLoyaltyDecrease );
+
+void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier );
 
 #endif
 

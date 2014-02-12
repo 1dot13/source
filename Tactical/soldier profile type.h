@@ -3,6 +3,7 @@
 
 #include "overhead types.h"
 #include "Soldier Control.h"
+#include "mapscreen.h"
 
 #define NUM_PROFILES		255 //170 new profiles by Jazz
 #define NUM_PROFILES_v111	170
@@ -944,6 +945,12 @@ public:
 
 	// Flugente: background
 	UINT16 usBackground;
+
+	// anv: for snitches, remember if he was exposed and by how many people (could be used for covert purposes too)
+	//UINT8	ubExposedInSector[MAP_WORLD_X * MAP_WORLD_Y];
+
+	// anv: simplified ubExposedInSector, hours until snitch can go undercover after exposition
+	UINT8 ubSnitchExposedCooldown;
 
 }; // MERCPROFILESTRUCT;
 

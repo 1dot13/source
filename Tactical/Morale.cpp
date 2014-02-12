@@ -105,6 +105,7 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ STRATEGIC_MORALE_EVENT,			-2},	//MORALE_BAD_EQUIPMENT,
 	{ STRATEGIC_MORALE_EVENT,			-3},	//MORALE_OWED_MONEY,
 	{ STRATEGIC_MORALE_EVENT,			-3},	//MORALE_PLAYER_INACTIVE,
+	{ STRATEGIC_MORALE_EVENT,			-1},	//MORALE_PREVENTED_MISBEHAVIOUR,
 };
 
 BOOLEAN gfSomeoneSaidMoraleQuote = FALSE;
@@ -1384,6 +1385,12 @@ void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCount
 			bSnitchID = SnitchEvents[bCounter].ubSnitchID;
 			pSnitch = FindSoldierByProfileID(bSnitchID,TRUE);
 
+			if( pSnitch == NULL )
+				continue;
+
+			if( !(pSnitch->bActive) )
+				continue;
+
 			if( pSnitch->flags.fMercAsleep )
 				fSleepingSnitch = TRUE;
 
@@ -1399,6 +1406,18 @@ void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCount
 			{
 				if( SnitchEvents[bCounter2].ubSnitchID == bSnitchID )
 				{
+					// check if relevant mercs are well
+					SOLDIERTYPE *pSoldier, *pOtherSoldier;
+					pSoldier = FindSoldierByProfileID(SnitchEvents[bCounter2].ubTargetProfile,TRUE);
+					if( pSoldier == NULL || !(pSoldier->bActive) )
+						continue;
+
+					if( SnitchEvents[bCounter2].ubEventType == SNITCH_HATED_PERSON )
+					{
+						pOtherSoldier = FindSoldierByProfileID(SnitchEvents[bCounter2].ubSecondaryTargetProfile,TRUE);
+						if( pOtherSoldier == NULL || !(pOtherSoldier->bActive) )
+							continue;
+					}
 					// say this info
 					SnitchTacticalCharacterDialogue(FindSoldierByProfileID(bSnitchID,TRUE),SnitchEvents[bCounter2].ubEventType,SnitchEvents[bCounter2].ubEventType,
 						SnitchEvents[bCounter2].ubTargetProfile,SnitchEvents[bCounter2].ubSecondaryTargetProfile);
@@ -1496,6 +1515,10 @@ UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetPro
 						( 1.0 - (FLOAT)( SoldierRelation( pSoldier, pOtherSoldier ) - HATED_OPINION ) /
 						 (FLOAT)( gSkillTraitValues.bSNTMercOpinionAboutMercTreshold - HATED_OPINION ) ) );
 				}
+			}
+			if ( gMercProfiles[pSnitch->ubProfile].bDisability == DEAF )
+			{
+				sSnitchingChance /= 2;
 			}
 			sSnitchingChance = max(0, sSnitchingChance);
 			if( Random(100) < (UINT8)sSnitchingChance )

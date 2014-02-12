@@ -8232,6 +8232,24 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				swprintf( apStr, L"" );
 				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[0]);
 				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[1]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[2]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[3]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[4]);
+				wcscat( apStr, atStr );
+				if( gSkillTraitValues.ubSNTPassiveReputationGain )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[5],gSkillTraitValues.ubSNTPassiveReputationGain);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNTHearingRangeBonus )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[6],gSkillTraitValues.ubSNTHearingRangeBonus);
+					wcscat( apStr, atStr );
+				}
 				break;
 			}
 			case NO_SKILLTRAIT_NT:

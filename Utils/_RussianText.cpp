@@ -1934,6 +1934,12 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"В плену",
 	L"Госпиталь", 
 	L"Пуст",	// Vehicle is empty
+	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
+	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda
+	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
+	L"Gathering Rumours",// TODO.Translate			// facility: gather rumours	
+	L"Spreading Propaganda",// TODO.Translate	// spread propaganda
+	L"Gathering Rumours",// TODO.Translate			// gather information
 };
 
 
@@ -1982,6 +1988,12 @@ STR16 pLongAssignmentStrings[] =
 	L"В плену",
 	L"В госпитале", // patient in a hospital 
 	L"Без пассажиров",	// Vehicle is empty
+	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
+	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda
+	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
+	L"Gather Rumours",// TODO.Translate			// facility: gather rumours	
+	L"Spread Propaganda",// TODO.Translate	// spread propaganda
+	L"Gather Rumours",// TODO.Translate			// gather information
 };
 
 
@@ -2098,6 +2110,7 @@ STR16 pAssignMenuStrings[] =
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
 	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Snitch", // TODO.Translate // anv: snitch actions
 	L"Обучение", // the merc is training
 	L"Move Item",	// move items	// TODO.Translate
 	L"Удобства", // the merc is using/staffing a facility	//Facility
@@ -2168,6 +2181,82 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - possession by a demon",
 };
+
+// TODO.Translate
+STR16 pSnitchMenuStrings[] =
+{
+	// snitch
+	L"Team Informant",
+	L"Town Assignment",	
+	L"Cancel",
+};
+
+STR16 pSnitchMenuDescStrings[] =
+{
+	// snitch
+	L"Discuss snitch's behaviour towards his teammates.",
+	L"Take an assignment in this sector.",
+	L"Cancel",
+};
+
+STR16 pSnitchToggleMenuStrings[] =
+{
+	// toggle snitching
+	L"Report complaints",
+	L"Don't report",
+	L"Prevent misbehaviour",
+	L"Ignore misbehaviour",
+	L"Cancel",
+};
+
+STR16 pSnitchToggleMenuDescStrings[] =
+{
+	L"Report any complaints you hear from other mercs to your commander.",
+	L"Don't report anything.",
+	L"Try to stop other mercs from getting wasted and scrounging.",
+	L"Don't care what other mercs do.",
+	L"Cancel",
+};
+
+STR16 pSnitchSectorMenuStrings[] =
+{
+	// sector assignments
+	L"Spread propaganda",
+	L"Gather rumours",
+	L"Cancel",
+};
+
+STR16 pSnitchSectorMenuDescStrings[] =
+{
+	L"Glorify mercs' actions to increase town loyalty and suppress any bad news. ",
+	L"Keep an ear to the ground on any rumours about enemy forces activity.",
+	L"",
+};
+
+STR16 pSnitchPrisonExposedStrings[] =
+{
+	L"%s was exposed as a snitch but managed to notice it and get out alive.",
+	L"%s was exposed as a snitch but managed to defuse situation and get out alive.",
+	L"%s was exposed as a snitch but managed to avoid assassination attempt.",
+	L"%s was exposed as a snitch but guards managed to prevent any violence outbursts.",
+
+	L"%s was exposed as a snitch and almost drowned by other inmates before guards saved him.",
+	L"%s was exposed as a snitch and almost beaten to death before guards saved him.",
+	L"%s was exposed as a snitch and almost stabbed to death before guards saved him.",
+	L"%s was exposed as a snitch and strangled to death before guards saved him.",
+
+	L"%s was exposed as a snitch and drowned in toilet by other inmates.",
+	L"%s was exposed as a snitch and beaten to death by other inmates.",
+	L"%s was exposed as a snitch and shanked to death by other inmates.",
+	L"%s was exposed as a snitch and strangled to death by other inmates.",
+};
+
+STR16 pSnitchGatheringRumoursResultStrings[] =
+{
+	L"%s heard rumours about enemy activity in %d sectors.",
+
+};
+// /TODO.Translate
 
 STR16 pRemoveMercStrings[] =
 {
@@ -7007,6 +7096,8 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s получил(а) травму в секторе %s.",
 	// 31 - 35
 	L"%s получил(а) серьёзную травму в секторе %s.",
+	L"There are currently prisoners here who are aware of %s's identity.", // TODO.Translate
+	L"%s is currently well known as a mercenary snitch. Wait at least %d more hours.", // TODO.Translate
 
 
 };

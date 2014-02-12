@@ -342,6 +342,9 @@ void DecrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyDecrease )
 		return;
 	}
 
+	// anv: snitches spreading propaganda affect decrease amount
+	uiLoyaltyDecrease = HandlePropagandaBlockingBadNewsInTown( bTownId, uiLoyaltyDecrease );
+
 	// modify loyalty change by town's individual attitude toward rebelling (20 is typical)
 	uiLoyaltyDecrease *= 100;
 	uiLoyaltyDecrease /= (5 * gubTownRebelSentiment[ bTownId ]);

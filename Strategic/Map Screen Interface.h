@@ -126,6 +126,7 @@ enum {
 	ASSIGN_MENU_VEHICLE,
 	ASSIGN_MENU_REPAIR,
 	ASSIGN_MENU_RADIO_SCAN,	// added by Flugente
+	ASSIGN_MENU_SNITCH,
 	ASSIGN_MENU_TRAIN,
 	ASSIGN_MENU_MOVE_ITEMS, // added by Flugente
 	ASSIGN_MENU_FACILITY, // HEAROCK HAM 3.6: Facility List menu
@@ -133,6 +134,29 @@ enum {
 	MAX_ASSIGN_STRING_COUNT,
 };
 
+// snitch menu defines
+enum{
+	SNITCH_MENU_TOGGLE = 0,
+	SNITCH_MENU_SECTOR,	
+	SNITCH_MENU_CANCEL,
+	MAX_SNITCH_MENU_STRING_COUNT,
+};
+
+enum {
+	SNITCH_MENU_TOGGLE_ON = 0,
+	SNITCH_MENU_TOGGLE_OFF,
+	SNITCH_MENU_MISBEHAVIOUR_ON,
+	SNITCH_MENU_MISBEHAVIOUR_OFF,
+	SNITCH_MENU_TOGGLE_CANCEL,
+	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT,
+};
+
+enum {
+	SNITCH_MENU_SECTOR_PROPAGANDA = 0,
+	SNITCH_MENU_SECTOR_GATHER_RUMOURS,
+	SNITCH_MENU_SECTOR_CANCEL,
+	MAX_SNITCH_SECTOR_MENU_STRING_COUNT,
+};
 
 // training assignment menu defines
 enum {
@@ -276,6 +300,10 @@ extern BOOLEAN fShowMilitiaControlMenu ; //lal
 //extern BOOLEAN fShowTalkToAllMenu ;
 extern BOOLEAN fShowFacilityMenu; // HEADROCK HAM 3.6
 extern BOOLEAN fShowFacilityAssignmentMenu; // HEADROCK HAM 3.6
+// anv: snitch menus
+extern BOOLEAN fShowSnitchMenu;
+extern BOOLEAN fShowSnitchToggleMenu;
+extern BOOLEAN fShowSnitchSectorMenu;
 
 extern BOOLEAN fFirstTimeInMapScreen;
 extern BOOLEAN fLockOutMapScreenInterface;
@@ -330,6 +358,13 @@ extern SGPRect FacilityAssignmentDimensions;
 extern SGPPoint RepairPosition;
 extern SGPRect RepairDimensions;
 
+extern SGPPoint SnitchPosition;
+extern SGPRect SnitchDimensions;
+extern SGPPoint SnitchTogglePosition;
+extern SGPRect SnitchToggleDimensions;
+extern SGPPoint SnitchSectorPosition;
+extern SGPRect SnitchSectorDimensions;
+
 extern SGPPoint MilitiaControlPosition; //lal
 extern SGPRect MilitiaControlDimensions;
 
@@ -346,6 +381,9 @@ extern SGPPoint OrigMilitiaControlPosition ; //lal
 extern SGPPoint OrigFacilityPosition; // HEADROCK HAM 3.6: Facility Menu
 extern SGPPoint OrigFacilityAssignmentPosition; // HEADROCK HAM 3.6
 //extern SGPPoint OrigTalkToAllPosition ;
+extern SGPPoint OrigSnitchPosition;
+extern SGPPoint OrigSnitchTogglePosition;
+extern SGPPoint OrigSnitchSectorPosition;
 
 // disble team info panel due to showing of battle roster
 extern BOOLEAN fDisableDueToBattleRoster;

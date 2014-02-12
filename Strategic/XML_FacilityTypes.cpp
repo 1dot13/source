@@ -832,7 +832,27 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
 				pData->curAssignmentType = FAC_INTERROGATE_PRISONERS;
-			}			
+			}
+			else if (strcmp(pData->szCharData, "PRISON_SNITCH") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_PRISON_SNITCH;
+			}
+			else if (strcmp(pData->szCharData, "SPREAD_PROPAGANDA") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_SPREAD_PROPAGANDA;
+			}	
+			else if (strcmp(pData->szCharData, "SPREAD_PROPAGANDA_GLOBAL") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_SPREAD_PROPAGANDA_GLOBAL;
+			}
+			else if (strcmp(pData->szCharData, "GATHER_RUMOURS") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_GATHER_RUMOURS;
+			}	
 			else
 			{
 				CHAR16 sErrorString[256];

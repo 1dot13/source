@@ -136,6 +136,16 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"AttributeMenu",				Loc::pAttributeMenuStrings,			0,	MAX_ATTRIBUTE_STRING_COUNT);
 	ExportSection(props, L"TrainingMenu",				Loc::pTrainingMenuStrings,			0,	MAX_TRAIN_STRING_COUNT);
 	ExportSection(props, L"SquadMenu",					Loc::pSquadMenuStrings,				0,	MAX_SQUAD_MENU_STRING_COUNT);
+
+	ExportSection(props, L"SnitchMenu",					Loc::pSnitchMenuStrings,			0,	MAX_SNITCH_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchMenuDesc",				Loc::pSnitchMenuDescStrings,		0,	MAX_SNITCH_MENU_STRING_COUNT-1);
+	ExportSection(props, L"SnitchToggleMenu",			Loc::pSnitchToggleMenuStrings,		0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchToggleMenuDesc",		Loc::pSnitchToggleMenuDescStrings,	0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT-1);
+	ExportSection(props, L"SnitchSectorMenu",			Loc::pSnitchSectorMenuStrings,		0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchSectorMenuDesc",		Loc::pSnitchSectorMenuDescStrings,	0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT-1);
+	ExportSection(props, L"SnitchPrisonExposed",		Loc::pSnitchPrisonExposedStrings,	0,	NUM_SNITCH_PRISON_EXPOSED);
+	ExportSection(props, L"SnitchGatheringRumoursResult",	Loc::pSnitchGatheringRumoursResultStrings,	0,	NUM_SNITCH_GATHERING_RUMOURS_RESULT);
+
 	ExportSection(props, L"PersonnelTitle",				Loc::pPersonnelTitle,				0,	1);
 	ExportSection(props, L"PersonnelScreen",			Loc::pPersonnelScreenStrings,		0,	TEXT_NUM_PRSNL);
 

@@ -342,6 +342,13 @@ SGPPoint FacilityAssignmentPosition={220,150};
 SGPPoint RepairPosition={160,150};
 SGPRect RepairDimensions={0,0,80,80};
 
+SGPPoint SnitchPosition={160,150};
+SGPRect SnitchDimensions={0,0,80,80};
+SGPPoint SnitchTogglePosition={320,150};
+SGPRect SnitchToggleDimensions={0,0,80,80};
+SGPPoint SnitchSectorPosition={320,150};
+SGPRect SnitchSectorDimensions={0,0,80,80};
+
 //lal
 SGPPoint MilitiaControlPosition={120,150};
 SGPRect MilitiaControlDimensions={0,0,100,95};
@@ -366,6 +373,9 @@ SGPPoint OrigMilitiaControlPosition = { 120, 150 }; //lal
 SGPPoint OrigFacilityPosition = { 160, 150 }; // HEADROCK HAM 3.6
 SGPPoint OrigFacilityAssignmentPosition = { 220,150 }; // HEADROCK HAM 3.6
 //SGPPoint OrigTalkToAllPosition = { 160, 150 };
+SGPPoint OrigSnitchPosition={160,150};
+SGPPoint OrigSnitchTogglePosition={320,150};
+SGPPoint OrigSnitchSectorPosition={320,150};
 
 SQUAD_NAMES	SquadNames[20];
 
@@ -917,7 +927,18 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		{
 			ForceUpDateOfBox( ghTrainingBox );
 		}
-
+		else if( fShowSnitchMenu == TRUE )
+		{
+			ForceUpDateOfBox( ghSnitchBox );
+			if( fShowSnitchToggleMenu == TRUE )
+			{
+				ForceUpDateOfBox( ghSnitchToggleBox );
+			}
+			else if( fShowSnitchSectorMenu == TRUE )
+			{
+				ForceUpDateOfBox( ghSnitchSectorBox );
+			}
+		}
 	}
 
 	if( fDisableDueToBattleRoster )

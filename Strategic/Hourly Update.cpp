@@ -39,6 +39,7 @@
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
 void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
+void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
@@ -53,6 +54,8 @@ void HourlyCheckIfSlayAloneSoHeCanLeave();
 #else
 void HourlyHelicopterRepair();
 #endif
+
+void HourlyGatheringInformation();
 
 void UpdateRegenCounters( void );
 
@@ -112,6 +115,10 @@ CHAR16	zString[128];
 	HourlyLarryUpdate();
 
 	HourlyStealUpdate();
+
+	HourlySnitchUpdate();
+
+	HourlyGatheringInformation();
 
 #ifdef JA2UB
 // no UB
@@ -334,6 +341,7 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 void HourlyLarryUpdate()
 {
 	SOLDIERTYPE *				pSoldier = NULL;
+	SOLDIERTYPE *				pOtherSoldier = NULL;
 	INT8						bSlot = NO_SLOT, bBoozeSlot;
 	INT8						bLarryItemLoop;
 	UINT16						usTemptation = 0;
@@ -386,6 +394,41 @@ void HourlyLarryUpdate()
 
 				if ( usTemptation > 0 )
 				{
+
+					// anv: snitches stop mercs from getting wasted
+					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
+					{					
+						pOtherSoldier = MercPtrs[ cnt ];
+						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
+						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && pOtherSoldier->bInSector && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
+						{
+							if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !( pSoldier->bSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF ) )
+							{
+								if( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
+								{
+									UINT16 bPreventChance = ( EffectiveLeadership( pOtherSoldier ) + EffectiveExpLevel( pOtherSoldier ) / 2);
+									if (gGameOptions.fNewTraitSystem)
+									{
+										bPreventChance += 25 * NUM_SKILL_TRAITS( pOtherSoldier, SQUADLEADER_NT );
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_NT );
+									}
+									else
+									{
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+									}
+									// keep 1% chance no matter what
+									bPreventChance = max( 0, min( 99, bPreventChance ) );
+									if( bPreventChance > PreRandom( 100 ) )
+									{
+										// merc is not amused by being prevented
+										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+										// also here would be a place for dynamic relationship decrease between them
+										continue;
+									}
+								}
+							}
+						}
+					}
 					if ( pSoldier->ubProfile == LARRY_DRUNK )
 					{
 						// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
@@ -449,10 +492,20 @@ void HourlyLarryUpdate()
 	}
 }
 
-// Flugente: certain characters might steal equipment (backgrounds)
+// anv: decrease exposed snitch cooldown (for simplified exposition handling)
+void HourlySnitchUpdate()
+{
+	for( INT32 cnt = 0; cnt <= NUM_PROFILES; ++cnt )
+	{
+		if( gMercProfiles[cnt].ubSnitchExposedCooldown > 0 )
+			gMercProfiles[cnt].ubSnitchExposedCooldown--;
+	}
+}
+
 void HourlyStealUpdate()
 {
 	SOLDIERTYPE *				pSoldier = NULL;
+	SOLDIERTYPE *				pOtherSoldier = NULL;
 	INT8						bSlot = NO_SLOT;
 	UINT16						usTemptation = 0;
 	BOOLEAN						fBar = FALSE;
@@ -469,6 +522,40 @@ void HourlyStealUpdate()
 				// 20% chance that we'll steal something
 				if ( Chance(20) )
 				{
+					// anv: snitches prevent scrounging in the same sector
+					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
+					{					
+						pOtherSoldier = MercPtrs[ cnt ];
+						// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
+						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && pOtherSoldier->bInSector && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
+						{
+							if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !( pSoldier->bSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF ) )
+							{
+								if( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
+								{
+									UINT16 bPreventChance = ( EffectiveLeadership( pOtherSoldier ) + EffectiveExpLevel( pOtherSoldier ) / 2);
+									if (gGameOptions.fNewTraitSystem)
+									{
+										bPreventChance += 25 * NUM_SKILL_TRAITS( pOtherSoldier, SQUADLEADER_NT );
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_NT );
+									}
+									else
+									{
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+									}
+									// keep 1% chance no matter what
+									bPreventChance = max( 0, min( 99, bPreventChance ) );
+									if( bPreventChance > PreRandom( 100 ) )
+									{
+										// merc is not amused by being prevented
+										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+										// also here would be a place for dynamic relationship decrease between them
+										continue;
+									}
+								}
+							}
+						}
+					}
 					// we loop over this sector's inventory and look for something shiny. We will pick it up if we hae enough space in our inventory
 					// open sector inv
 					UINT32 uiTotalNumberOfRealItems = 0;
@@ -611,3 +698,18 @@ void HourlyHelicopterRepair()
 	}
 }
 #endif
+
+void HourlyGatheringInformation()
+{
+	SOLDIERTYPE *pSoldier;
+	INT32 cnt=0;
+
+	// go through list of characters, find all snicthes gathering info
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pSoldier++)
+	{
+		if( ( pSoldier->bActive ) && ( pSoldier->bAssignment == SNITCH_GATHER_RUMOURS || pSoldier->bAssignment == FACILITY_GATHER_RUMOURS ) )
+		{
+			HandleGatheringInformationBySoldier( pSoldier );
+		}
+	}
+}

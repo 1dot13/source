@@ -2335,6 +2335,27 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					fShowNumber		= TRUE;
 					fShowMaximum	= TRUE;
 					break;
+
+				case FACILITY_PRISON_SNITCH:
+					sIconIndex_Assignment		= 27;
+					fDoIcon_Assignment			= TRUE;
+					sPtsAvailable	= (INT16)( CalculateSnitchInterrogationValue(pSoldier, &usMaximumPts ) );
+					fShowNumber		= TRUE;
+					fShowMaximum	= TRUE;
+					break;
+
+				case SNITCH_SPREAD_PROPAGANDA:
+				case FACILITY_SPREAD_PROPAGANDA:
+				case FACILITY_SPREAD_PROPAGANDA_GLOBAL:
+					sIconIndex_Assignment  = 25;
+					fDoIcon_Assignment		= TRUE;
+					break;
+
+				case SNITCH_GATHER_RUMOURS:
+				case FACILITY_GATHER_RUMOURS:
+					sIconIndex_Assignment  = 26;
+					fDoIcon_Assignment		= TRUE;
+					break;
 			}
 
 			// Check for being serviced...

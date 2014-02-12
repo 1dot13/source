@@ -156,6 +156,14 @@ extern STR16 pTraitSkillsMenuStrings[];		//Flugente
 extern STR16 pTraitSkillsMenuDescStrings[]; //Flugente
 extern STR16 pTraitSkillsDenialStrings[]; //Flugente
 //extern STR16 pTalkToAllMenuStrings[];
+extern STR16 pSnitchMenuStrings[];
+extern STR16 pSnitchMenuDescStrings[];
+extern STR16 pSnitchToggleMenuStrings[];
+extern STR16 pSnitchToggleMenuDescStrings[];
+extern STR16 pSnitchSectorMenuStrings[];
+extern STR16 pSnitchSectorMenuDescStrings[];
+extern STR16 pSnitchPrisonExposedStrings[];
+extern STR16 pSnitchGatheringRumoursResultStrings[];
 extern STR16 pAssignMenuStrings[];
 extern STR16 pTrainingStrings[];
 extern STR16 pTrainingMenuStrings[];

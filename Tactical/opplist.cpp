@@ -1566,6 +1566,8 @@ INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 	{
 		if (HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ))
 			bHearing += gSkillTraitValues.ubNOHearingRangeBonus;
+		if (HAS_SKILL_TRAIT( pSoldier, SNITCH_NT ))
+			bHearing += gSkillTraitValues.ubSNTHearingRangeBonus;
 	}
 	else
 	{

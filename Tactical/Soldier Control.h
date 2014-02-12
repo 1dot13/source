@@ -393,6 +393,11 @@ enum
 #define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
 // ----------------------------------------------------------------
 
+// ------------------- more flags for soldiers --------------------
+#define SOLDIER_SNITCHING_OFF				0x00000001	//1				// isn't allowed to snitch
+#define SOLDIER_PREVENT_MISBEHAVIOUR_OFF	0x00000002	//2				// isn't allowed to prevent misbehaviour
+// ----------------------------------------------------------------
+
 // -------- added by Flugente: background property flags --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 // a merc's background info reveals data about his previous life, like former regiments. These backgrounds add small abilities/disabilities. Nothing substantial, just small bits do
@@ -1453,6 +1458,9 @@ public:
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
 	UINT8	ubFiller[20];
+
+	INT32	bSoldierFlagMask2;		// anv: another bSoldierFlagMask
+
 	
 #ifdef JA2UB
 	//ja25

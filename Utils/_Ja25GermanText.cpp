@@ -370,11 +370,16 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Auf der Weltkarte wird in angrenzenden Sektoren die Präsenz von vorhandenem Feind enthüllt\n",
 	L"Verhindert, dass der Feind die Gruppe in den Hinterhalt lockt\n",
 	L"Verhindert, das Umzingeln der Gruppe durch Bloodcats\n",
-
 };
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+	L"Prevents teammates' misbehaviour (drugs, alcohol, scrounging).\n",	// TODO.Translate
+	L"Can spread propaganda in towns.\n",	// TODO.Translate
+	L"Can gather rumours in towns.\n",	// TODO.Translate
+	L"Can be put undercover in prisons.\n",	// TODO.Translate
+	L"Increases your reputation by %d every day if in good morale.\n",	// TODO.Translate
+	L"+%d to effective hearing range\n",	// TODO.Translate
 };
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {

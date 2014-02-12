@@ -251,5 +251,6 @@ extern INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier );
 extern INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
 extern INT16 EffectiveStrength( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer );
 extern INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
+extern INT8 EffectiveLeadership( SOLDIERTYPE * pSoldier ); // anv: and passed to Hourly Update.cpp apparently, so added this one too
 
 #endif

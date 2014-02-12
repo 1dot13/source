@@ -376,7 +376,7 @@ BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
 UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo,				UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
 UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,	UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
 
-void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin );
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX = 0, INT16 sY = 0 );
 void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,  INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin );
 
 void DeleteAllPrisoners( SECTORINFO *pSectorInfo );

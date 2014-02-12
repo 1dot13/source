@@ -374,9 +374,16 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"防止血猫偷袭你的队伍\n",// L"Prevents the bloodcats to ambush your squad\n",
 
 };
+
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
-	L"有时候会告诉你所在队伍队员的意见。\n",	// TODO.Translate
+	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
+	L"Prevents teammates' misbehaviour (drugs, alcohol, scrounging).\n",	// TODO.Translate
+	L"Can spread propaganda in towns.\n",	// TODO.Translate
+	L"Can gather rumours in towns.\n",	// TODO.Translate
+	L"Can be put undercover in prisons.\n",	// TODO.Translate
+	L"Increases your reputation by %d every day if in good morale.\n",	// TODO.Translate
+	L"+%d to effective hearing range\n",	// TODO.Translate
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

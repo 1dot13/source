@@ -1505,22 +1505,34 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			// Flugente: backgrounds
 			if(guiCurrentSaveGameVersion >= BACKGROUNDS)
 			{
-				if(guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8)
-				{
-					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesRead ) )
+					if(guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8)
+					{
+						if ( !FileRead( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesRead ) )
+						{
+							return(FALSE);
+						}
+					}
+					else
+					{
+					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
 					{
 						return(FALSE);
 					}
 				}
-				else
-				{
-				if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
+			}
+			if(guiCurrentSaveGameVersion >= SNITCH_TRAIT_EXTENDED)
+			{
+				//if ( !FileRead( hFile, &this->ubExposedInSector, sizeof(ubExposedInSector), &uiNumBytesRead ) )
+				//{
+				//	return(FALSE);
+				//}
+				if ( !FileRead( hFile, &this->ubSnitchExposedCooldown, sizeof(ubSnitchExposedCooldown), &uiNumBytesRead ) )
 				{
 					return(FALSE);
 				}
 			}
 		}
-		}
+
 		if ( this->uiProfileChecksum != this->GetChecksum() )
 		{
 			return( FALSE );
@@ -1605,6 +1617,16 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 		return(FALSE);
 	}
 
+	//if ( !FileWrite( hFile, &this->ubExposedInSector, sizeof(ubExposedInSector), &uiNumBytesWritten ) )
+	//{
+	//	return(FALSE);
+	//}
+
+	if ( !FileWrite( hFile, &this->ubSnitchExposedCooldown, sizeof(ubSnitchExposedCooldown), &uiNumBytesWritten ) )
+	{
+		return(FALSE);
+	}
+	
 	return TRUE;
 }
 
@@ -2201,6 +2223,20 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 
 			// we now have to substract the 7 bytes we read from the old ubFiller, but have to account for usAISkillUse
 			buffer -= 6;
+		}
+
+		if ( guiCurrentSaveGameVersion >=  SNITCH_TRAIT_EXTENDED )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->bSoldierFlagMask2, sizeof(bSoldierFlagMask2), sizeof(INT32), numBytesRead);
+		}
+		else
+		{
+			this->bSoldierFlagMask2 = 0;
+			
+			for(int i = 0; i < sizeof(bSoldierFlagMask2); ++i)
+				buffer++;			
+			while((buffer%4) > 0)
+				buffer++;
 		}
 
 		/*if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
