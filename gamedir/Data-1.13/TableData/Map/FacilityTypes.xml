@@ -21,7 +21,7 @@
 		<ubIndex>2</ubIndex>
 		<szFacilityName>Small Sleazy Bar</szFacilityName>
 		<szFacilityShortName>Bar</szFacilityShortName>
-		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ubTotalStaffLimit>5</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>REST</ubAssignmentType>
 			<szTooltipText>Have a drink at the local bar! Increases loyalty in this town, for a price and a chance to get drunk.</szTooltipText>
@@ -46,19 +46,51 @@
 				<ubRange>0</ubRange>
 			</DRUNK>
 		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
+			<szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<sCostPerHour>15</sCostPerHour>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>700</usChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>10</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+			<DRUNK>
+				<ubChance>100</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
 		<ubIndex>3</ubIndex>
 		<szFacilityName>Prison Complex</szFacilityName>
 		<szFacilityShortName>Prison</szFacilityShortName>
-		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ubTotalStaffLimit>8</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>4</ubStaffLimit>
 			<usPerformance>120</usPerformance>
 			<usPrisonBaseLimit>60</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>120</usPerformance>
 			<CONDITIONS>
 			</CONDITIONS>
 		</ASSIGNMENT>
@@ -113,7 +145,7 @@
 		<ubIndex>7</ubIndex>
 		<szFacilityName>Military Headquarters</szFacilityName>
 		<szFacilityShortName>Mil. HQ</szFacilityShortName>
-		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>The war room here has all sorts of digital equipment, designed for maintaining a good grasp on the strategic situation across the country. This will help you coordinate your defenses, and collect information about enemy movements in the wilderness.</szTooltipText>
@@ -122,6 +154,16 @@
 			<CONDITIONS>
 				<ubMinimumWisdom>80</ubMinimumWisdom>
 				<ubMinimumLeadership>60</ubMinimumLeadership>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
+			<szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>60</ubMinimumWisdom>
+				<ubMinimumLeadership>50</ubMinimumLeadership>
+				<usPerformance>80</usPerformance>
 			</CONDITIONS>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
@@ -143,7 +185,7 @@
 		<ubIndex>9</ubIndex>
 		<szFacilityName>A.C.A Building</szFacilityName>
 		<szFacilityShortName>A.C.A</szFacilityShortName>
-		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>The locals here may be willing to scout out the surrounding area for you. You can collect the information gleaned from them to get a better idea about enemy activity in this region.</szTooltipText>
@@ -154,6 +196,17 @@
 				<ubMinimumWisdom>75</ubMinimumWisdom>
 				<ubMinimumLeadership>30</ubMinimumLeadership>
 				<ubMinimumLoyaltyHere>60</ubMinimumLoyaltyHere>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
+			<szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>60</ubMinimumWisdom>
+				<ubMinimumLeadership>20</ubMinimumLeadership>
+				<ubMinimumLoyaltyHere>20</ubMinimumLoyaltyHere>
+				<usPerformance>150</usPerformance>
 			</CONDITIONS>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
@@ -356,19 +409,35 @@
 			<CONDITIONS>
 			</CONDITIONS>
 		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>3</ubStaffLimit>
+			<usPerformance>90</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 	
 	<FACILITYTYPE>
 		<ubIndex>22</ubIndex>
 		<szFacilityName>Town Prison</szFacilityName>
 		<szFacilityShortName>Prison</szFacilityShortName>
-		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<usPerformance>90</usPerformance>
 			<usPrisonBaseLimit>5</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>70</usPerformance>
 			<CONDITIONS>
 			</CONDITIONS>
 		</ASSIGNMENT>
