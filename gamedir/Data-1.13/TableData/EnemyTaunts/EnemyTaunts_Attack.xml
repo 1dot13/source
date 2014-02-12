@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+	<uiIndex>0</uiIndex>
+	<szText>Taunt! (320 letters)</szText>
+	
+	<!-- attitudes: taunt will be only used by enemies with specifed attitudes - if none is specified, assuming all can use -->
+	<!-- proposed interpretation: aggressive = blood-thirsty, brave = cocky, cunning = snarky, defensive = level-headed  -->
+	<aggressive>0</aggressive>
+	<cunning>0</cunning>					  <!-- covers both cunning solo and cunning aid -->
+	<cunning_solo>0</cunning_solo>
+	<cunning_aid>0</cunning_aid>
+	<defensive>0</defensive>
+	<brave>0</brave>						 <!-- covers both brave solo and brave aid -->
+
+	<brave_solo>0</brave_solo>
+	<brave_aid>0</brave_aid>
+
+	<!-- situations: taunt will be only used in specified situations -->
+	<attack>0</attack>						 <!-- attack covers all kinds of attack -->
+	<fire_gun>0</fire_gun>
+	<fire_launcher>0</fire_launcher>
+	<attack_blade>0</attack_blade>
+	<attack_hth>0</attack_hth>
+	
+	<throw_knife>0</throw_knife>
+	<throw_grenade>0</throw_grenade>
+	
+	<out_of_ammo>0</out_of_ammo>
+	<reload>0</reload>
+
+	<!-- when specific AI routine kicks in -->
+	<charge_blade>0</charge_blade>			   
+	<charge_hth>0</charge_hth>
+	<steal>0</steal> 
+	<run_away>0</run_away>	
+	<seek_noise>0</seek_noise>
+	<alert>0</alert>						 <!-- red alert - radioes teammates about enemy presence -->
+	<suspicious>0</suspicious>				  <!-- yellow alert - radioes teammates about possible enemy presence (noises, etc.) -->
+	<noticed_unseen>0</noticed_unseen>			<!-- notices previously unseen merc before red alert -->
+	<say_hi>0</say_hi>						 <!-- sees enemy first time -->
+	<inform_about>0</inform_about>			   <!-- sees that his enemy changed position -->
+	
+	<!-- when got hit by enemy -->
+	<got_hit>0</got_hit>					  <!-- covers all got_hit_xxx -->
+	<got_hit_gunfire>0</got_hit_gunfire>
+	<got_hit_blade>0</got_hit_blade>
+	<got_hit_hth>0</got_hit_hth>
+	<got_hit_fallroof>0</got_hit_fallroof>
+	<got_hit_bloodloss>0</got_hit_bloodloss>
+	<got_hit_explosion>0</got_hit_explosion>
+	<got_hit_gas>0</got_hit_gas>
+	<got_hit_tentacle>0</got_hit_tentacle>
+	<got_hit_structure_explosion>0</got_hit_structure_explosion>
+	<got_hit_object>0</got_hit_object>
+	<got_hit_throwing_knife>0</got_hit_throwing_knife>	
+
+	<got_deafened>0</got_deafened>
+	<got_blinded>0</got_blinded>
+	
+	<got_robbed>0</got_robbed> 
+
+	<!-- when got missed by enemy -->
+	<got_missed>0</got_missed>				  <!-- covers all got_missed_xxx -->
+	<got_missed_gunfire>0</got_missed_gunfire>
+	<got_missed_blade>0</got_missed_blade>
+	<got_missed_hth>0</got_missed_hth>
+	<got_missed_throwing_knife>0</got_missed_throwing_knife>
+	
+	<!-- when hit enemy -->
+	<hit>0</hit>							<!-- hit covers all hit_xxx -->
+	<hit_gunfire>0</hit_gunfire>
+	<hit_blade>0</hit_blade>
+	<hit_hth>0</hit_hth>
+	<hit_throwing_knife>0</hit_throwing_knife>
+
+	<!-- when killed enemy -->
+	<kill>0</kill>							<!-- hit covers all hit_xxx -->
+	<kill_gunfire>0</kill_gunfire>
+	<kill_blade>0</kill_blade>
+	<kill_hth>0</kill_hth>
+	<kill_throwing_knife>0</kill_throwing_knife>
+	<head_pop>0</head_pop>
+	
+	<!-- when missed by enemy -->
+	<miss>0</miss>							<!-- covers all miss_xxx -->
+	<miss_gunfire>0</miss_gunfire>
+	<miss_blade>0</miss_blade>
+	<miss_hth>0</miss_hth>
+	<miss_throwing_knife>0</miss_throwing_knife>
+	
+	<!-- ripostes - will be used in reaction to specified merc's quotes -->
+	<riposte_quote>0</riposte_quote>	
+	
+	<!-- class: only specific type of enemy will use -->
+	<!-- enemy soldiers -->
+	<enemy>0</enemy>
+	<admin>0</admin>
+	<army>0</army>
+	<elite>0</elite>
+	<!-- militia -->
+	<militia>0</militia>
+	<green>0</green>
+	<regular>0</regular>
+	<veteran>0</veteran>
+
+	<!-- soldier/militia profiles: only specific profile will use -->
+	<!-- for adding extra customization and badassery to named enemies -->
+	<!-- enemy soldiers -->	
+	<admin_profile>0</admin_profile>
+	<army_profile>0</army_profile>
+	<elite_profile>0</elite_profile>
+	<!-- militia -->	
+	<green_profile>0</green_profile>
+	<regular_profile>0</regular_profile>
+	<veteran_profile>0</veteran_profile>
+
+	<!-- enemy stats: only used if specific skill of taunting guy is lower/higher than-->
+	<male>0</male>
+	<female>0</female>
+	<exp_level_gt>0</exp_level_gt>
+	<!-- greater than -->
+	<exp_level_lt>0</exp_level_lt>
+	<!-- less than -->
+	<health_gt>0</health_gt>
+	<health_lt>0</health_lt>
+	<health_max_gt>0</health_max_gt>
+	<health_max_lt>0</health_max_lt>
+	<energy_gt>0</energy_gt>
+	<energy_lt>0</energy_lt>
+	<energy_max_gt>0</energy_max_gt>
+	<energy_max_lt>0</energy_max_lt>
+	<morale_gt>0</morale_gt>
+	<morale_lt>0</morale_lt>
+
+	<!-- progress: taunt will be used only if game progress is higher or lower than specified -->
+	<progress_gt>0</progress_gt>
+	<progress_lt>0</progress_lt>
+
+	<!-- fact: taunt will be used only if specified fact is set -->
+	<fact_true>0</fact_true>
+	<fact_false>0</fact_false>
+
+	<!-- target type: only used if taunt target is of specified type -->
+	<!--
+	0 - IMP
+		 1 - AIM
+		 2 - MERC
+		 3 - NPC
+		 4 - EPC (escortee)
+		 4 - NPC with unextendable contract
+		 6 - vehicle
+		 -->
+	<target_type>0</target_type>
+
+	<!-- target stats: only used if specific skill of taunt target is lower/higher than -->
+	<!-- note: not all situation have specified taunt target, e.g. run away -->
+	<target_male>0</target_male>
+	<target_female>0</target_female>
+	<target_exp_level_gt>0</target_exp_level_gt>
+	<target_exp_level_lt>0</target_exp_level_lt>
+	<target_health_gt>0</target_health_gt>
+	<target_health_lt>0</target_health_lt>
+	<target_health_max_gt>0</target_health_max_gt>
+	<target_health_max_lt>0</target_health_max_lt>
+	<target_energy_gt>0</target_energy_gt>
+	<target_energy_lt>0</target_energy_lt>
+	<target_energy_max_gt>0</target_energy_max_gt>
+	<target_energy_max_lt>0</target_energy_max_lt>
+	<target_morale_gt>0</target_morale_gt>
+	<target_morale_lt>0</target_morale_lt>
+
+	<!-- merc profiles: will be used only to taunt specific profile -->
+	<target_merc_profile>0</target_merc_profile>
+	
+	<!-- target is a freaking zombie! -->
+	<target_zombie>0</target_zombie>
+	
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>1</uiIndex> <!-- 94 -->
+	<szText>I'll kill you!</szText>
+	<attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>2</uiIndex> <!-- 367 -->
+	<szText>Show me what you've got!</szText>
+	<attack>1</attack>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>3</uiIndex> <!-- 477 -->
+	<szText>Take this, you maggot!</szText>
+	<attack>1</attack>
+  </TAUNT>  
+   <TAUNT>
+	<uiIndex>4</uiIndex> <!-- 480 -->
+	<szText>Here is your freedom, you son of a bitch!</szText>
+	<attack>1</attack>
+	<army>1</army>
+	<elite>1</elite>
+	<brave>1</brave>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>5</uiIndex> <!-- 482 -->
+	<szText>I'll break you!</szText>
+	<aggressive>1</aggressive>
+	<attack>1</attack>
+  </TAUNT>  
+   <TAUNT>
+	<uiIndex>6</uiIndex> <!-- 486 -->
+	<szText>Dying ain't much of a living, boy!</szText>
+	<attack>1</attack>
+	<target_male>1</target_male>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>7</uiIndex> <!-- 487 -->
+	<szText>Dying ain't much of a living, girl!</szText>
+	<attack>1</attack>
+	<target_female>1</target_female>
+	<defensive>1</defensive>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>8</uiIndex> <!-- 628 -->
+	<szText>Trust me. I'm a professional!</szText>
+	<attack>1</attack>
+	<brave>1</brave>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>9</uiIndex>
+	<szText>You're the disease and I'm the cure.</szText>
+	<attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>10</uiIndex>
+	<szText>Sucker!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>11</uiIndex>
+	<szText>Suck on this!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>12</uiIndex>
+	<szText>Come get some!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>13</uiIndex>
+	<szText>You're mine!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>14</uiIndex>
+	<szText>Die!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>15</uiIndex>
+	<szText>You scared, motherfucker?</szText>
+	<szText>You scared, bastard?</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>16</uiIndex>
+	<szText>This is gonna hurt!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>17</uiIndex>
+	<szText>Eat shit and die!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>18</uiIndex>
+	<szText>Send me a postcard from hell!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT>
+   <TAUNT>
+	<uiIndex>19</uiIndex>
+	<szText>I think you'll enjoy this.</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>20</uiIndex>
+	<szText>Come to daddy!</szText>
+	<fire_gun>1</fire_gun>
+	<male>1</male>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>21</uiIndex>
+	<szText>Come to momma!</szText>
+	<fire_gun>1</fire_gun>
+	<female>1</female>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>22</uiIndex> <!-- 461 -->
+	<szText>This is for the Queen!</szText>
+	<fire_gun>1</fire_gun>
+	<army>1</army>
+	<elite>1</elite>
+	<brave>1</brave>
+  </TAUNT>  
+   <TAUNT>
+	<uiIndex>23</uiIndex>
+	<szText>You'll be six feet under in no time!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>24</uiIndex>
+	<szText>Gonna send ya home in a pine box, loser!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>25</uiIndex>
+	<szText>Hey, wanna play?</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+   <TAUNT>
+	<uiIndex>26</uiIndex> <!-- 470 -->
+	<szText>Viva la revolution!</szText>
+	<fire_gun>1</fire_gun>
+	<militia>1</militia>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>27</uiIndex> <!-- 471 -->
+	<szText>Your move, creep!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>28</uiIndex>
+	<szText>You should have stayed home, bitch!</szText>
+	<fire_gun>1</fire_gun>
+	<target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>29</uiIndex>
+	<szText>You should have stayed home, fucker!</szText>
+	<szTextCensored>You should have stayed home, sucker!</szTextCensored>
+	<fire_gun>1</fire_gun>
+	<target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>30</uiIndex>
+	<szText>Die, vermin!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>31</uiIndex>
+	<szText>Feeling scared?</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>32</uiIndex>
+	<szText>Dance for me!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>33</uiIndex>
+	<szText>How fun!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>34</uiIndex>
+	<szText>Dakka-dakka-dakka!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>35</uiIndex>
+	<szText>Guns don't kill people, I do!</szText>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>36</uiIndex>
+	<szText>I'm the best!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>37</uiIndex>
+	<szText>Kneel before me, loser!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>38</uiIndex>
+	<szText>Come on! I don't got all day!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>39</uiIndex>
+	<szText>Eat lead!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>40</uiIndex>
+	<szText>I'm better than you!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>41</uiIndex>
+	<szText>You fucked with the wrong man!</szText>
+	<szTextCensored>You messed with the wrong man!</szTextCensored>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+	<male>1</male>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>42</uiIndex>
+	<szText>You fucked with the wrong woman!</szText>
+	<szTextCensored>You messed with the wrong woman!</szTextCensored>
+	<fire_gun>1</fire_gun>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+	<female>1</female>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>43</uiIndex>
+	<szText>Stop wasting my time!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>44</uiIndex>
+	<szText>You deserve it!</szText>
+	<fire_gun>1</fire_gun>
+	<defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>45</uiIndex>
+	<szText>Yeah!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>46</uiIndex>
+	<szText>That's right!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>47</uiIndex>
+	<szText>You're dead.</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>48</uiIndex>
+	<szText>How ya like it?</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>49</uiIndex>
+	<szText>You had it coming!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>50</uiIndex>
+	<szText>Why, hello there!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>51</uiIndex>
+	<szText>Say "cheese"!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>52</uiIndex>
+	<szText>Yippie ki-yay, mister Falcon!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>53</uiIndex>
+	<szText>Could you just please die?</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>54</uiIndex>
+	<szText>Garbage day!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>55</uiIndex> <!-- 264 -->
+	<szText>I'm doing world a favor getting rid of your ugly face!</szText>
+	<fire_gun>1</fire_gun>
+	<target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>56</uiIndex> <!-- 265 -->
+	<szText>Hey babe, give me your number, and I'll stop shooting!</szText>
+	<cunning>1</cunning>
+	<male>1</male>
+	<fire_gun>1</fire_gun>
+	<target_female>1</target_female>
+	<target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>57</uiIndex> <!-- 266 -->
+	<szText>Hey handsome, give me your number, and I'll stop shooting!</szText>
+	<cunning>1</cunning>
+	<female>1</female>
+	<fire_gun>1</fire_gun>
+	<target_male>1</target_male>
+	<target_appearance>4</target_appearance>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>58</uiIndex> <!-- 306 -->
+	<szText>I will destroy you!</szText>
+	<aggressive>0</aggressive>
+	<fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>59</uiIndex> <!-- 307 -->
+	<szText>Dead or alive, you're coming with me.</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>60</uiIndex> <!-- 309 -->
+	<szText>I looked for you, I've found you and now I will kill you!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>61</uiIndex> <!-- 310 -->
+	<szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+	<fire_gun>1</fire_gun>
+	<brave>1</brave>
+	<cunning>1</cunning>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>62</uiIndex> <!-- 312 -->
+	<szText>Your life is over, asshole!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>63</uiIndex> <!-- 315 -->
+	<szText>I deliver justice... one bullet at a time!</szText>
+	<fire_gun>1</fire_gun>
+	<militia>1</militia>
+	<cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>64</uiIndex> <!-- 316 -->
+	<szText>Viva la revolution!</szText>
+	<fire_gun>1</fire_gun>
+	<militia>1</militia>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>65</uiIndex> <!-- 318 -->
+	<szText>Your move, creep!</szText>
+	<fire_gun>1</fire_gun>
+	<cunning>1</cunning>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>66</uiIndex>
+	<szText>I'm gonna blow your head off!</szText>
+	<fire_gun>1</fire_gun>
+  </TAUNT> 
+  <TAUNT>
+	<uiIndex>67</uiIndex>
+	<szText>You cowboys are finished!</szText>
+	<fire_gun>1</fire_gun>
+	<defensive>1</defensive>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>68</uiIndex>
+	<szText>Long live the queen!</szText>
+	<fire_gun>1</fire_gun>
+	<army>1</army>
+	<elite>1</elite>
+	<brave>1</brave>
+  </TAUNT>  
+  <TAUNT>
+	<uiIndex>69</uiIndex>
+	<szText>The Queen says: Die!</szText>
+	<fire_gun>1</fire_gun>
+	<army>1</army>
+	<elite>1</elite>
+	<aggressive>1</aggressive>
+	<brave>1</brave>
+  </TAUNT>
+</TAUNTS>
