@@ -247,7 +247,7 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"监狱", //L"Prison",
 	L"机场", //L"Air.",
 };
-//TODO:Translate
+
 STR16	pEncyclopediaFilterLocationText[] =
 {//major location filter button text max 7 chars
 //..L"------v"
@@ -256,9 +256,9 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"SAM",//SAM
 	L"矿场",//Mine
 	L"机场",//Airport
-	L"Wilder.",
-	L"Underg.",
-	L"Facil.",
+	L"荒野",
+	L"地下",
+	L"设施",
 	L"其他",//Other
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
@@ -267,10 +267,10 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"显示SAM",//Show SAM
 	L"显示矿场",//Show mines
 	L"显示机场",//Show airports
-	L"Show sectors in wilderness",
-	L"Show underground sectors",
-	L"Show sectors with facilities\n[|L|B]toggle filter\n[|R|B]reset filter",
-	L"Show Other sectors",
+	L"显示荒野",
+	L"显示地下分区",
+	L"显示有设施的分区\n|左|键开启，|右|键关闭",
+	L"显示其他分区",
 };
 
 STR16 pEncyclopediaSubFilterLocationText[] =
@@ -285,7 +285,7 @@ STR16 pEncyclopediaSubFilterLocationText[] =
 	L"",//reserved. facility filter texts are dynamicly loaded, leave this marker empty!
 	L"",//reserved. Insert new other filters above!
 };
-//TODO:Translate
+
 STR16	pEncyclopediaFilterCharText[] =
 {//major char filter button text
 //..L"------v"
@@ -295,16 +295,16 @@ STR16	pEncyclopediaFilterCharText[] =
 	L"RPC",
 	L"NPC",
 	L"IMP",
-	L"Other",//add new filter buttons before other
+	L"其他",//add new filter buttons before other
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
 	L"显示全部",//Show all
-	L"Show A.I.M. members",
-	L"Show M.E.R.C staff",
-	L"Show Rebels",
-	L"Show Non-hirable Characters",
-	L"Show Player created Characters",
-	L"Show Other\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"显示A.I.M.成员",
+	L"显示M.E.R.C成员",
+	L"显示反抗军",
+	L"显示不可雇佣角色",
+	L"显示玩家创建角色",
+	L"显示其他角色\n|左|键开启，|右|键关闭",
 };
 
 STR16	pEncyclopediaSubFilterCharText[] =
@@ -316,104 +316,104 @@ STR16	pEncyclopediaSubFilterCharText[] =
 	L"",//reserved. Insert new NPC filters above!
 	L"",//reserved. Insert new IMP filters above!
 //Other-----v"
-	L"Vehic.",//TODO:Translate vehicles
-	L"EPC",//TODO:Translate electronic chars
+	L"车辆",//vehicles
+	L"机器",//electronic chars
 	L"",//reserved. Insert new Other filters above!
 };
-//TODO:Translate
+
 STR16	pEncyclopediaFilterItemText[] = 
 {//major item filter button text max 7 chars
 //..L"------v"
 	L"全部",//All
-	L"Gun",
-	L"Ammo",
-	L"Armor",
-	L"LBE",
-	L"Attach.",
-	L"Misc",//add new filter buttons before misc
+	L"枪械",
+	L"弹药",
+	L"护具",
+	L"携具",
+	L"附件",
+	L"杂物",//add new filter buttons before misc
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
 	L"显示全部",//Show all
-	L"Show Guns\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Amunition\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Armor Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show LBE Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Attachments\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Misc Items\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"显示枪械\n|左|键开启，|右|键关闭",
+	L"显示弹药\n|左|键开启，|右|键关闭",
+	L"显示护具\n|左|键开启，|右|键关闭",
+	L"显示携行具\n|左|键开启，|右|键关闭",
+	L"显示附件\n|左|键开启，|右|键关闭",
+	L"显示其它物品\n|左|键开启，|右|键关闭",
 };
-//TODO:Translate
+
 STR16 pEncyclopediaSubFilterItemText[] =
 {//item subfilter button text max 7 chars
 //..L"------v"
 //Guns......v"
-	L"Pistol",
-	L"M.Pist.",
-	L"SMG",
-	L"Rifle",
-	L"SN Rif.",
-	L"AS Rif.",
-	L"MG",
-	L"Shotgun",
-	L"H.Weap.",
+	L"手枪",
+	L"自动手枪",
+	L"冲锋枪",
+	L"步枪",
+	L"狙击步枪",
+	L"突击步枪",
+	L"机枪",
+	L"霰弹枪",
+	L"重武器",
 	L"",//reserved. insert new gun filters above!
 //Amunition.v"
-	L"Pistol",
-	L"M.Pist.",
-	L"SMG",
-	L"Rifle",
-	L"SN Rif.",
-	L"AS Rif.",
-	L"MG",
-	L"Shotgun",
-	L"H.Weap.",
+	L"手枪",
+	L"自动手枪",
+	L"冲锋枪",
+	L"步枪",
+	L"狙击步枪",
+	L"突击步枪",
+	L"机枪",
+	L"霰弹枪",
+	L"重武器",
 	L"",//reserved. insert new ammo filters above!
 //Armor.....v"
-	L"Helmet",
-	L"Vest",
-	L"Pant",
-	L"Plate",
+	L"头盔",
+	L"胸甲",
+	L"护腿",
+	L"插板",
 	L"",//reserved. insert new armor filters above!
 //LBE.......v"
-	L"Tight",
-	L"Vest",
-	L"Combat",
-	L"Backp.",
-	L"Pocket",
-	L"Other",
+	L"贴身",
+	L"背心",
+	L"战斗包",
+	L"背包",
+	L"口袋",
+	L"其它",
 	L"",//reserved. insert new LBE filters above!
 //Attachments"
-	L"Optic",
-	L"Side",
-	L"Muzzle",
-	L"Extern.",
-	L"Intern.",
-	L"Other",
+	L"瞄准",
+	L"侧件",
+	L"枪口",
+	L"外部",
+	L"内部",
+	L"其它",
 	L"",//reserved. insert new attachment filters above!
 //Misc......v"
-	L"Blade",
-	L"T.Knife",
-	L"Punch",
-	L"Grenade",
-	L"Bomb",
-	L"Medikit",
-	L"Kit",
-	L"Face",
-	L"Other",
+	L"刀具",
+	L"飞刀",
+	L"钝器",
+	L"手雷",
+	L"炸弹",
+	L"医疗箱",
+	L"工具箱",
+	L"面具",
+	L"其它",
 	L"",//reserved. insert new misc filters above!
 //add filters for a new button here
 };
-//TODO:Translate
+
 STR16 pEncyclopediaFilterQuestText[] =
 {//major quest filter button text max 7 chars
 //..L"------v"
 	L"全部",//All
-	L"Active",
-	L"Compl.",
+	L"进行中",
+	L"已完成",
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
 	L"显示全部",//Show all
-	L"Show Active Quests",
-	L"Show Completed Quests",
+	L"显示正在进行的任务",
+	L"显示已经完成的任务",
 };
 
 STR16 pEncyclopediaSubFilterQuestText[] =
@@ -619,7 +619,7 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"添加平屋顶或替换已有屋顶", //L"Add/replace building's roof with new flat roof.",
 	L"复制建筑", //L"Copy a building",
 	L"移动建筑", //L"Move a building",
-	L"房间编号", //L"Draw room number\n(Hold |S|h|i|f|t to reuse room number)",	// TODO.Translate
+	L"房间编号\n（按住|S|h|i|f|t复制房间编号）", //L"Draw room number\n(Hold |S|h|i|f|t to reuse room number)",
 	L"清除房间编号", //L"Erase room numbers",
 
 	L"切换擦除模式(|E)", //L"Toggle |Erase mode",
@@ -1496,13 +1496,12 @@ STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 	L"文件：%S，副版本：%d(%d，%S)", //L"File: %S, subindex: %d (%d, %S)",
 	L"当前分区： %s", //L"Tileset:  %s",
 };
-// TODO.Translate
 STR16 pDisplaySelectionWindowButtonText[] =
 {
-	L"Accept selections (|E|n|t|e|r)",
-	L"Cancel selections (|E|s|c)\nClear selections (|S|p|a|c|e)",
-	L"Scroll window up (|U|p)",
-	L"Scroll window down (|D|o|w|n)",
+	L"确认选择 (|E|n|t|e|r)",
+	L"取消选择 (|E|s|c)\n清除选择 (|S|p|a|c|e)",
+	L"窗口上卷 (|U|p)",
+	L"窗口下卷 (|D|o|w|n)",
 };
 
 //Cursor Modes.cpp
@@ -2138,7 +2137,7 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"关闭接收器", //L"Switch off radio set",
 
 	// various
-	L"Spotter",		// TODO.Translate
+	L"侦查员",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2153,7 +2152,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"关闭无线电设备以节约电池。", //L"Turn off radio set to save batteries.",
 
 	// various
-	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
+	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率值。",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
