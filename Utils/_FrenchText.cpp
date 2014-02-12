@@ -2359,7 +2359,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Arme automatique",
 	L"Arme lourde",
 	L"Tireur d'élite",
-	L"Éclaireur",// !!!Scout =! Eclaireur.
+	L"Éclaireur",// Hunter
 	L"Flingueur",
 	L"Arts martiaux",
 	L"Meneur",
@@ -2381,6 +2381,8 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"Opérateur radio",	// 21
+	L"Snitch",	// 22   // TODO.Translate
+
 	// second names for major skills
 	L"Mitrailleur",
 	L"Bombardier",
@@ -2392,23 +2394,23 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingénieur",
 	L"Chirurgien",
 	// placeholders for minor traits
-	L"Placeholder",		// 31
+	L"Placeholder",		// 32
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 36
+	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 40
-	L"Espion",			// 41
+	L"Placeholder",		// 41
+	L"Espion",			// 42
 	L"Placeholder",		// for radio operator (minor trait)
-	L"Plus...",
+	L"Placeholder",		// for snitch (minor trait)
+	L"Plus...",         // 45
 	L"Divers",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
-
 
 // This is pop up help text for the options that are available to the merc
 
@@ -6030,7 +6032,11 @@ STR16 pMilitiaButtonsHelpText[] =
 STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"Allez sur le site de l'AIM et engagez des mercenaires (*Conseil* allez voir dans le Poste de travail)", // to inform the player to hired some mercs to get things going
+#ifdef JA2UB
 	L"Cliquez sur le bouton de compression du temps pour faire avancer votre escouade sur le terrain.", // to inform the player to hit time compression to get the game underway
+#else
+	L"Cliquez sur le bouton de compression du temps pour faire avancer votre escouade sur le terrain.", // to inform the player to hit time compression to get the game underway
+#endif
 };
 
 STR16 pAntiHackerString[] = 

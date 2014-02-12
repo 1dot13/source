@@ -6019,7 +6019,11 @@ STR16 pMilitiaButtonsHelpText[] =
 STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"Andate all'A.I.M. e arruolate alcuni mercenari (*Hint* è nel Laptop)", // to inform the player to hired some mercs to get things going
+#ifdef JA2UB
+	L"Quando sarete pronti per partire per Tracona, cliccate sul pulsante nella parte in basso a destra dello schermo.", // to inform the player to hit time compression to get the game underway
+#else
 	L"Quando sarete pronti per partire per Arulco, cliccate sul pulsante nella parte in basso a destra dello schermo.", // to inform the player to hit time compression to get the game underway
+#endif
 };
 
 STR16 pAntiHackerString[] = 

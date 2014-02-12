@@ -4961,7 +4961,7 @@ STR16 AimAlumniText[] =
 	L"SEITE 3",
 	L"A.I.M.-Veteranen",	// Title of the page
 	L"ENDE",		// Stops displaying information on selected merc
-	L"Nächste",
+	L"Nächste",	
 };
 
 //AIM Home Page
@@ -5862,7 +5862,11 @@ STR16 pMilitiaButtonsHelpText[] =
 STR16 pMapScreenJustStartedHelpText[] = 
 {
 	L"Zu AIM gehen und Söldner anheuern ( *Tip*: Befindet sich im Laptop )", // to inform the player to hire some mercs to get things going
+#ifdef JA2UB
+	L"Sobald Sie für die Reise nach Tracona bereit sind, klicken Sie auf den Zeitraffer-Button unten rechts auf dem Bildschirm.", // to inform the player to hit time compression to get the game underway
+#else
 	L"Sobald Sie für die Reise nach Arulco bereit sind, klicken Sie auf den Zeitraffer-Button unten rechts auf dem Bildschirm.", // to inform the player to hit time compression to get the game underway
+#endif
 };
 
 STR16 pAntiHackerString[] = 

@@ -6035,9 +6035,9 @@ STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"Ga naar AIM en huur wat huurlingen in ( *Hint* dat kan bij Laptop )",
 #ifdef JA2UB
-	L"Als je klaar bent om naar Arulco te gaan, klik dan op TijdVersneller onder rechts op het scherm.",	// to inform the player to hit time compression to get the game underway
-#else
 	L"Als je klaar bent om naar Tracona te gaan, klik dan op TijdVersneller onder rechts op het scherm.",	// to inform the player to hit time compression to get the game underway
+#else
+	L"Als je klaar bent om naar Arulco te gaan, klik dan op TijdVersneller onder rechts op het scherm.",	// to inform the player to hit time compression to get the game underway
 #endif
 };
 
