@@ -142,7 +142,7 @@
     <szLongItemName>SKS</szLongItemName>
     <szItemDesc>Cette carabine semi-automatique est encore en service dans pratiquement tous les pays de l'ancien bloc communiste.</szItemDesc>
     <szBRName>SKS</szBRName>
-    <szBRDesc>Ce fusil automatique Simonov est relativement simple de conception. Développé durant la Seconde Guerre mondiale, il est resté en service dans toutes les armées du Pacte de Varsovie. Son seul défaut est d'être un peu lourd par rapport aux cartouches qu'il utilise.</szBRDesc>
+    <szBRDesc>Cette carabine semi-automatique Simonov est relativement simple de conception. Développé durant la Seconde Guerre mondiale, il est resté en service dans toutes les armées du Pacte de Varsovie. Son seul défaut est d'être un peu lourd par rapport aux cartouches qu'il utilise.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>18</uiIndex>
@@ -276,7 +276,7 @@
     <uiIndex>34</uiIndex>
     <szItemName>FN Minimi</szItemName>
     <szLongItemName>FN Minimi</szLongItemName>
-    <szItemDesc>Cette mitrailleuse légère porte également le nom de C-9 ou de M-249. À l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
+    <szItemDesc>Ce fusil-mitrailleur porte également le nom de C-9 ou de M-249. À l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
     <szBRName>FN Minimi</szBRName>
     <szBRDesc>Réputée pour sa fiabilité, cette mitrailleuse belge a servi de modèle pour la mitrailleuse américaine M249.</szBRDesc>
   </ITEM>
@@ -284,15 +284,15 @@
     <uiIndex>35</uiIndex>
     <szItemName>RPK-74</szItemName>
     <szLongItemName>RPK-74</szLongItemName>
-    <szItemDesc>Cette mitrailleuse légère est une arme récemment introduite au sein des sections russes. Quand elle commence à tirer, commencez à prier.</szItemDesc>
+    <szItemDesc>Ce fusil-mitrailleur est une arme récemment introduite au sein des sections russes. Quand elle commence à tirer, commencez à prier.</szItemDesc>
     <szBRName>RPK-74</szBRName>
-    <szBRDesc>La mitrailleuse légère russe RPK-74 est une version modifiée du fusil d'assaut AK-74. Après environ 5000 tirs, il est nécessaire de changer le canon.</szBRDesc>
+    <szBRDesc>Le fusil-mitrailleur russe RPK-74 est une version modifiée du fusil d'assaut AK-74. Après environ 5000 tirs, il est nécessaire de changer le canon.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>36</uiIndex>
     <szItemName>HK 21E</szItemName>
     <szLongItemName>HK 21E</szLongItemName>
-    <szItemDesc>Cette mitrailleuse légère (enfin...) est en service dans l'armée allemande.</szItemDesc>
+    <szItemDesc>Ce fusil-mitrailleur (enfin...) est en service dans l'armée allemande.</szItemDesc>
     <szBRName>HK 21E</szBRName>
     <szBRDesc>La mitrailleuse allemande Heckler &amp; Koch 21 est une pure merveille. Elle dispose d'un canon facilement interchangeable et d'un bipied 3 hauteurs et 360 degrés.</szBRDesc>
   </ITEM>
@@ -803,7 +803,7 @@
   <ITEM>
     <uiIndex>100</uiIndex>
     <szItemName>7.62x51 PE 5</szItemName>
-    <szLongItemName>7.62x51mm, PE 5</szLongItemName>
+    <szLongItemName>7.62x51 PE, 5</szLongItemName>
     <szItemDesc>Ce chargeur de cinq cartouches de 7.62mm OTAN. Elles sont réputées pour leur puissance de pénétration même à longue portée.</szItemDesc>
     <szBRName>7.62x51mm PE, 5</szBRName>
     <szBRDesc>Un chargeur contenant cinq cartouches perforantes de 7.62mm OTAN. Elles représentent le compromis idéal entre puissance et précision. Le choix des tireurs d'élite...</szBRDesc>
@@ -811,7 +811,7 @@
   <ITEM>
     <uiIndex>101</uiIndex>
     <szItemName>7.62x51 PE 20</szItemName>
-    <szLongItemName>7.62x51mm PE, 20</szLongItemName>
+    <szLongItemName>7.62x51 PE, 20</szLongItemName>
     <szItemDesc>Ce chargeur contient 20 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szItemDesc>
     <szBRName>7.62x51mm PE, 20</szBRName>
     <szBRDesc>Un chargeur contenant 20 cartouches perforantes de 7.62mm OTAN. Que votre ennemi porte un gilet pare-balles ou un simple T-shirt n'a plus aucune importance...</szBRDesc>
@@ -819,7 +819,7 @@
   <ITEM>
     <uiIndex>102</uiIndex>
     <szItemName>7.62x51 TC 5</szItemName>
-    <szLongItemName>7.62x51mm TC, 5</szLongItemName>
+    <szLongItemName>7.62x51 TC, 5</szLongItemName>
     <szItemDesc>Ce chargeur contient cinq cartouches de 7.62mm OTAN à tête creuse. Du .308 Winchester, ces munitions manquent de puissance de pénétration, mais disposent d'une grande puissance d'arrêt.</szItemDesc>
     <szBRName>7.62x51mm TC, 5</szBRName>
     <szBRDesc>Un chargeur contenant cinq cartouches de 7.62mm OTAN à tête creuse. Ces balles de .308 Winchester à tête creuse sont idéales pour le chasseur de gros gibier ou le tireur d'élite pointilleux.</szBRDesc>
@@ -827,7 +827,7 @@
   <ITEM>
     <uiIndex>103</uiIndex>
     <szItemName>7.62x51 TC 20</szItemName>
-    <szLongItemName>7.62x51mm TC, 20</szLongItemName>
+    <szLongItemName>7.62x51 TC, 20</szLongItemName>
     <szItemDesc>Ce chargeur contient 20 cartouches de 7.62mm OTAN à tête creuse. Ces munitions du .308 Winchester sont idéales pour la chasse au gros.</szItemDesc>
     <szBRName>7.62x51mm TC, 20</szBRName>
     <szBRDesc>Un chargeur contenant 20 cartouches de 7.62mm OTAN à tête creuse. Ces cartouches Cor-Born Tactical .308 Winchester vous permettront d'éliminer aisément de tout ce qui pourrait vous menacer.</szBRDesc>
@@ -1003,7 +1003,7 @@
   <ITEM>
     <uiIndex>125</uiIndex>
     <szItemName>7.62x51 PE</szItemName>
-    <szLongItemName>7.62x51mm PE, 100</szLongItemName>
+    <szLongItemName>7.62x51 PE, 100</szLongItemName>
     <szItemDesc>Une boîte contient une bande de 100 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szItemDesc>
     <szBRName>7.62x51mm PE, 100</szBRName>
     <szBRDesc>Cette boîte contient une bande de 100 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szBRDesc>
@@ -1011,7 +1011,7 @@
   <ITEM>
     <uiIndex>126</uiIndex>
     <szItemName>7.62x51 TC</szItemName>
-    <szLongItemName>7.62x51mm TC, 100</szLongItemName>
+    <szLongItemName>7.62x51 TC, 100</szLongItemName>
     <szItemDesc>Une boîte contient une bande de 100 cartouches de 7.62mm OTAN à tête creuse. Ces munitions dérivées du .308 Winchester sont idéales pour la chasse au gros.</szItemDesc>
     <szBRName>7.62x51mm TC, 100</szBRName>
     <szBRDesc>Cette boîte contient une bande de 100 cartouches de 7.62mm OTAN à tête creuse. Ces munitions dérivées du .308 Winchester sont idéales pour la chasse au gros.</szBRDesc>
@@ -1026,10 +1026,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>128</uiIndex>
-    <szItemName>A.L.I.C.E</szItemName>
-    <szLongItemName>Sac A.L.I.C.E</szLongItemName>
-    <szItemDesc>Sac à dos A.L.I.C.E pour stocker quatre objets différents.</szItemDesc>
-    <szBRName>Sac A.L.I.C.E</szBRName>
+    <szItemName>Sac/dos ALICE</szItemName>
+    <szLongItemName>Sac à dos ALICE</szLongItemName>
+    <szItemDesc>Sac à dos ALICE pour stocker quatre objets différents.</szItemDesc>
+    <szBRName>Sac à dos ALICE</szBRName>
     <szBRDesc>Vous nécessitez plus de place ? Ce sac à dos a assez de place pour plusieurs objets.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -1676,9 +1676,9 @@
     <uiIndex>209</uiIndex>
     <szItemName>Bipied</szItemName>
     <szLongItemName>Bipied</szLongItemName>
-    <szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des mitrailleuses légères.</szItemDesc>
+    <szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des fusils-mitrailleurs.</szItemDesc>
     <szBRName>Bipied</szBRName>
-    <szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des mitrailleuses légères. En aluminium, finition mat. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
+    <szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des fusils-mitrailleurs. En aluminium, finition mat. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>210</uiIndex>
@@ -3387,7 +3387,7 @@
   <ITEM>
     <uiIndex>423</uiIndex>
     <szItemName>5.56x45 G 10</szItemName>
-    <szLongItemName>5.56x45mm Glaser, 10</szLongItemName>
+    <szLongItemName>5.56x45 Glaser, 10</szLongItemName>
     <szItemDesc>Les munitions Glaser ont deux fois plus d'impact que les munitions à tête creuse. Malheureusement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
     <szBRName>5.56x45mm Glaser, 10</szBRName>
     <szBRDesc>Diix balles de pur plaisir. Toute la puissance d'arrêt et plus aucune force de pénétration.</szBRDesc>
@@ -3403,7 +3403,7 @@
   <ITEM>
     <uiIndex>425</uiIndex>
     <szItemName>5.56x45 M 10</szItemName>
-    <szLongItemName>5.56x45mm Match, 10</szLongItemName>
+    <szLongItemName>5.56x45 Match, 10</szLongItemName>
     <szItemDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision.</szItemDesc>
     <szBRName>5.56x45mm Match, 10</szBRName>
     <szBRDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision.</szBRDesc>
@@ -3411,15 +3411,15 @@
   <ITEM>
     <uiIndex>426</uiIndex>
     <szItemName>5.56 SB/TC 10</szItemName>
-    <szLongItemName>5.56x45mm SB/TC, 10</szLongItemName>
+    <szLongItemName>5.56x45 SB/TC, 10</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>5.56x45mm SB/TC, 10</szBRName>
+    <szBRName>5.56x45 SB/TC, 10</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>427</uiIndex>
     <szItemName>5.56 SB/PE 10</szItemName>
-    <szLongItemName>5.56x45mm SB/PE, 10</szLongItemName>
+    <szLongItemName>5.56x45 SB/PE, 10</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>5.56x45mm SB/PE, 10</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3435,7 +3435,7 @@
   <ITEM>
     <uiIndex>429</uiIndex>
     <szItemName>5.56x45 G 30</szItemName>
-    <szLongItemName>5.56x45mm Glaser, 30</szLongItemName>
+    <szLongItemName>5.56x45 Glaser, 30</szLongItemName>
     <szItemDesc>Les munitions Glaser ont deux fois plus d'impact que les munitions à tête creuse. Malheureusement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
     <szBRName>5.56x45mm Glaser, 30</szBRName>
     <szBRDesc>30 balles de pur plaisir. Toute la puissance d'arrêt et plus aucune force de pénétration.</szBRDesc>
@@ -3451,7 +3451,7 @@
   <ITEM>
     <uiIndex>431</uiIndex>
     <szItemName>5.56x45 M 30</szItemName>
-    <szLongItemName>5.56x45mm Match, 30</szLongItemName>
+    <szLongItemName>5.56x45 Match, 30</szLongItemName>
     <szItemDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision de votre arme.</szItemDesc>
     <szBRName>5.56x45mm Match, 30</szBRName>
     <szBRDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision de votre arme.</szBRDesc>
@@ -3459,9 +3459,9 @@
   <ITEM>
     <uiIndex>432</uiIndex>
     <szItemName>5.56 SB/T 30</szItemName>
-    <szLongItemName>5.56mm SB/TC, 30</szLongItemName>
+    <szLongItemName>5.56x45 SB/TC, 30</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
-    <szBRName>5.56mm SB/TC, 30</szBRName>
+    <szBRName>5.56x45 SB/TC, 30</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -3515,7 +3515,7 @@
   <ITEM>
     <uiIndex>439</uiIndex>
     <szItemName>5.56x45 M</szItemName>
-    <szLongItemName>5.56x45mm Match, 100</szLongItemName>
+    <szLongItemName>5.56x45 Match, 100</szLongItemName>
     <szItemDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision de votre fusil d'assaut ou de soutien 5.56.</szItemDesc>
     <szBRName>5.56x45mm Match, 100</szBRName>
     <szBRDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision de votre fusil d'assaut ou de soutien 5.56.</szBRDesc>
@@ -3523,15 +3523,15 @@
   <ITEM>
     <uiIndex>440</uiIndex>
     <szItemName>5.56 SB/TC</szItemName>
-    <szLongItemName>5.56x45mm SB/TC, 100</szLongItemName>
+    <szLongItemName>5.56x45 SB/TC, 100</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>5.56x45mm SB/TC, 100</szBRName>
+    <szBRName>5.56x45 SB/TC, 100</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>441</uiIndex>
     <szItemName>5.56 SB/PE</szItemName>
-    <szLongItemName>5.56x45mm SB/PE, 100</szLongItemName>
+    <szLongItemName>5.56x45 SB/PE, 100</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>5.56x45mm SB/PE, 100</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3563,17 +3563,17 @@
   <ITEM>
     <uiIndex>445</uiIndex>
     <szItemName>5.56x45 M</szItemName>
-    <szLongItemName>5.56x45mm Match, 200</szLongItemName>
-    <szItemDesc>Cela ne semble peut être pas la chose la plus logique qui soit, mais voici une bande de munitions pour mitrailleuse légère ou arme de soutien de munitions 5.56 très haute qualité.</szItemDesc>
+    <szLongItemName>5.56x45 Match, 200</szLongItemName>
+    <szItemDesc>Cela ne semble peut être pas la chose la plus logique qui soit, mais voici une bande de munitions pour fusil-mitrailleur ou arme de soutien de munitions 5.56 très haute qualité.</szItemDesc>
     <szBRName>5.56x45mm Match, 200</szBRName>
-    <szBRDesc>Cela ne semble peut être pas la chose la plus logique qui soit, mais voici une bande de munitions pour mitrailleuse légère ou arme de soutien de munitions 5.56 de haute qualité.</szBRDesc>
+    <szBRDesc>Cela ne semble peut être pas la chose la plus logique qui soit, mais voici une bande de munitions pour fusil-mitrailleur ou arme de soutien de munitions 5.56 de haute qualité.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>446</uiIndex>
     <szItemName>5.56 SB/TC</szItemName>
-    <szLongItemName>5.56x45mm SB/TC, 200</szLongItemName>
+    <szLongItemName>5.56x45 SB/TC, 200</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>5.56x45mm SB/TC, 200</szBRName>
+    <szBRName>5.56x45 SB/TC, 200</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -3595,7 +3595,7 @@
   <ITEM>
     <uiIndex>449</uiIndex>
     <szItemName>7.62x51 G 5</szItemName>
-    <szLongItemName>7.62x51mm Glaser, 5</szLongItemName>
+    <szLongItemName>7.62x51 Glaser, 5</szLongItemName>
     <szItemDesc>Les munitions Glaser ont deux fois plus d'impact que les munitions à tête creuse. Malheureusement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
     <szBRName>7.62x51mm Glaser, 5</szBRName>
     <szBRDesc>Cinq cartouches de pur plaisir. Toute la puissance d'arrêt et plus aucune force de pénétration.</szBRDesc>
@@ -3603,7 +3603,7 @@
   <ITEM>
     <uiIndex>450</uiIndex>
     <szItemName>7.62x51 TR 5</szItemName>
-    <szLongItemName>7.62x51mm TR, 5</szLongItemName>
+    <szLongItemName>7.62x51 TR, 5</szLongItemName>
     <szItemDesc>Munitions traçantes pour un tir précis.</szItemDesc>
     <szBRName>7.62x51mm TR, 5</szBRName>
     <szBRDesc>Munitions traçantes pour un tir précis.</szBRDesc>
@@ -3611,7 +3611,7 @@
   <ITEM>
     <uiIndex>451</uiIndex>
     <szItemName>7.62x51 M 5</szItemName>
-    <szLongItemName>7.62x51mm Match, 5</szLongItemName>
+    <szLongItemName>7.62x51 Match, 5</szLongItemName>
     <szItemDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision de votre fusil de sniper.</szItemDesc>
     <szBRName>7.62x51mm Match, 5</szBRName>
     <szBRDesc>Le tir à longue distance est plus facile avec ces munitions hautes qualitées.</szBRDesc>
@@ -3619,15 +3619,15 @@
   <ITEM>
     <uiIndex>452</uiIndex>
     <szItemName>7.62 SB/TC 5</szItemName>
-    <szLongItemName>7.62x51mm SB/TC, 5</szLongItemName>
+    <szLongItemName>7.62x51 SB/TC, 5</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x51mm SB/TC, 5</szBRName>
+    <szBRName>7.62x51 SB/TC, 5</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>453</uiIndex>
     <szItemName>7.62 SB/PE 5</szItemName>
-    <szLongItemName>7.62x51mm SB/PE, 5</szLongItemName>
+    <szLongItemName>7.62x51 SB/PE, 5</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>7.62x51mm SB/PE, 5</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3643,7 +3643,7 @@
   <ITEM>
     <uiIndex>455</uiIndex>
     <szItemName>7.62x51 TC 10</szItemName>
-    <szLongItemName>7.62x51mm TC, 10</szLongItemName>
+    <szLongItemName>7.62x51 TC, 10</szLongItemName>
     <szItemDesc>Neutralisez vos adversaires sans risque de surpénétration avec ces munitions à tête creuse.</szItemDesc>
     <szBRName>7.62x51mm TC, 10</szBRName>
     <szBRDesc>L'usage militaire des munitions à tête creuse a été proscrit par la convention de La Haye en 1899. L'usager assume tous les risques.</szBRDesc>
@@ -3651,7 +3651,7 @@
   <ITEM>
     <uiIndex>456</uiIndex>
     <szItemName>7.62x51 PE 10</szItemName>
-    <szLongItemName>7.62x51mm PE, 10</szLongItemName>
+    <szLongItemName>7.62x51 PE, 10</szLongItemName>
     <szItemDesc>10 cartouches chemisées de 7.62x51mm.</szItemDesc>
     <szBRName>7.62x51mm PE, 10</szBRName>
     <szBRDesc>10 cartouches chemisées de 7.62x51mm.</szBRDesc>
@@ -3659,7 +3659,7 @@
   <ITEM>
     <uiIndex>457</uiIndex>
     <szItemName>7.62x51 G 10</szItemName>
-    <szLongItemName>7.62x51mm Glaser, 10</szLongItemName>
+    <szLongItemName>7.62x51 Glaser, 10</szLongItemName>
     <szItemDesc>Les munitions Glaser ont deux fois plus d'impact que les munitions à tête creuse. Malheureusement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
     <szBRName>7.62x51mm Glaser, 10</szBRName>
     <szBRDesc>Dix cartouches de pur plaisir. Toute la puissance d'arrêt et plus aucune force de pénétration.</szBRDesc>
@@ -3667,7 +3667,7 @@
   <ITEM>
     <uiIndex>458</uiIndex>
     <szItemName>7.62x51 TR 10</szItemName>
-    <szLongItemName>7.62x51mm TR, 10</szLongItemName>
+    <szLongItemName>7.62x51 TR, 10</szLongItemName>
     <szItemDesc>Les traçantes sont des cartouches dont l'ogive est recouverte de peinture au phosphore qui s'enflamme avec le frottement de l'air. En plus du spectacle son et lumière, ces munitions facilitent les tirs en rafales.</szItemDesc>
     <szBRName>7.62x51mm TR, 10</szBRName>
     <szBRDesc>Tirez un trait sur l'opposition littéralement avec ces munitions à balles traçantes.</szBRDesc>
@@ -3675,7 +3675,7 @@
   <ITEM>
     <uiIndex>459</uiIndex>
     <szItemName>7.62x51 M 10</szItemName>
-    <szLongItemName>7.62x51mm Match, 10</szLongItemName>
+    <szLongItemName>7.62x51 Match, 10</szLongItemName>
     <szItemDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision de votre fusil d'assault 7.62 OTAN.</szItemDesc>
     <szBRName>7.62x51mm Match, 10</szBRName>
     <szBRDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision de votre fusil d'assault 7.62 OTAN.</szBRDesc>
@@ -3683,15 +3683,15 @@
   <ITEM>
     <uiIndex>460</uiIndex>
     <szItemName>7.62 SB/TC 10</szItemName>
-    <szLongItemName>7.62x51mm SB/TC, 10</szLongItemName>
+    <szLongItemName>7.62x51 SB/TC, 10</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x51mm SB/TC, 10</szBRName>
+    <szBRName>7.62x51 SB/TC, 10</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>461</uiIndex>
     <szItemName>7.62 SB/PE 10</szItemName>
-    <szLongItemName>7.62x51mm SB/PE, 10</szLongItemName>
+    <szLongItemName>7.62x51 SB/PE, 10</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>7.62x51mm SB/PE, 10</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3707,7 +3707,7 @@
   <ITEM>
     <uiIndex>463</uiIndex>
     <szItemName>7.62x51 G 20</szItemName>
-    <szLongItemName>7.62x51mm Glaser, 20</szLongItemName>
+    <szLongItemName>7.62x51 Glaser, 20</szLongItemName>
     <szItemDesc>Les munitions Glaser ont deux fois plus d'impact que les munitions à tête creuse. Malheureusement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
     <szBRName>7.62x51mm Glaser, 20</szBRName>
     <szBRDesc>20 cartouches de pur plaisir. Toute la puissance d'arrêt et plus aucune force de pénétration.</szBRDesc>
@@ -3715,7 +3715,7 @@
   <ITEM>
     <uiIndex>464</uiIndex>
     <szItemName>7.62x51 TR 20</szItemName>
-    <szLongItemName>7.62x51mm TR, 20</szLongItemName>
+    <szLongItemName>7.62x51 TR, 20</szLongItemName>
     <szItemDesc>Les traçantes sont des cartouches dont l'ogive est recouverte de peinture au phosphore qui s'enflamme avec le frottement de l'air. En plus du spectacle son et lumière, ces munitions facilitent les tirs en rafales.</szItemDesc>
     <szBRName>7.62x51mm TR, 20</szBRName>
     <szBRDesc>Allumez vos cibles au sens littéral ET figuré avec ce chargeur rempli de traçantes.</szBRDesc>
@@ -3723,7 +3723,7 @@
   <ITEM>
     <uiIndex>465</uiIndex>
     <szItemName>7.62x51 M 20</szItemName>
-    <szLongItemName>7.62x51mm Match, 20</szLongItemName>
+    <szLongItemName>7.62x51 Match, 20</szLongItemName>
     <szItemDesc>Des munitions de compétition de très haute qualité, améliorant la portée et la précision de votre fusil d'assault 7.62 OTAN.</szItemDesc>
     <szBRName>7.62x51mm Match, 20</szBRName>
     <szBRDesc>Ces munitions 7.62 "haute qualité" ont le bras long.</szBRDesc>
@@ -3731,15 +3731,15 @@
   <ITEM>
     <uiIndex>466</uiIndex>
     <szItemName>7.62 SB/TC 20</szItemName>
-    <szLongItemName>7.62x51mm SB/TC, 20</szLongItemName>
+    <szLongItemName>7.62x51 SB/TC, 20</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x51mm SB/TC, 20</szBRName>
+    <szBRName>7.62x51 SB/TC, 20</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>467</uiIndex>
     <szItemName>7.62 SB/PE 20</szItemName>
-    <szLongItemName>7.62x51mm SB/PE, 20</szLongItemName>
+    <szLongItemName>7.62x51 SB/PE, 20</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>7.62x51mm SB/PE, 20</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3763,7 +3763,7 @@
   <ITEM>
     <uiIndex>470</uiIndex>
     <szItemName>7.62x51 TR</szItemName>
-    <szLongItemName>7.62x51mm TR, 100</szLongItemName>
+    <szLongItemName>7.62x51 TR, 100</szLongItemName>
     <szItemDesc>Une boîte contient une bande de 100 munitions traçantes pour un tir de soutien. Les traçantes sont des cartouches dont l'ogive est recouverte de peinture au phosphore qui s'enflamme avec le frottement de l'air. En plus du spectacle son et lumière, ces munitions facilitent les tirs en rafales.</szItemDesc>
     <szBRName>7.62x51mm TR, 100</szBRName>
     <szBRDesc>Munitions traçantes, parce que de voir où tombent les balles sur le champ de bataille, c'est juste top-méga-cool.</szBRDesc>
@@ -3771,7 +3771,7 @@
   <ITEM>
     <uiIndex>471</uiIndex>
     <szItemName>7.62x51 M 100</szItemName>
-    <szLongItemName>7.62x51mm Match, 100</szLongItemName>
+    <szLongItemName>7.62x51 Match, 100</szLongItemName>
     <szItemDesc>Alimentation et portée supérieure pour votre mitrailleuse légère.</szItemDesc>
     <szBRName>7.62x51mm Match, 100</szBRName>
     <szBRDesc>Si vous êtes assez riche pour vous le permettre, utilisez ces bandes de munitions haute qualité pour votre arme de soutien.</szBRDesc>
@@ -3779,15 +3779,15 @@
   <ITEM>
     <uiIndex>472</uiIndex>
     <szItemName>7.62 SB/TC 100</szItemName>
-    <szLongItemName>7.62x51mm SB/TC, 100</szLongItemName>
+    <szLongItemName>7.62x51 SB/TC, 100</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x51mm SB/TC, 100</szBRName>
+    <szBRName>7.62x51 SB/TC, 100</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>473</uiIndex>
     <szItemName>7.62 SB/PE 100</szItemName>
-    <szLongItemName>7.62x51mm SB/PE, 100</szLongItemName>
+    <szLongItemName>7.62x51 SB/PE, 100</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>7.62x51mm SB/PE, 100</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -3939,9 +3939,9 @@
   <ITEM>
     <uiIndex>492</uiIndex>
     <szItemName>7.62 SB/TC 8</szItemName>
-    <szLongItemName>7.62x25mm SB/TC, 8</szLongItemName>
+    <szLongItemName>7.62x25 SB/TC, 8</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x25mm SB/TC, 8</szBRName>
+    <szBRName>7.62x25 SB/TC, 8</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -3955,9 +3955,9 @@
   <ITEM>
     <uiIndex>494</uiIndex>
     <szItemName>7.62 SB/TC 30</szItemName>
-    <szLongItemName>7.62x25mm SB/TC, 30</szLongItemName>
+    <szLongItemName>7.62x25 SB/TC, 30</szLongItemName>
     <szItemDesc>Pour un tir tranquille et silencieux, des têtes creuses pour : PPD-40, PPSh-41, PPS-43 ou K-50 m.</szItemDesc>
-    <szBRName>7.62x25mm SB/TC, 30</szBRName>
+    <szBRName>7.62x25 SB/TC, 30</szBRName>
     <szBRDesc>Silencieux, mais ravageur comme le blizzard de Russie.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -3979,7 +3979,7 @@
   <ITEM>
     <uiIndex>497</uiIndex>
     <szItemName>7.62 SB/PE 45</szItemName>
-    <szLongItemName>7.62x25mm SB/PE, 45</szLongItemName>
+    <szLongItemName>7.62x25 SB/PE, 45</szLongItemName>
     <szItemDesc>Boîtier à mécanisme hélicoïdal de 45 munitions perforantes pour votre pistolet-mitrailleur Bizon 2-07. Version silencieuse de la munition.</szItemDesc>
     <szBRName>7.62x25mm SB/PE, 45</szBRName>
     <szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43, ces chargeurs 7.62x25mm perforantes sont faits pour être utilisés avec un pistolet-mitrailleur Bizon. Version de la munition à faible charge de poudre pour une discrétion accrue.</szBRDesc>
@@ -3987,9 +3987,9 @@
   <ITEM>
     <uiIndex>498</uiIndex>
     <szItemName>7.62 SB/TC 45</szItemName>
-    <szLongItemName>7.62x25mm SB/TC, 45</szLongItemName>
+    <szLongItemName>7.62x25 SB/TC, 45</szLongItemName>
     <szItemDesc>Boîtier à mécanisme hélicoïdal de 45 munitions tête creuse pour votre pistolet-mitrailleur Bizon 2-07. Version faible charge de poudre de la munition pour une discrétion accrue.</szItemDesc>
-    <szBRName>7.62x25mm SB/TC, 45</szBRName>
+    <szBRName>7.62x25 SB/TC, 45</szBRName>
     <szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43, ces chargeurs 7.62x25mm tête creuse sont faits pour être utilisés avec un pistolet-mitrailleur Bizon. Version silencieuse de la munition pour une discrétion optimale.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -4011,7 +4011,7 @@
   <ITEM>
     <uiIndex>501</uiIndex>
     <szItemName>7.62 SB/PE 71</szItemName>
-    <szLongItemName>7.62x25mm SB/PE, 71</szLongItemName>
+    <szLongItemName>7.62x25 SB/PE, 71</szLongItemName>
     <szItemDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szItemDesc>
     <szBRName>7.62x25mm SB/PE, 71</szBRName>
     <szBRDesc>Ces munitions perforantes ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance légèremment réduite.</szBRDesc>
@@ -4019,9 +4019,9 @@
   <ITEM>
     <uiIndex>502</uiIndex>
     <szItemName>7.62 SB/TC 71</szItemName>
-    <szLongItemName>7.62x25mm SB/TC, 71</szLongItemName>
+    <szLongItemName>7.62x25 SB/TC, 71</szLongItemName>
     <szItemDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szItemDesc>
-    <szBRName>7.62x25mm SB/TC, 71</szBRName>
+    <szBRName>7.62x25 SB/TC, 71</szBRName>
     <szBRDesc>Ces munitions à tête creuse ont été spécialement conçues pour réduire significativement le son de la détonation au prix d'une puissance d'arrêt légèremment réduite.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -4667,7 +4667,7 @@
   <ITEM>
     <uiIndex>583</uiIndex>
     <szItemName>7.62x39 M 10</szItemName>
-    <szLongItemName>7.62x39mm Match, 10</szLongItemName>
+    <szLongItemName>7.62x39 Match, 10</szLongItemName>
     <szItemDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision de votre fusil.</szItemDesc>
     <szBRName>7.62x39mm Match, 10</szBRName>
     <szBRDesc>Utilisez ces munitions haute qualité et votre SKS vous transformera en sniper improvisé.</szBRDesc>
@@ -4675,7 +4675,7 @@
   <ITEM>
     <uiIndex>584</uiIndex>
     <szItemName>7.62x39 M 30</szItemName>
-    <szLongItemName>7.62x39mm Match, 30</szLongItemName>
+    <szLongItemName>7.62x39 Match, 30</szLongItemName>
     <szItemDesc>Des munitions de compétition de haute qualité, améliorant la portée et la précision. Qui a dit que les kalashnikovs n'étaient pas des armes précises ?</szItemDesc>
     <szBRName>7.62x39mm Match, 30</szBRName>
     <szBRDesc>La forme de la balle a été étudiée pour provoquer moins de trainée et la nouvelle formule de la poudre de ces munitions haute qualité rendent sa courbe ballistique plus droite, augmentant ainsi la portée de la munition.</szBRDesc>
@@ -4683,7 +4683,7 @@
   <ITEM>
     <uiIndex>585</uiIndex>
     <szItemName>7.62x39 M 75</szItemName>
-    <szLongItemName>7.62x39mm Match, 75</szLongItemName>
+    <szLongItemName>7.62x39 Match, 75</szLongItemName>
     <szItemDesc>Aussi bizarre que cela puisse paraître, quelqu'un a pris un chargeur tambour vide et l'a rempli de munitions haute qualité.</szItemDesc>
     <szBRName>7.62x39mm Match, 75</szBRName>
     <szBRDesc>Not sold by BR.</szBRDesc>
@@ -5292,9 +5292,9 @@
     <uiIndex>661</uiIndex>
     <szItemName>HK 23E</szItemName>
     <szLongItemName>HK 23E</szLongItemName>
-    <szItemDesc>La HK 23E est une mitrailleuse légère 5.56mm OTAN de la qualité habituelle d'un produit de la firme Heckler &amp; Koch.</szItemDesc>
+    <szItemDesc>La HK 23E est un fusil-mitrailleur 5.56mm OTAN de la qualité habituelle d'un produit de la firme Heckler &amp; Koch.</szItemDesc>
     <szBRName>HK 23E</szBRName>
-    <szBRDesc>La HK 23E est une mitrailleuse légère 5.56mm OTAN de la qualité habituelle d'un produit de la firme Heckler &amp; Koch.</szBRDesc>
+    <szBRDesc>La HK 23E est un fusil-mitrailleur 5.56mm OTAN de la qualité habituelle d'un produit de la firme Heckler &amp; Koch.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>662</uiIndex>
@@ -5348,17 +5348,17 @@
     <uiIndex>668</uiIndex>
     <szItemName>HK MG36 RAS</szItemName>
     <szLongItemName>HK MG36 RAS</szLongItemName>
-    <szItemDesc>Le MG36 est une mitrailleuse légère fonctionnant par emprunt de gaz à piston court de chez HK, fabriqué avec les derniers procédés de polymères haute résistance faible poids et possédant la plupart des technologies modernes. Cette version est équipée de rails Picatinny.</szItemDesc>
+    <szItemDesc>Le MG36 est un fusil-mitrailleur fonctionnant par emprunt de gaz à piston court de chez HK, fabriqué avec les derniers procédés de polymères haute résistance faible poids et possédant la plupart des technologies modernes. Cette version est équipée de rails Picatinny.</szItemDesc>
     <szBRName>HK MG36 RAS</szBRName>
-    <szBRDesc>Le MG36 est une mitrailleuse légère fonctionnant par emprunt de gaz à piston court de chez HK, fabriqué avec les derniers procédés de polymères haute résistance faible poids et possédant la plupart des technologies modernes. Cette version est équipée de rails Picatinny.</szBRDesc>
+    <szBRDesc>Le MG36 est un fusil-mitrailleur fonctionnant par emprunt de gaz à piston court de chez HK, fabriqué avec les derniers procédés de polymères haute résistance faible poids et possédant la plupart des technologies modernes. Cette version est équipée de rails Picatinny.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>669</uiIndex>
     <szItemName>HK MG43</szItemName>
     <szLongItemName>HK MG43</szLongItemName>
-    <szItemDesc>Dernière apparition dans la gamme mitrailleuse légère de chez HK, la MG43 est équipée d'un bipied intégral et d'interfaces Picatinny pour une liberté de personalisation accrue.</szItemDesc>
+    <szItemDesc>Dernière apparition dans la gamme fusil-mitrailleur de chez HK, la MG43 est équipée d'un bipied intégral et d'interfaces Picatinny pour une liberté de personalisation accrue.</szItemDesc>
     <szBRName>HK MG43</szBRName>
-    <szBRDesc>Dernière apparition dans la gamme mitrailleuse légère de chez HK, la MG43 présente un bipied intégral et des interfaces Picatinny pour une liberté de personalisation accrue. Elle équippe l'armée allemande depuis 2006.</szBRDesc>
+    <szBRDesc>Dernière apparition dans la gamme fusil-mitrailleur de chez HK, la MG43 présente un bipied intégral et des interfaces Picatinny pour une liberté de personalisation accrue. Elle équippe l'armée allemande depuis 2006.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>670</uiIndex>
@@ -5604,9 +5604,9 @@
     <uiIndex>700</uiIndex>
     <szItemName>PKM</szItemName>
     <szLongItemName>PKM</szLongItemName>
-    <szItemDesc>Équivalent russe du M60 américain. C'est une mitrailleuse légère universelle qui tire la grosse munition russe 7.62x54mm.</szItemDesc>
+    <szItemDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universelle qui tire la grosse munition russe 7.62x54mm.</szItemDesc>
     <szBRName>PKM</szBRName>
-    <szBRDesc>Équivalent russe du M60 américain. C'est une mitrailleuse légère universelle qui tire la grosse munition russe 7.62x54mm. Enseignez à vos ennemis la bonne vieille discipline soviétique.</szBRDesc>
+    <szBRDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universelle qui tire la grosse munition russe 7.62x54mm. Enseignez à vos ennemis la bonne vieille discipline soviétique.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>701</uiIndex>
@@ -5812,7 +5812,7 @@
     <uiIndex>726</uiIndex>
     <szItemName>St. AUG HBAR</szItemName>
     <szLongItemName>Steyr AUG HBAR</szLongItemName>
-    <szItemDesc>HBAR avec son canon lourd et son bipied intégré, transforme l'AUG en mitrailleuse légère d'appoint.</szItemDesc>
+    <szItemDesc>HBAR avec son canon lourd et son bipied intégré, transforme l'AUG en fusil-mitrailleur d'appoint.</szItemDesc>
     <szBRName>Steyr AUG HBAR</szBRName>
     <szBRDesc>Sinon, très similaire à l'AUG, le HBAR dispose d'un canon lourd, d'un bipied intégré et utilise de plus grands chargeurs.</szBRDesc>
   </ITEM>
@@ -8493,7 +8493,7 @@
     <szItemName>5.56 SB/TC 42</szItemName>
     <szLongItemName>5.56x45 SB/TC, 42</szLongItemName>
     <szItemDesc>Chargeur de 30 munitions silencieuses à tête creuse en 5.56x45mm.</szItemDesc>
-    <szBRName>5.56x45mm SB/TC, 42</szBRName>
+    <szBRName>5.56x45 SB/TC, 42</szBRName>
     <szBRDesc>Extra punch moins le bruit avec ces munitions silencieuses à tête creuse.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -8612,9 +8612,9 @@
     <uiIndex>1076</uiIndex>
     <szItemName>Ares M4</szItemName>
     <szLongItemName>Ares M4 Shrike</szLongItemName>
-    <szItemDesc>La version mitrailleuse légère du fusil d'assaut M4.</szItemDesc>
+    <szItemDesc>La version fusil-mitrailleur du fusil d'assaut M4.</szItemDesc>
     <szBRName>Ares M4 Shrike</szBRName>
-    <szBRDesc>Ares a changé le fusil d'assaut M4 en une mitrailleuse légère avec un rail supérieur totalement nouveau. Livré avec une poignée frontale pour un meilleur contrôle lors du tir automatique.</szBRDesc>
+    <szBRDesc>Ares a changé le fusil d'assaut M4 en un fusil-mitrailleur avec un rail supérieur totalement nouveau. Livré avec une poignée frontale pour un meilleur contrôle lors du tir automatique.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1077</uiIndex>
@@ -8733,7 +8733,7 @@
     <szItemName>Holster</szItemName>
     <szLongItemName>Étui de pistolet</szLongItemName>
     <szItemDesc>Un étui de pistolet tactique qui s'accroche sur la cuisse, il a une poche pour un chargeur de rechange</szItemDesc>
-    <szBRName>Étui de revolver</szBRName>
+    <szBRName>Étui de révolver</szBRName>
     <szBRDesc>Cet étui de pistolet tactique en Eagle SAS pour porter un pistolet moyen et un chargeur de rechange.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -8748,13 +8748,13 @@
     <uiIndex>1093</uiIndex>
     <szItemName>Holster PM</szItemName>
     <szLongItemName>Étui de pistolet/PM</szLongItemName>
-    <szItemDesc>Un étui de pistolet pour un revolver d'une grande taille ou un petit pistolet mitrailleur avec une poche pour un chargeur supplémentaire.</szItemDesc>
+    <szItemDesc>Un étui de pistolet pour un révolver d'une grande taille ou un petit pistolet mitrailleur avec une poche pour un chargeur supplémentaire.</szItemDesc>
     <szBRName>Étui de pistolet/PM</szBRName>
-    <szBRDesc>Cet étui depistolet est fait pour porter un revolver d'une grande taille ou un petit pistolet mitrailleur à votre cuisse. Avec une poche pour un chargeur supplémentaire.</szBRDesc>
+    <szBRDesc>Cet étui depistolet est fait pour porter un révolver d'une grande taille ou un petit pistolet mitrailleur à votre cuisse. Avec une poche pour un chargeur supplémentaire.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1094</uiIndex>
-    <szItemName>TIMS</szItemName>
+    <szItemName>Sac/dos TIMS</szItemName>
     <szLongItemName>Sac à dos TIMS</szLongItemName>
     <szItemDesc>Le sac à dos de l'ensemble TIMS. Vous pouvez l'associer à un sac de combat TIMS.</szItemDesc>
     <szBRName>Sac à dos TIMS</szBRName>
@@ -8762,7 +8762,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1095</uiIndex>
-    <szItemName>Sac ARUC</szItemName>
+    <szItemName>Sac/dos ARUC</szItemName>
     <szLongItemName>Sac à dos ARUC</szLongItemName>
     <szItemDesc>Un sac à dos avec deux poches extérieures.</szItemDesc>
     <szBRName>Sac à dos ARUC</szBRName>
@@ -8770,7 +8770,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1096</uiIndex>
-    <szItemName>Sac à dos</szItemName>
+    <szItemName>Sac/d MALICE</szItemName>
     <szLongItemName>Sac à dos MALICE 3</szLongItemName>
     <szItemDesc>Un sac à dos avec de nombreuses poches extérieures.</szItemDesc>
     <szBRName>Sac à dos MALICE 3</szBRName>
@@ -8794,7 +8794,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>1099</uiIndex>
-    <szItemName>Blackhawk</szItemName>
+    <szItemName>Sac Blackhawk</szItemName>
     <szLongItemName>Sac Blackhawk Patrol</szLongItemName>
     <szItemDesc>Un sac de combat multipoche.</szItemDesc>
     <szBRName>Sac Blackhawk Patrol</szBRName>
@@ -9500,9 +9500,9 @@
     <uiIndex>1187</uiIndex>
     <szItemName>HK MG36</szItemName>
     <szLongItemName>HK MG36</szLongItemName>
-    <szItemDesc>Pas aussi volumineuse et pas plus lourde que d'autres mitrailleuses légères, cette arme a une cadence de tir qui frappe l'ennemi en un rien de temps.</szItemDesc>
+    <szItemDesc>Pas aussi volumineuse et pas plus lourde que d'autres fusils-mitrailleurs, cette arme a une cadence de tir qui frappe l'ennemi en un rien de temps.</szItemDesc>
     <szBRName>HK MG36</szBRName>
-    <szBRDesc>HK nous a bénis avec leur nouveau modèle, la mitrailleuse légère. Cette version a la poignée de Bundeswehr avec les optiques intégrées.</szBRDesc>
+    <szBRDesc>HK nous a bénis avec leur nouveau modèle, le fusil-mitrailleur. Cette version a la poignée de Bundeswehr avec les optiques intégrées.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1188</uiIndex>
@@ -9556,9 +9556,9 @@
     <uiIndex>1194</uiIndex>
     <szItemName>Colt Python</szItemName>
     <szLongItemName>Colt Python</szLongItemName>
-    <szItemDesc>Un revolver très robuste, le Python a une réputation de précision.</szItemDesc>
+    <szItemDesc>Un révolver très robuste, le Python a une réputation de précision.</szItemDesc>
     <szBRName>Colt Python</szBRName>
-    <szBRDesc>Le premier revolver "moderne" après la Seconde Guerre mondiale, il existe en plusieurs versions.</szBRDesc>
+    <szBRDesc>Le premier révolver "moderne" après la Seconde Guerre mondiale, il existe en plusieurs versions.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1195</uiIndex>
@@ -9602,10 +9602,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>1200</uiIndex>
-    <szItemName>Étui revolver</szItemName>
-    <szLongItemName>Étui revolver</szLongItemName>
-    <szItemDesc>Un étui pour un petit ou moyen revolver/pistolet avec deux poches séparées pour un chargeur à clip (cinq ou six balles sur un clip).</szItemDesc>
-    <szBRName>Étui revolver</szBRName>
+    <szItemName>Étui révolver</szItemName>
+    <szLongItemName>Étui révolver</szLongItemName>
+    <szItemDesc>Un étui pour un petit ou moyen révolver/pistolet avec deux poches séparées pour un chargeur à clip (cinq ou six balles sur un clip).</szItemDesc>
+    <szBRName>Étui révolver</szBRName>
     <szBRDesc>Cet étui se fixe sur votre équipement pour un révolver ou un pistolet. Il a deux poches distinctes pour un chargeur à clip (cinq ou six balles sur un clip).</szBRDesc>
   </ITEM>
   <ITEM>
@@ -9725,7 +9725,7 @@
     <szItemName>5.56x45 SB/TC</szItemName>
     <szLongItemName>Caisse 5.56x45 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm SB/TC.</szItemDesc>
-    <szBRName>Caisse de 5.56x45mm SB/TC</szBRName>
+    <szBRName>Caisse de 5.56x45 SB/TC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -9861,7 +9861,7 @@
     <szItemName>9x19 SB/TC</szItemName>
     <szLongItemName>Caisse 9x19 SB/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm SB/TC.</szItemDesc>
-    <szBRName>Caisse de 9x19mm SB/TC</szBRName>
+    <szBRName>Caisse de 9x19 SB/TC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10333,7 +10333,7 @@
     <szItemName>7.62x25 SB/TC</szItemName>
     <szLongItemName>Caisse 7.62x25 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm SB/TC.</szItemDesc>
-    <szBRName>Caisse de 7.62x25mm SB/TC</szBRName>
+    <szBRName>Caisse de 7.62x25 SB/TC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10709,7 +10709,7 @@
     <szItemName>5.45 SB/TC 30</szItemName>
     <szLongItemName>5.45x39 SB/TC 30</szLongItemName>
     <szItemDesc>Chargeur de 30 munitions subsoniques à tête creuse en 5.45x39mm.</szItemDesc>
-    <szBRName>5.45x39mm SB/TC, 30</szBRName>
+    <szBRName>5.45x39 SB/TC, 30</szBRName>
     <szBRDesc>Chargeur de 30 munitions subsoniques à tête creuse en 5.45x39mm</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10725,7 +10725,7 @@
     <szItemName>5.45 SB/TC 45</szItemName>
     <szLongItemName>5.45x39 SB/TC 45</szLongItemName>
     <szItemDesc>Chargeur de 45 munitions subsoniques à tête creuse en 5.45x39mm.</szItemDesc>
-    <szBRName>5.45x39mm SB/TC, 45</szBRName>
+    <szBRName>5.45x39 SB/TC, 45</szBRName>
     <szBRDesc>Chargeur de 45 munitions subsoniques à tête creuse en 5.45x39mm.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10749,7 +10749,7 @@
     <szItemName>5.45x39 SB/TC</szItemName>
     <szLongItemName>Caisse 5.45x39 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm SB/TC.</szItemDesc>
-    <szBRName>Caisse de 5.45x39mm SB/TC</szBRName>
+    <szBRName>Caisse de 5.45x39 SB/TC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10765,7 +10765,7 @@
     <szItemName>7.62 SB/TC 10</szItemName>
     <szLongItemName>7.62x39 SB/TC 10</szLongItemName>
     <szItemDesc>Chargeur de 10 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szItemDesc>
-    <szBRName>7.62x39mm SB/TC, 10</szBRName>
+    <szBRName>7.62x39 SB/TC, 10</szBRName>
     <szBRDesc>Chargeur de 10 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10781,7 +10781,7 @@
     <szItemName>7.62 SB/TC 30</szItemName>
     <szLongItemName>7.62x39 SB/TC 30</szLongItemName>
     <szItemDesc>Chargeur de 30 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szItemDesc>
-    <szBRName>7.62x39mm SB/TC, 30</szBRName>
+    <szBRName>7.62x39 SB/TC, 30</szBRName>
     <szBRDesc>Chargeur de 30 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10797,7 +10797,7 @@
     <szItemName>7.62 SB/TC 75</szItemName>
     <szLongItemName>7.62x39 SB/TC 75</szLongItemName>
     <szItemDesc>Chargeur tambour de 75 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szItemDesc>
-    <szBRName>7.62x39mm SB/TC, 75</szBRName>
+    <szBRName>7.62x39 SB/TC, 75</szBRName>
     <szBRDesc>Chargeur tambour de 75 munitions subsoniques à tête creuse en 7.62x39mm pour armes du pacte de Varsovie.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10813,7 +10813,7 @@
     <szItemName>7.62x39 SB/TC</szItemName>
     <szLongItemName>Caisse  7.62x39 S/TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm SB/TC Pacte de Varsovie.</szItemDesc>
-    <szBRName>Caisse de 7.62x39mm SB/TC</szBRName>
+    <szBRName>Caisse de 7.62x39 SB/TC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -11020,7 +11020,7 @@
     <uiIndex>1377</uiIndex>
     <szItemName>Canon 5.56x45</szItemName>
     <szLongItemName>Canon 5.56x45mm</szLongItemName>
-    <szItemDesc>Un canon de calibre 5.56x45mm, compatible avec la plupart des mitrailleuses légères OTAN.</szItemDesc>
+    <szItemDesc>Un canon de calibre 5.56x45mm, compatible avec la plupart des fusils-mitrailleurs OTAN.</szItemDesc>
     <szBRName>Canon 5.56x45mm</szBRName>
     <szBRDesc>Un mitrailleur consciencieux a toujours un canon de rechange pour les grands combats.</szBRDesc>
   </ITEM>
@@ -11028,7 +11028,7 @@
     <uiIndex>1378</uiIndex>
     <szItemName>Canon 7.62x51</szItemName>
     <szLongItemName>Canon 7.62x51mm</szLongItemName>
-    <szItemDesc>Un canon interchangeable pour la plupart des mitrailleuses légères OTAN. Vous n'appréciez pas que l'usure vous empêche de tuer, n'est-ce pas ?</szItemDesc>
+    <szItemDesc>Un canon interchangeable pour la plupart des fusils-mitrailleurs OTAN. Vous n'appréciez pas que l'usure vous empêche de tuer, n'est-ce pas ?</szItemDesc>
     <szBRName>Canon 7.62x51mm</szBRName>
     <szBRDesc>Fait d'un revêtement spécial qui garantit une longue durée de vie. Notez que la garantie expire au bout de deux ans.</szBRDesc>
   </ITEM>
@@ -11036,7 +11036,7 @@
     <uiIndex>1379</uiIndex>
     <szItemName>Canon 7.62x54</szItemName>
     <szLongItemName>Canon 7.62x54R</szLongItemName>
-    <szItemDesc>Un canon interchangeable pour des mitrailleuses russes.</szItemDesc>
+    <szItemDesc>Un canon interchangeable pour des fusils-mitrailleurs russes.</szItemDesc>
     <szBRName>Canon 7.62x54R</szBRName>
     <szBRDesc>Commandez-le dès aujourd'hui, c'est une fabrication russe.</szBRDesc>
   </ITEM>
@@ -11052,7 +11052,7 @@
     <uiIndex>1381</uiIndex>
     <szItemName>Canon 7.62x39</szItemName>
     <szLongItemName>Canon 7.62x39mm</szLongItemName>
-    <szItemDesc>Ce canon interchangeable s'adapte sur la plupart des mitrailleuses légères.</szItemDesc>
+    <szItemDesc>Ce canon interchangeable s'adapte sur la plupart des fusils-mitrailleurs.</szItemDesc>
     <szBRName>Canon 7.62x39mm</szBRName>
     <szBRDesc>Les AK sont bien connus pour leur longévité, mais rien n'est "trop préparé". Saisissez cette bonne affaire avec ce prix spécial durant cette semaine !</szBRDesc>
   </ITEM>
@@ -12004,17 +12004,17 @@
     <uiIndex>1500</uiIndex>
     <szItemName>.454 Casull</szItemName>
     <szLongItemName>Boîte .454 Casull</szLongItemName>
-    <szItemDesc>La cartouche .454 Casull est vraiment pour les gros revolvers.</szItemDesc>
+    <szItemDesc>La cartouche .454 Casull est vraiment pour les gros révolvers.</szItemDesc>
     <szBRName>Boîte .454 Casull</szBRName>
-    <szBRDesc>La cartouche .454 Casull est vraiment pour les gros revolvers.</szBRDesc>
+    <szBRDesc>La cartouche .454 Casull est vraiment pour les gros révolvers.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1501</uiIndex>
     <szItemName>.454 C TC</szItemName>
     <szLongItemName>Boîte .454 Casull TC</szLongItemName>
-    <szItemDesc>La cartouche .454 Casull tête creuse, si vous utilisez votre revolver pour la chasse.</szItemDesc>
+    <szItemDesc>La cartouche .454 Casull tête creuse, si vous utilisez votre révolver pour la chasse.</szItemDesc>
     <szBRName>Boîte .454 Casull TC</szBRName>
-    <szBRDesc>La cartouche .454 Casull tête creuse, si vous utilisez votre revolver pour la chasse.</szBRDesc>
+    <szBRDesc>La cartouche .454 Casull tête creuse, si vous utilisez votre révolver pour la chasse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1502</uiIndex>
@@ -13649,36 +13649,36 @@
     <szBRName>FRAG_EXPLOSION</szBRName>
     <szBRDesc>FRAG_EXPLOSION</szBRDesc>
   </ITEM>
-  <ITEM>
+    <ITEM>
 		<uiIndex>1705</uiIndex>
-		<szItemName>USMC Backpack</szItemName>
-		<szLongItemName>ILBE Gen II Main Ruck</szLongItemName>
-		<szItemDesc>The Improved Load Bearing System (ILBE) backpack was created for use by the United States Marine Corps based on feedback received during initial combat situations that took place during the first US involvement in Iraq.</szItemDesc>
-		<szBRName>USMC Backpack</szBRName>
-		<szBRDesc>The ILBE system consists of three main parts, the Main Pack, the Hydration System, and the Assault Pack.</szBRDesc>		
+		<szItemName>Sac/dos USMC</szItemName>
+		<szLongItemName>Sac/dos ILBE Gén. II</szLongItemName>
+		<szItemDesc>Le système du sac à dos "Improved Load Bearing" (ILBE) a été créé pour le Corps des Marines des États-Unis sur la base des rapports de combats qui ont eu lieu lors de la première intervention américaine en Irak.</szItemDesc>
+		<szBRName>Sac à dos USMC</szBRName>
+		<szBRDesc>Le système ILBE se compose en trois parties, le sac principal, le système d'hydratation et le sac de combat.</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1706</uiIndex>
-		<szItemName>USMC Assault Pack</szItemName>
-		<szLongItemName>ILBE Gen II Assault</szLongItemName>
-		<szItemDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szItemDesc>
-		<szBRName>USMC Assault Pack</szBRName>
-		<szBRDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szBRDesc>		
+		<szItemName>Sac USMC</szItemName>
+		<szLongItemName>Sac/tact ILBE Gén. II</szLongItemName>
+		<szItemDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szItemDesc>
+		<szBRName>Sac tactique USMC</szBRName>
+		<szBRDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1707</uiIndex>
-		<szItemName>TT Range</szItemName>
-		<szLongItemName>TT Extended Range</szLongItemName>
-		<szItemDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szItemDesc>
-		<szBRName>TT Extended Range</szBRName>
-		<szBRDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szBRDesc>		
+		<szItemName>Sac Range</szItemName>
+		<szLongItemName>Sac Extended Range</szLongItemName>
+		<szItemDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szItemDesc>
+		<szBRName>Sac TT Extended Range</szBRName>
+		<szBRDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1708</uiIndex>
-		<szItemName>TT Mod Pack</szItemName>
-		<szLongItemName>TT Modular Pack</szLongItemName>
-		<szItemDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szItemDesc>
-		<szBRName>TT Modular Pack</szBRName>
-		<szBRDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szBRDesc>		
+		<szItemName>TT Modulaire</szItemName>
+		<szLongItemName>Sac TT Modulaire</szLongItemName>
+		<szItemDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Operator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szItemDesc>
+		<szBRName>Sac TT Modulaire</szBRName>
+		<szBRDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Operator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szBRDesc>		
 	</ITEM>
 </ITEMLIST>
