@@ -439,7 +439,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERCSTARTINGGEAR25FILENAME);
-	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName),MERCSTARTINGGEAR25FILENAME);
+	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName, FALSE),MERCSTARTINGGEAR25FILENAME);
 
 #else
 
