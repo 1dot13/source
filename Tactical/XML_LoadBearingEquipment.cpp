@@ -206,7 +206,7 @@ lbeEndElementHandle(void *userData, const XML_Char *name)
 
 
 
-BOOLEAN ReadInlbeStats(STR fileName)
+BOOLEAN ReadInLBEStats(STR fileName)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -268,7 +268,7 @@ BOOLEAN ReadInlbeStats(STR fileName)
 
 	return( TRUE );
 }
-BOOLEAN WritelbeEquipmentStats()
+BOOLEAN WriteLBEEquipmentStats()
 {
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writelbestats");
 	HWFILE		hFile;

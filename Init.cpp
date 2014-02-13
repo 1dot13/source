@@ -412,22 +412,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	// CHRISL:
 	strcpy(fileName, directoryName);
 	strcat(fileName, LOADBEARINGEQUIPMENTFILENAME);
-	SGP_THROW_IFFALSE(ReadInlbeStats(fileName),LOADBEARINGEQUIPMENTFILENAME);
+	SGP_THROW_IFFALSE(ReadInLBEStats(fileName),LOADBEARINGEQUIPMENTFILENAME);
 
 	// CHRISL:
 	LBEPocketType.clear();
 	strcpy(fileName, directoryName);
 	strcat(fileName, LBEPOCKETFILENAME);
 	SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,FALSE),LBEPOCKETFILENAME);
-
-	// THE_BOB : added for pocket popup definitions
-	LBEPocketPopup.clear();
-	strcpy(fileName, directoryName);
-	strcat(fileName, LBEPOCKETPOPUPFILENAME);
-	SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
-
-//CHRISL: Simple localization
-// Same setup as what Madd used for items.xml
 
 #ifndef ENGLISH
 	AddLanguagePrefix(fileName);
@@ -437,6 +428,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,TRUE), fileName);
 	}
 #endif
+
+	// THE_BOB : added for pocket popup definitions
+	LBEPocketPopup.clear();
+	strcpy(fileName, directoryName);
+	strcat(fileName, LBEPOCKETPOPUPFILENAME);
+	SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
 
 #ifdef JA2UB
 
@@ -449,7 +446,16 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	// CHRISL:
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERCSTARTINGGEARFILENAME);
-	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName),MERCSTARTINGGEARFILENAME);
+	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName, FALSE), MERCSTARTINGGEARFILENAME);
+
+	#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName,TRUE), fileName);
+		}
+	#endif
 
 #endif
 

@@ -6461,10 +6461,10 @@ STR16 New113HAMMessage[] =
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
 STR16 gzTransformationMessage[] = 
 {
-	L"Keine Umwandlung verfügbar",
+	L"Keine Umgestaltungsmöglichkeit vorhanden",
 	L"%s wurde in mehrere Teile umgewandelt.",
 	L"%s wurde in mehrere Teile umgewandelt. Prüfen Sie %s's Inventar für die daraus entstandenen Teile.",
-	L"Aufgrund des fehlendes Platzes im Inventar nach der Umwandlung wurden einige von %s's Gegenstände auf den Boden abgelegt.",
+	L"Aufgrund des fehlendes Platzes im Inventar nach der Umgestaltung wurden einige von %s's Gegenstände auf den Boden abgelegt.",
 	L"%s wurde in mehrere Teile umgewandelt. Durch den Platzmangel im Inventar hat %s ein paar Gegenstände auf den Boden abgelegt.",
 	L"Möchsten Sie alle %d Gegenstände im Stapel umwandeln? (Um nur einen Gegenstand umzuwandeln, entferenen Sie diesen zuerst vom Stapel)",
 	// 6 - 10

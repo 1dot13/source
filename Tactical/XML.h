@@ -283,8 +283,8 @@ extern BOOLEAN ReadInArmourStats(STR fileName);
 extern BOOLEAN WriteArmourStats();
 
 // CHRISL:
-extern BOOLEAN ReadInlbeStats(STR fileName);
-extern BOOLEAN WritelbeEquipmentStats();
+extern BOOLEAN ReadInLBEStats(STR fileName);
+extern BOOLEAN WriteLBEEquipmentStats();
 
 extern BOOLEAN ReadInLBEPocketStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteLBEPocketEquipmentStats();
@@ -292,7 +292,7 @@ extern BOOLEAN WriteLBEPocketEquipmentStats();
 // THE_BOB : added for pocket popup definitions
 extern BOOLEAN ReadInLBEPocketPopups(STR fileName);
 
-extern BOOLEAN ReadInMercStartingGearStats(STR fileName);
+extern BOOLEAN ReadInMercStartingGearStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteMercStartingGearStats();
 
 extern BOOLEAN ReadInExplosiveStats(STR fileName);

@@ -26,6 +26,8 @@ struct
 }
 typedef MercStartingGearParseData;
 
+BOOLEAN localizedTextOnly_MercStartingGear;
+
 static void XMLCALL 
 MercStartingGearStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -154,11 +156,10 @@ MercStartingGearCharacterDataHandle(void *userData, const XML_Char *str, int len
 {
 	MercStartingGearParseData * pData = (MercStartingGearParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
-		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	if( (pData->currentDepth <= pData->maxReadDepth) && (strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH))
+	{
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
-	  }
+	}
 }
 
 
@@ -206,24 +207,32 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 			// Write the gear into memory.
 			if(pData->curIndex < pData->maxArraySize && pData->curGears < NUM_MERCSTARTINGGEAR_KITS)
 			{
-				pData->curArray[pData->curIndex][pData->curGears] = pData->curMercStartingGear; //write the armour into the table
-				//CHRISL: after writing the gearkit, we need to clear gear data so it won't inadvertantly be reused
-				pData->curMercStartingGear.PriceModifier = 0;
-				pData->curMercStartingGear.AbsolutePrice = -1;
-				pData->curMercStartingGear.mGearKitName[0] = '\0';
-				UINT32 invsize = pData->curMercStartingGear.inv.size();
-				for(UINT32 i = 0; i < invsize; ++i)
+				if (!localizedTextOnly_MercStartingGear)
 				{
-					pData->curMercStartingGear.inv[i] = 0;
-					pData->curMercStartingGear.iStatus[i] = 0;
-					pData->curMercStartingGear.iDrop[i] = 0;
-					pData->curMercStartingGear.iNumber[i] = 0;
+					pData->curArray[pData->curIndex][pData->curGears] = pData->curMercStartingGear; //write the armour into the table
+
+					//CHRISL: after writing the gearkit, we need to clear gear data so it won't inadvertantly be reused
+					pData->curMercStartingGear.PriceModifier = 0;
+					pData->curMercStartingGear.AbsolutePrice = -1;
+					pData->curMercStartingGear.mGearKitName[0] = '\0';
+					UINT32 invsize = pData->curMercStartingGear.inv.size();
+					for(UINT32 i = 0; i < invsize; ++i)
+					{
+						pData->curMercStartingGear.inv[i] = 0;
+						pData->curMercStartingGear.iStatus[i] = 0;
+						pData->curMercStartingGear.iDrop[i] = 0;
+						pData->curMercStartingGear.iNumber[i] = 0;
+					}
+					UINT32 lbesize = pData->curMercStartingGear.lbe.size();
+					for(UINT32 i = 0; i < lbesize; ++i)
+					{
+						pData->curMercStartingGear.lbe[i] = 0;
+						pData->curMercStartingGear.lStatus[i] = 0;
+					}
 				}
-				UINT32 lbesize = pData->curMercStartingGear.lbe.size();
-				for(UINT32 i = 0; i < lbesize; ++i)
+				else
 				{
-					pData->curMercStartingGear.lbe[i] = 0;
-					pData->curMercStartingGear.lStatus[i] = 0;
+					wcscpy(gMercProfileGear[pData->curIndex][pData->curGears].mGearKitName, pData->curMercStartingGear.mGearKitName);
 				}
 			}
 
@@ -567,7 +576,7 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 
 
 
-BOOLEAN ReadInMercStartingGearStats(STR fileName)
+BOOLEAN ReadInMercStartingGearStats(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -576,6 +585,8 @@ BOOLEAN ReadInMercStartingGearStats(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 	
 	MercStartingGearParseData pData;
+
+	localizedTextOnly_MercStartingGear = localizedVersion;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading MercStartingGear.xml" );
 
@@ -611,13 +622,17 @@ BOOLEAN ReadInMercStartingGearStats(STR fileName)
 	
 	XML_SetUserData(parser, &pData);
 
-	for(int i=0; i<NUM_PROFILES; ++i)
+	if (!localizedTextOnly_MercStartingGear)
 	{
-		for(int i2=0; i2<NUM_MERCSTARTINGGEAR_KITS; ++i2)
+		for(int i=0; i<NUM_PROFILES; ++i)
 		{
-			gMercProfileGear[i][i2].clearInventory();
+			for(int i2=0; i2<NUM_MERCSTARTINGGEAR_KITS; ++i2)
+			{
+				gMercProfileGear[i][i2].clearInventory();
+			}
 		}
 	}
+
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
