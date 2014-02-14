@@ -377,13 +377,13 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
-	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
-	L"Prevents teammates' misbehaviour (drugs, alcohol, scrounging).\n",	// TODO.Translate
-	L"Can spread propaganda in towns.\n",	// TODO.Translate
-	L"Can gather rumours in towns.\n",	// TODO.Translate
-	L"Can be put undercover in prisons.\n",	// TODO.Translate
-	L"Increases your reputation by %d every day if in good morale.\n",	// TODO.Translate
-	L"+%d to effective hearing range\n",	// TODO.Translate
+	L"偶尔会通知你在队伍中听到的意见。\n",
+	L"阻止队员的失常行为（服用药物、酗酒或偷东西）\n",
+	L"可以在城镇派发传单。\n",
+	L"可以在城镇搜集谣言。\n",
+	L"可以在监狱当卧底。\n",
+	L"如果士气好的话可以每天为你增加%d声誉。\n",
+	L"+%d有效听觉范围\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

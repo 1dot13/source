@@ -1933,12 +1933,12 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"战俘",
 	L"医院",
 	L"空车",	// Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gathering Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spreading Propaganda",// TODO.Translate	// spread propaganda
-	L"Gathering Rumours",// TODO.Translate			// gather information
+	L"秘密告发",	// facility: undercover prisoner (snitch)
+	L"派发传单",	// facility: spread propaganda
+	L"派发传单",	// facility: spread propaganda (globally)
+	L"搜集谣言",			// facility: gather rumours	
+	L"派发传单",	// spread propaganda
+	L"搜集谣言",			// gather information
 };
 
 
@@ -1987,12 +1987,12 @@ STR16 pLongAssignmentStrings[] =
 	L"战俘",
 	L"医院",// patient in a hospital
 	L"空车", // Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gather Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spread Propaganda",// TODO.Translate	// spread propaganda
-	L"Gather Rumours",// TODO.Translate			// gather information
+	L"秘密告发",	// facility: undercover prisoner (snitch)
+	L"派发传单",	// facility: spread propaganda
+	L"派发传单",	// facility: spread propaganda (globally)
+	L"搜集谣言",			// facility: gather rumours	
+	L"派发传单",	// spread propaganda
+	L"搜集谣言",			// gather information
 };
 
 
@@ -2109,7 +2109,7 @@ STR16 pAssignMenuStrings[] =
 	L"交通工具",	
 	L"修理",
 	L"无线电扫描", // Flugente: the merc is scanning for patrols in neighbouring sectors
-	L"Snitch", // TODO.Translate // anv: snitch actions
+	L"告发", // anv: snitch actions
 	L"训练",
 	L"搬运物品",	// move items
 	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
@@ -2181,81 +2181,81 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产", //L" - posession by a demon"
 };
 
-// TODO.Translate
+
 STR16 pSnitchMenuStrings[] =
 {
 	// snitch
-	L"Team Informant",
-	L"Town Assignment",	
-	L"Cancel",
+	L"团队情报员",
+	L"城镇任务",	
+	L"取消",
 };
 
 STR16 pSnitchMenuDescStrings[] =
 {
 	// snitch
-	L"Discuss snitch's behaviour towards his teammates.",
-	L"Take an assignment in this sector.",
-	L"Cancel",
+	L"和队友讨论告发行为。",
+	L"从该分区获取任务。",
+	L"取消",
 };
 
 STR16 pSnitchToggleMenuStrings[] =
 {
 	// toggle snitching
-	L"Report complaints",
-	L"Don't report",
-	L"Prevent misbehaviour",
-	L"Ignore misbehaviour",
-	L"Cancel",
+	L"报告队伍怨言",
+	L"不报告",
+	L"阻止失常行为",
+	L"忽略失常行为",
+	L"取消",
 };
 
 STR16 pSnitchToggleMenuDescStrings[] =
 {
-	L"Report any complaints you hear from other mercs to your commander.",
-	L"Don't report anything.",
-	L"Try to stop other mercs from getting wasted and scrounging.",
-	L"Don't care what other mercs do.",
-	L"Cancel",
+	L"向指挥员报道从其他队员口中听到的怨言。",
+	L"什么都不报道。",
+	L"试图阻止队员浪费时间或小偷小摸。",
+	L"不关心别的佣兵在做什么。",
+	L"取消",
 };
 
 STR16 pSnitchSectorMenuStrings[] =
 {
 	// sector assignments
-	L"Spread propaganda",
-	L"Gather rumours",
-	L"Cancel",
+	L"派发传单",
+	L"搜集谣言",
+	L"取消",
 };
 
 STR16 pSnitchSectorMenuDescStrings[] =
 {
-	L"Glorify mercs' actions to increase town loyalty and suppress any bad news. ",
-	L"Keep an ear to the ground on any rumours about enemy forces activity.",
+	L"赞赏佣兵的行动，增加城镇忠诚度并避免糟糕的新闻。 ",
+	L"留心关于敌军动向的谣言。",
 	L"",
 };
 
 STR16 pSnitchPrisonExposedStrings[] =
 {
-	L"%s was exposed as a snitch but managed to notice it and get out alive.",
-	L"%s was exposed as a snitch but managed to defuse situation and get out alive.",
-	L"%s was exposed as a snitch but managed to avoid assassination attempt.",
-	L"%s was exposed as a snitch but guards managed to prevent any violence outbursts.",
+	L"%s告发者的身份暴露，但是及时注意到并成功逃脱。",
+	L"%s告发者的身份暴露，但是稳定了场面并成功逃脱。",
+	L"%s告发者的身份暴露，但是逃过了刺杀。",
+	L"%s告发者的身份暴露，但是狱警阻止了暴力事件的发生。",
 
-	L"%s was exposed as a snitch and almost drowned by other inmates before guards saved him.",
-	L"%s was exposed as a snitch and almost beaten to death before guards saved him.",
-	L"%s was exposed as a snitch and almost stabbed to death before guards saved him.",
-	L"%s was exposed as a snitch and strangled to death before guards saved him.",
+	L"%s告发者的身份暴露，几乎被其他犯人淹死，最后被狱警救下。",
+	L"%s告发者的身份暴露，几乎被其他犯人打死，最后被狱警救下。",
+	L"%s告发者的身份暴露，几乎被刺死，最后被狱警救下。",
+	L"%s告发者的身份暴露，几乎被勒死，最后被狱警救下。",
 
-	L"%s was exposed as a snitch and drowned in toilet by other inmates.",
-	L"%s was exposed as a snitch and beaten to death by other inmates.",
-	L"%s was exposed as a snitch and shanked to death by other inmates.",
-	L"%s was exposed as a snitch and strangled to death by other inmates.",
+	L"%s告发者的身份暴露，被其他犯人按在马桶内淹死。",
+	L"%s告发者的身份暴露，被其他犯人打死。",
+	L"%s告发者的身份暴露，被其他犯人用刀刺死。",
+	L"%s告发者的身份暴露，被其他犯人勒死。",
 };
 
 STR16 pSnitchGatheringRumoursResultStrings[] =
 {
-	L"%s heard rumours about enemy activity in %d sectors.",
+	L"%s听到了在%d分区有敌军活动的谣言。",
 
 };
-// /TODO.Translate
+
 
 STR16 pRemoveMercStrings[] =
 {
@@ -2407,8 +2407,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"僵尸: %d\n", // Zombies: %d\n
 
-	L"背景：", // TODO.Translate
-	L"性格：", // TODO.Translate
+	L"背景：",
+	L"性格：",
 };
 
 
@@ -2465,7 +2465,7 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"无线电操作员",	// 21
-	L"Snitch",	// 22	// TODO.Translate
+	L"告发",	// 22
 
 	// second names for major skills
 	L"机枪手",
@@ -2492,7 +2492,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
 	L"更多...",
-	L"various",			// for VARIOUSSKILLS	// TODO.Translate
+	L"多种技能",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
 
@@ -2637,7 +2637,7 @@ STR16 pLandTypeStrings[] =
 	L"Drassen机场",
 	L"Meduna机场",
 	L"SAM导弹基地",
-	L"Refuel site", // TODO.Translate
+	L"加油站",
 	L"抵抗军隐蔽处",//The rebel base underground in sector A10
 	L"Tixa地牢",//The basement of the Tixa Prison (J9)
 	L"异形巢穴",//Any mine sector with creatures in it
@@ -3288,22 +3288,22 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"劝降", //L"Offer surrender",
 	L"交谈",
 
-	// TODO.Translate
+
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
-    L"Disarm trap",
-    L"Inspect trap",
-    L"Remove blue flag",
-    L"Blow up!",
-    L"Activate tripwire",
-    L"Deactivate tripwire",
-    L"Reveal tripwire",
-    L"No detonator or remote detonator found!",
-    L"This bomb is already armed!",
-    L"Safe",
-    L"Mostly safe",
-    L"Risky",
-    L"Dangerous",
-    L"High danger!",
+    L"拆除陷阱",
+    L"查看陷阱",
+    L"移除蓝旗",
+    L"引爆！",
+    L"激活绊线",
+    L"关闭绊线",
+    L"移除绊线",
+    L"没有发现引爆器或远程引爆器！",
+    L"炸弹已经起爆了！",
+    L"安全",
+    L"基本安全",
+    L"可能危险",
+    L"危险",
+    L"非常危险！",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3403,19 +3403,19 @@ STR16 pHelicopterEtaStrings[] =
 	L"选择Skyrider还是“着陆点”？",
 	L"Skyrider",
 	L"着陆点",
-	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
-	L"Helicopter will now return straight to base, do you want to drop down passengers before?",
-  	L"Remaining Fuel:",			// TODO.Translate
-	L"Dist. To Refuel Site:",	// TODO.Translate
+	L"直升机严重受损，必须降落在敌军领地！",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
+	L"直升机将直接返回基地，你希望在此之前丢下乘客吗？",
+  	L"剩余燃料：",
+	L"到加油站距离：",
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=
 {
 	// anv: Waldo The Mechanic - prompt and notifications
-	L"Do you want %s to start repairs? It will cost $%d, and helicopter will be unavailable for around %d hour(s).",
-	L"Helicopter is currently disassembled. Wait until repairs are finished.",
-	L"Repairs completed. Helicopter is available again.",
-	L"Helicopter is fully refueled.",
+	L"你希望让%s来修理吗？这将话费$%d，而且直升机在%d小时左右将无法起飞。",
+	L"直升机已经拆卸。请等到修理完成。",
+	L"修理完成。直升机已可使用。",
+	L"直升机已加满油。",
 };
 
 STR16 sMapLevelString[] =
@@ -4040,7 +4040,7 @@ STR16 pImpPopUpStrings[] =
 	L"你已经达到I.M.P.该性别人物上限。",
 	L"你无法支付此I.M.P.人物的费用。",	// 10
 	L"新的I.M.P.人物加入了你的队伍。",
-	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"你已经设置了最大数量的佣兵特性。",
 };
 
 
@@ -4258,7 +4258,7 @@ STR16 pBookMarkStrings[] =
 	L"取消",
 	L"百科全书",
 	L"简报室",
-	L"Campaign History",	// TODO.Translate
+	L"战役历史",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4367,10 +4367,10 @@ STR16 pWebPagesTitles[] =
 	L"McGillicutty 公墓",
 	L"",
 	L"无法找到URL",
-	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
-	L"Arulco Press Council - Battle Reports",
-	L"Arulco Press Council - Latest News",
-	L"Arulco Press Council - About us",
+	L"Arulco新闻发布会 - 战役总结",
+	L"Arulco新闻发布会 - 战役报告",
+	L"Arulco新闻发布会 - 最新消息",
+	L"Arulco新闻发布会 - 关于我们",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -5189,7 +5189,7 @@ STR16			AimAlumniText[] =
 	L"A.I.M 前成员",
 
 	L"完成",
-	L"Next page",	// TODO.Translate
+	L"下一页",
 };
 
 
@@ -6082,8 +6082,8 @@ STR16 pMessageStrings[] =
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
 	L"保持佣兵间距开启",
 	L"保持佣兵间距关闭",
-	L"Artificial Merc Light ON",	// TODO.Translate
-	L"Artificial Merc Light OFF",
+	L"虚拟佣兵光照开启",
+	L"虚拟佣兵光照关闭",
 };
 
 
@@ -6200,21 +6200,21 @@ STR16 pNewNoiseStr[] =
 	L"%s听到%s吱吱声来自%s。",
 	L"%s听到%s溅水声来自%s。",
 	L"%s听到%s撞击声来自%s。",
-	L"%s hears a %s GUNFIRE coming from %s.", // anv: without this, all further noise notifications were off by 1!		// TODO.Translate
+	L"%s听到%s开火声来自%s.", // anv: without this, all further noise notifications were off by 1!
 	L"%s听到%s爆炸声发向%s。",
 	L"%s听到%s尖叫声发向%s。",
 	L"%s听到%s撞击声发向%s。",
 	L"%s听到%s撞击声发向%s。",
 	L"%s听到%s粉碎声来自%s。",
 	L"%s听到%s破碎声来自%s。",
-	L"",											 // anv: placeholder for silent alarm		// TODO.Translate
-	L"%s hears someone's %s VOICE coming from %s.", // anv: report enemy taunt to player		// TODO.Translate
+	L"",											 // anv: placeholder for silent alarm
+	L"%s听到%s某人的说话声来自%s.", // anv: report enemy taunt to player
 };
 
-// TODO.Translate
+
 STR16 pTauntUnknownVoice[] =
 {
-	L"Unknown Voice",
+	L"不明说话声",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =
@@ -6534,11 +6534,11 @@ STR16 gzTooltipStrings[] =
 	L"%s|技能 1: %s\n",
 	L"%s|技能 2: %s\n", 
 	L"%s|技能 3: %s\n",
-    // Additional suppression effects - sevenfm	//  TODO.Translate
-    L"%s|A|Ps lost due to |S|uppression: %d\n",
-    L"%s|Suppression |Tolerance: %d\n",
-    L"%s|Effective |S|hock |Level: %d\n",
-    L"%s|A|I |Morale: %d\n",
+    // Additional suppression effects - sevenfm
+    L"%s|火|力|压|制导致的|A|P损失：%d\n",
+    L"%s|火|力|压|制|耐|性: %d\n",
+    L"%s|有|效|惊|吓|等|级：%d\n",
+    L"%s|A|I|士|气：%d\n",
 };
 
 STR16 New113Message[] =
@@ -6857,21 +6857,21 @@ STR16 MPClientMessage[] =
 	L"不能连接到服务器，因为你的版本 %S 和服务器端的版本 %S 不同。",
 	L"你击毙了一个敌人。",
 	L"无法启动游戏，因为所有小队都一样。",	//L"Cannot start the game, because all teams are the same.",
-	L"The server has choosen New Inventory (NIV), but your screen resolution does not support NIV.", //
+	L"服务器使用了新装备系统（NIV），但是你的屏幕分辨率不支持NIV。", //
 	// 70
-	L"Could not save received file '%S'",
-	L"%s's bomb was disarmed by %s",
-	L"You loose, what a shame",	// All over red rover
-	L"Spectator mode disabled",
-	L"Choose client to kick from game. #1: <Cancel>, #2: %S, #3: %S, #4: %S",
+	L"无法保存接收文件'%S'",
+	L"%s的炸弹被%s拆除了",
+	L"你输了，真丢人",	// All over red rover
+	L"禁用观众模式",
+	L"选择所要踢出游戏的用户：#1: <取消>, #2: %S, #3: %S, #4: %S",
 	// 75
-	L"Team %s is wiped out.",
-	L"Client failed to start. Terminating.",
-	L"Client disconnected and shutdown.",
-	L"Client is not running.",
-	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	
+	L"队伍%s被消灭了",
+	L"客户端初始化失败。结束游戏。",
+	L"客户端连接中断，强行关闭。",
+	L"客户端无响应。",
+	L"提示：如果游戏卡死（对手进度条不动），告知服务端然后按ALT+E获取控制权！",	
 	// 80
-	L"AI's turn - %d left",		// TODO.Translate - MU
+	L"AI回合 - %d剩余",	
 };
 
 STR16 gszMPEdgesText[] =
@@ -7096,8 +7096,8 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s在%s负伤了。", // <--- This is a log message string.
 	// 31 - 35
 	L"%s在%s负了重伤。", //<--- This is a log message string.
-	L"There are currently prisoners here who are aware of %s's identity.", // TODO.Translate
-	L"%s is currently well known as a mercenary snitch. Wait at least %d more hours.", // TODO.Translate
+	L"现在这里有俘虏能认得出%s。", 
+	L"%s现在是人尽皆知的佣兵告发者。至少需要再等%小时。",
 
 
 };
@@ -8091,7 +8091,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％暴力开门成功率\n", //L" %s%d%% chance of success with door breaching charges\n",
 	L" %s%d%％射击生物准确率(CTH)\n", //L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%％医疗保证金\n", //L" %s%d%% insurance cost\n",
-	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
+	L" %s%d%％发现狙击手的成功率\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -8258,161 +8258,161 @@ STR16 sSpecialCharacters[] =
 	L"％",		// Percentage character
 };
 
-STR16	szSoldierClassName[]=	// TODO.Translate
+STR16	szSoldierClassName[]=
 {
-	L"Mercenary",
-	L"Green militia",
-	L"Regular militia",
-	L"Elite militia",
+	L"佣兵",
+	L"新手民兵",
+	L"常规民兵",
+	L"精英民兵",
 
-	L"Civilian",
+	L"市民",
 
-	L"Administrator",
-	L"Army Soldier",
-	L"Elite Soldier",
-	L"Tank",
+	L"地方督查",
+	L"军队士兵",
+	L"精英士兵",
+	L"坦克",
 
-	L"Creature",
-	L"Zombie",
+	L"生物",
+	L"僵尸",
 };
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco Press Council",
-	L"Ministry for Arulcan Information Distribution",
-	L"Arulco Revolutionary Movement",
-	L"The Times International",
-	L"International Times",
-	L"R.I.S. (Recon Intelligence Service)",
+	L"Arulco新闻议会",
+	L"Arulco情报配送部门",
+	L"Arulco革命运动",
+	L"时代国际版",
+	L"国际时代",
+	L"R.I.S. (情报侦察服务)",
 
-	L"A collection of press sources from Arulco",
-	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"Arulco媒体资源集",
+	L"我们是中立情报部门。我们从Arulco搜集各种新闻报道。我们不会对这些资料进行评估——我们仅仅将它们发表出来供你自己评估。我们从各类资源中发布文章",
 	
-	L"Conflict Summary",
-	L"Battle reports",
-	L"News",
-	L"About us",
+	L"战斗总结",
+	L"战役报告",
+	L"新闻",
+	L"关于我们",
 };
 
 STR16	szCampaignHistoryDetail[]=
 {
-	L"%s, %s %s %s in %s.",
+	L"%s, %s %s %s 于 %s.",
 
-	L"rebel forces",
-	L"the army",
+	L"反抗军",
+	L"女王部队",
 
-	L"attacked",
-	L"ambushed",
-	L"airdropped",
+	L"进攻了",
+	L"袭击了",
+	L"空袭了",
 
-	L"The attack came from %s.",
-	L"%s were reinforced from %s.",
-	L"The attack came from %s, %s were reinforced from %s.",
-	L"north",
-	L"east",
-	L"south",
-	L"west",
-	L"and",
+	L"敌人从%s攻入。",
+	L"%s获得了来自%s的支援。",
+	L"敌人从%s攻入,%s获得了来自%s的支援。",
+	L"北方",
+	L"东方",
+	L"南方",
+	L"西方",
+	L"和",
 
-	L"Buildings in the sector were damaged. %d civilians were killed and %d wounded.",
-	L"During the attack, %s and %s called reinforcements.",
-	L"During the attack, %s called reinforcements.",
-	L"Eyewitnesses report the use of chemical weapons from both sides.",
-	L"Chemical weapons were used by %s.",
-	L"In a serious escalation of the conflict, both sides deployed tanks.",
-	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
-	L"Both sides are said to have used snipers.",
-	L"Unverified reports indicate %s snipers were involved in the firefight."
+	L"该分区的建筑受损。%d名市民被杀，%d名市民受伤。",
+	L"在战斗中，%s和%s呼叫了支援。",
+	L"在战斗中，%s呼叫了支援。",
+	L"目击者报道交战双方都使用了化学武器。",
+	L"%s使用了化学武器。",
+	L"在交战大规模升级过程中，双方都部署了坦克。",
+	L"%s部署了%d辆坦克，%d辆坦克在激烈的交火中被摧毁。",
+	L"据称双方都部署了狙击手。",
+	L"未经证实的消息称有%s名狙击手参与了交火。"
 };
 
 STR16	szCampaignHistoryTimeString[]=
 {
-	L"Deep in the night",		// 23 - 3
-	L"At dawn",					// 3 - 6
-	L"Early in the morning",	// 6 - 8
-	L"In the morning hours",	// 8 - 11
-	L"At noon",					// 11 - 14
-	L"On the afternoon",		// 14 - 18
-	L"On the evening",			// 18 - 21
-	L"During the night",		// 21 - 23
+	L"深夜",		// 23 - 3
+	L"黎明",					// 3 - 6
+	L"早晨",	// 6 - 8
+	L"上午",	// 8 - 11
+	L"正午",					// 11 - 14
+	L"下午",		// 14 - 18
+	L"傍晚",			// 18 - 21
+	L"晚上",		// 21 - 23
 };
 
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
-	L"Initial funding",
-	L"Mine income",
-	L"Trade",
-	L"Other sources",
+	L"初始资金",
+	L"矿场收入",
+	L"贸易",
+	L"其他来源",
 };
 
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
-	L"Ammunition",
-	L"Explosives",
-	L"Food",
-	L"Medical gear",
-	L"Item maintenance",
+	L"弹药",
+	L"炸药",
+	L"食物",
+	L"医疗器械",
+	L"物品维护",
 };
 
 STR16	szCampaignHistoryResultString[]=
 {
-	L"In an extremely one-sided battle, the army force was wiped out without much resistance.",
+	L"在这场实力悬殊的战役中，女王部队毫无抵抗地被完全歼灭了。",
 
-	L"The rebels easily defeated the army, inflicting heavy losses.",
-	L"Without much effort, the rebels inflicted heavy losses upon the army and took several prisoners.",
+	L"反抗军轻易地击败了女王部队，使其遭到巨大损失。",
+	L"反抗军毫不费力地沉重打击了女王部队，并且俘虏了一些敌人。",
 
-	L"In a bloody fight, the rebels finally overcame the opposition. The army had severe losses.",
-	L"The rebels had losses but defeated the royalists. Unverified information says several soldiers might have been taken prisoner.",
+	L"在这场血战中，反抗军最终战胜了对手。女王部队损失巨大。",
+	L"反抗军略有损失，最终击败了精英部队。未证实消息称一些士兵可能被俘虏。",
 
-	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Wether they will be able to hold this position against continued attacks is doubtful.",
+	L"在一场皮洛士式胜利中，反抗军击退了精英部队，但是自己也损失惨重。很难肯定他们在这样的连续攻势下能否坚持得住。",
 	
-	L"The army's superiority in numbers came into full play. The rebels never had a chance and had to either retreat or be killed or captured.",
-	L"Despite the high number of rebels in this sector, the army easily dispatched them.",
+	L"女王部队占尽了天时地利人和。反抗军毫无逆天之力，他们如不撤退则被俘虏或杀死。",
+	L"尽管反抗军在人数上占用优势，女王部队还是轻易地击退了他们。",
 
-	L"The rebels were clearly unprepared against the army's superiority in numbers an equipment. They were easily defeated.",
-	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
+	L"反抗军显然对装备精良且为数众多的女王部队毫无准备，他们被轻易地击败了。",
+	L"虽然反抗军在人数上占有优势，但是女王部队装备精良。反抗军显然落败了。",
 
-	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	L"在激烈的战斗中双方都遭到了巨大损失，不过最终，女王部队以人数上的优势决定了战役的胜利。反抗军被击溃。至于有没有幸存者，我们目前还无法核实。",
+	L"在激烈的交火中，Arulco部队的优秀训练起到了关键性作用。反抗军被迫撤退。",
 	
-	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
+	L"双方都不愿轻易认输。虽然女王部队最终扫除了当地的反抗军威胁，但是巨大的损失使得女王军队本身名存实亡。不过很显然，如果女王军队能够耗得起的话，反抗军很快就会消失得一干二净了。",
 };
 
 STR16	szCampaignHistoryImportanceString[]=
 {
-	L"Irrelevant",
-	L"Insignificant",
-	L"Notable",
-	L"Noteworthy",
-	L"Significant",
-	L"Interesting",
-	L"Important",
-	L"Very important",
-	L"Grave",
-	L"Major",
-	L"Momentous",
+	L"无关的",
+	L"不重要的",
+	L"不无价值的",
+	L"值得注意的",
+	L"明显的",
+	L"有趣的",
+	L"重要的",
+	L"相当重要的",
+	L"十分重要的",
+	L"极为重要的",
+	L"意义重大的",
 };
 
 STR16	szCampaignHistoryWebpageString[]=
 {
-	L"Killed",
-	L"Wounded",
-	L"Prisoners",
-	L"Shots fired",
+	L"杀死",
+	L"受伤",
+	L"俘虏",
+	L"射击次数",
 
-	L"Money earned",
-	L"Consumption",
-	L"Losses",
-	L"Participants",
+	L"获益",
+	L"消费",
+	L"损失",
+	L"参与者",
 
-	L"Promotions",
-	L"Summary",
-	L"Detail",
-	L"Previous",
+	L"晋升",
+	L"总结",
+	L"细节",
+	L"上一个",
 
-	L"Next",
-	L"Incident",
-	L"Day",
+	L"下一个",
+	L"事件",
+	L"天",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
