@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Hey, gimme that!</szText>
+    <steal>1</steal>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Nice toy!</szText>
+    <steal>1</steal>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Give me that, you're not using it properly anyway!</szText>
+    <steal>1</steal>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ooh, shiny!</szText>
+    <steal>1</steal>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Nice stuff you... had... there!</szText>
+    <steal>1</steal>
+  </TAUNT>
+</TAUNTS>

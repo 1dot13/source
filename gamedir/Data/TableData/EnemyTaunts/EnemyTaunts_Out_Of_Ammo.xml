@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>What the hell am I going to do now?</szText>
+    <out_of_ammo>1</out_of_ammo>
+    <morale_lt>40</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>I'm all out!</szText>
+    <out_of_ammo>1</out_of_ammo>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>I'm running dry over here!</szText>
+    <out_of_ammo>1</out_of_ammo>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Need more ammo!</szText>
+    <out_of_ammo>1</out_of_ammo>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>I'm out of bullets!</szText>
+    <out_of_ammo>1</out_of_ammo>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Need supplies!</szText>
+    <out_of_ammo>1</out_of_ammo>
+  </TAUNT>
+</TAUNTS>
