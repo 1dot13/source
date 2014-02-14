@@ -26,6 +26,7 @@ typedef tauntParseData;
 BOOLEAN localizedTextOnly_Taunts;
 
 UINT16 num_found_taunt = 0;	// the correct number is set on reading the xml
+UINT16 offset_index = 0;
 
 static void XMLCALL
 tauntStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -241,8 +242,8 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 					*/
 
 					// WANNE: Working
-					wcscpy(zTaunt[pData->curTaunt.uiIndex].szText,pData->curTaunt.szText);
-					wcscpy(zTaunt[pData->curTaunt.uiIndex].szCensoredText,pData->curTaunt.szCensoredText);
+					wcscpy(zTaunt[offset_index + pData->curTaunt.uiIndex].szText,pData->curTaunt.szText);
+					wcscpy(zTaunt[offset_index + pData->curTaunt.uiIndex].szCensoredText,pData->curTaunt.szCensoredText);
 				}
 				else
 				{
@@ -284,9 +285,11 @@ tauntEndElementHandle(void *userData, const XML_Char *name)
 
 					pData->curArray[pData->curTaunt.uiIndex] = pData->curTaunt;
 					//pData->curArray[num_found_taunt-1] = pData->curTaunt;
+
+					num_found_taunt++;
 				}
 			}	
-			num_found_taunt++;
+			//num_found_taunt++;
 			//num_found_taunt = pData->curTaunt.uiIndex;
 		}
 		else if(strcmp(name, "uiIndex") == 0)
@@ -953,6 +956,9 @@ BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion)
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading EnemyTaunts.xml" );
 
 	localizedTextOnly_Taunts = localizedVersion;
+
+	if (!localizedTextOnly_Taunts)
+		offset_index = num_found_taunt;
 		
 	// Open file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
