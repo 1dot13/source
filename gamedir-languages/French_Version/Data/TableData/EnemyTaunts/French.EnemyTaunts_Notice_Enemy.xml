@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Fantastique !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>"Bien sûr, ils n'oseraient pas nous attaquer". D'acccooord.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Tout le monde reste calme et on survivra.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Da'ffff... !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Grosse erreur !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Oh putain !</szText>
+    <szTextCensored>Oh Bon Dieu !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Ennemi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Ennemi !!!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Ils sont là !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Intrus !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Merde alors !</szText>
+    <szTextCensored>Zut alors !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Laisse-moi deviner, où te trouves-tu... ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>J'ai une ligne de tir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Des forces ennemies !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ennemi détecté !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Ennemi par ici !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Putain ! Tuons cette merde avant qu'elle procrée !</szText>
+    <szTextCensored>Bon sang ! Tuons cette mouscaille avant qu'elle procrée !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Sans vouloir vous offenser, madame, je n'oserais pas vous toucher même avec un bâton.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Regarde qui vient pique-niquer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Tu dois être barjot pour venir ici !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Par ici, blaireau !</szText>
+  </TAUNT>
+</TAUNTS>

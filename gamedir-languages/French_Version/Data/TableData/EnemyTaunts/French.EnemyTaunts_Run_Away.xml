@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Je vais rammener quelques potes !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>J'en ai plein le cul !</szText>
+    <szTextCensored>J'en ai marre !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Oh mon Dieu !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>On n'est pas assez payé pour ce foutoir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>C'est à quel moment que tout est parti en couille ?</szText>
+    <szTextCensored>C'est à quel moment que tout est parti en vrille ?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Je vais chercher quelques potes !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Tu me le payeras... Mais pas aujourd'hui !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Ce n'est vraiment pas fair-play !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Tu ne crois pas que je vais te pardonner !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>C'est vraiment trop pour moi.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Je reviendrai quand tu t'y attendras le moins, connard !</szText>
+    <szTextCensored>Je reviendrai quand tu t'y attendras le moins !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Je te laisse en vie... Pour l'instant.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Trop c'est trop !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Ça commence à bien faire ! Je me casse !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ça commence à bien faire ! Je ne suis même pas soldat !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Je ne fuis pas... C'est une retraite stratégique !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>J'en ai assez vu.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Non, non et non !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Fuyons sur les hauteurs !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>On va dire que c'est un match nul.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Ils disent de rejoindre l'armée. Mais pas pour cette merde !</szText>
+    <szTextCensored>Ils disent de rejoindre l'armée. Mais pas pour ce bazar !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Je ne regrette rien !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Game over !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Soyons amis !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>La fête est finie !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>La violence n'est pas une réponse !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Je suis trop jeune pour mourir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Allez vous faire foutre les mecs, je rentre chez moi !</szText>
+    <szTextCensored>Allez vous faire voir les mecs, je rentre chez moi !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Faites l'amour, pas la guerre !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>J'ai... Heu, laissé les lumières allumées chez moi. Je dois y aller !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Laisse-moi ton numéro de téléphone et je t'appelle !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Je n'arrive plus à faire face !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Je devrais foutre le camp !</szText>
+    <szTextCensored>Je devrais décamper !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Je ne me battrai pas tout(e) seul(e) contre ces bâtards !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Ça suffit, j'abandonne...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>L'armée... J'aurais dû m'en douter !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Où avais-je la tête en venant ici ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Je suis entouré(e) d'idiots ! Je me tire !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Pas d'armes ! Pas d'amis ! Pas d'espoir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Je n'ai jamais voulu rejoindre l'armée ! C'est ma mère qui m'a forcé(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Quand mon frère va entendre ça, il va te botter le cul !</szText>
+    <szTextCensored>Quand mon frère va entendre ça, il va te botter les fesses !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Parfois, les chemins les moins fréquentés le sont pour une bonne raison !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>C'est la fin des haricots !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Tu triches !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Il est temps que j'envisage de prendre ma retraite...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Ne pense pas que ce soit fini ! Je te traquerai partout où que tu ailles !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Pourquoi ne pouvons-nous pas nous entendre, sans recourir à la violence ?</szText>
+  </TAUNT>
+</TAUNTS>

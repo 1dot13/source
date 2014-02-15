@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Dis bonjour à ma pétoire !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>C'est l'heure du barbecue !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Avale ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Paf !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Badaboum !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Évite ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>J'aime ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Hahaha !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Crève, salope !</szText>
+    <szTextCensored>Adieu, poulette !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Crève, fils de pute !</szText>
+    <szTextCensored>Adieu, poulet !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Dis tes prières !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Oh que oui !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Rien ne vaut un bon carnage !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Mon arme est plus grosse que la tienne !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>J'ai un cadeau pour toi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Observe et apprends.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Une livraison spéciale !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Tu devrais voir ta gueule !</szText>
+    <szTextCensored>Tu devrais voir ta figure !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Tu n'as rien vu venir, hé hé ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Échec et mat !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>J'ai toujours rêvé de faire ça.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>La paix par la puissance !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Ce turbin n'est pas si mal que ça.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Maintenant, je me souviens pourquoi j'ai rejoint l'armée !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Ooh, plus fort que ça... Tu meurs !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>De rien !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Le voisinage se dégrade, on dirait !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Refusé !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Tiens ma bière et regarde ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Si j'avais une quéquette, je te dirais de la sucer !</szText>
+  </TAUNT>
+</TAUNTS>

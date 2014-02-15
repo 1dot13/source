@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Viva la revolution!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Keep a place in hell for your Queen!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Aaand you're dead.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Next!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>That's just a beginning, fuckers!</szText>
+    <szTextCensored>That's just a beginning, bastards!</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Time to loot a corpse, I guess.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Nice job getting yourself killed.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>You OK? You look kinda... dead!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Another one to my collection.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>You could at least TRY to die with some dignity.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Pathetic.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Amateur.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Let this be a lesson for all of you!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>You asked for it.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Your luck ran out.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Time to pay the piper!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Someone, go check his pulse.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Someone, go check her pulse.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Adios!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>In the name of all male population around the globe: we're going to miss you.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Oh, too bad. She was kinda cute.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Goodnight sweet prince.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Diagnosis: negative!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>It didn't have end up like this!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Yeah! See ya!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Look what you've made me do...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>That's one way to skin a cat!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Struggle is the enemy, but lead is the remedy!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Cause of death: acute lead poisoning!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Everyone deserves a happy ending, except you!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Hahaha! Jesus, he fell funny!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Hahaha! Jesus, she fell funny!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Now I have to wash my hands!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Look at my shirt, how am I going to explain this to my wife?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Bullseye!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>I'm the best!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>It's all in the reflexes!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Neutralised!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Target eliminated!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Another one bites the dust!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>I like to look in their eyes...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>One out, six billions to go...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Close and personal. Just how I like it!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Looks like a bad case of... split personality!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Did your parents have any children that lived?</szText>
+  </TAUNT>
+</TAUNTS>

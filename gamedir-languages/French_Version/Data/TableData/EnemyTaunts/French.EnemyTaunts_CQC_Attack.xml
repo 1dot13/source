@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Voyons voir ce qu'il y a dans cette pinata !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Quand j'en aurai fini avec toi, tu chanteras comme soprano !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Hé, ton lacet est défait !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Il y a de la moutarde sur ton T-shirt !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Je vais briser tous les os dans ton corps !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Besoin d'une petite rhinoplastie ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Normalement, je ne frappe jamais une femme... Oh, à qui je vais faire croire ça ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Punissons !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Je pense que tu apprécieras.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Je vais t'écraser comme un insecte !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Je vais te poignarder jusqu'à ce que tu dises "aïe", je suis mort !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Je vais te découper comme un poulet !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Saigne !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Je n'arrive pas à croire qu'on me paye pour ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Couper, désosser et hacher !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Je vais te vider comme un poisson !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Tu as besoin d'un bon rasage !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>C'est l'heure de l'hara-kiri, trou du cul !</szText>
+    <szTextCensored>C'est l'heure de l'hara-kiri !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Je vais te mettre les tripes à l'air !</szText>
+  </TAUNT>
+</TAUNTS>

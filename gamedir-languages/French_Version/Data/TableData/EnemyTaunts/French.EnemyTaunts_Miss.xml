@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Bordel !</szText>
+    <szTextCensored>Bon sang !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Enfoiré !</szText>
+    <szTextCensored>Vermine !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Oh, allez viens !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ne m'oblige pas à venir te voir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Fils de pute !</szText>
+    <szTextCensored>Pauvre cloche !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Putain de merde !</szText>
+    <szTextCensored>Saperlipopette !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Tu essayes de m'impressionner ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Ça avait l'air plus facile au cirque...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>C'était un coup de semonce !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Je ne l'ai même pas fait exprès !</szText>
+  </TAUNT>
+</TAUNTS>

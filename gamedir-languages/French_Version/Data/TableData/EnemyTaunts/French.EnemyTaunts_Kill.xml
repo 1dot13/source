@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Viva la révolution !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Garde une place en enfer pour ta Reine !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Et tu es mort.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Suivant(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Ce n'est qu'un avant-goût, enculés !</szText>
+    <szTextCensored>Ce n'est qu'un avant-goût, andouilles !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Je pense qu'il est temps de fouiller ce corps.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>C'est un travail agréable de te tuer.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Tu vas bien ? Tu as l'air d'être... Mort !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Et un(e) autre à ma collection !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Tu pourrais ESSAYER de mourir avec dignité.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Pathétique.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Amateur.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Que ça vous serve de leçon à tous !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Tu l'as bien cherché !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ta chance a tourné !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>C'est l'heure de payer les pots cassés !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Une personne peut aller vérifier son pouls.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Qu'une personne aille vérifier son pouls !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Adios !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Au nom de tous les hommes de la terre : Tu vas nous manquer.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Oh, c'est dommage. Elle était plutôt mignonne.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Bonne nuit doux prince.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Diagnostic : Négatif !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Ce n'était pas obligé de se terminer comme ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Ouais ! À la revoyure !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Regarde ce que tu m'as obligé(e) faire...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>C'est une des façons de mourir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>La lutte est l'ennemi, mais le plomb est le remède !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Cause du décès : Intoxication aiguë par le plomb !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Tout le monde mérite une fin heureuse, sauf toi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Doux Jésus, il est tombé bizarrement ! Hahaha !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Doux Jésus, elle est tombée bizarrement ! Hahaha !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Bah, je dois me laver les mains, maintenant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Regarde ma chemise, comment je vais expliquer ça à ma femme ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>En plein dans le mille !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Je suis le(a) meilleur(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Tout est dans les réflexes !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Neutralisé(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Cible éliminée.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Un(e) autre qui mord la poussière !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>J'aime les regarder dans les yeux...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Une personne s'en va sur les six milliards...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Intense et personnel... Juste comme j'aime !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Ça ressemble à un mauvais cas de... dédoublement de la personnalité !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Tes parents ont eu des enfants viables ?</szText>
+  </TAUNT>
+</TAUNTS>

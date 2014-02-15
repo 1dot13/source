@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Ennemi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Ennemi !!!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Ils sont là !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Prépare-toi à souffrir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Oh, salut.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Mon Dieu, tu es si toquard que tu passerais pour un chef-d'œuvre d'art moderne !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Hé ma mignonne, je vais te conduire au 7 ème ciel et je n'ai même pas besoin du permis de conduire pour ça.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Hé ma poulette, es-tu un colis ? Car c'est écrit "fragile" partout sur toi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Hé ma poulette, pas trop dur de revenir sur terre ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>OK, va chercher le reste de l'équipe... Je t'attends !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Hé ma petite, tu t'es échappé d'un magasin de jouets ? Car tu es une vraie poupée !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Regarde qui vient pique-niquer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Tu dois être barjot pour venir ici !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Quelle souffrance, on devrait mettre un terme à sa misérable vie !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>À L'AIDE ! je suis tombé sur un monstre indestructible !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Tu as l'air fatiguée, peut-être qu'on devrait t'aider à t'endormir... Mais d'une façon permanente !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Tes parents étaient frère et sœur ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Maintenant, on sait qu’on n’est pas si mignon, mais qu’est-ce qui t’est arrivé ???</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Laisse-moi deviner, tes parents t'ont nourri à coup de lance-pierre ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Je pourrais te faire le maquillage au fusil à pompe, ça ne serait pas pire !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Holà ! Qui a laissé sortir le gorille de sa cage ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Wouah, tu es vraiment... trop moche !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Putain de merde, ils ont amené des travestis !</szText>
+    <szTextCensored>Nom de dieu, ils ont amené des travestis !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Hé, fillette ! C'est quoi, ta coiffure... Tu ressembles à un saint-saint Bernard !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>As-tu remarqué à quel point "grandiose" rime avec "moi" et "pitoyable" avec "toi" ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>En tant qu’étranger, que penses-tu de la race humaine ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Que dirais-tu d'un rendez-vous... Juste toi, moi et un rouleau de scotch ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Que dirais-tu d'un rendez-vous... Juste toi, moi et un rouleau de scotch ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Hé mon gars, qu'as-tu dans ton sac à dos ? Ton casse-croûte ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Hé fillette, qu'as-tu dans ton sac à dos ? Ton casse-croûte ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Si je jette un bâton, tu vas courir après ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Comment puis-je te manquer, si tu restes là ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Oh mon Dieu, regarde-toi ! Quelqu'un d'autre a été blessé dans l'accident ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Oh mon Dieu, regarde-toi ! Quelqu'un d'autre a été blessé dans l'accident ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Hé, corne-cul ! Par ici !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Que dirais-tu d'un rendez-vous... Juste toi, moi et un rouleau de scotch ?</szText>
+    <szTextCensored>Je n'ai jamais vu un tel ramassis de ploucs de toute ma vie !</szTextCensored>
+  </TAUNT>
+</TAUNTS>

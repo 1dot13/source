@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+	<uiIndex>0</uiIndex>
+	<szText>Aaaïe !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>1</uiIndex>
+	<szText>Je vois rouge...</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>2</uiIndex>
+	<szText>Merde, je vais tomber dans les pommes.</szText>
+	<szTextCensored>Mince, je vais tomber dans les pommes.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>3</uiIndex>
+	<szText>Pouah !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>4</uiIndex>
+	<szText>Ça... Ça fait mal !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>5</uiIndex>
+	<szText>Tu vas regret... uhh... ter ça.</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>6</uiIndex>
+	<szText>Bordel !</szText>
+	<szTextCensored>Bon sang !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>7</uiIndex>
+	<szText>C'est quoi ce bordel ?</szText>
+	<szTextCensored>C'est quoi ce bazar ?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>8</uiIndex>
+	<szText>Aïe !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>9</uiIndex>
+	<szText>Enfoiré !</szText>
+	<szTextCensored>Viens-là guignol !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>10</uiIndex>
+	<szText>Tu n'es qu'une merde !</szText>
+	<szTextCensored>Tu n'es qu'une...</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>11</uiIndex>
+	<szText>Enfoiré, tu vas payer pour ça !</szText>
+	<szTextCensored>Tu vas payer pour ça !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>12</uiIndex>
+	<szText>T'as baisé le mauvais gars !</szText>
+	<szTextCensored>Tu as cherché des noises au mauvais gars !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>13</uiIndex>
+	<szText>Là... Tu m'as... mis en rogne.</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>14</uiIndex>
+	<szText>Ce n'était rien !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>15</uiIndex>
+	<szText>Hé ! Je suis toujours là !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>16</uiIndex>
+	<szText>Même pas mal !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>17</uiIndex>
+	<szText>La douleur n'est qu'une faiblesse qui quitte mon corps !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>18</uiIndex>
+	<szText>La douleur n'est qu'une illusion !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>19</uiIndex>
+	<szText>Qui penses-tu être ?</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>20</uiIndex>
+	<szText>Oh, allez viens !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>21</uiIndex>
+	<szText>Pourquoi moi ?</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>22</uiIndex>
+	<szText>Ça te fait plus de mal qu'à moi !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>23</uiIndex>
+	<szText>Je suis allergique à la douleur !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>24</uiIndex>
+	<szText>Tu n'es qu'un fils de pute !</szText>
+	<szTextCensored>Tu n'es qu'une pauvre cloche !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>25</uiIndex>
+	<szText>Ce sont des putains de commandos !</szText>
+	<szTextCensored>Ce sont des satanés commandos !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>26</uiIndex>
+	<szText>Pourquoi les merdes sont toujours pour  moi ?!</szText>
+	<szTextCensored>Pourquoi les coups durs sont toujours pour  moi ?!</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>27</uiIndex>
+	<szText>Oh non, comment ça a pu se produire ?</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>28</uiIndex>
+	<szText>Je ne suis pas en colère ! Mais tu le sauras quand je le serai !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>29</uiIndex>
+	<szText>J'aimerais te répondre sur-le-champ !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>30</uiIndex>
+	<szText>Je vais te casser la gueule !</szText>
+	<szTextCensored>Je vais te casser la figure !!</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>31</uiIndex>
+	<szText>Ça suffit, tu es foutu(e) !</szText>
+	<szTextCensored>Ça suffit, tu es mort(e) !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>32</uiIndex>
+	<szText>Je vais te frapper, te poignarder et t'étrangler ! Tu sais... C'est ce que font les vrais amis !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>33</uiIndex>
+	<szText>Dieu trouvera une manière de te rattraper et ce ne sera pas joli.</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>34</uiIndex>
+	<szText>Petit ennemi... Petites blessures !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>35</uiIndex>
+	<szText>Je déteste vraiment cette violence inutile.</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>36</uiIndex>
+	<szText>Si tu tires encore sur moi... J'enroulerai ton arme autour de ton cou !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>37</uiIndex>
+	<szText>Oh, la pauvre... Elle s'est cassée un ongle !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>38</uiIndex>
+	<szText>Si tu sors ton calibre pour nous le pointer sous le nez, je te l'arracherai des mains et tu peux compter sur moi pour te le foutre au cul et appuyer sur la gâchette jusqu'au clic.</szText>
+	<szTextCensored>Si tu sors ton calibre pour nous le pointer sous le nez, je te l'arracherai des mains et tu peux compter sur moi pour le mettre dans ta bouche et appuyer sur la gâchette jusqu'au clic.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>39</uiIndex>
+	<szText>Ça ? Ce n'est rien !</szText>
+  </TAUNT>
+  <TAUNT>
+	<uiIndex>40</uiIndex>
+	<szText>Tout va bien ! Mon visage a amorti la chute !</szText>
+  </TAUNT>
+</TAUNTS>

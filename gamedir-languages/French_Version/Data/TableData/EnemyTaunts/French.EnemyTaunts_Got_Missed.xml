@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Épouse-moi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Pathétique !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Essaye encore, si tu l'oses.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ne m'oblige pas à venir te voir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Tu viens de faire ta plus grosse erreur !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Quand je prendrai ton arme... Tes mains seront froides !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Tu vas regretter d'avoir raté ton tir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Sur qui tires-tu ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Qui t'a appris à tirer ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Tu vas payer pour ça !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Fils de pute !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>T'es naze !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Manchot !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Tu essayes vraiment ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>T'aimerais bien, hein ?!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Hé, le bleu ! Apprends à tirer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Seulement dans tes rêves !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Même pas impressionné(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Ça n'arrivera jamais.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Bouh !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Les mômes ne devraient pas jouer avec des armes !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Bien essayé !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Ma grand-mère tire mieux que toi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Ce tir était mauvais, tu devrais te sentir minable !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Pas trop mal.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Tu ne peux pas me toucher !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Oh, ne laisse pas la déception te gagner.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Retourne dans ta cuisine, où c'est ta place, femme !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Ce n'est pas passé loin.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Fais un effort !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Ouf !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Sûrement pas !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>La prochaine fois... Peut-être !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Pas aujourd'hui !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>À un poil de cul près !</szText>
+    <szTextCensored>À un cheveu près !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Ça m'a réveillé(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>C'est le mieux que tu puisses faire ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Très jolie, mais tu peux te battre ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Merde, merde et merde...</szText>
+    <szTextCensored>Zut, zut et zut...</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>On va tous mourir !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Que Dieu m'aide !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>On est dans la merde... Dans la merde jusque là.</szText>
+    <szTextCensored>On est dans la crotte ... Dans la crotte jusque là.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Je ne rêve pas du tout ! je ne suis pas endormi(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Où est la putain cavalerie ?</szText>
+    <szTextCensored>Où est la cavalerie ?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Ne me mets pas en colère !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>C'est le mieux que tu puisses faire ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Très jolie, mais sais-tu te battre ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Je ris de tes compétences soi-disant supérieures !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>C'est ce que tu fais le mieux ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>C'est officiel : TU ES NUL !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Tu ne peux pas me faire de mal !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Oh, pourquoi cet air si sérieux ? Tu prends tout au premier degrés ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Allons, n'en fait pas une affaire d’État !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Là, tu essayes de me faire chier ?</szText>
+    <szTextCensored>Là, tu essayes de m'embêter ?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Tiens-tu vraiment à me blesser ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>J'aimerais te répondre sur-le-champ !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Whoua, tu es encore plus bête que tu en as l'air.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Des idiots ! Des idiots partout !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>Tu te bats si mal que tu ferais même pleurer les oignons !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>Je vois que le seul admirateur que tu as, c'est ton miroir.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>Tu te prends toujours au sérieux ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>Hé, le clown ! Tu es venu pour me distraire ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>La prochaine fois, essaye de tirer avec les yeux ouverts !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>Es-tu toujours aussi stupide ou seulement à une occasion spéciale ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>Maintenant, tu as mon attention !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>Tu es si mignonne quand tu essayes de tirer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>Tu es si mignon quand tu essayes de tirer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>Hé petite, tu as su me faire plaisir aujourd'hui...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>fichtre ! Tu as tiré tant de balles sur moi que j'en suis troublé(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>Pas mal ! J'ai un super-pouvoir et je ne le savais même pas... Je peux esquiver les balles !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>70</uiIndex>
+    <szText>Tu crois qu'en me tirant dessus, ça va résoudre tes problèmes ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>71</uiIndex>
+    <szText>Ennui ! Ennui ! Et ennui ! Tu n'es qu'un ennui...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>72</uiIndex>
+    <szText>Tu tires sur moi ou tu as un pistolet à amorce ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>73</uiIndex>
+    <szText>Ne t'arrête jamais d'essayer, qui sait, peut-être qu'un miracle se produira !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>74</uiIndex>
+    <szText>Essaye encore, chérie ! Pas de pression. Pas de critique. Et je ne bouge pas d'un iota !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>75</uiIndex>
+    <szText>Essaye encore, mon lapin ! Pas de pression. Pas de critique. Et je ne bouge pas d'un iota !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>76</uiIndex>
+    <szText>Vas-y, continue à tirer... Je vais mourir d'ennui avant que tu ne touches quelque chose !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>77</uiIndex>
+    <szText>Hé, arrête de tirer ! Je suis au téléphone avec ma mère !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>78</uiIndex>
+    <szText>Aïe, je suis touché, je suis touché... Mais non, je plaisante !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>79</uiIndex>
+    <szText>Hé, que fait-on avec celui-ci... On l'abat ou on le laisse mourir de faim ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>80</uiIndex>
+    <szText>Hé, que fait-on avec celle-ci... On l'abat ou on la laisse mourir de faim ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>81</uiIndex>
+    <szText>Oh mon dieu, mon cœur s'est arrêté de battre pendant un instant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>82</uiIndex>
+    <szText>Je suis mort(e) de peur !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>83</uiIndex>
+    <szText>Ça m'a donné la chair de poule !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>84</uiIndex>
+    <szText>Quand on parle du loup... !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>85</uiIndex>
+    <szText>Franchement, ma chère, c'est le cadet de mes soucis !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>86</uiIndex>
+    <szText>D'où ça vient ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>87</uiIndex>
+    <szText>C'est bien ce que je pensais. Tu n'as pas de couilles !</szText>
+    <szTextCensored>C'est bien ce que je pensais. Tu n'as pas de crans !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>88</uiIndex>
+    <szText>Tu as besoin d'une lunette de visée sur ta lame ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>89</uiIndex>
+    <szText>Donne-moi ça, je vais le faire moi-même !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>90</uiIndex>
+    <szText>Je ne suis pas ton sac de frappe, mon garçon !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>91</uiIndex>
+    <szText>Je ne suis pas ton sac de frappe, fillette !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>92</uiIndex>
+    <szText>Si tu n'es pas Mohamed Ali... Tu es bourré(e) !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>93</uiIndex>
+    <szText>La boxe... Ce n'est pas ton fort, hein ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>94</uiIndex>
+    <szText>Eh, tu te bats comme une gonzesse !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>95</uiIndex>
+    <szText>Tu te bats comme une gonzesse... Oh, c'est pas grave.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>96</uiIndex>
+    <szText>Je ne sais pas si c'est le meilleur moment pour te le dire... Mais tu devrais prendre des mentos !!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>97</uiIndex>
+    <szText>J'adore quand ils essayent de résister !</szText>
+  </TAUNT>
+</TAUNTS>

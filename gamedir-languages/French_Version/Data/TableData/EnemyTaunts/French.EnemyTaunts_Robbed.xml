@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Hé, qui m'a touché(e) ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Hé, ta maman ne t'a pas acheté(e) tes propres jouets ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Merde, quelle rapidité !</szText>
+    <szTextCensored>Mince, quelle rapidité !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Le vol est puni de mort !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Eh ! C'est à moi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Achète-toi tes propres affaires, sale pingre !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Bof... Garde ça, c'est de la camelote de toute façon !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Je vais te couper les mains !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Je vais te montrer comment on traite les voleurs ici !</szText>
+  </TAUNT>
+</TAUNTS>

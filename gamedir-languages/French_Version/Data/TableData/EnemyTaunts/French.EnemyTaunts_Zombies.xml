@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>C'est une blague ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Il n'y a plus de place en enfer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Ils viennent pour nous !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Parfait, c'est exactement ce dont a besoin ce pays... Une putain d'apocalypse de zombis !</szText>
+    <szTextCensored>Parfait, c'est exactement ce dont a besoin ce pays... Une apocalypse de zombis !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Rappelez-vous, tirer la tête... Seulement la tête...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Ça existe bel et bien ? Je veux dire... Va-t'en !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>On est juste foutu !</szText>
+    <szTextCensored>On est juste mort !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Qu'est-ce que ce sera la prochaine fois ? Des loups-garous ? Des vampires ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Tu viens pour moi ! Allez, cadavre putréfié !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Je vais te renvoyer en enfer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Il nous faut plus d'ambulances !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Oh merde ! Il peut sentir mon cerveau !</szText>
+    <szTextCensored>Oh zut ! Il peut sentir mon cerveau !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Ce n'est pas zombi ! Mais une personne infectée !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Il court ou il marche ? Je suis perplexe...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ça vit !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>C'est peut-être affectueux.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Ça vit... Plus ou moins.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Rien n'est jamais réel avant que ça ne le soit.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Ils vivent !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Il doit y avoir une explication rationnelle. Un virus, les radiations de l'espace ou peut-être un météore...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Je ne négocierai pas avec des morts-vivants !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Donc, il y a une vie après la mort !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Merde alors. Intrigue à rebondissements !</szText>
+    <szTextCensored>Zut alors. Intrigue à rebondissements !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Merde, j'ai oublié de prendre ma pilule !</szText>
+    <szTextCensored>Zut, j'ai oublié de prendre ma pilule !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Ça suffit, plus de drogue pour moi.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Je savais que le film était tiré d'une histoire vraie !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Tu es un fils de pute fantasmagorique.</szText>
+    <szTextCensored>Tu es une créature fantasmagorique.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Oooh. "Zombie". Comme le film.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Zombi par ici !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Putain de réchauffement climatique, on a de vrais problèmes ici !</szText>
+    <szTextCensored>Satané réchauffement climatique, on a de vrais problèmes ici !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Un mort-vivant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>C'est un cauchemar !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Blasphème !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Vas-y ! C’était même pas 17 secondes !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>À un certain moment dans ta vie, tu te rends compte que tu connais plus de gens mort que vivant.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>J'ai peur des déglingués !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>C'est à se demander comment le monde est passé aussi vite, de pas terrible à gravement merdique.</szText>
+    <szTextCensored>C'est à se demander comment le monde est passé aussi vite, de pas terrible à gravement nauséabond.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Ça pourrait être pire. Ils pourraient être nazi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Je ne retrouve jamais ma tondeuse à gazon quand j'en ai besoin ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>C'est contre nature, croque-mitaine !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Humm... Je parie que je ferais un super zombi.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Non ! Je ne veux pas devenir l'un des vôtres !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Éloigne-toi de ma précieuse matière grise !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>S'il vous plaît, ne me mange pas ! Je suis gras et j'ai trop de sucre dans mon sang !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Eh ! Je le découpe ?!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Ils vont me manger ! Oh mon DIEU !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Pas mon visage ! Mon beau visage !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>QUEL CASSE-COUILLES !</szText>
+    <szTextCensored>Quelle plaie !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Tout à coup, j'ai une folle envie de cervelle !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>Et reste mort, cette fois !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Tu es mort... De nouveau.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Repose en pièces !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>S'il se relève encore, je chie dans mon froc.</szText>
+    <szTextCensored>S'il se relève encore, je fais dans mon froc.</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Reste à terre !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Retourne d'où tu viens !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Le zombillard est mort.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>On dirait que quelqu'un s'est levé du pied gauche ce matin.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Voilà ce que j'appelle un changement de genre !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>Vous savez ce qui serait utile en ce moment ? Une bonne tronçonneuse !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>Quelqu'un pourrait les distraire avec un feu d'artifice ou autre chose !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>&lt;sifflement&gt; C'est "dead man's party!". Que demander de plus...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>C'est l'heure de botter le cul des zombis !</szText>
+    <szTextCensored>C'est l'heure de botter l'arrière-train des zombis !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>S'il saigne, je peux le tuer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>Hommes, femmes, enfants ou zombis... Je vais tous vous tuer !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>Il vit... encore !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>Eh ! C'est une escroquerie à l'assurance !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>C'est tout simplement ridicule.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>Il est sorti du mauvais côté de la tombe !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>Ouais, ça devrait aller. Sauf si c'est un zombi moderne qui est réellement infecté ou qu'il a une autre connerie.</szText>
+    <szTextCensored>Ouais, ça devrait aller. Sauf si c'est un zombi moderne qui est réellement infecté ou qu'il a une autre cochonnerie</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>Soit il est mort pour de bon ou soit on va en avoir deux. Espérons la première.</szText>
+  </TAUNT>
+</TAUNTS>

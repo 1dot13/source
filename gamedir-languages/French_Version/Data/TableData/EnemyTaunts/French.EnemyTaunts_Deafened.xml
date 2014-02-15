@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Quoi ? Que dis-tu ? Je n'entends rien !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Argh ! Mes oreilles saignent !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>C'est quoi ce sifflement ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Hein ? C'est bien silencieux...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Tiens, il n'y a plus de bruits tout à coup... C'est quoi ce binz ?</szText>
+  </TAUNT>
+</TAUNTS>
