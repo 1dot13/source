@@ -470,7 +470,16 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	//WarmSteel - Attachment slots related xml's
 	strcpy(fileName, directoryName);
 	strcat(fileName, ATTACHMENTSLOTSFILENAME);
-	SGP_THROW_IFFALSE(ReadInAttachmentSlotsStats(fileName),ATTACHMENTSLOTSFILENAME);
+	SGP_THROW_IFFALSE(ReadInAttachmentSlotsStats(fileName, FALSE),ATTACHMENTSLOTSFILENAME);
+
+	#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInAttachmentSlotsStats(fileName,TRUE), fileName);
+		}
+	#endif
 
 	// Flugente: created separate gun and item choices for different soldier classes - read in different xmls
 	strcpy(fileName, directoryName);

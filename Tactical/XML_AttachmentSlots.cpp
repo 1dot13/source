@@ -27,6 +27,8 @@ struct
 }
 typedef attachmentslotParseData;
 
+BOOLEAN localizedTextOnly_AttachmentSlots;
+
 static void XMLCALL
 attachmentslotStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -102,8 +104,16 @@ attachmentslotEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT_LIST;
 
 			if(pData->curAttachmentSlot.uiSlotIndex < pData->maxArraySize)
-			{
-				pData->curArray[pData->curAttachmentSlot.uiSlotIndex] = pData->curAttachmentSlot; //write the attachmentinfo into the table
+			{				
+				if (!localizedTextOnly_AttachmentSlots)
+				{
+					pData->curArray[pData->curAttachmentSlot.uiSlotIndex] = pData->curAttachmentSlot; //write the attachmentinfo into the table
+				}
+				else
+				{
+					wcscpy(AttachmentSlots[pData->curAttachmentSlot.uiSlotIndex].szSlotName, pData->curAttachmentSlot.szSlotName);
+				}
+
 				//Save the highest known index up till now.
 				if(LAST_SLOT_INDEX < pData->curAttachmentSlot.uiSlotIndex){
 					LAST_SLOT_INDEX = (UINT16) pData->curAttachmentSlot.uiSlotIndex;
@@ -164,7 +174,7 @@ attachmentslotEndElementHandle(void *userData, const XML_Char *name)
 }
 
 
-BOOLEAN ReadInAttachmentSlotsStats(STR fileName)
+BOOLEAN ReadInAttachmentSlotsStats(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -173,6 +183,8 @@ BOOLEAN ReadInAttachmentSlotsStats(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
 	attachmentslotParseData pData;
+
+	localizedTextOnly_AttachmentSlots = localizedVersion;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading AttachmentSlots.xml" );
 
