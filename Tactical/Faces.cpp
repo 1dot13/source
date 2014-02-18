@@ -2356,6 +2356,11 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					sIconIndex_Assignment  = 26;
 					fDoIcon_Assignment		= TRUE;
 					break;
+
+				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+					sIconIndex_Assignment	= 16;
+					fDoIcon_Assignment		= TRUE;
+					break;
 			}
 
 			// Check for being serviced...

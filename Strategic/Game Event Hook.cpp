@@ -44,6 +44,7 @@
 	#include "laptop.h"
 	#include "Campaign.h"
 	#include "PostalService.h"
+	#include "MilitiaSquads.h"
 #endif
 
 #include "connect.h"
@@ -505,6 +506,9 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			CrippledVersionEndGameCheck();
 			break;
 #endif
+		case EVENT_MILITIA_MOVEMENT_ORDER:
+			MilitiaMovementOrder( (UINT8) pEvent->uiParam );
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

@@ -110,6 +110,7 @@ void RestoreClipRegionToFullScreenForRectangle( UINT32 uiDestPitchBYTES );
 // show the icons for people in motion
 void ShowPeopleInMotion( INT16 sX, INT16 sY );
 void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY);
+void ShowMilitiaInMotion( INT16 sX, INT16 sY);	// added by Flugente
 
 // last sector in helicopter's path
 INT16 GetLastSectorOfHelicoptersPath( void );
@@ -298,7 +299,7 @@ extern SGPRect MapScreenRect;
 extern BOOLEAN fDrawTempHeliPath;
 
 // selected destination char
-extern INT8 bSelectedDestChar; 
+extern INT8 bSelectedDestChar;
 
 // current assignment character
 extern INT8 bSelectedAssignChar;

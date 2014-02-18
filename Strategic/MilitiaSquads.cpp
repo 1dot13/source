@@ -464,7 +464,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 }
 
 // Creates militia at destination sector and removes it from starting sector
-void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOLEAN fAlternativeMax )
+void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOLEAN fAlternativeMax, BOOLEAN fSkipSpreading )
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	SECTORINFO *pTSectorInfo = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
@@ -476,13 +476,13 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	UINT8 bTotalGreensPercent = 0, bTotalRegularsPercent = 0, bTotalElitesPercent = 0;
 	INT8 bNewSourceGroupSize = 0, bNewDestGroupSize = 0, bGroupSizeRatio = 0;
 	UINT8 ubChanceToSpreadOut;
-	
+		
 	//////////////////////////////////////////////////////////
 	// We begin by determining the group's chance to "spread out" into the next sector rather
 	// than moving in en-masse. This is mainly affected by the presence of enemies.
 
 	// Is the target a city or SAM site?
-	if (IsThisSectorASAMSector( sTMapX, sTMapY, 0 ) ||
+	if (fSkipSpreading || IsThisSectorASAMSector( sTMapX, sTMapY, 0 ) ||
 		( GetTownIdForSector( sTMapX, sTMapY ) != BLANK_SECTOR &&
 		  gfMilitiaAllowedInTown[GetTownIdForSector( sTMapX, sTMapY )] ))
 	{
@@ -1421,11 +1421,76 @@ void ClearBlockMoveList()
 
 BOOLEAN CheckInBlockMoveList(INT16 sMapX, INT16 sMapY)
 {
-	UINT16 i;
-	for( i = 0; i < uiBlockMoveListPointer ; ++i)
-		if( sMapX == SECTORX(pBlockMoveList[i]) && sMapY == SECTORY(pBlockMoveList[i]) )return TRUE;
+	for( UINT16 i = 0; i < uiBlockMoveListPointer ; ++i)
+	{
+		if( sMapX == SECTORX(pBlockMoveList[i]) && sMapY == SECTORY(pBlockMoveList[i]) )
+			return TRUE;
+	}
 
 	return FALSE;
+}
+
+void MilitiaMovementOrder(UINT8 sector)
+{
+	INT16 sX = SECTORX(sector);
+	INT16 sY = SECTORY(sector);
+
+	// if we are in gamescreen and a battle is going on, and this is the sector that militia moves from, don't move them. Suddenly disappearing would be... awkward
+	if ( guiCurrentScreen == GAME_SCREEN && gTacticalStatus.uiFlags & INCOMBAT && gWorldSectorX == sX && gWorldSectorY == sY && !gbWorldSectorZ )
+	{
+		// remove all movement flags
+		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+		return;
+	}
+
+	// to stop the player from just setting someone in HQ to give orders and then reassigning them, we simply demand that there'll also be someone when the militia peform the travelling
+	if ( !MercStaffsMilitaryHQ() )
+	{
+		// remove all movement flags
+		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+		return;
+	}
+	
+	INT16 targetX = sX;
+	INT16 targetY = sY;
+
+	if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_NORTH )
+		--targetY;
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_WEST )
+		--targetX;
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_EAST )
+		++targetX;
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_SOUTH )
+		++targetY;
+
+	// remove all movement flags
+	StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+
+	UINT8 targetsector = SECTOR(targetX, targetY);
+
+	if ( gGameExternalOptions.gflimitedRoaming && !IsSectorRoamingAllowed(targetsector) )
+		return;
+
+	// if militia moves from the currently loaded sector, it has to drop all gear first
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory && gWorldSectorX == sX && gWorldSectorY == sY && !gbWorldSectorZ )
+	{
+		TeamDropAll( MILITIA_TEAM );
+	}
+	
+	MoveMilitiaSquad( sX, sY, targetX, targetY, FALSE, TRUE );		
+
+	if ( gfStrategicMilitiaChangesMade)
+		ResetMilitia();
+
+	if( NumEnemiesInSector( targetX, targetY ) )
+	{
+		//Moa: handle deserters before moving in hostile territory
+		MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
+
+		gfMSBattle = TRUE;
+
+		EnterAutoResolveMode( targetX,  targetY );
+	}
 }
 
 void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
@@ -1456,11 +1521,13 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 		gfMSBattle = FALSE;
 	}
 
-	if( CheckInBlockMoveList( sMapX, sMapY ) )return;
+	if( CheckInBlockMoveList( sMapX, sMapY ) )
+		return;
 
 	uiMilitiaCount = CountMilitia(pSectorInfo);
 
-	if( !uiMilitiaCount )return;
+	if( !uiMilitiaCount )
+		return;
 
 	// Kaiden: Moved Create Militia code into CreateMilitiaSquads
 	// Removed the code from here and added the procedure call
@@ -1469,19 +1536,21 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 	if( (!gGameExternalOptions.gfmusttrainroaming) && ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ) )
 	{
-		if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
-			return;
-
-		if( GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )
-			return;
-
-		CreateMilitiaSquads( sMapX, sMapY );
-		if (gfStrategicMilitiaChangesMade)
+		// Flugente: only enter this if the time is correct (but do not return if it isn't, we still might do the movement part)
+		if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay && GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )
 		{
-			ResetMilitia();
+			CreateMilitiaSquads( sMapX, sMapY );
+			if (gfStrategicMilitiaChangesMade)
+			{
+				ResetMilitia();
+			}
 		}
 	}
 
+	// Flugente: if we can order militia directly, don't have them wander around at random
+	if ( !MercStaffsMilitaryHQ() )
+		return;
+				
 	// HEADROCK HAM B2.7: If INI flag is set, allow militia to move out of Minor City sectors (Orta, Tixa, San Mona, etc).
 	if (gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities)
 		fSourceCityAllowsRoaming = ( !gfMilitiaAllowedInTown[GetTownIdForSector( sMapX, sMapY )] );
@@ -1493,14 +1562,16 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	{
 		if( !gGameExternalOptions.gfAllowMilitiaFollowPlayer || !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector, or they are not forced to follow
 		{
-			if( GetWorldHour() % 2 )return;
+			if( GetWorldHour() % 2 )
+				return;
 
 			memset(pMoveDir, 0, sizeof(pMoveDir));
 			GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE );
 
 			if( uiDirNumber )
 			{
-				for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
+				for( x = 1; x < uiDirNumber ; ++x )
+					pMoveDir[x][1] += pMoveDir[x-1][1];
 			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld", x, pMoveDir[x][1]);
 
 				// HEADROCK HAM 3.6: Too many INI settings. Removed a couple, including MIN/MAX SQUAD SIZE.
@@ -1508,12 +1579,12 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 //					( uiMilitiaCount >= gGameExternalOptions.guiMinMilitiaSquadSize ? CHANCE_TO_MOVE_A_SQUAD : CHANCE_TO_MOVE_AN_UNFULL_SQUAD ) );
 				iRandom = Random( pMoveDir[ uiDirNumber - 1 ][1] );
 
-
 				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Roll %ld", iRandomRes);
 
 				iRandomRes = 256;
 
 				for( x = 0; x < uiDirNumber; ++x)
+				{
 					if( iRandom < pMoveDir[x][1] )
 					{
 						iRandomRes = x;
@@ -1544,11 +1615,11 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 					}
 
 					// WDS bug fix for moving militia
-					int targetX = SECTORX( pMoveDir[ iRandomRes ][0] );
-					int targetY = SECTORY( pMoveDir[ iRandomRes ][0] );
+					INT16 targetX = SECTORX( pMoveDir[ iRandomRes ][0] );
+					INT16 targetY = SECTORY( pMoveDir[ iRandomRes ][0] );
 					Assert(targetX >= 0 && targetX < MAP_WORLD_X);
 					Assert(targetY >= 0 && targetY < MAP_WORLD_Y);
-					MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE );
+					MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE, FALSE );
 
 					if ( gfStrategicMilitiaChangesMade)
 					{
@@ -1575,23 +1646,23 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						//Moa: handle deserters before moving in hostile territory
 						MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
 
-							gfMSBattle = TRUE;
+						gfMSBattle = TRUE;
 
-			//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-							EnterAutoResolveMode( targetX,  targetY );
+		//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
+						EnterAutoResolveMode( targetX,  targetY );
 		//				}
 					}
+				}
 			}
-					else return;
 		}
 	}
 }
 
-	// Kaiden: Roaming Militia Training:
-	// If we're training roaming militia,
-	// we'll get our squad from here:
-	// Don't need to check for delay, as this function won't be
-	// called if there is a delay set.
+// Kaiden: Roaming Militia Training:
+// If we're training roaming militia,
+// we'll get our squad from here:
+// Don't need to check for delay, as this function won't be
+// called if there is a delay set.
 void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 {
 	// Variables for Direction Rating checks
@@ -1690,7 +1761,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 					}
 				}
 			}
-			iCounter++;
+			++iCounter;
 		}
 	}
 
@@ -1718,7 +1789,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	
 			// Check for enemies in target sector
 			if(	NumEnemiesInSector( sTMapX, sTMapY ) )
-				{
+			{
 				// Initiave battle
 				gfMSBattle = TRUE;
 				EnterAutoResolveMode( sTMapX, sTMapY );
@@ -1742,7 +1813,6 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			}
 		}
 	}
-	return;
 }
 
 
@@ -1976,7 +2046,7 @@ void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 		IsThisSectorASAMSector( sDMapX, sDMapY, 0 ) )return;
 
 
-	MoveMilitiaSquad( sMapX, sMapY, sDMapX, sDMapY, FALSE );
+	MoveMilitiaSquad( sMapX, sMapY, sDMapX, sDMapY, FALSE, FALSE );
 }
 
 

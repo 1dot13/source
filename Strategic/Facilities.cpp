@@ -769,7 +769,7 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 		bAssignment == IN_TRANSIT ||
 		bAssignment == TRAIN_TOWN ||
 		bAssignment == TRAIN_MOBILE ||
-		( bAssignment > FACILITY_REST && ( bAssignment < FACILITY_PRISON_SNITCH || bAssignment > FACILITY_GATHER_RUMOURS ) ))
+		( bAssignment > FACILITY_REST && bAssignment != FACILITY_STRATEGIC_MILITIA_MOVEMENT && ( bAssignment < FACILITY_PRISON_SNITCH || bAssignment > FACILITY_GATHER_RUMOURS ) ))
 	{
 		// Soldier is performing a distinctly NON-FACILITY assignment.
 		return (-1);
@@ -932,6 +932,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			break;
 		case FACILITY_GATHER_RUMOURS:
 			bAssignmentIndex = FAC_GATHER_RUMOURS;
+			break;
+		case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+			bAssignmentIndex = FAC_STRATEGIC_MILITIA_MOVEMENT;
 			break;
 		default:
 			bAssignmentIndex = -1;

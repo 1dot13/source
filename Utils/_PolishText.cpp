@@ -1853,6 +1853,13 @@ STR16 pAssignmentStrings[] =
 	L"Jeniec", // Prisoner of war - captured
 	L"Szpital", // patient in a hospital 
 	L"Pusty",	// Vehicle is empty
+	L"Snitch",	// facility: undercover prisoner (snitch)	// TODO.Translate
+	L"Propag.",	// facility: spread propaganda
+	L"Propag.",	// facility: spread propaganda (globally)
+	L"Rumours",	// facility: gather information
+	L"Propag.",	// spread propaganda
+	L"Rumours",	// gather information
+	L"Command",	// militia movement orders
 };
 
 
@@ -1948,6 +1955,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Zbiera plotki",			// facility: gather rumours	
 	L"Szerzy propagandę",	// spread propaganda
 	L"Zbiera plotki",			// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -2002,6 +2010,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Zbieraj plotki",		// facility: gather rumours	
 	L"Szerz propagandę",	// spread propaganda
 	L"Zbieraj plotki",		// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -2790,6 +2799,8 @@ STR16 gpStrategicString[] =
 	//%c%d is the sector -- ex:  A9
 	L"Stworzenia zatakowały twoich najemników w sektorze %s.  Żaden z twoich najemników nie może walczyć!",
 
+	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
+	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 };
 
 STR16 gpGameClockString[] = 
@@ -7178,6 +7189,12 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Instruktor um. dowodzenia",
 	L"Instruktor zn. mat. wybuchowych",
 	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
+	L"Undercover Snitch",	// TODO.Translate
+	// 36-40
+	L"Spread Propaganda",
+	L"Spread Propaganda",	// spread propaganda (globally)
+	L"Gather Rumours",
+	L"Command Militia",	// militia movement orders
 };
 
 STR16 Additional113Text[]=

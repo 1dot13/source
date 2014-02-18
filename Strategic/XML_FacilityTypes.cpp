@@ -852,6 +852,10 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
 				pData->curAssignmentType = FAC_GATHER_RUMOURS;
+			}
+			else if (strcmp(pData->szCharData, "STRATEGIC_MILITIA_MOVEMENT") == 0)
+			{
+				pData->curAssignmentType = FAC_STRATEGIC_MILITIA_MOVEMENT;
 			}	
 			else
 			{

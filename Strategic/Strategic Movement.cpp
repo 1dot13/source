@@ -3059,7 +3059,7 @@ INT32 FindTravelTimeBetweenWaypoints( WAYPOINT * pSource, WAYPOINT * pDest,	GROU
 
 
 
-#define FOOT_TRAVEL_TIME		89
+//#define FOOT_TRAVEL_TIME		89	// Flugente: moved to header
 #define CAR_TRAVEL_TIME			30
 #define TRUCK_TRAVEL_TIME		32
 #define TRACKED_TRAVEL_TIME	46

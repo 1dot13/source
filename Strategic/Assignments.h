@@ -78,6 +78,7 @@ enum
 	FACILITY_GATHER_RUMOURS,
 	SNITCH_SPREAD_PROPAGANDA,
 	SNITCH_GATHER_RUMOURS,
+	FACILITY_STRATEGIC_MILITIA_MOVEMENT,	// Flugente: merc staffs a military HQ, we can now control militia movement on the map
 	NUM_ASSIGNMENTS,
 };
 
@@ -450,6 +451,8 @@ void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 sZ, UINT8 ubMilit
 UINT32 HandlePropagandaBlockingBadNewsInTown( INT8 bTownId, UINT32 uiLoyaltyDecrease );
 
 void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier );
+
+BOOLEAN MercStaffsMilitaryHQ();
 
 #endif
 

@@ -455,6 +455,9 @@ void ClearSectorScanResults();
 
 void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
+// Flugente: handle militia command
+void HandleMilitiaCommand();
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -2425,7 +2428,7 @@ void UpdateAssignments()
 
 					// handle any training
 					HandleTrainingInSector( sX, sY, bZ );
-
+					
 					// handle training of character in sector
 					HandleRadioScanInSector( sX, sY, bZ );
 
@@ -2444,6 +2447,9 @@ void UpdateAssignments()
 			}
 		}
 	}
+
+	// Flugente: handle militia command
+	HandleMilitiaCommand();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
@@ -5613,6 +5619,24 @@ void ClearSectorScanResults()
 		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
 		{
 			SectorInfo[ SECTOR( sX, sY ) ].uiFlags &= ~(SF_ASSIGN_NOTICED_ENEMIES_HERE|SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
+		}
+	}
+}
+
+// Flugente: handle militia command
+void HandleMilitiaCommand()
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
+		{
+			// every commander gets a bit of leadership and wisdom
+			StatChange( pSoldier, LDRAMT,		2, TRUE );
+			StatChange( pSoldier, WISDOMAMT,	1, TRUE );
 		}
 	}
 }
@@ -14575,6 +14599,28 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
+		case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
 		case( VEHICLE ):
 			if( CanCharacterVehicle( pSoldier ) && IsThisVehicleAccessibleToSoldier( pSoldier, iParam1 ) )
 			{
@@ -15820,6 +15866,10 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = FALSE;
 					break;
 
+				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+					fNothingToDo = FALSE;
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -16098,6 +16148,14 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, FACILITY_GATHER_RUMOURS, bParam, 0,0 );
+						fItWorked = TRUE;
+					}
+					break;
+				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+					if( CanCharacterFacility( pSoldier, bParam, FAC_STRATEGIC_MILITIA_MOVEMENT ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, FACILITY_STRATEGIC_MILITIA_MOVEMENT, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -18605,9 +18663,16 @@ BOOLEAN CanCharacterFacility( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8
 		}
 	}
 
+	/*if (  ubAssignmentType == FAC_STRATEGIC_MILITIA_MOVEMENT )
+	{
+		if( !CanCharacterGatherInformation(pSoldier) )
+		{
+			return( FALSE );
+		}
+	}*/
+
 	// If we've reached this, then all is well.
 	return( TRUE );
-
 }
 
 INT8 CountFreeFacilitySlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType )
@@ -19632,6 +19697,9 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 				case FAC_GATHER_RUMOURS:
 					ChangeSoldiersAssignment( pSoldier, FACILITY_GATHER_RUMOURS );
 					break;
+				case FAC_STRATEGIC_MILITIA_MOVEMENT:
+					ChangeSoldiersAssignment( pSoldier, FACILITY_STRATEGIC_MILITIA_MOVEMENT );
+					break;
 			}
 			
 			// Flugente: I guess this piece of code is here to get a group Id for the soldier, which must not be there for movement specifically. Just my understanding, in case anybody else coming here wonders
@@ -20408,4 +20476,21 @@ void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		// unhighlight all strings in box
 		UnHighLightBox( ghMoveItemBox );
 	}
+}
+
+BOOLEAN MercStaffsMilitaryHQ()
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }

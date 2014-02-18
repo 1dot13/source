@@ -35,6 +35,8 @@ enum
 	THROUGH_STRATEGIC_MOVE
 };
 
+#define FOOT_TRAVEL_TIME		89
+
 //This structure contains all of the information about a group moving in the strategic
 //layer.	This includes all troops, equipment, and waypoints, and location.
 //NOTE:	This is used for groups that are initiating a movement to another sector.

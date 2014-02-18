@@ -1844,6 +1844,13 @@ STR16 pAssignmentStrings[] =
 	L"战俘", // Prisoner of war - captured
 	L"伤员", // patient in a hospital
 	L"空车",	// Vehicle is empty
+	L"Snitch",	// facility: undercover prisoner (snitch)	// TODO.Translate
+	L"Propag.",	// facility: spread propaganda
+	L"Propag.",	// facility: spread propaganda (globally)
+	L"Rumours",	// facility: gather information
+	L"Propag.",	// spread propaganda
+	L"Rumours",	// gather information
+	L"Command",	// militia movement orders
 };
 
 
@@ -1939,6 +1946,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"搜集谣言",			// facility: gather rumours	
 	L"派发传单",	// spread propaganda
 	L"搜集谣言",			// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -1993,6 +2001,7 @@ STR16 pLongAssignmentStrings[] =
 	L"搜集谣言",			// facility: gather rumours	
 	L"派发传单",	// spread propaganda
 	L"搜集谣言",			// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -2784,6 +2793,8 @@ STR16 gpStrategicString[] =
 	//%s is the sector location -- ex:  A9: Omerta
 	L"异形向你在分区%s的佣兵发起了攻击。你的佣兵中没人能进行战斗。",
 
+	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
+	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 };
 
 STR16 gpGameClockString[] = 
@@ -7162,6 +7173,12 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"训练领导",
 	L"训练爆破",
 	L"审讯俘虏", //L"Interrogate Prisoners",
+	L"Undercover Snitch",	// TODO.Translate
+	// 36-40
+	L"Spread Propaganda",
+	L"Spread Propaganda",	// spread propaganda (globally)
+	L"Gather Rumours",
+	L"Command Militia",	// militia movement orders
 };
 STR16 Additional113Text[]=
 {

@@ -7438,6 +7438,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								//activate autoresolve in prebattle interface.
 								ActivatePreBattleAutoresolveAction();
 							}
+							// Flugente: militia orders
+							else if ( SetMilitiaMovementOrder(sSelMapX, sSelMapY, iCurrentMapSectorZ, MILITIA_MOVE_WEST) )
+							{
+								;
+							}
 							else
 							{
 								// only handle border button keyboard equivalents if the button is visible!
@@ -7491,6 +7496,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							TestDumpStatChanges();
 						}
 					#endif
+						// Flugente: militia orders
+						if ( SetMilitiaMovementOrder(sSelMapX, sSelMapY, iCurrentMapSectorZ, MILITIA_MOVE_EAST) )
+						{
+							;
+						}
 					break;
 
 				case 'D':
@@ -7950,6 +7960,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						gfSaveGame = TRUE;
 						RequestTriggerExitFromMapscreen( MAP_EXIT_TO_SAVE );
 					}
+					// Flugente: militia orders
+					else if ( SetMilitiaMovementOrder(sSelMapX, sSelMapY, iCurrentMapSectorZ, MILITIA_MOVE_SOUTH) )
+					{
+						;
+					}
 					else if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
 					{
 						SortInventoryPoolQ();
@@ -8191,6 +8206,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else if( fCtrl )
 					{
+					}
+					// Flugente: militia orders
+					else if ( SetMilitiaMovementOrder(sSelMapX, sSelMapY, iCurrentMapSectorZ, MILITIA_MOVE_NORTH) )
+					{
+						;
 					}
 					else
 					{

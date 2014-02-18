@@ -14,6 +14,10 @@ extern UINT8 guiDirNumber;
 
 // Updates movement orders for militia squads
 void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY );
+
+// Flugente: militia in this sector is ordered to move according to flags that were applied to it prior
+void MilitiaMovementOrder(UINT8 sector);
+
 // Kaiden: creates militia squad in an adjacent sector
 // to the coordinates you pass to it.
 void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY );

@@ -16,6 +16,10 @@
 	#include "Vehicles.h"
 	#include "Game Clock.h"
 	#include "CampaignStats.h"		// added by Flugente
+	#include "militiasquads.h"		// added by Flugente
+	#include "Game Event Hook.h"	// added by Flugente
+	#include "message.h"			// added by Flugente
+	#include "Text.h"			// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -160,7 +164,98 @@ void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 #endif
 
 		}
+}
 
+BOOLEAN SetMilitiaMovementOrder(INT16 sX, INT16 sY, INT8 sZ, UINT32 dir)
+{
+	// militia can only move on the surface
+	if ( sZ )
+		return FALSE;
 
-	return;
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sX, sY ) ] );
+
+	// militia needs to be here...
+	if ( !CountMilitia(pSectorInfo) )
+		return FALSE;
+
+	// in order to give movement orders, we need a merc to staff a military headquarter
+	if ( !MercStaffsMilitaryHQ() )
+		return FALSE;
+
+	INT16 newX = sX;
+	INT16 newY = sY;
+	UINT8 movetype = THROUGH_STRATEGIC_MOVE;
+
+	switch (dir)
+	{
+	case MILITIA_MOVE_NORTH:
+		--newY;
+		movetype = NORTH_STRATEGIC_MOVE;
+		break;
+
+	case MILITIA_MOVE_WEST:
+		--newX;
+		movetype = WEST_STRATEGIC_MOVE;
+		break;
+
+	case MILITIA_MOVE_EAST:
+		++newX;
+		movetype = EAST_STRATEGIC_MOVE;
+		break;
+
+	case MILITIA_MOVE_SOUTH:
+		++newY;
+		movetype = SOUTH_STRATEGIC_MOVE;
+		break;
+
+	default:
+		return FALSE;
+		break;
+	}
+
+	if ( gGameExternalOptions.gflimitedRoaming && !IsSectorRoamingAllowed( SECTOR(newX, newY) ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gpStrategicString[STR_MILITIAMOVEMENT_NO_LIMITEDROAMING] );
+		return FALSE;
+	}
+
+	UINT8 ubTraverseType = SectorInfo[ SECTOR(sX, sY) ].ubTraversability[ movetype ];
+
+	if( ubTraverseType == GROUNDBARRIER || ubTraverseType == EDGEOFWORLD )
+		return FALSE;
+
+	UINT32 ubTraverseMod = 0;
+
+	switch( ubTraverseType )
+	{
+		case TOWN:						ubTraverseMod = 1780;break;
+		case ROAD:						ubTraverseMod = 100;break;
+		case PLAINS:					ubTraverseMod = 85; break;
+		case SAND:						ubTraverseMod = 50;	break;
+		case SPARSE:					ubTraverseMod = 70;	break;
+		case DENSE:						ubTraverseMod = 60;	break;
+		case SWAMP:						ubTraverseMod = 35;	break;
+		case WATER:						ubTraverseMod = 25;	break;
+		case HILLS:						ubTraverseMod = 50;	break;
+		case NS_RIVER:					ubTraverseMod = 25;	break;
+		case EW_RIVER:					ubTraverseMod = 25;	break;
+	}
+
+	if( ubTraverseMod )
+	{
+		UINT32 timeneeded = FOOT_TRAVEL_TIME * 100 / ubTraverseMod;
+		
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sX, sY ) ] );
+
+		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags |= dir;
+
+		AddStrategicEvent( EVENT_MILITIA_MOVEMENT_ORDER, GetWorldTotalMin() + timeneeded, SECTOR( sX, sY ) );
+			
+		fMapPanelDirty = TRUE;
+
+		return TRUE;
+	}
+
+	return FALSE;
 }

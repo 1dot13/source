@@ -3741,7 +3741,108 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 		}
 		curr = curr->next;
 	}
+}
 
+// Flugente: show militia movement
+void ShowMilitiaInMotion( INT16 sX, INT16 sY )
+{
+	INT32 sExiting = 0;
+	INT32 sEntering = 0;
+	INT16 sDest = 0;
+	INT16 sSource = 0;
+	INT16 sOffsetX = 0, sOffsetY = 0;
+	INT16 sXPosition = 0, sYPosition = 0;
+	INT32 iCounter = 0;
+	HVOBJECT hIconHandle;
+	INT16 sTextXOffset = 0;
+	INT16 sTextYOffset = 0;
+	INT32 iWidth = 0, iHeight = 0;
+	INT32 iDeltaXForError = 0, iDeltaYForError = 0;
+
+	if( iCurrentMapSectorZ )
+		return;
+
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sX, sY ) ] );
+
+	if ( !CountMilitia(pSectorInfo) )
+		return;
+
+	if ( ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_ALLDIRS ) == 0 )
+		return;
+
+	// show the icons for people in motion from this sector to the next guy over
+
+	INT16 iX = sX, iY = sY;
+	UINT8 ubDirection = 0;
+
+	GetVideoObject(&hIconHandle, guiENEMYBETWEENSECTORICONS );
+
+	INT16 iconOffsetX = 0;
+	INT16 iconOffsetY = 0;
+
+	if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_NORTH )
+	{
+		ubDirection = 4;
+		sOffsetX = (MAP_GRID_X / 2);
+		sOffsetY = 0;
+		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
+		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight);
+	}
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_EAST )
+	{
+		ubDirection = 5;
+		sOffsetX = MAP_GRID_X;
+		sOffsetY = (MAP_GRID_Y / 2);
+		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
+	}
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_SOUTH )
+	{
+		ubDirection = 6;
+		sOffsetX = (MAP_GRID_X / 2);
+		sOffsetY = MAP_GRID_Y;
+		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
+	}
+	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_WEST )
+	{
+		ubDirection = 7;
+		sOffsetX = 0;
+		sOffsetY = (MAP_GRID_Y / 2);
+		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth);
+		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
+	}
+
+	if (iResolution >= _1024x768 )
+	{
+		iconOffsetY -= 1;
+	}
+					
+	iX = MAP_VIEW_START_X+( sX * MAP_GRID_X ) + sOffsetX + iconOffsetX;
+	iY = MAP_VIEW_START_Y + ( sY * MAP_GRID_Y ) + sOffsetY + iconOffsetY;
+		
+	BltVideoObject(guiSAVEBUFFER, hIconHandle, ubDirection , ( INT16 ) iX, ( INT16 ) iY , VO_BLT_SRCTRANSPARENCY, NULL );
+				
+	iWidth = 12;
+	iHeight = 7;
+
+	// error correction for scrolling with people on the move
+	if( iX < 0 )
+	{
+		iDeltaXForError = 0 - iX;
+		iWidth -= iDeltaXForError;
+		iX = 0;
+	}
+
+	if( iY < 0 )
+	{
+		iDeltaYForError = 0 - iY;
+		iHeight -= iDeltaYForError;
+		iY = 0;
+	}
+
+	if( ( iWidth > 0 )&&( iHeight > 0 ) )
+	{
+		RestoreExternBackgroundRect( iX, iY, ( INT16 )iWidth, ( INT16 )iHeight );
+	}
 }
 
 void DisplayDistancesForHelicopter( void )
@@ -6388,6 +6489,9 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	{
 		return;
 	}
+
+	// Flugente: show militia in motion
+	ShowMilitiaInMotion( sSectorX, sSectorY );
 
 	// get total number of badguys here
 	sNumberOfEnemies = NumEnemiesInSector( sSectorX, sSectorY );

@@ -1851,6 +1851,7 @@ STR16 pAssignmentStrings[] =
 	L"Rumours",	// facility: gather information
 	L"Propag.",	// spread propaganda
 	L"Rumours",	// gather information
+	L"Command",	// militia movement orders
 };
 
 
@@ -1946,6 +1947,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Gathering Rumours",			// facility: gather rumours	
 	L"Spreading Propaganda",	// spread propaganda
 	L"Gathering Rumours",			// gather information
+	L"Commanding Militia",	// militia movement orders
 };
 
 
@@ -2000,6 +2002,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Gather Rumours",			// facility: gather rumours	
 	L"Spread Propaganda",	// spread propaganda
 	L"Gather Rumours",			// gather information
+	L"Commanding Militia",	// militia movement orders
 };
 
 
@@ -2789,6 +2792,8 @@ STR16 gpStrategicString[] =
 	//%s is the sector location -- ex:  A9: Omerta
 	L"Creatures attack your mercs in sector %s.  None of your mercs are able to fight!",
 
+	// Flugente: militia movement forbidden due to limited roaming
+	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 };
 
 STR16 gpGameClockString[] = 
@@ -7170,6 +7175,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Spread Propaganda",
 	L"Spread Propaganda",	// spread propaganda (globally)
 	L"Gather Rumours",
+	L"Command Militia",	// militia movement orders
 };
 STR16 Additional113Text[]=
 {

@@ -1845,6 +1845,13 @@ STR16 pAssignmentStrings[] =
 	L"POW", // Prisoner of war - captured
 	L"Hospital", // patient in a hospital 
 	L"Empty",	// Vehicle is empty
+	L"Snitch",	// facility: undercover prisoner (snitch)	// TODO.Translate
+	L"Propag.",	// facility: spread propaganda
+	L"Propag.",	// facility: spread propaganda (globally)
+	L"Rumours",	// facility: gather information
+	L"Propag.",	// spread propaganda
+	L"Rumours",	// gather information
+	L"Command",	// militia movement orders
 };
 
 
@@ -1940,6 +1947,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Gathering Rumours",// TODO.Translate			// facility: gather rumours	
 	L"Spreading Propaganda",// TODO.Translate	// spread propaganda
 	L"Gathering Rumours",// TODO.Translate			// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -1994,6 +2002,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Gather Rumours",// TODO.Translate			// facility: gather rumours	
 	L"Spread Propaganda",// TODO.Translate	// spread propaganda
 	L"Gather Rumours",// TODO.Translate			// gather information
+	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
 
@@ -2785,6 +2794,8 @@ STR16 gpStrategicString[] =
 	//%s is the sector location -- ex:  A9: Omerta
 	L"Creatures attack your mercs in sector %s.  None of your mercs are able to fight!",
 
+	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
+	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 };
 
 STR16 gpGameClockString[] = 
@@ -7170,6 +7181,12 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Leadership",
 	L"Trainer Explosives",
 	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
+	L"Undercover Snitch",	// TODO.Translate
+	// 36-40
+	L"Spread Propaganda",
+	L"Spread Propaganda",	// spread propaganda (globally)
+	L"Gather Rumours",
+	L"Command Militia",	// militia movement orders
 };
 
 STR16 Additional113Text[]=

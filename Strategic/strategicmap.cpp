@@ -103,6 +103,7 @@
 	#include "Explosion Control.h"
 	#include "Auto Resolve.h"
 	#include "cursors.h"
+	#include "GameVersion.h"
 #endif
 
 #include "LuaInitNPCs.h"
@@ -5306,16 +5307,38 @@ BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile )
 BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 {
 	UINT32		uiNumBytesRead=0;
-	UINT32		uiSize = sizeof( StrategicMapElement ) * ( MAP_WORLD_X * MAP_WORLD_Y );
 
+	UINT32		uiSize = sizeof( StrategicMapElement );
 
-	// Load the strategic map information
-	FileRead( hFile, StrategicMap, uiSize, &uiNumBytesRead );
-	if( uiNumBytesRead != uiSize)
+	if ( guiCurrentSaveGameVersion >= MILITIA_MOVEMENT )
 	{
-		return(FALSE);
+		for(UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i)
+		{
+			// Load the strategic map information
+			FileRead( hFile, &StrategicMap[i], uiSize, &uiNumBytesRead );
+			if( uiNumBytesRead != uiSize)
+			{
+				return(FALSE);
+			}
+		}
 	}
+	else
+	{
+		uiSize = 41;
 
+		for(UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i)
+		{
+			// Load the strategic map information
+			FileRead( hFile, &StrategicMap[i], uiSize, &uiNumBytesRead );
+			if( uiNumBytesRead != uiSize)
+			{
+				return(FALSE);
+			}
+
+			StrategicMap[i].usFlags = 0;
+		}
+	}
+		
 	// Load the Sector Info
 	for (int sectorID = 0; sectorID <= 255; ++ sectorID) {
 		FileRead( hFile, &SectorInfo[sectorID], sizeof( SECTORINFO ), &uiNumBytesRead );
@@ -5347,7 +5370,6 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 	{
 		return(FALSE);
 	}
-
 
 	return( TRUE );
 }

@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			MILITIA_MOVEMENT								152 // Flugente: allow control of strategic militia movement
 #define			SNITCH_TRAIT_EXTENDED							151 // anv: more soldier flags, remembering exposition of snitch
 #define			CAMPAIGNSTATS									150	// Flugente: store campaign statistics
 #define			WALDO_CAN_REPAIR_HELICOPTER						149 // anv: have to refresh Waldo records
@@ -70,7 +71,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								SNITCH_TRAIT_EXTENDED
+#define			SAVE_GAME_VERSION								MILITIA_MOVEMENT
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus
