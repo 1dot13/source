@@ -166,6 +166,16 @@
 				<usPerformance>80</usPerformance>
 			</CONDITIONS>
 		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
+			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>70</ubMinimumWisdom>
+				<ubMinimumLeadership>70</ubMinimumLeadership>
+				<ubMinimumLevel>5</ubMinimumLevel>
+			</CONDITIONS>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
