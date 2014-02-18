@@ -337,7 +337,7 @@ extern BOOLEAN WriteIncompatibleAttachmentStats();
 extern BOOLEAN ReadInIncompatibleAttachmentStats(STR fileName);
 //WarmSteel - for New Attachment System
 extern BOOLEAN WriteAttachmentSlotsStats();
-extern BOOLEAN ReadInAttachmentSlotsStats(STR fileName);
+extern BOOLEAN ReadInAttachmentSlotsStats(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN WriteExtendedArmyGunChoicesStats();
 extern BOOLEAN ReadInExtendedArmyGunChoicesStats(ARMY_GUN_CHOICE_TYPE* pGunChoice, STR fileName);
