@@ -986,7 +986,7 @@ BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion)
 
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = &(zTaunt[num_found_taunt]);
-	pData.maxArraySize = NUM_TAUNT;
+	pData.maxArraySize = NUM_TAUNT - num_found_taunt;//dnl ch86 180214
 
 	XML_SetUserData(parser, &pData);
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
