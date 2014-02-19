@@ -1446,6 +1446,8 @@ void MilitiaMovementOrder(UINT8 sector)
 	// to stop the player from just setting someone in HQ to give orders and then reassigning them, we simply demand that there'll also be someone when the militia peform the travelling
 	if ( !MercStaffsMilitaryHQ() )
 	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gpStrategicString[STR_MILITIAMOVEMENT_NO_STAFF_ABORT] );
+
 		// remove all movement flags
 		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
 		return;

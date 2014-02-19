@@ -2794,6 +2794,7 @@ STR16 gpStrategicString[] =
 
 	// Flugente: militia movement forbidden due to limited roaming
 	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
+	L"War room isn't staffed - militia move aborted!",
 };
 
 STR16 gpGameClockString[] = 

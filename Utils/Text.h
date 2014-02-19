@@ -1810,6 +1810,7 @@ enum
 
 	// Flugente: militia movement forbidden due to limited roaming
 	STR_MILITIAMOVEMENT_NO_LIMITEDROAMING,
+	STR_MILITIAMOVEMENT_NO_STAFF_ABORT,
 
 	TEXT_NUM_STRATEGIC_TEXT
 };
