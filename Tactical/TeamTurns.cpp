@@ -2313,7 +2313,8 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 #ifdef INTERRUPT_MP_DEADLOCK_FIX
 					// Do nothing
 #else
-					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
+					if (cGameType == MP_TYPE_COOP)
+						ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
 #endif
 
 					send_interrupt( npSoldier );
