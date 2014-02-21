@@ -323,7 +323,7 @@ extern BOOLEAN ReadInSquadNamesStats(STR fileName);
 extern BOOLEAN WriteSquadNamesStats();
 
 // Flugente: loadscreen hints
-extern BOOLEAN ReadInLoadScreenHints(STR fileName);
+extern BOOLEAN ReadInLoadScreenHints(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteLoadScreenHints();
 
 // Flugente: soldier profiles

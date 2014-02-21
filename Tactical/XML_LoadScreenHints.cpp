@@ -24,6 +24,8 @@ struct
 }
 typedef enemyRankParseData;
 
+BOOLEAN localizedTextOnly_LoadScreenHints;
+
 UINT16 num_found_loadscreenhints = 0;	// the correct number is set on reading the xml
 
 LOADSCREENHINT_STRUCT zLoadScreenHint[LOADSCREENHINT_MAX];
@@ -39,7 +41,8 @@ loadscreenhintsStartElementHandle(void *userData, const XML_Char *name, const XM
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(LOADSCREENHINT_STRUCT)*pData->maxArraySize);
+			if (!localizedTextOnly_LoadScreenHints)
+				memset(pData->curArray,0,sizeof(LOADSCREENHINT_STRUCT)*pData->maxArraySize);
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -47,7 +50,8 @@ loadscreenhintsStartElementHandle(void *userData, const XML_Char *name, const XM
 		{
 			pData->curElement = ELEMENT;
 
-			memset(&pData->curLoadScreenHint,0,sizeof(LOADSCREENHINT_STRUCT));
+			if (!localizedTextOnly_LoadScreenHints)
+				memset(&pData->curLoadScreenHint,0,sizeof(LOADSCREENHINT_STRUCT));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -104,7 +108,14 @@ loadscreenhintsEndElementHandle(void *userData, const XML_Char *name)
 			
 			if(pData->curLoadScreenHint.uiIndex < pData->maxArraySize)
 			{
-				pData->curArray[pData->curLoadScreenHint.uiIndex] = pData->curLoadScreenHint;
+				if (!localizedTextOnly_LoadScreenHints)
+				{
+					pData->curArray[pData->curLoadScreenHint.uiIndex] = pData->curLoadScreenHint;
+				}
+				else
+				{
+					wcscpy(zLoadScreenHint[pData->curLoadScreenHint.uiIndex].szName, pData->curLoadScreenHint.szName);
+				}				
 			}
 		
 			num_found_loadscreenhints = pData->curLoadScreenHint.uiIndex;
@@ -172,7 +183,7 @@ loadscreenhintsEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
-BOOLEAN ReadInLoadScreenHints(STR fileName)
+BOOLEAN ReadInLoadScreenHints(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -181,6 +192,8 @@ BOOLEAN ReadInLoadScreenHints(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
 	enemyRankParseData pData;
+
+	localizedTextOnly_LoadScreenHints = localizedVersion;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading LoadScreenHints.xml" );
 		
