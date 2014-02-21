@@ -2,142 +2,102 @@
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
-
-A hint can appear according to its flags. So a hint that only has the <food>-tag will only appear if playing with the food system. 
-
-The other tags determine in what category this hint falls, and will be displayed accordingly
 -->                                                                                                 
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>0</uiIndex>
-    <szName>This template should never show up</szName>
-    <lore>0</lore>
-    <weapons>0</weapons>
-    <items>0</items>
-    <keybind>0</keybind>
-    <food>0</food>
-    <zombie>0</zombie>
-    <overheat>0</overheat>
-    <ncth>0</ncth>
-    <covertops>0</covertops>
+    <szName>This template should never show up</szName>    
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
     <szName>大部分机枪都有可替换枪管。在战斗中可通过频繁更换枪管来达到降温的目的。</szName>
-    <overheat>1</overheat>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
     <szName>在一具尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
     <szName>间谍可以通过穿上敌方的衣服来达到伪装目的。</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
     <szName>通过按[.]可以在不同的瞄具间进行切换。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
     <szName>食物放置时间太长，会腐败，导致有害健康。当然对天朝臣民无效。</szName>
-    <food>1</food>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
     <szName>使用解毒剂或者速度就医可以有效减缓中毒症状。</szName>
-    <food>1</food>
-    <zombie>1</zombie>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
     <szName>如果 'M' 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
     <szName>不要忘记时常去Kickstarter关注下 Jagged Alliance: Flashback!</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
     <szName>门被堵了？请按 [X] 和堵门的那家伙交换位置！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
     <szName>需要帮助？那就在战略界面按 [H]。然后去 www.ja-galaxy-forum.com 看看。</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
     <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL]在各种开火模式下提高命中概率. [ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
     <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用. 操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
     <szName>石迁再世！[CTRL]+[鼠标左键]点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
     <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
     <szName>在战术界面按住 [END] 不放，可以显示你现在的视野范围。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
     <szName>红色警报！在战术界面按住 [DEL] 可以显示敌人的视野，红色表示被发现，绿色表示隐藏的很好。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
     <szName>开枪打碎窗户玻璃，然后面向窗户然后按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
     <szName>在区域仓库界面，在身上携行具空余的格子上左键，就会显示出可以在这个格子上放置的物品。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
     <szName>在区域仓库界面，在空闲的武器配件格上左键，就会显示可供装备的配件。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
     <szName>在区域仓库界面，在身上携行具空余的格子上左键 + [CTRL]，就能显示已经分类好的物品选项！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
     <szName>当通过快捷方式选取物品时，比如点击空闲携行具格子, 伤害小的物品会被优先显示。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
     <szName>按下 [CTRL]+[SHIFT]+[X]可以开关即时潜行。 当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
     <szName>当你在即时潜行模式下按下 [CTRL]+[X] 进入回合模式，前提是你必须发现敌人。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

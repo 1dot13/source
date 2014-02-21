@@ -2,214 +2,159 @@
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
-
-A hint can appear according to its flags. So a hint that only has the <food>-tag will only appear if playing with the food system. 
-
-The other tags determine in what category this hint falls, and will be displayed accordingly
 -->                                                                                                 
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>0</uiIndex>
-    <szName>This template should never show up</szName>
-    <lore>0</lore>
-    <weapons>0</weapons>
-    <items>0</items>
-    <keybind>0</keybind>
-    <food>0</food>
-    <zombie>0</zombie>
-    <overheat>0</overheat>
-    <ncth>0</ncth>
-    <covertops>0</covertops>
+    <szName>This template should never show up</szName>    
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
     <szName>大部分机枪都有可替换枪管。在战斗中可通过频繁更换枪管来达到降温的目的。</szName>
-    <overheat>1</overheat>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
     <szName>在一具尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
     <szName>间谍可以通过穿上敌方的衣服来达到伪装目的。</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
     <szName>通过按[.]可以在不同的瞄具间进行切换。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
     <szName>食物放置时间太长，会腐败，导致有害健康。当然对天朝臣民无效。</szName>
-    <food>1</food>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
     <szName>使用解毒剂或者速度就医可以有效减缓中毒症状。</szName>
-    <food>1</food>
-    <zombie>1</zombie>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
     <szName>如果 'M' 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
     <szName>不要忘记时常去Kickstarter关注下 Jagged Alliance: Flashback!</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
     <szName>门被堵了？请按 [X] 和堵门的那家伙交换位置！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
     <szName>需要帮助？那就在战略界面按 [H]。然后去 www.ja-galaxy-forum.com 看看。</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
     <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL]在各种开火模式下提高命中概率. [ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
     <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用. 操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
     <szName>石迁再世！[CTRL]+[鼠标左键]点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
     <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
     <szName>在战术界面按住 [END] 不放，可以显示你现在的视野范围。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
     <szName>红色警报！在战术界面按住 [DEL] 可以显示敌人的视野，红色表示被发现，绿色表示隐藏的很好。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
     <szName>开枪打碎窗户玻璃，然后面向窗户然后按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
     <szName>在区域仓库界面，在身上携行具空余的格子上左键，就会显示出可以在这个格子上放置的物品。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
     <szName>在区域仓库界面，在空闲的武器配件格上左键，就会显示可供装备的配件。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
     <szName>在区域仓库界面，在身上携行具空余的格子上左键 + [CTRL]，就能显示已经分类好的物品选项！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
     <szName>当通过快捷方式选取物品时，比如点击空闲携行具格子, 伤害小的物品会被优先显示。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
     <szName>按下 [CTRL]+[SHIFT]+[X]可以开关即时潜行。 当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
     <szName>当你在即时潜行模式下按下 [CTRL]+[X] 进入回合模式，前提是你必须发现敌人。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>24</uiIndex>
     <szName>在夜间使用照明弹来发现敌人，可以有效提高你的射击命中度。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>25</uiIndex>
     <szName>你的佣兵陷入重围？使用烟雾弹来帮助他们脱困。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>26</uiIndex>
     <szName>基于你的游戏设定，请确保你的枪械得到良好的保养。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>27</uiIndex>
     <szName>商店不仅卖东西，其实他们也买东西。当然通常他们都是很挑剔的！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
     <szName>害怕敌人会中断你？打断他们的腿或者让他们扑街！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>29</uiIndex>
     <szName>跑动中的敌人很难被击中。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
     <szName>按下 [CTRL]+[.] 你会看到一个有趣的菜单。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
     <szName>[鼠标右键]也可以设定连发数目。</szName>
-    <weapons>1</weapons>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
     <szName>酒精+破布可以制成大杀器 - 燃烧弹！</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
     <szName>游戏中有些人是可以被贿赂收买的...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
     <szName>一边潜行一边奔跑看上去是反科学的，但其实系统支持。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>35</uiIndex>
     <szName>你可以轻松地用一把水果刀干掉一个匍匐在地的敌人！</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>36</uiIndex>
     <szName>当一个敌人处于警戒状态，它们可能呼叫增援...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
     <szName>随着你的进展，淘宝会向你开放！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
@@ -219,429 +164,341 @@ The other tags determine in what category this hint falls, and will be displayed
   <LOADSCREENHINT>
     <uiIndex>39</uiIndex>
     <szName>肉搏战可以提升你的灵巧和力量。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>40</uiIndex>
     <szName>拆装炸弹可以训练你的智慧！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
     <szName>遥控炸弹必须通过遥控雷管类控制。将遥控雷管放在手里，按[鼠标右键].</szName>
-    <items>1</items>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
     <szName>移动物品功能可以让你在同一城市不同地区内转移物品。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
     <szName>按[B]切换开火模式.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
     <szName>在战术界面按 [SHIFT]+[R] 可以控制所有成员换弹夹。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
     <szName>按下 [S] 站起来, [C] 半蹲, [P] 匍匐，而[R]站起来，跑路！</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
     <szName>按下[Z]切换潜行模式。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
     <szName>对一名非警戒状态下的敌人使用飞刀可以一击毙命！</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
     <szName>[鼠标右键]一个物品可以打开详细说明。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
     <szName>从长远来看，一份长期的佣兵合同更加划算！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
     <szName>如果你想赖 M.E.R.C.的账，那么黎叔会生气，后果很严重 ...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>51</uiIndex>
     <szName>如果敌人占领你的地区，他们可能会扫荡你存留在该地区的物资。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
     <szName>医生可以通过外科手术立刻恢复一些你损失的生命值。这样做会极大地消耗你的医疗包。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>53</uiIndex>
     <szName>过量使用兴奋剂会导致不了效果。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>54</uiIndex>
     <szName>如果你喜欢空降战术，那么小心那些防空导弹了！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>55</uiIndex>
     <szName>在战斗一开始，按下 [SHIFT]+[B] 可以放下所有佣兵身上的大背包。战斗结束后，可以按下 [CTRL]+[SHIFT]+[F] 来捡起它们。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>56</uiIndex>
     <szName>你可以用手雷将地雷上的小蓝旗炸掉，这样敌人就有可能踩上地雷，当然你也会。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
     <szName>按下[L] 来调整你的面朝方向。再按一下 [L] 可以举枪。 </szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
     <szName>请尽量在回合结束时保证人物至少处于半蹲状态，以免降低友方误伤的可能性。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
     <szName>你可以对某一区域进行火力压制，只需要选择连发模式和子弹数量，按住 [鼠标左键] 点上第一个目标，然后拖动鼠标划出你想要火力压制的地区即可。</szName>
-    <weapons>1</weapons>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
     <szName>Cambria的医院可以为你提供治疗。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
     <szName>脚架只有当你在匍匐状态或者武器架在某样事物上才会提供增益。</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>62</uiIndex>
     <szName>重武器在你处于举枪或者发射状态下或消耗大量精力。请保持匍匐来节省精力。</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>63</uiIndex>
     <szName>只要条件许可，请尽量选择遮蔽物。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>64</uiIndex>
     <szName>民兵可以帮助你吸引部分敌人火力，但是你不能指望他们能干所有的事情。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
     <szName>游击队会主动跟随你的佣兵队，但是你和他们之间的距离必须保持在一个地区以下。所以有时候你需要停下来等他们。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
     <szName>在民兵重分配界面下， 按住[CTRL] 可以移除5个民兵。按住 [SHIFT] 可以移除所有。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>67</uiIndex>
     <szName>游击队，会帮助你一起攻击敌人的地区，如果他们和你相邻。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
     <szName>在地区背包界面的上方，你会发现很多按键。通过这些按键，你可以快速察看某类物品。</szName>
-    <lore>1</lore>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>69</uiIndex>
     <szName>空尖对于无护甲的目标可以造成大量伤害。穿甲弹可以轻易击穿护甲，但是伤害较小。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
     <szName>打老虎，要先喝三碗酒，然后用空尖弹。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>71</uiIndex>
     <szName>帮助住民可以提升地区忠诚度。高忠诚度会带来不少回报，比如额外的消息等。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>72</uiIndex>
     <szName>只有当地区忠诚度达到一定程度后，你才能训练民兵。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
     <szName>有教学技能的佣兵，能快速训练民兵。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
     <szName>快捷键 [O] 可以打开系统菜单。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
     <szName>快捷键 [ALT]+[S] 可以快速存储游戏进度。 [ALT]+[L] 可以快速读取游戏进度。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>76</uiIndex>
     <szName>快捷键 [CTRL]+[S] 可以立刻打开存储界面。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
     <szName>在主菜单上按住 [ALT] 再点击 '继续游戏' 会立刻打开最近的进度。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
     <szName>黄衫敌人是最基础的敌方士兵，他们的装备是最差的。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
     <szName>红衫是敌方的正规军，大多数情况下你遇到的都是他们</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
     <szName>黑衫是敌方的精锐。他们有些最好的武器装备，而且也更难对付。在高难度游戏下，他们的数量会增加。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
     <szName>绿色民兵可以通过再次训练变成正规反抗军。正规反抗军会更加有用，但是花费更多时间去训练和更多的资金去维持。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
     <szName>通过正规训练手段是不能获得精英民兵的，只有通过战斗手段，正规民兵才可能升级为精英。当然开挂不计！</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
     <szName>垂死状态的佣兵需要及时地进行包扎，否则会因为流血不止而死亡。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>84</uiIndex>
     <szName>请尽量给你的狙击手配一个观察员，因为他们在近距离作战中很弱！</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
     <szName>震撼弹可以暂时瘫痪敌人，你可以从他们身上偷取物品。</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>86</uiIndex>
     <szName>在向敌人使用催泪弹之前，请先使用震撼弹或者火力压制瘫痪他们。这就可以防止他们逃出催泪瓦斯范围</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
     <szName>在使用催泪弹之前，请先确认敌人没有带防毒面具。 按住 [ALT] 点敌人可以看到详细信息。佣兵和敌人的距离将决定多少信息可以被察看。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
     <szName>请确保你的弹夹永远都是满的。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
     <szName>不要忘记使用掩蔽体来保护自己。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
     <szName>按 [T] 可以清除树冠的显示。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
     <szName>L.B.E. 就是携行具。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
     <szName>使用 [TAB] 在地面目标和房顶目标之间进行切换。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>93</uiIndex>
     <szName>尽量从掩体后面进行射击，同时请预留足够的行动点来让自己可以脱离险境。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
     <szName>注意你的佣兵所听到的一切动静，有时候可以帮你避免大麻烦。因为他们会告诉你敌人从哪里来</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
     <szName>当你听到异响时，地图上会有白色的闪烁来提醒你。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
     <szName>火力吸引可以帮助你受困的队友得到更多的喘息机会。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>
     <szName>夜袭的时候尽量避免光源处。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
     <szName>按下 [ALT]+[Z] 使所有的队员进入潜行模式, 而 [=] 可以选取他们所有人。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
     <szName>在夜晚，听风辨音很重要，因为通常你听到的比你看到的多。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
     <szName>夜视仪是必备的装备，如果你手上只有把小手枪或者冲锋枪。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
     <szName>按下[G] 可以开关佣兵的自发光。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
     <szName>当你遇到雷暴天气的时候，请小心。因为闪电会暴露你的位置，而大雨会遮挡你的视线。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>103</uiIndex>
     <szName>不要聚集在一起，因为一发流弹，或者一颗手雷，就会要了所有人的命。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>104</uiIndex>
     <szName>请记住，你的每一步行动都会对战斗产生影响。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
     <szName>永远先处理眼前的威胁，再计划下一步该怎么办。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
     <szName>在房顶上，请尽量直线行进，因为斜线行进会降低你的速度。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>107</uiIndex>
     <szName>弹子球在肉搏战中会有奇妙的作用。</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
     <szName>如果你想行进速度快点，请任务你的负重没有超过100%。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
     <szName>在战斗中计算子弹数量是非常困难的，所以当你的佣兵忘记还剩多少子弹的时候别感到惊讶。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
     <szName>不同的佣兵和NPC交谈会有不同的结果，佣兵的背景会决定效果如何。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
     <szName>不同的佣兵对于睡眠时长的需求是不一样的。有 "夜行" 技能的队员相对睡眠时间较短。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
     <szName>不同的佣兵对于死亡队员的数量容忍度是不一样的。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>113</uiIndex>
     <szName>如果你的队伍中有两个人互相敌视，请不要将他们放在同一地区超过一小时。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
     <szName>有些佣兵是不具备更大的成长空间的，你别指望教会他们一些新东西。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
     <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。 </szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
     <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
     <szName>联网模式可以让你和真实玩家一起协作完成任务或者互相对抗。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
     <szName>按下[CTRL]+[SHIFT]+[G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
     <szName>按下[CTRL]+[SHIFT]+[S]可以卖掉当前地区的所有物品。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
     <szName>[CTRL]+[SHIFT]+[E] 可以将你的车辆后备箱尽量装满。 [SHIFT]+[E] 则是清空你的车辆后备箱。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
     <szName>如果你无法击中目标，不如就尝试火力压制吧。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
     <szName>探索各个地区会有不小的收获，比如汽油什么的。</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
     <szName>在战术界面，按住[鼠标右键] 点击佣兵也可以打开指令菜单。</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

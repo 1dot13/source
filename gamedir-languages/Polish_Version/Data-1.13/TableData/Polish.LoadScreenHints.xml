@@ -2,646 +2,503 @@
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
-
-A hint can appear according to its flags. So a hint that only has the <food>-tag will only appear if playing with the food system. 
-
-The other tags determine in what category this hint falls, and will be displayed accordingly
--->                                                                                                 
+--> 
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>0</uiIndex>
-    <szName>This template should never show up</szName>
-    <lore>0</lore>
-    <weapons>0</weapons>
-    <items>0</items>
-    <keybind>0</keybind>
-    <food>0</food>
-    <zombie>0</zombie>
-    <overheat>0</overheat>
-    <ncth>0</ncth>
-    <covertops>0</covertops>
+    <szName>This template should never show up</szName>    
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
     <szName>Most machineguns have replacable barrels. Use this to rapidly cool down your gun during combat.</szName>
-    <overheat>1</overheat>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
     <szName>Use your knife on a corpse to retrieve its uniform, or pick up the corpse.</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
     <szName>Spies can use enemy uniforms to disguise as soldiers.</szName>
-    <covertops>1</covertops>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
     <szName>You can toggle between different scopes and sights by pressing [.].</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
     <szName>Leaving food around for a few days will spoil it, making it unhealthy.</szName>
-    <food>1</food>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
     <szName>You can clean poisoning by taking an antidote, or the DOCTOR assignment.</szName>
-    <food>1</food>
-    <zombie>1</zombie>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
     <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
     <szName>Don't forget to check out Jagged Alliance: Flashback on Kickstarter!</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
     <szName>Doorway blocked? Press [X] when beside someone to swap places.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
     <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.ja-galaxy-forum.com</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
     <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets size of auto-fire volley.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
     <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
     <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
-    <keybind>1</keybind>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
     <szName>EOD flag signals. Mind you, the blue flag you may put in a tile on ground to mark a mine or trap you've spotted is also seen and reacted to by the enemy.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
     <szName>Colour your vision! Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
     <szName>Red Alert! Holding [DEL] in tactical screen shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
     <szName>Jagged windowing. Shoot the glass (where necessary), face the open window and climb through it with [SHIFT]+[J].</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
     <szName>While in sector inventory, click empty inventory slots for a list of items you may want to put there.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
     <szName>While in sector inventory, click empty attachment slots for a list of compatible attachments.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
     <szName>While in sector inventory, [CTRL] click empty inventory slots for a categorized list of items in that sector.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
     <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), least damaged items are used.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
     <szName>Press [CTRL]+[SHIFT]+[X] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
     <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>24</uiIndex>
     <szName>Illuminate night time enemies with flares to increase your chance of shooting them.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>25</uiIndex>
     <szName>Your merc under fire and cant get back? Cover them with smoke grenades.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>26</uiIndex>
     <szName>Depending on your settings, fully repairing a gun cleans it as well.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>27</uiIndex>
     <szName>Shops not only sell, but also buy some of your gear. They are quite picky though.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
     <szName>Afraid enemy will interrupt you? Shoot their legs and hope they fall.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>29</uiIndex>
     <szName>It is harder to hit a running enemy.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
     <szName>Open a useful sector menu with [CTRL]+[.]</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
     <szName>Increase the number of bullets on automatic fire with [RIGHT-MOUSE-BUTTON].</szName>
-    <weapons>1</weapons>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
     <szName>Merge alcohol with rag to create a molotov cocktail.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
     <szName>Some NPCs can be bribed...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
     <szName>Sneaking while running seems unintuitive, but it works.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>35</uiIndex>
     <szName>You can quickly kill a prone enemy with a knife.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>36</uiIndex>
     <szName>If the enemy is alerted, they might call in reinforcements...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
     <szName>Bobby Ray's website will be available if you progress.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
     <szName>Sneaking near unalerted enemies trains your agility, but is risky.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>39</uiIndex>
     <szName>Punching increases your dexterity and strength.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>40</uiIndex>
     <szName>Doctoring and arming bombs will increase your wisdom.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
     <szName>Remote bombs can be detonated with a remote detonator - put it in your hands and press [RIGHT-MOUSE-BUTTON].</szName>
-    <items>1</items>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
     <szName>If you want to manually move items, you can use the MOVEITEM-assignment inside cities.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
     <szName>You can toggle firemodes with [B].</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
     <szName>Pressing [SHIFT]+[R] in tactical screen orders your entire team to reload.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
     <szName>Press [S] to stand, [C] to crouch, [P] to go prone an [R] to stand and run.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
     <szName>Press [Z] to toggle sneak mode.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
     <szName>Throwing knives can instantly kill an enemy if he is unalerted.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
     <szName>You can open a useful description box by clicking [RIGHT-MOUSE-BUTTON] on an item.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
     <szName>Long-term mercenary contracts are cheaper. In the long term.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
     <szName>Not paying M.E.R.C. bills might have consequences...</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>51</uiIndex>
     <szName>If the enemy conquers your sectors, they might take your stuff.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
     <szName>Doctors can instantly restore some life lost via surgery - this will drain your medical supplies a lot.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>53</uiIndex>
     <szName>Taking too many drugs has consequences.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>54</uiIndex>
     <szName>If you'll ever get airborne, those SAM sites might come in handy.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>55</uiIndex>
     <szName>At the start of the combat use [SHIFT]+[B] shortcut to drop all backpacks your mercs carry. At the end of combat use [CTRL]+[SHIFT]+[F] shortcut to pick them all back up.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>56</uiIndex>
     <szName>You can destroy blue flags on mines by throwing grenades on them. Enemy may step on unflagged mine. Then again, you may as well.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
     <szName>Use [L] shortcut to face direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
     <szName>Always try to end turn with your mercs at least crouched. It protects you from unintentional friendly fire.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
     <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on first target and drag it around the desired area.</szName>
-    <weapons>1</weapons>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
     <szName>Cambria has hospital where you can heal your mercs.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
     <szName>Bipods only give bonuses if you are lying prone or when gun is mounted.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>62</uiIndex>
     <szName>Heavy weapons take a lot of energy if you fire or even hold them ready while standing. Go prone to save energy.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>63</uiIndex>
     <szName>Whenever you can, always use cover.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>64</uiIndex>
     <szName>Rebel militia can take away some enemy fire from your mercs. Don't count on them to do all the work though.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
     <szName>Mobile militia can follow mercs while travelling on map. It will follow merc group as long as you keep 1 sector close to them. Make sure you wait for them to arrive to your position before moving again.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
     <szName>In the militia redistribution menu, holding [CTRL] will move 5 militia. [SHIFT] will move all in a sector.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>67</uiIndex>
     <szName>Mobile militia can help you when you attack a town if you keep them with you and call them as reinforcements before battle.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
     <szName>Sector inventory. On top of the screen you can see many buttons that help you sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
     <lore>1</lore>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>69</uiIndex>
     <szName>HP ammo does great damage but is easily stopped by body armor. AP ammo can penetrate body armor but does less damage.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
     <szName>Use HP ammo to kill bloodcats.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>71</uiIndex>
     <szName>Helping locals will boost their loyalty. Talking to them may sometimes reveal some useful information as well.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>72</uiIndex>
     <szName>You need to have enough loyalty in town before you can train militia there.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
     <szName>Mercs with teaching skill train militia faster.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
     <szName>Shortcut [O] opens up options menu in game.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
     <szName>Shortcut [ALT]+[S] will quicksave game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>76</uiIndex>
     <szName>Shortcut [CTRL]+[S] will open up save menu instantly.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
     <szName>In the main menu holding [ALT] while clicking 'Continue saved game' option will instantly load last saved game.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
     <szName>Yellow shirts are admin type of enemies that have worst equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
     <szName>Red shirts are Deidranna's regular army and will face you most of the game.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
     <szName>Black shirts are mercenaries hired by Deidranna. They have best equipment and weapons and are toughest of enemies. Higher difficulty levels increase their numbers.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
     <szName>Green militia can be trained further to become regular militia. Regular militia is more useful but costs more to train and maintain.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
     <szName>Veteran militia can't be trained. Militia can become veteran after combat if they performed well.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
     <szName>Try to bandage dying merc as soon as possible, or otherwise the merc may bleed to death.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>84</uiIndex>
     <szName>Always try to give a sidearm to your snipers. Snipers are of limited use in close combat situations.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
     <szName>Stun grenades can help you render enemy helpless. You can steal equipment from helpless enemies.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>86</uiIndex>
     <szName>Try to stun or suppress enemies before throwing tear gas grenade at them. That will prevent them from getting out of tear gas range.</szName>
-    <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
     <szName>Always check if enemy has gas mask before using tear gas on him. Hold [ALT] key while targeting enemy to see his details. Amount of details depend on the distance from selected merc.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
     <szName>Make sure you have your gun fully loaded at all times [ALT]+[R].</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
     <szName>Don't forget to use cover.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
     <szName>If trees get in your LOS (line of sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
     <szName>L.B.E. stands for Load Bearing Equipment.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
     <szName>Switch between ground and rooftop targets with the [TAB] key.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>93</uiIndex>
     <szName>Shoot from behind cover and know how many AP's it takes to get your butt back down again.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
     <szName>Pay attention to what your mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
     <szName>You'll see a white "Ping" blink on the location of any overheard sounds.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
     <szName>Firing your weapon can draw some heat away from an injured merc or someone who's in it knee deep!</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>
     <szName>Stay away from light sources at night and try to use them to your advantage.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
     <szName>Press [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
     <szName>Relying on sound is even more important at night, you'll hear more than you can see without the proper equipment.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
     <szName>Night Ops are probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
     <szName>Press [G] to toggle on/off the light around your merc.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
     <szName>If you get caught in a thunder storm, be on your toes, a flash of lightning can give away your position and the rain makes it harder to see.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>103</uiIndex>
     <szName>Don't stay bunched together either, a stray bullet or grenade can do serious damage to your whole squad.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>104</uiIndex>
     <szName>Every move you make, determines how the battle unfolds.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
     <szName>Always deal with the present threat before carrying out a plan.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
     <szName>When moving on a roof top, try to move in straight lines, moving diagonally can slow you down.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>107</uiIndex>
     <szName>Marbles can be surprisingly useful in a fist fight.</szName>
-    <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
     <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on your mercs. It will slow the squad down.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
     <szName>Counting bullets during a fight is tough. Don't be surprised when your mercs forget how many they have left.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
     <szName>Each mercenary have different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
     <szName>Each mercenary have different needs for sleep ranging from 3 to 12 hours to fully regenerate energy. "Night Ops" trait allows to reduce this time even further.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
     <szName>Each mercenary have different tolerance for number of deaths in your squad and your overall reputation in Arulco.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>113</uiIndex>
     <szName>If you have two people in team that don't like each other, avoid keeping them in the same sector for more than an hour.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
     <szName>Certain merceries can not gain stats at all. You can’t teach an old dog new tricks.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
     <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
     <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
     <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try out the 1.13 multiplayer mode.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
     <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
     <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in your current sector inventory at once.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
     <szName>[CTRL]+[SHIFT]+[E] will load your vehicle with as much items as possible from your current sector. [SHIFT]+[E] will unload all items from vehicle to your current sector.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
     <szName>If you can't hit a target from your current location, you can try to suppress it with auto fire and then change to a better position.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
     <szName>Exploring the farms and city sectors can help you find lots of useful items, like gas for your vehicle.</szName>
-    <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
     <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over your merc will open up merc's menu similar to the one you have on strategic screen map.</szName>
-    <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
