@@ -55,11 +55,11 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Facilities granted. Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
+    <szName>Facilities granted. Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of Thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <szName>Guild of Thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
@@ -67,7 +67,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Colour your vision! Holding [END] in tactical shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
+    <szName>Holding [END] in tactical shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
