@@ -3094,7 +3094,9 @@ void ShouldAnyNewMercMercBecomeAvailable()
 	//Kaiden: Added this if test to make sure that the "New Mercs Available"
 	// e-mail doesn't show up and no unneccessary checks are made when you
 	// have the ALL_MERCS_AT_MERC set to TRUE in the INI file.
-	if(!gGameExternalOptions.fAllMercsAvailable)
+	// anv: ALL_MERCS_AT_MERC doesn't cover mercs that can be unlocked depending on in-campaign conditions (e.g. Kulba)
+	// if ALL_MERCS_AT_MERC is on, .StartMercsAvailable = TRUE anyway, so there won't be any conflicts or unnecessary emails
+	//if(!gGameExternalOptions.fAllMercsAvailable)
 	{
 		for(UINT8 i=0; i<NUM_PROFILES; i++)
 		{
@@ -3130,11 +3132,10 @@ BOOLEAN CanMercBeAvailableYet( UINT8 ubMercToCheck )
 		if(gGameExternalOptions.fEnableRecruitableJohnKulba == TRUE)
 		{
 			if( LaptopSaveInfo.bJohnEscorted == TRUE
-				&& LaptopSaveInfo.uiJohnEscortedDate + gGameExternalOptions.ubRecruitableJohnKulbaDelay < GetWorldDay() )
+				&& LaptopSaveInfo.uiJohnEscortedDate + gGameExternalOptions.ubRecruitableJohnKulbaDelay <= GetWorldDay() )
 			{
 				return( TRUE );
-			}
-			else
+			}			else
 			{
 				return( FALSE );
 			}
