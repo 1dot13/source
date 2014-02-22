@@ -1631,6 +1631,10 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 		}
 	}
 
+	// Flugente: if we don't have a face index, then don't do a dialogue here...
+	if ( pSoldier->iFaceIndex <= -1 )
+		return( FALSE );
+
 	return( CharacterDialogue( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, FALSE ) );
 }
 
