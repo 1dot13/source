@@ -117,6 +117,8 @@
 #include "SkillMenu.h"					// added by Flugente
 #include "Map Screen Interface Map Inventory.h"//dnl ch75 021113
 
+#include "DisplayCover.h"				// added by Sevenfm
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -153,6 +155,10 @@ extern UINT32 guiVSurfaceSize;
 extern BOOLEAN gfNextShotKills;
 UINT32 guiSoldierFlags;
 UINT32 guiUITargetSoldierId = NOBODY;
+
+// sevenfm: for cover dialog
+extern COVER_DRAW_MODE gubDrawMode;
+extern MINES_DRAW_MODE gubDrawModeMine;
 
 void HandleTalkingMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
 void HandleMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
@@ -318,6 +324,12 @@ void HandleTBLocatePrevMerc( void );
 void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
+
+void HandleTacticalInventoryMenu( void );
+void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue );
+void HandleTacticalCoverMenu( void );
+void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
+void HandleTacticalAmmoCrates( UINT8 magType );
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -2753,138 +2765,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'A':
 				//CHRISL: Ammo Crate
 				//MM: Ammo Box
-				if(!(gTacticalStatus.fEnemyInSector))
-				{
-					INT32		crateItem;
-					INT32		worldItem;
-					UINT8		magType;
-					bool		mergeSuccessful, ammoPresent;
-					int loopCount = 0;
-					OBJECTTYPE	newCrate;
-					ammoPresent = true;
-
 					if (fCtrl)
-						magType = AMMO_CRATE;
+					HandleTacticalAmmoCrates( AMMO_CRATE );
 					else
-						magType = AMMO_BOX;
-
-					while (ammoPresent && loopCount <= 10)
-					{
-						//look through all sector items for ammo.
-						for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
-						{
-							crateItem = 0;
-							mergeSuccessful = false;
-							if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
-							{
-								worldItem = gWorldItems[wItem].object.usItem;
-								//we don't want to do anything if the world item is already an ammo crate/box
-								if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
-									continue;
-
-								//we have a valid, ammo item.  Look through Items.xml and see if we have an ammo crate for
-								//	this ammo type
-								for(int iLoop = 0; iLoop < MAXITEMS; iLoop++)
-								{
-									if (Item[iLoop].usItemClass == 0)
-										break; //no more valid items after this point
-
-									//if ammo crate && calibers match && Ammo Types match
-									if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == magType && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
-									{
-										crateItem = iLoop;
+					HandleTacticalAmmoCrates( AMMO_BOX );
+				
 										break;
-									}
-								}
-
-								//if we found a crateItem in the list, we first want to see if we already have an item created
-								if(crateItem != 0)
-								{
-									//look through world items first
-									for(unsigned int loop=0; loop < guiNumWorldItems; loop++)
-									{
-										if(gWorldItems[loop].object.usItem == crateItem)
-										{
-											DistributeStatus(&gWorldItems[wItem].object, &gWorldItems[loop].object, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
-											if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
-											{
-												mergeSuccessful = true;
-												RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
-												RemoveItemFromWorld(wItem);
-												break;
-											}
-										}
-
-									}
-									//no crates in sector inventory.  search merc inventories
-									if(!mergeSuccessful)
-									{
-										for(int loop=0; loop<(int)OUR_TEAM_SIZE_NO_VEHICLE; ++loop)
-										{
-											if(MercPtrs[loop]->bActive && MercPtrs[loop]->bInSector)
-											{
-												UINT32 invsize = MercPtrs[loop]->inv.size();
-												for(UINT32 pocket=0; pocket < invsize; ++pocket)
-												{
-													if(MercPtrs[loop]->inv[pocket].usItem == crateItem)
-													{
-														DistributeStatus(&gWorldItems[wItem].object, &MercPtrs[loop]->inv[pocket], Magazine[Item[crateItem].ubClassIndex].ubMagSize);
-														if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
-														{
-															mergeSuccessful = true;
-															RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
-															RemoveItemFromWorld(wItem);
-															break;
-														}
-													}
-												}
-												if(mergeSuccessful == true)
-													break;
-											}
-										}
-									}
-									//no crates in merc inventory.  create a new sector item
-									if(!mergeSuccessful)
-									{
-										CreateAmmo(crateItem, &newCrate, 0);
-										DistributeStatus(&gWorldItems[wItem].object, &newCrate, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
-										AddItemToPool(gWorldItems[wItem].sGridNo, &newCrate, 1, gWorldItems[wItem].ubLevel, gWorldItems[wItem].usFlags, gWorldItems[wItem].bRenderZHeightAboveLevel);
-										if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
-										{
-											mergeSuccessful = true;
-											RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
-											RemoveItemFromWorld(wItem);
-										}
-									}
-								}
-							}
-						}
-
-						// if we added to / created a box/crate, then we're fine to reset this
-						if ( mergeSuccessful )
-							loopCount = 0;
-
-						//MM: loop through ammo multiple times, as boxes and crates may take a few passes to fill
-						ammoPresent = false;
-						for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
-						{
-							if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
-							{
-								worldItem = gWorldItems[wItem].object.usItem;
-								if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
-									continue;
-
-								loopCount++;
-								ammoPresent = true;
-								break;
-							}
-						}
-
-						StackAndSort(TRUE);
-					}
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
-				}
-				break;
 			case 'J':
 			case 'j':
 				if ( fShift )
@@ -3110,6 +2996,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						ToggleCliffDebug();
 					}
+					else
+					{
+						HandleTacticalCoverMenu();
+				}
 				}
 				else
 				{
@@ -3463,6 +3353,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					else
 					{
 						RESET_CHEAT_LEVEL();
+						HandleTacticalInventoryMenu();
 					}
 #endif
 				}
@@ -7704,4 +7595,294 @@ void HandleTBSoldierRun( void )
 		}
 	}
 }
+
+void HandleTacticalAmmoCrates( UINT8 magType )
+{
+	if(gTacticalStatus.fEnemyInSector)
+		return;
+
+	INT32		crateItem;
+	INT32		worldItem;
+	//UINT8		magType;
+	bool		mergeSuccessful, ammoPresent;
+	int loopCount = 0;
+	OBJECTTYPE	newCrate;
+	ammoPresent = true;
+
+	while (ammoPresent && loopCount <= 10)
+	{
+		//look through all sector items for ammo.
+		for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
+		{
+			crateItem = 0;
+			mergeSuccessful = false;
+			if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
+			{
+				worldItem = gWorldItems[wItem].object.usItem;
+				//we don't want to do anything if the world item is already an ammo crate/box
+				if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
+					continue;
+
+				//we have a valid, ammo item.  Look through Items.xml and see if we have an ammo crate for
+				//	this ammo type
+				for(int iLoop = 0; iLoop < MAXITEMS; iLoop++)
+				{
+					if (Item[iLoop].usItemClass == 0)
+						break; //no more valid items after this point
+
+					//if ammo crate && calibers match && Ammo Types match
+					if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == magType && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
+					{
+						crateItem = iLoop;
+						break;
+					}
+				}
+
+				//if we found a crateItem in the list, we first want to see if we already have an item created
+				if(crateItem != 0)
+				{
+					//look through world items first
+					for(unsigned int loop=0; loop < guiNumWorldItems; loop++)
+					{
+						if(gWorldItems[loop].object.usItem == crateItem)
+						{
+							DistributeStatus(&gWorldItems[wItem].object, &gWorldItems[loop].object, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
+							if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
+							{
+								mergeSuccessful = true;
+								RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
+								RemoveItemFromWorld(wItem);
+								break;
+							}
+						}
+
+					}
+					//no crates in sector inventory.  search merc inventories
+					if(!mergeSuccessful)
+					{
+						for(int loop=0; loop<(int)OUR_TEAM_SIZE_NO_VEHICLE; ++loop)
+						{
+							if(MercPtrs[loop]->bActive && MercPtrs[loop]->bInSector)
+							{
+								UINT32 invsize = MercPtrs[loop]->inv.size();
+								for(UINT32 pocket=0; pocket < invsize; ++pocket)
+								{
+									if(MercPtrs[loop]->inv[pocket].usItem == crateItem)
+									{
+										DistributeStatus(&gWorldItems[wItem].object, &MercPtrs[loop]->inv[pocket], Magazine[Item[crateItem].ubClassIndex].ubMagSize);
+										if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
+										{
+											mergeSuccessful = true;
+											RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
+											RemoveItemFromWorld(wItem);
+											break;
+										}
+									}
+								}
+								if(mergeSuccessful == true)
+									break;
+							}
+						}
+					}
+					//no crates in merc inventory.  create a new sector item
+					if(!mergeSuccessful)
+					{
+						CreateAmmo(crateItem, &newCrate, 0);
+						DistributeStatus(&gWorldItems[wItem].object, &newCrate, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
+						AddItemToPool(gWorldItems[wItem].sGridNo, &newCrate, 1, gWorldItems[wItem].ubLevel, gWorldItems[wItem].usFlags, gWorldItems[wItem].bRenderZHeightAboveLevel);
+						if(gWorldItems[wItem].object.ubNumberOfObjects < 1)
+						{
+							mergeSuccessful = true;
+							RemoveItemFromPool(gWorldItems[wItem].sGridNo,(wItem),gWorldItems[wItem].ubLevel);
+							RemoveItemFromWorld(wItem);
+						}
+					}
+				}
+			}
+		}
+
+		// if we added to / created a box/crate, then we're fine to reset this
+		if ( mergeSuccessful )
+			loopCount = 0;
+
+		//MM: loop through ammo multiple times, as boxes and crates may take a few passes to fill
+		ammoPresent = false;
+		for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
+		{
+			if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
+			{
+				worldItem = gWorldItems[wItem].object.usItem;
+				if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
+					continue;
+
+				loopCount++;
+				ammoPresent = true;
+				break;
+			}
+		}
+
+		StackAndSort(TRUE);
+	}
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
+}
+
+void HandleTacticalInventoryMenu( void )
+{
+	for( INT32 cnt = 0; cnt < TACTICAL_INVENTORY_DIALOG_NUM; cnt++)
+	{
+		wcscpy( gzUserDefinedButton[cnt], szTacticalInventoryDialogString[cnt+1] );		
+		gzUserDefinedButtonColor[cnt] = 0;
+	}
+
+	gzUserDefinedButtonColor[0] = FONT_MCOLOR_LTGRAY;
+	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTGRAY;	
+	gzUserDefinedButtonColor[4] = FONT_ORANGE;
+	gzUserDefinedButtonColor[5] = FONT_ORANGE;
+	gzUserDefinedButtonColor[6] = FONT_ORANGE;
+	gzUserDefinedButtonColor[7] = FONT_ORANGE;
+
+	gzUserDefinedButtonColor[8] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[9] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[10] = FONT_MCOLOR_LTYELLOW;
+	gzUserDefinedButtonColor[11] = FONT_MCOLOR_LTYELLOW;
+
+	DoMessageBox( MSG_BOX_BASIC_STYLE,  szTacticalInventoryDialogString[0], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, TacticalInventoryMessageBoxCallBack, NULL );
+}
+
+void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue )
+{
+	switch( ubExitValue )
+	{
+	case 1:		// switch NVG
+		HandleTBSwapGoogles();
+		break;
+	case 2:		// reload ALL
+		HandleTBReloadAll();
+		break;
+	case 3:		
+		break;
+	case 4:		
+		break;
+	case 5:		// sort items
+		StackAndSort( TRUE );
+		break;
+	case 6:		// merge items
+		StackAndSort( FALSE );
+		break;
+	case 7:		// remove att
+		SeperateItems();
+		break;
+	case 8:		// organize items
+		SeperateItems();
+		StackAndSort( FALSE );
+		break;
+	case 9:		// ammo crates
+		HandleTacticalAmmoCrates( AMMO_CRATE );		
+		break;
+	case 10:	// ammo boxes
+		HandleTacticalAmmoCrates( AMMO_BOX );
+		break;
+	case 11:	// drop backpacks
+		HandleTBDropBackpacks();
+		break;
+	case 12:	// pickup backpacks
+		HandleTBPickUpBackpacks();
+		break;
+	case 13:
+		break;
+	case 14:
+		break;
+	case 15:
+		break;
+	case 16:
+		break;
+	}
+}
+
+void HandleTacticalCoverMenu( void )
+{
+	for( INT32 cnt = 0; cnt < TACTICAL_COVER_DIALOG_NUM; cnt++)
+	{
+		wcscpy( gzUserDefinedButton[cnt], szTacticalCoverDialogString[cnt+1] );		
+		gzUserDefinedButtonColor[cnt] = 0;
+	}
+	gzUserDefinedButtonColor[0] = 0;
+	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTYELLOW;
+	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;	
+	gzUserDefinedButtonColor[8] = FONT_ORANGE;
+	gzUserDefinedButtonColor[9] = FONT_ORANGE;
+	gzUserDefinedButtonColor[10] = FONT_ORANGE;
+	gzUserDefinedButtonColor[12] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[13] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[14] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[15] = FONT_MCOLOR_LTGREEN;
+
+	DoMessageBox( MSG_BOX_BASIC_STYLE,  szTacticalCoverDialogString[0], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, TacticalCoverMessageBoxCallBack, NULL );
+}
+
+void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
+{
+	gubDrawModeMine = MINES_DRAW_OFF;
+	gubDrawMode = COVER_DRAW_OFF;
+	switch( ubExitValue )
+	{
+	case 1:
+		gubDrawModeMine = MINES_DRAW_OFF;
+		gubDrawMode = COVER_DRAW_OFF;
+		DisplayMines(TRUE);
+		break;
+	case 2:
+		gubDrawMode = COVER_DRAW_ENEMY_VIEW;
+		DisplayCover(TRUE);
+		break;
+	case 3:
+		gubDrawMode = COVER_DRAW_MERC_VIEW;
+		DisplayCover(TRUE);
+		break;
+	case 4:
+		break;
+	case 5:		
+		break;
+	case 6:		
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
+		DisplayMines(TRUE);
+		break;
+	case 10:
+		gubDrawModeMine = MINES_DRAW_NETWORKCOLOURING;
+		DisplayMines(TRUE);
+		break;
+	case 11:
+		gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
+		DisplayMines(TRUE);
+		break;
+	case 12:
+		break;
+	case 13:
+		gubDrawModeMine = MINES_DRAW_NET_A;
+		DisplayMines(TRUE);
+		break;
+	case 14:
+		gubDrawModeMine = MINES_DRAW_NET_B;
+		DisplayMines(TRUE);
+		break;
+	case 15:
+		gubDrawModeMine = MINES_DRAW_NET_C;
+		DisplayMines(TRUE);
+		break;
+	case 16:
+		gubDrawModeMine = MINES_DRAW_NET_D;
+		DisplayMines(TRUE);
+		break;
+	}
+	if( ubExitValue <= TACTICAL_COVER_DIALOG_NUM )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTacticalCoverDialogPrintString[ubExitValue-1]);
+}
+
+
 

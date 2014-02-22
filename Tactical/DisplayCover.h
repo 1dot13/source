@@ -25,6 +25,33 @@ void DisplayGridNoVisibleToSoldierGrid( );
 #define		DC__MIN_SIZE						4
 #define		DC__MAX_SIZE						21 //11
 
+// Flugente: mines display - stuff needs to be here
+// Sevenfm: moved here from DisplayCover.cpp
+enum MINES_DRAW_MODE {
+	MINES_DRAW_OFF,
+	MINES_DRAW_DETECT_ENEMY,
+	MINES_DRAW_PLAYERTEAM_NETWORKS,
+	MINES_DRAW_NETWORKCOLOURING,
+	MINES_DRAW_NET_A,
+	MINES_DRAW_NET_B,
+	MINES_DRAW_NET_C,
+	MINES_DRAW_NET_D,
+	MINES_DRAW_MAX
+};
+
+// Flugente: trait draw mode
+enum TRAIT_DRAW_MODE {
+	TRAIT_DRAW_OFF,
+	TRAIT_DRAW_RANGE,
+	TRAIT_DRAW_MAX
+};
+
+enum COVER_DRAW_MODE {
+	COVER_DRAW_OFF,
+	COVER_DRAW_MERC_VIEW,
+	COVER_DRAW_ENEMY_VIEW
+};
+
 #ifdef JA2TESTVERSION
 	void DisplayLosAndDisplayCoverUsageScreenMsg();
 #endif

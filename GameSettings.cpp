@@ -3166,7 +3166,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.RANGE_COEFFICIENT					= iniReader.ReadFloat("General", "RANGE_COEFFICIENT", 2.0, 0.001f, 100.0);
 	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 1.0, 0.001f, 100.0);
 	gGameCTHConstants.VERTICAL_BIAS						= iniReader.ReadFloat("General", "VERTICAL_BIAS", 1.0f, 0.01f, 2.0f);
-	gGameCTHConstants.SCOPE_RANGE_MULTIPLIER			= iniReader.ReadFloat("General", "SCOPE_RANGE_MULTIPLIER", 0.7f, 0.5f, 1.5f);
+	gGameCTHConstants.SCOPE_RANGE_MULTIPLIER			= iniReader.ReadFloat("General", "SCOPE_RANGE_MULTIPLIER", 0.7f, 0.1f, 1.5f);
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MULTIPLIER	= iniReader.ReadFloat("General", "SCOPE_EFFECTIVENESS_MULTIPLIER", 1.1f, 0.5f, 1.5f);
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM		= iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM", 50, 0, 100);
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_RANGER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_RANGER", 80, 0, 100);

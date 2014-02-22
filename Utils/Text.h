@@ -2670,6 +2670,13 @@ enum
 
 extern STR16		szCampaignHistoryWebpageString[];
 
+extern STR16   szTacticalInventoryDialogString[];
+extern STR16   szTacticalCoverDialogString[];
+extern STR16   szTacticalCoverDialogPrintString[];
+
+#define TACTICAL_INVENTORY_DIALOG_NUM    16
+#define TACTICAL_COVER_DIALOG_NUM        16
+
 // Enumeration support
 typedef struct Str8EnumLookupType {
 	int value;

@@ -91,12 +91,6 @@ struct CoverCell
 
 };
 
-enum COVER_DRAW_MODE {
-	COVER_DRAW_OFF,
-	COVER_DRAW_MERC_VIEW,
-	COVER_DRAW_ENEMY_VIEW
-};
-
 const UINT8 animArr[3] = {
 	ANIM_PRONE,
 	ANIM_CROUCH,
@@ -107,28 +101,6 @@ const UINT8 animArr[3] = {
 #define COVER_X_CELLS WORLD_COLS_MAX
 #define COVER_Y_CELLS WORLD_ROWS_MAX
 #define COVER_Z_CELLS 2 // roof or no roof
-
-
-// Flugente: mines display - stuff needs to be here
-enum MINES_DRAW_MODE {
-	MINES_DRAW_OFF,
-	MINES_DRAW_DETECT_ENEMY,
-	MINES_DRAW_PLAYERTEAM_NETWORKS,
-	MINES_DRAW_NETWORKCOLOURING,
-	MINES_DRAW_NET_A,
-	MINES_DRAW_NET_B,
-	MINES_DRAW_NET_C,
-	MINES_DRAW_NET_D,
-	MINES_DRAW_MAX
-};
-
-// Flugente: trait draw mode
-enum TRAIT_DRAW_MODE {
-	TRAIT_DRAW_OFF,
-	TRAIT_DRAW_RANGE,
-	TRAIT_DRAW_MAX
-};
-
 
 //******	Local Variables	*********************************************
 
