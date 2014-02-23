@@ -2090,14 +2090,14 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageStrength, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
 		}
 		else
 		{
 			this->bFoodLevel = 0;
 			this->bDrinkLevel = 0;
 			this->usStarveDamageHealth = 0;
-			this->usStarveDamageHealth = 0;
+			this->usStarveDamageStrength = 0;
 
 			for(int i = 0; i < sizeof(bFoodLevel); ++i)
 				buffer++;
