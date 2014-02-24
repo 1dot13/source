@@ -505,55 +505,36 @@ void DisplayHiredMercs()
 	UINT8	i, usMercID;
 	UINT8	ubFontColor;
 	UINT8 usMercIDStart;
-	UINT8 usMercIDEnd;
-	INT16 usCurrentRow = -1;
+	INT16 usCurrentRow	= -1;
+	INT16 merccounter	= -1;
 
 	usPosY = MERC_AC_FIRST_ROW_Y + 3;
 
 	// Start
 	usMercIDStart = iCurrentAccountPage * MAX_NUMBER_MERCS_ON_PAGE;
-
-	// End
-	if ((usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE) > (NUMBER_OF_MERCS - 1))
-	{
-		usMercIDEnd = (NUMBER_OF_MERCS - 1);
-	}
-	else
-	{
-		usMercIDEnd = usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE;
-	}
-
-	// Flugente: neither do I, so screw this
-	// WANNE.LARRY: I don't understand why this is needed??? I did not change anything on this yet.
-	// At least second page
-	// This approach is needed, because auf LARRY_ROACHBURN
-	/*if (usMercIDStart > 0)
-	{
-		usMercIDStart++;
-	}*/
-
+		
 	// Loop through all the mercs
-	for(i=usMercIDStart; i < usMercIDEnd/*(NUMBER_OF_MERCS - 1)*/ ; ++i)
+	for(i=0; i < NUMBER_OF_MERCS ; ++i)
 	{
-		// We have no more free rows on the current page
-		if (usCurrentRow == usMercIDEnd - 1)
+		// Exit if this page is full
+		if (usCurrentRow >= MAX_NUMBER_MERCS_ON_PAGE - 1 )
 			break;
 
 		// WANNE: If we have drunken merc, then skip otherwise is will exist 2 times!
 		if (gConditionsForMercAvailability[ i ].Drunk)
 			continue;
-
-		// WANNE.LARRY
-		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
-		/*if( i == MERC_LARRY_ROACHBURN )
-			continue;*/
-
+		
 		usMercID = GetMercIDFromMERCArray( i );
 
 		//is the merc on the team, or is owed money
 		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
-			usCurrentRow++;
+			// count the number of mercs we really hired, but only display those that should be on this page
+			++merccounter;
+			if ( merccounter < usMercIDStart )
+				continue;
+
+			++usCurrentRow;
 
 			//if the merc is dead, make the color red, else white
 			if( IsMercDead( usMercID ) )
