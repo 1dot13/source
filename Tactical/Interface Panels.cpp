@@ -3946,7 +3946,16 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 							for (UINT8 i = 0; i<cnt;i++)
 							{
-								gpSMCurrentMerc->inv[ uiHandPos ].AttachObject(gpSMCurrentMerc,gpItemPointer,TRUE,i);
+								// silversurfer: This didn't cost any AP. Why? CTRL + LeftClick should deduct the same AP as manual attachment in the EDB.
+								usCostToMoveItem = AttachmentAPCost( gpItemPointer->usItem, gpSMCurrentMerc->inv[ uiHandPos ].usItem, gpSMCurrentMerc );
+								// Flugente: backgrounds
+								usCostToMoveItem = (usCostToMoveItem * (100 + gpSMCurrentMerc->GetBackgroundValue(BG_INVENTORY))) / 100;
+								// do we have enough AP?
+								if ( !EnoughPoints( gpSMCurrentMerc, usCostToMoveItem, 0, FALSE ) )
+									return;
+								// only deduct AP if attachment was placed successfully.
+								if ( gpSMCurrentMerc->inv[ uiHandPos ].AttachObject(gpSMCurrentMerc,gpItemPointer,TRUE,i) )
+									gpSMCurrentMerc->bActionPoints -= usCostToMoveItem;
 							}
 						}
 					}
