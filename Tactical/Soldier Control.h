@@ -415,7 +415,8 @@ enum
 #define BACKGROUND_FLAG_MAX	8					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // some properties are hidden (forbid background in MP creation)
-#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE)
+// corruption property is not relevant in 1.13
+#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE|BACKGROUND_CORRUPTIONSPREAD)
 
 // anv: externalised taunts
 // taunt properties

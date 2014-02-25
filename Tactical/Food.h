@@ -93,4 +93,7 @@ void SectorFillCanteens( void );
 
 OBJECTTYPE* GetUsableWaterDrumInSector( void );
 
+// soldier refills canteen while auto-consuming. Only clean sector water souces are consumed, an sector inventory is not touched (sector is likely not loaded)
+void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier);
+
 #endif

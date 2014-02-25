@@ -611,7 +611,11 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 		// search inventory for food, and eat it
 		if ( !eatinginfacility )
+		{
+			SoldierAutoFillCanteens(pSoldier);
+
 			EatFromInventory( pSoldier, FALSE );
+		}
 	}	
 }
 
@@ -621,7 +625,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 	if ( !pSoldier )
 		return;
 
-	// don't eat if not necessary ( note that if the play decides to eat manually, he can achieve better results. This is intended to award micro-management)
+	// don't eat if not necessary (note that if the player decides to eat manually, he can achieve better results. This is intended to award micro-management)
 	if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
 		return;
 
@@ -796,7 +800,7 @@ void SectorFillCanteens( void )
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		// loop through all mercs
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++, pSoldier++)
+		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, pSoldier++)
 		{
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
@@ -870,7 +874,7 @@ void SectorFillCanteens( void )
 		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 		// loop through all mercs
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++, pSoldier++)
+		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, pSoldier++)
 		{
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
@@ -1015,3 +1019,45 @@ OBJECTTYPE* GetUsableWaterDrumInSector( void )
 	return( NULL );
 }
 
+// soldier refills canteen while auto-consuming. Only clean sector water souces are consumed, an sector inventory is not touched (sector is likely not loaded)
+void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier)
+{
+	// no functionality if in combat, invalid/travelling/asleep/non-profile soldier
+	if ( (gTacticalStatus.uiFlags & INCOMBAT) || !pSoldier || !pSoldier->bInSector || pSoldier->flags.fMercAsleep || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	// determine if there are any patches of water in this sector.
+	// If so, fill up all refillable water containers (= canteens)
+	UINT8 waterquality = GetWaterQuality(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+
+	// drink from sector only if water is ok - this happens automatically, so if we use poisoned water, we will slowly poison ourselves without the player noticing
+	if ( waterquality == WATER_DRINKABLE )
+	{
+		// the temperature of the water in this sector (temperature reflects the quality)
+		FLOAT addtemperature = OVERHEATING_MAX_TEMPERATURE;
+
+		// first step: fill all canteens in inventories	
+		INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
+		{
+			// ... if Item exists and is canteen (that can have drink points) ...
+			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
+			{
+				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
+
+				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+				{
+					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+					{
+						UINT16 status = (*pObj)[i]->data.objectStatus;
+						UINT16 statusmmissing = max(0, 100 - status);
+						FLOAT temperature = (*pObj)[i]->data.bTemperature;
+																
+						(*pObj)[i]->data.objectStatus = 100;						// refill canteen
+						(*pObj)[i]->data.bTemperature = (status * temperature + statusmmissing * addtemperature)/100;
+					}
+				}
+			}
+		}
+	}
+}

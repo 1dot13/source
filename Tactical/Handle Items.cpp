@@ -5815,7 +5815,7 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 	}
 
 	// check every tile around gridno for the presence of "nasty stuff"
-	for (ubDirection = 0; ubDirection < 8; ubDirection++)
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ++ubDirection)
 	{
 		if ( fCheckAroundGridNo )
 		{
@@ -5837,7 +5837,7 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 		{
 			// we should just be checking the gridno
 			sNextGridNo = sGridNo;
-			ubDirection = 8; // don't loop
+			ubDirection = NUM_WORLD_DIRECTIONS; // don't loop
 		}
 
 		// if this sNextGridNo isn't out of bounds... but it never can be
