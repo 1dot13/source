@@ -161,7 +161,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>We’ll see who's about to teach whom!</szText>
+    <szText>We'll see who's about to teach whom!</szText>
     <riposte_quote>1</riposte_quote>
     <target_merc_profile>4</target_merc_profile>
   </TAUNT>
@@ -417,7 +417,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>We’ll see about that...</szText>
+    <szText>We'll see about that...</szText>
     <riposte_quote>1</riposte_quote>
     <target_merc_profile>13</target_merc_profile>
   </TAUNT>

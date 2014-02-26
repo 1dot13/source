@@ -18,7 +18,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Possible contact! Oh, I hope it's them. I haven’t killed anything in a long time.</szText>
+    <szText>Possible contact! Oh, I hope it's them. I haven't killed anything in a long time.</szText>
     <suspicious>1</suspicious>
     <aggressive>1</aggressive>
   </TAUNT>
