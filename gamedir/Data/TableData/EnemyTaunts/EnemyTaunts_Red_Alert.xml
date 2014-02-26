@@ -13,7 +13,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I've waited for this looong time.</szText>
+    <szText>I've waited a looong time for this.</szText>
     <alert>1</alert>
     <aggressive>1</aggressive>
   </TAUNT>
@@ -44,7 +44,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>I call dibs on any rocket launchers we loot from corpses!</szText>
+    <szText>I call dibs on any rocket launchers we loot from their corpses!</szText>
     <alert>1</alert>
     <cunning>1</cunning>
   </TAUNT>
@@ -86,7 +86,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>We have tactical advantage!</szText>
+    <szText>We have the tactical advantage!</szText>
     <alert>1</alert>
     <brave>1</brave>
   </TAUNT>
@@ -134,7 +134,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Thanks for turning my shitty day into complete disaster, assholes!</szText>
+    <szText>Thanks for turning my shitty day into a complete disaster, assholes!</szText>
     <alert>1</alert>
     <defensive>1</defensive>
   </TAUNT>

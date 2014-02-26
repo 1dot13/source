@@ -38,7 +38,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>You'll pay for that... the other day!</szText>
+    <szText>You'll pay for this... another day!</szText>
     <run_away>1</run_away>
     <brave>1</brave>
   </TAUNT>

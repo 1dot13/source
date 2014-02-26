@@ -20,8 +20,8 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>PX? What the fuck does it even mean?</szText>
-    <szTextCensored>PX? What the hell does it even mean?</szTextCensored>
+    <szText>PX? What the fuck does that even mean?</szText>
+    <szTextCensored>PX? What the hell does that even mean?</szTextCensored>
     <riposte_quote>22</riposte_quote>
     <target_merc_profile>240</target_merc_profile>
   </TAUNT>
@@ -33,7 +33,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>It will be one-way trip for you!</szText>
+    <szText>It will be a one-way trip for you!</szText>
     <riposte_quote>1</riposte_quote>
     <target_merc_profile>2</target_merc_profile>
   </TAUNT>
@@ -64,7 +64,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I'm  sorry, didn't catch the name!</szText>
+    <szText>I'm sorry, didn't catch the name!</szText>
     <riposte_quote>22</riposte_quote>
     <cunning>1</cunning>
     <target_merc_profile>220</target_merc_profile>
@@ -127,7 +127,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Your wish is my order!</szText>
+    <szText>Your wish is my command!</szText>
     <riposte_quote>0</riposte_quote>
     <target_merc_profile>3</target_merc_profile>
   </TAUNT>
@@ -140,7 +140,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Just wait, and this trouble will run into YOU!.</szText>
+    <szText>Just wait, and this trouble will run into YOU!</szText>
     <riposte_quote>20</riposte_quote>
     <aggressive>1</aggressive>
     <target_merc_profile>3</target_merc_profile>
@@ -161,7 +161,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Will see who's about to teach whom!</szText>
+    <szText>We’ll see who's about to teach whom!</szText>
     <riposte_quote>1</riposte_quote>
     <target_merc_profile>4</target_merc_profile>
   </TAUNT>
@@ -212,7 +212,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Did you just call me an ass!?</szText>
+    <szText>Did you just call me an ass?!</szText>
     <riposte_quote>1</riposte_quote>
     <defensive>1</defensive>
     <target_merc_profile>7</target_merc_profile>
@@ -328,7 +328,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>The only thing layin' low here, is you bitch!</szText>
+    <szText>The only thing layin' low here is you, bitch!</szText>
     <riposte_quote>20</riposte_quote>
     <aggressive>1</aggressive>
     <brave>1</brave>
@@ -356,14 +356,14 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Do people seriously believe in these things? Pathetic.</szText>
+    <szText>Do people seriously believe in those things? Pathetic.</szText>
     <riposte_quote>22</riposte_quote>
     <brave>1</brave>
     <target_merc_profile>4</target_merc_profile>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Tough? I could make that shot with eyes closed.</szText>
+    <szText>Tough? I could make that shot with my eyes closed.</szText>
     <riposte_quote>23</riposte_quote>
     <brave>1</brave>
     <elite>1</elite>
@@ -410,14 +410,14 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>You should have used the plural! Guys, lot's of guys!</szText>
+    <szText>You should have used the plural! Guys, lots of guys!</szText>
     <riposte_quote>0</riposte_quote>
     <brave>1</brave>
     <target_merc_profile>13</target_merc_profile>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Will see about that...</szText>
+    <szText>We’ll see about that...</szText>
     <riposte_quote>1</riposte_quote>
     <target_merc_profile>13</target_merc_profile>
   </TAUNT>
@@ -462,7 +462,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>Funny indeed, we had so much fun with him as a target practice!</szText>
+    <szText>Funny indeed, we had so much fun with him as target practice!</szText>
     <riposte_quote>16</riposte_quote>
     <target_merc_profile>13</target_merc_profile>
   </TAUNT>
@@ -606,7 +606,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>90</uiIndex>
-    <szText>Is that how it's called these days?</szText>
+    <szText>Is that what it's called these days?</szText>
     <riposte_quote>13</riposte_quote>
     <cunning>1</cunning>
     <male>1</male>
@@ -614,7 +614,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>91</uiIndex>
-    <szText>That must the first time ever you're saying that!</szText>
+    <szText>That must be the first time you've ever said that!</szText>
     <riposte_quote>14</riposte_quote>
     <brave>1</brave>
     <male>1</male>
@@ -622,14 +622,14 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>92</uiIndex>
-    <szText>Oh, now I'm getting jelous.</szText>
+    <szText>Oh, now I'm getting jealous.</szText>
     <riposte_quote>15</riposte_quote>
     <target_merc_profile>14</target_merc_profile>
     <male>1</male>
   </TAUNT>
   <TAUNT>
     <uiIndex>93</uiIndex>
-    <szText>I can help you to deal with the grief, if you want!</szText>
+    <szText>I can help you deal with the grief, if you want!</szText>
     <riposte_quote>15</riposte_quote>
     <male>1</male>
     <target_merc_profile>14</target_merc_profile>
@@ -673,7 +673,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>99</uiIndex>
-    <szText>Are you even listening what you're saying?</szText>
+    <szText>Are you even listening to what you're saying?</szText>
     <riposte_quote>20</riposte_quote>
     <defensive>1</defensive>
     <target_merc_profile>14</target_merc_profile>

@@ -318,7 +318,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <!-- 544 -->
     <szText>No! I don't want to become one of you!</szText>
     <got_hit_hth>1</got_hit_hth>
     <got_missed_hth>1</got_missed_hth>
@@ -326,7 +325,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <!-- 545 -->
     <szText>Stay away from my precious gray matter!</szText>
     <got_hit_hth>1</got_hit_hth>
     <got_missed_hth>1</got_missed_hth>
@@ -335,7 +333,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <!-- 546 -->
     <szText>Please, don't eat me! I'm fat and have too much sugar in my blood!</szText>
     <got_hit_hth>1</got_hit_hth>
     <got_missed_hth>1</got_missed_hth>
@@ -344,14 +341,12 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <!-- 547 -->
     <szText>Aaaah! Should I cut it off now?!</szText>
     <got_hit_hth>1</got_hit_hth>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <!-- 548 -->
     <szText>They're gonna eat me! Oh my GOOOOOOD!</szText>
     <got_hit_hth>1</got_hit_hth>
     <got_missed_hth>1</got_missed_hth>
@@ -359,49 +354,42 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <!-- 549 -->
     <szText>Not my face! My beautiful face!</szText>
     <got_hit_hth>1</got_hit_hth>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <!-- 550 -->
     <szText>Oh, the PAIN!</szText>
     <got_hit_hth>1</got_hit_hth>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <!-- 551 -->
     <szText>Suddenly, I'm getting a real hankering for brains!</szText>
     <got_hit_hth>1</got_hit_hth>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <!-- 553 -->
     <szText>And stay dead! This time!</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <!-- 554 -->
     <szText>You're dead... again.</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <!-- 555 -->
     <szText>Rest in pieces!</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <!-- 556 -->
     <szText>If it stands up again, I'm gonna piss myself.</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
@@ -409,21 +397,18 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <!-- 557 -->
     <szText>Stay down!</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <!-- 558 -->
     <szText>Get back where you came from!</szText>
     <kill>1</kill>
     <target_zombie>1</target_zombie>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <!-- 559 -->
     <szText>Zed is dead.</szText>
     <kill>1</kill>
     <cunning>1</cunning>
@@ -439,7 +424,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <!-- 559 -->
     <szText>Now that's what I call a genre shift!</szText>
     <noticed_unseen>1</noticed_unseen>
     <say_hi>1</say_hi>

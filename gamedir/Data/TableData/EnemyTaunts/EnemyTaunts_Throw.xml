@@ -156,7 +156,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Special offer! Two in price of one!</szText>
+    <szText>Special offer! Two for the price of one!</szText>
     <throw_knife>1</throw_knife>
     <throw_grenade>1</throw_grenade>
     <cunning>1</cunning>

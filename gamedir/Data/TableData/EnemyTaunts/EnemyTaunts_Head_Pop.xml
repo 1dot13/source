@@ -16,7 +16,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I think I'll skip a lunch today.</szText>
+    <szText>I think I'll skip lunch today.</szText>
     <defensive>1</defensive>
     <head_pop>1</head_pop>
   </TAUNT>
@@ -80,7 +80,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Does it mean I can read minds now?</szText>
+    <szText>Does this mean I can read minds now?</szText>
     <cunning>1</cunning>
     <head_pop>1</head_pop>
   </TAUNT>

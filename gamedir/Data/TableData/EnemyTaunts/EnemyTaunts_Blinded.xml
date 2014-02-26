@@ -18,7 +18,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <!-- 708 -->
     <szText>Oh, my eyes!</szText>
     <got_blinded>1</got_blinded>
   </TAUNT>
@@ -41,7 +40,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <!-- 712 -->
     <szText>You think I won't get you 'cause I'm blind? I can smell your fear!</szText>
     <got_blinded>1</got_blinded>
     <aggressive>1</aggressive>

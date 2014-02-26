@@ -12,13 +12,13 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Hey, you've got untied shoelace!</szText>
+    <szText>Hey, your shoelaces are untied!</szText>
     <attack_hth>1</attack_hth>
     <cunning>1</cunning>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>There's a mustard on your shirt!</szText>
+    <szText>There's mustard on your shirt!</szText>
     <attack_hth>1</attack_hth>
     <cunning>1</cunning>
   </TAUNT>
@@ -78,7 +78,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>I can't believe they're paying me for that!</szText>
+    <szText>I can't believe they're paying me for this!</szText>
     <attack_blade>1</attack_blade>
     <aggressive>1</aggressive>
   </TAUNT>
@@ -95,7 +95,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>You could use some shave!</szText>
+    <szText>You could use a shave!</szText>
     <attack_blade>1</attack_blade>
     <target_male>1</target_male>
   </TAUNT>

@@ -127,7 +127,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <!-- 461 -->
     <szText>This is for the Queen!</szText>
     <fire_gun>1</fire_gun>
     <army>1</army>
@@ -151,7 +150,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <!-- 470 -->
     <szText>Viva la revolution!</szText>
     <fire_gun>1</fire_gun>
     <militia>1</militia>
@@ -324,7 +322,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>I'm doing world a favor getting rid of your ugly face!</szText>
+    <szText>I'm doing the world a favor getting rid of your ugly face!</szText>
     <fire_gun>1</fire_gun>
     <target_appearance>1</target_appearance>
   </TAUNT>
@@ -360,7 +358,6 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <!-- 309 -->
     <szText>I looked for you, I've found you and now I will kill you!</szText>
     <fire_gun>1</fire_gun>
     <brave>1</brave>
@@ -409,7 +406,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Long live the queen!</szText>
+    <szText>Long live the Queen!</szText>
     <fire_gun>1</fire_gun>
     <army>1</army>
     <elite>1</elite>

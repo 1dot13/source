@@ -105,7 +105,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Check mate!</szText>
+    <szText>Checkmate!</szText>
     <fire_launcher>1</fire_launcher>
     <cunning>1</cunning>
   </TAUNT>
@@ -129,7 +129,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Now I remember why I joined army!</szText>
+    <szText>Now I remember why I joined the army!</szText>
     <fire_launcher>1</fire_launcher>
     <regular>1</regular>
     <defensive>1</defensive>

@@ -2,7 +2,7 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>I... can't... catch a breath...</szText>
+    <szText>I... can't... catch my breath...</szText>
     <got_hit_gas>1</got_hit_gas>
   </TAUNT>
   <TAUNT>
@@ -17,7 +17,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>I can't breath!</szText>
+    <szText>I can't breathe!</szText>
     <got_hit_gas>1</got_hit_gas>
   </TAUNT>
   <TAUNT>

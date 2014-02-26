@@ -35,12 +35,12 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Doctor is in!</szText>
+    <szText>The doctor is in!</szText>
     <hit_blade>1</hit_blade>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Operation succesful!</szText>
+    <szText>Operation successful!</szText>
     <hit_blade>1</hit_blade>
   </TAUNT>
   <TAUNT>
@@ -122,14 +122,14 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Girls power!</szText>
+    <szText>Girl power!</szText>
     <hit_hth>1</hit_hth>
     <female>1</female>
     <target_male>1</target_male>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>I now pronounce you... the man and the bullet.</szText>
+    <szText>I now pronounce you... man and bullet.</szText>
     <hit_gunfire>1</hit_gunfire>
     <cunning>1</cunning>
     <target_male>1</target_male>

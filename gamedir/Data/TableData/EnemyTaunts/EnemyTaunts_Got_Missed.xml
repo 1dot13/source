@@ -55,7 +55,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Who learned you to shoot?</szText>
+    <szText>Who taught you to shoot?</szText>
     <got_missed_gunfire>1</got_missed_gunfire>
     <brave>1</brave>
   </TAUNT>
@@ -330,7 +330,6 @@
     <got_hit>1</got_hit>
     <aggressive>1</aggressive>
   </TAUNT>
-
   <TAUNT>
     <uiIndex>56</uiIndex>
     <szText>Wow, you're even dumber than you look.</szText>
@@ -363,7 +362,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>Hey clown, have you came here to amuse me?</szText>
+    <szText>Hey clown, have you come here to amuse me?</szText>
     <brave>1</brave>
     <got_missed>1</got_missed>
   </TAUNT>
@@ -403,7 +402,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>Hey babe, you should have known how to please me by now...</szText>
+    <szText>Hey babe, you should know how to please me by now...</szText>
     <got_missed_gunfire>1</got_missed_gunfire>
     <brave>1</brave>
     <male>1</male>
@@ -412,7 +411,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Blast it! You've spent so much bullets, you've got me confused!</szText>
+    <szText>Blast it! You've spent so many bullets, you've got me confused!</szText>
     <got_missed_gunfire>1</got_missed_gunfire>
     <cunning>1</cunning>
   </TAUNT>

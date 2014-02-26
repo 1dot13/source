@@ -29,13 +29,13 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Get yourself own stuff, you cheapskate!</szText>
+    <szText>Get your own stuff, you cheapskate!</szText>
     <got_robbed>1</got_robbed>
     <cunning>1</cunning>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Meh... keep it, it's a junk anyway!</szText>
+    <szText>Meh... keep it, it's junk anyway!</szText>
     <got_robbed>1</got_robbed>
     <brave>1</brave>
   </TAUNT>
@@ -52,4 +52,3 @@
     <aggressive>1</aggressive>
   </TAUNT>
 </TAUNTS>
-

@@ -98,7 +98,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Welcome to world of pain. I'll be your guide!</szText>
+    <szText>Welcome to the world of pain. I'll be your guide!</szText>
     <charge_blade>1</charge_blade>
     <charge_hth>1</charge_hth>
   </TAUNT>
@@ -262,7 +262,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>I kick ass for the queen!</szText>
+    <szText>I kick ass for the Queen!</szText>
     <charge_hth>1</charge_hth>
     <army>1</army>
     <brave>1</brave>

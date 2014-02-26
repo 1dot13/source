@@ -9,7 +9,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Keep a place in hell for your Queen!</szText>
+    <szText>Save a place in hell for your Queen!</szText>
     <kill>1</kill>
     <militia>1</militia>
   </TAUNT>
@@ -25,8 +25,8 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>That's just a beginning, fuckers!</szText>
-    <szTextCensored>That's just a beginning, bastards!</szTextCensored>
+    <szText>That's just the beginning, fuckers!</szText>
+    <szTextCensored>That's just the beginning, bastards!</szTextCensored>
     <aggressive>1</aggressive>
     <kill>1</kill>
   </TAUNT>
@@ -150,7 +150,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>It didn't have end up like this!</szText>
+    <szText>It didn't have to end like this!</szText>
     <defensive>1</defensive>
     <kill>1</kill>
   </TAUNT>
@@ -263,7 +263,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>One out, six billions to go...</szText>
+    <szText>One down, six billion to go...</szText>
     <kill>1</kill>
     <aggressive>1</aggressive>
   </TAUNT>

@@ -104,7 +104,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Pain is just a weakness leaving my body!</szText>
+    <szText>Pain is just weakness leaving my body!</szText>
     <got_hit>1</got_hit>
     <brave>1</brave>
   </TAUNT>
@@ -230,7 +230,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Oh, poor thing ... she broke her nails!</szText>
+    <szText>Oh, poor thing... she broke her nails!</szText>
     <got_hit_hth>1</got_hit_hth>
     <cunning>1</cunning>
     <target_female>1</target_female>

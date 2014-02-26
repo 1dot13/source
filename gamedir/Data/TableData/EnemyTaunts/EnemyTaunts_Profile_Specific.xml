@@ -2,7 +2,7 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Oh, Foxy. I didn't even have a time to read you my poem....</szText>
+    <szText>Oh, Foxy. I didn't even have time to read you my poem....</szText>
     <kill>1</kill>
     <cunning>1</cunning>
     <elite>1</elite>
@@ -100,7 +100,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I just whacked Miguel Cordona! Finally, Queen will hear about me!</szText>
+    <szText>I just whacked Miguel Cordona! Finally, the Queen will hear about me!</szText>
     <kill>1</kill>
     <brave>1</brave>
     <target_merc_profile>57</target_merc_profile>
@@ -125,7 +125,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>You are a sad, strange, little man, and you have my pity!</szText>
+    <szText>You are a sad, strange little man, and you have my pity!</szText>
     <attack>1</attack>
     <defensive>1</defensive>
     <target_merc_profile>40</target_merc_profile>
@@ -140,7 +140,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>I'll get promotion for killing you, rebel scum!</szText>
+    <szText>I'll get a promotion for killing you, rebel scum!</szText>
     <brave>1</brave>
     <fire_gun>1</fire_gun>
     <target_merc_profile>57</target_merc_profile>
@@ -187,7 +187,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Please, tell us the story about Gettysburg battle again!</szText>
+    <szText>Please, tell us the story about Gettysburg again!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>183</target_merc_profile>
     <!--Pops-->
@@ -238,7 +238,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>All the fat didn't protect internal organs?</szText>
+    <szText>All the fat didn't protect your internal organs?</szText>
     <kill>1</kill>
     <target_merc_profile>253</target_merc_profile>
     <!--Turtle-->
@@ -290,7 +290,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Hey, it's a guy from 'Wild, Wild East'! I'm your biggest fan!</szText>
+    <szText>Hey, it's the guy from 'Wild, Wild East'! I'm your biggest fan!</szText>
     <cunning>1</cunning>
     <noticed_unseen>1</noticed_unseen>
     <say_hi>1</say_hi>
@@ -324,7 +324,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>Well, if it ain't my favourite celebrity! I have all the posters with you back in the barracks...</szText>
+    <szText>Well, if it ain't my favourite celebrity! I have all your posters back in the barracks...</szText>
     <say_hi>1</say_hi>
     <brave>1</brave>
     <elite>1</elite>
@@ -366,7 +366,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Quickly, someone call Captain Ahab!</szText>
+    <szText>Quick, someone call Captain Ahab!</szText>
     <say_hi>1</say_hi>
     <cunning>1</cunning>
     <target_merc_profile>253</target_merc_profile>
@@ -398,42 +398,42 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Look guys, I've found a fossil!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>183</target_merc_profile>
     <!--Pops-->
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Look guys, I've found a fossil!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>226</target_merc_profile>
     <!--Sam-->
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Look guys, I've found a fossil!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>250</target_merc_profile>
     <!--Moses-->
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>183</target_merc_profile>
     <!--Pops-->
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>226</target_merc_profile>
     <!--Sam-->
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
     <say_hi>1</say_hi>
     <target_merc_profile>250</target_merc_profile>
     <!--Moses-->
@@ -456,7 +456,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Hey, asshole! Eighties called, say they want their haircut back!</szText>
+    <szText>Hey, asshole! Eighties called, they want their haircut back!</szText>
     <say_hi>1</say_hi>
     <brave>1</brave>
     <target_merc_profile>227</target_merc_profile>
