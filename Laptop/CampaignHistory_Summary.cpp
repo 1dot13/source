@@ -144,9 +144,7 @@ void RenderCampaignHistorySummary()
 		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
 		usPosX = LAPTOP_SCREEN_UL_X;
-		// closing line that separates header from individual page
-		DisplaySmallRedLineWithShadow( usPosX, usPosY+15, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, usPosY+15);
-
+		
 		usPosY += 20;
 
 		for(int i = CAMPAIGNHISTORY_SD_MERC; i < CAMPAIGNHISTORY_SD_MAX; ++i)
@@ -515,9 +513,7 @@ void RenderCampaignHistory_MostImportant()
 		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
 				
 		usPosX = LAPTOP_SCREEN_UL_X;
-		// closing line that separates header from individual page
-		DisplaySmallRedLineWithShadow( usPosX, usPosY+15, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, usPosY+15);
-
+		
 		usPosY += 20;
 
 		for(int i = CAMPAIGNHISTORY_SD_MERC; i < CAMPAIGNHISTORY_SD_MAX; ++i)

@@ -8328,6 +8328,8 @@ STR16	szCampaignHistoryDetail[]=
 	L"du sud",
 	L"de l'ouest",
 	L"et",
+	L"an unknown location",	// TODO.Translate
+
 	L"Des bâtiments ont été endommagés. Il y a eu %d civils tués et %d blessés.",
 	L"Pendant l'attaque, %s et %s ont appelé des renforts.",
 	L"Pendant l'attaque, %s a appelé des renforts.",

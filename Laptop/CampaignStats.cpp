@@ -445,6 +445,10 @@ Incident_Stats::GetAttackerDirString( BOOLEAN fAttacker )
 		swprintf(helperstr, L"%s", dir1 );
 		break;
 
+	case 0:
+		swprintf(helperstr, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_UNKNOWNLOCATION] );
+		break;
+
 	default:
 		break;
 	}

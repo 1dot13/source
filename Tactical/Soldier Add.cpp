@@ -1202,9 +1202,9 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
 				gCurrentIncident.usIncidentFlags |= INCIDENT_AIRDROP;
 
-			// problem: soldiers already present in a sector have ubStrategicInsertionCode = 0, which is INSERTION_CODE_NORTH - but they don't actually coem from north, as they are already present
-			// we thus count them as coming from north if they either already have a gridno, or usStrategicInsertionData
-			if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_NORTH && pSoldier->usStrategicInsertionData || pSoldier->sGridNo != NOWHERE )
+			// problem: soldiers already present in a sector have ubStrategicInsertionCode = 0, which is INSERTION_CODE_NORTH - but they don't actually come from north, as they are already present
+			// we thus count them as coming from north if they have valid usStrategicInsertionData
+			if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_NORTH && pSoldier->usStrategicInsertionData )//|| pSoldier->sGridNo != NOWHERE )
 			{
 				if ( pSoldier->bSide == gbPlayerNum )
 					gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACKDIR_NORTH;

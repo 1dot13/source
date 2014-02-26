@@ -8331,6 +8331,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"南方",
 	L"西方",
 	L"和",
+	L"an unknown location",	// TODO.Translate
 
 	L"该分区的建筑受损。%d名市民被杀，%d名市民受伤。",
 	L"在战斗中，%s和%s呼叫了支援。",
