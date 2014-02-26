@@ -3352,8 +3352,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else
 					{
-						RESET_CHEAT_LEVEL();
-						HandleTacticalInventoryMenu();
+						RESET_CHEAT_LEVEL();						
 					}
 #endif
 				}
@@ -4027,6 +4026,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"VSurfaces:	%d", guiVSurfaceSize );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"SGPVideoDump.txt updated..." );
 					PerformVideoInfoDumpIntoFile( "SGPVideoDump.txt", TRUE );
+#else
+					HandleTacticalInventoryMenu();
 #endif
 				}
 				else
