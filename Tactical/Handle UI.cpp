@@ -103,6 +103,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //extern BOOLEAN gfDisplayFullCountRingBurst;
+extern BOOLEAN gfAutofireInitBulletNum;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 //#define AP_TO_AIM_TILE_IF_GETTING_READY 1
@@ -1845,6 +1846,9 @@ UINT32 UIHandleMChangeToAction( UI_EVENT *pUIEvent )
 	EndPhysicsTrajectoryUI( );
 
 	//guiNewUICursor = CONFIRM_MOVE_UICURSOR;
+
+	// sevenfm: this flag means that we'll need to initialize number of bullets for autofire
+	gfAutofireInitBulletNum = FALSE;
 
 	return( GAME_SCREEN );
 }

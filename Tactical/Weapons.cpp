@@ -65,6 +65,9 @@ class SOLDIERTYPE;
 extern INT8 gbCurrentRainIntensity;
 //end rain
 
+// sevenfm: this global variable is needed to correctly set default number of bullets for autofire
+extern BOOLEAN gfAutofireInitBulletNum;
+
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];	// added by Flugente
 
 // HEADROCK HAM B1: Externalized both values to INI
@@ -11674,6 +11677,9 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 	
 	if (pSoldier->bWeaponMode == WM_AUTOFIRE || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO)
 	{
+		// sevenfm: this flag means that we'll need to initialize number of bullets for autofire
+		gfAutofireInitBulletNum = FALSE;
+
 		pSoldier->bDoAutofire = 1;
 		pSoldier->bDoBurst = 1;
 	}

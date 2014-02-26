@@ -1025,6 +1025,11 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto Targeting Cursors: 0=neither, 1=both, 2=Burst, 3=Auto
 	gGameExternalOptions.ubNewCTHBars						= iniReader.ReadInteger("Tactical Interface Settings","USE_NEW_BURST-AUTO_TARGETING_CURSORS", 0, 0, 3);
 
+	// sevenfm: default autofire bullets
+	gGameExternalOptions.ubSetDefaultAutofireBulletsSMG			= iniReader.ReadInteger("Tactical Interface Settings","SET_DEFAULT_AUTOFIRE_BULLETS_SMG", 1, 0, 10);
+	gGameExternalOptions.ubSetDefaultAutofireBulletsAR			= iniReader.ReadInteger("Tactical Interface Settings","SET_DEFAULT_AUTOFIRE_BULLETS_AR", 1, 0, 10);
+	gGameExternalOptions.ubSetDefaultAutofireBulletsMG			= iniReader.ReadInteger("Tactical Interface Settings","SET_DEFAULT_AUTOFIRE_BULLETS_MG", 1, 0, 10);
+
 	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
 	gGameExternalOptions.fApproximateCTH					= iniReader.ReadBoolean("Tactical Interface Settings","INACCURATE_CTH_READOUT", FALSE);
 

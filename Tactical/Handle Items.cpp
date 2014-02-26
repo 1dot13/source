@@ -115,7 +115,7 @@ void RemoveBlueFlagDialogueCallBack( UINT8 ubExitValue );
 INT32 CheckBombDisarmChance(void);
 void ExtendedDisarmMessageBox(void);
 void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue );
-void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj);
+void HandleTakeNewBombFromInventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj);
 void MineSpottedMessageBoxCallBack( UINT8 ubExitValue );
 void CheckForPickedOwnership( void );
 void BoobyTrapInMapScreenMessageBoxCallBack( UINT8 ubExitValue );
@@ -234,6 +234,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	// here is where we would set a different value if the weapon mode is on
 	// "attached weapon"
 	pSoldier->usAttackingWeapon = usHandItem;
+
+		// sevenfm: set shift flag for auto-taking of next item from inventory
+		if( fFromUI && _KeyDown(SHIFT) )
+			gfShiftBombPlant = TRUE;
+		else
+			gfShiftBombPlant = FALSE;
 
 	// Find soldier flags depend on if it's our own merc firing or a NPC
 	//if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO )  )
@@ -1517,13 +1523,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( fDropBomb )
 	{
 		// Save gridno....
-		pSoldier->aiData.sPendingActionData2	= sGridNo;
-
-		// sevenfm: set shift flag for auto-taking of next mine	from inventory (Improved Bomb Planting)
-		if( fFromUI && _KeyDown(SHIFT) )
-			gfShiftBombPlant = TRUE;
-		else
-			gfShiftBombPlant = FALSE;
+       pSoldier->aiData.sPendingActionData2    = sGridNo;                
 
 		if ( pSoldier->sGridNo != sGridNo )
 		{
@@ -1842,7 +1842,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				{
 					AddItemToPool( sGridNo, &gTempObject, BURIED, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 					// sevenfm: take another item with same id from inventory, only REALTIME
-					HandleTakeNewBombFromIventory(pSoldier, &gTempObject);
+                   HandleTakeNewBombFromInventory(pSoldier, &gTempObject);
 					// sevenfm: change cursor back to action if successfully taken new bomb
 					if ( gfShiftBombPlant && pSoldier->inv[ pSoldier->ubAttackingHand ].exists() )
 						guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
@@ -5123,7 +5123,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 						AddItemToPool( gsTempGridNo, &gTempObject, BURIED, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 						// sevenfm: set flag only if planting tripwire
 						gpWorldLevelData[ gsTempGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
-						HandleTakeNewBombFromIventory(gpTempSoldier, &gTempObject);
+                       HandleTakeNewBombFromInventory(gpTempSoldier, &gTempObject);
 						// sevenfm: change cursor back to action if successfully taken new bomb (also change mode back to action if using tripwire roll)
 						if ( gfShiftBombPlant && gpTempSoldier->inv[ gpTempSoldier->ubAttackingHand ].exists() )
 							guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
@@ -7000,11 +7000,11 @@ void ExtendedBoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
         }
 }
 
-void HandleTakeNewBombFromIventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
+void HandleTakeNewBombFromInventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
 {
 	if( !( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) ) &&
 			!pSoldier->inv[HANDPOS].exists() && gfShiftBombPlant )
 	{	
-		pSoldier->TakeNewBombFromIventory(pObj->usItem);
+       pSoldier->TakeNewBombFromInventory(pObj->usItem);
 	}
 }

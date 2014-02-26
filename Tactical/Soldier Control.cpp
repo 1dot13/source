@@ -130,6 +130,9 @@ UINT16 usForceAnimState = INVALID_ANIMATION;//dnl ch70 170913
 
 extern INT16 DirIncrementer[8];
 
+// sevenfm: used in auto taking concertina/sandbag items from inventory
+extern BOOLEAN gfShiftBombPlant;
+
 #define		PALETTEFILENAME							"BINARYDATA\\ja2pal.dat"
 
 #define		LOW_MORALE_BATTLE_SND_THREASHOLD	35
@@ -16108,8 +16111,14 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 				// Build the thing
 				if ( BuildFortification( this->sMTActionGridNo, Item[ pObj->usItem ].usItemFlag ) )
 				{
+                   UINT16 usItem = pObj->usItem;
 					// Erase 'material' item from our hand - we 'use' it to build the structure
 					DeleteObj( &(this->inv[HANDPOS]) );
+                   // sevenfm: auto-taking of items
+					if( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
+					{
+						TakeNewItemFromInventory( usItem );
+					}
 
 					// we gain a bit of experience...
 					StatChange( this, STRAMT, 4, TRUE );
@@ -16141,13 +16150,23 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 			{
 				// eventually search for the number of a sandbag item
 				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
-				{
-					// Erase 'material' item from our hand - we 'used' it to build the structure
+                                {                                       
 					INT8 bObjSlot = HANDPOS;
+                   UINT16 usItem = pObj->usItem;
 
 					CreateItem( fullsandbagnr, 100, &gTempObject );
-
+					if( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
+					{	// sevenfm: drop filled sandbag to the ground and take new empty from inventory
+						AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+						DeleteObj( &(this->inv[HANDPOS]) );
+						TakeNewItemFromInventory( usItem );
+					}
+					else
+					{
 					SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+					}
+					// sevenfm: added this to correctly update interface
+					DirtyMercPanelInterface( this, DIRTYLEVEL2 );
 
 					// we gain a bit of experience...
 					StatChange( this, STRAMT, 1, TRUE );
@@ -16250,7 +16269,7 @@ void	SOLDIERTYPE::DropSectorEquipment()
 }
 
 // sevenfm: take item from inventory to HANDPOS
-void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
+void SOLDIERTYPE::TakeNewItemFromInventory(UINT16 usItem)
 {
 	INT8 i;
 	OBJECTTYPE* pObj = NULL;
@@ -16258,6 +16277,10 @@ void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
 
 	if ( !UsingNewInventorySystem() )
 		return;
+
+        // this feature works now only in realtime
+        if( (gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+                return;
 	
 	if(this->inv[HANDPOS].exists())
 		return;
@@ -16265,12 +16288,36 @@ void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
 	// search for item with same id
 	for ( i = 0; i < invsize; i++)
 	{
-		if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == item ) )
+		if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == usItem ) )
 		{
 			this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
 			return;
 		}
 	}
+}
+
+// sevenfm: take item from inventory to HANDPOS
+void SOLDIERTYPE::TakeNewBombFromInventory(UINT16 usItem)
+{
+        INT8 i;
+        OBJECTTYPE* pObj = NULL;
+        INT8 invsize = (INT8)this->inv.size();
+
+        if ( !UsingNewInventorySystem() )
+                return;
+        
+        if(this->inv[HANDPOS].exists())
+                return;
+        
+        // search for item with same id
+        for ( i = 0; i < invsize; i++)
+        {
+                if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == usItem ) )
+                {
+                        this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
+                        return;
+                }
+        }
 
 	// search for any item with class IC_BOMB
 	// take tripwire-activated item only if used item is tripwire activated
@@ -16280,8 +16327,8 @@ void SOLDIERTYPE::TakeNewBombFromIventory(UINT16 item)
 			Item[ this->inv[i].usItem ].usItemClass == IC_BOMB &&
 			Item[ this->inv[i].usItem ].ubCursor == BOMBCURS &&
 			!Item[ this->inv[i].usItem ].tripwire &&
-			( ( Item[ this->inv[i].usItem ].tripwireactivation && Item[item].tripwireactivation ) ||
-				( !Item[ this->inv[i].usItem ].tripwireactivation && !Item[item].tripwireactivation ) ) )
+			( ( Item[ this->inv[i].usItem ].tripwireactivation && Item[usItem].tripwireactivation ) ||
+				( !Item[ this->inv[i].usItem ].tripwireactivation && !Item[usItem].tripwireactivation ) ) )
 		{
 			this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
 			return;

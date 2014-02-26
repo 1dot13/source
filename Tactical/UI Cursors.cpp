@@ -60,10 +60,12 @@ UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurs
 
 extern BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel );
 
+UINT8 DefaultAutofireBulletsByGunClass( SOLDIERTYPE* pSoldier );	// added by Sevenfm
 
 BOOLEAN gfCannotGetThrough = FALSE;
 extern UINT32	guiUITargetSoldierId;
 BOOLEAN	gfDisplayFullCountRing = FALSE;
+BOOLEAN gfAutofireInitBulletNum = FALSE;
 
 UINT8	gubAimRingRanges[] = {30, 55, 75, 90}; // These are the cutoff ranges for the aiming rings
 extern	INT8 gbNumBurstLocations;	//number of burst points
@@ -163,7 +165,6 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 	{
 		sTargetGridNo = usMapPos;
 	}
-
 
 	ubItemCursor	=	GetActionModeCursor( pSoldier );
 
@@ -393,12 +394,14 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 		{
 			DetermineCursorBodyLocation( (UINT8)gusSelectedSoldier, TRUE, TRUE );
 		}
-
+		UINT8 ubMaxBullets = 1;
+		INT8 bMaxAim;
 		if ( gTacticalStatus.uiFlags & TURNBASED && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 		{
 			if(pSoldier->bDoAutofire)
 			{
-				if(pSoldier->bDoAutofire == 1) //try to maximize the # of bullets because 1 may not be optimal
+				// sevenfm: change number of autofire bullets only once when switching cursor to action mode or changing firing mode
+				if( !gfAutofireInitBulletNum ) 
 				{
 					INT16 sCurAPCosts, sAPCosts;
 					UINT16 usShotsLeft = pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft;
@@ -406,16 +409,27 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 					{
 						usShotsLeft = min( (pSoldier->inv[ SECONDHANDPOS ][0]->data.gun.ubGunShotsLeft), usShotsLeft );
 					}
+					bMaxAim = pSoldier->aiData.bShownAimTime;
 
-					sCurAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
+					// sevenfm: change default number of bullets in autofire according to ini settings
+					ubMaxBullets = DefaultAutofireBulletsByGunClass( pSoldier );
+					if( ubMaxBullets == 0 )
+					{
+						ubMaxBullets = usShotsLeft;
+						bMaxAim = maxAimLevels;
+					}
+
+					sCurAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, bMaxAim);
 
 					do
 					{
 						pSoldier->bDoAutofire++;
-						sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, pSoldier->aiData.bShownAimTime);
-					}
-					while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts == sCurAPCosts && usShotsLeft >= pSoldier->bDoAutofire);
+						sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, bMaxAim);
+					} // sevenfm: removed (sAPCosts <= sCurAPCosts) because EnoughPoints() is enough
+					while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && usShotsLeft >= pSoldier->bDoAutofire && pSoldier->bDoAutofire <= ubMaxBullets );
 					pSoldier->bDoAutofire--;
+
+					gfAutofireInitBulletNum = TRUE;
 				}
 
 				gfUIAutofireBulletCount = TRUE;
@@ -1283,9 +1297,15 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 	if(gusUIFullTargetID == NOBODY && pSoldier->bDoAutofire && !pSoldier->flags.fDoSpread)	//reset autofire if we move the mouse off the target, however don't reset it if we are spread-bursting
 	{
 		if(gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT ))
+		{
 			pSoldier->bDoAutofire = 1;
+			// sevenfm: init autofire bullet num next time when the cursor will be on target
+			gfAutofireInitBulletNum = FALSE;
+		}
 		else
+		{
 			pSoldier->bDoAutofire = 6;
+		}
 
 		pSoldier->flags.autofireLastStep = FALSE;
 	}
@@ -3605,7 +3625,6 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 	}
 }
 
-//обработка колеса без прицельной очереди if прицельная очередь отключена в .ини
 void HandleWheelAdjustCursorWOAB( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta )
 {
 	UINT16					usInHand;
@@ -3798,4 +3817,42 @@ void HandleWheelAdjustCursorWOAB( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sD
 			ErasePath( TRUE );
 
 	}
+}
+
+UINT8 DefaultAutofireBulletsByGunClass( SOLDIERTYPE* pSoldier )
+{
+	UINT32 usItemClass;
+	UINT16 usItem;
+	UINT8 ubBullets = 1;
+	
+	if( !pSoldier )
+		return 1;
+	if( !pSoldier->inv[ pSoldier->ubAttackingHand ].exists() )
+		return 1;
+
+	usItem = pSoldier->inv[ pSoldier->ubAttackingHand ].usItem;
+	usItemClass = Item[ usItem ].usItemClass;
+
+	if( usItemClass != IC_GUN )
+		return 1;
+
+	switch( Weapon[ Item[ usItem ].ubClassIndex ].ubWeaponType )
+	{
+	case GUN_M_PISTOL:
+	case GUN_PISTOL:
+	case GUN_SMG:
+		ubBullets = gGameExternalOptions.ubSetDefaultAutofireBulletsSMG;	
+		break;
+	case GUN_AS_RIFLE:
+	case GUN_RIFLE:
+	case GUN_SN_RIFLE :
+	case GUN_SHOTGUN:
+		ubBullets = gGameExternalOptions.ubSetDefaultAutofireBulletsAR;
+		break;
+	case GUN_LMG:
+		ubBullets = gGameExternalOptions.ubSetDefaultAutofireBulletsMG;
+		break;
+	}
+
+	return ubBullets;
 }

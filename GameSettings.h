@@ -932,6 +932,11 @@ typedef struct
 	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto CTH bars: 0=neither, 1=both, 2=Burst, 3=Auto
 	UINT8 ubNewCTHBars;
 
+	// sevenfm: default autofire bullets
+	UINT8 ubSetDefaultAutofireBulletsSMG;
+	UINT8 ubSetDefaultAutofireBulletsAR;
+	UINT8 ubSetDefaultAutofireBulletsMG;
+
 	// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
 	UINT16 ubAISuppressionMinimumMagSize;
 	UINT16 ubAISuppressionMinimumAmmo;
