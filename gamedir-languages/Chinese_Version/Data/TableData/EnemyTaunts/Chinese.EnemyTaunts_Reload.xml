@@ -2,22 +2,22 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Cover me, I'm reloading!</szText>
+    <szText>掩护我，我在装弹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'm out, reloading!</szText>
+    <szText>我没子弹了，重新装填！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Gotta reload!</szText>
+    <szText>需要装弹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Reloading!</szText>
+    <szText>装弹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Gotta put new batteries in my kill machine!</szText>
+    <szText>需要给我的杀人机器上新电池了！</szText>
   </TAUNT>
 </TAUNTS>

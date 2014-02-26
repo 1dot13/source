@@ -2,394 +2,394 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Marry me!</szText>
+    <szText>嫁给我吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Pathetic!</szText>
+    <szText>真可怜！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Try again, I dare ya.</szText>
+    <szText>有种接着来。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Don't make me go over there!</szText>
+    <szText>不要逼我过去！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>You've just made a huge mistake!</szText>
+    <szText>你刚犯下了一个大错误！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'll take that gun out of your cold hands!</szText>
+    <szText>我要把枪从你那可悲的手中拿走！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>You'll regret missing!</szText>
+    <szText>你会后悔打偏的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Who were you shootin' at?</szText>
+    <szText>你究竟在往哪打？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Who learned you to shoot?</szText>
+    <szText>哪个傻逼教的你射击？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You'll pay for that!</szText>
+    <szText>你会为此付出代价的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Son of a bitch!</szText>
+    <szText>混蛋！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>You suck!</szText>
+    <szText>垃圾！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Lame!</szText>
+    <szText>水平太稀！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Are you even trying?</szText>
+    <szText>你是在打着玩吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Ha, you wish!</szText>
+    <szText>哈，想得美！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Learn how to shoot, rookie!</szText>
+    <szText>好好学学射击吧，菜鸟！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>In your dreams!</szText>
+    <szText>做梦！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Not impressed!</szText>
+    <szText>一般般！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>That ain't gonna happen.</szText>
+    <szText>那是不可能的。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Booooo!</szText>
+    <szText>噗...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Children shouldn't play with guns!</szText>
+    <szText>小孩不该玩枪！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Nice try!</szText>
+    <szText>想得美！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>My grandma's a better shot!</szText>
+    <szText>我祖母都比你枪法准！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>That shot was bad and you should feel bad!</szText>
+    <szText>那一枪打的差劲，你也该感到差劲！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Close enough.</szText>
+    <szText>差一点。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Can't touch this!</szText>
+    <szText>打不到！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Oh, don't let the disappointment get to you.</szText>
+    <szText>哦，不要沮丧啊。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Get back in the kitchen where you belong, woman!</szText>
+    <szText>滚回厨房里去吧，娘们！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>That was close.</szText>
+    <szText>差一点。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Try harder!</szText>
+    <szText>再加把劲！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Whew!</szText>
+    <szText>呼！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Hell no!</szText>
+    <szText>千万别！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Maybe next time!</szText>
+    <szText>也许下次吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Not today!</szText>
+    <szText>今天不行！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Close, but no cigar.</szText>
+    <szText>功亏一篑。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>That woke me up.</szText>
+    <szText>吓我一跳。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Is that the best you can do?</szText>
+    <szText>你就这点本事吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Very pretty, but can you fight?</szText>
+    <szText>不错嘛，不过你会搏击吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Shit, shit, shit...</szText>
+    <szText>操...操...操...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>We're all gonna die.</szText>
+    <szText>我们都得死。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>God help me.</szText>
+    <szText>上帝保佑我。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>We're in some real pretty shit right now!</szText>
+    <szText>我们这儿乱的一团糟！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>It ain't a dream! This is really happening!</szText>
+    <szText>这不是做梦！这是真实发生的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Where is the goddamn cavalry?</szText>
+    <szText>装甲兵在哪？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>Don't make me angry!</szText>
+    <szText>不要惹怒我！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Is that the best you can do?</szText>
+    <szText>你就这点本事？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Very pretty, but can you fight?</szText>
+    <szText>不错嘛，不过你会搏击吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>Oh, I'm laughing at your superior skills!</szText>
+    <szText>哦，你超凡的技能让我捧腹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>Is that your best?</szText>
+    <szText>你就这点能耐？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>It's official: YOU SUCK!</szText>
+    <szText>正式说明：你就是垃圾！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>You cannot hurt me!</szText>
+    <szText>你没法伤到我！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Aw, come on, why so serious? Can't you take a joke?</szText>
+    <szText>哎，别介，干嘛这么认真？只是个笑话而已！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Let's not make a big deal out of nothing!</szText>
+    <szText>不要小题大做好不好！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Are you trying to piss me off?</szText>
+    <szText>你是想激怒我吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Do you want to hurt me on purpose?</szText>
+    <szText>你是故意要打我的吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>Oh... I'd love to smack you right now!</szText>
+    <szText>哦...我想现在就揍你一顿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Wow, you're even dumber than you look.</szText>
+    <szText>喔，你比看上去还要蠢。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Idiots! Idiots everywhere!</szText>
+    <szText>蠢货！蠢货到处都是！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>You fight so badly you make even onions cry.</szText>
+    <szText>枪法这么差连洋葱都被你呛哭了。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>I guess the only fan you have is the one on the ceiling.</szText>
+    <szText>我想你惟一的粉丝就是在锅里炖着吃的粉丝。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>Do you always take yourself so seriously?</szText>
+    <szText>你总是这么一板一眼么？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>Hey clown, have you came here to amuse me?</szText>
+    <szText>嘿，小丑，你是来逗我们笑的吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Next time try shooting with open eyes!</szText>
+    <szText>下次尽量睁着眼瞄准好吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>Are you always this stupid or is it a special occasion?</szText>
+    <szText>你总是这么蠢还是在这里才变蠢的？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>Now, you've got my attention!</szText>
+    <szText>好吧，我注意到你了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>You're so cute when you're trying to shoot!</szText>
+    <szText>你努力瞄准的养子真的好可爱！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>You're so cute when you're trying to shoot!</szText>
+    <szText>你努力瞄准的养子真的好可爱！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>Hey babe, you should have known how to please me by now...</szText>
+    <szText>嘿，宝贝，你现在总算知道怎么让我高兴了...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Blast it! You've spent so much bullets, you've got me confused!</szText>
+    <szText>卧槽！你打了那么多子弹，让我很纠结！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>How about that? I've got a superpower and I didn't even know about it - I can dodge bullets!</szText>
+    <szText>怎么样！我的超能力我自己都不知道 - 我居然能躲子弹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>70</uiIndex>
-    <szText>You think shooting me is gonna solve your problems?</szText>
+    <szText>你以为朝我开枪就能把问题都解决了？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>71</uiIndex>
-    <szText>Bored! Bored! Bored! You're boring...</szText>
+    <szText>无聊！无聊！无聊！你很无趣...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>72</uiIndex>
-    <szText>Are you trying to shoot me or did your gun just fart?</szText>
+    <szText>你是在朝我开枪，还是你的枪走火了？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>73</uiIndex>
-    <szText>Don't ever stop trying, who knows, maybe a miracle will happen!</szText>
+    <szText>不要停下来，说不定奇迹会发生，谁知道呢！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>74</uiIndex>
-    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <szText>再来啊，宝贝！不要紧张。我没意见。我就在这！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>75</uiIndex>
-    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <szText>再来啊，宝贝！不要紧张。我没意见。我就在这！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>76</uiIndex>
-    <szText>OK, keep shooting, I'll yawn when you hit something!</szText>
+    <szText>好吧，接着射，你打中了我就哼一声！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>77</uiIndex>
-    <szText>Hey, stop shooting! I'm on the phone with my mom!</szText>
+    <szText>嘿，别射了！我在跟我妈打电话！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>78</uiIndex>
-    <szText>Ouch, I'm hit, I'm hit... No, just kiddin'!</szText>
+    <szText>啊，我中弹了，我中弹了...才没呢，骗你的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>79</uiIndex>
-    <szText>Guys, what should we do with this one, shoot him or starve him to death?</szText>
+    <szText>伙计们，怎么办，我们是打死他，还是让他在那自己饿死？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>80</uiIndex>
-    <szText>Guys, what should we do with this one, shoot her or starve her to death?</szText>
+    <szText>伙计们，怎么办，我们是打死他，还是让他在那自己饿死？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>81</uiIndex>
-    <szText>Oh my god, my heart almost stopped beating!</szText>
+    <szText>哦，天啊，我的心脏几乎都不跳了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>82</uiIndex>
-    <szText>I'm scared to death!</szText>
+    <szText>吓死我了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>83</uiIndex>
-    <szText>Gee, that gave me goose bumps!</szText>
+    <szText>喔，我都起鸡皮疙瘩了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>84</uiIndex>
-    <szText>Speak of the devil!</szText>
+    <szText>说曹操曹操到！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>85</uiIndex>
-    <szText>Frankly, my dear, I don't give a damn!</szText>
+    <szText>亲爱的，坦白说，我他妈真不在乎！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>86</uiIndex>
-    <szText>Where did that come from?</szText>
+    <szText>什么时候打过来的？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>87</uiIndex>
-    <szText>That's what I thought. You're a gutless turd!</szText>
+    <szText>我想就是这回事。你就是个微不足道的胆小鬼！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>88</uiIndex>
-    <szText>Need a scope on that blade?</szText>
+    <szText>需要给你的刀装个瞄准镜吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>89</uiIndex>
-    <szText>Give me that, I'll do it myself!</szText>
+    <szText>把它给我，我自己来！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>90</uiIndex>
-    <szText>I ain't your punching bag, boy!</szText>
+    <szText>伙计，我可不是你的沙包！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>91</uiIndex>
-    <szText>I ain't your punching bag, girl!</szText>
+    <szText>姑娘，我可不是你的沙包！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>92</uiIndex>
-    <szText>Well, if it ain't Muhammad Ali... Drunk!</szText>
+    <szText>好吧，确实像拳王阿里...打醉拳！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>93</uiIndex>
-    <szText>Boxing... not your strongest suit, huh?</szText>
+    <szText>拳击...不是你最擅长的，哼？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>94</uiIndex>
-    <szText>You fight like a girl!</szText>
+    <szText>你打人像个小姑娘！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>95</uiIndex>
-    <szText>You fight like a girl... Oh, nevermind.</szText>
+    <szText>你打人像个小姑娘...哦，算了。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>96</uiIndex>
-    <szText>Not sure if that's the best moment - but you really should invest in some Mentos!</szText>
+    <szText>也许不该现在说 - 不过你真的该嚼点口香糖了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>97</uiIndex>
-    <szText>I love it when they try to fight back!</szText>
+    <szText>我很享受看他们试图反抗的样子！</szText>
   </TAUNT>
 </TAUNTS>

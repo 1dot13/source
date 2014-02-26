@@ -2,189 +2,189 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>You scared, motherfucker?</szText>
-    <szTextCensored>You scared, bastard?</szTextCensored>
+    <szText>害怕了吗，混蛋？</szText>
+    <szTextCensored>害怕了吗，混蛋？</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>This is gonna hurt!</szText>
+    <szText>这次会很疼！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Come to daddy!</szText>
+    <szText>来爸爸这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Come to momma!</szText>
+    <szText>来妈妈这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>I'll chop your balls off!</szText>
+    <szText>我要把你的蛋蛋打爆！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Hey, wanna play?</szText>
+    <szText>嘿，想玩玩嘛？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Gonna scalp ya, sucker!</szText>
+    <szText>我要把你的皮扒光，垃圾货！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Come to papa.</szText>
+    <szText>来爹地这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Show me your guts!</szText>
+    <szText>拿出点胆量来吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'll rip you to pieces!</szText>
+    <szText>我要把你撕成碎片！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Motherfucker!</szText>
-    <szTextCensored>Monkey fighter!</szTextCensored>
+    <szText>混蛋！</szText>
+    <szTextCensored>懦夫！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I can smell your fear!</szText>
+    <szText>我可以闻到你在瑟瑟发抖！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Chaaarge!</szText>
+    <szText>装弹！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Guns are for pussies!</szText>
+    <szText>枪是给娘们用的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Your ass is mine!</szText>
+    <szText>我要打你的屁股！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Welcome to world of pain. I'll be your guide!</szText>
+    <szText>欢迎来到痛苦的世界。我要让你好好享受一番！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>I'll slice ya up like a mango!</szText>
+    <szText>我要像切芒果一样把你切成一片一片的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Heads are gonna roll!</szText>
+    <szText>头儿满地滚！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Closing in!</szText>
+    <szText>正在接近！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Ready or not, here I come!</szText>
+    <szText>不管你好没好，我要上了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>It's time to get personal!</szText>
+    <szText>这就是私人恩怨！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Stop me if you can!</szText>
+    <szText>你能阻止的了我吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>You and me! No rules! Come on, coward!</szText>
+    <szText>我和你！随便来！来啊，你个胆小鬼！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>You don't leave me a choice!</szText>
+    <szText>你让我别无选择！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Who needs guns anyway?</szText>
+    <szText>谁还要枪来杀人啊？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>I'll stab you until you say "ouch, I'm dead"!</szText>
+    <szText>我要砍你直到你说“哎呀，我死了！”</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>How 'bout a facelift?</szText>
+    <szText>来整个容如何？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>It's Christmas! And you've been VERY naughty!</szText>
+    <szText>圣诞快乐！你最近很调皮啊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Hugs!</szText>
+    <szText>抱抱！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>I promise it won't hurt... much.</szText>
+    <szText>我保证不会...非常非常疼！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Tag!</szText>
+    <szText>瞄准！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Shit, I can't believe I'm doing this!</szText>
+    <szText>靠，不敢相信我在干这个！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Prepare to suffer!</szText>
+    <szText>准备受刑吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>I will destroy you!</szText>
+    <szText>我要灭了你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>I looked for you, I found you and now I will kill you!</szText>
+    <szText>我来找你，找到了你，现在我要干掉你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <szText>有个人会受伤。那个人肯定不是我！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Your life is over, asshole!</szText>
+    <szText>你日子到头了，混球！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Here comes Johnny!</szText>
+    <szText>小强来了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>You're the disease and I'm the cure.</szText>
+    <szText>我是你的克星。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>I'm going to beat the crap out of you!</szText>
+    <szText>我要把你打出屎来！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>I'll punch you, I'll stab you, I'll strangle you! You know... that's what friends do!</szText>
+    <szText>我要捶你，捅你，掐住你！你知道...做一个朋友该做的事情！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>I kick ass for the queen!</szText>
+    <szText>我为女王赴汤蹈火！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>I warn you! I watched "Enter the Dragon" TWICE!</szText>
+    <szText>我警告你！我可看过两遍“李小龙传奇”！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>I'll rip your fucking legs out of your ass!</szText>
-    <szTextCensored>I'll rip your freaking legs out of your ass!</szTextCensored>
+    <szText>我要把你的腿从屁股上扯下来！</szText>
+    <szTextCensored>我要把你的腿从屁股上扯下来！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>I'll bash your skull in!</szText>
+    <szText>我要把你的头壳砸扁！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>I'll stomp on your head till you're dead!</szText>
+    <szText>我要跺你的头直到跺死为止！</szText>
   </TAUNT>
 </TAUNTS>

@@ -2,122 +2,122 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Say hello to my lil' friend!</szText>
+    <szText>向我的小伙计问声好！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Barbecue time!</szText>
+    <szText>烧烤时间！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Suck it down!</szText>
+    <szText>尝尝这个！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Bam!</szText>
+    <szText>嘣！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Kaboom!</szText>
+    <szText>轰！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Dodge this!</szText>
+    <szText>你躲这个试试？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>I like it!</szText>
+    <szText>这我喜欢！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Hahaha!</szText>
+    <szText>哈哈哈！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Die in fire, bitch!</szText>
+    <szText>烧死你，婊子！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Die in fire, son of a bitch!</szText>
+    <szText>烧死你，畜生！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Say your prayers!</szText>
+    <szText>准备见上帝吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Hell yeah!</szText>
+    <szText>爽！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>There's no kill like overkill!</szText>
+    <szText>杀的越多越过瘾！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>My gun's bigger than yours!</szText>
+    <szText>我的家伙比你的大！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>I got a present for ya!</szText>
+    <szText>我给你准备的礼物！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Watch and learn.</szText>
+    <szText>好好学着。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Special delivery!</szText>
+    <szText>联邦快递！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>You should see your face now!</szText>
+    <szText>你该照镜子看看你的脸！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Didn't see THAT coming, huh?</szText>
+    <szText>没想到吧，哈？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Check mate!</szText>
+    <szText>僵军！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>I always wanted to do this.</szText>
+    <szText>我一直想试试这个。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Peace through power!</szText>
+    <szText>暴力造就和平！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>This job ain't that bad.</szText>
+    <szText>这个活挺不错。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Now I remember why I joined army!</szText>
+    <szText>这才是我参军的目的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Ooh, somebody stop me!</szText>
+    <szText>嗷嗷，谁来阻止我啊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>You're welcome!</szText>
+    <szText>不用客气！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>There goes the neighborhood!</szText>
+    <szText>这地方完啦！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Denied!</szText>
+    <szText>否决！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Hold my beer and watch this!</szText>
+    <szText>温酒斩华雄！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>If I had a dick, this is when I would tell you to suck it!</szText>
+    <szText>来尝尝我大家伙的滋味！</szText>
   </TAUNT>
 </TAUNTS>

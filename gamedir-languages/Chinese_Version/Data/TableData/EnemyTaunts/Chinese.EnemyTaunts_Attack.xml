@@ -2,286 +2,286 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Killing time!</szText>
+    <szText>大开杀戒！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'll kill you!</szText>
+    <szText>我要干掉你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Show me what you've got!</szText>
+    <szText>让我看看你有啥本事！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Take this, you maggot!</szText>
+    <szText>尝尝这个，你个臭虫！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Here is your freedom, you son of a bitch!</szText>
+    <szText>长眠吧，你个混蛋！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'll break you!</szText>
+    <szText>我要把你撕成碎片！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Dying ain't much of a living, boy!</szText>
+    <szText>小子，你死到临头了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Dying ain't much of a living, girl!</szText>
+    <szText>娘们，你死到临头了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Trust me. I'm a professional!</szText>
+    <szText>你得相信，我可是职业的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You're the disease and I'm the cure.</szText>
+    <szText>我是你的克星。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Sucker!</szText>
+    <szText>垃圾！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Suck on this!</szText>
+    <szText>尝尝这个！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Come get some!</szText>
+    <szText>来试试啊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>You're mine!</szText>
+    <szText>你是我的了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Die!</szText>
+    <szText>去死吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>You scared, motherfucker?</szText>
-    <szTextCensored>You scared, bastard?</szTextCensored>
+    <szText>害怕了吗，混蛋！</szText>
+    <szTextCensored>害怕了吗，混蛋！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>This is gonna hurt!</szText>
+    <szText>这可不好受！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Eat shit and die!</szText>
+    <szText>吃屎去吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Send me a postcard from hell!</szText>
+    <szText>记得从地狱给我寄张明信片！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>I think you'll enjoy this.</szText>
+    <szText>好好享受这个吧。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Come to daddy!</szText>
+    <szText>来爸爸这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Come to momma!</szText>
+    <szText>来妈妈这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>This is for the Queen!</szText>
+    <szText>为了女王！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>You'll be six feet under in no time!</szText>
+    <szText>你马上就要下地狱了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Gonna send ya home in a pine box, loser!</szText>
+    <szText>棺材给你准备好了，败类！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Hey, wanna play?</szText>
+    <szText>嘿，来玩玩嘛？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Viva la revolution!</szText>
+    <szText>革命党万岁！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Your move, creep!</szText>
+    <szText>该你了，怪胎！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>You should have stayed home, bitch!</szText>
+    <szText>你应该呆在家里，婊子！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>You should have stayed home, fucker!</szText>
-    <szTextCensored>You should have stayed home, sucker!</szTextCensored>
+    <szText>你应该呆在家里，畜生！</szText>
+    <szTextCensored>你应该呆在家里，垃圾！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Die, vermin!</szText>
+    <szText>去死吧，寄生虫！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Feeling scared?</szText>
+    <szText>害怕了吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Dance for me!</szText>
+    <szText>颤抖吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>How fun!</szText>
+    <szText>多有趣啊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Dakka-dakka-dakka!</szText>
+    <szText>嗒嗒-嗒嗒-嗒嗒！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>Guns don't kill people, I do!</szText>
+    <szText>枪不会杀人，我杀！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>I'm the best!</szText>
+    <szText>我是最强的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Kneel before me, loser!</szText>
+    <szText>在我面前跪下吧，败类！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Come on! I don't got all day!</szText>
+    <szText>快来啊！我时间紧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>Eat lead!</szText>
+    <szText>尝尝子弹的味道吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>I'm better than you!</szText>
+    <szText>我起码比你强！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>You fucked with the wrong man!</szText>
-    <szTextCensored>You messed with the wrong man!</szTextCensored>
+    <szText>你惹错人了！</szText>
+    <szTextCensored>你惹错人了！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>You fucked with the wrong woman!</szText>
-    <szTextCensored>You messed with the wrong woman!</szTextCensored>
+    <szText>你惹错人了！</szText>
+    <szTextCensored>你惹错人了！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Stop wasting my time!</szText>
+    <szText>别浪费我的时间！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>You deserve it!</szText>
+    <szText>你活该！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Yeah!</szText>
+    <szText>耶！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>That's right!</szText>
+    <szText>这就对了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>You're dead.</szText>
+    <szText>你死定了。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>How ya like it?</szText>
+    <szText>你喜欢吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>You had it coming!</szText>
+    <szText>你早就该料到了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>Why, hello there!</szText>
+    <szText>嗨，咋地了？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Say "cheese"!</szText>
+    <szText>说“茄子”！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Yippie ki-yay, mister Falcon!</szText>
+    <szText>拜拜了您那，基男！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Could you just please die?</szText>
+    <szText>你就不能去死吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Garbage day!</szText>
+    <szText>今天清扫垃圾！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>I'm doing world a favor getting rid of your ugly face!</szText>
+    <szText>灭了你是为市容做贡献！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Hey babe, give me your number, and I'll stop shooting!</szText>
+    <szText>嘿，美女，给我个号码我就停止射击！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Hey handsome, give me your number, and I'll stop shooting!</szText>
+    <szText>嘿，帅哥，给我个号码我就停止射击！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>I will destroy you!</szText>
+    <szText>我会灭了你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>Dead or alive, you're coming with me.</szText>
+    <szText>你的生死掌握在我手中。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>I looked for you, I've found you and now I will kill you!</szText>
+    <szText>我来找你，找到了你，现在我要干掉你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <szText>有个人会受伤。那个人肯定不是我！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Your life is over, asshole!</szText>
+    <szText>你日子到头了，混球！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>I deliver justice... one bullet at a time!</szText>
+    <szText>我要一枪一枪灭掉你们...为了正义！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>Viva la revolution!</szText>
+    <szText>革命党万岁</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>Your move, creep!</szText>
+    <szText>该你了，怪胎！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>I'm gonna blow your head off!</szText>
+    <szText>我要把你的头打爆！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>You cowboys are finished!</szText>
+    <szText>你们这些小兔崽子完蛋了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Long live the queen!</szText>
+    <szText>女王万岁！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>The Queen says: Die!</szText>
+    <szText>女王说：去死吧！</szText>
   </TAUNT>
 </TAUNTS>

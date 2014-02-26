@@ -2,78 +2,78 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Let's see what's inside this pinata!</szText>
+    <szText>看看你究竟有啥本事！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>When I'm finished with you, you'll sing soprano!</szText>
+    <szText>等我解决了你，你就可以唱女高音了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Hey, you've got untied shoelace!</szText>
+    <szText>嘿，你的鞋带松了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>There's a mustard on your shirt!</szText>
+    <szText>你的褂子上有颗白菜叶！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>I'll break every single bone in your body!</szText>
+    <szText>我要把你全身的骨头打断！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Need a nose job?</szText>
+    <szText>需要给鼻子做个整形么？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Normally, I wouldn't hit a woman... oh, who am I kidding!</szText>
+    <szText>我通常不打女人...去他妈的，我骗谁呢！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Punish!</szText>
+    <szText>揍你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>I think you'll enjoy this.</szText>
+    <szText>好好享受这个吧。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'll squash you like a bug!</szText>
+    <szText>我要像踩臭虫一样把你踩扁！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I'll stab you until you say 'ouch, I'm dead'!</szText>
+    <szText>我要砍你直到你说“哎呀，我死了！”</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I'll carve ya up like a chicken!</szText>
+    <szText>我要像切烧鸡一样把你切开！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Bleed for me!</szText>
+    <szText>为我流血吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>I can't believe they're paying me for that!</szText>
+    <szText>不敢相信他们付钱让我干这种事情！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Chop chop chop!</szText>
+    <szText>砍！砍！砍！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>I'll gut you like a fish!</szText>
+    <szText>我要像掏鱼一样把你的内脏掏出来！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>You could use some shave!</szText>
+    <szText>你该刮刮胡子！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Time for harakiri, asshole!</szText>
+    <szText>切腹时间到了，混球！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>I'm going to cut out your living guts!</szText>
+    <szText>我要活生生把你的肚子剖开！</szText>
   </TAUNT>
 </TAUNTS>

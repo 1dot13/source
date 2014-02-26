@@ -2,86 +2,86 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Does it hurt to be dead?</szText>
+    <szText>死了还会疼么？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Bingo!</szText>
+    <szText>中！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Excellence is not a skill. It's an attitude.</szText>
+    <szText>优秀不是技能，而是态度。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Poor thing! He's bleeding.. Hold on, I'll find you a tampon.</szText>
+    <szText>可怜的家伙！他在出血...坚持住，我给你找个创可贴。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>How's karma tasting? Not so good?</szText>
+    <szText>因果报应的滋味如何？不太好受？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Doctor is in!</szText>
+    <szText>医生快去了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Operation succesful!</szText>
+    <szText>任务成功！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>You taste like chicken!</szText>
+    <szText>鸡肉味，嘎嘣脆！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>You know what would be nice right now? Fava beans and a glass of chianti!</szText>
+    <szText>你知道现在来点啥好吗？一盘蚕豆和一杯红葡萄酒！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Chop chop chop!</szText>
+    <szText>砍！砍！砍！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Fresh meat!</szText>
+    <szText>鲜肉！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I'll drink your blood!</szText>
+    <szText>我要尝尝你的血！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Don't worry, it's disinfected!</szText>
+    <szText>别担心，消过毒了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Mmmmmincemeat!</szText>
+    <szText>肉肉肉末！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Bullseye!</szText>
+    <szText>正中要害！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Watch out, the lightning may strike... Oh, it just did!</szText>
+    <szText>小心，别被闪电击中了...嗷，真的击中了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>I see you... and now I can see through you!</szText>
+    <szText>我看到你了...我现在可以看到你后面了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Normally I wouldn't hit a woman... Oh, who am I kidding!</szText>
+    <szText>通常我不打女人...哦，我骗谁呢！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>See? Girls can fight too!</szText>
+    <szText>看见没？女孩也能打仗！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Girls power!</szText>
+    <szText>巾帼英雄！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>I now pronounce you... the man and the bullet.</szText>
+    <szText>我现在宣布你是...满身子弹的人。</szText>
   </TAUNT>
 </TAUNTS>

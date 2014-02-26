@@ -2,149 +2,149 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Enemy!</szText>
+    <szText>敌人！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Enemy!!!</szText>
+    <szText>敌人！！！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>There is one!</szText>
+    <szText>那里有一个！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Prepare to suffer!</szText>
+    <szText>准备受刑吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Oh, hi.</szText>
+    <szText>哦，嗨！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>My God, you're so ugly, you could be a modern-art masterpiece!</szText>
+    <szText>天啊，你那么丑，都算是现代艺术了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Hey babe, I'll drive you crazy even without a driver's license!</szText>
+    <szText>嘿，宝贝，我啥都不做就能把你逼疯了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Hey babe, are you a parking ticket? 'Cause you've got fine written all over you!</szText>
+    <szText>嘿，宝贝，你是欠条本吗？因为你浑身写满了欠抽！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Hey babe, did it hurt much when you fell from heaven?</szText>
+    <szText>嘿，宝贝，从天堂掉到地上摔得一定很疼吧？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>OK, go fetch the rest of the team... I'll wait!</szText>
+    <szText>好吧，去叫上你的小伙伴们吧...我在这等着！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Hey babe, did you escape from toy store? 'Cause you're a real doll!</szText>
+    <szText>嘿，宝贝，你是从玩具店逃出来的吗？你就是个活芭比！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Look who's come to the picnic!</szText>
+    <szText>看看谁来野餐了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>You've got to be crazy to come here!</szText>
+    <szText>你来这儿一定是发疯了吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Hey lads, this one's in pains, we should put an end to his misery!</szText>
+    <szText>嘿，伙计，这家伙很痛苦，我们应该给他一个了结吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>HELP! I've run into an unstoppable monster!</szText>
+    <szText>救命！我遇到了一个停不下来的怪物！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>You look tired, maybe we should put you to sleep... permanently!</szText>
+    <szText>你看上去很累，也许我们该让你闭上眼睛...永远地！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Were your parents siblings?</szText>
+    <szText>你的父母是近亲吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Now, we know that we aren't all that cute, but what the fuck happened to you?</szText>
-    <szTextCensored>Now, we know that we aren't all that cute, but what the hell happened to you?</szTextCensored>
+    <szText>我们知道人都没有那么漂亮，不过你那张鬼脸是怎么回事吗？</szText>
+    <szTextCensored>我们知道人都没有那么漂亮，不过你那张鬼脸上是怎么回事吗？</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Lemme guess, your parents fed you with a slingshot?</szText>
+    <szText>让我猜猜...你父母是用弹弓喂你吃饭的吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>I could apply you a make up with a shotgun, and you'd still look better!</szText>
+    <szText>我可以用霰弹枪在你的脸上来一发，你看上去会更漂亮一点！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Wow! Who let the gorilla out of the cage?</szText>
+    <szText>喔！谁把大猩猩放出来了？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Wow, you're pretty... fucking ugly!</szText>
-    <szTextCensored>Wow, you're pretty... freakin' ugly!</szTextCensored>
+    <szText>喔，你真是好...他妈的丑啊！</szText>
+    <szTextCensored>喔，你真是好...丑啊！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Holy shit, they brought in transvestites!</szText>
+    <szText>卧槽，他们都是异装癖啊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Girl, with that hair... you must be a saint - saint Bernard!</szText>
+    <szText>姑娘，看你那发型...你大概是金发...狗吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Did you noticed how "awesome" ends with "me", and "ugly" starts with "u"?</szText>
+    <szText>你的那张脸就是大规模杀伤性武器！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>As an outsider, what do you think of the human race?</szText>
+    <szText>作为外星人，你是怎么看人类的？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>How about a date - just you, me and a roll of duct tape?</szText>
+    <szText>约个会怎样 - 只有你，我和一卷胶带？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>How about a date - just you, me and a roll of duct tape?</szText>
+    <szText>约个会怎样 - 只有你，我和一卷胶带？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Hey boy, what do you have in that backpack? Sandwiches?</szText>
+    <szText>嘿，帅哥，你背包里装的是什么？三明治吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Hey girl, what do you have in that backpack? Sandwiches?</szText>
+    <szText>嘿，姑娘，你背包里装的是什么？三明治吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>If I throw a stick, will you go away?</szText>
+    <szText>如果我扔一根棍子，你会跑过去捡吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>How can I miss you if you won't go away?</szText>
+    <szText>如果你不跑的话我怎么会打偏呢？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
+    <szText>哦，天哪，看看你。还有谁受伤了吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
+    <szText>哦，天哪，看看你。还有谁受伤了吗？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Hey, asshole! Over here!</szText>
+    <szText>嘿，混蛋！在这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>Never seen so many backwards ass country fucks in my life.</szText>
-    <szTextCensored>Never seen so many backwards ass country retards in my life.</szTextCensored>
+    <szText>我一生都没有见过这么多闭塞乡下的混蛋。</szText>
+    <szTextCensored>我一生都没有见过这么多闭塞乡下的混蛋。</szTextCensored>
   </TAUNT>
 </TAUNTS>

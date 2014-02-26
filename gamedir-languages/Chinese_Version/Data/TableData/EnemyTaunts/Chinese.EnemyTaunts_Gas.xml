@@ -2,26 +2,26 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>I... can't... catch a breath...</szText>
+    <szText>我...喘...不过气...了...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>My... lungs...</szText>
+    <szText>我...我的肺...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Gas! Oh...</szText>
+    <szText>有毒气！呃...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>I can't breath!</szText>
+    <szText>我喘不过气了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>It burns!</szText>
+    <szText>好痛苦！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Too much... Mexican food...</szText>
+    <szText>吃了太多...墨西哥菜...</szText>
   </TAUNT>
 </TAUNTS>

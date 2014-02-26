@@ -2,43 +2,43 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Fuck, my eyeballs!</szText>
-    <szTextCensored>Crap, my eyeballs!</szTextCensored>
+    <szText>操，我的眼睛！</szText>
+    <szTextCensored>啊，我的眼睛！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I can't see shit!</szText>
+    <szText>我什么都看不见了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Who turned off the lights?!</szText>
+    <szText>谁把灯关了？！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Oh, my eyes!</szText>
+    <szText>呃，我的眼睛！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Oh God, I'm blind!</szText>
+    <szText>哦天啊，我瞎了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Holy shit, priest was right! It DOES make you blind!</szText>
+    <szText>妈的，牧师说得对！杀人确实会让人失明！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Somebody help me! I can't see!</szText>
+    <szText>谁来帮帮我！我看不见了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>You think I won't get you 'cause I'm blind? I can smell your fear!</szText>
+    <szText>你以为我瞎了就找不到你？我可以闻到你在瑟瑟发抖！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>My eyes are on fire!</szText>
+    <szText>我的眼睛着火了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Hello darkness, my old friend.</szText>
+    <szText>哦你好黑暗，我的老朋友。</szText>
   </TAUNT>
 </TAUNTS>

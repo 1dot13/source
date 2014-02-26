@@ -2,191 +2,191 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>It was all part of my plan!</szText>
+    <szText>这是计划的一部分！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I've had enough!</szText>
+    <szText>我受够了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Oh my God!</szText>
+    <szText>我的天哪！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>They ain't paying us enough for this shit...</szText>
+    <szText>他们花这点钱让我们干这么多事情...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>When did things go so wrong?</szText>
+    <szText>什么时候事情变得一团糟？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'll be back! With friends!</szText>
+    <szText>我会回来的！带着一堆帮手！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>You'll pay for that... the other day!</szText>
+    <szText>你会付出代价的...总有一天！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>You're not playing fair!</szText>
+    <szText>你这样做不公平！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Don't think I will forgive ya!</szText>
+    <szText>别以为我会原谅你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Mommy!</szText>
+    <szText>妈妈！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I'll be back when you least expect me, fucker!</szText>
-    <szTextCensored>I'll be back when you least expect me, punk!</szTextCensored>
+    <szText>我会在你最意想不到的时候还击的，畜生！</szText>
+    <szTextCensored>我会在你最意想不到的时候还击的，混蛋！</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I'll leave you alive... for now.</szText>
+    <szText>我暂且让你...活着。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Enough is enough!</szText>
+    <szText>够了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Screw this! I'm outta here!</szText>
+    <szText>去他妈的！我要离开这儿！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Screw this! I'm not even a real soldier!</szText>
+    <szText>去他妈的！我都不算是真正的士兵！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Tactical retreat!</szText>
+    <szText>战术撤退！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>I've seen enough.</szText>
+    <szText>我受够了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Nope, nope, nope.</szText>
+    <szText>不，不，不。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Run to the hills!</szText>
+    <szText>跑到高地上去！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Let's call it a draw.</szText>
+    <szText>暂时算是平局吧。</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>They said "join the army". Not for this shit!</szText>
+    <szText>他们说“来参军吧”。可没说要做这些事情！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>I regret nothing!</szText>
+    <szText>我无怨无悔！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Game over, man!</szText>
+    <szText>游戏结束，伙计！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Let's be friends!</szText>
+    <szText>让我们做个朋友吧！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Party's over!</szText>
+    <szText>排队结束！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Violence is not an answer!</szText>
+    <szText>暴力不是解决办法！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>I'm too beautiful to die!</szText>
+    <szText>我太美了，不值得这样死去！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Screw you guys, I'm going home!</szText>
+    <szText>不管你们了，我要回家去！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Make love, not war!</szText>
+    <szText>要爱，不要战争！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>I, ehrm, left the lights on in my place. Gotta go!</szText>
+    <szText>呃...我家里的灯忘关了。得走了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Leave me your phone number, and I'll get back to ya!</szText>
+    <szText>给我留个电话号码，我回头再来教训你！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>I can't deal with this anymore!</szText>
+    <szText>我再也没法干这个了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>I'm getting the hell out of here!</szText>
+    <szText>我要离开这个鬼地方！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>I will not fight those bastards alone!</szText>
+    <szText>我才不会单独跟这些混蛋们斗呢！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>I am outta here.</szText>
+    <szText>我走了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>The army... I should have known better!</szText>
+    <szText>军队...我应该了解更多一些！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Coming here... What was I even thinking?</szText>
+    <szText>来这儿...我当初都在想什么？</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>I'm surrounded by idiots! I'm out!</szText>
+    <szText>我被白痴给包围了！我撤退了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>No weapons! No friends! No hope!</szText>
+    <szText>没有武器！没有伙伴！没有希望！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>I never wanted to join the army! My mom forced me to!</szText>
+    <szText>从来都不愿因参军！我妈逼我来的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>Wait till my brother hears about this, he's gonna kick your ass!</szText>
+    <szText>等我兄弟听说这事，他一定会踢爆你的屁股！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>Sometimes the road less travelled is less travelled for a reason!</szText>
+    <szText>有时候绕远路是有绕远路的道理的！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>OK, that was the last straw!</szText>
+    <szText>好吧，这事最后的希望了！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>You're cheating!</szText>
+    <szText>你作弊！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>It's time to consider retirement...</szText>
+    <szText>是时候考虑退休了...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Don't think it's over! I'll hunt you down wherever you go!</szText>
+    <szText>别以为这就完了！我会追你追到天涯海角！</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Why can't we all just get along?</szText>
+    <szText>为什么我们就不能和平相处呢？</szText>
   </TAUNT>
 </TAUNTS>
