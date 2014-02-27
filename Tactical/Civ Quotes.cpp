@@ -1965,7 +1965,8 @@ void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote )
 	// Get location of civ on screen.....
 	GetSoldierScreenPos( pCiv, &sScreenX, &sScreenY );
 	sX = sScreenX;
-	sY = sScreenY;
+	// Flugente: have the box appear a bit above the soldier. Otherwise it will obstruct us from aiming at him, which is annoying if it happens very often
+	sY = sScreenY - 40;
 
 	// Create video oeverlay....
 	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
