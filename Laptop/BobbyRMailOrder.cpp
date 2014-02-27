@@ -25,6 +25,7 @@
 	#include "strategicmap.h"
 	#include "isometric utils.h"
 	#include "postalservice.h"
+	#include "english.h"
 	#include <list>
 #endif
 
@@ -399,6 +400,7 @@ void SortBobbyRayPurchases();
 //ppp
 
 void DrawOrderGoldRectangle(UINT16 usGridX, UINT16 usGridY);
+void HandleBobbyRMailOrderKeyBoardInput();
 
 void GameInitBobbyRMailOrder()
 {
@@ -711,6 +713,7 @@ void HandleBobbyRMailOrder()
 			gubDropDownAction = BR_DROP_DOWN_NO_ACTION;
 	}
 
+	HandleBobbyRMailOrderKeyBoardInput();
 }
 
 void RenderBobbyRMailOrder()
@@ -1314,7 +1317,7 @@ void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16
 
 		while(spi != gShipmentTable[iOrderNum]->ShipmentPackages.end())
 		{
-			uiPackageWeight += Item[((ShipmentPackageStruct&)*spi).usItemIndex].ubWeight;
+			uiPackageWeight += Item[((ShipmentPackageStruct&)*spi).usItemIndex].ubWeight * ((ShipmentPackageStruct&)*spi).ubNumber;
 			++spi;
 		}
 
@@ -2948,9 +2951,44 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+void HandleBobbyRMailOrderKeyBoardInput()
+{
+	InputAtom					InputEvent;
+	BOOLEAN fCtrl, fAlt;
 
+	fCtrl = _KeyDown( CTRL );
+	fAlt = _KeyDown( ALT );
 
-
-
-
-
+	//while (DequeueSpecificEvent(&InputEvent, KEY_DOWN |KEY_REPEAT) == TRUE)
+	while (DequeueEvent(&InputEvent) == TRUE)
+	{
+		if( InputEvent.usEvent == KEY_DOWN )
+		{
+			switch (InputEvent.usParam)
+			{
+				case BACKSPACE:
+				case 'q':
+					guiCurrentLaptopMode = guiLastBobbyRayPage;
+				break;
+				case '1':
+					gubSelectedLight = 0;
+					DrawShippingSpeedLights( gubSelectedLight );
+					DisplayShippingCosts( TRUE, 0, BOBBYR_ORDERGRID_X, BOBBYR_ORDERGRID_Y, -1 );
+				break;
+				case '2':
+					gubSelectedLight = 1;
+					DrawShippingSpeedLights( gubSelectedLight );
+					DisplayShippingCosts( TRUE, 0, BOBBYR_ORDERGRID_X, BOBBYR_ORDERGRID_Y, -1 );
+				break;
+				case '3':
+					gubSelectedLight = 2;
+					DrawShippingSpeedLights( gubSelectedLight );
+					DisplayShippingCosts( TRUE, 0, BOBBYR_ORDERGRID_X, BOBBYR_ORDERGRID_Y, -1 );
+				break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+				break;
+			}
+		}
+	}
+}

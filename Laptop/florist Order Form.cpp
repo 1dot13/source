@@ -1281,6 +1281,7 @@ void HandleFloristOrderKeyBoardInput()
 			switch (InputEvent.usParam)
 			{
 				case ENTER:
+				case 'e':
 
 					ubTextFieldID = (UINT8) GetActiveFieldID();
 

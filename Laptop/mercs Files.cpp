@@ -1383,6 +1383,7 @@ void HandleMercsFilesKeyBoardInput( )
 					EnableDisableMercFilesNextPreviousButton( );
 				break;
 				case ENTER:
+				case 'e':
 					//for no or invalid merc account, do nothing
 					if( ( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_VALID ) && ( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_SUSPENDED ) && ( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_VALID_FIRST_WARNING ) )
 					{					
@@ -1419,6 +1420,7 @@ void HandleMercsFilesKeyBoardInput( )
 					}
 				break;
 				case BACKSPACE:
+				case 'q':
 					guiCurrentLaptopMode = LAPTOP_MODE_MERC;
 					gubArrivedFromMercSubSite = MERC_CAME_FROM_HIRE_PAGE;
 				break;

@@ -1328,6 +1328,7 @@ void HandleAimKeyBoardInput()
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_LINKS;
 					break;
 				case ENTER:
+				case 'e':
 				case 'm':
 					if(!fFirstTimeIn)
 						guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;

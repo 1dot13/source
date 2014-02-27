@@ -5198,6 +5198,7 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case ENTER:
+				case 'e':
 					// contact only if merc alive & no popup box
 					if( !IsMercDead( gbCurrentSoldier ) && gubPopUpBoxAction != AIM_POPUP_DISPLAY )
 					{
@@ -5211,6 +5212,7 @@ void HandleAimMemberKeyBoardInput()
 					}
 				break;
 				case BACKSPACE:
+				case 'q':
 					if( gubPopUpBoxAction != AIM_POPUP_DISPLAY )
 					{
 						if( gubVideoConferencingMode != AIM_VIDEO_NOT_DISPLAYED_MODE )

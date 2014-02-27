@@ -15,6 +15,8 @@
 	#include "strategic.h"
 	#include "strategicmap.h"
 	#include "PostalService.h"
+	#include "input.h"
+	#include "english.h"
 #endif
 
 
@@ -116,6 +118,7 @@ extern CPostalService gPostalService;
 extern vector<PShipmentStruct> gShipmentTable;
 extern UINT32		guiGoldArrowImages;
 extern UINT32		guiBobbyROrderGrid;
+void HandleBobbyRShipmentsKeyBoardInput();
 //
 // Function
 //
@@ -275,6 +278,8 @@ void HandleBobbyRShipments()
 
 		RenderBobbyRShipments();
 	}
+
+	HandleBobbyRShipmentsKeyBoardInput();
 }
 
 void RenderBobbyRShipments()
@@ -599,3 +604,29 @@ INT32	CountNumberValidShipmentForTheShipmentsPage()
 }
 */
 
+void HandleBobbyRShipmentsKeyBoardInput()
+{
+	InputAtom					InputEvent;
+	BOOLEAN fCtrl, fAlt;
+
+	fCtrl = _KeyDown( CTRL );
+	fAlt = _KeyDown( ALT );
+
+	//while (DequeueSpecificEvent(&InputEvent, KEY_DOWN |KEY_REPEAT) == TRUE)
+	while (DequeueEvent(&InputEvent) == TRUE)
+	{
+		if( InputEvent.usEvent == KEY_DOWN )
+		{
+			switch (InputEvent.usParam)
+			{
+				case BACKSPACE:
+				case 'q':
+					guiCurrentLaptopMode = LAPTOP_MODE_BOBBY_R_MAILORDER;
+				break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+				break;
+			}
+		}
+	}
+}

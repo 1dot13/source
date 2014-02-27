@@ -1094,6 +1094,7 @@ void HandleAimSortKeyBoardInput()
 			switch (InputEvent.usParam)
 			{
 				case BACKSPACE:
+				case 'q':
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM;
 					break;
 				case 'a':
@@ -1103,6 +1104,7 @@ void HandleAimSortKeyBoardInput()
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
 					break;
 				case ENTER:
+				case 'e':
 				case 'm':
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX;
 					break;

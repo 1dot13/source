@@ -3760,6 +3760,7 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case ENTER:
+				case 'e':
 					// order form
 					guiCurrentLaptopMode = LAPTOP_MODE_BOBBY_R_MAILORDER;
 				break;

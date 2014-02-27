@@ -512,10 +512,12 @@ void HandleAimFacialIndexKeyBoardInput()
 			switch (InputEvent.usParam)
 			{
 				case BACKSPACE:
+				case 'q':
 					// back to AIM sorting screen
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;
 					break;
 				case ENTER:
+				case 'e':
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
 					break;
 				case LEFTARROW:
