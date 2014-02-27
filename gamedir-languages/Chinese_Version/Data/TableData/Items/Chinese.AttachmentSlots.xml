@@ -6,102 +6,102 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>1</uiSlotIndex>
-		<szSlotName>Default slot 1</szSlotName>		
+		<szSlotName>默认延展槽1</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>2</uiSlotIndex>
-		<szSlotName>Default slot 2</szSlotName>		
+		<szSlotName>默认延展槽2</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>3</uiSlotIndex>
-		<szSlotName>Default slot 3</szSlotName>		
+		<szSlotName>默认延展槽3</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>4</uiSlotIndex>
-		<szSlotName>Default slot 4</szSlotName>		
+		<szSlotName>默认延展槽4</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>5</uiSlotIndex>
-		<szSlotName>Barrel Attachments</szSlotName>		
+		<szSlotName>枪管附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>6</uiSlotIndex>
-		<szSlotName>Laser Attachments</szSlotName>		
+		<szSlotName>激光附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>7</uiSlotIndex>
-		<szSlotName>Sight Attachments</szSlotName>		
+		<szSlotName>准星附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>8</uiSlotIndex>
-		<szSlotName>Scope Attachments</szSlotName>		
+		<szSlotName>瞄准镜附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>9</uiSlotIndex>
-		<szSlotName>Stock Attachments</szSlotName>		
+		<szSlotName>弹仓附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>10</uiSlotIndex>
-		<szSlotName>Ammo Attachments</szSlotName>		
+		<szSlotName>弹药附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>11</uiSlotIndex>
-		<szSlotName>Internal Attachments</szSlotName>		
+		<szSlotName>内部附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>12</uiSlotIndex>
-		<szSlotName>External Attachments 1</szSlotName>		
+		<szSlotName>外部附件1</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>13</uiSlotIndex>
-		<szSlotName>Underbarrel Attachments</szSlotName>		
+		<szSlotName>枪管下附件</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>14</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>15</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>16</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>17</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>18</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>19</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>20</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>21</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>22</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>23</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>24</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>		
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>25</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>		
 	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>

@@ -13642,34 +13642,34 @@
   </ITEM>
   <ITEM>
 		<uiIndex>1705</uiIndex>
-		<szItemName>USMC Backpack</szItemName>
-		<szLongItemName>ILBE Gen II Main Ruck</szLongItemName>
-		<szItemDesc>The Improved Load Bearing System (ILBE) backpack was created for use by the United States Marine Corps based on feedback received during initial combat situations that took place during the first US involvement in Iraq.</szItemDesc>
+		<szItemName>USMC背包</szItemName>
+		<szLongItemName>ILBE第二代主背包</szLongItemName>
+		<szItemDesc>提升版携行具系统（ILBE）背包是美国海军部队的产品，基于伊拉克战争中初次作战时所遇到的问题反馈所作出的改进。</szItemDesc>
 		<szBRName>USMC Backpack</szBRName>
-		<szBRDesc>The ILBE system consists of three main parts, the Main Pack, the Hydration System, and the Assault Pack.</szBRDesc>		
+		<szBRDesc>ILBE系统由三个主要部分组成，主体背包、供水系统和突击包。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1706</uiIndex>
-		<szItemName>USMC Assault Pack</szItemName>
-		<szLongItemName>ILBE Gen II Assault</szLongItemName>
-		<szItemDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szItemDesc>
+		<szItemName>USMC突击包</szItemName>
+		<szLongItemName>ILBE第二代突击包</szLongItemName>
+		<szItemDesc>外部主体正面和侧面都有MOLLE网带。两侧的扣带可以用来压缩背包体积，或者用来连接到ILBE主体背包上。</szItemDesc>
 		<szBRName>USMC Assault Pack</szBRName>
-		<szBRDesc>There are Molle webbing straps on the main outer panel and sides. Two straps and clips on each side are used for compression, or attaching to the ILBE main pack.</szBRDesc>		
+		<szBRDesc>外部主体正面和侧面都有MOLLE网带。两侧的扣带可以用来压缩背包体积，或者用来连接到ILBE主体背包上。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1707</uiIndex>
-		<szItemName>TT Range</szItemName>
-		<szLongItemName>TT Extended Range</szLongItemName>
-		<szItemDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szItemDesc>
+		<szItemName>TT延展包</szItemName>
+		<szLongItemName>TT延展包</szLongItemName>
+		<szItemDesc>Operator背包系列最大的一个就是这个拓展行动包。它超大的体积和附加的各种延伸功能在长期作战中将十分实用。</szItemDesc>
 		<szBRName>TT Extended Range</szBRName>
-		<szBRDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szBRDesc>		
+		<szBRDesc>Operator背包系列最大的一个就是这个拓展行动包。它超大的体积和附加的各种延伸功能在长期作战中将十分实用。</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1708</uiIndex>
-		<szItemName>TT Mod Pack</szItemName>
-		<szLongItemName>TT Modular Pack</szLongItemName>
-		<szItemDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szItemDesc>
+		<szItemName>TT模块包</szItemName>
+		<szLongItemName>TT模块包</szLongItemName>
+		<szItemDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szItemDesc>
 		<szBRName>TT Modular Pack</szBRName>
-		<szBRDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szBRDesc>		
+		<szBRDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szBRDesc>		
 	</ITEM>
 </ITEMLIST>
