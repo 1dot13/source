@@ -244,7 +244,7 @@ void ResetLoadScreenHint()
 
 void ShowLoadScreenHintInLoadScreen(UINT16 bottomPosition)
 {
-	DisplayWrappedString( 0, bottomPosition, SCREEN_WIDTH, 2, FONT12ARIAL, FONT_GRAY2, zLoadScreenHint[usCurrentLoadScreenHint].szName, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
+	DisplayWrappedString( 0, bottomPosition, SCREEN_WIDTH, 2, FONT14ARIAL, FONT_GRAY2, zLoadScreenHint[usCurrentLoadScreenHint].szName, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
 	// Next show the hint in the log (strategic / tactical)
 	bShowLoadScreenHintInLog = TRUE;
