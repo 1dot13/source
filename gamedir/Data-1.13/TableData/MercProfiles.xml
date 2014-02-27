@@ -16813,7 +16813,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>174</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>174</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>175</uiIndex>
@@ -16907,7 +16908,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>175</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>175</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>176</uiIndex>
@@ -17001,7 +17003,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>176</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>176</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>177</uiIndex>
@@ -17380,7 +17383,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>180</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>180</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
@@ -18139,7 +18143,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>188</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>188</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>189</uiIndex>
@@ -18233,7 +18238,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>189</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>189</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>190</uiIndex>
@@ -18327,7 +18333,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>190</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>190</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
