@@ -16,6 +16,7 @@
 	#include "Fileman.h"
 #endif
 
+#include "XML.h"
 
 TILE_IMAGERY				*gTileSurfaceArray[ NUMBEROFTILETYPES ];
 UINT8								gbDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
@@ -29,6 +30,8 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 	HVOBJECT		hVObject;
 	HIMAGE				hImage;
 	SGPFILENAME						cStructureFilename;
+	SGPFILENAME						cAdditionalPropertiesFilename;
+	SGPFILENAME						cCommonAdditionalPropertiesFilename;
 	STR										cEndOfName;
 	STRUCTURE_FILE_REF *	pStructureFileRef;
 	BOOLEAN								fOk;
@@ -98,6 +101,41 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 		pStructureFileRef = NULL;
 	}
 
+	// anv: load additional tile properties, if any.
+	memset(&zAdditionalTileProperties,0,sizeof(zAdditionalTileProperties));
+
+	// Start by hacking the image filename into that for the structure data
+	strcpy( cAdditionalPropertiesFilename, cFilename );
+	cEndOfName = strchr( cAdditionalPropertiesFilename, '.' );
+	if (cEndOfName != NULL)
+	{
+		cEndOfName++;
+		*cEndOfName = '\0';
+	}
+	else
+	{
+		strcat( cAdditionalPropertiesFilename, "." );
+	}
+	strcat( cAdditionalPropertiesFilename, ADDITIONAL_TILE_PROPERTIES_EXTENSION );
+	// first in /Tilesets/XX/
+	if (FileExists( cAdditionalPropertiesFilename ))
+	{	
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInAdditionalTileProperties(cAdditionalPropertiesFilename), cAdditionalPropertiesFilename);
+	}
+	else
+	{
+		// and if not found, then in /Tilesets/
+		cEndOfName = strrchr( cAdditionalPropertiesFilename, '\\' );
+		sprintf( cCommonAdditionalPropertiesFilename, "TILESETS\\ADDITIONALPROPERTIES%s", cEndOfName );
+		if (FileExists( cCommonAdditionalPropertiesFilename ))
+		{	
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInAdditionalTileProperties(cCommonAdditionalPropertiesFilename), cCommonAdditionalPropertiesFilename);
+		}
+	}
+
+
 	pTileSurf = (PTILE_IMAGERY) MemAlloc( sizeof( TILE_IMAGERY ) );
 
 	// Set all values to zero
@@ -105,6 +143,19 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 
 	pTileSurf->vo									= hVObject;
 	pTileSurf->pStructureFileRef	= pStructureFileRef;
+
+	pTileSurf->ubTerrainID = zAdditionalTileProperties.ubTerrainID;
+
+	pTileSurf->bWoodCamoAffinity = zAdditionalTileProperties.bWoodCamoAffinity;
+	pTileSurf->bDesertCamoAffinity = zAdditionalTileProperties.bDesertCamoAffinity;
+	pTileSurf->bUrbanCamoAffinity = zAdditionalTileProperties.bUrbanCamoAffinity;
+	pTileSurf->bSnowCamoAffinity = zAdditionalTileProperties.bSnowCamoAffinity;
+
+	pTileSurf->bSoundModifier = zAdditionalTileProperties.bSoundModifier;
+	pTileSurf->bCamoStanceModifer = zAdditionalTileProperties.bCamoStanceModifer;
+	pTileSurf->bStealthDifficultyModifer = zAdditionalTileProperties.bStealthDifficultyModifer;
+
+	pTileSurf->uiAdditionalFlags = zAdditionalTileProperties.uiAdditionalFlags;
 
 	if (pStructureFileRef && pStructureFileRef->pAuxData != NULL)
 	{

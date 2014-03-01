@@ -3696,7 +3696,7 @@ giOldTilesetUsed = giCurrentTilesetID;
 	// RESET TILE DATABASE
 	DeallocateTileDatabase( );
 
-	CreateTileDatabase( );
+	CreateTileDatabase( iTilesetID );
 
 	// SET GLOBAL ID FOR TILESET ( FOR SAVING! )
 	giCurrentTilesetID = iTilesetID;

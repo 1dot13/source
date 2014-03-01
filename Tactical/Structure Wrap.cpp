@@ -25,9 +25,21 @@ BOOLEAN	IsJumpableWindowPresentAtGridNo( INT32 sGridNo, INT8 direction2, BOOLEAN
 	STRUCTURE * pStructure;
 
 	pStructure = FindStructure( sGridNo, STRUCTURE_WALLNWINDOW );
-
+	
 	if ( pStructure )
 	{
+		// anv: additional tile properties hook
+		if(gGameExternalOptions.fAdditionalTileProperties)
+		{
+			LEVELNODE *pNode = FindLevelNodeBasedOnStructure( sGridNo, pStructure );
+			if(pNode != NULL)
+			{
+				if( gTileDatabase[ pNode->usIndex ].uiAdditionalFlags & ADDITIONAL_TILE_FLAG_BLOCKED_WINDOW )
+				// special tag disables jumping through specific windows (e.g. barred windows in Tixa)
+					return( FALSE );
+			}
+		}
+		
 		if ( ( direction2 == SOUTH || direction2 == NORTH ) && (pStructure->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructure->ubWallOrientation == INSIDE_TOP_LEFT ) && pStructure->fFlags & STRUCTURE_WALLNWINDOW && !(pStructure->fFlags & STRUCTURE_SPECIAL) )
 	    {
 			if ( fIntactWindowsAlso || ( pStructure->fFlags & STRUCTURE_OPEN ) )

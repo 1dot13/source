@@ -491,6 +491,10 @@ extern BOOLEAN WriteCampaignStatsEvents( STR fileName);
 extern BOOLEAN ReadInTaunts(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN WriteTaunts( STR fileName );
 
+// anv: detailed tileset terrain types
+extern BOOLEAN ReadInAdditionalTileProperties(STR fileName );
+extern BOOLEAN WriteAdditionalTileProperties( STR fileName );
+
 //Enabled\Disabled profile sound by Jazz
 extern BOOLEAN ReadInSoundProfile( STR fileName );
 extern BOOLEAN WriteSoundProfile( STR fileName );

@@ -5298,9 +5298,22 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 	UINT8	ubMaxVolume, ubVolume, ubBandaged, ubEffLife;
 	INT8		bInWater = FALSE;
 
+	// anv: additional tile properties
+	// modify amount of noise and stealth difficulty depending on surface type
+	
+	INT8 bGroundVolumeModifier = 0;
+	INT8 bGroundStealthDifficultyModifier = 0;
+	ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties;
+	memset(&zGivenTileProperties,0,sizeof(zGivenTileProperties));
+	if(gGameExternalOptions.fAdditionalTileProperties)
+	{
+		zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid( pSoldier->sGridNo,  pSoldier->pathing.bLevel );
+		bGroundVolumeModifier = zGivenTileProperties.bSoundModifier;
+		bGroundStealthDifficultyModifier = zGivenTileProperties.bStealthDifficultyModifer;
+	}
 	if ( pSoldier->bTeam == ENEMY_TEAM )
 	{
-		return( (UINT8) (MAX_MOVEMENT_NOISE - PreRandom( 2 )) );
+		return( (UINT8) (MAX_MOVEMENT_NOISE - PreRandom( 2 )) + bGroundVolumeModifier );
 	}
 
 	// CHANGED BY SANDRO - LET'S MAKE THE STEALTH BASED ON AGILITY LIKE IT SHOULD BE
@@ -5376,7 +5389,8 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 
 	if (!pSoldier->bStealthMode)	// REGULAR movement
 	{
-		ubMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16);	// 9 - (0 to 6) => 3 to 9
+		//ubMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16);	// 9 - (0 to 6) => 3 to 9
+		ubMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16) + bGroundVolumeModifier;	// 9 - (0 to 6) => 3 to 9
 
 		if (bInWater)
 		{
@@ -5406,11 +5420,13 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 	}
 	else			// in STEALTH mode
 	{
-		iRoll = (INT32) PreRandom(100);	// roll them bones!
+		//iRoll = (INT32) PreRandom(100);	// roll them bones!
+		iRoll = (INT32) PreRandom(100) + bGroundStealthDifficultyModifier;	// roll them bones!
 
 		if (iRoll >= iStealthSkill)	// v1.13 modification: give a second chance!
 		{
-			iRoll = (INT32) PreRandom(100);
+			//iRoll = (INT32) PreRandom(100);
+			iRoll = (INT32) PreRandom(100) + bGroundStealthDifficultyModifier;
 		}
 
 		if (iRoll < iStealthSkill)

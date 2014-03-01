@@ -659,5 +659,8 @@
     <ClCompile Include="RandomMerc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="XML_AdditionalTileProperties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -185,6 +185,9 @@ void MoveBullet( INT32 iBullet );
 
 INT8 GetTerrainTypeForGrid( const INT32& uGridNo, const INT16& bLevel );
 
+// anv: additional tile properties
+ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const INT32& sGridNo, const INT16& bLevel );
+
 // check the flat distance adjustment based on your stance
 // use this to test your view on your surroundings based on your stance
 INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance );

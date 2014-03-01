@@ -638,8 +638,9 @@ UINT8		gTileTypeMovementCost[ NUM_TERRAIN_TYPES ] =
 };
 #endif
 
+ADDITIONAL_TILE_PROPERTIES_VALUES zAdditionalTileProperties;
 
-void CreateTileDatabase( )
+void CreateTileDatabase( INT32 iTilesetID )
 {
 	UINT32					cnt1, cnt2;
 	UINT8 ubLoop;
@@ -682,6 +683,18 @@ void CreateTileDatabase( )
 				TileElement.usRegionIndex = (UINT16)cnt2;
 				TileElement.hTileSurface	= TileSurf->vo;
 				TileElement.sBuddyNum			= -1;
+
+				// anv: additional tile properties
+				TileElement.bWoodCamoAffinity		= TileSurf->bWoodCamoAffinity;
+				TileElement.bDesertCamoAffinity		= TileSurf->bDesertCamoAffinity;
+				TileElement.bUrbanCamoAffinity		= TileSurf->bUrbanCamoAffinity;
+				TileElement.bSnowCamoAffinity		= TileSurf->bSnowCamoAffinity;
+
+				TileElement.bCamoStanceModifer		= TileSurf->bCamoStanceModifer;
+				TileElement.bSoundModifier			= TileSurf->bSoundModifier;
+				TileElement.bStealthDifficultyModifer	= TileSurf->bStealthDifficultyModifer;
+
+				TileElement.uiAdditionalFlags	= TileSurf->uiAdditionalFlags;
 
 				// Check for multi-z stuff
 				if ( TileSurf->vo->ppZStripInfo != NULL )
@@ -761,7 +774,7 @@ void CreateTileDatabase( )
 					}
 				}
 
-				SetSpecificDatabaseValues( (UINT16)cnt1, gTileDatabaseSize, &TileElement, TileSurf->bRaisedObjectType );
+				SetSpecificDatabaseValues( (UINT16)cnt1, gTileDatabaseSize, &TileElement, TileSurf->bRaisedObjectType, iTilesetID );
 
 				gTileDatabase[ gTileDatabaseSize ] = TileElement;
 				gTileDatabaseSize++;

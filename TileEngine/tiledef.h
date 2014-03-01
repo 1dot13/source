@@ -34,6 +34,9 @@
 #define MAX_ANIMATED_TILES			200
 #define	WALL_HEIGHT		50
 
+// anv: additional tile properties flags
+#define	ADDITIONAL_TILE_FLAG_BLOCKED_WINDOW			0x0000000000000001
+
 
 //Kris:	Added the last two bottom corner orientation values.	This won't effect
 //current code, but there is new code that makes use of this.	A function called
@@ -79,6 +82,19 @@ typedef struct
 
 	// Reserved for added room and 32-byte boundaries
 	BYTE													bReserved[ 2 ];
+
+	INT8													bWoodCamoAffinity;
+	INT8													bDesertCamoAffinity;
+	INT8													bUrbanCamoAffinity;
+	INT8													bSnowCamoAffinity;
+
+	INT8													bCamoStanceModifer;
+	INT8													bSoundModifier;
+	INT8													bStealthDifficultyModifer;
+
+	UINT32													uiAdditionalFlags;
+
+
 
 } TILE_IMAGERY, *PTILE_IMAGERY;
 
@@ -126,6 +142,17 @@ typedef struct
 	// Reserved for added room and 32-byte boundaries
 	BYTE													bReserved[ 3 ];
 
+	INT8													bWoodCamoAffinity;
+	INT8													bDesertCamoAffinity;
+	INT8													bUrbanCamoAffinity;
+	INT8													bSnowCamoAffinity;
+
+	INT8													bCamoStanceModifer;
+	INT8													bSoundModifier;
+	INT8													bStealthDifficultyModifer;
+
+	UINT32													uiAdditionalFlags;
+
 
 } TILE_ELEMENT, *PTILE_ELEMENT;
 
@@ -157,9 +184,25 @@ extern UINT16					gusNumAnimatedTiles;
 extern UINT16					gusAnimatedTiles[ MAX_ANIMATED_TILES ];
 extern UINT8					gTileTypeMovementCost[ NUM_TERRAIN_TYPES ];
 
-void CreateTileDatabase( );
+typedef struct
+{
+	UINT8													ubTerrainID;
+	INT8													bWoodCamoAffinity;
+	INT8													bDesertCamoAffinity;
+	INT8													bUrbanCamoAffinity;
+	INT8													bSnowCamoAffinity;
 
+	INT8													bCamoStanceModifer;
+	INT8													bSoundModifier;
+	INT8													bStealthDifficultyModifer;
 
+	UINT32													uiAdditionalFlags;
+
+} ADDITIONAL_TILE_PROPERTIES_VALUES;
+
+extern ADDITIONAL_TILE_PROPERTIES_VALUES zAdditionalTileProperties;
+
+void CreateTileDatabase( INT32 iTilesetID );
 
 // Land level manipulation functions
 BOOLEAN GetLandHeadType( INT32 iMapIndex, UINT32 *puiType );
@@ -191,7 +234,7 @@ BOOLEAN GetWallOrientation( UINT16 usIndex, UINT16 *pusWallOrientation );
 BOOLEAN ContainsWallOrientation( INT32 iMapIndex, UINT32 uiType, UINT16 usWallOrientation, UINT8 *pubLevel );
 UINT8 CalculateWallOrientationsAtGridNo( INT32 iMapIndex );
 
-void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEMENT *TileElement, BOOLEAN fUseRaisedObjectType );
+void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEMENT *TileElement, BOOLEAN fUseRaisedObjectType, INT32 iTilesetID );
 
 BOOLEAN AllocateAnimTileData( TILE_ELEMENT *pTileElem, UINT8 ubNumFrames );
 void FreeAnimTileData( TILE_ELEMENT *pTileElem );

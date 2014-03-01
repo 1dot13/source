@@ -121,6 +121,9 @@ TRAIT_DRAW_MODE gubDrawModeTrait = TRAIT_DRAW_OFF;	// Flugente: mines display
 
 CHAR16* GetTerrainName( const UINT8& ubTerrainType );
 
+// anv: additional tile properties
+CHAR16* GetDetailedTerrainName( ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties );
+
 TileDefines GetTileCoverIndex( const INT8& bCover );
 
 void	AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
@@ -232,6 +235,72 @@ CHAR16* GetTerrainName( const UINT8& ubTerrainType )
 			return gzDisplayCoverText[DC_TTI__WOOD_AND_DESERT];
 		default:
 			return gzDisplayCoverText[DC_TTI__UNKNOWN];
+	}
+}
+
+CHAR16* GetDetailedTerrainName( ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties )
+{
+	if(zGivenTileProperties.bWoodCamoAffinity >= 50)
+	{
+		if(zGivenTileProperties.bDesertCamoAffinity >= 50)
+		{
+			return gzDisplayCoverText[DC_TTI__WOOD_AND_DESERT];
+		}
+		else
+		{
+			if(zGivenTileProperties.bUrbanCamoAffinity >= 50)
+			{
+				return gzDisplayCoverText[DC_TTI__WOOD_AND_URBAN];
+			}
+			else
+			{
+				if(zGivenTileProperties.bSnowCamoAffinity >= 50)
+				{
+					return gzDisplayCoverText[DC_TTI__WOOD_AND_SNOW];
+				}
+				else
+				{
+					return gzDisplayCoverText[DC_TTI__WOOD];
+				}
+			}
+		}
+	}
+	else if(zGivenTileProperties.bDesertCamoAffinity >= 50)
+	{
+		if(zGivenTileProperties.bUrbanCamoAffinity >= 50)
+		{
+			return gzDisplayCoverText[DC_TTI__DESERT_AND_URBAN];
+		}
+		else
+		{
+			if(zGivenTileProperties.bSnowCamoAffinity >= 50)
+			{
+				return gzDisplayCoverText[DC_TTI__DESERT_AND_SNOW];
+			}
+			else
+			{
+				return gzDisplayCoverText[DC_TTI__DESERT];
+			}
+		}
+	}
+	else if(zGivenTileProperties.bUrbanCamoAffinity >= 50)
+	{
+		if(zGivenTileProperties.bSnowCamoAffinity >= 50)
+		{
+			return gzDisplayCoverText[DC_TTI__URBAN_AND_SNOW];
+		}
+		else
+		{
+			return gzDisplayCoverText[DC_TTI__URBAN];
+		}
+	}
+	else if(zGivenTileProperties.bSnowCamoAffinity >= 50)
+	{
+		return gzDisplayCoverText[DC_TTI__SNOW];
+	}
+	else
+	{
+		return gzDisplayCoverText[DC_TTI__UNKNOWN];
 	}
 }
 
@@ -616,7 +685,20 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	{
 		UINT8 ubLightLevel = LightTrueLevel(sTargetGridNo, gsInterfaceLevel);
 		UINT8 ubBrightness = 100 - 100 * (ubLightLevel-SHADE_MAX)/(SHADE_MIN-SHADE_MAX); // percentage
-		INT8 ubTerrainType = GetTerrainTypeForGrid(sTargetGridNo, gsInterfaceLevel);
+		
+		UINT8 ubTerrainType = NO_TERRAIN; 
+
+		// anv: additional tile properties
+		ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties;
+		memset(&zGivenTileProperties,0,sizeof(zGivenTileProperties));
+		if(gGameExternalOptions.fAdditionalTileProperties)
+		{
+			zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid(sTargetGridNo, gsInterfaceLevel);
+		}
+		else
+		{
+			ubTerrainType = GetTerrainTypeForGrid(sTargetGridNo, gsInterfaceLevel);
+		}
 
 		INT8 ubCover = - GetSightAdjustment(pSoldier, sTargetGridNo, gsInterfaceLevel);
 
@@ -626,9 +708,18 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		//Display the msg
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
-			gzDisplayCoverText[DC_MSG__COVER_INFORMATION],
-			ubCover, GetTerrainName(ubTerrainType), ubBrightness );
+		if(gGameExternalOptions.fAdditionalTileProperties)
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
+				gzDisplayCoverText[DC_MSG__COVER_INFORMATION],
+				ubCover, GetDetailedTerrainName(zGivenTileProperties), ubBrightness );
+		}
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
+				gzDisplayCoverText[DC_MSG__COVER_INFORMATION],
+				ubCover, GetTerrainName(ubTerrainType), ubBrightness );
+		}
 	}
 
 	//Get the range to the target location

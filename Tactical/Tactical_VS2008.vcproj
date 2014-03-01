@@ -1003,6 +1003,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_AdditionalTileProperties.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_AmmoStrings.cpp"
 				>
 			</File>

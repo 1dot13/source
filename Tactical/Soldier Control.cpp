@@ -1635,6 +1635,7 @@ UINT8	bHealthStrRanges[] =
 
 INT16 gsTerrainTypeSpeedModifiers[] =
 {
+	5,						// NO_TERRAIN // anv: that one was missing
 	5,						// Flat ground
 	5,						// Floor
 	5,						// Paved road

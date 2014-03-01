@@ -490,9 +490,14 @@ STR16 gzDisplayCoverText[]=
 	L"Джунгли", //Wood //wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Город",
 	L"Пустыня",
-	L"Снег",	//NOT USED!!!
+	L"Снег",
 	L"Лес и пустыня",
-	L"" // yes empty for now
+	L"Лес и город",
+	L"Лес и снег",
+	L"Пустыня и город",
+	L"Пустыня и снег",
+	L"Город и снег",
+	L"-" // yes empty for now
 };
 
 #endif

@@ -843,6 +843,9 @@ typedef struct
 	UINT8 ubLBEEffectiveness;
 	UINT8 ubMovementEffectiveness;
 	UINT16 ubCoverDisplayUpdateWait;//Moa: changed to UINT16 to allow values 500ms to 10000ms, see ini file and DisplayCover( BOOLEAN ), DisplayMines( BOOLEAN )
+	
+	// anv: additional tile properties
+	BOOLEAN fAdditionalTileProperties;
 
 	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
 	INT16 usMineIncomePercentage;

@@ -437,7 +437,16 @@ inline INT8 GetUrbanCamouflage( SOLDIERTYPE* pSoldier )
 	
 	return MINMAX100N(pSoldier->urbanCamo + pSoldier->wornUrbanCamo);
 }
-
+// anv: added this
+inline INT8 GetSnowCamouflage( SOLDIERTYPE* pSoldier )
+{
+	// SANDRO - the Camouflage trait has been solved differently
+	//if (HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN )) {
+	//	return 100;
+	//}
+	
+	return MINMAX100N(pSoldier->snowCamo + pSoldier->wornSnowCamo);
+}
 // should be in lightning, 0-100 definition of brightness
 inline UINT8 GetBrightness(const UINT8& ubLightLevel)
 {
@@ -500,6 +509,95 @@ INT8 GetTerrainTypeForGrid( const INT32& sGridNo, const INT16& bLevel )
 	return gTileDatabase[ pNode->usIndex ].ubTerrainID;
 }
 
+ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const INT32& sGridNo, const INT16& bLevel )
+{
+	LEVELNODE* pNode;
+	ADDITIONAL_TILE_PROPERTIES_VALUES ubAllTileProperties;
+	INT16 iWoodCamoAffinity = 0;
+	INT16 iDesertCamoAffinity = 0;
+	INT16 iUrbanCamoAffinity = 0;
+	INT16 iSnowCamoAffinity = 0;
+	INT16 iCamoStanceModifer = 0;
+	INT16 iSoundModifier = 0;
+	INT16 iStealthDifficultyModifer = 0;
+	UINT8 ubTerrainID = 0;
+	BOOLEAN fFoundBottom = FALSE;
+
+	memset(&ubAllTileProperties,0,sizeof(ubAllTileProperties));
+	for(UINT8 ubCnt=0; ubCnt<5 && !fFoundBottom; ubCnt++)
+	{
+		if (bLevel == I_ROOF_LEVEL)
+		{
+			switch(ubCnt)
+			{
+				case 0:
+					pNode = gpWorldLevelData[ sGridNo ].pTopmostHead;
+					break;
+				case 1:
+					pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
+					break;
+				case 2:
+					pNode = gpWorldLevelData[ sGridNo ].pRoofHead;
+					break;
+				default:
+					pNode = NULL;
+					break;
+			}
+		}
+		else
+		{
+			switch(ubCnt)
+			{
+				case 0:
+					pNode = gpWorldLevelData[ sGridNo ].pShadowHead;			
+					break;
+				case 1:
+					pNode = gpWorldLevelData[ sGridNo ].pStructHead;		
+					break;
+				case 2:
+					pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
+					break;
+				case 3:
+					pNode = gpWorldLevelData[ sGridNo ].pLandHead;
+					break;
+				case 4:
+					pNode = gpWorldLevelData[ sGridNo ].pLandStart;
+					break;
+			}
+		}
+		if( pNode!= NULL )
+		{
+			iWoodCamoAffinity += gTileDatabase[ pNode->usIndex ].bWoodCamoAffinity;
+			iDesertCamoAffinity += gTileDatabase[ pNode->usIndex ].bDesertCamoAffinity;
+			iUrbanCamoAffinity += gTileDatabase[ pNode->usIndex ].bUrbanCamoAffinity;
+			iSnowCamoAffinity += gTileDatabase[ pNode->usIndex ].bSnowCamoAffinity;
+
+			iCamoStanceModifer += gTileDatabase[ pNode->usIndex ].bCamoStanceModifer;
+			iSoundModifier += gTileDatabase[ pNode->usIndex ].bSoundModifier;
+			iStealthDifficultyModifer += gTileDatabase[ pNode->usIndex ].bStealthDifficultyModifer;
+
+			ubTerrainID = gTileDatabase[ pNode->usIndex ].ubTerrainID;
+			// going from the top, if any tile has terrain type, we're ignoring all tiles below it
+			if(ubTerrainID != NO_TERRAIN)
+			{
+				fFoundBottom = TRUE;
+			}
+		}
+			
+	}
+
+	ubAllTileProperties.bWoodCamoAffinity = (INT8)iWoodCamoAffinity;
+	ubAllTileProperties.bDesertCamoAffinity = (INT8)iDesertCamoAffinity;
+	ubAllTileProperties.bUrbanCamoAffinity = (INT8)iUrbanCamoAffinity;
+	ubAllTileProperties.bSnowCamoAffinity = (INT8)iSnowCamoAffinity;
+
+	ubAllTileProperties.bCamoStanceModifer = (INT8)iCamoStanceModifer;
+	ubAllTileProperties.bSoundModifier = (INT8)iSoundModifier;
+	ubAllTileProperties.bStealthDifficultyModifer = (INT8)iStealthDifficultyModifer;
+
+	return ubAllTileProperties;
+}
+
 // the following functions should return percentage values which can be easily added/substracted from
 // the sight reduction variable inside the Soldier-sight-test.
 // This means we specify here how much each test counts towards the total.
@@ -545,6 +643,32 @@ INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& 
 		default:
 			return 0;
 	}
+}
+
+INT8 GetDetailedSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& ubStance, ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties )
+{
+	if (gGameExternalOptions.ubCamouflageEffectiveness == 0) {
+		return 0;
+	}
+
+	INT16 iResult = 0;
+
+	INT8 bStanceModifier = zGivenTileProperties.bCamoStanceModifer;
+	
+	INT8 scaler = -(ANIM_STAND+1 - max(ANIM_PRONE, ubStance - bStanceModifier)); // stand = 7-6 => 10%, crouch = 7-3 => 66%, prone = 7-1 => 100%;
+
+	UINT8 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness;
+	
+	effectiveness += (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CAMO));
+
+	scaler = effectiveness * scaler / 6;
+
+	iResult += GetJungleCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bWoodCamoAffinity / 100;
+	iResult += GetDesertCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bDesertCamoAffinity / 100;
+	iResult += GetUrbanCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bUrbanCamoAffinity / 100;
+	iResult += GetSnowCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bSnowCamoAffinity / 100;
+
+	return (INT8)min(100, max(0, iResult));
 }
 
 /**
@@ -722,7 +846,19 @@ INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, IN
 		bStance = GetCurrentHeightOfSoldier( pSoldier );
 	}
 
-	UINT8 ubTerrainType = GetTerrainTypeForGrid( sGridNo, bLevel );
+	UINT8 ubTerrainType = NO_TERRAIN;
+	// anv: additional tile properties
+	ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties;
+	memset(&zGivenTileProperties,0,sizeof(zGivenTileProperties));
+	if(gGameExternalOptions.fAdditionalTileProperties)
+	{
+		zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid(sGridNo, bLevel);
+	}
+	else
+	{
+		ubTerrainType = GetTerrainTypeForGrid( sGridNo, bLevel );
+	}
+
 	UINT8 ubLightLevel = LightTrueLevel( sGridNo, bLevel );
 
 	INT16 iSightAdjustment = 0;
@@ -736,7 +872,15 @@ INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, IN
 	// context sensitive stuff with 2nd parameter (needs soldier for attributes but can be given a second parameter)
 	iSightAdjustment += GetSightAdjustmentThroughMovement( pSoldier, pSoldier->bTilesMoved, ubLightLevel );
 	iSightAdjustment += GetSightAdjustmentStealthAtLightLevel( pSoldier, ubLightLevel );
-	iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, ubTerrainType );
+
+	if(gGameExternalOptions.fAdditionalTileProperties)
+	{
+		iSightAdjustment += GetDetailedSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, zGivenTileProperties );
+	}
+	else
+	{
+		iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, ubTerrainType );
+	}
 
 	return MINMAX100N(iSightAdjustment);
 }

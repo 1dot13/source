@@ -483,18 +483,23 @@ STR16	gzIronManModeWarningText[]=
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Cover: %d/100 %s, Brightness: %d/100",
-	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Gun Range: %d/%d tiles, Muzzle Stability: %d/100",
-	L"Disabling cover display",
-	L"Showing mercenary view",
-	L"Showing danger zones for mercenary",
-	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
-	L"Urban",
-	L"Desert",
-	L"Snow", // NOT USED!!!
-	L"Wood and Desert",
-	L"" // yes empty for now
+	L"Osłona: %d/100 %s, Oświetlenie: %d/100",
+	L"Zasięg broni: %d/%d pól, Szansa trafienia: %d/100",
+	L"Zasięg broni: %d/%d pól, Stabilność broni: %d/100",
+	L"Ukryj wyświetlani informacji o osłonie",
+	L"Pokaż zasięg wzroku postaci",
+	L"Pokaż stefy zagrożenia postaci",
+	L"Las", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Miasto",
+	L"Pustynia",
+	L"Śnieg",
+	L"Las i pustynia",
+	L"Las i miasto",
+	L"Las i śnieg",
+	L"Pustynia i miasto",
+	L"Pustynia i śnieg",
+	L"Miasto i śnieg",
+	L"-" // yes empty for now
 };
 
 

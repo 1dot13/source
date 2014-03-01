@@ -618,7 +618,7 @@ UINT8	gTileTypeLogicalHeight[ NUMBEROFTILETYPES ] =
 };
 
 
-void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEMENT *TileElement, BOOLEAN fUseRaisedObjectType )
+void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEMENT *TileElement, BOOLEAN fUseRaisedObjectType, INT32 iTilesetID )
 {
 	UINT8 ubLoop;
 	INT16						sIndexDiff;
@@ -939,10 +939,29 @@ void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEME
 		//TileElement->sOffsetHeight = WALL_HEIGHT;
 	}
 
-	if ( uiDatabaseElem >= REGWATERTEXTURE18 && uiDatabaseElem <= REGWATERTEXTURE50 || uiDatabaseElem == REGWATERTEXTURE ||
+	// anv: ok, as far as I understand here, specific elements of water surface are set to FLAT_GROUND instead of LOW_WATER (edges technically are part of water surface, but mercs can walk on them)
+	// E50 || uiDatabaseElem == REGWATERTEXTURE || seems to a bug, REGWATERTEXTURE is a tile type, not tile element and would overwrite part of first surface instead
+	//
+
+	if ( uiDatabaseElem >= REGWATERTEXTURE18 && uiDatabaseElem <= REGWATERTEXTURE50 ||
 			uiDatabaseElem == REGWATERTEXTURE12 || uiDatabaseElem == REGWATERTEXTURE14 || uiDatabaseElem == REGWATERTEXTURE16 )
 	{
 		TileElement->ubTerrainID			= FLAT_GROUND;
+	}
+	else if( uiDatabaseElem >= REGWATERTEXTURE1 && uiDatabaseElem <= REGWATERTEXTURE18 )
+	{
+		// we set properties for water edges, but need to disable them for proper water tiles
+		if(gGameExternalOptions.fAdditionalTileProperties)
+		{
+			TileElement->bWoodCamoAffinity = 0;
+			TileElement->bDesertCamoAffinity = 0;
+			TileElement->bUrbanCamoAffinity = 0;
+			TileElement->bSnowCamoAffinity = 0;
+			TileElement->bSoundModifier = 0;
+			TileElement->bCamoStanceModifer= 0;
+			TileElement->bStealthDifficultyModifer = 0;
+			TileElement->uiAdditionalFlags = 0;
+		}
 	}
 
 	if ( ( usType >= FIRSTROOF && usType <= SECONDSLANTROOF ) || usType == FIRSTHIGHROOF || usType == SECONDHIGHROOF )
