@@ -1,0 +1,10 @@
+<ADDITIONALTILEPROPERTIES>
+<ubTerrainID>2</ubTerrainID>
+<bWoodCamoAffinity>0</bWoodCamoAffinity>
+<bDesertCamoAffinity>0</bDesertCamoAffinity>
+<bUrbanCamoAffinity>85</bUrbanCamoAffinity>
+<bSnowCamoAffinity>25</bSnowCamoAffinity>
+<bCamoStanceModifer>0</bCamoStanceModifer>
+<bSoundModifier>3</bSoundModifier>
+<bStealthDifficultyModifer>0</bStealthDifficultyModifer>
+</ADDITIONALTILEPROPERTIES>
