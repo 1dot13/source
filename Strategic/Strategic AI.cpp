@@ -563,7 +563,7 @@ INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinfor
 	//until it is finally excepted or an absolute max is made.
 	*pubExtraReinforcements = (UINT8)(gubGarrisonReinforcementsDenied[ iGarrisonID ] / (6 - gGameOptions.ubDifficultyLevel));
 	//Make sure the number of extra reinforcements don't bump the force size past the max of MAX_STRATEGIC_TEAM_SIZE.
-	*pubExtraReinforcements = (UINT8)min( (INT32)*pubExtraReinforcements, min( (INT32)(*pubExtraReinforcements), iMaxEnemyGroupSize - iReinforcementsRequested ) );
+	*pubExtraReinforcements = (UINT16)min( (INT32)*pubExtraReinforcements, min( (INT32)(*pubExtraReinforcements), iMaxEnemyGroupSize - iReinforcementsRequested ) );
 
 	iReinforcementsRequested = min( iMaxEnemyGroupSize, iReinforcementsRequested );
 
@@ -2088,7 +2088,7 @@ BOOLEAN ReinforcementsApproved( INT32 iGarrisonID, UINT16 *pusDefencePoints )
 	//Reinforcements will have to wait.	For now, increase the reinforcements denied.	The amount increase is 20 percent
 	//of the garrison's priority.
 	gubGarrisonReinforcementsDenied[ iGarrisonID ] += (UINT8)(gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bPriority / 2);
-
+	
 	return FALSE;
 }
 
@@ -2919,11 +2919,16 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		gArmyComp[ gGarrisonGroup[ iDstGarrisonID ].ubComposition ].bPriority / 50;
 
 	if( iReinforcementsRequested + ubNumExtraReinforcements > iMaxReinforcementsAllowed )
-	{ //adjust the extra reinforcements so that it doesn't exceed the maximum allowed.
+	{
+		//adjust the extra reinforcements so that it doesn't exceed the maximum allowed.
 		fLimitMaxTroopsAllowable = TRUE;
-		ubNumExtraReinforcements = (UINT8)(iMaxReinforcementsAllowed - iReinforcementsRequested);
+		ubNumExtraReinforcements = (UINT16)(max(0, iMaxReinforcementsAllowed - iReinforcementsRequested));
 	}
 
+	// Flugente: this is stupid. why would we limit the groupsize by the desired population? If that is smaller than the minimum group size, then we'll create a group smaller than that
+	// this would forbid us from properly moving it. Why does gGameExternalOptions.iMaxEnemyGroupSize exist if it isn't properly used?
+	ubNumExtraReinforcements = (UINT16)(max(0, gubMinEnemyGroupSize - iReinforcementsRequested));
+	
 	iReinforcementsRequested += ubNumExtraReinforcements;
 
 	if( iReinforcementsRequested <= 0 )
@@ -3057,8 +3062,9 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			//Send the lowest of the two:	number requested or number available
 
 			iReinforcementsApproved = min( iReinforcementsRequested, iReinforcementsAvailable );
-			if( iReinforcementsApproved > iMaxReinforcementsAllowed - ubNumExtraReinforcements )
-			{ //The force isn't strong enough, but the queen isn't willing to apply extra resources
+			if( iReinforcementsApproved < iMaxReinforcementsAllowed - ubNumExtraReinforcements )
+			{
+				//The force isn't strong enough, but the queen isn't willing to apply extra resources
 				iReinforcementsApproved = iMaxReinforcementsAllowed - ubNumExtraReinforcements;
 			}
 			else if( (iReinforcementsApproved + ubNumExtraReinforcements) * 3 < usDefencePoints )
@@ -3667,11 +3673,11 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		gubPatrolReinforcementsDenied = NULL;
 	}
 	gubPatrolReinforcementsDenied = (UINT8*)MemAlloc( giPatrolArraySize );
-	FileRead( hFile, gubPatrolReinforcementsDenied, giPatrolArraySize, &uiNumBytesRead );
-	if( uiNumBytesRead != (UINT32)giPatrolArraySize )
-	{
-		return FALSE;
-	}
+		FileRead( hFile, gubPatrolReinforcementsDenied, giPatrolArraySize, &uiNumBytesRead );
+		if( uiNumBytesRead != (UINT32)giPatrolArraySize )
+		{
+			return FALSE;
+		}
 
 	//Load the list of reinforcement garrison points.
 	if( gubGarrisonReinforcementsDenied )
@@ -3680,11 +3686,11 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		gubGarrisonReinforcementsDenied = NULL;
 	}
 	gubGarrisonReinforcementsDenied = (UINT8*)MemAlloc( giGarrisonArraySize );
-	FileRead( hFile, gubGarrisonReinforcementsDenied, giGarrisonArraySize, &uiNumBytesRead );
-	if( uiNumBytesRead != (UINT32)giGarrisonArraySize )
-	{
-		return FALSE;
-	}
+		FileRead( hFile, gubGarrisonReinforcementsDenied, giGarrisonArraySize, &uiNumBytesRead );
+		if( uiNumBytesRead != (UINT32)giGarrisonArraySize )
+		{
+			return FALSE;
+		}
 
 	#ifdef JA2BETAVERSION
 		InitStrategicMovementCosts();
@@ -5796,6 +5802,12 @@ BOOLEAN GarrisonRequestingMinimumReinforcements( INT32 iGarrisonID )
 	{
 		return TRUE;
 	}
+
+	// Flugente: The above check is insufficient. if we increase gubMinEnemyGroupSize (to, say, make the game harder), this check will never evaluate to true. Congratulations, you've broken the AI!
+	// Instead, if we have nobody here, but want someone to be here, then a minimum-sized group is in order.
+	if( iDesired > 0 && iAvailable == 0 )
+		return TRUE;
+
 	return FALSE;
 }
 

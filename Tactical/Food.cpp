@@ -1019,11 +1019,11 @@ OBJECTTYPE* GetUsableWaterDrumInSector( void )
 	return( NULL );
 }
 
-// soldier refills canteen while auto-consuming. Only clean sector water souces are consumed, an sector inventory is not touched (sector is likely not loaded)
+// soldier refills canteen while auto-consuming. Only clean sector water souces are consumed, and sector inventory is not touched (sector is likely not loaded)
 void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier)
 {
 	// no functionality if in combat, invalid/travelling/asleep/non-profile soldier
-	if ( (gTacticalStatus.uiFlags & INCOMBAT) || !pSoldier || !pSoldier->bInSector || pSoldier->flags.fMercAsleep || pSoldier->ubProfile == NO_PROFILE )
+	if ( (gTacticalStatus.uiFlags & INCOMBAT) || !pSoldier || !pSoldier->bActive || pSoldier->flags.fMercAsleep || pSoldier->ubProfile == NO_PROFILE )
 		return;
 
 	// determine if there are any patches of water in this sector.

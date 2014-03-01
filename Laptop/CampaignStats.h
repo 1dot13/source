@@ -45,15 +45,17 @@
 #define INCIDENT_WIN							0x01000000	//16777216	// player won battle (otherwise he lost)
 #define INCIDENT_OMERTA_LANDING					0x02000000	//33554432	// omerta landing
 #define INCIDENT_FIRST_LIBERATION				0x04000000	//67108864	// first time we free a sector
-/*#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+#define INCIDENT_SAMSITE_SABOTAGED				0x08000000	//134217728	// SAM site controls were destroyed
 
-#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
-#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
-#define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
-#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
+#define INCIDENT_SPYACTION_ENEMY				0x10000000	//268435456	// side used spies. Depending on the other actions, this report might not even show up, as nobody knows there WAS any action...
+#define INCIDENT_SPYACTION_PLAYERSIDE			0x20000000	//536870912
+#define INCIDENT_SPYACTION_UNCOVERED			0x40000000	//1073741824	// a spy was uncovered
+//#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak
 
 #define INCIDENT_PLAYER_ALLDIRS		(INCIDENT_ATTACKDIR_NORTH|INCIDENT_ATTACKDIR_WEST|INCIDENT_ATTACKDIR_SOUTH|INCIDENT_ATTACKDIR_EAST)
 #define INCIDENT_ENEMY_ALLDIRS		(INCIDENT_ATTACKDIR_NORTH_ENEMY|INCIDENT_ATTACKDIR_WEST_ENEMY|INCIDENT_ATTACKDIR_SOUTH_ENEMY|INCIDENT_ATTACKDIR_EAST_ENEMY)
+
+#define INCIDENT_EVENT				0x0E00FF3F				// any interesting event that might have happened
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: flags for one time events that commence an individual report --------

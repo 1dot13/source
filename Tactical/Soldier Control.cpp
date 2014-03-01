@@ -15643,6 +15643,12 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 		}
 	}
 
+	// campaign stats
+	if ( pSoldier->bTeam == ENEMY_TEAM )
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SPYACTION_ENEMY;
+	else
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SPYACTION_PLAYERSIDE;
+
 	// do we recognize this guy as an enemy?
 	if ( !pSoldier->SeemsLegit(this->ubID) )
 	{
@@ -15663,6 +15669,9 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 			this->aiData.bOppList[pSoldier->ubID] = NOT_HEARD_OR_SEEN;
 
 			ManSeesMan(this, pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, 0, 0);
+
+			// campaign stats
+			gCurrentIncident.usIncidentFlags |= INCIDENT_SPYACTION_UNCOVERED;
 		}
 
 		return TRUE;

@@ -4796,10 +4796,11 @@ void UpdateAndDamageSAMIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 	// Damage.....
 	sSectorNo = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
+	INT8 statusbefore = StrategicMap[ sSectorNo ].bSAMCondition;
+
 	if ( StrategicMap[ sSectorNo ].bSAMCondition >= ubDamage )
 	{
-		StrategicMap[ sSectorNo ].bSAMCondition =
-			StrategicMap[ sSectorNo ].bSAMCondition - ubDamage;
+		StrategicMap[ sSectorNo ].bSAMCondition -= ubDamage;
 	}
 	else
 	{
@@ -4808,6 +4809,10 @@ void UpdateAndDamageSAMIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 
 	// SAM site may have been put out of commission...
 	UpdateAirspaceControl( );
+
+	// Flugente:  campaign stats: if SAM was functional before and isn't anymore, note this
+	if ( statusbefore >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK && StrategicMap[ sSectorNo ].bSAMCondition < MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SAMSITE_SABOTAGED;
 
 	// ATE: GRAPHICS UPDATE WILL GET DONE VIA NORMAL EXPLOSION CODE.....
 }

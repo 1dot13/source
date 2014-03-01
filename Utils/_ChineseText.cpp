@@ -8333,7 +8333,8 @@ STR16	szCampaignHistoryDetail[]=
 	L"和",
 	L"an unknown location",	// TODO.Translate
 
-	L"该分区的建筑受损。%d名市民被杀，%d名市民受伤。",
+	L"Buildings in the sector were damaged.",	// TODO.Translate
+	L"In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.",
 	L"在战斗中，%s和%s呼叫了支援。",
 	L"在战斗中，%s呼叫了支援。",
 	L"目击者报道交战双方都使用了化学武器。",
@@ -8342,6 +8343,9 @@ STR16	szCampaignHistoryDetail[]=
 	L"%s部署了%d辆坦克，%d辆坦克在激烈的交火中被摧毁。",
 	L"据称双方都部署了狙击手。",
 	L"未经证实的消息称有%s名狙击手参与了交火。"
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
+	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
 
 STR16	szCampaignHistoryTimeString[]=

@@ -698,9 +698,19 @@ void RenderCampaignHistory_MostImportant()
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 			}
 
-			if ( incident.usIncidentFlags & INCIDENT_BUILDINGS_DAMAGED )
+			if ( incident.usIncidentFlags & INCIDENT_SAMSITE_SABOTAGED )
 			{
-				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGDAMAGE], incident.usKills[CAMPAIGNHISTORY_SD_CIV], incident.usWounds[CAMPAIGNHISTORY_SD_CIV] );
+				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SAMSITESABOTAGED] );
+				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+			}
+			else if ( incident.usIncidentFlags & INCIDENT_BUILDINGS_DAMAGED )
+			{
+				if ( incident.usKills[CAMPAIGNHISTORY_SD_CIV] + incident.usWounds[CAMPAIGNHISTORY_SD_CIV] > 0 )
+					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGANDCIVDAMAGE], incident.usKills[CAMPAIGNHISTORY_SD_CIV], incident.usWounds[CAMPAIGNHISTORY_SD_CIV] );
+				else
+					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGDAMAGE] );
+
 				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 			}
@@ -754,6 +764,20 @@ void RenderCampaignHistory_MostImportant()
 				else
 					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS], rebel );
 
+				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+			}
+
+			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_ENEMY )
+			{
+				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_ENEMY] );
+				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+			}
+
+			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_PLAYERSIDE )
+			{
+				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_PLAYER] );
 				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 			}

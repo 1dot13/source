@@ -87,7 +87,8 @@ Incident_Stats::CalcInterestRating()
 	if ( usIncidentFlags & INCIDENT_BUILDINGS_DAMAGED )				usInterestRating +=  100;
 	if ( usIncidentFlags & INCIDENT_WIN )							usInterestRating +=  100;
 	else															usInterestRating +=  200;
-
+	if ( usIncidentFlags & INCIDENT_SAMSITE_SABOTAGED )				usInterestRating += 1500;
+	
 	if ( usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_OMERTA )			usInterestRating += 1000;
 	if ( usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_DEATH_KINGPIN )	usInterestRating += 500;
 	if ( usOneTimeEventFlags & (INCIDENT_ONETIMEEVENT_MASSACRE_HICKS|INCIDENT_ONETIMEEVENT_MASSACRE_BLOODCATS) )	usInterestRating += 800;
@@ -688,6 +689,32 @@ Campaign_Stats::AddConsumption(UINT8 aType, FLOAT aVal)
 // add this incident to the campaign stats and then clear it
 void FinishIncident(INT16 sX, INT16 sY, INT8 sZ)
 {
+	// it is possible to enter a combat without any real fighting. 
+	// For now, lets just assume this happens with undetected spies. If nothing of interest happened, don't add this incident (it would be boring to read anyway)
+	if ( gCurrentIncident.usIncidentFlags & (INCIDENT_SPYACTION_ENEMY|INCIDENT_SPYACTION_PLAYERSIDE) && !(gCurrentIncident.usIncidentFlags & INCIDENT_SPYACTION_UNCOVERED) )
+	{
+		// if noting of interest happened...
+		if ( !(gCurrentIncident.usIncidentFlags & INCIDENT_EVENT) && gCurrentIncident.usOneTimeEventFlags == 0 )
+		{
+			UINT16 i = 0;
+
+			// if nobody was harmed...
+			for (i = 0; i < CAMPAIGNHISTORY_SD_MAX; ++i)
+			{
+				if ( gCurrentIncident.usKills[i] || gCurrentIncident.usWounds[i] || gCurrentIncident.usPrisoners[i] )
+					break;
+			}
+
+			if ( i == CAMPAIGNHISTORY_SD_MAX )
+			{
+				// totally boring. Don't add this, just clean it an exit
+				gCurrentIncident.clear();
+
+				return;
+			}
+		}
+	}
+
 	// due to odd coding, we do not know when an incident starts
 	// (checking for entering combat isn't enough, as we do that multiple times per battle)
 	// we thus set the relevant data when finishing an incident

@@ -8330,7 +8330,8 @@ STR16	szCampaignHistoryDetail[]=
 	L"et",
 	L"an unknown location",	// TODO.Translate
 
-	L"Des bâtiments ont été endommagés. Il y a eu %d civils tués et %d blessés.",
+	L"Des bâtiments ont été endommagés.",
+	L"In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.",	// TODO.Translate
 	L"Pendant l'attaque, %s et %s ont appelé des renforts.",
 	L"Pendant l'attaque, %s a appelé des renforts.",
 	L"Les témoins rapportent l'utilisation d'armes chimiques par les deux camps.",
@@ -8339,6 +8340,9 @@ STR16	szCampaignHistoryDetail[]=
 	L"Il y avait %d chars pour renforcer %s. %d d'entre eux ont été détruits dans des combats acharnés.",
 	L"Les deux camps avaient des tireurs d'élite.",
 	L"Des sources non vérifiées indiquent que %s tireurs d'élite ont été impliqués dans le combat."
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
+	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
 
 STR16	szCampaignHistoryTimeString[]=
