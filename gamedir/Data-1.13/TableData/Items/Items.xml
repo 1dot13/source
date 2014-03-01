@@ -51254,4 +51254,30 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1709</uiIndex>
+		<szItemName>Sleeping bag</szItemName>
+		<szLongItemName>Sleeping bag</szLongItemName>
+		<szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+		<szBRName>Sleeping bag</szBRName>
+		<szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>223</ubGraphicNum>		
+		<ubWeight>13</ubWeight>
+		<ItemSize>27</ItemSize>
+		<usPrice>35</usPrice>		
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>6</BR_UsedInventory>
+		<SleepModifier>20</SleepModifier>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

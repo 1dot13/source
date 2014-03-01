@@ -333,7 +333,7 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>6</uiIndex>
 		<name>Misc</name>
-		<ubChoices>45</ubChoices>
+		<ubChoices>46</ubChoices>
 		<bItemNo1>49</bItemNo1>
 		<bItemNo2>214</bItemNo2>
 		<bItemNo3>214</bItemNo3>
@@ -379,7 +379,7 @@
 		<bItemNo43>1570</bItemNo43>
 		<bItemNo44>1576</bItemNo44>
 		<bItemNo45>1626</bItemNo45>
-		<bItemNo46>0</bItemNo46>
+		<bItemNo46>1709</bItemNo46>
 		<bItemNo47>0</bItemNo47>
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
