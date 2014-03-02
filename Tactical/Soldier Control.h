@@ -1798,7 +1798,7 @@ public:
 	STR16	PrintSkillDesc( INT8 iSkill);
 
 	// Flugente: functions for the radio operator trait
-	BOOLEAN CanUseRadio();							// can we use radio, if we even have one?
+	BOOLEAN CanUseRadio(BOOLEAN fCheckForAP = TRUE);							// can we use radio, if we even have one?
 	BOOLEAN UseRadio();								// simply drain the batteries
 	BOOLEAN HasMortar();
 	BOOLEAN GetSlotOfSignalShellIfMortar(UINT8* pbLoop); // if we have a mortar and a fitting signal shell, return the inventory slot it is in

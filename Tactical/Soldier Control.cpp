@@ -17272,7 +17272,7 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 	return skilldescarray;
 }
 
-BOOLEAN SOLDIERTYPE::CanUseRadio()
+BOOLEAN SOLDIERTYPE::CanUseRadio(BOOLEAN fCheckForAP)
 {
 	// new inventory system required, as the radio set has to be in a specific slot
 	if ( !UsingNewInventorySystem() )
@@ -17282,7 +17282,8 @@ BOOLEAN SOLDIERTYPE::CanUseRadio()
 	if ( !NUM_SKILL_TRAITS( this, RADIO_OPERATOR_NT ) )
 		return FALSE;
 
-	if ( !EnoughPoints( this, APBPConstants[AP_RADIO], 0, FALSE ) )
+	// if we check wether we have enough AP, exit if we don't
+	if ( fCheckForAP && !EnoughPoints( this, APBPConstants[AP_RADIO], 0, FALSE ) )
 		return FALSE;
 
 	// only player mercs use new inventory system
@@ -17933,7 +17934,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 BOOLEAN SOLDIERTYPE::IsJamming()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING) && CanUseRadio() );
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING) && CanUseRadio(FALSE) );
 }
 
 BOOLEAN SOLDIERTYPE::JamCommunications()
@@ -17963,7 +17964,7 @@ BOOLEAN SOLDIERTYPE::JamCommunications()
 
 BOOLEAN SOLDIERTYPE::IsScanning()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING) && CanUseRadio() );
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING) && CanUseRadio(FALSE) );
 }
 
 BOOLEAN SOLDIERTYPE::ScanForJam()
@@ -17993,7 +17994,7 @@ BOOLEAN SOLDIERTYPE::ScanForJam()
 
 BOOLEAN SOLDIERTYPE::IsRadioListening()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING) && CanUseRadio() );
+	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING) && CanUseRadio(FALSE) );
 }
 
 BOOLEAN SOLDIERTYPE::RadioListen()
@@ -18080,7 +18081,7 @@ SOLDIERTYPE::RadioFail()
 
 void SOLDIERTYPE::DepleteActiveRadioSetEnergy(BOOLEAN fActivation, BOOLEAN fAssignment)
 {
-	if ( !CanUseRadio() )
+	if ( !CanUseRadio(FALSE) )
 		return;
 	
 	FLOAT cost = 0;
@@ -21330,7 +21331,7 @@ BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo)
 		// a merc planted this - if he's a radio operator, use his gridno
 		SOLDIERTYPE* pSoldier = MercPtrs[usOwner - 2];
 
-		if ( pSoldier && pSoldier->CanUseRadio() && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+		if ( pSoldier && pSoldier->CanUseRadio(FALSE) && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 		{
 			*psTargetGridNo = pSoldier->sGridNo;
 			pSoldier->bSide;
@@ -21349,7 +21350,7 @@ BOOLEAN GetRadioOperatorSignal(UINT8 usOwner, INT32* psTargetGridNo)
 		INT32 lastid = gTacticalStatus.Team[ bTeam ].bLastID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
 		{
-			if ( pSoldier && pSoldier->CanUseRadio() && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			if ( pSoldier && pSoldier->CanUseRadio(FALSE) && pSoldier->bActive && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
 				*psTargetGridNo = pSoldier->sGridNo;
 				pSoldier->bSide;
@@ -21409,7 +21410,7 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 			if ( !pSoldier || !pSoldier->bActive || pSoldier->sSectorX != sSectorX || pSoldier->sSectorY != sSectorY || pSoldier->bSectorZ != bSectorZ || pSoldier->bAssignment > ON_DUTY )
 				continue;
 
-			if ( pSoldier->CanUseRadio() )
+			if ( pSoldier->CanUseRadio(FALSE) )
 				activeradio = TRUE;
 
 			if ( pSoldier->HasMortar() )

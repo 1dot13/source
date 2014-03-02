@@ -1084,10 +1084,8 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 	{
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	
+	return FALSE;
 }
 
 
