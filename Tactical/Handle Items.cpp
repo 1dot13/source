@@ -2503,7 +2503,7 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 			// HEADROCK HAM 3.5: On-screen message when militia pick up items.
 			if ( pSoldier->bTeam == MILITIA_TEAM )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[4], Item[gWorldItems[ pItemPool->iItemIndex ].object.usItem].szItemName );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[4], Item[gWorldItems[ iItemIndex ].object.usItem].szItemName );
 			}
 			SoldierGetItemFromWorld( pSoldier, iItemIndex, sGridNo, bZLevel, NULL );
 		}
