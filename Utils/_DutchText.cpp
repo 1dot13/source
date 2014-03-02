@@ -534,9 +534,9 @@ STR16 iEditorMercsToolbarText[] =
  L"DELETE",
  L"Delete currently selected merc (|D|e|l)",
  L"NEXT", //20
- L"Find next merc (|S|p|a|c|e)",
+ L"Find next merc (|S|p|a|c|e)\nFind previous merc (|S|h|i|f|t+|S|p|a|c|e)",
  L"Toggle priority existance",
- L"Toggle whether or not placement has/naccess to all doors",
+ L"Toggle whether or not placement\nhas access to all doors",
  
  //Orders
  L"STATIONARY",

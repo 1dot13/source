@@ -533,9 +533,9 @@ STR16 iEditorMercsToolbarText[] =
  L"删除", //L"DELETE",
  L"删除当前选中佣兵(|D|e|l)", //L"Delete currently selected merc (|D|e|l)",
  L"下一个", //20 //L"NEXT",
- L"定位下一个佣兵(|S|p|a|c|e)", //L"Find next merc (|S|p|a|c|e)",
+ L"定位下一个佣兵(|S|p|a|c|e)\n定位上一个佣兵(|S|h|i|f|t+|S|p|a|c|e)", //L"Find next merc (|S|p|a|c|e)\nFind previous merc (|S|h|i|f|t+|S|p|a|c|e)",
  L"选择优先级", //L"Toggle priority existance",
- L"选择此人是否可以开关门", //L"Toggle whether or not placement has/naccess to all doors",
+ L"选择此人是否可以开关门", //L"Toggle whether or not placement\nhas access to all doors",
  
  //Orders
  L"站立", //L"STATIONARY",

@@ -537,9 +537,9 @@ STR16 iEditorMercsToolbarText[] =
  L"SUPPRIMER",
  L"Supprimer le mercenaire sélectionné (|S|u|p|p|r)",
  L"SUIVANT", //20
- L"Mercenaire suivant (|E|s|p|a|c|e)",
+ L"Mercenaire suivant (|E|s|p|a|c|e)\nMercenaire précédente (|M|a|j|+|E|s|p|a|c|e)",
  L"Changer l'existence prioritaire",
- L"Changer, si le placement a/naccès à toutes les portes",
+ L"Changer, si le placement a\naccès à toutes les portes",
  
  //Orders
  L"STATIONNAIRE",

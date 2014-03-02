@@ -539,7 +539,7 @@ STR16 iEditorMercsToolbarText[] =
  L"Usuń",
  L"Usuń zaznaczonego najemnika (|D|e|l)",
  L"Kolejny", //20
- L"Znajdź następnego najemnika (|S|p|a|c|e)",
+ L"Znajdź następnego najemnika (|S|p|a|c|j|a)\nZnajdź poprzedniego najemnika (|S|h|i|f|t+|S|p|a|c|j|a)",
  L"Włącz priorytet egzystencji",
  L"Postać ma dostęp do wszystkich zamkniętych drzwi",
  

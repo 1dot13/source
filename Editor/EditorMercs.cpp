@@ -63,6 +63,7 @@
 	#include "Timer Control.h"
 	#include "message.h"
 	#include "InterfaceItemImages.h"
+	#include "english.h"
 #endif
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1540,6 +1541,7 @@ void IndicateSelectedMerc( INT16 sID )
 {
 	SOLDIERINITNODE *prev;
 	INT8 bTeam;
+	BOOLEAN fSelectPrevious;
 
 	//If we are trying to select a merc that is already selected, ignore.
 	if( sID >= 0 && sID == gsSelectedMercGridNo )
@@ -1557,6 +1559,9 @@ void IndicateSelectedMerc( INT16 sID )
 
 	bTeam = -1;
 
+	// hotkey to select previous instead of next merc
+	fSelectPrevious = gfKeyState[ SHIFT ];
+
 	//determine selection method
 	switch( sID )
 	{
@@ -1568,13 +1573,27 @@ void IndicateSelectedMerc( INT16 sID )
 			}
 			else
 			{ //validate this merc in the list.
-				if( gpSelected->next )
-				{ //select the next merc in the list
-					gpSelected = gpSelected->next;
+				if( fSelectPrevious )
+				{
+					if( gpSelected->prev )
+					{ //select the prev merc in the list
+						gpSelected = gpSelected->prev;
+					}
+					else
+					{ //we are at the beginning of the list, so select the last merc in the list.
+						gpSelected = gSoldierInitTail;
+					}
 				}
 				else
-				{ //we are at the end of the list, so select the first merc in the list.
-					gpSelected = gSoldierInitHead;
+				{
+					if( gpSelected->next )
+					{ //select the next merc in the list
+						gpSelected = gpSelected->next;
+					}
+					else
+					{ //we are at the end of the list, so select the first merc in the list.
+						gpSelected = gSoldierInitHead;
+					}
 				}
 			}
 			if( !gpSelected ) //list is empty
@@ -1587,14 +1606,20 @@ void IndicateSelectedMerc( INT16 sID )
 			{
 				if( !gpSelected )
 				{
-					gpSelected = gSoldierInitHead;
+					if( fSelectPrevious )
+						gpSelected = gSoldierInitTail;
+					else
+						gpSelected = gSoldierInitHead;
 					continue;
 				}
 				if( gpSelected->pSoldier && gpSelected->pSoldier->bVisible == 1 )
 				{ //we have found a visible soldier, so select him.
 					break;
 				}
-				gpSelected = gpSelected->next;
+				if( fSelectPrevious )
+					gpSelected = gpSelected->prev;
+				else
+					gpSelected = gpSelected->next;
 			}
 			//we have a valid merc now.
 			break;
@@ -1639,13 +1664,27 @@ void IndicateSelectedMerc( INT16 sID )
 		}
 		else
 		{ //validate this merc in the list.
-			if( gpSelected->next )
-			{ //select the next merc in the list
-				gpSelected = gpSelected->next;
+			if( fSelectPrevious )
+			{
+				if( gpSelected->prev )
+				{ //select the prev merc in the list
+					gpSelected = gpSelected->prev;
+				}
+				else
+				{ //we are at the beginning of the list, so select the last merc in the list.
+					gpSelected = gSoldierInitTail;
+				}
 			}
 			else
-			{ //we are at the end of the list, so select the first merc in the list.
-				gpSelected = gSoldierInitHead;
+			{
+				if( gpSelected->next )
+				{ //select the next merc in the list
+					gpSelected = gpSelected->next;
+				}
+				else
+				{ //we are at the end of the list, so select the first merc in the list.
+					gpSelected = gSoldierInitHead;
+				}
 			}
 		}
 		if( !gpSelected ) //list is empty
@@ -1658,14 +1697,20 @@ void IndicateSelectedMerc( INT16 sID )
 		{
 			if( !gpSelected )
 			{
-				gpSelected = gSoldierInitHead;
+				if( fSelectPrevious )
+					gpSelected = gSoldierInitTail;
+				else
+					gpSelected = gSoldierInitHead;
 				continue;
 			}
 			if( gpSelected->pSoldier && gpSelected->pSoldier->bVisible == 1 && gpSelected->pSoldier->bTeam == bTeam )
 			{ //we have found a visible soldier on the desired team, so select him.
 				break;
 			}
-			gpSelected = gpSelected->next;
+			if( fSelectPrevious )
+				gpSelected = gpSelected->prev;
+			else
+				gpSelected = gpSelected->next;
 		}
 		if( !gpSelected )
 			return;
