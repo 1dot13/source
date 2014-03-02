@@ -1550,7 +1550,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	}
 
 	// Flugente: if we can order militia directly, don't have them wander around at random
-	if ( !MercStaffsMilitaryHQ() )
+	if ( MercStaffsMilitaryHQ() )
 		return;
 				
 	// HEADROCK HAM B2.7: If INI flag is set, allow militia to move out of Minor City sectors (Orta, Tixa, San Mona, etc).
