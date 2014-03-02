@@ -464,7 +464,7 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 				{
 					EXITGRID ExitGrid;
 					gfLoadingExitGrids = TRUE;
-					ExitGrid.usGridNo = pMap->usSubImageIndex;
+					ExitGrid.usGridNo = (UINT32)pMap->usHiExitGridNo << 16 | pMap->usSubImageIndex;//dnl ch86 260214 was ExitGrid.usGridNo = pMap->usSubImageIndex;
 					ExitGrid.ubGotoSectorX = (UINT8) pMap->usImageType;
 					ExitGrid.ubGotoSectorY = (UINT8) ( pMap->usImageType >> 8 ) ;
 					ExitGrid.ubGotoSectorZ = pMap->ubExtra;
@@ -1130,6 +1130,7 @@ void AddExitGridToMapTempFile( INT32 usGridNo, EXITGRID *pExitGrid, INT16 sSecto
 
 	Map.usImageType = pExitGrid->ubGotoSectorX | ( pExitGrid->ubGotoSectorY << 8 );
 	Map.usSubImageIndex = pExitGrid->usGridNo;
+	Map.usHiExitGridNo = pExitGrid->usGridNo >> 16;//dnl ch86 260214
 
 	Map.ubExtra		= pExitGrid->ubGotoSectorZ;
 	Map.ubType		= SLM_EXIT_GRIDS;

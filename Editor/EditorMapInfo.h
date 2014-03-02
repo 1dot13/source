@@ -26,8 +26,10 @@ enum
 {
 	PRIMETIME_LIGHT,
 	NIGHTTIME_LIGHT,
-	ALWAYSON_LIGHT
+	ALWAYSON_LIGHT,
+	ANY_LIGHT//dnl ch86 210214
 };
+
 void ChangeLightDefault( INT8 bLightType );
 extern INT8 gbDefaultLightType;
 

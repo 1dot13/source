@@ -3552,6 +3552,7 @@ void TrashWorld( void )
 	TrashDoorTable();
 	TrashMapEdgepoints();
 	TrashDoorStatusArray();
+	TrashExitGridTable();//dnl ch86 170214
 
 	//gfBlitBattleSectorLocator = FALSE;
 	gfWorldLoaded = FALSE;

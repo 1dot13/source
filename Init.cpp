@@ -118,7 +118,7 @@ extern	BOOLEAN	gfUseConsecutiveQuickSaveSlots;
 
 extern	HINSTANCE					ghInstance;
 
-extern OBJECTTYPE GLOCK_17_ForUseWithLOS;
+//extern OBJECTTYPE GLOCK_17_ForUseWithLOS;//dnl ch86 120214
 
 // Prepends the language prefix to the file name in a proposed path.
 static void AddLanguagePrefix(STR fileName, const STR language)
@@ -1525,7 +1525,7 @@ UINT32 InitializeJA2(void)
 
 	//ADB When a merc calcs CTGT for a thrown item he uses a GLOCK temp item
 	//but we don't want to recreate it every single time CTGT is called, so init the GLOCK here
-	CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);
+	//CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);//dnl ch86 120214 move to LOS.cpp
 	
 
 #ifdef JA2BETAVERSION

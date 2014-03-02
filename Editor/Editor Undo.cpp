@@ -19,6 +19,10 @@
 	#include "Render Fun.h"	//for access to gubWorldRoomInfo;
 	#include "Cursor Modes.h"
 	#include "Exit Grids.h"
+	//dnl ch86 110214
+	#include "keys.h"
+	#include "EditorItems.h"
+	#include "EditorMapInfo.h"
 #endif
 
 /*
@@ -70,18 +74,30 @@ void DisableUndo()
 	gfUndoEnabled = FALSE;
 }
 
-// undo node data element
+// undo node data element //dnl ch86 210214
 typedef struct
 {
-	INT32						iMapIndex;
-	MAP_ELEMENT		*pMapTile;
-	BOOLEAN				fLightSaved;	//determines that a light has been saved
-	UINT8					ubLightRadius; //the radius of the light to build if undo is called
-	UINT8					ubLightID;		//only applies if a light was saved.
-	//DBrot: More Rooms
-	//UINT8					ubRoomNum;
-	UINT16					usRoomNum;
-} undo_struct;
+	INT32 iMapIndex;
+	INT32 iNewMapIndex;// item pool translation when move bulding
+	MAP_ELEMENT *pMapTile;
+	ITEM_POOL *pItemPool;
+	UINT8 ubItemPoolLevel;
+	UINT8 ubLightRadius;// radius of prime light
+	UINT8 ubLightID;// only applies if a light was saved.
+	UINT8 ubLightRadius1;// radius of night light
+	UINT8 ubLightID1;
+	UINT8 ubLightRadius2;// radius of 24h light
+	UINT8 ubLightID2;
+	UINT8 ubExitGridX;
+	UINT8 ubExitGridY;
+	UINT8 ubExitGridZ;
+	UINT16 usRoomNum;//DBrot: More Rooms
+	INT32 iExitGridNo;
+	BOOLEAN fLocked;
+	UINT8 ubTrapLevel;
+	UINT8 ubTrapID;
+	UINT8 ubLockID;
+}undo_struct;
 
 // Undo stack node
 typedef struct TAG_undo_stack
@@ -357,7 +373,7 @@ void CropStackToMaxLength( INT32 iMaxCmds )
 	}
 }
 
-
+#if 0//dnl ch86 200214
 //We are adding a light to the undo list.	We won't save the mapelement, nor will
 //we validate the gridno in the binary tree.	This works differently than a mapelement,
 //because lights work on a different system.	By setting the fLightSaved flag to TRUE,
@@ -406,6 +422,7 @@ void AddLightToUndoList( INT32 iMapIndex, INT32 iLightRadius, UINT8 ubLightID )
 
 	CropStackToMaxLength( MAX_UNDO_COMMAND_LENGTH );
 }
+#endif
 
 BOOLEAN AddToUndoList( INT32 iMapIndex )
 {
@@ -482,12 +499,35 @@ BOOLEAN AddToUndoListCmd( INT32 iMapIndex, INT32 iCmdCount )
 		return( FALSE );
 	}
 
+	//dnl ch86 210214
+	memset(pUndoInfo, 0, sizeof(undo_struct));
+	EXITGRID ExitGrid;
+	if(GetExitGrid(iMapIndex, &ExitGrid))
+	{
+		pUndoInfo->iExitGridNo = ExitGrid.usGridNo;
+		pUndoInfo->ubExitGridX = ExitGrid.ubGotoSectorX;
+		pUndoInfo->ubExitGridY = ExitGrid.ubGotoSectorY;
+		pUndoInfo->ubExitGridZ = ExitGrid.ubGotoSectorZ;
+	}
+	FindLight(iMapIndex, PRIMETIME_LIGHT, &pUndoInfo->ubLightRadius, &pUndoInfo->ubLightID);
+	FindLight(iMapIndex, NIGHTTIME_LIGHT, &pUndoInfo->ubLightRadius1, &pUndoInfo->ubLightID1);
+	FindLight(iMapIndex, ALWAYSON_LIGHT, &pUndoInfo->ubLightRadius2, &pUndoInfo->ubLightID2);
+	DOOR *pDoor;
+	if((pDoor=FindDoorInfoAtGridNo(iMapIndex)) != NULL)
+	{
+		pUndoInfo->fLocked = pDoor->fLocked;
+		pUndoInfo->ubTrapLevel = pDoor->ubTrapLevel;
+		pUndoInfo->ubTrapID = pDoor->ubTrapID;
+		pUndoInfo->ubLockID = pDoor->ubLockID;
+	}
+	else
+		pUndoInfo->ubLockID = NUM_LOCKS;
+	pUndoInfo->iNewMapIndex = iMapIndex;
+	GetItemPoolFromGround(iMapIndex, &pUndoInfo->pItemPool);
+
 	// copy the room number information (it's not in the mapelement structure)
 	pUndoInfo->usRoomNum = gusWorldRoomInfo[ iMapIndex ];
 
-	pUndoInfo->fLightSaved = FALSE;
-	pUndoInfo->ubLightRadius = 0;
-	pUndoInfo->ubLightID = 0;
 	pUndoInfo->pMapTile = pData;
 	pUndoInfo->iMapIndex = iMapIndex;
 
@@ -581,7 +621,6 @@ BOOLEAN RemoveAllFromUndoList( void )
 	return( TRUE );
 }
 
-
 BOOLEAN ExecuteUndoList( void )
 {
 	INT32				iCmdCount, iCurCount;
@@ -603,7 +642,7 @@ BOOLEAN ExecuteUndoList( void )
 	while ( (iCurCount < iCmdCount) && (gpTileUndoStack != NULL) )
 	{
 		iUndoMapIndex = gpTileUndoStack->pData->iMapIndex;
-
+#if 0//dnl ch86 201214
 		fExitGrid = ExitGridAtGridNo( iUndoMapIndex );
 
 		// Find which map tile we are to "undo"
@@ -622,12 +661,64 @@ BOOLEAN ExecuteUndoList( void )
 			gfIgnoreUndoCmdsForLights = FALSE;
 		}
 		else
+#endif
 		{	// We execute the undo command node by simply swapping the contents
 			// of the undo's MAP_ELEMENT with the world's element.
 			SwapMapElementWithWorld( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );
 
 			// copy the room number information back
 			gusWorldRoomInfo[ iUndoMapIndex ] = gpTileUndoStack->pData->usRoomNum;
+
+			//dnl ch86 220214
+			if(fExitGrid = gpTileUndoStack->pData->ubExitGridX && gpTileUndoStack->pData->ubExitGridY)
+			{
+				EXITGRID ExitGrid;
+				ExitGrid.usGridNo = gpTileUndoStack->pData->iExitGridNo;
+				ExitGrid.ubGotoSectorX = gpTileUndoStack->pData->ubExitGridX;
+				ExitGrid.ubGotoSectorY = gpTileUndoStack->pData->ubExitGridY;
+				ExitGrid.ubGotoSectorZ = gpTileUndoStack->pData->ubExitGridZ;
+				AddExitGridToWorld(iUndoMapIndex, &ExitGrid);
+			}
+			else
+				RemoveExitGridFromWorld(iUndoMapIndex);
+			INT16 sX, sY;
+			ConvertGridNoToXY(iUndoMapIndex, &sX, &sY);
+			if(gpTileUndoStack->pData->ubLightRadius)
+				PlaceLight(gpTileUndoStack->pData->ubLightRadius, sX, sY, gpTileUndoStack->pData->ubLightID, PRIMETIME_LIGHT);
+			else
+				RemoveLight(sX, sY, PRIMETIME_LIGHT);
+			if(gpTileUndoStack->pData->ubLightRadius1)
+				PlaceLight(gpTileUndoStack->pData->ubLightRadius1, sX, sY, gpTileUndoStack->pData->ubLightID1, NIGHTTIME_LIGHT);
+			else
+				RemoveLight(sX, sY, NIGHTTIME_LIGHT);
+			if(gpTileUndoStack->pData->ubLightRadius2)
+				PlaceLight(gpTileUndoStack->pData->ubLightRadius2, sX, sY, gpTileUndoStack->pData->ubLightID2, ALWAYSON_LIGHT);
+			else
+				RemoveLight(sX, sY, ALWAYSON_LIGHT);
+			if(gpTileUndoStack->pData->ubLockID < NUM_LOCKS)
+			{
+				DOOR Door;
+				memset(&Door, 0, sizeof(DOOR));
+				Door.sGridNo = iUndoMapIndex;
+				Door.fLocked = gpTileUndoStack->pData->fLocked;
+				Door.ubTrapLevel = gpTileUndoStack->pData->ubTrapLevel;
+				Door.ubTrapID = gpTileUndoStack->pData->ubTrapID;
+				Door.ubLockID = gpTileUndoStack->pData->ubLockID;
+				AddDoorInfoToTable(&Door);
+			}
+			else
+			{
+				RemoveDoorInfoFromTable(iUndoMapIndex);
+				RemoveAllTopmostsOfTypeRange(iUndoMapIndex, ROTATINGKEY, ROTATINGKEY);
+			}
+			if(gpTileUndoStack->pData->pItemPool)
+			{
+				ItemPoolListMove(gpTileUndoStack->pData->iNewMapIndex, gpTileUndoStack->pData->iMapIndex, gpTileUndoStack->pData->pItemPool);
+				AddItemPoolGraphic(gpTileUndoStack->pData->pItemPool);
+				ShowItemCursor(iUndoMapIndex);
+			}
+			else
+				HideItemCursor(iUndoMapIndex);
 
 			// Now we smooth out the changes...
 			//SmoothUndoMapTileTerrain( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );
@@ -645,7 +736,7 @@ BOOLEAN ExecuteUndoList( void )
 		//an undo is called, the item is erased, but a cursor is added!	I'm quickly
 		//hacking around this by erasing all cursors here.
 		RemoveAllTopmostsOfTypeRange( iUndoMapIndex, FIRSTPOINTERS, FIRSTPOINTERS );
-
+#if 0//dnl ch86 110214
 		if( fExitGrid && !ExitGridAtGridNo( iUndoMapIndex ) )
 		{ //An exitgrid has been removed, so get rid of the associated indicator.
 			RemoveTopmost( iUndoMapIndex, FIRSTPOINTERS8 );
@@ -654,6 +745,10 @@ BOOLEAN ExecuteUndoList( void )
 		{ //An exitgrid has been added, so add the associated indicator
 			AddTopmostToTail( iUndoMapIndex, FIRSTPOINTERS8 );
 		}
+#else
+		if(gfShowExitGrids && fExitGrid)
+			AddTopmostToTail(iUndoMapIndex, FIRSTPOINTERS8);
+#endif
 	}
 
 	return( TRUE );
@@ -873,6 +968,11 @@ BOOLEAN CopyMapElementFromWorld( MAP_ELEMENT *pNewMapElement, INT32 iMapIndex )
 		pNewLevelNode = NULL;
 		while( pOldLevelNode )
 		{
+			if(pOldLevelNode->uiFlags & LEVELNODE_ITEM)//dnl ch86 220214 skip items as they will be added depending of item pool content
+			{
+				pOldLevelNode = pOldLevelNode->pNext;
+				continue;
+			}
 			//copy the level node
 			pLevelNode = ( LEVELNODE* )MemAlloc( sizeof( LEVELNODE ) );
 			if( !pLevelNode )
@@ -1010,5 +1110,96 @@ void DetermineUndoState()
 	}
 }
 
+//dnl ch86 240214
+BOOLEAN CheckMapIndexInUndoList(INT32 iMapIndex)
+{
+	undo_stack *curr = gpTileUndoStack;
+	while(curr)
+	{
+		if(curr->pData->iMapIndex == iMapIndex)
+			return(TRUE);
+		curr = curr->pNext;
+	}
+	return(FALSE);
+}
+
+void UpdateItemPoolInUndoList(INT32 iMapIndex, ITEM_POOL *pItemPoolOld, ITEM_POOL *pItemPoolNew)
+{
+	if(pItemPoolOld == pItemPoolNew)
+		return;
+	undo_stack *curr = gpTileUndoStack;
+	while(curr)
+	{
+		if(pItemPoolOld && curr->pData->pItemPool == pItemPoolOld || !pItemPoolOld && curr->pData->iMapIndex == iMapIndex)
+			curr->pData->pItemPool = pItemPoolNew;
+		curr = curr->pNext;
+	}
+}
+
+void UpdateItemPoolMoveInUndoList(INT32 iMapIndex, INT32 iNewMapIndex)
+{
+	INT32 iCurCount = 0;
+	undo_stack *curr = gpTileUndoStack;
+	while(curr && iCurCount < gpTileUndoStack->iCmdCount)
+	{
+		if(curr->pData->iMapIndex == iMapIndex)
+		{
+			curr->pData->iNewMapIndex = iNewMapIndex;
+			return;
+		}
+		iCurCount++;
+		curr = curr->pNext;
+	}
+}
+
+extern LEVELNODE *AddItemGraphicToWorld(INVTYPE *pItem, INT32 sGridNo, UINT8 ubLevel);
+void AddItemPoolGraphic(ITEM_POOL *pItemPoolHead)
+{
+	ITEM_POOL *pItemPool = pItemPoolHead;
+	while(pItemPool)
+	{
+		pItemPool->pLevelNode = AddItemGraphicToWorld(&Item[gWorldItems[pItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].sGridNo, gWorldItems[pItemPool->iItemIndex].ubLevel);
+		pItemPool->pLevelNode->pItemPool = pItemPoolHead;
+		pItemPool = pItemPool->pNext;
+	}
+}
+
+void UndoItemPoolGraphicInUndoList(void)// use only for reconstruct item pool graphic if building was paste over them
+{
+	ITEM_POOL *pItemPool;
+	INT32 iCurCount = 0;
+	undo_stack *curr = gpTileUndoStack;
+	while(curr && iCurCount < gpTileUndoStack->iCmdCount)
+	{
+		if(curr->pData->pItemPool && curr->pData->iMapIndex == curr->pData->iNewMapIndex && !GetItemPoolFromGround(curr->pData->iMapIndex, &pItemPool))
+		{
+			AddItemPoolGraphic(curr->pData->pItemPool);
+			ShowItemCursor(curr->pData->iMapIndex);
+		}
+		iCurCount++;
+		curr = curr->pNext;
+	}
+}
+
+void MergeItemPoolInUndoList(INT32 iMapIndex, ITEM_POOL *pItemPool)
+{
+	INT32 iCurCount = 0;
+	undo_stack *curr = gpTileUndoStack;
+	while(curr && iCurCount < gpTileUndoStack->iCmdCount)
+	{
+		if(curr->pData->pItemPool && curr->pData->iMapIndex == iMapIndex && curr->pData->iMapIndex == curr->pData->iNewMapIndex)
+		{
+			DeleteItemNode(iMapIndex);// remove merged duplicate node from the list
+			while(pItemPool->pNext)
+				pItemPool = pItemPool->pNext;
+			pItemPool->pNext = curr->pData->pItemPool;
+			curr->pData->pItemPool->pPrev = pItemPool;
+			curr->pData->pItemPool = NULL;
+			break;
+		}
+		iCurCount++;
+		curr = curr->pNext;
+	}
+}
 
 #endif

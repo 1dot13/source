@@ -1036,7 +1036,7 @@ void ProcessEditorRendering()
 
 	if( gfSummaryWindowActive )
 		RenderSummaryWindow();
-	else if( !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() )
+	else if( !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() && !gfEditingDoor )//dnl ch86 220214
 		RenderMercStrings();
 
 	if( gfEditingDoor )
@@ -1046,7 +1046,7 @@ void ProcessEditorRendering()
 		RenderAllTextFields();
 	RenderEditorInfo();
 
-	if( !gfSummaryWindowActive && !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() )
+	if( !gfSummaryWindowActive && !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() && !gfEditingDoor )//dnl ch86 220214
 	{
 		if( gpItem && gsItemGridNo != -1 )
 			RenderSelectedItemBlownUp();
@@ -1064,7 +1064,7 @@ void ProcessEditorRendering()
 	//It is set to false when before we save the buffer, so the buttons don't get
 	//rendered with hilites, in case the mouse is over one.
 	gfRenderHilights = TRUE;
-	if(!gfSummaryWindowActive && !gfScrollInertia)//dnl ch77 131113 //dnl ch78 271113
+	if(!gfSummaryWindowActive && !gfScrollInertia && !gfEditingDoor)//dnl ch77 131113 //dnl ch78 271113 //dnl ch86 210214
 		RenderButtonsFastHelp();
 }
 

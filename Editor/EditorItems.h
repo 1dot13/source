@@ -61,13 +61,10 @@ void HandleItemsPanel( UINT16 usScreenX, UINT16 usScreenY, INT8 bEvent );
 
 extern INT32 giDefaultExistChance;
 
+//dnl ch86 120214
+typedef struct TAG_ITEM_POOL ITEM_POOL;
+BOOLEAN ItemPoolListMove(INT32 iOldGridNo, INT32 iNewGridNo, ITEM_POOL *pItemPool);
+BOOLEAN DeleteItemNode(INT32 iMapIndex);
+
 #endif
 #endif
-
-
-
- 
-
-
-
-

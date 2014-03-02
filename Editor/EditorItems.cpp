@@ -43,6 +43,7 @@
 	#include "Pits.h"
 	#include "keys.h"
 	#include "InterfaceItemImages.h"
+	#include "Editor Undo.h"//dnl ch86 220214
 #endif
 
 #include <vfs/Tools/vfs_log.h>
@@ -844,7 +845,7 @@ void ShowItemCursor( INT32 iMapIndex )
 	pNode = gpWorldLevelData[ iMapIndex ].pTopmostHead;
 	while( pNode )
 	{
-		if( pNode->usIndex == SELRING )
+		if( pNode->usIndex == SELRING1 )//dnl ch86 240214
 			return;
 		pNode = pNode->pNext;
 	}
@@ -982,6 +983,8 @@ void AddSelectedItemToWorld( INT32 sGridNo )
 			break;
 	}
 
+	ITEM_POOL *pItemPoolOld;
+	GetItemPoolFromGround(sGridNo, &pItemPoolOld);//dnl ch86 220214
 	pObject = InternalAddItemToPool( &sGridNo, &gTempObject, bVisibility, 0, usFlags, 0, -1, &iItemIndex );
 	if( gTempObject.usItem != OWNERSHIP )
 	{
@@ -1026,6 +1029,7 @@ void AddSelectedItemToWorld( INT32 sGridNo )
 
 	if( !GetItemPoolFromGround( sGridNo, &pItemPool ) )
 		Assert( 0 );
+	UpdateItemPoolInUndoList(sGridNo, pItemPoolOld, pItemPool);//dnl ch86 220214
 	while( pItemPool )
 	{
 		if( &(gWorldItems[ pItemPool->iItemIndex ].object) == pObject )
@@ -1122,7 +1126,7 @@ void DeleteSelectedItem()
 {
 	SpecifyItemToEdit( NULL, -1 );
 	//First, check to see if there even is a currently selected item.
-	if( iCurrentTaskbar == TASK_MERCS )
+	if( gsSelectedMercID != -1 )//dnl ch86 220214
 	{
 		DeleteSelectedMercsItem();
 		return;
@@ -1136,7 +1140,6 @@ void DeleteSelectedItem()
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->pNext->iItemIndex ].object, gpItemPool->sGridNo );
 		}
 		sGridNo = gpItemPool->sGridNo;
-
 		//remove the item
 		if( gWorldItems[ gpItemPool->iItemIndex ].object.usItem == ACTION_ITEM )
 		{
@@ -1148,10 +1151,16 @@ void DeleteSelectedItem()
 		if( gpEditingItemPool == gpItemPool )
 			gpEditingItemPool = NULL;
 		RemoveItemFromPool( sGridNo, gpItemPool->iItemIndex, 0 );
+#if 0//dnl ch86 220214
 		gpItemPool = NULL;
-		
 		//determine if there are still any items at this location
 		if( GetItemPoolFromGround( sGridNo, &gpItemPool ) )
+#else
+		ITEM_POOL *pItemPoolOld = gpItemPool;
+		GetItemPoolFromGround(sGridNo, &gpItemPool);
+		UpdateItemPoolInUndoList(sGridNo, pItemPoolOld, gpItemPool);
+		if(gpItemPool)
+#endif
 		{ //reset display for remaining items
 			SpecifyItemToEdit( &gWorldItems[ gpItemPool->iItemIndex ].object, gpItemPool->sGridNo );
 		}
@@ -1173,7 +1182,7 @@ void DeleteSelectedItem()
 						gpCurrItemPoolNode = pIPCurr->next;
 					else
 						gpCurrItemPoolNode = pIPHead;
-					if( gpCurrItemPoolNode )
+					if( gpCurrItemPoolNode && iCurrentTaskbar == TASK_ITEMS )//dnl ch86 220214
 					{
 						//get the item pool at this node's gridno.
 						GetItemPoolFromGround( gpCurrItemPoolNode->sGridNo, &gpItemPool );
@@ -1774,6 +1783,50 @@ void ScrollEditorItemsInfo(BOOLEAN fForward)//dnl ch80 011213
 	}
 	DetermineItemsScrolling();
 	gfRenderTaskbar = TRUE;
+}
+
+//dnl ch86 120214
+BOOLEAN ItemPoolListMove(INT32 iOldGridNo, INT32 iNewGridNo, ITEM_POOL *pItemPool)
+{
+	while(pItemPool)
+	{
+		if(gWorldItems[pItemPool->iItemIndex].sGridNo == iOldGridNo)
+			gWorldItems[pItemPool->iItemIndex].sGridNo = iNewGridNo;
+		pItemPool->sGridNo = iNewGridNo;
+		pItemPool = pItemPool->pNext;
+	}
+	IPListNode *curr = pIPHead;
+	while(curr)
+	{
+		if(curr->sGridNo == iOldGridNo)
+			curr->sGridNo = iNewGridNo;
+		curr = curr->next;
+	}
+	return(TRUE);
+}
+
+BOOLEAN DeleteItemNode(INT32 iMapIndex)
+{
+	IPListNode *pIPPrev = NULL, *pIPCurr = pIPHead;
+	while(pIPCurr)
+	{
+		if(pIPCurr->sGridNo == iMapIndex)// remove node from the list
+		{
+			if(pIPPrev)
+				pIPPrev->next = pIPCurr->next;// middle of list
+			else
+				pIPHead = pIPHead->next;// head of list
+			if(pIPCurr->next)// move the curr item pool to the next one
+				gpCurrItemPoolNode = pIPCurr->next;
+			else
+				gpCurrItemPoolNode = pIPHead;
+			MemFree(pIPCurr);
+			pIPCurr = NULL;
+			return(TRUE);
+		}
+		pIPPrev = pIPCurr, pIPCurr = pIPCurr->next;
+	}
+	return(FALSE);
 }
 
 #endif

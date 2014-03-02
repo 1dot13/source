@@ -28,6 +28,12 @@
 	#include "selectwin.h"
 	#include "Simple Render Utils.h"
 	#include "Text.h"
+	//dnl ch86 100214
+	#include "lighting.h"
+	#include "Exit Grids.h"
+	#include "editscreen.h"
+	#include "EditorItems.h"
+	#include "EditorMapInfo.h"
 #endif
 
 BOOLEAN fBuildingShowRoofs, fBuildingShowWalls, fBuildingShowRoomInfo;
@@ -297,7 +303,7 @@ void PasteMapElementToNewMapElement( INT32 iSrcGridNo, INT32 iDstGridNo )
 {
 	MAP_ELEMENT			*pSrcMapElement;
 	LEVELNODE				*pNode;
-	UINT16					usType;
+	//UINT16					usType;//dnl ch86 110214
 
 	DeleteStuffFromMapTile( iDstGridNo );
 	DeleteAllLandLayers( iDstGridNo );
@@ -318,19 +324,22 @@ void PasteMapElementToNewMapElement( INT32 iSrcGridNo, INT32 iDstGridNo )
 	pNode = pSrcMapElement->pObjectHead;
 	while( pNode )
 	{
-		AddObjectToTail( iDstGridNo, pNode->usIndex );
+		if(pNode->usIndex != GOODRING1)//dnl ch86 130214 skip light circle marker
+			AddObjectToTail(iDstGridNo, pNode->usIndex);
 		pNode = pNode->pNext;
 	}
 	pNode = pSrcMapElement->pStructHead;
 	while( pNode )
 	{
-		AddStructToTail( iDstGridNo, pNode->usIndex );
+		if(!(pNode->uiFlags & LEVELNODE_ITEM))//dnl ch86 120214 skip items
+			AddStructToTail(iDstGridNo, pNode->usIndex);
 		pNode = pNode->pNext;
 	}
 	pNode = pSrcMapElement->pShadowHead;
 	while( pNode )
 	{
-		AddShadowToTail( iDstGridNo, pNode->usIndex );
+		if(!(pNode->uiFlags & LEVELNODE_EXITGRID))//dnl ch86 120214 skip exit grids
+			AddShadowToTail(iDstGridNo, pNode->usIndex);
 		pNode = pNode->pNext;
 	}
 	pNode = pSrcMapElement->pRoofHead;
@@ -342,22 +351,26 @@ void PasteMapElementToNewMapElement( INT32 iSrcGridNo, INT32 iDstGridNo )
 	pNode = pSrcMapElement->pOnRoofHead;
 	while( pNode )
 	{
-		AddOnRoofToTail( iDstGridNo, pNode->usIndex );
+		if(!(pNode->uiFlags & LEVELNODE_ITEM))//dnl ch86 120214 skip items
+			AddOnRoofToTail(iDstGridNo, pNode->usIndex);
 		pNode = pNode->pNext;
 	}
 	pNode = pSrcMapElement->pTopmostHead;
 	while( pNode )
 	{
-		if( pNode->usIndex != FIRSTPOINTERS1 )
+		if( !(pNode->usIndex == FIRSTPOINTERS1 || pNode->usIndex == ROTATINGKEY1 || pNode->usIndex == SELRING1) )//dnl ch86 130214
 			AddTopmostToTail( iDstGridNo, pNode->usIndex );
 		pNode = pNode->pNext;
 	}
+#if 0//dnl ch86 110214
 	for ( usType = FIRSTROOF; usType <= LASTSLANTROOF; usType++ )
 	{
 		HideStructOfGivenType( iDstGridNo, usType, (BOOLEAN)(!fBuildingShowRoofs) );
 	}
+#endif
 }
 
+#if 0//dnl ch86 220214
 void MoveBuilding( INT32 iMapIndex )
 {
 	BUILDINGLAYOUTNODE *curr;
@@ -386,6 +399,69 @@ void MoveBuilding( INT32 iMapIndex )
 	}
 	MarkWorldDirty();
 }
+#else
+void MoveBuilding( INT32 iMapIndex )
+{
+	INT8 bLightType;
+	UINT8 ubLightRadius, ubLightId;
+	INT16 sX, sY;
+	INT32 iOffset, iNewGridNo;
+	EXITGRID ExitGrid;
+	DOOR Door, *pDoor;
+	BUILDINGLAYOUTNODE *curr;
+	if(!gpBuildingLayoutList)
+		return;
+	SortBuildingLayout(iMapIndex);
+	iOffset = iMapIndex - gsBuildingLayoutAnchorGridNo;
+	if(iOffset == 0)//dnl ch32 080909
+		return;
+	// First time, set the undo gridnos to everything effected.
+	curr = gpBuildingLayoutList;
+	while(curr)
+	{
+		AddToUndoList(curr->sGridNo);
+		AddToUndoList(curr->sGridNo + iOffset);
+		curr = curr->next;
+	}
+	// Now, move the building
+	curr = gpBuildingLayoutList;
+	while(curr)
+	{
+		iNewGridNo = curr->sGridNo + iOffset;
+		PasteMapElementToNewMapElement(curr->sGridNo, iNewGridNo);
+		PasteRoomNumber(iNewGridNo, gusWorldRoomInfo[curr->sGridNo]);
+		if(GetExitGrid(curr->sGridNo, &ExitGrid))
+			AddExitGridToWorld(iNewGridNo, &ExitGrid);
+		ConvertGridNoToXY(iNewGridNo, &sX, &sY);
+		for(bLightType=PRIMETIME_LIGHT; bLightType<ANY_LIGHT; bLightType++)
+			if(FindLight(curr->sGridNo, bLightType, &ubLightRadius, &ubLightId))
+				PlaceLight(ubLightRadius, sX, sY, ubLightId, bLightType);
+		if((pDoor=FindDoorInfoAtGridNo(curr->sGridNo)) != NULL)
+		{
+			Door = *pDoor;
+			Door.sGridNo = iNewGridNo;
+			AddDoorInfoToTable(&Door);
+			AddTopmostToHead(Door.sGridNo, ROTATINGKEY1);
+		}
+		ITEM_POOL *pItemPool;
+		if(GetItemPoolFromGround(curr->sGridNo, &pItemPool))
+		{
+			MergeItemPoolInUndoList(iNewGridNo, pItemPool);
+			UpdateItemPoolMoveInUndoList(curr->sGridNo, iNewGridNo);
+			ItemPoolListMove(curr->sGridNo, iNewGridNo, pItemPool);
+			AddItemPoolGraphic(pItemPool);
+			ShowItemCursor(iNewGridNo);
+		}
+		DeleteStuffFromMapTile(curr->sGridNo);
+		curr = curr->next;
+	}
+	UndoItemPoolGraphicInUndoList();// Reconstruct item pool graphic if buliding was paste over them
+	UpdateRoofsView();
+	UpdateWallsView();
+	MarkWorldDirty();
+	LightSpriteRenderAll();
+}
+#endif
 
 void PasteBuilding( INT32 iMapIndex )
 {
@@ -410,14 +486,12 @@ void PasteBuilding( INT32 iMapIndex )
 	while( curr )
 	{
 		PasteMapElementToNewMapElement( curr->sGridNo, curr->sGridNo + iOffset );
-		//dnl ch85 070214
-		RemoveAllObjectsOfTypeRange(curr->sGridNo + iOffset, GOODRING, GOODRING);
-		RemoveAllTopmostsOfTypeRange(curr->sGridNo + iOffset, ROTATINGKEY, SELRING);
-		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, GUNS, P2ITEMS);
-		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, P3ITEMS, P3ITEMS);
-		RemoveAllStructsOfTypeRange(curr->sGridNo + iOffset, P4ITEMS, P20ITEMS);
 		curr = curr->next;
 	}
+	//dnl ch86 220214
+	UndoItemPoolGraphicInUndoList();
+	UpdateRoofsView();
+	UpdateWallsView();
 	MarkWorldDirty();
 }
 
@@ -767,13 +841,4 @@ void ExtractAndUpdateBuildingInfo()
 	SetActiveField( 0 );
 }
 
-
-
 #endif
-
-
-
-
-
-
-

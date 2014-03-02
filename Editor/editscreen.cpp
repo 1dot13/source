@@ -1331,6 +1331,7 @@ void HandleJA2ToolbarSelection( void )
 				case DRAW_MODE_ISOLATEDPOINT:
 
 				case DRAW_MODE_HIGH_GROUND://dnl ch1 210909
+				case DRAW_MODE_DOORKEYS://dnl ch86 220214
 
 					iDrawMode += DRAW_MODE_ERASE;
 					break;
@@ -1391,6 +1392,8 @@ void HandleKeyboardShortcuts( )
 		if( !HandleSummaryInput( &EditorInputEvent ) && !HandleTextInput( &EditorInputEvent ) && EditorInputEvent.usEvent == KEY_DOWN )
 		{
 			if(InOverheadMap() && !(EditorInputEvent.usParam == ESC))//dnl ch81 031213
+				return;
+			if(gfEditingDoor && !(EditorInputEvent.usParam == ESC || EditorInputEvent.usParam == ENTER))//dnl ch86 220214
 				return;
 			if( gfGotoGridNoUI )
 			{
@@ -2606,8 +2609,10 @@ UINT32 PerformSelectedAction( void )
 				ExtractAndUpdateOptions();
 			return(LOADSAVE_SCREEN);
 
-		case ACTION_UNDO:
-			ExecuteUndoList( );
+		case ACTION_UNDO://dnl ch86 240213
+			ExecuteUndoList();
+			UpdateRoofsView();
+			UpdateWallsView();
 			gfRenderWorld = TRUE;
 			break;
 
@@ -3157,7 +3162,7 @@ void ShowCurrentSlotImage( HVOBJECT hVObj, INT32 iWindow )
 //
 //	Creates and places a light of selected radius and color into the world.
 //
-BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType )
+BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType, INT8 bLightType )//dnl ch86 210214
 {
 	INT32 iLightHandle;
 	UINT8 ubIntensity;
@@ -3208,7 +3213,7 @@ BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType )
 		return( FALSE );
 	}
 
-	switch( gbDefaultLightType )
+	switch( bLightType )//dnl ch86 210214
 	{
 		case PRIMETIME_LIGHT:
 			LightSprites[ iLightHandle ].uiFlags |= LIGHT_PRIMETIME;
@@ -3225,7 +3230,7 @@ BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType )
 		gpWorldLevelData[ iMapIndex ].pObjectHead->ubShadeLevel = DEFAULT_SHADE_LEVEL;
 	}
 
-	AddLightToUndoList( iMapIndex, 0, 0 );
+	//AddLightToUndoList( iMapIndex, 0, 0 );//dnl ch86 200214
 
 	return( TRUE );
 }
@@ -3240,6 +3245,7 @@ BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType )
 //	Returns TRUE if deleted the light, otherwise, returns FALSE.
 //	i.e. FALSE is not an error condition!
 //
+#if 0//dnl ch86 210214
 BOOLEAN RemoveLight( INT16 iMapX, INT16 iMapY )
 {
 	INT32 iCount;
@@ -3297,7 +3303,25 @@ BOOLEAN RemoveLight( INT16 iMapX, INT16 iMapY )
 
 	return( fRemovedLight );
 }
+#else
+BOOLEAN RemoveLight(INT16 iMapX, INT16 iMapY, INT8 bLightType)
+{
+	INT32 iCount, iMapIndex;
+	UINT8 ubLightRadius, ubLightId;
+	BOOLEAN fRemovedLight = FALSE;
 
+	iMapIndex = FASTMAPROWCOLTOPOS(iMapY, iMapX);
+	while(FindLight(iMapIndex, bLightType, &ubLightRadius, &ubLightId, &iCount))
+	{
+		LightSpritePower(iCount, FALSE);
+		LightSpriteDestroy(iCount);
+		fRemovedLight = TRUE;
+	}
+	if(fRemovedLight && !FindLight(iMapIndex, ANY_LIGHT, &ubLightRadius, &ubLightId))
+		RemoveAllObjectsOfTypeRange(iMapIndex, GOODRING, GOODRING);
+	return(fRemovedLight);
+}
+#endif
 
 //----------------------------------------------------------------------------------------------
 //	ShowLightPositionHandles
@@ -3818,6 +3842,8 @@ void HandleMouseClicksInGameScreen()//dnl ch80 011213
 	static UINT32 iLastMapIndexLB(-1), iLastMapIndexRB(-1), iLastMapIndexMB(-1);
 	INT16 sX, sY;
 	BOOLEAN fPrevState;
+	UINT8 ubLightRadius, ubLightId;//dnl ch86 210214
+
 	if(!GetMouseXY(&sGridX, &sGridY))
 		return;
 	if(iCurrentTaskbar == TASK_OPTIONS || iCurrentTaskbar == TASK_NONE)// if in taskbar modes which don't process clicks in the world
@@ -3838,7 +3864,13 @@ void HandleMouseClicksInGameScreen()//dnl ch80 011213
 				for(sX=(INT16)gSelectRegion.iLeft; sX<=(INT16)gSelectRegion.iRight; sX++)
 				{
 					if(iDrawMode == (DRAW_MODE_LIGHT + DRAW_MODE_ERASE))
-						RemoveLight(sX, sY);
+					{
+						if(FindLight(iMapIndex, gbDefaultLightType, &ubLightRadius, &ubLightId))//dnl ch86 210214
+						{
+							AddToUndoList(iMapIndex);
+							RemoveLight(sX, sY, gbDefaultLightType);
+						}
+					}
 					else
 						EraseMapTile(MAPROWCOLTOPOS(sY, sX));
 				}
@@ -3927,8 +3959,12 @@ void HandleMouseClicksInGameScreen()//dnl ch80 011213
 			case DRAW_MODE_CIVILIAN:
 				AddMercToWorld(iMapIndex);// Handle adding mercs to the world
 				break;
-			case DRAW_MODE_LIGHT:
-				PlaceLight(gsLightRadius, sGridX, sGridY, 0);// Add a normal light to the world
+			case DRAW_MODE_LIGHT://dnl ch86 210214
+				if(FindLight(iMapIndex, gbDefaultLightType, &ubLightRadius, &ubLightId) && ubLightRadius == gsLightRadius && ubLightId == 0)
+					break;
+				AddToUndoList(iMapIndex);
+				RemoveLight(sGridX, sGridY, gbDefaultLightType);
+				PlaceLight(gsLightRadius, sGridX, sGridY, 0, gbDefaultLightType);// Add a normal light to the world
 				break;
 			case DRAW_MODE_SAW_ROOM:
 			case DRAW_MODE_ROOM:
@@ -4420,6 +4456,7 @@ void DrawObjectsBasedOnSelectionRegion()
 {
 	INT32 x, y, iMapIndex;
 	BOOLEAN fSkipTest;
+	EXITGRID ExitGrid;//dnl ch86 190214
 
 	//Certain drawing modes are placed with 100% density.	Those cases are checked here,
 	//so the density test can be skipped.
@@ -4447,9 +4484,13 @@ void DrawObjectsBasedOnSelectionRegion()
 				switch( iDrawMode )
 				{
 					case DRAW_MODE_EXITGRID:
-						AddToUndoList( iMapIndex );
-						AddExitGridToWorld( iMapIndex, &gExitGrid );
-						AddTopmostToTail( iMapIndex, FIRSTPOINTERS8 );
+						if(GetExitGrid(iMapIndex, &ExitGrid) == FALSE || !ExitGrid.Equal(gExitGrid))//dnl ch86 190214
+						{
+							RemoveTopmost(iMapIndex, FIRSTPOINTERS8);
+							AddToUndoList(iMapIndex);
+							AddExitGridToWorld(iMapIndex, &gExitGrid);
+							AddTopmostToTail(iMapIndex, FIRSTPOINTERS8);
+						}
 						break;
 					case DRAW_MODE_DEBRIS:		PasteDebris( iMapIndex );													break;
 					case DRAW_MODE_FLOORS:		PasteSingleFloor( iMapIndex );										break;
@@ -4535,7 +4576,7 @@ UINT32	EditScreenHandle( void )
 	// If editing mercs, handle that stuff
 	ProcessMercEditing();
 
-	if(!gfSummaryWindowActive)//dnl ch78 261113
+	if(!gfSummaryWindowActive && !gfEditingDoor)//dnl ch78 261113 //dnl ch86 220214
 		EnsureStatusOfEditorButtons();
 
 	// Handle scrolling of the map if needed
@@ -4680,7 +4721,7 @@ void ShowHighGround(INT32 iShowHighGroundCommand)//dnl ch2 210909
 	case 0:
 		for(int cnt=0; cnt<WORLD_MAX; cnt++)
 		{
-			if(!gpWorldLevelData[cnt].sHeight)
+			if(!gpWorldLevelData[cnt].sHeight && GridNoOnVisibleWorldTile(cnt))//dnl ch86 210214
 			{
 				RemoveTopmost(cnt, FIRSTPOINTERS7);
 				{
@@ -4695,7 +4736,7 @@ void ShowHighGround(INT32 iShowHighGroundCommand)//dnl ch2 210909
 		ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pShowHighGroundText[0] );
 		for(int cnt=0; cnt<WORLD_MAX; cnt++)
 		{
-			if(gpWorldLevelData[cnt].sHeight)
+			if(gpWorldLevelData[cnt].sHeight && GridNoOnVisibleWorldTile(cnt))//dnl ch86 210214
 			{
 				RemoveTopmost(cnt, FIRSTPOINTERS11);
 				{
@@ -4763,6 +4804,35 @@ void RemoveKeyboardItemCreationUI()
 	MarkWorldDirty();
 }
 
+BOOLEAN FindLight(INT32 iGridNo, INT8 bLightType, UINT8 *pubLightRadius, UINT8 *pubLightId, INT32 *piSprite)//dnl ch86 210214
+{
+	INT8 bSpriteLightType;
+	INT16 sX, sY;
+	INT32 iCount, cnt;
+	SOLDIERTYPE *pSoldier;
+
+	ConvertGridNoToXY(iGridNo, &sX, &sY);
+	for(iCount=0; iCount<MAX_LIGHT_SPRITES; iCount++)
+	{
+		bSpriteLightType = (LightSprites[iCount].uiFlags & LIGHT_PRIMETIME ? PRIMETIME_LIGHT : (LightSprites[iCount].uiFlags & LIGHT_NIGHTTIME ? NIGHTTIME_LIGHT : ALWAYSON_LIGHT));
+		if((LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE) && LightSprites[iCount].iX == sX && LightSprites[iCount].iY == sY && (bLightType == bSpriteLightType || bLightType == ANY_LIGHT))
+		{
+			for(cnt=0; cnt<MAX_NUM_SOLDIERS; cnt++)
+				if(GetSoldier(&pSoldier, cnt) && pSoldier->iLight == iCount)
+					break;
+			if(cnt == MAX_NUM_SOLDIERS)
+			{
+				*pubLightRadius = pLightNames[LightSprites[iCount].iTemplate][4] - '0';
+				*pubLightId = LightSprites[iCount].uiLightType;
+				if(piSprite)
+					*piSprite = iCount;
+				return(TRUE);
+			}
+		}
+	}
+	return(FALSE);
+}
+
 #else //non-editor version
 
 #include "types.h"
@@ -4785,4 +4855,3 @@ UINT32 EditScreenShutdown( )
 }
 
 #endif
-

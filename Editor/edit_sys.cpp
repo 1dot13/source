@@ -28,6 +28,10 @@
 	#include "environment.h"
 	#include "Simple Render Utils.h"
 	#include "Road Smoothing.h"
+	//dnl ch86 140214
+	#include "Keys.h"
+	#include "EditorMapInfo.h"
+	#include "EditorItems.h"
 #endif
 
 BOOLEAN PasteHigherTextureFromRadius( INT32 iMapIndex, UINT32 uiNewType, UINT8 ubRadius );
@@ -60,6 +64,9 @@ void QuickEraseMapTile( INT32 iMapIndex )
 {
 	if ( iMapIndex >= 0x80000000 )
 		return;
+	if(GetItemPoolFromGround(iMapIndex, &gpItemPool))//dnl ch86 220214
+		while(gpItemPool)
+			DeleteSelectedItem();
 	AddToUndoList( iMapIndex );
 	DeleteStuffFromMapTile( iMapIndex );
 	MarkWorldDirty();
@@ -71,26 +78,24 @@ void QuickEraseMapTile( INT32 iMapIndex )
 //
 //	Common delete function for both QuickEraseMapTile and EraseMapTile
 //
-void DeleteStuffFromMapTile( INT32 iMapIndex )
+void DeleteStuffFromMapTile(INT32 iMapIndex)//dnl ch86 140214
 {
-	//UINT16		usUseIndex;
-	//UINT16		usType;
-	//UINT32		uiCheckType;
-	//UINT16		usDummy;
-
-	//GetTileType( gpWorldLevelData[ iMapIndex ].pLandHead->usIndex, &uiCheckType );
-	//RemoveLand( iMapIndex, gpWorldLevelData[ iMapIndex ].pLandHead->usIndex );
-	//SmoothTerrainRadius( iMapIndex, uiCheckType, 1, TRUE );
-
-	RemoveExitGridFromWorld( iMapIndex );
-	RemoveAllStructsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllObjectsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllShadowsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllLandsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllRoofsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllOnRoofsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	RemoveAllTopmostsOfTypeRange( iMapIndex, FIRSTTEXTURE, WIREFRAMES );
-	PasteRoomNumber( iMapIndex, 0 );
+	INT16 sX, sY;
+	ConvertGridNoToXY(iMapIndex, &sX, &sY);
+	for(INT8 bLightType=PRIMETIME_LIGHT; bLightType<ANY_LIGHT; bLightType++)
+		RemoveLight(sX, sY, bLightType);
+	RemoveAllTopmostsOfTypeRange(iMapIndex, ROTATINGKEY, ROTATINGKEY);
+	RemoveDoorInfoFromTable(iMapIndex);
+	RemoveTopmost(iMapIndex, FIRSTPOINTERS8);
+	RemoveExitGridFromWorld(iMapIndex);
+	RemoveAllStructsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllObjectsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllShadowsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllLandsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllRoofsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllOnRoofsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	RemoveAllTopmostsOfTypeRange(iMapIndex, FIRSTTEXTURE, WIREFRAMES);
+	PasteRoomNumber(iMapIndex, 0);
 }
 
 
@@ -164,7 +169,7 @@ void EraseMapTile( INT32 iMapIndex )
 			RemoveAllObjectsOfTypeRange( iMapIndex, FIRSTROAD, LASTROAD );
 			// Note, for this routine, cliffs are considered a subset of banks
 			RemoveAllStructsOfTypeRange( iMapIndex, ANIOSTRUCT, ANIOSTRUCT );
-			RemoveAllStructsOfTypeRange( iMapIndex, FIRSTCLIFF, LASTBANKS );
+			RemoveAllStructsOfTypeRange( iMapIndex, FIRSTCLIFFHANG, LASTBANKS );//dnl ch86 190214
 			RemoveAllShadowsOfTypeRange( iMapIndex, FIRSTCLIFFSHADOW, LASTCLIFFSHADOW );
 			RemoveAllObjectsOfTypeRange( iMapIndex, FIRSTCLIFFHANG, LASTCLIFFHANG );
 			RemoveAllStructsOfTypeRange( iMapIndex, FENCESTRUCT, FENCESTRUCT );
@@ -211,6 +216,14 @@ void EraseMapTile( INT32 iMapIndex )
 			break;
 		case DRAW_MODE_ROADS:
 			RemoveAllObjectsOfTypeRange( iMapIndex, ROADPIECES, ROADPIECES );
+			break;
+		case DRAW_MODE_DOORKEYS://dnl ch86 220214
+			if(FindDoorInfoAtGridNo(iMapIndex))
+			{
+				AddToUndoList(iMapIndex);
+				RemoveDoorInfoFromTable(iMapIndex);
+				RemoveAllTopmostsOfTypeRange(iMapIndex, ROTATINGKEY, ROTATINGKEY);
+			}
 			break;
 		default:
 			//DeleteStuffFromMapTile( iMapIndex );

@@ -45,8 +45,11 @@ UINT32 WaitForSelectionWindowResponse( void );
 UINT32 WaitForMessageBoxResponse( UINT32 uiCurrentScreen );
 UINT32 WaitForHelpScreenResponse( void );
 
-BOOLEAN PlaceLight( INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType );
-BOOLEAN RemoveLight( INT16 iMapX, INT16 iMapY );
+//dnl ch86 210214
+BOOLEAN FindLight(INT32 iGridNo, INT8 bLightType, UINT8 *pubLightRadius, UINT8 *pubLightId, INT32 *piSprite=NULL);
+BOOLEAN PlaceLight(INT16 sRadius, INT16 iMapX, INT16 iMapY, INT16 sType, INT8 bLightType);
+BOOLEAN RemoveLight(INT16 iMapX, INT16 iMapY, INT8 bLightType);
+
 extern BOOLEAN gfMercResetUponEditorEntry;
 
 void ShowEditorToolbar( INT32 iNewTaskMode );

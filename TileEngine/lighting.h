@@ -45,7 +45,7 @@
 #define		LIGHT_OMNI_R8				"LTO8.LHT"
 
 #define		MAX_LIGHT_TEMPLATES	32				// maximum number of light types
-#define		MAX_LIGHT_SPRITES		256				// maximum number of light types
+#define		MAX_LIGHT_SPRITES		4096				// maximum number of light types //dnl ch86 100214 was 256
 #define		SHADE_MIN						15				// DARKEST shade value
 #define		SHADE_MAX						1					// LIGHTEST shade value
 

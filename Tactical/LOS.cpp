@@ -6083,6 +6083,8 @@ INT8 ChanceToGetThrough( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT d
 		UINT16 oldAttackingWeapon = pFirer->usAttackingWeapon;
 
 		//GLOCK_17_ForUseWithLOS is init in InitializeJA2()
+		if(GLOCK_17_ForUseWithLOS.usItem != GLOCK_17)//dnl ch86 120214
+			CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);
 		pFirer->inv[ HANDPOS ] = GLOCK_17_ForUseWithLOS;
 		pFirer->usAttackingWeapon = GLOCK_17;
 
@@ -8099,7 +8101,7 @@ FLOAT CalcEffectiveMagFactor( SOLDIERTYPE *pShooter, FLOAT fRealMagFactor )
 		return fRealMagFactor;
 
 	FLOAT fMaxEffectiveMagFactor = fRealMagFactor * gGameCTHConstants.SCOPE_EFFECTIVENESS_MULTIPLIER;
-	FLOAT fFinalEffectiveFactor = 0.1;
+	FLOAT fFinalEffectiveFactor = 0.1f;
 
 	// new trait system grants special thresholds
 	if ( gGameOptions.fNewTraitSystem )

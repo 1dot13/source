@@ -29,7 +29,7 @@ extern UINT32	gDoCliffs;
 
 void EraseMapTile( INT32 iMapIndex );
 void QuickEraseMapTile( INT32 iMapIndex );
-void DeleteStuffFromMapTile( INT32 iMapIndex );
+void DeleteStuffFromMapTile(INT32 iMapIndex);//dnl ch86 140214
 
 void PasteDebris( INT32 iMapIndex );
 

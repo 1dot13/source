@@ -160,7 +160,7 @@ struct LEVELNODE
 		INT32												uiAPCost;						// FOR AP DISPLAY
 //SB: change packed exitgrid for EXITGRID *
 //		INT32												iExitGridInfo;
-		void *											pExitGridInfo;
+//		void *											pExitGridInfo;//dnl ch86 190214
 	}; // ( 4 byte union )
 
 	union 

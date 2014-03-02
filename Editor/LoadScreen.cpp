@@ -44,6 +44,7 @@
 	#include "Scheduling.h"
 	#include "MessageBoxScreen.h"
 	#include <vfs/Core/vfs.h>//dnl ch37 110909
+	#include "Exit Grids.h"//dnl ch86 190214
 #endif
 
 //===========================================================================
@@ -155,6 +156,7 @@ void LoadSaveScreenEntry()
 	gfDeleteFile = FALSE;
 	gfNoFiles = FALSE;
 	gfSaveError = FALSE;//dnl ch37 200909
+	RestoreBackgroundRects();//dnl ch86 210214
 
 	// setup filename dialog box
 	// (*.dat and *.map) as file filter
@@ -666,7 +668,7 @@ void DrawFileDialog(void)
 
 	MarkButtonsDirty();
 	RenderButtons();
-	RenderButtonsFastHelp();
+	//RenderButtonsFastHelp();//dnl ch86 210214 disable this because of sticky tooltip from taskbar
 
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_LTKHAKI );
@@ -1056,6 +1058,11 @@ UINT32 ProcessFileIO()
 				CreateMessageBox((STR16)(_BS(L" Error saving ") << (const char*)ubNewFilename << L" file. Try another filename? " << _BS::wget).c_str() );
 				return(guiCurrentScreen);
 			}
+			if(gfShowExitGrids)//dnl ch86 190214
+			{
+				gfShowExitGrids = FALSE;
+				ShowExitGrids();
+			}
 			if( gfShowPits )
 				AddAllPits();
 			GetSectorFromFileName(gzFilename, gWorldSectorX, gWorldSectorY, gbWorldSectorZ, fAltMap);//dnl ch31 140909
@@ -1156,6 +1163,11 @@ UINT32 ProcessFileIO()
 			ShowHighGround(4);//dnl ch41 210909
 			SetRenderCenter(WORLD_COLS/2, WORLD_ROWS/2);//dnl ch43 280909
 			gsSelectedMercGridNo = 0;//dnl ch74 241013 to prevent CTD in IndicateSelectedMerc after loading
+			if(gfShowExitGrids)//dnl ch86 190214
+			{
+				gfShowExitGrids = FALSE;
+				ShowExitGrids();
+			}
 			if( gfShowPits )
 				AddAllPits();
 

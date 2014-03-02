@@ -50,24 +50,20 @@ enum
 	SLM_MINE_PRESENT,
 };
 
-typedef struct
+typedef struct//dnl ch86 250214
 {
-	INT32 usGridNo;				//The gridno the graphic will be applied to
-	UINT16	usImageType;			//graphic index
-	UINT16	usSubImageIndex;		//
-//	UINT16	usIndex;
-	UINT8		ubType;						// the layer it will be applied to
-
-	UINT8		ubExtra;					// Misc. variable used to strore arbritary values
+	INT32 usGridNo;				// The gridno the graphic will be applied to
+	UINT16 usImageType;			// graphic index
+	UINT16 usSubImageIndex;		// ExitGrid low WORD of usGridno is stored here
+	UINT8 ubType;				// the layer it will be applied to
+	UINT8 ubExtra;				// Misc. variable used to strore arbritary values
+	UINT16 usHiExitGridNo;		// ExitGrid.usGridno is store in usSubImageIndex which is not enough for big maps so high WORD goes here just to preserve compatibility
 } MODIFY_MAP;
-
 
 // Call this function, to set whether the map changes will be added to the	map temp file
 void	ApplyMapChangesToMapTempFile( BOOLEAN fAddToMap );
 
 BOOLEAN SaveModifiedMapStructToMapTempFile( MODIFY_MAP *pMap, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
-
-
 
 
 //Applies a change TO THE MAP TEMP file
