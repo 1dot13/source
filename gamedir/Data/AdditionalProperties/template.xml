@@ -13,5 +13,7 @@ DIRT_ROAD, LOW_GRASS, HIGH_GRASS, TRAIN_TRACKS, LOW_WATER, MED_WATER, DEEP_WATER
 <bSoundModifier>0</bSoundModifier><!-- how much louder will be footstep sound on this tile (in tile range ) (-10 - 10) -->
 <bStealthDifficultyModifer>0</bStealthDifficultyModifer><!-- how much more difficult will be sneaking through this tile (in percents, can be negative) -->
 
+<bTrapBonus>0</bTrapBonus><!-- bonus to trap level set on this tile (-10 - 10) -->
+
 </ADDITIONALTILEPROPERTIES>
 <!-- note: for "regwater" tiles (texture 6) properties will be set for edges only -->

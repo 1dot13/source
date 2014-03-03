@@ -6,4 +6,5 @@
 <bCamoStanceModifer>0</bCamoStanceModifer>
 <bSoundModifier>1</bSoundModifier>
 <bStealthDifficultyModifer>10</bStealthDifficultyModifer>
+<bTrapBonus>-3</bTrapBonus>
 </ADDITIONALTILEPROPERTIES>
