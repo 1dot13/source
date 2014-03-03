@@ -960,6 +960,7 @@ void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEME
 			TileElement->bSoundModifier = 0;
 			TileElement->bCamoStanceModifer= 0;
 			TileElement->bStealthDifficultyModifer = 0;
+			TileElement->bTrapBonus = 0;
 			TileElement->uiAdditionalFlags = 0;
 		}
 	}

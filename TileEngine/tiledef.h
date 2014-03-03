@@ -92,6 +92,8 @@ typedef struct
 	INT8													bSoundModifier;
 	INT8													bStealthDifficultyModifer;
 
+	INT8													bTrapBonus;
+
 	UINT32													uiAdditionalFlags;
 
 
@@ -151,6 +153,8 @@ typedef struct
 	INT8													bSoundModifier;
 	INT8													bStealthDifficultyModifer;
 
+	INT8													bTrapBonus;
+
 	UINT32													uiAdditionalFlags;
 
 
@@ -196,10 +200,11 @@ typedef struct
 	INT8													bSoundModifier;
 	INT8													bStealthDifficultyModifer;
 
+	INT8													bTrapBonus;
+
 	UINT32													uiAdditionalFlags;
 
 } ADDITIONAL_TILE_PROPERTIES_VALUES;
-
 extern ADDITIONAL_TILE_PROPERTIES_VALUES zAdditionalTileProperties;
 
 void CreateTileDatabase( INT32 iTilesetID );

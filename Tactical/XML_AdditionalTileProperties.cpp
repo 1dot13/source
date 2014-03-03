@@ -45,6 +45,7 @@ additionalTilePropertyStartElementHandle(void *userData, const XML_Char *name, c
 			   strcmp(name, "bCamoStanceModifer") == 0 ||
 			   strcmp(name, "bSoundModifier") == 0 ||
 			   strcmp(name, "bStealthDifficultyModifer") == 0 ||
+			   strcmp(name, "bTrapBonus") == 0 ||
 			   strcmp(name, "fBlockedWindow") == 0
 				))
 		{
@@ -121,6 +122,11 @@ additionalTilePropertyEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			zAdditionalTileProperties.bStealthDifficultyModifer = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bTrapBonus") == 0)
+		{
+			pData->curElement = ELEMENT;
+			zAdditionalTileProperties.bTrapBonus = (INT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "fBlockedWindow") == 0)
 		{

@@ -1486,6 +1486,8 @@ void LoadGameExternalOptions()
 
 	// anv: detailed tileset terrain types
 	gGameExternalOptions.fAdditionalTileProperties	= iniReader.ReadBoolean("Tactical Cover System Settings", "COVER_SYSTEM_ADDITIONAL_TILE_PROPERTIES", TRUE );
+	// static shadows decrease brightness
+	gGameExternalOptions.fStaticShadowsDecreaseBrightness	= iniReader.ReadBoolean("Tactical Cover System Settings", "COVER_SYSTEM_STATIC_SHADOWS_DECREASE_BRIGHTNESS", FALSE );
 
 	//################# Tactical Suppression Fire Settings ##################
 	// These settings control the behavior of Suppression Fire, its severity, and its side-effects.

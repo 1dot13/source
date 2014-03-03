@@ -694,6 +694,8 @@ void CreateTileDatabase( INT32 iTilesetID )
 				TileElement.bSoundModifier			= TileSurf->bSoundModifier;
 				TileElement.bStealthDifficultyModifer	= TileSurf->bStealthDifficultyModifer;
 
+				TileElement.bTrapBonus	= TileSurf->bTrapBonus;
+
 				TileElement.uiAdditionalFlags	= TileSurf->uiAdditionalFlags;
 
 				// Check for multi-z stuff

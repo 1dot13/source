@@ -754,6 +754,23 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 	{
 		iSum=pNode->ubNaturalShadeLevel - (pNode->ubSumLights - pNode->ubFakeShadeLevel );
 
+		if(gGameExternalOptions.fStaticShadowsDecreaseBrightness && ( gRenderFlags & RENDER_FLAG_SHADOWS ))
+		{
+			INT32 sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( NORTH ) );
+			STRUCTURE* pStructure = gpWorldLevelData[ sNewGridNo ].pStructureHead;
+			if(pStructure != NULL)
+			{
+				LEVELNODE* pShadowNode = NULL;
+				if(!(pStructure->fFlags & STRUCTURE_BASE_TILE))
+					pShadowNode = gpWorldLevelData[ FindBaseStructure(pStructure)->sGridNo ].pShadowHead;
+				else
+					pShadowNode = gpWorldLevelData[ sNewGridNo ].pShadowHead;
+				if(pShadowNode != NULL)
+				{
+					iSum += max( 0, (StructureHeight(pStructure) - 1 ) );
+				}
+			}
+		}
 		iSum=__min(SHADE_MIN, iSum);
 		iSum=__max(SHADE_MAX, iSum);
 		return( (UINT8) iSum );

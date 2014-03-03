@@ -1826,6 +1826,14 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				if ( pSoldier->HasBackgroundFlag( BACKGROUND_TRAPLEVEL ) )
 					pSoldier->inv[ HANDPOS ][0]->data.bTrap++;
 
+				// anv: additional tile properties - modify trap level depending on its placement
+				if(gGameExternalOptions.fAdditionalTileProperties && Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
+				{
+					ADDITIONAL_TILE_PROPERTIES_VALUES zAllTileValues = GetAllAdditonalTilePropertiesForGrid( sGridNo, pSoldier->pathing.bLevel );
+					pSoldier->inv[ HANDPOS ][0]->data.bTrap += zAllTileValues.bTrapBonus;
+				}
+				pSoldier->inv[ HANDPOS ][0]->data.bTrap = __max( 0, pSoldier->inv[ HANDPOS ][0]->data.bTrap );
+
 				pSoldier->inv[ HANDPOS ][0]->data.misc.ubBombOwner = pSoldier->ubID + 2;
 
 				// Flugente: determine the direction we are looking at and apply that direction to our explosive
@@ -5765,6 +5773,7 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 	BOOLEAN					fMining, fFoundMetal = FALSE;
 	//	ITEM_POOL *			pItemPool;
 	UINT8						ubMovementCost;
+	INT8						bTrapBonus = 0;
 
 	ubDetectLevel = 0;
 

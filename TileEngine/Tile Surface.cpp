@@ -125,9 +125,9 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 	}
 	else
 	{
-		// and if not found, then in /Tilesets/
+		// and if not found, then in /AdditionalProperties/
 		cEndOfName = strrchr( cAdditionalPropertiesFilename, '\\' );
-		sprintf( cCommonAdditionalPropertiesFilename, "TILESETS\\ADDITIONALPROPERTIES%s", cEndOfName );
+		sprintf( cCommonAdditionalPropertiesFilename, "ADDITIONALPROPERTIES%s", cEndOfName );
 		if (FileExists( cCommonAdditionalPropertiesFilename ))
 		{	
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -154,6 +154,8 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 	pTileSurf->bSoundModifier = zAdditionalTileProperties.bSoundModifier;
 	pTileSurf->bCamoStanceModifer = zAdditionalTileProperties.bCamoStanceModifer;
 	pTileSurf->bStealthDifficultyModifer = zAdditionalTileProperties.bStealthDifficultyModifer;
+
+	pTileSurf->bTrapBonus  = zAdditionalTileProperties.bTrapBonus;
 
 	pTileSurf->uiAdditionalFlags = zAdditionalTileProperties.uiAdditionalFlags;
 
