@@ -177,14 +177,13 @@ BOOLEAN MercThinksHisMoraleIsTooLow( SOLDIERTYPE *pSoldier )
 
 BOOLEAN MercIsOwedTooMuchMoney( UINT8 ubProfileID )
 {
-	if(gMercProfiles[ ubProfileID ].iBalance >= gMercProfiles[ ubProfileID ].sSalary * gMoraleSettings.bValues[MORALE_OWED_MONEY_DAYS])
+	// merc complains if he he actually receives pay and did not get paid long enough
+	if( gMercProfiles[ ubProfileID ].sSalary > 0 && gMercProfiles[ ubProfileID ].iBalance >= gMercProfiles[ ubProfileID ].sSalary * gMoraleSettings.bValues[MORALE_OWED_MONEY_DAYS])
 	{
 		return(TRUE);
 	}
-	else
-	{
-		return(FALSE);
-	}
+	
+	return(FALSE);
 }
 
 BOOLEAN MercThinksPlayerIsInactiveTooLong( UINT8 ubProfileID )

@@ -6402,11 +6402,9 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		// Accurate information
 		return KNOWS_HOW_MANY;
 	}
-	else
-	{
-		// Accurate information including direction of travel!
-		return KNOWS_HOW_MANY_AND_WHERE_GOING;
-	}
+	
+	// Accurate information including direction of travel!
+	return KNOWS_HOW_MANY_AND_WHERE_GOING;
 }
 
 
@@ -6477,7 +6475,6 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 {
 	INT16 sNumberOfEnemies = 0;
 
-
 	// ATE: If game has just started, don't do it!
 	if ( DidGameJustStart() )
 	{
@@ -6496,14 +6493,15 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	// get total number of badguys here
 	sNumberOfEnemies = NumEnemiesInSector( sSectorX, sSectorY );
 
+	// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,
+	// so every sector gets a red question mark. In that case, get out of here
+	// anv: probability of false enemy reports!
 	// anyone here?
-	if( !sNumberOfEnemies )
+	if( !sNumberOfEnemies && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon )
 	{
 		// nope - display nothing
-		// anv: probability of false enemy reports!
-		//return;
+		return;
 	}
-
 
 	switch ( WhatPlayerKnowsAboutEnemiesInSector( sSectorX, sSectorY ) )
 	{
@@ -6536,7 +6534,6 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 			// display their direction of movement, if valid.
 			ShowEnemyGroupsInMotion( sSectorX, sSectorY );
 			break;
-
 	}
 }
 
