@@ -127,7 +127,7 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 	{
 		// and if not found, then in /AdditionalProperties/
 		cEndOfName = strrchr( cAdditionalPropertiesFilename, '\\' );
-		sprintf( cCommonAdditionalPropertiesFilename, "ADDITIONALPROPERTIES%s", cEndOfName );
+		sprintf( cCommonAdditionalPropertiesFilename, "TILESETS\\ADDITIONALPROPERTIES%s", cEndOfName );
 		if (FileExists( cCommonAdditionalPropertiesFilename ))
 		{	
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
