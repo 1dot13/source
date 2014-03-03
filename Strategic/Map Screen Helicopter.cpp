@@ -1661,7 +1661,7 @@ UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad )
 	}
 
 	// go through list of everyone in helicopter
-	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ].iNewSeatingCapacities; ++iCounter )
 	{
 		// get passenger
 		pSoldier = pVehicleList[ iHelicopterVehicleId ].pPassengers[ iCounter ];

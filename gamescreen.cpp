@@ -634,10 +634,14 @@ UINT32	MainGameScreenHandle(void)
         }
 #else
 			InternalLocateGridNo( gGameExternalOptions.iInitialMercArrivalLocation, TRUE );
-#endif			
+#endif
+		// Flugente: we might have reloaded the game, so we are currently not dropping mercs out of a helicopter
+		gfIngagedInDrop = FALSE;
+
 		// Start heli Run...
 		StartHelicopterRun();
 
+		
 		// Update clock by one so that our DidGameJustStatrt() returns now false for things like LAPTOP, etc...
 		SetGameTimeCompressionLevel( TIME_COMPRESS_X1 );
 		//UpdateClock( 1 );

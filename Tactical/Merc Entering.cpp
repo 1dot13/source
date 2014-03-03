@@ -672,6 +672,10 @@ void HandleHeliDrop( )
 					// OK, Check if we have anybody left to send!
 					if ( gbCurDrop < bEndVal )
 					{
+						// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
+						// In the worst case, this can cause the game to be unable to finsih the airdrop. For that reason, we set all those soldier to the STANDING aniamtion. 
+						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
+
 						//sWorldX = CenterX( gsGridNoSweetSpot );
 						//sWorldY = CenterY( gsGridNoSweetSpot );
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );

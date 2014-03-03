@@ -793,9 +793,9 @@ void RenderCampaignHistory_MostImportant()
 				UINT16 armysize    = max(1, incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK]);
 			
 				// if rebels won...
-				if ( incident.usIncidentFlags & INCIDENT_WIN )
+				if ( incident.usIncidentFlags & INCIDENT_WIN && rebelsize )
 				{
-					FLOAT ratio = (FLOAT)(rebellosses / rebelsize);
+					FLOAT ratio = (FLOAT)(rebellosses) / (FLOAT)(rebelsize);
 					if ( ratio < 0.1 )
 						swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_REBEL] );
 					else if ( ratio < 0.3 )
@@ -815,9 +815,9 @@ void RenderCampaignHistory_MostImportant()
 					else
 						swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_HARD_REBEL] );
 				}
-				else	// army won...
+				else if ( armysize )	// army won...
 				{
-					FLOAT ratio = (FLOAT)(armylosses / armysize);
+					FLOAT ratio = (FLOAT)(armylosses) / (FLOAT)(armysize);
 					BOOLEAN armyhadmore = (armysize > rebelsize);
 
 					if ( ratio < 0.1 )
