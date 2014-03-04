@@ -1761,6 +1761,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"你不能把%s添加到这个附件槽。",
 	L"%s不能被添加到任何附件槽。",
 	L"这个口袋装不下了", //L"There's not enough space for this pocket.",
+
+	L"%s has repaired the %s as much as possible.", // TODO.Translate
+	L"%s has repaired %s's %s as much as possible.",
 };
 
 

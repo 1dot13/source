@@ -1762,6 +1762,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Нельзя установить навеску %s на это место.",
 	L"The %s will not fit in any open slots.",
 	L"There's not enough space for this pocket.", //TODO:Translate
+
+	L"%s has repaired the %s as much as possible.", // TODO.Translate
+	L"%s has repaired %s's %s as much as possible.",
 };
 
 

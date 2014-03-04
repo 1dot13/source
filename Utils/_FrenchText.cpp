@@ -1765,6 +1765,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Vous ne pouvez pas attacher %s à cet emplacement.",
 	L"%s n'ira dans aucun emplacement de libre.",
 	L"Pas assez de place pour cette poche.",
+
+	L"%s has repaired the %s as much as possible.", // TODO.Translate
+	L"%s has repaired %s's %s as much as possible.",
 };
 
 

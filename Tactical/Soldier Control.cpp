@@ -17068,8 +17068,8 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 
 void SOLDIERTYPE::SoldierPropertyUpkeep()
 {
-	// these flags are only used for the first turn, and thus always removed
-	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN|SOLDIER_ASSAULT_BONUS);
+	// these effects last only one turn
+	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN|SOLDIER_ASSAULT_BONUS|SOLDIER_RAISED_REDALERT);
 
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;

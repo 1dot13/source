@@ -1776,6 +1776,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Sie können %s nicht an dieser Einbaustelle anbringen.",
 	L"%s passt in keine freie Einbaustelle.",
 	L"Für diese Tasche ist nicht mehr genug Platz.",
+
+	L"%s has repaired the %s as much as possible.", // TODO.Translate
+	L"%s has repaired %s's %s as much as possible.",
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =

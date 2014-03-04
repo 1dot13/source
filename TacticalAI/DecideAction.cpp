@@ -885,19 +885,19 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	}
 
 //ddd{
-	if(gGameExternalOptions.bNewTacticalAIBehavior && pSoldier->bTeam == ENEMY_TEAM )
+	if( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) && gGameExternalOptions.bNewTacticalAIBehavior && pSoldier->bTeam == ENEMY_TEAM )
 	{
 		if ( !(gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-
 			INT32				cnt;
 			ROTTING_CORPSE *	pCorpse;
 
-			for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+			for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 			{
 				pCorpse = &(gRottingCorpse[ cnt ] );
 			
 				if ( pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 )
+				{
 					if ( PythSpacesAway( pSoldier->sGridNo, pCorpse->def.sGridNo ) <= 5 )//приделать сравнение переменно дальности видения (smaxvid ?)
 					{
 						//проверить, находится ли труп в поле зрения драника.мента?
@@ -911,6 +911,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 							return( AI_ACTION_RED_ALERT );
 						}
 					}
+				}
 			}
 		}
 
@@ -1564,7 +1565,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 					}
 				}
-				else if ( !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition )
+				else if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) && !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition )
 				{
 					// raise alarm!
 					return( AI_ACTION_RED_ALERT );
@@ -2632,7 +2633,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					}
 				}
 				// frequencies are clear, lets call for help
-				else
+				else if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) )
 				{
 					// raise alarm!
 					return( AI_ACTION_RED_ALERT );
@@ -2950,7 +2951,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	// if we're a computer merc, and we have the action points remaining to RADIO
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
-	if ( !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) && !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to radio red alert");
@@ -4446,7 +4447,7 @@ INT16 ubMinAPCost;
 				}
 			}
 			// frequencies are clear, lets call for help
-			else
+			else if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) )
 			{
 				// raise alarm!
 				return( AI_ACTION_RED_ALERT );
@@ -5829,7 +5830,7 @@ L_NEWAIM:
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
 	// and we're not swimming in deep water, and somebody has called for spotters
 	// and we see the location of at least 2 opponents
-	if ((gTacticalStatus.ubSpottersCalledForBy != NOBODY) && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) &&
+	if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) && (gTacticalStatus.ubSpottersCalledForBy != NOBODY) && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) &&
 		(pSoldier->aiData.bOppCnt > 1) && !fCivilian &&
 		(gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) && !bInDeepWater)
 	{
@@ -5968,7 +5969,7 @@ L_NEWAIM:
 	// RADIO RED ALERT: determine %chance to call others and report contact
 	////////////////////////////////////////////////////////////////////////////
 
-	if ( pSoldier->bTeam == MILITIA_TEAM && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	if ( !(pSoldier->bSoldierFlagMask & SOLDIER_RAISED_REDALERT) && pSoldier->bTeam == MILITIA_TEAM && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 
 		// if there hasn't been an initial RED ALERT yet in this sector

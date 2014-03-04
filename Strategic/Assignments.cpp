@@ -4531,7 +4531,6 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 	UINT8	ubLoop, ubItemsInPocket, lbeLoop, ubBeforeRepair; // added by SANDRO
 	BOOLEAN fSomethingWasRepaired = FALSE;
 
-
 	ubItemsInPocket = pObj->ubNumberOfObjects;
 
 	for ( ubLoop = 0; ubLoop < ubItemsInPocket; ubLoop++ )
@@ -4595,12 +4594,25 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 35 ], pSoldier->GetName(), pOwner->GetName(), ItemNames[ pObj->usItem ] );
 				}
 			}
+			// Flugente: if we repaired as much as possible, but the threshold is below 100, display a slightly different message
+			else if ( (*pObj)[ubLoop]->data.objectStatus == threshold )
+			{
+				// report it as fixed
+				if ( pSoldier == pOwner )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_REPAIRED_PARTIAL ], pSoldier->GetName(), ItemNames[ pObj->usItem ] );
+				}
+				else
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_REPAIRED_PARTIAL_FOR_OWNER ], pSoldier->GetName(), pOwner->GetName(), ItemNames[ pObj->usItem ] );
+				}
+			}
+
 			if ( *pubRepairPtsLeft == 0 )
 			{
 				// we're out of points!
 				return true;
 			}
-
 		}
 
 		// now check for attachments after

@@ -2053,6 +2053,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC) && ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || ( ( gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE ) && gTacticalStatus.ubTheChosenOne == NOBODY ) ) )
             {
                 HandleInitialRedAlert(pSoldier->bTeam, TRUE);
+
+				pSoldier->bSoldierFlagMask |= SOLDIER_RAISED_REDALERT;
             }
             
             // SANDRO - ENEMY TAUNTS

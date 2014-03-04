@@ -1762,6 +1762,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"You cannot attach %s to this slot.",
 	L"The %s will not fit in any open slots.",
 	L"There's not enough space for this pocket.",
+
+	L"%s has repaired the %s as much as possible.",
+	L"%s has repaired %s's %s as much as possible.",
 };
 
 
