@@ -5455,7 +5455,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen Maßsystems verwendet (z.B. Meter und Kilogramm).",
 
 	//Merc Lighted movement
-	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen. AUSgeschaltet erhöht sich die Bildwiederholrate.",
+	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen (|G). AUSgeschaltet erhöht sich die Bildwiederholrate.",
 
 	//Smart cursor
 	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf Söldner in seiner direkten Nähe.",

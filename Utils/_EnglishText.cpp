@@ -5610,7 +5610,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
 
 	//Merc Lighted movement
-	L"When ON, the merc will light the ground while walking.  Turn OFF for faster frame rate.",
+	L"When ON, the merc will light the ground while walking (|G). Turn OFF for faster frame rate.",
 
 	//Smart cursor
 	L"When ON, moving the cursor near your mercs will automatically highlight them.",
