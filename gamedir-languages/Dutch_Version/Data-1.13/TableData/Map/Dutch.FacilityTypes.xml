@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FACILITYTYPES>
 	<FACILITYTYPE>
 		<ubIndex>1</ubIndex>
@@ -8,7 +9,6 @@
 			<szTooltipText>Perform life-saving surgery on your wounded men, using state-of-the-art equipment. Increases the DOCTOR's efficiency.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>2</ubIndex>
 		<szFacilityName>Small Sleazy Bar</szFacilityName>
@@ -17,14 +17,24 @@
 			<ubAssignmentType>REST</ubAssignmentType>
 			<szTooltipText>Have a drink at the local bar! Increases loyalty in this town, for a price and a chance to get drunk.</szTooltipText>
 		</ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
+      <szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
+    </ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>3</ubIndex>
 		<szFacilityName>Prison Complex</szFacilityName>
 		<szFacilityShortName>Prison</szFacilityShortName>
+    <ASSIGNMENT>
+      <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+      <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+    </ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+    </ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>4</ubIndex>
 		<szFacilityName>Small Airport</szFacilityName>
@@ -34,7 +44,6 @@
 			<szTooltipText>Spend some time loading and unloading aircraft. Increases the efficiency of STRENGTH practice.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>5</ubIndex>
 		<szFacilityName>Munitions Factory</szFacilityName>
@@ -44,7 +53,6 @@
 			<szTooltipText>The machinery here can manufacture all sorts of replacements parts, which will increase your efficiency at repair, assuming you know how to use the complex machinery here.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>6</ubIndex>
 		<szFacilityName>Military Barracks</szFacilityName>
@@ -54,7 +62,6 @@
 			<szTooltipText>There are plenty of beds here. It's a bit basic, but certainly better than resting outside!</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>7</ubIndex>
 		<szFacilityName>Military Headquarters</szFacilityName>
@@ -63,8 +70,11 @@
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>The war room here has all sorts of digital equipment, designed for maintaining a good grasp on the strategic situation across the country. This will help you coordinate your defenses, and collect information about enemy movements in the wilderness.</szTooltipText>
 		</ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
+      <szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
+    </ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>8</ubIndex>
 		<szFacilityName>Shooting Range</szFacilityName>
@@ -74,7 +84,6 @@
 			<szTooltipText>Why not spend some time practicing your aim? The dummy targets are practically begging for it. It sure as hell beats taking pot-shots at rocks out in the wilderness.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>9</ubIndex>
 		<szFacilityName>A.C.A Building</szFacilityName>
@@ -83,14 +92,16 @@
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>The locals here may be willing to scout out the surrounding area for you. You can collect the information gleaned from them to get a better idea about enemy activity in this region.</szTooltipText>
 		</ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
+      <szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
+    </ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>10</ubIndex>
 		<szFacilityName>SAM Site</szFacilityName>
 		<szFacilityShortName>SAM Site</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>11</ubIndex>
 		<szFacilityName>Mine</szFacilityName>
@@ -100,7 +111,6 @@
 			<szTooltipText>Anyone who knows how to set explosives will be welcome in a mine. Increases efficiency of EXPLOSIVES training.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>12</ubIndex>
 		<szFacilityName>Small Church</szFacilityName>
@@ -110,7 +120,6 @@
 			<szTooltipText>A solemn hour of prayer and devotion in a quiet little church can help raise anyone's spirit. It might also convince the locals that you respect their way of life.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>13</ubIndex>
 		<szFacilityName>Boxing Club</szFacilityName>
@@ -120,19 +129,16 @@
 			<szTooltipText>There's plenty of gymnastic equipment here, just waiting to be used. This is a great way to get a balanced work-out that might improve your shape considerably. Increases the efficiency of HEALTH training.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>14</ubIndex>
 		<szFacilityName>National Museum</szFacilityName>
 		<szFacilityShortName>Museum</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>15</ubIndex>
 		<szFacilityName>Laboratory</szFacilityName>
 		<szFacilityShortName>Lab</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>16</ubIndex>
 		<szFacilityName>Junkyard</szFacilityName>
@@ -150,7 +156,6 @@
 			<szTooltipText>This place is practically littered with spare parts for anything you might imagine. This will certainly make any repair-work considerably easier.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>17</ubIndex>
 		<szFacilityName>Beach Resort</szFacilityName>
@@ -160,13 +165,11 @@
 			<szTooltipText>Sun, sand, surf. This sure as hell beats sleeping in a trench.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>18</ubIndex>
 		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
 		<szFacilityShortName>Legacy</szFacilityShortName>
 	</FACILITYTYPE>
-	
 	<FACILITYTYPE> 
 		<ubIndex>19</ubIndex>  
 		<szFacilityName>Combat Support Hospital</szFacilityName>  
@@ -176,7 +179,6 @@
 			<szTooltipText>Perform urgent life-saving treatment on your wounded men in field conditions. Increases the DOCTOR's efficiency.</szTooltipText> 
 		</ASSIGNMENT> 
 	</FACILITYTYPE>
-
   <FACILITYTYPE>
     <ubIndex>20</ubIndex>
     <szFacilityName>Army Barracks Cantina</szFacilityName>
@@ -186,7 +188,6 @@
       <szTooltipText>By taking over the armies barracks, you've also taken over the cantina inside. Your mercs can eat here.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
-
   <FACILITYTYPE>
     <ubIndex>21</ubIndex>
     <szFacilityName>Military Prison</szFacilityName>
@@ -195,8 +196,11 @@
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
       <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
     </ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+    </ASSIGNMENT>
   </FACILITYTYPE>
-
   <FACILITYTYPE>
     <ubIndex>22</ubIndex>
     <szFacilityName>Town Prison</szFacilityName>
@@ -205,6 +209,9 @@
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
       <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
     </ASSIGNMENT>
+    <ASSIGNMENT>
+      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+    </ASSIGNMENT>
   </FACILITYTYPE>
-	
 </FACILITYTYPES>
