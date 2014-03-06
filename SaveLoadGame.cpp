@@ -2235,8 +2235,6 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			
 			for(int i = 0; i < sizeof(bSoldierFlagMask2); ++i)
 				buffer++;			
-			while((buffer%4) > 0)
-				buffer++;
 		}
 
 		/*if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
