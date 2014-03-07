@@ -5477,8 +5477,8 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			if (sTownTrainingPts > 0)
 			{
 				fTrainingCompleted = TrainTownInSector( TownTrainer[ uiCnt ].pSoldier, sMapX, sMapY, sTownTrainingPts );
-
-				if ( fTrainingCompleted )
+				
+				if ( fTrainingCompleted && !gGameExternalOptions.gfMilitiaTrainingCarryOver )
 				{
 					// there's no carryover into next session for extra training (cause player might cancel), so break out of loop
 					break;
@@ -6449,8 +6449,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 ubTownId = 0;
-
-
+	
 	// find out if a sam site here
 	BOOLEAN fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
 
@@ -6465,33 +6464,44 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	StatChange( pTrainer, LDRAMT,		(UINT16) ( 1 + ( sTrainingPts / 200 ) ), FALSE );
 	StatChange( pTrainer, WISDOMAMT, (UINT16) ( 1 + ( sTrainingPts / 400 ) ), FALSE );
 
-
 	// increase town's training completed percentage
 	if (pTrainer->bAssignment == TRAIN_TOWN)
 	{	
-	pSectorInfo->ubMilitiaTrainingPercentDone += (sTrainingPts / 100);
-	pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
+		pSectorInfo->ubMilitiaTrainingPercentDone	+= (sTrainingPts / 100);
+		pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
 
-	if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
-	{
-		pSectorInfo->ubMilitiaTrainingPercentDone++;
-		pSectorInfo->ubMilitiaTrainingHundredths -= 100;
-	}
+		if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
+		{
+			pSectorInfo->ubMilitiaTrainingPercentDone++;
+			pSectorInfo->ubMilitiaTrainingHundredths -= 100;
+		}
 
-	// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
-	if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
-	{
-		// zero out training completion - there's no carryover to the next training session
-		pSectorInfo->ubMilitiaTrainingPercentDone = 0;
-		pSectorInfo->ubMilitiaTrainingHundredths	= 0;
+		// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
+		if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
+		{
+			// Flugente: carry over training progress instead of losing it
+			if ( gGameExternalOptions.gfMilitiaTrainingCarryOver )
+			{
+				pSectorInfo->ubMilitiaTrainingPercentDone	-= 100;
+			}
+			else
+			{
+				// zero out training completion - there's no carryover to the next training session
+				pSectorInfo->ubMilitiaTrainingPercentDone	= 0;
+				pSectorInfo->ubMilitiaTrainingHundredths	= 0;
+			}
 
-		// make the player pay again next time he wants to train here
-		pSectorInfo->fMilitiaTrainingPaid = FALSE;
+			// Flugente: this check is now necessary, as we might complete multiple militia session in one hour (theoretically)
+			if ( pSectorInfo->fMilitiaTrainingPaid )
+			{
+				// make the player pay again next time he wants to train here
+				pSectorInfo->fMilitiaTrainingPaid = FALSE;
 
-		TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+				TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+			}
 
-		// training done
-		return( TRUE );
+			// training done
+			return( TRUE );
 		}
 	}
 	else if (pTrainer->bAssignment == TRAIN_MOBILE)
@@ -6504,17 +6514,30 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 			pSectorInfo->ubMobileMilitiaTrainingPercentDone++;
 			pSectorInfo->ubMobileMilitiaTrainingHundredths -= 100;
 		}
+
 		// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
 		if( pSectorInfo->ubMobileMilitiaTrainingPercentDone >= 100 )
 		{
-			// zero out training completion - there's no carryover to the next training session
-			pSectorInfo->ubMobileMilitiaTrainingPercentDone = 0;
-			pSectorInfo->ubMobileMilitiaTrainingHundredths	= 0;
+			// Flugente: carry over training progress instead of losing it
+			if ( gGameExternalOptions.gfMilitiaTrainingCarryOver )
+			{
+				pSectorInfo->ubMobileMilitiaTrainingPercentDone	-= 100;
+			}
+			else
+			{
+				// zero out training completion - there's no carryover to the next training session
+				pSectorInfo->ubMobileMilitiaTrainingPercentDone	= 0;
+				pSectorInfo->ubMobileMilitiaTrainingHundredths	= 0;
+			}
 
-			// make the player pay again next time he wants to train here
-			pSectorInfo->fMobileMilitiaTrainingPaid = FALSE;
+			// Flugente: this check is now necessary, as we might complete multiple militia session in one hour (theoretically)
+			if ( pSectorInfo->fMobileMilitiaTrainingPaid )
+			{
+				// make the player pay again next time he wants to train here
+				pSectorInfo->fMobileMilitiaTrainingPaid = FALSE;
 
-			TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+				TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+			}
 
 			// training done
 			return( TRUE );
@@ -6522,7 +6545,6 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	}
 
 	return ( FALSE );
-
 }
 
 extern INT32 giReinforcementPool;

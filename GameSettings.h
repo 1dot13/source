@@ -675,6 +675,9 @@ typedef struct
 	// HEADROCK HAM 3.5: No longer necessary.
 	//INT32 ubGunRangeTrainingBonus;
 	INT32 ubTownMilitiaTrainingRate;
+
+	BOOLEAN gfMilitiaTrainingCarryOver;	// added by Flugente
+
 	// HEADROCK HAM 3.5: No longer necessary.
 	//INT32 ubMaxMilitiaTrainersPerSector;
 	INT32 ubTeachBonusToTrain;

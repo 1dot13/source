@@ -1957,6 +1957,8 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("Militia Training Settings","MILITIA_TRAINING_RATE",4, 1, 10);
 
+	gGameExternalOptions.gfMilitiaTrainingCarryOver			= iniReader.ReadBoolean("Militia Training Settings","MILITIA_TRAINING_CARRYOVER_PROGRESS", FALSE);
+
 	gGameExternalOptions.gfTrainVeteranMilitia				= iniReader.ReadBoolean("Militia Training Settings","ALLOW_TRAINING_ELITE_MILITIA",FALSE);
 	gGameExternalOptions.guiTrainVeteranMilitiaDelay		= iniReader.ReadInteger("Militia Training Settings","ELITE_MILITIA_TRAINING_DELAY",1, 0, 30);
 
