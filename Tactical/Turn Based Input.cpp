@@ -3043,23 +3043,34 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 									}
 								}
-							} else
+							} 
+							else
 							{
 								//End turn only if in combat and it is the player's turn
 								if ( fCtrl )
 									gTacticalStatus.ubDisablePlayerInterrupts = TRUE;								
+								
 								*puiNewEvent = I_ENDTURN;
+							}
 						}
 					}
 				}
-				}
+
 #ifdef JA2TESTVERSION
 				else if( fCtrl )
+				{
 					AdvanceToNextDay();
+				}
 #endif
+				// sevenfm: press 'd' in realtime to start turnbased
+				else	
+				{
+					if ( (gTacticalStatus.uiFlags & INCOMBAT) || (NumEnemyInSector() != 0) )
+					{
+						EnterCombatMode( OUR_TEAM );
+					}
+				}
 				break;
-
-
 
 			case 'e':
 
