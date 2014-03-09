@@ -10267,31 +10267,38 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 
 	UINT8 ubRef = GetStanceModifierRef( ubStance );
 		
-	if (pObj->exists() )//&& UsingNewCTHSystem() == true)
+	if (pObj->exists() )
 	{
-		iModifier += GetItemModifier( pObj, ubRef, usType);
-
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
 			if( iter->exists() )
 			{
 				// Flugente: if we use scope modes, are a soldier, this is a gun and the attachment a scope/sight, ignore it for the moment
-				if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN && IsAttachmentClass(iter->usItem, (AC_SCOPE|AC_SIGHT|AC_IRONSIGHT) ) )
+				if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass & IC_GUN && IsAttachmentClass(iter->usItem, (AC_SCOPE|AC_SIGHT|AC_IRONSIGHT) ) )
 					continue;
 
 				iModifier += GetItemModifier( (&(*iter)), ubRef, usType);
 			}
 		}
 
-		// Flugente: check for scope mode	
-		if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN )
+		// Flugente::if we are a soldier and are using a gun, we might be checking for scope modes
+		if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass & IC_GUN )
 		{
-			std::map<INT8, OBJECTTYPE*> ObjList;
-			GetScopeLists(pObj, ObjList);
+			// only apply boni if we are not hip-firing
+			if ( pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
+			{
+				std::map<INT8, OBJECTTYPE*> ObjList;
+				GetScopeLists(pObj, ObjList);
 
-			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
-				iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
+				// only use scope mode if gun is in hand, otherwise an error might occur!
+				if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
+					iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
+			}
+		}
+		else
+		{
+			// simply add the object modifier
+			iModifier += GetItemModifier( pObj, ubRef, usType);
 		}
 	}
 
