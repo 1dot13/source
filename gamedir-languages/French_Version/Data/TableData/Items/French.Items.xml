@@ -277,25 +277,25 @@
 		<uiIndex>34</uiIndex>
 		<szItemName>FN Minimi</szItemName>
 		<szLongItemName>FN Minimi</szLongItemName>
-		<szItemDesc>Cette mitrailleuse légère porte également le nom de C-9 ou de M-249. A l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
+		<szItemDesc>Ce fusil-mitrailleur porte également le nom de C-9 ou de M-249. A l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
 		<szBRName>FN Minimi</szBRName>
-		<szBRDesc>Réputée pour sa fiabilité, cette mitrailleuse belge a servi de modèle pour la mitrailleuse américaine M249.</szBRDesc>
+		<szBRDesc>Réputée pour sa fiabilité, ce fusil-mitrailleur belge a servi de modèle pour le fusil-mitrailleur américain M249.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>35</uiIndex>
 		<szItemName>RPK-74</szItemName>
 		<szLongItemName>RPK-74</szLongItemName>
-		<szItemDesc>Cette mitrailleuse légère est une arme récemment introduite au sein des sections russes. Quand elle commence à tirer, commencez à prier.</szItemDesc>
+		<szItemDesc>Ce fusil-mitrailleur est une arme récemment introduite au sein des sections russes. Quand il commence à tirer, commencez à prier.</szItemDesc>
 		<szBRName>RPK-74</szBRName>
-		<szBRDesc>La mitrailleuse légère russe RPK-74 est une version modifiée du fusil d'assaut AK-74. Après environ 5000 tirs, il est nécessaire de changer le canon.</szBRDesc>
+		<szBRDesc>Le fusil-mitrailleur russe RPK-74 est une version modifiée du fusil d'assaut AK-74. Après environ 5000 tirs, il est nécessaire de changer le canon.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>36</uiIndex>
 		<szItemName>HK 21E</szItemName>
 		<szLongItemName>HK 21E</szLongItemName>
-		<szItemDesc>Cette mitrailleuse légère (enfin...) est en service dans l'armée allemande.</szItemDesc>
+		<szItemDesc>Ce fusil-mitrailleur (enfin...) est en service dans l'armée allemande.</szItemDesc>
 		<szBRName>HK 21E</szBRName>
-		<szBRDesc>La mitrailleuse allemande Heckler &amp; Koch 21 est une pure merveille. Elle dispose d'un canon facilement interchangeable et d'un bipied 3 hauteurs et 360 degrés.</szBRDesc>
+		<szBRDesc>Le fusil-mitrailleur allemande Heckler &amp; Koch 21 est une pure merveille. Il dispose d'un canon facilement interchangeable et d'un bipied 3 hauteurs et 360 degrés.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -407,7 +407,7 @@
 		<szLongItemName>Talon Lance-Grenades</szLongItemName>
 		<szItemDesc>Ce lance-grenades adaptable est réputé pour sa précision.</szItemDesc>
 		<szBRName>Lance-Grenades Talon</szBRName>
-		<szBRDesc>Développé par les militaires américains, ce lance-grenades s'adapte sous le canon de la plupart des fusils d'assaut et des mitrailleuses. Il est également possible de l'utiliser seul, comme un pistolet.</szBRDesc>
+		<szBRDesc>Développé par les militaires américains, ce lance-grenades s'adapte sous le canon de la plupart des fusils d'assaut et des fusil-mitrailleurs. Il est également possible de l'utiliser seul, comme un pistolet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>51</uiIndex>
@@ -1677,9 +1677,9 @@
 		<uiIndex>209</uiIndex>
 		<szItemName>Bipied</szItemName>
 		<szLongItemName>Bipied</szLongItemName>
-		<szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des mitrailleuses légères.</szItemDesc>
+		<szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusil d'assauts et des fusil-mitrailleurs.</szItemDesc>
 		<szBRName>Bipied</szBRName>
-		<szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des mitrailleuses légères. En aluminium, finition matte. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
+		<szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusil d'assauts et des fusil-mitrailleurs. En aluminium, finition matte. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>210</uiIndex>
@@ -2661,9 +2661,9 @@
 		<uiIndex>332</uiIndex>
 		<szItemName>Tavor TAR 21</szItemName>
 		<szLongItemName>Tavor TAR 21</szLongItemName>
-		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
+		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, ce fusil-mitrailleur israélien high-tech de design Bullpup vous renversera.</szItemDesc>
 		<szBRName>Tavor TAR 21</szBRName>
-		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
+		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, ce fusil-mitrailleur israélien high-tech de design Bullpup vous renversera.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>333</uiIndex>

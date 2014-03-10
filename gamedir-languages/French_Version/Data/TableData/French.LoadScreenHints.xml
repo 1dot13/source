@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
-szName            text to appear, 256 chars max
+szName            text to appear, 190 chars max
 -->
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
@@ -22,7 +22,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>Vous pouvez changer de mode de visée (lunette, viseur, tir au jugé...) en appuyant sur ";".</szName>
+    <szName>Vous pouvez changer de mode de visée (lunette, viseur, tir au jugé...) en appuyant sur [;].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
@@ -34,7 +34,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>Si un "M" apparaît sur votre arme, ça signifie qu'un accessoire est monté dessus, ce qui entraîne une meilleure stabilité.</szName>
+    <szName>Si un [M] apparaît sur votre arme, ça signifie qu'un accessoire est monté dessus, ce qui entraîne une meilleure stabilité.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
@@ -42,7 +42,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Ne soyez plus handicapé ! Déposez vos sacs à dos avec [SHIFT] + [B] en carte tactique pour améliorer vos mouvements et grimper sur les toits.</szName>
+    <szName>Ne soyez plus handicapé ! Déposez vos sacs à dos avec [MAJ] + [B] en carte tactique pour améliorer vos mouvements et grimper sur les toits.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
@@ -50,15 +50,15 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [ROUE] de votre souris. Et [ALT] + [ROUE] pour définir la taille de la salve en auto.</szName>
+    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [MOLETTE]. Et [ALT]+[MOLETTE] pour définir la taille de la salve en auto.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Installations attachées. Certains secteurs offrent des installations comme des bars ou des mines, vous pouvez y affecter vos mercenaires sur la carte stratégique. Des infobulles vous donne la fonction de l'installation et apparaissent lors de l'affectation d'un mercenaire comme pour réparation, soins ou formation d'une milice.</szName>
+    <szName>Des secteurs offrent des installations comme des bars ou autres, vous pouvez y affecter vos mercenaires sur la carte stratégique. Des infobulles vous donne la fonction de l'installation.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL] + [ClicGauche]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
+    <szName>Guilde des voleurs. Vole run ennemi avec la main-curseur [CTRL]+[CLIC GAUCHE]. S'il mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions (ou autre).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
@@ -66,15 +66,15 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Mettez un peu de couleur dans votre vie ! En laissant appuyée la touche [FIN] dans l'écran tactique, vous afficherez le champs de vision détaillé du mercenaire sélectionné. Depuis le rouge (ne détectera personne) jusqu'au vert (détecte même quelqu'un couché dans l'herbe).</szName>
+    <szName>Appuyez sur [FIN] dans l'écran tactique pour voir le champs de vision du mercenaire sélectionné. Du rouge (ne détecte personne) au vert (détecte même quelqu'un couché dans l'herbe).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Alerte rouge ! En appuyant sur [Suppr] dans l'écran tactique, vous ferez apparaître où les ennemis (à votre connaissance) pourraient voir le mercenaire sélectionné. La couleur va du rouge (sera visible même allongé) au vert (dissimulation parfaite).</szName>
+    <szName>Appuyez sur [Suppr] dans l'écran tactique pour afficher la zone que voit l'ennemi vu par le mercenaire sélectionné. Du rouge (visible même couché) au vert (dissimulation parfaite).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Aubaine des fenêtres. Face à une fenêtre ouverte (Tirez sur le carreau, le cas échéant) et faites [SHIFT] + [J] pour passer de l'autre côté.</szName>
+    <szName>Aubaine des fenêtres. Face à une fenêtre ouverte (Tirez sur le carreau, le cas échéant) et faites [MAJ] + [J] pour passer de l'autre côté.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
@@ -94,7 +94,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Appuyez sur [Ctrl]+[MAJ]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
+    <szName>Appuyez sur [Ctrl]+[MAJ]+[x] pour activer la discrétion en temps réel. Vous n'entrerez plus en tour par tour quand vous apercevrez un ennemi, sauf s'il est alerté par votre présence.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>

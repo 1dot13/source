@@ -150,7 +150,7 @@
     <szLongItemName>Dragunov SVD</szLongItemName>
     <szItemDesc>L'arme des tireurs d'élite russes est d'une précision redoutable. Ce fusil a insufflé plus que de la peur dans le cœur des officiers du monde entier.</szItemDesc>
     <szBRName>Dragunov SVD</szBRName>
-    <szBRDesc>Ce fusil de précision russe a fort bonne réputation, et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne NSPU-3.</szBRDesc>
+    <szBRDesc>Ce fusil de précision russe a fort bonne réputation et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne NSPU-3.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>19</uiIndex>
@@ -188,7 +188,7 @@
     <uiIndex>23</uiIndex>
     <szItemName>Diemaco C7A2</szItemName>
     <szLongItemName>Diemaco C7A2</szLongItemName>
-    <szItemDesc>Le C-7 est la preuve que les copies sont parfois meilleures que les originaux. Il s'agit d'un M-16 modifié, et tout mercenaire rêve d'en avoir.</szItemDesc>
+    <szItemDesc>Le C-7 est la preuve que les copies sont parfois meilleures que les originaux. Il s'agit d'un M-16 modifié et tout mercenaire rêve d'en avoir.</szItemDesc>
     <szBRName>Diemaco C7A2</szBRName>
     <szBRDesc>Il s'agit de la version canadienne du M16A2. Il est doté de quelques améliorations par rapport au M16A2 original, comme par exemple d'un cache recouvrant la trappe d'éjection des douilles.</szBRDesc>
   </ITEM>
@@ -246,7 +246,7 @@
     <szLongItemName>HK G11</szLongItemName>
     <szItemDesc>La Porsche des fusils d'assaut. Le G11 est capable de tirer jusqu'à 3 balles à la seconde. Au fait, même le Kevlar n'arrête pas ses tirs.</szItemDesc>
     <szBRName>HK G11</szBRName>
-    <szBRDesc>Le G11 allemand de Heckler &amp; Koch est le fusil d'assaut qui dispose de la cadence de tir la plus élevée au monde. Ses balles transpercent facilement le Kevlar, et malgré son apparence peu aguichante, il est facile à utiliser et très précis.</szBRDesc>
+    <szBRDesc>Le G11 allemand de Heckler &amp; Koch est le fusil d'assaut qui dispose de la cadence de tir la plus élevée au monde. Ses balles transpercent facilement le Kevlar et malgré son apparence peu aguichante, il est facile à utiliser et très précis.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>31</uiIndex>
@@ -278,13 +278,13 @@
     <szLongItemName>FN Minimi</szLongItemName>
     <szItemDesc>Ce fusil-mitrailleur porte également le nom de C-9 ou de M-249. À l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
     <szBRName>FN Minimi</szBRName>
-    <szBRDesc>Réputée pour sa fiabilité, cette mitrailleuse belge a servi de modèle pour la mitrailleuse américaine M249.</szBRDesc>
+    <szBRDesc>Réputée pour sa fiabilité, ce fusil-mitrailleur belge a servi de modèle pour le fusil-mitrailleur américain M249.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>35</uiIndex>
     <szItemName>RPK-74</szItemName>
     <szLongItemName>RPK-74</szLongItemName>
-    <szItemDesc>Ce fusil-mitrailleur est une arme récemment introduite au sein des sections russes. Quand elle commence à tirer, commencez à prier.</szItemDesc>
+    <szItemDesc>Ce fusil-mitrailleur est une arme récemment introduite au sein des sections russes. Quand il commence à tirer, commencez à prier.</szItemDesc>
     <szBRName>RPK-74</szBRName>
     <szBRDesc>Le fusil-mitrailleur russe RPK-74 est une version modifiée du fusil d'assaut AK-74. Après environ 5000 tirs, il est nécessaire de changer le canon.</szBRDesc>
   </ITEM>
@@ -294,7 +294,7 @@
     <szLongItemName>HK 21E</szLongItemName>
     <szItemDesc>Ce fusil-mitrailleur (enfin...) est en service dans l'armée allemande.</szItemDesc>
     <szBRName>HK 21E</szBRName>
-    <szBRDesc>La mitrailleuse allemande Heckler &amp; Koch 21 est une pure merveille. Elle dispose d'un canon facilement interchangeable et d'un bipied 3 hauteurs et 360 degrés.</szBRDesc>
+    <szBRDesc>Le fusil-mitrailleur allemand Heckler &amp; Koch 21 est une pure merveille. Il dispose d'un canon facilement interchangeable et d'un bipied 3 hauteurs et 360 degrés.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>37</uiIndex>
@@ -406,13 +406,13 @@
     <szLongItemName>Talon L-grenades</szLongItemName>
     <szItemDesc>Ce lance-grenades adaptable est réputé pour sa précision.</szItemDesc>
     <szBRName>Lance-grenades Talon</szBRName>
-    <szBRDesc>Développé par les militaires américains, ce lance-grenades s'adapte sous le canon de la plupart des fusils d'assaut et des mitrailleuses. Il est également possible de l'utiliser seul, comme un pistolet.</szBRDesc>
+    <szBRDesc>Développé par les militaires américains, ce lance-grenades s'adapte sous le canon de la plupart des fusils d'assaut et des fusil-mitrailleurs. Il est également possible de l'utiliser seul, comme un pistolet.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>51</uiIndex>
     <szItemName>M72A4 LAW</szItemName>
     <szLongItemName>L-roquette M72A4</szLongItemName>
-    <szItemDesc>Il suffit d'une roquette tirée par ce lance-roquette pour expédier ad patres n'importe quel adversaire.</szItemDesc>
+    <szItemDesc>Il suffit d'une roquette tirée par ce lance-roquettes pour expédier ad patres n'importe quel adversaire.</szItemDesc>
     <szBRName>Lance-roq. M72A4 LAW</szBRName>
     <szBRDesc>Le lance-roquettes M72A4 est une arme antichar légère capable de transpercer 30 cm de blindage ou de détruire une fortification sommaire. Une arme à coup unique extraordinairement puissante.</szBRDesc>
   </ITEM>
@@ -1676,9 +1676,9 @@
     <uiIndex>209</uiIndex>
     <szItemName>Bipied</szItemName>
     <szLongItemName>Bipied</szLongItemName>
-    <szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des fusils-mitrailleurs.</szItemDesc>
+    <szItemDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusil d'assauts et des fusils-mitrailleurs.</szItemDesc>
     <szBRName>Bipied</szBRName>
-    <szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusils-mitrailleurs et des fusils-mitrailleurs. En aluminium, finition mat. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
+    <szBRDesc>Ce bipied universel peut être monté sur la plupart des fusils, des fusil d'assauts et des fusils-mitrailleurs. En aluminium, finition mat. Les pieds se replient pour réduire l'encombrement.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>210</uiIndex>
@@ -1980,7 +1980,7 @@
     <uiIndex>247</uiIndex>
     <szItemName>LAW usagé</szItemName>
     <szLongItemName>LAW usagé</szLongItemName>
-    <szItemDesc>Ayant déjà fait tombé le bras de la justice sur sa cible, ce lance-roquette LAW vide ne peut servir désormais que de glorieux presse papier.</szItemDesc>
+    <szItemDesc>Ayant déjà fait tombé le bras de la justice sur sa cible, ce lance-roquettes LAW vide ne peut servir désormais que de glorieux presse papier.</szItemDesc>
     <szBRName>LAW usagé</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
@@ -2652,17 +2652,17 @@
     <uiIndex>331</uiIndex>
     <szItemName>Enfield L85A2</szItemName>
     <szLongItemName>Enfield L85A2</szLongItemName>
-    <szItemDesc>En fait, ce fusil d'assault a été fabriqué à Nottingham, et non à Enfield, là où les machines-outil contrôlées par ordinateur ont été capables d'éliminer ses sérieux défauts.</szItemDesc>
+    <szItemDesc>En fait, ce fusil d'assault a été fabriqué à Nottingham et non à Enfield, là où les machines-outil contrôlées par ordinateur ont été capables d'éliminer ses sérieux défauts.</szItemDesc>
     <szBRName>Enfield L85A2</szBRName>
-    <szBRDesc>En fait, ce fusil d'assault a été fabriqué à Nottingham, et non à Enfield, là où les machines-outil contrôlées par ordinateur ont été capables d'éliminer ses sérieux défauts.</szBRDesc>
+    <szBRDesc>En fait, ce fusil d'assault a été fabriqué à Nottingham et non à Enfield, là où les machines-outil contrôlées par ordinateur ont été capables d'éliminer ses sérieux défauts.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>332</uiIndex>
     <szItemName>Tavor TAR 21</szItemName>
     <szLongItemName>Tavor TAR 21</szLongItemName>
-    <szItemDesc>Pesant seulement 2,45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette arme légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
+    <szItemDesc>Pesant seulement 2,45 kilos à vide et avec une cadence de tir de 900 coups/minute, ce fusil-mitrailleur israélien high-tech de design Bullpup vous renversera.</szItemDesc>
     <szBRName>Tavor TAR 21</szBRName>
-    <szBRDesc>Pesant seulement 2,45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette arme légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
+    <szBRDesc>Pesant seulement 2,45 kilos à vide et avec une cadence de tir de 900 coups/minute, ce fusil-mitrailleur israélien high-tech de design Bullpup vous renversera.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>333</uiIndex>
@@ -3772,7 +3772,7 @@
     <uiIndex>471</uiIndex>
     <szItemName>7.62x51 M 100</szItemName>
     <szLongItemName>7.62x51 Match, 100</szLongItemName>
-    <szItemDesc>Alimentation et portée supérieure pour votre mitrailleuse légère.</szItemDesc>
+    <szItemDesc>Alimentation et portée supérieure pour votre fusil-mitrailleur.</szItemDesc>
     <szBRName>7.62x51mm Match, 100</szBRName>
     <szBRDesc>Si vous êtes assez riche pour vous le permettre, utilisez ces bandes de munitions haute qualité pour votre arme de soutien.</szBRDesc>
   </ITEM>
@@ -5020,9 +5020,9 @@
     <uiIndex>627</uiIndex>
     <szItemName>M1919 A6</szItemName>
     <szLongItemName>Browning M1919</szLongItemName>
-    <szItemDesc>Simple et fiable, bien que lourde, la puissance de feu de cette mitrailleuse a été appréciée par les parachutistes américains pendant la Seconde Guerre mondiale.</szItemDesc>
+    <szItemDesc>Simple et fiable, bien que lourd, la puissance de feu de ce fusil-mitrailleur a été apprécié par les parachutistes américains pendant la Seconde Guerre mondiale.</szItemDesc>
     <szBRName>Browning M1919 A6</szBRName>
-    <szBRDesc>Ancienne et efficace, disposant d'une cadence de tir élevée, cette mitrailleuse classique répondra à vos besoins aussi bien défensifs qu'offensifs.</szBRDesc>
+    <szBRDesc>Ancienne et efficace, disposant d'une cadence de tir élevée, ce fusil-mitrailleur classique répondra à vos besoins aussi bien défensifs qu'offensifs.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>628</uiIndex>
@@ -5156,9 +5156,9 @@
     <uiIndex>644</uiIndex>
     <szItemName>Bro. HP-35 40</szItemName>
     <szLongItemName>FN Brow. HP-35 40</szLongItemName>
-    <szItemDesc>Originalement conçue en 1925, le High Power de la Fabrique Nationale n'a pas eu d'utilisation militaire jusqu'en 1935, et est une des rares armes de poing à être présente des deux côtés pendant la Seconde Guerre mondiale. Cette version est chambrée en .40 S&amp;W.</szItemDesc>
+    <szItemDesc>Originalement conçue en 1925, le High Power de la Fabrique Nationale n'a pas eu d'utilisation militaire jusqu'en 1935 et est une des rares armes de poing à être présente des deux côtés pendant la Seconde Guerre mondiale. Cette version est chambrée en .40 S&amp;W.</szItemDesc>
     <szBRName>FN Browning HP-35 .40</szBRName>
-    <szBRDesc>Originalement conçue en 1925, le High Power de la Fabrique Nationale n'a pas eu d'utilisation militaire jusqu'en 1935, et est une des rares armes de poing à être présente des deux côtés pendant la Seconde Guerre mondiale. Cette version est chambrée en .40 S&amp;W.</szBRDesc>
+    <szBRDesc>Originalement conçue en 1925, le High Power de la Fabrique Nationale n'a pas eu d'utilisation militaire jusqu'en 1935 et est une des rares armes de poing à être présente des deux côtés pendant la Seconde Guerre mondiale. Cette version est chambrée en .40 S&amp;W.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>645</uiIndex>
@@ -5204,9 +5204,9 @@
     <uiIndex>650</uiIndex>
     <szItemName>FN Minimi SPW</szItemName>
     <szLongItemName>FN Minimi SPW</szLongItemName>
-    <szItemDesc>Le FN Minimi SPW (Special Purpose Weapon) est une version plus légère de la minimitrailleuse standard, avec crosse de type parachutiste et rails Picatinny.</szItemDesc>
+    <szItemDesc>Le FN Minimi SPW (Special Purpose Weapon) est une version plus légère du fusil-mitrailleur standard, avec crosse de type parachutiste et rails Picatinny.</szItemDesc>
     <szBRName>FN Minimi SPW</szBRName>
-    <szBRDesc>Le FN Minimi SPW (Special Purpose Weapon) est une version plus légère de la minimitrailleuse standard, avec crosse de type parachutiste et rails Picatinny.</szBRDesc>
+    <szBRDesc>Le FN Minimi SPW (Special Purpose Weapon) est une version plus légère du fusil-mitrailleur standard, avec crosse de type parachutiste et rails Picatinny.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>651</uiIndex>
@@ -5596,17 +5596,17 @@
     <uiIndex>699</uiIndex>
     <szItemName>Pecheneg</szItemName>
     <szLongItemName>Pecheneg</szLongItemName>
-    <szItemDesc>La mitrailleuse Pecheneg est une PKM améliorée. Elle est en production limitée et passe par une phase de test en Tchétchénie.</szItemDesc>
+    <szItemDesc>Le fusil-mitrailleur Pecheneg est un PKM amélioré. Il est en production limitée et passe par une phase de test en Tchétchénie.</szItemDesc>
     <szBRName>Pecheneg</szBRName>
-    <szBRDesc>La mitrailleuse Pecheneg est une PKM améliorée. Plus légère et disposant d'une plus grande cadence de tir, elle est en production limitée et passe par une phase de test en Tchétchénie.</szBRDesc>
+    <szBRDesc>Le fusil-mitrailleur Pecheneg est un PKM amélioré. Plus léger et disposant d'une plus grande cadence de tir, il est en production limitée et passe par une phase de test en Tchétchénie.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>700</uiIndex>
     <szItemName>PKM</szItemName>
     <szLongItemName>PKM</szLongItemName>
-    <szItemDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universelle qui tire la grosse munition russe 7.62x54mm.</szItemDesc>
+    <szItemDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universel qui tire la grosse munition russe 7.62x54mm.</szItemDesc>
     <szBRName>PKM</szBRName>
-    <szBRDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universelle qui tire la grosse munition russe 7.62x54mm. Enseignez à vos ennemis la bonne vieille discipline soviétique.</szBRDesc>
+    <szBRDesc>Équivalent russe du M60 américain. C'est un fusil-mitrailleur universel qui tire la grosse munition russe 7.62x54mm. Enseignez à vos ennemis la bonne vieille discipline soviétique.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>701</uiIndex>
@@ -7340,7 +7340,7 @@
     <uiIndex>917</uiIndex>
     <szItemName>RPG-27</szItemName>
     <szLongItemName>RPG-27 Tavolga</szLongItemName>
-    <szItemDesc>Le top de la famille des lances-roquettes RPG avec des améliorations sur la portée et la précision.</szItemDesc>
+    <szItemDesc>Le top de la famille des lance-roquettes RPG avec des améliorations sur la portée et la précision.</szItemDesc>
     <szBRName>RPG-27 Tavolga</szBRName>
     <szBRDesc>Le RPG-27 Tavolga a un nouveau modèle de roquette, elle est plus grosse pour une plus grande portée et une meilleure précision.</szBRDesc>
   </ITEM>
@@ -8604,9 +8604,9 @@
     <uiIndex>1075</uiIndex>
     <szItemName>Rheinmetall</szItemName>
     <szLongItemName>Rheinmetall MG3</szLongItemName>
-    <szItemDesc>Quand les Allemands créent la Bundeswehr (force de défense fédérale) en 1955, ils ont pris la MG42 et ont modifié le calibre et la cadence de tir pour la rebaptiser MG3, car c'était toujours la meilleure mitrailleuse du monde en ce temps-là. Elle est utilisée dans plusieurs autres pays.</szItemDesc>
+    <szItemDesc>Quand les Allemands créent la Bundeswehr (force de défense fédérale) en 1955, ils ont pris la MG42 et ont modifié le calibre et la cadence de tir pour la rebaptiser MG3, car c'était toujours le meilleur fusil-mitrailleur du monde en ce temps-là. Il est utilisé dans plusieurs autres pays.</szItemDesc>
     <szBRName>Rheinmetall MG3</szBRName>
-    <szBRDesc>En dépit des diverses appellations, c'est une arme très sérieuse. Avec deux points d'attache pour un bipied ou un trépied, un viseur anti-aérien et un canon très faciles à remplacer, voilà pourquoi c'est LA MITRAILLEUSE LÉGÈRE. Livrée avec un bipied.</szBRDesc>
+    <szBRDesc>En dépit des diverses appellations, c'est une arme très sérieuse. Avec deux points d'attache pour un bipied ou un trépied, un viseur anti-aérien et un canon très faciles à remplacer, voilà pourquoi c'est Le FUSIL-MITRAILLEUR. Livrée avec un bipied.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1076</uiIndex>
@@ -8662,7 +8662,7 @@
     <szLongItemName>Poche SAW</szLongItemName>
     <szItemDesc>Une grande poche pour transporter une boîte de munitions ou des grenades.</szItemDesc>
     <szBRName>Poche SAW</szBRName>
-    <szBRDesc>Cette poche peut contenir une boîte de munitions pour votre mitrailleuse ou des grenades. Elle est montée sur une plateforme de cuisse.</szBRDesc>
+    <szBRDesc>Cette poche peut contenir une boîte de munitions pour votre fusil-mitrailleur ou des grenades. Elle est montée sur une plateforme de cuisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1083</uiIndex>
@@ -9508,7 +9508,7 @@
     <uiIndex>1188</uiIndex>
     <szItemName>CETME Ameli</szItemName>
     <szLongItemName>CETME Ameli</szLongItemName>
-    <szItemDesc>Conçue par la "Compania de Estudios Técnicos Especiales de Materiales", l'Ameli est comme si elle était dérivée de la MG42, mais son mécanisme est tout à fait différent.</szItemDesc>
+    <szItemDesc>Conçue par la "Compania de Estudios Técnicos Especiales de Materiales", l'Ameli est comme s'il était dérivé de la MG42, mais son mécanisme est tout à fait différent.</szItemDesc>
     <szBRName>CETME Ameli</szBRName>
     <szBRDesc>L'Ameli que nous avons en stock est la version légère qui a une cadence de tir plus élevée que la mitrailleuse lourde. Livrée avec un bipied.</szBRDesc>
   </ITEM>
@@ -9628,7 +9628,7 @@
     <uiIndex>1203</uiIndex>
     <szItemName>Harnais LRAK</szItemName>
     <szLongItemName>Harnais LRAK SAW</szLongItemName>
-    <szItemDesc>Ce harnais peut contenir quatre gros chargeurs pour votre mitrailleuse ou des tambours et d'autres petites choses.</szItemDesc>
+    <szItemDesc>Ce harnais peut contenir quatre gros chargeurs pour votre fusil-mitrailleur ou des tambours et d'autres petites choses.</szItemDesc>
     <szBRName>Harnais LRAK SAW</szBRName>
     <szBRDesc>Votre mitrailleur va adorer ce harnais, s'il est assez fort pour le porter quand il est complètement rempli.</szBRDesc>
   </ITEM>
@@ -11428,9 +11428,9 @@
     <uiIndex>1428</uiIndex>
     <szItemName>5.45x39 TC</szItemName>
     <szLongItemName>Boîte 5.45x39 TC</szLongItemName>
-    <szItemDesc>Une boîte de munitions 5.45 tête creuse chemisée. Elles assurent un meilleur contrôle de l’expansion qui se termine avec un diamètre d’ogive qui a doublé par rapport à l’impact, créant d'énormes plaies.</szItemDesc>
+    <szItemDesc>Une boîte de munitions 5.45 tête creuse chemisée. Elles assurent un meilleur contrôle de l'expansion qui se termine avec un diamètre d'ogive qui a doublé par rapport à l'impact, créant d'énormes plaies.</szItemDesc>
     <szBRName>Boîte 5.45x39 TC</szBRName>
-    <szBRDesc>Une boîte de munitions 5.45 tête creuse chemisée. Elles assurent un meilleur contrôle de l’expansion qui se termine avec un diamètre d’ogive qui a doublé par rapport à l’impact, créant d'énormes plaies.</szBRDesc>
+    <szBRDesc>Une boîte de munitions 5.45 tête creuse chemisée. Elles assurent un meilleur contrôle de l'expansion qui se termine avec un diamètre d'ogive qui a doublé par rapport à l'impact, créant d'énormes plaies.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1429</uiIndex>
@@ -13677,8 +13677,16 @@
 		<uiIndex>1708</uiIndex>
 		<szItemName>TT Modulaire</szItemName>
 		<szLongItemName>Sac TT Modulaire</szLongItemName>
-		<szItemDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Operator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szItemDesc>
+		<szItemDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szItemDesc>
 		<szBRName>Sac TT Modulaire</szBRName>
-		<szBRDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Operator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szBRDesc>		
+		<szBRDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szBRDesc>		
+	</ITEM>
+		<ITEM>
+		<uiIndex>1709</uiIndex>
+		<szItemName>Sac/couchage</szItemName>
+		<szLongItemName>Sac de couchage</szLongItemName>
+		<szItemDesc>Un sac de couchage de base pour ne pas dormir  à même le sol.</szItemDesc>
+		<szBRName>Sac de couchage</szBRName>
+		<szBRDesc>Pour ne plus dormir sur un plancher sale ! Faites de beaux rêves !</szBRDesc>
 	</ITEM>
 </ITEMLIST>

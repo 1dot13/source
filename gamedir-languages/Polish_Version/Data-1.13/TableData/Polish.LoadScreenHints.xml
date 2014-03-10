@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>                                                                                                
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
-szName            text to appear, 256 chars max
+szName            text to appear, 190 chars max
 --> 
 <LOADSCREENHINTS>
   <LOADSCREENHINT>

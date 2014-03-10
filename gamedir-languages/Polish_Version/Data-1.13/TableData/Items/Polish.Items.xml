@@ -13681,4 +13681,12 @@
 	  <szBRName>Plecak 3TT</szBRName>	
 	  <szBRDesc>Plecak pomieści zapasy na 3 dni. Może natomiast pomieścić dużo dodatkowego sprzętu dzięki systemowi MOLLE.</szBRDesc>	
 	</ITEM>
+  <ITEM>
+		<uiIndex>1709</uiIndex>
+		<szItemName>Sleeping bag</szItemName>
+		<szLongItemName>Sleeping bag</szLongItemName>
+		<szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+		<szBRName>Sleeping bag</szBRName>
+		<szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>		  
+	</ITEM>
 </ITEMLIST>

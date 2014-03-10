@@ -455,7 +455,7 @@ mais la recoudre tient de l'excellence.</szDescription>
    <szName>Mercenaire :</szName>
    <szShortName>Mercenaire</szShortName>
    <szDescription>Alors que d'autres pourraient s'accrocher à leur passé et ses atours, vous avez choisi
-la vie d'un soldat de fortune, et l'avez acceptée. C'est ce que vous êtes vraiment.</szDescription>
+la vie d'un soldat de fortune et l'avez acceptée. C'est ce que vous êtes vraiment.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>67</uiIndex>
@@ -468,7 +468,7 @@ Après des années de combats, il n'y a plus grand-chose qui peut vous ébranler
    <uiIndex>68</uiIndex>
    <szName>Annihilateur de DFK :</szName>
    <szShortName>Annihilateur de DFK</szShortName>
-   <szDescription>Avec votre exploit, vous avez gagné le respect et la reconnaissance que vous méritez.</szDescription>
+   <szDescription>Avec votre exploit, vous avez gagné \n le respect et la reconnaissance que vous méritez.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>69</uiIndex>

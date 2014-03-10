@@ -13687,4 +13687,12 @@
 		<szBRName>TT Modular Pack</szBRName>
 		<szBRDesc>The Modular Operator Pack is the mid level three day pack style entry in our Operator line of packs. Comparable in size to a regular three day pack, but with many more features.</szBRDesc>		
 	</ITEM>
+  <ITEM>
+		<uiIndex>1709</uiIndex>
+		<szItemName>Sleeping bag</szItemName>
+		<szLongItemName>Sleeping bag</szLongItemName>
+		<szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+		<szBRName>Sleeping bag</szBRName>
+		<szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>		  
+	</ITEM>
 </ITEMLIST>

@@ -19,7 +19,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
-      <szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
+      <szTooltipText>Allez prendre un verre au bar du coin... Ouais, vous le souhaitez ! Il suffit de payer des verres aux autres et signaler immédiatement toute information qui se répand.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -28,11 +28,11 @@
     <szFacilityShortName>Prison</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-      <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+      <szTooltipText>Vos mercenaires pourront interroger les prisonniers de guerre. Les détenus peuvent se rallier à votre cause ou vous donner des informations.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Faites-vous passer pour un prisonnier et gagner leur confiance afin de recueillir des informations pour empêcher les tentatives de mutinerie.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -72,7 +72,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
-      <szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
+      <szTooltipText>Prenez le contrôle des chaînes locales d'information pour filtrer le flux des nouvelles dans toute la région.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -94,7 +94,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
-      <szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
+      <szTooltipText>Transformez ce petit bureau en une machine de propagande bien huilée pour censurer les mauvaises nouvelles qui peuvent atteindre la ville et exposer vos actions sous son meilleur jour.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -198,7 +198,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Faites-vous passer pour un prisonnier et gagner leur confiance afin de recueillir des informations pour empêcher les tentatives de mutinerie.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -211,7 +211,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Faites-vous passer pour un prisonnier et gagner leur confiance afin de recueillir des informations pour empêcher les tentatives de mutinerie.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
 </FACILITYTYPES>

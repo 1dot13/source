@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
-szName            text to appear, 256 chars max
+szName            text to appear, 190 chars max
 -->
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
@@ -22,7 +22,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>Vous pouvez changer de mode de visée (lunette, viseur...) en appuyant sur ";".</szName>
+    <szName>Vous pouvez changer de mode de visée (lunette, viseur...) en appuyant sur [;].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
@@ -34,7 +34,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>Si un "M" apparaît sur votre arme, ça signifie qu'un accessoire est monté dessus, ce qui entraîne une meilleure stabilité.</szName>
+    <szName>Si un [M] apparaît sur votre arme, ça signifie qu'un accessoire est monté dessus, ce qui entraîne une meilleure stabilité.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
@@ -50,15 +50,15 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [MOLETTE] de votre souris. Et [ALT]+[MOLETTE] pour définir la taille de la salve en auto.</szName>
+    <szName>Tournez la roue de la fortune et augmentez vos chances de toucher dans tous les modes de tir, avec la [MOLETTE]. Et [ALT]+[MOLETTE] pour définir la taille de la salve en auto.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Des secteurs offrent des installations : Bars, mines... Vous pouvez y affecter vos mercenaires sur la carte stratégique. Une infobulle donne la fonction de l'installation et montre l'affectation du mercenaire comme pour réparation, soins...</szName>
+    <szName>Des secteurs offrent des installations comme des bars ou autres, vous pouvez y affecter vos mercenaires sur la carte stratégique. Des infobulles vous donne la fonction de l'installation.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guilde des voleurs. Voler l'arme de l'ennemi avec la main-curseur [CTRL]+[CLIC GAUCHE]. Si l'ennemi mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions et ses protections (ou autre).</szName>
+    <szName>Guilde des voleurs. Vole run ennemi avec la main-curseur [CTRL]+[CLIC GAUCHE]. S'il mord la poussière, sans mourir, vous pouvez le dépouiller, y compris ses munitions (ou autre).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
@@ -66,11 +66,11 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Mettez un peu de couleur dans votre vie ! En appuyant sur [FIN] sur l'écran tactique, vous affichez le champs de vision du mercenaire sélectionné. Depuis le rouge (ne détecte personne) jusqu'au vert (détecte même quelqu'un couché dans l'herbe).</szName>
+    <szName>Appuyez sur [FIN] dans l'écran tactique pour voir le champs de vision du mercenaire sélectionné. Du rouge (ne détecte personne) au vert (détecte même quelqu'un couché dans l'herbe).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Alerte rouge ! En appuyant sur [Suppr] dans l'écran tactique, vous ferez apparaître la zone que peut voir l'ennemi vu par le mercenaire sélectionné. La couleur va du rouge (sera visible même couché) au vert (dissimulation parfaite).</szName>
+    <szName>Appuyez sur [Suppr] dans l'écran tactique pour afficher la zone que voit l'ennemi vu par le mercenaire sélectionné. Du rouge (visible même couché) au vert (dissimulation parfaite).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
@@ -94,7 +94,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Appuyez sur [CTRL]+[MAJ]+[x] pour activer la discrétion en temps réel. Alors, vous n'entrerez plus en tour par tour lorsque vous apercevrez un ennemi, mais seulement s'il est alerté par votre présence.</szName>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[x] pour activer la discrétion en temps réel. Vous n'entrerez plus en tour par tour quand vous apercevrez un ennemi, sauf s'il est alerté par votre présence.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
@@ -234,7 +234,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Appuyez sur [L] pour faire face à une direction. Appuyez encore sur [L] dans la même direction et votre mercenaire épaulera son arme. Il regardera alors par la visée de l'arme, que ce soit une lunette ou un viseur traditionnel.</szName>
+    <szName>Appuyez sur [L] pour faire face à une direction. Appuyez encore sur [L] dans la même direction et votre mercenaire épaulera son arme. Il utilisera la visée de son arme (viseur/lunette).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
@@ -242,7 +242,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>Vous pouvez arroser une zone en mode tir automatique. Il suffit de sélectionner le tir automatique, choisissez le nombre de balles, [CLIC GAUCHE] sur la cible et faites glisser votre souris autour de la zone souhaitée.</szName>
+    <szName>Vous pouvez arroser une zone. Il suffit de sélectionner le tir automatique, choisir le nombre de balles, [ClicGAUCHE] sur la cible et faites glisser votre souris sur la zone souhaitée.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
@@ -266,7 +266,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>La milice mobile peut suivre vos mercenaires pendant leurs déplacements sur la carte. Elle les suivra tant qu'ils resteront à moins d'un secteur de distance. Attendez qu'elle arrive à votre position avant d'avancer à nouveau.</szName>
+    <szName>La milice mobile peut suivre vos mercenaires sur la carte. Elle les suivra tant qu'ils resteront à moins d'un secteur de distance. Attendez-là avant d'avancer à nouveau.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
@@ -278,11 +278,11 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
-    <szName>Dans l'inventaire du secteur. En haut de l'écran vous voyez de nombreuses icônes qui vous aident à trier et à filtrer les objets. Placez le curseur sur une icône pour afficher les informations.</szName>
+    <szName>Dans l'inventaire du secteur. En haut de l'écran, vous avez des icônes pour vous aider à trier et à filtrer les objets. Placez le curseur sur une icône pour afficher les informations.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>69</uiIndex>
-    <szName>Les munitions TC font beaucoup de dégâts, mais sont facilement arrêtées par un gilet pare-balles. Les munitions PE pénètrent facilement un gilet pare-balles, mais font moins de dégâts.</szName>
+    <szName>Les munitions TC font beaucoup de dégâts, mais sont facilement arrêtées par un gilet pare-balles. Les PE pénètrent facilement un gilet pare-balles, mais font moins de dégâts.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
@@ -314,7 +314,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
-    <szName>Dans le menu principal, maintenez la touche [Alt] et cliquez sur "Continuer partie sauvegardée" pour charger la dernière partie sauvegardée.</szName>
+    <szName>Dans le menu principal, maintenez la touche [ALT] et cliquez sur "Continuer partie sauvegardée" pour charger la dernière partie sauvegardée.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
@@ -326,7 +326,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
-    <szName>Les ennemis en T-shirt noir sont la Garde de la Reine. Ils ont le meilleur équipement et sont les ennemis les plus redoutables d'Arulco. Si vous augmentez le niveau de difficulté, ils seront plus nombreux.</szName>
+    <szName>Les ennemis en T-shirt noir sont la Garde de la Reine avec le meilleur équipement et sont les plus redoutables d'Arulco. En augmentant le niveau de difficulté, ils seront plus nombreux.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
@@ -354,7 +354,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
-    <szName>Vérifiez toujours si l'ennemi a un masque à gaz avant de lui lancer une lacrymogène. Maintenez la touche [Alt] tout en ciblant un ennemi pour voir ses détails. Le nombre de détails dépend de la distance entre l'ennemi sélectionné et le mercenaire.</szName>
+    <szName>Vérifiez si l'ennemi a un masque à gaz avant de lancer une lacrymo. Maintenez [ALT] en le ciblant pour voir ses détails (son nombre dépend de la distance entre lui et le mercenaire).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
@@ -450,7 +450,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
-    <szName>Chaque mercenaire a des besoins de sommeil différents, allant de 3 à 12 heures pour régénérer complètement son énergie. La compétence "Opérations de nuit" permet de réduire ce temps.</szName>
+    <szName>Chaque mercenaire a des besoins de sommeil différents, allant de 3 à 12 heures pour régénérer complètement son énergie. La compétence "Opérations de nuit" réduit ce temps.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
@@ -478,7 +478,7 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement tactique des mercenaires. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
+    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement tactique. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
@@ -498,6 +498,6 @@ szName            text to appear, 256 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>Dans l'écran tactique, appuyez et maintenez [BOUTON-DROIT-SOURIS] sur votre mercenaire, ça va ouvrir le menu "Assignation" similaire à celui que vous avez sur l'écran de la carte stratégique.</szName>
+    <szName>Dans l'écran tactique, appuyez et maintenez [BOUTON-DROIT-SOURIS] sur votre mercenaire, ça va ouvrir le menu "Assignation" similaire à celui qui est à l'écran de la carte stratégique.</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
