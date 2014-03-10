@@ -537,7 +537,7 @@ STR16 iEditorMercsToolbarText[] =
  L"SUPPRIMER",
  L"Supprimer le mercenaire sélectionné (|S|u|p|p|r)",
  L"SUIVANT", //20
- L"Mercenaire suivant (|E|s|p|a|c|e)\nMercenaire précédente (|M|a|j|+|E|s|p|a|c|e)",
+ L"Mercenaire suivant (|E|S|P|A|C|E)\nMercenaire précédente (|M|A|J|+|E|S|P|A|C|E)",
  L"Changer l'existence prioritaire",
  L"Changer, si le placement a\naccès à toutes les portes",
  
@@ -623,7 +623,7 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Ajouter/remplacer le toit de la construction par un nouveau toit plat.",
 	L"Copier une construction",
 	L"Bouger une construction",
-	L"Dessiner le numéro de pièce\n(Hold |S|h|i|f|t to reuse room number)",	// TODO.Translate
+	L"Dessiner le numéro de pièce.\n(Maintenir |M|A|J pour réutiliser le numéro de pièce)",
 	L"Supprimer le numéro de pièce",
 
 	L"Activer le mode supprimer (|E)",
@@ -672,11 +672,11 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Nouvelle carte",  //0
 	L"Nouveau sous-sol",
 	L"Nouveau niveau de caverne",
-	L"Sauvegarder la carte (|C|t|r|l+|S)",
-	L"Charger la carte (|C|t|r|l+|L)",
+	L"Sauvegarder la carte (|C|T|R|L+|S)",
+	L"Charger la carte (|C|T|R|L+|L)",
 	L"Sélectionner un tileset",
 	L"Quitter le mode éditeur",
-	L"Quitter le jeu (|A|l|t+|X)",
+	L"Quitter le jeu (|A|L|T+|X)",
 	L"Créer un carte de radar",
 	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2.\nCette option est seulement valable sur les cartes de taille \"normale\" qui ne font pas référence aux nombre de réseaux (ex : réseau de sortie) > 25600.",
 	L"Une fois la carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",
@@ -710,10 +710,10 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Options",
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Terrain fasthelp text
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Buildings fasthelp text
-	L"|S|p|a|c|e: Select next item\n \n|C|t|r|l+|/: Place new item under mouse cursor\n|/: Place same item under mouse cursor", //Items fasthelp text	// TODO.Translate
-	L"|1-|9 : Pose de waypoints\n|C|t|r|l+|C/|C|t|r|l+|V : Copie/colle mercenaire", //Mercs fasthelp text
-	L"|C|t|r|l+|G : Va à la case\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text
-	L"|C|t|r|l+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s).", //Options fasthelp text
+	L"|E|S|P|A|C|E : Sélectionne l'objet suivant\n \n|C|T|R|L+|/ : Place le nouveau objet sous le curseur de la souris\n|/ : Place le même objet sous le curseur de la souris", //Items fasthelp text
+	L"|1-|9 : Pose de waypoints\n|C|T|R|L+|C/|C|T|R|L+|V : Copie/colle mercenaire", //Mercs fasthelp text
+	L"|C|T|R|L+|G : Va à la case\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text
+	L"|C|T|R|L+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s).", //Options fasthelp text
 };
 
 //Editor Taskbar Utils.cpp
@@ -1503,10 +1503,10 @@ STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 // TODO.Translate
 STR16 pDisplaySelectionWindowButtonText[] =
 {
-	L"Accept selections (|E|n|t|e|r)",
-	L"Cancel selections (|E|s|c)\nClear selections (|S|p|a|c|e)",
-	L"Scroll window up (|U|p)",
-	L"Scroll window down (|D|o|w|n)",
+	L"Confirmer les choix (|E|N|T|R|É|E)",
+	L"Annuler les choix (|E|S|C)\nEffacer les choix (|E|S|P|A|C|E)",
+	L"Faire défiler la fenêtre vers le haut (|H|A|U|T)",
+	L"Faire défiler la fenêtre vers le bas (|B|A|S)",
 };
 
 //Cursor Modes.cpp
@@ -1628,7 +1628,7 @@ CHAR16 WeaponType[][30] =
 	L"Fusil",
 	L"Fusil de précision",
 	L"Fusil d'assaut",
-	L"Mitrailleuse légère",
+	L"Fusil-mitrailleur",
 	L"Fusil à pompe",
 };
 
@@ -1766,8 +1766,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s n'ira dans aucun emplacement de libre.",
 	L"Pas assez de place pour cette poche.",
 
-	L"%s has repaired the %s as much as possible.", // TODO.Translate
-	L"%s has repaired %s's %s as much as possible.",
+	L"%s a réparé au mieux : %s.",
+	L"%s a aidé %s pour réparer au mieux : %s.",	// TODO.Translate //A voir fini (to see finished)
 };
 
 
@@ -1947,12 +1947,12 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Capturé(e)",
 	L"Hôpital", 
 	L"Vide",	// Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gathering Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spreading Propaganda",// TODO.Translate	// spread propaganda
-	L"Gathering Rumours",// TODO.Translate			// gather information
+	L"Infiltré",	// facility: undercover prisoner (snitch)  // TODO.Translate //A voir fini (to see finished)
+	L"Répand une propagande",   // facility: spread propaganda  // TODO.Translate //A voir fini (to see finished)
+	L"Fait de la propagande",   // facility: spread propaganda (globally)  // TODO.Translate //A voir fini (to see finished)
+	L"Collecte les rumeurs",			// facility: gather rumours	  // TODO.Translate //A voir fini (to see finished)
+	L"Propagande",	     // spread propaganda  // TODO.Translate //A voir fini (to see finished)
+	L"Rumeurs",			// gather information  // TODO.Translate //A voir fini (to see finished)
 	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
@@ -1993,7 +1993,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"Déplace les objets",	// move items
+	L"Déplacer les objets",	// move items
 	L"Renseignement",	//!!! Idem ? -> Current translation is OK
 	L"Repos",
 	L"Interroger captif(s)",		// Flugente: interrogate prisoners
@@ -2002,12 +2002,12 @@ STR16 pLongAssignmentStrings[] =
 	L"Capturé(e)",
 	L"Hôpital", // patient in a hospital 
 	L"Vide",	// Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gather Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spread Propaganda",// TODO.Translate	// spread propaganda
-	L"Gather Rumours",// TODO.Translate			// gather information
+	L"Infiltré", 	// facility: undercover prisoner (snitch)  // TODO.Translate //A voir fini (to see finished)
+	L"Répandre une propagande", 	// facility: spread propaganda  // TODO.Translate //A voir fini (to see finished)
+	L"Faire de la propagande",  	// facility: spread propaganda (globally)   // TODO.Translate //A voir fini (to see finished)
+	L"Récolter les rumeurs ",			// facility: gather rumours   // TODO.Translate //A voir fini (to see finished)
+	L"Propagande",  	// spread propaganda
+	L"Rumeurs", 		// gather information
 	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 };
 
@@ -2125,7 +2125,7 @@ STR16 pAssignMenuStrings[] =
 	L"Transport", // the merc is in a vehicle
 	L"Réparat.", // the merc is repairing items 
 	L"Radio", // Flugente: the merc is scanning for patrols in neighbouring sectors
-	L"Snitch", // TODO.Translate // anv: snitch actions
+	L"Infiltré",   // anv: snitch actions
 	L"Formation", // the merc is training
 	L"Dépl obj.",	// move items
 	L"Affectat.", // the merc is using/staffing a facility
@@ -2201,74 +2201,74 @@ STR16 pTraitSkillsDenialStrings[] =
 STR16 pSnitchMenuStrings[] =
 {
 	// snitch
-	L"Team Informant",
-	L"Town Assignment",	
-	L"Cancel",
+	L"Infiltrer l'équipe",
+	L"Infiltrer la ville",	
+	L"Annuler",
 };
 
 STR16 pSnitchMenuDescStrings[] =
 {
 	// snitch
-	L"Discuss snitch's behaviour towards his teammates.",
-	L"Take an assignment in this sector.",
-	L"Cancel",
+	L"Discuter du comportement du mouchard vis-à-vis de ses coéquipiers.", // TODO.Translate //A voir fini (to see finished)
+	L"Prendre une mission dans ce secteur.", // TODO.Translate //A voir fini (to see finished)
+	L"Annuler",
 };
 
 STR16 pSnitchToggleMenuStrings[] =
 {
 	// toggle snitching
-	L"Report complaints",
-	L"Don't report",
-	L"Prevent misbehaviour",
-	L"Ignore misbehaviour",
-	L"Cancel",
+	L"Rapporter les plaintes",
+	L"Ne pas rapporter",
+	L"Prévenir les mauvaises conduites",
+	L"Ignorer les mauvaises conduites",
+	L"Annuler",
 };
 
 STR16 pSnitchToggleMenuDescStrings[] =
 {
-	L"Report any complaints you hear from other mercs to your commander.",
-	L"Don't report anything.",
-	L"Try to stop other mercs from getting wasted and scrounging.",
-	L"Don't care what other mercs do.",
-	L"Cancel",
+	L"Signaler toute plainte des autres mercenaires à votre commandant.",
+	L"Ne rien signaler.",
+	L"Essayer d'empêcher les chapardages et la prise de produits addictifs des autres mercenaires.", // TODO.Translate
+	L"Ne pas se soucier de ce que font les autres mercenaires.",
+	L"Annuler",
 };
 
 STR16 pSnitchSectorMenuStrings[] =
 {
 	// sector assignments
-	L"Spread propaganda",
-	L"Gather rumours",
-	L"Cancel",
+	L"Fait de la propagande",   // TODO.Translate //A voir fini (to see finished)
+	L"Récolte les rumeurs",   // TODO.Translate //A voir fini (to see finished)
+	L"Annuler",
 };
 
 STR16 pSnitchSectorMenuDescStrings[] =
 {
-	L"Glorify mercs' actions to increase town loyalty and suppress any bad news. ",
-	L"Keep an ear to the ground on any rumours about enemy forces activity.",
+	L"Glorifier les actions des mercenaires pour accroître la fidélité de la ville et étouffer toute mauvaises nouvelles.",
+	L"Prêter une oreille attentive aux rumeurs sur l'activité des forces ennemies.",
 	L"",
 };
 
 STR16 pSnitchPrisonExposedStrings[] =
 {
-	L"%s was exposed as a snitch but managed to notice it and get out alive.",
-	L"%s was exposed as a snitch but managed to defuse situation and get out alive.",
-	L"%s was exposed as a snitch but managed to avoid assassination attempt.",
-	L"%s was exposed as a snitch but guards managed to prevent any violence outbursts.",
+	L"%s s'est exposé(e) comme mouchard, mais s'en est rendu compte et a pu s'en sortir vivant.",
+	L"%s s'est exposé(e) comme mouchard, mais a réussi à désamorcer la situation et a pu s'en sortir vivant.",
+	L"%s s'est exposé(e) comme mouchard, mais a réussi à éviter la tentative d'assassinat.",
+	L"%s s'est exposé(e) comme mouchard, mais les gardes ont empêché tout débordement violent.",
 
-	L"%s was exposed as a snitch and almost drowned by other inmates before guards saved him.",
-	L"%s was exposed as a snitch and almost beaten to death before guards saved him.",
-	L"%s was exposed as a snitch and almost stabbed to death before guards saved him.",
-	L"%s was exposed as a snitch and strangled to death before guards saved him.",
+	L"%s s'est exposé(e) comme mouchard et a failli être noyé par les autres détenus avant que les gardes ne le/la sauvent.",
+	L"%s s'est exposé(e) comme mouchard et a failli se faire battre à mort avant que les gardes ne le/la sauvent.",
+	L"%s s'est exposé(e) comme mouchard et a failli se faire poignarder avant que les gardes ne le/la sauvent.",
+	L"%s s'est exposé(e) comme mouchard et a failli se faire étrangler avant que les gardes ne le/la sauvent.",
 
-	L"%s was exposed as a snitch and drowned in toilet by other inmates.",
-	L"%s was exposed as a snitch and beaten to death by other inmates.",
-	L"%s was exposed as a snitch and shanked to death by other inmates.",
-	L"%s was exposed as a snitch and strangled to death by other inmates.",
+	L"%s s'est exposé(e) comme mouchard et a été noyé(e) dans les toilettes par les autres détenus.",
+	L"%s s'est exposé(e) comme mouchard et a été battu(e) à mort par les autres détenus.",
+	L"%s s'est exposé(e) comme mouchard et les autres détenus l'ont poignardé(e).",
+	L"%s s'est exposé(e) comme mouchard et les autres détenus l'ont étranglé(e).",
 };
 
 STR16 pSnitchGatheringRumoursResultStrings[] =
 {
-	L"%s heard rumours about enemy activity in %d sectors.",
+	L"%s a entendu des rumeurs sur une activité ennemie dans le secteur %d.",
 
 };
 // /TODO.Translate
@@ -2482,7 +2482,7 @@ STR16 gzMercSkillTextNew[] =
 
 	// new minor traits
 	L"Opérateur radio",	// 21
-	L"Snitch",	// 22   // TODO.Translate
+	L"Infiltré",	// 22   // TODO.Translate //A voir fini (to see finished)
 
 	// second names for major skills
 	L"Mitrailleur",
@@ -2524,7 +2524,7 @@ STR16 pTacticalPopupButtonStrings[] =
 	L"Regarder (|L)",
 	L"Action",
 	L"Parler",
-	L"Examiner (|C|t|r|l)",
+	L"Examiner (|C|T|R|L)",
 
 	// Pop up door menu
 	L"Ouvrir à la main",
@@ -2536,7 +2536,7 @@ STR16 pTacticalPopupButtonStrings[] =
 	L"Déverrouiller",
 	L"Utiliser explosif",
 	L"Utiliser pied de biche",
-	L"Annuler (|E|c|h|a|p)",
+	L"Annuler (|E|C|H|A|P)",
 	L"Fermer",
 };
 
@@ -2761,7 +2761,7 @@ STR16 gpStrategicString[] =
 	L"Annule le déploiement des mercenaires \net vous permet de les déployer vous-même. (|C)", 
 	L"Disperse aléatoirement vos mercenaires \nà chaque fois. (|S)",
 	L"Vous permet de placer votre groupe de mercenaires. (|G)",
-	L"Cliquez sur ce bouton lorsque vous avez déployé \nvos mercenaires. (|E|n|t|r|é|e)",
+	L"Cliquez sur ce bouton lorsque vous avez déployé \nvos mercenaires. (|E|N|T|R|É|E)",
 	L"Vous devez déployer vos mercenaires \navant d'engager le combat.",
 
 	//Various strings (translate word for word)
@@ -3168,12 +3168,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Parler à",
 	L"Muet",
 	L"Se relever (|P|g|U|p)",
-	L"Niveau du curseur (|T|a|b)",
+	L"Niveau du curseur (|T|A|B)",
 	L"Escalader/Sauter (|J)",
 	L"Se coucher (|P|g|D|n)",
-	L"Examiner (|C|t|r|l)",
+	L"Examiner (|C|T|R|L)",
 	L"Mercenaire précédent",
-	L"Mercenaire suivant (|E|s|p|a|c|e)",
+	L"Mercenaire suivant (|E|S|P|A|C|E)",
 	L"Options (|O)",
 	L"Rafale (|B)",
 	L"Regarder/Pivoter (|L)",
@@ -3184,7 +3184,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Sourdine activée pour %s.",
 	L"État : %d/%d\nCarburant : %d/%d",
 	L"Sortir du véhicule" ,
-	L"Changer d'escouade ( |M|a|j| |E|s|p|a|c|e )",
+	L"Changer d'escouade (|M|A|J| |E|S|P|A|C|E)",
 	L"Conduire",
 	L"N/A",						//this is an acronym for "Not Applicable." 
 	L"Utiliser (Mains nues)",
@@ -3497,7 +3497,7 @@ STR16 pwTownInfoStrings[] =
 	L"Loyauté ",					// 5 // the loyalty level of this town
 	L"Forces entraînées ", 					// the forces in the town trained by the player
 	L"",
-	L"Principales installations ", 				// main facilities in this town
+	L"Principale installation ", 				// main facilities in this town
 	L"Niveau ", 					// the training level of civilians in this town
 	L"Formation ",				// 10 // state of civilian training in town
 	L"Milice ", 					// the state of the trained civilians in the town
@@ -3611,7 +3611,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 {
 	L"Suivant (|.)",		// next page
 	L"Précédent (|,)",		// previous page
-	L"Quitter l'inventaire du secteur (|E|s|c)",	// exit sector inventory
+	L"Quitter l'inventaire du secteur (|E|S|C)",	// exit sector inventory
 
 	L"Zoom inventaire", // HEAROCK HAM 5: Inventory Zoom Button
 	L"Empiler les mêmes objets", // HEADROCK HAM 5: Stack and Merge
@@ -3636,13 +3636,13 @@ STR16 pMapScreenInvenButtonHelpText[] =
 STR16 pMapScreenBottomFastHelp[] =
 {
 	L"PC Portable (|L)",
-	L"Tactique (|E|c|h|a|p)",
+	L"Tactique (|E|C|H|A|P)",
 	L"Options (|O)",
 	L"Compression du temps (|+)", 	// time compress more
 	L"Compression du temps (|-)", 	// time compress less
-	L"Message précédent (|H|a|u|t)\nPage précédente (|P|g|U|p)", 	// previous message in scrollable list
-	L"Message suivant (|B|a|s)\nPage suivante (|P|g|D|n)", 	// next message in the scrollable list
-	L"Arrêter/Reprendre (|E|s|p|a|c|e)",	// start/stop time compression
+	L"Message précédent (|H|A|U|T)\nPage précédente (|P|g|U|p)", 	// previous message in scrollable list
+	L"Message suivant (|B|A|S)\nPage suivante (|P|g|D|n)", 	// next message in the scrollable list
+	L"Arrêter/Reprendre (|E|S|P|A|C|E)",	// start/stop time compression
 };
 
 STR16 pMapScreenBottomText[] =
@@ -4008,9 +4008,9 @@ STR16 pBullseyeStrings[] =
 
 STR16 pMiscMapScreenMouseRegionHelpText[] =
 {
-	L"Inventaire (|E|n|t|r|é|e)",
+	L"Inventaire (|E|N|T|R|É|E)",
 	L"Jeter objet",
-	L"Quitter Inventaire (|E|n|t|r|é|e)",
+	L"Quitter Inventaire (|E|N|T|R|É|E)",
 };
 
 
@@ -4058,7 +4058,7 @@ STR16 pImpPopUpStrings[] =
 	L"Vous avez déjà trois IMP du même sexe dans l'escouade.",
 	L"Vous n'avez pas les moyens.",	// 10
 	L"Le nouvel IMP a rejoint votre escouade.",
-	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"Vous avez déjà sélectionné le maximal de traits de caractères.",
 };
 
 
@@ -5622,7 +5622,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
 	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires. (|G) \nDésactivez-le, si votre machine n'est pas suffisamment puissante.",
+	L"Activez cette option pour éclairer les environs des mercenaires. (|G)\nDésactivez-la, si votre machine n'est pas suffisamment puissante.",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",
@@ -5647,13 +5647,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les ennemis feront de temps en temps des remarques sur certaines actions.", // Changed from Enemies Drop All Items - SANDRO
 	L"Si activé, les grenades des lance-grenades ont un grand angle (|Q).",
 	L"Si activé, le mode tour par tour ne sera pas actif, si vous n'êtes pas vu ou entendu par l'ennemi à moins d'appuyer sur |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"Si activé, |E|s|p|a|c|e sélectionne l'escouade suivante.",
+	L"Si activé, |E|S|P|A|C|E sélectionne l'escouade suivante.",
 	L"Si activé, les ombres d'objets sont affichées.",
 	L"Si activé, la portée des armes est affichée en nombres de cases.",
 	L"Si activé, les effets de traçantes sont affichés pour les tirs simples.",
 	L"Si activé, le son de pluie est audible quand il pleut.",
 	L"Si activé, les corbeaux sont présents dans le jeu.",
-	L"Si activé, une fenêtre info-bulle apparaît lorsque vous appuyez sur |A|l|t et que le curseur est sur un ennemi.",
+	L"Si activé, une fenêtre info-bulle apparaît lorsque vous appuyez sur |A|L|T et que le curseur est sur un ennemi.",
 	L"Si activé, le jeu est sauvegardé à chaque nouveau tour du joueur.",
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
@@ -5676,7 +5676,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.",
 	L"Si activé, inverse le sens de la molette de la souris.",
-	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|C|t|r|l+|M|A|J|+|G)",
+	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|C|T|R|L+|M|A|J|+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5743,7 +5743,7 @@ STR16	gzGIOScreenText[] =
 	L"4",
 	L"5",
 	L"6",
-	L"Objets lachés par les ennemis",
+	L"Objets lâchés par les ennemis",
 	L"Non",
 	L"Oui",
 #ifdef JA2UB
@@ -6105,8 +6105,8 @@ STR16 pMessageStrings[] =
 	L"Libérer le curseur pour qu'il se déplace hors de la fenêtre.",			// 105
 	L"Déplacement tactique activé",
 	L"Déplacement tactique désactivé",
-	L"Artificial Merc Light ON",	// TODO.Translate
-	L"Artificial Merc Light OFF",
+	L"Éclairage du mercenaire activé",
+	L"Éclairage du mercenaire désactivé",
 };
 
 
@@ -6465,8 +6465,8 @@ STR16 gzLateLocalizedString[] =
 	L"Le réservoir est plein.",
 
 	//51-52 Fast help text in mapscreen.
-	L"Compression du temps (|E|s|p|a|c|e)",
-	L"Arrêt de la compression du temps (|E|c|h|a|p)",
+	L"Compression du temps (|E|S|P|A|C|E)",
+	L"Arrêt de la compression du temps (|E|C|H|A|P)",
 
 	//53-54 "Magic has unjammed the Glock 18" or "Magic has unjammed Raven's H&K G11" 
 	L"%s a désenrayé : %s",
@@ -7111,8 +7111,8 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s a été blessé dans le secteur %s.", // <--- This is a log message string.
 	// 31 - 35
 	L"%s a été gravement blessé dans le secteur %s.", //<--- This is a log message string.
-	L"There are currently prisoners here who are aware of %s's identity.", // TODO.Translate
-	L"%s is currently well known as a mercenary snitch. Wait at least %d more hours.", // TODO.Translate
+	L"Il y a actuellement des prisonniers qui ont connaissance de l'identité de : %s",
+	L"%s est actuellement trop connu(e) comme indic. Attendez au moins %d heures.",
 
 
 };
@@ -8331,10 +8331,10 @@ STR16	szCampaignHistoryDetail[]=
 	L"du sud",
 	L"de l'ouest",
 	L"et",
-	L"an unknown location",	// TODO.Translate
+	L"d'une direction inconnue",	// TODO.Translate //A voir fini (to see finished)
 
 	L"Des bâtiments ont été endommagés.",
-	L"In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.",	// TODO.Translate
+	L"Dans les combats, des bâtiments ont été endommagés. Il y a eu %d civil(s) tué(s) et %d blessé(s).",
 	L"Pendant l'attaque, %s et %s ont appelé des renforts.",
 	L"Pendant l'attaque, %s a appelé des renforts.",
 	L"Les témoins rapportent l'utilisation d'armes chimiques par les deux camps.",
@@ -8343,9 +8343,9 @@ STR16	szCampaignHistoryDetail[]=
 	L"Il y avait %d chars pour renforcer %s. %d d'entre eux ont été détruits dans des combats acharnés.",
 	L"Les deux camps avaient des tireurs d'élite.",
 	L"Des sources non vérifiées indiquent que %s tireurs d'élite ont été impliqués dans le combat."
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
-	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
-	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
+	L"Ce secteur a une très grande importance stratégique, car il abrite l'une des rares batteries de missiles sol-air que l'armée arulcaine possède. Des photographies aériennes montrent les dégâts du centre de commande. Ça laissera l'espace aérien d'Arulco sans défense pour le moment.",
+	L"La situation sur le terrain est devenue encore plus confuse, car il semble que le combat des rebelles a pris un nouveau virage. On a maintenant la confirmation qu'une milice rebelle s'est engagée activement avec les mercenaires étrangers.",
+	L"La position des royalistes semble plus précaire qu'on ne le pensait. Des rapports d'une scission au sein de l'armée ont fait surface, impliquant des échanges de feu au sein même du personnel militaire.",
 };
 
 STR16	szCampaignHistoryTimeString[]=
@@ -8434,28 +8434,28 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Précédent",
 
 	L"Suivant",
-	L"Incident",
+	L":",
 	L"Jour",
 };
 
 STR16   szTacticalInventoryDialogString[]=
 {
-        L"Inventory Manipulations",
+        L"Manipulations de l'inventaire",    // TODO.Translate //A voir fini (to see finished)
 
-        L"NVG",
-        L"Reload All",
+        L"LVN",
+        L"Recharger tout",
         L"",
         L"",
 
-        L"Sort",
-        L"Merge",
-        L"Separate",
-        L"Organize",
+        L"Trier",
+        L"Fusionner",
+        L"Séparer",
+        L"Classer",
 
-        L"Crates",
-        L"Boxes",
-        L"Drop B/P",
-        L"Pickup B/P",
+        L"Caisses",
+        L"Boîtes",
+        L"Lâcher sac/dos",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Lâcher sac/dos",	    // TODO.Translate //A voir fini long mot(to see finished)
 
         L"",
         L"",
@@ -8465,35 +8465,35 @@ STR16   szTacticalInventoryDialogString[]=
 
 STR16   szTacticalCoverDialogString[]=
 {
-        L"Cover Display Mode",
+        L"Afficher couverture",
 
-        L"Off",
-        L"Enemy",
-        L"Merc",
-        L"",
-
-        L"",
-        L"",
-        L"",
+        L"Non",	    // TODO.Translate //A voir fini (to see finished)
+        L"Ennemi",
+        L"Merc.",
         L"",
 
-        L"Traps",
-        L"Network",
-        L"Detector",
+        L"",
+        L"",
+        L"",
         L"",
 
-        L"Net A",
-        L"Net B",
-        L"Net C",
-        L"Net D",
+        L"Pièges",
+        L"Réseau",
+        L"Détecteur",
+        L"",
+
+        L"Réseau A",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Réseau B",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Réseau C",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Réseau D",	    // TODO.Translate //A voir fini long mot(to see finished)
 };
 
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
-        L"Turning off cover/traps display",
-        L"Showing danger zones",
-        L"Showing merc view",
+        L"Turning off cover/traps display",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Afficher les zones dangereuses",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Afficher la vue du mercenaire",
         L"",
 
         L"",
@@ -8501,15 +8501,15 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"",
         L"",
 
-        L"Display trap network",
-        L"Display trap network colouring",
-        L"Display nearby traps",
+        L"Afficher réseau (piège)",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Afficher les réseaux (pièges) par couleur",	    // TODO.Translate //A voir fini long mot(to see finished)
+        L"Afficher les pièges à proximité",	    // TODO.Translate //A voir fini long mot(to see finished)
         L"",
 
-        L"Display trap network A",
-        L"Display trap network B",
-        L"Display trap network C",
-        L"Display trap network D",
+        L"Afficher le réseau A",
+        L"Afficher le réseau B",
+        L"Afficher le réseau C",
+        L"Afficher le réseau D",
 };
 
 #endif //FRENCH
