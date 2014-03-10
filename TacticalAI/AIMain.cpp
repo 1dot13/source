@@ -2650,6 +2650,38 @@ void UpdateFastForwardMode( SOLDIERTYPE* pSoldier )
 			break;
 		}
 	}
+	else if ( pSoldier->bTeam == CIV_TEAM )
+	{
+		switch( gGameExternalOptions.ubAutoFastForwardCivs )
+		{
+		case 0:				// default mode
+			forward = gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE];
+			break;
+		case 1:				// auto fast forward only invisible civs
+			if( pSoldier->bVisible == -1 )
+				forward = TRUE && !action;
+			break;
+		case 2:				// auto fast forward civs always
+			forward = TRUE && !action;
+			break;
+		}
+	}
+	else if ( pSoldier->bTeam == CREATURE_TEAM )
+	{
+		switch( gGameExternalOptions.ubAutoFastForwardCreatures )
+		{
+		case 0:				// default mode
+			forward = gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE];
+			break;
+		case 1:				// auto fast forward only invisible
+			if( pSoldier->bVisible == -1 )
+				forward = TRUE && !action;
+			break;
+		case 2:				// auto fast forward always
+			forward = TRUE && !action;
+			break;
+		}
+	}
 	else
 	{
 		switch ( gGameExternalOptions.ubAutoFastForwardEnemies )

@@ -2190,6 +2190,8 @@ void LoadGameExternalOptions()
 	// sevenfm: improved auto fast forwarding
 	gGameExternalOptions.ubAutoFastForwardEnemies	= iniReader.ReadInteger("Clock Settings","AUTO_FAST_FORWARD_ENEMIES", 0, 0, 3);
 	gGameExternalOptions.ubAutoFastForwardMilitia	= iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_MILITIA", 0, 0, 2);
+	gGameExternalOptions.ubAutoFastForwardCivs		= iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_CIVS", 0, 0, 2);
+	gGameExternalOptions.ubAutoFastForwardCreatures = iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_CREATURES", 0, 0, 2);
 }
 
 

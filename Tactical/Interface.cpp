@@ -1876,7 +1876,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	BOOLEAN bInCombat = gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT;
 	BOOLEAN bStealth = pSoldier->bStealthMode || pSoldier->bSoldierFlagMask & ( SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER );
 	// sevenfm: for mercs use name color as cover indicator
-	if( pSoldier->bSide == 0 && ! ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT) ) &&
+	if( pSoldier->bTeam == OUR_TEAM && ! ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT) ) &&
 		( ( gGameExternalOptions.ubShowCoverIndicator == 2 && ( bInCombat || bStealth ) ) ||
 		( gGameExternalOptions.ubShowCoverIndicator == 4 && bStealth ) ) )
 	{
@@ -6067,8 +6067,9 @@ BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 ){
 	switch(cover)
 	{
 	case 0:
-		color8 = COLOR_RED;
-		color16 = Get16BPPColor( FROMRGB( 200, 0, 0 ) );
+		//color8 = COLOR_RED;
+		color8 = FONT_MCOLOR_RED;
+		color16 = Get16BPPColor( FROMRGB( 220, 0, 0 ) );
 		break;
 	case 1:
 		color8 = COLOR_ORANGE;

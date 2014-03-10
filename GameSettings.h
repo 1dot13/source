@@ -1280,6 +1280,8 @@ typedef struct
 	// sevenfm: improved auto fast forwarding
 	UINT8 ubAutoFastForwardEnemies;
 	UINT8 ubAutoFastForwardMilitia;
+	UINT8 ubAutoFastForwardCivs;
+	UINT8 ubAutoFastForwardCreatures;
 
 	// Flugente: Weapon Overheating
 	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
