@@ -1583,6 +1583,9 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Roll %ld", iRandomRes);
 
+				// Flugente: as I once broke this, allow me to explain this part. We've determined the 'urge' to move to an adjacent sector.
+				// We now see wether an adjacent sector is a worthy target to move to. If we do not find a vali target, we stop the movement function
+
 				iRandomRes = 256;
 
 				for( x = 0; x < uiDirNumber; ++x)
@@ -1592,68 +1595,68 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						iRandomRes = x;
 						break;
 					}
+				}
 
-					// "Decided" to stay here
-					if(iRandomRes >= uiDirNumber)
+				// "Decided" to stay here
+				if(iRandomRes >= uiDirNumber)
+					return;
+
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
+				//Kaiden: if Restricted Sectors List option is turned on,
+				// militia can't move to any sectors in the list.
+				// Unless they are following a group of mercs.
+				///////////////////////////////////////////////////////////////////
+				// HEADROCK HAM B1: Restrict roamers by XML as normal, but also 
+				// allow them to move through visited sectors. 
+				// Also, there's an option now to use dynamic restriction. The 
+				// AdjustRoamingRestrictions() function is used to dynamically 
+				// define which sectors are restricted, based on city conquest.
+				///////////////////////////////////////////////////////////////////
+
+				// HEADROCK HAM 3.4: Moved the check to a separate function.
+				if (gGameExternalOptions.gflimitedRoaming)
+				{
+					if (!IsSectorRoamingAllowed(pMoveDir[iRandomRes][0]))
 						return;
+				}
 
-					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
-					//Kaiden: if Restricted Sectors List option is turned on,
-					// militia can't move to any sectors in the list.
-					// Unless they are following a group of mercs.
-					///////////////////////////////////////////////////////////////////
-					// HEADROCK HAM B1: Restrict roamers by XML as normal, but also 
-					// allow them to move through visited sectors. 
-					// Also, there's an option now to use dynamic restriction. The 
-					// AdjustRoamingRestrictions() function is used to dynamically 
-					// define which sectors are restricted, based on city conquest.
-					///////////////////////////////////////////////////////////////////
+				// WDS bug fix for moving militia
+				INT16 targetX = SECTORX( pMoveDir[ iRandomRes ][0] );
+				INT16 targetY = SECTORY( pMoveDir[ iRandomRes ][0] );
+				Assert(targetX >= 0 && targetX < MAP_WORLD_X);
+				Assert(targetY >= 0 && targetY < MAP_WORLD_Y);
+				MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE, FALSE );
 
-					// HEADROCK HAM 3.4: Moved the check to a separate function.
-					if (gGameExternalOptions.gflimitedRoaming)
+				if ( gfStrategicMilitiaChangesMade)
+				{
+					ResetMilitia();
+				}
+
+				if( NumEnemiesInSector( targetX, targetY ) )
+				{
+					extern GROUP *gpBattleGroup;
+					gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
+	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
+
+					if(pEnemyGroup && pEnemyGroup->ubGroupID)
 					{
-						if (!IsSectorRoamingAllowed(pMoveDir[iRandomRes][0]))
-							return;
-					}
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, targetX, SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
 
-					// WDS bug fix for moving militia
-					INT16 targetX = SECTORX( pMoveDir[ iRandomRes ][0] );
-					INT16 targetY = SECTORY( pMoveDir[ iRandomRes ][0] );
-					Assert(targetX >= 0 && targetX < MAP_WORLD_X);
-					Assert(targetY >= 0 && targetY < MAP_WORLD_Y);
-					MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE, FALSE );
+						pEnemyGroup->ubPrevX = sMapX;
+						pEnemyGroup->ubPrevY = sMapY;
 
-					if ( gfStrategicMilitiaChangesMade)
-					{
-						ResetMilitia();
-					}
+						pEnemyGroup->ubNextX = targetX;
+						pEnemyGroup->ubNextY = targetY;
+	*/
+					//Moa: handle deserters before moving in hostile territory
+					MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
 
-					if( NumEnemiesInSector( targetX, targetY ) )
-					{
-						extern GROUP *gpBattleGroup;
-						gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
-		/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
+					gfMSBattle = TRUE;
 
-						if(pEnemyGroup && pEnemyGroup->ubGroupID)
-						{
-							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, targetX, SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
-							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
-
-							pEnemyGroup->ubPrevX = sMapX;
-							pEnemyGroup->ubPrevY = sMapY;
-
-							pEnemyGroup->ubNextX = targetX;
-							pEnemyGroup->ubNextY = targetY;
-		*/
-						//Moa: handle deserters before moving in hostile territory
-						MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
-
-						gfMSBattle = TRUE;
-
-		//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-						EnterAutoResolveMode( targetX,  targetY );
-		//				}
-					}
+	//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
+					EnterAutoResolveMode( targetX,  targetY );
+	//				}
 				}
 			}
 		}

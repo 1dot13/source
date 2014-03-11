@@ -3062,7 +3062,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			//Send the lowest of the two:	number requested or number available
 
 			iReinforcementsApproved = min( iReinforcementsRequested, iReinforcementsAvailable );
-			if( iReinforcementsApproved < iMaxReinforcementsAllowed - ubNumExtraReinforcements )
+			if( iReinforcementsApproved > iMaxReinforcementsAllowed - ubNumExtraReinforcements )
 			{
 				//The force isn't strong enough, but the queen isn't willing to apply extra resources
 				iReinforcementsApproved = iMaxReinforcementsAllowed - ubNumExtraReinforcements;
