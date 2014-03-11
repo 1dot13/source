@@ -39,6 +39,8 @@
 
 #include "Soldier Profile.h"
 
+#include "SaveLoadGame.h"
+
 // Changed by ADB (rev 1513) to resolve IMPs created prior to structural changes
 //#define IMP_FILENAME_SUFFIX ".dat"
 #define OLD_IMP_FILENAME_SUFFIX ".dat"
@@ -1529,15 +1531,21 @@ BOOLEAN LoadImpCharacter( STR nickName )
 
 		// read in the profile
 		//if ( !gMercProfiles[ iProfileId ].Load(hFile, false) )
+
+		// anv: before loading profile we need to set guiCurrentSaveGameVersion to profile's version
+		// and set it back to SAVE_GAME_VERSION right after or else new saves will be broken!
+		guiCurrentSaveGameVersion = version;
+
 		if ( !gMercProfiles[ iProfileId ].Load(hFile, isOldVersion, false, false) )
 		{
+			guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return FALSE;
 		}
+		guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 
 		// close file
 		FileClose(hFile);
-
 		//CHRISL: At this point, we need to resort profile inventory so that NewInv items don't accidentally appear in OldInv
 		DistributeInitialGear(&gMercProfiles[iProfileId]);
 
