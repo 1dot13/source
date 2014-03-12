@@ -1909,7 +1909,7 @@
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
-		<ubDuration>3</ubDuration>
+		<ubDuration>1</ubDuration>
 		<ubStartRadius>6</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>

@@ -69,6 +69,7 @@
 		<increased_maxcth>0</increased_maxcth>            <!-- +- max possible cth, -5 to 5 -->
 		<hearing_night>0</hearing_night>                  <!-- +- hearing range, -5 to 2 -->
     <hearing_day>0</hearing_day>                      <!-- +- hearing range, -5 to 2 -->
+    <disarm_trap>0</disarm_trap>                      <!-- +- trap disarm ability (10 equals 1 LVL/5 DEX/10 MEC/1.6 EXP), -50 to 50 -->
 
 		<!-- +- % approach effectiveness, -50 to 20 -->
 		<approach_friendly>0</approach_friendly>
@@ -3729,5 +3730,16 @@
    <szShortName>Spotter</szShortName>
    <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
    <spotter>30</spotter>
-  </BACKGROUND> 
+  </BACKGROUND>
+  <BACKGROUND>
+		<uiIndex>315</uiIndex>
+		<szName>Bomb Disposal Unit</szName>
+		<szShortName>BDU</szShortName>
+		<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
+		<dexterity>5</dexterity>
+		<resistance_fear>8</resistance_fear>
+		<breachingcharge>15</breachingcharge>
+		<insurance>50</insurance>
+		<disarm_trap>40</disarm_trap>
+	</BACKGROUND>
 </BACKGROUNDS>
