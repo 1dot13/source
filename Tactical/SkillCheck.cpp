@@ -455,6 +455,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			}
 			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
+
+			// Flugente: backgrounds
+			iSkill += pSoldier->GetBackgroundValue(BG_TRAP_DISARM);
+
 			iSkill = iSkill / 10; // bring the value down to a percentage
 			//JMich_SkillModifiers: Adding a Disarm Trap bonus
 			bSlot = FindDisarmKit( pSoldier);
@@ -621,7 +625,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			}
 			break;
 		case ATTACH_POWER_PACK:			// added by Flugente
-			// technicians can attach it, other people can'
+			// technicians can attach it, other people can't
 			if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
 				iSkill = 100;
 			else

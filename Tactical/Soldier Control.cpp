@@ -17022,7 +17022,7 @@ INT16	SOLDIERTYPE::GetAPBonus()
 	
 	if ( this->pathing.bLevel )
 		bonus += this->GetBackgroundValue(BG_HEIGHT);
-		
+				
 	return bonus;
 }
 
@@ -17039,7 +17039,7 @@ UINT8	SOLDIERTYPE::GetMoraleThreshold()
 {
 	UINT8 threshold		= 100;
 	UINT8 moraledamage	= 0;
-		
+	
 	moraledamage = (moraledamage * (100 - GetFearResistanceBonus())) / 100;
 		
 	return min(threshold, max(0, threshold - moraledamage));
@@ -17421,8 +17421,6 @@ BOOLEAN SOLDIERTYPE::UseRadio()
 
 BOOLEAN SOLDIERTYPE::HasMortar()
 {
-	UINT16 mortaritem = 0;
-
 	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
@@ -21432,7 +21430,7 @@ BOOLEAN SectorJammed()
 	INT32 lastid = MAX_NUM_SOLDIERS;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
 	{
-		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->IsJamming() )
+		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->stats.bLife > 0 && pSoldier->IsJamming() )
 			return TRUE;
 	}
 
@@ -21447,7 +21445,7 @@ BOOLEAN PlayerTeamIsScanning()
 	INT32 lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pSoldier)
 	{
-		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->IsScanning() )
+		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && pSoldier->stats.bLife > 0 && pSoldier->IsScanning() )
 			return TRUE;
 	}
 

@@ -515,12 +515,14 @@ void HourlyStealUpdate()
 	{
 		pSoldier = MercPtrs[ cnt ];
 
-		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && pSoldier->bInSector && !pSoldier->flags.fMercAsleep && !(gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
+		// merc must be alive, not travelling and awake. If he is in the currently loaded sector, we may not be in tactical (we would see an item suddenly disappearing) and not in combat
+		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && !pSoldier->flags.fMercAsleep && 
+			!( ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) ) && (gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ))  )
 		{
 			if ( pSoldier->HasBackgroundFlag( BACKGROUND_SCROUNGING ) )
 			{
-				// 20% chance that we'll steal something
-				if ( Chance(20) )
+				// 50% chance that we'll steal something
+				if ( Chance(50) )
 				{
 					// anv: snitches prevent scrounging in the same sector
 					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
@@ -562,7 +564,7 @@ void HourlyStealUpdate()
 					std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
 					BOOLEAN fReturn					= FALSE;
 
-					if( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
+					if ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
 					{
 						uiTotalNumberOfRealItems = guiNumWorldItems;
 
@@ -591,7 +593,7 @@ void HourlyStealUpdate()
 						}
 					}
 
-					FLOAT bestpriceweightratio = 50.0f;		// msut have a value of at least 50$/100 gram
+					FLOAT bestpriceweightratio = 50.0f;		// must have a value of at least 50$/100 gram
 					OBJECTTYPE* pTargetObj = NULL;
 					for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
 					{
@@ -604,8 +606,15 @@ void HourlyStealUpdate()
 								// test wether item is reachable and useable by militia
 								if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) )
 								{
+									// of course we prefer money above everything else
+									if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass == IC_MONEY )
+									{
+										// give it a high enough value
+										bestpriceweightratio = 1000.0f;
+										pTargetObj = &(pWorldItem[ uiCount ].object);
+									}
 									// ignore objects without weight (how does that happen anyway? careless modders...)
-									if ( Item[pWorldItem[ uiCount ].object.usItem].ubWeight )
+									else if ( Item[pWorldItem[ uiCount ].object.usItem].ubWeight )
 									{
 										if ( (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].usPrice) / (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].ubWeight) > bestpriceweightratio )
 										{

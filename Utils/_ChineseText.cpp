@@ -8103,6 +8103,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％最大准确度(CTH)\n", //L" %s%d%% max CTH\n",
 	L" %s%d夜晚听力范围\n", //L" %s%d hearing range during the night\n",
 	L" %s%d白天听力范围\n", //L" %s%d hearing range during the day\n",
+	L" %s%d effectivity at disarming traps\n",	// TODO.Translate
  
 	L" %s%d%％友好对话效果\n", //L" %s%d%% effectiveness to friendly approach\n",
 	L" %s%d%％直接对话效果\n", //L" %s%d%% effectiveness to direct approach\n",

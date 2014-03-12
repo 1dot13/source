@@ -8100,6 +8100,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de chance de toucher maximum\n",
 	L" %s%d en audition pendant la nuit\n",
 	L" %s%d en audition pendant la journée\n",
+	L" %s%d effectivity at disarming traps\n",	// TODO.Translate
 
 	L" %s%d%% d'efficacité dans une approche amicale\n",
 	L" %s%d%% d'efficacité dans une approche directe\n",

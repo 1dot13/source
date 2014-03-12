@@ -116,6 +116,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "increased_maxcth") == 0 ||
 				strcmp(name, "hearing_night") == 0 ||
 				strcmp(name, "hearing_day") == 0 ||
+				strcmp(name, "disarm_trap") == 0 ||
 				strcmp(name, "approach_friendly") == 0 ||
 				strcmp(name, "approach_direct") == 0 ||
 				strcmp(name, "approach_threaten") == 0 ||
@@ -470,6 +471,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_PERC_HEARING_DAY] = min(2, max(-5, (INT16) atol(pData->szCharData) ));
+		}
+		else if(strcmp(name, "disarm_trap") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_TRAP_DISARM] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "approach_friendly") == 0)
 		{

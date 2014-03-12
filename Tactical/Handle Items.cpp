@@ -1805,8 +1805,8 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			if ( iResult >= 0 )
 			{
 				// Less explosives gain for placing tripwire
-				if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire == 1 )
-					StatChange( pSoldier, EXPLODEAMT, 5, FALSE );
+				if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire )
+					StatChange( pSoldier, EXPLODEAMT, 1, FALSE );
 				else
 					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
 					StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
@@ -6872,38 +6872,36 @@ BOOLEAN RemoveFortification( INT32 sGridNo )
 
 INT32 CheckBombDisarmChance(void)
 {
-        // NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
-        // the map. So if we want to detect a bomb placed by the player, owner is > 1, and
-        // owner - 2 gives the ID of the character who planted it
-        if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
+    // NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
+    // the map. So if we want to detect a bomb placed by the player, owner is > 1, and
+    // owner - 2 gives the ID of the character who planted it
+    if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
+    {
+        // Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
+        INT8 wirecutterbonus = 0;
+        if ( ( (&gpBoobyTrapSoldier->inv[HANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpBoobyTrapSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
         {
-                // Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
-                INT8 wirecutterbonus = 0;
-                if ( ( (&gpBoobyTrapSoldier->inv[HANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpBoobyTrapSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
-                {
-                        // + 10 if item gets activated by tripwire
-                        if ( Item[gTempObject.usItem].tripwireactivation == 1 )
-                                wirecutterbonus += 10;                          
-                        // + 10 if item is tripwire
-                        if ( Item[gTempObject.usItem].tripwire == 1 )
-                                        wirecutterbonus += 10;
-                }
+            // + 10 if item gets activated by tripwire
+            if ( Item[gTempObject.usItem].tripwireactivation == 1 )
+				wirecutterbonus += 10;                          
+            // + 10 if item is tripwire
+            if ( Item[gTempObject.usItem].tripwire == 1 )
+				wirecutterbonus += 10;
+        }
 
-                if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
-                {
-                        // my own boobytrap!
-                        return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
-                }
-                else
-                {
-                        // our team's boobytrap!
-                        return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
-                }
+        if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
+        {
+            // my own boobytrap!
+            return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
         }
         else
         {
-                return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
+            // our team's boobytrap!
+            return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
         }
+    }
+
+	return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
 }
 
 void ExtendedDisarmMessageBox(void)
