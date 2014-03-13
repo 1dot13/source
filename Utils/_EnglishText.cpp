@@ -6607,6 +6607,7 @@ STR16 New113Message[] =
 	L"%s [%d rnds]\n%s %1.1f %s",	
 	L"Insufficient AP Points! Cost %d, you have %d.",
 	L"Hint: %s",
+	L"Player strength: %d - Enemy strength: %6.0f",		// Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 };
 
 STR16 New113HAMMessage[] = 

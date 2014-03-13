@@ -6613,6 +6613,7 @@ STR16 New113Message[] =
 	L"%s [%d cart]\n%s %1.1f %s",
 	L"PA insuffisant ! Coût %d et vous avez %d.",
 	L"Astuce: %s",
+	L"Player strength: %d - Enemy strength: %6.0f",		// TODO.Translate Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 };
 
 STR16 New113HAMMessage[] = 
@@ -7993,10 +7994,10 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d prisonniers ont été interrogés.",
+	L"%d elites, %d regulars and %d admins were interrogated.",	// TODO.Translate
 	L"%d prisonniers ont payé l'argent de la rançon",
 	L"%d prisonniers ont révélé les positions ennemies.",
-	L"%d prisonniers ont rejoint notre cause.",
+	L"%d elites, %d regulars and %d admins joined our cause.",	// TODO.Translate
 	L"Des prisonniers ont commencé une émeute : %s !",
 	L"%d prisonniers ont été envoyés : %s !",
 	L"Les prisonniers ont été libérés !",

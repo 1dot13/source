@@ -6437,6 +6437,7 @@ STR16 New113Message[] =
 	L"%s [%d rnds]\n%s %1.1f %s",
 	L"Zu wenig APs! Es werden %d APs benötigt, Sie haben aber nur %d APs.",
 	L"Tipp: %s",
+	L"Spieler Stärke: %d - Gegner Stärke: %6.0f",		// Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 };
 
 STR16 New113HAMMessage[] = 

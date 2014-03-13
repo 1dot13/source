@@ -6615,6 +6615,7 @@ STR16 New113Message[] =
 	L"%s [%d rnds]\n%s %1.1f %s",
 	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
 	L"Hint: %s",	// TODO.Translate
+	L"Player strength: %d - Enemy strength: %6.0f",		// TODO.Translate Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 };
 
 // TODO.Translate

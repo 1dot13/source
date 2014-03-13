@@ -10264,7 +10264,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
         // print out values
         if ( gGameExternalOptions.fDisplaySurrenderSValues )
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"PlayerStrength : %d Enemystrength: %6.0f", playersidestrength, gGameExternalOptions.fSurrenderMultiplier * enemysidestrength );
+            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SURRENDER_VALUES], playersidestrength, gGameExternalOptions.fSurrenderMultiplier * enemysidestrength );
 
         // perhaps this can be fleshed out more, for now, let's see if this is acceptable behaviour
         if ( playersidestrength >= gGameExternalOptions.fSurrenderMultiplier * enemysidestrength )
