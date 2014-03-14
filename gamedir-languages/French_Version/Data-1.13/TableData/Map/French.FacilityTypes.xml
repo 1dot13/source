@@ -74,6 +74,10 @@
       <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
       <szTooltipText>Prenez le contrôle des chaînes locales d'information pour filtrer le flux des nouvelles dans toute la région.</szTooltipText>
     </ASSIGNMENT>
+    <ASSIGNMENT>
+			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
+			<szTooltipText>Ce QG dispose d'une salle d'opérations qui vous permet de déplacer votre milice dans l'écran stratégique.</szTooltipText>			
+		</ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
     <ubIndex>8</ubIndex>

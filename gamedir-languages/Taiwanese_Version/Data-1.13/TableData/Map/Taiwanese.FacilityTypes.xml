@@ -74,6 +74,10 @@
       <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
       <szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
     </ASSIGNMENT>
+    <ASSIGNMENT>
+			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
+			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>			
+		</ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
     <ubIndex>8</ubIndex>
