@@ -8002,16 +8002,16 @@ STR16	szFoodTextStr[]=
 // TODO.Translate
 STR16	szPrisonerTextStr[]=
 {
-	L"%d elites, %d regulars and %d amins were interrogated.",
+	L"%d elites, %d regulars and %d admins were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
-	L"%d elites, %d regulars and %d amins joined our cause.",
+	L"%d elites, %d regulars and %d admins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
 	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",
 	L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"The enemy refuses to surrender!",
-	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
+	L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"This behaviour is set OFF in your ini settings.",
 	L"%s has freed %s!",
 };

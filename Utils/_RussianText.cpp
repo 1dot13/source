@@ -7997,12 +7997,13 @@ STR16	szFoodTextStr[]=
 	L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-STR16	szPrisonerTextStr[]= // TODO.Translate
+// TODO.Translate
+STR16	szPrisonerTextStr[]=
 {
-	L"%d elites, %d regulars and %d amins were interrogated.",
+	L"%d elites, %d regulars and %d admins were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
-	L"%d elites, %d regulars and %d amins joined our cause.",
+	L"%d elites, %d regulars and %d admins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
 	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",
