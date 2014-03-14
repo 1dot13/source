@@ -2146,6 +2146,8 @@ typedef struct
 	UINT8 ubEndGameVictorySectorY;
 	INT32 iEndGameVictoryGridNo;
 	
+	//enable meanwhile cutscene
+	BOOLEAN AllMeanwhileCutscene;
 	BOOLEAN CreatureMeanwhileCutscene;
 
 }MOD_SETTINGS;

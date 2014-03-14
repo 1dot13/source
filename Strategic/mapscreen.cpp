@@ -9556,33 +9556,35 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				return;
 			}
 
-			// !!! ATTACHING/MERGING ITEMS IN MAP SCREEN IS NOT SUPPORTED !!!
+			// hold ALT key to swap valid attachment item instead
+			if ( _KeyDown(ALT) )
+			{
+				// do nothing
+			}
+			else if ( ValidAttachment( usNewItemIndex, usOldItemIndex ) )
+			{
+				// it's an attempt to attach; bring up the inventory panel
+				if ( !InItemDescriptionBox( ) )
+				{
+					// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
+					
+					if( gTacticalStatus.uiFlags & INCOMBAT )
+					{
+						DoScreenIndependantMessageBox( New113HAMMessage[ 23 ], MSG_BOX_FLAG_OK, NULL );
+						return;
+					}
+					else
+					{
+						MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
+					}
+				}
+				return;
+			}
+
+			// !!! MERGING ITEMS IN MAP SCREEN IS NOT SUPPORTED !!!
 			if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )
 			{
-				if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
-				{
-				}
-				//if ( ValidAttachmentClass( usNewItemIndex, usOldItemIndex ) )
-				else if ( ValidAttachment( usNewItemIndex, usOldItemIndex ) )
-				{
-					// it's an attempt to attach; bring up the inventory panel
-					if ( !InItemDescriptionBox( ) )
-					{
-						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
-						
-						if( gTacticalStatus.uiFlags & INCOMBAT )
-						{
-							DoScreenIndependantMessageBox( New113HAMMessage[ 23 ], MSG_BOX_FLAG_OK, NULL );
-							return;
-						}
-						else
-						{
-							MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
-						}
-					}
-					return;
-				}
-				else if ( ValidMerge( usNewItemIndex, usOldItemIndex ) )
+				if ( ValidMerge( usNewItemIndex, usOldItemIndex ) )
 				{
 					// bring up merge requestor
 					// TOO PAINFUL TO DO!! --CC

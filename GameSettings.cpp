@@ -2701,7 +2701,7 @@ void LoadModSettings(){
 	gModSettings.ubMeanwhileAddMadlabSector4X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_X", 4);
 	gModSettings.ubMeanwhileAddMadlabSector4Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_Y", 5);
 
-	
+	gModSettings.AllMeanwhileCutscene = iniReader.ReadBoolean("Meanwhile", "ALL_MEANWHILE_CUTSCENE", TRUE);
 	gModSettings.CreatureMeanwhileCutscene = iniReader.ReadBoolean("Meanwhile", "CREATURE_MEANWHILE_CUTSCENE", TRUE);
 	
 	//[End Game]

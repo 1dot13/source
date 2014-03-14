@@ -336,7 +336,14 @@ void ScheduleMeanwhileEvent( MEANWHILE_DEFINITION *pMeanwhileDef, UINT32 uiTime 
 	gMercProfiles[ ELLIOT ].bNPCData++;
 	}
 
-	AddStrategicEvent( EVENT_MEANWHILE, uiTime, pMeanwhileDef->ubMeanwhileID );
+	// enable/disable meanwhile cutscene
+	if( gModSettings.AllMeanwhileCutscene )
+		AddStrategicEvent( EVENT_MEANWHILE, uiTime, pMeanwhileDef->ubMeanwhileID );
+	else
+	{// simulate that we saw cutscene and handle implications right away
+		memcpy( &gCurrentMeanwhileDef, &(gMeanwhileDef[pMeanwhileDef->ubMeanwhileID]), sizeof( MEANWHILE_DEFINITION ) );
+		ProcessImplicationsOfMeanwhile();
+	}
 }
 
 
