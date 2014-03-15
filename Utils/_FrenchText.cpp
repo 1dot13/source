@@ -1851,13 +1851,13 @@ STR16 pAssignmentStrings[] =
 	L"Capturé(e)", // Prisoner of war - captured
 	L"Hôpital", // patient in a hospital 
 	L"Vide",	// Vehicle is empty
-	L"Snitch",	// facility: undercover prisoner (snitch)	// TODO.Translate
-	L"Propag.",	// facility: spread propaganda				// TODO.Translate
-	L"Propag.",	// facility: spread propaganda (globally)	// TODO.Translate
-	L"Rumours",	// facility: gather information				// TODO.Translate
-	L"Propag.",	// spread propaganda						// TODO.Translate
-	L"Rumours",	// gather information						// TODO.Translate
-	L"Command",	// militia movement orders					// TODO.Translate
+	L"Infiltré",	// facility: undercover prisoner (snitch)
+	L"Propag.",	// facility: spread propaganda
+	L"Propag.",	// facility: spread propaganda (globally)
+	L"Rumeur",	// facility: gather information
+	L"Propag.",	// spread propaganda
+	L"Rumeur",	// gather information
+	L"Command.",	// militia movement orders
 };
 
 
@@ -2800,9 +2800,9 @@ STR16 gpStrategicString[] =
 	//%s is the sector location -- ex:  A9: Omerta
 	L"Les créatures attaquent vos mercenaires dans le secteur %s. Aucun de vos hommes ne peut combattre !",
 
-	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
-	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
-	L"War room isn't staffed - militia move aborted!",
+	// Flugente: militia movement forbidden due to limited roaming
+	L"La milice ne peut pas se déplacer (RESTRICT_ROAMING = TRUE).",
+	L"La salle d'opérations n'est pas ouverte... Le mouvement de la milice a avorté !",
 };
 
 STR16 gpGameClockString[] = 
@@ -7177,12 +7177,12 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Entraîneur Commandement",
 	L"Entraîneur Explosif",
 	L"Interroger prisonnier",	// added by Flugente
-	L"Undercover Snitch",	// TODO.Translate
+	L"Infiltré",
 	// 36-40
-	L"Spread Propaganda",
-	L"Spread Propaganda",	// spread propaganda (globally)
-	L"Gather Rumours",
-	L"Command Militia",	// militia movement orders
+	L"Répand une propagande",
+	L"Fait de la propagande",	// spread propaganda (globally)
+	L"Collecte les rumeurs",
+	L"Dirige la Milice",	// militia movement orders
 };
 STR16 Additional113Text[]=
 {
@@ -8100,7 +8100,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de chance de toucher maximum\n",
 	L" %s%d en audition pendant la nuit\n",
 	L" %s%d en audition pendant la journée\n",
-	L" %s%d effectivity at disarming traps\n",	// TODO.Translate
+	L" %s%d d'efficacité à désamorcer les pièges\n",
 
 	L" %s%d%% d'efficacité dans une approche amicale\n",
 	L" %s%d%% d'efficacité dans une approche directe\n",
@@ -8455,8 +8455,8 @@ STR16   szTacticalInventoryDialogString[]=
 
         L"Caisses",
         L"Boîtes",
-		L"Drop B/P",		// TODO.Translate			// L"Lâcher sac/dos"
-		L"Pickup B/P",		// TODO.Translate			// L"Lâcher sac/dos",				
+		L"Déposer sac/dos", //A voir fini long mot(to see finished, long word)
+		L"Ramasser sac/dos", //A voir fini long mot(to see finished, long word)			
 
         L"",
         L"",
@@ -8492,7 +8492,7 @@ STR16   szTacticalCoverDialogString[]=
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
-        L"Turning off cover/traps display",	    // TODO.Translate
+        L"Pas d'affichage couverture/pièges",
         L"Afficher les zones dangereuses",
         L"Afficher la vue du mercenaire",
         L"",
