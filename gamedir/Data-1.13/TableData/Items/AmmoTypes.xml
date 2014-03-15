@@ -1086,4 +1086,40 @@
 		<temperatureModificator>0</temperatureModificator>
 		<ammoflag>2</ammoflag>
 	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>31</uiIndex>
+		<name>SAP, anti-material</name>
+		<fontColour>163</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>1</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
+		<temperatureModificator>0.3</temperatureModificator>
+		<dirtModificator>0.2</dirtModificator>
+		<ammoflag>4</ammoflag>
+	</AMMOTYPE>
 </AMMOTYPELIST>

@@ -2426,21 +2426,21 @@
 		<uiIndex>346</uiIndex>
 		<ubCalibre>17</ubCalibre>
 		<ubMagSize>5</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>0</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>347</uiIndex>
 		<ubCalibre>17</ubCalibre>
 		<ubMagSize>10</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>0</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>348</uiIndex>
 		<ubCalibre>17</ubCalibre>
 		<ubMagSize>15</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>2</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
@@ -2741,21 +2741,21 @@
 		<uiIndex>391</uiIndex>
 		<ubCalibre>21</ubCalibre>
 		<ubMagSize>5</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>0</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>392</uiIndex>
 		<ubCalibre>21</ubCalibre>
 		<ubMagSize>15</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>2</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>393</uiIndex>
 		<ubCalibre>21</ubCalibre>
 		<ubMagSize>300</ubMagSize>
-		<ubAmmoType>3</ubAmmoType>
+		<ubAmmoType>31</ubAmmoType>
 		<ubMagType>3</ubMagType>
 	</MAGAZINE>
 	<MAGAZINE>
