@@ -7387,6 +7387,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|S|i|n|k|s",
 	L"|T|w|o|-|H|a|n|d|e|d",
 	L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
+	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7428,6 +7429,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand versinkt in Wasser.",
 	L"\n \nDieser Gegenstand muß mit beiden Händen benutzt werden.",
 	L"\n \nDieser Gegenstand verhindert die Verwendung von Kimme und Korn.",
+	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

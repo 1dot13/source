@@ -2378,6 +2378,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 				cnt++;
 			}
+
+			////////////////// ANTI-MATERIEL AMMO
+			if ( AmmoTypes[Magazine[Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].ammoflag & AMMO_ANTIMATERIEL )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 37 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 37 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+				cnt++;
+			}
 		}
 
 		if (Item[ gpItemDescObject->usItem ].usItemClass & IC_EXPLOSV)
@@ -5722,6 +5731,13 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		if ( AmmoTypes[Magazine[Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].lockBustingPower )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 4, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+
+		////////////////// ANTI-MATERIEL AMMO
+		if ( AmmoTypes[Magazine[Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].ammoflag & AMMO_ANTIMATERIEL )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 36, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
 		}
 	}

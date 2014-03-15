@@ -7564,6 +7564,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|水|中|下|沉", //L"|S|i|n|k|s",
 	L"|双|手|操|作", //|T|w|o|-|H|a|n|d|e|d",
 	L"|挡|住|准|心", //L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
+	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7605,6 +7606,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这个物品掉在水中会下沉消失", //L"\n \nThis item sinks when put in water.",
 	L"\n \n这个物品需要两只手一起操作使用", //L"\n \nThis item requires both hands to be used.",
 	L"\n \n这个物品会挡住准心\n 你无法再使用准心瞄准", //L"\n \nThis item will block your iron sights\nso you cannot use them.",
+	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

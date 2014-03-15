@@ -40,6 +40,7 @@
 	#include "Random.h"
 
 	#include "Tile Animation.h"
+	#include "Explosion Control.h"	// added by Flugente
 #endif
 
 #ifdef COUNT_PATHS
@@ -1674,14 +1675,12 @@ BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pub
 	return( TRUE );
 }
 
-BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner )
+BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner, INT32 sAntiMaterialImpact )
 {
 	// do damage to a structure; returns TRUE if the structure should be removed
-
 	STRUCTURE			*pBase;
-	UINT8					ubArmour;
-	//LEVELNODE			*pNode;
-
+	UINT8				ubArmour;
+	
 	CHECKF( pStructure );
 	if (pStructure->fFlags & STRUCTURE_PERSON || pStructure->fFlags & STRUCTURE_CORPSE)
 	{
@@ -1694,16 +1693,18 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		return( FALSE );
 	}
 
+	UINT8				ubBaseArmour = gubMaterialArmour[ pStructure->pDBStructureRef->pDBStructure->ubArmour ];
+
 	// Account for armour!
 	if (ubReason == STRUCTURE_DAMAGE_EXPLOSION)
 	{
 		if ( pStructure->fFlags & STRUCTURE_EXPLOSIVE )
 		{
-			ubArmour = gubMaterialArmour[ pStructure->pDBStructureRef->pDBStructure->ubArmour ] / 3;
+			ubArmour = ubBaseArmour / 3;
 		}
 		else
 		{
-			ubArmour = gubMaterialArmour[ pStructure->pDBStructureRef->pDBStructure->ubArmour ] / 2;
+			ubArmour = ubBaseArmour / 2;
 		}
 
 		if (ubArmour > ubDamage)
@@ -1753,19 +1754,37 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		}
 
 		// Make hit sound....
-	if ( pStructure->fFlags & STRUCTURE_CAVEWALL )
-	{
-			PlayJA2Sample( S_VEG_IMPACT1, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
-	}
-	else
-	{
-		if ( guiMaterialHitSound[ pStructure->pDBStructureRef->pDBStructure->ubArmour ] != -1 )
+		if ( pStructure->fFlags & STRUCTURE_CAVEWALL )
 		{
-			PlayJA2Sample( guiMaterialHitSound[ pStructure->pDBStructureRef->pDBStructure->ubArmour ], RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+				PlayJA2Sample( S_VEG_IMPACT1, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 		}
-	}
+		else
+		{
+			if ( guiMaterialHitSound[ pStructure->pDBStructureRef->pDBStructure->ubArmour ] != -1 )
+			{
+				PlayJA2Sample( guiMaterialHitSound[ pStructure->pDBStructureRef->pDBStructure->ubArmour ], RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+			}
+		}
+
+		// Flugente: anti-material rifles can damage and even destroy structures, but some structures remain indestructible (otherwise the player might gain access to inaccessible spots)
+		// the impact must be damaging enough, otherwise this won't have an effect
+		if ( ubBaseArmour < 75 && ubBaseArmour > 0 && sAntiMaterialImpact > ubBaseArmour * 5 / 12 )
+		{
+			// we will run into this exact function again. In order to damage the object, we need to do damage of at least half the armour value
+			INT16 damage = ubBaseArmour / 2;
+			
+			// this is the damage we will cause. The higher our damage, the faster can we destroy a structure
+			damage += max(1, 2 * sAntiMaterialImpact / ubBaseArmour);
+
+			BOOLEAN recompile = FALSE;
+			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+
+			//Since the structure is being damaged, set the map element that a structure is damaged
+			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+		}
+
 		// Don't update damage HPs....
-		return( TRUE );
+		return TRUE;
 	}
 
 	// OK, LOOK FOR A SAM SITE, UPDATE....

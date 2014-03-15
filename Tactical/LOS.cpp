@@ -4442,6 +4442,10 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 		fTracer = TRUE;
 	}
 
+	// Flugente: anti-materiel ammo
+	if ( AmmoTypes[(*pObjAttHand)[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_ANTIMATERIEL )
+		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
+
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
 	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
 	{
@@ -4921,6 +4925,10 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		//usBulletFlags |= BULLET_FLAG_TRACER;
 		fTracer = TRUE;
 	}
+
+	// Flugente: anti-materiel ammo
+	if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].ammoflag & AMMO_ANTIMATERIEL )
+		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
 
 	ubImpact =(UINT8) GetDamage(pObjAttHand);
 	//zilpin: pellet spread patterns externalized in XML
@@ -5572,6 +5580,10 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
+
+	// Flugente: anti-materiel ammo
+	if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_ANTIMATERIEL )
+		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
 
 	// no option to use fire bursts or autofire yet
 	/*// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
@@ -6872,6 +6884,16 @@ void MoveBullet( INT32 iBullet )
 												// play animation to indicate structure being hit
 												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, FALSE );
 												gubLocalStructureNumTimesHit[iStructureLoop] = 1;
+
+												// Flugente: anti-materiel rifles have to be handled slightly different - we have to remove the bullet after impact.
+												// Otherwise we might destroy a structure, but this function won't 'realize' it, leading to invalid memory access
+												if ( pBullet->usFlags & BULLET_FLAG_ANTIMATERIEL )
+												{
+													// Moved here to keep ABC >0 as long as possible
+													RemoveBullet( iBullet );
+													// ReduceAttackBusyCount( );
+													return;
+												}
 											}
 										}
 									}

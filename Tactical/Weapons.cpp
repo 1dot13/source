@@ -728,7 +728,7 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.HeavyGun = (BOOLEAN) atof(pData->szCharData);
 		}
-
+		
 		pData->maxReadDepth--;
 	}
 
@@ -896,16 +896,16 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<APsToReload>%d</APsToReload>\r\n",							Weapon[cnt].APsToReload);
 			FilePrintf(hFile,"\t\t<SwapClips>%d</SwapClips>\r\n",								Weapon[cnt].swapClips );
 			FilePrintf(hFile,"\t\t<MaxDistForMessyDeath>%d</MaxDistForMessyDeath>\r\n",			Weapon[cnt].maxdistformessydeath);
-			FilePrintf(hFile,"\t\t<AutoPenalty>%d</AutoPenalty>\r\n",			Weapon[cnt].AutoPenalty);
-			FilePrintf(hFile,"\t\t<NoSemiAuto>%d</NoSemiAuto>\r\n",			Weapon[cnt].NoSemiAuto);
+			FilePrintf(hFile,"\t\t<AutoPenalty>%d</AutoPenalty>\r\n",							Weapon[cnt].AutoPenalty);
+			FilePrintf(hFile,"\t\t<NoSemiAuto>%d</NoSemiAuto>\r\n",								Weapon[cnt].NoSemiAuto);
 			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels );
-			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",			Weapon[cnt].EasyUnjam);
-			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",			Weapon[cnt].ubHandling);
+			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",								Weapon[cnt].EasyUnjam);
+			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",									Weapon[cnt].ubHandling);
 			FilePrintf(hFile,"\t\t<usOverheatingJamThreshold>%4.2f</usOverheatingJamThreshold>\r\n",			Weapon[cnt].usOverheatingJamThreshold); // Flugente FTW 1
 			FilePrintf(hFile,"\t\t<usOverheatingDamageThreshold>%4.2f</usOverheatingDamageThreshold>\r\n",			Weapon[cnt].usOverheatingDamageThreshold);
 			FilePrintf(hFile,"\t\t<usOverheatingSingleShotTemperature>%4.2f</usOverheatingSingleShotTemperature>\r\n",			Weapon[cnt].usOverheatingSingleShotTemperature);
-			FilePrintf(hFile,"\t\t<HeavyGun>%d</HeavyGun>\r\n",			Weapon[cnt].HeavyGun);
-			
+			FilePrintf(hFile,"\t\t<HeavyGun>%d</HeavyGun>\r\n",									Weapon[cnt].HeavyGun);
+
 
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
@@ -4661,7 +4661,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	{
 		pStructure = FindStructureByID( sGridNo, usStructureID );
 
-		DamageStructure( pStructure, (UINT8)iImpact, STRUCTURE_DAMAGE_GUNFIRE, sGridNo, sXPos, sYPos, ubAttackerID );
+		DamageStructure( pStructure, (UINT8)iImpact, STRUCTURE_DAMAGE_GUNFIRE, sGridNo, sXPos, sYPos, ubAttackerID, pBullet->usFlags & BULLET_FLAG_ANTIMATERIEL ? pBullet->iImpact - pBullet->iImpactReduction : 0 );
 	}
 
 	// HEADROCK HAM 5: Fragments are not fired from guns, so they need a special case.
@@ -6784,21 +6784,28 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	iScopeVisionRangeBonus = GetTotalVisionRangeBonus(pSoldier, bLightLevel);	// not an actual range value, simply a modifier for range calculations
+
 	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
 		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
-	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
+
+	if (iSightRange == 0)
+	{
+		// didn't do a bodypart-based test or can't see specific body part aimed at
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
 		fCoverObscured = true;
 	}
-	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+
+	if (ubTargetID != NOBODY && iSightRange == 0 )
+	{	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
 		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
 		fCantSeeTarget = true;
 		fCoverObscured = false;
 	}
-		gbForceWeaponReady = false;
-		gbForceWeaponNotReady = true;
+
+	gbForceWeaponReady = false;
+	gbForceWeaponNotReady = true;
 	sDistVisNoScope = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
-		gbForceWeaponNotReady = false;
+	gbForceWeaponNotReady = false;
 
 	// Flugente: blind soldiers have sDistVisNoScope = 0...
 	if ( sDistVisNoScope )

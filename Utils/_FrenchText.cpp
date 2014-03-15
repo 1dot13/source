@@ -7560,6 +7560,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|N|e |f|l|o|t|t|e |p|a|s",
 	L"|À |d|e|u|x |m|a|i|n|s",
 	L"|B|l|o|q|u|e |l|e |v|i|s|e|u|r",
+	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7601,6 +7602,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nCet objet coule dans l'eau.",
 	L"\n \nCet objet exige les deux mains pour être utilisé.",
 	L"\n \nCet Objet bloquera votre viseur\nde ce fait vous ne pouvez pas l'utiliser.",
+	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
