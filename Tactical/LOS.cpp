@@ -520,6 +520,7 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 	INT16 iCamoStanceModifer = 0;
 	INT16 iSoundModifier = 0;
 	INT16 iStealthDifficultyModifer = 0;
+	INT16 iTrapBonus = 0;
 	UINT8 ubTerrainID = 0;
 	BOOLEAN fFoundBottom = FALSE;
 
@@ -576,6 +577,8 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 			iSoundModifier += gTileDatabase[ pNode->usIndex ].bSoundModifier;
 			iStealthDifficultyModifer += gTileDatabase[ pNode->usIndex ].bStealthDifficultyModifer;
 
+			iTrapBonus += gTileDatabase[ pNode->usIndex ].bTrapBonus;
+
 			ubTerrainID = gTileDatabase[ pNode->usIndex ].ubTerrainID;
 			// going from the top, if any tile has terrain type, we're ignoring all tiles below it
 			if(ubTerrainID != NO_TERRAIN)
@@ -586,14 +589,16 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 			
 	}
 
-	ubAllTileProperties.bWoodCamoAffinity = (INT8)iWoodCamoAffinity;
-	ubAllTileProperties.bDesertCamoAffinity = (INT8)iDesertCamoAffinity;
-	ubAllTileProperties.bUrbanCamoAffinity = (INT8)iUrbanCamoAffinity;
-	ubAllTileProperties.bSnowCamoAffinity = (INT8)iSnowCamoAffinity;
+	ubAllTileProperties.bWoodCamoAffinity = (INT8)max(0, min(100, iWoodCamoAffinity));
+	ubAllTileProperties.bDesertCamoAffinity = (INT8)max(0, min(100, iDesertCamoAffinity));
+	ubAllTileProperties.bUrbanCamoAffinity = (INT8)max(0, min(100, iUrbanCamoAffinity));
+	ubAllTileProperties.bSnowCamoAffinity = (INT8)max(0, min(100, iSnowCamoAffinity));
 
 	ubAllTileProperties.bCamoStanceModifer = (INT8)iCamoStanceModifer;
 	ubAllTileProperties.bSoundModifier = (INT8)iSoundModifier;
 	ubAllTileProperties.bStealthDifficultyModifer = (INT8)iStealthDifficultyModifer;
+
+	ubAllTileProperties.bTrapBonus = (INT8)iTrapBonus;
 
 	return ubAllTileProperties;
 }
@@ -662,13 +667,24 @@ INT8 GetDetailedSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const
 	effectiveness += (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CAMO));
 
 	scaler = effectiveness * scaler / 6;
+	if(gGameExternalOptions.fAlternateMultiTerrainCamoCalculation)
+	{
+		iResult += min( -GetJungleCamouflage(pSoldier) * scaler / 100, zGivenTileProperties.bWoodCamoAffinity);
+		iResult += min( -GetDesertCamouflage(pSoldier) * scaler / 100, zGivenTileProperties.bDesertCamoAffinity);
+		iResult += min( -GetUrbanCamouflage(pSoldier) * scaler / 100, zGivenTileProperties.bUrbanCamoAffinity);
+		iResult += min( -GetSnowCamouflage(pSoldier) * scaler / 100, zGivenTileProperties.bSnowCamoAffinity);
+		iResult = min( iResult, 100);
+		iResult = -iResult;
+	}
+	else
+	{
+		iResult += GetJungleCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bWoodCamoAffinity / 100;
+		iResult += GetDesertCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bDesertCamoAffinity / 100;
+		iResult += GetUrbanCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bUrbanCamoAffinity / 100;
+		iResult += GetSnowCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bSnowCamoAffinity / 100;
+	}
 
-	iResult += GetJungleCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bWoodCamoAffinity / 100;
-	iResult += GetDesertCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bDesertCamoAffinity / 100;
-	iResult += GetUrbanCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bUrbanCamoAffinity / 100;
-	iResult += GetSnowCamouflage(pSoldier) * scaler / 100 * zGivenTileProperties.bSnowCamoAffinity / 100;
-
-	return (INT8)min(100, max(0, iResult));
+	return (INT8)max(-100, min(0, iResult));
 }
 
 /**

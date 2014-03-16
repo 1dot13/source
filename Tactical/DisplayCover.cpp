@@ -710,9 +710,86 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 		if(gGameExternalOptions.fAdditionalTileProperties)
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
-				gzDisplayCoverText[DC_MSG__COVER_INFORMATION],
-				ubCover, GetDetailedTerrainName(zGivenTileProperties), ubBrightness );
+			if(!gGameExternalOptions.fCoverTooltipDetailedTileProperties)
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
+					gzDisplayCoverText[DC_MSG__COVER_INFORMATION],
+					ubCover, GetDetailedTerrainName(zGivenTileProperties), ubBrightness );
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,
+					gzDisplayCoverText[DC_MSG__COVER_INFORMATION_WITH_DETAILED_CAMO],
+					ubCover, ubBrightness );
+
+				UINT8 ubApplicableProperties = 0;
+				swprintf( zOutputString, L"" );
+				if(zGivenTileProperties.bWoodCamoAffinity > 0)
+				{
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__WOOD]);
+					swprintf( zOutputString + wcslen(zOutputString), L": %d/100", zGivenTileProperties.bWoodCamoAffinity);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bDesertCamoAffinity > 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__DESERT]);
+					swprintf( zOutputString + wcslen(zOutputString), L": %d/100", zGivenTileProperties.bDesertCamoAffinity);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bUrbanCamoAffinity > 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__URBAN]);
+					swprintf( zOutputString + wcslen(zOutputString), L": %d/100", zGivenTileProperties.bUrbanCamoAffinity);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bSnowCamoAffinity > 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__SNOW]);
+					swprintf( zOutputString + wcslen(zOutputString), L": %d/100", zGivenTileProperties.bSnowCamoAffinity);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bSoundModifier != 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__DETAILED_SOUND]);
+					if(zGivenTileProperties.bSoundModifier > 0)
+						swprintf( zOutputString + wcslen(zOutputString), L": +%d", zGivenTileProperties.bSoundModifier);
+					else
+						swprintf( zOutputString + wcslen(zOutputString), L": %d", zGivenTileProperties.bSoundModifier);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bStealthDifficultyModifer != 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__DETAILED_STEALTH]);
+					if(zGivenTileProperties.bStealthDifficultyModifer > 0)
+						swprintf( zOutputString + wcslen(zOutputString), L": +%d/100", zGivenTileProperties.bStealthDifficultyModifer);
+					else
+						swprintf( zOutputString + wcslen(zOutputString), L": %d/100", zGivenTileProperties.bStealthDifficultyModifer);
+					ubApplicableProperties++;
+				}
+				if(zGivenTileProperties.bTrapBonus != 0)
+				{
+					if(ubApplicableProperties)
+						swprintf( zOutputString + wcslen(zOutputString), L", ");
+					swprintf( zOutputString + wcslen(zOutputString), gzDisplayCoverText[DC_TTI__DETAILED_TRAP_LEVEL]);
+					if(zGivenTileProperties.bTrapBonus > 0)
+						swprintf( zOutputString + wcslen(zOutputString), L": +%d", zGivenTileProperties.bTrapBonus);
+					else
+						swprintf( zOutputString + wcslen(zOutputString), L": %d", zGivenTileProperties.bTrapBonus);
+					ubApplicableProperties++;
+				}
+				if( wcslen(zOutputString) > 0 )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
+			}
 		}
 		else
 		{

@@ -851,6 +851,10 @@ typedef struct
 	BOOLEAN fAdditionalTileProperties;
 	// static shadows decrease brightness
 	BOOLEAN fStaticShadowsDecreaseBrightness;
+	// camo affinities will be used as caps not multipliers (suggested by mmm) - it will be possible to achieve perfect camo on mixed terrain using mixed camo types
+	BOOLEAN fAlternateMultiTerrainCamoCalculation;
+	// cover tooltip ("f") will display detailed properties and their values
+	BOOLEAN fCoverTooltipDetailedTileProperties;
 
 	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
 	INT16 usMineIncomePercentage;
