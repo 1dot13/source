@@ -12636,8 +12636,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	}
 
 	// if we are going to do the surgery
+	// Flugente: AI medics are allowed to perform surgery without first aid kits
 	if (pVictim->iHealableInjury > 0 && this->fDoingSurgery && this->ubID != pVictim->ubID && gGameOptions.fNewTraitSystem
-		&& (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && Item[this->inv[ HANDPOS ].usItem].medicalkit)
+		&& (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) 
+		&& (Item[this->inv[ HANDPOS ].usItem].medicalkit || this->bTeam == ENEMY_TEAM) )
 	{
 		fOnSurgery = TRUE;
 	}
@@ -12877,9 +12879,12 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			// We are finished !!!
 			this->fDoingSurgery = FALSE;
 			gTacticalStatus.ubLastRequesterSurgeryTargetID = NOBODY; // reset last target
-
-			// throw message
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SURGERY_FINISHED ], pVictim->GetName() );
+						
+			if ( this->bTeam != ENEMY_TEAM )
+			{
+				// throw message
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SURGERY_FINISHED ], pVictim->GetName() );
+			}
 
 			// add to record - another surgery undergoed
 			if ( pVictim->ubProfile != NO_PROFILE && usLifeReturned >= 100 )
@@ -14164,9 +14169,25 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		{
 			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
+			{
 				// resting our gun on people would be rude - only allow if nobody is there
-				if( WhoIsThere2( nextGridNoinSight, 0 ) == NOBODY )
-					applybipod = TRUE;	
+				UINT usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				if( usPersonID == NOBODY )
+					applybipod = TRUE;
+				else
+				{
+					SOLDIERTYPE* pSoldier = MercPtrs[ usPersonID ];
+
+					// if the other person is an ally an prone
+					if ( this->bSide == pSoldier->bSide && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+					{
+						// if we are facing the other guy in a 90 degree angle, we can mount our gun on his back
+						// Once merc's relationship allows angering mercs through actions of others, add a penalty here
+						if ( this->ubDirection == gTwoCCDirection[ pSoldier->ubDirection ] || this->ubDirection == gTwoCDirection[ pSoldier->ubDirection ] )
+							applybipod = TRUE;
+					}
+				}
+			}
 		}
 	}
 	else if ( adjacenttileheight == 4 && (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH || (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && (gAnimControl[ this->usAnimState ].uiFlags &(ANIM_ALT_WEAPON_HOLDING))))) 
@@ -16954,6 +16975,26 @@ INT8 SOLDIERTYPE::GetSuppressionResistanceBonus()
 	
 	bonus += this->GetBackgroundValue(BG_RESI_SUPPRESSION);
 
+	// Flugente: enemy roles
+	if ( this->bTeam == ENEMY_TEAM )
+	{
+		// bonus if we have an officer around
+		BOOL officertype = OFFICER_NONE;
+		if ( HighestEnemyOfficersInSector( officertype ) )
+		{
+			switch ( officertype )
+			{
+			case OFFICER_LIEUTNANT:
+				bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus;
+				break;
+
+			case OFFICER_CAPTAIN:
+				bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus * 2;
+				break;
+			}
+		}
+	}
+
 	return min( 100, max( -100, bonus) );
 }
 
@@ -17039,10 +17080,31 @@ UINT8	SOLDIERTYPE::GetMoraleThreshold()
 {
 	UINT8 threshold		= 100;
 	UINT8 moraledamage	= 0;
-	
+
 	moraledamage = (moraledamage * (100 - GetFearResistanceBonus())) / 100;
-		
 	return min(threshold, max(0, threshold - moraledamage));
+}
+
+FLOAT	SOLDIERTYPE::GetMoraleModifier()
+{
+	FLOAT mod = 1.0f;
+
+	BOOL officertype = OFFICER_NONE;
+	if ( HighestEnemyOfficersInSector( officertype ) )
+	{
+		switch ( officertype )
+		{
+		case OFFICER_LIEUTNANT:
+			mod += gGameExternalOptions.dEnemyOfficerMoraleModifier;
+			break;
+
+		case OFFICER_CAPTAIN:
+			mod += gGameExternalOptions.dEnemyOfficerMoraleModifier * 2;
+			break;
+		}
+	}
+
+	return mod;
 }
 
 INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
@@ -17086,10 +17148,20 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	// effects eventually run out
 	for (UINT8 counter = 0; counter < SOLDIER_COUNTER_MAX; ++counter)
 	{
-		if ( counter == SOLDIER_COUNTER_SPOTTER && usSkillCounter[counter] > 0 )
+		if ( counter == SOLDIER_COUNTER_ROLE_OBSERVED )
+			continue;
+		else if ( counter == SOLDIER_COUNTER_SPOTTER && usSkillCounter[counter] > 0 )
 			usSkillCounter[counter]	= min(255, usSkillCounter[counter] + 1 );
 		else
 			usSkillCounter[counter]	= max(0, usSkillCounter[counter] - 1 );
+	}
+
+	// if soldier was seen this turn, increase his observed counter
+	if ( this->bSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_ENEMY_OBSERVEDTHISTURN;
+
+		++usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED];
 	}
 
 	// if there is a combat going and we are in sector, note that in the battle report
@@ -18197,6 +18269,94 @@ BOOLEAN SOLDIERTYPE::BecomeSpotter( INT32 sTargetGridNo )
 	CancelMultiTurnAction(FALSE);
 	
 	return TRUE;
+}
+
+// Flugente: enemy roles
+BOOLEAN SOLDIERTYPE::HasSniper()
+{
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+	{
+		if (inv[bLoop].exists() && Item[inv[ bLoop ].usItem].usItemClass == IC_GUN && Weapon[Item[inv[bLoop].usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// AI-only: can we heal a wounded ally? Do NOT, repeat, NOT use this with mercs!
+BOOLEAN		SOLDIERTYPE::CanMedicAI()
+{
+	if ( !gGameExternalOptions.fEnemyRoles || !gGameExternalOptions.fEnemyMedics || this->bTeam != ENEMY_TEAM )
+		return FALSE;
+
+	if ( HAS_SKILL_TRAIT( this, DOCTOR_NT) )
+	{
+		if ( FindFirstAidKit(this) != NO_SLOT || FindMedKit(this) != NO_SLOT )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+// AI-only: heal a nearby friend. Do NOT, repeat, NOT use this with mercs!
+BOOLEAN		SOLDIERTYPE::AIDoctorFriend()
+{
+	if ( this->bTeam != ENEMY_TEAM )
+		return FALSE;
+
+	// we can only free people we are facing
+	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+	UINT8 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+
+	// is there somebody?
+	if ( target != NOBODY )
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[target];
+
+		if ( pSoldier->bTeam != ENEMY_TEAM )
+			return FALSE;
+
+		// if this guy is wounded should always be the case, otherwise this function was calleed needlessly
+		if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax )
+		{
+			// move medkit into hand - if we don't have a medkit in our hands, abort
+			if ( !MakeSureMedKitIsInHand( this ) )
+				return FALSE;
+
+			if( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH )
+			{
+				this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
+			}
+
+			// AI medics always perform surgery
+			this->fDoingSurgery = TRUE;
+
+			UINT16 usKitPts = TotalPoints( &(this->inv[ HANDPOS ] ) );
+
+			// note the current hp
+			INT8 oldlife = pSoldier->stats.bLife;
+
+            UINT16 uiPointsUsed = this->SoldierDressWound( pSoldier, usKitPts, usKitPts );
+			
+            UseKitPoints( &(this->inv[ HANDPOS ] ), (UINT16)(uiPointsUsed * gGameExternalOptions.dEnemyMedicMedKitDrainFactor), this );
+
+			// healing done will be displayed the next time the player sees this soldier
+			pSoldier->flags.fDisplayDamage = TRUE;
+			pSoldier->sDamage -= pSoldier->stats.bLife - oldlife;
+
+			// alert both soldiers
+			this->aiData.bAlertStatus	  = min(this->aiData.bAlertStatus,  STATUS_RED);
+			pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
+
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 

@@ -1337,6 +1337,19 @@ typedef struct
 	INT8	sMoraleModRacism;
 	INT8	sMoraleModSexism;
 	INT8	sMoraleModXenophobicBackGround;
+
+	// Flugente: enemy roles
+	BOOLEAN fEnemyRoles;
+	UINT8	usTurnsToUncover;
+	BOOLEAN fEnemyMedics;
+	FLOAT	dEnemyMedicMedKitDrainFactor;
+	INT16   sEnemyMedicsSearchRadius;
+	BOOLEAN fEnemyOfficers;
+	UINT16  usEnemyOfficersPerTeamSize;
+	UINT16  usEnemyOfficersMax;
+	INT8	sEnemyOfficerSuppressionResistanceBonus;
+	FLOAT   dEnemyOfficerMoraleModifier;
+
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

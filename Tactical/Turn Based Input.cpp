@@ -276,6 +276,9 @@ void	SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection );
 extern	INT8 GetTeamSlotFromPlayerID( UINT8 ubID );
 extern FACETYPE	*gpCurrentTalkingFace;
 
+// Flugente:  toggle display of enemy role indicators
+extern BOOLEAN gDisplayEnemyRoles;
+
 // sevenfm: new mouse commands
 void HandleAltMouseTBWheel( void );
 void HandleAltMouseTBMButton( UINT32 *puiNewEvent );
@@ -2999,7 +3002,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					else
 					{
 						HandleTacticalCoverMenu();
-				}
+					}
 				}
 				else
 				{
@@ -7820,7 +7823,8 @@ void HandleTacticalCoverMenu( void )
 	}
 	gzUserDefinedButtonColor[0] = 0;
 	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTYELLOW;
-	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;	
+	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;
+	gzUserDefinedButtonColor[4] = FONT_LTRED;
 	gzUserDefinedButtonColor[8] = FONT_ORANGE;
 	gzUserDefinedButtonColor[9] = FONT_ORANGE;
 	gzUserDefinedButtonColor[10] = FONT_ORANGE;
@@ -7853,7 +7857,8 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 		break;
 	case 4:
 		break;
-	case 5:		
+	case 5:
+		gDisplayEnemyRoles = !gDisplayEnemyRoles;
 		break;
 	case 6:		
 		break;

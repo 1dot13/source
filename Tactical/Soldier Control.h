@@ -384,10 +384,10 @@ enum
 
 #define SOLDIER_BATTLE_PARTICIPATION		0x01000000	//16777216	// campaign stats: soldier took part in this battle
 #define SOLDIER_RAISED_REDALERT				0x02000000	//33554432	// this (AI) soldier has raised red alert. Don't allow him to do so again this turn - either it already worked, or the signal is blocked
-/*#define PLAYER_NET_3_LVL_3		0x04000000	//67108864
-#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+#define SOLDIER_ENEMY_OFFICER				0x04000000	//67108864	// soldier is an enemy officer
+#define SOLDIER_ENEMY_OBSERVEDTHISTURN		0x08000000	//134217728 // enemy soldier was seen by the player this turn
 
-#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
+/*#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
 #define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
 #define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
@@ -565,6 +565,7 @@ enum{
 enum {
 	SOLDIER_COUNTER_RADIO_ARTILLERY,		// there is actually no need for an artillery timer, but we use one to forbid the same AI guy ordering multiple strikes at once
 	SOLDIER_COUNTER_SPOTTER,				// used to determine wether we are a spotter
+	SOLDIER_COUNTER_ROLE_OBSERVED,			// every turn that the player observes an enemy, the enemies counter is increased. If it is high enough, we know his role
 	
 	SOLDIER_COUNTER_MAX = 20,				// enough space for fillers
 };
@@ -1779,6 +1780,7 @@ public:
 	INT16		GetAPBonus();
 	INT8		GetFearResistanceBonus();					// fear resistance lowers shock and morale damage from horror
 	UINT8		GetMoraleThreshold();
+	FLOAT		GetMoraleModifier();
 	INT16		GetInterruptModifier( UINT8 usDistance );
 
 	void		SoldierPropertyUpkeep();					// update functions for various properties (updating counters, resetting flags etc.)
@@ -1819,6 +1821,11 @@ public:
 	BOOLEAN IsSpotting();
 	BOOLEAN CanSpot( INT32 sTargetGridNo = -1 );
 	BOOLEAN BecomeSpotter( INT32 sTargetGridNo );
+
+	// Flugente: enemy roles
+	BOOLEAN HasSniper();
+	BOOLEAN CanMedicAI();						// AI-only: can we heal a wounded ally? Do NOT, repeat, NOT use this with mercs!
+	BOOLEAN	AIDoctorFriend();					// AI-only: heal a wounded friend. Do NOT, repeat, NOT use this with mercs!
 
 	//////////////////////////////////////////////////////////////////////////////
 

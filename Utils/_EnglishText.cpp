@@ -8477,7 +8477,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Merc",
         L"",
 
-        L"",
+        L"Roles",
         L"",
         L"",
         L"",

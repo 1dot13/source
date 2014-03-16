@@ -10619,3 +10619,28 @@ INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
 	}
 	return bShockForCower;
 }
+
+// Flugente: count number of enemy officers
+UINT8 HighestEnemyOfficersInSector( BOOL& aType )
+{
+    SOLDIERTYPE*		pSoldier;
+    INT32               cnt = 0;
+	UINT8				num = 0;
+    UINT8               type = OFFICER_NONE;
+
+    for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID, pSoldier = MercPtrs[cnt]; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; pSoldier++, ++cnt )
+    {
+        if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+        {
+            if ( pSoldier->bSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+            {
+				// officers with double squadleader trait are captains, otherwise lieutnant
+                aType = max( aType, NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT) );
+
+				++num;
+			}
+        }
+    }
+
+    return num;
+}

@@ -930,6 +930,48 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				return( AI_ACTION_RED_ALERT );
 			}
 		}
+
+		// if we are a doctor with medical gear, we might be able to help a wounded ally
+		if ( pSoldier->CanMedicAI() )
+		{
+			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
+				{
+					// see if we are facing this person
+					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+
+					// if not already facing in that direction,
+					if ( pSoldier->ubDirection != ubDesiredMercDir )
+					{
+						pSoldier->aiData.usActionData = ubDesiredMercDir;
+
+						return( AI_ACTION_CHANGE_FACING );
+					}
+
+					// if not already crouched, crouch down first
+					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+					{
+						pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+						return(AI_ACTION_CHANGE_STANCE);
+					}
+
+					return(AI_ACTION_DOCTOR);
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
 	}
 //ddd}
 
@@ -1528,7 +1570,6 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		// IF YOU SEE CAPTURED FRIENDS, FREE THEM!
 		////////////////////////////////////////////////////////////////////////////
 
-		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
 		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
 		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 		{
@@ -1569,6 +1610,48 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				{
 					// raise alarm!
 					return( AI_ACTION_RED_ALERT );
+				}
+			}
+		}
+
+		// if we are a doctor with medical gear, we might be able to help a wounded ally
+		if ( pSoldier->CanMedicAI() )
+		{
+			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
+				{
+					// see if we are facing this person
+					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+
+					// if not already facing in that direction,
+					if ( pSoldier->ubDirection != ubDesiredMercDir )
+					{
+						pSoldier->aiData.usActionData = ubDesiredMercDir;
+
+						return( AI_ACTION_CHANGE_FACING );
+					}
+
+					// if not already crouched, crouch down first
+					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+					{
+						pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+						return(AI_ACTION_CHANGE_STANCE);
+					}
+
+					return(AI_ACTION_DOCTOR);
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
 				}
 			}
 		}
@@ -2850,6 +2933,48 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 						{
 							return(AI_ACTION_SEEK_FRIEND);
 						}
+					}
+				}
+			}
+		}
+
+		// if we are a doctor with medical gear, we might be able to help a wounded ally
+		if ( pSoldier->CanMedicAI() )
+		{
+			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
+				{
+					// see if we are facing this person
+					UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+
+					// if not already facing in that direction,
+					if ( pSoldier->ubDirection != ubDesiredMercDir )
+					{
+						pSoldier->aiData.usActionData = ubDesiredMercDir;
+
+						return( AI_ACTION_CHANGE_FACING );
+					}
+
+					// if not already crouched, crouch down first
+					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+					{
+						pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+						return(AI_ACTION_CHANGE_STANCE);
+					}
+
+					return(AI_ACTION_DOCTOR);
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
 					}
 				}
 			}

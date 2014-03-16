@@ -388,5 +388,17 @@ void KillOnePrisoner( SECTORINFO *pSectorInfo );
 // sevenfm: calc shock level with modifiers (traits, backgrounds, ...)
 INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier );
 
+// Flugente: enemy officers
+enum {
+	OFFICER_NONE = 0,
+	OFFICER_LIEUTNANT,
+	OFFICER_CAPTAIN,
+
+	OFFICER_MAX,
+};
+
+// Flugente: return number of enemy officers and highest rank found
+UINT8 HighestEnemyOfficersInSector(BOOL& aType);
+
 #endif
 

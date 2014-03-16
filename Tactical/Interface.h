@@ -533,4 +533,7 @@ BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 );
 void DrawRankIcon( INT8 rank, INT32 baseX, INT32 baseY );
 void DrawLine( INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color8, UINT16 color16, UINT8 *pDestBuf );
 
+// Flugente: show enemy role
+BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier);
+
 #endif

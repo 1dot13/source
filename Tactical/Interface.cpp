@@ -253,6 +253,7 @@ UINT32					guiBURSTACCUM;
 UINT32					guiITEMPOINTERHATCHES;
 
 UINT32					guiUNDERWATER;	// added by Flugente
+UINT32					guiENEMYROLES;	// added by Flugente
 
 // UI Globals
 MOUSE_REGION	gViewportRegion;
@@ -298,6 +299,9 @@ UINT32 CalcUIMessageDuration( STR16 wString );
 extern void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
 
 extern FLOAT Distance2D( FLOAT dDeltaX, FLOAT dDeltaY );
+
+// Flugente:  toggle display of enemy role indicators
+BOOLEAN gDisplayEnemyRoles = TRUE;
 
 BOOLEAN InitializeFaceGearGraphics()
 {
@@ -544,6 +548,12 @@ BOOLEAN InitializeTacticalInterface(	)
 	FilenameForBPP("INTERFACE\\fish.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject( &VObjectDesc, &guiUNDERWATER ) )
 		AssertMsg(0, "Missing INTERFACE\\fish.sti" );
+
+	// Flugente: enemy role symbols
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\RoleIcons.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject( &VObjectDesc, &guiENEMYROLES ) )
+		AssertMsg(0, "Missing INTERFACE\\RoleIcons.sti" );
 
 	//CHRISL: Moved to seperate function so we can call seperately
 	InitializeTacticalPortraits();
@@ -1822,6 +1832,11 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 	}
 
+	if ( gDisplayEnemyRoles && pSoldier->bTeam == ENEMY_TEAM )
+	{
+		ShowSoldierRoleSymbol(pSoldier);
+	}
+
 	if ( !pSoldier->flags.fShowLocator )
 	{
 		// RETURN IF MERC IS NOT SELECTED
@@ -2618,10 +2633,10 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 					if(gGameExternalOptions.fEnemyRank)
 						sY+=10;
 					
-					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 11 ), (INT16)(sY + 14 ) );
+					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 22 ), (INT16)(sY + 14 ) );
 					if ( iBack != -1 )
 						SetBackgroundRectFilled( iBack );
-					
+
 					DrawRankIcon( pSoldier->stats.bExpLevel, sX, sY );
 				}
 			}
@@ -6279,3 +6294,105 @@ void DrawEnemyHealthBar( SOLDIERTYPE* pSoldier, INT32 sX, INT32 sY, UINT8 ubLine
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
+// Flugente: show enemy role
+BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
+{
+	// this only works on enemy soldiers
+	if ( pSoldier->bTeam != ENEMY_TEAM )
+		return false;
+
+	if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] < gGameExternalOptions.usTurnsToUncover )
+		return false;
+
+	INT16 sXPos = 0;
+	INT16 sYPos = 0;
+	INT32 iBack = 0;
+
+	GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+
+	// Adjust for bars!
+	sXPos += 50;
+	sYPos += 25;
+
+	// is this guy an officer?
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 0, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
+	}
+
+	// is this guy radio operator with a radio?
+	if ( pSoldier->CanUseRadio(false) )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 3, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
+	}
+
+	// is this guy a doctor? we do not check for medical gear, as we would not have that information from a glance
+	if ( HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT) )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 1, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
+	}
+
+	// is this guy a sniper? Just check for the gun, trait is not necessary
+	if ( pSoldier->HasSniper() )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 2, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
+	}
+
+	// is this guy a mortar guy? Just check for the gun, trait is not necessary
+	if ( pSoldier->HasMortar() )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 4, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
+	}
+
+	return true;
+}

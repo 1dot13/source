@@ -540,7 +540,6 @@ void CheckForAndHandleHospitalPatients( void );
 void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft );
 
 BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier );
-BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
 
 void RepositionMouseRegions( void );
 void CheckAndUpdateTacticalAssignmentPopUpPositions( void );
@@ -8633,7 +8632,6 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 {
 	INT8 bPocket = 0;
-
 
 	fTeamPanelDirty = TRUE;
 

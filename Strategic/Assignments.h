@@ -454,6 +454,8 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier );
 
 BOOLEAN MercStaffsMilitaryHQ();
 
+BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
+
 #endif
 
 

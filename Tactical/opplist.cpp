@@ -2170,7 +2170,12 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 	if ( pOpponent->UsesScubaGear() )
 		return;
 	// Flugente: update our sight concerning this guy, otherwise we could get way with open attacks because this does not get updated
-	pSoldier->RecognizeAsCombatant(pOpponent->ubID);
+	if ( pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
+	{
+		// Flugente: note that this enemy has been seen by mercs this turn
+		if ( pOpponent->bTeam == ENEMY_TEAM && pSoldier->bTeam == OUR_TEAM )
+			pOpponent->bSoldierFlagMask |= SOLDIER_ENEMY_OBSERVEDTHISTURN;
+	}
 
 	// if we're seeing a guy we didn't see on our last chance to look for him
 	if (pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_CURRENTLY)
@@ -2506,7 +2511,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		BOOLEAN fAddAsOpponent = FALSE;
 		if ( !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 		{
-			 // ... check wether he is not neutral against us (account for the fact that we might be covert!)
+			// ... check wether he is not neutral against us (account for the fact that we might be covert!)
 			// if we are an NPC assassin
 			if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 			{

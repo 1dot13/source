@@ -104,6 +104,7 @@ typedef enum
 	AI_ACTION_JUMP_WINDOW,			// added by Flugente: jump through a window
 	AI_ACTION_FREE_PRISONER,		// added by Flugente: free a prisoner
 	AI_ACTION_USE_SKILL,			// added by Flugente: perform a skill, which one is stored in usAISkillUse
+	AI_ACTION_DOCTOR,				// added by Flugente: AI-ONLY! bandage/surgery on fellow AI. DO NOT USE THIS FOR MERCS!!!
 } ActionType;
 
 
@@ -261,5 +262,8 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // Flugente: get the id of the closest soldier (coser than x tiles) of a specific team with a specific flag that we can currently see
 UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag );
+
+// get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
+UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 #endif

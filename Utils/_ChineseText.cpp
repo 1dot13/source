@@ -8479,7 +8479,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Merc",
         L"",
 
-        L"",
+        L"Roles",	// TODO.Translate
         L"",
         L"",
         L"",

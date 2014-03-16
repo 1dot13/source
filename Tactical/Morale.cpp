@@ -129,21 +129,27 @@ INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 	}
 	else
 	{
+		INT8 morale = 0;
+
 		// use AI morale
 		switch( pSoldier->aiData.bAIMorale )
 		{
 			case MORALE_HOPELESS:
-				return( -15 );
+				morale = -15;
 			case MORALE_WORRIED:
-				return( -7 );
+				morale = -7;
 			case MORALE_CONFIDENT:
-				return( 2 );
+				morale = -2;
 			case MORALE_FEARLESS:
-				return( 5 );
+				morale = -5;
 			default:
-				return( 0 );
+				morale = 0;
 		}
 
+		// Flugente: morale modifiers
+		morale = max(morale, morale * pSoldier->GetMoraleModifier());
+
+		return morale;
 	}
 }
 
@@ -365,6 +371,9 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 			}
 		}
 	}
+
+	// Flugente: morale modifiers
+	iActualMorale = iActualMorale * pSoldier->GetMoraleModifier();
 
 	// Flugente: ubMaxMorale can now be influenced by our food situation
 	if ( gGameOptions.fFoodSystem )

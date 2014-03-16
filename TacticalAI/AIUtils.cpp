@@ -594,6 +594,10 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			bMinPointsNeeded = 10;	// TODO
 			break;
 
+		case AI_ACTION_DOCTOR:
+			bMinPointsNeeded = 20;	// TODO
+			break;
+
 		default:
 #ifdef BETAVERSION
 			//NumMessage("AffordableAction - Illegal action type = ",pSoldier->aiData.bAction);
@@ -3064,40 +3068,89 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 // Flugente: get the id of the closest soldier with a specific flag that we can currently see
 UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag )
 {
-	UINT8 id = NOBODY;
-
+	UINT8				id = NOBODY;
 	UINT32				uiLoop;
-	BOOLEAN				fRangeRestricted = FALSE, fFound = FALSE;
 	SOLDIERTYPE *		pFriend;
 	INT16				range = aRange;
 
-	// go through each soldier, looking for "friends" (soldiers on same side)
-	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	// go through each soldier, looking for "friends" (soldiers on same team)
+	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
 	{
-		pFriend = MercSlots[ uiLoop ];
+		pFriend = MercPtrs[ uiLoop ];
 
 		// if this merc is inactive, not in sector, or dead
 		if (!pFriend)
 			continue;
+								
+		// skip ourselves
+		if (pFriend->ubID == pSoldier->ubID)
+			continue;
+
+		// must be on the same level
+		if ( pFriend->pathing.bLevel != pSoldier->pathing.bLevel )
+			continue;
 		
-		if ( auTeam != pFriend->bTeam )
+		// skip if this guy is dead
+		if ( pFriend->stats.bLife <= 0 )
 			continue;
 
 		// check for flag
 		if ( !(pFriend->bSoldierFlagMask & aFlag) )
 			continue;
-				
-		// skip ourselves
-		if (pFriend->ubID == pSoldier->ubID)
-			continue;
-				
-		// if we're not already neighbors
-		if (SpacesAway(pSoldier->sGridNo, pFriend->sGridNo) < range)
+
+		// are we close enough?
+		INT16 friendrange = SpacesAway(pSoldier->sGridNo, pFriend->sGridNo);
+		if ( friendrange < range)
 		{
 			// can we see this guy?
 			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pFriend->sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 			{
-				range = SpacesAway(pSoldier->sGridNo,pFriend->sGridNo);
+				range = friendrange;
+				id = pFriend->ubID;
+			}
+		}
+	}
+		
+	return id;
+}
+
+// get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
+UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam )
+{
+	UINT8				id = NOBODY;
+	UINT32				uiLoop;
+	SOLDIERTYPE *		pFriend;
+	INT16				range = aRange;
+
+	// go through each soldier, looking for "friends" (soldiers on same team)
+	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
+	{
+		pFriend = MercPtrs[ uiLoop ];
+
+		// if this merc is inactive, not in sector, or dead
+		if (!pFriend)
+			continue;
+								
+		// skip ourselves
+		if (pFriend->ubID == pSoldier->ubID)
+			continue;
+
+		// must be on the same level
+		if ( pFriend->pathing.bLevel != pSoldier->pathing.bLevel )
+			continue;
+		
+		// skip if this guy is dead, not wounded or cannot be healed
+		if ( pFriend->stats.bLife <= 0 || pFriend->iHealableInjury <= 0 || pFriend->stats.bLife >= pFriend->stats.bLifeMax )
+			continue;
+
+		// are we close enough?
+		INT16 friendrange = SpacesAway(pSoldier->sGridNo, pFriend->sGridNo);
+		if ( friendrange < range)
+		{
+			// can we see this guy?
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pFriend->sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+			{
+				range = friendrange;
 				id = pFriend->ubID;
 			}
 		}

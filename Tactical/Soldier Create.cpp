@@ -1669,56 +1669,25 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			// We have a function for this
 			type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
 
-/*		if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
-		{
-			switch( pCreateStruct->ubSoldierClass )
+			if ( type > -1 )
 			{
-			case SOLDIER_CLASS_ELITE :
-				type = 2;
-				break;
-			case SOLDIER_CLASS_ARMY :
-				type = 1;
-				break;
-			case SOLDIER_CLASS_ADMINISTRATOR :
-				type = 0;
-				break;
-			}
-		}
-		else if ( pCreateStruct->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia )
-		{
-			switch( pCreateStruct->ubSoldierClass )
-			{
-			case SOLDIER_CLASS_ELITE_MILITIA :
-				type = 5;
-				break;
-			case SOLDIER_CLASS_REG_MILITIA :
-				type = 4;
-				break;
-			case SOLDIER_CLASS_GREEN_MILITIA :
-				type = 3;
-				break;
-			}
-		}*/
-		}
+				INT16 availablenames[NUM_SOLDIER_PROFILES];
+				UINT16 cnt = 0;
 
-		if ( type > -1 )
-		{
-			INT16 availablenames[NUM_SOLDIER_PROFILES];
-			UINT16 cnt = 0;
+				for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
+				{
+					// make sure the name isn't already currently in use!
+					if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
+						availablenames[cnt++] = i;
+				}
 
-			for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
-			{
-				// make sure the name isn't already currently in use!
-				if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
-					availablenames[cnt++] = i;
-			}
-
-			if ( cnt > 0 )
-			{
-				pSoldier->usSoldierProfile = availablenames[Random(cnt)];
+				if ( cnt > 0 )
+				{
+					pSoldier->usSoldierProfile = availablenames[Random(cnt)];
 								
-				if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
-					pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
+					if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
+						pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
+				}
 			}
 		}
 	}
@@ -1737,6 +1706,22 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 		AssignTraitsToSoldier( pSoldier, pCreateStruct );
 	if ( gGameExternalOptions.fAssignTraitsToMilitia && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) )
 		AssignTraitsToSoldier( pSoldier, pCreateStruct );
+
+	// Flugente: enemy roles
+	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyOfficers && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+	{
+		if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT) )
+		{
+			UINT8 numenemies  = NumEnemyInSector();
+			BOOL officertype  = OFFICER_NONE;
+			UINT8 numofficers = HighestEnemyOfficersInSector( officertype );
+
+			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers
+			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax )
+				pSoldier->bSoldierFlagMask |= SOLDIER_ENEMY_OFFICER;
+		}
+	}
+	
 	// SANDRO - If neither of these two options are activated, use the original code
 	// however, "no traits" means no traits at all, so commented out
 	/*if ( !(gGameExternalOptions.fAssignTraitsToEnemy) && !(gGameExternalOptions.fAssignTraitsToMilitia) )
@@ -4649,6 +4634,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		BOOLEAN foundHtH = FALSE;
 		BOOLEAN foundMelee = FALSE;
 		BOOLEAN fRadioSetFound = FALSE;
+		BOOLEAN fFirstAidKitFound = FALSE;
+		BOOLEAN fMedKitFound = FALSE;
 
 		// FIRST FIND OUT THE COMPOSITION OF OUR GEAR
 		INT8 invsize = (INT8)pSoldier->inv.size();
@@ -4675,10 +4662,69 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					foundMelee = TRUE;
 				else if ( HasItemFlag(pCreateStruct->Inv[bLoop].usItem, RADIO_SET) )
 					fRadioSetFound = TRUE;
+				else if ( Item[pCreateStruct->Inv[bLoop].usItem].firstaidkit )
+					fFirstAidKitFound = TRUE;
+				else if ( Item[pCreateStruct->Inv[bLoop].usItem].medicalkit )
+				{
+					// Flugente: for enemy medic purposes, med kits also count as first aid kits
+					fFirstAidKitFound = TRUE;
+					fMedKitFound = TRUE;
+				}
 			}
 		}
 
 		// NOW BASED ON WHAT WE HAVE FOUND, ASSIGN UNASSIGNED TRAITS
+		// Flugente: radio operator
+		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned ) )
+		{
+			// if we have a radio set, give us the corresponding trait so we can use it...
+			if ( fRadioSetFound )
+			{
+				// this is a minor trait, so try to first fill the minor slot if possible
+				if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				{
+					pSoldier->stats.ubSkillTraits[2] = RADIO_OPERATOR_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE ); // We no longer need to continue from here
+				}
+				else if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = RADIO_OPERATOR_NT;
+					ATraitAssigned = TRUE;
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = RADIO_OPERATOR_NT;
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
+
+		// Flugente: enemy roles allow medics
+		if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyMedics && gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned ) )
+		{
+			// if we have a radio set, give us the corresponding trait so we can use it...
+			if ( fFirstAidKitFound )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = DOCTOR_NT;
+					ATraitAssigned = TRUE;
+
+					// if we found a medkit, chance to become a full doctor
+					if ( !BTraitAssigned && fMedKitFound && Chance(50) )
+					{
+						pSoldier->stats.ubSkillTraits[1] = DOCTOR_NT;
+						BTraitAssigned = TRUE;
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = DOCTOR_NT;
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
 
 		// HEAVY WEAPONS TRAIT 
 		if ( foundMortar || foundRocketlauncher || foundGrenadelauncher )
@@ -5210,31 +5256,6 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 							return( TRUE ); // We no longer need to continue from here
 						}
 					}
-				}
-			}
-		}
-
-		// Flugente: new traits
-		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned ) )
-		{
-			// if we have a radio set, give us the corresponding trait so we can use it...
-			if ( fRadioSetFound )
-			{
-				if ( !ATraitAssigned )
-				{
-					pSoldier->stats.ubSkillTraits[0] = RADIO_OPERATOR_NT;
-					ATraitAssigned = TRUE;
-				}
-				else if ( !BTraitAssigned )
-				{
-					pSoldier->stats.ubSkillTraits[1] = RADIO_OPERATOR_NT;
-					BTraitAssigned = TRUE;
-				}
-				else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
-				{
-					pSoldier->stats.ubSkillTraits[2] = RADIO_OPERATOR_NT;
-					CTraitAssigned = TRUE;
-					return( TRUE ); // We no longer need to continue from here
 				}
 			}
 		}
