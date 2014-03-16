@@ -331,7 +331,7 @@
 		<uiIndex>18</uiIndex>
 		<szName>Paramilitary Instructor</szName>
     <szShortName>Instructor</szShortName>
-    <szDescription>Just like boyscouts. But with with violence. So not like boyscouts &#10;at all.</szDescription>
+    <szDescription>Just like boyscouts. But with violence. So not like boyscouts &#10;at all.</szDescription>
     <leadership>8</leadership>
     <approach_recruit>10</approach_recruit>
 		<no_male>1</no_male>
@@ -3418,7 +3418,7 @@
     <uiIndex>283</uiIndex>
     <szName>Paramilitary Instructor</szName>
     <szShortName>Instructor</szShortName>
-    <szDescription>Just like boyscouts. But with with violence. So not like boyscouts &#10;at all.</szDescription>
+    <szDescription>Just like boyscouts. But with violence. So not like boyscouts &#10;at all.</szDescription>
     <leadership>8</leadership>
     <approach_recruit>10</approach_recruit>
     <xenophobic>1</xenophobic> 
