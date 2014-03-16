@@ -1939,22 +1939,22 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Élève",
 	L"Déplace les objets",	// move items
 	L"Renseignement",	//!!! Idem ? -> The current translation is OK
-	L"Mange",		// eating at a facility (cantina etc.)
+	L"Mange",	 // eating at a facility (cantina etc.)
 	L"Repos",
-	L"Interroge prisonier(s)",		// Flugente: interrogate prisoners
+	L"Interroge prisonier(s)",	 // Flugente: interrogate prisoners
 	L"Mort(e)",
 	L"Invalide",
 	L"Capturé(e)",
 	L"Hôpital", 
 	L"Vide",	// Vehicle is empty
-	L"Infiltré",	// facility: undercover prisoner (snitch)				
-	L"Répand une propagande",   // facility: spread propaganda				
-	L"Fait de la propagande",   // facility: spread propaganda (globally)	
-	L"Collecte les rumeurs",			// facility: gather rumours			
-	L"Propagande",	     // spread propaganda								
-	L"Rumeurs",			// gather information								
-	L"Diriger la milice",	// militia movement orders
-};
+	L"Infiltré",	// facility: undercover prisoner (snitch) // TODO.Translate //A voir fini (to see finished)
+	L"Répand une propagande", // facility: spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Fait de la propagande", // facility: spread propaganda (globally) // TODO.Translate //A voir fini (to see finished)
+	L"Collecte les rumeurs",	 // facility: gather rumours	 // TODO.Translate //A voir fini (to see finished)
+	L"Propagande",	 // spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Rumeur",	 // gather information // TODO.Translate //A voir fini (to see finished) 
+	L"Commande",	// militia movement orders
+}
 
 
 // refer to above for comments
@@ -1996,20 +1996,20 @@ STR16 pLongAssignmentStrings[] =
 	L"Déplacer les objets",	// move items
 	L"Renseignement",	//!!! Idem ? -> Current translation is OK
 	L"Repos",
-	L"Interroger captif(s)",		// Flugente: interrogate prisoners
+	L"Interroger captif(s)",	 // Flugente: interrogate prisoners
 	L"Mort(e)",
 	L"Invalide",
 	L"Capturé(e)",
 	L"Hôpital", // patient in a hospital 
 	L"Vide",	// Vehicle is empty
-	L"Infiltré", 	// facility: undercover prisoner (snitch)  
-	L"Répandre une propagande", 	// facility: spread propaganda  
-	L"Faire de la propagande",  	// facility: spread propaganda (globally)   
-	L"Récolter les rumeurs ",			// facility: gather rumours
-	L"Propagande",  	// spread propaganda
-	L"Rumeurs", 		// gather information
-	L"Diriger la milice",	// militia movement orders
-};
+	L"Infiltré", // facility: undercover prisoner (snitch) // TODO.Translate //A voir fini (to see finished)
+	L"Répandre une propagande", // facility: spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Faire de la propagande", // facility: spread propaganda (globally) // TODO.Translate //A voir fini (to see finished)
+	L"Récolter les rumeurs ",	 // facility: gather rumours // TODO.Translate //A voir fini (to see finished)
+	L"Propagande", // spread propaganda
+	L"Rumeurs", // gather information 
+	L"Commander",	// militia movement orders
+}
 
 
 // the contract options
