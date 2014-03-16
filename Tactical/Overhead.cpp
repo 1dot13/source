@@ -970,6 +970,9 @@ BOOLEAN ExecuteOverhead( )
                     pSoldier->bDisplayDamageCount = 0;
                     pSoldier->sDamage = 0;
                     pSoldier->flags.fDisplayDamage = FALSE;
+					// sevenfm: also zero damage info from this attack
+					pSoldier->iLastBulletImpact = 0;
+					pSoldier->iLastArmourProtection = 0;
                 }
 
             }

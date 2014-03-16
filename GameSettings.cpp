@@ -1066,6 +1066,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
 	// sevenfm: added similar option for player hit count
 	gGameExternalOptions.ubPlayerHitCount					= iniReader.ReadInteger("Tactical Interface Settings","PLAYER_HIT_COUNT", 0, 0, 4);
+	gGameExternalOptions.fShowHitInfo						= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_HIT_INFO", FALSE);
+	gGameExternalOptions.ubAdditionalNCTHCursorInfo			= iniReader.ReadInteger("Tactical Interface Settings","ADDITIONAL_NCTH_CURSOR_INFO", 0, 0, 2);	
 
 	// sevenfm: show additional suppression info above soldier
 	gGameExternalOptions.ubShowSuppressionCount				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT", 0, 0, 2);
@@ -1344,7 +1346,8 @@ void LoadGameExternalOptions()
 	
 	// sevenfm
 	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
-	gGameExternalOptions.ubShowEnemyAdditionalInfo			= iniReader.ReadInteger("Tactical Gameplay Settings","SHOW_ENEMY_ADDITIONAL_INFO", 0, 0, 3);
+	gGameExternalOptions.fShowEnemyExtendedInfo				= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_EXTENDED_INFO", FALSE);
+	gGameExternalOptions.fShowEnemyAwareness				= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_AWARENESS", FALSE);
 
 	//legion by Jazz
 	gGameExternalOptions.fIndividualHiddenPersonNames		= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_HIDDEN_PERSON_NAMES", FALSE);

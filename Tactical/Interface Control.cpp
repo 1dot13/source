@@ -1271,6 +1271,20 @@ void DrawCounters( SOLDIERTYPE *pSoldier )
 				default:
 					break;
 				}
+				// show additional hit info
+				if( gGameExternalOptions.fShowHitInfo && ( pSoldier->iLastBulletImpact > 0 || pSoldier->iLastArmourProtection ) )
+				{
+					SetFontBackground( FONT_MCOLOR_BLACK );
+					SetFontForeground( COLOR_ORANGE );
+
+					//swprintf( pStr, L"%d/%d ", pSoldier->iLastBulletImpact, pSoldier->iLastArmourProtection );
+					swprintf( pStr, L"%d ", pSoldier->iLastArmourProtection );
+					gprintfdirty( sDamageX + widthDamage, sDamageY, pStr );
+					mprintf( sDamageX + widthDamage, sDamageY, pStr );
+					widthDamage += StringPixLength ( pStr, TINYFONT1 );
+
+					SetFontForeground( FONT_MCOLOR_WHITE );
+			}
 			}
 
 			// do not show suppression info for dying soldier

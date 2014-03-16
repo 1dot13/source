@@ -536,4 +536,12 @@ void DrawLine( INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color8, UINT16 col
 // Flugente: show enemy role
 BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier);
 
+//sevenfm: draw additional info for NCTH indicator
+void DrawItemPic( INVTYPE *pItem, INT16 sX, INT16 sY );
+void GetItemDimensions( INVTYPE *pItem, INT16 &sWidth, INT16 &sHeight );
+BOOLEAN ShowExactInfo( SOLDIERTYPE* pSoldier, SOLDIERTYPE* pTargetSoldier );
+void DrawNCTHCursorItemPics( INT16 sStartScreenX, INT16 sStartScreenY  );
+
+void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSoldier, BOOLEAN showExactInfo, CHAR16 *NameStr );
+
 #endif

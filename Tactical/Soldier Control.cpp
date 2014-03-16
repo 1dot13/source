@@ -1040,6 +1040,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->ubLastShockFromHit = 0;
 		this->ubLastMoraleFromHit = 0;
 		this->ubLastAPFromHit = 0;
+		this->iLastBulletImpact = 0;
+		this->iLastArmourProtection = 0;
 
     }
     return *this;
@@ -7758,6 +7760,8 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->ubLastAPFromHit = 0;
 		this->ubLastShockFromHit = 0;
 		this->ubLastMoraleFromHit = 0;
+		this->iLastBulletImpact = 0;
+		this->iLastArmourProtection = 0;
 
 		this->flags.fCloseCall = FALSE;
 
@@ -9963,6 +9967,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 			this->ubLastSuppression = 0;
 			this->ubLastMorale = 0;
 			this->ubLastAP = 0;
+			//this->iLastBulletImpact = 0;
+			//this->iLastArmourProtection = 0;
 		}
 	}
 

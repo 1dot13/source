@@ -70,10 +70,11 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 	BOOLEAN		fDrawTooltip = FALSE;
 
 	// sevenfm: do not show tooltip if ALT is pressed for adding autofire bullets
-	SOLDIERTYPE *pShooter;
-	GetSoldier( &pShooter, gusSelectedSoldier );
-	if(gfUICtHBar && pShooter && pShooter->bDoAutofire > 1)
-		return;
+	// EDIT: commented this out because with default autofire bullets> 1 it will confuse players
+	//SOLDIERTYPE *pShooter;
+	//GetSoldier( &pShooter, gusSelectedSoldier );
+	//if(gfUICtHBar && pShooter && pShooter->bDoAutofire > 1)
+	//	return;
 
 	if ( gfKeyState[ALT] && pSoldier &&
 		IsPointInScreenRectWithRelative( gusMouseXPos, gusMouseYPos, &aRect, &a1, &a2 ) )

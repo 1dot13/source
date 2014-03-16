@@ -2654,6 +2654,8 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 	this->ubLastShockFromHit=0;
 	this->ubLastAPFromHit=0;
 	this->ubLastMoraleFromHit=0;
+	this->iLastBulletImpact = 0;
+	this->iLastArmourProtection = 0;
 
 	return TRUE;
 }

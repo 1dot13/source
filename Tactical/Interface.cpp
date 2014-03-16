@@ -273,6 +273,10 @@ RECT MagRect;
 RECT AimRect;
 RECT ModeRect;
 RECT APRect;
+// sevenfm: additional rectangles
+RECT RightRect;
+RECT LeftRect;
+RECT LeftRect2;
 // HEADROCK HAM 4: Externed this value which tracks whether we've clicked out final aiming click yet.
 extern BOOLEAN gfDisplayFullCountRing;
 
@@ -1679,7 +1683,19 @@ void DrawCTHPixelToBuffer( UINT16 *pBuffer, UINT32 uiPitch, INT16 sLeft, INT16 s
 	{
 		return;
 	}
-
+	// sevenfm: added additional right, left rectangles
+	if ((sPixelX >= RightRect.left && sPixelX <= RightRect.right) && (sPixelY >= RightRect.top && sPixelY <= RightRect.bottom))
+	{
+		return;
+	}
+	if ((sPixelX >= LeftRect.left && sPixelX <= LeftRect.right) && (sPixelY >= LeftRect.top && sPixelY <= LeftRect.bottom))
+	{
+		return;
+	}
+	if ((sPixelX >= LeftRect2.left && sPixelX <= LeftRect2.right) && (sPixelY >= LeftRect2.top && sPixelY <= LeftRect2.bottom))
+	{
+		return;
+	}
 	
 	pBuffer[sPixelX + uiPitch*sPixelY] = usColor;
 }
@@ -2409,107 +2425,35 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				}
 			
 				// show weapon name and additional info
-				BOOLEAN showExactInfo = FALSE;
-				INT32 range;
-				INT32 maxExactWeaponDistance;
+				BOOLEAN showExactInfo = FALSE;				
 				INT16 height = 0;
+				SOLDIERTYPE *pSelectedSoldier, *pTargetSoldier;
 
+				pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
+				pTargetSoldier = pSoldier;
 				// calc max range for exact info
 				if ( gusSelectedSoldier != NOBODY )
-				{
-					range = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, pSoldier->sGridNo ) / 10;
+					showExactInfo = ShowExactInfo( pSelectedSoldier, pTargetSoldier );
 
-					// calc max range for exact weapon type based on visible distance
-					maxExactWeaponDistance = (INT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible( pSoldier->sGridNo, 0, CALC_FROM_WANTED_DIR) ) / 2 ;
-					// apply experience level factor
-					maxExactWeaponDistance *= 1 + (INT32)(FLOAT(EffectiveExpLevel(MercPtrs[ gusSelectedSoldier ]))/ 10); 
-
-					// check for bad weather conditions
-					if ( gGameExternalOptions.gfAllowLimitedVision )
-						maxExactWeaponDistance *= 1 - (INT32)(FLOAT (gGameExternalOptions.ubVisDistDecreasePerRainIntensity) / 100);
-
-					if ( maxExactWeaponDistance >= range )
-						showExactInfo = TRUE;
-				}
-				// show weapon
-				if ( gGameExternalOptions.fShowEnemyWeapon && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
+				// show weapon/armour/items info
+				if ( gGameExternalOptions.fShowEnemyWeapon && gTacticalStatus.ubCurrentTeam == OUR_TEAM && pTargetSoldier->ubBodyType <= REGFEMALE )
 				{
 					height = 30;
+
+						SetFont( TINYFONT1 );
+						SetFontBackground( FONT_MCOLOR_BLACK );
 
 					if( !gGameExternalOptions.fEnemyRank || !gGameExternalOptions.fEnemyNames )
 						height = 10;
 
-					if ( WeaponInHand( pSoldier ) )
-					{
-						SetFont( TINYFONT1 );
-						SetFontBackground( FONT_MCOLOR_BLACK );
-						SetFontForeground( FONT_ORANGE );
-
-						if ( showExactInfo && gTacticalStatus.ubCurrentTeam == OUR_TEAM)
-						{
-							swprintf( NameStr, L"%s", ItemNames[ pSoldier->inv[ HANDPOS ].usItem ] );
-						}
-						else
-						{
-							// display general weapon class
-							switch( Weapon[pSoldier->inv[ HANDPOS ].usItem].ubWeaponClass )
-							{
-							case HANDGUNCLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HANDGUN] );
-								break;
-							case SMGCLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SMG] );
-								break;
-							case RIFLECLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_RIFLE] );
-								break;
-							case MGCLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_MG] );
-								break;
-							case SHOTGUNCLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SHOTGUN] );
-								break;
-							case KNIFECLASS:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_KNIFE] );
-								break;
-							default:
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HEAVY_WEAPON] );
-								break;
-							}
-						}
-
+					swprintf( NameStr, L"" );
+					GetEnemyInfoString( pSelectedSoldier, pTargetSoldier, showExactInfo, NameStr );
+					// print item name
 						FindFontCenterCoordinates( sXPos, (INT16)( sYPos + height ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 						gprintfdirty( sX, sY, NameStr );
 						mprintf( sX, sY, NameStr );
 						maxWidth = __max( maxWidth, StringPixLength ( NameStr, TINYFONT1 ) );
 					}
-					else
-					{
-						SetFont( TINYFONT1 );
-						SetFontBackground( FONT_MCOLOR_BLACK );
-						SetFontForeground( FONT_ORANGE );
-
-						if( showExactInfo && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
-						{							
-							if( pSoldier->inv[ HANDPOS ].usItem )
-								swprintf( NameStr, L"%s", Item[ pSoldier->inv[ HANDPOS ].usItem ].szItemName );
-							else
-								swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_NO_WEAPON] );
-						}
-						else
-						{
-							if( pSoldier->inv[ HANDPOS ].usItem )
-								swprintf( NameStr, L"%s", L"Item" );
-							else
-								swprintf( NameStr, L"%s", L"" );
-						}
-
-						FindFontCenterCoordinates( sXPos, (INT16)( sYPos + height ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-						gprintfdirty( sX, sY, NameStr );
-						mprintf( sX, sY, NameStr );
-						maxWidth = __max( maxWidth, StringPixLength ( NameStr, TINYFONT1 ) );
-					}
-				}
 
 				height = 0;
 				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + height ), (INT16)(80 ), 1, L"", TINYFONT1, &sX, &sY );
@@ -2537,7 +2481,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				sX-=maxWidth / 2 + StringPixLength ( L"***", TINYFONT1 );
 
 				// show additional info
-				if( gGameExternalOptions.ubShowEnemyAdditionalInfo && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
+				if( gGameExternalOptions.fShowEnemyAwareness && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
 				{
 					SetFont( TINYFONT1 );
 					SetFontBackground( FONT_MCOLOR_BLACK );
@@ -2582,46 +2526,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 							height += 10;
 						}
 					}
-
-					// show NVG
-					if( ( gGameExternalOptions.ubShowEnemyAdditionalInfo >1 ) &&
-						( Item[pSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus > 0 || Item[pSoldier->inv[HEAD2POS].usItem].nightvisionrangebonus > 0 ) )
-					{
-						swprintf( NameStr, L"%s", L"NVG" );
-						SetFontForeground( FONT_GRAY3 );
-						if ( showExactInfo )
-						{
-							gprintfdirty( sX, sY + height, NameStr );
-							mprintf( sX, sY +height , NameStr );
-							height += 10;
 						}
-					}
-
-					// show Gas mask
-					if( gGameExternalOptions.ubShowEnemyAdditionalInfo >1  && FindGasMask(pSoldier) != NO_SLOT )
-					{
-						swprintf( NameStr, L"%s", L"GAS" );
-						SetFontForeground( FONT_GRAY3 );
-						if ( showExactInfo )
-						{
-							gprintfdirty( sX, sY + height, NameStr );
-							mprintf( sX, sY + height, NameStr );
-							height += 10;
-						}
-					}
-
-					// show armour
-					SetFontForeground( FONT_GRAY3 );
-					swprintf( NameStr, L"");
-					if( gGameExternalOptions.ubShowEnemyAdditionalInfo > 2 && showExactInfo )
-					{
-						wcscat( NameStr, pSoldier->inv[HELMETPOS].usItem ? L"H" : L"-" );
-						wcscat( NameStr, pSoldier->inv[VESTPOS].usItem ? L"V" : L"-" );
-						wcscat( NameStr, pSoldier->inv[LEGPOS].usItem ? L"L" : L"-" );
-						gprintfdirty( sX, sY + height, NameStr );
-						mprintf( sX, sY + height, NameStr );
-					}
-				}
 				// show rank icon
 				if( gGameExternalOptions.ubShowEnemyRankIcon && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
 					//&& (!gGameExternalOptions.fEnemyNames) && (!gGameExternalOptions.fEnemyRank))
@@ -3009,6 +2914,9 @@ BOOLEAN DrawCTHIndicator()
 		APRect.left = sCenter - (usTotalWidth / 2);
 		APRect.right = sCenter + (usTotalWidth / 2);
 	}
+
+	// sevenfm: draw item pics
+	DrawNCTHCursorItemPics( sStartScreenX, sStartScreenY );
 
 	/////////////// MAG FACTOR
 	{
@@ -6212,6 +6120,308 @@ void DrawRankIcon( INT8 rank, INT32 baseX, INT32 baseY )
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
+void DrawItemPic(INVTYPE *pItem, INT16 sX, INT16 sY )
+{
+	UINT16			usGraphicNum;
+
+	usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;	
+
+	HVOBJECT		hVObject;
+	ETRLEObject     *pTrav;
+	GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
+	pTrav = &(hVObject->pETRLEObject[ usGraphicNum ] );
+
+	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sX - pTrav->sOffsetX, sY - pTrav->sOffsetY, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), FALSE );
+}
+
+void GetItemDimensions( INVTYPE *pItem, INT16 &sWidth, INT16 &sHeight )
+{
+	HVOBJECT		hVObject;
+	ETRLEObject     *pTrav;
+	UINT16			usGraphicNum;
+
+	usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;	
+	GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
+	pTrav = &(hVObject->pETRLEObject[ usGraphicNum ] );
+
+	sWidth = (UINT32)(pTrav->usWidth);
+	sHeight = (UINT32)(pTrav->usHeight);	
+}
+
+BOOLEAN ShowExactInfo( SOLDIERTYPE* pSoldier, SOLDIERTYPE* pTargetSoldier )
+{
+	INT32 range;
+	INT32 maxExactWeaponDistance;
+
+	if( pTargetSoldier->bVisible == -1 )
+		return FALSE;
+
+	range = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, pTargetSoldier->sGridNo ) / 10;
+
+	// visible distance
+	maxExactWeaponDistance = (INT32)( pSoldier->GetMaxDistanceVisible( pTargetSoldier->sGridNo, 0, CALC_FROM_WANTED_DIR) ) / 2 ;
+
+	// apply experience level factor
+	maxExactWeaponDistance = (INT32)( maxExactWeaponDistance * ( 1 + FLOAT( EffectiveExpLevel( pSoldier ) ) / 10.0f ) ); 
+
+	if ( maxExactWeaponDistance >= range )
+		return TRUE;
+
+	return FALSE;
+}
+
+void DrawNCTHCursorItemPics( INT16 sStartScreenX, INT16 sStartScreenY  )
+{
+	// find target soldier
+	SOLDIERTYPE *pSoldier;	
+	SOLDIERTYPE		*pTargetSoldier;
+	INT32			usItemID = 0;
+	INT16			sX, sY, sWidth, sHeight;
+	INT16			sXOffset = 0;
+
+	GetSoldier( &pSoldier, gusSelectedSoldier );
+	GetSoldier( &pTargetSoldier, gusUIFullTargetID );
+
+	// zero rects
+	RightRect.left = 0;		RightRect.top = 0;		RightRect.right = 0;		RightRect.bottom = 0;
+	LeftRect.left = 0;		LeftRect.top = 0;		LeftRect.right = 0;			LeftRect.bottom = 0;
+	LeftRect2.left = 0;		LeftRect2.top = 0;		LeftRect2.right = 0;		LeftRect2.bottom = 0;
+	
+	if( gGameExternalOptions.ubAdditionalNCTHCursorInfo &&
+		gfUIBodyHitLocation &&
+		pSoldier->ubBodyType <= REGFEMALE &&
+		_KeyDown( ALT ) &&
+		ShowExactInfo( pSoldier, pTargetSoldier) )
+	{
+		// show armour
+		switch( pSoldier->bAimShotLocation )
+		{
+		case AIM_SHOT_HEAD:
+			if( pTargetSoldier->inv[HELMETPOS].exists() )
+				usItemID = pTargetSoldier->inv[HELMETPOS].usItem;
+			break;
+		case AIM_SHOT_TORSO:
+			if( pTargetSoldier->inv[VESTPOS].exists() )
+				usItemID = pTargetSoldier->inv[VESTPOS].usItem;
+			break;
+		case AIM_SHOT_LEGS:
+			if( pTargetSoldier->inv[LEGPOS].exists() )
+				usItemID = pTargetSoldier->inv[LEGPOS].usItem;
+			break;
+		}
+		if( usItemID )
+		{
+			sX = sStartScreenX+25;
+			sY = sStartScreenY-3;
+			DrawItemPic( &(Item[ usItemID ] ), sX, sY );
+			GetItemDimensions( &(Item[ usItemID ]), sWidth, sHeight );
+			RightRect.left = sX;
+			RightRect.top = sY;
+			RightRect.right = sX + sWidth;
+			RightRect.bottom = sY + sHeight;
+		}			
+
+		if( gGameExternalOptions.ubAdditionalNCTHCursorInfo > 1 )
+		{
+			// show item in hands
+			if( pSoldier->bAimShotLocation == AIM_SHOT_TORSO )
+			{
+				if( pTargetSoldier->inv[HANDPOS].exists() )
+				{
+					usItemID = pTargetSoldier->inv[HANDPOS].usItem;
+					GetItemDimensions( &(Item[ usItemID ]), sWidth, sHeight );
+					if( sWidth > 30 )
+						sXOffset = 10;
+					sX = sStartScreenX - 25 - sWidth + sXOffset;
+					sY = sStartScreenY - 3;
+					DrawItemPic(&(Item[ usItemID ] ), sX, sY );
+					LeftRect.left = sX;
+					LeftRect.top = sY;
+					LeftRect.right = sX + sWidth;
+					LeftRect.bottom = sY + sHeight;
+				}
+			}
+			// show items in head slots
+			else if( pSoldier->bAimShotLocation == AIM_SHOT_HEAD )
+			{
+				if( pTargetSoldier->inv[HEAD2POS].exists() )
+				{
+					usItemID = pTargetSoldier->inv[HEAD2POS].usItem;
+					GetItemDimensions( &(Item[ usItemID ]), sWidth, sHeight );
+					sX = sStartScreenX - 25 - sWidth;
+					sY = sStartScreenY - 3;
+					DrawItemPic(&(Item[ usItemID ] ), sX, sY );
+					LeftRect.left = sX;
+					LeftRect.top = sY;
+					LeftRect.right = sX + sWidth;
+					LeftRect.bottom = sY + sHeight;
+				}
+
+				if( pTargetSoldier->inv[HEAD1POS].exists() )
+				{					
+					usItemID = pTargetSoldier->inv[HEAD1POS].usItem;
+					GetItemDimensions( &(Item[ usItemID ]), sWidth, sHeight );					
+					sX = sStartScreenX - 25 - sWidth;
+					sY = sStartScreenY - 3;
+					if( pTargetSoldier->inv[HEAD2POS].exists() )
+						sX -= LeftRect.right - LeftRect.left;
+					DrawItemPic(&(Item[ usItemID ] ), sX, sY );
+					LeftRect2.left = sX;
+					LeftRect2.top = sY;
+					LeftRect2.right = sX + sWidth;
+					LeftRect2.bottom = sY + sHeight;
+				}
+			}
+		}
+	}
+}
+
+void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSoldier, BOOLEAN showExactInfo, CHAR16 *NameStr )
+{
+	UINT16 usItemID;
+
+	// if ALT pressed - show armour instead of weapon
+	if( gfUIBodyHitLocation &&
+		_KeyDown( ALT ) )
+	{						
+		SetFontForeground( FONT_YELLOW );
+		// show armour
+		usItemID = 0;
+		switch( pSelectedSoldier->bAimShotLocation )
+		{
+		case AIM_SHOT_HEAD:
+			if( pTargetSoldier->inv[HELMETPOS].exists() )
+				usItemID = pTargetSoldier->inv[HELMETPOS].usItem;
+			break;
+		case AIM_SHOT_TORSO:
+			if( pTargetSoldier->inv[VESTPOS].exists() )
+				usItemID = pTargetSoldier->inv[VESTPOS].usItem;
+			break;
+		case AIM_SHOT_LEGS:
+			if( pTargetSoldier->inv[LEGPOS].exists() )
+				usItemID = pTargetSoldier->inv[LEGPOS].usItem;
+			break;
+		}
+		if( usItemID )
+		{
+			if( showExactInfo && gGameExternalOptions.fShowEnemyExtendedInfo )
+			{	// in range, show exact armour name
+				swprintf( NameStr, L"%s", ItemNames[ usItemID ] );
+			}
+			else
+			{	// show general armour type
+				switch( pSelectedSoldier->bAimShotLocation )
+				{
+				case AIM_SHOT_HEAD:
+					swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HELMET] );
+					break;
+				case AIM_SHOT_TORSO:
+					swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_VEST] );
+					break;
+				case AIM_SHOT_LEGS:
+					swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_LEGGINGS] );
+					break;
+				}								
+			}
+		}
+	}
+	else
+	{						
+		if( gfUIBodyHitLocation &&
+			pSelectedSoldier->bAimShotLocation == AIM_SHOT_HEAD )
+		{
+			// show face items
+			SetFontForeground( FONT_ORANGE );
+			if( pTargetSoldier->inv[HEAD1POS].exists() )
+			{
+				if(gGameExternalOptions.fShowEnemyExtendedInfo)
+				{	// show exact name
+					wcscat( NameStr, ItemNames[ pTargetSoldier->inv[HEAD1POS].usItem ] );
+				}
+				else
+				{	// show general name
+					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+						wcscat( NameStr, L"Mask" );
+					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
+						wcscat( NameStr, L"NVG" );
+				}				
+			}
+			if( pTargetSoldier->inv[HEAD2POS].exists() )
+			{
+				if( pTargetSoldier->inv[HEAD1POS].exists() )
+					wcscat( NameStr, L", " );
+				if(gGameExternalOptions.fShowEnemyExtendedInfo)
+				{	// show exact name
+					wcscat( NameStr, ItemNames[ pTargetSoldier->inv[HEAD2POS].usItem ] );
+				}
+				else
+				{	// show general name
+					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+						wcscat( NameStr, L"Mask" );
+					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
+						wcscat( NameStr, L"NVG" );
+				}
+			}
+		}
+		else
+		{
+			// show weapon
+			SetFontForeground( FONT_ORANGE );
+			if ( WeaponInHand( pTargetSoldier ) )
+			{
+				if ( showExactInfo )
+				{
+					swprintf( NameStr, L"%s", ItemNames[ pTargetSoldier->inv[ HANDPOS ].usItem ] );
+				}
+				else
+				{
+					// display general weapon class
+					switch( Weapon[pTargetSoldier->inv[ HANDPOS ].usItem].ubWeaponClass )
+					{
+					case HANDGUNCLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HANDGUN] );
+						break;
+					case SMGCLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SMG] );
+						break;
+					case RIFLECLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_RIFLE] );
+						break;
+					case MGCLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_MG] );
+						break;
+					case SHOTGUNCLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_SHOTGUN] );
+						break;
+					case KNIFECLASS:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_KNIFE] );
+						break;
+					default:
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_HEAVY_WEAPON] );
+						break;
+					}
+				}
+			}
+			else
+			{
+				if( showExactInfo )
+				{							
+					if( pTargetSoldier->inv[ HANDPOS ].usItem )
+						swprintf( NameStr, L"%s", Item[ pTargetSoldier->inv[ HANDPOS ].usItem ].szItemName );
+					else
+						swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_NO_WEAPON] );
+				}
+				else
+				{
+					if( pTargetSoldier->inv[ HANDPOS ].usItem )
+						swprintf( NameStr, L"%s", L"Item" );
+					else
+						swprintf( NameStr, L"%s", L"" );
+				}								
+			}
+		}
+	}
+}
 void DrawLine( INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color8, UINT16 color16, UINT8 *pDestBuf )
 {
 	if(gbPixelDepth==16)
