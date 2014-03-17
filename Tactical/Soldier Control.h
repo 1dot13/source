@@ -1828,6 +1828,7 @@ public:
 	BOOLEAN HasSniper();
 	BOOLEAN CanMedicAI();						// AI-only: can we heal a wounded ally? Do NOT, repeat, NOT use this with mercs!
 	BOOLEAN	AIDoctorFriend();					// AI-only: heal a wounded friend. Do NOT, repeat, NOT use this with mercs!
+	BOOLEAN AIDoctorSelf();						// AI-only: heal self. Do NOT, repeat, NOT use this with mercs!
 
 	//////////////////////////////////////////////////////////////////////////////
 

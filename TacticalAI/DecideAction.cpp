@@ -936,7 +936,20 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		{
 			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
-			if ( ubPerson != NOBODY )
+			// are we ourselves the patient?
+			if ( ubPerson == pSoldier->ubID )
+			{
+				// if not already crouched, crouch down first
+				if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+				{
+					pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+					return(AI_ACTION_CHANGE_STANCE);
+				}
+
+				return(AI_ACTION_DOCTOR_SELF);
+			}
+			else if ( ubPerson != NOBODY )
 			{
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
@@ -962,6 +975,24 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					return(AI_ACTION_DOCTOR);
 				}
 				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
+		// if we are not a medic, but are wounded, seek a medic
+		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
+		{
+			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) > 1 )
 				{
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				
@@ -1619,7 +1650,20 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		{
 			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
-			if ( ubPerson != NOBODY )
+			// are we ourselves the patient?
+			if ( ubPerson == pSoldier->ubID )
+			{
+				// if not already crouched, crouch down first
+				if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+				{
+					pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+					return(AI_ACTION_CHANGE_STANCE);
+				}
+
+				return(AI_ACTION_DOCTOR_SELF);
+			}
+			else if ( ubPerson != NOBODY )
 			{
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
@@ -1645,6 +1689,24 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					return(AI_ACTION_DOCTOR);
 				}
 				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
+		// if we are not a medic, but are wounded, seek a medic
+		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
+		{
+			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) > 1 )
 				{
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				
@@ -2943,7 +3005,20 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		{
 			UINT8 ubPerson = GetClosestWoundedSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius, pSoldier->bTeam);
 
-			if ( ubPerson != NOBODY )
+			// are we ourselves the patient?
+			if ( ubPerson == pSoldier->ubID )
+			{
+				// if not already crouched, crouch down first
+				if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_CROUCH && IsValidStance( pSoldier, ANIM_CROUCH ) && GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints )
+				{
+					pSoldier->aiData.usActionData = ANIM_CROUCH;
+
+					return(AI_ACTION_CHANGE_STANCE);
+				}
+
+				return(AI_ACTION_DOCTOR_SELF);
+			}
+			else if ( ubPerson != NOBODY )
 			{
 				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
 				{
@@ -2969,6 +3044,24 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					return(AI_ACTION_DOCTOR);
 				}
 				else
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
+		// if we are not a medic, but are wounded, seek a medic
+		else if ( pSoldier->iHealableInjury >= gGameExternalOptions.sEnemyMedicsWoundMinAmount )
+		{
+			UINT8 ubPerson = GetClosestMedicSoldierID( pSoldier, gGameExternalOptions.sEnemyMedicsSearchRadius / 2, pSoldier->bTeam);
+
+			if ( ubPerson != NOBODY )
+			{
+				if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) > 1 )
 				{
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				

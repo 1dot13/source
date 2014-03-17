@@ -10265,6 +10265,26 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             }
         }
 
+		// hostile civs
+        firstid = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+        lastid  = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+        for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+        {
+            if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+            {
+				// if a civilian is not neutral and on the enemy side, add his strength to the team
+				if ( !pSoldier->aiData.bNeutral && pSoldier->bSide == 1 )
+					enemysidestrength += pSoldier->GetSurrenderStrength();
+            }
+        }
+
+		// enemy team gets a bonus if it has officers around
+		BOOL officertype = OFFICER_NONE;
+		if ( HighestEnemyOfficersInSector( officertype ) )
+		{
+			enemysidestrength = enemysidestrength * (1.0f + gGameExternalOptions.dEnemyOfficerSurrenderStrengthBonus * officertype);
+		}
+
         // print out values
         if ( gGameExternalOptions.fDisplaySurrenderSValues )
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SURRENDER_VALUES], playersidestrength, gGameExternalOptions.fSurrenderMultiplier * enemysidestrength );

@@ -1478,15 +1478,18 @@ void LoadGameExternalOptions()
 	//################# Tactical Enemy Role Settings ##################
 	// Flugente: enemy roles
 	gGameExternalOptions.fEnemyRoles						= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMYROLES", TRUE);
-	gGameExternalOptions.usTurnsToUncover					= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMYROLES_TURNSTOUNCOVER", 6, 0,  20);
+	gGameExternalOptions.usTurnsToUncover					= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMYROLES_TURNSTOUNCOVER", 4, 0,  20);
 	gGameExternalOptions.fEnemyMedics						= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMY_MEDICS", TRUE);
 	gGameExternalOptions.dEnemyMedicMedKitDrainFactor		= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_MEDICS_MEDKITDRAINFACTOR", 0.1f, 0.01f, 1.0f);
-	gGameExternalOptions.sEnemyMedicsSearchRadius			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_MEDICS_SEARCHRADIUS", 20, 5, 60);
+	gGameExternalOptions.sEnemyMedicsSearchRadius			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_MEDICS_SEARCHRADIUS", 40, 5, 60);
+	gGameExternalOptions.sEnemyMedicsWoundMinAmount			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_MEDICS_WOUND_MINAMOUNT", 5000, 0, 50000);
+	gGameExternalOptions.fEnemyMedicsHealSelf				= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMY_MEDICS_HEAL_SELF", TRUE);
 	gGameExternalOptions.fEnemyOfficers						= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMY_OFFICERS", TRUE);
 	gGameExternalOptions.usEnemyOfficersPerTeamSize			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_REQUIREDTEAMSIZE", 10, 1, 64);
 	gGameExternalOptions.usEnemyOfficersMax					= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_MAX", 4, 1,  10);
 	gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus	= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_SUPPRESSION_RESISTANCE_BONUS", 10, 0, 50);
 	gGameExternalOptions.dEnemyOfficerMoraleModifier		= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_OFFICERS_MORALE_MODIFIER", 0.1f, 0.00f, 1.0f);
+	gGameExternalOptions.dEnemyOfficerSurrenderStrengthBonus	= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_OFFICERS_SURRENDERSTRENGTHBONUS", 0.1f, 0.00f, 1.0f);
 	
 	//################# Tactical Cover System Settings ##################
 

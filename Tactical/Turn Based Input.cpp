@@ -7824,7 +7824,7 @@ void HandleTacticalCoverMenu( void )
 	gzUserDefinedButtonColor[0] = 0;
 	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTYELLOW;
 	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;
-	gzUserDefinedButtonColor[4] = FONT_LTRED;
+	gzUserDefinedButtonColor[4] = gDisplayEnemyRoles ? FONT_MCOLOR_LTGREEN : FONT_LTRED;
 	gzUserDefinedButtonColor[8] = FONT_ORANGE;
 	gzUserDefinedButtonColor[9] = FONT_ORANGE;
 	gzUserDefinedButtonColor[10] = FONT_ORANGE;

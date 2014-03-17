@@ -12642,9 +12642,9 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	}
 
 	// if we are going to do the surgery
-	// Flugente: AI medics are allowed to perform surgery without first aid kits
-	if (pVictim->iHealableInjury > 0 && this->fDoingSurgery && this->ubID != pVictim->ubID && gGameOptions.fNewTraitSystem
-		&& (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) 
+	// Flugente: AI medics are allowed to perform surgery without first aid kits, and can do this on themselves
+	if (pVictim->iHealableInjury > 0 && this->fDoingSurgery && (this->ubID != pVictim->ubID || (gGameExternalOptions.fEnemyMedicsHealSelf && this->bTeam == ENEMY_TEAM) )
+		&& gGameOptions.fNewTraitSystem	&& (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) 
 		&& (Item[this->inv[ HANDPOS ].usItem].medicalkit || this->bTeam == ENEMY_TEAM) )
 	{
 		fOnSurgery = TRUE;
@@ -16308,22 +16308,19 @@ void	SOLDIERTYPE::DropSectorEquipment()
 // sevenfm: take item from inventory to HANDPOS
 void SOLDIERTYPE::TakeNewItemFromInventory(UINT16 usItem)
 {
-	INT8 i;
-	OBJECTTYPE* pObj = NULL;
-	INT8 invsize = (INT8)this->inv.size();
-
 	if ( !UsingNewInventorySystem() )
 		return;
 
-        // this feature works now only in realtime
-        if( (gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
-                return;
+    // this feature works now only in realtime
+    if( (gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+            return;
 	
 	if(this->inv[HANDPOS].exists())
 		return;
 	
 	// search for item with same id
-	for ( i = 0; i < invsize; i++)
+	INT8 invsize = (INT8)this->inv.size();
+	for ( INT8 i = 0; i < invsize; ++i)
 	{
 		if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == usItem ) )
 		{
@@ -16336,25 +16333,24 @@ void SOLDIERTYPE::TakeNewItemFromInventory(UINT16 usItem)
 // sevenfm: take item from inventory to HANDPOS
 void SOLDIERTYPE::TakeNewBombFromInventory(UINT16 usItem)
 {
-        INT8 i;
-        OBJECTTYPE* pObj = NULL;
-        INT8 invsize = (INT8)this->inv.size();
-
-        if ( !UsingNewInventorySystem() )
-                return;
+    INT8 i;
+    
+    if ( !UsingNewInventorySystem() )
+		return;
         
-        if(this->inv[HANDPOS].exists())
-                return;
+    if(this->inv[HANDPOS].exists())
+		return;
         
-        // search for item with same id
-        for ( i = 0; i < invsize; i++)
+    // search for item with same id
+	INT8 invsize = (INT8)this->inv.size();
+    for ( i = 0; i < invsize; ++i)
+    {
+        if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == usItem ) )
         {
-                if ( ( this->inv[i].exists() == true ) && ( this->inv[i].usItem == usItem ) )
-                {
-                        this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
-                        return;
-                }
+            this->inv[i].MoveThisObjectTo(this->inv[HANDPOS], 1, this);
+            return;
         }
+    }
 
 	// search for any item with class IC_BOMB
 	// take tripwire-activated item only if used item is tripwire activated
@@ -16988,16 +16984,7 @@ INT8 SOLDIERTYPE::GetSuppressionResistanceBonus()
 		BOOL officertype = OFFICER_NONE;
 		if ( HighestEnemyOfficersInSector( officertype ) )
 		{
-			switch ( officertype )
-			{
-			case OFFICER_LIEUTNANT:
-				bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus;
-				break;
-
-			case OFFICER_CAPTAIN:
-				bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus * 2;
-				break;
-			}
+			bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus * officertype;
 		}
 	}
 
@@ -17098,16 +17085,7 @@ FLOAT	SOLDIERTYPE::GetMoraleModifier()
 	BOOL officertype = OFFICER_NONE;
 	if ( HighestEnemyOfficersInSector( officertype ) )
 	{
-		switch ( officertype )
-		{
-		case OFFICER_LIEUTNANT:
-			mod += gGameExternalOptions.dEnemyOfficerMoraleModifier;
-			break;
-
-		case OFFICER_CAPTAIN:
-			mod += gGameExternalOptions.dEnemyOfficerMoraleModifier * 2;
-			break;
-		}
+		mod += gGameExternalOptions.dEnemyOfficerMoraleModifier * officertype;
 	}
 
 	return mod;
@@ -18298,6 +18276,10 @@ BOOLEAN		SOLDIERTYPE::CanMedicAI()
 	if ( !gGameExternalOptions.fEnemyRoles || !gGameExternalOptions.fEnemyMedics || this->bTeam != ENEMY_TEAM )
 		return FALSE;
 
+	// this is not for tanks
+	if ( TANK(this) )
+		return FALSE;
+
 	if ( HAS_SKILL_TRAIT( this, DOCTOR_NT) )
 	{
 		if ( FindFirstAidKit(this) != NO_SLOT || FindMedKit(this) != NO_SLOT )
@@ -18326,8 +18308,12 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend()
 		if ( pSoldier->bTeam != ENEMY_TEAM )
 			return FALSE;
 
-		// if this guy is wounded should always be the case, otherwise this function was calleed needlessly
-		if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax )
+		// this is not for tanks
+		if ( TANK(pSoldier) )
+			return FALSE;
+
+		// if this guy is wounded, heal him (should always be the case, otherwise this function was called needlessly)
+		if ( pSoldier->iHealableInjury > 0 )
 		{
 			// move medkit into hand - if we don't have a medkit in our hands, abort
 			if ( !MakeSureMedKitIsInHand( this ) )
@@ -18360,6 +18346,49 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend()
 
 			return TRUE;
 		}
+	}
+
+	return FALSE;
+}
+
+// AI-only: heal self. Do NOT, repeat, NOT use this with mercs!
+BOOLEAN		SOLDIERTYPE::AIDoctorSelf()
+{
+	if ( this->bTeam != ENEMY_TEAM )
+		return FALSE;
+	
+	// if this guy is wounded, heal him (should always be the case, otherwise this function was called needlessly)
+	if ( this->iHealableInjury > 0 )
+	{
+		// move medkit into hand - if we don't have a medkit in our hands, abort
+		if ( !MakeSureMedKitIsInHand( this ) )
+			return FALSE;
+
+		if( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH )
+		{
+			this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
+		}
+
+		// AI medics always perform surgery
+		this->fDoingSurgery = TRUE;
+
+		UINT16 usKitPts = TotalPoints( &(this->inv[ HANDPOS ] ) );
+
+		// note the current hp
+		INT8 oldlife = this->stats.bLife;
+
+        UINT16 uiPointsUsed = this->SoldierDressWound( this, usKitPts, usKitPts );
+			
+        UseKitPoints( &(this->inv[ HANDPOS ] ), (UINT16)(uiPointsUsed * gGameExternalOptions.dEnemyMedicMedKitDrainFactor), this );
+
+		// healing done will be displayed the next time the player sees this soldier
+		this->flags.fDisplayDamage = TRUE;
+		this->sDamage -= this->stats.bLife - oldlife;
+
+		// alert ourself
+		this->aiData.bAlertStatus	  = min(this->aiData.bAlertStatus,  STATUS_RED);
+
+		return TRUE;
 	}
 
 	return FALSE;
@@ -20934,7 +20963,7 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 		return( 0 );
 		
 	// Second, run through all damagable stats
-	for (cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++)
+	for (cnt = 0; cnt < NUM_DAMAGABLE_STATS; ++cnt)
 	{
 		// if we have a damaged stat here
 		if (pSoldier->ubCriticalStatDamage[cnt] > 0 )
@@ -21020,7 +21049,7 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 						break;
 				}
 				// Throw a message if healed anything
-				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage && pSoldier->bTeam != ENEMY_TEAM )
 				{
 					if ( usStatIncreasement == 1 )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );
@@ -21076,7 +21105,7 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 				gMercProfiles[ pSoldier->ubProfile ].bLifeMax = pSoldier->stats.bLifeMax; // update profile
 
 				// Throw a message if healed anything
-				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage && pSoldier->bTeam != ENEMY_TEAM )
 				{
 					if ( usStatIncreasement == 1 )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );
@@ -21119,7 +21148,7 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 				gMercProfiles[ pSoldier->ubProfile ].bStrength = pSoldier->stats.bStrength; // update profile
 
 				// Throw a message if healed anything
-				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage && pSoldier->bTeam != ENEMY_TEAM )
 				{
 					if ( usStatIncreasement == 1 )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );

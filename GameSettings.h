@@ -1351,11 +1351,14 @@ typedef struct
 	BOOLEAN fEnemyMedics;
 	FLOAT	dEnemyMedicMedKitDrainFactor;
 	INT16   sEnemyMedicsSearchRadius;
+	INT32	sEnemyMedicsWoundMinAmount;
+	BOOLEAN fEnemyMedicsHealSelf;
 	BOOLEAN fEnemyOfficers;
 	UINT16  usEnemyOfficersPerTeamSize;
 	UINT16  usEnemyOfficersMax;
 	INT8	sEnemyOfficerSuppressionResistanceBonus;
 	FLOAT   dEnemyOfficerMoraleModifier;
+	FLOAT   dEnemyOfficerSurrenderStrengthBonus;
 
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)

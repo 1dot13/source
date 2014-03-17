@@ -105,6 +105,7 @@ typedef enum
 	AI_ACTION_FREE_PRISONER,		// added by Flugente: free a prisoner
 	AI_ACTION_USE_SKILL,			// added by Flugente: perform a skill, which one is stored in usAISkillUse
 	AI_ACTION_DOCTOR,				// added by Flugente: AI-ONLY! bandage/surgery on fellow AI. DO NOT USE THIS FOR MERCS!!!
+	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 } ActionType;
 
 
@@ -265,5 +266,8 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 
 // get the id of the closest soldier (closer than x tiles) of a specific team that is wounded that we can currently see
 UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
+
+// get the id of the closest medic (closer than x tiles) of a specific team
+UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 #endif
