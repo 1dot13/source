@@ -1481,7 +1481,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usTurnsToUncover					= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMYROLES_TURNSTOUNCOVER", 6, 0,  20);
 	gGameExternalOptions.fEnemyMedics						= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMY_MEDICS", TRUE);
 	gGameExternalOptions.dEnemyMedicMedKitDrainFactor		= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_MEDICS_MEDKITDRAINFACTOR", 0.1f, 0.01f, 1.0f);
-	gGameExternalOptions.sEnemyMedicsSearchRadius			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_MEDICS_SEARCHRAIUS", 20, 5, 60);
+	gGameExternalOptions.sEnemyMedicsSearchRadius			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_MEDICS_SEARCHRADIUS", 20, 5, 60);
 	gGameExternalOptions.fEnemyOfficers						= iniReader.ReadBoolean("Tactical Enemy Role Settings", "ENEMY_OFFICERS", TRUE);
 	gGameExternalOptions.usEnemyOfficersPerTeamSize			= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_REQUIREDTEAMSIZE", 10, 1, 64);
 	gGameExternalOptions.usEnemyOfficersMax					= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_MAX", 4, 1,  10);
