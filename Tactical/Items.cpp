@@ -10269,6 +10269,9 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 		
 	if (pObj->exists() )
 	{
+		// simply add the object modifier
+		iModifier += GetItemModifier( pObj, ubRef, usType);
+
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
 			if( iter->exists() )
@@ -10295,14 +10298,7 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 					// Do not apply weapon bonus/penalty because this will be added one step below. We don't want to apply it twice.
 					if ( pObj->usItem != ObjList[pSoldier->bScopeMode]->usItem )
 						iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
-				// add weapon modifier
-				iModifier += GetItemModifier( pObj, ubRef, usType);
 			}
-		}
-		else
-		{
-			// simply add the object modifier
-			iModifier += GetItemModifier( pObj, ubRef, usType);
 		}
 	}
 
