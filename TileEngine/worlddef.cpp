@@ -165,11 +165,16 @@ INT32						*gpDirtyData;
 UINT32					gSurfaceMemUsage;
 //UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
 UINT8 (*gubWorldMovementCosts)[MAXDIR][2] = NULL;//dnl ch43 260909
+
+// Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
+#ifdef USE_ASTAR_PATHS
 //ddd для убыстрения поиска освещенных участков в патхаи.
 BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
 BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ];
 INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ];
 //ddd
+#endif
+
 // set to nonzero (locs of base gridno of structure are good) to have it defined by structure code
 INT16		gsRecompileAreaTop = 0;
 INT16		gsRecompileAreaLeft = 0;
