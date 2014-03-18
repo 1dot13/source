@@ -10291,8 +10291,12 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 				GetScopeLists(pObj, ObjList);
 
 				// only use scope mode if gun is in hand, otherwise an error might occur!
-				if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
-					iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
+				if ( (&pSoldier->inv[HANDPOS]) == pObj && ObjList[pSoldier->bScopeMode] != NULL )
+					// Do not apply weapon bonus/penalty because this will be added one step below. We don't want to apply it twice.
+					if ( pObj->usItem != ObjList[pSoldier->bScopeMode]->usItem )
+						iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
+				// add weapon modifier
+				iModifier += GetItemModifier( pObj, ubRef, usType);
 			}
 		}
 		else
