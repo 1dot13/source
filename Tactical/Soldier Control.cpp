@@ -17129,6 +17129,10 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	if ( this->stats.bLife < OKLIFE )
 		this->SwitchOffRadio();
 
+	// if we are an enemy radio operator, and we are jamming frequencies, there is a slight chance that we set off remote-controlled bombs/defuses!
+	if ( !gSkillTraitValues.fVOJammingBlocksRemoteBombs && gSkillTraitValues.fVOEnemyVOSetsOffRemoteBombs && this->bTeam == ENEMY_TEAM && IsJamming() && Chance(5) )
+		SetOffBombsByFrequency( this->ubID, 1 + Random(8) );
+
 	// effects eventually run out
 	for (UINT8 counter = 0; counter < SOLDIER_COUNTER_MAX; ++counter)
 	{
@@ -17988,7 +17992,16 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 BOOLEAN SOLDIERTYPE::IsJamming()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING) && CanUseRadio(FALSE) );
+	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+	{
+		if ( CanUseRadio(FALSE) )
+			return TRUE;
+		// if we cannot use the radio, remove that flag hile we're at it
+		else
+			bSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_JAMMING;
+	}
+
+	return FALSE;
 }
 
 BOOLEAN SOLDIERTYPE::JamCommunications()
@@ -18018,7 +18031,16 @@ BOOLEAN SOLDIERTYPE::JamCommunications()
 
 BOOLEAN SOLDIERTYPE::IsScanning()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING) && CanUseRadio(FALSE) );
+	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
+	{
+		if ( CanUseRadio(FALSE) )
+			return TRUE;
+		// if we cannot use the radio, remove that flag hile we're at it
+		else
+			bSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_SCANNING;
+	}
+
+	return FALSE;
 }
 
 BOOLEAN SOLDIERTYPE::ScanForJam()

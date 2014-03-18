@@ -1826,6 +1826,8 @@ typedef struct
 	UINT8 usVOMortarSignalShellRadius;
 	INT8  sVOScanAssignmentBaseRange;
 	INT8  sVOListeningHearingBonus;
+	BOOLEAN fVOJammingBlocksRemoteBombs;
+	BOOLEAN fVOEnemyVOSetsOffRemoteBombs;
 
 
 	// SNITCH
