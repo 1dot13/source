@@ -4935,7 +4935,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	///////////////////// AIM BONUS MODIFIER
 	if(UsingNewCTHSystem() == false)
 	{
-		if ( GetFlatAimBonus( gpItemDescObject ) != 0 )
+		//if ( GetFlatAimBonus( gpItemDescObject ) != 0 )
+		if ( GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 ) != 0 )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -6409,8 +6410,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////// OCTH AIMING BONUS
-		if ( UsingNewCTHSystem() == false && 
-			(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
+		//if ( UsingNewCTHSystem() == false && 
+		//	(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
+		if ( UsingNewCTHSystem() == false && GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 ) != 0 )
 		{
 			// Set line to draw into
 			ubNumLine = 4;
