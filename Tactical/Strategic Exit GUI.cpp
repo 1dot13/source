@@ -278,7 +278,7 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 			}
 		}
 
-		if( ubNumMercs == 1 && ubNumEPCs >= 1 )
+		if( ubNumMercs == 1 )
 		{
 			gExitDialog.fSingleMoveOn				= FALSE;
 			gExitDialog.fAllMoveOn					= TRUE;

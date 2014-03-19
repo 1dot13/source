@@ -117,6 +117,9 @@ UINT16 NUM_SLOT;
 #define		SLG_SAVE_LOAD_BTN_POS_X							iScreenWidthOffset + 123
 #define		SLG_SAVE_LOAD_BTN_POS_Y							iScreenHeightOffset + 438
 
+#define		SLG_SAVE_LOAD_PAGE_POS_X						SLG_SAVE_LOAD_BTN_POS_X + 195
+#define		SLG_SAVE_LOAD_PAGE_POS_Y						SLG_SAVE_LOAD_BTN_POS_Y + 10
+
 #define		SLG_DOUBLE_CLICK_DELAY							500
 
 //defines for saved game version status
@@ -931,6 +934,7 @@ void ExitSaveLoadScreen()
 void RenderSaveLoadScreen()
 {
 	HVOBJECT hPixHandle;
+	CHAR16	sPage[60];
 
 	//if we are going to be instantly leaving the screen, dont draw the numbers
 	if( gfLoadGameUponEntry )
@@ -963,6 +967,11 @@ void RenderSaveLoadScreen()
 	}
 
 	DisplaySaveGameList();
+
+	//Display the option page numbers
+	swprintf( sPage, L"%d", PAGE_SLOT + 1 );
+	DrawTextToScreen( sPage, SLG_SAVE_LOAD_PAGE_POS_X, SLG_SAVE_LOAD_PAGE_POS_Y, 0, OPT_BUTTON_FONT,
+						OPT_BUTTON_ON_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	InvalidateRegion( 0, 0, SCREEN_WIDTH	, SCREEN_HEIGHT	);
 }
