@@ -427,16 +427,20 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 	}
 
-	fMapScreenBottomDirty = TRUE;
-	ChangeSelectedMapSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
-	// Headrock: Added FALSE argument, We might need TRUE but not sure. Will need to initiate battle :)
-	RenderMapScreenInterfaceBottom( FALSE );
-
+	// silversurfer: moved this up here because this check needs to be done before we draw anything on the map screen - otherwise CTD.
+	// Also the necessary variables have to be set.
 	//If we are currently in tactical, then set the flag to automatically bring up the mapscreen.
 	if( guiCurrentScreen == GAME_SCREEN )
 	{
 		gfEnteringMapScreen = TRUE;
+		gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
+		return;
 	}
+
+	fMapScreenBottomDirty = TRUE;
+	ChangeSelectedMapSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
+	// Headrock: Added FALSE argument, We might need TRUE but not sure. Will need to initiate battle :)
+	RenderMapScreenInterfaceBottom( FALSE );
 
 	if( !fShowTeamFlag )
 	{
