@@ -4383,6 +4383,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ShutdownNPCQuotes();
 
 	SetFastForwardMode(FALSE); // FF can sometimes be active if quick-load during AI turn transition
+	SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);	// sevenfm: set default clock speed
 
 	//very small TODO
 	//Bugfix = Stop the chopter sound

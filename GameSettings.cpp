@@ -1054,13 +1054,13 @@ void LoadGameExternalOptions()
 	//gGameExternalOptions.fHideEnemyHealthText				= iniReader.ReadBoolean("Tactical Interface Settings","HIDE_ENEMY_HEALTH_TEXT", FALSE);
 
 	// Flugente: show health an fatigue bars over currently selected mercs and those we hover our mouse over
-	gGameExternalOptions.ubShowHealthBarsOnHead				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", 1, 0, 5);
+	gGameExternalOptions.ubShowHealthBarsOnHead				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", 1, 0, 3);
 
 	// sevenfm: show health over enemy
 	gGameExternalOptions.ubShowEnemyHealth					= iniReader.ReadInteger("Tactical Interface Settings","SHOW_ENEMY_HEALTH", 1, 0, 6);
 
 	// sevenfm: show cover indicator
-	gGameExternalOptions.ubShowCoverIndicator				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_COVER_INDICATOR", 0, 0, 4);
+	gGameExternalOptions.ubShowCoverIndicator				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_COVER_INDICATOR", 0, 0, 2);
 		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
@@ -2208,6 +2208,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iFastForwardKey			= ParseKeyString(sFFKeyBuffer);
 	gGameExternalOptions.iFastForwardPeriod			= (FLOAT)iniReader.ReadDouble("Clock Settings","FAST_FORWARD_PERIOD", 500, 1, 10000);
 	gGameExternalOptions.fClockSpeedPercent			= (FLOAT)iniReader.ReadDouble("Clock Settings","CLOCK_SPEED_PERCENT", 150, 100, 300);
+	gGameExternalOptions.fEnemyClockSpeedPercent	= (FLOAT)iniReader.ReadDouble("Clock Settings","ENEMY_CLOCK_SPEED_PERCENT", 150, 100, 300);
 	gGameExternalOptions.iNotifyFrequency			= iniReader.ReadInteger("Clock Settings","UPDATE_FREQUENCY", 16000, 1000, 20000);	
 
 	// sevenfm: improved auto fast forwarding

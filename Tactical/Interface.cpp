@@ -1908,8 +1908,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	BOOLEAN bStealth = pSoldier->bStealthMode || pSoldier->bSoldierFlagMask & ( SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER );
 	// sevenfm: for mercs use name color as cover indicator
 	if( pSoldier->bTeam == OUR_TEAM && ! ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT) ) &&
-		( ( gGameExternalOptions.ubShowCoverIndicator == 2 && ( bInCombat || bStealth ) ) ||
-		( gGameExternalOptions.ubShowCoverIndicator == 4 && bStealth ) ) )
+		( ( gGameExternalOptions.ubShowCoverIndicator == 1 && ( bInCombat || bStealth ) ) ||
+		( gGameExternalOptions.ubShowCoverIndicator == 2 && bStealth ) ) )
 	{
 		INT8 cover = 3;		// MAX_COVER
 		BOOLEAN showCover;
@@ -2094,17 +2094,17 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
 				{
 					INT16 interval = gGameExternalOptions.ubShowHealthBarsOnHead;
-					if( interval > 3 )
-						interval -= 2;
-					sXPos += 25;
+					//if( interval > 3 )
+					//	interval -= 2;
+					sXPos += 27;
 					sYPos += 7;
-					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos-1, (INT16)(sXPos + 40 ), (INT16)(sYPos + 3 + interval*3 ) );
+					iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos-1, (INT16)(sXPos + 24 ), (INT16)(sYPos + 3 + interval*3 ) );
 					if ( iBack != -1 )
 						SetBackgroundRectFilled( iBack );
-					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos), (INT16)(sYPos), 25, interval - 1, interval );
+					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos), (INT16)(sYPos), 20, 1, 2 );
 
 					// show AP only in turnbased combat, only during our turn
-					if( gGameExternalOptions.ubShowHealthBarsOnHead > 3 && 
+					if( gGameExternalOptions.ubShowHealthBarsOnHead > 2 && 
 						(gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) &&
 						gTacticalStatus.ubCurrentTeam == OUR_TEAM)
 					{
@@ -2462,7 +2462,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				if( gGameExternalOptions.ubShowEnemyHealth > 1 && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
 				{
 					UINT8 ubLines = gGameExternalOptions.ubShowEnemyHealth - 1;
-					INT32 iBarWidth = 26;
+					INT32 iBarWidth = 24;
 					INT32 iBarHeight;
 
 					iBarHeight = 2 + 3 * ubLines - 1;
@@ -3653,7 +3653,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	// sevenfm: draw background for alt bar
 	if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
 	{
-		DrawBar( sXPos+2, sYPos, 28, 1 + interval*3, COLOR_BLACK, Get16BPPColor( FROMRGB( 0, 0, 0	) ), pDestBuf );
+		DrawBar( sXPos+2, sYPos, sWidth + 2, 1 + interval*3, COLOR_BLACK, Get16BPPColor( FROMRGB( 0, 0, 0	) ), pDestBuf );
 		// draw border: light brown for stealth mode, grey for regular		
 		if(pSoldier->bStealthMode)
 		{
@@ -3667,9 +3667,9 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		if ( pSoldier->ubID == gusSelectedSoldier )
 		{
 			if(gbPixelDepth==16)
-				RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+30, sYPos+1+interval*3, color16, pDestBuf);
+				RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color16, pDestBuf);
 			else
-				RectangleDraw8( TRUE, sXPos+1, sYPos-1, sXPos+30, sYPos+1+interval*3, color8, pDestBuf);
+				RectangleDraw8( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color8, pDestBuf);
 		}
 	}
 
@@ -3752,10 +3752,11 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	if( gGameExternalOptions.ubShowHealthBarsOnHead > 1 )
 	{
 		dPercentage = (FLOAT)( __min(100, ( (FLOAT)100 * CalcEffectiveShockLevel( pSoldier ) ) / CalcSuppressionTolerance( pSoldier ) ) ) / (FLOAT)100;
-		dWidth		=	dPercentage * 25;
+		dWidth		=	dPercentage * sWidth;
 		DrawBar( sXPos+3, sYPos+1+2*interval, (INT32)dWidth, sHeight, COLOR_ORANGE, Get16BPPColor( FROMRGB( 220, 140, 0 ) ), pDestBuf );
 	}
 
+	/*
 	BOOLEAN bDisguised = pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER);
 	BOOLEAN bStealth = pSoldier->bStealthMode;
 	// draw cover indicators
@@ -3788,6 +3789,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 				DrawBar( sXPos+33, sYPos+1, 1+sHeight , (interval==3 ? 2 : 3 )*interval-1, color8, color16, pDestBuf );
 		}
 	}
+	*/
 
 	UnLockVideoSurface( FRAME_BUFFER );
 

@@ -1283,6 +1283,7 @@ typedef struct
 	INT32 iNotifyFrequency;
 	// Frequency that the screen is updated
 	FLOAT fClockSpeedPercent;
+	FLOAT fEnemyClockSpeedPercent;
 
 	// sevenfm: improved auto fast forwarding
 	UINT8 ubAutoFastForwardEnemies;

@@ -167,6 +167,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 //	EV_S_BEGINTURN	SBeginTurn;
 
 	SetFastForwardMode(FALSE);
+	SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);	// sevenfm: set default clock speed
 
 	gTacticalStatus.ubDisablePlayerInterrupts = FALSE;
 
@@ -527,6 +528,8 @@ void BeginTeamTurn( UINT8 ubTeam )
 			SetFastForwardMode( (ubTeam != OUR_TEAM) );
 		}		
 	}
+	if( !is_networked && ubTeam != OUR_TEAM )
+		SetClockSpeedPercent(gGameExternalOptions.fEnemyClockSpeedPercent);		// sevenfm: set clock speed for enemy turn
 
 	while( 1 )
 	{
@@ -855,6 +858,7 @@ void StartInterrupt( void )
 
 		// disable ff mode
 		SetFastForwardMode(FALSE);
+		SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);	// sevenfm: set default clock speed
 
 		// build string for display of who gets interrupt
 		//while( 1 )
@@ -1489,6 +1493,8 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			SetFastForwardMode( (gTacticalStatus.ubCurrentTeam != OUR_TEAM) );
 		}	
 	}
+	if( !is_networked && gTacticalStatus.ubCurrentTeam != OUR_TEAM )
+		SetClockSpeedPercent(gGameExternalOptions.fEnemyClockSpeedPercent);	// sevenfm: set clock speed for enemy turn
 }
 
 
