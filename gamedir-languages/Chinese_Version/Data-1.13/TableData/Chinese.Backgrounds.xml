@@ -1,441 +1,2160 @@
-﻿<?xml version="1.0" encoding="utf-8"?>                                                                              
+<?xml version="1.0" encoding="utf-8"?>
 <BACKGROUNDS>
   <BACKGROUND>
     <uiIndex>0</uiIndex>
-    <szName>背景名称(128字节)</szName>
-    <szShortName>简称(20字节)</szShortName>
-    <szDescription>该项输入具体描述。这个描述会出现在电脑佣兵属性信息和IMP设定里（256字节）</szDescription>  
+    <szName>Background name (128 letters)</szName>
+    <szShortName>short name (20)</szShortName>
+    <szDescription>Enter a description here. This will show up in the laptop and can be up to 256 letters long.</szDescription>
   </BACKGROUND>
+  <!-- Note that Barry's background had to be moved to slot 255 due to index number 0 already being taken -->
+  <!-- Blood -->
   <BACKGROUND>
     <uiIndex>1</uiIndex>
-    <szName>军火商</szName>
-    <szShortName>军火商</szShortName>
-    <szDescription>多年的武器倒卖经验使得此人在买卖枪支弹药时 &#10;更善于抬价砍价。</szDescription>
+    <szName>ANC Veteran</szName>
+    <szShortName>ANC Veteran</szShortName>
+    <szDescription>Militant veterans of the ANC's struggle were not only versed in jungle warfare, but also in political theory.</szDescription>
   </BACKGROUND>
+  <!-- Lynx -->
   <BACKGROUND>
     <uiIndex>2</uiIndex>
-    <szName>执法人员</szName>
-    <szShortName>执法人员</szShortName>
-    <szDescription>城管出身的佼佼者们更乐意在杀手的世界谋求一职 &#10;他们当然最擅长审讯犯人。</szDescription>
+    <szName>Big Game Hunter</szName>
+    <szShortName>Big Game Hunter</szShortName>
+    <szDescription>Travel to virgin soil, seek fascinating species, and KILL THEM ALL.</szDescription>
   </BACKGROUND>
+  <!-- Grizzly -->
   <BACKGROUND>
     <uiIndex>3</uiIndex>
-    <szName>监狱看守</szName>
-    <szShortName>监狱看守</szShortName>
-    <szDescription>担心监狱的暴徒们举兵反攻么？ &#10;监狱看守是你最好的选择。</szDescription>
+    <szName>Daredevil</szName>
+    <szShortName>Daredevil</szShortName>
+    <szDescription>An imposing sight on the battlefield, Grizzly is never one to shy away from taking the enemy head-on.</szDescription>
   </BACKGROUND>
+  <!-- Vicky -->
   <BACKGROUND>
     <uiIndex>4</uiIndex>
-    <szName>黑帮混混</szName>
-    <szShortName>黑帮混混</szShortName>
-    <szDescription>从小混到大自然懂得如何威胁老实人 &#10;他们打架的经验不是盖的。</szDescription>
+    <szName>Car Mechanic</szName>
+    <szShortName>Car Mechanic</szShortName>
+    <szDescription>Working day and night in her car repair shop when she's not travelling around the world, Vicky is a very versed mechanic. But she never overcame her fear of heights.</szDescription>
   </BACKGROUND>
+  <!-- Trevor -->
   <BACKGROUND>
     <uiIndex>5</uiIndex>
-    <szName>囚犯</szName>
-    <szShortName>囚犯</szShortName>
-    <szDescription>被爆且爆过无数次菊花，可想而知 &#10;他们体格健壮，无所畏惧。</szDescription> 
+    <szName>Technical Wizard</szName>
+    <szShortName>Tech Whiz</szShortName>
+    <szDescription>The difference to MacGyver is that he does use guns.</szDescription>
   </BACKGROUND>
+  <!-- Grunty -->
   <BACKGROUND>
     <uiIndex>6</uiIndex>
-    <szName>瘾君子</szName>
-    <szShortName>瘾君子</szShortName>
-    <szDescription>瘾君子可以反过来成为你可怕的对手和麻烦。</szDescription>  
+    <szName>Bodyguard</szName>
+    <szShortName>Bodyguard</szShortName>
+    <szDescription>
+      Superbly trained, utterly loyal, and willing to pay the ultimate price. What more could a potential employer want?.
+    </szDescription>
   </BACKGROUND>
+  <!-- Ivan -->
   <BACKGROUND>
     <uiIndex>7</uiIndex>
-    <szName>富二代</szName>
-    <szShortName>富二代</szShortName>
-    <szDescription>比起那些娘娘腔玩豪车美女的败家子 &#10;有些富二代确实接受过顶级的特工训练。</szDescription>
+    <szName>Red Army Major</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>Ivan's training program is the stuff of nightmares, but it pays off evidently.</szDescription>
   </BACKGROUND>
+  <!-- Steroid -->
   <BACKGROUND>
     <uiIndex>8</uiIndex>
-    <szName>律师</szName>
-    <szShortName>律师</szShortName>
-    <szDescription>虽然让他们做佣兵可能牵强附会 &#10;不过在紧急关头他们也能派上用场。</szDescription>
+    <szName>Firefighter</szName>
+    <szShortName>Firefighter</szShortName>
+    <szDescription>Just because it involves no shooting, it doesn't have to be less dangerous.</szDescription>
   </BACKGROUND>
+  <!-- Igor -->
   <BACKGROUND>
     <uiIndex>9</uiIndex>
-    <szName>飞行员</szName>
-    <szShortName>飞行员</szShortName>
-    <szDescription>接受过严格的军事训练 &#10;地面作战对他们而言可能更加简单。</szDescription>
+    <szName>Chechnya Campaign Veteran</szName>
+    <szShortName>Chechnya Campaign Veteran</szShortName>
+    <szDescription>Serving in the Russian campaign in Chechnya, Igor is used to harsh environments.</szDescription>
   </BACKGROUND>
+  <!-- Shadow -->
   <BACKGROUND>
     <uiIndex>10</uiIndex>
-    <szName>牧师</szName>
-    <szShortName>牧师</szShortName>
-    <szDescription>宗教的力量是伟大的 &#10;用好它可以改写历史。</szDescription>
+    <szName>Ranger</szName>
+    <szShortName>Ranger</szShortName>
+    <szDescription>The Rangers form the elite of Us army infantry.</szDescription>
   </BACKGROUND>
+  <!-- Red -->
   <BACKGROUND>
     <uiIndex>11</uiIndex>
-    <szName>护士</szName>
-    <szShortName>护士</szShortName>
-    <szDescription>护士在战区是很吃香的 &#10;因为太危险了，专业医生往往不愿意前往。</szDescription>
+    <szName>Sapper</szName>
+    <szShortName>Sapper</szShortName>
+    <szDescription>Sapper can make only two mistakes in his life. The first one is a career choice.</szDescription>
   </BACKGROUND>
+  <!-- Reaper -->
   <BACKGROUND>
     <uiIndex>12</uiIndex>
-    <szName>ANC老兵</szName>
-    <szShortName>ANC老兵</szShortName>
-    <szDescription>ANC老兵不仅像兰博一样有丰富的丛林战术经验 &#10;更擅长于演讲政治理论。&#10;（不清楚ANC是什么组织）。</szDescription>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
   </BACKGROUND>
+  <!-- Fidel -->
   <BACKGROUND>
     <uiIndex>13</uiIndex>
-    <szName>建筑工</szName>
-    <szShortName>建筑工</szShortName>
-    <szDescription>建筑工人都是卖苦力的 &#10;他们体格壮实，擅长建造碉堡和搬砖。</szDescription>
+    <szName>Bomber</szName>
+    <szShortName>Bomber</szShortName>
+    <szDescription>Wether you call them terrorists or freedom fighters often depends on your relation to those killed.</szDescription>
   </BACKGROUND>
+  <!-- Fox -->
   <BACKGROUND>
     <uiIndex>14</uiIndex>
-    <szName>跳伞运动员</szName>
-    <szShortName>跳伞手</szShortName>
-    <szDescription>喜欢冒险吗，喜欢生死不卜的感觉？试试跳伞吧。</szDescription>
+    <szName>Nurse</szName>
+    <szShortName>Nurse</szShortName>
+    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
   </BACKGROUND>
+  <!-- Sidney -->
   <BACKGROUND>
     <uiIndex>15</uiIndex>
-    <szName>军官教练</szName>
-    <szShortName>教练</szShortName>
-    <szDescription>教练的工作就是好好教训那些新兵蛋子，让他们老实一点。</szDescription>
+    <szName>Nobility</szName>
+    <szShortName>Nobility</szShortName>
+    <szDescription>Some people join this business not out of necessity. While easy to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
   </BACKGROUND>
+  <!-- Gus -->
   <BACKGROUND>
     <uiIndex>16</uiIndex>
-    <szName>门卫</szName>
-    <szShortName>门卫</szShortName>
-    <szDescription>看门人有打架的经验，不过杀人这一块可能有些生疏。</szDescription>
+    <szName>DFK Annihilator</szName>
+    <szShortName>DFK Annihilator</szShortName>
+    <szDescription>Your exploits earned you respect and recognition you deserve. Who needs legs?</szDescription>
   </BACKGROUND>
+  <!-- Buns -->
   <BACKGROUND>
     <uiIndex>17</uiIndex>
-    <szName>杀手</szName>
-    <szShortName>杀手</szShortName>
-    <szDescription>杀手是危险而又高度专业的职业，他们更加现实。</szDescription>
+    <szName>Nurse/Shooter</szName>
+    <szShortName>Nurse/Shooter</szShortName>
+    <szDescription>That combination will at least spice up your resume.</szDescription>
   </BACKGROUND>
+  <!-- Ice -->
   <BACKGROUND>
     <uiIndex>18</uiIndex>
-    <szName>人肉炸弹</szName>
-    <szShortName>恐怖分子</szShortName>
-    <szDescription>恐怖分子还是自由斗士？这完全取决于他们在为谁献身。</szDescription>
+    <szName>Paramilitary Instructor</szName>
+    <szShortName>Instructor</szShortName>
+    <szDescription>Just like boyscouts. But with with violence. So not like boyscouts at all.</szDescription>
   </BACKGROUND>
+  <!-- Spider -->
   <BACKGROUND>
     <uiIndex>19</uiIndex>
-    <szName>保镖</szName>
-    <szShortName>保镖</szShortName>
-    <szDescription>精良训练，无比忠诚，随时愿意为您献身 &#10;不愧为雇主的最佳选择。</szDescription>
+    <szName>Surgeon</szName>
+    <szShortName>Surgeon</szShortName>
+    <szDescription>Like a surgeon... cutting for the very first time... Just kidding. Spider is THE person to seek if your guts are spilling out.</szDescription>
   </BACKGROUND>
+  <!-- Cliff -->
   <BACKGROUND>
     <uiIndex>20</uiIndex>
-    <szName>SWAT成员</szName>
-    <szShortName>SWAT</szShortName>
-    <szDescription>设身于最危险的都市角落 &#10;SWAT特工擅长处理高度专业的军事和政治行动  &#10;（SWAT：Special Weapons And Tactics是美国特工）。</szDescription>
+    <szName>General Practitioner</szName>
+    <szShortName>GP</szShortName>
+    <szDescription>Cliff is a highly qualified doctor, though there once was a... darker... time in his life.</szDescription>
   </BACKGROUND>
+  <!-- Bull -->
   <BACKGROUND>
     <uiIndex>21</uiIndex>
-    <szName>酒吧服务员</szName>
-    <szShortName>服务员</szShortName>
-    <szDescription>一张俊俏的脸可以免去很多尴尬的局面，把菊花洗干净就行了。</szDescription>
+    <szName>Prison Guard</szName>
+    <szShortName>Prison Guard</szShortName>
+    <szDescription>In longer and larger conflicts, former prison guards are natural choices for running prison camps.</szDescription>
   </BACKGROUND>
+  <!-- Hitman -->
   <BACKGROUND>
     <uiIndex>22</uiIndex>
-    <szName>矿工</szName>
-    <szShortName>矿工</szShortName>
-    <szDescription>下矿的工作既辛苦又危险，难怪有些人宁愿选择死在战场上。</szDescription>
+    <szName>Combat instructor</szName>
+    <szShortName>Combat instructor</szShortName>
+    <szDescription>This might be Frank's last tour - there are several private organisations that are interested in recruiting him to train their staff.</szDescription>
   </BACKGROUND>
+  <!-- Buzz -->
   <BACKGROUND>
     <uiIndex>23</uiIndex>
-    <szName>匪徒</szName>
-    <szShortName>匪徒</szShortName>
-    <szDescription>有组织的犯罪网络随处可见，没有例外。</szDescription>
+    <szName>Rejected Love</szName>
+    <szShortName>Rejected Love</szShortName>
+    <szDescription>Turned down by her big love, Buzz is currently filled with a lot of hatred. She chose the right job it seems.</szDescription>
   </BACKGROUND>
+  <!-- Raider -->
   <BACKGROUND>
     <uiIndex>24</uiIndex>
-    <szName>UN维和部队</szName>
-    <szShortName>UN维和部队</szShortName>
-    <szDescription>各个成员国搞些人去那些不老实的国家 &#10;和平解决一些冲突，实际上并不像他们说的那么和平  &#10;（UN：联合国）。</szDescription>
+    <szName>SWAT Member</szName>
+    <szShortName>SWAT</szShortName>
+    <szDescription>Blurring the line between police and military, SWAT teams are used in urban operations too dangerous for normal law enforcement.</szDescription>
   </BACKGROUND>
+  <!-- Raven -->
   <BACKGROUND>
     <uiIndex>25</uiIndex>
-    <szName>SAS</szName>
-    <szShortName>SAS</szShortName>
-    <szDescription>英国空军特种兵，特别擅长空降任务。&#10;（SAS：Special Air Service。英国空军特种兵）。</szDescription>
+    <szName>SWAT Sniper</szName>
+    <szShortName>SWAT Sniper</szShortName>
+    <szDescription>Blurring the line between police and military, SWAT teams are used in urban operations too dangerous for normal law enforcement.</szDescription>
   </BACKGROUND>
+  <!-- Static -->
   <BACKGROUND>
     <uiIndex>26</uiIndex>
-    <szName>反抗军</szName>
-    <szShortName>反抗军</szShortName>
-    <szDescription>在外援佣兵到来之前，Miguel的反抗军几乎弹尽粮绝。</szDescription>
+    <szName>Backstage Crew</szName>
+    <szShortName>Backstage Crew</szShortName>
+    <szDescription>Blasting sounds, fireworks, screaming people - isn't it odd how similar stage is to the battlefield?</szDescription>
   </BACKGROUND>
+  <!-- Len -->
   <BACKGROUND>
     <uiIndex>27</uiIndex>
-    <szName>Metavira 原住民</szName>
-    <szShortName>Metavira原住民</szShortName>
-    <szDescription>自从JA1的Metavira小岛解放以后 &#10;一些原住民加入了外国国籍，开始体验全新的生活。 &#10;（Metavira是JA1的小岛）。</szDescription>
+    <szName>Green Beret</szName>
+    <szShortName>Green Beret</szShortName>
+    <szDescription>The Green Berets are a special operations force tasked with unconventional warfare.</szDescription>
   </BACKGROUND>
+  <!-- Danny -->
   <BACKGROUND>
     <uiIndex>28</uiIndex>
-    <szName>Metavira 萨满</szName>
-    <szShortName>Metavira萨满</szShortName>
-    <szDescription>被遗忘的JA1 Metavira小岛原住民的领袖，举行不为西方人所知的神秘医疗仪式。 &#10;（Metavira是JA1的小岛）。</szDescription>
+    <szName>Extreme Athlete</szName>
+    <szShortName>Extreme Athlete</szShortName>
+    <szDescription>If you want to put your life to risk, might as well earn cash by it...</szDescription>
   </BACKGROUND>
+  <!-- Magic -->
   <BACKGROUND>
     <uiIndex>29</uiIndex>
-    <szName>SOG成员</szName>
-    <szShortName>SOG成员</szShortName>
-    <szDescription>SOG是一个在越南进行非常规作战的秘密部队。 &#10;（SOG：Studies and Observations Group）。</szDescription>
+    <szName>Professional Thief</szName>
+    <szShortName>Thief</szShortName>
+    <szDescription>When offered to take it or leave it, you always chose 'take'.</szDescription>
   </BACKGROUND>
+  <!-- Stephen -->
   <BACKGROUND>
     <uiIndex>30</uiIndex>
-    <szName>军事指导师</szName>
-    <szShortName>军师</szShortName>
-    <szDescription>教会枪指向准确的目标是一回事 &#10;教会别人把枪指向正确的目标是另一回事。</szDescription>
+    <szName>Military Advisor</szName>
+    <szShortName>Military Advisor</szShortName>
+    <szDescription>Pointing the gun in the right direction is a start, but someone needs to teach these people how to teach other people where to point.</szDescription>
   </BACKGROUND>
+  <!-- Scully -->
   <BACKGROUND>
     <uiIndex>31</uiIndex>
-    <szName>军事辅导员</szName>
-    <szShortName>辅导员</szShortName>
-    <szDescription>像童子军一样，只不过使用了暴力 &#10;所以...根本就不是童子军呀。</szDescription>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
   </BACKGROUND>
+  <!-- Malice -->
   <BACKGROUND>
     <uiIndex>32</uiIndex>
-    <szName>红军</szName>
-    <szShortName>红军</szShortName>
-    <szDescription>坚忍克己的苏联红军克服了严寒的天气和长期的 &#10;物资缺乏，最终弄死了希特勒。</szDescription>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
   </BACKGROUND>
+  <!-- Dr. Q -->
   <BACKGROUND>
     <uiIndex>33</uiIndex>
-    <szName>殡仪员</szName>
-    <szShortName>殡仪员</szShortName>
-    <szDescription>每天都和死亡与尸体打交道，你也不会介意某天成为其中的一员。</szDescription>
+    <szName>Chinese Doctor</szName>
+    <szShortName>Chinese Doctor</szShortName>
+    <szDescription>Dr. Q is trained in the arts of ancient Chinese medicine. Not the fastest way to cure a patient, but it works.</szDescription>
   </BACKGROUND>
+  <!-- Nails -->
   <BACKGROUND>
     <uiIndex>34</uiIndex>
-    <szName>突击队员</szName>
-    <szShortName>突击队</szShortName>
-    <szDescription>突击队是美国陆军的中坚力量。</szDescription>
+    <szName>Gang Member</szName>
+    <szShortName>Gang Member</szShortName>
+    <szDescription>Becoming a mercenary is a natural step for many gang members - job's the same, tools and pay much better.</szDescription>
   </BACKGROUND>
+  <!-- Thor -->
   <BACKGROUND>
     <uiIndex>35</uiIndex>
-    <szName>图阿雷格人</szName>
-    <szShortName>图阿雷格</szShortName>
-    <szDescription>图阿雷格人是一个在沙哈拉沙漠上过着游牧生活的种族。</szDescription>
+    <szName>New Age Spiritualist</szName>
+    <szShortName>New Age Spiritualist</szShortName>
+    <szDescription>Who needs an exam to be a practicing healer?</szDescription>
   </BACKGROUND>
+  <!-- Scope -->
   <BACKGROUND>
     <uiIndex>36</uiIndex>
-    <szName>消防员</szName>
-    <szShortName>消防员</szShortName>
-    <szDescription>有些工作即使不需要持枪射击，也会十分危险。</szDescription>
+    <szName>SAS</szName>
+    <szShortName>SAS</szShortName>
+    <szDescription>The british Special Air Service is one of the world's most famous special forces units, and is not only trained in survival techniques in all environments, it is also exceptionally well versed in airborne missions.</szDescription>
   </BACKGROUND>
+  <!-- Wolf -->
   <BACKGROUND>
     <uiIndex>37</uiIndex>
-    <szName>射击比赛枪手</szName>
-    <szShortName>比赛枪手</szShortName>
-    <szDescription>有些人一提到射击就热血沸腾，恨不得把地球打穿。</szDescription>
+    <szName>Paramilitary Instructor</szName>
+    <szShortName>Instructor</szShortName>
+    <szDescription>Just like boyscouts. But with violence. So not like boyscouts at all.</szDescription>
   </BACKGROUND>
+  <!-- MD -->
   <BACKGROUND>
     <uiIndex>38</uiIndex>
-    <szName>护士兼枪手</szName>
-    <szShortName>护士/枪手</szShortName>
-    <szDescription>这样组合至少能给你的简历增加一点分量。</szDescription>
+    <szName>Graduate</szName>
+    <szShortName>Graduate</szShortName>
+    <szDescription>Fresh outta school, with diploma still warm in a hand, it's time to finally make yourself a living.</szDescription>
   </BACKGROUND>
+  <!-- Meltdown -->
   <BACKGROUND>
     <uiIndex>39</uiIndex>
-    <szName>店员</szName>
-    <szShortName>店员</szShortName>
-    <szDescription>对于某些人而言，他们的工作就是点钞票。</szDescription>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
   </BACKGROUND>
+  <!-- Biff -->
   <BACKGROUND>
     <uiIndex>40</uiIndex>
-    <szName>修车工</szName>
-    <szShortName>修车工</szShortName>
-    <szDescription>非常有用，当然如果你有车的话。</szDescription>
+    <szName>Momma's Boy</szName>
+    <szShortName>Momma's Boy</szShortName>
+    <szDescription>Your childhood left you with significant personal issues that have yet to be solved.</szDescription>
   </BACKGROUND>
+  <!-- Haywire -->
   <BACKGROUND>
     <uiIndex>41</uiIndex>
-    <szName>工匠</szName>
-    <szShortName>工匠</szShortName>
-    <szDescription>在物资缺乏的战场上，能有技巧娴熟的工匠 &#10;随时为您备上精良的装备是件多么开心的事。</szDescription>
+    <szName>Wanna-be Mercenary</szName>
+    <szShortName>Wanna-be Merc</szShortName>
+    <szDescription>You chose the awesome life of a mercenary, visit new places, meet new people, and kill them. And even get paid for it.</szDescription>
   </BACKGROUND>
+  <!-- Gasket -->
   <BACKGROUND>
     <uiIndex>42</uiIndex>
+    <szName>Redneck</szName>
+    <szShortName>Redneck</szShortName>
+    <szDescription>Overalls, straw sticking out of boots and inseparable blade of grass in the mouth. Not exactly a proud image, but hey, life on the farm isn't easy.</szDescription>
+  </BACKGROUND>
+  <!-- Razor -->
+  <BACKGROUND>
+    <uiIndex>43</uiIndex>
+    <szName>Mental Patient</szName>
+    <szShortName>Mental Patient</szShortName>
+    <szDescription>There are different accounts of how you've managed to leave the confinement, but everyone agrees - you should go back.</szDescription>
+  </BACKGROUND>
+  <!-- Flo -->
+  <BACKGROUND>
+    <uiIndex>44</uiIndex>
+    <szName>Arms Dealer</szName>
+    <szShortName>Arms Dealer</szShortName>
+    <szDescription>Experience earned in years of arms trade leads to better deals when buying and selling guns.</szDescription>
+  </BACKGROUND>
+  <!-- Gumpy -->
+  <BACKGROUND>
+    <uiIndex>45</uiIndex>
+    <szName>Academic</szName>
+    <szShortName>Academic</szShortName>
+    <szDescription>Most of your knowledge comes from the books and secondhand reports - and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+  </BACKGROUND>
+  <!-- Larry -->
+  <BACKGROUND>
+    <uiIndex>46</uiIndex>
+    <szName>Drug Addict</szName>
+    <szShortName>Drug Addict</szShortName>
+    <szDescription>Given the nature of today's drugs, addicts can make fearsome, yet unreliable, opponents.</szDescription>
+  </BACKGROUND>
+  <!-- stoned Larry -->
+  <BACKGROUND>
+    <uiIndex>47</uiIndex>
+    <szName>Drug Addict</szName>
+    <szShortName>Drug Addict</szShortName>
+    <szDescription>This... this is it! I get it now. HEAR THAT? I GET IT NOW!</szDescription>
+  </BACKGROUND>
+  <!-- Cougar -->
+  <BACKGROUND>
+    <uiIndex>48</uiIndex>
+    <szName>Rejected Army Cadet</szName>
+    <szShortName>Army Cadet</szShortName>
+    <szDescription>Flunked out of the military academy, but not yet finished.</szDescription>
+  </BACKGROUND>
+  <!-- Numb -->
+  <BACKGROUND>
+    <uiIndex>49</uiIndex>
+    <szName>Punk</szName>
+    <szShortName>Punk</szShortName>
+    <szDescription>Living in the Urban jungle for quite a few years surely has its merits.</szDescription>
+  </BACKGROUND>
+  <!-- Bubba -->
+  <BACKGROUND>
+    <uiIndex>50</uiIndex>
+    <szName>Prison Guard</szName>
+    <szShortName>Prison Guard</szShortName>
+    <szDescription>Look at this guy. Now look at you. Still feel like escaping?</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 1 -->
+  <BACKGROUND>
+    <uiIndex>51</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 2 -->
+  <BACKGROUND>
+    <uiIndex>52</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 3 -->
+  <BACKGROUND>
+    <uiIndex>53</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGLady 1 -->
+  <BACKGROUND>
+    <uiIndex>54</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGLady 2 -->
+  <BACKGROUND>
+    <uiIndex>55</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGLady 3 -->
+  <BACKGROUND>
+    <uiIndex>56</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Miguel -->
+  <BACKGROUND>
+    <uiIndex>57</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>The only hope left for his oppressed people, Miguel IS the revolution.</szDescription>
+  </BACKGROUND>
+  <!-- Carlos -->
+  <BACKGROUND>
+    <uiIndex>58</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>Miguel's right hand, Carlos keeps the men in line.</szDescription>
+  </BACKGROUND>
+  <!-- Ira -->
+  <BACKGROUND>
+    <uiIndex>59</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>Aid worker turned rebel, Ira does what she can to keep the rebels alive.</szDescription>
+  </BACKGROUND>
+  <!-- Dimitri -->
+  <BACKGROUND>
+    <uiIndex>60</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>One might mistake him for a simpleton, but being alive after all these years proves Dimitri is made of sterner stuff.</szDescription>
+  </BACKGROUND>
+  <!-- Devin -->
+  <BACKGROUND>
+    <uiIndex>61</uiIndex>
+    <szName>IRA Bombexpert</szName>
+    <szShortName>IRA Bombexpert</szShortName>
+    <szDescription>Once building his bombs for the IRA, Devin recently considered selling his devices to other customers as well.</szDescription>
+  </BACKGROUND>
+  <!-- Robot -->
+  <BACKGROUND>
+    <uiIndex>62</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Hamous -->
+  <BACKGROUND>
+    <uiIndex>63</uiIndex>
+    <szName>Metaviran Native</szName>
+    <szShortName>Metavira</szShortName>
+    <szDescription>The indigenous people of Metavira have adjusted to the hostile jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
+  </BACKGROUND>
+  <!-- Slay -->
+  <BACKGROUND>
+    <uiIndex>64</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Nobody admits it, but the same governments that hunt him employ him.</szDescription>
+  </BACKGROUND>
+  <!-- Eskimo -->
+  <BACKGROUND>
+    <uiIndex>65</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Dynamo -->
+  <BACKGROUND>
+    <uiIndex>66</uiIndex>
+    <szName>Prisoner</szName>
+    <szShortName>Prisoner</szShortName>
+    <szDescription>Being held and tortured in a regime prison left you scarred for the rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+  </BACKGROUND>
+  <!-- Shank -->
+  <BACKGROUND>
+    <uiIndex>67</uiIndex>
+    <szName>Prisoner</szName>
+    <szShortName>Prisoner</szShortName>
+    <szDescription>Being held and tortured in a regime prison left you scarred for the rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+  </BACKGROUND>
+  <!-- Iggy -->
+  <BACKGROUND>
+    <uiIndex>68</uiIndex>
+    <szName>Red Army</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>A veteran of international conflict, Iggy found himself on the wrong side of the conflict until he joined the rebellion.</szDescription>
+  </BACKGROUND>
+  <!-- Vince -->
+  <BACKGROUND>
+    <uiIndex>69</uiIndex>
+    <szName>General Practitioner</szName>
+    <szShortName>GP</szShortName>
+    <szDescription>Frustrated by the anguish and misery he sees everyday, Vince has decided it might be time fo more active resistance against the queen.</szDescription>
+  </BACKGROUND>
+  <!-- Conrad -->
+  <BACKGROUND>
+    <uiIndex>70</uiIndex>
+    <szName>Military Advisor</szName>
+    <szShortName>Military Advisor</szShortName>
+    <szDescription>Pointing the gun in the right direction is a start, but someone needs to teach these people how to teach other people where to point.</szDescription>
+  </BACKGROUND>
+  <!-- RPC 71 -->
+  <BACKGROUND>
+    <uiIndex>71</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Maddog -->
+  <BACKGROUND>
+    <uiIndex>72</uiIndex>
+    <szName>Mental Patient</szName>
+    <szShortName>Mental Patient</szShortName>
+    <szDescription>Not entirely sane, not entirely crazy, your life is at a crossroads.</szDescription>
+  </BACKGROUND>
+  <!-- Darrel jr. -->
+  <BACKGROUND>
+    <uiIndex>73</uiIndex>
+    <szName>Redneck</szName>
+    <szShortName>Redneck</szShortName>
+    <szDescription>Overalls, straw sticking out of boots and inseparable blade of grass in the mouth. Not exactly a proud image, but hey, life on the farm isn't easy.</szDescription>
+  </BACKGROUND>
+  <!-- Perko -->
+  <BACKGROUND>
+    <uiIndex>74</uiIndex>
+    <szName>Smith</szName>
+    <szShortName>Smith</szShortName>
+    <szDescription>In a warzone without the usual comforts, it is very useful to have people who can maintain your gear.</szDescription>
+  </BACKGROUND>
+  <!-- Deidranna -->
+  <BACKGROUND>
+    <uiIndex>75</uiIndex>
+    <szName>Evil Queen</szName>
+    <szShortName>Evil Queen</szShortName>
+    <szDescription>Living the life of an evil ruler of a small country certainly leads to astonishing survival talents.</szDescription>
+  </BACKGROUND>
+  <!-- Auntie -->
+  <BACKGROUND>
+    <uiIndex>76</uiIndex>
+    <szName>Grandmother</szName>
+    <szShortName>Granny</szShortName>
+    <szDescription>Old people. They never seem to sleep.</szDescription>
+  </BACKGROUND>
+  <!-- Enrico -->
+  <BACKGROUND>
+    <uiIndex>77</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Carmen -->
+  <BACKGROUND>
+    <uiIndex>78</uiIndex>
+    <szName>Bounty Hunter</szName>
+    <szShortName>Bounty Hunter</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Joe -->
+  <BACKGROUND>
+    <uiIndex>79</uiIndex>
+    <szName>Bodyguard</szName>
+    <szShortName>Bodyguard</szShortName>
+    <szDescription>Superbly trained, utterly loyal, and willing to pay the ultimate price. What more could a potential employer want?.</szDescription>
+  </BACKGROUND>
+  <!-- Steve -->
+  <BACKGROUND>
+    <uiIndex>80</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Rat -->
+  <BACKGROUND>
+    <uiIndex>81</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- MoM -->
+  <BACKGROUND>
+    <uiIndex>82</uiIndex>
+    <szName>Terrorist</szName>
+    <szShortName>Terrorist</szShortName>
+    <szDescription>Notorious mass-murderer? Insane criminal? They're just jealous.</szDescription>
+  </BACKGROUND>
+  <!-- Imposter -->
+  <BACKGROUND>
+    <uiIndex>83</uiIndex>
+    <szName>Terrorist</szName>
+    <szShortName>Terrorist</szShortName>
+    <szDescription>Wanted by Interpol, terrorists know how to live undercover unnoticed.</szDescription>
+  </BACKGROUND>
+  <!-- Bob -->
+  <BACKGROUND>
+    <uiIndex>84</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Brenda -->
+  <BACKGROUND>
+    <uiIndex>85</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Kingpin -->
+  <BACKGROUND>
+    <uiIndex>86</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+  </BACKGROUND>
+  <!-- Darren -->
+  <BACKGROUND>
+    <uiIndex>87</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+  </BACKGROUND>
+  <!-- Maria -->
+  <BACKGROUND>
+    <uiIndex>88</uiIndex>
+    <szName>Sex slave</szName>
+    <szShortName>Sex slave</szShortName>
+    <szDescription>You don't want to know.</szDescription>
+  </BACKGROUND>
+  <!-- Angel -->
+  <BACKGROUND>
+    <uiIndex>89</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Joey -->
+  <BACKGROUND>
+    <uiIndex>90</uiIndex>
+    <szName>Teenager</szName>
+    <szShortName>Teenager</szShortName>
+    <szDescription>So much angst.</szDescription>
+  </BACKGROUND>
+  <!-- Tony -->
+  <BACKGROUND>
+    <uiIndex>91</uiIndex>
+    <szName>Arms Dealer</szName>
+    <szShortName>Arms Dealer</szShortName>
+    <szDescription>You know the risk selling weapons to both sides, but the profit margin is just that good.</szDescription>
+  </BACKGROUND>
+  <!-- Frank -->
+  <BACKGROUND>
+    <uiIndex>92</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Spike -->
+  <BACKGROUND>
+    <uiIndex>93</uiIndex>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
+  </BACKGROUND>
+  <!-- Damon -->
+  <BACKGROUND>
+    <uiIndex>94</uiIndex>
+    <szName>Bodyguard</szName>
+    <szShortName>Bodyguard</szShortName>
+    <szDescription>Superbly trained, utterly loyal, and willing to pay the ultimate price. What more could a potential employer want?.</szDescription>
+  </BACKGROUND>
+  <!-- Kyle -->
+  <BACKGROUND>
+    <uiIndex>95</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Micky -->
+  <BACKGROUND>
+    <uiIndex>96</uiIndex>
+    <szName>Big Game Hunter</szName>
+    <szShortName>Big Game Hunter</szShortName>
+    <szDescription>Travel to virgin soil, seek fascinating species, and KILL THEM ALL.</szDescription>
+  </BACKGROUND>
+  <!-- Skyrider -->
+  <BACKGROUND>
+    <uiIndex>97</uiIndex>
+    <szName>Pilot</szName>
+    <szShortName>Pilot</szShortName>
+    <szDescription>Used to physical stress over long periods, some pilots find the transition to ground combat surprisingly easy.</szDescription>
+  </BACKGROUND>
+  <!-- Pablo -->
+  <BACKGROUND>
+    <uiIndex>98</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Sal -->
+  <BACKGROUND>
+    <uiIndex>99</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Father -->
+  <BACKGROUND>
+    <uiIndex>100</uiIndex>
+    <szName>Priest</szName>
+    <szShortName>Priest</szShortName>
+    <szDescription>Many devout followers of any religion or cult area surprisingly violent and zealous if pushed in the right (or wrong) direction.</szDescription>
+  </BACKGROUND>
+  <!-- Fatima -->
+  <BACKGROUND>
+    <uiIndex>101</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Warden -->
+  <BACKGROUND>
+    <uiIndex>102</uiIndex>
+    <szName>Law Enforcement</szName>
+    <szShortName>Law Enforcement</szShortName>
+    <szDescription>Former law enforcement personnel often seek work in the mercenary world, and are the logical choice for handling captives.</szDescription>
+  </BACKGROUND>
+  <!-- Gordon -->
+  <BACKGROUND>
+    <uiIndex>103</uiIndex>
+    <szName>Prisoner</szName>
+    <szShortName>Prisoner</szShortName>
+    <szDescription>Being held and tortured in a regime prison left you scarred for the rest of your life. You're not afraid of death anymore - but there are other things to be afraid of.</szDescription>
+  </BACKGROUND>
+  <!-- Gabby -->
+  <BACKGROUND>
+    <uiIndex>104</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Ernest -->
+  <BACKGROUND>
+    <uiIndex>105</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Fred -->
+  <BACKGROUND>
+    <uiIndex>106</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+  </BACKGROUND>
+  <!-- Madame -->
+  <BACKGROUND>
+    <uiIndex>107</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Yanni -->
+  <BACKGROUND>
+    <uiIndex>108</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Martha -->
+  <BACKGROUND>
+    <uiIndex>109</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Tiffany -->
+  <BACKGROUND>
+    <uiIndex>110</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mafioso</szShortName>
+    <szDescription>Mess with him, you mess with the entire family...</szDescription>
+  </BACKGROUND>
+  <!-- T_Rex -->
+  <BACKGROUND>
+    <uiIndex>111</uiIndex>
+    <szName>Paramilitary</szName>
+    <szShortName>Paramilitary</szShortName>
+    <szDescription>Paranoid, ignorant, fascist - yep, that's you.</szDescription>
+  </BACKGROUND>
+  <!-- Druggist -->
+  <BACKGROUND>
+    <uiIndex>112</uiIndex>
+    <szName>Terrorist</szName>
+    <szShortName>Terrorist</szShortName>
+    <szDescription>Wanted by Interpol, terrorists know how to live undercover unnoticed.</szDescription>
+  </BACKGROUND>
+  <!-- Jake -->
+  <BACKGROUND>
+    <uiIndex>113</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Pacos -->
+  <BACKGROUND>
+    <uiIndex>114</uiIndex>
+    <szName>Child</szName>
+    <szShortName>Child</szShortName>
+    <szDescription>And there goes the Geneva convention...</szDescription>
+  </BACKGROUND>
+  <!-- Dave -->
+  <BACKGROUND>
+    <uiIndex>115</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Skipper -->
+  <BACKGROUND>
+    <uiIndex>116</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Hans -->
+  <BACKGROUND>
+    <uiIndex>117</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- John -->
+  <BACKGROUND>
+    <uiIndex>118</uiIndex>
+    <szName>Tourist</szName>
+    <szShortName>Tourist</szShortName>
+    <szDescription>Could you take a picture, please?</szDescription>
+  </BACKGROUND>
+  <!-- Mary -->
+  <BACKGROUND>
+    <uiIndex>119</uiIndex>
+    <szName>Tourist</szName>
+    <szShortName>Tourist</szShortName>
+    <szDescription>Could you take a picture, please?</szDescription>
+  </BACKGROUND>
+  <!-- General -->
+  <BACKGROUND>
+    <uiIndex>120</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Sergeant -->
+  <BACKGROUND>
+    <uiIndex>121</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Armand -->
+  <BACKGROUND>
+    <uiIndex>122</uiIndex>
+    <szName>Upperclass twit</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Lora -->
+  <BACKGROUND>
+    <uiIndex>123</uiIndex>
+    <szName>Placeholder</szName>
+    <szName>B-Movie Star</szName>
+    <szShortName>B-Movie Star</szShortName>
+    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics yet adored by loyal fans.</szDescription>
+  </BACKGROUND>
+  <!-- Franz -->
+  <BACKGROUND>
+    <uiIndex>124</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Howard -->
+  <BACKGROUND>
+    <uiIndex>125</uiIndex>
+    <szName>Apothecary</szName>
+    <szShortName>Apothecary</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Sam -->
+  <BACKGROUND>
+    <uiIndex>126</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Eldin -->
+  <BACKGROUND>
+    <uiIndex>127</uiIndex>
+    <szName>WWII Veteran</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>In hsi prime, he'd have put all you youngsters to shame.</szDescription>
+  </BACKGROUND>
+  <!-- Arnie -->
+  <BACKGROUND>
+    <uiIndex>128</uiIndex>
+    <szName>Smith</szName>
+    <szShortName>Smith</szShortName>
+    <szDescription>In a warzone without the usual comforts, it is very useful to have people who can maintain your gear.</szDescription>
+  </BACKGROUND>
+  <!-- Tina -->
+  <BACKGROUND>
+    <uiIndex>129</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Fredo -->
+  <BACKGROUND>
+    <uiIndex>130</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Walter -->
+  <BACKGROUND>
+    <uiIndex>131</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Jenny -->
+  <BACKGROUND>
+    <uiIndex>132</uiIndex>
+    <szName>Nurse</szName>
+    <szShortName>Nurse</szShortName>
+    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
+  </BACKGROUND>
+  <!-- Billy -->
+  <BACKGROUND>
+    <uiIndex>133</uiIndex>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
+  </BACKGROUND>
+  <!-- Brewster -->
+  <BACKGROUND>
+    <uiIndex>134</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Elliot -->
+  <BACKGROUND>
+    <uiIndex>135</uiIndex>
+    <szName>Butt Monkey</szName>
+    <szShortName>Butt Monkey</szShortName>
+    <szDescription>One would expect a constant abuse and ridicule you withstand to finally lead you to reconsidering your life choices. Nope.</szDescription>
+  </BACKGROUND>
+  <!-- Endgame Crowd -->
+  <BACKGROUND>
+    <uiIndex>136</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Endgame Crowd -->
+  <BACKGROUND>
+    <uiIndex>137</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Waldo -->
+  <BACKGROUND>
+    <uiIndex>138</uiIndex>
+    <szName>Helicopter Mechanic</szName>
+    <szShortName>Mechanic</szShortName>
+    <szDescription>The best (and likely only) heli mechanic in Arulco.</szDescription>
+  </BACKGROUND>
+  <!-- Doreen -->
+  <BACKGROUND>
+    <uiIndex>139</uiIndex>
+    <szName>Factory Owner</szName>
+    <szShortName>Factory Owner</szShortName>
+    <szDescription>A personal friend of Deidranna and ruthless exploiter. How did you manage to recruit her?</szDescription>
+  </BACKGROUND>
+  <!-- Jim -->
+  <BACKGROUND>
+    <uiIndex>140</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Jack -->
+  <BACKGROUND>
+    <uiIndex>141</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Olaf  -->
+  <BACKGROUND>
+    <uiIndex>142</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Ray -->
+  <BACKGROUND>
+    <uiIndex>143</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Olga -->
+  <BACKGROUND>
+    <uiIndex>144</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Tyrone -->
+  <BACKGROUND>
+    <uiIndex>145</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Madlab -->
+  <BACKGROUND>
+    <uiIndex>146</uiIndex>
+    <szName>Academic</szName>
+    <szShortName>Academic</szShortName>
+    <szDescription>Most of your knowledge comes from the books and secondhand reports - and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+  </BACKGROUND>
+  <!-- Keith -->
+  <BACKGROUND>
+    <uiIndex>147</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <!-- Matt -->
+  <BACKGROUND>
+    <uiIndex>148</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+  </BACKGROUND>
+  <!-- Mike -->
+  <BACKGROUND>
+    <uiIndex>149</uiIndex>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+  </BACKGROUND>
+  <!-- Daryl -->
+  <BACKGROUND>
+    <uiIndex>150</uiIndex>
+    <szName>Redneck</szName>
+    <szShortName>Redneck</szShortName>
+    <szDescription>Overalls, straw sticking out of boots and inseparable blade of grass in the mouth. Not exactly a proud image, but hey, life on the farm isn't easy.</szDescription>
+  </BACKGROUND>
+  <!-- Herve -->
+  <BACKGROUND>
+    <uiIndex>151</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Peter -->
+  <BACKGROUND>
+    <uiIndex>152</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Alberto -->
+  <BACKGROUND>
+    <uiIndex>153</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Carlo -->
+  <BACKGROUND>
+    <uiIndex>154</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Manny -->
+  <BACKGROUND>
+    <uiIndex>155</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+  </BACKGROUND>
+  <!-- Oswald -->
+  <BACKGROUND>
+    <uiIndex>156</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+  </BACKGROUND>
+  <!-- Calvin -->
+  <BACKGROUND>
+    <uiIndex>157</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+  </BACKGROUND>
+  <!-- Carl -->
+  <BACKGROUND>
+    <uiIndex>158</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+  </BACKGROUND>
+  <!-- Speck.. -->
+  <BACKGROUND>
+    <uiIndex>159</uiIndex>
+    <szName>Technical Wizard</szName>
+    <szShortName>Tech Whiz</szShortName>
+    <szDescription>No matter if it's a thirty years old junk or latest electronic gadget, tech whiz can rewire, reassemble and reconfigure it with eyes closed.</szDescription>
+  </BACKGROUND>
+  <!-- Hummer -->
+  <BACKGROUND>
+    <uiIndex>160</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- El Dorado -->
+  <BACKGROUND>
+    <uiIndex>161</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Ice Cream Truck -->
+  <BACKGROUND>
+    <uiIndex>162</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Heli -->
+  <BACKGROUND>
+    <uiIndex>163</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Army Jeep -->
+  <BACKGROUND>
+    <uiIndex>164</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Gaston -->
+  <BACKGROUND>
+    <uiIndex>165</uiIndex>
+    <szName>UN Peacekeeper</szName>
+    <szShortName>UN</szShortName>
+    <szDescription>Nations of the entire world provide these troops to solve all conflicts without any violence. Sadly, this statment is false.</szDescription>
+  </BACKGROUND>
+  <!-- Stogie -->
+  <BACKGROUND>
+    <uiIndex>166</uiIndex>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+  </BACKGROUND>
+  <!-- Tex -->
+  <BACKGROUND>
+    <uiIndex>167</uiIndex>
+    <szName>B-Movie Star</szName>
+    <szShortName>B-Movie Star</szShortName>
+    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics yet adored by loyal fans.</szDescription>
+  </BACKGROUND>
+  <!-- Biggins -->
+  <BACKGROUND>
+    <uiIndex>168</uiIndex>
+    <szName>Veteran Mercenary</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You were already famous in this business before those youngsters were even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 4 -->
+  <BACKGROUND>
+    <uiIndex>169</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Monk  -->
+  <BACKGROUND>
+    <uiIndex>170</uiIndex>
+    <szName>Red Army</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>With russian stoicism, the red army prevailed against Hitler, father frost, and chronic shortages.</szDescription>
+  </BACKGROUND>
+  <!-- Brain -->
+  <BACKGROUND>
+    <uiIndex>171</uiIndex>
+    <szName>Red Army</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>With russian stoicism, the red army prevailed against Hitler, father frost, and chronic shortages.</szDescription>
+  </BACKGROUND>
+  <!-- Lennart -->
+  <BACKGROUND>
+    <uiIndex>172</uiIndex>
+    <szName>Red Army</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>With russian stoicism, the red army prevailed against Hitler, father frost, and chronic shortages.</szDescription>
+  </BACKGROUND>
+  <!-- Henning -->
+  <BACKGROUND>
+    <uiIndex>173</uiIndex>
+    <szName>Military Advisor</szName>
+    <szShortName>Military Advisor</szShortName>
+    <szDescription>Pointing the gun in the right direction is a start, but someone needs to teach these people how to teach other people where to point.</szDescription>
+  </BACKGROUND>
+  <!-- Luc -->
+  <BACKGROUND>
+    <uiIndex>174</uiIndex>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
+  </BACKGROUND>
+  <!-- Laura -->
+  <BACKGROUND>
+    <uiIndex>175</uiIndex>
+    <szName>Surgeon</szName>
+    <szShortName>Surgeon</szShortName>
+    <szDescription>Everyone can cut human flesh - but sewing it back is a quest for the best!</szDescription>
+  </BACKGROUND>
+  <!-- Grace -->
+  <BACKGROUND>
+    <uiIndex>176</uiIndex>
+    <szName>Circus Artist</szName>
+    <szShortName>Circus Artist</szShortName>
+    <szDescription>Let's hope you are as good evading bullets as you are evading knifes while tied to a board.</szDescription>
+  </BACKGROUND>
+  <!-- Rudolf -->
+  <BACKGROUND>
+    <uiIndex>177</uiIndex>
     <szName>GSG9</szName>
     <szShortName>GSG9</szShortName>
-    <szDescription>1972年慕尼黑屠杀事件之后，德国组建的反恐小队。</szDescription>
+    <szDescription>Formed after the disastrous Munich massacre in 1972, GSG9 is a german counter-terrorism unit.</szDescription>
+  </BACKGROUND>
+  <!-- Spooky -->
+  <BACKGROUND>
+    <uiIndex>178</uiIndex>
+    <szName>SOG Member</szName>
+    <szShortName>SOG</szShortName>
+    <szDescription>The Studies and Observations Group was a classified special forces unit conductong unconventional warfare in Vietnam.</szDescription>
+  </BACKGROUND>
+  <!-- Skitz -->
+  <BACKGROUND>
+    <uiIndex>179</uiIndex>
+    <szName>Mental Patient</szName>
+    <szShortName>Mental Patient</szShortName>
+    <szDescription>There are different accounts of how you've managed to leave the confinement, but everyone agrees - you should go back.</szDescription>
+  </BACKGROUND>
+  <!-- Weasel -->
+  <BACKGROUND>
+    <uiIndex>180</uiIndex>
+    <szName>Snitch</szName>
+    <szShortName>Snitch</szShortName>
+    <szDescription>You know all about your teammates, wether or not they care.</szDescription>
+  </BACKGROUND>
+  <!-- It  -->
+  <BACKGROUND>
+    <uiIndex>181</uiIndex>
+    <szName>Wrestler</szName>
+    <szShortName>Wrestler</szShortName>
+    <szDescription>It might be more of a spectacle than actual fight, but getting thrown around a ring without breaking a neck still takes a lot of skill.</szDescription>
+  </BACKGROUND>
+  <!-- Bernie -->
+  <BACKGROUND>
+    <uiIndex>182</uiIndex>
+    <szName>Veteran Physician</szName>
+    <szShortName>Veteran Physician</szShortName>
+    <szDescription>Several years of evaluating human lives ironically left your own health in disrepair - cheap cigarrettes flushed down with strong coffee took their toll. The object-like way you started to treat your patients also doesn't make you very popular.</szDescription>
+  </BACKGROUND>
+  <!-- Pops -->
+  <BACKGROUND>
+    <uiIndex>183</uiIndex>
+    <szName>Undertaker</szName>
+    <szShortName>Undertaker</szShortName>
+    <szDescription>When you've seen it all, nothing can frighten you anymore.</szDescription>
+  </BACKGROUND>
+  <!-- Wally -->
+  <BACKGROUND>
+    <uiIndex>184</uiIndex>
+    <szName>Poor Shoot</szName>
+    <szShortName>Poor Shoot</szShortName>
+    <szDescription>Due to extreme shortsightedness Wally is a poor shot with next to no chance of improvement.</szDescription>
+  </BACKGROUND>
+  <!-- Eli -->
+  <BACKGROUND>
+    <uiIndex>185</uiIndex>
+    <szName>Surgeon</szName>
+    <szShortName>Surgeon</szShortName>
+    <szDescription>Everyone can cut human flesh - but sewing it back is a quest for the best!</szDescription>
+  </BACKGROUND>
+  <!-- Mitch -->
+  <BACKGROUND>
+    <uiIndex>186</uiIndex>
+    <szName>General Practitioner</szName>
+    <szShortName>GP</szShortName>
+    <szDescription>Versatile and educated doctor can save a human life no matter what his patient caught - a virus or a bullet.</szDescription>
+  </BACKGROUND>
+  <!-- Carp -->
+  <BACKGROUND>
+    <uiIndex>187</uiIndex>
+    <szName>Office Worker</szName>
+    <szShortName>Office Worker</szShortName>
+    <szDescription>Air conditioning, watered down coffee and some papers to push - what else can you expect from life?</szDescription>
+  </BACKGROUND>
+  <!-- Lance  -->
+  <BACKGROUND>
+    <uiIndex>188</uiIndex>
+    <szName>Graduate</szName>
+    <szShortName>Graduate</szShortName>
+    <szDescription>Fresh outta school, with diploma still warm in a hand, it's time to finally make yourself a living.</szDescription>
+  </BACKGROUND>
+  <!-- Raffi -->
+  <BACKGROUND>
+    <uiIndex>189</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Wink -->
+  <BACKGROUND>
+    <uiIndex>190</uiIndex>
+    <szName>Baseball player</szName>
+    <szShortName>Athlete</szShortName>
+    <szDescription>If your team ever needs someone to throw grenades on an even field, you'll be the man.</szDescription>
+  </BACKGROUND>
+  <!-- Speck -->
+  <BACKGROUND>
+    <uiIndex>191</uiIndex>
+    <szName>Technical Wizard</szName>
+    <szShortName>Tech Whiz</szShortName>
+    <szDescription>No matter if it's a thirty years old junk or latest electronic gadget, tech whiz can rewire, reassemble and reconfigure it with eyes closed.</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 5 -->
+  <BACKGROUND>
+    <uiIndex>192</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 6 -->
+  <BACKGROUND>
+    <uiIndex>193</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- PGmale 7 -->
+  <BACKGROUND>
+    <uiIndex>194</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- John -->
+  <BACKGROUND>
+    <uiIndex>195</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Elio -->
+  <BACKGROUND>
+    <uiIndex>196</uiIndex>
+    <szName>Metaviran Native</szName>
+    <szShortName>Metavira</szShortName>
+    <szDescription>The indigenous people of Metavira have adjusted to the hostile jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
+  </BACKGROUND>
+  <!-- Juan -->
+  <BACKGROUND>
+    <uiIndex>197</uiIndex>
+    <szName>Metaviran Native</szName>
+    <szShortName>Metavira</szShortName>
+    <szDescription>The indigenous people of Metavira have adjusted to the hostile jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
+  </BACKGROUND>
+  <!-- Wahan -->
+  <BACKGROUND>
+    <uiIndex>198</uiIndex>
+    <szName>Metaviran Shaman</szName>
+    <szShortName>Shaman</szShortName>
+    <szDescription>Leaders of their communities since ages long forgotten, shamans posess medical knowledge unknown to western eyes.</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>199</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>200</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Jeep 1 -->
+  <BACKGROUND>
+    <uiIndex>201</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Jeep 2 -->
+  <BACKGROUND>
+    <uiIndex>202</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Jeep 3 -->
+  <BACKGROUND>
+    <uiIndex>203</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>204</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>205</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>206</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>207</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>208</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>209</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>210</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>211</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>212</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>213</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>214</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>215</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>216</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>217</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>218</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Jorge -->
+  <BACKGROUND>
+    <uiIndex>219</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+  </BACKGROUND>
+  <!-- Postie -->
+  <BACKGROUND>
+    <uiIndex>220</uiIndex>
+    <szName>Office Worker</szName>
+    <szShortName>Office Worker</szShortName>
+    <szDescription>Air conditioning, watered down coffee and some papers to push - what else can you expect from life?</szDescription>
+  </BACKGROUND>
+  <!-- Reuban -->
+  <BACKGROUND>
+    <uiIndex>221</uiIndex>
+    <szName>Mental Patient</szName>
+    <szShortName>Mental Patient</szShortName>
+    <szDescription>There are different accounts of how you've managed to leave the confinement, but everyone agrees - you should go back.</szDescription>
+  </BACKGROUND>
+  <!-- Leon -->
+  <BACKGROUND>
+    <uiIndex>222</uiIndex>
+    <szName>Veteran Mercenary</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You were already famous in this business before those youngsters were even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+  </BACKGROUND>
+  <!-- Gary -->
+  <BACKGROUND>
+    <uiIndex>223</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Sparky -->
+  <BACKGROUND>
+    <uiIndex>224</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Beth -->
+  <BACKGROUND>
+    <uiIndex>225</uiIndex>
+    <szName>Nurse</szName>
+    <szShortName>Nurse</szShortName>
+    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
+  </BACKGROUND>
+  <!-- Sam -->
+  <BACKGROUND>
+    <uiIndex>226</uiIndex>
+    <szName>Veteran Mercenary</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You were already famous in this business before those youngsters were even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+  </BACKGROUND>
+  <!-- Hurl -->
+  <BACKGROUND>
+    <uiIndex>227</uiIndex>
+    <szName>Hypochondriac</szName>
+    <szShortName>Hypochondriac</szShortName>
+    <szDescription>When you enter a ward, all medical personnel tries to look overly busy or hides around corners in a futile attempt to avoid you. The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
+  </BACKGROUND>
+  <!-- Doc -->
+  <BACKGROUND>
+    <uiIndex>228</uiIndex>
+    <szName>Battlefield Medic</szName>
+    <szShortName>Battlefield Medic</szShortName>
+    <szDescription>Everyone can cut human flesh - but sewing it back while under fire is a quest for the best!</szDescription>
+  </BACKGROUND>
+  <!-- Manuel -->
+  <BACKGROUND>
+    <uiIndex>229</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>Cut off from everyone, Manuel is a natural survivor.</szDescription>
+  </BACKGROUND>
+  <!-- Boss -->
+  <BACKGROUND>
+    <uiIndex>230</uiIndex>
+    <szName>Car Mechanic</szName>
+    <szShortName>Car Mechanic</szShortName>
+    <szDescription>Very useful, as long as you HAVE a car.</szDescription>
+  </BACKGROUND>
+  <!-- Snake -->
+  <BACKGROUND>
+    <uiIndex>231</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+  </BACKGROUND>
+  <!-- Spam -->
+  <BACKGROUND>
+    <uiIndex>232</uiIndex>
+    <szName>UN Peacekeeper</szName>
+    <szShortName>UN</szShortName>
+    <szDescription>Spam was frustrated by the lack of a strong mandate that forced him to do nothing. On the plus side, he is used to being fired at.</szDescription>
+  </BACKGROUND>
+  <!-- Spike -->
+  <BACKGROUND>
+    <uiIndex>233</uiIndex>
+    <szName>Ranger</szName>
+    <szShortName>Ranger</szShortName>
+    <szDescription>The Rangers form the elite of Us army infantry.</szDescription>
+  </BACKGROUND>
+  <!-- Jimmy -->
+  <BACKGROUND>
+    <uiIndex>234</uiIndex>
+    <szName>Convict</szName>
+    <szShortName>Convict</szShortName>
+    <szDescription>Anyone surviving in a merciless prison is bound to be more dangerous on release - if he survives that long.</szDescription>
+  </BACKGROUND>
+  <!-- Leech -->
+  <BACKGROUND>
+    <uiIndex>235</uiIndex>
+    <szName>Competitive Shooter</szName>
+    <szShortName>Competitive Shooter</szShortName>
+    <szDescription>Some people display a knack for shooting, and a disturbing aggression against innocent paper bull's eyes.</szDescription>
+  </BACKGROUND>
+  <!-- Bob -->
+  <BACKGROUND>
+    <uiIndex>236</uiIndex>
+    <szName>Airforce Pilot</szName>
+    <szShortName>Airforce Pilot</szShortName>
+    <szDescription>Bob is no stranger to tense situations, and lets others feel that as well.</szDescription>
+  </BACKGROUND>
+  <!-- Kelly -->
+  <BACKGROUND>
+    <uiIndex>237</uiIndex>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+  </BACKGROUND>
+  <!-- Vinny -->
+  <BACKGROUND>
+    <uiIndex>238</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+  </BACKGROUND>
+  <!-- Kaboom -->
+  <BACKGROUND>
+    <uiIndex>239</uiIndex>
+    <szName>Veteran Bombmaker</szName>
+    <szShortName>Bombmaker</szShortName>
+    <szDescription>You make things go BOOM!</szDescription>
+  </BACKGROUND>
+  <!-- Bud -->
+  <BACKGROUND>
+    <uiIndex>240</uiIndex>
+    <szName>Lawyer</szName>
+    <szShortName>Lawyer</szShortName>
+    <szDescription>A somewhat unorthodox background for a mercenary, former lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
+  </BACKGROUND>
+  <!-- Rusty -->
+  <BACKGROUND>
+    <uiIndex>241</uiIndex>
+    <szName>Pyrotechnician</szName>
+    <szShortName>Pyrotechnician</szShortName>
+    <szDescription>When you want to break enemy morale by blowing up his privy, it's time to get yourself a qualified pyrotechnician.</szDescription>
+  </BACKGROUND>
+  <!-- Needle -->
+  <BACKGROUND>
+    <uiIndex>242</uiIndex>
+    <szName>Surgeon</szName>
+    <szShortName>Surgeon</szShortName>
+    <szDescription>Everyone can cut human flesh - but sewing it back is a quest for the best!</szDescription>
+  </BACKGROUND>
+  <!-- Screw -->
+  <BACKGROUND>
+    <uiIndex>243</uiIndex>
+    <szName>Gunsmith</szName>
+    <szShortName>Gunsmith</szShortName>
+    <szDescription>An expert in the workings an history of firearms, the army's curious assortment of arms is this man's dream come true.</szDescription>
+  </BACKGROUND>
+  <!-- Elroy -->
+  <BACKGROUND>
+    <uiIndex>244</uiIndex>
+    <szName>Watergate Burglar</szName>
+    <szShortName>Watergate</szShortName>
+    <szDescription>Well, that didn't go as planned.</szDescription>
+  </BACKGROUND>
+  <!-- Mouse -->
+  <BACKGROUND>
+    <uiIndex>245</uiIndex>
+    <szName>Mime</szName>
+    <szShortName>Mime</szShortName>
+    <szDescription>...</szDescription>
+  </BACKGROUND>
+  <!-- Hector -->
+  <BACKGROUND>
+    <uiIndex>246</uiIndex>
+    <szName>South American</szName>
+    <szShortName>South American</szShortName>
+    <szDescription>...</szDescription>
+  </BACKGROUND>
+  <!-- Rev -->
+  <BACKGROUND>
+    <uiIndex>247</uiIndex>
+    <szName>Priest</szName>
+    <szShortName>Priest</szShortName>
+    <szDescription>Many devout followers of any religion or cult area surprisingly violent and zealous if pushed in the right (or wrong) direction.</szDescription>
+  </BACKGROUND>
+  <!-- Stella -->
+  <BACKGROUND>
+    <uiIndex>248</uiIndex>
+    <szName>General Practitioner</szName>
+    <szShortName>GP</szShortName>
+    <szDescription>Versatile and educated doctor can save a human life no matter what his patient caught - a virus or a bullet.</szDescription>
+  </BACKGROUND>
+  <!-- Ears -->
+  <BACKGROUND>
+    <uiIndex>249</uiIndex>
+    <szName>Surveillance Expert</szName>
+    <szShortName>Surveillance Expert</szShortName>
+    <szDescription>A expert in both legal and illegal observation methods. Curiously, his resume never said where he learned all this.</szDescription>
+  </BACKGROUND>
+  <!-- Moses -->
+  <BACKGROUND>
+    <uiIndex>250</uiIndex>
+    <szName>Veteran Mercenary</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You were already famous in this business before those youngsters were even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+  </BACKGROUND>
+  <!-- Smoke -->
+  <BACKGROUND>
+    <uiIndex>251</uiIndex>
+    <szName>Pyrotechnician</szName>
+    <szShortName>Pyrotechnician</szShortName>
+    <szDescription>When you want to break enemy morale by blowing up his privy, it's time to get yourself a qualified pyrotechnician.</szDescription>
+  </BACKGROUND>
+  <!-- Dyno -->
+  <BACKGROUND>
+    <uiIndex>252</uiIndex>
+    <szName>Mascot</szName>
+    <szShortName>Mascot</szShortName>
+    <szDescription>Nobody takes you seriously, because you used to walk around in a silly costume? Well, a children's smile is enough compensation!</szDescription>
+  </BACKGROUND>
+  <!-- Turtle -->
+  <BACKGROUND>
+    <uiIndex>253</uiIndex>
+    <szName>Law Enforcement</szName>
+    <szShortName>Law Enforcement</szShortName>
+    <szDescription>Hey detective, did you manage to solve the case of the disappearing donuts yet?</szDescription>
+  </BACKGROUND>
+  <!-- Empty -->
+  <BACKGROUND>
+    <uiIndex>254</uiIndex>
+    <szName>Placeholder</szName>
+    <szShortName>Placeholder</szShortName>
+    <szDescription>Not needed!</szDescription>
+  </BACKGROUND>
+  <!-- Barry -->
+  <BACKGROUND>
+    <uiIndex>255</uiIndex>
+    <szName>Graduate</szName>
+    <szShortName>Graduate</szShortName>
+    <szDescription>Fresh outta school, with diploma still warm in a hand, it's time to finally make yourself a living.</szDescription>
+  </BACKGROUND>
+  <!-- Imp Backgrounds -->
+  <BACKGROUND>
+    <uiIndex>256</uiIndex>
+    <szName>Arms Dealer</szName>
+    <szShortName>Arms Dealer</szShortName>
+    <szDescription>Experience earned in years of arms trade leads to better deals when buying and selling guns.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>43</uiIndex>
-   <szName>办公员</szName>
-   <szShortName>办公员</szShortName>
-   <szDescription>嗡嗡的空调、打翻的杯子和乱七八糟的资料 &#10;这就是办公室的生活。</szDescription>
- </BACKGROUND>
- <BACKGROUND>
-   <uiIndex>44</uiIndex>
-   <szName>游客</szName>
-   <szShortName>游客</szShortName>
-   <szDescription>能帮我跟这个帅哥的尸体照个相吗？谢谢。</szDescription>
- </BACKGROUND>
- <BACKGROUND>
-   <uiIndex>45</uiIndex>
-   <szName>儿童</szName>
-   <szShortName>儿童</szShortName>
-   <szDescription>也许你还不知道日内瓦公约？没关系...</szDescription>
- </BACKGROUND>
- <BACKGROUND>
-   <uiIndex>46</uiIndex>
-   <szName>青年</szName>
-   <szShortName>青年</szShortName>
-   <szDescription>充满了焦虑和叛逆的年龄。</szDescription>
- </BACKGROUND>
- <BACKGROUND>
-   <uiIndex>47</uiIndex>
-   <szName>后台员工</szName>
-   <szShortName>后台员工</szShortName>
-   <szDescription>灯光、后台音效和尖叫的观众 &#10;其实和战场也没什么区别不是吗？</szDescription>
+    <uiIndex>257</uiIndex>
+    <szName>Law Enforcement</szName>
+    <szShortName>Law Enforcement</szShortName>
+    <szDescription>Former law enforcement personnel often seek work in the mercenary world, and are the logical choice for handling captives.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>48</uiIndex>
-   <szName>Technical Wizard</szName>
-   <szShortName>Tech Whiz</szShortName>
-   <szDescription>技术宅拯救天下。就算闭着一只眼睛技术宅也能在一分钟内摆好魔方。</szDescription>
+    <uiIndex>258</uiIndex>
+    <szName>Prison Guard</szName>
+    <szShortName>Prison Guard</szShortName>
+    <szDescription>In longer and larger conflicts, former prison guards are natural choices for running prison camps.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>49</uiIndex>
-   <szName>毕业生</szName>
-   <szShortName>毕业生</szShortName>
-   <szDescription>毕业工作不好找？不想读大学？来当杀手吧！</szDescription>
+    <uiIndex>259</uiIndex>
+    <szName>Gang Member</szName>
+    <szShortName>Gang Member</szShortName>
+    <szDescription>Becoming a mercenary is a natural step for many gang members - job's the same, tools and pay much better.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>50</uiIndex>
-   <szName>侦探</szName>
-   <szShortName>侦探</szShortName>
-   <szDescription>毛利先生你好，请问你是如何解决著名的“消失的甜甜圈”事件？</szDescription>
+    <uiIndex>260</uiIndex>
+    <szName>Convict</szName>
+    <szShortName>Convict</szShortName>
+    <szDescription>Anyone surviving in a merciless prison is bound to be more dangerous on release - if he survives that long.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>51</uiIndex>
-   <szName>水门夜贼</szName>
-   <szShortName>丑闻远扬</szShortName>
-   <szDescription>事情看来并不像计划的那样顺利 &#10;（Watergate指美国总统的性丑闻事件）。</szDescription>
+    <uiIndex>261</uiIndex>
+    <szName>Drug Addict</szName>
+    <szShortName>Drug Addict</szShortName>
+    <szDescription>Given the nature of today's drugs, addicts can make fearsome, yet unreliable, opponents.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>52</uiIndex>
-   <szName>吉祥物</szName>
-   <szShortName>吉祥物</szShortName>
-   <szDescription>放轻松，没人拿你当回事，你的作用就是舒缓战场的紧张气氛。</szDescription>
+    <uiIndex>262</uiIndex>
+    <szName>Nobility</szName>
+    <szShortName>Nobility</szShortName>
+    <szDescription>Some people join this business not out of necessity. While easy to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>53</uiIndex>
-   <szName>喜剧演员</szName>
-   <szShortName>喜剧演员</szShortName>
-   <szDescription>看到你的贱笑敌人就忍不住放下手里的枪捂肚子了。</szDescription>
+    <uiIndex>263</uiIndex>
+    <szName>Lawyer</szName>
+    <szShortName>Lawyer</szShortName>
+    <szDescription>A somewhat unorthodox background for a mercenary, former lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>54</uiIndex>
-   <szName>二流演员</szName>
-   <szShortName>二流演员</szShortName>
-   <szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，你的名声已享誉世界。</szDescription>
+    <uiIndex>264</uiIndex>
+    <szName>Pilot</szName>
+    <szShortName>Pilot</szShortName>
+    <szDescription>Used to physical stress over long periods, some pilots find the transition to ground combat surprisingly easy.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>55</uiIndex>
-   <szName>烟火商</szName>
-   <szShortName>烟火商</szShortName>
-   <szDescription>如果你想用节日礼炮把敌人的茅房炸开花，你最好找一个专业的烟火商。</szDescription>
+    <uiIndex>265</uiIndex>
+    <szName>Priest</szName>
+    <szShortName>Priest</szShortName>
+    <szDescription>Many devout followers of any religion or cult area surprisingly violent and zealous if pushed in the right (or wrong) direction.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>56</uiIndex>
-   <szName>拆弹兵</szName>
-   <szShortName>拆弹兵</szShortName>
-   <szDescription>拆弹兵一生只犯了两个错误：第一次错误和选错了职业。</szDescription>
+    <uiIndex>266</uiIndex>
+    <szName>Nurse</szName>
+    <szShortName>Nurse</szShortName>
+    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>57</uiIndex>
-   <szName>疑心病患者</szName>
-   <szShortName>疑神疑鬼</szShortName>
-   <szDescription>风声鹤唳,草木皆兵 &#10;当你进入病房，所有医护人员都会尽量避开你，不愿成为你怀疑的目标。</szDescription>
+    <uiIndex>267</uiIndex>
+    <szName>Construction Work</szName>
+    <szShortName>Construction</szShortName>
+    <szDescription>Construction workers are used to hard labour, and can construct fortifications better than deskjob heroes.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>58</uiIndex>
-   <szName>乡巴佬</szName>
-   <szShortName>乡巴佬</szShortName>
-   <szDescription>头发插着枯稻草，张嘴一笑缺颗牙 &#10;好吧，农场的生活也不是那么容易。</szDescription>
+    <uiIndex>268</uiIndex>
+    <szName>Skydiver</szName>
+    <szShortName>Skydiver</szShortName>
+    <szDescription>If you want to put your life to risk, might as well earn cash by it...</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>59</uiIndex>
-   <szName>乖宝宝</szName>
-   <szShortName>乖宝宝</szShortName>
-   <szDescription>别人都在为如何保住性命而担心的时候 &#10;你却在想念妈妈的怀抱和床上的熊宝宝。</szDescription>
+    <uiIndex>269</uiIndex>
+    <szName>Drill Sergeant</szName>
+    <szShortName>Drill Sergeant</szShortName>
+    <szDescription>A drill sergeant's job is to create armies and traumatise young men and women.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>60</uiIndex>
-   <szName>学者</szName>
-   <szShortName>学者</szShortName>
-   <szDescription>你的大部分知识都是纸上谈兵 &#10;不过挥泪斩马谡的事情不会发生，你没有机会逃出枪林弹海。</szDescription>
+    <uiIndex>270</uiIndex>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>61</uiIndex>
-   <szName>精神病患者</szName>
-   <szShortName>精神病人</szShortName>
-   <szDescription>没有人知道你是怎么逃出来的 &#10;不过大家一致同意，你应该回去。</szDescription>
+    <uiIndex>271</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>62</uiIndex>
-   <szName>摔跤手</szName>
-   <szShortName>摔跤手</szShortName>
-   <szDescription>与其说是搏斗不如说是表演 &#10;不过在摔跤场上被丢来丢去而没摔断脖子也需要一定的技术。</szDescription>
+    <uiIndex>272</uiIndex>
+    <szName>Bomber</szName>
+    <szShortName>Bomber</szShortName>
+    <szDescription>Wether you call them terrorists or freedom fighters often depends on your relation to those killed.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>63</uiIndex>
-   <szName>全科医生</szName>
-   <szShortName>全科医生</szShortName>
-   <szDescription>从感冒到绝症无所不能，取出你大脑里的子弹更是不在话下。</szDescription>
+    <uiIndex>273</uiIndex>
+    <szName>Bodyguard</szName>
+    <szShortName>Bodyguard</szShortName>
+    <szDescription>Superbly trained, utterly loyal, and willing to pay the ultimate price. What more could a potential employer want?.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>64</uiIndex>
-   <szName>退休医师</szName>
-   <szShortName>退休医师</szShortName>
-   <szDescription>十分讽刺的是，多年来勤勤恳恳诊疗病患 &#10;却没有得到应有的成就，反而被贫困的生活搞垮了自己。</szDescription>
+    <uiIndex>274</uiIndex>
+    <szName>SWAT Member</szName>
+    <szShortName>SWAT</szShortName>
+    <szDescription>Blurring the line between police and military, SWAT teams are used in urban operations too dangerous for normal law enforcement.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>65</uiIndex>
-   <szName>军医</szName>
-   <szShortName>军医</szShortName>
-   <szDescription>谁都知道如何把人切成两半，但缝上去是另一回事。</szDescription>
+    <uiIndex>275</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>66</uiIndex>
-   <szName>雇佣兵</szName>
-   <szShortName>佣兵</szShortName>
-   <szDescription>不满足于平庸而无聊的过去，你选择了 &#10;枪炮主宰的世界，这才是真正的你。</szDescription>
+    <uiIndex>276</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>67</uiIndex>
-   <szName>高级佣兵</szName>
-   <szShortName>老兵</szShortName>
-   <szDescription>你是像Gus一样久经沙场声名远扬的老牌雇佣兵，没有什么任务能难住你。</szDescription>
+    <uiIndex>277</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>68</uiIndex>
-   <szName>DFK终结者</szName>
-   <szShortName>DFK终结者</szShortName>
-   <szDescription>你的辛勤努力为你赢得了应有的尊重和荣誉 &#10;（DFK是JA2中Gus隶属的虚构组织）。</szDescription>
+    <uiIndex>278</uiIndex>
+    <szName>UN Peacekeeper</szName>
+    <szShortName>UN</szShortName>
+    <szDescription>Nations of the entire world provide these troops to solve all conflicts without any violence. Sadly, this statment is false.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>69</uiIndex>
-   <szName>战俘</szName>
-   <szShortName>战俘</szShortName>
-   <szDescription>在世界上最可怕的战俘营遭受拷问，留下无数伤疤 &#10;你不惧死亡，但是有其他更可怕的灾难在等着你</szDescription>
+    <uiIndex>279</uiIndex>
+    <szName>Paratrooper</szName>
+    <szShortName>Paratrooper</szShortName>
+    <szDescription>It takes guts to jump out of a plane to face numerically superior foes.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>70</uiIndex>
-   <szName>乌鸦嘴</szName>
-   <szShortName>乌鸦嘴</szShortName>
-   <szDescription>没人能忍受没完没了的谩骂和嘲讽 &#10;总有一天你会一个棒子打下去：呼，整个世界安静了。</szDescription>
+    <uiIndex>280</uiIndex>
+    <szName>Guerilla</szName>
+    <szShortName>Guerilla</szShortName>
+    <szDescription>You are well trained in evading enemy forces and hitting them where they least expect it.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>71</uiIndex>
-   <szName>老猎手</szName>
-   <szShortName>老猎手</szShortName>
-   <szDescription>擅长于猎杀各种珍奇异兽，包括女王的手下。</szDescription>
+    <uiIndex>281</uiIndex>
+    <szName>Conscript</szName>
+    <szShortName>Conscript</szShortName>
+    <szDescription>Far from being a pro, you at least know the basic stuff.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>72</uiIndex>
-   <szName>职业小偷</szName>
-   <szShortName>小偷</szShortName>
-   <szDescription>没有什么值钱的东西能从职业小偷的手下溜走。</szDescription>
+    <uiIndex>282</uiIndex>
+    <szName>Military Advisor</szName>
+    <szShortName>Military Advisor</szShortName>
+    <szDescription>Pointing the gun in the right direction is a start, but someone needs to teach these people how to teach other people where to point.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>283</uiIndex>
+    <szName>Paramilitary Instructor</szName>
+    <szShortName>Instructor</szShortName>
+    <szDescription>Just like boyscouts. But with with violence. So not like boyscouts at all.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>284</uiIndex>
+    <szName>Red Army</szName>
+    <szShortName>Red Army</szShortName>
+    <szDescription>With russian stoicism, the red army prevailed against Hitler, father frost, and chronic shortages.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>285</uiIndex>
+    <szName>Undertaker</szName>
+    <szShortName>Undertaker</szShortName>
+    <szDescription>When you've seen it all, nothing can frighten you anymore.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>286</uiIndex>
+    <szName>Veteran</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You've been on one or two tours of duty, and know trouble when you see it.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>287</uiIndex>
+    <szName>Tuareg</szName>
+    <szShortName>Tuareg</szShortName>
+    <szDescription>The tuareg are a berber people that lead a nomadic life in the Sahara.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>288</uiIndex>
+    <szName>Firefighter</szName>
+    <szShortName>Firefighter</szShortName>
+    <szDescription>Just because it involves no shooting, it doesn't have to be less dangerous.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>289</uiIndex>
+    <szName>Competitive Shooter</szName>
+    <szShortName>Competitive Shooter</szShortName>
+    <szDescription>Some people display a knack for shooting, and a disturbing aggression against innocent paper bull's eyes.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>290</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>291</uiIndex>
+    <szName>Car Mechanic</szName>
+    <szShortName>Car Mechanic</szShortName>
+    <szDescription>Very useful, as long as you HAVE a car.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>292</uiIndex>
+    <szName>Smith</szName>
+    <szShortName>Smith</szShortName>
+    <szDescription>In a warzone without the usual comforts, it is very useful to have people who can maintain your gear.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>293</uiIndex>
+    <szName>Counter-Terrorist Unit</szName>
+    <szShortName>Counter-Terrorist</szShortName>
+    <szDescription>Most countries don't deploy their army to deal with interior threats, but use special police forces.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>294</uiIndex>
+    <szName>Office Worker</szName>
+    <szShortName>Office Worker</szShortName>
+    <szDescription>Air conditioning, watered down coffee and some papers to push - what else can you expect from life?</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>295</uiIndex>
+    <szName>Backstage Crew</szName>
+    <szShortName>Backstage Crew</szShortName>
+    <szDescription>Blasting sounds, fireworks, screaming people - isn't it odd how similar stage is to the battlefield?</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>296</uiIndex>
+    <szName>Technical Wizard</szName>
+    <szShortName>Tech Whiz</szShortName>
+    <szDescription>No matter if it's a thirty years old junk or latest electronic gadget, tech whiz can rewire, reassemble and reconfigure it with eyes closed.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>297</uiIndex>
+    <szName>Graduate</szName>
+    <szShortName>Graduate</szShortName>
+    <szDescription>Fresh outta school, with diploma still warm in a hand, it's time to finally make yourself a living.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>298</uiIndex>
+    <szName>Professional Thief</szName>
+    <szShortName>Thief</szShortName>
+    <szDescription>When offered to take it or leave it, you always chose 'take'.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>299</uiIndex>
+    <szName>Mime</szName>
+    <szShortName>Mime</szShortName>
+    <szDescription>...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>300</uiIndex>
+    <szName>B-Movie Star</szName>
+    <szShortName>B-Movie Star</szShortName>
+    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics yet adored by loyal fans.</szDescription>
+    <!-- easier to recognise in disguise? -->
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>301</uiIndex>
+    <szName>Pyrotechnician</szName>
+    <szShortName>Pyrotechnician</szShortName>
+    <szDescription>When you want to break enemy morale by blowing up his privy, it's time to get yourself a qualified pyrotechnician.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>302</uiIndex>
+    <szName>Sapper</szName>
+    <szShortName>Sapper</szShortName>
+    <szDescription>Sapper can make only two mistakes in his life. The first one is a career choice.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>303</uiIndex>
+    <szName>Hypochondriac</szName>
+    <szShortName>Hypochondriac</szShortName>
+    <szDescription>When you enter a ward, all medical personnel tries to look overly busy or hides around corners in a futile attempt to avoid you. The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>304</uiIndex>
+    <szName>Redneck</szName>
+    <szShortName>Redneck</szShortName>
+    <szDescription>Overalls, straw sticking out of boots and inseparable blade of grass in the mouth. Not exactly a proud image, but hey, life on the farm isn't easy.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>305</uiIndex>
+    <szName>Peeper</szName>
+    <szShortName>Peeper</szShortName>
+    <szDescription>Why is this still necessary? Dude, visit the internet...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>306</uiIndex>
+    <szName>Academic</szName>
+    <szShortName>Academic</szShortName>
+    <szDescription>Most of your knowledge comes from the books and secondhand reports - and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>307</uiIndex>
+    <szName>Mental Patient</szName>
+    <szShortName>Mental Patient</szShortName>
+    <szDescription>There are different accounts of how you've managed to leave the confinement, but everyone agrees - you should go back.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>308</uiIndex>
+    <szName>Wrestler</szName>
+    <szShortName>Wrestler</szShortName>
+    <szDescription>It might be more of a spectacle than actual fight, but getting thrown around a ring without breaking a neck still takes a lot of skill.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>309</uiIndex>
+    <szName>General Practitioner</szName>
+    <szShortName>GP</szShortName>
+    <szDescription>Versatile and educated doctor can save a human life no matter what his patient caught - a virus or a bullet.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>310</uiIndex>
+    <szName>Surgeon</szName>
+    <szShortName>Surgeon</szShortName>
+    <szDescription>Everyone can cut human flesh - but sewing it back is a quest for the best!</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>311</uiIndex>
+    <szName>Mercenary</szName>
+    <szShortName>Merc</szShortName>
+    <szDescription>While others may keep to their pasts and its labels, you've chosen the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>312</uiIndex>
+    <szName>Veteran Mercenary</szName>
+    <szShortName>Veteran</szShortName>
+    <szDescription>You were already famous in this business before those youngsters were even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>313</uiIndex>
+    <szName>Big Game Hunter</szName>
+    <szShortName>Big Game Hunter</szShortName>
+    <szDescription>Travel to pristine nature, seek fascinating species, and KILL THEM ALL.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>314</uiIndex>
+    <szName>Spotter</szName>
+    <szShortName>Spotter</szShortName>
+    <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>315</uiIndex>
+    <szName>Bomb Disposal Unit</szName>
+    <szShortName>BDU</szShortName>
+    <szDescription>Displaying nerves of steel, you thrive at a job where every mistake can be the last one.</szDescription>
   </BACKGROUND>
 </BACKGROUNDS>
