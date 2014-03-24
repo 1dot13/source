@@ -2217,6 +2217,14 @@
 		<APCost>20</APCost>
 	</MERGE>
 	<MERGE>
+        <firstItemIndex>299</firstItemIndex>
+        <secondItemIndex>1640</secondItemIndex>
+        <firstResultingItemIndex>1524</firstResultingItemIndex>
+        <secondResultingItemIndex>1524</secondResultingItemIndex>
+        <mergeType>13</mergeType>
+        <APCost>20</APCost>
+    </MERGE>
+    <MERGE>
 		<firstItemIndex>300</firstItemIndex>
 		<secondItemIndex>194</secondItemIndex>
 		<firstResultingItemIndex>1022</firstResultingItemIndex>

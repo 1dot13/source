@@ -52,4 +52,8 @@
 		<id>12</id>
 		<name>Tripwire Roll</name>
 	</MergeType>
+   <MergeType>
+       <id>13</id>
+       <name>Use (Drain Status)</name>
+   </MergeType>
 </JA2Data>
