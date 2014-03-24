@@ -501,4 +501,40 @@ szName            text to appear, 190 chars max
     <uiIndex>123</uiIndex>
     <szName>在战术界面，按住[鼠标右键] 点击佣兵也可以打开指令菜单。</szName>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>124</uiIndex>
+    <szName>Press [CTRL]+[C] to open Cover Display Menu.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>125</uiIndex>
+    <szName>Press [CTRL]+[V] to open useful Inventory Manipulations Menu.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>126</uiIndex>
+    <szName>Press [D] to enter turn-based mode immediately, if there is enemy in sector.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>127</uiIndex>
+    <szName>Press [CTRL]+[D] to end your interrupt, and there will be no interrupts until next turn.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>128</uiIndex>
+    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where you can call reinforcements with your radio or order artillery strike.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>129</uiIndex>
+    <szName>You can safely place defensive minefields in captured towns and SAMs, your mercs and militia will avoid them.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>130</uiIndex>
+    <szName>You can inspect trap before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>131</uiIndex>
+    <szName>Click with hand cursor on a blue flag, and you will be able to remove flag or inspect trap with useful Disarm Menu.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>132</uiIndex>
+    <szName>Placing mines, concertina or sandbags is more convenient with [SHIFT] key - you don't need to manually take new item from your inventory.</szName>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
