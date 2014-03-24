@@ -2804,6 +2804,8 @@ void LoadItemSettings()
 	gItemSettings.fRangeModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
 	// -------- LAUNCHERs ---------
 	gItemSettings.fRangeModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","RANGE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	// throwing hand grenades
+	gItemSettings.fRangeModifierGrenade								= iniReader.ReadFloat  ("Weapon Settings","RANGE_GRENADE_MODIFIER", 1.0f, 0.1f, 5.0f);
 
 	// weapon damage modifiers
 	// ----------- GUNS -----------

@@ -6531,8 +6531,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Getry ochronne: %s\n",
 	// Limited, Basic
 	L"|Pancerz: ",
-	L"hełm ",
-	L"kamizelka ",
+	L"hełm",
+	L"kamizelka",
 	L"getry ochronne",
 	L"używane",
 	L"brak pancerza",

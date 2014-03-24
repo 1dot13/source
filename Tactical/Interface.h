@@ -544,4 +544,9 @@ void DrawNCTHCursorItemPics( INT16 sStartScreenX, INT16 sStartScreenY  );
 
 void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSoldier, BOOLEAN showExactInfo, CHAR16 *NameStr );
 
+void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier );
+void ShowAdditionalInfo( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier );
+void ShowRankIcon( INT16 sXPos, INT16 sYPos, SOLDIERTYPE* pSoldier );
+void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier );
+
 #endif

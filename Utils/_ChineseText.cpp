@@ -6520,8 +6520,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|作|战|裤: %s\n",
 	// Limited, Basic
 	L"|护|甲: ",
-	L"头盔 ",
-	L"防弹衣 ",
+	L"头盔",
+	L"防弹衣",
 	L"作战裤",
 	L"装备了",
 	L"无护甲",

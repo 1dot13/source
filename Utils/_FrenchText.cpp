@@ -6523,8 +6523,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Pantalon : %s\n",
 	// Limited, Basic
 	L"|Armure : ",
-	L"Casque ",
-	L"Veste ",
+	L"Casque",
+	L"Veste",
 	L"Pantalon",
 	L"usé",
 	L"pas d'armure",

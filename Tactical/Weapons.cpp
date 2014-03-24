@@ -11310,8 +11310,14 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed, O
 			iRange = 2 + ( ( EffectiveStrength( pSoldier, FALSE ) / ( 5 + itemWeight) ) );
 		}
 
+		// sevenfm: for grenades and aerodynamic items - apply modifier
+		if ( ! Item[ usItem ].unaerodynamic )
+			iRange = (INT32)( iRange * gItemSettings.fRangeModifierGrenade );
+
 		// adjust for thrower's remaining breath (lose up to 1/2 of range)
-		iRange -= (iRange * (100 - pSoldier->bBreath)) / 200;
+		// sevenfm changed max breath value to pSoldier->bBreathMax
+		//iRange -= (iRange * (100 - pSoldier->bBreath)) / 200;
+		iRange -= (iRange * ( pSoldier->bBreathMax - pSoldier->bBreath)) / 200;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - old/new traits

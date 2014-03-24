@@ -333,6 +333,8 @@ void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalCoverMenu( void );
 void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalAmmoCrates( UINT8 magType );
+void HandleTacticalTransformItem( void );
+BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation );
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -4117,6 +4119,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						*puiNewEvent = I_LOSDEBUG;
 					}
+					else
+					{
+						HandleTacticalTransformItem();
+				}
 				}
 				//else if( gusSelectedSoldier != NOBODY )
 				break;
@@ -7901,5 +7907,79 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTacticalCoverDialogPrintString[ubExitValue-1]);
 }
 
+void HandleTacticalTransformItem( void )
+{
+	UINT16 usItem;
+	TransformInfoStruct *pTransformation;
+	OBJECTTYPE* pObj;
+
+	SOLDIERTYPE* pSoldier;
+	if( !GetSoldier( &pSoldier, gusSelectedSoldier ) )
+		return;
+	if( !pSoldier->inv[ HANDPOS ].exists() )
+		return;
+
+	usItem = pSoldier->inv[ HANDPOS ].usItem;
+
+	if( FindTransformation( usItem, &pTransformation ) )
+	{
+
+		if ( pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost );
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+			pSoldier->inv[ HANDPOS ].TransformObject( pSoldier, 0, pTransformation, NULL );
+	}
+	// sevenfm: failed to make attachment transformation to work correctly
+	/*
+	else	// not found transformation for the item - search transformations for attachments
+	{
+		attachmentList::iterator iterend;
+		attachmentList::iterator iter;
+		pObj = &(pSoldier->inv[ HANDPOS ]);
+
+		// check all attachments, search for available transformations
+		iterend = (*pObj)[0]->attachments.end();
+		for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if ( iter->exists() && Item[iter->usItem].usItemClass == IC_MISC )
+			{
+				usItem = Item[iter->usItem].uiIndex;
+
+				if( FindTransformation( usItem, &pTransformation ) )
+				{
+					if ( pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost );
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+					// RENDER_ITEM_NOSTATUS = 20
+					// RENDER_ITEM_ATTACHMENT1 = 200
+					iter->TransformObject( pSoldier, 0, pTransformation, pObj );
+				}
+			}
+		}
+	}
+	*/
+}
+
+BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation )
+{
+	// find transformation
+	for (INT32 x = 0; x < MAXITEMS; x++)
+	{
+		if ( Transform[x].usItem == (UINT16)-1 )
+		{
+			break;
+		}
+		if ( Transform[x].usItem == usItem )
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
 
 

@@ -3675,7 +3675,7 @@ INT16	IsMercInTheSector( UINT16 usMercID )
 		return( FALSE );
 
 	UINT8					cnt;
-	for ( cnt=0; cnt <= TOTAL_SOLDIERS; cnt++ )
+	for ( cnt=0; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		//if the merc is active
 		if( Menptr[ cnt ].ubProfile == usMercID )
