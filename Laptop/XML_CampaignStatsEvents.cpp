@@ -107,10 +107,17 @@ CSEEndElementHandle(void *userData, const XML_Char *name)
 			{
 				if ( localizedTextOnly_CSE )
 				{
-					wcscpy(pData->curArray[pData->curItem.uiIndex].szText[0],pData->curItem.szText[0]);
+					// WANNE: Do not only copy the first szText, but copy ALL the szTexts!
+					//wcscpy(pData->curArray[pData->curItem.uiIndex].szText[0],pData->curItem.szText[0]);
+					for (int i = 0; i < MAX_CAMPAIGNSTATSEVENTS_TEXTS; i++)
+					{
+						wcscpy(zCampaignStatsEvent[pData->curItem.uiIndex].szText[i], pData->curItem.szText[i]);
+					}					
 				}
 				else
+				{
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem;
+				}
 			}
 		}
 		else if(strcmp(name, "uiIndex") == 0)
