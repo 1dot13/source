@@ -7126,6 +7126,12 @@ BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSec
 			// the fight is within this town!  Can't redistribute.
 			return( FALSE );
 		}
+		// to prevent radio operator exploits for hostile sectors adjacent to towns
+		else if ( ( sSectorX == gWorldSectorX  &&  sSectorY == gWorldSectorY + 1 ) || ( sSectorX == gWorldSectorX + 1 &&  sSectorY == gWorldSectorY ) ||
+				( sSectorX == gWorldSectorX - 1 &&  sSectorY == gWorldSectorY ) || ( sSectorX == gWorldSectorX  &&  sSectorY == gWorldSectorY - 1 ) )
+		{
+			return( FALSE );
+		}
 	}
 
 
