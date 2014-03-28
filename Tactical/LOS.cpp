@@ -525,6 +525,11 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 	BOOLEAN fFoundBottom = FALSE;
 
 	memset(&ubAllTileProperties,0,sizeof(ubAllTileProperties));
+	if( !( sGridNo > -1 && sGridNo < WORLD_MAX ) || !( bLevel == FIRST_LEVEL || bLevel == SECOND_LEVEL ) )
+	{
+		// incorrect argument values, what the hell?
+		return ubAllTileProperties;
+	}
 	for(UINT8 ubCnt=0; ubCnt<5 && !fFoundBottom; ubCnt++)
 	{
 		if (bLevel == I_ROOF_LEVEL)
@@ -566,11 +571,10 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 					break;
 			}
 		}
-		if( pNode!= NULL )
+		if( pNode!= NULL && pNode->usIndex < NUMBEROFTILES )
 		{
 			iWoodCamoAffinity += gTileDatabase[ pNode->usIndex ].bWoodCamoAffinity;
-			iDesertCamoAffinity += gTileDatabase[ pNode->usIndex ].bDesertCamoAffinity;
-			iUrbanCamoAffinity += gTileDatabase[ pNode->usIndex ].bUrbanCamoAffinity;
+			iDesertCamoAffinity += gTileDatabase[ pNode->usIndex ].bDesertCamoAffinity;			iUrbanCamoAffinity += gTileDatabase[ pNode->usIndex ].bUrbanCamoAffinity;
 			iSnowCamoAffinity += gTileDatabase[ pNode->usIndex ].bSnowCamoAffinity;
 
 			iCamoStanceModifer += gTileDatabase[ pNode->usIndex ].bCamoStanceModifer;

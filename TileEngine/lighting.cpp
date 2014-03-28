@@ -762,11 +762,14 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 			{
 				LEVELNODE* pShadowNode = NULL;
 				if(!(pStructure->fFlags & STRUCTURE_BASE_TILE))
-					pShadowNode = gpWorldLevelData[ FindBaseStructure(pStructure)->sGridNo ].pShadowHead;
+				{
+					STRUCTURE* pBaseStructure = FindBaseStructure(pStructure);
+					if( pBaseStructure != NULL )
+						pShadowNode = gpWorldLevelData[ pBaseStructure->sGridNo ].pShadowHead;
+				}
 				else
 					pShadowNode = gpWorldLevelData[ sNewGridNo ].pShadowHead;
-				if(pShadowNode != NULL)
-				{
+				if(pShadowNode != NULL)				{
 					iSum += max( 0, (StructureHeight(pStructure) - 1 ) );
 				}
 			}
