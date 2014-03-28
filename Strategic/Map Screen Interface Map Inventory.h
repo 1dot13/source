@@ -58,6 +58,8 @@ extern INT32 sObjectSourceGridNo;
 extern INT32 iCurrentInventoryPoolPage;
 extern INT32 iLastInventoryPoolPage;
 extern BOOLEAN fMapInventoryItemCompatable[ ];
+// anv: extern'd this for use in Interface Enhanced.cpp
+extern BOOLEAN gfCheckForCursorOverMapSectorInventoryItem;
 // HEADROCK HAM 5: Same idea as above, this flags items as being candidates for appearing in Zoomed mode.
 extern BOOLEAN gfMapInventoryItemToZoom[ ];
 extern INT32 MAP_INVENTORY_POOL_SLOT_COUNT; 
