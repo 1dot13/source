@@ -6168,10 +6168,11 @@ STR16 gzLaptopHelpText[] =
 	L"",
 	L"百科全书",
 	L"简报室",
+	L"战役历史",
 };
 
 
-STR16	gzHelpScreenText[] =
+STR16 gzHelpScreenText[] =
 {
 	L"退出帮助屏幕",
 };

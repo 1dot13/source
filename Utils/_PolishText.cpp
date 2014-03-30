@@ -6182,10 +6182,11 @@ STR16 gzLaptopHelpText[] =
 	L"",
 	L"Encyklopedia",
 	L"Briefing Room",
+	L"Campaign History",	// TODO.Translate
 };
 
 
-STR16	gzHelpScreenText[] =
+STR16 gzHelpScreenText[] =
 {
 	L"Zamknij okno pomocy",	
 };

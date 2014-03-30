@@ -6006,6 +6006,7 @@ STR16 gzLaptopHelpText[] =
 	L"",
 	L"Enzyklopädie",
 	L"Einsatzbesprechung",
+	L"Geschichte",
 };
 
 STR16 gzHelpScreenText[] =

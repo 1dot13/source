@@ -4277,7 +4277,7 @@ STR16 pBookMarkStrings[] =
 	L"Cancel",
 	L"Encyclopedia",
 	L"Briefing Room",
-	L"Campaign History",	// TODO.Translate
+	L"Campaign History",
 };
 
 STR16 pBookmarkTitle[] =
@@ -6177,10 +6177,11 @@ STR16 gzLaptopHelpText[] =
 	L"",
 	L"Encyclopedia",
 	L"Briefing Room",
+	L"Campaign History",
 };
 
 
-STR16	gzHelpScreenText[] =
+STR16 gzHelpScreenText[] =
 {
 	L"Exit help screen",	
 };
