@@ -1508,6 +1508,9 @@ public:
 	UINT8	ubLastMoraleFromHit;
 	UINT8	iLastBulletImpact;
 	UINT8	iLastArmourProtection;
+	
+	UINT16	usQuickItemId;
+	UINT8	ubQuickItemSlot;
 
 public:
 	// CREATION FUNCTIONS

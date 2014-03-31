@@ -118,6 +118,7 @@
 #include "Map Screen Interface Map Inventory.h"//dnl ch75 021113
 
 #include "DisplayCover.h"				// added by Sevenfm
+#include "InterfaceItemImages.h"		// added by Sevenfm
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -159,6 +160,8 @@ UINT32 guiUITargetSoldierId = NOBODY;
 // sevenfm: for cover dialog
 extern COVER_DRAW_MODE gubDrawMode;
 extern MINES_DRAW_MODE gubDrawModeMine;
+
+extern  MOUSE_REGION    gMPanelRegion;
 
 void HandleTalkingMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
 void HandleMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
@@ -328,7 +331,13 @@ void HandleTBDropBackpacks( void );
 void HandleTBPickUpBackpacks( void );
 void HandleTBSoldierRun( void );
 
+void HandleTacticalTakeItem( void );
+void HandleTacticalDropItem( UINT8 ubSlot );
+void HandleTacticalTakeInvItem( INT32 iType );
+void HandleTacticalStoreInvItem( void );
+INT32 InvItemType( UINT16 usItem );
 void HandleTacticalInventoryMenu( void );
+void HandleTacticalMoveItems( void );
 void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalCoverMenu( void );
 void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
@@ -2472,6 +2481,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						// MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_CREATURE;
 						//EVENT_InitNewSoldierAnim( MercPtrs[ gusSelectedSoldier ], CRIPPLE_BEG, 0 , TRUE );
 					}
+					else
+					{
+						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem1 );
+					}
 				}
 				else
 					ChangeCurrentSquad( 0 );
@@ -2484,6 +2497,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						ChangeSoldiersBodyType( INFANT_MONSTER, TRUE );
+					}
+					else
+					{
+						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem2 );
 					}
 				}
 				else if( fCtrl ) //toggle between the different npc debug modes
@@ -2510,6 +2527,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						//LocateSoldier( gusSelectedSoldier, FALSE );
 						//EVENT_FireSoldierWeapon( MercPtrs[ gusSelectedSoldier ], sMapPos );
 					}
+					else
+					{
+						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem3 );
+					}
 				}
 				else if( fCtrl ) //toggle between the different npc debug modes
 				{
@@ -2531,6 +2552,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						ChangeSoldiersBodyType( CRIPPLECIV, TRUE );
 					}
+					else
+					{
+						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem4 );
+					}
 				}
 				else if( fCtrl ) //remapped squad 14 to here
 					ChangeCurrentSquad( 13 );
@@ -2548,6 +2573,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						ChangeSoldiersBodyType( YAM_MONSTER, TRUE );
 					}
+					else
+					{
+						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem5 );
+					}
 				}
 				else
 				{
@@ -2559,23 +2588,58 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '6':
+				if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem6 );
+				}
+				else
+				{
 				ChangeCurrentSquad( 5 );
+				}
 				break;
 
 			case '7':
-				ChangeCurrentSquad( 6 );
+				if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem7 );
+				}
+				else
+				{
+					ChangeCurrentSquad( 6 );
+				}
 				break;
 
 			case '8':
-				ChangeCurrentSquad( 7 );
+				if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem8 );
+				}
+				else
+				{
+					ChangeCurrentSquad( 7 );
+				}
 				break;
 
 			case '9':
-				ChangeCurrentSquad( 8 );
+				if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem9 );
+				}
+				else
+				{
+					ChangeCurrentSquad( 8 );
+				}
 				break;
 
 			case '0':
-				ChangeCurrentSquad( 9 );
+				if( fAlt )
+				{
+					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem0 );
+				}
+				else
+				{
+					ChangeCurrentSquad( 9 );
+				}
 				break;
 
 			case '!':
@@ -3226,18 +3290,32 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			//	}
 				break;
 			case 'q':
-				if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] )
+				if( fCtrl )
 				{
-					gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
+					HandleTBSwapHands( );												
+				}
+				else if ( fAlt )
+				{
+					HandleTBSwapGunsling( );
 				}
 				else
 				{
-					gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
+					if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] )
+					{
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
+					}
+					else
+					{
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
+					}
 				}
 				break;
 
+			case 'Q':
+				HandleTacticalDropItem( HANDPOS );
+				break;
 
 			case 'G':
 				if( fCtrl )
@@ -3584,26 +3662,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					// Move all sector items to current mercs feet
-					if ( !(gTacticalStatus.fEnemyInSector) )
-					{
-						HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-						SOLDIERTYPE *pSoldier;
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-						{
-
-							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ ) //for all items in sector
-							{
-								if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) && (gWorldItems[ uiLoop ].sGridNo != pSoldier->sGridNo) )//item exists and is reachable and is not already on soldiers tile
-								{
-									MoveItemPools(gWorldItems[ uiLoop ].sGridNo, pSoldier->sGridNo, gWorldItems[ uiLoop ].ubLevel, pSoldier->pathing.bLevel);
-								}
-							}
-
-							NotifySoldiersToLookforItems( );
-						}
-					}
+					HandleTacticalMoveItems();					
 				}
 				break;
 
@@ -4261,12 +4320,20 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						EnvBeginRainStorm( 1 );
 					}
+					else
+					{
+						HandleTacticalStoreInvItem();
+					}
 				}
 				else if( fCtrl )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						EnvEndRainStorm( );
+					}
+					else
+					{
+						//HandleTacticalTakeItem();
 					}
 				}
 				else
@@ -7136,9 +7203,11 @@ void HandleTBSwapHands( void )
 }
 void HandleTBSwapGunsling( void )
 {
+	SOLDIERTYPE *pSoldier;
+
 	if ( gusSelectedSoldier != NOBODY && UsingNewInventorySystem() == true)
 	{
-		SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
 		pSoldier->SwitchWeapons( );
 	}
 }
@@ -7756,7 +7825,9 @@ void HandleTacticalInventoryMenu( void )
 	}
 
 	gzUserDefinedButtonColor[0] = FONT_MCOLOR_LTGRAY;
-	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTGRAY;	
+	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTGRAY;
+	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTGRAY;
+	gzUserDefinedButtonColor[3] = FONT_MCOLOR_LTGRAY;
 	gzUserDefinedButtonColor[4] = FONT_ORANGE;
 	gzUserDefinedButtonColor[5] = FONT_ORANGE;
 	gzUserDefinedButtonColor[6] = FONT_ORANGE;
@@ -7780,7 +7851,8 @@ void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue )
 	case 2:		// reload ALL
 		HandleTBReloadAll();
 		break;
-	case 3:		
+	case 3:		// move items (Shift+m)
+		HandleTacticalMoveItems();
 		break;
 	case 4:		
 		break;
@@ -7911,7 +7983,7 @@ void HandleTacticalTransformItem( void )
 {
 	UINT16 usItem;
 	TransformInfoStruct *pTransformation;
-	OBJECTTYPE* pObj;
+	//OBJECTTYPE* pObj;
 
 	SOLDIERTYPE* pSoldier;
 	if( !GetSoldier( &pSoldier, gusSelectedSoldier ) )
@@ -7980,6 +8052,279 @@ BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation
 		}
 	}
 	return FALSE;
+}
+
+void HandleTacticalMoveItems( void )
+{
+	// Move all sector items to current mercs feet
+	if ( !(gTacticalStatus.fEnemyInSector) )
+	{
+		HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+		SOLDIERTYPE *pSoldier;
+		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+		{
+
+			for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ ) //for all items in sector
+			{
+				if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) && (gWorldItems[ uiLoop ].sGridNo != pSoldier->sGridNo) )//item exists and is reachable and is not already on soldiers tile
+				{
+					MoveItemPools(gWorldItems[ uiLoop ].sGridNo, pSoldier->sGridNo, gWorldItems[ uiLoop ].ubLevel, pSoldier->pathing.bLevel);
+				}
+			}
+
+			NotifySoldiersToLookforItems( );
+		}
+	}
+}
+
+void HandleTacticalStoreInvItem( void )
+{
+	SOLDIERTYPE *pSoldier;
+	UINT8 ubStoreSlot = 0;
+	UINT16 APTotalCost = 0;
+
+	if( gusSelectedSoldier != NOBODY )
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
+	else
+		return;
+
+	if ( !UsingNewInventorySystem() )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEMS_ONLY_NIV ] );
+		return;
+	}
+	
+	if( !pSoldier->inv[HANDPOS].exists() )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEMS_NO_ITEM_IN_HAND ] );
+		return;
+	}
+
+	if( pSoldier->usQuickItemId == pSoldier->inv[HANDPOS].usItem &&
+		( CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], pSoldier->ubQuickItemSlot, FALSE) && !pSoldier->inv[pSoldier->ubQuickItemSlot].exists() ) )
+		ubStoreSlot = pSoldier->ubQuickItemSlot;
+
+	// find slot to store HANDPOS in
+	for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS && ubStoreSlot == 0; ++i)
+	{
+		// take first slot that hand item would fit
+		if ( ( CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], i, FALSE) && !pSoldier->inv[i].exists() ) )
+		{
+			ubStoreSlot = i;
+			break;
+		}
+	}
+
+	if( ubStoreSlot == 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEMS_NOWHERE_TO_PLACE ] );
+		return;
+	}
+	
+	// calculate needed APs
+	if (gGameOptions.fInventoryCostsAP)	
+	{		
+		APTotalCost += GetInvMovementCost(&pSoldier->inv[HANDPOS], HANDPOS, ubStoreSlot  );
+		if( !EnoughPoints( pSoldier, APTotalCost, 0, TRUE ) )
+			return;		
+	}
+
+	// move item from HANDPOS to found ubStoreSlot
+	if (gGameOptions.fInventoryCostsAP)
+		DeductPoints( pSoldier, APTotalCost, 0 );
+
+	pSoldier->inv[HANDPOS].MoveThisObjectTo(pSoldier->inv[ubStoreSlot], 1, pSoldier);
+	
+	// swap hands
+	if( pSoldier->inv[SECONDHANDPOS].exists() )
+		SwapHandItems( pSoldier );
+
+	// update interface
+	fCharacterInfoPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+	pSoldier->HandleFlashLights();
+}
+
+void HandleTacticalTakeInvItem( INT32 iType )
+{
+	SOLDIERTYPE *pSoldier;
+	UINT8 ubItemSlot = HANDPOS;
+	UINT16 APTotalCost = 0;
+
+	if( iType == 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEM_NO_DEFINED_ITEM ] );
+		return;
+	}
+
+	if( gusSelectedSoldier != NOBODY )
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
+	else
+		return;
+
+	if ( !UsingNewInventorySystem() )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEMS_ONLY_NIV ] );
+		return;
+	}
+
+	// check if item is already in main hand
+	if ( pSoldier->inv[HANDPOS].exists() &&		
+		( iType > 0 ? ( pSoldier->inv[HANDPOS].usItem == iType ) : ( InvItemType( pSoldier->inv[HANDPOS].usItem ) == iType ) ) )
+		return;
+
+	if( pSoldier->inv[HANDPOS].exists() && pSoldier->inv[SECONDHANDPOS].exists() )
+	{
+		// try to free HANDPOS for new item
+		HandleTacticalStoreInvItem();
+	}
+
+	// both hands are full
+	if( pSoldier->inv[HANDPOS].exists() && pSoldier->inv[SECONDHANDPOS].exists() )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEM_NO_FREE_HAND ] );
+		return;
+	}
+
+	// search for type of item
+	for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+	{
+		if ( pSoldier->inv[i].exists() &&
+			!Item[ pSoldier->inv[i].usItem ].twohanded &&
+			( iType > 0 ? ( pSoldier->inv[i].usItem == iType ) : ( InvItemType( pSoldier->inv[i].usItem ) == iType ) ) )
+		{
+			ubItemSlot = i;
+			break;
+		}
+	}
+	// if not found item
+	if( ubItemSlot == HANDPOS )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEM_NOT_FOUND ]);
+		return;
+	}
+
+	// remember item slot and id
+	pSoldier->usQuickItemId = pSoldier->inv[ubItemSlot].usItem;
+	pSoldier->ubQuickItemSlot = ubItemSlot; 	
+
+	if (gGameOptions.fInventoryCostsAP)
+	{		
+		APTotalCost += GetInvMovementCost(&pSoldier->inv[ubItemSlot], ubItemSlot, HANDPOS);
+		if( !EnoughPoints( pSoldier, APTotalCost, 0, TRUE ) )
+			return;
+	}
+
+	if( !CanItemFitInPosition( pSoldier, &pSoldier->inv[ubItemSlot], HANDPOS, FALSE ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ QUICK_ITEM_CANNOT_TAKE ] );
+		return;
+	}
+
+	// if item in main hand exists -> move it to second hand
+	if( pSoldier->inv[HANDPOS].exists() )
+		HandleTBSwapHands();
+
+	// move item to handpos
+	if (gGameOptions.fInventoryCostsAP)
+		DeductPoints( pSoldier, APTotalCost, 0 );
+	pSoldier->inv[ubItemSlot].MoveThisObjectTo(pSoldier->inv[HANDPOS], 1, pSoldier);
+
+	// update interface
+	fCharacterInfoPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+	pSoldier->HandleFlashLights();
+}
+
+INT32 InvItemType( UINT16 usItem )
+{
+	if( usItem == XRAY_DEVICE )
+		return INV_ITEM_TYPE_XRAY;
+	if( Item[ usItem ].firstaidkit )
+		return INV_ITEM_TYPE_FIRSTAID;
+	if( Item[ usItem ].usItemClass == IC_BLADE )
+		return INV_ITEM_TYPE_MELEE;
+	if( Item[ usItem ].usItemClass == IC_PUNCH && !(Item[ usItem ].usItemFlag & TASER) )
+		return INV_ITEM_TYPE_HTH;
+	if( HasItemFlag( usItem, HANDCUFFS ) )
+	//if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].usItemFlag & HANDCUFFS )
+		return INV_ITEM_TYPE_HANDCUFFS;
+	//Item[ uiItem ].usSpotting
+	if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].dayvisionrangebonus )
+		return INV_ITEM_TYPE_BINOCULARS;
+	if( Item[ usItem ].usItemFlag & TASER )
+		return INV_ITEM_TYPE_TASER;
+	if( Item[ usItem ].usItemClass == IC_GUN && !Item[ usItem ].twohanded && Weapon[Item[ usItem ].ubClassIndex].ubWeaponType <= GUN_SMG )
+		return INV_ITEM_TYPE_SIDEARM;
+	if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].metaldetector )
+		return INV_ITEM_TYPE_METALDETECTOR;
+		
+	return INV_ITEM_TYPE_UNKNOWN;
+}
+
+void HandleTacticalDropItem( UINT8 ubSlot )
+{
+	SOLDIERTYPE *pSoldier;
+	UINT16 APTotalCost = 0;
+	
+	if( gusSelectedSoldier != NOBODY )
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
+	else
+		return;
+
+	if( pSoldier->inv[ ubSlot ].exists() )
+	{		
+		if (gGameOptions.fInventoryCostsAP)
+		{		
+			APTotalCost += GetInvMovementCost(&pSoldier->inv[ubSlot], ubSlot, HANDPOS);
+			APTotalCost += GetBasicAPsToPickupItem( pSoldier );
+			if( !EnoughPoints( pSoldier, APTotalCost, 0, TRUE ) )
+				return;
+			DeductPoints( pSoldier, APTotalCost, 0 );
+		}
+
+		SoldierDropItem( pSoldier, &pSoldier->inv[ ubSlot ] );
+		DeleteObj( &(pSoldier->inv[ ubSlot ]) );
+	}
+}
+
+void HandleTacticalTakeItem( void )
+{
+	SOLDIERTYPE *pSoldier;
+	
+	if( gusSelectedSoldier != NOBODY )
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
+	else
+		return;
+
+	if( gpItemPointer == NULL )
+	{
+		//not holding anything
+		if( pSoldier->inv[HANDPOS].exists() )
+		{
+			pSoldier->inv[HANDPOS].MoveThisObjectTo(gItemPointer);
+			gpItemPointer = &gItemPointer;
+		}
+	}
+
+	// update interface
+	fCharacterInfoPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+	pSoldier->HandleFlashLights();
+
+	// Set mouse
+	if( gpItemPointer->exists() )
+	{
+		guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
+		gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
+
+		MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
+		MSYS_SetCurrentCursor( EXTERN_CURSOR );
+
+		fMapInventoryItem=TRUE;
+		fTeamPanelDirty=TRUE;
+	}
 }
 
 

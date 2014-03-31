@@ -56,6 +56,9 @@ void DrawMouseTooltip(void);
 
 void SoldierTooltip( SOLDIERTYPE* pSoldier )
 {
+	if(!pSoldier)
+		return;
+
 	// WANNE: No tooltips on bloodcats, bugs, tanks, roboter
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) || TANK ( pSoldier ) ||
 		 AM_A_ROBOT( pSoldier))
@@ -141,10 +144,12 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if (gGameExternalOptions.fEnableDynamicSoldierTooltips && fMercIsUsingScope == 0 && !gGameExternalOptions.gfAllowUDTRange)
 		{
 				// add 10% to max tooltip viewing distance per level of the merc
-				uiMaxTooltipDistance *= 1 + (EffectiveExpLevel(MercPtrs[ gusSelectedSoldier ])/ 10); // SANDRO - changed to effective level calc
+				// sevenfm: fixed incorrect integer calculation
+				uiMaxTooltipDistance = (INT32)( uiMaxTooltipDistance * ( 1 + ( (FLOAT)( EffectiveExpLevel( MercPtrs[ gusSelectedSoldier ] ) ) / 10.0 ) ) ); // SANDRO - changed to effective level calc
 
-				if ( gGameExternalOptions.gfAllowLimitedVision )
-					uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
+				// sevenfm: this calculation doesn't make sense: disabled
+				//if ( gGameExternalOptions.gfAllowLimitedVision )
+				//	uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
 
 				if ( !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
 					!(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
@@ -337,12 +342,12 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ARMOR] );
 					if ( ubTooltipDetailLevel == DL_Basic )
 					{
-						if ( gGameExternalOptions.fEnableSoldierTooltipHelmet )
-							swprintf( pStrInfo, L"%s%s", pStrInfo, pSoldier->inv[HELMETPOS].usItem ? gzTooltipStrings[STR_TT_HELMET] : L"" );
-						if ( gGameExternalOptions.fEnableSoldierTooltipVest )
-							swprintf( pStrInfo, L"%s%s", pStrInfo, pSoldier->inv[VESTPOS].usItem ? gzTooltipStrings[STR_TT_VEST] : L"" );
-						if ( gGameExternalOptions.fEnableSoldierTooltipLeggings )
-							swprintf( pStrInfo, L"%s%s", pStrInfo, pSoldier->inv[LEGPOS].usItem ? gzTooltipStrings[STR_TT_LEGGINGS] : L"" );
+						if ( gGameExternalOptions.fEnableSoldierTooltipHelmet && pSoldier->inv[HELMETPOS].usItem  )
+							swprintf( pStrInfo, L"%s%s ", pStrInfo, gzTooltipStrings[STR_TT_HELMET] );
+						if ( gGameExternalOptions.fEnableSoldierTooltipVest && pSoldier->inv[VESTPOS].usItem )
+							swprintf( pStrInfo, L"%s%s ", pStrInfo, gzTooltipStrings[STR_TT_VEST] );
+						if ( gGameExternalOptions.fEnableSoldierTooltipLeggings && pSoldier->inv[LEGPOS].usItem )
+							swprintf( pStrInfo, L"%s%s", pStrInfo, gzTooltipStrings[STR_TT_LEGGINGS] );
 						wcscat( pStrInfo, L"\n" );
 					}
 					else // ubTooltipDetailLevel == DL_Limited

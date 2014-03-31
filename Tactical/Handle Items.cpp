@@ -6787,7 +6787,7 @@ BOOLEAN BuildFortification( INT32 sGridNo, UINT32 flag )
 
 		if ( !usUseObjIndex )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"The selected barricade cannot be built in this sector" );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[ STR_MTA_CANNOT_BUILD ] );
 			return FALSE;
 		}
 

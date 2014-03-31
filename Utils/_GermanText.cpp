@@ -3319,6 +3319,18 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Riskant",
     L"Gefährlich",
     L"Hohe Gefahr!",
+
+	L"Mask",	// TODO.Translate
+    L"NVG",
+    L"Item",
+        
+    L"This feature works only with New Inventory System",
+    L"No item in your main hand",
+    L"Nowhere to place item from main hand",
+    L"No defined item for this quick slot",
+    L"No free hand for new item",
+    L"Item not found",
+    L"Cannot take item to main hand",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -7845,6 +7857,7 @@ STR16	szMTATextStr[]=
 	L"entferne eine Befestigung",
 	L"Sandsäcke befüllen",
 	L"%s musste %s stoppen.",
+	L"The selected barricade cannot be built in this sector",	// TODO.Translate
 };
 
 STR16	szInventoryArmTextStr[]=
@@ -8276,7 +8289,7 @@ STR16   szTacticalInventoryDialogString[]=
 
         L"NVG",
         L"Reload All",
-        L"",
+        L"Move",		// TODO.Translate
         L"",
 
         L"Sort",

@@ -1382,6 +1382,17 @@ void LoadGameExternalOptions()
 	// sevenfm: new mouse commands
 	gGameExternalOptions.bAlternateMouseCommands			= iniReader.ReadBoolean("Tactical Interface Settings", "ALTERNATE_MOUSE_COMMANDS", FALSE);
 
+	gGameExternalOptions.iQuickItem1						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_1", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem2						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_2", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem3						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_3", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem4						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_4", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem5						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_5", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem6						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_6", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem7						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_7", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem8						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_8", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem9						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_9", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem0						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_0", 0, -100, MAXITEMS);
+
 	// New setting to change stamina
 	gGameExternalOptions.uStaminaHit						= iniReader.ReadInteger("Tactical Interface Settings", "STAMINA_HIT", 10000);
 	

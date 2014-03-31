@@ -3317,6 +3317,18 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Risky",
     L"Dangerous",
     L"High danger!",
+
+	L"Mask",
+    L"NVG",
+    L"Item",
+        
+    L"This feature works only with New Inventory System",
+    L"No item in your main hand",
+    L"Nowhere to place item from main hand",
+    L"No defined item for this quick slot",
+    L"No free hand for new item",
+    L"Item not found",
+    L"Cannot take item to main hand",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -8020,6 +8032,7 @@ STR16	szMTATextStr[]=
 	L"removing a fortification",
 	L"filling sandbags",
 	L"%s had to stop %s.",
+    L"The selected barricade cannot be built in this sector",
 };
 
 STR16	szInventoryArmTextStr[]=
@@ -8450,7 +8463,7 @@ STR16   szTacticalInventoryDialogString[]=
 
         L"NVG",
         L"Reload All",
-        L"",
+        L"Move",
         L"",
 
         L"Sort",

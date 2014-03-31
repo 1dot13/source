@@ -790,6 +790,17 @@ typedef struct
 	BOOLEAN fExtMouseKeyEnabled;
 	// sevenfm: new mouse commands
 	BOOLEAN bAlternateMouseCommands;
+	INT32 iQuickItem1;
+	INT32 iQuickItem2;
+	INT32 iQuickItem3;
+	INT32 iQuickItem4;
+	INT32 iQuickItem5;
+	INT32 iQuickItem6;
+	INT32 iQuickItem7;
+	INT32 iQuickItem8;
+	INT32 iQuickItem9;
+	INT32 iQuickItem0;
+
 	// for small progress bar
 	BOOLEAN fSmallSizeProgressbar;
 	// stamina multiplier (for all weapons eg knife fist gun

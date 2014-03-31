@@ -1043,6 +1043,9 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->iLastBulletImpact = 0;
 		this->iLastArmourProtection = 0;
 
+		this->usQuickItemId = 0;
+		this->ubQuickItemSlot = 0;
+
     }
     return *this;
 }
