@@ -10,6 +10,8 @@
     <szText5>However, it is unlikely a renewed uprising would</szText5>
     <szText6>have any chance of success, given the significant military buildup of the arulcan armed forces in recent years. Another possibility that cannot be dismissed is the emergence of rift between Deidranna and the notorius crime syndicate of San Mona, which is said to be well equipped.</szText6>
     <szText7>But given the obvious strength difference between these two factions, this seems just as unlikely.</szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>1</uiIndex><!-- Death of Kingpin -->
@@ -22,6 +24,7 @@
     <szText6>However, we can confirm that the mayor of San Mona, the widely respected businessman Peter Klaus, was wilfully targetted and killed along with most of his employees.</szText6>
     <szText7>Reports of widespread loss of lives and destruction of private property paint a gruesome picture of the insurgent' actions. There are even rumors of locals being taken as hostages, but this cannot be confirmed at this point.</szText7>
     <szText8>In his statement to the press, US deputy secretary of state Kenneth B. Hawkeburger again condemned the insurgent's actions. </szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>2</uiIndex><!-- Hicks massacre -->
@@ -33,6 +36,8 @@
     <szText5>looted. What the rebels hope to gain by this is not entirely clear. However, informed sources point out that until recently, the rebels themselves were said to be in desperate need of food.</szText5>
     <szText6>It is also known that there was some tension between the business elite of Cambria and the local famers, and the local establishment seems to have thrown their lot in with the uprising.</szText6>
     <szText7>In the increasingly divided battlefield of Arulco, this is yet another turn for the worse, as local factions use the pretext of an armed uprising to settle old scores.</szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>3</uiIndex><!-- bloodcat lair cleared -->
@@ -45,6 +50,7 @@
     <szText6>those towns, and clashes with rebels almost every day. The shy bloodcats make for a much easier, uncontested target. Wether or not the cat's population can ever recover from this is doubtful, according to internationally acclaimed bloodcat expert Dr. Ernest Poppin.</szText6>
     <szText7>"These cats live exclusively in Arulco, they cannot be found anywhere else in the world, an have never been bred in captivity. This is a tragedy. As a scientist, I am appalled by this senseless slaughter.</szText7>
     <szText8>I can only urge the authorities in the strongest words possible to quickly end this conflict, before another species is lost beyond retrieval."</szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>4</uiIndex><!-- army retakes a city -->
@@ -57,6 +63,7 @@
     <szText6>"Just as well", said our magnificent leader. "For death is the only acceptable punishment for the crimes these criminals committed. I will not rest until every one of those thugs has received the punishment he deserves."</szText6>
     <szText7>So speaks Queen Deidranna, an so speaks every upstanding citizen of Arulco. Let us all work together to end this war now and send the aggressors back to where they came from. All hail Arulco!</szText7>
     <szText8>All hail Deidranna!</szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>5</uiIndex><!-- Drassen liberated -->
@@ -68,6 +75,8 @@
     <szText5>contains of the 2 airports of Arulco, which would obviously make it prime target for anyone attempting to contest Queen Deidranna's tight grip on the country.</szText5>
     <szText6>Furthermore, a significant portion of its inhabitants work in the local silver mines, and it also houses one of the very few factories that export products, bringing in much-needed currency.</szText6>
     <szText7>This makes the inadequate response of the royal army even more unfathomable. Wether this shocking defeat was just a singular lapse in military judgement or a sign of systematic shortcomings in the arulcan military remains to be seen.</szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>6</uiIndex><!-- Alma liberated -->
@@ -78,6 +87,9 @@
     <szText4>A huge stockpile of army material fell into our hands, we will use it to strike back at the oppressors.</szText4>
     <szText5>Our revolutionary leader, Miguel Cordona, personally thanked the liberators on the battlefield.</szText5>
     <szText6>"This once again proves that we can best the foul queen if we just work together. Every son and daughter of Arulco should join us now, so we can finish this once and for all. Join us, and free our homeland!"</szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>7</uiIndex><!-- Grumm liberated -->
@@ -86,6 +98,11 @@
     <szText2>But today, the Arulco revolutionary movement announced it has taken over the entire city. Wether or not this will be for long is unclear - correspondents on the ground report the rebels' grip isn't as strong as they would like it to be.</szText2>
     <szText3>Given not only the economic, but also strategic location of Grumm, situated near one of the main roads to the capital Meduna, an heavy army response seems very likely.</szText3>
     <szText4>As the rebel force would be hard-pressed to overcome the numeric superiority of the royal army in urban combat, it is most likely any decisive battle for Grumm would take place in the eastern mining district.</szText4>
+    <szText5></szText5>
+    <szText6></szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>8</uiIndex><!-- Tixa liberated -->
@@ -94,6 +111,11 @@
     <szText2>Tixa has no strategic value, apart from the inmates themselves. Not content enough with pressuring the entire country into open warfare, the insurgents are keen to broaden their ranks with other known terrorists, murderers and rapists.</szText2>
     <szText3>This once again proves, without a doubt, the malicious intent of those that have united against Arulco. General Humphey, army chief of staff, has vowed a strict but measured retaliation against this unprovoked attack.</szText3>
     <szText4>"We will not rest until the perpetrators have been brought to justice. These men were sentenced to lengthy prison in due course of justice, and that's where we'll return them once we've recaptured them."</szText4>
+    <szText5></szText5>
+    <szText6></szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>9</uiIndex><!-- Cambria liberated -->
@@ -102,18 +124,50 @@
     <szText2>It should be noted, however, that the army still maintains a strong presence in Arulco's heartland, including a military base in the southern desert.</szText2>
     <szText3>For their part, the rebels seemed intent on holding the city. They wasted no time and have already begun the first steps to forming a local auxiliary militia.</szText3>
     <szText4>Keeping in mind that the army practically has to retake the city if it does not want to lose control of the entire northern part of the country, continued clashes are all but guaranteed.</szText4>
+    <szText5></szText5>
+    <szText6></szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>10</uiIndex><!-- San Mona liberated -->
     <szText0>not used ingame</szText0>
+    <szText1>not used ingame</szText1>
+    <szText2>not used ingame</szText2>
+    <szText3>not used ingame</szText3>
+    <szText4>not used ingame</szText4>
+    <szText5>not used ingame</szText5>
+    <szText6>not used ingame</szText6>
+    <szText7>not used ingame</szText7>
+    <szText8>not used ingame</szText8>
+    <szText9>not used ingame</szText9>
   </EVENT>
   <EVENT>
     <uiIndex>11</uiIndex><!-- Estoni liberated -->
     <szText0>not used ingame</szText0>
+    <szText1>not used ingame</szText1>
+    <szText2>not used ingame</szText2>
+    <szText3>not used ingame</szText3>
+    <szText4>not used ingame</szText4>
+    <szText5>not used ingame</szText5>
+    <szText6>not used ingame</szText6>
+    <szText7>not used ingame</szText7>
+    <szText8>not used ingame</szText8>
+    <szText9>not used ingame</szText9>
   </EVENT>
   <EVENT>
     <uiIndex>12</uiIndex><!-- Orta liberated -->
     <szText0>not used ingame</szText0>
+    <szText1>not used ingame</szText1>
+    <szText2>not used ingame</szText2>
+    <szText3>not used ingame</szText3>
+    <szText4>not used ingame</szText4>
+    <szText5>not used ingame</szText5>
+    <szText6>not used ingame</szText6>
+    <szText7>not used ingame</szText7>
+    <szText8>not used ingame</szText8>
+    <szText9>not used ingame</szText9>
   </EVENT>
   <EVENT>
     <uiIndex>13</uiIndex><!-- Balime liberated -->
@@ -124,6 +178,9 @@
     <szText4>Given the local's unwillingness to to join the rebellion, it is unclear for how long the rebels can hold the city, especially as the army seems eager to retake it sooner or later.</szText4>
     <szText5>It is feared that elements of the rebellion will use this opportunity to retaliate against those they perceive as oppressors here. Tensions are running high, and a high number of the population has fled the city to seek shelter in Meduna.</szText5>
     <szText6>Reports that the museum, which houses unique artifacts of Arulco's history, has already been looted are widespread but cannot be confirmed at this time.</szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>14</uiIndex><!-- Meduna liberated -->
@@ -135,6 +192,8 @@
     <szText5>In a highly agile combat, the rebels deployed many rpg-launchers and mortars. It seems they have been preparing for this moment during the entire campaign.</szText5>
     <szText6>The current whereabouts of queen Deidranna and her inner circle are unknown. The city can no longer be accessed due to ongoing clashes, and the airport has fallen after intense fighting. It is rumoured that Elliot, the public face of the regime, is among the casualties.</szText6>
     <szText7>This is the endgame of this civil war, and the rebels are on the verge of success.</szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
   <EVENT>
     <uiIndex>15</uiIndex><!-- Chitzena liberated -->
@@ -142,5 +201,11 @@
     <szText1>According to our analysts, this signifies that the rebels are no longer hoping to take the regime by surprise, but will instead try to remove the regime's troops from every single town.</szText1>
     <szText2>The strategic value of Chitzena is low - it has no industry worth mentioning, apart fom very limited mining operation. It is, however, home to ancient ruins and thus has a moral value to arulcans.</szText2>
     <szText3>How the rebels intend to hold such a remote settlement is unclear.</szText3>
+    <szText4></szText4>
+    <szText5></szText5>
+    <szText6></szText6>
+    <szText7></szText7>
+    <szText8></szText8>
+    <szText9></szText9>
   </EVENT>
 </CAMPAIGNSTATSEVENTS>
