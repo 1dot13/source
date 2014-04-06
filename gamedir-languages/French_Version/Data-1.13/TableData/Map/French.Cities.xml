@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <CITY_INFO>
+	<COUNTRY>
+		<countryName>Arulco</countryName>
+		<countryNoun>Arulcaine</countryNoun>
+	</COUNTRY>
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>
