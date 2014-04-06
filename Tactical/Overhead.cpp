@@ -8207,6 +8207,10 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 sFinalSuppressionEffectiveness += (10 + (ubGunVolume - 85));
         }
     }
+
+	// remember effectiveness at this point before modyfing it depending on target's team
+	INT16 sFinalShooterDependentEffectiveness = sFinalSuppressionEffectiveness;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Loop through every character.
@@ -8243,9 +8247,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
             // Flugente: added ini options for suppression effectiveness for player team and everybody else
             if ( pSoldier->bTeam == gbPlayerNum )
-                sFinalSuppressionEffectiveness = sFinalSuppressionEffectiveness * gGameExternalOptions.usSuppressionEffectivenessPlayer / 100;
+                sFinalSuppressionEffectiveness = sFinalShooterDependentEffectiveness * gGameExternalOptions.usSuppressionEffectivenessPlayer / 100;
             else 
-                sFinalSuppressionEffectiveness = sFinalSuppressionEffectiveness * gGameExternalOptions.usSuppressionEffectivenessAI / 100;
+                sFinalSuppressionEffectiveness = sFinalShooterDependentEffectiveness * gGameExternalOptions.usSuppressionEffectivenessAI / 100;
 
             // INI-Controlled intensity. SuppressionEffectiveness acts as a percentage applied to the number of lost APs. 
             // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)

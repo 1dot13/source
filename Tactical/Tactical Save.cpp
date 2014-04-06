@@ -847,18 +847,20 @@ BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sG
 		DeleteTempItemMapFile( sMapX, sMapY, bMapZ );
 	}
 
+	UINT16 uiLastFoundSpot = 0;
 	//loop through all the objects to add
 	for( uiLoop1=0; uiLoop1 < uiNumberOfItemsToAdd; uiLoop1++)
 	{
 		//Loop through the array to see if there is a free spot to add an item to it
-		for( cnt=0; cnt < uiNumberOfItems; cnt++)
+		for( cnt=uiLastFoundSpot; cnt < uiNumberOfItems; cnt++)
 		{
 			if( pWorldItems[ cnt ].fExists == FALSE )
 			{
+				// anv: remember first found free spot to not loop through entire inventory again for next added items
+				uiLastFoundSpot = cnt;
 				//We have found a free spot, break
 				break;
-			}
-		}
+			}		}
 
 		if( cnt == ( uiNumberOfItems ) )
 		{

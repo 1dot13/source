@@ -1642,18 +1642,31 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	}
 
 	UINT32 invsize = Menptr[ uiMercId ].inv.size();
-	for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
+	UINT32 uiFoundItems = 0;
+	Inventory invTemporaryBeforeDrop;
+
+	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
 	{
-		// slot found,
-		// check if actual item
-		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+		for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 		{
-			if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
+			// slot found,
+			// check if actual item
+			if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
 			{
-				// Set flag for item...
-				AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, 1, &( Menptr[ uiMercId ].inv[ iCounter ]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+				invTemporaryBeforeDrop[uiFoundItems] = Menptr[ uiMercId ].inv[ iCounter ];
+				uiFoundItems++;
 			}
-			else
+		}
+		// anv: add all items at once (less file operations = less lag)
+		AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+	}
+	else
+	{
+		for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
+		{
+			// slot found,
+			// check if actual item
+			if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
 			{
 				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
 			}

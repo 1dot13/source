@@ -7935,7 +7935,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	return( fRet );
 }
 
-BOOLEAN CreateItems( UINT16 usItem, INT8 bStatus, UINT8 ubNumber, OBJECTTYPE * pObj )
+BOOLEAN CreateItems( UINT16 usItem, INT16 bStatus, UINT8 ubNumber, OBJECTTYPE * pObj )
 {
 	BOOLEAN fOk;
 	fOk = CreateItem( usItem, bStatus, pObj );

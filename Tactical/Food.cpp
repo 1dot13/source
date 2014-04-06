@@ -716,7 +716,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 							ApplyFood( pSoldier, pObj, TRUE, FALSE );		// cannot reject to eat this, we chose to eat this ourself!
 
 						// if we're full, finish
-						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+						if ( ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold || Food[foodtype].bFoodPoints == 0 ) && ( pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold|| Food[foodtype].bDrinkPoints == 0 ) )
 							return;
 					}
 				}
