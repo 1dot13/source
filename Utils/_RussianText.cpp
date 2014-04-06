@@ -1736,7 +1736,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Сдаться?",
 	L"Человек отверг вашу помощь.",
 	L"Вам это надо?",
-  L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите \"Транспорт/Вертолёт\".",
+	L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите \"Транспорт/Вертолёт\".",
 	L"%s успевает зарядить только одно оружие.",
 	L"Ход кошек-убийц", //Bloodcats' turn
 	L"автоматический", //full auto
@@ -1767,9 +1767,19 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s has repaired %s's %s as much as possible.",
 };
 
+// the country and its noun in the game
+CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
+{
+#ifdef JA2UB
+	L"Тракону",
+	L"Траконец",
+#else
+	L"Арулько",
+	L"Арулькиец",
+#endif
+};
 
 // the names of the towns in the game
-
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
@@ -3933,11 +3943,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"нуждается в сопровождении чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
 	L"нуждается в сопровождении чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
-#ifdef JA2UB
-	L"Наёмник ещё не прибыл в Тракону!",
-#else
-	L"Наёмник ещё не прибыл в Арулько!",
-#endif
+	L"Наёмник ещё не прибыл в %s!",
 	L"Кажется, сначала надо уладить проблемы с контрактом.",
 	L"Бежать от самолета? Только после вас!",	// Cannot give a movement order. Air raid is going on.
 //11-15
@@ -4393,10 +4399,10 @@ STR16 pWebPagesTitles[] =
 	L"Похоронная служба Макгилликатти",
 	L"",
 	L"Адрес не найден.",
-	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
-	L"Arulco Press Council - Battle Reports",
-	L"Arulco Press Council - Latest News",
-	L"Arulco Press Council - About us",
+	L"%s Press Council - Conflict Summary",	// TODO.Translate
+	L"%s Press Council - Battle Reports",
+	L"%s Press Council - Latest News",
+	L"%s Press Council - About us",
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
@@ -7951,7 +7957,7 @@ STR16	szCovertTextStr[]=
 	L"%s's %s is suspicious!",
 	L"%s's %s is considered military hardware!",
 	L"%s carries too many guns!",
-	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s's %s is too advanced for an %s soldier!",
 	L"%s's %s has too many attachments!",
 	L"%s was seen performing suspicious activities!",
 	L"%s does not look like a civilian!",
@@ -8321,15 +8327,15 @@ STR16	szSoldierClassName[]=	// TODO.Translate
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco Press Council",
-	L"Ministry for Arulcan Information Distribution",
-	L"Arulco Revolutionary Movement",
+	L"%s Press Council",
+	L"Ministry for %s Information Distribution",
+	L"%s Revolutionary Movement",
 	L"The Times International",
 	L"International Times",
 	L"R.I.S. (Recon Intelligence Service)",
 
-	L"A collection of press sources from Arulco",
-	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"A collection of press sources from %s",
+	L"We are a neutral source of information. We collect different news articles from %s. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
 	
 	L"Conflict Summary",
 	L"Battle reports",
@@ -8368,7 +8374,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
 	L"Both sides are said to have used snipers.",
 	L"Unverified reports indicate %s snipers were involved in the firefight."
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
 	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
@@ -8421,7 +8427,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
 
 	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	L"In an intense firefight, the superior training of the armed forces tipped the scales. The rebels had to retreat.",
 	
 	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
 };

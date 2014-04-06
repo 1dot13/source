@@ -862,7 +862,10 @@ typedef enum
 	CITYTABLE_ELEMENT_ICONFILE,
 	CITYTABLE_ELEMENT_ICON_POSITION,
 	CITYTABLE_ELEMENT_ICON_POSITION_X,
-	CITYTABLE_ELEMENT_ICON_POSITION_Y
+	CITYTABLE_ELEMENT_ICON_POSITION_Y,
+	CITYTABLE_ELEMENT_COUNTRYINFO,
+	CITYTABLE_ELEMENT_COUNTRYNAME,
+	CITYTABLE_ELEMENT_COUNTRYNOUN
 	
 } CITYTABLE_PARSE_STAGE;
 
@@ -888,6 +891,8 @@ typedef struct
 	CITYTABLE_PARSE_STAGE	curElement;
 
 	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					countryName[MAX_TOWN_NAME_LENGHT];
+	CHAR8					countryNoun[MAX_TOWN_NAME_LENGHT];
 	cityInfo				curCityInfo;
 	
 	//cityInfo *				curArray;	// ROMAN: added
@@ -909,7 +914,6 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 
 	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
 	{
-
 		if(strcmp(name, "CITY_INFO") == 0 && pData->curElement == CITYTABLE_ELEMENT_NONE)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYINFO;
@@ -1063,6 +1067,21 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 		else if(strcmp(name, "y") == 0 && pData->curElement == CITYTABLE_ELEMENT_TOWNPOINT)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_TOWNPOINT_Y;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "COUNTRY") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITYINFO)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_COUNTRYINFO;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "countryName") == 0 && pData->curElement == CITYTABLE_ELEMENT_COUNTRYINFO)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_COUNTRYNAME;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "countryNoun") == 0 && pData->curElement == CITYTABLE_ELEMENT_COUNTRYINFO)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_COUNTRYNOUN;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 
@@ -1298,6 +1317,36 @@ char temp;
 			pData->curElement = CITYTABLE_ELEMENT_TOWNPOINT;
 
 			pData->curCityInfo.townPoint.y = atol(pData->szCharData);
+		}
+		else if(strcmp(name, "COUNTRY") == 0 && pData->curElement == CITYTABLE_ELEMENT_COUNTRYINFO)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_CITYINFO;
+
+			if ( !localizedMapTextOnly )
+			{
+				MultiByteToWideChar( CP_UTF8, 0, pData->countryName, -1, pCountryNames[COUNTRY_NAME], MAX_TOWN_NAME_LENGHT);
+				MultiByteToWideChar( CP_UTF8, 0, pData->countryNoun, -1, pCountryNames[COUNTRY_NOUN], MAX_TOWN_NAME_LENGHT);
+				
+			}
+			else if ( localizedMapTextOnly )
+			{
+				MultiByteToWideChar( CP_UTF8, 0, pData->countryName, -1, pCountryNames[COUNTRY_NAME], MAX_TOWN_NAME_LENGHT);
+				MultiByteToWideChar( CP_UTF8, 0, pData->countryNoun, -1, pCountryNames[COUNTRY_NOUN], MAX_TOWN_NAME_LENGHT);
+			}
+		}
+		else if(strcmp(name, "countryName") == 0 && pData->curElement == CITYTABLE_ELEMENT_COUNTRYNAME)
+		{
+			strncpy(pData->countryName, pData->szCharData, MAX_TOWN_NAME_LENGHT - 1);
+			pData->countryName[MAX_TOWN_NAME_LENGHT - 1] = 0;
+
+			pData->curElement = CITYTABLE_ELEMENT_COUNTRYINFO;
+		}
+		else if(strcmp(name, "countryNoun") == 0 && pData->curElement == CITYTABLE_ELEMENT_COUNTRYNOUN)
+		{
+			strncpy(pData->countryNoun, pData->szCharData, MAX_TOWN_NAME_LENGHT - 1);
+			pData->countryNoun[MAX_TOWN_NAME_LENGHT - 1] = 0;
+
+			pData->curElement = CITYTABLE_ELEMENT_COUNTRYINFO;
 		}
 
 		pData->maxReadDepth--;

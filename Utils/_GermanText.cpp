@@ -1781,6 +1781,19 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s has repaired %s's %s as much as possible.",
 };
 
+// the country and its noun in the game
+CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
+{
+#ifdef JA2UB
+	L"Tracona",
+	L"Traconian",
+#else
+	L"Arulco",
+	L"Arulcan",
+#endif
+};
+
+// the names of the towns in the game
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
@@ -3897,11 +3910,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"braucht eine Eskorte. Platzieren Sie ihn in einem Trupp mit Eskorte.", // merc can't move unescorted .. for a male
 	L"braucht eine Eskorte. Platzieren Sie sie in einem Trupp mit Eskorte.", // for a female
-#ifdef JA2UB
-	L"Söldner ist noch nicht in Tracona!",
-#else
-	L"Söldner ist noch nicht in Arulco!",
-#endif
+	L"Söldner ist noch nicht in %s!",
 	L"Erst mal Vertrag aushandeln!",
 	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",
 //11-15
@@ -4334,10 +4343,10 @@ STR16 pWebPagesTitles[] =
 	L"McGillicuttys Bestattungen",
 	L"",
 	L"URL nicht gefunden.",
-	L"Arulco Presse Rat - Konflikt-Zusammenfassungen",
-	L"Arulco Presse Rat - Kampfberichte",
-	L"Arulco Presse Rat - Aktuellste Neuigkeiten",
-	L"Arulco Presse Rat - Über uns",
+	L"%s Presse Rat - Konflikt-Zusammenfassungen",
+	L"%s Presse Rat - Kampfberichte",
+	L"%s Presse Rat - Aktuellste Neuigkeiten",
+	L"%s Presse Rat - Über uns",
 	L"Bobby Rays - Letzte Lieferungen",
 	L"Enzyklopädie",
 	L"Enzyklopädie - Daten",
@@ -7773,7 +7782,7 @@ STR16	szCovertTextStr[]=
 	L"%s's %s ist verdächtig!",
 	L"%s's %s ist eine militärische Ausrüstung!",
 	L"%s trägt zu viele Waffen!",
-	L"%s's %s ist zu fortgeschritten für einen Soldaten dieser Armee!",
+	L"%s's %s ist zu fortgeschritten für einen %s Soldat!",
 	L"%s's %s hat zu viele Anbauten!",
 	L"%s wurde gesichtet bei verdächtigen Handlungen!",
 	L"%s schaut nicht wie ein Zivilist aus!",
@@ -8142,15 +8151,15 @@ STR16	szSoldierClassName[]=	// TODO.Translate
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco Press Council",
-	L"Ministry for Arulcan Information Distribution",
-	L"Arulco Revolutionary Movement",
+	L"%s Press Council",
+	L"Ministry for %s Information Distribution",
+	L"%s Revolutionary Movement",
 	L"The Times International",
 	L"International Times",
 	L"R.I.S. (Recon Intelligence Service)",
 
-	L"A collection of press sources from Arulco",
-	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"A collection of press sources from %s",
+	L"We are a neutral source of information. We collect different news articles from %s. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
 	
 	L"Conflict Summary",
 	L"Battle reports",
@@ -8189,7 +8198,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
 	L"Both sides are said to have used snipers.",
 	L"Unverified reports indicate %s snipers were involved in the firefight."
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
 	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
@@ -8242,7 +8251,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
 
 	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	L"In an intense firefight, the superior training of the armed forces tipped the scales. The rebels had to retreat.",
 	
 	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
 };

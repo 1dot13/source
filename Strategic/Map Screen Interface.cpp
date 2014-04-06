@@ -6348,14 +6348,20 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 
 void ReportMapScreenMovementError( INT8 bErrorNumber )
 {
-	if ( bErrorNumber == -99 )
+	CHAR16 sString[ 1024 ];
+	
+	switch( bErrorNumber )
 	{
-		// - 99 is a special message # indicating a customized message
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gsCustomErrorString, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
-	}
-	else
-	{
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ bErrorNumber ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		case -99:
+			// - 99 is a special message # indicating a customized message
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, gsCustomErrorString, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			break;
+		case 8:
+			swprintf( sString, pMapErrorString[ 8 ], pCountryNames[COUNTRY_NAME] );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			break;
+		default:
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ bErrorNumber ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 }
 

@@ -1763,9 +1763,19 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s has repaired %s's %s as much as possible.",
 };
 
+// the country and its noun in the game
+CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
+{
+#ifdef JA2UB
+	L"Tracona",
+	L"Traconian",
+#else
+	L"Arulco",
+	L"Arulcan",
+#endif
+};
 
 // the names of the towns in the game
-
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
@@ -3933,11 +3943,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"heeft een escorte nodig. Plaats hem in een team.", // merc can't move unescorted .. for a male
 	L"heeft een escorte nodig. Plaats haar in een team.", // for a female
-#ifdef JA2UB
-	L"Huurling is nog niet in Tracona aangekomen!",
-#else
-	L"Huurling is nog niet in Arulco aangekomen!",
-#endif
+	L"Huurling is nog niet in %s aangekomen!",
 	L"Het lijkt erop dat er eerst nog contractbesprekingen gehouden moeten worden.",
 	L"Cannot give a movement order. Air raid is going on.",
 //11-15
@@ -4395,10 +4401,10 @@ STR16 pWebPagesTitles[] =
 	L"McGillicutty's Mortuarium",
 	L"",
 	L"URL niet gevonden.",
-	L"Arulco Press Council - Conflict Summary",	// TODO.Translate
-	L"Arulco Press Council - Battle Reports",
-	L"Arulco Press Council - Latest News",
-	L"Arulco Press Council - About us",
+	L"%s Press Council - Conflict Summary",	// TODO.Translate
+	L"%s Press Council - Battle Reports",
+	L"%s Press Council - Latest News",
+	L"%s Press Council - About us",
 	L"Bobby Ray's - Recentelijke Zendingen",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -7931,7 +7937,7 @@ STR16	zNewTacticalMessages[]=
 	L"Since your laptop has no transmitter, you won't be able to hire new team members.  Perhaps this would be a good time to load a saved game or start over!",
 	L"%s hears the sound of crumpling metal coming from underneath Jerry's body.  It sounds disturbingly like your laptop antenna being crushed.",  //the %s is the name of a merc.  @@@  Modified
 	L"After scanning the note left behind by Deputy Commander Morris, %s senses an oppurtinity.  The note contains the coordinates for launching missiles against different towns in Arulco.  It also gives the coodinates of the origin - the missile facility.",
-	L"Noticing the control panel, %s figures the numbers can be reveresed, so that the missile might destroy this very facility.  %s needs to find an escape route.  The elevator appears to offer the fastest solution...",
+	L"Noticing the control panel, %s figures the numbers can be reversed, so that the missile might destroy this very facility.  %s needs to find an escape route.  The elevator appears to offer the fastest solution...",
 	L"This is an IRON MAN game and you cannot save when enemies are around.",	//	@@@  new text
 	L"(Cannot save during combat)", //@@@@ new text
 	L"The current campaign name is greater than 30 characters.",							// @@@ new text
@@ -7962,7 +7968,7 @@ STR16	szCovertTextStr[]=
 	L"%s's %s is suspicious!",
 	L"%s's %s is considered military hardware!",
 	L"%s carries too many guns!",
-	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s's %s is too advanced for an %s soldier!",
 	L"%s's %s has too many attachments!",
 	L"%s was seen performing suspicious activities!",
 	L"%s does not look like a civilian!",
@@ -8332,15 +8338,15 @@ STR16	szSoldierClassName[]=	// TODO.Translate
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco Press Council",
-	L"Ministry for Arulcan Information Distribution",
-	L"Arulco Revolutionary Movement",
+	L"%s Press Council",
+	L"Ministry for %s Information Distribution",
+	L"%s Revolutionary Movement",
 	L"The Times International",
 	L"International Times",
 	L"R.I.S. (Recon Intelligence Service)",
 
-	L"A collection of press sources from Arulco",
-	L"We are a neutral source of information. We collect different news articles from Arulco. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"A collection of press sources from %s",
+	L"We are a neutral source of information. We collect different news articles from %s. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
 	
 	L"Conflict Summary",
 	L"Battle reports",
@@ -8379,7 +8385,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
 	L"Both sides are said to have used snipers.",
 	L"Unverified reports indicate %s snipers were involved in the firefight."
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
 	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
@@ -8432,7 +8438,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
 
 	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the arulcan armed forces tipped the scales. The rebels had to retreat.",
+	L"In an intense firefight, the superior training of the armed forces tipped the scales. The rebels had to retreat.",
 	
 	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
 };

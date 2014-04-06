@@ -125,7 +125,7 @@ void RenderCampaignHistory()
 	usPosX = LAPTOP_SCREEN_UL_X;
 	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 80;
 
-	swprintf(sText, szCampaignHistoryWebSite[TEXT_CAMPAIGNHISTORY_DESCRIPTION_1] );
+	swprintf(sText, szCampaignHistoryWebSite[TEXT_CAMPAIGNHISTORY_DESCRIPTION_1], pCountryNames[COUNTRY_NAME]);
 	usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, CAMPHIS_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0);
 
 	for(int i = TEXT_CAMPAIGNHISTORY_NAME_MINISTRY; i < TEXT_CAMPAIGNHISTORY_NAME_PRESSORGANISATION_SUBTITLE; ++i)
@@ -133,7 +133,19 @@ void RenderCampaignHistory()
 		// display bullet
 		BltVideoObject(FRAME_BUFFER, hPixHandle, 0, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
 
-		swprintf(sText, szCampaignHistoryWebSite[i] );
+		switch( i )
+		{
+			case TEXT_CAMPAIGNHISTORY_NAME_REBEL:
+			case TEXT_CAMPAIGNHISTORY_NAME_PRESSORGANISATION_SUBTITLE:
+				swprintf(sText, szCampaignHistoryWebSite[i], pCountryNames[COUNTRY_NAME] );
+				break;
+			case TEXT_CAMPAIGNHISTORY_NAME_MINISTRY:
+				swprintf(sText, szCampaignHistoryWebSite[i], pCountryNames[COUNTRY_NOUN] );
+				break;
+			default:
+				swprintf(sText, szCampaignHistoryWebSite[i] );
+		}
+		
 		DrawTextToScreen( sText, usPosX + 25, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_MED, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
 		usPosY += 15;
@@ -236,11 +248,21 @@ void RemoveCampaignHistoryDefaults()
 void GetCampaignHistoryText( UINT8 ubNumber, STR16 pString )
 {
 	UINT32	uiStartLoc=0;
+	CHAR16		sText[800];
 
 	if ( ubNumber >= TEXT_CAMPAIGNHISTORY_MAX )
 		wcscpy(	pString, L"bla" );
 		
-	wcscpy(	pString, szCampaignHistoryWebSite[ubNumber] );
+	switch( ubNumber )
+	{
+		case TEXT_CAMPAIGNHISTORY_NAME_PRESSORGANISATION:
+		case TEXT_CAMPAIGNHISTORY_NAME_PRESSORGANISATION_SUBTITLE:
+			swprintf( sText, szCampaignHistoryWebSite[ ubNumber ], pCountryNames[COUNTRY_NAME] );
+			wcscpy(	pString, sText );
+			break;
+		default:
+			wcscpy(	pString, szCampaignHistoryWebSite[ubNumber] );
+	}
 }
 
 

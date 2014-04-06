@@ -15233,7 +15233,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 							// loop over every item and its attachments
 							if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName, pCountryNames[COUNTRY_NOUN] );
 								return TRUE;
 							}
 
@@ -15247,7 +15247,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									// loop over every item and its attachments
 									if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName, pCountryNames[COUNTRY_NOUN] );
 										return TRUE;
 									}
 					
@@ -15296,7 +15296,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 								// loop over every item and its attachments
 								if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName, pCountryNames[COUNTRY_NOUN] );
 									return TRUE;
 								}
 
@@ -15310,7 +15310,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 										// loop over every item and its attachments
 										if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 										{
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName );
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName, pCountryNames[COUNTRY_NOUN] );
 											return TRUE;
 										}
 					

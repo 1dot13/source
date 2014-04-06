@@ -6264,7 +6264,7 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 	HVOBJECT hHandle;
 	VOBJECT_DESC VObjectDesc;
 	INT32 iIndex = 0;
-	CHAR16 sString[256];
+	CHAR16 sString[256], sTemp[256];
 
 	// title bar - load
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -6298,7 +6298,13 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 	{
 		iIndex = guiCurrentLaptopMode - LAPTOP_MODE_WWW-1;
 
-		swprintf( sString, L"%s - %s", pWebTitle[0], pWebPagesTitles[ iIndex ] );
+		if( iIndex >= 33 && iIndex <= 36 )
+		{
+			swprintf( sTemp, pWebPagesTitles[ iIndex ], pCountryNames[COUNTRY_NAME] );
+			swprintf( sString, L"%s - %s", pWebTitle[0], sTemp );
+		}
+		else 
+			swprintf( sString, L"%s - %s", pWebTitle[0], pWebPagesTitles[ iIndex ] );
 		mprintf(iScreenWidthOffset + 140 ,iScreenHeightOffset + 33 ,sString);
 	}
 

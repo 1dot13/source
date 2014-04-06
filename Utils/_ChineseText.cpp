@@ -1735,7 +1735,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"投降？",
 	L"此人拒绝你的包扎。",
 	L"这不可能！",
-  L"要搭乘Skyrider的直升飞机, 你得先把佣兵分配到交通工具/直升飞机。",
+	L"要搭乘Skyrider的直升飞机, 你得先把佣兵分配到交通工具/直升飞机。",
 	L"%s的时间只够给一支枪装填弹药",
 	L"血猫的回合",
 	L"全自动",
@@ -1766,9 +1766,19 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s has repaired %s's %s as much as possible.",
 };
 
+// the country and its noun in the game
+CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
+{
+#ifdef JA2UB
+	L"Tracona",
+	L"Traconian",
+#else
+	L"Arulco",
+	L"Arulcan",
+#endif
+};
 
 // the names of the towns in the game
-
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
@@ -3934,11 +3944,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"需要有人护送才能行军。请把他分进一个小队里。", // merc can't move unescorted .. for a male
 	L"需要有人护送才能行军。请把她分进一个小队里。", // for a female
-#ifdef JA2UB
-	L"佣兵尚未到达Tracona!",
-#else
-	L"佣兵尚未到达Arulco!",
-#endif
+	L"佣兵尚未到达%s!",
 	L"看来得先谈妥合同。",
 	L"无法发出行军命令。目前有空袭。",
 //11-15
@@ -4394,10 +4400,10 @@ STR16 pWebPagesTitles[] =
 	L"McGillicutty 公墓",
 	L"",
 	L"无法找到URL",
-	L"Arulco新闻发布会 - 战役总结",
-	L"Arulco新闻发布会 - 战役报告",
-	L"Arulco新闻发布会 - 最新消息",
-	L"Arulco新闻发布会 - 关于我们",
+	L"%s新闻发布会 - 战役总结",
+	L"%s新闻发布会 - 战役报告",
+	L"%s新闻发布会 - 最新消息",
+	L"%s新闻发布会 - 关于我们",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -7951,7 +7957,7 @@ STR16	szCovertTextStr[]=
 	L"%s's %s 可疑!", // L"%s's %s is suspicious!",
 	L"%s's %s 属于军用装备!", // 	L"%s's %s is considered military hardware!",
 	L"%s 携带了太多的枪支！", //L"%s carries too many guns!",
-	L"%s's %s 对于普通士兵来说太先进了!", //	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s's %s 对于%s士兵来说太先进了!", //	L"%s's %s is too advanced for an arulcan soldier!",
 	L"%s's %s 有太多附件!", //	L"%s's %s has too many attachments!",
 	L"%s 被发现有可疑举动！", //L"%s was seen performing suspicious activities!",
 	L"%s 被发现不像个平民！", //L"%s does not look like a civilian!",
@@ -8318,15 +8324,15 @@ STR16	szSoldierClassName[]=
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Arulco新闻议会",
-	L"Arulco情报配送部门",
-	L"Arulco革命运动",
+	L"%s新闻议会",
+	L"%s情报配送部门",
+	L"%s革命运动",
 	L"时代国际版",
 	L"国际时代",
 	L"R.I.S. (情报侦察服务)",
 
-	L"Arulco媒体资源集",
-	L"我们是中立情报部门。我们从Arulco搜集各种新闻报道。我们不会对这些资料进行评估——我们仅仅将它们发表出来供你自己评估。我们从各类资源中发布文章",
+	L"%s媒体资源集",
+	L"我们是中立情报部门。我们从%s搜集各种新闻报道。我们不会对这些资料进行评估——我们仅仅将它们发表出来供你自己评估。我们从各类资源中发布文章",
 	
 	L"战斗总结",
 	L"战役报告",
@@ -8365,7 +8371,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"%s部署了%d辆坦克，%d辆坦克在激烈的交火中被摧毁。",
 	L"据称双方都部署了狙击手。",
 	L"未经证实的消息称有%s名狙击手参与了交火。"
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the arulcan army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above Arulco undefended for the time being.",
+	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
 	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
 };
@@ -8418,7 +8424,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"虽然反抗军在人数上占有优势，但是女王部队装备精良。反抗军显然落败了。",
 
 	L"在激烈的战斗中双方都遭到了巨大损失，不过最终，女王部队以人数上的优势决定了战役的胜利。反抗军被击溃。至于有没有幸存者，我们目前还无法核实。",
-	L"在激烈的交火中，Arulco部队的优秀训练起到了关键性作用。反抗军被迫撤退。",
+	L"在激烈的交火中，女王部队的优秀训练起到了关键性作用。反抗军被迫撤退。",
 	
 	L"双方都不愿轻易认输。虽然女王部队最终扫除了当地的反抗军威胁，但是巨大的损失使得女王军队本身名存实亡。不过很显然，如果女王军队能够耗得起的话，反抗军很快就会消失得一干二净了。",
 };

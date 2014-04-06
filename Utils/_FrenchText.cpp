@@ -1770,9 +1770,19 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s a aidé %s pour réparer au mieux : %s.",
 };
 
+// the country and its noun in the game
+CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
+{
+#ifdef JA2UB
+	L"Tracona",
+	L"Traconian",
+#else
+	L"Arulco",
+	L"Arulcaine",
+#endif
+};
 
 // the names of the towns in the game
-
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
@@ -3940,7 +3950,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"doit être escorté. Mettez-le dans une escouade.", // merc can't move unescorted .. for a male
 	L"doit être escortée. Mettez-la dans une escouade.", // for a female
-	L"Ce mercenaire n'est pas encore arrivé !",
+	L"Ce mercenaire n'est pas encore arrivé dans %s !",
 	L"Il faudrait d'abord revoir les termes du contrat...",
 	L"",
 //11-15
@@ -4400,10 +4410,10 @@ STR16 pWebPagesTitles[] =
 	L"Morgue McGillicutty",
 	L"",
 	L"URL introuvable.",
-	L"Conseil de presse : Bilan du conflit",
-	L"Conseil de presse : Rapports",
-	L"Conseil de presse : Dernières Nouvelles",
-	L"Conseil de presse : À propos de nous",
+	L"%s conseil de presse : Bilan du conflit",
+	L"%s conseil de presse : Rapports",
+	L"%s conseil de presse : Dernières Nouvelles",
+	L"%s conseil de presse : À propos de nous",
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopédie",
 	L"Encyclopédie : Données",
@@ -7945,7 +7955,7 @@ STR16	szCovertTextStr[]=
 	L"%s a un(e) %s suspect(e) !",
 	L"%s a un(e) %s considéré(e) comme du matériel militaire !",
 	L"%s transporte trop d'armes !",
-	L"%s a un(e) %s trop avancé(e) pour un soldat d'Arulco !",
+	L"%s a un(e) %s trop avancé(e) pour un soldat %s !",
 	L"%s a un(e) %s avec trop d'accessoires !",
 	L"%s a été repéré(e) en train de commettre des activités douteuses !",
 	L"%s ne ressemble pas à un civil !",
@@ -8314,15 +8324,15 @@ STR16	szSoldierClassName[]=
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"Conseil de presse d'Arulco",
-	L"Ministère de l'information d'Arulco",
-	L"Mouvement révolutionnaire d'Arulco",
+	L"Conseil de presse d'%s",
+	L"Ministère de l'information d'%s",
+	L"Mouvement révolutionnaire d'%s",
 	L"The Times International",
 	L"International Times",
 	L"RIS (Renseignements Internationaux Spécialisés)",
 
-	L"Recueille les articles de presse d'Arulco",
-	L"Nous sommes une source d'information neutre. Nous collectons différents articles d'actualité venant d'Arulco. Nous ne jugeons pas ces sources, nous nous contentons de les publier, pour que vous puissiez vous faire votre avis. Nous faisons paraitre des articles de différentes sources, venant :",
+	L"Recueille les articles de presse d'%s",
+	L"Nous sommes une source d'information neutre. Nous collectons différents articles d'actualité venant d'%s. Nous ne jugeons pas ces sources, nous nous contentons de les publier, pour que vous puissiez vous faire votre avis. Nous faisons paraitre des articles de différentes sources, venant :",
 	
 	L"Bilan du conflit",
 	L"Rapports",
@@ -8361,7 +8371,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"Il y avait %d chars pour renforcer %s. %d d'entre eux ont été détruits dans des combats acharnés.",
 	L"Les deux camps avaient des tireurs d'élite.",
 	L"Des sources non vérifiées indiquent que %s tireurs d'élite ont été impliqués dans le combat."
-	L"Ce secteur a une très grande importance stratégique, car il abrite l'une des rares batteries de missiles sol-air que l'armée arulcaine possède. Des photographies aériennes montrent les dégâts du centre de commande. Ça laissera l'espace aérien d'Arulco sans défense pour le moment.",
+	L"Ce secteur a une très grande importance stratégique, car il abrite l'une des rares batteries de missiles sol-air que l'armée %s possède. Des photographies aériennes montrent les dégâts du centre de commande. Ça laissera l'espace aérien d'%s sans défense pour le moment.",
 	L"La situation sur le terrain est devenue encore plus confuse, car il semble que le combat des rebelles a pris un nouveau virage. On a maintenant la confirmation qu'une milice rebelle s'est engagée activement avec les mercenaires étrangers.",
 	L"La position des royalistes semble plus précaire qu'on ne le pensait. Des rapports d'une scission au sein de l'armée ont fait surface, impliquant des échanges de feu au sein même du personnel militaire.",
 };
@@ -8414,7 +8424,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"Même si les rebelles étaient plus nombreux sur le terrain, l'armée était mieux équipée. Les rebelles ont évidemment perdu.",
 
 	L"La violence des combats a fait des pertes considérables dans les deux camps, mais à la fin, la supériorité numérique l'armée a fait pencher la balance en sa faveur. La force rebelle a été anéantie. Il pourrait y avoir des survivants, mais nous ne pouvons pas confirmer cette source pour le moment.",
-	L"Lors d'une fusillade intense, l'entraînement supérieur de l'armée arulcaine a fait pencher la balance en sa faveur. Les rebelles ont dû battre en retraite.",
+	L"Lors d'une fusillade intense, l'entraînement supérieur de l'armée a fait pencher la balance en sa faveur. Les rebelles ont dû battre en retraite.",
 	
 	L"Aucun des deux camps n'était prêt à se soumettre. Alors que l'armée a finalement écarté la menace rebelle de la zone, leurs pertes conséquentes ont conduit l'unité à continuer d'exister uniquement de nom. Mais il est clair que les rebelles vont rapidement être à court d'hommes et de femmes si l'armée continue ce taux d'attrition.",
 };

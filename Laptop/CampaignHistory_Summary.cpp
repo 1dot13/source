@@ -700,7 +700,7 @@ void RenderCampaignHistory_MostImportant()
 
 			if ( incident.usIncidentFlags & INCIDENT_SAMSITE_SABOTAGED )
 			{
-				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SAMSITESABOTAGED] );
+				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SAMSITESABOTAGED], pCountryNames[COUNTRY_NOUN], pCountryNames[COUNTRY_NAME] );
 				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 			}
