@@ -8310,11 +8310,10 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Reset font color
 			SetFontForeground( 6 );
 		}
-		else
+		else if( fComparisonMode )
 		{
 			if( !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
-			{
-				INT16 iComparedSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+			{				INT16 iComparedSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
 				SetFontForeground( ITEMDESC_FONTPOSITIVE );
 				swprintf( pStr, L"%d", iComparedSingleAPCost );
 			}
