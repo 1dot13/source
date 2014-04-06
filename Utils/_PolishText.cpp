@@ -6624,6 +6624,7 @@ STR16 New113Message[] =
 	L"operacja na %s zakończona.",
 	L"%s otrzymuje trafienie w korpus i traci punkt maksymalnego zdrowia!",
 	L"%s otrzymuje trafienie w korpus i traci %d punktów maksymalnego zdrowia!",
+	L"%s is blinded by the blast!",	// TODO.Translate
 	L"%s odzyskał(a) utracony punkt %s",
 	L"%s odzyskał(a) %d utraconych punktów %s",
 	L"Twoja umiejętność zwiadowcy uchroniła cię przed zasadzką!",

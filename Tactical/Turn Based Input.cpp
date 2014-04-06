@@ -2174,8 +2174,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if ( gusSelectedSoldier != NOBODY )
 							{
 								// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
-								if (
-									( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+								if ( ( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 								{
 									//Select next squad
 									iCurrentSquad = CurrentSquad( );
@@ -2193,7 +2192,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( pNewSoldier->bAssignment + 1 ) );
 
 										// Center to guy....
-										LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+										//LocateSoldier( gusSelectedSoldier, SETLOCATOR );
 									}
 								}
 							}
@@ -2557,8 +2556,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem4 );
 					}
 				}
-				else if( fCtrl ) //remapped squad 14 to here
-					ChangeCurrentSquad( 13 );
 				else
 					ChangeCurrentSquad( 3 );
 
@@ -2594,7 +2591,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-				ChangeCurrentSquad( 5 );
+					ChangeCurrentSquad( 5 );
 				}
 				break;
 
@@ -2643,15 +2640,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '!':
-				ChangeCurrentSquad( 10 );
 				break;
 
 			case '@':
-				ChangeCurrentSquad( 11 );
 				break;
 
 			case '#':
-				ChangeCurrentSquad( 12 );
 				break;
 
 			case '$':
@@ -2666,19 +2660,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						TraitsMenu(usMapPos);
 					}
 				}
-				//ChangeCurrentSquad( 13 );
 				break;
 
 			case '%':
-				ChangeCurrentSquad( 14 );
 				break;
 
 			case '^':
-				ChangeCurrentSquad( 15 );
 				break;
 
 			case '&':
-				ChangeCurrentSquad( 16 );
 				break;
 
 			case '*':
@@ -2693,16 +2683,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						gTacticalStatus.uiFlags |= RED_ITEM_GLOW_ON;
 					}
 				}
-				else
-					ChangeCurrentSquad( 17 );
 				break;
 
 			case '(':
-				ChangeCurrentSquad( 18 );
 				break;
 
 			case ')':
-				ChangeCurrentSquad( 19 );
 				break;
 
 			case 'x':
@@ -2755,14 +2741,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else if ( fCtrl )	// The_Bob - real time sneaking, 01-06-09
 				{	
 					HandleTBEnterTurnbased();					
-							}
+				}
 				break;
 						// The_Bob - real time sneaking, 01-06-09
 			case 'X':	// shift-ctrl-x: toggle real time sneaking
 				if ( fCtrl )
 				{
 					HandleTBToggleSneak();
-						}
+				}
 				break;
 
 			case '/':
@@ -5711,11 +5697,46 @@ void ChangeCurrentSquad( INT32 iSquad )
 	if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
 		( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 	{
-		if ( IsSquadOnCurrentTacticalMap( iSquad ) )
+		INT32 cnt, cnt2, iCurrentSquad;
+		INT32 cnt3 = -1;
+
+		// Buggler: dynamic tactical squad hotkey assignments only take into account squads present in sector
+		//find the actual squad ID present in tactical map
+		for( cnt = 0 ; cnt < NUMBER_OF_SQUADS; cnt++ )
+		{
+			for( cnt2 = 0; cnt2 < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt2++ )
+			{
+				if ( Squad[ cnt ][ cnt2 ] != NULL && Squad[ cnt ][ cnt2 ]->bInSector && OK_INTERRUPT_MERC( Squad[ cnt ][ cnt2 ] ) && OK_CONTROLLABLE_MERC( Squad[ cnt ][ cnt2 ] ) && !(Squad[ cnt ][ cnt2 ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+				{
+					cnt3++;
+					break;
+				}
+			}
+
+			if ( iSquad == cnt3 )
+				break;
+		}
+		
+		if ( IsSquadOnCurrentTacticalMap( cnt ) )
 		{
 			//resort the squad in case the order has, for any reason, changed
-			SortSquadByID((INT8)iSquad);
-			SetCurrentSquad( iSquad, FALSE );
+			SortSquadByID( (INT8)cnt );
+
+			iCurrentSquad = CurrentSquad( );
+			
+			if ( cnt != iCurrentSquad )
+			{		
+				//set active squad
+				SetCurrentSquad( cnt, FALSE );
+
+				if ( gGameExternalOptions.fUseXMLSquadNames && cnt < ON_DUTY )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], SquadNames[ cnt ].squadname );
+				else
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( cnt + 1 ) );
+				
+				ErasePath( TRUE );
+				gfPlotNewMovement = TRUE;
+			}
 		}
 	}
 }

@@ -6615,6 +6615,7 @@ STR16 New113Message[] =
 	L"La chirurgie sur %s est finie.",
 	L"%s est touché(e) au torse et perd un maximum de points de vie !",
 	L"%s est touché(e) au torse et perd %d points de vie !",
+	L"%s is blinded by the blast!",	// TODO.Translate
 	L"%s a regagné 1 point sur les %s perdus",
 	L"%s a regagné %d points sur les %s perdus",
 	L"Vos compétences de reconnaissance vous ont empêchés d'être pris en embuscade par l'ennemi !",

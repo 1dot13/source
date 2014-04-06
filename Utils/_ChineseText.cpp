@@ -6613,6 +6613,7 @@ STR16 New113Message[] =
 	L"%s 手术完毕。",// L"Surgery on %s finished.",
 	L"%s 胸部中弹，失去1点生命上限！",// L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s 胸部中弹，失去 %d 点生命上限！",// L"%s is hit in the chest and loses %d points of maximum health!",
+	L"%s is blinded by the blast!",	// TODO.Translate
 	L"%s 重获1点失去的 %s",// L"%s has regained one point of lost %s",
 	L"%s 重获 %d 点失去的 %s",// L"%s has regained %d points of lost %s",
 	L"你的侦察能力避免了敌人的偷袭！",// L"Your scouting skills prevented you to be ambushed by the enemy!",

@@ -6440,6 +6440,7 @@ STR16 New113Message[] =
 	L"%s wurde erfolgreich operiert.",
 	L"%s ist am Torso getroffen und verliert einen Punkt maximaler Gesundheit!",
 	L"%s ist am Torso getroffen und verliert %d Punkte maximaler Gesundheit!",
+	L"%s is blinded by the blast!",	// TODO.Translate
 	L"%s hat einen Punkt an %s wiedergewonnen.",
 	L"%s hat %d Punkte an %s wiedergewonnen.",
 	L"Ihre Späher-Fertigkeit hat Sie davor bewahrt, vom Gegner in einen Hinterhalt gelockt zu werden.",

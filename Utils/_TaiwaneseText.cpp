@@ -6618,11 +6618,12 @@ STR16 New113Message[] =
 	L"Surgery on %s finished.",
 	L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s is hit in the chest and loses %d points of maximum health!",
+	L"%s is blinded by the blast!",
 	L"%s has regained one point of lost %s",
 	L"%s has regained %d points of lost %s",
 	L"Your scouting skills prevented you to be ambushed by the enemy!",
 	L"Thanks to your scouting skills you have successfuly avoided a pack of bloodcats!",
-	L"%s is hit to groin and falls down in pain!",
+	L"%s is hit at the groin and falls down in pain!",
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Warning: enemy corpse found!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",

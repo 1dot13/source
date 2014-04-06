@@ -6613,6 +6613,7 @@ STR16 New113Message[] =
 	L"%s успешно прооперирован(а).",	//Surgery on %s finished.
 	L"%s пропустил(а) удар в грудную клетку и теряет единицу максимального значения здоровья!",	//%s is hit in the chest and loses a point of maximum health!
 	L"%s пропустил(а) удар в грудную клетку и теряет %d максимального значения здоровья!",	//%s is hit in the chest and loses %d points of maximum health!
+	L"%s is blinded by the blast!",	// TODO.Translate
 	L"%s восстановил(а) одну единицу потерянного %s.",	//%s has regained one point of lost %s
 	L"%s восстановил(а) %d единиц потерянного %s.",	//%s has regained %d points of lost %s
 	L"Ваши навыки разведчика сорвали засаду противника.",

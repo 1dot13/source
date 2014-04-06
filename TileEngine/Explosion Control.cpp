@@ -1845,7 +1845,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 					if (pSoldier->bBlindedCounter < ubStatLoss )
 					{
 						pSoldier->bBlindedCounter = ubStatLoss ;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was blinded by the blast!", pSoldier->GetName() );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_BLINDED_BY_BLAST], pSoldier->GetName() );
 					}
 				}
 				// SANDRO - new merc records - times stat damaged

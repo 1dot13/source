@@ -6618,6 +6618,7 @@ STR16 New113Message[] =
 	L"Surgery on %s finished.",
 	L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s is hit in the chest and loses %d points of maximum health!",
+	L"%s is blinded by the blast!",
 	L"%s has regained one point of lost %s",
 	L"%s has regained %d points of lost %s",
 	L"Your scouting skills prevented you to be ambushed by the enemy!",
