@@ -33,6 +33,10 @@ Changes do not require starting of a new game.
 
 -->
 <CITY_INFO>
+	<COUNTRY>
+		<countryName>Arulco</countryName>
+		<countryNoun>Arulcan</countryNoun>
+	</COUNTRY>
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>

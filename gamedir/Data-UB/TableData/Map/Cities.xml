@@ -33,6 +33,10 @@ Changes do not require starting of a new game.
 
 -->
 <CITY_INFO>
+	<COUNTRY>
+		<countryName>Tracona</countryName>
+		<countryNoun>Traconian</countryNoun>
+	</COUNTRY>
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>
