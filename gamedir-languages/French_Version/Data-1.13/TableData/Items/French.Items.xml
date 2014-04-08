@@ -12283,17 +12283,17 @@
   <ITEM>
     <uiIndex>1535</uiIndex>
     <szItemName>Force</szItemName>
-    <szLongItemName>Drogue Force</szLongItemName>
+    <szLongItemName>Drogue force</szLongItemName>
     <szItemDesc>Cette drogue de combat augmente la force physique à des niveaux impressionnants pour un court instant. Les effets secondaires sont une agressivité très accrue et le risque d'une crise cardiaque.</szItemDesc>
-    <szBRName>Drogue Force</szBRName>
+    <szBRName>Drogue force</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1536</uiIndex>
     <szItemName>Réflexe</szItemName>
-    <szLongItemName>Drogue Réflexe</szLongItemName>
+    <szLongItemName>Drogue réflexe</szLongItemName>
     <szItemDesc>Cette drogue de combat augmente les réflexes et la rapidité... Tant que ça dure. Ensuite, les effets s'inverser. Peut provoquer une paranoïa.</szItemDesc>
-    <szBRName>Drogue Réflexe</szBRName>
+    <szBRName>Drogue réflexe</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12307,17 +12307,17 @@
   <ITEM>
     <uiIndex>1538</uiIndex>
     <szItemName>Stimulant</szItemName>
-    <szLongItemName>Drogue Stimulante</szLongItemName>
+    <szLongItemName>Drogue stimulante</szLongItemName>
     <szItemDesc>Permet de grands exploits physiques et augmente votre endurance, mais votre cerveau en prend un coup.</szItemDesc>
-    <szBRName>Drogue Stimulante</szBRName>
+    <szBRName>Drogue stimulante</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1539</uiIndex>
     <szItemName>Antidote</szItemName>
-    <szLongItemName>Seringue Antidote</szLongItemName>
+    <szLongItemName>Seringue antidote</szLongItemName>
     <szItemDesc>Cet antidote guérit de l'empoisonnement, avec le temps. AVERTISSEMENT : Peut causer une cécité temporaire et une migraine sévère.</szItemDesc>
-    <szBRName>Seringue Antidote</szBRName>
+    <szBRName>Seringue antidote</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12325,15 +12325,15 @@
     <szItemName>Sacs vides</szItemName>
     <szLongItemName>Sacs/Sable, vide</szLongItemName>
     <szItemDesc>Un tas de sacs vides et robustes. Que pourriez-vous mettre là-dedans ?</szItemDesc>
-    <szBRName>Sacs de Sable, Vide</szBRName>
+    <szBRName>Sacs de sable, vide</szBRName>
     <szBRDesc>Seul un fou ne fortifierait pas sa position, surtout à ce prix !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1541</uiIndex>
     <szItemName>Sacs de sable</szItemName>
-    <szLongItemName>Sacs/sable, plein</szLongItemName>
+    <szLongItemName>Sacs/sable</szLongItemName>
     <szItemDesc>Si vous avez besoin de fortification, de maîtriser des crues ou faire de la musculation à bon marché, ceux-ci se révéleront très utile.</szItemDesc>
-    <szBRName>Sacs de Sable Remplis</szBRName>
+    <szBRName>Sacs de sable</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12342,7 +12342,7 @@
     <szLongItemName>Fil Dannert</szLongItemName>
     <szItemDesc>Utile pour une bonne fortification de votre base et préserver votre treillis de soirée.</szItemDesc>
     <szBRName>Fil Dannert</szBRName>
-    <szBRDesc>Avec ce fil barbelé concertina (accordéon) ou fils Dannert, vous avez un moyen pas cher de refuser l'accès à des zones. Soyez prudent de ne pas vous blesser en le déployant.</szBRDesc>
+    <szBRDesc>Avec ce fil barbelé concertina (accordéon) ou fil Dannert, vous avez un moyen pas cher de refuser l'accès à des zones. Soyez prudent de ne pas vous blesser en le déployant.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1543</uiIndex>
@@ -12613,7 +12613,7 @@
     <szItemName>Kit nettoyage</szItemName>
     <szLongItemName>Kit de nettoyage</szLongItemName>
     <szItemDesc>Contient tout le nécessaire pour nettoyer votre arme.</szItemDesc>
-    <szBRName>Kit de nettoyage d'arme</szBRName>
+    <szBRName>Kit de nettoyage</szBRName>
     <szBRDesc>Même les outils les plus mortelles ont besoin d'être bichonnés... de temps en temps.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -13685,7 +13685,7 @@
 		<uiIndex>1709</uiIndex>
 		<szItemName>Sac/couchage</szItemName>
 		<szLongItemName>Sac de couchage</szLongItemName>
-		<szItemDesc>Un sac de couchage de base pour ne pas dormir  à même le sol.</szItemDesc>
+		<szItemDesc>Un sac de couchage de base pour ne pas dormir à même le sol.</szItemDesc>
 		<szBRName>Sac de couchage</szBRName>
 		<szBRDesc>Pour ne plus dormir sur un plancher sale ! Faites de beaux rêves !</szBRDesc>
 	</ITEM>
