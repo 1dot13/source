@@ -1360,7 +1360,7 @@ STR16 pRenderSectorInformationText[] =
 	L"GrilleSortie :  3 -- 1) Qté : %d, 2) Qté : %d, 3) Qté : %d, 4) Qté : %d",
 	L"Car. relative ennemi :  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)", //40
 	L"Équipement relatif ennemi :  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)",
-	L"%d placements ont des ordres de patrouille, sans aucun waypoint défini.",//!!! Context ? -> These are just a validation messages from the map editor. You can just simple translate it
+	L"%d placements ont des ordres de patrouille, sans aucun waypoint défini.",
 	L"%d placements ont des waypoints, mais sans aucun ordres de patrouille.",
 	L"%d Numéro de grille ont un numéro de pièce étrange. Validez svp.",
 	
@@ -1770,7 +1770,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s a aidé %s pour réparer au mieux : %s.",
 };
 
-// the country and its noun in the game
+// the country and its noun in the game		// TODO.Translate
 CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT] =
 {
 #ifdef JA2UB
@@ -1964,7 +1964,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Propagande",	 // spread propaganda // TODO.Translate //A voir fini (to see finished)
 	L"Rumeur",	 // gather information // TODO.Translate //A voir fini (to see finished) 
 	L"Commande",	// militia movement orders
-}
+};
 
 
 // refer to above for comments
@@ -2019,7 +2019,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Propagande", // spread propaganda
 	L"Rumeurs", // gather information 
 	L"Commander",	// militia movement orders
-}
+};
 
 
 // the contract options
@@ -2160,7 +2160,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Tous : Couchez-vous",
 	L"Tous : Accroupi",
 	L"Tous : À couvert!",
-	//L"All: Trouver materiel",
+	//L"All: Trouver matériel",
 	L"Annuler", // cancel this menu
 };
 
@@ -3334,17 +3334,17 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Dangereux",
     L"Danger élevé !",
 
-	L"Mask",	// TODO.Translate
-    L"NVG",
-    L"Item",
+    L"Masque",
+    L"LVN",
+    L"Objet",       // TODO.Translate. A voir définition mot(to see finished, definition of word) 
         
-    L"This feature works only with New Inventory System",
-    L"No item in your main hand",
-    L"Nowhere to place item from main hand",
-    L"No defined item for this quick slot",
-    L"No free hand for new item",
-    L"Item not found",
-    L"Cannot take item to main hand",
+    L"Cette option fonctionne uniquement avec nouveau le système d'inventaire",
+    L"Aucun objet dans votre main principale",
+    L"Nulle part où placer l'objet dans la main principale",
+    L"Aucun objet défini pour cet emplacement",
+    L"Aucune main libre pour un nouvel objet",
+    L"Objet non trouvé",
+    L"Vous ne pouvez pas prendre d'objet avec la main principale",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6635,8 +6635,8 @@ STR16 New113Message[] =
 	L"Attention : Cadavre ennemi trouvé !!!",
 	L"%s [%d cart]\n%s %1.1f %s",
 	L"PA insuffisant ! Coût %d et vous avez %d.",
-	L"Astuce: %s",
-	L"Force du joueur : %d - Force de l'ennemi : %6.0f", // Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
+	L"Astuce : %s",
+	L"Moral du joueur : %d - Moral de l'ennemi : %6.0f",		// Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 };
 
 STR16 New113HAMMessage[] = 
@@ -8019,13 +8019,13 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d élites, %d réguliers et %d admins ont été interrogés.",
-	L"%d prisonniers ont payé l'argent de la rançon",
-	L"%d prisonniers ont révélé les positions ennemies.",
-	L"%d élites, %d réguliers et %d admins ont rejoint notre cause.",
-	L"Des prisonniers ont commencé une émeute : %s !",
-	L"%d prisonniers ont été envoyés : %s !",
-	L"Les prisonniers ont été libérés !",
+	L"Prisonnier(s) ayant été interrogé(s) : %d élite(s), %d régulier(s) et %d administratif(s).",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant payé une rançon : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant rejoint notre cause : %d élite(s), %d régulier(s) et %d administratif(s).",  // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant commencé une émeute : %s !",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) envoyé(s) en %s : %d !",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) libéré(s) !",
 	L"L'armée a délivré la prison : %s et les prisonniers ont été libérés !",
 	L"L'ennemi refuse de se rendre !",
 	L"L'ennemi refuse votre reddition... Ils veulent vos têtes !",
@@ -8040,7 +8040,7 @@ STR16	szMTATextStr[]=
 	L"le retrait d'une fortification",
 	L"le remplissage des sacs de sable",
 	L"%s a dû arrêter... %s",
-	L"The selected barricade cannot be built in this sector",	// TODO.Translate
+	L"Cette sorte de barricade ne peut pas être construite dans ce secteur",
 };
 
 STR16	szInventoryArmTextStr[]=
@@ -8462,7 +8462,7 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Précédent",
 
 	L"Suivant",
-	L":",
+	L" :",
 	L"Jour",
 };
 
@@ -8470,9 +8470,9 @@ STR16   szTacticalInventoryDialogString[]=
 {
         L"Manipulations de l'inventaire",
 
-        L"LVN",
-        L"Recharger tout",
-        L"Move",		// TODO.Translate
+        L"LVN/LdS",
+        L"Recharger",
+        L"Stocker",
         L"",
 
         L"Trier",
@@ -8482,8 +8482,8 @@ STR16   szTacticalInventoryDialogString[]=
 
         L"Caisses",
         L"Boîtes",
-		L"Déposer sac/dos", //A voir fini long mot(to see finished, long word)
-		L"Ramasser sac/dos", //A voir fini long mot(to see finished, long word)			
+        L"Poser S/D",
+		L"Mett. S/D",
 
         L"",
         L"",
@@ -8495,7 +8495,7 @@ STR16   szTacticalCoverDialogString[]=
 {
         L"Afficher couverture",
 
-        L"Non",
+        L"Fermer",
         L"Ennemi",
         L"Merc.",
         L"",
@@ -8510,16 +8510,16 @@ STR16   szTacticalCoverDialogString[]=
         L"Détecteur",
         L"",
 
-        L"Réseau A",
-        L"Réseau B",
-        L"Réseau C",
-        L"Réseau D",
+        L"Réseau A",	    
+        L"Réseau B",	    
+        L"Réseau C",	    
+        L"Réseau D",	    
 };
 
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
-        L"Pas d'affichage couverture/pièges",
+        L"Désactivation affichage couverture/pièges",
         L"Afficher les zones dangereuses",
         L"Afficher la vue du mercenaire",
         L"",
