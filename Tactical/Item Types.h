@@ -1168,6 +1168,10 @@ typedef struct
 	// Flugente: spoting effectiveness
 	INT16	usSpotting;
 
+	//JMich.BackpackClimb 
+	INT16	sBackpackWeightModifier; //modifier to weight calculation to climb.
+	BOOLEAN fAllowClimbing; //does item allow climbing while wearing it
+
 } INVTYPE;
 
 

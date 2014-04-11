@@ -9125,7 +9125,11 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 {
 
 	//CHRISL: Disable climbing up to a roof while wearing a backpack
-	if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true) {
+	if ((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true
+		//JMich.BackpackClimb
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 		return;
 	}

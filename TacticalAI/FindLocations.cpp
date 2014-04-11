@@ -2886,7 +2886,10 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel
 	else if (bLevel == 1)
 	{
 		//CHRISL: If NewInv and wearing a backpack, don't allow climbing
-		if(UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+		if (UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true
+			//JMich.BackpackClimb
+			&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+			&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 			return DIRECTION_IRRELEVANT;
 		if (gpWorldLevelData[ sGridNo].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
 		{

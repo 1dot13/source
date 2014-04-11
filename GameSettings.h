@@ -1199,6 +1199,10 @@ typedef struct
 	BOOLEAN fCanJumpThroughClosedWindows;	
 	BOOLEAN fCanClimbOnWalls;
 
+	//JMich.BackpackClimb
+	INT16 sBackpackWeightToClimb;
+	BOOLEAN fUseGlobalBackpackSettings;
+
 	// sevenfm: show enemy weapon above soldier in tactical
 	BOOLEAN fShowEnemyWeapon;
 	BOOLEAN fShowEnemyExtendedInfo;

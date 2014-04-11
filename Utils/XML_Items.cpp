@@ -279,7 +279,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ItemChoiceTimeSetting") == 0 ||
 				strcmp(name, "buddyitem") == 0 ||
 				strcmp(name, "SleepModifier") == 0 ||
-				strcmp(name, "usSpotting") == 0))
+				strcmp(name, "usSpotting") == 0 ||
+				strcmp(name, "sBackpackWeightModifier") == 0 ||
+				strcmp(name, "fAllowClimbing") == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1445,6 +1447,16 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			// values between 0 and 100 only
 			pData->curItem.usSpotting = min(100, max(0, (INT16) atol(pData->szCharData) ) );
 		}
+		else if (strcmp(name, "sBackpackWeightModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.sBackpackWeightModifier = (INT16)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "fAllowClimbing") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.fAllowClimbing = (BOOLEAN)atol(pData->szCharData);
+		}
 										
 		pData->maxReadDepth--;
 	}
@@ -2088,7 +2100,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<buddyitem>%d</buddyitem>\r\n",										Item[cnt].usBuddyItem  );
 			FilePrintf(hFile,"\t\t<SleepModifier>%d</SleepModifier>\r\n",								Item[cnt].ubSleepModifier  );
 			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",										Item[cnt].usSpotting  );
-																		
+			FilePrintf(hFile, "\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
+			FilePrintf(hFile, "\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",							Item[cnt].fAllowClimbing);
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");
