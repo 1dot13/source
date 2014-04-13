@@ -1,4 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<!--
+
+This file contains the email text for each merc (that is available on the A.I.M website), 
+when the merc contacts us back (now the merc is available to work with us).
+
+uiIndex:		This represents the merc index from MercProfiles.xml (Prof.dat)
+Subject:		The email subject
+Message:		The email message boy
+
+-->
 
 <EMAIL_MERC_AVAILABLE>
 	<EMAIL>
