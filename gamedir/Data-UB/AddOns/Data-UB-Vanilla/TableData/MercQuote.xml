@@ -1629,7 +1629,7 @@ Name		               	- description (optional)
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>147</uiIndex>
-		<Name>Keith</Name>
+		<Name>keith</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
@@ -1653,9 +1653,9 @@ Name		               	- description (optional)
 		<uiIndex>149</uiIndex>
 		<Name>Mike</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
-		<QuoteExpGenderCode>2</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
+		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>0</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
 		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
@@ -1739,7 +1739,7 @@ Name		               	- description (optional)
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>157</uiIndex>
-		<Name>Calvin </Name>
+		<Name>Calvin</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
@@ -1805,7 +1805,7 @@ Name		               	- description (optional)
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<Name></Name>
+		<Name>163</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
@@ -1816,7 +1816,7 @@ Name		               	- description (optional)
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<Name></Name>
+		<Name>164</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
@@ -1843,7 +1843,7 @@ Name		               	- description (optional)
 		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>2</QuoteExpGenderCode>
 		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
-		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
+		<QuoteExpPassingDislike>1</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
 		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>

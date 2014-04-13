@@ -125,7 +125,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<uiIndex>6</uiIndex>
 	<Name>BUBBA</Name>	
 	<MercBioID>10</MercBioID>
-	<Drunk>0</Drunk>
+	<Drunk>0</Drunk>	
 	<uiAlternateIndex>-1</uiAlternateIndex>
 	<StartMercsAvailable>0</StartMercsAvailable>
 	<NewMercsAvailable>0</NewMercsAvailable>
@@ -185,7 +185,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<uiIndex>11</uiIndex>
 	<Name>Gaston</Name>	
 	<MercBioID>11</MercBioID>
-	<Drunk>0</Drunk>
+	<Drunk>0</Drunk>	
 	<uiAlternateIndex>-1</uiAlternateIndex>
 	<StartMercsAvailable>0</StartMercsAvailable>
 	<NewMercsAvailable>0</NewMercsAvailable>
@@ -197,7 +197,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<uiIndex>12</uiIndex>
 	<Name>Stogie</Name>	
 	<MercBioID>12</MercBioID>
-	<Drunk>0</Drunk>
+	<Drunk>0</Drunk>	
 	<uiAlternateIndex>-1</uiAlternateIndex>
 	<StartMercsAvailable>0</StartMercsAvailable>
 	<NewMercsAvailable>0</NewMercsAvailable>
