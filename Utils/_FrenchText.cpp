@@ -8370,7 +8370,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"L'escalade du conflit s'aggrave ; les deux camps ont déployés des chars.",
 	L"Il y avait %d chars pour renforcer %s. %d d'entre eux ont été détruits dans des combats acharnés.",
 	L"Les deux camps avaient des tireurs d'élite.",
-	L"Des sources non vérifiées indiquent que %s tireurs d'élite ont été impliqués dans le combat."
+	L"Des sources non vérifiées indiquent que des tireurs d'élite de %s ont été impliqués dans le combat.",
 	L"Ce secteur a une très grande importance stratégique, car il abrite l'une des rares batteries de missiles sol-air que l'armée %s possède. Des photographies aériennes montrent les dégâts du centre de commande. Ça laissera l'espace aérien d'%s sans défense pour le moment.",
 	L"La situation sur le terrain est devenue encore plus confuse, car il semble que le combat des rebelles a pris un nouveau virage. On a maintenant la confirmation qu'une milice rebelle s'est engagée activement avec les mercenaires étrangers.",
 	L"La position des royalistes semble plus précaire qu'on ne le pensait. Des rapports d'une scission au sein de l'armée ont fait surface, impliquant des échanges de feu au sein même du personnel militaire.",
