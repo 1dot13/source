@@ -17221,7 +17221,7 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 {
 	if ( !CanUseSkill(iSkill, TRUE) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot use skill" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_CANNOT_USE_SKILL ] );
 		return FALSE;
 	}
 
@@ -17315,7 +17315,7 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], gzMercSkillTextNew[RADIO_OPERATOR_NT] );
 				wcscat( skilldescarray, atStr );
 
-				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"a working radio set" );
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[ MSG113_WORKING_RADIO_SET ] );
 				wcscat( skilldescarray, atStr );
 
 				break;
@@ -17324,10 +17324,10 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_SPOTTER] );
 				wcscat( skilldescarray, atStr );
 
-				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"a binocular" );
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[ MSG113_BINOCULAR ] );
 				wcscat( skilldescarray, atStr );
 
-				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], L"patience" );
+				swprintf(atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[ MSG113_PATIENCE ] );
 				wcscat( skilldescarray, atStr );
 				break;
 
@@ -17586,7 +17586,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 {
 	if ( !CanUseSkill(SKILLS_RADIO_ARTILLERY, TRUE) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot use skill" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_CANNOT_USE_SKILL ] );
 		return FALSE;
 	}
 
@@ -17596,7 +17596,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		// only display message and play sound on our team - no need to signify to player that AI is trying to call in artillery
 		if ( bTeam == OUR_TEAM ||  bTeam == MILITIA_TEAM )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Radio frequencies are jammed. No communication possible." );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_RADIO_JAMMED_NO_COMMUNICATION ] );
 		
 			PlayJA2SampleFromFile( "Sounds\\radioerror.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
 		}
@@ -17630,7 +17630,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 	
 	if ( TileIsOutOfBounds(sStartingGridNo) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Incorrect GridNo for firing Artillery!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_INCORRECT_GRIDNO_ARTILLERY ]);
 		return FALSE;
 	}
 
@@ -17671,7 +17671,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 		if ( gSkillTraitValues.usVOMortarShellDivisor * nummortars < 1 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Not enough mortar shells in sector to start a barrage!");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_NOT_ENOUGH_MORTAR_SHELLS ]);
 			return FALSE;
 		}
 
@@ -17679,7 +17679,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 		if ( !numwaves )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Not enough mortar shells in sector to start a barrage!");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_NOT_ENOUGH_MORTAR_SHELLS ]);
 			return FALSE;
 		}
 
@@ -17689,7 +17689,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			ArtilleryStrike(usSignalShellIndex, sStartingGridNo, sTargetGridNo);
 		else
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell item found in Items.xml!");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_NO_SIGNAL_SHELL ]);
 			return FALSE;
 		}
 
@@ -17815,7 +17815,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 					else
 					{
 						// somethings wrong... we were promised either a signal shell or a mortar with one loaded, but there is none... betrayal!
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell found even though there should be one, cannot commence barrage!");
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No signal shell found even though there should be one, cannot commence barrage!");
 						return FALSE;
 					}
 				}
@@ -17847,7 +17847,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		// safety check, this shouldn't be happening
 		if ( !mortaritemcnt )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No mortars found, cannot commence barrage!");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_NO_MORTARS ]);
 			return FALSE;
 		}
 
@@ -17857,7 +17857,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			if ( radiooperatorID )
 				DelayedTacticalCharacterDialogue( MercPtrs[ radiooperatorID ], QUOTE_OUT_OF_AMMO );
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"No signal shell object found, cannot commence barrage!");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No signal shell object found, cannot commence barrage!");
 			return FALSE;
 		}*/
 
@@ -18016,7 +18016,7 @@ BOOLEAN SOLDIERTYPE::JamCommunications()
 	// not possible if already jamming
 	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already jamming signal, no need to do so again!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_JAMMING ]);
 		return FALSE;
 	}
 	
@@ -18055,7 +18055,7 @@ BOOLEAN SOLDIERTYPE::ScanForJam()
 	// not possible if already scanning
 	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already scanning for jam signals, no need to do so again!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_SCANNING ]);
 		return FALSE;
 	}
 	
@@ -18085,7 +18085,7 @@ BOOLEAN SOLDIERTYPE::RadioListen()
 	// not possible if already scanning
 	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already listening for nearby sounds, no need to do so again!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_LISTENING ]);
 		return FALSE;
 	}
 	
@@ -18130,7 +18130,7 @@ BOOLEAN SOLDIERTYPE::RadioCallReinforcements( UINT32 usSector, UINT16 sNumber )
 		CHAR16 pStr2[128];
 		GetSectorIDString( SECTORX( usSector ), SECTORY( usSector ), 0, pStr2, FALSE );
 
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s orders reinforcements from %s", this->name, pStr2 );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ORDERS_REINFORCEMENTS ], this->name, pStr2 );
 
 		// play sound
 		PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
@@ -18156,7 +18156,7 @@ SOLDIERTYPE::RadioFail()
 	// only display message and play sound if on player team
 	if ( this->bTeam == gbPlayerNum && this->bInSector )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Radio action failed!" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_RADIO_ACTION_FAILED ] );
 		
 		PlayJA2SampleFromFile( "Sounds\\radioerror.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
 	}
@@ -18200,7 +18200,7 @@ void SOLDIERTYPE::DepleteActiveRadioSetEnergy(BOOLEAN fActivation, BOOLEAN fAssi
 					if (iter->exists() == false)
 						pObj->RemoveAttachment( &(*iter) );
 
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s radio set is out of energy.", this->GetName() );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_RADIO_NO_ENERGY ], this->GetName() );
 				}
 
 				// there can only be one battery on a radio set
@@ -18262,13 +18262,13 @@ BOOLEAN SOLDIERTYPE::BecomeSpotter( INT32 sTargetGridNo )
 	// not possible if already scanning
 	if ( this->usSkillCounter[SOLDIER_COUNTER_SPOTTER] )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Already trying to spot, no need to do so again!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_SPOTTING ]);
 		return FALSE;
 	}
 
 	if ( !CanSpot( sTargetGridNo ) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Cannot spot that location!");
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_CANNOT_SPOT_LOCATION ]);
 		return FALSE;
 	}
 
@@ -19213,7 +19213,7 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 		if( gWorldSectorX != -1 && gWorldSectorY != -1 && gWorldSectorX != 0 && gWorldSectorY != 0 && 
 			NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot build while enemies are in this sector" );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_CANNOT_BUILD ] );
 			return;
 		}
 	}
@@ -19546,7 +19546,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 				DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
 
 				if ( !success )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s could not apply %s to %s.", this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_COULD_NOT_APPLY ], this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
 			}
 			else
 			{

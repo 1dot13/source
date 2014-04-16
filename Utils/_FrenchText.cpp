@@ -1360,7 +1360,7 @@ STR16 pRenderSectorInformationText[] =
 	L"GrilleSortie :  3 -- 1) Qté : %d, 2) Qté : %d, 3) Qté : %d, 4) Qté : %d",
 	L"Car. relative ennemi :  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)", //40
 	L"Équipement relatif ennemi :  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)",
-	L"%d placements ont des ordres de patrouille, sans aucun waypoint défini.",//!!! Context ? -> These are just a validation messages from the map editor. You can just simple translate it
+	L"%d placements ont des ordres de patrouille, sans aucun waypoint défini.",
 	L"%d placements ont des waypoints, mais sans aucun ordres de patrouille.",
 	L"%d Numéro de grille ont un numéro de pièce étrange. Validez svp.",
 	
@@ -5799,7 +5799,7 @@ STR16	gzGIOScreenText[] =
 	
 	L"Nouv. syst. chance de toucher",
 	L"Syst. amélioré d'interruption",
-	L"Surchauffe de l'arme",
+	L"Passif des mercenaires",
 	L"Système alimentaire",
 	L"Stock de Bobby Ray",
 };
@@ -6637,6 +6637,26 @@ STR16 New113Message[] =
 	L"PA insuffisant ! Coût %d et vous avez %d.",
 	L"Astuce : %s",
 	L"Moral du joueur : %d - Moral de l'ennemi : %6.0f",		// Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
+
+	L"Cannot use skill!",				// TODO.Translate
+	L"Cannot build while enemies are in this sector!",
+	L"Cannot spot that location!",
+	L"Incorrect GridNo for firing artillery!",
+	L"Radio frequencies are jammed. No communication possible!",
+	L"Radio action failed!",
+	L"Not enough mortar shells in sector to start a barrage!",
+	L"No signal shell item found in Items.xml!",
+	L"No mortars found, cannot commence barrage!",
+	L"Already jamming signal, no need to do so again!",
+	L"Already listening for nearby sounds, no need to do so again!",
+	L"Already trying to spot, no need to do so again!",
+	L"Already scanning for jam signals, no need to do so again!",
+	L"%s could not apply %s to %s.",
+	L"%s orders reinforcements from %s.",
+	L"%s radio set is out of energy.",
+	L"a working radio set",
+	L"a binocular",
+	L"patience",
 };
 
 STR16 New113HAMMessage[] = 
@@ -8331,7 +8351,7 @@ STR16	szCampaignHistoryWebSite[]=
 	L"International Times",
 	L"RIS (Renseignements Internationaux Spécialisés)",
 
-	L"Recueille les articles de presse d'%s",
+	L"Recueille les articles de presse sur %s",
 	L"Nous sommes une source d'information neutre. Nous collectons différents articles d'actualité venant d'%s. Nous ne jugeons pas ces sources, nous nous contentons de les publier, pour que vous puissiez vous faire votre avis. Nous faisons paraitre des articles de différentes sources, venant :",
 	
 	L"Bilan du conflit",

@@ -6642,6 +6642,26 @@ STR16 New113Message[] =
 	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
 	L"Hint: %s",	// TODO.Translate
 	L"Player strength: %d - Enemy strength: %6.0f",		// TODO.Translate Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
+
+	L"Cannot use skill!",				// TODO.Translate
+	L"Cannot build while enemies are in this sector!",
+	L"Cannot spot that location!",
+	L"Incorrect GridNo for firing artillery!",
+	L"Radio frequencies are jammed. No communication possible!",
+	L"Radio action failed!",
+	L"Not enough mortar shells in sector to start a barrage!",
+	L"No signal shell item found in Items.xml!",
+	L"No mortars found, cannot commence barrage!",
+	L"Already jamming signal, no need to do so again!",
+	L"Already listening for nearby sounds, no need to do so again!",
+	L"Already trying to spot, no need to do so again!",
+	L"Already scanning for jam signals, no need to do so again!",
+	L"%s could not apply %s to %s.",
+	L"%s orders reinforcements from %s.",
+	L"%s radio set is out of energy.",
+	L"a working radio set",
+	L"a binocular",
+	L"patience",
 };
 
 STR16 New113HAMMessage[] = 
