@@ -8384,7 +8384,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"In a serious escalation of the conflict, both sides deployed tanks.",
 	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
 	L"Both sides are said to have used snipers.",
-	L"Unverified reports indicate %s snipers were involved in the firefight."
+	L"Unverified reports indicate %s snipers were involved in the firefight.",
 	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
 	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
