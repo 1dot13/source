@@ -827,6 +827,10 @@ typedef struct
 	FLOAT uWeightDivisor;
 
 	FLOAT fOutOfGunRangeOrSight;
+
+	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
+	BOOLEAN fAutoCollapseInventoryOnTurnEnd;
+
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
 

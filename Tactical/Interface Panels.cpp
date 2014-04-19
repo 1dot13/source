@@ -2146,6 +2146,12 @@ BOOLEAN InitializeSMPanel(	)
 		// full cursor - disable, from item pickup
 		EnableSMPanelButtons( FALSE, TRUE );
 	}
+	
+	if( INTERFACE_START_X > 0 )
+	{
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, INV_INTERFACE_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, INV_INTERFACE_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+	}
 
 	return( TRUE );
 }

@@ -1458,6 +1458,9 @@ void LoadGameExternalOptions()
 	 
 	// CtH/2 if the target are out of gun range or invisible for this merc
 	gGameExternalOptions.fOutOfGunRangeOrSight				= iniReader.ReadFloat("Tactical Interface Settings","OUT_OF_SIGHT_OR_GUN_RANGE",2,1,100);	
+
+	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
+	gGameExternalOptions.fAutoCollapseInventoryOnTurnEnd	= iniReader.ReadBoolean("Tactical Interface Settings","AUTO_COLLAPSE_INVENTORY_ON_TURN_END", TRUE);
 	// *** ddd - END
 
 	// SANDRO - Improved camo applying and camo can be removed
