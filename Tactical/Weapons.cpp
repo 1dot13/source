@@ -3199,6 +3199,11 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	//	FreeUpAttacker( (UINT8) pSoldier->ubID );
 	// }
 
+	// anv: melee attack noise
+	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+
 	// possibly reduce monster smell
 	if ( pSoldier->aiData.bMonsterSmell > 0 && Random( 5 ) == 0 )
 	{
@@ -3880,6 +3885,11 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		}
 	}
 
+	// anv: hth (inluding blunt weapons) attack noise
+	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+
 	// possibly reduce monster smell (gunpowder smell)
 	if ( pSoldier->aiData.bMonsterSmell > 0 && Random( 5 ) == 0 )
 	{
@@ -4022,6 +4032,12 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	DeductPoints( pSoldier, sAPCost, 0 );
 	RemoveObjs( &(pSoldier->inv[ HANDPOS ] ), 1 );
 	*/
+
+	// anv: knife throw attack noise
+	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+
 	return( TRUE );
 }
 

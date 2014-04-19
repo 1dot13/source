@@ -893,7 +893,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	{
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-		if ( sActionGridNo != -1 )
+		if ( sActionGridNo != -1 && IsCuttableWireFenceAtGridNo( sGridNo ) )
 		{
 			// Calculate AP costs...
 			sAPCost = GetAPsToCutFence( pSoldier );
@@ -939,7 +939,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				return( ITEM_HANDLE_NOAPS );
 			}
 		}
-		else
+		else if( sActionGridNo == -1 )
 		{
 			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}

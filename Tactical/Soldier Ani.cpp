@@ -2714,7 +2714,18 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 709:
 
 				// Knife throw sound...
-				PlayJA2Sample( Weapon[ THROWING_KNIFE ].sSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+				// anv: possiblity to use custom sounds for throwing knives
+				{
+					UINT16 usedWeapon = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+					if ( Weapon[ usedWeapon ].sSound != 0 )
+					{
+						PlayJA2Sample( Weapon[ usedWeapon ].sSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+					}
+					else
+					{
+						PlayJA2Sample( Weapon[ THROWING_KNIFE ].sSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+					}
+				}
 				break;
 
 			case 710:
@@ -2909,7 +2920,18 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 727:
 
 				// Swoosh
-				PlaySoldierJA2Sample( pSoldier->ubID, (UINT8)( SWOOSH_1 + Random( 6 ) ), RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
+				// anv: possiblity to use custom sounds for melee weapons
+				{
+					UINT16 usedWeapon = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+					if ( Weapon[ usedWeapon ].sSound != 0 )
+					{
+						PlayJA2Sample( Weapon[ usedWeapon ].sSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+					}
+					else
+					{
+						PlaySoldierJA2Sample( pSoldier->ubID, (UINT8)( SWOOSH_1 + Random( 6 ) ), RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
+					}
+				}
 				break;
 
 			case 728:
