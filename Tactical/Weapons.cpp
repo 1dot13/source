@@ -4249,6 +4249,11 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		// done, if bursting, increment
 		pSoldier->bDoBurst++;
 	}
+	
+	// anv: launcher attack noise
+	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
 
 	return( TRUE );
 }
