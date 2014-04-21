@@ -13201,7 +13201,8 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>6</ubDeadliness>
 		<usReloadDelay>200</usReloadDelay>
-		<ubAttackVolume>2</ubAttackVolume>
+		<ubAttackVolume>20</ubAttackVolume>
+		<sSound>500</sSound>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 </WEAPONLIST>
