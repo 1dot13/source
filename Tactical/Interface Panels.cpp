@@ -2928,6 +2928,40 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			wcscat( pStr, pStrCamo);
 			swprintf( pStrCamo, L"" );
 		}
+		
+		// anv: display stealth together with camo
+		INT16 wornstealth = GetWornStealth(gpSMCurrentMerc) - gpSMCurrentMerc->GetBackgroundValue(BG_PERC_STEALTH);
+		INT16 bonusstealth = gpSMCurrentMerc->GetBackgroundValue(BG_PERC_STEALTH);
+		if ( gpSMCurrentMerc->ubBodyType == BLOODCAT )
+		{
+			bonusstealth += 50;
+		}
+		// SANDRO - new/old traits
+		else if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpSMCurrentMerc, STEALTHY_NT ))
+		{
+			bonusstealth += gSkillTraitValues.ubSTBonusToMoveQuietly;
+		}
+		else if ( !gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpSMCurrentMerc, STEALTHY_OT ))
+		{
+			bonusstealth += 25 * NUM_SKILL_TRAITS( gpSMCurrentMerc, STEALTHY_OT );
+		}
+
+		if ( bonusstealth != 0 || wornstealth!= 0 )
+		{
+			CHAR16 pStrBonusStealth[400];
+			CHAR16 pStrWornStealth[400];
+			if( bonusstealth < 0 )
+				swprintf( pStrBonusStealth, L"%d", bonusstealth );
+			else
+				swprintf( pStrBonusStealth, L"+%d", bonusstealth );
+			if( wornstealth < 0 )
+				swprintf( pStrWornStealth, L"%d", wornstealth );
+			else
+				swprintf( pStrWornStealth, L"+%d", wornstealth );
+			swprintf( pStrCamo, L"\n%s/%s %s", pStrBonusStealth, pStrWornStealth, gzMiscItemStatsFasthelp[ 25 ] );
+			wcscat( pStr, pStrCamo);
+			swprintf( pStrCamo, L"" );
+		}
 
 		SetRegionFastHelpText( &(gSM_SELMERCCamoRegion), pStr );
 		SetRegionHelpEndCallback( &gSM_SELMERCCamoRegion, SkiHelpTextDoneCallBack );
