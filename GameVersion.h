@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			MORE_LOCKS_AND_KEYS								153 // anv: externalized locks and keys to xml
 #define			MILITIA_MOVEMENT								152 // Flugente: allow control of strategic militia movement
 #define			SNITCH_TRAIT_EXTENDED							151 // anv: more soldier flags, remembering exposition of snitch
 #define			CAMPAIGNSTATS									150	// Flugente: store campaign statistics

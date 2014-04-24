@@ -1117,6 +1117,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Keys.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Launchable.cpp"
 				>
 			</File>
@@ -1134,6 +1138,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_LoadScreenHints.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Locks.cpp"
 				>
 			</File>
 			<File

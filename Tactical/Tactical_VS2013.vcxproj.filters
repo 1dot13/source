@@ -662,5 +662,11 @@
 	<ClCompile Include="XML_AdditionalTileProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="XML_Locks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Keys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

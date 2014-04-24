@@ -132,6 +132,8 @@
 	#include "mercs.h"
 #endif
 
+#include "XML.h"
+
 // OJW - 20090419
 UINT8   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
 UINT8   giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES = CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
@@ -571,8 +573,48 @@ BOOLEAN InitTacticalEngine( )
     InitializeTacticalInterface( );     // Init Interface stuff
     InitializeGameVideoObjects( );      // Init system objects
     LoadPaletteData( );                 // Init palette system
-    if( !LoadLockTable() )
-        return(FALSE);
+    //if( !LoadLockTable() )
+    //    return(FALSE);
+
+	// anv: externalised locks and keys
+	//WriteLocks("WriteLocks.xml");
+	char fileName[MAX_PATH];
+	strcpy(fileName, TABLEDATA_DIRECTORY);
+	strcat(fileName, LOCKSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInLocks(fileName,FALSE), LOCKSFILENAME);
+	}
+	else 
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("FileName = %s not found, trying to load LOCKS.BIN instead", fileName));
+		if( !LoadLockTable() )
+			return(FALSE);
+	}
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInLocks(fileName,TRUE), LOCKSFILENAME);
+	}
+#endif	
+	
+	strcpy(fileName, TABLEDATA_DIRECTORY);
+	strcat(fileName, KEYSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInKeys(fileName), KEYSFILENAME);
+	}
+	else
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("FileName = %s not found, hardcoded values will be used", fileName));
+	}
+
+
+
     InitInteractiveTileManagement( );
     if (!InitPathAI())                  // init path code
         return( FALSE );

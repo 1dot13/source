@@ -145,8 +145,11 @@ typedef struct
 // This is the number of different types of doors we can have 
 // in one map at a time...
 
-#define NUM_KEYS 64
-#define NUM_LOCKS 64
+#define NUM_KEYS 255
+#define NUM_KEYS_OLD 64		// anv: increased max number, kept old so correct number can be read from save files
+
+#define NUM_LOCKS 255
+#define NUM_LOCKS_OLD 64	// anv: increased max number, kept old so correct number can be read from LOCKS.BIN
 #define INVALID_KEY_NUMBER 255
 
 #define ANYKEY									252
@@ -253,7 +256,7 @@ BOOLEAN	SetDoorPerceivedOpenStatus( INT32 sGridNo, BOOLEAN fPerceivedOpen );
 BOOLEAN SaveKeyTableToSaveGameFile( HWFILE hFile );
 
 //Load the key table from the saved game file
-BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile );
+BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion );
 
 // Returns a doors status value, NULL if not found
 DOOR_STATUS	*GetDoorStatus( INT32 sGridNo );

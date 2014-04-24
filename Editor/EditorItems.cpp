@@ -376,12 +376,14 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	{ //Keys use a totally different method for determining
 		for( i = 0; i < eInfo.sNumItems; i++ )
 		{
-			item = &Item[ KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem ];
+			//item = &Item[ KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem ];
+			item = &Item[ KeyTable[ LockTable[ i ].usKeyItem ].usItem ];
 			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 			GetVideoObject( &hVObject, uiVideoObjectIndex );
 
 			//Store these item pointers for later when rendering selected items.
-			eInfo.pusItemIndex[i] = KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem;
+			//eInfo.pusItemIndex[i] = KeyTable[ 0 ].usItem + LockTable[ i ].usKeyItem;
+			eInfo.pusItemIndex[i] = KeyTable[ LockTable[ i ].usKeyItem ].usItem;
 
 			SetFont(SMALLCOMPFONT);
 			SetFontForeground( FONT_MCOLOR_WHITE );

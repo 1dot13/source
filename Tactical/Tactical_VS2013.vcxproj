@@ -217,11 +217,13 @@
     <ClCompile Include="XML_IMPItemChoices.cpp" />
     <ClCompile Include="XML_IncompatibleAttachments.cpp" />
     <ClCompile Include="XML_ItemAdjustments.cpp" />
+	<ClCompile Include="XML_Keys.cpp" />
     <ClCompile Include="XML_Launchable.cpp" />
     <ClCompile Include="XML_LBEPocket.cpp" />
     <ClCompile Include="XML_LBEPocketPopup.cpp" />
     <ClCompile Include="XML_LoadBearingEquipment.cpp" />
     <ClCompile Include="XML_LoadScreenHints.cpp" />
+	<ClCompile Include="XML_Locks.cpp" />
     <ClCompile Include="XML_Magazine.cpp" />
     <ClCompile Include="XML_Merchants.cpp" />
     <ClCompile Include="XML_MercStartingGear.cpp" />
