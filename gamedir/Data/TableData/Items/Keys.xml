@@ -1,0 +1,47 @@
+<KEYS>
+	<KEY>
+		<!-- index, 0-254 -->
+		<ubIndex>0</ubIndex>
+		
+		<!-- number of corresponding item in Items.xml -->
+		<usItem>271</usItem>
+		
+		<!-- fFlags, usSectorFound and usDateFound are set in game -->
+	</KEY>
+	<KEY>
+		<ubIndex>1</ubIndex>
+		<usItem>272</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>2</ubIndex>
+		<usItem>273</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>3</ubIndex>
+		<usItem>274</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>4</ubIndex>
+		<usItem>275</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>5</ubIndex>
+		<usItem>276</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>6</ubIndex>
+		<usItem>277</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>7</ubIndex>
+		<usItem>278</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>8</ubIndex>
+		<usItem>279</usItem>
+	</KEY>
+	<KEY>
+		<ubIndex>9</ubIndex>
+		<usItem>280</usItem>
+	</KEY>
+</KEYS>
