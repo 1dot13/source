@@ -5802,6 +5802,10 @@ STR16	gzGIOScreenText[] =
 	L"Passif des mercenaires",
 	L"Système alimentaire",
 	L"Stock de Bobby Ray",
+
+	// anv: extra iron man modes
+	L"Soft Iron Man",	// TODO.Translate
+	L"Extreme Iron Man",	// TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =
@@ -7953,6 +7957,9 @@ STR16	zNewTacticalMessages[]=
 	L"Campagne : %S",																													// @@@ new text
 	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'Unfinished Business. Êtes-vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
 	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par défaut.",		///@@new
+	// anv: extra iron man modes
+	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
+	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
 // The_bob : pocket popup text defs

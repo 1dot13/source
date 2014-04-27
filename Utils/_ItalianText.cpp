@@ -5782,6 +5782,10 @@ STR16	gzGIOScreenText[] =
 	L"Merc Story Backgrounds", // TODO.Translate
 	L"Food System",// TODO.Translate
 	L"Bobby Ray Quantity", // TODO.Translate
+
+	// anv: extra iron man modes
+	L"Soft Iron Man",	// TODO.Translate
+	L"Extreme Iron Man",	// TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =
@@ -7957,6 +7961,9 @@ STR16	zNewTacticalMessages[]=
 	L"Campagna: %S",
 	L"Hai selezionato la campagna %S. Questa campagna è una versione amatoriale della campagna originale di Unfinished Business. Sei sicuro di voler giocare la campagna %S?",
 	L"Per usare l'editor, selezionare una campagna diversa da quella di default.",
+	// anv: extra iron man modes
+	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
+	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
 // The_bob : pocket popup text defs	// TODO.Translate

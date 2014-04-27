@@ -478,6 +478,8 @@ STR16 zGioNewTraitsImpossibleText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"Vous avez choisi le mode IRON MAN. La difficulté du jeu s'en trouvera considérablement augmentée du fait de l'impossibilité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie. Êtes-vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
+	L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",// TODO.Translate
+	L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",// TODO.Translate
 };
 
 STR16 gzDisplayCoverText[]=

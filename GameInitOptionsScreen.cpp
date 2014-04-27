@@ -119,16 +119,16 @@
 #define		GIO_GAME_SETTING_Y						GIO_TRAITS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_GAME_SETTING_WIDTH					CHECK_WIDTH
 
-#define		GIO_IRON_MAN_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_IRON_MAN_SETTING_WIDTH				CHECK_WIDTH
+#define		GIO_IRON_MAN_SETTING_X					FIRST_COLUMN_X + COMBO_X_OFFSET//FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + COMBO_Y_OFFSET + CORRECTION_Y_OFFSET//GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IRON_MAN_SETTING_WIDTH				COMBO_WIDTH//CHECK_WIDTH
 
 #define		GIO_TIMED_TURN_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_TIMED_TURN_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_TIMED_TURN_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET// + CORRECTION_Y_OFFSET
 #define		GIO_TIMED_TURN_SETTING_WIDTH			CHECK_WIDTH
 
 #define		GIO_TERRORISTS_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET// + CORRECTION_Y_OFFSET
 #define		GIO_TERRORISTS_SETTING_WIDTH			CHECK_WIDTH
 
 /*********************************
@@ -331,6 +331,8 @@ enum
 {
 	GIO_CAN_SAVE,
 	GIO_IRON_MAN,
+	GIO_SOFT_IRON_MAN,
+	GIO_EXTREME_IRON_MAN,
 
 	NUM_SAVE_OPTIONS,
 };
@@ -430,6 +432,7 @@ UINT32		guiGIOMainBackGroundImage;
 INT32		giGioMessageBox = -1;
 
 INT8 iCurrentDifficulty;
+INT8 iCurrentExtraDifficultySetting;
 INT8 iCurrentBRQualitySetting;
 INT8 iCurrentBRQuantitySetting;
 INT8 iCurrentIMPNumberSetting;
@@ -464,6 +467,11 @@ UINT32 giGIOIMPNumberButton[ 2 ];
 INT32 giGIOIMPNumberButtonImage[ 2 ];
 void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+UINT32 giGIOExtraDifficultySettingButton[ 2 ];
+INT32 giGIOExtraDifficultySettingButtonImage[ 2 ];
+void BtnGIOExtraDifficultySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOExtraDifficultySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOBRQualitySettingButton[ 2 ];
 INT32 giGIOBRQualitySettingButtonImage[ 2 ];
@@ -927,31 +935,50 @@ BOOLEAN		EnterGIOScreen()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// IRON MAN SETTING
 
-	guiGameSaveTogglesImage[ GIO_CAN_SAVE ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiGameSaveToggles[ GIO_CAN_SAVE ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_CAN_SAVE ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_IRON_MAN_SETTING_X), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOIronManOffCallback);
+	//guiGameSaveTogglesImage[ GIO_CAN_SAVE ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	//guiGameSaveToggles[ GIO_CAN_SAVE ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_CAN_SAVE ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												TEXT_CJUSTIFIED,
+	//												(GIO_IRON_MAN_SETTING_X), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+	//												DEFAULT_MOVE_CALLBACK, BtnGIOIronManOffCallback);
 
-	guiGameSaveTogglesImage[ GIO_IRON_MAN ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiGameSaveToggles[ GIO_IRON_MAN ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_IRON_MAN ],  gzGIOScreenText[ GIO_IRON_MAN_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_IRON_MAN_SETTING_X + 74), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOIronManOnCallback );
+	//guiGameSaveTogglesImage[ GIO_IRON_MAN ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	//guiGameSaveToggles[ GIO_IRON_MAN ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_IRON_MAN ],  gzGIOScreenText[ GIO_IRON_MAN_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												TEXT_CJUSTIFIED,
+	//												(GIO_IRON_MAN_SETTING_X + 74), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+	//												DEFAULT_MOVE_CALLBACK, BtnGIOIronManOnCallback );
 
-	SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_CAN_SAVE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_IRON_MAN ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_CAN_SAVE ],0, 0 );
-	MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_IRON_MAN ],0, 1 );
+	//SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_CAN_SAVE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	//SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_IRON_MAN ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	//MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_CAN_SAVE ],0, 0 );
+	//MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_IRON_MAN ],0, 1 );
 
-	if( gGameOptions.fIronManMode )
-		ButtonList[ guiGameSaveToggles[ GIO_IRON_MAN ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else
-		ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+	//if( gGameOptions.fIronManMode )
+	//	ButtonList[ guiGameSaveToggles[ GIO_IRON_MAN ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	//else
+	//	ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+	giGIOExtraDifficultySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOExtraDifficultySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+
+	// left button - decrement Extra Difficulty
+	giGIOExtraDifficultySettingButton[ 0 ] = QuickCreateButton( giGIOExtraDifficultySettingButtonImage[ 0 ], GIO_IRON_MAN_SETTING_X + 39, GIO_IRON_MAN_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOExtraDifficultySettingLeftCallback );
+
+	// right button - increment Extra Difficulty
+	giGIOExtraDifficultySettingButton[ 1 ] = QuickCreateButton( giGIOExtraDifficultySettingButtonImage[ 1 ], GIO_IRON_MAN_SETTING_X + 158, GIO_IRON_MAN_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOExtraDifficultySettingRightCallback );
+
+	// set user data
+	MSYS_SetBtnUserData(giGIOExtraDifficultySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOExtraDifficultySettingButton[1],0, 1 );
+
+	iCurrentExtraDifficultySetting = gGameOptions.ubIronManMode;
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1422,6 +1449,94 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		else
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOExtraDifficultySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentExtraDifficultySetting > 0 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentExtraDifficultySetting > 0 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOExtraDifficultySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentExtraDifficultySetting < 3 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentExtraDifficultySetting < 3 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -2391,11 +2506,15 @@ BOOLEAN		ExitGIOScreen()
 	}
 	
 	// Destroy Iron Man setting buttons
-	for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
-	{
-		RemoveButton( guiGameSaveToggles[ cnt ] );
-		UnloadButtonImage( guiGameSaveTogglesImage[ cnt ] );
-	}
+	//for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
+	//{
+	//	RemoveButton( guiGameSaveToggles[ cnt ] );
+	//	UnloadButtonImage( guiGameSaveTogglesImage[ cnt ] );
+	//}
+	RemoveButton( giGIOExtraDifficultySettingButton[0] );
+	RemoveButton( giGIOExtraDifficultySettingButton[1] );
+	UnloadButtonImage( giGIOExtraDifficultySettingButtonImage[0] );
+	UnloadButtonImage( giGIOExtraDifficultySettingButtonImage[1] );
 
 	// Destroy Terrorists setting buttons
 	for( cnt=0; cnt<NUM_RPC_UB_OPTIONS; cnt++)
@@ -2545,6 +2664,7 @@ BOOLEAN		RenderGIOScreen()
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
 	RestoreExternBackgroundRect( GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_INV_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_SQUAD_SIZE_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IRON_MAN_SETTING_Y-3, 120, 20 );
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiGIOMainBackGroundImage );
@@ -2617,7 +2737,17 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (GIO_GAME_SETTING_X - 6), (UINT16)(GIO_GAME_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_GAME_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// JA2Gold: Display the iron man Settings Title Text
-	DisplayWrappedString( (GIO_IRON_MAN_SETTING_X - 6), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IRON_MAN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	RenderGIOSmallSelectionFrame( (GIO_IRON_MAN_SETTING_X + 36), (GIO_IRON_MAN_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//DisplayWrappedString( (GIO_IRON_MAN_SETTING_X - 6), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IRON_MAN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	if ( iCurrentExtraDifficultySetting == 0 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 1 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 2 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_ALMOST_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 3 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_EXTREME_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	//Display the Terrorists Settings Title Text
 	DisplayWrappedString( (GIO_TERRORISTS_SETTING_X - 6), (UINT16)(GIO_TERRORISTS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_TERRORISTS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
@@ -2926,7 +3056,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.fTurnTimeLimit = FALSE;
 		
 	// iron man
-	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
+	gGameOptions.fIronManMode = (BOOLEAN)iCurrentExtraDifficultySetting;//GetCurrentGameSaveButtonSetting();
+	gGameOptions.ubIronManMode = iCurrentExtraDifficultySetting;//GetCurrentGameSaveButtonSetting();
 
 	gGameOptions.ubBobbyRayQuality = iCurrentBRQualitySetting;
 	gGameOptions.ubBobbyRayQuantity = iCurrentBRQuantitySetting;
@@ -3059,13 +3190,22 @@ void	ConfirmGioDifSettingMessageBoxCallBack( UINT8 bExitValue )
 BOOLEAN DisplayMessageToUserAboutIronManMode()
 {
 	// Madd
-	UINT8 ubIronManMode = GetCurrentGameSaveButtonSetting(); //FALSE; 
+	//UINT8 ubIronManMode = GetCurrentGameSaveButtonSetting(); //FALSE; 
+	UINT8 ubIronManMode = iCurrentExtraDifficultySetting;
 
 	//if the user has selected IRON MAN mode
 	if( ubIronManMode )
 	{
-		DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
-
+		if( iCurrentExtraDifficultySetting == 1)
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		else if( iCurrentExtraDifficultySetting == 2)
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__SOFT_IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		else if( iCurrentExtraDifficultySetting == 3)
+		{
+			CHAR16 zTemp[320];
+			swprintf( zTemp, gzIronManModeWarningText[ IMM__EXTREME_IRON_MAN_MODE_WARNING_TEXT ], gGameExternalOptions.ubExtremeIronManSavingHour);
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		}
 		return( TRUE );
 	}
 
@@ -3180,12 +3320,12 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_GAME_SETTING_Y						GIO_TRAITS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_GAME_SETTING_WIDTH					CHECK_WIDTH
 
-#define		GIO_IRON_MAN_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_IRON_MAN_SETTING_WIDTH				CHECK_WIDTH
+#define		GIO_IRON_MAN_SETTING_X					FIRST_COLUMN_X + COMBO_X_OFFSET//FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + COMBO_Y_OFFSET + CORRECTION_Y_OFFSET//GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IRON_MAN_SETTING_WIDTH				COMBO_WIDTH//CHECK_WIDTH
 
 #define		GIO_NCTH_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_NCTH_SETTING_Y						GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_NCTH_SETTING_Y						GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET// + CORRECTION_Y_OFFSET
 #define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
 
 /*********************************
@@ -3308,6 +3448,8 @@ enum
 {
 	GIO_CAN_SAVE,
 	GIO_IRON_MAN,
+	GIO_SOFT_IRON_MAN,
+	GIO_EXTREME_IRON_MAN,
 
 	NUM_SAVE_OPTIONS,
 };
@@ -3399,6 +3541,7 @@ UINT32		guiGIOMainBackGroundImage;
 INT32		giGioMessageBox = -1;
 
 INT8 iCurrentDifficulty;
+INT8 iCurrentExtraDifficultySetting;
 INT8 iCurrentBRQualitySetting;
 INT8 iCurrentBRQuantitySetting;
 INT8 iCurrentIMPNumberSetting;
@@ -3433,6 +3576,11 @@ UINT32 giGIOIMPNumberButton[ 2 ];
 INT32 giGIOIMPNumberButtonImage[ 2 ];
 void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+UINT32 giGIOExtraDifficultySettingButton[ 2 ];
+INT32 giGIOExtraDifficultySettingButtonImage[ 2 ];
+void BtnGIOExtraDifficultySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOExtraDifficultySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOBRQualitySettingButton[ 2 ];
 INT32 giGIOBRQualitySettingButtonImage[ 2 ];
@@ -3637,6 +3785,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	// Extra Difficulty (Default: Save Anytime = 0)
 	gGameOptions.fIronManMode =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_EXTRA_DIFFICULTY, 0);
+	gGameOptions.ubIronManMode =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_EXTRA_DIFFICULTY, 0);
 
 	// Available Arsenal (Default: Tons of Guns = 1)
 	gGameOptions.fGunNut =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_AVAILABLE_ARSENAL, 1);
@@ -3880,31 +4029,50 @@ BOOLEAN		EnterGIOScreen()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// IRON MAN SETTING
 
-	guiGameSaveTogglesImage[ GIO_CAN_SAVE ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiGameSaveToggles[ GIO_CAN_SAVE ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_CAN_SAVE ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_IRON_MAN_SETTING_X), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOIronManOffCallback);
+	//guiGameSaveTogglesImage[ GIO_CAN_SAVE ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	//guiGameSaveToggles[ GIO_CAN_SAVE ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_CAN_SAVE ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												TEXT_CJUSTIFIED,
+	//												(GIO_IRON_MAN_SETTING_X), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+	//												DEFAULT_MOVE_CALLBACK, BtnGIOIronManOffCallback);
 
-	guiGameSaveTogglesImage[ GIO_IRON_MAN ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiGameSaveToggles[ GIO_IRON_MAN ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_IRON_MAN ],  gzGIOScreenText[ GIO_IRON_MAN_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_IRON_MAN_SETTING_X + 74), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOIronManOnCallback );
+	//guiGameSaveTogglesImage[ GIO_IRON_MAN ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	//guiGameSaveToggles[ GIO_IRON_MAN ] = CreateIconAndTextButton( guiGameSaveTogglesImage[ GIO_IRON_MAN ],  gzGIOScreenText[ GIO_IRON_MAN_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+	//												TEXT_CJUSTIFIED,
+	//												(GIO_IRON_MAN_SETTING_X + 74), (GIO_IRON_MAN_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+	//												DEFAULT_MOVE_CALLBACK, BtnGIOIronManOnCallback );
 
-	SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_CAN_SAVE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_IRON_MAN ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_CAN_SAVE ],0, 0 );
-	MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_IRON_MAN ],0, 1 );
+	//SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_CAN_SAVE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	//SpecifyButtonSoundScheme( guiGameSaveToggles[ GIO_IRON_MAN ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	//MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_CAN_SAVE ],0, 0 );
+	//MSYS_SetBtnUserData(guiGameSaveToggles[ GIO_IRON_MAN ],0, 1 );
 
-	if( gGameOptions.fIronManMode )
-		ButtonList[ guiGameSaveToggles[ GIO_IRON_MAN ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else
-		ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+	//if( gGameOptions.fIronManMode )
+	//	ButtonList[ guiGameSaveToggles[ GIO_IRON_MAN ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	//else
+	//	ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+	giGIOExtraDifficultySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOExtraDifficultySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+
+	// left button - decrement Extra Difficulty
+	giGIOExtraDifficultySettingButton[ 0 ] = QuickCreateButton( giGIOExtraDifficultySettingButtonImage[ 0 ], GIO_IRON_MAN_SETTING_X + 39, GIO_IRON_MAN_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOExtraDifficultySettingLeftCallback );
+
+	// right button - increment Extra Difficulty
+	giGIOExtraDifficultySettingButton[ 1 ] = QuickCreateButton( giGIOExtraDifficultySettingButtonImage[ 1 ], GIO_IRON_MAN_SETTING_X + 158, GIO_IRON_MAN_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOExtraDifficultySettingRightCallback );
+
+	// set user data
+	MSYS_SetBtnUserData(giGIOExtraDifficultySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOExtraDifficultySettingButton[1],0, 1 );
+
+	iCurrentExtraDifficultySetting = gGameOptions.ubIronManMode;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// BOBBY RAY SETTING
@@ -4371,6 +4539,94 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		else
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOExtraDifficultySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentExtraDifficultySetting > 0 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentExtraDifficultySetting > 0 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOExtraDifficultySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentExtraDifficultySetting < 3 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentExtraDifficultySetting < 3 )
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentExtraDifficultySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOExtraDifficultySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -5307,11 +5563,15 @@ BOOLEAN		ExitGIOScreen()
 	}
 
 	// Destroy Iron Man setting buttons
-	for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
-	{
-		RemoveButton( guiGameSaveToggles[ cnt ] );
-		UnloadButtonImage( guiGameSaveTogglesImage[ cnt ] );
-	}
+	//for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
+	//{
+	//	RemoveButton( guiGameSaveToggles[ cnt ] );
+	//	UnloadButtonImage( guiGameSaveTogglesImage[ cnt ] );
+	//}
+	RemoveButton( giGIOExtraDifficultySettingButton[0] );
+	RemoveButton( giGIOExtraDifficultySettingButton[1] );
+	UnloadButtonImage( giGIOExtraDifficultySettingButtonImage[0] );
+	UnloadButtonImage( giGIOExtraDifficultySettingButtonImage[1] );
 
 	// Destroy Inventory setting buttons
 	if(IsNIVModeValid(true) == TRUE)
@@ -5461,6 +5721,7 @@ BOOLEAN		RenderGIOScreen()
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
 	RestoreExternBackgroundRect( GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_INV_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_SQUAD_SIZE_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IRON_MAN_SETTING_Y-3, 120, 20 );
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiGIOMainBackGroundImage );
@@ -5533,7 +5794,17 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (GIO_GAME_SETTING_X - 6), (UINT16)(GIO_GAME_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_GAME_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// JA2Gold: Display the iron man Settings Title Text
-	DisplayWrappedString( (GIO_IRON_MAN_SETTING_X - 6), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IRON_MAN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	RenderGIOSmallSelectionFrame( (GIO_IRON_MAN_SETTING_X + 36), (GIO_IRON_MAN_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//DisplayWrappedString( (GIO_IRON_MAN_SETTING_X - 6), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IRON_MAN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	if ( iCurrentExtraDifficultySetting == 0 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 1 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 2 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_ALMOST_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	else if ( iCurrentExtraDifficultySetting == 3 )
+		DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IRON_MAN_SETTING_Y+6), GIO_IRON_MAN_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_EXTREME_IRON_MAN_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// Display Inventory Settings text
 	RenderGIOSmallSelectionFrame( (GIO_INV_SETTING_X + 36), (GIO_INV_SETTING_Y - 3) );
@@ -5826,7 +6097,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.fTurnTimeLimit = FALSE;
 		
 	// iron man
-	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
+	gGameOptions.fIronManMode = (BOOLEAN)iCurrentExtraDifficultySetting;//GetCurrentGameSaveButtonSetting();
+	gGameOptions.ubIronManMode = iCurrentExtraDifficultySetting;//GetCurrentGameSaveButtonSetting();
 
 	gGameOptions.ubBobbyRayQuality = iCurrentBRQualitySetting;
 	gGameOptions.ubBobbyRayQuantity = iCurrentBRQuantitySetting;
@@ -5950,13 +6222,22 @@ void	ConfirmGioDifSettingMessageBoxCallBack( UINT8 bExitValue )
 BOOLEAN DisplayMessageToUserAboutIronManMode()
 {
 	// Madd
-	UINT8 ubIronManMode = GetCurrentGameSaveButtonSetting(); //FALSE; 
+	//UINT8 ubIronManMode = GetCurrentGameSaveButtonSetting(); //FALSE; 
+	UINT8 ubIronManMode = iCurrentExtraDifficultySetting;
 
 	//if the user has selected IRON MAN mode
 	if( ubIronManMode )
 	{
-		DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
-
+		if( iCurrentExtraDifficultySetting == 1)
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		else if( iCurrentExtraDifficultySetting == 2)
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__SOFT_IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		else if( iCurrentExtraDifficultySetting == 3)
+		{
+			CHAR16 zTemp[320];
+			swprintf( zTemp, gzIronManModeWarningText[ IMM__EXTREME_IRON_MAN_MODE_WARNING_TEXT ], gGameExternalOptions.ubExtremeIronManSavingHour);
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		}
 		return( TRUE );
 	}
 

@@ -5718,18 +5718,18 @@ STR16	gzGIOScreenText[] =
 {
 	L"POCZĄTKOWE USTAWIENIA GRY",
 #ifdef JA2UB
-	L"Dialogi Manuel'a",
-	L"Off",
-	L"On",
+	L"Dialogi Manuela",
+	L"Wył.",
+	L"Wł.",
 #else
 	L"Styl gry",
 	L"Realistyczny",
 	L"S-F",
 #endif	
 	L"Platynowy", //Placeholder English
-	L"Opcje broni",
+	L"Dostępny arsenał",
 	L"Mnóstwo",
-	L"Standardowe",
+	L"Standardowo",
 	L"Stopień trudności",
 	L"Nowicjusz",
 	L"Doświadczony",
@@ -5738,70 +5738,73 @@ STR16	gzGIOScreenText[] =
 	L"Start",		// TODO.Translate
 	L"Anuluj",
 	L"Zapis gry",
-	L"Zawsze",
-	L"W czasie pokoju",
+	L"W dowolny momencie",
+	L"Człowiek z żelaza",
 	L"Nie działa w wersji demo",
-	L"Bobby Ray Quality", // TODO.Translate
-	L"Normalne",
-	L"Świetne",
-	L"Wyśmienite",
-	L"Niewiarygodne",
-	L"Ekwipunek / Dodatki",
-	L"Nie używany",
-	L"Nie używany",
+	L"Jakość zasobów Bobby'ego Ray'a",
+	L"Normalna",
+	L"Świetna",
+	L"Wyśmienita",
+	L"Niewiarygodna",
+	L"System ekwipunku / dodatków",
+	L"Nieużywane",
+	L"Nieużywane",
 	L"Wczytaj grę MP",
-	L"POCZĄTKOWE USTAWIENIA GRY (Only the server settings take effect)",
+	L"POCZĄTKOWE USTAWIENIA GRY (Tylko te po stronie serwera będą w użyciu)",
 	// Added by SANDRO
-	L"Cechy umiejętności",
-	L"Stare",
-	L"Nowe",
+	L"System zdolności",
+	L"Stary",
+	L"Nowy",
 	L"Maks. liczba IMP",
-	L"Jeden",
-	L"Dwa",
-	L"Trzy",
-	L"Cztery",
-	L"Pięć",
-	L"Sześć",
-	L"Wrogowie upuszczają całość ekwipunku",
-	L"Wyłączone",
-	L"Włączone",
+	L"1",
+	L"2",
+	L"3",
+	L"4",
+	L"5",
+	L"6",
+	L"Polegli wrogowie pozostawiają cały ekwipunek",
+	L"Wył.",
+	L"Wł.",
 #ifdef JA2UB
-	L"Tex and John",
-	L"Random",
-	L"All",
+	L"Tex i John",
+	L"Losowo",
+	L"Obaj",
 #else
 	L"Liczba terrorystów",
-	L"Losowe",
-	L"Wszystkie",
+	L"Losowo",
+	L"Wszyscy",
 #endif	
-	L"Tajne składy proni",
+	L"Ukryte składowiska broni",
 	L"Losowe",
 	L"Wszystkie",
-	L"Szybkość zwiększania dostępności przedmiotów",
-	L"Bardzo wolna",
-	L"Wolna",
-	L"Normala",
-	L"Szybka",
-	L"Bardzo szybkia",
+	L"Przyrost dostępności przedmiotów",
+	L"Bardzo wolny",
+	L"Wolny",
+	L"Normalny",
+	L"Szybki",
+	L"Bardzo szybki",
 
-	L"Stare / Stare",
-	L"Nowe / Stare",
-	L"Nowe / Nowe",
+	L"Stary / Stary",
+	L"Nowy / Stary",
+	L"Nowy / Nowy",
 
-	// TODO.Translate
 	// Squad Size
-	L"Max. Squad Size",
+	L"Maks. liczebność oddziału",
 	L"6",
 	L"8",
 	L"10",
 	//L"Faster Bobby Ray Shipments",
-	L"Inventory Manipulation Costs AP",
+	L"Manipulacja ekwipunkiem kosztuje punkty akcji",
 
-	L"New Chance to Hit System",
-	L"Improved Interrupt System",
-	L"Merc Story Backgrounds", // TODO.Translate
-	L"Food System",// TODO.Translate
-	L"Bobby Ray Quantity", // TODO.Translate
+	L"Nowy system szans trafienia",
+	L"Ulepszony system przerwań,
+	L"Historie najemników",
+	L"System pożywienia",
+	L"Wielkość zasobów Bobby'ego Ray'a",
+
+	// anv: extra iron man modes
+	L"Człowiek z żeliwa",
+	L"Człowiek ze stali",
 };
 
 STR16	gzMPJScreenText[] =
@@ -7955,20 +7958,20 @@ STR16	zNewTacticalMessages[]=
 {
 	//L"Odległość od celu (w polach): %d, Jasność = %d/%d",
 	L"Nadajnik został podłączony do twojego laptopa.",
-	L"Nie mo¿esz zatrudnić %s(a)",
-	L"Na określony czas, poni¿sze honorarium pokryje koszt całej misji razem z wyposażeniem zamieszonym poniżej.",
-	L"Zatrudnij %s(a) już teraz i weź udział naszej promocji 'jedno honorarium pokrywa wszystko'.  Ponadto w tej niewiarygodnej ofercie cały ekwipunek najemnika dostaniesz za darmo.",
+	L"Nie możesz zatrudnić %s(a)",
+	L"Na określony czas, poniższe honorarium pokryje koszt całej misji razem z wyposażeniem zamieszczonym poniżej.",
+	L"Zatrudnij %s(a) już teraz i weź udział w naszej promocji 'jedno honorarium pokrywa wszystko'.  Ponadto w tej niewiarygodnej ofercie cały ekwipunek najemnika otrzymasz za darmo.",
 	L"Honorarium",
 	L"Ktoś jest w sektorze...",
 	//L"Zasięg broni (w polach): %d, Szansa na trafienie: %d procent",
 	L"Pokaż osłonę",
 	L"Zasięg wzroku",
 	L"Nowi rekruci nie mogą tam przybyć.",
-	L"Dopóki twój laprop będzie bez nadajnika, nie będziesz mógł zatrudniać nowych członków zespołu.  Możliwe, że to odpowiedni moment żeby odczytać zapisany stan gry lub zacząć grać od nowa!",
-	L"%s słyszy dźwięk zgniatanego metalu dochodzący spod ciała Jerrego.  To niestety zabrzmiało jak dźwięk zgniatanej anteny od twojego laptopa.",  //the %s is the name of a merc.  @@@  Modified
-	L"Po przejżeniu notatki zostawionej przez zastępce dowódcy Morris'a, %s zauważa pewną możliwość.  Notatka zawiera koordynaty do wystrzelenia pocisków w dwa miasteczka w Arulco.  Są na niej również koordynaty z których te pociski zostaną wystrzelone - wojskowej placówki.",
-	L"Przyglądając się panelowi kontrolnemu, %s zauważa, że cyfry można odwrócić, tak, że pociski mogą zniszczyć tą placówkę.  %s musi znaleźć drogę ucieczki. Wydaje się, że winda jest najszybszym rozwiązaniem...",
-	L"To jest tryb CZ£OWIEK ZE STALI i nie możesz zapisywać gry gdy wróg jest w sektorze.",	//	@@@  new text
+	L"Dopóki twój laptop będzie bez nadajnika, nie będziesz mógł zatrudniać nowych członków zespołu.  Możliwe, że to odpowiedni moment by odczytać zapisany stan gry lub zacząć grać od nowa!",
+	L"%s słyszy dźwięk zgniatanego metalu dochodzący spod ciała Jerry'ego.  Niestety zabrzmiało to jak dźwięk zgniatanej anteny twojego laptopa.",  //the %s is the name of a merc.  @@@  Modified
+	L"Po przejrzeniu notatki pozostawionej przez podkomendanta Morrisa, %s zauważa pewną możliwość.  Notatka zawiera koordynaty potrzebne do wystrzelenia pocisków w stronę różnych miast w Arulco. Są na niej również współrzędne, z których pociski te zostaną wystrzelone.",
+	L"Przyglądając się panelowi kontrolnemu, %s spostrzega, że liczby można zamienić tak, by pociski zniszczyły tę placówkę.  %s musi znaleźć drogę ucieczki. Winda zdaje się być najszybszym rozwiązaniem...",
+	L"Grasz w trybie CZŁOWIEKA Z ŻELAZA i nie możesz zapisywać gry, gdy wróg jest w sektorze.",	//	@@@  new text
 	L"(Nie można zapisywać gry podczas walki)", //@@@@ new text
 	L"Kampania ma więcej niż 30 postaci.",							// @@@ new text
 	L"Nie można odnaleźć kampanii.",																	// @@@ new text
@@ -7976,6 +7979,9 @@ STR16	zNewTacticalMessages[]=
 	L"Kampania: %S",																													// @@@ new text
 	L"Wybrałeś kampanię %S. Ta kampania została stworzona przez fanów gry. Czy jesteś pewien, że chcesz w nią zagrać?",			// @@@ new text
 	L"Żeby użyć edytora powinieneś wcześniej wybrać kampanię inną niż standardowa.",		///@@new
+	// anv: extra iron man modes
+	L"Grasz w trybie CZŁOWIEKA Z ŻELIWA i nie możesz zapisywać gry w trakcie walki turowej.",
+	L"Grasz w trybie CZŁOWIEKA ZE STALI i możesz zapisywać grę tylko raz dziennie, o %02d:00.",
 };
 
 // The_bob : pocket popup text defs	// TODO.Translate

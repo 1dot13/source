@@ -5637,6 +5637,10 @@ STR16 gzGIOScreenText[] =
 	L"Söldner-Hintergrundgeschichten",
 	L"Nahrungssystem",
 	L"Bobby Ray Auswahl",
+
+	// anv: extra iron man modes
+	L"Soft Iron Man",	// TODO.Translate
+	L"Extreme Iron Man",	// TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =
@@ -7780,6 +7784,9 @@ STR16	zNewTacticalMessages[]=
 	L"Kampagne: %S",																													
 	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
 	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
+	// anv: extra iron man modes
+	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
+	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
 // The_bob : pocket popup text defs

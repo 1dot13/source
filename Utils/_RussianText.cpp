@@ -5792,6 +5792,10 @@ STR16	gzGIOScreenText[] =
 	L"Merc Story Backgrounds", // TODO.Translate
 	L"Игра с едой",
 	L"Количество товара у Бобби Рэя",
+
+	// anv: extra iron man modes
+	L"Soft Iron Man",	// TODO.Translate
+	L"Extreme Iron Man",	// TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =
@@ -7955,6 +7959,9 @@ STR16	zNewTacticalMessages[]=
 	L"Кампания: %S",
 	L"Вы выбрали кампанию %S. Эта кампания является модификацией оригинальной кампании Unfinished Business. Вы уверены, что хотите играть кампанию %S?",
 	L"Чтобы воспользоваться редактором, смените кампанию по умолчанию на другую.",
+	// anv: extra iron man modes
+	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
+	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
 // The_bob : pocket popup text defs	// TODO.Translate

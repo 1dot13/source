@@ -5793,6 +5793,10 @@ STR16	gzGIOScreenText[] =
 	L"佣兵故事背景", //L"Merc Story Backgrounds",
 	L"生存模式与食物系统",
 	L"Bobby Ray 供货量",
+
+	// anv: extra iron man modes
+	L"Soft Iron Man",	// TODO.Translate
+	L"Extreme Iron Man",	// TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =
@@ -7955,6 +7959,9 @@ STR16	zNewTacticalMessages[]=
 	L"战役: %S",												// @@@ new text
 	L"你选择了%S战役。 该战役是原版UB战役的玩家自定义游戏版本。你确认你要在 %S 战役下进行游戏吗?",			
 	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
+	// anv: extra iron man modes
+	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
+	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
 // The_bob : pocket popup text defs

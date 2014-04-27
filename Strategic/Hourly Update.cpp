@@ -35,6 +35,8 @@
 // anv: for hourly heli repair
 #include "Vehicles.h"
 #include "Map Screen Helicopter.h" 
+// anv: transition to save screen in extreme iron man mode
+#include "gameloop.h" 
 
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
@@ -157,79 +159,97 @@ CHAR16	zString[128];
 		{
 				if ( AutoSaveToSlot[0] == TRUE )
 				{
-					if( CanGameBeSaved() )
+					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
 						guiPreviousOptionScreen = guiCurrentScreen;
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT1);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
+
+						AutoSaveToSlot[0] = FALSE;
+						AutoSaveToSlot[1] = TRUE;
+						AutoSaveToSlot[2] = FALSE;
+						AutoSaveToSlot[3] = FALSE;
+						AutoSaveToSlot[4] = FALSE;
 					}
-					
-					AutoSaveToSlot[0] = FALSE;
-					AutoSaveToSlot[1] = TRUE;
-					AutoSaveToSlot[2] = FALSE;
-					AutoSaveToSlot[3] = FALSE;
-					AutoSaveToSlot[4] = FALSE;
 				}
 				else if ( AutoSaveToSlot[1] == TRUE )
 				{
-					if( CanGameBeSaved() )
+					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
 						guiPreviousOptionScreen = guiCurrentScreen;
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT2);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT2,zString);
-					}
-					
-					AutoSaveToSlot[0] = FALSE;
-					AutoSaveToSlot[1] = FALSE;
-					AutoSaveToSlot[2] = TRUE;
-					AutoSaveToSlot[3] = FALSE;
-					AutoSaveToSlot[4] = FALSE;
+
+						AutoSaveToSlot[0] = FALSE;
+						AutoSaveToSlot[1] = FALSE;
+						AutoSaveToSlot[2] = TRUE;
+						AutoSaveToSlot[3] = FALSE;
+						AutoSaveToSlot[4] = FALSE;
+					}			
 				}
 				else if ( AutoSaveToSlot[2] == TRUE )
 				{
-					if( CanGameBeSaved() )
+					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
 						guiPreviousOptionScreen = guiCurrentScreen;
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT3);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT3,zString);
+
+						AutoSaveToSlot[0] = FALSE;
+						AutoSaveToSlot[1] = FALSE;
+						AutoSaveToSlot[2] = FALSE;
+						AutoSaveToSlot[3] = TRUE;
+						AutoSaveToSlot[4] = FALSE;
 					}
-					
-					AutoSaveToSlot[0] = FALSE;
-					AutoSaveToSlot[1] = FALSE;
-					AutoSaveToSlot[2] = FALSE;
-					AutoSaveToSlot[3] = TRUE;
-					AutoSaveToSlot[4] = FALSE;
 				}
 				else if ( AutoSaveToSlot[3] == TRUE )
 				{
-					if( CanGameBeSaved() )
+					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
 						guiPreviousOptionScreen = guiCurrentScreen;
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT4);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT4,zString);
-					}
-					AutoSaveToSlot[0] = FALSE;
-					AutoSaveToSlot[1] = FALSE;
-					AutoSaveToSlot[2] = FALSE;
-					AutoSaveToSlot[3] = FALSE;
-					AutoSaveToSlot[4] = TRUE;
-					
+
+						AutoSaveToSlot[0] = FALSE;
+						AutoSaveToSlot[1] = FALSE;
+						AutoSaveToSlot[2] = FALSE;
+						AutoSaveToSlot[3] = FALSE;
+						AutoSaveToSlot[4] = TRUE;
+					}					
 				}
 				else if ( AutoSaveToSlot[4] == TRUE )
 				{
-					if( CanGameBeSaved() )
+					if( CanGameBeSaved() || ( gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour ) )
 					{
 						guiPreviousOptionScreen = guiCurrentScreen;
 						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT5);
 						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT5,zString);
-					}
-					AutoSaveToSlot[0] = TRUE;
-					AutoSaveToSlot[1] = FALSE;
-					AutoSaveToSlot[2] = FALSE;
-					AutoSaveToSlot[3] = FALSE;
-					AutoSaveToSlot[4] = FALSE;
-					
+
+						AutoSaveToSlot[0] = TRUE;
+						AutoSaveToSlot[1] = FALSE;
+						AutoSaveToSlot[2] = FALSE;
+						AutoSaveToSlot[3] = FALSE;
+						AutoSaveToSlot[4] = FALSE;
+					}			
 				}
+		}
+	}
+
+	// anv: in extreme iron man mode notify player it's time to save
+	if( doAutoSave && gGameOptions.ubIronManMode == 3 && GetWorldHour() == gGameExternalOptions.ubExtremeIronManSavingHour )
+	{
+		// pause game
+		if( gGameExternalOptions.ubExtremeIronManSavingTimeNotification == 1 )
+		{		
+			// not really player's doing but oh well
+			HandlePlayerPauseUnPauseOfGame();
+		}
+		// automatically open save screen when it's time
+		else if( gGameExternalOptions.ubExtremeIronManSavingTimeNotification == 0 )
+		{
+			gfSaveGame = TRUE;
+			guiPreviousOptionScreen = guiCurrentScreen;
+			SetPendingNewScreen( SAVE_LOAD_SCREEN );
 		}
 	}
 }

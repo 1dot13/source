@@ -478,7 +478,9 @@ STR16 zGioNewTraitsImpossibleText[]=
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Wybrałeś tryb CZŁOWIEK ZE STALI. Opcja ta sprawi, że gra będzie dużo trudniejsza ponieważ nie będzie możliwości zapisywania gry podczas walki. Będzie to miało wpływ na cały przebieg rozgrywki. Czy na pewno chcesz grać w trybie CZŁOWIEK ZE STALI?",
+	L"Wybrałeś tryb CZŁOWIEKA Z ŻELAZA. Opcja ta sprawi, że gra będzie dużo trudniejsza, ponieważ nie będzie możliwości zapisywania gry podczas walki. Będzie to miało wpływ na cały przebieg rozgrywki. Czy na pewno chcesz grać w trybie CZŁOWIEKA Z ŻELAZA?",
+	L"Wybrałeś tryb CZŁOWIEKA Z ŻELIWA. Opcja ta sprawi, że gra będzie nieco trudniejsza, gdyż nie będziesz miał możliwości zapisywania gry podczas walki w trybie turowym. Będzie to miało wpływ na cały przebieg rozgrywki.  Czy na pewno chcesz grać w trybie CZŁOWIEKA Z ŻELIWA?",
+	L"Wybrałeś tryb CZŁOWIEKA ZE STALI. Opcja ta sprawi, że gra będzie znacznie trudniejsza, gdyż będziesz mógł zapisać grę zaledwie raz dziennie, o %02d:00. Będzie to miało wpływ na cały przebieg rozgrywki. Jesteś pewien, że gra w trybie CZŁOWIEKA ZE STALI to dobry pomysł?",
 };
 
 STR16 gzDisplayCoverText[]=

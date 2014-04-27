@@ -238,9 +238,11 @@ typedef struct
 	BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
 	BOOLEAN fBackGround;				// ubFiller:	From 497 to 496
 	BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
+
+	UINT8	ubIronManMode;				// ubFiler:		From 495 to 494
 	
 	// WANNE: Decrease this filler by 1, for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
-	UINT8	ubFiller[495];		
+	UINT8	ubFiller[494];		
 
 } GAME_OPTIONS;
 
@@ -1438,6 +1440,10 @@ typedef struct
 
 	BOOLEAN fHelicopterReturnToBaseIsNotFree;
 	BOOLEAN fPaySkyriderInBase;
+
+	// anv: new iron man modes
+	UINT8 ubExtremeIronManSavingTimeNotification;
+	UINT8 ubExtremeIronManSavingHour;
 
 } GAME_EXTERNAL_OPTIONS;
 

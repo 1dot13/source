@@ -480,6 +480,8 @@ STR16 zGioNewTraitsImpossibleText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"你选择了铁人模式。这将会游戏变得相当有挑战性，因为你无法在敌人占据的分区存档。 这个设置会影响游戏的整个进程。你确认你要在铁人模式下进行游戏吗?",
+	L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",// TODO.Translate
+	L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",// TODO.Translate
 };
 
 STR16 gzDisplayCoverText[]=

@@ -664,7 +664,8 @@ void InitGameOptions()
 	
 	gGameOptions.fTurnTimeLimit	= FALSE;
 	gGameOptions.fIronManMode		= FALSE;
-	
+	gGameOptions.ubIronManMode		= 0;
+
 	// following added by SANDRO
 	gGameOptions.ubMaxIMPCharacters	= (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount); 
 
@@ -1691,6 +1692,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubIncludeContractsInExpenses			= iniReader.ReadInteger("Strategic Interface Settings","INCLUDE_CONTRACTS_IN_PROJECTED_EXPENSES_WINDOW", 1, 0, 2);
 
 	gGameExternalOptions.fDisableStrategicTransition			= iniReader.ReadBoolean("Strategic Interface Settings","DISABLE_STRATEGIC_TRANSITION", FALSE);
+
+	gGameExternalOptions.ubExtremeIronManSavingTimeNotification	= iniReader.ReadInteger("Strategic Interface Settings","EXTREME_IRON_MAN_SAVING_TIME_NOTIFICATION", 1, 0, 2);
+	gGameExternalOptions.ubExtremeIronManSavingHour				= iniReader.ReadInteger("Strategic Interface Settings","EXTREME_IRON_MAN_SAVING_HOUR", 0, 0, 23);
 
 	//################# Strategic Progress Settings ##################
 
@@ -4044,7 +4048,7 @@ BOOLEAN	CanGameBeSaved()
 	if( gGameOptions.fIronManMode )
 	{
 		//if we are in turn based combat
-		if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+		if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && gGameOptions.ubIronManMode < 3 )
 		{
 			//no save for you
 			return( FALSE );
@@ -4053,7 +4057,16 @@ BOOLEAN	CanGameBeSaved()
 		//if there are enemies in the current sector
 		if( gWorldSectorX != -1 && gWorldSectorY != -1 &&
 				gWorldSectorX != 0 && gWorldSectorY != 0 &&
-				NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
+				NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 
+				&& gGameOptions.ubIronManMode < 2 )
+		{
+			//no save for you
+			return( FALSE );
+		}
+
+		if( gGameOptions.ubIronManMode == 3 && 
+			( GetWorldHour() != gGameExternalOptions.ubExtremeIronManSavingHour || 
+				guiMin != 0 ) )
 		{
 			//no save for you
 			return( FALSE );

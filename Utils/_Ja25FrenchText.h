@@ -48,6 +48,8 @@ extern STR16 zGioNewTraitsImpossibleText[];
 enum
 {
 	IMM__IRON_MAN_MODE_WARNING_TEXT,
+	IMM__SOFT_IRON_MAN_MODE_WARNING_TEXT,
+	IMM__EXTREME_IRON_MAN_MODE_WARNING_TEXT,
 };
 extern	STR16	gzIronManModeWarningText[];
 

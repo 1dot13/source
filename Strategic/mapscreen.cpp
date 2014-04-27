@@ -7950,7 +7950,20 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							else
 							{
 								//Display a message saying the player cant save now
-								DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+								switch( gGameOptions.ubIronManMode )
+								{
+									case 2:
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+										break;
+									case 3:
+										CHAR16 zTemp[320];
+										swprintf( zTemp, zNewTacticalMessages[ TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW ], gGameExternalOptions.ubExtremeIronManSavingHour);
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+										break;
+									default:
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+										break;
+								}
 							}
 						}
 					}
