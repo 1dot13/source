@@ -72,7 +72,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								MILITIA_MOVEMENT
+#define			SAVE_GAME_VERSION								MORE_LOCKS_AND_KEYS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus
