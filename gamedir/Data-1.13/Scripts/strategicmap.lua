@@ -79,8 +79,6 @@ Facts = {
 	FACT_ALL_TERRORISTS_KILLED   =      156,
 }
 
-local NOBODY = 254
-
 History = {
 	HISTORY_ENTERED_HISTORY_MODE = 0,
 	HISTORY_HIRED_MERC_FROM_AIM = 1,
@@ -185,9 +183,7 @@ function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 	end
 
 	if ( sNewSectorX == 5 and sNewSectorY == SectorY.MAP_ROW_D ) then
-		gubBoxerID( 0, NOBODY )
-		gubBoxerID( 1, NOBODY ) 
-		gubBoxerID( 2, NOBODY )
+		ResetBoxers()
 	end
 
 	if ( sNewSectorX == 3 and sNewSectorY == SectorY.MAP_ROW_P ) then
