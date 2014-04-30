@@ -2717,7 +2717,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			pSoldier->bActionPoints = 0;
 
 			// Flugente: due to a fix, also note here that the reinforcements get no APs.
-			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
+			pSoldier->usSoldierFlagMask |= SOLDIER_NO_AP;
 
 			// Flugente: campaign stats
 			if ( IsOurSoldier(pSoldier) )
@@ -2842,7 +2842,7 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 			++numberofcivs;
 
 		// count how many pows are already placed
-		if ( pTeamSoldier->bSoldierFlagMask & SOLDIER_POW_PRISON )
+		if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_POW_PRISON )
 			++numberofpows;
 	}
 

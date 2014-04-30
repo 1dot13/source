@@ -93,9 +93,7 @@ void ModifyPlayerReputation(INT8 bRepChange)
 
 BOOLEAN MercThinksDeathRateTooHigh( UINT8 ubProfileID )
 {
-	INT8	bDeathRateTolerance;
-
-	bDeathRateTolerance = gMercProfiles[ ubProfileID ].bDeathRate;
+	INT8	bDeathRateTolerance = gMercProfiles[ubProfileID].bDeathRate;
 
 	// if he couldn't care less what it is
 	if (bDeathRateTolerance == 101)
@@ -109,19 +107,15 @@ BOOLEAN MercThinksDeathRateTooHigh( UINT8 ubProfileID )
 		// too high - sorry
 		return(TRUE);
 	}
-	else
-	{
-		// within tolerance
-		return(FALSE);
-	}
+		
+	// within tolerance
+	return(FALSE);
 }
 
 
 BOOLEAN MercThinksBadReputationTooHigh( UINT8 ubProfileID )
 {
-	INT8	bRepTolerance;
-
-	bRepTolerance = gMercProfiles[ ubProfileID ].bReputationTolerance;
+	INT8	bRepTolerance = gMercProfiles[ ubProfileID ].bReputationTolerance;
 
 	// if he couldn't care less what it is
 	if (bRepTolerance == 101)
@@ -135,11 +129,9 @@ BOOLEAN MercThinksBadReputationTooHigh( UINT8 ubProfileID )
 		// too high - sorry
 		return(TRUE);
 	}
-	else
-	{
-		// within tolerance
-		return(FALSE);
-	}
+	
+	// within tolerance
+	return(FALSE);
 }
 
 
@@ -157,8 +149,7 @@ BOOLEAN MercThinksHisMoraleIsTooLow( SOLDIERTYPE *pSoldier )
 		// that obviously it CAN'T be too low...
 		return(FALSE);
 	}
-
-
+	
 	// morale tolerance is based directly upon reputation tolerance
 	// above 50, morale is GOOD, never below tolerance then
 	bMoraleTolerance = (100 - bRepTolerance) / 2;
@@ -168,11 +159,9 @@ BOOLEAN MercThinksHisMoraleIsTooLow( SOLDIERTYPE *pSoldier )
 		// too low - sorry
 		return(TRUE);
 	}
-	else
-	{
-		// within tolerance
-		return(FALSE);
-	}
+
+	// within tolerance
+	return(FALSE);
 }
 
 BOOLEAN MercIsOwedTooMuchMoney( UINT8 ubProfileID )
@@ -188,8 +177,7 @@ BOOLEAN MercIsOwedTooMuchMoney( UINT8 ubProfileID )
 
 BOOLEAN MercThinksPlayerIsInactiveTooLong( UINT8 ubProfileID )
 {
-	UINT8 ubTolerance;
-	ubTolerance = gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS];
+	UINT8 ubTolerance = gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS];
 	if( gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_PACIFIST )
 	{
 		ubTolerance = max(0, ubTolerance + gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS]);
@@ -206,10 +194,8 @@ BOOLEAN MercThinksPlayerIsInactiveTooLong( UINT8 ubProfileID )
 	{
 		return(TRUE);
 	}
-	else
-	{
-		return(FALSE);
-	}
+	
+	return(FALSE);
 }
 
 void UpdateLastDayOfPlayerActivity( UINT16 usDay )
@@ -228,11 +214,8 @@ UINT8 LackOfProgressTolerance( void )
 		// give an EXTRA day over normal
 		return( 7 - DIF_LEVEL_MEDIUM + gStrategicStatus.ubHighestProgress / 42 );
 	}
-	else
-	{
-		return( 6 - gGameOptions.ubDifficultyLevel + gStrategicStatus.ubHighestProgress / 42 );
-	}
 
+	return( 6 - gGameOptions.ubDifficultyLevel + gStrategicStatus.ubHighestProgress / 42 );
 }
 
 

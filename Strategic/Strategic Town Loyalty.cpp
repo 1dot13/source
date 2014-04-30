@@ -333,7 +333,6 @@ void DecrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyDecrease )
 	UINT32 uiRemainingDecrement;
 	INT16 sThisDecrement;
 
-
 	Assert( ( bTownId >= FIRST_TOWN ) && ( bTownId < NUM_TOWNS ) );
 
 	// doesn't affect towns where player hasn't established a "presence" yet
@@ -363,8 +362,6 @@ void DecrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyDecrease )
 
 		uiRemainingDecrement -= sThisDecrement;
 	}
-
-	return;
 }
 
 
@@ -375,7 +372,6 @@ void UpdateTownLoyaltyRating( INT8 bTownId )
 	UINT8 ubOldLoyaltyRating = 0;
 	INT16 sRatingChange = 0;
 	UINT8 ubMaxLoyalty = 0;
-
 
 	Assert( ( bTownId >= FIRST_TOWN ) && ( bTownId < NUM_TOWNS ) );
 
@@ -437,8 +433,6 @@ void UpdateTownLoyaltyRating( INT8 bTownId )
 	{
 		fMapPanelDirty = TRUE;
 	}
-
-	return;
 }
 
 

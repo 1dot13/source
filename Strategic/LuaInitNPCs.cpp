@@ -838,6 +838,8 @@ static int l_EnvEndRainStorm (lua_State *L);
 
 static int l_ProfilesStrategicInsertionData (lua_State *L);
 
+static int l_ResetBoxers( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1123,7 +1125,8 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "GetNPCBalance", l_GetiBalance);
 	lua_register(L, "GetCharacterSectorZ", l_GetCharacterSectorZ);
 	lua_register(L, "GetCharacterSectorX", l_GetCharacterSectorX);
-	lua_register(L, "GetCharacterSectorY", l_GetCharacterSectorY);	
+	lua_register(L, "GetCharacterSectorY", l_GetCharacterSectorY);
+	lua_register(L, "ResetBoxers", l_ResetBoxers );
 
 	//Tactical merc
 	lua_register(L, "CheckCivGroupHostile", l_fCivGroupHostile);	
@@ -10588,19 +10591,26 @@ static int l_GetCharacterSectorX (lua_State *L)
 //Set charcter to sector Z
 static int l_SetCharacterSectorZ (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 id = 0;
-	UINT8 SectorZ = 0;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) id = lua_tointeger(L,i);
-		if (i == 2 ) SectorZ = lua_tointeger(L,i);
+		UINT8 id = lua_tointeger( L, 1 );
+		UINT8 SectorZ = lua_tointeger( L, 2 );
+
+		gMercProfiles[id].bSectorZ = SectorZ;
+	}
+		
+	return 0;
+}
+
+// set boxer ids back to NOBODY, so they can be reinitialised
+static int l_ResetBoxers( lua_State *L )
+{
+	for ( UINT8 i = 0; i < NUM_BOXERS; ++i )
+	{
+		gubBoxerID[i] = NOBODY;
+		gfBoxerFought[i] = FALSE;
 	}
 
-	gMercProfiles[ id ].bSectorZ = SectorZ;
-		
 	return 0;
 }
 

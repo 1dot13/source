@@ -123,7 +123,7 @@ void HandleFlashLights()
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier != NULL && pSoldier->bSoldierFlagMask & SOLDIER_REDOFLASHLIGHT )
+		if ( pSoldier != NULL && pSoldier->usSoldierFlagMask & SOLDIER_REDOFLASHLIGHT )
 		{
 			pSoldier->HandleFlashLights();
 		}

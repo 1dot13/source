@@ -1899,7 +1899,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			pSoldier->bActionPoints = 0;
 
 			// Flugente: due to a fix, also note here that the reinforcements get no APs.
-			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
+			pSoldier->usSoldierFlagMask |= SOLDIER_NO_AP;
 
 			// Flugente: campaign stats
 			if ( IsOurSoldier(pSoldier) )

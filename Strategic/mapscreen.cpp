@@ -7558,36 +7558,79 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							}
 							if( fCtrl )
 							{
-								//CHRISL: pickup all items to vehicle
-								if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+								if ( UsingNewInventorySystem() && fShowInventoryFlag && fShowMapInventoryPool && !gTacticalStatus.fEnemyInSector)
 								{
-									for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
+									//CHRISL: pickup all items to vehicle
+									if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 									{
-										if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+										if (gGameExternalOptions.fVehicleInventory)
 										{
-											for(int x = 0; x<NUM_INV_SLOTS; x++)
+											for (unsigned int i = 0; i < pInventoryPoolList.size(); i++)
 											{
-												if(vehicleInv[x] == FALSE)
-													continue;
-												if(pSoldier->inv[x].exists() == true)
+												if (pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
 												{
-													if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
-														continue;
-													else
-														pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
+													for (int x = 0; x < NUM_INV_SLOTS; x++)
+													{
+														if (vehicleInv[x] == FALSE)
+															continue;
+														if (pSoldier->inv[x].exists() == true)
+														{
+															if (pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
+																continue;
+															else
+																pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
+														}
+														else
+															pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
+														if (pInventoryPoolList[i].object.ubNumberOfObjects < 0)
+														{
+															//RemoveItemFromWorld(i);
+															break;
+														}
+													}
 												}
-												else
-													pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
-												if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
-												{
-													//RemoveItemFromWorld(i);
-													break;
-												}
+												fTeamPanelDirty = TRUE;
+												fMapPanelDirty = TRUE;
+												fInterfacePanelDirty = DIRTYLEVEL2;
 											}
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
+									}
+									// Flugente: also allow mercs to qickly pick up items this way (but not EPCs)
+									else if ( !AM_AN_EPC(pSoldier) )
+									{
+										for (unsigned int i = 0; i < pInventoryPoolList.size(); ++i)
+										{
+											if (pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+											{
+												INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+												for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+												{
+													if ( CanItemFitInPosition( pSoldier, &pInventoryPoolList[i].object, bLoop, FALSE ) )
+													{
+														// TODO: do not add LBE if we would then have to move existing items
+
+														if (pSoldier->inv[bLoop].exists())
+														{
+															if (pSoldier->inv[bLoop].usItem != pInventoryPoolList[i].object.usItem)
+																continue;
+															else
+																pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[bLoop], -1, pSoldier, bLoop, 0, FALSE);
+														}
+														else
+															pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[bLoop], -1, pSoldier, bLoop);
+
+														if (pInventoryPoolList[i].object.ubNumberOfObjects < 0)
+														{
+															//RemoveItemFromWorld(i);
+															break;
+														}
+													}
+												}
+											}
+											fTeamPanelDirty = TRUE;
+											fMapPanelDirty = TRUE;
+											fInterfacePanelDirty = DIRTYLEVEL2;
+										}
 									}
 								}
 							}

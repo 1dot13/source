@@ -903,7 +903,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	}
 
 	// if zombie and headshots are required, forbid rising if killed by headshot
-	if ( pSoldier->IsZombie() && gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill && (pSoldier->bSoldierFlagMask & SOLDIER_HEADSHOT) )
+	if ( pSoldier->IsZombie() && gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill && (pSoldier->usSoldierFlagMask & SOLDIER_HEADSHOT) )
 		Corpse.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
 
 	// Flugente: copy name of soldier...
@@ -912,10 +912,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 #endif
 		
 	// if this soldier's uniform was damaged (gunfire, blade attacks, explosions) then don't allow to take the uniform. We can't stay hidden if we're covered in blood :-)
-	if ( pSoldier->bSoldierFlagMask & SOLDIER_DAMAGED_VEST )
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_DAMAGED_VEST )
 		Corpse.usFlags |= ROTTING_CORPSE_NO_VEST;
 
-	if ( pSoldier->bSoldierFlagMask & SOLDIER_DAMAGED_PANTS )
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_DAMAGED_PANTS )
 		Corpse.usFlags |= ROTTING_CORPSE_NO_PANTS;
 
 	// Determine corpse type!

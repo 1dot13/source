@@ -42,18 +42,18 @@ void ExitBoxing( void )
 	//DBrot: More Rooms
 	//UINT8						ubRoom;
 	UINT16				usRoom;
-	SOLDIERTYPE *		pSoldier;
-	UINT32					uiLoop;
-	UINT8						ubPass;
+	SOLDIERTYPE*		pSoldier;
+	UINT32				uiLoop;
+	UINT8				ubPass;
 
 	// find boxers and turn them neutral again
 
 	// first time through loop, look for AI guy, then for PC guy.... for stupid
 	// oppcnt/alert status reasons
-	for( ubPass = 0; ubPass < 2; ubPass++ )
+	for( ubPass = 0; ubPass < 2; ++ubPass )
 	{
 		// because boxer could die, loop through all soldier ptrs
-		for ( uiLoop = 0; uiLoop < gTacticalStatus.Team[ CIV_TEAM ].bLastID; uiLoop++ )
+		for ( uiLoop = 0; uiLoop < gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++uiLoop )
 		{
 			pSoldier = MercPtrs[ uiLoop ];
 
@@ -128,7 +128,6 @@ void ExitBoxing( void )
 
 		// Lock UI until we get out of the ring
 		guiPendingOverrideEvent = LU_BEGINUILOCK;
-
 	}
 }
 
@@ -196,7 +195,7 @@ UINT8 CountPeopleInBoxingRing( void )
 	UINT16	usRoom;
 	UINT8 ubTotalInRing = 0;
 
-	for ( uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++ )
+	for ( uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
@@ -204,7 +203,7 @@ UINT8 CountPeopleInBoxingRing( void )
 		{
 			if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING)
 			{
-				ubTotalInRing++;
+				++ubTotalInRing;
 			}
 		}
 	}
@@ -214,17 +213,16 @@ UINT8 CountPeopleInBoxingRing( void )
 
 void CountPeopleInBoxingRingAndDoActions( void )
 {
-	UINT32					uiLoop;
-	UINT8						ubTotalInRing = 0;
+	UINT32				uiLoop;
+	UINT8				ubTotalInRing = 0;
 	//DBrot: More Rooms
-	//UINT8						ubRoom;
-	UINT16						usRoom;
-	UINT8						ubPlayersInRing = 0;
+	UINT16				usRoom;
+	UINT16				ubPlayersInRing = 0;
 	SOLDIERTYPE *		pSoldier;
 	SOLDIERTYPE *		pInRing[2] = { NULL, NULL };
 	SOLDIERTYPE *		pNonBoxingPlayer = NULL;
 
-	for ( uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++ )
+	for ( uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
@@ -236,19 +234,17 @@ void CountPeopleInBoxingRingAndDoActions( void )
 				{
 					pInRing[ ubTotalInRing ] = pSoldier;
 				}
-				ubTotalInRing++;
+				++ubTotalInRing;
 
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_PC )
 				{
-					ubPlayersInRing++;
+					++ubPlayersInRing;
 
 					if ( !pNonBoxingPlayer && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
 					{
 						pNonBoxingPlayer = pSoldier;
 					}
-
 				}
-
 			}
 		}
 	}
@@ -270,7 +266,6 @@ void CountPeopleInBoxingRingAndDoActions( void )
 		return;
 	}
 
-
 	if ( gTacticalStatus.bBoxingState == BOXING_WAITING_FOR_PLAYER )
 	{
 		if ( ubTotalInRing == 1 && ubPlayersInRing == 1 )
@@ -281,44 +276,45 @@ void CountPeopleInBoxingRingAndDoActions( void )
 		}
 	}
 	else
-	// if pre-boxing, check for two people (from different teams!) in the ring
-	if ( gTacticalStatus.bBoxingState == PRE_BOXING )
 	{
-		if ( ubTotalInRing == 2 && ubPlayersInRing == 1 )
+		// if pre-boxing, check for two people (from different teams!) in the ring
+		if (gTacticalStatus.bBoxingState == PRE_BOXING)
 		{
-			// ladieees and gennleman, we have a fight!
-			for ( uiLoop = 0; uiLoop < 2; uiLoop++ )
+			if (ubTotalInRing == 2 && ubPlayersInRing == 1)
 			{
-				if ( ! ( pInRing[ uiLoop ]->flags.uiStatusFlags & SOLDIER_BOXER ) )
+				// ladieees and gennleman, we have a fight!
+				for (uiLoop = 0; uiLoop < 2; ++uiLoop)
 				{
-					// set as boxer!
-					pInRing[ uiLoop ]->flags.uiStatusFlags |= SOLDIER_BOXER;
+					if (!(pInRing[uiLoop]->flags.uiStatusFlags & SOLDIER_BOXER))
+					{
+						// set as boxer!
+						pInRing[uiLoop]->flags.uiStatusFlags |= SOLDIER_BOXER;
+					}
 				}
-			}
-			// start match!
-			SetBoxingState( BOXING );
-			gfLastBoxingMatchWonByPlayer = FALSE;
+				// start match!
+				SetBoxingState(BOXING);
+				gfLastBoxingMatchWonByPlayer = FALSE;
 
-			#ifdef JA2TESTVERSION
+#ifdef JA2TESTVERSION
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Boxer APs %d %d", pInRing[0]->bActionPoints, pInRing[1]->bActionPoints );
-			#endif
-			// give the first turn to a randomly chosen boxer
-			EnterCombatMode( pInRing[ Random( 2 ) ]->bTeam );
+#endif
+				// give the first turn to a randomly chosen boxer
+				EnterCombatMode(pInRing[Random(2)]->bTeam);
+			}
 		}
-	}
-	/*
-	else
-	{
+		/*
+		else
+		{
 		// check to see if the player has more than one person in the ring
 		if ( ubPlayersInRing > 1 )
 		{
-			// boxing match just became invalid!
-			BoxingPlayerDisqualified( pNonBoxingPlayer, NON_BOXER_IN_RING );
-			return;
+		// boxing match just became invalid!
+		BoxingPlayerDisqualified( pNonBoxingPlayer, NON_BOXER_IN_RING );
+		return;
 		}
+		}
+		*/
 	}
-	*/
-
 }
 
 BOOLEAN CheckOnBoxers( void )
@@ -359,7 +355,7 @@ BOOLEAN BoxerExists( void )
 {
 	UINT32	uiLoop;
 
-	for( uiLoop = 0; uiLoop < NUM_BOXERS; uiLoop++ )
+	for( uiLoop = 0; uiLoop < NUM_BOXERS; ++uiLoop )
 	{
 		if ( WhoIsThere2( gsBoxerGridNo[ uiLoop ], 0 ) != NOBODY )
 		{
@@ -371,17 +367,17 @@ BOOLEAN BoxerExists( void )
 
 BOOLEAN PickABoxer( void )
 {
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pBoxer;
+	UINT32			uiLoop;
+	SOLDIERTYPE*	pBoxer;
 
-	for( uiLoop = 0; uiLoop < NUM_BOXERS; uiLoop++ )
+	for( uiLoop = 0; uiLoop < NUM_BOXERS; ++uiLoop )
 	{
 		if ( gubBoxerID[ uiLoop ] != NOBODY )
 		{
 			if ( gfBoxerFought[ uiLoop ] )
 			{
 				// pathetic attempt to prevent multiple AI boxers
-				MercPtrs[ gubBoxerID[ uiLoop ] ]->flags.uiStatusFlags &= ~SOLDIER_BOXER;
+				MercPtrs[ gubBoxerID[ uiLoop ] ]->DeleteBoxingFlag();
 			}
 			else
 			{
@@ -430,15 +426,13 @@ BOOLEAN PickABoxer( void )
 
 BOOLEAN BoxerAvailable( void )
 {
-	UINT8			ubLoop;
-
 	// No way around this, BoxerAvailable will have to go find boxer IDs if they aren't set.
 	if ( CheckOnBoxers() == FALSE )
 	{
 		return( FALSE );
 	}
 
-	for( ubLoop = 0; ubLoop < NUM_BOXERS; ubLoop++ )
+	for (UINT8 ubLoop = 0; ubLoop < NUM_BOXERS; ++ubLoop)
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
@@ -453,14 +447,13 @@ BOOLEAN BoxerAvailable( void )
 // SEQUEL FIGHT.   Maybe we could check Kingpin's location instead!
 UINT8 BoxersAvailable( void )
 {
-	UINT8			ubLoop;
 	UINT8			ubCount = 0;
 
-	for( ubLoop = 0; ubLoop < NUM_BOXERS; ubLoop++ )
+	for (UINT8 ubLoop = 0; ubLoop < NUM_BOXERS; ++ubLoop)
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			ubCount++;
+			++ubCount;
 		}
 	}
 
@@ -487,7 +480,7 @@ BOOLEAN AnotherFightPossible( void )
 	// Loop through all mercs on player team
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	pSoldier = MercPtrs[ ubLoop ];
-	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++,pSoldier++ )
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop, pSoldier++ )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > (OKLIFE + 5) && !pSoldier->bCollapsed )
 		{
@@ -517,7 +510,7 @@ void BoxingMovementCheck( SOLDIERTYPE * pSoldier )
 		// add the history record here.
 		AddHistoryToPlayersLog( HISTORY_DISQUALIFIED_BOXING, pSoldier->ubProfile, GetWorldTotalMin(), gWorldSectorX, gWorldSectorY );
 		// make not a boxer any more
-		pSoldier->flags.uiStatusFlags &= ~(SOLDIER_BOXER);
+		pSoldier->DeleteBoxingFlag( );
 		pSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
 	}
 }
@@ -531,7 +524,6 @@ void SetBoxingState( INT8 bNewState )
 			// pause time
 			PauseGame();
 		}
-
 	}
 	else
 	{
@@ -546,7 +538,6 @@ void SetBoxingState( INT8 bNewState )
 				// fight to occur
 				gfBoxerFought[ 0 ] = TRUE;
 			}
-
 		}
 	}
 	gTacticalStatus.bBoxingState = bNewState;
@@ -557,13 +548,14 @@ void SetBoxingState( INT8 bNewState )
 
 void ClearAllBoxerFlags( void )
 {
-	UINT32	uiSlot;
-
-	for( uiSlot = 0; uiSlot < guiNumMercSlots; uiSlot++ )
+	for (UINT32 uiSlot = 0; uiSlot < guiNumMercSlots; ++uiSlot)
 	{
 		if ( MercSlots[ uiSlot ] && MercSlots[ uiSlot ]->flags.uiStatusFlags & SOLDIER_BOXER )
 		{
-			MercSlots[ uiSlot ]->flags.uiStatusFlags &= ~(SOLDIER_BOXER);
+			MercSlots[ uiSlot ]->DeleteBoxingFlag();
+
+			if ( MercSlots[uiSlot]->bTeam == gbPlayerNum )
+				MercSlots[uiSlot]->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
 		}
 	}
 }

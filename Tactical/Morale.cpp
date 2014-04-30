@@ -742,7 +742,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 						if ( gGameOptions.fNewTraitSystem )
 						{
 							// Flugente: if we have the covert trait and are covert, we might simply be returning from a reconnaissance mission in enemy territory. No need for a morale drop in this case
-							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( (pTeamSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0) )
+							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( (pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0) )
 							{
 								// SANDRO - no penalty for pacifists to run away
 								if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_PACIFIST )
@@ -1065,7 +1065,7 @@ void HourlyMoraleUpdate( void )
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// loop through all mercs to calculate their morale
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID,pSoldier++)
 	{
 		//if the merc is active, in Arulco, and conscious, not POW
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
@@ -1162,7 +1162,7 @@ void HourlyMoraleUpdate( void )
 						}
 					}
 					iTotalOpinions += bOpinion;
-					bNumTeamMembers++;
+					++bNumTeamMembers;
 					if ( EffectiveLeadership( pOtherSoldier ) > bHighestTeamLeadership)
 					{
 						bHighestTeamLeadership = EffectiveLeadership( pOtherSoldier );
@@ -1236,46 +1236,45 @@ void HourlyMoraleUpdate( void )
 		}
 	}
 
-	bStrategicMoraleUpdateCounter++;
+	++bStrategicMoraleUpdateCounter;
 
 	if ( bStrategicMoraleUpdateCounter == gMoraleSettings.ubHoursBetweenStrategicDelay )
 	{
 		DecayStrategicMoraleModifiers();
 		bStrategicMoraleUpdateCounter = 0;
 	}
-
 }
 
 void HandleSnitchCheck( void )
 {
-	INT8									bMercID, bOtherID;
-	INT8									bOpinion=-1;
-	INT8									bLastTeamID;
-	SOLDIERTYPE *					pSoldier;
-	SOLDIERTYPE *					pOtherSoldier;
-	MERCPROFILESTRUCT *		pProfile;
-	BOOLEAN								fSameGroupOnly;
+	UINT16									bMercID, bOtherID;
+	INT8									bOpinion = -1;
+	UINT16									bLastTeamID;
+	SOLDIERTYPE*							pSoldier;
+	SOLDIERTYPE*							pOtherSoldier;
+	MERCPROFILESTRUCT*						pProfile;
+	BOOLEAN									fSameGroupOnly;
 	// anv: save merc id and his negative morale event for snitches
-	UINT8									ubSnitchEventsCounter = 0;
-	SnitchEvent								SnitchEvents[NUM_PROFILES];
+	std::vector<SnitchEvent>				snitcheventvector;
 
-	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
 	// loop through all mercs to calculate their morale
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
 	{
-		//if the merc is active, in Arulco, not POW
+		//if the merc is active, in Arulco, not POW, not a vehicle
 		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
 			!(pSoldier->bAssignment == IN_TRANSIT ||
 			pSoldier->bAssignment == ASSIGNMENT_DEAD ||
-			pSoldier->bAssignment == ASSIGNMENT_POW) )
+			pSoldier->bAssignment == ASSIGNMENT_POW ||
+			pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
 			// calculate the guy's opinion of the people he is with
-			pProfile = &(gMercProfiles[ pSoldier->ubProfile ]);
+			pProfile = &(gMercProfiles[pSoldier->ubProfile]);
 
 			// if we're moving
-			if (pSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pSoldier->ubGroupID ))
+			if ( pSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pSoldier->ubGroupID ) )
 			{
 				// we only check our opinions of people in our squad
 				fSameGroupOnly = TRUE;
@@ -1285,19 +1284,20 @@ void HandleSnitchCheck( void )
 				fSameGroupOnly = FALSE;
 			}
 			// loop through all other mercs
-			bOtherID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pOtherSoldier = MercPtrs[ bOtherID ]; bOtherID <= bLastTeamID; bOtherID++,pOtherSoldier++)
+			bOtherID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( pOtherSoldier = MercPtrs[bOtherID]; bOtherID <= bLastTeamID; ++bOtherID, pOtherSoldier++ )
 			{
 				// skip past ourselves and all inactive mercs
-				if (bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
+				if ( bOtherID != bMercID && pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
 					!(pOtherSoldier->bAssignment == IN_TRANSIT ||
 					pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ||
-					pOtherSoldier->bAssignment == ASSIGNMENT_POW))
+					pOtherSoldier->bAssignment == ASSIGNMENT_POW ||
+					pOtherSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if (fSameGroupOnly)
+					if ( fSameGroupOnly )
 					{
 						// all we have to check is the group ID
-						if (pSoldier->ubGroupID != pOtherSoldier->ubGroupID)
+						if ( pSoldier->ubGroupID != pOtherSoldier->ubGroupID )
 						{
 							continue;
 						}
@@ -1305,72 +1305,72 @@ void HandleSnitchCheck( void )
 					else
 					{
 						// check to see if the location is the same
-						if (pOtherSoldier->sSectorX != pSoldier->sSectorX ||
+						if ( pOtherSoldier->sSectorX != pSoldier->sSectorX ||
 							pOtherSoldier->sSectorY != pSoldier->sSectorY ||
-							pOtherSoldier->bSectorZ != pSoldier->bSectorZ)
+							pOtherSoldier->bSectorZ != pSoldier->bSectorZ )
 						{
 							continue;
 						}
 
 						// if the OTHER soldier is in motion then we don't do anything!
-						if (pOtherSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pOtherSoldier->ubGroupID ))
+						if ( pOtherSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pOtherSoldier->ubGroupID ) )
 						{
 							continue;
 						}
 					}
-					bOpinion = SoldierRelation( pSoldier, pOtherSoldier);
-					if( bOpinion <= gSkillTraitValues.bSNTMercOpinionAboutMercTreshold )
+					bOpinion = SoldierRelation( pSoldier, pOtherSoldier );
+					if ( bOpinion <= gSkillTraitValues.bSNTMercOpinionAboutMercTreshold )
 					{
-						ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,pOtherSoldier->ubProfile,fSameGroupOnly,SNITCH_HATED_PERSON,SnitchEvents,ubSnitchEventsCounter);
+						RememberSnitchableEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, fSameGroupOnly, SNITCH_HATED_PERSON, snitcheventvector );
 					}
 				}
 			}
 
 			// check death rate vs. merc's tolerance once/day (ignores buddies!)
-			if( MercThinksDeathRateTooHigh( pSoldier->ubProfile ) )
+			if ( MercThinksDeathRateTooHigh( pSoldier->ubProfile ) )
 			{
 				// too high, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_DEATH_RATE,SnitchEvents,ubSnitchEventsCounter);
+				RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_DEATH_RATE, snitcheventvector );
 			}
 
 			// check his morale vs. his morale tolerance once/day (ignores buddies!)
-			if( MercThinksHisMoraleIsTooLow( pSoldier ) )
+			if ( MercThinksHisMoraleIsTooLow( pSoldier ) )
 			{
 				// too low, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_LOW_MORALE,SnitchEvents,ubSnitchEventsCounter);
+				RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_LOW_MORALE, snitcheventvector );
 			}
 
 			// check his opinion about player's reputation
-			if( MercThinksBadReputationTooHigh( pSoldier->ubProfile ) )
+			if ( MercThinksBadReputationTooHigh( pSoldier->ubProfile ) )
 			{
 				// too high, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_REPUTATION,SnitchEvents,ubSnitchEventsCounter);
+				RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_REPUTATION, snitcheventvector );
 			}
 
 			// check his opinion about player activity
-			if( MercThinksPlayerIsInactiveTooLong( pSoldier->ubProfile ) )
+			if ( MercThinksPlayerIsInactiveTooLong( pSoldier->ubProfile ) )
 			{
 				// player inactive, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_PROGRESS,SnitchEvents,ubSnitchEventsCounter);
+				RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_PROGRESS, snitcheventvector );
 			}
 
 			// check if player owes him money
-			if( MercIsOwedTooMuchMoney( pSoldier->ubProfile ) )
+			if ( MercIsOwedTooMuchMoney( pSoldier->ubProfile ) )
 			{
 				// player owes him money, inform
-				ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_OWED_MONEY,SnitchEvents,ubSnitchEventsCounter);
+				RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_OWED_MONEY, snitcheventvector );
 			}
 
 			// check if contract is running out, and will not renew
 			// but only if he hasn't another contract signed, so there's still a chance to renew if player reacts properly
-			if( ContractIsGoingToExpireSoon(pSoldier) )
+			if ( ContractIsGoingToExpireSoon( pSoldier ) )
 			{
-				if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
+				if ( (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC) )
 				{
 					// Only do this if they don't want to renew.....
-					if ( !WillMercRenew( pSoldier, FALSE ) && !(pSoldier->flags.fSignedAnotherContract) )
+					if ( !(pSoldier->flags.fSignedAnotherContract) && !WillMercRenew( pSoldier, FALSE ) )
 					{
-						ubSnitchEventsCounter = RememberSnitchableEvent(pSoldier->ubProfile,NO_PROFILE,fSameGroupOnly,SNITCH_GONNA_QUIT,SnitchEvents,ubSnitchEventsCounter);
+						RememberSnitchableEvent( pSoldier->ubProfile, NO_PROFILE, fSameGroupOnly, SNITCH_GONNA_QUIT, snitcheventvector );
 					}
 				}
 			}
@@ -1378,104 +1378,106 @@ void HandleSnitchCheck( void )
 	}
 
 	// anv: handle snitches informing player about reasons for morale drops
-	HandleSnitchesReports( SnitchEvents, ubSnitchEventsCounter );
+	HandleSnitchesReports( snitcheventvector );
 }
 
-void HandleSnitchesReports( SnitchEvent *SnitchEvents, UINT8 ubSnitchEventsCounter )
+void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 {
 	UINT8 bSnitchID;
 	SOLDIERTYPE *pSnitch;
 	BOOLEAN fSleepingSnitch = FALSE;
 
-	for( UINT8 bCounter = 0; bCounter < ubSnitchEventsCounter; ++bCounter )
+	UINT16 size = aVec.size( );
+	for ( UINT16 bCounter = 0; bCounter < size; ++bCounter )
 	{
-		if( SnitchEvents[bCounter].ubEventType != NOBODY )
+		SnitchEvent& event = aVec[bCounter];
+
+		if ( event.ubEventType < NUM_SNITCH_EVENTS )
 		{
-			bSnitchID = SnitchEvents[bCounter].ubSnitchID;
-			pSnitch = FindSoldierByProfileID(bSnitchID,TRUE);
+			bSnitchID = event.ubSnitchID;
+			pSnitch = FindSoldierByProfileID( bSnitchID, TRUE );
 
-			if( pSnitch == NULL )
+			if ( pSnitch == NULL )
 				continue;
 
-			if( !(pSnitch->bActive) )
+			if ( !(pSnitch->bActive) )
 				continue;
 
-			if( pSnitch->flags.fMercAsleep )
+			if ( pSnitch->flags.fMercAsleep )
 				fSleepingSnitch = TRUE;
 
 			// snitch introduction
+			if ( fSleepingSnitch )
+				TacticalCharacterDialogueWithSpecialEvent( pSnitch, 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 0, 0 );
 
-			if( fSleepingSnitch )
-				TacticalCharacterDialogueWithSpecialEvent( FindSoldierByProfileID(bSnitchID,TRUE), 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 0,0 );
-
-			SnitchTacticalCharacterDialogue(FindSoldierByProfileID(bSnitchID,TRUE),0,SNITCH_INTRODUCTION,NOBODY,NOBODY);	
+			SnitchTacticalCharacterDialogue( pSnitch, 0, SNITCH_INTRODUCTION, NO_PROFILE, NO_PROFILE );
 
 			// process all reports by the same snitch in row
-			for(UINT8 bCounter2 = bCounter; bCounter2 < ubSnitchEventsCounter; bCounter2++ )
+			for ( UINT16 bCounter2 = bCounter; bCounter2 < size; ++bCounter2 )
 			{
-				if( SnitchEvents[bCounter2].ubSnitchID == bSnitchID )
+				SnitchEvent& event2 = aVec[bCounter2];
+
+				if ( event2.ubEventType < NUM_SNITCH_EVENTS && event2.ubSnitchID == bSnitchID )
 				{
 					// check if relevant mercs are well
 					SOLDIERTYPE *pSoldier, *pOtherSoldier;
-					pSoldier = FindSoldierByProfileID(SnitchEvents[bCounter2].ubTargetProfile,TRUE);
-					if( pSoldier == NULL || !(pSoldier->bActive) )
+					pSoldier = FindSoldierByProfileID( event2.ubTargetProfile, TRUE );
+					if ( pSoldier == NULL || !(pSoldier->bActive) )
 						continue;
 
-					if( SnitchEvents[bCounter2].ubEventType == SNITCH_HATED_PERSON )
+					if ( event2.ubEventType == SNITCH_HATED_PERSON )
 					{
-						pOtherSoldier = FindSoldierByProfileID(SnitchEvents[bCounter2].ubSecondaryTargetProfile,TRUE);
-						if( pOtherSoldier == NULL || !(pOtherSoldier->bActive) )
+						pOtherSoldier = FindSoldierByProfileID( event2.ubSecondaryTargetProfile, TRUE );
+						if ( pOtherSoldier == NULL || !(pOtherSoldier->bActive) )
 							continue;
 					}
+
 					// say this info
-					SnitchTacticalCharacterDialogue(FindSoldierByProfileID(bSnitchID,TRUE),SnitchEvents[bCounter2].ubEventType,SnitchEvents[bCounter2].ubEventType,
-						SnitchEvents[bCounter2].ubTargetProfile,SnitchEvents[bCounter2].ubSecondaryTargetProfile);
+					SnitchTacticalCharacterDialogue( pSnitch, event2.ubEventType, event2.ubEventType, event2.ubTargetProfile, event2.ubSecondaryTargetProfile );
 
 					// clear info
-					SnitchEvents[bCounter2].ubEventType = NOBODY;
+					event2.ubEventType = NUM_SNITCH_EVENTS;
 				}
 			}
-			if( fSleepingSnitch )
-				TacticalCharacterDialogueWithSpecialEvent( FindSoldierByProfileID(bSnitchID,TRUE), 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 1,0 );
+
+			if ( fSleepingSnitch )
+				TacticalCharacterDialogueWithSpecialEvent( FindSoldierByProfileID( bSnitchID, TRUE ), 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 1, 0 );
+
+			// clear info
+			event.ubEventType = NUM_SNITCH_EVENTS;
 		}
 	}
-
-	ubSnitchEventsCounter = 0;
 }
 
-UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, SnitchEvent SnitchEvents[], UINT8 ubSnitchEventsCounter )
+void RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile, BOOLEAN fSameGroupOnly, UINT8 ubEventType, std::vector<SnitchEvent>& aVec )
 {
-	INT8 bSnitchID;
+	UINT16 bSnitchID;
 	INT16 sSnitchingChance = 0;
 	UINT8 ubSnitchProfile;
 	SOLDIERTYPE * pSnitch;
 	SOLDIERTYPE * pSoldier;
 	SOLDIERTYPE * pOtherSoldier;
 
-	pSoldier = FindSoldierByProfileID(ubTargetProfile,FALSE);
-	pOtherSoldier = FindSoldierByProfileID(ubSecondaryTargetProfile,FALSE);	
-	
-	// loop through all other mercs
-	bSnitchID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSnitch = MercPtrs[ bSnitchID ]; bSnitchID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bSnitchID++,pSnitch++)
-	{
-		// Flugente: we can only store up to 255 (UINT8) snitch events, so get out of here once we reach that! (This shouldn't happen that often anyway, unless you manage to summon all mercenaries in one place)
-		if ( ubSnitchEventsCounter == 255 )
-			break;
+	pSoldier = FindSoldierByProfileID( ubTargetProfile, FALSE );
+	pOtherSoldier = FindSoldierByProfileID( ubSecondaryTargetProfile, FALSE );
 
+	// loop through all other mercs
+	bSnitchID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( pSnitch = MercPtrs[bSnitchID]; bSnitchID <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bSnitchID, pSnitch++ )
+	{
 		ubSnitchProfile = pSnitch->ubProfile;
 		// skip past ourselves and all inactive mercs
-		if (ProfileHasSkillTrait(ubSnitchProfile,SNITCH_NT) && 
+		if ( ProfileHasSkillTrait( ubSnitchProfile, SNITCH_NT ) &&
 			ubSnitchProfile != ubTargetProfile && ubSnitchProfile != ubSecondaryTargetProfile
 			&& pSnitch->bActive && ubSnitchProfile != NO_PROFILE &&
 			!(pSnitch->bAssignment == IN_TRANSIT ||
-				pSnitch->bAssignment == ASSIGNMENT_DEAD ||
-				pSnitch->bAssignment == ASSIGNMENT_POW))
+			pSnitch->bAssignment == ASSIGNMENT_DEAD ||
+			pSnitch->bAssignment == ASSIGNMENT_POW) )
 		{
-			if (fSameGroupOnly)
+			if ( fSameGroupOnly )
 			{
 				// all we have to check is the group ID
-				if (pSoldier->ubGroupID != pSnitch->ubGroupID)
+				if ( pSoldier->ubGroupID != pSnitch->ubGroupID )
 				{
 					continue;
 				}
@@ -1483,27 +1485,27 @@ UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetPro
 			else
 			{
 				// check to see if the location is the same
-				if (pSnitch->sSectorX != pSoldier->sSectorX ||
+				if ( pSnitch->sSectorX != pSoldier->sSectorX ||
 					pSnitch->sSectorY != pSoldier->sSectorY ||
-					pSnitch->bSectorZ != pSoldier->bSectorZ)
+					pSnitch->bSectorZ != pSoldier->bSectorZ )
 				{
 					continue;
 				}
 
 				// if snitch is in motion then we don't do anything!
-				if (pSnitch->ubGroupID != 0 && PlayerIDGroupInMotion( pSnitch->ubGroupID ))
+				if ( pSnitch->ubGroupID != 0 && PlayerIDGroupInMotion( pSnitch->ubGroupID ) )
 				{
 					continue;
 				}
 			}
 			// calculate chances of snitching
-			
+
 			// decreased if target doesn't like snitch, increased if snitch doesn't like him
 			sSnitchingChance = gSkillTraitValues.ubSNTBaseChance;
-			sSnitchingChance = (INT16)(sSnitchingChance + 
-				SoldierRelation( pSoldier, pSnitch)*gSkillTraitValues.fSNTMercOpinionAboutSnitchBonusModifier+ 
-				SoldierRelation( pSnitch, pSoldier)*gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier+
-				gMercProfiles[ubSnitchProfile].bLeadership*gSkillTraitValues.fSNTSnitchLeadershipBonusModifer);	
+			sSnitchingChance = (INT16)(sSnitchingChance +
+				SoldierRelation( pSoldier, pSnitch )*gSkillTraitValues.fSNTMercOpinionAboutSnitchBonusModifier +
+				SoldierRelation( pSnitch, pSoldier )*gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier +
+				gMercProfiles[ubSnitchProfile].bLeadership*gSkillTraitValues.fSNTSnitchLeadershipBonusModifer);
 			if ( pSoldier->bAssignment == pSnitch->bAssignment )
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTSameAssignmentBonus;
@@ -1512,37 +1514,38 @@ UINT8 RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetPro
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTSociableMercBonus;
 			}
-			if ( gMercProfiles[pSnitch->ubProfile].bCharacterTrait == CHAR_TRAIT_LONER)
+			if ( gMercProfiles[pSnitch->ubProfile].bCharacterTrait == CHAR_TRAIT_LONER )
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTLonerMercBonus;
 			}
 			if ( ubEventType == SNITCH_HATED_PERSON )
-			{			
+			{
 				if ( gSkillTraitValues.bSNTMercOpinionAboutMercTreshold != HATED_OPINION )
 				{
-					sSnitchingChance = (INT16)( sSnitchingChance *
-						( 1.0 - (FLOAT)( SoldierRelation( pSoldier, pOtherSoldier ) - HATED_OPINION ) /
-						 (FLOAT)( gSkillTraitValues.bSNTMercOpinionAboutMercTreshold - HATED_OPINION ) ) );
+					sSnitchingChance = (INT16)(sSnitchingChance *
+						(1.0 - (FLOAT)(SoldierRelation( pSoldier, pOtherSoldier ) - HATED_OPINION) /
+						(FLOAT)(gSkillTraitValues.bSNTMercOpinionAboutMercTreshold - HATED_OPINION)));
 				}
 			}
 			if ( gMercProfiles[pSnitch->ubProfile].bDisability == DEAF )
 			{
 				sSnitchingChance /= 2;
 			}
-			sSnitchingChance = max(0, sSnitchingChance);
-			if( Random(100) < (UINT8)sSnitchingChance )
+			sSnitchingChance = max( 0, sSnitchingChance );
+			if ( Random( 100 ) < (UINT8)sSnitchingChance )
 			{
 				//information gathered succesfully, remember event to report it later
-				SnitchEvents[ubSnitchEventsCounter].ubEventType = ubEventType;
-				SnitchEvents[ubSnitchEventsCounter].ubSnitchID = ubSnitchProfile;
-				SnitchEvents[ubSnitchEventsCounter].ubTargetProfile = ubTargetProfile;
-				SnitchEvents[ubSnitchEventsCounter].ubSecondaryTargetProfile = ubSecondaryTargetProfile;
-				++ubSnitchEventsCounter;
+				SnitchEvent event;
+
+				event.ubEventType = ubEventType;
+				event.ubSnitchID = ubSnitchProfile;
+				event.ubTargetProfile = ubTargetProfile;
+				event.ubSecondaryTargetProfile = ubSecondaryTargetProfile;
+
+				aVec.push_back( event );
 			}
 		}
 	}
-
-	return ubSnitchEventsCounter;
 }
 
 void DailyMoraleUpdate(SOLDIERTYPE *pSoldier)

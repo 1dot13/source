@@ -1264,7 +1264,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	// Flugente: if playing with the covert trait, the assassins come covert, so they are tougher to find	
 	if ( gGameExternalOptions.fAssassinsAreDisguised && gGameOptions.fNewTraitSystem && pSoldier->IsAssassin() )
 	{
-		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
+		pSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
 
 		UINT8 rnd = Random(11);
 
@@ -1718,7 +1718,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers
 			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax )
-				pSoldier->bSoldierFlagMask |= SOLDIER_ENEMY_OFFICER;
+				pSoldier->usSoldierFlagMask |= SOLDIER_ENEMY_OFFICER;
 		}
 	}
 	
@@ -3047,7 +3047,7 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 					return NULL;
 
 				// the militia in autoresolve will drop their gear after combat. For this reason, there is no need for MercPtrs[i] to also drop it
-				MercPtrs[i]->bSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
+				MercPtrs[i]->usSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
 
 				//Assign a bogus ID, then return it
 				pSoldier->ubID = NUM_PROFILES;
@@ -3162,7 +3162,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 		pSoldier->stats.bAgility = (INT8)( 70 + Random( 16 ) );
 				
 		// add assassin flag
-		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
+		pSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
 
 		// add spy trait lvl2
 		pSoldier->stats.ubSkillTraits[0] = COVERT_NT;
@@ -3247,8 +3247,8 @@ void CreateAssassin(UINT8 disguisetype)
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		// add correct flags. Undo SOLDIER_COVERT_CIV flag, we disguise as militia, not as a civilian (player cannot disguise as militia, thus he becomes a civilian)
-		pSoldier->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
-		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
+		pSoldier->usSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
+		pSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
 
 		// So we can see them!
 		AllTeamsLookForAll(NO_INTERRUPTS);
@@ -3358,7 +3358,7 @@ void CreatePrisonerOfWar()
 		AddSoldierToSector( pSoldier->ubID );
 
 		// mark this guy
-		pSoldier->bSoldierFlagMask |= SOLDIER_POW_PRISON;
+		pSoldier->usSoldierFlagMask |= SOLDIER_POW_PRISON;
 
 		// set correct civ group
 		pSoldier->ubCivilianGroup = POW_PRISON_CIV_GROUP;
@@ -5260,9 +5260,10 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			}
 		}
 	}
+
 	// RETURN TRUE IF ALL TRAITS ASSIGNED OTHERWISE FALSE
 	if (( !gGameOptions.fNewTraitSystem && ATraitAssigned && BTraitAssigned ) || ( gGameOptions.fNewTraitSystem && ATraitAssigned && BTraitAssigned && CTraitAssigned ) ) 
 		return( TRUE );
-	else
-		return( FALSE );
+	
+	return( FALSE );
 }

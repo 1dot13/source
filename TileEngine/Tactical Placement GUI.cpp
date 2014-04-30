@@ -368,7 +368,7 @@ void InitTacticalPlacementGUI()
 				!MercPtrs[ i ]->bSectorZ )
 		{
 			// Flugente: if options allow it and we entered this sector - in combat - via helicopter, then allow us free selection of our entry point, and drop us from the helicopter
-			if ( MercPtrs[ i ]->bTeam == gbPlayerNum && gGameExternalOptions.ubSkyriderHotLZ == 3 && MercPtrs[ i ]->bSoldierFlagMask & SOLDIER_AIRDROP )
+			if ( MercPtrs[ i ]->bTeam == gbPlayerNum && gGameExternalOptions.ubSkyriderHotLZ == 3 && MercPtrs[ i ]->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
 				AddMercToHeli( MercPtrs[ i ]->ubID );
 
@@ -946,7 +946,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
 			}
 			// Flugente airdrop
-			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
 				// Left black border
 				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
@@ -976,7 +976,7 @@ void RenderTacticalPlacementGUI()
 
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		
-		if (!gfCenter || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP)) )
+		if (!gfCenter || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)) )
 			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRect, usHatchColor );
 		// WANNE - MP: Center
 		else
@@ -989,7 +989,7 @@ void RenderTacticalPlacementGUI()
 
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
-		if (!gfCenter || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP)) )
+		if (!gfCenter || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)) )
 			RectangleDraw( TRUE, gTPClipRect.iLeft, gTPClipRect.iTop, gTPClipRect.iRight, gTPClipRect.iBottom, usHatchColor, pDestBuf );
 		else
 		{
@@ -1199,7 +1199,7 @@ void TacticalPlacementHandle()
 		}
 
 		// WANNE - MP: Center
-		if ( gfCenter && ( is_networked || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP)) )
+		if ( gfCenter && ( is_networked || (gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)) )
 		{
 			if (gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
 			{
@@ -1470,7 +1470,7 @@ void MercClickCallback( MOUSE_REGION *reg, INT32 reason )
 			{
 				if( gbSelectedMercID != i )
 				{
-						if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ i ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+						if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ i ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 							gubDefaultButton = GROUP_BUTTON;
 
 					gbSelectedMercID = i;
@@ -1493,7 +1493,7 @@ void SelectNextUnplacedUnit()
 	if( gbSelectedMercID == -1 )
 		return;
 
-	if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+	if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 		gubDefaultButton = GROUP_BUTTON;
 
 	for( i = gbSelectedMercID; i < giPlacements; i++ )
@@ -1547,7 +1547,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 		{
 			if( gbSelectedMercID != -1 )
 			{
-				if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+				if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 					gubDefaultButton = GROUP_BUTTON;
 
 				if( GetOverheadMouseGridNo( &sGridNo ) )
@@ -1694,7 +1694,7 @@ void PutDownMercPiece( INT32 iPlacement )
 	if(!TileIsOutOfBounds(sGridNo))
 	{
 		// Flugente: initiate airdrop, place merc on roof if necessary
-		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 && pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 		{
 			// hideous hack
 			gfTacticalDoHeliRun = TRUE;

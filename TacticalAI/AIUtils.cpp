@@ -1529,7 +1529,7 @@ INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 		if ( AM_AN_EPC( pTargetSoldier ) )
 			continue;
 
-		if ( pTargetSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		if ( pTargetSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 			continue;
 
 		sDist = PythSpacesAway(pSoldier->sGridNo,pTargetSoldier->sGridNo);
@@ -3070,7 +3070,7 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 }
 
 // Flugente: get the id of the closest soldier with a specific flag that we can currently see
-UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag )
+UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag, BOOLEAN fCheckSight )
 {
 	UINT8				id = NOBODY;
 	UINT32				uiLoop;
@@ -3103,7 +3103,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 			continue;
 
 		// check for flag
-		if ( !(pFriend->bSoldierFlagMask & aFlag) )
+		if ( !(pFriend->usSoldierFlagMask & aFlag) )
 			continue;
 
 		// are we close enough?
@@ -3111,7 +3111,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 		if ( friendrange < range)
 		{
 			// can we see this guy?
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pFriend->sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+			if ( !fCheckSight || SoldierTo3DLocationLineOfSightTest( pSoldier, pFriend->sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 			{
 				range = friendrange;
 				id = pFriend->ubID;

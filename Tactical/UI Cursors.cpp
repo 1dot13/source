@@ -2260,7 +2260,7 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 		if ( usSoldierIndex != NOBODY )
 		{
 			// no handcuffing if the guy is already caught...
-			if ( !(MercPtrs[usSoldierIndex]->bSoldierFlagMask & SOLDIER_POW) )
+			if ( !(MercPtrs[usSoldierIndex]->usSoldierFlagMask & SOLDIER_POW) )
 				return( HANDCUFF_GREY_UICURSOR );
 		}
 	}

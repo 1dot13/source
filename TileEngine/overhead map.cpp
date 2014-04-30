@@ -1552,7 +1552,7 @@ void RenderOverheadOverlays()
 						if (pSoldier->bTeam == CIV_TEAM)
 						{
 							// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
-							if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+							if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, MILITIA_TEAM );
 							else
 								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, CIV_TEAM );
@@ -1576,7 +1576,7 @@ void RenderOverheadOverlays()
 			else
 			{
 				// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
-				if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+				if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, MILITIA_TEAM );
 				else
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );

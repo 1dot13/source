@@ -202,7 +202,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		pSoldier->bRegenBoostersUsedToday++;
 
 		// set flag: we are on drugs
-		pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DRUGGED;
 	}
 
 	// increase drug counter if not alcoholic drug
@@ -258,7 +258,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	INT32	iNumLoops;
 
 	// if were not on drugs, nothing to do here
-	if ( ( pSoldier->bSoldierFlagMask & SOLDIER_DRUGGED ) == 0 )
+	if ( ( pSoldier->usSoldierFlagMask & SOLDIER_DRUGGED ) == 0 )
 		return;
 
 	// We test for every 'pure' drug separately
@@ -516,7 +516,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 	// if all drug effects have ended, delete flag
 	if ( !MercUnderTheInfluence(pSoldier) )
-		pSoldier->bSoldierFlagMask &= ~SOLDIER_DRUGGED;
+		pSoldier->usSoldierFlagMask &= ~SOLDIER_DRUGGED;
 }
 
 void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )

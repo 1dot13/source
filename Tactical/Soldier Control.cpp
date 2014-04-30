@@ -2266,9 +2266,9 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 	this->bInitialActionPoints	= this->bActionPoints;
 
 	// Flugente: due to changes and bugs with enemy reinforcements, we now set a flag if a soldier should start with no APs, and act here accordingly
-	if ( this->bSoldierFlagMask & SOLDIER_NO_AP )
+	if ( this->usSoldierFlagMask & SOLDIER_NO_AP )
 	{
-		this->bSoldierFlagMask &= ~SOLDIER_NO_AP;
+		this->usSoldierFlagMask &= ~SOLDIER_NO_AP;
 
 		this->bInitialActionPoints = 0;
 		this->bActionPoints = 0;
@@ -6505,9 +6505,9 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
 	if ( ubHitLocation == AIM_SHOT_TORSO  )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
 	else if ( ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -6557,9 +6557,9 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 {
 	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
 	if ( ubHitLocation == AIM_SHOT_TORSO  )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
 	else if ( ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	INT32 sNewGridNo;
 
@@ -6731,9 +6731,9 @@ void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDam
 {
 	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
 	if ( ubHitLocation == AIM_SHOT_TORSO  )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
 	else if ( ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
+		pSoldier->usSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -7171,7 +7171,7 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 		this->EVENT_InitNewSoldierAnim( usNewState, 0 , FALSE );
 	}
 
-	this->bSoldierFlagMask |= SOLDIER_REDOFLASHLIGHT;
+	this->usSoldierFlagMask |= SOLDIER_REDOFLASHLIGHT;
 }
 
 void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState )
@@ -9872,7 +9872,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 
 	// Flugente: note we received a fresh wound
 	if ( sLifeDeduct > 0 )
-		this->bSoldierFlagMask |= SOLDIER_FRESHWOUND;
+		this->usSoldierFlagMask |= SOLDIER_FRESHWOUND;
 
 	// Calculate damage to our items if from an explosion!
 	if ( ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION)
@@ -12530,7 +12530,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 				else if ( !pTSoldier->aiData.bNeutral && pTSoldier->stats.bLife >= OKLIFE && pTSoldier->bSide != this->bSide )
 				*/
 				// Flugente: people we captured don't refuse to be bandaged
-				if ( !pTSoldier->aiData.bNeutral && pTSoldier->stats.bLife >= OKLIFE && pTSoldier->bSide != this->bSide && !(pTSoldier->bSoldierFlagMask & SOLDIER_POW) )
+				if ( !pTSoldier->aiData.bNeutral && pTSoldier->stats.bLife >= OKLIFE && pTSoldier->bSide != this->bSide && !(pTSoldier->usSoldierFlagMask & SOLDIER_POW) )
 				{
 					fRefused = TRUE;
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_REFUSE_FIRSTAID ] );
@@ -15350,7 +15350,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		
 	// if we don't have the Flag: not covert
 	// important: no messages up to this point. the function will get called a lot, up to this point there is nothing unusual
-	if ( !(this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) )
+	if ( !(this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) )
 		return FALSE;
 		
 	// if we are in a suspicious activity: not covert
@@ -15375,7 +15375,6 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == PUNCH_BREATH ||
 		this->usAnimState == KICK_DOOR ||
 		this->usAnimState == CUTTING_FENCE ||
-		this->usAnimState == THROW_KNIFE ||
 		this->usAnimState == PLANT_BOMB ||
 		this->usAnimState == USE_REMOTE ||
 		this->usAnimState == STEAL_ITEM ||
@@ -15389,7 +15388,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == FOCUSED_STAB ||
 		this->usAnimState == HTH_KICK ||
 		this->usAnimState == FOCUSED_HTH_KICK ||
-		this->usAnimState == LONG_JUMP
+		this->usAnimState == LONG_JUMP ||
+		this->usAnimState == THROW_GRENADE_STANCE ||
+		this->usAnimState == LOB_GRENADE_STANCE ||
+		this->usAnimState == THROW_ITEM ||
+		this->usAnimState == LOB_ITEM ||
+		this->usAnimState == THROW_ITEM_CROUCHED ||
+		this->usAnimState == SHOOT_ROCKET_CROUCHED
 		)
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName() );
@@ -15397,14 +15402,14 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	}
 	
 	// if we are trying to dress like a civilian, but aren't sucessful: not covert
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV && !(this->LooksLikeACivilian()) )
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_CIV && !(this->LooksLikeACivilian()) )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CIV], this->GetName() );
 		return FALSE;
 	}
 	
 	// if we are trying to dress like a soldier, but aren't sucessful: not covert
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !(this->LooksLikeASoldier()) )
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !(this->LooksLikeASoldier()) )
 	{
 		return FALSE;
 	}
@@ -15431,7 +15436,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 					return FALSE;
 				}
 
-				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
+				if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->GetName() );
 					return FALSE;
@@ -15449,7 +15454,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 					return FALSE;
 				}
 
-				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+				if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName() );
 					return FALSE;
@@ -15460,7 +15465,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		default:
 			// without the covert ops skill, we can only dress up as civilians. We will be discovered if we get too close to the enemy
 			// exception: special NPCs and EPCs can still get close (the Kulbas, for example, ARE civilians, so they apply)
-			if ( (this->bSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
+			if ( (this->usSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName() );
 				return FALSE;
@@ -15469,7 +15474,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 
 		// if we are a soldier, elites can uncover us if we are VERY close, and more experienced
-		if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && gSkillTraitValues.fCOElitesDetectNextTile && distance < 2 && EffectiveExpLevel(pSoldier) > EffectiveExpLevel(this) + covertlevel )
+		if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && gSkillTraitValues.fCOElitesDetectNextTile && distance < 2 && EffectiveExpLevel(pSoldier) > EffectiveExpLevel(this) + covertlevel )
 		{
 			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
 			{
@@ -15479,7 +15484,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 	}
 
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_CIV )
 	{
 		// civilians are suspicious if they are found in certain sectors. Especially at night
 		// sector specific value:
@@ -15553,7 +15558,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 	}
 
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 	{
 		// if our equipment is too good, that is suspicious... not covert!
 		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
@@ -15575,7 +15580,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 
 		// even as a soldier, we will be caught around fresh corpses
 		// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
-		if (distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !(this->bSoldierFlagMask & SOLDIER_ASSASSIN) )
+		if (distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !(this->usSoldierFlagMask & SOLDIER_ASSASSIN) )
 		{
 			// check wether we are around a fresh corpse - this will make us much more suspicious
 			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
@@ -15647,7 +15652,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 #endif
 
 	// not in covert mode: we recognize him
-	if ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 )
+	if ( (pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 )
 		return TRUE;
 	
 	// neutral characters just dont care
@@ -15688,7 +15693,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 	if ( !pSoldier->SeemsLegit(this->ubID) )
 	{
 		// aha, he/she's a spy! Blow cover
-		if ( pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		if ( pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 		{
 			pSoldier->LooseDisguise();
 
@@ -15719,7 +15724,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 void	SOLDIERTYPE::LooseDisguise( void )
 {	
 	// loose any covert flags
-	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+	this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
 
 	// rehandle sight for everybody
 	SOLDIERTYPE*		pSoldier;
@@ -15738,15 +15743,15 @@ void	SOLDIERTYPE::LooseDisguise( void )
 void	SOLDIERTYPE::Strip()
 {
 	// if covert, loose that ability
-	if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+	if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 	{
 		LooseDisguise();
 	}
 	// if already not covert, take off clothes
-	else if ( this->bSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
+	else if ( this->usSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
 	{
 		// if we have undamaged clothes, spawn them, the graphci will be removed anyway
-		if ( (this->bSoldierFlagMask & SOLDIER_NEW_VEST) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_VEST) )
+		if ( (this->usSoldierFlagMask & SOLDIER_NEW_VEST) && !(this->usSoldierFlagMask & SOLDIER_DAMAGED_VEST) )
 		{
 			UINT16 vestitem = 0;
 			if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
@@ -15759,7 +15764,7 @@ void	SOLDIERTYPE::Strip()
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 		}
 
-		if ( (this->bSoldierFlagMask & SOLDIER_NEW_PANTS) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_PANTS) )
+		if ( (this->usSoldierFlagMask & SOLDIER_NEW_PANTS) && !(this->usSoldierFlagMask & SOLDIER_DAMAGED_PANTS) )
 		{
 			UINT16 pantsitem = 0;
 			if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
@@ -15773,7 +15778,7 @@ void	SOLDIERTYPE::Strip()
 		}
 
 		// loose any clothes flags
-		this->bSoldierFlagMask &= ~(SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
+		this->usSoldierFlagMask &= ~(SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
 
 		// show our true colours
 		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
@@ -15791,7 +15796,7 @@ void	SOLDIERTYPE::Strip()
 				SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
 				SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
 			}
-			else if ( this->bSoldierFlagMask & SOLDIER_ASSASSIN )
+			else if ( this->usSoldierFlagMask & SOLDIER_ASSASSIN )
 			{
 				SET_PALETTEREP_ID( this->VestPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].vest );
 				SET_PALETTEREP_ID( this->PantsPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].pants );
@@ -15869,7 +15874,7 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 
 UINT32		SOLDIERTYPE::GetSurrenderStrength()
 {
-	if( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->bSoldierFlagMask & SOLDIER_POW) )
+	if( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->usSoldierFlagMask & SOLDIER_POW) )
 		return 0;
 
 	UINT32 value = 100 + 10 * EffectiveExpLevel( this ) + EffectiveStrength( this, FALSE ) + 3 * EffectiveMarksmanship( this) + EffectiveLeadership( this) / 4;
@@ -15908,9 +15913,9 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner()
 
 		// if he is captured, free him!
 		// note that this would also work for prisoner civs that we spawn in our prisons. All needed would be commanding the AI to get there
-		if ( pSoldier->bSoldierFlagMask & (SOLDIER_POW|SOLDIER_POW_PRISON) )
+		if ( pSoldier->usSoldierFlagMask & (SOLDIER_POW|SOLDIER_POW_PRISON) )
 		{
-			pSoldier->bSoldierFlagMask &= ~(SOLDIER_POW|SOLDIER_POW_PRISON);
+			pSoldier->usSoldierFlagMask &= ~(SOLDIER_POW|SOLDIER_POW_PRISON);
 
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_X_FREES_Y], this->GetName(), pSoldier->GetName() );
 
@@ -15949,7 +15954,7 @@ BOOLEAN		SOLDIERTYPE::IsAssassin()
 		return TRUE;
 
 	// there can be non-NPC assassins too
-	if ( this->bSoldierFlagMask & SOLDIER_ASSASSIN )
+	if ( this->usSoldierFlagMask & SOLDIER_ASSASSIN )
 		return TRUE;
 
 	return FALSE;
@@ -16242,11 +16247,11 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 void	SOLDIERTYPE::DropSectorEquipment()
 {
 	// not if we already dropped the gear
-	if ( this->bSoldierFlagMask & SOLDIER_EQUIPMENT_DROPPED )
+	if ( this->usSoldierFlagMask & SOLDIER_EQUIPMENT_DROPPED )
 		return;
 
 	// set marker: we are about to drop our gear
-	this->bSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
+	this->usSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
 
 	OBJECTTYPE* pObj = NULL;
 	UINT8 size = this->inv.size();
@@ -16770,13 +16775,13 @@ void SOLDIERTYPE::AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelR
 	this->drugs.bDrugSideEffectRate[ uDrugType ]	= 0;
 
 	// set flag: we are on drugs
-	this->bSoldierFlagMask |= SOLDIER_DRUGGED;
+	this->usSoldierFlagMask |= SOLDIER_DRUGGED;
 }
 
 void SOLDIERTYPE::HandleFlashLights()
 {
 	// no more need to redo this check
-	this->bSoldierFlagMask &= ~SOLDIER_REDOFLASHLIGHT;
+	this->usSoldierFlagMask &= ~SOLDIER_REDOFLASHLIGHT;
 
 	// we must be active and in a sector (not travelling) in a valid position
 	if ( !bActive || !bInSector || TileIsOutOfBounds(this->sGridNo) )
@@ -16790,11 +16795,11 @@ void SOLDIERTYPE::HandleFlashLights()
 	BOOLEAN fLightChanged = FALSE;
 
 	// remove existing lights we 'own'
-	if ( this->bSoldierFlagMask & SOLDIER_LIGHT_OWNER )
+	if ( this->usSoldierFlagMask & SOLDIER_LIGHT_OWNER )
 	{
 		RemovePersonalLights( this->ubID );
 
-		this->bSoldierFlagMask &= ~SOLDIER_LIGHT_OWNER;
+		this->usSoldierFlagMask &= ~SOLDIER_LIGHT_OWNER;
 
 		fLightChanged = TRUE;
 	}
@@ -16866,7 +16871,7 @@ void SOLDIERTYPE::HandleFlashLights()
 			}
 
 			// take note: we own a light source
-			this->bSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
+			this->usSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
 
 			fLightChanged = TRUE;
 		}
@@ -17011,10 +17016,10 @@ INT16	SOLDIERTYPE::GetAPBonus()
 {
 	INT16 bonus = 0;
 	
-	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN )
+	if ( this->usSoldierFlagMask & SOLDIER_AIRDROP_TURN )
 		bonus += this->GetBackgroundValue(BG_AIRDROP);
 
-	if ( this->bSoldierFlagMask & SOLDIER_ASSAULT_BONUS )
+	if ( this->usSoldierFlagMask & SOLDIER_ASSAULT_BONUS )
 		bonus += this->GetBackgroundValue(BG_ASSAULT);
 	
 	UINT8 ubSector = (UINT8)SECTOR( this->sSectorX, this->sSectorY );
@@ -17113,7 +17118,7 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 		bonus -= 3;
 
 	// if we are airdropping and do not have the 'airdrop' background, we receive a substantial malus to our interrupt level. Roping down takes a lot of attention
-	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_TURN && (this->GetBackgroundValue(BG_AIRDROP) <= 0) )
+	if ( this->usSoldierFlagMask & SOLDIER_AIRDROP_TURN && (this->GetBackgroundValue(BG_AIRDROP) <= 0) )
 		bonus -= 8;
 					
 	return bonus;
@@ -17122,7 +17127,7 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 void SOLDIERTYPE::SoldierPropertyUpkeep()
 {
 	// these effects last only one turn
-	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN|SOLDIER_ASSAULT_BONUS|SOLDIER_RAISED_REDALERT);
+	this->usSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN|SOLDIER_ASSAULT_BONUS|SOLDIER_RAISED_REDALERT);
 
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
@@ -17152,9 +17157,9 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	}
 
 	// if soldier was seen this turn, increase his observed counter
-	if ( this->bSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )
+	if ( this->usSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )
 	{
-		this->bSoldierFlagMask &= ~SOLDIER_ENEMY_OBSERVEDTHISTURN;
+		this->usSoldierFlagMask &= ~SOLDIER_ENEMY_OBSERVEDTHISTURN;
 
 		++usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED];
 	}
@@ -17162,9 +17167,9 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	// if there is a combat going and we are in sector, note that in the battle report
 	if ( this->bInSector && (gTacticalStatus.uiFlags & INCOMBAT || gTacticalStatus.fEnemyInSector) )
 	{
-		if ( !(this->bSoldierFlagMask & SOLDIER_BATTLE_PARTICIPATION) )
+		if ( !(this->usSoldierFlagMask & SOLDIER_BATTLE_PARTICIPATION) )
 		{
-			this->bSoldierFlagMask |= SOLDIER_BATTLE_PARTICIPATION;
+			this->usSoldierFlagMask |= SOLDIER_BATTLE_PARTICIPATION;
 
 			// Flugente: campaign stats
 			gCurrentIncident.AddStat( this, CAMPAIGNHISTORY_TYPE_PARTICIPANT );
@@ -17172,7 +17177,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 	}
 	else
 	{
-		this->bSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
+		this->usSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
 	}
 }
 
@@ -17999,13 +18004,13 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 
 BOOLEAN SOLDIERTYPE::IsJamming()
 {
-	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+	if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
 	{
 		if ( CanUseRadio(FALSE) )
 			return TRUE;
 		// if we cannot use the radio, remove that flag hile we're at it
 		else
-			bSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_JAMMING;
+			usSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_JAMMING;
 	}
 
 	return FALSE;
@@ -18014,7 +18019,7 @@ BOOLEAN SOLDIERTYPE::IsJamming()
 BOOLEAN SOLDIERTYPE::JamCommunications()
 {
 	// not possible if already jamming
-	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+	if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_JAMMING ]);
 		return FALSE;
@@ -18028,7 +18033,7 @@ BOOLEAN SOLDIERTYPE::JamCommunications()
 	SwitchOffRadio();
 
 	// add flag
-	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_JAMMING;
+	usSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_JAMMING;
 
 	// play sound
 	PlayJA2SampleFromFile( "Sounds\\radioerror2.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
@@ -18038,13 +18043,13 @@ BOOLEAN SOLDIERTYPE::JamCommunications()
 
 BOOLEAN SOLDIERTYPE::IsScanning()
 {
-	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
+	if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
 	{
 		if ( CanUseRadio(FALSE) )
 			return TRUE;
 		// if we cannot use the radio, remove that flag hile we're at it
 		else
-			bSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_SCANNING;
+			usSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_SCANNING;
 	}
 
 	return FALSE;
@@ -18053,7 +18058,7 @@ BOOLEAN SOLDIERTYPE::IsScanning()
 BOOLEAN SOLDIERTYPE::ScanForJam()
 {
 	// not possible if already scanning
-	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
+	if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_SCANNING )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_SCANNING ]);
 		return FALSE;
@@ -18067,7 +18072,7 @@ BOOLEAN SOLDIERTYPE::ScanForJam()
 	SwitchOffRadio();
 
 	// add flag
-	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_SCANNING;
+	usSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_SCANNING;
 
 	// play sound
 	PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
@@ -18077,13 +18082,13 @@ BOOLEAN SOLDIERTYPE::ScanForJam()
 
 BOOLEAN SOLDIERTYPE::IsRadioListening()
 {
-	return ( (bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING) && CanUseRadio(FALSE) );
+	return ( (usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING) && CanUseRadio(FALSE) );
 }
 
 BOOLEAN SOLDIERTYPE::RadioListen()
 {
 	// not possible if already scanning
-	if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING )
+	if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_LISTENING )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_ALREADY_LISTENING ]);
 		return FALSE;
@@ -18097,7 +18102,7 @@ BOOLEAN SOLDIERTYPE::RadioListen()
 	SwitchOffRadio();
 
 	// add flag
-	bSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_LISTENING;
+	usSoldierFlagMask |= SOLDIER_RADIO_OPERATOR_LISTENING;
 
 	// play sound
 	PlayJA2SampleFromFile( "Sounds\\scan1.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
@@ -18144,7 +18149,7 @@ BOOLEAN SOLDIERTYPE::RadioCallReinforcements( UINT32 usSector, UINT16 sNumber )
 BOOLEAN SOLDIERTYPE::SwitchOffRadio()
 {
 	// erasing the flags is enough
-	bSoldierFlagMask &= ~(SOLDIER_RADIO_OPERATOR_JAMMING|SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING);
+	usSoldierFlagMask &= ~(SOLDIER_RADIO_OPERATOR_JAMMING|SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING);
 
 	return TRUE;
 }
@@ -18172,9 +18177,9 @@ void SOLDIERTYPE::DepleteActiveRadioSetEnergy(BOOLEAN fActivation, BOOLEAN fAssi
 		cost = gItemSettings.energy_cost_radioset_activate;
 	else if ( fAssignment )		
 		cost = gItemSettings.energy_cost_radioset_scan_assignment;
-	else if ( bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+	else if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
 		cost = gItemSettings.energy_cost_radioset_jam;
-	else if ( bSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
+	else if ( usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
 		cost = gItemSettings.energy_cost_radioset_scan;
 	else
 		// nothing to do here..
@@ -18234,7 +18239,7 @@ BOOLEAN SOLDIERTYPE::IsSpotting()
 
 BOOLEAN SOLDIERTYPE::CanSpot( INT32 sTargetGridNo )
 {
-	if ( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->bSoldierFlagMask & SOLDIER_POW) )
+	if ( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->usSoldierFlagMask & SOLDIER_POW) )
 		return FALSE;
 
 	// additional checks if we want to know wether we can target a specific location
@@ -18421,6 +18426,13 @@ BOOLEAN		SOLDIERTYPE::AIDoctorSelf()
 	}
 
 	return FALSE;
+}
+
+// Flugente: boxing fix: this shall be the only location where the boxing flag gets removed (easier debugging)
+void	SOLDIERTYPE::DeleteBoxingFlag()
+{
+	if ( flags.uiStatusFlags & SOLDIER_BOXER )
+		flags.uiStatusFlags &= (~SOLDIER_BOXER);
 }
 
 
@@ -19279,7 +19291,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
-	if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->bTeam == ENEMY_TEAM && !(MercPtrs[ ubPerson ]->bSoldierFlagMask & SOLDIER_POW) )
+	if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->bTeam == ENEMY_TEAM && !(MercPtrs[ ubPerson ]->usSoldierFlagMask & SOLDIER_POW) )
 	{
 		// we found someone we can handcuff
 		SOLDIERTYPE* pSoldier =  MercPtrs[ ubPerson ];
@@ -19315,7 +19327,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 		if ( success )
 		{
 			// arrest this guy
-			pSoldier->bSoldierFlagMask |= SOLDIER_POW;
+			pSoldier->usSoldierFlagMask |= SOLDIER_POW;
 
 			// Remove as target
 			RemoveManAsTarget( pSoldier );
@@ -19390,7 +19402,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 
 			// if we are disguised, there is a chance that he'll uncover us
-			if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 			{
 				this->LooseDisguise();
 				this->Strip();
@@ -19449,7 +19461,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 						success = FALSE;
 
 						// if we are disguised, there is a chance that he'll uncover us
-						if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+						if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 						{
 							this->LooseDisguise();
 							this->Strip();

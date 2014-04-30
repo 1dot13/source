@@ -2399,7 +2399,6 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 {
 	static CHAR8 zFileName[164];
 	static CHAR8 zFileNameExists[164];
-	UINT8		ubFileNumID;
 
 	if ( fWavFile )
 	{
@@ -2639,9 +2638,9 @@ BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, U
 BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSound1ID, UINT32 *puiSound2ID, UINT32 *puiSound3ID, CHAR8 zSoundFiles[][64], UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile )
 {
 	STR8 pFilename1;
-	STR8 pFilename2;
-	STR8 pFilename3;
-	CHAR16	zDialogueTextTemp[ QUOTE_MESSAGE_SIZE ];
+	//STR8 pFilename2;
+	//STR8 pFilename3;
+	//CHAR16	zDialogueTextTemp[ QUOTE_MESSAGE_SIZE ];
 	BOOLEAN fTextAvailable = FALSE;
 
 	// first things first	- grab the text (if player has SUBTITLE PREFERENCE ON)

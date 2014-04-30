@@ -1695,7 +1695,7 @@ UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad )
 			}
 
 			// Flugente: we are leaving the helicopter and instantly deploy into combat - this must be an airdrop
-			pSoldier->bSoldierFlagMask |= (SOLDIER_AIRDROP_TURN|SOLDIER_AIRDROP);
+			pSoldier->usSoldierFlagMask |= (SOLDIER_AIRDROP_TURN|SOLDIER_AIRDROP);
 		}
 	}
 

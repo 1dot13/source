@@ -9508,7 +9508,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			if ( newvest )
 			{
 				// if we are already wearing a vest, give us back that item
-				if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST )
+				if ( pSoldier->usSoldierFlagMask & SOLDIER_NEW_VEST )
 				{
 					UINT16 vestitem = 0;
 					if ( GetFirstClothesItemWithSpecificData(&vestitem, pSoldier->VestPal, "blank")  )
@@ -9522,16 +9522,16 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				}
 
 				SET_PALETTEREP_ID( pSoldier->VestPal, Clothes[clothestype].vest );
-				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_VEST;
+				pSoldier->usSoldierFlagMask |= SOLDIER_NEW_VEST;
 
 				// this vest is not damaged, so remove the damaged vest flag
-				pSoldier->bSoldierFlagMask &= ~SOLDIER_DAMAGED_VEST;
+				pSoldier->usSoldierFlagMask &= ~SOLDIER_DAMAGED_VEST;
 			}
 
 			if ( newpants )
 			{
 				// if we are already wearing a vest, give us back that item
-				if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
+				if ( pSoldier->usSoldierFlagMask & SOLDIER_NEW_PANTS )
 				{
 					UINT16 pantsitem = 0;
 					if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pSoldier->PantsPal)  )
@@ -9545,10 +9545,10 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				}
 
 				SET_PALETTEREP_ID( pSoldier->PantsPal, Clothes[clothestype].pants );
-				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_PANTS;
+				pSoldier->usSoldierFlagMask |= SOLDIER_NEW_PANTS;
 
 				// these pants are not damaged, so remove the damaged pants flag
-				pSoldier->bSoldierFlagMask &= ~SOLDIER_DAMAGED_PANTS;
+				pSoldier->usSoldierFlagMask &= ~SOLDIER_DAMAGED_PANTS;
 			}
 
 			// Use palette from HVOBJECT, then use substitution for pants, etc
@@ -9567,10 +9567,10 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				DeductPoints( pSoldier, apcost, 0 );
 		}
 
-		if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->usSoldierFlagMask & SOLDIER_NEW_PANTS )
 		{
 			// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
-			pSoldier->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+			pSoldier->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
 
 			// we now have to determine wether we are currently wearing civilian or military clothes
 			for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
@@ -9578,7 +9578,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				// both parts have to fit. We cant mix different uniforms and get soldier disguise
 				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
 				{
-					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+					pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
 
 					if ( pSoldier->bTeam == OUR_TEAM )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
@@ -9588,9 +9588,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			}
 
 			// if not dressed as a soldier, we must be dressed as a civilian
-			if ( !(pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+			if ( !(pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
 			{
-				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
+				pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_CIV;
 
 				if ( pSoldier->bTeam == OUR_TEAM )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
@@ -12194,8 +12194,8 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 {
 	UINT16 usNumMatches = 0;
 	UINT16 usRandom = 0;
-	UINT16 i = 0;
 	UINT16 lowestCoolness = LowestLaunchableCoolness(itemIndex);
+#if 0
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomLaunchable: itemIndex = %d", itemIndex));
 
 	// WANNE: This should fix the hang on the merc positioning screen (fix by Razer)
@@ -12229,6 +12229,36 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 				}
 			}
 		}
+	}
+#endif
+
+	// Flugente: the above code is highly dubious.. why do we loop over all items 2 times, and why that obscure usRandom--; business? This can cause an underflow!
+	BOOLEAN isnight = NightTime();
+	UINT16 maxcoolness = max( HighestPlayerProgressPercentage() / 10, lowestCoolness );
+
+	std::vector<UINT16> legalvec;
+	for ( UINT16 i = 0; i < MAXITEMS; ++i )
+	{
+		if ( Item[i].usItemClass == 0 )
+			break;
+
+		//Madd: quickfix: make it not choose best grenades right away.
+		if ( Item[i].ubCoolness <= maxcoolness && ItemIsLegal( i ) && ValidLaunchable( i, itemIndex ) )
+		{
+			// Flugente: ignore this item if we aren't allowed to pick it at this time of day
+			if ( (isnight && Item[i].usItemChoiceTimeSetting == 1) || (!isnight && Item[i].usItemChoiceTimeSetting == 2) )
+				continue;
+
+			legalvec.push_back(i);
+			++usNumMatches;
+		}
+	}
+
+	if ( !legalvec.empty() )
+	{
+		usRandom = (UINT16)Random( legalvec.size() );
+
+		return legalvec[usRandom];
 	}
 
 	return 0;

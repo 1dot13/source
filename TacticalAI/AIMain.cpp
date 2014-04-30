@@ -1317,7 +1317,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	// pSoldier->flags.fNoAPToFinishMove = FALSE;
 
 	// Flugente: pows don't do anything
-	if ( pSoldier->bSoldierFlagMask & SOLDIER_POW )
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_POW )
 	{
 		EndAIGuysTurn( pSoldier);
 		return;
@@ -2054,7 +2054,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             {
                 HandleInitialRedAlert(pSoldier->bTeam, TRUE);
 
-				pSoldier->bSoldierFlagMask |= SOLDIER_RAISED_REDALERT;
+				pSoldier->usSoldierFlagMask |= SOLDIER_RAISED_REDALERT;
             }
             
             // SANDRO - ENEMY TAUNTS

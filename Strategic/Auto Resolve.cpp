@@ -4792,7 +4792,11 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		pTarget->uiFlags &= ~CELL_RETREATING;
 	}
 	if( iNewLife <= 0 )
-	{ //soldier has been killed
+	{
+		// Flugente: campaign stats
+		gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
+		//soldier has been killed
 		if( pTarget->pAttacker[ index ]->uiFlags & CELL_PLAYER )
 		{ //Player killed the enemy soldier -- update his stats as well as any assisters.
 			SOLDIERCELL *pKiller;
@@ -4810,9 +4814,6 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			{
 				if( pKiller->uiFlags & CELL_MERC )
 				{
-					// Flugente: campaign stats
-					gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
-
 					/////////////////////////////////////////////////////////////////////////////////////
 					// SANDRO - new mercs' records
 					switch(pTarget->pSoldier->ubSoldierClass)

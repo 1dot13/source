@@ -1199,7 +1199,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			}
 
 			// Flugente: campaign stats
-			if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+			if ( pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 				gCurrentIncident.usIncidentFlags |= INCIDENT_AIRDROP;
 
 			// problem: soldiers already present in a sector have ubStrategicInsertionCode = 0, which is INSERTION_CODE_NORTH - but they don't actually come from north, as they are already present
@@ -1234,7 +1234,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			}
 
 			// add this flag whenever we enter strategically enter a sector (= we attack a sector)
-			pSoldier->bSoldierFlagMask |= SOLDIER_ASSAULT_BONUS;
+			pSoldier->usSoldierFlagMask |= SOLDIER_ASSAULT_BONUS;
 			
 			// Override calculated direction if we were told to....
 			if ( pSoldier->ubInsertionDirection > 100 )
@@ -1530,9 +1530,9 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 	}
 
 	// Flugente: if we are airdropping, center screen on the action and remove soldier initially. He will be dropped into the sector by the helicopter
-	if ( pSoldier->bSoldierFlagMask & SOLDIER_AIRDROP )
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 	{
-		pSoldier->bSoldierFlagMask &= ~SOLDIER_AIRDROP;
+		pSoldier->usSoldierFlagMask &= ~SOLDIER_AIRDROP;
 
 		if ( gGameExternalOptions.ubSkyriderHotLZ == 3 )
 		{

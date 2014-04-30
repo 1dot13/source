@@ -644,7 +644,7 @@ void RenderRadarScreen( )
 						}
 
 						// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
-						if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+						if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 							usLineColor = Get16BPPColor( gTacticalStatus.Team[ MILITIA_TEAM ].RadarColor );
 
 						// Render different color if an enemy and he's unconscious

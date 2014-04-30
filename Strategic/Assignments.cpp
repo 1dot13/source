@@ -6674,9 +6674,9 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance )
 		{
 			// troops are converted to militia, but there is a chance that they will be demoted in the process
-			if ( i < interrogatedprisoners[PRISONER_ELITE] && Chance(80) )
+			if ( i >= interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] && Chance( 80 ) )
 				++turnedmilitia_elite;
-			else if ( i < interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_REGULAR] && Chance(80) )
+			else if ( i >= interrogatedprisoners[PRISONER_ADMIN] && Chance( 80 ) )
 				++turnedmilitia_regular;
 			else
 				++turnedmilitia_admin;
@@ -6768,7 +6768,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( !oldinterrogationpoints )
 		return;
 
-	FLOAT totalexp = (FLOAT) (100 * prisonersinterrogated);
+	FLOAT totalexp = (FLOAT) (1 * prisonersinterrogated);
 	FLOAT expratio = totalexp / (oldinterrogationpoints * 33);	// TODO
 
 	// award experience
@@ -6979,8 +6979,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( distance == 0 )
 			continue;
 
-		// each soldier can carry 30 items, and needs 10 minutes (two way walk) per sector distance, thereby 6 / distance runs possible
-		UINT16 maxitems  =  30 * (*it).second * 6 / distance;
+		// each soldier can carry 40 items or 40 kg, and needs 10 minutes (two way walk) per sector distance, thereby 6 / distance runs possible per hour
+		UINT16 maxitems  =  40 * (*it).second * 6 / distance;
 		UINT16 maxweight = 400 * (*it).second * 6 / distance;
 		
 		// open the inventory of the sector we are taking stuff from
@@ -6988,7 +6988,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		UINT32 uiTotalNumberOfRealItems_Target = 0;
 
 		// use the new map
-		 pWorldItem_Target.clear();//dnl ch75 021113
+		pWorldItem_Target.clear();//dnl ch75 021113
 
 		if( ( gWorldSectorX == targetX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
 		{
@@ -11448,9 +11448,9 @@ void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else if( iValue == SNITCH_MENU_TOGGLE_ON )
 		{
-			if ( pSoldier->bSoldierFlagMask2 & SOLDIER_SNITCHING_OFF )
+			if ( pSoldier->usSoldierFlagMask2 & SOLDIER_SNITCHING_OFF )
 			{
-				pSoldier->bSoldierFlagMask2 &= ~SOLDIER_SNITCHING_OFF;
+				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_SNITCHING_OFF;
 				fShowSnitchToggleMenu = FALSE;
 				fShowSnitchMenu = FALSE;
 				fShowAssignmentMenu = FALSE;
@@ -11459,9 +11459,9 @@ void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else if( iValue == SNITCH_MENU_TOGGLE_OFF )
 		{
-			if ( !(pSoldier->bSoldierFlagMask2 & SOLDIER_SNITCHING_OFF) )
+			if ( !(pSoldier->usSoldierFlagMask2 & SOLDIER_SNITCHING_OFF) )
 			{
-				pSoldier->bSoldierFlagMask2 |= SOLDIER_SNITCHING_OFF;
+				pSoldier->usSoldierFlagMask2 |= SOLDIER_SNITCHING_OFF;
 				fShowSnitchToggleMenu = FALSE;
 				fShowSnitchMenu = FALSE;
 				fShowAssignmentMenu = FALSE;
@@ -11471,9 +11471,9 @@ void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else if( iValue == SNITCH_MENU_MISBEHAVIOUR_ON )
 		{
-			if ( pSoldier->bSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF )
+			if ( pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF )
 			{
-				pSoldier->bSoldierFlagMask2 &= ~SOLDIER_PREVENT_MISBEHAVIOUR_OFF;
+				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_PREVENT_MISBEHAVIOUR_OFF;
 				fShowSnitchToggleMenu = FALSE;
 				fShowSnitchMenu = FALSE;
 				fShowAssignmentMenu = FALSE;
@@ -11482,9 +11482,9 @@ void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else if( iValue == SNITCH_MENU_MISBEHAVIOUR_OFF)
 		{
-			if ( !(pSoldier->bSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF) )
+			if ( !(pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF) )
 			{
-				pSoldier->bSoldierFlagMask2 |= SOLDIER_PREVENT_MISBEHAVIOUR_OFF;
+				pSoldier->usSoldierFlagMask2 |= SOLDIER_PREVENT_MISBEHAVIOUR_OFF;
 				fShowSnitchToggleMenu = FALSE;
 				fShowSnitchMenu = FALSE;
 				fShowAssignmentMenu = FALSE;
@@ -15176,7 +15176,7 @@ void HandleShadingOfLinesForSnitchToggleMenu( void )
 
 	pSoldier = GetSelectedAssignSoldier( FALSE );
 
-	if( pSoldier->bSoldierFlagMask2 & SOLDIER_SNITCHING_OFF )
+	if( pSoldier->usSoldierFlagMask2 & SOLDIER_SNITCHING_OFF )
 	{
 		UnShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_TOGGLE_ON );
 		ShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_TOGGLE_OFF );
@@ -15187,7 +15187,7 @@ void HandleShadingOfLinesForSnitchToggleMenu( void )
 		UnShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_TOGGLE_OFF );
 	}
 
-	if( pSoldier->bSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF )
+	if( pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF )
 	{
 		UnShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_MISBEHAVIOUR_ON );
 		ShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_MISBEHAVIOUR_OFF );

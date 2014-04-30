@@ -190,7 +190,7 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 			continue;			// next merc
 
 		// Flugente: chance to ignore the noise if the ceator is covert
-		if ( pTemp->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		if ( pTemp->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 		{
 			// green  AI state: always ignore
 			// yellow AI state: 50% chance to ignore

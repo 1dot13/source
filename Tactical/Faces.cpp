@@ -2194,7 +2194,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: add an icon if we are currently in disguise
-			if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 			{
 				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12 );
 				bNumRightIcons++;
@@ -2210,12 +2210,12 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// Flugente: icons for radio operator actions (not the assignment)
 			if ( MercPtrs[ pFace->ubSoldierID ]->bAssignment != RADIO_SCAN )
 			{
-				if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
+				if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
 				{
 					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
 					bNumRightIcons++;
 				}
-				else if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+				else if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
 				{
 					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
 					bNumRightIcons++;
@@ -2420,7 +2420,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 				fDoIcon = FALSE;
-				bNumRightIcons++;
+				++bNumRightIcons;
 			}
 		}
 	}

@@ -11294,7 +11294,7 @@ void RemoveItemPickupMenu( )
 		gItemPickupMenu.pSoldier->flags.fPauseAllAnimation = FALSE;
 
 		// Flugente: remove the marker notifying we are currently stealing
-		gItemPickupMenu.pSoldier->bSoldierFlagMask &= ~SOLDIER_ACCESSTEAMMEMBER;
+		gItemPickupMenu.pSoldier->usSoldierFlagMask &= ~SOLDIER_ACCESSTEAMMEMBER;
 
 		// Remove graphics!
 		DeleteVideoObjectFromIndex( gItemPickupMenu.uiPanelVo );

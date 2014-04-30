@@ -3478,7 +3478,7 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 maxCoolness, B
 	BOOLEAN isnight = NightTime();
 
 	// check up to 10 times for an item with a matching coolness
-	for (int i=0; i < 10;i++)
+	for (int i=0; i < 10; ++i)
 	{
 		//if we've already tried more times then there are items + 1, limit the looping to speed up the game, and just plain give up
 		if ( i > gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices )
