@@ -29243,7 +29243,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Flare>1</Flare>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30939,7 +30939,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -42080,7 +42080,7 @@
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -42261,7 +42261,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51061,6 +51061,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<ItemFlag>67108864</ItemFlag>
 		<buddyitem>1699</buddyitem>
 		<STAND_MODIFIERS />
@@ -51094,6 +51095,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemChoiceTimeSetting>2</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
