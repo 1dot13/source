@@ -1155,6 +1155,14 @@ void InitStrategicAI()
 	#ifdef JA2BETAVERSION
 		ClearStrategicLog();
 	#endif
+
+	// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if theay are around, the army is more efficient)
+	FLOAT dEnemyGeneralsSpeedupFactor = 1.0f;
+	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyGenerals )
+	{
+		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
+	}
+
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1167,7 +1175,7 @@ void InitStrategicAI()
 			gfUnlimitedTroops		= gGameExternalOptions.gfEasyUnlimitedTroops;
 			gfAggressiveQueen		= gGameExternalOptions.gfEasyAggressiveQueen;
 			// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance ), 0 );
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance )), 0 );
 			break;
 		case DIF_LEVEL_MEDIUM:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExperienced;
@@ -1178,7 +1186,7 @@ void InitStrategicAI()
 			gubHoursGracePeriod		= gGameExternalOptions.ubNormalGracePeriodInHours;
 			gfUnlimitedTroops		= gGameExternalOptions.gfNormalUnlimitedTroops;
 			gfAggressiveQueen		= gGameExternalOptions.gfNormalAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance ), 0 );
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance )), 0);
 			break;
 		case DIF_LEVEL_HARD:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExpert;
@@ -1189,7 +1197,7 @@ void InitStrategicAI()
 			gubHoursGracePeriod		= gGameExternalOptions.ubHardGracePeriodInHours;
 			gfUnlimitedTroops		= gGameExternalOptions.gfHardUnlimitedTroops;
 			gfAggressiveQueen		= gGameExternalOptions.gfHardAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance ), 0 );
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance )), 0);
 			break;
 		case DIF_LEVEL_INSANE:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolInsane;
@@ -1200,7 +1208,7 @@ void InitStrategicAI()
 			gubHoursGracePeriod		= gGameExternalOptions.ubInsaneGracePeriodInHours;
 			gfUnlimitedTroops		= gGameExternalOptions.gfInsaneUnlimitedTroops;
 			gfAggressiveQueen		= gGameExternalOptions.gfInsaneAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance ), 0 );
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance )), 0);
 			break;
 	}
 
@@ -3257,19 +3265,27 @@ void EvaluateQueenSituation()
 	// This can increase the decision intervals by up to 500 extra minutes (> 8 hrs)
 	uiOffset = max( 100 - giRequestPoints, 0);
 	uiOffset = uiOffset + Random( uiOffset * 4 );
+
+	// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if theay are around, the army is more efficient)
+	FLOAT dEnemyGeneralsSpeedupFactor = 1.0f;
+	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyGenerals )
+	{
+		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
+	}
+
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
-			uiOffset += gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance );
+			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance ));
 			break;
 		case DIF_LEVEL_MEDIUM:
-			uiOffset += gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance );
+			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance ));
 			break;
 		case DIF_LEVEL_HARD:
-			uiOffset += gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance );
+			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance ));
 			break;
 		case DIF_LEVEL_INSANE:
-			uiOffset += gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance );
+			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance ));
 			break;
 	}
 

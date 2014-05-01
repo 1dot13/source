@@ -492,6 +492,10 @@ void InitStrategicLayer( void )
 	// re-set up leave list arrays for dismissed mercs
 	InitLeaveList( );
 
+	// Flugente: se up VIP locations
+	void InitVIPSectors( );
+
+
 	#ifdef JA2UB
 	LuaInitStrategicLayer(0); //JA25 UB InitStrategicLayer.lua 
 	#endif
@@ -1219,7 +1223,7 @@ void ReStartingGame()
 	if ( InAirRaid( ) )
 	{
 		EndAirRaid( );
-	}
+}
 
 #ifdef JA2TESTVERSION
 	//Reset so we can use the 'cheat key' to start with mercs
@@ -1247,4 +1251,59 @@ void ReStartingGame()
 	else
 		gubCheatLevel = 0;
 
+}
+
+// Flugente: set up VIP locations
+void InitVIPSectors()
+{
+	if ( !gGameExternalOptions.fEnemyGenerals )
+		return;
+
+	gStrategicStatus.usVIPsTotal = gGameExternalOptions.usEnemyGeneralsNumber;
+	gStrategicStatus.usVIPsLeft = 0;
+
+	// first VIP is the general, if he is still alive
+	if ( gMercProfiles[GENERAL].bLife > 0 )
+	{
+		UINT16 generalsector = SECTOR( gMercProfiles[GENERAL].sSectorX, gMercProfiles[GENERAL].sSectorY );
+
+		// place new VIP in sector
+		StrategicMap[generalsector].usFlags |= ENEMY_VIP_PRESENT;
+
+		// no extra troops here. The player might have already taken the barracks but left the general alive
+		//SectorInfo[generalsector].ubNumElites += 5;
+
+		++gStrategicStatus.usVIPsLeft;
+	}
+
+	for ( UINT8 i = gStrategicStatus.usVIPsLeft; i < gStrategicStatus.usVIPsTotal; ++i )
+	{
+		UINT16 vipspawnsector = 0;
+		if ( GetPossibleVIPSector( vipspawnsector ) )
+		{
+			// place new VIP in sector
+			StrategicMap[vipspawnsector].usFlags |= ENEMY_VIP_PRESENT;
+			
+			// increase troop count - VIP plus bodyguards
+			SectorInfo[vipspawnsector].ubNumElites += 5;
+
+			// VIP placed
+			++gStrategicStatus.usVIPsLeft;
+		}
+		// spawn the remaining generals in Meduna
+		else
+		{
+			if ( GetRandomEnemyTownSector( MEDUNA, vipspawnsector ) )
+			{
+				// place new VIP in sector
+				StrategicMap[vipspawnsector].usFlags |= ENEMY_VIP_PRESENT;
+
+				// increase troop count - VIP plus bodyguards
+				SectorInfo[vipspawnsector].ubNumElites += 5;
+
+				// VIP placed
+				++gStrategicStatus.usVIPsLeft;
+			}
+		}
+	}
 }

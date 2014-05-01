@@ -1848,7 +1848,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 	}
 
-	if ( gDisplayEnemyRoles && pSoldier->bTeam == ENEMY_TEAM )
+	if ( gDisplayEnemyRoles && pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CIV_TEAM )
 	{
 		ShowSoldierRoleSymbol(pSoldier);
 	}
@@ -6564,7 +6564,7 @@ void DrawEnemyHealthBar( SOLDIERTYPE* pSoldier, INT32 sX, INT32 sY, UINT8 ubLine
 BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 {
 	// this only works on enemy soldiers
-	if ( pSoldier->bTeam != ENEMY_TEAM )
+	if ( pSoldier->bTeam != ENEMY_TEAM && pSoldier->bTeam != CIV_TEAM )
 		return false;
 
 	if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] < gGameExternalOptions.usTurnsToUncover )
@@ -6580,8 +6580,26 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	sXPos += 50;
 	sYPos += 25;
 
-	// is this guy an officer?
-	if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+	// are we a VIP? show that only when the player knows a VIP is in this sector. otherwise, don't even show our officer property
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && !pSoldier->bSectorZ )
+	{
+		if ( SectorHasVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )//PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20), (INT16)(sYPos + 20) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 6, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+		}
+	}
+	// is this guy an (non-vip) officer?
+	else if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 	{
 		// Add bars
 		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
@@ -6591,7 +6609,11 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 			SetBackgroundRectFilled( iBack );
 		}
 
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 0, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+		// if we look at this guy long enough, we might even learn that he is an advanced officer
+		if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] > 1.5 * gGameExternalOptions.usTurnsToUncover && NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT ) > 1 )
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 5, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+		else
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 0, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
 
 		sYPos += 20;
 	}

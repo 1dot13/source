@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			ENEMY_VIPS										154 // Flugente: enemy generals are placed randomly in the map
 #define			MORE_LOCKS_AND_KEYS								153 // anv: externalized locks and keys to xml
 #define			MILITIA_MOVEMENT								152 // Flugente: allow control of strategic militia movement
 #define			SNITCH_TRAIT_EXTENDED							151 // anv: more soldier flags, remembering exposition of snitch
@@ -72,7 +73,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								MORE_LOCKS_AND_KEYS
+#define			SAVE_GAME_VERSION								ENEMY_VIPS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

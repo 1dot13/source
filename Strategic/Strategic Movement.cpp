@@ -3260,6 +3260,17 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			}
 		}
 	}
+	else if ( !pGroup->fPlayer )
+	{
+		// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if theay are around, the army is more efficient)
+		FLOAT dEnemyGeneralsSpeedupFactor = 1.0f;
+		if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyGenerals )
+		{
+			dEnemyGeneralsSpeedupFactor = max( 0.75f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus );
+		}
+
+		iBestTraverseTime = dEnemyGeneralsSpeedupFactor * iBestTraverseTime;
+	}
 	///////////////////////////////////////////////////////////////////////////////
 
 	return iBestTraverseTime;
@@ -5119,7 +5130,7 @@ void SetGroupArrivalTime( GROUP *pGroup, UINT32 uiArrivalTime )
 
 	// Also note that non-chopper groups can currently be delayed such that this assetion would fail - enemy groups by
 	// DelayEnemyGroupsIfPathsCross(), and player groups via PrepareGroupsForSimultaneousArrival().	So we skip the assert.
-
+	
 	if ( IsGroupTheHelicopterGroup( pGroup ) )
 	{
 		// make sure it's valid (NOTE: the correct traverse time must be set first!)

@@ -1509,6 +1509,13 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus	= iniReader.ReadInteger("Tactical Enemy Role Settings", "ENEMY_OFFICERS_SUPPRESSION_RESISTANCE_BONUS", 10, 0, 50);
 	gGameExternalOptions.dEnemyOfficerMoraleModifier		= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_OFFICERS_MORALE_MODIFIER", 0.1f, 0.00f, 1.0f);
 	gGameExternalOptions.dEnemyOfficerSurrenderStrengthBonus	= iniReader.ReadFloat  ("Tactical Enemy Role Settings", "ENEMY_OFFICERS_SURRENDERSTRENGTHBONUS", 0.1f, 0.00f, 1.0f);
+
+	gGameExternalOptions.fEnemyGenerals						= iniReader.ReadBoolean( "Tactical Enemy Role Settings", "ENEMY_GENERALS", TRUE );
+	gGameExternalOptions.usEnemyGeneralsNumber				= iniReader.ReadInteger( "Tactical Enemy Role Settings", "ENEMY_GENERALS_NUMBER", 5, 1, 10 );
+	gGameExternalOptions.usEnemyGeneralsBodyGuardsNumber	= iniReader.ReadInteger( "Tactical Enemy Role Settings", "ENEMY_GENERALS_BODYGUARDS_NUMBER", 4, 0, 10 );
+	gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus = iniReader.ReadFloat( "Tactical Enemy Role Settings", "ENEMY_GENERALS_STRATEGIC_DECISION_SPEEDBONUS", 0.05f, 0.00f, 0.1f );
+	gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus = iniReader.ReadFloat( "Tactical Enemy Role Settings", "ENEMY_GENERALS_STRATEGIC_MOVEMENT_SPEEDBONUS", 0.03f, 0.00f, 0.1f );
+
 	
 	//################# Tactical Cover System Settings ##################
 
@@ -1812,8 +1819,13 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ADMIN",	80, 30, 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_REGULAR", 100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN], 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ELITE",   100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR], 1000);
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SPECIAL]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_SPECIAL", 100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000);
-				
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER] = iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_OFFICER",  100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
+
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ADMIN",	0, 0, 100 );
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_REGULAR",  1, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN], 100 );
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ELITE",   10, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR], 100 );
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_OFFICER", 60, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE], 100 );
+						
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0, 0, 3);
 
@@ -2509,6 +2521,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.sCOCloseDetectionRange				= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE", 10, 0, 100);
 	gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse	= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE_SOLDIER_CORPSE", 5, 0, 100);
 	gSkillTraitValues.fCOElitesDetectNextTile				= iniReader.ReadBoolean("Covert Ops","COVERT_ELITES_DETECT_NEXTTILE", TRUE);
+	gSkillTraitValues.fCODetectIfBleeding					= iniReader.ReadBoolean("Covert Ops","COVERT_DETECTEDIFBLEEDING", FALSE );
 
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);

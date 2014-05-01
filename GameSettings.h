@@ -1358,6 +1358,7 @@ typedef struct
 	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT8	ubPrisonerProcessRansomBaseChance;
 	UINT16	ubPrisonerInterrogationPoints[4];		// points needed to interrogate a prisoner of a specific type
+	UINT8	ubPrisonerInterrogationEnemyGeneralInfoChance[4];		// chance that when getting info from interrogation, this prisoner will tell us about general we do not yet know about
 	
 	// Flugente: sexism/racism/etc.
 	INT8	sMoraleModAppearance;
@@ -1381,6 +1382,11 @@ typedef struct
 	INT8	sEnemyOfficerSuppressionResistanceBonus;
 	FLOAT   dEnemyOfficerMoraleModifier;
 	FLOAT   dEnemyOfficerSurrenderStrengthBonus;
+	BOOLEAN fEnemyGenerals;
+	UINT16	usEnemyGeneralsNumber;
+	UINT16	usEnemyGeneralsBodyGuardsNumber;
+	FLOAT	fEnemyGeneralStrategicDecisionSpeedBonus;
+	FLOAT	fEnemyGeneralStrategicMovementSpeedBonus;
 
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
@@ -1838,6 +1844,7 @@ typedef struct
 	INT16	sCOCloseDetectionRange;
 	INT16	sCOCloseDetectionRangeSoldierCorpse;
 	BOOLEAN fCOElitesDetectNextTile;
+	BOOLEAN fCODetectIfBleeding;					// will we be discovered if we are bleeding?
 
 	// RADIO OPERATOR
 	BOOLEAN fROAllowArtillery;						// artillery can be forbidden for all teams with this setting

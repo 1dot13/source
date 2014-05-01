@@ -8060,6 +8060,7 @@ STR16	szPrisonerTextStr[]=
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！",	//L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"这些可以在 INI 设置关闭。",	// 	L"This behaviour is set OFF in your ini settings.",
 	L"%s释放了%s！", //L"%s has freed %s!",
+	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
 };
 
 STR16	szMTATextStr[]=
@@ -8093,6 +8094,8 @@ STR16		szBackgroundText_Flags[]=
 	L" 会导致附近的佣兵腐败\n", //L" spreads corruption to nearby mercs\n",
 	L" female only",							// won't show up, text exists for compatibility reasons
 	L" male only",								// won't show up, text exists for compatibility reasons
+
+	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
 
 STR16	szBackgroundText_Value[]=

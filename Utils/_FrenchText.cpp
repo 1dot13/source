@@ -8058,6 +8058,7 @@ STR16	szPrisonerTextStr[]=
 	L"L'ennemi refuse votre reddition... Ils veulent vos têtes !",
 	L"Ce comportement est désactivé dans vos fichiers ini.",
 	L"%s a libéré %s !",
+	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
 };
 
 STR16	szMTATextStr[]=
@@ -8092,6 +8093,8 @@ STR16		szBackgroundText_Flags[]=
 	L" répand la corruption aux mercenaires proches\n",
 	L" femme seulement",							// won't show up, text exists for compatibility reasons
 	L" homme seulement",								// won't show up, text exists for compatibility reasons
+
+	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
 
 

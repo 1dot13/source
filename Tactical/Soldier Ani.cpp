@@ -674,7 +674,6 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				pSoldier->sZLevelOverride = -1;
 				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
 
-
 				if ( gTacticalStatus.bBoxingState == BOXING_WAITING_FOR_PLAYER || gTacticalStatus.bBoxingState == PRE_BOXING || gTacticalStatus.bBoxingState == BOXING )
 				{
 					BoxingMovementCheck( pSoldier );
@@ -4003,6 +4002,12 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		if ( TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE ) )
 		{
 			*pfMadeCorpse = TRUE;
+		}
+
+		// Flugente: VIPs
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
+		{
+			DeleteVIP( pSoldier->sSectorX, pSoldier->sSectorY );
 		}
 
 		// Remove mad as target, one he has died!

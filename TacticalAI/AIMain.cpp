@@ -2562,6 +2562,12 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 	}
 #endif
 
+	// Flugente: VIPs: if a VIP flees, he flees to Meduna (in fact te sodleir doesn't, we simply move the flag to another sector)
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
+	{
+		VIPFleesToMeduna();
+	}
+
 	EndAIGuysTurn( pSoldier );
 	RemoveManAsTarget( pSoldier );
 	if (pSoldier->bTeam == CIV_TEAM && pSoldier->aiData.fAIFlags & AI_CHECK_SCHEDULE)

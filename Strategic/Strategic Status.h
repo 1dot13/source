@@ -127,7 +127,11 @@ typedef struct STRATEGIC_STATUS
 	UINT8			ubNumNewSectorsVisitedToday;
 	UINT8			ubNumberOfDaysOfInactivity;
 
-	INT8 bPadding[70];
+	// Flugente: VIPs
+	UINT8		usVIPsTotal;
+	UINT8		usVIPsLeft;
+
+	INT8 bPadding[68];
 
 } STRATEGIC_STATUS;
 

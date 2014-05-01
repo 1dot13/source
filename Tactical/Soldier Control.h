@@ -387,9 +387,9 @@ enum
 #define SOLDIER_ENEMY_OFFICER				0x04000000	//67108864	// soldier is an enemy officer
 #define SOLDIER_ENEMY_OBSERVEDTHISTURN		0x08000000	//134217728 // enemy soldier was seen by the player this turn
 
-/*#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
-#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
-#define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
+#define SOLDIER_VIP							0x10000000	//268435456	// soldier is a VIP - the player will likely try to assassinate him
+#define SOLDIER_BODYGUARD					0x20000000	//536870912 // soldier is a bodyguard for a VIP
+/*#define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
 #define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
 // ----------------------------------------------------------------
 
@@ -412,7 +412,9 @@ enum
 #define BACKGROUND_NO_MALE   					0x0000000000000040	//64			// background cannot be selected by males (IMP creation)
 #define BACKGROUND_NO_FEMALE					0x0000000000000080	//128			// background cannot be selected by females (IMP creation)
 
-#define BACKGROUND_FLAG_MAX	8					// number of flagged backgrounds - keep this updated, or properties will get lost!
+#define BACKGROUND_GLOBALOYALITYLOSSONDEATH		0x0000000000000100	//256			// if character dies, huge loyalty loss in entire country
+
+#define BACKGROUND_FLAG_MAX	9					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // some properties are hidden (forbid background in MP creation)
 // corruption property is not relevant in 1.13

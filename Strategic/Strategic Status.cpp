@@ -13,6 +13,9 @@
 	#include "GameSettings.h"
 	#include "history.h"
 	#include "Strategic Town Loyalty.h"
+	#include "Game Init.h"			// added by Flugente
+	#include "GameVersion.h"		// added by Flugente
+	#include "SaveLoadGame.h"		// added by Flugente
 #endif
 
 
@@ -42,8 +45,6 @@ BOOLEAN SaveStrategicStatusToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-
-
 BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
@@ -53,6 +54,13 @@ BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile )
 	if( uiNumBytesRead != sizeof( STRATEGIC_STATUS ) )
 	{
 		return( FALSE );
+	}
+
+	// Flugente: enemy generals: if loading an old savegame that did not have this feature, or it was turned off and is now turned on, initialise generals
+	if ( guiCurrentSaveGameVersion < ENEMY_VIPS || !gStrategicStatus.usVIPsTotal )
+	{
+		// Flugente: set up VIP locations
+		InitVIPSectors();
 	}
 
 	return( TRUE );

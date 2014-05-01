@@ -6581,7 +6581,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 		
 	UINT8 prisoners[PRISONER_MAX] = {0};
-	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisoners[PRISONER_SPECIAL], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisoners[PRISONER_OFFICER], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
 
 	// add interrogation progress from last hour and erase it in data
 	UINT32	interrogationpoints = pSectorInfo->uiInterrogationHundredsLeft;
@@ -6650,7 +6650,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		}
 	}
 	
-	UINT16 prisonersinterrogated = interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_SPECIAL];
+	UINT16 prisonersinterrogated = interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER];
 	
 	// the part that gets left behind is saved to the map (but not the part that gets lost due to there not being enough prisoners)
 	UINT32  losthundreds = interrogationpoints / 100;
@@ -6687,6 +6687,47 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// chance that prisoner will give us random info about enemy positions
 		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance )
 		{
+			// if this guy is an elite or a special prisoner, there is a chance he might tell us about high-value targets!
+			BOOLEAN fGetInfoOnHiddenVIPs = FALSE;
+			if ( i < interrogatedprisoners[PRISONER_ADMIN] )
+			{
+				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN] ) )
+					fGetInfoOnHiddenVIPs = TRUE;
+			}
+			else if ( i < interrogatedprisoners[PRISONER_REGULAR] )
+			{
+				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR] ) )
+					fGetInfoOnHiddenVIPs = TRUE;
+			}
+			else if ( i < interrogatedprisoners[PRISONER_ELITE] )
+			{
+				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE] ) )
+					fGetInfoOnHiddenVIPs = TRUE;
+			}
+			else if ( i < interrogatedprisoners[PRISONER_OFFICER] )
+			{
+				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER] ) )
+					fGetInfoOnHiddenVIPs = TRUE;
+			}
+
+			if ( fGetInfoOnHiddenVIPs )
+			{
+				UINT16 unknownvipector = 0;
+				if ( GetRandomUnknownVIPSector( unknownvipector ) )
+				{
+					// make this guy known to the player
+					StrategicMap[unknownvipector].usFlags |= ENEMY_VIP_PRESENT_KNOWN;
+
+					CHAR16 str[128];
+					GetSectorIDString( SECTORX( unknownvipector ), SECTORY( unknownvipector ), 0, str, TRUE );
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION_VIP], str );
+
+					// enough info from this guy
+					continue;
+				}
+			}
+
 			BOOLEAN found = FALSE;
 			UINT8 maxtries = 20;
 			for(UINT8 infotry = 0; infotry < maxtries; ++infotry)
@@ -6761,7 +6802,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// remove interrogated prisoners...
-	ChangeNumberOfPrisoners( pSectorInfo, -interrogatedprisoners[PRISONER_SPECIAL], -interrogatedprisoners[PRISONER_ELITE], -interrogatedprisoners[PRISONER_REGULAR], -interrogatedprisoners[PRISONER_ADMIN], sMapX, sMapY );
+	ChangeNumberOfPrisoners( pSectorInfo, -interrogatedprisoners[PRISONER_OFFICER], -interrogatedprisoners[PRISONER_ELITE], -interrogatedprisoners[PRISONER_REGULAR], -interrogatedprisoners[PRISONER_ADMIN], sMapX, sMapY );
 
 	// give experience rewards to the interrogators
 	// total experience to share
@@ -6824,13 +6865,13 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	// Are there any prisoners in this prison?
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
-	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	UINT8 prisonersofficer = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersofficer, &prisonerselite, &prisonersregular, &prisonersadmin );
 
-	// for now, simply count specials as elites
-	ChangeNumberOfPrisoners( pSectorInfo, -prisonersspecial, prisonersspecial, 0, 0 );
-	prisonerselite += prisonersspecial;
-	prisonersspecial = 0;
+	// for now, simply count officers as elites
+	ChangeNumberOfPrisoners( pSectorInfo, -prisonersofficer, prisonersofficer, 0, 0 );
+	prisonerselite += prisonersofficer;
+	prisonersofficer = 0;
 	
 	if ( !numprisoners )
 		return;
@@ -6901,7 +6942,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		pSectorInfo->ubNumAdmins = min(255, pSectorInfo->ubNumAdmins + escapedadmins);
 
 		// reduce prisoner count!
-		ChangeNumberOfPrisoners( pSectorInfo, -prisonersspecial, -escapedelites, -escapedregulars, -escapedadmins, sMapX, sMapY );
+		ChangeNumberOfPrisoners( pSectorInfo, -prisonersofficer, -escapedelites, -escapedregulars, -escapedadmins, sMapX, sMapY );
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RIOT], wSectorName  );
 	}

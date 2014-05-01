@@ -14,5 +14,8 @@ void ReStartingGame();
 
 void InitBloodCatSectors();
 
+// Flugente: se up VIP locations
+void InitVIPSectors();
+
 
 #endif

@@ -373,11 +373,11 @@ BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
 BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
 
 // Flugente: functions altering a sector's prisoners
-UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo,				UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
-UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,	UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
+UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo,				UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
+UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,	UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
 
-void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX = 0, INT16 sY = 0 );
-void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,  INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin );
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX = 0, INT16 sY = 0 );
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,  INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin );
 
 void DeleteAllPrisoners( SECTORINFO *pSectorInfo );
 void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo );
@@ -399,6 +399,30 @@ enum {
 
 // Flugente: return number of enemy officers and highest rank found
 UINT8 HighestEnemyOfficersInSector(BOOL& aType);
+
+// count all soldiers in the current sector that have a specific flag set
+UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);
+INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag );
+
+// Flugente: VIP targets
+// can a new VIP be created?
+BOOLEAN VIPSlotFree();
+
+BOOLEAN SectorHasVIP( INT16 sMapX, INT16 sMapY );
+BOOLEAN PlayerKnowsAboutVIP( INT16 sMapX, INT16 sMapY );
+
+BOOLEAN TownHasVIP( INT8 bTownId );
+
+BOOLEAN GetRandomEnemyTownSector( INT8 bTownId, UINT16& aSector );
+
+// Get a possible sector for a VIP to spawn in. Note: we do not spawn new VIPs in Meduna - VIPs that escape move there instead
+BOOLEAN GetPossibleVIPSector( UINT16& aSector );
+
+// Get the location of a VIP we do not yet know about
+BOOLEAN GetRandomUnknownVIPSector( UINT16& aSector );
+
+void DeleteVIP( INT16 sMapX, INT16 sMapY );
+void VIPFleesToMeduna();
 
 #endif
 

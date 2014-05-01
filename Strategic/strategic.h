@@ -43,6 +43,9 @@ enum
 #define MILITIA_MOVE_EAST				0x00000004	//4
 #define MILITIA_MOVE_SOUTH				0x00000008	//8
 
+#define ENEMY_VIP_PRESENT				0x00000010	//16		// an enemy VIP is present in this sector
+#define ENEMY_VIP_PRESENT_KNOWN			0x00000020	//16		// player thinks a VIP is here
+
 #define MILITIA_MOVE_ALLDIRS			0x0000000F	// 15
 // -------------------------------------------------------
 

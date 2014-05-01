@@ -7885,6 +7885,7 @@ STR16	szPrisonerTextStr[]=
 	L"Der Feind weigert sich, Sie als Gefangenen zu nehmen - Er möchte Sie tod sehen!",
 	L"Dieses Verhalten ist ausgeschaltet in der ja2_options.ini Datei.",
 	L"%s hat %s befreit!",
+	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
 };
 
 STR16	szMTATextStr[]=
@@ -7919,6 +7920,8 @@ STR16		szBackgroundText_Flags[]=
 	L" spreads corruption to nearby mercs\n",
 	L" female only",							// won't show up, text exists for compatibility reasons
 	L" male only",								// won't show up, text exists for compatibility reasons
+
+	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
 
 // TODO.Translate

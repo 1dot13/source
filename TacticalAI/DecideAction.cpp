@@ -35,6 +35,7 @@
 #endif
 #include "connect.h"
 #include "Text.h"
+#include "Exit Grids.h"		// added by Flugente
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -1002,6 +1003,27 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				}
 			}
 		}
+		
+		// are we a bodyguard?
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_BODYGUARD )
+		{
+			// is VIP still alive?
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 100, pSoldier->bTeam, SOLDIER_VIP, FALSE );
+
+			if ( ubPerson != NOBODY )
+			{
+				// we want to stay close to him, but still be able to function properly... stay withing a 7-tile radius
+				if ( SpacesAway( pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo ) > 7 )
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0 );
+
+					if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
 	}
 //ddd}
 
@@ -1710,6 +1732,27 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
 				
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
+		
+		// are we a bodyguard?
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_BODYGUARD )
+		{
+			// is VIP still alive?
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 100, pSoldier->bTeam, SOLDIER_VIP, FALSE );
+
+			if ( ubPerson != NOBODY )
+			{
+				// we want to stay close to him, but still be able to function properly... stay withing a 7-tile radius
+				if ( SpacesAway( pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo ) > 7 )
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0 );
+
+					if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
 					{
 						return(AI_ACTION_SEEK_FRIEND);
 					}
@@ -3071,6 +3114,46 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				}
 			}
 		}
+
+		// VIPs run away (but not the GENERAL)
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && pSoldier->ubProfile != GENERAL )
+		{
+			// this is in red AI state - a firefight is going on, we try to escape
+			pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents( pSoldier );
+
+			// if we don't know where our opponents are, we cannot run away from them...
+			if ( TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+			{
+				// search for the closest map edge
+				pSoldier->aiData.usActionData = FindClosestExitGrid( pSoldier, pSoldier->sGridNo, 200 );
+			}
+
+			if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+			{
+				return AI_ACTION_RUN_AWAY;
+			}
+		}
+
+		// are we a bodyguard?
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_BODYGUARD )
+		{
+			// is VIP still alive?
+			UINT16 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 100, pSoldier->bTeam, SOLDIER_VIP, FALSE );
+
+			if ( ubPerson != NOBODY )
+			{
+				// we want to stay close to him, but still be able to function properly... stay withing a 7-tile radius
+				if ( SpacesAway( pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo ) > 7 )
+				{
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0 );
+
+					if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+					{
+						return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -4345,7 +4428,6 @@ INT16 ubMinAPCost;
 		}
 		else if ( gTacticalStatus.bBoxingState == BOXING )
 		{
-
 			bInWater = FALSE;
 			bInDeepWater = FALSE;
 			bInGas = FALSE;
@@ -4361,7 +4443,6 @@ INT16 ubMinAPCost;
 	}
 	else
 	{
-
 		// determine if we happen to be in water (in which case we're in BIG trouble!)
 		bInWater = Water( pSoldier->sGridNo );
 		bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo );
@@ -4677,6 +4758,25 @@ INT16 ubMinAPCost;
 			pSoldier->aiData.usActionData = skilltargetgridno;
 			return(AI_ACTION_USE_SKILL);
 		}		
+	}
+
+	// VIPs run away (but not the GENERAL)
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && pSoldier->ubProfile != GENERAL )
+	{
+		// this is in red AI state - a firefight is going on, we try to escape
+		pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents( pSoldier );
+
+		// if we don't know where our opponents are, we cannot run away from them...
+		if ( TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+		{
+			// search for the closest map edge
+			pSoldier->aiData.usActionData = FindClosestExitGrid( pSoldier, pSoldier->sGridNo, 200 );
+		}
+
+		if ( !TileIsOutOfBounds( pSoldier->aiData.usActionData ) )
+		{
+			return AI_ACTION_RUN_AWAY;
+		}
 	}
 
 	BestShot.ubPossible  = FALSE;	// by default, assume Shooting isn't possible

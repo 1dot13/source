@@ -1289,6 +1289,47 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	InvalidateRegion( sXPosition ,sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
 }
 
+void ShowVIPSymbol( INT16 sSectorX, INT16 sSectorY )
+{
+	INT16 sXPosition = 0, sYPosition = 0;
+	HVOBJECT hIconHandle;
+
+	UINT8 iconOffsetX = 0;
+	UINT8 iconOffsetY = 0;
+
+	if ( iResolution >= _640x480 && iResolution < _800x600 )
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 9;
+	}
+	else if ( iResolution < _1024x768 )
+	{
+		iconOffsetX = 8;
+		iconOffsetY = 12;
+	}
+	else
+	{
+		iconOffsetX = 12;
+		iconOffsetY = 13;
+	}
+
+	// grab the x and y postions
+	sXPosition = sSectorX;
+	sYPosition = sSectorY;
+
+	// get the video object
+	GetVideoObject( &hIconHandle, guiCHARICONS );
+
+	// check if we are zoomed in...need to offset in case for scrolling purposes
+	sXPosition = (INT16)(iconOffsetX + (MAP_VIEW_START_X + (sSectorX * MAP_GRID_X + 1)) - 1);
+	sYPosition = (INT16)(((iconOffsetY + (sSectorY * MAP_GRID_Y) + 1)));
+	sYPosition -= 2;
+
+	// small question mark
+	BltVideoObject( guiSAVEBUFFER, hIconHandle, 10, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
+	InvalidateRegion( sXPosition, sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
+}
+
 
 void ShowTeamAndVehicles(INT32 fShowFlags)
 {
@@ -6492,6 +6533,10 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 
 	// get total number of badguys here
 	sNumberOfEnemies = NumEnemiesInSector( sSectorX, sSectorY );
+
+	// Flugente: note if we have detected a VIP here
+	if ( SectorHasVIP( sSectorX, sSectorY ) )//PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
+		ShowVIPSymbol( sSectorX, sSectorY );
 
 	// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,
 	// so every sector gets a red question mark. In that case, get out of here

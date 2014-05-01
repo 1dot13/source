@@ -15430,7 +15430,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// exceptions: we are discovered if we are close and bleeding, or if we are drunk while dressed as a soldier
 			{
 				// if we are openly bleeding: not covert
-				if ( this->bBleeding > 0 )
+				if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName() );
 					return FALSE;
@@ -15448,7 +15448,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// however, if we are dressed up as a civilian, we can get as close as we like, we won't be discovered
 			{
 				// if we are openly bleeding: not covert
-				if ( this->bBleeding > 0 )
+				if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName() );
 					return FALSE;

@@ -8057,6 +8057,7 @@ STR16	szPrisonerTextStr[]=
 	L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"This behaviour is set OFF in your ini settings.",
 	L"%s has freed %s!",
+	L"A prisoner revealed the location of a high-ranking army officer in %s!",
 };
 
 STR16	szMTATextStr[]=
@@ -8083,13 +8084,15 @@ STR16		szBackgroundText_Flags[]=
 {
 	L" might consume drugs in inventory\n",
 	L" disregard for other backgrounds\n",
-	L" +1 level in  underground sectors\n",
+	L" +1 level in underground sectors\n",
 	L" might steal items\n",
 
 	L" +1 traplevel to planted bombs\n",
 	L" spreads corruption to nearby mercs\n",
 	L" female only",							// won't show up, text exists for compatibility reasons
 	L" male only",								// won't show up, text exists for compatibility reasons
+
+	L" huge loyality penalty in all towns if we die\n",
 };
 
 STR16	szBackgroundText_Value[]=

@@ -132,7 +132,9 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "scrounging") == 0 ||
 				strcmp(name, "traplevel") == 0 ||
 				strcmp(name, "no_male") == 0 ||
-				strcmp(name, "no_female") == 0 ))
+				strcmp(name, "no_female") == 0 ||
+				strcmp( name, "loyalitylossondeath" ) == 0 ))
+
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -557,7 +559,12 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curBackground.uiFlags	|= (UINT16) atol(pData->szCharData) ? BACKGROUND_NO_FEMALE : 0;
 		}
-																				
+		else if ( strcmp( name, "loyalitylossondeath" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.uiFlags |= (UINT16)atol( pData->szCharData ) ? BACKGROUND_GLOBALOYALITYLOSSONDEATH : 0;
+		}
+																						
 		pData->maxReadDepth--;
 	}
 	pData->currentDepth--;

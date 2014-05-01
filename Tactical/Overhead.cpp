@@ -3859,6 +3859,11 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 #endif
     }
 
+	// Flugente: backgrounds
+	if ( pSoldierOld->HasBackgroundFlag( BACKGROUND_GLOBALOYALITYLOSSONDEATH ) )
+	{
+		DecrementTownLoyaltyEverywhere( 20000 );
+	}
 
     // killing crows/cows is not worth any experience!
     if ( ( pSoldierOld->ubBodyType != CROW ) && ( pSoldierOld->ubBodyType != COW ) ) //&& pSoldierOld->ubLastDamageReason != TAKE_DAMAGE_BLOODLOSS ) // SANDRO - why not give exp for bleeding out?
@@ -6618,7 +6623,7 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT32>& arSectorIDVector )
 extern INT32 giReinforcementPool;
 
 // we cannot simply move all prisoners of a sector. It might be a prison we are already using, so we would move all inmates, not just the new ones
-UINT16 gusPrisonersSpecial = 0;
+UINT16 gusPrisonersOfficer = 0;
 UINT16 gusPrisonersElite = 0;
 UINT16 gusPrisonersRegular = 0;
 UINT16 gusPrisonersAdmin = 0;
@@ -6652,7 +6657,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 	}
 
 	BOOLEAN success = FALSE;
-	UINT16 prisonerstobemoved = gusPrisonersSpecial + gusPrisonersElite + gusPrisonersRegular + gusPrisonersAdmin;
+	UINT16 prisonerstobemoved = gusPrisonersOfficer + gusPrisonersElite + gusPrisonersRegular + gusPrisonersAdmin;
 
 	if ( usSectorID > 0 )
 	{
@@ -6662,7 +6667,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			success = TRUE;
 
-			ChangeNumberOfPrisoners( pPrisonSectorInfo, gusPrisonersSpecial, gusPrisonersElite, gusPrisonersRegular, gusPrisonersAdmin );
+			ChangeNumberOfPrisoners( pPrisonSectorInfo, gusPrisonersOfficer, gusPrisonersElite, gusPrisonersRegular, gusPrisonersAdmin );
 
 			CHAR16 wString[64];
 			GetShortSectorString( SECTORX( usSectorID ), SECTORY( usSectorID ), wString );
@@ -6670,7 +6675,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 		}
 	}
 
-	gusPrisonersSpecial = 0;
+	gusPrisonersOfficer = 0;
 	gusPrisonersElite = 0;
 	gusPrisonersRegular = 0;
 	gusPrisonersAdmin = 0;
@@ -6691,7 +6696,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	UINT16               ubNumPrisonerAdmin = 0;
 	UINT16               ubNumPrisonerTroop = 0;
 	UINT16               ubNumPrisonerElite = 0;
-	UINT16               ubNumPrisonerSpecial = 0;
+	UINT16               ubNumPrisonerOfficer = 0;
 
 	// Check if the battle is won!
 	// Loop through all mercs and make go
@@ -6706,15 +6711,29 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				// if we arrive here and the guy has lifepoints < OKLIFE, something is very odd... better take him prisoner and remove him anyway
 				//if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
 				{
-					switch ( pTeamSoldier->ubSoldierClass )
+					// officers are 'special' prisoners...
+					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 					{
-					case SOLDIER_CLASS_ADMINISTRATOR:   ++ubNumPrisonerAdmin; break;
-					case SOLDIER_CLASS_ARMY:            ++ubNumPrisonerTroop; break;
-					case SOLDIER_CLASS_ELITE:           ++ubNumPrisonerElite; break;
-					default:
-						// if none of the above classes, ignore this one
-						continue;
-						break;
+						++ubNumPrisonerOfficer;
+
+						// Flugente: VIPs
+						if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
+						{
+							DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
+						}
+					}
+					else
+					{
+						switch ( pTeamSoldier->ubSoldierClass )
+						{
+						case SOLDIER_CLASS_ADMINISTRATOR:   ++ubNumPrisonerAdmin; break;
+						case SOLDIER_CLASS_ARMY:            ++ubNumPrisonerTroop; break;
+						case SOLDIER_CLASS_ELITE:           ++ubNumPrisonerElite; break;
+						default:
+							// if none of the above classes, ignore this one
+							continue;
+							break;
+						}
 					}
 
 					// Flugente: campaign stats
@@ -6822,15 +6841,13 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			}
 
 			// remember all prisoners...
-			gusPrisonersSpecial = ubNumPrisonerSpecial;
+			gusPrisonersOfficer = ubNumPrisonerOfficer;
 			gusPrisonersElite = ubNumPrisonerElite;
 			gusPrisonersRegular = ubNumPrisonerTroop;
 			gusPrisonersAdmin = ubNumPrisonerAdmin;
 
-			DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[PRISONER_DECIDE_STR], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
+            DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
 		}
-		else
-			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[PRISONER_NO_PRISONS_STR], GAME_SCREEN, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL );
 	}
 }
 
@@ -10550,38 +10567,38 @@ BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr)
 	return FALSE;
 }
 
-UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
 {
 	if ( !pSectorInfo )
 		return 0;
 
-	*apSpecial = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL];
+	*aOfficer  = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER];
 	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
 	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
 	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
 
-	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
 }
 
-UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
 {
 	if ( !pSectorInfo )
 		return 0;
 
-	*apSpecial = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL];
+	*aOfficer  = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER];
 	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
 	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
 	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
 
-	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
 }
 
-void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX, INT16 sY )
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX, INT16 sY )
 {
 	if ( !pSectorInfo )
 		return;
 
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + aSpecial) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + aOfficer ) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
@@ -10600,12 +10617,12 @@ void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aSpecial, INT16 aEl
 
 }
 
-void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin )
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin )
 {
 	if ( !pSectorInfo )
 		return;
 
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + aSpecial) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + aOfficer ) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
@@ -10635,7 +10652,7 @@ void KillOnePrisoner( SECTORINFO *pSectorInfo )
 	if ( !pSectorInfo )
 		return;
 
-	for (int i = PRISONER_SPECIAL; i >= PRISONER_ADMIN; --i)
+	for ( int i = PRISONER_OFFICER; i >= PRISONER_ADMIN; --i )
 	{
 		if ( pSectorInfo->uiNumberOfPrisonersOfWar[i] )
 		{
@@ -10694,4 +10711,220 @@ UINT8 HighestEnemyOfficersInSector( BOOL& aType )
     }
 
     return num;
+}
+
+// count all soldiers in the current sector that have a specific flag set
+UINT16 NumSoldiersWithFlagInSector( UINT8 aTeam, UINT32 aFlag )
+{
+	SOLDIERTYPE*		pSoldier;
+	INT32               cnt = 0;
+	UINT8				num = 0;
+
+	for ( cnt = gTacticalStatus.Team[aTeam].bFirstID, pSoldier = MercPtrs[cnt]; cnt < gTacticalStatus.Team[aTeam].bLastID; pSoldier++, ++cnt )
+	{
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+		{
+			if ( pSoldier->usSoldierFlagMask & aFlag )
+			{
+				++num;
+			}
+		}
+	}
+
+	return num;
+}
+
+INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag )
+{
+	INT32 sBestGridNo = NOWHERE;
+
+
+
+	return sBestGridNo;
+}
+
+// Flugente: VIP targets
+// can a new VIP be created?
+BOOLEAN VIPSlotFree()
+{
+	// TODO: somehow keep track of all VIPs so far, including the dead ones
+
+	return TRUE;
+}
+
+BOOLEAN SectorHasVIP( INT16 sMapX, INT16 sMapY )
+{
+	return (StrategicMap[SECTOR(sMapX, sMapY)].usFlags & ENEMY_VIP_PRESENT);
+}
+
+BOOLEAN PlayerKnowsAboutVIP( INT16 sMapX, INT16 sMapY )
+{
+	return (StrategicMap[SECTOR( sMapX, sMapY )].usFlags & ENEMY_VIP_PRESENT_KNOWN);
+}
+
+BOOLEAN TownHasVIP( INT8 bTownId )
+{
+	for ( INT32 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
+	{
+		for ( INT32 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
+		{
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].bNameId == bTownId && SectorHasVIP( iCounterA, iCounterB ) )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN GetRandomEnemyTownSector(INT8 bTownId, UINT16& aSector)
+{
+	UINT16 usSector = 0;
+	std::vector<UINT16> possiblesectors;
+
+	for ( INT16 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
+	{
+		for ( INT16 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
+		{
+			usSector = CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
+
+			if ( StrategicMap[usSector].bNameId == bTownId && NumEnemiesInSector( iCounterA, iCounterB ) > 0 && !SectorHasVIP( iCounterA, iCounterB ) )
+			{
+				possiblesectors.push_back( usSector );
+			}
+		}
+	}
+
+	if ( !possiblesectors.empty( ) )
+	{
+		// select a random town
+		UINT16 tmpSector = possiblesectors[Random( possiblesectors.size( ) )];
+
+		// as the game decides to be a dick, CALCULATE_STRATEGIC_INDEX(x, y) and SECTOR(x, y) are INCOMPATIBLE. Which is obscene, considering their liberate use throughout the code
+		aSector = STRATEGIC_INDEX_TO_SECTOR_INFO( tmpSector );
+
+		return TRUE;
+	}
+
+	return false;
+}
+
+// Get a possible sector for a VIP to spawn in. Note: we do not spawn new VIPs in Meduna - VIPs that escape move there instead
+BOOLEAN GetPossibleVIPSector( UINT16& aSector)
+{
+	std::vector<INT8> possibletowns;
+
+	for ( INT8 town = FIRST_TOWN; town <= NUM_TOWNS; ++town )
+	{
+		// VIPs don't spawn in Meduna on first try
+		if ( town == MEDUNA )
+			continue;
+
+		// San Mona is also out, as the army has no permanent presence there
+		if ( town == SAN_MONA )
+			continue;
+
+		// no tiny towns
+		if ( GetTownSectorSize( town ) < 2 )
+			continue;
+
+		// if this town already has a VIP, skip it
+		if ( TownHasVIP( town ) )
+			continue;
+
+		// VIPs only spawn in sectors that are completely under enemy control. This makes hunting them down much more challenging ;-)
+		if ( GetTownSectorsUnderControl( town ) == 0 )
+			possibletowns.push_back(town);
+	}
+
+	if ( !possibletowns.empty() )
+	{
+		// select a random town
+		INT8 spawntown = possibletowns[Random( possibletowns.size() )];
+
+		if ( GetRandomEnemyTownSector( spawntown, aSector ) )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+// Get the location of a VIP we do not yet know about
+BOOLEAN GetRandomUnknownVIPSector( UINT16& aSector )
+{
+	UINT16 usSector = 0;
+	std::vector<UINT16> possiblesectors;
+
+	for ( INT32 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
+	{
+		for ( INT32 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
+		{
+			usSector = CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
+
+			if ( SectorHasVIP( iCounterA, iCounterB ) && !PlayerKnowsAboutVIP( iCounterA, iCounterB ) )
+			{
+				usSector = CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
+
+				possiblesectors.push_back( usSector );
+			}
+		}
+	}
+
+	if ( !possiblesectors.empty( ) )
+	{
+		// select a random sector
+		UINT16 tmpSector = possiblesectors[Random( possiblesectors.size( ) )];
+
+		// as the game decides to be a dick, CALCULATE_STRATEGIC_INDEX(x, y) and SECTOR(x, y) are INCOMPATIBLE. Which is obscene, considering their liberate use throughout the code
+		aSector = STRATEGIC_INDEX_TO_SECTOR_INFO( tmpSector );
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+void DeleteVIP( INT16 sMapX, INT16 sMapY )
+{
+	if ( StrategicMap[SECTOR( sMapX, sMapY )].usFlags & ENEMY_VIP_PRESENT_KNOWN )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"An important enemy VIP has been removed!" );
+	}
+
+	// if no other VIPs are here, delete flags
+	if ( NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_VIP ) + NumSoldiersWithFlagInSector( CIV_TEAM, SOLDIER_VIP ) < 2 )
+	{
+		StrategicMap[SECTOR( sMapX, sMapY )].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
+	}
+
+	gStrategicStatus.usVIPsLeft = max( 0, gStrategicStatus.usVIPsLeft - 1 );
+}
+
+void VIPFleesToMeduna()
+{
+	// not if we are already in Meduna
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gWorldSectorX, gWorldSectorY )].bNameId != MEDUNA )
+	{
+		if ( StrategicMap[SECTOR( gWorldSectorX, gWorldSectorY )].usFlags & ENEMY_VIP_PRESENT_KNOWN )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"An enemy VIP has evaded your forces. You have no clue about his whereabouts" );
+		}
+
+		// if no other VIPs are here, delete flags
+		if ( NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_VIP ) + NumSoldiersWithFlagInSector( CIV_TEAM, SOLDIER_VIP ) == 1 )
+		{
+			StrategicMap[SECTOR( gWorldSectorX, gWorldSectorY )].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
+		}
+
+		UINT16 usSector = 0;
+		if ( GetRandomEnemyTownSector( MEDUNA, usSector ) )
+		{
+			// place new VIP in sector
+			StrategicMap[usSector].usFlags |= ENEMY_VIP_PRESENT;
+
+			// increase troop count - VIP plus bodyguards
+			SectorInfo[usSector].ubNumElites += 5;
+		}
+	}
 }

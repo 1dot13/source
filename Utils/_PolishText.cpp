@@ -8081,6 +8081,7 @@ STR16	szPrisonerTextStr[]=
 	L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"This behaviour is set OFF in your ini settings.",
 	L"%s has freed %s!",
+	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate
@@ -8115,6 +8116,8 @@ STR16		szBackgroundText_Flags[]=
 	L" spreads corruption to nearby mercs\n",
 	L" female only",							// won't show up, text exists for compatibility reasons
 	L" male only",								// won't show up, text exists for compatibility reasons
+
+	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
 
 // TODO.Translate
