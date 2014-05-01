@@ -91,6 +91,7 @@
 		<corruptionspread>0</corruptionspread>            <!-- unused in the trunk -->
 		<no_male>0</no_male>                              <!-- IMP creation: cannot be selected by males -->
 		<no_female>0</no_female>                          <!-- IMP creation: cannot be selected by females -->
+		<loyalitylossondeath>0</loyalitylossondeath>      <!-- huge loyality loss in entire country on death -->
 	</BACKGROUND>
 	<!-- Note that Barry's background had to be moved to slot 255 due to index number 0 already being taken -->
 	<!-- Blood -->
@@ -852,6 +853,7 @@
 		<approach_recruit>15</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<loyalitylossondeath>1</loyalitylossondeath>
 	</BACKGROUND>
 	<!-- Carlos -->
 	<BACKGROUND>
@@ -941,12 +943,12 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Nobody admits it, but the same governments that hunt him employ him.</szDescription>
-		<ap_height>3</ap_height>
-		<increased_maxcth>2</increased_maxcth>
+		<ap_height>6</ap_height>
+		<increased_maxcth>1</increased_maxcth>
 		<approach_friendly>-15</approach_friendly>
 		<approach_recruit>-10</approach_recruit>
 		<insurance>40</insurance>
-		<spotter>15</spotter>
+		<spotter>10</spotter>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2762,18 +2764,31 @@
 	<!-- Gary -->
 	<BACKGROUND>
 		<uiIndex>223</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Hothead</szName>
+		<szShortName>Hothead</szShortName>
+		<szDescription>Gary's spontaneous, rash behaviour sometimes gets the better of him.</szDescription>
+		<ap_assault>3</ap_assault>
+		<resistance_fear>3</resistance_fear>
+		<approach_threaten>5</approach_threaten>
+		<approach_recruit>-12</approach_recruit>
+    <insurance>15</insurance>
+    <spotter>-10</spotter>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
 	<!-- Sparky -->
 	<BACKGROUND>
 		<uiIndex>224</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Roachburn family</szName>
+		<szShortName>Roachburn family</szShortName>
+		<szDescription>Growing up in a family of mercenaries, Megan learned a few tricks from constant scuffles with her brothers.</szDescription>
+		<medical>4</medical>
+		<ap_inventory>10</ap_inventory>
+		<resistance_suppression>3</resistance_suppression>
+		<resistance_physical>1</resistance_physical>
+		<speed_run>4</speed_run>
+		<meleedamage>5</meleedamage>
+    <disarm_trap>6</disarm_trap>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3732,7 +3747,7 @@
    <spotter>30</spotter>
   </BACKGROUND>
   <BACKGROUND>
-		<uiIndex>315</uiIndex>
+   <uiIndex>315</uiIndex>
 		<szName>Bomb Disposal Unit</szName>
 		<szShortName>BDU</szShortName>
 		<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
