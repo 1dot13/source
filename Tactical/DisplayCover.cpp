@@ -41,15 +41,6 @@ class SOLDIERTYPE;
 
 //*******	Local Defines **************************************************
 
-enum COVER_VALUES
-{
-	INVALID_COVER=-1,
-	NO_COVER=0,
-	MIN_COVER=1,
-	MED_COVER=2,
-	MAX_COVER=3
-};
-
 // Flugente: mines display - stuff needs to be here
 enum MINES_VALUES
 {
@@ -136,8 +127,6 @@ void	RemoveMinesObjectsFromViewArea();	// added by Flugente, has to be declared 
 void	RemoveTraitObjectsFromViewArea();
 
 void	CalculateCover();
-void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
-void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier=NULL );
 
 void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 

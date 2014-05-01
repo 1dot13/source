@@ -64,7 +64,7 @@
 	#include "environment.h"
 	// sevenfm: needed for _KeyDown(SHIFT)
 	#include "english.h"
-
+	#include "DisplayCover.h"
 #endif
 
 #include "InterfaceItemImages.h"
@@ -298,9 +298,6 @@ void MovementMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 UINT32 CalcUIMessageDuration( STR16 wString );
-
-// sevenfm: this function is needed to show cover in health bar
-extern void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
 
 extern FLOAT Distance2D( FLOAT dDeltaX, FLOAT dDeltaY );
 

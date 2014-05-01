@@ -19,11 +19,23 @@ void SwitchCoverDrawMode();
 void RemoveVisibleGridNoAtSelectedGridNo();
 void DisplayGridNoVisibleToSoldierGrid( );
 
+void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
+void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier = NULL );
+
 
 #define		DC_MAX_COVER_RANGE					43 //31
 #define		DC__SOLDIER_VISIBLE_RANGE			43 //31
 #define		DC__MIN_SIZE						4
 #define		DC__MAX_SIZE						21 //11
+
+enum COVER_VALUES
+{
+	INVALID_COVER = -1,
+	NO_COVER = 0,
+	MIN_COVER = 1,
+	MED_COVER = 2,
+	MAX_COVER = 3
+};
 
 // Flugente: mines display - stuff needs to be here
 // Sevenfm: moved here from DisplayCover.cpp

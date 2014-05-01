@@ -58,6 +58,7 @@
 	#include "opplist.h"
 	#include "Sys Globals.h"//dnl ch74 201013
 	#include "CampaignStats.h"		// added by Flugente
+	#include "DisplayCover.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -9572,28 +9573,34 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
 			pSoldier->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
 
-			// we now have to determine wether we are currently wearing civilian or military clothes
-			for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+			// we can onyl dsiguise sucessfully if we are not seen
+			INT8 bCover = MAX_COVER;
+			CalculateCoverForSoldier( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, bCover );
+			if ( bCover == MAX_COVER )
 			{
-				// both parts have to fit. We cant mix different uniforms and get soldier disguise
-				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
+				// we now have to determine wether we are currently wearing civilian or military clothes
+				for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
 				{
-					pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+					// both parts have to fit. We cant mix different uniforms and get soldier disguise
+					if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
+					{
+						pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+
+						if ( pSoldier->bTeam == OUR_TEAM )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
+
+						break;
+					}
+				}
+
+				// if not dressed as a soldier, we must be dressed as a civilian
+				if ( !(pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+				{
+					pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_CIV;
 
 					if ( pSoldier->bTeam == OUR_TEAM )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
-
-					break;
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
 				}
-			}
-
-			// if not dressed as a soldier, we must be dressed as a civilian
-			if ( !(pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
-			{
-				pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_CIV;
-
-				if ( pSoldier->bTeam == OUR_TEAM )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
 			}
 
 			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
