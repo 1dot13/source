@@ -2205,6 +2205,16 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - besessen von einem Dämon",
 };
 
+STR16 pSkillMenuStrings[] =	// TODO.Translate
+{
+	L"Militia",
+	L"Other Squads",
+	L"Cancel",
+	L"%d Militia",
+
+	L"All Militia",
+};
+
 // TODO.Translate
 STR16 pSnitchMenuStrings[] =
 {

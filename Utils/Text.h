@@ -157,6 +157,17 @@ extern STR16 pMilitiaControlMenuStrings[]; //lal
 extern STR16 pTraitSkillsMenuStrings[];		//Flugente
 extern STR16 pTraitSkillsMenuDescStrings[]; //Flugente
 extern STR16 pTraitSkillsDenialStrings[]; //Flugente
+
+enum
+{
+	SKILLMENU_MILITIA,
+	SKILLMENU_OTHERSQUADS,
+	SKILLMENU_CANCEL,
+	SKILLMENU_X_MILITIA,
+	SKILLMENU_ALL_MILITIA,
+};
+
+extern STR16 pSkillMenuStrings[];			//Flugente
 //extern STR16 pTalkToAllMenuStrings[];
 extern STR16 pSnitchMenuStrings[];
 extern STR16 pSnitchMenuDescStrings[];

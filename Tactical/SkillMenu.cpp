@@ -140,7 +140,7 @@ TraitSelection::Setup( UINT32 aVal )
 	}
 
 	// cancel option
-	swprintf( pStr, L"Cancel" );				
+	swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 	pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_TraitSelection, 0 ) );
 	GetPopup()->addOption( *pOption );
 		
@@ -248,7 +248,7 @@ SkillSelection::Setup( UINT32 aVal )
 		}
 				
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_SkillSelection, 0 ) );
 		GetPopup()->addOption( *pOption );
 	}
@@ -354,7 +354,7 @@ ArtillerySector::Setup( UINT32 aVal )
 		}
 
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_ArtillerySector, 0 ) );
 		GetPopup()->addOption( *pOption );
 
@@ -397,7 +397,7 @@ ArtilleryTeam::Setup( UINT32 aVal )
 		INT16 sSectorY = SECTORY(usSector);
 				
 		// order artillery from militia
-		swprintf( pStr, L"Militia" );
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_MILITIA] );
 
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ArtilleryTeam, MILITIA_TEAM ) );
 
@@ -410,7 +410,7 @@ ArtilleryTeam::Setup( UINT32 aVal )
 		GetPopup()->addOption( *pOption );
 
 		// order artillery from our mercs
-		swprintf( pStr, L"Other Squads" );
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_OTHERSQUADS] );
 
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, INT8>( &Wrapper_Function_ArtilleryTeam, pSoldier->bTeam ) );
 
@@ -423,7 +423,7 @@ ArtilleryTeam::Setup( UINT32 aVal )
 		GetPopup()->addOption( *pOption );
 		
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_ArtilleryTeam, 0 ) );
 		GetPopup()->addOption( *pOption );
 
@@ -511,7 +511,7 @@ ReinforcementSector::Setup( UINT32 aVal )
 		}
 
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Cancel_ReinforcementSector, 0 ) );
 		GetPopup()->addOption( *pOption );
 	}
@@ -545,9 +545,9 @@ ReinforcementNumber::Setup( UINT32 aVal )
 		CHAR16 pStr[300];
 		
 		UINT8 numberofmilitia = CountAllMilitiaInSector( SECTORX(usSector), SECTORY(usSector) );
-
+		
 		// 5 militia option
-		swprintf( pStr, L"5 Militia" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 5 );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 5 ) );
 		
 		if ( numberofmilitia < 5 )
@@ -559,7 +559,7 @@ ReinforcementNumber::Setup( UINT32 aVal )
 		GetPopup()->addOption( *pOption );
 
 		// 10 militia option
-		swprintf( pStr, L"10 Militia" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 10 );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 10 ) );
 
 		if ( numberofmilitia < 10 )
@@ -571,7 +571,7 @@ ReinforcementNumber::Setup( UINT32 aVal )
 		GetPopup()->addOption( *pOption );
 
 		// 15 militia option
-		swprintf( pStr, L"15 Militia" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 15 );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 15 ) );
 
 		if ( numberofmilitia < 15 )
@@ -583,7 +583,7 @@ ReinforcementNumber::Setup( UINT32 aVal )
 		GetPopup()->addOption( *pOption );
 
 		// 20 militia option
-		swprintf( pStr, L"20 Militia" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 20 );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 20 ) );
 
 		if ( numberofmilitia < 20 )
@@ -592,16 +592,36 @@ ReinforcementNumber::Setup( UINT32 aVal )
 			pOption->setAvail(new popupCallbackFunction<bool,void*>( &Popup_OptionOff, NULL ));
 		}
 
+		// 30 militia option
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 30 );
+		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 30 ) );
+
+		if ( numberofmilitia < 30 )
+		{
+			// Set this option off.
+			pOption->setAvail( new popupCallbackFunction<bool, void*>( &Popup_OptionOff, NULL ) );
+		}
+
+		// 40 militia option
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 40 );
+		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, 40 ) );
+
+		if ( numberofmilitia < 40 )
+		{
+			// Set this option off.
+			pOption->setAvail( new popupCallbackFunction<bool, void*>( &Popup_OptionOff, NULL ) );
+		}
+
 		GetPopup()->addOption( *pOption );
 
 		// all militia option
-		swprintf( pStr, L"All Militia" );
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_ALL_MILITIA] );
 
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_ReinforcementNumber, numberofmilitia ) );
 		GetPopup()->addOption( *pOption );
 
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Cancel_ReinforcementNumber, 0 ) );
 		GetPopup()->addOption( *pOption );
 	}
@@ -680,7 +700,7 @@ SoldierSelection::Setup( UINT32 aVal )
 		}
 
 		// cancel option
-		swprintf( pStr, L"Cancel" );				
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
 		pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_SoldierSelection, 0 ) );
 		GetPopup()->addOption( *pOption );
 	}

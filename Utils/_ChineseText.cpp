@@ -2203,6 +2203,15 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产", //L" - posession by a demon"
 };
 
+STR16 pSkillMenuStrings[] =	// TODO.Translate
+{
+	L"Militia",
+	L"Other Squads",
+	L"Cancel",
+	L"%d Militia",
+
+	L"All Militia",
+};
 
 STR16 pSnitchMenuStrings[] =
 {
