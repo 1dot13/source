@@ -28,6 +28,7 @@
 	#include "Tactical Save.h"
 	#include "GameSettings.h"
 	#include "debug.h"
+	#include "Overhead.h"	// added by Flugente
 #endif
 
 #include "Strategic Mines.h"
@@ -170,9 +171,8 @@ void CreateDestroyTownInfoBox( void )
 
 		AddItemsInSectorToBox();
 
-
 		// set font type
-	SetBoxFont(ghTownMineBox, BLOCKFONT2);
+		SetBoxFont(ghTownMineBox, BLOCKFONT2);
 
 		// set highlight color
 		SetBoxHighLight(ghTownMineBox, FONT_WHITE);
@@ -228,7 +228,6 @@ void CreateDestroyTownInfoBox( void )
 	}
 	else if( ( fCreated == TRUE ) && ( fShowTownInfo == FALSE ) )
 	{
-
 		// get box size
 		GetBoxSize( ghTownMineBox, &pDimensions );
 
@@ -247,9 +246,6 @@ void CreateDestroyTownInfoBox( void )
 
 		fCreated = FALSE;
 	}
-
-
-	return;
 }
 
 
@@ -288,7 +284,6 @@ void AddTextToTownBox( void )
 	UINT8 ubTownId = 0;
 	UINT16 usTownSectorIndex;
 	INT16 sMineSector = 0;
-
 
 	// remember town id
 	ubTownId = GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
@@ -395,10 +390,10 @@ void AddTextToTownBox( void )
 	// town size
 	if( gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
 	{
-	swprintf( wString, L"%s:", pwTownInfoStrings[ 0 ] );
-	AddMonoString( &hStringHandle, wString );
-	swprintf( wString, L"%d",	GetTownSectorSize( ubTownId ) );
-	AddSecondColumnMonoString( &hStringHandle, wString );
+		swprintf( wString, L"%s:", pwTownInfoStrings[ 0 ] );
+		AddMonoString( &hStringHandle, wString );
+		swprintf( wString, L"%d",	GetTownSectorSize( ubTownId ) );
+		AddSecondColumnMonoString( &hStringHandle, wString );
 	}
 
 	// main facilities
@@ -432,9 +427,21 @@ void AddTextToTownBox( void )
 	if( sMineSector != -1 && gfHiddenTown[ GetTownIdForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ] )
 	{
 		// Associated Mine: Sector
-	swprintf( wString, L"%s:",	pwTownInfoStrings[ 4 ] );
+		swprintf( wString, L"%s:",	pwTownInfoStrings[ 4 ] );
 		AddMonoString( &hStringHandle, wString );
-	GetShortSectorString( ( INT16 )( sMineSector % MAP_WORLD_X ), ( INT16 )( sMineSector / MAP_WORLD_X ), wString );
+		GetShortSectorString( ( INT16 )( sMineSector % MAP_WORLD_X ), ( INT16 )( sMineSector / MAP_WORLD_X ), wString );
+		AddSecondColumnMonoString( &hStringHandle, wString );
+	}
+
+	// Flugente: if this is a prison we control, display number of prisoners here
+	UINT8 prisoners[PRISONER_MAX] = { 0 };
+	UINT16 numprisoners = GetNumberOfPrisoners( &(SectorInfo[SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY )]), &prisoners[PRISONER_OFFICER], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
+	if ( numprisoners )
+	{
+		// prisoners
+		swprintf( wString, L"%s:", pwTownInfoStrings[13] );
+		AddMonoString( &hStringHandle, wString );
+		swprintf( wString, L"%d/%d/%d/%d%", prisoners[PRISONER_ADMIN], prisoners[PRISONER_REGULAR], prisoners[PRISONER_ELITE], prisoners[PRISONER_OFFICER] );
 		AddSecondColumnMonoString( &hStringHandle, wString );
 	}
 }
