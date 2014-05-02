@@ -2542,7 +2542,7 @@ void LoadSkillTraitsExternalSettings()
 	// anv: SNITCH
 	gSkillTraitValues.ubSNTBaseChance							= iniReader.ReadInteger("Snitch","BASE_CHANCE",  50, 0, 100);
 	gSkillTraitValues.fSNTMercOpinionAboutSnitchBonusModifier	= iniReader.ReadFloat("Snitch","MERC_OPINION_ABOUT_SNITCH_MODIFIER", 0.5, 0.0, 10.0);
-	gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier	= iniReader.ReadFloat("Snitch","SNITCH_OPINION_ABOUT_MERC_MODIFIER", 0.2, 0.0, 10.0);
+	gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier	= iniReader.ReadFloat("Snitch","SNITCH_OPINION_ABOUT_MERC_MODIFIER", 0.2f, 0.0f, 10.0f);
 	gSkillTraitValues.fSNTSnitchLeadershipBonusModifer	= iniReader.ReadFloat("Snitch","SNITCH_LEADERSHIP_BONUS_MODIFIER", 0.5, 0.0, 10.0);
 	gSkillTraitValues.bSNTSociableMercBonus						= iniReader.ReadInteger("Snitch","SOCIABLE_MERC_BONUS",  10, -100, 100);
 	gSkillTraitValues.bSNTLonerMercBonus					= iniReader.ReadInteger("Snitch","LONER_MERC_BONUS",  -10, -100, 100);

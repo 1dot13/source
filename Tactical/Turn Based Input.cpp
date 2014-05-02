@@ -3252,11 +3252,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], usGridNo );
 						}
 
-						#ifdef JA2TESTVERSION
-							CHAR16	zOutputString[512];
-							swprintf( zOutputString, L"gridno: %d", usGridNo);
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
-						#endif
+						CHAR16	zOutputString[512];
+						swprintf( zOutputString, L"%s: %d", pUpdateMapInfoText[19], usGridNo);
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 					}
 				}
 				break;
@@ -3265,7 +3263,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				if( fCtrl && UsingNewInventorySystem() == true )
 				{
 					HandleTBPickUpBackpacks();
-						}
+				}
 				SeperateItems();
 				if( fCtrl )
 					StackAndSort( TRUE );
@@ -3327,7 +3325,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				if( fCtrl )
 				{
 					HandleTBToggleFormation();
-					}
+				}
 				else if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] )
 				{
 					gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] = FALSE;

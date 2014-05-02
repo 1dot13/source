@@ -1074,7 +1074,7 @@ void HandleDialogue( )
 		if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGERPREBATTLEINTERFACE )
 		{
 			UnLockPauseState();
-			InitPreBattleInterface( (GROUP*)QItem->uiSpecialEventData, FALSE );
+			InitPreBattleInterface( (GROUP*)QItem->uiSpecialEventData, TRUE );
 		}
 		if( QItem->uiSpecialEventFlag & DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX )
 		{
