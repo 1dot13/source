@@ -6595,8 +6595,9 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 			sYPos += 20;
 		}
 	}
-	// is this guy an (non-vip) officer?
-	else if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+
+	// is this guy an officer?
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 	{
 		// Add bars
 		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );

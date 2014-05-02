@@ -1738,8 +1738,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			if ( !NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_VIP ) && !NumSoldiersWithFlagInSector( CIV_TEAM, SOLDIER_VIP ) && (gWorldSectorX != gMercProfiles[GENERAL].sSectorX || gWorldSectorY != gMercProfiles[GENERAL].sSectorY) )
 			{
 				// nope, so this guy will become the VIP
-				// generals are also officers...
-				pSoldier->usSoldierFlagMask |= (SOLDIER_ENEMY_OFFICER | SOLDIER_VIP);
+				pSoldier->usSoldierFlagMask |= SOLDIER_VIP;
 			}
 			// a VIP has bodyguards
 			else if ( NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_BODYGUARD ) < gGameExternalOptions.usEnemyGeneralsBodyGuardsNumber )
