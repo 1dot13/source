@@ -6580,7 +6580,7 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	// are we a VIP? show that only when the player knows a VIP is in this sector. otherwise, don't even show our officer property
 	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && !pSoldier->bSectorZ )
 	{
-		if ( SectorHasVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )//PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
+		if ( PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
 		{
 			// Add bars
 			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20), (INT16)(sYPos + 20) );

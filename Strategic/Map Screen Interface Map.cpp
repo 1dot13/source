@@ -6535,7 +6535,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	sNumberOfEnemies = NumEnemiesInSector( sSectorX, sSectorY );
 
 	// Flugente: note if we have detected a VIP here
-	if ( SectorHasVIP( sSectorX, sSectorY ) )//PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
+	if ( PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
 		ShowVIPSymbol( sSectorX, sSectorY );
 
 	// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,

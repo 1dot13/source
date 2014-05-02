@@ -13779,11 +13779,10 @@ void HandleRestFatigueAndSleepStatus( void )
 	BOOLEAN fBoxSetUp = FALSE;
 	BOOLEAN fMeToo = FALSE;
 
-
 	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// run through all player characters and handle their rest, fatigue, and going to sleep
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
