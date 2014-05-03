@@ -6715,12 +6715,6 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 					{
 						++ubNumPrisonerOfficer;
-
-						// Flugente: VIPs
-						if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
-						{
-							DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
-						}
 					}
 					else
 					{
@@ -6734,6 +6728,12 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 							continue;
 							break;
 						}
+					}
+
+					// Flugente: VIPs
+					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
+					{
+						DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
 					}
 
 					// Flugente: campaign stats
