@@ -4225,12 +4225,12 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 
-		// anv: if alt is pressed in map inventory, show comparison with selected weapon
+		// anv: if ctrl is pressed in map inventory, show comparison with selected weapon
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
-			if( gpComparedItemDescObject != NULL )
+			if( gpComparedItemDescObject != NULL && gpComparedItemDescObject->usItem )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )
 					fComparisonMode = TRUE;
@@ -4681,9 +4681,9 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 
-		// anv: if alt is pressed in map inventory, show comparison with selected explosives
+		// anv: if ctrl is pressed in map inventory, show comparison with selected explosives
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -4870,9 +4870,9 @@ void DrawArmorStats( OBJECTTYPE * gpItemDescObject )
 
 	if (gubDescBoxPage == 1)
 	{
-		// anv: if alt is pressed in map inventory, show comparison with selected armor
+		// anv: if ctrl is pressed in map inventory, show comparison with selected armor
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -4967,9 +4967,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
-	// anv: if alt is pressed in map inventory, show comparison with selected item
+	// anv: if ctrl is pressed in map inventory, show comparison with selected item
 	BOOLEAN fComparisonMode = FALSE;
-	if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
 		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
@@ -5884,9 +5884,9 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 		OBJECTTYPE *gpComparedItemDescObject = NULL;
-		// anv: if alt is pressed in map inventory, show comparison with selected misc
+		// anv: if ctrl is pressed in map inventory, show comparison with selected misc
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -5946,9 +5946,9 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	INT32 sOffsetY = 0;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
-	// anv: if alt is pressed in map inventory, show comparison with selected item
+	// anv: if ctrl is pressed in map inventory, show comparison with selected item
 	BOOLEAN fComparisonMode = FALSE;
-	if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
 		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
@@ -6301,6 +6301,209 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 }
 
+void DrawPropertyValueInColour( INT16 iValue, UINT8 ubNumLine, UINT8 ubNumRegion, BOOLEAN fComparisonMode, BOOLEAN fModifier, BOOLEAN fHigherBetter, UINT16 uiOverwriteColour = 0, BOOLEAN fPercentSign = FALSE )
+{
+	static CHAR16	pStr[ 100 ];
+	INT16			usX, usY;
+
+	// Set Y coordinates
+	INT16 sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+	INT16 sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+	// Set X coordinates
+	INT16 sLeft = gItemDescGenRegions[ubNumLine][ubNumRegion].sLeft;
+	INT16 sWidth = gItemDescGenRegions[ubNumLine][ubNumRegion].sRight - sLeft;
+
+	SetFontForeground( 5 );
+	if( !fComparisonMode && !fModifier )
+	{
+		if( uiOverwriteColour )
+			SetFontForeground( uiOverwriteColour );
+		if ( iValue == 0 )
+			swprintf( pStr, L"--" );
+		else
+			swprintf( pStr, L"%d", iValue );
+	}
+	else
+	{
+		if ( iValue > 0 )
+		{
+			if( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"+%d", iValue );
+		}
+		else if ( iValue < 0 )
+		{
+			if( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"%d", iValue );
+		}
+		else if ( fModifier && fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+		else if ( fModifier )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"--" );
+		}
+		else if ( fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+	}
+	
+	if( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
+	{
+		wcscat( pStr, L"%" );	
+	}
+
+	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+
+	if( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
+	{
+	#ifdef CHINESE
+		wcscat( pStr, ChineseSpecString1 );
+	#else
+		wcscat( pStr, L"%" );
+	#endif
+	}
+
+	mprintf( usX, usY, pStr );
+
+	// Reset font color
+	SetFontForeground( 6 );
+}
+
+void DrawPropertyTextInColour( CHAR16	pText[ 100 ], UINT8 ubNumLine, UINT8 ubNumRegion, UINT16 uiOverwriteColour = 0 )
+{
+	static CHAR16	pStr[ 100 ];
+	INT16			usX, usY;
+
+	// Set Y coordinates
+	INT16 sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+	INT16 sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+	// Set X coordinates
+	INT16 sLeft = gItemDescGenRegions[ubNumLine][ubNumRegion].sLeft;
+	INT16 sWidth = gItemDescGenRegions[ubNumLine][ubNumRegion].sRight - sLeft;
+
+	SetFontForeground( 5 );
+
+	if( uiOverwriteColour )
+		SetFontForeground( uiOverwriteColour );
+
+	swprintf( pStr, pText );
+			
+	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+	mprintf( usX, usY, pStr );
+
+	// Reset font color
+	SetFontForeground( 6 );
+}
+
+void DrawPropertyValueInColourFloat( FLOAT fValue, UINT8 ubNumLine, UINT8 ubNumRegion, BOOLEAN fComparisonMode, BOOLEAN fModifier, BOOLEAN fHigherBetter, UINT16 uiOverwriteColour = 0, FLOAT fTreshold = 1.0f, UINT8 ubDecimals = 1 )
+{
+	static CHAR16	pStr[ 100 ];
+	INT16			usX, usY;
+
+	// Set Y coordinates
+	INT16 sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+	INT16 sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+	// Set X coordinates
+	INT16 sLeft = gItemDescGenRegions[ubNumLine][ubNumRegion].sLeft;
+	INT16 sWidth = gItemDescGenRegions[ubNumLine][ubNumRegion].sRight - sLeft;
+
+	SetFontForeground( 5 );
+	if( !fComparisonMode && !fModifier )
+	{
+		if ( fValue > fTreshold )
+		{
+			if ( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+		}
+		else if ( fValue < fTreshold )
+		{
+			if ( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+		}
+		if( uiOverwriteColour )
+			SetFontForeground( uiOverwriteColour );
+		swprintf( pStr, L"%3.*f", ubDecimals, fValue );
+	}
+	else
+	{
+		if ( fValue > 0.0f )
+		{
+			if( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"+%3.*f", ubDecimals, fValue );
+		}
+		else if ( fValue < 0.0f )
+		{
+			if( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"%3.*f", ubDecimals, fValue );
+		}
+		else if ( fModifier && fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+		else if ( fModifier )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"--" );
+		}
+		else if ( fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+	}
+			
+	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+	mprintf( usX, usY, pStr );
+
+	// Reset font color
+	SetFontForeground( 6 );
+}
+
 void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 {
 	static CHAR16	pStr[ 100 ];
@@ -6330,12 +6533,12 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		
 		SetFontForeground( FONT_MCOLOR_WHITE );
 
-		// anv: if alt is pressed in map inventory, show comparison with selected weapon
+		// anv: if ctrl is pressed in map inventory, show comparison with selected weapon
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
-			if( gpComparedItemDescObject != NULL )
+			if( gpComparedItemDescObject != NULL && gpComparedItemDescObject->usItem )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )
 					fComparisonMode = TRUE;
@@ -6431,9 +6634,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 2;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get accuracy value
 			INT8 iAccuracyValue = (UsingNewCTHSystem() == true ? Weapon[ gpItemDescObject->usItem ].nAccuracy : Weapon[ gpItemDescObject->usItem ].bAccuracy);
@@ -6444,101 +6644,58 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get difference
 			INT8 iAccuracyDifference = iFinalAccuracyValue - iAccuracyValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iAccuracyValue );
+				// Print base value
+				DrawPropertyValueInColour( iAccuracyValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iAccuracyDifference, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAccuracyValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get accuracy value
 				INT8 iComparedAccuracyValue = (UsingNewCTHSystem() == true ? Weapon[ gpComparedItemDescObject->usItem ].nAccuracy : Weapon[ gpComparedItemDescObject->usItem ].bAccuracy);
-				INT8 iComparedAccuracyDifference = iComparedAccuracyValue - iAccuracyValue;
-				if ( iComparedAccuracyDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedAccuracyDifference );
-				}
-				else if ( iComparedAccuracyDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedAccuracyDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Modified Accuracy value
+				INT8 iComparedFinalAccuracyValue = GetGunAccuracy( gpComparedItemDescObject );
+				// Get difference
+				INT8 iComparedAccuracyDifference = iComparedFinalAccuracyValue - iComparedAccuracyValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedAccuracyValue - iAccuracyValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedAccuracyDifference - iAccuracyDifference, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalAccuracyValue - iFinalAccuracyValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iAccuracyDifference < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iAccuracyDifference > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iAccuracyDifference > 0 )
-			{
-				swprintf( pStr, L"%+d", iAccuracyDifference );
-			}
-			else if ( iAccuracyDifference < 0 )
-			{
-				swprintf( pStr, L"%d", iAccuracyDifference );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalAccuracyValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
-			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
-			{
-				if (UsingNewCTHSystem() == true)
-					ubNumLine = 0;
-				else
-					ubNumLine = 2;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT8 iAccuracyValue = (UsingNewCTHSystem() == true ? Weapon[ gpItemDescObject->usItem ].nAccuracy : Weapon[ gpItemDescObject->usItem ].bAccuracy);				
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iAccuracyValue );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+			// Set line to draw into
+			if (UsingNewCTHSystem() == true)
+				ubNumLine = 0;
+			else
+				ubNumLine = 2;
+
+			// Get accuracy value
+			INT8 iAccuracyValue = (UsingNewCTHSystem() == true ? Weapon[ gpComparedItemDescObject->usItem ].nAccuracy : Weapon[ gpComparedItemDescObject->usItem ].bAccuracy);
+			// Get Modified Accuracy value
+			INT8 iFinalAccuracyValue = GetGunAccuracy( gpComparedItemDescObject );
+			// Get difference
+			INT8 iAccuracyDifference = iFinalAccuracyValue - iAccuracyValue;
+
+			// Print base value
+			DrawPropertyValueInColour( iAccuracyValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iAccuracyDifference, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalAccuracyValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 		/////////////// DAMAGE
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
 		{
 			// Set line to draw into
 			ubNumLine = 1;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base damage value
 			UINT8 iDamageValue = GetBasicDamage ( gpItemDescObject );
@@ -6549,72 +6706,48 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get difference
 			INT8 iDamageModifier = iFinalDamageValue - iDamageValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iDamageValue );
+				// Print base value
+				DrawPropertyValueInColour( iDamageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT8 iComparedDamageValue = GetBasicDamage ( gpComparedItemDescObject );
-				INT8 iComparedDamageDifference = iComparedDamageValue - iDamageValue;
-				if ( iComparedDamageDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedDamageDifference );
-				}
-				else if ( iComparedDamageDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedDamageDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get base damage value
+				UINT8 iComparedDamageValue = GetBasicDamage ( gpComparedItemDescObject );
+				// Get Modified damage value
+				UINT8 iComparedFinalDamageValue = GetDamage ( gpComparedItemDescObject );
+				// Get difference
+				INT8 iComparedDamageModifier = iComparedFinalDamageValue - iComparedDamageValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedDamageValue - iDamageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedDamageModifier - iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalDamageValue - iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+		}
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
+		{
+			// Set line to draw into
+			ubNumLine = 1;
 
+			// Get base damage value
+			UINT8 iDamageValue = GetBasicDamage ( gpComparedItemDescObject );
+			// Get Modified damage value
+			UINT8 iFinalDamageValue = GetDamage ( gpComparedItemDescObject );
+			// Get difference
+			INT8 iDamageModifier = iFinalDamageValue - iDamageValue;
+			// Print base value
+			DrawPropertyValueInColour( iDamageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 			// Print modifier
-			SetFontForeground( 5 );
-			if (iDamageModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iDamageModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iDamageModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iDamageModifier );
-			}
-			else if ( iDamageModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iDamageModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
+			DrawPropertyValueInColour( iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
 			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalDamageValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
+			DrawPropertyValueInColour( iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 		/////////////// RANGE
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
@@ -6628,9 +6761,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 0;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Range value
 			UINT16 iRangeValue = Weapon[ gpItemDescObject->usItem ].usRange;
@@ -6647,101 +6777,59 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get difference
 			INT16 iRangeModifier = iFinalRangeValue - iRangeValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iRangeValue/10 );
+				// Print base value
+				DrawPropertyValueInColour( iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
+				// Get base Range value
+				UINT16 iComparedRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
+				// apply Ini modifiers
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
 					iComparedRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] );
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 					iComparedRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
-				INT16 iComparedRangeDifference = iComparedRangeValue/10 - iRangeValue/10;
-				if ( iComparedRangeDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedRangeDifference );
-				}
-				else if ( iComparedRangeDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedRangeDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Final Range value
+				UINT16 iComparedFinalRangeValue = GunRange( gpComparedItemDescObject, NULL );
+				// Get difference
+				INT16 iComparedRangeModifier = iComparedFinalRangeValue - iComparedRangeValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedRangeValue / 10 - iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedRangeModifier / 10 - iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalRangeValue / 10 - iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iRangeModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iRangeModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iRangeModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iRangeModifier/10 );
-			}
-			else if ( iRangeModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iRangeModifier/10 );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalRangeValue/10 );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 		{
-			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
-			{
-				if (UsingNewCTHSystem() == true)
-					ubNumLine = 2;
-				else
-					ubNumLine = 0;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				UINT16 iRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
-				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
-					iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] );
-				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-					iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iRangeValue/10 );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-			}
+			if (UsingNewCTHSystem() == true)
+				ubNumLine = 2;
+			else
+				ubNumLine = 0;
+			// Get base Range value
+			UINT16 iRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
+			// apply Ini modifiers
+			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
+				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] );
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
+				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
+			// Get Final Range value
+			UINT16 iFinalRangeValue = GunRange( gpComparedItemDescObject, NULL );
+			// Get difference
+			INT16 iRangeModifier = iFinalRangeValue - iRangeValue;
+			// Print base value
+			DrawPropertyValueInColour( iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		/////////////// GUN HANDLING
@@ -6750,9 +6838,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 3;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Gun Handling value
 			UINT16 iHandlingValue = Weapon[ gpItemDescObject->usItem ].ubHandling;
@@ -6768,97 +6853,58 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Final Gun Handling value
 			UINT16 iFinalHandlingValue =  iHandlingValue + iHandlingModifier;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iHandlingValue );
+				// Print base value
+				DrawPropertyValueInColour( iHandlingValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iHandlingModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalHandlingValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedHandlingValue = Weapon[ gpComparedItemDescObject->usItem ].ubHandling;
+				// Get base Gun Handling value
+				UINT16 iComparedHandlingValue = Weapon[ gpComparedItemDescObject->usItem ].ubHandling;
+				// modify by ini values
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
 					iComparedHandlingValue *= gItemSettings.fHandlingModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
 					iComparedHandlingValue *= gItemSettings.fHandlingModifierLauncher;
-				INT16 iComparedHandlingDifference = iComparedHandlingValue - iHandlingValue;
-				if ( iComparedHandlingDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedHandlingDifference );
-				}
-				else if ( iComparedHandlingDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedHandlingDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get modifier
+				INT16 iComparedHandlingModifier = (iHandlingValue * GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject , ANIM_STAND, ITEMMODIFIER_PERCENTHANDLING )) / 100;
+				// Get Final Gun Handling value
+				UINT16 iComparedFinalHandlingValue =  iComparedHandlingValue + iComparedHandlingModifier;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedHandlingValue - iHandlingValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedHandlingModifier - iHandlingModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalHandlingValue - iFinalHandlingValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iHandlingModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iHandlingModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iHandlingModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iHandlingModifier );
-			}
-			else if ( iHandlingModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iHandlingModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalHandlingValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
-		{
-			if ( UsingNewCTHSystem() == TRUE && 
+		else if( fComparisonMode && UsingNewCTHSystem() == TRUE && 
 				Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
-			{
-				ubNumLine = 3;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				UINT16 iHandlingValue = Weapon[ gpItemDescObject->usItem ].ubHandling;
-				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
-					iHandlingValue *= gItemSettings.fHandlingModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
-				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+		{
+			// Set line to draw into
+			ubNumLine = 3;
+			// Get base Gun Handling value
+			UINT16 iHandlingValue = Weapon[ gpComparedItemDescObject->usItem ].ubHandling;
+			// modify by ini values
+			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
+				iHandlingValue *= gItemSettings.fHandlingModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
 				iHandlingValue *= gItemSettings.fHandlingModifierLauncher;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iHandlingValue );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+			// Get modifier
+			INT16 iHandlingModifier = (iHandlingValue * GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject , ANIM_STAND, ITEMMODIFIER_PERCENTHANDLING )) / 100;
+			// Get Final Gun Handling value
+			UINT16 iFinalHandlingValue =  iHandlingValue + iHandlingModifier;
+			// Print base value
+			DrawPropertyValueInColour( iHandlingValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iHandlingModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalHandlingValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		/////////////// AIM LEVELS
@@ -6873,9 +6919,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 3;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get Final Aiming Levels
 			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
@@ -6887,117 +6930,98 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Base Value
 			UINT16 iAimLevelsValue = iFinalAimLevelsValue - iAimLevelsModifier;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iAimLevelsValue );
+				if (UsingNewCTHSystem() == true)
+				{
+					// Print base value
+					DrawPropertyValueInColour( iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print modifier
+					DrawPropertyValueInColour( iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
+				}
+				else
+				{
+					// Print base value
+					DrawPropertyValueInColour( iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print modifier
+					DrawPropertyValueInColour( iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				}
 			}
 			else
 			{
+				// Get Final Aiming Levels
 				UINT16 iComparedFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND );
+
+				// Get modifier
 				INT16 iComparedAimLevelsModifier = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
 				iComparedAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpComparedItemDescObject );
+
+				// Get Base Value
 				UINT16 iComparedAimLevelsValue = iComparedFinalAimLevelsValue - iComparedAimLevelsModifier;
-				INT16 iComparedAimLevelsDifference = iComparedAimLevelsValue - iAimLevelsValue;
-				if ( iComparedAimLevelsDifference > 0 )
+
+				if (UsingNewCTHSystem() == true)
 				{
-					if (UsingNewCTHSystem() == true)
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					else
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedAimLevelsDifference );
-				}
-				else if ( iComparedAimLevelsDifference < 0 )
-				{
-					if (UsingNewCTHSystem() == true)
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					else
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedAimLevelsDifference );
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedAimLevelsValue - iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print difference in modifier
+					DrawPropertyValueInColour( iComparedAimLevelsModifier - iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalAimLevelsValue - iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 				}
 				else
-					swprintf( pStr, L"=" );
+				{
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedAimLevelsValue - iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print difference in modifier
+					DrawPropertyValueInColour( iComparedAimLevelsModifier - iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalAimLevelsValue - iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+				}
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iAimLevelsModifier < 0)
+		}
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
+		{
+			if (UsingNewCTHSystem() == true)
+				ubNumLine = 4;
+			else
+				ubNumLine = 3;
+			// Get Final Aiming Levels
+			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND );
+			// Get modifier
+			INT16 iAimLevelsModifier = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
+			iAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpComparedItemDescObject );
+			// Get Base Value
+			UINT16 iAimLevelsValue = iFinalAimLevelsValue - iAimLevelsModifier;
+			if (UsingNewCTHSystem() == true)
 			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iAimLevelsModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iAimLevelsModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iAimLevelsModifier );
-			}
-			else if ( iAimLevelsModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iAimLevelsModifier );
+				// Print base value
+				DrawPropertyValueInColour( iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
+				// Print modifier
+				DrawPropertyValueInColour( iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
 			}
 			else
 			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
- 
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalAimLevelsValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
-			{
-				if (UsingNewCTHSystem() == true)
-					ubNumLine = 4;
-				else
-					ubNumLine = 3;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND );
-				INT16 iAimLevelsModifier = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
-				iAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpComparedItemDescObject );
-				UINT16 iAimLevelsValue = iFinalAimLevelsValue - iAimLevelsModifier;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if (UsingNewCTHSystem() == true)
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				else
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );	
-				swprintf( pStr, L"%d", iAimLevelsValue );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Print base value
+				DrawPropertyValueInColour( iAimLevelsValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+				// Print modifier
+				DrawPropertyValueInColour( iAimLevelsModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAimLevelsValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 			}
 		}
 		//////////////// OCTH AIMING BONUS
-		//if ( UsingNewCTHSystem() == false && 
-		//	(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
-		if ( UsingNewCTHSystem() == false && GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 ) != 0 )
+		if ( UsingNewCTHSystem() == false && 
+			(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
+		//if ( UsingNewCTHSystem() == false && GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 ) != 0 )
 		{
 			// Set line to draw into
 			ubNumLine = 4;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Aim Bonus value
 			INT16 iAimBonusValue = __max(0, Item[ gpItemDescObject->usItem ].aimbonus);
@@ -7006,93 +7030,47 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Aim Bonus modifier
 			INT16 iAimBonusModifier = iFinalAimBonusValue - iAimBonusValue;
 
-
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iAimBonusValue != 0)
-				{
-					swprintf( pStr, L"%d", iAimBonusValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base Aim Bonus value
 				INT16 iComparedAimBonusValue = __max(0, Item[ gpComparedItemDescObject->usItem ].aimbonus);
-				INT16 iComparedAimBonusDifference = iComparedAimBonusValue - iAimBonusValue;
-				if ( iComparedAimBonusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedAimBonusDifference );
-				}
-				else if ( iComparedAimBonusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedAimBonusDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Aim Bonus value
+				INT16 iComparedFinalAimBonusValue = GetFlatAimBonus( gpComparedItemDescObject );
+				// Get Aim Bonus modifier
+				INT16 iComparedAimBonusModifier = iComparedFinalAimBonusValue - iComparedAimBonusValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedAimBonusValue - iAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedAimBonusModifier - iAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalAimBonusValue - iFinalAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Modifier
-			SetFontForeground( 5 );
-			if (iAimBonusModifier > 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iAimBonusModifier );
-			}
-			else if (iAimBonusValue < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iAimBonusModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Final Value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalAimBonusValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && UsingNewCTHSystem() == false && (GetFlatAimBonus( gpComparedItemDescObject ) != 0 || Item[gpComparedItemDescObject->usItem].aimbonus != 0) )
 		{
-			if ( UsingNewCTHSystem() == false && GetAimBonus( gpItemDescSoldier, gpComparedItemDescObject, 100, 1 ) != 0 )
-			{
-				ubNumLine = 4;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iAimBonusValue = __max(0, Item[ gpComparedItemDescObject->usItem ].aimbonus);
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;			
-				if (iAimBonusValue != 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iAimBonusValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+			// Set line to draw into
+			ubNumLine = 4;
+			// Get base Aim Bonus value
+			INT16 iAimBonusValue = __max(0, Item[ gpComparedItemDescObject->usItem ].aimbonus);
+			// Get final Aim Bonus value
+			INT16 iFinalAimBonusValue = GetFlatAimBonus( gpComparedItemDescObject );
+			// Get Aim Bonus modifier
+			INT16 iAimBonusModifier = iFinalAimBonusValue - iAimBonusValue;
+			// Print base value
+			DrawPropertyValueInColour( iAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyValueInColour( iAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		//////////////// SCOPE MAGNIFICATION FACTOR 
@@ -7100,9 +7078,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 5;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Magnification value
 			FLOAT iScopeMagValue = __max(1.0f, Item[ gpItemDescObject->usItem ].scopemagfactor);
@@ -7111,87 +7086,59 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get final Magnification value
 			FLOAT iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iScopeMagValue > 1.0f)
-				{
-					swprintf( pStr, L"%3.1f", iScopeMagValue );
-				}
+				// Print base value
+				if( iScopeMagValue > 1.0f )
+					DrawPropertyValueInColourFloat( iScopeMagValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 5 );
 				else
-				{
-					swprintf( pStr, L"--");
-				}
+					DrawPropertyTextInColour( L"--", ubNumLine, 1 ); 
+				// Print modifier
+				if (iScopeMagModifier > 1.0f && iScopeMagModifier > iScopeMagValue)
+					DrawPropertyValueInColourFloat( iScopeMagModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE  );
+				else
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 ); 
+				// Print final value
+				DrawPropertyValueInColourFloat( iFinalScopeMagValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base Magnification value
 				FLOAT iComparedScopeMagValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].scopemagfactor);
-				FLOAT iComparedScopeMagDifference = iComparedScopeMagValue - iScopeMagValue;
-				if ( iComparedScopeMagDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedScopeMagDifference );
-				}
-				else if ( iComparedScopeMagDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedScopeMagDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+				// Get best Magnification value
+				FLOAT iComparedScopeMagModifier = GetHighestScopeMagnificationFactor( gpComparedItemDescObject );
+				// Get final Magnification value
+				FLOAT iComparedFinalScopeMagValue = __max( iComparedScopeMagValue, iComparedScopeMagModifier );
 
-			// Print Scope Mag factor from attachments
-			SetFontForeground( 5 );
-			if (iScopeMagModifier > 1.0f && iScopeMagModifier > iScopeMagValue)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%3.1f", iScopeMagModifier );
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( iComparedScopeMagValue - iScopeMagValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColourFloat( iComparedScopeMagModifier - iScopeMagModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( iComparedFinalScopeMagValue - iFinalScopeMagValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.1f", iFinalScopeMagValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && UsingNewCTHSystem() == true && Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
 		{
-			if ( UsingNewCTHSystem() == true && Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
-			{
-				ubNumLine = 5;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				FLOAT iScopeMagValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].scopemagfactor);
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;				
-				if (iScopeMagValue > 1.0f)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.1f", iScopeMagValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--");
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+			ubNumLine = 5;
+			// Get base Magnification value
+			FLOAT iScopeMagValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].scopemagfactor);
+			// Get best Magnification value
+			FLOAT iScopeMagModifier = GetHighestScopeMagnificationFactor( gpComparedItemDescObject );
+			// Get final Magnification value
+			FLOAT iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
+			// Print base value
+			if( iScopeMagValue > 1.0f )
+				DrawPropertyValueInColourFloat( iScopeMagValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			else
+				DrawPropertyTextInColour( L"=", ubNumLine, 1 ); 
+			// Print modifier
+			if (iScopeMagModifier > 1.0f && iScopeMagModifier > iScopeMagValue)
+				DrawPropertyValueInColourFloat( iScopeMagModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE  );
+			else
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 ); 
+			// Print final value
+			DrawPropertyValueInColourFloat( iFinalScopeMagValue - 1.0f, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		/////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
@@ -7200,9 +7147,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 5;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Minimum Range For Aim Bonus value
 			INT16 iMinRangeForAimBonusValue = Item[gpItemDescObject->usItem].minrangeforaimbonus / 10;
@@ -7213,101 +7157,47 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Minimum Range For Aim Bonus modifier
 			INT16 iMinRangeForAimBonusModifier = iFinalMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iMinRangeForAimBonusValue > 0)
-				{
-					swprintf( pStr, L"%d", iMinRangeForAimBonusValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iMinRangeForAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iMinRangeForAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalMinRangeForAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base Minimum Range For Aim Bonus value
 				INT16 iComparedMinRangeForAimBonusValue = Item[gpComparedItemDescObject->usItem].minrangeforaimbonus / 10;
-				INT16 iComparedMinRangeForAimBonusDifference = iComparedMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
-				if ( iComparedMinRangeForAimBonusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedMinRangeForAimBonusDifference );
-				}
-				else if ( iComparedMinRangeForAimBonusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedMinRangeForAimBonusDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Minimum Range For Aim Bonus value
+				INT16 iComparedFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus( NULL, gpComparedItemDescObject ) / 10;
+				// Get Minimum Range For Aim Bonus modifier
+				INT16 iComparedMinRangeForAimBonusModifier = iComparedFinalMinRangeForAimBonusValue - iComparedMinRangeForAimBonusValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedMinRangeForAimBonusValue - iMinRangeForAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedMinRangeForAimBonusModifier - iMinRangeForAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalMinRangeForAimBonusValue - iFinalMinRangeForAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iMinRangeForAimBonusModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iMinRangeForAimBonusModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iMinRangeForAimBonusModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iMinRangeForAimBonusModifier );
-			}
-			else if ( iMinRangeForAimBonusModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iMinRangeForAimBonusModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalMinRangeForAimBonusValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
-		{
-			if ( UsingNewCTHSystem() == false && 
+		else if( fComparisonMode && UsingNewCTHSystem() == false && 
 				( Item[gpComparedItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( NULL, gpComparedItemDescObject ) > 0 ) )
-			{
-				ubNumLine = 5;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iMinRangeForAimBonusValue = Item[gpComparedItemDescObject->usItem].minrangeforaimbonus / 10;
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if (iMinRangeForAimBonusValue > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iMinRangeForAimBonusValue );
-				}
-				else
-				{
-					swprintf( pStr, L"=" );
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+		{
+			ubNumLine = 5;
+			// Get base Minimum Range For Aim Bonus value
+			INT16 iMinRangeForAimBonusValue = Item[gpComparedItemDescObject->usItem].minrangeforaimbonus / 10;
+			// Get final Minimum Range For Aim Bonus value
+			INT16 iFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus( NULL, gpComparedItemDescObject ) / 10;
+			// Get Minimum Range For Aim Bonus modifier
+			INT16 iMinRangeForAimBonusModifier = iFinalMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
+			// Print base value
+			DrawPropertyValueInColour( iMinRangeForAimBonusValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iMinRangeForAimBonusModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalMinRangeForAimBonusValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );	
 		}
 
 		///////////////// (LASER) PROJECTION FACTOR
@@ -7319,9 +7209,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 6;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
 			FLOAT iProjectionValue = 0;
 			FLOAT iProjectionModifier = 0;
 			FLOAT iFinalProjectionValue = 0;
@@ -7347,165 +7235,132 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Get final Projection value
 				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
 			}
-			
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+	
 			if( !fComparisonMode )
 			{
 				if ( bNewCode )
 				{
-
-					if (iProjectionValue > 0)
-					{
-						swprintf( pStr, L"%3.0f", iProjectionValue );
-					}
+					// Print base value
+					if( iProjectionValue > 0.0f )
+						DrawPropertyValueInColourFloat( iProjectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 5 );
 					else
-					{
-						swprintf( pStr, L"--");
-					}
-
+						DrawPropertyTextInColour( L"--", ubNumLine, 1 );
+					// Print modifier
+					if (iProjectionModifier > 0.0f && iProjectionModifier > iProjectionValue)
+						DrawPropertyValueInColourFloat( iProjectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					else
+						DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+					// Print final value
+					DrawPropertyValueInColourFloat( iFinalProjectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 				}
 				else
 				{
-					if (iProjectionValue > 1.0f)
-					{
-						swprintf( pStr, L"%3.1f", iProjectionValue );
-					}
+					// Print base value
+					if( iProjectionValue > 1.0f )
+						DrawPropertyValueInColourFloat( iProjectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 5 );
 					else
-					{
-						swprintf( pStr, L"--");
-					}
+						DrawPropertyTextInColour( L"--", ubNumLine, 1 );
+					// Print modifier
+					if (iProjectionModifier > 1.0f && iProjectionModifier > iProjectionValue)
+						DrawPropertyValueInColourFloat( iProjectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					else
+						DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+					// Print final value
+					DrawPropertyValueInColourFloat( iFinalProjectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 				}
 			}
 			else
 			{
-				FLOAT iComparedProjectionValue;
-				if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
-					&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+				FLOAT iComparedProjectionValue = 0;
+				FLOAT iComparedProjectionModifier = 0;
+				FLOAT iComparedFinalProjectionValue = 0;
+				if ( bNewCode )
 				{
+					// Get base laser range
 					iComparedProjectionValue = __max(0, Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
+					// Get best laser range
+					iComparedProjectionModifier = ((FLOAT)GetBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE);
+					// Get final laser range
+					iComparedFinalProjectionValue = __max( iComparedProjectionValue, iComparedProjectionModifier );
 				}
 				else
 				{
+					// Get base Projection value
 					iComparedProjectionValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].projectionfactor);
+					// Get best Projection value
+					iComparedProjectionModifier = GetProjectionFactor( gpComparedItemDescObject );
+					// Get final Projection value
+					iComparedFinalProjectionValue = __max( iComparedProjectionValue, iComparedProjectionModifier );
 				}
-				FLOAT iComparedProjectionDifference = iComparedProjectionValue - iProjectionValue;
-				if ( iComparedProjectionDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedProjectionDifference );
-				}
-				else if ( iComparedProjectionDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedProjectionDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( iComparedProjectionValue - iProjectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColourFloat( iComparedProjectionModifier - iProjectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( iComparedFinalProjectionValue - iFinalProjectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Projection factor from attachments
-			SetFontForeground( 5 );
-			if ( bNewCode )
-			{
-				if (iProjectionModifier > 0 && iProjectionModifier > iProjectionValue)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.0f", iProjectionModifier );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-			}
-			else
-			{
-				if (iProjectionModifier > 1.0f && iProjectionModifier > iProjectionValue)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.1f", iProjectionModifier );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			if ( bNewCode )
-				swprintf( pStr, L"%3.0f", iFinalProjectionValue );
-			else
-				swprintf( pStr, L"%3.1f", iFinalProjectionValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
-		{
-			if (UsingNewCTHSystem() == true && 
+		else if( fComparisonMode && UsingNewCTHSystem() == true && 
 				( (Item[gpComparedItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpComparedItemDescObject ) > 1.0) ||
 				( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
 				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
+		{
+			ubNumLine = 6;
+
+			FLOAT iProjectionValue = 0;
+			FLOAT iProjectionModifier = 0;
+			FLOAT iFinalProjectionValue = 0;
+			BOOLEAN bNewCode = FALSE;
+
+			if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpComparedItemDescObject ) > 0
+				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 			{
-				ubNumLine = 6;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				FLOAT iProjectionValue = 0;
-				BOOLEAN bNewCode = FALSE;
-				if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpComparedItemDescObject ) > 0
-					&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
-				{
-					iProjectionValue = __max(0, Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
-					bNewCode = TRUE;
-				}
-				else
-				{
-					iProjectionValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].projectionfactor);
-				}
-			
+				// Get base laser range
+				iProjectionValue = __max(0, Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
+				// Get best laser range
+				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE);
+				// Get final laser range
+				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+				bNewCode = TRUE;
+			}
+			else
+			{
+				// Get base Projection value
+				iProjectionValue = __max(1.0f, Item[ gpComparedItemDescObject->usItem ].projectionfactor);
+				// Get best Projection value
+				iProjectionModifier = GetProjectionFactor( gpComparedItemDescObject );
+				// Get final Projection value
+				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+			}
+			if ( bNewCode )
+			{
 				// Print base value
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if( !fComparisonMode )
-				{
-					if ( bNewCode )
-					{
-						if (iProjectionValue > 0)
-						{
-							SetFontForeground( ITEMDESC_FONTPOSITIVE );
-							swprintf( pStr, L"%3.0f", iProjectionValue );
-						}
-						else
-						{
-							swprintf( pStr, L"--");
-						}
-					}
-					else
-					{
-						if (iProjectionValue > 1.0f)
-						{
-							SetFontForeground( ITEMDESC_FONTPOSITIVE );
-							swprintf( pStr, L"%3.1f", iProjectionValue );
-						}
-						else
-						{
-							swprintf( pStr, L"--");
-						}
-					}
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				if( iProjectionValue > 0.0f )
+					DrawPropertyValueInColourFloat( iProjectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				else
+					DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+				// Print modifier
+				if (iProjectionModifier > 0.0f && iProjectionModifier > iProjectionValue)
+					DrawPropertyValueInColourFloat( iProjectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				else
+					DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( iFinalProjectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
+			else
+			{
+				// Print base value
+				if( iProjectionValue > 1.0f )
+					DrawPropertyValueInColourFloat( iProjectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				else
+					DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+				// Print modifier
+				if (iProjectionModifier > 1.0f && iProjectionModifier > iProjectionValue)
+					DrawPropertyValueInColourFloat( iProjectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				else
+					DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( iFinalProjectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
 		}
 		///////////////// OCTH TO-HIT BONUS
@@ -7514,9 +7369,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 6;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base To Hit value
 			INT16 iToHitValue = Item[ gpItemDescObject->usItem ].tohitbonus;
@@ -7525,100 +7377,48 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get To Hit Modifier value
 			INT16 iToHitModifier = iFinalToHitValue - iToHitValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iToHitValue != 0)
-				{
-					swprintf( pStr, L"%d", iToHitValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iToHitValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iToHitModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalToHitValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base To Hit value
 				INT16 iComparedToHitValue = Item[ gpComparedItemDescObject->usItem ].tohitbonus;
-				INT16 iComparedToHitDifference = iComparedToHitValue - iToHitValue;
-				if ( iComparedToHitDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedToHitDifference );
-				}
-				else if ( iComparedToHitDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedToHitDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Projection value
+				INT16 iComparedFinalToHitValue = GetFlatToHitBonus( gpComparedItemDescObject );
+				// Get To Hit Modifier value
+				INT16 iComparedToHitModifier = iComparedFinalToHitValue - iComparedToHitValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedToHitValue - iToHitValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedToHitModifier - iToHitModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalToHitValue - iFinalToHitValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Modifier
-			SetFontForeground( 5 );
-			if (iToHitModifier > 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iToHitModifier );
-			}
-			else if (iToHitModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iToHitModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Final Value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalToHitValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 
 		}
-		else if( fComparisonMode )
-		{
-			if (UsingNewCTHSystem() == false && 
+		else if( fComparisonMode && UsingNewCTHSystem() == false && 
 				(Item[gpComparedItemDescObject->usItem].tohitbonus != 0 || GetFlatToHitBonus( gpComparedItemDescObject ) != 0) )
-			{
-				ubNumLine = 6;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iToHitValue = Item[ gpComparedItemDescObject->usItem ].tohitbonus;
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if (iToHitValue > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iToHitValue );
-				}
-				else if (iToHitValue < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iToHitValue );
-				}
-				else
-				{
-					swprintf( pStr, L"=" );
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+		{
+			ubNumLine = 6;
+			// Get base To Hit value
+			INT16 iToHitValue = Item[ gpComparedItemDescObject->usItem ].tohitbonus;
+			// Get final Projection value
+			INT16 iFinalToHitValue = GetFlatToHitBonus( gpComparedItemDescObject );
+			// Get To Hit Modifier value
+			INT16 iToHitModifier = iFinalToHitValue - iToHitValue;
+			// Print base value
+			DrawPropertyValueInColour( iToHitValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyValueInColour( iToHitModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalToHitValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		///////////////// OCTH BEST LASER RANGE
@@ -7627,9 +7427,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 7;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Best Laser Range value
 			INT16 iBestLaserRangeValue = Item[ gpItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE;
@@ -7638,98 +7435,52 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Best Laser Range Modifier value
 			INT16 iBestLaserRangeModifier = iFinalBestLaserRangeValue - iBestLaserRangeValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iBestLaserRangeValue > 0)
-				{
-					swprintf( pStr, L"%d", iBestLaserRangeValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iBestLaserRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iBestLaserRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalBestLaserRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base Best Laser Range value
 				INT16 iComparedBestLaserRangeValue = Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE;
-				INT16 iComparedBestLaserRangeDifference = iComparedBestLaserRangeValue - iBestLaserRangeValue;
-				if ( iComparedBestLaserRangeDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedBestLaserRangeDifference );
-				}
-				else if ( iComparedBestLaserRangeDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedBestLaserRangeDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Best Laser Range value
+				INT16 iComparedFinalBestLaserRangeValue = GetAverageBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE;
+				// Get Best Laser Range Modifier value
+				INT16 iComparedBestLaserRangeModifier = iComparedFinalBestLaserRangeValue - iComparedBestLaserRangeValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedBestLaserRangeValue - iBestLaserRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedBestLaserRangeModifier - iBestLaserRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalBestLaserRangeValue - iFinalBestLaserRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Modifier
-			SetFontForeground( 5 );
-			if (iBestLaserRangeModifier > 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iBestLaserRangeModifier );
-			}
-			else if (iBestLaserRangeModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iBestLaserRangeModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print Final Value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalBestLaserRangeValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
-		{
-			if (UsingNewCTHSystem() == false && 
+		else if( fComparisonMode && UsingNewCTHSystem() == false && 
 				( Item[gpComparedItemDescObject->usItem].bestlaserrange > 0 || GetAverageBestLaserRange( gpComparedItemDescObject ) > 0 ) )
-			{
-				ubNumLine = 7;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iBestLaserRangeValue = Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE;
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if (iBestLaserRangeValue > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iBestLaserRangeValue );
-				}
-				else
-				{
-					swprintf( pStr, L"=" );
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+		{
+			// Set line to draw into
+			ubNumLine = 7;
+			// Get base Best Laser Range value
+			INT16 iBestLaserRangeValue = Item[ gpComparedItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE;
+			// Get final Best Laser Range value
+			INT16 iFinalBestLaserRangeValue = GetAverageBestLaserRange( gpComparedItemDescObject ) / CELL_X_SIZE;
+			// Get Best Laser Range Modifier value
+			INT16 iBestLaserRangeModifier = iFinalBestLaserRangeValue - iBestLaserRangeValue;
+			// Print base value
+			DrawPropertyValueInColour( iBestLaserRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iBestLaserRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalBestLaserRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		///////////////// FLASH SUPPRESSION
-		if (IsFlashSuppressorAlt( gpItemDescObject ) == TRUE)
+		if ( IsFlashSuppressorAlt( gpItemDescObject ) == TRUE )
 		{
 			// Set line to draw into
 			if (UsingNewCTHSystem() == true)
@@ -7740,108 +7491,106 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 8;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Does gun have flash suppression?
 			BOOLEAN iFlashValue = Item[ gpItemDescObject->usItem ].hidemuzzleflash;
 
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
-			{
-				if (iFlashValue)
+			{		
+				if ( iFlashValue )
 				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"Y" );
+					// Print base value
+					DrawPropertyTextInColour( L"Y", ubNumLine, 1 );
+					// Print modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+
 				}
 				else
 				{
-					swprintf( pStr, L"=");
-				}
+					// Print base value
+					DrawPropertyTextInColour( L"--", ubNumLine, 1 );
+					// Print modifier
+					DrawPropertyTextInColour( L"Y", ubNumLine, 2, ITEMDESC_FONTPOSITIVE );
+				}			
+				// Print final value
+				DrawPropertyTextInColour( L"Y", ubNumLine, 3, FONT_MCOLOR_WHITE );
 			}
-			else
+			else if( IsFlashSuppressorAlt( gpComparedItemDescObject ) == TRUE )
 			{
-				BOOLEAN iComparedFlashValue = Item[ gpItemDescObject->usItem ].hidemuzzleflash;
+				BOOLEAN iComparedFlashValue = Item[ gpComparedItemDescObject->usItem ].hidemuzzleflash;
 				if ( iFlashValue )
 				{
 					if (iComparedFlashValue)
 					{
-						swprintf( pStr, L"=" );
+						DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+						DrawPropertyTextInColour( L"=", ubNumLine, 2 );
 					}
 					else
 					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"N");
+						DrawPropertyTextInColour( L"N", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+						DrawPropertyTextInColour( L"Y", ubNumLine, 2, ITEMDESC_FONTPOSITIVE );
 					}
 				}
 				else
 				{
-					if (iComparedFlashValue)
+					if (!iComparedFlashValue)
 					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"Y" );
+						DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+						DrawPropertyTextInColour( L"=", ubNumLine, 2 );
 					}
 					else
 					{
-						swprintf( pStr, L"=");
+						DrawPropertyTextInColour( L"Y", ubNumLine, 1, ITEMDESC_FONTPOSITIVE );
+						DrawPropertyTextInColour( L"N", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
 					}
 				}
-			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			if (!iFlashValue)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"Y" );
+				// Print final value
+				DrawPropertyTextInColour( L"=", ubNumLine, 3 );
 			}
 			else
 			{
-				swprintf( pStr, L"--");
+				if ( iFlashValue )
+				{
+					// Print base value
+					DrawPropertyTextInColour( L"N", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+					// Print modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				}
+				else
+				{
+					// Print base value
+					DrawPropertyTextInColour( L"--", ubNumLine, 1 );
+					// Print modifier
+					DrawPropertyTextInColour( L"N", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				}			
+				// Print final value
+				DrawPropertyTextInColour( L"N", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"Y" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && IsFlashSuppressorAlt( gpComparedItemDescObject ) == TRUE )
 		{
-			if (IsFlashSuppressorAlt( gpComparedItemDescObject ) == TRUE)
+			if (UsingNewCTHSystem() == true)
+				ubNumLine = 7;
+			else
+				ubNumLine = 8;
+			// Does gun have flash suppression?
+			BOOLEAN iFlashValue = Item[ gpComparedItemDescObject->usItem ].hidemuzzleflash;
+			if ( iFlashValue )
 			{
-				if (UsingNewCTHSystem() == true)
-					ubNumLine = 7;
-				else
-					ubNumLine = 8;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				BOOLEAN iFlashValue = Item[ gpComparedItemDescObject->usItem ].hidemuzzleflash;
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if (iFlashValue)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"Y" );
-				}
-				else
-				{
-					swprintf( pStr, L"=");
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Print base value
+				DrawPropertyTextInColour( L"Y", ubNumLine, 1, ITEMDESC_FONTPOSITIVE );
+				// Print modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
 			}
+			else
+			{
+				// Print base value
+				DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+				// Print modifier
+				DrawPropertyTextInColour( L"Y", ubNumLine, 2, ITEMDESC_FONTPOSITIVE );
+			}			
+			// Print final value
+			DrawPropertyTextInColour( L"Y", ubNumLine, 3, ITEMDESC_FONTPOSITIVE );
 		}
 		////////////////// LOUDNESS
 		//if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
@@ -7855,9 +7604,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 9;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Loudness value
 			UINT8 iLoudnessValue = Weapon[Item[gpItemDescObject->usItem].ubClassIndex].ubAttackVolume;
@@ -7868,72 +7614,30 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Loudness modifier
 			INT16 iLoudnessModifier = iFinalLoudnessValue - iLoudnessValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iLoudnessValue );
+				// Print base value
+				DrawPropertyValueInColour( iLoudnessValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iLoudnessModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalLoudnessValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedLoudnessValue = Weapon[Item[gpComparedItemDescObject->usItem].ubClassIndex].ubAttackVolume;
-				INT16 iComparedLoudnessDifference = iComparedLoudnessValue - iLoudnessValue;
-				if ( iComparedLoudnessDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedLoudnessDifference );
-				}
-				else if ( iComparedLoudnessDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedLoudnessDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get base Loudness value
+				UINT8 iComparedLoudnessValue = Weapon[Item[gpComparedItemDescObject->usItem].ubClassIndex].ubAttackVolume;
+				// Get final Loudness value
+				INT16 iComparedFinalLoudnessValue = GetFinalLoudness( gpComparedItemDescObject );
+				// Get Loudness modifier
+				INT16 iComparedLoudnessModifier = iComparedFinalLoudnessValue - iComparedLoudnessValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedLoudnessValue - iLoudnessValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedLoudnessModifier - iLoudnessModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalLoudnessValue - iFinalLoudnessValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iLoudnessModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iLoudnessModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iLoudnessModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iLoudnessModifier );
-			}
-			else if ( iLoudnessModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iLoudnessModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalLoudnessValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
 
 		/////////////////// RELIABILITY
@@ -7947,9 +7651,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 10;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Reliability value
 			INT8 iReliabilityValue = Item[gpItemDescObject->usItem].bReliability;
@@ -7960,82 +7661,30 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Reliability modifier
 			INT16 iReliabilityModifier = iFinalReliabilityValue - iReliabilityValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iReliabilityValue < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iReliabilityValue );
-				}
-				else if ( iReliabilityValue > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iReliabilityValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iReliabilityValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iReliabilityModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalReliabilityValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedReliabilityValue = Item[ gpComparedItemDescObject->usItem ].bReliability;
-				INT16 iComparedReliabilityDifference = iComparedReliabilityValue - iReliabilityValue;
-				if ( iComparedReliabilityDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedReliabilityDifference );
-				}
-				else if ( iComparedReliabilityDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedReliabilityDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get base Reliability value
+				INT8 iComparedReliabilityValue = Item[gpComparedItemDescObject->usItem].bReliability;
+				// Get final Reliability value
+				INT16 iComparedFinalReliabilityValue = GetReliability( gpComparedItemDescObject );
+				// Get Reliability modifier
+				INT16 iComparedReliabilityModifier = iComparedFinalReliabilityValue - iComparedReliabilityValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedReliabilityValue - iReliabilityValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedReliabilityModifier - iReliabilityModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalReliabilityValue - iFinalReliabilityValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iReliabilityModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iReliabilityModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iReliabilityModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iReliabilityModifier );
-			}
-			else if ( iReliabilityModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iReliabilityModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalReliabilityValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		/////////////////// REPAIR EASE
@@ -8049,9 +7698,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 11;
 			}
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Reliability value
 			INT8 iRepairEaseValue = Item[gpItemDescObject->usItem].bRepairEase;
@@ -8059,62 +7705,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get final Reliability value
 			INT8 iFinalRepairEaseValue = iRepairEaseValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iRepairEaseValue < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iRepairEaseValue );
-				}
-				else if ( iRepairEaseValue > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iRepairEaseValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( 0, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedRepairEaseValue = Item[ gpComparedItemDescObject->usItem ].bRepairEase;
-				INT16 iComparedRepairEaseDifference = iComparedRepairEaseValue - iRepairEaseValue;
-				if ( iComparedRepairEaseDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedRepairEaseDifference );
-				}
-				else if ( iComparedRepairEaseDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedRepairEaseDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get base Reliability value
+				INT8 iComparedRepairEaseValue = Item[gpComparedItemDescObject->usItem].bRepairEase;
+				// Get final Reliability value
+				INT8 iComparedFinalRepairEaseValue = iComparedRepairEaseValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedRepairEaseValue - iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( 0, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalRepairEaseValue - iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalRepairEaseValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		///////////////////// DRAW AP
@@ -8122,9 +7734,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 13;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Draw Cost
 			INT16 iFinalDrawAPCost = (Weapon[ gpItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpItemDescObject)) / 100);
@@ -8135,89 +7744,53 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Draw Cost Modifier
 			INT16 iDrawAPCostModifier = iFinalDrawAPCost - iDrawAPCost;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iDrawAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iDrawAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iDrawAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalDrawAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get final Draw Cost
+				INT16 iComparedFinalDrawAPCost = (Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpComparedItemDescObject)) / 100);
+				// Get base Draw Cost
 				INT16 iComparedDrawAPCost = Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime;
-				INT16 iComparedDrawAPDifference = iComparedDrawAPCost - iDrawAPCost;
-				if ( iComparedDrawAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedDrawAPDifference );
-				}
-				else if ( iComparedDrawAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedDrawAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Draw Cost Modifier
+				INT16 iComparedDrawAPCostModifier = iComparedFinalDrawAPCost - iComparedDrawAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedDrawAPCost - iDrawAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedDrawAPCostModifier - iDrawAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalDrawAPCost - iFinalDrawAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iDrawAPCostModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iDrawAPCostModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iDrawAPCostModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iDrawAPCostModifier );
-			}
-			else if ( iDrawAPCostModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iDrawAPCostModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalDrawAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem].rocketlauncher )
 		{
-			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem].rocketlauncher )
-			{
-				ubNumLine = 13;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iDrawAPCost = Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime;
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iDrawAPCost );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
+			ubNumLine = 13;
+			// Get final Draw Cost
+			INT16 iFinalDrawAPCost = (Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpComparedItemDescObject)) / 100);
+			// Get base Draw Cost
+			INT16 iDrawAPCost = Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime;
+			// Get Draw Cost Modifier
+			INT16 iDrawAPCostModifier = iFinalDrawAPCost - iDrawAPCost;
+			// Print base value
+			if( iDrawAPCost > 0 )
+				DrawPropertyValueInColour( iDrawAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
+			else
+				DrawPropertyTextInColour( L"=", ubNumLine, 1 );
+			// Print modifier
+			DrawPropertyValueInColour( iDrawAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+			// Print final value
+			if( iFinalDrawAPCost > 0 )
+				DrawPropertyValueInColour( iFinalDrawAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
+			else
+				DrawPropertyTextInColour( L"=", ubNumLine, 3 );
+
 		}
 
 		////////////////// SINGLE SHOT AP
@@ -8225,9 +7798,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 14;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Attack Cost
 			INT16 iFinalSingleAPCost = ubAttackAPs;
@@ -8238,99 +7808,60 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Attack Cost Modifier
 			INT16 iSingleAPCostModifier = iFinalSingleAPCost - iSingleAPCost;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iSingleAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iSingleAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iSingleAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalSingleAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else if( !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
 			{
-				INT16 iComparedSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
-				INT16 iComparedSingleAPDifference = iComparedSingleAPCost - iSingleAPCost;
-				if ( iComparedSingleAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedSingleAPDifference );
-				}
-				else if ( iComparedSingleAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedSingleAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Attack Cost
+				INT16 iComparedFinalSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+				// Get base Attack Cost
+				INT16 iComparedSingleAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+				// Get Attack Cost Modifier
+				INT16 iComparedSingleAPCostModifier = iComparedFinalSingleAPCost - iComparedSingleAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedSingleAPCost - iSingleAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedSingleAPCostModifier - iSingleAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalSingleAPCost - iFinalSingleAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iSingleAPCostModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iSingleAPCostModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iSingleAPCostModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iSingleAPCostModifier );
-			}
-			else if ( iSingleAPCostModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iSingleAPCostModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalSingleAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
 		{
-			if( !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
-			{				INT16 iComparedSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iComparedSingleAPCost );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
+			// Set line to draw into
+			ubNumLine = 14;
+			// Get final Attack Cost
+			INT16 iFinalSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+			// Get base Attack Cost
+			INT16 iSingleAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+			// Get Attack Cost Modifier
+			INT16 iSingleAPCostModifier = iFinalSingleAPCost - iSingleAPCost;
+			// Print base value
+			DrawPropertyValueInColour( iSingleAPCost, ubNumLine, 1, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iSingleAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalSingleAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		/////////////////// BURST AP
-		if (GetShotsPerBurst(gpItemDescObject)> 0)
+		if ( GetShotsPerBurst(gpItemDescObject) > 0 )
 		{
 			// Set line to draw into
 			ubNumLine = 15;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Burst Cost
 			INT16 iFinalBurstAPCost = ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject, NULL );
@@ -8341,108 +7872,63 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Burst Cost Modifier
 			INT16 iBurstAPCostModifier = iFinalBurstAPCost - iBurstAPCost;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iBurstAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iBurstAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iBurstAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalBurstAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
-			else if( GetShotsPerBurst(gpComparedItemDescObject)> 0 )
+			else if( GetShotsPerBurst(gpComparedItemDescObject) > 0 )
 			{
-				INT16 iComparedBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+				// Get final Burst Cost
+				INT16 iComparedFinalBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+					 + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, NULL );
+				// Get base Burst Cost
+				INT16 iComparedBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 					+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );
-				INT16 iComparedBurstAPDifference = iComparedBurstAPCost - iBurstAPCost;
-				if ( iComparedBurstAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedBurstAPDifference );
-				}
-				else if ( iComparedBurstAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedBurstAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Burst Cost Modifier
+				INT16 iComparedBurstAPCostModifier = iComparedFinalBurstAPCost - iComparedBurstAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedBurstAPCost - iBurstAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedBurstAPCostModifier - iBurstAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalBurstAPCost - iFinalBurstAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iBurstAPCostModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iBurstAPCostModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iBurstAPCostModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iBurstAPCostModifier );
-			}
-			else if ( iBurstAPCostModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iBurstAPCostModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalBurstAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && GetShotsPerBurst(gpComparedItemDescObject) > 0 )
 		{
+			// Set line to draw into
 			ubNumLine = 15;
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			SetFontForeground( 5 );
-			if( GetShotsPerBurst(gpComparedItemDescObject)> 0 )
-			{
-				INT16 iComparedBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );			
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iComparedBurstAPCost );
-			}
-			else
-				swprintf( pStr, L"" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+			INT16 iFinalBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+					+ CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, NULL );
+			// Get base Burst Cost
+			INT16 iBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+				+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );
+			// Get Burst Cost Modifier
+			INT16 iBurstAPCostModifier = iFinalBurstAPCost - iBurstAPCost;
+			// Print base value
+			DrawPropertyValueInColour( iBurstAPCost, ubNumLine, 1, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iBurstAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalBurstAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
 		}
 		
 		////////////////// AUTO AP
-		if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+		if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 		{
 			// Set line to draw into
 			ubNumLine = 16;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Autofire Cost
 			INT16 iFinalAutoAPCost = ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3, NULL );
@@ -8453,98 +7939,57 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get Autofire Cost Modifier
 			INT16 iAutoAPCostModifier = iFinalAutoAPCost - iAutoAPCost;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iAutoAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iAutoAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iAutoAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAutoAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else if( GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
-				INT16 iComparedAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+				// Get final Autofire Cost
+				INT16 iComparedFinalAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+					 + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, NULL );
+				// Get base Autofire Cost
+				INT16 iComparedAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 					+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
-				INT16 iComparedAutoAPDifference = iComparedAutoAPCost - iAutoAPCost;
-				if ( iComparedAutoAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedAutoAPDifference );
-				}
-				else if ( iComparedAutoAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedAutoAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Autofire Cost Modifier
+				INT16 iComparedAutoAPCostModifier = iComparedFinalAutoAPCost - iComparedAutoAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedAutoAPCost - iAutoAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedAutoAPCostModifier - iAutoAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalAutoAPCost - iFinalAutoAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iAutoAPCostModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iAutoAPCostModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iAutoAPCostModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iAutoAPCostModifier );
-			}
-			else if ( iAutoAPCostModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iAutoAPCostModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalAutoAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 		{
+			// Set line to draw into
 			ubNumLine = 16;
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			SetFontForeground( 5 );
-			if( GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
-			{
-				INT16 iComparedAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", iComparedAutoAPCost );
-			}
-			else
-				swprintf( pStr, L"" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+			// Get final Autofire Cost
+			INT16 iFinalAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
+					+ CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, NULL );
+			// Get base Autofire Cost
+			INT16 iAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+				+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
+			// Get Autofire Cost Modifier
+			INT16 iAutoAPCostModifier = iFinalAutoAPCost - iAutoAPCost;
+			// Print base value
+			DrawPropertyValueInColour( iAutoAPCost, ubNumLine, 1, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iAutoAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalAutoAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		///////////////////// RELOAD AP
@@ -8552,9 +7997,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 17;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Reload Cost
 			INT16 iFinalReloadAPCost = GetAPsToReload( gpItemDescObject );
@@ -8569,105 +8011,63 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get Reload Cost Modifier
 			INT16 iReloadAPCostModifier = iFinalReloadAPCost - iReloadAPCost;
-
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+	
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iReloadAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iReloadAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
 			{
+				// Get final Reload Cost
+				INT16 iComparedFinalReloadAPCost = GetAPsToReload( gpComparedItemDescObject );
+				// Get base Reload Cost
 				INT16 iComparedReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReload;
+				// modify by ini values
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
 					iComparedReloadAPCost *= gItemSettings.fAPtoReloadModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
 					iComparedReloadAPCost *= gItemSettings.fAPtoReloadModifierLauncher;
-				INT16 iComparedReloadAPDifference = iComparedReloadAPCost - iReloadAPCost;
-				if ( iComparedReloadAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedReloadAPDifference );
-				}
-				else if ( iComparedReloadAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedReloadAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get Reload Cost Modifier
+				INT16 iComparedReloadAPCostModifier = iComparedFinalReloadAPCost - iComparedReloadAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedReloadAPCost - iReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedReloadAPCostModifier - iReloadAPCostModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalReloadAPCost - iFinalReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE);
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTPOSITIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTPOSITIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTPOSITIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iReloadAPCostModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iReloadAPCostModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iReloadAPCostModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iReloadAPCostModifier );
-			}
-			else if ( iReloadAPCostModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iReloadAPCostModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalReloadAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher ) )
 		{
 			ubNumLine = 17;
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			SetFontForeground( 5 );
-			if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
-			{
-				INT16 iComparedReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReload;
-				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
-					iComparedReloadAPCost *= gItemSettings.fAPtoReloadModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
-				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
-					iComparedReloadAPCost *= gItemSettings.fAPtoReloadModifierLauncher;
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iComparedReloadAPCost );
-			}
-			else
-				swprintf( pStr, L"" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+			// Get final Reload Cost
+			INT16 iFinalReloadAPCost = GetAPsToReload( gpComparedItemDescObject );
+			// Get base Reload Cost
+			INT16 iReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReload;
+			// modify by ini values
+			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
+				iReloadAPCost *= gItemSettings.fAPtoReloadModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+				iReloadAPCost *= gItemSettings.fAPtoReloadModifierLauncher;
+			// Get Reload Cost Modifier
+			INT16 iReloadAPCostModifier = iFinalReloadAPCost - iReloadAPCost;
+			// Print base value
+			DrawPropertyValueInColour( iReloadAPCost, ubNumLine, 1, FALSE, FALSE, FALSE,ITEMDESC_FONTNEGATIVE );
+			// Print modifier
+			DrawPropertyValueInColour( iReloadAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalReloadAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
 		}
 
 		///////////////////// MANUAL RELOAD AP
@@ -8676,9 +8076,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 18;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Manual Reload Cost
 			INT16 iFinalManualReloadAPCost = Weapon[ gpItemDescObject->usItem ].APsToReloadManually;
@@ -8691,92 +8088,67 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get base Manual Reload Cost
 			INT16 iManualReloadAPCost = iFinalManualReloadAPCost;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iManualReloadAPCost );
+				// Print base value
+				DrawPropertyValueInColour( iManualReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalManualReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
-			&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0 )
+					&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0  )
 			{
-				INT16 iComparedManualReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReloadManually;
+				// Get final Manual Reload Cost
+				INT16 iComparedFinalManualReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReloadManually;
+				// modify by ini values
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
-					iComparedManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
+					iComparedFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
-					iComparedManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
-				INT16 iComparedManualReloadAPDifference = iComparedManualReloadAPCost - iManualReloadAPCost;
-				if ( iComparedManualReloadAPDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedManualReloadAPDifference );
-				}
-				else if ( iComparedManualReloadAPDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedManualReloadAPDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+					iComparedFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+				// Get base Manual Reload Cost
+				INT16 iComparedManualReloadAPCost = iComparedFinalManualReloadAPCost;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedManualReloadAPCost - iManualReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalManualReloadAPCost - iFinalManualReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE);
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTPOSITIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTPOSITIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTPOSITIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalManualReloadAPCost );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
+					&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0 ) )
 		{
 			ubNumLine = 18;
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			SetFontForeground( 5 );
-			if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher 
-			&& Weapon[gpComparedItemDescObject->usItem].APsToReloadManually > 0 )
-			{
-				INT16 iComparedManualReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReloadManually;
-				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
-					iComparedManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
-				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
-					iComparedManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iComparedManualReloadAPCost );
-			}
-			else
-				swprintf( pStr, L"" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+			// Get final Manual Reload Cost
+			INT16 iFinalManualReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReloadManually;
+			// modify by ini values
+			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
+				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+			// Get base Manual Reload Cost
+			INT16 iManualReloadAPCost = iFinalManualReloadAPCost;
+			// Print base value
+			DrawPropertyValueInColour( iManualReloadAPCost, ubNumLine, 1, FALSE, FALSE, FALSE,ITEMDESC_FONTNEGATIVE );
+			// Print modifier
+			DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalManualReloadAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
 		}
 
 		///////////////////// RECOIL X/Y
 		if ( UsingNewCTHSystem() == true )
 		{
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
-				&& GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject))
+				&& GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject) )
 			{
 				// HEADROCK HAM 5: One value to rule them all.
 				// Set line to draw into
@@ -8806,91 +8178,55 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				FLOAT dFinalRecoil = sqrt( ((iFinalRecoilX * iFinalRecoilX) + (iFinalRecoilY * iFinalRecoilY)) );
 				FLOAT dRecoilModifier = dFinalRecoil - dBaseRecoil;
 
-				// Set Y coordinates
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-
-				// Print base value
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 				if( !fComparisonMode )
 				{
-					swprintf( pStr, L"%3.1f", dBaseRecoil );
+					// Print base value
+					DrawPropertyValueInColourFloat( dBaseRecoil, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 5, 1.0f );
+					// Print modifier
+					DrawPropertyValueInColourFloat( dRecoilModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print final value
+					DrawPropertyValueInColourFloat( dFinalRecoil, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE, 1.0f );
 				}
 				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-				&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject))
+						&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) )
 				{
+					FLOAT iComparedFinalRecoilX = 0;
+					FLOAT iComparedFinalRecoilY = 0;
+
+					// Get final Recoil
+					GetRecoil( gpItemDescSoldier, gpComparedItemDescObject, &iComparedFinalRecoilX, &iComparedFinalRecoilY, 3 );
+
+					// Get base Recoil
 					FLOAT iComparedRecoilX = Weapon[ gpComparedItemDescObject->usItem ].bRecoilX;
 					FLOAT iComparedRecoilY = Weapon[ gpComparedItemDescObject->usItem ].bRecoilY;
-					if (iComparedRecoilX == -127) { iComparedRecoilX = 0; }
+
+					if (iComparedRecoilX == -127) { iComparedRecoilX = 0; } // -127 means "invalid". These guns don't actually have any recoil parameters.
 					if (iComparedRecoilY == -127) { iComparedRecoilY = 0; }
+
+					// modify by ini values
 					if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
 					{
 						iComparedRecoilX *= gItemSettings.fRecoilXModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 						iComparedRecoilY *= gItemSettings.fRecoilYModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 					}
+
 					FLOAT dComparedBaseRecoil = sqrt( ((iComparedRecoilX * iComparedRecoilX)+(iComparedRecoilY * iComparedRecoilY)) );
-					FLOAT dComparedBaseRecoilDifference = dComparedBaseRecoil - dBaseRecoil;
-					if ( dComparedBaseRecoilDifference > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"+%3.1f", dComparedBaseRecoilDifference );
-					}
-					else if ( dComparedBaseRecoilDifference < 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"%3.1f", dComparedBaseRecoilDifference );
-					}
-					else
-						swprintf( pStr, L"=" );
+					FLOAT dComparedFinalRecoil = sqrt( ((iComparedFinalRecoilX * iComparedFinalRecoilX) + (iComparedFinalRecoilY * iComparedFinalRecoilY)) );
+					FLOAT dComparedRecoilModifier = dComparedFinalRecoil - dComparedBaseRecoil;
+
+					// Print difference in base value
+					DrawPropertyValueInColourFloat( dComparedBaseRecoil - dBaseRecoil, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print difference in modifier
+					DrawPropertyValueInColourFloat( dComparedRecoilModifier - dRecoilModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print difference in final value
+					DrawPropertyValueInColourFloat( dComparedFinalRecoil - dFinalRecoil, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 				}
 				else
 				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"-" );
+					DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+					DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+					DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print modifier
-				SetFontForeground( 5 );
-				if ( (dRecoilModifier < 0 && dBaseRecoil > 0) || (dRecoilModifier > 0 && dBaseRecoil < 0) )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				else if ( (dRecoilModifier > 0 && dBaseRecoil > 0) || (dRecoilModifier < 0 && dBaseRecoil < 0) )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				// Add positive/negative sign
-				if ( dRecoilModifier > 0 )
-				{
-					swprintf( pStr, L"+%3.1f", dRecoilModifier );
-				}
-				else if ( dRecoilModifier < 0 )
-				{
-					swprintf( pStr, L"%3.1f", dRecoilModifier );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-				sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print final value
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-				swprintf( pStr, L"%3.1f", dFinalRecoil );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Reset font color
-				SetFontForeground( 6 );
 				
 				/*
 				// RECOIL Y
@@ -8949,34 +8285,41 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				SetFontForeground( 6 );
 				*/
 			}
-			else if( fComparisonMode )
+			else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+				&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) ) )
 			{
+
 				ubNumLine = 20;	
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( 5 );
-				if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-				&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject))
+						
+				FLOAT iFinalRecoilX = 0;
+				FLOAT iFinalRecoilY = 0;
+
+				// Get final Recoil
+				GetRecoil( gpItemDescSoldier, gpComparedItemDescObject, &iFinalRecoilX, &iFinalRecoilY, 3 );
+
+				// Get base Recoil
+				FLOAT iRecoilX = Weapon[ gpComparedItemDescObject->usItem ].bRecoilX;
+				FLOAT iRecoilY = Weapon[ gpComparedItemDescObject->usItem ].bRecoilY;
+
+				if (iRecoilX == -127) { iRecoilX = 0; } // -127 means "invalid". These guns don't actually have any recoil parameters.
+				if (iRecoilY == -127) { iRecoilY = 0; }
+
+				// modify by ini values
+				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
 				{
-					FLOAT iComparedRecoilX = Weapon[ gpComparedItemDescObject->usItem ].bRecoilX;
-					FLOAT iComparedRecoilY = Weapon[ gpComparedItemDescObject->usItem ].bRecoilY;
-					if (iComparedRecoilX == -127) { iComparedRecoilX = 0; }
-					if (iComparedRecoilY == -127) { iComparedRecoilY = 0; }
-					if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )
-					{
-						iComparedRecoilX *= gItemSettings.fRecoilXModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
-						iComparedRecoilY *= gItemSettings.fRecoilYModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
-					}
-					FLOAT dComparedBaseRecoil = sqrt( ((iComparedRecoilX * iComparedRecoilX)+(iComparedRecoilY * iComparedRecoilY)) );
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", dComparedBaseRecoil );
+					iRecoilX *= gItemSettings.fRecoilXModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
+					iRecoilY *= gItemSettings.fRecoilYModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 				}
-				else
-					swprintf( pStr, L"" );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+
+				FLOAT dBaseRecoil = sqrt( ((iRecoilX * iRecoilX)+(iRecoilY * iRecoilY)) );
+				FLOAT dFinalRecoil = sqrt( ((iFinalRecoilX * iFinalRecoilX) + (iFinalRecoilY * iFinalRecoilY)) );
+				FLOAT dRecoilModifier = dFinalRecoil - dBaseRecoil;
+				// Print base value
+				DrawPropertyValueInColourFloat( dBaseRecoil, ubNumLine, 1, FALSE, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
+				// Print modifier
+				DrawPropertyValueInColourFloat( dRecoilModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColourFloat( dFinalRecoil, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
 			}
 		}
 		else	///////////////// BIPOD & BURST PENALTY
@@ -8985,9 +8328,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				// Set line to draw into
 				ubNumLine = 19;
-				// Set Y coordinates
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 				// Get base Burst Penalty value
 				INT16 iBurstValue = Weapon[gpItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
@@ -9009,117 +8349,74 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Get Burst Penalty modifier
 				INT16 iBurstModifier = iFinalBurstValue - iBurstValue;
 
-				// Print base value
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 				if( !fComparisonMode )
 				{
-					if (iBurstValue < 0)
-					{
-						//SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"%d", iBurstValue );
-					}
-					else if ( iBurstValue > 0 )
-					{
-						//SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"%d", iBurstValue );
-					}
-					else
-					{
-						swprintf( pStr, L"--" );
-					}
+					// Print base value
+					DrawPropertyValueInColour( iBurstValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print modifier
+					DrawPropertyValueInColour( iBurstModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalBurstValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 				}
-				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-						&& GetShotsPerBurst(gpComparedItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) )
+				else if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpComparedItemDescObject->usItem ].singleshotrocketlauncher )
 				{
+					// Get base Burst Penalty value
 					INT16 iComparedBurstValue = Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
-					INT16 iComparedBurstDifference = iComparedBurstValue - iBurstValue;
-					if ( iComparedBurstDifference < 0 )
+					// Get final Burst Penalty value
+					INT16 iComparedFinalBurstValue;
+					if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"%d", iComparedBurstDifference );
-					}
-					else if ( iComparedBurstDifference > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"+%d", iComparedBurstDifference );
+						iComparedFinalBurstValue = GetBurstToHitBonus(gpComparedItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+						iComparedFinalBurstValue = max(0, (iComparedBurstValue * (100 - iComparedFinalBurstValue))/100 );
 					}
 					else
-						swprintf( pStr, L"=" );
+					{
+						iComparedFinalBurstValue = GetBurstPenalty(gpComparedItemDescObject);
+						if(gGameExternalOptions.bAimedBurstEnabled)
+							iComparedFinalBurstValue += Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+					}
+					// Get Burst Penalty modifier
+					INT16 iComparedBurstModifier = iComparedFinalBurstValue - iComparedBurstValue;
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedBurstValue - iBurstValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print difference in modifier
+					DrawPropertyValueInColour( iComparedBurstModifier - iBurstModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalBurstValue - iFinalBurstValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 				}
-				else
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"-");
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print modifier
-				SetFontForeground( 5 );
-				// Add positive/negative sign
-				if ( iBurstModifier > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%d", iBurstModifier );
-				}
-				else if ( iBurstModifier < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iBurstModifier );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-				sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print final value
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-				swprintf( pStr, L"%d", iFinalBurstValue );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
 			}
-			else if( fComparisonMode )
+			else if( fComparisonMode && GetBurstPenalty(gpComparedItemDescObject) > 0 )
 			{
-				if( GetBurstPenalty(gpComparedItemDescObject) > 0 )
+				ubNumLine = 19;	
+				// Get base Burst Penalty value
+				INT16 iBurstValue = Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+				// Get final Burst Penalty value
+				INT16 iFinalBurstValue;
+				if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 				{
-					ubNumLine = 19;	
-					sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-					sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-					sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-					sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-					SetFontForeground( 5 );
-					INT16 iComparedBurstValue = Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
-					if ( iComparedBurstValue > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"+%d", iComparedBurstValue );
-					}
-					else if ( iComparedBurstValue < 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"%d", iComparedBurstValue );
-					}
-					else
-						swprintf( pStr, L"" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
+					iFinalBurstValue = GetBurstToHitBonus(gpComparedItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+					iFinalBurstValue = max(0, (iBurstValue * (100 - iFinalBurstValue))/100 );
 				}
+				else
+				{
+					iFinalBurstValue = GetBurstPenalty(gpComparedItemDescObject);
+					if(gGameExternalOptions.bAimedBurstEnabled)
+						iFinalBurstValue += Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+				}
+				// Get Burst Penalty modifier
+				INT16 iBurstModifier = iFinalBurstValue - iBurstValue;
+				// Print base value
+				DrawPropertyValueInColour( iBurstValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iBurstModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalBurstValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
+
 			}
 			if( GetBipodBonus(gpItemDescObject) > 0)
 			{
 				// Set line to draw into
 				ubNumLine = 20;
-				// Set Y coordinates
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 				// Get base Reliability value
 				INT16 iBipodValue = Item[gpItemDescObject->usItem].bipod;
@@ -9130,115 +8427,46 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				// Get Reliability modifier
 				INT16 iBipodModifier = iFinalBipodValue - iBipodValue;
 
-				// Print base value
-				SetFontForeground( 5 );
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 				if( !fComparisonMode )
 				{
-					if (iBipodValue < 0)
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"%d", iBipodValue );
-					}
-					else if ( iBipodValue > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"+%d", iBipodValue );
-					}
-					else
-					{
-						swprintf( pStr, L"--" );
-					}
+					// Print base value
+					DrawPropertyValueInColour( iBipodValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print modifier
+					DrawPropertyValueInColour( iBipodModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalBipodValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 				}
-				else if ( Item[gpComparedItemDescObject->usItem].bipod > 0 )
+				else
 				{
+					// Get base Reliability value
 					INT16 iComparedBipodValue = Item[gpComparedItemDescObject->usItem].bipod;
-					INT16 iComparedBipodDifference = iComparedBipodValue - iBipodValue;
-					if ( iComparedBipodDifference > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"%d", iComparedBipodDifference );
-					}
-					else if ( iComparedBipodDifference < 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"+%d", iComparedBipodDifference );
-					}
-					else
-						swprintf( pStr, L"=" );
+					// Get final Reliability value
+					INT16 iComparedFinalBipodValue = GetBipodBonus(gpComparedItemDescObject);
+					// Get Reliability modifier
+					INT16 iComparedBipodModifier = iComparedFinalBipodValue - iComparedBipodValue;
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedBipodValue - iBipodValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print difference in modifier
+					DrawPropertyValueInColour( iComparedBipodModifier - iBipodModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalBipodValue - iFinalBipodValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 				}
-				else
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"-" );
-				}
-
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print modifier
-				SetFontForeground( 5 );
-				if (iBipodModifier < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( iBipodModifier > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				// Add positive/negative sign
-				if ( iBipodModifier > 0 )
-				{
-					swprintf( pStr, L"+%d", iBipodModifier );
-				}
-				else if ( iBipodModifier < 0 )
-				{
-					swprintf( pStr, L"%d", iBipodModifier );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
-				sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-
-				// Print final value
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-				swprintf( pStr, L"%d", iFinalBipodValue );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
 			}
-			else if( fComparisonMode )
+			else if( fComparisonMode && GetBipodBonus(gpComparedItemDescObject) > 0)
 			{
-				if( GetBipodBonus(gpComparedItemDescObject) > 0)
-				{
-					ubNumLine = 20;	
-					sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-					sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-					sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-					sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-					SetFontForeground( 5 );
-					INT16 iComparedBipodValue = Item[gpComparedItemDescObject->usItem].bipod;
-					if (iComparedBipodValue < 0)
-					{
-						SetFontForeground( ITEMDESC_FONTNEGATIVE );
-						swprintf( pStr, L"%d", iComparedBipodValue );
-					}
-					else if ( iComparedBipodValue > 0 )
-					{
-						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"+%d", iComparedBipodValue );
-					}
-					else
-						swprintf( pStr, L"" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
-				}
+				ubNumLine = 20;	
+				// Get base Reliability value
+				INT16 iBipodValue = Item[gpComparedItemDescObject->usItem].bipod;
+				// Get final Reliability value
+				INT16 iFinalBipodValue = GetBipodBonus(gpComparedItemDescObject);
+				// Get Reliability modifier
+				INT16 iBipodModifier = iFinalBipodValue - iBipodValue;
+				// Print base value
+				DrawPropertyValueInColour( iBipodValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iBipodModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalBipodValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
 		}
 
@@ -9249,92 +8477,56 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Set line to draw into
 			ubNumLine = 21;
 
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-
 			// Get final B/5AP
 			INT16 iFinalB5AP = GetAutofireShotsPerFiveAPs( gpItemDescObject );
 
 			// Get base B/5AP Cost
 			INT16 iB5AP = iFinalB5AP;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iB5AP );
+				// Print base value
+				DrawPropertyValueInColour( iB5AP, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalB5AP, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
-			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-			&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+					&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
-				INT16 iComparedB5AP = GetAutofireShotsPerFiveAPs( gpComparedItemDescObject );
-				INT16 iComparedB5APDifference = iComparedB5AP - iB5AP;
-				if ( iComparedB5APDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iComparedB5APDifference );
-				}
-				else if ( iComparedB5APDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedB5APDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}		
+				// Get final B/5AP
+				INT16 iComparedFinalB5AP = GetAutofireShotsPerFiveAPs( gpComparedItemDescObject );
+				// Get base B/5AP Cost
+				INT16 iComparedB5AP = iComparedFinalB5AP;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedB5AP - iB5AP, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalB5AP - iFinalB5AP, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalB5AP );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
-
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+			&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 ) )
 		{
-			if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-			&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
-			{
-				ubNumLine = 21;	
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( 5 );
-				INT16 iComparedB5AP = GetAutofireShotsPerFiveAPs( gpComparedItemDescObject );
-				if ( iComparedB5AP > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iComparedB5AP );
-				}
-				else
-					swprintf( pStr, L"" );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}		
+			ubNumLine = 21;	
+			// Get final B/5AP
+			INT16 iFinalB5AP = GetAutofireShotsPerFiveAPs( gpComparedItemDescObject );
+			// Get base B/5AP Cost
+			INT16 iB5AP = iFinalB5AP;
+			// Print base value
+			DrawPropertyValueInColour( iB5AP, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalB5AP, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );		
 		}
 
 		/////////////////// AUTOFIRE PENALTY
@@ -9342,139 +8534,97 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 22;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Auto Penalty value
 			INT16 iAutoValue = Weapon[gpItemDescObject->usItem].AutoPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
 
 			// Get final Auto Penalty value
-				INT16 iFinalAutoValue;
-				if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
-				{
-					iFinalAutoValue = GetAutoToHitBonus(gpItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
-					iFinalAutoValue = max(0, (iAutoValue * (100 - iFinalAutoValue))/100 );
-				}
-				else
-				{
-					iFinalAutoValue = GetAutoPenalty(gpItemDescObject);
-					if(gGameExternalOptions.bAimedBurstEnabled)
-						iFinalAutoValue += Weapon[gpItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
-				}
+			INT16 iFinalAutoValue;
+			if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+			{
+				iFinalAutoValue = GetAutoToHitBonus(gpItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+				iFinalAutoValue = max(0, (iAutoValue * (100 - iFinalAutoValue))/100 );
+			}
+			else
+			{
+				iFinalAutoValue = GetAutoPenalty(gpItemDescObject);
+				if(gGameExternalOptions.bAimedBurstEnabled)
+					iFinalAutoValue += Weapon[gpItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+			}
 
 			// Get Auto Penalty modifier
 			INT16 iAutoModifier = iFinalAutoValue - iAutoValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iAutoValue < 0)
-				{
-					//SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iAutoValue );
-				}
-				else if ( iAutoValue > 0 )
-				{
-					//SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iAutoValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iAutoValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyValueInColour( iAutoModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalAutoValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
-			else if( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
-					&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) )
+			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpComparedItemDescObject->usItem].rocketlauncher
+					&& GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
+				// Get base Auto Penalty value
 				INT16 iComparedAutoValue = Weapon[gpComparedItemDescObject->usItem].AutoPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
-				INT16 iComparedAutoDifference = iComparedAutoValue - iAutoValue;
-				if ( iComparedAutoDifference < 0 )
+				// Get final Auto Penalty value
+				INT16 iComparedFinalAutoValue;
+				if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedAutoDifference );
-				}
-				else if ( iComparedAutoDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%d", iComparedAutoDifference );
+					iComparedFinalAutoValue = GetAutoToHitBonus(gpComparedItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+					iComparedFinalAutoValue = max(0, (iComparedAutoValue * (100 - iComparedFinalAutoValue))/100 );
 				}
 				else
-					swprintf( pStr, L"=" );
+				{
+					iComparedFinalAutoValue = GetAutoPenalty(gpComparedItemDescObject);
+					if(gGameExternalOptions.bAimedBurstEnabled)
+						iComparedFinalAutoValue += Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+				}
+				// Get Auto Penalty modifier
+				INT16 iComparedAutoModifier = iComparedFinalAutoValue - iComparedAutoValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedAutoValue - iAutoValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedAutoModifier - iAutoModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalAutoValue - iFinalAutoValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
 			else
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"-" );
+				DrawPropertyTextInColour( L"-", ubNumLine, 1, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 2, ITEMDESC_FONTNEGATIVE );
+				DrawPropertyTextInColour( L"-", ubNumLine, 3, ITEMDESC_FONTNEGATIVE );
 			}
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iAutoModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			else if ( iAutoModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			// Add positive/negative sign
-			if ( iAutoModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iAutoModifier );
-			}
-			else if ( iAutoModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iAutoModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalAutoValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
-		else if( fComparisonMode )
+		else if( fComparisonMode && UsingNewCTHSystem() == false && GetAutoPenalty(gpComparedItemDescObject) > 0 )
 		{
-			if( UsingNewCTHSystem() == false && GetAutoPenalty(gpComparedItemDescObject) > 0 )
+			ubNumLine = 22;	
+			// Get base Auto Penalty value
+			INT16 iAutoValue = Weapon[gpComparedItemDescObject->usItem].AutoPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+			// Get final Auto Penalty value
+			INT16 iFinalAutoValue;
+			if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 			{
-				ubNumLine = 22;	
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( 5 );
-				INT16 iAutoValue = Weapon[gpComparedItemDescObject->usItem].AutoPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
-				if ( iAutoValue < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", abs(iAutoValue) );
-				}
-				else if ( iAutoValue > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"-%d",  abs(iAutoValue) );
-				}
-				else
-					swprintf( pStr, L"" );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				iFinalAutoValue = GetAutoToHitBonus(gpComparedItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+				iFinalAutoValue = max(0, (iAutoValue * (100 - iFinalAutoValue))/100 );
 			}
+			else
+			{
+				iFinalAutoValue = GetAutoPenalty(gpComparedItemDescObject);
+				if(gGameExternalOptions.bAimedBurstEnabled)
+					iFinalAutoValue += Weapon[gpComparedItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+			}
+			// Get Auto Penalty modifier
+			INT16 iAutoModifier = iFinalAutoValue - iAutoValue;
+			// Print base value
+			DrawPropertyValueInColour( iAutoValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+			// Print modifier
+			DrawPropertyValueInColour( iAutoModifier, ubNumLine, 2, fComparisonMode, TRUE, FALSE );
+			// Print final value
+			DrawPropertyValueInColour( iFinalAutoValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 		}
 	}
 	if (gubDescBoxPage == 2)
@@ -9511,9 +8661,9 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 	else if (gubDescBoxPage == 1)
 	{
 
-		// anv: if alt is pressed in map inventory, show comparison with selected ammo
+		// anv: if ctrl is pressed in map inventory, show comparison with selected ammo
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -9558,9 +8708,6 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		{
 			// Set line to draw into
 			ubNumLine = 0;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Penetration
 			FLOAT fArmourImpactReduction = ((FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionDivisor);
@@ -9568,65 +8715,34 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			// Get base Penetration
 			FLOAT fFinalArmourImpactReduction = fArmourImpactReduction;
 
-			// Print base value
-			SetFontForeground( 5 );
 			if( !fComparisonMode )
 			{
-				if ( fArmourImpactReduction > 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( fArmourImpactReduction < 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				swprintf( pStr, L"%3.1f", fArmourImpactReduction );
+				// Print base value
+				DrawPropertyValueInColourFloat( fArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 0, 1.0f, 2 );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( fFinalArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE, 1.0f, 2 );
 			}
 			else
 			{
+				// Get final Penetration
 				FLOAT fComparedArmourImpactReduction = ((FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionDivisor);
-				FLOAT fComparedArmourImpactDifference = fComparedArmourImpactReduction - fArmourImpactReduction;
-				if ( fComparedArmourImpactDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%3.1f", fComparedArmourImpactDifference );
-				}
-				else if ( fComparedArmourImpactDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.1f", fComparedArmourImpactDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get base Penetration
+				FLOAT fComparedFinalArmourImpactReduction = fComparedArmourImpactReduction;
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( fComparedArmourImpactReduction - fArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( fComparedFinalArmourImpactReduction - fFinalArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
 			}
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.1f", fFinalArmourImpactReduction );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		///////////////////// TUMBLING
 		{
 			// Set line to draw into
 			ubNumLine = 1;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 
 			// Get final Tumbling
 			FLOAT fAfterArmourImpactReduction = (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageDivisor;
@@ -9634,66 +8750,34 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			// Get base Tumbling
 			FLOAT fFinalAfterArmourImpactReduction = fAfterArmourImpactReduction;
 
-			// Print base value
-			SetFontForeground( 5 );
 			if( !fComparisonMode )
 			{
-				if ( fAfterArmourImpactReduction < 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( fAfterArmourImpactReduction > 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				swprintf( pStr, L"%3.1f", fAfterArmourImpactReduction );
+				// Print base value
+				DrawPropertyValueInColourFloat( fAfterArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 0, 1.0f, 2 );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( fFinalAfterArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE, 1.0f, 2 );
 			}
 			else
 			{
-				FLOAT fComparedAfterArmourImpactReduction = ((FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageDivisor);
-				FLOAT fComparedAfterArmourImpactDifference = fComparedAfterArmourImpactReduction - fAfterArmourImpactReduction;
-				if ( fComparedAfterArmourImpactDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", fComparedAfterArmourImpactDifference );
-				}
-				else if ( fComparedAfterArmourImpactDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", fComparedAfterArmourImpactDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Tumbling
+				FLOAT fComparedAfterArmourImpactReduction = (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].afterArmourDamageDivisor;
+				// Get base Tumbling
+				FLOAT fComparedFinalAfterArmourImpactReduction = fComparedAfterArmourImpactReduction;
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( fComparedAfterArmourImpactReduction - fAfterArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( fComparedFinalAfterArmourImpactReduction - fFinalAfterArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
 			}
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.1f", fFinalAfterArmourImpactReduction );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		///////////////////// PRE-ARMOR EXPLOSION
 		{
 			// Set line to draw into
 			ubNumLine = 2;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Explosion
 			FLOAT fPreArmourImpactReduction = (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageDivisor;
@@ -9701,57 +8785,28 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			// Get base Explosion
 			FLOAT fFinalPreArmourImpactReduction = fPreArmourImpactReduction;
 
-			// Print base value
-			SetFontForeground( 5 );
 			if( !fComparisonMode )
 			{
-				if ( fPreArmourImpactReduction < 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( fPreArmourImpactReduction > 1.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				swprintf( pStr, L"%3.1f", fPreArmourImpactReduction );
+				// Print base value
+				DrawPropertyValueInColourFloat( fPreArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 0, 1.0f, 2 );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( fFinalPreArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE, 1.0f, 2 );
 			}
 			else
 			{
-				FLOAT fComparedPreArmourImpactReduction = ((FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageDivisor);
-				FLOAT fComparedPreArmourImpactDifference = fComparedPreArmourImpactReduction - fPreArmourImpactReduction;
-				if ( fComparedPreArmourImpactDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", fComparedPreArmourImpactDifference );
-				}
-				else if ( fComparedPreArmourImpactDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", fComparedPreArmourImpactDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// Get final Explosion
+				FLOAT fComparedPreArmourImpactReduction = (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].beforeArmourDamageDivisor;
+				// Get base Explosion
+				FLOAT fComparedFinalPreArmourImpactReduction = fComparedPreArmourImpactReduction;
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( fComparedPreArmourImpactReduction - fPreArmourImpactReduction, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( fComparedFinalPreArmourImpactReduction - fFinalPreArmourImpactReduction, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
 			}
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.1f", fFinalPreArmourImpactReduction );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		// Flugente
@@ -9769,71 +8824,28 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			FLOAT modificator = 0;							// Does not exist (yet?)
 			FLOAT finalvalue = basevalue - modificator;
 
-			// Print base value
-			SetFontForeground( 5 );
 			if( !fComparisonMode )
 			{
-				if ( basevalue > 0.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( basevalue < 0.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				swprintf( pStr, L"%3.2f", basevalue );
+				// Print base value
+				DrawPropertyValueInColourFloat( basevalue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( finalvalue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE, 0.0f, 2 );
 			}
 			else
 			{
-				FLOAT fComparedBaseValue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].temperatureModificator;
-				FLOAT fComparedBaseDifference = fComparedBaseValue - basevalue;
-				if ( fComparedBaseDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%3.2f", fComparedBaseDifference );
-				}
-				else if ( fComparedBaseDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.2f", fComparedBaseDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// base modificator
+				FLOAT Comparedbasevalue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].temperatureModificator;
+				FLOAT Comparedmodificator = 0;							// Does not exist (yet?)
+				FLOAT Comparedfinalvalue = Comparedbasevalue - Comparedmodificator;
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( Comparedbasevalue - basevalue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( Comparedfinalvalue - finalvalue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2  );
 			}
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// modifier
-			SetFontForeground( 5 );
-			if ( modificator > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%3.2f", modificator );
-			}
-			else if ( modificator < 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%3.2f", modificator );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );				
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.2f", finalvalue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 
 		///////////////////// POISON PERCENTAGE
@@ -9848,63 +8860,28 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		INT16 modificator = 0;							// Does not exist (yet?)
 		INT16 finalvalue = basevalue - modificator;
 
-		// Print base value
-		SetFontForeground( 5 );
 		if( !fComparisonMode )
 		{
-			swprintf( pStr, L"%d", basevalue );
+			// Print base value
+			DrawPropertyValueInColour( basevalue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"--", ubNumLine, 2, fComparisonMode );
+			// Print final value
+			DrawPropertyValueInColour( finalvalue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 		}
 		else
 		{
-			INT16 fComparedBaseValue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
-			INT16 fComparedBaseDifference = fComparedBaseValue - basevalue;
-			if ( fComparedBaseDifference > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", fComparedBaseDifference );
-			}
-			else if ( fComparedBaseDifference < 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", fComparedBaseDifference );
-			}
-			else
-				swprintf( pStr, L"=" );
+			// base modificator
+			INT16 Comparedbasevalue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
+			INT16 Comparedmodificator = 0;							// Does not exist (yet?)
+			INT16 Comparedfinalvalue = Comparedbasevalue - Comparedmodificator;
+			// Print difference in base value
+			DrawPropertyValueInColour( Comparedbasevalue - basevalue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print difference in modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print difference in final value
+			DrawPropertyValueInColour( Comparedfinalvalue - finalvalue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
-		sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-		sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-		mprintf( usX, usY, pStr );
-
-		// modifier
-		SetFontForeground( 5 );
-		if ( modificator > 0 )
-		{
-			SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			swprintf( pStr, L"%d", modificator );
-		}
-		else if ( modificator < 0 )
-		{
-			SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			swprintf( pStr, L"%d", modificator );
-		}
-		else
-		{
-			swprintf( pStr, L"--" );
-		}
-
-		sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-		sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-		mprintf( usX, usY, pStr );
-
-		// Print final value
-		SetFontForeground( FONT_MCOLOR_WHITE );				
-		sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-		sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-		swprintf( pStr, L"%d", finalvalue );
-		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-		mprintf( usX, usY, pStr );
 
 		if ( gGameExternalOptions.fDirtSystem )	// Flugente
 		{
@@ -9920,71 +8897,28 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			FLOAT modificator = 0;							// Does not exist (yet?)
 			FLOAT finalvalue = basevalue - modificator;
 
-			// Print base value
-			SetFontForeground( 5 );
 			if( !fComparisonMode )
 			{
-				if ( basevalue > 0.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				}
-				else if ( basevalue < 0.0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				}
-				swprintf( pStr, L"%3.2f", basevalue );
+				// Print base value
+				DrawPropertyValueInColourFloat( basevalue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColourFloat( finalvalue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE, 0.0f, 2 );
 			}
 			else
 			{
-				FLOAT fComparedBaseValue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].dirtModificator;
-				FLOAT fComparedBaseDifference = fComparedBaseValue - basevalue;
-				if ( fComparedBaseDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%3.2f", fComparedBaseDifference );
-				}
-				else if ( fComparedBaseDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.2f", fComparedBaseDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
+				// base modificator
+				FLOAT Comparedbasevalue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].dirtModificator;
+				FLOAT Comparedmodificator = 0;							// Does not exist (yet?)
+				FLOAT Comparedfinalvalue = Comparedbasevalue - Comparedmodificator;
+				// Print difference in base value
+				DrawPropertyValueInColourFloat( Comparedbasevalue - basevalue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2 );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColourFloat( Comparedfinalvalue - finalvalue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2  );
 			}
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// modifier
-			SetFontForeground( 5 );
-			if ( modificator > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%3.2f", modificator );
-			}
-			else if ( modificator < 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%3.2f", modificator );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );				
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.2f", finalvalue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
 		}
 	}
 	else if (gubDescBoxPage == 2)
@@ -10008,9 +8942,9 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 
 	if (gubDescBoxPage == 1)
 	{
-		// anv: if alt is pressed in map inventory, show comparison with selected explosives
+		// anv: if ctrl is pressed in map inventory, show comparison with selected explosives
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -10058,9 +8992,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 0;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
@@ -10068,67 +8999,43 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iDamage = iFinalDamage;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iDamage );
+				// Print base value
+				DrawPropertyValueInColour( iDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedDamage =  GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
-				INT16 iComparedDamageDifference = iComparedDamage - iDamage;
-				if ( iComparedDamageDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedDamageDifference );
-				}
-				else if ( iComparedDamageDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedDamageDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}			
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalDamage );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage > 0 )
-			{
-				ubNumLine = 0;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
-				INT16 iDamage = iFinalDamage;	
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iDamage );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final damage
+				INT16 iComparedFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
+				// Get base damage
+				INT16 iComparedDamage = iComparedFinalDamage;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedDamage - iDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalDamage - iFinalDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 0;
+			// Get final damage
+			INT16 iFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
+			// Get base damage
+			INT16 iDamage = iFinalDamage;
+			// Print base value
+			DrawPropertyValueInColour( iDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		/////////////////// STUN DAMAGE
@@ -10136,9 +9043,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 1;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
@@ -10146,67 +9050,43 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iStunDamage = iFinalStunDamage;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iStunDamage );
+				// Print base value
+				DrawPropertyValueInColour( iStunDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalStunDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedStunDamage =  GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
-				INT16 iComparedStunDamageDifference = iComparedStunDamage - iStunDamage;
-				if ( iComparedStunDamageDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedStunDamageDifference );
-				}
-				else if ( iComparedStunDamageDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedStunDamageDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalStunDamage );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage > 0 )
-			{
-				ubNumLine = 1;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
-				INT16 iStunDamage = iFinalStunDamage;	
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iStunDamage );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final damage
+				INT16 iComparedFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
+				// Get base damage
+				INT16 iComparedStunDamage = iComparedFinalStunDamage;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedStunDamage - iStunDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalStunDamage - iFinalStunDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 1;
+			// Get final damage
+			INT16 iFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
+			// Get base damage
+			INT16 iStunDamage = iFinalStunDamage;
+			// Print base value
+			DrawPropertyValueInColour( iStunDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalStunDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		// HEADROCK HAM 5: Pushed everyone one line down to make room for Contact Explosives.
@@ -10216,9 +9096,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 3;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalBlastRadius = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubRadius;
@@ -10226,75 +9103,28 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iBlastRadius = iFinalBlastRadius;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iBlastRadius );
+				// Print base value
+				DrawPropertyValueInColour( iBlastRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalBlastRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedBlastRadius;
-				if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration == 0)
-				{
-					iComparedBlastRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-				}
-				else
-				{
-					iComparedBlastRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
-				}
-				INT16 iComparedBlastRadiusDifference = iComparedBlastRadius - iBlastRadius;
-				if ( iComparedBlastRadiusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedBlastRadiusDifference );
-				}
-				else if ( iComparedBlastRadiusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedBlastRadiusDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalBlastRadius );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			//if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 )
-			//{
-			//	ubNumLine = 3;
-			//	sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			//	sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			//	INT16 iFinalBlastRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-			//	INT16 iBlastRadius = iFinalBlastRadius;	
-			//	sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			//	sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			//	SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			//	swprintf( pStr, L"+%d", iBlastRadius );
-			//	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			//	mprintf( usX, usY, pStr );
-			//}
+				// Get final damage
+				INT16 iComparedFinalBlastRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
+				// Get base damage
+				INT16 iComparedBlastRadius = iComparedFinalBlastRadius;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedBlastRadius - iBlastRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalBlastRadius - iFinalBlastRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
 		}
 
 		////////////////////// PROLONGED EFFECT: START
@@ -10302,9 +9132,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 3;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			INT16 iFinalEffectStartRadius;
 			// Get final damage
@@ -10320,83 +9147,32 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iEffectStartRadius = iFinalEffectStartRadius;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iEffectStartRadius );
+				// Print base value
+				DrawPropertyValueInColour( iEffectStartRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalEffectStartRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedEffectStartRadius;
-				if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration == 0)
-				{
-					iComparedEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-				}
+				INT16 iComparedFinalEffectStartRadius;
+				// Get final damage
+				if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubType == 4)
+					iComparedFinalEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
 				else
-				{
-					iComparedEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
-				}
-				INT16 iComparedEffectStartRadiusDifference = iComparedEffectStartRadius - iEffectStartRadius;
-				if ( iComparedEffectStartRadiusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedEffectStartRadiusDifference );
-				}
-				else if ( iComparedEffectStartRadiusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedEffectStartRadiusDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalEffectStartRadius );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			//if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration> 0 )
-			//{
-			//	ubNumLine = 3;
-			//	sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			//	sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-			//	INT16 iFinalEffectStartRadius;
-			//	if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubType == 4)
-			//	{
-			//		iFinalEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-			//	}
-			//	else
-			//	{
-			//		iFinalEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
-			//	}
-			//	INT16 iEffectStartRadius = iFinalEffectStartRadius;
-			//	sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			//	sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			//	SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			//	swprintf( pStr, L"+%d", iEffectStartRadius );
-			//	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			//	mprintf( usX, usY, pStr );
-			//}
+					iComparedFinalEffectStartRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
+				// Get base damage
+				INT16 iComparedEffectStartRadius = iComparedFinalEffectStartRadius;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedEffectStartRadius - iEffectStartRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalEffectStartRadius - iFinalEffectStartRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
 		}
 
 		////////////////////// PROLONGED EFFECT: END
@@ -10404,9 +9180,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 4;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			INT16 iFinalEffectEndRadius;
 			// Get final damage
@@ -10422,91 +9195,47 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iEffectEndRadius = iFinalEffectEndRadius;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iEffectEndRadius );
+				// Print base value
+				DrawPropertyValueInColour( iEffectEndRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalEffectEndRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedEffectEndRadius;
+				INT16 iComparedFinalEffectEndRadius;
+				// Get final damage
 				if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubType == 4)
-				{
-					iComparedEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
-				}
+					iComparedFinalEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubStartRadius;
 				else
-				{
-					iComparedEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-				}
-				INT16 iComparedEffectEndRadiusDifference = iComparedEffectEndRadius - iEffectEndRadius;
-				if ( iComparedEffectEndRadiusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedEffectEndRadiusDifference );
-				}
-				else if ( iComparedEffectEndRadiusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedEffectEndRadiusDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalEffectEndRadius );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-
-			if (Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration > 0)
-			{
-				ubNumLine = 4;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iEffectEndRadius = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubRadius;
-				INT16 iComparedEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
-				INT16 iComparedEffectEndRadiusDifference = iComparedEffectEndRadius - iEffectEndRadius;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				if( iComparedEffectEndRadiusDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iComparedEffectEndRadiusDifference );
-				}
-				else if( iComparedEffectEndRadiusDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedEffectEndRadiusDifference );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-					swprintf( pStr, L"=" );
-				}
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+					iComparedFinalEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
+				// Get base damage
+				INT16 iComparedEffectEndRadius = iComparedFinalEffectEndRadius;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedEffectEndRadius - iEffectEndRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalEffectEndRadius - iFinalEffectEndRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration > 0)
+		{
+			ubNumLine = 4;
+			INT16 iFinalEffectEndRadius;
+			// Get final damage
+			iFinalEffectEndRadius = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubRadius;
+			// Get base damage
+			INT16 iEffectEndRadius = iFinalEffectEndRadius;
+			// Print base value
+			DrawPropertyValueInColour( iEffectEndRadius, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalEffectEndRadius, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		////////////////////// PROLONGED EFFECT: DURATION
@@ -10514,9 +9243,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 5;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalEffectDuration = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration;
@@ -10524,67 +9250,42 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iEffectDuration = iFinalEffectDuration;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iEffectDuration );
+				// Print base value
+				DrawPropertyValueInColour( iEffectDuration, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalEffectDuration, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedEffectDuration =  Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration;
-				INT16 iComparedEffectDurationDifference = iComparedEffectDuration - iEffectDuration;
-				if ( iComparedEffectDurationDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedEffectDurationDifference );
-				}
-				else if ( iComparedEffectDurationDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedEffectDurationDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalEffectDuration );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration> 0 )
-			{
-				ubNumLine = 5;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalEffectDuration = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration;
-				INT16 iEffectDuration = iFinalEffectDuration;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iEffectDuration );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final damage
+				INT16 iComparedFinalEffectDuration = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration;
+				// Get base damage
+				INT16 iComparedEffectDuration = iComparedFinalEffectDuration;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedEffectDuration - iEffectDuration, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalEffectDuration - iFinalEffectDuration, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration> 0 )
+		{
+			ubNumLine = 5;
+			// Get final damage
+			INT16 iFinalEffectDuration = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDuration;
+			// Get base damage
+			INT16 iEffectDuration = iFinalEffectDuration;
+			// Print base value
+			DrawPropertyValueInColour( iEffectDuration, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalEffectDuration, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		// HEADROCK HAM 5: FRAGMENTATIONS
@@ -10593,9 +9294,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 6;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Num Fragments
 			INT16 iFinalNumFragments = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments;
@@ -10603,67 +9301,43 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base Num Fragments
 			INT16 iNumFragments = iFinalNumFragments;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iNumFragments );
+				// Print base value
+				DrawPropertyValueInColour( iNumFragments, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalNumFragments, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedNumFragments =  Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments;
-				INT16 iComparedNumFragmentsDifference = iComparedNumFragments - iNumFragments;
-				if ( iComparedNumFragmentsDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedNumFragmentsDifference );
-				}
-				else if ( iComparedNumFragmentsDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedNumFragmentsDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalNumFragments );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
-			{
-				ubNumLine = 6;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalNumFragments = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments;
-				INT16 iNumFragments = iFinalNumFragments;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iNumFragments );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final Num Fragments
+				INT16 iComparedFinalNumFragments = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments;
+				// Get base Num Fragments
+				INT16 iComparedNumFragments = iComparedFinalNumFragments;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedNumFragments - iNumFragments, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalNumFragments - iFinalNumFragments, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 6;
+			// Get final Num Fragments
+			INT16 iFinalNumFragments = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments;
+			// Get base Num Fragments
+			INT16 iNumFragments = iFinalNumFragments;
+			// Print base value
+			DrawPropertyValueInColour( iNumFragments, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalNumFragments, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		//////////////////// FRAGMENT DAMAGE
@@ -10671,9 +9345,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 7;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Num Fragments
 			INT16 iFinalFragDamage = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
@@ -10681,67 +9352,42 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base Num Fragments
 			INT16 iFragDamage = iFinalFragDamage;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iFragDamage );
+				// Print base value
+				DrawPropertyValueInColour( iFragDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalFragDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedFragDamage =  Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
-				INT16 iComparedFragDamageDifference = iComparedFragDamage - iFragDamage;
-				if ( iComparedFragDamageDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedFragDamageDifference );
-				}
-				else if ( iComparedFragDamageDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedFragDamageDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalFragDamage );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
-			{
-				ubNumLine = 7;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalFragDamage = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
-				INT16 iFragDamage = iFinalFragDamage;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iFragDamage );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final Num Fragments
+				INT16 iComparedFinalFragDamage = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
+				// Get base Num Fragments
+				INT16 iComparedFragDamage = iComparedFinalFragDamage;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedFragDamage - iFragDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalFragDamage - iFinalFragDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
+		{
+			ubNumLine = 7;
+			// Get final Num Fragments
+			INT16 iFinalFragDamage = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
+			// Get base Num Fragments
+			INT16 iFragDamage = iFinalFragDamage;
+			// Print base value
+			DrawPropertyValueInColour( iFragDamage, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalFragDamage, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		//////////////////// FRAG RANGE
@@ -10749,9 +9395,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 8;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Num Fragments
 			INT16 iFinalFragRange = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
@@ -10759,76 +9402,48 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base Num Fragments
 			INT16 iFragRange = iFinalFragRange;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iFragRange );
+				// Print base value
+				DrawPropertyValueInColour( iFragRange, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalFragRange, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedFragRange =  Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
-				INT16 iComparedFragRangeDifference = iComparedFragRange - iFragRange;
-				if ( iComparedFragRangeDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedFragRangeDifference );
-				}
-				else if ( iComparedFragRangeDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedFragRangeDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalFragRange );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
-			{
-				ubNumLine = 8;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalFragRange = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
-				INT16 iFragRange = iFinalFragRange;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iFragRange );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final Num Fragments
+				INT16 iComparedFinalFragRange = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
+				// Get base Num Fragments
+				INT16 iComparedFragRange = iComparedFinalFragRange;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedFragRange - iFragRange, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalFragRange - iFinalFragRange, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].usNumFragments> 0 )
+		{
+			ubNumLine = 8;
+			// Get final Num Fragments
+			INT16 iFinalFragRange = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
+			// Get base Num Fragments
+			INT16 iFragRange = iFinalFragRange;
+			// Print base value
+			DrawPropertyValueInColour( iFragRange, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalFragRange, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 		}
 
 		//////////////////// LOUDNESS
 		{
 			// Set line to draw into
 			ubNumLine = 9;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalLoudness = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolume;
@@ -10836,50 +9451,28 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iLoudness = iFinalLoudness;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iLoudness );
+				// Print base value
+				DrawPropertyValueInColour( iLoudness, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalLoudness, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedLoudness =  Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolume;
-				INT16 iComparedLoudnessDifference = iComparedLoudness - iLoudness;
-				if ( iComparedLoudnessDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedLoudnessDifference );
-				}
-				else if ( iComparedLoudnessDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedLoudnessDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalLoudness );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+				// Get final damage
+				INT16 iComparedFinalLoudness = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolume;
+				// Get base damage
+				INT16 iComparedLoudness = iComparedFinalLoudness;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedLoudness - iLoudness, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalLoudness - iFinalLoudness, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
+			}
 		}
 
 		//////////////////// VOLATILITY
@@ -10887,9 +9480,6 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 10;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
 			INT16 iFinalVolatility = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolatility;
@@ -10897,67 +9487,44 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage
 			INT16 iVolatility = iFinalVolatility;
 
-			// Print base value
-			SetFontForeground( 5 );
-
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iVolatility );
+				// Print base value
+				DrawPropertyValueInColour( iVolatility, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalVolatility, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedVolatility = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility;
-				INT16 iComparedVolatilityDifference = iComparedVolatility - iVolatility;
-				if ( iComparedVolatilityDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedVolatilityDifference );
-				}
-				else if ( iComparedVolatilityDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedVolatilityDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// no modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalVolatility );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-		else if( fComparisonMode )
-		{
-			if ( Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility> 0 )
-			{
-				ubNumLine = 10;
-				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-				INT16 iFinalVolatility = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility;
-				INT16 iVolatility = iFinalVolatility;
-				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"+%d", iVolatility );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
+				// Get final damage
+				INT16 iComparedFinalVolatility = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility;
+				// Get base damage
+				INT16 iComparedVolatility = iComparedFinalVolatility;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedVolatility - iVolatility, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalVolatility - iFinalVolatility, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
+		}
+		else if( fComparisonMode && Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 10;
+			// Get final damage
+			INT16 iFinalVolatility = Explosive[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubVolatility;
+			// Get base damage
+			INT16 iVolatility = iFinalVolatility;
+			// Print base value
+			DrawPropertyValueInColour( iVolatility, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+			// Print modifier
+			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+			// Print final value
+			DrawPropertyValueInColour( iFinalVolatility, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
+			
 		}
 
 		//////////////////// REPAIR EASE
@@ -10974,62 +9541,28 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			// Get final Reliability value
 			INT8 iFinalRepairEaseValue = iRepairEaseValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iRepairEaseValue < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iRepairEaseValue );
-				}
-				else if ( iRepairEaseValue > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iRepairEaseValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT16 iComparedRepairEaseValue =  Item[ gpComparedItemDescObject->usItem ].bRepairEase;
-				INT16 iComparedRepairEaseDifference = iComparedRepairEaseValue - iRepairEaseValue;
-				if ( iComparedRepairEaseDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedRepairEaseDifference );
-				}
-				else if ( iComparedRepairEaseDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedRepairEaseDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalRepairEaseValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+				// Get base Reliability value
+				INT8 iComparedRepairEaseValue = Item[gpComparedItemDescObject->usItem].bRepairEase;
+				// Get final Reliability value
+				INT8 iComparedFinalRepairEaseValue = iComparedRepairEaseValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedRepairEaseValue - iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalRepairEaseValue - iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
 		}
 	}
 	else if (gubDescBoxPage == 2)
@@ -11057,9 +9590,9 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 
-		// anv: if alt is pressed in map inventory, show comparison with selected armor
+		// anv: if ctrl is pressed in map inventory, show comparison with selected armor
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
@@ -11107,9 +9640,6 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 0;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get protection value
 			UINT16 iProtectionValue = Armour[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubProtection;
@@ -11127,81 +9657,43 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 			// Get difference
 			INT16 iProtectionModifier = iFinalProtectionValue - iProtectionValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iProtectionValue );
+				// Print base value
+				DrawPropertyValueInColour( iProtectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyValueInColour( iProtectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print final value
+				DrawPropertyValueInColour( iFinalProtectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
-				INT8 iComparedProtectionValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubProtection;
-				INT8 iComparedProtectionDifference = iComparedProtectionValue - iProtectionValue;
-				if ( iComparedProtectionDifference > 0 )
+				// Get protection value
+				UINT16 iComparedProtectionValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubProtection;
+				// Get Final Protection value
+				UINT16 iComparedFinalProtectionValue = iComparedProtectionValue;
+				for (attachmentList::iterator iter = (*gpComparedItemDescObject)[0]->attachments.begin(); iter != (*gpComparedItemDescObject)[0]->attachments.end(); ++iter) 
 				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedProtectionDifference );
+					if (Item[ iter->usItem ].usItemClass == IC_ARMOUR)
+					{
+						iComparedFinalProtectionValue += Armour[Item[iter->usItem].ubClassIndex].ubProtection;
+					}
 				}
-				else if ( iComparedProtectionDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedProtectionDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}		
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iProtectionModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				// Get difference
+				INT16 iComparedProtectionModifier = iComparedFinalProtectionValue - iComparedProtectionValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedProtectionValue - iProtectionValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyValueInColour( iComparedProtectionModifier - iProtectionModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalProtectionValue - iFinalProtectionValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
-			else if ( iProtectionModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iProtectionModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iProtectionModifier );
-			}
-			else if ( iProtectionModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iProtectionModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalProtectionValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
 
 		/////////////////// COVERAGE
 		{
 			// Set line to draw into
 			ubNumLine = 1;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get Coverage value
 			UINT8 iCoverageValue = Armour[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubCoverage;
@@ -11209,90 +9701,34 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 			// Get Final Coverage value
 			UINT8 iFinalCoverageValue = iCoverageValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iCoverageValue );
-				wcscat( pStr, L"%" );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				#ifdef CHINESE
-					wcscat( pStr, ChineseSpecString1 );
-				#else
-					wcscat( pStr, L"%" );
-				#endif
+				// Print base value
+				DrawPropertyValueInColour( iCoverageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 0, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalCoverageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE, TRUE );
 			}
 			else
 			{
-				INT8 iComparedCoverageValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubCoverage;
-				INT8 iComparedCoverageDifference = iComparedCoverageValue - iCoverageValue;
-				if ( iComparedCoverageDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedCoverageDifference );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else if ( iComparedCoverageDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedCoverageDifference );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else
-				{
-					swprintf( pStr, L"=" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-			}	
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalCoverageValue );
-			wcscat( pStr, L"%" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			#ifdef CHINESE
-				wcscat( pStr, ChineseSpecString1 );
-			#else
-				wcscat( pStr, L"%" );
-			#endif
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
+				// Get Coverage value
+				UINT8 iComparedCoverageValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubCoverage;
+				// Get Final Coverage value
+				UINT8 iComparedFinalCoverageValue = iComparedCoverageValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedCoverageValue - iCoverageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, 0, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalCoverageValue - iFinalCoverageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, 0, TRUE );
+			}
 		}
 
 		//////////////////// DEGRADE RATE
 		{
 			// Set line to draw into
 			ubNumLine = 2;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get Degrade value
 			UINT8 iDegradeValue = Armour[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDegradePercent;
@@ -11300,90 +9736,34 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 			// Get Final Degrade value
 			UINT8 iFinalDegradeValue = iDegradeValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				swprintf( pStr, L"%d", iDegradeValue );
-				wcscat( pStr, L"%" );
-				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				#ifdef CHINESE
-					wcscat( pStr, ChineseSpecString1 );
-				#else
-					wcscat( pStr, L"%" );
-				#endif
+				// Print base value
+				DrawPropertyValueInColour( iDegradeValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalDegradeValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE, TRUE );
 			}
 			else
 			{
-				INT8 iComparedDegradeValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDegradePercent;
-				INT8 iComparedDegradeDifference = iComparedDegradeValue - iDegradeValue;
-				if ( iComparedDegradeDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%+d", iComparedDegradeDifference );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else if ( iComparedDegradeDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iComparedDegradeDifference );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else
-				{
-					swprintf( pStr, L"=" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
+				// Get Degrade value
+				UINT8 iComparedDegradeValue = Armour[Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].ubDegradePercent;
+				// Get Final Degrade value
+				UINT8 iComparedFinalDegradeValue = iComparedDegradeValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedDegradeValue - iDegradeValue, ubNumLine, 1, fComparisonMode, FALSE, FALSE, 0, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalDegradeValue - iFinalDegradeValue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, TRUE );
 			}
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalDegradeValue );
-			wcscat( pStr, L"%" );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			#ifdef CHINESE
-				wcscat( pStr, ChineseSpecString1 );
-			#else
-				wcscat( pStr, L"%" );
-			#endif
-			mprintf( usX, usY, pStr );
-
-			// Reset font color
-			SetFontForeground( 6 );
 		}
 
 		//////////////////// REPAIR EASE
 		{
 			// Set line to draw into
 			ubNumLine = 3;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Reliability value
 			INT8 iRepairEaseValue = Item[gpItemDescObject->usItem].bRepairEase;
@@ -11391,62 +9771,28 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 			// Get final Reliability value
 			INT8 iFinalRepairEaseValue = iRepairEaseValue;
 
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
 			if( !fComparisonMode )
 			{
-				if (iRepairEaseValue < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iRepairEaseValue );
-				}
-				else if ( iRepairEaseValue > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iRepairEaseValue );
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-				}
+				// Print base value
+				DrawPropertyValueInColour( iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print modifier
+				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				// Print final value
+				DrawPropertyValueInColour( iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
+				// Get base Reliability value
 				INT8 iComparedRepairEaseValue = Item[gpComparedItemDescObject->usItem].bRepairEase;
-				INT8 iComparedRepairEaseDifference = iComparedRepairEaseValue - iRepairEaseValue;
-				if ( iComparedRepairEaseDifference > 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%+d", iComparedRepairEaseDifference );
-				}
-				else if ( iComparedRepairEaseDifference < 0 )
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iComparedRepairEaseDifference );
-				}
-				else
-					swprintf( pStr, L"=" );
-			}	
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			swprintf( pStr, L"--" );
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalRepairEaseValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+				// Get final Reliability value
+				INT8 iComparedFinalRepairEaseValue = iComparedRepairEaseValue;
+				// Print difference in base value
+				DrawPropertyValueInColour( iComparedRepairEaseValue - iRepairEaseValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				// Print difference in modifier
+				DrawPropertyTextInColour( L"=", ubNumLine, 2 );
+				// Print difference in final value
+				DrawPropertyValueInColour( iComparedFinalRepairEaseValue - iFinalRepairEaseValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+			}
 		}
 	}
 	else if (gubDescBoxPage == 2)
@@ -11484,9 +9830,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	FLOAT bComparedRecoilModifierY;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
-	// anv: if alt is pressed in map inventory, show comparison with selected item
+	// anv: if ctrl is pressed in map inventory, show comparison with selected item
 	BOOLEAN fComparisonMode = FALSE;
-	if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
 		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
@@ -15988,9 +14334,9 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 		OBJECTTYPE *gpComparedItemDescObject = NULL;
-		// anv: if alt is pressed in map inventory, show comparison with selected misc
+		// anv: if ctrl is pressed in map inventory, show comparison with selected misc
 		BOOLEAN fComparisonMode = FALSE;
-		if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
 			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )

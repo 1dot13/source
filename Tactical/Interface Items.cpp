@@ -6926,7 +6926,7 @@ void RenderItemDescriptionBox( )
 			{
 				OBJECTTYPE *gpComparedItemDescObject;
 				BOOLEAN fComparisonMode = FALSE;
-				if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+				if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 				{
 					gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 					if( gpComparedItemDescObject != NULL )
@@ -7392,7 +7392,7 @@ void RenderItemDescriptionBox( )
 			{
 				OBJECTTYPE *gpComparedItemDescObject;
 				BOOLEAN fComparisonMode = FALSE;
-				if( _KeyDown( ALT ) && gfCheckForCursorOverMapSectorInventoryItem )
+				if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 				{
 					gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 					if( gpComparedItemDescObject != NULL )
