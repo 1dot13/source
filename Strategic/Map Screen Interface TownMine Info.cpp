@@ -438,10 +438,26 @@ void AddTextToTownBox( void )
 	UINT16 numprisoners = GetNumberOfPrisoners( &(SectorInfo[SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY )]), &prisoners[PRISONER_OFFICER], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
 	if ( numprisoners )
 	{
+		// determine prison capacity
+		UINT16 capacity = 0;
+		for ( UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt )
+		{
+			// Is this facility here?
+			if ( gFacilityLocations[SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY )][cnt].fFacilityHere )
+			{
+				// we determine wether this is a prison by checking for usPrisonBaseLimit
+				if ( gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0 )
+				{
+					capacity = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit;
+					break;
+				}
+			}
+		}
+
 		// prisoners
 		swprintf( wString, L"%s:", pwTownInfoStrings[13] );
 		AddMonoString( &hStringHandle, wString );
-		swprintf( wString, L"%d/%d/%d/%d%", prisoners[PRISONER_ADMIN], prisoners[PRISONER_REGULAR], prisoners[PRISONER_ELITE], prisoners[PRISONER_OFFICER] );
+		swprintf( wString, L"%d/%d/%d/%d%/%d", prisoners[PRISONER_ADMIN], prisoners[PRISONER_REGULAR], prisoners[PRISONER_ELITE], prisoners[PRISONER_OFFICER], capacity );
 		AddSecondColumnMonoString( &hStringHandle, wString );
 	}
 }
