@@ -5565,7 +5565,15 @@ INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 		// ATE: If we are a vehicle, no moving!
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
+			// anv: yes moving
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
+			//return( -3 );
+		}
+
+		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		{
+			// anv: there's some weird bug with moving invisible passengers after loading game, that should solve it
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
 			return( -3 );
 		}
 
@@ -5923,7 +5931,12 @@ void ToggleStealthMode( SOLDIERTYPE *pSoldier )
 {
 	// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 	if ( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ giSMStealthButton ]->uiFlags & BUTTON_ENABLED ) )
-	{
+	{	
+		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		{
+			return;
+		}
+
 		// ATE: Toggle stealth
 		if ( gpSMCurrentMerc != NULL && pSoldier->ubID == gpSMCurrentMerc->ubID )
 		{

@@ -1728,7 +1728,8 @@ void HandleVehicleMovementSound( SOLDIERTYPE *pSoldier, BOOLEAN fOn )
 	{
 		if ( pVehicle->iMovementSoundID == NO_SAMPLE )
 		{
-			pVehicle->iMovementSoundID = PlayJA2Sample( pVehicle->iMoveSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+			// anv: will be played in InternalPlaySoldierFootstepSound
+			//pVehicle->iMovementSoundID = PlayJA2Sample( pVehicle->iMoveSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 		}
 	}
 	else
@@ -3384,7 +3385,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				|| usNewState == SWATTING_WK)
 			{
 				// CHECK FOR SIDEWAYS!
-				if ( this->ubDirection == gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData[ this->pathing.usPathIndex ] ] )
+				if ( !( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) && this->ubDirection == gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData[ this->pathing.usPathIndex ] ] )
 				{
 					// We are perpendicular!
 					// SANDRO - wait wait wait!!! We need to determine if gonna sidestep with weapon raised
@@ -5289,9 +5290,10 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 	switch ( ubStanceHeight )
 	{
 	case ANIM_STAND:
-		if ( this->flags.fUIMovementFast && !( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+		//if ( this->flags.fUIMovementFast && !( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+		if ( this->flags.fUIMovementFast )
 		{
-			return( RUNNING );
+ 			return( RUNNING );
 		}
 		else
 		{
@@ -7876,14 +7878,29 @@ void SOLDIERTYPE::TurnSoldier( void )
 	INT32		cnt;
 
 	// If we are a vehicle... DON'T TURN!
+	// anv: YES PLIZ DO
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		if ( this->ubBodyType != TANK_NW && this->ubBodyType != TANK_NE )
+		//if ( this->ubBodyType != TANK_NW && this->ubBodyType != TANK_NE )
+		//{
+		//	return;
+		//}
+
+		// need to turn around passengers inside
+		INT32 iId = this->bVehicleID;
+
+		// Loop through passengers and update each guy's rotation
+		for( INT32 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 		{
-			return;
+			if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
+			{
+				pVehicleList[ iId ].pPassengers[ iCounter ]->flags.fDontChargeTurningAPs = TRUE;
+				pVehicleList[ iId ].pPassengers[ iCounter ]->EVENT_SetSoldierDesiredDirection( this->pathing.bDesiredDirection );
+				//pVehicleList[ iId ].pPassengers[ iCounter ]->pathing.bDesiredDirection = this->pathing.bDesiredDirection;
+			}
 		}
 	}
-	else	// Lesh: patch for "Bug: Enemy turns around in turn based mode!"
+	//else	// Lesh: patch for "Bug: Enemy turns around in turn based mode!"
 	{
 		// in case of errors in turning tasks
 		if ( this->pathing.bDesiredDirection > 7 || this->pathing.bDesiredDirection < 0)
@@ -8549,8 +8566,8 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	UINT32 uiTerrainDelay;
 	UINT32 uiSpeed = 0;
 
-	INT8 bBreathDef, bLifeDef;
-	INT16 bAgilDef;
+	INT8 bBreathDef = 0, bLifeDef = 0;
+	INT16 bAgilDef = 0;
 	INT8 bAdditional = 0;
 
 	// for those animations which have a speed of zero, we have to calculate it
@@ -8675,13 +8692,29 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		uiTerrainDelay = 40;			// standing still
 	}
 
-	bBreathDef = 50 - ( pStatsSoldier->bBreath / 2 );
+	if( !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+	{
+		bBreathDef = 50 - ( pStatsSoldier->bBreath / 2 );
 
-	if ( bBreathDef > 30 )
-		bBreathDef = 30;
+		if ( bBreathDef > 30 )
+			bBreathDef = 30;
 
-	bAgilDef = 50 - ( EffectiveAgility( pStatsSoldier, FALSE ) / 4 );
-	bLifeDef = 50 - ( pStatsSoldier->stats.bLife / 2 );
+		bAgilDef = 50 - ( EffectiveAgility( pStatsSoldier, FALSE ) / 4 );
+		bLifeDef = 50 - ( pStatsSoldier->stats.bLife / 2 );
+	}
+	else
+	{
+		// anv: vehicles have no agility and making them slower with less fuel would make no sense
+		// instead take gear into consideration here
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->usAnimState == RUNNING )
+		{
+			bAgilDef = 10;
+		}
+		else
+		{
+			bAgilDef = 30;
+		}
+	}
 
 	uiTerrainDelay += ( bLifeDef + bBreathDef + bAgilDef + bAdditional );
 	
@@ -10237,7 +10270,9 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	if ( ( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
 		// Pick a passenger from vehicle....
-		pSoldier = PickRandomPassengerFromVehicle( this );
+		//pSoldier = PickRandomPassengerFromVehicle( this );
+		// anv: as vehicles can be controlled, get a driver
+		pSoldier = GetDriver(this->bVehicleID);
 
 		if ( pSoldier == NULL )
 		{
@@ -20452,6 +20487,12 @@ void InternalPlaySoldierFootstepSound( SOLDIERTYPE * pSoldier )
 
 			PlaySoldierJA2Sample( pSoldier->ubID, ubSoundBase + pSoldier->ubLastFootPrintSound, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 		}
+	}
+	else
+	{
+		// anv: vehicle sounds
+		//PlaySoldierJA2Sample( pSoldier->ubID, S_VECH1_MOVE, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
+		PlaySoldierJA2Sample( pSoldier->ubID, pVehicleList[ pSoldier->bVehicleID ].iMoveSound, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 	}
 }
 

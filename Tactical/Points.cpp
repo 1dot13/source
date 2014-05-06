@@ -880,6 +880,12 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 		sAPCost = 0;
 	}
 
+	// anv: there were weird things going on here, deducting fuel for strategic travel happens elsewhere anyway
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		iBPCost = 0;
+	}
+
 	// Get New points
 	sNewAP = pSoldier->bActionPoints - sAPCost;
 

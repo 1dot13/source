@@ -1381,6 +1381,9 @@ void LoadGameExternalOptions()
 	else
 		gGameExternalOptions.fSoldierProfiles_Militia		= FALSE;
 
+	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
+	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_SCALE", 100, 0, 200);
+
 	// *** ddd - BEGIN
 	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
 
@@ -3159,6 +3162,10 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_APPLYITEM]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_APPLYITEM",50),50);	
 	APBPConstants[AP_INVENTORY_ARM]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_ARM",50),50);
 	APBPConstants[AP_SPOTTER]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SPOTTER",20),20);
+
+	APBPConstants[AP_ENTER_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_ENTER_VEHICLE",30),30);
+	APBPConstants[AP_EXIT_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXIT_VEHICLE",30),30);
+	APBPConstants[AP_CHANGE_SEAT_VEHICLE]				= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_SEAT_VEHICLE",20),20);
 	
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);

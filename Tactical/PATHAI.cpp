@@ -4849,19 +4849,19 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					}
 
 					// Are we a vehicle?
-					if ( pSold->flags.uiStatusFlags & SOLDIER_VEHICLE )
-					{
-						// did we exceed WALK cost?
-						if ( sPointsSwat > sAPBudget)
-						{
-							sFootOrderIndex = 4;
-						}
-						else
-						{
-							sFootOrderIndex = 3;
-						}
-					}
-					else
+					//if ( pSold->flags.uiStatusFlags & SOLDIER_VEHICLE )
+					//{
+					//	// did we exceed WALK cost?
+					//	if ( sPointsSwat > sAPBudget)
+					//	{
+					//		sFootOrderIndex = 4;
+					//	}
+					//	else
+					//	{
+					//		sFootOrderIndex = 3;
+					//	}
+					//}
+					//else
 					{
 						// did we exceed CRAWL cost?
 						if (sFootOrderIndex == 0 && sPointsCrawl > sAPBudget)

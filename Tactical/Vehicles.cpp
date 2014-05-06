@@ -41,6 +41,9 @@
 	#include "Queen Command.h"
 #endif
 
+#include "Points.h"
+#include "Init.h"
+
 //INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
 std::vector<INT8>	gubVehicleMovementGroups (MAX_VEHICLES, 0);
 
@@ -472,7 +475,7 @@ BOOLEAN IsThisVehicleAccessibleToSoldier( SOLDIERTYPE *pSoldier, INT32 iId )
 }
 
 
-BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
+BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecificSeat, UINT8 ubSeatIndex )
 {
 	INT32 iCounter = 0;
 	UINT32 vCount = 0;
@@ -556,8 +559,11 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 
 	if ( pVehicleSoldier )
 	{
+		// anv: when we enter vehicle in battle, we need to unbusy soldier BEFORE we change selected soldier or else we'll get lock
+		UnSetUIBusy( pSoldier->ubID );
+
 		// can't call SelectSoldier in mapscreen, that will initialize interface panels!!!
-	if ( guiCurrentScreen == GAME_SCREEN )
+		if ( guiCurrentScreen == GAME_SCREEN )
 		{
 			SelectSoldier( pVehicleSoldier->ubID, FALSE, TRUE );
 		}
@@ -713,6 +719,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	INT32 iCounter = 0;
 	BOOLEAN fSoldierLeft = FALSE;
 	BOOLEAN	fSoldierFound = FALSE;
+	BOOLEAN	fNewDriverNeeded = FALSE;
 	SOLDIERTYPE *pVehicleSoldier;
 	UINT8	iOldGroupID=0;
 
@@ -743,6 +750,12 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 			pVehicleList[ iId ].pPassengers[ iCounter ] = NULL;
 
 
+			// anv: make sure someone else becomes driver if he was the previous one
+			if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
+			{
+				fNewDriverNeeded = TRUE;
+			}
+
 			pSoldier->flags.uiStatusFlags &= ( ~( SOLDIER_DRIVER | SOLDIER_PASSENGER ) );
 
 			// check if anyone left in vehicle
@@ -752,6 +765,14 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 				if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 				{
 					fSoldierLeft = TRUE;
+					if( fNewDriverNeeded )
+					{
+						SOLDIERTYPE* pNewDriver = pVehicleList[ iId ].pPassengers[ iCounter ];
+						pNewDriver->flags.uiStatusFlags |= SOLDIER_DRIVER;
+						pNewDriver->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
+						pVehicleList[ iId ].ubDriver = pNewDriver->ubID;
+						fNewDriverNeeded = FALSE;
+					}
 				}
 			}
 
@@ -800,6 +821,8 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 					// cancel the entire path (also handles reversing directions)
 					CancelPathForVehicle( &( pVehicleList[ iId ] ), FALSE );
 				}
+
+				pVehicleSoldier->EVENT_StopMerc( pVehicleSoldier->sGridNo, pVehicleSoldier->ubDirection );
 
 				// if the vehicle was abandoned between sectors
 				if ( pVehicleList[ iId ].fBetweenSectors )
@@ -1588,16 +1611,42 @@ BOOLEAN TakeSoldierOutOfVehicle( SOLDIERTYPE *pSoldier )
 
 
 
-BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier )
+BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpecificSeat, UINT8 ubSeatIndex )
 {
+
 	// TEST IF IT'S VALID...
 	if ( pVehicle->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// Is there room...
 		if ( IsEnoughSpaceInVehicle( pVehicle->bVehicleID ) )
 		{
+			// anv: check if preferred seat is already taken, if so automatically choose another
+			if( fSpecificSeat )
+			{
+				if ( pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] != NULL )
+				{
+					fSpecificSeat = FALSE;
+					ubSeatIndex = 0;
+				}
+			}
+
+			INT16	sAPCost = APBPConstants[AP_ENTER_VEHICLE];
+			//Are we currently in combat?
+			if(gTacticalStatus.uiFlags & INCOMBAT)
+			{
+				if(EnoughPoints(pSoldier, sAPCost, 0, TRUE))
+					DeductPoints(pSoldier, sAPCost, 0);
+				else
+					return( FALSE );
+			}
+
+			// anv: since now they can shoot it's important to set passenger to proper stance
+			SendChangeSoldierStanceEvent( pSoldier, ANIM_CROUCH );
+			// bInitialActionPoints - point in time where soldier and vehicle start sharing timeline
+			pSoldier->bInitialActionPoints = pSoldier->bActionPoints;
+
 			// OK, add....
-			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID );
+			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, fSpecificSeat, ubSeatIndex );
 
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 			{
@@ -1651,6 +1700,16 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	INT16	sAPCost = APBPConstants[AP_EXIT_VEHICLE];
+	//Are we currently in combat?
+	if(gTacticalStatus.uiFlags & INCOMBAT)
+	{
+		if(EnoughPoints(pSoldier, sAPCost, 0, TRUE))
+			DeductPoints(pSoldier, sAPCost, 0);
+		else
+			return( FALSE );
+	}
+
 	// TEST IF IT'S VALID...
 	if ( pVehicle->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -1676,6 +1735,10 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 
 		// Add to sector....
 		pSoldier->EVENT_SetSoldierPosition( CenterX( sGridNo ), CenterY( sGridNo ) );
+
+		// anv: since now they can shoot it's important to set passenger to proper stance
+		// namely, back to standing, because we set them to crouching when entering
+		SendChangeSoldierStanceEvent( pSoldier, ANIM_STAND );
 
 		// Update visiblity.....
 		HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO );

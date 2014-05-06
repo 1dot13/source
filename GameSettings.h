@@ -1451,6 +1451,9 @@ typedef struct
 	UINT8 ubExtremeIronManSavingTimeNotification;
 	UINT8 ubExtremeIronManSavingHour;
 
+	UINT8 ubAPSharedAmongPassengersAndVehicleMode;
+	UINT8 ubAPSharedAmongPassengersAndVehicleScale;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

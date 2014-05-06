@@ -2504,6 +2504,41 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
             {
                 // Adjust AP/Breathing points to move               
                 DeductPoints( pSoldier, sAPCost, sBPCost, MOVEMENT_INTERRUPT );
+
+				// anv: deduct points from vehicle passengers to prevent time travel paradoxes... yeah yeah, you get the idea
+				if ( gTacticalStatus.uiFlags & TURNBASED && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode )
+				{
+					INT32 iId = pSoldier->bVehicleID;
+					// Loop through passengers and update each guy's AP
+					for( INT32 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+					{
+						SOLDIERTYPE *pPassenger = pVehicleList[ iId ].pPassengers[ iCounter ];
+						if( pPassenger != NULL )
+						{
+							//INT16 sPassengerAPCost = pPassenger->bInitialActionPoints * sAPCost / max(1, pSoldier->bInitialActionPoints) * gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale / 100;
+							INT16 sPassengerAPCost = 0;
+							switch( gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode )
+							{
+								case 1:
+									sPassengerAPCost = sAPCost;
+									break;
+								case 2:
+									sPassengerAPCost = pPassenger->bInitialActionPoints * sAPCost / max(1, pSoldier->bInitialActionPoints);
+									break;
+								case 3:
+									INT16 sPassengerAPTreshold = pPassenger->bInitialActionPoints * ( pSoldier->bActionPoints - sAPCost ) / max(1, pSoldier->bInitialActionPoints);
+									sPassengerAPCost = pPassenger->bInitialActionPoints * sAPCost / max(1, pSoldier->bInitialActionPoints) ;
+									if( pPassenger->bActionPoints - sPassengerAPCost > sPassengerAPTreshold )
+										sPassengerAPCost = max( sPassengerAPCost, ( pPassenger->bActionPoints - sPassengerAPCost ) - sPassengerAPTreshold );
+									else
+										sPassengerAPCost = 0;
+									break;
+							}
+							sPassengerAPCost = sPassengerAPCost * gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale / 100;
+							DeductPoints( pPassenger, sPassengerAPCost, 0, MOVEMENT_INTERRUPT );
+						}
+					}
+				}
             }
 
             // OK, let's check for monsters....
@@ -4449,7 +4484,7 @@ UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
 
         if ( fGoodForLessOKLife )
         {
-            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
                 return( (UINT8)cnt );
             }
@@ -4480,7 +4515,7 @@ UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
 
         if ( fGoodForLessOKLife )
         {
-            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
                 return( (UINT8)cnt );
             }
@@ -4559,7 +4594,7 @@ UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
         if ( fGoodForLessOKLife )
         {
             // Check for bLife > 0
-            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
                 return( (UINT8)cnt );
             }
@@ -4589,7 +4624,7 @@ UINT8 FindPrevActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
 
         if ( fGoodForLessOKLife )
         {
-            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+            if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && ( pTeamSoldier->bAssignment < ON_DUTY || pTeamSoldier->bAssignment == VEHICLE ) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
             {
                 return( (UINT8)cnt );
             }

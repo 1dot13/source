@@ -33,6 +33,24 @@ typedef struct
 	
 } NEW_CAR;
 
+typedef struct
+{
+	UINT8	ubSeatIndex;		// index inside a vehicle (corresponding to .pPassengers[counter])
+	CHAR16	zSeatName[16];		// name (to display on entering menu and on team panel)
+	BOOLEAN	fDriver;			// seat has to be taken to steer the vehicle
+	BOOLEAN	fView;				// can look out of vehicle
+	BOOLEAN	fDriveBy;			// can shoot from this seat
+	BOOLEAN	fSeatBelt;			// for collisions
+	BOOLEAN	fHidden;			// merc on this seat is invisible from outside - spy as a driver smuggling in others?
+	UINT8	ubRotation;			// rotation in relation to vehicle
+	UINT8	ubTunnelVision;		// tunnel vision (small windows, etc.)
+	UINT8	ubProtection;		// influence probability vehicle will be hit instead of passenger
+	UINT8	ubCompartment;		// passenger can switch to another seat in the same compartment without exiting vehicle
+	UINT8	ubStructureLink;	// link to physical part of structure (for hit calculations)
+	UINT32	usMountedGun;		// passenger on this seat will use this gun instead of his own, link to Items.xml
+
+} VEHICLE_SEAT;
+
 extern NEW_CAR gNewVehicle[NUM_PROFILES];
 
 extern BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile );
@@ -313,7 +331,7 @@ BOOLEAN AnyAccessibleVehiclesInSoldiersSector( SOLDIERTYPE *pSoldier );
 BOOLEAN IsThisVehicleAccessibleToSoldier( SOLDIERTYPE *pSoldier, INT32 iId );
 
 // add soldier to Vehicle
-BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId );
+BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecificSeat = FALSE, UINT8 ubSeatIndex = 0 );
 
 // remove soldier from vehicle
 BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId );
@@ -369,7 +387,7 @@ INT32 GetNumberInVehicle( INT32 iId );
 // grab # in vehicle skipping EPCs (who aren't allowed to drive :-)
 INT32 GetNumberOfNonEPCsInVehicle( INT32 iId );
 
-BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier );
+BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpecificSeat = FALSE, UINT8 ubSeatIndex = 0 );
 
 SOLDIERTYPE *GetDriver( INT32 iID );
 

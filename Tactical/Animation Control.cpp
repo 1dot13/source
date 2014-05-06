@@ -3496,12 +3496,15 @@ void	InitAnimationSurfacesPerBodytype( )
 	// HUMVEE
 	gubAnimSurfaceIndex[ HUMVEE ][ STANDING ]																		= HUMVEE_BASIC;
 	gubAnimSurfaceIndex[ HUMVEE ][ WALKING ]																		= HUMVEE_BASIC;
+	gubAnimSurfaceIndex[ HUMVEE ][ RUNNING ]																		= HUMVEE_BASIC;
+	gubAnimSurfaceIndex[ HUMVEE ][ WALK_BACKWARDS ]																		= HUMVEE_BASIC;
 	gubAnimSurfaceIndex[ HUMVEE ][ VEHICLE_DIE ]																= HUMVEE_DIE;
 	gubAnimSurfaceCorpseID[ HUMVEE ][ STANDING ]													= HUMMER_DEAD;
 
 	// TANK
 	gubAnimSurfaceIndex[ TANK_NW ][ STANDING ]																	= TANKNW_READY;
-	gubAnimSurfaceIndex[ TANK_NW ][ WALKING ]																		= TANKNW_READY;
+	gubAnimSurfaceIndex[ TANK_NW ][ WALKING ]																	= TANKNW_READY;
+	gubAnimSurfaceIndex[ TANK_NW ][ WALK_BACKWARDS ]															= TANKNW_READY;
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_SHOOT ]																= TANKNW_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_BURST ]																= TANKNW_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NW ][ VEHICLE_DIE ]																= TANKNW_DIE;
@@ -3509,7 +3512,8 @@ void	InitAnimationSurfacesPerBodytype( )
 
 	// TANK
 	gubAnimSurfaceIndex[ TANK_NE ][ STANDING ]																	= TANKNE_READY;
-	gubAnimSurfaceIndex[ TANK_NE ][ WALKING ]																		= TANKNE_READY;
+	gubAnimSurfaceIndex[ TANK_NE ][ WALKING ]																	= TANKNE_READY;
+	gubAnimSurfaceIndex[ TANK_NE ][ WALK_BACKWARDS ]															= TANKNE_READY;
 	gubAnimSurfaceIndex[ TANK_NE ][ TANK_SHOOT ]																= TANKNE_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NE ][ TANK_BURST ]																= TANKNE_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NE ][ VEHICLE_DIE ]																= TANKNE_DIE;
@@ -3518,17 +3522,23 @@ void	InitAnimationSurfacesPerBodytype( )
 	// ELDORADO
 	gubAnimSurfaceIndex[ ELDORADO ][ STANDING ]																	= ELDORADO_BASIC;
 	gubAnimSurfaceIndex[ ELDORADO ][ WALKING ]																	= ELDORADO_BASIC;
+	gubAnimSurfaceIndex[ ELDORADO ][ RUNNING ]																	= ELDORADO_BASIC;
+	gubAnimSurfaceIndex[ ELDORADO ][ WALK_BACKWARDS ]															= ELDORADO_BASIC;
 	gubAnimSurfaceIndex[ ELDORADO ][ VEHICLE_DIE ]															= ELDORADO_DIE;
 
 	// ICECREAMTRUCK
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ STANDING ]														= ICECREAMTRUCK_BASIC;
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ WALKING ]															= ICECREAMTRUCK_BASIC;
+	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ RUNNING ]															= ICECREAMTRUCK_BASIC;
+	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ WALK_BACKWARDS ]													= ICECREAMTRUCK_BASIC;
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ VEHICLE_DIE ]													= HUMVEE_DIE;
 	gubAnimSurfaceCorpseID[ ICECREAMTRUCK ][ STANDING ]												= ICECREAM_DEAD;
 
 	// JEEP
 	gubAnimSurfaceIndex[ JEEP ][ STANDING ]																			= JEEP_BASIC;
 	gubAnimSurfaceIndex[ JEEP ][ WALKING ]																			= JEEP_BASIC;
+	gubAnimSurfaceIndex[ JEEP ][ RUNNING ]																			= JEEP_BASIC;
+	gubAnimSurfaceIndex[ JEEP ][ WALK_BACKWARDS ]																	= JEEP_BASIC;
 	gubAnimSurfaceIndex[ JEEP ][ VEHICLE_DIE ]																	= JEEP_DIE;
 }
 

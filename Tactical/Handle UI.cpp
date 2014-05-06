@@ -1477,9 +1477,22 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 	gUIActionModeChangeDueToMouseOver = FALSE;
 
 	// If we are a vehicle..... just show an X
+	//if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+	//{
+	//	if ( ( OK_ENTERABLE_VEHICLE( pSoldier ) ) )
+	//	{
+	//		if ( !UIHandleOnMerc( TRUE ) )
+	//		{
+	//			guiNewUICursor = FLOATING_X_UICURSOR;
+	//			return( GAME_SCREEN );
+	//		}
+	//	}
+	//}
+
+	// If we are a passenger or driver just show an X
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		if ( ( OK_ENTERABLE_VEHICLE( pSoldier ) ) )
+		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER )) )
 		{
 			if ( !UIHandleOnMerc( TRUE ) )
 			{

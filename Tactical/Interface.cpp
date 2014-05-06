@@ -916,7 +916,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	//SetButtonSavedRect( iActionIcons[ RUN_ICON ] );
 	ButtonList[ iActionIcons[ RUN_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( pSoldier->MercInWater( ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
+	if ( pSoldier->MercInWater( ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
 	{
 		DisableButton( iActionIcons[ RUN_ICON ] );
 	}

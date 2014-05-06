@@ -6287,13 +6287,14 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !gfInItemPickupMenu && gpItemPointer == NULL )
 		{
-			if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
-			{
-				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
+			//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
+			//{
+			//	pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
 
-				HandleLocateSelectMerc( pVehicle->ubID, 0 );
-			}
-			else
+			//	HandleLocateSelectMerc( pVehicle->ubID, 0 );
+			//}
+			//else
 			{
 				if ( !InOverheadMap( ) )
 				{
@@ -6350,7 +6351,8 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		if ( !InOverheadMap( ) )
 		{
 			// Only if guy is not dead!
-			if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			//if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) )
 			{
 				gfSwitchPanel = TRUE;
 				gbNewPanel = SM_PANEL;
@@ -6846,8 +6848,17 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason == MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		// Change to use cursor mode...
-		guiPendingOverrideEvent = A_ON_TERRAIN;
+		// anv: select vehicle by clicking on the steering wheel
+		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+		{
+			SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
+			HandleLocateSelectMerc( pVehicle->ubID, 0 );
+		}
+		else
+		{
+			// Change to use cursor mode...
+			guiPendingOverrideEvent = A_ON_TERRAIN;
+		}
 	}
 
 	if (iReason == MSYS_CALLBACK_REASON_RBUTTON_UP )
