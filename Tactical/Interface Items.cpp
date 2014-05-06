@@ -6356,11 +6356,11 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			Object2 = *pAttachment;
 			gfItemDescObjectIsAttachment = TRUE;
-			InternalInitItemDescriptionBox( &Object2, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
+			//InternalInitItemDescriptionBox( &Object2, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
+			InternalInitItemDescriptionBox( pAttachment, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
 
 			if ( fShopkeeperItem )
-			{
-				pShopKeeperItemDescObject = &Object2;
+			{				pShopKeeperItemDescObject = &Object2;
 				StartSKIDescriptionBox( );
 			}
 		}
