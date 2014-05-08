@@ -1935,7 +1935,7 @@ UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8
 				if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
 				{
 					// -10% penalty for untrained mercs
-					usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+					usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 + gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
 
 					if (HAS_SKILL_TRAIT( pCheckedTrainer, TEACHING_NT ))
 					{

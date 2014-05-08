@@ -417,14 +417,14 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 					if (!FacilityTypes_TextOnly)
 					{
 						// Begin with basic facility data
-							wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
+						wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
 						wcscpy(gFacilityTypes[pData->curIndex].szFacilityShortName, pData->curFacilityTypeData.szFacilityShortName);
 						gFacilityTypes[pData->curIndex].ubTotalStaffLimit = pData->curFacilityTypeData.ubTotalStaffLimit;
 
 						gFacilityTypes[pData->curIndex].ubMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMilitiaTrainersAllowed;
 						gFacilityTypes[pData->curIndex].ubMobileMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed;
 						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
-						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
+						gFacilityTypes[pData->curIndex].usMobileMilitiaTraining = pData->curFacilityTypeData.usMobileMilitiaTraining;
 
 						// Set assignment-specific data
 						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)

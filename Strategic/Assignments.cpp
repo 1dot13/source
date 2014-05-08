@@ -2740,8 +2740,8 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	// SANDRO - Technician trait gives a good bonus to repair items
 	if ( gGameOptions.fNewTraitSystem )
 	{
-		usRepairPts = usRepairPts * (100 - gSkillTraitValues.bSpeedModifierRepairing) / 100;
-		*pusMaxPts = *pusMaxPts * (100 - gSkillTraitValues.bSpeedModifierRepairing) / 100;
+		usRepairPts = usRepairPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
+		*pusMaxPts = *pusMaxPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
 
 		if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
 		{
@@ -6041,7 +6041,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 		*pusMaxPts	= max( 10, ( bTrainerNatSkill - bTraineeSkill )) * ( bTraineeNatWisdom + ( pInstructor->stats.bWisdom + pInstructor->stats.bLeadership ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
 
 		// penalty for non-specialized mercs
-		bTrainingBonus = bTrainingBonus * (100 - gSkillTraitValues.bSpeedModifierTeachingOthers) / 100;
+		bTrainingBonus = bTrainingBonus * (100 + gSkillTraitValues.bSpeedModifierTeachingOthers) / 100;
 
 		// check for teaching skill bonuses
 		if ( HAS_SKILL_TRAIT( pInstructor, TEACHING_NT) )
@@ -20087,7 +20087,7 @@ void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 bZ, UINT8 ubMilit
 			if ( gGameOptions.fNewTraitSystem ) //old/new traits
 			{
 				// -10% penalty for untrained mercs
-				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 + gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
 
 				if (HAS_SKILL_TRAIT( pTrainer, TEACHING_NT ))
 				{
@@ -20130,7 +20130,7 @@ void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 bZ, UINT8 ubMilit
 			if ( gGameOptions.fNewTraitSystem ) //old/new traits
 			{
 				// -10% penalty for untrained mercs
-				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 + gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
 
 				if (HAS_SKILL_TRAIT( pTrainer, TEACHING_NT ))
 				{

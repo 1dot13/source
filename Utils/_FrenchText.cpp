@@ -6589,11 +6589,11 @@ STR16 gzTooltipStrings[] =
 	L"%s|Compétence 1 : %s\n",
 	L"%s|Compétence 2 : %s\n", 
 	L"%s|Compétence 3 : %s\n",
-    // Additional suppression effects - sevenfm	
-    L"%s|P|A perdu(s) en raison de |S|uppression : %d\n",
-    L"%s|Tolérance de |Suppression : %d\n",
-    L"|Niveau |effectif du |C|hoc : %d\n",
-    L"%s|Moral de l'|I|A : %d\n",
+    // Additional suppression effects - sevenfm		// TODO.Translate
+    L"%s|A|Ps lost due to |S|uppression: %d\n",
+    L"%s|Suppression |Tolerance: %d\n",
+    L"%s|Effective |S|hock |Level: %d\n",
+    L"%s|A|I |Morale: %d\n",
 };
 
 STR16 New113Message[] =
