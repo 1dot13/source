@@ -691,25 +691,25 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 		if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, REGULAR_MILITIA )
 		&& (gGameExternalOptions.gfTrainVeteranMilitia)
 		&& (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay))
-	{
-		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iVeteranCostModifier) * iNumberOfSectors;
-		Assert( giTotalCostOfTraining > 0 );
-		gfAreWePromotingRegular = TRUE;
-	}
-	else if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, GREEN_MILITIA ))
-	{
-		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iRegularCostModifier) * iNumberOfSectors;
-		Assert( giTotalCostOfTraining > 0 );
-		gfAreWePromotingGreen = TRUE;
-	}
-		// Normal training.
-	else
-	{
-		giTotalCostOfTraining = iMilitiaTrainingCost * iNumberOfSectors;
-		Assert( giTotalCostOfTraining > 0 );
+		{
+			giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iVeteranCostModifier) * iNumberOfSectors;
+			Assert( giTotalCostOfTraining > 0 );
+			gfAreWePromotingRegular = TRUE;
 		}
+		else if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, GREEN_MILITIA ))
+		{
+			giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iRegularCostModifier) * iNumberOfSectors;
+			Assert( giTotalCostOfTraining > 0 );
+			gfAreWePromotingGreen = TRUE;
+		}
+		// Normal training.
+		else
+		{
+			giTotalCostOfTraining = iMilitiaTrainingCost * iNumberOfSectors;
+			Assert( giTotalCostOfTraining > 0 );
+		}
+		gfAreWeTrainingMobile = FALSE;
 	}
-
 	// Mobile
 	else 
 	{
@@ -1032,6 +1032,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		{
 			giTotalCostOfTraining = (iMilitiaTrainingCost);
 		}
+		gfAreWeTrainingMobile = FALSE;
 	}
 
 	// can player afford to continue training?

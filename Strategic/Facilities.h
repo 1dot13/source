@@ -17,8 +17,9 @@ extern void UpdateStrategicDetectionLevel( );
 extern void UpdateSkyriderCostModifier( );
 extern INT16 gsSkyriderCostModifier; // This variable is SAVED/LOADED
 
-// HEADROCK HAM 3.6: Strategic info variable, total of costs accumulated for the use of facilities today. Deducted
-// from account and reset at midnight, unless player can't pay (in which case, carries over to the next day).
+// HEADROCK HAM 3.6: Strategic info variable, total of income/costs accumulated for the use of facilities today.
+// Account settle and reset at midnight, unless player can't pay (in which case, carries over to the next day).
+extern INT32 giTotalEarnedForFacilityOperationsToday; // This variable is SAVED and LOADED.
 extern INT32 giTotalOwedForFacilityOperationsToday; // This variable is SAVED and LOADED.
 // Do we have outstanding debts for facility operation?
 extern BOOLEAN gfOutstandingFacilityDebt; // This variable is SAVED and LOADED.
@@ -65,6 +66,7 @@ enum
 void UpdateGlobalVariablesFromFacilities( void );
 void UpdateFacilityUsageCosts( void );
 
+void HandleDailyPaymentFacilityIncome( void );
 void HandleDailyPaymentFacilityDebt( void );
 void HandleManualPaymentFacilityDebt( void );
 void HandleHourlyRisks( void );

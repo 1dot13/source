@@ -593,6 +593,12 @@ void MercDailyUpdate()
 		AdjustRoamingRestrictions( FALSE );
 	}
 
+	// Buggler: Pay income for operating Facilities today.
+	if (giTotalEarnedForFacilityOperationsToday)
+	{
+		HandleDailyPaymentFacilityIncome();
+	}
+
 	// HEADROCK HAM 3.6: Pay debt for operating Facilities today. If can't be paid, apply loyalty hit.
 	if (giTotalOwedForFacilityOperationsToday)
 	{

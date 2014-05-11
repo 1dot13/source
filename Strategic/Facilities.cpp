@@ -41,9 +41,10 @@
 #endif
 
 INT16 gsSkyriderCostModifier;
-// HEADROCK HAM 3.6: Strategic info variable, total of costs accumulated for the use of facilities today. Deducted
-// from account and reset at midnight, unless player can't pay (in which case, carries over to the next day).
+// HEADROCK HAM 3.6: Strategic info variable, total of income/costs accumulated for the use of facilities today.
+// Account settle and reset at midnight, unless player can't pay (in which case, carries over to the next day).
 // This variable is SAVED and LOADED.
+INT32 giTotalEarnedForFacilityOperationsToday = 0;
 INT32 giTotalOwedForFacilityOperationsToday = 0;
 BOOLEAN gfOutstandingFacilityDebt = TRUE;
 
@@ -626,15 +627,22 @@ void UpdateFacilityUsageCosts( )
 				else if (sCost < 0)
 				{
 					/////////////////////////////////////////////////////////
-					// Put money directly into the player's account
+					// Increase income for operating this facility
 
-					LaptopSaveInfo.iCurrentBalance += (-1 * sCost);
+					giTotalEarnedForFacilityOperationsToday += (-1 * gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour);
 				}
 
 			}
 		}
 		ubCounter++;
 	}
+}
+
+void HandleDailyPaymentFacilityIncome( void )
+{
+	// Pay total income.
+	AddTransactionToPlayersBook( FACILITY_OPERATIONS, 0, GetWorldTotalMin(), giTotalEarnedForFacilityOperationsToday );
+	giTotalEarnedForFacilityOperationsToday = 0;
 }
 
 // HEADROCK HAM 3.6: This function runs once at the end of each day.
@@ -2036,7 +2044,8 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 
 void InitFacilities()
 {
-	// Initialize facility debt.
+	// Initialize facility accounts.
+	giTotalEarnedForFacilityOperationsToday = 0;
 	giTotalOwedForFacilityOperationsToday = 0;
 	gfOutstandingFacilityDebt = FALSE;
 }
