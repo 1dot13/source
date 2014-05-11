@@ -1601,7 +1601,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 	// SANDRO - STOMP traits
 	else
 	{
-		if ( (MercPtrs[ ubOwner ] != NULL) && gGameOptions.fNewTraitSystem)
+		if ( ubOwner < TOTAL_SOLDIERS && (MercPtrs[ ubOwner ] != NULL) && gGameOptions.fNewTraitSystem)
 		{
 			// Demolitions damage bonus with bombs and mines
 			if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], DEMOLITIONS_NT ) &&

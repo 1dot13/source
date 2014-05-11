@@ -5863,6 +5863,12 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			}
 
 		}
+		else
+		{
+			// anv: for unoccupied slots clear tooltips
+			SetRegionFastHelpText( &(gTEAM_FaceRegions[ cnt ]), L"" );
+			SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
+		}
 	}
 
 	UpdateTEAMPanel( );
@@ -6262,6 +6268,11 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
+	// anv: did we click on empty panel?
+	if ( !gTeamPanel[ ubID ].fOccupied )
+	{
+		return;
+	}
 
 	// Now use soldier ID values
 	ubSoldierID = gTeamPanel[ ubID ].ubID;
