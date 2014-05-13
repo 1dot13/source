@@ -5825,6 +5825,12 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 		fCheckFlag = MAPELEMENT_ENEMY_MINE_PRESENT;
 	}
 
+	// anv: vehicles and passengers can't detect mines
+	if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_DRIVER | SOLDIER_PASSENGER ))	
+	{
+		return (FALSE);
+	}
+
 	// check every tile around gridno for the presence of "nasty stuff"
 	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ++ubDirection)
 	{

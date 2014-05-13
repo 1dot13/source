@@ -1957,7 +1957,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	}
 
 	// If tired, reduce action points accordingly (by up to 1/2)
-	if (this->bBreath < 100)
+	if (this->bBreath < 100 && !( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		ubPoints -= (ubPoints * (100 - this->bBreath)) / 200;
 
 	if (this->sWeightCarriedAtTurnStart > 100)
@@ -7879,27 +7879,13 @@ void SOLDIERTYPE::TurnSoldier( void )
 
 	// If we are a vehicle... DON'T TURN!
 	// anv: YES PLIZ DO
-	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
-	{
-		//if ( this->ubBodyType != TANK_NW && this->ubBodyType != TANK_NE )
-		//{
-		//	return;
-		//}
-
-		// need to turn around passengers inside
-		INT32 iId = this->bVehicleID;
-
-		// Loop through passengers and update each guy's rotation
-		for( INT32 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
-		{
-			if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
-			{
-				pVehicleList[ iId ].pPassengers[ iCounter ]->flags.fDontChargeTurningAPs = TRUE;
-				pVehicleList[ iId ].pPassengers[ iCounter ]->EVENT_SetSoldierDesiredDirection( this->pathing.bDesiredDirection );
-				//pVehicleList[ iId ].pPassengers[ iCounter ]->pathing.bDesiredDirection = this->pathing.bDesiredDirection;
-			}
-		}
-	}
+	//if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	//{
+	//	if ( this->ubBodyType != TANK_NW && this->ubBodyType != TANK_NE )
+	//	{
+	//		return;
+	//	}
+	//}
 	//else	// Lesh: patch for "Bug: Enemy turns around in turn based mode!"
 	{
 		// in case of errors in turning tasks
@@ -8207,6 +8193,25 @@ void SOLDIERTYPE::TurnSoldier( void )
 	// This is needed for prone animations as well as any multi-tiled structs
 	if ( fDoDirectionChange )
 	{
+		if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		{
+			// need to turn around passengers inside
+			INT32 iId = this->bVehicleID;
+
+			// check which side vehicle turned
+			INT16 bDirectionChange = QuickestDirection( this->ubDirection, this->pathing.bDesiredDirection );
+
+			// Loop through passengers and update each guy's rotation
+			for( INT32 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+			{
+				if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
+				{
+					pVehicleList[ iId ].pPassengers[ iCounter ]->flags.fDontChargeTurningAPs = TRUE;
+					pVehicleList[ iId ].pPassengers[ iCounter ]->EVENT_SetSoldierDesiredDirection( ( pVehicleList[ iId ].pPassengers[ iCounter ]->pathing.bDesiredDirection + bDirectionChange + NUM_WORLD_DIRECTIONS ) % NUM_WORLD_DIRECTIONS );
+				}
+			}
+		}
+
 		// If the soldier is not crawling or multi-tiled, he should be allowed to turn in place.  Even if there is some
 		// obstacle he shouldn't be standing on.
 		if ( OKToAddMercToWorld( this, (INT8)sDirection ) )
@@ -8228,7 +8233,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 
 			this->EVENT_SetSoldierDirection( sDirection );
 
-			if ( this->ubBodyType != LARVAE_MONSTER && !this->MercInWater( ) && this->bOverTerrainType != DIRT_ROAD && this->bOverTerrainType != PAVED_ROAD )
+			if ( this->ubBodyType != LARVAE_MONSTER && !this->MercInWater( ) && this->bOverTerrainType != DIRT_ROAD && this->bOverTerrainType != PAVED_ROAD && !( this->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ))
 			{
 				PlaySoldierFootstepSound( this );
 			}

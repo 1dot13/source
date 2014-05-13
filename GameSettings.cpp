@@ -1381,6 +1381,8 @@ void LoadGameExternalOptions()
 	else
 		gGameExternalOptions.fSoldierProfiles_Militia		= FALSE;
 
+	gGameExternalOptions.fAllowDrivingVehiclesInTactical			= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_DRIVING_VEHICLES_IN_TACTICAL", TRUE);
+
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_SCALE", 100, 0, 200);
 
@@ -1465,6 +1467,11 @@ void LoadGameExternalOptions()
 
 	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
 	gGameExternalOptions.fAutoCollapseInventoryOnTurnEnd	= iniReader.ReadBoolean("Tactical Interface Settings","AUTO_COLLAPSE_INVENTORY_ON_TURN_END", TRUE);
+
+	// anv: vehicle interface options
+	gGameExternalOptions.fAddPassengerToAnySquad			= iniReader.ReadBoolean("Tactical Interface Settings","ADD_PASSENGER_TO_ANY_SQUAD", TRUE);
+	gGameExternalOptions.fPassengerLeavingSwitchToNewSquad	= iniReader.ReadBoolean("Tactical Interface Settings","PASSENGER_LEAVING_SWITCH_TO_NEW_SQUAD", FALSE);
+
 	// *** ddd - END
 
 	// SANDRO - Improved camo applying and camo can be removed

@@ -5325,7 +5325,7 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 			if ( ( GetNumberInVehicle( pTSoldier->bVehicleID ) == 0 ) || !fMovementMode )
 			{
 				// Find a gridno closest to sweetspot...
-				sActionGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, pSoldier->usUIMovementMode, 5, &ubDirection, 0, pTSoldier );
+				sActionGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, pSoldier->usUIMovementMode, 5, &ubDirection, 0, pTSoldier, TRUE );
 				
 				if (!TileIsOutOfBounds(sActionGridNo))
 				{
@@ -5395,6 +5395,10 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 			return;
 		}
 
+		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		{
+			return;
+		}
 
 		// Check if we are on a merc... if so.. steal!
 		if ( gfUIFullTargetFound )
@@ -5563,18 +5567,25 @@ INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 		//}
 
 		// ATE: If we are a vehicle, no moving!
-		if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		if ( !gGameExternalOptions.fAllowDrivingVehiclesInTactical && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
-			// anv: yes moving
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
-			//return( -3 );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
+			return( -3 );
 		}
 
-		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		//if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER ) )
 		{
 			// anv: there's some weird bug with moving invisible passengers after loading game, that should solve it
 			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ VEHICLE_CANT_MOVE_IN_TACTICAL ] );
+			// actually, you know what, let's switch to vehicle using the occasion
+			HandleLocateSelectMerc( GetDriver(MercPtrs[ pSoldier->ubID ]->iVehicleId)->ubID, 0 );
 			return( -3 );
+		}
+
+		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
+		{
+			pSoldier = GetSoldierStructureForVehicle( MercPtrs[ pSoldier->ubID ]->iVehicleId );
 		}
 
 		// OK, check for height differences.....
@@ -6775,6 +6786,13 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		// don't forget to renew selection of merc
 		gusSelectedSoldier = ubTargetMerc;
 
+		// anv: if swapped guy was a driver, make sure vehicle driver ubID gets updates
+		if( MercPtrs[ ubTargetMerc ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+		{
+			pVehicleList[ pSoldier->iVehicleId ].ubDriver = MercPtrs[ ubTargetMerc ]->ubID;
+		}
+
+
 		// refresh interface
 		fCharacterInfoPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
@@ -7763,22 +7781,27 @@ void HandleTBPickUpBackpacks( void )
 }
 void HandleTBSoldierRun( void )
 {
-	if ( !MercPtrs[ gusSelectedSoldier ]->MercInWater(	) && !(MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_ROBOT ) )
+	SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
+	if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
+	{
+		pSoldier = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+	}
+	if ( !pSoldier->MercInWater() && !(pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
 	{
 		//change selected merc to run
-		if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING 
-		   && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING
-			&& MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_WEAPON_RDY
-			 && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_DUAL_RDY
-			  && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
+		if ( pSoldier->usUIMovementMode != WALKING 
+		   && pSoldier->usUIMovementMode != RUNNING
+			&& pSoldier->usUIMovementMode != WALKING_WEAPON_RDY
+			 && pSoldier->usUIMovementMode != WALKING_DUAL_RDY
+			  && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
 		{
-			UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ANIM_STAND );
-			MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = 1;
+			UIHandleSoldierStanceChange( (UINT8)pSoldier->ubID, ANIM_STAND );
+			pSoldier->flags.fUIMovementFast = 1;
 		}
 		else
 		{
-			MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = 1;
-			MercPtrs[ gusSelectedSoldier ]->usUIMovementMode = RUNNING;
+			pSoldier->flags.fUIMovementFast = 1;
+			pSoldier->usUIMovementMode = RUNNING;
 			gfPlotNewMovement = TRUE;
 		}
 	}

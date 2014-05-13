@@ -1459,6 +1459,7 @@ UINT32 UIHandleSelectMerc( UI_EVENT *pUIEvent )
 UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 {
 	SOLDIERTYPE				*pSoldier;
+	SOLDIERTYPE				*pVehicle;
 	INT32 usMapPos;
 	BOOLEAN						fSetCursor = FALSE;
 	UINT32						uiCursorFlags;
@@ -1466,6 +1467,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 	EXITGRID					ExitGrid;
 	INT32 sIntTileGridNo;
 	ITEM_POOL					*pItemPool;
+	BOOLEAN						fVehicleDriver = FALSE;
 
 	static INT32 sGridNoForItemsOver;
 	static INT8				bLevelForItemsOver;
@@ -1477,28 +1479,33 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 	gUIActionModeChangeDueToMouseOver = FALSE;
 
 	// If we are a vehicle..... just show an X
-	//if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-	//{
-	//	if ( ( OK_ENTERABLE_VEHICLE( pSoldier ) ) )
-	//	{
-	//		if ( !UIHandleOnMerc( TRUE ) )
-	//		{
-	//			guiNewUICursor = FLOATING_X_UICURSOR;
-	//			return( GAME_SCREEN );
-	//		}
-	//	}
-	//}
-
-	// If we are a passenger or driver just show an X
-	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+	if ( !gGameExternalOptions.fAllowDrivingVehiclesInTactical && GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER )) )
+		if ( ( OK_ENTERABLE_VEHICLE( pSoldier ) ) )
 		{
 			if ( !UIHandleOnMerc( TRUE ) )
 			{
 				guiNewUICursor = FLOATING_X_UICURSOR;
 				return( GAME_SCREEN );
 			}
+		}
+	}
+
+	// If we are a passenger or driver just show an X
+	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+	{
+		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER )) )
+		{
+			if ( !UIHandleOnMerc( TRUE ) )
+			{
+				guiNewUICursor = FLOATING_X_UICURSOR;
+				return( GAME_SCREEN );
+			}
+		}
+		else if ( pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER ) )
+		{
+			pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+			fVehicleDriver = TRUE;
 		}
 	}
 
@@ -1571,6 +1578,11 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 		{
 			// Get Soldier Pointer
 			GetSoldier( &pSoldier, gusSelectedSoldier );
+
+			if( fVehicleDriver )
+			{
+				pSoldier = pVehicle;
+			}
 
 			// Get interactvie tile node
 			pIntNode = GetCurInteractiveTileGridNo( &sIntTileGridNo );
@@ -1879,6 +1891,11 @@ UINT32 UIHandleCWait( UI_EVENT *pUIEvent )
 
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier )	)
 	{
+		if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
+		{
+			pSoldier = GetSoldierStructureForVehicle( MercPtrs[ gusSelectedSoldier ]->iVehicleId );
+		}
+
 		pInvTile = GetCurInteractiveTile( );
 
 		if ( pInvTile && gpInvTileThatCausedMoveConfirm != pInvTile )
@@ -2026,6 +2043,12 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 			// Get soldier
 			if ( GetSoldier( &pSoldier, gusSelectedSoldier )	)
 			{
+				// anv: if we selected vehicle driver, move his vehicle
+				if ( pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER ) )
+				{
+					pSoldier = GetSoldierStructureForVehicle( MercPtrs[ pSoldier->ubID ]->iVehicleId );
+				}
+
 				// CHRISL: This block should only run if we're running in the new inventory system
 				if((UsingNewInventorySystem() == true))
 				{
@@ -3196,6 +3219,16 @@ UINT32 UIHandleHCOnTerrain( UI_EVENT *pUIEvent )
 		return( GAME_SCREEN );
 	}
 
+	// If we are a passenger or driver just show an ?
+	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+	{
+		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_DRIVER | SOLDIER_PASSENGER )) )
+		{
+			guiNewUICursor = INVALID_ACTION_UICURSOR;
+			return( GAME_SCREEN );
+		}
+	}
+
 	// If we are out of breath, no cursor...
 	if ( pSoldier->bBreath < OKBREATH && pSoldier->bCollapsed )
 	{
@@ -3497,6 +3530,11 @@ UINT32 UIHandleIETOnTerrain( UI_EVENT *pUIEvent )
 void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
+
+	if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
+	{
+		pSoldier = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+	}
 
 	// Is this a valid stance for our position?
 	if ( !IsValidStance( pSoldier, bNewStance ) )
@@ -4979,7 +5017,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 	INT32							iBPCpst = 0;
 
 	// Make sure the merc is not collapsed!
-	if (!IsValidStance(pSoldier, ANIM_CROUCH) )
+	if (!IsValidStance(pSoldier, ANIM_CROUCH) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) && !IsValidStance(pSoldier, ANIM_STAND) ) )
 	{
 		if ( pSoldier->bCollapsed && pSoldier->bBreath < OKBREATH )
 		{

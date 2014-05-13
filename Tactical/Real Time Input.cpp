@@ -61,6 +61,7 @@
 
 #include "SkillMenu.h"						// sevenfm: need this for TraitsMenu
 
+#include "Vehicles.h"	// anv: for switching from soldier to vehicle
 
 #endif
 
@@ -177,6 +178,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 {
 	UINT16	usSoldierIndex;
 	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pVehicle;
 	UINT32	uiMercFlags;
 	static	UINT32 uiSingleClickTime;
 	INT32 usMapPos;
@@ -184,7 +186,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 	static BOOLEAN	fValidDoubleClickPossible = FALSE;
 	static BOOLEAN	fCanCheckForSpeechAdvance = FALSE;
 	static INT32		sMoveClickGridNo					= 0;
-
+	UINT16 usSubjectSoldier = gusSelectedSoldier;
 
 	// LEFT MOUSE BUTTON
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
@@ -199,6 +201,11 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 			if ( MercPtrs[ gusSelectedSoldier ]->pTempObject != NULL )
 			{
 				return;
+			}
+			if ( MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+			{
+				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ usSubjectSoldier ]->iVehicleId );
+				usSubjectSoldier = pVehicle->ubID;
 			}
 		}
 
@@ -299,9 +306,9 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 											{
 												BOOLEAN fResult;
 
-												if ( gusSelectedSoldier != NOBODY )
+												if ( usSubjectSoldier != NOBODY )
 												{
-													if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) ) == 1 )
+													if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
 													{
 														if ( gsCurrentActionPoints != 0 )
 														{
@@ -432,14 +439,14 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 								fDoubleClickIntercepted = TRUE;
 
 								// First check if we clicked on a guy, if so, make selected if it's ours
-								if( gusSelectedSoldier != NOBODY )
+								if( usSubjectSoldier != NOBODY )
 								{
 									// Set movement mode
 									// OK, only change this if we are stationary!
 									//if ( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY )
 									//if ( MercPtrs[ gusSelectedSoldier ]->usAnimState == WALKING )
 									{
-										MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = TRUE;
+										MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = TRUE;
 										*puiNewEvent = C_MOVE_MERC;
 									}
 								}
@@ -578,15 +585,15 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 												case CONFIRM_MOVE_MODE:
 
-													if ( gusSelectedSoldier != NOBODY )
+													if ( usSubjectSoldier != NOBODY )
 													{
-														if ( MercPtrs[ gusSelectedSoldier ]->usAnimState != RUNNING )
+														if ( MercPtrs[ usSubjectSoldier ]->usAnimState != RUNNING )
 														{
 															*puiNewEvent = C_MOVE_MERC;
 														}
 														else
 														{
-															MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = 2;
+															MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = 2;
 															*puiNewEvent = C_MOVE_MERC;
 														}
 													}
@@ -749,7 +756,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 															}
 															else if ( bReturnCode == 0 )
 															{
-																if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
+																if(	GetSoldier( &pSoldier, usSubjectSoldier ) )
 																{
 																	// First check if we clicked on a guy, if so, make selected if it's ours
 																	if(	FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) && ( uiMercFlags & OWNED_MERC ) )
@@ -770,9 +777,9 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																		{
 																			BOOLEAN fResult;
 
-																			if ( gusSelectedSoldier != NOBODY )
+																			if ( usSubjectSoldier != NOBODY )
 																			{
-																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) ) == 1 )
+																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
 																				{
 																					if ( gfUIAllMoveOn )
 																					{

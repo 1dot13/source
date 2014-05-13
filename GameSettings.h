@@ -833,6 +833,10 @@ typedef struct
 	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
 	BOOLEAN fAutoCollapseInventoryOnTurnEnd;
 
+	// anv: vehicle interface options
+	BOOLEAN fAddPassengerToAnySquad;
+	BOOLEAN fPassengerLeavingSwitchToNewSquad;
+
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
 
@@ -1450,6 +1454,8 @@ typedef struct
 	// anv: new iron man modes
 	UINT8 ubExtremeIronManSavingTimeNotification;
 	UINT8 ubExtremeIronManSavingHour;
+
+	BOOLEAN fAllowDrivingVehiclesInTactical;
 
 	UINT8 ubAPSharedAmongPassengersAndVehicleMode;
 	UINT8 ubAPSharedAmongPassengersAndVehicleScale;

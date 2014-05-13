@@ -51,7 +51,7 @@ INT32 FindGridNoFromSweetSpotWithStructData( SOLDIERTYPE *pSoldier, UINT16 usAni
 void SoldierInSectorSleep( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 */
 
-INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, UINT16 usAnimState, INT8 ubRadius, UINT8 *pubDirection, BOOLEAN fClosestToMerc, SOLDIERTYPE *pSrcSoldier );
+INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, UINT16 usAnimState, INT8 ubRadius, UINT8 *pubDirection, BOOLEAN fClosestToMerc, SOLDIERTYPE *pSrcSoldier, BOOLEAN fAllowSoldierCurrentGrid = FALSE );
 
 void SoldierInSectorPatient( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 void SoldierInSectorDoctor( SOLDIERTYPE *pSoldier, INT32 sGridNo );

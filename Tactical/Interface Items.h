@@ -226,6 +226,7 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 
 void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex = 0);
 void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE	*pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor, UINT8 iter = 0 );
+void INVRenderSteeringWheel( UINT32 uiBuffer, UINT32 uiSteeringWheelIndex, SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel );
 // HEADROCK HAM 5: Drawing a large item pic with extra data.
 void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObject, UINT32 uiItemGraphicNum, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, BOOLEAN fOutline, INT16 sOutlineColor );
 // CHRISL: Add a new function that will be used to render a pocket silhouette

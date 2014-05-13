@@ -34,6 +34,7 @@
 
 #define TANK( p ) (p->ubBodyType == TANK_NE || p->ubBodyType == TANK_NW )
 
-#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !TANK( p ) && p->stats.bLife >= OKLIFE	)
+//#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !TANK( p ) && p->stats.bLife >= OKLIFE	)
+#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && (!TANK( p ) || !(p->flags.uiStatusFlags & SOLDIER_ENEMY) ) && p->stats.bLife >= OKLIFE	)
 
 #endif

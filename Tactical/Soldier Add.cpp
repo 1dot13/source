@@ -606,7 +606,7 @@ INT32 FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( SOLDIERTYPE
 }
 
 
-INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, UINT16 usAnimState, INT8 ubRadius, UINT8 *pubDirection, BOOLEAN fClosestToMerc, SOLDIERTYPE *pSrcSoldier )
+INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, UINT16 usAnimState, INT8 ubRadius, UINT8 *pubDirection, BOOLEAN fClosestToMerc, SOLDIERTYPE *pSrcSoldier, BOOLEAN fAllowSoldierCurrentGrid )
 {
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
@@ -676,7 +676,8 @@ INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, U
 				&& gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REACHABLE )
 			{
 				// Go on sweet stop
-				if ( NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) )
+				// anv: sometimes it's possible soldier already is on the best grid, NewOKDestination alone would skip it
+				if ( NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) || ( fAllowSoldierCurrentGrid && pSoldier->sGridNo == sGridNo ) )
 				{
 					BOOLEAN fDirectionFound = FALSE;
 					UINT16	usOKToAddStructID;

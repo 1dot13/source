@@ -581,25 +581,9 @@ extern BOOLEAN gfMouseLockedOnBorder;
 // Wraps up check for AP-s get from a different soldier for in a vehicle...
 INT16 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 {
-	SOLDIERTYPE *pVehicle;
 
-	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
-	{
-		pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+	return ( pSoldier->bActionPoints );
 
-		if ( pVehicle != NULL )
-		{
-			return( pVehicle->bActionPoints );
-		}
-		else
-		{
-			return( 0 );
-		}
-	}
-	else
-	{
-		return ( pSoldier->bActionPoints );
-	}
 }
 
 void CheckForDisabledForGiveItem( )
@@ -683,6 +667,11 @@ void CheckForDisabledForGiveItem( )
 					{
 						gfSMDisableForItems = FALSE;
 					}
+				}
+				// anv: passengers in the same vehicle can pass items freely
+				else if ( MercPtrs[ ubSrcSoldier ]->iVehicleId != -1 && MercPtrs[ ubSrcSoldier ]->iVehicleId == MercPtrs[ gusSMCurrentMerc ]->iVehicleId )
+				{
+					gfSMDisableForItems = FALSE;
 				}
 			}
 			else
@@ -4515,7 +4504,6 @@ void SelectedMercButtonMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void SelectedMercButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	SOLDIERTYPE *pVehicle;
 
 	if ( gpSMCurrentMerc == NULL )
 	{
@@ -4535,24 +4523,15 @@ void SelectedMercButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// ATE: Don't if this guy can't....
 		if ( !gfSMDisableForItems )
 		{
-			if ( gpSMCurrentMerc->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			if ( CheckForMercContMove( gpSMCurrentMerc ) )
 			{
-				pVehicle = GetSoldierStructureForVehicle( gpSMCurrentMerc->iVehicleId );
-
-				HandleLocateSelectMerc( pVehicle->ubID, 0 );
+				// Continue
+				ContinueMercMovement( gpSMCurrentMerc );
+				ErasePath( TRUE );
 			}
 			else
 			{
-				if ( CheckForMercContMove( gpSMCurrentMerc ) )
-				{
-					// Continue
-					ContinueMercMovement( gpSMCurrentMerc );
-					ErasePath( TRUE );
-				}
-				else
-				{
-					HandleLocateSelectMerc( gpSMCurrentMerc->ubID, 0 );
-				}
+				HandleLocateSelectMerc( gpSMCurrentMerc->ubID, 0 );
 			}
 		}
 	}
@@ -4599,10 +4578,10 @@ void SelectedMercEnemyIndicatorCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// ATE: Don't if this guy can't....
 		if ( !gfSMDisableForItems )
 		{
-			if ( gpSMCurrentMerc->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
-			{
-			}
-			else
+			//if ( gpSMCurrentMerc->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			//{
+			//}
+			//else
 			{
 				if ( gpSMCurrentMerc->aiData.bOppCnt > 0 )
 				{
@@ -6224,10 +6203,10 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
-		{
-		}
-		else
+		//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		//{
+		//}
+		//else
 		{
 			SOLDIERTYPE *pSoldier;
 
@@ -6249,7 +6228,6 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT8 ubID, ubSoldierID;
-	SOLDIERTYPE *pVehicle;
 
 	ubID = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -6765,9 +6743,8 @@ void RenderSoldierTeamInv( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, UINT8 ubPa
 	if ( pSoldier->bActive && !(pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 	{
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
-		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiVEHINV, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
-			RestoreExternBackgroundRect( sX, sY, (INT16)( TM_INV_WIDTH ) , (INT16)( TM_INV_HEIGHT ) );
+		{			
+			INVRenderSteeringWheel( guiSAVEBUFFER, guiVEHINV, pSoldier, sX, sY, TM_INV_WIDTH, TM_INV_HEIGHT, fDirty );
 		}
 		else
 		{
@@ -6860,12 +6837,12 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason == MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		// anv: select vehicle by clicking on the steering wheel
-		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DRIVER )
-		{
-			SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
-			HandleLocateSelectMerc( pVehicle->ubID, 0 );
-		}
-		else
+		//if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+		//{
+		//	SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
+		//	HandleLocateSelectMerc( pVehicle->ubID, 0 );
+		//}
+		//else
 		{
 			// Change to use cursor mode...
 			guiPendingOverrideEvent = A_ON_TERRAIN;
@@ -6997,29 +6974,63 @@ void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 		return;
 	}
 
-	if ( !PlayerExistsInSlot( ubID ) )
-	{
-		// Find a free slot
-		for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
+	//if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+	//{
+		if ( !PlayerExistsInSlot( ubID ) )
 		{
-			if ( !gTeamPanel[ cnt ].fOccupied	)
+			// Find a free slot
+			for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 			{
-				gTeamPanel[ cnt ].fOccupied = TRUE;
-				gTeamPanel[ cnt ].ubID			= ubID;
+				if ( !gTeamPanel[ cnt ].fOccupied	)
+				{
+					gTeamPanel[ cnt ].fOccupied = TRUE;
+					gTeamPanel[ cnt ].ubID			= ubID;
 
-				MSYS_SetRegionUserData( &gTEAM_FirstHandInv[ cnt ], 0, cnt );
-				MSYS_SetRegionUserData( &gTEAM_FaceRegions[ cnt ], 0, cnt );
+					MSYS_SetRegionUserData( &gTEAM_FirstHandInv[ cnt ], 0, cnt );
+					MSYS_SetRegionUserData( &gTEAM_FaceRegions[ cnt ], 0, cnt );
 
-				// DIRTY INTERFACE
-				fInterfacePanelDirty = DIRTYLEVEL2;
+					// DIRTY INTERFACE
+					fInterfacePanelDirty = DIRTYLEVEL2;
 
-				// Set ID to do open anim
-				MercPtrs[ ubID ]->flags.fUInewMerc						= TRUE;
+					// Set ID to do open anim
+					MercPtrs[ ubID ]->flags.fUInewMerc						= TRUE;
 
-				break;
+					break;
+				}
 			}
 		}
-	}
+	//}
+	//else
+	//{
+	//	// anv: for passengers, position on team panel will be linked with seat in vehicle
+	//	if ( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	//	{
+	//		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubID ]->iVehicleId );
+	//		if( pVehicle != NULL )
+	//		{
+	//			for( UINT8 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+	//			{
+	//				SOLDIERTYPE *pPassenger = pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].pPassengers[ iCounter ];
+	//				if( pPassenger != NULL && pPassenger->ubID == ubID )
+	//				{
+	//					gTeamPanel[ iCounter ].fOccupied = TRUE;
+	//					gTeamPanel[ iCounter ].ubID = ubID;
+
+	//					MSYS_SetRegionUserData( &gTEAM_FirstHandInv[ iCounter ], 0, iCounter );
+	//					MSYS_SetRegionUserData( &gTEAM_FaceRegions[ iCounter ], 0, iCounter );
+
+	//					// DIRTY INTERFACE
+	//					fInterfacePanelDirty = DIRTYLEVEL2;
+
+	//					// Set ID to do open anim
+	//					MercPtrs[ ubID ]->flags.fUInewMerc = TRUE;
+	//
+	//					return;
+	//				}
+	//			}
+	//		}	
+	//	}
+	//}
 }
 
 BOOLEAN InitTEAMSlots( )

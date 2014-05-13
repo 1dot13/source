@@ -3504,6 +3504,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	// TANK
 	gubAnimSurfaceIndex[ TANK_NW ][ STANDING ]																	= TANKNW_READY;
 	gubAnimSurfaceIndex[ TANK_NW ][ WALKING ]																	= TANKNW_READY;
+	gubAnimSurfaceIndex[ TANK_NW ][ RUNNING ]																	= TANKNW_READY;
 	gubAnimSurfaceIndex[ TANK_NW ][ WALK_BACKWARDS ]															= TANKNW_READY;
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_SHOOT ]																= TANKNW_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_BURST ]																= TANKNW_SHOOT;
@@ -3513,6 +3514,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	// TANK
 	gubAnimSurfaceIndex[ TANK_NE ][ STANDING ]																	= TANKNE_READY;
 	gubAnimSurfaceIndex[ TANK_NE ][ WALKING ]																	= TANKNE_READY;
+	gubAnimSurfaceIndex[ TANK_NE ][ RUNNING ]																	= TANKNE_READY;
 	gubAnimSurfaceIndex[ TANK_NE ][ WALK_BACKWARDS ]															= TANKNE_READY;
 	gubAnimSurfaceIndex[ TANK_NE ][ TANK_SHOOT ]																= TANKNE_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NE ][ TANK_BURST ]																= TANKNE_SHOOT;

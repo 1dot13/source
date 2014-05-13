@@ -770,7 +770,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 						SOLDIERTYPE* pNewDriver = pVehicleList[ iId ].pPassengers[ iCounter ];
 						pNewDriver->flags.uiStatusFlags |= SOLDIER_DRIVER;
 						pNewDriver->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
-						pVehicleList[ iId ].ubDriver = pNewDriver->ubID;
+						SetDriver( iId, pNewDriver->ubID );
 						fNewDriverNeeded = FALSE;
 					}
 				}
@@ -831,13 +831,13 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 					TeleportVehicleToItsClosestSector( iId, pVehicleSoldier->ubGroupID );
 				}
 
-		// Remove vehicle from squad.....
-		RemoveCharacterFromSquads( pVehicleSoldier );
-		// ATE: Add him back to vehicle group!
-		if ( !DoesPlayerExistInPGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier ) )
-		{
-			AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier	);
-		}
+				// Remove vehicle from squad.....
+				RemoveCharacterFromSquads( pVehicleSoldier );
+				// ATE: Add him back to vehicle group!
+				if ( !DoesPlayerExistInPGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier ) )
+				{
+					AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier	);
+				}
 				ChangeSoldiersAssignment( pVehicleSoldier, ASSIGNMENT_EMPTY );
 
 
@@ -1644,6 +1644,9 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpe
 			SendChangeSoldierStanceEvent( pSoldier, ANIM_CROUCH );
 			// bInitialActionPoints - point in time where soldier and vehicle start sharing timeline
 			pSoldier->bInitialActionPoints = pSoldier->bActionPoints;
+			// set proper rotation
+			pSoldier->flags.fDontChargeTurningAPs = TRUE;
+			pSoldier->EVENT_SetSoldierDesiredDirection( pVehicle->pathing.bDesiredDirection );
 
 			// OK, add....
 			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, fSpecificSeat, ubSeatIndex );
@@ -1742,20 +1745,39 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 
 		// Update visiblity.....
 		HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO );
-
-		// Add to unique squad....
-		AddCharacterToUniqueSquad( pSoldier );
-
-		// can't call SetCurrentSquad OR SelectSoldier in mapscreen, that will initialize interface panels!!!
-	if ( guiCurrentScreen == GAME_SCREEN )
+	
+		if( !gGameExternalOptions.fAddPassengerToAnySquad )
 		{
-			SetCurrentSquad( pSoldier->bAssignment, TRUE );
-
-			SelectSoldier( pSoldier->ubID, FALSE, TRUE );
+			// Add to unique squad....
+			AddCharacterToUniqueSquad( pSoldier );
+		}
+		else
+		{
+			// anv: optionally add to any squad
+			AddCharacterToAnySquad( pSoldier );
 		}
 
-		PlayJA2Sample( pVehicleList[ pVehicle->bVehicleID ].iOutOfSound, RATE_11025, SoundVolume( HIGHVOLUME, pVehicle->sGridNo ), 1, SoundDir( pVehicle->sGridNo ) );
-		return( TRUE );
+		// can't call SetCurrentSquad OR SelectSoldier in mapscreen, that will initialize interface panels!!!
+		if ( guiCurrentScreen == GAME_SCREEN )
+		{
+			if( gGameExternalOptions.fPassengerLeavingSwitchToNewSquad )
+			{
+				SetCurrentSquad( pSoldier->bAssignment, TRUE );
+
+				SelectSoldier( pSoldier->ubID, FALSE, TRUE );
+			}
+			else
+			{
+				UINT16 usTempSelectedSoldier = gusSelectedSoldier;
+
+				SetCurrentSquad( CurrentSquad(), TRUE );
+
+				SelectSoldier( usTempSelectedSoldier, FALSE, FALSE );
+			}
+
+		}
+
+		PlayJA2Sample( pVehicleList[ pVehicle->bVehicleID ].iOutOfSound, RATE_11025, SoundVolume( HIGHVOLUME, pVehicle->sGridNo ), 1, SoundDir( pVehicle->sGridNo ) );		return( TRUE );
 	}
 
 	return( FALSE );

@@ -3102,6 +3102,11 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
     // Get guy
     pSoldier = MercPtrs[ usSoldierID ];
 
+	if( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+	{
+		pSoldier = GetDriver( pSoldier->iVehicleId );
+		usSoldierID = pSoldier->ubID;
+	}
 
     // If we are dead, ignore
     if ( !OK_CONTROLLABLE_MERC( pSoldier) )
@@ -3163,7 +3168,14 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
     gusSelectedSoldier = (UINT16)usSoldierID;
 
     // find which squad this guy is, then set selected squad to this guy
-    SetCurrentSquad( pSoldier -> bAssignment, FALSE );
+	if( pSoldier->bAssignment == VEHICLE )
+	{
+		SetCurrentSquad( GetSoldierStructureForVehicle(pSoldier->iVehicleId)->bAssignment, FALSE );	
+	}
+	else
+	{
+		SetCurrentSquad( pSoldier->bAssignment, FALSE );
+	}
 
     if ( pSoldier->pathing.bLevel == 0 )
     {

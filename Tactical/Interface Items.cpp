@@ -4372,6 +4372,61 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 	}
 }
 
+void INVRenderSteeringWheel( UINT32 uiBuffer, UINT32 uiSteeringWheelIndex, SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel )
+{
+	SOLDIERTYPE *pVehicle = NULL;
+	UINT32		usHeight, usWidth;
+	INT16		sNewY, sNewX;
+
+	static CHAR16					pStr[ 100 ], pStr2[ 100 ];
+
+	if ( pSoldier == NULL )
+	{
+		return;
+	}
+
+	pVehicle = GetSoldierStructureForVehicle ( MercPtrs[ pSoldier->ubID ]->iVehicleId );
+
+	if ( pVehicle == NULL )
+	{
+		return;
+	}
+
+	SetFont( ITEM_FONT );
+
+	if ( fDirtyLevel != DIRTYLEVEL0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, uiSteeringWheelIndex, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+		RestoreExternBackgroundRect( sX, sY, (INT16)( sWidth ), (INT16)( sHeight ) );
+
+		if( !gGameExternalOptions.fAllowDrivingVehiclesInTactical )
+		{
+			return;
+		}
+			
+		sNewY = sY + sHeight - 10;
+		sNewX = sX + 1;
+			
+		if ( uiBuffer == guiSAVEBUFFER )
+		{
+			RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+		}
+
+		if( ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.uiFlags & INCOMBAT ) )
+		{
+			SetFontBackground( FONT_MCOLOR_BLACK );
+			SetFontForeground( FONT_MCOLOR_DKGRAY );
+
+			swprintf( pStr, L"%d", pVehicle->bActionPoints );
+			mprintf( sNewX, sNewY, pStr );
+			gprintfinvalidate( sNewX, sNewY, pStr );
+		}
+	}
+
+	DrawLifeUIBarEx( pVehicle, sX + sWidth - 10, sY + sHeight - 1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight - 3, TRUE, FRAME_BUFFER );
+	DrawBreathUIBarEx( pVehicle, sX + sWidth - 7, sY + sHeight - 1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight - 3, TRUE, FRAME_BUFFER );
+}
+
 // HEADROCK HAM 5.1: Render item in a BigItem sector inventory slot.
 // This function works largely like the one above it, with several exceptions. For one, the BigItemPic is used,
 // which allows us to add lots of data. Since this is only used in the sector inventory, we can forgo things

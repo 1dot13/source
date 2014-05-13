@@ -1605,6 +1605,12 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 
 	}
 
+	// anv: passengers sit, but we want to display their names above vehicle
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		sStanceOffset = 0;
+	}
+
 	//sStanceOffset -= gpWorldLevelData[ pSoldier->sGridNo ].sHeight;
 
 	// Adjust based on level
@@ -1962,6 +1968,15 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			mprintf( sX, sY, NameStr );
 			fRaiseName = TRUE;
 		}
+		// anv: if soldier is in vehicle, write its name instead of "vehicle"
+		else if ( pSoldier->bAssignment == VEHICLE )
+		{
+			swprintf( NameStr, L"(%s)", GetSoldierStructureForVehicle( pSoldier->iVehicleId )->GetName() );
+			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+			fRaiseName = TRUE;
+		}
 		else if ( pSoldier->bAssignment >= ON_DUTY )
 		{
 			SetFontForeground( FONT_YELLOW );
@@ -1994,7 +2009,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 		else
 		{
-			if ( pSoldier->bAssignment >= ON_DUTY	)
+			if ( pSoldier->bAssignment >= ON_DUTY && pSoldier->bAssignment != VEHICLE )
 			{
 				SetFontForeground( FONT_YELLOW );
 			}
