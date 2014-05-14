@@ -978,16 +978,13 @@ void LoadGameExternalOptions()
 	// Are enemy females restricted to Blackshirts only?
 	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite	= iniReader.ReadBoolean("Graphics Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
 
-	// *** ddd - BEGIN
 	// New setting to allow thin progressbar
 	gGameExternalOptions.fSmallSizeProgressbar				= iniReader.ReadBoolean("Graphics Settings", "SMALL_SIZE_PB", FALSE);
-	// *** ddd - END
 	
 	//################# Sound Settings #################
 	
 	gGameExternalOptions.guiWeaponSoundEffectsVolume		= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME", 0, 0, 1000 /*1000 = 10x?*/);
 	gGameExternalOptions.gubMaxPercentNoiseSilencedSound	= iniReader.ReadInteger("Sound Settings","MAX_PERCENT_NOISE_SILENCED_SOUND", 35, 0, 100 );
-
 
 	//################# Tactical Interface Settings #################
 
@@ -1385,8 +1382,37 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_SCALE", 100, 0, 200);
+	
+	// SANDRO - Improved camo applying and camo can be removed
+	gGameExternalOptions.fCamoRemoving						= iniReader.ReadBoolean("Tactical Gameplay Settings", "CAMO_REMOVING", TRUE);
+	gGameExternalOptions.bCamoKitArea						= iniReader.ReadInteger("Tactical Gameplay Settings", "CAMO_KIT_USABLE_AREA", 5, 0, 100);
 
-	// *** ddd - BEGIN
+	// SANDRO - Enhanced close combat system
+	gGameExternalOptions.fEnhancedCloseCombatSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENHANCED_CLOSE_COMBAT_SYSTEM", TRUE);
+
+	// SANDRO - give special Exp for completing quests
+	gGameExternalOptions.usAwardSpecialExpForQuests			= iniReader.ReadInteger("Tactical Gameplay Settings", "AWARD_SPECIAL_EXP_POINTS_FOR_COMPLETING_QUESTS", 100, 0, 5000);
+
+	//tais: soldiers always wear any armour..
+	gGameExternalOptions.fSoldiersWearAnyArmour				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIERS_ALWAYS_WEAR_ANY_ARMOR", FALSE);
+
+	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
+	//gGameOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
+	gGameExternalOptions.ubBasicPercentRegisterValueIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_PERCENTAGE_APS_REGISTERED", 60, 0, 250);
+	gGameExternalOptions.ubPercentRegisterValuePerLevelIIS	= iniReader.ReadInteger("Tactical Gameplay Settings", "PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL", 4, 0, 100);
+	gGameExternalOptions.ubBasicReactionTimeLengthIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_REACTION_TIME_LENGTH", 25, 5, 100);
+	gGameExternalOptions.fAllowCollectiveInterrupts			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_COLLECTIVE_INTERRUPTS", TRUE);
+	gGameExternalOptions.fAllowInstantInterruptsOnSight		= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_INSTANT_INTERRUPTS_ON_SPOTTING", FALSE);
+
+	gGameExternalOptions.fNoEnemyAutoReadyWeapon			= iniReader.ReadInteger("Tactical Gameplay Settings", "NO_ENEMY_AUTOMATIC_WEAPON_READYING", 1, 0, 2);
+
+
+	// enable schedules and decision making for any named npc regardless of their team
+	gGameExternalOptions.fAllNamedNpcsDecideAction			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALL_NAMED_NPCS_DECIDE_ACTION", FALSE);
+
+	gGameExternalOptions.fAccessOtherMercInventories		= iniReader.ReadBoolean("Tactical Gameplay Settings","ACCESS_OTHER_MERC_INVENTORIES", TRUE);
+	gGameExternalOptions.fBackPackWeightLowersAP			= iniReader.ReadBoolean("Tactical Gameplay Settings","BACKPACKWEIGHT_LOWERS_AP", TRUE);
+
 	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
 
 	// sevenfm: new mouse commands
@@ -1471,38 +1497,6 @@ void LoadGameExternalOptions()
 	// anv: vehicle interface options
 	gGameExternalOptions.fAddPassengerToAnySquad			= iniReader.ReadBoolean("Tactical Interface Settings","ADD_PASSENGER_TO_ANY_SQUAD", TRUE);
 	gGameExternalOptions.fPassengerLeavingSwitchToNewSquad	= iniReader.ReadBoolean("Tactical Interface Settings","PASSENGER_LEAVING_SWITCH_TO_NEW_SQUAD", FALSE);
-
-	// *** ddd - END
-
-	// SANDRO - Improved camo applying and camo can be removed
-	gGameExternalOptions.fCamoRemoving						= iniReader.ReadBoolean("Tactical Gameplay Settings", "CAMO_REMOVING", TRUE);
-	gGameExternalOptions.bCamoKitArea						= iniReader.ReadInteger("Tactical Gameplay Settings", "CAMO_KIT_USABLE_AREA", 5, 0, 100);
-
-	// SANDRO - Enhanced close combat system
-	gGameExternalOptions.fEnhancedCloseCombatSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENHANCED_CLOSE_COMBAT_SYSTEM", TRUE);
-
-	// SANDRO - give special Exp for completing quests
-	gGameExternalOptions.usAwardSpecialExpForQuests			= iniReader.ReadInteger("Tactical Gameplay Settings", "AWARD_SPECIAL_EXP_POINTS_FOR_COMPLETING_QUESTS", 100, 0, 5000);
-
-	//tais: soldiers always wear any armour..
-	gGameExternalOptions.fSoldiersWearAnyArmour				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIERS_ALWAYS_WEAR_ANY_ARMOR", FALSE);
-
-	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
-	//gGameOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
-	gGameExternalOptions.ubBasicPercentRegisterValueIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_PERCENTAGE_APS_REGISTERED", 60, 0, 250);
-	gGameExternalOptions.ubPercentRegisterValuePerLevelIIS	= iniReader.ReadInteger("Tactical Gameplay Settings", "PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL", 4, 0, 100);
-	gGameExternalOptions.ubBasicReactionTimeLengthIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_REACTION_TIME_LENGTH", 25, 5, 100);
-	gGameExternalOptions.fAllowCollectiveInterrupts			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_COLLECTIVE_INTERRUPTS", TRUE);
-	gGameExternalOptions.fAllowInstantInterruptsOnSight		= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_INSTANT_INTERRUPTS_ON_SPOTTING", FALSE);
-
-	gGameExternalOptions.fNoEnemyAutoReadyWeapon			= iniReader.ReadInteger("Tactical Gameplay Settings", "NO_ENEMY_AUTOMATIC_WEAPON_READYING", 1, 0, 2);
-
-
-	// enable schedules and decision making for any named npc regardless of their team
-	gGameExternalOptions.fAllNamedNpcsDecideAction			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALL_NAMED_NPCS_DECIDE_ACTION", FALSE);
-
-	gGameExternalOptions.fAccessOtherMercInventories		= iniReader.ReadBoolean("Tactical Gameplay Settings","ACCESS_OTHER_MERC_INVENTORIES", TRUE);
-	gGameExternalOptions.fBackPackWeightLowersAP			= iniReader.ReadBoolean("Tactical Gameplay Settings","BACKPACKWEIGHT_LOWERS_AP", TRUE);
 
 	//################# Tactical Enemy Role Settings ##################
 	// Flugente: enemy roles
