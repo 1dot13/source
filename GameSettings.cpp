@@ -2783,6 +2783,7 @@ void LoadItemSettings()
 
 	// -------------- COMMON MODIFIERS ----------------
 	gItemSettings.fBestLaserRangeModifier							= iniReader.ReadFloat  ("Common Settings","BEST_LASER_RANGE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.usBasicDeprecateChance							= iniReader.ReadInteger("Common Settings","BASIC_DEPRECIATE_CHANCE", 15, 1, 10000 );
 
 	// -------------- WEAPON MODIFIERS ----------------
 	// weapon overheating modifiers
@@ -3259,7 +3260,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_SNIPER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_SNIPER", 100, 0, 100);
 	gGameCTHConstants.SIDE_FACING_DIVISOR				= iniReader.ReadFloat("General", "SIDE_FACING_DIVISOR", 2.0, 1.0f, 10.0f);
 	// HEADROCK HAM 5: Basic chance to lose condition point when firing
-	gGameCTHConstants.BASIC_RELIABILITY_ODDS			= iniReader.ReadInteger("General", "BASIC_RELIABILITY_ODDS", 15, 0, 100);
+	gGameCTHConstants.BASIC_RELIABILITY_ODDS			= iniReader.ReadInteger("General", "BASIC_RELIABILITY_ODDS", 15, 0, 10000);
 
 	////////////////////////////////////////////////////////////
 	// Coefficients for factors affecting Base CTH

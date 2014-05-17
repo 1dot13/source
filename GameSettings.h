@@ -2224,6 +2224,7 @@ typedef struct
 {
 	// -------------- COMMON MODIFIERS ----------------
 	FLOAT fBestLaserRangeModifier;
+	UINT16 usBasicDeprecateChance;
 
 	// -------------- WEAPON MODIFIERS ----------------
 	// weapon overheating modifiers

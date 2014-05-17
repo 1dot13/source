@@ -6022,13 +6022,13 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	if ( UsingNewCTHSystem() == true)
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
-		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)BASIC_DEPRECIATE_CHANCE); // Compare original odds to new odds.
+		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
 		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( pObj ) - iOverheatReliabilityMalus);
 		uiDepreciateTest = max(0, uiDepreciateTest);
 	}
 	else
 	{
-		uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus, 0);
+		uiDepreciateTest = max( gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus, 0 );
 	}
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObj)[0]->data.objectStatus > 1) )
 	{
