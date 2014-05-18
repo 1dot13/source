@@ -671,6 +671,10 @@
 				>
 			</File>
 			<File
+				RelativePath="VehicleMenu.h"
+				>
+			</File>
+			<File
 				RelativePath="Weapons.h"
 				>
 			</File>
@@ -992,6 +996,10 @@
 			</File>
 			<File
 				RelativePath="Vehicles.cpp"
+				>
+			</File>
+			<File
+				RelativePath="VehicleMenu.cpp"
 				>
 			</File>
 			<File

@@ -1491,14 +1491,14 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 		}
 	}
 
-	// If we are a passenger or driver just show an X
+	// If we are a passenger or driver just show ?
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
 		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER )) )
 		{
 			if ( !UIHandleOnMerc( TRUE ) )
 			{
-				guiNewUICursor = FLOATING_X_UICURSOR;
+				guiNewUICursor = INVALID_ACTION_UICURSOR;
 				return( GAME_SCREEN );
 			}
 		}
@@ -3219,16 +3219,6 @@ UINT32 UIHandleHCOnTerrain( UI_EVENT *pUIEvent )
 		return( GAME_SCREEN );
 	}
 
-	// If we are a passenger or driver just show an ?
-	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-	{
-		if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_DRIVER | SOLDIER_PASSENGER )) )
-		{
-			guiNewUICursor = INVALID_ACTION_UICURSOR;
-			return( GAME_SCREEN );
-		}
-	}
-
 	// If we are out of breath, no cursor...
 	if ( pSoldier->bBreath < OKBREATH && pSoldier->bCollapsed )
 	{
@@ -3445,6 +3435,20 @@ BOOLEAN UIHandleOnMerc( BOOLEAN fMovementMode )
 					// Check if this guy is on the enemy team....
 					if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
 					{
+						// anv: don't switch if passengers are blocked from attacking
+						if( gusSelectedSoldier != NOBODY )
+						{
+							SOLDIERTYPE *pSelectedSoldier = MercPtrs[gusSelectedSoldier];
+							if( pSelectedSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+							{
+								SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSelectedSoldier->iVehicleId );
+								INT8 bSeatIndex = GetSeatIndexFromSoldier( pSelectedSoldier );
+								if( gNewVehicle[ pVehicleList[ pSelectedSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[bSeatIndex].fBlockedShots == TRUE )
+								{
+									return( FALSE );
+								}
+							}
+						}
 						gUIActionModeChangeDueToMouseOver = TRUE;
 
 						guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
@@ -3531,7 +3535,7 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ ubSoldierID ];
 
-	if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 	{
 		pSoldier = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 	}
@@ -6371,11 +6375,30 @@ INT8 UIHandleInteractiveTilesAndItemsOnTerrain( SOLDIERTYPE *pSoldier, INT32 usM
 
 	gfBeginVehicleCursor = FALSE;
 
+	// If we are a passenger or driver just show an ?
+	if ( ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_DRIVER | SOLDIER_PASSENGER )) )
+	{
+		// unless we are over our own vehicle, then we can call vehicle menu
+		if( gfUIFullTargetFound )
+		{
+			pTSoldier = MercPtrs[ gusUIFullTargetID ];
+			if( pSoldier->iVehicleId == pTSoldier->bVehicleID )
+			{
+				guiNewUICursor = ENTER_VEHICLE_UICURSOR;
+				return( 1 );
+			}
+		}
+		guiNewUICursor = INVALID_ACTION_UICURSOR;
+		return( 0 );
+	}
+
 	if ( gfUIFullTargetFound	)
 	{
 		pTSoldier = MercPtrs[ gusUIFullTargetID ];
 
-		if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 )
+		// anv: added condition - make sure we won't put vehicle in another vehicle
+		if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER | SOLDIER_VEHICLE ) ) )
+		//if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 )
 		{
 			// grab number of occupants in vehicles
 			if ( fItemsOnlyIfOnIntTiles )

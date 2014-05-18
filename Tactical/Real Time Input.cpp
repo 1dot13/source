@@ -62,6 +62,7 @@
 #include "SkillMenu.h"						// sevenfm: need this for TraitsMenu
 
 #include "Vehicles.h"	// anv: for switching from soldier to vehicle
+#include "VehicleMenu.h"
 
 #endif
 
@@ -1249,6 +1250,16 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 											break;
 										}
 									}
+									// anv: CTRL+RMB - VehicleMenu
+									else if(_KeyDown(CTRL))
+									{
+										switch( gCurrentUIMode )
+										{										
+										case HANDCURSOR_MODE:
+											HandleHandCursorRightClick( usMapPos, puiNewEvent );
+											break;
+										}
+									}
 									else
 									{
 										// Switch on UI mode
@@ -1261,7 +1272,18 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 										case CONFIRM_MOVE_MODE:
 										case MOVE_MODE:
 										case TALKCURSOR_MODE:
-
+											// anv: don't switch if passengers are blocked from attacking
+											pSoldier = MercPtrs[ gusSelectedSoldier ];
+											if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+											{
+												SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+												INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+												if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[bSeatIndex].fBlockedShots == TRUE )
+												{
+													ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pVehicleSeatsStrings[0] );
+													break;
+												}
+											}
 											// We have here a change to action mode
 											*puiNewEvent = M_CHANGE_TO_ACTION;
 											fClickIntercepted = TRUE;

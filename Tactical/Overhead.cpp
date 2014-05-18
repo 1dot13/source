@@ -1512,7 +1512,7 @@ BOOLEAN ExecuteOverhead( )
                                     }
                                     else if ( pSoldier->aiData.ubPendingAction == MERC_ENTER_VEHICLE    )
                                     {
-                                        pSoldier->EVENT_SoldierEnterVehicle( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+                                        pSoldier->EVENT_SoldierEnterVehicle( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3, pSoldier->aiData.uiPendingActionData4 );
                                         pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
                                         continue;
                                     }
@@ -3104,8 +3104,15 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 
 	if( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
-		pSoldier = GetDriver( pSoldier->iVehicleId );
-		usSoldierID = pSoldier->ubID;
+		pSoldier = GetDriver( pSoldier->bVehicleID );
+		if( pSoldier == NULL )
+		{
+			return;
+		}
+		else
+		{
+			usSoldierID = pSoldier->ubID;
+		}
 	}
 
     // If we are dead, ignore

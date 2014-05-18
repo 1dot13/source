@@ -5693,6 +5693,13 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 							// clear pStr value
 							swprintf( pStr, L"");
 			
+							INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+							if( bSeatIndex != (-1) )
+							{					
+								swprintf( sTemp, L"%s\n", gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[ bSeatIndex ].zSeatName );
+								wcscat( pStr, sTemp );
+							}
+
 							if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
 							{
 								UINT8 ubTempSkillArray[30];
@@ -5716,7 +5723,8 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			
 								if ( bNumSkillTraits == 0 )
 								{
-									swprintf( pStr, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+									swprintf( sTemp, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+									wcscat( pStr, sTemp );
 								}
 								else
 								{
@@ -6974,8 +6982,8 @@ void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 		return;
 	}
 
-	//if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
-	//{
+	if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+	{
 		if ( !PlayerExistsInSlot( ubID ) )
 		{
 			// Find a free slot
@@ -6999,38 +7007,38 @@ void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 				}
 			}
 		}
-	//}
-	//else
-	//{
-	//	// anv: for passengers, position on team panel will be linked with seat in vehicle
-	//	if ( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
-	//	{
-	//		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubID ]->iVehicleId );
-	//		if( pVehicle != NULL )
-	//		{
-	//			for( UINT8 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
-	//			{
-	//				SOLDIERTYPE *pPassenger = pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].pPassengers[ iCounter ];
-	//				if( pPassenger != NULL && pPassenger->ubID == ubID )
-	//				{
-	//					gTeamPanel[ iCounter ].fOccupied = TRUE;
-	//					gTeamPanel[ iCounter ].ubID = ubID;
+	}
+	else
+	{
+		// anv: for passengers, position on team panel will be linked with seat in vehicle
+		if ( MercPtrs[ ubID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		{
+			SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubID ]->iVehicleId );
+			if( pVehicle != NULL )
+			{
+				for( UINT8 iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+				{
+					SOLDIERTYPE *pPassenger = pVehicleList[ MercPtrs[ ubID ]->iVehicleId ].pPassengers[ iCounter ];
+					if( pPassenger != NULL && pPassenger->ubID == ubID )
+					{
+						gTeamPanel[ iCounter ].fOccupied = TRUE;
+						gTeamPanel[ iCounter ].ubID = ubID;
 
-	//					MSYS_SetRegionUserData( &gTEAM_FirstHandInv[ iCounter ], 0, iCounter );
-	//					MSYS_SetRegionUserData( &gTEAM_FaceRegions[ iCounter ], 0, iCounter );
+						MSYS_SetRegionUserData( &gTEAM_FirstHandInv[ iCounter ], 0, iCounter );
+						MSYS_SetRegionUserData( &gTEAM_FaceRegions[ iCounter ], 0, iCounter );
 
-	//					// DIRTY INTERFACE
-	//					fInterfacePanelDirty = DIRTYLEVEL2;
+						// DIRTY INTERFACE
+						fInterfacePanelDirty = DIRTYLEVEL2;
 
-	//					// Set ID to do open anim
-	//					MercPtrs[ ubID ]->flags.fUInewMerc = TRUE;
-	//
-	//					return;
-	//				}
-	//			}
-	//		}	
-	//	}
-	//}
+						// Set ID to do open anim
+						MercPtrs[ ubID ]->flags.fUInewMerc = TRUE;
+	
+						return;
+					}
+				}
+			}	
+		}
+	}
 }
 
 BOOLEAN InitTEAMSlots( )

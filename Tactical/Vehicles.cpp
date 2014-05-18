@@ -475,10 +475,12 @@ BOOLEAN IsThisVehicleAccessibleToSoldier( SOLDIERTYPE *pSoldier, INT32 iId )
 }
 
 
-BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecificSeat, UINT8 ubSeatIndex )
+BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex )
 {
 	INT32 iCounter = 0;
 	UINT32 vCount = 0;
+	UINT8 ubFinalSeatIndex = 0;
+	BOOLEAN fFoundPlace = FALSE;
 	SOLDIERTYPE *pVehicleSoldier = NULL;
 
 
@@ -571,13 +573,35 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecific
 		PlayJA2Sample( pVehicleList[ pVehicleSoldier->bVehicleID ].iOutOfSound, RATE_11025, SoundVolume( HIGHVOLUME, pVehicleSoldier->sGridNo ), 1, SoundDir( pVehicleSoldier->sGridNo ) );
 	}
 
-	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+
+	if( pVehicleList[ iId ].pPassengers[ ubSeatIndex ] == NULL )
+	{
+		ubFinalSeatIndex = ubSeatIndex;
+		fFoundPlace = TRUE;
+	}
+	else
+	{
+		for( iCounter = 0; !fFoundPlace && iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+		{
+			if( pVehicleList[ iId ].pPassengers[ iCounter ] == NULL )
+			{
+				ubFinalSeatIndex = iCounter;
+				fFoundPlace = TRUE;
+			}
+		}
+
+	}
+
+	if( fFoundPlace )
 	{
 		// check if slot free
-		if( pVehicleList[ iId ].pPassengers[ iCounter ] == NULL )
+		if( pVehicleList[ iId ].pPassengers[ ubFinalSeatIndex ] == NULL )
 		{
+			// anv: since now they can shoot it's important to set passenger to proper stance
+			SendChangeSoldierStanceEvent( pSoldier, ANIM_CROUCH );
+
 			// add person in
-			pVehicleList[ iId ].pPassengers[ iCounter ] = pSoldier;
+			pVehicleList[ iId ].pPassengers[ ubFinalSeatIndex ] = pSoldier;
 
 			if( pSoldier->bAssignment == VEHICLE )
 			{
@@ -624,17 +648,27 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecific
 			}
 
 			// Are we the first?
-			if ( GetNumberInVehicle(	iId ) == 1 )
+			//if ( GetNumberInVehicle( iId ) == 1 )
+			//{
+			//	// Set as driver...
+			//	pSoldier->flags.uiStatusFlags |= SOLDIER_DRIVER;
+
+			//	SetDriver( iId , pSoldier->ubID );
+
+			//}
+			//else
+			//{
+			//	// Set as driver...
+			//	pSoldier->flags.uiStatusFlags |= SOLDIER_PASSENGER;
+			//}
+
+			// anv: are we taking driver's seat
+			if( gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].VehicleSeats[ubFinalSeatIndex].fDriver )
 			{
-				// Set as driver...
-				pSoldier->flags.uiStatusFlags |= SOLDIER_DRIVER;
-
 				SetDriver( iId , pSoldier->ubID );
-
 			}
 			else
 			{
-				// Set as driver...
 				pSoldier->flags.uiStatusFlags |= SOLDIER_PASSENGER;
 			}
 
@@ -643,8 +677,16 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, BOOLEAN fSpecific
 
 			if ( pVehicleSoldier )
 			{
+				// bInitialActionPoints - point in time where soldier and vehicle start sharing timeline
+				pSoldier->bInitialActionPoints = pSoldier->bActionPoints;
+				// set proper initial rotation
+				UINT8 ubRotation = gNewVehicle[ pVehicleList[ pVehicleSoldier->bVehicleID ].ubVehicleType ].VehicleSeats[ ubSeatIndex ].ubRotation;
+				pSoldier->flags.fDontChargeTurningAPs = TRUE;
+				pSoldier->EVENT_SetSoldierDesiredDirection( ( pVehicleSoldier->pathing.bDesiredDirection + ubRotation ) % NUM_WORLD_DIRECTIONS );
+
 				// Set gridno for vehicle.....
-				pSoldier->EVENT_SetSoldierPosition( pVehicleSoldier->dXPos, pVehicleSoldier->dYPos );
+				//pSoldier->EVENT_SetSoldierPosition( pVehicleSoldier->dXPos, pVehicleSoldier->dYPos );
+				UpdateAllVehiclePassengersGridNo( pVehicleSoldier );
 
 				// Stop from any movement.....
 				pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
@@ -754,6 +796,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 			if( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 			{
 				fNewDriverNeeded = TRUE;
+				pVehicleList[ iId ].ubDriver = NOBODY;
 			}
 
 			pSoldier->flags.uiStatusFlags &= ( ~( SOLDIER_DRIVER | SOLDIER_PASSENGER ) );
@@ -765,14 +808,14 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 				if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 				{
 					fSoldierLeft = TRUE;
-					if( fNewDriverNeeded )
-					{
-						SOLDIERTYPE* pNewDriver = pVehicleList[ iId ].pPassengers[ iCounter ];
-						pNewDriver->flags.uiStatusFlags |= SOLDIER_DRIVER;
-						pNewDriver->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
-						SetDriver( iId, pNewDriver->ubID );
-						fNewDriverNeeded = FALSE;
-					}
+					//if( fNewDriverNeeded )
+					//{
+					//	SOLDIERTYPE* pNewDriver = pVehicleList[ iId ].pPassengers[ iCounter ];
+					//	pNewDriver->flags.uiStatusFlags |= SOLDIER_DRIVER;
+					//	pNewDriver->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
+					//	SetDriver( iId, pNewDriver->ubID );
+					//	fNewDriverNeeded = FALSE;
+					//}
 				}
 			}
 
@@ -1526,12 +1569,46 @@ BOOLEAN AnyAccessibleVehiclesInSoldiersSector( SOLDIERTYPE *pSoldier )
 
 SOLDIERTYPE *GetDriver( INT32 iID )
 {
-	return( MercPtrs[ pVehicleList[ iID ].ubDriver ] );
+	INT32 iCounter;
+	if( pVehicleList[ iID ].ubDriver != NOBODY )
+	{
+		return( MercPtrs[ pVehicleList[ iID ].ubDriver ] );
+	}
+	else
+	{
+		// anv: if vehicle has no driver, return any passenger
+		for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iID ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+		{
+			if( pVehicleList[ iID ].pPassengers[ iCounter ] != NULL )
+			{
+				return( pVehicleList[ iID ].pPassengers[ iCounter ] );
+			}
+		}
+	}
+	return( NULL );
 }
 
 
 void SetDriver( INT32 iID, UINT8 ubID )
 {
+	// anv: first make sure previous driver won't be driver anymore
+	if( pVehicleList[ iID ].ubDriver != NOBODY )
+	{
+		if( MercPtrs[ pVehicleList[ iID ].ubDriver ] )
+		{
+			MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags &= ~(SOLDIER_DRIVER);
+			if( GetSeatIndexFromSoldier( MercPtrs[ pVehicleList[ iID ].ubDriver ] ) != (-1) )
+			{
+				MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags |= SOLDIER_PASSENGER;
+			}
+		}
+	}
+	// set proper flags
+	if( ubID != NOBODY )
+	{
+		MercPtrs[ ubID ]->flags.uiStatusFlags |= SOLDIER_DRIVER;
+		MercPtrs[ ubID ]->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
+	}
 	pVehicleList[ iID ].ubDriver = ubID;
 }
 
@@ -1611,7 +1688,7 @@ BOOLEAN TakeSoldierOutOfVehicle( SOLDIERTYPE *pSoldier )
 
 
 
-BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpecificSeat, UINT8 ubSeatIndex )
+BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeatIndex )
 {
 
 	// TEST IF IT'S VALID...
@@ -1621,13 +1698,9 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpe
 		if ( IsEnoughSpaceInVehicle( pVehicle->bVehicleID ) )
 		{
 			// anv: check if preferred seat is already taken, if so automatically choose another
-			if( fSpecificSeat )
+			if ( pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] != NULL )
 			{
-				if ( pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] != NULL )
-				{
-					fSpecificSeat = FALSE;
-					ubSeatIndex = 0;
-				}
+				ubSeatIndex = 0;
 			}
 
 			INT16	sAPCost = APBPConstants[AP_ENTER_VEHICLE];
@@ -1640,16 +1713,8 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, BOOLEAN fSpe
 					return( FALSE );
 			}
 
-			// anv: since now they can shoot it's important to set passenger to proper stance
-			SendChangeSoldierStanceEvent( pSoldier, ANIM_CROUCH );
-			// bInitialActionPoints - point in time where soldier and vehicle start sharing timeline
-			pSoldier->bInitialActionPoints = pSoldier->bActionPoints;
-			// set proper rotation
-			pSoldier->flags.fDontChargeTurningAPs = TRUE;
-			pSoldier->EVENT_SetSoldierDesiredDirection( pVehicle->pathing.bDesiredDirection );
-
 			// OK, add....
-			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, fSpecificSeat, ubSeatIndex );
+			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, ubSeatIndex );
 
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 			{
@@ -1742,6 +1807,7 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 		// anv: since now they can shoot it's important to set passenger to proper stance
 		// namely, back to standing, because we set them to crouching when entering
 		SendChangeSoldierStanceEvent( pSoldier, ANIM_STAND );
+		pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
 
 		// Update visiblity.....
 		HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO );
@@ -1783,6 +1849,138 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 	return( FALSE );
 }
 
+BOOLEAN ChangeVehicleSeat( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeatIndex )
+{	
+	// TEST IF IT'S VALID...
+	if ( pVehicle->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		// anv: check if preferred seat is available
+		if ( pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] == NULL )
+		{
+
+			INT8 bCurrentSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+			if( bCurrentSeatIndex == (-1) )
+			{
+				return( FALSE );
+			}
+
+			INT16	sAPCost = APBPConstants[AP_CHANGE_SEAT_VEHICLE];
+
+			//Are we currently in combat?
+			if(gTacticalStatus.uiFlags & INCOMBAT)
+			{
+				if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[bCurrentSeatIndex].ubCompartment !=
+					gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[ubSeatIndex].ubCompartment )
+				{
+					// different compartment!
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pVehicleSeatsStrings[1] );
+					return( FALSE );
+				}
+
+				if(EnoughPoints(pSoldier, sAPCost, 0, TRUE))
+					DeductPoints(pSoldier, sAPCost, 0);
+				else
+					return( FALSE );
+			}
+
+			pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] = pSoldier;
+			pVehicleList[ pVehicle->bVehicleID ].pPassengers[bCurrentSeatIndex] = NULL;
+
+			if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[bCurrentSeatIndex].fDriver )
+			{
+				SetDriver( pVehicle->bVehicleID, NOBODY );
+			}
+
+			if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[ubSeatIndex].fDriver )
+			{
+				SetDriver( pVehicle->bVehicleID, pSoldier->ubID );
+			}
+
+			// set proper initial rotation
+			UINT8 ubRotation = gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].VehicleSeats[ ubSeatIndex ].ubRotation;
+			pSoldier->flags.fDontChargeTurningAPs = TRUE;
+			pSoldier->EVENT_SetSoldierDesiredDirection( ( pVehicle->pathing.bDesiredDirection + ubRotation ) % NUM_WORLD_DIRECTIONS );
+
+			UpdateAllVehiclePassengersGridNo( pVehicle );
+			
+			return( TRUE );
+		}
+	}
+
+	return( FALSE );
+}
+
+BOOLEAN SwapVehicleSeat( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeatIndex )
+{	
+	// TEST IF IT'S VALID...
+	if ( pVehicle->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		SOLDIERTYPE *pSoldier2 = pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex];
+
+		if ( pSoldier2 != NULL )
+		{
+			INT8 bCurrentSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+			if( bCurrentSeatIndex == (-1) )
+			{
+				return( FALSE );
+			}
+
+			INT16	sAPCost = APBPConstants[AP_CHANGE_SEAT_VEHICLE];
+
+			//Are we currently in combat?
+			if(gTacticalStatus.uiFlags & INCOMBAT)
+			{
+				if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[bCurrentSeatIndex].ubCompartment !=
+					gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[ubSeatIndex].ubCompartment )
+				{
+					// different compartment!
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pVehicleSeatsStrings[1] );		
+					return( FALSE );
+				}
+
+				if( EnoughPoints(pSoldier, sAPCost, 0, TRUE) && EnoughPoints(pSoldier2, sAPCost, 0, TRUE) )
+				{
+					DeductPoints(pSoldier, sAPCost, 0);
+					DeductPoints(pSoldier2, sAPCost, 0);
+				}
+				else
+					return( FALSE );
+			}
+
+			pVehicleList[ pVehicle->bVehicleID ].pPassengers[ubSeatIndex] = pSoldier;
+			pVehicleList[ pVehicle->bVehicleID ].pPassengers[bCurrentSeatIndex] = pSoldier2;
+
+			if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[bCurrentSeatIndex].fDriver )
+			{
+				SetDriver( pVehicle->bVehicleID, pSoldier2->ubID );
+			}
+
+			if( gNewVehicle[pVehicleList[ pVehicle->bVehicleID ].ubVehicleType].VehicleSeats[ubSeatIndex].fDriver )
+			{
+				SetDriver( pVehicle->bVehicleID, pSoldier->ubID );
+			}
+
+			// set proper initial rotations
+			UINT8 ubRotation = gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].VehicleSeats[ ubSeatIndex ].ubRotation;
+			pSoldier->flags.fDontChargeTurningAPs = TRUE;
+			pSoldier->EVENT_SetSoldierDesiredDirection( ( pVehicle->pathing.bDesiredDirection + ubRotation ) % NUM_WORLD_DIRECTIONS );
+
+			ubRotation = gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].VehicleSeats[ bCurrentSeatIndex ].ubRotation;
+			pSoldier2->flags.fDontChargeTurningAPs = TRUE;
+			pSoldier2->EVENT_SetSoldierDesiredDirection( ( pVehicle->pathing.bDesiredDirection + ubRotation ) % NUM_WORLD_DIRECTIONS );
+
+			UpdateAllVehiclePassengersGridNo( pVehicle );
+			
+			return( TRUE );
+		}
+		else
+		{
+			return( ChangeVehicleSeat( pVehicle, pSoldier, ubSeatIndex ) );
+		}
+	}
+
+	return( FALSE );
+}
 
 void AddPassangersToTeamPanel( INT32 iId )
 {
@@ -2009,6 +2207,11 @@ INT16 GetOrigInternalArmorValueForVehicleInLocation( UINT8 ubID, UINT8 ubLocatio
 
 SOLDIERTYPE * GetSoldierStructureForVehicle( INT32 iId )
 {
+	if( iId == (-1) )
+	{
+		return( 0 );
+	}
+
 	for( INT32 iCounter = 0; iCounter < TOTAL_SOLDIERS; iCounter++ )
 	{
 		SOLDIERTYPE *pSoldier = &Menptr[ iCounter ];
@@ -2357,8 +2560,88 @@ void UpdateAllVehiclePassengersGridNo( SOLDIERTYPE *pSoldier )
 		{
 			pPassenger = pVehicleList[ iId ].pPassengers[ iCounter ];
 
+			INT8 bOffsetX = gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].VehicleSeats[ iCounter ].bOffsetX;
+			INT8 bOffsetY = gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].VehicleSeats[ iCounter ].bOffsetY;
+
+			FLOAT dXOffset = 0;
+			FLOAT dYOffset = 0;
+			INT8 dX, dY;
+			INT8 bDiagonalX = 0;
+			INT8 bDiagonalY = 0;
+
+			switch( pSoldier->ubBodyType )
+			{
+				case ELDORADO:
+				case HUMVEE:
+				case JEEP:
+					bDiagonalY = -1;
+			}
+
+			switch( pSoldier->ubDirection )
+			{
+				case 0:
+					dYOffset = -10 * ( bOffsetY + bDiagonalY );
+					dXOffset = 10 * bOffsetX;
+					break;
+				case 1:
+					if( bOffsetX < 0 )
+					{
+						dXOffset = - 10 + 10 * bOffsetY;
+						dYOffset = - 10 * bOffsetY;
+					}
+					else
+					{
+						dYOffset = 10 + - 10 * bOffsetY;
+						dXOffset = 10 * bOffsetY;
+					}
+					break;
+				case 2:
+					dXOffset = 10 * ( bOffsetY + bDiagonalY);
+					dYOffset = 10 * bOffsetX;
+					break;
+				case 3:
+					dX = bOffsetY;
+					dY = bOffsetY;
+					if( bOffsetX > 0 )
+						dX -= 1;
+					else if( bOffsetX < 0 )
+						dY -= 1;
+					dXOffset = 10 * dX;
+					dYOffset = 10 * dY;
+					break;
+				case 4:
+					dYOffset = 10 * ( bOffsetY + bDiagonalY );
+					dXOffset = -10 * bOffsetX;
+					break;
+				case 5:
+					if( bOffsetX < 0 )
+					{
+						dXOffset = 10 + - 10 * bOffsetY;
+						dYOffset = 10 * bOffsetY;
+					}
+					else
+					{
+						dYOffset = - 10 + 10 * bOffsetY;
+						dXOffset = - 10 * bOffsetY;
+					}
+					break;
+				case 6:
+					dXOffset = -10 * ( bOffsetY + bDiagonalY );
+					dYOffset = -10 * bOffsetX;
+					break;
+				case 7:				
+					dX = bOffsetY;
+					dY = bOffsetY;
+					if( bOffsetX > 0 )
+						dX -= 1;
+					else if( bOffsetX < 0 )
+						dY -= 1;
+					dXOffset = - 10 * dX;
+					dYOffset = - 10 * dY;
+					break;
+			}
 			// Set gridno.....
-			pPassenger->EVENT_SetSoldierPosition( pSoldier->dXPos, pSoldier->dYPos );
+			pPassenger->EVENT_SetSoldierPosition( pSoldier->dXPos + dXOffset, pSoldier->dYPos + dYOffset);
 		}
 	}
 }
@@ -2595,6 +2878,12 @@ BOOLEAN CanSoldierDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId, BOOLEAN
 		return (FALSE);
 	}
 
+	// anv: only driver on driver's seat can drive
+	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+	if( bSeatIndex == (-1) || gNewVehicle[ pVehicleList[ iVehicleId ].ubVehicleType ].VehicleSeats[bSeatIndex].fDriver == FALSE )
+	{
+		return (FALSE);
+	}
 
 	// yup, he could drive this vehicle
 	return( TRUE );
@@ -2707,6 +2996,38 @@ BOOLEAN IsSoldierInThisVehicleSquad( SOLDIERTYPE *pSoldier, INT8 bSquadNumber )
 	return( TRUE );
 }
 
+
+INT8 GetSeatIndexFromSoldier( SOLDIERTYPE *pSoldier )
+{
+	INT32 iVehicleId;
+	SOLDIERTYPE *pVehicleSoldier;
+	INT32 iCounter;
+
+	iVehicleId = pSoldier->iVehicleId;
+
+	if( iVehicleId == (-1) )
+	{
+		return( -1 );
+	}
+
+	pVehicleSoldier = GetSoldierStructureForVehicle( iVehicleId );
+
+	if( pVehicleSoldier == NULL )
+	{
+		return( -1 );
+	}
+
+	// Loop through passengers
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
+	{
+		if( pVehicleList[ iVehicleId ].pPassengers[ iCounter ] == pSoldier )
+		{
+			return( iCounter );
+		}
+	}
+
+	return( -1 );
+}
 
 SOLDIERTYPE*	PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier )
 {

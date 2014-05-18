@@ -343,6 +343,7 @@ UINT32 UIHandleLUIEndLock( UI_EVENT *pUIEvent );
 void BeginDisplayTimedCursor( UINT32 uiCursorID, UINT32 uiDelay );
 
 void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent );
+void HandleHandCursorRightClick( INT32 usMapPos, UINT32 *puiNewEvent );
 INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent );
 
 BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier );

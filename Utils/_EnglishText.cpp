@@ -3072,6 +3072,11 @@ STR16	zVehicleName[] =
 	L"Heli", 		//an abbreviation for Helicopter
 };
 
+STR16 pVehicleSeatsStrings[] =
+{
+	 L"You cannot shoot from this seat.",
+	 L"You cannot swap those two seats in combat without exiting vehicle first.",
+};
 
 //These are messages Used in the Tactical Screen
 

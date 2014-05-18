@@ -1097,6 +1097,7 @@ void SOLDIERTYPE::initialize()
 	memset( this, 0, SIZEOF_SOLDIERTYPE_POD);
 	inv.clear();
     ai_masterplan_ = 0;
+	this->iVehicleId = (-1);
 
 	memset( &aiData, 0, sizeof(STRUCT_AIData) );
 	memset( &flags, 0, sizeof(STRUCT_Flags) );
@@ -8210,6 +8211,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 					pVehicleList[ iId ].pPassengers[ iCounter ]->EVENT_SetSoldierDesiredDirection( ( pVehicleList[ iId ].pPassengers[ iCounter ]->pathing.bDesiredDirection + bDirectionChange + NUM_WORLD_DIRECTIONS ) % NUM_WORLD_DIRECTIONS );
 				}
 			}
+			UpdateAllVehiclePassengersGridNo( this );
 		}
 
 		// If the soldier is not crawling or multi-tiled, he should be allowed to turn in place.  Even if there is some
@@ -12643,7 +12645,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection, UINT8 ubSeatIndex )
 {
 	SOLDIERTYPE *pTSoldier;
 	UINT32 uiMercFlags;
@@ -12654,7 +12656,7 @@ void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection )
 		pTSoldier = MercPtrs[ usSoldierIndex ];
 
 		// Enter vehicle...
-		EnterVehicle( pTSoldier, this );
+		EnterVehicle( pTSoldier, this, ubSeatIndex );
 	}
 
 	UnSetUIBusy( this->ubID );
@@ -20497,6 +20499,10 @@ void InternalPlaySoldierFootstepSound( SOLDIERTYPE * pSoldier )
 	{
 		// anv: vehicle sounds
 		//PlaySoldierJA2Sample( pSoldier->ubID, S_VECH1_MOVE, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
+		if ( pSoldier->usAnimState == RUNNING )
+		{
+			bVolume = HIGHVOLUME;
+		}
 		PlaySoldierJA2Sample( pSoldier->ubID, pVehicleList[ pSoldier->bVehicleID ].iMoveSound, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 	}
 }

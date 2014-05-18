@@ -186,6 +186,7 @@
     <ClCompile Include="TeamTurns.cpp" />
     <ClCompile Include="Turn Based Input.cpp" />
     <ClCompile Include="UI Cursors.cpp" />
+    <ClCompile Include="VehicleMenu.cpp" />
     <ClCompile Include="Vehicles.cpp" />
     <ClCompile Include="Weapons.cpp" />
     <ClCompile Include="World Items.cpp" />

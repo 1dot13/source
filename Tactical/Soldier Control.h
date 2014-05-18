@@ -1546,7 +1546,7 @@ public:
 	void EVENT_SoldierBeginUseDetonator( void );
 	void EVENT_SoldierBeginDropBomb( );
 	void EVENT_SoldierDefuseTripwire( INT32 sGridNo, INT32 sItem );
-	void EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection );
+	void EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection, UINT8 ubSeatIndex = 0 );
 	void EVENT_SoldierBeginGiveItem( void );
 	void EVENT_SetSoldierPositionAndMaybeFinalDest( FLOAT dNewXPos, FLOAT dNewYPos, BOOLEAN fUpdateFinalDest );
 	void EVENT_SetSoldierPositionForceDelete( FLOAT dNewXPos, FLOAT dNewYPos );

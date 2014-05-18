@@ -48,6 +48,7 @@
 	#include "drugs and alcohol.h"
 	#include "Interface.h"
 	#include "Explosion Control.h"//dnl ch40 200909
+	#include "Vehicles.h"
 #endif
 
 #ifdef JA2UB
@@ -1215,6 +1216,18 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	{
 		// we're bliiiiiiiiind!!!
 		return( 0 );
+	}
+
+	// anv: some places in vehicle don't give passenger any view outside
+	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+	if( bSeatIndex != (-1) )
+	{	
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier ->iVehicleId );
+		// need to check this even if bSubjectDir is DIRECTION_IRRELEVANT
+		if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[ bSeatIndex ].fBlockedView )
+		{
+			return( 0 );
+		}
 	}
 
 	if ( bFacingDir == DIRECTION_IRRELEVANT && TANK( pSoldier ) )
@@ -5296,12 +5309,33 @@ void DebugSoldierPage4( )
 //
 
 #define MAX_MOVEMENT_NOISE 9
+#define VEHICLE_FAST_MOVEMENT_NOISE 25
+#define VEHICLE_NORMAL_MOVEMENT_NOISE 15
 
 UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 {
 	INT32	iStealthSkill, iRoll;
 	UINT8	ubMaxVolume, ubVolume, ubBandaged, ubEffLife;
 	INT8		bInWater = FALSE;
+
+	// anv: vehicle and passengers
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		return( 0 );
+	}
+	else if( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) )
+	{
+		if( pSoldier->usAnimState == RUNNING )
+		{
+			// driving fast makes engine work louder
+			return( VEHICLE_FAST_MOVEMENT_NOISE );
+		}
+		else
+		{
+			return( VEHICLE_NORMAL_MOVEMENT_NOISE );
+		}
+	}
+
 
 	// anv: additional tile properties
 	// modify amount of noise and stealth difficulty depending on surface type

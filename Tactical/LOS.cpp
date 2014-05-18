@@ -43,6 +43,7 @@
 #include "Quests.h"
 #include "items.h"
 #include "Item Types.h"
+#include "Vehicles.h"
 #endif
 #include "fresh_header.h"
 #include "WorldDat.h"
@@ -900,6 +901,16 @@ INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, IN
 	else
 	{
 		iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, ubTerrainType );
+	}
+
+	// anv: some places in vehicle completely obscure passenger from outside
+	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+	if( bSeatIndex != (-1) )
+	{
+		if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[ bSeatIndex ].fHidden )
+		{
+			iSightAdjustment = (-100);
+		}
 	}
 
 	return MINMAX100N(iSightAdjustment);
@@ -2314,6 +2325,32 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	// for other function we assume the opposite but not this one, as we here are given the needed target soldier information to calculate sight adjustment
 	else {
 		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+	}
+
+	// anv: special check for vehicles - since they're no longer transparent, we need to check for visibility 
+	// of all substructures, also vehicle will be noticed even if just part of it is sticking around the corner
+	if( pEndSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && !TANK( pEndSoldier ) )
+	{
+		STRUCTURE	*pBase = pEndSoldier->pLevelNode->pStructureData;
+		if( pBase == NULL )
+		{
+			return( FALSE );
+		}
+		DB_STRUCTURE_TILE ** ppTile = pBase->pDBStructureRef->ppTile;
+		UINT8  ubNumberOfTiles = pBase->pDBStructureRef->pDBStructure->ubNumberOfTiles;
+
+		INT32 sStructGridNo;
+
+		// loop through all tiles
+		for (UINT8 ubLoop = BASE_TILE; ubLoop < ubNumberOfTiles; ubLoop++)
+		{
+			sStructGridNo = AddPosRelToBase(pBase->sGridNo, ppTile[ubLoop]);
+			if( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( sStructGridNo ), (FLOAT) CenterY( sStructGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) )
+			{
+				return( TRUE );
+			}
+		}
+		return( FALSE );
 	}
 
 	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight, cthCalc ) );

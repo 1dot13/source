@@ -107,6 +107,7 @@
 #include "Militia Control.h"
 #include "Ambient Control.h"
 #include "Strategic AI.h"
+#include "VehicleMenu.h"
 #endif
 
 #include "Quest Debug System.h"
@@ -1012,6 +1013,16 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 									break;
 								}
 							}
+							// anv: CTRL+RMB - VehicleMenu
+							else if(_KeyDown(CTRL))
+							{
+								switch( gCurrentUIMode )
+								{										
+								case HANDCURSOR_MODE:
+									HandleHandCursorRightClick( usMapPos, puiNewEvent );
+									break;
+								}
+							}
 							else
 							{
 								// Switch on UI mode
@@ -1022,7 +1033,18 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 									break;
 
 								case MOVE_MODE:
-
+									// anv: don't switch if passengers are blocked from attacking
+									pSoldier = MercPtrs[ gusSelectedSoldier ];
+									if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+									{
+										SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+										INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+										if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[bSeatIndex].fBlockedShots == TRUE )
+										{
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pVehicleSeatsStrings[0] );
+											break;
+										}
+									}
 									// We have here a change to action mode
 									*puiNewEvent = M_CHANGE_TO_ACTION;
 									fClickIntercepted = TRUE;
@@ -5308,7 +5330,7 @@ void CreatePlayerControlledMonster()
 }
 
 
-INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLEAN fMovementMode )
+INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLEAN fMovementMode, UINT8 ubSeatIndex )
 {
 	// Look for an item pool
 	INT32 sActionGridNo;
@@ -5320,7 +5342,9 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 	{
 		pTSoldier = MercPtrs[ gusUIFullTargetID ];
 
-		if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) )
+		// anv: added condition - make sure we won't put vehicle in another vehicle
+		if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER | SOLDIER_VEHICLE ) ) )
+		//if ( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) )
 		{
 			if ( ( GetNumberInVehicle( pTSoldier->bVehicleID ) == 0 ) || !fMovementMode )
 			{
@@ -5344,6 +5368,7 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 							pSoldier->aiData.ubPendingAction = MERC_ENTER_VEHICLE;
 							pSoldier->aiData.sPendingActionData2	= pTSoldier->sGridNo;
 							pSoldier->aiData.bPendingActionData3	= ubDirection;
+							pSoldier->aiData.uiPendingActionData4	= ubSeatIndex;
 							pSoldier->aiData.ubPendingActionAnimCount = 0;
 
 							// WALK UP TO DEST FIRST
@@ -5351,7 +5376,7 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 						}
 						else
 						{
-							pSoldier->EVENT_SoldierEnterVehicle( pTSoldier->sGridNo, ubDirection );
+							pSoldier->EVENT_SoldierEnterVehicle( pTSoldier->sGridNo, ubDirection, ubSeatIndex );
 						}
 
 						// OK, set UI
@@ -5390,7 +5415,7 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 			return;
 		}
 
-		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, FALSE ) == -1 )
+		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, FALSE, 0 ) == -1 )
 		{
 			return;
 		}
@@ -5531,6 +5556,41 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 	}
 }
 
+void HandleHandCursorRightClick( INT32 usMapPos, UINT32 *puiNewEvent )
+{
+	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pTSoldier;
+
+	if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
+	{
+		// If we are out of breath, no cursor...
+		if( pSoldier->bBreath < OKBREATH && pSoldier->bCollapsed )
+		{
+			return;
+		}
+
+		if( gfUIFullTargetFound )
+		{
+			pTSoldier = MercPtrs[ gusUIFullTargetID ];
+			if( OK_ENTERABLE_VEHICLE( pTSoldier ) && pTSoldier->bVisible != -1 && OKUseVehicle( pTSoldier->ubProfile ) )
+			{
+				// anv: if we are passengers, only show menu when clicking on vehicle we're in
+				if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+				{
+					if( pSoldier->iVehicleId == pTSoldier->bVehicleID )
+					{
+						VehicleMenu(usMapPos, pSoldier, pTSoldier);
+					}
+				}
+				else
+				{
+					VehicleMenu(usMapPos, pSoldier, pTSoldier);
+				}
+				return;
+			}
+		}
+	}
+}
 
 extern BOOLEAN AnyItemsVisibleOnLevel( ITEM_POOL *pItemPool, INT8 bZLevel );
 
@@ -5596,7 +5656,7 @@ INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 		}
 
 		// See if we are over a vehicle, and walk up to it and enter....
-		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, TRUE ) == -1 )
+		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, TRUE, 0 ) == -1 )
 		{
 			return( -1 );
 		}
@@ -6744,6 +6804,24 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	INT8 bNewPosition = bOldPosition + bDirection;
 	SOLDIERTYPE TempMercPtr = *MercPtrs[ ubSourceMerc ];
 
+	// anv: vehicle passengers are swapped differently
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+		if( pVehicle != NULL && bNewPosition < gNewVehicle[pVehicle->bVehicleID].iNewSeatingCapacities )
+		{
+			if( SwapVehicleSeat( pVehicle, pSoldier, bNewPosition ) )
+			{
+				RebuildCurrentSquad( );
+				// refresh interface
+				fCharacterInfoPanelDirty = TRUE;
+				fTeamPanelDirty = TRUE;
+				fInterfacePanelDirty = DIRTYLEVEL2;
+			}
+		}
+		return;
+	}
+
 	// check if new position is occupied by another merc? we won't replace an empty slot
 	if ( gTeamPanel[ bNewPosition ].fOccupied && gTeamPanel[ bNewPosition ].ubID != NOBODY )
 	{
@@ -6785,13 +6863,6 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 
 		// don't forget to renew selection of merc
 		gusSelectedSoldier = ubTargetMerc;
-
-		// anv: if swapped guy was a driver, make sure vehicle driver ubID gets updates
-		if( MercPtrs[ ubTargetMerc ]->flags.uiStatusFlags & SOLDIER_DRIVER )
-		{
-			pVehicleList[ pSoldier->iVehicleId ].ubDriver = MercPtrs[ ubTargetMerc ]->ubID;
-		}
-
 
 		// refresh interface
 		fCharacterInfoPanelDirty = TRUE;

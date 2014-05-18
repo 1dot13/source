@@ -177,6 +177,7 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"Vehicle",					Loc::pVehicleStrings,				0,	6);
 	ExportSection(props, L"ShortVehicle",				Loc::pShortVehicleStrings,			0,	6);
 	ExportSection(props, L"VehicleName",				Loc::zVehicleName,					0,	6);
+	ExportSection(props, L"VehicleSeatsStrings",		Loc::pVehicleSeatsStrings,			0,	2);
 
 	ExportSection(props, L"Tactical",					Loc::TacticalStr,					0,	TEXT_NUM_TACTICAL_STR);
 	ExportSection(props, L"ExitingSectorHelp",			Loc::pExitingSectorHelpText,		0,	TEXT_NUM_EXIT_GUI);

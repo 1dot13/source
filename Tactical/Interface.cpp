@@ -1083,6 +1083,17 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 		fDisableAction = TRUE;
 	}
 
+	// anv: don't switch if passengers are blocked from attacking
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+		INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
+		if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[bSeatIndex].fBlockedShots == TRUE )
+		{
+			fDisableAction = TRUE;
+		}
+	}
+
 	iActionIcons[ ACTIONC_ICON ] = QuickCreateButton( iIconImages[ uiActionImages ], (INT16)(iMenuAnchorX	), (INT16)(iMenuAnchorY + 20 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
@@ -1776,7 +1787,16 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			//if ( pSoldier->flags.fShowLocator )
 			{
 				// Render the beastie
-				GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+				// anv: if soldier is in vehicle, draw above middle of the vehicle
+				if( !(pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+				{
+					GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+				}
+				else
+				{
+					SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+					GetSoldierAboveGuyPositions( pVehicle, &sXPos, &sYPos, TRUE );
+				}
 
 				// Adjust for bars!
 				sXPos += 25;
@@ -1833,7 +1853,16 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		if ( gGameExternalOptions.ubShowHealthBarsOnHead )
 		{
 			// Render the beastie
-			GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+			// anv: if soldier is in vehicle, draw above middle of the vehicle
+			if( !(pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			{
+				GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+			}
+			else
+			{
+				SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+				GetSoldierAboveGuyPositions( pVehicle, &sXPos, &sYPos, TRUE );
+			}
 
 			// Adjust for bars!
 			sXPos += 25;
@@ -1901,7 +1930,16 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		return;
 	}
 	
-	GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, FALSE );
+	// anv: if soldier is in vehicle, draw above middle of the vehicle
+	if( !(pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+	{
+		GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, FALSE );
+	}
+	else
+	{
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+		GetSoldierAboveGuyPositions( pVehicle, &sXPos, &sYPos, FALSE );
+	}
 	
 	// Display name
 	SetFont( TINYFONT1 );

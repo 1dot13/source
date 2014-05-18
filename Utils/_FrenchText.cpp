@@ -3074,6 +3074,11 @@ STR16	zVehicleName[] =
 	L"Hélico", 		//an abbreviation for Helicopter
 };
 
+STR16 pVehicleSeatsStrings[] =
+{
+	 L"You cannot shoot from this seat.",	// TODO.Translate
+	 L"You cannot swap those two seats in combat without exiting vehicle first.",	// TODO.Translate
+};
 
 //These are messages Used in the Tactical Screen
 

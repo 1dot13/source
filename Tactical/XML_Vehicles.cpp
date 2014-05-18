@@ -19,6 +19,7 @@ struct
 
 	UINT32			maxArraySize;
 	UINT32			curIndex;
+	UINT32			curSeatIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
@@ -64,6 +65,28 @@ newCarStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			pData->maxReadDepth++;
+		}
+		else if(strcmp(name, "SEAT") == 0 && pData->curElement == ELEMENT)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->maxReadDepth++;
+		}
+		else if(pData->curElement == ELEMENT_SUBLIST &&
+				(strcmp(name, "SeatIndex") == 0 ||
+				strcmp(name, "SeatName") == 0 ||
+				strcmp(name, "Driver") == 0 ||
+				strcmp(name, "Hidden") == 0 ||
+				strcmp(name, "BlockedView") == 0 ||
+				strcmp(name, "BlockedShots") == 0 ||
+				strcmp(name, "Rotation") == 0 ||
+				strcmp(name, "OffsetX") == 0 ||
+				strcmp(name, "OffsetY") == 0 ||
+				strcmp(name, "Coverage") == 0 ||
+				strcmp(name, "Compartment") == 0 ||
+				strcmp(name, "MountedGun") == 0 ))
+		{
+			pData->curElement = ELEMENT_SUBLIST_PROPERTY;
+			pData->maxReadDepth++; //we are not skipping this element
 		}
 
 		pData->szCharData[0] = '\0';
@@ -121,13 +144,16 @@ newCarEndElementHandle(void *userData, const XML_Char *name)
 				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewVehicleName, pData->curNewCar.NewVehicleName);
 				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewShortVehicleStrings, pData->curNewCar.NewShortVehicleStrings);
 				gNewVehicle[ pData->curNewCar.uiIndex ].NewUsed = FALSE;
+				memcpy( gNewVehicle[ pData->curNewCar.uiIndex ].VehicleSeats, pData->curNewCar.VehicleSeats, sizeof(pData->curNewCar.VehicleSeats) );
+
 			}
 			else
 			{
 				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewVehicleStrings, pData->curNewCar.NewVehicleStrings);
 				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewVehicleName, pData->curNewCar.NewVehicleName);
-				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewShortVehicleStrings, pData->curNewCar.NewShortVehicleStrings);					
-			}		
+				wcscpy(gNewVehicle[pData->curNewCar.uiIndex].NewShortVehicleStrings, pData->curNewCar.NewShortVehicleStrings);
+			}
+			memset( pData->curNewCar.VehicleSeats, 0, sizeof(pData->curNewCar.VehicleSeats) );
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
@@ -212,6 +238,81 @@ newCarEndElementHandle(void *userData, const XML_Char *name)
 				temp = pData->szCharData[i];
 				pData->curNewCar.szIconFace[i] = temp;
 			}
+		}
+		else if(strcmp(name, "SEAT") == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if (!NewCar_TextOnly)
+			{	
+				memcpy( gNewVehicle[pData->curNewCar.uiIndex].VehicleSeats, pData->curNewCar.VehicleSeats, sizeof(pData->curNewCar.VehicleSeats) );
+			}
+			else
+			{
+				wcscpy( gNewVehicle[pData->curNewCar.uiIndex].VehicleSeats[pData->curSeatIndex].zSeatName, pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName ); 
+			}
+		}
+		else if(strcmp(name, "SeatIndex") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curSeatIndex = (int) atol(pData->szCharData);
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].ubSeatIndex = pData->curSeatIndex;
+		}
+		else if(strcmp(name, "SeatName") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName, sizeof(pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName)/sizeof( pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName[0]) );
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName[sizeof(pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName)/sizeof(pData->curNewCar.VehicleSeats[pData->curSeatIndex].zSeatName[0]) - 1] = '\0';
+		}
+		else if(strcmp(name, "Driver") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].fDriver = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "Hidden") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].fHidden = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "BlockedView") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].fBlockedView = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "BlockedShots") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].fBlockedShots = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "Rotation") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].ubRotation = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "OffsetX") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].bOffsetX = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "OffsetY") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].bOffsetY = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "Coverage") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].ubCoverage = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "Compartment") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].ubCompartment = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "MountedGun") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curNewCar.VehicleSeats[pData->curSeatIndex].usMountedGun = (UINT32) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -301,6 +402,7 @@ void InitNewVehicles ()
 		gNewVehicle[ iCount ].NewVehicleName[127] = '\0';
 		gNewVehicle[ iCount ].NewShortVehicleStrings[127] = '\0';	
 		gNewVehicle[ iCount ].NewUsed = FALSE;
+		memset( &gNewVehicle[ iCount ].VehicleSeats, 0, sizeof(gNewVehicle[ iCount ].VehicleSeats) );
 	}
 }
 

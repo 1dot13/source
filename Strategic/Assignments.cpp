@@ -16750,7 +16750,12 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 	{
 		// better be an active person, not a vehicle
 		Assert( pSoldier->bActive );
-		Assert( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) );
+		// anv: don't assert, handle...
+		//Assert( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) );
+		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		{
+			pSoldier = GetDriver( pSoldier->iVehicleId );
+		}
 	}
 
 	return( pSoldier );

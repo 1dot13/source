@@ -740,6 +740,7 @@ extern STR16		sKeyDescriptionStrings[2];
 extern CHAR16		zHealthStr[][13];
 extern STR16		gzHiddenHitCountStr[1];
 extern STR16		zVehicleName[ 6 ];
+extern STR16		pVehicleSeatsStrings[ 2 ] ;
 
 // Flugente: externalised texts for some features
 enum
