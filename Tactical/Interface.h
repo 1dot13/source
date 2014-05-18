@@ -549,4 +549,11 @@ void ShowAdditionalInfo( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier );
 void ShowRankIcon( INT16 sXPos, INT16 sYPos, SOLDIERTYPE* pSoldier );
 void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier );
 
+void NCTHImprovedAPColor( SOLDIERTYPE* pSoldier, OBJECTTYPE* pWeapon );
+void NCTHDrawLaserDot( UINT16* ptrBuf, UINT32 uiPitch, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom, INT16 sStartScreenX, INT16 sStartScreenY, FLOAT fLaserBonus, FLOAT fBrightnessModifier, FLOAT fEffectiveLaserRatio, FLOAT zOffset );
+void NCTHCorrectMaxAperture( FLOAT& iAperture, FLOAT& iDistanceAperture, UINT16& usCApertureBar );
+void NCTHDrawScopeModeIcon( SOLDIERTYPE *pSoldier, INT16 sNewX, INT16 sNewY );
+void NCTHShowAimLevels( SOLDIERTYPE* pSoldier, INT16 curX, INT16 curY );
+void NCTHShowMounted( SOLDIERTYPE* pSoldier, UINT16* ptrBuf, UINT32 uiPitch, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom, INT16 sStartScreenX, INT16 sStartScreenY, INT16 zOffset );
+
 #endif

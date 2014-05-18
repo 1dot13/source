@@ -1066,6 +1066,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPlayerHitCount					= iniReader.ReadInteger("Tactical Interface Settings","PLAYER_HIT_COUNT", 0, 0, 4);
 	gGameExternalOptions.fShowHitInfo						= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_HIT_INFO", FALSE);
 	gGameExternalOptions.ubAdditionalNCTHCursorInfo			= iniReader.ReadInteger("Tactical Interface Settings","ADDITIONAL_NCTH_CURSOR_INFO", 0, 0, 2);	
+	gGameExternalOptions.ubImprovedNCTHCursor				= iniReader.ReadInteger("Tactical Interface Settings","IMPROVED_NCTH_CURSOR", 0, 0, 2);		
 
 	// sevenfm: show additional suppression info above soldier
 	gGameExternalOptions.ubShowSuppressionCount				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT", 0, 0, 2);

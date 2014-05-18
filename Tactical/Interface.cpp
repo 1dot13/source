@@ -126,6 +126,7 @@ INT32		giMenuAnchorX, giMenuAnchorY;
 INT32 HEIGHT_PROGRESSBAR, PROG_BAR_START_Y;
 //ddd}
 
+extern BOOLEAN gfCannotGetThrough;	// sevenfm: will use it when showing red laser dot
 
 BOOLEAN	gfProgBarActive		= FALSE;
 UINT8		gubProgNumEnemies		= 0;
@@ -2623,6 +2624,11 @@ BOOLEAN DrawCTHIndicator()
 	// Calculate the size of a "normal" aperture. This is how wide a shot can go at 1x Normal Distance.
 	FLOAT iBasicAperture = (FLOAT)((sin(ddMaxAngleRadians) * gGameCTHConstants.NORMAL_SHOOTING_DISTANCE) * 2); // The *2 compensates for the difference between CellXY and ScreenXY 
 
+	// sevenfm: moved declarations out of codeblock, will use them later for laser dot plotting
+	FLOAT fLaserBonus = 0;	
+	FLOAT fBrightnessModifier = 1;	
+	FLOAT fEffectiveLaserRatio = 1;
+
 	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
 	if (gGameExternalOptions.fUseNewCTHCalculation)
 	{
@@ -2641,7 +2647,6 @@ BOOLEAN DrawCTHIndicator()
 			// laser only has effect when in range
 			if ( iMaxLaserRange > d2DDistance )
 			{
-				FLOAT fLaserBonus = 0;
 				// which bonus do we want to apply?
 				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
 					// shooting from hip
@@ -2654,7 +2659,7 @@ BOOLEAN DrawCTHIndicator()
 					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
 
 				// light level influences how easy it is to spot the laser dot on the target
-				FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
+				fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
 
 				// laser fully efficient
 				if ( gCTHDisplay.iBestLaserRange > d2DDistance )
@@ -2663,7 +2668,7 @@ BOOLEAN DrawCTHIndicator()
 				else
 				{
 					// beyond BestLaserRange laser bonus drops linearly to 0
-					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
+					fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
 					// apply partial bonus
 					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
 				}
@@ -2807,6 +2812,8 @@ BOOLEAN DrawCTHIndicator()
 	CHECKF(AddVideoObject(&VObjectDesc, &guiCTHImage));
 
 	/////////////// AP COST FOR CURRENT SHOT
+	// sevenfm: only if in turnbased!
+	if( ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) ) )
 	{
 		// Create a pointer to the Frame Buffer which we are going to draw directly into.
 		SetFont( TINYFONT1 );
@@ -2831,6 +2838,9 @@ BOOLEAN DrawCTHIndicator()
 		SetFontForeground(FONT_MCOLOR_LTYELLOW);
 		swprintf( pStr, L"%s", gzNCTHlabels[ 1 ] );
 		curX += usWidth + 4;
+
+		// sevenfm: improved NCTH indicator - change color of 'AP' depending on the remaining APs after shooting
+		NCTHImprovedAPColor( pSoldier, pWeapon );
 		gprintfdirty( curX, curY, pStr );
 		mprintf( curX, curY, pStr);
 
@@ -2839,6 +2849,11 @@ BOOLEAN DrawCTHIndicator()
 		INT16 sCenter = (INT16)((APRect.right + APRect.left) / 2);
 		APRect.left = sCenter - (usTotalWidth / 2);
 		APRect.right = sCenter + (usTotalWidth / 2);
+	}
+	else
+	{
+		APRect.top = APRect.bottom = 0;
+		APRect.left = APRect.right = 0;
 	}
 
 	// sevenfm: draw item pics
@@ -2893,12 +2908,20 @@ BOOLEAN DrawCTHIndicator()
 		gprintfdirty( curX, curY, pStr );
 		mprintf( curX, curY, pStr);
 
-		// Add an "x" 4 pixels forward.
-		SetFontForeground( FONT_MCOLOR_LTYELLOW );
-		swprintf( pStr, L"x" );
-		curX += usWidth + 4;
-		gprintfdirty( curX, curY, pStr );
-		mprintf( curX, curY, pStr);
+		if( gGameExternalOptions.ubImprovedNCTHCursor > 0 && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+		{
+			// sevenfm: show scope mode icon
+			NCTHDrawScopeModeIcon( pSoldier, curX + usWidth + 2, curY );
+		}
+		else
+		{
+			// Add an "x" 4 pixels forward.
+			SetFontForeground( FONT_MCOLOR_LTYELLOW );
+			swprintf( pStr, L"x" );
+			curX += usWidth + 4;
+			gprintfdirty( curX, curY, pStr );
+			mprintf( curX, curY, pStr);
+		}
 
 		// Redefine area size based on total width plus a margin of 2 pixels.
 		usTotalWidth = usTotalWidth + 6;
@@ -3013,7 +3036,11 @@ BOOLEAN DrawCTHIndicator()
 			}
 
 			// Display no more than X bullets on screen!
-			uiMaxBulletsToDisplay = __min(uiMaxAutofire, 15);
+			// sevenfm: limit displayed number of bullets to 10
+			if( gGameExternalOptions.ubImprovedNCTHCursor > 1 )	
+				uiMaxBulletsToDisplay = __min(uiMaxAutofire, 10); 
+			else
+				uiMaxBulletsToDisplay = __min(uiMaxAutofire, 15);
 
 			// Calculate how many spaces to display. Currently, a space is displayed after every 5 bullets.
 			uiSpacesToDisplay = (uiMaxBulletsToDisplay-1) / 5;
@@ -3219,97 +3246,104 @@ BOOLEAN DrawCTHIndicator()
 		sTop = (INT16)AimRect.top;
 		sLeft = (INT16)((AimRect.left+AimRect.right)/2) - ubAimLeftOffset;
 
-		// Draw empty ticks.
-		for (UINT8 x = 0; x < (ubAllowedLevels*2)-1; x++)
-		{
-			INT16 sOffset = x * ubAimFinalOffset;
-			if (gfDisplayFullCountRing)
-			{
-				if (ubAllowedLevels - abs((ubAllowedLevels-(x+1))) >= pSoldier->aiData.bShownAimTime)
-				{
-					// Red empty tick - unusable aim level with current AP!
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 6, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-				else
-				{
-					// Orange empty tick - Used aim tick.
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 4, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-			}
-			else
-			{
-				if (pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) && 
-					ubAllowedLevels - abs((ubAllowedLevels-(x+1))) <= GetNumberAltFireAimLevels( pSoldier, gCTHDisplay.iTargetGridNo ) )
-				{
-					// yellow empty tick
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 2, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-				else
-				{
-					// grey empty tick
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 0, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-			}
+		if( gGameExternalOptions.ubImprovedNCTHCursor > 1 )
+		{		// sevenfm: show aim levels as numbers
+			NCTHShowAimLevels( pSoldier, curX, curY );
 		}
-
-		// Draw Filled Ticks
-		if (pSoldier->aiData.bShownAimTime)
+		else	// draw ticks
 		{
-			// Tick on the left
-			INT16 sNewLeft = sLeft + (ubAimFinalOffset * (pSoldier->aiData.bShownAimTime-1));
-			if (gfDisplayFullCountRing)
+			// Draw empty ticks.
+			for (UINT8 x = 0; x < (ubAllowedLevels*2)-1; x++)
 			{
-				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+				INT16 sOffset = x * ubAimFinalOffset;
+				if (gfDisplayFullCountRing)
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if (ubAllowedLevels - abs((ubAllowedLevels-(x+1))) >= pSoldier->aiData.bShownAimTime)
+					{
+						// Red empty tick - unusable aim level with current AP!
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 6, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						// Orange empty tick - Used aim tick.
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 4, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 				else
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 5, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-			}
-			else
-			{
-				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
-				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-				else
-				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 1, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if (pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) && 
+						ubAllowedLevels - abs((ubAllowedLevels-(x+1))) <= GetNumberAltFireAimLevels( pSoldier, gCTHDisplay.iTargetGridNo ) )
+					{
+						// yellow empty tick
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 2, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						// grey empty tick
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 0, sLeft + sOffset, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 			}
 
-			// Tick on the right
-			sNewLeft = sLeft + (ubAimFinalOffset * (ubNumSpaces-(pSoldier->aiData.bShownAimTime-1)));
-			if (gfDisplayFullCountRing)
+			// Draw Filled Ticks
+			if (pSoldier->aiData.bShownAimTime)
 			{
-				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+				// Tick on the left
+				INT16 sNewLeft = sLeft + (ubAimFinalOffset * (pSoldier->aiData.bShownAimTime-1));
+				if (gfDisplayFullCountRing)
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 5, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 				else
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 5, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 1, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
-			}
-			else
-			{
-				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+
+				// Tick on the right
+				sNewLeft = sLeft + (ubAimFinalOffset * (ubNumSpaces-(pSoldier->aiData.bShownAimTime-1)));
+				if (gfDisplayFullCountRing)
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 5, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 				else
 				{
-					BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 1, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo ) )
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 3, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
+					else
+					{
+						BltVideoObjectFromIndex( FRAME_BUFFER, guiCTHImage, 1, sNewLeft, sTop, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 			}
+
+			ubAimFinalWidth += 6;
+			INT16 sCenter = (INT16)((AimRect.right + AimRect.left) / 2);
+			AimRect.left = sCenter - (ubAimFinalWidth / 2);
+			AimRect.right = sCenter + (ubAimFinalWidth / 2);
 		}
-
-		ubAimFinalWidth += 6;
-		INT16 sCenter = (INT16)((AimRect.right + AimRect.left) / 2);
-		AimRect.left = sCenter - (ubAimFinalWidth / 2);
-		AimRect.right = sCenter + (ubAimFinalWidth / 2);
 
 	}
 
@@ -3347,6 +3381,9 @@ BOOLEAN DrawCTHIndicator()
 	sRight = gsVIEWPORT_END_X;
 	sBottom = gsVIEWPORT_WINDOW_END_Y;
 
+	// sevenfm: draw a line under the cursor indicating that gun is 'mounted' on surface
+	NCTHShowMounted( pSoldier, ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, sStartScreenY, zOffset );
+
 //	INT16 lastY = 0;
 //	INT16 diffY = 0;
 //	UINT32 uiAperture = __max(2,(UINT32)iAperture);
@@ -3373,6 +3410,9 @@ BOOLEAN DrawCTHIndicator()
 	// Circumference tells us how many pixels to draw, hopefully.
 	FLOAT RADIANS_IN_CIRCLE = (FLOAT)(PI * 2);
 	INT32 Circ = 0;
+
+	// sevenfm: limit maximum shown aperture
+	NCTHCorrectMaxAperture( iAperture, iDistanceAperture, usCApertureBar );
 
 	Circ = (INT32)((iDistanceAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
 	if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
@@ -3484,6 +3524,9 @@ BOOLEAN DrawCTHIndicator()
 		}
 	}
 
+	// sevenfm: draw laser dot
+	NCTHDrawLaserDot( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, sStartScreenY, fLaserBonus, fBrightnessModifier, fEffectiveLaserRatio, zOffset );
+	
 	// Unlock the Frame Buffer.
 	UnLockVideoSurface( FRAME_BUFFER );
 
@@ -6734,4 +6777,191 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	}
 
 	return true;
+}
+
+
+void NCTHImprovedAPColor( SOLDIERTYPE* pSoldier, OBJECTTYPE* pWeapon )
+{
+	if( gGameExternalOptions.ubImprovedNCTHCursor > 0 )
+	{
+		// compare Aps needed to shoot with shooter's APs
+		INT16 sRemainingAP = pSoldier->bActionPoints - gsCurrentActionPoints;			
+		INT16 sModifiedReloadAP = Weapon[Item[pWeapon->usItem].ubClassIndex].APsToReloadManually;
+		if( sModifiedReloadAP > 0 )
+		{
+			if ( Item[ pWeapon->usItem ].usItemClass == IC_GUN )
+				sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pWeapon->usItem ].ubWeaponType ];
+			else if ( Item[ pWeapon->usItem ].usItemClass == IC_LAUNCHER )
+				sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+			if ( gGameOptions.fNewTraitSystem )
+			{
+				// Sniper trait makes chambering a round faster
+				if (( Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
+					sModifiedReloadAP = (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5);
+				// Ranger trait makes pumping shotguns faster
+				else if (( Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+					sModifiedReloadAP = (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5);
+			}
+		}
+		INT16 sPointsToShoot = CalcTotalAPsToAttack( pSoldier, gCTHDisplay.iTargetGridNo, 0, pSoldier->aiData.bShownAimTime ) + sModifiedReloadAP;
+
+		// we can shoot twice
+		if( sRemainingAP >= sPointsToShoot )
+		{
+			SetFontForeground(FONT_MCOLOR_LTYELLOW);
+		}
+		// at least we have min ap for interrupt (enough to interrupt somebody or take cover after shooting)
+		else if( sRemainingAP >= APBPConstants[MIN_APS_TO_INTERRUPT] )
+		{
+			SetFontForeground(FONT_ORANGE);
+		}
+		// too low AP
+		else
+		{
+			SetFontForeground(FONT_MCOLOR_DKRED);
+		}
+	}
+}
+
+void NCTHDrawLaserDot( UINT16* ptrBuf, UINT32 uiPitch, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom, INT16 sStartScreenX, INT16 sStartScreenY, FLOAT fLaserBonus, FLOAT fBrightnessModifier, FLOAT fEffectiveLaserRatio, FLOAT zOffset )
+{
+	if( gGameExternalOptions.ubImprovedNCTHCursor > 0 )
+	{
+		//UINT16 usLaserBonus = fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio;
+		UINT16 usLaserBonus;
+		// we want to show relative effectiveness of laser, not it's absolute value
+		if( fLaserBonus > 0 )
+			usLaserBonus = 100 * fBrightnessModifier * fEffectiveLaserRatio;
+		else
+			usLaserBonus = 0;
+		UINT16 usCLaserDot = Get16BPPColor( FROMRGB( 130 + usLaserBonus, 0, 0 ) );
+		UINT16 usCLaserDotHigh = Get16BPPColor( FROMRGB( 150 + usLaserBonus, 0, 0 ) );
+		UINT16 usCLaserDotLow = Get16BPPColor( FROMRGB( 100 + usLaserBonus, 0, 0 ) );
+
+		// if laser visibility is at least 10%
+		if(!gfCannotGetThrough && usLaserBonus > 10)
+		{
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, sStartScreenY+1+(INT16)zOffset, usCLaserDotLow );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, sStartScreenY+1+(INT16)zOffset, usCLaserDot );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, sStartScreenY+1+(INT16)zOffset, usCLaserDotLow );
+
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, sStartScreenY+(INT16)zOffset, usCLaserDot );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, sStartScreenY+(INT16)zOffset, usCLaserDotHigh );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, sStartScreenY+(INT16)zOffset, usCLaserDot );
+
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, sStartScreenY-1+(INT16)zOffset, usCLaserDotLow );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, sStartScreenY-1+(INT16)zOffset, usCLaserDot );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, sStartScreenY-1+(INT16)zOffset, usCLaserDotLow );
+		}
+	}
+}
+
+void NCTHCorrectMaxAperture( FLOAT& iAperture, FLOAT& iDistanceAperture, UINT16& usCApertureBar )
+{
+	if( gGameExternalOptions.ubImprovedNCTHCursor > 0 )
+	{
+		INT32 iMaxShownAperture;
+		INT32 iMinShownAperture = 5 ;
+		if( gGameExternalOptions.ubImprovedNCTHCursor > 1 )
+			iMaxShownAperture = 50;
+		else
+			iMaxShownAperture = 100;
+		if( iAperture > iMaxShownAperture )
+			usCApertureBar	= Get16BPPColor( FROMRGB( 160, 0, 0 ) );
+		iDistanceAperture = __min( iDistanceAperture, iMaxShownAperture );
+		iAperture = __min( iAperture, iMaxShownAperture );
+		iAperture = __max( iAperture, iMinShownAperture );
+	}
+}
+
+void NCTHDrawScopeModeIcon( SOLDIERTYPE* pSoldier, INT16 sNewX, INT16 sNewY )
+{
+	if( gGameExternalOptions.ubImprovedNCTHCursor > 0 )
+	{
+		if ( gGameExternalOptions.fScopeModes && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+		{
+			UINT32 uiItemInfoAdvancedIcon = 0;
+			VOBJECT_DESC    VObjectDesc;
+			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+			AddVideoObject( &VObjectDesc, &uiItemInfoAdvancedIcon);
+
+			std::map<INT8, OBJECTTYPE*> ObjList;
+			GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+
+			if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
+			{		
+				BltVideoObjectFromIndex( FRAME_BUFFER, uiItemInfoAdvancedIcon, 56, sNewX, sNewY+1, VO_BLT_TRANSSHADOW, NULL );
+			}
+			else if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
+			{					
+				BltVideoObjectFromIndex( FRAME_BUFFER, uiItemInfoAdvancedIcon, 54, sNewX, sNewY+1, VO_BLT_TRANSSHADOW, NULL );
+			}
+			// improved iron sights are attachable iron sights (the 'normal' iron sight is the gun itself)
+			else if (ObjList[pSoldier->bScopeMode] != NULL &&  IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_IRONSIGHT ) )
+			{
+				BltVideoObjectFromIndex( FRAME_BUFFER, uiItemInfoAdvancedIcon, 52, sNewX, sNewY-1, VO_BLT_TRANSSHADOW, NULL );
+			}
+			else if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
+			{
+				BltVideoObjectFromIndex( FRAME_BUFFER, uiItemInfoAdvancedIcon, 53, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+			}
+			else
+			{
+				BltVideoObjectFromIndex( FRAME_BUFFER, uiItemInfoAdvancedIcon, 52, sNewX, sNewY-1, VO_BLT_TRANSSHADOW, NULL );
+			}								
+		}
+	}
+}
+
+void NCTHShowAimLevels( SOLDIERTYPE* pSoldier, INT16 curX, INT16 curY )
+{
+	CHAR16 pStr[256];
+	INT8 ubAllowedLevels = AllowedAimingLevels( pSoldier, gCTHDisplay.iTargetGridNo );
+
+	// only show Aim Levels when cursor is on target
+	if( gfUIFullTargetFound )
+	{
+		SetFont( TINYFONT1 );
+		SetFontBackground( FONT_MCOLOR_BLACK );
+		if( ubAllowedLevels == 0 )
+			SetFontForeground( FONT_MCOLOR_LTGRAY );
+		else if ( pSoldier->aiData.bShownAimTime == ubAllowedLevels )		
+			SetFontForeground( FONT_MCOLOR_LTYELLOW );
+		else
+			SetFontForeground( FONT_MCOLOR_LTGRAY );
+
+		if( ubAllowedLevels > 0 )
+			swprintf( pStr, L"%d/%d", pSoldier->aiData.bShownAimTime, ubAllowedLevels );
+		else
+			swprintf( pStr, L"-/-" );
+		FindFontCenterCoordinates( (INT16)AimRect.left, (INT16)AimRect.top, (INT16)AimRect.right-(INT16)AimRect.left, 10, pStr, TINYFONT1, &curX, &curY);
+		gprintfdirty( curX, curY, pStr );
+		mprintf( curX, curY, pStr);
+
+		UINT16 usTotalWidth = StringPixLength( pStr, TINYFONT1 ) + 6;
+		INT16 sCenter = (INT16)((AimRect.right + AimRect.left) / 2);
+		AimRect.left = sCenter - (usTotalWidth / 2);
+		AimRect.right = sCenter + (usTotalWidth / 2);
+	}
+}
+
+void NCTHShowMounted( SOLDIERTYPE* pSoldier, UINT16* ptrBuf, UINT32 uiPitch, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom, INT16 sStartScreenX, INT16 sStartScreenY, INT16 zOffset )
+{
+	if( gGameExternalOptions.ubImprovedNCTHCursor > 2 )
+	{
+		OBJECTTYPE* pWeapon = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+		INVTYPE	*pItem = &Item[ pWeapon->usItem ];
+		UINT16 usCMountedBar	= Get16BPPColor( FROMRGB( 192, 0, 0 ) );
+		UINT16 usCMountedBorder	= Get16BPPColor( FROMRGB( 10, 10, 10 ) );
+		if ( gGameExternalOptions.fWeaponResting && !gfCannotGetThrough && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier->IsWeaponMounted() )
+		{			
+			for(INT32 cnt=-5;cnt<=5;cnt++)
+			{
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+8+(INT16)zOffset, usCMountedBorder );
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+9+(INT16)zOffset, usCMountedBar );
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+10+(INT16)zOffset, usCMountedBorder );
+			}
+		}
+	}
 }

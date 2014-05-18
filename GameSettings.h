@@ -1260,6 +1260,7 @@ typedef struct
 	UINT8 ubPlayerHitCount;
 	BOOLEAN fShowHitInfo;
 	UINT8 ubAdditionalNCTHCursorInfo;
+	UINT8 ubImprovedNCTHCursor;
 
 	// sevenfm: new additional info above soldier
 	UINT8 ubShowSuppressionCount;
