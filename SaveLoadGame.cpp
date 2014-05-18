@@ -8367,7 +8367,28 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiTimeOfLastSkyriderMonologue, sizeof(sGeneralInfo.uiTimeOfLastSkyriderMonologue), sizeof(UINT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowCambriaHospitalHighLight, sizeof(sGeneralInfo.fShowCambriaHospitalHighLight), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fSkyRiderSetUp, sizeof(sGeneralInfo.fSkyRiderSetUp), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fRefuelingSiteAvailable, sizeof(sGeneralInfo.fRefuelingSiteAvailable), sizeof(BOOLEAN), numBytesRead);
+
+	if ( guiCurrentSaveGameVersion >= INCREASED_REFUEL_SITES )
+	{
+		numBytesRead = ReadFieldByField( hFile, &sGeneralInfo.fRefuelingSiteAvailable, sizeof(sGeneralInfo.fRefuelingSiteAvailable), sizeof(BOOLEAN), numBytesRead );
+	}
+	else
+	{
+		// Flugente: MAX_NUMBER_OF_REFUEL_SITES was 2, so we have to fill up the array
+		for ( UINT16 i = 0; i < MAX_NUMBER_OF_REFUEL_SITES; ++i )
+			sGeneralInfo.fRefuelingSiteAvailable[i] = FALSE;
+
+		numBytesRead = ReadFieldByField( hFile, &sGeneralInfo.fRefuelingSiteAvailable, 2 * sizeof(BOOLEAN), sizeof(BOOLEAN), numBytesRead );
+
+		INT32 buffer = 0;
+		for ( int i = 0; i < sizeof(BOOLEAN)* (MAX_NUMBER_OF_REFUEL_SITES - 2); ++i )
+			buffer++;
+		while ( (buffer % 4) > 0 )
+			buffer++;
+
+		numBytesRead += buffer;
+	}
+
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.gCurrentMeanwhileDef, sizeof(sGeneralInfo.gCurrentMeanwhileDef), sizeof(UINT8), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn, sizeof(sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.gfMeanwhileTryingToStart, sizeof(sGeneralInfo.gfMeanwhileTryingToStart), sizeof(BOOLEAN), numBytesRead);

@@ -61,7 +61,7 @@
 #define AIRPORT2_Y	gModSettings.ubAirport2Y //14
 
 // refueling sites definitions
-#define MAX_NUMBER_OF_REFUEL_SITES	2 //30
+#define MAX_NUMBER_OF_REFUEL_SITES	30	// 2
 
 
 // enums for skyrider monologue
