@@ -10649,19 +10649,6 @@ void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aEl
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
 	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
-
-	// anv: handle change of number of prisoners knowing snitch's identity
-	//if( sX != 0 && sY != 0 )
-	//{
-	//	for( UINT8 cnt = 0; cnt < NUM_PROFILES; cnt++ )
-	//	{
-	//		if( gMercProfiles[ cnt ].ubExposedInSector[ SECTOR(sX, sY) ] != 0 )
-	//		{
-	//			gMercProfiles[ cnt ].ubExposedInSector[ SECTOR(sX, sY) ] = max( 0, min( 255, gMercProfiles[ cnt ].ubExposedInSector[ SECTOR(sX, sY) ] + aSpecial + aElite + aRegular + aAdmin ) );
-	//		}
-	//	}
-	//}
-
 }
 
 void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin )
@@ -10693,7 +10680,7 @@ void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo )
 		pSectorInfo->uiNumberOfPrisonersOfWar[i] = 0;
 }
 
-// used when the player kills a prisoner. We kill of high-value prisoners first, to punish this kind of behaviour
+// used when the player kills a prisoner. We kill off high-value prisoners first, to punish this kind of behaviour
 void KillOnePrisoner( SECTORINFO *pSectorInfo )
 {
 	if ( !pSectorInfo )

@@ -7884,10 +7884,10 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d Elite-, %d Reguläre und %d Hilfssoldaten wurden verhört.",
+	L"%d Offiziere, %d Elite-, %d Reguläre und %d Hilfssoldaten wurden verhört.",
 	L"%d Gefangene wurden gegen Lösegeld freigelassen.",
 	L"%d Gefangene haben uns Truppenstandorte verraten.",
-	L"%d Elite-, %d Reguläre und %d Hilfssoldaten laufen zu uns über.",
+	L"%d Offiziere, %d Elite-, %d Reguläre und %d Hilfssoldaten laufen zu uns über.",
 	L"Gefangenenaufstand in %s!",
 	L"%d Gefangene wurden nach %s geschickt!",
 	L"Gefangene freigelassen!",

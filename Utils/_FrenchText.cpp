@@ -8056,10 +8056,10 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"Prisonnier(s) ayant été interrogé(s) : %d élite(s), %d régulier(s) et %d administratif(s).",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"%d officers, %d elites, %d regulars and %d admins were interrogated.",	// TODO.Translate
 	L"Prisonnier(s) ayant payé une rançon : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
 	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
-	L"Prisonnier(s) ayant rejoint notre cause : %d élite(s), %d régulier(s) et %d administratif(s).",  // TODO.Translate. A voir définition (to see finished, definition)
+	L"%d officers, %d elites, %d regulars and %d admins joined our cause.",		// TODO.Translate
 	L"Prisonnier(s) ayant commencé une émeute : %s !",   // TODO.Translate. A voir définition (to see finished, definition)
 	L"Prisonnier(s) envoyé(s) en %s : %d !",   // TODO.Translate. A voir définition (to see finished, definition)
 	L"Prisonnier(s) libéré(s) !",

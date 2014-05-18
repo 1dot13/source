@@ -457,7 +457,7 @@ void AddTextToTownBox( void )
 		// prisoners
 		swprintf( wString, L"%s:", pwTownInfoStrings[13] );
 		AddMonoString( &hStringHandle, wString );
-		swprintf( wString, L"%d/%d/%d/%d%/%d", prisoners[PRISONER_ADMIN], prisoners[PRISONER_REGULAR], prisoners[PRISONER_ELITE], prisoners[PRISONER_OFFICER], capacity );
+		swprintf( wString, L"%d/%d - %dA %dR %dE %dO", numprisoners, capacity, prisoners[PRISONER_ADMIN], prisoners[PRISONER_REGULAR], prisoners[PRISONER_ELITE], prisoners[PRISONER_OFFICER] );
 		AddSecondColumnMonoString( &hStringHandle, wString );
 	}
 }
