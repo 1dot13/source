@@ -17,6 +17,19 @@ VehicleEnabled: 	Set to 1 if the vehicle should be available in the game. Otherw
 Pilot:				Set to -1 for all vehicles and only to the skyrider (pilot) profile id for the helicopter	
 VehicleArmourType:  uiIndex from TableData\Items.xml
 
+
+SEAT:				
+SeatIndex:			Index of the seat in the vehicle, corresponds to position on team panel when vehicle squad is selected.
+					Range: 0-9
+SeatName:			Displayed in seat select menu and on team panel in skill tool tip.
+					Max.: 40 characters
+Driver:				Passenger on this seat is a driver.
+Rotation:			Initial rotation of passenger taking this seat, relative to rotation of the vehicle (clockwise).
+					Range: 0-7
+OffsetX:			Offset of seat position inside vehicle (relative to middle grid) in X axis (assuming vehicle is turned north, higher = towards right of screen).
+OffsetY:			Offset of seat position inside vehicle (relative to middle grid) in X axis (assuming vehicle is turned north, higher = towards top of the screen).
+Compartment			Seats in different compartments cannot be swapped in combat.
+
 -->
 <VEHICLES>
 	<VEHICLE>
@@ -33,6 +46,15 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<Neutral>1</Neutral>
 		<VehicleEnabled>0</VehicleEnabled>
 		<Pilot>-1</Pilot>
+		<SEAT>
+			<SeatIndex>0</SeatIndex>
+			<SeatName>None</SeatName>
+			<Driver>0</Driver>
+			<Rotation>0</Rotation>
+			<OffsetX>0</OffsetX>
+			<OffsetY>0</OffsetY>
+			<Compartment>0</Compartment>	
+		</SEAT>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>1</uiIndex>
@@ -2434,6 +2456,77 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<VehicleEnabled>1</VehicleEnabled>
 		<Neutral>1</Neutral>
 		<Pilot>-1</Pilot>
+		<SEAT>
+			<SeatIndex>0</SeatIndex>
+			<SeatName>Driver</SeatName>
+			<Driver>1</Driver>
+			<Rotation>0</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>1</SeatIndex>
+			<SeatName>Riding Shotgun</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>2</SeatIndex>
+			<SeatName>Left Back Seat</SeatName>
+			<Rotation>7</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>3</SeatIndex>
+			<SeatName>Right Back Seat</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>4</SeatIndex>
+			<SeatName>Interior #1</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>5</SeatIndex>
+			<SeatName>Interior #2</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>6</SeatIndex>
+			<SeatName>Interior #3</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>7</SeatIndex>
+			<SeatName>Interior #4</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>8</SeatIndex>
+			<SeatName>Interior #3</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>9</SeatIndex>
+			<SeatName>Interior #4</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
 	</VEHICLE>
 	<!-- El Dorado -->
 	<VEHICLE>
@@ -2450,6 +2543,87 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<VehicleEnabled>1</VehicleEnabled>
 		<Neutral>1</Neutral>
 		<Pilot>-1</Pilot>
+		<SEAT>
+			<SeatIndex>0</SeatIndex>
+			<SeatName>Driver</SeatName>
+			<Driver>1</Driver>
+			<Rotation>0</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>1</SeatIndex>
+			<SeatName>Riding Shotgun</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>2</SeatIndex>
+			<SeatName>Left Back Seat</SeatName>
+			<Rotation>7</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>3</SeatIndex>
+			<SeatName>Right Back Seat</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>4</SeatIndex>
+			<SeatName>Middle Back Seat</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>5</SeatIndex>
+			<SeatName>Trunk</SeatName>		
+			<Rotation>0</Rotation>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+			<Compartment>1</Compartment>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>6</SeatIndex>
+			<SeatName>Trunk #2</SeatName>
+			<Rotation>0</Rotation>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+			<Compartment>1</Compartment>		
+		</SEAT>
+		<SEAT>
+			<SeatIndex>7</SeatIndex>
+			<SeatName>Trunk #3</SeatName>		
+			<Rotation>0</Rotation>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+			<Compartment>1</Compartment>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>8</SeatIndex>
+			<SeatName>Trunk #4</SeatName>
+			<Rotation>0</Rotation>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+			<Compartment>1</Compartment>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>9</SeatIndex>
+			<SeatName>Trunk #5</SeatName>		
+			<Rotation>0</Rotation>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+			<Compartment>1</Compartment>
+		</SEAT>
 	</VEHICLE>
 	<!-- Ice cream truck -->
 	<VEHICLE>
@@ -2466,6 +2640,79 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<VehicleEnabled>1</VehicleEnabled>
 		<Neutral>1</Neutral>
 		<Pilot>-1</Pilot>
+		<SEAT>
+			<SeatIndex>0</SeatIndex>
+			<SeatName>Driver</SeatName>
+			<Driver>1</Driver>
+			<Rotation>0</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>1</OffsetY>
+			<Compartment>1</Compartment>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>1</SeatIndex>
+			<SeatName>Riding Shotgun</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>1</OffsetY>
+			<Compartment>1</Compartment>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>2</SeatIndex>
+			<SeatName>Serving Hatch #1</SeatName>
+			<Rotation>6</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>3</SeatIndex>
+			<SeatName>Serving Hatch #2</SeatName>
+			<Rotation>6</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>4</SeatIndex>
+			<SeatName>Cargo #1</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>5</SeatIndex>
+			<SeatName>Cargo #2</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>6</SeatIndex>
+			<SeatName>Cargo #3</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>7</SeatIndex>
+			<SeatName>Cargo #4</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>8</SeatIndex>
+			<SeatName>Cargo #5</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>9</SeatIndex>
+			<SeatName>Cargo #6</SeatName>
+			<Hidden>1</Hidden>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
 	</VEHICLE>
 	<!-- Add only one helicopter -->
 	<!-- Helicopter -->
@@ -3018,13 +3265,84 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<ShortName>Jeep</ShortName>
 		<MvtTypes>1</MvtTypes>
 		<StiFaceIcon>INTERFACE\Jeep.sti</StiFaceIcon>
-		<SeatingCapacities>6</SeatingCapacities>
+		<SeatingCapacities>4</SeatingCapacities>
 		<EnterVehicleSndID>85</EnterVehicleSndID>
 		<MoveVehicleSndID>82</MoveVehicleSndID>
 		<VehicleArmourType>164</VehicleArmourType>
 		<Neutral>1</Neutral>
 		<VehicleEnabled>1</VehicleEnabled>
 		<Pilot>-1</Pilot>
+			<SEAT>
+			<SeatIndex>0</SeatIndex>
+			<SeatName>Driver</SeatName>
+			<Driver>1</Driver>
+			<Rotation>0</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>1</SeatIndex>
+			<SeatName>Riding Shotgun</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>1</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>2</SeatIndex>
+			<SeatName>Left Back Seat</SeatName>
+			<Rotation>7</Rotation>
+			<OffsetX>-1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>3</SeatIndex>
+			<SeatName>Right Back Seat</SeatName>		
+			<Rotation>1</Rotation>
+			<OffsetX>1</OffsetX>
+			<OffsetY>0</OffsetY>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>4</SeatIndex>
+			<SeatName>Interior #1</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>5</SeatIndex>
+			<SeatName>Interior #2</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>6</SeatIndex>
+			<SeatName>Interior #3</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>7</SeatIndex>
+			<SeatName>Interior #4</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>8</SeatIndex>
+			<SeatName>Interior #3</SeatName>
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
+		<SEAT>
+			<SeatIndex>9</SeatIndex>
+			<SeatName>Interior #4</SeatName>		
+			<Rotation>0</Rotation>
+			<BlockedView>1</BlockedView>
+			<BlockedShots>1</BlockedShots>
+		</SEAT>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>200</uiIndex>
