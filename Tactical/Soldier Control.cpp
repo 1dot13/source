@@ -9316,7 +9316,7 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 					WindowHit( sNewGridNo, pStructure->usStructureID, (this->ubDirection == SOUTH || this->ubDirection == EAST), TRUE );
 
 					// we get a bit of damage for jumping through a window
-					this->SoldierTakeDamage( 0, 1, 0, 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sNewGridNo, 0, TRUE );
+					this->SoldierTakeDamage( 0, 2 + Random(4), 0, 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sNewGridNo, 0, TRUE );
 				}
 			}
 		}

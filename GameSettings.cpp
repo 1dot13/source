@@ -1355,6 +1355,9 @@ void LoadGameExternalOptions()
 	//legion by Jazz
 	gGameExternalOptions.fIndividualHiddenPersonNames		= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_HIDDEN_PERSON_NAMES", FALSE);
 
+	// Flugente
+	gGameExternalOptions.fKnownNPCsUseDifferentColour		= iniReader.ReadBoolean("Tactical Gameplay Settings", "KNOWN_NPCS_DIFFERENT_MAPCOLOUR", FALSE );
+
 	//Enemy Names by Jazz
 	gGameExternalOptions.fEnemyNames						= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_ENEMY_NAMES",FALSE);	
 	
@@ -1368,7 +1371,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubShowEnemyRankIcon				= iniReader.ReadInteger("Tactical Gameplay Settings","SHOW_ENEMY_RANK_ICON", 0, 0, 2);
 
 	// Flugente: soldier profiles
-
 	if (!is_networked)
 		gGameExternalOptions.fSoldierProfiles_Enemy			= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIER_PROFILES_ENEMY", TRUE);
 	else

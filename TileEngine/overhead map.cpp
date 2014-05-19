@@ -1578,6 +1578,8 @@ void RenderOverheadOverlays()
 				// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
 				if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, MILITIA_TEAM );
+				else if ( pSoldier->bTeam == CIV_TEAM && gGameExternalOptions.fKnownNPCsUseDifferentColour && pSoldier->aiData.bNeutral && pSoldier->ubProfile != NO_PROFILE && !zHiddenNames[pSoldier->ubProfile].Hidden )
+					Blt8BPPDataTo16BPPBufferTransparent( (UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, PLAYER_PLAN );
 				else
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 
@@ -1628,6 +1630,7 @@ void RenderOverheadOverlays()
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
+
 		if( ubPassengers )
 		{
 			SetFont( SMALLCOMPFONT );
@@ -1640,13 +1643,11 @@ void RenderOverheadOverlays()
 	//ITEMS OVERLAY
 	if( !gfTacticalPlacementGUIActive )
 	{
-		for( i = 0 ; i < guiNumWorldItems; i++	)
+		for( i = 0 ; i < guiNumWorldItems; ++i	)
 		{
 			pWorldItem = &gWorldItems[ i ];
 			if( !pWorldItem || !pWorldItem->fExists || pWorldItem->bVisible != VISIBLE && !(gTacticalStatus.uiFlags & SHOW_ALL_ITEMS) )
-			{
 				continue;
-			}
 
 			if(!GetOverheadScreenXYFromGridNo(pWorldItem->sGridNo, &sX, &sY))//dnl ch45 041009
 				continue;
@@ -1704,7 +1705,6 @@ void RenderOverheadOverlays()
 			PixelDraw( FALSE, sX, sY, usLineColor, pDestBuf );
 
 			InvalidateRegion( sX, sY, (INT16)( sX + 1 ), (INT16)( sY + 1 ) );
-
 		}
 	}
 

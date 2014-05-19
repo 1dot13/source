@@ -144,6 +144,7 @@
 #include "connect.h"
 #include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #include "Sys Globals.h"//dnl ch74 201013
+#include "Ambient Control.h"		// added by Flugente for HandleNewSectorAmbience(...)
 
 /////////////////////////////////////////////////////
 //

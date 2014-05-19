@@ -636,11 +636,15 @@ void RenderRadarScreen( )
 					else
 					{
 						usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-												
-						// Override civ team with red if hostile...
-						if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && ( pSoldier->bSide != gbPlayerNum ) )
+						
+						if ( pSoldier->bTeam == CIV_TEAM )
 						{
-							usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
+							// Override civ team with red if hostile...
+							if ( pSoldier->bSide != gbPlayerNum && !pSoldier->aiData.bNeutral )
+								usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
+							// if uncovered, different colour (so the player doesn't have to search for us)
+							else if ( gGameExternalOptions.fKnownNPCsUseDifferentColour && pSoldier->ubProfile != NO_PROFILE && !zHiddenNames[pSoldier->ubProfile].Hidden )
+								usLineColor = Get16BPPColor( FROMRGB( 0, 0, 255 ) );
 						}
 
 						// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
