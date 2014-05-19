@@ -749,16 +749,20 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					{
 						// done!
 
-						// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
-						SOLDIERTYPE	*pTeamSoldier;
-						for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+						// Flugente: only do this if we are not boxing. Otherwise this might interfere with boxing scripts, as they temporariyl  set a PC under AI control (when leaaving the ring)
+						if ( gTacticalStatus.bBoxingState == NOT_BOXING )
 						{
-							pTeamSoldier=MercPtrs[bLoop]; 
+							// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
+							SOLDIERTYPE	*pTeamSoldier;
+							for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+							{
+								pTeamSoldier=MercPtrs[bLoop]; 
 
-							if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL)
-								pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
+								if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL)
+									pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
 
-							pTeamSoldier->DeleteBoxingFlag( );
+								pTeamSoldier->DeleteBoxingFlag( );
+							}
 						}
 
 						if (pSoldier->bTeam == gbPlayerNum || CountPeopleInBoxingRing() == 0)
