@@ -450,7 +450,8 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 	INT32 sOrigin;
 	UINT16 usMaxDist;
 	UINT8 ubDirection,ubDirsLeft,ubDirChecked[8],fFound = FALSE;
-	INT8 bAPsLeft, fPathFlags;
+	// anv: changed to INT16 since Soldier->bActionPoints are INT16 too
+	INT16 bAPsLeft, fPathFlags;
 	//DBrot: More Rooms
 	//UINT8 ubRoomRequired = 0, ubTempRoom;
 	UINT16 usRoomRequired = 0, usTempRoom;

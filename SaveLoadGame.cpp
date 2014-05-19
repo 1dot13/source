@@ -4666,6 +4666,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Events" );
 	#endif
 
+	// anv: we need to rebuild ambient sounds now, as those added when loading tileset are removed
+	// in LoadStrategicEventsFromSavedGame
+	HandleNewSectorAmbience( gTilesets[ giCurrentTilesetID ].ubAmbientID );
 
 	uiRelEndPerc += 0;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Laptop Info" );
