@@ -4374,7 +4374,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 			//	have a CTD, so lets resolve that here.
 			if(Item[gWorldItems[wi].object.usItem].usItemClass != IC_LBEGEAR)
 				gWorldItems[wi].soldierID = -1;
-			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].object.exists() == true && Item[gWorldItems[wi].object.usItem].usItemClass == IC_LBEGEAR && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
+			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].fExists == TRUE && Item[gWorldItems[wi].object.usItem].usItemClass == IC_LBEGEAR && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
 			{
 				for (int x = 0; x < gWorldItems[wi].object.ubNumberOfObjects; ++x) {
 					// Is the item we dropped in this sector and does it have an active LBENODE flag?
@@ -4653,7 +4653,7 @@ void BtnDropPackCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( _KeyDown( SHIFT ) )
 		{
 			INT8 bAssignment = gpSMCurrentMerc->bAssignment;
-			for(int x=0; x<18; x++)
+			for( int x = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; x <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; x++ )
 			{
 				/* Is DropPackFlag currently false and is there something in the backpack pocket?  If so, we haven't
 				dropped a pack yet and apparently want to*/

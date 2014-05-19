@@ -131,6 +131,8 @@ INT32 MAP_INVENTORY_POOL_SLOT_START_Y;
 INT32 iCurrentlyHighLightedItem = -1;
 BOOLEAN fFlashHighLightInventoryItemOnradarMap = FALSE;
 
+INT32 iCurrentlyPickedUpItem = -1;
+
 // whether we are showing the inventory pool graphic
 BOOLEAN fShowMapInventoryPool = FALSE;
 // HEADROCK HAM 5: Flag telling us whether we've already redrawn the screen to show
@@ -262,7 +264,7 @@ void DestroyMapInventoryButtons( void );
 void DestroyStash( void );
 void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot );
-BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pItemPtr );
+BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pItemPtr, INT32 iDestSlot = (-1), INT32 iSrcSlot = (-1) );
 void RenderItemsForCurrentPageOfInventoryPool( void );
 BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage );
 void UpdateHelpTextForInvnentoryStashSlots( void );
@@ -1485,6 +1487,8 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			sObjectSourceGridNo = pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].sGridNo;
 			sObjectSourseSoldierID = pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].soldierID;
 
+			iCurrentlyPickedUpItem = ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter;
+
 			// check if this is the loaded sector, if so, then notify player, can't do anything
 			if( ( sSelMapX == gWorldSectorX )&&( gWorldSectorY == sSelMapY ) &&(gbWorldSectorZ == iCurrentMapSectorZ ) )
 			{
@@ -1560,7 +1564,8 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			}
 
 			// Else, try to place here
-			if ( PlaceObjectInInventoryStash( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ), gpItemPointer ) )
+			if ( PlaceObjectInInventoryStash( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ), gpItemPointer,
+				( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter, iCurrentlyPickedUpItem ) )
 			{
 				// HEADROCK HAM 5: A LOT of functions rely on these flags being set. So set them!!
 				pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].bVisible = TRUE;
@@ -1593,8 +1598,8 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].sGridNo = sObjectSourceGridNo;
 						}
-						if( sObjectSourseSoldierID != -1 )
-							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].soldierID = sObjectSourseSoldierID;
+						//if( sObjectSourseSoldierID != -1 )
+						//	pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].soldierID = sObjectSourseSoldierID;
 					}
 				//}
 
@@ -2399,11 +2404,20 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 	}
 }
 
-BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pItemPtr )
+BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pItemPtr, INT32 iDestSlot, INT32 iSrcSlot )
 {
 	// if there is something there, swap it, if they are of the same type and stackable then add to the count
 	if (pInventorySlot->exists() == false)
 	{
+		if( iSrcSlot != (-1) )
+		{
+			// anv: swap ownerships too
+			if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
+			{
+				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+			}
+			pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;		
+		}
 		// placement in an empty slot
 		pItemPtr->MoveThisObjectTo(*pInventorySlot);
 	}
@@ -2411,11 +2425,31 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 	{
 		if (pItemPtr->usItem == pInventorySlot->usItem && ItemSlotLimit(pItemPtr, STACK_SIZE_LIMIT) >= 2)
 		{
+			// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
+			if( iDestSlot != (-1) && iSrcSlot != (-1) )
+			{
+				pInventoryPoolList[ iDestSlot ].soldierID = (-1);
+				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				iCurrentlyPickedUpItem = iDestSlot;
+				sObjectSourseSoldierID = (-1);
+			}
 			// stacking
 			pInventorySlot->AddObjectsToStack(*pItemPtr);
 		}
 		else
 		{
+			if( iDestSlot != (-1) && iSrcSlot != (-1) )
+			{
+				// anv: swap ownerships too
+				if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
+				{
+					pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				}
+				INT32 iTempSoldierID = pInventoryPoolList[ iDestSlot ].soldierID;
+				pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;
+				sObjectSourseSoldierID = iTempSoldierID;
+				iCurrentlyPickedUpItem = iDestSlot;
+			}
 			SwapObjs( pItemPtr, pInventorySlot );
 		}
 	}
@@ -4876,6 +4910,12 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 	OBJECTTYPE * StackObject;
 	
 	SOLDIERTYPE * pSoldier = &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]);
+
+	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ )
+	{
+		// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
+		pInventoryPoolList[ uiLoop ].soldierID = (-1);
+	}
 
 	// Run through sector inventory.
 	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ )
