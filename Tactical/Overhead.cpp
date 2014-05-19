@@ -4557,9 +4557,15 @@ UINT8 FindNextActiveAndAliveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKL
 SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier )
 {
     INT32 cnt, cnt2;
+	
+	// anv: soldier's "assignment" can be a vehicle, not a proper squad, causing out-of-range in second loop
+	INT8 bMaxSquad = pSoldier->bAssignment;
+	if( bMaxSquad >= NUMBER_OF_SQUADS )
+	{
+		bMaxSquad = NUMBER_OF_SQUADS - 1;
+	}
 
-
-    for( cnt = pSoldier->bAssignment + 1 ; cnt <    NUMBER_OF_SQUADS; cnt++ )
+    for( cnt = bMaxSquad + 1 ; cnt <    NUMBER_OF_SQUADS; cnt++ )
     {
         for( cnt2 =0; cnt2 < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt2++ )
         {
@@ -4572,7 +4578,7 @@ SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier )
 
     // none found,
     // Now loop back
-    for( cnt = 0; cnt <= pSoldier->bAssignment; cnt++ )
+    for( cnt = 0; cnt <= bMaxSquad; cnt++ )
     {
         for( cnt2 =0; cnt2 < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt2++ )
         {

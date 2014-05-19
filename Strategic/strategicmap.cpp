@@ -4089,7 +4089,12 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 		curr = pGroup->pPlayerList;
 		while( curr )
 		{
-			if ( OK_CONTROLLABLE_MERC( curr->pSoldier) )
+			// anv: passengers can't move anyway
+			if( curr->pSoldier->bAssignment == VEHICLE )
+			{
+				curr->pSoldier->ubWaitActionToDo = 0;
+			}
+			else if ( OK_CONTROLLABLE_MERC( curr->pSoldier ) )
 			{
 				if ( ubTacticalDirection != 255 )
 				{
@@ -4784,6 +4789,12 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 		return FALSE;
 	}
 
+	// anv: vehicles can't use inner exit grids
+	if( bExitDirection == (-1) && MercPtrs[gusSelectedSoldier]->bAssignment == VEHICLE )
+	{
+		return FALSE;
+	}
+
 	/*
 	//Exception code for the two sectors in San Mona that are separated by a cliff.  We want to allow strategic
 	//traversal, but NOT tactical traversal.  The only way to tactically go from D4 to D5 (or viceversa) is to enter
@@ -4812,7 +4823,9 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
   for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
 	{
 		// If we are controllable
-		if ( OK_CONTROLLABLE_MERC( pSoldier) && pSoldier->bAssignment == CurrentSquad( ) )
+		//if ( OK_CONTROLLABLE_MERC( pSoldier) && pSoldier->bAssignment == CurrentSquad( ) )
+		if ( OK_CONTROLLABLE_MERC( pSoldier) && ( pSoldier->bAssignment == CurrentSquad( ) ||
+			( pSoldier->bAssignment == VEHICLE && GetSoldierStructureForVehicle(pSoldier->iVehicleId)->bAssignment ==  CurrentSquad( ) ) ) )
 		{
 			//Need to keep a copy of a good soldier, so we can access it later, and
 			//not more than once.

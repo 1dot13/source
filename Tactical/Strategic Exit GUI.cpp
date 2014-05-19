@@ -181,6 +181,17 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 		gExitDialog.fAllMove					= TRUE;
 	}
 
+	// anv: vehicle always move with all passengers inside
+	if( MercPtrs[gusSelectedSoldier]->bAssignment == VEHICLE )
+	{
+		gExitDialog.fSingleMoveDisabled		= TRUE;
+		gExitDialog.fSingleMoveOn			= FALSE;
+		gExitDialog.fSingleMove				= FALSE;
+		gExitDialog.fAllMoveDisabled		= FALSE;
+		gExitDialog.fAllMoveOn				= TRUE;
+		gExitDialog.fAllMove				= TRUE;
+	}
+
 	if ( gTacticalStatus.uiFlags & INCOMBAT )
 	{
 		INT32 i, cnt = 0;
@@ -224,11 +235,14 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 		if( !pSoldier->flags.fBetweenSectors &&
 				pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ &&
 				pSoldier->stats.bLife >= OKLIFE &&
-				pSoldier->bAssignment != MercPtrs[ gusSelectedSoldier ]->bAssignment &&
-				pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD )
+				( pSoldier->bAssignment != MercPtrs[ gusSelectedSoldier ]->bAssignment || 
+				( pSoldier->bAssignment == VEHICLE && pSoldier->iVehicleId != MercPtrs[ gusSelectedSoldier ]->iVehicleId ) ) &&
+				pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD 
+				&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{ //KM:	We need to determine if there are more than one squad (meaning other concious mercs in a different squad or assignment)
 			//		These conditions were done to the best of my knowledge, so if there are other situations that require modification,
 			//		then feel free to do so.
+			// anv: added skipping vehicles and checking if soldiers on the same assignment aren't just in two different vehicles
 			gExitDialog.fMultipleSquadsInSector = TRUE;
 			break;
 		}
