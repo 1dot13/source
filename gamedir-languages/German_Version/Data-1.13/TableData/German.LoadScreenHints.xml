@@ -10,7 +10,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
-    <szName>Most machineguns have replacable barrels. Use this to rapidly cool down your gun during combat.</szName>
+    <szName>Most machineguns have replaceable barrels. Use this to rapidly cool down your gun during combat.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
@@ -38,7 +38,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>Don't forget to check out Jagged Alliance: Flashback on Kickstarter!</szName>
+    <szName>Press [CTRL]+[Z] to lock/release mouse cursor in windowed mode. Useful when exiting sector in tactical screen.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
@@ -46,7 +46,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.ja-galaxy-forum.com</szName>
+    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.bears-pit.com</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
@@ -54,11 +54,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc.</szName>
+    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategic screen. Tool tips hinting at facility's function appear when assigning a merc.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off really everything.</szName>
+    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off everything.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
@@ -66,11 +66,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
+    <szName>Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (cannot spot anyone) to green (spot even somebody lying in the grass).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical screen shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
+    <szName>Red Alert! Holding [DEL] in tactical screen shows enemies you know of may see currently selected merc, ranging from red (will be seen even on prone) to green (perfect concealment).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
@@ -78,19 +78,19 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
-    <szName>While in sector inventory, click empty inventory slots for a list of items you may want to put there.</szName>
+    <szName>While in sector inventory, click merc's empty inventory slots for a list of items to be put there.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
-    <szName>While in sector inventory, click empty attachment slots for a list of compatible attachments.</szName>
+    <szName>While in sector inventory, click item's empty attachment slots for a list of compatible attachments.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [CTRL] click empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>While in sector inventory, [CTRL]+[LEFT-MOUSE-BUTTON] on merc's empty inventory slots for a categorized list of items in that sector.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), least damaged items are used.</szName>
+    <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), the least damaged item will be chosen.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
@@ -106,7 +106,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>25</uiIndex>
-    <szName>Your merc under fire and cant get back? Cover them with smoke grenades.</szName>
+    <szName>Your merc is under fire and can't fall back? Cover them with smoke grenades.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>26</uiIndex>
@@ -126,7 +126,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>Open a useful sector menu with [CTRL]+[.]</szName>
+    <szName>Open a useful sector menu with [CTRL]+[.].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
@@ -158,7 +158,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
-    <szName>Sneaking near unalerted enemies trains your agility, but is risky.</szName>
+    <szName>Sneaking near unaware enemies trains your agility, but is risky.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>39</uiIndex>
@@ -174,7 +174,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
-    <szName>If you want to manually move items, you can use the MOVEITEM-assignment inside cities.</szName>
+    <szName>If you want to manually move items, you can use the MOVEITEM-assignment within cities.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
@@ -186,7 +186,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
-    <szName>Press [S] to stand, [C] to crouch, [P] to go prone an [R] to stand and run.</szName>
+    <szName>Press [S] to stand, [C] to crouch, [P] to go prone and [R] to stand and run.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
@@ -194,7 +194,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
-    <szName>Throwing knives can instantly kill an enemy if he is unalerted.</szName>
+    <szName>Throwing knives can instantly kill an enemy if he is not alerted.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
@@ -202,7 +202,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
-    <szName>Long-term mercenary contracts are cheaper. In the long term.</szName>
+    <szName>Long-term mercenary contracts are cheaper... in the long term.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
@@ -234,7 +234,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Use [L] shortcut to face direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
+    <szName>Press [L] to look at direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
@@ -266,7 +266,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>Mobile militia can follow mercs while travelling on map. It will follow merc group as long as you keep 1 sector close to them. Make sure you wait for them to arrive to your position.</szName>
+    <szName>Mobile militia can follow mercs while travelling on map as long as merc group is 1 sector distance to them. Wait for them to arrive to your position.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
@@ -278,7 +278,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
-    <szName>Sector inventory. On top of the screen you can see many buttons that help you sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
+    <szName>On top of the sector inventory screen, there are buttons that help sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -303,15 +303,15 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
-    <szName>Shortcut [O] opens up options menu in game.</szName>
+    <szName>Press [O] opens up options menu in game.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
-    <szName>Shortcut [ALT]+[S] will quicksave game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
+    <szName>Press [ALT]+[S] will quicksave game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>76</uiIndex>
-    <szName>Shortcut [CTRL]+[S] will open up save menu instantly.</szName>
+    <szName>Press [CTRL]+[S] will open up save menu instantly.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
@@ -319,7 +319,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
-    <szName>Yellow shirts are admin type of enemies that have worst equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
+    <szName>Yellow shirts are admin enemies that have worst equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
@@ -327,7 +327,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
-    <szName>Black shirts are mercenaries hired by Deidranna. They have best equipment and weapons and are toughest of enemies. Higher difficulty levels increase their numbers.</szName>
+    <szName>Black shirts are mercenaries hired by Deidranna. They have the best equipment and weapons and are toughest of enemies. Higher difficulty levels increase their numbers.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
@@ -359,7 +359,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
-    <szName>Make sure you have your gun fully loaded at all times [ALT]+[R].</szName>
+    <szName>Make sure you have your gun fully loaded at all times with [ALT]+[R].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
@@ -383,7 +383,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
-    <szName>Pay attention to what your mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
+    <szName>Pay attention to what mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
@@ -403,15 +403,15 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
-    <szName>Relying on sound is even more important at night, you'll hear more than you can see without the proper equipment.</szName>
+    <szName>Relying on sound is even more important at night. Without the proper equipment, you'll hear more than you can see.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
-    <szName>Night Ops are probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
+    <szName>Night Ops is probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [G] to toggle on/off the light around your merc.</szName>
+    <szName>Press [G] to toggle on/off the artificial light around the mercs.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
@@ -427,7 +427,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
-    <szName>Always deal with the present threat before carrying out a plan.</szName>
+    <szName>Always deal with the present threat before carrying out another plan.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
@@ -439,31 +439,31 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on your mercs. It will slow the squad down.</szName>
+    <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on the mercs. It will slow the squad down.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
-    <szName>Counting bullets during a fight is tough. Don't be surprised when your mercs forget how many they have left.</szName>
+    <szName>Counting bullets during a fight is tough. Don't be surprised when the mercs forget how many they have left.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
-    <szName>Each mercenary have different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <szName>Each mercenary has different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
-    <szName>Each mercenary have different needs for sleep ranging from 3 to 12 hours to fully regenerate energy. "Night Ops" trait allows to reduce this time even further.</szName>
+    <szName>Each mercenary has different sleeping pattern ranging from 3 to 12 hours to fully restore energy. "Night Ops" trait allows to reduce this time even further.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
-    <szName>Each mercenary have different tolerance for number of deaths in your squad and your overall reputation in Arulco.</szName>
+    <szName>Each mercenary has different tolerance on the number of merc deaths and on your overall reputation in Arulco.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>113</uiIndex>
-    <szName>If you have two people in team that don't like each other, avoid keeping them in the same sector for more than an hour.</szName>
+    <szName>Avoid keeping two people in team who don't like each other in the same sector for more than an hour.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
-    <szName>Certain merceries can not gain stats at all. You can’t teach an old dog new tricks.</szName>
+    <szName>Certain mercenaries cannot gain stats at all. You can't teach an old dog new tricks.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
@@ -471,11 +471,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <szName>Game resolution and playing of movie intro can be tweaked in "Ja2.ini".</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
-    <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try out the 1.13 multiplayer mode.</szName>
+    <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try 1.13 multiplayer mode.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
@@ -483,23 +483,23 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in your current sector inventory at once.</szName>
+    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in current sector inventory at once.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
-    <szName>[CTRL]+[SHIFT]+[E] will load your vehicle with as much items as possible from your current sector. [SHIFT]+[E] will unload all items from vehicle to your current sector.</szName>
+    <szName>Press [CTRL]+[SHIFT]+[E] will load vehicle with as much items as possible from current sector. [SHIFT]+[E] will unload all items from vehicle to current sector.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
-    <szName>If you can't hit a target from your current location, you can try to suppress it with auto fire and then change to a better position.</szName>
+    <szName>If merc can't hit a target from current location, try to suppress with auto fire and then change to a better position.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
-    <szName>Exploring the farms and city sectors can help you find lots of useful items, like gas for your vehicle.</szName>
+    <szName>Exploring the farms and city sectors can uncover lots of useful items, like gas for vehicle.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over your merc will open up merc's menu similar to the one you have on strategic screen map.</szName>
+    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over merc will open up merc's menu similar to the one on strategic screen map.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>124</uiIndex>
@@ -519,11 +519,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where you can call reinforcements with your radio or order artillery strike.</szName>
+    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where reinforcements or order artillery strike can be called by the radio operator.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
-    <szName>You can safely place defensive minefields in captured towns and SAMs, your mercs and militia will avoid them.</szName>
+    <szName>Defensive minefields can be safely placed in captured towns and SAMs as mercs and militia will avoid them.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
@@ -531,10 +531,10 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Click with hand cursor on a blue flag, and you will be able to remove flag or inspect trap with useful Disarm Menu.</szName>
+    <szName>Click with hand cursor on a blue flag, and flag can be removed or trap inspected with the useful Disarm Menu.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
-    <szName>Placing mines, concertina or sandbags is more convenient with [SHIFT] key - you don't need to manually take new item from your inventory.</szName>
+    <szName>Placing mines, concertina or sandbags is more convenient with holding [SHIFT] key, relieving the need to manually take new item from merc's inventory.</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

@@ -46,7 +46,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>需要帮助？那就在战略界面按 [H]。然后去 www.ja-galaxy-forum.com 看看。</szName>
+    <szName>需要帮助？那就在战略界面按 [H]。然后去 www.bears-pit.com 看看。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
@@ -519,11 +519,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where you can call reinforcements with your radio or order artillery strike.</szName>
+    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where reinforcements or order artillery strike can be called by the radio operator.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
-    <szName>You can safely place defensive minefields in captured towns and SAMs, your mercs and militia will avoid them.</szName>
+    <szName>Defensive minefields can be safely placed in captured towns and SAMs as mercs and militia will avoid them.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
@@ -531,10 +531,10 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Click with hand cursor on a blue flag, and you will be able to remove flag or inspect trap with useful Disarm Menu.</szName>
+    <szName>Click with hand cursor on a blue flag, and flag can be removed or trap inspected with the useful Disarm Menu.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
-    <szName>Placing mines, concertina or sandbags is more convenient with [SHIFT] key - you don't need to manually take new item from your inventory.</szName>
+    <szName>Placing mines, concertina or sandbags is more convenient with holding [SHIFT] key, relieving the need to manually take new item from merc's inventory.</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
