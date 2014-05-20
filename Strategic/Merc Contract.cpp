@@ -986,7 +986,9 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 		// is he/she in a mvt group, if so, remove and destroy the group
 		if( pSoldier->ubGroupID )
 		{
-			if ( pSoldier->bAssignment != VEHICLE )
+			// anv: dead people are on "dead" assignment even if they were in vehicle pre-mortem, check flags too
+			if( ( pSoldier->bAssignment != VEHICLE ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			//if ( pSoldier->bAssignment != VEHICLE )
 			{ //Can only remove groups if they aren't persistant (not in a squad or vehicle)
 				RemoveGroup( pSoldier->ubGroupID );
 			}
