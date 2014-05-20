@@ -596,7 +596,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
-    <szName>Certain mercenaries cannot gain stats at all. You can’t teach an old dog new tricks.</szName>
+    <szName>Certain mercenaries cannot gain stats at all. You can't teach an old dog new tricks.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
