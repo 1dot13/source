@@ -6829,6 +6829,8 @@ STR16 NewInvMessage[] =
 	L"Bent zeker u u wilt alle sectorpunten verkopen?",
 	L"Bent zeker u u wilt alle sectorpunten schr?",
 	L"Kan beklimmen niet terwijl het dragen van een rugzak",
+	L"All backpacks dropped",	// TODO.Translate
+	L"All owned backpacks picked up",
 };
 
 // WANNE - MP: Multiplayer messages

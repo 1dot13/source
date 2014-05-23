@@ -7833,6 +7833,7 @@ void HandleTBDropBackpacks( void )
 		}
 		fCharacterInfoPanelDirty = TRUE;
 		fInterfacePanelDirty = DIRTYLEVEL2;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_DROP] );
 	}
 }
 void HandleTBPickUpBackpacks( void )
@@ -7848,6 +7849,7 @@ void HandleTBPickUpBackpacks( void )
 				ChangeDropPackStatus(pTeamSoldier, FALSE);
 			}
 		}
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_PICKUP] );
 	}
 }
 void HandleTBSoldierRun( void )

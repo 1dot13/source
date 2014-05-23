@@ -6824,6 +6824,8 @@ STR16 NewInvMessage[] =
 	L"Вы уверены что хотите продать весь хлам этого сектора голодающему населению Арулько?",
 	L"Вы уверены что хотите выбросить весь хлам, валяющийся в этом секторе?",
 	L"Тяжеловато будет взбираться с полным рюкзаком на крышу. Может снимем?",
+	L"All backpacks dropped",	// TODO.Translate
+	L"All owned backpacks picked up",
 };
 
 // WANNE - MP: Multiplayer messages

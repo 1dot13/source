@@ -51,8 +51,10 @@
 #define SIZE_OF_HISTORY_FILE_RECORD ( sizeof( UINT8 ) + sizeof( UINT8 ) + sizeof( UINT32 ) + sizeof( UINT16 ) + sizeof( UINT16 ) + sizeof( UINT8 ) + sizeof( UINT8 ) )
 
 // button positions
-#define NEXT_BTN_X										iScreenWidthOffset + 577
-#define PREV_BTN_X										iScreenWidthOffset + 553
+#define	FIRST_PAGE_X									iScreenWidthOffset + 505
+#define NEXT_BTN_X										iScreenWidthOffset + 553//577
+#define PREV_BTN_X										iScreenWidthOffset + 529//553
+#define	LAST_PAGE_X										iScreenWidthOffset + 577
 #define BTN_Y											iScreenHeightOffset + 53
 
 // graphics handles
@@ -75,13 +77,15 @@ UINT32 guiSHADELINE;
 enum{
 	PREV_PAGE_BUTTON=0,
 	NEXT_PAGE_BUTTON,
+	FIRST_PAGE_BUTTON,
+	LAST_PAGE_BUTTON,
 };
 
 
 
 // the page flipping buttons
-INT32 giHistoryButton[2];
-INT32 giHistoryButtonImage[2];
+INT32 giHistoryButton[4];
+INT32 giHistoryButtonImage[4];
 BOOLEAN fInHistoryMode=FALSE;
 
 
@@ -139,6 +143,7 @@ void PerformCheckOnHistoryRecord( UINT32 uiErrorCode, INT16 sSectorX, INT16 sSec
 // callbacks
 void BtnHistoryDisplayNextPageCallBack(GUI_BUTTON *btn,INT32 reason);
 void BtnHistoryDisplayPrevPageCallBack(GUI_BUTTON *btn,INT32 reason);
+void BtnHistoryFirstLastPageCallBack(GUI_BUTTON *btn,INT32 reason);
 
 UINT32 SetHistoryFact( UINT8 ubCode, UINT8 ubSecondCode, UINT32 uiDate, INT16 sSectorX, INT16 sSectorY )
 {
@@ -428,10 +433,27 @@ void CreateHistoryButtons( void )
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnHistoryDisplayNextPageCallBack);
 
+	//button to go to the first page
+	giHistoryButtonImage[FIRST_PAGE_BUTTON]=	LoadButtonImage( "LAPTOP\\arrows.sti" ,-1,3,-1,4,-1 );
+	giHistoryButton[FIRST_PAGE_BUTTON] = QuickCreateButton( giHistoryButtonImage[FIRST_PAGE_BUTTON], FIRST_PAGE_X, BTN_Y,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnHistoryFirstLastPageCallBack);
+	
+	MSYS_SetBtnUserData( giHistoryButton[FIRST_PAGE_BUTTON], 0, 0 );
+
+	//button to go to the last page
+	giHistoryButtonImage[LAST_PAGE_BUTTON]=	LoadButtonImage( "LAPTOP\\arrows.sti" ,-1,9,-1,10,-1 );
+	giHistoryButton[LAST_PAGE_BUTTON] = QuickCreateButton( giHistoryButtonImage[LAST_PAGE_BUTTON], LAST_PAGE_X, BTN_Y,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnHistoryFirstLastPageCallBack);
+
+	MSYS_SetBtnUserData( giHistoryButton[LAST_PAGE_BUTTON], 0, 1 );
 
 	// set buttons
 	SetButtonCursor(giHistoryButton[0], CURSOR_LAPTOP_SCREEN);
 	SetButtonCursor(giHistoryButton[1], CURSOR_LAPTOP_SCREEN);
+	SetButtonCursor(giHistoryButton[2], CURSOR_LAPTOP_SCREEN);
+	SetButtonCursor(giHistoryButton[3], CURSOR_LAPTOP_SCREEN);
 
 	return;
 }
@@ -439,18 +461,14 @@ void CreateHistoryButtons( void )
 
 void DestroyHistoryButtons( void )
 {
-
 	// remove History buttons and images from memory
+	UINT32 uiCnt;
 
-	// next page button
-	RemoveButton(giHistoryButton[1] );
-	UnloadButtonImage(giHistoryButtonImage[1] );
-
-	// prev page button
-	RemoveButton(giHistoryButton[0] );
-	UnloadButtonImage(giHistoryButtonImage[0] );
-
-	return;
+	for( uiCnt=0; uiCnt<4; uiCnt++ )
+	{
+		RemoveButton( giHistoryButton[ uiCnt ] );
+		UnloadButtonImage( giHistoryButtonImage[ uiCnt ] );
+	}
 }
 
 void BtnHistoryDisplayPrevPageCallBack(GUI_BUTTON *btn,INT32 reason)
@@ -473,7 +491,7 @@ void BtnHistoryDisplayPrevPageCallBack(GUI_BUTTON *btn,INT32 reason)
 		{
 			LoadPreviousHistoryPage( );
 			//iCurrentHistoryPage--;
-		DrawAPageofHistoryRecords( );
+			DrawAPageofHistoryRecords( );
 		}
 
 		// set new state
@@ -495,8 +513,8 @@ void BtnHistoryDisplayNextPageCallBack(GUI_BUTTON *btn,INT32 reason)
 	// force redraw
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	// increment currentPage
-	btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		// increment currentPage
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		LoadNextHistoryPage( );
 		// set new state
 		SetHistoryButtonStates( );
@@ -505,6 +523,48 @@ void BtnHistoryDisplayNextPageCallBack(GUI_BUTTON *btn,INT32 reason)
 
 
 
+}
+
+void BtnHistoryFirstLastPageCallBack(GUI_BUTTON *btn,INT32 reason)
+{
+	// force redraw
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		fReDrawScreenFlag=TRUE;
+	}
+
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		UINT32	uiButton = MSYS_GetBtnUserData( btn, 0 );
+
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+
+		// clear out old list of records, and load in previous page worth of records
+		ClearHistoryList( );
+
+		//if its the first page button
+		if( uiButton == 0 )
+		{
+			iCurrentHistoryPage = 1;
+			LoadInHistoryRecords( iCurrentHistoryPage );
+			DrawAPageofHistoryRecords( );
+		}
+
+		//else its the last page button
+		else
+		{
+			LoadInHistoryRecords( GetNumberOfHistoryPages() + 1 );
+
+			iCurrentHistoryPage = GetNumberOfHistoryPages() + 1;
+		}
+
+		// set button state
+		SetHistoryButtonStates( );
+
+		pCurrentHistory=pHistoryListHead;
+		// redraw screen
+		fReDrawScreenFlag=TRUE;
+	}
 }
 
 BOOLEAN IncrementCurrentPageHistoryDisplay( void )
@@ -1001,7 +1061,7 @@ void DisplayPageNumberAndDateRange( void )
 
 	// get the last page
 
-	swprintf( sString, L"%s %d / %d",pHistoryHeaders[1], iCurrentHistoryPage , iLastPage +1 );
+	swprintf( sString, L"%s %d / %d",pHistoryHeaders[1], iCurrentHistoryPage , iLastPage + 1 );
 	mprintf( PAGE_NUMBER_X, PAGE_NUMBER_Y, sString );
 
 	swprintf( sString, L"%s %d - %d",pHistoryHeaders[2], pCurrentHistory->uiDate / ( 24 * 60 ) , uiLastDate/( 24 * 60 ) );
@@ -1204,28 +1264,32 @@ void SetHistoryButtonStates( void )
 	{
 		// first page, disable left buttons
 		DisableButton( 	giHistoryButton[PREV_PAGE_BUTTON] );
+		DisableButton( 	giHistoryButton[FIRST_PAGE_BUTTON] );
 
 	}
 	else
 	{
 		// enable buttons
 		EnableButton( giHistoryButton[PREV_PAGE_BUTTON] );
+		EnableButton( giHistoryButton[FIRST_PAGE_BUTTON] );
 
 	}
 
 	if( IncrementCurrentPageHistoryDisplay( ) )
 	{
 		// decrement page
-	iCurrentHistoryPage--;
+		iCurrentHistoryPage--;
 		DrawAPageofHistoryRecords( );
 
 		// enable buttons
 		EnableButton( giHistoryButton[ NEXT_PAGE_BUTTON ] );
+		EnableButton( giHistoryButton[ LAST_PAGE_BUTTON ] );
 
 	}
 	else
 	{
-	DisableButton( 	giHistoryButton[ NEXT_PAGE_BUTTON ] );
+		DisableButton( giHistoryButton[ NEXT_PAGE_BUTTON ] );
+		DisableButton( giHistoryButton[ LAST_PAGE_BUTTON ] );
 	}
 }
 
@@ -1326,7 +1390,7 @@ BOOLEAN LoadInHistoryRecords( UINT32 uiPage )
 		return( FALSE );
 	}
 
-	// set up current finance
+	// set up current history
 	pCurrentHistory = pHistoryListHead;
 
 	return( TRUE );
@@ -1430,9 +1494,7 @@ BOOLEAN LoadNextHistoryPage( void )
 	// clear out old list of records, and load in previous page worth of records
 	ClearHistoryList( );
 
-
-
-	// now load in previous page's records, if we can
+	// now load in next page's records, if we can
 	if ( LoadInHistoryRecords( iCurrentHistoryPage + 1 ) )
 	{
 		iCurrentHistoryPage++;
@@ -1467,7 +1529,7 @@ BOOLEAN LoadPreviousHistoryPage( void )
 	}
 	else
 	{
-	LoadInHistoryRecords( iCurrentHistoryPage );
+		LoadInHistoryRecords( iCurrentHistoryPage );
 		return ( FALSE );
 	}
 }

@@ -6821,6 +6821,8 @@ STR16 NewInvMessage[] =
 	L"Siete sicuri voi desiderate vendere tutti gli articoli del settore?",
 	L"Siete sicuri voi desiderate cancellare tutti gli articoli del settore?",
 	L"Non può arrampicarsi mentre portano uno zaino",
+	L"All backpacks dropped",	// TODO.Translate
+	L"All owned backpacks picked up",
 };
 
 // WANNE - MP: Multiplayer messages

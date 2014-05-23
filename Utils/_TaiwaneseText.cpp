@@ -6829,6 +6829,8 @@ STR16 NewInvMessage[] =
 	L"Are you sure you want to sell all sector items?",
 	L"Are you sure you want to delete all sector items?",
 	L"Cannot climb while wearing a backpack",
+	L"All backpacks dropped",
+	L"All owned backpacks picked up",
 };
 
 // WANNE - MP: Multiplayer messages

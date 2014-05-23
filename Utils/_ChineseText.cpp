@@ -6823,6 +6823,8 @@ STR16 NewInvMessage[] =
 	L"你确定要变卖该地区所有物品吗？",
 	L"你确定要销毁该地区所有物品吗？",
 	L"装备大背包后无法爬上房顶",
+	L"All backpacks dropped",	// TODO.Translate
+	L"All owned backpacks picked up",
 };
 
 // WANNE - MP: Multiplayer messages

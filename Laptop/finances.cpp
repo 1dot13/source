@@ -1308,11 +1308,10 @@ void CreateFinanceButtons( void )
 	giFinanceButton[LAST_PAGE_BUTTON] = QuickCreateButton( giFinanceButtonImage[LAST_PAGE_BUTTON], LAST_PAGE_X, BTN_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnFinanceFirstLastPageCallBack);
+	
 	MSYS_SetBtnUserData( giFinanceButton[LAST_PAGE_BUTTON], 0, 1 );
 
-
-
-
+	// set buttons
 	SetButtonCursor(giFinanceButton[0], CURSOR_LAPTOP_SCREEN);
 	SetButtonCursor(giFinanceButton[1], CURSOR_LAPTOP_SCREEN);
 	SetButtonCursor(giFinanceButton[2], CURSOR_LAPTOP_SCREEN);
@@ -2502,7 +2501,7 @@ void SetFinanceButtonStates( void )
 	if( LoadNextPage( ) )
 	{
 		// decrement page
-	LoadPreviousPage( );
+		LoadPreviousPage( );
 
 
 		// enable buttons
@@ -2512,8 +2511,8 @@ void SetFinanceButtonStates( void )
 	}
 	else
 	{
-	DisableButton( 	giFinanceButton[ NEXT_PAGE_BUTTON ] );
-	DisableButton( 	giFinanceButton[ LAST_PAGE_BUTTON ] );
+		DisableButton( giFinanceButton[ NEXT_PAGE_BUTTON ] );
+		DisableButton( giFinanceButton[ LAST_PAGE_BUTTON ] );
 	}
 }
 
