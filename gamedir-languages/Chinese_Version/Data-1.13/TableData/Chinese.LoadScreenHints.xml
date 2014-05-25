@@ -10,11 +10,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
-    <szName>大部分机枪都有可替换枪管。在战斗中可通过频繁更换枪管来达到降温的目的。</szName>
+    <szName>大部分机枪都有可替换枪管，在战斗中可通过更换枪管来降温。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
-    <szName>在一具尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
+    <szName>对着尸体上使用匕首，可以剥下衣服或者拿起尸体。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
@@ -22,11 +22,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>通过按[.]可以在不同的瞄具间进行切换。</szName>
+    <szName>通过按 [.] 可以在不同的瞄具间进行切换。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>食物放置时间太长，会腐败，导致有害健康。当然对天朝臣民无效。</szName>
+    <szName>食物放置时间太长会腐败且有害健康。当然对天朝臣民无效。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
@@ -34,7 +34,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>如果 'M' 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
+    <szName>如果 [M] 显示在你的枪械图标上，那表示当前你的枪架在某样事物上，对于射击稳定性有提升。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
@@ -46,19 +46,19 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>需要帮助？那就在战略界面按 [H]。然后去 www.bears-pit.com 看看。</szName>
+    <szName>需要帮助？那就按 [H] 打开帮助菜单吧。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL]在各种开火模式下提高命中概率. [ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
+    <szName>想要拨动命运的转轮？ 使用 [MOUSE-WHEEL] 在各种开火模式下提高命中概率。[ALT]+[MOUSE-WHEEL] 可以用来设定连发数量！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用. 操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
+    <szName>有些地区有特殊的建筑设施，比如酒吧或者矿场，你可以指派佣兵去提升它们的作用。操作就如同你指派佣兵训练民兵或者修理装备一样简单！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>石迁再世！[CTRL]+[鼠标左键]点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
+    <szName>时迁再世！[CTRL]+[鼠标左键] 点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
@@ -74,7 +74,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>开枪打碎窗户玻璃，然后面向窗户然后按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
+    <szName>开枪打碎窗户玻璃，面向窗户按下 [SHIFT]+[J] 就可以翻窗入室！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
@@ -94,7 +94,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>按下 [CTRL]+[SHIFT]+[X]可以开关即时潜行。 当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
+    <szName>按 [CTRL]+[SHIFT]+[X] 可以开关即时潜行。当该选项有效时，你不会因为发现敌人而强制进入回合模式，除非他们发现了你。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
@@ -126,11 +126,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>按下 [CTRL]+[.] 你会看到一个有趣的菜单。</szName>
+    <szName>按 [CTRL]+[.] 你会看到一个有趣的菜单。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
-    <szName>[鼠标右键]也可以设定连发数目。</szName>
+    <szName>按 [鼠标右键] 也可以设定连发数目。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
@@ -138,7 +138,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
-    <szName>游戏中有些人是可以被贿赂收买的...</szName>
+    <szName>游戏中有些人是可以被贿赂收买的。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
@@ -150,11 +150,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>36</uiIndex>
-    <szName>当一个敌人处于警戒状态，它们可能呼叫增援...</szName>
+    <szName>当一个敌人处于警戒状态，他们可能呼叫增援。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
-    <szName>随着你的进展，淘宝会向你开放！</szName>
+    <szName>随着你的进展，网店会向你开放！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
@@ -171,7 +171,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
-    <szName>遥控炸弹必须通过遥控雷管类控制。将遥控雷管放在手里，按[鼠标右键].</szName>
+    <szName>遥控炸弹必须通过遥控雷管类控制。将遥控雷管放在手里，按 [鼠标右键]。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
@@ -179,7 +179,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
-    <szName>按[B]切换开火模式.</szName>
+    <szName>按 [B] 切换开火模式.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
@@ -187,11 +187,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
-    <szName>按下 [S] 站起来, [C] 半蹲, [P] 匍匐，而[R]站起来，跑路！</szName>
+    <szName>按 [S] 站起来, [C] 半蹲, [P] 匍匐，而 [R] 站起来，跑路！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
-    <szName>按下[Z]切换潜行模式。</szName>
+    <szName>按 [Z] 切换潜行模式。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
@@ -199,7 +199,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
-    <szName>[鼠标右键]一个物品可以打开详细说明。</szName>
+    <szName>按 [鼠标右键] 点击物品可以打开详细说明。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
@@ -219,7 +219,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>53</uiIndex>
-    <szName>过量使用兴奋剂会导致不了效果。</szName>
+    <szName>过量使用兴奋剂反而会无效。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>54</uiIndex>
@@ -235,15 +235,15 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>按下[L] 来调整你的面朝方向。再按一下 [L] 可以举枪。 </szName>
+    <szName>按 [L] 来调整你的面朝方向。再按一下 [L] 可以举枪。 </szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
-    <szName>请尽量在回合结束时保证人物至少处于半蹲状态，以免降低友方误伤的可能性。</szName>
+    <szName>请尽量在回合结束时保证人物至少处于半蹲状态，以降低友方误伤的可能性。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>你可以对某一区域进行火力压制，只需要选择连发模式和子弹数量，按住 [鼠标左键] 点上第一个目标，然后拖动鼠标划出你想要火力压制的地区即可。</szName>
+    <szName>区域火力压制时，只要选择连发模式和子弹数量，按住 [鼠标左键] 点上第一个目标，然后拖动鼠标划出你想要火力压制的地区即可。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
@@ -255,11 +255,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>62</uiIndex>
-    <szName>重武器在你处于举枪或者发射状态下或消耗大量精力。请保持匍匐来节省精力。</szName>
+    <szName>重武器在你处于举枪或者发射状态下将消耗大量精力。请保持匍匐来节省精力。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>63</uiIndex>
-    <szName>只要条件许可，请尽量选择遮蔽物。</szName>
+    <szName>只要条件允许，请尽量选择掩体。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>64</uiIndex>
@@ -271,11 +271,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
-    <szName>在民兵重分配界面下， 按住[CTRL] 可以移除5个民兵。按住 [SHIFT] 可以移除所有。</szName>
+    <szName>在民兵分配界面下， 按住[CTRL] 可以移除5个民兵。按住 [SHIFT] 可以移除所有。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>67</uiIndex>
-    <szName>游击队，会帮助你一起攻击敌人的地区，如果他们和你相邻。</szName>
+    <szName>游击队会帮助你一起攻击敌人的地区，如果他们和你相邻。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
@@ -335,7 +335,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
-    <szName>通过正规训练手段是不能获得精英民兵的，只有通过战斗手段，正规民兵才可能升级为精英。当然开挂不计！</szName>
+    <szName>通过正规训练手段是不能获得精英民兵的，只有通过战斗手段，正规民兵才可能升级为精英。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
@@ -363,7 +363,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
-    <szName>不要忘记使用掩蔽体来保护自己。</szName>
+    <szName>不要忘记使用掩体来保护自己。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
@@ -371,7 +371,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
-    <szName>L.B.E. 就是携行具。</szName>
+    <szName>其实 L.B.E. 就是携行具。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
@@ -383,7 +383,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
-    <szName>注意你的佣兵所听到的一切动静，有时候可以帮你避免大麻烦。因为他们会告诉你敌人从哪里来</szName>
+    <szName>注意你的佣兵所听到的一切动静，有时候可以帮你避免大麻烦。因为他们会告诉你敌人从哪里来。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
@@ -391,7 +391,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
-    <szName>火力吸引可以帮助你受困的队友得到更多的喘息机会。</szName>
+    <szName>火力吸引可以帮助你受困的队友，使他得到更多的喘息机会。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>
@@ -399,7 +399,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
-    <szName>按下 [ALT]+[Z] 使所有的队员进入潜行模式, 而 [=] 可以选取他们所有人。</szName>
+    <szName>按 [ALT]+[Z] 使所有的队员进入潜行模式, 而 [=] 可以选取他们所有人。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
@@ -411,11 +411,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>按下[G] 可以开关佣兵的自发光。</szName>
+    <szName>按 [G] 可以开关佣兵的自发光。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
-    <szName>当你遇到雷暴天气的时候，请小心。因为闪电会暴露你的位置，而大雨会遮挡你的视线。</szName>
+    <szName>当你遇到雷暴天气的时候请小心。因为闪电会暴露你的位置，而大雨会遮挡你的视线。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>103</uiIndex>
@@ -439,7 +439,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>如果你想行进速度快点，请任务你的负重没有超过100%。</szName>
+    <szName>如果你想行进速度快点，请确认你的负重没有超过100%。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
@@ -479,15 +479,15 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>按下[CTRL]+[SHIFT]+[G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
+    <szName>按 [CTRL]+[SHIFT]+[G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>按下[CTRL]+[SHIFT]+[S]可以卖掉当前地区的所有物品。</szName>
+    <szName>按 [CTRL]+[SHIFT]+[S]可以卖掉当前地区的所有物品。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
-    <szName>[CTRL]+[SHIFT]+[E] 可以将你的车辆后备箱尽量装满。 [SHIFT]+[E] 则是清空你的车辆后备箱。</szName>
+    <szName>按 [CTRL]+[SHIFT]+[E] 可以将你的车辆后备箱尽量装满。 [SHIFT]+[E] 则是清空你的车辆后备箱。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
@@ -499,42 +499,42 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>在战术界面，按住[鼠标右键] 点击佣兵也可以打开指令菜单。</szName>
+    <szName>在战术界面，按住 [鼠标右键] 点击佣兵可以打开指令菜单。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>124</uiIndex>
-    <szName>Press [CTRL]+[C] to open Cover Display Menu.</szName>
+    <szName>按 [CTRL]+[C] 可以打开伪装/陷阱操作菜单。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>125</uiIndex>
-    <szName>Press [CTRL]+[V] to open useful Inventory Manipulations Menu.</szName>
+    <szName>按 [CTRL]+[V] 可以打开物品栏操作菜单。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>126</uiIndex>
-    <szName>Press [D] to enter turn-based mode immediately, if there is enemy in sector.</szName>
+    <szName>如果当前区域有敌人，可以按 [D] 立刻进入回合制模式。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>127</uiIndex>
-    <szName>Press [CTRL]+[D] to end your interrupt, and there will be no interrupts until next turn.</szName>
+    <szName>按 [CTRL]+[D] 可以结束你当前的中断，并且在下一回合之前不会再有中断。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where reinforcements or order artillery strike can be called by the radio operator.</szName>
+    <szName>用 [ALT]+[鼠标右键] 打开技能菜单后可以通过无线电呼叫支援或空中打击。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
-    <szName>Defensive minefields can be safely placed in captured towns and SAMs as mercs and militia will avoid them.</szName>
+    <szName>已占领的城镇或导弹基地可以安全地布设防御雷区，佣兵和民兵都不会故意踩雷的。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
-    <szName>You can inspect trap before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
+    <szName>如果你还想四肢健全的话，请检查之后再尝试拆除陷阱。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Click with hand cursor on a blue flag, and flag can be removed or trap inspected with the useful Disarm Menu.</szName>
+    <szName>用手形光标点击蓝色的探雷标志旗帜就可以移除它。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
-    <szName>Placing mines, concertina or sandbags is more convenient with holding [SHIFT] key, relieving the need to manually take new item from merc's inventory.</szName>
+    <szName>按 [SHIFT] 键可以快速布设地雷、铁丝网和沙包，免去手动打开物品栏取物的麻烦。</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

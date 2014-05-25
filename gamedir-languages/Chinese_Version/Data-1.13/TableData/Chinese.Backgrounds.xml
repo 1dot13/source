@@ -1922,410 +1922,363 @@ to finally make yourself a living.</szDescription>
 	<!-- Imp Backgrounds -->
 	<BACKGROUND>
     <uiIndex>256</uiIndex>
-    <szName>Arms Dealer</szName>
-    <szShortName>Arms Dealer</szShortName>
-    <szDescription>Experience earned in years of arms trade leads to better
- deals when buying and selling guns.</szDescription>
+    <szName>军火商</szName>
+    <szShortName>军火商</szShortName>
+    <szDescription>多年的武器倒卖经验使得此人在买卖枪支弹药时，&#10;更善于抬价砍价。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>257</uiIndex>
-    <szName>Law Enforcement</szName>
-    <szShortName>Law Enforcement</szShortName>
-    <szDescription>Former law enforcement personnel often seek work in the 
-mercenary world, and are the logical choice for handling captives.</szDescription>
+    <szName>执法队</szName>
+    <szShortName>执法队</szShortName>
+    <szDescription>城管出身的佼佼者们更乐意在杀手的世界谋求一职，&#10;他们当然最擅长审讯犯人。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>258</uiIndex>
-    <szName>Prison Guard</szName>
-    <szShortName>Prison Guard</szShortName>
-    <szDescription>In longer and larger conflicts, former prison guards are natural
- choices for running prison camps.</szDescription>
+    <szName>监狱看守</szName>
+    <szShortName>监狱看守</szShortName>
+    <szDescription>担心监狱的暴徒们举兵反攻么？&#10;监狱看守是你最好的选择。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>259</uiIndex>
-    <szName>Gang Member</szName>
-    <szShortName>Gang Member</szShortName>
-    <szDescription>Becoming a mercenary is a natural step for many gang members
- - job's the same, tools and pay much better.</szDescription>
+    <szName>黑帮成员</szName>
+    <szShortName>黑帮成员</szShortName>
+    <szDescription>成为佣兵是很多黑帮成员的自然选择：&#10;工作差不多，武器和薪水好多了！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>260</uiIndex>
-    <szName>Convict</szName>
-    <szShortName>Convict</szShortName>
-    <szDescription>Anyone surviving in a merciless prison is bound to be more
- dangerous on release - if he survives that long.</szDescription>
+    <szName>囚犯</szName>
+    <szShortName>囚犯</szShortName>
+    <szDescription>任何熬到刑满释放的囚犯都容易变得非常暴力：&#10;如果能熬到那一天的话。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>261</uiIndex>
-    <szName>Drug Addict</szName>
-    <szShortName>Drug Addict</szShortName>
-    <szDescription>Given the nature of today's drugs, addicts can make fearsome,
- yet unreliable, opponents.</szDescription>
+    <szName>瘾君子</szName>
+    <szShortName>瘾君子</szShortName>
+    <szDescription>深受毒品影响，&#10;瘾君子可以变成恐怖的、不稳定的对手。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>262</uiIndex>
-    <szName>Nobility</szName>
-    <szShortName>Nobility</szShortName>
-    <szDescription>Some people join this business not out of necessity. While
- easy to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
+    <szName>富二代</szName>
+    <szShortName>富二代</szShortName>
+    <szDescription>比起那些玩豪车美女的娘娘腔败家子，&#10;有些富二代确实接受过顶级的特工训练。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>263</uiIndex>
-    <szName>Lawyer</szName>
-    <szShortName>Lawyer</szShortName>
-    <szDescription>A somewhat unorthodox background for a mercenary, former 
-lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
+    <szName>律师</szName>
+    <szShortName>律师</szShortName>
+    <szDescription>虽然让他们做佣兵可能强人所难，&#10;不过在紧急关头他们也能派上用场。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>264</uiIndex>
-    <szName>Pilot</szName>
-    <szShortName>Pilot</szShortName>
-    <szDescription>Used to physical stress over long periods, some pilots find
- the transition to ground combat surprisingly easy.</szDescription>
+    <szName>飞行员</szName>
+    <szShortName>飞行员</szShortName>
+    <szDescription>接受过严格的军事训练，&#10;地面作战对他们而言可能不是很难。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>265</uiIndex>
-    <szName>Priest</szName>
-    <szShortName>Priest</szShortName>
-    <szDescription>Many devout followers of any religion or cult area surprisingly
- violent and zealous if pushed in the right (or wrong) direction.</szDescription>
+    <szName>神父</szName>
+    <szShortName>神父</szShortName>
+    <szDescription>宗教的力量是恐怖而巨大的，&#10;用好它可以改写历史。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>266</uiIndex>
-    <szName>Nurse</szName>
-    <szShortName>Nurse</szShortName>
-    <szDescription>While not full-blown doctors, nurses are still in high demand
- in warzones, due to the grim business.</szDescription>
+    <szName>护士</szName>
+    <szShortName>护士</szShortName>
+    <szDescription>护士在战区是很吃香的，&#10;因为太危险了，专业医生往往不愿意前往。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>267</uiIndex>
-    <szName>Construction Work</szName>
-    <szShortName>Construction</szShortName>
-    <szDescription>Construction workers are used to hard labour, and can construct
- fortifications better than deskjob heroes.</szDescription>
+    <szName>建筑工</szName>
+    <szShortName>建筑工</szShortName>
+    <szDescription>建筑工人都是卖苦力的，&#10;他们体格壮实，擅长建造碉堡和搬砖。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>268</uiIndex>
-    <szName>Skydiver</szName>
-    <szShortName>Skydiver</szShortName>
-    <szDescription>If you want to put your life to risk, might as well earn cash
- by it...</szDescription>
+    <szName>跳伞员</szName>
+    <szShortName>跳伞员</szShortName>
+    <szDescription>喜欢冒险吗，喜欢生死不卜的感觉？&#10;试试跳伞吧。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>269</uiIndex>
-    <szName>Drill Sergeant</szName>
-    <szShortName>Drill Sergeant</szShortName>
-    <szDescription>A drill sergeant's job is to create armies and traumatise 
-young men and women.</szDescription>t&gt;
+    <szName>教官</szName>
+    <szShortName>教官</szShortName>
+    <szDescription>教官的工作就是训练新兵蛋子：&#10;让那些年轻男女留下心灵创伤。</szDescription>t&gt;
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>270</uiIndex>
-    <szName>Bouncer</szName>
-    <szShortName>Bouncer</szShortName>
-    <szDescription>Doormen make good soldiers in close combat, though the 
-killing part is a change (hopefully).</szDescription>
+    <szName>保安</szName>
+    <szShortName>保安</szShortName>
+    <szDescription>保安有打架的经验，&#10;不过杀人这一块可能略有生疏。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>271</uiIndex>
-    <szName>Hitman</szName>
-    <szShortName>Hitman</szShortName>
-    <szDescription>Professional assassins are obviously used to killing, 
-though might come in conflict with more idealistic team members.</szDescription>
+    <szName>杀手</szName>
+    <szShortName>杀手</szShortName>
+    <szDescription>杀手是危险而又高度专业的职业，&#10;其实他们有些并不太冷。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>272</uiIndex>
-    <szName>Bomber</szName>
-    <szShortName>Bomber</szShortName>
-    <szDescription>Wether you call them terrorists or freedom fighters often 
-depends on your relation to those killed.</szDescription>
+    <szName>极端分子</szName>
+    <szShortName>极端分子</szShortName>
+    <szDescription>恐怖分子还是自由斗士？&#10;有时取决于你和他们杀死的人是什么关系。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>273</uiIndex>
-    <szName>Bodyguard</szName>
-    <szShortName>Bodyguard</szShortName>
-    <szDescription>Superbly trained, utterly loyal, and willing to pay the 
-ultimate price. What more could a potential employer want?.</szDescription>
+    <szName>保镖</szName>
+    <szShortName>保镖</szShortName>
+    <szDescription>精良训练，无比忠诚，不惧牺牲，&#10;不愧为雇主的最佳选择。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>274</uiIndex>
-    <szName>SWAT Member</szName>
-    <szShortName>SWAT</szShortName>
-    <szDescription>Blurring the line between police and military, SWAT teams are 
-used in urban operations too dangerous for normal law enforcement.</szDescription>
+    <szName>SWAT特工</szName>
+    <szShortName>SWAT特工</szShortName>
+    <szDescription>设身于最危险的都市角落，&#10;SWAT特工擅长处理高度专业的军事和政治行动。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>275</uiIndex>
-    <szName>Barkeeper</szName>
-    <szShortName>Barkeeper</szShortName>
-    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+    <szName>酒吧老板</szName>
+    <szShortName>酒吧老板</szShortName>
+    <szDescription>友好点，很多暴力就泯灭于无形：&#10;和气生财嘛！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>276</uiIndex>
-    <szName>Miner</szName>
-    <szShortName>Miner</szShortName>
-    <szDescription>Working in a mine is hard, punishing work. No wonder some start 
-to look for easier cash.</szDescription>
+    <szName>矿工</szName>
+    <szShortName>矿工</szShortName>
+    <szDescription>黑煤窑的工作既辛苦又危险，&#10;难怪有些人宁愿选择死在战场上。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>277</uiIndex>
-    <szName>The Mob</szName>
-    <szShortName>Mobster</szShortName>
-    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+    <szName>匪徒</szName>
+    <szShortName>匪徒</szShortName>
+    <szDescription>有组织的犯罪网络随处可见，&#10;没有例外。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>278</uiIndex>
-    <szName>UN Peacekeeper</szName>
-    <szShortName>UN</szShortName>
-    <szDescription>Nations of the entire world provide these troops to solve all 
-conflicts without any violence. Sadly, this statment is false.</szDescription>
+    <szName>UN维和部队</szName>
+    <szShortName>UN维和部队</szShortName>
+    <szDescription>各国合作提供部队，采用非暴力方式解决区域冲突。&#10;可悲的是，这个定义是错的。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>279</uiIndex>
-    <szName>Paratrooper</szName>
-    <szShortName>Paratrooper</szShortName>
-    <szDescription>It takes guts to jump out of a plane to face numerically superior foes.</szDescription>
+    <szName>空降兵</szName>
+    <szShortName>空降兵</szShortName>
+    <szDescription>与其面对上级那张抽脸，&#10;索性跳下去算了！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>280</uiIndex>
-    <szName>Guerilla</szName>
-    <szShortName>Guerilla</szShortName>
-    <szDescription>You are well trained in evading enemy forces and hitting them where they least expect it.</szDescription>
+    <szName>游击队</szName>
+    <szShortName>游击队</szShortName>
+    <szDescription>我们都是神枪手，&#10;每一颗子弹消灭一个敌人。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>281</uiIndex>
-    <szName>Conscript</szName>
-    <szShortName>Conscript</szShortName>
-    <szDescription>Far from being a pro, you at least know the basic stuff.</szDescription>
+    <szName>新兵蛋子</szName>
+    <szShortName>新兵蛋子</szShortName>
+    <szDescription>尚未经过战火洗礼，&#10;但至少通过了基本训练。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>282</uiIndex>
-    <szName>Military Advisor</szName>
-    <szShortName>Military Advisor</szShortName>
-    <szDescription>Pointing the gun in the right direction is a start, but someone needs 
-to teach these people how to teach other people where to point.</szDescription>
+    <szName>军事顾问</szName>
+    <szShortName>军事顾问</szShortName>
+    <szDescription>瞄准射击很容易，&#10;难得是教会别人瞄准谁射击。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>283</uiIndex>
-    <szName>Paramilitary Instructor</szName>
-    <szShortName>Instructor</szShortName>
-    <szDescription>Just like boyscouts. But with violence. So not like boyscouts 
-at all.</szDescription>
+    <szName>军事辅导员</szName>
+    <szShortName>军事辅导员</szShortName>
+    <szDescription>像童子军一样，只不过使用了暴力。&#10;所以...这还是是童子军呀。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>284</uiIndex>
-    <szName>Red Army</szName>
-    <szShortName>Red Army</szShortName>
-    <szDescription>With russian stoicism, the red army prevailed against Hitler, 
-father frost, and chronic shortages.</szDescription>
+    <szName>红军</szName>
+    <szShortName>红军</szShortName>
+    <szDescription>苏联红军克服了严寒天气和物资缺乏， &#10;最终弄死了希特勒。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>285</uiIndex>
-    <szName>Undertaker</szName>
-    <szShortName>Undertaker</szShortName>
-    <szDescription>When you've seen it all, nothing can frighten you anymore.</szDescription>
+    <szName>殡仪员</szName>
+    <szShortName>殡仪员</szShortName>
+    <szDescription>每天都和死亡与尸体打交道，&#10;最终发现自己什么都不怕了！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>286</uiIndex>
-    <szName>Veteran</szName>
-    <szShortName>Veteran</szShortName>
-    <szDescription>You've been on one or two tours of duty, and know trouble when you see it.</szDescription>
+    <szName>退役军人</szName>
+    <szShortName>退役军人</szShortName>
+    <szDescription>经过了几场战役血与火的洗礼，&#10;第一时间发现危险已成为本能。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>287</uiIndex>
-    <szName>Tuareg</szName>
-    <szShortName>Tuareg</szShortName>
-    <szDescription>The tuareg are a berber people that lead a nomadic life in 
-the Sahara.</szDescription>
+    <szName>图阿雷格人</szName>
+    <szShortName>图阿雷格人</szShortName>
+    <szDescription>图阿雷格人生活在撒哈拉沙漠，&#10;过着游牧生活。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>288</uiIndex>
-    <szName>Firefighter</szName>
-    <szShortName>Firefighter</szShortName>
-    <szDescription>Just because it involves no shooting, it doesn't have to be 
-less dangerous.</szDescription>
+    <szName>消防员</szName>
+    <szShortName>消防员</szShortName>
+    <szDescription>有些工作即使不需要持枪射击，&#10;也会十分危险。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>289</uiIndex>
-    <szName>Competitive Shooter</szName>
-    <szShortName>Competitive Shooter</szShortName>
-    <szDescription>Some people display a knack for shooting, and a disturbing 
-aggression against innocent paper bull's eyes.</szDescription>
+    <szName>射击比赛枪手</szName>
+    <szShortName>射击比赛枪手</szShortName>
+    <szDescription>有些人一拿起枪就热血沸腾，&#10;恨不得把地球打穿。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>290</uiIndex>
-    <szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+    <szName>店员</szName>
+    <szShortName>店员</szShortName>
+    <szDescription>对于某些人而言，&#10;他们的工作就是点钞票。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>291</uiIndex>
-    <szName>Car Mechanic</szName>
-    <szShortName>Car Mechanic</szShortName>
-    <szDescription>Very useful, as long as you HAVE a car.</szDescription>
+    <szName>修车工</szName>
+    <szShortName>修车工</szShortName>
+    <szDescription>非常有用，&#10;当然如果你有车的话。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>292</uiIndex>
-    <szName>Smith</szName>
-    <szShortName>Smith</szShortName>
-    <szDescription>In a warzone without the usual comforts, it is very useful to 
-have people who can maintain your gear.</szDescription>
+    <szName>机械师</szName>
+    <szShortName>机械师</szShortName>
+    <szDescription>在物资缺乏的战场上，&#10;能维修装备太重要了！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>293</uiIndex>
-    <szName>Counter-Terrorist Unit</szName>
-    <szShortName>Counter-Terrorist</szShortName>
-    <szDescription>Most countries don't deploy their army to deal with interior threats, but use special police forces.</szDescription>
+    <szName>反恐精英</szName>
+    <szShortName>反恐精英</szShortName>
+    <szDescription>反恐精英一般处理国际事务，&#10;国内？有城管和武警呢。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>294</uiIndex>
-   <szName>Office Worker</szName>
-   <szShortName>Office Worker</szShortName>
-   <szDescription>Air conditioning, watered down coffee and some papers to push - 
-what else can you expect from life?</szDescription>
+   <szName>白领</szName>
+   <szShortName>白领</szShortName>
+   <szDescription>嗡嗡的空调、打翻的杯子和乱七八糟的资料，&#10;这就是办公室的生活。</szDescription>
  </BACKGROUND>
  <BACKGROUND>
    <uiIndex>295</uiIndex>
-   <szName>Backstage Crew</szName>
-   <szShortName>Backstage Crew</szShortName>
-   <szDescription>Blasting sounds, fireworks, screaming people - isn't it odd how 
-similar stage is to the battlefield?</szDescription>
+   <szName>后台员工</szName>
+   <szShortName>后台员工</szShortName>
+   <szDescription>灯光、音效和尖叫的观众，&#10;其实和战场也没什么区别不是吗？</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>296</uiIndex>
-   <szName>Technical Wizard</szName>
-   <szShortName>Tech Whiz</szShortName>
-   <szDescription>No matter if it's a thirty years old junk or latest electronic 
-gadget, tech whiz can rewire, reassemble and reconfigure it with eyes closed.</szDescription>
+   <szName>技术宅</szName>
+   <szShortName>技术宅</szShortName>
+   <szDescription>技术宅拯救世界。就算闭着一只眼睛，&#10;技术宅也能在一分钟内摆好魔方。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>297</uiIndex>
-   <szName>Graduate</szName>
-   <szShortName>Graduate</szShortName>
-   <szDescription>Fresh outta school, with diploma still warm in a hand, it's time 
-to finally make yourself a living.</szDescription>
+   <szName>毕业生</szName>
+   <szShortName>毕业生</szShortName>
+   <szDescription>毕业工作不好找？不想读大学？&#10;来当杀手吧！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>298</uiIndex>
-   <szName>Professional Thief</szName>
-   <szShortName>Thief</szShortName>
-   <szDescription>When offered to take it or leave it, you always chose 'take'.</szDescription>
+   <szName>资深盗贼</szName>
+   <szShortName>资深盗贼</szShortName>
+   <szDescription>习惯性会顺手拿走一切看得顺眼的东西，&#10;其实是下意识的本能。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>299</uiIndex>
-   <szName>Mime</szName>
-   <szShortName>Mime</szShortName>
-   <szDescription>...</szDescription>
+   <szName>喜剧演员</szName>
+   <szShortName>喜剧演员</szShortName>
+   <szDescription>看到你的贱笑，&#10;敌人就忍不住放下手里的枪捂肚子了。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>300</uiIndex>
-   <szName>B-Movie Star</szName>
-   <szShortName>B-Movie Star</szShortName>
-   <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics 
-yet adored by loyal fans.</szDescription>
+   <szName>二流演员</szName>
+   <szShortName>二流演员</szShortName>
+   <szDescription>中老年妇女的偶像，大木老师和毕姥爷毕生追求的目标，&#10;你的名声已享誉世界。</szDescription>
    <!-- easier to recognise in disguise? -->
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>301</uiIndex>
-   <szName>Pyrotechnician</szName>
-   <szShortName>Pyrotechnician</szShortName>
-   <szDescription>When you want to break enemy morale by blowing up his privy, it's time 
-to get yourself a qualified pyrotechnician.</szDescription>
+   <szName>烟火商</szName>
+   <szShortName>烟火商</szShortName>
+   <szDescription>如果你想用节日礼炮把敌人的茅房炸开花，&#10;你最好找一个专业的烟火商。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>302</uiIndex>
-   <szName>Sapper</szName>
-   <szShortName>Sapper</szShortName>
-   <szDescription>Sapper can make only two mistakes in his life. The first one is a 
-career choice.</szDescription>
+   <szName>拆弹专家</szName>
+   <szShortName>拆弹专家</szShortName>
+   <szDescription>拆弹专家一生只允许犯两个错误：&#10;第一个错误是选了这职业。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>303</uiIndex>
-   <szName>Hypochondriac</szName>
-   <szShortName>Hypochondriac</szShortName>
-   <szDescription>When you enter a ward, all medical personnel tries to look overly 
-busy or hides around corners in a futile attempt to avoid you. 
-The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
+   <szName>疑病症患者</szName>
+   <szShortName>疑病症患者</szShortName>
+   <szDescription>哪怕走进医院或学校，&#10;也会觉得他们会偷偷暗害你！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>304</uiIndex>
-   <szName>Redneck</szName>
-   <szShortName>Redneck</szShortName>
-   <szDescription>Overalls, straw sticking out of boots and inseparable blade of grass 
-in the mouth. Not exactly a proud image, but hey, life on the farm isn't easy.</szDescription>
+   <szName>乡巴佬</szName>
+   <szShortName>乡巴佬</szShortName>
+   <szDescription>头发插着枯稻草，张嘴一笑缺颗牙，&#10;好吧，农场的生活也不是那么容易。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>305</uiIndex>
-   <szName>Peeper</szName>
-   <szShortName>Peeper</szShortName>
-   <szDescription>Why is this still necessary? Dude, visit the internet...</szDescription>
+   <szName>偷窥狂</szName>
+   <szShortName>偷窥狂</szShortName>
+   <szDescription>其实不必那么费力气，&#10;兄弟，上网吧！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>306</uiIndex>
-   <szName>Academic</szName>
-   <szShortName>Academic</szShortName>
-   <szDescription>Most of your knowledge comes from the books and secondhand reports - 
-and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+   <szName>专家</szName>
+   <szShortName>专家</szShortName>
+   <szDescription>绝大部分知识都是纸上谈兵却偏偏喜欢大放厥词，&#10;你们还是赶快去战场死掉吧！</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>307</uiIndex>
-   <szName>Mental Patient</szName>
-   <szShortName>Mental Patient</szShortName>
-   <szDescription>There are different accounts of how you've managed to leave the 
-confinement, but everyone agrees - you should go back.</szDescription>
+   <szName>精神病人</szName>
+   <szShortName>精神病人</szShortName>
+   <szDescription>没有人知道你是怎么逃出来的，&#10;不过大家一致认为，你应该回去。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>308</uiIndex>
-   <szName>Wrestler</szName>
-   <szShortName>Wrestler</szShortName>
-   <szDescription>It might be more of a spectacle than actual fight, but getting thrown 
-around a ring without breaking a neck still takes a lot of skill.</szDescription>
+   <szName>摔跤手</szName>
+   <szShortName>摔跤手</szShortName>
+   <szDescription>与其说是搏斗不如说是表演，&#10;不过被丢来丢去而没摔断脖子也需要一定的技术。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>309</uiIndex>
-   <szName>General Practitioner</szName>
-   <szShortName>GP</szShortName>
-   <szDescription>Versatile and educated doctor can save a human life no matter what his 
-patient caught - a virus or a bullet.</szDescription>
+   <szName>全科医生</szName>
+   <szShortName>全科医生</szShortName>
+   <szDescription>从感冒到绝症无所不能，&#10;取出你大脑里的子弹更是不在话下。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>310</uiIndex>
-   <szName>Surgeon</szName>
-   <szShortName>Surgeon</szShortName>
-   <szDescription>Everyone can cut human flesh - but sewing it back is a quest for 
-the best!</szDescription>
+   <szName>外科军医</szName>
+   <szShortName>外科军医</szShortName>
+   <szDescription>谁都能把人切成两半，&#10;但能不能缝上去就是另一回事。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>311</uiIndex>
-   <szName>Mercenary</szName>
-   <szShortName>Merc</szShortName>
-   <szDescription>While others may keep to their pasts and its labels, you've chosen 
-the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
+   <szName>雇佣兵</szName>
+   <szShortName>雇佣兵</szShortName>
+   <szDescription>不满足于平庸而无聊的过去，你选择了枪炮主宰的世界，&#10;这才是真正的你。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>312</uiIndex>
-   <szName>Veteran Mercenary</szName>
-   <szShortName>Veteran</szShortName>
-   <szDescription>You were already famous in this business before those youngsters were 
-even born. After years of battles, there's hardly anything that can shake you up.</szDescription>
+   <szName>资深雇佣兵</szName>
+   <szShortName>资深雇佣兵</szShortName>
+   <szDescription>新人还在包尿布时你已经威名远扬，&#10;没有什么任务能难住你。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>313</uiIndex>
-   <szName>Big Game Hunter</szName>
-   <szShortName>Big Game Hunter</szShortName>
-   <szDescription>Travel to pristine nature, seek fascinating species, and 
-KILL THEM ALL.</szDescription>
+   <szName>王牌猎手</szName>
+   <szShortName>王牌猎手</szShortName>
+   <szDescription>擅长于猎杀各种珍奇异兽，&#10;包括女王的手下。</szDescription>
   </BACKGROUND> 
   <BACKGROUND>
    <uiIndex>314</uiIndex>
-   <szName>Spotter</szName>
-   <szShortName>Spotter</szShortName>
-   <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
+   <szName>狙击观察手</szName>
+   <szShortName>狙击观察手</szShortName>
+   <szDescription>经过周密计算后你标记了目标：&#10;几秒后一颗子弹就会飞向他。</szDescription>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>315</uiIndex>
-		<szName>Bomb Disposal Unit</szName>
-		<szShortName>BDU</szShortName>
-		<szDescription>Displaying nerves of steel, you thrive at a job 
-where every mistake can be the last one.</szDescription>
+		<szName>工兵</szName>
+		<szShortName>工兵</szShortName>
+		<szDescription>微小的失误就会导致失误，&#10;幸好你还没犯过错。</szDescription>
 	</BACKGROUND>
 </BACKGROUNDS>
