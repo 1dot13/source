@@ -1245,7 +1245,7 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 		case AIM_SHOT_HEAD:
 			// 1.5x damage from successful hits to the head!
 			//*piImpactForCrits = HEAD_DAMAGE_ADJUSTMENT( iImpact ); //comm by ddd
-			*piImpactForCrits = INT32(gGameExternalOptions.fShotHeadDivisor*iImpact);
+			*piImpactForCrits = INT32(gGameExternalOptions.fShotHeadMultiplier*iImpact);
 			*piNewImpact = *piImpactForCrits;
 			break;
 		case AIM_SHOT_LEGS:
@@ -5676,7 +5676,7 @@ else
 			case OLGA:
 			case TYRONE:
 			case MIKE:
-				iBaseModifier += gGameExternalOptions.usSpecialNPCStronger;
+				iBaseModifier += (iBaseModifier * gGameExternalOptions.usSpecialNPCStronger / 100);
 				break;
 		}
 	}
@@ -12763,7 +12763,7 @@ FLOAT CalcNewChanceToHitBaseSpecialBonus(SOLDIERTYPE *pSoldier)
 			case OLGA:
 			case TYRONE:
 			case MIKE:
-				fBaseModifier += gGameExternalOptions.usSpecialNPCStronger;
+				fBaseModifier += (fBaseModifier * gGameExternalOptions.usSpecialNPCStronger / 100);
 				break;
 		}
 	}

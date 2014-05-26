@@ -1475,7 +1475,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.uShotHeadPenalty					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_PENALTY",3,0,100);	
 	
 	// Modifer of damage for HEADSHOT
-	gGameExternalOptions.fShotHeadDivisor					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_DIVISOR",1.5,1,10);	
+	gGameExternalOptions.fShotHeadMultiplier					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_MULTIPLIER",2,1,10);	
 
 	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
 	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);

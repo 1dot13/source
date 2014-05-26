@@ -821,7 +821,7 @@ typedef struct
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
 	FLOAT uShotHeadPenalty;
-	FLOAT fShotHeadDivisor;
+	FLOAT fShotHeadMultiplier;
 	INT16 iPenaltyShootUnSeen;
 	BOOLEAN fNoStandingAnimAdjustInCombat;	// Flugente: in turnbased combat, do not adjust animation after arriving at target location
 
