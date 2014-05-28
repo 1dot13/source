@@ -81,6 +81,8 @@
     <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
     <insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
     <spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
+    
+    <dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
 		<!-- on/off properties: 1 for on, 0 for off -->      
 		<druguse>0</druguse>                              <!-- might use drugs from inventory (the 'Larry'-behaviour) -->
@@ -374,6 +376,7 @@
 		<prisonguard>300</prisonguard>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>-1</dislikebackground>
 	</BACKGROUND>
 	<!-- Hitman -->
 	<BACKGROUND>
@@ -414,6 +417,7 @@
 		<breachingcharge>70</breachingcharge>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>-2</dislikebackground>
 	</BACKGROUND>
 	<!-- Raven -->
 	<BACKGROUND>
@@ -428,6 +432,7 @@
 		<breachingcharge>60</breachingcharge>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>-2</dislikebackground>
 	</BACKGROUND>
 	<!-- Static -->
 	<BACKGROUND>
@@ -497,6 +502,7 @@
 		<scrounging>1</scrounging>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>2</dislikebackground>
 	</BACKGROUND>
 	<!-- Stephen -->
 	<BACKGROUND>
@@ -785,6 +791,7 @@
 		<prisonguard>300</prisonguard>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>-1</dislikebackground>
 	</BACKGROUND>
 	<!-- PGmale 1 -->
 	<BACKGROUND>
@@ -978,6 +985,7 @@
 		<level_underground>1</level_underground>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>1</dislikebackground>
 	</BACKGROUND>
 	<!-- Shank -->
 	<BACKGROUND>
@@ -996,6 +1004,7 @@
 		<level_underground>1</level_underground>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>1</dislikebackground>
 	</BACKGROUND>
 	<!-- Iggy -->
 	<BACKGROUND>
@@ -2263,6 +2272,7 @@
 		<breachingcharge>80</breachingcharge>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>-2</dislikebackground>
 	</BACKGROUND>
 	<!-- Spooky -->
 	<BACKGROUND>
@@ -2920,6 +2930,7 @@
 		<scrounging>1</scrounging>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
+		<dislikebackground>1</dislikebackground>
 	</BACKGROUND>
 	<!-- Leech -->
 	<BACKGROUND>

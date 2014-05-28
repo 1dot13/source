@@ -44,9 +44,11 @@ uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:
                   BODYBUILDING_NT, // 16                                                            
                   DEMOLITIONS_NT, // 17                                                             
                   TEACHING_NT, // 18                                                                
-                  SCOUTING_NT, // 19                                                                
-                                                                                                    
-                  COVERT_NT, // 20                                               
+                  SCOUTING_NT, // 19
+                                            
+                  COVERT_NT, // 20  // major trait, here for coding reasons
+                  RADIO_OPERATOR_NT, //21
+                  SNITCH_NT, //22
 -->                                                                                                 
 <PROFILES>
   <PROFILE>
