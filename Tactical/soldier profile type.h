@@ -307,6 +307,9 @@ typedef enum
 	NUM_RACIST
 } RacistLevels;
 
+// Flugente: dynamic opinons: number of profile flagmasks
+#define OPINION_FLAGMASKS_NUMBER	3
+
 //////////////////////////////////////////////////////////////////////
 
 typedef enum
@@ -951,6 +954,9 @@ public:
 
 	// anv: simplified ubExposedInSector, hours until snitch can go undercover after exposition
 	UINT8 ubSnitchExposedCooldown;
+
+	// Flugente: flagmasks for dynamic opinions on each and every other person. Yes, this is significant in size
+	UINT32 usDynamicOpinionFlagmask[NUM_PROFILES][OPINION_FLAGMASKS_NUMBER];
 
 }; // MERCPROFILESTRUCT;
 

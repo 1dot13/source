@@ -142,7 +142,7 @@ void RenderInsuranceComments()
 	swprintf( sText, L"%s", pMessageStrings[ MSG_HOMEPAGE ] );
 	DisplayWrappedString( usPosX, INS_CMNT_LINK_Y+13, INS_CMNT_LINK_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	//Display the red bar under the link at the bottom
-	DisplaySmallRedLineWithShadow( usPosX, INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX+INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT);
+	DisplaySmallColouredLineWithShadow( usPosX, INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX + INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT );
 	usPosX += INS_CMNT_LINK_OFFSET_X;
 
 
@@ -150,14 +150,14 @@ void RenderInsuranceComments()
 	GetInsuranceText( INS_SNGL_HOW_DOES_INS_WORK, sText );
 	DisplayWrappedString( usPosX, INS_CMNT_LINK_Y+6, INS_CMNT_LINK_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	//Display the red bar under the link at the bottom
-	DisplaySmallRedLineWithShadow( usPosX, INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX+INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT);
+	DisplaySmallColouredLineWithShadow( usPosX, INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX + INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT );
 	usPosX += INS_CMNT_LINK_OFFSET_X;
 
 	//Display the fourth link text
 	GetInsuranceText( INS_SNGL_TO_ENTER_REVIEW, sText );
 	DisplayWrappedString( usPosX, INS_CMNT_LINK_Y-1, INS_CMNT_LINK_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	//Display the red bar under the link at the bottom
-	DisplaySmallRedLineWithShadow( usPosX, INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX+INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT);
+	DisplaySmallColouredLineWithShadow( usPosX, INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX + INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y + INS_CMNT_LINK_HEIGHT );
 
 	SetFontShadow(DEFAULT_SHADOW);
 	MarkButtonsDirty( );
@@ -204,7 +204,7 @@ BOOLEAN DisplayComment( UINT8 ubCommentorsName, UINT8 ubComment, UINT16 usPosY )
 	sNumPixels = DisplayWrappedString( INS_CMNT_FIRST_BULLET_X+INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY), INS_CMNT_COMMENT_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	//Display the red bar under the link at the bottom
-	DisplaySmallRedLineWithShadow( INS_CMNT_FIRST_BULLET_X+INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY+sNumPixels), INS_CMNT_FIRST_BULLET_X+INS_CMNT_REDLINE_WIDTH, (UINT16)(usPosY+sNumPixels));
+	DisplaySmallColouredLineWithShadow( INS_CMNT_FIRST_BULLET_X + INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY + sNumPixels), INS_CMNT_FIRST_BULLET_X + INS_CMNT_REDLINE_WIDTH, (UINT16)(usPosY + sNumPixels) );
 
 	sNumPixels += 4;
 

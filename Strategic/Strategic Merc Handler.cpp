@@ -610,6 +610,9 @@ void MercDailyUpdate()
 
 	// anv: time for snitches to report
 	HandleSnitchCheck();
+
+	// Flugente: dynmaic opinion rollover
+	HandleDynamicOpinions();
 }
 
 /*

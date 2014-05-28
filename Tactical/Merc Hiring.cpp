@@ -417,6 +417,9 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	//remove the merc from the Personnel screens departed list ( if they have never been hired before, its ok to call it )
 	RemoveNewlyHiredMercFromPersonnelDepartedList( pSoldier->ubProfile );
 
+	// Flugente: dynamic opinions
+	CheckForFriendsofHated( pSoldier );
+
 	gfAtLeastOneMercWasHired = TRUE;
 	return( MERC_HIRE_OK );
 }

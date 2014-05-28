@@ -623,6 +623,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\merccompare.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mercs Account.h"
 				>
 			</File>
@@ -926,6 +930,10 @@
 			</File>
 			<File
 				RelativePath=".\laptop.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\merccompare.cpp"
 				>
 			</File>
 			<File

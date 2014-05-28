@@ -196,6 +196,8 @@ UINT32 AddTransactionToPlayersBook (UINT8 ubCode, UINT8 ubSecondCode, UINT32 uiD
 	GetBalanceFromDisk( );
 	// process the actual data
 
+	// Flugente: dynamic opinion
+	HandleDynamicOpinionOnContractExtension( ubCode, ubSecondCode );
 
 	//
 	// If this transaction is for the hiring/extending of a mercs contract

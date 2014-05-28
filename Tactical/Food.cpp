@@ -616,6 +616,9 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 			EatFromInventory( pSoldier, FALSE );
 		}
+
+		// dynamic opinions: if we're still really hungry  an someone in this sector has food, we get a lwoer opinion of him, as he obviously doesn't share
+		HandleDynamicOpinionFoodSharing( pSoldier );
 	}	
 }
 
@@ -1060,4 +1063,39 @@ void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier)
 			}
 		}
 	}
+}
+
+BOOLEAN HasFoodInInventory( SOLDIERTYPE *pSoldier, BOOLEAN fCheckFood, BOOLEAN fCheckDrink )
+{
+	if ( !pSoldier )
+		return FALSE;
+
+	if ( !fCheckFood && !fCheckDrink )
+		return TRUE;
+
+	// search for food in our inventory
+	INT8 invsize = (INT8)pSoldier->inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )							// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is food ...
+		if ( pSoldier->inv[bLoop].exists( ) && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
+		{
+			if ( fCheckFood && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bFoodPoints )
+				return TRUE;
+
+			if ( fCheckDrink && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints )
+			{
+				if ( Item[pSoldier->inv[bLoop].usItem].canteen )
+				{
+					// empty canteens retain 1% status, so check ether something is in them
+					if ( pSoldier->inv[bLoop][0]->data.objectStatus > 1 )
+						return TRUE;
+				}
+				else
+					return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
 }

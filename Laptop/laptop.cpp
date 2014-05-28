@@ -87,6 +87,7 @@
 	#include "Encyclopedia_Data_new.h"
 	#include "CampaignHistoryMain.h"		// added by Flugente
 	#include "CampaignHistory_Summary.h"	// added by Flugente
+	#include "MercCompare.h"				// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1048,14 +1049,17 @@ INT32 EnterLaptop()
 	//JA25 UB
 	 SetBookMark(MERC_BOOKMARK);
 #endif	
-	if ( gGameExternalOptions.gEncyclopedia == TRUE && !is_networked )
+	if ( gGameExternalOptions.gEncyclopedia && !is_networked )
 		SetBookMark(ENCYCLOPEDIA_BOOKMARK); 
 		
-	if ( gGameExternalOptions.gBriefingRoom == TRUE && !is_networked )
+	if ( gGameExternalOptions.gBriefingRoom && !is_networked )
 		SetBookMark(BRIEFING_ROOM_BOOKMARK);
 
 	if ( gGameExternalOptions.fCampaignHistoryWebSite && !is_networked )
 		SetBookMark(CAMPAIGNHISTORY_BOOKMARK);
+
+	if ( !is_networked )
+		SetBookMark( MERCCOMPARE_BOOKMARK );
 	
 	LoadLoadPending( );
 
@@ -1443,17 +1447,29 @@ void RenderLaptop()
 		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
 			RenderCampaignHistory();
 			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MATRIX:
+			RenderMercCompareMatrix( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_ANALYZE:
+			RenderMercCompareAnalyze( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_CUSTOMERS:
+			RenderMercCompareCustomers();
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MAIN:
+			RenderMercCompareMain();
+			break;
 	}
-
-
 
 	if( guiCurrentLaptopMode >= LAPTOP_MODE_WWW )
 	{
 		// render program bar for www program
 		RenderWWWProgramTitleBar( );
 	}
-
-
 
 	if(fLoadPendingFlag)
 	{
@@ -1860,6 +1876,22 @@ void EnterNewLaptopMode()
 			EnterCampaignHistory();
 			break;
 
+		case LAPTOP_MODE_MERCCOMPARE_MATRIX:
+			EnterMercCompareMatrix( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_ANALYZE:
+			EnterMercCompareAnalyze( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_CUSTOMERS:
+			EnterMercCompareCustomers();
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MAIN:
+			EnterMercCompareMain( );
+			break;
+
 		case LAPTOP_MODE_BOBBYR_SHIPMENTS:
 			EnterBobbyRShipments();
 			break;
@@ -2096,6 +2128,22 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
 			HandleCampaignHistory();
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MATRIX:
+			HandleMercCompareMatrix( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_ANALYZE:
+			HandleMercCompareAnalyze( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_CUSTOMERS:
+			HandleMercCompareCustomers();
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MAIN:
+			HandleMercCompareMain();
 			break;
 	}
 
@@ -2651,6 +2699,22 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_CAMPAIGNHISTORY_ABOUTTUS:
 			ExitCampaignHistory();
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MATRIX:
+			ExitMercCompareMatrix( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_ANALYZE:
+			ExitMercCompareAnalyze( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_CUSTOMERS:
+			ExitMercCompareCustomers( );
+			break;
+
+		case LAPTOP_MODE_MERCCOMPARE_MAIN:
+			ExitMercCompareMain();
 			break;
 	}
 
@@ -4250,6 +4314,35 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 			}
 			break;
 
+		case MERCCOMPARE_BOOKMARK:
+			{
+				// if the option is off, we instead link to a 'broken' website
+				if ( !gGameExternalOptions.fCampaignHistoryWebSite )
+				{
+					guiCurrentWWWMode=LAPTOP_MODE_BROKEN_LINK;
+					guiCurrentLaptopMode=LAPTOP_MODE_BROKEN_LINK;
+
+					return GoToWebPage(LAPTOP_MODE_BROKEN_LINK);
+				}
+
+				guiCurrentWWWMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
+				guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
+
+				// do we have to have a World Wide Wait
+				if ( LaptopSaveInfo.fVisitedBookmarkAlready[MERCCOMPARE_BOOKMARK] == FALSE )
+				{
+					// reset flag and set load pending flag
+					LaptopSaveInfo.fVisitedBookmarkAlready[MERCCOMPARE_BOOKMARK] = TRUE;
+					fLoadPendingFlag = TRUE;
+				}
+				else
+				{
+					// fast reload
+					fLoadPendingFlag = TRUE;
+					fFastLoadFlag = TRUE;
+				}
+			}
+			break;
 	}
 
 #ifdef JA2UB	

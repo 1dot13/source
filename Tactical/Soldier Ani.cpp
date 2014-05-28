@@ -3934,7 +3934,12 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 								else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
 								else
+								{
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+
+									// Flugente: dynamic opinions
+									HandleDynamicOpinionCivKill( MercPtrs[ubAttacker] );
+								}
 								break;
 						}
 						//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;

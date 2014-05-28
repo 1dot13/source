@@ -187,6 +187,8 @@ enum {
 	BG_PERC_INSURANCE,
 	BG_PERC_SPOTTER,
 
+	BG_DISLIKEBG,			// dislike any other background that has the negative of this value set
+
 	BG_MAX,
 };
 
@@ -555,5 +557,9 @@ void NCTHCorrectMaxAperture( FLOAT& iAperture, FLOAT& iDistanceAperture, UINT16&
 void NCTHDrawScopeModeIcon( SOLDIERTYPE *pSoldier, INT16 sNewX, INT16 sNewY );
 void NCTHShowAimLevels( SOLDIERTYPE* pSoldier, INT16 curX, INT16 curY );
 void NCTHShowMounted( SOLDIERTYPE* pSoldier, UINT16* ptrBuf, UINT32 uiPitch, INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom, INT16 sStartScreenX, INT16 sStartScreenY, INT16 zOffset );
+
+// Flugente: check a profile for a background flag without using SOLDIERTYPE
+BOOLEAN		HasBackgroundFlag( UINT8 usProfile, UINT64 aFlag );
+INT16		GetBackgroundValue( UINT8 usProfile, UINT16 aNr );
 
 #endif

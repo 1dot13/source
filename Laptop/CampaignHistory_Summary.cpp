@@ -768,18 +768,22 @@ void RenderCampaignHistory_MostImportant()
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 			}
 
-			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_ENEMY )
+			// only report on spies if they were uncovered
+			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_UNCOVERED )
 			{
-				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_ENEMY] );
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
+				if ( incident.usIncidentFlags & INCIDENT_SPYACTION_ENEMY )
+				{
+					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_ENEMY] );
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
 
-			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_PLAYERSIDE )
-			{
-				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_PLAYER] );
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				if ( incident.usIncidentFlags & INCIDENT_SPYACTION_PLAYERSIDE )
+				{
+					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_PLAYER] );
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
 			}
 
 			{

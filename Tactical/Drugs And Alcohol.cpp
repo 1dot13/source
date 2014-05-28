@@ -234,9 +234,12 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		}	
 	}
 		
-	if ( (ubDrugType & DRUG_ALCOHOL) != 0 )
+	if ( (ubDrugType & DRUG_ALCOHOL) )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DRANK_SOME ], pSoldier->GetName(), ShortItemNames[ usItem ] );
+
+		// Flugente: dynamic opinions
+		HandleDynamicOpinionTeamDrinking( pSoldier );
 	}
 	else
 	{

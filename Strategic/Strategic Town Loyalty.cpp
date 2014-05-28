@@ -2061,6 +2061,9 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 	{
 		HandleMoraleEvent( NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ );
 	}
+
+	// Flugente: dynamic opinion: mercs retreated. Someone has to be blamed for this shameful defeat!
+	HandleDynamicOpinionRetreat();
 }
 
 

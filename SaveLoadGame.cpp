@@ -1509,21 +1509,22 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			// Flugente: backgrounds
 			if(guiCurrentSaveGameVersion >= BACKGROUNDS)
 			{
-					if(guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8)
+				if(guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8)
+				{
+					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesRead ) )
 					{
-						if ( !FileRead( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesRead ) )
-						{
-							return(FALSE);
-						}
+						return(FALSE);
 					}
-					else
-					{
+				}
+				else
+				{
 					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
 					{
 						return(FALSE);
 					}
 				}
 			}
+
 			if(guiCurrentSaveGameVersion >= SNITCH_TRAIT_EXTENDED)
 			{
 				//if ( !FileRead( hFile, &this->ubExposedInSector, sizeof(ubExposedInSector), &uiNumBytesRead ) )
@@ -1531,6 +1532,14 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 				//	return(FALSE);
 				//}
 				if ( !FileRead( hFile, &this->ubSnitchExposedCooldown, sizeof(ubSnitchExposedCooldown), &uiNumBytesRead ) )
+				{
+					return(FALSE);
+				}
+			}
+
+			if ( guiCurrentSaveGameVersion >= DYNAMIC_OPINIONS )
+			{
+				if ( !FileRead( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesRead ) )
 				{
 					return(FALSE);
 				}
@@ -1627,6 +1636,11 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	//}
 
 	if ( !FileWrite( hFile, &this->ubSnitchExposedCooldown, sizeof(ubSnitchExposedCooldown), &uiNumBytesWritten ) )
+	{
+		return(FALSE);
+	}
+
+	if ( !FileWrite( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
 	}

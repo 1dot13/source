@@ -249,6 +249,9 @@
     <ClInclude Include="CampaignStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="merccompare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -507,6 +510,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_CampaignStatsEvents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="merccompare.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

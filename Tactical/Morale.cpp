@@ -27,6 +27,10 @@
 	#include "GameSettings.h"
 	#include "Isometric Utils.h"
 	#include "Food.h"
+	#include "Interface.h"			// added by Flugente
+	#include "finances.h"			// added by Flugente for EXTENDED_CONTRACT_BY_1_DAY
+	#include "Soldier Add.h"		// added by Flugente for MERC_TYPE__AIM_MERC
+	#include "CampaignStats.h"		// added by Flugente for gCurrentIncident
 #endif
 
 #include "connect.h"
@@ -289,6 +293,9 @@ void DecayTacticalMoraleModifiers( void )
 								pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 							}
 							HandleMoraleEvent( pSoldier, MORALE_NERVOUS_ALONE, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionDisability( pSoldier );
 						}
 					}
 				}
@@ -970,6 +977,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_BAD_EQUIPMENT:
 		case MORALE_OWED_MONEY:
 		case MORALE_PLAYER_INACTIVE_DAYS:
+		case MORALE_PREVENTED_MISBEHAVIOUR:
 			Assert( pSoldier );
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;
@@ -1437,6 +1445,9 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 
 					// clear info
 					event2.ubEventType = NUM_SNITCH_EVENTS;
+
+					// Flugente: dynamic opinions
+					AddOpinionEvent( event2.ubTargetProfile, pSnitch->ubProfile, OPINIONEVENT_SNITCHSOLDMEOUT );
 				}
 			}
 
@@ -1736,52 +1747,28 @@ INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB)
 
 	// some people care about how distuingished other people are. Malus if on different ends of the spectrum, a small bonus if on the same and its really important to the person
 	// also give a malus if the other person is a slob or snob and we are average but care extremely (we don't like people who behave differently)
-	switch ( gMercProfiles[ pSoldierB->ubProfile ].bRefinement )
+	// if we don't care, doesn't matter
+	if ( pProfile->bRefinementCareLevel == CARELEVEL_NONE )
 	{
-	case REFINEMENT_SLOB:
-		{
-			if ( pProfile->bRefinement == REFINEMENT_AVERAGE )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement;
-			}
-			if ( pProfile->bRefinement == REFINEMENT_SLOB )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion += gGameExternalOptions.sMoraleModRefinement;
-			}
-			else if ( pProfile->bRefinement == REFINEMENT_SNOB )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_SOME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement;
-				else if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement * 2;
-			}
-		}
-		break;
-	case REFINEMENT_SNOB:
-		{
-			if ( pProfile->bRefinement == REFINEMENT_AVERAGE )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement;
-			}
-			if ( pProfile->bRefinement == REFINEMENT_SNOB )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion += gGameExternalOptions.sMoraleModRefinement;
-			}
-			else if ( pProfile->bRefinement == REFINEMENT_SLOB )
-			{
-				if ( pProfile->bRefinementCareLevel == CARELEVEL_SOME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement;
-				else if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
-					bOpinion -= gGameExternalOptions.sMoraleModRefinement * 2;
-			}
-		}
-		break;
+		// nothing to do...
 	}
-
+	// if we care somewhat, malus on slob/snob
+	else if ( pProfile->bRefinementCareLevel == CARELEVEL_SOME )
+	{
+		if ( pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 2 )
+			bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+	}
+	// if we care extremely, reward for similarity, malus otherwise
+	else //if( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+	{
+		if ( pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 2 )
+			bOpinion -= 2 * gGameExternalOptions.sMoraleModRefinement;
+		else if ( pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 0 )
+			bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+		else 
+			bOpinion += gGameExternalOptions.sMoraleModRefinement;
+	}
+	
 	// some people hate other nationalities (do not mix up with racism, which uses bRace)
 	if ( pProfile->bHatedNationality > -1 && gMercProfiles[ pSoldierB->ubProfile ].bNationality == pProfile->bHatedNationality )
 	{
@@ -1801,8 +1788,792 @@ INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB)
 	}
 										
 	// Flugente: backgrounds
+	if ( pSoldierA->GetBackgroundValue( BG_DISLIKEBG ) && pSoldierA->GetBackgroundValue( BG_DISLIKEBG ) == -pSoldierB->GetBackgroundValue( BG_DISLIKEBG ) )
+	{
+		bOpinion -= 2;
+	}
+
 	if ( pSoldierA->HasBackgroundFlag( BACKGROUND_XENOPHOBIC ) && pSoldierB->ubProfile != NO_PROFILE && gMercProfiles[pSoldierA->ubProfile].usBackground != gMercProfiles[pSoldierB->ubProfile].usBackground )
 		bOpinion -= gGameExternalOptions.sMoraleModXenophobicBackGround;
 
+	// Flugente: dynamic opinions
+	if ( gGameExternalOptions.fDynamicOpinions )
+	{
+		for ( UINT8 opinionevent = OPINIONEVENT_FRIENDLYFIRE; opinionevent < OPINIONEVENT_MAX; ++opinionevent )
+		{
+			bOpinion += GetDynamicOpinion( pSoldierA->ubProfile, pSoldierB->ubProfile, opinionevent );
+		}
+	}
+
+	// reasonable values
+	bOpinion = min( BUDDY_OPINION, bOpinion );
+	bOpinion = max( HATED_OPINION, bOpinion );
+	
 	return bOpinion;
+}
+
+// Flugente: dynamic opinions
+void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
+{
+	if ( usProfileA == NO_PROFILE || usProfileA == NO_PROFILE )
+		return;
+
+	if ( usEvent >= OPINIONEVENT_MAX )
+		return;
+
+	// we add a flag signifiying that an event happened today
+	switch ( usEvent )
+	{
+	case OPINIONEVENT_FRIENDLYFIRE:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_FRIENDLYFIRE;	break;
+	case OPINIONEVENT_SNITCHSOLDMEOUT:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_SNITCHSOLDMEOUT;	break;
+	case OPINIONEVENT_SNITCHINTERFERENCE:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_INTERFERENCE;	break;
+	case OPINIONEVENT_FRIENDSWITHHATED:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_FRIENDSWITHHATED;	break;
+	case OPINIONEVENT_CONTRACTEXTENSION:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_CONTRACTEXTENSION;	break;
+	case OPINIONEVENT_ORDEREDRETREAT:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_ORDEREDRETREAT;	break;
+	case OPINIONEVENT_CIVKILLER:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_CIVKILLER;	break;
+	case OPINIONEVENT_SLOWSUSDOWN:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] |= OPINIONFLAG_STAGE1_SLOWSUSDOWN;	break;
+
+	case OPINIONEVENT_NOSHARINGFOOD:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_NOSHARINGFOOD;	break;
+	case OPINIONEVENT_ANNOYINGDISABILITY:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_ANNOYINGDISABILITY;	break;
+	case OPINIONEVENT_ADDICT:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_ADDICT;	break;
+	case OPINIONEVENT_THIEF:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_THIEF;	break;
+	case OPINIONEVENT_WORSTCOMMANDEREVER:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_WORSTCOMMANDEREVER;	break;
+	case OPINIONEVENT_RICHGUY:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_RICHGUY;	break;
+	case OPINIONEVENT_BETTERGEAR:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_BETTERGEAR;	break;
+	case OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS:	gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] |= OPINIONFLAG_STAGE1_YOUMOUNTEDAGUNONMYBREASTS;	break;
+
+	case OPINIONEVENT_BANDAGED:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_BANDAGED;	break;
+
+		// drinking flags are a bit different - drinking can apply the GOOD or BAD flag, and they cancel each other out.
+		// GOOD on GOOD causes SUPER, which cannot be removed (and stops this for today)
+		// BAD on BAD causes WORSE, which cannot be removed (and stops this for today)
+	case OPINIONEVENT_DRINKBUDDIES_GOOD:
+		// if we do not already have the SUPER flag...
+		if ( !(gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & (OPINIONFLAG_STAGE1_DRINKBUDDIES_SUPER | OPINIONFLAG_STAGE1_DRINKBUDDIES_WORSE)) )
+		{
+			// if we already have GOOD, get SUPER
+			if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD )
+			{
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_DRINKBUDDIES_SUPER;
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] &= ~OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD;
+			}
+			// if we have BAD, cancel it out
+			else if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD )
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] &= ~OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD;
+			// if we have nothing, get GOOD
+			else
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD;
+		}
+		break;
+
+	case OPINIONEVENT_DRINKBUDDIES_BAD:
+		// if we do not already have the SUPER flag...
+		if ( !(gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & (OPINIONFLAG_STAGE1_DRINKBUDDIES_SUPER | OPINIONFLAG_STAGE1_DRINKBUDDIES_WORSE)) )
+		{			
+			// if we already have BAD, get WORSE
+			if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD )
+			{
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_DRINKBUDDIES_WORSE;
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] &= ~OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD;
+			}
+			// if we have GOOD, cancel it out
+			else if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD )
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] &= ~OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD;
+			// if we have nothing, get BAD
+			else
+				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD;
+		}
+		break;
+		
+	default:		break;
+	}
+}
+
+// get usProfileA's opinion of usProfileB concerning usEvent
+INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
+{
+	INT32 opinion = 0;
+
+	if ( usProfileA == NO_PROFILE || usProfileA == NO_PROFILE )
+		return opinion;
+
+	if ( usEvent >= OPINIONEVENT_MAX )
+		return opinion;
+
+	// count how many relevant flags are set
+	UINT8 numflags = 0;
+	switch ( usEvent )
+	{
+	case OPINIONEVENT_FRIENDLYFIRE:
+		if (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_FRIENDLYFIRE)	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_FRIENDLYFIRE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_FRIENDLYFIRE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_FRIENDLYFIRE )	++numflags;
+		break;
+
+	case OPINIONEVENT_SNITCHSOLDMEOUT:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_SNITCHSOLDMEOUT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_SNITCHSOLDMEOUT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_SNITCHSOLDMEOUT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_SNITCHSOLDMEOUT )	++numflags;
+		break;
+
+	case OPINIONEVENT_SNITCHINTERFERENCE:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_INTERFERENCE )	++numflags;
+		if (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_INTERFERENCE)	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_INTERFERENCE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_INTERFERENCE )	++numflags;
+		break;
+
+	case OPINIONEVENT_FRIENDSWITHHATED:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_FRIENDSWITHHATED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_FRIENDSWITHHATED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_FRIENDSWITHHATED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_FRIENDSWITHHATED )	++numflags;
+		break;
+
+	case OPINIONEVENT_CONTRACTEXTENSION:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_CONTRACTEXTENSION )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_CONTRACTEXTENSION )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_CONTRACTEXTENSION )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_CONTRACTEXTENSION )	++numflags;
+		break;
+
+	case OPINIONEVENT_ORDEREDRETREAT:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_ORDEREDRETREAT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_ORDEREDRETREAT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_ORDEREDRETREAT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_ORDEREDRETREAT )	++numflags;
+		break;
+
+	case OPINIONEVENT_CIVKILLER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_CIVKILLER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_CIVKILLER )	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_CIVKILLER)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_CIVKILLER)	++numflags;
+		break;
+
+	case OPINIONEVENT_SLOWSUSDOWN:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_SLOWSUSDOWN)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE2_SLOWSUSDOWN)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE3_SLOWSUSDOWN)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE4_SLOWSUSDOWN)	++numflags;
+		break;
+
+	case OPINIONEVENT_NOSHARINGFOOD:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_NOSHARINGFOOD)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_NOSHARINGFOOD)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_NOSHARINGFOOD)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_NOSHARINGFOOD)	++numflags;
+		break;
+
+	case OPINIONEVENT_ANNOYINGDISABILITY:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_ANNOYINGDISABILITY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_ANNOYINGDISABILITY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_ANNOYINGDISABILITY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_ANNOYINGDISABILITY)	++numflags;
+		break;
+
+	case OPINIONEVENT_ADDICT:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_ADDICT)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_ADDICT)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_ADDICT)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_ADDICT)	++numflags;
+		break;
+
+	case OPINIONEVENT_THIEF:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_THIEF)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_THIEF)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_THIEF)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_THIEF)	++numflags;
+		break;
+
+	case OPINIONEVENT_WORSTCOMMANDEREVER:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_WORSTCOMMANDEREVER)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_WORSTCOMMANDEREVER)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_WORSTCOMMANDEREVER)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_WORSTCOMMANDEREVER)	++numflags;
+		break;
+
+	case OPINIONEVENT_RICHGUY:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_RICHGUY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_RICHGUY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_RICHGUY)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_RICHGUY)	++numflags;
+		break;
+
+	case OPINIONEVENT_BETTERGEAR:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_BETTERGEAR)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_BETTERGEAR)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_BETTERGEAR)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_BETTERGEAR)	++numflags;
+		break;
+
+	case OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS:
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_YOUMOUNTEDAGUNONMYBREASTS)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE2_YOUMOUNTEDAGUNONMYBREASTS)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE3_YOUMOUNTEDAGUNONMYBREASTS)	++numflags;
+		if  (gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE4_YOUMOUNTEDAGUNONMYBREASTS)	++numflags;
+		break;
+
+	case OPINIONEVENT_BANDAGED:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_BANDAGED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE2_BANDAGED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE3_BANDAGED )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE4_BANDAGED )	++numflags;
+		break;
+
+	case OPINIONEVENT_DRINKBUDDIES_GOOD:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE2_DRINKBUDDIES_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE3_DRINKBUDDIES_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE4_DRINKBUDDIES_GOOD )	++numflags;
+		break;
+
+	case OPINIONEVENT_DRINKBUDDIES_SUPER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_SUPER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE2_DRINKBUDDIES_SUPER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE3_DRINKBUDDIES_SUPER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE4_DRINKBUDDIES_SUPER )	++numflags;
+		break;
+
+	case OPINIONEVENT_DRINKBUDDIES_BAD:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE2_DRINKBUDDIES_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE3_DRINKBUDDIES_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE4_DRINKBUDDIES_BAD )	++numflags;
+		break;
+
+	case OPINIONEVENT_DRINKBUDDIES_WORSE:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_WORSE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE2_DRINKBUDDIES_WORSE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE3_DRINKBUDDIES_WORSE )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE4_DRINKBUDDIES_WORSE )	++numflags;
+		break;
+
+	default:
+		break;
+	}
+
+	// event opinion is number of times this happened times opinion modifer
+	opinion = numflags * gMoraleSettings.bDynamicOpinionModifiers[usEvent];
+
+	// cut it down to INT8
+	return (INT8)opinion;
+}
+
+// daily rollover of opinions
+void HandleDynamicOpinions( )
+{
+	for ( UINT8 usProfile = 0; usProfile < NUM_PROFILES; ++usProfile )
+	{
+		// each profile has its opinions on everyone else renewed
+		RolloverDynamicOpinions( usProfile );
+	}
+
+	SOLDIERTYPE*		pSoldier	= NULL;
+	UINT16				bMercID		= gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID	= gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
+	{
+		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
+			!(pSoldier->bAssignment == IN_TRANSIT ||
+			pSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			// or each profile, check wether everyone else is a friend of someone else we hate
+			CheckForFriendsofHated( pSoldier );
+
+			// get annoyed on mercs that receive a lot more money than we do
+			HandleDynamicOpinionWageJealousy( pSoldier );
+		}
+	}
+}
+
+// a day has passed, 'age' opinions 
+void RolloverDynamicOpinions( UINT8 usProfileA )
+{
+	for ( UINT8 usProfileB = 0; usProfileB < NUM_PROFILES; ++usProfileB )
+	{
+		for ( UINT8 i = 0; i < OPINION_FLAGMASKS_NUMBER; ++i )
+		{
+			// events that are at stage 4 are forgotten
+			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][i] &= ~OPINIONFLAG_STAGE4_ALL;
+
+			// all other events move up one stage
+			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][i] = gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][i] << 1;
+		}
+	}
+}
+
+// check wether other people are friends with someone else we hate. All persons must be in Arulco
+void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
+{
+	INT8									bMercID, bOtherID, bThirdID;
+	INT8									bOpinion = -1;
+	INT8									bSecondOpinion = -1;
+	INT8									bLastTeamID;
+	SOLDIERTYPE*							pOtherSoldier;
+	SOLDIERTYPE*							pThirdSoldier;
+
+	bMercID = pSoldier->ubID;
+	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	
+	// loop through all other mercs
+	bOtherID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( pOtherSoldier = MercPtrs[bOtherID]; bOtherID <= bLastTeamID; ++bOtherID, pOtherSoldier++ )
+	{
+		// skip past ourselves and all inactive mercs
+		if ( bOtherID != bMercID && pOtherSoldier->bActive && pOtherSoldier->ubProfile != NO_PROFILE &&
+			!(pOtherSoldier->bAssignment == IN_TRANSIT ||
+			pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+		{
+			bOpinion = SoldierRelation( pSoldier, pOtherSoldier );
+
+			// we cannot simply check for HATED_OPINION here - this very feature makes opinions not so easy anymore. Simply check for a range
+			if ( bOpinion < -20 )
+			{
+				// there is someone in our team that we hate. We dislike his friends somewhat, purely because they like our foe
+				// loop through all other mercs
+				bThirdID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+				for ( pThirdSoldier = MercPtrs[bThirdID]; bThirdID <= bLastTeamID; ++bThirdID, pThirdSoldier++ )
+				{
+					// skip past ourselves and all inactive mercs
+					if ( bThirdID != bMercID && bThirdID != bOtherID && pThirdSoldier->bActive && pThirdSoldier->ubProfile != NO_PROFILE &&
+						!(pThirdSoldier->bAssignment == IN_TRANSIT ||
+						pThirdSoldier->bAssignment == ASSIGNMENT_DEAD) )
+					{
+						bSecondOpinion = SoldierRelation( pThirdSoldier, pOtherSoldier );
+
+						if ( bSecondOpinion > 20 )
+						{
+							// this guy is friends with someone we hate! We dislike him a bit for that
+							AddOpinionEvent( pSoldier->ubProfile, pThirdSoldier->ubProfile, OPINIONEVENT_FRIENDSWITHHATED );
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile )
+{
+	if ( usProfile == NO_PROFILE )
+		return;
+
+	if ( ubCode == EXTENDED_CONTRACT_BY_1_DAY || ubCode == EXTENDED_CONTRACT_BY_1_WEEK || ubCode == EXTENDED_CONTRACT_BY_2_WEEKS )
+	{
+		INT16 id = GetSoldierIDFromMercID( usProfile );
+		if ( id > -1 )
+		{
+			SOLDIERTYPE* pSoldierWhoGotPaid = MercPtrs[id];
+
+			// only for AIM mercs
+			if ( pSoldierWhoGotPaid->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
+				return;
+
+			// determine the remaining length of his contract BEFORE it go renewed
+			INT32 oldcontract = pSoldierWhoGotPaid->iEndofContractTime;
+			if ( ubCode == EXTENDED_CONTRACT_BY_1_DAY )
+				oldcontract -= 1440;
+			else if ( ubCode == EXTENDED_CONTRACT_BY_1_WEEK )
+				oldcontract -= 7 * 1440;
+			else if ( ubCode == EXTENDED_CONTRACT_BY_2_WEEKS )
+				oldcontract -= 14 * 1440;
+
+			// someones contract got extended. Other mercs who have less time on their contract will be annoyed by this, as they feel they shoul be paid first
+			SOLDIERTYPE*		pSoldier = NULL;
+			UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+			for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
+			{
+				if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != usProfile &&
+					!(pSoldier->bAssignment == IN_TRANSIT ||
+					pSoldier->bAssignment == ASSIGNMENT_DEAD) )
+				{
+					// only for AIM mercs
+					if ( pSoldier->ubProfile == NO_PROFILE || pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
+						continue;
+
+					if ( pSoldier->iEndofContractTime < oldcontract )
+					{
+						// this guy got paid at a point where we had less time than he did! Favouritism!
+						AddOpinionEvent( pSoldier->ubProfile, usProfile, OPINIONEVENT_CONTRACTEXTENSION );
+					}
+				}
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionCivKill( SOLDIERTYPE* pSoldier )
+{
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			if ( (gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
+			{
+				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_CIVKILLER );
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionSlowdown( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+		
+	INT32 iPercentEncumbranceOffended = CalculateCarriedWeight( pSoldier );
+	if ( iPercentEncumbranceOffended > 100 )
+	{
+		// everyone else on the same squad gets annoyed, if they aren't overencumbered themselves, or at least not as much as the offender
+		SOLDIERTYPE*		pTeamSoldier = NULL;
+		UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+		{
+			if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile && pTeamSoldier->bAssignment == pSoldier->bAssignment &&
+				!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+				pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+			{
+				INT32 iPercentEncumbrance = CalculateCarriedWeight( pTeamSoldier );
+
+				if ( iPercentEncumbrance < 100 || iPercentEncumbrance < 0.7 * iPercentEncumbranceOffended )
+				{
+					AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_SLOWSUSDOWN );
+				}
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionWageJealousy( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	if ( !pSoldier->iTotalContractLength || (pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__MERC && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__NPC_WITH_UNEXTENDABLE_CONTRACT) )
+		return;
+
+	// determine our mean daily wage
+	UINT32 meanwage = gMercProfiles[pSoldier->ubProfile].uiTotalCostToDate / pSoldier->iTotalContractLength;
+
+	UINT8 explevel = pSoldier->stats.bExpLevel;
+
+	// hu?
+	if ( !explevel )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			if ( !pTeamSoldier->iTotalContractLength || (pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC && pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__MERC && pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__NPC_WITH_UNEXTENDABLE_CONTRACT) )
+				continue;
+
+			// their wage
+			UINT32 theirmeanwage = gMercProfiles[pTeamSoldier->ubProfile].uiTotalCostToDate / pTeamSoldier->iTotalContractLength;
+
+			// adjust this for experience levels
+			FLOAT explevelfactor = gGameExternalOptions.fDynamicWageFactor * pTeamSoldier->stats.bExpLevel / explevel;
+
+			if ( theirmeanwage > explevelfactor * meanwage )
+			{
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_RICHGUY );
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionDisability( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_ANNOYINGDISABILITY );
+		}
+	}
+}
+
+void HandleDynamicOpinionAddict( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_ADDICT );
+		}
+	}
+}
+
+void HandleDynamicOpinionThief( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_THIEF );
+		}
+	}
+}
+
+void HandleDynamicOpinionFoodSharing( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+		return;
+
+	BOOLEAN fCheckFood = (pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold);
+	BOOLEAN fCheckDrink = (pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold);
+
+	//  no hunger - no problem
+	if ( !fCheckFood && !fCheckDrink )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			if ( HasFoodInInventory( pTeamSoldier, fCheckFood, fCheckDrink ) )
+			{
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_NOSHARINGFOOD );
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionGear( SOLDIERTYPE* pSoldier )
+{
+	// only in combat squads
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || pSoldier->bAssignment >= ON_DUTY )
+		return;
+
+	UINT8 highestcoolness = HighestInventoryCoolness( pSoldier );
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			pTeamSoldier->bAssignment < ON_DUTY &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			if ( HighestInventoryCoolness( pTeamSoldier ) > highestcoolness + 2 )
+			{
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_BETTERGEAR );
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionBattleLosses()
+{
+	UINT32 badstuff = 0;
+
+	for ( UINT16 i = 0; i < CAMPAIGNHISTORY_SD_CIV; ++i )
+	{
+		badstuff += 5 * gCurrentIncident.usKills[i];
+		badstuff += gCurrentIncident.usWounds[i];
+		badstuff += 4 * gCurrentIncident.usPrisoners[i];
+	}
+
+	if ( badstuff > 100 )
+	{
+		// this was a disaster (Ignoring of how high the enemies losses were to create drama :-) )! Someone needs to be blamed!
+		SOLDIERTYPE*		pScapeGoat	 = NULL;
+		FLOAT				bestdommanderrating = 0.0f;
+		SOLDIERTYPE*		pTeamSoldier = NULL;
+		UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+		{
+			// everybody other merc in the same sector gets annoyed
+			if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && 
+				pTeamSoldier->sSectorX == SECTORX( gCurrentIncident.usSector ) && pTeamSoldier->sSectorY == SECTORY( gCurrentIncident.usSector ) && pTeamSoldier->bSectorZ == gCurrentIncident.usLevel &&
+				pTeamSoldier->bAssignment < ON_DUTY &&
+				!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+				pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+			{
+				FLOAT commanderrating = pTeamSoldier->stats.bExpLevel + NUM_SKILL_TRAITS( pTeamSoldier, SQUADLEADER_NT );
+				
+				if ( commanderrating > bestdommanderrating )
+				{
+					bestdommanderrating = commanderrating;
+
+					pScapeGoat = pTeamSoldier;
+				}
+			}
+		}
+
+		// we've found someone competent. Let's all blame him for this disaster!
+		if ( bestdommanderrating > 0.0f )
+		{
+			bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+			{
+				// everybody other merc in the same sector gets annoyed
+				if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE &&
+					pTeamSoldier->ubProfile != pScapeGoat->ubProfile &&
+					pTeamSoldier->sSectorX == SECTORX( gCurrentIncident.usSector ) && pTeamSoldier->sSectorY == SECTORY( gCurrentIncident.usSector ) && pTeamSoldier->bSectorZ == gCurrentIncident.usLevel &&
+					pTeamSoldier->bAssignment < ON_DUTY &&
+					!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+					pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+				{
+					AddOpinionEvent( pTeamSoldier->ubProfile, pScapeGoat->ubProfile, OPINIONEVENT_WORSTCOMMANDEREVER );
+				}
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionRetreat()
+{	
+	// this was a disaster (Ignoring of how high the enemies losses were to create drama :-) )! Someone needs to be blamed!
+	SOLDIERTYPE*		pScapeGoat = NULL;
+	FLOAT				bestdommanderrating = 0.0f;
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE &&
+			pTeamSoldier->sSectorX == gWorldSectorX && pTeamSoldier->sSectorY == gWorldSectorY && (pTeamSoldier->bSectorZ == gbWorldSectorZ) &&
+			pTeamSoldier->bAssignment < ON_DUTY &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			FLOAT commanderrating = pTeamSoldier->stats.bExpLevel + NUM_SKILL_TRAITS( pTeamSoldier, SQUADLEADER_NT );
+
+			if ( commanderrating > bestdommanderrating )
+			{
+				bestdommanderrating = commanderrating;
+
+				pScapeGoat = pTeamSoldier;
+			}
+		}
+	}
+
+	// we've found someone competent. Let's all blame him for this disaster!
+	if ( bestdommanderrating > 0.0f )
+	{
+		bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+		{
+			// everybody other merc in the same sector gets annoyed
+			if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE &&
+				pTeamSoldier->ubProfile != pScapeGoat->ubProfile &&
+				pTeamSoldier->sSectorX == gWorldSectorX && pTeamSoldier->sSectorY == gWorldSectorY && (pTeamSoldier->bSectorZ == gbWorldSectorZ) &&
+				pTeamSoldier->bAssignment < ON_DUTY &&
+				!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+				pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+			{
+				AddOpinionEvent( pTeamSoldier->ubProfile, pScapeGoat->ubProfile, OPINIONEVENT_ORDEREDRETREAT );
+			}
+		}
+	}
+}
+
+void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
+{
+	// need to be drunk for this
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || !MercUnderTheInfluence( pSoldier, DRUG_TYPE_ALCOHOL ) )
+		return;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// everybody other merc in the same sector can get updated if they are drugged too
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_ALCOHOL ) &&
+			!(pTeamSoldier->bAssignment == IN_TRANSIT ||
+			pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			// both mercs drink together, they opinion either improve or worsen
+			if ( Chance( 67 ) )
+				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD );
+			else
+				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD );
+
+			if ( Chance( 67 ) )
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD );
+			else
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD );
+		}
+	}
+}
+
+UINT8 HighestInventoryCoolness( SOLDIERTYPE* pSoldier )
+{
+	UINT8 coolness = 0;
+
+	if ( !pSoldier )
+		return coolness;
+
+	// search for food in our inventory
+	INT8 invsize = (INT8)pSoldier->inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )							// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is food ...
+		if ( pSoldier->inv[bLoop].exists( ) )
+		{
+			coolness = max( coolness, Item[pSoldier->inv[bLoop].usItem].ubCoolness );
+		}
+	}
+
+	return coolness;
 }

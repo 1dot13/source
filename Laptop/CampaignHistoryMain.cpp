@@ -223,11 +223,11 @@ void DisplayCampaignHistoryDefaults()
 		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
 
 		//Display the red bar under the link at the bottom.	and the text
-		DisplaySmallRedLineWithShadow( usPosX, usPosY-2, LAPTOP_SCREEN_UL_X+CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, usPosY-2);
+		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_UL_X + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, usPosY - 2 );
 	}
 
 	// closing line that separates header from individual page
-	DisplaySmallRedLineWithShadow( usPosX, usPosY-2, LAPTOP_SCREEN_LR_X, usPosY-2);
+	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_LR_X, usPosY - 2 );
 
 	usPosX = LAPTOP_SCREEN_LR_X - 50;
 	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;

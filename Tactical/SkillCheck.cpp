@@ -783,6 +783,9 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					if ( MercIsHot( pSoldier ) && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER) // SANDRO - added this
 					{
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
+
+						// Flugente: dynamic opinions
+						HandleDynamicOpinionDisability( pSoldier );
 					}
 					// do we realize that we just can't do this?
 					if ( (100 - (pSoldier->ubSkillCheckAttempts - 2) * 20) < EffectiveWisdom( pSoldier ) )

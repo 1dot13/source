@@ -494,7 +494,12 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 
 		for ( UINT8 i = 0; i < BG_MAX; ++i)
 		{
-			if ( zBackground[ ubNumber ].value[i] )
+			if ( BG_DISLIKEBG == i )
+			{
+				swprintf( atStr, szBackgroundText_Value[i] );
+				wcscat( apStr, atStr );
+			}
+			else if ( zBackground[ ubNumber ].value[i] )
 			{
 				swprintf(atStr, szBackgroundText_Value[ i ], zBackground[ ubNumber ].value[i] > 0 ? L"+" : L"", zBackground[ ubNumber ].value[i] );
 				wcscat( apStr, atStr );

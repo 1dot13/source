@@ -193,7 +193,7 @@ void RenderInsuranceInfo()
 
 
 	//Display the red bar under the link at the bottom
-	DisplaySmallRedLineWithShadow( INS_INFO_SUBTITLE_X, INS_INFO_SUBTITLE_LINE_Y, INS_INFO_SUBTITLE_X+INS_INFO_SUBTITLE_LINE_WIDTH, INS_INFO_SUBTITLE_LINE_Y);
+	DisplaySmallColouredLineWithShadow( INS_INFO_SUBTITLE_X, INS_INFO_SUBTITLE_LINE_Y, INS_INFO_SUBTITLE_X + INS_INFO_SUBTITLE_LINE_WIDTH, INS_INFO_SUBTITLE_LINE_Y );
 
 	switch( gubCurrentInsInfoSubPage )
 	{
@@ -221,13 +221,13 @@ void RenderInsuranceInfo()
 	usPosX = INS_INFO_LINK_START_X;
 
 	//Display the red bar under the link at the bottom.	and the text
-	DisplaySmallRedLineWithShadow( usPosX, INS_INFO_LINK_TO_CONTRACT_Y, (UINT16)(usPosX+INS_INFO_LINK_TO_CONTRACT_WIDTH), INS_INFO_LINK_TO_CONTRACT_Y);
+	DisplaySmallColouredLineWithShadow( usPosX, INS_INFO_LINK_TO_CONTRACT_Y, (UINT16)(usPosX + INS_INFO_LINK_TO_CONTRACT_WIDTH), INS_INFO_LINK_TO_CONTRACT_Y );
 	swprintf( sText, L"%s", pMessageStrings[ MSG_HOMEPAGE ] );
 	DisplayWrappedString( usPosX, INS_INFO_LINK_TO_CONTRACT_TEXT_Y+14, INS_INFO_LINK_TO_CONTRACT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	usPosX += INS_INFO_LINK_START_OFFSET + INS_INFO_LINK_TO_CONTRACT_WIDTH;
 
 	//Display the red bar under the link at the bottom.	and the text
-	DisplaySmallRedLineWithShadow( usPosX, INS_INFO_LINK_TO_CONTRACT_Y, (UINT16)(usPosX+INS_INFO_LINK_TO_CONTRACT_WIDTH), INS_INFO_LINK_TO_CONTRACT_Y);
+	DisplaySmallColouredLineWithShadow( usPosX, INS_INFO_LINK_TO_CONTRACT_Y, (UINT16)(usPosX + INS_INFO_LINK_TO_CONTRACT_WIDTH), INS_INFO_LINK_TO_CONTRACT_Y );
 	GetInsuranceText( INS_SNGL_TO_ENTER_REVIEW, sText );
 	DisplayWrappedString( usPosX, INS_INFO_LINK_TO_CONTRACT_TEXT_Y, INS_INFO_LINK_TO_CONTRACT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
@@ -538,7 +538,7 @@ void DisplayInfoTocPage()
 	GetInsuranceText( INS_SNGL_WE_CAN_OFFER_U, sText );
 	DrawTextToScreen( sText, INS_INFO_TOC_SUBTITLE_X, usNewLineOffset, 640-INS_INFO_INFO_TOC_TITLE_X, INS_FONT_BIG, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	usPosY = usNewLineOffset + 12;
-	DisplaySmallRedLineWithShadow( INS_INFO_SUBTITLE_X, usPosY, (UINT16)(INS_INFO_SUBTITLE_X+INS_INFO_SUBTITLE_LINE_WIDTH), usPosY );
+	DisplaySmallColouredLineWithShadow( INS_INFO_SUBTITLE_X, usPosY, (UINT16)(INS_INFO_SUBTITLE_X + INS_INFO_SUBTITLE_LINE_WIDTH), usPosY );
 
 	usNewLineOffset += INS_INFO_SPACE_BN_PARAGRAPHS;
 	usNewLineOffset += INS_INFO_SPACE_BN_PARAGRAPHS;

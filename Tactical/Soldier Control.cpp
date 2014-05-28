@@ -7691,6 +7691,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 						{
 							TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionDisability( this );
 						}
 					}
 				}
@@ -7704,6 +7707,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 						{
 							TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionDisability( this );
 						}
 					}
 				}
@@ -7718,8 +7724,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 						{
 							TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
-						}
 
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionDisability( this );
+						}
 					}
 				}
 
@@ -7735,6 +7743,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							{
 								TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 								this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+								// Flugente: dynamic opinions
+								HandleDynamicOpinionDisability( this );
 							}
 						}
 					}
@@ -9625,6 +9636,12 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 
 	// reduce poison damage by poison resistance
 	sPoisonAdd = (INT16)(sPoisonAdd * (100 - this->GetPoisonResistance())/100);
+
+	// Flugente: dynamic opinions
+	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
+	{
+		AddOpinionEvent( this->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_FRIENDLYFIRE );
+	}
 
 	// CJC Jan 21 99: add check to see if we are hurting an enemy in an enemy-controlled
 	// sector; if so, this is a sign of player activity
@@ -12682,6 +12699,9 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		return(0);
 	}
 
+	// Flugente: dynamic opinions
+	AddOpinionEvent( pVictim->ubProfile, this->ubProfile, OPINIONEVENT_BANDAGED );
+
 	bInitialBleeding = pVictim->bBleeding;
 
 	// in case he has multiple kits in hand, limit influence of kit status to 100%!
@@ -13707,6 +13727,9 @@ BOOLEAN SOLDIERTYPE::CheckForBreathCollapse( void )
 			if ( MercIsHot( this ) && this->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
 			{
 				TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
+
+				// Flugente: dynamic opinions
+				HandleDynamicOpinionDisability( this );
 			}
 			else
 			{
@@ -14225,7 +14248,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 			{
-				// resting our gun on people would be rude - only allow if nobody is there
+				// resting our gun on people is allowed sometimes
 				UINT usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
 				if( usPersonID == NOBODY )
 					applybipod = TRUE;
@@ -14233,13 +14256,18 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[ usPersonID ];
 
-					// if the other person is an ally an prone
+					// if the other person is an ally and prone
 					if ( this->bSide == pSoldier->bSide && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
 					{
 						// if we are facing the other guy in a 90 degree angle, we can mount our gun on his back
 						// Once merc's relationship allows angering mercs through actions of others, add a penalty here
-						if ( this->ubDirection == gTwoCCDirection[ pSoldier->ubDirection ] || this->ubDirection == gTwoCDirection[ pSoldier->ubDirection ] )
+						if ( this->ubDirection == gTwoCCDirection[pSoldier->ubDirection] || this->ubDirection == gTwoCDirection[pSoldier->ubDirection] )
+						{
 							applybipod = TRUE;
+
+							// Flugente: dynamic opinions
+							AddOpinionEvent( MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS );
+						}
 					}
 				}
 			}
@@ -14285,9 +14313,25 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		{
 			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
 			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
-				// resting our gun on people would be rude - only allow if nobody is there
-				if( WhoIsThere2( nextGridNoinSight, 0 ) == NOBODY )
-					applybipod = TRUE;	
+			{
+				// resting our gun on people is allowed sometimes
+				UINT usPersonID = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+				if ( usPersonID == NOBODY )
+					applybipod = TRUE;
+				else
+				{
+					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
+
+					// if the other person is an ally and prone
+					if ( this->bSide == pSoldier->bSide && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH )
+					{
+						applybipod = TRUE;
+
+						// Flugente: dynamic opinions
+						AddOpinionEvent( MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS );
+					}
+				}
+			}
 		}
 	}
 	

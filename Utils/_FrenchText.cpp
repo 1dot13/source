@@ -4317,6 +4317,7 @@ STR16 pBookMarkStrings[] =
 	L"Encyclopédie",
 	L"Briefing",
 	L"Comptes rendus",
+	L"MeLoDY",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4429,6 +4430,10 @@ STR16 pWebPagesTitles[] =
 	L"%s, conseil de presse : Rapports",   // TODO.Translate //A voir fini (to see finished)
 	L"%s, conseil de presse : Dernières Nouvelles",   // TODO.Translate //A voir fini (to see finished)
 	L"%s, conseil de presse : À propos de nous",   // TODO.Translate //A voir fini (to see finished)
+	L"Mercs Love or Dislike You - Home",				// TODO.Translate
+	L"Mercs Love or Dislike You - Analyze a team",
+	L"Mercs Love or Dislike You - Pairwise comparison",
+	L"Mercs Love or Dislike You - About us",
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopédie",
 	L"Encyclopédie : Données",
@@ -6217,6 +6222,7 @@ STR16 gzLaptopHelpText[] =
 	L"Encyclopédie",
 	L"Salle de briefing",
 	L"Comptes rendus",
+	L"Mercenaries Love or Dislike You",	// TODO.Translate
 };
 
 
@@ -8102,7 +8108,7 @@ STR16	szInventoryArmTextStr[]=
 STR16		szBackgroundText_Flags[]=
 {
 	L" peut consommer des drogues se trouvant dans son inventaire\n",
-	L" ne tient pas compte des autres passifs\n",
+	L" disregard for all other backgrounds\n", // TODO.Translate
 	L" +1 Niveau dans les souterrains\n",
 	L" peut voler des objets\n",
 
@@ -8185,6 +8191,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de CDT avec des armes à feu contre les créatures\n",
 	L" %s%d%% du coût de l'assurance\n",
 	L" %s%d%% d'efficacité comme guetteur pour vos tireurs d'élite\n",
+
+	L" dislikes some other backgrounds",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =
@@ -8253,6 +8261,13 @@ STR16		szRefinementText[]=
 	L"manières de snob",
 };
 
+STR16		szRefinementTextTypes[] =	// TODO.Translate
+{
+	L"normal people",
+	L"slobs",
+	L"snobs",
+};
+
 STR16		szNationalityText[]=
 {
 	L"Américain",		// 0
@@ -8301,6 +8316,56 @@ STR16		szNationalityText[]=
 	L"Syrien",
 	L"Belge",
 	L"Portugais",
+};
+
+STR16		szNationalityTextAdjective[] = // TODO.Translate
+{
+	L"americans",		// 0
+	L"arabs",
+	L"australians",
+	L"britains",
+	L"canadians",
+	L"cubans",			// 5
+	L"danes",
+	L"frenchmen",
+	L"russians",
+	L"nigerians",
+	L"swiss",			// 10
+	L"jamaicans",
+	L"poles",
+	L"chinese",
+	L"irishmen",
+	L"south africans",	// 15
+	L"hungarians",
+	L"scotsmen",
+	L"arulcans",
+	L"germans",
+	L"africans",			// 20
+	L"italians",
+	L"dutchmen",
+	L"romanians",
+	L"metavirans",
+
+	// newly added from here on
+	L"greek",			// 25
+	L"estonians",
+	L"venezuelans",
+	L"japanese",
+	L"turks",
+	L"indians",			// 30
+	L"mexicans",
+	L"norwegians",
+	L"spaniards",
+	L"brasilians",
+	L"finns",			// 35
+	L"iranians",
+	L"israelis",
+	L"bulgarians",
+	L"swedes",
+	L"iraqis",			// 40
+	L"syrians",
+	L"belgians",
+	L"portoguese",
 };
 
 // special text used if we do not hate any nation (value of -1)
@@ -8511,6 +8576,74 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Suivant",
 	L" :",
 	L"Jour",
+};
+
+STR16	szMercCompareWebSite[] =	// TODO.Translate
+{
+	// main page
+	L"Mercs Love or Dislike You",
+	L"Your #1 teambuilding experts on the web",
+
+	L"About us",
+	L"Analyse a team",
+	L"Pairwise comparison",
+	L"Customer voices",
+
+	L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
+	L"Your team struggles with itself.",
+	L"Your employees waste time working against each other.",
+	L"Your workforce experiences a high fluctuation rate.",
+	L"You constantly receive low marks on workplace satisfaction ratings.",	
+	L"If you can say 'yes' to one or more of these statements, then you might have a problem in your business. Your employees likely won't work at peak perfection. Thanks to our patented, easy-to-understand MeLoDY system, you can bring productivity back up in no time, and a happy smile on the faces all your staff!",
+
+	// customer quotes
+	L"A few citations from our satisfied customers:",
+	L"My last relationship was terrible. I blamed myself... but now I know better. All men deserve a violent death! Thanks, MeLoDY, for enlightening me!",
+	L"-Louisa G., Novelist-",
+	L"I never got along with my brothers to start with, and recently its gotten worse. You've shown me that our trust problem with father is to blame. Thank you for that! I have to make a bold statement to open his eyes to the facts.",
+	L"-Konrad C., Corrective law enforcement-",
+	L"I've always been a loner, so joining a team was hard for me. Your insight showed me how to become part of a team. You've been a big help!",
+	L"-Grant W., Snake charmer-",
+	L"In my line of work, you need to trust every member of your team 100%. That's why we went to the experts - we went to MeLoDY.",
+	L"-Halle L., SPK-",
+	L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
+	L"-Michael C., NASA-",
+	L"I fully recommend this site!",
+	L"-Kasper H., H&C logistic incorporated-",
+
+	// analyze
+	L"Choose your employee",
+	L"Choose your squad",
+};
+
+STR16	szMercCompareEventText[]=
+{
+	L"%s shot at me!",
+	L"%s is scheming behind my back",
+	L"%s interfered in my business",
+	L"%s is friends with my enemy",
+
+	L"%s got a contract before I did",
+	L"%s ordered a shameful retreat",
+	L"%s massacred the innocent",
+	L"%s slows us down",
+
+	L"%s doesn't share food",
+	L"%s jeopardizes the mission",
+	L"%s is a drug addict",
+	L"%s is thieving scum",
+
+	L"%s is an incompetent commander",
+	L"%s is overpaid",
+	L"%s gets all the good stuff",
+	L"%s mounted a gun on me",
+
+	L"%s treated my wounds",
+	L"Had a good drink %s",
+	L"%s is fun to get wasted with",
+	L"%s is annoying when drunk",
+
+	L"%s is an idiot when drunk",
 };
 
 STR16   szTacticalInventoryDialogString[]=

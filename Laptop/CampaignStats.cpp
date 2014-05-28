@@ -707,13 +707,16 @@ void FinishIncident(INT16 sX, INT16 sY, INT8 sZ)
 
 			if ( i == CAMPAIGNHISTORY_SD_MAX )
 			{
-				// totally boring. Don't add this, just clean it an exit
+				// totally boring. Don't add this, just clean it and exit
 				gCurrentIncident.clear();
 
 				return;
 			}
 		}
 	}
+
+	// dynamic opinions: if the playerside had a lot of losses, the mercs will blame one of their own
+	HandleDynamicOpinionBattleLosses();
 
 	// due to odd coding, we do not know when an incident starts
 	// (checking for entering combat isn't enough, as we do that multiple times per battle)

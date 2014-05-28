@@ -2570,7 +2570,9 @@ extern STR16		szPersonalityHelpText[];
 extern STR16		szRaceText[];
 extern STR16		szAppearanceText[];
 extern STR16		szRefinementText[];
+extern STR16		szRefinementTextTypes[];
 extern STR16		szNationalityText[];
+extern STR16		szNationalityTextAdjective[];
 extern STR16		szNationalityText_Special[];
 extern STR16		szCareLevelText[];
 extern STR16		szRacistText[];
@@ -2732,6 +2734,42 @@ enum
 };
 
 extern STR16		szCampaignHistoryWebpageString[];
+
+// Flugente: merc compare website
+#define TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS		6	// number of customer quotes, each with an additional short character name
+
+enum
+{
+	// main page
+	TEXT_MERCCOMPARE_WEBSITENAME,
+	TEXT_MERCCOMPARE_SLOGAN,
+
+	TEXT_MERCCOMPARE_SUBSITE1,
+	TEXT_MERCCOMPARE_SUBSITE2,
+	TEXT_MERCCOMPARE_SUBSITE3,
+	TEXT_MERCCOMPARE_SUBSITE4,
+
+	TEXT_MERCCOMPARE_INTRO1,
+	TEXT_MERCCOMPARE_BULLET1,
+	TEXT_MERCCOMPARE_BULLET2,
+	TEXT_MERCCOMPARE_BULLET3,
+	TEXT_MERCCOMPARE_BULLET4,
+	TEXT_MERCCOMPARE_INTRO2,
+
+	// customer quotes
+	TEXT_MERCCOMPARE_QUOTEINTRO,
+	TEXT_MERCCOMPARE_QUOTE1,
+	TEXT_MERCCOMPARE_QUOTE1NAME,
+
+	// analyze
+	TEXT_MERCCOMPARE_DROPDOWNTEXT = TEXT_MERCCOMPARE_QUOTE1 + 2 * TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS,
+	TEXT_MERCCOMPARE_DROPDOWNTEXT_MATRIX,
+
+	TEXT_MERCCOMPARE_MAX,
+};
+
+extern STR16		szMercCompareWebSite[];
+extern STR16		szMercCompareEventText[];
 
 extern STR16   szTacticalInventoryDialogString[];
 extern STR16   szTacticalCoverDialogString[];

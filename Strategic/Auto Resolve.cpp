@@ -4646,7 +4646,12 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 						else if ( pTarget->pSoldier->bTeam == CIV_TEAM && !pTarget->pSoldier->aiData.bNeutral && pTarget->pSoldier->bSide != gbPlayerNum )
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsHostiles++;
 						else
+						{
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
+
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionCivKill( pAttacker->pSoldier );
+						}
 						break;
 				}
 				/////////////////////////////////////////////////////////////////////////////////////

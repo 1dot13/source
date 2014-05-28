@@ -94,6 +94,7 @@
     <ClInclude Include="Laptop All.h" />
     <ClInclude Include="laptop.h" />
     <ClInclude Include="LaptopSave.h" />
+    <ClInclude Include="merccompare.h" />
     <ClInclude Include="mercs Account.h" />
     <ClInclude Include="mercs Files.h" />
     <ClInclude Include="mercs No Account.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="insurance Info.cpp" />
     <ClCompile Include="insurance.cpp" />
     <ClCompile Include="laptop.cpp" />
+    <ClCompile Include="merccompare.cpp" />
     <ClCompile Include="mercs Account.cpp" />
     <ClCompile Include="mercs Files.cpp" />
     <ClCompile Include="mercs No Account.cpp" />

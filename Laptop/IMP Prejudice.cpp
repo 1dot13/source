@@ -78,21 +78,6 @@ BOOLEAN		CameBackToPrejudicePageButNotFinished();
 //*******************************************************************
 #define DROPDOWN_MARKUP_Y	50
 
-enum definedDropDowns
-{
-	DROPDOWNNR_APPEARANCE = 0,
-	DROPDOWNNR_APPEARANCECARE,
-	DROPDOWNNR_REFINEMENT,
-	DROPDOWNNR_REFINEMENTCARE,
-	DROPDOWNNR_NATIONALITY,
-	DROPDOWNNR_HATEDNATIONALITY,
-	DROPDOWNNR_HATEDNATIONALITYCARE,
-	DROPDOWNNR_RACIST,
-	DROPDOWNNR_RACE,
-	DROPDOWNNR_SEXIST,
-	DROPDOWNNR_RACISTFEATURE,
-};
-
 template<>	void	DropDownTemplate<DROPDOWNNR_APPEARANCE>::SetRefresh()			{ gfIMPPrejudice_Redraw = TRUE; }
 template<>	void	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::SetRefresh()		{ gfIMPPrejudice_Redraw = TRUE; }
 template<>	void	DropDownTemplate<DROPDOWNNR_REFINEMENT>::SetRefresh()			{ gfIMPPrejudice_Redraw = TRUE; }

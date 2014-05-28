@@ -1826,7 +1826,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ADMIN",	80, 30, 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_REGULAR", 100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN], 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ELITE",   100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR], 1000);
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER] = iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_OFFICER",  100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_OFFICER",  100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
 
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ADMIN",	0, 0, 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_REGULAR",  1, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN], 100 );
@@ -1860,6 +1860,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sMoraleModRacism					= iniReader.ReadInteger("Morale Settings","MORALE_MOD_RACISM",					3, 0, 5);
 	gGameExternalOptions.sMoraleModSexism					= iniReader.ReadInteger("Morale Settings","MORALE_MOD_SEXISM",					1, 0, 5);
 	gGameExternalOptions.sMoraleModXenophobicBackGround		= iniReader.ReadInteger("Morale Settings","MORALE_MOD_BACKGROUND_XENOPHOBIC",	5, 0, 15);
+
+	gGameExternalOptions.fDynamicOpinions					= iniReader.ReadBoolean("Morale Settings","DYNAMIC_OPINIONS", TRUE );
+	gGameExternalOptions.fDynamicWageFactor					= iniReader.ReadFloat("Morale Settings","WAGE_ACCEPTANCE_FACTOR", 1.5f, 0.1f, 10.0f );
 	
 	//################# Laptop Settings ##################
 
@@ -3591,6 +3594,28 @@ void LoadMoraleSettings()
 	gMoraleSettings.bModifiers[MORALE_MODIFIER_OT_COWARD_BAD_EVENT]		= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_OT_COWARD_BAD_EVENT", -2, -100, 100);
 
 	gMoraleSettings.bModifiers[MORALE_MODIFIER_MALICIOUS_HOURLY_DECAY]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_MALICIOUS_HOURLY_DECAY", -1, -100, 100);
+	
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_FRIENDLYFIRE]					= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_FRIENDLYFIRE",			   -10, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_SNITCHSOLDMEOUT]				= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SNITCHSOLDMEOUT",			-3, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_SNITCHINTERFERENCE]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_FRIENDLYFIRE",				-5, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_FRIENDSWITHHATED]				= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_FRIENDSWITHHATED",			-4, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_CONTRACTEXTENSION]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_CONTRACTEXTENSION",		-2, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_ORDEREDRETREAT]				= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_ORDEREDRETREAT",			-6, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_CIVKILLER]					= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_CIVKILLER",				-8, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_SLOWSUSDOWN]					= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SLOWSUSDOWN",				-2, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_NOSHARINGFOOD]				= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_NOSHARINGFOOD",			-1, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_ANNOYINGDISABILITY]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_ANNOYINGDISABILITY",		-2, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_ADDICT]						= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_ADDICT",					-6, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_THIEF]						= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_THIEF",					-5, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_WORSTCOMMANDEREVER]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_WORSTCOMMANDEREVER",		-7, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_RICHGUY]						= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_RICHGUY",					-1, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_BETTERGEAR]					= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BETTERGEAR",				-2, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS]	= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS",-3, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_BANDAGED]						= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BANDAGED",					 1, 0, 50 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_DRINKBUDDIES_GOOD]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DRINKBUDDIES_GOOD",		 1, 0, 50 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_DRINKBUDDIES_SUPER]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DRINKBUDDIES_SUPER",		 4, 0, 50 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_DRINKBUDDIES_BAD]				= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DRINKBUDDIES_BAD", -		 1, -50, 0 );
+	gMoraleSettings.bDynamicOpinionModifiers[OPINIONEVENT_DRINKBUDDIES_WORSE]			= iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DRINKBUDDIES_WORSE",		-4, -50, 0 );
 }
 
 void LoadReputationSettings()

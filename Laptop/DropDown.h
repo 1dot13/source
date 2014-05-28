@@ -18,6 +18,26 @@ void Display2Line2ShadowHorizontal( UINT16 usStartX, UINT16 usStartY, UINT16 End
 // the maximum number of entries that can be shown at once. Increase requires recompilation!
 #define DROPDOWN_REGIONS		8
 
+// different dropdowns can interfere with each other
+enum definedDropDowns
+{
+	DROPDOWNNR_APPEARANCE = 0,
+	DROPDOWNNR_APPEARANCECARE,
+	DROPDOWNNR_REFINEMENT,
+	DROPDOWNNR_REFINEMENTCARE,
+	DROPDOWNNR_NATIONALITY,
+	DROPDOWNNR_HATEDNATIONALITY,
+	DROPDOWNNR_HATEDNATIONALITYCARE,
+	DROPDOWNNR_RACIST,
+	DROPDOWNNR_RACE,
+	DROPDOWNNR_SEXIST,
+	DROPDOWNNR_RACISTFEATURE,
+
+	DROPDOWNNR_MERCCOMPARE1,
+	DROPDOWNNR_MERCCOMPARE2,
+	DROPDOWNNR_MERCCOMPARE_SQUADSELECTION,
+};
+
 /*
  * As we cannot directly add our callbacks (we need a static callback due to the way MSYS_DefineRegion(...) works, which utterly fails if we have multiple instance of a class),
  * we use a very odd looking workaround.
@@ -117,6 +137,11 @@ public:
 	 * Get key of selected entry
 	 */
 	INT16	GetSelectedEntryKey()		{ return mEntryVector[mSelectedEntry].first; }
+
+	/*
+	* If aKey exists among our keys, set it as the current one 
+	*/
+	void	SetSelectedEntryKey( INT16 aKey );
 
 	/*
 	 * Get width of entire DropDownBase

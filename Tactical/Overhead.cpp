@@ -2488,6 +2488,9 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                             fDontContinue = TRUE;
 
                             UnSetUIBusy( pSoldier->ubID );
+
+							// Flugente: dynamic opinions
+							HandleDynamicOpinionDisability( pSoldier );
                         }
                     }
 
@@ -3227,6 +3230,9 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
                 {
                     TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
                     pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+					// Flugente: dynamic opinions
+					HandleDynamicOpinionDisability( pSoldier );
                 }
                 break;
             default:
@@ -3237,6 +3243,9 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
                     {
                         TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
                         pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+						// Flugente: dynamic opinions
+						HandleDynamicOpinionDisability( pSoldier );
                     }
                 }
                 break;
