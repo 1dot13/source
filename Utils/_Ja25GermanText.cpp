@@ -43,49 +43,52 @@ STR16 gzIMPSkillTraitsText[]=
 };
 
 //added another set of skill texts for new major traits
+//Da es mittlerweile einen beruflichen Background für Söldner gibt, habe ich die "Tätigkeitsbezeichnungen" der Traits wieder an das ursprüngliche System angeglichen.
+//Die Traits sagen nun aus, in welchem Bereich ein Söldner besondere Fertigkeiten erworben hat. Sie stellen kein Berufsbild dar. Das bleibt dem Background überlassen.
+//Vorschläge in alten Kommentaren berücksichtigt. [Leonidas]
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
-	L"MG-Schütze",	//LOOTF - Alle Namen sehr gewagt, aber wenigstens volldeutsch.
-	L"Grenadier"	,
-	L"Präzisionsschütze",
-	L"Pfadfinder",
-	L"Pistolenschütze",		//Option: Pistolenschütze
-	L"Faustkämpfer",
-	L"Gruppenführer",		//GrpFhr und ZgFhr sind scheiße, aber mir fällt ohne Dienstgrade nüscht ein
-	L"Mechaniker",			//Option: Techniker
-	L"Sanitäter",			//Option: Rettungsassistent
-	L"Verdeckter Ermittler",
+	L"Automatische Waffen",			//
+	L"Granatwaffen",			// Vanilla: Schwere Waffen/Heavy Weapons [Leonidas]
+	L"Scharfschützengewehre",		// (Schlechte) Alternative: Präzisionsgewehre [Leonidas]
+	L"Jagd",				// Alternative: Überlebenstraining [Leonidas] – Die Mischung aus/von Flintenboni, Bewegungsboni und Tarnboni ist ungünstig [Leonidas]
+	L"Pistolen",				//
+	L"Faustkampf",				//
+	L"Teamführung",				//
+	L"Feinmechanik",			//
+	L"Erste Hilfe",				// Alternativen: Sanitätsausbildung; Medizin. Versorgung [Leonidas]
+	L"Verdeckte Operationen",		//
 
 	L"Nichts",
 	L"B.S.E. Hauptfertigkeiten",
 
 	// second names
-	L"MG-Veteran",		//Option "MG-Veteran"?
-	L"Artillerist",
-	L"Scharfschütze",
-	L"Jäger",			//"Ranger" ist toll, aber nicht wirklich deutsch
-	L"Revolverheld",
-	L"Kampfsportler",		//Kung-Fu-Typ ohne Nennung von Kung-Fu oder Wu-Shu oder derart Zeug, PS: KampfSPORTLER ist kacke
-	L"Zugführer",
-	L"Ingenieur",
-	L"Arzt",
-	L"Spion",
+	L"Automatische Waffen\n(Experte)",	// (Schlechte) Alternative: Maschinengewehre [Leonidas]
+	L"Granatwaffen (Experte)",		//
+	L"Scharfschützengewehre\n(Experte)",	//
+	L"Jagd (Experte)",			// Alternative: Jagd – Die Mischung aus/von Flintenboni, Bewegungsboni und Tarnboni ist ungünstig [Leonidas]
+	L"Pistolen (Experte)",			//
+	L"Kampfsport",				//
+	L"Truppenführung",			//
+	L"Feinwerktechnik",			// Alternative: Mechatronik [Leonidas]
+	L"Notfallmedizin",			//
+	L"Geheimoperationen",			//
 };
 
 //added another set of skill texts for new minor traits
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
-	L"Beidhänder",			// alt. "Beidhändig geschickt"
-	L"Messerkämpfer",		// alt. "Hieb- und Stichwaffen"	//gesucht: Begriff für Nahkampfwaffenkämpfer
-	L"Messerwerfer",		// alt. "Wurfwaffen"
-	L"Nachtmensch",			// alt. "Nachteinsatz"
-	L"Schleicher",			// alt. "Schleichen"
-	L"Läufer",				// alt. "Athletisch"
-	L"Kraftsportler",		// alt. "Bodybuilding"
-	L"Sprengmeister",		// alt. "Kampfmittel"
-	L"Ausbilder",			// alt. "Lehren"
-	L"Aufklärer",			// alt. "Spähen"
-	L"Radio Operator",
+	L"Beidhändigkeit",			// alt. "Beidhändig geschickt"
+	L"Bewaffneter Nahkampf",		// alt. "Hieb- und Stichwaffen"
+	L"Wurfwaffen",				// alt. "Wurfwaffen"
+	L"Nachteinsätze",			// alt. "Nachteinsatz"
+	L"Schleichen",				// alt. "Schleichen"
+	L"Leichtathletik",			// alt. "Athletisch"
+	L"Kraftsport",				// alt. "Bodybuilding"
+	L"Sprengtechnik",			// alt. "Kampfmittel"
+	L"Ausbilden",				// alt. "Lehren"
+	L"Aufklären",				// alt. "Spähen"
+	L"Funktechnik",				// Alternative: Funk, Funkkommunikation [Leonidas]
 
 	L"Keine",
 	L"B.S.E. Nebenfertigkeiten",
@@ -99,26 +102,25 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"+%d%s Trefferchance mit Maschinengewehren\n",
 	L"-%d%s APs benötigt für MG-Feuerstöße (Burst/Auto) abzugeben\n",
 	L"-%d%s APs benötigt um Maschinengewehre auszurichten\n",
-	L"Trefferratenabzug bei Feuerstößen reduziert um %d%s\n",
-	L"Reduzierte Chance bei Feuerstößen ungewollt mehr Schüsse abzugeben\n",
-
-
+	L"Trefferratenabzug bei Feuerstößen um %d%s reduziert\n",
+	L"Geringere Wahrscheinlichkeit bei Feuerstößen ungewollt mehr Schüsse abzugeben\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"-%d%s APs benötigt um Granatwerfer abzufeuern\n",
-	L"-%d%s APs benötigt um Raketenwerfer abzufeuern\n",
+	L"-%d%s APs benötigt um Raketenwaffen abzufeuern\n",
 	L"+%d%s Trefferchance mit Granatwerfern\n",
-	L"+%d%s Trefferchance mit Raketenwerfern\n",
-	L"-%d%s APs benötigt für den Abschuss von Mörsergranaten\n",
+	L"+%d%s Trefferchance mit Raketenwaffen\n",
+	L"-%d%s APs für den Abschuss von Mörsergranaten benötigt\n",
 	L"Trefferchancenreduktion für Mörser gesenkt um %d%s\n",
-	L"+%d%s Schaden an Panzern mit schweren Waffen, Granaten und Bomben\n",
-	L"+%d%s schaden an allen anderen Zielen mit schweren Waffen\n",
-
+	L"+%d%s Schaden an Panzern mit Granatwaffen, Granaten und Bomben\n",
+	L"+%d%s Schaden an allen anderen Zielen mit Granatwaffen\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
-	L"+%d%s Trefferchance mit Gewehren\n",
+	L"+%d%s Trefferchance mit Büchsen\n",
 	L"+%d%s Trefferchance mit Scharfschützengewehren\n",
 	L"-%d%s effektive Reichweite zum Ziel mit allen Waffen\n",
 	L"+%d%s Zielbonus pro Zielerfassungs-Klick (außer für Faustfeuerwaffen)\n",
@@ -141,41 +143,41 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
-	L"+%d%s Trefferchance mit Gewehren\n",
-	L"+%d%s Trefferchance mit Schrotflinten\n",
-	L"-%d%s APs benötigt um Schrotflinten zu repetieren\n",
-	L"-%d%s APs benötigt um Schrotflinten abzufeuern\n",
-	L"Gibt Schrotflinten einen weiteren Zielklick\n",
-	L"%d weitere Zielklicks für Schrotflinten\n",
+	L"+%d%s Trefferchance mit Büchsen\n",
+	L"+%d%s Trefferchance mit Flinten\n",
+	L"-%d%s APs benötigt um Flinten zu repetieren\n",
+	L"-%d%s APs benötigt um Flinten abzufeuern\n",
+	L"Gibt Flinten einen weiteren Zielklick\n",
+	L"%d weitere Zielklicks für Flinten\n",
 	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren zu Fuß\n",
 	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
 	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
 	L"-%d%s Einfluss durch schlechtes Wetter\n",
 	L"+%d%s Tarnungs-Effektivität\n",
-	L"-%d%s Abnutzung von Gesichtstarnung durch Wasser oder Zeit\n",
-
+	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"-%d%s APs benötigt um mit Pistolen oder Revolvern zu schießen\n",
 	L"+%d%s effektive Reichweite mit Pistolen und Revolvern\n",
-	L"+%d%s Trefferchance mit  mit Pistolen und Revolvern\n",
+	L"+%d%s Trefferchance mit  mit halbautomatischen Pistolen und Revolvern\n",
 	L"+%d%s Trefferchance mit vollautomatischen Pistolen",
 	L" (nur bei Einzelfeuer)",
-	L"+%d%s Zielbonus pro Klick mit Pistolen, vollautomatischen Pistolen und Revolvern\n",
+	L"+%d%s Zielbonus pro Klick mit halb- und vollautomatischen Pistolen sowie Revolvern\n",
 	L"-%d%s APs benötigt um Pistolen und Revolver in Vorhalte zu bringe\n",
-	L"-%d%s APs benötigt um Pistolen, vollautomatische Pistolen und Revolver nachzuladen\n",
-	L"Gibt für Pistolen, vollautomatische Pistolen und Revolver einen weiteren Zielklick\n",
-	L"%d weiteren Zielklick für Pistolen, vollautomatische Pistolen und Revolver\n",
-
+	L"-%d%s APs benötigt um halb- und vollautomatische Pistolen sowie Revolver nachzuladen\n",
+	L"Gibt für halb- und vollautomatische Pistolen sowie Revolver einen weiteren Zielklick\n",
+	L"%d weiteren Zielklick für halb- und vollautomatische Pistolen sowie Revolver\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"-%d%s AP-Kosten für den Faustkampf (bloße Hände oder mit Schlagring)\n",
-	L"+%d%s Trefferchance bei Nahkampfangriffen mit bloßen Händen\n",
-	L"+%d%s Trefferchance bei Nahkampfangriffen mit dem Schlagring\n",
-	L"+%d%s Schaden im Faustkampf (bloße Hände oder mit Schlagring)\n",
-	L"+%d%s Ausdauerschaden im Faustkampf (bloße Hände oder mit Schlagring)\n",
+	L"-%d%s AP-Kosten für den Nahkampf (bloße Hände oder mit Schlagring)\n",
+	L"+%d%s Trefferchance im Nahkampf mit bloßen Händen\n",
+	L"+%d%s Trefferchance im Nahkampf mit dem Schlagring\n",
+	L"+%d%s Schaden im Nahkampf (bloße Hände oder mit Schlagring)\n",
+	L"+%d%s Ausdauerschaden im Nahkampf (bloße Hände oder mit Schlagring)\n",
 	L"Ein im Nahkampf niedergestreckter Gegner braucht etwas länger um sich zu erholen\n",
 	L"Ein im Nahkampf niedergestreckter Gegner braucht länger um sich zu erholen\n",
 	L"Ein im Nahkampf niedergestreckter Gegner braucht deutlich länger um sich zu erholen\n",
@@ -184,7 +186,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"Ein im Nahkampf niedergestreckter Gegner schläft wie ein Baby bevor er sich erholt\n",
 	L"Ein im Nahkampf niedergestreckter Gegner steht vermutlich erstmal gar nicht mehr auf\n",
 	L"Ein gezielter Schlag richtet +%d%s mehr Schaden an\n",
-	L"Ein gezielter Tornadotritt richtet +%d%s mehr Schaden an\n",
+	L"Ein gezielter Tritt richtet +%d%s mehr Schaden an\n",
 	L"+%d%s Chance, Schlägen und Tritten auszuweichen\n",
 	L"Dazu +%d%s Chance mit freien Händen",
 	L" oder nur mit Schlagring",
@@ -197,32 +199,32 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"-%d%s APs benötigt um sich umzudrehen\n",
 	L"-%d%s APs benötigt um auf oder von Dächern zu klettern und Hindernisse zu überspringen\n",
 	L"+%d%s Chance eine Tür erfolgreich einzutreten\n",
-	L"Sie erhalten besondere Kung-Fu-Animationen für den Nahkampf\n",
-	L"-%d%s Wahrscheinlichkeit um unterbrochen zu werden wenn man sich bewegt\n",
-
+	L"Besondere Animationen für den Nahkampf\n",
+	L"-%d%s Wahrscheinlichkeit bei einem Nahkampfangriff unterbrochen zu werden\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
-	L"+%d%s APs pro Runde für die umgebenden Söldner innerhalb des Einflussbereichs\n",
-	L"+%d effektiven Erfahrungslevel für umgebende Söldner im Einflussbereich mit weniger Erfahrungsgrad als der %s\n",
-	L"+%d auf den Erfahrungslevel beim Berechnen des Gruppeneffekts auf Unterdrückungsfeuer\n",
-	L"+%d%s Resistenz gegen Unterdrückungsfeuer für jeden Söldner im Einflussbereich, auch den %s\n",
-	L"+%d Moralgewinn für umgebende Söldner innerhalb des Einflussbereichs\n",
-	L"-%d Moralverlust für umgebende Söldner innerhalb des Einflussbereichs\n",
+	L"+%d%s APs pro Runde für andere Söldner im Einflussbereich\n",
+	L"+%d Erfahrung für umgebende Söldner im Einflussbereich mit weniger Erfahrung als der %s\n",
+	L"+%d Erfahrung beim Berechnen des Gruppeneffekts auf Unterdrückungsfeuer\n",
+	L"+%d%s Resistenz gegen Unterdrückungsfeuer für den %s und andere Söldner im Einflussbereich\n",
+	L"+%d Moralgewinn für andere Söldner im Einflussbereich\n",
+	L"-%d Moralverlust für andere Söldner im Einflussbereich\n",
 	L"Der Einflussbereich hat einen Radius von %d Feldern",
-	L" (%d Felder mit Kopfhörer-Funkgerät)",
-	L"(Maximal auf einen Söldner wirkende Boni: %d )\n",
-	L"+%d%s Resistenz gegen Angst für %s\n",
+	L"(%d Felder mit Kopfhörer-Funkgerät)",
+	L"(Gleichzeitig wirksame Boni für einen Söldner begrenzt auf: %d)\n",
+	L"+%d%s Widerstand gegen Furcht für den %s\n",
 	L"Nachteil: %dx Moralverlust bei Tod des %ss für alle anderen Söldner\n",
-	L"+%d%s Wahrscheinlichkeit für kollektive Unterbrechungen\n",
-
+	L"+%d%s Wahrscheinlichkeit für gemeinsame Unterbrechungen\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"+%d%s schnellere Reparaturen\n",
 	L"+%d%s mehr Erfolg beim Knacken normaler und elektronischer Schlösser\n",
 	L"+%d%s mehr Erfolg beim Entschärfen elektronischer Fallen\n",
-	L"+%d%s mehr Erfolg beim Anbringen besonderer Gegenstände und Verbinden von Gerätschaften\n",
+	L"+%d%s mehr Erfolg beim Anbringen besonderer Gegenstände und beim Zusammenbau von Einzelteilen\n",
 	L"+%d%s mehr Erfolg beim Beheben von Waffenstörungen im Gefecht\n",
 	L"Der Malus beim Reparieren elektronischer Gegenstände wird um %d%s gesenkt\n",
 	L"Erhöhte Chance, Fallen und Minen zu entdecken (+%d zum Erkennungslevel)\n",
@@ -230,39 +232,40 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"Der %s kann den Roboter reparieren\n",
 	L"%d%s Reduzierung des Geschwindigkeitsabzugs beim Reparieren des Roboters\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
-	L"Kann chirurgisch operieren (Benutzung eines Arztkoffers auf einen verletzten Söldner)\n",
+	L"Kann Patienten operieren (bei Verwendung eines Arztkoffers)\n",
 	L"Die Operation stellt sofort %d%s der verlorenen Lebenspunkte wieder her.",
 	L" (Dieser Vorgang verbraucht einen Großteil des Arztkoffers.)",
-	L"Kann verlorene Attributpunkte (von kritischen Treffern) durch",
-	L" eine Operation oder",
-	L" den Auftrag 'Doktor' wiederherstellen.\n",
-	L"+%d%s bessere Heilungsrate beim Einsatz am Patienten\n",
+	L"Kann verlorene Attributpunkte (durch kritische Treffer) mittels",
+	L" einer sofortigen Operation oder",
+	L" der Einteilung als Arzt (Sektorübersicht) wiederherstellen.\n",
+	L"+%d%s bessere Heilungsrate der Patienten\n",
 	L"+%d%s schnelleres Anlegen von Wundverbänden\n",
 	L"+%d%s natürliche Regenerationsrate aller Söldner im selben Sektor",
 	L" (maximal %d Instanzen dieses Bonus pro Sektor)",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
-	L"Kann sich als Zivilist oder Soldat ausgeben, um hinter den feindlichen Linien zu agieren.\n",
-	L"Kann erkannt werden bei verdächtigen Aktionen,\nunpassender Ausrüstung, oder in der Nähe von frischen Leichen.\n",
-	L"Wird automatisch erkannt, wenn als Soldat getarnt und\n der Feind näher als %d Felder entfernt ist.\n",
-	L"Wird automatisch erkannt, wenn als Soldat getarnt und\n und eine frische Leiche näher als %d Felder entfernt ist.\n",
-	L"+%d%s Trefferwahrscheinlichkeit mit Covert-Ops Nahkampfwaffen\n",
-	L"+%d%s Trefferwahrscheinlichkeit für sofortigen Totschlag mit Covert-Ops Nahkampfwaffen\n",
-	L"Verringerte AP Kosten für verdeckte Operationen durch %d%s.\n",
+	L"Kann sich als Zivilist oder feindlicher Soldat ausgeben, um hinter die feindlichen Linien zu gelangen\n",
+	L"Wird bei verdächtigen Aktionen, verdächtiger Ausrüstung oder in der Nähe frischer Leichen immer erkannt\n",
+	L"Wird in feindlicher Uniform erkannt, wenn der Feind näher als %d Felder entfernt ist\n",
+	L"Wird in feindlicher Uniform erkannt, wenn eine frische Leiche näher als %d Felder entfernt ist.\n",
+	L"+%d%s Trefferwahrscheinlichkeit mit verdeckten Nahkampfwaffen (z.B. Garotte)\n",
+	L"+%d%s Wahrscheinlichkeit für einen tödlichen Angriff mit verdeckten Nahkampfwaffen (z.B. Garotte)\n",
+	L"Um %d%s verringerte AP-Kosten zum Verkleiden\n",
 };
 
-STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 {
-	L"Can use communications equipment\n", 
-	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
-	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
-	L"Communications can be jammed sector-wide.\n",
-	L"If communications are jammed, a operator can scan for the jamming device.\n",
-	L"Can call in militia reinforcements from neighbouring sectors.\n",
+	L"Kann Funkausrüstung nutzen\n", 
+	L"Kann Artillerieunterstützung von Verbündeten in Nachbarsektoren anfordern\n",
+	L"Kann Funkfrequenzen abhören und feindliche Truppen aufspüren\n",
+	L"Kann den Funkverkehr im ganzen Sektor stören\n",
+	L"Kann nach feindlichen Störsendern suchen, wenn solche aktiv sind\n"
+	L"Kann Unterstützung durch Milizen aus Nachbarsektoren anfordern\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
@@ -281,6 +284,7 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"-%d%s APs benötigt um Bomben und Minen zu legen oder zu entschärfen\n",
 	L"-%d%s APs needed to attach items\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"-%d%s APs benötigt für den Angriff mit Klingenwaffen\n",
@@ -288,13 +292,13 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"+%d%s Trefferchance mit Schlagwaffen\n",
 	L"+%d%s Schaden mit Klingenwaffen\n",
 	L"+%d%s Schaden mit Schlagwaffen\n",
-	L"Ein gezielter Hieb mit einer Nahkampfwaffe richtet %d%s mehr Schaden an\n",
+	L"Angriffe mit Nahkampfwaffen richten %d%s mehr Schaden an\n",
 	L"+%d%s Chance Angriffen durch Klingenwaffen auszuweichen\n",
 	L"Dazu +%d%s Chance Klingenwaffen auszuweichen wenn man selber eine in der Hand hat\n",
 	L"+%d%s Chance Angriffen durch Schlagwaffen auszuweichen\n",
 	L"Dazu +%d%s Chance Schlagwaffen auszuweichen wenn man eine Klingenwaffe führt\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"-%d%s Basis-APs benötigt für den Angriff mit Wurfwaffen\n",
@@ -307,8 +311,8 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d Multiplikator für kritische Treffer durch Wurfwaffen\n",
 	L"Gibt einen weiteren Zielklick beim Einsatz von Wurfwaffen\n",
 	L"Gibt %d weitere Zielklicks beim Einsatz von Wurfwaffen\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"+%d zur effektiven Sichtweite im Dunkeln\n",
@@ -316,8 +320,8 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"Dazu +%d zum effektive Hörweite in der Dunkelheit\n",
 	L"+%d zum Unterbrechungs-Modifikator in der Dunkelheit\n",
 	L"-%d weniger Schlafbedarf\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s APs zum Schleichen nötig\n",
@@ -325,33 +329,34 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s Chance, 'unsichtbar' zu sein wenn man sich nicht verrät (schleichen)\n",
 	L"Der Abzug der berechneten Sichtdeckung beim Bewegen ist %d%s geringer\n",
 	L"-%d%s Wahrscheinlichkeit um unterbrochen zu werden\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"-%d%s APs benötigt für Bewegung (rennen, aufrecht oder geduckt gehen, gleiten, schwimmen, usw.)\n",
 	L"-%d%s weniger Ausdauerverbrauch für für Bewegung, Dachklettern, Hindernisse Überwinden, usw.\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"Hat eine Schadensresistenz von %d%s\n",
 	L"+%d%s effektive Stärke für das Berechnen der maximalen Traglast\n",
 	L"%d%s weniger Energieverlust beim Erleiden von Schlägen und Tritten\n",
 	L"Fällt bei Beintreffern weniger leicht um durch um %d%s erhöhte Schadenstoleranz\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s APs benötigt um Handgranaten und Ähnliches zu werfen\n",
-	L"+%d%s mehr Reichweite beim Werfen von Handgranaten und Ähnlichem\n",
-	L"+%d%s mehr Wurfgenauigkeit beim Einsatz von Handgranaten und Ähnlichem\n",
-	L"Gelegte Bomben und Minen sind +%d%s effizienter\n",
-	L"+%d%s mehr Erfolg beim Anbringen von Zündern an Sprengstoff\n",
-	L"+%d%s mehr Erfolg beim Schärfen und Entschärfen von Bomben\n",
-	L"Verringerte Chance, dass der Gegner eigene Bomben und Minen entdeckt (%d zum Bombenlevel)\n",
-	L"Erhöhter Erfolg beim Aufbrechen einer Tür mit einer Durchbruchladung (Schaden multipliziert mit %d)\n",
-
+	L"-%d%s APs benötigt um Handgranaten (und ähnliche Objekte) zu werfen\n",
+	L"+%d%s höhere Reichweite beim Werfen von Handgranaten (und ähnliche Objekten)\n",
+	L"+%d%s höhere Trefferwahrscheinlichkeit beim Werfen von Handgranaten (und ähnlichen Objekten)\n",
+	L"+%d%s höherer Schaden für gelegte Bomben und Minen\n",
+	L"+%d%s mehr Erfolg beim Anbringen von Zündern\n",
+	L"+%d%s mehr Erfolg beim Legen und Entschärfen von Bomben\n",
+	L"Geringere Wahrscheinlichkeit, dass Gegner gelegte Bomben und Minen entdecken (%d zum Bombenlevel)\n",
+	L"Höhere Wahrscheinlichkeit Türen mit einer Sprengladung öffnen zu können (Schaden wird mit %d multipliziert)\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"Bei der Ausbildung von Milizen +%d%s schneller\n",
@@ -359,8 +364,8 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"Beim Ausbilden von Söldnern +%d%s schneller\n",
 	L"Beim Ausbilden von Söldnern +d% zum effektiven Fähigkeitslevel des Ausbilders\n",
 	L"Beim eigenständigen Lernen +%d%s schneller\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"+%d zur effektiven Sichtweite mit Zielfernrohren an Waffen\n",
@@ -371,16 +376,18 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Verhindert, dass der Feind die Gruppe in den Hinterhalt lockt\n",
 	L"Verhindert, das Umzingeln der Gruppe durch Bloodcats\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
-	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
-	L"Prevents teammates' misbehaviour (drugs, alcohol, scrounging).\n",	// TODO.Translate
-	L"Can spread propaganda in towns.\n",	// TODO.Translate
-	L"Can gather rumours in towns.\n",	// TODO.Translate
-	L"Can be put undercover in prisons.\n",	// TODO.Translate
-	L"Increases your reputation by %d every day if in good morale.\n",	// TODO.Translate
-	L"+%d to effective hearing range\n",	// TODO.Translate
+	L"Informiert täglich über die Ansichten der Teammitglieder\n",
+	L"Verhindert mögliches Fehlverhalten der Teammitglieder (Alkohol- und Drogenkonsum, Diebstahl)\n",
+	L"Kann in Städten Propaganda verbreiten\n",
+	L"Kann in Städten Gerüchten nachgehen\n",
+	L"Kann als Informant in Gefängnisse eingeschleust werden\n",
+	L"Kann bei guter Moral den allgemeinen Ruf jeden Tag um %d verbessern\n",
+	L"Erhält +%d auf die Hörweite
 };
+
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Keine Boni",
@@ -429,36 +436,33 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"V: Keine Vorteile.\nN: Keine Nachteile.",
-	L"V: Hat eine erhöhte Leistung im Verbund mit anderen Söldnern.\nN: Erhält keinen Moralzuwachs, wenn niemand in der Nähe ist.",
-	L"V: Hat eine erhöhte Leistung, wenn niemand in der Nähe ist.\nN: Erhält keinen Moralzuwachs im Verbund mit anderen Söldnern.",
-	L"V: Seine Moral sinkt etwas langsamer und steigt schneller.\nN: Hat weniger Chance, Fallen und Minen zu entdecken.",
-	L"V: Erhält Boni beim Ausbilden von Miliz und kann besser mit Menschen reden.\nN: Erhält keinen Moralzuwachs für Aktionen anderer Söldner.",
-	L"V: Lernt etwas schneller in Schulung durch sich selbst oder andere.\nN: Hat weniger Unterdrückungs- und Angstresistenz.",
-	L"V: Verbraucht etwas weniger Energie, außer bei Aufgaben in Medizin, Technik oder anspruchsvollen Ausbildung.\nN: Weisheit, Führungskraft, Sprengstoff-, Mechanik- und Medizinkenntnisse entwickeln sich bei ihm langsamer.",
-	L"V: Hat eine leicht erhöhte Trefferchance bei Feuerstößen und richtet etwas mehr Schaden im Nahkampf an.\n    Erhält ein wenig mehr Moralzuwachs beim Töten.\nN: Ist schlechter bei Aufgaben, die Geduld erfordern, wie Reparatur, Schlossknacken, Fallen Entschärfen, Patientenbetreuung und Ausbildung von Miliz.",
-	L"V: Erhält Boni für Aufgaben mit Geduldsanspruch wie Reparatur, Schlossknacken, Fallen Entschärfen, Patientenbetreuung und Ausbildung von Miliz.\nN: Erhält weniger oft Unterbrechungen im Kampf.",
-	L"V: Erhöhte Resistenz gegenüber Unterdrückungsfeuer und Angst.\n    Verliert weniger Moral beim Erleiden von Schaden oder dem Tod von Kameraden.\nN: Wird leichter getroffen, und kann seltener Feindfeuer durch schnelle Bewegung ausweichen.",
-	L"V: Erhält Moralzuwachs für Tätigkeiten außerhalb des Kämpfens (außer der Ausbildung von Milizkräften).\nN: Erhält keinerlei Moral beim Töten.",
-	L"V: Hat eine höhere Chance, Statusschäden anzurichten und kann besonders fiese Wunden austeilen.\n   Erhält mehr Moral für erfolgreiche Statusschäden.\nN: Kann schlechter mit Leuten reden und seine Moral sinkt schneller, wenn er nicht kämpft.",
-	L"V: Hat eine erhöhte Leistung wenn Söldner des anderen Geschlechts in der Nähe sind.\nN: Die Moral anderer naher Söldner des gleichen Geschlechts steigt langsamer.",
-
+	L"V: Ist leistungsfähiger, wenn andere Söldner in der Nähe sind.\nN: Erhält keinen Moralzuwachs, wenn niemand in der Nähe ist.",
+	L"V: Ist leistungsfähiger, wenn niemand in der Nähe ist.\nN: Erhält keinen Moralzuwachs, wenn andere Söldner in der Nähe sind.",
+	L"V: Die Moral sinkt etwas langsamer und steigt schneller als normal.\nN: Hat eine geringere Chance, Fallen und Minen zu entdecken.",
+	L"V: Erhält Boni beim Ausbilden von Milizen und kann besser mit Menschen reden.\nN: Erhält keinen Moralzuwachs für Aktionen anderer Söldner.",
+	L"V: Lernt durch eigenes Training und Ausbildung etwas schneller.\nN: Hat weniger Unterdrückungs- und Angstresistenz.",
+	L"V: Verbraucht etwas weniger Energie, außer bei medizinischen und technischen Aufgaben sowie einer anspruchsvollen Ausbildung.\nN: Weisheit, Führungskraft, Sprengstoff-, Mechanik- und Medizinkenntnisse entwickeln sich langsamer.",
+	L"V: Hat eine leicht erhöhte Trefferchance bei Feuerstößen und richtet etwas mehr Schaden im Nahkampf an.\n   Erhält ein wenig mehr Moralzuwachs beim Töten.\nN: Erledigt Aufgaben, die Geduld erfordern schlechter (Reparatur, Schlösser knacken, Fallen entschärfen, Patientenversorgung und Milizausbildung).
+	L"V: Erhält Boni für Aufgaben, die Geduld erfordern (Reparatur, Schlösser knacken, Fallen entschärfen, Patientenversorgung und Milizausbildung).\nN: Erhält seltener Unterbrechungen im Kampf.",
+	L"V: Erhöhte Resistenz gegenüber Unterdrückungsfeuer und Panikanfällen.\n    Verliert weniger Moral durch Verwundung oder Todesfälle im Team.\nN: Wird leichter getroffen, und kann seltener Feindfeuer durch schnelle Bewegung ausweichen.",
+	L"V: Erhält Moralzuwachs für nichtkämpferische Tätigkeiten (Außnahme: Milizausbildung).\nN: Erhält keinen Moralzuwachs für das Töten von Gegnern.",
+	L"V: Hat eine höhere Chance, Statusschäden anzurichten, und kann besonders fiese Wunden verursachen.\n   Erhält mehr Moral für erfolgreiche Statusschäden.\nN: Kann schlechter mit Leuten reden. Die Moral sinkt ohne Kampf schneller.",
+	L"V: Ist leistungsfähiger, wenn Söldner des anderen Geschlechts in der Nähe sind.\nN: Die Moral anderer naher Söldner des gleichen Geschlechts steigt langsamer.",
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
-	L"Keine Auswirkungen.",
-	L"Hat Atemnot und allgemein schlechtere Leistung in tropischen und Wüstensektoren.",
-	L"Kann Panikattacken erleiden, wenn in gewissen Situationen auf sich gestellt.",
-	L"Zeigt geringere Leistung unter Tage (in Höhlen und Kellern).",
-	L"Kann beim Versuch zu schwimmen leicht ertrinken.",
-	L"Erträgt den Anblick großer Insekten nicht und\nzeigt verringerte Leistung in tropischen Sektoren.",
+	L"Keine besonderen Einschränkungen.",
+	L"Leidet an Atemproblemen und zeigt allgemein schlechtere Leistung in tropischen und Wüstensektoren",
+	L"Erleidet allein in schwierigen Situationen Panikattacken",
+	L"Zeigt schlechtere Leistung unter Tage",
+	L"Kann bei Schwimmversuchen leicht ertrinken",
+	L"Erträgt den Anblick großer Insekten nicht und\nzeigt etwas schlechtere Leistung in Wüsten- oder tropischen oder Sektoren
 	L"Vergisst manchmal seine Befehle und verliert dadurch im Kampf einen Teil seiner APs.",
-	L"Dreht im Umgang mit Waffen manchmal durch und gibt Dauerfeuer.\nIst ihm das mit seiner Waffe nicht möglich, kann das zu Moralabzügen führen.",
-	L"Reduziert die Geräuschlautstärke enorm.",
-	L"Reduziert die Sichtweite.",
+	L"Dreht manchmal durch und schießt dabei hin und wieder wild um sich.\nVerliert Moral, wenn das mit der ausgerüsteten Waffe nicht möglich ist.
+	L"Deutlich geringere Hörweite.",
+	L"Geringere Sichtweite.",
 };
-
-
 
 STR16 gzIMPProfileCostText[]=
 {
@@ -491,7 +495,7 @@ STR16 gzDisplayCoverText[]=
 	L"Wald", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Stadt",
 	L"Wüste",
-	L"Schnee",
+	L"Schnee", // NOT USED!!!
 	L"Wald und Wüste",
 	L"Wald und Stadt",
 	L"Wald und Schnee",
