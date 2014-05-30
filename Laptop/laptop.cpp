@@ -245,14 +245,14 @@ enum{
 #define DOWN_STRING_Y										DOWNLOAD_Y + 5
 #define ERROR_X												iScreenWidthOffset + 300
 #define ERROR_Y												iScreenHeightOffset + 200
-#define ERROR_BTN_X											iScreenWidthOffset + 43
-#define ERROR_BTN_Y											ERROR_Y + 70
-#define ERROR_TITLE_X										ERROR_X + 3
-#define ERROR_TITLE_Y										ERROR_Y + 3
-#define ERROR_BTN_TEXT_X									iScreenWidthOffset + 20
-#define ERROR_BTN_TEXT_Y									iScreenHeightOffset + 9
-#define ERROR_TEXT_X										iScreenWidthOffset + 0
-#define ERROR_TEXT_Y										iScreenHeightOffset + 15
+#define ERROR_BTN_X											94
+#define ERROR_BTN_Y											88
+#define ERROR_TITLE_X										3
+#define ERROR_TITLE_Y										1
+#define ERROR_BTN_TEXT_X									15
+#define ERROR_BTN_TEXT_Y									9
+#define ERROR_TEXT_X										20
+#define ERROR_TEXT_Y										15
 #define LAPTOP_TITLE_ICONS_X								iScreenWidthOffset + 113
 #define LAPTOP_TITLE_ICONS_Y								iScreenHeightOffset + 27
 
@@ -336,7 +336,7 @@ BOOLEAN gfShowBookmarks=FALSE;
 
 // in progress of loading a page?
 BOOLEAN fLoadPendingFlag=FALSE;
-BOOLEAN fErrorFlag;
+BOOLEAN fErrorFlag=FALSE;
 
 // mark buttons dirty?
 BOOLEAN fMarkButtonsDirtyFlag = TRUE;
@@ -4628,7 +4628,7 @@ void CreateDestroyErrorButton( void )
 
 	// load image and create error confirm button
 	giErrorButtonImage[0]=LoadButtonImage( "LAPTOP\\errorbutton.sti" ,-1,0,-1,1,-1 );
-	giErrorButton[0]= QuickCreateButton( giErrorButtonImage[0], ERROR_X+ERROR_BTN_X, ERROR_BTN_Y,
+	giErrorButton[0]= QuickCreateButton( giErrorButtonImage[0], ERROR_X+ERROR_BTN_X, ERROR_Y + ERROR_BTN_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnErrorCallback);
 
@@ -4698,7 +4698,7 @@ void DisplayErrorBox( void )
 	SetFontShadow(NO_SHADOW);
 
 	// print title
-	mprintf(ERROR_TITLE_X, ERROR_TITLE_Y, pErrorStrings[0]);
+	mprintf(ERROR_X + ERROR_TITLE_X, ERROR_Y + ERROR_TITLE_Y, pErrorStrings[0]);
 	SetFontForeground(FONT_BLACK);
 	SetFont(ERROR_FONT);
 
@@ -4718,7 +4718,7 @@ void DrawTextOnErrorButton()
 	SetFontForeground(FONT_BLACK);
 	SetFontBackground(FONT_BLACK);
 	SetFontShadow(NO_SHADOW);
-	mprintf(ERROR_X+ERROR_BTN_X+ERROR_BTN_TEXT_X, ERROR_BTN_Y+ERROR_BTN_TEXT_Y, pErrorStrings[3]);
+	mprintf(ERROR_X+ERROR_BTN_X+ERROR_BTN_TEXT_X, ERROR_Y + ERROR_BTN_Y+ERROR_BTN_TEXT_Y, pErrorStrings[3]);
 	SetFontShadow(DEFAULT_SHADOW);
 
 	InvalidateRegion(ERROR_X, ERROR_Y, ERROR_X+BOOK_WIDTH, ERROR_Y+6*BOOK_HEIGHT);
