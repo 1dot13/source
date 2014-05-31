@@ -5967,7 +5967,7 @@ void ToggleMercsNeverQuit()
 }
 #endif
 
-
+// silversurfer: This function handles switching between prone, crouching and standing stance. Running is handled in function HandleTBSoldierRun().
 void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 {
 	// If we have multiple guys selected, make all change stance!
@@ -5986,7 +5986,24 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 				{
-					UIHandleSoldierStanceChange( pSoldier->ubID, ubAnimHeight );
+					// silversurfer: If we decide to stand up or press "s" again while we are standing we should reset movement to walk mode.
+					// If we want to run we have to press "r" which is handled elsewhere.
+					if ( ubAnimHeight == ANIM_STAND )
+					{
+						if ( pSoldier->usUIMovementMode != WALKING && pSoldier->usUIMovementMode != RUNNING && pSoldier->usUIMovementMode != WALKING_WEAPON_RDY && pSoldier->usUIMovementMode != WALKING_DUAL_RDY && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
+						{
+							UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
+							pSoldier->flags.fUIMovementFast = 0;
+						}
+						else
+						{
+							pSoldier->flags.fUIMovementFast = 0;
+							pSoldier->usUIMovementMode = WALKING;
+							gfPlotNewMovement = TRUE;
+						}
+					}
+					else
+						UIHandleSoldierStanceChange( pSoldier->ubID, ubAnimHeight );
 				}
 			}
 		}
@@ -5994,7 +6011,28 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 	else
 	{
 		if( gusSelectedSoldier != NOBODY )
-			UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ubAnimHeight );
+		{
+			pSoldier = MercPtrs[ (UINT8)gusSelectedSoldier ];
+
+			// silversurfer: If we decide to stand up or press "s" again while we are standing we should reset movement to walk mode.
+			// If we want to run we have to press "r" which is handled elsewhere.
+			if ( ubAnimHeight == ANIM_STAND )
+			{
+				if ( pSoldier->usUIMovementMode != WALKING && pSoldier->usUIMovementMode != RUNNING && pSoldier->usUIMovementMode != WALKING_WEAPON_RDY && pSoldier->usUIMovementMode != WALKING_DUAL_RDY && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
+				{
+					UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
+					pSoldier->flags.fUIMovementFast = 0;
+				}
+				else
+				{
+					pSoldier->flags.fUIMovementFast = 0;
+					pSoldier->usUIMovementMode = WALKING;
+					gfPlotNewMovement = TRUE;
+				}
+			}
+			else
+				UIHandleSoldierStanceChange( pSoldier->ubID, ubAnimHeight );
+		}
 	}
 }
 

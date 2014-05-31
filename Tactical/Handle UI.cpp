@@ -1722,7 +1722,17 @@ UINT32 UIHandleMovementMenu( UI_EVENT *pUIEvent )
 
 				case MOVEMENT_MENU_WALK:
 
-					UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
+					if ( pSoldier->usUIMovementMode != WALKING && pSoldier->usUIMovementMode != RUNNING && pSoldier->usUIMovementMode != WALKING_WEAPON_RDY && pSoldier->usUIMovementMode != WALKING_DUAL_RDY && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
+					{
+						UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
+						pSoldier->flags.fUIMovementFast = 0;
+					}
+					else
+					{
+						pSoldier->flags.fUIMovementFast = 0;
+						pSoldier->usUIMovementMode = WALKING;
+						gfPlotNewMovement = TRUE;
+					}
 					break;
 
 				case MOVEMENT_MENU_SWAT:
