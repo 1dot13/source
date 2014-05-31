@@ -82,10 +82,10 @@ public:
 	void Display();
 
 	/*
-	 * Sometimes a refresh inside the class isn't enough - best example is closing the dropdown area, after whcih te previous background cannot be restored by this class.
+	 * Sometimes a refresh inside the class isn't enough - best example is closing the dropdown area, after which the previous background cannot be restored by this class.
 	 * In that case, the background and this class has to be redrawn.
 	 * This function is called internally whenver such a refreh is necessary.
-	 * It has to be defined in derived classes and should notify your dialogues to redraw at apporpiate times
+	 * It has to be defined in derived classes and should notify your dialogues to redraw at appropriate times
 	 *
 	 * This function has to be implemented!
 	 */
@@ -157,6 +157,11 @@ public:
 	 * Are we displayed?
 	 */
 	BOOLEAN	IsDisplayed()				{ return mfMouseRegionsCreated; }
+
+	/*
+	* Do we have data to display?
+	*/
+	BOOLEAN HasEntries( )				{ return !mEntryVector.empty(); }
 
 	// call to open/close the drop down
 	void OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );

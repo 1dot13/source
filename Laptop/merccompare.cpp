@@ -417,12 +417,15 @@ BOOLEAN EnterMercCompareAnalyze()
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).SetHelpText( szMercCompareWebSite[TEXT_MERCCOMPARE_DROPDOWNTEXT] );
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).Create( MCA_DROPDOWN_X + MCA_SIDEOFFSET, MCA_START_CONTENT_Y );
 
-	// if a profile wa already set, use it
-	if ( gMercCompareProfile1 != NO_PROFILE )
-		DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).SetSelectedEntryKey( gMercCompareProfile1 );
+	// if a profile was already set, use it
+	if ( DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance().HasEntries() )
+	{
+		if ( gMercCompareProfile1 != NO_PROFILE )
+			DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).SetSelectedEntryKey( gMercCompareProfile1 );
 
-	if ( gMercCompareProfile2 != NO_PROFILE )
-		DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).SetSelectedEntryKey( gMercCompareProfile2 );
+		if ( gMercCompareProfile2 != NO_PROFILE )
+			DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).SetSelectedEntryKey( gMercCompareProfile2 );
+	}
 
 	RenderMercCompareAnalyze( );
 			
@@ -463,13 +466,21 @@ void RenderMercCompareAnalyze()
 	usPosX = LAPTOP_SCREEN_UL_X;
 	usPosY = MCA_START_CONTENT_Y;
 		
-	gMercCompareProfile1 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).GetSelectedEntryKey( );
-	gMercCompareProfile2 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).GetSelectedEntryKey( );
+	if ( DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance().HasEntries() )
+	{
+		gMercCompareProfile1 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).GetSelectedEntryKey( );
+		gMercCompareProfile2 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).GetSelectedEntryKey( );
 	
-	DisplayMercData( gMercCompareProfile1, gMercCompareProfile2 );
+		DisplayMercData( gMercCompareProfile1, gMercCompareProfile2 );
 
-	DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).Display( );
-	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).Display( );
+		DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).Display( );
+		DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).Display( );
+	}
+	else
+	{
+		swprintf( sText, szMercCompareWebSite[TEXT_MERCCOMPARE_ERROR_NOBODYTHERE] );
+		usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+	}
 	
 	SetFontShadow( DEFAULT_SHADOW );
 
@@ -1056,128 +1067,136 @@ void RenderMercCompareMatrix( )
 		}
 	}
 
-	gSquadToShow = ( UINT8 )DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance( ).GetSelectedEntryKey( );
-	DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance( ).Display( );
-
-	SetFontShadow( MERCOMP_FONT_SHADOW );
-
-	usPosX = LAPTOP_SCREEN_UL_X;
-	usPosY = MCA_START_CONTENT_Y + 30;
-
-	// display a table with all squadmembers
-	std::vector<UINT8> squadvector;
-	SOLDIERTYPE* pSoldier = NULL;
-	UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT16 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pSoldier = MercPtrs[id]; id <= lastid; ++id, pSoldier++ )
+	if ( DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance().HasEntries() )
 	{
-		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bAssignment == gSquadToShow )
+		gSquadToShow = ( UINT8 )DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance( ).GetSelectedEntryKey( );
+		DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance( ).Display( );
+
+		SetFontShadow( MERCOMP_FONT_SHADOW );
+
+		usPosX = LAPTOP_SCREEN_UL_X;
+		usPosY = MCA_START_CONTENT_Y + 30;
+
+		// display a table with all squadmembers
+		std::vector<UINT8> squadvector;
+		SOLDIERTYPE* pSoldier = NULL;
+		UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT16 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( pSoldier = MercPtrs[id]; id <= lastid; ++id, pSoldier++ )
 		{
-			// remember squamember
-			squadvector.push_back( pSoldier->ubProfile );
+			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bAssignment == gSquadToShow )
+			{
+				// remember squamember
+				squadvector.push_back( pSoldier->ubProfile );
+			}
 		}
-	}
 
-	UINT16 spacepermerc = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X) / (squadvector.size() + 1);
-	spacepermerc = min( spacepermerc , 60);
+		UINT16 spacepermerc = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X) / (squadvector.size() + 1);
+		spacepermerc = min( spacepermerc , 60);
 
-	// now loop over the squadmembers and fill out the table
-	std::vector<UINT8>::iterator itend = squadvector.end( );
-	for ( std::vector<UINT8>::iterator it = squadvector.begin(); it != itend; ++it )
-	{
-		usPosX += spacepermerc;
+		// now loop over the squadmembers and fill out the table
+		std::vector<UINT8>::iterator itend = squadvector.end( );
+		for ( std::vector<UINT8>::iterator it = squadvector.begin(); it != itend; ++it )
+		{
+			usPosX += spacepermerc;
 
-		// write the names of all squamembers on top of the table
-		swprintf( sText, gMercProfiles[(*it)].zNickname );
-		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+			// write the names of all squamembers on top of the table
+			swprintf( sText, gMercProfiles[(*it)].zNickname );
+			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+			DisplaySmallColouredLineWithShadow( usPosX - 10, usPosY - 6, usPosX - 10, usPosY + 17 * (squadvector.size( ) + 1) - 5, FROMRGB( 0, 255, 0 ) );
+		}
 
 		DisplaySmallColouredLineWithShadow( usPosX - 10, usPosY - 6, usPosX - 10, usPosY + 17 * (squadvector.size( ) + 1) - 5, FROMRGB( 0, 255, 0 ) );
-	}
 
-	DisplaySmallColouredLineWithShadow( usPosX - 10, usPosY - 6, usPosX - 10, usPosY + 17 * (squadvector.size( ) + 1) - 5, FROMRGB( 0, 255, 0 ) );
+		usPosX = LAPTOP_SCREEN_UL_X;
 
-	usPosX = LAPTOP_SCREEN_UL_X;
-
-	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 5, usPosX + spacepermerc * (squadvector.size( ) + 1), usPosY - 5, FROMRGB( 0, 255, 0 ) );
+		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 5, usPosX + spacepermerc * (squadvector.size( ) + 1), usPosY - 5, FROMRGB( 0, 255, 0 ) );
 	
-	UINT16 currentmouseregion = 0;
+		UINT16 currentmouseregion = 0;
 
-	for ( std::vector<UINT8>::iterator it = squadvector.begin(); it != itend; ++it )
-	{
-		INT16 idA = GetSoldierIDFromMercID( (*it) );
+		for ( std::vector<UINT8>::iterator it = squadvector.begin(); it != itend; ++it )
+		{
+			INT16 idA = GetSoldierIDFromMercID( (*it) );
 
-		if ( idA < 0 )
-			continue;
+			if ( idA < 0 )
+				continue;
 
-		SOLDIERTYPE* pSoldierA = MercPtrs[idA];
+			SOLDIERTYPE* pSoldierA = MercPtrs[idA];
 
-		if ( !pSoldierA )
-			continue;
+			if ( !pSoldierA )
+				continue;
+
+			usPosY += 17;
+			usPosX = LAPTOP_SCREEN_UL_X;
+
+			DisplaySmallColouredLineWithShadow( usPosX, usPosY - 5, usPosX + spacepermerc * (squadvector.size( ) + 1), usPosY - 5, FROMRGB( 0, 255, 0 ) );
+		
+			// write name on the left side
+			swprintf( sText, gMercProfiles[pSoldierA->ubProfile].zNickname );
+			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+			usPosX += spacepermerc;
+
+			for ( std::vector<UINT8>::iterator it2 = squadvector.begin( ); it2 != itend; ++it2 )
+			{
+				INT16 idB = GetSoldierIDFromMercID( (*it2) );
+
+				if ( idB < 0 )
+					continue;
+
+				if ( idA == idB )
+				{
+					usPosX += spacepermerc;
+					continue;
+				}
+
+				SOLDIERTYPE* pSoldierB = MercPtrs[idB];
+
+				if ( !pSoldierB )
+					continue;
+
+				if ( !gMercCompareMatrixLinkDefined[currentmouseregion] )
+				{
+					MSYS_DefineRegion( &gMercCompareMatrixLinkRegion[currentmouseregion], usPosX - 5, usPosY, usPosX + spacepermerc - 5, usPosY + 17, MSYS_PRIORITY_HIGH,
+						CURSOR_WWW, MSYS_NO_CALLBACK, SelectMercCompareMatrixRegionCallBack );
+					MSYS_AddRegion( &gMercCompareMatrixLinkRegion[currentmouseregion] );
+
+					// both profilenumbers are combined to a single value which cn later be reinterpreted.
+					// Note: this will fail if the profile IDs are bigger than UINT16 (currently UINT8)
+					MSYS_SetRegionUserData( &gMercCompareMatrixLinkRegion[currentmouseregion], 0, ((pSoldierA->ubProfile << 8) | pSoldierB->ubProfile) );
+					gMercCompareMatrixLinkDefined[currentmouseregion] = TRUE;
+					++currentmouseregion;
+				}
+						
+				// write down both relations						
+				INT8 val = SoldierRelation( pSoldierA, pSoldierB );
+				swprintf( sText, L"%d", val );
+				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+				usPosX += 15;
+
+				swprintf( sText, L"/" );
+				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+				usPosX += 5;
+
+				val = SoldierRelation( pSoldierB, pSoldierA );
+				swprintf( sText, L"%d", val );
+				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+				usPosX += spacepermerc - 20;
+			}
+		}
 
 		usPosY += 17;
 		usPosX = LAPTOP_SCREEN_UL_X;
 
 		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 5, usPosX + spacepermerc * (squadvector.size( ) + 1), usPosY - 5, FROMRGB( 0, 255, 0 ) );
-		
-		// write name on the left side
-		swprintf( sText, gMercProfiles[pSoldierA->ubProfile].zNickname );
-		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosX += spacepermerc;
-
-		for ( std::vector<UINT8>::iterator it2 = squadvector.begin( ); it2 != itend; ++it2 )
-		{
-			INT16 idB = GetSoldierIDFromMercID( (*it2) );
-
-			if ( idB < 0 )
-				continue;
-
-			if ( idA == idB )
-			{
-				usPosX += spacepermerc;
-				continue;
-			}
-
-			SOLDIERTYPE* pSoldierB = MercPtrs[idB];
-
-			if ( !pSoldierB )
-				continue;
-
-			if ( !gMercCompareMatrixLinkDefined[currentmouseregion] )
-			{
-				MSYS_DefineRegion( &gMercCompareMatrixLinkRegion[currentmouseregion], usPosX - 5, usPosY, usPosX + spacepermerc - 5, usPosY + 17, MSYS_PRIORITY_HIGH,
-					CURSOR_WWW, MSYS_NO_CALLBACK, SelectMercCompareMatrixRegionCallBack );
-				MSYS_AddRegion( &gMercCompareMatrixLinkRegion[currentmouseregion] );
-
-				// both profilenumbers are combined to a single value which cn later be reinterpreted.
-				// Note: this will fail if the profile IDs are bigger than UINT16 (currently UINT8)
-				MSYS_SetRegionUserData( &gMercCompareMatrixLinkRegion[currentmouseregion], 0, ((pSoldierA->ubProfile << 8) | pSoldierB->ubProfile) );
-				gMercCompareMatrixLinkDefined[currentmouseregion] = TRUE;
-				++currentmouseregion;
-			}
-						
-			// write down both relations						
-			INT8 val = SoldierRelation( pSoldierA, pSoldierB );
-			swprintf( sText, L"%d", val );
-			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-			usPosX += 15;
-
-			swprintf( sText, L"/" );
-			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-			usPosX += 5;
-
-			val = SoldierRelation( pSoldierB, pSoldierA );
-			swprintf( sText, L"%d", val );
-			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-			usPosX += spacepermerc - 20;
-		}
 	}
-
-	usPosY += 17;
-	usPosX = LAPTOP_SCREEN_UL_X;
-
-	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 5, usPosX + spacepermerc * (squadvector.size( ) + 1), usPosY - 5, FROMRGB( 0, 255, 0 ) );
+	else
+	{
+		swprintf( sText, szMercCompareWebSite[TEXT_MERCCOMPARE_ERROR_NOBODYTHERE] );
+		usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+	}
 	
 	SetFontShadow( DEFAULT_SHADOW );
 

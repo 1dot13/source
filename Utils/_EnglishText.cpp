@@ -8613,6 +8613,9 @@ STR16	szMercCompareWebSite[] =
 	// analyze
 	L"Choose your employee",
 	L"Choose your squad",
+
+	// error messages
+	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
 
 STR16	szMercCompareEventText[]=
