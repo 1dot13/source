@@ -415,7 +415,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEA
 					ubMaxBullets = DefaultAutofireBulletsByGunClass( pSoldier );
 					if( ubMaxBullets == 0 )
 					{
-						ubMaxBullets = usShotsLeft;
+						ubMaxBullets = (UINT8)usShotsLeft;
 						bMaxAim = maxAimLevels;
 					}
 

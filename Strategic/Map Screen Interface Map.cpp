@@ -4006,7 +4006,7 @@ void DisplayDistancesForHelicopter( void )
 	UINT32 uiCostRed = __max(0,gGameExternalOptions.usHelicopterBaseCostPerRedTile + gsSkyriderCostModifier);
 	uiTripCost = ( sNumSafeSectors * uiCostGreen ) + ( sNumUnSafeSectors * uiCostRed );
 
-	if( uiTripCost > LaptopSaveInfo.iCurrentBalance )
+	if( (INT32)uiTripCost > LaptopSaveInfo.iCurrentBalance )
 		SetFontForeground( FONT_LTRED );
 		
 	swprintf( sString, L"%d", uiTripCost );

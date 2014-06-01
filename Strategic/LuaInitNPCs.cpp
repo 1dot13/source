@@ -4076,26 +4076,23 @@ static int l_FadeOutGameScreen(lua_State *L)
 int l_InitMapProfil (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
-	{	
+	{
+		UINT8 prof = lua_tointeger(L,1);
+		INT16 x = lua_tointeger(L,2);
+		INT16 y = lua_tointeger(L,3);
+		INT8 z = lua_tointeger(L,4);
+		UINT32 gridno = lua_tointeger(L,5);
 	
-	UINT8 prof = lua_tointeger(L,1);
-	INT16 x = lua_tointeger(L,2);
-	INT16 y = lua_tointeger(L,3);
-	INT16 z = lua_tointeger(L,4);
-	UINT32 gridno = lua_tointeger(L,5);
-	
-	gMercProfiles[ prof ].sSectorX = x;
-	gMercProfiles[ prof ].sSectorY = y;
-	gMercProfiles[ prof ].bSectorZ = z;
-	gMercProfiles[ prof ].sGridNo = gridno; 
-	gMercProfiles[ prof ].fUseProfileInsertionInfo = TRUE;
-	gMercProfiles[ prof ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-	gMercProfiles[ prof ].usStrategicInsertionData = gridno; 
-	
+		gMercProfiles[ prof ].sSectorX = x;
+		gMercProfiles[ prof ].sSectorY = y;
+		gMercProfiles[ prof ].bSectorZ = z;
+		gMercProfiles[ prof ].sGridNo = gridno; 
+		gMercProfiles[ prof ].fUseProfileInsertionInfo = TRUE;
+		gMercProfiles[ prof ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		gMercProfiles[ prof ].usStrategicInsertionData = gridno; 	
 	}
 	
-	return 0;
-	
+	return 0;	
 }
 
 static int l_ProfilesStrategicInsertionData (lua_State *L)

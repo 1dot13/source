@@ -5756,7 +5756,7 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 								// put it on the ground //dnl ch75 281013
 								INT32 sGridNo = NOWHERE;
 								UINT8 ubLevel = 0;
-								for(int i=0; i<guiNumWorldItems; i++)
+								for(UINT32 i=0; i<guiNumWorldItems; ++i)
 								{
 									if(gWorldItems[i].fExists && (pObj == &gWorldItems[i].object))
 									{
@@ -5765,6 +5765,7 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 										break;
 									}
 								}
+
 								if(sGridNo != NOWHERE)
 								{
 									if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)

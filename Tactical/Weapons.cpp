@@ -12150,17 +12150,13 @@ INT16 GetAPsToReload( OBJECTTYPE *pObj )
 	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
 		fModifier = gItemSettings.fAPtoReloadModifierLauncher;
 
-	return ( Weapon[ pObj->usItem ].APsToReload * fModifier *
-		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
-
+	return ( Weapon[ pObj->usItem ].APsToReload * fModifier * ( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 }
 
 // HEADROCK HAM 3.4: Estimates the number of bullets left in the gun. For use during combat.
-
 CHAR16 gBulletCount[10]; // This is a global containing the bullet count string
 void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
-
 	UINT16 usExpLevel;
 	UINT32 usDexterity;
 	UINT32 usWisdom;
