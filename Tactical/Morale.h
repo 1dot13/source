@@ -324,4 +324,6 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier );
 
 UINT8 HighestInventoryCoolness( SOLDIERTYPE* pSoldier );
 
+void HandleDynamicOpinionDialogue();
+
 #endif

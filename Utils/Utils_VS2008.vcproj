@@ -370,10 +370,6 @@
 				>
 			</File>
 			<File
-				RelativePath="_Ja25TaiwaneseText.h"
-				>
-			</File>
-			<File
 				RelativePath="Animated ProgressBar.h"
 				>
 			</File>
@@ -606,21 +602,13 @@
 				>
 			</File>
 			<File
-				RelativePath="_Ja25TaiwaneseText.cpp"
-				>
-			</File>
-			<File
 				RelativePath="_PolishText.cpp"
 				>
 			</File>
 			<File
 				RelativePath="_RussianText.cpp"
 				>
-			</File>
-			<File
-				RelativePath="_TaiwaneseText.cpp"
-				>
-			</File>
+			</File
 			<File
 				RelativePath="Animated ProgressBar.cpp"
 				>

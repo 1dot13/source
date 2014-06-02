@@ -17,7 +17,6 @@ namespace Loc
 		Italian,
 		Polish,
 		Russian,
-		Taiwanese,
 	};
 
 	static const wchar_t* LangSuffix [] = {

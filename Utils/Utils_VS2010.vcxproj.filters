@@ -30,9 +30,6 @@
     <ClInclude Include="_Ja25RussianText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_Ja25TaiwaneseText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animated ProgressBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -206,16 +203,10 @@
     <ClCompile Include="_Ja25RussianText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_Ja25TaiwaneseText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_PolishText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_RussianText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_TaiwaneseText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animated ProgressBar.cpp">

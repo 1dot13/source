@@ -163,9 +163,6 @@ static const STR GetLanguagePrefix()
 #ifdef ITALIAN 
 	return ITALIAN_PREFIX;
 #endif
-#ifdef TAIWANESE 
-	return TAIWANESE_PREFIX;
-#endif
 #ifdef CHINESE
 	return CHINESE_PREFIX;
 #endif

@@ -2814,7 +2814,6 @@ void this_is_the_GermanText_public_symbol(void);
 void this_is_the_ItalianText_public_symbol(void);
 void this_is_the_PolishText_public_symbol(void);
 void this_is_the_RussianText_public_symbol(void);
-void this_is_the_TaiwaneseText_public_symbol(void);
 
 void this_is_the_Ja25ChineseText_public_symbol(void);
 void this_is_the_Ja25DutchText_public_symbol(void);
@@ -2824,4 +2823,3 @@ void this_is_the_Ja25GermanText_public_symbol(void);
 void this_is_the_Ja25ItalianText_public_symbol(void);
 void this_is_the_Ja25PolishText_public_symbol(void);
 void this_is_the_Ja25RussianText_public_symbol(void);
-void this_is_the_Ja25TaiwaneseText_public_symbol(void);

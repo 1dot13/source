@@ -49,7 +49,6 @@ typedef PARSE_STAGE;
 #define POLISH_PREFIX							"Polish."
 #define FRENCH_PREFIX							"French."
 #define ITALIAN_PREFIX							"Italian."
-#define TAIWANESE_PREFIX						"Taiwanese."
 #define CHINESE_PREFIX							"Chinese."
 
 #define	ATTACHMENTSFILENAME						"Items\\Attachments.xml"

@@ -14,8 +14,6 @@
 #	pragma message(" (Language set to FRENCH, You'll need french CDs)")
 #elif defined(ITALIAN)
 #	pragma message(" (Language set to ITALIAN, You'll need italian CDs)")
-#elif defined(TAIWANESE)
-#	pragma message(" (Language set to TAIWANESE, You'll need taiwanese CDs)")
 #elif defined(CHINESE)
 #	pragma message(" (Language set to CHINESE, You'll need chinese CDs)")
 #else

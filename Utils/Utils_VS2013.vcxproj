@@ -73,7 +73,6 @@
     <ClInclude Include="_Ja25ItalianText.h" />
     <ClInclude Include="_Ja25PolishText.h" />
     <ClInclude Include="_Ja25RussianText.h" />
-    <ClInclude Include="_Ja25TaiwaneseText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animated ProgressBar.cpp" />
@@ -130,10 +129,8 @@
     <ClCompile Include="_Ja25ItalianText.cpp" />
     <ClCompile Include="_Ja25PolishText.cpp" />
     <ClCompile Include="_Ja25RussianText.cpp" />
-    <ClCompile Include="_Ja25TaiwaneseText.cpp" />
     <ClCompile Include="_PolishText.cpp" />
     <ClCompile Include="_RussianText.cpp" />
-    <ClCompile Include="_TaiwaneseText.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{082F6E91-D049-4314-BE9D-D9509E853B01}</ProjectGuid>

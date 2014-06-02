@@ -411,12 +411,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, IN
 		return;
 	}
 
-#ifdef TAIWANESE
-	swprintf( gzCivQuote, L"%s", zQuote );
-#else
 	swprintf( gzCivQuote, L"\"%s\"", zQuote );
-#endif
-
 
 	if ( ubCivQuoteID == CIV_QUOTE_HINT )
 	{
@@ -1913,11 +1908,8 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		{
 			swprintf( sTauntText, zApplicableTaunts[ iChosenTaunt ].szText );
 		}
-#ifdef TAIWANESE
-		swprintf( gzTauntQuote, L"%s", sTauntText );
-#else
+
 		swprintf( gzTauntQuote, L"\"%s\"", sTauntText );
-#endif
 
 		// block this enemy from taunting for a time being
 		uiTauntFinishTimes[pCiv->ubID] = GetJA2Clock() + min( gTauntsSettings.sMaxDelay , max( gTauntsSettings.sMinDelay, FindDelayForString( gzTauntQuote ) + gTauntsSettings.sModDelay ) ); 

@@ -81,7 +81,7 @@
 // Only enable this "undef", if you use the 3. way of building the executable!
 #undef ENGLISH
 
-#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
 
 #define ENGLISH
@@ -90,7 +90,6 @@
 //#define DUTCH
 //#define FRENCH
 //#define ITALIAN
-//#define TAIWANESE
 //#define POLISH
 
 // INFO: For Chinese 1.13 version, you also have to set USE_WINFONTS = 1 in ja2.ini inside your JA2 installation directory!
@@ -108,13 +107,13 @@
  * Regardless of if we did it Workspace wide or by uncommenting above,
  * HERE we must see, what language was selected. If one, we
  */
-#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(CHINESE)
 #  error "At least You have to specify a Language somewhere. See comments above."
 #endif
 
 //if the language represents words as single chars
-#ifdef TAIWAN
+/*#ifdef TAIWAN
 	#define	SINGLE_CHAR_WORDS
-#endif
+#endif*/
 
 #endif

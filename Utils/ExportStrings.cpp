@@ -65,10 +65,6 @@ namespace Loc
 #	include "_RussianText.cpp"
 	static Loc::Language gs_Lang = Loc::Russian;
 #endif
-#ifdef TAIWANESE
-#	include "_TaiwaneseText.cpp"
-	static Loc::Language gs_Lang = Loc::Taiwanese;
-#endif
 }
 
 #include "Assignments.h"

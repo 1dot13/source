@@ -5219,7 +5219,6 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 			return( TRUE );
 	}
 
-
 	return( FALSE );
 }
 
@@ -5228,12 +5227,7 @@ void			InitShopKeeperSubTitledText( STR16 pString )
 	//Clear the contents of the subtitle text
 	memset( gsShopKeeperTalkingText, 0, SKI_SUBTITLE_TEXT_SIZE );
 
-#ifdef TAIWANESE
-	swprintf( gsShopKeeperTalkingText, L"%s", pString );
-#else
 	swprintf( gsShopKeeperTalkingText, L"\"%s\"", pString );
-#endif
-
 
 	//Now setup the popup box
 	if( gGameSettings.fOptions[ TOPTION_SUBTITLES ] )
@@ -5242,8 +5236,7 @@ void			InitShopKeeperSubTitledText( STR16 pString )
 		UINT16 usActualHeight=0;
 
 		giPopUpBoxId = PrepareMercPopupBox( giPopUpBoxId, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gsShopKeeperTalkingText, 300, 0, 0, 0, &usActualWidth, &usActualHeight);
-
-
+		
 //		gusPositionOfSubTitlesX = ( 640 - usActualWidth ) / 2 ;
 		//position it to start under the guys face
 
