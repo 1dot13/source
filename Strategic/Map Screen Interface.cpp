@@ -1983,7 +1983,7 @@ void RemoveMapStatusBarsRegion( void )
 
 void UpdateCharRegionHelpText( void )
 {
-	CHAR16 sString[ 128 ], sTemp[ 20 ];
+	CHAR16 sString[ 256 ], sTemp[ 20 ];
 	CHAR16 pMoraleStr[ 128 ];
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -2000,8 +2000,7 @@ void UpdateCharRegionHelpText( void )
 				if ( AM_A_ROBOT( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
 				{
 					// robot (condition only)
-					swprintf( sString, L"%s: %d/%d",
-													pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
+					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
 				else if ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
@@ -2085,17 +2084,17 @@ void UpdateCharRegionHelpText( void )
 
 				// lets rearrange our skills to a temp array
 				// we also get the number of lines (skills) to be displayed 
-				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ++ubCnt )
 				{
 					if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 2 )
 					{
 						ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
-						bNumSkillTraits++;
+						++bNumSkillTraits;
 					}
 					else if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 1 )
 					{
 						ubTempSkillArray[bNumSkillTraits] = ubCnt;
-						bNumSkillTraits++;
+						++bNumSkillTraits;
 					}
 				}
 
@@ -2136,6 +2135,7 @@ void UpdateCharRegionHelpText( void )
 						{
 							swprintf( sString, L"%s\n", gzMercSkillText[bSkill1] );
 						}
+
 						if( bSkill2 != 0 )
 						{
 							swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
@@ -2162,7 +2162,6 @@ void UpdateCharRegionHelpText( void )
 			SetButtonFastHelpText( giMapContractButton, L"" );
 			DisableButton( giMapContractButton );
 		}
-
 
 		if ( CanToggleSelectedCharInventory( ) )
 		{

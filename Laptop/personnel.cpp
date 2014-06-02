@@ -1889,7 +1889,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 							for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
 							{
-								if ( ubCnt >= 4 && bNumSkillTraits > 5 )
+								if ( ubCnt >= 3 && bNumSkillTraits > 4 )
 								{
 									fDisplayMoreTraits = TRUE;
 									swprintf( sString, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
@@ -1953,14 +1953,14 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 							// if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
 							if ( fDisplayMoreTraits )
 							{
-								swprintf( sString, L"%s", gzMercSkillTextNew[ 2 * NEWTRAIT_MERCSKILL_OFFSET_ALL + 1 ]); // display "More..."
+								swprintf( sString, L"%s", gzMercSkillTextNew[2 * NEWTRAIT_MERCSKILL_EXPERTOFFSET + 1] ); // display "More..."
 								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 								if( sX <= iMinimumX )
 								{
 									FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
 									sX = (INT16)max( sX, iMinimumX );
 								}
-								sY = (INT16)(pPersonnelScreenPoints[19].y + 48);
+								sY = (INT16)(pPersonnelScreenPoints[19].y + 36);
 
 								mprintf(sX,sY,sString);
 
