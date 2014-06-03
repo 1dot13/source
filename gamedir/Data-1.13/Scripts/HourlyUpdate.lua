@@ -17,13 +17,13 @@ function HourlyQuestUpdate()
 	end
 
 	-- Bar/night club
-	if ( cHour > 15 or cHour < 2) then
+	if ( cHour >= 15 or cHour < 2) then
 	
 		SetFactTrue( Facts.FACT_CLUB_OPEN )
 		SetFactFalse( Facts.FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED )
 
 		-- Reset boxes fought
-		for i = 0,3 do
+		for i = 0,2 do
 			-- Set false
 			gfBoxerFought(i,false)
 		end
