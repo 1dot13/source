@@ -488,16 +488,16 @@ AnimationSurfaceType	gAnimSurfaceDatabase[ NUMANIMATIONSURFACETYPES ] =
 	RGFSWKNIFE , "ANIMS\\F_MERC\\F_K_SWAT_K.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
 	RGMSWKNIFE , "ANIMS\\S_MERC\\S_K_SWAT.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
 
-	//кидание гранаты стоя с выдергиванием чеки 2 варианта
+	// grenade throwing when standing (pull the pin out of a grenade), 2 variants
 	BGMSTHRG,						"ANIMS\\M_MERC\\M_THROW_G.sti",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
-	//для бабы пока стандартная анимация
+	//for woman - standart animation
 	RGFSTHRG,						"ANIMS\\F_MERC\\F_THROW.STI",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	RGMSTHRG,						"ANIMS\\S_MERC\\S_THROW_G.STI",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	
 	BGMSLOBG,						"ANIMS\\M_MERC\\M_THROW_GLOB.sti",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	RGFSLOBG,						"ANIMS\\F_MERC\\F_LOB.STI",			S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	RGMSLOBG,						"ANIMS\\S_MERC\\S_THROW_GLOB.sti",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
-	//перекат
+	//roll over
 	RGMROLL_PR,				"ANIMS\\S_MERC\\S_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	BGMROLL_PR,				"ANIMS\\M_MERC\\M_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
 	RGFROLL_PR,				"ANIMS\\F_MERC\\F_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,

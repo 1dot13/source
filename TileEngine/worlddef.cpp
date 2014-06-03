@@ -97,7 +97,7 @@
 //<SB> variable map size
 INT32 guiWorldCols = OLD_WORLD_COLS;
 INT32 guiWorldRows = OLD_WORLD_ROWS;
-// размеры должны быть произведением 8
+                                  
 // size must be multiple of 8
 //SB: resize all service array due to tactical map size change
 extern UINT8 *gubGridNoMarkers;
@@ -168,7 +168,7 @@ UINT8 (*gubWorldMovementCosts)[MAXDIR][2] = NULL;//dnl ch43 260909
 
 // Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
 #ifdef USE_ASTAR_PATHS
-//ddd для убыстрения поиска освещенных участков в патхаи.
+//ddd to speed up search of illuminated tiles in PATH AI
 BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
 BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ];
 INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ];
@@ -859,8 +859,8 @@ BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 			&& (pStructure->fFlags & STRUCTURE_OPEN)
 			&& (pStructure->pDBStructureRef->pDBStructure->bPartnerDelta == NO_PARTNER_STRUCTURE)		)
 	{
-		//ручная проверка на заколоченые окна ;( {
-		//build_13.sti - заколоченные окна ндекс: 
+		//manual check for closed (unbreakable?) windows
+		//build_13.sti - closed ( shielded ) windows index: 
 		
 		LEVELNODE *pNode = NULL;// STRUCTURE	*pBase=NULL;
 		UINT32 uiTileType=0;
@@ -875,11 +875,11 @@ BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
         Assert(pNode);
 		GetSubIndexFromTileIndex( pNode->usIndex, (UINT16 *)&RestrSubIndex );
 
-		//этот тип окон не содержится в 0 тайлсете, проверка нулевого тайлсета в этом случае не нужна
+		//this type of window is not present in tileset 0, checking tileset 0 is not necessary in this case
 		if ( _stricmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "build_13.sti" ) == 0 
-			//&& ( pNode->usIndex == 814 || pNode->usIndex == 816 || pNode->usIndex == 817 || pNode->usIndex == 823) -запрещает только в конкретном тайлсете ;( в другом не сработает
+			//&& ( pNode->usIndex == 814 || pNode->usIndex == 816 || pNode->usIndex == 817 || pNode->usIndex == 823) - restricts only in particular tileset, doesn't work with others
 			&& (RestrSubIndex == 40 || RestrSubIndex == 41 || RestrSubIndex == 37 || RestrSubIndex == 38 
-				|| RestrSubIndex == 43 || RestrSubIndex == 44 || RestrSubIndex == 46 || RestrSubIndex == 47) //номера фреймов в стишке
+				|| RestrSubIndex == 43 || RestrSubIndex == 44 || RestrSubIndex == 46 || RestrSubIndex == 47) //frame numbers in STI
 			
 			)
 			return FALSE;

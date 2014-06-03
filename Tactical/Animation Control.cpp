@@ -1466,10 +1466,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ SWATTING_WK ]							= RGMSWKNIFE;
 	gubAnimSurfaceIndex[ REGMALE ][ SWAT_BACKWARDS_WK ]						= RGMSWKNIFE;
 	gubAnimSurfaceIndex[ REGMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGMNOTHING_SWAT;
-	//кидание гранаты
+	//grenade throwing
 	gubAnimSurfaceIndex[ REGMALE ][ THROW_GRENADE_STANCE ]				= RGMSTHRG;
 	gubAnimSurfaceIndex[ REGMALE ][ LOB_GRENADE_STANCE ]				= RGMSLOBG;
-	//перекат
+	//roll over
 	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
 	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
 

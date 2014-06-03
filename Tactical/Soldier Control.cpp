@@ -3422,7 +3422,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 							usNewState = SWAT_BACKWARDS;
 						else
 							usNewState = SWAT_BACKWARDS_NOTHING;
-						// движение назад вприсядку с ножом ;)
+                        // move backward crouching, with a knife
 						if( this->inv[ HANDPOS ].exists() == true && 
 							//(this->ubBodyType == BIGMALE || this->ubBodyType == REGFEMALE )&&
 							(Item[ usItem ].usItemClass == IC_BLADE || Item[ usItem ].usItemClass == IC_THROWING_KNIFE)   )
@@ -3436,7 +3436,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					}
 				}
 			}
-			//***08.12.2008*** добавлена анимация переката -стырено ;) ddd
+			//***08.12.2008*** added roll animation ;) ddd			
 			else if( usNewState == CRAWLING 
 				&& this->ubDirection == 
 				gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData
@@ -4638,12 +4638,12 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 		}
                    */
 
-		//dddokno{ ???????
+		//ddd window{ ???????
 		//if ( IsOknoFencePresentAtGridno( sNewGridNo ) )
 		//{
 		//	this->sZLevelOverride = TOPMOST_Z_LEVEL;
 		//}
-		//dddokno}
+		//ddd window}
 		
 		// Add/ remove tree if we are near it
 		// CheckForFullStructures( this );
@@ -5321,7 +5321,7 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 		else
 		{
 			//***ddd
-			// т.к. пока отрисован 1 бодитайп, остальные добавить
+			// only 1 bodytime is ready (drawn) currently, the rest need to be added
 			UINT16 usItem = this->inv[ HANDPOS ].usItem;
 			if( this->inv[ HANDPOS ].exists() == true && 
 				//(this->ubBodyType == BIGMALE || this->ubBodyType == REGFEMALE )&&

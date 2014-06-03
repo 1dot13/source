@@ -1674,8 +1674,8 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 	}
 }
 
-//***13.02.2008*** постановка в тактике мешков с песком
-//usSubIndex может быть от 1 до 10
+//***13.02.2008*** place sandbags in tactics
+//usSubIndex may be [ 1 .. 10 ]
 //void PlaceSandbag (UINT16 usSubIndex)
 //{
 //	INT16		sGridNo;
@@ -1727,20 +1727,20 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 //		//	return;
 //
 //		//pSector = &SectorInfo[ SECTOR(gWorldSectorX, gWorldSectorY) ];
-//		//if( pSector->bUSUSED <= 0 ) //проверяем число доступных мешков
+//		//if( pSector->bUSUSED <= 0 ) //check the number of available sandbags
 //		//{
 //		//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No Sandbags");
 //		//}
 //usIndex =1;
-//		//GetTileIndexFromTypeSubIndex( SECONDLARGEEXPDEBRIS, usSubIndex, &usIndex ); //только для 0 тайлсета
-//GetTileIndexFromTypeSubIndex( 150, usSubIndex, &usIndex ); //только для 0 тайлсета
+//		//GetTileIndexFromTypeSubIndex( SECONDLARGEEXPDEBRIS, usSubIndex, &usIndex ); //only for tileset 0
+//GetTileIndexFromTypeSubIndex( 150, usSubIndex, &usIndex ); //only for tileset 0
 //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No Sandbags");
 //		//GetTileIndexFromTypeSubIndex( SECONDLARGEEXPDEBRIS, usSubIndex, &usIndex );
 //		ApplyMapChangesToMapTempFile( TRUE );
 //		AddStructToHead( sGridNo, usIndex);
 //		//if( pSector->bUSUSED <= 0 || !AddStructToHead( sGridNo, usIndex ) )
 //		//{
-//			//перебор для удаления всех видов мешков
+//          //loop to delete all sandbags
 //		//	for(cnt = 1; cnt <= 10; cnt++)
 //		//	{
 //		//		GetTileIndexFromTypeSubIndex( uiType, cnt, &usIndex );
@@ -1832,7 +1832,7 @@ void	QueryRTWheels( UINT32 *puiNewEvent )
 						case TALKCURSOR_MODE:
 						case MENU_MODE:
 						break;
-						case CONFIRM_ACTION_MODE: //стрелять здесь. но до сюда не доходит ;)
+						case CONFIRM_ACTION_MODE: //shoot here. but is never gets here :)
 								break;
 					}//switch
 				}//if ( gusSelectedSoldier != NOBODY )
@@ -2048,7 +2048,7 @@ void HandleMouseRTWheel( void )
 								if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
 									( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 								{
-										if ( gViewportRegion.WheelState > 0 ) //колесо от себя
+										if ( gViewportRegion.WheelState > 0 ) //wheel up
 										{
 											//change stance ->DOWN
 											if ( _KeyDown( ALT ) )

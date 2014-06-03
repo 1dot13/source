@@ -508,7 +508,7 @@ void AStarPathfinder::ResetAStarList()
 	//ddd{
 
 	INT32 node;
-	for (node = 0; node < (WORLD_MAX & ~3); node+=4) //ddd разворот цикла
+	for (node = 0; node < (WORLD_MAX & ~3); node+=4) //ddd loop unwinding
 	{
 		AStarData[node].status = AStarData[node+1].status
 			= AStarData[node+2].status = AStarData[node+3].status = AStar_Init; 
@@ -1119,7 +1119,7 @@ void AStarPathfinder::ExecuteAStarLogic()
 			continue;
 		}
 
-		//dddokno  здесь можно запретить вставать на оконные клетки ;)
+		//ddd: window. we can forbid standing on tiles with windows
 		//if (gubWorldMovementCosts[CurrentNode][direction][pSoldier->pathing.bLevel] == TRAVELCOST_JUMPABLEWINDOW)
 		//	continue;
 
@@ -1516,8 +1516,8 @@ int AStarPathfinder::CalcG(int* pPrevCost)
 			}
 		}
 
-		//dddokno { проверить 2 условия 1 если след. тайл окно и надо будет перелезать через него
-		//2. если тек. тайл окно и надо перейти на другой тайл через окно.
+		//ddd: window. { check 2 conditions: 1. if next tile is a window and we will have to hump through it
+		//2. if current tile is a window and we should jump through the window to reach another tile
 		else if ( nextCost == TRAVELCOST_JUMPABLEWINDOW
 			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_N
 			|| nextCost == TRAVELCOST_JUMPABLEWINDOW_W)
@@ -1531,7 +1531,7 @@ int AStarPathfinder::CalcG(int* pPrevCost)
 			nextCost = gTileTypeMovementCost[ gpWorldLevelData[ CurrentNode ].ubTerrainID ];//?
 
 		}
-		//dddokno }
+		//ddd: window }
 
 		else if ( nextCost == TRAVELCOST_FENCE && fNonFenceJumper )
 		{
@@ -2325,7 +2325,7 @@ bool AStarPathfinder::WantToTraverse()
 	///ddd{ 
 	if(gGameExternalOptions.bNewTacticalAIBehavior)
 	{
-		//	по трупам не бегаем . ТОДО: в 80% случаев не бегаем?
+		// don't walk over corpses. TODO: only avoid in 80% ?
 		if ( ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 				&& pSoldier->bTeam == ENEMY_TEAM 
 				//&& IsCorpseAtGridNo( CurrentNode, pSoldier->pathing.bLevel ) 
@@ -2333,7 +2333,7 @@ bool AStarPathfinder::WantToTraverse()
 				)
 			return false;
 
-		//from niht ops	//элита AI не ходит по освещённым участкам, которые просматриваются противником
+		//from NightOps // elite AI will not walk on illuminated tiles, which are seen by the enemy
 		if( ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 			&& pSoldier->bTeam == ENEMY_TEAM && pSoldier->ubProfile == NO_PROFILE 
 			&& pSoldier->aiData.bAction != AI_ACTION_LEAVE_WATER_GAS

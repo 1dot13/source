@@ -958,10 +958,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				//CODE: BEGINHOPFENCE
 				// MOVE TWO FACGIN GRIDNOS
 				sNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );
-				//dddokno{
+				//ddd window{
 					if ( gubWorldMovementCosts[ sNewGridNo ][ (UINT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ] ][ pSoldier->pathing.bLevel ] == TRAVELCOST_FENCE )
 						sNewGridNo = NewGridNo( sNewGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );
-				//dddokno}
+				//ddd window}
 
 				//comm by ddd
 				//sNewGridNo = NewGridNo( sNewGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );

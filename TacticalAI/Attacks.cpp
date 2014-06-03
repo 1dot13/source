@@ -145,7 +145,7 @@ void ResetWeaponMode( SOLDIERTYPE * pSoldier )
 	pSoldier->aiData.bShownAimTime = REFINE_AIM_1;
 
 	//!pSoldier->aiData.ubBurstAP = 0; //SB reset long burst length
-	//^^^^такого свойства нет, добавлять в солжер контрол.х
+	//^^^^no such property, add to soldier control
 //	gfDisplayFullCountRing = FALSE;
 //	gfDisplayFullCountRingBurst = FALSE;
 //</DR>

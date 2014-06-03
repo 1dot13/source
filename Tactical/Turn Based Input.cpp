@@ -1242,7 +1242,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 					if ( MercPtrs[ gusUIFullTargetID ]->bTeam != gbPlayerNum )
 					{
 						fOnValidGuy = TRUE;
-						//ddd сброс флажка, отвечающего за режим прицеливания\регулировки очереди (прицельная очередь) 
+						//ddd turn off flag that indicates aim/autofire mode adjustment (aimed burst/auto)
 						brstmode = 0;
 					}
 					else

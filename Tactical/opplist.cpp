@@ -6247,7 +6247,7 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubN
  // effective volume fades over distance beyond 1 tile away
  iEffVolume -= (iDistance - 1);
 
- //ddd{ цивилы плохо слышат ;)
+ //ddd{ civilians have bad hearing ;)
  if(gGameExternalOptions.bLazyCivilians)
  	if (pSoldier->bTeam == CIV_TEAM && pSoldier->ubBodyType != CROW )
 		if (pSoldier->ubCivilianGroup == 0 && pSoldier->ubProfile == NO_PROFILE)

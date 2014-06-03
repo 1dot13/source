@@ -902,9 +902,9 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			
 				if ( pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 )
 				{
-					if ( PythSpacesAway( pSoldier->sGridNo, pCorpse->def.sGridNo ) <= 5 )//приделать сравнение переменно дальности видения (smaxvid ?)
+					if ( PythSpacesAway( pSoldier->sGridNo, pCorpse->def.sGridNo ) <= 5 )//add check(comparison) of sight range variable (smaxvid ?)
 					{
-						//проверить, находится ли труп в поле зрения драника.мента?
+						//check if the corpse is in the enemny/militia field of view?
 						//CHRISL: Shouldn't we be using the corpse's bLevel?  Otherwise a soldier inside a building can see a corpse on the roof of that building
 						//if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
@@ -3165,7 +3165,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	////////////////////////////////////////////////////////////////////////////
 	if ( ubCanMove && InLightAtNight( pSoldier->sGridNo, pSoldier->pathing.bLevel ) && pSoldier->aiData.bOrders != STATIONARY )
 	{
-		//ddd чтобы убегали, когда подсветят фальшвейером ночью
+		//ddd for the enemy to run away from lighht
 		if(gGameExternalOptions.bNewTacticalAIBehavior)
 			pSoldier->aiData.bAction = AI_ACTION_LEAVE_WATER_GAS;
 		//ddd

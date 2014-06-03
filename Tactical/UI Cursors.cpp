@@ -3163,7 +3163,7 @@ UINT32 ChanceToHitApproximation( SOLDIERTYPE * pSoldier, UINT32 uiChance )
 }
 
 
-/* //почти отлаженный  хедроковский код. доделать прицелы для кулака и ножыга
+/* //nearly debugged Headrock code, need to finish aiming for fist and knife
 void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, INT16 sDelta )
 {
 	UINT16					usInHand;
@@ -3434,7 +3434,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 	{
 		case TARGETCURS:
 			{
-				if(pSoldier->bDoAutofire && (gfKeyState[ ALT ] || brstmode) ) //накрутка кол-ва пулей в очереди	// Flugente: how the fuck is this comment useful?
+				if(pSoldier->bDoAutofire && (gfKeyState[ ALT ] || brstmode) ) //add bullets to autofire
 				{
 					INT16	sCurAPCosts;
 

@@ -835,7 +835,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	Corpse.dYPos									= pSoldier->dYPos;
 	Corpse.bLevel									= pSoldier->pathing.bLevel;
 	Corpse.ubProfile							= pSoldier->ubProfile;
-///ddd{ для обнаружения трупов драниками.
+///ddd{ for the enemy to be able to detect corpses
 	if ( pSoldier->bTeam != gbPlayerNum )
 	Corpse.ubAIWarningValue = 1;
 		//def.ubAIWarningValue = 1; //not used value!

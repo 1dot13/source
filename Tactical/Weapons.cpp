@@ -2514,7 +2514,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 	fCalculateCTHDuringGunfire = FALSE;
 
-//ddd{износ объектов с муззле флаш. silencer
+//ddd{ muzzle flash objects wearing. silencer
 	if ( (Item[ usUBItem ].usItemClass == IC_GUN) && gGameExternalOptions.bAllowWearSuppressor )
 	{
 		if ( IsFlashSuppressor(pObjUsed, pSoldier ) )
@@ -5115,9 +5115,9 @@ void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, B
 	AniParams.uiFlags							= ANITILE_FORWARD;
 
 	pNode = CreateAnimationTile( &AniParams );
-	//dddokno{
+	//ddd window{
 CompileWorldMovementCosts();
-//dddokno}
+//ddd window}
 	PlayJA2Sample( GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir( sGridNo ) );
 
 }

@@ -278,11 +278,11 @@ extern UINT8 gubGlobalPathFlags;
 #define TRAVELCOST_WALL						254
 #define TRAVELCOST_EXITGRID				255
 
-///ddd{okno
+///ddd { window
 #define TRAVELCOST_JUMPABLEWINDOW		46
 #define TRAVELCOST_JUMPABLEWINDOW_N		47
 #define TRAVELCOST_JUMPABLEWINDOW_W		48
-///dddokno}
+///ddd window }
 
 #define TRAVELCOST_TRAINTRACKS		30
 #define TRAVELCOST_DIRTROAD				9

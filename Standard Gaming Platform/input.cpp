@@ -8,7 +8,7 @@
 #elif defined( WIZ8_PRECOMPILED_HEADERS )
 	#include "WIZ8 SGP ALL.H"
 #else
-//** dd для подключения дефайнов доп. кнопок мыши
+//** dd for defines that needed for additional mouse buttons
 #define _WIN32_WINNT 0x500
 
 //**
@@ -159,7 +159,7 @@ LRESULT CALLBACK MouseHandler(int Code, WPARAM wParam, LPARAM lParam)
 
 	switch (wParam)
 	{
-	case WM_XBUTTONDOWN://** код рабочий	 
+	case WM_XBUTTONDOWN://** code is working
 		if( p_mhs->mouseData== (XBUTTON1<<16) ) 			//MessageBeep(-1);
 		{
 			gfX1ButtonState = TRUE;			
@@ -173,7 +173,7 @@ LRESULT CALLBACK MouseHandler(int Code, WPARAM wParam, LPARAM lParam)
 			QueueEvent(X2_BUTTON_DOWN, 0, uiParam);
 		}
 		break;
-	case WM_XBUTTONUP://** код рабочий	 
+	case WM_XBUTTONUP://** code is working
 		if( p_mhs->mouseData== (XBUTTON1<<16) )
 		{
 			gfX1ButtonState = FALSE;			

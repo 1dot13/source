@@ -80,7 +80,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 			}
 		}
 	}
-	//dddokno 
+	//ddd window
 	if ( sSwitchValue == TRAVELCOST_JUMPABLEWINDOW
 		|| sSwitchValue == TRAVELCOST_JUMPABLEWINDOW_N
 		|| sSwitchValue == TRAVELCOST_JUMPABLEWINDOW_W)
@@ -89,8 +89,8 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 				return -1;
 
 	}	
-	//ddd ^^^^^^если не ставить здесь условие, то при подходе к клетке с окном ,когда расст до клетки с окном 1
-	//получим милое сообщение, что путь заблокирован 
+	//ddd if we don't check this condition, then when we approach to the tile with a window, when the distance to that tile will be 1
+	//we'll get nice message, that the way is blocked
 	if ( sSwitchValue == TRAVELCOST_NOT_STANDING)// || sSwitchValue == TRAVELCOST_JUMPABLEWINDOW)
 	{
 		// use the cost of the terrain!
@@ -169,11 +169,11 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 
 		// cost for jumping a fence REPLACES all other AP costs!
 	case TRAVELCOST_FENCE		: 
-		//dddokno{
+		//ddd window{
 	case TRAVELCOST_JUMPABLEWINDOW:
 	case TRAVELCOST_JUMPABLEWINDOW_N:
 	case TRAVELCOST_JUMPABLEWINDOW_W:
-		//dddokno}
+		//ddd window}
 		if (!IS_MERC_BODY_TYPE( pSoldier ))
 		{
 			return -1;
@@ -4268,7 +4268,7 @@ INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate 
 	// Alternative weapon holding?
 	if (( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) || (fEstimate && pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD) )
 	{
-		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip is not nearly бn effort
+		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip is not nearly ?n effort
 			dModifier += 80; // only 20% cost if on hip
 		else // holding pistol in one hand is worse in this case							
 			dModifier -= 25; // increased cost by 25%

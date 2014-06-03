@@ -85,12 +85,12 @@
 #include "Map Information.h"
 #include "Soldier Control.h"
 #include "DisplayCover.h"
-	//ddd оптимизация для хода драников
+	//ddd optimization of enemy turn
 	#include "aiinternals.h"
 	//#include "los.h"
 	//#include "structure wrap.h"
 	//#include "DisplayCover.h"
-	//ddd оптимизация для хода драников
+	//ddd optimization of enemy turn
 #endif
 
 #include "teamturns.h"
@@ -1252,14 +1252,14 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 
 		// Flugente: this stuff is only ever used in AStar pathing and is a unnecessary waste of resources otherwise, so I'm putting an end to this
 #ifdef USE_ASTAR_PATHS
-		////ddd оптимизация для хода драников
+		////ddd enemy turn optimization
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT ) )	
 		{
 			memset( gubWorldTileInLight, FALSE, sizeof( gubWorldTileInLight ) );
  			memset( gubIsCorpseThere, FALSE, sizeof( gubIsCorpseThere ) );
  			memset( gubMerkCanSeeThisTile, FALSE, sizeof( gubMerkCanSeeThisTile ) );
 	 	 
-			//развертка цикла. при изменении WORLD_MAX на др.знач. необходимо будет подчищать хвосты! ибо опасный код!!! ;)
+			//sevenfm translated: unwinding of loop. When changing WORLD_MAX to another value will need some cleaning! dangerous code! ;)
 
 			// WANNE: We had a custom user map (Tixa, J9), where the following loop caused an unhandled exception.
 			// The crash occurd at ~index 16000 when calling the method IsCorpseAtGridNo() ...
@@ -1316,7 +1316,7 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 				}//if
 			}
 		}
-		//ddd оптимизация для хода драников**
+		//ddd enemy turn optimization**
 #endif
 
 		// End our turn!

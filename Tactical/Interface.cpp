@@ -121,7 +121,7 @@ INT32		giMenuAnchorX, giMenuAnchorY;
 //#define PROG_BAR_START_Y			2
 
 //**ddd{ 
-//поставить дефайн в 0 если использовать большой прогресс бар
+//assign 0 to define if using large progress bar
 //#define fSmallSizeProgressbar 1
 INT32 HEIGHT_PROGRESSBAR, PROG_BAR_START_Y;
 //ddd}

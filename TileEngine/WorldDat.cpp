@@ -209,7 +209,7 @@ void ExportTilesets(vfs::Path const& filename)
 
 			// Set into database
 			strcpy( gTilesets[ cnt ].TileSurfaceFilenames[ cnt2 ], zName );
-//ddd{ добавляем в индекс 250 файл окоп.
+//ddd{ add trench to index 250
 //		if((cnt==0)&&(cnt2+1 == uiNumFiles))
 //		{ strcpy( gTilesets[ cnt ].TileSurfaceFilenames[ 151 ], "okop.sti" );
 //				xmlw.AddAttributeToNextValue("index",(int)151); //for exp in xml
