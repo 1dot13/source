@@ -5944,30 +5944,30 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 				}
 			}
 			DecayIndividualOpplist( this );
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, MercPtrs[ubAttackerID]);
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, ubAttackerID );
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, ubAttackerID );
 			break;
 
 		case FIRE_WEAPON_BLINDED:
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_BLINDED, ubAttackerID );
 			break;
 
 		case FIRE_WEAPON_DEAFENED:
 			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier is deafened" );		
 			this->bDeafenedCounter = bDeafValue;
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_DEAFENED, ubAttackerID );
 			break;
 		};
 
 		if ( usWeaponIndex == STRUCTURE_EXPLOSION )
 		{
 			ubReason = TAKE_DAMAGE_STRUCTURE_EXPLOSION;
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_STRUCTURE_EXPLOSION, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_STRUCTURE_EXPLOSION, ubAttackerID );
 		}
 		else
 		{
 			ubReason = TAKE_DAMAGE_EXPLOSION;
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, MercPtrs[ubAttackerID]);
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, ubAttackerID );
 		}
 	}
 	else
@@ -6297,13 +6297,13 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		SoldierGotHitGunFire( this, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation );
 		if( Item[ usWeaponIndex ].usItemClass & IC_GUN )
 		{
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GUNFIRE, MercPtrs[ubAttackerID] );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this );
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GUNFIRE, ubAttackerID );
+			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_GUNFIRE, this->ubID );
 		}
 		else
 		{
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_THROWING_KNIFE, MercPtrs[ubAttackerID] );
-			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this );
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_THROWING_KNIFE, ubAttackerID );
+			PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_THROWING_KNIFE, this->ubID );
 		}
 	}
 	if ( Item[ usWeaponIndex ].usItemClass & IC_BLADE )
@@ -6317,12 +6317,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		SoldierGotHitExplosion( this, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation );
 		if( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV || ubReason == TAKE_DAMAGE_EXPLOSION )
 		{
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, MercPtrs[ubAttackerID] );
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_EXPLOSION, ubAttackerID );
 			//PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_EXPLOSION, this );
 		}
 		else if(Item[ usWeaponIndex ].usItemClass & IC_TENTACLES)
 		{
-			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_TENTACLES, MercPtrs[ubAttackerID] );
+			PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_TENTACLES, ubAttackerID );
 			//PossiblyStartEnemyTaunt( MercPtrs[ubAttackerID], TAUNT_HIT_TENTACLES, this );
 		}
 	}

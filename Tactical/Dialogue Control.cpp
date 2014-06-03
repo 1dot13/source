@@ -3118,7 +3118,7 @@ void HandleDialogueEnd( FACETYPE *pFace )
 							case QUOTE_UNDER_HEAVY_FIRE:
 							case QUOTE_TAKEN_A_BREATING:
 								if( pSoldier->ubPreviousAttackerID != NOBODY && !( MercPtrs[pSoldier->ubPreviousAttackerID]->bDeafenedCounter > 0 ) )
-									PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+									PossiblyStartEnemyTaunt( MercPtrs[pSoldier->ubPreviousAttackerID], TAUNT_RIPOSTE, gTacticalStatus.ubLastQuoteProfileNUm );
 								break;
 							default:
 								// select random enemy, who we see, who sees us and isn't deaf
@@ -3132,7 +3132,7 @@ void HandleDialogueEnd( FACETYPE *pFace )
 									}
 								}
 								if( ubSeenEnemiesCnt > 0 )
-									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_RIPOSTE, FindSoldierByProfileID( gTacticalStatus.ubLastQuoteProfileNUm, FALSE ) );
+									PossiblyStartEnemyTaunt( MercPtrs[ubSeenEnemies[ Random(ubSeenEnemiesCnt) ]], TAUNT_RIPOSTE, gTacticalStatus.ubLastQuoteProfileNUm );
 								}
 								break;
 						}

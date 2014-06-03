@@ -1950,11 +1950,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             // randomly decide whether to say civ quote
 
             if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, MercPtrs[pSoldier->ubOppNum] );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, pSoldier->ubOppNum );
             else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
-                PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, MercPtrs[pSoldier->ubOppNum] );
+                PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, pSoldier->ubOppNum );
             else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_KNIFE, MercPtrs[pSoldier->ubOppNum] );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_KNIFE, pSoldier->ubOppNum );
             else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
             {
                 if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
@@ -2266,7 +2266,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             if ( usSoldierIndex != NOBODY )
 			{
                 MercStealFromMerc( pSoldier, MercPtrs[usSoldierIndex] );
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_STEAL, MercPtrs[usSoldierIndex] );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_STEAL, usSoldierIndex );
 			}
 
             break;

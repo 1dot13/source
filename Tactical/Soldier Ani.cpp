@@ -3787,17 +3787,17 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		if(pKillerSoldier != NULL)
 		{
 			if( pSoldier->usAnimState == JFK_HITDEATH )
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_HEAD_POP, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_HEAD_POP, pSoldier->ubID );
 			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_GUN )
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_GUNFIRE, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_GUNFIRE, pSoldier->ubID );
 			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_BLADE )
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_BLADE, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_BLADE, pSoldier->ubID );
 			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_PUNCH )
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_HTH, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_HTH, pSoldier->ubID );
 			else if( Item[pKillerSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE )
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_THROWING_KNIFE, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL_THROWING_KNIFE, pSoldier ->ubID);
 			else
-				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL, pSoldier );
+				PossiblyStartEnemyTaunt( pKillerSoldier, TAUNT_KILL, pSoldier->ubID );
 		}
 
 		// Cancel services here...

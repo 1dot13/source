@@ -4229,7 +4229,8 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL && gpComparedItemDescObject->usItem )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )
@@ -4685,7 +4686,8 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_EXPLOSV )
@@ -4874,7 +4876,8 @@ void DrawArmorStats( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_ARMOUR )
@@ -4971,7 +4974,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	BOOLEAN fComparisonMode = FALSE;
 	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
-		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+		if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
 		{
 			if( Item[ gpItemDescObject->usItem ].usItemClass == Item[ gpComparedItemDescObject->usItem ].usItemClass )
@@ -5888,7 +5892,8 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass == Item[ gpItemDescObject->usItem ].usItemClass )
@@ -5950,7 +5955,8 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	BOOLEAN fComparisonMode = FALSE;
 	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
-		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+		if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
 		{
 			if( Item[ gpItemDescObject->usItem ].usItemClass == Item[ gpComparedItemDescObject->usItem ].usItemClass )
@@ -6537,7 +6543,8 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL && gpComparedItemDescObject->usItem )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )
@@ -8665,7 +8672,8 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_AMMO )
@@ -8946,7 +8954,8 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_EXPLOSV )
@@ -9594,7 +9603,8 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_ARMOUR )
@@ -9834,7 +9844,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	BOOLEAN fComparisonMode = FALSE;
 	if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 	{
-		gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+		if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 		if( gpComparedItemDescObject != NULL )
 		{
 			if( Item[ gpItemDescObject->usItem ].usItemClass == Item[ gpComparedItemDescObject->usItem ].usItemClass )
@@ -14338,7 +14349,8 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 		BOOLEAN fComparisonMode = FALSE;
 		if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 		{
-			gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+			if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+				gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 			if( gpComparedItemDescObject != NULL )
 			{
 				if( Item[ gpComparedItemDescObject->usItem ].usItemClass == Item[ gpItemDescObject->usItem ].usItemClass )

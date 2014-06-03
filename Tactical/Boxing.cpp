@@ -436,7 +436,8 @@ BOOLEAN BoxerAvailable( void )
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			return( TRUE );
+			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+				return( TRUE );
 		}
 	}
 
@@ -453,7 +454,8 @@ UINT8 BoxersAvailable( void )
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			++ubCount;
+			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+				++ubCount;
 		}
 	}
 

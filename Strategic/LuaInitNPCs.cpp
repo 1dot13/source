@@ -8246,8 +8246,8 @@ int i;
 
 	for (i= 1; i<=n; i++ )
 	{
-		if (i == 1 ) id = lua_tointeger(L,n);
-		if (i == 2 ) Bool = lua_toboolean(L,n);
+		if (i == 1 ) id = lua_tointeger(L,i);
+		if (i == 2 ) Bool = lua_toboolean(L,i);
 	}
 
 gfBoxerFought[id] = Bool;

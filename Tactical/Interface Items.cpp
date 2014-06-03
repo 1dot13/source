@@ -6979,11 +6979,12 @@ void RenderItemDescriptionBox( )
 		{
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 			{
-				OBJECTTYPE *gpComparedItemDescObject;
+				OBJECTTYPE *gpComparedItemDescObject = NULL;
 				BOOLEAN fComparisonMode = FALSE;
 				if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 				{
-					gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+					if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+						gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 					if( gpComparedItemDescObject != NULL )
 					{
 						if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )
@@ -7445,11 +7446,12 @@ void RenderItemDescriptionBox( )
 			}
 			else
 			{
-				OBJECTTYPE *gpComparedItemDescObject;
+				OBJECTTYPE *gpComparedItemDescObject = NULL;
 				BOOLEAN fComparisonMode = FALSE;
 				if( _KeyDown( CTRL ) && gfCheckForCursorOverMapSectorInventoryItem )
 				{
-					gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
+					if( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object.usItem )
+						gpComparedItemDescObject = &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCurrentlyHighLightedItem].object;// = pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object;
 					if( gpComparedItemDescObject != NULL )
 					{
 						if( Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE|IC_BLADE|IC_PUNCH) )

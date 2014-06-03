@@ -2551,12 +2551,12 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 			// SANDRO - if this is an enemy guy, who was unaware of us till now, and the combat didn't started yet, throw "taunt" and indicator we have been seen
 			if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
 			{
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN, pOpponent );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN, pOpponent->ubID );
 			}
 			// anv: we're already in fight, but we still can say hi to new enemy
 			else if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN )
 			{
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_SAY_HI, pOpponent );
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_SAY_HI, pOpponent->ubID );
 			}
 
 			ShowRadioLocator( pSoldier->ubID, 1 );
@@ -2598,7 +2598,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 				SetNewSituation( pSoldier );  // force the looker to re-evaluate
 				// anv: simulate informing buddies about detected enemy's position
 				if(gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY)
-					PossiblyStartEnemyTaunt( pSoldier, TAUNT_INFORM_ABOUT, pOpponent );
+					PossiblyStartEnemyTaunt( pSoldier, TAUNT_INFORM_ABOUT, pOpponent->ubID );
 
 			}
 			else

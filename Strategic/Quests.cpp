@@ -1144,7 +1144,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_NO_CLUB_FIGHTING_ALLOWED:
-			gubFact[usFact] = ( gubQuest[ QUEST_KINGPIN_MONEY ] == QUESTINPROGRESS || gfBoxersResting );// plus other conditions
+			// anv: added !BoxersAvailable, otherwise van Haussen would offer fight even when all boxers are dead
+			gubFact[usFact] = ( gubQuest[ QUEST_KINGPIN_MONEY ] == QUESTINPROGRESS || gfBoxersResting || !BoxersAvailable() );// plus other conditions
 			break;
 
 		case FACT_MADDOG_IS_SPEAKER:

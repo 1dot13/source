@@ -1053,8 +1053,13 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 //--------------------------------------------------------------
 
 // anv: start enemy taunt with probabilty depending on taunt settings
-void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget )
+void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 uiTargetID )
 {
+	SOLDIERTYPE *pTarget = NULL;
+	if( uiTargetID != NOBODY )
+	{
+		pTarget = MercPtrs[uiTargetID];
+	}
 	if (is_networked)	// No taunts in multiplayer
 		return;
 
