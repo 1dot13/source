@@ -40,6 +40,10 @@
 
 #include "connect.h"
 
+#include "FileMan.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
+
 #ifdef JA2UB
 #include "Strategic Movement.h"
 
@@ -150,6 +154,9 @@ UINT32		guiSaveLoadExitScreen = SAVE_LOAD_SCREEN;
 
 //Contains the array of valid save game locations
 BOOLEAN		gbSaveGameArray[ NUM_SAVE_GAMES ];
+
+// anv: read times of modification to show them later
+SYSTEMTIME	gstSaveGameCreationTimeArray[ NUM_SAVE_GAMES ];
 
 BOOLEAN		gfDoingQuickLoad = FALSE;
 
@@ -441,7 +448,7 @@ void InitMSysButtons(BOOLEAN delRegion)
 	UINT8	i;
 	CHAR16	zString[512]; 
 	CHAR16	zString2[512];
-  
+	CHAR16	zString3[512];
 	if ( delRegion == TRUE )
 	{
 		for(i=0; i<NUM_SLOT; i++)
@@ -476,7 +483,26 @@ void InitMSysButtons(BOOLEAN delRegion)
 		{
 			swprintf( zString, pMessageStrings[MSG_SAVE_NORMAL_SLOT], VAL_SLOT_START + i - SAVE__END_TURN_NUM_2 );
 		}
-			
+		
+		// anv: add modification date
+		if( gbSaveGameArray[ VAL_SLOT_START + i ] )
+		{
+			swprintf( zString2, L"%04d", gstSaveGameCreationTimeArray[ VAL_SLOT_START + i ].wYear );
+			wcscpy( zString3, zString2 );
+			swprintf( zString2, L"/%02d", gstSaveGameCreationTimeArray[ VAL_SLOT_START + i ].wMonth );
+			wcscat( zString3, zString2 );
+			swprintf( zString2, L"/%02d ", gstSaveGameCreationTimeArray[ VAL_SLOT_START + i ].wDay );
+			wcscat( zString3, zString2 );
+
+			swprintf( zString2, L"%02d", gstSaveGameCreationTimeArray[ VAL_SLOT_START + i ].wHour );
+			wcscat( zString3, zString2 );
+			swprintf( zString2, L":%02d ", gstSaveGameCreationTimeArray[ VAL_SLOT_START + i ].wMinute );
+			wcscat( zString3, zString2 );
+
+			wcscat( zString3, zString );
+			wcscpy( zString, zString3 );
+		}
+
 		wcscpy( zString2,zString );
 		SetRegionFastHelpText( &gSelectedSaveRegion[ i ], zString2 );
 
@@ -1318,7 +1344,31 @@ BOOLEAN InitSaveGameArray()
 			if( !LoadSavedGameHeader( cnt2, &SaveGameHeader ) )
 				gbSaveGameArray[VAL_SLOT_START + cnt] = FALSE;
 			else
+			{
 				gbSaveGameArray[VAL_SLOT_START + cnt] = TRUE;
+
+				// anv: read last modified date property of save file
+#ifdef USE_VFS
+				// get full path to save file
+				vfs::Path vfsPath;
+				vfs::COpenReadFile rfile(zSaveGameName);
+				rfile->_getRealPath(vfsPath);
+				string str = vfsPath.to_string();
+				LPCSTR lpSaveGamePath = str.c_str();
+				// get file handle
+				HANDLE hFile = CreateFile( lpSaveGamePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+				// read time attributes
+				FILETIME ftCreationTime, ftLastAccessedTime, ftLastWriteTime;
+				SYSTEMTIME stSystemTime;
+				GetFileTime( hFile, &ftCreationTime, &ftLastAccessedTime, &ftLastWriteTime );
+				// remember time
+				FileTimeToSystemTime( &ftLastWriteTime, &stSystemTime );
+				SystemTimeToTzSpecificLocalTime( NULL, &stSystemTime, &gstSaveGameCreationTimeArray[VAL_SLOT_START + cnt] );
+				// close
+				CloseHandle( hFile );
+				rfile->close();
+#endif
+			}
 		}
 		else
 			gbSaveGameArray[VAL_SLOT_START + cnt] = FALSE;
@@ -1553,15 +1603,15 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 			swprintf( zDifString, L"%s %s", gzGIOScreenText[ GIO_EASY_TEXT + SaveGameHeader.sInitialGameOptions.ubDifficultyLevel - 1 ], zSaveLoadText[ SLG_DIFF ] );
 
 			//make a string containing the extended options
-			swprintf( zMouseHelpTextString, L"%20ls     %d     %d     %22ls     %22ls", zDifString,
+			swprintf( zMouseHelpTextString, L"%s   %d   %d   %22ls %22ls %22ld", zDifString,
 				SaveGameHeader.sInitialGameOptions.ubBobbyRayQuality, 
 				SaveGameHeader.sInitialGameOptions.ubBobbyRayQuantity, 
 				SaveGameHeader.sInitialGameOptions.fGunNut ? zSaveLoadText[ SLG_ADDITIONAL_GUNS ] : zSaveLoadText[ SLG_NORMAL_GUNS ],
-				SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_SCIFI ? zSaveLoadText[ SLG_SCIFI ] : (SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_PLATINUM ? zSaveLoadText[ SLG_PLATINUM ]: zSaveLoadText[ SLG_REALISTIC ]) );
+				SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_SCIFI ? zSaveLoadText[ SLG_SCIFI ] : (SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_PLATINUM ? zSaveLoadText[ SLG_PLATINUM ]: zSaveLoadText[ SLG_REALISTIC ]),
+				SaveGameHeader.uiSavedGameVersion );
 
 			//The date
-			DrawTextToScreen( zMouseHelpTextString, (UINT16)(usPosX+SLG_DATE_OFFSET_X), (UINT16)(usPosY+SLG_DATE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
-		}
+			DrawTextToScreen( zMouseHelpTextString, (UINT16)(usPosX+SLG_DATE_OFFSET_X), (UINT16)(usPosY+SLG_DATE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);		}
 		else
 		{
 			//Create the string for the Data
