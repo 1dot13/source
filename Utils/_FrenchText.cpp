@@ -537,7 +537,7 @@ STR16 iEditorMercsToolbarText[] =
  L"SUPPRIMER",
  L"Supprimer le mercenaire sélectionné (|S|u|p|p|r)",
  L"SUIVANT", //20
- L"Mercenaire suivant (|E|S|P|A|C|E)\nMercenaire précédente (|M|A|J|+|E|S|P|A|C|E)",
+ L"Mercenaire suivant (|E|S|P|A|C|E)\nMercenaire précédente (|C|T|R|L+|E|S|P|A|C|E)",
  L"Changer l'existence prioritaire",
  L"Changer, si le placement a\naccès à toutes les portes",
  
@@ -712,8 +712,8 @@ STR16 iEditorTaskbarInternalText[]=
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Buildings fasthelp text
 	L"|E|S|P|A|C|E : Sélectionne l'objet suivant\n \n|C|T|R|L+|/ : Place le nouveau objet sous le curseur de la souris\n|/ : Place le même objet sous le curseur de la souris", //Items fasthelp text
 	L"|1-|9 : Pose de waypoints\n|C|T|R|L+|C/|C|T|R|L+|V : Copie/colle mercenaire", //Mercs fasthelp text
-	L"|C|T|R|L+|G : Va à la case\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text
-	L"|C|T|R|L+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s).", //Options fasthelp text
+	L"|C|T|R|L+|G : Va à la case\n|M|A|J: Scroll beyond map boundary\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text // TODO.Translate
+	L"|C|T|R|L+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text	// TODO.Translate
 };
 
 //Editor Taskbar Utils.cpp

@@ -7066,8 +7066,14 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					{
 						if( InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
 						{			
-							if ( gubDescBoxPage < 2 )
+							if ( (Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) 
+								&& gubDescGenPage == 0 && gubDescBoxPage == 1 )
 							{
+								gubDescGenPage = 1;
+							}
+							else if ( gubDescBoxPage < 2 )
+							{
+								gubDescGenPage = 0;
 								gubDescBoxPage++;
 							}
 							else

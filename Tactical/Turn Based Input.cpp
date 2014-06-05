@@ -204,6 +204,7 @@ extern INT16 ITEMDESC_START_Y;
 BOOLEAN gfMouseLockedOnBorder = FALSE;
 extern int iWindowedMode;
 
+extern OBJECTTYPE *gpItemDescObject;
 extern BOOLEAN gfInItemStackPopup;
 extern BOOLEAN gfInKeyRingPopup;
 
@@ -2243,8 +2244,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				// go to next tab in enhanced description box
 				if( ( fCtrl ) && InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
 				{			
-					if ( gubDescBoxPage < 2 )
+					if ( (Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) 
+						&& gubDescGenPage == 0 && gubDescBoxPage == 1 )
 					{
+						gubDescGenPage = 1;
+					}
+					else if ( gubDescBoxPage < 2 )
+					{
+						gubDescGenPage = 0;
 						gubDescBoxPage++;
 					}
 					else

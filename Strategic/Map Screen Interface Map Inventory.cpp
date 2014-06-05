@@ -1388,6 +1388,28 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			// CHRISL: Also return if the item we've clicked on is currently displayed in the item description box
 			if(InItemDescriptionBox( ) && gpItemDescObject == &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object)
 				return;
+			// Buggler: sector inventory item deletion before item reachable & in-sector checks to allow deletion of any item
+			if ( _KeyDown ( DEL ) )
+			{
+				if ( _KeyDown ( 89 )) //Lalien: delete all items of this type
+				{
+					DeleteItemsOfType( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object.usItem );
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );
+				}
+				else if ( _KeyDown( SHIFT ) ) // delete stack
+				{
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object.ubNumberOfObjects = 0;
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
+				}
+				else
+				{
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object.ubNumberOfObjects--;
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
+				}
+
+				fMapPanelDirty = TRUE;
+				return;
+			}
 		}
 
 
@@ -2319,20 +2341,6 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 						ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
 						fTeamPanelDirty = TRUE;
 					}
-				}
-			}
-			else
-			{
-				gpItemPointer = NULL;
-				fMapInventoryItem = FALSE;
-
-				if ( _KeyDown ( 89 )) //Lalien: delete all items of this type on Ctrl+Y
-				{
-					DeleteItemsOfType( gItemPointer.usItem );
-					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );
-				}
-				else {
-					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
 				}
 			}
 			if ( fShowMapInventoryPool )

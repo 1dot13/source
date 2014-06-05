@@ -1560,7 +1560,7 @@ void IndicateSelectedMerc( INT16 sID )
 	bTeam = -1;
 
 	// hotkey to select previous instead of next merc
-	fSelectPrevious = gfKeyState[ SHIFT ];
+	fSelectPrevious = gfKeyState[ CTRL ];
 
 	//determine selection method
 	switch( sID )

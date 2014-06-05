@@ -648,14 +648,17 @@ void RenderInfoInSector()
 {
 	UINT8 ubSectorX, ubSectorY;
 	UINT8 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
-	INT32 i, yp;
+	INT32 i, xp, yp;
 
 	if( gfViewEnemies && !gbViewLevel )
 	{
 		RenderStationaryGroups();
 		RenderMovingGroupsAndMercs();
 		SetFontForeground( FONT_LTRED );
-		mprintf( 78, 358, L"%3d", giReinforcementPool );
+		xp = VIEWER_LEFT + VIEWER_CELLW * ( gModSettings.ubSAISpawnSectorX - 1 ) + 6;
+		yp = VIEWER_TOP + VIEWER_CELLH * ( gModSettings.ubSAISpawnSectorY - 1 ) + 13;
+		//mprintf( 78, 358, L"%3d", giReinforcementPool );
+		mprintf( xp, yp, L"%3d", giReinforcementPool );
 
 		//Render general enemy statistics
 		ClearViewerRegion( 105, VIEWER_BOTTOM + 10, 265, VIEWER_BOTTOM + 66 );

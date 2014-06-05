@@ -138,8 +138,16 @@ extern UINT8			gubCurrentTalkingID;
 
 void InitializeMines( void )
 {
+	INT32 i;
+	
 	// Don't execute hardcoded logic. Leave initialization to the Lua script.
 	g_luaMines.InitializeMines();
+
+	// Buggler: set mining site flag for AI Viewer.cpp
+	for (i=0; i < MAX_NUMBER_OF_MINES; i++)
+	{
+		SectorInfo[ SECTOR( gMineStatus[i].sSectorX, gMineStatus[i].sSectorY ) ].uiFlags |= SF_MINING_SITE;
+	}
 #if 0
 	UINT8 ubMineIndex;
 	MINE_STATUS_TYPE *pMineStatus;

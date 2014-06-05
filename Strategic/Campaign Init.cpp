@@ -331,37 +331,6 @@ void InitKnowFacilitiesFlags( )
 }
 
 
-void InitMiningLocations()
-{
-	SECTORINFO *pSector;
-	//Set up mining sites
-
-	pSector = &SectorInfo[SEC_D4];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 33;
-
-	pSector = &SectorInfo[SEC_D13];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 41;
-
-	pSector = &SectorInfo[SEC_B2];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 20;
-
-	pSector = &SectorInfo[SEC_H8];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 64;
-
-	pSector = &SectorInfo[SEC_I14];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 80;
-
-	//Grumm
-	pSector = &SectorInfo[SEC_H3];
-	pSector->uiFlags |= SF_MINING_SITE;
-//	pSector->ubIncomeValue = 100;
-}
-
 //Mobile groups are handled separately from sectors, because they are on the move.
 void GeneratePatrolGroups()
 {
@@ -635,7 +604,6 @@ void InitNewCampaign()
 	RemoveAllGroups();
 
 	InitWorld();	// Lesh: generate different world each time using alternative maps
-	InitMiningLocations();
 
 	// HEADROCK HAM 3.5: This is no longer required.
 	//InitKnowFacilitiesFlags( );
