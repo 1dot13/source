@@ -584,7 +584,7 @@ BOOLEAN InitTacticalEngine( )
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInLocks(fileName,FALSE), LOCKSFILENAME);
+		SGP_THROW_IFFALSE(ReadInLocks(fileName), LOCKSFILENAME);
 	}
 	else 
 	{
@@ -592,15 +592,7 @@ BOOLEAN InitTacticalEngine( )
 		if( !LoadLockTable() )
 			return(FALSE);
 	}
-#ifndef ENGLISH
-	AddLanguagePrefix(fileName);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInLocks(fileName,TRUE), LOCKSFILENAME);
-	}
-#endif	
-	
+
 	strcpy(fileName, TABLEDATA_DIRECTORY);
 	strcat(fileName, KEYSFILENAME);
 	if ( FileExists(fileName) )

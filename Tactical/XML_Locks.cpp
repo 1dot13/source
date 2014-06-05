@@ -25,8 +25,6 @@ struct
 }
 typedef lockParseData;
 
-BOOLEAN localizedTextOnly_Locks;
-
 UINT16 num_found_lock = 0;	// the correct number is set on reading the xml
 
 static void XMLCALL
@@ -46,9 +44,8 @@ lockStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 		{
 			pData->curElement = ELEMENT;
 
-			if ( !localizedTextOnly_Locks )
-				memset(&pData->curLock,0,sizeof(LOCK));
-
+			memset(&pData->curLock,0,sizeof(LOCK));
+				
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
@@ -100,21 +97,9 @@ lockEndElementHandle(void *userData, const XML_Char *name)
 			//if(pData->curLock.uiIndex < pData->maxArraySize)
 			if(num_found_lock < pData->maxArraySize)
 			{
-				if ( localizedTextOnly_Locks )
-				{			
-					//wcscpy(zTaunt[offset_index + pData->curLock.ubLockID].szText,pData->curLock.szText);
-					//wcscpy(zTaunt[offset_index + pData->curLock.ubLockID].szCensoredText,pData->curLock.szCensoredText);
-				}
-				else
-				{
-					pData->curArray[pData->curIndex] = pData->curLock;
-					//pData->curArray[num_found_lock-1] = pData->curLock;
-
-					num_found_lock++;
-				}
+				pData->curArray[pData->curIndex] = pData->curLock;
+				num_found_lock++;
 			}	
-			//num_found_lock++;
-			//num_found_lock = pData->curLock.uiIndex;
 		}
 		else if(strcmp(name, "ubLockID") == 0)
 		{
@@ -129,7 +114,6 @@ lockEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			
 			strcpy( (CHAR8*)pData->curLock.ubEditorName, pData->szCharData );
-			//pData->curLock.ubEditorName[sizeof(pData->curLock.ubEditorName)/sizeof(pData->curLock.ubEditorName[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "usKeyItem") == 0)
 		{
@@ -157,7 +141,7 @@ lockEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
-BOOLEAN ReadInLocks(STR fileName, BOOLEAN localizedVersion)
+BOOLEAN ReadInLocks(STR fileName)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -169,8 +153,6 @@ BOOLEAN ReadInLocks(STR fileName, BOOLEAN localizedVersion)
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Locks.xml" );
 
-	localizedTextOnly_Locks = localizedVersion;
-		
 	// Open file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )

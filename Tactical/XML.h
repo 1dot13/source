@@ -498,7 +498,7 @@ extern BOOLEAN ReadInAdditionalTileProperties(STR fileName );
 extern BOOLEAN WriteAdditionalTileProperties( STR fileName );
 
 // anv: externalised locks and keys
-extern BOOLEAN ReadInLocks(STR fileName, BOOLEAN localizedVersion );
+extern BOOLEAN ReadInLocks(STR fileName );
 extern BOOLEAN WriteLocks( STR fileName );
 
 extern BOOLEAN ReadInKeys( STR fileName );
