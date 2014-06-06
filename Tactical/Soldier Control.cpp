@@ -1541,6 +1541,8 @@ void MERCPROFILESTRUCT::initialize()
 	// SANDRO - added this
 	memset( &records, 0, sizeof(STRUCT_Records) );
 	memset( &usBackground, 0, sizeof(UINT16) );
+
+	memset( &usDynamicOpinionFlagmask, 0, sizeof(usDynamicOpinionFlagmask) );
 }
 
 // Initialize the soldier.

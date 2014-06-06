@@ -795,8 +795,6 @@ BOOLEAN LoadMercProfiles(void)
 			FileClose( fptr );
 			return(FALSE);
 		}
-
-		
 		
 		// WANNE: For the new WF merc, there is no entry in prof.dat, so we have to reset some flags manually!		
 		if (uiLoop >= 170)
@@ -807,6 +805,10 @@ BOOLEAN LoadMercProfiles(void)
 
 			gMercProfiles[uiLoop].uiTotalCostToDate = 0;
 			gMercProfiles[uiLoop].iMercMercContractLength = 0;
+
+			gMercProfiles[uiLoop].usBackground = 0;
+
+			memset( &gMercProfiles[uiLoop].usDynamicOpinionFlagmask, 0, sizeof(gMercProfiles[uiLoop].usDynamicOpinionFlagmask) );
 		}
 
 		// WANNE - BMP: DONE!
