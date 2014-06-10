@@ -427,6 +427,13 @@ creatureplacementEndElementHandle(void *userData, const XML_Char *name)
 					gCreaturePlacements[pData->curIndex].Habitat[y].ubZ = pData->curPlacementInfo.Habitat[y].ubZ;
 					gCreaturePlacements[pData->curIndex].Habitat[y].ubComposition = pData->curPlacementInfo.Habitat[y].ubComposition;
 					gCreaturePlacements[pData->curIndex].Habitat[y].fValid = pData->curPlacementInfo.Habitat[y].fValid;
+
+					// Clear pData Habitat Array as different creature site has different number of habitats
+					pData->curPlacementInfo.Habitat[y].sX		= 0;
+					pData->curPlacementInfo.Habitat[y].sY		= 0;
+					pData->curPlacementInfo.Habitat[y].ubZ		= 0;
+					pData->curPlacementInfo.Habitat[y].ubComposition	= 0;
+					pData->curPlacementInfo.Habitat[y].fValid	= 0;
 				}			
 			}
 		}
