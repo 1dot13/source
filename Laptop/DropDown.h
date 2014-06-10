@@ -15,6 +15,62 @@ void DisplaySmallLine( UINT16 usStartX, UINT16 usStartY, UINT16 EndX, UINT16 End
 void Display2Line2ShadowVertical( UINT16 usStartX, UINT16 usStartY, UINT16 EndX, UINT16 usColor1, UINT16 usColor2 );
 void Display2Line2ShadowHorizontal( UINT16 usStartX, UINT16 usStartY, UINT16 EndY, UINT16 usColor1, UINT16 usColor2 );
 
+/*
+* A simple class that takes coordiantes and colors.
+* It simply exists to provide these simple methods for other classes.
+*/
+class WidgetBase
+{
+public:
+	WidgetBase( );
+
+	/*
+	* X and Y-Coordinates define the upper left corner
+	*/
+	void SetX( UINT16 aVal )				{ musStartX = aVal; }
+	UINT16 GetX( )							{ return musStartX; }
+	void SetY( UINT16 aVal )				{ musStartY = aVal; }
+	UINT16 GetY( )							{ return musStartY; }
+
+	/*
+	* Color of boundary line
+	*/
+	void SetColorLine( UINT16 aCol )		{ mColorLine = aCol; }
+	UINT16 GetColorLine( )					{ return mColorLine; }
+
+	/*
+	* Color of boundary line shadow
+	*/
+	void SetColorLineShadow( UINT16 aCol )	{ mColorLineShadow = aCol; }
+	UINT16 GetColorLineShadow( )			{ return mColorLineShadow; }
+
+	/*
+	* background color of selected entry
+	*/
+	void SetColorMarked( UINT16 aCol )		{ mColorMarked = aCol; }
+	UINT16 GetColorMarked( )				{ return mColorMarked; }
+
+	/*
+	* Color of highlighted element
+	*/
+	void SetColorHighLight( UINT16 aCol )	{ mColorHighLight = aCol; }
+	UINT16 GetColorHighLight( )				{ return mColorHighLight; }
+	
+private:
+	// declare but don't define
+	WidgetBase( WidgetBase const& );
+	void operator=(WidgetBase const&);
+
+private:
+	UINT16	musStartX;
+	UINT16	musStartY;
+
+	UINT16	mColorLine;			// color of boundary lines
+	UINT16	mColorLineShadow;	// color of boundary line shadows
+	UINT16	mColorMarked;		// color of marked entries
+	UINT16	mColorHighLight;	// color of bar highlighting
+};
+
 // the maximum number of entries that can be shown at once. Increase requires recompilation!
 #define DROPDOWN_REGIONS		8
 
@@ -47,7 +103,7 @@ enum definedDropDowns
  *
  * Apart from that, you will only have to implement void SetRefresh(). This function is necessary to refresh the screen after the popup-section is closed, otherwise it will still be shown.
  * 
- * As this class refreshes itself once you have properly implemented SetRefresh(), you can even move the box aroun onscreen, it will properly refresh, so moving it with a mouse will be possible
+ * As this class refreshes itself once you have properly implemented SetRefresh(), you can even move the box around onscreen, it will properly refresh, so moving it with a mouse will be possible
  *
  * You can get an instance by calling DropDownTemplate<int X>.Create(UINT16 usX, UINT16 usY);, the constructor itself is private (singleton).
   
@@ -61,7 +117,7 @@ enum definedDropDowns
 	...
 
  */
-class DropDownBase
+class DropDownBase : public WidgetBase
 {
 public:
 	DropDownBase();
@@ -72,7 +128,7 @@ public:
 	void Create(UINT16 sX, UINT16 sY);
 
 	/*
-	 * Destroy Dropdown, for example once a webiste isn't displayed anymore
+	 * Destroy Dropdown, for example once a website isn't displayed anymore
 	 */
 	void Destroy();
 
@@ -84,7 +140,7 @@ public:
 	/*
 	 * Sometimes a refresh inside the class isn't enough - best example is closing the dropdown area, after which the previous background cannot be restored by this class.
 	 * In that case, the background and this class has to be redrawn.
-	 * This function is called internally whenver such a refreh is necessary.
+	 * This function is called internally whenever such a refresh is necessary.
 	 * It has to be defined in derived classes and should notify your dialogues to redraw at appropriate times
 	 *
 	 * This function has to be implemented!
@@ -107,27 +163,7 @@ public:
 	 * There can be multiple instances of the same key or name.
 	 */
 	void SetEntries( std::vector<std::pair<INT16, STR16> >& arEntryVec )	{ mEntryVector = arEntryVec; }
-
-	/*
-	 * Set Color of boundary line
-	 */
-	void SetColorLine( UINT16 aCol )		{ mColorLine = aCol; }
-
-	/*
-	 * Set Color of boundary line shadow
-	 */
-	void SetColorLineShadow( UINT16 aCol )	{ mColorLineShadow = aCol; }
-
-	/*
-	 * Set background color of selected entry
-	 */
-	void SetColorMarked( UINT16 aCol )		{ mColorMarked = aCol; }
-
-	/*
-	 * Set Color of highlight of the scrollbar mover
-	 */
-	void SetColorHighLight( UINT16 aCol )	{ mColorHighLight = aCol; }
-
+		
 	/*
 	 * Set help text decribing what can be selected
 	 */
@@ -151,7 +187,7 @@ public:
 	/*
 	 * Get right x coordinate
 	 */
-	UINT16	GetLastX()					{ return musStartX + GetTotalWidth(); }
+	UINT16	GetLastX()					{ return GetX() + GetTotalWidth(); }
 
 	/*
 	 * Are we displayed?
@@ -210,8 +246,6 @@ private:
 	UINT16	musHeight;
 	UINT16	musWidth;
 	
-	UINT16	musStartX;
-	UINT16	musStartY;
 	UINT16	musStartX_Drop;
 	UINT16	musStartY_Drop;
 	UINT16	musScrollAreaX;
@@ -224,11 +258,6 @@ private:
 	UINT16	musAreaHeight;
 
 	UINT16	musFontHeight;
-
-	UINT16	mColorLine;			// color of boundary lines
-	UINT16	mColorLineShadow;	// color of boundary line shadows
-	UINT16	mColorMarked;		// color of marked entries
-	UINT16	mColorHighLight;	// color of bar highlighting
 	
 	BOOLEAN mfMouseRegionsCreated;
 	BOOLEAN mfMouseRegionsCreated_Drop;

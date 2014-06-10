@@ -53,7 +53,20 @@ void Display2Line2ShadowVertical( UINT16 usStartX, UINT16 usStartY, UINT16 EndY,
 	DisplaySmallLine(usStartX+3, usStartY, usStartX+3, EndY, usColor2);
 }
 
+WidgetBase::WidgetBase( )
+{
+	// default settings
+	musStartX = 0;
+	musStartY = 0;
+
+	mColorLine			= Get16BPPColor( FROMRGB( 231, 199, 90 ) );
+	mColorLineShadow	= Get16BPPColor( FROMRGB( 33, 24, 8 ) );
+	mColorMarked		= Get16BPPColor( FROMRGB( 200, 169, 87 ) );
+	mColorHighLight		= Get16BPPColor( FROMRGB( 235, 222, 171 ) );
+}
+
 DropDownBase::DropDownBase()
+	: WidgetBase()
 {
 	// default settings
 	musWidth = 100;						// width of text field
@@ -65,11 +78,6 @@ DropDownBase::DropDownBase()
 
 	mSelectedEntry = 0;
 	mFirstShownEntry = 0;
-
-	mColorLine			= Get16BPPColor( FROMRGB( 231, 199,  90 ) );
-	mColorLineShadow	= Get16BPPColor( FROMRGB(  33,  24,   8 ) );
-	mColorMarked		= Get16BPPColor( FROMRGB( 200, 169,  87 ) );
-	mColorHighLight		= Get16BPPColor( FROMRGB( 235, 222, 171 ) );
 }
 
 void
@@ -77,8 +85,8 @@ DropDownBase::Init(UINT16 sX, UINT16 sY)
 {
 	mfMouseRegionsCreated = FALSE;
 
-	musStartX = sX;
-	musStartY = sY;
+	SetX( sX );
+	SetY( sY );
 			
 	mSelectedEntry			= min(mSelectedEntry, mEntryVector.size() - 1);
 	mNumDisplayedEntries	= min(DROPDOWN_REGIONS, mEntryVector.size() );
@@ -94,8 +102,8 @@ DropDownBase::Init(UINT16 sX, UINT16 sY)
 	// account for a bit of space let and right
 	musWidth += 2 * CITY_NAME_OFFSET;
 
-	musUpArrowX = musStartX + musWidth;
-	musUpArrowY = musStartY + 2;
+	musUpArrowX = GetX() + musWidth;
+	musUpArrowY = GetY() + 2;
 	
 	musFontHeight = GetFontHeight( DEF_DROPDOWN_FONT );	// does not work on init of static objects, as the fonts do not yet exist!
 }
@@ -105,8 +113,8 @@ DropDownBase::Init_Drop()
 {
 	mfMouseRegionsCreated_Drop = FALSE;
 
-	musStartX_Drop = musStartX;
-	musStartY_Drop = musStartY + DEF_SCROLL_ARROW_HEIGHT;
+	musStartX_Drop = GetX( );
+	musStartY_Drop = GetY( ) + DEF_SCROLL_ARROW_HEIGHT;
 	musScrollAreaX = musStartX_Drop + musWidth;
 				
 	musDownArrowX = musUpArrowX;
@@ -133,7 +141,7 @@ DropDownBase::Create(UINT16 sX, UINT16 sY)
 
 	gDropObj = (void*) this;
 	
-	MSYS_DefineRegion( &mSelectedOpenDropDownRegion, musStartX + musWidth, musStartY, musStartX + musWidth + musArrowWidth, musStartY + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
+	MSYS_DefineRegion( &mSelectedOpenDropDownRegion, GetX( ) + musWidth, GetY( ), GetX( ) + musWidth + musArrowWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
 							CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_OPEN, &DropDownBase::Dummyfunc) );	
 	MSYS_AddRegion(&mSelectedOpenDropDownRegion);
 
@@ -143,7 +151,7 @@ DropDownBase::Create(UINT16 sX, UINT16 sY)
 	MSYS_AddRegion(&mSelectedCloseDropDownRegion);
 	MSYS_DisableRegion(&mSelectedCloseDropDownRegion);
 
-	MSYS_DefineRegion( &mBubbleHelpRegion, musStartX, musStartY, musStartX + musWidth, musStartY + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
+	MSYS_DefineRegion( &mBubbleHelpRegion, GetX( ), GetY( ), GetX( ) + musWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
 							CURSOR_WWW, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );	
 	MSYS_AddRegion(&mBubbleHelpRegion);
 			
@@ -265,22 +273,22 @@ DropDownBase::Display()
 	HVOBJECT	hArrowHandle;
 			
 	//Display the background for the drop down window
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX, musStartY, musStartX + musWidth + musArrowWidth, musStartY + DEF_SCROLL_ARROW_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, GetX( ), GetY( ), GetX( ) + musWidth + musArrowWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 	// top
-	Display2Line2ShadowHorizontal( musStartX, musStartY, musStartX + musWidth + musArrowWidth - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowHorizontal( GetX( ), GetY( ), GetX( ) + musWidth + musArrowWidth - 1, GetColorLine( ), GetColorLineShadow( ) );
 
 	// left
-	Display2Line2ShadowVertical( musStartX, musStartY+2, musStartY + DEF_SCROLL_ARROW_HEIGHT - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( GetX( ), GetY( ) + 2, GetY( ) + DEF_SCROLL_ARROW_HEIGHT - 1, GetColorLine( ), GetColorLineShadow( ) );
 
 	// right between text and arrow
-	Display2Line2ShadowVertical( musStartX + musWidth - 4, musStartY+2, musStartY + DEF_SCROLL_ARROW_HEIGHT - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( GetX( ) + musWidth - 4, GetY( ) + 2, GetY( ) + DEF_SCROLL_ARROW_HEIGHT - 1, GetColorLine( ), GetColorLineShadow( ) );
 		
 	// bottom
-	Display2Line2ShadowHorizontal( musStartX, musStartY + DEF_SCROLL_ARROW_HEIGHT - 4, musStartX + musWidth + musArrowWidth - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowHorizontal( GetX( ), GetY( ) + DEF_SCROLL_ARROW_HEIGHT - 4, GetX( ) + musWidth + musArrowWidth - 1, GetColorLine( ), GetColorLineShadow( ) );
 	
 	// right
-	Display2Line2ShadowVertical( musStartX + musWidth + musArrowWidth - 4, musStartY, musStartY + DEF_SCROLL_ARROW_HEIGHT - 3, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( GetX( ) + musWidth + musArrowWidth - 4, GetY( ), GetY( ) + DEF_SCROLL_ARROW_HEIGHT - 3, GetColorLine( ), GetColorLineShadow( ) );
 	
 	DrawTopEntry();
 
@@ -315,19 +323,19 @@ DropDownBase::Display_Drop()
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop, musStartY_Drop, musStartX_Drop+musWidth+musArrowWidth,	musStartY_Drop+musAreaHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 	// top
-	Display2Line2ShadowHorizontal( musStartX_Drop, musStartY_Drop-4, musStartX_Drop + musWidth + musArrowWidth - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowHorizontal( musStartX_Drop, musStartY_Drop - 4, musStartX_Drop + musWidth + musArrowWidth - 1, GetColorLine( ), GetColorLineShadow( ) );
 
 	// left
-	Display2Line2ShadowVertical( musStartX_Drop, musStartY_Drop-2, musStartY_Drop + musAreaHeight - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( musStartX_Drop, musStartY_Drop - 2, musStartY_Drop + musAreaHeight - 1, GetColorLine( ), GetColorLineShadow( ) );
 
 	// right between text and arrow
-	Display2Line2ShadowVertical( musStartX_Drop + musWidth - 4, musStartY_Drop-2, musStartY_Drop + musAreaHeight - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( musStartX_Drop + musWidth - 4, musStartY_Drop - 2, musStartY_Drop + musAreaHeight - 1, GetColorLine( ), GetColorLineShadow( ) );
 		
 	// bottom
-	Display2Line2ShadowHorizontal( musStartX_Drop, musStartY_Drop + musAreaHeight - 4, musStartX_Drop + musWidth + musArrowWidth - 1, mColorLine, mColorLineShadow );
+	Display2Line2ShadowHorizontal( musStartX_Drop, musStartY_Drop + musAreaHeight - 4, musStartX_Drop + musWidth + musArrowWidth - 1, GetColorLine( ), GetColorLineShadow( ) );
 	
 	// right
-	Display2Line2ShadowVertical( musStartX_Drop + musWidth + musArrowWidth - 4, musStartY_Drop-4, musStartY_Drop + musAreaHeight - 3, mColorLine, mColorLineShadow );
+	Display2Line2ShadowVertical( musStartX_Drop + musWidth + musArrowWidth - 4, musStartY_Drop - 4, musStartY_Drop + musAreaHeight - 3, GetColorLine( ), GetColorLineShadow( ) );
 
 	DrawSelectedCity();
 	
@@ -352,11 +360,11 @@ DropDownBase::DrawTopEntry()
 	mSelectedEntry = min(mSelectedEntry, mEntryVector.size() - 1);
 		
 	//display the name in the list
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX+4, musStartY+4, musStartX+musWidth-4, musStartY+musFontHeight+8, mColorMarked );
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, GetX( ) + 4, GetY( ) + 4, GetX( ) + musWidth - 4, GetY( ) + musFontHeight + 8, GetColorMarked( ) );
 
 	SetFontShadow(NO_SHADOW);
 
-	DrawTextToScreen( mEntryVector[mSelectedEntry].second, musStartX+CITY_NAME_OFFSET, (UINT16)(musStartY+7), 0, DEF_DROPDOWN_FONT, FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( mEntryVector[mSelectedEntry].second, GetX( ) + CITY_NAME_OFFSET, (UINT16)(GetY( ) + 7), 0, DEF_DROPDOWN_FONT, FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	SetFontShadow(DEFAULT_SHADOW);
 }
@@ -377,7 +385,7 @@ DropDownBase::DrawSelectedCity()
 
 		if ( i == mSelectedEntry )
 		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop+4, usPosY-2, musStartX_Drop+musWidth-4,	usMaxY, mColorMarked );
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop + 4, usPosY - 2, musStartX_Drop + musWidth - 4, usMaxY, GetColorMarked( ) );
 			SetFontShadow(NO_SHADOW);
 			DrawTextToScreen( mEntryVector[i].second, musStartX_Drop+CITY_NAME_OFFSET, usPosY, 0, DEF_DROPDOWN_FONT, FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 			SetFontShadow(DEFAULT_SHADOW);
@@ -402,36 +410,39 @@ DropDownBase::DrawGoldRectangle()
 
 	UINT16 temp;
 	
-	usTempPosY = musStartY;
+	usTempPosY = GetY();
 	usTempPosY += DEF_SCROLL_ARROW_HEIGHT;
 	usPosX = musScrollAreaX;
 	usWidth = musArrowWidth - 5;
 	usTempHeight = ( musAreaHeight - DEF_SCROLL_ARROW_HEIGHT ) - 4;
 
-	usHeight = usTempHeight / (mEntryVector.size() - 1);
+	if ( mEntryVector.size() > 1 )
+	{
+		usHeight = usTempHeight / (mEntryVector.size() - 1);
 
-	usPosY = usTempPosY + (UINT16)( ( usHeight * mSelectedEntry ) );
+		usPosY = usTempPosY + (UINT16)( ( usHeight * mSelectedEntry ) );
 
-	temp = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight;
+		temp = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight;
 
-	if( usPosY >= temp )
-		usPosY = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight - 5;
+		if( usPosY >= temp )
+			usPosY = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight - 5;
 
-	// color everything black and then color te rectangle, that way we dont have to redraw the entire page
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usTempPosY, musScrollAreaX+usWidth, usTempPosY+usTempHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usPosY, musScrollAreaX+usWidth, usPosY+usHeight, mColorMarked );
+		// color everything black and then color te rectangle, that way we dont have to redraw the entire page
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usTempPosY, musScrollAreaX+usWidth, usTempPosY+usTempHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usPosY, musScrollAreaX + usWidth, usPosY + usHeight, GetColorMarked( ) );
 
-	//display the line
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//display the line
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// draw the gold highlite line on the top and left
-	LineDraw(FALSE, usPosX, usPosY, usPosX+usWidth, usPosY, mColorHighLight, pDestBuf);
-	LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY+usHeight, mColorHighLight, pDestBuf);
+		// draw the gold highlite line on the top and left
+		LineDraw( FALSE, usPosX, usPosY, usPosX + usWidth, usPosY, GetColorHighLight( ), pDestBuf );
+		LineDraw( FALSE, usPosX, usPosY, usPosX, usPosY + usHeight, GetColorHighLight(), pDestBuf );
 
-	// draw the shadow line on the bottom and right
-	LineDraw(FALSE, usPosX, usPosY+usHeight, usPosX+usWidth, usPosY+usHeight, mColorLineShadow, pDestBuf);
-	LineDraw(FALSE, usPosX+usWidth, usPosY, usPosX+usWidth, usPosY+usHeight, mColorLineShadow, pDestBuf);
+		// draw the shadow line on the bottom and right
+		LineDraw( FALSE, usPosX, usPosY + usHeight, usPosX + usWidth, usPosY + usHeight, GetColorLineShadow( ), pDestBuf );
+		LineDraw( FALSE, usPosX + usWidth, usPosY, usPosX + usWidth, usPosY + usHeight, GetColorLineShadow(), pDestBuf );
+	}
 
 	// unlock frame buffer
 	UnLockVideoSurface( FRAME_BUFFER );
