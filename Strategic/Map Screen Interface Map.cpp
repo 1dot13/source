@@ -6538,11 +6538,14 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	if ( PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
 		ShowVIPSymbol( sSectorX, sSectorY );
 
+	// silversurfer: disabled this for now as it always leads to false positives with scouting trait and
+	// gSkillTraitValues.fSCCanDetectEnemyPresenseAround == true and gSkillTraitValues.fSCCanDetermineEnemyNumbersAround == false. 
+	// If someone comes up with a good and believable way to implement a certain probability for false reports please go ahead and implement that instead of a 100 percent chance.
 	// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,
 	// so every sector gets a red question mark. In that case, get out of here
 	// anv: probability of false enemy reports!
 	// anyone here?
-	if( !sNumberOfEnemies && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon )
+	if( !sNumberOfEnemies ) // && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon )
 	{
 		// nope - display nothing
 		return;
