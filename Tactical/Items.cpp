@@ -10241,12 +10241,6 @@ INT32 GetItemModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 		break;
 	case ITEMMODIFIER_COUNTERFORCEMAX:
 		iModifier += BonusReduceMore( Item[pObj->usItem].maxcounterforcemodifier[ubRef], (*pObj)[0]->data.objectStatus );
-
-		if(ubRef == 1)
-			iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_CROUCH;
-		else if (ubRef == 2)
-			iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE;
-
 		break;
 	case ITEMMODIFIER_COUNTERFORCEACCURACY:
 		iModifier += BonusReduceMore( Item[pObj->usItem].counterforceaccuracymodifier[ubRef], (*pObj)[0]->data.objectStatus );
@@ -10280,6 +10274,17 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 	{
 		// simply add the object modifier
 		iModifier += GetItemModifier( pObj, ubRef, usType);
+
+		// silversurfer: add stance based max counter force modifier here and not in function GetItemModifier() because 
+		// that function is called for everything including attachments multiple times giving an insane bonus to max counter force modifier.
+		// An attachment that provides such bonus is not affected by this change. This stance based modifier only applies to guns.
+		if( usType == ITEMMODIFIER_COUNTERFORCEMAX && Item[pObj->usItem].usItemClass & IC_GUN )
+		{
+			if(ubRef == 1)
+				iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_CROUCH;
+			else if (ubRef == 2)
+				iModifier += (INT32)gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE;
+		}
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
