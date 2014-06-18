@@ -976,7 +976,7 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	return ubNumAdded;
 }
 
-void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite )
+void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalTanks )
 {
 	SOLDIERINITNODE *mark;
 	SOLDIERINITNODE *curr;
@@ -985,6 +985,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	UINT8 ubElitePDSlots = 0, ubEliteDSlots = 0, ubElitePSlots = 0, ubEliteBSlots = 0;
 	UINT8 ubTroopPDSlots = 0, ubTroopDSlots = 0, ubTroopPSlots = 0, ubTroopBSlots = 0;
 	UINT8 ubAdminPDSlots = 0, ubAdminDSlots = 0, ubAdminPSlots = 0, ubAdminBSlots = 0;
+	UINT8 ubTankPDSlots = 0, ubTankDSlots = 0, ubTankPSlots = 0, ubTankBSlots = 0;
 	UINT8 ubFreeSlots;
 	UINT8 *pCurrSlots=NULL;
 	UINT8 *pCurrTotal=NULL;
@@ -1002,7 +1003,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//of each type of enemy may not be the same.	Elites will choose the best placements, then army, then
 	//administrators.
 
-	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite;
+	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite + ubTotalTanks;
 
 	AssertLE (ubMaxNum, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
 
@@ -1052,6 +1053,19 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 				else
 					ubTroopBSlots++;
 				break;
+			case SOLDIER_CLASS_TANK:
+				if( curr->pDetailedPlacement->bBodyType == TANK_NW ||curr->pDetailedPlacement->bBodyType == TANK_NE )
+				{
+					if( curr->pBasicPlacement->fPriorityExistance && curr->pDetailedPlacement )
+						ubTankPDSlots++;
+					else if( curr->pBasicPlacement->fPriorityExistance )
+						ubTankPSlots++;
+					else if( curr->pDetailedPlacement )
+						ubTankDSlots++;
+					else
+						ubTankBSlots++;
+				}
+				break;
 			}
 		}
 		curr = curr->next;
@@ -1060,7 +1074,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//ADD PLACEMENTS WITH PRIORITY EXISTANCE WITH DETAILED PLACEMENT INFORMATION FIRST
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY; ubCurrClass++ )
+	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY + 1; ubCurrClass++ )
 	{
 		//First, prepare the counters.
 		switch( ubCurrClass )
@@ -1076,6 +1090,11 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		case SOLDIER_CLASS_ARMY:
 			pCurrSlots = &ubTroopPDSlots;
 			pCurrTotal = &ubTotalTroops;
+			break;
+		case SOLDIER_CLASS_ARMY + 1:// SOLDIER_CLASS_TANK
+			ubCurrClass = SOLDIER_CLASS_TANK;
+			pCurrSlots = &ubTankPDSlots;
+			pCurrTotal = &ubTotalTanks;
 			break;
 		}
 		//Now, loop through the priority existance and detailed placement section of the list.
@@ -1253,6 +1272,12 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ADMINISTRATOR;
 				ubTotalAdmin--;
 			}
+			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
+			{
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
+				curr->pBasicPlacement->bBodyType = TANK_NW;
+				ubTotalTanks--;
+			}
 			else
 				Assert(0);
 			if( AddPlacementToWorld( curr ) )
@@ -1334,6 +1359,26 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		curr = curr->next;
 	}
 
+	// anv: try to place tanks outdoors
+	curr = gSoldierInitHead;
+	while( curr && ubFreeSlots && ubMaxNum )
+	{
+		if( !curr->pSoldier && curr->pBasicPlacement->bTeam == ENEMY_TEAM && ubTotalTanks && !GridNoIndoors( curr->pBasicPlacement->usStartingGridNo ))
+		{
+			curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
+			curr->pBasicPlacement->bBodyType = TANK_NW;
+			ubTotalTanks--;
+			if( AddPlacementToWorld( curr ) )
+			{
+				ubMaxNum--;
+			}
+			else
+				return;
+			ubFreeSlots--;
+		}
+		curr = curr->next;
+	}
+
 	//Now, loop through the entire list again, but for the last time.	All enemies will be inserted now ignoring
 	//detailed placements and classes.
 	curr = gSoldierInitHead;
@@ -1361,6 +1406,12 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 				{
 					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ADMINISTRATOR;
 					ubTotalAdmin--;
+				}
+				else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
+				{
+					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
+					curr->pBasicPlacement->bBodyType = TANK_NW;
+					ubTotalTanks--;
 				}
 				else
 					Assert(0);

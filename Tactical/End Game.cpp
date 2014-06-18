@@ -316,9 +316,11 @@ void DoneFadeOutKilledQueen( void )
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumAdmins = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumTroops = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumElites = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumTanks = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubAdminsInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubTroopsInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubElitesInBattle = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubTanksInBattle = 0;
 
 	// ATE: banish elliot... dead or alive
 	gMercProfiles[ ELLIOT ].sSectorX = 0;

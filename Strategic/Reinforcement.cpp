@@ -31,19 +31,20 @@
 UINT8 gubReinforcementMinEnemyStaticGroupSize = 12;
 UINT32 guiMilitiaReinforceTurn = 0, guiMilitiaArrived = 0;//dnl ch68 090913
 
-void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
+void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
 	
-	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites );
+	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks );
 
-	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
+	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
 	*pubNumAdmins += ubNumAdmins;
 	*pubNumTroops += ubNumTroops;
 	*pubNumElites += ubNumElites;
+	*pubNumTanks += ubNumTanks;
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
@@ -55,9 +56,9 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 
 	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
 	{
-		GetNumberOfStationaryEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites );
+		GetNumberOfStationaryEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
-		while( ubNumElites + ubNumTroops + ubNumAdmins > gubReinforcementMinEnemyStaticGroupSize)
+		while( ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks > gubReinforcementMinEnemyStaticGroupSize)
 		{
 			if( ubNumElites )
 			{
@@ -72,23 +73,29 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 				*pubNumAdmins += 1;
 				ubNumAdmins--;
 			}
+			else if( ubNumTanks )
+			{
+				*pubNumTanks += 1;
+				ubNumTanks--;
+			}
 		}
 
-		GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites );
+		GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
 		*pubNumAdmins += ubNumAdmins;
 		*pubNumTroops += ubNumTroops;
 		*pubNumElites += ubNumElites;
+		*pubNumTanks += ubNumTanks;
 	}
 }
 
 UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
 
-	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
+	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 	
-	return ubNumAdmins + ubNumTroops + ubNumElites;
+	return ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
 }
 
 BOOLEAN IsGroupInARightSectorToReinforce( GROUP *pGroup, INT16 sSectorX, INT16 sSectorY )
@@ -279,19 +286,25 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 				(pThisSector->ubNumElites)++;
 				(pSector->ubNumElites)--;
 				(pThisSector->ubElitesInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, 0, FALSE );
 			}else if( pSector->ubNumTroops )
 			{
 				(pThisSector->ubNumTroops)++;
 				(pSector->ubNumTroops)--;
 				(pThisSector->ubTroopsInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, 0, FALSE );
 			}else if( pSector->ubNumAdmins )
 			{
 				(pThisSector->ubNumAdmins)++;
 				(pSector->ubNumAdmins)--;
 				(pThisSector->ubAdminsInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, 0, FALSE );
+			}else if( pSector->ubNumTanks )
+			{
+				(pThisSector->ubNumTanks)++;
+				(pSector->ubNumTanks)--;
+				(pThisSector->ubTanksInBattle)++;
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 0, 1, FALSE );
 			}
 
 			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];

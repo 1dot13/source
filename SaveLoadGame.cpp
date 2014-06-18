@@ -9259,7 +9259,7 @@ void ValidateStrategicGroups()
 	for( i = SEC_A1; i < SEC_P16; i++ )
 	{
 		pSector = &SectorInfo[ i ];
-		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize )
+		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks > gGameExternalOptions.iMaxEnemyGroupSize )
 		{
 		}
 		//militia

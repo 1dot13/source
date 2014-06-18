@@ -6950,16 +6950,16 @@ void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	{
 		SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sMapX, sMapY )]);
 
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = 0;
 	}
 	else
 	{
 		UNDERGROUND_SECTORINFO *pSectorInfo;
 
 		pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = 0;
 	}
 }
 

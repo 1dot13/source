@@ -1996,6 +1996,7 @@ static int l_AddEnemyToUnderGroundSector(lua_State *L)
 		UINT8 ubNumAdmins = lua_tointeger(L,4);
 		UINT8 ubNumTroops = lua_tointeger(L,5);
 		UINT8 ubNumElites = lua_tointeger(L,6);
+		UINT8 ubNumTanks = lua_tointeger(L,7);
 
 		UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( sSectorX, sSectorY, bLevel );
 
@@ -2004,6 +2005,7 @@ static int l_AddEnemyToUnderGroundSector(lua_State *L)
 			pSector->ubNumAdmins = ubNumAdmins;
 			pSector->ubNumTroops = ubNumTroops;
 			pSector->ubNumElites = ubNumElites;
+			pSector->ubNumTanks = ubNumTanks;
 		}
 	}
 				
@@ -2191,6 +2193,7 @@ int i;
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 	
 INT16 sSectorX;
 INT16 sSectorY;
@@ -2202,8 +2205,9 @@ INT16 sSectorY;
 		if (i == 3 ) ubNumAdmins = lua_tointeger(L,i);
 		if (i == 4 ) ubNumTroops = lua_tointeger(L,i);
 		if (i == 5 ) ubNumElites = lua_tointeger(L,i);
+		if (i == 6 ) ubNumTanks = lua_tointeger(L,i);
 	}	
-		SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	return 0;
 }
 
@@ -4360,7 +4364,8 @@ UINT16 y = -1;
 UINT16 z = -1;
 UINT8 TROOPS_ILOSC = 0;
 UINT8 ELITA_ILOSC = 0;
-UINT CREATURE_ILOSC = 0;
+UINT8 CREATURE_ILOSC = 0;
+UINT8 TANKS_ILOSC = 0;
 
 	if ( ( x >= 1 || x <= 16 ) && ( y >= 1 || y <= 16 ) )
 		{
@@ -4370,12 +4375,14 @@ UINT CREATURE_ILOSC = 0;
 			TROOPS_ILOSC = lh_getIntegerFromTable(L, "Troops");
 			ELITA_ILOSC = lh_getIntegerFromTable(L, "Elite");
 			CREATURE_ILOSC = lh_getIntegerFromTable(L, "Creature");
+			TANKS_ILOSC = lh_getIntegerFromTable(L, "Tanks");
 				
 			//z = lh_getIntegerFromTable(L, "SectorZ");
 					
 			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumTroops = TROOPS_ILOSC;
 			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumElites = ELITA_ILOSC;
 			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumCreatures = CREATURE_ILOSC;	
+			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumTanks = TANKS_ILOSC;
 		}
 		
 	return 0;

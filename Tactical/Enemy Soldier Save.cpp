@@ -43,7 +43,7 @@ int gCivPreservedTempFileVersion[256];
 
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode, GROUP *pGroup = NULL );
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures );
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks );
 
 BOOLEAN gfRestoringEnemySoldiersFromTempFile = FALSE;
 BOOLEAN gfRestoringCiviliansFromTempFile = FALSE;
@@ -104,8 +104,8 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0;
-	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures;
+	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0;
+	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -253,6 +253,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 		ubStrategicElites		= pSector->ubNumElites;
 		ubStrategicTroops		= pSector->ubNumTroops;
 		ubStrategicAdmins		= pSector->ubNumAdmins;
+		ubStrategicTanks		= pSector->ubNumTanks;
 		ubStrategicCreatures = pSector->ubNumCreatures;
 	}
 	else
@@ -260,7 +261,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 		SECTORINFO *pSector;
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 		ubStrategicCreatures = pSector->ubNumCreatures;
-		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites );
+		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicTanks );
 	}
 
 	for( i = 0; i < slots; i++ )
@@ -347,6 +348,16 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 										AddPlacementToWorld( curr );
 									}
 									break;
+								case SOLDIER_CLASS_TANK:
+									if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+									{
+										ubNumTanks++;
+										if( ubNumTanks < ubStrategicTanks )
+										{
+											AddPlacementToWorld( curr );
+										}
+									}
+									break;
 							}
 							break;
 						}
@@ -374,12 +385,13 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	}
 
 	//now add any extra enemies that have arrived since the temp file was made.
-	if( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins )
+	if( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicTanks > ubNumTanks )
 	{
 		ubStrategicTroops = ( ubStrategicTroops > ubNumTroops ) ? ubStrategicTroops - ubNumTroops : 0;
 		ubStrategicElites = ( ubStrategicElites > ubNumElites ) ? ubStrategicElites - ubNumElites : 0;
 		ubStrategicAdmins = ( ubStrategicAdmins > ubNumAdmins ) ? ubStrategicAdmins - ubNumAdmins : 0;
-		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites );
+		ubStrategicTanks = ( ubStrategicTanks > ubNumTanks ) ? ubStrategicTanks - ubNumTanks : 0;
+		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicTanks );
 	}
 	if( ubStrategicCreatures > ubNumCreatures )
 	{
@@ -662,8 +674,8 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0;
-	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures;
+	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0;
+	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -702,16 +714,17 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		ubNumElites = pSector->ubNumElites;
 		ubNumTroops = pSector->ubNumTroops;
 		ubNumAdmins = pSector->ubNumAdmins;
+		ubNumTanks = pSector->ubNumTanks;
 		ubNumCreatures = pSector->ubNumCreatures;
 	}
 
 	if( !( gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		// Get the number of enemies form the temp file
-		CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( &ubStrategicElites, &ubStrategicTroops, &ubStrategicAdmins, &ubStrategicCreatures );
+		CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( &ubStrategicElites, &ubStrategicTroops, &ubStrategicAdmins, &ubStrategicCreatures, &ubStrategicTanks );
 
 		//If any of the counts differ from what is in memory
-		if( ubStrategicElites != ubNumElites || ubStrategicTroops != ubNumTroops || ubStrategicAdmins != ubNumAdmins || ubStrategicCreatures != ubNumCreatures )
+		if( ubStrategicElites != ubNumElites || ubStrategicTroops != ubNumTroops || ubStrategicAdmins != ubNumAdmins || ubStrategicCreatures != ubNumCreatures || ubStrategicTanks != ubNumTanks )
 		{
 			//remove the file
 			RemoveEnemySoldierTempFile( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
@@ -720,7 +733,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 	//reset
-	ubNumElites = ubNumTroops = ubNumAdmins = ubNumCreatures = 0;
+	ubNumElites = ubNumTroops = ubNumAdmins = ubNumCreatures = ubNumTanks = 0;
 
 
 	//Open the file for reading
@@ -860,6 +873,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		ubStrategicElites		= pSector->ubNumElites;
 		ubStrategicTroops		= pSector->ubNumTroops;
 		ubStrategicAdmins		= pSector->ubNumAdmins;
+		ubStrategicTanks		= pSector->ubNumTanks;
 		ubStrategicCreatures = pSector->ubNumCreatures;
 	}
 	else
@@ -867,7 +881,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		SECTORINFO *pSector;
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 		ubStrategicCreatures = pSector->ubNumCreatures;
-		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites );
+		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicTanks );
 	}
 
 	for( i = 0; i < slots; i++ )
@@ -944,6 +958,16 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 //def:								AddPlacementToWorld( curr );
 							}
 							break;
+						case SOLDIER_CLASS_TANK:
+							if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+							{
+								ubNumTanks++;
+								if( ubNumTanks <= ubStrategicTanks )
+								{
+//def:								AddPlacementToWorld( curr );
+								}
+							}
+							break;
 					}
 					break;
 				}
@@ -969,12 +993,13 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 	//now add any extra enemies that have arrived since the temp file was made.
-	if( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins )
+	if( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicTanks > ubNumTanks )
 	{
 		ubStrategicTroops = ( ubStrategicTroops > ubNumTroops ) ? ubStrategicTroops - ubNumTroops : 0;
 		ubStrategicElites = ( ubStrategicElites > ubNumElites ) ? ubStrategicElites - ubNumElites : 0;
 		ubStrategicAdmins = ( ubStrategicAdmins > ubNumAdmins ) ? ubStrategicAdmins - ubNumAdmins : 0;
-		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites );
+		ubStrategicTanks = ( ubStrategicTanks > ubNumTanks ) ? ubStrategicTanks - ubNumTanks : 0;
+		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicTanks );
 	}
 	if( ubStrategicCreatures > ubNumCreatures )
 	{
@@ -1567,7 +1592,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 
 
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures )
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks )
 {
 //	SOLDIERINITNODE *curr;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
@@ -1592,6 +1617,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 	*pubNumElites = 0;
 	*pubNumRegulars = 0;
 	*pubNumAdmins = 0;
+	*pubNumTanks = 0;
 	*pubNumCreatures = 0;
 
 
@@ -1757,6 +1783,12 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 				break;
 			case SOLDIER_CLASS_CREATURE:
 				(*pubNumCreatures)++;
+				break;
+			case SOLDIER_CLASS_TANK:
+				if( tempDetailedPlacement.bBodyType == TANK_NE || tempDetailedPlacement.bBodyType == TANK_NW )
+				{
+					(*pubNumTanks)++;
+				}
 				break;
 		}
 /*

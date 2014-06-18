@@ -2329,7 +2329,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 
 	// anv: special check for vehicles - since they're no longer transparent, we need to check for visibility 
 	// of all substructures, also vehicle will be noticed even if just part of it is sticking around the corner
-	if( pEndSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && !TANK( pEndSoldier ) )
+	if( pEndSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && ( !TANK( pEndSoldier ) || gGameExternalOptions.fEnemyTanksAnyPartVisible ) )
 	{
 		STRUCTURE	*pBase = pEndSoldier->pLevelNode->pStructureData;
 		if( pBase == NULL )

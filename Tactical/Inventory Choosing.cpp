@@ -259,7 +259,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 	}
 
 
-	Assert( ( bSoldierClass >= SOLDIER_CLASS_NONE ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) );
+	Assert( ( bSoldierClass >= SOLDIER_CLASS_NONE ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) || bSoldierClass == SOLDIER_CLASS_TANK );
 	Assert( ( bEquipmentRating >= 0 ) && ( bEquipmentRating <= 4 ) );
 
 

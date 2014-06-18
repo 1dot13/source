@@ -391,6 +391,7 @@ void CrippledVersionFailureToLoadMapCheck();
 	extern INT16	 gsAINumAdmins;
 	extern INT16	 gsAINumTroops;
 	extern INT16	 gsAINumElites;
+	extern INT16	 gsAINumTanks;
 	extern INT16	 gsAINumCreatures;
 	//The wrapper time for EnterSector
 	BOOLEAN fStartNewFile = TRUE;
@@ -2550,6 +2551,7 @@ void PrepareLoadedSector()
 				pSector->ubNumAdmins = (UINT8)( gsAINumAdmins > 0 ? gsAINumAdmins : 0 );
 				pSector->ubNumTroops = (UINT8)( gsAINumTroops > 0 ? gsAINumTroops : 0 );
 				pSector->ubNumElites = (UINT8)( gsAINumElites > 0 ? gsAINumElites : 0 );
+				pSector->ubNumTanks = (UINT8)( gsAINumTanks > 0 ? gsAINumTanks : 0 );
 				pSector->ubNumCreatures = (UINT8)( gsAINumCreatures > 0 ? gsAINumCreatures : 0 );
 			}
 			else if( !gbWorldSectorZ )
@@ -2559,6 +2561,7 @@ void PrepareLoadedSector()
 				pSector->ubNumAdmins = (UINT8)( gsAINumAdmins > 0 ? gsAINumAdmins : 0 );
 				pSector->ubNumTroops = (UINT8)( gsAINumTroops > 0 ? gsAINumTroops : 0 );
 				pSector->ubNumElites = (UINT8)( gsAINumElites > 0 ? gsAINumElites : 0 );
+				pSector->ubNumTanks = (UINT8)( gsAINumTanks > 0 ? gsAINumTanks : 0 );
 				pSector->ubNumCreatures = (UINT8)( gsAINumCreatures > 0 ? gsAINumCreatures : 0 );
 			}
 		}

@@ -14228,6 +14228,15 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	if ( TileIsOutOfBounds(this->sGridNo) )
 		return( FALSE );
 
+	// anv: passengers who can shoot can rest their guns
+	if ( this->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		if( !gNewVehicle[pVehicleList[this->iVehicleId].ubVehicleType].VehicleSeats[GetSeatIndexFromSoldier(this)].fBlockedShots )
+			return( TRUE );
+		else
+			return( FALSE );
+	}
+
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 	INT32 nextGridNoinSight = this->sGridNo;
 	if ( this->ubDirection == NORTH ||  this->ubDirection == SOUTHWEST  ||  this->ubDirection == WEST ||  this->ubDirection == NORTHWEST )
@@ -14258,8 +14267,13 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[ usPersonID ];
 
+					// anv: vehicles don't mind
+					if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+					{
+						applybipod = TRUE;
+					}
 					// if the other person is an ally and prone
-					if ( this->bSide == pSoldier->bSide && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+					else if ( this->bSide == pSoldier->bSide && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
 					{
 						// if we are facing the other guy in a 90 degree angle, we can mount our gun on his back
 						// Once merc's relationship allows angering mercs through actions of others, add a penalty here
@@ -14324,8 +14338,13 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 				{
 					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
 
+					// anv: vehicles don't mind
+					if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+					{
+						applybipod = TRUE;
+					}
 					// if the other person is an ally and prone
-					if ( this->bSide == pSoldier->bSide && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH )
+					else if ( this->bSide == pSoldier->bSide && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH )
 					{
 						applybipod = TRUE;
 

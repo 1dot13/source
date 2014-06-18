@@ -2689,39 +2689,39 @@ void MobileMilitiaDeserters(INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOL
 	///////////////////////
 	// check enemy presence to decide if mobiles are threatened and some will desert.
 	// Note: cant use NumEnemiesInFiveSectors() as it does not work for omerta or when reinforcements are deactivated, also it uses generateDirectionInfo(), which is used for militia movement.
-	UINT8 eAdmins = 0, eTroops = 0, eElites = 0;
+	UINT8 eAdmins = 0, eTroops = 0, eElites = 0, eTanks = 0;
 	
 	//enemies in current sector
-	GetNumberOfEnemiesInSector( sMapX, sMapY, &eAdmins, &eTroops, &eElites );
+	GetNumberOfEnemiesInSector( sMapX, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
 	if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
 		enemiesNear = TRUE;
 
 	if ( ( sMapX > MINIMUM_VALID_X_COORDINATE ) && !enemiesNear )
 	{
 		//left side
-		GetNumberOfEnemiesInSector( sMapX - 1, sMapY, &eAdmins, &eTroops, &eElites );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+		GetNumberOfEnemiesInSector( sMapX - 1, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapX < MAXIMUM_VALID_X_COORDINATE ) && !enemiesNear)
 	{
 		//right side
-		GetNumberOfEnemiesInSector( sMapX + 1, sMapY, &eAdmins, &eTroops, &eElites );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+		GetNumberOfEnemiesInSector( sMapX + 1, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapY > MINIMUM_VALID_Y_COORDINATE ) && !enemiesNear )
 	{
 		//top side
-		GetNumberOfEnemiesInSector( sMapX, sMapY - 1, &eAdmins, &eTroops, &eElites );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+		GetNumberOfEnemiesInSector( sMapX, sMapY - 1, &eAdmins, &eTroops, &eElites, &eTanks );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapY < MAXIMUM_VALID_Y_COORDINATE ) && !enemiesNear)
 	{
 		//bottom side
-		GetNumberOfEnemiesInSector( sMapX, sMapY + 1, &eAdmins, &eTroops, &eElites );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+		GetNumberOfEnemiesInSector( sMapX, sMapY + 1, &eAdmins, &eTroops, &eElites, &eTanks );
+		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
 			enemiesNear = TRUE;
 	}
 

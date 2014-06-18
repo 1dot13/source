@@ -71,8 +71,9 @@ typedef struct ENEMYGROUP
 	UINT8 ubTroopsInBattle;				//number of soldiers currently in battle.
 	UINT8 ubElitesInBattle;				//number of elite soldiers currently in battle.
 	// WDS - New AI
-	UINT8 numTanks;
-	INT8	bPadding[19];
+	UINT8 ubNumTanks;
+	UINT8 ubTanksInBattle;
+	INT8	bPadding[18];
 }ENEMYGROUP;
 
 //NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE
@@ -180,9 +181,9 @@ BOOLEAN SetGroupPatrolParameters( UINT8 ubGroupID, UINT8 ubRestAtFL, UINT8 ubRes
 
 //Enemy grouping functions -- private use by the strategic AI.
 //............................................................
-GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
+GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
 #ifdef JA2UB
-GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
+GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
 #endif
 
 //ARRIVALCALLBACK -- None of these functions should be called directly.

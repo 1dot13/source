@@ -837,6 +837,18 @@ typedef struct
 	BOOLEAN fAddPassengerToAnySquad;
 	BOOLEAN fPassengerLeavingSwitchToNewSquad;
 
+	// anv: tanks can move!
+	BOOLEAN fEnemyTanksCanMoveInTactical;
+	BOOLEAN fEnemyTanksDontSpareShells;
+	BOOLEAN fEnemyTanksBlowObstaclesUp;
+	BOOLEAN fEnemyTanksAnyPartVisible;
+
+	BOOLEAN fEnemiesDontSpareLaunchables;
+	BOOLEAN fEnemiesBlowObstaclesUp;
+
+	BOOLEAN fArmyUsesTanksInAttacks;
+	BOOLEAN fArmyUsesTanksInPatrols;
+
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
 

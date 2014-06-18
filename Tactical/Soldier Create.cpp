@@ -2430,6 +2430,10 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			}
 			break;
 
+		case SOLDIER_CLASS_TANK:
+			pp->bExpLevel = bp->bRelativeAttributeLevel;
+			break;
+
 		default:
 			pp->bExpLevel = bp->bRelativeAttributeLevel;					//avg 2 (1-4)
 			ubSoldierClass = SOLDIER_CLASS_NONE;
@@ -3021,6 +3025,86 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	//is in AddPlacementToWorld() used for inserting defensive enemies.
 	//NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
 	OkayToUpgradeEliteToSpecialProfiledEnemy( &pp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+	}
+
+	return( pSoldier );
+}
+
+//USED BY STRATEGIC AI and AUTORESOLVE
+SOLDIERTYPE* TacticalCreateEnemyTank()
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
+		if( pSoldier ) return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
+	bp.bTeam = ENEMY_TEAM;
+	bp.bOrders	= SEEKENEMY;
+	bp.bAttitude = (INT8) Random( MAXATTITUDES );
+	bp.bBodyType = TANK_NW;
+	bp.ubSoldierClass = SOLDIER_CLASS_TANK;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	//SPECIAL!	Certain events in the game can cause profiled NPCs to become enemies.	The two cases are
+	//adding Mike and Iggy.	We will only add one NPC in any given combat and the conditions for setting
+	//the associated facts are done elsewhere.	There is also another place where NPCs can get added, which
+	//is in AddPlacementToWorld() used for inserting defensive enemies.
+	//NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
+	OkayToUpgradeEliteToSpecialProfiledEnemy( &pp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+	}
+
+	return( pSoldier );
+}
+
+//USED BY STRATEGIC AI and AUTORESOLVE
+// should to be succeeded by TacticalCreateArmyTroop/EliteEnemy and AddSoldierToVehicle
+SOLDIERTYPE* TacticalCreateJeep()
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+	SOLDIERTYPE * pDriver;
+
+	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
+		if( pSoldier ) return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
+	bp.bTeam = CIV_TEAM;
+	bp.bOrders	= STATIONARY;
+	bp.bAttitude = (INT8) Random( MAXATTITUDES );
+	bp.bBodyType = JEEP;
+	bp.ubSoldierClass = SOLDIER_CLASS_NONE;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+	pp.ubProfile = 199;
 
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 	if ( pSoldier )

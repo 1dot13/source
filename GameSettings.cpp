@@ -1386,6 +1386,14 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_SCALE", 100, 0, 200);
 	
+	gGameExternalOptions.fEnemyTanksCanMoveInTactical							= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMY_TANKS_CAN_MOVE_IN_TACTICAL", FALSE);
+	gGameExternalOptions.fEnemyTanksDontSpareShells					= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMY_TANKS_DONT_SPARE_SHELLS", TRUE);
+	gGameExternalOptions.fEnemyTanksBlowObstaclesUp					= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMY_TANKS_BLOW_OBSTACLES_UP", TRUE);
+	gGameExternalOptions.fEnemyTanksAnyPartVisible					= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMY_TANKS_ANY_PART_VISIBLE", FALSE);
+
+	gGameExternalOptions.fEnemiesDontSpareLaunchables				= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMIES_DONT_SPARE_LAUNCHABLES", TRUE);
+	gGameExternalOptions.fEnemiesBlowObstaclesUp					= iniReader.ReadBoolean("Tactical Gameplay Settings","ENEMIES_BLOW_OBSTACLES_UP", FALSE);
+
 	// SANDRO - Improved camo applying and camo can be removed
 	gGameExternalOptions.fCamoRemoving						= iniReader.ReadBoolean("Tactical Gameplay Settings", "CAMO_REMOVING", TRUE);
 	gGameExternalOptions.bCamoKitArea						= iniReader.ReadInteger("Tactical Gameplay Settings", "CAMO_KIT_USABLE_AREA", 5, 0, 100);
@@ -2233,6 +2241,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sRndEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_MILITIA_REINFORCEMENTS", 4, 1, 64);
 	//dnl ch68 090913 Don't allow permanent items removal from sector
 	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", true, false);
+
+	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
+	gGameExternalOptions.fArmyUsesTanksInPatrols					= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);
 
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE

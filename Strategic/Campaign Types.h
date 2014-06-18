@@ -500,7 +500,10 @@ typedef struct SECTORINFO
 
 	UINT32	uiTimeAIArtillerywasOrdered;			// Flugente: updated every time an artillery strike is ordered from the militia
 	
-	INT8	bPadding[ 29 ];
+	UINT8	ubNumTanks;
+	UINT8	ubTanksInBattle;
+
+	INT8	bPadding[ 27 ];
 
 }SECTORINFO;
 
@@ -539,7 +542,10 @@ typedef struct UNDERGROUND_SECTORINFO
 	
 	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
 
-	INT8	bPadding[32];
+	UINT8	ubNumTanks;
+	UINT8	ubTanksInBattle;
+
+	INT8	bPadding[30];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

@@ -695,7 +695,7 @@ BOOLEAN AddWaypointStrategicIDToPGroup( GROUP *pGroup, UINT32 uiSectorID )
 
 //Enemy grouping functions -- private use by the strategic AI.
 //............................................................
-GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
 	GROUP *pNew;
 	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewEnemyGroup with out of range value of %d", uiSector ) );
@@ -706,7 +706,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	AssertMsg( pNew->pEnemyGroup, "MemAlloc failure during enemy group creation." );
 	memset( pNew->pEnemyGroup, 0, sizeof( ENEMYGROUP ) );
 	// Make sure group is not bigger than allowed!
-	while (ubNumAdmins + ubNumTroops + ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize)
+	while (ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks > gGameExternalOptions.iMaxEnemyGroupSize)
 	{
 		if (ubNumTroops)
 		{
@@ -716,9 +716,13 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 		{
 			ubNumAdmins--;
 		}
-		else
+		else if (ubNumElites)
 		{
 			ubNumElites--;
+		}
+		else if (ubNumTanks)
+		{
+			ubNumTanks--;
 		}
 	}
 	pNew->pWaypoints = NULL;
@@ -733,7 +737,8 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	pNew->pEnemyGroup->ubNumAdmins = ubNumAdmins;
 	pNew->pEnemyGroup->ubNumTroops = ubNumTroops;
 	pNew->pEnemyGroup->ubNumElites = ubNumElites;
-	pNew->ubGroupSize = (UINT8)(ubNumAdmins + ubNumTroops + ubNumElites);
+	pNew->pEnemyGroup->ubNumTanks = ubNumTanks;
+	pNew->ubGroupSize = (UINT8)(ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks);
 	pNew->ubTransportationMask = FOOT;
 	pNew->fVehicle = FALSE;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;
@@ -5554,7 +5559,7 @@ BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 }
 
 #ifdef JA2UB
-GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
 	GROUP *pNew;
 	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewEnemyGroup with out of range value of %d", uiSector ) );

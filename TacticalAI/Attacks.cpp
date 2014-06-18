@@ -985,7 +985,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		bPersOL = pSoldier->aiData.bOppList[pOpponent->ubID];
 
-		if ((Item[usInHand].mortar ) || (Item[usInHand].grenadelauncher ) )
+		if ((Item[usInHand].mortar ) || (Item[usInHand].grenadelauncher ) || (Item[usInHand].cannon ) )
 		{
 			bPublOL = gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID];
 			// allow long range firing, where target doesn't PERSONALLY see opponent
@@ -1100,18 +1100,20 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		case 0:
 		case 1:
 			// they won't use them until they have 2+ opponents as long as half life left
-			if ((ubOpponentCnt < 2) && (pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2)))
+			// anv: tanks don't care
+			if ( ( ubOpponentCnt < 2 ) && ( pSoldier->stats.bLife > pSoldier->stats.bLifeMax / 2  ) && 
+				( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 			{
 				return;
 			}
 			break;
 		case 2:
 			// they won't use them until they have 2+ opponents as long as 3/4 life left
-			if ((ubOpponentCnt < 2) && (pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 4) * 3 ))
+			if ( (ubOpponentCnt < 2) && ( pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 4) * 3 ) &&
+				( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 			{
 				return;
 			}
-			break;
 			break;
 		default:
 			break;
@@ -1346,7 +1348,13 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				if ( EXPLOSIVE_GUN( usInHand ) )
 				{
 					ubChanceToGetThrough = AISoldierToLocationChanceToGetThrough( pSoldier, sGridNo, bOpponentLevel[ubLoop], 0 );
-					if ( ubChanceToGetThrough == 0)
+					// anv: tanks shouldn't care about chance to get through - can't hit? At least we'll destroy their cover.
+					// also AISoldierToLocationChanceToGetThrough used to return 0 for tanks, but that's a different story
+					if( ( gGameExternalOptions.fEnemyTanksBlowObstaclesUp && TANK(pSoldier) ) || gGameExternalOptions.fEnemiesBlowObstaclesUp )
+					{
+						ubChanceToGetThrough = 100;
+					}
+					if ( ubChanceToGetThrough == 0 )
 					{
 						continue; // next gridno
 					}
@@ -1387,7 +1395,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				// this is try to minimize enemies wasting their (few) mortar shells or LAWs
 				// they won't use them on less than 2 targets as long as half life left
 				if ((Item[usInHand].mortar || Item[usInHand].rocketlauncher ) && (ubOppsInRange < 2) &&
-					(pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2)))
+					(pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2)) && ( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 				{
 					continue;				// next gridno
 				}

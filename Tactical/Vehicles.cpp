@@ -510,24 +510,24 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 
 	if( pVehicleSoldier )
 	{
-		if ( pVehicleSoldier->bTeam != gbPlayerNum )
+		if ( pVehicleSoldier->bTeam != pSoldier->bTeam )
 		{
 			// Can we add a new vehicle
-			if( vCount >= gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles )
+			if( vCount >= gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles && pSoldier->bTeam == gbPlayerNum )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[VEHICLE_CAN_NOT_BE_ADDED] );
 				return( FALSE );
 			}
 
 			// Change sides...
-			pVehicleSoldier = ChangeSoldierTeam( pVehicleSoldier, gbPlayerNum );
+			pVehicleSoldier = ChangeSoldierTeam( pVehicleSoldier, pSoldier->bTeam );
 			// add it to mapscreen list
 			fReBuildCharacterList = TRUE;
 		}
 	}
 
 	// If vehicle is empty, add to unique squad now that it has somebody in it!
-	if ( GetNumberInVehicle( iId ) == 0 && pVehicleSoldier )
+	if ( GetNumberInVehicle( iId ) == 0 && pVehicleSoldier && pSoldier->bTeam == gbPlayerNum )
 	{
 		// 2 ) Add to unique squad...
 		AddCharacterToUniqueSquad( pVehicleSoldier );
@@ -536,17 +536,17 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 		// We have now a guy on a squad group, remove him!
 		RemovePlayerFromGroup( SquadMovementGroups[ pVehicleSoldier->bAssignment ], pVehicleSoldier	);
 
-	// I really have vehicles.\
-	// ONLY add to vehicle group once!
-	if ( !DoesPlayerExistInPGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier ) )
-	{
-		//NOW.. add guy to vehicle group....
-		AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier	);
-	}
-	else
-	{
-		pVehicleSoldier->ubGroupID = pVehicleList[ iId ].ubMovementGroup;
-	}
+		// I really have vehicles.\
+		// ONLY add to vehicle group once!
+		if ( !DoesPlayerExistInPGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier ) )
+		{
+			//NOW.. add guy to vehicle group....
+			AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pVehicleSoldier	);
+		}
+		else
+		{
+			pVehicleSoldier->ubGroupID = pVehicleList[ iId ].ubMovementGroup;
+		}
 	}
 
 	// check if the grunt is already here
@@ -565,7 +565,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 		UnSetUIBusy( pSoldier->ubID );
 
 		// can't call SelectSoldier in mapscreen, that will initialize interface panels!!!
-		if ( guiCurrentScreen == GAME_SCREEN )
+		if ( guiCurrentScreen == GAME_SCREEN && pSoldier->bTeam == gbPlayerNum )
 		{
 			SelectSoldier( pVehicleSoldier->ubID, FALSE, TRUE );
 		}
@@ -611,11 +611,11 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 			}
 
 			// if in a squad, remove from squad, if not, check if in vehicle, if so remove, if not, then check if in mvt group..if so, move and destroy group
-			if( pSoldier->bAssignment < ON_DUTY )
+			if( pSoldier->bTeam == gbPlayerNum && pSoldier->bAssignment < ON_DUTY )
 			{
 				RemoveCharacterFromSquads( pSoldier );
 			}
-			else if( pSoldier->ubGroupID != 0 )
+			else if( pSoldier->bTeam == gbPlayerNum && pSoldier->ubGroupID != 0 )
 			{
 				// Flugente 2012-08-15: had very weird behaviour here. The outcommented code below failed, because the group size wasn't 0, which then threw an Assert()-error.
 				// This happened in r5468 when assinging a merc on repair duty to the truck, switching back and forth between the two
@@ -628,22 +628,26 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 				//pSoldier->ubGroupID = 0;
 			}
 
-			if( ( pSoldier->bAssignment != VEHICLE ) || ( 	pSoldier->iVehicleId != iId ) )
-			{
-				SetTimeOfAssignmentChangeForMerc( pSoldier );
-			}
-
-			// set thier assignment
-			ChangeSoldiersAssignment( pSoldier, VEHICLE );
-
 			// set vehicle id
 			pSoldier->iVehicleId = iId;
 
-			// if vehicle is part of mvt group, then add character to mvt group
-			if( pVehicleList[ iId ].ubMovementGroup != 0 )
+			if( pSoldier->bTeam == gbPlayerNum )
 			{
-				// add character
-				AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pSoldier );
+
+				if( ( pSoldier->bAssignment != VEHICLE ) || ( pSoldier->iVehicleId != iId ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				// set thier assignment
+				ChangeSoldiersAssignment( pSoldier, VEHICLE );
+
+				// if vehicle is part of mvt group, then add character to mvt group
+				if( pVehicleList[ iId ].ubMovementGroup != 0 )
+				{
+					// add character
+					AddPlayerToGroup( pVehicleList[ iId ].ubMovementGroup, pSoldier );
+				}
 
 			}
 
@@ -692,7 +696,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 				pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 
 				// can't call SetCurrentSquad OR SelectSoldier in mapscreen, that will initialize interface panels!!!
-				if ( guiCurrentScreen == GAME_SCREEN )
+				if ( pSoldier->bTeam == gbPlayerNum && guiCurrentScreen == GAME_SCREEN )
 				{
 					SetCurrentSquad( pVehicleSoldier->bAssignment, TRUE );
 				}
@@ -1592,7 +1596,7 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 void SetDriver( INT32 iID, UINT8 ubID )
 {
 	// anv: first make sure previous driver won't be driver anymore
-	if( pVehicleList[ iID ].ubDriver != NOBODY )
+	if( pVehicleList[ iID ].ubDriver != NOBODY && MercPtrs[ pVehicleList[ iID ].ubDriver ]->iVehicleId == iID )
 	{
 		if( MercPtrs[ pVehicleList[ iID ].ubDriver ] )
 		{

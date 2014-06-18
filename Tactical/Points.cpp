@@ -2610,7 +2610,7 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 	INT16	sCost;
 	INT32	sGridNo;
 
-	if ( TANK( pSoldier ) )
+	if ( TANK( pSoldier ) && !gGameExternalOptions.fEnemyTanksCanMoveInTactical )
 	{
 		return(sLowest);//dnl ch64 290813 100AP made INT8 return obsolete
 	}

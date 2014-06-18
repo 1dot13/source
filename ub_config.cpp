@@ -103,6 +103,7 @@ UNDERGROUND_SECTORINFO *pSector;
 UINT8 ubNumAdmins = 0;
 UINT8 ubNumTroops = 0;
 UINT8 ubNumElites = 0;
+UINT8 ubNumTanks = 0;
 
 	if ( Level != 0 )
 	{
@@ -117,25 +118,25 @@ UINT8 ubNumElites = 0;
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 10 + Random( 5 );
 				ubNumElites = Random( 4 );			
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_MEDIUM:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 15 + Random( 8 );
 				ubNumElites = 1 + Random( 2 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_HARD:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 20 + Random( 7 );
 				ubNumElites = 2 + Random( 2 );	
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_INSANE:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 20 + Random( 3 );
 				ubNumElites = 6 + Random( 3 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			}
 		}
@@ -151,25 +152,25 @@ UINT8 ubNumElites = 0;
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 10 + Random( 5 );
 				ubNumElites = Random( 4 );			
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_MEDIUM:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 15 + Random( 8 );
 				ubNumElites = 1 + Random( 2 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_HARD:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 23 + Random( 7);
 				ubNumElites = 2 + Random( 2 );	
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			case DIF_LEVEL_INSANE:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 20 + Random( 3 );
 				ubNumElites = 6 + Random( 3 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 				break;
 			}
 		}

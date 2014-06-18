@@ -123,16 +123,16 @@ JA25_SECTOR_AI_MANAGER gJa25StrategicAi;
 
 
 BOOLEAN		AddEnemiesToInitialSectorH7();
-UINT32		GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 *pNumAdmins, UINT8 *pNumTroops, UINT8 *pNumElites );
-void		SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
+UINT32		GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 *pNumAdmins, UINT8 *pNumTroops, UINT8 *pNumElites, UINT8 *pubNumTanks );
+void		SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
 
-void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
+void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
 void InitJa25InitialEnemiesInSector();
 void InitJa25UnderGroundSectors();
 void InitNumberOfEnemiesInAboveGroundSectors( );
 void InitNumberOfEnemiesInUnderGroundSectors( );
 void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8 bBloodCatPlacements  );
-void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
+void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
 
 void ResetJa25SectorProbabilities();
 BOOLEAN	InitJa25StrategicSectorAI( BOOLEAN fReset );
@@ -152,8 +152,8 @@ void			FixEnemyCounterInSectorBug();
 
 void			AddEnemiesToFirstTunnelSector();
 void			AddEnemiesToSecondTunnelSector();
-UINT8			NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites );
-UINT8			NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites );
+UINT8			NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks );
+UINT8			NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks );
 void			RemoveAllEnemySoldierInitListLinks();
 INT16			GetGridNoEnemyWillSeekWhenAttacking( INT8 bSaiSector );
 void			SetH11NumEnemiesInSector();
@@ -175,7 +175,7 @@ BOOLEAN		Ja25BetaDateToInvalidateExe();
 
 
 
-UINT32	GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 *pNumAdmins, UINT8 *pNumTroops, UINT8 *pNumElites )
+UINT32	GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 *pNumAdmins, UINT8 *pNumTroops, UINT8 *pNumElites, UINT8 *pNumTanks )
 {
 	SECTORINFO *pSector;
 
@@ -187,6 +187,7 @@ UINT32	GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSec
 		*pNumAdmins = pSector->ubNumAdmins;
 		*pNumTroops = pSector->ubNumTroops;
 		*pNumElites = pSector->ubNumElites;
+		*pNumTanks = pSector->ubNumTanks;
 	}
 	else
 	{
@@ -198,6 +199,7 @@ UINT32	GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSec
 			*pNumAdmins = pSector->ubNumAdmins;
 			*pNumTroops = pSector->ubNumTroops;
 			*pNumElites = pSector->ubNumElites;
+			*pNumTanks = pSector->ubNumTanks;
 		}
 	}
 
@@ -278,15 +280,17 @@ BOOLEAN	AddEnemiesToInitialSectorH7()
 	UINT8	ubNumAdmins;
 	UINT8	ubNumTroops;
 	UINT8	ubNumElites;
+	UINT8	ubNumTanks;
 
 	UINT8	ubNumRemovedAdmins=0;
 	UINT8	ubNumRemovedTroops=0;
 	UINT8	ubNumRemovedElites=0;
+	UINT8	ubNumRemovedTanks=0;
 
 	ubSector = SECTOR( JA2_5_START_SECTOR_X, JA2_5_START_SECTOR_Y );
 
 	//Get the number of enemies in the guard post sector
-	GetNumberOfJA25EnemiesInSector( 8, MAP_ROW_H, 0, &ubNumAdmins, &ubNumTroops, &ubNumElites );
+	GetNumberOfJA25EnemiesInSector( 8, MAP_ROW_H, 0, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
 
 	//determine the #of enemies to travel to the initial heli sector
@@ -299,13 +303,16 @@ BOOLEAN	AddEnemiesToInitialSectorH7()
 	if( ubNumElites > 1 )
 		ubNumRemovedElites = ubNumElites / 3 + + Random( 3 );
 
+	if( ubNumTanks > 1 )
+		ubNumRemovedTanks = ubNumTanks / 3 + + Random( 3 );
+
 	//deduct the # that are moving from the # in the guard post sector
 //	SetNumberJa25EnemiesInSurfaceSector( SEC_H8, (UINT8)(ubNumAdmins-ubNumRemovedAdmins), (UINT8)(ubNumTroops-ubNumRemovedTroops), (UINT8)(ubNumElites-ubNumRemovedElites) );
-	SetNumberJa25EnemiesInSector( 8, MAP_ROW_H, 0, (UINT8)(ubNumAdmins-ubNumRemovedAdmins), (UINT8)(ubNumTroops-ubNumRemovedTroops), (UINT8)(ubNumElites-ubNumRemovedElites) );
+	SetNumberJa25EnemiesInSector( 8, MAP_ROW_H, 0, (UINT8)(ubNumAdmins-ubNumRemovedAdmins), (UINT8)(ubNumTroops-ubNumRemovedTroops), (UINT8)(ubNumElites-ubNumRemovedElites), (UINT8)(ubNumTanks-ubNumRemovedTanks) );
 
 	uiWorldMin = GetWorldTotalMin();
 
-	pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, ubNumRemovedAdmins, ubNumRemovedTroops, ubNumRemovedElites );
+	pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, ubNumRemovedAdmins, ubNumRemovedTroops, ubNumRemovedElites, ubNumRemovedTanks );
 
 	if( pGroup == NULL )
 	{
@@ -396,24 +403,24 @@ void InitJa25UnderGroundSectors()
 */
 }
 
-void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
 	//if its a ground level
 	
 	if( bSectorZ == 0 )
 	{
-		SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//its an underground level
 	else
 	{
-		SetNumberJa25EnemiesInUnderGroundSector( sSectorX, sSectorY, bSectorZ, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInUnderGroundSector( sSectorX, sSectorY, bSectorZ, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 	
 }
 
-void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
 	SECTORINFO *pSector;
 
@@ -421,6 +428,7 @@ void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UI
 	pSector->ubNumAdmins = ubNumAdmins;
 	pSector->ubNumTroops = ubNumTroops;
 	pSector->ubNumElites = ubNumElites;
+	pSector->ubNumTanks = ubNumTanks;
 }
 
 void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8 bBloodCatPlacements )
@@ -433,7 +441,7 @@ void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8
 	pSector->bBloodCatPlacements = bBloodCatPlacements;
 }
 
-void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
 	UNDERGROUND_SECTORINFO *pSector=NULL;
 
@@ -444,6 +452,7 @@ void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, IN
 	pSector->ubNumAdmins = ubNumAdmins;
 	pSector->ubNumTroops = ubNumTroops;
 	pSector->ubNumElites = ubNumElites;
+	pSector->ubNumTanks = ubNumTanks;
 }
 
 void InitNumberOfEnemiesInAboveGroundSectors( )
@@ -451,6 +460,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 
 	//H7
 	{
@@ -477,7 +487,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				ubNumElites = 0 + Random( 0 );
 				break;
 		}
-		SetNumberJa25EnemiesInSurfaceSector( SEC_H7, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_H7, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 
@@ -508,7 +518,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_H8, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_H8, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 		//Guard Post
@@ -538,7 +548,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_H9, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_H9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	// SEC_H10:
@@ -567,7 +577,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_H10, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_H10, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//SEC_H11
@@ -600,7 +610,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_I9, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_I9, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//First part of town
@@ -630,7 +640,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_I10, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_I10, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 		//Second part of town
@@ -660,7 +670,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_I11, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_I11, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//SEC_I12:
@@ -689,7 +699,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_I12, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_I12, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//Abandoned mine
@@ -719,7 +729,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_I13, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_I13, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	// SEC_J11:
@@ -748,7 +758,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_J11, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_J11, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	// SEC_J12:
@@ -777,7 +787,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_J12, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_J12, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//Power Generator, Ground Level
@@ -807,7 +817,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_J13, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_J13, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 
 	//Complex, Ground Level
@@ -837,7 +847,7 @@ void InitNumberOfEnemiesInAboveGroundSectors( )
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_K15, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_K15, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 }
 
@@ -846,6 +856,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks;
 
 	//Mine Sector Level 1
 	switch( gGameOptions.ubDifficultyLevel )
@@ -866,7 +877,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 0 + Random( 0 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 13, 9, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 13, 9, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Power Generator Level 1
@@ -888,7 +899,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 0 + Random( 0 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 13, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 13, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Tunnel First Part, Level 1
@@ -910,7 +921,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 0 + Random( 0 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 14, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 14, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Tunnel Second Part, Level 1
@@ -932,7 +943,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 0 + Random( 0 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 14, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 14, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 
@@ -955,7 +966,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 6 + Random( 4 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 15, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 15, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Complex, Level 2, K15
@@ -977,7 +988,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 10 + Random( 2 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 15, 11, 2, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 15, 11, 2, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Complex, Level 2, L15
@@ -999,7 +1010,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 14 + Random( 2 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 15, 12, 2, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 15, 12, 2, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 
 
 	//Complex, Level 3, L15
@@ -1021,7 +1032,7 @@ void InitNumberOfEnemiesInUnderGroundSectors( )
 			ubNumElites = 15 + Random( 0 );
 			break;
 	}
-	SetNumberJa25EnemiesInSector( 15, 12, 3, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 15, 12, 3, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 }
 
 void InitJa25SaveStruct()
@@ -1270,7 +1281,7 @@ void HandleAddingEnemiesToTunnelMaps()
 	else if( AreAnyPlayerMercsStillInSector( 14, 10, 1 ) &&
 					 !AreAnyPlayerMercsStillInSector( 14, 11, 1 ) )
 	{
-		ubNumEnemies = NumEnemiesToAttackFirstTunnelSector( NULL, NULL, NULL );
+		ubNumEnemies = NumEnemiesToAttackFirstTunnelSector( NULL, NULL, NULL, NULL );
 
 		//Add enemies to the first sector
 		HandleAddEnemiesToSectorPlayerIsntIn( JA25_J14_1, ubNumEnemies );
@@ -1284,7 +1295,7 @@ void HandleAddingEnemiesToTunnelMaps()
 	//else if the player is in the second sector
 	else if( AreAnyPlayerMercsStillInSector( 14, 11, 1 ) )
 	{
-		ubNumEnemies = NumEnemiesToAttackSecondTunnelSector( NULL, NULL, NULL );
+		ubNumEnemies = NumEnemiesToAttackSecondTunnelSector( NULL, NULL, NULL, NULL );
 
 		//Add enemies to the first sector
 		HandleAddEnemiesToSectorPlayerIsntIn( JA25_K14_1, ubNumEnemies );
@@ -1313,10 +1324,11 @@ void AddEnemiesToFirstTunnelSector()
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 
-	NumEnemiesToAttackFirstTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites );
+	NumEnemiesToAttackFirstTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
-	SetNumberJa25EnemiesInSector( 14, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	SetNumberJa25EnemiesInSector( 14, 10, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 }
 
 void AddEnemiesToSecondTunnelSector()
@@ -1324,16 +1336,18 @@ void AddEnemiesToSecondTunnelSector()
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 
-	NumEnemiesToAttackSecondTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites );
-	SetNumberJa25EnemiesInSector( 14, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites );
+	NumEnemiesToAttackSecondTunnelSector( &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+	SetNumberJa25EnemiesInSector( 14, 11, 1, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 }
 
-UINT8 NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites )
+UINT8 NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks )
 {
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 	
 	//if the player blew up the fan, add a ton of enemies to the sector
 	//1st Tunnel Sector
@@ -1365,14 +1379,18 @@ UINT8 NumEnemiesToAttackFirstTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8
 	if( pElites )
 		*pElites = ubNumElites;
 
-	return( ubNumAdmins + ubNumTroops + ubNumElites );
+	if( pTanks )
+		*pTanks = ubNumTanks;
+
+	return( ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks );
 }
 
-UINT8 NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites )
+UINT8 NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT8 *pElites, UINT8 *pTanks )
 {
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 	
 	//if the player blew up the fan, add a ton of enemies to the sector
 	//1st Tunnel Sector
@@ -1402,8 +1420,10 @@ UINT8 NumEnemiesToAttackSecondTunnelSector( UINT8 *pAdmins, UINT8 *pTroops, UINT
 		*pTroops = ubNumTroops;
 	if( pElites )
 		*pElites = ubNumElites;
+	if( pTanks )
+		*pTanks = ubNumTanks;
 
-	return( ubNumAdmins + ubNumTroops + ubNumElites );
+	return( ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks  );
 }
 
 
@@ -2166,7 +2186,7 @@ BOOLEAN HandleAddEnemiesToSectorPlayerIsntIn( INT16 sSaiSector, UINT8 ubNumEnemi
 		gubEnemyEncounterCode = ENEMY_INVASION_CODE;
 	}
 
-	SetNumberJa25EnemiesInSector( sSectorX, sSectorY, bSectorZ, 0, ubNumEnemies, 0 );
+	SetNumberJa25EnemiesInSector( sSectorX, sSectorY, bSectorZ, 0, ubNumEnemies, 0, 0 );
 
 	SetThisSectorAsEnemyControlled( sSectorX, sSectorY, bSectorZ, FALSE );
 
@@ -2211,7 +2231,7 @@ if ( gGameUBOptions.pJA2UB == TRUE )
 
 	if( gJa25AiSectorStruct[ sSaiSector ].bSectorZ == 0 )
 	{
-		pGroup = CreateNewEnemyGroupDepartingFromSector( sSector, 0, ubNumEnemies, 0 );
+		pGroup = CreateNewEnemyGroupDepartingFromSector( sSector, 0, ubNumEnemies, 0, 0 );
 
 		if( sGridNo != -1 )
 		{
@@ -2241,7 +2261,7 @@ if ( gGameUBOptions.pJA2UB == TRUE )
 		Ja25SAI_DetermineWhichLevelToAttackFrom( sSaiSector, &sSector, &bLevel );
 
 		//underground, we have to specify
-		pGroup = CreateNewEnemyGroupDepartingFromSectorUsingZLevel( sSector, bLevel, 0, ubNumEnemies, 0 );//was sSector
+		pGroup = CreateNewEnemyGroupDepartingFromSectorUsingZLevel( sSector, bLevel, 0, ubNumEnemies, 0, 0 );//was sSector
 
 //		pGroup->pEnemyGroup->ubTroopsInBattle = ubNumEnemies;
 	}
@@ -2802,6 +2822,7 @@ void SetH11NumEnemiesInSector()
 	UINT8	ubNumAdmins=0;
 	UINT8	ubNumTroops=0;
 	UINT8	ubNumElites=0;
+	UINT8	ubNumTanks=0;
 
 	// SEC_H11:
 	{
@@ -2829,7 +2850,7 @@ void SetH11NumEnemiesInSector()
 				break;
 		}
 
-		SetNumberJa25EnemiesInSurfaceSector( SEC_H11, ubNumAdmins, ubNumTroops, ubNumElites );
+		SetNumberJa25EnemiesInSurfaceSector( SEC_H11, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
 	}
 }
 

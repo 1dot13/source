@@ -346,7 +346,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		return;
 	}
 
-	if ( ( (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldier ) ) || AM_A_ROBOT( pSoldier ) )
+	if ( ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ( (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldier ) ) ) || AM_A_ROBOT( pSoldier ) )
 	{
 		// bail out!
 #ifdef TESTAICONTROL
@@ -1235,7 +1235,7 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 #endif
 
 	// re-enable cover checking, something is new or something strange happened
-	if(!TANK(pSoldier))//dnl ch64 290813
+	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier))//dnl ch64 290813
 		SkipCoverCheck = FALSE;
 
 	// turn off new situation flag to stop this from repeating all the time!
@@ -1506,7 +1506,7 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 
 	if (pSoldier->aiData.bAlertStatus == STATUS_YELLOW)
 		SkipCoverCheck = FALSE;
-	if(TANK(pSoldier))//dnl ch64 290813 tanks don't have move animations
+	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK(pSoldier) )//dnl ch64 290813 tanks don't have move animations
 		SkipCoverCheck = TRUE;
 
 	// if he's in battle or knows opponents are here
@@ -1597,7 +1597,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	// in most cases, merc will change location, or may cause damage to opponents,
 	// so a new cover check will be necessary.  Exceptions handled individually.
-	if(!TANK(pSoldier))//dnl ch64 290813
+	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier) )//dnl ch64 290813
 		SkipCoverCheck = FALSE;
 
 	// reset this field, too
@@ -2610,6 +2610,11 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 
 		case SOLDIER_CLASS_ADMINISTRATOR:
 			++pSectorInfo->ubNumAdmins;
+			break;
+
+		case SOLDIER_CLASS_TANK:
+			if( TANK(pSoldier) )
+				++pSectorInfo->ubNumTanks;
 			break;
 
 		}

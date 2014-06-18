@@ -425,6 +425,8 @@ SOLDIERTYPE* TacticalCreateArmyTroop();
 #endif
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY );	// Flugente: added sector coordinates
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
+SOLDIERTYPE* TacticalCreateEnemyTank();
+SOLDIERTYPE* TacticalCreateJeep();
 
 // Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);

@@ -166,7 +166,7 @@ typedef struct AUTORESOLVE_STRUCT
 	UINT8 ubEnemyLeadership;
 	UINT8 ubPlayerLeadership;
 	UINT8 ubMercs, ubCivs, ubEnemies;
-	UINT8 ubAdmins, ubTroops, ubElites;
+	UINT8 ubAdmins, ubTroops, ubElites, ubTanks;
 	UINT8 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
 	UINT8 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
 	UINT8 ubMercCols, ubMercRows;
@@ -226,10 +226,11 @@ typedef struct AUTORESOLVE_STRUCT
 #define CELL_ASSIGNED					0x00080000
 #define CELL_EPC							0x00100000
 #define CELL_ROBOT						0x00200000
+#define CELL_TANK						0x00400000
 
 //Combined flags
 #define CELL_PLAYER						( CELL_MERC | CELL_MILITIA )
-#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN )
+#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN | CELL_TANK )
 #define CELL_CREATURE					( CELL_AF_CREATURE | CELL_AM_CREATURE | CELL_YF_CREATURE | CELL_YM_CREATURE )
 #define CELL_FEMALECREATURE	( CELL_AF_CREATURE | CELL_YF_CREATURE )
 #define CELL_MALECREATURE			( CELL_AM_CREATURE | CELL_YM_CREATURE )
@@ -441,7 +442,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	// we must process the enemies killed right here & give out loyalty bonuses as if the battle had been fought & won
 	if( !gpAR )
 	{
-		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[ 0 ], &ubNumEnemies[ 1 ], &ubNumEnemies[ 2 ] );
+		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[ 0 ], &ubNumEnemies[ 1 ], &ubNumEnemies[ 2 ], &ubNumEnemies[ 3 ] );
 
 		for ( ubRankIndex = 0; ubRankIndex < NUM_ENEMY_RANKS; ubRankIndex++ )
 		{
@@ -461,6 +462,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 		pSector->ubNumTroops = 0;
 		pSector->ubNumElites = 0;
 		pSector->ubNumAdmins = 0;
+		pSector->ubNumTanks = 0;
 		pSector->ubNumCreatures = 0;
 		pSector->bLastKnownEnemies = 0;
 		//Remove the mobile forces here, but only if battle is over.
@@ -749,9 +751,9 @@ void AssociateEnemiesWithStrategicGroups()
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
-	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites;
-	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
+	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks;
+	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup;
 	INT32 i;
 	UINT8 pSectors[4];
 	UINT8 ubDirAmount;
@@ -766,6 +768,7 @@ void AssociateEnemiesWithStrategicGroups()
 	ubNumAdmins = pSector->ubNumAdmins;
 	ubNumTroops = pSector->ubNumTroops;
 	ubNumElites = pSector->ubNumElites;
+	ubNumTanks = pSector->ubNumTanks;
 
 	//Now go through our enemies in the autoresolve array, and assign the ubGroupID to the soldier
 	//Stationary groups have a group ID of 0
@@ -789,13 +792,20 @@ void AssociateEnemiesWithStrategicGroups()
 			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 			ubNumAdmins--;
 		}
+		else if( gpEnemies[ i ].uiFlags & CELL_TANK && ubNumTanks )
+		{
+			gpEnemies[ i ].pSoldier->ubGroupID = 0;
+			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+			ubNumTanks--;
+		}
 	}
 
 	ubNumAdmins = gpAR->ubAdmins - pSector->ubNumAdmins;
 	ubNumTroops = gpAR->ubTroops - pSector->ubNumTroops;
 	ubNumElites = gpAR->ubElites - pSector->ubNumElites;
+	ubNumTanks = gpAR->ubTanks - pSector->ubNumTanks;
 
-	if( !ubNumElites && !ubNumTroops && !ubNumAdmins )
+	if( !ubNumElites && !ubNumTroops && !ubNumAdmins && !ubNumTanks )
 	{ //All troops accounted for.
 		return;
 	}
@@ -809,6 +819,7 @@ void AssociateEnemiesWithStrategicGroups()
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
 			ubNumAdminsInGroup = pGroup->pEnemyGroup->ubNumAdmins;
+			ubNumTanksInGroup = pGroup->pEnemyGroup->ubNumTanks;
 			for( i = 0; i < gpAR->ubEnemies; i++ )
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
@@ -833,6 +844,13 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
+					}
+					else if( ubNumTanks && ubNumTanksInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumTanks--;
+						ubNumTanksInGroup--;
 					}
 				}
 			}
@@ -850,6 +868,7 @@ void AssociateEnemiesWithStrategicGroups()
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
 			ubNumAdminsInGroup = pGroup->pEnemyGroup->ubNumAdmins;
+			ubNumTanksInGroup = pGroup->pEnemyGroup->ubNumTanks;
 			for( i = 0; i < gpAR->ubEnemies; i++ )
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
@@ -874,6 +893,13 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
+					}
+					else if( ubNumTanks && ubNumTanksInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumTanks--;
+						ubNumTanksInGroup--;
 					}
 				}
 			}
@@ -892,10 +918,11 @@ void AssociateEnemiesWithStrategicGroups()
 		ubISNumAdmins = pSector->ubNumAdmins;
 		ubISNumTroops = pSector->ubNumTroops;
 		ubISNumElites = pSector->ubNumElites;
+		ubISNumTanks = pSector->ubNumTanks;
 
 		for( i = 0; i < gpAR->ubEnemies; i++ )
 		{
-			if( ubISNumAdmins + ubISNumTroops + ubISNumElites <= gubReinforcementMinEnemyStaticGroupSize ) break;
+			if( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks <= gubReinforcementMinEnemyStaticGroupSize ) break;
 
 			if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 			{
@@ -925,6 +952,15 @@ void AssociateEnemiesWithStrategicGroups()
 					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
 					ubISNumAdmins--;
 					ubNumAdmins--;
+				}
+				else if( gpEnemies[ i ].uiFlags & CELL_TANK && ubISNumTanks && ubNumTanks )
+				{
+					gpEnemies[ i ].pSoldier->ubGroupID = 0;
+					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
+					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
+					ubISNumTanks--;
+					ubNumTanks--;
 				}
 			}
 		}
@@ -2480,6 +2516,15 @@ void CreateAutoResolveInterface()
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
 		}
+		for( i = 0; i < gpAR->ubTanks; i++, index++ )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateEnemyTank();
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = ELITE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			//swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
+		}
 		AssociateEnemiesWithStrategicGroups();
 	}
 	else
@@ -3141,7 +3186,7 @@ void CalculateAutoResolveInfo()
 	{
 //		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY,
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
-																&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites );
+																&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubTanks );
 		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, MAX_AR_TEAM_SIZE );
 	}
 	else

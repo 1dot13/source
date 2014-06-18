@@ -6839,6 +6839,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		pSectorInfo->ubNumTroops = min(255, pSectorInfo->ubNumTroops + prisonersregular);
 		pSectorInfo->ubNumElites = min(255, pSectorInfo->ubNumElites + prisonerselite + prisonersofficer);
 		pSectorInfo->ubNumAdmins = min(255, pSectorInfo->ubNumAdmins + prisonersadmin);
+		pSectorInfo->ubNumTanks = min(255, pSectorInfo->ubNumTanks );
 
 		// all prisoners are free, reduce count!
 		DeleteAllPrisoners(pSectorInfo);
@@ -6892,6 +6893,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		pSectorInfo->ubNumTroops = min( 512, pSectorInfo->ubNumTroops + escapedregulars );
 		pSectorInfo->ubNumElites = min( 512, pSectorInfo->ubNumElites + escapedelites + escapedofficers );
 		pSectorInfo->ubNumAdmins = min( 512, pSectorInfo->ubNumAdmins + escapedadmins );
+		pSectorInfo->ubNumTanks = min( 512, pSectorInfo->ubNumTanks );
 
 		// reduce prisoner count!
 		ChangeNumberOfPrisoners( pSectorInfo, -escapedofficers, -escapedelites, -escapedregulars, -escapedadmins, sMapX, sMapY );

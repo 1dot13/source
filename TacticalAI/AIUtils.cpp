@@ -2480,7 +2480,8 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 	switch (pSoldier->aiData.bOrders)
 	{
 		// JA2 GOLD: give non-NPCs a 5 tile roam range for cover in combat when being shot at
-		case STATIONARY:			if (pSoldier->ubProfile != NO_PROFILE || (pSoldier->aiData.bAlertStatus < STATUS_BLACK && !(pSoldier->aiData.bUnderFire)))
+		// anv: and tanks who are technically NPCs
+		case STATIONARY:			if ( ( pSoldier->ubProfile != NO_PROFILE && !TANK(pSoldier) ) || (pSoldier->aiData.bAlertStatus < STATUS_BLACK && !(pSoldier->aiData.bUnderFire)))
 									{
 										return( 0 );
 									}

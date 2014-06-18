@@ -794,7 +794,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	if ( TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -1889,7 +1889,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	if ( TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -2521,7 +2521,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV ) &&
+	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 		gTacticalStatus.bBoxingState == NOT_BOXING)
 	{
 		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
@@ -2589,7 +2589,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	}
 
 
-	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV ) )
+	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
 		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
 		{
@@ -3330,7 +3330,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( !TANK( pSoldier ) )
+	//if ( !TANK( pSoldier ) )
+	if( ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
@@ -4385,6 +4386,11 @@ INT16 ubMinAPCost;
 	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
 	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
 
+	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	{
+		ubCanMove = 0;
+	}
+
 	if ( (pSoldier->bTeam == ENEMY_TEAM || pSoldier->ubProfile == WARDEN) && (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) && (gTacticalStatus.ubTheChosenOne == NOBODY) )
 	{
 		INT8 bPanicTrigger;
@@ -4560,7 +4566,7 @@ INT16 ubMinAPCost;
 	// offer surrender?
 #ifdef JA2UB
 #else
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 )
+	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2  && !TANK(pSoldier) )
 	{
 		if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
 		{
@@ -4601,7 +4607,7 @@ INT16 ubMinAPCost;
 			{
 				if (fCivilian)
 				{
-					if ( ( bCanAttack == NOSHOOT_NOWEAPON) && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && pSoldier->ubBodyType != COW && pSoldier->ubBodyType != CRIPPLECIV )
+					if ( ( bCanAttack == NOSHOOT_NOWEAPON) && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && pSoldier->ubBodyType != COW && pSoldier->ubBodyType != CRIPPLECIV && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 					{
 						// cower in fear!!
 						if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
@@ -4841,6 +4847,7 @@ INT16 ubMinAPCost;
 
 					if(BestShot.ubFriendlyFireChance)//dnl ch61 180813
 					{
+						iChance = 0;
 						if(BestShot.ubFriendlyFireChance == 100)
 						{
 							if(pSoldier->aiData.bAttitude == AGGRESSIVE)
@@ -4973,7 +4980,7 @@ INT16 ubMinAPCost;
 
 		// if the soldier does have a usable knife somewhere
 		// 0verhaul:  And is not a tank!
-		if (bWeaponIn != NO_SLOT && !TANK( pSoldier))
+		if (bWeaponIn != NO_SLOT && !TANK( pSoldier) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"try to stab");
 			BestStab.bWeaponIn = bWeaponIn;
@@ -5041,7 +5048,7 @@ INT16 ubMinAPCost;
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
-		else if ( !TANK( pSoldier) )
+		else if ( !TANK( pSoldier) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 		{
 			bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
 			if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
@@ -5497,7 +5504,7 @@ INT16 ubMinAPCost;
 				}
 			}
 #else
-			if(!TANK(pSoldier))
+			if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier) )
 			{
 				// first get the direction, as we will need to pass that in to ShootingStanceChange
 				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(BestAttack.sTarget),CenterY(BestAttack.sTarget));
@@ -5967,7 +5974,7 @@ L_NEWAIM:
 	}
 
 	// end of tank AI
-	if ( TANK( pSoldier ) )
+	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -6598,7 +6605,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 		gubNPCPathCount = 0;
 			
-		if ( TANK( pSoldier ) )
+		if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 		{
 			return( AI_ACTION_NONE );
 		}
@@ -7110,7 +7117,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		if ( TANK( pSoldier ) )
+		if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 		{
 			return( AI_ACTION_NONE );
 		}
@@ -7269,7 +7276,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 		// RADIO RED ALERT: determine %chance to call others and report contact
 		////////////////////////////////////////////////////////////////////////////
 		
-		if ( !TANK( pSoldier ) )
+		if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
@@ -8450,7 +8457,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 		}
 
 		// end of tank AI
-		if ( TANK( pSoldier ) )
+		if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || TANK( pSoldier ) )
 		{
 			return( AI_ACTION_NONE );
 		}
