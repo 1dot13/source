@@ -1007,7 +1007,7 @@ public:
 	INT8												bBreath;			// current breath value
 	INT8												bBreathMax;	// max breath, affected by fatigue/sleep
 	INT8												bStealthMode;
-	INT16												sBreathRed;			// current breath value
+	INT16												sBreathRed;			// current breath loss value
 	
 
 	UINT8												ubWaitActionToDo;

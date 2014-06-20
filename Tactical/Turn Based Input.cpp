@@ -2240,6 +2240,104 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case LEFTARROW:
+				// used for map scrolling
+				if ( fCtrl )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], -1 );
+				}
+				break;
+
+			case RIGHTARROW:
+				// used for map scrolling
+				if ( fCtrl )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], 1 );
+				}
+				break;
+
+			case INSERT:
+				GoIntoOverheadMap();
+				break;
+
+			case DEL:
+				// used for LOS display
+				break;
+
+			case HOME:
+				if ( gGameSettings.fOptions[ TOPTION_3D_CURSOR ] )
+				{
+					gGameSettings.fOptions[ TOPTION_3D_CURSOR ] = FALSE;
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_3DCURSOR_OFF ] );
+				}
+				else
+				{
+					gGameSettings.fOptions[ TOPTION_3D_CURSOR ] = TRUE;
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_3DCURSOR_ON ] );
+				}
+				break;
+
+			case END:
+				// Lalien: commented out, to fix "end move & LOS bug" (same button has two different actions)
+				//		if ( gusSelectedSoldier != NOBODY )
+				//		{
+				//			if ( CheckForMercContMove( MercPtrs[ gusSelectedSoldier ] ) )
+				//			{
+				//				// Continue
+				//				ContinueMercMovement( MercPtrs[ gusSelectedSoldier ] );
+				//				ErasePath( TRUE );
+				//			}
+				//		}
+				break;
+
+			case PGUP:
+				if ( CHEATER_CHEAT_LEVEL( ) )
+				{
+					if( fCtrl )
+						AttemptToChangeFloorLevel( -1 ); //try to go up towards ground level
+				}
+
+				if ( guiCurrentScreen != DEBUG_SCREEN )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+						if ( ( gpItemPointer == NULL ) )
+						{
+							GotoHeigherStance( MercPtrs[ gusSelectedSoldier ] );
+						}
+					}
+				}
+				break;
+
+			case PGDN:
+				if ( CHEATER_CHEAT_LEVEL( ) )
+				{
+					if( fCtrl )
+						AttemptToChangeFloorLevel( +1 ); //try to enter a lower underground level
+				}
+
+				if ( guiCurrentScreen != DEBUG_SCREEN )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+						if ( ( gpItemPointer == NULL ) )
+						{
+							GotoLowerStance( MercPtrs[ gusSelectedSoldier ] );
+						}
+					}
+				}
+				break;
+
+			case BACKSPACE:
+				// used for stopping speech
+				break;
+
 			case TAB:
 				// go to next tab in enhanced description box
 				if( ( fCtrl ) && InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
@@ -2292,6 +2390,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					HandleSelectMercSlot( 0, LOCATEANDSELECT_MERC );
 				break;
+
 			case F2:
 				if( fShift )
 					HandleSelectMercSlot( 1, LOCATE_MERC_ONCE );
@@ -2308,6 +2407,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					HandleSelectMercSlot( 1, LOCATEANDSELECT_MERC );
 				break;
+
 			case F3:
 				if( fShift )
 					HandleSelectMercSlot( 2, LOCATE_MERC_ONCE );
@@ -2324,6 +2424,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					HandleSelectMercSlot( 2, LOCATEANDSELECT_MERC );
 				break;
+
 			case F4:
 				if( fShift )
 					HandleSelectMercSlot( 3, LOCATE_MERC_ONCE );
@@ -2340,6 +2441,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					HandleSelectMercSlot( 3, LOCATEANDSELECT_MERC );
 				break;
+
 			case F5:
 				if( fShift )
 					HandleSelectMercSlot( 4, LOCATE_MERC_ONCE );
@@ -2356,6 +2458,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					HandleSelectMercSlot( 4, LOCATEANDSELECT_MERC );
 				break;
+
 			case F6:
 				if( fShift )
 					HandleSelectMercSlot( 5, LOCATE_MERC_ONCE );
@@ -2433,7 +2536,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case F11:
-
 				if( fAlt )
 				{
 #ifdef JA2TESTVERSION
@@ -2470,7 +2572,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case F12:
-
 #ifdef JA2TESTVERSION
 				if( fAlt )
 				{
@@ -2491,6 +2592,150 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ClearDisplayedListOfTacticalStrings( );
 				}
 				break;
+
+			case '-':
+			case '_':
+				//if the display cover or line of sight is being displayed
+				if( _KeyDown( END ) || _KeyDown( DEL ) )
+				{
+					//if( _KeyDown( DEL ) )
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
+
+					//if( _KeyDown( END ) )
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
+				}
+				else
+				{
+					if( fAlt )
+					{
+						if(MusicGetVolume() >= 20)
+							MusicSetVolume(MusicGetVolume()-20);
+						else
+							MusicSetVolume(0);
+					}
+					else if( fCtrl )
+					{
+#ifdef JA2TESTVERSION
+						gTacticalStatus.bRealtimeSpeed = max( 1, gTacticalStatus.bRealtimeSpeed - 1 );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Decreasing Realtime speed to %d", gTacticalStatus.bRealtimeSpeed );
+#endif
+					}
+					else
+					{
+#ifdef JA2TESTVERSION
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Using Normal Scroll Speed"	);
+						gubCurScrollSpeedID = 1;
+#endif
+					}
+				}
+				break;
+
+			case '+':
+#ifdef JA2TESTVERSION
+				if( fAlt )
+				{
+					if(MusicGetVolume() <= 107)
+						MusicSetVolume(MusicGetVolume()+20);
+					else
+						MusicSetVolume(127);
+				}
+				else if( fCtrl )
+				{
+					gTacticalStatus.bRealtimeSpeed = min( MAX_REALTIME_SPEED_VAL, gTacticalStatus.bRealtimeSpeed+1 );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Increasing Realtime speed to %d", gTacticalStatus.bRealtimeSpeed );
+				}
+				else
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Using Higher Scroll Speed"	);
+					gubCurScrollSpeedID = 2;
+				}
+#endif
+				break;
+
+			case '=':
+				//if the display cover or line of sight is being displayed
+				if( _KeyDown( END ) || _KeyDown( DEL ) )
+				{
+					//f( _KeyDown( DEL ) )
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
+
+					//if( _KeyDown( END ) )
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
+				}
+				else
+				{
+
+#ifdef JA2TESTVERSION
+					if( fAlt )
+					{
+						WarpGameTime( 60, TRUE );
+						break;
+					}
+#endif
+
+					// ATE: This key will select everybody in the sector
+					// Buggler: Disabled check for all merc display cover in turnbased mode
+					//if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
+					//{
+						HandleTBSelectAllMercs();
+					//}
+				}
+				break;
+
+			case ',':
+				// Flugente: alternate for people without mousewheel to aim auto-only weapons
+				if ( gGameExternalOptions.bAimedBurstEnabled && gCurrentUIMode == CONFIRM_ACTION_MODE )
+				{
+					SOLDIERTYPE *		pSoldier;
+
+					if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+					{
+						HandleRightClickAdjustCursor( pSoldier, usMapPos );
+					}
+				}
+				break;
+
+			// added by Flugente
+			case '.':
+				if ( fCtrl && fAlt ) //jikuja: Create item by reusing old entered number
+ 				{
+					if ( CHEATER_CHEAT_LEVEL( ) ) 
+					{
+						CheatCreateItem( );
+					}
+				}
+				else if ( fCtrl )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						HandleTacticalFunctionSelection(MercPtrs[ gusSelectedSoldier ],  usMapPos );
+					}
+				}
+				else if ( fAlt )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+ 					{
+						if ( gusSelectedSoldier != NOBODY )
+						{
+							DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, L"Enter ItemID", GAME_SCREEN, MSG_BOX_FLAG_INPUTBOX, ItemCreationCallBack, NULL );
+						}
+					}
+				}
+				else
+				{
+					SetScopeMode( usMapPos );
+				}
+
+				break;
+
+			case '/':
+				// Center to guy....
+				if ( gusSelectedSoldier != NOBODY )
+				{
+					LocateSoldier( gusSelectedSoldier, 10 );
+				}
+				break;
+
 #if 0//dnl ch75 021113
 			case '\"':
 				Testing(1);
@@ -2499,8 +2744,39 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				Testing(2);
 				break;
 #endif
-			case '1':
 
+			case '`':
+
+				if( fAlt )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						EnvBeginRainStorm( 1 );
+					}
+					else
+					{
+						HandleTacticalStoreInvItem();
+					}
+				}
+				else if( fCtrl )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						EnvEndRainStorm( );
+					}
+					else
+					{
+						//HandleTacticalTakeItem();
+					}
+				}
+				else
+				// Switch panels...
+				{
+					ToggleTacticalPanels();
+				}
+				break;
+
+			case '1':
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2519,7 +2795,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '2':
-
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2543,7 +2818,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '3':
-
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2573,7 +2847,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '4':
-
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2592,7 +2865,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case '5':
-
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2660,6 +2932,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case '0':
 				if( fAlt )
 				{
+					// used for calculating item chance to get through in cheat mode
 					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem0 );
 				}
 				else
@@ -2720,76 +2993,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case ')':
 				break;
 
-			case 'x':
-
-				if ( !fCtrl && !fAlt )
-				{
-					// Exchange places...
-					SOLDIERTYPE *pSoldier1, *pSoldier2;
-
-					//Check if we have a good selected guy
-					if ( gusSelectedSoldier != NOBODY )
-					{
-						pSoldier1 = MercPtrs[ gusSelectedSoldier ];
-
-						if ( gfUIFullTargetFound )
-						{
-							// Get soldier...
-							pSoldier2 = MercPtrs[ gusUIFullTargetID ];
-
-							// Check if both OK....
-							if ( pSoldier1->stats.bLife >= OKLIFE && pSoldier2->ubID != gusSelectedSoldier )
-							{
-								if ( pSoldier2->stats.bLife >= OKLIFE )
-								{
-									if (CanSoldierReachGridNoInGivenTileLimit( pSoldier1, pSoldier2->sGridNo, 1, (INT8)gsInterfaceLevel ) )
-									{
-										// Exclude enemies....
-										if ( !pSoldier2->aiData.bNeutral && (pSoldier2->bSide != gbPlayerNum ) )
-										{
-
-										}
-										else
-										{
-											if ( CanExchangePlaces( pSoldier1, pSoldier2, TRUE ) )
-											{
-												// All's good!
-												SwapMercPositions( pSoldier1, pSoldier2 );
-
-												DeductPoints( pSoldier1, APBPConstants[AP_EXCHANGE_PLACES], 0 );
-												DeductPoints( pSoldier2, APBPConstants[AP_EXCHANGE_PLACES], 0 );
-											}
-										}
-									}
-								}
-							}
-						}
-
-					}
-				}
-				else if ( fCtrl )	// The_Bob - real time sneaking, 01-06-09
-				{	
-					HandleTBEnterTurnbased();					
-				}
-				break;
-						// The_Bob - real time sneaking, 01-06-09
-			case 'X':	// shift-ctrl-x: toggle real time sneaking
-				if ( fCtrl )
-				{
-					HandleTBToggleSneak();
-				}
-				break;
-
-			case '/':
-
-				// Center to guy....
-				if ( gusSelectedSoldier != NOBODY )
-				{
-					LocateSoldier( gusSelectedSoldier, 10 );
-				}
-				break;
-
-
 			case 'a':
 
 				if ( fCtrl )
@@ -2849,182 +3052,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'A':
 				//CHRISL: Ammo Crate
 				//MM: Ammo Box
-					if (fCtrl)
+				if (fCtrl)
 					HandleTacticalAmmoCrates( AMMO_CRATE );
-					else
-					HandleTacticalAmmoCrates( AMMO_BOX );
-				
-										break;
-			case 'J':
-			case 'j':
-				if ( fShift )
-				{
-					// WANNE: Jump through window?
-					if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
-					{
-						INT16		sAPCost;
-						INT16		sBPCost;
-						INT8	bDirection;
-				       	SOLDIERTYPE *lSoldier;
-
-                        if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
-						{
-							// Flugente: robots do not climb
-							if ( AM_A_ROBOT( lSoldier ) )
-								break;
-
-				 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
-							{
-								if ((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true
-									//JMich.BackpackClimb
-									&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)lSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[lSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-									&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[lSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
-								{
-									//Moa: no jumping with backpack
-									//sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
-									//sBPCost = GetBPsToJumpThroughWindows( lSoldier, TRUE );
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
-									break;
-								}
-								else
-								{
-									sAPCost = GetAPsToJumpFence( lSoldier, FALSE );
-									sBPCost = GetBPsToJumpFence( lSoldier, FALSE );
-								}
-								
-								if (EnoughPoints(lSoldier, sAPCost, sBPCost, FALSE))
-								{
-									lSoldier->BeginSoldierClimbWindow(	);
-								}
-	   	                    }
-						}
-					}
-				}
-				else if( fAlt )
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						gfNextFireJam	= TRUE;
-					}
-				}
-				else if ( fCtrl )
-				{
-#ifdef JA2BETAVERSION
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						ToggleNPCRecordDisplay();
-					}
-#endif
-				}
 				else
-				{
-					SOLDIERTYPE *pjSoldier;
-					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
-					{
-						// Flugente: robots do not climb
-						if ( AM_A_ROBOT( pjSoldier ) )
-							break;
-
-						INT16							sAPCost;
-						INT16							sBPCost;
-						BOOLEAN	fNearHeigherLevel;
-						BOOLEAN	fNearLowerLevel;
-						INT8	bDirection;
-
-						// Make sure the merc is not collapsed!
-						if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
-						{
-							if ( pjSoldier->bCollapsed && pjSoldier->bBreath < OKBREATH )
-							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 4 ], pjSoldier->GetName() );
-							}
-
-							break;
-						}
-
-						// Climb on roof
-						GetMercClimbDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
-
-						if ( fNearLowerLevel )
-						{
-							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
-								return;
-						
-							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
-							{
-								pjSoldier->BeginSoldierClimbDownRoof( );
-							}
-						}
-						if ( fNearHeigherLevel )
-						{
-							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
-								return;
-						
-							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
-							{
-								pjSoldier->BeginSoldierClimbUpRoof(	);
-							}
-						}
-
-						// Jump over fence
-						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-						{
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
-							{
-								//Moa: no jumping whith backpack
-								//sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
-								//sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
-								break;
-							}
-							else
-							{
-								sAPCost = GetAPsToJumpFence( pjSoldier, FALSE );
-								sBPCost = GetBPsToJumpFence( pjSoldier, FALSE );
-							}
-
-							if ( EnoughPoints( pjSoldier, sAPCost, sBPCost, FALSE )	)
-							{
-								pjSoldier->BeginSoldierClimbFence(	);
-							}	
-						}
-						
-						// Climb on walls
-						if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
-						{ 
-							// No climbing when wearing a backpack!
-							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
-								//JMich.BackpackClimb
-								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-
-								return;
-
-							if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-							{
-								if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
-								{
-									pjSoldier->BeginSoldierClimbWall(  );
-								}
-							}
-						}
-					}
-				}
+					HandleTacticalAmmoCrates( AMMO_BOX );
 				break;
 
 			case 'b':
@@ -3081,6 +3112,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				break;
+
 			case 'B':
 				//Drop pack for all mercs on current map
 				HandleTBDropBackpacks();
@@ -3119,6 +3151,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ToggleEnemyView();
 
 				break;
+
 			case 'd':
 				if( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT )
 				{
@@ -3176,10 +3209,35 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case 'D':
+				// SANDRO - changed from drop all to enable soldier tooltips
+				if ( gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] )
+				{
+					gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] = FALSE;
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SOLDIER_TOOLTIPS_OFF ] );
+				}
+				else
+				{
+					gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] = TRUE;
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SOLDIER_TOOLTIPS_ON ] );
+				}
+			//	if ( gGameSettings.fOptions[TOPTION_DROP_ALL] )
+			//	{
+			//		gGameSettings.fOptions[TOPTION_DROP_ALL] = FALSE;
+			//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DROP_ALL_OFF ] );
+			//	}
+			//	else
+			//	{
+			//		gGameSettings.fOptions[TOPTION_DROP_ALL] = TRUE;
+			//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DROP_ALL_ON ] );
+			//	}
+				break;
+
 			case 'e':
 
 				if( fAlt )
 				{
+					// used for override player's turn in network game
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						ToggleViewAllMercs();
@@ -3299,57 +3357,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
 				break;
 
-			case 'D':
-				// SANDRO - changed from drop all to enable soldier tooltips
-				if ( gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] )
-				{
-					gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] = FALSE;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SOLDIER_TOOLTIPS_OFF ] );
-				}
-				else
-				{
-					gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ] = TRUE;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SOLDIER_TOOLTIPS_ON ] );
-				}
-			//	if ( gGameSettings.fOptions[TOPTION_DROP_ALL] )
-			//	{
-			//		gGameSettings.fOptions[TOPTION_DROP_ALL] = FALSE;
-			//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DROP_ALL_OFF ] );
-			//	}
-			//	else
-			//	{
-			//		gGameSettings.fOptions[TOPTION_DROP_ALL] = TRUE;
-			//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DROP_ALL_ON ] );
-			//	}
-				break;
-			case 'q':
-				if( fCtrl )
-				{
-					HandleTBSwapHands( );												
-				}
-				else if ( fAlt )
-				{
-					HandleTBSwapGunsling( );
-				}
-				else
-				{
-					if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] )
-					{
-						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
-					}
-					else
-					{
-						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
-					}
-				}
-				break;
-
-			case 'Q':
-				HandleTacticalDropItem( HANDPOS );
-				break;
-
 			case 'G':
 				if( fCtrl )
 				{
@@ -3405,9 +3412,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					HandlePlayerTogglingLightEffects( TRUE );
 				}
 				break;
+
 			case 'H':
 				HandleTBSwapHands();
 				break;
+
 			case 'h':
 				if ( fAlt )
 				{
@@ -3451,6 +3460,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				break;
+
 			case 'i':
 
 				if( fAlt )
@@ -3498,6 +3508,178 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case 'j':
+				if( fAlt )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						gfNextFireJam	= TRUE;
+					}
+				}
+				else if ( fCtrl )
+				{
+#ifdef JA2BETAVERSION
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						ToggleNPCRecordDisplay();
+					}
+#endif
+				}
+				else
+				{
+					SOLDIERTYPE *pjSoldier;
+					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
+					{
+						// Flugente: robots do not climb
+						if ( AM_A_ROBOT( pjSoldier ) )
+							break;
+
+						INT16							sAPCost;
+						INT16							sBPCost;
+						BOOLEAN	fNearHeigherLevel;
+						BOOLEAN	fNearLowerLevel;
+						INT8	bDirection;
+
+						// Make sure the merc is not collapsed!
+						if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
+						{
+							if ( pjSoldier->bCollapsed && pjSoldier->bBreath < OKBREATH )
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 4 ], pjSoldier->GetName() );
+							}
+
+							break;
+						}
+
+						// Climb on roof
+						GetMercClimbDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
+
+						if ( fNearLowerLevel )
+						{
+							// No climbing when wearing a backpack!
+							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
+								//JMich.BackpackClimb
+								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								return;
+							}
+							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbDownRoof( );
+							}
+						}
+						if ( fNearHeigherLevel )
+						{
+							// No climbing when wearing a backpack!
+							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
+								//JMich.BackpackClimb
+								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								return;
+							}
+							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbUpRoof(	);
+							}
+						}
+
+						// Jump over fence
+						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
+						{
+							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
+								//JMich.BackpackClimb
+								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							{
+								//Moa: no jumping whith backpack
+								//sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
+								//sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								break;
+							}
+							else
+							{
+								sAPCost = GetAPsToJumpFence( pjSoldier, FALSE );
+								sBPCost = GetBPsToJumpFence( pjSoldier, FALSE );
+							}
+
+							if ( EnoughPoints( pjSoldier, sAPCost, sBPCost, FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbFence(	);
+							}	
+						}
+						
+						// Climb on walls
+						if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+						{ 
+							// No climbing when wearing a backpack!
+							if ((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true
+								//JMich.BackpackClimb
+								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pjSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pjSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pjSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								return;
+							}
+							if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
+							{
+								if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
+								{
+									pjSoldier->BeginSoldierClimbWall(  );
+								}
+							}
+						}
+					}
+				}
+				break;
+
+			case 'J':
+				// WANNE: Jump through window?
+				if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
+				{
+					INT16		sAPCost;
+					INT16		sBPCost;
+					INT8	bDirection;
+			       	SOLDIERTYPE *lSoldier;
+
+                    if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
+					{
+						// Flugente: robots do not climb
+						if ( AM_A_ROBOT( lSoldier ) )
+							break;
+
+			 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
+						{
+							if ((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true
+								//JMich.BackpackClimb
+								&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)lSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[lSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+								&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[lSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+							{
+								//Moa: no jumping with backpack
+								//sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
+								//sBPCost = GetBPsToJumpThroughWindows( lSoldier, TRUE );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+								break;
+							}
+							else
+							{
+								sAPCost = GetAPsToJumpFence( lSoldier, FALSE );
+								sBPCost = GetBPsToJumpFence( lSoldier, FALSE );
+							}
+							
+							if (EnoughPoints(lSoldier, sAPCost, sBPCost, FALSE))
+							{
+								lSoldier->BeginSoldierClimbWindow(	);
+							}
+   	                    }
+					}
+				}
+				break;
+
 			case 'k':
 				if( fAlt )
 				{
@@ -3518,6 +3700,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else
 					{
+						// used for kicking player out in networked game
 						if ( CHEATER_CHEAT_LEVEL( ) )
 						{
 						}
@@ -3554,40 +3737,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-			case INSERT:
-				GoIntoOverheadMap();
-				break;
-
-				// Lalien: commented out, to fix "end move & LOS bug" (same button has two different actions)
-				//case END:
-
-				//		if ( gusSelectedSoldier != NOBODY )
-				//		{
-				//			if ( CheckForMercContMove( MercPtrs[ gusSelectedSoldier ] ) )
-				//			{
-				//				// Continue
-				//				ContinueMercMovement( MercPtrs[ gusSelectedSoldier ] );
-				//				ErasePath( TRUE );
-				//			}
-				//		}
-				//		break;
-
-			case HOME:
-
-				if ( gGameSettings.fOptions[ TOPTION_3D_CURSOR ] )
-				{
-					gGameSettings.fOptions[ TOPTION_3D_CURSOR ] = FALSE;
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_3DCURSOR_OFF ] );
-				}
-				else
-				{
-					gGameSettings.fOptions[ TOPTION_3D_CURSOR ] = TRUE;
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_3DCURSOR_ON ] );
-				}
-				break;
-
 #ifdef JA2BETAVERSION
 			case 'L':
 				gfDisplayStrategicAILogs ^= TRUE;
@@ -3605,10 +3754,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'l':
 				if (fAlt )
 				{
-
+					// used for quickloading
 				}
 				else if (fCtrl)
 				{
+					// used for loading game
 				}
 				else
 				/*
@@ -3641,16 +3791,17 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				*//*
 				}
-				else
-				*/					{
+				else*/
+				{
 					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 					if ( ( gpItemPointer == NULL ) &&
 						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ LOOK_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 					{
 						*puiNewEvent = LC_CHANGE_TO_LOOK;
 					}
-					}
-					break;
+				}
+				break;
+
 			case 'm':
 				if( fAlt )
 				{
@@ -3695,50 +3846,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					HandleTacticalMoveItems();					
-				}
-				break;
-
-			case PGDN:
-
-				if ( CHEATER_CHEAT_LEVEL( ) )
-				{
-					if( fCtrl )
-						AttemptToChangeFloorLevel( +1 ); //try to enter a lower underground level
-				}
-
-				if ( guiCurrentScreen != DEBUG_SCREEN )
-				{
-					if ( gusSelectedSoldier != NOBODY )
-					{
-						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-						if ( ( gpItemPointer == NULL ) )
-						{
-							GotoLowerStance( MercPtrs[ gusSelectedSoldier ] );
-						}
-					}
-				}
-				break;
-
-
-			case PGUP:
-
-				if ( CHEATER_CHEAT_LEVEL( ) )
-				{
-					if( fCtrl )
-						AttemptToChangeFloorLevel( -1 ); //try to go up towards ground level
-				}
-
-				if ( guiCurrentScreen != DEBUG_SCREEN )
-				{
-					if ( gusSelectedSoldier != NOBODY )
-					{
-						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-						if ( ( gpItemPointer == NULL ) )
-						{
-							GotoHeigherStance( MercPtrs[ gusSelectedSoldier ] );
-						}
-					}
+					HandleTacticalMoveItems();
 				}
 				break;
 
@@ -3789,14 +3897,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else // Shift-N
 				{
 					HandleTBSwapGoogles();
-							}
+				}
 				break;
 
-
-
-
 			case 'n':
-
 				if( fAlt )
 				{
 					static UINT16 gQuoteNum = 0;
@@ -3882,6 +3986,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case 'O':
+				break;
+
 			case 'p':
 
 #ifdef JA2BETAVERSION
@@ -3901,7 +4008,38 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						HandleStanceChangeFromUIKeys( ANIM_PRONE );
 				break;
 
+			case 'P':
+				break;
 
+			case 'q':
+				if( fCtrl )
+				{
+					// used for cheat mode functions
+					HandleTBSwapHands( );												
+				}
+				else if ( fAlt )
+				{
+					// used for cheat mode functions
+					HandleTBSwapGunsling( );
+				}
+				else
+				{
+					if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] )
+					{
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
+					}
+					else
+					{
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
+					}
+				}
+				break;
+			
+			case 'Q':
+				HandleTacticalDropItem( HANDPOS );
+				break;
 
 				// Make auto reload with magazines from sector inventory
 			case 'R':
@@ -4054,40 +4192,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					swprintf( zString, L"%s %d",pMessageStrings[ 90 ],SAVE__TIMED_AUTOSAVE_SLOT1);
 					DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
 				}
-				else
+				else if ( fAlt && fShift )
 				{	
 					//resort Team by ubID
 					SortSquadByID(MercPtrs[gusSelectedSoldier]->bTeam);
 				}
-				break;
-
-			case '=':
-				//if the display cover or line of sight is being displayed
-				if( _KeyDown( END ) || _KeyDown( DEL ) )
-				{
-					//f( _KeyDown( DEL ) )
-						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
-
-					//if( _KeyDown( END ) )
-						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
-				}
 				else
-				{
-
-#ifdef JA2TESTVERSION
-					if( fAlt )
-					{
-						WarpGameTime( 60, TRUE );
-						break;
-					}
-#endif
-
-					// ATE: This key will select everybody in the sector
-					// Buggler: Disabled check for all merc display cover in turnbased mode
-					//if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
-					//{
-						HandleTBSelectAllMercs();
-					//}
+				{	
+					HandleTacticalTransformItem();
 				}
 				break;
 
@@ -4143,6 +4255,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					*puiNewEvent = M_CHANGE_TO_ACTION;
 				break;
 
+			case 'U':
+				break;
+
 			case 'v':
 				if( fAlt )
 				{
@@ -4178,7 +4293,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'w':
-			case 'W':
 				if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -4209,6 +4323,73 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ToggleWireFrame();
 				break;
 
+			case 'W':
+				break;
+
+			case 'x':
+
+				if ( !fCtrl && !fAlt )
+				{
+					// Exchange places...
+					SOLDIERTYPE *pSoldier1, *pSoldier2;
+
+					//Check if we have a good selected guy
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						pSoldier1 = MercPtrs[ gusSelectedSoldier ];
+
+						if ( gfUIFullTargetFound )
+						{
+							// Get soldier...
+							pSoldier2 = MercPtrs[ gusUIFullTargetID ];
+
+							// Check if both OK....
+							if ( pSoldier1->stats.bLife >= OKLIFE && pSoldier2->ubID != gusSelectedSoldier )
+							{
+								if ( pSoldier2->stats.bLife >= OKLIFE )
+								{
+									if (CanSoldierReachGridNoInGivenTileLimit( pSoldier1, pSoldier2->sGridNo, 1, (INT8)gsInterfaceLevel ) )
+									{
+										// Exclude enemies....
+										if ( !pSoldier2->aiData.bNeutral && (pSoldier2->bSide != gbPlayerNum ) )
+										{
+
+										}
+										else
+										{
+											if ( CanExchangePlaces( pSoldier1, pSoldier2, TRUE ) )
+											{
+												// All's good!
+												SwapMercPositions( pSoldier1, pSoldier2 );
+
+												DeductPoints( pSoldier1, APBPConstants[AP_EXCHANGE_PLACES], 0 );
+												DeductPoints( pSoldier2, APBPConstants[AP_EXCHANGE_PLACES], 0 );
+											}
+										}
+									}
+								}
+							}
+						}
+
+					}
+				}
+				else if ( fCtrl )	// The_Bob - real time sneaking, 01-06-09
+				{	
+					HandleTBEnterTurnbased();					
+				}
+				else if ( fAlt )
+				{
+					// used for exit game
+				}
+				break;
+						// The_Bob - real time sneaking, 01-06-09
+			case 'X':	// shift-ctrl-x: toggle real time sneaking
+				if ( fCtrl )
+				{
+					HandleTBToggleSneak();
+				}
+				break;
+
 			case 'y':
 				if( fAlt )
 				{
@@ -4233,16 +4414,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
+					// used for opening chatbox in networked game
 					if ( INFORMATION_CHEAT_LEVEL( ) )
 					{
 						*puiNewEvent = I_LOSDEBUG;
 					}
-					else
-					{
-						HandleTacticalTransformItem();
 				}
-				}
-				//else if( gusSelectedSoldier != NOBODY )
+				break;
+
+			case 'Y':
 				break;
 
 			case 'z':
@@ -4267,153 +4447,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-			case ',':
-				// Flugente: alternate for people without mousewheel to aim auto-only weapons
-				if ( gGameExternalOptions.bAimedBurstEnabled && gCurrentUIMode == CONFIRM_ACTION_MODE )
-				{
-					SOLDIERTYPE *		pSoldier;
-
-					if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-					{
-						HandleRightClickAdjustCursor( pSoldier, usMapPos );
-					}
-				}
-				break;
-
-			// added by Flugente
-			case '.':
-				if ( fCtrl && fAlt ) //jikuja: Create item by reusing old entered number
- 				{
-					if ( CHEATER_CHEAT_LEVEL( ) ) 
-					{
-						CheatCreateItem( );
-					}
-				}
-				else if ( fCtrl )
-				{
-					if ( gusSelectedSoldier != NOBODY )
-					{
-						HandleTacticalFunctionSelection(MercPtrs[ gusSelectedSoldier ],  usMapPos );
-					}
-				}
-				else if ( fAlt )
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
- 					{
-						if ( gusSelectedSoldier != NOBODY )
-						{
-							DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, L"Enter ItemID", GAME_SCREEN, MSG_BOX_FLAG_INPUTBOX, ItemCreationCallBack, NULL );
-						}
-					}
-				}
-				else
-				{
-					SetScopeMode( usMapPos );
-				}
-
-				break;
-
-			case '-':
-			case '_':
-				//if the display cover or line of sight is being displayed
-				if( _KeyDown( END ) || _KeyDown( DEL ) )
-				{
-					//if( _KeyDown( DEL ) )
-						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
-
-					//if( _KeyDown( END ) )
-						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
-				}
-				else
-				{
-					if( fAlt )
-					{
-						if(MusicGetVolume() >= 20)
-							MusicSetVolume(MusicGetVolume()-20);
-						else
-							MusicSetVolume(0);
-					}
-					else if( fCtrl )
-					{
-#ifdef JA2TESTVERSION
-						gTacticalStatus.bRealtimeSpeed = max( 1, gTacticalStatus.bRealtimeSpeed - 1 );
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Decreasing Realtime speed to %d", gTacticalStatus.bRealtimeSpeed );
-#endif
-					}
-					else
-					{
-#ifdef JA2TESTVERSION
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Using Normal Scroll Speed"	);
-						gubCurScrollSpeedID = 1;
-#endif
-					}
-				}
-				break;
-			case '+':
-
-#ifdef JA2TESTVERSION
-				if( fAlt )
-				{
-					if(MusicGetVolume() <= 107)
-						MusicSetVolume(MusicGetVolume()+20);
-					else
-						MusicSetVolume(127);
-				}
-				else if( fCtrl )
-				{
-					gTacticalStatus.bRealtimeSpeed = min( MAX_REALTIME_SPEED_VAL, gTacticalStatus.bRealtimeSpeed+1 );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Increasing Realtime speed to %d", gTacticalStatus.bRealtimeSpeed );
-				}
-				else
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Using Higher Scroll Speed"	);
-					gubCurScrollSpeedID = 2;
-				}
-#endif
-				break;
-			case '`':
-
-				if( fAlt )
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						EnvBeginRainStorm( 1 );
-					}
-					else
-					{
-						HandleTacticalStoreInvItem();
-					}
-				}
-				else if( fCtrl )
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						EnvEndRainStorm( );
-					}
-					else
-					{
-						//HandleTacticalTakeItem();
-					}
-				}
-				else
-				// Switch panels...
-				{
-					ToggleTacticalPanels();
-				}
-				break;
-			case LEFTARROW:
-				if ( fCtrl )
-				{
-					if ( gusSelectedSoldier != NOBODY )
-						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], -1 );
-				}
-				break;
-			case RIGHTARROW:
-				if ( fCtrl )
-				{
-					if ( gusSelectedSoldier != NOBODY )
-						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], 1 );
-				}
+			case 'Z':
 				break;
 
 			}

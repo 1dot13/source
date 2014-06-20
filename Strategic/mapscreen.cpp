@@ -6975,6 +6975,19 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					HandlePlayerPauseUnPauseOfGame( );
 					break;
 
+				case SPACE:
+						if( fShowUpdateBox )
+						{
+							EndUpdateBox( TRUE );	// restart time compression
+						}
+						else
+						{
+							// toggle time compression
+							if ( CommonTimeCompressionChecks() == FALSE )
+								RequestToggleTimeCompression();
+						}
+					break;
+
 				case LEFTARROW:
 					// previous character
 					fResetMapCoords = TRUE;
@@ -7015,8 +7028,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					// down a page
 					MapScreenMsgScrollDown( MAX_MESSAGES_ON_MAP_BOTTOM );
 					break;
-
-				
 
 				case HOME:
 					// jump to top of message list
@@ -7188,19 +7199,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case '_':
 					if ( CommonTimeCompressionChecks() == FALSE )
 						RequestDecreaseInTimeCompression();
-					break;
-
-				case SPACE:
-						if( fShowUpdateBox )
-						{
-							EndUpdateBox( TRUE );	// restart time compression
-						}
-						else
-						{
-							// toggle time compression
-							if ( CommonTimeCompressionChecks() == FALSE )
-								RequestToggleTimeCompression();
-						}
 					break;
 
 				case '`':
@@ -7718,6 +7716,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						}
 					}
 					break;
+				case 'g':
+					break;
 				case 'h':
 					#ifdef JA2TESTVERSION
 						if( fAlt )
@@ -7778,6 +7778,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					{
 						ToggleItemsFilter();
 					}
+					break;
+				case 'j':
 					break;
 				case 'K':
 					//CHRISL: Swap gunsling
@@ -7910,7 +7912,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 
-					case 'p':
+				case 'p':
 					#ifdef JA2TESTVERSION
 							if( fCtrl )
 							{
