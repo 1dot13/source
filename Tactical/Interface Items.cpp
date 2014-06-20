@@ -8171,22 +8171,30 @@ void DeleteItemDescriptionBox( )
 			//WarmSteel size() is no longer sufficient, because the list contains null objects.
 			unsigned int originalSize = 0;
 			unsigned int newSize = 0;
+			bool bAttachmentsDiffer = FALSE;
 			attachmentList::iterator originalIter;
 			attachmentList::iterator newIter;
 
 			for (originalIter = gOriginalAttachments.begin(), newIter = (*gpItemDescObject)[0]->attachments.begin();
 			originalIter != gOriginalAttachments.end() && newIter != (*gpItemDescObject)[0]->attachments.end();
-			++originalIter, ++newIter){
+			++originalIter, ++newIter)
+			{
 				if(originalIter->exists()){
 					originalSize++;
 				}
 				if(newIter->exists()){
 					newSize++;
 				}
+				// silversurfer: If we replaced one attachment with another the size will not differ so we need to check content too.
+				if( originalIter->exists() && newIter->exists() )
+				{
+					if( originalIter->usItem != newIter->usItem )
+						bAttachmentsDiffer = TRUE;
+				}
 			}
 
 
-			if (newSize != originalSize) {
+			if (newSize != originalSize || bAttachmentsDiffer) {
 				//an attachment was changed, find the change
 				for (originalIter = gOriginalAttachments.begin(), newIter = (*gpItemDescObject)[0]->attachments.begin();
 					originalIter != gOriginalAttachments.end() && newIter != (*gpItemDescObject)[0]->attachments.end();
