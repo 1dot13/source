@@ -6355,6 +6355,8 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				gfSwitchPanel = TRUE;
 				gbNewPanel = SM_PANEL;
 				gubNewPanelParam = (UINT8)ubSoldierID;
+				// silversurfer: This needs to be reset to TRUE because inventory view only allows radar screen to be displayed and not the squad list.
+				fRenderRadarScreen = TRUE;
 			}
 		}
 	}
