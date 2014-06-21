@@ -428,6 +428,9 @@ BOOLEAN RemoveAllObjectsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 	UINT32				fTileType;
 	BOOLEAN fRetVal = FALSE;
 
+	if( iMapIndex < 0 )
+		return fRetVal;
+
 	pObject = gpWorldLevelData[ iMapIndex ].pObjectHead;
 
 	// Look through all objects and Search for type
@@ -2995,6 +2998,9 @@ BOOLEAN RemoveAllOnRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 	LEVELNODE	*pOldOnRoof		= NULL;
 	UINT32				fTileType;
 	BOOLEAN fRetVal = FALSE;
+
+	if( iMapIndex < 0 )
+		return fRetVal;
 
 	pOnRoof = gpWorldLevelData[ iMapIndex ].pOnRoofHead;
 

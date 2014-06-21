@@ -41,6 +41,13 @@
 
 	#include "Tile Animation.h"
 	#include "Explosion Control.h"	// added by Flugente
+
+	// anv: for ramming people with vehicles
+	#include "Soldier macros.h"
+	#include "Overhead.h"
+	#include "Soldier Functions.h"
+	#include "Animation Control.h"
+	#include "Soldier Ani.h"
 #endif
 
 #ifdef COUNT_PATHS
@@ -625,7 +632,7 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 	return( pStructure );
 }
 
-BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fIgnorePeople )
+BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
 	DB_STRUCTURE *	pDBStructure;
@@ -635,6 +642,18 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	INT8						bLoop, bLoop2;
 	INT32 sGridNo;
 	INT32						sOtherGridNo;
+
+	BOOLEAN fIgnorePeople = (BOOLEAN)(sExclusionID == IGNORE_PEOPLE_STRUCTURE_ID);
+
+	BOOLEAN fVehicleIgnoreObstacles = (BOOLEAN)(sExclusionID == VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID);
+	if( gGameExternalOptions.ubCarsRammingMaxStructureArmour && sSoldierID != NOBODY && MercPtrs[ sSoldierID ]->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
+	{
+		fVehicleIgnoreObstacles = TRUE;
+	}
+	else if( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( MercPtrs[ sSoldierID ] ) )
+	{
+		fVehicleIgnoreObstacles = TRUE;
+	}
 
 	ppTile = pDBStructureRef->ppTile;
 #if 0//dnl ch83 080114
@@ -666,7 +685,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 
 	while (pExistingStructure != NULL)
 	{
-		if (sCubeOffset == pExistingStructure->sCubeOffset)
+		if (pExistingStructure != NULL && sCubeOffset == pExistingStructure->sCubeOffset)
 		{
 
 			// CJC:
@@ -705,6 +724,70 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 						// Skip!
 						pExistingStructure = pExistingStructure->pNext;
 						continue;
+					}
+				}
+
+				if ( fVehicleIgnoreObstacles && !(pExistingStructure->fFlags & STRUCTURE_PASSABLE) && !(ppTile[ubTileIndex]->fFlags & TILE_PASSABLE) )
+				{
+					// anv: drive through people 
+					if ( pExistingStructure->usStructureID < TOTAL_SOLDIERS )
+					{	
+						SOLDIERTYPE *pSoldier = MercPtrs[ pExistingStructure->usStructureID ];
+						// but not monsters and such (they can't fall down due to lack of animations)
+						// also make sure AI won't flatten their allies
+						if( !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT | SOLDIER_MONSTER ) ) && 
+							( ( !TANK(MercPtrs[ sSoldierID ]) && gGameExternalOptions.fAllowCarsDrivingOverPeople ) ||
+							( TANK(MercPtrs[ sSoldierID ]) && gGameExternalOptions.fAllowTanksDrivingOverPeople ) ) &&
+							( MercPtrs[ sSoldierID ]->bTeam == gbPlayerNum || MercPtrs[ sSoldierID ]->bTeam != pSoldier->bTeam ) )
+						{
+							pExistingStructure = pExistingStructure->pNext;
+							// damage people when driving on them
+							if( fAddingForReal && ( MercPtrs[ sSoldierID ]->flags.fPastXDest || MercPtrs[ sSoldierID ]->flags.fPastYDest ) )
+							{	
+								if( TANK( MercPtrs[ sSoldierID ] ) )
+								{
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+								}
+								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && MercPtrs[ sSoldierID ]->flags.fUIMovementFast )
+								{
+									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+								}
+								else
+								{
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+								}
+							}
+							continue;
+						}
+						// skip if it's part of the same vehicle
+						else if( pExistingStructure->usStructureID == sSoldierID )
+						{
+							pExistingStructure = pExistingStructure->pNext;
+							continue;
+						}
+					}
+					// anv: ram and destroy structures
+					else
+					{
+						// only if structure is weak enough
+						if( ( !TANK(MercPtrs[ sSoldierID ]) && gubMaterialArmour[ pExistingStructure->pDBStructureRef->pDBStructure->ubArmour ] < gGameExternalOptions.ubCarsRammingMaxStructureArmour ) ||
+							( TANK(MercPtrs[ sSoldierID ]) && gubMaterialArmour[ pExistingStructure->pDBStructureRef->pDBStructure->ubArmour ] < gGameExternalOptions.ubTanksRammingMaxStructureArmour ) )
+						{
+							// when not just plotting path, really destroy structure
+							if( fAddingForReal )
+							{
+								INT16 sXPos, sYPos = 0;
+								ConvertGridNoToXY(pExistingStructure->sGridNo, &sXPos, &sYPos);
+								DamageStructure( pExistingStructure, 255, STRUCTURE_DAMAGE_VEHICLE_TRAUMA, pExistingStructure->sGridNo, sXPos, sYPos, sSoldierID, 0 );
+								return( TRUE );
+							}
+							// else just skip
+							else
+							{
+								pExistingStructure = pExistingStructure->pNext;
+								continue;
+							}
+						}		
 					}
 				}
 
@@ -830,6 +913,18 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 				// ATE: Added check here - UNLESS the part we are trying to add is PASSABLE!
 				if ( pExistingStructure->fFlags & STRUCTURE_MOBILE && !(pExistingStructure->fFlags & STRUCTURE_PASSABLE) && !(ppTile[ubTileIndex]->fFlags & TILE_PASSABLE) )
 				{
+					// anv: check if we try to add soldier hit by a vehicle under vehicle
+					if( sSoldierID != NOBODY && pExistingStructure->usStructureID < TOTAL_SOLDIERS )
+					{
+						if( MercPtrs[ pExistingStructure->usStructureID ] != NULL && MercPtrs[ pExistingStructure->usStructureID ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
+						{						
+							if( MercPtrs[ sSoldierID ]->flags.fInNonintAnim == TRUE || gAnimControl[ MercPtrs[ sSoldierID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
+							{
+								pExistingStructure = pExistingStructure->pNext;
+								continue;
+							}
+						}
+					}
 					// don't allow 2 people in the same tile
 					return( FALSE );
 				}
@@ -840,7 +935,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					// Skip!
 					pExistingStructure = pExistingStructure->pNext;
 					continue;
-		}
+				}
 
 				// ATE: Added here - UNLESS this part is PASSABLE....
 				// two obstacle structures aren't allowed in the same tile at the same height
@@ -868,7 +963,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	return( TRUE );
 }
 
-BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fIgnorePeople )
+BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
 {
 	UINT8 ubLoop;
 	INT16									sCubeOffset;
@@ -903,7 +998,7 @@ BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_ST
 		{
 			sCubeOffset = bLevel * PROFILE_Z_SIZE;
 		}
-		if (!OkayToAddStructureToTile( sBaseGridNo, sCubeOffset, pDBStructureRef, ubLoop, sExclusionID, fIgnorePeople ))
+		if (!OkayToAddStructureToTile( sBaseGridNo, sCubeOffset, pDBStructureRef, ubLoop, sExclusionID, fAddingForReal, sSoldierID ))
 		{
 			return( FALSE );
 		}
@@ -911,9 +1006,9 @@ BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_ST
 	return( TRUE );
 }
 
-BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID )
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
 {
-	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, (BOOLEAN)(sExclusionID == IGNORE_PEOPLE_STRUCTURE_ID) ) );
+	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, fAddingForReal, sSoldierID ) );
 }
 
 BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, UINT16 usStructureID )
@@ -968,7 +1063,14 @@ STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRU
 	CHECKF( pDBStructure->ubNumberOfTiles > 0 );
 
 	// first check to see if the structure will be blocked
-	if (!OkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, INVALID_STRUCTURE_ID )	)
+	if ( ( pLevelNode->uiFlags & LEVELNODE_SOLDIER ) && pLevelNode->pSoldier )
+	{
+		if ( !OkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, INVALID_STRUCTURE_ID, TRUE, pLevelNode->pSoldier->ubID )	)
+		{
+			return( NULL );
+		}
+	}
+	else if ( !OkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, INVALID_STRUCTURE_ID )	)
 	{
 		return( NULL );
 	}
@@ -1724,7 +1826,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 	}
 
 	// OK, Let's check our reason
-	if ( ubReason == STRUCTURE_DAMAGE_GUNFIRE )
+	if ( ubReason == STRUCTURE_DAMAGE_GUNFIRE || ubReason == STRUCTURE_DAMAGE_VEHICLE_TRAUMA )
 	{
 		// If here, we have penetrated, check flags
 		// Are we an explodable structure?
@@ -1781,6 +1883,23 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+		}
+
+		// anv: if we ram something with vehicle we have to destroy it, or else vehicle and structure will be drawn at the same tile
+		// max armour will be set by Player in .ini and checked before DamageStructure is called
+		if ( ubReason == STRUCTURE_DAMAGE_VEHICLE_TRAUMA )
+		{
+			BOOLEAN recompile = FALSE;
+			ExplosiveDamageGridNo( sGridNo, 255, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+
+			//Since the structure is being damaged, set the map element that a structure is damaged
+			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+			// handle structure revenge - damage to vehicle
+			if( ubOwner != NOBODY )
+			{
+				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
+			}
 		}
 
 		// Don't update damage HPs....

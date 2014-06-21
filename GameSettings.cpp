@@ -1383,6 +1383,12 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fAllowDrivingVehiclesInTactical			= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_DRIVING_VEHICLES_IN_TACTICAL", TRUE);
 
+	gGameExternalOptions.fAllowCarsDrivingOverPeople		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_CARS_DRIVING_OVER_PEOPLE", TRUE);
+	gGameExternalOptions.fAllowTanksDrivingOverPeople		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_TANKS_DRIVING_OVER_PEOPLE", TRUE);
+
+	gGameExternalOptions.ubCarsRammingMaxStructureArmour		= iniReader.ReadInteger("Tactical Gameplay Settings","CARS_RAMMING_MAX_STRUCTURE_ARMOUR", 30, 0, 255);
+	gGameExternalOptions.ubTanksRammingMaxStructureArmour		= iniReader.ReadInteger("Tactical Gameplay Settings","TANKS_RAMMING_MAX_STRUCTURE_ARMOUR", 70, 0, 255);
+
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleScale	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_SCALE", 100, 0, 200);
 	

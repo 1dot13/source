@@ -4765,7 +4765,7 @@ CHAR8 *GetSceneFilename(    )
     return( gzLevelFilenames[ gubCurrentScene ] );
 }
 
-extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fIgnorePeople );
+extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID );
 
 // NB if making changes don't forget to update NewOKDestinationAndDirection
 INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
@@ -4830,7 +4830,15 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeop
                     usStructureID = INVALID_STRUCTURE_ID;
                 }
 
-                fOk = InternalOkayToAddStructureToWorld( sGridNo, bLevel, &(pStructureFileRef->pDBStructureRef[bLoop]), usStructureID, (BOOLEAN)!fPeopleToo );
+				// anv: allow ramming as a mean of getting to destination
+				if( _KeyDown( SHIFT ) && ( pCurrSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && pCurrSoldier->bTeam == gbPlayerNum )
+				{
+					fOk = InternalOkayToAddStructureToWorld( sGridNo, bLevel, &(pStructureFileRef->pDBStructureRef[bLoop]), VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID, FALSE, pCurrSoldier->ubID );
+				}
+				else
+				{
+					fOk = InternalOkayToAddStructureToWorld( sGridNo, bLevel, &(pStructureFileRef->pDBStructureRef[bLoop]), usStructureID, FALSE, pCurrSoldier->ubID );
+				}
                 if (fOk)
                 {
                     return( TRUE );
@@ -4951,7 +4959,7 @@ INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, I
                     usStructureID = pCurrSoldier->pLevelNode->pStructureData->usStructureID;
                 }
 
-                fOk = InternalOkayToAddStructureToWorld( sGridNo, pCurrSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[ gOneCDirection[ bLoop ] ]), usStructureID, (BOOLEAN)!fPeopleToo );
+                fOk = InternalOkayToAddStructureToWorld( sGridNo, pCurrSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[ gOneCDirection[ bLoop ] ]), usStructureID, FALSE, pCurrSoldier->ubID );
                 if (fOk)
                 {
                     return( TRUE );

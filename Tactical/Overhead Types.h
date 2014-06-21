@@ -186,6 +186,7 @@ enum
 #define		FIRE_WEAPON_DEAFENED				10
 #define		FIRE_WEAPON_BLINDED_AND_DEAFENED	11
 #define		FIRE_WEAPON_BLINDED_SPECIAL			12	// Flugente: works like FIRE_WEAPON_BLINDED_BY_SPIT_SPECIAL but without the damage dependency
+#define		FIRE_WEAPON_VEHICLE_TRAUMA			13
 
 
 #define NO_INTERRUPTS			0

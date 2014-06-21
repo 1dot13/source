@@ -2057,6 +2057,15 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 				if ( pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER ) )
 				{
 					pSoldier = GetSoldierStructureForVehicle( MercPtrs[ pSoldier->ubID ]->iVehicleId );
+					// anv: if shift is pressed, treat is as ram + move - flag has to be set for later add structure checks
+					if ( _KeyDown( SHIFT ) )
+					{
+						pSoldier->usSoldierFlagMask2 |= SOLDIER_RAM_THROUGH_OBSTACLES;
+					}
+					else
+					{
+						pSoldier->usSoldierFlagMask2 &= ~SOLDIER_RAM_THROUGH_OBSTACLES;
+					}
 				}
 
 				// CHRISL: This block should only run if we're running in the new inventory system

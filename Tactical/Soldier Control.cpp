@@ -1699,6 +1699,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
+void SoldierGotHitVehicle( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 UINT8 CalcScreamVolume( SOLDIERTYPE * pSoldier, UINT8 ubCombinedLoss );
 void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
 void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
@@ -5721,6 +5722,10 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	{
 		ubReason = TAKE_DAMAGE_TENTACLES;
 	}
+	else if ( ubSpecial == FIRE_WEAPON_VEHICLE_TRAUMA )
+	{
+		ubReason = TAKE_DAMAGE_VEHICLE_TRAUMA;
+	}
 	// marke take out gunfire if ammotype is explosive
 
 	// callahan update start
@@ -6090,6 +6095,13 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 				this->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + Random( 2 ) ) );
 			}
 		}
+	}
+
+	// anv: soldier got rammed by vehicle
+	if ( ubSpecial == FIRE_WEAPON_VEHICLE_TRAUMA )
+	{
+		SoldierGotHitVehicle( this, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation );
+		return;
 	}
 
 	// CHECK FOR DOING HIT WHILE DOWN
@@ -6811,6 +6823,70 @@ void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDam
 
 }
 
+void SoldierGotHitVehicle( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
+{
+	INT32 sNewGridNo = 0;
+	// IF HERE AND GUY IS DEAD, RETURN!
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
+	{
+		return;
+	}
+
+	if( pSoldier->flags.fTryingToFall )
+	{
+		return;
+	}
+
+	switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+	{
+		case ANIM_STAND:
+
+			sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection  ) );//DirectionInc( gOppositeDirection[ bDirection ] ) );
+			if( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, bDirection, FLYBACK_HIT ) )
+			{
+				pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[ bDirection ] );
+				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
+				pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[ bDirection ] );
+			}
+			else if( IS_MERC_BODY_TYPE( pSoldier ) )
+			{
+				pSoldier->EVENT_SetSoldierDirection( bDirection );
+				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
+				pSoldier->BeginTyingToFall( );
+				pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+			}
+			else
+			{
+				SoldierCollapse( pSoldier );
+			}
+			break;
+
+
+		case ANIM_CROUCH:
+
+			pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[ bDirection ] );
+			pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
+
+			// Check behind us!
+			sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection  ) );
+
+			if( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ pSoldier->ubDirection ], FLYBACK_HIT ) )
+			{
+				pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[ bDirection ] );
+			}
+			else
+			{
+				SoldierCollapse( pSoldier );
+			}
+			break;
+
+		case ANIM_PRONE:
+
+			SoldierCollapse( pSoldier );
+			break;
+	}
+
+}
 
 BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestartAnim )
 {
@@ -9464,7 +9540,40 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 #endif
 	if ( this->bCollapsed )
 	{
-		if ( this->stats.bLife >= OKLIFE && this->bBreath >= OKBREATH && (this->bSleepDrugCounter == 0) )
+		// anv: only get up if we're not blocked by anything (like vehicle)
+		BOOLEAN fEnoughPlace = TRUE;
+		STRUCTURE_FILE_REF		*pStructureFileRef;
+		if ( IS_MERC_BODY_TYPE( this ) )
+		{	
+			switch( this->usAnimState )
+			{
+			case FALLOFF_FORWARD_STOP:
+			case PRONE_LAYFROMHIT_STOP:
+			case STAND_FALLFORWARD_STOP:
+				pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, ANIM_CROUCH ), ANIM_CROUCH );
+				break;
+
+			case FALLBACKHIT_STOP:
+			case FALLOFF_STOP:
+			case FLYBACKHIT_STOP:
+			case FALLBACK_HIT_STAND:
+			case FALLOFF:
+			case FLYBACK_HIT:
+				pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, ROLLOVER ), ROLLOVER );
+				break;
+
+			default:
+				pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, ANIM_CROUCH ), ANIM_CROUCH );
+				break;
+			}	
+			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &( pStructureFileRef->pDBStructureRef[ gOneCDirection[ this->ubDirection ] ] ), this->ubID, FALSE, NOBODY );
+		}
+		else
+		{
+			pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, END_COWER ), END_COWER );
+			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &( pStructureFileRef->pDBStructureRef[ gOneCDirection[ this->ubDirection ] ] ), this->ubID, FALSE, NOBODY );
+		}
+		if ( this->stats.bLife >= OKLIFE && this->bBreath >= OKBREATH && (this->bSleepDrugCounter == 0) && fEnoughPlace )
 		{
 			// get up you hoser!
 
@@ -15745,6 +15854,9 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 {
 	// this will only work with the new trait system
 	if (!gGameOptions.fNewTraitSystem)
+		return TRUE;
+
+	if ( ubTargetID == NOBODY )
 		return TRUE;
 
 	SOLDIERTYPE* pSoldier = MercPtrs[ubTargetID];

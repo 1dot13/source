@@ -21,9 +21,11 @@
 // 100 == MAX_CORPSES 
 #define	INVALID_STRUCTURE_ID					( TOTAL_SOLDIERS + 100 )
 #define IGNORE_PEOPLE_STRUCTURE_ID		(TOTAL_SOLDIERS+101)
+#define VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID		(TOTAL_SOLDIERS+102)
 
 #define STRUCTURE_DAMAGE_EXPLOSION		1
 #define STRUCTURE_DAMAGE_GUNFIRE			2
+#define STRUCTURE_DAMAGE_VEHICLE_TRAUMA		3
 
 
 // functions at the structure database level
@@ -35,7 +37,7 @@ BOOLEAN FreeStructureFile( STRUCTURE_FILE_REF * pStructureFile );
 //
 // functions at the structure instance level
 //
-BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID );
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY );
 
 // for the PTR argument of AddStructureToWorld, pass in a LEVELNODE * please!
 BOOLEAN AddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, PTR pLevelN );

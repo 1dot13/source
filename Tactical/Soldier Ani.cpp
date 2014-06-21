@@ -3868,8 +3868,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			//////////////////////////////////////////////////////////////
 
 			{
+				// anv: note that ubAttacker can be already different from pSoldier->ubAttackerID
 				// IF this guy has an attacker and he's a good guy, play sound
-				if ( ubAttacker != NOBODY )
+				if ( pSoldier->ubAttackerID != NOBODY )
 				{								
 					if ( MercPtrs[ pSoldier->ubAttackerID ] != NULL && MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
 					{

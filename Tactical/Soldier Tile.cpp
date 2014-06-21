@@ -48,6 +48,7 @@
 	#include "message.h"
 	#include "Text.h"
 	#include "NPC.h"
+	#include "Soldier macros.h"
 #endif
 
 extern INT8		gbNumMercsUntilWaitingOver;
@@ -218,6 +219,16 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 	BOOLEAN	fSwapInDoor = FALSE;
 	
 	if (TileIsOutOfBounds(sGridNo))
+	{
+		return( MOVE_TILE_CLEAR );
+	}
+
+	// anv: vehicles can ram people
+	if ( !TANK(pSoldier) && gGameExternalOptions.fAllowCarsDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
+	{
+		return( MOVE_TILE_CLEAR );
+	}
+	else if( TANK(pSoldier) && gGameExternalOptions.fAllowTanksDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE  )
 	{
 		return( MOVE_TILE_CLEAR );
 	}

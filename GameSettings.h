@@ -1477,6 +1477,12 @@ typedef struct
 
 	BOOLEAN fAllowDrivingVehiclesInTactical;
 
+	BOOLEAN fAllowCarsDrivingOverPeople;
+	BOOLEAN fAllowTanksDrivingOverPeople;
+
+	UINT8 ubCarsRammingMaxStructureArmour;
+	UINT8 ubTanksRammingMaxStructureArmour;
+
 	UINT8 ubAPSharedAmongPassengersAndVehicleMode;
 	UINT8 ubAPSharedAmongPassengersAndVehicleScale;
 

@@ -58,6 +58,7 @@ extern UINT16 CivLastNames[MAXCIVLASTNAMES][10];
 #define TAKE_DAMAGE_TENTACLES			9
 #define TAKE_DAMAGE_STRUCTURE_EXPLOSION 10
 #define TAKE_DAMAGE_OBJECT		11
+#define TAKE_DAMAGE_VEHICLE_TRAUMA		12
 
 
 #define SOLDIER_UNBLIT_SIZE			(75*75*2)
@@ -397,6 +398,7 @@ enum
 // ------------------- more flags for soldiers --------------------
 #define SOLDIER_SNITCHING_OFF				0x00000001	//1				// isn't allowed to snitch
 #define SOLDIER_PREVENT_MISBEHAVIOUR_OFF	0x00000002	//2				// isn't allowed to prevent misbehaviour
+#define SOLDIER_RAM_THROUGH_OBSTACLES		0x00000004	//4				// vehicle
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: background property flags --------

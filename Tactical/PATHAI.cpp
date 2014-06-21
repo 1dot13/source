@@ -40,6 +40,7 @@
 	#include "gamesettings.h"
 	#include "Buildings.h"
 	#include "soldier profile.h" // added by SANDRO
+	#include "Soldier macros.h"
 #endif
 #include "connect.h"
 
@@ -2516,6 +2517,7 @@ b=GetJA2Clock();//return s->sGridNo+6;
 		STRUCTURE_FILE_REF * pStructureFileRef=NULL;
 		UINT16							usAnimSurface;
 		//INT32 iCnt2, iCnt3;
+		BOOLEAN fVehicleIgnoreObstacles = FALSE;
 	#endif
 
 	INT32			iLastDir = 0;
@@ -2628,6 +2630,25 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		}
 	}
 	fPathAroundPeople = ( (fFlags & PATH_THROUGH_PEOPLE) == 0 );
+
+	// anv: vehicles can drive through people and structures if shift is pressed 
+	// (or rather route through can be planned, actual driving through is dependent on SOLDIER_RAM_THROUGH_OBSTACLES flag set in Handle UI)
+	if ( _KeyDown( SHIFT ) && fPathingForPlayer && ( s->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+	{
+		fVehicleIgnoreObstacles = TRUE;
+	}
+	// AI can't press shift, let's assume only tanks ram through (we wouldn't want AI cars to get destroyed kamikazing through walls, no matter how funny that would be)
+	else if( !fPathingForPlayer && TANK(s) )
+	{
+		fVehicleIgnoreObstacles = TRUE;
+	}
+	if( fVehicleIgnoreObstacles && 
+		( ( gGameExternalOptions.fAllowCarsDrivingOverPeople && !TANK(s) ) ||
+		( gGameExternalOptions.fAllowTanksDrivingOverPeople && TANK(s) ) ) )
+	{
+		fPathAroundPeople = FALSE;
+	}
+
 	fCloseGoodEnough = ( (fFlags & PATH_CLOSE_GOOD_ENOUGH) != 0);
 	if ( fCloseGoodEnough )
 	{
@@ -2757,6 +2778,10 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			else
 			{
 				usOKToAddStructID = INVALID_STRUCTURE_ID;
+			}
+			if( fVehicleIgnoreObstacles )
+			{
+				usOKToAddStructID = VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID;
 			}
 
 		}
@@ -3006,7 +3031,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				{
 					if ( iCnt != iLastDir )
 					{
-						if ( !OkayToAddStructureToWorld( curLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID ) )
+						if ( !OkayToAddStructureToWorld( curLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
 						{
 							// we have to abort this loop and possibly reset the loop conditions to
 							// search in the other direction (if we haven't already done the other dir)
@@ -3126,7 +3151,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			}
 
 			//how much is admission to the next tile
-			if ( gfPathAroundObstacles )
+			if ( gfPathAroundObstacles && !fVehicleIgnoreObstacles )
 			{
 				nextCost = gubWorldMovementCosts[ newLoc ][ iCnt ][ ubLevel ];
 
@@ -3351,6 +3376,10 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						goto NEXTDIR;
 
 			}
+			else if( fVehicleIgnoreObstacles )
+			{
+				nextCost = TRAVELCOST_FLAT;
+			}
 			else
 			{
 				nextCost = TRAVELCOST_FLAT;
@@ -3394,7 +3423,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				// then 0 1 2 3 4 5 6), we must subtract 1 from the direction
 				// ATE: Send in our existing structure ID so it's ignored!
 
-				if (!OkayToAddStructureToWorld( newLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID ) )
+				if (!OkayToAddStructureToWorld( newLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
 				{
 					goto NEXTDIR;
 				}
