@@ -786,6 +786,8 @@ void ToggleTacticalPanels( )
 	else
 	{
 		gbNewPanel = SM_PANEL;
+		// silversurfer: This needs to be reset to TRUE because inventory view only allows radar screen to be displayed and not the squad list.
+		fRenderRadarScreen = TRUE;
 	}
 }
 

@@ -7202,8 +7202,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case '`':
+						if (fAlt)
+						{
+						}
 					#ifdef JA2TESTVERSION
-						if( fCtrl )
+						else if( fCtrl )
 						{
 							if( bSelectedInfoChar != -1 )
 							{
@@ -7211,11 +7214,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							}
 						}
 					#endif
-						if (fAlt)
-						{
-							
-							break;
-						}
+						else
+							RequestToggleMercInventoryPanel();
 					break;
 
 				case '\\':
