@@ -339,7 +339,7 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 	L"伤害抵抗力 %d%s\n",// L"Has %d%s damage resistance\n",
 	L"负重上限的有效力量 +%d%s\n",// L"+%d%s effective strength for carrying weight capacity \n",
 	L"被徒手攻击造成的体力损失 -%d%s\n",// L"Reduced energy lost when hit by HtH attack by %d%s\n",
-	L"被击中腿部致使到底所需的伤害阀值 +%d%s\n",// L"Increased damage needed to fall down if hit to legs by %d%s\n",
+	L"被击中腿部致使倒地所需的伤害阈值 +%d%s\n",// L"Increased damage needed to fall down if hit to legs by %d%s\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
