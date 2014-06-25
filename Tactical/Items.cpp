@@ -59,6 +59,7 @@
 	#include "Sys Globals.h"//dnl ch74 201013
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DisplayCover.h"		// added by Flugente
+	#include "Map Information.h"
 #endif
 
 #ifdef JA2UB
@@ -6919,6 +6920,25 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 			fShowMapInventoryPool = TRUE;
 			CreateDestroyMapInventoryPoolButtons(FALSE);
 		}
+		
+		// set a grid no for item from mercs with invalid grid no in sector inventory, e.g. merc arriving in sector with a different tactical map loaded
+		if(!GridNoOnVisibleWorldTile(sGridNo))
+		{
+			// use the grid no of the first visible, reachable item
+			for(UINT32 i = 0; i < pInventoryPoolList.size(); i++ )
+			{
+				if( pInventoryPoolList[i].bVisible == 1 && pInventoryPoolList[i].fExists == TRUE && pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE )
+				{
+					sGridNo = pInventoryPoolList[i].sGridNo;
+					break;
+				}
+			}
+
+			// empty sector to use the center grid no of the loaded tactical sector, hope that it's accessible
+			if(!GridNoOnVisibleWorldTile(sGridNo))
+				sGridNo = gMapInformation.sCenterGridNo;
+		}
+		
 		fMapPanelDirty = TRUE;
 		return( AutoPlaceObjectInInventoryStash(pObj, sGridNo) );
 	}

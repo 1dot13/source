@@ -1592,11 +1592,30 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				// HEADROCK HAM 5: A LOT of functions rely on these flags being set. So set them!!
 				pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].bVisible = TRUE;
 				pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].fExists = TRUE;
-				if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 091009
+				
+				/*if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 091009
 				{
 					if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
 						sObjectSourceGridNo = gMapInformation.sCenterGridNo;
-				}
+				}*/
+
+				// set a grid no for item from mercs with invalid grid no in sector inventory, e.g. merc arriving in sector with a different tactical map loaded
+				if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
+				{
+					// use the grid no of the first visible, reachable item
+					for(UINT32 i = 0; i < pInventoryPoolList.size(); i++ )
+					{
+						if( pInventoryPoolList[i].bVisible == 1 && pInventoryPoolList[i].fExists == TRUE && pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE )
+						{
+							sObjectSourceGridNo = pInventoryPoolList[i].sGridNo;
+							break;
+						}
+
+						// empty sector to use the center grid no of the loaded tactical sector, hope that it's accessible
+						if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
+							sObjectSourceGridNo = gMapInformation.sCenterGridNo;
+					}
+				}				
 
 				//CHRISL: Make sure we put the item at the same level as the merc
 				if(gpItemPointerSoldier->exists() == true)
@@ -2492,7 +2511,7 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo )
 			if(sGridNo != 0)
 			{
 				pInventoryPoolList[cnt].sGridNo = sGridNo;
-				pInventoryPoolList[cnt].usFlags = 512;
+				pInventoryPoolList[cnt].usFlags |= WORLD_ITEM_REACHABLE;
 				pInventoryPoolList[cnt].bVisible = 1;
 				pInventoryPoolList[cnt].fExists = TRUE;
 			}
