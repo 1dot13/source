@@ -535,8 +535,8 @@ void FromCellToScreenCoordinates( INT16 sCellX, INT16 sCellY, INT16 *psScreenX, 
 
 void FromScreenToCellCoordinates( INT16 sScreenX, INT16 sScreenY, INT16 *psCellX, INT16 *psCellY )
 {
-	*psCellX = ( ( sScreenX + ( 2 * sScreenY ) ) / 4 );
-	*psCellY = ( ( 2 * sScreenY ) - sScreenX ) / 4;
+	*psCellX = ( ( sScreenX + ( 2 * sScreenY ) + 2 ) / 4 );
+	*psCellY = ( ( 2 * sScreenY ) - sScreenX + 2 ) / 4;
 }
 
 // These two functions take into account that our world is projected and attached
