@@ -479,7 +479,7 @@ DropDownBase::SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		UINT8 ubSelected = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
-		mSelectedEntry = min(ubSelected + mFirstShownEntry, max(0, mEntryVector.size() -1) );
+		mSelectedEntry = min(ubSelected + mFirstShownEntry, (UINT8)(max(0, mEntryVector.size() -1)) );
 
 		Destroy_Drop();
 	}
@@ -549,10 +549,10 @@ DropDownBase::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, I
 			}
 			else if( mFirstShownEntry + ubCityNum > mSelectedEntry )
 			{
-				mSelectedEntry = min( mFirstShownEntry + ubCityNum, max( 0, mEntryVector.size( ) - 1 ) );
+				mSelectedEntry = min( mFirstShownEntry + ubCityNum, (UINT8)(max( 0, mEntryVector.size( ) - 1 )) );
 
 				if ( ubCityNum == mNumDisplayedEntries - 1 )
-					mFirstShownEntry = min( mFirstShownEntry + 1, max( 0, mEntryVector.size( ) - 1 ) );
+					mFirstShownEntry = min( mFirstShownEntry + 1, (UINT8)(max( 0, mEntryVector.size( ) - 1 )) );
 			}
 			
 			InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);

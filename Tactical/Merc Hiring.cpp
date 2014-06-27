@@ -51,6 +51,7 @@
 	#include "Map Screen Interface Bottom.h"
 	#include "Quests.h"
 	#include "GameSettings.h"
+	#include "DynamicDialogue.h"// added by Flugente
 #endif
 #include "connect.h"
 

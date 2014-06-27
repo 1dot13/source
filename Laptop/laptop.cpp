@@ -2324,7 +2324,7 @@ UINT32 LaptopScreenHandle()
 					guiPreviousLaptopMode = guiCurrentLaptopMode;
 				}
 			}
-	 else
+			else
 			{
 				if(!fLoadPendingFlag)
 				{
@@ -2343,10 +2343,9 @@ UINT32 LaptopScreenHandle()
 
 	if( fReDrawScreenFlag )
 	{
-	RenderLapTopImage();
-	HighLightRegion(giCurrentRegion);
-	RenderLaptop();
-
+		RenderLapTopImage();
+		HighLightRegion(giCurrentRegion);
+		RenderLaptop();
 	}
 
 
@@ -2363,17 +2362,13 @@ UINT32 LaptopScreenHandle()
 
 	if( fExitingLaptopFlag == FALSE )
 	{
-	// handle handles for laptop input stream
-	HandleLapTopHandles();
+		// handle handles for laptop input stream
+		HandleLapTopHandles();
 	}
 
 	// get keyboard input, handle it
 	GetLaptopKeyboardInput();
-
-
-
-
-
+		
 	// check to see if new mail box needs to be displayed
 	DisplayNewMailBox( );
 	CreateDestroyNewMailButton( );
@@ -2393,7 +2388,6 @@ UINT32 LaptopScreenHandle()
 
 	// check to see if new mail box needs to be displayed
 	ReDrawNewMailBox( );
-
 
 	// look for unread email
 	LookForUnread();
@@ -2419,9 +2413,8 @@ UINT32 LaptopScreenHandle()
 	// show text on top of buttons
 	if( ( fMaximizingProgram == FALSE ) && ( fMinizingProgram == FALSE ) )
 	{
-	DrawButtonText();
+		DrawButtonText();
 	}
-
 
 	// check to see if bookmarks need to be displayed
 	if(gfShowBookmarks)
@@ -2443,7 +2436,7 @@ UINT32 LaptopScreenHandle()
 	// rendering AFTER buttons and button text
 		if( ( fMaximizingProgram == FALSE ) && ( fMinizingProgram == FALSE ) )
 		{
-		PostButtonRendering( );
+			PostButtonRendering( );
 		}
 	}
 	//PrintBalance( );
@@ -2458,13 +2451,11 @@ UINT32 LaptopScreenHandle()
 	// handle if we are maximizing a program from a minimized state or vice versa
 	HandleSlidingTitleBar( );
 
-
 	// flicker HD light as nessacary
 	FlickerHDLight( );
 
 	// display power and HD lights
 	ShowLights( );
-
 
 	// render frame rate
 	DisplayFrameRate( );
@@ -2473,7 +2464,7 @@ UINT32 LaptopScreenHandle()
 	if( fReDrawScreenFlag == TRUE )
 	{
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
-	fReDrawScreenFlag = FALSE;
+		fReDrawScreenFlag = FALSE;
 	}
 
 	ExecuteVideoOverlays();
@@ -2491,12 +2482,8 @@ UINT32 LaptopScreenHandle()
 
 
 
-
-
-
 UINT32 RenderLaptopPanel()
 {
-
 	return 0;
 }
 
@@ -3035,17 +3022,16 @@ BOOLEAN HandleExit( void )
 {
 //	static BOOLEAN fSentImpWarningAlready = FALSE;
 
-
 	// remind player about IMP
-	if ( LaptopSaveInfo.gfNewGameLaptop != 0 )
-	{
-		if ( !AnyMercsHired( ) )
-		{
+	//if ( LaptopSaveInfo.gfNewGameLaptop != 0 )
+	//{
+		//if ( !AnyMercsHired( ) )
+		//{
 			//AddEmail(0,1, GAME_HELP, GetWorldTotalMin( ) );
 			//fExitingLaptopFlag = FALSE;
 			//return( FALSE );
-		}
-	}
+		//}
+	//}
 
 	// new game, send email
 	if ( LaptopSaveInfo.gfNewGameLaptop != 0 )
@@ -3063,13 +3049,11 @@ BOOLEAN HandleExit( void )
 */
 			fExitingLaptopFlag = TRUE;
 
-		return( FALSE );
+			return( FALSE );
 		}
 	}
-
-
+	
 	return ( TRUE );
-
 }
 
 void HaventMadeImpMercEmailCallBack()
@@ -3105,57 +3089,56 @@ void HaventMadeImpMercEmailCallBack()
 BOOLEAN
 CreateLapTopMouseRegions()
 {
- // define regions
-
-
- // the entire laptop display region
- MSYS_DefineRegion( &gLapTopScreenRegion, ( UINT16 )( LaptopScreenRect.iLeft ),( UINT16 )( LaptopScreenRect.iTop ),( UINT16 ) ( LaptopScreenRect.iRight ),( UINT16 )( LaptopScreenRect.iBottom ), MSYS_PRIORITY_NORMAL+1,
+	// define regions
+	
+	// the entire laptop display region
+	MSYS_DefineRegion( &gLapTopScreenRegion, ( UINT16 )( LaptopScreenRect.iLeft ),( UINT16 )( LaptopScreenRect.iTop ),( UINT16 ) ( LaptopScreenRect.iRight ),( UINT16 )( LaptopScreenRect.iBottom ), MSYS_PRIORITY_NORMAL+1,
 							CURSOR_LAPTOP_SCREEN, ScreenRegionMvtCallback, LapTopScreenCallBack );
+	
+	//MSYS_AddRegion(&gLapTopScreenRegion);
 
-
- //MSYS_AddRegion(&gLapTopScreenRegion);
- return (TRUE);
+	return (TRUE);
 }
 
 BOOLEAN
 DeleteLapTopMouseRegions()
 {
+	MSYS_RemoveRegion( &gLapTopScreenRegion);
 
- MSYS_RemoveRegion( &gLapTopScreenRegion);
-
- return (TRUE);
+	return (TRUE);
 }
 
 void FinancialRegionButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-				if(giCurrentRegion!=FINANCIAL_REGION)
+			if(giCurrentRegion!=FINANCIAL_REGION)
 				giOldRegion=giCurrentRegion;
-				giCurrentRegion=FINANCIAL_REGION;
-				if(gfShowBookmarks)
-				{
+
+			giCurrentRegion=FINANCIAL_REGION;
+			
+			if(gfShowBookmarks)
+			{
 				gfShowBookmarks=FALSE;
 				fReDrawScreenFlag=TRUE;
-				}
-				guiCurrentLaptopMode=LAPTOP_MODE_FINANCES;
+			}
 
-				UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_FINANCES );
+			guiCurrentLaptopMode=LAPTOP_MODE_FINANCES;
 
-	}
+			UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_FINANCES );
+		}
 	}
 }
 
@@ -3163,67 +3146,66 @@ void FinancialRegionButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 void PersonnelRegionButtonCallback(	GUI_BUTTON *btn,INT32 reason)
 {
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			if(giCurrentRegion!=PERSONNEL_REGION)
-			giOldRegion=giCurrentRegion;
+				giOldRegion=giCurrentRegion;
+
 			giCurrentRegion=PERSONNEL_REGION;
 			guiCurrentLaptopMode=LAPTOP_MODE_PERSONNEL;
+
 			if(gfShowBookmarks)
 			{
-			gfShowBookmarks=FALSE;
-			fReDrawScreenFlag=TRUE;
+				gfShowBookmarks=FALSE;
+				fReDrawScreenFlag=TRUE;
 			}
+
 			RestoreOldRegion(giOldRegion);
 			HighLightRegion(giCurrentRegion);
 			gfShowBookmarks=FALSE;
 
 			UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_PERSONNEL );
-
 		}
 	}
-
 }
 
 
 void EmailRegionButtonCallback( GUI_BUTTON *btn,INT32 reason )
 {
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+
 			// set old region
 			if(giCurrentRegion!=EMAIL_REGION)
-			giOldRegion=giCurrentRegion;
+				giOldRegion=giCurrentRegion;
 
 			// stop showing WWW bookmarks
 			if(gfShowBookmarks)
 			{
-			gfShowBookmarks=FALSE;
+				gfShowBookmarks=FALSE;
 			}
 
 			// set current highlight region
@@ -3247,7 +3229,6 @@ void EmailRegionButtonCallback( GUI_BUTTON *btn,INT32 reason )
 }
 
 
-
 void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -3255,19 +3236,19 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);	
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);	
 			
 			if(giCurrentRegion!=WWW_REGION)
 				giOldRegion=giCurrentRegion;
@@ -3277,7 +3258,7 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 			// reset show bookmarks
 			if( guiCurrentLaptopMode < LAPTOP_MODE_WWW )
 			{
-			gfShowBookmarks = FALSE;
+				gfShowBookmarks = FALSE;
 				fShowBookmarkInfo = TRUE;
 			}
 			else
@@ -3288,13 +3269,11 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 
 			if((gfShowBookmarks)&&(!fNewWWW))
 			{
-
-			fReDrawScreenFlag=TRUE;
-			fNewWWWDisplay=FALSE;
+				fReDrawScreenFlag=TRUE;
+				fNewWWWDisplay=FALSE;
 			}
 			else if( fNewWWW )
 			{
-
 				// no longer a new WWW mode
 				fNewWWW=FALSE;
 
@@ -3304,12 +3283,11 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 				// make sure program is maximized
 				if( gLaptopProgramStates[ LAPTOP_PROGRAM_WEB_BROWSER ] == LAPTOP_PROGRAM_OPEN )
 				{
-				// re render laptop region
-				RenderLapTopImage();
+					// re render laptop region
+					RenderLapTopImage();
 
-				// re render background
-				DrawDeskTopBackground( );
-
+					// re render background
+					DrawDeskTopBackground( );
 				}
 			}
 			giCurrentRegion=WWW_REGION;
@@ -3323,13 +3301,16 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 				bBriefingRoomSpecialMission = FALSE;	
 			}
 	
-			if ( IDPageEncyData == PAGEBRIEFINGROOM )  guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoom = TRUE; InitData (); }
-			else if ( IDPageEncyData == PAGEBRIEFINGROOMSPECIALMISSION )  guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoomSpecialMission = TRUE; InitData (); } 
+			if ( IDPageEncyData == PAGEBRIEFINGROOM )
+				guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoom = TRUE; InitData (); }
+			else if ( IDPageEncyData == PAGEBRIEFINGROOMSPECIALMISSION )
+				guiCurrentWWWMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;//{ bBriefingRoomSpecialMission = TRUE; InitData (); } 
 			
 			if(guiCurrentWWWMode!=LAPTOP_MODE_NONE)
-			guiCurrentLaptopMode = guiCurrentWWWMode;
+				guiCurrentLaptopMode = guiCurrentWWWMode;
 			else
 				guiCurrentLaptopMode=LAPTOP_MODE_WWW;
+
 			UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_WEB_BROWSER );
 			HighLightRegion(giCurrentRegion);
 			fReDrawScreenFlag=TRUE;
@@ -3340,17 +3321,17 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-			// nothing yet
 
+			// nothing yet
 			if(giCurrentRegion!=WWW_REGION)
-			giOldRegion=giCurrentRegion;
+				giOldRegion=giCurrentRegion;
 
 			giCurrentRegion=WWW_REGION;
 
 			RestoreOldRegion(giOldRegion);
 
 			if(guiCurrentWWWMode!=LAPTOP_MODE_NONE)
-			guiCurrentLaptopMode = guiCurrentWWWMode;
+				guiCurrentLaptopMode = guiCurrentWWWMode;
 			else
 				guiCurrentLaptopMode=LAPTOP_MODE_WWW;
 
@@ -3358,8 +3339,7 @@ void WWWRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 
 			fReDrawScreenFlag=TRUE;
 		}
- }
-
+	}
 }
 
 
@@ -3370,46 +3350,47 @@ void HistoryRegionButtonCallback(GUI_BUTTON *btn,INT32 reason )
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		 btn->uiFlags&=~(BUTTON_CLICKED_ON);
-				// if not in history, update to the fact
-				if(giCurrentRegion!=HISTORY_REGION)
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			
+			// if not in history, update to the fact
+			if(giCurrentRegion!=HISTORY_REGION)
 				giOldRegion=giCurrentRegion;
-				if(gfShowBookmarks)
-				{
-					// stop showing WWW bookmarks
+			
+			if(gfShowBookmarks)
+			{
+				// stop showing WWW bookmarks
 				gfShowBookmarks=FALSE;
-				}
+			}
 
-				// current region is history
-				giCurrentRegion=HISTORY_REGION;
+			// current region is history
+			giCurrentRegion=HISTORY_REGION;
 
-				// restore old region area
-				RestoreOldRegion(giOldRegion);
+			// restore old region area
+			RestoreOldRegion(giOldRegion);
 
-				// set mode to history
-				guiCurrentLaptopMode=LAPTOP_MODE_HISTORY;
+			// set mode to history
+			guiCurrentLaptopMode=LAPTOP_MODE_HISTORY;
 
-				// hightlight current icon
-				HighLightRegion(giCurrentRegion);
+			// hightlight current icon
+			HighLightRegion(giCurrentRegion);
 
-				UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_HISTORY );
+			UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_HISTORY );
 
-				gfShowBookmarks=FALSE;
+			gfShowBookmarks=FALSE;
 
-				//redraw screen
-				fReDrawScreenFlag=TRUE;
-
+			//redraw screen
+			fReDrawScreenFlag=TRUE;
+		}
 	}
-	}
-
 }
+
 void FilesRegionButtonCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -3417,43 +3398,43 @@ void FilesRegionButtonCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	if(!(btn->uiFlags & BUTTON_CLICKED_ON))
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		if(!(btn->uiFlags & BUTTON_CLICKED_ON))
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		 btn->uiFlags&=~(BUTTON_CLICKED_ON);
-				// reset old region
-				if(giCurrentRegion!=FILES_REGION)
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			
+			// reset old region
+			if(giCurrentRegion!=FILES_REGION)
 				giOldRegion=giCurrentRegion;
 
-				// stop showing WWW bookmarks
-				if(gfShowBookmarks)
-				{
+			// stop showing WWW bookmarks
+			if(gfShowBookmarks)
+			{
 				gfShowBookmarks=FALSE;
 				fReDrawScreenFlag=TRUE;
-				}
+			}
 
-				// set new region
-				giCurrentRegion=FILES_REGION;
+			// set new region
+			giCurrentRegion=FILES_REGION;
 
-				// restore old highlight region
-				RestoreOldRegion(giOldRegion);
+			// restore old highlight region
+			RestoreOldRegion(giOldRegion);
 
-				// highlight new region
-				HighLightRegion(giCurrentRegion);
+			// highlight new region
+			HighLightRegion(giCurrentRegion);
 
-				guiCurrentLaptopMode=LAPTOP_MODE_FILES;
+			guiCurrentLaptopMode=LAPTOP_MODE_FILES;
 
-				UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_FILES );
+			UpdateListToReflectNewProgramOpened( LAPTOP_PROGRAM_FILES );
 
-				//redraw screen
-				fReDrawScreenFlag=TRUE;
+			//redraw screen
+			fReDrawScreenFlag=TRUE;
+		}
 	}
-	}
-
 }
 
 
@@ -3485,35 +3466,30 @@ void HandleLapTopScreenMouseUi()
  }
  else
 	giHighLightRegion=NO_REGION;
+
  DrawHighLightRegionBox();
 }
 
 void
 DrawHighLightRegionBox()
 {
-
 	return;
 }
 
 void
 RestoreOldRegion(INT32 iOldRegion)
 {
-
 	return;
 }
 
 void HighLightRegion(INT32 iCurrentRegion)
 {
-
 	return;
 }
 
 void HandleAnimatedButtons()
 {
-
 	return;
-
-
 }
 void AnimateButton( UINT32 uiIconID, UINT16 usX, UINT16 usY )
 {
@@ -3529,9 +3505,9 @@ void WWWRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		iBaseTime=0;
 		iFrame=0;
-	GetVideoObject(&hLapTopIconHandle, guiWWWICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_WWW_Y, VO_BLT_SRCTRANSPARENCY,NULL);
-	DrawLapTopText();
+		GetVideoObject(&hLapTopIconHandle, guiWWWICON);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_WWW_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
@@ -3547,14 +3523,16 @@ void EmailRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		iBaseTime=0;
 		iFrame=0;
-	DrawLapTopText();
-	GetVideoObject(&hLapTopIconHandle, guiMAILICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_MAIL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+		DrawLapTopText();
+		GetVideoObject(&hLapTopIconHandle, guiMAILICON);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_MAIL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+
 		if(fUnReadMailFlag)
 		{
-	GetVideoObject(&hLapTopIconHandle, guiUNREAD);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,LAPTOP_ICONS_X+CHECK_X, LAPTOP_ICONS_MAIL_Y+CHECK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+			GetVideoObject(&hLapTopIconHandle, guiUNREAD);
+			BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,LAPTOP_ICONS_X+CHECK_X, LAPTOP_ICONS_MAIL_Y+CHECK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 		}
+
 		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -3571,8 +3549,8 @@ void FinancialRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		iBaseTime=0;
 		iFrame=0;
-	GetVideoObject(&hLapTopIconHandle, guiFINANCIALICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X-4, LAPTOP_ICONS_FINANCIAL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+		GetVideoObject(&hLapTopIconHandle, guiFINANCIALICON);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X-4, LAPTOP_ICONS_FINANCIAL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -3590,7 +3568,7 @@ void HistoryRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		iFrame=0;
 
 		GetVideoObject(&hLapTopIconHandle, guiHISTORYICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_HISTORY_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_HISTORY_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -3609,7 +3587,7 @@ void FilesRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		iBaseTime=0;
 		iFrame=0;
 		GetVideoObject(&hLapTopIconHandle, guiFILESICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_FILES_Y+7, VO_BLT_SRCTRANSPARENCY,NULL);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_FILES_Y+7, VO_BLT_SRCTRANSPARENCY,NULL);
 		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -3627,7 +3605,7 @@ void PersonnelRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		iFrame=0;
 
 		GetVideoObject(&hLapTopIconHandle, guiPERSICON);
-	BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_PERSONNEL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, (UINT16)iFrame,LAPTOP_ICONS_X, LAPTOP_ICONS_PERSONNEL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
  		DrawLapTopText();
 		HighLightRegion(giCurrentRegion);
 		InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -3644,7 +3622,7 @@ CheckIfMouseLeaveScreen()
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 	if((MousePos.x >LAPTOP_SCREEN_LR_X )||(MousePos.x<LAPTOP_UL_X)||(MousePos.y<LAPTOP_UL_Y )||(MousePos.y >LAPTOP_SCREEN_LR_Y))
 	{
-	guiCurrentLapTopCursor=LAPTOP_PANEL_CURSOR;
+		guiCurrentLapTopCursor=LAPTOP_PANEL_CURSOR;
 	}
 
 }
@@ -3668,29 +3646,26 @@ void ScreenRegionMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 void ReDrawHighLight()
 {
 	HighLightRegion(giCurrentRegion);
-	return;
 }
 
 
 void DrawButtonText()
 {
-
 	if(fErrorFlag)
 		DrawTextOnErrorButton();
+
 	switch(guiCurrentLaptopMode)
 	{
 		case LAPTOP_MODE_EMAIL:
 			DisplayEmailHeaders( );
 			break;
 	}
-	return;
 }
 
 void InitBookMarkList()
 {
 	// sets bookmark list to -1
 	memset( LaptopSaveInfo.iBookMarkList, -1, sizeof( LaptopSaveInfo.iBookMarkList ) );
-	return;
 }
 
 void SetBookMark(INT32 iBookId)
@@ -3699,19 +3674,20 @@ void SetBookMark(INT32 iBookId)
 	INT32 iCounter=0;
 	if(iBookId!=-2)
 	{
-	while(LaptopSaveInfo.iBookMarkList[iCounter]!=-1)
-	{
-		// move trhough list until empty
-		if( LaptopSaveInfo.iBookMarkList[iCounter]==iBookId)
+		while(LaptopSaveInfo.iBookMarkList[iCounter]!=-1)
 		{
-			// found it, return
-			return;
+			// move trhough list until empty
+			if( LaptopSaveInfo.iBookMarkList[iCounter]==iBookId)
+			{
+				// found it, return
+				return;
+			}
+
+			++iCounter;
 		}
-		iCounter++;
+
+		LaptopSaveInfo.iBookMarkList[iCounter]=iBookId;
 	}
-	LaptopSaveInfo.iBookMarkList[iCounter]=iBookId;
-	}
-	return;
 }
 
 
@@ -3722,7 +3698,7 @@ BOOLEAN RemoveBookMark( INT32 iBookId )
 	//Loop through the bookmarks to get to the desired bookmark
 	while( LaptopSaveInfo.iBookMarkList[iCounter] != iBookId )
 	{
-		iCounter++;
+		++iCounter;
 	}
 
 	//Did we find the right one?
@@ -3745,38 +3721,30 @@ BOOLEAN LoadBookmark()
 {
 	VOBJECT_DESC	VObjectDesc;
 
-
-		// grab download bars too
-
+	// grab download bars too
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\downloadtop.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiDOWNLOADTOP));
-
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\downloadmid.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiDOWNLOADMID));
 
-
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\downloadbot.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiDOWNLOADBOT));
-
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\bookmarktop.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBOOKTOP));
 
-
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\bookmarkmiddle.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBOOKMID));
 
-
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\webpages.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBOOKMARK));
-
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\hilite.sti", VObjectDesc.ImageFile);
@@ -3784,8 +3752,7 @@ BOOLEAN LoadBookmark()
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\Bookmarkbottom.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBOOKBOT));
-
-
+	
 	return( TRUE );
 }
 
@@ -3800,13 +3767,9 @@ void DisplayBookMarks( void )
 	// laptop icons
 	INT16 sX, sY;
 
-
 	// check if we are maximizing or minimizing.. if so, do not display
 	if( ( fMaximizingProgram == TRUE ) || ( fMinizingProgram == TRUE ) )
-	{
 		return;
-	}
-
 
 	// font stuff
 	SetFont(BOOK_FONT);
@@ -3817,70 +3780,57 @@ void DisplayBookMarks( void )
 	// set buffer
 	SetFontDestBuffer(FRAME_BUFFER ,BOOK_X, BOOK_TOP_Y,BOOK_X+BOOK_WIDTH-10,SCREEN_HEIGHT, FALSE);
 
-
 	// blt in book mark background
 	while( LaptopSaveInfo.iBookMarkList[iCounter-1]!=-1)
 	{
+		if(iHighLightBookLine==iCounter-1)
+		{
+			GetVideoObject(&hLapTopIconHandle, guiBOOKHIGH);
+			BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
 
-	if(iHighLightBookLine==iCounter-1)
-	{
-		GetVideoObject(&hLapTopIconHandle, guiBOOKHIGH);
-	 BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
-	}
-	else
-	{
-	 GetVideoObject(&hLapTopIconHandle, guiBOOKMARK);
-	 BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
-	}
+			// blit in text
+			SetFontForeground( FONT_WHITE );
+			SetFontBackground( FONT_BLACK );
+		}
+		else
+		{
+			GetVideoObject(&hLapTopIconHandle, guiBOOKMARK);
+			BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
 
-	if( iHighLightBookLine==iCounter-1 )
-	{
-	// blit in text
-	 SetFontForeground(FONT_WHITE);
-	 SetFontBackground(FONT_BLACK);
-	}
-	else
-	{
-	 // blit in text
-	 SetFontForeground(FONT_BLACK);
-	 SetFontBackground(FONT_BLACK);
-	}
+			// blit in text
+			SetFontForeground( FONT_BLACK );
+			SetFontBackground( FONT_BLACK );
+		}
+		
+		FindFontCenterCoordinates(BOOK_X + 3, (UINT16)(BOOK_TOP_Y+2+(iCounter*( BOOK_HEIGHT + 6 ) ) + 6),BOOK_WIDTH - 3,BOOK_HEIGHT+6, pBookMarkStrings[ LaptopSaveInfo.iBookMarkList[iCounter-1] ] , BOOK_FONT, &sX, &sY );
 
-	FindFontCenterCoordinates(BOOK_X + 3, (UINT16)(BOOK_TOP_Y+2+(iCounter*( BOOK_HEIGHT + 6 ) ) + 6),BOOK_WIDTH - 3,BOOK_HEIGHT+6, pBookMarkStrings[ LaptopSaveInfo.iBookMarkList[iCounter-1] ] , BOOK_FONT, &sX, &sY );
-
-	mprintf(sX, sY,pBookMarkStrings[ LaptopSaveInfo.iBookMarkList[iCounter-1] ] );
-		iCounter++;
+		mprintf(sX, sY,pBookMarkStrings[ LaptopSaveInfo.iBookMarkList[iCounter-1] ] );
+		++iCounter;
 	}
 
 	// blit one more
-
-
 	if(iHighLightBookLine==iCounter-1)
 	{
-			GetVideoObject(&hLapTopIconHandle, guiBOOKHIGH);
-			BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
+		GetVideoObject(&hLapTopIconHandle, guiBOOKHIGH);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
+
+		// blit in text
+		SetFontForeground( FONT_WHITE );
+		SetFontBackground( FONT_BLACK );
 	}
 	else
 	{
-	 GetVideoObject(&hLapTopIconHandle, guiBOOKMARK);
-	 BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
+		GetVideoObject(&hLapTopIconHandle, guiBOOKMARK);
+		BltVideoObject(FRAME_BUFFER, hLapTopIconHandle, 0,BOOK_X, BOOK_TOP_Y+ ( iCounter*( BOOK_HEIGHT + 6 ) )+ 6, VO_BLT_SRCTRANSPARENCY,NULL);
+
+		// blit in text
+		SetFontForeground( FONT_BLACK );
+		SetFontBackground( FONT_BLACK );
 	}
 
-	if( iHighLightBookLine==iCounter-1 )
-	{
-	// blit in text
-	 SetFontForeground(FONT_WHITE);
-	 SetFontBackground(FONT_BLACK);
-	}
-	else
-	{
-	 // blit in text
-	 SetFontForeground(FONT_BLACK);
-	 SetFontBackground(FONT_BLACK);
-	}
 	FindFontCenterCoordinates(BOOK_X + 3, (UINT16)(BOOK_TOP_Y+2+(iCounter*( BOOK_HEIGHT + 6 ) ) + 6),BOOK_WIDTH - 3,BOOK_HEIGHT+6,pBookMarkStrings[ CANCEL_STRING ] , BOOK_FONT, &sX, &sY );
 	mprintf(sX, sY,pBookMarkStrings[CANCEL_STRING] );
-		iCounter++;
+	++iCounter;
 
 	SetFontDestBuffer(FRAME_BUFFER,0,0,SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 
@@ -3893,9 +3843,7 @@ void DisplayBookMarks( void )
  */	InvalidateRegion(BOOK_X,BOOK_TOP_Y+((iCounter)*BOOK_HEIGHT)+12, BOOK_X+BOOK_WIDTH, BOOK_TOP_Y+((iCounter+1)*BOOK_HEIGHT)+16);
 	SetFontShadow(DEFAULT_SHADOW);
 
-
 	InvalidateRegion(BOOK_X, BOOK_TOP_Y, BOOK_X+BOOK_WIDTH, BOOK_TOP_Y+(iCounter + 6 )*BOOK_HEIGHT+16);
-	return;
 }
 
 void RemoveBookmark(INT32 iBookId)
@@ -3903,20 +3851,22 @@ void RemoveBookmark(INT32 iBookId)
 	INT32 iCounter=0;
 	if(iBookId==-2)
 		return;
+
 	while( LaptopSaveInfo.iBookMarkList[iCounter]!=-1)
 	{
 		if( LaptopSaveInfo.iBookMarkList[iCounter]==iBookId)
 		{
-	 // found, move everyone back
-			for(iCounter=iCounter+1; iCounter <MAX_BOOKMARKS; iCounter++)
+			// found, move everyone back
+			for(iCounter=iCounter+1; iCounter <MAX_BOOKMARKS; ++iCounter)
 			{
 				LaptopSaveInfo.iBookMarkList[iCounter-1] = LaptopSaveInfo.iBookMarkList[iCounter];
 			}
+
 			return;
 		}
-		iCounter++;
+
+		++iCounter;
 	}
-	return;
 }
 
 void DeleteBookmark()
@@ -3979,17 +3929,18 @@ void CreateBookMarkMouseRegions()
 	// creates regions based on number of entries
 	while( LaptopSaveInfo.iBookMarkList[iCounter] != -1 )
 	{
-	MSYS_DefineRegion(&gBookmarkMouseRegions[iCounter],(INT16)BOOK_X, (UINT16)(BOOK_TOP_Y+((iCounter+1)*(BOOK_HEIGHT+6))+6), BOOK_X+BOOK_WIDTH ,(INT16)(BOOK_TOP_Y+((iCounter+2)*(BOOK_HEIGHT+6))+6),
+		MSYS_DefineRegion(&gBookmarkMouseRegions[iCounter],(INT16)BOOK_X, (UINT16)(BOOK_TOP_Y+((iCounter+1)*(BOOK_HEIGHT+6))+6), BOOK_X+BOOK_WIDTH ,(INT16)(BOOK_TOP_Y+((iCounter+2)*(BOOK_HEIGHT+6))+6),
 			MSYS_PRIORITY_HIGHEST - 2,CURSOR_LAPTOP_SCREEN, BookmarkMvtCallBack, BookmarkCallBack );
-	//MSYS_AddRegion(&gBookmarkMouseRegions[iCounter]);
+		//MSYS_AddRegion(&gBookmarkMouseRegions[iCounter]);
 		MSYS_SetRegionUserData(&gBookmarkMouseRegions[iCounter],0,iCounter);
 		MSYS_SetRegionUserData(&gBookmarkMouseRegions[iCounter],1,0);
 
 		//Create the regions help text
 		CreateBookMarkHelpText( &gBookmarkMouseRegions[iCounter], LaptopSaveInfo.iBookMarkList[iCounter] );
 
-	iCounter++;
+		++iCounter;
 	}
+
 	// now add one more
 	// for the cancel button
 	MSYS_DefineRegion(&gBookmarkMouseRegions[iCounter],(INT16)BOOK_X, (UINT16)(BOOK_TOP_Y+((iCounter+1)*(BOOK_HEIGHT+6))+6), BOOK_X+BOOK_WIDTH ,(INT16)(BOOK_TOP_Y+((iCounter+2)*(BOOK_HEIGHT+6))+6),
@@ -4005,15 +3956,12 @@ void DeleteBookmarkRegions()
 	//deletes bookmark regions
 	while( LaptopSaveInfo.iBookMarkList[iCounter] != -1 )
 	{
-	MSYS_RemoveRegion(&gBookmarkMouseRegions[iCounter]);
+		MSYS_RemoveRegion(&gBookmarkMouseRegions[iCounter]);
 	iCounter++;
 	}
 
-
 	// now one for the cancel
 	MSYS_RemoveRegion(&gBookmarkMouseRegions[iCounter]);
-
-
 }
 
 void CreateDestoryBookMarkRegions( void )
@@ -4024,59 +3972,55 @@ void CreateDestoryBookMarkRegions( void )
 	if((gfShowBookmarks)&&(!fOldShowBookmarks))
 	{
 		// create regions
-	CreateBookMarkMouseRegions( );
-	fOldShowBookmarks=TRUE;
+		CreateBookMarkMouseRegions( );
+		fOldShowBookmarks=TRUE;
 	}
 	else if((!gfShowBookmarks)&&(fOldShowBookmarks))
 	{
-	// destroy bookmarks
+		// destroy bookmarks
 		DeleteBookmarkRegions( );
-	fOldShowBookmarks=FALSE;
+		fOldShowBookmarks=FALSE;
 	}
-
-
 }
-
 
 
 void BookmarkCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
- INT32 iCount;
+	INT32 iCount;
 
- if (iReason & MSYS_CALLBACK_REASON_INIT)
- {
-	return;
- }
-
- // we are in process of loading
- if( fLoadPendingFlag == TRUE )
- {
-	return;
- }
-
- if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
- {
-	iCount=MSYS_GetRegionUserData(pRegion, 0);
-	if( MSYS_GetRegionUserData(pRegion, 1) == CANCEL_STRING )
-	{
-		gfShowBookmarks = FALSE;
-		fReDrawScreenFlag = TRUE;
-	}
-	if( LaptopSaveInfo.iBookMarkList[iCount] != -1 )
-	{
-		GoToWebPage( LaptopSaveInfo.iBookMarkList[iCount] );
-	}
-	else
+	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
 	}
- }
- else if(iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
- {
-	iCount=MSYS_GetRegionUserData(pRegion, 0);
 
- }
- return;
+	// we are in process of loading
+	if( fLoadPendingFlag == TRUE )
+	{
+		return;
+	}
+
+	if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		iCount=MSYS_GetRegionUserData(pRegion, 0);
+		if( MSYS_GetRegionUserData(pRegion, 1) == CANCEL_STRING )
+		{
+			gfShowBookmarks = FALSE;
+			fReDrawScreenFlag = TRUE;
+		}
+
+		if( LaptopSaveInfo.iBookMarkList[iCount] != -1 )
+		{
+			GoToWebPage( LaptopSaveInfo.iBookMarkList[iCount] );
+		}
+		else
+		{
+			return;
+		}
+	}
+	else if(iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
+	{
+		iCount=MSYS_GetRegionUserData(pRegion, 0);
+	}
 }
 
 
@@ -4315,16 +4259,7 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 			break;
 
 		case MERCCOMPARE_BOOKMARK:
-			{
-				// if the option is off, we instead link to a 'broken' website
-				if ( !gGameExternalOptions.fCampaignHistoryWebSite )
-				{
-					guiCurrentWWWMode=LAPTOP_MODE_BROKEN_LINK;
-					guiCurrentLaptopMode=LAPTOP_MODE_BROKEN_LINK;
-
-					return GoToWebPage(LAPTOP_MODE_BROKEN_LINK);
-				}
-
+			{		
 				guiCurrentWWWMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
 				guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
 
@@ -5492,8 +5427,6 @@ void ShowLights( void )
 		GetVideoObject( &hHandle, guiLIGHTS);
 		BltVideoObject(FRAME_BUFFER, hHandle, 1, iScreenWidthOffset + 88, iScreenHeightOffset + 466,	VO_BLT_SRCTRANSPARENCY,NULL);
 	}
-
-
 }
 
 
@@ -5513,7 +5446,6 @@ void FlickerHDLight( void )
 		return;
 	}
 
-
 	if( iBaseTime == 0 )
 	{
 		iBaseTime = GetJA2Clock( );
@@ -5528,8 +5460,7 @@ void FlickerHDLight( void )
 		iBaseTime = 0;
 		iTotalDifference = 0;
 		fFlickerHD = FALSE;
-		InvalidateRegion(iScreenWidthOffset + 88, iScreenHeightOffset + 466,
-			iScreenWidthOffset + 102, iScreenHeightOffset + 477 );
+		InvalidateRegion(iScreenWidthOffset + 88, iScreenHeightOffset + 466, iScreenWidthOffset + 102, iScreenHeightOffset + 477 );
 		return;
 	}
 
@@ -5544,17 +5475,15 @@ void FlickerHDLight( void )
 
 		if( ( Random( 2 ) ) == 0 )
 		{
-		fHardDriveLightOn = TRUE;
+			fHardDriveLightOn = TRUE;
 		}
-	else
+		else
 		{
-		fHardDriveLightOn = FALSE;
+			fHardDriveLightOn = FALSE;
 		}
-		InvalidateRegion(iScreenWidthOffset + 88, iScreenHeightOffset + 466,
-			iScreenWidthOffset + 102, iScreenHeightOffset + 477 );
-	}
 
-	return;
+		InvalidateRegion(iScreenWidthOffset + 88, iScreenHeightOffset + 466, iScreenWidthOffset + 102, iScreenHeightOffset + 477 );
+	}
 }
 
 
@@ -5574,12 +5503,10 @@ BOOLEAN ExitLaptopDone( void )
 
 	fPowerLightOn = FALSE;
 
-
 	InvalidateRegion(iScreenWidthOffset + 44, iScreenHeightOffset + 466,
 	iScreenWidthOffset + 58, iScreenHeightOffset + 477 );
 	// get the current difference
 	iDifference = GetJA2Clock( ) - iBaseTime;
-
 
 	// did we wait long enough?
 	if( iDifference > EXIT_LAPTOP_DELAY_TIME )
@@ -5588,11 +5515,8 @@ BOOLEAN ExitLaptopDone( void )
 		fOldLeaveLaptopState = FALSE;
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
-
+	
+	return FALSE;
 }
 
 
@@ -5602,7 +5526,6 @@ void CreateDestroyMinimizeButtonForCurrentMode( void )
 
 	static BOOLEAN fAlreadyCreated = FALSE;
 	// check to see if created, if so, do nothing
-
 
 	// check current mode
 	if( ( guiCurrentLaptopMode == LAPTOP_MODE_NONE )&&( guiPreviousLaptopMode != LAPTOP_MODE_NONE ) )
@@ -5624,7 +5547,6 @@ void CreateDestroyMinimizeButtonForCurrentMode( void )
 		fCreateMinimizeButton = FALSE;
 	}
 
-
 	if( ( fAlreadyCreated == FALSE ) && ( fCreateMinimizeButton == TRUE ) )
 	{
 		// not created, create
@@ -5644,8 +5566,6 @@ void CreateDestroyMinimizeButtonForCurrentMode( void )
 	{
 		// do nothing
 	}
-
-	return;
 }
 
 
@@ -5658,7 +5578,6 @@ void CreateMinimizeButtonForCurrentMode( void )
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)LaptopMinimizeProgramButtonCallback);
 
 	SetButtonCursor(gLaptopMinButton[0], CURSOR_LAPTOP_SCREEN);
-	return;
 }
 
 void DestroyMinimizeButtonForCurrentMode( void )
@@ -5666,7 +5585,6 @@ void DestroyMinimizeButtonForCurrentMode( void )
 	// destroy minimize button
 	RemoveButton( gLaptopMinButton[ 0 ] );
 	UnloadButtonImage( gLaptopMinButtonImage[ 0 ] );
-
 }
 
 

@@ -18,7 +18,8 @@
 	#include "history.h"
 	#include "Dialogue Control.h"
 	#include "Strategic AI.h"
-	#include "Tactical Save.h"	// added by Flugente
+	#include "Tactical Save.h"		// added by Flugente
+	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
 #endif
 
 #include "Luaglobal.h"
@@ -475,7 +476,7 @@ void HourlyLarryUpdate()
 					}
 
 					// Flugente: dynamic opinion
-					HandleDynamicOpinionAddict( pSoldier );
+					HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, FALSE );
 
 					if ( fBar )
 					{
@@ -673,7 +674,7 @@ void HourlyStealUpdate()
 						AutoPlaceObject( pSoldier, pTargetObj, TRUE );
 
 						// Flugente: dynamic opinion
-						HandleDynamicOpinionThief( pSoldier );
+						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
 					}
 
 					// save the changed inventory

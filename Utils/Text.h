@@ -2778,6 +2778,27 @@ extern STR16   szTacticalInventoryDialogString[];
 extern STR16   szTacticalCoverDialogString[];
 extern STR16   szTacticalCoverDialogPrintString[];
 
+// Flugente: dynamic dialogue
+extern STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[];
+extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[];
+extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[];
+extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[];
+extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[];
+extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[];
+extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[];
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[];
+extern STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[];
+extern STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[];
+
+extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[];
+extern STR16	szDynamicDialogueText_GenderText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

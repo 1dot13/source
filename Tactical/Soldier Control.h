@@ -6,6 +6,10 @@
 #define OLD_MAXPATROLGRIDS	10
 #define MAXPATROLGRIDS		OLD_MAXPATROLGRIDS
 
+// WANNE: Yes I know, we support up to 254 profiles, but because of compatibility, profile Id = 200
+// is not a valid profil. We in MercProfiles.xml, the profile id = 200 should not be used!
+#define	NO_PROFILE			200
+
 #include "Animation Cache.h"
 #include "Timer Control.h"
 #include "vobject.h"
@@ -40,10 +44,6 @@ extern UINT16 CivLastNames[MAXCIVLASTNAMES][10];
 #define FALLINGTEST	 3
 
 #define	LOCKED_NO_NEWGRIDNO			2
-
-// WANNE: Yes I know, we support up to 254 profiles, but because of compatibility, profile Id = 200
-// is not a valid profil. We in MercProfiles.xml, the profile id = 200 should not be used!
-#define	NO_PROFILE			200
 
 #define	BATTLE_SND_LOWER_VOLUME		1
 

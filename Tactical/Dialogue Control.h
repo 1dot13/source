@@ -344,6 +344,9 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 
 BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum, UINT8 ubEventType, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
 
+// Flugente: replace text with other text
+BOOLEAN ReplaceTextWithOtherText( CHAR16 *pFinishedString, CHAR16 compare[32], CHAR16 replace[32] );
+
 // A higher level function used for tactical quotes
 BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 

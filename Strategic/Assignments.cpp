@@ -66,6 +66,7 @@
 	#include "Tactical Save.h"		// added by Flugente
 	#include "Campaign Types.h"		// added by Flugente
 	#include "Strategic Town Loyalty.h"
+	#include "DynamicDialogue.h"			// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -5151,7 +5152,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 			bMaxBreathLoss = (float)min( 127, iBreathLoss );
 
 			// Flugente: dynamic opinions: other mercs might get annoyed, because we are slowing down the team
-			HandleDynamicOpinionSlowdown( pSoldier );
+			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_SLOWSUSDOWN, TRUE, TRUE );
 		}
 	}
 

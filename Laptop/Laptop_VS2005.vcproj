@@ -443,6 +443,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DynamicDialogueWidget.h"
+				>
+			</File>
+			<File
 				RelativePath=".\email.h"
 				>
 			</File>
@@ -766,6 +770,10 @@
 			</File>
 			<File
 				RelativePath=".\DropDown.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DynamicDialogueWidget.cpp"
 				>
 			</File>
 			<File

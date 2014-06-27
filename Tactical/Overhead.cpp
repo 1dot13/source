@@ -111,6 +111,7 @@
 #include "bullets.h"
 #include "Inventory Choosing.h"			// added by Flugente for TakeMilitiaEquipmentfromSector()
 #include "CampaignStats.h"				// added by Flugente
+#include "DynamicDialogue.h"			// added by Flugente for HandleDynamicOpinions()
 #endif
 #include "connect.h"
 
@@ -2482,7 +2483,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                             UnSetUIBusy( pSoldier->ubID );
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionDisability( pSoldier );
+							HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
                         }
                     }
 
@@ -3224,7 +3225,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
                     pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 					// Flugente: dynamic opinions
-					HandleDynamicOpinionDisability( pSoldier );
+					HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
                 }
                 break;
             default:
@@ -3237,7 +3238,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
                         pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionDisability( pSoldier );
+						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
                     }
                 }
                 break;

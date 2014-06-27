@@ -16,7 +16,8 @@
 	#include "GameSettings.h"
 	#include "Animation Data.h"
 	#include "Soldier Control.h"
-#include "Interface.h"				// added by Flugente for zBackground
+	#include "Interface.h"				// added by Flugente for zBackground
+	#include "DynamicDialogue.h"		// added by Flugente
 #endif
 
 extern void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
@@ -785,7 +786,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionDisability( pSoldier );
+						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
 					}
 					// do we realize that we just can't do this?
 					if ( (100 - (pSoldier->ubSkillCheckAttempts - 2) * 20) < EffectiveWisdom( pSoldier ) )

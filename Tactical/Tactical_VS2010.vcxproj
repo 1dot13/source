@@ -39,6 +39,7 @@
     <ClInclude Include="Dialogue Control.h" />
     <ClInclude Include="DisplayCover.h" />
     <ClInclude Include="Drugs And Alcohol.h" />
+    <ClInclude Include="DynamicDialogue.h" />
     <ClInclude Include="End Game.h" />
     <ClInclude Include="Enemy Soldier Save.h" />
     <ClInclude Include="EnemyItemDrops.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Dialogue Control.cpp" />
     <ClCompile Include="DisplayCover.cpp" />
     <ClCompile Include="Drugs And Alcohol.cpp" />
+    <ClInclude Include="DynamicDialogue.cpp" />
     <ClCompile Include="End Game.cpp" />
     <ClCompile Include="Enemy Soldier Save.cpp" />
     <ClCompile Include="EnemyItemDrops.cpp" />

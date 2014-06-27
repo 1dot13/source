@@ -21,6 +21,8 @@
 	// HEADROCK HAM 3.6: Militia upkeep
 	#include "Town Militia.h"
 	#include "CampaignStats.h"		// added by Flugente
+	#include "DynamicDialogue.h"	// added by Flugente
+
 #endif
 
 // the global defines

@@ -62,6 +62,7 @@
 #include "Strategic Status.h"
 #include "Food.h"
 #include "CampaignStats.h"				// added by Flugente
+#include "DynamicDialogue.h"			// added by Flugente
 #endif
 
 // anv: for enemy taunts
@@ -3939,7 +3940,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
 
 									// Flugente: dynamic opinions
-									HandleDynamicOpinionCivKill( MercPtrs[ubAttacker] );
+									HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 								}
 								break;
 						}

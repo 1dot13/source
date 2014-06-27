@@ -3182,11 +3182,11 @@ void SetupFinalTalkingDelay( FACETYPE *pFace )
 	if ( gGameSettings.fOptions[ TOPTION_SUBTITLES ]	)
 	{
 		//pFace->uiTalkingDuration = FINAL_TALKING_DURATION;
-		pFace->uiTalkingDuration = 300;
+		pFace->uiTalkingDuration = 5000;
 	}
 	else
 	{
-		pFace->uiTalkingDuration = 300;
+		pFace->uiTalkingDuration = 5000;
 	}
 
 	pFace->sMouthFrame = 0;
@@ -3220,6 +3220,4 @@ void SetupFinalTalkingDelay( FACETYPE *pFace )
 
 	// Set final delay!
 	pFace->fValidSpeech = FALSE;
-
-
 }

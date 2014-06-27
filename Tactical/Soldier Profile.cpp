@@ -809,6 +809,8 @@ BOOLEAN LoadMercProfiles(void)
 			gMercProfiles[uiLoop].usBackground = 0;
 
 			memset( &gMercProfiles[uiLoop].usDynamicOpinionFlagmask, 0, sizeof(gMercProfiles[uiLoop].usDynamicOpinionFlagmask) );
+
+			memset( &gMercProfiles[uiLoop].sDynamicOpinionLongTerm, 0, sizeof(gMercProfiles[uiLoop].sDynamicOpinionLongTerm) );
 		}
 
 		// WANNE - BMP: DONE!

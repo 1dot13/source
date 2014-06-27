@@ -16,6 +16,7 @@
 	#include "Food.h"			// added by Flugente
 	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
 	#include "CampaignStats.h"	// added by Flugente
+	#include "DynamicDialogue.h"// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes

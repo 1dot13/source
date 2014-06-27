@@ -1365,10 +1365,9 @@ void HandleDialogue( )
 				gubCurrentTalkingID	= QItem->iFaceIndex;
 
 				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
-
-				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE);
 				ExecuteSnitchCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
 			}
+			
 #ifdef JA2UB
 			//JA25 UB
 			if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
@@ -1464,8 +1463,6 @@ void HandleDialogue( )
 }
 
 BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString );
-
-BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
 
 BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSound1ID, UINT32 *puiSound2ID, UINT32 *puiSound3ID, CHAR8 zSoundFiles[][64], UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
 
@@ -1817,17 +1814,17 @@ BOOLEAN SnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 
 	QItem = (DIALOGUE_Q_STRUCT *) MemAlloc( sizeof( DIALOGUE_Q_STRUCT ) );
 	memset( QItem, 0, sizeof( DIALOGUE_Q_STRUCT ) );
 
-	QItem->ubCharacterNum = ubCharacterNum;
+	QItem->ubCharacterNum		= ubCharacterNum;
 	QItem->usQuoteNum			= usQuoteNum;
-	QItem->uiSpecialEventFlag		= uiSpecialEventFlag;
-	QItem->uiSpecialEventData		= uiSpecialEventData1;
+	QItem->uiSpecialEventFlag	= uiSpecialEventFlag;
+	QItem->uiSpecialEventData	= uiSpecialEventData1;
 	QItem->uiSpecialEventData2	= uiSpecialEventData2;
 	QItem->uiSpecialEventData3	= uiSpecialEventData3;
 	QItem->uiSpecialEventData4	= uiSpecialEventData4;
 	QItem->iFaceIndex			= iFaceIndex;
-	QItem->bUIHandlerID		= bUIHandlerID;
+	QItem->bUIHandlerID			= bUIHandlerID;
 	QItem->iTimeStamp			= GetJA2Clock( );
-	QItem->fFromSoldier		= fFromSoldier;
+	QItem->fFromSoldier			= fFromSoldier;
 	QItem->fDelayed				= fDelayed;
 
 	// check if pause already locked, if so, then don't mess with it
@@ -2533,21 +2530,17 @@ BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, 
 	return (*puiSoundID != NO_SAMPLE) || fTextAvailable;
 }
 
-
-BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile )
+BOOLEAN ReplaceTextWithOtherText( CHAR16 *pFinishedString, CHAR16 compare[32], CHAR16 replace[32] )
 {
-	CHAR16		pTempString[ 320 ];
-	INT32		iLength		=0;
-	INT32		iCurLocInSourceString	=0 ;
-	INT32		iLengthOfSourceString	= wcslen( pFinishedString );		//Get the length of the source string
-	CHAR16		*pMercNickString		= NULL;
-	CHAR16		*pOtherMercNickString	= NULL;
+	CHAR16		pTempString[320];
+	INT32		iLength = 0;
+	INT32		iCurLocInSourceString = 0;
+	INT32		iLengthOfSourceString = wcslen( pFinishedString );		//Get the length of the source string
+	CHAR16		*pNickString = NULL;
 
-	CHAR16		*pSubString			= NULL;
-	BOOLEAN		fReplacingMercName	= TRUE;
+	CHAR16		*pSubString = NULL;
+	BOOLEAN		fReplacingMercName = TRUE;
 
-	CHAR16	sMercNick[ 32 ] = L"$MERCNICK$";	//Will be replaced by the mercs name
-	CHAR16	sOtherMercNick[ 32 ] = L"$MERCNICK2$";	//Will be replaced by the mercs name
 	CHAR16	sSearchString[32];
 
 	//Copy the original string over to the temp string
@@ -2557,43 +2550,19 @@ BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, U
 	pFinishedString[0] = L'\0';
 
 	//Keep looping through to replace all references to the keyword
-	while( iCurLocInSourceString < iLengthOfSourceString )
+	while ( iCurLocInSourceString < iLengthOfSourceString )
 	{
 		iLength = 0;
 		pSubString = NULL;
 
 		//Find out if the $MERCNICK$ is in the string
-		pMercNickString = wcsstr( &pTempString[ iCurLocInSourceString ], sMercNick );
+		pNickString = wcsstr( &pTempString[iCurLocInSourceString], compare );
 
-		//Find out if the $MERCNICK2$ is in the string
-		pOtherMercNickString = wcsstr( &pTempString[ iCurLocInSourceString ], sOtherMercNick );
-
-		if( pMercNickString != NULL && pOtherMercNickString != NULL )
-		{
-			if( pMercNickString < pOtherMercNickString )
-			{
-				fReplacingMercName = TRUE;
-				pSubString = pMercNickString;
-				wcscpy( sSearchString, sMercNick);
-			}
-			else
-			{
-				fReplacingMercName = FALSE;
-				pSubString = pOtherMercNickString;
-				wcscpy( sSearchString, sOtherMercNick);
-			}
-		}
-		else if( pMercNickString != NULL )
+		if ( pNickString != NULL )
 		{
 			fReplacingMercName = TRUE;
-			pSubString = pMercNickString;
-			wcscpy( sSearchString, sMercNick);
-		}
-		else if( pOtherMercNickString != NULL )
-		{
-			fReplacingMercName = FALSE;
-			pSubString = pOtherMercNickString;
-			wcscpy( sSearchString, sOtherMercNick);
+			pSubString = pNickString;
+			wcscpy( sSearchString, compare );
 		}
 		else
 		{
@@ -2601,37 +2570,32 @@ BOOLEAN SnitchDialogueReplaceMercNicksWithProperData( CHAR16 *pFinishedString, U
 		}
 
 		// if there is a substring
-		if( pSubString != NULL )
+		if ( pSubString != NULL )
 		{
-			iLength = pSubString - &pTempString[ iCurLocInSourceString ];
+			iLength = pSubString - &pTempString[iCurLocInSourceString];
 
 			//Copy the part of the source string up to the keyword
-			wcsncat( pFinishedString, &pTempString[ iCurLocInSourceString ], iLength );
+			wcsncat( pFinishedString, &pTempString[iCurLocInSourceString], iLength );
 
 			//increment the source string counter by how far in the keyword is and by the length of the keyword
-			iCurLocInSourceString+= iLength + wcslen( sSearchString );
+			iCurLocInSourceString += iLength + wcslen( sSearchString );
 
-			if( fReplacingMercName )
+			if ( fReplacingMercName )
 			{
 				//add the mercs name to the string
-				wcscat( pFinishedString, gMercProfiles[ ubTargetProfile ].zNickname );
-			}
-			else
-			{
-				//add the mercs name to the string
-				wcscat( pFinishedString, gMercProfiles[ ubSecondaryTargetProfile ].zNickname );
+				wcscat( pFinishedString, replace );
 			}
 		}
 		else
 		{
 			//add the rest of the string
-			wcscat( pFinishedString, &pTempString[ iCurLocInSourceString ] );
+			wcscat( pFinishedString, &pTempString[iCurLocInSourceString] );
 
-			iCurLocInSourceString += wcslen( &pTempString[ iCurLocInSourceString ] );
+			iCurLocInSourceString += wcslen( &pTempString[iCurLocInSourceString] );
 		}
 	}
 
-	return( TRUE );
+	return(TRUE);
 }
 
 // anv: special version of GetDialogue, message is put together from parts
@@ -2653,23 +2617,11 @@ BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iData
 		{
 
 			LoadEncryptedDataFromFile( pFilename1, zDialogueText, usQuoteNum * iDataSize, iDataSize );
-			//LoadEncryptedDataFromFile( pFilename2, zDialogueText2, ubSnitchTarget * iDataSize, iDataSize );
-			//LoadEncryptedDataFromFile( pFilename3, zDialogueText3, ubSecondarySnitchTarget * iDataSize, iDataSize );
-			SnitchDialogueReplaceMercNicksWithProperData( zDialogueText, ubTargetProfile, ubSecondaryTargetProfile );
-			//if( ubSnitchTargetID != NOBODY )
-			//{
-			//	wcscpy( zDialogueTextTemp, gMercProfiles[ubTargetProfile].zNickname );
-			//	wcscat( zDialogueTextTemp, zDialogueText );
-			//}
-			//else
-			//{
-			//	wcscpy( zDialogueTextTemp, zDialogueText );
-			//}
-			//if( ubSecondarySnitchTargetID != NOBODY )
-			//{
-			//	wcscat( zDialogueTextTemp, gMercProfiles[ubSecondaryTargetProfile].zNickname );
-			//}
-			//wcscpy( zDialogueText, zDialogueTextTemp );
+
+			// Flugente: replaced SnitchDialogueReplaceMercNicksWithProperData with ReplaceTextWithOtherText - less complicated an can be used for other things than merc names
+			ReplaceTextWithOtherText( zDialogueText, L"$MERCNICK$", gMercProfiles[ubTargetProfile].zNickname );
+			ReplaceTextWithOtherText( zDialogueText, L"$MERCNICK2$", gMercProfiles[ubSecondaryTargetProfile].zNickname );
+
 			if(zDialogueText[0] == 0)
 			{
 				swprintf( zDialogueText, L"I have no text in the EDT file ( %d ) %S", usQuoteNum, pFilename1 );
@@ -2785,7 +2737,7 @@ void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, STR16 zQuote
 	// TODO.RW: Wenn wir in tactical sind, dann normal. In strategy den offset dazurechnen!
 	if ( guiCurrentScreen == GAME_SCREEN )
 	{
-		sLeft = 110;		
+		sLeft = 110;
 	}
 	else
 	{
@@ -2969,8 +2921,8 @@ void HandleTacticalSpeechUI( UINT8 ubCharacterNum, INT32 iFaceIndex	)
 		}
 
 		// Setup video overlay!
-		VideoOverlayDesc.sLeft			= 10;
-		VideoOverlayDesc.sTop				= 20;
+		VideoOverlayDesc.sLeft = 10;	
+		VideoOverlayDesc.sTop = 20;
 		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + 99;
 		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + 98;
 		VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;

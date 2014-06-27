@@ -114,6 +114,7 @@
 	#include "Items.h"
 	#include "Encyclopedia_new.h"
 	#include "CampaignStats.h"		// added by Flugente
+	#include "DynamicDialogue.h"	// added by Flugente
 #endif
 
 #include		"BobbyR.h"
@@ -1539,9 +1540,35 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 
 			if ( guiCurrentSaveGameVersion >= DYNAMIC_OPINIONS )
 			{
-				if ( !FileRead( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesRead ) )
+				if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
 				{
-					return(FALSE);
+					if ( !FileRead( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesRead ) )
+					{
+						return(FALSE);
+					}
+
+					if ( !FileRead( hFile, &this->sDynamicOpinionLongTerm, sizeof(sDynamicOpinionLongTerm), &uiNumBytesRead ) )
+					{
+						return(FALSE);
+					}
+				}
+				else
+				{
+					UINT32 tmp[NUM_PROFILES][3];		
+					if ( !FileRead( hFile, &tmp, sizeof(tmp), &uiNumBytesRead ) )
+					{
+						return(FALSE);
+					}
+
+					for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
+					{
+						for ( UINT8 i = 0; i < 3; ++i )
+						{
+							this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+						}
+
+						sDynamicOpinionLongTerm[profile] = 0;
+					}
 				}
 			}
 		}
@@ -1641,6 +1668,11 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	if ( !FileWrite( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesWritten ) )
+	{
+		return(FALSE);
+	}
+
+	if ( !FileWrite( hFile, &this->sDynamicOpinionLongTerm, sizeof(sDynamicOpinionLongTerm), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
 	}
@@ -4185,7 +4217,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	}
 	
-if( !SaveNewEmailDataToSaveGameFile( hFile ) )
+	if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing save data");
 		goto FAILED_TO_SAVE;
@@ -4231,6 +4263,13 @@ if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 	if( !gCampaignStats.Save( hFile ) || !gCurrentIncident.Save( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Campaign Stats");
+		goto FAILED_TO_SAVE;
+	}
+
+	// Flugente: dynamic dialogue
+	if ( !SaveDynamicDialogue( hFile  ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Dynamic Dialogue" );
 		goto FAILED_TO_SAVE;
 	}
 
@@ -5867,6 +5906,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	else
 		EncyclopediaInitItemsVisibility();
+
 	if( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
 	{
 		uiRelEndPerc += 1;
@@ -5887,6 +5927,21 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCurrentIncident.Load failed" ) );
 			FileClose( hFile );
 			return( FALSE );
+		}
+	}
+
+	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Dynamic Dialogue..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if ( !LoadDynamicDialogue( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Dynamic Dialogue Load failed" ) );
+			FileClose( hFile );
+			return(FALSE);
 		}
 	}
 

@@ -1390,7 +1390,12 @@ typedef struct
 
 	// Flugente: dynamic opinions
 	BOOLEAN fDynamicOpinions;
+	BOOLEAN fDynamicOpinionsShowChange;
 	FLOAT	fDynamicWageFactor;
+
+	// Flugente: dynamic dialogue
+	BOOLEAN fDynamicDialogue;
+	UINT32	usDynamicDialogueTimeOffset;
 
 	// Flugente: enemy roles
 	BOOLEAN fEnemyRoles;
@@ -1407,7 +1412,7 @@ typedef struct
 	FLOAT   dEnemyOfficerMoraleModifier;
 	FLOAT   dEnemyOfficerSurrenderStrengthBonus;
 	BOOLEAN fEnemyGenerals;
-	UINT16	usEnemyGeneralsNumber;
+	UINT8	usEnemyGeneralsNumber;
 	UINT16	usEnemyGeneralsBodyGuardsNumber;
 	FLOAT	fEnemyGeneralStrategicDecisionSpeedBonus;
 	FLOAT	fEnemyGeneralStrategicMovementSpeedBonus;
@@ -1564,34 +1569,6 @@ typedef struct
 
 } HELICOPTER_SETTINGS;
 
-// Flugente: dynamic opinions
-enum
-{
-	OPINIONEVENT_FRIENDLYFIRE,
-	OPINIONEVENT_SNITCHSOLDMEOUT,
-	OPINIONEVENT_SNITCHINTERFERENCE,
-	OPINIONEVENT_FRIENDSWITHHATED,
-	OPINIONEVENT_CONTRACTEXTENSION,
-	OPINIONEVENT_ORDEREDRETREAT,
-	OPINIONEVENT_CIVKILLER,
-	OPINIONEVENT_SLOWSUSDOWN,
-	OPINIONEVENT_NOSHARINGFOOD,
-	OPINIONEVENT_ANNOYINGDISABILITY,
-	OPINIONEVENT_ADDICT,
-	OPINIONEVENT_THIEF,
-	OPINIONEVENT_WORSTCOMMANDEREVER,
-	OPINIONEVENT_RICHGUY,
-	OPINIONEVENT_BETTERGEAR,
-	OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS,
-	OPINIONEVENT_BANDAGED,
-	OPINIONEVENT_DRINKBUDDIES_GOOD,
-	OPINIONEVENT_DRINKBUDDIES_SUPER,
-	OPINIONEVENT_DRINKBUDDIES_BAD,
-	OPINIONEVENT_DRINKBUDDIES_WORSE,
-
-	OPINIONEVENT_MAX
-};
-
 typedef struct
 {
 	UINT8 ubDefaultMorale;
@@ -1599,7 +1576,6 @@ typedef struct
 	INT8 bValues[64];
 	INT8 bModifiers[32];
 	INT16 sDrugAndAlcoholModifiers[2];
-	INT8 bDynamicOpinionModifiers[OPINIONEVENT_MAX];
 } MORALE_SETTINGS;
 
 typedef struct

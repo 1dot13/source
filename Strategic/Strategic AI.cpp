@@ -5742,7 +5742,7 @@ void RequestHighPriorityGarrisonReinforcements( INT32 iGarrisonID, UINT8 ubSoldi
 		if ( giReinforcementPool > 0 )
 		{
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 
-				0, min( ubSoldiersRequested, giReinforcementPool ), 0 );
+				0, min( ubSoldiersRequested, giReinforcementPool ), 0, 0 );
 			pGroup->ubMoveType = ONE_WAY;
 			pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
 			gGarrisonGroup[ iGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;

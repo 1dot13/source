@@ -14,6 +14,7 @@
 #include "Laptop.h"
 #include "LaptopSave.h"
 #include "email.h"
+#include "DynamicDialogue.h"
 
 Campaign_Stats	gCampaignStats;
 Incident_Stats	gCurrentIncident;		// we might save during an incident, thus we have to store the ongoing incident

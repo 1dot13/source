@@ -308,7 +308,7 @@ typedef enum
 } RacistLevels;
 
 // Flugente: dynamic opinons: number of profile flagmasks
-#define OPINION_FLAGMASKS_NUMBER	3
+#define OPINION_FLAGMASKS_NUMBER	5
 
 //////////////////////////////////////////////////////////////////////
 
@@ -957,6 +957,8 @@ public:
 
 	// Flugente: flagmasks for dynamic opinions on each and every other person. Yes, this is significant in size
 	UINT32 usDynamicOpinionFlagmask[NUM_PROFILES][OPINION_FLAGMASKS_NUMBER];
+
+	INT8	sDynamicOpinionLongTerm[NUM_PROFILES];
 
 }; // MERCPROFILESTRUCT;
 

@@ -39,6 +39,7 @@
     <ClInclude Include="Dialogue Control.h" />
     <ClInclude Include="DisplayCover.h" />
     <ClInclude Include="Drugs And Alcohol.h" />
+    <ClInclude Include="DynamicDialogue.h" />
     <ClInclude Include="End Game.h" />
     <ClInclude Include="Enemy Soldier Save.h" />
     <ClInclude Include="EnemyItemDrops.h" />
@@ -105,7 +106,7 @@
     <ClInclude Include="TeamTurns.h" />
     <ClInclude Include="UI Cursors.h" />
     <ClInclude Include="Vehicles.h" />
-	<ClInclude Include="VehicleMenu.h" />
+    <ClInclude Include="VehicleMenu.h" />
     <ClInclude Include="Weapons.h" />
     <ClInclude Include="World Items.h" />
     <ClInclude Include="XML.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Dialogue Control.cpp" />
     <ClCompile Include="DisplayCover.cpp" />
     <ClCompile Include="Drugs And Alcohol.cpp" />
+    <ClCompile Include="DynamicDialogue.cpp" />
     <ClCompile Include="End Game.cpp" />
     <ClCompile Include="Enemy Soldier Save.cpp" />
     <ClCompile Include="EnemyItemDrops.cpp" />
@@ -188,7 +190,7 @@
     <ClCompile Include="Turn Based Input.cpp" />
     <ClCompile Include="UI Cursors.cpp" />
     <ClCompile Include="Vehicles.cpp" />
-	<ClCompile Include="VehicleMenu.cpp" />
+    <ClCompile Include="VehicleMenu.cpp" />
     <ClCompile Include="Weapons.cpp" />
     <ClCompile Include="World Items.cpp" />
     <ClCompile Include="XML_AmmoStrings.cpp" />
@@ -219,13 +221,13 @@
     <ClCompile Include="XML_IMPItemChoices.cpp" />
     <ClCompile Include="XML_IncompatibleAttachments.cpp" />
     <ClCompile Include="XML_ItemAdjustments.cpp" />
-	<ClCompile Include="XML_Keys.cpp" />
+    <ClCompile Include="XML_Keys.cpp" />
     <ClCompile Include="XML_Launchable.cpp" />
     <ClCompile Include="XML_LBEPocket.cpp" />
     <ClCompile Include="XML_LBEPocketPopup.cpp" />
     <ClCompile Include="XML_LoadBearingEquipment.cpp" />
     <ClCompile Include="XML_LoadScreenHints.cpp" />
-	<ClCompile Include="XML_Locks.cpp" />
+    <ClCompile Include="XML_Locks.cpp" />
     <ClCompile Include="XML_Magazine.cpp" />
     <ClCompile Include="XML_Merchants.cpp" />
     <ClCompile Include="XML_MercStartingGear.cpp" />
@@ -243,7 +245,7 @@
     <ClCompile Include="XML_Sounds.cpp" />
     <ClCompile Include="XML_SpreadPatterns.cpp" />
     <ClCompile Include="XML_Taunts.cpp" />
-	<ClCompile Include="XML_AdditionalTileProperties.cpp" />
+    <ClCompile Include="XML_AdditionalTileProperties.cpp" />
     <ClCompile Include="XML_TonyInventory.cpp" />
     <ClCompile Include="XML_Vehicles.cpp" />
   </ItemGroup>

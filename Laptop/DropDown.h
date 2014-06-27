@@ -16,7 +16,7 @@ void Display2Line2ShadowVertical( UINT16 usStartX, UINT16 usStartY, UINT16 EndX,
 void Display2Line2ShadowHorizontal( UINT16 usStartX, UINT16 usStartY, UINT16 EndY, UINT16 usColor1, UINT16 usColor2 );
 
 /*
-* A simple class that takes coordiantes and colors.
+* A simple class that takes coordinates and colors.
 * It simply exists to provide these simple methods for other classes.
 */
 class WidgetBase
@@ -28,9 +28,17 @@ public:
 	* X and Y-Coordinates define the upper left corner
 	*/
 	void SetX( UINT16 aVal )				{ musStartX = aVal; }
-	UINT16 GetX( )							{ return musStartX; }
+	virtual UINT16 GetX( )					{ return musStartX; }
 	void SetY( UINT16 aVal )				{ musStartY = aVal; }
-	UINT16 GetY( )							{ return musStartY; }
+	virtual UINT16 GetY( )					{ return musStartY; }
+
+	/*
+	* X and Y-Coordinates for text
+	*/
+	void SetX_Text( UINT16 aVal )			{ musStartX_Text = aVal; }
+	virtual UINT16 GetX_Text( )				{ return musStartX_Text; }
+	void SetY_Text( UINT16 aVal )			{ musStartY_Text = aVal; }
+	virtual UINT16 GetY_Text( )				{ return musStartY_Text; }
 
 	/*
 	* Color of boundary line
@@ -64,6 +72,9 @@ private:
 private:
 	UINT16	musStartX;
 	UINT16	musStartY;
+
+	UINT16	musStartX_Text;
+	UINT16	musStartY_Text;
 
 	UINT16	mColorLine;			// color of boundary lines
 	UINT16	mColorLineShadow;	// color of boundary line shadows

@@ -403,6 +403,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DynamicDialogue.h"
+				>
+			</File>
+			<File
 				RelativePath=".\End Game.h"
 				>
 			</File>
@@ -746,6 +750,10 @@
 			</File>
 			<File
 				RelativePath=".\Drugs And Alcohol.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DynamicDialogue.cpp"
 				>
 			</File>
 			<File

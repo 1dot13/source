@@ -25,6 +25,7 @@
 	#include "Facilities.h"
 	#include "Soldier macros.h"
 	#include "strategicmap.h"
+	#include "DynamicDialogue.h"			// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -618,7 +619,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 		}
 
 		// dynamic opinions: if we're still really hungry  an someone in this sector has food, we get a lwoer opinion of him, as he obviously doesn't share
-		HandleDynamicOpinionFoodSharing( pSoldier );
+		HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_NOSHARINGFOOD, FALSE, FALSE );
 	}	
 }
 

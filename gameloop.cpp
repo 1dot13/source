@@ -234,6 +234,8 @@ void ShutdownGame(void)
 // rain
 static BOOLEAN gfSkipFrame = FALSE;
 
+extern void RefreshBoxes( );
+
 void GameLoop(void)
 {
 	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop");
@@ -405,6 +407,9 @@ void GameLoop(void)
 
 	// rain
 	RenderRain();
+
+	// Flugente: dynamic opinions: Dialogue Boxes need to be refreshed
+	RefreshBoxes( );
 
 	//DEBUG MODE : DEBUG RENDER ENTRY : point to drop in debugging render code
 	if( (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]) || (JA2BETAVERSION_FLAG))

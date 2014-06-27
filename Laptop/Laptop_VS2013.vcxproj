@@ -49,6 +49,7 @@
     <ClInclude Include="CampaignStats.h" />
     <ClInclude Include="CharProfile.h" />
     <ClInclude Include="DropDown.h" />
+    <ClInclude Include="DynamicDialogueWidget.h" />
     <ClInclude Include="email.h" />
     <ClInclude Include="Encyclopedia_Data_new.h" />
     <ClInclude Include="Encyclopedia_new.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="CampaignStats.cpp" />
     <ClCompile Include="CharProfile.cpp" />
     <ClCompile Include="DropDown.cpp" />
+    <ClCompile Include="DynamicDialogueWidget.cpp" />
     <ClCompile Include="email.cpp" />
     <ClCompile Include="Encyclopedia_Data_new.cpp" />
     <ClCompile Include="Encyclopedia_new.cpp" />

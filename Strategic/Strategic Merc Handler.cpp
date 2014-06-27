@@ -46,6 +46,7 @@
 	#include "Facilities.h"
 	// HEADROCK HAM 3.6: And another include, for militia upkeep costs.
 	#include "Town Militia.h"
+	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinionsDailyRefresh()
 #endif
 
 #ifdef JA2UB
@@ -612,7 +613,7 @@ void MercDailyUpdate()
 	HandleSnitchCheck();
 
 	// Flugente: dynmaic opinion rollover
-	HandleDynamicOpinions();
+	HandleDynamicOpinionsDailyRefresh( );
 }
 
 /*

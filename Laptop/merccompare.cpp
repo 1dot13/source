@@ -26,6 +26,7 @@
 #include "DropDown.h"
 #include "Overhead.h"
 #include "Map Screen Interface.h"
+#include "DynamicDialogue.h"	// added by Flugente
 #endif
 
 
@@ -343,14 +344,13 @@ void RenderMercCompareCustomers( )
 
 	// choose 3 random customer quotes out of the pool of all quotes
 	std::set<UINT8> quoteset;
-	//while ( quoteset.size( ) < min( 3, TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS ) )
-		//quoteset.insert( Random( TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS ) );
-
-	// showoff hack
-	quoteset.insert( 0 );
-	quoteset.insert( 1 );
-	quoteset.insert( 2 );
-
+	UINT8 safetycounter = 0;
+	while ( quoteset.size( ) < min( 3, TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS ) && safetycounter < 30 )
+	{
+		quoteset.insert( Random( TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS ) );
+		++safetycounter;
+	}
+	
 	std::set<UINT8>::iterator itend = quoteset.end();
 	for ( std::set<UINT8>::iterator it = quoteset.begin(); it != itend; ++it )
 	{
@@ -931,6 +931,27 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 				usPosY2 += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			}
 		}
+	}
+
+	// long-term memory
+	val = gMercProfiles[usProfileA].sDynamicOpinionLongTerm[usProfileB];
+
+	if ( val )
+	{
+		swprintf( sText, L"Past grievances" );
+		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+		swprintf( sText, L"%d", val );
+		usPosY += DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+	}
+
+	val = gMercProfiles[usProfileB].sDynamicOpinionLongTerm[usProfileA];
+
+	if ( val )
+	{
+		swprintf( sText, L"Past grievances" );
+		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+		swprintf( sText, L"%d", val );
+		usPosY2 += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	}
 
 	// draw the final verdict

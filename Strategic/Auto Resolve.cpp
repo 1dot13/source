@@ -70,6 +70,7 @@
 	#include "AIInternals.h" // added by SANDRO
 	#include "Bullets.h" // HEADROCK HAM 5, for use with Bullet Impact.
 	#include "CampaignStats.h"				// added by Flugente
+	#include "DynamicDialogue.h"			// added by Flugente
 #endif
 
 #include "Reinforcement.h"
@@ -4695,7 +4696,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionCivKill( pAttacker->pSoldier );
+							HandleDynamicOpinionChange( pAttacker->pSoldier, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 						}
 						break;
 				}

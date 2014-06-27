@@ -37,6 +37,7 @@
 	// HEADROCK HAM 3.6: Include for Facility Debt
 	#include "Facilities.h"
 	#include "CampaignStats.h"		// added by Flugente
+	#include "DynamicDialogue.h"			// added by Flugente
 #endif
 
 #include "Luaglobal.h"

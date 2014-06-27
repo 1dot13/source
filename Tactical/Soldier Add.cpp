@@ -1839,7 +1839,7 @@ INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
 	ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; cnt++,pTeamSoldier++)
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; ++cnt, pTeamSoldier++)
 	{
 		if ( pTeamSoldier->ubProfile == ubMercID )
 		{
