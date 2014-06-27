@@ -6887,7 +6887,7 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 	{
 		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
-		if( pVehicle != NULL && bNewPosition < gNewVehicle[pVehicle->bVehicleID].iNewSeatingCapacities )
+		if( pVehicle != NULL && bNewPosition < gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].iNewSeatingCapacities )
 		{
 			if( SwapVehicleSeat( pVehicle, pSoldier, bNewPosition ) )
 			{

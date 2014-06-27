@@ -742,7 +742,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 						{
 							pExistingStructure = pExistingStructure->pNext;
 							// damage people when driving on them
-							if( fAddingForReal && ( MercPtrs[ sSoldierID ]->flags.fPastXDest || MercPtrs[ sSoldierID ]->flags.fPastYDest ) )
+							if( fAddingForReal )
 							{	
 								if( TANK( MercPtrs[ sSoldierID ] ) )
 								{
