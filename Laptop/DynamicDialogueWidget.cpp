@@ -372,7 +372,7 @@ void DelayBoxDestruction( UINT32 aVal )
 	}
 }
 
-void DelayBoxDestructionBy( UINT32 aVal )
+void DelayBoxDestructionBy( INT32 aVal )
 {
 	// now find this box in the list
 	for ( UINT8 i = 0; i < MYBOX_NUMBER; ++i )
@@ -497,7 +497,7 @@ IMPDialogueChooseBox::Display( )
 	if ( !IsDisplayed( ) )
 		return;
 
-	//  we draw a line that shwos us how much time we have for the decision
+	//  we draw a line that shows us how much time we have for the decision
 	UINT32 totaltime = max( 0, musEndTime - musCreationTime );
 
 	if ( totaltime )

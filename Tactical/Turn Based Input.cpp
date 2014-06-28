@@ -120,6 +120,7 @@
 
 #include "DisplayCover.h"				// added by Sevenfm
 #include "InterfaceItemImages.h"		// added by Sevenfm
+#include "DynamicDialogueWidget.h"		// added by Flugente for DelayBoxDestructionBy(...)
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1720,6 +1721,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				DeleteTalkingMenu();
 				EndMeanwhile();
 			}
+
+			// Flugente: speed up dynamic dialogue boxes
+			// Note that this will behave oddly on the morning of January 1st 1970 :-)
+			DelayBoxDestructionBy( - gGameExternalOptions.usDynamicDialogueTimeOffset );
 		}
 #endif
 

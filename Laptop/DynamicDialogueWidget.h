@@ -124,7 +124,7 @@ BOOLEAN RemoveDDBox( UINT8 aID );
 
 void RefreshBoxes( );
 void DelayBoxDestruction( UINT32 aVal );
-void DelayBoxDestructionBy( UINT32 aVal );
+void DelayBoxDestructionBy( INT32 aVal );
 
 
 class IMPDialogueChooseBox : public WidgetBase
