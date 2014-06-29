@@ -8620,6 +8620,7 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
 
+// TODO.Translate
 STR16	szMercCompareEventText[]=
 {
 	L"%s shot at me!",
@@ -8648,6 +8649,16 @@ STR16	szMercCompareEventText[]=
 	L"%s is annoying when drunk",
 
 	L"%s is an idiot when drunk",
+	L"%s opposed our view in an argument",
+	L"%s supported our position",
+	L"%s agrees to our reasoning",
+
+	L"%s's beliefs are contrary to ours",
+	L"%s knows how to calm down people",
+	L"%s is insensitive",
+	L"%s puts people in their places",
+
+	L"%s is way too impulsive",
 };
 
 STR16   szTacticalInventoryDialogString[]=
@@ -8722,6 +8733,561 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示绊线网络B",
         L"显示绊线网络C",
         L"显示绊线网络D",
+};
+
+// TODO.Translate
+STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[] =
+{
+	L"What the hell! $CAUSE$ shot me!",	
+	L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
+	L"$CAUSE$ is bullying me again!",
+	L"Hmpf. Typical $CAUSE$, figured $CAUSE_GENDER$ would hang out with the wrong crowd!",
+
+	L"Yeah, sure. My contract's about to end, but no, gotta take care of $CAUSE$ first.",
+	L"Nice command, $CAUSE$! Why would you order retreat?",
+	L"What the hell is wrong with you, $CAUSE$? You just killed an innocent!",
+	L"Can we get rid of $CAUSE$, please? That slowpoke is holding us back.",
+
+	L"Damn $CAUSE$, $CAUSE_GENDER$ is keeping all that tasty food to $CAUSE_PRONOUN$self...",
+	L"Oh, come on, $CAUSE$. It's not a good moment!",
+	L"$CAUSE$ is high like a zeppelin! How am I supposed to work with that junkie?",
+	L"What the... Hey! $CAUSE$! Give it back, you damn thief!",
+
+	L"What a disaster. That was worst command ever, $CAUSE$!",
+	L"How can $CAUSE$ earn this much? It's not fair!",
+	L"$CAUSE$ is stocking the good gear for $CAUSE_PRONOUN$self. Not fair!",
+	L"Do I look like a bipod? Get that thing off me, $CAUSE$!",
+
+	L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
+	L"Yeah, $CAUSE$! You get it! How 'bout next round?",
+	L"$CAUSE$... you're... you are... hic... you're the best!",
+	L"Damn, $CAUSE$! You... you got enough... Learn to keep your liquor...",
+
+	L"What the hell, $CAUSE$! Ugh... I'm never drinking with you again, you sicko.",
+	L"I knew I couldn't depend on you, $CAUSE$!",
+	L"Ha! See? $CAUSE$ agrees with me.",
+	L"Yeah, even $CAUSE$ saw you do it!",
+
+	L"I can't believe you wouldn't agree with me on this, $CAUSE$.",
+	L"Yeah... you're right, $CAUSE$. Peace?",
+	L"No. This is a matter of principle.",
+	L"Alright alright. Jeez. I'm over it, okay?",
+
+	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
+};
+
+STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
+{
+	L"What?!",
+	L"No!",
+	L"That is false!",
+	L"That is not true!",
+
+	L"Lies, lies, lies. Nothing but lies!",
+	L"Liar!",
+	L"Traitor!",
+	L"You watch your mouth!",
+
+	L"This is none of your business.",
+	L"Who ever invited you?",
+	L"Nobody asked for your opinion, $INTERJECTOR$.",
+	L"You stay away from me.",
+
+	L"Why are you all against me?",
+	L"Why are you against me, $INTERJECTOR$?",
+	L"I knew it! $CAUSE$ and $INTERJECTOR$ are in cahoots!",
+	L"Not listening...!",
+
+	L"I hate this psycho circus.",
+	L"I hate this freak show.",
+	L"Back off!",
+	L"Lies, lies, lies...",
+};
+
+STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
+{
+	L"Ha!",
+	L"See?",
+	L"I knew you'd back me, $INTERJECTOR$",
+	L"I knew $INTERJECTOR$ would back me.",
+
+	L"Thanks, $INTERJECTOR$!",
+	L"Once again I'm right!",
+	L"See, $CAUSE$? I am right!",
+	L"Once again $SPEAKER$ is right!",
+
+	L"Indeed.",
+	L"Yup.",
+	L"Aye.",
+	L"What $INTERJECTOR$ said.",
+};
+
+
+STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
+{
+	L"What? Me? No way, I'm shooting at the enemy!",
+	L"I would if you weren't such a wussy!",
+	L"You're jeopardising the entire mission, and I won't let that stand any longer!",
+	L"My friends are none of your business!",
+
+	L"Oh yeah? I'm actually useful. Perhaps that's why you didn't get an extension.",
+	L"I just got us out of that hellhole, you should thank me for saving your life.",
+	L"He had a gun, I saw it!",
+	L"I wouldn't if you would carry your fair share of the gear, $VICTIM$!",
+
+	L"Not my problem if you already ate all your rations.",
+	L"Just what I need. Good advice. Thanks, $VICTIM$, you are a big help.",
+	L"Taking the stick out of your butt would be a starter, jeez...",
+	L"Have you been drinking? What the hell is your problem?",
+
+	L"I don't have to take that from a grunt like you!",
+	L"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
+	L"Contrary to you, I actually know how to use them.",
+	L"Don't be such a wuss. This is war!",
+
+	L"I'm doing my job. Get back to yours!",
+	L"Pah. I think you've had enough.",
+	L"Tehehe. $VICTIM$, you are soooo wasted. You.. hic. You need to restrain yourself. Discipline, you know? Like me!",
+	L"Cut it out, $VICTIM$! You clearly don't know when to stop!",
+
+	L"Oh SHUT UP $VICTIM$! You don't know how to beh.. beha... beha? Ehm... You make no sense. At all. Yeah. You're no fun.",
+	L"Depend? It was all your fault!",
+	L"'Even'? What does that mean?",
+	L"No I did not!",
+
+	L"It's because you're wrong, that's why.",
+	L"No. I won't let this go.",
+	L"As if you had any to start with.",
+	L"Cut it, drama queen.",
+
+	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
+};
+
+STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
+{
+	L"Oops.",
+	L"You heard that? Dammit.",
+	L"Hey, it's for your own good. You'll thank me later.",
+	L"Can't you two all get along, $VICTIM$?",
+
+	L"I'm sure you'll get your extension soon. You know how odd online banking can be.",
+	L"They were flanking us, there was no other way!",
+	L"Oh god. No! What have I done?",
+	L"It's all this stuff, it's so heavy!",
+
+	L"Oh $VICTIM$, why didn't you say something then?",
+	L"It's my only weakness, I can't help it!",
+	L"Hey, I've seen some things man. And some stuff!",
+	L"You noticed? Dammit... 50/50?",
+
+	L"Well, yeah, NOW that's obvious. Back then it wasn't.",
+	L"You don't expect me to complain, do you?",
+	L"Well, someone has to use it, right? Better luck next time!",
+	L"Oh. Didn't see you for a minute there.",
+
+	L"Hey, we have to look after each other. You'd do the same, $VICTIM$.",
+	L"Sure. Bring it on!",
+	L"Hic... yeah. You too, $VICTIM$. You. hic.. too!",
+	L"Tehehe. You are RIGHT. Hehe. Always right. Hic!",
+
+	L"Well you're no fu... fu... fu? Fun! You are not. Hic!. No.",
+	L"Touched a nerve there, didn't I?",
+	L"Yeah. I'm 100%% with $VICTIM$ on this.",
+	L"And we won't be quiet about it, no sir!",
+
+	L"I'm surpried too, but that's how it is.",
+	L"Hmm... ok!",
+	L"Suit yourself then..",
+	L"As long as it does not happen again.",
+
+	L"The two of us are going to have real problem soon, $VICTIM$.",
+};
+
+STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
+{
+	L"What?!",
+	L"No!",
+	L"That is false!",
+	L"That is not true!",
+
+	L"Lies, lies, lies. Nothing but lies!",
+	L"Liar!",
+	L"Traitor!",
+	L"You watch your mouth!",
+
+	L"This is none of your business.",
+	L"Who ever invited you?",
+	L"Nobody asked for your opinion, $INTERJECTOR$.",
+	L"You stay away from me.",
+
+	L"Why are you all against me?",
+	L"Why are you against me, $INTERJECTOR$?",
+	L"I knew it! $VICTIM$ and $INTERJECTOR$ are in cahoots!",
+	L"Not listening...!",
+
+	L"I hate this psycho circus.",
+	L"I hate this freak show.",
+	L"Back off!",
+	L"Lies, lies, lies...",
+
+	L"I know what I saw.",
+};
+
+STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[] =
+{
+	L"Ha!",
+	L"See?",
+	L"I knew you'd back me, $INTERJECTOR$",
+	L"I knew $INTERJECTOR$ would back me.",
+
+	L"Thanks, $INTERJECTOR$!",
+	L"Once again I'm right!",
+	L"See, $VICTIM$? I am right!",
+	L"Once again $SPEAKER$ is right!",
+
+	L"Indeed.",
+	L"Yup.",
+	L"Aye.",
+	L"What $INTERJECTOR$ said.",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
+{
+	L"$CAUSE$ has shot $VICTIM$. What do you do?",
+	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
+	L"$CAUSE$ has stopped $VICTIM$ from misbehaving, and $VICTIM_GENDER$ is out for revenge. What do you do?",
+	L"$VICTIM$ doesn't like $CAUSE$'s friend. What do you do?",
+
+	L"$VICTIM$ is jealous as we extended $CAUSE$'s contract early. What do you do?",
+	L"$VICTIM$ dislikes the retreat command $CAUSE$ gave. What do you do?",
+	L"$VICTIM$ is furious: $CAUSE$ killed a civilian. What do you do?",
+	L"$VICTIM$ feels $CAUSE$ slows down the team. What do you do?",
+
+	L"$VICTIM$ wants $CAUSE$'s food. What do you do?",
+	L"$CAUSE$' tick is getting on $VICTIM$'s nerves. What do you do?",
+	L"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
+	L"$VICTIM$ saw $CAUSE$ steal an item. What do you do?",
+
+	L"$CAUSE$ does not trust $VICTIM$'s orders. What do you do?",
+	L"$CAUSE$ is jealous of $VICTIM$'s paycheck. What do you do?",
+	L"$CAUSE$ is jealous of $VICTIM$'s equipment. What do you do?",
+	L"$CAUSE$ used $VICTIM$'s chest as a gun rack. How odd. What do you do?",
+
+	L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
+	L"Drunk $VICTIM$ likes $CAUSE$. What do you do?",
+	L"Drunk $VICTIM$ dislikes $CAUSE$. What do you do?",
+	L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
+
+	L"$VICTIM$ is wasted and wants to tear $VICTIM$ a new one. What do you do?",
+	L"$VICTIM$ does not like was $CAUSE$ has to say. What do you do?",
+	L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
+	L"$VICTIM$ likes what $CAUSE$ said about the others. What do you do?",
+
+	L"$VICTIM$ does not like $CAUSE$ siding with the others. What do you do?",
+	L"$VICTIM$ appreciates $CAUSE$'s conflict resolution. What do you do?",
+	L"$VICTIM$ does not like $CAUSE$'s appeal. What do you do?",
+	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
+
+	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
+{
+	L"Nah, that must have been enemy fire!",
+	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
+	L"Then stop giving reasons for that!",
+	L"Everybody can hang out with whom $CAUSE_GENDER$ wants!",
+
+	L"You are still getting paid, no? What does it matter as long as you get the money?",
+	L"You know you can go back if you want... nobody's stopping you.",
+	L"Better safe than sorry I say...",
+	L"We leave nobody behind, not even $CAUSE$!",
+
+	L"We all get the same. If you used up yours already that's your problem.",
+	L"What does it even matter to you? Don't you have something to do?",
+	L"Hey, $CAUSE$ needs to ease the stress, ok?",
+	L"If you don't have any proof, don't throw around accusations, $VICTIM$.",
+
+	L"Someone had take the lead and $CAUSE$ did it. Did you have a better plan?",
+	L"Quit whining about the money, you get more than enough yourself!",
+	L"You're just making up an excuse for your poor marksmanship.",
+	L"Don't be such a wuss. This is war!",
+
+	L"Patched together again? Good, now move!",
+	L"Yeah, enough booze for you today.",
+	L"Whatever. We still have a job to do, so this party is over for you, $VICTIM$.",
+	L"Relax, it's just a bit of booze",
+
+	L"Jeez $VICTIM$, why so uptight all of a sudden? Anything happened?",
+	L"So you depend on others to do your job? Then what good are you?!",
+	L"Don't let it go to your head.",
+	L"I don't think so...",
+
+	L"Ugh. What now...",
+	L"You're not getting away this easy.",
+	L"You're just asking for trouble, right?",
+	L"No reason to be so stiff about it.",
+
+	L"Pfft. Don't make a fuss out of it.",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
+{
+	L"Yeah, I saw it too!",
+	L"Yeah, mind your own business, $CAUSE$!",
+	L"Drop it, $CAUSE$, who are you to tell us hat to do?!",
+	L"Yeah, you guys are ugly!",
+
+	L"And your contract ends so soon, $CAUSE$... I hope you get an extension.",
+	L"We were rockin' it until that point.",
+	L"Yeah. The poor sod never had a chance. Damn.",
+	L"We have to move fast, the enemy won't wait for us!",
+
+	L"If $CAUSE$ shares, I want some too!",
+	L"Really $CAUSE$. This is a military organization and not a ward.",
+	L"How unprofessional.",
+	L"So thats the kind of people were stuck with, $VICIM$? I better watch my wallet then.",
+
+	L"Well, we aren't going to win this war at this rate...",
+	L"In all honesty, $VICTIM$, I think you should adjust your rate!",
+	L"Yeah, this smells of cronyism to me.",
+	L"Wow. Are you trying to be a jerk, $CAUSE$, or is this normal for you?",
+
+	L"It'S good to have someone watching your back. That's what teamwork is all about.",
+	L"Hoho, party!",
+	L"Heeeey... this is actually kinda nice for a change.",
+	L"Hey keep it down over there, okay?",
+
+	L"This party was cool until $CAUSE$ ruined it!",
+	L"Indeed. Way to let $VICTIM$ hang!",
+	L"Hey, don't forget about me!",
+	L"Yeah, totally!",
+
+	L"Hum. Never saw that coming.",
+	L"Glad you guys are not angry anymore.",
+	L"Guess you're not getting away that easy, $CAUSE$.",
+	L"Yeah, keep it down, will ya?",
+
+	L"Yeah, you won't boss us around anymore!",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
+{
+	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
+	L"This isn't girls college, keep your snickerin to yourself, &CAUSE$.",
+	L"You won't let that stand? Cute. Who ever made you the boss?",
+	L"Then you should change your business. 'Cause its bad.",
+
+	L"Yeah. All that worth hasn't shown yet though.",
+	L"Oh, now YOU got us out? By being the first to leave? How noble of you.",
+	L"Don't talk crap. That was an unarmed civillian. We are here to protect these people!",
+	L"Everybody carries his gear. How do you expect to fight if you can't even carry your gun?",
+
+	L"Why do you have so much food anyway? Do I smell extra rations there?.",
+	L"Well, we are pros, an you're not, $CAUSE$.",
+	L"This is war and not a stoner party. Cut it out, $CAUSE$!",
+	L"HEY! You put that back right now!",
+
+	L"Then take it from me... that wasn't 'commanding' as much as 'handwaving'.",
+	L"Worth it? All you do is pose!",
+	L"If by 'use' you mean 'waste a lot bullets', then yeah, you are a pro.",
+	L"You are and always will be an insensitive jerk, $CAUSE$.",
+
+	L"Jeez. Woken up on the wrong foot today?",
+	L"Party pooper!",
+	L"'I know discipline', said the clueless drunk...",
+	L"You're just as drunk. Beat it, &CAUSE$!",
+
+	L"$CAUSE$! Shut it! You are a disgrace for this unit. Get out and sober up!",
+	L"This isn't some schoolyard sympathy crap. It WAS your fault!",
+	L"Apparently, sometimes even $CAUSE$ is deemed important...",
+	L"Hu? You said you did.",
+
+	L"Oh come down from your high horse, $CAUSE$.",
+	L"Oh come on. $VICTIM$ is letting it go, what's your issue now?",
+	L"Don't be so flippant.",
+	L"Pah. You're the one making all the fuss about it...",
+
+	L"You are certainly nobodies superior!",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
+{
+	L"I saw it, it was clearly enemy fire!",
+	L"Yeah. Man up!",
+	L"Agreed. We can't let our guard down for a single moment!",
+	L"What's that to you, $VICTIM$?",
+
+	L"Aww, that burns, doesn't it, $VICTIM$?",
+	L"I sure di, $CAUSE$. Man, I don't want to go back THERE again.",
+	L"An you took him down nice and clean, good job!",
+	L"Aye, stop complaining. We go through this together or we don't do it at all.",
+
+	L"Right, everyone got enough back at the base...",
+	L"Don't be such a snob, $VICTIM$.",
+	L"Hehe. So true.",
+	L"No idea. All of a sudden $VICTIM$ is all drama.",
+
+	L"We have a clear chain of command, and you sure as hell aren't on top, $VICTIM$!",
+	L"Relax. At least some of us appreciate your service, $CAUSE$.",
+	L"I'll second that!",
+	L"Sometimes you just have to use your surroundings!",
+
+	L"Talk about a no-nonsense approach...",
+	L"You sure like to keep a cool head, $CAUSE$.",
+	L"Yeargh. Dis... gulp! Disciplined like... ehm... us!",
+	L"Leave alcohol to the big ones, okay?",
+
+	L"Word!",
+	L"Yeah, what's with the attitude?",
+	L"Do I smell trouble here??",
+	L"Yeah, don't twist what happened!",
+
+	L"Yeah, you are wrong, $VICTIM$!",
+	L"You tell 'em, $CAUSE$!",
+	L"Who needs principles anyway?",
+	L"Yeah, drop that attitude, $VICTIM$.",
+
+	L"Not sure about that, but yep!",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
+{
+	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
+	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"Can't you two sort this out?",
+	L"Yeah yeah, very dramatic. Are you sure that is the MOST PRESSING issue right now?",
+
+	L"We have limited funds. Someone needs to get paid first, right?",
+	L"We're still alive, this is what counts.",
+	L"This is war. People die all the time... though I'd prefer it if it were less obvious that we are so, ehm, proactive.",
+	L"If you are so annoyed that $CAUSE$ is slow, $VICTIM$, maybe you could lend a hand.",
+
+	L"There's enough food left at the base, so no need to fight, ok?",
+	L"Uhm. Is $CAUSE_GENDER$ okay?",
+	L"I am sure there is a good explanation for this. Am I right, $CAUSE$?",
+	L"Perhaps we could get a raise to resolve this... issue?",
+
+	L"We will not forget their sacrifice. They died so we could fight on.",
+	L"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
+	L"Is that so? Well, I expect superior marksmanship from $CAUSE_GENDER$ in the next battle then.",
+	L"Ehm... what are you two DOING?",
+
+	L"How did you even get wounded? Where did the attack come from?",
+	L"Alright, ladies, party's over, move on!",
+	L"Drink one for me too! But not now, because war.",
+	L"Later, ok?",
+
+	L"Why don#t you two sober up? You're pretty wasted...",
+	L"Zip it, both of you!",
+	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
+	L"Who cares? We have a job to do.",
+
+	L"Can I shut down squad radio, so I don't have to listen to you?",
+	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
+	L"Shut up, both of you!",
+	L"Sigh. More of this?",
+
+	L"Hey. Hey! Both of you, cut it out! What are you doing?",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
+{
+	L"This is war! People get shot all the time! Speaking of... engage!",
+	L"This again? Keep your bickering to yourself, we have no time for this!",
+	L"Meh meh meh. Have any of you losers lsot their bib? You're pathetic. ",
+	L"Nobody wants to hear all this crap...",
+
+	L"You'll all get paid in time. Unless you continue like this. I'm sure there are less annoying mercs out there.",
+	L"The more pressing issue is when will we go back, and finish the job?",
+	L"Who cares? Can't make a cake without breaking a few eggs.",
+	L"If you still have enough breath left to complain, $VICTIM$, you should lend $CAUSE_GENDER$ a hand.",
+
+	L"I wouldn't call that stuff 'tasty', but if you ladies wanna fight about it, fine by me.",
+	L"Bla bla blah. Another notable moment of the crazies squad.",
+	L"You can inject yourself with whatever you like, but only after the battle is over.",
+	L"Shut up! There is more than enough loot for all of us!",
+
+	L"What? This is the business. Screw up and you're dead. They knew the risks. Move on.",
+	L"Everybody gets what the deserve. If you complain, you deserve less.",
+	L"Did it ever occur to you that our supplies are limited? We can't ALL get the one good gun.",
+	L"This is hardly the time to fondle each other, dammit.",
+
+	L"How did you even get wounded? Where did the attack come from?",
+	L"Alright, ladies, party's over, move on!",
+	L"You celebrate already? This in't over yet. Not by a longshot!",
+	L"We might've won this battle, but not this godamn war. So move it, soldier!",
+
+	L"Both of you, shut up! You are a disgrace to this unit!",
+	L"Zip it, both of you!",
+	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
+	L"Who cares? We have a job to do.",
+
+	L"Can I shut down squad radio, so I don't have to listen to you?",
+	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
+	L"shut up, both of you!",
+	L"Sigh. More of this?",
+
+	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
+};
+
+STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
+{
+	L"That's right!",
+	L"Indeed!",
+	L"Exactly that.",
+	L"$CAUSE$ does that all the time.",
+
+	L"$VICTIM$ is right!",
+	L"I was gonna' point that out, too!",
+	L"Glad to see I'm not the only one spooked by $CAUSE$.",
+	L"Ha! So it WAS you, $CAUSE$.",
+
+	L"You're not exactly a teamplayer, huh, $CAUSE$?",
+	L"Now THIS is goin to be interesting...",
+	L"You tell'em, $VICTIM$!",
+	L"Agreeing with $VICTIM$ here...",
+
+	L"Once again, $CAUSE$ is to blame.",
+	L"I couldn't have said it better myself.",
+};
+
+STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
+{
+	L"Now wait a minute...",
+	L"Wait a sec, that's not what right...",
+	L"What? No.",
+	L"That is not what happened.",
+
+	L"Hey, stop blaming $CAUSE$!",
+	L"Oh shut up, $VICTIM$!",
+	L"Nonono, you got that wrong.",
+	L"Whoa. Why so stiff all of a sudden, $VICTIM$?",
+
+	L"And I suppose you never did, $VICTIM$?",
+	L"Hmmmm... no.",
+	L"Great. Let's have an argument. It's not like we have other things to do...",
+	L"You are mistaken!",
+
+	L"You are wrong!",
+	L"Me and $CAUSE$ would never do such a thing.",
+};
+
+STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
+{
+	L"Keep silent",
+	L"Support $VICTIM$",
+	L"Support $CAUSE$",
+	L"Appeal to reason",
+	L"Shut them up",
+};
+
+STR16	szDynamicDialogueText_GenderText[] =
+{
+	L"he",
+	L"she",
+	L"him",
+	L"her",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

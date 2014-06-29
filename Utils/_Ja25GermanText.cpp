@@ -385,7 +385,7 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Kann in Städten Gerüchten nachgehen\n",
 	L"Kann als Informant in Gefängnisse eingeschleust werden\n",
 	L"Kann bei guter Moral den allgemeinen Ruf jeden Tag um %d verbessern\n",
-	L"Erhält +%d auf die Hörweite
+	L"Erhält +%d auf die Hörweite",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
@@ -442,9 +442,9 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"V: Erhält Boni beim Ausbilden von Milizen und kann besser mit Menschen reden.\nN: Erhält keinen Moralzuwachs für Aktionen anderer Söldner.",
 	L"V: Lernt durch eigenes Training und Ausbildung etwas schneller.\nN: Hat weniger Unterdrückungs- und Angstresistenz.",
 	L"V: Verbraucht etwas weniger Energie, außer bei medizinischen und technischen Aufgaben sowie einer anspruchsvollen Ausbildung.\nN: Weisheit, Führungskraft, Sprengstoff-, Mechanik- und Medizinkenntnisse entwickeln sich langsamer.",
-	L"V: Hat eine leicht erhöhte Trefferchance bei Feuerstößen und richtet etwas mehr Schaden im Nahkampf an.\n   Erhält ein wenig mehr Moralzuwachs beim Töten.\nN: Erledigt Aufgaben, die Geduld erfordern schlechter (Reparatur, Schlösser knacken, Fallen entschärfen, Patientenversorgung und Milizausbildung).
+	L"V: Hat eine leicht erhöhte Trefferchance bei Feuerstößen und richtet etwas mehr Schaden im Nahkampf an.\n   Erhält ein wenig mehr Moralzuwachs beim Töten.\nN: Erledigt Aufgaben, die Geduld erfordern schlechter (Reparatur, Schlösser knacken, Fallen entschärfen, Patientenversorgung und Milizausbildung).",
 	L"V: Erhält Boni für Aufgaben, die Geduld erfordern (Reparatur, Schlösser knacken, Fallen entschärfen, Patientenversorgung und Milizausbildung).\nN: Erhält seltener Unterbrechungen im Kampf.",
-	L"V: Erhöhte Resistenz gegenüber Unterdrückungsfeuer und Panikanfällen.\n    Verliert weniger Moral durch Verwundung oder Todesfälle im Team.\nN: Wird leichter getroffen, und kann seltener Feindfeuer durch schnelle Bewegung ausweichen.",
+	L"V: Erhöhte Resistenz gegenüber Unterdrückungsfeuer und Panikanfällen.\nVerliert weniger Moral durch Verwundung oder Todesfälle im Team.\nN: Wird leichter getroffen, und kann seltener Feindfeuer durch schnelle Bewegung ausweichen.",
 	L"V: Erhält Moralzuwachs für nichtkämpferische Tätigkeiten (Außnahme: Milizausbildung).\nN: Erhält keinen Moralzuwachs für das Töten von Gegnern.",
 	L"V: Hat eine höhere Chance, Statusschäden anzurichten, und kann besonders fiese Wunden verursachen.\n   Erhält mehr Moral für erfolgreiche Statusschäden.\nN: Kann schlechter mit Leuten reden. Die Moral sinkt ohne Kampf schneller.",
 	L"V: Ist leistungsfähiger, wenn Söldner des anderen Geschlechts in der Nähe sind.\nN: Die Moral anderer naher Söldner des gleichen Geschlechts steigt langsamer.",
@@ -457,9 +457,9 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Erleidet allein in schwierigen Situationen Panikattacken",
 	L"Zeigt schlechtere Leistung unter Tage",
 	L"Kann bei Schwimmversuchen leicht ertrinken",
-	L"Erträgt den Anblick großer Insekten nicht und\nzeigt etwas schlechtere Leistung in Wüsten- oder tropischen oder Sektoren
+	L"Erträgt den Anblick großer Insekten nicht und\nzeigt etwas schlechtere Leistung in Wüsten- oder tropischen oder Sektoren",
 	L"Vergisst manchmal seine Befehle und verliert dadurch im Kampf einen Teil seiner APs.",
-	L"Dreht manchmal durch und schießt dabei hin und wieder wild um sich.\nVerliert Moral, wenn das mit der ausgerüsteten Waffe nicht möglich ist.
+	L"Dreht manchmal durch und schießt dabei hin und wieder wild um sich.\nVerliert Moral, wenn das mit der ausgerüsteten Waffe nicht möglich ist.",
 	L"Deutlich geringere Hörweite.",
 	L"Geringere Sichtweite.",
 };
