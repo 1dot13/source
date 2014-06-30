@@ -126,7 +126,7 @@
     <ClCompile Include="Dialogue Control.cpp" />
     <ClCompile Include="DisplayCover.cpp" />
     <ClCompile Include="Drugs And Alcohol.cpp" />
-    <ClInclude Include="DynamicDialogue.cpp" />
+    <ClCompile Include="DynamicDialogue.cpp" />
     <ClCompile Include="End Game.cpp" />
     <ClCompile Include="Enemy Soldier Save.cpp" />
     <ClCompile Include="EnemyItemDrops.cpp" />

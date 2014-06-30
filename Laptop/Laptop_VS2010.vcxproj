@@ -132,7 +132,7 @@
     <ClCompile Include="CampaignStats.cpp" />
     <ClCompile Include="CharProfile.cpp" />
     <ClCompile Include="DropDown.cpp" />
-    <ClInclude Include="DynamicDialogueWidget.cpp" />
+    <ClCompile Include="DynamicDialogueWidget.cpp" />
     <ClCompile Include="email.cpp" />
     <ClCompile Include="Encyclopedia_Data_new.cpp" />
     <ClCompile Include="Encyclopedia_new.cpp" />

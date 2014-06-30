@@ -249,9 +249,6 @@
     <ClInclude Include="CampaignStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicDialogueWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicDialogueWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -516,6 +513,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_CampaignStatsEvents.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicDialogueWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="merccompare.cpp">

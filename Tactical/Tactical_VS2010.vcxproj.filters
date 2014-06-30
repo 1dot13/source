@@ -270,9 +270,6 @@
     <ClInclude Include="DynamicDialogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicDialogue.cpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Air Raid.cpp">
@@ -675,6 +672,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VehicleMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicDialogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
