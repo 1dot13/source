@@ -5818,7 +5818,7 @@ STR16	gzGIOScreenText[] =
 	L"Manipulacja ekwipunkiem kosztuje punkty akcji",
 
 	L"Nowy system szans trafienia",
-	L"Ulepszony system przerwań,
+	L"Ulepszony system przerwań",
 	L"Historie najemników",
 	L"System pożywienia",
 	L"Wielkość zasobów Bobby'ego Ray'a",

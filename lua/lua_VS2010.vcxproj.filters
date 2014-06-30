@@ -30,10 +30,18 @@
     <ClInclude Include="lwstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lua_class_interface.h" />
-    <ClInclude Include="lua_function.h" />
-    <ClInclude Include="lua_state.h" />
-    <ClInclude Include="lua_table.h" />
+    <ClInclude Include="lua_class_interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lua_env.cpp">
@@ -51,9 +59,17 @@
     <ClCompile Include="lua.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lua_class_interface.cpp" />
-    <ClCompile Include="lua_function.cpp" />
-    <ClCompile Include="lua_state.cpp" />
-    <ClCompile Include="lua_table.cpp" />
+    <ClCompile Include="lua_class_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
