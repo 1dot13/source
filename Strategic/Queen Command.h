@@ -20,6 +20,7 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
+UINT16 NumEnemyTanksInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks );

@@ -271,6 +271,47 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	return ubNumTroops;
 }
 
+UINT16 NumEnemyTanksInSector( INT16 sSectorX, INT16 sSectorY )
+{
+	SECTORINFO *pSector;
+	GROUP *pGroup;
+	UINT8 ubNum;
+
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		 sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		 sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		 sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return (0);
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+	ubNum = (UINT16)(pSector->ubNumTanks);
+
+	// TODO
+	//if ( is_networked )
+		//ubNumTroops += numenemyLAN( (UINT8)sSectorX, (UINT8)sSectorY ); //hayden
+
+	pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			ubNum += pGroup->pEnemyGroup->ubNumTanks;
+		}
+		pGroup = pGroup->next;
+	}
+
+	return ubNum;
+}
+
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	SECTORINFO *pSector;
