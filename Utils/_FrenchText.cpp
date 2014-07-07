@@ -274,7 +274,7 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"Voir aéroport.",
 	L"Voir les extérieurs.",
 	L"Voir les sous-sols.",
-	L"Voir secteur avec une/des installation(s)\n[|B|G] Suivant\n[|B|D] Réinitialise filtre.",
+	L"Voir secteur avec installation(s)\n[|B|G] Suivant\n[|B|D] Réinitialise filtre.",
 	L"Voir autre secteur.",
 };
 
@@ -479,7 +479,7 @@ STR16			BoxFilter[] =
 	L"Blindage",
 
 	// Misc
-	L"Couteau",
+	L"A/blanche",
 	L"Arme/Jet",
 	L"Mêlée",
 	L"Grenade",
@@ -712,8 +712,8 @@ STR16 iEditorTaskbarInternalText[]=
 	L"|./|, : Cycle entre les dimensions 'largeur : xx'\n|P|g |U|p/|P|g |D|n : case précédente/suivante pour l(es)'objet(s) sélectionné(s)/en méthode intelligente", //Buildings fasthelp text
 	L"|E|S|P|A|C|E : Sélectionne l'objet suivant\n \n|C|T|R|L+|/ : Place le nouveau objet sous le curseur de la souris\n|/ : Place le même objet sous le curseur de la souris", //Items fasthelp text
 	L"|1-|9 : Pose de waypoints\n|C|T|R|L+|C/|C|T|R|L+|V : Copie/colle mercenaire", //Mercs fasthelp text
-	L"|C|T|R|L+|G : Va à la case\n|M|A|J: Scroll beyond map boundary\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text // TODO.Translate
-	L"|C|T|R|L+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text	// TODO.Translate
+	L"|C|T|R|L+|G : Va à la case\n|M|A|J : fait défiler la carte au-delà de ses limites\n \n|I : (dés)active la carte vue de dessus\n|J : (dés)active l'affichage des terrains élevés\n|K : (dés)active les marqueurs de terrain élevé\n|M|A|J+|L : (dés)active les points d'angle de la carte\n|M|A|J+|T : (dés)active les feuillages\n|U : (dés)active la montée du monde\n \n|./|, : Cycle entre les dimensions 'largeur : xx'", //Map Info fasthelp text
+	L"|C|T|R|L+|N : Crée une nouvelle carte\n \n|F|5 : Montre le résumé des informations/Carte du monde\n|F|1|0 : Retire toutes les lumières\n|F|1|1 : recule les horaires\n|F|1|2 : Efface les horaires\n \n|M|A|J+|R : (dés)active les placements aléatoires basés sur la quantité du/des objet(s) sélectionné(s)\n \nOptions en ligne de commande\n|-|F|A|I|R|E|C|A|R|T|E|S : Génère la carte de type radar\n|-|F|A|I|R|E|C|A|R|T|E|S|C|N|V : Génère la carte de type radar ainsi que le couvert pour la dernière version", //Options fasthelp text
 };
 
 //Editor Taskbar Utils.cpp
@@ -907,7 +907,7 @@ STR16 EditMercAttitudes[6] =
 STR16 pDisplayEditMercWindowText[] =
 {
 	L"Nom mercenaire :", //0
-	L"Ordres :",
+	L"Ordre :",
 	L"Attitude de combat :",
 };
 
@@ -1718,7 +1718,7 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"Aucun",
 	L"Retirer chargeur",
-	L"Accessoires ",
+	L"Accessoire(s) ",
 	
 	//You cannot use "item(s)" and your "other item" at the same time.
 	//Ex:  You cannot use sun goggles and your gas mask at the same time.
@@ -1741,7 +1741,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"JE NE CROIS PAS !",
 	L"Pour utiliser l'hélicoptère de Skyrider, vous devez ASSIGNER vos mercenaires au VÉHICULE.",
 	L"%s ne peut recharger qu'UNE arme",
-	L"Tour des chats sauvages",
+	L"Tour des chats s.",
 	L"automatique",
 	L"Pas de tir auto",
 	L"précis",
@@ -1949,20 +1949,20 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Élève",
 	L"Déplace les objets",	// move items
 	L"Renseignement",	//!!! Idem ? -> The current translation is OK
-	L"Mange",		// eating at a facility (cantina etc.)
+	L"Mange",	 // eating at a facility (cantina etc.)
 	L"Repos",
-	L"Interroge prisonier(s)",		// Flugente: interrogate prisoners
+	L"Interroge prisonier(s)",	 // Flugente: interrogate prisoners
 	L"Mort(e)",
 	L"Invalide",
 	L"Capturé(e)",
 	L"Hôpital", 
 	L"Vide",	// Vehicle is empty
-	L"Infiltré",	// facility: undercover prisoner (snitch)  // TODO.Translate //A voir fini (to see finished)
-	L"Répand une propagande",   // facility: spread propaganda  // TODO.Translate //A voir fini (to see finished)
-	L"Fait de la propagande",   // facility: spread propaganda (globally)  // TODO.Translate //A voir fini (to see finished)
-	L"Collecte les rumeurs",			// facility: gather rumours	  // TODO.Translate //A voir fini (to see finished)
-	L"Propagande",	     // spread propaganda  // TODO.Translate //A voir fini (to see finished)
-	L"Rumeur",			// gather information  // TODO.Translate //A voir fini (to see finished)
+	L"Infiltré",	// facility: undercover prisoner (snitch) // TODO.Translate //A voir fini (to see finished)
+	L"Répand une propagande", // facility: spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Fait de la propagande", // facility: spread propaganda (globally) // TODO.Translate //A voir fini (to see finished)
+	L"Collecte les rumeurs",	 // facility: gather rumours	 // TODO.Translate //A voir fini (to see finished)
+	L"Propagande",	 // spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Rumeur",	 // gather information // TODO.Translate //A voir fini (to see finished) 
 	L"Commande",	// militia movement orders
 };
 
@@ -2006,18 +2006,18 @@ STR16 pLongAssignmentStrings[] =
 	L"Déplacer les objets",	// move items
 	L"Renseignement",	//!!! Idem ? -> Current translation is OK
 	L"Repos",
-	L"Interroger captif(s)",		// Flugente: interrogate prisoners
+	L"Interroger captif(s)",	 // Flugente: interrogate prisoners
 	L"Mort(e)",
 	L"Invalide",
 	L"Capturé(e)",
 	L"Hôpital", // patient in a hospital 
 	L"Vide",	// Vehicle is empty
-	L"Infiltré", 	// facility: undercover prisoner (snitch)  // TODO.Translate //A voir fini (to see finished)
-	L"Répandre une propagande", 	// facility: spread propaganda  // TODO.Translate //A voir fini (to see finished)
-	L"Faire de la propagande",  	// facility: spread propaganda (globally)   // TODO.Translate //A voir fini (to see finished)
-	L"Récolter les rumeurs",			// facility: gather rumours   // TODO.Translate //A voir fini (to see finished)
-	L"Propagande",  	// spread propaganda
-	L"Rumeurs", 		// gather information
+	L"Infiltré", // facility: undercover prisoner (snitch) // TODO.Translate //A voir fini (to see finished)
+	L"Répandre une propagande", // facility: spread propaganda // TODO.Translate //A voir fini (to see finished)
+	L"Faire de la propagande", // facility: spread propaganda (globally) // TODO.Translate //A voir fini (to see finished)
+	L"Récolter les rumeurs",	 // facility: gather rumours // TODO.Translate //A voir fini (to see finished)
+	L"Propagande", // spread propaganda
+	L"Rumeurs", // gather information 
 	L"Commander",	// militia movement orders
 };
 
@@ -2171,7 +2171,7 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Tir d'artillerie",
 	L"Brouiller les communications",
 	L"Balayer les fréquences",
-	L"Écouter les communications",
+	L"Écouter les alentours",
 	L"Appeler des renforts",
 	L"Éteindre la radio",
 
@@ -2402,7 +2402,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Grenade lancée : %d\n",
 	L"Couteau lancé : %d\n",
 	L"Attaque à l'arme blanche : %d\n",
-	L"Attaque au corps à corps : %d\n",
+	L"Attaque à mains nues : %d\n",
 	L"Tir réussi : %d\n",
 
 	L"Serrure crochetée : %d\n",
@@ -2463,7 +2463,7 @@ STR16 gzMercSkillText[] =
 	L"Voleur",
 	L"Arts martiaux",
 	L"Arme blanche",
-	L"Tireur isolé",
+	L"Tireur d'élite",
 	L"Camouflage",					
 	L"(Expert)",
 };
@@ -2474,13 +2474,12 @@ STR16 gzMercSkillTextNew[] =
 {
 	// Major traits
 	L"Aucune spécialité",
-
 	L"Arme automatique",
 	L"Arme lourde",
 	L"Tireur d'élite",
-	L"Éclaireur",// Hunter
+	L"Reconnaissance",// Hunter
 	L"Flingueur",
-	L"Arts martiaux",
+	L"Combat à mains nues",
 	L"Meneur",
 	L"Technicien",
 	L"Médecin",
@@ -2743,7 +2742,7 @@ STR16 gpStrategicString[] =
 	L"Retraite",							//STR_PB_RETREATMERCS_BTN,
 
 	//The different headers(titles) for the prebattle interface.
-	L"ENNEMI REPÉRÉ",							//STR_PB_ENEMYENCOUNTER_HEADER,
+	L"ENNEMIS REPÉRÉS",							//STR_PB_ENEMYENCOUNTER_HEADER,
 	L"ATTAQUE ENNEMIE",							//STR_PB_ENEMYINVASION_HEADER, // 30
 	L"EMBUSCADE !",								//STR_PB_ENEMYAMBUSH_HEADER
 	L"VOUS PÉNÉTREZ EN SECTEUR ENNEMI",				//STR_PB_ENTERINGENEMYSECTOR_HEADER
@@ -2873,11 +2872,11 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
 	L"|P|o|r|t|é|e\n \nC'est la portée de l'arme. Un tir, au-delà de\ncette valeur, donnera des pénalités.\n \nValeur élevée recommandée.",
 	L"|D|é|g|â|t\n \nC'est la valeur des dégâts. L'arme infligera\ngénéralement cette valeur (ou presque)\nà toutes cibles non protégées.\n \nValeur élevée recommandée.",
-	L"P|r|é|c|i|s|i|o|n\n \nC'est la conception particulière de\nchaque arme qui donne ce bonus/pénalité\naux chances de toucher.\n \nValeur élevée recommandée.",
+	L"|P|r|é|c|i|s|i|o|n\n \nC'est la conception particulière de\nchaque arme qui donne ce bonus/pénalité\naux chances de toucher.\n \nValeur élevée recommandée.",
 	L"|V|i|s|é|e\n \nC'est le nombre maximum de clics pour viser.\n \nChaque clic donnera un tir plus précis.\n \nValeur élevée recommandée.",
 	L"|V|i|s|é|e |m|o|d|i|f|i|é|e\n \nLes lunettes de visée améliorent l'efficacité\nde l'arme à chaque clic.\n \nValeur élevée recommandée.",
 	L"|P|o|r|t|é|e |m|i|n|i|m|u|m |d|u |v|i|s|e|u|r\n \nC'est la portée minimum pour tirer\navec un viseur ou +.\n \nSi la cible est plus près que ce nombre de cases,\nles clics pour viser resteront à leur efficacité\npar défaut.\n \nValeur faible recommandée.",
-	L"|F|a|c|t|e|u|r |d|e |d|é|g|â|t|s\n \nLa valeur des chances de toucher une\ncible avec les accesoires de l'arme.\n \nValeur élevée recommandée.",
+	L"|F|a|c|t|e|u|r |d|e |d|é|g|â|t|s\n \nLa valeur des chances de toucher une\ncible avec les accessoires de l'arme.\n \nValeur élevée recommandée.",
 	L"|P|o|r|t|é|e |o|p|t|i|m|a|l|e |d|u |l|a|s|e|r\n \nC'est la portée (en cases) pour\nune pleine efficacité du laser.\n \nSi la cible est au-delà de ce nombre, le laser\nfournira un faible bonus ou pas du tout.\n \nValeur élevée recommandée.",
 	L"|C|a|c|h|e|-|f|l|a|m|m|e\n \nQuand cette icône apparaît, ça signifie que\nl'arme ne fait pas d'éclair lors du tir.\nAinsi, le tireur sera moins repérable.",
 	L"|S|o|n|o|r|i|t|é\n \nDistance (en cases) de l'intensité sonore\nque fait l'arme lors d'un tir.\n \nValeur faible recommandée.\n \n(Sauf pour attirer les ennemis délibérément...).",
@@ -3210,7 +3209,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Changer d'escouade (|M|A|J| |E|S|P|A|C|E)",
 	L"Conduire",
 	L"N/A",						//this is an acronym for "Not Applicable." 
-	L"Utiliser (Mains nues)",
+	L"Utiliser (À mains nues)",
 	L"Utiliser (Arme à feu)",
 	L"Utiliser (Arme blanche)",
 	L"Utiliser (Explosifs)",
@@ -3224,7 +3223,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s n'est pas disponible.",
 	L"%s est couvert de bandages.",
 	L"%s n'a plus de bandages.",
-	L"Ennemi dans le secteur !",
+	L"Ennemis dans le secteur !",
 	L"Pas d'ennemi en vue.",
 	L"Pas assez de points d'action.",
 	L"Personne n'utilise une télécommande.",
@@ -3537,7 +3536,7 @@ STR16 pwTownInfoStrings[] =
 	L"Formation ",				// 10 // state of civilian training in town
 	L"Milice ", 					// the state of the trained civilians in the town
 	L"Formation mobile ",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
-	L"Prisoners",				// Flugente: display number of prisoners	// TODO.Translate
+	L"Prisonniers ",				// Flugente: display number of prisoners
 };
 
 // Mine strings
@@ -3894,7 +3893,7 @@ STR16 pSkyriderText[] =
 	L"",//unused
 	L"",//unused
 	L"Skyrider est prêt à redécoller.", // Skyrider was grounded but has been freed
-	L"Skyrider n'a pas de passagers. Si vous voulez envoyer des mercenaires dans ce secteur, n'oubliez pas de les assigner à l'hélicoptère.",
+	L"Skyrider n'a pas de passager. Si vous voulez envoyer des mercenaires dans un autre secteur, n'oubliez pas de les assigner à l'hélicoptère.",
 };
 
 
@@ -3965,7 +3964,7 @@ STR16 pMapErrorString[] =
 //6-10
 	L"doit être escorté. Mettez-le dans une escouade.", // merc can't move unescorted .. for a male
 	L"doit être escortée. Mettez-la dans une escouade.", // for a female
-	L"Ce mercenaire n'est pas encore arrivé dans %s !",
+	L"Ce mercenaire n'est pas encore arrivé à %s !",
 	L"Il faudrait d'abord revoir les termes du contrat...",
 	L"",
 //11-15
@@ -3984,7 +3983,7 @@ STR16 pMapErrorString[] =
 	L"La mine en %s a été reprise par les forces de Deidranna !",
 	L"Les forces de Deidranna viennent d'envahir le site SAM en %s",
 	L"Les forces de Deidranna viennent d'envahir %s",
-	L"Les forces de Deidranna ont été aperçues en %s.",
+	L"Les forces de Deidranna ont été repérées en %s.",
 	L"Les forces de Deidranna viennent de prendre %s.",
 //26-30
 	L"L'un au moins de vos mercenaires n'est pas fatigué.",
@@ -4951,7 +4950,7 @@ STR16			BobbyRText[] =
 	//Popup that tells the player that they can only order 10 items at a time
 	
 	L"Pas de chance ! Vous ne pouvez commander que " ,//First part
-	L" objets à la fois. Si vous désirez passer une commande plus importante, il vous faudra remplir un nouveau bon de commande.",
+	L" objets différents en une fois. Si vous désirez passer une commande plus importante, il vous faudra remplir un nouveau bon de commande.",
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -5493,7 +5492,7 @@ STR16		zMarksMapScreenText[] =
 	L"Ce mercenaire n'est pas assuré.",
 	L"Écran carte",		// 24
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"Vous n'avez actuellement aucune Milice Mobile. Retournez à ce mode du vue quand vous en aurez recruté.",
+	L"Vous n'avez actuellement aucune milice mobile. Retournez à ce mode du vue quand vous en aurez recruté.",
 	L"Cette vue montre où votre milice mobile peut aller ou pas. Gris = La milice mobile refuse d'y aller. ROUGE = La milice mobile peut y aller, mais vous avez dit de ne pas y aller. JAUNE = La milice mobile peut entrer dans ce secteur, mais ne peut pas en sortir. VERT = la milice mobile peut y aller librement. Clic droit sur un secteur vert/jaune/rouge pour changer de couleur.",
 };
 
@@ -5774,7 +5773,7 @@ STR16	gzGIOScreenText[] =
 	L"Charge jeu multi",
 	L"CONFIGURATION DU JEU (Les paramètres serveur seulement prennent effet)",
 	// Added by SANDRO
-	L"Compétences",
+	L"Compétences (Traits)",
 	L"Anciennnes",
 	L"Nouvelles",
 	L"Nombre max. de merc IMP",
@@ -5784,7 +5783,7 @@ STR16	gzGIOScreenText[] =
 	L"4",
 	L"5",
 	L"6",
-	L"Objets lâchés par les ennemis",
+	L"Objets lâchés par l'ennemi",
 	L"Non",
 	L"Oui",
 #ifdef JA2UB
@@ -6076,7 +6075,7 @@ STR16 pMessageStrings[] =
 	L"Impossible de donner %s à %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
-	L" combiné]",
+	L" combiné(s)]",
 
 	//Cheat modes
 	L"Triche niveau 1",
@@ -6560,28 +6559,28 @@ STR16 gzTooltipStrings[] =
 	L"%s|Ordres : %d\n",
 	L"%s|Attitude : %d\n",
 	L"%s|P|A |Actuel : %d\n",
-	L"%s|Santé |Actuel : %d\n",
-	L"%s|Souffle |Actuel : %d\n",
+	L"%s|Santé |Actuelle : %d\n",
+	L"%s|Énergie |Actuelle : %d\n",
 	L"%s|Moral |Actuel : %d\n",
 	L"%s|C|hoc |Actuel : %d\n",
-	L"%s|V|aleur de suppression |Actuelle : %d\n",
+	L"%s|V|aleur de |S|uppression |Actuelle : %d\n",
 	// Full info
 	L"%s|Casque : %s\n",
 	L"%s|Veste : %s\n",
 	L"%s|Pantalon : %s\n",
 	// Limited, Basic
-	L"|Armure : ",
-	L"Casque",
-	L"Veste",
-	L"Pantalon",
-	L"usé",
-	L"pas d'armure",
+	L"|Protection : ",
+	L"casque",
+	L"veste",
+	L"pantalon",
+	L"oui",
+	L"pas de protection",
 	L"%s|L|V|N : %s\n",
 	L"Pas de lunette de vision de nuit",
-	L"%s|Masque |à |Gaz : %s\n",
+	L"%s|Masque à |Gaz : %s\n",
 	L"pas de masque à gaz",
-	L"%s|Position |tête |1 : %s\n",
-	L"%s|Position |tête |2 : %s\n",
+	L"%s|Emplacement |1 |tête : %s\n",
+	L"%s|Emplacement |2 |tête : %s\n",
 	L"\n(dans le sac de transport) ",
 	L"%s|Arme : %s ",
 	L"pas d'arme",
@@ -6595,22 +6594,22 @@ STR16 gzTooltipStrings[] =
 	L"pas de casque",
 	L"pas de veste",
 	L"pas de pantalon",
-	L"|Armure : %s\n", 
+	L"|Protection : %s\n", 
 	 // Added - SANDRO
 	L"%s|Compétence 1 : %s\n",
 	L"%s|Compétence 2 : %s\n", 
 	L"%s|Compétence 3 : %s\n",
-    // Additional suppression effects - sevenfm		// TODO.Translate
-    L"%s|A|Ps lost due to |S|uppression: %d\n",
-    L"%s|Suppression |Tolerance: %d\n",
-    L"%s|Effective |S|hock |Level: %d\n",
-    L"%s|A|I |Morale: %d\n",
+    // Additional suppression effects - sevenfm	
+    L"%s|P|A perdu(s) en raison de |S|uppression : %d\n",
+    L"%s|Tolérance de |Suppression : %d\n",
+    L"%s|Niveau |Effectif du |C|hoc : %d\n",
+    L"%s|Moral de l'|I|A : %d\n",
 };
 
 STR16 New113Message[] =
 {
 	L"La tempête débute.",
-	L"Tempête finie.",
+	L"La tempête est finie.",
 	L"Il commence à pleuvoir.",
 	L"La pluie cesse.",
 	L"Attention aux tireurs isolés...",
@@ -6623,7 +6622,7 @@ STR16 New113Message[] =
 	L"S/CA",
 	L"S/CA R",
 	L"S/CA A",
-	L"BAYONET",
+	L"BAÏONNETTE",
 	L"Tireur embusqué !",
 	L"Impossible de partager l'argent avec un objet sélectionné.",
 	L"Arrivée de nouvelles recrues est déroutée au secteur %s, car le point d'arrivée prévu %s est sous contrôle ennemi.",
@@ -6663,25 +6662,25 @@ STR16 New113Message[] =
 	L"Astuce : %s",
 	L"Moral du joueur : %d - Moral de l'ennemi : %6.0f",		// Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 
-	L"Cannot use skill!",				// TODO.Translate
-	L"Cannot build while enemies are in this sector!",
-	L"Cannot spot that location!",
-	L"Incorrect GridNo for firing artillery!",
-	L"Radio frequencies are jammed. No communication possible!",
-	L"Radio action failed!",
-	L"Not enough mortar shells in sector to start a barrage!",
-	L"No signal shell item found in Items.xml!",
-	L"No mortars found, cannot commence barrage!",
-	L"Already jamming signal, no need to do so again!",
-	L"Already listening for nearby sounds, no need to do so again!",
-	L"Already trying to spot, no need to do so again!",
-	L"Already scanning for jam signals, no need to do so again!",
-	L"%s could not apply %s to %s.",
-	L"%s orders reinforcements from %s.",
-	L"%s radio set is out of energy.",
-	L"a working radio set",
-	L"a binocular",
-	L"patience",
+	L"Compétence inutilisable dans ces conditions !",
+	L"Impossible de construire pendant que des ennemis sont dans le secteur !",
+	L"Impossible de faire un repérage radio à cet endroit !",
+	L"Numéro de grille incorrect pour un tir d'artillerie !",
+	L"Les fréquences radio sont brouillées. Pas de communications possibles !",
+	L"L'action radio a échoué !",
+	L"Pas assez d'obus de mortier dans le secteur pour un tir de barrage !",
+	L"Aucun obus éclairant trouvé dans Items.xml !",
+	L"Aucun mortier trouvé, tir de barrage impossible !",
+	L"Brouillage radio déjà en cours, inutile d'en lancer un autre !",
+	L"Écoute des sons alentour déjà en cours, inutile d'en lancer une autre !",
+	L"Repérage radio déjà en cours, inutile d'en lancer un autre !",
+	L"Balayage des fréquences déjà en cours, inutile d'en lancer un autre !",
+	L"%s n'a pas pu appliquer %s à %s.",
+	L"%s demande des renforts depuis %s.",
+	L"%s a épuisé la batterie de sa radio.",   // TODO.Translate //A voir fini (to see finished)
+	L"une radio",
+	L"des jumelles",
+	L"de la patience",
 };
 
 STR16 New113HAMMessage[] = 
@@ -6794,7 +6793,7 @@ STR16	New113AIMMercMailTexts[] =
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
-	L"Tireur isolé : Des yeux de faucon, vous pouvez tirer les ailes d'une mouche à cent mètres ! ± ",
+	L"Tireur d'élite : Des yeux de faucon, vous pouvez tirer les ailes d'une mouche à cent mètres ! ± ",
 	// Camouflage
 	L"Camouflage : Sans compter qu'à côté de vous, les buissons semblent synthétiques ! ± ",	
 	// SANDRO - new strings for new traits added
@@ -6832,8 +6831,8 @@ STR16 NewInvMessage[] =
 	L"Êtes-vous sûr de vouloir vendre tous les articles du secteur ?",
 	L"Êtes-vous sûr de vouloir supprimer tous les articles du secteur ?",
 	L"Ne peut pas escalader avec un sac à dos",
-	L"All backpacks dropped",	// TODO.Translate
-	L"All owned backpacks picked up",
+	L"Tous les sacs à dos sont posés à terre",	// TODO.Translate
+	L"Tous les sacs à dos sont ramassés",
 };
 
 // WANNE - MP: Multiplayer messages
@@ -7098,8 +7097,8 @@ STR16 gzIMPColorChoosingText[] =
 {
 	L"IMP : Teint et musculature",
 	L"IMP : Couleurs",
-	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos vêtements. Ainsi que votre physionomie (traits physiques).",
-	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos vêtements.",
+	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos habits. Ainsi que votre physionomie (traits physiques).",
+	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos habits.",
 	L"Cocher ici pour utiliser une prise en main alternative du fusil.",
 	L"\n(Attention : vous devez avoir une grande force pour l'utiliser.)",
 };
@@ -7192,7 +7191,7 @@ STR16 gzFacilityRiskResultStrings[]=
 {
 	L"Force",
 	L"Agilité",
-	L"Dextérite",
+	L"Dextérité",
 	L"Sagesse",
 	L"Santé",
 	L"Tir",
@@ -7750,15 +7749,15 @@ STR16 szUDBAdvStatsTooltipText[]=
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
 	L"\n \nLorsque attaché à une arme de distance, cet objet modifie la\nvaleur de sa précision.\n \nLe gain en précision permet à l'arme de pouvoir toucher une\ncible à des distances plus élevées et plus souvent.\n \nÉchelle : -100 à +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la précision du tireur pour n'importe quel tir avec\nune arme à distance de la valeur suivante.\n \nÉchelle : -100 à +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la précision du tireur pour n'importe quel tir avec\nune arme à distance avec un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la précision du tireur pour n'importe quel tir avec\nune arme de distance de la valeur suivante.\n \nÉchelle : -100 à +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la précision du tireur pour n'importe quel tir avec\nune arme de distance avec un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
 	L"\n \nCet objet modifie le gain de précision, pris à chaque\nniveau de visée supplémentaire, de la valeur suivante.\n \nÉchelle : -100 à +100.\nValeur élevée recommandée.",
 	L"\n \nCet objet modifie le gain de précision, pris à chaque\nniveau de visée, d'un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
 	L"\n \nCet objet modifie le nombre de niveau de visée que cette arme\npeut avoir.\n \nRéduire le nombre de niveau de visée signifie que chaque\nniveau ajoute proportionnellement plus de précision au tir.\nPar conséquent, même les bas niveaux de visée vous\npermettrons de garder une bonne précision avec une vitesse\nélevée pour viser !\n \nValeur faible recommandée.",
-	L"\n \nCet objet modifie la précision maximale du tireur équipé d'une\narme à distance, avec un pourcentage basé sur sa précision\ninitiale.\n \nValeur élevée recommandée.",
-	L"\n \nLorsque attaché à une arme à distance, cet objet modifie sa\ndifficulté de manipulation.\n \nUne meilleure prise en main permet une meilleure précision\nde l'arme, avec ou sans niveaux de visée supplémentaires.\n \nNotez que c'est basé sur le facteur de prise en main des\narmes, qui est plus élevé pour les fusils et armes lourdes\nque les pistolets et armes légères.\n \nValeur faible recommandée.",
+	L"\n \nCet objet modifie la précision maximale du tireur équipé d'une\narme de distance, avec un pourcentage basé sur sa précision\ninitiale.\n \nValeur élevée recommandée.",
+	L"\n \nLorsque attaché à une arme de distance, cet objet modifie sa\ndifficulté de manipulation.\n \nUne meilleure prise en main permet une meilleure précision\nde l'arme, avec ou sans niveaux de visée supplémentaires.\n \nNotez que c'est basé sur le facteur de prise en main des\narmes, qui est plus élevé pour les fusils et armes lourdes\nque les pistolets et armes légères.\n \nValeur faible recommandée.",
 	L"\n \nCet objet modifie la difficulté des tirs hors de la portée de l'arme.\n \nUne valeur élevée peut augmenter la portée maximale de l'arme de\nquelques cases.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la difficulté de toucher une cible en mouvement\navec une arme à distance.\n \nUne valeur élevée peut vous aider à toucher une cible en\nmouvement, même à distance.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la difficulté de toucher une cible en mouvement\navec une arme de distance.\n \nUne valeur élevée peut vous aider à toucher une cible en\nmouvement, même à distance.\n \nValeur élevée recommandée.",
 	L"\n \nCet objet modifie la puissance d'impact de votre arme\nde la valeur suivante.\n \nValeur élevée recommandée.",
 	L"\n \nCet objet modifie la puissance d'impact de votre arme de mêlée\nde la valeur suivante.\n \nCeci s'applique uniquement aux armes de mêlée, tranchantes\nou contondantes.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie sa portée effective.\n \nLa portée maximale dicte essentiellement dans quelle mesure une balle\ntirée par l'arme peut voler avant de commencer à tomber\nbrusquement vers le sol.\n \nValeur élevée recommandée.",
@@ -8018,7 +8017,7 @@ STR16	szCovertTextStr[]=
 	L"L'équipement de %s, soulève quelques suspicions !",
 	L"%s est vu(e) en train de viser %s !",
 	L"%s a percé le déguisement : %s !",
-	L"Aucun vêtement trouvé dans Items.xml !",
+	L"Aucun habit trouvé dans Items.xml !",
 	L"Ça ne fonctionne pas avec l'ancien système de compétences !",
 	L"Pas assez de PA !",
 	L"Mauvaise palette trouvée !",
@@ -8042,8 +8041,8 @@ STR16	szCorpseTextStr[]=
 	L"Ce corps n'a plus de tête :",
 	L"Aucune nourriture trouvée dans Items.xml !",
 	L"Impossible, vous êtes malade ou une personne tordue !",
-	L"Aucun vêtement à prendre !",
-	L"%s ne peut pas prendre les vêtements du corps !",
+	L"Aucun habit à prendre !",
+	L"%s ne peut pas prendre les habits du corps !",
 	L"Ce corps ne peut être pris !",
 	L"Pas de main libre pour le corps !",
 	L"Aucun corps trouvé dans Items.xml !",
@@ -8069,14 +8068,14 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d officers, %d elites, %d regulars and %d admins were interrogated.",	// TODO.Translate
-	L"Prisonnier(s) ayant payé une rançon : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
-	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",   // TODO.Translate. A voir définition (to see finished, definition)
-	L"%d officers, %d elites, %d regulars and %d admins joined our cause.",		// TODO.Translate
-	L"Prisonnier(s) ayant commencé une émeute : %s !",   // TODO.Translate. A voir définition (to see finished, definition)
-	L"Prisonnier(s) envoyé(s) en %s : %d !",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant été interrogé(s) : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant payé une rançon : %d.", 
+	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",
+	L"Prisonnier(s) ayant rejoint notre cause : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",  // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant commencé une émeute en %s !",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"%d prisonnier(s) envoyé(s) en %s !",   // TODO.Translate. A voir définition (to see finished, definition)
 	L"Prisonnier(s) libéré(s) !",
-	L"L'armée a délivré la prison : %s et les prisonniers ont été libérés !",
+	L"L'armée a délivré la prison en %s et les prisonniers ont été libérés !",
 	L"L'ennemi refuse de se rendre !",
 	L"L'ennemi refuse votre reddition... Ils veulent vos têtes !",
 	L"Ce comportement est désactivé dans vos fichiers ini.",
@@ -8108,7 +8107,7 @@ STR16	szInventoryArmTextStr[]=
 STR16		szBackgroundText_Flags[]=
 {
 	L" peut consommer des drogues se trouvant dans son inventaire\n",
-	L" disregard for all other backgrounds\n", // TODO.Translate
+	L" ne tient pas compte des autres passifs\n",
 	L" +1 Niveau dans les souterrains\n",
 	L" peut voler des objets\n",
 
@@ -8425,8 +8424,8 @@ STR16	szSoldierClassName[]=
 
 	L"Civil",
 
-	L"Administrateur",
-	L"Militaire",
+	L"Administratif",
+	L"Soldat régulier",
 	L"Soldat d'élite",
 	L"Char",
 
@@ -8437,8 +8436,8 @@ STR16	szSoldierClassName[]=
 STR16	szCampaignHistoryWebSite[]=
 {
 	L"%s : Conseil de presse",
-	L"%s : Ministère de l'information",
-	L"%s : Mouvement révolutionnaire",
+	L"Ministère de l'information %s",
+	L"Mouvement révolutionnaire à %s",
 	L"The Times International",
 	L"International Times",
 	L"RIS (Renseignements Internationaux Spécialisés)",

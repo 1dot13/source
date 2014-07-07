@@ -30,7 +30,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Électronique",
 	L"Opérations de nuit",
 	L"Lancer",
-	L"Enseigner",
+	L"Instructeur",
 	L"Armes lourdes",
 	L"Armes automatiques",
 	L"Discrétion",
@@ -404,7 +404,7 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"+%d%s de distance maximale lors d'un lancer quelconque\n",	// 10
 	L"+%d%s de chance de toucher lors d'un lancer quelconque\n",
 	L"+%d%s de chance de tuer instantanément en lançant un couteau, si vous n'êtes pas vu ou entendu\n",
-	L"+%d%s de bonus pour entraîner la milice et enseigner aux autres mercenaires\n",
+	L"+%d%s de bonus pour entraîner la milice et enseigner les autres mercenaires\n",
 	L"+%d%s en commandement lors de l'entraînement de la milice mobile\n",
 	L"+%d%s de chance de toucher votre cible avec une roquette/grenade ou un mortier\n",
 	L"La pénalité due au tir en mode automatique est réduite de %d\n",
