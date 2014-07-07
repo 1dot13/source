@@ -1225,6 +1225,8 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Grd lacrymo",
 };
 
+//Item Statistics.cpp
+/*
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Drapeaux M./A.", //0
@@ -1256,6 +1258,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"R",
 	L"S",
 };
+*/
 
 STR16 pSetupGameTypeFlagsText[] =
 {
