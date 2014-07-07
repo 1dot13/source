@@ -5,6 +5,7 @@
   <Description_RUS>Этот файл содержит основные насройки JA2v1.13</Description_RUS>
   <Description_POL></Description_POL>
   <Description_CHI>ja2.ini这个文件控制铁血联盟2 V1.13的综合设定。</Description_CHI>
+  <Description_FRE>C'est le fichier "ja2.ini" qui contient les paramètres par défaut de Jagged Alliance 2 v1.13.</Description_FRE>
   <Sections>
     <Section name="APConstants">
       <Description_ENG>In this section you can change global settings for Jagged Alliance 2 v1.13</Description_ENG>
@@ -12,6 +13,7 @@
       <Description_RUS>Этот раздел отвечает за глобальные настройки JA2v1.13</Description_RUS>
       <Description_POL></Description_POL>
 	  <Description_CHI>这个部分你可以对铁血联盟2 V1.13进行总体设定。</Description_CHI>
+	  <Description_FRE>Dans cette section, vous pouvez configurer les paramètres globaux des PA (Points d'action) pour Jagged Alliance 2 v1.13.</Description_FRE>
       <Properties>
         <Property name="AP_MAXIMUM" datatype="numeric" minvalue="25" maxvalue="250" defaultvalue="100" interval="25">
           <Description_ENG>The maximum number of Action Points a merc may have.                                     
@@ -26,6 +28,10 @@ However, if a value differes from the default value, the game will use this valu
 		  
 你只需要调整 AP_MAXIMUM 值，AP/BP 系统就可以运行。所有其它 AP/BP 游戏会自动调整。
 另外，如果数值和默认值不同，游戏会使用替代值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'action maximum qu'un mercenaire puisse avoir.
+Pour l'équilibre du jeu, il est recommandé de mettre une valeur équivalente à 5 x MAX_AP_CARRIED.
+Veuillez noter : Qu'il vous suffit de changer la valeur de AP_MAXIMUM pour avoir un nouveau système d'PA/PE fonctionnel. Toutes les autres valeurs sont ajustées dynamiquement par le jeu.
+Toutefois, si une valeur diffère de la valeur par défaut, le jeu utilisera cette valeur à la place.</Description_FRE>
         </Property>
         <Property name="AP_MINIMUM" datatype="numeric" minvalue="10" maxvalue="100" defaultvalue="40" interval="10">
           <Description_ENG>The minimum number of Action Points a merc should have.</Description_ENG>
@@ -33,6 +39,7 @@ However, if a value differes from the default value, the game will use this valu
           <Description_RUS>Минимальное количество AP, которое может быть у мерков.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>佣兵可以使用的 AP 下限。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre minimum de PA qu'un mercenaire peut avoir.</Description_FRE>
         </Property>
         <Property name="MIN_APS_TO_INTERRUPT" datatype="numeric" minvalue="1" maxvalue="100" defaultvalue="16" interval="1">
           <Description_ENG>The minimum number of Action Points a soldier (merc, enemy, ...) must have to get an interrupt.</Description_ENG>
@@ -40,6 +47,7 @@ However, if a value differes from the default value, the game will use this valu
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>对方回合时，本方佣兵中断对方行动需要的最低行动点数（行动点数低于此值无法进行中断）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre minimum de PA qu'un personnage (mercenaires, ennemi, etc) doit avoir pour déclencher une interruption.</Description_FRE>
         </Property>
         <Property name="AP_MONSTER_MAXIMUM" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="160" interval="1">
           <Description_ENG>The maximum number of Action Points for Crepitus.</Description_ENG>
@@ -47,6 +55,7 @@ However, if a value differes from the default value, the game will use this valu
           <Description_RUS>Максимальное количество AP, которое может быть у монстров</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>非人类生物每回合可使用的 AP 上限。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre maximum de PA pour les crépitus.</Description_FRE>
         </Property>
         <Property name="AP_VEHICLE_MAXIMUM" datatype="numeric" minvalue="0" maxvalue="400" defaultvalue="200" interval="1">
           <Description_ENG>The maximum number of Action Points for vehicles.</Description_ENG>
@@ -54,6 +63,7 @@ However, if a value differes from the default value, the game will use this valu
           <Description_RUS>Максимальное количество AP, которое может быть у транспорта</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>载具每回合可使用的 AP 上限。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre maximum de PA pour les véhicules.</Description_FRE>
         </Property>
         <Property name="MAX_AP_CARRIED" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>This is the maximum number of Action Points that may be carried over from a previous round.
@@ -64,6 +74,8 @@ It should be no more than 1/5 of AP_MAXIMUM, or game balance may be seriously di
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值是每回合可以保留的上回合剩余 AP 的上限。
 为了游戏平衡，请设定为 AP_MAXIMUM 值的1/5。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre maximum de PA qui seront reportés d'un tour précédent.
+Elle ne doit pas être supérieure à 1/5 de AP_MAXIMUM, ou l'équilibre du jeu peut être sérieusement perturbé.</Description_FRE>
 		</Property>
         <Property name="AP_YOUNG_MONST_FACTOR" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="15" interval="1">
           <Description_ENG>This is a percent adjustments.
@@ -75,6 +87,10 @@ So 9 actually means 90% of whatever APs have been calculated.
           <Description_POL></Description_POL>
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。</Description_CHI>
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour un jeune crépitus.
+9 = Un jeune crépitus aura 90 % de ses PA normaux. 
+15 = 150 %.
+Etc.</Description_FRE>
         </Property>
         <Property name="AP_MONST_FRENZY_FACTOR" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="13" interval="1">
           <Description_ENG>This is a percent adjustments.
@@ -86,6 +102,10 @@ So 9 actually means 90% of whatever APs have been calculated.
           <Description_POL></Description_POL>
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。</Description_CHI>
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour un monstre fou furieux.
+9 = Un jeune crépitus aura 90 % de ses PA normaux. 
+15 = 150 %.
+Etc.</Description_FRE>
         </Property>
         <Property name="AP_CLAUSTROPHOBE" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="9" interval="1">
           <Description_ENG>This is a percent adjustments.
@@ -97,6 +117,10 @@ So 9 actually means 90% of whatever APs have been calculated.
           <Description_POL></Description_POL>
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。</Description_CHI>
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour l'handicap "Claustrophobe".
+9 = Un mercenaire avec l'handicap "Claustrophobe" aura 90 % de ses PA habituels.
+15 = 150 %.
+Etc.</Description_FRE>
         </Property>
         <Property name="AP_AFRAID_OF_INSECTS" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="8" interval="1">
           <Description_ENG>This is a percent adjustments.
@@ -108,6 +132,10 @@ So 9 actually means 90% of whatever APs have been calculated.
           <Description_POL></Description_POL>
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。</Description_CHI>
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour l'handicap "Peur des insectes".
+9 = Un mercenaire avec l'handicap "Peur des insectes" aura 90 % de ses PA habituels face aux crepitus.
+15 = 150 %.
+Etc.</Description_FRE>
         </Property>
         <Property name="AP_WRONG_MAG" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="15" interval="1">
           <Description_ENG>This is a percent adjustments.
@@ -121,6 +149,10 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。
 这个倍数影响在用和武器默认弹容量不同的弹匣装弹时使用的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour le rechargement d'une arme avec un chargeur au format inapproprié.
+9 = Un mercenaire rechargeant son arme avec un chargeur inapproprié utilisera 90 % des PA habituels pour cette tâche.
+15 = 150 %.
+Etc.</Description_FRE>
         </Property>
         <Property name="AP_EXCHANGE_PLACES" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="20" interval="1">
           <Description_ENG>The amount of Action Points that are needed to exchange places with another character.</Description_ENG>
@@ -128,6 +160,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>АР, необходимое для того, чтобы поменяться с кем-либо местами.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>和其他游戏角色交换位置需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour changer de place avec un autre personnage.</Description_FRE>
         </Property>
         <Property name="AP_REVERSE_MODIFIER" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="4" interval="1">
           <Description_ENG>Movement costs are raised by this amount, when moving in reverse.</Description_ENG>
@@ -135,6 +168,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет, насколько увеличивается количество АР, затрачиваемых на движение спиной.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值控制倒行时需要比正常移动多多少 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA supplémentaires pour se déplacer en appuyant sur la touche [ALT] (Pas de côté, reculer...).</Description_FRE>
         </Property>
         <Property name="AP_STEALTH_MODIFIER" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="8" interval="1">
           <Description_ENG>Movement costs are raised by this amount, when being stealthy.</Description_ENG>
@@ -142,6 +176,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет, насколько увеличивается количество АР, затрачиваемых на движение в скрытом режиме.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值控制潜行时比正常移动多多少 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA supplémentaires dans le mode discrétion.</Description_FRE>
         </Property>
         <Property name="AP_STEAL_ITEM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="56" interval="1">
           <Description_ENG>The amount of Action Points that are needed to steal from an enemy.</Description_ENG>
@@ -149,6 +184,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на вытаскивание предмета у противника.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>佣兵对敌人使用“偷窃”时需要多少 AP 。（其实是强抢）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour voler un ennemi.</Description_FRE>
         </Property>
         <Property name="AP_TAKE_BLOOD" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-cost for putting blood into a jar.</Description_ENG>
@@ -156,6 +192,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на наполнение пустой банки кровью.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>把血液装进容器里需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour remplir un bocal avec du sang.
+(NdT : Attention, au moment de la traduction, ce n'est pas le nombre de PA pour remplir un bocal avec du sang).</Description_FRE>
         </Property>
         <Property name="AP_TALK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>The amount of Action Points that are needed to talk to another character.</Description_ENG>
@@ -163,6 +201,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на разговор с другим персонажем.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>佣兵和其它角色对话需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour parler à un autre personnage.</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_FLAT" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -170,6 +209,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement en terrain plat.
+(NdT : Au moment de la traduction, la définition est très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_GRASS" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="14" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -177,6 +218,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement dans l'herbe.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_BUSH" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="18" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -184,6 +227,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement dans des buissons/fourrés.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_RUBBLE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -191,6 +236,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement dans des gravats.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_SHORE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="28" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -198,6 +245,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement sur un rivage.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_LAKE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="36" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -205,6 +254,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement dans un lac.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MOVEMENT_OCEAN" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="32" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -212,6 +263,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour un déplacement dans l'océan.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="AP_MODIFIER_RUN" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="-8" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -219,6 +272,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA en mode course.</Description_FRE>
         </Property>
         <Property name="AP_MODIFIER_WALK" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="-4" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -226,6 +280,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA en mode marche.</Description_FRE>
         </Property>
         <Property name="AP_MODIFIER_SWAT" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="0" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -233,6 +288,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA en mode accroupi.</Description_FRE>
         </Property>
         <Property name="AP_MODIFIER_CRAWL" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -240,6 +296,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA lorsque vous rampez.</Description_FRE>
         </Property>
         <Property name="AP_MODIFIER_PACK" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>Movement costs for the specific type of terrain.</Description_ENG>
@@ -247,6 +304,8 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на движение по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA pour un déplacement avec un sac à dos.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
 		<Property name="AP_MODIFIER_WEAPON_READY" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>A modifier when walking/sidestepping with weapon raised.</Description_ENG>
@@ -254,6 +313,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en PA avec l'arme en joue, lors de la marche ou de pas chassés.</Description_FRE>
         </Property>
         <Property name="AP_CHANGE_FACING" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="4" interval="1">
           <Description_ENG>AP-cost for changing facing while standing.</Description_ENG>
@@ -261,6 +321,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на поворот в нужную сторону.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>站立时改变方向需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour se tourner dans la bonne direction en position debout.</Description_FRE>
         </Property>
         <Property name="AP_CHANGE_TARGET" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="2" interval="1">
           <Description_ENG>AP-cost for changing to another target inside current facing.</Description_ENG>
@@ -268,6 +329,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на смену цели, находящейся в том же направлении.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>在目前方向内切换目标需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour passer à une autre cible qui se trouve dans le même champs de vision.</Description_FRE>
         </Property>
         <Property name="AP_TOSS_ITEM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="32" interval="1">
           <Description_ENG>AP-costs that are involved in throwing items other than to attack.</Description_ENG>
@@ -275,6 +337,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на бросок, если он не является атакой.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>扔物品需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour lancer des objets, si ce n'est pas une attaque.</Description_FRE>
         </Property>
         <Property name="AP_REFUEL_VEHICLE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-cost charged for refueling a vehicle.</Description_ENG>
@@ -282,6 +345,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на заправку транспорта.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>为汽车灌汽油需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour ravitailler un véhicule.</Description_FRE>
         </Property>
         <Property name="AP_RADIO" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>The cost for enemy soldiers to use their radio.</Description_ENG>
@@ -289,6 +353,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых вражескими солдатами на связь по рации.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>敌兵使用无线电需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires aux soldats ennemis pour communiquer par radio.</Description_FRE>
         </Property>
         <Property name="AP_CROUCH" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="6" interval="1">
           <Description_ENG>AP-costs to change stance.</Description_ENG>
@@ -296,6 +361,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на смену положения (присесть).</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>改变姿势需要的 AP 。（下蹲）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour s'accroupir.</Description_FRE>
         </Property>
         <Property name="AP_PRONE" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="8" interval="1">
           <Description_ENG>AP-costs to change stance.</Description_ENG>
@@ -303,6 +369,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых на смену положения (лечь).</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>改变姿势需要的 AP 。（趴下）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour se coucher.</Description_FRE>
         </Property>
         <Property name="AP_LOOK_STANDING" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="4" interval="1">
           <Description_ENG>AP-costs for looking (binocs) for various stances.</Description_ENG>
@@ -310,6 +377,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых осмотр (в бинокль?) в соответствующем положении тела.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>站立时使用望远镜需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour "regarder" (changer son angle de vision) notamment avec les jumelles, en position debout.</Description_FRE>
         </Property>
         <Property name="AP_LOOK_CROUCHED" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="6" interval="1">
           <Description_ENG>AP-costs for looking (binocs) for various stances.</Description_ENG>
@@ -317,6 +385,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых осмотр (в бинокль?) в соответствующем положении тела.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>蹲伏时使用望远镜需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour "regarder" (changer son angle de vision) notamment avec les jumelles, en position accroupie.</Description_FRE>
         </Property>
         <Property name="AP_LOOK_PRONE" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="8" interval="1">
           <Description_ENG>AP-costs for looking (binocs) for various stances.</Description_ENG>
@@ -324,6 +393,7 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_RUS>Определяет количество АР, затрачиваемых осмотр (в бинокль?) в соответствующем положении тела.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>趴下时使用望远镜需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour "regarder" (changer son angle de vision) notamment avec les jumelles, en position couchée.</Description_FRE>
         </Property>
         <Property name="AP_READY_KNIFE" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="0" interval="1">
           <Description_ENG>AP-costs for geting a weapon into position.
@@ -333,6 +403,8 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_POL></Description_POL>
 		  <Description_CHI>端起武器时需要的 AP 。
 一般来说用不到，因为在 weapons.xml 里每个武器有不同的值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour tenir un couteau.
+(La plupart de ces valeurs ne sont pas utilisées parce que ces coûts sont également dans weapons.xml.)</Description_FRE>
         </Property>
         <Property name="AP_READY_DUAL" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="4" interval="1">
           <Description_ENG>AP-costs for geting a weapon into position.
@@ -342,6 +414,8 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_POL></Description_POL>
 		  <Description_CHI>端起双枪时需要的 AP 。
 一般来说用不到，因为在 weapons.xml 里每个武器有不同的值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour mettre en joue deux armes à une main en même temps (pistolets ou PM dans la main droite et la main gauche).
+(La plupart de ces valeurs ne sont pas utilisées parce que ces coûts sont également dans weapons.xml.)</Description_FRE>
         </Property>
         <Property name="AP_MIN_AIM_ATTACK" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="0" interval="1">
           <Description_ENG>Maybe default values in case calculations come up with strange (negative?) results?</Description_ENG>
@@ -349,6 +423,7 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_RUS>Определяет минимально значение расхода АР на атаку. Может использоваться как значение по умолчанию, если в результате расчетов получен странный (отрицательный) результат.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>当数据计算有误（负值？）时，这个值作为默认值替代出现。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA minimum exigé pour un tir visé. Elle peut être utilisée comme une valeur par défaut si le résultat des calculs est hors normes (négatif par exemple).</Description_FRE>
         </Property>
         <Property name="AP_DROP_BOMB" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="12" interval="1">
           <Description_ENG>AP-cost to place a bomb for demolition purposes.</Description_ENG>
@@ -356,6 +431,7 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на установку взрывчатки.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>使用爆炸物爆破时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour placer un explosif à des fins de démolition.</Description_FRE>
         </Property>
         <Property name="AP_RELOAD_GUN" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="20" interval="1">
           <Description_ENG>Normally superseded by value in weapons.xml.</Description_ENG>
@@ -363,6 +439,7 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на перезарядку оружия. Обычно прописано в оружии.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>一般来说由 weapons.xml 中的值控制。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour recharger une arme à feu, mais qui est normalement remplacée par celle du fichier weapons.xml.</Description_FRE>
         </Property>
         <Property name="AP_START_FIRST_AID" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="20" interval="1">
           <Description_ENG>AP-costs involved in First Aid.</Description_ENG>
@@ -370,6 +447,7 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на перевязку</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>急救需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour commencer à appliquer les premiers soins.</Description_FRE>
         </Property>
         <Property name="AP_START_REPAIR" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="20" interval="1">
           <Description_ENG>AP-costs involved in Reaparing.</Description_ENG>
@@ -377,6 +455,7 @@ Most are not used because these costs are also in weapons.xml</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на ремонт</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>修理需要的 AP </Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour commencer à réparer.</Description_FRE>
         </Property>
         <Property name="AP_GET_WOUNDED_DIVISOR" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="1" interval="1">
           <Description_ENG>This is a divisor so we don't want to adjust it's value.
@@ -386,6 +465,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值我们一般不会去调。
 当受到伤害时，每一点伤害会造成多少的 AP 损失。</Description_CHI>
+		  <Description_FRE>Cette valeur est un diviseur qui détermine combien de PA sont perdus par point de blessure.</Description_FRE>
         </Property>
         <Property name="AP_FALL_DOWN" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="16" interval="1">
           <Description_ENG>AP-loss from stepping on marbles or from getting hit very hard.</Description_ENG>
@@ -393,6 +473,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, теряющихся при падении, в результате наступания на шарики или получения большого урона</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>摔倒（踩到弹球或被菊爆）时造成的 AP 损失。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont perdus en marchant sur des billes ou en recevant un coup très fort.</Description_FRE>
         </Property>
         <Property name="AP_OPEN_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -400,6 +481,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на открывание двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>开门需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour ouvrir une porte.</Description_FRE>
         </Property>
         <Property name="AP_PICKLOCK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -407,6 +489,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на взлом двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>撬锁需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour crocheter une serrure.</Description_FRE>
         </Property>
         <Property name="AP_EXAMINE_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -414,6 +497,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на проверку двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>检查一扇门需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour examiner une serrure.</Description_FRE>
         </Property>
         <Property name="AP_BOOT_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="32" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -421,6 +505,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых при выбивании двери ногой</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>踹门时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour défoncer une porte à coup de pied.</Description_FRE>
         </Property>
         <Property name="AP_USE_CROWBAR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -428,6 +513,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на взлом двери ломом</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>用撬棍撬门时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour forcer une porte avec un pied de biche.</Description_FRE>
         </Property>
         <Property name="AP_UNLOCK_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -435,6 +521,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых при отпирании двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>用钥匙开门时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour déverrouiller une porte.</Description_FRE>
         </Property>
         <Property name="AP_LOCK_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -442,6 +529,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых при запирании двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>开门需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour verrouiller une porte.</Description_FRE>
         </Property>
         <Property name="AP_EXPLODE_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -449,6 +537,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых при подрыве двери</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>炸门需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour exploser une serrure avec une charge explosive.</Description_FRE>
         </Property>
         <Property name="AP_UNTRAP_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -456,6 +545,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на снятие с двери ловушки</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>解除门上陷阱需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour désamorcer une serrure piégée.</Description_FRE>
         </Property>
         <Property name="AP_USEWIRECUTTERS" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-cost for cutting fences.</Description_ENG>
@@ -463,6 +553,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых при резке  кусачками. </Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>剪铁丝网需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour couper un grillage avec une pince coupante.</Description_FRE>
         </Property>
         <Property name="AP_CLIMBROOF" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs for climbing.</Description_ENG>
@@ -470,6 +561,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых чтобы влезть на крышу.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>翻上房顶需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour monter sur un toit.</Description_FRE>
         </Property>
         <Property name="AP_CLIMBOFFROOF" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>AP-costs for climbing.</Description_ENG>
@@ -477,6 +569,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на спуск с крыши</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>翻下房顶需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour descendre d'un toit.</Description_FRE>
         </Property>
         <Property name="AP_JUMPFENCE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>AP-costs for jumping fences, without or with a backpack.</Description_ENG>
@@ -484,6 +577,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на перепрыгивание заборов без рюкзака.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>翻越栏杆需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour sauter des barrières sans avoir de sac à dos.</Description_FRE>
         </Property>
         <Property name="AP_JUMPFENCEBPACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs for jumping fences, without or with a backpack.</Description_ENG>
@@ -491,6 +585,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на перепрыгивание заборов с рюкзаком.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>背大背包时翻栏杆需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour sauter des barrières avec un sac à dos.</Description_FRE>
         </Property>
         <Property name="AP_USE_REMOTE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
           <Description_ENG>Activating mounted or handheld switches.</Description_ENG>
@@ -498,6 +593,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на активацию дистанционных включателей.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>使用无线引爆器等设备时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour utiliser les télécommandes et les détecteurs.</Description_FRE>
         </Property>
         <Property name="AP_PULL_TRIGGER" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
           <Description_ENG>Activating mounted or handheld switches.</Description_ENG>
@@ -505,6 +601,8 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на активацию рычагов (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>使用无线引爆器等设备时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour interagir avec un interrupteur, qu'il soit mural ou sur un objet dans la main.
+(NdT : Attention, au moment de la traduction, la valeur testée en jeu était de 12 pour une valeur dans ce fichier de 8.)</Description_FRE>
         </Property>
         <Property name="AP_PUNCH" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="16" interval="1">
           <Description_ENG>Activating mounted or handheld switches.</Description_ENG>
@@ -512,6 +610,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на активацию кнопок (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>使用无线引爆器等设备时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour donner un coup de poing.</Description_FRE>
         </Property>
         <Property name="AP_PICKUP_ITEM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>AP-cost for taking an item from the ground.</Description_ENG>
@@ -519,6 +618,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на поднимание предметов с земли.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>从地上拾取物品时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour ramasser un objet.</Description_FRE>
         </Property>
         <Property name="AP_GIVE_ITEM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>AP-cost to give an item to an adjacent merc.</Description_ENG>
@@ -526,6 +626,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на передачу вещей между мерками.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>给附近佣兵递送物品需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour donner un objet à un mercenaire qui est dans une case adjacente.</Description_FRE>
         </Property>
         <Property name="AP_BURY_MINE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="30" interval="1">
           <Description_ENG>AP-cost to set a mine.</Description_ENG>
@@ -533,6 +634,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на установку мины.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>安放地雷需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour poser une mine.</Description_FRE>
         </Property>
         <Property name="AP_DISARM_MINE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-cost to disarm a mine or booby trap.</Description_ENG>
@@ -540,6 +642,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на снятие мины.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>拆除地雷需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour désamorcer (retirer) une mine.</Description_FRE>
         </Property>
         <Property name="AP_DRINK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>Application of items to the Body silhouette.</Description_ENG>
@@ -547,6 +650,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на использование фляжек и т.п. </Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>喝水需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour boire (en cliquant la boisson sur la silhouette du mercenaire).</Description_FRE>
         </Property>
         <Property name="AP_CAMOFLAGE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>Application of items to the Body silhouette.</Description_ENG>
@@ -554,6 +658,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на применение камуфляжа.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>涂抹迷彩油需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour s'appliquer un camouflage (en cliquant le kit de camouflage sur la silhouette du mercenaire).</Description_FRE>
         </Property>
         <Property name="AP_START_RUN_COST" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>AP-cost for starting to run.</Description_ENG>
@@ -561,6 +666,8 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на начало бега (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>起跑需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour commencer à courir.
+(NdT : Attention, au moment de la traduction, la valeur n'est pas évidente.)</Description_FRE>
         </Property>
         <Property name="AP_ATTACH_CAN" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>AP-cost for attaching the soda can with string to a door.</Description_ENG>
@@ -568,6 +675,10 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на присоединение к двери направленного заряда (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>安装易拉罐警报器需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour attacher une "canette + ficelle" à une porte.
+(NdT : Attention, au moment de la traduction, la valeur est :
+Lors d'un attachement d'une canette + ficelle = 32.
+"une canette + ficelle" + porte (le mercenaire doit être à une case de la porte) = 14.)</Description_FRE>
         </Property>
         <Property name="AP_JUMP_OVER" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>AP-cost to jump over a prone merc.</Description_ENG>
@@ -575,6 +686,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на перепрыгивание через лежащего мерка.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>跳过一个趴在地上的佣兵（有时是昏迷的）需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour sauter par-dessus un mercenaire.</Description_FRE>
         </Property>
         <Property name="AP_BACK_PACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>Backpack-related AP-costs.</Description_ENG>
@@ -582,6 +694,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на действия с рюкзаком (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>背大背包时，很多 AP 消耗都会变多，这个大概是控制卸下和装备的。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour poser un sac à dos.</Description_FRE>
         </Property>
         <Property name="AP_OPEN_ZIPPER" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>Backpack-related AP-costs.</Description_ENG>
@@ -589,6 +702,8 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на открытие рюкзака </Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>打开大背包拉链需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour ouvrir un sac à dos.
+(NdT : Attention, au moment de la traduction, cette valeur était celle pour "AP_CLOSE_ZIPPER".)</Description_FRE>
         </Property>
         <Property name="AP_CLOSE_ZIPPER" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="28" interval="1">
           <Description_ENG>Backpack-related AP-costs.</Description_ENG>
@@ -596,6 +711,8 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на закрытие рюкзака </Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>闭合大背包拉链需要的 AP 。在回合中你需要拉上拉链才能移动。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour fermer un sac à dos.
+(NdT : Attention, au moment de la traduction, cette valeur était celle pour "AP_OPEN_ZIPPER".)</Description_FRE>
         </Property>
         <Property name="AP_CLICK_AIM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -603,6 +720,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires à chaque niveau (clic) de visée.</Description_FRE>
         </Property>
         <Property name="AP_FIRST_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -610,6 +728,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au premier niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_SECOND_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -617,6 +736,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au deuxième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_THIRD_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="6" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -624,6 +744,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au troisième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_FOURTH_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="7" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -631,6 +752,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au quatrième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_FIFTH_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -638,6 +760,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au cinquième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_SIXTH_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="9" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -645,6 +768,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au sixième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_SEVENTH_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="10" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -652,6 +776,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au septième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AP_EIGHTH_CLICK_AIM_SCOPE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="11" interval="1">
           <Description_ENG>AP for aiming clicks.</Description_ENG>
@@ -659,6 +784,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на прицеливание (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>瞄准时多点一下消耗多少 AP 。（AP /精瞄等级）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires au huitième niveau (clic) de visée avec une lunette.</Description_FRE>
         </Property>
         <Property name="AUTOFIRE_SHOTS_AP_VALUE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
           <Description_ENG>The following is used with the weapons.xml:bAutofireShotsPerFiveAP to determine how many AP we actually want the value to represent.
@@ -667,6 +793,8 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Используется вместе с weapons.xml:bAutofireShotsPerFiveAP для определения реального количества требуемых АР. "FiveAP" правильно для системы 25АР для системы 100АР - 20 и более.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个…一般来说还是由 weapons.xml 中 bAutofireShotsPerFiveAP 控制，不去管它比较好。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA servant de référence pour le tir auto dans le jeu.
+Une valeur de 5 PA est adaptée pour le système à base 25 PA, mais 20 PA est plus approprié pour le système à base 100 PA.</Description_FRE>
         </Property>
         <Property name="AP_RELOAD_LOOSE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
           <Description_ENG>Loose round reload system.
@@ -675,6 +803,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>(?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>只装填1发子弹需要的 AP （？）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA nécessaire pour charger une munition dans la chambre d'une arme à feu (une cartouche dans un fusil à pompe par exemple, "cric-cric !", ou une balle dans un fusil à culasse/à verrou "clac-clac !").</Description_FRE>
         </Property>
         <Property name="BAD_AP_COST" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="36" interval="1">
           <Description_ENG>The AP shot cost at which a gun will be listed as "slow firing".</Description_ENG>
@@ -682,6 +811,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Стоимость выстрела для оружия, которое отмечено как "медленно стреляющее" ("slow firing")</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>在“slow firing”列表下的武器射击时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA pour tirer avec une arme à feu à partir duquel une arme est considérée comme "tirant lentement".</Description_FRE>
         </Property>
         <Property name="AP_UNJAM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="2" interval="1">
           <Description_ENG>AP-costs to unjam a weapon.</Description_ENG>
@@ -689,6 +819,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Определяет количество АР, затрачиваемых на расклинивание оружия.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>排除卡壳武器需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour désenrayer une arme.</Description_FRE>
         </Property>
         <Property name="AP_JUMPWINDOW" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>The APs needed when you jump through a window.</Description_ENG>
@@ -696,6 +827,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>跳窗时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour passer par une fenêtre.</Description_FRE>
         </Property>
         <Property name="AP_JUMPWALL" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>The APs needed when you climb up a wall.</Description_ENG>
@@ -703,6 +835,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>爬上墙需要的 AP 。（墙和房顶有神马区别？）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour monter sur un mur.</Description_FRE>
         </Property>
         <Property name="AP_JUMPOFFWALL" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>The APs needed when you climb down a wall.</Description_ENG>
@@ -710,6 +843,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>爬下墙需要的 AP 。（？）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour descendre d'un toit.</Description_FRE>
         </Property>
         <Property name="AP_MAX_SUPPRESSED" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="64" interval="1">
           <Description_ENG>Maximum AP penalty from supression fire. Modifire for how effective a suppression point is.</Description_ENG>
@@ -717,6 +851,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Определяет максимальный штраф к количеству АР от огня на подавление.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>被消声武器打到时，AP 损失会更少。这个值控制消声武器造成 AP 损失的最大值。</Description_CHI>
+		  <Description_FRE>Cette valeur représente la pénalité maximale de PA attribuable à la suppression (tir de couverture). Influe sur l'efficacité de chaque point de suppression.</Description_FRE>
         </Property>
         <Property name="AP_MAX_TURN_SUPPRESSED" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="200" interval="10">
           <Description_ENG>Maximum AP penalty from suppression fire for an entire turn.</Description_ENG>
@@ -724,6 +859,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>一回合来自压制的最大惩罚AP数</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre maximum de PA qui peuvent être retirés pour un tour entier à cause de la suppression (tir de couverture).</Description_FRE>
         </Property>
         <Property name="AP_SUPPRESSION_MOD" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="24" interval="1">
           <Description_ENG>Maximum AP penalty from supression fire. Modifire for how effective a suppression point is.</Description_ENG>
@@ -731,6 +867,8 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Модификатор штрафа за воздействие огня на подавление (?)</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>被消声武器打到时，AP 损失会更少。这个值控制消声附件对损失值的影响。</Description_CHI>
+		  <Description_FRE>Cette valeur est un modificateur appliqué aux PA perdus à cause de la suppression.
+(NDT : Nous n'avons pas plus d'informations sur son implication exacte dans les calculs.)</Description_FRE>
         </Property>
         <Property name="AP_LOST_PER_MORALE_DROP" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>Modifier for how effective morale lost from suppression is.</Description_ENG>
@@ -738,6 +876,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>被压制时士气损失修正</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui seront perdus par la perte de moral lors d'un tir de suppression (tir de couverture).</Description_FRE>
         </Property>
         <Property name="AP_MIN_LIMIT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="-100" interval="1">
           <Description_ENG>Minimum possible value AP can be reduced to.</Description_ENG>
@@ -745,6 +884,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>可以减少的最小AP可能值</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre minimum de PA qu'un individu peut avoir.</Description_FRE>
         </Property>
         <Property name="AP_SUPPRESSION_SHOCK_DIVISOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="4" interval="1">
           <Description_ENG>Minimum possible value AP can be reduced to.</Description_ENG>
@@ -752,6 +892,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>可以减少的最小AP可能值</Description_CHI>
+		  <Description_FRE>Cette valeur est un diviseur des PA d'un individu dû à l'état de choc après avoir subi des tirs de suppressions intenses.</Description_FRE>
         </Property>
         <Property name="AP_LOSS_PER_LEGSHOT_DAMAGE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="4" interval="1">
           <Description_ENG>Minimum possible value AP can be reduced to.</Description_ENG>
@@ -759,6 +900,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>可以减少的最小AP可能值</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA perdus à cause d'un coup/tir dans les jambes.</Description_FRE>
         </Property>
         <Property name="AP_JUMP_WINDOW" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>AP-costs for jumping through open windows.</Description_ENG>
@@ -766,6 +908,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>跳过打开的窗户时需要的 AP 。</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour passer par une fenêtre.</Description_FRE>
         </Property>        
         <Property name="DEFAULT_APS" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="80" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -773,6 +916,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Значение по умолчанию для расчета требуемых АР в описании оружия.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。（不过怎么算的呢？）</Description_CHI>
+		  <Description_FRE>Cette valeur par défaut est utilisée pour les calculs de PA affichés dans les infobulles des armes.</Description_FRE>
         </Property>
         <Property name="DEFAULT_AIMSKILL" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="80" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -780,6 +924,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Значение меткости по умолчанию для расчета требуемых АР в описании оружия.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值，以一个技能值为基准。（大概是技能高低影响 AP 消耗？）</Description_CHI>
+		  <Description_FRE>Cette valeur par défaut est pour calculer le nombre de PA requis à chaque arme avec un viseur/lunette qui sera affiché dans l'infobulle et la fenêtre de description de l'arme.</Description_FRE>
         </Property>
         <Property name="AP_FORTIFICATION" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="80" interval="1">
           <Description_ENG>The APs needed build a fortification structure.</Description_ENG>
@@ -787,6 +932,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour construire une fortification.</Description_FRE>
         </Property>
       </Properties>
     </Section>
@@ -796,6 +942,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
       <Description_RUS> Этот раздел отвечает за глобальные настройки JA2v1.13</Description_RUS>
       <Description_POL></Description_POL>
 	  <Description_CHI>这个部分你还是可以对铁血联盟2 V1.13进行总体设定。</Description_CHI>
+	  <Description_FRE>Dans cette section, vous pouvez configurer les paramètres globaux des PE (points d'énergie) pour Jagged Alliance 2 v1.13.</Description_FRE>
       <Properties>
         <Property name="BP_RATIO_RED_PTS_TO_NORMAL" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="100" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -803,6 +950,7 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_RUS>Значение по умолчанию, используемое при расчете и показе АР стоимости действий в информации об оружии.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur par défaut est pour calculer le nombre de PA requis à chaque arme qui sera affiché dans l'infobulle et la fenêtre de description de l'arme.</Description_FRE>
         </Property>
         <Property name="BP_RT_BREATH_RECOVER_MODIFIER" datatype="numeric" minvalue="100" maxvalue="1000" defaultvalue="100" interval="1">
           <Description_ENG>Breath recovery multiplier in realtime mode
@@ -814,6 +962,10 @@ mögliche Werte von 100 bis 1000 (Standardwert = 100)
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le multiplicateur qui détermine la récupération d'énergie en mode temps réel.
+valeurs valides = 100 à 1000.
+100 = Régénération normale (par défaut).
+1000 = Régénération multipliée par 10.</Description_FRE>
         </Property>
         <Property name="BP_RT_BREATH_DEDUCT_MODIFIER" datatype="numeric" minvalue="100" maxvalue="1000" defaultvalue="125" interval="1">
           <Description_ENG>Breath drain multiplier for movement in realtime mode
@@ -826,6 +978,10 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le multiplicateur qui détermine la perte d'énergie due au mouvement en mode temps réel.
+valeurs valides = 100 à 1000 (par défaut 125).
+100 = Perte d'énergie normale.
+1000 = Perte multipliée par 10.</Description_FRE>
         </Property>
         <Property name="BP_RUN_ENERGYCOSTFACTOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="3" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -833,6 +989,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при беге.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le facteur à la perte de points d'énergie pour courir.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_WALK_ENERGYCOSTFACTOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="1" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -840,6 +998,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при ходьбе.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le facteur à la perte de points d'énergie pour marcher.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_SWAT_ENERGYCOSTFACTOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="2" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -847,6 +1007,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при ходении пригнувшись.  </Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le facteur à la perte de points d'énergie pour s'accroupir (ou marcher en étant accroupi).
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_CRAWL_ENERGYCOSTFACTOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="4" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -854,6 +1016,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении ползком.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。到底是干嘛的我也不知道…毛子也很迷茫…</Description_CHI>
+		  <Description_FRE>Cette valeur est le facteur à la perte de points d'énergie pour ramper.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_RADIO" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="0" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -861,6 +1025,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при использовании рации.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur est le facteur à la perte de points d'énergie pour communiquer par radio.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_USE_DETONATOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="0" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
@@ -868,6 +1034,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при использовании детонатора.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de points d'énergie pour utiliser un détonateur.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PER_AP_NO_EFFORT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="-50" interval="5">
           <Description_ENG>This value is dynamically adjusted based on AP_MAXIMUM.</Description_ENG>
@@ -875,6 +1043,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Это значение динамически изменяется в зависимости от AP_MAXIMUM.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值会根据 AP_MAXIMUM 值变动。</Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de souffle par PA dépensé sans effort notable. Elle est ajustée dynamiquement à partir de la valeur d'AP_MAXIMUM.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PER_AP_MIN_EFFORT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="-25" interval="5">
           <Description_ENG>This value is dynamically adjusted based on AP_MAXIMUM.</Description_ENG>
@@ -882,6 +1052,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Это значение динамически изменяется в зависимости от AP_MAXIMUM</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值也会根据 AP_MAXIMUM 值变动。</Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de souffle par PA dépensé avec un effort minimum. Elle est ajustée dynamiquement à partir de la valeur d'AP_MAXIMUM.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PER_AP_LT_EFFORT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="-12" interval="5">
           <Description_ENG>This value is dynamically adjusted based on AP_MAXIMUM.</Description_ENG>
@@ -889,6 +1061,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值还是会根据 AP_MAXIMUM 值变动。</Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de souffle par PA dépensé avec un effort intense. Elle est ajustée dynamiquement à partir de la valeur d'AP_MAXIMUM.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PER_AP_MOD_EFFORT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="6" interval="5">
           <Description_ENG>This value is dynamically adjusted based on AP_MAXIMUM.</Description_ENG>
@@ -896,6 +1070,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>这个值同样会根据 AP_MAXIMUM 值变动。</Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de souffle par PA dépensé avec un effort maximum. Elle est ajustée dynamiquement à partir de la valeur d'AP_MAXIMUM.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_FLAT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="5" interval="5">
           <Description_ENG></Description_ENG>
@@ -903,6 +1079,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement en terrain plat.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_GRASS" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="10" interval="5">
           <Description_ENG></Description_ENG>
@@ -910,6 +1088,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement dans l'herbe.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_BUSH" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="20" interval="5">
           <Description_ENG></Description_ENG>
@@ -917,6 +1097,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement dans des buissons/fourrés.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_RUBBLE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="35" interval="5">
           <Description_ENG></Description_ENG>
@@ -924,6 +1106,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement dans des gravats.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_SHORE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -931,6 +1115,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement sur un rivage.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_LAKE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="75" interval="5">
           <Description_ENG></Description_ENG>
@@ -938,6 +1124,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement dans un lac.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_MOVEMENT_OCEAN" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="100" interval="5">
           <Description_ENG></Description_ENG>
@@ -945,6 +1133,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie pour un mouvement dans l'océan.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
 		<Property name="BP_MODIFIER_WEAPON_READY" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="30" interval="5">
           <Description_ENG></Description_ENG>
@@ -952,6 +1142,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur modifie le coût en points d'énergie avec l'arme en joue, lors de la marche ou de pas chassés.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_CROUCH" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="10" interval="5">
           <Description_ENG></Description_ENG>
@@ -959,6 +1151,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при приседании.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour s'accroupir.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PRONE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="10" interval="5">
           <Description_ENG></Description_ENG>
@@ -966,6 +1160,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии чтобы лечь.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour se coucher.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_CLIMBROOF" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="500" interval="5">
           <Description_ENG></Description_ENG>
@@ -973,6 +1169,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при приседании. Определяет расход энергии при залезании на крышу.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour monter sur un toit.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_CLIMBOFFROOF" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -980,6 +1178,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при слезании с крыши.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour descendre d'un toit.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_JUMPFENCE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="200" interval="5">
           <Description_ENG></Description_ENG>
@@ -987,6 +1187,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при перепрыгивании через заборы.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour sauter des barrières sans un sac à dos.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_JUMPFENCEBPACK" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="500" interval="5">
           <Description_ENG></Description_ENG>
@@ -994,6 +1196,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при перепрыгивании забора с рюкзаком.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour sauter des barrières avec un sac à dos.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_STEAL_ITEM" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1001,6 +1205,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при изымании предметов у противника.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour voler un ennemi.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_START_FIRST_AID" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
           <Description_ENG></Description_ENG>
@@ -1008,6 +1214,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии на начало перевязки.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour commencer à appliquer les premiers soins.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_GET_HIT" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="200" interval="5">
           <Description_ENG></Description_ENG>
@@ -1015,6 +1223,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии у цели при попадании.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de points d'énergie lors d'un impact.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_GET_WOUNDED" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1022,6 +1232,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии у цели при получении ранения.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est la perte de points d'énergie lors d'une blessure.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_FALL_DOWN" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -1029,6 +1241,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при падении.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont perdus en marchant sur des billes ou en recevant un coup très fort.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_OPEN_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="30" interval="5">
           <Description_ENG></Description_ENG>
@@ -1036,6 +1250,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при открытии двери.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour ouvrir une porte.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_PICKLOCK" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1043,6 +1259,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при вломе двери.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour crocheter une serrure.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_EXAMINE_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="20" interval="5">
           <Description_ENG></Description_ENG>
@@ -1050,6 +1268,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при проверке двери.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour examiner une serrure.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_BOOT_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="200" interval="5">
           <Description_ENG></Description_ENG>
@@ -1057,6 +1277,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при выбивании двери ногой.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour défoncer une porte à coup de pied.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_USE_CROWBAR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="350" interval="5">
           <Description_ENG></Description_ENG>
@@ -1064,6 +1286,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при взломе двери ломом.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour forcer une porte avec un pied de biche.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_UNLOCK_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1071,6 +1295,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при отпирании двери.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour déverrouiller une porte.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_EXPLODE_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="40" interval="5">
           <Description_ENG></Description_ENG>
@@ -1078,6 +1304,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при взрыве двери (направленым зарядом?).</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour exploser une serrure avec une charge explosive.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_UNTRAP_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="150" interval="5">
           <Description_ENG></Description_ENG>
@@ -1085,6 +1313,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS> Определяет расход энергии при снятии с двери ловушки.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour désamorcer une serrure piégée.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_LOCK_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1092,6 +1322,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при запирании двери.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour verrouiller une porte.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_USEWIRECUTTERS" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="200" interval="5">
           <Description_ENG></Description_ENG>
@@ -1099,6 +1331,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при использовании кусачек.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour couper un grillage avec une pince coupante.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_DROP_BOMB" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
           <Description_ENG></Description_ENG>
@@ -1106,6 +1340,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при установке взрывчатки.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour placer un explosif à des fins de démolition.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_BURY_MINE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -1113,6 +1349,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при установке мины.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour poser une mine.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_DISARM_MINE" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
           <Description_ENG></Description_ENG>
@@ -1120,6 +1358,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при снятии мины.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour désamorcer (retirer) une mine.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_JUMP_OVER" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -1127,6 +1367,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии при перепрыгивании через лежащего мерка</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour sauter par-dessus un mercenaire qui est couché.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_BACK_PACK" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="50" interval="5">
           <Description_ENG></Description_ENG>
@@ -1134,6 +1376,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии на действия с рюкзаком.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour poser un sac à dos.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_WORK_ZIPPER" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -1141,6 +1385,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии на действия с рюкзаком.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour ouvrir/fermer un sac à dos.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_UNJAM" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
           <Description_ENG></Description_ENG>
@@ -1148,6 +1394,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS>Определяет расход энергии на расклинивание.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour désenrayer une arme.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_JUMPOFFWALL" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="250" interval="5">
           <Description_ENG></Description_ENG>
@@ -1155,6 +1403,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour descendre d'un toit.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_JUMPWALL" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="500" interval="5">
           <Description_ENG></Description_ENG>
@@ -1162,6 +1412,8 @@ Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen M
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour monter sur un mur.
+(NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
       </Properties>
     </Section>

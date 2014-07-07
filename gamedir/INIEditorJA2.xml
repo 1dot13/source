@@ -5,6 +5,7 @@
   <Description_RUS>Это настройки файла "ja2.ini", в котором содержатся общие установки игры Jagged Alliance 2 v1.13.</Description_RUS>
   <Description_POL></Description_POL>
   <Description_CHI>ja2.ini这个文件控制铁血联盟2 V1.13的综合设定。</Description_CHI>
+  <Description_FRE>C'est le fichier "ja2.ini" qui contient les paramètres par défaut de Jagged Alliance 2 v1.13.</Description_FRE>
   <Sections>
     <Section name="Ja2 Settings">
       <Description_ENG>In this section you can change global settings for Jagged Alliance 2 v1.13</Description_ENG>
@@ -12,6 +13,7 @@
       <Description_RUS>Здесь вы можете изменять глобальные игровые настройки Jagged Alliance 2 v1.13</Description_RUS>
       <Description_POL></Description_POL>
 	  <Description_CHI>ja2.ini这个文件控制铁血联盟2 V1.13的总体设定。</Description_CHI>
+	  <Description_FRE>Dans cette section, vous pouvez modifier les paramètres globaux de Jagged Alliance 2 v1.13.</Description_FRE>
       <Properties>
         <Property name="CD" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>If you have not installed Jagged Alliance 2 as a full installation, this is the letter of your CD-ROM drive. Otherwise you can ignore that.</Description_ENG>
@@ -20,6 +22,7 @@
 если игра Jagged Alliance 2 была установлена не полностью.</Description_RUS>
 		  <Description_POL></Description_POL>
 		  <Description_CHI>如果你没有完全安装《铁血联盟2》，请将这个字母设置成你的光驱的盘符。否则请无视之。</Description_CHI>
+		  <Description_FRE>Vous devez indiquer la lettre de votre lecteur de CD-ROM, si vous n'avez pas encore installé Jagged Alliance 2. Sinon, ignorez ce choix.</Description_FRE>
         </Property>
         <Property name="VFS_NO_UNICODE" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Only set this to "TRUE" for compatibility reason, if you are running JA2 1.13 on a Windows 98 operating system.</Description_ENG>
@@ -27,6 +30,7 @@
           <Description_RUS>Используйте значение "TRUE" лишь если вы запускаете JA2 1.13 под Windows 98.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>如果你在用 Windows 98 系统请把这个选项设置为 true。</Description_CHI>
+		  <Description_FRE>Mettre "TRUE", si vous jouez JA2 1.13 sous windows 98.</Description_FRE>
         </Property>
         <Property name="VFS_CONFIG_INI" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Select the 'vfs_config.*.ini' of the MOD you would like to play.</Description_ENG>
@@ -34,6 +38,7 @@
           <Description_RUS>Выберите 'vfs_config.*.ini' МОДа, в который вы хотите играть.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>请选择游戏mod对应的“vfs_config.*.ini”来加载这个 mod 。</Description_CHI>
+		  <Description_FRE>Sélectionnez le mode que vous voulez jouer (en rapport avec l'exécutable que vous avez sélectionné).</Description_FRE>
         </Property>
         <Property name="JA2_START_FILE" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "Launch JA2 v1.13".</Description_ENG>
@@ -43,6 +48,7 @@
 который запустит игру по нажатию кнопки "Launch JA2 v1.13".</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>选择默认启动的游戏主程序。仅对“Launch JA2 v1.13”有效。</Description_CHI>
+		  <Description_FRE>C'est l'exécutable qui lancera le jeu en cliquant sur "START"... Si vous avez sélectionné le mode correspondant.</Description_FRE>
         </Property>
         <Property name="SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The screen resolution of the game Jagged Alliance 2 v1.13.</Description_ENG>
@@ -50,6 +56,7 @@
           <Description_RUS>Разрешение экрана игры Jagged Alliance 2 v1.13.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>游戏运行的屏幕分辨率设定。</Description_CHI>
+		  <Description_FRE>La résolution de votre écran pour Jagged Alliance 2 v1.13.</Description_FRE>
         </Property>
         <Property name="EDITOR_SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor.</Description_ENG>
@@ -57,6 +64,7 @@
           <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>地图编辑器运行的屏幕分辨率设定。</Description_CHI>
+		  <Description_FRE>La résolution de votre écran pour l'éditeur de carte de Jagged Alliance 2 v1.13.</Description_FRE>
         </Property>
         <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
@@ -66,6 +74,7 @@
 и для редактора карт.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>是否窗口化运行游戏和地图编辑器。</Description_CHI>
+		  <Description_FRE>Vous pouvez sélectionner le mode plein écran ou fenêtré pour Jagged Alliance 2 v1.13 et éditeur de carte.</Description_FRE>
         </Property>
         <Property name="PLAY_INTRO" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Should the intro be played after starting a new game?</Description_ENG>
@@ -74,6 +83,7 @@
 либо выключить показ игрового ролика после старта игры.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>游戏开始时是否播放开头动画。</Description_CHI>
+		  <Description_FRE>Pour activer ou désactiver l'intro au lancement d'une nouvelle partie.</Description_FRE>
         </Property>
       </Properties>
     </Section>
