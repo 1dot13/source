@@ -2445,7 +2445,7 @@
     <szItemName>Tringle</szItemName>
     <szLongItemName>Tringle en alu</szLongItemName>
     <szItemDesc>Cette tringle à rideaux en aluminium est cassée aux deux extrémités. On se demande ce qui est arrivé aux rideaux.</szItemDesc>
-    <szBRName>Tringle en aluminimum</szBRName>
+    <szBRName>Tringle en aluminium</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -10883,9 +10883,9 @@
   <ITEM>
     <uiIndex>1360</uiIndex>
     <szItemName>Montre</szItemName>
-    <szLongItemName>Montre M.E.R.C</szLongItemName>
-    <szItemDesc>Ce n'est pas une montre comme les autres. C'est LA montre officielle de M.E.R.C. Imaginez Flo dans le plus étriqué des bikinis, vous montrant l'heure exact à son poignet. Elle est même étanche, fini la buée qui se forme à l'intérieur du verre.</szItemDesc>
-    <szBRName>Montre-bracelet M.E.R.C</szBRName>
+    <szLongItemName>Montre MERC</szLongItemName>
+    <szItemDesc>Ce n'est pas une montre comme les autres. C'est LA montre officielle de MERC. Imaginez Flo dans le plus étriqué des bikinis, vous montrant l'heure exact à son poignet. Elle est même étanche, fini la buée qui se forme à l'intérieur du verre.</szItemDesc>
+    <szBRName>Montre-bracelet MERC</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>

@@ -34,15 +34,15 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>Si un [M] apparaît sur votre arme, ça signifie qu'un accessoire est monté dessus, ce qui entraîne une meilleure stabilité.</szName>
+    <szName>Si un "M" apparait sur votre arme, ça signifie qu'elle est appuyée ou calée sur quelque chose, ce qui la rend plus stable.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>N'oubliez pas de regarder Jagged Alliance : Flashback sur Kickstarter !</szName>
+    <szName>Appuyez sur [CTRL]+[Z] pour verrouiller/libérer le curseur dans le jeu en mode fenêtré. C'est très pratique pour faire défiler la zone du jeu avec la souris dans le mode fenêtré.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Ne soyez plus handicapé ! Déposez vos sacs à dos avec [MAJ]+[B] en carte tactique pour améliorer vos mouvements et grimper sur les toits.</szName>
+    <szName>Une personne bloque une entrée ? Appuyez sur [X] quand vous êtes à côté d'elle pour échanger vos places.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
@@ -70,7 +70,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Appuyez sur [Suppr] dans l'écran tactique pour afficher la zone que voit l'ennemi vu par le mercenaire sélectionné. Du rouge (visible même couché) au vert (dissimulation parfaite).</szName>
+    <szName>Appuyez sur [SUPPR] dans l'écran tactique pour afficher la zone que voit l'ennemi vu par le mercenaire sélectionné. Du rouge (visible même couché) au vert (dissimulation parfaite).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
@@ -126,7 +126,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>Ouvrez le menu du secteur avec [CTRL]+[.]</szName>
+    <szName>Ouvrez le menu du secteur avec [CTRL]+[;]/[CTRL]+[.] (pavé numérique)</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
@@ -314,7 +314,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
-    <szName>Dans le menu principal, maintenez la touche [ALT] et cliquez sur "Continuer partie sauvegardée" pour charger la dernière partie sauvegardée.</szName>
+    <szName>Dans le menu principal, maintenez la touche [ALT] et cliquez sur "Continuer une partie" pour charger la dernière partie sauvegardée.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
@@ -330,7 +330,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
-    <szName>La milice en vert peut être formées pour devenir une milice régulière (en bleu). La milice régulière est plus utile, mais coûte plus cher à former et à entretenir.</szName>
+    <szName>La milice en vert peut être formées pour devenir une milice régulière (Soldat en bleu). Elle est plus utile, mais coûte plus cher à former et à entretenir.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
@@ -342,7 +342,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>84</uiIndex>
-    <szName>Donnez toujours une arme de poing à vos snipers. Ils sont peu efficaces dans un combat rapproché.</szName>
+    <szName>Donnez toujours une arme de poing à vos snipers. Leurs fusils sont peu efficaces dans un combat rapproché.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
@@ -470,7 +470,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>Des manuels de jeux, la liste des raccourcis, le tutoriel de l'éditeur de carte et d'autres documents se trouvent dans le dossier "Docs" qui est dans votre répertoire d'installation JA2.</szName>
+    <szName>La résolution, du jeu et de l'intro, peut être modifiée dans "Ja2.ini".</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
@@ -514,7 +514,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>127</uiIndex>
-    <szName>Appuyez sur [CTRL]+[D] pour finir ou à la fin de votre interruption et il n'y en aura plus jusqu'à votre tour.</szName>
+    <szName>Appuyez sur [CTRL]+[D] à la fin de votre tour ou à la fin de votre interruption et il n'y aura plus d'interruption jusqu'à votre prochain tour.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
