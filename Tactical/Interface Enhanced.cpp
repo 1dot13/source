@@ -59,6 +59,8 @@
 	#include "Food.h"	// added by Flugente
 #endif
 
+#include "Multi Language Graphic Utils.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1363,7 +1365,8 @@ BOOLEAN InternalInitEnhancedDescBox()
 
 		// HEADROCK HAM 4: Advanced Icons
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+		GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
+		//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
 		CHECKF( AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon ) );
 
 		// Flugente: added icons for WH40K

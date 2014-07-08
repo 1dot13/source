@@ -38,10 +38,11 @@ enum
 	MLG_TOSTATS,
 	MLG_WARNING,
 	MLG_YOURAD13,
-	MLG_TITLETEXT_MP,	// ROMAN: Additional multiplayer text
+	MLG_TITLETEXT_MP,	// WANNE: Additional multiplayer text
 	MLG_BOBBYRAYTITLE,	//inshy: translation needed for russian version
 	MLG_BR,
 	MLG_MP_GOLDPIECEBUTTONS,
+	MLG_ITEMINFOADVANCEDICONS,	// WANNE: Language specific Icons
 };
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID );

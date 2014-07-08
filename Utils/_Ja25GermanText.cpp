@@ -453,11 +453,11 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
 	L"Keine besonderen Einschränkungen.",
-	L"Leidet an Atemproblemen und zeigt allgemein schlechtere Leistung in tropischen und Wüstensektoren",
-	L"Erleidet allein in schwierigen Situationen Panikattacken",
-	L"Zeigt schlechtere Leistung unter Tage",
-	L"Kann bei Schwimmversuchen leicht ertrinken",
-	L"Erträgt den Anblick großer Insekten nicht und\nzeigt etwas schlechtere Leistung in Wüsten- oder tropischen oder Sektoren",
+	L"Leidet an Atemproblemen und zeigt allgemein schlechtere Leistung in tropischen und Wüstensektoren.",
+	L"Erleidet allein in schwierigen Situationen Panikattacken.",
+	L"Zeigt schlechtere Leistung unter Tage.",
+	L"Kann bei Schwimmversuchen leicht ertrinken.",
+	L"Erträgt den Anblick großer Insekten nicht und\nzeigt etwas schlechtere Leistung in Wüsten- oder tropischen oder Sektoren.",
 	L"Vergisst manchmal seine Befehle und verliert dadurch im Kampf einen Teil seiner APs.",
 	L"Dreht manchmal durch und schießt dabei hin und wieder wild um sich.\nVerliert Moral, wenn das mit der ausgerüsteten Waffe nicht möglich ist.",
 	L"Deutlich geringere Hörweite.",

@@ -84,6 +84,8 @@
 	#include "Encyclopedia_new.h"	//Moa: enc. item visibility
 #endif
 
+#include "Multi Language Graphic Utils.h"
+
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
 #endif
@@ -1456,7 +1458,8 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+		GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
+		//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
 		CHECKF( AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon) );
 	}
 	
@@ -4030,7 +4033,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					// HEADROCK HAM 4: Advanced Icons
 					VOBJECT_DESC    VObjectDesc;
 					VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-					strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+					//strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+					GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
 					AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon);
 				}
 
