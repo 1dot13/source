@@ -168,7 +168,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
-			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>
+			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen. You can order them to move via the 'W', 'A', 'S' or 'D' keys.</szTooltipText>
 			<ubStaffLimit>2</ubStaffLimit>
 			<CONDITIONS>
 				<ubMinimumWisdom>70</ubMinimumWisdom>
