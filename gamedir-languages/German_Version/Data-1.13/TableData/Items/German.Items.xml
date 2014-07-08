@@ -1,5 +1,3 @@
-  <!-- Mögliche <szItemName>-Länge: 20 [Leonidas]-->
-  <!-- Maximal anzeigbare <szItemName>-Länge im Sektorinventar: 14 [Leonidas]-->
 <?xml version="1.0" encoding="UTF-8"?>
 <ITEMLIST>
   <ITEM>
@@ -2452,13 +2450,9 @@
     <szItemName>Alu-Stange</szItemName>
     <szLongItemName>Aluminiumstange</szLongItemName>
     <szItemDesc>Eine an beiden Enden abgebrochene Gardinenstange aus Alu. Was wohl mit den Gardinen passiert ist?</szItemDesc>
-
     <szBRName>Aluminiumstange</szBRName>
-
-
     <szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
   </ITEM>
-
   <ITEM>
     <uiIndex>306</uiIndex>
     <szItemName>Feder</szItemName>
@@ -2631,8 +2625,6 @@
     <uiIndex>327</uiIndex>
     <szItemName>Kanister</szItemName>
     <szLongItemName>Benzinkanister</szLongItemName>
-
-
     <szItemDesc>Gehen Sie mit diesem Benzin sorgfältig um. Wir sind hier in Arulco!</szItemDesc>
     <szBRName>Benzinkanister</szBRName>
     <szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
@@ -3068,11 +3060,8 @@
     <szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
     <szBRName>9x19 Mag LS #50</szBRName>
     <szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
-
-
   </ITEM>
   <ITEM>
-
     <uiIndex>382</uiIndex>
     <szItemName>9x19 Match</szItemName>
     <szLongItemName>9x19mm Magazin, Match</szLongItemName>
@@ -4140,7 +4129,6 @@
   </ITEM>
   <ITEM>
     <uiIndex>515</uiIndex>
-
     <szItemName>.40 Mag DPX</szItemName>
     <szLongItemName>.40 S&amp;W Magazin, DPX</szLongItemName>
     <szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
@@ -5104,28 +5092,7 @@
     <uiIndex>635</uiIndex>
     <szItemName>CZ-52</szItemName>
     <szLongItemName>CZ-52</szLongItemName>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <szItemDesc>Die tschechoslowakische Armeepistole Modell 52, ist eine äußerst interessante waffentechnische Entwicklung aus dem Jahr 1949.</szItemDesc>
-
-
-
-
-
     <szBRName>CZ-52</szBRName>
     <szBRDesc>Die tschechoslowakische Armeepistole Modell 52, kurz CZ-52 genannt, ist eine äußerst interessante waffentechnische Entwicklung aus dem Jahr 1949. Sie verwendet das Kaliber 7.62x25 mm Tokarev (eine Kopie des 7.63 Mauser).</szBRDesc>
   </ITEM>
@@ -7292,7 +7259,7 @@
     <szLongItemName>Granatwerfer HK AG36</szLongItemName>
     <szItemDesc>Ein Unterlauf-Granatwerfer, der 40mm-Granaten verschießt. Er wurde ursprünglich für das G36 entwickelt, kann mittlerweile aber auch an andere Sturmgewehre montiert werden.</szItemDesc>
     <szBRName>Granatwerfer HK AG36</szBRName>
-    <szBRDesc>Der Anbau-Granatwerfer 36 von Heckler & Koch verschießt 40mm-Granaten. Er wurde ursprünglich für das G36 entwickelt, kann mittlerweile aber auch an andere Sturmgewehre montiert werden. Der Hersteller sichert eine leichte Handhabung zu.</szBRDesc>
+    <szBRDesc>Der Anbau-Granatwerfer 36 von Heckler &amp; Koch verschießt 40mm-Granaten. Er wurde ursprünglich für das G36 entwickelt, kann mittlerweile aber auch an andere Sturmgewehre montiert werden. Der Hersteller sichert eine leichte Handhabung zu.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>906</uiIndex>
@@ -7346,17 +7313,17 @@
     <uiIndex>912</uiIndex>
     <szItemName>HK XM29</szItemName>
     <szLongItemName>HK XM29</szLongItemName>
-    <szItemDesc>Das XM29 ist einer der Entwürfe, die von Heckler & Koch für das amerikanische OICW-Programm eingereicht wurden. Die Sturmgewehreinheit basiert auf dem G36K und hat daher das Kaliber 5.56mm. Der halbautomatische Granatwerfer mit Magazinzufuhr hat das Kaliber 20mm.</szItemDesc>
+    <szItemDesc>Das XM29 ist einer der Entwürfe, die von Heckler &amp; Koch für das amerikanische OICW-Programm eingereicht wurden. Die Sturmgewehreinheit basiert auf dem G36K und hat daher das Kaliber 5.56mm. Der halbautomatische Granatwerfer mit Magazinzufuhr hat das Kaliber 20mm.</szItemDesc>
     <szBRName>OICW Granatwerfer</szBRName>
-    <szBRDesc>Das XM29 ist einer der Entwürfe, die von Heckler & Koch für das amerikanische OICW-Programm eingereicht wurden. Die Sturmgewehreinheit basiert auf dem G36K und hat daher das Kaliber 5.56mm. Der halbautomatische Granatwerfer mit Magazinzufuhr hat das Kaliber 20mm.</szBRDesc>
+    <szBRDesc>Das XM29 ist einer der Entwürfe, die von Heckler &amp; Koch für das amerikanische OICW-Programm eingereicht wurden. Die Sturmgewehreinheit basiert auf dem G36K und hat daher das Kaliber 5.56mm. Der halbautomatische Granatwerfer mit Magazinzufuhr hat das Kaliber 20mm.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>913</uiIndex>
     <szItemName>GranW HK79</szItemName>
     <szLongItemName>Granatwerfer HK79</szLongItemName>
-    <szItemDesc>Ein Unterlauf-Granatwerfer mit dem Kaliber 40mm für ältere Sturmgewehre von Heckler & Koch.</szItemDesc>
+    <szItemDesc>Ein Unterlauf-Granatwerfer mit dem Kaliber 40mm für ältere Sturmgewehre von Heckler &amp; Koch.</szItemDesc>
     <szBRName>Granatwerfer HK79</szBRName>
-    <szBRDesc>Dieser Unterlauf-Granatwerfer mit dem Kaliber 40mm kann an ältere Sturmgewehre von Heckler & Koch montiert werden.</szBRDesc>
+    <szBRDesc>Dieser Unterlauf-Granatwerfer mit dem Kaliber 40mm kann an ältere Sturmgewehre von Heckler &amp; Koch montiert werden.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>914</uiIndex>
@@ -7634,9 +7601,9 @@
     <uiIndex>948</uiIndex>
     <szItemName>LM, HK-Waffen</szItemName>
     <szLongItemName>Lasermodul, HK-Waffen</szLongItemName>
-    <szItemDesc>Ein Lasermodul mit großer Reichweite für ältere Waffen von Heckler & Koch. Bei seinem Gewicht könnte es fast als Hiebwaffe benutzt werden. Obendrein benötigt es viel Platz und verhindert die Montage eines Zielfernrohrs.</szItemDesc>
+    <szItemDesc>Ein Lasermodul mit großer Reichweite für ältere Waffen von Heckler &amp; Koch. Bei seinem Gewicht könnte es fast als Hiebwaffe benutzt werden. Obendrein benötigt es viel Platz und verhindert die Montage eines Zielfernrohrs.</szItemDesc>
     <szBRName>Lasermodul, HK-Waffen</szBRName>
-    <szBRDesc>Dieses Lasermodul für ältere Waffen von Heckler & Koch ist zuverlässig und hat eine enorme Reichweite. Beachten Sie bitte den Warnhinweis bezüglich der Laserstärke. Die Verwendung zusammen mit einem Zielfernrohr ist nicht möglich.</szBRDesc>
+    <szBRDesc>Dieses Lasermodul für ältere Waffen von Heckler &amp; Koch ist zuverlässig und hat eine enorme Reichweite. Beachten Sie bitte den Warnhinweis bezüglich der Laserstärke. Die Verwendung zusammen mit einem Zielfernrohr ist nicht möglich.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>949</uiIndex>
@@ -9574,9 +9541,7 @@
     <uiIndex>1191</uiIndex>
     <szItemName>Magpul PDR</szItemName>
     <szLongItemName>Magpul PDR</szLongItemName>
-    <szItemDesc>Eine
-
-von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szItemDesc>
+    <szItemDesc>Eine von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szItemDesc>
     <szBRName>MagPul PDR</szBRName>
     <szBRDesc>Das von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szBRDesc>
   </ITEM>
@@ -9592,7 +9557,6 @@ von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht i
     <uiIndex>1193</uiIndex>
     <szItemName>M1 Carbine</szItemName>
     <szLongItemName>M1 Carbine</szLongItemName>
-
     <szItemDesc>Ursprünglich sollte der M1 Karabiner die Pistole als Seitenwaffe ersetzen, jedoch wurde er im Zweiten Weltkrieg oft als 'leichtes' Gewehr eingesetzt. Seit 1941 wurden über 6,5 Mio. Stück hergestellt.</szItemDesc>
     <szBRName>M1 Carbine</szBRName>
     <szBRDesc>Der gute alte M1 Karabiner. Er ist auch heute noch auf dem Markt für Waffensammler und Liebhaber historischer Waffen.</szBRDesc>
@@ -12695,9 +12659,11 @@ von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht i
     <szLongItemName>Garotte</szLongItemName>
     <szItemDesc>In erfahrenden Händen kann eine Garotte eine tödliche Waffe sein. In unerfahrenen Händen ist sie besser als nichts.</szItemDesc>
     <szBRName>Garotte</szBRName>
-    <szBRDesc>Leicht zu verbergen und wartungsfrei.
+    <szBRDesc>
+      Leicht zu verbergen und wartungsfrei.
 
-Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
+      Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.
+    </szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1580</uiIndex>
@@ -13188,7 +13154,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szBRName>Heckenschere</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
-<ITEM>
+  <ITEM>
     <uiIndex>1640</uiIndex>
     <szItemName>Stolperdrahtr.</szItemName>
     <szLongItemName>Stolperdrahtrolle</szLongItemName>
@@ -13204,6 +13170,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szBRName>LBE: Pistolenholster 3</szBRName>
     <szBRDesc>Dieses LBE-System wird bereits gebrauchsfertig geliefert und muss nicht zusammengefügt werden. Das Holster ist zusammen mit zwei Pistolenmagazintaschen und zwei unterschiedliche Mehrzwecktaschen fest auf einer Beinplatte montiert. Das Anbringen weiterer Taschen ist nicht möglich.</szBRDesc>
   </ITEM>
+  <ITEM>
     <uiIndex>1642</uiIndex>
     <szItemName>L: Flintenh.</szItemName>
     <szLongItemName>LBE: Flintenholster</szLongItemName>
@@ -13615,8 +13582,6 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <uiIndex>1693</uiIndex>
     <szItemName>M: Mzw-Weste II</szItemName>
     <szLongItemName>MOLLE: Mehrzweckweste II</szLongItemName>
-    <szItemName></szItemName>
-    <szLongItemName>MOLLE: Mehrzweckweste II</szLongItemName>
     <szItemDesc>Diese für Spezialkräfte vorgesehene Weste verfügt bereits über einige Taschen. Da sie mit dem MOLLE-System ausgestattet ist, lässt sie sich noch erweitern.</szItemDesc>
     <szBRName>MOLLE: Condor-Weste</szBRName>
     <szBRDesc>Wenn sie mit einem richtig schmutzigen Auftrag rechnen, sollten sie sich diese Weste mit Munitionstaschen zulegen. Durch MOLLE-Taschen können Sie die Weste erweitern und an ihre Bedürfnisse anpassen.</szBRDesc>
@@ -13625,7 +13590,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <uiIndex>1694</uiIndex>
     <szItemName>M: Mzw-Weste III</szItemName>
     <szLongItemName>MOLLE: Mehrzweckweste III</szLongItemName>
-    <szItemDesc>Diese taktische Weste von Archer stammt aus chinesischer Produktion. Sie bietet bereits etliche Taschen für Ausrüstung, kann durch das MOLLE-Taschen aber noch erweitert werden.</szBRDesc>
+    <szItemDesc>Diese taktische Weste von Archer stammt aus chinesischer Produktion. Sie bietet bereits etliche Taschen für Ausrüstung, kann durch das MOLLE-Taschen aber noch erweitert werden.</szItemDesc>
     <szBRName>MOLLE: Mehrzweckweste III</szBRName>
     <szBRDesc>Diese taktische Mehrzweckweste stammt aus hochwertiger chinesischer Produktion. Das verwendete Material ist atmungsaktiv; alle Nähte wurden auf Reiß- und Zugfestigkeit geprüft. Bei der Auswahl der Taschen wurden (laut Hersteller) die Bedürfnisse von Spezialkräften berücksichtigt. Sollten die vorhandenen Taschen dennoch nicht ausreichen, können weitere MOLLE-Taschen hinzugefügt werden.</szBRDesc>
   </ITEM>
@@ -13635,8 +13600,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szLongItemName>MOLLE: Karabiner</szLongItemName>
     <szItemDesc>Dieser Karabiner kann durch D-Ringe gezogen werden, um dann andere Gegenstände an ihm zu befestigen.</szItemDesc>
     <szBRName>MOLLE: Karabiner</szBRName>
-    <szBRDesc>Klein, aber fein. Dieser Karabiner mit Sicherheitsverschluss kann durch D-Ringe gezogen werden und schafft selbst für unhandliche Ausrüstung noch Platz.
-</szBRDesc>
+    <szBRDesc>Klein, aber fein. Dieser Karabiner mit Sicherheitsverschluss kann durch D-Ringe gezogen werden und schafft selbst für unhandliche Ausrüstung noch Platz.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1696</uiIndex>
@@ -13686,7 +13650,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szBRName>Signalfackel, rot</szBRName>
     <szBRDesc>Diese Signalfackel erzeugt eine gewaltige rote Rauchsäule. Eigentlich handelt es sich um ein Seenotsignalmittel, aber Sie könnten damit auch ein Zielgebiet für ein Bombardement markieren.</szBRDesc>
   </ITEM>
-<ITEM>
+  <ITEM>
     <uiIndex>1702</uiIndex>
     <szItemName>SMALL_SMOKE</szItemName>
     <szLongItemName>SMALL_SMOKE</szLongItemName>
@@ -13716,7 +13680,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szLongItemName>MOLLE: USMC-Rucksack</szLongItemName>
     <szItemDesc>Dieser Rucksack wurde für das United States Marine Corps entworfen. Er ist mit PALS-Halterungen ausgestattet und kann zusammen mit der USMC-Kampftasche getragen werden.</szItemDesc>
     <szBRName>MOLLE: USMC-Rucksack</szBRName>
-    <szBRDesc>Bei der Entwicklung dieses RUcksacks wurden Erfahrungen aus Kampfeinsätzen und der Wunsch nach individueller Konfiguration berücksichtigt. Er ist daher mit PALS-Halterungen ausgestattet und kann zusammen mit der USMC-Kampftasche (oder einem anderen Modell) getragen werden. – Käufer dieses Artikels bestellten auch: USMC-Kampftasche, TIMS-Kampftasche</szBRDesc>		
+    <szBRDesc>Bei der Entwicklung dieses RUcksacks wurden Erfahrungen aus Kampfeinsätzen und der Wunsch nach individueller Konfiguration berücksichtigt. Er ist daher mit PALS-Halterungen ausgestattet und kann zusammen mit der USMC-Kampftasche (oder einem anderen Modell) getragen werden. – Käufer dieses Artikels bestellten auch: USMC-Kampftasche, TIMS-Kampftasche</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1706</uiIndex>
@@ -13724,7 +13688,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szLongItemName>MOLLE: USMC-Kampftasche</szLongItemName>
     <szItemDesc>Diese Kampftasche wurde für das United States Marine Corps entworfen. Sie ist mit dem MOLLE-System ausgestattet und kann zusammen mit dem USMC-Rucksack getragen werden.</szItemDesc>
     <szBRName>MOLLE: USMC-Kampftasche</szBRName>
-    <szBRDesc>Bei der Entwicklung dieser Kampftasche wurden Erfahrungen aus Kampfeinsätzen und der Wunsch nach individueller Konfiguration berücksichtigt. Sie ist daher mit PALS-Halterungen ausgestattet und kann zusammen mit dem USMC-Rucksack (oder einem anderen Modell) getragen werden. – Käufer dieses Artikels bestellten auch: USMC-Rucksack, TIMS-Rucksack</szBRDesc>		
+    <szBRDesc>Bei der Entwicklung dieser Kampftasche wurden Erfahrungen aus Kampfeinsätzen und der Wunsch nach individueller Konfiguration berücksichtigt. Sie ist daher mit PALS-Halterungen ausgestattet und kann zusammen mit dem USMC-Rucksack (oder einem anderen Modell) getragen werden. – Käufer dieses Artikels bestellten auch: USMC-Rucksack, TIMS-Rucksack</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1707</uiIndex>
@@ -13732,7 +13696,7 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szLongItemName>MOLLE: Extended Range Backpack</szLongItemName>
     <szItemDesc>Dieser wirklich sehr große Rucksack kann nicht mit Kampftaschen zusammen getragen werden. Zum Ausgleich ist er mit PALS-Halterungen ausgestattet, so dass er noch erweitert werden kann.</szItemDesc>
     <szBRName>MOLLE: Extended Range Backpack</szBRName>
-    <szBRDesc>Dieser Rucksack ist einer der größten, die Tactical Tailor anbietet. Er bietet eine beeindruckende Funktionsvielfalt und ist bestens für längere Einsätze geeignet. Natürlich ist er mit PALS-Halterungen ausgestattet und kann erweitert werden. Das notwendige Zubehör finden Sie in unserem Katalog.</szBRDesc>		
+    <szBRDesc>Dieser Rucksack ist einer der größten, die Tactical Tailor anbietet. Er bietet eine beeindruckende Funktionsvielfalt und ist bestens für längere Einsätze geeignet. Natürlich ist er mit PALS-Halterungen ausgestattet und kann erweitert werden. Das notwendige Zubehör finden Sie in unserem Katalog.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1708</uiIndex>
@@ -13740,14 +13704,14 @@ Easily concealable, lightweigth, maintenance-free. Though you might want to reco
     <szLongItemName>MOLLE: Modular Pack</szLongItemName>
     <szItemDesc>Der Modular Pack ist ein Rucksack für kürzere Touren. Erweiterungen sind durch die PALS-Halterungen möglich.</szItemDesc>
     <szBRName>MOLLE: Modular Pack</szBRName>
-    <szBRDesc>Der Modular Pack von Tactical Tailor ist ein Rucksack für kürzere Touren. Er ist hervorragend verarbeitet und kann außerdem noch erweitert werden, da im Gegensatz zu gewöhnlichen Rucksäcken mit PALS-Halterungen für zusätzliche MOLLE-Taschen ausgestattet ist. Eine große Auswahl davon finden sie ebenfalls in unserem Sortiment.</szBRDesc>		
+    <szBRDesc>Der Modular Pack von Tactical Tailor ist ein Rucksack für kürzere Touren. Er ist hervorragend verarbeitet und kann außerdem noch erweitert werden, da im Gegensatz zu gewöhnlichen Rucksäcken mit PALS-Halterungen für zusätzliche MOLLE-Taschen ausgestattet ist. Eine große Auswahl davon finden sie ebenfalls in unserem Sortiment.</szBRDesc>
   </ITEM>
   <ITEM>
-	<uiIndex>1709</uiIndex>
-	<szItemName>Sleeping bag</szItemName>
-	<szLongItemName>Sleeping bag</szLongItemName>
-	<szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
-	<szBRName>Sleeping bag</szBRName>
-	<szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>		  
+    <uiIndex>1709</uiIndex>
+    <szItemName>Sleeping bag</szItemName>
+    <szLongItemName>Sleeping bag</szLongItemName>
+    <szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+    <szBRName>Sleeping bag</szBRName>
+    <szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>
   </ITEM>
 </ITEMLIST>
