@@ -438,23 +438,34 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	pGroup = gpGroupList;
 	pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
 
+	UINT8 ubNumTanks = 0;
 
 	// if we're doing this from the Pre-Battle interface, gpAR is NULL, and RemoveAutoResolveInterface(0 won't happen, so
 	// we must process the enemies killed right here & give out loyalty bonuses as if the battle had been fought & won
 	if( !gpAR )
 	{
-		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[ 0 ], &ubNumEnemies[ 1 ], &ubNumEnemies[ 2 ], &ubNumEnemies[ 3 ] );
+		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[ 0 ], &ubNumEnemies[ 1 ], &ubNumEnemies[ 2 ], &ubNumTanks );
 
-		for ( ubRankIndex = 0; ubRankIndex < NUM_ENEMY_RANKS; ubRankIndex++ )
+		for ( ubRankIndex = 0; ubRankIndex < NUM_ENEMY_RANKS; ++ubRankIndex )
 		{
-			for ( i = 0; i < ubNumEnemies[ ubRankIndex ]; i++ )
+			for ( i = 0; i < ubNumEnemies[ ubRankIndex ]; ++i )
 			{
-				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, ubSectorX, ubSectorY, 0 );
+				if( ProcessLoyalty() )
+					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, ubSectorX, ubSectorY, 0 );
+
 				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, RankIndexToSoldierClass( ubRankIndex ) );
 			}
 		}
 
-		if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, ubSectorX, ubSectorY, 0 );
+		if ( ProcessLoyalty( ) )
+		{
+			for ( i = 0; i < ubNumTanks; ++i )
+			{
+				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, ubSectorX, ubSectorY, 0 );
+			}
+
+			HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, ubSectorX, ubSectorY, 0 );
+		}
 	}
 
 	if( !gpAR || gpAR->ubBattleStatus != BATTLE_IN_PROGRESS )
