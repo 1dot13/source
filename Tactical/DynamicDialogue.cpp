@@ -1151,7 +1151,10 @@ void SetfDynamicOpinionSpeechInProgress( BOOLEAN aVal )
 
 void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue )
 {
-	if ( usProfileA == NO_PROFILE || usProfileA == NO_PROFILE )
+	if ( usProfileA == NO_PROFILE || usProfileB == NO_PROFILE )
+		return;
+
+	if ( usProfileA == usProfileB )
 		return;
 
 	if ( usEvent >= OPINIONEVENT_MAX )
