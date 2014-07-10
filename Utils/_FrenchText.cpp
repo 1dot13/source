@@ -559,7 +559,7 @@ STR16 iEditorMercsToolbarText[] =
  L"SOLO RUSÉ",
  L"SOUTIEN RUSÉ",
  
- L"Sélectionné le mercenaire pour faire face à %s",
+ L"Pour faire face à %s",	// Max 30 characters
  
  L"Trouvé",
  L"MAUVAIS", //40
