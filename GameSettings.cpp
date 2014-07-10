@@ -1832,21 +1832,30 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSurrenderMultiplier				= iniReader.ReadFloat("Strategic Gameplay Settings", "SURRENDER_MULTIPLIER", 5.0f, 2.0f, 10.0f);
 	gGameExternalOptions.fPlayerCanAsktoSurrender			= iniReader.ReadBoolean("Strategic Gameplay Settings","PLAYER_CAN_ASK_TO_SURRENDER", TRUE);
 	gGameExternalOptions.ubPrisonerReturntoQueenChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RETURN_TO_ARMY_CHANCE", 50, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessDefectChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_DEFECT_CHANCE", 25, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessInfoBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_BASECHANCE", 25, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_DEFECT]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_DEFECT_CHANCE", 25, 0, 100 );
+	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_INFO]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INFO_BASECHANCE", 25, 0, 100 );
 	gGameExternalOptions.ubPrisonerProcessInfoNumberChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_NUMBER_CHANCE", 30, 0, 100);
 	gGameExternalOptions.ubPrisonerProcessInfoDirectionChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_DIRECTION_CHANCE", 40, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessRansomBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RANSOM_CHANCE", 25, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_RANSOM]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_RANSOM_CHANCE", 25, 0, 100 );
+	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_NOTHING]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_NOTHING_CHANCE", 25, 0, 100 );
 
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ADMIN",	80, 30, 1000);
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_REGULAR", 100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN], 1000);
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ELITE",   100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR], 1000);
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_OFFICER",  100, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ADMIN",	30, 10, 1000);
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_REGULAR",  50, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN], 1000);
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ELITE",    80, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR], 1000);
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_OFFICER", 150, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_GENERAL]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_GENERAL", 250, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER], 1000 );
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_THUG]		= 100;
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET1]	= 100;
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET2]	= 100;
 
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ADMIN",	0, 0, 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_REGULAR",  1, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN], 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ELITE",   10, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR], 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_OFFICER", 60, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE], 100 );
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_GENERAL]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_GENERAL", 80, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER], 100 );
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_THUG]		= 0;
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET1]	= 0;
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET2]	= 0;
 						
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0, 0, 3);

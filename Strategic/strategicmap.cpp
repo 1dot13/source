@@ -5403,12 +5403,25 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 			StrategicMap[i].usFlags = 0;
 		}
 	}
-		
+			
 	// Load the Sector Info
-	for (int sectorID = 0; sectorID <= 255; ++ sectorID) {
+	for (int sectorID = 0; sectorID <= 255; ++sectorID)
+	{
 		FileRead( hFile, &SectorInfo[sectorID], sizeof( SECTORINFO ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( SECTORINFO )) {
+		if( uiNumBytesRead != sizeof( SECTORINFO ))
+		{
 			return(FALSE);
+		}
+
+		// Flugente: changes in SECTORINFO require a weird-looking remapping
+		if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
+		{
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_GENERAL] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_THUG] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET1] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
+			SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
+			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_THUG];
 		}
 	}
 //	uiSize = sizeof( SECTORINFO ) * 256;

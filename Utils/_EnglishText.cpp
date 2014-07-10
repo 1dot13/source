@@ -2264,6 +2264,26 @@ STR16 pSnitchSectorMenuDescStrings[] =
 	L"",
 };
 
+STR16 pPrisonerMenuStrings[] =
+{
+	L"Interrogate admins",
+	L"Interrogate troops",
+	L"Interrogate elites",
+	L"Interrogate officers",
+	L"Interrogate generals",
+	L"Cancel",
+};
+
+STR16 pPrisonerMenuDescStrings[] =
+{
+	L"Administrators are easy to process, but give only poor results",
+	L"Regular troops are common an don't give you high rewards.",
+	L"If elite troops defect to you, they can become veteran militia.",
+	L"Interrogating enemy officers can lead you to find enemy generals.",
+	L"Generals cannot join your militia, but lead to high ransoms.",
+	L"Cancel",
+};
+
 STR16 pSnitchPrisonExposedStrings[] =
 {
 	L"%s was exposed as a snitch but managed to notice it and get out alive.",
@@ -8227,7 +8247,7 @@ STR16		szPersonalityHelpText[]=
 	L"What are your manners?",
 	L"How important are the manners of other people to you?",
 	L"What is your nationality?",
-	L"What nation o you dislike?",
+	L"What nation do you dislike?",
 	L"How much do you dislike that nation?",
 	L"How racist are you?",
 	L"What is your race? You will be\nracist against all other races.",

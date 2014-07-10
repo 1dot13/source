@@ -170,28 +170,28 @@ void RenderMercCompareMain( )
 }
 
 
-BOOLEAN InitMercCompareDefaults( )
+void InitMercCompareDefaults( )
 {
 	VOBJECT_DESC	VObjectDesc;
 
 	// load the Insurance bullet graphic and add it
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "LAPTOP\\bullet.sti", VObjectDesc.ImageFile );
-	CHECKF( AddVideoObject( &VObjectDesc, &guiMercCompareBulletImage ) );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareBulletImage ) );
 
 	// load the Flower Account Box graphic and add it
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "LAPTOP\\BackGroundTile.sti", VObjectDesc.ImageFile );
-	CHECKF( AddVideoObject( &VObjectDesc, &guiInsuranceBackGround ) );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBackGround ) );
 
 	// load the red bar on the side of the page and add it
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "LAPTOP\\LargeBar.sti", VObjectDesc.ImageFile );
-	CHECKF( AddVideoObject( &VObjectDesc, &guiInsuranceBigRedLineImage ) );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBigRedLineImage ) );
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "LAPTOP\\PressLogos.sti", VObjectDesc.ImageFile );
-	CHECKF( AddVideoObject( &VObjectDesc, &guiMercCompareLogoImage ) );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareLogoImage ) );
 
 	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
 	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
@@ -204,8 +204,6 @@ BOOLEAN InitMercCompareDefaults( )
 
 		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
 	}
-
-	return(TRUE);
 }
 
 void DisplayMercCompareDefaults( )
@@ -298,11 +296,6 @@ void SelectMercCompareRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 ////////////////////////// MERC COMPARE CUSTOMERS ////////////////////////////////
 
-void GameInitMercCompareCustomers( )
-{
-
-}
-
 BOOLEAN EnterMercCompareCustomers( )
 {	
 	InitMercCompareDefaults( );
@@ -387,11 +380,6 @@ BOOLEAN fMercCompareRedraw = FALSE;
 // two dropdowns, which we'll use to toggle between our mercs
 template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::SetRefresh( )	{ fMercCompareRedraw = TRUE; }
 template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::SetRefresh( )	{ fMercCompareRedraw = TRUE; }
-
-void GameInitMercCompareAnalyze()
-{
-
-}
 
 BOOLEAN EnterMercCompareAnalyze()
 {
@@ -988,11 +976,6 @@ template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::SetRefr
 	fMercCompareMatrixRedraw = TRUE;
 }
 
-void GameInitMercCompareMatrix( )
-{
-
-}
-
 BOOLEAN EnterMercCompareMatrix( )
 {
 	InitMercCompareDefaults( );
@@ -1183,7 +1166,7 @@ void RenderMercCompareMatrix( )
 						CURSOR_WWW, MSYS_NO_CALLBACK, SelectMercCompareMatrixRegionCallBack );
 					MSYS_AddRegion( &gMercCompareMatrixLinkRegion[currentmouseregion] );
 
-					// both profilenumbers are combined to a single value which cn later be reinterpreted.
+					// both profilenumbers are combined to a single value which can later be reinterpreted.
 					// Note: this will fail if the profile IDs are bigger than UINT16 (currently UINT8)
 					MSYS_SetRegionUserData( &gMercCompareMatrixLinkRegion[currentmouseregion], 0, ((pSoldierA->ubProfile << 8) | pSoldierB->ubProfile) );
 					gMercCompareMatrixLinkDefined[currentmouseregion] = TRUE;

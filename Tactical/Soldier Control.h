@@ -399,6 +399,14 @@ enum
 #define SOLDIER_SNITCHING_OFF				0x00000001	//1				// isn't allowed to snitch
 #define SOLDIER_PREVENT_MISBEHAVIOUR_OFF	0x00000002	//2				// isn't allowed to prevent misbehaviour
 #define SOLDIER_RAM_THROUGH_OBSTACLES		0x00000004	//4				// vehicle
+#define SOLDIER_INTERROGATE_ADMIN			0x00000008	//8				// interrogate admins. Flags might not be the best solution, but I won't add an extra variable for this
+
+#define SOLDIER_INTERROGATE_TROOP			0x00000010	//16			// interrogate troops
+#define SOLDIER_INTERROGATE_ELITE			0x00000020	//32			// interrogate elites
+#define SOLDIER_INTERROGATE_OFFICER			0x00000040	//64			// interrogate officers
+#define SOLDIER_INTERROGATE_GENERAL			0x00000080	//128			// interrogate generals
+
+#define SOLDIER_INTERROGATE_ALL				0x000000F8					// all interrogation flags
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: background property flags --------

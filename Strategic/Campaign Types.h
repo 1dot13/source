@@ -425,6 +425,11 @@ typedef enum
 	PRISONER_REGULAR,
 	PRISONER_ELITE,
 	PRISONER_OFFICER,
+
+	PRISONER_GENERAL,	// generals can be captured too, interogating them gives special rewards
+	PRISONER_THUG,		// captured enemies not affiliated to the army fall into this category
+	PRISONER_SECRET1,	// tbA
+	PRISONER_SECRET2,	// tbA
 	PRISONER_MAX,
 } PrisonerType;
 
@@ -495,15 +500,15 @@ typedef struct SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
-	UINT8	uiInterrogationHundredsLeft;
+	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];			// TODO: PRISONER_MAX got expanded - Varaiblen werden falsch ausgelesen!!!
+	UINT8	uiInterrogationHundredsLeft[PRISONER_MAX];
 
 	UINT32	uiTimeAIArtillerywasOrdered;			// Flugente: updated every time an artillery strike is ordered from the militia
 	
 	UINT8	ubNumTanks;
 	UINT8	ubTanksInBattle;
 
-	INT8	bPadding[ 27 ];
+	INT8	bPadding[ 20 ];
 
 }SECTORINFO;
 
@@ -545,7 +550,7 @@ typedef struct UNDERGROUND_SECTORINFO
 	UINT8	ubNumTanks;
 	UINT8	ubTanksInBattle;
 
-	INT8	bPadding[30];
+	INT8	bPadding[26];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

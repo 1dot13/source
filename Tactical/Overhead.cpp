@@ -6693,10 +6693,7 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT32>& arSectorIDVector )
 extern INT32 giReinforcementPool;
 
 // we cannot simply move all prisoners of a sector. It might be a prison we are already using, so we would move all inmates, not just the new ones
-UINT16 gusPrisonersOfficer = 0;
-UINT16 gusPrisonersElite = 0;
-UINT16 gusPrisonersRegular = 0;
-UINT16 gusPrisonersAdmin = 0;
+INT16 gsNumPrisoner[PRISONER_MAX] = {0};
 
 void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
@@ -6727,7 +6724,9 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 	}
 
 	BOOLEAN success = FALSE;
-	UINT16 prisonerstobemoved = gusPrisonersOfficer + gusPrisonersElite + gusPrisonersRegular + gusPrisonersAdmin;
+	INT16 prisonerstobemoved = 0;
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+		prisonerstobemoved += gsNumPrisoner[i];
 
 	if ( usSectorID > 0 )
 	{
@@ -6737,7 +6736,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			success = TRUE;
 
-			ChangeNumberOfPrisoners( pPrisonSectorInfo, gusPrisonersOfficer, gusPrisonersElite, gusPrisonersRegular, gusPrisonersAdmin );
+			ChangeNumberOfPrisoners( pPrisonSectorInfo, gsNumPrisoner );
 
 			CHAR16 wString[64];
 			GetShortSectorString( SECTORX( usSectorID ), SECTORY( usSectorID ), wString );
@@ -6745,10 +6744,8 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 		}
 	}
 
-	gusPrisonersOfficer = 0;
-	gusPrisonersElite = 0;
-	gusPrisonersRegular = 0;
-	gusPrisonersAdmin = 0;
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+		gsNumPrisoner[i] = 0;
 
 	if ( !success )
 	{
@@ -6760,13 +6757,10 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
-	SOLDIERTYPE *pTeamSoldier;
-	INT32               cnt = 0;
-	UINT16               ubNumPrisoners = 0;
-	UINT16               ubNumPrisonerAdmin = 0;
-	UINT16               ubNumPrisonerTroop = 0;
-	UINT16               ubNumPrisonerElite = 0;
-	UINT16               ubNumPrisonerOfficer = 0;
+	SOLDIERTYPE*	pTeamSoldier;
+	INT32           cnt = 0;
+	UINT16          ubNumPrisoners = 0;
+	INT16			sNumPrisoner[PRISONER_MAX] = {0};
 
 	// Check if the battle is won!
 	// Loop through all mercs and make go
@@ -6781,18 +6775,18 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				// if we arrive here and the guy has lifepoints < OKLIFE, something is very odd... better take him prisoner and remove him anyway
 				//if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
 				{
-					// officers are 'special' prisoners...
-					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
-					{
-						++ubNumPrisonerOfficer;
-					}
+					// officers and generals are 'special' prisoners...
+					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
+						++sNumPrisoner[PRISONER_GENERAL];
+					else if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+						++sNumPrisoner[PRISONER_OFFICER];
 					else
 					{
 						switch ( pTeamSoldier->ubSoldierClass )
 						{
-						case SOLDIER_CLASS_ADMINISTRATOR:   ++ubNumPrisonerAdmin; break;
-						case SOLDIER_CLASS_ARMY:            ++ubNumPrisonerTroop; break;
-						case SOLDIER_CLASS_ELITE:           ++ubNumPrisonerElite; break;
+						case SOLDIER_CLASS_ADMINISTRATOR:   ++sNumPrisoner[PRISONER_ADMIN]; break;
+						case SOLDIER_CLASS_ARMY:            ++sNumPrisoner[PRISONER_REGULAR]; break;
+						case SOLDIER_CLASS_ELITE:           ++sNumPrisoner[PRISONER_ELITE]; break;
 						default:
 							// if none of the above classes, ignore this one
 							continue;
@@ -6802,9 +6796,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 					// Flugente: VIPs
 					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
-					{
 						DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
-					}
 
 					// Flugente: campaign stats
 					gCurrentIncident.AddStat( pTeamSoldier, CAMPAIGNHISTORY_TYPE_PRISONER );
@@ -6911,10 +6903,8 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			}
 
 			// remember all prisoners...
-			gusPrisonersOfficer = ubNumPrisonerOfficer;
-			gusPrisonersElite = ubNumPrisonerElite;
-			gusPrisonersRegular = ubNumPrisonerTroop;
-			gusPrisonersAdmin = ubNumPrisonerAdmin;
+			for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+				gsNumPrisoner[i] = sNumPrisoner[i];
 
             DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
 		}
@@ -10637,52 +10627,54 @@ BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr)
 	return FALSE;
 }
 
-UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aPrisoners[] )
 {
 	if ( !pSectorInfo )
 		return 0;
 
-	*aOfficer  = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER];
-	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
-	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
-	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
+	UINT16 sum = 0;
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+	{
+		aPrisoners[i] = pSectorInfo->uiNumberOfPrisonersOfWar[i];
 
-	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+		sum += pSectorInfo->uiNumberOfPrisonersOfWar[i];
+	}
+
+	return sum;
 }
 
-UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aPrisoners[] )
 {
 	if ( !pSectorInfo )
 		return 0;
 
-	*aOfficer  = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER];
-	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
-	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
-	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
+	UINT16 sum = 0;
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+	{
+		aPrisoners[i] = pSectorInfo->uiNumberOfPrisonersOfWar[i];
 
-	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+		sum += pSectorInfo->uiNumberOfPrisonersOfWar[i];
+	}
+
+	return sum;
 }
 
-void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX, INT16 sY )
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aPrisoners[] )
 {
 	if ( !pSectorInfo )
 		return;
 
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + aOfficer ) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+		pSectorInfo->uiNumberOfPrisonersOfWar[i] = max( 0, min( 255, pSectorInfo->uiNumberOfPrisonersOfWar[i] + aPrisoners[i] ) );
 }
 
-void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin )
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aPrisoners[] )
 {
 	if ( !pSectorInfo )
 		return;
 
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_OFFICER] + aOfficer ) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
-	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+		pSectorInfo->uiNumberOfPrisonersOfWar[i] = max( 0, min( 255, pSectorInfo->uiNumberOfPrisonersOfWar[i] + aPrisoners[i] ) );
 }
 
 void DeleteAllPrisoners( SECTORINFO *pSectorInfo )

@@ -275,6 +275,9 @@ extern INT32 ghSnitchBox;
 extern INT32 ghSnitchToggleBox;
 extern INT32 ghSnitchSectorBox;
 
+// Flugente: prisoner menu
+extern INT32 ghPrisonerBox;
+
 
 extern MOUSE_REGION	gAssignmentScreenMaskRegion;
 
@@ -355,6 +358,11 @@ void SnitchToggleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionsForSnitchSectorMenu( void );
 void SnitchSectorMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SnitchSectorMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// Flugente: prisoner menu
+void CreateDestroyMouseRegionsForPrisonerMenu();
+void PrisonerMenuMvtCallBack( MOUSE_REGION * pRegion, INT32 iReason );
+void PrisonerMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // contract menu
 void CreateDestroyMouseRegionsForContractMenu( void );

@@ -158,6 +158,17 @@ enum {
 	MAX_SNITCH_SECTOR_MENU_STRING_COUNT,
 };
 
+// Flugente: prisoner menu defines
+enum {
+	PRISONER_MENU_ADMIN = 0,
+	PRISONER_MENU_TROOP,
+	PRISONER_MENU_ELITE,
+	PRISONER_MENU_OFFICER,
+	PRISONER_MENU_GENERAL,
+	PRISONER_MENU_CANCEL,
+	MAX_PRISONER_MENU_STRING_COUNT,
+};
+
 // training assignment menu defines
 enum {
 	TRAIN_MENU_SELF,
@@ -305,6 +316,9 @@ extern BOOLEAN fShowSnitchMenu;
 extern BOOLEAN fShowSnitchToggleMenu;
 extern BOOLEAN fShowSnitchSectorMenu;
 
+// Flugente: prisoner menu
+extern BOOLEAN fShowPrisonerMenu;
+
 extern BOOLEAN fFirstTimeInMapScreen;
 extern BOOLEAN fLockOutMapScreenInterface;
 
@@ -365,6 +379,9 @@ extern SGPRect SnitchToggleDimensions;
 extern SGPPoint SnitchSectorPosition;
 extern SGPRect SnitchSectorDimensions;
 
+extern SGPPoint PrisonerPosition;
+extern SGPRect PrisonerDimensions;
+
 extern SGPPoint MilitiaControlPosition; //lal
 extern SGPRect MilitiaControlDimensions;
 
@@ -384,6 +401,8 @@ extern SGPPoint OrigFacilityAssignmentPosition; // HEADROCK HAM 3.6
 extern SGPPoint OrigSnitchPosition;
 extern SGPPoint OrigSnitchTogglePosition;
 extern SGPPoint OrigSnitchSectorPosition;
+
+extern SGPPoint OrigPrisonerPosition;
 
 // disble team info panel due to showing of battle roster
 extern BOOLEAN fDisableDueToBattleRoster;

@@ -175,6 +175,8 @@ extern STR16 pSnitchToggleMenuStrings[];
 extern STR16 pSnitchToggleMenuDescStrings[];
 extern STR16 pSnitchSectorMenuStrings[];
 extern STR16 pSnitchSectorMenuDescStrings[];
+extern STR16 pPrisonerMenuStrings[];
+extern STR16 pPrisonerMenuDescStrings[];
 extern STR16 pSnitchPrisonExposedStrings[];
 extern STR16 pSnitchGatheringRumoursResultStrings[];
 extern STR16 pAssignMenuStrings[];

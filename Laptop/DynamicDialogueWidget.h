@@ -273,6 +273,7 @@ private:
 	DynamicOpinionSpeechEvent mEvent;
 };
 
+// due to the way callbacks on mouse regions are handled, we need a static object that we can 'hook' on. Thus we use this singleton
 class IMPDialogueChooseBox_Static : public IMPDialogueChooseBox
 {
 public:
@@ -287,7 +288,7 @@ public:
 	static void SelectRegionDropDown_DropDown( MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<IMPDialogueChooseBox*>(mpSelf)->SelectDropDownRegionCallBack( pRegion, iReason ); }
 
 	MOUSE_CALLBACK
-		CallBackWrapper( void* pt2Object, UINT8 arg, void( *pt2Function )(MOUSE_REGION * pRegion, INT32 iReason) )
+	CallBackWrapper( void* pt2Object, UINT8 arg, void( *pt2Function )(MOUSE_REGION * pRegion, INT32 iReason) )
 	{
 		mpSelf = pt2Object;
 
@@ -317,6 +318,5 @@ BOOLEAN DynamicDialogueBoxesActive( );
 
 // used fo example when we load a game - dialogue has to start anew, so all boxes must be wiped
 void DestroyAllDynamicDialogueBoxes( );
-
 
 #endif

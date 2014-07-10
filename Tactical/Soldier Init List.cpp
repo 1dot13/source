@@ -2875,8 +2875,8 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		return;
 
 	// only continue if there are prisoners in this sector that need to be placed
-	UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
-	UINT16 numprisoners = GetNumberOfPrisoners(pSector, &tmp1, &tmp2, &tmp3, &tmp4);
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	UINT16 numprisoners = GetNumberOfPrisoners( pSector, aPrisoners );
 	if ( !numprisoners )
 		return;
 		

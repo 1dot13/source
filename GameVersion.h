@@ -21,7 +21,8 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
-#define			DYNAMIC_DIALOGUE								157 // Flugente: mercs have dynamic dialogue depending on nely formed opinions, an the player can interact with them
+#define			PRISONER_EXPANSION								158	// Flugente: more types of prisoners
+#define			DYNAMIC_DIALOGUE								157 // Flugente: mercs have dynamic dialogue depending on newly formed opinions, an the player can interact with them
 #define			DYNAMIC_OPINIONS								156 // Flugente: mercs can form opinions on other people depending on their behaviour
 #define			INCREASED_REFUEL_SITES							155	// Flugente: increased the number of helicopter refuel sites
 #define			ENEMY_VIPS										154 // Flugente: enemy generals are placed randomly in the map
@@ -76,7 +77,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								DYNAMIC_DIALOGUE
+#define			SAVE_GAME_VERSION								PRISONER_EXPANSION
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

@@ -139,6 +139,8 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"SnitchToggleMenuDesc",		Loc::pSnitchToggleMenuDescStrings,	0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT-1);
 	ExportSection(props, L"SnitchSectorMenu",			Loc::pSnitchSectorMenuStrings,		0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT);
 	ExportSection(props, L"SnitchSectorMenuDesc",		Loc::pSnitchSectorMenuDescStrings,	0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT-1);
+	ExportSection(props, L"PrisonerMenu",				Loc::pPrisonerMenuStrings,			0,  MAX_PRISONER_MENU_STRING_COUNT );
+	ExportSection(props, L"PrisonerMenuDesc",			Loc::pPrisonerMenuDescStrings,		0,  MAX_PRISONER_MENU_STRING_COUNT - 1 );
 	ExportSection(props, L"SnitchPrisonExposed",		Loc::pSnitchPrisonExposedStrings,	0,	NUM_SNITCH_PRISON_EXPOSED);
 	ExportSection(props, L"SnitchGatheringRumoursResult",	Loc::pSnitchGatheringRumoursResultStrings,	0,	NUM_SNITCH_GATHERING_RUMOURS_RESULT);
 

@@ -373,11 +373,11 @@ BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
 BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
 
 // Flugente: functions altering a sector's prisoners
-UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo,				UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
-UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,	UINT8* aOfficer, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
+UINT16 GetNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aPrisoners[] );
+UINT16 GetNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aPrisoners[] );
 
-void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin, INT16 sX = 0, INT16 sY = 0 );
-void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,  INT16 aOfficer, INT16 aElite, INT16 aRegular, INT16 aAdmin );
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aPrisoners[] );
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aPrisoners[] );
 
 void DeleteAllPrisoners( SECTORINFO *pSectorInfo );
 void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo );

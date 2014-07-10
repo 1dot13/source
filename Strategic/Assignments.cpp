@@ -201,6 +201,9 @@ INT32 ghSnitchBox = -1;
 INT32 ghSnitchToggleBox = -1;
 INT32 ghSnitchSectorBox = -1;
 
+// Flugente: prisoner menu
+INT32 ghPrisonerBox = -1;
+
 // the x,y position of assignment pop up in tactical
 INT16 gsAssignmentBoxesX, gsAssignmentBoxesY;
 
@@ -229,6 +232,8 @@ MOUSE_REGION	gSnitchMenuRegion[ MAX_SNITCH_MENU_STRING_COUNT ];
 MOUSE_REGION	gSnitchToggleMenuRegion[ MAX_SNITCH_TOGGLE_MENU_STRING_COUNT ];
 MOUSE_REGION	gSnitchSectorMenuRegion[ MAX_SNITCH_SECTOR_MENU_STRING_COUNT ];
 
+MOUSE_REGION	gPrisonerMenuRegion[ MAX_PRISONER_MENU_STRING_COUNT ];
+
 MOUSE_REGION	gAssignmentScreenMaskRegion;
 
 BOOLEAN fShownAssignmentMenu = FALSE;
@@ -240,6 +245,9 @@ BOOLEAN fShownContractMenu = FALSE;
 BOOLEAN fShowSnitchMenu = FALSE;
 BOOLEAN fShowSnitchToggleMenu = FALSE;
 BOOLEAN fShowSnitchSectorMenu = FALSE;
+
+// Flugente: prisoner menu
+BOOLEAN fShowPrisonerMenu = FALSE;
 
 BOOLEAN fFirstClickInAssignmentScreenMask = FALSE;
 
@@ -497,6 +505,9 @@ void HandleShadingOfLinesForSnitchMenu( void );
 void HandleShadingOfLinesForSnitchToggleMenu( void );
 void HandleShadingOfLinesForSnitchSectorMenu( void );
 
+// Flugente: prisoner menu
+void HandleShadingOfLinesForPrisonerMenu( void );
+
 // post message about contract
 void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract );
 
@@ -525,6 +536,9 @@ void CreateFacilityAssignmentBox( void );
 void CreateSnitchBox( void );
 void CreateSnitchToggleBox( void );
 void CreateSnitchSectorBox( void );
+
+// Flugente: prisoner menu
+void CreatePrisonerBox();
 /*
 // get how fast the person regains sleep
 INT8 GetRegainDueToSleepNeeded( SOLDIERTYPE *pSoldier, INT32 iRateOfReGain );
@@ -2331,8 +2345,8 @@ BOOLEAN CanCharacterSnitchInPrison( SOLDIERTYPE *pSoldier )
 				{
 					SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 		
-					UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
-					if ( GetNumberOfPrisoners(pSectorInfo, &tmp1, &tmp2, &tmp3, &tmp4) > 0 )
+					INT16 aPrisoners[PRISONER_MAX] = {0};
+					if ( GetNumberOfPrisoners( pSectorInfo, aPrisoners ) > 0 )
 						return TRUE;
 				}
 			}
@@ -2826,14 +2840,14 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 	
-	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	*pusMaxPts = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	*pusMaxPts = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 
 	// no prisoners -> no interrogation (this should not happen)
 	if ( !*pusMaxPts )
 		return 0;
 
-	usInterrogationPoints = 50 + 10 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
+	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) / 2;
 
 	// adjust for threatening value
 	INT32 threatenvalue = CalcThreateningEffectiveness( pSoldier->ubProfile ) * gMercProfiles[pSoldier->ubProfile].usApproachFactor[2] ;
@@ -2861,7 +2875,7 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 	performancemodifier = min(1000,  max(10, performancemodifier) );
 
-	usInterrogationPoints = (usInterrogationPoints * performancemodifier) / (650000);
+	usInterrogationPoints = (usInterrogationPoints * performancemodifier) / (700000);
 	
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usInterrogationPoints );
@@ -3037,14 +3051,14 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 
-	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	*pusMaxPts = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	*pusMaxPts = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 
 	// no prisoners -> no interrogation (this should not happen)
 	if ( !*pusMaxPts )
 		return 0;
 
-	usInterrogationPoints = 50 + 10 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) + EffectiveWisdom( pSoldier );
+	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier )/2 + EffectiveWisdom( pSoldier )/2;
 
 	// no bonuses for snitch trait, as merc has to have it to take this assignment anyway
 	if (gGameOptions.fNewTraitSystem)
@@ -3064,8 +3078,6 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 	friendlyvalue = (friendlyvalue * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_FRIENDLY))) / 100;
 
 	usInterrogationPoints *= friendlyvalue;
-
-	//usInterrogationPoints = (usInterrogationPoints * (100 + pSoldier->GetBackgroundValue(BG_PERC_INTERROGATION))) / 100;
 
 	UINT16 performancemodifier = 100;
 	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
@@ -3134,12 +3146,12 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 	UINT32 uiSuspicion = 0;	
 	UINT32 uiCoverQuality = 0;
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
-	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 
 	uiCoverQuality = ( 10 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveLeadership( pSoldier ) + EffectiveWisdom( pSoldier ) ) / 4;
 
-	uiSuspicion = 10 + prisonerselite + prisonersspecial;
+	uiSuspicion = 10 + aPrisoners[PRISONER_ELITE] + aPrisoners[PRISONER_OFFICER];
 
 	// no bonuses for snitch trait, as merc has to have it to take this assignment anyway
 	if (gGameOptions.fNewTraitSystem)
@@ -3314,11 +3326,6 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 
 void MakeSoldierKnownAsMercInPrison(SOLDIERTYPE *pSoldier, INT16 sMapX, INT16 sMapY)
 {
-	//SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
-	//UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	//UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
-	//gMercProfiles[pSoldier->ubProfile].ubExposedInSector[ SECTOR(sMapX, sMapY)] = numprisoners;
-
 	gMercProfiles[pSoldier->ubProfile].ubSnitchExposedCooldown += 24;
 }
 
@@ -6519,6 +6526,10 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( bZ )
 		return;
 
+	// if sector not under our control, has enemies in it, or is currently in combat mode
+	if ( !SectorOursAndPeaceful( sMapX, sMapY, bZ ) )
+		return;
+
 	// Is there a prison in this sector?
 	UINT16 prisonerbaselimit = 0;
 	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
@@ -6538,85 +6549,141 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( !prisonerbaselimit )
 		return;
 
-	// Are there any prisoners in this prison?
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
+	// Are there any prisoners in this prison?	
+	SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sMapX, sMapY )]);
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 		
-	UINT8 prisoners[PRISONER_MAX] = {0};
-	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisoners[PRISONER_OFFICER], &prisoners[PRISONER_ELITE], &prisoners[PRISONER_REGULAR], &prisoners[PRISONER_ADMIN] );
-
-	// add interrogation progress from last hour and erase it in data
-	UINT32	interrogationpoints = pSectorInfo->uiInterrogationHundredsLeft;
-	pSectorInfo->uiInterrogationHundredsLeft = 0;
-
-	// remember old interrogation points for exp distribution later
-	UINT32 oldinterrogationpoints = interrogationpoints;
-
 	if ( !numprisoners )
 		return;
 
-	// if sector not under our control, has enemies in it, or is currently in combat mode
-	if (!SectorOursAndPeaceful( sMapX, sMapY, bZ ))
-		return;
+	// add interrogation progress from last hour
+	UINT32	interrogationpoints[PRISONER_MAX] = {0};
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+	{
+		interrogationpoints[i] = pSectorInfo->uiInterrogationHundredsLeft[i];
+	}
 
-	// loop over all mercs in this sector that are on the FACILITY_INTERROGATE_PRISONERS assignment and determine their interrogation progress	
-	UINT8 numinterrogators = 0;
+	// loop over all mercs in this sector that are interrogating or are snitching on prisoners and determine their interrogation progress	
+	UINT8 numinterrogators[PRISONER_MAX] = {0};
 
 	// count any interrogators found here, and sum up their interrogation values
 	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt=0;
-	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++uiCnt, ++pSoldier)
+	UINT32 uiCnt = 0;
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCnt, ++pSoldier)
 	{
 		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
 		{
-			if( ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			if ( !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 			{
-				++numinterrogators;
-				
-				UINT16 tmp;
-				interrogationpoints += CalculateInterrogationValue(pSoldier, &tmp );
-			}
-			else if( ( pSoldier->bAssignment == FACILITY_PRISON_SNITCH ) && CanCharacterSnitchInPrison(pSoldier) && EnoughTimeOnAssignment( pSoldier ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
-			{
-				// first check if he wasn't exposed
-					//exposition fallout handled in HandleSnitchExposition
-				if( !HandleSnitchExposition(pSoldier) )
+				if( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS )
 				{
-					++numinterrogators;
-
 					UINT16 tmp;
-					interrogationpoints += CalculateSnitchInterrogationValue(pSoldier, &tmp );
+					UINT32 points = CalculateInterrogationValue( pSoldier, &tmp );
+
+					if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_TROOP )
+					{
+						++numinterrogators[PRISONER_REGULAR];
+						interrogationpoints[PRISONER_REGULAR] += points;
+					}
+					else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_ELITE )
+					{
+						++numinterrogators[PRISONER_ELITE];
+						interrogationpoints[PRISONER_ELITE] += points;
+					}
+					else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_OFFICER )
+					{
+						++numinterrogators[PRISONER_OFFICER];
+						interrogationpoints[PRISONER_OFFICER] += points;
+					}
+					else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_GENERAL )
+					{
+						++numinterrogators[PRISONER_GENERAL];
+						interrogationpoints[PRISONER_GENERAL] += points;
+					}
+					// admin is default
+					else
+					{
+						++numinterrogators[PRISONER_ADMIN];
+						interrogationpoints[PRISONER_ADMIN] += points;
+					}
+				}
+				else if( pSoldier->bAssignment == FACILITY_PRISON_SNITCH && CanCharacterSnitchInPrison(pSoldier) )
+				{
+					// first check if he wasn't exposed
+					//exposition fallout handled in HandleSnitchExposition
+					if( !HandleSnitchExposition(pSoldier) )
+					{
+						// as long as we cannot order snitches to target a specific prisoner class, add progress to default
+						++numinterrogators[PRISONER_ADMIN];
+
+						UINT16 tmp;
+						interrogationpoints[PRISONER_ADMIN] += CalculateSnitchInterrogationValue( pSoldier, &tmp );
+					}
 				}
 			}
 		}
 	}
 
-	if ( !numinterrogators )
+	UINT16 sum_interrogators = 0;
+	UINT32 sum_points = 0;
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX ; ++i)
+	{
+		sum_interrogators += numinterrogators[i];
+		sum_points += interrogationpoints[i];
+	}
+
+	if ( !sum_interrogators || !sum_points )
 		return;
 
 	// we first interrogate admins, then troops, then elites, then specials (once we figure out who those are :-) )
 	// higher quality prisoners require more effort, but yield better rewards
-	UINT8 interrogatedprisoners[PRISONER_MAX] = {0};
+	INT16 interrogatedprisoners[PRISONER_MAX] = {0};
 
+	// use up interrogation points
 	for (int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i)
 	{
-		while ( prisoners[i] && interrogationpoints >= gGameExternalOptions.ubPrisonerInterrogationPoints[i] )
+		while ( aPrisoners[i] > 0 && interrogationpoints[i] >= gGameExternalOptions.ubPrisonerInterrogationPoints[i] )
 		{
-			interrogationpoints -= gGameExternalOptions.ubPrisonerInterrogationPoints[i];
-			--prisoners[i];
+			interrogationpoints[i] -= gGameExternalOptions.ubPrisonerInterrogationPoints[i];
+			--aPrisoners[i];
 			++interrogatedprisoners[i];
 		}
+
+		// if no prisoners are left, move points to next type, or lose them
+		if ( aPrisoners[i] <= 0 )
+		{
+			if ( i == PRISONER_MAX -1 )
+				interrogationpoints[0] += interrogationpoints[i];
+			else
+				interrogationpoints[i + 1] += interrogationpoints[i];
+
+			interrogationpoints[i] = 0;
+		}
 	}
+
+	// do first type again, as it might have gotten enough points again
+	while ( aPrisoners[PRISONER_ADMIN] > 0 && interrogationpoints[PRISONER_ADMIN] >= gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN] )
+	{
+		interrogationpoints[PRISONER_ADMIN] -= gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN];
+		--aPrisoners[PRISONER_ADMIN];
+		++interrogatedprisoners[PRISONER_ADMIN];
+	}
+		
+	UINT16 prisonersinterrogated = 0;
 	
-	UINT16 prisonersinterrogated = interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER];
-	
-	// the part that gets left behind is saved to the map (but not the part that gets lost due to there not being enough prisoners)
-	UINT32  losthundreds = interrogationpoints / 100;
-	pSectorInfo->uiInterrogationHundredsLeft = (UINT8)(interrogationpoints - losthundreds * 100);
+	// save what points are left
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+	{
+		prisonersinterrogated += interrogatedprisoners[i];
+		pSectorInfo->uiInterrogationHundredsLeft[i] = min(255, interrogationpoints[i]);
+	}
 			
 	if ( !prisonersinterrogated )
 		return;
 
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_PROCESSED], interrogatedprisoners[PRISONER_OFFICER], interrogatedprisoners[PRISONER_ELITE], interrogatedprisoners[PRISONER_REGULAR], interrogatedprisoners[PRISONER_ADMIN] );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_PROCESSED], 
+			   interrogatedprisoners[PRISONER_OFFICER], interrogatedprisoners[PRISONER_ELITE], interrogatedprisoners[PRISONER_REGULAR], interrogatedprisoners[PRISONER_ADMIN] );
 		
 	UINT16 turnedmilitia[PRISONER_MAX] = { 0 };
 	UINT32 revealedpositions = 0;
@@ -6624,18 +6691,60 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	UINT32 ransommoney = 0;
 	for ( UINT32 i = 0; i < prisonersinterrogated; ++i )
 	{
+		// what kind of a prisoner is this?
+		UINT8 prisonertype = PRISONER_THUG;
+		if ( i < interrogatedprisoners[PRISONER_ADMIN] )
+			prisonertype = PRISONER_ADMIN;
+		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] )
+			prisonertype = PRISONER_REGULAR;
+		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] )
+			prisonertype = PRISONER_ELITE;
+		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER] )
+			prisonertype = PRISONER_OFFICER;
+		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER] + interrogatedprisoners[PRISONER_GENERAL] )
+			prisonertype = PRISONER_GENERAL;
+
+		// get base chance
+		UINT8 chances[PRISONER_INTERROGATION_MAX] = {0};
+		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+			chances[j] = gGameExternalOptions.ubPrisonerProcessChance[j];
+
+		// depending on prisoner type, the chances for different results may differ
+		// for example, generals cannot be recruited
+		if ( prisonertype == PRISONER_GENERAL )
+			chances[PRISONER_INTERROGATION_DEFECT] = 0;
+
+		if ( prisonertype == PRISONER_THUG )
+			chances[PRISONER_INTERROGATION_DEFECT] = 0;
+
+		// for normalisation, get sum of chances
+		UINT16 sumchance = 0;
+		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+			sumchance += chances[j];
+
+		// if nothing is set, 100% chance to get nothing
+		if ( !sumchance )
+		{
+			chances[PRISONER_INTERROGATION_NOTHING] = 100;
+			sumchance = 100;
+		}
+
+		// normalize to 100
+		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+			chances[j] = (chances[j] * 100) / sumchance;
+
 		// we determine what happens to the prisoners
 		UINT8 result = Random( 100 );
 
 		// chance that prisoner will work on our side as militia
-		if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance )
+		if ( result < chances[PRISONER_INTERROGATION_DEFECT] )
 		{
 			// troops are converted to militia, but there is a chance that they will be demoted in the process
-			if ( i >= interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] && Chance( 80 ) )
+			if ( prisonertype >= PRISONER_OFFICER && Chance( 80 ) )
 				++turnedmilitia[PRISONER_OFFICER];
-			if ( i >= interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] && Chance( 80 ) )
+			else if ( prisonertype >= PRISONER_ELITE && Chance( 80 ) )
 				++turnedmilitia[PRISONER_ELITE];
-			else if ( i >= interrogatedprisoners[PRISONER_ADMIN] && Chance( 80 ) )
+			else if ( prisonertype >= PRISONER_REGULAR && Chance( 80 ) )
 				++turnedmilitia[PRISONER_REGULAR];
 			else
 				++turnedmilitia[PRISONER_ADMIN];
@@ -6644,26 +6753,26 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			continue;
 		}
 		// chance that prisoner will give us random info about enemy positions
-		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance )
+		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] )
 		{
 			// if this guy is an elite or a special prisoner, there is a chance he might tell us about high-value targets!
 			BOOLEAN fGetInfoOnHiddenVIPs = FALSE;
-			if ( i < interrogatedprisoners[PRISONER_ADMIN] )
+			if ( prisonertype == PRISONER_ADMIN )
 			{
 				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN] ) )
 					fGetInfoOnHiddenVIPs = TRUE;
 			}
-			else if ( i < interrogatedprisoners[PRISONER_REGULAR] )
+			else if ( prisonertype == PRISONER_REGULAR )
 			{
 				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR] ) )
 					fGetInfoOnHiddenVIPs = TRUE;
 			}
-			else if ( i < interrogatedprisoners[PRISONER_ELITE] )
+			else if ( prisonertype == PRISONER_ELITE )
 			{
 				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE] ) )
 					fGetInfoOnHiddenVIPs = TRUE;
 			}
-			else if ( i < interrogatedprisoners[PRISONER_OFFICER] )
+			else if ( prisonertype == PRISONER_OFFICER )
 			{
 				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER] ) )
 					fGetInfoOnHiddenVIPs = TRUE;
@@ -6723,10 +6832,22 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			}
 		}
 		// chance prisoner will grant us ransom money
-		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance + gGameExternalOptions.ubPrisonerProcessRansomBaseChance )
+		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] + chances[PRISONER_INTERROGATION_RANSOM] )
 		{
-			ransommoney += (Random(5) + 1) * 100;
+			UINT32 ransom = (1 + Random( 5 )) * 100;
 
+			// different prisoners give a different amount of ransom
+			if ( prisonertype == PRISONER_ADMIN )
+				ransom *= 0.5f;
+			else if ( prisonertype == PRISONER_OFFICER )
+				ransom *= 3;
+			else if ( prisonertype == PRISONER_GENERAL )
+				ransom *= 10;
+			else if ( prisonertype == PRISONER_THUG )
+				ransom *= 0.7f;
+
+			ransommoney += ransom;
+						
 			++ransomscollected;
 		}
 		// we have to let him go without any benefits
@@ -6759,35 +6880,47 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RANSOM], ransomscollected  );
 	}
-
-	// remove interrogated prisoners...
-	ChangeNumberOfPrisoners( pSectorInfo, -interrogatedprisoners[PRISONER_OFFICER], -interrogatedprisoners[PRISONER_ELITE], -interrogatedprisoners[PRISONER_REGULAR], -interrogatedprisoners[PRISONER_ADMIN], sMapX, sMapY );
-
+		
 	// give experience rewards to the interrogators
-	// total experience to share
-	if ( !oldinterrogationpoints )
-		return;
-
-	FLOAT totalexp = (FLOAT) (1 * prisonersinterrogated);
-	FLOAT expratio = totalexp / (oldinterrogationpoints * 33);	// TODO
+	// exp gained depends on prisoner type
+	FLOAT totalexp = (FLOAT)(4 * interrogatedprisoners[PRISONER_ADMIN] + 5 * interrogatedprisoners[PRISONER_REGULAR] + 7 * interrogatedprisoners[PRISONER_ELITE] + 10 * interrogatedprisoners[PRISONER_OFFICER]);
+	FLOAT expratio = totalexp / sum_points;
 
 	// award experience
-	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++uiCnt, ++pSoldier)
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCnt, ++pSoldier)
 	{
 		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
 		{
-			// if he's training teammates in this stat
-			if( ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			if ( !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 			{
-				UINT16 tmp;
-				UINT16 exppoints = (UINT16)(expratio * CalculateInterrogationValue(pSoldier, &tmp ) );
+				if ( (pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS) )
+				{
+					UINT16 tmp;
+					UINT16 exppoints = (UINT16)(expratio * CalculateInterrogationValue(pSoldier, &tmp ) );
 								
-				StatChange( pSoldier, LDRAMT,		exppoints, TRUE );
-				StatChange( pSoldier, WISDOMAMT,	max(0, exppoints - 1), TRUE );
-				StatChange( pSoldier, EXPERAMT,		max(0, exppoints - 2), TRUE );
+					StatChange( pSoldier, LDRAMT,		exppoints, TRUE );
+					StatChange( pSoldier, WISDOMAMT,	max(0, exppoints - 1), TRUE );
+					StatChange( pSoldier, EXPERAMT,		max(0, exppoints - 2), TRUE );
+				}
+				else if( pSoldier->bAssignment == FACILITY_PRISON_SNITCH && CanCharacterSnitchInPrison(pSoldier) )
+				{
+					UINT16 tmp;
+					UINT16 exppoints = (UINT16)(expratio * CalculateSnitchInterrogationValue( pSoldier, &tmp ));
+
+					// no leaership gain, but higher wisdom and experience gain
+					StatChange( pSoldier, WISDOMAMT, max( 0, exppoints ), TRUE );
+					StatChange( pSoldier, EXPERAMT, max( 0, exppoints - 1 ), TRUE );
+				}
 			}
 		}
 	}
+
+	// remove interrogated prisoners...
+	// careful: we have to change the sign here!
+	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+		interrogatedprisoners[i] = -interrogatedprisoners[i];
+
+	ChangeNumberOfPrisoners( pSectorInfo, interrogatedprisoners );
 }
 
 // Flugente: prisons can riot if there aren't enough guards around
@@ -6824,8 +6957,8 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	// Are there any prisoners in this prison?
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
-	UINT8 prisonersofficer = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
-	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, &prisonersofficer, &prisonerselite, &prisonersregular, &prisonersadmin );
+	INT16 aPrisoners[PRISONER_MAX] = {0};
+	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 
 	if ( !numprisoners )
 		return;
@@ -6837,10 +6970,9 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if( StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].fEnemyControlled == TRUE )
 	{
 		// add enemies
-		pSectorInfo->ubNumTroops = min(255, pSectorInfo->ubNumTroops + prisonersregular);
-		pSectorInfo->ubNumElites = min(255, pSectorInfo->ubNumElites + prisonerselite + prisonersofficer);
-		pSectorInfo->ubNumAdmins = min(255, pSectorInfo->ubNumAdmins + prisonersadmin);
-		pSectorInfo->ubNumTanks = min(255, pSectorInfo->ubNumTanks );
+		pSectorInfo->ubNumTroops = min( 255, pSectorInfo->ubNumTroops + aPrisoners[PRISONER_REGULAR] );
+		pSectorInfo->ubNumElites = min( 255, pSectorInfo->ubNumElites + aPrisoners[PRISONER_ELITE] + aPrisoners[PRISONER_OFFICER] );
+		pSectorInfo->ubNumAdmins = min( 255, pSectorInfo->ubNumAdmins + aPrisoners[PRISONER_ADMIN] );
 
 		// all prisoners are free, reduce count!
 		DeleteAllPrisoners(pSectorInfo);
@@ -6870,7 +7002,12 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		fBeginRiot = TRUE;
 
 	// we now have to determine the combined strength of the prisoners
-	UINT32 prisonerriotvalue = 200 * prisonersofficer + 125 * prisonerselite + 100 * prisonersregular + 75 * prisonersadmin;
+	UINT32 prisonerriotvalue = 100 * aPrisoners[PRISONER_THUG]
+		+ 200 * aPrisoners[PRISONER_GENERAL]
+		+ 200 * aPrisoners[PRISONER_OFFICER] 
+		+ 125 * aPrisoners[PRISONER_ELITE] 
+		+ 100 * aPrisoners[PRISONER_REGULAR] 
+		+ 75 * aPrisoners[PRISONER_ADMIN];
 
 	if ( prisonerriotvalue > prisonguardvalue )
 	{
@@ -6885,19 +7022,21 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			prisonertoguardratio = (FLOAT)(prisonerriotvalue / prisonguardvalue);
 
 		// in a riot, prisoners escape and are added to the sector as enemies. Not all might escape - the worse the prisoner/guard ratio, the more escape
-		INT16 escapedadmins		= min( Random( prisonersadmin	* prisonertoguardratio ), prisonersadmin );
-		INT16 escapedregulars	= min( Random( prisonersregular	* prisonertoguardratio ), prisonersregular );
-		INT16 escapedelites		= min( Random( prisonerselite	* prisonertoguardratio ), prisonerselite );
-		INT16 escapedofficers   = min( Random( prisonersofficer	* prisonertoguardratio ), prisonersofficer );
+		INT16 escapedprisoners[PRISONER_MAX] = {0};
+		for (int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+			escapedprisoners[i] = min( Random( aPrisoners[i] * prisonertoguardratio ), aPrisoners[i] );
 
 		// add enemies
-		pSectorInfo->ubNumTroops = min( 512, pSectorInfo->ubNumTroops + escapedregulars );
-		pSectorInfo->ubNumElites = min( 512, pSectorInfo->ubNumElites + escapedelites + escapedofficers );
-		pSectorInfo->ubNumAdmins = min( 512, pSectorInfo->ubNumAdmins + escapedadmins );
-		pSectorInfo->ubNumTanks = min( 512, pSectorInfo->ubNumTanks );
+		pSectorInfo->ubNumTroops = min( 512, pSectorInfo->ubNumTroops + escapedprisoners[PRISONER_REGULAR] + escapedprisoners[PRISONER_THUG] );
+		pSectorInfo->ubNumElites = min( 512, pSectorInfo->ubNumElites + escapedprisoners[PRISONER_ELITE] + escapedprisoners[PRISONER_OFFICER] + escapedprisoners[PRISONER_GENERAL] );
+		pSectorInfo->ubNumAdmins = min( 512, pSectorInfo->ubNumAdmins + escapedprisoners[PRISONER_ADMIN] );
 
 		// reduce prisoner count!
-		ChangeNumberOfPrisoners( pSectorInfo, -escapedofficers, -escapedelites, -escapedregulars, -escapedadmins, sMapX, sMapY );
+		// we have to change the sign
+		for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+			escapedprisoners[i] = -escapedprisoners[i];
+
+		ChangeNumberOfPrisoners( pSectorInfo, escapedprisoners );
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RIOT], wSectorName  );
 	}
@@ -8853,6 +8992,9 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 	HandleShadingOfLinesForSnitchMenu( );
 	HandleShadingOfLinesForSnitchToggleMenu( );
 	HandleShadingOfLinesForSnitchSectorMenu( );
+
+	// Flugente: prisoner menu
+	HandleShadingOfLinesForPrisonerMenu();
 }
 
 
@@ -8924,6 +9066,9 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionsForSnitchMenu( );
 		CreateDestroyMouseRegionsForSnitchToggleMenu( );
 		CreateDestroyMouseRegionsForSnitchSectorMenu( );
+
+		// Flugente: prisoner menu
+		CreateDestroyMouseRegionsForPrisonerMenu();
 
 		// hide all boxes being shown
 		if ( IsBoxShown( ghEpcBox ) )
@@ -9001,6 +9146,14 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
+
+		if ( IsBoxShown( ghPrisonerBox ) )
+		{
+			HideBox( ghPrisonerBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+				
 		// do we really want ot hide this box?
 		if( fShowContractMenu == FALSE )
 		{
@@ -9036,6 +9189,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionsForSnitchMenu( );
 	CreateDestroyMouseRegionsForSnitchToggleMenu( );
 	CreateDestroyMouseRegionsForSnitchSectorMenu( );
+	CreateDestroyMouseRegionsForPrisonerMenu( );
 
 	if( ( ( Menptr[gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife == 0 )||( Menptr[gCharactersList[bSelectedInfoChar].usSolID].bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
 	{
@@ -9240,6 +9394,26 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 			//	SetRenderFlags(RENDER_FLAG_FULL);
 		}
 	}
+
+	// Flugente: prisoner menu
+	if ( fShowPrisonerMenu )
+	{
+		HandleShadingOfLinesForPrisonerMenu( );
+		ShowBox( ghPrisonerBox );
+	}
+	else
+	{
+		if ( IsBoxShown( ghPrisonerBox ) )
+		{
+			HideBox( ghPrisonerBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+			//	SetRenderFlags(RENDER_FLAG_FULL);
+		}
+	}
+
+	CreateDestroyMouseRegionsForPrisonerMenu( );
 }
 
 
@@ -9338,6 +9512,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForSnitchMenu( );
 	CreateDestroyMouseRegionsForSnitchToggleMenu( );
 	CreateDestroyMouseRegionsForSnitchSectorMenu( );
+	CreateDestroyMouseRegionsForPrisonerMenu( );
 }
 
 void CreateDestroyMouseRegions( void )
@@ -10273,6 +10448,98 @@ void CreateDestroyMouseRegionsForSnitchSectorMenu( void )
 	}
 }
 
+void CreateDestroyMouseRegionsForPrisonerMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+	UINT32 iCounter = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+
+	// will create/destroy mouse regions for the map screen assignment main menu
+
+	if ( (fShowPrisonerMenu == TRUE) && (fCreated == FALSE) )
+	{
+		// grab height of font
+		iFontHeight = GetLineSpace( ghPrisonerBox ) + GetFontHeight( GetBoxFont( ghPrisonerBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghPrisonerBox, &pPosition );
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghPrisonerBox, &pDimensions );
+		SetBoxSecondaryShade( ghPrisonerBox, FONT_YELLOW );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghPrisonerBox );
+
+		// define regions
+		for ( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghPrisonerBox ); ++iCounter )
+		{
+			// add mouse region for each line of text..and set user data
+			MSYS_DefineRegion( &gPrisonerMenuRegion[iCounter], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghPrisonerBox ) + (iFontHeight)* iCounter), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghPrisonerBox ) + (iFontHeight)* (iCounter + 1)), MSYS_PRIORITY_HIGHEST - 3,
+							   MSYS_NO_CURSOR, PrisonerMenuMvtCallBack, PrisonerMenuBtnCallback );
+
+			// set user defines
+			MSYS_SetRegionUserData( &gPrisonerMenuRegion[iCounter], 0, iCounter );
+
+			// Add tooltip for region
+			if ( wcscmp( pPrisonerMenuDescStrings[iCounter], L"" ) != 0 )
+			{
+				SetRegionFastHelpText( &gPrisonerMenuRegion[iCounter], pPrisonerMenuDescStrings[iCounter] );
+			}
+		}
+
+		// created
+		fCreated = TRUE;
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghPrisonerBox );
+
+	}
+	else if ( (!fShowAssignmentMenu || !fShowFacilityMenu || !fShowFacilityAssignmentMenu || !fShowPrisonerMenu) && (fCreated == TRUE) )
+	{
+		// destroy
+		for ( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghPrisonerBox ); ++iCounter )
+		{
+			MSYS_RemoveRegion( &gPrisonerMenuRegion[iCounter] );
+		}
+
+		// stop showing training menu
+		if ( !fShowAssignmentMenu || !fShowFacilityMenu || !fShowFacilityAssignmentMenu )
+		{
+			fShowPrisonerMenu = FALSE;
+		}
+
+		RestorePopUpBoxes( );
+
+		fMapPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+		HideBox( ghPrisonerBox );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		// not created
+		fCreated = FALSE;
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+}
+
 void AssignmentMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
@@ -10999,6 +11266,29 @@ void SnitchSectorMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
+void PrisonerMenuMvtCallBack( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if ( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		// highlight string
+
+		// do not highlight current balance
+		if ( !GetBoxShadeFlag( ghPrisonerBox, iValue ) )
+		{
+			// get the string line handle
+			HighLightBoxLine( ghPrisonerBox, iValue );
+		}
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghPrisonerBox );
+	}
+}
+
 void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
@@ -11474,6 +11764,71 @@ void SnitchSectorMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
+void PrisonerMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if ( iValue == PRISONER_MENU_CANCEL )
+		{
+			// cancel, leave
+			// stop showing menu
+			fShowPrisonerMenu = FALSE;
+
+			// unhighlight the training box
+			UnHighLightBox( ghPrisonerBox );
+		}
+		else if ( iValue == PRISONER_MENU_ADMIN )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_ADMIN;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
+		else if ( iValue == PRISONER_MENU_TROOP )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_TROOP;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
+		else if ( iValue == PRISONER_MENU_ELITE )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_ELITE;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
+		else if ( iValue == PRISONER_MENU_OFFICER )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_OFFICER;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
+		else if ( iValue == PRISONER_MENU_GENERAL )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_GENERAL;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
+
+		// rerender tactical stuff
+		gfRenderPBInterface = TRUE;
+
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+	}
+}
+
 void SetShowAllMenus( BOOLEAN fShowMenu )
 {
 	//fShowAssignmentMenu = fShowMenu;
@@ -11511,16 +11866,17 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				case( EPC_MENU_ON_DUTY ):
 					if( CanCharacterOnDuty( pSoldier ) )
-						{
-							// put character on a team
-							fShowSquadMenu = TRUE;
-							fShowTrainingMenu = FALSE;
-							fShowVehicleMenu = FALSE;
-							fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
-							fTeamPanelDirty = TRUE;
-							fMapScreenBottomDirty = TRUE;
+					{
+						// put character on a team
+						fShowSquadMenu = TRUE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
 
-						}
+					}
 				break;
 				case( EPC_MENU_PATIENT ):
 						// can character doctor?
@@ -11653,18 +12009,19 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			switch( iValue )
 			{
 				case( ASSIGN_MENU_ON_DUTY ):
-						if( CanCharacterOnDuty( pSoldier ) )
-						{
-							// put character on a team
-							fShowSquadMenu = TRUE;
-							fShowTrainingMenu = FALSE;
-							fShowVehicleMenu = FALSE;
-							fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
-							fTeamPanelDirty = TRUE;
-							fMapScreenBottomDirty = TRUE;
-							fShowRepairMenu = FALSE;
-							fShowMoveItemMenu = FALSE;
-						}
+					if( CanCharacterOnDuty( pSoldier ) )
+					{
+						// put character on a team
+						fShowSquadMenu = TRUE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+						fShowRepairMenu = FALSE;
+						fShowMoveItemMenu = FALSE;
+					}
 				break;
 				case( ASSIGN_MENU_DOCTOR ):
 
@@ -11844,6 +12201,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
@@ -11922,6 +12280,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowFacilityMenu = FALSE;
+						fShowPrisonerMenu = FALSE;
 
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
@@ -11937,6 +12296,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
 						fShowSnitchMenu = FALSE;
 
 						fTeamPanelDirty = TRUE;
@@ -11952,6 +12312,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
 						//fShownAssignmentMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShownContractMenu = FALSE;
@@ -11992,9 +12353,10 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowFacilityMenu = TRUE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
-
+						
 						if( DisplayFacilityMenu( pSoldier ) )
 						{
 							fShowFacilityMenu = TRUE;
@@ -12483,9 +12845,8 @@ void CreateSnitchToggleBox()
 	// set current box to this one
 	SetCurrentBox( ghSnitchToggleBox );
 
-
 	// add strings for box
-	for(uiCounter=0; uiCounter < MAX_SNITCH_TOGGLE_MENU_STRING_COUNT; uiCounter++)
+	for(uiCounter=0; uiCounter < MAX_SNITCH_TOGGLE_MENU_STRING_COUNT; ++uiCounter)
 	{
 		AddMonoString(&hStringHandle, pSnitchToggleMenuStrings[uiCounter]);
 
@@ -12575,6 +12936,72 @@ void CreateSnitchSectorBox()
 
 	// resize box to text
 	ResizeBoxToText( ghSnitchSectorBox );
+
+	DetermineBoxPositions( );
+}
+
+void CreatePrisonerBox( )
+{
+	UINT32 hStringHandle;
+	UINT32 uiCounter;
+
+	// will create attribute pop up menu for mapscreen assignments
+	PrisonerPosition.iX = OrigPrisonerPosition.iX;
+
+	PrisonerPosition.iX = FacilityAssignmentPosition.iX + 80;
+
+	if ( giBoxY != 0 )
+	{
+		PrisonerPosition.iY = giBoxY + (ASSIGN_MENU_FACILITY * GetFontHeight( MAP_SCREEN_FONT ));
+	}
+
+	// create basic box
+	CreatePopUpBox( &ghPrisonerBox, PrisonerDimensions, PrisonerPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE) );
+
+	// which buffer will box render to
+	SetBoxBuffer( ghPrisonerBox, FRAME_BUFFER );
+
+	// border type?
+	SetBorderType( ghPrisonerBox, guiPOPUPBORDERS );
+
+	// background texture
+	SetBackGroundSurface( ghPrisonerBox, guiPOPUPTEX );
+
+	// margin sizes
+	SetMargins( ghPrisonerBox, 6, 6, 4, 4 );
+
+	// space between lines
+	SetLineSpace( ghPrisonerBox, 2 );
+
+	// set current box to this one
+	SetCurrentBox( ghPrisonerBox );
+
+	// add strings for box
+	for ( uiCounter = 0; uiCounter < MAX_PRISONER_MENU_STRING_COUNT; ++uiCounter )
+	{
+		AddMonoString( &hStringHandle, pPrisonerMenuStrings[uiCounter] );
+
+		// make sure it is unhighlighted
+		UnHighLightLine( hStringHandle );
+	}
+
+	// set font type
+	SetBoxFont( ghPrisonerBox, MAP_SCREEN_FONT );
+
+	// set highlight color
+	SetBoxHighLight( ghPrisonerBox, FONT_WHITE );
+
+	// unhighlighted color
+	SetBoxForeground( ghPrisonerBox, FONT_LTGREEN );
+
+	// background color
+	SetBoxBackground( ghPrisonerBox, FONT_BLACK );
+
+	// shaded color..for darkened text
+	SetBoxShade( ghPrisonerBox, FONT_GRAY7 );
+
+	// resize box to text
+	ResizeBoxToText( ghPrisonerBox );
 
 	DetermineBoxPositions( );
 }
@@ -13013,6 +13440,8 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		CreateSnitchBox( );
 		CreateSnitchToggleBox( );
 		CreateSnitchSectorBox( );
+		// Flugente: prisoner menu
+		CreatePrisonerBox( );
 		UpdateMapScreenAssignmentPositions( );
 
 		fCreated = TRUE;
@@ -13064,6 +13493,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		RemoveBox(ghSnitchSectorBox);
 		ghSnitchSectorBox = -1;
 
+		RemoveBox( ghPrisonerBox );
+		ghPrisonerBox = -1;
+
 		fCreated = FALSE;
 		gfIgnoreScrolling = FALSE;
 		RebuildCurrentSquad( );
@@ -13081,8 +13513,7 @@ void DetermineBoxPositions( void )
 	SGPPoint pNewPoint;
 	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
-
-
+	
 	if( ( fShowAssignmentMenu == FALSE ) || ( ghAssignmentBox == -1 ) )
 	{
 		return;
@@ -13115,7 +13546,6 @@ void DetermineBoxPositions( void )
 		SetBoxPosition( ghAssignmentBox, pPoint );
 		GetBoxSize( ghAssignmentBox, &pDimensions );
 	}
-
 
 	// hang it right beside the assignment/EPC box menu
 	pNewPoint.iX = pPoint.iX + pDimensions.iRight;
@@ -13222,9 +13652,31 @@ void DetermineBoxPositions( void )
 		}
 	}
 
-	return;
-}
+	if ( fShowPrisonerMenu && (ghPrisonerBox != -1) )
+	{
+		// this should be next to the facility assignemtn menu, so get the coordinates for that
+		if ( (fShowFacilityAssignmentMenu == TRUE) && (ghFacilityAssignmentBox != -1) )
+		{
+			GetBoxPosition( ghFacilityAssignmentBox, &pPoint );
+			GetBoxSize( ghFacilityAssignmentBox, &pDimensions );
 
+			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
+		}
+
+		pNewPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_FACILITY);
+
+		SetBoxPosition( ghPrisonerBox, pNewPoint );
+		PrisonerPosition.iX = pNewPoint.iX;
+		PrisonerPosition.iY = pNewPoint.iY;
+		OrigPrisonerPosition.iY = pNewPoint.iY;
+		OrigPrisonerPosition.iX = pNewPoint.iX;
+
+		ResizeBoxToText( ghPrisonerBox );
+
+		GetBoxSize( ghPrisonerBox, &pDimensions );
+		GetBoxPosition( ghPrisonerBox, &pPoint );
+	}
+}
 
 
 void SetTacticalPopUpAssignmentBoxXY( void )
@@ -14444,6 +14896,9 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				MakeSoldierKnownAsMercInPrison( pSoldier, pSoldier->sSectorX, pSoldier->sSectorY );
 				ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
 				AssignMercToAMovementGroup( pSoldier );
+
+				fShowPrisonerMenu = TRUE;
+				DetermineBoxPositions( );
 			}
 			break;
 		case( FACILITY_PRISON_SNITCH ):
@@ -15084,20 +15539,53 @@ void HandleShadingOfLinesForSnitchToggleMenu( void )
 		ShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_MISBEHAVIOUR_ON );
 		UnShadeStringInBox( ghSnitchToggleBox, SNITCH_MENU_MISBEHAVIOUR_OFF );
 	}
-	return;
+}
+
+void HandleShadingOfLinesForPrisonerMenu( void )
+{
+	// check if valid
+	if ( !fShowPrisonerMenu || (ghPrisonerBox == -1) )
+		return;
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_ADMIN );
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_TROOP );
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_ELITE );
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_OFFICER );
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_GENERAL );
+
+	if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_ADMIN )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_ADMIN );
+	}
+	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_TROOP )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_TROOP );
+	}
+	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_ELITE )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_ELITE );
+	}
+	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_OFFICER )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_OFFICER );
+	}
+	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_GENERAL )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_GENERAL );
+	}
 }
 
 void HandleShadingOfLinesForSnitchSectorMenu( void )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-
 	// check if valid
 	if( ( fShowSnitchSectorMenu == FALSE ) || ( ghSnitchSectorBox == - 1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
+	SOLDIERTYPE *pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	if( !CanCharacterSpreadPropaganda(pSoldier) )
 	{
@@ -15108,8 +15596,6 @@ void HandleShadingOfLinesForSnitchSectorMenu( void )
 	{
 		ShadeStringInBox( ghSnitchSectorBox, SNITCH_MENU_SECTOR_GATHER_RUMOURS );
 	}
-
-	return;
 }
 
 /*void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier )
@@ -19608,6 +20094,9 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 				case FAC_INTERROGATE_PRISONERS:
 					MakeSoldierKnownAsMercInPrison( pSoldier, pSoldier->sSectorX, pSoldier->sSectorY );
 					ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
+					fShowAssignmentMenu = TRUE;
+					fShowPrisonerMenu = TRUE;
+					DetermineBoxPositions( );
 					break;
 				case FAC_PRISON_SNITCH:
 					ChangeSoldiersAssignment( pSoldier, FACILITY_PRISON_SNITCH );

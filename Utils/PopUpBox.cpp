@@ -196,8 +196,6 @@ void ShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
 		// shade line
 		PopUpBoxList[hBoxHandle]->Text[iLineNumber]->fShadeFlag = TRUE;
 	}
-
-	return;
 }
 
 void UnShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
@@ -217,8 +215,6 @@ void UnShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
 		// shade line
 		PopUpBoxList[hBoxHandle]->Text[iLineNumber]->fShadeFlag = FALSE;
 	}
-
-	return;
 }
 
 
@@ -239,8 +235,6 @@ void SecondaryShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
 		// shade line
 		PopUpBoxList[hBoxHandle]->Text[iLineNumber]->fSecondaryShadeFlag = TRUE;
 	}
-
-	return;
 }
 
 void UnSecondaryShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
@@ -260,8 +254,6 @@ void UnSecondaryShadeStringInBox( INT32 hBoxHandle, INT32 iLineNumber )
 		// shade line
 		PopUpBoxList[hBoxHandle]->Text[iLineNumber]->fSecondaryShadeFlag = FALSE;
 	}
-
-	return;
 }
 
 
@@ -271,13 +263,11 @@ void SetBoxBuffer(INT32 hBoxHandle, UINT32 uiBuffer)
 	if ( ( hBoxHandle < 0 ) || ( hBoxHandle >= MAX_POPUP_BOX_COUNT ) )
 		return;
 
- Assert( PopUpBoxList[ hBoxHandle ] );
+	Assert( PopUpBoxList[ hBoxHandle ] );
 
- PopUpBoxList[hBoxHandle]->uiBuffer=uiBuffer;
+	PopUpBoxList[hBoxHandle]->uiBuffer=uiBuffer;
 
- PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
-
- return;
+	PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
 }
 
 
@@ -286,14 +276,12 @@ void SetBoxPosition( INT32 hBoxHandle,SGPPoint Position )
 	if ( ( hBoxHandle < 0 ) || ( hBoxHandle >= MAX_POPUP_BOX_COUNT ) )
 		return;
 
- Assert( PopUpBoxList[ hBoxHandle ] );
+	Assert( PopUpBoxList[ hBoxHandle ] );
 
- PopUpBoxList[hBoxHandle]->Position.iX=Position.iX;
- PopUpBoxList[hBoxHandle]->Position.iY=Position.iY;
+	PopUpBoxList[hBoxHandle]->Position.iX=Position.iX;
+	PopUpBoxList[hBoxHandle]->Position.iY=Position.iY;
 
- PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
-
- return;
+	PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
 }
 
 
@@ -306,8 +294,6 @@ void GetBoxPosition( INT32 hBoxHandle, SGPPoint *Position )
 
 	Position->iX = PopUpBoxList[hBoxHandle]->Position.iX;
 	Position->iY = PopUpBoxList[hBoxHandle]->Position.iY;
-
-	return;
 }
 
 void SetBoxSize(INT32 hBoxHandle,SGPRect Dimensions)
@@ -315,16 +301,14 @@ void SetBoxSize(INT32 hBoxHandle,SGPRect Dimensions)
 	if ( ( hBoxHandle < 0 ) || ( hBoxHandle >= MAX_POPUP_BOX_COUNT ) )
 		return;
 
- Assert( PopUpBoxList[ hBoxHandle ] );
+	Assert( PopUpBoxList[ hBoxHandle ] );
 
- PopUpBoxList[hBoxHandle]->Dimensions.iLeft=Dimensions.iLeft;
- PopUpBoxList[hBoxHandle]->Dimensions.iBottom=Dimensions.iBottom;
- PopUpBoxList[hBoxHandle]->Dimensions.iRight=Dimensions.iRight;
- PopUpBoxList[hBoxHandle]->Dimensions.iTop=Dimensions.iTop;
+	PopUpBoxList[hBoxHandle]->Dimensions.iLeft=Dimensions.iLeft;
+	PopUpBoxList[hBoxHandle]->Dimensions.iBottom=Dimensions.iBottom;
+	PopUpBoxList[hBoxHandle]->Dimensions.iRight=Dimensions.iRight;
+	PopUpBoxList[hBoxHandle]->Dimensions.iTop=Dimensions.iTop;
 
- PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
-
- return;
+	PopUpBoxList[hBoxHandle]->fUpdated = FALSE;
 }
 
 
@@ -339,8 +323,6 @@ void GetBoxSize( INT32 hBoxHandle, SGPRect *Dimensions )
 	Dimensions->iBottom = PopUpBoxList[hBoxHandle]->Dimensions.iBottom;
 	Dimensions->iRight = PopUpBoxList[hBoxHandle]->Dimensions.iRight;
 	Dimensions->iTop = PopUpBoxList[hBoxHandle]->Dimensions.iTop;
-
-	return;
 }
 
 
@@ -349,9 +331,8 @@ void SetBorderType(INT32 hBoxHandle, INT32 iBorderObjectIndex)
 	if ( ( hBoxHandle < 0 ) || ( hBoxHandle >= MAX_POPUP_BOX_COUNT ) )
 		return;
 
- Assert( PopUpBoxList[ hBoxHandle ] );
- PopUpBoxList[hBoxHandle]->iBorderObjectIndex=iBorderObjectIndex;
- return;
+	Assert( PopUpBoxList[ hBoxHandle ] );
+	PopUpBoxList[hBoxHandle]->iBorderObjectIndex=iBorderObjectIndex;
 }
 
 void SetBackGroundSurface(INT32 hBoxHandle, INT32 iBackGroundSurfaceIndex)
@@ -359,9 +340,8 @@ void SetBackGroundSurface(INT32 hBoxHandle, INT32 iBackGroundSurfaceIndex)
 	if ( ( hBoxHandle < 0 ) || ( hBoxHandle >= MAX_POPUP_BOX_COUNT ) )
 		return;
 
- Assert( PopUpBoxList[ hBoxHandle ] );
- PopUpBoxList[hBoxHandle]->iBackGroundSurface=iBackGroundSurfaceIndex;
- return;
+	Assert( PopUpBoxList[ hBoxHandle ] );
+	PopUpBoxList[hBoxHandle]->iBackGroundSurface=iBackGroundSurfaceIndex;
 }
 
 

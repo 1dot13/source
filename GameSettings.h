@@ -213,6 +213,17 @@ enum
 	ITEM_PROGRESS_VERY_FAST,
 };
 
+// Flugente: prisoner interrogation results
+enum
+{
+	PRISONER_INTERROGATION_DEFECT = 0,
+	PRISONER_INTERROGATION_INFO,
+	PRISONER_INTERROGATION_RANSOM,
+	PRISONER_INTERROGATION_NOTHING,
+
+	PRISONER_INTERROGATION_MAX
+};
+
 typedef struct
 {
 	BOOLEAN fGunNut;
@@ -1372,13 +1383,11 @@ typedef struct
 	FLOAT	fSurrenderMultiplier;
 	BOOLEAN	fPlayerCanAsktoSurrender;
 	UINT8	ubPrisonerReturntoQueenChance;
-	UINT8	ubPrisonerProcessDefectChance;
-	UINT8	ubPrisonerProcessInfoBaseChance;
+	UINT8	ubPrisonerProcessChance[PRISONER_INTERROGATION_MAX];
 	UINT8	ubPrisonerProcessInfoNumberChance;
 	UINT8	ubPrisonerProcessInfoDirectionChance;
-	UINT8	ubPrisonerProcessRansomBaseChance;
-	UINT16	ubPrisonerInterrogationPoints[4];		// points needed to interrogate a prisoner of a specific type
-	UINT8	ubPrisonerInterrogationEnemyGeneralInfoChance[4];		// chance that when getting info from interrogation, this prisoner will tell us about general we do not yet know about
+	UINT16	ubPrisonerInterrogationPoints[8];		// points needed to interrogate a prisoner of a specific type
+	UINT8	ubPrisonerInterrogationEnemyGeneralInfoChance[8];		// chance that when getting info from interrogation, this prisoner will tell us about general we do not yet know about
 	
 	// Flugente: sexism/racism/etc.
 	INT8	sMoraleModAppearance;

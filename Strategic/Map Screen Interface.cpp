@@ -349,6 +349,9 @@ SGPRect SnitchToggleDimensions={0,0,80,80};
 SGPPoint SnitchSectorPosition={320,150};
 SGPRect SnitchSectorDimensions={0,0,80,80};
 
+SGPPoint PrisonerPosition = {320, 150};
+SGPRect PrisonerDimensions = {0, 0, 80, 80};
+
 //lal
 SGPPoint MilitiaControlPosition={120,150};
 SGPRect MilitiaControlDimensions={0,0,100,95};
@@ -376,6 +379,8 @@ SGPPoint OrigFacilityAssignmentPosition = { 220,150 }; // HEADROCK HAM 3.6
 SGPPoint OrigSnitchPosition={160,150};
 SGPPoint OrigSnitchTogglePosition={320,150};
 SGPPoint OrigSnitchSectorPosition={320,150};
+
+SGPPoint OrigPrisonerPosition = {320, 150};
 
 SQUAD_NAMES	SquadNames[20];
 
@@ -939,6 +944,10 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 				ForceUpDateOfBox( ghSnitchSectorBox );
 			}
 		}
+		else if ( fShowPrisonerMenu )
+		{
+			ForceUpDateOfBox( ghPrisonerBox );
+		}
 	}
 
 	if( fDisableDueToBattleRoster )
@@ -959,9 +968,6 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		// set old to current
 		iOldAssignmentLine = giAssignHighLine;
 	}
-
-	// leave
-	return;
 }
 
 void RestoreBackgroundForDestinationGlowRegionList( void )
@@ -2336,7 +2342,13 @@ void UpdateMapScreenAssignmentPositions( void )
 		SetBoxPosition( ghFacilityAssignmentBox, pPoint );
 	}
 
-	return;
+	if ( fShowPrisonerMenu )
+	{
+		GetBoxPosition( ghPrisonerBox, &pPoint );
+		pPoint.iY = giBoxY + (GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_FACILITY;
+
+		SetBoxPosition( ghPrisonerBox, pPoint );
+	}
 }
 
 
