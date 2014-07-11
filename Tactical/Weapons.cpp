@@ -5466,10 +5466,10 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 		// factor in scopes under their range
 		if ( !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
 		{
-			if (fScopeMagFactor > 1.0 && iRange < (INT32)uiBestScopeRange)
+			if (fScopeMagFactor > 1.0 && iRange < (INT32)(uiBestScopeRange * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD))
 			{
 				// Calculate how much penalty this scope should give at this range
-				FLOAT dScopePenaltyRatio = ((FLOAT)uiBestScopeRange / (FLOAT)iRange);
+				FLOAT dScopePenaltyRatio = ((FLOAT)uiBestScopeRange * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD / (FLOAT)iRange);
 				FLOAT iScopePenalty = (FLOAT)(dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE * (fScopeMagFactor /2));
 				fAimModifier += iScopePenalty;
 			}
@@ -6322,10 +6322,10 @@ else
 		// factor in scopes under their range
 		if ( !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
 		{
-			if (iScopeMagFactor > 1.0 && iRange < (INT32)uiBestScopeRange)
+			if (iScopeMagFactor > 1.0 && iRange < (INT32)(uiBestScopeRange * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD))
 			{
 				// Calculate how much penalty this scope should give at this range
-				FLOAT dScopePenaltyRatio = ((FLOAT)uiBestScopeRange / (FLOAT)iRange);
+				FLOAT dScopePenaltyRatio = ((FLOAT)uiBestScopeRange * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD / (FLOAT)iRange);
 				INT32 iScopePenalty = (INT32)(dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE * (iScopeMagFactor /2));
 				iMaxAimBonus += iScopePenalty;
 			}

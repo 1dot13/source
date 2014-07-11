@@ -12863,7 +12863,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 				// Actual Scope Mag Factor is what we get at the distance the target's at.
 				ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
 
-				if (ActualCurrentFactor >= CurrentFactor)
+				if (ActualCurrentFactor >= CurrentFactor * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD)
 				{
 					// This scope gives no penalty. Record this as the best factor found so far.
 					BestFactor = CurrentFactor;
@@ -12872,7 +12872,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 				else
 				{
 					// This scopes gives a penalty for shooting under its range.
-					FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
+					FLOAT dScopePenaltyRatio = (CurrentFactor * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD * rangeModifier / TargetMagFactor);
 					INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
 
 					// There's no previous scope to compare with so record this as the best factor for now.
@@ -12893,7 +12893,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 					// Actual Scope Mag Factor is what we get at the distance the target's at.
 					ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
 
-					if (ActualCurrentFactor >= CurrentFactor)
+					if (ActualCurrentFactor >= CurrentFactor * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD)
 					{
 						// This scope gives no penalty. Is it any better than the ones we've already processed?
 						if (iBestTotalPenalty <= 0 && CurrentFactor > BestFactor)
@@ -12906,7 +12906,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 					else
 					{
 						// This scope will give a penalty if used. Is it worth using compared to other scopes found?
-						FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
+						FLOAT dScopePenaltyRatio = (CurrentFactor * gGameCTHConstants.AIM_TOO_CLOSE_THRESHOLD * rangeModifier / TargetMagFactor);
 						INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
 
 						// Is this scope any better than the ones we've already processed?
