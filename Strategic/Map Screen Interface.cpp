@@ -237,8 +237,6 @@ extern MOUSE_REGION gCharInfoHandRegion;
 extern MOUSE_REGION gCharInfoFaceRegion;
 MOUSE_REGION	gMapStatusBarsRegion;
 
-SGPPoint MovePosition={450, 100 };
-
 // which lines are selected? .. for assigning groups of mercs to the same thing
 BOOLEAN fSelectedListOfMercsForMapScreen[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 BOOLEAN fResetTimerForFirstEntryIntoMapScreen = FALSE;
@@ -3809,6 +3807,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CreatePopUpBoxForMovementBox( void )
 {
+	SGPPoint MovePosition = {450 + xResOffset, 100};
 	SGPPoint Position;
 	SGPRect Dimensions;
 
@@ -5336,52 +5335,53 @@ void CreateDestroyUpdatePanelButtons(INT32 iX, INT32 iY, BOOLEAN fFourWideMode )
 /*
 void CreateUpdateBox( void )
 {
+	SGPPoint MovePosition = {450 + xResOffset, 100};
 	// create basic box
- CreatePopUpBox(&ghUpdateBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	CreatePopUpBox(&ghUpdateBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
 
- // which buffer will box render to
- SetBoxBuffer(ghUpdateBox, FRAME_BUFFER);
+	// which buffer will box render to
+	SetBoxBuffer(ghUpdateBox, FRAME_BUFFER);
 
- // border type?
- SetBorderType(ghUpdateBox,guiPOPUPBORDERS);
+	// border type?
+	SetBorderType(ghUpdateBox,guiPOPUPBORDERS);
 
- // background texture
- SetBackGroundSurface(ghUpdateBox, guiPOPUPTEX);
+	// background texture
+	SetBackGroundSurface(ghUpdateBox, guiPOPUPTEX);
 
- // margin sizes
- SetMargins( ghUpdateBox, 6, 6, 4, 4 );
+	// margin sizes
+	SetMargins( ghUpdateBox, 6, 6, 4, 4 );
 
- // space between lines
- SetLineSpace(ghUpdateBox, 2);
+	// space between lines
+	SetLineSpace(ghUpdateBox, 2);
 
- // set current box to this one
- SetCurrentBox( ghUpdateBox );
+	// set current box to this one
+	SetCurrentBox( ghUpdateBox );
 
- // add strings
- CreateUpdateBoxStrings( );
+	// add strings
+	CreateUpdateBoxStrings( );
 
- // set font type
- SetBoxFont(ghUpdateBox, MAP_SCREEN_FONT);
+	// set font type
+	SetBoxFont(ghUpdateBox, MAP_SCREEN_FONT);
 
- // set highlight color
- SetBoxHighLight(ghUpdateBox, FONT_WHITE);
+	// set highlight color
+	SetBoxHighLight(ghUpdateBox, FONT_WHITE);
 
- // unhighlighted color
- SetBoxForeground(ghUpdateBox, FONT_LTGREEN);
+	// unhighlighted color
+	SetBoxForeground(ghUpdateBox, FONT_LTGREEN);
 
- // background color
- SetBoxBackground(ghUpdateBox, FONT_BLACK);
+	// background color
+	SetBoxBackground(ghUpdateBox, FONT_BLACK);
 
- // shaded color..for darkened text
- SetBoxShade( ghUpdateBox, FONT_BLACK );
+	// shaded color..for darkened text
+	SetBoxShade( ghUpdateBox, FONT_BLACK );
 
- // resize box to text
- ResizeBoxToText( ghUpdateBox );
+	// resize box to text
+	ResizeBoxToText( ghUpdateBox );
 
- // create screen mask
- CreateScreenMaskForMoveBox( );
+	// create screen mask
+	CreateScreenMaskForMoveBox( );
 
- ShowBox( ghUpdateBox );
+	ShowBox( ghUpdateBox );
 
 	return;
 }

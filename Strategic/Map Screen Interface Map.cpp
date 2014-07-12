@@ -1693,7 +1693,7 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 void InitializeMilitiaPopup(void)
 {
-	UINT16 xVal = 330;
+	UINT16 xVal = 330 + xResOffset;
 	UINT16 yVal = 25;
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
