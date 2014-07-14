@@ -106,6 +106,27 @@ UINT16 MAP_LEVEL_STRING_Y;
 // max number of sectors viewable
 #define MAX_VIEW_SECTORS	  16
 
+// "Militia" Icons
+#define POPUP_FRAMEBORDER			0
+#define BIG_NORMAL_BUTTON			1
+#define BIG_PRESSED_BUTTON			2
+#define SMALL_NORMAL_BUTTON			3
+#define SMALL_PRESSED_BUTTON		4
+#define SMALL_GREEN_BOX				5
+#define SMALL_CYAN_BOX				6
+#define SMALL_BLUE_BOX				7
+#define POPUP_GREEN_BOX				8
+#define POPUP_CYAN_BOX				9
+#define POPUP_BLUE_BOX				10
+#define BIG_GREEN_BOX				11
+#define BIG_CYAN_BOX				12
+#define BIG_BLUE_BOX				13
+#define SMALL_GREEN_10X_BOX			14
+#define SMALL_CYAN_10X_BOX			15
+#define SMALL_BLUE_10X_BOX			16
+#define POPUP_GREEN_10X_BOX			17
+#define POPUP_CYAN_10X_BOX			18
+#define POPUP_BLUE_10X_BOX			19
 
 // "Boxes" Icons
 #define SMALL_YELLOW_BOX			0
@@ -120,6 +141,10 @@ UINT16 MAP_LEVEL_STRING_Y;
 #define BIG_QUESTION_MARK			9
 #define VIP_SYMBOL					10
 #define ENEMY_TANK_BIG				11
+#define SMALL_YELLOW_10X_BOX		12
+#define SMALL_DULL_YELLOW_10X_BOX	13
+#define SMALL_WHITE_10X_BOX			14
+#define SMALL_RED_10X_BOX			15
 
 #define MERC_ICONS_PER_LINE			6
 #define ROWS_PER_SECTOR				5
@@ -659,6 +684,10 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 void HandleShowingOfEnemiesWithMilitiaOn( void )
 {
 	INT16 sX = 0, sY = 0;
+	INT32 iNumberOfGreens = 0;
+	INT32 iNumberOfRegulars = 0;
+	INT32 iNumberOfElites = 0;
+	INT32 iTotalNumberOfIcons = 0;
 
 	// if show militia flag is false, leave
 	if( !fShowMilitia )
@@ -670,7 +699,16 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 	{
 		for( sY = 1; sY < ( MAP_WORLD_Y - 1); sY++ )
 		{
-			HandleShowingOfEnemyForcesInSector( sX, sY, ( INT8 )iCurrentMapSectorZ, CountAllMilitiaInSector( sX, sY ) );
+			// get number of each
+			iNumberOfGreens = SectorInfo[ SECTOR( sX, sY ) ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+			iNumberOfRegulars = SectorInfo[ SECTOR( sX, sY ) ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+			iNumberOfElites = SectorInfo[ SECTOR( sX, sY ) ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+			
+			// militia icons drawn
+			iTotalNumberOfIcons = iNumberOfGreens / 10 + iNumberOfGreens % 10 + iNumberOfRegulars / 10 + iNumberOfRegulars % 10
+				+ iNumberOfElites / 10 + iNumberOfElites % 10;
+
+			HandleShowingOfEnemyForcesInSector( sX, sY, ( INT8 )iCurrentMapSectorZ, iTotalNumberOfIcons );
 		}
 	}
 
@@ -919,7 +957,7 @@ UINT32 DrawMap( void )
 		if( fShowTownFlag )
 		{
 			BlitTownGridMarkers( );
-		ShowTownText( );
+			ShowTownText( );
 		}
 
 		// draw militia icons
@@ -1119,6 +1157,8 @@ INT32 ShowOnDutyTeam( INT16 sMapX, INT16 sMapY )
 	UINT8 ubCounter = 0, ubIconPosition = 0;
 	HVOBJECT hIconHandle;
 	SOLDIERTYPE *pSoldier = NULL;
+	UINT8 i, ubIcon, ub10xIcon;
+	INT16 sNumberOnDuty = 0;
 
 	GetVideoObject(&hIconHandle, guiCHARICONS);
 
@@ -1135,25 +1175,41 @@ INT32 ShowOnDutyTeam( INT16 sMapX, INT16 sMapY )
 				( pSoldier->stats.bLife > 0) &&
 				( !PlayerIDGroupInMotion( pSoldier->ubGroupID ) ) )
 		{
-			DrawMapBoxIcon( hIconHandle, SMALL_YELLOW_BOX, sMapX, sMapY, ubIconPosition );
-			++ubIconPosition;
+			sNumberOnDuty++;
 		}
 
 		++ubCounter;
 	}
 
+	ub10xIcon = sNumberOnDuty / 10;
+	ubIcon = sNumberOnDuty % 10;
+
+	// draw 10x icon
+	for( i = 0; i < ub10xIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_YELLOW_10X_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
+	
+	// draw 1x icon
+	for( i = 0; i < ubIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_YELLOW_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
 	return ubIconPosition;
 }
 
 
 INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 {
- 	UINT8 ubCounter, ubIconPosition;
+ 	UINT8 ubCounter = 0, ubIconPosition;
 	HVOBJECT hIconHandle;
 	SOLDIERTYPE *pSoldier = NULL;
+	UINT8 i, ubIcon, ub10xIcon;
+	INT16 sNumberOfAssigned = 0;
 
 	GetVideoObject(&hIconHandle, guiCHARICONS);
-	ubCounter=0;
 
 	// run through list
 	ubIconPosition = ( UINT8 ) iCount;
@@ -1177,25 +1233,41 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 			// skip mercs inside the helicopter if we're showing airspace level - they show up inside chopper icon instead
 			if ( !fShowAircraftFlag || ( pSoldier->bAssignment != VEHICLE ) || ( pSoldier->iVehicleId != iHelicopterVehicleId ) )
 			{
-				DrawMapBoxIcon( hIconHandle, SMALL_DULL_YELLOW_BOX, sMapX, sMapY, ubIconPosition );
-				++ubIconPosition;
+				sNumberOfAssigned++;
 			}
 		}
 
 		++ubCounter;
 	}
+	
+	ub10xIcon = sNumberOfAssigned / 10;
+	ubIcon = sNumberOfAssigned % 10;
 
+	// draw 10x icon
+	for( i = 0; i < ub10xIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_DULL_YELLOW_10X_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
+	
+	// draw 1x icon
+	for( i = 0; i < ubIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_DULL_YELLOW_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
 	return ubIconPosition;
 }
 
 INT32 ShowVehicles(INT16 sMapX, INT16 sMapY, INT32 iCount)
 {
-	UINT8 ubCounter, ubIconPosition;
+	UINT8 ubCounter = 0, ubIconPosition;
 	HVOBJECT hIconHandle;
 	SOLDIERTYPE *pVehicleSoldier;
+	UINT8 i, ubIcon, ub10xIcon;
+	INT16 sNumberOfVehiclesInSector = 0;
 	
 	GetVideoObject(&hIconHandle, guiCHARICONS);
-	ubCounter=0;
 
 	ubIconPosition = (UINT8) iCount;
 
@@ -1219,17 +1291,31 @@ INT32 ShowVehicles(INT16 sMapX, INT16 sMapY, INT32 iCount)
 					{
 						if ( pVehicleSoldier->bTeam == gbPlayerNum )
 						{
-							DrawMapBoxIcon( hIconHandle, SMALL_WHITE_BOX, sMapX, sMapY, ubIconPosition );
-							++ubIconPosition;
+							sNumberOfVehiclesInSector++;
 						}
 					}
 				}
 			}
 		}
-
 		++ubCounter;
 	}
 
+	ub10xIcon = sNumberOfVehiclesInSector / 10;
+	ubIcon = sNumberOfVehiclesInSector % 10;
+
+	// draw 10x icon
+	for( i = 0; i < ub10xIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_WHITE_10X_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
+
+	// draw 1x icon
+	for( i = 0; i < ubIcon; i++ )
+	{
+		DrawMapBoxIcon( hIconHandle, SMALL_WHITE_BOX, sMapX, sMapY, ubIconPosition );
+		ubIconPosition++;
+	}
 	return ubIconPosition;
 }
 
@@ -1237,15 +1323,20 @@ INT32 ShowVehicles(INT16 sMapX, INT16 sMapY, INT32 iCount)
 void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumTanks, UINT8 ubIconPosition )
 {
 	HVOBJECT hIconHandle;
-	UINT8 ubEnemy = 0;
+	UINT8 i, ubEnemy, ub10xEnemy;
+	INT16 sEnemyLessTank;
 
 	// get the video object
 	GetVideoObject(&hIconHandle, guiCHARICONS);
 	
+	sEnemyLessTank = sNumberOfEnemies - usNumTanks;
+	ub10xEnemy = sEnemyLessTank / 10;
+	ubEnemy = sEnemyLessTank % 10;
+
 	// Flugente: if we display tanks, we need to know that for several rows
 	INT16 secondtankrowstart = -1;
 	
-	for( ubEnemy = 0; ubEnemy < sNumberOfEnemies; ++ubEnemy )
+	for( i = 0; i < sNumberOfEnemies; ++i )
 	{
 		// Flugente: the tank icon has is 4 icons wide and 2 rows high, thus this odd code bit
 		// if we want to display a tank and have not yet done so, pick the first position that still has enough space to the right
@@ -1263,10 +1354,17 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 			ubIconPosition += 4;		
 			ubEnemy = max( 0, ubEnemy - 1);
 		}
-		else
+		else if ( ub10xEnemy > 0 )
+		{
+			DrawMapBoxIcon( hIconHandle, SMALL_RED_10X_BOX, sSectorX, sSectorY, ubIconPosition );
+			ub10xEnemy--;
+			ubIconPosition++;
+		}
+		else if ( ubEnemy > 0 )
 		{
 			DrawMapBoxIcon( hIconHandle, SMALL_RED_BOX, sSectorX, sSectorY, ubIconPosition );
-			++ubIconPosition;
+			ubEnemy--;
+			ubIconPosition++;
 		}
 	}
 }
@@ -1348,8 +1446,8 @@ void ShowVIPSymbol( INT16 sSectorX, INT16 sSectorY )
 	sYPosition = (INT16)(((iconOffsetY + (sSectorY * MAP_GRID_Y) + 1)));
 	sYPosition -= 2;
 
-	// small question mark
-	BltVideoObject( guiSAVEBUFFER, hIconHandle, 10, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
+	// small VIP symbol
+	BltVideoObject( guiSAVEBUFFER, hIconHandle, VIP_SYMBOL, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 	InvalidateRegion( sXPosition, sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
 }
 
@@ -1357,7 +1455,7 @@ void ShowVIPSymbol( INT16 sSectorX, INT16 sSectorY )
 void ShowTeamAndVehicles(INT32 fShowFlags)
 {
 	// go through each sector, display the on duty, assigned, and vehicles
-  INT16 sMapX = 0;
+	INT16 sMapX = 0;
 	INT16 sMapY = 0;
 	INT32 iIconOffset = 0;
 	BOOLEAN fContemplatingRetreating = FALSE;
@@ -4933,7 +5031,7 @@ BOOLEAN DrawMilitiaPopUpBox( void )
 	// get the properties of the militia object
 	GetVideoObject( &hVObject, guiMilitia );
 
-	BltVideoObject( FRAME_BUFFER, hVObject, 0, MAP_MILITIA_BOX_POS_X, MAP_MILITIA_BOX_POS_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( FRAME_BUFFER, hVObject, POPUP_FRAMEBORDER, MAP_MILITIA_BOX_POS_X, MAP_MILITIA_BOX_POS_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	GetVideoObject( &hVObject, guiMilitiaMaps );
 	BltVideoObject( FRAME_BUFFER, hVObject, ( UINT16 )( sSelectedMilitiaTown - 1 ), MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X, MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_MAP_Y, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -5031,11 +5129,13 @@ void RenderIconsPerSectorForSelectedTown( void )
 	INT32 iNumberOfElites = 0;
 	INT32 iTotalNumberOfTroops = 0;
 	INT32 iCurrentTroopIcon = 0;
+	INT32 iTotalNumberOfIcons = 0;
 	HVOBJECT hVObject;
 	UINT16 usIconValue = 0;
 	INT16 sX, sY;
 	CHAR16 sString[ 32 ];
 	INT16 sSectorX = 0, sSectorY = 0;
+	UINT8 ubGreen, ubRegular, ubElite, ub10xGreen, ub10xRegular, ub10xElite;
 
 
 	// get the sector value for the upper left corner
@@ -5091,24 +5191,47 @@ void RenderIconsPerSectorForSelectedTown( void )
 			}
 		}
 
+		// get cumulative icons
+		ub10xElite = iNumberOfElites / 10;
+		ubElite = iNumberOfElites % 10 + ub10xElite;
+		ub10xRegular = iNumberOfRegulars / 10 + ubElite;
+		ubRegular = iNumberOfRegulars % 10 + ub10xRegular;
+		ub10xGreen = iNumberOfGreens / 10 + ubRegular;
+		ubGreen = iNumberOfGreens % 10 + ub10xGreen;
+		iTotalNumberOfIcons = ubGreen;
+
 		// now display
-		for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfTroops; iCurrentTroopIcon++ )
+		for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfIcons; iCurrentTroopIcon++ )
 		{
 			sX =  ( iCurrentTroopIcon % POPUP_MILITIA_ICONS_PER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + ( ( iCounter % MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_WIDTH ) + 3;
 			sY =  ( iCurrentTroopIcon / POPUP_MILITIA_ICONS_PER_ROW ) * ( MEDIUM_MILITIA_ICON_SPACING ) + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_MAP_Y + ( ( iCounter / MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_HEIGHT ) + 3;
 			
-			// get the offset further into the .sti
-			if ( iCurrentTroopIcon < iNumberOfGreens )
+
+			if( iCurrentTroopIcon < ub10xElite )
 			{
-				usIconValue = 8;
+				usIconValue = POPUP_BLUE_10X_BOX;
 			}
-			else if ( iCurrentTroopIcon < iNumberOfGreens + iNumberOfRegulars )
+			else if( iCurrentTroopIcon < ubElite )
 			{
-				usIconValue = 9;
+				usIconValue = POPUP_BLUE_BOX;
+			}
+			// then draw regulars
+			else if( iCurrentTroopIcon < ub10xRegular )
+			{
+				usIconValue = POPUP_CYAN_10X_BOX;
+			}
+			else if( iCurrentTroopIcon < ubRegular )
+			{
+				usIconValue = POPUP_CYAN_BOX;
+			}
+			// last draw greens
+			else if( iCurrentTroopIcon < ub10xGreen )
+			{
+				usIconValue = POPUP_GREEN_10X_BOX;
 			}
 			else
 			{
-				usIconValue = 10;
+				usIconValue = POPUP_GREEN_BOX;
 			}
 
 			BltVideoObject( FRAME_BUFFER, hVObject, usIconValue, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -5249,11 +5372,11 @@ void CreateDestroyMilitiaSectorButtons( void )
 
 			// set the button image
 			if (iResolution >= _640x480 && iResolution < _800x600)
-				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia.sti", -1,3,-1,4,-1 );
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia.sti", -1,SMALL_NORMAL_BUTTON,-1,SMALL_PRESSED_BUTTON,-1 );
 			else if (iResolution < _1024x768)
-				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti", -1,3,-1,4,-1 );
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti", -1,SMALL_NORMAL_BUTTON,-1,SMALL_PRESSED_BUTTON,-1 );
 			else
-				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti", -1,3,-1,4,-1 );
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti", -1,SMALL_NORMAL_BUTTON,-1,SMALL_PRESSED_BUTTON,-1 );
 
 			// set the button value
 			giMapMilitiaButton[ iCounter ] = QuickCreateButton( giMapMilitiaButtonImage[ iCounter ], sX, sY,
@@ -5397,45 +5520,98 @@ void MilitiaButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 void DisplayUnallocatedMilitia( void )
 {
-	// show the nunber on the cursor
-	INT32 iTotalNumberOfTroops =0, iNumberOfGreens = 0, iNumberOfRegulars =0, iNumberOfElites = 0, iCurrentTroopIcon = 0;
-	UINT16 usIconValue = 0;
+	// show the number on the cursor
+	INT32 iTotalNumberOfIcons = 0, iNumberOfGreens = 0, iNumberOfRegulars = 0, iNumberOfElites = 0, iCurrentTroopIcon = 0;
+	INT32 iCurrentIcon = 0;
 	INT16 sX = 0, sY = 0;
 	HVOBJECT hVObject;
+	UINT8 ubGreen, ubRegular, ubElite, ub10xGreen, ub10xRegular, ub10xElite;
+	UINT8 ubRow = 0;
+
+	// get militia video object
+	GetVideoObject( &hVObject, guiMilitia );
 
 	// get number of each
 	iNumberOfGreens = sGreensOnCursor;
 	iNumberOfRegulars = sRegularsOnCursor;
 	iNumberOfElites = sElitesOnCursor;
+	
+	// get number of green icons
+	ub10xGreen = iNumberOfGreens / 10;
+	ubGreen = iNumberOfGreens % 10;
+	iTotalNumberOfIcons = ub10xGreen + ubGreen;
 
-	// get total
-	iTotalNumberOfTroops = iNumberOfGreens + iNumberOfRegulars + iNumberOfElites;
-
-	// get militia video object
-	GetVideoObject( &hVObject, guiMilitia );
-
-	// now display
-	for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfTroops; ++iCurrentTroopIcon )
+	// now display green icons
+	for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfIcons; iCurrentTroopIcon++ )
 	{
 		// get screen x and y coords
-		sX = ( iCurrentTroopIcon % NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + 1;
-		sY = ( iCurrentTroopIcon / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_LOWER_ROW_Y;
+		sX =  ( iCurrentTroopIcon % NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + 1;
+		sY =  ( iCurrentTroopIcon / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_LOWER_ROW_Y;
 
-		// get the offset further into the .sti
-		if ( iCurrentTroopIcon < iNumberOfGreens )
+		if( iCurrentTroopIcon < ub10xGreen )
 		{
-			usIconValue = 8;
-		}
-		else if ( iCurrentTroopIcon < iNumberOfGreens + iNumberOfRegulars )
-		{
-			usIconValue = 9;
+			iCurrentIcon = POPUP_GREEN_10X_BOX;
 		}
 		else
 		{
-			usIconValue = 10;
+			iCurrentIcon = POPUP_GREEN_BOX;
 		}
 
-		BltVideoObject( FRAME_BUFFER, hVObject, usIconValue, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObject( FRAME_BUFFER, hVObject, ( UINT16 )( iCurrentIcon ), sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+	}
+
+	// offset row for regulars
+	ubRow += iTotalNumberOfIcons / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW + 1;
+
+	// get number of cyan icons
+	ub10xRegular = iNumberOfRegulars / 10;
+	ubRegular = iNumberOfRegulars % 10;
+	iTotalNumberOfIcons = ub10xRegular + ubRegular;
+
+	// now display cyan icons
+	for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfIcons; iCurrentTroopIcon++ )
+	{
+		// get screen x and y coords
+		sX =  ( iCurrentTroopIcon % NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + 1;
+		sY =  ( ubRow + iCurrentTroopIcon / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_LOWER_ROW_Y;
+
+		if( iCurrentTroopIcon < ub10xRegular )
+		{
+			iCurrentIcon = POPUP_CYAN_10X_BOX;
+		}
+		else
+		{
+			iCurrentIcon = POPUP_CYAN_BOX;
+		}
+
+		BltVideoObject( FRAME_BUFFER, hVObject, ( UINT16 )( iCurrentIcon ), sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+	}
+
+	// offset row for elites
+	ubRow += iTotalNumberOfIcons / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW + 1;
+
+	// get number of blue icons
+	ub10xElite = iNumberOfElites / 10;
+	ubElite = iNumberOfElites % 10;
+	iTotalNumberOfIcons = ub10xElite + ubElite;
+
+	// now display blue icons
+	for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfIcons; iCurrentTroopIcon++ )
+	{
+		// get screen x and y coords
+		sX =  ( iCurrentTroopIcon % NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + 1;
+		sY =  ( ubRow + iCurrentTroopIcon / NUMBER_OF_MILITIA_ICONS_PER_LOWER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_LOWER_ROW_Y;
+
+		if( iCurrentTroopIcon < ub10xElite )
+		{
+			iCurrentIcon = POPUP_BLUE_10X_BOX;
+		}
+		else
+		{
+			iCurrentIcon = POPUP_BLUE_BOX;
+		}
+
+		BltVideoObject( FRAME_BUFFER, hVObject, ( UINT16 )( iCurrentIcon ), sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 }
 
@@ -5796,21 +5972,21 @@ void CreateMilitiaPanelBottomButton( void )
 	// set the button image
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
 	}
 	else if (iResolution < _1024x768)
 	{
-		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
 	}
 	else
 	{
-		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
-		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
+		giMapMilitiaButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,BIG_NORMAL_BUTTON,-1,BIG_PRESSED_BUTTON,-1 );
 	}
 
 	giMapMilitiaButton[ 3 ] = QuickCreateButton( giMapMilitiaButtonImage[ 3 ], MAP_MILITIA_BOX_POS_X + MAP_MILITIA_BOX_AUTO_BOX_X, MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_BOX_AUTO_BOX_Y,
@@ -6011,6 +6187,8 @@ void DrawTownMilitiaForcesOnMap( void )
 	INT32 iNumberOfGreens = 0, iNumberOfRegulars = 0,  iNumberOfElites = 0;
 	HVOBJECT hVObject;
 	INT16 sSectorX = 0, sSectorY = 0;
+	UINT8 ubGreen, ubRegular, ubElite, ub10xGreen, ub10xRegular, ub10xElite;
+	UINT8 i, ubIconPosition;
 
 	// get militia video object
 	GetVideoObject( &hVObject, guiMilitia );
@@ -6018,41 +6196,66 @@ void DrawTownMilitiaForcesOnMap( void )
 	// clip blits to mapscreen region
 	ClipBlitsToMapViewRegion( );
 
-	// now handle militia for sam sectors
+	// now handle militia for all sectors
 	for( sSectorX = MINIMUM_VALID_X_COORDINATE; sSectorX <= MAXIMUM_VALID_X_COORDINATE ; ++sSectorX )
 	{
 		for( sSectorY = MINIMUM_VALID_Y_COORDINATE; sSectorY <= MAXIMUM_VALID_Y_COORDINATE ; ++sSectorY )
 		{
+			ubIconPosition = 0;
+
 			// get number of each
 			iNumberOfGreens =  SectorInfo[ SECTOR( sSectorX, sSectorY )  ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
 			iNumberOfRegulars = SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
 			iNumberOfElites = SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 
-			// ste the total for loop upper bound
-			iTotalNumberOfTroops = iNumberOfGreens + iNumberOfRegulars + iNumberOfElites;
+			// get number of icons of each
+			ub10xGreen = iNumberOfGreens / 10;
+			ubGreen = iNumberOfGreens % 10;
+			ub10xRegular = iNumberOfRegulars / 10;
+			ubRegular = iNumberOfRegulars % 10;
+			ub10xElite = iNumberOfElites / 10;
+			ubElite = iNumberOfElites % 10;
 
-			for( iCounterB = 0; iCounterB < iTotalNumberOfTroops; ++iCounterB )
+			// first draw elites as they are more important
+			for( i = 0; i < ub10xElite; i++ )
 			{
-				// SMALL icon offset in the .sti
-				// get the offset further into the .sti
-				if( iCounterB < iNumberOfGreens )
-				{
-					usIconValue = 5;
-				}
-				else if( iCounterB < iNumberOfGreens + iNumberOfRegulars )
-				{
-					usIconValue = 6;
-				}
-				else
-				{
-					usIconValue = 7;
-				}
+				DrawMapBoxIcon( hVObject, SMALL_BLUE_10X_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
+			}
 
-				DrawMapBoxIcon( hVObject, usIconValue, sSectorX, sSectorY, (UINT8)iCounterB );
+			for( i = 0; i < ubElite; i++ )
+			{
+				DrawMapBoxIcon( hVObject, SMALL_BLUE_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
+			}
+
+			// then draw regulars
+			for( i = 0; i < ub10xRegular; i++ )
+			{
+				DrawMapBoxIcon( hVObject, SMALL_CYAN_10X_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
+			}
+
+			for( i = 0; i < ubRegular; i++ )
+			{
+				DrawMapBoxIcon( hVObject, SMALL_CYAN_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
+			}
+
+			// last draw greens
+			for( i = 0; i < ub10xGreen; i++ )
+			{
+				DrawMapBoxIcon( hVObject, SMALL_GREEN_10X_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
+			}
+
+			for( i = 0; i < ubGreen; i++ )
+			{
+				DrawMapBoxIcon( hVObject, SMALL_GREEN_BOX, sSectorX, sSectorY, ubIconPosition );
+				ubIconPosition++;
 			}
 		}
 	}
-
 	// restore clip blits
 	RestoreClipRegionToFullScreen( );
 }
