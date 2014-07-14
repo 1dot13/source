@@ -5805,6 +5805,13 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		else
 			sBreathLoss = APBPConstants[BP_GET_HIT];
 		ubReason = TAKE_DAMAGE_BLADE;
+
+		// Flugente: check wether we can make this blade bloody
+		if ( ubAttackerID != NOBODY && MercPtrs[ubAttackerID]->inv[HANDPOS].exists( ) && Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem > 0 )
+		{
+			// magic happens
+			MercPtrs[ubAttackerID]->inv[HANDPOS].usItem = Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem;
+		}
 	}
 	else if ( Item[usWeaponIndex].usItemClass & IC_PUNCH )
 	{
