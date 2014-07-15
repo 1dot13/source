@@ -1955,7 +1955,7 @@ BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 		}
 		else
 		{
-			if ( HasItemFlag(usCowMeatIndex, COW_MEAT) || GetFirstItemWithFlag(&usCowMeatIndex, COW_MEAT) )
+			if ( HasItemFlag( usCowMeatIndex, MEAT_COW ) || GetFirstItemWithFlag( &usCowMeatIndex, MEAT_COW ) )
 				meatindex = usCowMeatIndex;
 		}
 

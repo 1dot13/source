@@ -1160,6 +1160,16 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	if ( usEvent >= OPINIONEVENT_MAX )
 		return;
 
+	// we don't want any events for people not on our team or vehicles
+	SOLDIERTYPE* pSoldier = FindSoldierByProfileID( usProfileA, TRUE );
+	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		return;
+
+	pSoldier = FindSoldierByProfileID( usProfileB, TRUE );
+	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		return;
+
+
 	UINT32 ustmpFlagmask[OPINION_FLAGMASKS_NUMBER];
 	for ( UINT8 i = 0; i < OPINION_FLAGMASKS_NUMBER; ++i )
 	{

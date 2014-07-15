@@ -737,7 +737,7 @@ extern OBJECTTYPE gTempObject;
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
 #define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
-#define COW_MEAT   				0x00000040	//64		// retrieve this by gutting a cow
+#define MEAT_COW   				0x00000040	//64		// retrieve this by gutting a cow
 #define BELT_FED				0x00000080	//128		// item can be fed externally
 
 #define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
@@ -765,8 +765,8 @@ extern OBJECTTYPE gTempObject;
 #define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
 #define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
 
-#define SPOTTERITEM				0x10000000	//268435456	// binocular
-/*#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
+/*#define SPOTTERITEM				0x10000000	//268435456	// binocular
+#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
 #define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
