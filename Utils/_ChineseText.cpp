@@ -4288,8 +4288,8 @@ STR16 pHistoryStrings[] =
 	//76-80
 	L"Slay走了",
 	L"干掉了%s",
-	L"Met Waldo - aircraft mechanic.",
-	L"Helicopter repairs started. Estimated time: %d hour(s).",
+	L"碰到了 Waldo - 飞机机械师。",//L"Met Waldo - aircraft mechanic.",
+	L"直升机维修开始. 预计时间: %d 小时(s)。",//L"Helicopter repairs started. Estimated time: %d hour(s).",
 };
 
 STR16 pHistoryLocations[] =
@@ -4453,7 +4453,7 @@ STR16 pWebPagesTitles[] =
 
 STR16 pShowBookmarkString[] =
 {
-	L"Sir-Help",
+	L"Sir 帮助",//L"Sir-Help",
 	L"再次点击页面以放进收藏夹。",
 };
 
@@ -4739,7 +4739,7 @@ STR16			sFloristText[] =
 
 	//Address of United Florist
 
-	L"\"We air-drop anywhere\"",
+	L"\"我们空投至任何地区\"",//L"\"We air-drop anywhere\"",
 	L"1-555-SCENT-ME",
 	L"333 NoseGay Dr, Seedy City, CA USA 90210",
 	L"http://www.scent-me.com",
@@ -5453,7 +5453,7 @@ STR16			zSaveLoadText[] =
 	L"科幻风格",		//"Sci Fi style",
 
 	L"难度",		//"Difficulty",
-	L"Platinum Mode", //Placeholder English
+	L"白金模式", //L"Platinum Mode",
 
 	L"Bobby Ray 货品等级",
 	L"普通|一般",
@@ -5616,12 +5616,12 @@ STR16		zOptionsToggleText[] =
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG 选项--",					// an example options screen options header (pure text)
-	L"Report Miss Offsets",				// Screen messages showing amount and direction of shot deviation.
+	L"报告错误的偏移量",				// L"Report Miss Offsets",Screen messages showing amount and direction of shot deviation.
 	L"重置所有选项",					// failsafe show/hide option to reset all options
 	L"确定要重置？",					// a do once and reset self option (button like effect)
-	L"Debug Options in other builds",	// allow debugging in release or mapeditor
-	L"DEBUG Render Option group",		// an example option that will show/hide other options
-	L"Render Mouse Regions",			// an example of a DEBUG build option
+	L"其他版本调试选项",	// L"Debug Options in other builds"allow debugging in release or mapeditor
+	L"渲染选项组调试",		// L"DEBUG Render Option group"an example option that will show/hide other options
+	L"鼠标显示区域",			// L"Render Mouse Regions"an example of a DEBUG build option
 	L"-----------------",				// an example options screen options divider (pure text)
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
@@ -5750,9 +5750,9 @@ STR16	gzGIOScreenText[] =
 {
 	L"游戏初始设置",
 #ifdef JA2UB
-	L"Random Manuel texts ",
-	L"Off",
-	L"On",
+	L"随机 Manuel 文本",//L"Random Manuel texts ",
+	L"关",//L"Off",
+	L"开",//L"On",
 #else
 	L"游戏风格",
 	L"现实",
@@ -5798,9 +5798,9 @@ STR16	gzGIOScreenText[] =
 	L"关",
 	L"开",
 #ifdef JA2UB
-	L"Tex and John",
-	L"Random",
-	L"All",
+	L"Tex 和 John",//L"Tex and John",
+	L"随机",//L"Random",
+	L"全部",//"All",
 #else
 	L"通缉犯出现方式",
 	L"随机",
@@ -5861,18 +5861,16 @@ STR16	gzMPJScreenText[] =
 
 STR16 gzMPJHelpText[] =
 {
-	L"Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players.",
-
+	L"访问 http://webchat.quakenet.org/?channels=ja2-multiplayer 寻找其他玩家.",  //Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players
 	L"HOST",
-	L"Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.",
-	L"Be sure that the Port (UDP, TCP) is forwarded on your Router. For more information see: http://portforward.com",
-	L"You have to send (via IRC, ICQ, etc) your external IP (http://www.whatismyip.com) and the Port number to the other players.",
-	L"Click on 'Host' to host a new Multiplayer Game.",
-	
-	L"JOIN",
-	L"The host has to send (via IRC, ICQ, etc) you the external IP and the Port number.",
-	L"Enter the external IP and the Port number from the host.",
-	L"Click on 'Join' to join an already hosted Multiplayer Game.",
+	L"输入IP地址，端口号必须大于60000",  //Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.
+	L"确保(UDP, TCP)端口由你的路由器转发，更多信息请看http://portforward.com",   //Be sure that the Port (UDP, TCP) is forwarded on your Router. For more information see: http://portforward.com
+	L"你必须将你的外网IP通过QQ或者什么，告诉其他玩家",   //You have to send (via IRC, ICQ, etc) your external IP (http://www.whatismyip.com) and the Port number to the other players.
+	L"点击“Host”创建一个新的局域网游戏",   //Click on 'Host' to host a new Multiplayer Game.
+	L"加入",  //JOIN
+	L"主机需要发送外网IP和端口",               //The host has to send (via IRC, ICQ, etc) you the external IP and the Port number
+	L"输入主机的外网IP和端口号",  //L"Enter the external IP and the Port number from the host.",
+	L"点击“加入”来加入已经创建好的游戏。",  //Click on 'Join' to join an already hosted Multiplayer Game
 };
 
 STR16	gzMPHScreenText[] =
@@ -5892,9 +5890,9 @@ STR16	gzMPHScreenText[] =
 	L"已被雇佣",//L"Hired by Player",
 	L"起始平衡",//L"Starting Cash",
 	L"可以雇佣相同佣兵",//L"Can Hire Same Merc",
-	L"Report Hired Mercs",
+	L"佣兵报告",  //Report Hired Mercs
 	L"开启Bobby Rays网上商店",
-	L"Sector Starting Edge",
+	L"开始边缘区域",  //Sector Starting Edge
 	L"必须输入服务器名",
 	L"",
 	L"",
@@ -5907,7 +5905,7 @@ STR16	gzMPHScreenText[] =
 	L"",
 	L"合作模式中允许平民",
 	L"",
-	L"Maximum Enemies in CO-OP",
+	L"CO-OP敌军最大值",  //Maximum Enemies in CO-OP
 	L"同步游戏目录",
 	L"同步多人模式目录",
 	L"你必须进入一个文件传输目录.",
@@ -5923,32 +5921,32 @@ STR16	gzMPHScreenText[] =
 	L"Yes",
 	L"No",
 	// Starting Time
-	L"Morning",
-	L"Afternoon",
-	L"Night",
+	L"早晨",  //Morning
+	L"下午",  //Afternoon
+	L"晚上",  //Night
 	// Starting Cash
-	L"Low",
-	L"Medium",
-	L"Heigh",
-	L"Unlimited",
+	L"低",
+	L"中",
+	L"高",
+	L"无限",  //Unlimited
 	// Time Turns
-	L"Never",
-	L"Slow",
-	L"Medium",
-	L"Fast",
+	L"从不",//Never
+	L"缓慢",//Slow
+	L"中速",//Medium
+	L"快速",//Fast
 	// Weapon Damage
-	L"Very low",
-	L"Low",
-	L"Normal",
+	L"很慢",
+	L"慢",
+	L"正常",
 	// Merc Hire
-	L"Random",
-	L"Normal",
+	L"随机",
+	L"正常",
 	// Sector Edge
-	L"Random",
-	L"Selectable",
+	L"随机",
+	L"可选",
 	// Bobby Ray / Hire same merc
-	L"Disable",
-	L"Allow",
+	L"禁止",
+	L"允许",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -6067,8 +6065,8 @@ STR16 pMessageStrings[] =
 	L"%s没有医疗技能",	//"%s has no medical skill",//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
-	L"The integrity of the game has been compromised.",
-	L"ERROR: Ejected CD-ROM",
+	L"游戏不完整。",//The integrity of the game has been compromised
+	L"错误: 弹出 CD-ROM",//ERROR: Ejected CD-ROM
 
 	//When firing heavier weapons in close quarters, you may not have enough room to do so.
 	L"没有空间施展你的武器。",	//"There is no room to fire from here.",
@@ -6346,40 +6344,40 @@ STR16	gzCreditNames[]=
 
 STR16	gzCreditNameTitle[]=
 {
-	L"Game Internals Programmer", 			// Chris Camfield
-	L"Co-designer/Writer",							// Shaun Lyng
-	L"Strategic Systems & Editor Programmer",					//Kris \"The Cow Rape Man\" Marnes
-	L"Producer/Co-designer",						// Ian Currie
-	L"Co-designer/Map Designer",				// Linda Currie
-	L"Artist",													// Eric \"WTF\" Cheng
-	L"Beta Coordinator, Support",				// Lynn Holowka
-	L"Artist Extraordinaire",						// Norman \"NRG\" Olsen
-	L"Sound Guru",											// George Brooks
-	L"Screen Designer/Artist",					// Andrew Stacey
-	L"Lead Artist/Animator",						// Scot Loving
-	L"Lead Programmer",									// Andrew \"Big Cheese Doddle\" Emmons
-	L"Programmer",											// Dave French
-	L"Strategic Systems & Game Balance Programmer",					// Alex Meduna
-	L"Portraits Artist",								// Joey \"Joeker\" Whelan",
+	L"游戏开发者", 			// Chris Camfield
+	L"策划/编剧",							// Shaun Lyng
+	L"战略系统和编辑器开发者",					//Kris \"The Cow Rape Man\" Marnes
+	L"制片人/总策划",						// Ian Currie
+	L"地图设计师",				// Linda Currie
+	L"美术设计",				// Eric \"WTF\" Cheng
+	L"测试",				// Lynn Holowka
+	L"高级美术设计",				// Norman \"NRG\" Olsen
+	L"音效师",					// George Brooks
+	L"界面设计",					// Andrew Stacey
+	L"动画师",						// Scot Loving
+	L"程序开发",						// Andrew \"Big Cheese Doddle\" Emmons
+	L"程序设计",						// Dave French
+	L"战略系统与游戏平衡开发",				// Alex Meduna
+	L"人物设计师",						// Joey \"Joeker\" Whelan",
 };
 
 STR16	gzCreditNameFunny[]=
 {
 	L"", 																			// Chris Camfield
-	L"(still learning punctuation)",					// Shaun Lyng
-	L"(\"It's done. I'm just fixing it\")",	//Kris \"The Cow Rape Man\" Marnes
-	L"(getting much too old for this)",				// Ian Currie
-	L"(and working on Wizardry 8)",						// Linda Currie
-	L"(forced at gunpoint to also do QA)",			// Eric \"WTF\" Cheng
+	L"(还在学习标点符号)",					// Shaun Lyng
+	L"(\"已经完成，我们只是做一些修正\")",                 	//Kris \"The Cow Rape Man\" Marnes
+	L"(干这活我的年纪太大了)",				// Ian Currie
+	L"(进行巫术8项目的工作)",						// Linda Currie
+	L"(被枪指着去做QA)",			// Eric \"WTF\" Cheng
 	L"(Left us for the CFSA - go figure...)",	// Lynn Holowka
-	L"",																			// Norman \"NRG\" Olsen
-	L"",																			// George Brooks
-	L"(Dead Head and jazz lover)",						// Andrew Stacey
-	L"(his real name is Robert)",							// Scot Loving
-	L"(the only responsible person)",					// Andrew \"Big Cheese Doddle\" Emmons
-	L"(can now get back to motocrossing)",	// Dave French
-	L"(stolen from Wizardry 8)",							// Alex Meduna
-	L"(did items and loading screens too!)",	// Joey \"Joeker\" Whelan",
+	L"",						// Norman \"NRG\" Olsen
+	L"",	              				// George Brooks
+	L"(蹭车以及爵士乐爱好者)",						// Andrew Stacey
+	L"(他真正的名字是罗伯特)",							// Scot Loving
+	L"(唯一负责任的人)",					// Andrew \"Big Cheese Doddle\" Emmons
+	L"(现在就想回到motocrossing)",	// Dave French
+	L"(从巫术8项目中偷来的)",							// Alex Meduna
+	L"(也参与制作物品及读档画面)",	// Joey \"Joeker\" Whelan",
 };
 
 // HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
@@ -6534,7 +6532,7 @@ STR16 gzLateLocalizedString[] =
 	//55
 	L"查看分区存货时候无法压缩时间",	//L"Can't compress time while viewing sector inventory.",
 
-	L"The Jagged Alliance 2 v1.13 PLAY DISK was not found. Program will now exit.",
+	L"没有找到铁血联盟2光盘，程序即将退出。", //The Jagged Alliance 2 v1.13 PLAY DISK was not found. Program will now exit.
 
 	L"物品组合成功。",
  
@@ -6988,10 +6986,10 @@ STR16 gszMPEdgesText[] =
 
 STR16 gszMPTeamNames[] =
 {
-	L"Foxtrot",
-	L"Bravo",
-	L"Delta",
-	L"Charlie",
+	L"F小队",
+	L"B小队",
+	L"D小队",
+	L"C小队",
 	L"N/A",		// Acronym of Not Applicable
 };
 
@@ -7005,7 +7003,7 @@ STR16 gszMPMapscreenText[] =
 	L"随机佣兵: ",//	L"Random Mercs: ",
 	L"Y",
 	L"难度:",//	L"Difficulty:",
-	L"Server Version:",
+	L"服务器版本:",   //Server Version
 };
 
 STR16 gzMPSScreenText[] =
@@ -8129,7 +8127,7 @@ STR16	szInventoryArmTextStr[]=
 STR16		szBackgroundText_Flags[]=
 {
 	L" 会消耗掉背包中的药品\n", //L" might consume drugs in inventory\n",
-	L" disregard for all other backgrounds\n", // TODO.Translate
+	L" 蔑视其他背景的角色\n", //L" disregard for other backgrounds\n",
 	L" 在地下分区角色等级+1\n", //L" +1 level in  underground sectors\n",
 	L" 会盗窃物品\n", //L" might steal items\n",
 
@@ -8495,7 +8493,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"未知地区",
 
 	L"该分区的建筑遭到了破坏。",
-	L"In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.",
+	L"在战斗中,该地区建筑物被损坏,计有%d位平民遭到杀害，%d位负伤。",  //In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.
 	L"在战斗中，%s和%s呼叫了支援。",
 	L"在战斗中，%s呼叫了支援。",
 	L"目击者报道交战双方都使用了化学武器。",
