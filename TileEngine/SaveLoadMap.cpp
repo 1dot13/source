@@ -28,8 +28,9 @@ extern BOOLEAN gfLoadingExitGrids;
 
 BOOLEAN			gfApplyChangesToTempFile = FALSE;
 
-//	There are 3200 bytes, and each bit represents the revelaed status.
-//	3200 bytes * 8 bits = 25600 map elements
+// There are 3200 bytes, and each bit represents the revealed status.
+// 3200 bytes * 8 bits = 25600 map elements
+// BIGMAPS has now a theoretical limit of 2000 * 2000 = 4,000,000 map elements; 500k bytes
 UINT8				*gpRevealedMap;
 
 #ifdef JA2UB
@@ -924,7 +925,7 @@ BOOLEAN LoadRevealedStatusArrayFromRevealedTempFile()
 
 void SetSectorsRevealedBit( UINT32	usMapIndex )
 {
-	UINT16	usByteNumber;
+	UINT32	usByteNumber;
 	UINT8		ubBitNumber;
 
 	usByteNumber = usMapIndex / 8;
@@ -948,7 +949,7 @@ void SetMapRevealedStatus()
 	ClearSlantRoofs( );
 
 	//Loop through all bytes in the array
-	for( usByteCnt=0; usByteCnt< 3200; usByteCnt++)
+	for( usByteCnt=0; usByteCnt< (UINT32) NUM_REVEALED_BYTES; usByteCnt++)
 	{
 		//loop through all the bits in the byte
 		for( ubBitCnt=0; ubBitCnt<8; ubBitCnt++)
