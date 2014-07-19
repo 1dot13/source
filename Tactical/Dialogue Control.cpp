@@ -2710,7 +2710,7 @@ void DisplayTextForExternalNPC(	UINT8 ubCharacterNum, STR16 zQuoteStr )
 	if ( guiCurrentScreen == MAP_SCREEN )
 	{
 		sLeft			= ( gsExternPanelXPosition + 97 + xResOffset );
-		gsTopPosition = gsExternPanelYPosition;
+		gsTopPosition = gsExternPanelYPosition + yResOffset;
 	}
 	else
 	{
@@ -2742,6 +2742,7 @@ void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, STR16 zQuote
 	else
 	{
 		sLeft = 110 + xResOffset;
+		gsTopPosition += yResOffset;
 	}	
 
 	//previous version
@@ -2843,7 +2844,7 @@ void HandleExternNPCSpeechFace( INT32 iIndex )
 		// Setup video overlay!
 
 		VideoOverlayDesc.sLeft			= gsExternPanelXPosition + xResOffset;
-		VideoOverlayDesc.sTop				= gsExternPanelYPosition;
+		VideoOverlayDesc.sTop				= gsExternPanelYPosition + yResOffset;
 
 		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + 99;
 		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + 98;

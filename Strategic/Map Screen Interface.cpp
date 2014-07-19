@@ -1307,7 +1307,7 @@ INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExit
 
 INT32 DoMapMessageBox( UINT8 ubStyle,	STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
+	SGPRect CenteringRect= {0 + xResOffset, 0 + yResOffset, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
 
 	// reset the highlighted line
 	giHighLine = -1;
@@ -1970,7 +1970,7 @@ void HandleGroupAboutToArrive( void )
 
 void CreateMapStatusBarsRegion( void )
 {
-	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X + xResOffset - 3, BAR_INFO_Y - 42,(INT16)( BAR_INFO_X + xResOffset + 17), (INT16)(BAR_INFO_Y ), MSYS_PRIORITY_HIGH + 5,
+	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X + xResOffset - 3, BAR_INFO_Y + yResOffset - 42,(INT16)( BAR_INFO_X + xResOffset + 17), (INT16)(BAR_INFO_Y + yResOffset), MSYS_PRIORITY_HIGH + 5,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 	return;
@@ -3807,7 +3807,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 void CreatePopUpBoxForMovementBox( void )
 {
-	SGPPoint MovePosition = {450 + xResOffset, 100};
+	SGPPoint MovePosition = {450 + xResOffset, 100 + yResOffset};
 	SGPPoint Position;
 	SGPRect Dimensions;
 
@@ -5335,7 +5335,8 @@ void CreateDestroyUpdatePanelButtons(INT32 iX, INT32 iY, BOOLEAN fFourWideMode )
 /*
 void CreateUpdateBox( void )
 {
-	SGPPoint MovePosition = {450 + xResOffset, 100};
+	SGPPoint MovePosition = {450 + xResOffset, 100 + yResOffset};
+
 	// create basic box
 	CreatePopUpBox(&ghUpdateBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
 
@@ -5750,13 +5751,13 @@ void CreateDestroyInsuranceMouseRegionForMercs( BOOLEAN fCreate )
 
 	if( ( fCreated == FALSE ) && ( fCreate == TRUE ) )
 	{
-		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_HEIGHT,
+		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y  + yResOffset + CHAR_ICON_HEIGHT,
 						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
-		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + CHAR_ICON_HEIGHT,
+		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING  + yResOffset + CHAR_ICON_HEIGHT,
 						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
-		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ), CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + CHAR_ICON_HEIGHT,
+		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + yResOffset, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING )  + yResOffset + CHAR_ICON_HEIGHT,
 						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );  
 
 		fCreated = TRUE;

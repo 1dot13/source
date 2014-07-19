@@ -56,9 +56,9 @@ extern UINT8 maxNumberOfMercVisibleInStrategyList;
 #define MAP_SCREEN_FONT BLOCKFONT2
 
 // characterlist regions
-#define	 Y_START				135	//146
-#define			MAP_START_KEYRING_Y	107
-#define	 Y_SIZE				GetFontHeight(MAP_SCREEN_FONT)
+#define	Y_START				yResOffset + 135	//146
+#define	MAP_START_KEYRING_Y	yResOffset + 107
+#define	Y_SIZE				GetFontHeight(MAP_SCREEN_FONT)
 
 //lal
 // militia control menu

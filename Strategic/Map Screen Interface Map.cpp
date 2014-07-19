@@ -1402,7 +1402,7 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 
 	// check if we are zoomed in...need to offset in case for scrolling purposes
 	sXPosition = ( INT16 )( iconOffsetX + ( MAP_VIEW_START_X + ( sSectorX * MAP_GRID_X + 1 )  ) - 1 );
-	sYPosition = ( INT16 )( ( ( iconOffsetY + ( sSectorY * MAP_GRID_Y ) + 1 )  ) );
+	sYPosition = ( INT16 )( ( ( iconOffsetY + ( yResOffset + sSectorY * MAP_GRID_Y ) + 1 )  ) );
 	sYPosition -= 2;
 
 	// small question mark
@@ -1442,8 +1442,8 @@ void ShowVIPSymbol( INT16 sSectorX, INT16 sSectorY )
 	GetVideoObject( &hIconHandle, guiCHARICONS );
 
 	// check if we are zoomed in...need to offset in case for scrolling purposes
-	sXPosition = (INT16)(iconOffsetX + (MAP_VIEW_START_X + (sSectorX * MAP_GRID_X + 1)) - 1);
-	sYPosition = (INT16)(((iconOffsetY + (sSectorY * MAP_GRID_Y) + 1)));
+	sXPosition = (INT16)(iconOffsetX + ( MAP_VIEW_START_X + (sSectorX * MAP_GRID_X + 1)) - 1);
+	sYPosition = (INT16)(((iconOffsetY + ( yResOffset + sSectorY * MAP_GRID_Y ) + 1)));
 	sYPosition -= 2;
 
 	// small VIP symbol
@@ -1792,7 +1792,7 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 void InitializeMilitiaPopup(void)
 {
 	UINT16 xVal = 330 + xResOffset;
-	UINT16 yVal = 25;
+	UINT16 yVal = 25 + yResOffset;
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
@@ -3031,7 +3031,7 @@ BOOLEAN TraceCharAnimatedRoute( PathStPtr pPath, BOOLEAN fCheckFlag, BOOLEAN fFo
 	usArrowHeight = hMapHandle->pETRLEObject[ uiArrowNumToDraw ].usHeight;
 
 	BltVideoObject(FRAME_BUFFER, hMapHandle, uiArrowNumToDraw, iArrowX, iArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( iArrowX + xResOffset, iArrowY, iArrowX + usArrowWidth, iArrowY + usArrowHeight );
+	InvalidateRegion( iArrowX + xResOffset, iArrowY + yResOffset, iArrowX + usArrowWidth, iArrowY + usArrowHeight );
 
 	//ARM who knows what it should return here?
 	return FALSE;

@@ -13014,6 +13014,7 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  CHAR16 sDollarString[ 50 ];
 
  ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigContractPosition.iX;
+ ContractPosition.iY = yResOffset + OrigContractPosition.iY;
 
  if( giBoxY != 0 )
  {

@@ -36,7 +36,7 @@ UINT8					gubNumberOfBuildings;
 
 BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 {
-	if (gubNumberOfBuildings + 1 >= MAX_BUILDINGS)
+	if (gubNumberOfBuildings >= MAX_BUILDINGS)
 	{
 		return( NULL );
 	}
@@ -254,7 +254,7 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 
 BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 {
-	if (gubNumberOfBuildings + 1 >= MAX_BUILDINGS)
+	if (gubNumberOfBuildings >= MAX_BUILDINGS)
 	{
 		return( NULL );
 	}

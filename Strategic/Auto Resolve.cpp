@@ -546,7 +546,7 @@ void DoTransitionFromPreBattleInterfaceToAutoResolve()
 	uiStartTime = GetJA2Clock();
 
 	sStartLeft = 59 + xResOffset;
-	sStartTop = 69;
+	sStartTop = 69 + yResOffset;
 	sEndLeft = SrcRect.iLeft + gpAR->sWidth / 2;
 	sEndTop = SrcRect.iTop + gpAR->sHeight / 2;
 

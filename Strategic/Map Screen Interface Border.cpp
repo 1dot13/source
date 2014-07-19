@@ -112,7 +112,7 @@ void DisplayCurrentLevelMarker( void );
 
 extern void CancelMapUIMessage( void );
 
-
+extern BOOLEAN fMapScreenBottomDirty;
 
 // callbacks
 void BtnTownCallback(GUI_BUTTON *btn,INT32 reason);
@@ -197,14 +197,14 @@ void RenderMapBorder( void )
 	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
 	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 	else
 	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0, xResOffset + MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 
-	RestoreExternBackgroundRect( xResOffset + MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT );
+	RestoreExternBackgroundRect( xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT - 121 - 2 * yResOffset);
 
 	// show the level marker
 	DisplayCurrentLevelMarker( );
@@ -575,6 +575,9 @@ void ToggleShowTownsMode( void )
 	}
 
 	fMapPanelDirty = TRUE;
+	fTeamPanelDirty = TRUE;
+	fCharacterInfoPanelDirty = TRUE;
+	fMapScreenBottomDirty = TRUE;
 }
 
 
@@ -616,6 +619,9 @@ void ToggleShowMinesMode( void )
 	}
 
 	fMapPanelDirty = TRUE;
+	fTeamPanelDirty = TRUE;
+	fCharacterInfoPanelDirty = TRUE;
+	fMapScreenBottomDirty = TRUE;
 }
 
 
@@ -681,6 +687,9 @@ void ToggleShowMilitiaMode( void )
 	}
 
 	fMapPanelDirty = TRUE;
+	fTeamPanelDirty = TRUE;
+	fCharacterInfoPanelDirty = TRUE;
+	fMapScreenBottomDirty = TRUE;
 }
 
 
@@ -696,6 +705,7 @@ void ToggleShowTeamsMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 	else
 	{	// turn show teams ON
@@ -725,6 +735,7 @@ void ToggleAirspaceMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 	else
 	{	// turn airspace ON
@@ -745,6 +756,7 @@ void ToggleItemsFilter( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 	else
 	{
@@ -766,6 +778,7 @@ void ToggleMobileFilter( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 	else
 	{
@@ -895,6 +908,7 @@ void TurnOnShowTeamsMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 }
 
@@ -976,6 +990,7 @@ void TurnOnAirSpaceMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 }
 
@@ -1040,6 +1055,7 @@ void TurnOnItemFilterMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 }
 
@@ -1116,6 +1132,7 @@ void TurnOnMobileFilterMode( void )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 	}
 }
 
@@ -1326,22 +1343,22 @@ void InitMapBorderButtonCoordinates()
 	UINT32 buttonOffset = 155;	// 160
 
 	MAP_BORDER_TOWN_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 152;
-	MAP_BORDER_TOWN_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_TOWN_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_MINE_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 109;
-	MAP_BORDER_MINE_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_MINE_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_TEAMS_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 66;
-	MAP_BORDER_TEAMS_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_TEAMS_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_AIRSPACE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 20;
-	MAP_BORDER_AIRSPACE_BTN_Y	= (yResSize - buttonOffset);
+	MAP_BORDER_AIRSPACE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_ITEM_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 63;
-	MAP_BORDER_ITEM_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_ITEM_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_MILITIA_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 23;
-	MAP_BORDER_MILITIA_BTN_Y 	= (yResSize - buttonOffset);
+	MAP_BORDER_MILITIA_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_MOBILE_BTN_X 	= xResSize;
 	MAP_BORDER_MOBILE_BTN_Y 	= 0;
 
 	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
-	MAP_LEVEL_MARKER_Y 			= (yResSize - buttonOffset);
+	MAP_LEVEL_MARKER_Y 			= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_LEVEL_MARKER_DELTA 		= 8;
 	MAP_LEVEL_MARKER_WIDTH 		= 55;
 
@@ -1349,7 +1366,7 @@ void InitMapBorderButtonCoordinates()
 	{
 		// Mobile button appears next to Militia button.
 		MAP_BORDER_MOBILE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 16;
-		MAP_BORDER_MOBILE_BTN_Y 	= (yResSize - buttonOffset);
+		MAP_BORDER_MOBILE_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 
 		// Airspace, Items, ZLevel buttons all moved to the right (+22px, +22px, +10px).
 		MAP_BORDER_AIRSPACE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 42;

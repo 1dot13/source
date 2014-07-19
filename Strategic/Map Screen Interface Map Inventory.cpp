@@ -390,7 +390,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 		MAP_INV_SLOT_COLS = 8;
 		MAP_INVENTORY_POOL_SLOT_COUNT = 40;
 		MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
-		MAP_INVENTORY_POOL_SLOT_START_Y = 51;
+		MAP_INVENTORY_POOL_SLOT_START_Y = 51 + yResOffset;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
 	}
 	else if (iResolution < _1024x768)
@@ -398,7 +398,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 		MAP_INV_SLOT_COLS = 11;
 		MAP_INVENTORY_POOL_SLOT_COUNT = 77;
 		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 278 + xResOffset;
-		MAP_INVENTORY_POOL_SLOT_START_Y = 62;
+		MAP_INVENTORY_POOL_SLOT_START_Y = 62 + yResOffset;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_800x600.sti" );
 	}
 	else
@@ -406,7 +406,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 		MAP_INV_SLOT_COLS = 17;
 		MAP_INVENTORY_POOL_SLOT_COUNT = MAP_INVENTORY_POOL_MAX_SLOTS;
 		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 282 + xResOffset;
-		MAP_INVENTORY_POOL_SLOT_START_Y = 50;
+		MAP_INVENTORY_POOL_SLOT_START_Y = 50 + yResOffset;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_1024x768.sti" );
 	}
 
@@ -460,7 +460,7 @@ void BlitInventoryPoolGraphic( void )
 
 	// blit inventory pool graphic to the screen
 	GetVideoObject(&hHandle, guiMapInventoryPoolBackground);
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0,(SCREEN_WIDTH - INTERFACE_WIDTH)/2 + INVEN_POOL_X, INVEN_POOL_Y , VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject( guiSAVEBUFFER , hHandle, 0,(SCREEN_WIDTH - INTERFACE_WIDTH)/2 + INVEN_POOL_X, yResOffset + INVEN_POOL_Y , VO_BLT_SRCTRANSPARENCY,NULL );
 
 	// HEADROCK HAM 5: Draw inventory slots
 	BlitInventoryPoolSlotGraphics();
@@ -493,7 +493,7 @@ void BlitInventoryPoolGraphic( void )
 	HandleButtonStatesWhileMapInventoryActive( );
 
 	// Invalidate
-	RestoreExternBackgroundRect(xResOffset + MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT - 121 - 2 * yResOffset);
+	RestoreExternBackgroundRect(xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT - 121 - 2 * yResOffset);
 
 	return;
 }
@@ -1343,7 +1343,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else if(fValidPointer)
 					{
-						InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, (SCREEN_WIDTH - INTERFACE_WIDTH)/2, -10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+						InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, (SCREEN_WIDTH - INTERFACE_WIDTH)/2, yResOffset - 10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
 						fTeamPanelDirty=TRUE;
 						fInterfacePanelDirty = DIRTYLEVEL2;
 					}
@@ -1678,13 +1678,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 void CreateMapInventoryButtons( void )
 {
 	guiMapInvenArrowButtonImage[ 0 ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" , 10, 1, -1, 3, -1 );
-	guiMapInvenArrowButton[ 0 ] = QuickCreateButton( guiMapInvenArrowButtonImage[ 0 ], (MAP_INV_X_OFFSET + 559), (SCREEN_HEIGHT - 144 - 2 * yResOffset),
+	guiMapInvenArrowButton[ 0 ] = QuickCreateButton( guiMapInvenArrowButtonImage[ 0 ], (MAP_INV_X_OFFSET + 559), (SCREEN_HEIGHT - 144 - yResOffset),
 									BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 									(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolNextBtn );
 
 
 	guiMapInvenArrowButtonImage[ 1 ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9, 0, -1, 2, -1 );
-	guiMapInvenArrowButton[ 1 ] = QuickCreateButton( guiMapInvenArrowButtonImage[ 1 ], (MAP_INV_X_OFFSET + 487), (SCREEN_HEIGHT - 144 - 2 * yResOffset),
+	guiMapInvenArrowButton[ 1 ] = QuickCreateButton( guiMapInvenArrowButtonImage[ 1 ], (MAP_INV_X_OFFSET + 487), (SCREEN_HEIGHT - 144 - yResOffset),
 									BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 									(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolPrevBtn );
 
@@ -1698,7 +1698,7 @@ void CreateMapInventoryButtons( void )
 	if (iResolution >= _800x600 )
 	{
 		guiMapInvenZoomButtonImage =  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 0, 0, -1, 1, -1 );
-		guiMapInvenZoomButton = QuickCreateButton( guiMapInvenZoomButtonImage, INVEN_POOL_X+10 + xResOffset, INVEN_POOL_Y+10,
+		guiMapInvenZoomButton = QuickCreateButton( guiMapInvenZoomButtonImage, INVEN_POOL_X+10 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 											NULL, (GUI_CALLBACK)MapInventoryPoolZoomBtn );
 
@@ -1712,7 +1712,7 @@ void CreateMapInventoryButtons( void )
 
 	// HEADROCK HAM 5: Stack and Merge button
 	guiMapInvenSortButtonImage[ 0 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 16, 14, -1, 15, -1 );
-	guiMapInvenSortButton[ 0 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 0 ], INVEN_POOL_X+50 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenSortButton[ 0 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 0 ], INVEN_POOL_X+50 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolStackAndMergeBtn );
 
@@ -1720,7 +1720,7 @@ void CreateMapInventoryButtons( void )
 
 	// HEADROCK HAM 5: Sort Ammo Button
 	guiMapInvenSortButtonImage[ 1 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 4, 2, -1, 3, -1 );
-	guiMapInvenSortButton[ 1 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 1 ], INVEN_POOL_X+80 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenSortButton[ 1 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 1 ], INVEN_POOL_X+80 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolSortAmmoBtn );
 
@@ -1728,7 +1728,7 @@ void CreateMapInventoryButtons( void )
 
 	// HEADROCK HAM 5: Sort Attachments Button
 	guiMapInvenSortButtonImage[ 2 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 10, 8, -1, 9, -1 );
-	guiMapInvenSortButton[ 2 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 2 ], INVEN_POOL_X+110 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenSortButton[ 2 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 2 ], INVEN_POOL_X+110 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolSortAttachmentsBtn );
 
@@ -1736,7 +1736,7 @@ void CreateMapInventoryButtons( void )
 
 	// HEADROCK HAM 5: Sort Attachments Button
 	guiMapInvenSortButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 13, 11, -1, 12, -1 );
-	guiMapInvenSortButton[ 3 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 3 ], INVEN_POOL_X+140 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenSortButton[ 3 ] = QuickCreateButton( guiMapInvenSortButtonImage[ 3 ], INVEN_POOL_X+140 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolEjectAmmoBtn );
 
@@ -1744,7 +1744,7 @@ void CreateMapInventoryButtons( void )
 
 	// HEADROCK HAM 5: Filter Toggle Button
 	guiMapInvenFilterButtonImage[ 0 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 7, 5, -1, 6, -1 );
-	guiMapInvenFilterButton[ 0 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 0 ], INVEN_POOL_X+185 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 0 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 0 ], INVEN_POOL_X+185 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1755,7 +1755,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 0 ] ]->UserData[3] = 0;
 
 	guiMapInvenFilterButtonImage[ 1 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 20, 20, -1, 21, -1 );
-	guiMapInvenFilterButton[ 1 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 1 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 1 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 1 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1766,7 +1766,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 1 ] ]->UserData[3] = IC_MAPFILTER_GUN;
 
 	guiMapInvenFilterButtonImage[ 2 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 22, 22, -1, 23, -1 );
-	guiMapInvenFilterButton[ 2 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 2 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y+24,
+	guiMapInvenFilterButton[ 2 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 2 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1777,7 +1777,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 2 ] ]->UserData[3] = IC_MAPFILTER_AMMO;
 
 	guiMapInvenFilterButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 24, 24, -1, 25, -1 );
-	guiMapInvenFilterButton[ 3 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 3 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 3 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 3 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1788,7 +1788,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 3 ] ]->UserData[3] = IC_MAPFILTER_EXPLOSV;
 
 	guiMapInvenFilterButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 26, 26, -1, 27, -1 );
-	guiMapInvenFilterButton[ 4 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 4 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y+24,
+	guiMapInvenFilterButton[ 4 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 4 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1799,7 +1799,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 4 ] ]->UserData[3] = IC_MAPFILTER_MELEE;
 
 	guiMapInvenFilterButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 28, 28, -1, 29, -1 );
-	guiMapInvenFilterButton[ 5 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 5 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 5 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 5 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1810,7 +1810,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 5 ] ]->UserData[3] = IC_MAPFILTER_ARMOR;
 
 	guiMapInvenFilterButtonImage[ 6 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 30, 30, -1, 31, -1 );
-	guiMapInvenFilterButton[ 6 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 6 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y+24,
+	guiMapInvenFilterButton[ 6 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 6 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1821,7 +1821,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 6 ] ]->UserData[3] = IC_MAPFILTER_LBE;
 
 	guiMapInvenFilterButtonImage[ 7 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 32, 32, -1, 33, -1 );
-	guiMapInvenFilterButton[ 7 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 7 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 7 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 7 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1832,7 +1832,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 7 ] ]->UserData[3] = IC_MAPFILTER_KIT;
 
 	guiMapInvenFilterButtonImage[ 8 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 34, 34, -1, 35, -1 );
-	guiMapInvenFilterButton[ 8 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 8 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y+24,
+	guiMapInvenFilterButton[ 8 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 8 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -1844,7 +1844,7 @@ void CreateMapInventoryButtons( void )
 
 	// Flugente: toggle button for move item display
 	guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 36, 36, -1, 37, -1 );
-	guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+336 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+336 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtnMoveItemDisplay );
 
@@ -1858,7 +1858,7 @@ void CreateMapInventoryButtons( void )
 
 	/*
 	guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 19, 17, -1, 18, -1 );
-	guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+340 + xResOffset, INVEN_POOL_Y+10,
+	guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+340 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
 
@@ -2882,7 +2882,7 @@ void DisplayPagesForMapInventoryPool( void )
 	swprintf( sString, L"%d / %d", iCurrentInventoryPoolPage + 1, iLastInventoryPoolPage + 1 );
 
 	// grab centered coords
-	FindFontCenterCoordinates(MAP_INVENTORY_POOL_PAGE_X, MAP_INVENTORY_POOL_PAGE_Y - 2 * yResOffset, MAP_INVENTORY_POOL_PAGE_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
+	FindFontCenterCoordinates(MAP_INVENTORY_POOL_PAGE_X, MAP_INVENTORY_POOL_PAGE_Y - yResOffset, MAP_INVENTORY_POOL_PAGE_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
 
 	mprintf( sX, sY, sString );
 
@@ -2944,7 +2944,7 @@ void DrawNumberOfIventoryPoolItems( void )
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	// grab centered coords
-	FindFontCenterCoordinates(MAP_INVENTORY_POOL_NUMBER_X, MAP_INVENTORY_POOL_PAGE_Y - 2 * yResOffset, MAP_INVENTORY_POOL_NUMBER_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
+	FindFontCenterCoordinates(MAP_INVENTORY_POOL_NUMBER_X, MAP_INVENTORY_POOL_PAGE_Y - yResOffset, MAP_INVENTORY_POOL_NUMBER_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
 
 	mprintf( sX, sY, sString );
 
@@ -2958,7 +2958,7 @@ void CreateMapInventoryPoolDoneButton( void )
 {
 	// create done button
 	guiMapInvenDoneButtonImage=  LoadButtonImage( "INTERFACE\\done_button.sti" , -1, 0, -1, 1, -1 );
-	guiMapInvenDoneButton = QuickCreateButton( guiMapInvenDoneButtonImage, MAP_INV_X_OFFSET + 587 , (yResSize - 147),
+	guiMapInvenDoneButton = QuickCreateButton( guiMapInvenDoneButtonImage, MAP_INV_X_OFFSET + 587 , (yResSize - 147 + yResOffset),
 								BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 								(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolDoneBtn );
 
@@ -2997,7 +2997,7 @@ void DisplayCurrentSector( void )
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	// grab centered coords
-	FindFontCenterCoordinates(MAP_INVENTORY_POOL_LOC_X, MAP_INVENTORY_POOL_PAGE_Y - 2 * yResOffset, MAP_INVENTORY_POOL_LOC_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
+	FindFontCenterCoordinates(MAP_INVENTORY_POOL_LOC_X, MAP_INVENTORY_POOL_PAGE_Y - yResOffset, MAP_INVENTORY_POOL_LOC_WIDTH ,MAP_INVENTORY_POOL_PAGE_HEIGHT ,sString , MAP_SCREEN_FONT, &sX, &sY);
 
 	mprintf( sX, sY, sString );
 
@@ -3157,12 +3157,12 @@ void DrawTextOnMapInventoryBackground( void )
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	//Calculate the height of the string, as it needs to be vertically centered.
-	usStringHeight = DisplayWrappedString(MAP_INV_X_OFFSET + 268, (SCREEN_HEIGHT - 138 - 2 * yResOffset), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
-	DisplayWrappedString(MAP_INV_X_OFFSET + 268, (UINT16)((SCREEN_HEIGHT - 138 - 2 * yResOffset) - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+	usStringHeight = DisplayWrappedString(MAP_INV_X_OFFSET + 268, (SCREEN_HEIGHT - 138 - yResOffset), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	DisplayWrappedString(MAP_INV_X_OFFSET + 268, (UINT16)((SCREEN_HEIGHT - 138 - yResOffset) - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
 	//Calculate the height of the string, as it needs to be vertically centered.
-	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 369, (SCREEN_HEIGHT - 138 - 2 * yResOffset), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
-	DisplayWrappedString(MAP_INV_X_OFFSET + 369, (UINT16)((SCREEN_HEIGHT - 138 - 2 * yResOffset) - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 369, (SCREEN_HEIGHT - 138 - yResOffset), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	DisplayWrappedString(MAP_INV_X_OFFSET + 369, (UINT16)((SCREEN_HEIGHT - 138 - yResOffset) - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
 	// item filter buttons included in 640x480
 	/*if (iResolution < _800x600)
@@ -4196,19 +4196,19 @@ void ResetMapInventoryOffsets( void )
 		{
 			MAP_INV_SLOT_COLS = 8;
 			MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 51;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 51 + yResOffset;
 		}
 		else if (iResolution >= _800x600 && iResolution < _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 11;
 			MAP_INVENTORY_POOL_SLOT_START_X = 278 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 62;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 62 + yResOffset;
 		}
 		else if (iResolution >= _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 17;
 			MAP_INVENTORY_POOL_SLOT_START_X = 282 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 50;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 50 + yResOffset;
 		}
 		MAP_INVENTORY_POOL_SLOT_COUNT = GetInventorySlotCount( FALSE );
 
@@ -4236,19 +4236,19 @@ void ResetMapInventoryOffsets( void )
 		{
 			MAP_INV_SLOT_COLS = 3;
 			MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 51;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 51 + yResOffset;
 		}
 		else if (iResolution >= _800x600 && iResolution < _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 5;
 			MAP_INVENTORY_POOL_SLOT_START_X = 278 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 62;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 62 + yResOffset;
 		}
 		else if (iResolution >= _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 8;
 			MAP_INVENTORY_POOL_SLOT_START_X = 282 + xResOffset;
-			MAP_INVENTORY_POOL_SLOT_START_Y = 50;
+			MAP_INVENTORY_POOL_SLOT_START_Y = 50 + yResOffset;
 		}
 
 		MAP_INVENTORY_POOL_SLOT_COUNT = GetInventorySlotCount( TRUE );
