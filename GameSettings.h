@@ -816,8 +816,6 @@ typedef struct
 
 	// for small progress bar
 	BOOLEAN fSmallSizeProgressbar;
-	// stamina multiplier (for all weapons eg knife fist gun
-	INT32 uStaminaHit;
 	//enable ext mouse key
 	BOOLEAN bAltAimEnabled;	
 	BOOLEAN bAimedBurstEnabled;

@@ -4218,7 +4218,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					inv_interface_start_x = 213;
 				else
 					inv_interface_start_x = 248;
-				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, inv_interface_start_x, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
+				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, inv_interface_start_x + xResOffset, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
 
 			}
 		}

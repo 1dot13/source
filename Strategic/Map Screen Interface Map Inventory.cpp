@@ -1323,8 +1323,8 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							DeleteItemDescriptionBox();
 						}
-						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
 						
+						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
 						if( !CanPlayerUseSectorInventory( &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]) ) )
 						{
 							DoScreenIndependantMessageBox( New113HAMMessage[ 22 ], MSG_BOX_FLAG_OK, NULL );
@@ -1343,9 +1343,18 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else if(fValidPointer)
 					{
-						InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, (SCREEN_WIDTH - INTERFACE_WIDTH)/2, yResOffset - 10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
-						fTeamPanelDirty=TRUE;
-						fInterfacePanelDirty = DIRTYLEVEL2;
+						// Sector Inventory Stack Popup no longer accessible during combat.
+						if( !CanPlayerUseSectorInventory( &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]) ) )
+						{
+							DoScreenIndependantMessageBox( New113HAMMessage[ 22 ], MSG_BOX_FLAG_OK, NULL );
+							return;
+						}
+						else
+						{
+							InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, xResOffset, yResOffset - 10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+							fTeamPanelDirty=TRUE;
+							fInterfacePanelDirty = DIRTYLEVEL2;
+						}
 					}
 				}
 			}
@@ -3689,18 +3698,18 @@ BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier )
 	if(gGameExternalOptions.fEnableInventoryPoolQ)
 		return(TRUE);
 #endif
-	INT16	sSectorX, sSectorY, sSectorZ;
+	INT16	sX, sY, sZ;
 
 	//Get the sector that has a battle
-	BOOLEAN fInCombat = GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( &sSectorX, &sSectorY, &sSectorZ );
+	BOOLEAN fInCombat = GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( &sX, &sY, &sZ );
 
 	//if there is a battle going on
 	if( fInCombat )
 	{
-		//if the selected map is the one with the combat
-		if( ( ( sSelMapX == sSectorX ) &&
-					( sSelMapY == sSectorY ) &&
-					( iCurrentMapSectorZ == sSectorZ )
+		//if the selected soldier is in combat sector
+		if( ( ( pSelectedSoldier->sSectorX == sX ) &&
+					( pSelectedSoldier->sSectorY == sY ) &&
+					( pSelectedSoldier->bSectorZ == sZ )
 				)
 			)
 		{

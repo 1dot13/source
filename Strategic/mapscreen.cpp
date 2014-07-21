@@ -888,6 +888,7 @@ void InvmaskRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason );
 void TrashCanBtnCallback( MOUSE_REGION *pRegion, INT32 iReason);
 
 extern void KeyRingItemPanelButtonCallback( MOUSE_REGION *pRegion, INT32 iReason );
+extern BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 
 // handle talking
 void HandleSpontanousTalking( void );
@@ -9801,7 +9802,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			if ( !InItemStackPopup( ) )
 			{
 				// CHRISL: Changed final parameter so that we fill the inventory screen
-				InitItemStackPopup( pSoldier, (UINT8)uiHandPos, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+				InitItemStackPopup( pSoldier, (UINT8)uiHandPos, xResOffset, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
 				fTeamPanelDirty=TRUE;
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
@@ -9890,10 +9891,17 @@ void MAPBeginItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubHandPos )
 
 	pSoldier->inv[ubHandPos].MoveThisObjectTo(gItemPointer, numToMove, pSoldier, ubHandPos);
 	
-	//Autoplace to map sector invectory
+	//Autoplace to map sector inventory
 	if ( _KeyDown(CTRL) )
 	{
-		if( AutoPlaceObjectToWorld(pSoldier, &gItemPointer) )
+		// if in battle inform player they will have to do this in tactical
+		if( !CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
+		{
+			// return item to original slot
+			PlaceObject( pSoldier, ubHandPos, &gItemPointer );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		}
+		else if( AutoPlaceObjectToWorld(pSoldier, &gItemPointer) )
 		{
 			//INVRenderINVPanelItem( pSoldier, uiHandPos, DIRTYLEVEL2);	// redraw the empty slot
 
