@@ -54,6 +54,7 @@
 <!-- major Skill (7)	Deputy/Squadleader 			-->
 <!-- major Skill (8)	Technician/Engineer			-->
 <!-- major Skill (9)	Paramedic/Doctor			-->
+<!-- major Skill (20)	Covert Ops					-->
 
 <!-- minor Skill (10)	Ambidexterous				-->
 <!-- minor Skill (11)	Melee						-->	
@@ -65,6 +66,8 @@
 <!-- minor Skill (17)	Demolitions					-->
 <!-- minor Skill (18)	Teaching					-->
 <!-- minor Skill (19)	Scouting					-->
+<!-- minor Skill (21)	Radio Operator				-->
+<!-- minor Skill (22)	Snitch						-->
 
 <!-- STOMP Character Traits -->
 
@@ -1189,7 +1192,7 @@
 	<PROFILE>
 		<uiIndex>13</uiIndex>
 		<Type>1</Type>
-		<zName>Fidel Dahan </zName>
+		<zName>Fidel Dahan</zName>
 		<zNickname>Fidel</zNickname>
 		<ubFaceIndex>13</ubFaceIndex>
 		<usEyesX>8</usEyesX>
@@ -2113,7 +2116,7 @@
 	<PROFILE>
 		<uiIndex>24</uiIndex>
 		<Type>1</Type>
-		<zName>Ron "Raider" Higgens </zName>
+		<zName>Ron "Raider" Higgens</zName>
 		<zNickname>Raider</zNickname>
 		<ubFaceIndex>24</ubFaceIndex>
 		<usEyesX>6</usEyesX>
@@ -2281,7 +2284,7 @@
 	<PROFILE>
 		<uiIndex>26</uiIndex>
 		<Type>1</Type>
-		<zName>Kirk "Static" Stevenson </zName>
+		<zName>Kirk "Static" Stevenson</zName>
 		<zNickname>Static</zNickname>
 		<ubFaceIndex>26</ubFaceIndex>
 		<usEyesX>9</usEyesX>
@@ -8078,7 +8081,7 @@
 	<PROFILE>
 		<uiIndex>95</uiIndex>
 		<Type>4</Type>
-		<zName>Kyle  Lemmons</zName>
+		<zName>Kyle Lemmons</zName>
 		<zNickname>Kyle</zNickname>
 		<ubFaceIndex>95</ubFaceIndex>
 		<usEyesX>21</usEyesX>
@@ -8834,7 +8837,7 @@
 	<PROFILE>
 		<uiIndex>104</uiIndex>
 		<Type>4</Type>
-		<zName>Gary "Gabby" Mulnick  </zName>
+		<zName>Gary "Gabby" Mulnick</zName>
 		<zNickname>Gabby</zNickname>
 		<ubFaceIndex>104</ubFaceIndex>
 		<usEyesX>22</usEyesX>
@@ -9170,7 +9173,7 @@
 	<PROFILE>
 		<uiIndex>108</uiIndex>
 		<Type>4</Type>
-		<zName>Yanni Nomigotta </zName>
+		<zName>Yanni Nomigotta</zName>
 		<zNickname>Yanni</zNickname>
 		<ubFaceIndex>108</ubFaceIndex>
 		<usEyesX>24</usEyesX>
@@ -13202,7 +13205,7 @@
 	<PROFILE>
 		<uiIndex>156</uiIndex>
 		<Type>4</Type>
-		<zName>Oswald  Johnston</zName>
+		<zName>Oswald Johnston</zName>
 		<zNickname>Oswald</zNickname>
 		<ubFaceIndex>156</ubFaceIndex>
 		<usEyesX>15</usEyesX>
@@ -13287,7 +13290,7 @@
 		<uiIndex>157</uiIndex>
 		<Type>4</Type>
 		<zName>Calvin Barkmore</zName>
-		<zNickname>Calvin </zNickname>
+		<zNickname>Calvin</zNickname>
 		<ubFaceIndex>157</ubFaceIndex>
 		<usEyesX>29</usEyesX>
 		<usEyesY>19</usEyesY>

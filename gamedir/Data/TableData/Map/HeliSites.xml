@@ -21,7 +21,7 @@ Fields index:
 	
 NOTE:
 Helicopter can be initialized in Overhead.lua script.
-Maximum 2 refuel sites can be used in game.
+Maximum 30 refuel sites can be used in game.
 -->
 <HELI_INFO>
 	<REFUELLIST>
