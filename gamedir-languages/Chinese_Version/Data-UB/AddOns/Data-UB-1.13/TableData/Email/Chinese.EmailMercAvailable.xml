@@ -1,0 +1,1340 @@
+﻿<!--
+
+This file contains the email text for each merc (that is available on the A.I.M website), 
+when the merc contacts us back (now the merc is available to work with us).
+
+uiIndex:		This represents the merc index from MercProfiles.xml (Prof.dat)
+Subject:		The email subject
+Message:		The email message boy
+
+-->
+
+<EMAIL_MERC_AVAILABLE>
+	<EMAIL>
+		<!-- Barry -->
+		<uiIndex>0</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Barry Unger的消息</Subject>
+		<Message>你好. 这是一封来自于Barry Unger的电子邮显信息, 以此回应你之前在我电话应答机的留言. ± ± 我目前已归, 如果你依旧对我的服务感兴趣，你会发现在AIM全世界网域范围内我皆可出勤. ± 谢谢你. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Blood -->
+		<uiIndex>1</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Keith Hanson的信息</Subject>
+		<Message>嘿, 哥们儿, 我是Blood. 收到你的信儿了. 我已经回来了, 如果还想谈一谈就给个信儿. ± ± 你说了算. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Lynx -->
+		<uiIndex>2</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Rudy Roberts的信息</Subject>
+		<Message>您好. 我是Rudy Roberts. 近期, 您给我留了条信息, 因此正如承诺的, 我在此写信告知你我有空了. ± ± 然而, 不得不小小的提醒一句. 我时常收到工作通知, 如果方便, 我鼓励您尽早与我取得联系. ± ± 感谢您. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grizzly -->
+		<uiIndex>3</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Steve Bornell的信息</Subject>
+		<Message>我是Steve Bornell Grizzly. 你留了条言在窝AIM的那个玩儿上. 窝现在灰来了. 以后请在窝在那的时候连洗窝. 我很反感这类数码破玩意. 退出 退出 发送 送法 帮助 停纸 停止 发送 \\http:停止 //http:停止 发送. 发送 /发送 ?帮助 停止. 发送啊 发送啊. //http.发送啊 发送啊 这尼玛信息怎么尼玛发送啊 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Vicki -->
+		<uiIndex>4</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Victoria Waters的信息</Subject>
+		<Message>收到你的信息了, 伙计. 如果你还在市场转, 来AIM, 我们谈谈. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Trevor -->
+		<uiIndex>5</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Trevor Colby的信息</Subject>
+		<Message>日安啦. 收到信了. 我和Sheila才回来, 不过我相信你找得是我, 当然除非Sheila介入了一些我不知道的事. ± ± 来AIM看看, 我们就能把这些全弄清楚. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grunty -->
+		<uiIndex>6</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Helmut Grunther的信息</Subject>
+		<Message>您好. 在下是Grunty. 您留了条信息在我留言机上. 我已从任务中回归了, 所以我也留了条给您. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Ivan -->
+		<uiIndex>7</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Ivan Dolvich的信息</Subject>
+		<Message>你好. 我回宅了. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Steroid -->
+		<uiIndex>8</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Bobby Gontarski的信息</Subject>
+		<Message>这是封Robert Gontarski给你的信息. 我现在告诉你, 我回AIM了, 并能为你服物. 你可以在网站上点我脸来联系我. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Igor -->
+		<uiIndex>9</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Igor Dolvich的信息</Subject>
+		<Message>你好! 我是Igor Dolvich, 传奇佣兵Ivan Dolvich的外甥, 现在正回复你的信息. 我目前有空来谈谈就业可能性了. ± ± 我也在寻找以公司名义做赞助广告的造酒企业, 作为赞助条件, 我会把他们的品牌名称贴在我枪身上. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Shadow -->
+		<uiIndex>10</uiIndex>
+		<Subject>>由AIM服务器转发: 来自于Shadow的信息</Subject>
+		<Message>>>这是一封通过AIM服务器渠道传递的匿名邮件. 我是你要找Shadow. 我可能会在AIM网页上出现一会儿. 不过你可能永远都不会感觉到我出现过. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Red -->
+		<uiIndex>11</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Ernie Spragg的信息</Subject>
+		<Message>你好我的朋友! 很抱歉我没有接到你的电话, 不过我度过了一段劈里啪啦的时间, 如果你丫知道我说的啥! 总之, 你给了Red一个电话, 你就能在AIM找到我, 这是毫无疑问的. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Reaper -->
+		<uiIndex>12</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Carl Simmons的信息</Subject>
+		<Message>你留了条言. 看来我们有些事情可以谈谈. 你知道在那找到我. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Fidel -->
+		<uiIndex>13</uiIndex>
+		<uiIndex>13</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Fidel Dahan的信息</Subject>
+		<Message>万分抱歉我没有尽早与您取得联系. 他们把我的电脑拿走了, 还说找到了一些艳照什么的. 这不是真的, 我可不知道他们怎么搞那样的. 反正现在是个好时刻找个远走高飞的工作. 你来AIM, 我们就谈. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Fox -->
+		<uiIndex>14</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Cynthia Guzzman的信息</Subject>
+		<Message>你好. 你给我留了条陌陌吗? 那就出来谈谈吧, 看看能不能找个地儿坐坐搞些活动什么的. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Sidney -->
+		<uiIndex>15</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Sidney Nettleson的信息</Subject>
+		<Message>感谢您的厚爱. 我确信您知道, 我是AIM最著名的专业人士之一. 如果您想看看我的高考成绩通知书, 我有空做进一步的咨询. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Gus -->
+		<uiIndex>16</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Gus Tarballs的信息</Subject>
+		<Message>Woody! 以为你丫永远不会来找俺呢! 听到你BEE俺的时候还远在中东打高尔夫呢. ± ± 俺现在不忙了. 也许我们能达成一笔生意. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Buns -->
+		<uiIndex>17</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Monica Sonderguaad的信息</Subject>
+		<Message>你好. 我现在回AIM了. 如果你愿意的话, 我们可以谈谈签约的可能性. (还有, Gumpy, 如果这是你用另一个男性杂志网站免费账户发给我的骚扰邮件的话, 我会把你的宽带猫弄到一个不见天日的地方.) ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Ice -->
+		<uiIndex>18</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Ice Williams的信息</Subject>
+		<Message>我是Ice. 听说你在找我, 现在收到你的信息了. 如果你还想聚一聚, 我会安排一些时间. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Spider -->
+		<uiIndex>19</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Donna Houston的信息</Subject>
+		<Message>感谢您联系我. 我是Dr. Donna Houston. 刚刚轮完我上一个班, 现在可以有一点时间谈谈了. 当然, 我随时处于待命状态, 所以令人遗憾地告诉你, 我无法保证任何事. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Cliff -->
+		<uiIndex>20</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Clifford Highball的信息</Subject>
+		<Message>Dr. Clifford Highball现在有空了. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Bull -->
+		<uiIndex>21</uiIndex>
+		<Subject>由AIM服务器转发: 来自于John Peters的信息</Subject>
+		<Message>我回来了. ± ± Bull. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Hitman -->
+		<uiIndex>22</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Frank Hennessy的信息</Subject>
+		<Message>嘿, 朋友. 我收到你的信息了. 如果你有活谈谈的话, 我会在这晃一会儿. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Buzz -->
+		<uiIndex>23</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Louisa Garneau的信息</Subject>
+		<Message>如果你需要打烂某些东西的话, 与我联系. 否则, 我不会感兴趣的. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Raider -->
+		<uiIndex>24</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Ron Higgens的信息</Subject>
+		<Message>我是Ron Higgens. 收到你的信息了. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Raven -->
+		<uiIndex>25</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Charlene Higgens的信息</Subject>
+		<Message>嗨. 我是Charlene. 应该会在这待一会儿, 除非有其他事情发生了. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Static -->
+		<uiIndex>26</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Kirk Stevenson的信息</Subject>
+		<Message>你想和我唠一会儿吗? 我现在在啊. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Len -->
+		<uiIndex>27</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Corp. Len Anderson的信息</Subject>
+		<Message>感谢您联系我. 如果你这次想要谈谈出任务的事的话, 可以在AIM找到我. ± ± 再次感谢! ± ± Corporal Len Anderson. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Danny -->
+		<uiIndex>28</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Daniel Quinten的信息</Subject>
+		<Message>很高兴收到你的信息. 如果你依旧需要一个可靠的医疗人员, 我有一点时间与你见面. 我会乐意地考虑你所需提出的条件. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Magic -->
+		<uiIndex>29</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Earl Walker的信息</Subject>
+		<Message>我在了. 你想谈吗? 你知道在哪找我. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Stephen -->
+		<uiIndex>30</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Stephen Rothman的信息</Subject>
+		<Message>感谢您联系我. 众所周知, 我被认为是AIM最佳新秀之一, 正因如此, 我经常指导和承接一些高难度高风险的任务. ± ± 尽管目前我有时间和你谈谈, 但我猜想这个时间稍纵即逝. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scully -->
+		<uiIndex>31</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Robert James Sullivan的信息</Subject>
+		<Message>听到你的召唤了, 伙计. 我现在在AIM了, 而且一直在寻找新任务. 顺道来拜访一下, 然后让我们谈谈. 不过从现在开始不要认为一切都会如你所愿, 这个你是永远都不能确定的. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Malice -->
+		<uiIndex>32</uiIndex>
+		<Subject>由AIM服务器转发: 来自于J.P. Viau的信息</Subject>
+		<Message>Malice回来办公了. 我准备好战斗了. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Dr. Q -->
+		<uiIndex>33</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Q. Huaong的信息</Subject>
+		<Message>您的信息收到了. 请问您是否依旧有一些事情想和我私下谈谈, 这次我会非常欢迎的. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Nails -->
+		<uiIndex>34</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Edgar Smorth的信息</Subject>
+		<Message>收到了. 你还谈吗? 来谈吧. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Thor -->
+		<uiIndex>35</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Thor Kaufman的信息</Subject>
+		<Message>你好. 抱歉没接到你的信息. 过去对我来说是一个忙碌的一周. ± ± 不管怎样, 如果你依旧有兴趣谈谈的话, 我目前没有其他约定. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scope -->
+		<uiIndex>36</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Sheila Sterling的信息</Subject>
+		<Message>您好. 我是Scope Sterling, 而且我也如愿在回复您的信息. 我将待命于AIM, 请问您是否还有事务与我探讨. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Wolf -->
+		<uiIndex>37</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Peter Sanderson的信息</Subject>
+		<Message>你打的? 我刚刚在蹲坑. 给我回电话吧. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- MD -->
+		<uiIndex>38</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Michael Dawson的信息</Subject>
+		<Message>太好了! 我收到你的信息了, 而且我非常期待听听你提供的任何工作. ± ± 非常感谢! ± ± Michael Dawson, M.D. ±</Message>
+		</EMAIL>
+	<EMAIL>
+		<!-- Meltdown -->
+		<uiIndex>39</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Norma Jessop的信息</Subject>
+		<Message>在应答机上收到你可怜兮兮的信息了. 如果你想占有我更多的宝贵时间, 你知道我在哪. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>40</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>41</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>42</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>43</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>44</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>45</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>46</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>47</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>48</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>49</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>50</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>51</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>52</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>53</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>54</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>55</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>56</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>57</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>58</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>59</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>60</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>61</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>62</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>63</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>64</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>65</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>66</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>67</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>68</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>69</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>70</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>71</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>72</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>73</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>74</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>75</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>76</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>77</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>78</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>79</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>80</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>81</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>82</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>83</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>84</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>85</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>86</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>87</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>88</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>89</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>90</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>91</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>92</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>93</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>94</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>95</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>96</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>97</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>98</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>99</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>100</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>101</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>102</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>103</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>104</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>105</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>106</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>107</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>108</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>109</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>110</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>111</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>112</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>113</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>114</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>115</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>116</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>117</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>118</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>119</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>120</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>121</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>122</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>123</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>124</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>125</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>126</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>127</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>128</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>129</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>130</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>131</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>132</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>133</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>134</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>135</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>136</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>137</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>138</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>139</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>140</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>141</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>142</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>143</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>144</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>145</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>146</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>147</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>148</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>149</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>150</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>151</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>152</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>153</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>154</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>155</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>156</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>157</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>158</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>159</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>160</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>161</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>162</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>163</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>164</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>165</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>166</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>167</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>168</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>169</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Monk -->
+		<uiIndex>170</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Victor Kolesnikov的信息</Subject>
+		<Message>你好. 我是Monk. 信息已收到. 我回来了, 如果你还想见我就联系我. ± ± 等你电话. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Brain -->
+		<uiIndex>171</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Janno Allik的信息</Subject>
+		<Message>我已经准备好选择新的任务了. 一个时间和一个地点就是我所需考虑的. ± ± Janno Allik ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scream -->
+		<uiIndex>172</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Lennart Vilde</Subject>
+		<Message>Lennart Vilde现处待命中! ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Henning -->
+		<uiIndex>173</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Henning von Branitz的信息</Subject>
+		<Message>谢谢, 已经收到你的信息了. 在AIM网站上联系我, 谈谈雇佣的事. ± ± 到时为止! ± ± Henning von Branitz ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Luc -->
+		<uiIndex>174</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Luc Fabre的信息</Subject>
+		<Message>谢了, 收到信息了! 我很高兴来考虑你的提议. 你知道在哪找到我. ± ± 期待你的来电 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Laura -->
+		<uiIndex>175</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Laura Colin的信息</Subject>
+		<Message>您好! 您真是太好了, 留言听上去很有趣. ± ± 请再次访问AIM, 我会很高兴听听更多的东西. ± ± 致敬! ± ± Dr. Laura Colin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grace -->
+		<uiIndex>176</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Graziella Girelli的信息</Subject>
+		<Message>你之前试着联系上我, 但并没有成功.± ± 我有个家庭聚会. 我相信你会理解的? 我现在已经受够了关于家庭的事, 而且非常高兴如果你会再次在AIM上与我取得联系. ± ± 拜了! ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Rudolf -->
+		<uiIndex>177</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Rudolf Steiger的信息</Subject>
+		<Message>你知道每天我要接到多少电话吗? 每个晕蛋都以为他能请得动我.  ± ± 我回来了, 如果你对我还有兴趣的话, 打给我.±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>178</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>179</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>180</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>181</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>182</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>183</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>184</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>185</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Mitch -->
+		<uiIndex>186</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Dr. Mitch Shudlem的信息</Subject>
+		<Message>我刚刚从上一个任务中返回, 所以现在我有空和你谈谈工作的事. 给你一个建议 - 如果你在找一个便宜货, 别浪费时间了. ± ± 无视其余的, 直接找最好的! ± Dr. Mitch Shudlem ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Carp -->
+		<uiIndex>187</uiIndex>
+		<Subject>由AIM服务器转发: 来自于Howard Melfield的信息</Subject>
+		<Message>你好, 少年! 我刚刚收到你的消息. 如果你还有兴趣的话, 通过网站联系我. ± ± Howard Melfield ± A.I.M. 健康安全部主任 ± A.I.M 圣诞派对委员会会长 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>188</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>189</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>190</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>191</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>192</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>193</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>194</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>195</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>196</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>197</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>198</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>199</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>200</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>201</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>202</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>203</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>204</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>205</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>206</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>207</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>208</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>209</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>210</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>211</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>212</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>213</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>214</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>215</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>216</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>217</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>218</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>219</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>220</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>221</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>222</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>223</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>224</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>225</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>226</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>227</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>228</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Dr. Ahmad Koolhan的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>229</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>230</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Glen Hatchet的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>231</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Johnny Edwards的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>232</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Alan Webster的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>233</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Maj. Spike Scallion的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>234</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Jimmy Upton的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>235</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Timothy Jenkins的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>236</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Capt. Bob Adams的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>237</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Col. Leo Kelly的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>238</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Vincenzo Massimo的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>239</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Marty Moffat的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>240</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Lt. Bud Hellar的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>241</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Russel Hunter的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>242</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Dr. Mark Kranhuim的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>243</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Patrick Phillips的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>244</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>245</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Anita Backman的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>246</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Hector Alvarez的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>247</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>248</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Dr. Margaret Trammel的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>249</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>250</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Murray Ebstern的信息</Subject>
+		<Message>Message : 待命!</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>251</uiIndex>
+		<Subject>Subject : 由AIM服务器转发: 来自于Lesley Petersen的信息</Subject>
+		<Message>Message : 待命!</Message>
+
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>252</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>253</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>254</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+</EMAIL_MERC_AVAILABLE>
