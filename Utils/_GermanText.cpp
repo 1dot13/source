@@ -7106,9 +7106,9 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Für die korrekte Arbeit im Fenster-Modus benötigt Jagged Alliance 2 v1.13 16-bit Farbmodus.", //Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
+	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",	// TODO.Translate
 
 	// WANNE: Savegame slots validation against INI file
-	L"Interner Fehler beim Auslesen der %s Slots des zu ladenden Spielstandes: Die Anzahl der Slots im Spielstand (%d) unterscheidet sich mit den definierten Slots in der Datei ja2_options.ini (%d)",
 	L"Söldner (MAX_NUMBER_PLAYER_MERCS) / Fahrzeuge (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"Gegner (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
 	L"Monster (MAX_NUMBER_CREATURES_IN_TACTICAL)", 

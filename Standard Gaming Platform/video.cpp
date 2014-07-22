@@ -262,7 +262,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	// Get a window handle for our application (gotta have on of those)
 	// Don't change this
 	//
-	if( 1==iScreenMode )
+	if( 1==iScreenMode )	// windowed mode
 	{
 		RECT window;
 		DWORD style;
@@ -286,9 +286,23 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 		GetClientRect( hWindow, &window);
 		window.top = window.top;
 	}
-	else
-		hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, "Jagged Alliance 2", WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
-
+	else	// fullscreen mode
+	{
+		// Buggler: Get Primary Desktop Resolution
+		DWORD	dwScreenWidth	= ::GetSystemMetrics(SM_CXSCREEN);
+		DWORD	dwScreenHeight	= ::GetSystemMetrics(SM_CYSCREEN);
+		
+		if (SCREEN_WIDTH > dwScreenWidth || SCREEN_HEIGHT > dwScreenHeight )
+		{
+			CHAR16 sString[ 256 ];
+			swprintf( sString, Additional113Text[ADDTEXT_LOWERRES_REQUIRED], dwScreenWidth, dwScreenHeight );
+			MessageBoxW( NULL, sString, APPLICATION_NAMEW, MB_ICONEXCLAMATION);
+			PostQuitMessage(1);
+			return FALSE;
+		}		
+		else
+			hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, "Jagged Alliance 2", WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
+	}
 	if (hWindow == NULL)
 	{
 		DebugMsg(TOPIC_VIDEO, DBG_LEVEL_0, "Failed to create window frame for Direct Draw");

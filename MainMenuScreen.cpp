@@ -85,11 +85,11 @@ extern	BOOLEAN		gfLoadGameUponEntry;
 
 void ExitMainMenu( );
 void MenuButtonCallback(GUI_BUTTON *btn, INT32 reason);
+void HandleMainMenuKeyboardInput();
 void HandleMainMenuInput();
 void HandleMainMenuScreen();
 void DisplayAssignmentText();
 void ClearMainMenu();
-void HandleHelpScreenInput();
 void SelectMainMenuBackGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SetMainMenuExitScreen( UINT32 uiNewScreen );
 void CreateDestroyBackGroundMouseMask( BOOLEAN fCreate );
@@ -177,7 +177,7 @@ UINT32	MainMenuScreenHandle( )
 
 	EndFrameBufferRender( );
 
-	HandleMainMenuInput();
+	HandleMainMenuKeyboardInput();
 	HandleMainMenuScreen();
 
 	if( gfMainMenuScreenExit )
@@ -420,63 +420,7 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		gbHandledMainMenu = bID;
 		RenderMainMenu();
 
-		if( gbHandledMainMenu == NEW_GAME )
-		{
-			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-			if(is_networked)
-			{
-				is_networked = FALSE;
-				// Snap: UN-Init MP save game directory
-				if ( !InitSaveDir() )
-				{
-					//if something didnt work, dont even know how to make error code...//hayden
-				}
-			};
-
-			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
-		}
-		else if (gbHandledMainMenu == NEW_MP_GAME)
-		{
-			is_networked = TRUE;
-
-			// WANNE - MP: Only reset this here, because otherwise after a MP game ends and a new starts, we would receive the files again.
-			fClientReceivedAllFiles = FALSE;
-
-			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = 7;
-
-			// Snap: Re-Init MP save game directory
-			if ( !InitSaveDir() )
-			{
-
-				//if something didnt work, dont even know how to make error code...//hayden
-			}
-
-			// WANNE: Removed, cause I don't think it is needed if we only want to play a multiplayer game!
-			// Reload the external gameplay data, because maybe we started a MP game before!
-			//LoadExternalGameplayData(TABLEDATA_DIRECTORY);
-
-			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
-			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
-		}
-		else if( gbHandledMainMenu == LOAD_GAME )
-		{
-			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-			if(is_networked)
-			{	
-				is_networked = FALSE;
-				// Snap: UN-Init MP save game directory
-				if ( !InitSaveDir() )
-				{
-
-					//if something didnt work, dont even know how to make error code...//hayden
-				}
-			}
-
-			if( gfKeyState[ ALT ] )
-				gfLoadGameUponEntry = TRUE;
-		}
-
-		InitDependingGameStyleOptions();
+		HandleMainMenuInput();		
 
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
@@ -501,7 +445,7 @@ void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void HandleMainMenuInput()
+void HandleMainMenuKeyboardInput()
 {
 	InputAtom	InputEvent;
 
@@ -516,14 +460,12 @@ void HandleMainMenuInput()
 
 				case 'n':
 					gbHandledMainMenu = NEW_GAME;
-					gfMainMenuScreenExit = TRUE;
-					SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
+					HandleMainMenuInput();
 					break;
 
 				case 'm':
 					gbHandledMainMenu = NEW_MP_GAME;
-					gfMainMenuScreenExit = TRUE;
-					SetMainMenuExitScreen( MP_JOIN_SCREEN );
+					HandleMainMenuInput();
 					break;
 
 				case 'i':
@@ -533,48 +475,95 @@ void HandleMainMenuInput()
 //#endif
 				case 'c':
 					gbHandledMainMenu = LOAD_GAME;
-
-					if( gfKeyState[ ALT ] )
-						gfLoadGameUponEntry = TRUE;
-
-					// WANNE: Some initializing was missing when directly loading last savegame
-					// form main menu with ALT + C
-					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-					InitDependingGameStyleOptions();
-
+					HandleMainMenuInput();
 					break;
 
 				case 'o':
 					gbHandledMainMenu = PREFERENCES;
+					HandleMainMenuInput();
 					break;
 
 				case 's':
 					gbHandledMainMenu = CREDITS;
+					HandleMainMenuInput();
 					break;
 
 				case 'q':
-					gfMainMenuScreenExit = TRUE;
-					gfProgramIsRunning = FALSE;
+					gbHandledMainMenu = QUIT;
+					HandleMainMenuInput();
 					break;
 			}
 		}
 	}
 }
 
-void HandleHelpScreenInput()
+void HandleMainMenuInput()
 {
-	InputAtom									InputEvent;
-
-	// Check for key
-	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+	switch( gbHandledMainMenu )
 	{
-		switch( InputEvent.usEvent )
-		{
-			case KEY_UP:
-				SetMainMenuExitScreen( INIT_SCREEN );
+		case NEW_GAME:
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			if(is_networked)
+			{
+				is_networked = FALSE;
+				// Snap: UN-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+			};
+
+			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
+
+			InitDependingGameStyleOptions();
 			break;
-		}
+
+		case NEW_MP_GAME:
+			is_networked = TRUE;
+
+			// WANNE - MP: Only reset this here, because otherwise after a MP game ends and a new starts, we would receive the files again.
+			fClientReceivedAllFiles = FALSE;
+
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = 7;
+
+			// Snap: Re-Init MP save game directory
+			if ( !InitSaveDir() )
+			{
+
+				//if something didnt work, dont even know how to make error code...//hayden
+			}
+
+			// WANNE: Removed, cause I don't think it is needed if we only want to play a multiplayer game!
+			// Reload the external gameplay data, because maybe we started a MP game before!
+			//LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+
+			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
+			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
+
+			InitDependingGameStyleOptions();
+			break;
+
+		case LOAD_GAME:
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			if(is_networked)
+			{	
+				is_networked = FALSE;
+				// Snap: UN-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+			}
+
+			if( gfKeyState[ ALT ] )
+				gfLoadGameUponEntry = TRUE;
+
+			InitDependingGameStyleOptions();
+			break;
+
 	}
+	// Buggler: subsequent code execution is in HandleMainMenuScreen()
 }
 
 

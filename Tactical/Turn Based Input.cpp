@@ -4302,6 +4302,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
+						// cycle item forward in primary hand
 						if ( InItemDescriptionBox( ) )
 						{
 							// Swap item in description panel...
@@ -4329,6 +4330,23 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'W':
+				if( fAlt )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						// cycle item backward in primary hand
+						if ( InItemDescriptionBox( ) )
+						{
+							// Swap item in description panel...
+							CycleItemDescriptionItem( ITEMDESC_START_X, ITEMDESC_START_Y);
+
+						}
+						else
+						{
+							CycleSelectedMercsItem();
+						}
+					}
+				}
 				break;
 
 			case 'x':

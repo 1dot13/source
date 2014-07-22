@@ -7430,11 +7430,11 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 									  gGameExternalOptions.ubGameMaximumNumberOfRebels, gGameExternalOptions.ubGameMaximumNumberOfCivilians};
 		
 		CHAR16 *errMsgTxt[] = {L"Mercenary / Vehicle", L"Enemy", L"Creature", L"Militia", L"Civilian"};
-		errMsgTxt[0] = Additional113Text[2];
-		errMsgTxt[1] = Additional113Text[3];
-		errMsgTxt[2] = Additional113Text[4];
-		errMsgTxt[3] = Additional113Text[5];
-		errMsgTxt[4] = Additional113Text[6];
+		errMsgTxt[0] = Additional113Text[ERROR_MAX_MERCSVEHICLES];
+		errMsgTxt[1] = Additional113Text[ERROR_MAX_ENEMIES];
+		errMsgTxt[2] = Additional113Text[ERROR_MAX_CREATURES];
+		errMsgTxt[3] = Additional113Text[ERROR_MAX_MILITIA];
+		errMsgTxt[4] = Additional113Text[ERROR_MAX_CIVILIANS];
 
 		bool needToRejigger = false;
 		for (int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx)

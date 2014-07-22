@@ -7273,9 +7273,9 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp或更少的颜色深度。",
+	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",	// TODO.Translate
 	
 	// WANNE: Savegame slots validation against INI file
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
 	L"动物 (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
