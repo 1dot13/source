@@ -7772,6 +7772,14 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
 	if (gGameExternalOptions.fUseNewCTHCalculation)
 	{
+		// silversurfer: New functionality for iron sights - There have been many complaints that iron sights lose their usefulness
+		// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
+		// close range. This experimental formula implements a curve that lowers iBasicAperture the farther the target is away.
+		// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
+		if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+			iBasicAperture = iBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / 4.0 + 0.75 );
+
 		// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
 		if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
 
@@ -8217,7 +8225,7 @@ FLOAT CalcEffectiveMagFactor( SOLDIERTYPE *pShooter, FLOAT fRealMagFactor )
 FLOAT CalcBasicAperture()
 {
 	FLOAT iBasicAperture = 0.0;
-
+	
 	// Maximum aperture is the radius of a shot performed with 100% muzzle sway (a completely unstabled gun).
 	// It is the radius of a circle "drawn" at 1xNormal Shooting Distance, at the end of a cone starting at the
 	// tip ofour muzzle.

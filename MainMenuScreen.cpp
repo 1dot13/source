@@ -517,7 +517,7 @@ void HandleMainMenuInput()
 				case 'n':
 					gbHandledMainMenu = NEW_GAME;
 					gfMainMenuScreenExit = TRUE;
-					SetMainMenuExitScreen( INIT_SCREEN );
+					SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 					break;
 
 				case 'm':

@@ -50,6 +50,7 @@
 	#include "LOS.h" // HEADROCK HAM 4: Required for new shooting mechanism. Alternately, maybe move the functions to LOS.h.
 	#include "Campaign Types.h"	// added by Flugente
 	#include "CampaignStats.h"	// added by Flugente
+	#include "environment.h"	// added by silversurfer
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -9063,13 +9064,72 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 
 		// distance to target
 		FLOAT d2DDistance = (FLOAT) PythSpacesAway( pSoldier->sGridNo, sGridNo ) * (FLOAT) CELL_X_SIZE;
-		// basic aperture that is equal for everyone
-		FLOAT dBasicAperture = CalcBasicAperture( );
-		// aperture at target distance without magnification
-		FLOAT dAperture = dBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
 
 		// magnification (1.0 or higher if scope is used)
 		FLOAT dMagFactor = CalcMagFactor( pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand]), d2DDistance, sGridNo, (UINT8)ubAimTime );
+
+		// basic aperture that is equal for everyone
+		FLOAT dBasicAperture = CalcBasicAperture( );
+
+		if (gGameExternalOptions.fUseNewCTHCalculation)
+		{
+			// silversurfer: New functionality for iron sights - There have been many complaints that iron sights lose their usefulness
+			// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
+			// close range. This experimental formula implements a curve that lowers dBasicAperture the farther the target is away.
+			// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
+			if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && dMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
+
+				dBasicAperture = dBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / 4.0 + 0.75 );
+
+			// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
+			if ( dMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
+
+				dBasicAperture = dBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
+
+			// laser pointers can provide a percentage bonus to base aperture
+			INT32 iLaserRange = GetBestLaserRange( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
+			if ( iLaserRange > 0 
+				&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+			{
+				INT8 bLightLevel = LightTrueLevel(sGridNo, gsInterfaceLevel );
+				INT32 iMaxLaserRange = ( iLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
+
+				// laser only has effect when in range
+				if ( iMaxLaserRange > d2DDistance )
+				{
+					FLOAT fLaserBonus = 0;
+					// which bonus do we want to apply?
+					if ( pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
+						// shooting from hip
+						fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
+					else if ( dMagFactor <= 1.0 )
+						// using iron sights or other 1x sights
+						fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON;
+					else
+						// must be using a scope
+						fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
+
+					// light level influences how easy it is to spot the laser dot on the target
+					FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
+
+					// laser fully efficient
+					if ( iLaserRange > d2DDistance )
+						// apply full bonus
+						dBasicAperture = dBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
+					else
+					{
+						// beyond BestLaserRange laser bonus drops linearly to 0
+						FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - iLaserRange);
+						// apply partial bonus
+						dBasicAperture = dBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
+					}
+				}
+			}
+		}
+
+		// aperture at target distance without magnification
+		FLOAT dAperture = dBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
+
 		// Get effective mag factor for this shooter. This represents his ability to use scopes.
 		FLOAT fEffectiveMagFactor = CalcEffectiveMagFactor( pSoldier, dMagFactor );
 		// modify aperture with magnification

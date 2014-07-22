@@ -1446,7 +1446,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iQuickItem8						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_8", 0, -100, MAXITEMS);
 	gGameExternalOptions.iQuickItem9						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_9", 0, -100, MAXITEMS);
 	gGameExternalOptions.iQuickItem0						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_0", 0, -100, MAXITEMS);
-	
+
 	// Alternative system for aiming - progressive method depending on marksmanship of Merc
 	gGameExternalOptions.bAltAimEnabled						= iniReader.ReadBoolean("Tactical Interface Settings","ALT_AIMING_ENABLED",FALSE);
 	
@@ -3300,6 +3300,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_IRON", 0.0f, 0.0f, 50.0f);
 	gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_SCOPE", 0.0f, 0.0f, 50.0f);
 	gGameCTHConstants.DEGREES_MAXIMUM_APERTURE			= iniReader.ReadFloat("General", "DEGREES_MAXIMUM_APERTURE", 15.0, 0.0, 22.5);
+	gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT	= iniReader.ReadBoolean("General", "IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT", FALSE);
 	gGameCTHConstants.RANGE_COEFFICIENT					= iniReader.ReadFloat("General", "RANGE_COEFFICIENT", 2.0, 0.001f, 100.0);
 	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 1.0, 0.001f, 100.0);
 	gGameCTHConstants.VERTICAL_BIAS						= iniReader.ReadFloat("General", "VERTICAL_BIAS", 1.0f, 0.01f, 2.0f);

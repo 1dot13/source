@@ -2546,11 +2546,8 @@ BOOLEAN DrawCTHIndicator()
 	///////////////////////////////////////////////////////////
 	// Now we calculate the Aperture size. This is done using the same method as the shooting formula uses.
 
-	// Calculate the maximum angle of any shot.
-	DOUBLE ddMaxAngleRadians = (gGameCTHConstants.DEGREES_MAXIMUM_APERTURE * 6.283) / 360;
-
 	// Calculate the size of a "normal" aperture. This is how wide a shot can go at 1x Normal Distance.
-	FLOAT iBasicAperture = (FLOAT)((sin(ddMaxAngleRadians) * gGameCTHConstants.NORMAL_SHOOTING_DISTANCE) * 2); // The *2 compensates for the difference between CellXY and ScreenXY 
+	FLOAT iBasicAperture = CalcBasicAperture() * 2; // The *2 compensates for the difference between CellXY and ScreenXY 
 
 	// sevenfm: moved declarations out of codeblock, will use them later for laser dot plotting
 	FLOAT fLaserBonus = 0;	
@@ -2560,6 +2557,14 @@ BOOLEAN DrawCTHIndicator()
 	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
 	if (gGameExternalOptions.fUseNewCTHCalculation)
 	{
+		// silversurfer: New functionality for iron sights - There have been many complaints that iron sights lose their usefulness
+		// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
+		// close range. This experimental formula implements a curve that lowers iBasicAperture the farther the target is away.
+		// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
+		if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+			iBasicAperture = iBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / 4.0 + 0.75 );
+
 		// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
 		if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
 

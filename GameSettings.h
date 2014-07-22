@@ -1934,6 +1934,7 @@ typedef struct
 	FLOAT LASER_PERFORMANCE_BONUS_IRON;		// percentage bonus to base aperture size for laser pointers when using iron sights
 	FLOAT LASER_PERFORMANCE_BONUS_SCOPE;	// percentage bonus to base aperture size for laser pointers when using scopes
 	FLOAT DEGREES_MAXIMUM_APERTURE;			// Maximum possible aperture for a 100% muzzle sway shot. Decrease to make all shots more accurate.
+	BOOLEAN IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT;	// Use new curve instead of linear function to get the max aperture at target range for iron sights.
 	FLOAT RANGE_COEFFICIENT;				// Determines maximum range which decides when gravity forces bullets to drop
 	FLOAT GRAVITY_COEFFICIENT;				// Changes the way gravity works in the game. Higher values mean bullets don't drop as quickly after reaching max range.
 	FLOAT VERTICAL_BIAS;					// This float can be used to reduce the chance of missing too far upwards or downwards (compared to left/right).
