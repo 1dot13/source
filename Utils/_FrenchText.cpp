@@ -7280,7 +7280,7 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit ou moins.",
-	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",	// TODO.Translate
+	L"Jagged Alliance 2 v1.13 mode plein écran nécessite pour fonctionner la résolution du bureau de votre ordinateur (%d x %d) ou moins.",
 
 	// WANNE: Savegame slots validation against INI file
 	L"Mercenaires (MAX_NUMBER_PLAYER_MERCS) / Véhicule (MAX_NUMBER_PLAYER_VEHICLES)", 
