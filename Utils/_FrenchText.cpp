@@ -2928,7 +2928,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n\n \nDétermine la difficulté à réparer une arme\net qui peut la réparer complètement.\n \nVert = N'importe qui peut la réparer.\n \nJaune = Seuls des PNJ spécialisés peuvent la\nréparer au-delà du seuil de réparation.\n \nRouge = L'arme ne peut pas être réparée.\n \nValeur élevée recommandée.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 34 ] =
+STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
 	L"Facteur d'encombrement (Valeur faible recommandée)", // 0
 	L"Facteur de fiabilité",
@@ -2964,6 +2964,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Facteur de portée visuelle cave",
 	L"Pourcentage d'effet tunnel (Valeur faible recommandée)",
 	L"Portée minimale pour bonus de visée",
+	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
 };
 
 // HEADROCK: End new tooltip text

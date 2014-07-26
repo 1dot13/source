@@ -2932,7 +2932,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 34 ] =
+STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
 	L"Gegenstandsgrößen-Modifikator (Niedriger ist besser)",
 	L"Zuverlässigkeits-Modifikator",
@@ -2968,6 +2968,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Höhlensicht-Modifikator",
 	L"Tunnelblick-Modifikator (Niedriger ist besser)",
 	L"Minimale Reichweite für Zielbonus",
+	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
 };
 
 // HEADROCK: End new tooltip text

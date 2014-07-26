@@ -748,7 +748,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 
 void UpdateHelpTextForInvnentoryStashSlots( void )
 {
-	CHAR16 pStr[ 512 ];
+	CHAR16 pTemp[ 512 ], pStr[ 512 ];
 	INT32 iCounter = 0;
 	INT32 iFirstSlotOnPage = ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT );
 
@@ -758,7 +758,8 @@ void UpdateHelpTextForInvnentoryStashSlots( void )
 	{
 		if( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].object.exists() == true )
 		{
-			GetHelpTextForItem( pStr , &( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].object ), NULL );
+			GetHelpTextForItem( pTemp , &( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].object ), NULL );
+			swprintf( pStr, L"%s\n \n%s", pTemp, gzMiscItemStatsFasthelp[ 34 ] );
 			SetRegionFastHelpText( &(MapInventoryPoolSlots[ iCounter ] ), pStr );
 
 			/*

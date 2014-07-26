@@ -157,7 +157,8 @@ void EntryInitEditorItemsInfo()
 		for( i=0; i < MAXITEMS; i++ )
 		{
 			if ( Item[i].usItemClass	== 0 )
-				break;
+				//break;
+				continue;
 			item = &Item[i];
 			//if( Item[i].fFlags & ITEM_NOT_EDITOR )
 			//	continue;
@@ -419,7 +420,11 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 		while( usCounter<MAXITEMS && !fTypeMatch )
 		{
 			if ( Item[usCounter].usItemClass	== 0 )
-				break;
+			{
+				//break;
+				usCounter++;
+				continue;
+			}
 			item = &Item[usCounter];
 			//if( Item[usCounter].fFlags & ITEM_NOT_EDITOR )
 			if(item->notineditor)

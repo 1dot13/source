@@ -1330,8 +1330,18 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 	GetVideoObject(&hIconHandle, guiCHARICONS);
 	
 	sEnemyLessTank = sNumberOfEnemies - usNumTanks;
-	ub10xEnemy = sEnemyLessTank / 10;
-	ubEnemy = sEnemyLessTank % 10;
+	
+	// no 10x icon for easy enemy quantity gauge in low resolution
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
+		ub10xEnemy = 0;
+		ubEnemy = sNumberOfEnemies;
+	}
+	else
+	{
+		ub10xEnemy = sNumberOfEnemies / 10;
+		ubEnemy = sNumberOfEnemies % 10;
+	}
 
 	// Flugente: if we display tanks, we need to know that for several rows
 	INT16 secondtankrowstart = -1;

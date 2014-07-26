@@ -2924,7 +2924,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 34 ] =
+STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
 	L"Item Size Modifier (Lower is better)", // 0
 	L"Reliability Modifier",
@@ -2960,6 +2960,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Cave Vision Range Modifier",
 	L"Tunnel Vision Percentage (Lower is better)",
 	L"Minimum Range for Aiming Bonus",
+	L"Hold |C|t|r|l to compare items", // item compare help text
 };
 
 // HEADROCK: End new tooltip text
