@@ -2964,7 +2964,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Facteur de portée visuelle cave",
 	L"Pourcentage d'effet tunnel (Valeur faible recommandée)",
 	L"Portée minimale pour bonus de visée",
-	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
+	L"Maintenez |C|T|R|L pour comparer les objets", // item compare help text
 };
 
 // HEADROCK: End new tooltip text
