@@ -866,7 +866,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>108</uiIndex>
-    <szItemName> 12 CH 7</szItemName>
+    <szItemName>12 CH 7</szItemName>
     <szLongItemName>Cal. 12 CH, 7</szLongItemName>
     <szItemDesc>Une boîte de sept cartouches de chevrotine. Très utilisées en combat urbain, ces munitions sont extrêmement efficaces contre des cibles non-protégées.</szItemDesc>
     <szBRName>Cal. 12 CH, 7</szBRName>
@@ -882,7 +882,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>110</uiIndex>
-    <szItemName> CAWS CH 10</szItemName>
+    <szItemName>CAWS CH 10</szItemName>
     <szLongItemName>CAWS CH, 10</szLongItemName>
     <szItemDesc>Ce chargeur contient 10 cartouches de chevrotines pour CAWS. Ces munitions ont la puissance de pénétration des balles perforantes et la puissance d'arrêt des balles à tête creuse.</szItemDesc>
     <szBRName>CAWS CH, 10</szBRName>
@@ -4172,9 +4172,9 @@
     <uiIndex>521</uiIndex>
     <szItemName>7.62x54R TR</szItemName>
     <szLongItemName>7.62x54R TR, 200</szLongItemName>
-    <szItemDesc> 200 munitions traçantes en 7.62x54R.</szItemDesc>
+    <szItemDesc>200 munitions traçantes en 7.62x54R.</szItemDesc>
     <szBRName>7.62x54R TR, 200</szBRName>
-    <szBRDesc> Munitions traçantes 7.62x54R pour ajuster facilement votre tir de soutien.</szBRDesc>
+    <szBRDesc>Munitions traçantes 7.62x54R pour ajuster facilement votre tir de soutien.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>522</uiIndex>
@@ -4646,7 +4646,7 @@
     <szLongItemName>.45 Glaser, 50</szLongItemName>
     <szItemDesc>Si ces 50 munitions Glaser ne suffisent pas à imposer votre point de vue, alors c'est que ça n'en valait pas la peine.</szItemDesc>
     <szBRName>.45 Glaser, 50</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Si ces 50 munitions Glaser safety ne suffisent pas à imposer votre point de vue, alors c'est que ça n'en valait pas la peine.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>581</uiIndex>
@@ -8126,7 +8126,7 @@
     <szLongItemName>Pelle</szLongItemName>
     <szItemDesc>Elle est parfaite pour creuser votre propre tombe ou frapper des personnes sur la tête (puis creuser leur tombe).</szItemDesc>
     <szBRName>Pelle</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Si c'était bon à Verdun, ça sera toujours bon pour vous.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1016</uiIndex>
@@ -9678,7 +9678,7 @@
     <szLongItemName>Caisse 5.56x45</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm PE.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1210</uiIndex>
@@ -9686,7 +9686,7 @@
     <szLongItemName>Caisse 5.56x45 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm TC.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1211</uiIndex>
@@ -9694,7 +9694,7 @@
     <szLongItemName>Caisse 5.56x45 M</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm M.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1212</uiIndex>
@@ -9702,14 +9702,14 @@
     <szLongItemName>Caisse 5.56x45 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm Glaser.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1213</uiIndex>
     <szItemName>5.56x45 TR</szItemName>
     <szLongItemName>Caisse 5.56x45 TR</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm TR.</szItemDesc>
-    <szBRName>Caisse de 5.56x45mm TR</szBRName>
+    <szBRName>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -9718,7 +9718,7 @@
     <szLongItemName>Caisse 5.56x45 S/PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm SB/PE.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1215</uiIndex>
@@ -9726,7 +9726,7 @@
     <szLongItemName>Caisse 5.56x45 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm SB/TC.</szItemDesc>
     <szBRName>Caisse de 5.56x45 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1216</uiIndex>
@@ -9734,7 +9734,7 @@
     <szLongItemName>Caisse 7.62x51</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN.</szItemDesc>
     <szBRName>Caisse de 7.62x51mm OTAN</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1217</uiIndex>
@@ -9742,7 +9742,7 @@
     <szLongItemName>Caisse 7.62x51</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN/TC.</szItemDesc>
     <szBRName>Caisse de 7.62x51mm OTAN/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1218</uiIndex>
@@ -9750,7 +9750,7 @@
     <szLongItemName>Caisse 7.62x51</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN/M.</szItemDesc>
     <szBRName>Caisse de 7.62x51mm OTAN/M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1219</uiIndex>
@@ -9758,7 +9758,7 @@
     <szLongItemName>Caisse 7.62x51</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN/Glaser.</szItemDesc>
     <szBRName>Caisse de 7.62x5 OTAN/G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1220</uiIndex>
@@ -9766,7 +9766,7 @@
     <szLongItemName>Caisse 7.62x51 TR</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN/TR.</szItemDesc>
     <szBRName>Caisse de 7.62x51 OTAN/TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1221</uiIndex>
@@ -9774,7 +9774,7 @@
     <szLongItemName>Caisse 7.62x51 S/PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN/SB/PE.</szItemDesc>
     <szBRName>Caisse de 7.62x51 SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1222</uiIndex>
@@ -9782,7 +9782,7 @@
     <szLongItemName>Caisse 7.62x51 S/TC</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x51mm OTAN SB/TC.</szItemDesc>
     <szBRName>Caisse de 7.62x51 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1223</uiIndex>
@@ -9790,7 +9790,7 @@
     <szLongItemName>Caisse 9x19mm</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm.</szItemDesc>
     <szBRName>Caisse de 9x19mm</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1224</uiIndex>
@@ -9798,7 +9798,7 @@
     <szLongItemName>Caisse 9x19 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm PE.</szItemDesc>
     <szBRName>Caisse de 9x19mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1225</uiIndex>
@@ -9806,7 +9806,7 @@
     <szLongItemName>Caisse 9x19 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm TC.</szItemDesc>
     <szBRName>Caisse de 9x19mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1226</uiIndex>
@@ -9814,7 +9814,7 @@
     <szLongItemName>Caisse 9x19 M</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm M.</szItemDesc>
     <szBRName>Caisse de 9x19mm M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1227</uiIndex>
@@ -9822,7 +9822,7 @@
     <szLongItemName>Caisse 9x19 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm Glaser.</szItemDesc>
     <szBRName>Caisse de 9x19mm G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1228</uiIndex>
@@ -9830,7 +9830,7 @@
     <szLongItemName>Caisse 9x19 TR</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm TR.</szItemDesc>
     <szBRName>Caisse de 9x19mm TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1229</uiIndex>
@@ -9838,7 +9838,7 @@
     <szLongItemName>Caisse 9x19 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm THV.</szItemDesc>
     <szBRName>Caisse de 9x19mm THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1230</uiIndex>
@@ -9846,7 +9846,7 @@
     <szLongItemName>Caisse 9x19 SB</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm SB.</szItemDesc>
     <szBRName>Caisse de 9x19mm SB</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1231</uiIndex>
@@ -9854,7 +9854,7 @@
     <szLongItemName>Caisse 9x19 SB/PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm SB/PE.</szItemDesc>
     <szBRName>Caisse de 9x19mm SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1232</uiIndex>
@@ -9862,7 +9862,7 @@
     <szLongItemName>Caisse 9x19 SB/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x19mm SB/TC.</szItemDesc>
     <szBRName>Caisse de 9x19 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1233</uiIndex>
@@ -9870,7 +9870,7 @@
     <szLongItemName>Caisse .38</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38.</szItemDesc>
     <szBRName>Caisse de .38</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1234</uiIndex>
@@ -9878,7 +9878,7 @@
     <szLongItemName>Caisse .38 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38 PE.</szItemDesc>
     <szBRName>Caisse de .38 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1235</uiIndex>
@@ -9886,7 +9886,7 @@
     <szLongItemName>Caisse .38 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38 TC.</szItemDesc>
     <szBRName>Caisse de .38 TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1236</uiIndex>
@@ -9894,7 +9894,7 @@
     <szLongItemName>Caisse .38 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38 Glaser.</szItemDesc>
     <szBRName>Caisse de .38 G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1237</uiIndex>
@@ -9902,7 +9902,7 @@
     <szLongItemName>Caisse .357</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .357.</szItemDesc>
     <szBRName>Caisse de .357</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1238</uiIndex>
@@ -9910,7 +9910,7 @@
     <szLongItemName>Caisse .357 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .357 PE.</szItemDesc>
     <szBRName>Caisse de .357 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1239</uiIndex>
@@ -9918,7 +9918,7 @@
     <szLongItemName>Caisse .357 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .357 TC.</szItemDesc>
     <szBRName>Caisse de .357 TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1240</uiIndex>
@@ -9926,7 +9926,7 @@
     <szLongItemName>Caisse .357 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .357 Glaser.</szItemDesc>
     <szBRName>Caisse de .357 G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1241</uiIndex>
@@ -9934,7 +9934,7 @@
     <szLongItemName>Caisse .357 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .357 THV.</szItemDesc>
     <szBRName>Caisse de .357 THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1242</uiIndex>
@@ -9942,7 +9942,7 @@
     <szLongItemName>Caisse .45</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45.</szItemDesc>
     <szBRName>Caisse de .45</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1243</uiIndex>
@@ -9950,7 +9950,7 @@
     <szLongItemName>Caisse .45 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45 PE.</szItemDesc>
     <szBRName>Caisse de .45 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1244</uiIndex>
@@ -9958,7 +9958,7 @@
     <szLongItemName>Caisse .45 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45 TC.</szItemDesc>
     <szBRName>Caisse de .45 TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1245</uiIndex>
@@ -9966,7 +9966,7 @@
     <szLongItemName>Caisse .45 M</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45 M</szItemDesc>
     <szBRName>.Caisse de .45 M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1246</uiIndex>
@@ -9974,7 +9974,7 @@
     <szLongItemName>Caisse .45 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45 Glaser.</szItemDesc>
     <szBRName>Caisse de .45 G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1247</uiIndex>
@@ -9982,7 +9982,7 @@
     <szLongItemName>Caisse .45 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .45 THV.</szItemDesc>
     <szBRName>Caisse de .45 THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1248</uiIndex>
@@ -9990,7 +9990,7 @@
     <szLongItemName>Caisse 5.45x39 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm PE.</szItemDesc>
     <szBRName>Caisse de 5.45x39mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1249</uiIndex>
@@ -9998,7 +9998,7 @@
     <szLongItemName>Caisse 5.45x39 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm TC.</szItemDesc>
     <szBRName>Caisse de 5.45x39mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1250</uiIndex>
@@ -10006,7 +10006,7 @@
     <szLongItemName>Caisse 5.45x39 TR</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm TR.</szItemDesc>
     <szBRName>Caisse de 5.45x39mm TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1251</uiIndex>
@@ -10014,7 +10014,7 @@
     <szLongItemName>Caisse 7.62x39 PE</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm PE Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1252</uiIndex>
@@ -10022,7 +10022,7 @@
     <szLongItemName>Caisse 7.62x39 TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm TC Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1253</uiIndex>
@@ -10030,7 +10030,7 @@
     <szLongItemName>Caisse 7.62x39 M</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm M Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39mm M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1254</uiIndex>
@@ -10038,7 +10038,7 @@
     <szLongItemName>Caisse 7.62x39 TR</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm TR Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39mm TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1255</uiIndex>
@@ -10046,7 +10046,7 @@
     <szLongItemName>Caisse 4.7x33 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 4.7x33mm PE.</szItemDesc>
     <szBRName>Caisse de 4.7x33mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1256</uiIndex>
@@ -10054,7 +10054,7 @@
     <szLongItemName>Caisse 5.7x28 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.7x28mm PE.</szItemDesc>
     <szBRName>Caisse de 5.7x28mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1257</uiIndex>
@@ -10062,7 +10062,7 @@
     <szLongItemName>Caisse 5.7x28 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.7x28mm TC.</szItemDesc>
     <szBRName>Caisse de 5.7x28mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1258</uiIndex>
@@ -10070,7 +10070,7 @@
     <szLongItemName>Caisse 5.7x28 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.7x28mm THV.</szItemDesc>
     <szBRName>Caisse de 5.7x28mm THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1259</uiIndex>
@@ -10078,7 +10078,7 @@
     <szLongItemName>Caisse 5.7x28 TR</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.7x28mm TR.</szItemDesc>
     <szBRName>Caisse de 5.7x28mm TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1260</uiIndex>
@@ -10086,7 +10086,7 @@
     <szLongItemName>Caisse 7.62x54 PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x54mm PE.</szItemDesc>
     <szBRName>Caisse de 7.62x54mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1261</uiIndex>
@@ -10094,7 +10094,7 @@
     <szLongItemName>Caisse 7.62x54 TR</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x54mm TR.</szItemDesc>
     <szBRName>Caisse de 7.62x54mm TR</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1262</uiIndex>
@@ -10102,7 +10102,7 @@
     <szLongItemName>Caisse .50 BMG</szLongItemName>
     <szItemDesc>Caisse de 300 cartouches .50 BMG</szItemDesc>
     <szBRName>Caisse de .50 BMG</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1263</uiIndex>
@@ -10110,7 +10110,7 @@
     <szLongItemName>Caisse 9x39 PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 9x39mm PE.</szItemDesc>
     <szBRName>Caisse de 9x39mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1264</uiIndex>
@@ -10118,7 +10118,7 @@
     <szLongItemName>Caisse 5,45x18 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5,45x18mm PE.</szItemDesc>
     <szBRName>Caisse de 5,45x18mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1265</uiIndex>
@@ -10126,7 +10126,7 @@
     <szLongItemName>Caisse 5,45x18 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5,45x18mm TC.</szItemDesc>
     <szBRName>Caisse de 5,45x18mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1266</uiIndex>
@@ -10134,7 +10134,7 @@
     <szLongItemName>Caisse 9x18</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x18mm.</szItemDesc>
     <szBRName>Caisse de 9x18mm</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1267</uiIndex>
@@ -10142,7 +10142,7 @@
     <szLongItemName>Caisse 9x18 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x18mm TC.</szItemDesc>
     <szBRName>Caisse de 9x18mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1268</uiIndex>
@@ -10150,7 +10150,7 @@
     <szLongItemName>Caisse 9x21 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x21mm PE.</szItemDesc>
     <szBRName>Caisse de 9x21mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1269</uiIndex>
@@ -10158,7 +10158,7 @@
     <szLongItemName>Caisse .30 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .30 PE.</szItemDesc>
     <szBRName>Caisse de .30 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1270</uiIndex>
@@ -10166,7 +10166,7 @@
     <szLongItemName>Caisse .30 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .30 TC.</szItemDesc>
     <szBRName>Caisse de .30 TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1271</uiIndex>
@@ -10174,7 +10174,7 @@
     <szLongItemName>Caisse 6.8x43 PE</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 6.8x43mm PE.</szItemDesc>
     <szBRName>Caisse de 6.8x43mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1272</uiIndex>
@@ -10182,7 +10182,7 @@
     <szLongItemName>Caisse 6.8x43 TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 6.8x43mm TC.</szItemDesc>
     <szBRName>Caisse de 6.8x43mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1273</uiIndex>
@@ -10190,7 +10190,7 @@
     <szLongItemName>Caisse .338 Lapua</szLongItemName>
     <szItemDesc>Caisse de 1 500 cartouches .338 Lapua.</szItemDesc>
     <szBRName>Caisse de .338 Lapua</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1274</uiIndex>
@@ -10198,7 +10198,7 @@
     <szLongItemName>Caisse 7.62x37 PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x37mm PE.</szItemDesc>
     <szBRName>Caisse de 7.62x37mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1275</uiIndex>
@@ -10206,7 +10206,7 @@
     <szLongItemName>Caisse .40 S&amp;W</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W.</szItemDesc>
     <szBRName>Caisse de .40 S&amp;W</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1276</uiIndex>
@@ -10214,7 +10214,7 @@
     <szLongItemName>Caisse .40 S&amp;W PE</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W PE.</szItemDesc>
     <szBRName>Caisse de .40 S&amp;W PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1277</uiIndex>
@@ -10222,7 +10222,7 @@
     <szLongItemName>Caisse .40 S&amp;W TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W TC.</szItemDesc>
     <szBRName>Caisse de .40 S&amp;W TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1278</uiIndex>
@@ -10230,7 +10230,7 @@
     <szLongItemName>Caisse .40 S&amp;W M</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W M.</szItemDesc>
     <szBRName>Caisse de.40 S&amp;W M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1279</uiIndex>
@@ -10238,7 +10238,7 @@
     <szLongItemName>Caisse .40 S&amp;W G</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W Glaser.</szItemDesc>
     <szBRName>Caisse de .40 S&amp;W G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1280</uiIndex>
@@ -10246,7 +10246,7 @@
     <szLongItemName>Caisse .40 S&amp;W THV</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches .40 S&amp;W THV.</szItemDesc>
     <szBRName>Caisse de .40 S&amp;W THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1281</uiIndex>
@@ -10254,7 +10254,7 @@
     <szLongItemName>Caisse 10mm</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm.</szItemDesc>
     <szBRName>Caisse de 10mm</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1282</uiIndex>
@@ -10262,7 +10262,7 @@
     <szLongItemName>Caisse 10mm PE</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm PE.</szItemDesc>
     <szBRName>Caisse de 10mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1283</uiIndex>
@@ -10270,7 +10270,7 @@
     <szLongItemName>Caisse 10mm TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm TC.</szItemDesc>
     <szBRName>Caisse de 10mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1284</uiIndex>
@@ -10278,7 +10278,7 @@
     <szLongItemName>Caisse 10mm M</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm M.</szItemDesc>
     <szBRName>Caisse de 10mm M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1285</uiIndex>
@@ -10286,7 +10286,7 @@
     <szLongItemName>Caisse 10mm G</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm Glaser.</szItemDesc>
     <szBRName>Caisse de 10mm G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1286</uiIndex>
@@ -10294,7 +10294,7 @@
     <szLongItemName>Caisse 10mm THV</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 10mm THV.</szItemDesc>
     <szBRName>Caisse de 10mm THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1287</uiIndex>
@@ -10302,7 +10302,7 @@
     <szLongItemName>Caisse 7.62x25 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm PE.</szItemDesc>
     <szBRName>Caisse de 7.62x25mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1288</uiIndex>
@@ -10310,7 +10310,7 @@
     <szLongItemName>Caisse 7.62x25 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm TC.</szItemDesc>
     <szBRName>Caisse de 7.62x25mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1289</uiIndex>
@@ -10318,7 +10318,7 @@
     <szLongItemName>Caisse 7.62x25 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm THV.</szItemDesc>
     <szBRName>Caisse de 7.62x25mm THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1290</uiIndex>
@@ -10326,7 +10326,7 @@
     <szLongItemName>Caisse 7.62x25 S/PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm SB/PE.</szItemDesc>
     <szBRName>Caisse de 7.62x25mm SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1291</uiIndex>
@@ -10334,7 +10334,7 @@
     <szLongItemName>Caisse 7.62x25 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 7.62x25mm SB/TC.</szItemDesc>
     <szBRName>Caisse de 7.62x25 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1292</uiIndex>
@@ -10342,7 +10342,7 @@
     <szLongItemName>Caisse 12.7x97 SB</szLongItemName>
     <szItemDesc>Caisse de 300 cartouches 12.7x97mm SB.</szItemDesc>
     <szBRName>Caisse de 12.7x97mm SB</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1293</uiIndex>
@@ -10350,7 +10350,7 @@
     <szLongItemName>Caisse 5.56x45 SCF</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm SCF.</szItemDesc>
     <szBRName>Caisse de 5.56x45mm SCF</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1294</uiIndex>
@@ -10358,7 +10358,7 @@
     <szLongItemName>Caisse 4.6x30 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 4.6x30mm PE.</szItemDesc>
     <szBRName>Caisse de 4.6x30mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1295</uiIndex>
@@ -10366,7 +10366,7 @@
     <szLongItemName>Caisse 4.6x30 THV</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 4.6x30mm THV.</szItemDesc>
     <szBRName>Caisse de 4.6x30mm THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1296</uiIndex>
@@ -10374,7 +10374,7 @@
     <szLongItemName>Caisse 9mm MS</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9mm MS.</szItemDesc>
     <szBRName>Caisse de 9mm MS</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1297</uiIndex>
@@ -10382,7 +10382,7 @@
     <szLongItemName>Caisse de 3 000 cartouches .30-06 PE</szLongItemName>
     <szItemDesc>Caisse de .30-06 PE</szItemDesc>
     <szBRName>.30-06 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1298</uiIndex>
@@ -10390,7 +10390,7 @@
     <szLongItemName>Caisse .300WM TC</szLongItemName>
     <szItemDesc>Caisse de 2 000 cartouches .300 Win/Mag TC.</szItemDesc>
     <szBRName>Caisse de .300WM TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1299</uiIndex>
@@ -10398,7 +10398,7 @@
     <szLongItemName>Caisse .300 W/M PE</szLongItemName>
     <szItemDesc>Caisse de 2 000 cartouches .300 Win/Mag PE.</szItemDesc>
     <szBRName>Caisse de .300 Win/Mag PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1300</uiIndex>
@@ -10406,7 +10406,7 @@
     <szLongItemName>Caisse 12.7x108 PE</szLongItemName>
     <szItemDesc>Caisse de 300 cartouches 12.7x108mm PE.</szItemDesc>
     <szBRName>Caisse de 12.7x108mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1301</uiIndex>
@@ -10414,7 +10414,7 @@
     <szLongItemName>Caisse 7.92x57 PE</szLongItemName>
     <szItemDesc>Caisse de 2 500 cartouches 7.92x57mm PE.</szItemDesc>
     <szBRName>Caisse de 7.92x57mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1302</uiIndex>
@@ -10422,7 +10422,7 @@
     <szLongItemName>Caisse 7.92x57 TC</szLongItemName>
     <szItemDesc>Caisse de 2 500 cartouches 7.92x57mm TC.</szItemDesc>
     <szBRName>Caisse de 7.92x57mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1303</uiIndex>
@@ -10430,7 +10430,7 @@
     <szLongItemName>Caisse 7.62x54 M</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches 7.62x54mm M.</szItemDesc>
     <szBRName>Caisse de 7.62x54mm M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1304</uiIndex>
@@ -10438,7 +10438,7 @@
     <szLongItemName>Caisse 9x18 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x18mm PE.</szItemDesc>
     <szBRName>Caisse de 9x18mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1305</uiIndex>
@@ -10446,7 +10446,7 @@
     <szLongItemName>Caisse .50 Beo PE</szLongItemName>
     <szItemDesc>Caisse de 1 500 cartouches .50 Beowulf PE.</szItemDesc>
     <szBRName>Caisse de .50 Beowulf PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1306</uiIndex>
@@ -10454,7 +10454,7 @@
     <szLongItemName>Caisse Caisse .50 Beo TC</szLongItemName>
     <szItemDesc>Caisse de 1 500 cartouches .50 Beowulf TC.</szItemDesc>
     <szBRName>Caisse de .50 Beowulf TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1307</uiIndex>
@@ -10462,7 +10462,7 @@
     <szLongItemName>Caisse 6x35 PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 6x35mm PE.</szItemDesc>
     <szBRName>Caisse de 6x35mm PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1308</uiIndex>
@@ -10470,7 +10470,7 @@
     <szLongItemName>Caisse 6x35 TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 6x35mm TC.</szItemDesc>
     <szBRName>Caisse de 6x35mm TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1309</uiIndex>
@@ -10478,7 +10478,7 @@
     <szLongItemName>Caisse .44</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .44.</szItemDesc>
     <szBRName>Caisse de .44</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1310</uiIndex>
@@ -10486,7 +10486,7 @@
     <szLongItemName>Caisse .44 PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .44 PE.</szItemDesc>
     <szBRName>Caisse de .44 PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1311</uiIndex>
@@ -10494,7 +10494,7 @@
     <szLongItemName>Caisse .44 TC</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .44 TC.</szItemDesc>
     <szBRName>Caisse de .44 TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1312</uiIndex>
@@ -10502,7 +10502,7 @@
     <szLongItemName>Caisse .44 G</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .44 Glaser.</szItemDesc>
     <szBRName>Caisse de .44 G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1313</uiIndex>
@@ -10510,7 +10510,7 @@
     <szLongItemName>Caisse .44 THV</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .44 THV.</szItemDesc>
     <szBRName>Caisse de .44 THV</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1314</uiIndex>
@@ -10518,7 +10518,7 @@
     <szLongItemName>Caisse .45WM PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .45WM.</szItemDesc>
     <szBRName>Caisse de 4.5WM PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1315</uiIndex>
@@ -10526,7 +10526,7 @@
     <szLongItemName>Caisse .45WM PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .45WM PE.</szItemDesc>
     <szBRName>Caisse de .45WM PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1316</uiIndex>
@@ -10534,7 +10534,7 @@
     <szLongItemName>Caisse .45WM TC</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .45WM TC.</szItemDesc>
     <szBRName>Caisse de .45WM TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1317</uiIndex>
@@ -10542,7 +10542,7 @@
     <szLongItemName>Caisse .454 Casull</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .454 Casull.</szItemDesc>
     <szBRName>Caisse de .454 Casull</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1318</uiIndex>
@@ -10550,7 +10550,7 @@
     <szLongItemName>Caisse .454 Casull PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .454 Casull PE.</szItemDesc>
     <szBRName>Caisse de .454 Casull PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1319</uiIndex>
@@ -10558,7 +10558,7 @@
     <szLongItemName>Caisse .454 Casull TC</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .454 Casull TC.</szItemDesc>
     <szBRName>Caisse de .454 Casull TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1320</uiIndex>
@@ -10566,7 +10566,7 @@
     <szLongItemName>Caisse .50 AE/PE</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .50 AE/PE.</szItemDesc>
     <szBRName>Caisse de .50 AE/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1321</uiIndex>
@@ -10574,7 +10574,7 @@
     <szLongItemName>Caisse .50 AE/TC</szLongItemName>
     <szItemDesc>Caisse de 3 000 cartouches .50 AE/TC.</szItemDesc>
     <szBRName>Caisse de .50 AE/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1322</uiIndex>
@@ -10742,7 +10742,7 @@
     <szLongItemName>Caisse 5.45x39 S/PE</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm SB/PE.</szItemDesc>
     <szBRName>Caisse de 5.45x39mm SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1343</uiIndex>
@@ -10750,7 +10750,7 @@
     <szLongItemName>Caisse 5.45x39 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.45x39mm SB/TC.</szItemDesc>
     <szBRName>Caisse de 5.45x39 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1344</uiIndex>
@@ -10806,7 +10806,7 @@
     <szLongItemName>Caisse 7.62x39 S/PE</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm SB/PE Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39mm SB/PE</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1351</uiIndex>
@@ -10814,7 +10814,7 @@
     <szLongItemName>Caisse  7.62x39 S/TC</szLongItemName>
     <szItemDesc>Caisse de 4 000 cartouches 7.62x39mm SB/TC Pacte de Varsovie.</szItemDesc>
     <szBRName>Caisse de 7.62x39 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1352</uiIndex>
@@ -10910,7 +10910,7 @@
     <szLongItemName>Caisse .38 M</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38 M.</szItemDesc>
     <szBRName>Caisse de .38 M SB/M</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1364</uiIndex>
@@ -10918,7 +10918,7 @@
     <szLongItemName>Caisse .38 S/TC</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches .38 SB/TC.</szItemDesc>
     <szBRName>Caisse de .38 SB/TC</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1365</uiIndex>
@@ -10958,7 +10958,7 @@
     <szLongItemName>Caisse 9x18 G</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 9x18mm G.</szItemDesc>
     <szBRName>Caisse de 9x18mm G</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1370</uiIndex>
