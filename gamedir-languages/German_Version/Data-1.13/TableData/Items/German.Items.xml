@@ -12015,7 +12015,6 @@
     <szBRName>.50 Action Express Box HP</szBRName>
     <szBRDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szBRDesc>
   </ITEM>
-
   <ITEM>
     <uiIndex>1500</uiIndex>
     <szItemName>.454 C Box</szItemName>
@@ -12247,7 +12246,6 @@
     <szItemDesc>This standard stun grenade has been rigged with Stolperdraht, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
     <szBRName>Stolperdraht Stun Grenade</szBRName>
     <szBRDesc>NO TEXT NEEDED.</szBRDesc>
-
   </ITEM>
   <ITEM>
     <uiIndex>1529</uiIndex>
@@ -12333,7 +12331,6 @@
     <uiIndex>1539</uiIndex>
     <szItemName>Antidote</szItemName>
     <szLongItemName>Antidote</szLongItemName>
-
     <szItemDesc>This antidote can cure poison over time. WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
     <szBRName>Antidote</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
@@ -12423,7 +12420,6 @@
     <szItemName>Hamburger</szItemName>
     <szLongItemName>Hamburger</szLongItemName>
     <szItemDesc>For some obscure reason, this is also sold outside Hamburg.</szItemDesc>
-
     <szBRName>Hamburger</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
@@ -12639,7 +12635,6 @@
     <uiIndex>1577</uiIndex>
     <szItemName>Clothes</szItemName>
     <szLongItemName>Civilian Clothes</szLongItemName>
-
     <szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
     <szBRName>Civilian Clothes</szBRName>
     <szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
@@ -12651,7 +12646,6 @@
     <szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
     <szBRName>Neurotoxin Dart</szBRName>
     <szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
-
   </ITEM>
   <ITEM>
     <uiIndex>1579</uiIndex>
@@ -12659,11 +12653,7 @@
     <szLongItemName>Garotte</szLongItemName>
     <szItemDesc>In erfahrenden Händen kann eine Garotte eine tödliche Waffe sein. In unerfahrenen Händen ist sie besser als nichts.</szItemDesc>
     <szBRName>Garotte</szBRName>
-    <szBRDesc>
-      Leicht zu verbergen und wartungsfrei.
-
-      Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.
-    </szBRDesc>
+    <szBRDesc>Leicht zu verbergen und wartungsfrei.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1580</uiIndex>
@@ -13104,7 +13094,7 @@
     <szLongItemName>Munitionskiste (Pfeile, Neurotoxin)</szLongItemName>
     <szItemDesc>Einhundert hochgiftige Neurotoxin-Pfeile. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig.</szItemDesc>
     <szBRName>Munitionskiste (Pfeile, Neurotoxin)</szBRName>
-    <szBRDesc>Diese Kiste enthält 100 hochgiftige Neurotoxin-Pfeile. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig. – Sicherheitshinweis für Kunden aus den USA: Diese Pfeile können TÖDLICH wirken. Sie dürfen diese Pfeile weder schlucken noch an Ihnen lutschen. Vermeiden Sie jeden Körperkontakt mit dem spitzen Ende und rufen Sie bei Verletzungen durch einen oder mehrere der Pfeile sofort den Arzt – falls das noch möglich sein sollte.</szBRDesc>
+    <szBRDesc>Diese Kiste enthält 100 hochgiftige Neurotoxin-Pfeile. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig. – Sicherheitshinweis für Kunden aus den USA: Diese Pfeile können TÖDLICH wirken. Sie dürfen diese Pfeile weder schlucken noch an Ihnen lutschen.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1634</uiIndex>
@@ -13112,7 +13102,7 @@
     <szLongItemName>Pfeil, Neurotoxin</szLongItemName>
     <szItemDesc>Ein hochgiftiger Neurotoxin-Pfeil. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig.</szItemDesc>
     <szBRName>Pfeil, Neurotoxin</szBRName>
-    <szBRDesc>Das ist ein Neurotoxin-Pfeile. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig. – Sicherheitshinweis für Kunden aus den USA: Diese Pfeile können TÖDLICH wirken. Sie dürfen diese Pfeile weder schlucken noch an Ihnen lutschen. Vermeiden Sie jeden Körperkontakt mit dem spitzen Ende und rufen Sie bei Verletzungen durch einen oder mehrere der Pfeile sofort den Arzt – falls das noch möglich sein sollte.</szBRDesc>
+    <szBRDesc>Das ist ein Neurotoxin-Pfeile. Beachten Sie bitte die besonderen Handhabungsregeln und halten sie Gegengift vorrätig. – Sicherheitshinweis für Kunden aus den USA: Diese Pfeile können TÖDLICH wirken. Sie dürfen diese Pfeile weder schlucken noch an Ihnen lutschen.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1635</uiIndex>

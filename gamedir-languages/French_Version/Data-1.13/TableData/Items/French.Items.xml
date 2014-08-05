@@ -9709,8 +9709,8 @@
     <szItemName>5.56x45 TR</szItemName>
     <szLongItemName>Caisse 5.56x45 TR</szLongItemName>
     <szItemDesc>Caisse de 5 000 cartouches 5.56x45mm TR.</szItemDesc>
-    <szBRName>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRName>
-    <szBRDesc>Pas à vendre.</szBRDesc>
+    <szBRName>Caisse 5.56x45 TR</szBRName>
+    <szBRDesc>Nous offrons maintenant plusieurs types de munitions en gros. S'il vous plaît, comparez avant l'achat, le prix et le nombre de munitions dans la caisse.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1214</uiIndex>
@@ -13073,7 +13073,7 @@
     <szBRName>Colliers de serrage</szBRName>
     <szBRDesc>Très utile pour trier vos câbles. Ce paquet devrait être suffisant pour vos besoins.</szBRDesc>
   </ITEM>
-    <ITEM>
+  <ITEM>
     <uiIndex>1633</uiIndex>
     <szItemName>Fléchettes</szItemName>
     <szLongItemName>Caisse Fléc/N.</szLongItemName>
@@ -13089,7 +13089,7 @@
     <szBRName>M99</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
-<ITEM>
+  <ITEM>
     <uiIndex>1635</uiIndex>
     <szItemName>Combi LAM/L-T</szItemName>
     <szLongItemName>Combi LAM/L-torche</szLongItemName>
@@ -13113,7 +13113,7 @@
     <szBRName>Lampe de poche</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
- <ITEM>
+  <ITEM>
     <uiIndex>1638</uiIndex>
     <szItemName>Coupe-papier</szItemName>
     <szLongItemName>Coupe-papier</szLongItemName>
@@ -13649,44 +13649,44 @@
     <szBRName>FRAG_EXPLOSION</szBRName>
     <szBRDesc>FRAG_EXPLOSION</szBRDesc>
   </ITEM>
-    <ITEM>
-		<uiIndex>1705</uiIndex>
-		<szItemName>Sac/dos USMC</szItemName>
-		<szLongItemName>Sac/dos ILBE Gén. II</szLongItemName>
-		<szItemDesc>Le système du sac à dos "Improved Load Bearing" (ILBE) a été créé pour le Corps des Marines des États-Unis sur la base des rapports de combats qui ont eu lieu lors de la première intervention américaine en Irak.</szItemDesc>
-		<szBRName>Sac à dos USMC</szBRName>
-		<szBRDesc>Le système ILBE se compose en trois parties, le sac principal, le système d'hydratation et le sac de combat.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1706</uiIndex>
-		<szItemName>Sac USMC</szItemName>
-		<szLongItemName>Sac/tact ILBE Gén. II</szLongItemName>
-		<szItemDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szItemDesc>
-		<szBRName>Sac tactique USMC</szBRName>
-		<szBRDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1707</uiIndex>
-		<szItemName>Sac Range</szItemName>
-		<szLongItemName>Sac Extended Range</szLongItemName>
-		<szItemDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szItemDesc>
-		<szBRName>Sac TT Extended Range</szBRName>
-		<szBRDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1708</uiIndex>
-		<szItemName>TT Modulaire</szItemName>
-		<szLongItemName>Sac TT Modulaire</szLongItemName>
-		<szItemDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szItemDesc>
-		<szBRName>Sac TT Modulaire</szBRName>
-		<szBRDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szBRDesc>		
-	</ITEM>
-		<ITEM>
-		<uiIndex>1709</uiIndex>
-		<szItemName>Sac/couchage</szItemName>
-		<szLongItemName>Sac de couchage</szLongItemName>
-		<szItemDesc>Un sac de couchage de base pour ne pas dormir à même le sol.</szItemDesc>
-		<szBRName>Sac de couchage</szBRName>
-		<szBRDesc>Pour ne plus dormir sur un plancher sale ! Faites de beaux rêves !</szBRDesc>
-	</ITEM>
+  <ITEM>
+    <uiIndex>1705</uiIndex>
+    <szItemName>Sac/dos USMC</szItemName>
+    <szLongItemName>Sac/dos ILBE Gén. II</szLongItemName>
+    <szItemDesc>Le système du sac à dos "Improved Load Bearing" (ILBE) a été créé pour le Corps des Marines des États-Unis sur la base des rapports de combats qui ont eu lieu lors de la première intervention américaine en Irak.</szItemDesc>
+    <szBRName>Sac à dos USMC</szBRName>
+    <szBRDesc>Le système ILBE se compose en trois parties, le sac principal, le système d'hydratation et le sac de combat.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1706</uiIndex>
+    <szItemName>Sac USMC</szItemName>
+    <szLongItemName>Sac/tact ILBE Gén. II</szLongItemName>
+    <szItemDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szItemDesc>
+    <szBRName>Sac tactique USMC</szBRName>
+    <szBRDesc>Il y a de nombreuses bandes MOLLE sur l'intégralité de sa surface. Deux sangles et des clips de chaque côté sont utilisés pour la compression ou à la fixation au sac mère.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1707</uiIndex>
+    <szItemName>Sac Range</szItemName>
+    <szLongItemName>Sac Extended Range</szLongItemName>
+    <szItemDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szItemDesc>
+    <szBRName>Sac TT Extended Range</szBRName>
+    <szBRDesc>L'Extended Range Opérator Pack est le plus grand sac tactique de la gamme Opérator. Avec sa grande capacité et sa large liste de caractéristiques, il est essentiel pour les longues missions.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1708</uiIndex>
+    <szItemName>TT Modulaire</szItemName>
+    <szLongItemName>Sac TT Modulaire</szLongItemName>
+    <szItemDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szItemDesc>
+    <szBRName>Sac TT Modulaire</szBRName>
+    <szBRDesc>Le sac tactique d'opérateur modulaire est de mi-gamme dans les sacs Opérator. Comparable en taille au sac tactique 3 day, il offre cependant des fonctionnalités bien différentes et nombreuses.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1709</uiIndex>
+    <szItemName>Sac/couchage</szItemName>
+    <szLongItemName>Sac de couchage</szLongItemName>
+    <szItemDesc>Un sac de couchage de base pour ne pas dormir à même le sol.</szItemDesc>
+    <szBRName>Sac de couchage</szBRName>
+    <szBRDesc>Pour ne plus dormir sur un plancher sale ! Faites de beaux rêves !</szBRDesc>
+  </ITEM>
 </ITEMLIST>
