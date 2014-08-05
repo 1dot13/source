@@ -674,7 +674,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"退出编辑模式", //L"Leave Editor mode",
 	L"退出游戏(|A|l|t+|X)", //L"Exit game (|A|l|t+|X)",
 	L"编辑雷达图", //L"Create radar map",
-	L"是否按照原版JA2的地图格式保存 \n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
+	L"是否按照原版JA2的地图格式保存 Items with ID > 350 will be lost. \n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",	// TODO.Translate
 	L"是否自动根据选择的行列数多少来放大地图", //L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
@@ -706,9 +706,9 @@ STR16 iEditorTaskbarInternalText[]=
 	L"选项", //L"Options",
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Terrain fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Buildings fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
-	L"|C|t|r|l+|/:光标处放置新物品\n|/:光标下放置同样物品", //Items fasthelp text //L"|S|p|a|c|e: Select next item\n \n|C|t|r|l+|/: Place new item under mouse cursor\n|/: Place same item under mouse cursor",
+	L"|S|p|a|c|e: 选择后一个物品\n|C|t|r|l+|S|p|a|c|e: 选择前一个物品\n \n|/:光标下放置同样物品\n|C|t|r|l+|/:光标处放置新物品", //Items fasthelp text //L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor",
 	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵", //Mercs fasthelp text //L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc",
-	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: Scroll beyond map boundary\n \n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
+	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: Scroll beyond map boundary\n \n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",	// TODO.Translate
 	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",
 };
 

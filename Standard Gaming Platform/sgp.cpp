@@ -1612,6 +1612,15 @@ void GetRuntimeSettings( )
 			iResX = 2560;
 			iResY = 1600;
 			break;
+		case _CustomRes:
+			iResX = max( (int)oProps.getIntProperty(L"Ja2 Settings", L"CUSTOM_SCREEN_RESOLUTION_X", -1), 800 );
+			iResY = max( (int)oProps.getIntProperty(L"Ja2 Settings", L"CUSTOM_SCREEN_RESOLUTION_Y", -1), 600 );
+			if ( iResX < 1024 || iResY < 768 )
+			{
+				// Buggler: hack to use 800x600 interface
+				iResolution = _1280x720;
+			}
+			break;
 		default:	// 800x600
 			iResolution = _800x600;
 			iResX = 800;

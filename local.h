@@ -73,6 +73,7 @@ typedef enum
 	_1920x1200	= 21,
 	_2560x1440	= 22,
 	_2560x1600	= 23,
+	_CustomRes	= 24,
 } SCREEN_RESOLUTION;
 
 extern BOOLEAN fDisplayOverheadMap;
