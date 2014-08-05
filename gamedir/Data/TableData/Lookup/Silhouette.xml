@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <JA2Data>
 	<Silhouette>
 		<id>0</id>
@@ -103,5 +103,97 @@
 	<Silhouette>
 		<id>25</id>
 		<name>Small Medical Cross</name>
+	</Silhouette>
+	<Silhouette>
+		<id>26</id>
+		<name>Large Pistol Holster</name>
+	</Silhouette>
+	<Silhouette>
+		<id>27</id>
+		<name>Shotgun Shells</name>
+	</Silhouette>
+	<Silhouette>
+		<id>28</id>
+		<name>Short Rifle Mag x2</name>
+	</Silhouette>
+	<Silhouette>
+		<id>29</id>
+		<name>General Misc</name>
+	</Silhouette>
+<Silhouette>
+		<id>30</id>
+		<name>Revolver Holster</name>
+	</Silhouette>
+<Silhouette>
+		<id>31</id>
+		<name>Small Explosive</name>
+	</Silhouette>
+	<Silhouette>
+		<id>32</id>
+		<name>Combat Pack Gun Sling</name>
+	</Silhouette>
+	<Silhouette>
+		<id>33</id>
+		<name>Medic Kit</name>
+	</Silhouette>
+	<Silhouette>
+		<id>34</id>
+		<name>First Aid Kit Pocket</name>
+	</Silhouette>
+	<Silhouette>
+		<id>35</id>
+		<name>Sniper Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>36</id>
+		<name>Flashbang</name>
+	</Silhouette>
+	<Silhouette>
+		<id>37</id>
+		<name>Carbiner Ring</name>
+	</Silhouette>
+	<Silhouette>
+		<id>38</id>
+		<name>Kits</name>
+	</Silhouette>
+	<Silhouette>
+		<id>39</id>
+		<name>Double AR Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>40</id>
+		<name>Double Pistol Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>41</id>
+		<name>Double SMG Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>42</id>
+		<name>AR Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>43</id>
+		<name>Pistol Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>44</id>
+		<name>Mini Frag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>45</id>
+		<name>SMG Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>46</id>
+		<name>Small Shotgun</name>
+	</Silhouette>
+	<Silhouette>
+		<id>47</id>
+		<name>Sniper Rifle</name>
+	</Silhouette>
+		<Silhouette>
+		<id>48</id>
+		<name>Grenade x2</name>
 	</Silhouette>
 </JA2Data>

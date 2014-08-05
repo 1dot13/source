@@ -63,12 +63,12 @@
 		<randomitem10>0</randomitem10>
 		<item1>12</item1>
 		<item2>23</item2>
-		<item3>632</item3>
-		<item4>633</item4>
-		<item5>763</item5>
-		<item6>796</item6>
-		<item7>797</item7>
-		<item8>1332</item8>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
 		<item9>0</item9>
 		<item10>0</item10>
 	</RANDOMITEM>
@@ -89,12 +89,12 @@
 		<item2>21</item2>
 		<item3>29</item3>
 		<item4>30</item4>
-		<item5>662</item5>
-		<item6>667</item6>
-		<item7>1066</item7>
-		<item8>1070</item8>
-		<item9>1072</item9>
-		<item10>1077</item10>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
+		<item9>0</item9>
+		<item10>0</item10>
 	</RANDOMITEM>
 	<RANDOMITEM>
 		<uiIndex>4</uiIndex>
@@ -110,10 +110,10 @@
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
 		<item1>28</item1>
-		<item2>646</item2>
-		<item3>647</item3>
-		<item4>648</item4>
-		<item5>653</item5>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
 		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>
@@ -134,11 +134,11 @@
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
 		<item1>26</item1>
-		<item2>347</item2>
-		<item3>612</item3>
-		<item4>613</item4>
-		<item5>615</item5>
-		<item6>708</item6>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
+		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>
 		<item9>0</item9>
@@ -158,8 +158,8 @@
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
 		<item1>25</item1>
-		<item2>614</item2>
-		<item3>785</item3>
+		<item2>0</item2>
+		<item3>0</item3>
 		<item4>0</item4>
 		<item5>0</item5>
 		<item6>0</item6>
@@ -181,15 +181,15 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>606</item1>
-		<item2>607</item2>
-		<item3>608</item3>
-		<item4>609</item4>
-		<item5>610</item5>
-		<item6>611</item6>
-		<item7>602</item7>
-		<item8>602</item8>
-		<item9>616</item9>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
+		<item9>0</item9>
 		<item10>0</item10>
 	</RANDOMITEM>
 	<RANDOMITEM>
@@ -207,14 +207,14 @@
 		<randomitem10>0</randomitem10>
 		<item1>20</item1>
 		<item2>24</item2>
-		<item3>331</item3>
+		<item3>0</item3>
 		<item4>27</item4>
-		<item5>332</item5>
-		<item6>605</item6>
-		<item7>624</item7>
-		<item8>629</item8>
-		<item9>655</item9>
-		<item10>656</item10>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
+		<item9>0</item9>
+		<item10>0</item10>
 	</RANDOMITEM>
 	<RANDOMITEM>
 		<uiIndex>9</uiIndex>
@@ -229,11 +229,11 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>349</item1>
-		<item2>617</item2>
-		<item3>659</item3>
-		<item4>660</item4>
-		<item5>782</item5>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
 		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>
@@ -253,11 +253,11 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>350</item1>
-		<item2>712</item2>
-		<item3>713</item3>
-		<item4>714</item4>
-		<item5>715</item5>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
 		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>
@@ -277,14 +277,14 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>651</item1>
-		<item2>652</item2>
-		<item3>787</item3>
-		<item4>788</item4>
-		<item5>790</item5>
-		<item6>791</item6>
-		<item7>792</item7>
-		<item8>793</item8>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
 		<item9>0</item9>
 		<item10>0</item10>
 	</RANDOMITEM>
@@ -301,11 +301,11 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>664</item1>
-		<item2>665</item2>
-		<item3>666</item3>
-		<item4>755</item4>
-		<item5>756</item5>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
 		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>
@@ -325,16 +325,16 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>691</item1>
-		<item2>704</item2>
-		<item3>742</item3>
-		<item4>743</item4>
-		<item5>757</item5>
-		<item6>781</item6>
-		<item7>789</item7>
-		<item8>1195</item8>
-		<item9>896</item9>
-		<item10>1065</item10>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
+		<item6>0</item6>
+		<item7>0</item7>
+		<item8>0</item8>
+		<item9>0</item9>
+		<item10>0</item10>
 	</RANDOMITEM>
 	<RANDOMITEM>
 		<uiIndex>14</uiIndex>
@@ -349,11 +349,11 @@
 		<randomitem8>0</randomitem8>
 		<randomitem9>0</randomitem9>
 		<randomitem10>0</randomitem10>
-		<item1>748</item1>
-		<item2>749</item2>
-		<item3>750</item3>
-		<item4>751</item4>
-		<item5>752</item5>
+		<item1>0</item1>
+		<item2>0</item2>
+		<item3>0</item3>
+		<item4>0</item4>
+		<item5>0</item5>
 		<item6>0</item6>
 		<item7>0</item7>
 		<item8>0</item8>

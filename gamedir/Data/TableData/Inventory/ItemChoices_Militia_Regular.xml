@@ -390,7 +390,7 @@
 		<name>Grenade Launchers</name>
 		<ubChoices>2</ubChoices>
 		<bItemNo1>40</bItemNo1>
-		<bItemNo2>347</bItemNo2>
+		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>

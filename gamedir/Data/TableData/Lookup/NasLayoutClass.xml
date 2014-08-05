@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<NasLayoutClass>
+		<id>0</id>
+		<name>None</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>1</id>
+		<name>Weapons</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>2</id>
+		<name>Multi-Shot Launchers</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>4</id>
+		<name>Molle Leg Rigs</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>8</id>
+		<name>Molle Vests</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>16</id>
+		<name>Molle Combat Packs</name>
+	</NasLayoutClass>
+	<NasLayoutClass>
+		<id>32</id>
+		<name>Molle Backpacks</name>
+	</NasLayoutClass>
+</JA2Data>
