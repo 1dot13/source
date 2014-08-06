@@ -678,7 +678,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Quitter le mode éditeur",
 	L"Quitter le jeu (|A|L|T+|X)",
 	L"Créer un carte de radar",
-	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2. Items with ID > 350 will be lost.\nCette option est seulement valable sur les cartes de taille \"normale\" qui ne font pas référence aux nombre de réseaux (ex : réseau de sortie) > 25600.",	// TODO.Translate
+	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2. Les objets avec l'ID > 350 seront perdus.\nCette option est seulement valable sur les cartes de taille \"normale\" qui ne font pas référence aux nombre de réseaux (ex : réseau de sortie) > 25600.",
 	L"Une fois la carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",
 };
 
@@ -4449,10 +4449,10 @@ STR16 pWebPagesTitles[] =
 	L"Morgue McGillicutty",
 	L"",
 	L"URL introuvable.",
-	L"%s, conseil de presse : Bilan du conflit",   // TODO.Translate //A voir fini (to see finished)
-	L"%s, conseil de presse : Rapports",   // TODO.Translate //A voir fini (to see finished)
-	L"%s, conseil de presse : Dernières Nouvelles",   // TODO.Translate //A voir fini (to see finished)
-	L"%s, conseil de presse : À propos de nous",   // TODO.Translate //A voir fini (to see finished)
+	L"%s, conseil de presse : Bilan du conflit",
+	L"%s, conseil de presse : Rapports",
+	L"%s, conseil de presse : Dernières nouvelles",
+	L"%s, conseil de presse : À propos de nous",
 	L"Mercs Love or Dislike You - Home",				// TODO.Translate
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
@@ -6701,7 +6701,7 @@ STR16 New113Message[] =
 	L"Balayage des fréquences déjà en cours, inutile d'en lancer un autre !",
 	L"%s n'a pas pu appliquer %s à %s.",
 	L"%s demande des renforts depuis %s.",
-	L"%s a épuisé la batterie de sa radio.",   // TODO.Translate //A voir fini (to see finished)
+	L"%s a épuisé la batterie de sa radio.",
 	L"une radio",
 	L"des jumelles",
 	L"de la patience",
@@ -6855,7 +6855,7 @@ STR16 NewInvMessage[] =
 	L"Êtes-vous sûr de vouloir vendre tous les articles du secteur ?",
 	L"Êtes-vous sûr de vouloir supprimer tous les articles du secteur ?",
 	L"Ne peut pas escalader avec un sac à dos",
-	L"Tous les sacs à dos sont posés à terre",	// TODO.Translate
+	L"Tous les sacs à dos sont posés à terre",
 	L"Tous les sacs à dos sont ramassés",
 };
 
@@ -8028,7 +8028,7 @@ STR16	szCovertTextStr[]=
 	L"%s a un(e) %s suspect(e) !",
 	L"%s a un(e) %s considéré(e) comme du matériel militaire !",
 	L"%s transporte trop d'armes !",
-	L"%s a un(e) %s trop avancé(e) pour un soldat %s !",  // TODO.Translate //A voir fini (to see finished)
+	L"%s a un(e) %s trop avancé(e) pour un soldat %s !",
 	L"%s a un(e) %s avec trop d'accessoires !",
 	L"%s a été repéré(e) en train de commettre des activités douteuses !",
 	L"%s ne ressemble pas à un civil !",
@@ -8092,12 +8092,12 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"Prisonnier(s) ayant été interrogé(s) : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant été interrogé(s) : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",
 	L"Prisonnier(s) ayant payé une rançon : %d.", 
 	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",
-	L"Prisonnier(s) ayant rejoint notre cause : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",  // TODO.Translate. A voir définition (to see finished, definition)
-	L"Prisonnier(s) ayant commencé une émeute en %s !",   // TODO.Translate. A voir définition (to see finished, definition)
-	L"%d prisonnier(s) envoyé(s) en %s !",   // TODO.Translate. A voir définition (to see finished, definition)
+	L"Prisonnier(s) ayant rejoint notre cause : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",
+	L"Prisonnier(s) ayant commencé une émeute en %s !",
+	L"%d prisonnier(s) envoyé(s) en %s !",
 	L"Prisonnier(s) libéré(s) !",
 	L"L'armée a délivré la prison en %s et les prisonniers ont été libérés !",
 	L"L'ennemi refuse de se rendre !",
