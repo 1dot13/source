@@ -1435,18 +1435,19 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	FilenameForBPP("INTERFACE\\inventory_figure_female_H.sti", VObjectDesc.ImageFile);
 	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 3 ][ 1 ] ) ) );
 
-	// Kaiden: Vehicle Inventory change - Added two new STI's for Vehicle Inventory
-	// Feel free to change them to more appropriate pictures, I just blanked out
-	// the body image for now, I'm no graphics artist.
-	//VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	//FilenameForBPP("INTERFACE\\inventory_figure_Vehicle.sti",
-	//VObjectDesc.ImageFile);
-	//CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 0 ] ) ) );
+	if(UsingNewInventorySystem() == false)
+	{
+		// Kaiden: Vehicle Inventory change - Added two new STI's for Vehicle Inventory
+		// Feel free to change them to more appropriate pictures, I just blanked out
+		// the body image for now, I'm no graphics artist.
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\inventory_figure_Vehicle.sti", VObjectDesc.ImageFile);
+		CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 0 ] ) ) );
 
-	//VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	//FilenameForBPP("INTERFACE\\inventory_figure_Vehicle_h.sti",
-	//VObjectDesc.ImageFile);
-	//CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 1 ] ) ) );
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\inventory_figure_Vehicle_h.sti", VObjectDesc.ImageFile);
+		CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 1 ] ) ) );
+	}
 
 	// add gold key graphic
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -1580,12 +1581,17 @@ void ShutdownInvSlotInterface( )
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 0 ] );
-	//DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 0 ] );
+	
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 0 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 1 ] );
-	//DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
+	
+	if(UsingNewInventorySystem() == false)
+	{
+		DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 0 ] );
+		DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
+	}
 
 	DeleteVideoObjectFromIndex( guiGoldKeyVO );
 
@@ -1615,9 +1621,9 @@ void RenderInvBodyPanel( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 
 	// Kaiden: Vehicle Inventory change - Added IF Test, Else function call was
 	// the original statement
-	if ( (gGameExternalOptions.fVehicleInventory) && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+	if ( (gGameExternalOptions.fVehicleInventory) && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == false )
 	{
-		//BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[4][0], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[4][bSubImageIndex], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 	else
 	{

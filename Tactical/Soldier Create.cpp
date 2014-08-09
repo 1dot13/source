@@ -3837,7 +3837,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 				//only npcs can have money
 				fRet = CreateMoney(pProfile->uiMoney, &gTempObject );
 				if(fRet)
-					PlaceInAnySlot(pSoldier, &gTempObject, true);
+					AutoPlaceObject(pSoldier, &gTempObject, true);
 			}
 		}
 	}

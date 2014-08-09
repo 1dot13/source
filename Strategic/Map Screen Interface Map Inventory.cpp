@@ -2274,6 +2274,7 @@ void DestroyStash( void )
 void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 {
 	BOOLEAN fOk = FALSE;
+	BOOLEAN fShift = FALSE;
 	BOOLEAN fSELLALL = gGameExternalOptions.fSellAll;
 
 	// If not null return
@@ -2288,6 +2289,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 	{
 		// Remove all from soldier's slot
 		fOk = (0 == pInventorySlot->MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT));
+		fShift = TRUE;
 	}
 	else
 	{
@@ -2306,69 +2308,108 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 		if ( _KeyDown ( CTRL ))//MM: Pass item to selected merc.  Delete if none selected.
 		{
 			SOLDIERTYPE *pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
-			bool placedObject = false;
+			bool placedAllObjects = false;
 
 			if(pSoldier->exists() == true)
 			{
+				UINT8 ubInitialNumberOfObjects = gpItemPointer->ubNumberOfObjects;
+
+				/* // commented for item compare feature for easy autoplace of multiple items
 				if (InItemDescriptionBox( ))
-				{
-					DeleteItemDescriptionBox();
-				}
+					DeleteItemDescriptionBox();*/
+
+				if (!fShowInventoryFlag)
+					fShowInventoryFlag = TRUE;
 				
 				if(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
 				{
-					for(int x = 0; x<NUM_INV_SLOTS-1; x++)
+					// try to STACK the item in all existing slots
+					for(int x = 0; x<NUM_INV_SLOTS; x++)
 					{
 						if(vehicleInv[x] == FALSE)
 							continue;
 
-						if(pSoldier->inv[x].exists() == true)
+						if(pSoldier->inv[x].usItem == gpItemPointer->usItem)
 						{
-							if(pSoldier->inv[x].usItem == gpItemPointer->usItem)
+							if(TryToStackInSlot(pSoldier, gpItemPointer, x) == true)
 							{
-								pSoldier->inv[x].AddObjectsToStack(*gpItemPointer, gpItemPointer->ubNumberOfObjects, pSoldier, x);
-								placedObject = true;
-								break;
+									placedAllObjects = true;
+									break;
 							}
+							else
+									continue;
 						}
-						else
+					}
+
+					// else place item in an empty slot
+					if(gpItemPointer->ubNumberOfObjects == ubInitialNumberOfObjects)
+					{
+						for(int x = 0; x<NUM_INV_SLOTS; x++)
 						{
-							gpItemPointer->MoveThisObjectTo(pSoldier->inv[x], gpItemPointer->ubNumberOfObjects, pSoldier, x);
-							placedObject = true;
-							break;
+							if(vehicleInv[x] == FALSE)
+								continue;
+
+							if(pSoldier->inv[x].exists() == false)
+							{
+								gpItemPointer->MoveThisObjectTo(pSoldier->inv[x], gpItemPointer->ubNumberOfObjects, pSoldier, x);
+								
+								if(gpItemPointer->ubNumberOfObjects == 0)
+								{								
+									placedAllObjects = true;
+									break;
+								}
+								// vehicle slots holds less items than sector inventory slots
+								else if(gpItemPointer->ubNumberOfObjects < ubInitialNumberOfObjects)
+									break;
+							}
 						}
 					}
 				}
 				else
 				{
-					if (AutoPlaceObject(pSoldier,gpItemPointer,FALSE)) //doesn't work for vehicles :p
-						placedObject = true;
+					if (AutoPlaceObject(pSoldier,gpItemPointer,FALSE,NO_SLOT,TRUE)) //doesn't work for vehicles :p
+						if(gpItemPointer->ubNumberOfObjects == 0)
+							placedAllObjects = true;
 				}
 
-				if (placedObject)
+				if (placedAllObjects)
 				{
-					fShowInventoryFlag = true;
+					fShowInventoryFlag = TRUE;
 					fTeamPanelDirty = TRUE;
 					fInterfacePanelDirty = DIRTYLEVEL2;
 					fMapInventoryItem = FALSE;
 					gpItemPointer = NULL;
 				}
-				else // can't seem to get the code to just leave the item alone after it's been clicked on, so just pick it up...
+				else 
 				{
-					gpItemPointerSoldier = NULL;
-
-					// now set the cursor
-					guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-					gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
-
-					fMapInventoryItem = TRUE;
-					MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
-					SetCurrentCursorFromDatabase( EXTERN_CURSOR );
-
-					if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
+					// return leftover items back to original slot after autoplace
+					if (fShift && gpItemPointer->ubNumberOfObjects < ubInitialNumberOfObjects)
 					{
-						ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+						gpItemPointer->MoveThisObjectTo(*pInventorySlot);
+
+						fShowInventoryFlag = TRUE;
 						fTeamPanelDirty = TRUE;
+						fInterfacePanelDirty = DIRTYLEVEL2;
+						fMapInventoryItem = FALSE;
+						gpItemPointer = NULL;
+					}
+					else // pick item up to indicate no more room for autoplace
+					{
+						gpItemPointerSoldier = NULL;
+
+						// now set the cursor
+						guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
+						gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
+
+						fMapInventoryItem = TRUE;
+						MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
+						SetCurrentCursorFromDatabase( EXTERN_CURSOR );
+
+						if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
+						{
+							ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+							fTeamPanelDirty = TRUE;
+						}
 					}
 				}
 			}
