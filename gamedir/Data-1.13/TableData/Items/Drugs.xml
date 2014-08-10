@@ -16,6 +16,8 @@ You can now select several drug components and build your own drugs from them.
 	determines how fast the sideeffect will wear out.
 <ubMoralBacklash>
 	determines if there will be a morale drop once the <ubDrugEffect> hits 0.
+<ubDiseaseCure>
+  cures the amount of an outbreak of disease x - 1
 	
 How do you make a drug?
 - Simply create a new Item in the Items.xml with the following values set:
@@ -52,7 +54,7 @@ How do you make a drug?
 You can combine "mix" different drug effects.
 For example, the new drug 'Occulin' has a <DrugType>425984</DrugType>. This gives it the effects of DRUG_BLIND, DRUG_VISION and DRUG_TUNNELVISION. I've set the effects so that
 	- once you take the drug, your sight range increases 10%
-	- once the side effect starts, your sight range is lowered 10% nad you get up to 25% tunnelvison
+	- once the side effect starts, your sight range is lowered 10% and you get up to 25% tunnelvison
 	- once that is over, you are blinded for 2 turns
 
 You can test the drug effect in game by showing the vision range of your merc. You will also notice icons on the merc portraits for different drug effects.
@@ -72,6 +74,7 @@ Note: The regeneration drug has no entries - that is intended, because this effe
 		<ubDrugSideEffect>0</ubDrugSideEffect>
 		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
 		<ubMoralBacklash>0</ubMoralBacklash>
+		<ubDiseaseCure>0</ubDiseaseCure>
 	</DRUG>
 	<DRUG>
 		<ubType>1</ubType>
@@ -292,5 +295,38 @@ Note: The regeneration drug has no entries - that is intended, because this effe
 		<ubDrugSideEffect>0</ubDrugSideEffect>
 		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
 		<ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+		<ubType>23</ubType>
+		<name>Plague cure</name>
+		<ubDrugTravelRate>10</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>10</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
+		<ubDiseaseCure>1</ubDiseaseCure>
+	</DRUG>
+	<DRUG>
+		<ubType>24</ubType>
+		<name>Tetanus cure</name>
+		<ubDrugTravelRate>10</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>10</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
+		<ubDiseaseCure>4</ubDiseaseCure>
+	</DRUG>
+	<DRUG>
+		<ubType>25</ubType>
+		<name>Cholera cure</name>
+		<ubDrugTravelRate>10</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>10</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
+		<ubDiseaseCure>6</ubDiseaseCure>
 	</DRUG>
 </DRUGSLIST>

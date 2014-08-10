@@ -350,4 +350,13 @@
 		<bMoraleMod>1</bMoraleMod>
 		<usDecayRate>1.5</usDecayRate>
 	</FOOD>
+	<FOOD>
+		<uiIndex>39</uiIndex>
+		<szName>Medical</szName>
+		<bFoodPoints>1</bFoodPoints>
+		<bDrinkPoints>0</bDrinkPoints>
+		<ubPortionSize>5</ubPortionSize>
+		<bMoraleMod>0</bMoraleMod>
+		<usDecayRate>0.0</usDecayRate>
+	</FOOD>
 </FOODSLIST>

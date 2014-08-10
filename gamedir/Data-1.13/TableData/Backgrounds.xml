@@ -48,6 +48,7 @@
 		<resistance_suppression>0</resistance_suppression>
 		<resistance_physical>0</resistance_physical>
 		<resistance_alcohol>0</resistance_alcohol>
+		<resistance_disease>0</resistance_disease>
 
 		<!--various boni-->
 		<interrogation>0</interrogation>                  <!-- +- prisoner interrogation strength, -50 to 300 -->
@@ -81,6 +82,8 @@
     <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
     <insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
     <spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
+    <disease_diagnose>0</disease_diagnose>            <!-- +- % effectiveness on diagnosing disease, -50 to 50 -->
+    <disease_treatment>0</disease_treatment>          <!-- +- % effectiveness on treating civilians against disease, -50 to 50 -->
     
     <dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -775,6 +778,7 @@
 		<szDescription>Living in the Urban jungle for quite a few years surely has its merits.</szDescription>
 		<ap_urban>5</ap_urban>
 		<resistance_poison>15</resistance_poison>
+		<resistance_disease>15</resistance_disease>
 		<speed_run>10</speed_run>
 		<meleedamage>2</meleedamage>
 		<cth_blades>2</cth_blades>
@@ -889,6 +893,8 @@
 		<speed_bandaging>9</speed_bandaging>
 		<food>-10</food>
 		<approach_friendly>5</approach_friendly>
+		<disease_diagnose>30</disease_diagnose>
+		<disease_treatment>25</disease_treatment>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -939,6 +945,7 @@
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
 		<resistance_poison>17</resistance_poison>
+		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
 		<no_male>1</no_male>
@@ -1272,7 +1279,7 @@
 		<szName>Teenager</szName>
 		<szShortName>Teenager</szShortName>
 		<szDescription>So much angst.</szDescription>
-		<resistance_poison>-10</resistance_poison>
+		<resistance_disease>-10</resistance_disease>
 		<resistance_alcohol>-10</resistance_alcohol>
 		<carrystrength>-20</carrystrength>
 		<capitulation>-20</capitulation>
@@ -1353,6 +1360,7 @@
 		<travel_foot>3</travel_foot>
 		<resistance_poison>15</resistance_poison>
 		<resistance_alcohol>20</resistance_alcohol>
+		<resistance_disease>10</resistance_disease>
 		<carrystrength>4</carrystrength>
 		<stealth>6</stealth>
 		<cth_vs_creatures>15</cth_vs_creatures>
@@ -1552,6 +1560,7 @@
 		<resistance_suppression>-20</resistance_suppression>
 		<resistance_physical>-20</resistance_physical>
 		<resistance_alcohol>-20</resistance_alcohol>
+		<resistance_disease>-20</resistance_disease>
 		<speed_run>-20</speed_run>
 		<carrystrength>-50</carrystrength>
 		<capitulation>-50</capitulation>
@@ -2341,6 +2350,7 @@
 		<approach_friendly>-5</approach_friendly>
 		<approach_threaten>10</approach_threaten>
 		<resistance_poison>20</resistance_poison>
+		<resistance_disease>-10</resistance_disease>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2498,6 +2508,7 @@
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
 		<resistance_poison>17</resistance_poison>
+		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
 		<no_male>1</no_male>
@@ -2514,6 +2525,7 @@
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
 		<resistance_poison>17</resistance_poison>
+		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
 		<no_male>1</no_male>
@@ -2529,6 +2541,7 @@
 		<ap_tropical>3</ap_tropical>
 		<medical>10</medical>
 		<resistance_poison>17</resistance_poison>
+		<resistance_disease>30</resistance_disease>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2836,6 +2849,7 @@
 		<medical>3</medical>
 		<resistance_poison>10</resistance_poison>
 		<resistance_fear>-10</resistance_fear>
+		<resistance_disease>-20</resistance_disease>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2926,6 +2940,7 @@
 		<szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
 		<resistance_poison>5</resistance_poison>
 		<resistance_physical>2</resistance_physical>
+		<resistance_disease>5</resistance_disease>
 		<meleedamage>2</meleedamage>
 		<scrounging>1</scrounging>
 		<no_male>1</no_male>
@@ -3238,6 +3253,7 @@
     <szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
     <resistance_poison>5</resistance_poison>
     <resistance_physical>2</resistance_physical>
+    <resistance_disease>5</resistance_disease>
     <meleedamage>2</meleedamage>
   </BACKGROUND>
   <BACKGROUND>
@@ -3643,6 +3659,7 @@
    <medical>3</medical>
    <resistance_poison>10</resistance_poison>
    <resistance_fear>-10</resistance_fear>
+   <resistance_disease>-20</resistance_disease>
   </BACKGROUND>
   <BACKGROUND>
    <uiIndex>304</uiIndex>
@@ -3758,7 +3775,7 @@
    <spotter>30</spotter>
   </BACKGROUND>
   <BACKGROUND>
-   <uiIndex>315</uiIndex>
+    <uiIndex>315</uiIndex>
 		<szName>Bomb Disposal Unit</szName>
 		<szShortName>BDU</szShortName>
 		<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
@@ -3767,5 +3784,19 @@
 		<breachingcharge>15</breachingcharge>
 		<insurance>50</insurance>
 		<disarm_trap>40</disarm_trap>
+	</BACKGROUND>
+	<BACKGROUND>
+    <uiIndex>316</uiIndex>
+		<szName>Aid worker</szName>
+		<szShortName>Aid worker</szShortName>
+		<szDescription>You've been in much, MUCH worse situations for several well-known aid organisations.</szDescription>
+		<medical>2</medical>
+		<leadership>2</leadership>
+		<resistance_disease>10</resistance_disease>
+		<food>-5</food>                                    <!-- +- % need for food, -50 to 100 -->
+		<approach_friendly>5</approach_friendly>
+		<approach_direct>5</approach_direct>
+		<disease_diagnose>30</disease_diagnose>
+    <disease_treatment>25</disease_treatment>
 	</BACKGROUND>
 </BACKGROUNDS>

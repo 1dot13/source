@@ -184,6 +184,8 @@
 		<buddyitem>0</buddyitem>
 		<SleepModifier>0</SleepModifier>
 		<usSpotting>0</usSpotting>
+		<diseaseprotectionface>0</diseaseprotectionface>
+		<diseaseprotectionhand>0</diseaseprotectionhand>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -6571,6 +6573,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GasMask>1</GasMask>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<diseaseprotectionface>1</diseaseprotectionface>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51292,6 +51295,121 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>6</BR_UsedInventory>
 		<SleepModifier>20</SleepModifier>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1710</uiIndex>
+		<szItemName>Surgical mask</szItemName>
+		<szLongItemName>Surgical mask</szLongItemName>
+		<szItemDesc>This simple mask protects you somewhat from infection by airborne diseases.</szItemDesc>
+		<szBRName>Surgical mask</szBRName>
+		<szBRDesc>If you are doctor or live in an asian megacity, you will need these.</szBRDesc>
+		<usItemClass>32768</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>224</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<BR_NewInventory>20</BR_NewInventory>
+		<diseaseprotectionface>1</diseaseprotectionface>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1711</uiIndex>
+		<szItemName>Surgical gloves</szItemName>
+		<szLongItemName>Surgical gloves</szLongItemName>
+		<szItemDesc>These simple gloves protect you from infection by contact with infected persons.</szItemDesc>
+		<szBRName>Surgical gloves</szBRName>
+		<szBRDesc>Useful for doctors. Not useful in snow.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>225</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<BR_NewInventory>20</BR_NewInventory>
+		<diseaseprotectionhand>1</diseaseprotectionhand>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1712</uiIndex>
+		<szItemName>Plague medicine</szItemName>
+		<szLongItemName>Plague medicine</szLongItemName>
+		<szItemDesc>It may look unimportant, but this little pill can cure the plague. Who would've thought that possible?</szItemDesc>
+		<szBRName>Plague medicine</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>122</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>400</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Medical>1</Medical>
+		<DrugType>4194304</DrugType>
+		<FoodType>39</FoodType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1713</uiIndex>
+		<szItemName>Tetanus medicine</szItemName>
+		<szLongItemName>Tetanus medicine</szLongItemName>
+		<szItemDesc>This injection cures tetanus. Might sting a bit.</szItemDesc>
+		<szBRName>Tetanus medicine</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>300</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Damageable>1</Damageable>
+		<Medical>1</Medical>
+		<DrugType>8388608</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1714</uiIndex>
+		<szItemName>Cholera medicine</szItemName>
+		<szLongItemName>Cholera medicine</szLongItemName>
+		<szItemDesc>A cure for cholera.</szItemDesc>
+		<szBRName>Cholera medicine</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>500</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Medical>1</Medical>
+		<DrugType>16777216</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
