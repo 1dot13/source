@@ -6410,7 +6410,9 @@
 		<PercentTunnelVision>90</PercentTunnelVision>
 		<ScopeMagFactor>10.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>3</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -22607,7 +22609,9 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -22895,7 +22899,6 @@
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
-			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -22943,7 +22946,6 @@
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
-			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31071,7 +31073,9 @@
 		<PercentTunnelVision>30</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -31113,7 +31117,9 @@
 		<PercentTunnelVision>80</PercentTunnelVision>
 		<ScopeMagFactor>8.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>2</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -31265,9 +31271,7 @@
 		<AttachmentSystem>1</AttachmentSystem>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS>
-			<AimLevels>-1</AimLevels>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -31384,7 +31388,9 @@
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<ScopeMagFactor>7.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>2</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -32078,7 +32084,9 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -37046,7 +37054,9 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>5.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>2</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -37084,7 +37094,9 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -37122,7 +37134,9 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -37287,7 +37301,6 @@
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
-			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
