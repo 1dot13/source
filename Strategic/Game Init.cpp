@@ -487,6 +487,9 @@ void InitStrategicLayer( void )
 	// HEADROCK HAM 4: Initialize Manual Mobile Militia Restrictions.
 	InitManualMobileRestrictions();
 
+	// Flugente: initialize dynamic supply data
+	//InitStrategicSupplies();
+
 	// free up any leave list arrays that were left allocated
 	ShutDownLeaveList( );
 	// re-set up leave list arrays for dismissed mercs

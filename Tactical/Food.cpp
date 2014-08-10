@@ -178,6 +178,10 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 		poisonadd = min(poisonadd, gGameExternalOptions.usFoodMaxPoisoning),
 
 		pSoldier->AddPoison(poisonadd);
+
+		// we might get a disease from this...
+		FLOAT modifier = 1.0f - 2 * foodcondition;
+		HandlePossibleInfection( pSoldier, NULL, type == AP_EAT ? INFECTION_TYPE_BADFOOD : INFECTION_TYPE_BADWATER, modifier );
 	}
 
 	FLOAT conditionmodifier = 0.5f * (1.0f + sqrt(foodcondition));
@@ -236,6 +240,13 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_ATE], pSoldier->GetName(), Item[pObject->usItem].szItemName );
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DRANK], pSoldier->GetName(), Item[pObject->usItem].szItemName );
+
+	// Flugente: if this guy has the disease, infect object
+	if ( pSoldier->sDiseasePoints[0] > 0 )
+		(*pObject)[0]->data.sObjectFlag |= INFECTED;
+	// if object is infected, infect the victim
+	else if ( (*pObject)[0]->data.sObjectFlag & INFECTED )
+		pSoldier->Infect( 0 );
 	
 	// now remove a portion of the food item (or the whole item altogether)
 	UINT16 ptsconsumed = UseKitPoints( pObject, Food[foodtype].ubPortionSize, pSoldier );
@@ -372,8 +383,17 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 
 	FLOAT  temperaturemodifier  = (FLOAT)(3 + sectortemperaturemod)/3;
 	
-	FLOAT specialfoodmodifier  = (100.0 + pSoldier->GetBackgroundValue(BG_PERC_FOOD) ) / 100.0;
-	FLOAT specialdrinkmodifier = (100.0 + pSoldier->GetBackgroundValue(BG_PERC_WATER)) / 100.0;
+	FLOAT specialfoodmodifier  = 100.0 + pSoldier->GetBackgroundValue(BG_PERC_FOOD);
+	FLOAT specialdrinkmodifier = 100.0 + pSoldier->GetBackgroundValue(BG_PERC_WATER);
+
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		specialfoodmodifier  += Disease[i].sFoodModifier  * pSoldier->GetDiseaseMagnitude( i );
+		specialdrinkmodifier += Disease[i].sDrinkModifier * pSoldier->GetDiseaseMagnitude( i );
+	}
+
+	specialfoodmodifier /= 100.0;
+	specialdrinkmodifier /= 100.0;
 	
 	// due to digestion, reduce our food and drink levels
 	pSoldier->bFoodLevel  = max(pSoldier->bFoodLevel  - (INT32) (specialfoodmodifier  * activitymodifier * gGameExternalOptions.usFoodDigestionHourlyBaseFood), FOOD_MIN);

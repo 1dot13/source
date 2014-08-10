@@ -765,10 +765,10 @@ extern OBJECTTYPE gTempObject;
 #define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
 #define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
 
-/*#define SPOTTERITEM				0x10000000	//268435456	// binocular
-#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
-#define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
-#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
+#define SPOTTERITEM				0x10000000	//268435456	// binocular
+#define DISEASEPROTECTION_FACE	0x20000000	//536870912		// this item protects us from getting diseases by human contact if worn in a face slot
+#define DISEASEPROTECTION_HAND	0x40000000	//1073741824	// this item protects us from getting diseases by human contact if kept in inventory
+/*#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: flags for objects --------
@@ -813,10 +813,12 @@ extern OBJECTTYPE gTempObject;
 #define CORPSE_NO_VEST			0x40000000	//1073741824		// corpse has no vest item (it has been either taken or been destroyed)
 #define CORPSE_NO_PANTS			0x80000000	//2147483648		// corpse has no pants item/for tripwire activation (gets set and unset when activating tripwire)
 
-#define TRIPWIRE_ACTIVATED		0x0000000100000000	//		 4294967296
-#define TAKEN_BY_MILITIA		0x0000000200000000	//		 8589934592
+#define TRIPWIRE_ACTIVATED					0x0000000100000000	//		 4294967296
+#define TAKEN_BY_MILITIA					0x0000000200000000	//		 8589934592		// this item was picked up by militia
 #define TAKEN_BY_MILITIA_TABOO_GREEN		0x0000000400000000	//		17179869184		// this item is taboo for green militia (have to reset flag for world item upon dropping it)
 #define TAKEN_BY_MILITIA_TABOO_BLUE			0x0000000800000000	//		34359738368		// this item is taboo for blue militia (have to reset flag for world item upon dropping it)
+
+#define INFECTED							0x0000001000000000	//						// this item is infected with disease 0, getting damaged by this will infect you
 
 // Flugente TODO 2012-09-17: next time we break savegame compatibility, extend the flagmasks from UINT32 to UINT64. I didn't do it this time (see double-used flag above), as we try to minimise those breaks. But it is needed.
 // ----------------------------------------------------------------

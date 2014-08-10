@@ -108,7 +108,7 @@ void ValidateEnemiesHaveWeapons()
 		SOLDIERTYPE *pSoldier;
 		INT32 iNumInvalid = 0;
 
-		for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; i++ )
+		for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++i )
 		{
 			pSoldier = MercPtrs[ i ];
 			if( !pSoldier->bActive || !pSoldier->bInSector )
@@ -116,15 +116,13 @@ void ValidateEnemiesHaveWeapons()
 				continue;
 			}
 
-#ifdef ENABLE_ZOMBIES
 			// Flugente: zombies are fine with having no weapons...
 			if ( pSoldier->IsZombie() )
 				continue;
-#endif
 
 			if( !pSoldier->inv[ HANDPOS ].usItem )
 			{
-				iNumInvalid++;
+				++iNumInvalid;
 			}
 			// WDS DEBUG
 			// Uncommenting the following two lines will cause all the PLACED soldiers to instantly drop dead, 
@@ -552,7 +550,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	GROUP *pGroup;
 	SOLDIERTYPE *pSoldier;
 	unsigned ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
-	unsigned ubTotalAdmins, ubTotalElites, ubTotalTroops, ubTotalTanks;
+	unsigned ubTotalAdmins, ubTotalElites, ubTotalTroops, ubTotalTanks = 0;
 	unsigned totalCountOfStationaryEnemies = 0;
 	unsigned totalCountOfMobileEnemies = 0;
 	int sNumSlots;
@@ -611,9 +609,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{
 					HandleArrivalOfReinforcements( pGroup );
 				}
+
 				pGroup = pGroup->next;
 			}
-
 		}
 
 		ValidateEnemiesHaveWeapons();
@@ -623,8 +621,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	// WDS Count the number of placements.  This will limit the maximum number of enemies we can place on the map
 	SOLDIERINITNODE *curr = gSoldierInitHead;
 	unsigned mapMaximumNumberOfEnemies = 0;
-	while( curr ) {
-		if( curr->pBasicPlacement->bTeam == ENEMY_TEAM ) {
+	while( curr )
+	{
+		if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
+		{
 			++mapMaximumNumberOfEnemies;
 		}
 		curr = curr->next;
@@ -653,8 +653,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		while (totalEnemies < mapMaximumNumberOfEnemies)
 		{
 			// just fill out with standard troops
-			ubTotalTroops++;
-			totalEnemies++;
+			++ubTotalTroops;
+			++totalEnemies;
 		}
 
 		pSector->ubNumAdmins = ubTotalAdmins;
@@ -668,39 +668,38 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 	else
 	{
-
-	if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
-	{ //count the number of enemy placements in a map and use those
-		SOLDIERINITNODE *curr = gSoldierInitHead;
-		ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
-		while( curr )
-		{
-			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
+		if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
+		{ //count the number of enemy placements in a map and use those
+			SOLDIERINITNODE *curr = gSoldierInitHead;
+			ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
+			while( curr )
 			{
-				switch( curr->pBasicPlacement->ubSoldierClass )
+				if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
 				{
-					case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
-					case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
-					case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
+					switch( curr->pBasicPlacement->ubSoldierClass )
+					{
+						case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
+						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
+						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
+					}
 				}
+				curr = curr->next;
 			}
-			curr = curr->next;
+			pSector->ubNumAdmins = ubTotalAdmins;
+			pSector->ubNumTroops = ubTotalTroops;
+			pSector->ubNumElites = ubTotalElites;
+			pSector->ubNumTanks = ubTotalTanks;
+			pSector->ubAdminsInBattle = 0;
+			pSector->ubTroopsInBattle = 0;
+			pSector->ubElitesInBattle = 0;
+			pSector->ubTanksInBattle = 0;
 		}
-		pSector->ubNumAdmins = ubTotalAdmins;
-		pSector->ubNumTroops = ubTotalTroops;
-		pSector->ubNumElites = ubTotalElites;
-		pSector->ubNumTanks = ubTotalTanks;
-		pSector->ubAdminsInBattle = 0;
-		pSector->ubTroopsInBattle = 0;
-		pSector->ubElitesInBattle = 0;
-		pSector->ubTanksInBattle = 0;
-	}
-	else
-	{
-		ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
-		ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
-		ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
-		ubTotalTanks = pSector->ubNumTanks - pSector->ubTanksInBattle;
+		else
+		{
+			ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
+			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
+			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
+			ubTotalTanks = pSector->ubNumTanks - pSector->ubTanksInBattle;
 		}
 	}
 
@@ -726,7 +725,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	pSector->ubElitesInBattle += ubTotalElites;
 	pSector->ubTanksInBattle += ubTotalTanks;
 
-	#ifdef JA2TESTVERSION
+#ifdef JA2TESTVERSION
 	if( gfOverrideSector )
 	{
 		//if there are no troops in the current groups, then we're done.
@@ -736,7 +735,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		ValidateEnemiesHaveWeapons();
 		return TRUE;
 	}
-	#endif
+#endif
 
 	//Search for movement groups that happen to be in the sector.
 	sNumSlots = NumFreeEnemySlots();
@@ -1758,8 +1757,8 @@ void AddPossiblePendingEnemiesToBattle()
 			// The group has no movement orders.  Where did it come from?
 			Assert(0);
 		}
-
-		if( pGroup->pEnemyGroup->ubElitesInBattle < pGroup->pEnemyGroup->ubNumElites )
+		
+		if ( pGroup->pEnemyGroup->ubElitesInBattle < pGroup->pEnemyGroup->ubNumElites )
 		{ //Add an elite troop
 			pGroup->pEnemyGroup->ubElitesInBattle++;
 			ubSlots--;

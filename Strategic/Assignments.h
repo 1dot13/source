@@ -56,7 +56,7 @@ enum
 	VEHICLE,
 	IN_TRANSIT,
 	REPAIR,
-	RADIO_SCAN,						// added by Flugente
+	RADIO_SCAN,						// added by Flugente: a radio operators scans for enemy patrols in nearby sectors
 	TRAIN_SELF,
 	TRAIN_TOWN,
 	TRAIN_MOBILE,					// HEADROCK HAM 3.6: Training mobile militia.
@@ -79,6 +79,8 @@ enum
 	SNITCH_SPREAD_PROPAGANDA,
 	SNITCH_GATHER_RUMOURS,
 	FACILITY_STRATEGIC_MILITIA_MOVEMENT,	// Flugente: merc staffs a military HQ, we can now control militia movement on the map
+	DISEASE_DIAGNOSE,				// Flugente: check for diseases among mercs and local population
+	DISEASE_DOCTOR_SECTOR,			// Flugente: treatpopulation (all non-mercs in the sector) against disease
 	NUM_ASSIGNMENTS,
 };
 
@@ -141,6 +143,12 @@ typedef struct TOWN_TRAINER_TYPE
 
 // can this character be assigned as a doctor?
 BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pCharacter );
+
+// can this character diagnose diseases?
+BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier );
+
+// can this character treat diseases of the population (NOT mercs)?
+BOOLEAN CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );
@@ -262,6 +270,7 @@ extern INT32 ghVehicleBox;
 extern INT32 ghRepairBox;
 extern INT32 ghTrainingBox;
 extern INT32 ghMoveItemBox;
+extern INT32 ghDiseaseBox;
 extern INT32 ghAttributeBox;
 extern INT32 ghRemoveMercAssignBox;
 extern INT32 ghContractBox;
@@ -296,6 +305,7 @@ extern BOOLEAN fShownContractMenu;
 extern BOOLEAN fShownAssignmentMenu;
 extern BOOLEAN fShowRepairMenu;
 extern BOOLEAN fShowMoveItemMenu;
+extern BOOLEAN fShowDiseaseMenu;
 
 extern BOOLEAN fFirstClickInAssignmentScreenMask;
 
@@ -337,6 +347,11 @@ void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForMoveItemMenu( void );
 void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// Flugente: disease menu
+void CreateDestroyMouseRegionForDiseaseMenu( void );
+void DiseaseMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason );
+void DiseaseMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // HEADROCK HAM 3.6: Facility Menu
 void CreateDestroyMouseRegionForFacilityMenu( void );

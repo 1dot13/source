@@ -255,6 +255,9 @@
     <ClInclude Include="DynamicDialogueWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WHO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -519,6 +522,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DynamicDialogueWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WHO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

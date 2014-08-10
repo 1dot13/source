@@ -1865,6 +1865,8 @@ STR16 pAssignmentStrings[] =
 	L"Propag.",	// spread propaganda
 	L"Rumours",	// gather information
 	L"Command",	// militia movement orders
+	L"Diagnose", // disease diagnosis
+	L"Treat D.", // treat disease among the population
 };
 
 
@@ -1961,6 +1963,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Spreading Propaganda",	// spread propaganda
 	L"Gathering Rumours",			// gather information
 	L"Commanding Militia",	// militia movement orders
+	L"Diagnose", // disease diagnosis
+	L"Treat Population disease", // treat disease among the population
 };
 
 
@@ -2016,6 +2020,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Spread Propaganda",	// spread propaganda
 	L"Gather Rumours",			// gather information
 	L"Commanding Militia",	// militia movement orders
+	L"Diagnose", // disease diagnosis
+	L"Treat Population disease", // treat disease among the population
 };
 
 
@@ -2128,6 +2134,7 @@ STR16 pAssignMenuStrings[] =
 {
 	L"On Duty", // merc is on active duty
 	L"Doctor", // the merc is acting as a doctor
+	L"Disease", // merc is a doctor doing diagnosis
 	L"Patient", // the merc is receiving medical attention
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
@@ -3657,6 +3664,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Show |Items",
 	L"Show Militia & Enemies (|Z)",
 	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"Show Disease Data",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -3888,6 +3896,7 @@ STR16 pTransactionText[] =
 	L"Facility Use", // HEADROCK HAM 3.6
 	L"Militia upkeep", // HEADROCK HAM 3.6
 	L"Ransom for released prisoners",	// Flugente: prisoner system
+	L"WHO data subscription",	// Flugente: disease
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4328,6 +4337,7 @@ STR16 pBookMarkStrings[] =
 	L"Briefing Room",
 	L"Campaign History",
 	L"MeLoDY",
+	L"WHO",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4444,6 +4454,9 @@ STR16 pWebPagesTitles[] =
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
 	L"Mercs Love or Dislike You - About us",
+	L"WHO - About WHO",
+	L"WHO - Disease in Arulco",
+	L"WHO - Helpful Tips",
 	L"Bobby Ray's - Recent Shipments",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -5505,6 +5518,9 @@ STR16		zMarksMapScreenText[] =
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"You currently have no Mobile Militia. Return to this view mode once you've recruited some.",
 	L"This view shows where your Mobile Militia can and cannot go. GREY = Mobile Militia refuse to go here. RED = Mobile Militia can go here, but you've told them not to. YELLOW = Mobile Militia can enter this sector, but not leave. GREEN = Mobile Militia can go here freely. Right click a Green/Yellow sector to cycle its behavior.",
+
+	// Flugente: disease texts describing what a map view does
+	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 };
 
 
@@ -6232,6 +6248,7 @@ STR16 gzLaptopHelpText[] =
 	L"Briefing Room",
 	L"Campaign History",
 	L"Mercenaries Love or Dislike You",
+	L"World Health Organization",
 };
 
 
@@ -7617,40 +7634,42 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|n|t|i|-|T|a|n|k |A|m|m|o",
 	L"|I|g|n|o|r|e|s |A|r|m|o|r",
 	L"|A|c|i|d|i|c |A|m|m|o",
-	L"|L|o|c|k|-|B|u|s|t|i|n|g |A|m|m|o",
+	L"|L|o|c|k|-|B|u|s|t|i|n|g |A|m|m|o",		// 4
 	L"|R|e|s|i|s|t|a|n|t |t|o |E|x|p|l|o|s|i|v|e|s",
 	L"|W|a|t|e|r|p|r|o|o|f",
 	L"|E|l|e|c|t|r|o|n|i|c",
 	L"|G|a|s |M|a|s|k",
-	L"|N|e|e|d|s |B|a|t|t|e|r|i|e|s",
+	L"|N|e|e|d|s |B|a|t|t|e|r|i|e|s",			// 9
 	L"|C|a|n |P|i|c|k |L|o|c|k|s",
 	L"|C|a|n |C|u|t |W|i|r|e|s",
 	L"|C|a|n |S|m|a|s|h |L|o|c|k|s",
 	L"|M|e|t|a|l |D|e|t|e|c|t|o|r",
-	L"|R|e|m|o|t|e |T|r|i|g|g|e|r",
+	L"|R|e|m|o|t|e |T|r|i|g|g|e|r",				// 14
 	L"|R|e|m|o|t|e |D|e|t|o|n|a|t|o|r",
 	L"|T|i|m|e|r |D|e|t|o|n|a|t|o|r",
 	L"|C|o|n|t|a|i|n|s |G|a|s|o|l|i|n|e",
 	L"|T|o|o|l |K|i|t",
-	L"|T|h|e|r|m|a|l |O|p|t|i|c|s",
+	L"|T|h|e|r|m|a|l |O|p|t|i|c|s",				// 19
 	L"|X|-|R|a|y |D|e|v|i|c|e",
 	L"|C|o|n|t|a|i|n|s |D|r|i|n|k|i|n|g |W|a|t|e|r",
 	L"|C|o|n|t|a|i|n|s |A|l|c|o|h|o|l",
 	L"|F|i|r|s|t |A|i|d |K|i|t",
-	L"|M|e|d|i|c|a|l |K|i|t",
+	L"|M|e|d|i|c|a|l |K|i|t",					// 24
 	L"|L|o|c|k |B|o|m|b",
 	L"|D|r|i|n|k",
 	L"|M|e|a|l",
 	L"|A|m|m|o |B|e|l|t",
-	L"|A|m|m|o |V|e|s|t",
+	L"|A|m|m|o |V|e|s|t",						// 29
 	L"|D|e|f|u|s|a|l |K|i|t",
 	L"|C|o|v|e|r|t |I|t|e|m",
 	L"|C|a|n|n|o|t |b|e |d|a|m|a|g|e|d",
 	L"|M|a|d|e |o|f |M|e|t|a|l",
-	L"|S|i|n|k|s",
+	L"|S|i|n|k|s",								// 34
 	L"|T|w|o|-|H|a|n|d|e|d",
 	L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
 	L"|A|n|t|i|-|M|a|t|e|r|i|e|l |A|m|m|o",
+	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
+	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7693,6 +7712,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis item requires both hands to be used.",
 	L"\n \nThis item will block your iron sights\nso you cannot use them.",
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",
+	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
+	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8179,6 +8200,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% suppression resistance\n",
 	L" %s%d%% physical resistance\n",
 	L" %s%d%% alcohol resistance\n",
+	L" %s%d%% disease resistance\n",
 
 	L" %s%d%% interrogation effectiveness\n",
 	L" %s%d%% prison guard strength\n",
@@ -8210,6 +8232,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%% insurance cost\n",
 	L" %s%d%% effectiveness as spotter for fellow snipers\n",
+	L" %s%d%% effectiveness at diagnosing diseases\n",
+	L" %s%d%% effectiveness at treating population against diseases\n",
 
 	L" dislikes some other backgrounds",
 };
@@ -8662,7 +8686,7 @@ STR16	szMercCompareEventText[]=
 	L"%s mounted a gun on me",
 
 	L"%s treated my wounds",
-	L"Had a good drink %s",
+	L"Had a good drink with %s",
 	L"%s is fun to get wasted with",
 	L"%s is annoying when drunk",
 
@@ -8677,6 +8701,45 @@ STR16	szMercCompareEventText[]=
 	L"%s puts people in their places",
 
 	L"%s is way too impulsive",
+	L"%s is disease-ridden",
+	L"%s treated my diseases",
+};
+
+STR16	szWHOWebSite[] =
+{
+	// main page
+	L"World Health Organization",
+	L"Bringing health to life",
+
+	// links to other pages
+	L"About WHO",
+	L"Disease in Arulco",
+	L"About diseases",
+
+	// text on the main page
+	L"WHO is the directing and coordinating authority for health within the United Nations system.",
+	L"It is responsible for providing leadership on global health matters, shaping the health research agenda, setting norms and standards, articulating evidence-based policy options, providing technical support to countries and monitoring and assessing health trends.",
+	L"In the 21st century, health is a shared responsibility, involving equitable access to essential care and collective defence against transnational threats.",
+
+	// contract page
+	L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
+	L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
+	L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
+	L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
+	L"You currently do not have access to WHO data on the arulcan plague.",
+	L"You have acquired detailed maps on the status of the disease.",
+	L"Subscribe to map updates",
+	L"Unsubscribe map updates",
+
+	// helpful tips page
+	L"The arulcan plague is a deadly strain of the plague unique to the small country of Arulco. In a typical outbreak, the first victims get infected by a mosquito in a swamp or tropical sector. These first victims then inadvertently infect the population of nearby cities.",
+	L"You won't immediately notice when you are infected - it might take days for the symptoms to show.",
+	L"You can see the current effects of known diseases your mercs suffer from by hovering over their portrait in the strategic map.",
+	L"Most diseases get worse over time, be sure to assign a doctor as soon as possible.",
+	L"Some diseases can be treated with special medicine. You might find some in a well-equipped drugstore.",
+	L"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
+	L"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
+	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
 };
 
 STR16   szTacticalInventoryDialogString[]=
@@ -8791,6 +8854,8 @@ STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[] =
 	L"Alright alright. Jeez. I'm over it, okay?",
 
 	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
+	L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
+	L"Thanks, $CAUSE$. I'm already feeling better.",
 };
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
@@ -8878,6 +8943,8 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
 	L"Cut it, drama queen.",
 
 	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
+	L"Oh yeah? Back off, before I cough on you!",
+	L"How did you get that in the first place? Did you forget to wash your hands again?",
 };
 
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
@@ -8918,6 +8985,8 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
 	L"As long as it does not happen again.",
 
 	L"The two of us are going to have real problem soon, $VICTIM$.",
+	L"It really is. I... *cough* don't feel so well...",
+	L"No problem, we can't have you running around coughing blood, right? Riiight?",
 };
 
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
@@ -9006,6 +9075,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
 	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
 
 	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
+	L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
+	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
@@ -9046,6 +9117,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
 	L"No reason to be so stiff about it.",
 
 	L"Pfft. Don't make a fuss out of it.",
+	L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
+	L"Where did you get that stuff from in the first place?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
@@ -9086,6 +9159,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
 	L"Yeah, keep it down, will ya?",
 
 	L"Yeah, you won't boss us around anymore!",
+	L"This does look unhealthy. That better not be contagious!",
+	L"Great. Are you sure it's fully treated now?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
@@ -9126,6 +9201,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
 	L"Pah. You're the one making all the fuss about it...",
 
 	L"You are certainly nobodies superior!",
+	L"Stop it!  We don't need more of whatever it is you have!",
+	L"The important thing is that it's gone now... It is, right?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
@@ -9166,6 +9243,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
 	L"Yeah, drop that attitude, $VICTIM$.",
 
 	L"Not sure about that, but yep!",
+	L"Yeah, there's nothing you can do against this stuff, right?",
+	L"I told you pople before... this country a dirty place, so beware of what you touch.",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
@@ -9206,6 +9285,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
 	L"Sigh. More of this?",
 
 	L"Hey. Hey! Both of you, cut it out! What are you doing?",
+	L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
+	L"We have to be careful. The army isn't the only thing that wants us dead.",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
@@ -9246,6 +9327,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
 	L"Sigh. More of this?",
 
 	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
+	L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
+	L"Great. Everything done? Then let's get back to shooting stuff!",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
@@ -9307,6 +9390,24 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"her",
 };
 
+STR16	szDiseaseText[] =
+{
+	L" %s%d%% agility stat\n",
+	L" %s%d%% dexterity stat\n",
+	L" %s%d%% strength stat\n",
+	L" %s%d%% wisdom stat\n",
+	L" %s%d%% effective level\n",
 
+	L" %s%d%% APs\n",
+	L" %s%d maximum breath\n",
+	L" %s%d%% strength to carry items\n",
+	L" %s%2.2f life regeneration/hour\n",
+	L" %s%d need for sleep\n",
+	L" %s%d%% water consumption\n",
+	L" %s%d%% food consumption\n",
+
+	L"%s was diagnosed with %s!",
+	L"%s is cured of %s!",
+};
 
 #endif //ENGLISH

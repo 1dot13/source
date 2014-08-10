@@ -54,7 +54,9 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 				strcmp(name, "ubDrugEffect") == 0 ||
 				strcmp(name, "ubDrugSideEffect") == 0 ||
 				strcmp(name, "ubDrugSideEffectRate") == 0 || 
-				strcmp(name, "ubMoralBacklash") )) 
+				strcmp(name, "ubMoralBacklash" ) == 0 ||
+				strcmp(name, "ubMoralBacklash" ) == 0 ||
+				strcmp(name, "ubDiseaseCure" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -141,6 +143,11 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curDrugs.ubMoralBacklash	= (UINT8) atol(pData->szCharData);
+		}
+		else if ( strcmp( name, "ubDiseaseCure" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDrugs.ubDiseaseCure = (UINT8)atol( pData->szCharData );
 		}
 
 		pData->maxReadDepth--;
@@ -241,6 +248,7 @@ BOOLEAN WriteDrugsStats()
 			FilePrintf(hFile,"\t\t<ubDrugSideEffect>%d</ubDrugSideEffect>\r\n",				Drug[cnt].ubDrugSideEffect	);
 			FilePrintf(hFile,"\t\t<ubDrugSideEffectRate>%d</ubDrugSideEffectRate>\r\n",		Drug[cnt].ubDrugSideEffectRate	);
 			FilePrintf(hFile,"\t\t<ubMoralBacklash>%d</ubMoralBacklash>\r\n",				Drug[cnt].ubMoralBacklash	);
+			FilePrintf(hFile,"\t\t<ubDiseaseCure>%d</ubDiseaseCure>\r\n",					Drug[cnt].ubDiseaseCure );
 
 			FilePrintf(hFile,"\t</DRUG>\r\n");
 		}

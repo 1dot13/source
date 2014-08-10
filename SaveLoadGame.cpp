@@ -494,7 +494,10 @@ typedef struct
 	// Buggler: New global variable that tracks money earned for facility use.
 	INT32 iTotalEarnedForFacilityOperationsToday;
 
-	UINT8		ubFiller[266];		//This structure should be 1588 bytes
+	// Flugente
+	UINT8		fShowStrategicDiseaseFlag;
+
+	UINT8		ubFiller[265];		//This structure should be 1588 bytes
 
 } GENERAL_SAVE_INFO;
 
@@ -2231,7 +2234,28 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			numBytesRead = ReadFieldByField(hFile, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+
+			if ( guiCurrentSaveGameVersion >= DISEASE_SYSTEM )
+			{
+				numBytesRead = ReadFieldByField( hFile, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT32), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->sDiseaseFlag, sizeof(sDiseaseFlag), sizeof(UINT8), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead );
+			}
+			else
+			{
+				buffer += sizeof(sDiseasePoints);
+				while ( (buffer % 4) > 0 )	++buffer;
+				buffer += sizeof(sDiseaseFlag);
+				while ( (buffer % 4) > 0 )	++buffer;
+
+				for ( UINT8 i = 0; i < NUM_DISEASES; ++i )
+				{
+					this->sDiseasePoints[i] = 0;
+					this->sDiseaseFlag[i] = 0;
+				}
+
+				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead );
+			}
 		}
 		else
 		{
@@ -3745,6 +3769,15 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		SaveGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
 	#endif
 
+	/*// Flugente: Save the strategic supply
+	if( !SaveStrategicSupplyToSavedFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic supply");
+		goto FAILED_TO_SAVE;
+	}
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "Strategic Supply" );
+#endif*/
 
 
 
@@ -4885,6 +4918,17 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
 	#endif
+
+	/*// Flugente: Load strategic supply data
+	if( !LoadStrategicSupplyFromSavedFile( hFile ) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicSupplyFromSavedFile failed" ) );
+		FileClose( hFile );
+		return( FALSE );
+	}
+#ifdef JA2BETAVERSION
+	LoadGameFilePosition( FileGetPos( hFile ), "Strategic Supply" );
+#endif*/
 
 #ifdef JA2UB			
 			//JA25 UB
@@ -8305,6 +8349,8 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	
 	sGeneralInfo.sMercArrivalGridNo	= gGameExternalOptions.iInitialMercArrivalLocation;
 	
+	sGeneralInfo.fShowStrategicDiseaseFlag = fShowStrategicDiseaseFlag;
+	
 #ifdef JA2UB		
 	sGeneralInfo.sINITIALHELIGRIDNO[ 0 ] = gGameUBOptions.InitialHeliGridNo[ 0 ];//14947;
 	sGeneralInfo.sINITIALHELIGRIDNO[ 1 ] = gGameUBOptions.InitialHeliGridNo[ 1 ];//15584;//16067;
@@ -8619,6 +8665,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fShowAircraftFlag	= sGeneralInfo.fShowAircraftFlag;
 	fShowTeamFlag			= sGeneralInfo.fShowTeamFlag;
 	fShowMobileRestrictionsFlag = sGeneralInfo.fShowMobileRestrictionsFlag;
+	fShowStrategicDiseaseFlag = sGeneralInfo.fShowStrategicDiseaseFlag;
 
 	fHelicopterAvailable = sGeneralInfo.fHelicopterAvailable;
 

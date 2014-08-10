@@ -399,6 +399,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Disease.h"
+				>
+			</File>
+			<File
 				RelativePath="DisplayCover.h"
 				>
 			</File>
@@ -747,6 +751,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Disease.cpp"
+				>
+			</File>
+			<File
 				RelativePath="DisplayCover.cpp"
 				>
 			</File>
@@ -1068,6 +1076,10 @@
 			</File>
 			<File
 				RelativePath="XML_CompatibleFaceItems.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Disease.cpp"
 				>
 			</File>
 			<File

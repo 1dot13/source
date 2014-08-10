@@ -50,7 +50,12 @@ INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 		iEffStrength = 0;
 	}
 
-	iEffStrength = (iEffStrength * (100 + pSoldier->GetBackgroundValue(BG_STRENGTH))) / 100;
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffStat[INFST_STR] * pSoldier->GetDiseaseMagnitude( i );
+
+	iEffStrength = (iEffStrength * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_STRENGTH ))) / 100;
 
 	// ATE: Make sure at least 2...
 	iEffStrength = __max( iEffStrength, 2 );
@@ -69,7 +74,12 @@ INT16 EffectiveWisdom( SOLDIERTYPE * pSoldier)
 
 	iEffWisdom = EffectStatForBeingDrunk( pSoldier, iEffWisdom );
 
-	iEffWisdom = (iEffWisdom * (100 + pSoldier->GetBackgroundValue(BG_WISDOM))) / 100;
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffStat[INFST_WIS] * pSoldier->GetDiseaseMagnitude( i );
+
+	iEffWisdom = (iEffWisdom * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_WISDOM ))) / 100;
 
 	return( (INT16) iEffWisdom );
 }
@@ -90,7 +100,12 @@ INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 		iEffAgility = (iEffAgility * 100) / pSoldier->sWeightCarriedAtTurnStart;
 	}
 
-	iEffAgility = (iEffAgility * (100 + pSoldier->GetBackgroundValue(BG_AGILITY))) / 100;
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffStat[INFST_AGI] * pSoldier->GetDiseaseMagnitude( i );
+
+	iEffAgility = (iEffAgility * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_AGILITY ))) / 100;
 
 	return( (INT16) iEffAgility );
 }
@@ -196,7 +211,12 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	iEffExpLevel += pSoldier->bExtraExpLevel;
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffStat[INFST_EXP] * pSoldier->GetDiseaseMagnitude( i );
+
+	iEffExpLevel += diseaseeffect + pSoldier->bExtraExpLevel;
 		
 	if (iEffExpLevel > 10)
 	{
@@ -208,10 +228,8 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 		// can't go below 1
 		return( 1 );
 	}
-	else
-	{
-		return( (INT8) iEffExpLevel );
-	}
+
+	return( (INT8) iEffExpLevel );
 }
 
 INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier )
@@ -238,7 +256,12 @@ INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 
 	iEffDexterity = EffectStatForBeingDrunk( pSoldier, iEffDexterity );
 
-	iEffDexterity = (iEffDexterity * (100 + pSoldier->GetBackgroundValue(BG_DEXTERITY))) / 100;
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffStat[INFST_DEX] * pSoldier->GetDiseaseMagnitude( i );
+
+	iEffDexterity = (iEffDexterity * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_DEXTERITY ))) / 100;
 
 	return( (INT16) iEffDexterity );
 }
@@ -458,7 +481,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 
 			// Flugente: backgrounds
-			iSkill += pSoldier->GetBackgroundValue(BG_TRAP_DISARM);
+			iSkill += pSoldier->GetBackgroundValue( BG_PERC_DISARM );
 
 			iSkill = iSkill / 10; // bring the value down to a percentage
 			//JMich_SkillModifiers: Adding a Disarm Trap bonus

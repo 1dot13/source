@@ -7,16 +7,17 @@
 #include "tile animation.h"
 
 
-#define		BULLET_FLAG_CREATURE_SPIT			 0x0001
-#define		BULLET_FLAG_KNIFE							 0x0002
-#define		BULLET_FLAG_MISSILE						 0x0004
-#define		BULLET_FLAG_SMALL_MISSILE			 0x0008
-#define		BULLET_STOPPED								 0x0010
-#define		BULLET_FLAG_TANK_CANNON				 0x0020
-#define		BULLET_FLAG_BUCKSHOT					 0x0040
-#define		BULLET_FLAG_FLAME							 0x0080
-#define		BULLET_FLAG_TRACER							 0x0100
-#define		BULLET_FLAG_ANTIMATERIEL					 0x0200		// Flugente: bullet can destroy structures
+#define		BULLET_FLAG_CREATURE_SPIT			0x0001
+#define		BULLET_FLAG_KNIFE					0x0002
+#define		BULLET_FLAG_MISSILE					0x0004
+#define		BULLET_FLAG_SMALL_MISSILE			0x0008
+#define		BULLET_STOPPED						0x0010
+#define		BULLET_FLAG_TANK_CANNON				0x0020
+#define		BULLET_FLAG_BUCKSHOT				0x0040
+#define		BULLET_FLAG_FLAME					0x0080
+#define		BULLET_FLAG_TRACER					0x0100
+#define		BULLET_FLAG_ANTIMATERIEL			0x0200		// Flugente: bullet can destroy structures
+#define		BULLET_FLAG_INFECTED				0x0400		// Flugente: bullet is infected
 
 //afp-start calculate line points between two point
 #define BULLET_TRACER_MAX_LENGTH 60

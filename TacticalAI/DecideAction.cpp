@@ -700,11 +700,9 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	STR16 tempstr;
 #endif
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: to prevent an accidental call
 	if ( pSoldier->IsZombie() )
 		return( ZombieDecideActionGreen(pSoldier) );
-#endif
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
 
@@ -1543,11 +1541,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	STR16 tempstr;
 #endif
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: to prevent an accidental call
 	if ( pSoldier->IsZombie() )
 		return( ZombieDecideActionYellow(pSoldier) );
-#endif
 
 	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
@@ -2422,11 +2418,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		(pSoldier->aiData.bNeutral && gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] == CIV_GROUP_NEUTRAL) ||
 		(pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: to prevent an accidental call
 	if ( pSoldier->IsZombie() )
 		return( ZombieDecideActionRed(pSoldier, ubUnconsciousOK) );
-#endif
 
 	// WANNE: Headrock informed me that I should remove that because it needs a lot of CPU!
 	// HEADROCK HAM B2.7: Calculate the overall tactical situation
@@ -4353,11 +4347,9 @@ INT16 ubMinAPCost;
 #endif
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: to prevent an accidental call
 	if ( pSoldier->IsZombie() )
 		return( ZombieDecideActionBlack(pSoldier) );
-#endif
 
 	ATTACKTYPE BestShot, BestThrow, BestStab ,BestAttack;//dnl ch69 150913
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );

@@ -1243,11 +1243,14 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	case OPINIONEVENT_AGAINST_US:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_AGAINST_US;	break;
 	case OPINIONEVENT_FOR_US:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_FOR_US;	break;
 	case OPINIONEVENT_AGAINST_ENEMY:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] |= OPINIONFLAG_STAGE1_AGAINST_ENEMY;	break;
+
 	case OPINIONEVENT_FOR_ENEMY:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_FOR_ENEMY;	break;
 	case OPINIONEVENT_SOLVECONFLICT_REASON_GOOD:	gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_SOLVECONFLICT_REASON_GOOD;	break;
 	case OPINIONEVENT_SOLVECONFLICT_REASON_BAD:		gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_SOLVECONFLICT_REASON_BAD;	break;
 	case OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD:gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_GOOD;	break;
 	case OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD:	gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_BAD;	break;
+	case OPINIONEVENT_DISEASE_DISGUSTING:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_DISEASE_DISGUSTING;	break;
+	case OPINIONEVENT_DISEASE_TREATMENT:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_DISEASE_TREATMENT;	break;
 
 	default:		break;
 	}
@@ -1321,88 +1324,6 @@ INT8 GetDynamicOpinionDay( UINT8 usProfileA, UINT8 usProfileB, UINT8 usDay )
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][mask] & flag << usDay )
 			opinion += gDynamicOpinionEvent[event].sOpinionModifier;
 	}
-
-	/*if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_FRIENDLYFIRE << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_FRIENDLYFIRE].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_SNITCHSOLDMEOUT << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_SNITCHSOLDMEOUT].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_INTERFERENCE << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_SNITCHINTERFERENCE].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_FRIENDSWITHHATED << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_FRIENDSWITHHATED].sOpinionModifier;
-
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_CONTRACTEXTENSION << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_CONTRACTEXTENSION].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_ORDEREDRETREAT << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_ORDEREDRETREAT].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_CIVKILLER << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_CIVKILLER].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][0] & OPINIONFLAG_STAGE1_SLOWSUSDOWN << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_SLOWSUSDOWN].sOpinionModifier;
-
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_NOSHARINGFOOD << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_NOSHARINGFOOD].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_ANNOYINGDISABILITY << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_ANNOYINGDISABILITY].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_ADDICT << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_ADDICT].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_THIEF << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_THIEF].sOpinionModifier;
-
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_WORSTCOMMANDEREVER << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_WORSTCOMMANDEREVER].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_RICHGUY << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_RICHGUY].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_BETTERGEAR << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_BETTERGEAR].sOpinionModifier;
-	if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][1] & OPINIONFLAG_STAGE1_YOUMOUNTEDAGUNONMYBREASTS << usDay )	opinion += gDynamicOpinionEvent[OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS].sOpinionModifier;
-
-	
-	
-
-	case OPINIONEVENT_BANDAGED:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_BANDAGED << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_GOOD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_GOOD << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_SUPER:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_SUPER << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_BAD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_BAD << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_WORSE:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_DRINKBUDDIES_WORSE << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_AGAINST_US:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_AGAINST_US << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_FOR_US:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_FOR_US << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_AGAINST_ENEMY:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][2] & OPINIONFLAG_STAGE1_AGAINST_ENEMY << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_FOR_ENEMY:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_FOR_ENEMY << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_SOLVECONFLICT_REASON_GOOD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_SOLVECONFLICT_REASON_GOOD << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_SOLVECONFLICT_REASON_BAD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_SOLVECONFLICT_REASON_BAD << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_GOOD << usDay )	++numflags;
-		break;
-
-	case OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD:
-		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_BAD << usDay )	++numflags;
-		break;
-
-	default:
-		break;
-	}
-
-	// event opinion is number of times this happened times opinion modifer
-	opinion = numflags * gDynamicOpinionEvent[usEvent].sOpinionModifier;*/
 
 	// cut it down to INT8
 	return (INT8)opinion;
@@ -1624,6 +1545,20 @@ INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE2_SOLVECONFLICT_AGGRESSIVE_BAD )	++numflags;
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE3_SOLVECONFLICT_AGGRESSIVE_BAD )	++numflags;
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE4_SOLVECONFLICT_AGGRESSIVE_BAD )	++numflags;
+		break;
+
+	case OPINIONEVENT_DISEASE_DISGUSTING:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_DISEASE_DISGUSTING )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE2_DISEASE_DISGUSTING )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE3_DISEASE_DISGUSTING )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE4_DISEASE_DISGUSTING )	++numflags;
+		break;
+
+	case OPINIONEVENT_DISEASE_TREATMENT:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_DISEASE_TREATMENT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE2_DISEASE_TREATMENT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE3_DISEASE_TREATMENT )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE4_DISEASE_TREATMENT )	++numflags;
 		break;
 
 	default:
@@ -2005,14 +1940,14 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 	switch ( usEvent )
 	{
 	case OPINIONEVENT_CONTRACTEXTENSION:
-		break;
-
 	case OPINIONEVENT_ORDEREDRETREAT:
 	case OPINIONEVENT_CIVKILLER:
 	case OPINIONEVENT_ANNOYINGDISABILITY:
 	case OPINIONEVENT_ADDICT:
 	case OPINIONEVENT_THIEF:
 	case OPINIONEVENT_WORSTCOMMANDEREVER:
+	case OPINIONEVENT_DISEASE_DISGUSTING:
+	case OPINIONEVENT_DISEASE_TREATMENT:
 		break;
 
 	case OPINIONEVENT_SLOWSUSDOWN:
@@ -2044,12 +1979,6 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 
 	case OPINIONEVENT_BETTERGEAR:
 		highestcoolness = HighestInventoryCoolness( pSoldier );
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_GOOD:
-		break;
-
-	case OPINIONEVENT_DRINKBUDDIES_BAD:
 		break;
 
 	default:
@@ -2161,6 +2090,15 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				break;
 
 			case OPINIONEVENT_DRINKBUDDIES_BAD:
+				break;
+
+			case OPINIONEVENT_DISEASE_DISGUSTING:
+				// not if the other guy is a doctor, is currently used as a doctor, or has disease themself
+				if ( pTeamSoldier->bAssignment == DOCTOR || pTeamSoldier->bAssignment == DISEASE_DOCTOR_SECTOR || HAS_SKILL_TRAIT( pTeamSoldier, DOCTOR_NT ) || pTeamSoldier->HasDisease(TRUE, FALSE, FALSE) )
+					continue;
+				break;
+
+			case OPINIONEVENT_DISEASE_TREATMENT:
 				break;
 
 			default:

@@ -1987,7 +1987,7 @@ void RemoveMapStatusBarsRegion( void )
 
 void UpdateCharRegionHelpText( void )
 {
-	CHAR16 sString[ 256 ], sTemp[ 20 ];
+	CHAR16 sString[ 6000 ], sTemp[ 20 ];
 	CHAR16 pMoraleStr[ 128 ];
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -2059,6 +2059,10 @@ void UpdateCharRegionHelpText( void )
 															pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
 															pMapScreenStatusStrings[ 2 ], pMoraleStr );
 						}
+					}
+
+					{
+						pSoldier->PrintDiseaseDesc( sString, TRUE );
 					}
 				}
 			}
@@ -2319,6 +2323,14 @@ void UpdateMapScreenAssignmentPositions( void )
 		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS;
 
 		SetBoxPosition( ghMoveItemBox, pPoint );
+	}
+
+	if ( fShowDiseaseMenu )
+	{
+		GetBoxPosition( ghDiseaseBox, &pPoint );
+		pPoint.iY = giBoxY + (GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS;
+
+		SetBoxPosition( ghDiseaseBox, pPoint );
 	}
 
 	// HEADROCK HAM 3.6: Facility Menu

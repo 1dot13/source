@@ -5247,6 +5247,15 @@ void CorpseMessageBoxCallBack( UINT8 ubExitValue )
 				}
 			}
 		}
+
+		// we might get a disease from this...
+		// if the corpse is already rotting, chance of infection is greatly increased
+		FLOAT modifier = 1.0f;
+		ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( nextGridNoinSight, level );
+		if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+			modifier = 5.0f;
+
+		HandlePossibleInfection( gpTempSoldier, NULL, INFECTION_TYPE_CONTACT_CORPSE, modifier );
 	}
 }
 

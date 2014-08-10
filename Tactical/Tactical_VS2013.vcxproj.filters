@@ -273,6 +273,9 @@
     <ClInclude Include="DynamicDialogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Disease.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Air Raid.cpp">
@@ -678,6 +681,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DynamicDialogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Disease.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Disease.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

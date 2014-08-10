@@ -1591,6 +1591,10 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 			swprintf(pString, L"%s", pTransactionText[ PRISONER_RANSOM ]);
 			break;
 
+		// Flugente: disease: subscription to WHO data
+		case WHO_SUBSCRIPTION:
+			swprintf( pString, L"%s", pTransactionText[WHO_SUBSCRIPTION] );
+			break;
 	}
 
 

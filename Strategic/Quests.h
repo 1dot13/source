@@ -554,6 +554,11 @@ enum Facts
 
 	FACT_WALDO_MET,
 
+	// Flugente: disease
+	FACT_DISEASE_VIEWED,
+	FACT_DISEASE_WHODATA_SUBSCRIBED,	// if we are currently subscripted, we will pay x$ per day
+	FACT_DISEASE_WHODATA_ACCESS,		// do we currently have access to the data
+
 
 #ifdef JA2UB	
 	//Ja25 UB

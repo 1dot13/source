@@ -5807,10 +5807,24 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		ubReason = TAKE_DAMAGE_BLADE;
 
 		// Flugente: check wether we can make this blade bloody
-		if ( ubAttackerID != NOBODY && MercPtrs[ubAttackerID]->inv[HANDPOS].exists( ) && Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem > 0 )
+		if ( ubAttackerID != NOBODY && MercPtrs[ubAttackerID]->inv[HANDPOS].exists( ) )
 		{
-			// magic happens
-			MercPtrs[ubAttackerID]->inv[HANDPOS].usItem = Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem;
+			if ( Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem > 0 )
+			{
+				// magic happens
+				MercPtrs[ubAttackerID]->inv[HANDPOS].usItem = Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].bloodieditem;
+			}
+
+			// Flugente: if the blade is infected, infect the victim
+			if ( *&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag & INFECTED )
+			{
+				// infect us with the first disease
+				this->Infect( 0 );
+			}
+
+			// if this guy has the disease, infect the blade
+			if ( this->sDiseasePoints[0] > 0 )
+				*&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag |= INFECTED;
 		}
 	}
 	else if ( Item[usWeaponIndex].usItemClass & IC_PUNCH )
@@ -9984,11 +9998,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	// ATE: Put some logic in here to allow enemies to die quicker.....
 	// Are we an enemy?
 	// zombies don't die suddenly, as they regenerate health by bloodloss and poison. You have to make sure they die!
-#ifdef ENABLE_ZOMBIES
 	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE && !this->IsZombie( ) )
-#else
-	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE )
-#endif
 	{
 		// ATE: Give them a chance to fall down...
 		if ( this->stats.bLife > 0 && this->stats.bLife < (OKLIFE - 1) )
@@ -10050,6 +10060,26 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	// Flugente: note we received a fresh wound
 	if ( sLifeDeduct > 0 )
 		this->usSoldierFlagMask |= SOLDIER_FRESHWOUND;
+
+	// Flugente we might get a disease from this...
+	if ( gGameExternalOptions.fDisease )
+	{
+		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && CREATURE_OR_BLOODCAT( MercPtrs[ubAttacker] ) )
+			HandlePossibleInfection( this, MercPtrs[ubAttacker], INFECTION_TYPE_WOUND_ANIMAL );
+
+		if ( sLifeDeduct > 0 && ubReason == TAKE_DAMAGE_GUNFIRE )
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GUNSHOT );
+		else if ( sLifeDeduct > 0 && ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
+			 || ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION || ubReason == TAKE_DAMAGE_TENTACLES ) )
+		{
+			FLOAT modifier = 0.5f + sLifeDeduct/100;
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_OPEN, modifier );
+		}
+
+		// possibly get traumatized if we're hit really bad
+		if ( this->stats.bLife < OKLIFE )
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_TRAUMATIC );
+	}
 
 	// Calculate damage to our items if from an explosion!
 	if ( ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION )
@@ -12297,13 +12327,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 #ifdef JA2UB
 	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE )
 #else
-
-#ifdef ENABLE_ZOMBIES
 	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE && !IsZombie( ) ) // SANDRO - added check for body type
-#else
-	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE ) // SANDRO - added check for body type
-#endif
-
 #endif
 	{
 		// Are we in attack mode yet?
@@ -14649,12 +14673,14 @@ INT16 SOLDIERTYPE::GetSoldierCriticalDamageBonus( void )
 }
 
 
-#ifdef ENABLE_ZOMBIES
 BOOLEAN SOLDIERTYPE::IsZombie( void )
 {
+#ifdef ENABLE_ZOMBIES
 	return(ubSoldierClass == SOLDIER_CLASS_ZOMBIE);
-}
+#else
+	return FALSE;
 #endif
+}
 
 INT16	SOLDIERTYPE::GetPoisonResistance( void )
 {
@@ -14690,11 +14716,9 @@ INT16	SOLDIERTYPE::GetPoisonDamagePercentage( void )
 	// Flugente: this percentage has to be between 0% and 100%
 	INT16 val = 0;
 
-#ifdef ENABLE_ZOMBIES
 	// zombies poison damage percentage is externalised
 	if ( IsZombie( ) )
 		val += gGameExternalOptions.sZombiePoisonDamagePercentage;
-#endif
 
 	if ( this->usAttackingWeapon )
 	{
@@ -15873,11 +15897,9 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT8 ubTargetID )
 	if ( !pSoldier )
 		return TRUE;
 
-#ifdef ENABLE_ZOMBIES
 	// zombies don't care about disguises
 	if ( IsZombie( ) )
 		return TRUE;
-#endif
 
 	// not in covert mode: we recognize him
 	if ( (pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER)) == 0 )
@@ -17297,6 +17319,13 @@ INT16	SOLDIERTYPE::GetAPBonus( )
 	if ( this->pathing.bLevel )
 		bonus += this->GetBackgroundValue( BG_HEIGHT );
 
+	// diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffAP * this->GetDiseaseMagnitude( i );
+
+	bonus += diseaseeffect;
+
 	return bonus;
 }
 
@@ -18661,6 +18690,274 @@ void	SOLDIERTYPE::DeleteBoxingFlag( )
 {
 	if ( flags.uiStatusFlags & SOLDIER_BOXER )
 		flags.uiStatusFlags &= (~SOLDIER_BOXER);
+}
+
+// Flugente: disease
+void	SOLDIERTYPE::Infect( UINT8 aDisease )
+{
+	// we are getting infected. Raise our disease points, but not over the level of an infection
+	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] < Disease[aDisease].sInfectionPtsInitial )
+	{
+		// if this guy is not of our team, note that a new infected person is in the sector
+		if ( this->bTeam != gbPlayerNum && aDisease == 0 && this->sDiseasePoints[0] <= 0 )
+		{
+			UINT8 sector = SECTOR( this->sSectorX, this->sSectorY );
+
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+			if ( pSectorInfo )
+				++pSectorInfo->usInfected;
+		}
+
+		this->sDiseasePoints[aDisease] = min( this->sDiseasePoints[aDisease] + Disease[aDisease].sInfectionPtsInitial, Disease[aDisease].sInfectionPtsInitial );
+
+		if ( this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
+		{
+			this->sDiseaseFlag[aDisease] |= SOLDIERDISEASE_OUTBREAK;
+
+			this->AnnounceDisease( aDisease );
+		}
+				
+		// remove later on, for testing only
+		if ( 1 )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was infected with %s", gMercProfiles[this->ubProfile].zNickname, Disease[aDisease].szName );
+	}
+}
+
+void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
+{
+	if ( aDisease < NUM_DISEASES )
+	{
+		this->sDiseasePoints[aDisease] = min( Disease[aDisease].sInfectionPtsFull, max( this->sDiseasePoints[aDisease] + aVal, -Disease[aDisease].sInfectionPtsOutbreak ) );
+
+		// if the disease 'breaks out', make it known
+		if ( this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
+		{
+			this->sDiseaseFlag[aDisease] |= SOLDIERDISEASE_OUTBREAK;
+
+			if ( !(this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_DIAGNOSED) )
+				this->AnnounceDisease( aDisease );
+		}
+
+		// once disease is fullblown, some diseases reverse themself
+		if ( (Disease[aDisease].usDiseaseProperties & DISEASE_PROPERTY_REVERSEONFULL) && this->sDiseasePoints[aDisease] >= Disease[aDisease].sInfectionPtsFull )
+		{
+			this->sDiseaseFlag[aDisease] |= SOLDIERDISEASE_REVERSEAL;
+		}
+
+		// if disease is cured, remove traces of it
+		if ( this->sDiseasePoints[aDisease] <= 0 )
+		{
+			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK);
+
+			if ( this->bTeam == gbPlayerNum )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_CURED], this->GetName( ), Disease[aDisease].szName );
+		}
+	}
+}
+
+void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
+{
+	this->sDiseaseFlag[aDisease] |= SOLDIERDISEASE_DIAGNOSED;
+
+	if ( this->bTeam == gbPlayerNum )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_DIAGNOSE_GENERAL], this->GetName( ), Disease[aDisease].szName );
+}
+
+// do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed
+BOOLEAN SOLDIERTYPE::HasDisease( BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, BOOLEAN fSymbolOnly )
+{
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		// disease is relevant if we are infected and are not looking for symbols only while the disease has no symbol
+		if ( this->sDiseasePoints[i] > 0 && !(fSymbolOnly && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_HIDESYMBOL)) )
+		{
+			// only if we don't check for diagnosis, or we already know of this
+			if ( !fDiagnosedOnly || (this->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) )
+			{
+				// only if we don't check for cure, or this can be cured
+				if ( !fHealableOnly || (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
+				{
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+// get the magnitude os a disease we might have, used to determine wether there are any effects
+FLOAT	SOLDIERTYPE::GetDiseaseMagnitude( UINT8 aDisease )
+{
+	// diseases only have effects once they have broken out (otherwise stuff happens without the player having any clue as to why)
+	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] > 0 && (this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_OUTBREAK) )
+	{
+		return ((FLOAT)this->sDiseasePoints[aDisease] / (FLOAT)Disease[aDisease].sInfectionPtsFull);
+	}
+
+	return 0.0f;
+}
+
+void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
+{
+	// only for living mercs with a profile with a valid infection method
+	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
+		return;
+
+	CHAR16	atStr[500];
+	swprintf( atStr, L"" );
+
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		if ( this->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED )
+		{
+			swprintf( atStr, L"\n\n%s\n", Disease[i].szFatName );
+			wcscat( apStr, atStr );
+
+			// if we give a full description, also print out the effects at the moment
+			if ( fFullDesc )
+			{
+				swprintf( atStr, L"%s\n", Disease[i].szDescription );
+				wcscat( apStr, atStr );
+
+				FLOAT magnitude = GetDiseaseMagnitude(i);
+
+				for ( int j = 0; j < INFST_MAX; ++j )
+				{
+					INT8 val = Disease[i].sEffStat[j] * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[j], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					INT8 val = Disease[i].sEffAP * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_AP], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					UINT8 val = Disease[i].usMaxBreath * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_MAXBREATH], L"-", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					INT8 val = Disease[i].sEffCarryStrength * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_CARRYSTRENGTH], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					FLOAT val = (FLOAT)(Disease[i].sLifeRegenHundreds) * magnitude / 100;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_LIFEREGENHUNDREDS], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					INT8 val = Disease[i].sNeedToSleep * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_NEEDTOSLEEP], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					INT16 val = Disease[i].sDrinkModifier * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_DRINK], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				{
+					INT16 val = Disease[i].sFoodModifier * magnitude;
+
+					if ( val )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_FOOD], val > 0 ? L"+" : L"", val );
+						wcscat( apStr, atStr );
+					}
+				}
+			}
+		}
+	}
+}
+
+// get percentage protection from infections via contact
+FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
+{
+	FLOAT val = 0.0f;
+
+	// if we wear special equipment, lower our chances of being infected
+	FLOAT bestfacegear			= 0.0f;
+	FLOAT bestprotectivegear	= 0.0f;
+	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists( ) )
+		{
+			OBJECTTYPE* pObj = &(inv[bLoop]);
+
+			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE  )
+			{
+				if ( (bLoop == HEAD1POS || bLoop == HEAD2POS) )
+				{
+					if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_FACE ) )
+					{
+						bestfacegear = max( bestfacegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
+					}
+				}
+				else if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_HAND ) )
+				{
+					bestprotectivegear = max( bestprotectivegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
+				}
+			}
+		}
+	}
+
+	// up to 100% protection if face and hand protection is worn
+	val += (bestfacegear + bestprotectivegear) / 2;
+
+	// not higher than 100%
+	return min( val, 1.0f );
+}
+
+INT16	SOLDIERTYPE::GetDiseaseResistance()
+{
+	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
+	INT16 val = 0;
+
+	val += this->GetBackgroundValue( BG_RESI_DISEASE );
+
+	val = max( -100, val );
+	val = min( 100, val );
+
+	return(val);
 }
 
 

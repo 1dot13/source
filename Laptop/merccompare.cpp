@@ -30,65 +30,30 @@
 #endif
 
 
-#define		MERCOMP_FONT_COLOR									2
-#define		CAMPHIS_FONT_COLOR_RED								FONT_MCOLOR_RED
-#define		CAMPHIS_FONT_BIG									FONT14ARIAL
-#define		CAMPHIS_FONT_MED									FONT12ARIAL
-#define		CAMPHIS_FONT_SMALL									FONT10ARIAL
+#define		MERCOMP_FONT_COLOR								2
+#define		CAMPHIS_FONT_COLOR_RED							FONT_MCOLOR_RED
+#define		CAMPHIS_FONT_BIG								FONT14ARIAL
+#define		CAMPHIS_FONT_MED								FONT12ARIAL
+#define		CAMPHIS_FONT_SMALL								FONT10ARIAL
 
-#define		CAMPHIS_FONT_BTN_COLOR								FONT_MCOLOR_WHITE
-#define		CAMPHIS_FONT_BTN_SHADOW_COLOR						2
-
-#define		MERCOMP_FONT_SHADOW									FONT_MCOLOR_WHITE
-
-#define		CAMPAIGN_HISTORY_BULLET_TEXT_OFFSET_X			21
+#define		MERCOMP_FONT_SHADOW								FONT_MCOLOR_WHITE
 
 #define		CAMPAIGN_HISTORY_LINK_START_X					LAPTOP_SCREEN_UL_X
 #define		CAMPAIGN_HISTORY_LINK_START_Y					LAPTOP_SCREEN_WEB_UL_Y + 5
 #define		CAMPAIGN_HISTORY_LINK_TEXT_WIDTH				107
 #define		CAMPAIGN_HISTORY_LINK_STEP_Y					14
 
-#define		CAMPAIGN_HISTORY_BACKGROUND_WIDTH				125
-#define		CAMPAIGN_HISTORY_BACKGROUND_HEIGHT					100
+#define		BACKGROUND_WIDTH				125
+#define		CAMPAIGN_HISTORY_BACKGROUND_HEIGHT				100
 
-#define		CAMPAIGN_HISTORY_BIG_TITLE_X								115 + LAPTOP_SCREEN_UL_X
-#define		CAMPAIGN_HISTORY_BIG_TITLE_Y								10 + LAPTOP_SCREEN_WEB_UL_Y
+#define		CAMPAIGN_HISTORY_BIG_TITLE_X					115 + LAPTOP_SCREEN_UL_X
+#define		CAMPAIGN_HISTORY_BIG_TITLE_Y					10 + LAPTOP_SCREEN_WEB_UL_Y
 
-#define		CAMPAIGN_HISTORY_RED_BAR_X									LAPTOP_SCREEN_UL_X
-#define		CAMPAIGN_HISTORY_RED_BAR_Y									LAPTOP_SCREEN_WEB_UL_Y
+#define		CAMPAIGN_HISTORY_SUBTITLE_X						CAMPAIGN_HISTORY_BIG_TITLE_X
+#define		CAMPAIGN_HISTORY_SUBTITLE_Y						CAMPAIGN_HISTORY_BIG_TITLE_Y + 20
 
-#define		CAMPAIGN_HISTORY_TOP_RED_BAR_X							LAPTOP_SCREEN_UL_X + 66
-#define		CAMPAIGN_HISTORY_TOP_RED_BAR_Y							109 + LAPTOP_SCREEN_WEB_UL_Y
-#define		CAMPAIGN_HISTORY_TOP_RED_BAR_Y1						31 + LAPTOP_SCREEN_WEB_UL_Y
-
-#define		CAMPAIGN_HISTORY_BOTTOM_RED_BAR_Y					345 + LAPTOP_SCREEN_WEB_UL_Y
-
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_X			77 + LAPTOP_SCREEN_UL_X
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_Y			392 + LAPTOP_SCREEN_WEB_UL_Y
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_WIDTH	107
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_OFFSET	148
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_X_2		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_X + CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_OFFSET
-#define		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_X_3		CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_X_2 + CAMPAIGN_HISTORY_BOTTOM_LINK_RED_BAR_OFFSET
-
-#define		CAMPAIGN_HISTORY_SUBTITLE_X								CAMPAIGN_HISTORY_BIG_TITLE_X
-#define		CAMPAIGN_HISTORY_SUBTITLE_Y								CAMPAIGN_HISTORY_BIG_TITLE_Y + 20
-
-#define		CAMPAIGN_HISTORY_BULLET_TEXT_1_Y						188 + LAPTOP_SCREEN_WEB_UL_Y
-#define		CAMPAIGN_HISTORY_BULLET_TEXT_2_Y						215 + LAPTOP_SCREEN_WEB_UL_Y
-#define		CAMPAIGN_HISTORY_BULLET_TEXT_3_Y						242 + LAPTOP_SCREEN_WEB_UL_Y
-
-#define		CAMPAIGN_HISTORY_BOTTOM_SLOGAN_X						CAMPAIGN_HISTORY_SUBTITLE_X
-#define		CAMPAIGN_HISTORY_BOTTOM_SLOGAN_Y						285 + LAPTOP_SCREEN_WEB_UL_Y
-#define		CAMPAIGN_HISTORY_BOTTOM_SLOGAN_WIDTH				370
-
-#define		CAMPAIGN_HISTORY_SMALL_TITLE_X							64 + LAPTOP_SCREEN_UL_X
-#define		CAMPAIGN_HISTORY_SMALL_TITLE_Y							5 + LAPTOP_SCREEN_WEB_UL_Y
-
-#define		CAMPAIGN_HISTORY_SMALL_TITLE_WIDTH					434 - 170
-#define		CAMPAIGN_HISTORY_SMALL_TITLE_HEIGHT				40 - 10
-
-#define		MERCCOMPARE_NUM_LINKS									4
-#define		MCA_START_CONTENT_Y										(LAPTOP_SCREEN_WEB_UL_Y + MERCCOMPARE_NUM_LINKS * 17)
+#define		NUM_LINKS										4
+#define		MCA_START_CONTENT_Y								(LAPTOP_SCREEN_WEB_UL_Y + NUM_LINKS * 17)
 
 
 extern UINT32	guiInsuranceBackGround;
@@ -98,18 +63,133 @@ UINT32	guiMercCompareBulletImage;
 UINT32	guiMercCompareLogoImage;
 
 //link to the various pages
-MOUSE_REGION	gMercCompareLinkRegion[MERCCOMPARE_NUM_LINKS];
-void SelectMercCompareRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason );
+MOUSE_REGION	gMercCompareLinkRegion[NUM_LINKS];
 
-
-void GameInitMercCompare( )
+void SelectLinkRegionCallBack_MercCompare( MOUSE_REGION * pRegion, INT32 iReason )
 {
+	if ( iReason & MSYS_CALLBACK_REASON_INIT )
+	{
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		UINT32 uiLink = MSYS_GetRegionUserData( pRegion, 0 );
 
+		if ( uiLink == 0 )
+			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
+		else if ( uiLink == 1 )
+			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MATRIX;
+		else if ( uiLink == 2 )
+			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_ANALYZE;
+		else if ( uiLink == 3 )
+			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_CUSTOMERS;
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+	}
+}
+
+void GetMercCompareText( UINT8 ubNumber, STR16 pString )
+{
+	if ( ubNumber >= TEXT_MERCCOMPARE_MAX )
+		wcscpy( pString, L"???" );
+
+	wcscpy( pString, szMercCompareWebSite[ubNumber] );
+}
+
+void InitDefaults( )
+{
+	VOBJECT_DESC	VObjectDesc;
+
+	// load the Insurance bullet graphic and add it
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP( "LAPTOP\\bullet.sti", VObjectDesc.ImageFile );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareBulletImage ) );
+
+	// load the Flower Account Box graphic and add it
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP( "LAPTOP\\BackGroundTile.sti", VObjectDesc.ImageFile );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBackGround ) );
+
+	// load the red bar on the side of the page and add it
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP( "LAPTOP\\LargeBar.sti", VObjectDesc.ImageFile );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBigRedLineImage ) );
+
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP( "LAPTOP\\PressLogos.sti", VObjectDesc.ImageFile );
+	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareLogoImage ) );
+
+	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
+	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
+	for ( int i = 0; i<NUM_LINKS; ++i )
+	{
+		MSYS_DefineRegion( &gMercCompareLinkRegion[i], usPosX, usPosY, (UINT16)(usPosX + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH), usPosY + CAMPAIGN_HISTORY_LINK_STEP_Y, MSYS_PRIORITY_HIGH,
+						   CURSOR_WWW, MSYS_NO_CALLBACK, SelectLinkRegionCallBack_MercCompare );
+		MSYS_AddRegion( &gMercCompareLinkRegion[i] );
+		MSYS_SetRegionUserData( &gMercCompareLinkRegion[i], 0, i );
+
+		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
+	}
+}
+
+void DisplayDefaults( )
+{
+	HVOBJECT	hPixHandle;
+	GetVideoObject( &hPixHandle, guiMercCompareLogoImage );
+
+	SetFontShadow( MERCOMP_FONT_SHADOW );
+
+	CHAR16 sText[800];
+	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
+	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
+
+	WebPageTileBackground( 4, 4, BACKGROUND_WIDTH, CAMPAIGN_HISTORY_BACKGROUND_HEIGHT, guiInsuranceBackGround );
+
+	//Display the title slogan
+	GetMercCompareText( TEXT_MERCCOMPARE_WEBSITENAME, sText );
+	DrawTextToScreen( sText, CAMPAIGN_HISTORY_BIG_TITLE_X, CAMPAIGN_HISTORY_BIG_TITLE_Y, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+	//Display the subtitle slogan
+	GetMercCompareText( TEXT_MERCCOMPARE_SLOGAN, sText );
+	DrawTextToScreen( sText, CAMPAIGN_HISTORY_SUBTITLE_X, CAMPAIGN_HISTORY_SUBTITLE_Y, 0, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+	usPosX = CAMPAIGN_HISTORY_LINK_START_X;
+	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
+	for ( int i = 0; i<NUM_LINKS; ++i )
+	{
+		GetMercCompareText( TEXT_MERCCOMPARE_SUBSITE1 + i, sText );
+		DisplayWrappedString( usPosX, usPosY, CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
+
+		//Display the red bar under the link at the bottom.	and the text
+		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_UL_X + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, usPosY - 2, FROMRGB( 0, 255, 0 ) );
+	}
+
+	// closing line that separates header from individual page
+	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_LR_X, usPosY - 2, FROMRGB( 0, 255, 0 ) );
+
+	usPosX = LAPTOP_SCREEN_LR_X - 110;
+	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
+	BltVideoObject( FRAME_BUFFER, hPixHandle, 1, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+	SetFontShadow( DEFAULT_SHADOW );
+}
+
+void RemoveDefaults( )
+{
+	DeleteVideoObjectFromIndex( guiInsuranceBackGround );
+	DeleteVideoObjectFromIndex( guiInsuranceBigRedLineImage );
+	DeleteVideoObjectFromIndex( guiMercCompareBulletImage );
+	DeleteVideoObjectFromIndex( guiMercCompareLogoImage );
+
+	for ( int i = 0; i<NUM_LINKS; ++i )
+		MSYS_RemoveRegion( &gMercCompareLinkRegion[i] );
 }
 
 BOOLEAN EnterMercCompareMain( )
 {
-	InitMercCompareDefaults( );
+	InitDefaults( );
 
 	RenderMercCompareMain( );
 
@@ -118,7 +198,7 @@ BOOLEAN EnterMercCompareMain( )
 
 void ExitMercCompareMain( )
 {
-	RemoveMercCompareDefaults( );
+	RemoveDefaults( );
 }
 
 void HandleMercCompareMain( )
@@ -136,7 +216,7 @@ void RenderMercCompareMain( )
 	//Get the bullet
 	GetVideoObject( &hPixHandle, guiMercCompareBulletImage );
 
-	DisplayMercCompareDefaults( );
+	DisplayDefaults( );
 
 	SetFontShadow( MERCOMP_FONT_SHADOW );
 
@@ -170,135 +250,11 @@ void RenderMercCompareMain( )
 }
 
 
-void InitMercCompareDefaults( )
-{
-	VOBJECT_DESC	VObjectDesc;
-
-	// load the Insurance bullet graphic and add it
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( "LAPTOP\\bullet.sti", VObjectDesc.ImageFile );
-	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareBulletImage ) );
-
-	// load the Flower Account Box graphic and add it
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( "LAPTOP\\BackGroundTile.sti", VObjectDesc.ImageFile );
-	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBackGround ) );
-
-	// load the red bar on the side of the page and add it
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( "LAPTOP\\LargeBar.sti", VObjectDesc.ImageFile );
-	CHECKV( AddVideoObject( &VObjectDesc, &guiInsuranceBigRedLineImage ) );
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( "LAPTOP\\PressLogos.sti", VObjectDesc.ImageFile );
-	CHECKV( AddVideoObject( &VObjectDesc, &guiMercCompareLogoImage ) );
-
-	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-	for ( int i = 0; i<MERCCOMPARE_NUM_LINKS; ++i )
-	{
-		MSYS_DefineRegion( &gMercCompareLinkRegion[i], usPosX, usPosY, (UINT16)(usPosX + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH), usPosY + CAMPAIGN_HISTORY_LINK_STEP_Y, MSYS_PRIORITY_HIGH,
-			CURSOR_WWW, MSYS_NO_CALLBACK, SelectMercCompareRegionCallBack );
-		MSYS_AddRegion( &gMercCompareLinkRegion[i] );
-		MSYS_SetRegionUserData( &gMercCompareLinkRegion[i], 0, i );
-
-		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
-	}
-}
-
-void DisplayMercCompareDefaults( )
-{
-	HVOBJECT	hPixHandle;
-	GetVideoObject( &hPixHandle, guiMercCompareLogoImage );
-
-	SetFontShadow( MERCOMP_FONT_SHADOW );
-
-	CHAR16 sText[800];
-	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-
-	WebPageTileBackground( 4, 4, CAMPAIGN_HISTORY_BACKGROUND_WIDTH, CAMPAIGN_HISTORY_BACKGROUND_HEIGHT, guiInsuranceBackGround );
-
-	//Display the title slogan
-	GetMercCompareText( TEXT_MERCCOMPARE_WEBSITENAME, sText );
-	DrawTextToScreen( sText, CAMPAIGN_HISTORY_BIG_TITLE_X, CAMPAIGN_HISTORY_BIG_TITLE_Y, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-	//Display the subtitle slogan
-	GetMercCompareText( TEXT_MERCCOMPARE_SLOGAN, sText );
-	DrawTextToScreen( sText, CAMPAIGN_HISTORY_SUBTITLE_X, CAMPAIGN_HISTORY_SUBTITLE_Y, 0, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-	usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-	for ( int i = 0; i<MERCCOMPARE_NUM_LINKS; ++i )
-	{
-		GetMercCompareText( TEXT_MERCCOMPARE_SUBSITE1 + i, sText );
-		DisplayWrappedString( usPosX, usPosY, CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
-
-		//Display the red bar under the link at the bottom.	and the text
-		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_UL_X + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, usPosY - 2, FROMRGB( 0, 255, 0 ) );
-	}
-
-	// closing line that separates header from individual page
-	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_LR_X, usPosY - 2, FROMRGB( 0, 255, 0 ) );
-
-	usPosX = LAPTOP_SCREEN_LR_X - 110;
-	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-	BltVideoObject( FRAME_BUFFER, hPixHandle, 1, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL );
-
-	SetFontShadow( DEFAULT_SHADOW );
-}
-
-void RemoveMercCompareDefaults( )
-{
-	DeleteVideoObjectFromIndex( guiInsuranceBackGround );
-	DeleteVideoObjectFromIndex( guiInsuranceBigRedLineImage );
-	DeleteVideoObjectFromIndex( guiMercCompareBulletImage );
-	DeleteVideoObjectFromIndex( guiMercCompareLogoImage );
-
-	for ( int i = 0; i<MERCCOMPARE_NUM_LINKS; ++i )
-		MSYS_RemoveRegion( &gMercCompareLinkRegion[i] );
-}
-
-void GetMercCompareText( UINT8 ubNumber, STR16 pString )
-{
-	if ( ubNumber >= TEXT_MERCCOMPARE_MAX )
-		wcscpy( pString, L"???" );
-
-	wcscpy( pString, szMercCompareWebSite[ubNumber] );
-}
-
-
-void SelectMercCompareRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason )
-{
-	if ( iReason & MSYS_CALLBACK_REASON_INIT )
-	{
-	}
-	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		UINT32 uiLink = MSYS_GetRegionUserData( pRegion, 0 );
-
-		if ( uiLink == 0 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MAIN;
-		else if ( uiLink == 1 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_MATRIX;
-		else if ( uiLink == 2 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_ANALYZE;
-		else if ( uiLink == 3 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MERCCOMPARE_CUSTOMERS;
-	}
-	else if ( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
-	{
-	}
-}
-
-
 ////////////////////////// MERC COMPARE CUSTOMERS ////////////////////////////////
 
 BOOLEAN EnterMercCompareCustomers( )
 {	
-	InitMercCompareDefaults( );
+	InitDefaults( );
 	
 	RenderMercCompareCustomers( );
 
@@ -307,7 +263,7 @@ BOOLEAN EnterMercCompareCustomers( )
 
 void ExitMercCompareCustomers( )
 {
-	RemoveMercCompareDefaults( );
+	RemoveDefaults( );
 }
 
 void HandleMercCompareCustomers( )
@@ -325,7 +281,7 @@ void RenderMercCompareCustomers( )
 	//Get the bullet
 	GetVideoObject( &hPixHandle, guiMercCompareBulletImage );
 
-	DisplayMercCompareDefaults( );
+	DisplayDefaults( );
 
 	SetFontShadow( MERCOMP_FONT_SHADOW );
 
@@ -383,7 +339,7 @@ template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::SetRefresh( )	{ fMerc
 
 BOOLEAN EnterMercCompareAnalyze()
 {
-	InitMercCompareDefaults( );
+	InitDefaults( );
 
 	// We fill two dropdowns with all mercs on our team
 	std::vector<std::pair<INT16, STR16> > mercvector;
@@ -422,7 +378,7 @@ BOOLEAN EnterMercCompareAnalyze()
 
 void ExitMercCompareAnalyze()
 {
-	RemoveMercCompareDefaults( );
+	RemoveDefaults( );
 
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).Destroy( );
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).Destroy( );
@@ -447,7 +403,7 @@ void RenderMercCompareAnalyze()
 	//Get the bullet
 	GetVideoObject( &hPixHandle, guiMercCompareBulletImage );
 
-	DisplayMercCompareDefaults( );
+	DisplayDefaults( );
 
 	SetFontShadow( MERCOMP_FONT_SHADOW );
 
@@ -978,7 +934,7 @@ template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::SetRefr
 
 BOOLEAN EnterMercCompareMatrix( )
 {
-	InitMercCompareDefaults( );
+	InitDefaults( );
 
 	// We fill two dropdowns with all mercs on our team
 	std::vector<std::pair<INT16, STR16> > dropdownvector;
@@ -1026,7 +982,7 @@ BOOLEAN EnterMercCompareMatrix( )
 
 void ExitMercCompareMatrix( )
 {
-	RemoveMercCompareDefaults( );
+	RemoveDefaults( );
 
 	DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance( ).Destroy( );
 
@@ -1055,7 +1011,7 @@ void RenderMercCompareMatrix( )
 	swprintf( sText, L"" );
 	UINT16	usPosX, usPosY;
 
-	DisplayMercCompareDefaults( );
+	DisplayDefaults( );
 
 	SetFontShadow( MERCOMP_FONT_SHADOW );
 

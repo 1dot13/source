@@ -509,6 +509,8 @@ typedef struct
 	INT8		sRadioScanModifier;		// modifies the scan range of the radio scan assignment in this sector
 	UINT16		usPrisonRoomNumber[MAX_PRISON_ROOMS];		// room numbers of prisons
 
+	UINT16		usCivilianPopulation;	// total amount of civilians that are supposed to be in this sector. This does not have to be the number of civilians in tactical
+
 } SECTOR_EXT_DATA;
 
 // get dirt increase for object with attachments, fConsiderAmmo: with ammo

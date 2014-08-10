@@ -1,7 +1,7 @@
 #ifndef __DRUGS_AND_ALCOHOL_H
 #define __DRUGS_AND_ALCOHOL_H
 
-#include "soldier control.h"
+#include "Soldier Control.h"
 
 #define	SOBER										0
 #define	FEELING_GOOD								1
@@ -84,6 +84,8 @@ typedef struct
 	UINT8		ubDrugSideEffect;		
 	UINT8		ubDrugSideEffectRate;
 	UINT8		ubMoralBacklash;
+
+	UINT8		ubDiseaseCure;			// this is a cure for disease x - 1. It will cure Disease[x].sInfectionPtsOutbreak points of disease.
 } DRUGTYPE;
 
 //GLOBALS

@@ -177,6 +177,14 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 				// SANDRO - merc records - stat damaged
 				gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 			}
+
+			// Flugente: if this can cure a disease, do so
+			if ( Drug[i].ubDiseaseCure > 0 )
+			{
+				// we cure exactly enough to cure an outbreak
+				// Drug[i].ubDiseaseCure - 1 - the xml value is simply one higher than the disease type, otherwise we couldn't identify disease 0
+				pSoldier->AddDiseasePoints( Drug[i].ubDiseaseCure - 1, -Disease[Drug[i].ubDiseaseCure - 1].sInfectionPtsOutbreak );
+			}
 		}
 	}
 

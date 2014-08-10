@@ -666,6 +666,10 @@
 				RelativePath=".\Store Inventory.h"
 				>
 			</File>
+			<File
+				RelativePath=".\WHO.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -974,6 +978,10 @@
 			</File>
 			<File
 				RelativePath=".\Store Inventory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WHO.cpp"
 				>
 			</File>
 			<File

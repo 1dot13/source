@@ -37,6 +37,7 @@
     <ClInclude Include="Campaign.h" />
     <ClInclude Include="Civ Quotes.h" />
     <ClInclude Include="Dialogue Control.h" />
+    <ClInclude Include="Disease.h" />
     <ClInclude Include="DisplayCover.h" />
     <ClInclude Include="Drugs And Alcohol.h" />
     <ClInclude Include="DynamicDialogue.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Campaign.cpp" />
     <ClCompile Include="Civ Quotes.cpp" />
     <ClCompile Include="Dialogue Control.cpp" />
+    <ClCompile Include="Disease.cpp" />
     <ClCompile Include="DisplayCover.cpp" />
     <ClCompile Include="Drugs And Alcohol.cpp" />
     <ClCompile Include="DynamicDialogue.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="XML_Clothes.cpp" />
     <ClCompile Include="XML_ComboMergeInfo.cpp" />
     <ClCompile Include="XML_CompatibleFaceItems.cpp" />
+    <ClCompile Include="XML_Disease.cpp" />
     <ClCompile Include="XML_Drugs.cpp" />
     <ClCompile Include="XML_EnemyAmmoDrops.cpp" />
     <ClCompile Include="XML_EnemyArmourDrops.cpp" />

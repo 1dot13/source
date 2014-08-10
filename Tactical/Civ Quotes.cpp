@@ -1269,11 +1269,9 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 	CHAR16	gzTauntQuote[ 320 ];
 	UINT16	iApplicableTaunts = 0;
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: zombies don't talk
 	if ( pCiv->IsZombie() )
 		return;
-#endif
 
 	// gCivQuoteData.bActive is checked in ShowTauntPopupBox() instead, taunt can be shown in log though!
 	// if we have a different quote on, return, this one is not important
@@ -1720,9 +1718,7 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 			if( zTaunt[ i ].uiFlags2 & TAUNT_T_ZOMBIE )
 			{
 			// anv: moved ifdef - if zombies are off, we want to skip any taunts with TAUNT_T_ZOMBIE flag
-#ifdef ENABLE_ZOMBIES
-				if( pTarget->IsZombie() == FALSE )
-#endif
+				if( !pTarget->IsZombie() )
 					continue;
 			}
 

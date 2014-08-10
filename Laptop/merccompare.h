@@ -12,11 +12,6 @@ void ExitMercCompareMain( );
 void HandleMercCompareMain( );
 void RenderMercCompareMain( );
 
-void InitMercCompareDefaults( );
-void DisplayMercCompareDefaults( );
-void RemoveMercCompareDefaults( );
-void GetMercCompareText( UINT8 ubNumber, STR16 pString );
-
 // displays a few quotes of customers
 BOOLEAN EnterMercCompareCustomers( );
 void ExitMercCompareCustomers( );

@@ -894,6 +894,7 @@ extern BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 void HandleSpontanousTalking( void );
 BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone );
 extern void CreateDestroyMilitiaSectorButtons( void );
+extern void CreateDestroySupplySectorButtons();
 
 // mouse position test
 BOOLEAN IsCursorWithInRegion(INT16 sLeft, INT16 sRight, INT16 sTop, INT16 sBottom );
@@ -5004,9 +5005,9 @@ UINT32 MapScreenHandle(void)
 
 			// load the militia pop up box
 			LoadMilitiaPopUpBox( );
-
-				// graphic for pool inventory
-				LoadInventoryPoolGraphic( );
+			
+			// graphic for pool inventory
+			LoadInventoryPoolGraphic( );
 
 			//Kris:	Added this because I need to blink the icons button.
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -5743,7 +5744,6 @@ UINT32 MapScreenHandle(void)
 		CreateDestroyTheUpdateBox( );
 		DisplaySoldierUpdateBox( );
 	}
-
 
 	// pop up display boxes
 	DisplayBoxes(FRAME_BUFFER);
@@ -6891,6 +6891,10 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						else if( fShowMoveItemMenu == TRUE )
 						{
 							fShowMoveItemMenu = FALSE;
+						}
+						else if ( fShowDiseaseMenu == TRUE )
+						{
+							fShowDiseaseMenu = FALSE;
 						}
 						// HEADROCK HAM 3.6: Facility Menu
 						else if( fShowFacilityMenu == TRUE )
@@ -12168,7 +12172,6 @@ void ResetAllSelectedCharacterModes( void )
 		sSelectedMilitiaTown = 0;
 	}
 
-
 	// cancel destination line highlight
  	giDestHighLine = -1;
 
@@ -15392,7 +15395,6 @@ void HandleMilitiaRedistributionClick( void )
 }
 
 
-
 #ifdef JA2TESTVERSION
 void DumpSectorDifficultyInfo( void )
 {
@@ -16082,7 +16084,6 @@ void RequestContractMenu( void )
 	{
 		AbortMovementPlottingMode( );
 	}
-
 
 	// in case we have multiple guys selected, turn off everyone but the guy we're negotiating with
 	ChangeSelectedInfoChar( bSelectedInfoChar, TRUE );

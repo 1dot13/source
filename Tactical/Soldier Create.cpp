@@ -581,33 +581,34 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	tbTeam=pCreateStruct->bTeam;
 	tfPP=pCreateStruct->fPlayerPlan; //used as temp indicator of struct sent from the server //hayden.
 
-	if(is_networked) {
-	if(is_networked && (pCreateStruct->fOnRoof==1))
+	if(is_networked)
 	{
-		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping roof merc");
-		return NULL;
-	}
+		if(is_networked && (pCreateStruct->fOnRoof==1))
+		{
+			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping roof merc");
+			return NULL;
+		}
 
-	if(is_client && !is_server && (tbTeam >0 && tbTeam < 5) && tfPP==0)
-	{
-			return NULL; // pure client to not spawn AI unless from server, Hayden.
-			//gTacticalStatus.Team[ tbTeam ].bTeamActive=0;
-	}
-	//if(is_server && tbTeam>0 && tbTeam<5)
-	if(is_server && tbTeam>0 && tbTeam<5)
-	{
-		send_AI(pCreateStruct,pubID);
-	}
-	if(is_client && !is_server && tfPP==1)
-	{
-		pCreateStruct->fPlayerPlan = 0;
-	}
+		if(is_client && !is_server && (tbTeam >0 && tbTeam < 5) && tfPP==0)
+		{
+				return NULL; // pure client to not spawn AI unless from server, Hayden.
+				//gTacticalStatus.Team[ tbTeam ].bTeamActive=0;
+		}
+		//if(is_server && tbTeam>0 && tbTeam<5)
+		if(is_server && tbTeam>0 && tbTeam<5)
+		{
+			send_AI(pCreateStruct,pubID);
+		}
+		if(is_client && !is_server && tfPP==1)
+		{
+			pCreateStruct->fPlayerPlan = 0;
+		}
 
-	if(is_networked && (pCreateStruct->bBodyType==23 || pCreateStruct->bBodyType==24))
-	{
-		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
-		return NULL;
-	}
+		if(is_networked && (pCreateStruct->bBodyType==23 || pCreateStruct->bBodyType==24))
+		{
+			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
+			return NULL;
+		}
 	}
 
 	//hayden
@@ -785,19 +786,68 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		}
 
 		Soldier.bActionPoints					= Soldier.CalcActionPoints(	);
-		Soldier.bInitialActionPoints	= Soldier.bActionPoints;
-		Soldier.bSide									= gTacticalStatus.Team[ Soldier.bTeam ].bSide;
-		Soldier.bActive								= TRUE;
-		Soldier.sSectorX							= pCreateStruct->sSectorX;
-		Soldier.sSectorY							= pCreateStruct->sSectorY;
-		Soldier.bSectorZ							= pCreateStruct->bSectorZ;
-		Soldier.ubInsertionDirection	= pCreateStruct->ubDirection;
-		Soldier.pathing.bDesiredDirection			= pCreateStruct->ubDirection;
-		Soldier.aiData.bDominantDir					= pCreateStruct->ubDirection;
+		Soldier.bInitialActionPoints			= Soldier.bActionPoints;
+		Soldier.bSide							= gTacticalStatus.Team[ Soldier.bTeam ].bSide;
+		Soldier.bActive							= TRUE;
+		Soldier.sSectorX						= pCreateStruct->sSectorX;
+		Soldier.sSectorY						= pCreateStruct->sSectorY;
+		Soldier.bSectorZ						= pCreateStruct->bSectorZ;
+		Soldier.ubInsertionDirection			= pCreateStruct->ubDirection;
+		Soldier.pathing.bDesiredDirection		= pCreateStruct->ubDirection;
+		Soldier.aiData.bDominantDir				= pCreateStruct->ubDirection;
 		Soldier.ubDirection						= pCreateStruct->ubDirection;
 
-		Soldier.sInsertionGridNo			= pCreateStruct->sInsertionGridNo;
-		Soldier.bOldLife							= Soldier.stats.bLifeMax;
+		Soldier.sInsertionGridNo				= pCreateStruct->sInsertionGridNo;
+		Soldier.bOldLife						= Soldier.stats.bLifeMax;
+
+		// Flugente: disease can affect a soldier's health
+		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && Soldier.ubSoldierClass != SOLDIER_CLASS_TANK )
+		{
+			UINT8 sector = SECTOR( Soldier.sSectorX, Soldier.sSectorY );
+			UINT16 population = GetSectorPopulation( Soldier.sSectorX, Soldier.sSectorY );
+			
+			// if this is autoresolve, we have to get the sector in a different way..
+			if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
+			{
+				sector = GetAutoResolveSectorID( );
+
+				population = GetSectorPopulation( SECTORX( sector ), SECTORY( sector ) );
+			}
+			
+			if ( population )
+			{
+				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+				if ( pSectorInfo && pSectorInfo->usInfected )
+				{
+					UINT16 chanceofinfection = 100 * (FLOAT)(pSectorInfo->usInfected) / (FLOAT)(population);
+
+					if ( Chance( chanceofinfection ) )
+					{
+						INT32 diseaseamount = Disease[0].sInfectionPtsFull * pSectorInfo->fInfectionSeverity;
+						Soldier.AddDiseasePoints( 0, diseaseamount );
+
+						// if disease has broken out, lower life points
+						if ( Soldier.sDiseaseFlag[0] & SOLDIERDISEASE_OUTBREAK )
+						{
+							// we only alter breath and life points here, stats effectivity will be handled automatically
+							FLOAT magnitude = Soldier.GetDiseaseMagnitude( 0 );
+
+							UINT16 diseasemaxbreathreduction = Disease[0].usMaxBreath * magnitude;
+
+							Soldier.bBreathMax = min( Soldier.bBreathMax, 100 - diseasemaxbreathreduction );
+							Soldier.bBreath = min( Soldier.bBreath, Soldier.bBreathMax );
+
+							INT8 lifereduction = (6 * Disease[0].sLifeRegenHundreds) * (magnitude / 100);
+
+							Soldier.stats.bLifeMax = max( OKLIFE, Soldier.stats.bLifeMax + lifereduction );
+							Soldier.stats.bLifeMax = min( 100, Soldier.stats.bLifeMax );
+							Soldier.stats.bLife = min( Soldier.stats.bLife, Soldier.stats.bLifeMax );
+						}
+					}
+				}
+			}
+		}
 
 		// If a civvy, set neutral
 		if ( Soldier.bTeam == CIV_TEAM )
@@ -1923,12 +1973,10 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			{
 				swprintf( pSoldier->name, gzLateLocalizedString[ 36 ] );
 			}
-#ifdef ENABLE_ZOMBIES
 			else if ( pSoldier->IsZombie() )
 			{
 				swprintf( pSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
 			}
-#endif
 			else
 			{
 				swprintf( pSoldier->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ] );	break;

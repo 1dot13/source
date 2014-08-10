@@ -105,6 +105,7 @@
     <ClInclude Include="sirtech.h" />
     <ClInclude Include="Speck Quotes.h" />
     <ClInclude Include="Store Inventory.h" />
+    <ClInclude Include="WHO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="PostalService.cpp" />
     <ClCompile Include="sirtech.cpp" />
     <ClCompile Include="Store Inventory.cpp" />
+    <ClCompile Include="WHO.cpp" />
     <ClCompile Include="XML_AIMAvailability.cpp" />
     <ClCompile Include="XML_BriefingRoom.cpp" />
     <ClCompile Include="XML_CampaignStatsEvents.cpp" />

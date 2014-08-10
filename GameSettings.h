@@ -446,6 +446,11 @@ typedef struct
 	UINT8	usFoodMaxPoisoning;
 
 	BOOLEAN fFoodEatingSounds;
+
+	// Flugente: disease settings
+	BOOLEAN fDisease;
+	BOOLEAN fDiseaseStrategic;
+	INT32	sDiseaseWHOSubscriptionCost;
 	
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;

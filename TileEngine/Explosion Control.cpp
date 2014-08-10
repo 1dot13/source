@@ -1999,11 +1999,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		if ( pExplosive->ubType == EXPLOSV_TEARGAS )
 		{
 			// zombies and robots are unaffected by tear gas
-#ifdef ENABLE_ZOMBIES
 			if ( AM_A_ROBOT( pSoldier ) || pSoldier->IsZombie() )
-#else
-			if ( AM_A_ROBOT( pSoldier ) )
-#endif
 			{
 				return( fRecompileMovementCosts );
 			}

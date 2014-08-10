@@ -2998,6 +2998,16 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 					swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
 				}
 			}
+
+			{
+				CHAR16	atStr[500];
+				swprintf( atStr, L"" );
+
+				gpSMCurrentMerc->PrintDiseaseDesc( atStr );
+
+				wcscat( pStr, atStr );
+			}
+
 			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
 
 			// Buggler: skills/traits tooltip on merc portrait
@@ -5688,6 +5698,16 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 									swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
 								}
 							}
+
+							{
+								CHAR16	atStr[500];
+								swprintf( atStr, L"" );
+
+								pSoldier->PrintDiseaseDesc( atStr );
+
+								wcscat( pStr, atStr );
+							}
+
 							SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
 			
 							// Buggler: skills/traits tooltip on merc portrait

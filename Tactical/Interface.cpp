@@ -2311,7 +2311,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//-----------------	
 		if ( pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE )
 		{
-#ifdef ENABLE_ZOMBIES
 			if ( pSoldier->IsZombie() )
 			{
 				swprintf(NameStr, pSoldier->name);
@@ -2324,9 +2323,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				gprintfdirty( sX, sY, NameStr );
 				mprintf( sX, sY, NameStr );
 			}
-			else
-#endif
-			if ( pSoldier->bTeam == ENEMY_TEAM )
+			else if ( pSoldier->bTeam == ENEMY_TEAM )
 			{
 				// Flugente: soldier profiles
 				if ( gGameExternalOptions.fSoldierProfiles_Enemy && pSoldier->usSoldierProfile )

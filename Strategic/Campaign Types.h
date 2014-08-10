@@ -500,7 +500,7 @@ typedef struct SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];			// TODO: PRISONER_MAX got expanded - Varaiblen werden falsch ausgelesen!!!
+	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];	
 	UINT8	uiInterrogationHundredsLeft[PRISONER_MAX];
 
 	UINT32	uiTimeAIArtillerywasOrdered;			// Flugente: updated every time an artillery strike is ordered from the militia
@@ -508,7 +508,14 @@ typedef struct SECTORINFO
 	UINT8	ubNumTanks;
 	UINT8	ubTanksInBattle;
 
-	INT8	bPadding[ 20 ];
+	// Flugente: disease
+	UINT16	usInfected;					// how many people (civilians + enemy + militia) are infected in this sector? Does NOT count our mercs
+	FLOAT	fInfectionSeverity;			// mean infection rate of those infected (percentage)
+	UINT8	usDiseaseDoctoringDelay;	// AI doctoring in this sector is delayed due to player interference
+	UINT8	usInfectionFlag;	
+
+
+	INT8	bPadding[ 12 ];
 
 }SECTORINFO;
 

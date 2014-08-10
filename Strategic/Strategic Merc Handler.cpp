@@ -614,6 +614,9 @@ void MercDailyUpdate()
 
 	// Flugente: dynmaic opinion rollover
 	HandleDynamicOpinionsDailyRefresh( );
+
+	// Flugente: disease
+	HandleDiseaseDailyRefresh();
 }
 
 /*

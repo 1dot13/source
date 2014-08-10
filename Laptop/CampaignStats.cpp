@@ -168,11 +168,9 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 		break;
 
 	case CREATURE_TEAM:
-#ifdef ENABLE_ZOMBIES
 		if ( pSoldier->IsZombie() )
 			group = CAMPAIGNHISTORY_SD_ZOMBIE;
 		else
-#endif
 			group = CAMPAIGNHISTORY_SD_CREATURE;
 		break;
 

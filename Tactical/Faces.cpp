@@ -2237,6 +2237,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
+			// Flugente: disease
+			if ( MercPtrs[pFace->ubSoldierID]->HasDisease(TRUE, FALSE, TRUE) )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 28 );
+				bNumRightIcons++;
+			}
+			
 			switch( pSoldier->bAssignment )
 			{
 				case DOCTOR:
@@ -2360,6 +2367,31 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
 					sIconIndex_Assignment	= 16;
 					fDoIcon_Assignment		= TRUE;
+					break;
+
+				case DISEASE_DIAGNOSE:
+					{
+						sIconIndex_Assignment = 29;
+						fDoIcon_Assignment = TRUE;
+						// determine our skill at detecting disease
+						sPtsAvailable = pSoldier->stats.bMedical / 2 + NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) * 15;
+						sPtsAvailable = (sPtsAvailable * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_DIAGNOSE ))) / 100;
+
+						fShowNumber = TRUE;
+						fShowMaximum = FALSE;
+					}
+					break;
+
+				case DISEASE_DOCTOR_SECTOR:
+					sIconIndex_Assignment = 1;
+					fDoIcon_Assignment = TRUE;
+					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE );
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+
+					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
+					sPtsAvailable = (sPtsAvailable + 5) / 10;
+					usMaximumPts = (usMaximumPts + 5) / 10;
 					break;
 			}
 

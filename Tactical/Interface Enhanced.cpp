@@ -2680,6 +2680,25 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 			cnt++;
 		}
+
+		//////////////////// DISEASE
+		if ( gGameExternalOptions.fDisease )
+		{
+			if ( HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_FACE ) )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[38], szUDBGenSecondaryStatsExplanationsTooltipText[38] );
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+				cnt++;
+			}
+			else if ( HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_HAND ) )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[39], szUDBGenSecondaryStatsExplanationsTooltipText[39] );
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+				cnt++;
+			}
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -6252,6 +6271,7 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 			cnt++;
 		}
 	}
+
 	////////////////// DEFUSAL KIT
 	//JMich_SkillsModifiers: Still needs a picture, currently using the wirecutters.
 	if ( ( Item[gpItemDescObject->usItem].DisarmModifier > 0 && !fComparisonMode ) ||
@@ -6307,6 +6327,23 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 35, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
+	}
+
+	//////////////////// DISEASE
+	if ( gGameExternalOptions.fDisease )
+	{
+		if ( (HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_FACE ) && !fComparisonMode) ||
+			 (fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, DISEASEPROTECTION_FACE )) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 37, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			++cnt;
+		}
+		else if ( (HasItemFlag( gpItemDescObject->usItem, DISEASEPROTECTION_HAND ) && !fComparisonMode) ||
+				  (fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, DISEASEPROTECTION_HAND )) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 37, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			++cnt;
+		}
 	}
 }
 

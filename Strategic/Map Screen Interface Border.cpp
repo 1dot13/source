@@ -55,6 +55,8 @@ UINT16	MAP_BORDER_MILITIA_BTN_X;
 UINT16 MAP_BORDER_MILITIA_BTN_Y;
 UINT16 MAP_BORDER_MOBILE_BTN_X;
 UINT16 MAP_BORDER_MOBILE_BTN_Y;
+UINT16 MAP_BORDER_DISEASE_BTN_X;	// Flugente: disease
+UINT16 MAP_BORDER_DISEASE_BTN_Y;
 
 UINT16 MAP_LEVEL_MARKER_X;
 UINT16 MAP_LEVEL_MARKER_Y;
@@ -81,7 +83,8 @@ BOOLEAN fShowTeamFlag = FALSE;
 BOOLEAN fShowMilitia = FALSE;
 BOOLEAN fShowAircraftFlag = FALSE;
 BOOLEAN fShowItemsFlag = FALSE;
-BOOLEAN fShowMobileRestrictionsFlag = FALSE; // HEADROCK HAM 4
+BOOLEAN fShowMobileRestrictionsFlag = FALSE;	// HEADROCK HAM 4
+UINT8 fShowStrategicDiseaseFlag = 0;			// Flugente: disease
 
 //BOOLEAN fShowVehicleFlag = FALSE;
 
@@ -98,8 +101,8 @@ extern int CLOCK_Y_START;
 
 // buttons & button images
 // HEADROCK HAM 4: Increase both arrays by one to accomodate new Mobile Restrictions button
-INT32 giMapBorderButtons[ 7 ] = { -1, -1, -1, -1, -1, -1, -1 };
-INT32 giMapBorderButtonsImage[ 7 ] = { -1, -1, -1, -1, -1, -1, -1 };
+INT32 giMapBorderButtons[ NUM_MAP_BORDER_BTNS ] = { -1, -1, -1, -1, -1, -1, -1, -1 };
+INT32 giMapBorderButtonsImage[ NUM_MAP_BORDER_BTNS ] = { -1, -1, -1, -1, -1, -1, -1, -1 };
 
 void DeleteMapBorderButtons( void );
 BOOLEAN CreateButtonsForMapBorder( void );
@@ -123,6 +126,9 @@ void BtnTeamCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnMilitiaCallback(GUI_BUTTON *btn,INT32 reason);
 // HEADROCK HAM 4: Mobile Restrictions Button callback
 void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason);
+
+// Flugente: disease
+void BtnDiseaseCallback(GUI_BUTTON *btn,INT32 reason);
 
 void LevelMarkerBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
@@ -303,29 +309,40 @@ BOOLEAN CreateButtonsForMapBorder( void )
 											BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 											(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMobileCallback);
 	}
-
-
+			
 	// set up fast help text
-	SetButtonFastHelpText( giMapBorderButtons[ 0 ], pMapScreenBorderButtonHelpText[ 0 ] );
-	SetButtonFastHelpText( giMapBorderButtons[ 1 ], pMapScreenBorderButtonHelpText[ 1 ] );
-	SetButtonFastHelpText( giMapBorderButtons[ 2 ], pMapScreenBorderButtonHelpText[ 2 ] );
-	SetButtonFastHelpText( giMapBorderButtons[ 3 ], pMapScreenBorderButtonHelpText[ 3 ] );
-	SetButtonFastHelpText( giMapBorderButtons[ 4 ], pMapScreenBorderButtonHelpText[ 4 ] );
-	SetButtonFastHelpText( giMapBorderButtons[ 5 ], pMapScreenBorderButtonHelpText[ 5 ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_TOWN_BTN ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MINE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MINE_BTN ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_TEAMS_BTN ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_AIRSPACE_BTN ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_ITEM_BTN ] );
+	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MILITIA_BTN ] );
+		
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+		SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4: Mobile Militia button
+	
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_TOWN_BTN ], MSYS_NO_CURSOR );
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MINE_BTN ], MSYS_NO_CURSOR );
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ], MSYS_NO_CURSOR );
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ], MSYS_NO_CURSOR );
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], MSYS_NO_CURSOR );
+	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], MSYS_NO_CURSOR );
 
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
-		SetButtonFastHelpText( giMapBorderButtons[ 6 ], pMapScreenBorderButtonHelpText[ 6 ] ); // HEADROCK HAM 4: Mobile Militia button
+		SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], MSYS_NO_CURSOR ); // HEADROCK HAM 4: Mobile Militia button
+	
+	// Flugente: disease
+	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
+	{
+		giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 31, -1, 32, -1 );
+		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], MAP_BORDER_DISEASE_BTN_X, MAP_BORDER_DISEASE_BTN_Y,
+																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnDiseaseCallback );
 
-	SetButtonCursor(giMapBorderButtons[ 0 ], MSYS_NO_CURSOR );
-	SetButtonCursor(giMapBorderButtons[ 1 ], MSYS_NO_CURSOR );
-	SetButtonCursor(giMapBorderButtons[ 2 ], MSYS_NO_CURSOR );
-	SetButtonCursor(giMapBorderButtons[ 3 ], MSYS_NO_CURSOR );
-	SetButtonCursor(giMapBorderButtons[ 4 ], MSYS_NO_CURSOR );
-	SetButtonCursor(giMapBorderButtons[ 5 ], MSYS_NO_CURSOR );
+		SetButtonFastHelpText( giMapBorderButtons[MAP_BORDER_DISEASE_BTN], pMapScreenBorderButtonHelpText[MAP_BORDER_DISEASE_BTN] );
 
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
-		SetButtonCursor(giMapBorderButtons[ 6 ], MSYS_NO_CURSOR ); // HEADROCK HAM 4: Mobile Militia button
-
+		SetButtonCursor( giMapBorderButtons[MAP_BORDER_DISEASE_BTN], MSYS_NO_CURSOR );
+	}
 
 #ifdef JA2UB
     //EnableButton
@@ -392,8 +409,9 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
-	   DisableButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]); 
-	   
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]);
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_DISEASE_BTN ]); 
+	   	   	   
 	   fShowTownFlag = FALSE;
 #endif
 
@@ -407,33 +425,38 @@ void DeleteMapBorderButtons( void )
 {
 	UINT8 ubCnt;
 
-	RemoveButton( giMapBorderButtons[ 0 ]);
-	RemoveButton( giMapBorderButtons[ 1 ]);
-	RemoveButton( giMapBorderButtons[ 2 ]);
-	RemoveButton( giMapBorderButtons[ 3 ]);
-	RemoveButton( giMapBorderButtons[ 4 ]);
-	RemoveButton( giMapBorderButtons[ 5 ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_MINE_BTN ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]);
+	RemoveButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]);
 
 	// WANNE: Only remove if we added the button
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
-		RemoveButton( giMapBorderButtons[ 6 ]); // HEADROCK HAM 4
+		RemoveButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]); // HEADROCK HAM 4
+
+	if ( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] != -1 )
+		RemoveButton( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] );
 
 	// images
 
-	UnloadButtonImage( giMapBorderButtonsImage[ 0 ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ 1 ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ 2 ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ 3 ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ 4 ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ 5 ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ] );
+	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] );
 
 	// WANNE: Only unload if we added the button
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
-		UnloadButtonImage( giMapBorderButtonsImage[ 6 ] ); // HEADROCK HAM 4
+		UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4
 
-
+	if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] != -1 )
+		UnloadButtonImage( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] );
+		
 	// HEADROCK HAM 4: Increased number of buttons by one.
-	for ( ubCnt = 0; ubCnt < NUM_MAP_BORDER_BTNS; ubCnt++ )
+	for ( ubCnt = 0; ubCnt < NUM_MAP_BORDER_BTNS; ++ubCnt )
 	{
 		giMapBorderButtons[ ubCnt ] = -1;
 		giMapBorderButtonsImage[ ubCnt ] = -1;
@@ -520,6 +543,21 @@ void BtnItemCallback(GUI_BUTTON *btn,INT32 reason)
 		CommonBtnCallbackBtnDownChecks();
 
 		ToggleItemsFilter();
+	}
+	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks();
+	}
+}
+
+// Flugente: disease
+void BtnDiseaseCallback( GUI_BUTTON *btn, INT32 reason )
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks();
+
+		ToggleDiseaseFilter();
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
@@ -615,6 +653,12 @@ void ToggleShowMinesMode( void )
 		{
 			fShowMobileRestrictionsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		}
+
+		if ( fShowStrategicDiseaseFlag )
+		{
+			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 	}
 
@@ -765,6 +809,27 @@ void ToggleItemsFilter( void )
 	}
 }
 
+// Flugente: disease
+void ToggleDiseaseFilter( void )
+{
+	if ( fShowStrategicDiseaseFlag == MAPMODE_MAX - 1 )
+	{
+		// turn items OFF
+		fShowStrategicDiseaseFlag = MAPMODE_OFF;
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+	}
+	else
+	{
+		// turn ON
+		TurnOnDiseaseFilterMode( );
+	}
+}
+
 // HEADROCK HAM 4: Toggle Mobile Restrictions Button
 void ToggleMobileFilter( void )
 {
@@ -890,13 +955,11 @@ void TurnOnShowTeamsMode( void )
 			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		}
 
-/*
-		if( fShowAircraftFlag == TRUE )
+		if ( fShowStrategicDiseaseFlag )
 		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
-*/
 
 		if( fShowItemsFlag == TRUE )
 		{
@@ -958,6 +1021,12 @@ void TurnOnAirSpaceMode( void )
 			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		}
 
+		if ( fShowStrategicDiseaseFlag )
+		{
+			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		}
+
 		// Turn off items
 		if( fShowItemsFlag == TRUE )
 		{
@@ -1004,7 +1073,6 @@ void TurnOnItemFilterMode( void )
 		fShowItemsFlag = TRUE;
 		MapBorderButtonOn( MAP_BORDER_ITEM_BTN );
 
-
 		// Turn off towns, mines, teams, militia & airspace if any are on
 		if( fShowTownFlag == TRUE )
 		{
@@ -1036,6 +1104,12 @@ void TurnOnItemFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		}
 
+		if ( fShowStrategicDiseaseFlag )
+		{
+			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		}
+
 		if( fShowAircraftFlag == TRUE )
 		{
 			fShowAircraftFlag = FALSE;
@@ -1056,6 +1130,80 @@ void TurnOnItemFilterMode( void )
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
 		fMapScreenBottomDirty = TRUE;
+	}
+}
+
+void TurnOnDiseaseFilterMode( void )
+{
+	// if mode already on, leave, else set and redraw
+	if ( fShowStrategicDiseaseFlag < MAPMODE_MAX - 1 )
+	{
+		++fShowStrategicDiseaseFlag;
+		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
+
+		if( fShowItemsFlag == TRUE )
+		{
+			fShowItemsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
+		}
+
+		// Turn off towns, mines, teams, militia & airspace if any are on
+		if( fShowTownFlag == TRUE )
+		{
+			fShowTownFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_TOWN_BTN );
+		}
+
+		if( fShowMineFlag == TRUE )
+		{
+			fShowMineFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
+		}
+
+		if( fShowTeamFlag == TRUE )
+		{
+			fShowTeamFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
+		}
+
+		if( fShowMilitia == TRUE )
+		{
+			fShowMilitia = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
+		}
+		// HEADROCK HAM 4: Turn off Militia Restrictions
+		if (fShowMobileRestrictionsFlag == TRUE)
+		{
+			fShowMobileRestrictionsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		}
+				
+		if( fShowAircraftFlag == TRUE )
+		{
+			fShowAircraftFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		}
+
+		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+		{
+			AbortMovementPlottingMode( );
+		}
+		else if ( gfInChangeArrivalSectorMode )
+		{
+			CancelChangeArrivalSectorMode( );
+		}
+
+		if ( fShowStrategicDiseaseFlag == MAPMODE_DISEASE && !gubFact[FACT_DISEASE_VIEWED] )
+		{
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[27] );
+
+			SetFactTrue( FACT_DISEASE_VIEWED );
+		}
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
 	}
 }
 
@@ -1096,6 +1244,12 @@ void TurnOnMobileFilterMode( void )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
+		}
+
+		if ( fShowStrategicDiseaseFlag )
+		{
+			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 
 		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
@@ -1201,6 +1355,15 @@ void InitializeMapBorderButtonStates( void )
 	{
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 	}
+
+	if ( fShowStrategicDiseaseFlag )
+	{
+		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
+	}
+	else
+	{
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+	}
 }
 
 
@@ -1292,6 +1455,9 @@ void InitMapScreenFlags( void )
 
 	// HEADROCK HAM 4: Militia Restrictions
 	fShowMobileRestrictionsFlag = FALSE;
+
+	// Flugente
+	fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
 }
 
 
@@ -1356,6 +1522,8 @@ void InitMapBorderButtonCoordinates()
 	MAP_BORDER_MILITIA_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_MOBILE_BTN_X 	= xResSize;
 	MAP_BORDER_MOBILE_BTN_Y 	= 0;
+	MAP_BORDER_DISEASE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 190;
+	MAP_BORDER_DISEASE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 
 	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
 	MAP_LEVEL_MARKER_Y 			= (SCREEN_HEIGHT - yResOffset - buttonOffset);

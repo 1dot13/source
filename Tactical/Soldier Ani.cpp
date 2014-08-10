@@ -4006,6 +4006,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
 
+		// Flugente: disease
+		HandleDeathDiseaseImplications( pSoldier );
+
 		if ( TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE ) )
 		{
 			*pfMadeCorpse = TRUE;

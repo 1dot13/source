@@ -29,6 +29,41 @@ typedef struct
 	
 } MINERALS_VALUES;
 
+// map shading colors
+enum{
+	MAP_SHADE_BLACK =0,
+
+	MAP_SHADE_LT_GREEN,
+	MAP_SHADE_MD_GREEN,
+	MAP_SHADE_DK_GREEN,
+
+	MAP_SHADE_LT_RED,
+	MAP_SHADE_MD_RED,
+	MAP_SHADE_DK_RED,
+
+	MAP_SHADE_LT_YELLOW,
+	MAP_SHADE_MD_YELLOW,
+	MAP_SHADE_DK_YELLOW,
+
+	MAP_SHADE_LT_CYAN,
+	MAP_SHADE_MD_CYAN,
+	MAP_SHADE_DK_CYAN,
+
+	MAP_SHADE_LT_GREY,
+	MAP_SHADE_MD_GREY,
+	MAP_SHADE_DK_GREY,
+
+	MAP_SHADE_LT_BLUE,
+	MAP_SHADE_MD_BLUE,
+	MAP_SHADE_DK_BLUE,
+
+	MAP_SHADE_LT_PINK,
+	
+	MAP_SHADE_ORANGE,
+
+	MAP_SHADE_MAX,
+};
+
 extern MINERALS_VALUES MineralsName[255];
 
 extern ICON_FILE gHiddenIcon[ 256 ];
@@ -130,7 +165,6 @@ void BlitTownGridMarkers( void );
 // load and delete the graphics for the map screen map militia 
 BOOLEAN LoadMilitiaPopUpBox( void );
 void RemoveMilitiaPopUpBox( void );
-
 
 // check if anyone left behind, if not, move selected cursor along with movement group
 //void CheckIfAnyoneLeftInSector( INT16 sX, INT16 sY, INT16 sNewX, INT16 sNewY, INT8 bZ );

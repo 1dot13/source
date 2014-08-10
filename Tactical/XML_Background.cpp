@@ -97,6 +97,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "resistance_suppression") == 0 ||
 				strcmp(name, "resistance_physical") == 0 ||
 				strcmp(name, "resistance_alcohol") == 0 ||
+				strcmp(name, "resistance_disease" ) == 0 ||
 				strcmp(name, "interrogation") == 0 ||
 				strcmp(name, "prisonguard") == 0 ||
 				strcmp(name, "betterprices_guns") == 0 ||
@@ -125,6 +126,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "cth_vs_creatures") == 0 ||
 				strcmp(name, "insurance") == 0 ||
 				strcmp(name, "spotter") == 0 ||
+				strcmp(name, "disease_diagnose" ) == 0 ||
+				strcmp(name, "disease_treatment" ) == 0 ||
 				strcmp(name, "dislikebackground" ) == 0 ||
 				strcmp(name, "druguse") == 0 ||
 				strcmp(name, "xenophobic") == 0 ||				
@@ -380,6 +383,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_RESI_ALCOHOL] = min(XML_BACKGROUND_RESI_MAX, max(-XML_BACKGROUND_RESI_MAX, (INT8) atol(pData->szCharData) ));
 		}
+		else if ( strcmp( name, "resistance_disease" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_RESI_DISEASE] = min( XML_BACKGROUND_RESI_MAX, max( -XML_BACKGROUND_RESI_MAX, (INT8)atol( pData->szCharData ) ) );
+		}
 		else if(strcmp(name, "interrogation") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -478,7 +486,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "disarm_trap") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_TRAP_DISARM] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_DISARM] = min( 50, max( -50, (INT16)atol( pData->szCharData ) ) );
 		}
 		else if(strcmp(name, "approach_friendly") == 0)
 		{
@@ -519,6 +527,16 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_PERC_SPOTTER] = min(30, max(-30, (INT16) atol(pData->szCharData) ));
+		}
+		else if ( strcmp( name, "disease_diagnose" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_PERC_DISEASE_DIAGNOSE] = min( 50, max( -50, (INT16)atol( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "disease_treatment" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_PERC_DISEASE_TREAT] = min( 50, max( -50, (INT16)atol( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "dislikebackground" ) == 0 )
 		{

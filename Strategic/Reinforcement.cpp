@@ -261,6 +261,9 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	{
 		while ((pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) ) != NULL)
 		{
+			// Flugente: disease
+			PopulationMove( pGroup->ubSectorX, pGroup->ubSectorY, sMapX, sMapY, pGroup->ubGroupSize );
+
 			pGroup->ubPrevX = pGroup->ubSectorX;
 			pGroup->ubPrevY = pGroup->ubSectorY;
 
@@ -269,7 +272,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 
 			gfPendingEnemies = TRUE;
 			ResetMortarsOnTeamCount();
-			ResetNumSquadleadersInArmyGroup(); // added by SANDRO
+			ResetNumSquadleadersInArmyGroup(); // added by SANDRO						
 		}
 	}
 

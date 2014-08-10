@@ -3153,7 +3153,12 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 		ubStrengthForCarrying = (ubStrengthForCarrying * (100 + gSkillTraitValues.ubBBCarryWeightBonus) / 100); // plus one third
 	}
 
-	ubStrengthForCarrying = (ubStrengthForCarrying * (100 + pSoldier->GetBackgroundValue(BG_PERC_CARRYSTRENGTH)) / 100);
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sEffCarryStrength * pSoldier->GetDiseaseMagnitude( i );
+
+	ubStrengthForCarrying = (ubStrengthForCarrying * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_PERC_CARRYSTRENGTH )) / 100);
 
 	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
 	// instead of multiplying by 100 for percent, and then dividing by 10 to account

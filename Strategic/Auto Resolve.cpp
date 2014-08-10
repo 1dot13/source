@@ -4672,6 +4672,9 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			// Flugente: campaign stats
 			gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
 
+			// Flugente: disease
+			HandleDeathDiseaseImplications( pTarget->pSoldier );
+
 			if( pAttacker->uiFlags & CELL_MERC )
 			{ //Player killed the enemy soldier -- update his stats as well as any assisters.
 				/////////////////////////////////////////////////////////////////////////////////////
@@ -4857,6 +4860,9 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	{
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
+		// Flugente: disease
+		HandleDeathDiseaseImplications( pTarget->pSoldier );
 
 		//soldier has been killed
 		if( pTarget->pAttacker[ index ]->uiFlags & CELL_PLAYER )

@@ -88,6 +88,7 @@
 	#include "CampaignHistoryMain.h"		// added by Flugente
 	#include "CampaignHistory_Summary.h"	// added by Flugente
 	#include "MercCompare.h"				// added by Flugente
+	#include "WHO.h"						// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1041,26 +1042,38 @@ INT32 EnterLaptop()
 
 	gfShowBookmarks=FALSE;
 	LoadBookmark( );
-
-	if (!is_networked)
-		SetBookMark(AIM_BOOKMARK);
-
+	
 #ifdef JA2UB		
 	//JA25 UB
-	 SetBookMark(MERC_BOOKMARK);
-#endif	
-	if ( gGameExternalOptions.gEncyclopedia && !is_networked )
-		SetBookMark(ENCYCLOPEDIA_BOOKMARK); 
-		
-	if ( gGameExternalOptions.gBriefingRoom && !is_networked )
-		SetBookMark(BRIEFING_ROOM_BOOKMARK);
-
-	if ( gGameExternalOptions.fCampaignHistoryWebSite && !is_networked )
-		SetBookMark(CAMPAIGNHISTORY_BOOKMARK);
+	SetBookMark(MERC_BOOKMARK);
+#endif
 
 	if ( !is_networked )
-		SetBookMark( MERCCOMPARE_BOOKMARK );
-	
+	{
+		SetBookMark( AIM_BOOKMARK );
+
+		if ( gGameExternalOptions.gEncyclopedia )
+			SetBookMark( ENCYCLOPEDIA_BOOKMARK );
+
+		if ( gGameExternalOptions.gBriefingRoom )
+			SetBookMark( BRIEFING_ROOM_BOOKMARK );
+
+		if ( gGameExternalOptions.fCampaignHistoryWebSite )
+			SetBookMark( CAMPAIGNHISTORY_BOOKMARK );
+		else
+			RemoveBookmark( CAMPAIGNHISTORY_BOOKMARK );
+
+		if ( gGameExternalOptions.fDynamicOpinions )
+			SetBookMark( MERCCOMPARE_BOOKMARK );
+		else
+			RemoveBookmark( MERCCOMPARE_BOOKMARK );
+
+		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
+			SetBookMark( WHO_BOOKMARK );
+		else
+			RemoveBookmark( WHO_BOOKMARK );
+	}
+
 	LoadLoadPending( );
 
 	DrawDeskTopBackground( );
@@ -1462,6 +1475,18 @@ void RenderLaptop()
 
 		case LAPTOP_MODE_MERCCOMPARE_MAIN:
 			RenderMercCompareMain();
+			break;
+
+		case LAPTOP_MODE_WHO_MAIN:
+			RenderWHOMain( );
+			break;
+
+		case LAPTOP_MODE_WHO_CONTRACT:
+			RenderWHOContract( );
+			break;
+
+		case LAPTOP_MODE_WHO_TIPS:
+			RenderWHOTips( );
 			break;
 	}
 
@@ -1896,6 +1921,18 @@ void EnterNewLaptopMode()
 			EnterBobbyRShipments();
 			break;
 
+		case LAPTOP_MODE_WHO_MAIN:
+			EnterWHOMain( );
+			break;
+
+		case LAPTOP_MODE_WHO_CONTRACT:
+			EnterWHOContract( );
+			break;
+
+		case LAPTOP_MODE_WHO_TIPS:
+			EnterWHOTips( );
+			break;
+
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2144,6 +2181,18 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_MERCCOMPARE_MAIN:
 			HandleMercCompareMain();
+			break;
+
+		case LAPTOP_MODE_WHO_MAIN:
+			HandleWHOMain( );
+			break;
+
+		case LAPTOP_MODE_WHO_CONTRACT:
+			HandleWHOContract( );
+			break;
+
+		case LAPTOP_MODE_WHO_TIPS:
+			HandleWHOTips( );
 			break;
 	}
 
@@ -2702,6 +2751,18 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_MERCCOMPARE_MAIN:
 			ExitMercCompareMain();
+			break;
+
+		case LAPTOP_MODE_WHO_MAIN:
+			ExitWHOMain();
+			break;
+
+		case LAPTOP_MODE_WHO_CONTRACT:
+			ExitWHOContract( );
+			break;
+
+		case LAPTOP_MODE_WHO_TIPS:
+			ExitWHOTips( );
 			break;
 	}
 
@@ -3676,7 +3737,7 @@ void SetBookMark(INT32 iBookId)
 	{
 		while(LaptopSaveInfo.iBookMarkList[iCounter]!=-1)
 		{
-			// move trhough list until empty
+			// move through list until empty
 			if( LaptopSaveInfo.iBookMarkList[iCounter]==iBookId)
 			{
 				// found it, return
@@ -3957,7 +4018,7 @@ void DeleteBookmarkRegions()
 	while( LaptopSaveInfo.iBookMarkList[iCounter] != -1 )
 	{
 		MSYS_RemoveRegion(&gBookmarkMouseRegions[iCounter]);
-	iCounter++;
+		++iCounter;
 	}
 
 	// now one for the cancel
@@ -4268,6 +4329,27 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 				{
 					// reset flag and set load pending flag
 					LaptopSaveInfo.fVisitedBookmarkAlready[MERCCOMPARE_BOOKMARK] = TRUE;
+					fLoadPendingFlag = TRUE;
+				}
+				else
+				{
+					// fast reload
+					fLoadPendingFlag = TRUE;
+					fFastLoadFlag = TRUE;
+				}
+			}
+			break;
+
+		case WHO_BOOKMARK:
+			{
+				guiCurrentWWWMode = LAPTOP_MODE_WHO_MAIN;
+				guiCurrentLaptopMode = LAPTOP_MODE_WHO_MAIN;
+
+				// do we have to have a World Wide Wait
+				if ( LaptopSaveInfo.fVisitedBookmarkAlready[WHO_BOOKMARK] == FALSE )
+				{
+					// reset flag and set load pending flag
+					LaptopSaveInfo.fVisitedBookmarkAlready[WHO_BOOKMARK] = TRUE;
 					fLoadPendingFlag = TRUE;
 				}
 				else
@@ -6285,8 +6367,7 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 	// blit title
 	GetVideoObject(&hHandle, uiTITLEFORWWW);
 	BltVideoObject( FRAME_BUFFER, hHandle, 0,LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_UL_Y - 2, VO_BLT_SRCTRANSPARENCY,NULL );
-
-
+	
 	// now delete
 	DeleteVideoObjectFromIndex( uiTITLEFORWWW );
 
@@ -6299,12 +6380,10 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 
 	// no page loaded yet, do not handle yet
 
-
 	if( guiCurrentLaptopMode == LAPTOP_MODE_WWW )
 	{
-	mprintf(iScreenWidthOffset + 140 , iScreenHeightOffset + 33 ,pWebTitle[0]);
+		mprintf(iScreenWidthOffset + 140 , iScreenHeightOffset + 33 ,pWebTitle[0]);
 	}
-
 	else
 	{
 		iIndex = guiCurrentLaptopMode - LAPTOP_MODE_WWW-1;
@@ -6318,10 +6397,7 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 			swprintf( sString, L"%s - %s", pWebTitle[0], pWebPagesTitles[ iIndex ] );
 		mprintf(iScreenWidthOffset + 140 ,iScreenHeightOffset + 33 ,sString);
 	}
-
-
-
-
+	
 	BlitTitleBarIcons( );
 
 	DisplayProgramBoundingBox( FALSE );
@@ -6333,18 +6409,15 @@ BOOLEAN RenderWWWProgramTitleBar( void )
 
 void HandleDefaultWebpageForLaptop( void )
 {
-
 	// go to first page in bookmark list
 	if( guiCurrentLaptopMode == LAPTOP_MODE_WWW )
 	{
 		// if valid entry go there
 		if( LaptopSaveInfo.iBookMarkList[ 0 ] != -1 )
 		{
-		GoToWebPage( LaptopSaveInfo.iBookMarkList[ 0 ] );
+			GoToWebPage( LaptopSaveInfo.iBookMarkList[ 0 ] );
 		}
 	}
-
-	return;
 }
 
 
@@ -6354,8 +6427,6 @@ void CreateMinimizeRegionsForLaptopProgramIcons( void )
 
 	MSYS_DefineRegion( &gLapTopProgramMinIcon,LAPTOP_PROGRAM_ICON_X, LAPTOP_PROGRAM_ICON_Y ,LAPTOP_PROGRAM_ICON_X + LAPTOP_PROGRAM_ICON_WIDTH ,LAPTOP_PROGRAM_ICON_Y + LAPTOP_PROGRAM_ICON_HEIGHT, MSYS_PRIORITY_NORMAL+1,
 							CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, LaptopProgramIconMinimizeCallback );
-
-	return;
 }
 
 
@@ -6365,8 +6436,6 @@ void DestroyMinimizeRegionsForLaptopProgramIcons( void )
 	// displayed on the top of the laptop program bar
 
 	MSYS_RemoveRegion( &gLapTopProgramMinIcon);
-
-	return;
 }
 
 
@@ -6375,83 +6444,87 @@ void LaptopProgramIconMinimizeCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	// callback handler for the minize region that is attatched to the laptop program icon
 	if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-			switch( guiCurrentLaptopMode )
-			{
-			case( LAPTOP_MODE_EMAIL ):
-					gLaptopProgramStates[ LAPTOP_PROGRAM_MAILER ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[0], guiTITLEBARICONS, 0 );
-				SetCurrentToLastProgramOpened( );
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-				case( LAPTOP_MODE_FILES ):
-					gLaptopProgramStates[ LAPTOP_PROGRAM_FILES ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[5], guiTITLEBARICONS, 2 );
-				SetCurrentToLastProgramOpened( );
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-				case( LAPTOP_MODE_FINANCES ):
-					gLaptopProgramStates[ LAPTOP_PROGRAM_FINANCES ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[2], guiTITLEBARICONS, 5 );
-					SetCurrentToLastProgramOpened( );
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-				case( LAPTOP_MODE_HISTORY ):
-					gLaptopProgramStates[ LAPTOP_PROGRAM_HISTORY ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[4], guiTITLEBARICONS, 4 );
-					SetCurrentToLastProgramOpened( );
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-				case( LAPTOP_MODE_PERSONNEL ):
-					gLaptopProgramStates[ LAPTOP_PROGRAM_PERSONNEL ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[3], guiTITLEBARICONS, 3 );
-					SetCurrentToLastProgramOpened( );
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-				case( LAPTOP_MODE_NONE ):
-				// nothing
-				break;
-				default:
-					gLaptopProgramStates[ LAPTOP_PROGRAM_WEB_BROWSER ] = LAPTOP_PROGRAM_MINIMIZED;
-				InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pWebTitle[ 0 ], guiTITLEBARICONS, 1 );
-					SetCurrentToLastProgramOpened( );
-					gfShowBookmarks = FALSE;
-					fShowBookmarkInfo = FALSE;
-					fMinizingProgram = TRUE;
-					fInitTitle = TRUE;
-				break;
-			}
+		switch( guiCurrentLaptopMode )
+		{
+		case( LAPTOP_MODE_EMAIL ):
+			gLaptopProgramStates[ LAPTOP_PROGRAM_MAILER ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[0], guiTITLEBARICONS, 0 );
+			SetCurrentToLastProgramOpened( );
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+
+		case( LAPTOP_MODE_FILES ):
+			gLaptopProgramStates[ LAPTOP_PROGRAM_FILES ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[5], guiTITLEBARICONS, 2 );
+			SetCurrentToLastProgramOpened( );
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+
+		case( LAPTOP_MODE_FINANCES ):
+			gLaptopProgramStates[ LAPTOP_PROGRAM_FINANCES ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[2], guiTITLEBARICONS, 5 );
+			SetCurrentToLastProgramOpened( );
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+
+		case( LAPTOP_MODE_HISTORY ):
+			gLaptopProgramStates[ LAPTOP_PROGRAM_HISTORY ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[4], guiTITLEBARICONS, 4 );
+			SetCurrentToLastProgramOpened( );
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+
+		case( LAPTOP_MODE_PERSONNEL ):
+			gLaptopProgramStates[ LAPTOP_PROGRAM_PERSONNEL ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pLaptopIcons[3], guiTITLEBARICONS, 3 );
+			SetCurrentToLastProgramOpened( );
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+
+		case( LAPTOP_MODE_NONE ):
+			// nothing
+			break;
+
+		default:
+			gLaptopProgramStates[ LAPTOP_PROGRAM_WEB_BROWSER ] = LAPTOP_PROGRAM_MINIMIZED;
+			InitTitleBarMaximizeGraphics(guiTITLEBARLAPTOP, pWebTitle[ 0 ], guiTITLEBARICONS, 1 );
+			SetCurrentToLastProgramOpened( );
+			gfShowBookmarks = FALSE;
+			fShowBookmarkInfo = FALSE;
+			fMinizingProgram = TRUE;
+			fInitTitle = TRUE;
+			break;
+		}
 	}
-	return;
 }
 
 
 void DisplayProgramBoundingBox( BOOLEAN fMarkButtons )
 {
-		// the border fot eh program
+	// the border fot eh program
 	HVOBJECT hHandle;
 
 	GetVideoObject(&hHandle, guiLaptopBACKGROUND);
 	BltVideoObject(FRAME_BUFFER, hHandle, 1, iScreenWidthOffset + 25, iScreenHeightOffset + 23, VO_BLT_SRCTRANSPARENCY,NULL);
 
-// no laptop mode, no border around the program
+	// no laptop mode, no border around the program
 	if( guiCurrentLaptopMode != LAPTOP_MODE_NONE )
 	{
-	GetVideoObject(&hHandle, guiLaptopBACKGROUND);
-	BltVideoObject(FRAME_BUFFER, hHandle, 0, iScreenWidthOffset + 108, iScreenHeightOffset + 23, VO_BLT_SRCTRANSPARENCY,NULL);
+		GetVideoObject(&hHandle, guiLaptopBACKGROUND);
+		BltVideoObject(FRAME_BUFFER, hHandle, 0, iScreenWidthOffset + 108, iScreenHeightOffset + 23, VO_BLT_SRCTRANSPARENCY,NULL);
  	}
 
 	if( fMarkButtons || fLoadPendingFlag )
 	{
-	MarkButtonsDirty( );
-	RenderButtons( );
+		MarkButtonsDirty( );
+		RenderButtons( );
 	}
-
-
+	
 	PrintDate( );
 
 	PrintBalance( );
@@ -6460,8 +6533,6 @@ void DisplayProgramBoundingBox( BOOLEAN fMarkButtons )
 
 	// new files or email?
 	DisplayTaskBarIcons( );
-
-	return;
 }
 
 
@@ -6501,7 +6572,6 @@ void NewEmailIconCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			guiCurrentLaptopMode = LAPTOP_MODE_EMAIL;
 		}
 	}
-
 }
 
 
@@ -6515,7 +6585,6 @@ void NewFileIconCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			guiCurrentLaptopMode = LAPTOP_MODE_FILES;
 		}
 	}
-
 }
 
 void HandleWWWSubSites( void )
@@ -6551,8 +6620,6 @@ void HandleWWWSubSites( void )
 		gfWWWaitSubSitesVisitedFlags[ LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX - ( LAPTOP_MODE_WWW + 1 ) ] = TRUE;
 		gfWWWaitSubSitesVisitedFlags[ LAPTOP_MODE_AIM_MEMBERS - ( LAPTOP_MODE_WWW + 1 ) ] = TRUE;
 	}
-
-	return;
 }
 
 
@@ -6563,8 +6630,6 @@ void UpdateStatusOfDisplayingBookMarks( void )
 	{
 		gfShowBookmarks = FALSE;
 	}
-
-	return;
 }
 
 
@@ -6573,11 +6638,10 @@ void InitalizeSubSitesList( void )
 	INT32 iCounter = 0;
 
 	// init all subsites list to not visited
-	for( iCounter = LAPTOP_MODE_WWW + 1 ; iCounter <= LAPTOP_MODE_SIRTECH; iCounter++ )
+	for( iCounter = LAPTOP_MODE_WWW + 1 ; iCounter <= LAPTOP_MODE_SIRTECH; ++iCounter )
 	{
-			gfWWWaitSubSitesVisitedFlags[ iCounter - ( LAPTOP_MODE_WWW + 1 ) ] = FALSE;
+		gfWWWaitSubSitesVisitedFlags[ iCounter - ( LAPTOP_MODE_WWW + 1 ) ] = FALSE;
 	}
-	return;
 }
 
 
@@ -6592,7 +6656,6 @@ void SetSubSiteAsVisted( void )
 	{
 		gfWWWaitSubSitesVisitedFlags[ guiCurrentLaptopMode - ( LAPTOP_MODE_WWW + 1 ) ] = TRUE;
 	}
-
 }
 
 
@@ -6735,8 +6798,6 @@ void DisplayWebBookMarkNotify( void )
 	}
 
 	SetFontShadow(DEFAULT_SHADOW);
-
-	return;
 }
 
 void HandleWebBookMarkNotifyTimer( void )
@@ -6744,7 +6805,6 @@ void HandleWebBookMarkNotifyTimer( void )
 	static INT32 iBaseTime = 0;
 	INT32 iDifference = 0;
 	static BOOLEAN fOldShowBookMarkInfo = FALSE;
-
 
 	// check if maxing or mining?
 	if( ( fMaximizingProgram == TRUE ) || ( fMinizingProgram == TRUE ) )
@@ -6779,7 +6839,6 @@ void HandleWebBookMarkNotifyTimer( void )
 		return;
 	}
 
-
 	// check if this is the first time in here
 	if( iBaseTime == 0 )
 	{
@@ -6797,8 +6856,6 @@ void HandleWebBookMarkNotifyTimer( void )
 		iBaseTime = 0;
 		fShowBookmarkInfo = FALSE;
 	}
-
-	return;
 }
 
 
@@ -6833,7 +6890,6 @@ void ClearOutTempLaptopFiles( void )
 		FileClearAttributes( "history.dat" );
 		FileDelete( "history.dat" );
 	}
-
 }
 
 
@@ -6841,7 +6897,6 @@ BOOLEAN SaveLaptopInfoToSavedGame( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten=0;
 	UINT32	uiSize;
-
 
 	// Save The laptop information
 	FileWrite( hFile, &LaptopSaveInfo, sizeof( LaptopSaveInfoStruct ), &uiNumBytesWritten );
@@ -6863,7 +6918,6 @@ BOOLEAN SaveLaptopInfoToSavedGame( HWFILE hFile )
 			return(FALSE);
 		}
 	}
-
 
 	//If there is any Insurance Payouts in progress
 	if( LaptopSaveInfo.ubNumberLifeInsurancePayoutUsed )
@@ -6889,7 +6943,6 @@ BOOLEAN LoadLaptopInfoFromSavedGame( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead=0;
 	UINT32	uiSize;
-
 
 	//if there is memory allocated for the BobbyR orders
 	if( LaptopSaveInfo.usNumberOfBobbyRayOrderItems )
@@ -6939,8 +6992,7 @@ BOOLEAN LoadLaptopInfoFromSavedGame( HWFILE hFile )
 		LaptopSaveInfo.usNumberOfBobbyRayOrderItems = 0;
 		LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray = NULL;
 	}
-
-
+	
 	//If there is any Insurance Payouts in progress
 	if( LaptopSaveInfo.ubNumberLifeInsurancePayoutUsed )
 	{
@@ -6962,8 +7014,7 @@ BOOLEAN LoadLaptopInfoFromSavedGame( HWFILE hFile )
 		LaptopSaveInfo.ubNumberLifeInsurancePayouts = 0;
 		LaptopSaveInfo.pLifeInsurancePayouts = NULL;
 	}
-
-
+	
 	return( TRUE );
 }
 
@@ -6993,8 +7044,8 @@ BOOLEAN IsItRaining()
 {
 	if( guiEnvWeather & WEATHER_FORECAST_SHOWERS || guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
 		return( TRUE );
-	else
-		return( FALSE );
+	
+	return( FALSE );
 }
 
 
@@ -7057,7 +7108,3 @@ void ShouldImpReminderEmailBeSentWhenLaptopBackOnline()
 	}
 }
 #endif
-
-
-
-

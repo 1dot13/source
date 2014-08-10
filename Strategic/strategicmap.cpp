@@ -1841,13 +1841,13 @@ UINT8 GetTownSectorSize( INT8 bTownId )
 	UINT8 ubSectorSize = 0;
 	INT32 iCounterA =0, iCounterB = 0;
 
-	for( iCounterA = 0; iCounterA < ( INT32 )( MAP_WORLD_X - 1 ); iCounterA++ )
+	for( iCounterA = 0; iCounterA < ( INT32 )( MAP_WORLD_X - 1 ); ++iCounterA )
 	{
-		for( iCounterB = 0; iCounterB < ( INT32 )( MAP_WORLD_Y - 1 ); iCounterB++ )
+		for( iCounterB = 0; iCounterB < ( INT32 )( MAP_WORLD_Y - 1 ); ++iCounterB )
 		{
-			if(  StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].bNameId == bTownId )
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].bNameId == bTownId )
 			{
-				ubSectorSize++;
+				++ubSectorSize;
 			}
 		}
 	}
@@ -1878,12 +1878,11 @@ UINT8 GetMilitiaCountAtLevelAnywhereInTown( UINT8 ubTownValue, UINT8 ubLevelValu
 UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 {
 	INT8 ubSectorsControlled = 0;
-	INT32 iCounterA =0, iCounterB = 0;
 	UINT16 usSector = 0;
 
-	for( iCounterA = 0; iCounterA < ( INT32 )( MAP_WORLD_X - 1 ); iCounterA++ )
+	for ( INT32 iCounterA = 0; iCounterA < (INT32)(MAP_WORLD_X - 1); iCounterA++ )
 	{
-		for( iCounterB = 0; iCounterB < ( INT32 )( MAP_WORLD_Y - 1 ); iCounterB++ )
+		for ( INT32 iCounterB = 0; iCounterB < (INT32)(MAP_WORLD_Y - 1); iCounterB++ )
 		{
 			usSector = (UINT16)CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
 

@@ -8316,16 +8316,14 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Loop through every character.
-    for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+    for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
     {
         DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: loop = %d, numslots = %d ",uiLoop, guiNumMercSlots));
         pSoldier = MercSlots[uiLoop];
 
-#ifdef ENABLE_ZOMBIES
         // Flugente: zombies do not receive any suppression at all!
         if ( pSoldier != NULL && pSoldier->IsZombie() )
             continue;
-#endif
 
         // Has this character received any Suppression Points since the last attack?
         // HEADROCK: Suppression Points accumulate by bullets flying near the character. It includes
@@ -9949,11 +9947,11 @@ BOOLEAN HostileZombiesPresent( )
         return( FALSE );
     }
 
-    for ( iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; iLoop++ )
+    for ( iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++iLoop )
     {
         pSoldier = MercPtrs[ iLoop ];
 
-        if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->IsZombie() )
+		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->IsZombie( ) )
         {
             return( TRUE );
         }

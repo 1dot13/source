@@ -19,6 +19,7 @@
 #include <vector>
 #include <iterator>
 #include "GameSettings.h"	// added by Flugente
+#include "Disease.h"		// added by Flugente
 
 #define PTR_CIVILIAN	(pSoldier->bTeam == CIV_TEAM)
 #define PTR_CROUCHED	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH)
@@ -408,6 +409,15 @@ enum
 
 #define SOLDIER_INTERROGATE_ALL				0x000000F8					// all interrogation flags
 // ----------------------------------------------------------------
+
+// -------- added by Flugente: disease property flags --------
+// easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+// these flags describe how a disease has affected us so far
+#define SOLDIERDISEASE_DIAGNOSED			0x00000001	//1				// it is now known that we have this disease - either a doctor diagnosed it, or it broke out an we are currently suffering
+#define SOLDIERDISEASE_OUTBREAK				0x00000002	//2				// disease has broken out - we suffer the effects now. Without this flag, it is active but does not do any damage to us
+#define SOLDIERDISEASE_REVERSEAL			0x00000004	//4				// disease is reversing - every hour we receive negative points. This is used to simulate a disease healing itself
+
+
 
 // -------- added by Flugente: background property flags --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
@@ -1469,6 +1479,10 @@ public:
 	UINT8	usAISkillUse;							// this variable allows the AI to remember which skill it wants to use
 	UINT16	usSkillCounter[SOLDIER_COUNTER_MAX];	// counters used for various skill/trait/taint effects
 	UINT32	usSkillCooldown[SOLDIER_COOLDOWN_MAX];	// cooldown used for various skill/trait/taint effects
+
+	// Flugente: diseases
+	INT16	sDiseasePoints[NUM_DISEASES];			// we store the state of our diseases here
+	UINT8	sDiseaseFlag[NUM_DISEASES];				// we need to store some special flags for every disease
 	
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
@@ -1691,10 +1705,8 @@ public:
 
 	INT16	GetSoldierCriticalDamageBonus( void );	// Flugente: determines critical damage bonus depending on class, skill, etc.
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: Zombies
 	BOOLEAN IsZombie( void );
-#endif
 	
 	// Flugente: poison system
 	// These functions might one day be modified by traits etc. We'll keep that in these functions and not clutter the rest of the code
@@ -1848,6 +1860,21 @@ public:
 
 	// Flugente: boxing fix: this shall be the only location where the boxing flag gets removed (easier debugging)
 	void	DeleteBoxingFlag();
+
+	// Flugente: disease
+	void	Infect( UINT8 aDisease );
+	void	AddDiseasePoints( UINT8 aDisease, INT32 aVal  );
+	void	AnnounceDisease( UINT8 aDisease );
+
+	// do we have any disease?
+	// fDiagnosedOnly: check for wether we know of this infection
+	// fHealableOnly: check wether it can be healed
+	// fSymbolOnly: only show if symbol should be shown
+	BOOLEAN HasDisease(BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, BOOLEAN fSymbolOnly = FALSE);
+	FLOAT	GetDiseaseMagnitude( UINT8 aDisease );			// get the magnitude os a disease we might have, used to determine wether there are any effects
+	void	PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc = FALSE );
+	FLOAT   GetDiseaseContactProtection();		// get percentage protection from infections via contact
+	INT16	GetDiseaseResistance();
 
 	//////////////////////////////////////////////////////////////////////////////
 

@@ -281,7 +281,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "SleepModifier") == 0 ||
 				strcmp(name, "usSpotting") == 0 ||
 				strcmp(name, "sBackpackWeightModifier") == 0 ||
-				strcmp(name, "fAllowClimbing") == 0))
+				strcmp(name, "fAllowClimbing") == 0 ||
+				strcmp(name, "diseaseprotectionface" ) == 0 ||
+				strcmp(name, "diseaseprotectionhand" ) == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1457,6 +1459,23 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.fAllowClimbing = (BOOLEAN)atol(pData->szCharData);
 		}
+		// Flugente: simple tags in the xml get translated into flags
+		else if ( strcmp( name, "diseaseprotectionface" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
+
+			if ( val )
+				pData->curItem.usItemFlag |= DISEASEPROTECTION_FACE;
+		}
+		else if ( strcmp( name, "diseaseprotectionhand" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
+
+			if ( val )
+				pData->curItem.usItemFlag |= DISEASEPROTECTION_HAND;
+		}
 										
 		pData->maxReadDepth--;
 	}
@@ -2102,6 +2121,12 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",										Item[cnt].usSpotting  );
 			FilePrintf(hFile, "\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
 			FilePrintf(hFile, "\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",							Item[cnt].fAllowClimbing);
+
+			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_FACE  )
+				FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
+			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_HAND )
+				FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
+
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");

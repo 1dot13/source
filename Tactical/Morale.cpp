@@ -145,6 +145,9 @@ DynamicOpinionEvent gDynamicOpinionEvent[OPINIONEVENT_MAX] =
 	{OPINIONEVENT_SOLVECONFLICT_REASON_BAD,		-2, TRUE, FALSE, TRUE, FALSE},
 	{OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD, 3, TRUE, FALSE, TRUE, FALSE},
 	{OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD, -3, TRUE, FALSE, TRUE, FALSE},
+	{OPINIONEVENT_DISEASE_DISGUSTING,			-3, TRUE, FALSE, TRUE, FALSE},
+	{OPINIONEVENT_DISEASE_TREATMENT,			1, TRUE, FALSE, TRUE, FALSE},
+
 };
 
 BOOLEAN gfSomeoneSaidMoraleQuote = FALSE;
@@ -1023,6 +1026,9 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			break;
 	}
 
+	// Flugente: if the situation is really, REALLY bad, we can get traumatized
+	if ( pSoldier && pSoldier->aiData.bMorale < 15 )
+		HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_TRAUMATIC );
 
 	// some morale events also impact the player's reputation with the mercs back home
 	switch( bMoraleEvent )

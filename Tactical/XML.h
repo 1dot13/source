@@ -238,6 +238,7 @@ typedef PARSE_STAGE;
 #define SQUADNAMEFILENAME						"SquadNames.xml"
 #define BACKGROUNDSFILENAME						"Backgrounds.xml"
 #define CAMPAIGNSTATSEVENTSFILENAME				"CampaignStatsEvents.xml"
+#define DISEASEFILENAME							"Disease.xml"
 
 #define TAUNTSFOLDERNAME						"EnemyTaunts\\"
 #define TAUNTSFILENAME							"EnemyTaunts.xml"
@@ -307,6 +308,10 @@ extern BOOLEAN WriteDrugsStats();
 // Flugente: food
 extern BOOLEAN ReadInFoodStats(STR fileName);
 extern BOOLEAN WriteFoodStats();
+
+// Flugente: disease
+extern BOOLEAN ReadInDiseaseStats( STR fileName );
+extern BOOLEAN WriteDiseaseStats( );
 
 // Flugente: merchants
 extern BOOLEAN ReadInMerchantStats(STR fileName);

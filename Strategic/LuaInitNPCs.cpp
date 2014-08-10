@@ -7072,78 +7072,81 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 	{
 		sGridNo = lua_tointeger(L, 1);
 
-	if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
-	{
-		UINT8	ubID;
-		OBJECTTYPE DoorCloser;
-		INT16	sTeleportSpot;
-		INT16	sDoorSpot;
-		UINT8	ubDirection;
-		//DBrot: More Rooms
-		//UINT8	ubRoom, ubOldRoom;
-		UINT16 usRoom, usOldRoom;
-
-		// Flugente: check for valid sGridNo
-		if ( TileIsOutOfBounds(sGridNo) )
-			return 0;
-
-		ubID = WhoIsThere2( sGridNo, 0 );
-		if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
+		if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
+			UINT8	ubID;
+			OBJECTTYPE DoorCloser;
+			INT16	sTeleportSpot;
+			INT16	sDoorSpot;
+			UINT8	ubDirection;
+			//DBrot: More Rooms
+			//UINT8	ubRoom, ubOldRoom;
+			UINT16 usRoom, usOldRoom;
+
+			// Flugente: check for valid sGridNo
+			if ( TileIsOutOfBounds(sGridNo) )
+				return 0;
+
+			ubID = WhoIsThere2( sGridNo, 0 );
+			if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
 			{
-				// also require there to be a miniskirt civ in the room
-				if ( HookerInRoom( usRoom ) )
+				if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
 				{
-					// stop the merc...
-					MercPtrs[ ubID ]->EVENT_StopMerc( MercPtrs[ ubID ]->sGridNo, MercPtrs[ ubID ]->ubDirection );
+					// also require there to be a miniskirt civ in the room
+					if ( HookerInRoom( usRoom ) )
+					{
+						// stop the merc...
+						MercPtrs[ ubID ]->EVENT_StopMerc( MercPtrs[ ubID ]->sGridNo, MercPtrs[ ubID ]->ubDirection );
 
-					if ( sGridNo == gModSettings.iCarlaDoorGridNo +1 )
-					{
-						sDoorSpot = gModSettings.iCarlaDoorGridNo;
-						sTeleportSpot = gModSettings.iCarlaDoorGridNo;
-					}
-					else if ( sGridNo == gModSettings.iCindyDoorGridNo +1 )
-					{
-						sDoorSpot = gModSettings.iCindyDoorGridNo;
-						sTeleportSpot = gModSettings.iCindyDoorGridNo;
-					}
-					else if ( sGridNo == gModSettings.iBambiDoorGridNo )
-					{
-						sDoorSpot = gModSettings.iBambiDoorGridNo;
-						sTeleportSpot = gModSettings.iBambiDoorGridNo +1;
-					}
-					else
-					{
-						sDoorSpot = NOWHERE;
-						sTeleportSpot = NOWHERE;
-					}
+						if ( sGridNo == gModSettings.iCarlaDoorGridNo +1 )
+						{
+							sDoorSpot = gModSettings.iCarlaDoorGridNo;
+							sTeleportSpot = gModSettings.iCarlaDoorGridNo;
+						}
+						else if ( sGridNo == gModSettings.iCindyDoorGridNo +1 )
+						{
+							sDoorSpot = gModSettings.iCindyDoorGridNo;
+							sTeleportSpot = gModSettings.iCindyDoorGridNo;
+						}
+						else if ( sGridNo == gModSettings.iBambiDoorGridNo )
+						{
+							sDoorSpot = gModSettings.iBambiDoorGridNo;
+							sTeleportSpot = gModSettings.iBambiDoorGridNo +1;
+						}
+						else
+						{
+							sDoorSpot = NOWHERE;
+							sTeleportSpot = NOWHERE;
+						}
 						
-					if (!TileIsOutOfBounds(sDoorSpot) && !TileIsOutOfBounds(sTeleportSpot) )
-					{
-						// close the door...
-						DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
-						PerformItemAction( sDoorSpot, &DoorCloser );
+						if (!TileIsOutOfBounds(sDoorSpot) && !TileIsOutOfBounds(sTeleportSpot) )
+						{
+							// close the door...
+							DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
+							PerformItemAction( sDoorSpot, &DoorCloser );
 
-						// have sex
-						HandleNPCDoAction( 0, NPC_ACTION_SEX, 0 );
+							// have sex
+							HandleNPCDoAction( 0, NPC_ACTION_SEX, 0 );
 
-						// move the merc outside of the room again
-						sTeleportSpot = FindGridNoFromSweetSpotWithStructData( MercPtrs[ ubID ], STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
-						MercPtrs[ ubID ]->ChangeSoldierState( STANDING, 0, TRUE );
-						TeleportSoldier( MercPtrs[ ubID ], sTeleportSpot, FALSE );
+							// move the merc outside of the room again
+							sTeleportSpot = FindGridNoFromSweetSpotWithStructData( MercPtrs[ ubID ], STANDING, sTeleportSpot, 2, &ubDirection, FALSE );
+							MercPtrs[ ubID ]->ChangeSoldierState( STANDING, 0, TRUE );
+							TeleportSoldier( MercPtrs[ ubID ], sTeleportSpot, FALSE );
 
-						HandleMoraleEvent( MercPtrs[ ubID ], MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-						FatigueCharacter( MercPtrs[ ubID ] );
-						FatigueCharacter( MercPtrs[ ubID ] );
-						FatigueCharacter( MercPtrs[ ubID ] );
-						FatigueCharacter( MercPtrs[ ubID ] );
-						DirtyMercPanelInterface( MercPtrs[ ubID ], DIRTYLEVEL1 );
+							HandleMoraleEvent( MercPtrs[ ubID ], MORALE_SEX, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+							FatigueCharacter( MercPtrs[ ubID ] );
+							FatigueCharacter( MercPtrs[ ubID ] );
+							FatigueCharacter( MercPtrs[ ubID ] );
+							FatigueCharacter( MercPtrs[ ubID ] );
+							DirtyMercPanelInterface( MercPtrs[ ubID ], DIRTYLEVEL1 );
+
+							// Flugente: we might get a disease from this...
+							HandlePossibleInfection( MercPtrs[ubID], NULL, INFECTION_TYPE_SEX );
+						}
 					}
 				}
 			}
 		}
-	}
 	}	
 	return 0;
 }

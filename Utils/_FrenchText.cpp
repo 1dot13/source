@@ -1871,6 +1871,8 @@ STR16 pAssignmentStrings[] =
 	L"Propag.",	// spread propaganda
 	L"Rumeur",	// gather information
 	L"Command.",	// militia movement orders
+	L"Diagnose", // disease diagnosis	//TODO.Translate
+	L"Treat D.", // treat disease among the population
 };
 
 
@@ -1967,6 +1969,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Propagande",	 // spread propaganda // TODO.Translate //A voir fini (to see finished)
 	L"Rumeur",	 // gather information // TODO.Translate //A voir fini (to see finished) 
 	L"Commande",	// militia movement orders
+	L"Diagnose", // disease diagnosis
+	L"Treat Population disease", // treat disease among the population
 };
 
 
@@ -2022,6 +2026,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Propagande", // spread propaganda
 	L"Rumeurs", // gather information 
 	L"Commander",	// militia movement orders
+	L"Diagnose", // disease diagnosis
+	L"Treat Population disease", // treat disease among the population
 };
 
 
@@ -2134,6 +2140,7 @@ STR16 pAssignMenuStrings[] =
 {
 	L"Service", // merc is on active duty
 	L"Docteur", // the merc is acting as a doctor
+	L"Disease", // merc is a doctor doing diagnosis TODO.Translate
 	L"Patient(e)", // the merc is receiving medical attention
 	L"Transport", // the merc is in a vehicle
 	L"Réparat.", // the merc is repairing items 
@@ -3664,6 +3671,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Objets (|I)",
 	L"Milice & Ennemis (|Z)",
 	L"Montrer la milice mobile |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"Show Disease Data", // TODO.Translate
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -3897,6 +3905,7 @@ STR16 pTransactionText[] =
 	L"Infrastucture utilisée", // HEADROCK HAM 3.6
 	L"Entretien de la milice", // HEADROCK HAM 3.6
 	L"Argent des prisonniers libérés",	// Flugente: prisoner system
+	L"WHO data subscription",	// Flugente: disease TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4341,6 +4350,7 @@ STR16 pBookMarkStrings[] =
 	L"Briefing",
 	L"Comptes rendus",
 	L"MeLoDY",
+	L"WHO",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4457,6 +4467,9 @@ STR16 pWebPagesTitles[] =
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
 	L"Mercs Love or Dislike You - About us",
+	L"WHO - About WHO",
+	L"WHO - Disease in Arulco",
+	L"WHO - Helpful Tips",
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopédie",
 	L"Encyclopédie : Données",
@@ -5518,6 +5531,9 @@ STR16		zMarksMapScreenText[] =
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Vous n'avez actuellement aucune milice mobile. Retournez à ce mode du vue quand vous en aurez recruté.",
 	L"Cette vue montre où votre milice mobile peut aller ou pas. Gris = La milice mobile refuse d'y aller. ROUGE = La milice mobile peut y aller, mais vous avez dit de ne pas y aller. JAUNE = La milice mobile peut entrer dans ce secteur, mais ne peut pas en sortir. VERT = la milice mobile peut y aller librement. Clic droit sur un secteur vert/jaune/rouge pour changer de couleur.",
+
+	// Flugente: disease texts describing what a map view does TODO.Translate
+	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 };
 
 
@@ -6246,6 +6262,7 @@ STR16 gzLaptopHelpText[] =
 	L"Salle de briefing",
 	L"Comptes rendus",
 	L"Mercenaries Love or Dislike You",	// TODO.Translate
+	L"World Health Organization",
 };
 
 
@@ -7655,6 +7672,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|À |d|e|u|x |m|a|i|n|s",
 	L"|B|l|o|q|u|e |l|e |v|i|s|e|u|r",
 	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
+	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
+	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7697,6 +7716,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nCet objet exige les deux mains pour être utilisé.",
 	L"\n \nCet Objet bloquera votre viseur\nde ce fait vous ne pouvez pas l'utiliser.",
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
+	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
+	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8183,6 +8204,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de résistance au tir de couverture\n",
 	L" %s%d%% de résistance physique\n",
 	L" %s%d%% de résistance à l'alcool\n",
+	L" %s%d%% disease resistance\n",	// TODO.Translate
 
 	L" %s%d%% d'efficacité dans les interrogatoires\n",
 	L" %s%d%% d'efficacité comme gardien de prison\n",
@@ -8214,6 +8236,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de CDT avec des armes à feu contre les créatures\n",
 	L" %s%d%% du coût de l'assurance\n",
 	L" %s%d%% d'efficacité comme guetteur pour vos tireurs d'élite\n",
+	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
+	L" %s%d%% effectiveness at treating population against diseases\n",
 
 	L" dislikes some other backgrounds",	// TODO.Translate
 };
@@ -8665,7 +8689,7 @@ STR16	szMercCompareEventText[]=
 	L"%s mounted a gun on me",
 
 	L"%s treated my wounds",
-	L"Had a good drink %s",
+	L"Had a good drink with %s",
 	L"%s is fun to get wasted with",
 	L"%s is annoying when drunk",
 
@@ -8680,6 +8704,45 @@ STR16	szMercCompareEventText[]=
 	L"%s puts people in their places",
 
 	L"%s is way too impulsive",
+	L"%s is disease-ridden",
+	L"%s treated my diseases",
+};
+
+STR16	szWHOWebSite[] =
+{
+	// main page
+	L"World Health Organization",
+	L"Bringing health to life",
+
+	// links to other pages
+	L"About WHO",
+	L"Disease in Arulco",
+	L"About diseases",
+
+	// text on the main page
+	L"WHO is the directing and coordinating authority for health within the United Nations system.",
+	L"It is responsible for providing leadership on global health matters, shaping the health research agenda, setting norms and standards, articulating evidence-based policy options, providing technical support to countries and monitoring and assessing health trends.",
+	L"In the 21st century, health is a shared responsibility, involving equitable access to essential care and collective defence against transnational threats.",
+
+	// contract page
+	L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
+	L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
+	L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
+	L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
+	L"You currently do not have access to WHO data on the arulcan plague.",
+	L"You have acquired detailed maps on the status of the disease.",
+	L"Subscribe to map updates",
+	L"Unsubscribe map updates",
+
+	// helpful tips page
+	L"The arulcan plague is a deadly strain of the plague unique to the small country of Arulco. In a typical outbreak, the first victims get infected by a mosquito in a swamp or tropical sector. These first victims then inadvertently infect the population of nearby cities.",
+	L"You won't immediately notice when you are infected - it might take days for the symptoms to show.",
+	L"You can see the current effects of known diseases your mercs suffer from by hovering over their portrait in the strategic map.",
+	L"Most diseases get worse over time, be sure to assign a doctor as soon as possible.",
+	L"Some diseases can be treated with special medicine. You might find some in a well-equipped drugstore.",
+	L"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
+	L"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
+	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
 };
 
 STR16   szTacticalInventoryDialogString[]=
@@ -8795,6 +8858,8 @@ STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[] =
 	L"Alright alright. Jeez. I'm over it, okay?",
 
 	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
+	L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
+	L"Thanks, $CAUSE$. I'm already feeling better.",
 };
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
@@ -8882,6 +8947,8 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
 	L"Cut it, drama queen.",
 
 	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
+	L"Oh yeah? Back off, before I cough on you!",
+	L"How did you get that in the first place? Did you forget to wash your hands again?",
 };
 
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
@@ -8922,6 +8989,8 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
 	L"As long as it does not happen again.",
 
 	L"The two of us are going to have real problem soon, $VICTIM$.",
+	L"It really is. I... *cough* don't feel so well...",
+	L"No problem, we can't have you running around coughing blood, right? Riiight?",
 };
 
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
@@ -9010,6 +9079,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
 	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
 
 	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
+	L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
+	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
@@ -9050,6 +9121,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
 	L"No reason to be so stiff about it.",
 
 	L"Pfft. Don't make a fuss out of it.",
+	L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
+	L"Where did you get that stuff from in the first place?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
@@ -9090,6 +9163,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
 	L"Yeah, keep it down, will ya?",
 
 	L"Yeah, you won't boss us around anymore!",
+	L"This does look unhealthy. That better not be contagious!",
+	L"Great. Are you sure it's fully treated now?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
@@ -9130,6 +9205,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
 	L"Pah. You're the one making all the fuss about it...",
 
 	L"You are certainly nobodies superior!",
+	L"Stop it!  We don't need more of whatever it is you have!",
+	L"The important thing is that it's gone now... It is, right?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
@@ -9170,6 +9247,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
 	L"Yeah, drop that attitude, $VICTIM$.",
 
 	L"Not sure about that, but yep!",
+	L"Yeah, there's nothing you can do against this stuff, right?",
+	L"I told you pople before... this country a dirty place, so beware of what you touch.",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
@@ -9210,6 +9289,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
 	L"Sigh. More of this?",
 
 	L"Hey. Hey! Both of you, cut it out! What are you doing?",
+	L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
+	L"We have to be careful. The army isn't the only thing that wants us dead.",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
@@ -9250,6 +9331,8 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
 	L"Sigh. More of this?",
 
 	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
+	L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
+	L"Great. Everything done? Then let's get back to shooting stuff!",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
@@ -9309,6 +9392,26 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"she",
 	L"him",
 	L"her",
+};
+
+STR16	szDiseaseText[] =
+{
+	L" %s%d%% agility stat\n",
+	L" %s%d%% dexterity stat\n",
+	L" %s%d%% strength stat\n",
+	L" %s%d%% wisdom stat\n",
+	L" %s%d%% effective level\n",
+
+	L" %s%d%% APs\n",
+	L" %s%d maximum breath\n",
+	L" %s%d%% strength to carry items\n",
+	L" %s%2.2f life regeneration/hour\n",
+	L" %s%d need for sleep\n",
+	L" %s%d%% water consumption\n",
+	L" %s%d%% food consumption\n",
+
+	L"%s was diagnosed with %s!",
+	L"%s is cured of %s!",
 };
 
 #endif //FRENCH

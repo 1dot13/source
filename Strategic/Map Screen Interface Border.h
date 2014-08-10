@@ -30,8 +30,9 @@ enum{
 	MAP_BORDER_AIRSPACE_BTN,
 	MAP_BORDER_ITEM_BTN,
 	MAP_BORDER_MILITIA_BTN,
-	MAP_BORDER_MOBILE_BTN, // HEADROCK HAM 4: Mobile Militia Restrictions button
-	NUM_MAP_BORDER_BTNS, // end enumeration marker
+	MAP_BORDER_MOBILE_BTN,		// HEADROCK HAM 4: Mobile Militia Restrictions button
+	MAP_BORDER_DISEASE_BTN,		// Flugente: toggle disease views
+	NUM_MAP_BORDER_BTNS,		// end enumeration marker
 };
 
 
@@ -50,6 +51,7 @@ extern BOOLEAN fShowMilitia;
 extern BOOLEAN fShowAircraftFlag;
 extern BOOLEAN fShowItemsFlag;
 extern BOOLEAN fShowMobileRestrictionsFlag; // HEADROCK HAM 4: Manual Mobile Militia mode
+extern UINT8 fShowStrategicDiseaseFlag;		// Flugente: disease
 //extern BOOLEAN fShowVehicleFlag;
 
 // scroll animation
@@ -70,11 +72,17 @@ void ToggleItemsFilter( void );
 // HEADROCK HAM 4: Toggle Mobile Militia Restrictions Filter
 void ToggleMobileFilter( void );
 
+// Flugente: disease
+void ToggleDiseaseFilter( );
+
 void TurnOnShowTeamsMode( void );
 void TurnOnAirSpaceMode( void );
 void TurnOnItemFilterMode( void );
 // HEADROCK HAM 4: Turn on Mobile Militia Restrictions Filter
 void TurnOnMobileFilterMode( void );
+
+// Flugente: disease
+void TurnOnDiseaseFilterMode();
 
 // create/destroy buttons for map border region
 void DeleteMapBorderButtons( void );

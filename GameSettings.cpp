@@ -1689,7 +1689,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0f, 0.1f, 10.0f);
 	gGameExternalOptions.usFoodMaxPoisoning								= iniReader.ReadInteger("Tactical Food Settings", "FOOD_MAX_POISONING",  5, 0, 100);
 	gGameExternalOptions.fFoodEatingSounds								= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_EATING_SOUNDS", TRUE);
-
+	
+	//################# Disease Settings ##################
+	gGameExternalOptions.fDisease										= iniReader.ReadBoolean( "Disease Settings", "DISEASE", FALSE );
+	gGameExternalOptions.fDiseaseStrategic								= iniReader.ReadBoolean( "Disease Settings", "DISEASE_STRATEGIC", FALSE );
+	gGameExternalOptions.sDiseaseWHOSubscriptionCost					= iniReader.ReadInteger( "Disease Settings", "DISEASE_WHO_SUBSCRIPTIONCOST", 2000, 1000, 10000 );
 		
 	//################# Strategic Gamestart Settings ##################
 
@@ -3310,6 +3314,11 @@ void LoadCTHConstants()
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_RANGER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_RANGER", 80, 0, 100);
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN", 90, 0, 100);
 	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_SNIPER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_SNIPER", 100, 0, 100);
+	gGameCTHConstants.SCOPE_EFFECTIVENESS_MULTIPLIER	= iniReader.ReadFloat("General", "SCOPE_EFFECTIVENESS_MULTIPLIER", 1.1f, 0.5f, 1.5f);
+	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM		= iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM", 50, 0, 100);
+	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_RANGER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_RANGER", 80, 0, 100);
+	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_MARKSMAN", 90, 0, 100);
+	gGameCTHConstants.SCOPE_EFFECTIVENESS_MINIMUM_SNIPER = iniReader.ReadInteger("General", "SCOPE_EFFECTIVENESS_MINIMUM_SNIPER", 100, 0, 100);
 	gGameCTHConstants.SIDE_FACING_DIVISOR				= iniReader.ReadFloat("General", "SIDE_FACING_DIVISOR", 2.0, 1.0f, 10.0f);
 	// HEADROCK HAM 5: Basic chance to lose condition point when firing
 	gGameCTHConstants.BASIC_RELIABILITY_ODDS			= iniReader.ReadInteger("General", "BASIC_RELIABILITY_ODDS", 15, 0, 10000);
@@ -3656,6 +3665,8 @@ void LoadMoraleSettings()
 	gDynamicOpinionEvent[OPINIONEVENT_SOLVECONFLICT_REASON_BAD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SOLVECONFLICT_REASON_BAD", -2, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD", 3, 0, 50 );
 	gDynamicOpinionEvent[OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD", -3, -50, 0 );
+	gDynamicOpinionEvent[OPINIONEVENT_DISEASE_DISGUSTING].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DISEASE_DISGUSTING", -3, -50, 0 );
+	gDynamicOpinionEvent[OPINIONEVENT_DISEASE_TREATMENT].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DISEASE_TREATMENT", 1, 0, 50 );
 }
 
 void LoadReputationSettings()

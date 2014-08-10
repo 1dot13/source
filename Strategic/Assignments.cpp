@@ -67,6 +67,8 @@
 	#include "Campaign Types.h"		// added by Flugente
 	#include "Strategic Town Loyalty.h"
 	#include "DynamicDialogue.h"			// added by Flugente
+	#include "Disease.h"			// added by Flugente
+	#include "Queen Command.h"		// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -141,6 +143,12 @@ enum{
 	MOVEITEM_MENU_CANCEL,
 };
 
+enum {
+	DISEASE_MENU_DIAGNOSE,
+	DISEASE_MENU_SECTOR_TREATMENT,
+	DISEASE_MENU_CANCEL,
+};
+
 
 /* CHRISL: Adjusted enumerations to allow for seperation of the three different pocket types in the new 
 inventory system. */
@@ -187,6 +195,7 @@ INT32 ghSquadBox = -1;
 INT32 ghVehicleBox = -1;
 INT32 ghRepairBox = -1;
 INT32 ghMoveItemBox = -1;
+INT32 ghDiseaseBox = -1;
 INT32 ghTrainingBox = -1;
 INT32 ghAttributeBox = -1;
 INT32 ghRemoveMercAssignBox = -1;
@@ -218,6 +227,7 @@ MOUSE_REGION	gRemoveMercAssignRegion[ MAX_REMOVE_MERC_COUNT ];
 MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
 MOUSE_REGION	gMoveItem[ 20 ];
+MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
 
 #define			MOVEITEM_MAX_SECTORS	10
 UINT8			usMoveItemSectors[MOVEITEM_MAX_SECTORS];
@@ -240,6 +250,7 @@ BOOLEAN fShownAssignmentMenu = FALSE;
 BOOLEAN fShowVehicleMenu = FALSE;
 BOOLEAN fShowRepairMenu = FALSE;
 BOOLEAN fShowMoveItemMenu = FALSE;
+BOOLEAN fShowDiseaseMenu = FALSE;
 BOOLEAN fShownContractMenu = FALSE;
 // anv: snitch menus
 BOOLEAN fShowSnitchMenu = FALSE;
@@ -447,7 +458,7 @@ void TrainSoldierWithPts( SOLDIERTYPE *pSoldier, INT16 sTrainPts );
 // train militia in this sector with this soldier
 BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT16 sTrainingPts );
 
-// Flugente:: handle processing of prisoners
+// Flugente: handle processing of prisoners
 void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
 // Flugente: prisons can riot if there aren't enough guards around
@@ -458,6 +469,10 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
 // Flugente: handle radio scanning assignments
 void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
+// Flugente: disease
+void HandleDiseaseDiagnosis();
+void HandleDiseaseSectorTreatment( );
 
 // reset scan flags in all sectors
 void ClearSectorScanResults();
@@ -495,6 +510,7 @@ void HandleShadingOfLinesForSquadMenu( void );
 void HandleShadingOfLinesForVehicleMenu( void );
 void HandleShadingOfLinesForRepairMenu( void );
 void HandleShadingOfLinesForMoveItemMenu( void );
+void HandleShadingOfLinesForDiseaseMenu();
 void HandleShadingOfLinesForTrainingMenu( void );
 void HandleShadingOfLinesForAttributeMenus( void );
 // HEADROCK HAM 3.6: Shade Facility Box Lines
@@ -523,12 +539,17 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 // Flugente: move items menu
 BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier );
 
+// Flugente: disease menu
+BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier );
+
+
 // create menus
 void CreateEPCBox( void );
 void CreateSquadBox( void );
 void CreateVehicleBox();
 void CreateRepairBox( void );
 void CreateMoveItemBox( void );
+void CreateDiseaseBox();
 // HEADROCK HAM 3.6: Facility Box.
 void CreateFacilityBox( void );
 void CreateFacilityAssignmentBox( void );
@@ -873,10 +894,52 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 
 	// all criteria fit, can doctor
 	return ( TRUE );
-
 }
 
+// can this character diagnose diseases?
+BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier )
+{
+	if ( !gGameExternalOptions.fDisease )
+		return FALSE;
 
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return(FALSE);
+
+	// all criteria fit, can doctor
+	return TRUE;
+}
+
+// can this character treat diseases of the population (NOT mercs)?
+BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
+{
+	BOOLEAN fFoundMedKit = FALSE;
+	INT8 bPocket = 0;
+
+	if ( !gGameExternalOptions.fDisease || !gGameExternalOptions.fDiseaseStrategic )
+		return FALSE;
+
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return(FALSE);
+
+	if ( !CanCharacterDoctorButDoesntHaveMedKit( pSoldier ) )
+		return(FALSE);
+	
+	// there has to officially be an outbreak in this sector - if we don't know of a disease, we cannot treat it!
+	UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+
+	SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+	// we can only treat disease if we have data on it - either our team diagnosed it, or the WHO did and we have access to their data
+	if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
+		return TRUE;
+
+	// all criteria fit, can doctor
+	return FALSE;
+}
 
 BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
 {
@@ -1221,6 +1284,9 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 	// Flugente: check if poisoned
 	if ( pSoldier->bPoisonSum > 0 )
 		return( TRUE );
+
+	if ( pSoldier->HasDisease( TRUE, TRUE ) )
+		return TRUE;
 
 	// if we don't have damaged stat, look if we need healing
 	if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
@@ -2390,7 +2456,7 @@ void UpdateAssignments()
 
 	// build list
 	BuildSectorsWithSoldiersList(	);
-
+	
 	// handle natural healing
 	HandleNaturalHealing( );
 
@@ -2421,11 +2487,11 @@ void UpdateAssignments()
 	ClearSectorScanResults();
 
 	// run through sectors and handle each type in sector
-	for(sX = 0 ; sX < MAP_WORLD_X; sX++ )
+	for(sX = 0 ; sX < MAP_WORLD_X; ++sX )
 	{
-		for( sY =0; sY < MAP_WORLD_X; sY++ )
+		for( sY =0; sY < MAP_WORLD_X; ++sY )
 		{
-			for( bZ = 0; bZ < 4; bZ++)
+			for( bZ = 0; bZ < 4; ++bZ )
 			{
 				// handle militia squads movings and creating (not an assignment)
 				if(!bZ && sX < 17 && sY < 17 && sX > 0 && sY > 0)
@@ -2465,9 +2531,13 @@ void UpdateAssignments()
 	// Flugente: handle militia command
 	HandleMilitiaCommand();
 
+	// Flugente: disease
+	HandleDisease();
+	HandleDiseaseDiagnosis();	// this must come after HandleDisease() so we discover fresh infections
+	HandleDiseaseSectorTreatment();
+
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
-
 
 	// check if we have anyone who just finished their assignment
 	if( gfAddDisplayBoxToWaitingQueue )
@@ -2475,7 +2545,6 @@ void UpdateAssignments()
 		AddDisplayBoxToWaitingQueue( );
 		gfAddDisplayBoxToWaitingQueue = FALSE;
 	}
-
 
 	HandleContinueOfTownTraining( );
 
@@ -3437,7 +3506,7 @@ void UpdatePatientsWhoAreDoneHealing( void )
 		if( pTeamSoldier->bActive )
 		{
 			// patient who doesn't need healing or curing
-			if( ( pTeamSoldier->bAssignment == PATIENT ) &&( pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax ) && ( pTeamSoldier->bPoisonSum == 0 ) )
+			if ( (pTeamSoldier->bAssignment == PATIENT) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && (pTeamSoldier->bPoisonSum == 0) && pTeamSoldier->HasDisease(TRUE, TRUE) )
 			{
 				// Flugente: stats can also be damaged
 				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
@@ -3698,14 +3767,19 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 	{
 		fHealDamagedStat = TRUE;
 	}
+
 	// added check for surgery
 	if ( !fHealDamagedStat && fCheckForSurgery && pSoldier->iHealableInjury < 100 ) // at least one life can be healed
 	{
 		// cannot be healed
 		return( FALSE );
 	}
+
+	// Flugente: are we infected with a curable disease that we know of?
+	BOOLEAN fDisease = pSoldier->HasDisease( TRUE, TRUE );
+
 	// if we have no damaged stat and don't need healing
-	if (!fHealDamagedStat && (pSoldier->stats.bLife == pSoldier->stats.bLifeMax) )
+	if ( !fHealDamagedStat && !fDisease && (pSoldier->stats.bLife == pSoldier->stats.bLifeMax) )
 	{
 		// if we are poisoned
 		if ( pSoldier->bPoisonSum )
@@ -3717,7 +3791,7 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 				return( FALSE );
 			}
 		}
-		else	// if we are not poisoned
+		else
 		{
 			// cannot be healed
 			return( FALSE );
@@ -3880,7 +3954,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 
 				pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed));
 
-				// potentially increase bPoisonLife: as life points are healed, unhealed poinson points become healed poison points
+				// potentially increase bPoisonLife: as life points are healed, unhealed poison points become healed poison points
 				if ( pPatient->bPoisonSum > 0 )
 				{
 					// check if there are unhealed poison points
@@ -3927,7 +4001,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		}
 	}
 
-	// As curing poison happens only when there is no more life to heal ortats to repair, we don't have to edit the above function - we simply cure afterwards
+	// As curing poison happens only when there is no more life to heal or stats to repair, we don't have to edit the above function - we simply cure afterwards
 	// Look how much poison needs to be cured. Conversion of fresh life points to poison points has already taken place
 	if ( pPatient->bPoisonSum > 0 || pPatient->sFractLife < 0 )
 	{
@@ -3981,6 +4055,69 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
 #endif
 				}
+			}
+		}
+	}
+
+	// Flugente: heal diseases if we know of them and they can be cured
+	if ( pPatient->HasDisease( TRUE, TRUE ) && usHealAmount > 0)
+	{
+		// loop over all diseases and determine how much we can heal for every one
+		INT32 totaldiseasepoints = 0;
+		for ( int i = 0; i < NUM_DISEASES; ++i )
+		{
+			if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED ) )
+			{
+				totaldiseasepoints += pPatient->sDiseasePoints[i];
+			}
+		}
+
+		// we cannot cure more than we have
+		INT32 curablepoints = min( totaldiseasepoints, usHealAmount );
+
+		if ( curablepoints > 0 )
+		{
+			// calculate how much total points we have in all medical bags
+			UINT16 usTotalMedPointsLeft = TotalMedicalKitPoints( pDoctor );
+
+			if ( usTotalMedPointsLeft > 0 )
+			{
+				UINT16 useablepoints = min( 100 * usTotalMedPointsLeft, curablepoints );
+
+				useablepoints /= bMedFactor;
+
+				// now apply healing: reduce disease points for each disease by the determined factor
+				UINT16 healingdone = 0;
+				for ( int i = 0; i < NUM_DISEASES; ++i )
+				{
+					if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
+					{
+						// amount cured is fraction of disease to total disease times fraction of healing done
+						INT32 cured = (useablepoints * useablepoints * pPatient->sDiseasePoints[i]) / (FLOAT)(curablepoints * totaldiseasepoints);
+
+						if ( cured > 0 )
+						{
+							healingdone += cured;
+							usHundredthsHealed += cured;
+
+							usHealAmount = max( 0, usHealAmount - cured);
+
+							pPatient->AddDiseasePoints( i, -cured );
+						}
+					}
+				}
+
+				// Finally use all kit points (we are sure, we have that much)
+				if ( UseTotalMedicalKitPoints( pDoctor, healingdone / 100 ) == FALSE )
+				{
+					// throw message if this went wrong for feedback on debugging
+	#ifdef JA2TESTVERSION
+					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
+	#endif
+				}
+
+				// patient expresses his gratitude
+				AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
 			}
 		}
 	}
@@ -5062,6 +5199,13 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 
 	pSoldier->bBreathMax += bMaxBreathRegain;
 
+	// Flugente: diseases can affect stat effectivity
+	UINT16 diseasemaxbreathreduction = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseasemaxbreathreduction += Disease[i].usMaxBreath * pSoldier->GetDiseaseMagnitude( i );
+
+	pSoldier->bBreathMax = min( pSoldier->bBreathMax, 100 - diseasemaxbreathreduction );
+
 	if( pSoldier->bBreathMax > 100 )
 	{
 		pSoldier->bBreathMax = 100;
@@ -5072,7 +5216,6 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 	}
 
 	pSoldier->bBreath = pSoldier->bBreathMax;
-
 
 	if ( pSoldier->bBreathMax >= BREATHMAX_CANCEL_TIRED )
 	{
@@ -5610,13 +5753,125 @@ void ClearSectorScanResults()
 	}
 }
 
+// Flugente: handle disease diagnosis
+void HandleDiseaseDiagnosis()
+{
+	// requires dieases, duh
+	if ( !gGameExternalOptions.fDisease )
+		return;
+
+	// every merc on diagnosis examines every other merc in this sector for diseases that are currently now known
+	// depending on his skills how far an infection has gotten, the infection will be made public, giving us more time to cure it
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[MercPtrs[0]->bTeam].bLastID; ++uiCnt, pSoldier++ )
+	{
+		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DIAGNOSE && CanCharacterDiagnoseDisease( pSoldier ) && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			// determine our skill at detecting disease
+			UINT16 skill = pSoldier->stats.bMedical / 2 + NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) * 15;
+
+			skill = (skill * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_DIAGNOSE ))) / 100;
+
+			// loop over all other soldiers and determine the chance that they will infect us
+			SOLDIERTYPE *pTeamSoldier = NULL;
+			UINT32 uiCnt2 = 0;
+			for ( uiCnt2 = 0, pTeamSoldier = MercPtrs[uiCnt2]; uiCnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt2, ++pTeamSoldier )
+			{
+				if ( pTeamSoldier->bActive 
+						&& pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ )
+				{
+					for ( int i = 0; i < NUM_DISEASES; ++i )
+					{
+						// if teammember has disease, but this is not yet known
+						if ( pTeamSoldier->sDiseasePoints[i] > 0 && !(pTeamSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) )
+						{
+							if ( Chance( skill ) )
+							{
+								// doctor discovered a disease - make it known
+								pTeamSoldier->AnnounceDisease( i );
+							}
+						}
+					}
+				}
+			}
+
+			// we can also diagnose disease in a sector
+			if ( gGameExternalOptions.fDiseaseStrategic )
+			{
+				UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+
+				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+				if ( pSectorInfo && pSectorInfo->usInfected && Chance( skill ) )
+					pSectorInfo->usInfectionFlag |= SECTORDISEASE_DIAGNOSED_PLAYER;
+			}
+		}
+	}
+}
+
+// handle treating the population (NOT our mercs) against diseases
+// our mercs are healed via the regular doctoring procedure
+void HandleDiseaseSectorTreatment()
+{
+	// requires dieases, duh
+	if ( !gGameExternalOptions.fDisease || !gGameExternalOptions.fDiseaseStrategic )
+		return;
+
+	// every merc on diagnosis examines every other merc in this sector for diseases that are currently now known
+	// depending on his skills how far an infection has gotten, the infection will be made public, giving us more time to cure it
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, pSoldier++ )
+	{
+		MakeSureMedKitIsInHand( pSoldier );
+
+		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DOCTOR_SECTOR && CanCharacterTreatSectorDisease( pSoldier ) && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			// get available healing pts
+			UINT16 max = 0;
+			UINT16 ptsavailable = CalculateHealingPointsForDoctor( pSoldier, &max, TRUE );
+
+			ptsavailable = (ptsavailable * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_TREAT ))) / 100;
+			
+			// calculate how much total points we have in all medical bags
+			UINT16 usTotalMedPoints = TotalMedicalKitPoints( pSoldier );
+
+			// doctoring points are limited by medical supplies
+			ptsavailable = min( ptsavailable, usTotalMedPoints * 100 );
+
+			// if we are doctoring in a sector, then we know for sure that there is disease here
+			SECTORINFO *pSectorInfo = &(SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ]);
+
+			if ( pSectorInfo && pSectorInfo->usInfected )
+				pSectorInfo->usInfectionFlag |= SECTORDISEASE_DIAGNOSED_PLAYER;
+
+			UINT32 ptsused = HealSectorPopulation( pSoldier->sSectorX, pSoldier->sSectorY, ptsavailable );
+			
+			// Finaly use all kit points (we are sure, we have that much)
+			if ( !UseTotalMedicalKitPoints( pSoldier, ptsused / 100 ) )
+			{
+				// throw message if this went wrong for feedback on debugging
+#ifdef JA2TESTVERSION
+				ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
+#endif
+			}
+
+			// increment skills based on healing pts used
+			StatChange( pSoldier, MEDICALAMT, (UINT16)(ptsused / 100), FALSE );
+			StatChange( pSoldier, DEXTAMT, (UINT16)(ptsused / 100), FALSE );
+			StatChange( pSoldier, WISDOMAMT, (UINT16)(ptsused / 100), FALSE );
+		}
+	}
+}
+
 // Flugente: handle militia command
 void HandleMilitiaCommand()
 {
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
 	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
 	{
 		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
@@ -7565,7 +7820,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	}
 
 	// lost any pts?
-	if( pSoldier->stats.bLife == pSoldier->stats.bLifeMax && pSoldier->bPoisonLife == 0 )
+	if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax && pSoldier->bPoisonLife == 0 && !pSoldier->HasDisease( FALSE, FALSE ) )
 	{
 		return;
 	}
@@ -7619,7 +7874,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	// how much is he poisoned?
 	uiPercentPoison = ( pSoldier->bPoisonSum * 100 ) / pSoldier->stats.bLifeMax;
 
-	// SANDRO - experimental - increase health regenariton of soldiers when doctors are around
+	// SANDRO - experimental - increase health regeneration of soldiers when doctors are around
 	if ( gGameOptions.fNewTraitSystem )
 	{
 		SOLDIERTYPE *	pMedic = NULL;
@@ -7665,6 +7920,12 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	// a high activity level (stress) increases poisoning
 	pSoldier->sFractLife -= ( INT16 ) ( (uiPercentPoison * (100 - pSoldier->GetPoisonResistance())/100) * gGameExternalOptions.sPoisonInfectionDamageMultiplier * ((99 +  bActivityLevelDivisor)/100) );
 
+	// Flugente: diseases can lower health regen
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		pSoldier->sFractLife += Disease[i].sLifeRegenHundreds * pSoldier->GetDiseaseMagnitude( i );
+	}
+
 	// now update the real life values
 	UpDateSoldierLife( pSoldier );
 }
@@ -7684,7 +7945,7 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 		sAddedLife += sPoisonAbsorped;
 
 		// if we're not fully poisoned, we are now poisoned a bit more, even if we won life thanks to absorption
-		if ( pSoldier->bPoisonSum < pSoldier->stats.bLifeMax ) 
+		if ( 0 && pSoldier->bPoisonSum < pSoldier->stats.bLifeMax ) 
 		{
 			pSoldier->bPoisonSum += abs(sAddedLife);
 		}
@@ -8854,6 +9115,18 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				}
 			}
 
+			// diagnosis
+			if ( CanCharacterDiagnoseDisease( pSoldier ) )
+			{
+				// unshade line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_DOCTOR_DIAGNOSIS );
+			}
+			else
+			{
+				// shade line
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_DOCTOR_DIAGNOSIS );
+			}
+
 			// repair
 			if( CanCharacterRepair( pSoldier ) )
 			{
@@ -8977,6 +9250,9 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 	// move item submenu
 	HandleShadingOfLinesForMoveItemMenu();
 
+	// disease menu
+	HandleShadingOfLinesForDiseaseMenu();
+
 	// training submenu
 	HandleShadingOfLinesForTrainingMenu( );
 
@@ -9036,13 +9312,14 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	}
 
 	// determine which assign menu needs to be shown
-	if( ( ( fShowAssignmentMenu == FALSE ) )||( fCharacterNoLongerValid == TRUE ) )
+	if( !fShowAssignmentMenu || fCharacterNoLongerValid )
 	{
 		// reset show assignment menus
 		fShowAssignmentMenu = FALSE;
 		fShowVehicleMenu = FALSE;
 		fShowRepairMenu = FALSE;
 		fShowMoveItemMenu = FALSE;
+		fShowDiseaseMenu = FALSE;
 		// HEADROCK HAM 3.6: Reset Facility menu
 		fShowFacilityMenu = FALSE;
 		// anv: reset show snitch menu
@@ -9059,6 +9336,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionsForSquadMenu( TRUE );
 		CreateDestroyMouseRegionForRepairMenu( );
 		CreateDestroyMouseRegionForMoveItemMenu();
+		CreateDestroyMouseRegionForDiseaseMenu();
 		// HEADROCK HAM 3.6: Facility Menu, Submenu
 		CreateDestroyMouseRegionForFacilityMenu( );
 		CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
@@ -9098,6 +9376,12 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghMoveItemBox ) )
 		{
 			HideBox( ghMoveItemBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		if ( IsBoxShown( ghDiseaseBox ) )
+		{
+			HideBox( ghDiseaseBox );
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
@@ -9186,6 +9470,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionsForSquadMenu( TRUE );
 	CreateDestroyMouseRegionForRepairMenu(	);
 	CreateDestroyMouseRegionForMoveItemMenu();
+	CreateDestroyMouseRegionForDiseaseMenu( );
 	CreateDestroyMouseRegionsForSnitchMenu( );
 	CreateDestroyMouseRegionsForSnitchToggleMenu( );
 	CreateDestroyMouseRegionsForSnitchSectorMenu( );
@@ -9249,7 +9534,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	}
 
 	// Move Item menu
-	if( fShowMoveItemMenu == TRUE )
+	if( fShowMoveItemMenu )
 	{
 		HandleShadingOfLinesForMoveItemMenu( );
 		ShowBox( ghMoveItemBox );
@@ -9263,7 +9548,24 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 			fTeamPanelDirty = TRUE;
 			fMapPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
-		//	SetRenderFlags(RENDER_FLAG_FULL);
+		}
+	}
+
+	// Disease menu
+	if ( fShowDiseaseMenu )
+	{
+		HandleShadingOfLinesForDiseaseMenu( );
+		ShowBox( ghDiseaseBox );
+	}
+	else
+	{
+		// hide box
+		if ( IsBoxShown( ghDiseaseBox ) )
+		{
+			HideBox( ghDiseaseBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
 		}
 	}
 		
@@ -9507,6 +9809,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForSquadMenu( TRUE );
 	CreateDestroyMouseRegionForRepairMenu(	);
 	CreateDestroyMouseRegionForMoveItemMenu();
+	CreateDestroyMouseRegionForDiseaseMenu( );
 	// HEADROCK HAM 3.6: Facility Menu
 	CreateDestroyMouseRegionForFacilityMenu( );
 	CreateDestroyMouseRegionsForSnitchMenu( );
@@ -11838,6 +12141,7 @@ void SetShowAllMenus( BOOLEAN fShowMenu )
 	fShowFacilityMenu = fShowMenu;
 	fShowRepairMenu = fShowMenu;
 	fShowMoveItemMenu = fShowMenu;
+	fShowDiseaseMenu = fShowMenu;
 	fShowSnitchMenu = fShowMenu;
 }
 
@@ -11853,7 +12157,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		// HEADROCK HAM 3.6: Added facility menu.
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || fShowMoveItemMenu || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) || ( fShowSnitchMenu ) )
+		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
 		{
 			return;
 		}
@@ -12021,6 +12325,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fMapScreenBottomDirty = TRUE;
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 					}
 				break;
 				case( ASSIGN_MENU_DOCTOR ):
@@ -12031,7 +12336,6 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// stop showing menu
 						fShowAssignmentMenu = FALSE;
 						giAssignHighLine = -1;
-
 
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 
@@ -12083,8 +12387,43 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
 					}
+					break;
 
-				break;
+				case ASSIGN_MENU_DOCTOR_DIAGNOSIS:
+					if ( 1 )
+					{
+						fShowSquadMenu = FALSE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowPrisonerMenu = FALSE;
+						fShowRepairMenu = FALSE;
+						fShownContractMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( pSoldier->bSectorZ == 0 )
+						{
+							fShowDiseaseMenu = FALSE;
+
+							if ( DisplayDiseaseMenu( pSoldier ) )
+							{
+								fShowDiseaseMenu = TRUE;
+								DetermineBoxPositions( );
+							}
+						}
+					}
+					else if ( 0 )
+					{
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+						swprintf( sString, zMarksMapScreenText[18], pSoldier->GetName( ) );
+
+						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+					}
+					break;
 				case( ASSIGN_MENU_PATIENT ):
 
 					// can character patient?
@@ -12203,6 +12542,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
@@ -12279,6 +12619,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowTrainingMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						fShowFacilityMenu = FALSE;
 						fShowPrisonerMenu = FALSE;
 
@@ -12295,6 +12636,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowVehicleMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fShowSnitchMenu = FALSE;
@@ -12307,12 +12649,12 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				case( ASSIGN_MENU_MOVE_ITEMS ):
 					if( 1 )
 					{
-
 						fShowSquadMenu = FALSE;
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						//fShownAssignmentMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShownContractMenu = FALSE;
@@ -12352,6 +12694,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowVehicleMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						fShowFacilityMenu = TRUE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fTeamPanelDirty = TRUE;
@@ -12387,12 +12730,13 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
 		// HEADROCK HAM 3.6: Added facility menu
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || fShowMoveItemMenu || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) || ( fShowSnitchMenu ) )
+		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
 		{
 			fShowAttributeMenu = FALSE;
 			fShowTrainingMenu = FALSE;
 			fShowRepairMenu = FALSE;
 			fShowMoveItemMenu = FALSE;
+			fShowDiseaseMenu = FALSE;
 			fShowVehicleMenu = FALSE;
 			fShowSquadMenu = FALSE;
 			fShowFacilityMenu = FALSE; // Added facilities
@@ -12716,7 +13060,6 @@ void CreateRepairBox()
 
 void CreateMoveItemBox()
 {
-	// will create a pop up box for squad selection
 	SGPPoint pPoint;
 	SGPRect pDimensions;
 
@@ -12744,6 +13087,37 @@ void CreateMoveItemBox()
 	}
 	
 	SetBoxPosition( ghMoveItemBox, pPoint );
+}
+
+void CreateDiseaseBox()
+{
+	SGPPoint pPoint;
+	SGPRect pDimensions;
+
+	CreatePopUpBox( &ghDiseaseBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE) );
+	SetBoxBuffer( ghDiseaseBox, FRAME_BUFFER );
+	SetBorderType( ghDiseaseBox, guiPOPUPBORDERS );
+	SetBackGroundSurface( ghDiseaseBox, guiPOPUPTEX );
+	SetMargins( ghDiseaseBox, 6, 6, 4, 4 );
+	SetLineSpace( ghDiseaseBox, 2 );
+
+	// set current box to this one
+	SetCurrentBox( ghDiseaseBox );
+
+	// resize box to text
+	ResizeBoxToText( ghDiseaseBox );
+
+	DetermineBoxPositions( );
+
+	GetBoxPosition( ghDiseaseBox, &pPoint );
+	GetBoxSize( ghDiseaseBox, &pDimensions );
+
+	if ( giBoxY + pDimensions.iBottom > 479 )
+	{
+		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
+	}
+
+	SetBoxPosition( ghDiseaseBox, pPoint );
 }
 
 void CreateSnitchBox()
@@ -13434,6 +13808,7 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		CreateVehicleBox();
 		CreateRepairBox();
 		CreateMoveItemBox();
+		CreateDiseaseBox();
 		// HEADROCK HAM 3.6: Facility Menu
 		CreateFacilityBox( );
 		CreateFacilityAssignmentBox( );
@@ -13473,6 +13848,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 
 		RemoveBox(ghMoveItemBox);
 		ghMoveItemBox = -1;
+
+		RemoveBox( ghDiseaseBox);
+		ghDiseaseBox = -1;
 
 		RemoveBox(ghTrainingBox);
 		ghTrainingBox = -1;
@@ -13574,7 +13952,16 @@ void DetermineBoxPositions( void )
 		SetBoxPosition( ghMoveItemBox, pNewPoint );
 		CreateDestroyMouseRegionForMoveItemMenu( );
 	}
-		
+	
+	if ( (fShowDiseaseMenu == TRUE) && (ghDiseaseBox != -1) )
+	{
+		//CreateDestroyMouseRegionForMoveItemMenu( );
+		pNewPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS);
+
+		SetBoxPosition( ghDiseaseBox, pNewPoint );
+		CreateDestroyMouseRegionForDiseaseMenu( );
+	}
+
 	if( ( fShowTrainingMenu == TRUE ) && ( ghTrainingBox != -1 ) )
 	{
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
@@ -13811,7 +14198,7 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghRepairBox, pPoint );
 	}
-	else if( fShowMoveItemMenu == TRUE )
+	else if( fShowMoveItemMenu )
 	{
 		GetBoxSize( ghMoveItemBox, &pDimensions );
 
@@ -13950,6 +14337,29 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghMoveItemBox, pPoint );
 	}
+	else if ( fShowDiseaseMenu )
+	{
+		GetBoxSize( ghDiseaseBox, &pDimensions );
+
+		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = (INT16)((SCREEN_WIDTH - 1) - (pDimensions2.iRight + pDimensions.iRight));
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS) >= (SCREEN_HEIGHT - 120) )
+		{
+			gsAssignmentBoxesY = (INT16)((SCREEN_HEIGHT - 121) - (pDimensions2.iBottom) - ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS));
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+		pPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS);
+
+		SetBoxPosition( ghDiseaseBox, pPoint );
+	}
+
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	else if( fShowFacilityAssignmentMenu == TRUE )
 	{
@@ -14578,10 +14988,8 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 		case( DOCTOR ):
 			if( CanCharacterDoctor( pSoldier ) )
 			{
-
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
-
-
+				
 					// set dirty flag
 				fTeamPanelDirty = TRUE;
 				fMapScreenBottomDirty = TRUE;
@@ -14996,6 +15404,55 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
+
+		case DISEASE_DIAGNOSE:
+			if ( CanCharacterDiagnoseDisease( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
+
+		case DISEASE_DOCTOR_SECTOR:
+			if ( CanCharacterTreatSectorDisease( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
+
 		case( VEHICLE ):
 			if( CanCharacterVehicle( pSoldier ) && IsThisVehicleAccessibleToSoldier( pSoldier, iParam1 ) )
 			{
@@ -15189,9 +15646,13 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldie
 	}
 	else if( fShowMoveItemMenu )
 	{
-		// highlight repair line the previous menu
 		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_MOVE_ITEMS );
 		return( TRUE );
+	}
+	else if ( fShowDiseaseMenu )
+	{
+		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_DOCTOR_DIAGNOSIS );
+		return(TRUE);
 	}
 	else if( fShowVehicleMenu )
 	{
@@ -16276,6 +16737,14 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = FALSE;
 					break;
 
+				case DISEASE_DIAGNOSE:
+					fNothingToDo = !CanCharacterDiagnoseDisease( pSoldier );
+					break;
+
+				case DISEASE_DOCTOR_SECTOR:
+					fNothingToDo = !CanCharacterTreatSectorDisease( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -16400,13 +16869,13 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 						// make sure he can repair the SPECIFIC thing being repaired too (must be in its sector, for example)
 
-/*
+						/*
 						if ( pSelectedSoldier->flags.fFixingSAMSite )
 						{
 							fCanFixSpecificTarget = CanSoldierRepairSAM( pSoldier, SAM_SITE_REPAIR_DIVISOR );
 						}
 						else
-*/
+						*/
 						if ( pSelectedSoldier->bVehicleUnderRepairID != -1 )
 						{
 							fCanFixSpecificTarget = CanCharacterRepairVehicle( pSoldier, pSelectedSoldier->bVehicleUnderRepairID );
@@ -16562,6 +17031,22 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, FACILITY_STRATEGIC_MILITIA_MOVEMENT, bParam, 0,0 );
+						fItWorked = TRUE;
+					}
+					break;
+				case DISEASE_DIAGNOSE:
+					if ( CanCharacterDiagnoseDisease( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, DISEASE_DIAGNOSE, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+				case DISEASE_DOCTOR_SECTOR:
+					if ( CanCharacterTreatSectorDisease( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, DISEASE_DOCTOR_SECTOR, bParam, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -16967,6 +17452,13 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	}
 	
 	ubNeedForSleep += pSoldier->GetBackgroundValue(BG_PERC_SLEEP);
+
+	// Flugente: diseases can affect stat effectivity
+	INT16 diseaseeffect = 0;
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+		diseaseeffect += Disease[i].sNeedToSleep * pSoldier->GetDiseaseMagnitude( i );
+
+	ubNeedForSleep += diseaseeffect;
 
 	// Re-Enforce a maximum of 18 hours after injury penalties.
 	if ( ubNeedForSleep > 18 )
@@ -20554,10 +21046,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 	CreateMoveItemBox();
 	SetCurrentBox(ghMoveItemBox);
-
-	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
-	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
-
+	
 	// delete old sectors
 	for (UINT8 i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
 	{
@@ -20590,7 +21079,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 				AddMonoString( (UINT32 *)&hStringHandle, wSectorName );
 
-				iCount++;
+				++iCount;
 				if ( iCount >= MOVEITEM_MAX_SECTORS )
 					break;
 			}
@@ -20628,7 +21117,6 @@ void HandleShadingOfLinesForMoveItemMenu( void )
 
 	pSoldier = GetSelectedAssignSoldier( FALSE );
 
-
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
 	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
 
@@ -20664,7 +21152,6 @@ void HandleShadingOfLinesForMoveItemMenu( void )
 		}
 	}
 
-	//if ( DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
 	if ( 1 )
 	{
 		// unshade items line
@@ -20676,10 +21163,7 @@ void HandleShadingOfLinesForMoveItemMenu( void )
 		ShadeStringInBox( ghMoveItemBox, iCount );
 	}
 
-	iCount++;
-
-
-	return;
+	++iCount;
 }
 
 
@@ -20907,4 +21391,253 @@ BOOLEAN MercStaffsMilitaryHQ()
 	}
 
 	return FALSE;
+}
+
+
+
+
+
+
+
+
+
+
+// Flugente: disease menu
+BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
+{
+	INT32 hStringHandle = 0;
+	INT32 iCount = 0;
+
+	// first, clear pop up box
+	RemoveBox( ghDiseaseBox );
+	ghDiseaseBox = -1;
+
+	CreateDiseaseBox( );
+	SetCurrentBox( ghDiseaseBox );
+
+	AddMonoString( (UINT32 *)&hStringHandle, L"Diagnosis" );
+	AddMonoString( (UINT32 *)&hStringHandle, L"Treatment" );
+
+	// cancel
+	AddMonoString( (UINT32 *)&hStringHandle, L"Cancel" );
+
+	SetBoxFont( ghDiseaseBox, MAP_SCREEN_FONT );
+	SetBoxHighLight( ghDiseaseBox, FONT_WHITE );
+	SetBoxShade( ghDiseaseBox, FONT_GRAY7 );
+	SetBoxForeground( ghDiseaseBox, FONT_LTGREEN );
+	SetBoxBackground( ghDiseaseBox, FONT_BLACK );
+
+	// resize box to text
+	ResizeBoxToText( ghDiseaseBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+	return TRUE;
+}
+
+
+void HandleShadingOfLinesForDiseaseMenu( void )
+{
+	INT32 iVehicleIndex = 0;
+	INT32 iCount = 0;
+
+	if ( (fShowDiseaseMenu == FALSE) || (ghDiseaseBox == -1) )
+	{
+		return;
+	}
+	
+	UnShadeStringInBox( ghDiseaseBox, iCount++ );
+	UnShadeStringInBox( ghDiseaseBox, iCount++ );
+
+	if ( 1 )
+	{
+		// unshade items line
+		UnShadeStringInBox( ghDiseaseBox, iCount );
+	}
+	else
+	{
+		// shade items line
+		ShadeStringInBox( ghDiseaseBox, iCount );
+	}
+}
+
+
+void CreateDestroyMouseRegionForDiseaseMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiCounter = 0;
+	INT32 iCount = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iVehicleIndex = 0;
+
+	if ( fShowDiseaseMenu && !fCreated )
+	{
+		// grab height of font
+		iFontHeight = GetLineSpace( ghDiseaseBox ) + GetFontHeight( GetBoxFont( ghDiseaseBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghDiseaseBox, &pPosition );
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghDiseaseBox, &pDimensions );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghDiseaseBox );
+
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// diagnose assignment
+		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
+						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
+		++iCount;
+
+		// treatment assignment
+		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
+						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
+		++iCount;
+				
+		// cancel
+		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
+						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gDisease[iCount], 1, DISEASE_MENU_CANCEL );
+		
+		PauseGame( );
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghDiseaseBox );
+
+		fCreated = TRUE;
+	}
+	else if ( ( !fShowDiseaseMenu || !fShowAssignmentMenu ) && fCreated )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for ( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghDiseaseBox ); ++uiCounter )
+		{
+			MSYS_RemoveRegion( &gDisease[uiCounter] );
+		}
+
+		fShowDiseaseMenu = FALSE;
+
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		HideBox( ghDiseaseBox );
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+}
+
+void DiseaseMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	// ignore clicks on disabled lines
+	if ( GetBoxShadeFlag( ghDiseaseBox, iValue ) )
+		return;
+
+	// WHAT is being repaired is stored in the second user data argument
+	INT32 iWhat = MSYS_GetRegionUserData( pRegion, 1 );
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( pSoldier && pSoldier->bActive && (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP) )
+	{
+		if ( iWhat < DISEASE_MENU_CANCEL )
+		{
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			INT8 newassignment = DISEASE_DIAGNOSE;
+			if ( iWhat == DISEASE_MENU_SECTOR_TREATMENT )
+				newassignment = DISEASE_DOCTOR_SECTOR;
+
+			if ( pSoldier->bAssignment != newassignment )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			if ( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			// remove from squad
+			RemoveCharacterFromSquads( pSoldier );
+
+			ChangeSoldiersAssignment( pSoldier, newassignment );
+
+			// assign to a movement group
+			AssignMercToAMovementGroup( pSoldier );
+
+			// set assignment for group
+			SetAssignmentForList( (INT8)newassignment, 0 );
+			fShowAssignmentMenu = FALSE;
+		}
+		else
+		{
+			// CANCEL
+			fShowDiseaseMenu = FALSE;
+		}
+
+		// update mapscreen
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+
+		giAssignHighLine = -1;
+	}
+}
+
+
+void DiseaseMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if ( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if ( iValue < DISEASE_MENU_CANCEL )
+		{
+			if ( GetBoxShadeFlag( ghDiseaseBox, iValue ) == FALSE )
+			{
+				// highlight choice
+				HighLightBoxLine( ghDiseaseBox, iValue );
+			}
+		}
+		else
+		{
+			// highlight cancel line
+			HighLightBoxLine( ghDiseaseBox, GetNumberOfLinesOfTextInBox( ghDiseaseBox ) - 1 );
+		}
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghDiseaseBox );
+	}
 }

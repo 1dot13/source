@@ -2585,9 +2585,20 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			AddItemToPool(pTarget->sGridNo, &gTempObject, -1, pTarget->pathing.bLevel, 0, 0);
 			// Make team look for items
 			NotifySoldiersToLookforItems();
+
+			// Flugente: if this guy has the disease, or the blade was already infected, the new one will be too
+			if ( pTarget->sDiseasePoints[0] > 0 || pBullet->usFlags & BULLET_FLAG_INFECTED )
+				(*&gTempObject)[0]->data.sObjectFlag |= INFECTED;
 		}
 		else
+		{
 			CreateItem(usItem, usItemStatus, &pTarget->inv[bSlot]);
+
+			// Flugente: if this guy has the disease, or the blade was already infected, the new one will be too
+			if ( pTarget->sDiseasePoints[0] > 0 || pBullet->usFlags & BULLET_FLAG_INFECTED )
+				pTarget->inv[bSlot][0]->data.sObjectFlag |= INFECTED;
+		}
+
 		ubAmmoType = AMMO_KNIFE;
 	}
 	else if (pBullet->fFragment)
@@ -2598,6 +2609,13 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	else
 	{
 		ubAmmoType = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType;
+	}
+
+	// Flugente: if bullet is infected, give us disease (this is intended for throwing knifes)
+	if ( pBullet->usFlags & BULLET_FLAG_INFECTED )
+	{
+		// infect us with the first disease
+		pTarget->Infect( 0 );
 	}
 
 	// HEADROCK HAM 5.1: This is an utter hack, but it may be necessary. This soldier is hit by a fragment,
@@ -4503,6 +4521,10 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	if ( AmmoTypes[(*pObjAttHand)[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_ANTIMATERIEL )
 		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
 
+	// Flugente: if object is infected, missile is too (intended for throwing knifes)
+	if ( (*pObjAttHand)[0]->data.sObjectFlag & INFECTED )
+		usBulletFlags |= BULLET_FLAG_INFECTED;
+
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
 	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
 	{
@@ -4986,6 +5008,10 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	// Flugente: anti-materiel ammo
 	if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].ammoflag & AMMO_ANTIMATERIEL )
 		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
+
+	// Flugente: if object is infected, missile is too (intended for throwing knifes)
+	if ( (*pObjAttHand)[0]->data.sObjectFlag & INFECTED )
+		usBulletFlags |= BULLET_FLAG_INFECTED;
 
 	ubImpact =(UINT8) GetDamage(pObjAttHand);
 	//zilpin: pellet spread patterns externalized in XML

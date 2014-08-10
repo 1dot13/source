@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			DISEASE_SYSTEM									159	// Flugente: mercs can get diseases
 #define			PRISONER_EXPANSION								158	// Flugente: more types of prisoners
 #define			DYNAMIC_DIALOGUE								157 // Flugente: mercs have dynamic dialogue depending on newly formed opinions, an the player can interact with them
 #define			DYNAMIC_OPINIONS								156 // Flugente: mercs can form opinions on other people depending on their behaviour
@@ -77,7 +78,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								PRISONER_EXPANSION
+#define			SAVE_GAME_VERSION								DISEASE_SYSTEM
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

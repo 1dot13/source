@@ -510,12 +510,10 @@ INT32 GetAvailableWorkForceForMineForPlayer( INT8 bMineIndex )
 		return ( 0 );
 	}
 
-
 	//bTownId = gMineLocation[ bMineIndex ].bAssociatedTown;
 	bTownId = gMineStatus[ bMineIndex ].bAssociatedTown;
 
 	Assert ( GetTownSectorSize( bTownId ) != 0 );
-
 
 	// get workforce size (is 0-100 based on local town's loyalty)
 	iWorkForceSize = gTownLoyalty[ bTownId ].ubRating;
@@ -525,6 +523,9 @@ INT32 GetAvailableWorkForceForMineForPlayer( INT8 bMineIndex )
 	iWorkForceSize *= gubMonsterMineInfestation[ gMineStatus[ bMineIndex ].bMonsters ];
 	iWorkForceSize /= 100;
 */
+
+	// Flugente: if strategic disease is active, disease can affect out workforce, so the calculation gets slightly more complicated
+	iWorkForceSize *= GetWorkforceEffectivenessWithDisease( bTownId, OUR_TEAM );
 
 	// now adjust for town size.. the number of sectors you control
 	iWorkForceSize *= GetTownSectorsUnderControl( bTownId );
