@@ -5571,7 +5571,7 @@ UINT32 MapScreenHandle(void)
 
 
 	// if heli is around, show it
-	if( fHelicopterAvailable && fShowAircraftFlag && ( iCurrentMapSectorZ == 0 ) && !fShowMapInventoryPool )
+	if( fHelicopterAvailable && ( fShowAircraftFlag || fShowTeamFlag ) && ( iCurrentMapSectorZ == 0 ) && !fShowMapInventoryPool )
 	{
 		// this is done on EVERY frame, I guess it beats setting entire map dirty all the time while he's moving...
 		DisplayPositionOfHelicopter( );

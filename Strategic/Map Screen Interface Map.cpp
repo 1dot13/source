@@ -3895,6 +3895,7 @@ void DisplayPositionOfHelicopter( void )
 	GROUP *pGroup;
 	HVOBJECT hHandle;
 	INT32 iNumberOfPeopleInHelicopter = 0;
+	CHAR16 sString[ 4 ];
 
 	INT32 MAP_MVT_ICON_FONT = TINYFONT1;
 
@@ -3998,10 +3999,7 @@ void DisplayPositionOfHelicopter( void )
 
 			BltVideoObject( FRAME_BUFFER, hHandle, HELI_ICON, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
 
-			// HEADROCK HAM 5: Do not draw anymore.
-			// now get number of people and blit that too
-			
-			/*
+			// now get number of people and blit that too		
 			iNumberOfPeopleInHelicopter =  GetNumberOfPassengersInHelicopter( );
 			swprintf( sString, L"%d", iNumberOfPeopleInHelicopter );
 
@@ -4009,10 +4007,9 @@ void DisplayPositionOfHelicopter( void )
 			SetFontForeground( FONT_WHITE );
 			SetFontBackground( FONT_BLACK );
 
-			mprintf( x + 5, y + 1 , sString );
-			*/
+			mprintf( x + (MAP_GRID_X / 2) - 4, y + (MAP_GRID_Y / 2) - 4, sString );
 
-			//InvalidateRegion( x, y, x + usIconWidth, y + usIconHeight );
+			InvalidateRegion( x, y, x + usIconWidth, y + usIconHeight );
 
 			RestoreClipRegionToFullScreen( );
 
