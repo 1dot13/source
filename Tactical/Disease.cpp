@@ -18,6 +18,7 @@
 #include "LaptopSave.h"
 #include "strategic.h"
 #include "DynamicDialogue.h"
+#include <math.h>
 
 //GLOBALS
 DISEASE Disease[NUM_DISEASES];
@@ -270,7 +271,7 @@ void HandleDisease()
 					{
 						// infection is also possible by human contact
 						UINT32 usChance = Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
-						UINT16 max = sqrt( min( lefttoinfect - newinfected, pSectorInfo->usInfected ) );
+						UINT16 max = sqrt( (FLOAT) min( lefttoinfect - newinfected, pSectorInfo->usInfected ) );
 						for ( UINT16 i = 0; i < max; ++i )
 						{
 							if ( Chance( usChance ) )
@@ -283,7 +284,7 @@ void HandleDisease()
 						// there is also the chance to be infected by bad food, sex, contact with animals etc.
 						// For now, we assume this to be very rare events, so just add a small chance to be infected this way
 						FLOAT populationpercentage = (FLOAT)(lefttoinfect - newinfected) / (FLOAT)(population);
-						FLOAT basechance = sqrt( min( lefttoinfect, pSectorInfo->usInfected + newinfected ) ) * 0.5f;
+						FLOAT basechance = sqrt( (FLOAT) min( lefttoinfect, pSectorInfo->usInfected + newinfected ) ) * 0.5f;
 
 						FLOAT chance_sex = Disease[0].usInfectionChance[INFECTION_TYPE_SEX] * basechance * populationpercentage;
 						FLOAT chance_corpse = 0;
