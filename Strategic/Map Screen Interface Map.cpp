@@ -6834,7 +6834,7 @@ void ShowDiseaseOnMap()
 						sYCorner = (INT16)(MAP_VIEW_START_Y + (sMapY * MAP_GRID_Y));
 
 						SetFontForeground( FONT_MCOLOR_WHITE );
-						swprintf( sString, L"%4.2f%%", 100 * pSectorInfo->fInfectionSeverity );
+						swprintf( sString, L"%4.1f%%", 100 * pSectorInfo->fInfectionSeverity );
 
 						FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
 

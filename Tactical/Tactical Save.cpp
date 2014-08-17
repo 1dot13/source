@@ -336,14 +336,11 @@ extern int gCivPreservedTempFileVersion[256];
 BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 {
 	UNDERGROUND_SECTORINFO *TempNode = gpUndergroundSectorInfoHead;
-	INT16 sMapX;
-	INT16 sMapY;
 	UINT32	uiPercentage;
-	UINT32		iCounter = 0;
-
+	UINT32	iCounter = 0;
 
 	// HACK FOR GABBY
-	if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiCurrentSaveGameVersion < 81 )
+	if ( guiCurrentSaveGameVersion < 81 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
 	{
 		if ( gMercProfiles[ GABBY ].bMercStatus != MERC_IS_DEAD )
 		{
@@ -372,9 +369,9 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 	//
 
 	//First look through the above ground sectors
-	for( sMapY=1; sMapY<=16; sMapY++ )
+	for ( INT16 sMapY = 1; sMapY < MAP_WORLD_Y - 1; ++sMapY )
 	{
-		for( sMapX=1; sMapX<=16; sMapX++ )
+		for ( INT16 sMapX = 1; sMapX < MAP_WORLD_X - 1; ++sMapX )
 		{
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
 			{
@@ -384,13 +381,14 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 				//sync up the temp file data to the sector structure data
 				SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( sMapX, sMapY, 0, TRUE );
 
-				if (guiCurrentSaveGameVersion != SAVE_GAME_VERSION)
+				// Flugente: commented out, as the update now happens in SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems, which will save us one loading routine per inventory
+				/*if (guiCurrentSaveGameVersion != SAVE_GAME_VERSION)
 				{
 					for (int z = 0; z < 4; ++z)
 					{
 						UpdateWorldItemsTempFile(sMapX, sMapY, z);
 					}
-				}
+				}*/
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
@@ -437,7 +435,7 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 				if ( !RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
 					return FALSE;
 
-				if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiCurrentSaveGameVersion < 78 )
+				if ( guiCurrentSaveGameVersion < 78 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
 				{
 					CHAR8 pMapName[ 128 ];
 
@@ -447,7 +445,6 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 					// turn off the flag
 					SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
-
 				}
 
 				gCivPreservedTempFileVersion[SECTOR( sMapX,sMapY)] = guiCurrentSaveGameVersion;
@@ -464,11 +461,10 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 				if ( !RetrieveTempFileFromSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
 					return FALSE;
 			}
-
-
+			
 			//if any other file is to be saved
 
-			iCounter++;
+			++iCounter;
 
 			//update the progress bar
 			uiPercentage = (iCounter * 100) / (255);
@@ -476,8 +472,7 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 			RenderProgressBar( 0, uiPercentage );
 		}
 	}
-
-
+	
 	//then look throught all the underground sectors
 	while( TempNode )
 	{
@@ -495,7 +490,6 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 			if ( !RetrieveTempFileFromSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
 				return FALSE;
 		}
-
 
 		if( TempNode->uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
 		{
@@ -533,7 +527,8 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 		{
 			if ( !RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
 				return FALSE;
-			if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiCurrentSaveGameVersion < 78 )
+
+			if ( guiCurrentSaveGameVersion < 78 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
 			{
 				CHAR8 pMapName[ 128 ];
 
@@ -543,9 +538,7 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 				// turn off the flag
 				TempNode->uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
-
 			}
-
 		}
 
 		if( TempNode->uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
@@ -3312,17 +3305,13 @@ UINT32	GetNumberOfVisibleWorldItemsFromSectorStructureForSector( INT16 sMapX, IN
 
 void	SetNumberOfVisibleWorldItemsInSectorStructureForSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems )
 {
-	UNDERGROUND_SECTORINFO *pSector=NULL;
-
 	//if the sector is above ground
 	if( bMapZ == 0 )
 	{
-		SectorInfo[ SECTOR( sMapX, sMapY ) ].uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer = uiNumberOfItems;
-	}
 	else
 	{
 		//find the underground sector
-		pSector = FindUnderGroundSector( sMapX, sMapY, bMapZ );
+		UNDERGROUND_SECTORINFO* pSector = FindUnderGroundSector( sMapX, sMapY, bMapZ );
 		if( pSector != NULL )
 		{
 			//get the number of items
@@ -3365,20 +3354,30 @@ void SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( INT16 sMapX, INT
 
 		// now load into mem
 		LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, bMapZ, pTotalSectorList );
-	}
 
-	// now run through list and
-	//for( iCounter = 0; ( UINT32 )( iCounter )< uiTotalNumberOfRealItems; iCounter++ )
-	for( iCounter = 0; iCounter < uiTotalNumberOfItems; iCounter++ )
-	{
-		// if visible to player, then state fact
-		if( IsMapScreenWorldItemVisibleInMapInventory( &pTotalSectorList[ iCounter ] ) )
+		// now run through list and
+		//for( iCounter = 0; ( UINT32 )( iCounter )< uiTotalNumberOfRealItems; iCounter++ )
+		for ( iCounter = 0; iCounter < uiTotalNumberOfItems; ++iCounter )
 		{
-			uiItemCount += pTotalSectorList[ iCounter ].object.ubNumberOfObjects;
+			// if visible to player, then state fact
+			if ( IsMapScreenWorldItemVisibleInMapInventory( &pTotalSectorList[iCounter] ) )
+			{
+				uiItemCount += pTotalSectorList[iCounter].object.ubNumberOfObjects;
+			}
+		}
+		
+		// Flugente: if we load a game, we would save the data again in UpdateWorldItemsTempFile. 
+		// But that function simply loads the data again and writes it. If we do the saving here, we can at least save the entire 'load it again' part
+		if ( fLoadingGame && guiCurrentSaveGameVersion != SAVE_GAME_VERSION )
+		{
+			int backup = guiCurrentSaveGameVersion;
+			guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
+			SaveWorldItemsToTempItemFile( sMapX, sMapY, bMapZ, uiTotalNumberOfItems, pTotalSectorList );
+			guiCurrentSaveGameVersion = backup;
 		}
 	}
-
-	#ifdef JA2BETAVERSION
+		
+#ifdef JA2BETAVERSION
 	if( fLoadingGame && guiCurrentSaveGameVersion >= 86 )
 	{
 		UINT32 uiReported = GetNumberOfVisibleWorldItemsFromSectorStructureForSector( sMapX, sMapY, bMapZ );
@@ -3386,7 +3385,7 @@ void SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( INT16 sMapX, INT
 		if( uiItemCount != uiReported )
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"SynchronizeItemTempFile()  Error!  Reported %d, should be %d", uiReported, uiItemCount  );
 	}
-	#endif
+#endif
 
 	//record the number of items
 	SetNumberOfVisibleWorldItemsInSectorStructureForSector( sMapX, sMapY, bMapZ, uiItemCount );

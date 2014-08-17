@@ -740,7 +740,8 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 	//Free all the dealers special inventory arrays
 	ShutDownArmsDealers();
 
-	if (guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE) {
+	if (guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE)
+	{
 		int dealers;
 		if (!FileRead( hFile, &dealers, sizeof( int ), &uiNumBytesRead ))
 		{
@@ -754,32 +755,38 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 		}
 
 		//loop through all the dealers inventories
-		for( ubArmsDealer=0; ubArmsDealer<dealers; ubArmsDealer++ )
+		for( ubArmsDealer=0; ubArmsDealer<dealers; ++ubArmsDealer )
 		{
 			int size;
 			if (!FileRead( hFile, &size, sizeof( int ), &uiNumBytesRead ))
 			{
 				return( FALSE );
 			}
+
 			gArmsDealersInventory[ubArmsDealer].resize(size);
 
 			//loop through this dealer's individual items
-			for (DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin();
-				iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter) {
-				if (! iter->Load(hFile) ) {
+			DealerItemList::iterator iterend = gArmsDealersInventory[ubArmsDealer].end( );
+			for (DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin(); iter != iterend; ++iter )
+			{
+				if (! iter->Load(hFile) )
+				{
 					return FALSE;
 				}
+
 				//CHRISL: Because of the "100rnd" bug that Tony is experiencing, lets look at each item as we create it.  If the
 				//	item is ammo, reset the bItemCondition value to equal the number of rounds.  Hopefully this will be unneccessary
 				//	but for the time being, it may help to alleviate the "100rnd" bug.
 				if(Item[iter->object.usItem].usItemClass == IC_AMMO)
 				{
+					// Flugente: this condition is unnecessary, as we afterwards make sure that iter->bItemCondition = iter->object[0]->data.ubShotsLeft anyway
 					//This condition should catch any dealer ammo items that have both invalid bItemCondition and ubShotsLeft values.
 					//	We'll only make bItemCondition valid at this point.  Let the next condition correct ubShotsLeft.
-					if(iter->bItemCondition > Magazine[Item[iter->object.usItem].ubClassIndex].ubMagSize)
+					/*if( iter->bItemCondition > Magazine[Item[iter->object.usItem].ubClassIndex].ubMagSize)
 					{
 						iter->bItemCondition = Magazine[Item[iter->object.usItem].ubClassIndex].ubMagSize;
-					}
+					}*/
+
 					//This condition should catch any dealer ammo items that have an invalid bItemCondition assuming ubShotsLeft is valid
 					if(iter->bItemCondition != iter->object[0]->data.ubShotsLeft)
 					{
@@ -789,7 +796,8 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 			}
 		}
 	}
-	else {
+	else
+	{
 		//the format has changed and needs to be updated
 		OLD_ARMS_DEALER_STATUS_101 gOldArmsDealerStatus[NUM_ARMS_DEALERS];
 		//OLD_DEALER_ITEM_HEADER_101 gOldArmsDealersInventory[NUM_ARMS_DEALERS][MAXITEMS];
@@ -4470,11 +4478,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	//If there is someone talking, stop them
 	StopAnyCurrentlyTalkingSpeech( );
-
+	
 	ZeroAnimSurfaceCounts( );
 
 	ShutdownNPCQuotes();
-
+	
 	SetFastForwardMode(FALSE); // FF can sometimes be active if quick-load during AI turn transition
 	SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);	// sevenfm: set default clock speed
 
@@ -5914,7 +5922,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 
 	}
-	
+
 	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
 	{
 		uiRelEndPerc += 1;
@@ -6275,19 +6283,18 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			}
 		}
 	}
-
-	if ( guiCurrentSaveGameVersion < 68 )
-	{
-		// correct bVehicleUnderRepairID for all mercs
-		UINT8	ubID;
-		for( ubID = 0; ubID < MAXMERCS; ubID++ )
-		{
-			Menptr[ ubID ].bVehicleUnderRepairID = -1;
-		}
-	}
-
+	
 	if ( guiCurrentSaveGameVersion < 73 )
 	{
+		if ( guiCurrentSaveGameVersion < 68 )
+		{
+			// correct bVehicleUnderRepairID for all mercs
+			for ( UINT16 ubID = 0; ubID < MAXMERCS; ++ubID )
+			{
+				Menptr[ubID].bVehicleUnderRepairID = -1;
+			}
+		}
+
 		if( LaptopSaveInfo.fMercSiteHasGoneDownYet )
 			LaptopSaveInfo.fFirstVisitSinceServerWentDown = 2;
 	}
@@ -6575,13 +6582,13 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 	SOLDIERTYPE SavedSoldierInfo;
 
 	//Loop through all the soldier and delete them all
-	for( cnt=0; cnt< TOTAL_SOLDIERS; cnt++)
+	for( cnt=0; cnt< TOTAL_SOLDIERS; ++cnt)
 	{
 		TacticalRemoveSoldier( cnt );
 	}
 
 	//Loop through all the soldier structs to load
-	for( cnt=0; cnt< TOTAL_SOLDIERS; cnt++)
+	for( cnt=0; cnt< TOTAL_SOLDIERS; ++cnt)
 	{
 		//update the progress bar
 		uiPercentage = (cnt * 100) / (TOTAL_SOLDIERS-1);
@@ -6594,14 +6601,8 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			return(FALSE);
 		}
 
-		// if the soldier is not active, continue 
-		if( !ubActive )
-		{
-			continue;
-		}
-
-		// else if there is a soldier 
-		else
+		// only continue if the soldier is active
+		if( ubActive )
 		{
 			//Read in the saved soldier info into a Temp structure
 			if ( !SavedSoldierInfo.Load(hFile) )
@@ -6626,13 +6627,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			SavedSoldierInfo.pForcedShade	= NULL;
 			SavedSoldierInfo.pMercPath	= NULL;
 			memset( SavedSoldierInfo.pEffectShades, 0, sizeof( UINT16* ) * NUM_SOLDIER_EFFECTSHADES );
-
-
-			//if the soldier wasnt active, dont add them now.	Advance to the next merc
-			//if( !SavedSoldierInfo.bActive )
-			//	continue;
-
-
+			
 			//Create the new merc
 			SOLDIERCREATE_STRUCT CreateStruct;
 			CreateStruct.bTeam								= SavedSoldierInfo.bTeam;
@@ -6642,7 +6637,6 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 
 			if( !TacticalCreateSoldier( &CreateStruct, &ubId ) )
 				return( FALSE );
-
 
 			// Load the pMercPath
 			if( !LoadMercPathToSoldierStruct( hFile, ubId ) )
@@ -6693,53 +6687,50 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			//	ResetIMPCharactersEyesAndMouthOffsets( Menptr[ cnt ].ubProfile );
 			//}
 
-			//if the saved game version is before x, calculate the amount of money paid to mercs
-			if( guiCurrentSaveGameVersion < 83 )
-			{
-				//if the soldier is someone
-				if( Menptr[ cnt ].ubProfile != NO_PROFILE )
-				{
-					if( Menptr[cnt].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
-					{
-						gMercProfiles[ Menptr[ cnt ].ubProfile ].uiTotalCostToDate = gMercProfiles[ Menptr[ cnt ].ubProfile ].sSalary * gMercProfiles[ Menptr[ cnt ].ubProfile ].iMercMercContractLength;
-					}
-					else
-					{
-						gMercProfiles[ Menptr[ cnt ].ubProfile ].uiTotalCostToDate = gMercProfiles[ Menptr[ cnt ].ubProfile ].sSalary * Menptr[ cnt ].iTotalContractLength;
-					}
-				}
-			}
-
-#ifdef GERMAN
-			// Fix neutral flags
-			if ( guiCurrentSaveGameVersion < 94 )
-			{
-				if ( Menptr[ cnt].bTeam == OUR_TEAM && Menptr[ cnt ].aiData.bNeutral && Menptr[ cnt ].bAssignment != ASSIGNMENT_POW )
-				{
-					// turn off neutral flag
-					Menptr[ cnt].aiData.bNeutral = FALSE;
-				}
-			}
-#endif
-			//#ifdef JA2UB
-			//if the soldier has the NON weapon version of the merc knofe or merc umbrella
-			//ConvertWeapons( &Menptr[ cnt ] );
-			//#endif
-			
-			// JA2Gold: fix next-to-previous attacker value
 			if ( guiCurrentSaveGameVersion < 99 )
 			{
-				Menptr[ cnt ].ubNextToPreviousAttackerID = NOBODY;
-			}
+				//if the saved game version is before x, calculate the amount of money paid to mercs
+				if( guiCurrentSaveGameVersion < 83 )
+				{
+					//if the soldier is someone
+					if( Menptr[ cnt ].ubProfile != NO_PROFILE )
+					{
+						if( Menptr[cnt].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+						{
+							gMercProfiles[ Menptr[ cnt ].ubProfile ].uiTotalCostToDate = gMercProfiles[ Menptr[ cnt ].ubProfile ].sSalary * gMercProfiles[ Menptr[ cnt ].ubProfile ].iMercMercContractLength;
+						}
+						else
+						{
+							gMercProfiles[ Menptr[ cnt ].ubProfile ].uiTotalCostToDate = gMercProfiles[ Menptr[ cnt ].ubProfile ].sSalary * Menptr[ cnt ].iTotalContractLength;
+						}
+					}
+				}
 
+#ifdef GERMAN
+				// Fix neutral flags
+				if ( guiCurrentSaveGameVersion < 94 )
+				{
+					if ( Menptr[ cnt].bTeam == OUR_TEAM && Menptr[ cnt ].aiData.bNeutral && Menptr[ cnt ].bAssignment != ASSIGNMENT_POW )
+					{
+						// turn off neutral flag
+						Menptr[ cnt].aiData.bNeutral = FALSE;
+					}
+				}
+#endif
+				//#ifdef JA2UB
+				//if the soldier has the NON weapon version of the merc knofe or merc umbrella
+				//ConvertWeapons( &Menptr[ cnt ] );
+				//#endif
+
+				// JA2Gold: fix next-to-previous attacker value
+				Menptr[cnt].ubNextToPreviousAttackerID = NOBODY;
+			}
 		}
 	}
 
 	// Fix robot
 	if ( guiCurrentSaveGameVersion <= 87 )
 	{
-		SOLDIERTYPE * pSoldier;
-
 		if ( gMercProfiles[ ROBOT ].inv[ VESTPOS ] == SPECTRA_VEST )
 		{
 			// update this
@@ -6747,7 +6738,8 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			gMercProfiles[ ROBOT ].inv[ HELMETPOS ] = SPECTRA_HELMET_18;
 			gMercProfiles[ ROBOT ].inv[ LEGPOS ] = SPECTRA_LEGGINGS_18;
 			gMercProfiles[ ROBOT ].bAgility = 50;
-			pSoldier = FindSoldierByProfileID( ROBOT, FALSE );
+
+			SOLDIERTYPE* pSoldier = FindSoldierByProfileID( ROBOT, FALSE );
 			if ( pSoldier )
 			{
 				pSoldier->inv[ VESTPOS ].usItem = SPECTRA_VEST_18;

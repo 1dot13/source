@@ -3499,9 +3499,8 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 		fMapPanelDirty = TRUE;
 #endif
 	}
-	fChangedInventorySlots = FALSE;
 
-	return;
+	fChangedInventorySlots = FALSE;
 }
 
 void ResetMapSectorInventoryPoolHighLights( void )
@@ -3509,15 +3508,13 @@ void ResetMapSectorInventoryPoolHighLights( void )
 	INT32 iCounter = 0;
 
 	// now reset the highlight list for the map sector inventory
-	for ( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
+	for ( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; ++iCounter )
 	{
 		if ( fMapInventoryItemCompatable[ iCounter ] )
 		{
 			fMapInventoryItemCompatable[ iCounter ] = FALSE;
 		}
 	}
-
-	return;
 }
 void HandleMapSectorInventory( void )
 {
@@ -3527,8 +3524,6 @@ void HandleMapSectorInventory( void )
 	{
 		HandleMouseInCompatableItemForMapSectorInventory( iCurrentlyHighLightedItem );
 	}
-
-	return;
 }
 
 
@@ -3547,10 +3542,6 @@ BOOLEAN IsMapScreenWorldItemVisibleInMapInventory( WORLDITEM *pWorldItem )
 		if (Item[pWorldItem->object.usItem].usItemClass & guiMapInventoryFilter)
 		{
 			return ( TRUE );
-		}
-		else
-		{
-			return( FALSE );
 		}
 	}
 
@@ -3577,8 +3568,7 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 	UINT32 uiNumFlagsNotSet = 0;
 	INT32	 iTotalNumberItems = GetTotalNumberOfItems( );
 
-
-	for( iCnt=0; iCnt<iTotalNumberItems; iCnt++)
+	for( iCnt=0; iCnt<iTotalNumberItems; ++iCnt)
 	{
 		if( ( TileIsOutOfBounds(pInventoryPoolList[ iCnt ].sGridNo) )&& !( pInventoryPoolList[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
 		{
@@ -3586,13 +3576,13 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 			pInventoryPoolList[ iCnt ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 
 			//count the number
-			uiNumFlagsNotSet++;
+			++uiNumFlagsNotSet;
 		}
 	}
 
 
 	//loop through all the UNSEEN items
-	for( iCnt=0; iCnt<(INT32)uiNumberOfUnSeenItems; iCnt++)
+	for( iCnt=0; iCnt<(INT32)uiNumberOfUnSeenItems; ++iCnt)
 	{		
 		if (TileIsOutOfBounds(pUnSeenItems[ iCnt ].sGridNo) && !( pUnSeenItems[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
 		{
@@ -3600,7 +3590,7 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 			pUnSeenItems[ iCnt ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 
 			//count the number
-			uiNumFlagsNotSet++;
+			++uiNumFlagsNotSet;
 		}
 	}
 
