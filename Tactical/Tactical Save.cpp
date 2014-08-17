@@ -3308,6 +3308,8 @@ void	SetNumberOfVisibleWorldItemsInSectorStructureForSector( INT16 sMapX, INT16 
 	//if the sector is above ground
 	if( bMapZ == 0 )
 	{
+		SectorInfo[SECTOR( sMapX, sMapY )].uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer = uiNumberOfItems;
+	}
 	else
 	{
 		//find the underground sector
