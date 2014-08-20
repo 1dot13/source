@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>%s engagé(e) sur le site AIM.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s engagé(e) sur le site MERC.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s est mort(e).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Versements MERC.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Ordre de mission de Chivaldori Enrico accepté</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>IMP : Profil fait</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Souscription d'un contrat d'assurance pour %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Annulation du contrat d'assurance de %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Indemnité pour %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>Extension du contrat de %s (1 jour).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>Extension du contrat de %s (1 semaine).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>Extension du contrat de %s (2 semaines).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s a été renvoyé(e).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s a démissionné(e).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>quête commencée.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>quête achevée.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Entretien avec le chef des mineurs de %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>Libération de %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Activation du mode triche</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Le ravitaillement devrait arriver demain à Omerta</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s a quitté l'escouade pour épouser Hick Daryl</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>Expiration du contrat de %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>Recrutement de %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Plainte d'Enrico pour manque de résultats</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Victoire</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>La mine de %s commence à s'épuiser</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>La mine de %s est épuisée</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>La mine de %s a été fermée</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>La mine de %s a été réouverte</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Une prison du nom de Tixa a été découverte.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Rumeurs sur une usine d'armes secrètes : Orta.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Les chercheurs d'Orta vous donnent des fusils à roquettes.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Deidranna fait des expériences sur les cadavres.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank parle de combats organisés à San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Un témoin a aperçu quelque chose dans les mines.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Rencontre avec Devin (vendeur d'explosifs).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Rencontre avec Mike, le fameux ex-mercenaire de l'AIM !</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Rencontre avec Tony (vendeur d'armes).</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Fusil à roquettes récupéré auprès du sergent Krott.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Acte de propriété du magasin d'Angel donné à Kyle.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Foulab propose de construire un robot.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby fait des décoctions rendant invisible aux créatures.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith est hors-jeu.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard fournit du cyanure à la Reine Deidranna.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Rencontre avec Keith (vendeur à Cambria).</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Rencontre avec Howard (pharmacien à Balime).</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Rencontre avec Perko (réparateur en tous genres).</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Rencontre avec Sam de Balime (vendeur de matériel).</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz vend du matériel électronique.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold tient un magasin de réparations à Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo répare le matériel électronique à Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Don provenant d'un homme influent de Balime.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Rencontre avec Jake, vendeur de pièces détachées.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Clé électronique reçue.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Corruption de Walter pour ouvrir l'accès aux sous-sols.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Dave refait gratuitement le plein, s'il a du carburant.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Pot-de-vin donné à Pablo.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Caïd cache un trésor dans la mine de San Mona.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>Victoire de %s dans le combat extrème</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>Défaite de %s dans le combat extrème</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>Disqualification de %s dans le combat extrème</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>Importante somme découverte dans la mine abandonnée.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Rencontre avec un tueur engagé par Caïd.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Perte du secteur</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Secteur défendu</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Défaite</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Embuscade</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Embuscade ennemie déjouée</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Échec de l'attaque</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Réussite de l'attaque !</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Attaque de créatures</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Ambuscade de chats sauvages</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Élimination des chats sauvages</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s a été tué(e)</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Tête de terroriste donnée à Carmen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Reste Slay</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>%s a été tué(e)</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Rencontre avec Waldo, mécanicien aéronautique.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Réparations de l'hélico ont débuté, temps estimé : %d h.</sHistory>
+  </TEXT> 
+</STRINGS>

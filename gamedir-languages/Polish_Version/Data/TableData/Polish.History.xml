@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>%s najęty(ta) w A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s najęty(ta) w M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s ginie.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Uregulowano rachunki w M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Przyjęto zlecenie od Enrico Chivaldori</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>Profil IMP wygenerowany</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Podpisano umowę ubezpieczeniową dla %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Anulowano umowę ubezpieczeniową dla %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Wypłata ubezpieczenia za %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>Przedłużono kontrakt z: %s o 1 dzień.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>Przedłużono kontrakt z: %s o 1 tydzień.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>Przedłużono kontrakt z: %s o 2 tygodnie.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s zwolniony(na).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s odchodzi.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>przyjęto zadanie.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>zadanie wykonane.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Rozmawiano szefem kopalni %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>Wyzwolono - %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Użyto kodu Cheat</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Żywność powinna być jutro w Omercie</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s odchodzi, aby wziąć ślub z Darylem Hickiem</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>Wygasł kontrakt z - %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>%s zrekrutowany(na).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico narzeka na brak postępów</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Walka wygrana</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>%s - w kopalni kończy się ruda</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>%s - w kopalni skończyła się ruda</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>%s - kopalnia została zamknięta</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>%s - kopalnia została otwarta</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Informacja o więzieniu zwanym Tixa.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Informacja o tajnej fabryce broni zwanej Orta.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Naukowiec w Orcie ofiarował kilka karabinów rakietowych.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Królowa Deidranna robi użytek ze zwłok.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank opowiedział o walkach w San Monie.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Pewien pacjent twierdzi, że widział coś w kopalni.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Gość o imieniu Devin sprzedaje materiały wybuchowe.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Spotkanie ze sławynm eks-najemnikiem A.I.M. - Mike'iem!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Tony handluje bronią.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Otrzymano karabin rakietowy od sierżanta Krotta.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Dano Kyle'owi akt własności sklepu Angela.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab zaoferował się zbudować robota.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby potrafi zrobić miksturę chroniącą przed robakami.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith wypadł z interesu.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard dostarczał cyjanek królowej Deidrannie.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Spotkanie z handlarzem Keithem w Cambrii.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Spotkanie z aptekarzem Howardem w Balime.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Spotkanie z Perko, prowadzącym mały warsztat.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Spotkanie z Samem z Balime - prowadzi sklep z narzędziami.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz handluje sprzętem elektronicznym.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold prowadzi warsztat w Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo naprawia sprzęt elektroniczny w Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Otrzymano darowiznę od bogatego gościa w Balime.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Spotkano Jake'a, który prowadzi złomowisko.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Jakiś włóczęga dał nam elektroniczną kartę dostępu.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Przekupiono Waltera, aby otworzył drzwi do piwnicy.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Dave oferuje darmowe tankowania, jeśli będzie miał paliwo.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Greased Pablo's palms.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin trzyma pieniądze w kopalni w San Mona.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s wygrał(a) walkę</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s przegrał(a) walkę</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s zdyskwalifikowany(na) podczas walki</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>Znaleziono dużo pieniędzy w opuszczonej kopalni.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Spotkano zabójcę nasłanego przez Kingpina.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Utrata kontroli nad sektorem</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Sektor obroniony</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Przegrana bitwa</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Fatalna zasadzka</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Usunieto zasadzkę wroga</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Nieudany atak</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Udany atak!</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Stworzenia zaatakowały</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Zabity(ta) przez dzikie koty</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Wyrżnięto dzikie koty</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s zabity(ta)</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Przekazano Carmenowi głowę terrorysty</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Slay odszedł</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>Zabito: %s</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Spotkanie z Waldo - mechanikiem lotniczym.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Rozpoczęto naprawę helikoptera. Szacowany czas: %d godzin(y).</sHistory>
+  </TEXT> 
+</STRINGS>

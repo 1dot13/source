@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>%s ingehuurd via A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s ingehuurd via M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s gedood.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Facturen betaald bij M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Opdracht van Enrico Chivaldori geaccepteerd.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>IMP Profiel Klaar</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Verzekeringspolis gekocht voor %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Verzekeringspolis afgebroken van %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Uitbetaling Verzekeringspolis %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>%s's contract verlengd met 1 dag.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>%s's contract verlengd met 1 week.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>%s's contract verlengd met 2 weken.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s is ontslagen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s gestopt.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>zoektocht gestart.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>zoektocht afgesloten.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Gepraat met hoofdmijnwerker van %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>%s bevrijd</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Vals gespeeld</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Voedsel zou morgen in Omerta moeten zijn</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s weggegaan, wordt Daryl Hick's vrouw</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>%s's contract afgelopen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>%s aangenomen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico klaagde over de voortgang</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Strijd gewonnen</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>%s mijn raakt uitgeput</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>%s mijn is uitgeput</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>%s mijn is gesloten</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>%s mijn heropend</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Info verkregen over gevangenis Tixa.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Van geheime wapenfabriek gehoord, Orta genaamd.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Onderzoeker in Orta geeft wat raketwerpers.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Koningin Deidranna kickt op lijken.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank vertelde over knokwedstrijden in San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Een patiënt dacht dat ie iets in de mijnen zag.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Pers. ontmoet; Devin - verkoopt explosieven.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Beroemde ex-AIM huurling Mike ontmoet!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Tony ontmoet - handelt in wapens.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Raketwerper gekregen van Serg. Krott.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Kyle akte gegeven van Angel's leerwinkel.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab bood aan robot te bouwen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby maakt superbrouwsel tegen beesten.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith is er mee opgehouden.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard geeft Koningin Deidranna cyanide.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Keith ontmoet - handelaar in Cambria.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Howard ontmoet - medicijnendealer in Balime</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Perko ontmoet - heeft reparatiebedrijfje.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Sam van Balime ontmoet - verkoopt ijzerwaren.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz verkoopt elektronica en andere dingen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold runt reparatiezaak in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo repareert elektronica in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Van rijke vent in Balime donatie gekregen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Schroothandelaar Jake ontmoet.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Vaag iemand gaf ons elektronische sleutelkaart.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Walter omgekocht om kelderdeur open te maken.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Als Dave gas heeft, geeft hij deze weg.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Geslijmd met Pablo.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin bewaard geld in San Mona mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s heeft Extreme Fighting gewonnen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s heeft Extreme Fighting verloren</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s gediskwalificeerd v. Extreme Fighting</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>Veel geld gevonden in een verlaten mijn.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Huurmoordenaar van Kingpin ontdekt.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Controle over sector verloren</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Sector verdedigd</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Strijd verloren</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Fatale val</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Vijandige val weggevaagd</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Aanval niet gelukt</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Aanval gelukt!</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Beesten vielen aan</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Gedood door bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Afgeslacht door bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s was gedood</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Carmen kop v.e. terrorist gegeven</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Slay vertrok</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>%s vermoord</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT> 
+</STRINGS>

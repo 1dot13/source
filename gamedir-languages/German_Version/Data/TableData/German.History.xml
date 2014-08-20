@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>%s von A.I.M. angeheuert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s von M.E.R.C. angeheuert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s ist tot.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Rechnung an M.E.R.C. bezahlt</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Enrico Chivaldoris Auftrag akzeptiert</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>B.S.E.-Profil erstellt</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Versicherung abgeschlossen für %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Versicherung gekündigt für %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Versicherung ausgezahlt für %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>%ss Vertrag um 1 Tag verlängert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>%ss Vertrag um 1 Woche verlängert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>%ss Vertrag um 2 Wochen verlängert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s entlassen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s geht.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>Quest begonnen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>Quest gelöst.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Mit Vorarbeiter in %s geredet</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>%s befreit</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Cheat benutzt</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Essen ist morgen in Omerta</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s heiratet Daryl Hick</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>%ss Vertrag abgelaufen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>%s rekrutiert.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico sieht kaum Fortschritte</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Schlacht gewonnen</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>Mine in %s produziert weniger</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>Mine in %s leer</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>Mine in %s geschlossen</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>Mine in %s wieder offen</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Etwas über Gefängnis in Tixa erfahren.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Von Waffenfabrik in Orta gehört.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Forscher in Orta gab uns viele Raketengewehre.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Deidranna verfüttert Leichen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank erzählte von Kämpfen in San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Patient denkt, er hat in den Minen etwas gesehen.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Devin getroffen - verkauft Sprengstoff</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Berühmten Ex-AIM-Mann Mike getroffen!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Tony getroffen - verkauft Waffen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Sergeant Krott gab mir Raketengewehr.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Kyle die Urkunde für Angels Laden gegeben.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab will Roboter bauen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby kann Tinktur gegen Käfer machen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith nicht mehr im Geschäft.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard lieferte Gift an Deidranna.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Keith getroffen - verkauft alles in Cambria.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Howard getroffen - Apotheker in Balime</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Perko getroffen - hat kleinen Reparaturladen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Sam aus Balime getroffen - hat Computerladen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz hat Elektronik und andere Sachen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold repariert Sachen in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo repariert Elektronik in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Spende von Reichem aus Balime bekommen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Schrotthändler Jake getroffen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Ein Depp hat uns eine Codekarte gegeben.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Walter bestochen, damit er Keller öffnet.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Wenn Dave Sprit hat, bekommen wir's gratis.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Pablo bestochen.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin hat Geld in San Mona-Mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s gewinnt Extremkampf</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s verliert Extremkampf</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s beim Extremkampf disqualifiziert</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>Viel Geld in verlassener Mine gefunden.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Von Kingpin geschickten Mörder getroffen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Kontrolle über Sektor verloren</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Sektor verteidigt</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Schlacht verloren</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Tödlicher Hinterhalt</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Hinterhalt ausgehoben</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Angriff fehlgeschlagen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Angriff erfolgreich</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Monster angegriffen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Von Bloodcats getötet</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Bloodcats getötet</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s wurde getötet</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Carmen den Kopf eines Terroristen gegeben</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Slay ist gegangen</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>%s getötet</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT> 
+</STRINGS>

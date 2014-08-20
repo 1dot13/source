@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>Нанят(а) %s из A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+	<sHistory>Нанят(а) %s из M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s мертв(а).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Оплачены услуги M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Принято задание от Энрико Чивалдори</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>Воспользовались услугами I.M.P.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Оформлена страховка для %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>%s: cтраховой контракт аннулирован.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Выплата страховки %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>%s: контракт продлен на 1 день.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>%s: контракт продлен на 7 дней.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>%s: контракт продлен на 14 дней.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>Вы уволили %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s уходит от вас.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>получено задание.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>задание выполнено.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Поговорили со старшим горняком города %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>%s освобожден(а).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Включен режим чит-кодов</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Провизия будет доставлена в Омерту завтра.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s ушла, чтобы выйти замуж за Дерила Хика.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>Истек контракт у %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>Нанят(а) %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Энрико сетует на отсутствие успехов в кампании.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Победа в сражении!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>В шахте %s иссякает запас руды.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>Шахта %s истощилась.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>Шахта %s закрыта.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>Шахта %s снова работает.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Получена информация о тюрьме Тикса.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Узнали об Орте - секретном военном заводе.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Ученый из Орты подарил вам ракетные винтовки.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Королева Дейдрана нашла применение трупам.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Фрэнк говорил что-то о боях в Сан-Моне.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Пациенту кажется, что он что-то видел в шахтах.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Встретили Дэвина - торговца взрывчаткой.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Пересеклись с бывшим наемником A.I.M., Майком!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Встретили Тони, торговца оружием.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Получена ракетная винтовка от сержанта Кротта.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Документы на магазин Энджела переданы Кайлу.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Шиз предлагает построить робота.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Болтун может сделать варево, обманывающее жуков.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Кит отошел от дел.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Говард поставлял цианиды Дейдране.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Встретили торговца Кита из Камбрии.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Встретили Говарда, фармацевта из Балайма.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Встретили Перко. Он держит небольшую мастерскую.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Встретили Сэма из Балайма. Он торгует железками.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Франц разбирается в электронике и других вещах.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Арнольд держит мастерскую в Граме.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Фредо из Грама чинит электронику.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Один богатей из Балайма дал вам денег.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Встретили старьевщика Джейка.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Один бродяга дал нам электронную карточку.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Вальтер подкуплен, он откроет дверь в подвал.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Дэйв заправит машину бесплатно, если будет бензин.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Дали взятку Пабло.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Босс держит деньги в шахте Сан-Моны.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s: победа в бое без правил.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s: проигрыш в бое без правил.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s: дисквалификация в бое без правил.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>В заброшенной шахте найдена куча денег.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Встречен убийца, посланный Боссом.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Потерян контроль над сектором</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Отбита атака врага</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Сражение проиграно</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Смертельная засада</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Вырвались из засады</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Атака провалилась!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Успешная атака!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Атака тварей</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Кошки-убийцы уничтожили ваш отряд.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Все кошки-убийцы убиты</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s был убит(а).</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Отдали Кармену голову террориста.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Убийца ушёл.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>%s убит(а) вашим отрядом.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT>
+</STRINGS>
