@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>
+    <sHistory>%s was hired from A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s was hired from M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s died.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Settled Accounts at M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>
+    <sHistory>Accepted Assignment From Enrico Chivaldori</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>IMP Profile Generated</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Purchased Insurance Contract for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Canceled Insurance Contract for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Insurance Claim Payout for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>Extended %s's contract by a day.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>Extended %s's contract by 1 week.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>Extended %s's contract by 2 weeks.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s was dismissed.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s quit.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>quest started.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>quest completed.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Talked to head miner of %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>Liberated %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Cheat Used</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Food should be in Omerta by tomorrow</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s left team to become Daryl Hick's wife</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>%s's contract expired.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>%s was recruited.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico complained about lack of progress</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Battle won</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>%s mine started running out of ore</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>%s mine ran out of ore</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>%s mine was shut down</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>%s mine was reopened</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Found out about a prison called Tixa.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Heard about a secret weapons plant called Orta.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Scientist in Orta donated a slew of rocket rifles.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>Queen Deidranna has a use for dead bodies.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank talked about fighting matches in San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>A patient thinks he saw something in the mines.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Met someone named Devin - he sells explosives.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Ran into the famous ex-AIM merc Mike!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Met Tony - he deals in arms.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Got a rocket rifle from Sergeant Krott.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Gave Kyle the deed to Angel's leather shop.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab offered to build a robot.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby can make stealth concoction for bugs.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith is out of business.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard provided cyanide to Queen Deidranna.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Met Keith - all purpose dealer in Cambria.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Met Howard - deals pharmaceuticals in Balime</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Met Perko - runs a small repair business.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Met Sam of Balime - runs a hardware shop.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz deals in electronics and other goods.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold runs a repair shop in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo repairs electronics in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Received donation from rich guy in Balime.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Met a junkyard dealer named Jake.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Some bum gave us an electronic keycard.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Bribed Walter to unlock the door to the basement.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>If Dave has gas, he'll provide free fillups.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Greased Pablo's palms.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin keeps money in San Mona mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s won Extreme Fighting match</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s lost Extreme Fighting match</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s was disqualified in Extreme Fighting</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>Found a lot of money stashed in the abandoned mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Encountered assassin sent by Kingpin.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Lost control of sector</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Defended sector</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Lost battle</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Fatal ambush</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Wiped out enemy ambush</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Unsuccessful attack</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Successful attack!</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Creatures attacked</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Killed by bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Slaughtered bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s was killed</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Gave Carmen a terrorist's head</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Slay left</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>Killed %s</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT> 
+</STRINGS>
