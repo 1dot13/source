@@ -6639,12 +6639,30 @@ void CrippledVersionFailureToLoadMapCallBack( UINT8 bExitValue )
 #endif
 BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection )
 {
+	UINT8 ubSectorID = SECTOR( gWorldSectorX, gWorldSectorY );
+	
 	switch( *pbDirection )
-		{
-			case NORTHEAST: if( gWorldSectorX + 1 > MAXIMUM_VALID_X_COORDINATE ) *pbDirection = -1; break; // east
-			case SOUTHEAST: if( gWorldSectorY + 1 > MAXIMUM_VALID_Y_COORDINATE ) *pbDirection = -1; break; // south
-			case SOUTHWEST: if( gWorldSectorX - 1 < MINIMUM_VALID_X_COORDINATE ) *pbDirection = -1; break; // west
-			case NORTHWEST: if( gWorldSectorY - 1 < MINIMUM_VALID_Y_COORDINATE ) *pbDirection = -1; break; // north
+	{
+			case NORTHEAST: // east
+				if( gWorldSectorX + 1 > MAXIMUM_VALID_X_COORDINATE || gMapInformation.sEastGridNo == NOWHERE ||
+					SectorInfo[ ubSectorID ].ubTraversability[ EAST_STRATEGIC_MOVE ] == GROUNDBARRIER || SectorInfo[ ubSectorID ].ubTraversability[ EAST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+					*pbDirection = -1;
+				break;
+			case SOUTHEAST: // south
+				if( gWorldSectorY + 1 > MAXIMUM_VALID_Y_COORDINATE || gMapInformation.sSouthGridNo == NOWHERE ||
+					SectorInfo[ ubSectorID ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] == GROUNDBARRIER || SectorInfo[ ubSectorID ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+					*pbDirection = -1;
+				break;
+			case SOUTHWEST: // west
+				if( gWorldSectorX - 1 < MINIMUM_VALID_X_COORDINATE || gMapInformation.sWestGridNo == NOWHERE ||
+					SectorInfo[ ubSectorID ].ubTraversability[ WEST_STRATEGIC_MOVE ] == GROUNDBARRIER || SectorInfo[ ubSectorID ].ubTraversability[ WEST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+					*pbDirection = -1;
+				break;
+			case NORTHWEST: // north
+				if( gWorldSectorY - 1 < MINIMUM_VALID_Y_COORDINATE || gMapInformation.sNorthGridNo == NOWHERE ||
+					SectorInfo[ ubSectorID ].ubTraversability[ NORTH_STRATEGIC_MOVE ] == GROUNDBARRIER || SectorInfo[ ubSectorID ].ubTraversability[ NORTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+					*pbDirection = -1;
+				break;
 			default: *pbDirection = -1;
 	}
 	return( *pbDirection != -1 );

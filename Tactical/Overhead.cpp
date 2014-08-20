@@ -7082,7 +7082,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
         // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-        if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+        if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
+			gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
         {
             // Quest failed
             InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
@@ -7271,7 +7272,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                         ShouldBeginAutoBandage( );
                 }
                 // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
-                if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+                if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
+					gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
                 {
                     // Complete quest
                     EndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
