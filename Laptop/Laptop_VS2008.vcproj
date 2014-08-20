@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Laptop"
 	ProjectGUID="{4D6F7570-9A1E-4DB0-8FD7-B9D14DD4E821}"
 	RootNamespace="Laptop"
@@ -419,15 +419,15 @@
 				>
 			</File>
 			<File
+				RelativePath="CampaignHistory_Summary.h"
+				>
+			</File>
+			<File
 				RelativePath="CampaignHistoryData.h"
 				>
 			</File>
 			<File
 				RelativePath="CampaignHistoryMain.h"
-				>
-			</File>
-			<File
-				RelativePath="CampaignHistory_Summary.h"
 				>
 			</File>
 			<File
@@ -747,11 +747,11 @@
 				>
 			</File>
 			<File
-				RelativePath="CampaignHistoryMain.cpp"
+				RelativePath="CampaignHistory_Summary.cpp"
 				>
 			</File>
 			<File
-				RelativePath="CampaignHistory_Summary.cpp"
+				RelativePath="CampaignHistoryMain.cpp"
 				>
 			</File>
 			<File
@@ -1000,6 +1000,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_EmailMercLevelUp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_History.cpp"
 				>
 			</File>
 			<File

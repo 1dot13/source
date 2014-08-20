@@ -194,6 +194,7 @@
     <ClCompile Include="XML_Email.cpp" />
     <ClCompile Include="XML_EmailMercAvailable.cpp" />
     <ClCompile Include="XML_EmailMercLevelUp.cpp" />
+    <ClCompile Include="XML_History.cpp" />
     <ClCompile Include="XML_IMPPortraits.cpp" />
     <ClCompile Include="XML_OldAIMArchive.cpp" />
     <ClCompile Include="XML_ShippingDestinations.cpp" />

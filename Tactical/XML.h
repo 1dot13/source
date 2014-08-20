@@ -255,6 +255,8 @@ typedef PARSE_STAGE;
 #define MILITIA_REGULAR_PROFILE_FILENAME		"Profiles\\SoldierProfileMilitiaRegular.xml"
 #define MILITIA_VETERAN_PROFILE_FILENAME		"Profiles\\SoldierProfileMilitiaVeteran.xml"
 
+#define HISTORYNAMEFILENAME						"History.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -549,4 +551,6 @@ extern void InitNewVehicles ();
 extern BOOLEAN ReadInLanguageLocation(STR fileName, BOOLEAN localizedVersion, LANGUAGE_LOCATION *Lang, UINT32 FileType2 );
 
 extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
+
+extern BOOLEAN ReadInHistorys(STR fileName, BOOLEAN localizedVersion );
 #endif

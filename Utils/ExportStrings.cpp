@@ -240,7 +240,7 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"FilesSender",				Loc::pFilesSenderList,				0,	7);
 	ExportSection(props, L"HistoryTitle",				Loc::pHistoryTitle,					0,	1);
 	ExportSection(props, L"HistoryHeader",				Loc::pHistoryHeaders,				0,	5);
-	ExportSection(props, L"History",					Loc::pHistoryStrings,				0,	TEXT_NUM_HISTORY);
+	//ExportSection(props, L"History",					Loc::pHistoryStrings,				0,	TEXT_NUM_HISTORY);
 	ExportSection(props, L"HistoryLocation",			Loc::pHistoryLocations,				0,	1);
 	ExportSection(props, L"LaptopIcon",					Loc::pLaptopIcons,					0,	8);
 

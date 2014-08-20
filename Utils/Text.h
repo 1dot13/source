@@ -273,7 +273,7 @@ extern STR16 pFilesTitle[];
 extern STR16 pFilesSenderList[];
 extern STR16 pHistoryLocations[];
 //extern STR16 pHistoryAlternateStrings[];
-extern STR16 pHistoryStrings[];
+//extern STR16 pHistoryStrings[];		// Externalized to "TableData\History.xml"
 extern STR16 pHistoryHeaders[];
 extern STR16 pHistoryTitle[];
 extern STR16 pShowBookmarkString[];

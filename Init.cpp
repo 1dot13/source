@@ -1113,6 +1113,21 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 			GetFileClose(&FileInfo);
 		}
 	}
+	
+	//History by Jazz
+	strcpy(fileName, directoryName);
+	strcat(fileName, HISTORYNAMEFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInHistorys(fileName,FALSE), HISTORYNAMEFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInHistorys(fileName,TRUE), fileName);
+		}
+#endif
 
 	// IMP Portraits List by Jazz
 	strcpy(fileName, directoryName);

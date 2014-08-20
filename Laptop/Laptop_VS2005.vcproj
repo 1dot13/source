@@ -417,7 +417,11 @@
 			<File
 				RelativePath=".\BrokenLink.h"
 				>
-			</File>			
+			</File>
+			<File
+				RelativePath=".\CampaignHistory_Summary.h"
+				>
+			</File>
 			<File
 				RelativePath=".\CampaignHistoryData.h"
 				>
@@ -427,13 +431,9 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CampaignHistory_Summary.h"
-				>
-			</File>
-			<File
 				RelativePath=".\CampaignStats.h"
 				>
-			</File>			
+			</File>
 			<File
 				RelativePath=".\CharProfile.h"
 				>
@@ -757,11 +757,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CampaignHistoryMain.cpp"
+				RelativePath=".\CampaignHistory_Summary.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CampaignHistory_Summary.cpp"
+				RelativePath=".\CampaignHistoryMain.cpp"
 				>
 			</File>
 			<File
@@ -1014,6 +1014,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_EmailMercLevelUp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_History.cpp"
 				>
 			</File>
 			<File

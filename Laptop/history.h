@@ -23,6 +23,14 @@ struct history{
  struct history *Next; // next unit in the list
 };
 
+typedef struct
+{
+	UINT32 uiIndex;
+	CHAR16 sHistory[128];
+	
+} HISTORY_VALUES;
+
+extern HISTORY_VALUES HistoryName[500];
 
 enum{
 	HISTORY_ENTERED_HISTORY_MODE=0,
