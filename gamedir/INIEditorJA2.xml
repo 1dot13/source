@@ -41,30 +41,46 @@
 		  <Description_FRE>Sélectionnez le mode que vous voulez jouer (en rapport avec l'exécutable que vous avez sélectionné).</Description_FRE>
         </Property>
         <Property name="JA2_START_FILE" datatype="select" minvalue="0" maxvalue="0" interval="0">
-          <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "Launch JA2 v1.13".</Description_ENG>
-          <Description_GER>Dies ist die standardmäßige Jagged Alliance 2 v1.13 Exe Datei, welche gestartet wird, wenn auf die Schaltfläche "Launch JA2 v1.13" geklickt wird.</Description_GER>
+          <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "START" in the INI Editor.</Description_ENG>
+          <Description_GER>Dies ist die standardmäßige Jagged Alliance 2 v1.13 Exe Datei, welche gestartet wird, wenn auf die Schaltfläche "START" im INI Editor geklickt wird.</Description_GER>
           <Description_RUS>Стартовый файл Jagged Alliance 2 v1.13.
 Выберите нужный исполняемый файл (если их несколько),
-который запустит игру по нажатию кнопки "Launch JA2 v1.13".</Description_RUS>
+который запустит игру по нажатию кнопки "START".</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>选择默认启动的游戏主程序。仅对“Launch JA2 v1.13”有效。</Description_CHI>
 		  <Description_FRE>C'est l'exécutable qui lancera le jeu en cliquant sur "START"... Si vous avez sélectionné le mode correspondant.</Description_FRE>
         </Property>
         <Property name="SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
-          <Description_ENG>The screen resolution of the game Jagged Alliance 2 v1.13.</Description_ENG>
-          <Description_GER>Die Bildschirmauflösung des Spiels Jagged Alliance 2 v1.13.</Description_GER>
+          <Description_ENG>The screen resolution of the game Jagged Alliance 2 v1.13. Resolutions marked with * have an optimized screen layout.</Description_ENG>
+          <Description_GER>Die Bildschirmauflösung des Spiels Jagged Alliance 2 v1.13. Auflösungen die mit * gekennzeichnet sind haben ein optimiertes Layout.</Description_GER>
           <Description_RUS>Разрешение экрана игры Jagged Alliance 2 v1.13.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>游戏运行的屏幕分辨率设定。</Description_CHI>
 		  <Description_FRE>La résolution de votre écran pour Jagged Alliance 2 v1.13.</Description_FRE>
         </Property>
         <Property name="EDITOR_SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
-          <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor.</Description_ENG>
-          <Description_GER>Die Bildschirmauflösung für den Jagged Alliance 2 v1.13 Karten Editor.</Description_GER>
+          <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor. Resolutions marked with * have an optimized screen layout.</Description_ENG>
+          <Description_GER>Die Bildschirmauflösung für den Jagged Alliance 2 v1.13 Karten Editor. Auflösungen die mit * gekennzeichnet sind haben ein optimiertes Layout.</Description_GER>
           <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>地图编辑器运行的屏幕分辨率设定。</Description_CHI>
 		  <Description_FRE>La résolution de votre écran pour l'éditeur de carte de Jagged Alliance 2 v1.13.</Description_FRE>
+        </Property>
+		<Property name="CUSTOM_SCREEN_RESOLUTION_X" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+		<Property name="CUSTOM_SCREEN_RESOLUTION_Y" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
         </Property>
         <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
