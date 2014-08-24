@@ -196,4 +196,12 @@
 		<id>48</id>
 		<name>Grenade x2</name>
 	</Silhouette>
+			<Silhouette>
+		<id>49</id>
+		<name>Small Revolver</name>
+	</Silhouette>
+			<Silhouette>
+		<id>50</id>
+		<name>Rifle</name>
+	</Silhouette>
 </JA2Data>
