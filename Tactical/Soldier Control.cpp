@@ -9693,6 +9693,14 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 				pSoldier->flags.fInNonintAnim = FALSE;
 			}
 
+			// silversurfer: fix for the deadlock that could happen when the victim was running through a gas cloud that lead to his death.
+			// If he is near death the next check will make him collapse. If he is really dead then he won't move anywhere anyway
+			// so it should be safe to stop him here.
+			if ( pSoldier->stats.bLife < OKLIFE && !pSoldier->bCollapsed )
+			{
+				pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+			}
+
 			// Check for < OKLIFE
 			if ( pSoldier->stats.bLife < OKLIFE && pSoldier->stats.bLife != 0 && !pSoldier->bCollapsed )
 			{
