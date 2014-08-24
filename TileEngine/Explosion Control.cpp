@@ -1990,6 +1990,9 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			// Already affected by burnable gas this turn. Lower damage value by ini setting.
 			fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
 			fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
+			// modify damage values
+			sWoundAmt *= fGasDamageModifier;
+			sBreathAmt *= fGasBreathDamageModifier;
 			//return( fRecompileMovementCosts );
 		}
 	}
