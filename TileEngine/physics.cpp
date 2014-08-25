@@ -2613,7 +2613,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 		AddItemToPool( pObject->sGridNo, pObj, INVISIBLE, bLevel, usFlags, 0 );
 	}
 
-	if ( fCheckForDuds )
+	if ( fCheckForDuds && (*pObj)[0]->data.misc.bDetonatorType != BOMB_TIMED )
 	{
 		// OJW - 20021002 - MP Explosives
 		if (is_networked && is_client && pObject->mpIsFromRemoteClient && pObject->mpHaveClientResult)
@@ -2657,6 +2657,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 				(*pObj)[0]->data.misc.bDetonatorType = BOMB_TIMED;
 				(*pObj)[0]->data.misc.bDelay = (INT8)( 1 + PreRandom( 2 ) );
+				(*pObj)[0]->data.misc.usBombItem = pObj->usItem;
 			}
 
 			// ATE: If we have collided with roof last...
@@ -2713,7 +2714,10 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 			}
 			*/
 
-			IgniteExplosion( pObject->ubOwner, (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ, pObject->sGridNo, pObject->Obj.usItem, GET_OBJECT_LEVEL( pObject->Position.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight ) ), DIRECTION_IRRELEVANT, &pObject->Obj );
+			if( (*pObj)[0]->data.misc.bDetonatorType != BOMB_TIMED )
+			{
+				IgniteExplosion( pObject->ubOwner, (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ, pObject->sGridNo, pObject->Obj.usItem, GET_OBJECT_LEVEL( pObject->Position.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight ) ), DIRECTION_IRRELEVANT, &pObject->Obj );
+			}
 		}
 		else if ( Item[ pObject->Obj.usItem ].usItemClass == IC_BOMB	) //if ( pObject->Obj.usItem == MORTAR_SHELL )
 		{
