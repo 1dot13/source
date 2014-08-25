@@ -61,10 +61,10 @@
         <Property name="EDITOR_SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor. Resolutions marked with * have an optimized screen layout.</Description_ENG>
           <Description_GER>Die Bildschirmauflösung für den Jagged Alliance 2 v1.13 Karten Editor. Auflösungen die mit * gekennzeichnet sind haben ein optimiertes Layout.</Description_GER>
-          <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13.</Description_RUS>
+          <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13. Les résolutions marquées d'un * ont un agencement optimisé.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>地图编辑器运行的屏幕分辨率设定。</Description_CHI>
-		  <Description_FRE>La résolution de votre écran pour l'éditeur de carte de Jagged Alliance 2 v1.13.</Description_FRE>
+		  <Description_FRE>La résolution de votre écran pour l'éditeur de carte de Jagged Alliance 2 v1.13. Les résolutions marquées d'un * ont un agencement optimisé.</Description_FRE>
         </Property>
 		<Property name="CUSTOM_SCREEN_RESOLUTION_X" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
@@ -72,7 +72,8 @@
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
-		  <Description_FRE></Description_FRE>
+		  <Description_FRE>Applicable uniquement lorsque "Custom Resolution" (résolution personnalisée) a été sélectionnée (Dans Game Screen Resolution ou Editor Screen Resolution), valeurs de 800x600 minimum et multiples de 2 uniquement.
+Assurez-vous que votre moniteur prend en charge la résolution personnalisée en question si vous jouez en mode plein écran.</Description_FRE>
         </Property>
 		<Property name="CUSTOM_SCREEN_RESOLUTION_Y" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
@@ -80,7 +81,8 @@
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
-		  <Description_FRE></Description_FRE>
+		  <Description_FRE>Applicable uniquement lorsque "Custom Resolution" (résolution personnalisée) a été sélectionnée (Dans Game Screen Resolution ou Editor Screen Resolution), valeurs de 800x600 minimum et multiples de 2 uniquement.
+Assurez-vous que votre moniteur prend en charge la résolution personnalisée en question si vous jouez en mode plein écran.</Description_FRE>
         </Property>
         <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
