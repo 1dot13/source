@@ -5899,9 +5899,9 @@ STR16 pMessageStrings[] =
 	L"Spiel gespeichert",	
 	L"Spiel gespeichert",	
 	L"QuickSave",		//10		//The name of the quicksave file (filename, text reference)
-	L"Spielstand",				//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
+	L"SaveGame",				//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",					//The 3 character dos extension (represents sav)
-	L"..\\Spielstände",			//The name of the directory where games are saved.
+	L"..\\SavedGames",			//The name of the directory where games are saved.
 	L"Tag",
 	L"Söldner",
 	L"Leere Spiel Position",				//An empty save game slot
@@ -5983,7 +5983,7 @@ STR16 pMessageStrings[] =
 	L"Sie können %ss Tagessold von %s nicht zahlen",	//first %s is the mercs name, the second is a string containing the salary
 	L"Abbruch",			// 70
 	L"%s kann alleine nicht gehen.",
-	L"Spielstand namens Spielstand249.sav kreiert. Wenn nötig, in Spielstand01 - Spielstand10 umbennen und über die Option 'Laden' aufrufen.",
+	L"Spielstand namens SaveGame249.sav kreiert. Wenn nötig, in SaveGame01 - SaveGame10 umbennen und über die Option 'Laden' aufrufen.",
 	L"%s hat %s getrunken.",
 	L"Paket in Drassen angekommen.",
 	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).", //first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)	//LOOTF - is this still valid? I assume it's not.
@@ -6000,7 +6000,7 @@ STR16 pMessageStrings[] =
 	L"Verlasse Kampfmodus",
 	L"Erzwungener Rundenmodus ist aktiv, gehe in Kampfmodus",
 	L"Spiel erfolgreich in Position End Turn Auto Save gespeichert.",
-	L"..\\Spielstände\\MP_Spielstände",			//The name of the directory where games are saved.
+	L"..\\SavedGames\\MP_SavedGames",			//The name of the directory where games are saved.
 	L"Client",
 	
 	L"Sie können nicht altes Inventar und neues Attachment System gleichzeitig verwenden.",
@@ -6015,9 +6015,9 @@ STR16 pMessageStrings[] =
 	L"Dieser Platz ist reserviert für Spielstände am Ende eines Spieler Zuges. Dies kann ein/ausgeschaltet werden in den Spieleinstellungen.", //99	// The text, when the user clicks on the save screen on an auto save
 	// Mouse tooltips
 	L"QuickSave.sav",	// 100
-	L"AutoSpielstand%02d.sav",	// 101
+	L"AutoSaveGame%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
-	L"Spielstand%02d.sav", //103
+	L"SaveGame%02d.sav", //103
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105

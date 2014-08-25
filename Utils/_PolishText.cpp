@@ -6064,7 +6064,7 @@ STR16 pMessageStrings[] =
 	L"Brak opisu", //Save slots that don't have a description.
 	L"Gra zapisana.",
 	L"Gra zapisana.",
-	L"Szybki zapis", //10	The name of the quicksave file (filename, text reference)
+	L"QuickSave", //10	The name of the quicksave file (filename, text reference)
 	L"SaveGame",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.

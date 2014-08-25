@@ -6065,8 +6065,8 @@ STR16 pMessageStrings[] =
 	L"Sans description", //Save slots that don't have a description.
 	L"Partie sauvegardée.",
 	L"Partie sauvegardée.",
-	L"Sauvegarde rapide", //The name of the quicksave file (filename, text reference)
-	L"Partie",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
+	L"QuickSave", //The name of the quicksave file (filename, text reference)
+	L"SaveGame",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.
 	L"Jour",
@@ -6183,10 +6183,10 @@ STR16 pMessageStrings[] =
 	L"Emplacement fin-tour vide #",	// 98	// The message box, when doing auto save
 	L"Cet emplacement est réservé pour les sauvegardes fin-tour et peut être activé/désactivé dans l'écran option.", //99	// The text, when the user clicks on the save screen on an auto save
 	// Mouse tooltips
-	L"Saverapide.sav",	// 100
-	L"AutoSaveJeu%02d.sav",	// 101
+	L"QuickSave.sav",	// 100
+	L"AutoSaveGame%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
-	L"SaveJeu%02d.sav", //103
+	L"SaveGame%02d.sav", //103
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Verrouiller le curseur pour qu'il reste dans la fenêtre.",			// 104
 	L"Libérer le curseur pour qu'il se déplace hors de la fenêtre.",			// 105
