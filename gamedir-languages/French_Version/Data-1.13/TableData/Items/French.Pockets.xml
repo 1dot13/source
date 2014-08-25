@@ -134,7 +134,7 @@
   </POCKET>
   <POCKET>
     <pIndex>33</pIndex>
-    <pName>Explosifs </pName>
+    <pName>x2 Explosifs </pName>
   </POCKET>
   <POCKET>
     <pIndex>34</pIndex>
@@ -223,5 +223,13 @@
   <POCKET>
     <pIndex>55</pIndex>
     <pName>x2 Grenades </pName>
+  </POCKET>
+    <POCKET>
+    <pIndex>56</pIndex>
+    <pName>Étui révolver </pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>57</pIndex>
+    <pName>x2 Chrg F/A </pName>
   </POCKET>
 </POCKETLIST>

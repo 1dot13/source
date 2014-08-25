@@ -224,4 +224,12 @@
 		<pIndex>55</pIndex>
 		<pName>手雷x2</pName>
 	</POCKET>
+	<POCKET>
+		<pIndex>56</pIndex>
+		<pName>Revolver Holster</pName>
+	</POCKET>
+		<POCKET>
+		<pIndex>57</pIndex>
+		<pName>Rifle Magx2</pName>
+	</POCKET>
 </POCKETLIST>
