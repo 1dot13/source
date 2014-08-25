@@ -490,7 +490,7 @@
 		<pRestriction>512</pRestriction>
 		<pVolume>10</pVolume>
 		<ItemCapacityPerSize17>1</ItemCapacityPerSize17>
-		<ItemCapacityPerSize17>22</ItemCapacityPerSize17>
+		<ItemCapacityPerSize17>1</ItemCapacityPerSize17>
 	</POCKET>
 	<POCKET>
 		<pIndex>29</pIndex>
