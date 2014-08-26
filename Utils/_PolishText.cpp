@@ -7012,8 +7012,8 @@ STR16 MPClientMessage[] =
 STR16 gszMPEdgesText[] =
 {
 	L"Pn", //- Północ
-	L"Pd", //- Południe
 	L"W", //- Wschód
+	L"Pd", //- Południe
 	L"Z", //- Zachód
 	L"C",   // "C" - Centralny
 };

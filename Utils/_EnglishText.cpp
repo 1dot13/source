@@ -6999,8 +6999,8 @@ STR16 MPClientMessage[] =
 STR16 gszMPEdgesText[] =
 {
 	L"N",
-	L"S",
 	L"E",
+	L"S",
 	L"W",
 	L"C",	// "C"enter
 };

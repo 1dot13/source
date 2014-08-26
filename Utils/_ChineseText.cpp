@@ -6999,8 +6999,8 @@ STR16 MPClientMessage[] =
 STR16 gszMPEdgesText[] =
 {
 	L"北", //L"N",
-	L"南", //L"S",
 	L"东", //L"E",
+	L"南", //L"S",
 	L"西", //L"W",
 	L"中", //L"C",	// "C"enter
 };
