@@ -125,153 +125,152 @@ CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] =
 STR16 pMenuStrings[] =
 {
 	//Encyclopedia
-	L"Locations", // 0
-	L"Characters",
-	L"Items",
-	L"Quests",
-	L"Menu 5",
-	L"Menu 6", //5
-	L"Menu 7", 
-	L"Menu 8",
-	L"Menu 9",
-	L"Menu 10",
-	L"Menu 11", //10
-	L"Menu 12",
-	L"Menu 13",
-	L"Menu 14",
-	L"Menu 15",
-	L"Menu 15", // 15
+	L"Места", // 0
+	L"Персоналии",
+	L"Предметы",
+	L"Квесты",
+	L"Меню 5",
+	L"Меню 6", //5
+	L"Меню 7", 
+	L"Меню 8",
+	L"Меню 9",
+	L"Меню 10",
+	L"Меню 11", //10
+	L"Меню 12",
+	L"Меню 13",
+	L"Меню 14",
+	L"Меню 15",
+	L"Меню 15", // 15
 	
 	//Briefing Room
-	L"Enter",		// TODO.Translate
+	L"Войти",
 };
 
 STR16	pOtherButtonsText[] =
 {
-	L"Briefing", 
-	L"Accept",
+	L"Брифинг", 
+	L"Принять",
 };
 
 STR16	pOtherButtonsHelpText[] =
 {
-	L"Briefing",
-	L"Accept missions",
+	L"Брифинг",
+	L"Принять миссии",
 };
 
 
 STR16	pLocationPageText[] =
 {
-	L"Prev page",
-	L"Photo", 
-	L"Next page",
+	L"Пред.",
+	L"Фото", 
+	L"След.",
 };
 
 STR16	pSectorPageText[] =
 {
 	L"<<",
-	L"Main page",
+	L"Гл. стран.",
 	L">>",
-	L"Type: ",
-	L"Empty data",
+	L"Тип: ",
+	L"Нет данных",
 	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
-	L"Briefing Room. Please click the 'Enter' button.",		// TODO.Translate
+	L"Брифинг-зал. Пожалуйста, нажмите кнопку 'Войти'.",
 };
 
 STR16	pEncyclopediaTypeText[] = 
 {
-	L"Unknown",// 0 - unknown
-	L"City", //1 - cities
-	L"SAM Site", //2 - SAM Site
-	L"Other location", //3 - other location
-	L"Mines", //4 - mines 
-	L"Military complex", //5 - military complex 
-	L"Laboratory complex",  //6 - laboratory complex 
-	L"Factory complex", //7 - factory complex 
-	L"Hospital", //8 - hospital 
-	L"Prison", //9 - prison
-    L"Airport", //10 - air port 
+	L"Неизвестно",// 0 - unknown
+	L"Город", //1 - cities
+	L"База ПВО", //2 - SAM Site
+	L"Другое", //3 - other location
+	L"Шахты", //4 - mines 
+	L"Военный комплекс", //5 - military complex 
+	L"Лаборатория",  //6 - laboratory complex 
+	L"Фабрика", //7 - factory complex 
+	L"Госпиталь", //8 - hospital 
+	L"Тюрьма", //9 - prison
+    	L"Аэропорт", //10 - air port 
 };
 
 STR16	pEncyclopediaHelpCharacterText[] = 
 {
-	L"Show all",
-	L"Show AIM",
-	L"Show MERC",
-	L"Show RPC",
-	L"Show NPC",
-	L"Show Pojazd",
-	L"Show IMP",
-	L"Show EPC",
-	L"Filter",
+	L"Показ. всех",
+	L"Показ. AIM",
+	L"Показ. MERC",
+	L"Показ. RPC",
+	L"Показ. NPC",
+	L"Показ. транс.",
+	L"Показ. IMP",
+	L"Показ. EPC",
+	L"Фильтр",
 };
 
 STR16	pEncyclopediaShortCharacterText[] = 
 {
-	L"All",
+	L"Все",
 	L"AIM",
 	L"MERC",
 	L"RPC",
 	L"NPC",
-	L"Veh.",
+	L"Транс.",
 	L"IMP",
 	L"EPC",
-	L"Filter",
+	L"Фильтр",
 };
 
 STR16	pEncyclopediaHelpText[] = 
 {
-	L"Show all",
-	L"Show cities",
-	L"Show SAM Sites",
-	L"Show other location",
-	L"Show mines",
-	L"Show military complex",
-	L"Show laboratory complex",
-	L"Show Factory complex",
-	L"Show hospital",
-	L"Show prison",
-	L"Show air port",
+	L"Показать все",
+	L"Показать города",
+	L"Показать базы ПВО",
+	L"Показать другие места",
+	L"Показать шахты",
+	L"Показать военный комплекс",
+	L"Показать лабораторию",
+	L"Показать фабрику",
+	L"Показать госпиталь",
+	L"Показать тюрьму",
+	L"Показать аэропорт",
 };
 
 STR16	pEncyclopediaSkrotyText[] = 
 {
-	L"All",
-	L"City",
-	L"SAM",
-	L"Other",
-	L"Mine",
-	L"Mil.",
-	L"Lab.",
-	L"Fact.",
-	L"Hosp.",
-	L"Prison",
-	L"Air.",
+	L"Все",
+	L"Город",
+	L"ПВО",
+	L"Друг.",
+	L"Шахт.",
+	L"Воен.",
+	L"Лаб.",
+	L"Фабр.",
+	L"Госп.",
+	L"Тюрьм.",
+	L"Аэро.",
 };
 
-// TODO.Translate
 STR16	pEncyclopediaFilterLocationText[] =
 {//major location filter button text max 7 chars
 //..L"------v"
-	L"All",//0
-	L"City",
-	L"SAM",
-	L"Mine",
-	L"Airport",
-	L"Wilder.",
-	L"Underg.",
-	L"Facil.",
-	L"Other",
+	L"Все",//0
+	L"Города",
+	L"ПВО",
+	L"Шахты",
+	L"Аэропор.",
+	L"Дик.мес",
+	L"Подзем.",
+	L"Завед.",
+	L"Другое",
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Show All",//facility index + 1
-	L"Show Cities",
-	L"Show SAM sites",
-	L"Show mines",
-	L"Show airports",
-	L"Show sectors in wilderness",
-	L"Show underground sectors",
-	L"Show sectors with facilities\n[|L|B]toggle filter\n[|R|B]reset filter",
-	L"Show Other sectors",
+	L"Показать все",//facility index + 1
+	L"Показать города",
+	L"Показать базы ПВО",
+	L"Показать шахты",
+	L"Показать аэропорты",
+	L"Показать дикую местность",
+	L"Показать подземные секторы",
+	L"Показать секторы с заведениями\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать другие секторы",
 };
 
 STR16 pEncyclopediaSubFilterLocationText[] =
@@ -290,24 +289,24 @@ STR16 pEncyclopediaSubFilterLocationText[] =
 STR16	pEncyclopediaFilterCharText[] =
 {//major char filter button text
 //..L"------v"
-	L"All",//0
+	L"Все",//0
 	L"A.I.M.",
 	L"MERC",
 	L"RPC",
 	L"NPC",
 	L"IMP",
-	L"Other",//add new filter buttons before other
+	L"Другое",//add new filter buttons before other
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Show All",//Other index + 1
-	L"Show A.I.M. members",
-	L"Show M.E.R.C staff",
-	L"Show Rebels",
-	L"Show Non-hirable Characters",
-	L"Show Player created Characters",
-	L"Show Other\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Показать всех",//Other index + 1
+	L"Показать наёмников из A.I.M.",
+	L"Показать наёмников из M.E.R.C",
+	L"Показать повстанцев",
+	L"Показать ненанимаемых персонажей",
+	L"Показать созданных игроком персонажей",
+	L"Показать другое\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
 };
-// TODO.Translate
+
 STR16	pEncyclopediaSubFilterCharText[] =
 {//item subfilter button text
 //..L"------v"
@@ -317,104 +316,104 @@ STR16	pEncyclopediaSubFilterCharText[] =
 	L"",//reserved. Insert new NPC filters above!
 	L"",//reserved. Insert new IMP filters above!
 //Other-----v"
-	L"Vehic.",
+	L"Транс.",
 	L"EPC",
 	L"",//reserved. Insert new Other filters above!
 };
-// TODO.Translate
+
 STR16	pEncyclopediaFilterItemText[] = 
 {//major item filter button text max 7 chars
 //..L"------v"
-	L"All",//0
-	L"Gun",
-	L"Ammo",
-	L"Armor",
-	L"LBE",
-	L"Attach.",
-	L"Misc",//add new filter buttons before misc
+	L"Все",//0
+	L"Оружие",
+	L"Патроны",
+	L"Броня",
+	L"Разгр.",
+	L"Навеска",
+	L"Разное",//add new filter buttons before misc
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Show All",//misc index + 1
-	L"Show Guns\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Amunition\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Armor Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show LBE Gear\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Attachments\n[|L|B] toggle filter\n[|R|B] reset filter",
-	L"Show Misc Items\n[|L|B] toggle filter\n[|R|B] reset filter",
+	L"Показать все",//misc index + 1
+	L"Показать оружие\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать боеприпасы\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать броню\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать разрузочные комплекты\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать навеску\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
+	L"Показать разное\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
 };
-// TODO.Translate
+
 STR16 pEncyclopediaSubFilterItemText[] =
 {//item subfilter button text max 7 chars
 //..L"------v"
 //Guns......v"
-	L"Pistol",
-	L"M.Pist.",
-	L"SMG",
-	L"Rifle",
-	L"SN Rif.",
-	L"AS Rif.",
-	L"MG",
-	L"Shotgun",
-	L"H.Weap.",
+	L"Пистол.",
+	L"А.пист.",
+	L"ПП",
+	L"Винтов.",
+	L"Сн.винт",
+	L"Шт.винт",
+	L"Пулем.",
+	L"Дробов.",
+	L"Тяжел.",
 	L"",//reserved. insert new gun filters above!
 //Amunition.v"
-	L"Pistol",
-	L"M.Pist.",
-	L"SMG",
-	L"Rifle",
-	L"SN Rif.",
-	L"AS Rif.",
-	L"MG",
-	L"Shotgun",
-	L"H.Weap.",
+	L"Пистол.",
+	L"А.пист.",
+	L"ПП",
+	L"Винтов.",
+	L"Сн.винт",
+	L"Шт.винт",
+	L"Пулем.",
+	L"Дробов.",
+	L"Тяжел.",
 	L"",//reserved. insert new ammo filters above!
 //Armor.....v"
-	L"Helmet",
-	L"Vest",
-	L"Pant",
-	L"Plate",
+	L"Шлем",
+	L"Жилет",
+	L"Штаны",
+	L"Пласт.",
 	L"",//reserved. insert new armor filters above!
 //LBE.......v"
-	L"Tight",
-	L"Vest",
-	L"Combat",
-	L"Backp.",
-	L"Pocket",
-	L"Other",
+	L"Кобуры",
+	L"Жилеты",
+	L"Ранцы",
+	L"Рюкзаки",
+	L"Карманы",
+	L"Другое",
 	L"",//reserved. insert new LBE filters above!
 //Attachments"
-	L"Optic",
-	L"Side",
-	L"Muzzle",
-	L"Extern.",
-	L"Intern.",
-	L"Other",
+	L"Оптика",
+	L"Доп.",
+	L"Дуло",
+	L"Внешн.",
+	L"Внутр.",
+	L"Другое",
 	L"",//reserved. insert new attachment filters above!
 //Misc......v"
-	L"Blade",
-	L"T.Knife",
-	L"Punch",
-	L"Grenade",
-	L"Bomb",
-	L"Medikit",
-	L"Kit",
-	L"Face",
-	L"Other",
+	L"Ножи",
+	L"Мет.нож",
+	L"Удар.",
+	L"Гранаты",
+	L"Бомбы",
+	L"Мед.наб",
+	L"Наборы",
+	L"Лицо",
+	L"Другое",
 	L"",//reserved. insert new misc filters above!
 //add filters for a new button here
 };
-// TODO.Translate
+
 STR16 pEncyclopediaFilterQuestText[] =
 {//major quest filter button text max 7 chars
 //..L"------v"
-	L"All",
-	L"Active",
-	L"Compl.",
+	L"Все",
+	L"Активн.",
+	L"Заверш.",
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Show All",//misc index + 1
-	L"Show Active Quests",
-	L"Show Completed Quests",
+	L"Показать все",//misc index + 1
+	L"Показать активные квесты",
+	L"Показать завершенные квесты",
 };
 
 STR16 pEncyclopediaSubFilterQuestText[] =
@@ -426,65 +425,65 @@ STR16 pEncyclopediaSubFilterQuestText[] =
 
 STR16	pEncyclopediaShortInventoryText[] = 
 {
-	L"All", //0
-	L"Gun",
-	L"Ammo",
-	L"LBE",
-	L"Misc",
+	L"Все", //0
+	L"Оружие",
+	L"Патроны",
+	L"Разгр.",
+	L"Другое",
 	
-	L"All", //5
-	L"Gun",
-	L"Ammo",
-	L"LBE Gear",
-	L"Misc",
+	L"Все", //5
+	L"Оружие",
+	L"Патроны",
+	L"Разгр.",
+	L"Другое",
 };
 
 STR16			BoxFilter[] =
 {
 	// Guns
-	L"Heavy",
-	L"Pistol",
-	L"M. Pist.",
-	L"SMG",
-	L"Rifle",
-	L"S. Rifle",
-	L"A. Rifle",
-	L"MG",
-	L"Shotgun",
+	L"Тяжел.",
+	L"Пистол.",
+	L"А.пист.",
+	L"ПП",
+	L"Винтов.",
+	L"С.винт.",
+	L"Ш.винт.",
+	L"Пулем.",
+	L"Дробов.",
 
 	// Ammo
-	L"Pistol",
-	L"M. Pist.", //10
-	L"SMG",
-	L"Rifle",
-	L"S. Rifle",
-	L"A. Rifle",
-	L"MG",
-	L"Shotgun",
+	L"Пистол.",
+	L"А.пист.", //10
+	L"ПП",
+	L"Винтов.",
+	L"С.винт.",
+	L"Ш.винт.",
+	L"Пулем.",
+	L"Дробов.",
 
 	// Used
-	L"Guns",
-	L"Armor",
-	L"LBE Gear",
-	L"Misc", //20
+	L"Оружие",
+	L"Броня",
+	L"Разгр.",
+	L"Другое", //20
 
 	// Armour
-	L"Helmets",
-	L"Vests",
-	L"Leggings",
-	L"Plates",
+	L"Шлемы",
+	L"Жилеты",
+	L"Штаны",
+	L"Пласт.",
 
 	// Misc
-	L"Blades",
-	L"Th. Knife",
-	L"Melee",
-	L"Grenades",
-	L"Bombs",
-	L"Med.", //30
-	L"Kits",
-	L"Face",
-	L"LBE",
-	L"Misc.", //34
+	L"Ножи",
+	L"Мет.нож",
+	L"Бл.бой",
+	L"Гранаты",
+	L"Бомбы",
+	L"Мед.", //30
+	L"Наборы",
+	L"Лицо",
+	L"Разгр.",
+	L"Разное.", //34
 };
 //-----------
 
@@ -675,7 +674,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Leave Editor mode",
 	L"Exit game (|A|l|t+|X)",
 	L"Create radar map",
-	L"When checked, the map will be saved in original JA2 map format. Items with ID > 350 will be lost.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
+	L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
 	L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
@@ -707,7 +706,7 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Options",
 	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Terrain fasthelp text
 	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Buildings fasthelp text
-	L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor", //Items fasthelp text
+	L"|S|p|a|c|e: Select next item\n \n|C|t|r|l+|/: Place new item under mouse cursor\n|/: Place same item under mouse cursor", //Items fasthelp text
 	L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc", //Mercs fasthelp text
 	L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions", //Map Info fasthelp text
 	L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text
@@ -1566,24 +1565,24 @@ CHAR16 ShortItemNames[MAXITEMS][80] =
 CHAR16 AmmoCaliber[MAXITEMS][20];// =
 //{
 //	L"0",
-//	L",38 кал",
-//	L"9мм",
-//	L",45 кал",
-//	L",357 кал",
+//	L".38 кал",
+//	L"9 мм",
+//	L".45 кал",
+//	L".357 кал",
 //	L"12 кал",
 //	L"ОББ",
-//	L"5,45мм",
-//	L"5,56мм",
-//	L"7,62мм НАТО",
-//	L"7,62мм ВД",
-//	L"4,7мм",
-//	L"5,7мм",
+//	L"5,45 мм",
+//	L"5,56 мм",
+//	L"7,62 мм НАТО",
+//	L"7,62 мм ВД",
+//	L"4,7 мм",
+//	L"5,7 мм",
 //	L"Монстр",
 //	L"Ракета",
 //	L"", // дротик
 //	L"", // пламя
-////	L".50 cal", // barrett
-////	L"9mm Hvy", // Val silent
+////	L".50 кал", // barrett
+////	L"9 мм тяж", // Val silent
 //};
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
@@ -1596,24 +1595,24 @@ CHAR16 AmmoCaliber[MAXITEMS][20];// =
 CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //{
 //	L"0",
-//	L",38 кал",
-//	L"9мм",
-//	L",45 кал",
-//	L",357 кал",
+//	L".38 кал",
+//	L"9 мм",
+//	L".45 кал",
+//	L".357 кал",
 //	L"12 кал",
 //	L"ОББ",
-//	L"5,45мм",
-//	L"5,56мм",
-//	L"7,62мм Н.",
-//	L"7,62мм ВД",
-//	L"4,7мм",
-//	L"5.7мм",
+//	L"5,45 мм",
+//	L"5,56 мм",
+//	L"7,62 мм Н.",
+//	L"7,62 мм ВД",
+//	L"4,7 мм",
+//	L"5,7 мм",
 //	L"Монстр",
 //	L"Ракета",
 //	L"", // дротик
 ////	L"", // flamethrower
-////	L".50 cal", // barrett
-////	L"9mm Hvy", // Val silent
+////	L".50 кал", // barrett
+////	L"9 мм тяж", // Val silent
 //};
 
 
@@ -1756,15 +1755,15 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s: городской камуфляж нанесён.",
 	L"%s: городской камуфляж смыт.",
 	
-	L"%s: арктический камуфляж нанесён.",
-	L"%s: арктический камуфляж смыт.",
+	L"%s: зимний камуфляж нанесён.",
+	L"%s: зимний камуфляж смыт.",
 
 	L"Нельзя установить навеску %s на это место.",
-	L"The %s will not fit in any open slots.",
-	L"There's not enough space for this pocket.", //TODO:Translate
+	L"%s не поместится ни в один слот.",
+	L"недостаточно места для этого кармана.",
 
-	L"%s has repaired the %s as much as possible.", // TODO.Translate
-	L"%s has repaired %s's %s as much as possible.",
+	L"%s отремонтировал(а) %s, насколько это было возможно.",
+	L"%s отремонтировал(а) у наемника %s предмет %s, насколько это было возможно.",
 };
 
 // the country and its noun in the game
@@ -1842,30 +1841,30 @@ STR16 pAssignmentStrings[] =
 	L"Транспорт",	// in a vehicle
 	L"В пути",	// in transit - abbreviated form
 	L"Ремонт",	// repairing
-	L"Radio Scan",	// scanning for nearby patrols	// TODO.Translate
+	L"Сканировать частоты",	// scanning for nearby patrols
 	L"Практика",	// training themselves  
 	L"Ополчение",		// training a town to revolt 
 	L"Мобил.гр.", //training moving militia units		//M.Militia
 	L"Тренер",	// training a teammate
 	L"Ученик",	// being trained by someone else
-	L"Move Item",	// move items // TODO.Translate
+	L"Носильщик",	// move items 
 	L"Штат", // operating a strategic facility			//Staff
-	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
+	L"Питаться",		// eating at a facility (cantina etc.) 
 	L"Отдых", // Resting at a facility					//Rest
-	L"Prison",		// Flugente: interrogate prisoners
+	L"Допрос",		// Flugente: interrogate prisoners
 	L"Мёртв",	// dead
 	L"Недеесп.",	// abbreviation for incapacitated
 	L"В плену",	// Prisoner of war - captured
 	L"Госпиталь",	// patient in a hospital 
 	L"Пуст",	// Vehicle is empty
-	L"Snitch",	// facility: undercover prisoner (snitch)	// TODO.Translate
-	L"Propag.",	// facility: spread propaganda
-	L"Propag.",	// facility: spread propaganda (globally)
-	L"Rumours",	// facility: gather information
-	L"Propag.",	// spread propaganda
-	L"Rumours",	// gather information
-	L"Command",	// militia movement orders
-	L"Diagnose", // disease diagnosis	//TODO.Translate
+	L"Осведомитель",// facility: undercover prisoner (snitch)
+	L"Пропаганда",	// facility: spread propaganda
+	L"Пропаганда",	// facility: spread propaganda (globally)
+	L"Слухи",	// facility: gather information
+	L"Пропаганда",	// spread propaganda
+	L"Слухи",	// gather information
+	L"Command",	// militia movement orders							//TODO.Translate
+	L"Diagnose", // disease diagnosis	
 	L"Treat D.", // treat disease among the population
 };
 
@@ -1884,7 +1883,7 @@ STR16 pMilitiaButtonString[] =
 	L"Авто", // auto place the militia troops for the player
 	L"Готово", // done placing militia troops
 	L"Распустить", // HEADROCK HAM 3.6: Disband militia	//Disband
-	L"Unassign All", // move all milita troops to unassigned pool	// TODO.Translate
+	L"Распустить всех", // move all milita troops to unassigned pool
 };
 
 STR16 pConditionStrings[] = 
@@ -1940,29 +1939,29 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Транспорт",
 	L"В пути",
 	L"Ремонт",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"Сканирует радиочастоты",	// radio scan
 	L"Практика", 
 	L"Ополчение",
 	L"Тренирует мобильную группу",	//Training Mobile Militia
 	L"Тренер",
 	L"Ученик",
-	L"Move item",	// move items // TODO.Translate
+	L"Носильщик",	// move items
 	L"Работает с населением",			//Facility Staff
-	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
+	L"Питается",		// eating at a facility (cantina etc.) 
 	L"Отдыхает",		//Resting at Facility
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
+	L"Допрашивает пленных",		// Flugente: interrogate prisoners
 	L"Мёртв",
 	L"Недеесп.",
 	L"В плену",
 	L"Госпиталь", 
 	L"Пуст",	// Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spreading Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gathering Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spreading Propaganda",// TODO.Translate	// spread propaganda
-	L"Gathering Rumours",// TODO.Translate			// gather information
-	L"Commanding Militia",	// militia movement orders	// TODO.Translate
+	L"Осведомитель",	 // facility: undercover prisoner (snitch)
+	L"Ведет пропаганду", // facility: spread propaganda
+	L"Ведет пропаганду", // facility: spread propaganda (globally)
+	L"Собирает слухи", 	 // facility: gather rumours	
+	L"Ведет пропаганду", // spread propaganda
+	L"Собирает слухи",   // gather information
+	L"Commanding Militia",	// militia movement orders			// TODO.Translate
 	L"Diagnose", // disease diagnosis
 	L"Treat Population disease", // treat disease among the population
 };
@@ -1998,28 +1997,28 @@ STR16 pLongAssignmentStrings[] =
 	L"В транспорте",
 	L"В пути",
 	L"Ремонтирует",
-	L"Radio Scan",	// radio scan	// TODO.Translate
+	L"Сканирует радиочастоты",	// radio scan
 	L"Практикуется", 
 	L"Тренирует ополчение",
 	L"Тренирует мобильную группу",	//Train Mobiles
 	L"Тренирует",
 	L"Обучается",
-	L"Move Item",	// move items // TODO.Translate
+	L"Носильщик",	// move items
 	L"Работает с населением",		//Staff Facility
 	L"Отдыхает в заведении",		//Resting at Facility
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
+	L"Допрашивает пленных",		// Flugente: interrogate prisoners
 	L"Мёртв",
 	L"Недееспособен",
 	L"В плену",
 	L"В госпитале", // patient in a hospital 
 	L"Без пассажиров",	// Vehicle is empty
-	L"Undercover Snitch",	// TODO.Translate	// facility: undercover prisoner (snitch)
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda
-	L"Spread Propaganda",// TODO.Translate	// facility: spread propaganda (globally)
-	L"Gather Rumours",// TODO.Translate			// facility: gather rumours	
-	L"Spread Propaganda",// TODO.Translate	// spread propaganda
-	L"Gather Rumours",// TODO.Translate			// gather information
-	L"Commanding Militia",	// militia movement orders	// TODO.Translate
+	L"Осведомитель",			// facility: undercover prisoner (snitch)
+	L"Ведет пропаганду",		// facility: spread propaganda
+	L"Ведет пропаганду",		// facility: spread propaganda (globally)
+	L"Собирает слухи",			// facility: gather rumours	
+	L"Ведет пропаганду",		// spread propaganda
+	L"Собирает слухи",			// gather information
+	L"Commanding Militia",	// militia movement orders			// TODO.Translate
 	L"Diagnose", // disease diagnosis
 	L"Treat Population disease", // treat disease among the population
 };
@@ -2046,7 +2045,7 @@ STR16 pPOWStrings[] =
 
 STR16 pLongAttributeStrings[] =
 {
-    L"СИЛА", 
+    	L"СИЛА", 
 	L"ЛОВКОСТЬ",  
 	L"ПРОВОРНОСТЬ", 
 	L"ИНТЕЛЛЕКТ", 
@@ -2084,7 +2083,7 @@ STR16 pShortAttributeStrings[] =
 
 STR16 pUpperLeftMapScreenStrings[] =
 {
-	L"Назначение", // the mercs current assignment 
+	L"Занятие", // the mercs current assignment 
 	L"Контракт", // the contract info about the merc
 	L"Здоровье", // the health level of the current merc
 	L"Боев.дух", // the morale of the current merc
@@ -2095,7 +2094,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 STR16 pTrainingStrings[] =
 {
 	L"Тренинг", // tell merc to train self 
-    L"Ополчение", // tell merc to train town 
+    	L"Ополчение", // tell merc to train town 
 	L"Тренер", // tell merc to act as trainer
 	L"Ученик", // tell merc to be train by other 
 };
@@ -2134,15 +2133,15 @@ STR16 pAssignMenuStrings[] =
 {
 	L"На службе", // merc is on active duty
 	L"Медик", // the merc is acting as a doctor
-	L"Disease", // merc is a doctor doing diagnosis TODO.Translate
+	L"Disease", // merc is a doctor doing diagnosis				// TODO.Translate
 	L"Пациент", // the merc is receiving medical attention
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
-	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
-	L"Snitch", // TODO.Translate // anv: snitch actions
+	L"Радио", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Осведомитель", // anv: snitch actions
 	L"Обучение", // the merc is training
-	L"Move Item",	// move items	// TODO.Translate
-	L"Удобства", // the merc is using/staffing a facility	//Facility
+	L"Носильщик",	// move items
+	L"Занятия", // the merc is using/staffing a facility	//Facility
 	L"Отмена", // cancel this menu
 };
 
@@ -2154,7 +2153,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Отступать", // retreat militia
 	L"За мной", // retreat militia
 	L"Ложись", // retreat militia	
-	L"Crouch",	// TODO.Translate
+	L"Присесть",
 	L"В укрытие",
 	L"Все в атаку", 
 	L"Всем держать оборону",
@@ -2162,53 +2161,53 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Все за мной",
 	L"Всем рассеяться",
 	L"Всем залечь",
-	L"All: Crouch",	// TODO.Translate
+	L"Всем присесть",
 	L"Всем в укрытие",
 	//L"Всем искать предметы",
 	L"Отмена", // cancel this menu
 };
 
 //Flugente
-STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
+STR16 pTraitSkillsMenuStrings[] =
 {
 	// radio operator
-	L"Artillery Strike",
-	L"Jam communications",
-	L"Scan frequencies",
-	L"Eavesdrop",
-	L"Call reinforcements",
-	L"Switch off radio set",
+	L"Артналет",
+	L"Постановка помех",
+	L"Сканировать радиочастоты",
+	L"Прослушивать",
+	L"Вызвать подкрепления",
+	L"Выключить радиостанцию",
 
 	// various
-	L"Spotter",		// TODO.Translate
+	L"Наблюдатель",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
 	// radio operator
-	L"Order an artillery strike from sector...",
-	L"Fill all radio frequencies with white noise, making communications impossible.",
-	L"Scan for jamming signals.",
-	L"Use your radio equipment to continously listen for enemy movement.",
-	L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set to save batteries.",
+	L"Вызвать артиллерийский удар из сектора...",
+	L"Заполнить эфир помехами, чтобы сделать невозможным использование средств связи.",
+	L"Искать источник помех.",
+	L"Использовать радиопрослушку для обнаружения противника.",
+	L"Вызвать подкрепления из соседних секторов.",
+	L"Выключить радиостанцию для экономии батарей.",
 
 	// various
-	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
+	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
 {
-	L"Requires:\n",
+	L"Требуется:\n",
 	L" - %d AP\n",
 	L" - %s\n",
-	L" - %s or higher\n",
-	L" - %s or higher or\n",
-	L" - %d minutes to be ready\n",
-	L" - mortar positions in neighbouring sectors\n",
-	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
-	L" - possession by a demon",
+	L" - %s или выше\n",
+	L" - %s или выше или\n",
+	L" - %d минут на подготовку\n",
+	L" - позиции минометов в соседних секторах\n",
+	L" - %s |и|л|и %s |и %s или %s или выше\n"
+	L" - одержимость бесами",
 };
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate
@@ -2221,54 +2220,53 @@ STR16 pSkillMenuStrings[] =	// TODO.Translate
 	L"All Militia",
 };
 
-// TODO.Translate
 STR16 pSnitchMenuStrings[] =
 {
 	// snitch
-	L"Team Informant",
-	L"Town Assignment",	
-	L"Cancel",
+	L"Осведомитель в отряде",
+	L"Городское назначение",	
+	L"Отмена",
 };
 
 STR16 pSnitchMenuDescStrings[] =
 {
 	// snitch
-	L"Discuss snitch's behaviour towards his teammates.",
-	L"Take an assignment in this sector.",
-	L"Cancel",
+	L"Обсудить поведение осведомителя по отношению к его команде.",
+	L"Взять задание в этом секторе.",
+	L"Отмена",
 };
 
 STR16 pSnitchToggleMenuStrings[] =
 {
 	// toggle snitching
-	L"Report complaints",
-	L"Don't report",
-	L"Prevent misbehaviour",
-	L"Ignore misbehaviour",
-	L"Cancel",
+	L"Сообщать о недовольстве",
+	L"Не сообщать",
+	L"Предотвращать нарушения",
+	L"Игнорировать нарушения",
+	L"Отмена",
 };
 
 STR16 pSnitchToggleMenuDescStrings[] =
 {
-	L"Report any complaints you hear from other mercs to your commander.",
-	L"Don't report anything.",
-	L"Try to stop other mercs from getting wasted and scrounging.",
-	L"Don't care what other mercs do.",
-	L"Cancel",
+	L"Сообщать командиру обо всех недовольных.",
+	L"Ничего не сообщать.",
+	L"Предотвращать попытки воровства и наркомании.",
+	L"Не обращать внимания на нарушения.",
+	L"Отмена",
 };
 
 STR16 pSnitchSectorMenuStrings[] =
 {
 	// sector assignments
-	L"Spread propaganda",
-	L"Gather rumours",
-	L"Cancel",
+	L"Вести пропаганду",
+	L"Собирать слухи",
+	L"Отмена",
 };
 
 STR16 pSnitchSectorMenuDescStrings[] =
 {
-	L"Glorify mercs' actions to increase town loyalty and suppress any bad news. ",
-	L"Keep an ear to the ground on any rumours about enemy forces activity.",
+	L"Прославлять действия наемников для повышения лояльности. ",
+	L"Тщательно собирать любые слухи о действиях противника.",
 	L"",
 };
 
@@ -2282,7 +2280,7 @@ STR16 pPrisonerMenuStrings[] =	// TODO.Translate
 	L"Cancel",
 };
 
-STR16 pPrisonerMenuDescStrings[] =
+STR16 pPrisonerMenuDescStrings[] =	// TODO.Translate
 {
 	L"Administrators are easy to process, but give only poor results",
 	L"Regular troops are common an don't give you high rewards.",
@@ -2294,28 +2292,27 @@ STR16 pPrisonerMenuDescStrings[] =
 
 STR16 pSnitchPrisonExposedStrings[] =
 {
-	L"%s was exposed as a snitch but managed to notice it and get out alive.",
-	L"%s was exposed as a snitch but managed to defuse situation and get out alive.",
-	L"%s was exposed as a snitch but managed to avoid assassination attempt.",
-	L"%s was exposed as a snitch but guards managed to prevent any violence outbursts.",
+	L"%s был уличен как осведомитель, но вовремя сумел заметить это и выбраться живым.",
+	L"%s был уличен как осведомитель, но сумел разрядить обстановку и выбраться живым.",
+	L"%s был уличен как осведомитель, но сумел избежать покушения.",
+	L"%s был уличен как осведомитель, но охрана сумела предотвратить насилие.",
 
-	L"%s was exposed as a snitch and almost drowned by other inmates before guards saved him.",
-	L"%s was exposed as a snitch and almost beaten to death before guards saved him.",
-	L"%s was exposed as a snitch and almost stabbed to death before guards saved him.",
-	L"%s was exposed as a snitch and strangled to death before guards saved him.",
+	L"%s был уличен как осведомитель и почти утоплен другими заключенными, но охрана успела вмешаться.",
+	L"%s был уличен как осведомитель и чуть не забит до смерти, прежде чем охрана вмешалась.",
+	L"%s был уличен как осведомитель и едва не заколот, но охрана успела вмешаться.",
+	L"%s был уличен как осведомитель и чуть не задушен, но охрана успела вмешаться.",
 
-	L"%s was exposed as a snitch and drowned in toilet by other inmates.",
-	L"%s was exposed as a snitch and beaten to death by other inmates.",
-	L"%s was exposed as a snitch and shanked to death by other inmates.",
-	L"%s was exposed as a snitch and strangled to death by other inmates.",
+	L"%s был уличен как осведомитель и утоплен в сортире другими заключенными.",
+	L"%s был уличен как осведомитель и забит до смерти другими заключенными.",
+	L"%s был уличен как осведомитель и заколот насмерть другими заключенными.",
+	L"%s был уличен как осведомитель и задушен другими заключенными.",
 };
 
 STR16 pSnitchGatheringRumoursResultStrings[] =
 {
-	L"%s heard rumours about enemy activity in %d sectors.",
+	L"%s собрал(а) слухи об активности противника в %d секторах.",
 
 };
-// /TODO.Translate
 
 STR16 pRemoveMercStrings[] =
 {
@@ -2443,7 +2440,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Заданий: %d\n",
 	L"Встречено информаторов: %d\n",
 	L"Секторов разведано: %d\n",
-	L"Выйдено из окружения: %d\n",	//Ambushes Prevented
+	L"Предотвращено засад: %d\n",	//Ambushes Prevented
 	L"Заданий жителей выполнено: %d\n",
 
 	L"Тактических сражений: %d\n",
@@ -2467,8 +2464,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Зомби: %d\n",
 
-	L"Background:", // TODO.Translate
-	L"Personality:", // TODO.Translate
+	L"Биография:",
+	L"Характер:", 
 };
 
 
@@ -2521,10 +2518,10 @@ STR16 gzMercSkillTextNew[] =
 	L"Инструктор",	//Teaching
 	L"Разведчик",	//Scouting
 	// covert ops is a major trait that was added later
-	L"Covert Ops",		// 20	// TODO.Translate
+	L"Лазутчик",		// 20
 	// new minor traits
-	L"Radio Operator",	// 21
-	L"Snitch",	// 22	// TODO.Translate
+	L"Радист",	// 21
+	L"Осведомитель",	// 22
 
 	// second names for major skills
 	L"Пулемётчик",	//Machinegunner
@@ -2550,7 +2547,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch(minor trait)
 	L"Ещё...",
-	L"various",			// for VARIOUSSKILLS	// TODO.Translate
+	L"различные",		// for VARIOUSSKILLS	
 };
 //////////////////////////////////////////////////////////
 
@@ -2695,7 +2692,7 @@ STR16 pLandTypeStrings[] =
 	L"Аэропорт Драссена",
 	L"Аэропорт Медуны",
 	L"База ПВО",
-	L"Refuel site", // TODO.Translate
+	L"Место заправки",
 	L"Убежище повстанцев",	//The rebel base underground in sector A10
 	L"Подвалы Тиксы",	//The basement of the Tixa Prison (J9)
 	L"Логово тварей",	//Any mine sector with creatures in it
@@ -2803,7 +2800,7 @@ STR16 gpStrategicString[] =
 	L"При каждом нажатии распределяет \nбойцов случайным образом. (|S)",
 	L"Позволяет выбрать место, \nгде сгруппировать ваших бойцов. (|G)",
 	L"Нажмите эту кнопку, когда завершите \nвыбор позиций для бойцов. (|В|в|о|д)",
-	L"Вы должны разместить всех своих бойцов \nдо того, как начать бой.",
+	L"Вы должны разместить всех своих бойцов \nперед тем, как начать бой.",
 
 	//Various strings (translate word for word)
 
@@ -2888,7 +2885,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 
 	L"Предустановка:",	//17 //WarmSteel - So we can also display default attachments
 	L"Нагар:",	// 18
-	L"Space:", // 19 //space left on Molle items // TODO.Translate
+	L"Место:", // 19 //space left on Molle items
 
 };
 
@@ -2915,11 +2912,11 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"ОД на огонь очередью",					//APs to fire Auto
 	L"ОД на замену магазина",					//APs to Reload
 	L"ОД на досылку патрона",					//APs to Reload Manually
-	L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(чем меньше, тем лучше)",	//19		//Burst Penalty (Lower is better)
+	L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(меньше - лучше)",	//19		//Burst Penalty (Lower is better)
 	L"Бонус от сошек\n(при стрельбе лёжа)",				//Bipod Modifier
 	L"Выстрелов в автоматическом\nрежиме за 5 ОД",			//Autofire shots per 5 AP
-	L"Штраф за отдачу при \nстрельбе очередью \n(чем меньше, тем лучше)",	//Autofire Penalty (Lower is better)
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (чем меньше, тем лучше)",	//Burst/Auto Penalty	//23
+	L"Штраф за отдачу при \nстрельбе очередью \n(меньше - лучше)",	//Autofire Penalty (Lower is better)
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (меньше - лучше)",	//Burst/Auto Penalty	//23
 	L"ОД на бросок",						//APs to Throw
 	L"ОД на выстрел",						//APs to Launch
 	L"ОД на удар ножом",						//APs to Stab
@@ -2933,9 +2930,9 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 
 STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
-	L"Модификатор размера предмета\n(чем меньше, тем лучше)",		//Item Size Modifier (Lower is better)
+	L"Модификатор размера предмета\n(меньше - лучше)",		//Item Size Modifier (Lower is better)
 	L"Модификатор надёжности",						//Reliability Modifier
-	L"Модификатор шумности\n(чем меньше, тем лучше)",			//Loudness Modifier (Lower is better)
+	L"Модификатор шумности\n(меньше - лучше)",			//Loudness Modifier (Lower is better)
 	L"Скрывает вспышку",							//Hides Muzzle Flash
 	L"Модификатор сошек",							//Bipod Modifier
 	L"Модификатор дальнобойности",						//Range Modifier
@@ -2943,15 +2940,15 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Радиус наилучшей видимости\nточки прицеливания",			//Best Laser Range
 	L"Модификатор бонусов оптики",						//Aiming Bonus Modifier
 	L"Модификатор очереди с отсечкой",					//Burst Size Modifier
-	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(чем больше, тем лучше)",	//Burst Penalty Modifier (Higher is better)
-	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(чем больше, тем лучше)",	//Auto-Fire Penalty Modifier (Higher is better)
+	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(больше - лучше)",	//Burst Penalty Modifier (Higher is better)
+	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(больше - лучше)",	//Auto-Fire Penalty Modifier (Higher is better)
 	L"Модификатор ОД",							//AP Modifier
-	L"Модификатор ОД\nна очередь с отсечкой\n(чем меньше, тем лучше)",	//AP to Burst Modifier (Lower is better)
-	L"Модификатор ОД\nна очередь без отсечки\n(чем меньше, тем лучше)",	//AP to Auto-Fire Modifier (Lower is better)
-	L"Модификатор ОД на вскидку\n(чем меньше, тем лучше)",			//AP to Ready Modifier (Lower is better)
-	L"Модификатор ОД\nна замену магазина\n(чем меньше, тем лучше)",		//AP to Reload Modifier (Lower is better)
+	L"Модификатор ОД\nна очередь с отсечкой\n(меньше - лучше)",	//AP to Burst Modifier (Lower is better)
+	L"Модификатор ОД\nна очередь без отсечки\n(меньше - лучше)",	//AP to Auto-Fire Modifier (Lower is better)
+	L"Модификатор ОД на вскидку\n(меньше - лучше)",			//AP to Ready Modifier (Lower is better)
+	L"Модификатор ОД\nна замену магазина\n(меньше - лучше)",		//AP to Reload Modifier (Lower is better)
 	L"Модификатор объёма магазина",						//Magazine Size Modifier
-	L"Модификатор ОД на выстрел\n(чем меньше, тем лучше)",			//AP to Attack Modifier (Lower is better)
+	L"Модификатор ОД на выстрел\n(меньше - лучше)",			//AP to Attack Modifier (Lower is better)
 	L"Модификатор урона",							//Damage Modifier
 	L"Модификатор урона\nв ближнем бою", 					//Melee Damage Modifier
 	L"Камуфляж 'Лес'",
@@ -2965,9 +2962,9 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Модификатор диапазона\nвидимости ночью",
 	L"Модификатор диапазона\nвидимости при ярком освещении", //30
 	L"Модификатор диапазона\nвидимости в пещере",
-	L"Сужение сектора обзора\n(чем меньше, тем лучше)",		//Tunnel Vision Percentage (Lower is better)
-	L"Минимальная эффективная\nдальность оптики",				//Minimum Range for Aiming Bonus
-	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
+	L"Сужение сектора обзора\n(меньше - лучше)",		//Tunnel Vision Percentage (Lower is better)
+	L"Минимальная эффективная\nдальность оптики",			//Minimum Range for Aiming Bonus
+	L"Зажмите |C|t|r|l для сравнения предметов",			// item compare help text 
 };
 
 // HEADROCK: End new tooltip text
@@ -3253,14 +3250,14 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Враг в секторе!",
 	L"Врагов в поле зрения нет.",
 	L"Недостаточно очков действия.",
-	L"Оденьте на голову одного из наемников пульт управления роботом.",
+	L"Наденьте на голову одного из наемников пульт управления роботом.",
 	L"Последняя очередь опустошила магазин!",
 	L"СОЛДАТ",
 	L"РЕПТИОН",
 	L"ОПОЛЧЕНЕЦ",
 	L"ЖИТЕЛЬ",
 	L"ЗОМБИ",
-	L"PRISONER",// TODO.Translate
+	L"Пленный",
 	L"Выход из сектора",
 	L"ДА",
 	L"ОТМЕНА",
@@ -3269,7 +3266,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Идти в сектор",
 	L"Идти на карту",
 	L"Этот сектор отсюда покинуть нельзя.",
-	L"You can't leave in turn based mode.",		// TODO.Translate
+	L"Вы не можете покинуть сектор в походовом режиме.",
 	L"%s слишком далеко.",
 	L"Скрыть кроны деревьев",
 	L"Показать кроны деревьев",
@@ -3310,37 +3307,37 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Навеска снята",
 	L"Вы не можете содержать еще одну машину, довольствуйтесь уже имеющимися двумя.",
 
-	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
-	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
-	L"Set defusing frequency:",
-	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
-	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
-	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
+	// added by Flugente for defusing/setting up trap networks	
+	L"Выберите частоту активации (1 - 4) или частоту деактивации (A - D):",
+	L"Установите частоту деактивации:",
+	L"Установите частоту активации (1 - 4) и частоту деактивации (A - D):",
+	L"Установите время до активации в ходах (1 - 4) и частоту деактивации (A - D):",
+	L"Выберите уровень (1 - 4) и сеть (A - D):",
 
-	// added by Flugente to display health and poisoning		// TODO.Translate
+	// added by Flugente to display health and poisoning		
 	L"Здоровье: %d/%d\nЯд: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s",
 
 	// added by Flugente to display food status
 	L"Здоровье: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s\nВода: %d%s\nПища: %d%s",
 	L"Здоровье: %d/%d\nЯд: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s\nВода: %d%s\nПища: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
+	// added by Flugente: selection of a function to call in tactical	
 	L"Что будем делать?",
 	L"Наполнить фляги",
-	L"Clean guns (Merc)",// TODO.Translate
-	L"Clean guns (Team)",
-	L"Снять одежду",
-	L"Lose disguise",
-	L"Militia inspection",
-	L"Militia restock",
-	L"Test disguise",
-	L"unused",
+	L"Чистить (один)",
+	L"Чистить (все)",
+	L"Убрать одежду",
+	L"Убрать маскировку",
+	L"Ополчение: бросить оружие",
+	L"Ополчение: взять оружие",
+	L"Проверить маскировку",
+	L"",
 
 	// added by Flugente: decide what to do with the corpses
 	L"Что будем делать с телом?",
 	L"Отсечь голову",
 	L"Потрошить",
-	L"Снять одежду",
+	L"Забрать одежду",
 	L"Забрать тело",
 
 	// Flugente: weapon cleaning
@@ -3348,41 +3345,40 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
-	L"Where do you want to send the prisoners?",// TODO.Translate
-	L"Let them go",
+	L"В какую тюрьму отправить пленных?",
+	L"Отпустить",
 	L"Что вы хотите сделать?",
 	L"Требовать сдаться",
-	L"Предлоить сдаться",
+	L"Предложить сдаться",
 	L"Переговоры",
 
-	// TODO.Translate
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
-    L"Disarm trap",
-    L"Inspect trap",
-    L"Remove blue flag",
-    L"Blow up!",
-    L"Activate tripwire",
-    L"Deactivate tripwire",
-    L"Reveal tripwire",
-    L"No detonator or remote detonator found!",
-    L"This bomb is already armed!",
-    L"Safe",
-    L"Mostly safe",
-    L"Risky",
-    L"Dangerous",
-    L"High danger!",
-
-	L"Mask",	// TODO.Translate
-    L"NVG",
-    L"Item",
+    L"Обезвредить",
+    L"Исследовать",
+    L"Убрать флаг",
+    L"Взорвать!",
+    L"Активировать сеть",
+    L"Деактивировать сеть",
+    L"Показать сеть",
+    L"Нет детонатора!",
+    L"Эта бомба уже взведена!",
+    L"Безопасно",
+    L"Относительно безопасно",
+    L"Рискованно",
+    L"Опасно",
+    L"Очень опасно!",
         
-    L"This feature works only with New Inventory System",
-    L"No item in your main hand",
-    L"Nowhere to place item from main hand",
-    L"No defined item for this quick slot",
-    L"No free hand for new item",
-    L"Item not found",
-    L"Cannot take item to main hand",
+    L"Маска",
+    L"ПНВ",
+    L"Предмет",
+        
+    L"Эта функция работает только с новой системой инвентаря (NIV)",
+    L"Нет предметов в главной руке",
+    L"Некуда поместить предмет",
+    L"Для этого быстрого слота не определены предметы",
+    L"Нет свободной руки для предмета",
+    L"Предмет не обнаружен",
+    L"Невозможно взять предмет в руку",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3482,19 +3478,19 @@ STR16 pHelicopterEtaStrings[] =
 	L"Выбрать вертолет или точку высадки?",
 	L"Вертолёт",
 	L"Высадка",
-	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->	// TODO.Translate
-	L"Helicopter will now return straight to base, do you want to drop down passengers before?"	// TODO.Translate
-	L"Remaining Fuel:",	// TODO.Translate
-	L"Dist. To Refuel Site:",	// TODO.Translate
+	L"Вертолет серьезно поврежден и идет на вынужденную посадку во вражеской территории!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->
+	L"Вертолет возвращается на базу, высадить сначала пассажиров?"
+	L"Остаток топлива:",
+	L"Расстояние до места дозаправки:",
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=
 {
 	// anv: Waldo The Mechanic - prompt and notifications
-	L"Do you want %s to start repairs? It will cost $%d, and helicopter will be unavailable for around %d hour(s).",
-	L"Helicopter is currently disassembled. Wait until repairs are finished.",
-	L"Repairs completed. Helicopter is available again.",
-	L"Helicopter is fully refueled.",
+	L"Хотите, чтобы %s начал ремонт? Это будет стоить $%d, вертолет не будет доступен в течение %d часов.",
+	L"Вертолет разобран. Подождите, пока не закончится его ремонт.",
+	L"Ремонт закончен. Вертолет снова доступен.",
+	L"Вертолет полностью заправлен.",
 };
 
 STR16 sMapLevelString[] =
@@ -3548,20 +3544,20 @@ STR16 pMapPopUpInventoryText[] =
 
 STR16 pwTownInfoStrings[] =
 {
-	L"Размер",					// 0 // size of the town in sectors
-	L"", 						// blank line, required
+	L"Размер",						// 0 // size of the town in sectors
+	L"", 							// blank line, required
 	L"Контроль", 					// how much of town is controlled
-	L"Нет", 					// none of this town
+	L"Нет", 						// none of this town
 	L"Шахта города", 				// mine associated with this town
 	L"Лояльность",					// 5 // the loyalty level of this town
-	L"Готовы", 					// the forces in the town trained by the player
+	L"Готовы", 						// the forces in the town trained by the player
 	L"",
 	L"Важные объекты", 				// main facilities in this town
 	L"Уровень", 					// the training level of civilians in this town
-	L"Тренировка ополчения",				// 10 // state of civilian training in town
+	L"Тренировка ополчения",		// 10 // state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
-	L"Тренинг мобильных групп",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
-	L"Prisoners",				// Flugente: display number of prisoners	// TODO.Translate
+	L"Тренинг мобильных групп",		// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
+	L"Заключенные",					// Flugente: display number of prisoners
 };
 
 // Mine strings
@@ -3579,7 +3575,7 @@ STR16 pwMineStrings[] =
 	L"Идет добыча",
 	L"Статус",
 	L"Уровень добычи",
-	L"Resource",				// 10	L"Тип руды",	// TODO.Translate
+	L"Ресурс",					// 10	L"Тип руды",
 	L"Принадлежность",
 	L"Лояльность",
 };
@@ -3625,7 +3621,7 @@ STR16 pMapScreenFastHelpTextList[] =
 	L"Чтобы приказать наемнику перейти в другой сектор, щелкните в колонке 'КУДА'.",
 	L"Как только наемник получит приказ на передвижение, включится сжатие времени.",
 	L"Нажатием левой кнопки мыши выбирается сектор. Еще одно нажатие нужно, чтобы отдать наемникам приказы на передвижение. Нажатие правой кнопки мыши на секторе откроет экран дополнительной информации.",
-	L"Чтобы вызвать экран помощи - в любой момент времени нажмите 'h'.",
+	L"Чтобы вызвать экран помощи, в любой момент времени нажмите 'h'.",
 	L"Тестовый текст",
 	L"Тестовый текст",
 	L"Тестовый текст",
@@ -3689,8 +3685,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть разгрузочные системы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать разгрузочные системы", // HEADROCK HAM 5: Filter Button
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть наборы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать наборы", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать прочие предметы", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
+	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать прочие предметы",	// HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Переключить отображение перемещения предметов",											// Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -3897,7 +3893,7 @@ STR16 pTransactionText[] =
 	L"Оснащение персонала", // HEADROCK HAM 3.6		//Facility Use
 	L"Содержание ополчения", // HEADROCK HAM 3.6		//Militia upkeep
 	L"Выкуп за освобожденных заключенных",	// Ransom for released prisoners
-	L"WHO data subscription",	// Flugente: disease TODO.Translate
+	L"WHO data subscription",	// Flugente: disease	// TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -3987,8 +3983,8 @@ STR16 pMapErrorString[] =
 	L"У вас еще нет ни одного бойца.",	// you have no members, can't do anything 
 	L"Наемник не может выполнить.",		// merc can't comply with your order
 //6-10
-	L"нуждается в сопровождении чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
-	L"нуждается в сопровождении чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
+	L"нуждается в сопровождении, чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
+	L"нуждается в сопровождении, чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
 	L"Наёмник ещё не прибыл в %s!",
 	L"Кажется, сначала надо уладить проблемы с контрактом.",
 	L"Бежать от самолета? Только после вас!",	// Cannot give a movement order. Air raid is going on.
@@ -4045,7 +4041,7 @@ STR16 pMapErrorString[] =
 // help text used during strategic route plotting
 STR16 pMapPlotStrings[] =
 {
-	L"Ещё раз щелкните по точке назначения, чтобы подтвердить путь или щелкните по другому сектору, чтобы установить больше путевых точек.",
+	L"Ещё раз щелкните по точке назначения, чтобы подтвердить путь, или щелкните по другому сектору, чтобы установить больше путевых точек.",
 	L"Путь движения подтверждён.",
 	L"Точка назначения не изменена.",
 	L"Путь движения отменён.",
@@ -4058,7 +4054,7 @@ STR16 pBullseyeStrings[] =
 {
 	L"Выберите сектор, в который прибудут наемники.",
 	L"Вновь прибывшие наемники высадятся в %s.",
-	L"Высадить здесь наемников нельзя. Воздушное пространство не безопасно!",
+	L"Высадить здесь наемников нельзя. Воздушное пространство небезопасно!",
 	L"Отменено. Сектор прибытия не изменился.",
 	L"Небо над %s более не безопасно! Место высадки было перемещено в %s.",
 };
@@ -4118,7 +4114,7 @@ STR16 pImpPopUpStrings[] =
 	L"У вас в команде уже есть три I.M.P.-персонажа того же пола.",
 	L"Вы не можете позволить себе такой I.M.P.-персонаж.",	// 10
 	L"Новый I.M.P.-персонаж присоединился к команде.",
-	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"Вы уже выбрали максимальное количество навыков.",
 };
 
 
@@ -4158,9 +4154,9 @@ STR16 pImpButtonText[] =
 STR16 pExtraIMPStrings[] =
 {
 	// These texts have been also slightly changed
-	L"Теперь, когда формирование внешности и личных качеств завершён, укажите ваши способности.",	//With your character traits chosen, it is time to select your skills.
-	L"Для завершения, выберите свои характеристики.",	//To complete the process, select your attributes.
-	L"Для начала, подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
+	L"Теперь, когда формирование внешности и личных качеств завершено, укажите ваши способности.",	//With your character traits chosen, it is time to select your skills.
+	L"Для завершения выберите свои характеристики.",	//To complete the process, select your attributes.
+	L"Для начала подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
 	L"Теперь, когда вы завершили формирование своей внешности, перейдём к анализу ваших личных качеств.",	//Now that you have completed your appearence choice, procced to character analysis.
 };
 
@@ -4338,9 +4334,9 @@ STR16 pBookMarkStrings[] =
 	L"Страховка",
 	L"Отмена",
 	L"Энциклопедия",
-	L"Briefing Room",
-	L"Campaign History",	// TODO.Translate
-	L"MeLoDY",
+	L"Брифинг-зал",
+	L"Журнал",
+	L"MeLoDY",	// TODO.Translate
 	L"WHO",
 };
 
@@ -4450,10 +4446,10 @@ STR16 pWebPagesTitles[] =
 	L"Похоронная служба Макгилликатти",
 	L"",
 	L"Адрес не найден.",
-	L"%s Press Council - Conflict Summary",	// TODO.Translate
-	L"%s Press Council - Battle Reports",
-	L"%s Press Council - Latest News",
-	L"%s Press Council - About us",
+	L"%s Пресс-служба - Сводка по конфликту",
+	L"%s Пресс-служба - Боевые отчеты",
+	L"%s Пресс-служба - Последние новости",
+	L"%s Пресс-служба - О нас",
 	L"Mercs Love or Dislike You - Home",				// TODO.Translate
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
@@ -4464,8 +4460,8 @@ STR16 pWebPagesTitles[] =
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
-	L"Briefing Room",
-	L"Briefing Room - Data",
+	L"Брифинг-зал",
+	L"Брифинг-зал - данные",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4500,8 +4496,8 @@ STR16 pPersonelTeamStrings[] =
 	L"В команде",
 	L"Выбывшие",
 	L"Гонорар за день:",
-	L"Высший гонорар:",
-	L"Низший гонорар:",
+	L"Наибольший гонорар:",
+	L"Наименьший гонорар:",
 	L"Погибло в боях:",
 	L"Уволено:",
 	L"Другое:",
@@ -4691,7 +4687,7 @@ STR16			MercInfo[] =
 	L"У вас уже полная команда из наемников.",
 	L"Со снаряжением?",
 	L"Недоступно",
-	L"Unsettled Bills", // TODO.Translate
+	L"Неоплаченные счета",
 	L"Информация",
 	L"Снаряжение",
 };
@@ -4919,10 +4915,10 @@ STR16			BobbyRFilter[] =
 	L"Головные",
 	L"Разгр.с-мы",
 	L"Прицелы", // Madd: new BR filters
-	L"Grip/LAM",
-	L"Muzzle",
-	L"Stock",
-	L"Mag/Trig.",
+	L"Рукоят./ЛЦУ",
+	L"Дул.насад.",
+	L"Приклады",
+	L"Маг./спуск.",
 	L"Др. навеска",
 	L"Разное",
 };
@@ -5122,7 +5118,7 @@ STR16			CharacterInfo[] =
 	L"Действующий состав",				// Title of the page
 	L"Снаряжение:",						// Displays the optional gear cost
 	L"Снаряж.",				//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
-	L"Стоимость Мед. депозита",			// If the merc required a medical deposit, this is displayed
+	L"Стоимость мед. депозита",			// If the merc required a medical deposit, this is displayed
 	L"Набор 1",				// Text on Starting Gear Selection Button 1
 	L"Набор 2",				// Text on Starting Gear Selection Button 2
 	L"Набор 3",				// Text on Starting Gear Selection Button 3
@@ -5279,7 +5275,7 @@ STR16			AimAlumniText[] =
 	L"A.I.M. Галерея",	// Title of the page
 
 	L"ОК",			// Stops displaying information on selected merc
-	L"Next page",	// TODO.Translate
+	L"След. стр.",
 };
 
 
@@ -5440,7 +5436,7 @@ STR16			zSaveLoadText[] =
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"Версия сохранений игры была изменена. Просим сообщить если это изменение привело к какой-либо ошибке. Пытаемся загрузить?",
+	L"Версия сохранений игры была изменена. Просим сообщить, если это изменение привело к какой-либо ошибке. Пытаемся загрузить?",
 #else
 	L"Попытка загрузить сохранение игры устаревшей версии. Автоматически обновить его и загрузить?",
 #endif
@@ -5449,7 +5445,7 @@ STR16			zSaveLoadText[] =
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"Версия игры и файлов сохранений была изменена. Просим сообщить если это изменение привело к какой-либо ошибке. Пытаемся загрузить?",
+	L"Версия игры и файлов сохранений была изменена. Просим сообщить, если это изменение привело к какой-либо ошибке. Пытаемся загрузить?",
 #else
 	L"Попытка загрузить сохранение игры устаревшей версии. Автоматически обновить его и загрузить?",
 #endif
@@ -5478,10 +5474,10 @@ STR16			zSaveLoadText[] =
 	L"Огромный",
 	L"Всё и сразу",
 
-	L"Сохраненная игра была начата в режиме \"Нового Инвентаря\", этот режим не работат при разрешении экрана 640х480. Измените разрешение и загрузите игру снова.",
+	L"Сохраненная игра была начата в режиме \"Нового Инвентаря\", этот режим не работает при разрешении экрана 640х480. Измените разрешение и загрузите игру снова.",
 	L"Загрузка игры, начатой в режиме \"Нового Инвентаря\", невозможна. Установите в Ja2.ini игровую папку 'Data-1.13' и повторите попытку.",
 
-	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.", // TODO.Translate
+	L"Размер отряда, заданный в сохраненной игре, не поддерживается текущим разрешением. Увеличьте разрешение экрана и попробуйте снова.", 
 	L"Количество товара у Бобби Рэя",
 };
 
@@ -5521,9 +5517,9 @@ STR16		zMarksMapScreenText[] =
 	L"Стратегическая Карта",
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Сейчас у вас нет мобильных групп ополчения. Включите этот режим в следующий раз, когда наберёте их.",
-	L"Здесь показано куда ваши мобильные отряды могут пройти и куда нет. СЕРЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Правым щелчком кнопки мыши можно менять цветовой статус сектора.",
+	L"Здесь показано, куда ваши мобильные отряды могут пройти, и куда нет. СЕРЫЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Правым щелчком кнопки мыши можно менять цветовой статус сектора.",
 
-	// Flugente: disease texts describing what a map view does TODO.Translate
+	// Flugente: disease texts describing what a map view does	// TODO.Translate
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 };
 
@@ -5552,14 +5548,14 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Продолжить тренировку мобильного подразделения в %s (%s %d)?",
 	L"Тренировка мобильного подразделения в секторе %d обойдётся в $ %d. %s",
 	L"Тренировка мобильного подразделения ополченцев обойдётся в $",
-	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.", // TODO.Translate
-	L"liberate more town sectors", // TODO.Translate
-	L"liberate new town sectors", // TODO.Translate
-	L"liberate more towns", // TODO.Translate
-	L"regain your lost progress", // TODO.Translate
-	L"progress further", // TODO.Translate
-	L"recruit more rebels", // TODO.Translate
-	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.", // TODO.Translate
+	L"Вы не можете больше тренировать мобильное ополчение, так как достигнут максимум (%d/%d). Вам необходимо сначала %s для того, чтобы продложить тренировку.", 
+	L"освободить больше городских секторов", 
+	L"освободить новые городские сектора", 
+	L"освободить больше городов", 
+	L"восстановить потерянные прогресс",
+	L"продвинуться дальше", 
+	L"нанять больше повстанцев",
+	L"Лидер ополченцев сообщает вам, что %d человек дезертировали перед лицом противника %s.", 
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -5631,7 +5627,7 @@ STR16		zOptionsToggleText[] =
 	L"Отметить оставшихся врагов",
 	L"Показывать содержимое разгрузок",
 	L"Инвертировать колесо мыши",
-	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
+	L"Боевой порядок",						// when multiple mercs are selected, they will try to keep their relative distances
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5678,13 +5674,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, то будет использоваться старый метод выбора наемников\n(для тех, кто привык к управлению предыдущих частей Jagged Alliance).",
 
 	//Show movement path
-	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено,  нажмите |S|h|i|f|t, чтобы увидеть путь).",
+	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено, нажмите |S|h|i|f|t, чтобы увидеть путь).",
 
 	//show misses
 	L"Если включено, то камера будет отслеживать\nтраекторию пуль, прошедших мимо цели.",
 	
 	//Real Time Confirmation
-	L"Если включено, то для приказа на передвижение будет требоваться\nдополнительный, подтверждающий щелчок мыши на месте назначения.",
+	L"Если включено, то для приказа на передвижение будет требоваться\nдополнительный подтверждающий щелчок мыши на месте назначения.",
 
 	//Display the enemy indicator
 	L"Если включено, то вы получите предупреждение,\nкогда наемники лягут спать или проснутся.",
@@ -5721,36 +5717,36 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, |П|р|о|б|е|л выделяет следующий отряд.",
 	L"Если включено, показываются тени предметов в инвентаре.",
 	L"Если включено, дальность оружия \nпоказывается в игровых квадратах.",
-	L"Если включено, трассирующий эффект \nсоздаётся и одиночным выстрелом.",	
+	L"Если включено, трассирующий эффект\nсоздаётся и одиночным выстрелом.",	
 	L"Если включено, будет шум дождя во время непогоды.",
 	L"Если включено, вороны присутствуют в игре.",
-	L"Если включено, при нажатии кнопки |A|l|t \nи наведении курсора мыши на вражеского солдата \nбудет показана дополнительная информация.",
-	L"Если включено, игра будет автоматически \nсохраняться после каждого хода игрока.",
+	L"Если включено, при нажатии кнопки |A|l|t \nи наведении курсора мыши на вражеского солдата\nбудет показана дополнительная информация.",
+	L"Если включено, игра будет автоматически\nсохраняться после каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, будет задействовано\nподробное описание предметов.",
-	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",
-	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",
-	L"Если включено, необследованные сектрора \nна стратегической карте будут чёрно-белыми.",
+	L"Если включено и в секторе присутствует враг,\nпошаговый режим будет задействован\nдо полной зачистки сектора (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",
+	L"Если включено, навык,\nкоторый вскоре повысится, будет подсвечен.",
+	L"Если включено, необследованные сектора\nна стратегической карте будут чёрно-белыми.",
 	L"Если включено, летящая пуля будет более заметной.",
 	L"Если включено, на стратегическом экране будет подписан ранг бойца перед его именем.",
-	L"Если включено, на портрете наёмника будет отображено одетое головное снаряжение.",
-	L"Если включено, в правом нижнем углу \nна портрете наёмника будут отображены иконки \nодетого головного снаряжения.",
-	L"Если включено, курсор не будет меняться показывая все возможные действия. \nЧтобы поменяться местами с человеком рядом, нажмите |X.",
+	L"Если включено, на портрете наёмника будет отображено надетое головное снаряжение.",
+	L"Если включено, в правом нижнем углу\nна портрете наёмника будут отображены иконки\nнадетого головного снаряжения.",
+	L"Если включено, курсор не будет меняться, показывая все возможные действия.\nЧтобы поменяться местами с человеком рядом, нажмите |X.",
 	L"Если включено, бойцы не будут сообщать о повышении своих умений.",
 	L"Если включено, бойцы не будут сообщать о статусе ремонта.",
 	L"Если включено, бойцы не будут сообщать о лечения.",
-	L"Если включено, ожидание пока походят противник, гражданские и животные будет значительно меньше.",
+	L"Если включено, ожидание, пока походят противник, гражданские и животные, будет значительно меньше.",
 
 #ifdef ENABLE_ZOMBIES
 	L"Если включено, будут появляться зомби. Развлекайся!",
 #endif
-	L"Если включено, при просмотре предметов сектора в инвентаре бойца \nбудет доступно меню по нажатии левой кнопки на пустой карман.",
+	L"Если включено, при просмотре предметов сектора в инвентаре бойца\nбудет доступно меню по нажатию левой кнопки на пустой карман.",
 	L"Если включено, высвечивается примерное положение последних врагов в секторе.",
 	L"Если включено, показывает содержимое разгрузки, иначе - обычный интерфейс новой системы навески.",
 	L"Если включено, инвертирует направление прокрутки колеса мыши.",
-	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
+	L"Если выбрано несколько наемников, они будут пытаться сохранять взаимное расположение и дистанцию при движении. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
-	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
+	L"Выберите этот пункт, чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",	// an example options screen options header (pure text)
 	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
@@ -5802,7 +5798,7 @@ STR16	gzGIOScreenText[] =
 	L"NOT USED",
 	L"NOT USED",
 	L"Загрузить",
-	L"УСТАНОВКИ ИГРЫ (актуальны только настроки игры сервера)",
+	L"УСТАНОВКИ ИГРЫ (актуальны только настройки игры сервера)",
 	// Added by SANDRO
 	L"Умения персонажа",
 	L"старые",
@@ -5850,7 +5846,7 @@ STR16	gzGIOScreenText[] =
 
 	L"Новая система прицеливания",	//New Chance to Hit System
 	L"Новая система перехвата хода",
-	L"Merc Story Backgrounds", // TODO.Translate
+	L"Биография наемников",
 	L"Игра с едой",
 	L"Количество товара у Бобби Рэя",
 
@@ -6072,11 +6068,11 @@ STR16 pMessageStrings[] =
 	L"В начало",				//Home as in homepage on the internet.
 	L"USD",					//Abbreviation to US dollars
 	L"н/д",					//Lowercase acronym for not applicable.
-	L"Посмотрим что происходит тем временем в другом месте",		//Meanwhile
+	L"Посмотрим, что происходит тем временем в другом месте",		//Meanwhile
 	L"%s: прибыл в сектор %s%s",//30	Name/Squad has arrived in sector A9.  Order must not change without notifying
 //SirTech
 	L"Версия",
-	L"Пустая ячейка быстрого сохр",
+	L"Пустая ячейка быстрого сохр.",
 	L"Эта ячейка зарезервирована для Быстрого Сохранения, которое можно провести с тактической карты или с глобальной карты, нажав клавиши ALT+S.",
 	L"Открытая",
 	L"Закрытая",
@@ -6139,7 +6135,7 @@ STR16 pMessageStrings[] =
 	L"Не хватает денег, чтобы заплатить %s ежедневный гонорар %s",	//first %s is the mercs name, the seconds is a string containing the salary
 	L"Нет",	//Skip
 	L"%s не может уйти в одиночку.",
-	L"Файл сохранения был записан под названием SaveGame249.sav. Если необходимо, переименуйте его в SaveGame01 - SaveGame10 и тогда, он станет доступен в списке сохранений.", 
+	L"Файл сохранения был записан под названием SaveGame249.sav. Если необходимо, переименуйте его в SaveGame01 - SaveGame10 и тогда он станет доступен в списке сохранений.", 
 	L"%s: выпил(а) немного %s.",
 	L"Посылка прибыла в Драссен.",
 	L"%s прибудет в точку назначения (сектор %s) в %dй день, примерно в %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
@@ -6161,26 +6157,26 @@ STR16 pMessageStrings[] =
 	L"Нельзя одновременно установить \"Старый\" инвентарь и \"Новую Систему Навески\".",	//You cannot use the Old Inventory and the New Attachment System at the same time.
 
 	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
-	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
-	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"Этот слот зарезервирован для автоматической записи, которую можно включить/отключить (AUTO_SAVE_EVERY_N_HOURS) в файле ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Пустой слот авто записи #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
 	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
 	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
 	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
 	L"Saving",	// 97	// The message box, when doing end turn auto save
 	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
-	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	L"Этот слот зарезервирвоан для автоматической записи в конце каждого хода, которую можно включить/отключить на экране опций.", //99	// The text, when the user clicks on the save screen on an auto save
 	// Mouse tooltips
 	L"QuickSave.sav",	// 100
 	L"AutoSaveGame%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
 	L"SaveGame%02d.sav", //103
-	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
-	L"Lock mouse cursor within game window boundary.",			// 104
-	L"Release mouse cursor from game window boundary.",			// 105
-	L"Move in Formation ON",	// TODO.Translate
-	L"Move in Formation OFF",
-	L"Artificial Merc Light ON",	// TODO.Translate
-	L"Artificial Merc Light OFF",
+	// Lock / release mouse in windowed mode (window boundary)
+	L"Захватить курсор мыши.",			// 104
+	L"Освободить курсор мыши.",			// 105
+	L"Движение в боевом порядке",
+	L"Движение в обычном порядке",
+	L"Подсветка наемника включена",
+	L"Подсветка наемника отключена",
 };
 
 
@@ -6199,20 +6195,20 @@ STR16 pDoctorWarningString[] =
 	L"Ваши медики не могут оказать первую помощь всем раненым.",
 };
 
-// TODO.Translate
+
 STR16 pMilitiaButtonsHelpText[] =
 {
-	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nGreen Troops", // button help text informing player they can pick up or drop militia with this button
-	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nRegular Troops",
-	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nVeteran Troops",
-	L"Distribute available militia equally among all sectors",
+	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nНовобранцы", // button help text informing player they can pick up or drop militia with this button
+	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nРядовые",
+	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nВетераны",
+	L"Равномерно распределить ополчение по доступным секторам",
 };
 
 STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"Отправляйтесь в A.I.M. и наймите бойцов (*Подсказка* - это в лэптопе).", // to inform the player to hired some mercs to get things going
 #ifdef JA2UB
-	L"Когда будете готовы отправиться в Tracona, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
+	L"Когда будете готовы отправиться в Тракону, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
 #else
 	L"Когда будете готовы отправиться в Арулько, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
 #endif
@@ -6249,9 +6245,9 @@ STR16 gzLaptopHelpText[] =
 	L"Страховые агенты по контрактам A.I.M.",
 	//New Bookmarks
 	L"",
-	L"Encyclopedia",
-	L"Briefing Room",
-	L"Campaign History",	// TODO.Translate
+	L"Энциклопедия",
+	L"Брифинг-зал",
+	L"Журнал кампании",
 	L"Mercenaries Love or Dislike You",	// TODO.Translate
 	L"World Health Organization",
 };
@@ -6268,7 +6264,7 @@ STR16 gzNonPersistantPBIText[] =
 	L"Войти в сектор, чтобы продолжить бой. (|E)",
 	L"Провести бой автоматически (|A).",
 	L"Во время атаки врага автоматическую битву включить нельзя.",
-	L"После того как вы попали в засаду, автоматическую битву включить нельзя.",
+	L"После того, как вы попали в засаду, автоматическую битву включить нельзя.",
 	L"Рядом рептионы - автоматическую битву включить нельзя.",
 	L"Рядом враждебные гражданские - автоматическую битву включить нельзя.",
 	L"Рядом кошки-убийцы - автоматическую битву включить нельзя.",
@@ -6301,21 +6297,20 @@ STR16 pNewNoiseStr[] =
 	L"%s слышит %s скрип, идущий %s.",
 	L"%s слышит %s звук всплеска %s.",
 	L"%s слышит %s звук удара %s.",
-	L"%s hears a %s GUNFIRE coming from %s.", // anv: without this, all further noise notifications were off by 1!		// TODO.Translate
+	L"%s слышит %s звук стрельбы %s.", // anv: without this, all further noise notifications were off by 1!
 	L"%s слышит %s звук взрыва %s.",
 	L"%s слышит %s крик %s.",
 	L"%s слышит %s звук удара %s.",
 	L"%s слышит %s звук удара %s.",
 	L"%s слышит %s звон %s.",
 	L"%s слышит %s грохот %s.",
-	L"",											 // anv: placeholder for silent alarm		// TODO.Translate
-	L"%s hears someone's %s VOICE coming from %s.", // anv: report enemy taunt to player		// TODO.Translate
+	L"",											 // anv: placeholder for silent alarm
+	L"%s слышит чей-то %s голос %s.", // anv: report enemy taunt to player
 };
 
-// TODO.Translate
 STR16 pTauntUnknownVoice[] =
 {
-	L"Unknown Voice",
+	L"Неизвестный голос",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =
@@ -6484,9 +6479,9 @@ STR16 gzLateLocalizedString[] =
 	L"%s сейчас не может говорить",
 
 	//22-24 plural versions @@@2 elite to veteran
-	L"%d новобранца из ополчения произведены в элитных солдат.",
+	L"%d новобранца из ополчения произведены в элитные солдаты.",
 	L"%d новобранца из ополчения произведены в рядовые.",
-	L"%d рядовых ополченца произведены в элитных солдат.",
+	L"%d рядовых ополченца произведены в элитные солдаты.",
 
 	//25
 	L"Кнопка",
@@ -6569,13 +6564,13 @@ STR16 gzLateLocalizedString[] =
 	//60
 	L"Кнопка нажата.",
 
-	L"%s чувствует что в бронежилете что-то треснуло!",
+	L"%s чувствует, что в бронежилете что-то треснуло!",
 	L"%s выпустил на %d больше пуль!",
 	L"%s выпустил на одну пулю больше!",
 
 	L"Сперва закрой описание предмета!",
 
-	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65	// TODO.Translate
+	L"Невозможно ускорить время - враждебные гражданские или кошки-убийцы в секторе.", // 65
 };
 
 // HEADROCK HAM 3.5: Added sector name
@@ -6596,10 +6591,10 @@ STR16 gzTooltipStrings[] =
 	L"%s|Настрой: %d\n",
 	L"%s|Текущие |A|Ps: %d\n",
 	L"%s|Текущее |Здоровье: %d\n",
-	L"%s|Current |Breath: %d\n",	// TODO.Translate
-	L"%s|Current |Morale: %d\n",
-	L"%s|Current |S|hock: %d\n",// TODO.Translate
-	L"%s|Current |S|uppression Points: %d\n",// TODO.Translate
+	L"%s|Текущая |Энергия: %d\n",
+	L"%s|Текущая |Мораль: %d\n",
+	L"%s|Текущий |Шок: %d\n",
+	L"%s|Текущий |Уровень |Подавления: %d\n",
 	// Full info
 	L"%s|Каска: %s\n",
 	L"%s|Жилет: %s\n",
@@ -6635,11 +6630,11 @@ STR16 gzTooltipStrings[] =
 	L"%s|Навык 1: %s\n",	//%s|Skill 1: %s\n
 	L"%s|Навык 2: %s\n", 
 	L"%s|Навык 3: %s\n",
-    // Additional suppression effects - sevenfm	//  TODO.Translate
-    L"%s|A|Ps lost due to |S|uppression: %d\n",
-    L"%s|Suppression |Tolerance: %d\n",
-    L"%s|Effective |S|hock |Level: %d\n",
-    L"%s|A|I |Morale: %d\n",
+    // Additional suppression effects
+    L"%s|A|P потеряно от  |Подавления: %d\n",
+    L"%s|Сопротивление |Подавлению: %d\n",
+    L"%s|Эффективный |Уровень |Шока: %d\n",
+    L"%s|A|I |Мораль: %d\n",
 };
 
 STR16 New113Message[] =
@@ -6655,10 +6650,10 @@ STR16 New113Message[] =
 	L"ГР",
 	L"ГР *",
 	L"ГР ***",
-	L"UB",			// TODO.Translate
-	L"UBRST",
-	L"UAUTO",
-	L"BAYONET",
+	L"ПС",
+	L"ПС *",
+	L"ПС ***",
+	L"Штык",
 	L"Снайпер!",
 	L"Невозможно разделить деньги из-за предмета на курсоре.",
 	L"Точка высадки прибывающих наёмников перенесена в %s, так как запланированное место высадки %s захвачено противником.",
@@ -6666,7 +6661,7 @@ STR16 New113Message[] =
 	L"Выброшены все вещи выбранной группы.",
 	L"Вещь продана голодающему населению Арулько.",
 	L"Проданы все вещи выбранной группы.",
-	L"Проверь что солдату мешает лучше видеть.",	//You should check your goggles
+	L"Проверьте, что вашим бойцам мешает лучше видеть.",	//You should check your goggles
 	// Real Time Mode messages
 	L"Уже в бою.",	//In combat already
 	L"В приделах видимости нет врагов.",	//No enemies in sight
@@ -6686,7 +6681,7 @@ STR16 New113Message[] =
 	L"%s успешно прооперирован(а).",	//Surgery on %s finished.
 	L"%s пропустил(а) удар в грудную клетку и теряет единицу максимального значения здоровья!",	//%s is hit in the chest and loses a point of maximum health!
 	L"%s пропустил(а) удар в грудную клетку и теряет %d максимального значения здоровья!",	//%s is hit in the chest and loses %d points of maximum health!
-	L"%s is blinded by the blast!",	// TODO.Translate
+	L"%s ослеплен взрывом!",
 	L"%s восстановил(а) одну единицу потерянного %s.",	//%s has regained one point of lost %s
 	L"%s восстановил(а) %d единиц потерянного %s.",	//%s has regained %d points of lost %s
 	L"Ваши навыки разведчика сорвали засаду противника.",
@@ -6695,29 +6690,29 @@ STR16 New113Message[] =
 /////
 	L"Внимание: враг обнаружил труп!!!",
 	L"%s [%d патр.]\n%s %1.1f %s",
-	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
-	L"Hint: %s",	// TODO.Translate
-	L"Player strength: %d - Enemy strength: %6.0f",		// TODO.Translate Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
+	L"Недостаточно AP! Нужно %d, у вас есть %d.",
+	L"Совет: %s",
+	L"Сила игрока: %d - Сила противника: %6.0f",
 
-	L"Cannot use skill!",				// TODO.Translate
-	L"Cannot build while enemies are in this sector!",
-	L"Cannot spot that location!",
-	L"Incorrect GridNo for firing artillery!",
-	L"Radio frequencies are jammed. No communication possible!",
-	L"Radio action failed!",
-	L"Not enough mortar shells in sector to start a barrage!",
-	L"No signal shell item found in Items.xml!",
-	L"No mortars found, cannot commence barrage!",
-	L"Already jamming signal, no need to do so again!",
-	L"Already listening for nearby sounds, no need to do so again!",
-	L"Already trying to spot, no need to do so again!",
-	L"Already scanning for jam signals, no need to do so again!",
-	L"%s could not apply %s to %s.",
-	L"%s orders reinforcements from %s.",
-	L"%s radio set is out of energy.",
-	L"a working radio set",
-	L"a binocular",
-	L"patience",
+	L"Нельзя использовать навык!",
+	L"Нельзя строить, пока противник в секторе!",
+	L"Невозможно наблюдать за этим местом!",
+	L"Некорректные координаты для стрельбы артиллерии!",
+	L"Помехи на радиочастотах. Связь невозможна!",
+	L"Не удалось использовать радиостанцию!",
+	L"Недостаточно минометных снарядов в секторе для постановки огня!",
+	L"Не обнаружены сигнальные мины в Items.xml!",
+	L"Нет минометов, невозможно организовать артналет!",
+	L"Режим радиопомех уже включен, нет необходимости делать это снова!",
+	L"Режим прослушивания звуков уже включен, нет необходимости делать это снова!",
+	L"Режим обнаружения уже включен, нет необходимости делать это снова!",
+	L"Режим обнаружения источника помех уже включен, нет необходимости делать это снова!",
+	L"%s не может применить %s к %s.",
+	L"%s вызывает подкрепления из %s.",
+	L"%s радиостанция обесточен.",
+	L"работающая радиостанция",
+	L"бинокль",
+	L"терпение",
 };
 
 STR16 New113HAMMessage[] = 
@@ -6728,47 +6723,47 @@ STR16 New113HAMMessage[] =
 	L"%s дал более длинную очередь!",	//%s fires more rounds than intended!
 	L"Вы не можете тренировать ополчение в этом секторе.",	//You cannot train militia in this sector.
 	L"Ополченец подобрал %s.",	//Militia picks up %s.
-	L"Невозможно тренировать ополчение когда в секторе враг!",	//Cannot train militia with enemies present!
+	L"Невозможно тренировать ополчение, пока в секторе враги!",	//Cannot train militia with enemies present!
 	// 6 - 10
 	L"%s имеет низкий навык Лидерства, чтобы тренировать ополченцев.",	//%s lacks sufficient Leadership score to train militia.
-	L"В этом секторе не может быть тренеров мобильных групп больше %d.",	//No more than %d Mobile Militia trainers are permitted in this sector.
+	L"В этом секторе может быть не больше %d тренеров мобильных групп.",	//No more than %d Mobile Militia trainers are permitted in this sector.
 	L"Нет свободных мест в %s или вокруг него для новой мобильной группы!",	//No room in %s or around it for new Mobile Militia!
 	L"Нужно иметь по %d ополченцев в каждом освобождённом секторе города %s, прежде чем можно будет тренировать мобильные группы.",	//You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.
-	L"Невозможно работать в городском учереждении пока враг в секторе!",	//Can't staff a facility while enemies are present!
+	L"Невозможно назначить занятие, пока враг в секторе!",	//Can't staff a facility while enemies are present!
 	// 11 - 15
-	L"%s имеет мало Мудрости, чтобы работать в городском учереждении.",	//%s lacks sufficient Wisdom to staff this facility.
+	L"%s имеет недостаточно Мудрости для этого занятия.",	//%s lacks sufficient Wisdom to staff this facility.
 	L"Учереждение %s полностью укомплектованно персоналом.",	//The %s is already fully-staffed.
-	L"Один час услуг этого заведения обойдётся вам в $%d. Согласны оплачивать?",	//It will cost $%d per hour to staff this facility. Do you wish to continue?
-    L"У вас недостаточно денег чтобы оплатить работу в учреждениии за сегодня. $%d выплачено, ещё нужно $%d. Местным это не понравилось.", //You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
-    L"У вас недостаточно денег чтобы выплатить заработную плату всем рабочим. Теперь долг составил $%d. Местным это не понравилось.",
+	L"Один час этого назначения обойдётся вам в $%d. Согласны оплачивать?",	//It will cost $%d per hour to staff this facility. Do you wish to continue?
+    L"У вас недостаточно денег, чтобы оплатить за сегодня. $%d выплачено, ещё нужно $%d. Местным это не понравилось.", //You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
+    L"У вас недостаточно денег, чтобы выплатить заработную плату всем рабочим. Теперь долг составил $%d. Местным это не понравилось.",
 	// 16 - 20
-	L"Непогашенный долг составляет $%d для работы учереждения, и нет денег чтобы его погасить!",	//You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!
-	L"Непогашенный долг составляет $%d для работы учереждения. Вы не можете назначить бойца на работу в учереждении пока не погасите задолженность.",	//You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.
-	L"Непогашенный долг составляет $%d для работы учереждения. Выплатить деньги по задолженности?",	//You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?
+	L"Непогашенный долг составляет $%d, и нет денег, чтобы его погасить!",	//You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!
+	L"Непогашенный долг составляет $%d. Вы не можете выбрать это назначение, пока не погасите задолженность.",	//You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.
+	L"Непогашенный долг составляет $%d. Выплатить деньги по задолженности?",	//You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?
 	L"Н/Д в этом секторе",	//N/A in this sector
 	L"Дневной расход",
 	// 21 - 25
-	L"Недостаточно денег для выплат нанятому ополчению. %d ополченцев было распущенно и отправлено домой.",	//Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.
-	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5 TODO.Translate
-	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
-	L"To merge two items during combat, you must pick them both up first.", // HAM 5
+	L"Недостаточно денег для выплат нанятому ополчению. %d ополченцев было распущено и отправлено домой.",
+	L"Для того, чтобы изучить характеристики предмета во время боя, вам нужно сначала взять его.",
+	L"Для того, чтобы во время боя присоединить один предмет к другому, вам нужно сначала взять их.",
+	L"Для объединения предметов во время боя вам нужно сначала взять их.",
 };
 
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
 STR16 gzTransformationMessage[] = 
 {
-	L"No available adjustments",	// TODO.Translate
-	L"%s was split into several parts.",
-	L"%s was split into several parts. Check %s's inventory for the resulting items.",
-	L"Due to lack of inventory space after transformation, some of %s's items have been dropped to the ground.",
-	L"%s was split into several parts. Due to a lack of inventory space, %s has had to drop a few items to the ground.",
-	L"Do you wish to adjust all %d items in this stack? (To transform only one item, remove it from the stack first)",
+	L"Нет доступных преобразований",	
+	L"%s был разделен на несколько частей.",
+	L"%s был разделен на несколько частей. Предметы находятся в инвентаре %s.",
+	L"Из-за нехватки места в инвентаре %s после преобразования некоторые предметы были брошены на землю.",
+	L"%s был разделен на несколько частей. Из-за нехватки места в инвентаре %s пришлось бросить некоторые предметы на землю.",
+	L"Преобразовать все %d предметов вместе? (Для того, чтобы преобразовать только один предмет, предварительно отделите его)",
 	// 6 - 10
-	L"Split Crate into Inventory",
-	L"Split into %d-rd Mags",
-	L"%s was split into %d Magazines containing %d rounds each.",
-	L"%s was split into %s's inventory.",
-	L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
+	L"Разделить ящик и поместить в инвентарь",
+	L"Разделить на магазины емкостью %d",
+	L"%s был разделен на %d магазинов по %d патронов в каждом.",
+	L"%s был разделен и помещен в инвентарь %s.",
+	L"Недостаточно места в инвентаре %s для магазинов данного калибра!",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
@@ -6832,33 +6827,33 @@ STR16	New113AIMMercMailTexts[] =
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
-	L"Снайпер: У вас глаза ястреба. В свободное время вы развлекаетесь отстреливая крылышки у мух с расстояния 100 метров! ± ",	//Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards!
+	L"Снайпер: У вас глаза ястреба. В свободное время вы развлекаетесь, отстреливая крылышки у мух с расстояния 100 метров! ± ",	//Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards!
 	// Camouflage
-	L"Маскировка: На вашем фоне кусты выглядят синтетическими! ± ",	//Camouflage: Beside you, even bushes look synthetic!
+	L"Маскировка: На вашем фоне даже кусты выглядят синтетическими! ± ",	//Camouflage: Beside you, even bushes look synthetic!
 	// SANDRO - new strings for new traits added
 	// MINTY - Altered the texts for more natural English, and added a little flavour too
 	// Ranger
-	L"Лесничий: Эти рейнджеры из Техаса, на вашем фоне выгледят дилетантами! Вы умеете рационально выбирать путь, стать незаметным для зверя, с одного выстрела из ружья попасть белке в глаз. ± ",	//Ranger: Those amateurs from Texas have nothing on you!
+	L"Рейнджер: Эти любители из Техаса вам и в подметки не годятся! ± ",	//Ranger: Those amateurs from Texas have nothing on you!
 	// Gunslinger
-	L"Ковбой: С одним револьвером, либо с двумя - вы так же опасны как Билли Кид! ± ",	//Gunslinger: With one handgun or two, you can be as lethal as Billy the Kid!
+	L"Ковбой: С одним револьвером или с двумя - вы так же опасны, как Билли Кид! ± ",	//Gunslinger: With one handgun or two, you can be as lethal as Billy the Kid!
 	// Squadleader
 	L"Командир: Прирождённый лидер, солдаты просто боготворят вас! ± ",	//Squadleader: A natural leader, your squadmates look to you for inspiration!
 	// Technician
 	L"Механик: Ангус МакГайвер по сравнению с вами просто никто! Механика, электроника или взрывчатка - вы отремонтируете что угодно! ± ",	//Technician: MacGyver's got nothing on you! Mechanical, electronic or explosive, you can fix it!
 	// Doctor
-	L"Доктор: Будь то царапины или вскрытое брюхо, нужна ампутация или же наоборот, пришить чего-нибудь - вы с лёгкостью справитесь с любым недугом! ± ",	//Doctor: From grazes to gutshot, to amputations, you can heal them all!
+	L"Доктор: Будь то царапины или вскрытое брюхо, требуется ампутация или же наоборот, пришить чего-нибудь - вы с лёгкостью справитесь с любым недугом! ± ",	//Doctor: From grazes to gutshot, to amputations, you can heal them all!
 	// Athletics
 	L"Спортсмен: Ваша скорость и выносливость достойны олимпийца! ± ",	//Athletics: Your speed and vitality are worthy of an Olympian!
 	// Bodybuilding
 	L"Культурист: Шварц? Да он слабак! Вы с лёгкостью завалите его одной левой! ± ",	//Bodybuilding: Arnie? What a wimp! You could beat him with one arm behind your back!
 	// Demolitions
-	L"Подрывник: Сеять гранаты, как семена по полю; минировать поле, как картошку садить - густо и минимум 20 соток; а после созерцать на полет конечностей... Вот то, ради чего вы живёте! ± ",	//Demolitions: Sowing grenades like seeds, planting bombs, watching the limbs flying.. This is what you live for!
+	L"Подрывник: Сеять гранаты, как семена по полю; минировать поле, как картошку садить - густо и минимум 20 соток; а после созерцать полет конечностей... Вот то, ради чего вы живёте! ± ",	//Demolitions: Sowing grenades like seeds, planting bombs, watching the limbs flying.. This is what you live for!
 	// Scouting
 	L"Разведчик: Ничто не скроется от вашего зоркого взгляда! ± ",	//Scouting: Nothing can escape your notice!
 	// Covert ops
-	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
+	L"Шпион: Агент 007 по сравнению с вами - дилетант! ± ",
 	// Radio Operator
-	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
+	L"Радист: Использование вами средств связи позволяет расширить тактические и стратегические возможности команды. ± ",
 };
 
 STR16 NewInvMessage[] = 
@@ -6868,11 +6863,11 @@ STR16 NewInvMessage[] =
 	L"Вы потеряли свой рюкзак...",
 	L"Замок рюкзака работает лишь во время битвы.",
 	L"Вы не можете передвигаться с открытым рюкзаком.",
-	L"Вы уверены что хотите продать весь хлам этого сектора голодающему населению Арулько?",
-	L"Вы уверены что хотите выбросить весь хлам, валяющийся в этом секторе?",
-	L"Тяжеловато будет взбираться с полным рюкзаком на крышу. Может снимем?",
-	L"All backpacks dropped",	// TODO.Translate
-	L"All owned backpacks picked up",
+	L"Вы уверены, что хотите продать весь хлам этого сектора голодающему населению Арулько?",
+	L"Вы уверены, что хотите выбросить весь хлам, валяющийся в этом секторе?",
+	L"Тяжеловато будет взбираться с полным рюкзаком на крышу. Может, снимем?",
+	L"Все рюкзаки сброшены",
+	L"Все рюкзаки подняты",
 };
 
 // WANNE - MP: Multiplayer messages
@@ -6894,7 +6889,7 @@ STR16 MPServerMessage[] =
 	L"Отправка файла '%S' - 100/100",	//Sent file '%S' - 100/100
 	L"Завершена отправка файлов для '%S'.",	//Finished sending files to '%S'.
 	L"Начата отправка файлов для '%S'.",	//Started sending files to '%S'.
-	L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",	// TODO.Translate
+	L"Используйте обзор воздушного пространства, чтобы выбрать карту для игры. Если вы ходите сменить карту, это нужно сделать до того, как вы нажмете кнопку 'Начать игру'.",
 };
 
 STR16 MPClientMessage[] =
@@ -6927,7 +6922,7 @@ STR16 MPClientMessage[] =
 	L"X: %d, Y: %d",
 	L"Номер квадрата: %d",		//Grid Number
 	L"Доступно лишь для сервера.",
-	L"Выберите какую ступень игры принудительно запустить:  ('1' - открыть лэптоп/найм бойцов)  ('2' - запустить/загрузить уровень)  ('3' - разблокировать пользовательский интерфейс)  ('4' - завершить расстановку)",
+	L"Выберите, какую ступень игры принудительно запустить:  ('1' - открыть лэптоп/найм бойцов)  ('2' - запустить/загрузить уровень)  ('3' - разблокировать пользовательский интерфейс)  ('4' - завершить расстановку)",
 	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
 	// 25
 	L"",
@@ -6987,16 +6982,16 @@ STR16 MPClientMessage[] =
 	L"Невозможно сохранить принятый файл '%S'",
 	L"%s's бомба была разряжена %s",
 	L"Вы проиграли. Стыд и срам!",	// All over red rover
-	L"Spectator mode disabled",
+	L"Режим наблюдателя выключен",
 	L"Укажите номер клиента, который нужно кикнуть. №1: <Отменить>, №2: %S, №3: %S, №4: %S",
 	// 75
 	L"Команда %s уничтожена.",
 	L"Ошибка при запуске клиента. Завершение операции.",
 	L"Клиент отсоединился и закрыт.",
 	L"Клиент не запущен.",
-	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	// TODO.Translate
+	L"ИНФОРМАЦИЯ: Если игра зависла (полоса прогресса противника не двигается), сообщите серверу, чтобы нажал ALT + E для передачи хода обратно вам!",
 	// 80
-	L"AI's turn - %d left",		// TODO.Translate
+	L"ход AI - осталось %d",
 };
 
 STR16 gszMPEdgesText[] =
@@ -7074,11 +7069,11 @@ STR16 gzMPChatboxText[] =
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
-	L"На следующей странице вам нужно выбрать профессиональные навыки в соответствии со специализацией вашего наёмника. Вы можете выбрать не более двух разных навыка или один и владеть им в совершенстве.",
-	L"Можно выбрать всего один навык или вообще остаться без него. Тогда вам будут даны дополнительные баллы для улучшения некоторых параметров. Внимание: навыки электроника, стрельба с двух рук и маскировка не могут быть экспертными.",
+	L"На следующей странице вам нужно выбрать профессиональные навыки в соответствии со специализацией вашего наёмника. Вы можете выбрать либо не более двух разных навыков, либо один и владеть им в совершенстве.",
+	L"Можно выбрать всего один навык или вообще остаться без него. Тогда вам будут даны дополнительные баллы для улучшения некоторых параметров. Внимание: навыки электроники, стрельбы с двух рук и маскировки не могут быть экспертными.",
 	// For new major/minor traits
 	L"Следующий этап - выбор навыков, которые определят специализацию вашего наёмника. На первой странице можно выбрать до %d основных навыков, которые определят роль бойца в отряде. На второй - дополнительные навыки, подчеркивающие личные качества бойца.", 
-	L"Всего можно взять не более %d навыков. Так, если Вы не выбрали основной навык, то можно взять %d дополнительных. Если же вы выбрали оба основных навыка (или один улучшенный), то будет доступен лишь %d дополнительный...",  
+	L"Всего можно взять не более %d навыков. Так, если вы не выбрали основной навык, то можно взять %d дополнительных. Если же вы выбрали оба основных навыка (или один улучшенный), то будет доступен лишь %d дополнительный...",  
 };
 
 STR16 sgAttributeSelectionText[] = 
@@ -7125,7 +7120,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Мозговитый",	//Intellectual
 	L"Простофиля",	//Primitive
 	L"Агрессивный",	//Aggressive
-	L"Невозмутимый",	//Phlegmatic
+	L"Флегматик",	//Phlegmatic
 	L"Бесстрашный",	//Dauntless
 	L"Миролюбивый",	//Pacifist
 	L"Злобный",	//Malicious
@@ -7137,9 +7132,9 @@ STR16 gzIMPColorChoosingText[] =
 {
 	L"I.M.P.: Расцветка и телосложение",
 	L"I.M.P.: Расцветка",
-	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",
+	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а также укажите ваше телосложение.",
 	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",
-	L"Отметьте здесь чтобы ваш персонаж \nдержал автомат одной рукой.",
+	L"Отметьте здесь, чтобы ваш персонаж \nдержал автомат одной рукой.",
 	L"\n(Важно: вам понадобится прилично сил для этого.)",
 };
 
@@ -7155,74 +7150,74 @@ STR16 sColorChoiceExplanationTexts[]=
 
 STR16 gzIMPDisabilityTraitText[]=
 {
-	L"Идеален",	//No Disability
-	L"Непереносимость жары",		//Heat Intolerant
+	L"Идеален",		//No Disability
+	L"Непереносимость жары",	//Heat Intolerant
 	L"Нервный",		//Nervous
 	L"Клаустрафоб",	//Claustrophobic
 	L"Не умеющий плавать",	//Nonswimmer
 	L"Боязнь насекомых",	//Fear of Insects
 	L"Забывчивый",		//Forgetful
 	L"Психопат",		//Psychotic
-	L"Deaf",
-	L"Shortsighted",
+	L"Глухой",
+	L"Близорукий",
 	L"I.M.P.: Недостатки",	//I.M.P. Disabilities
 };
 
-STR16 gzIMPDisabilityTraitEmailTextDeaf[] =// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextDeaf[] =
 {
-	L"We bet you're glad this isn't voicemail.",
-	L"You've either visited to many discos in your teens, or were to close a massive artillery bombardment. Or just old. Either way, your team better learn sign language.",
+	L"Можем поспорить - вы рады, что это не голосовая почта.",
+	L"Вы слишком часто слушали громкую музыку на дискотеке или слишком близко слушали взрывы снарядов. Или это просто возраст. В любом случае, вашей команде стоит изучить язык жестов.",
 };
 
 STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
-	L"You'll be screwed if you ever lose your glasses.",
-	L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
+	L"Вы будете бесполезны, если потеряете свои очки.",
+	L"Это случается, если проводить много времени перед светящимися прямоугольниками. Нужно было есть больше морковок. Вы когда-нибудь видели кролика в очках?",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
 STR16 gzFacilityErrorMessage[]=
 {
-	L"%s не хватает Силы чтобы выполнить это действие.",
-	L"%s не хватает Ловкости чтобы выполнить это действие.",
-	L"%s не хватает Проворности чтобы выполнить это действие.",
-	L"%s не хватает Здоровья чтобы выполнить это действие..",
-	L"%s не хватает Мудрости чтобы выполнить это действие.",
-	L"%s не хватает Меткости чтобы выполнить это действие.",
+	L"%s не хватает Силы, чтобы выполнить это действие.",
+	L"%s не хватает Ловкости, чтобы выполнить это действие.",
+	L"%s не хватает Проворности, чтобы выполнить это действие.",
+	L"%s не хватает Здоровья, чтобы выполнить это действие..",
+	L"%s не хватает Мудрости, чтобы выполнить это действие.",
+	L"%s не хватает Меткости, чтобы выполнить это действие.",
 	// 6 - 10
-	L"%s не достаточно развит Медицинский навык, чтобы выполнить это действие.",
-	L"%s не достаточно развит навык Механики, чтобы выполнить это действие.",
-	L"%s не достаточно развито Лидерство, чтобы выполнить это действие.",
-	L"%s не достаточно развит навык Взрывчатки, чтобы выполнить это действие.",
-	L"%s не достаточно Опыта, чтобы выполнить это действие.",
+	L"%s недостаточно развит Медицинский навык, чтобы выполнить это действие.",
+	L"%s недостаточно развит навык Механики, чтобы выполнить это действие.",
+	L"%s недостаточно развито Лидерство, чтобы выполнить это действие.",
+	L"%s недостаточно развит навык Взрывчатки, чтобы выполнить это действие.",
+	L"%s недостаточно Опыта, чтобы выполнить это действие.",
 	// 11 - 15
-	L"У %s слишком плохой Боевой дух, чтобы выполнить это действие",
+	L"У %s слишком плохой боевой дух, чтобы выполнить это действие",
 	L"%s слишком устал(а), чтобы выполнить это действие.",
 	L"В городе %s вам пока не доверяют. Местные отказываются выполнить этот приказ.",
 	L"Слишком много людей уже работают в %s.",
 	L"Слишком много людей уже выполняют эту задачу в %s.",
 	// 16 - 20
 	L"%s не может найти вещи, которые нуждаются в ремонте.",
-	L"%s потерял(а) часть %s пока работал в секторе %s!",
-	L"%s потерял(а) часть %s пока работал над %s в %s!",
-	L"%s получил(а) травму пока работал(а) в секторе %s, и требует незамедлительной медицинской помощи!",
-	L"%s получил(а) травму пока работал(а) над %s в %s, и требует незамедлительной медицинской помощи!",
+	L"%s потерял(а) часть %s, пока работал в секторе %s!",
+	L"%s потерял(а) часть %s, пока работал над %s в %s!",
+	L"%s получил(а) травму, пока работал(а) в секторе %s, и требует незамедлительной медицинской помощи!",
+	L"%s получил(а) травму, пока работал(а) над %s в %s, и требует незамедлительной медицинской помощи!",
 	// 21 - 25
-	L"%s получил(а) травму пока работал(а) в секторе %s. Травма незначительная.",
-	L"%s получил(а) травму пока работал(а) над %s в %s. Травма незначительная.",
+	L"%s получил(а) травму, пока работал(а) в секторе %s. Травма незначительная.",
+	L"%s получил(а) травму, пока работал(а) над %s в %s. Травма незначительная.",
 	L"Жители города %s расстроены тем, что %s пребывает в их городе.",
 	L"Жители города %s расстроены работой %s в %s.",
 	L"%s в секторе %s своими действиями понизил репутацию во всём регионе!",
 	// 26 - 30
-	L"%s работая над %s в %s привёл(а) к понижению репутации во всём регионе!",
+	L"%s, работая над %s в %s, привёл(а) к понижению репутации во всём регионе!",
 	L"%s пьян(а).",
-	L"%s заболел(а) в секторе %s, и вынужден(а) отложить текущую задачу.",
+	L"%s заболел(а) в секторе %s и вынужден(а) отложить текущую задачу.",
 	L"%s заболел(а) и не может продолжить работу над %s в %s.",
 	L"%s получил(а) травму в секторе %s.",
 	// 31 - 35
 	L"%s получил(а) серьёзную травму в секторе %s.",
-	L"There are currently prisoners here who are aware of %s's identity.", // TODO.Translate
-	L"%s is currently well known as a mercenary snitch. Wait at least %d more hours.", // TODO.Translate
+	L"Здесь есть пленные, которые осведомлены о личности %s.",
+	L"%s хорошо известен как доносчик. Подождите еще хотя бы %d часов.",
 
 
 };
@@ -7246,7 +7241,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
 	L"Штат",	//Staff
-	L"Eat",// TODO.Translate
+	L"Питание",
 	L"Отдых",
 	L"Ремонт вещей",
 	L"Ремонт %s", // Vehicle name inserted here
@@ -7286,25 +7281,25 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Тренер на Механику",
 	L"Тренер на Лидерство",
 	L"Тренер на Взрывчатку",
-	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
-	L"Undercover Snitch",	// TODO.Translate
+	L"Допрашивать пленных",
+	L"Осведомитель",
 	// 36-40
-	L"Spread Propaganda",
-	L"Spread Propaganda",	// spread propaganda (globally)
-	L"Gather Rumours",
+	L"Вести пропаганду",
+	L"Вести пропаганду",	// spread propaganda (globally)
+	L"Собирать слухи",
 	L"Command Militia",	// militia movement orders
 };
 STR16 Additional113Text[]=
 {
 	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",
-	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",	// TODO.Translate
+	L"Jagged Alliance 2 v1.13 полноэкранный режим требует запуска с разрешением как на десктопе (%d x %d) или меньше.",
 
-	// WANNE: Savegame slots validation against INI file 	// TODO.Translate
-	L"Mercenary (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
-	L"Enemy (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
-	L"Creature (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
-	L"Militia (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
-	L"Civilian (MAX_NUMBER_CIVS_IN_TACTICAL)",
+	// WANNE: Savegame slots validation against INI file 
+	L"Наемники (MAX_NUMBER_PLAYER_MERCS) / Машины (MAX_NUMBER_PLAYER_VEHICLES)", 
+	L"Противник (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
+	L"Твари (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
+	L"Ополчение (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
+	L"Гражданские (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
 
@@ -7312,7 +7307,7 @@ STR16 Additional113Text[]=
 // MINTY - Changed some of the following taunts to sound more natural
 STR16 sEnemyTauntsFireGun[]=
 {
-	L"Отведай ка гостинца!",
+	L"Отведай-ка гостинца!",
 	L"Поздоровайся с моим дружком!",
 	L"Иди и получи!",
 	L"Ты мой!",
@@ -7353,7 +7348,7 @@ STR16 sEnemyTauntsChargeKnife[]=
 {
 	L"Твой скальп мой, лошара!",
 	L"Иди к папочке.",
-	L"Сейчас посмотрим на твои кишечки!",
+	L"Сейчас посмотрим на твои кишочки!",
 	L"Порву, как Тузик грелку!",
 	L"Мясо!",
 };
@@ -7401,13 +7396,13 @@ STR16 sEnemyTauntsGotHit[]=
 
 STR16 sEnemyTauntsNoticedMerc[]=
 {
-	L"Da'ffff...!",	// TODO.Translate
-	L"Oh my God!",
-	L"Holy crap!",
-	L"Enemy!!!",
-	L"Alert! Alert!",
-	L"There is one!",
-	L"Attack!",
+	L"Что за...!",	
+	L"О боже!",
+	L"О черт!",
+	L"Противник!!!",
+	L"Тревога! Тревога!",
+	L"Вот он!",
+	L"Атаковать!",
 
 };
 
@@ -7446,150 +7441,148 @@ STR16 gzItemDescGenIndexes[] =
 
 STR16 gzUDBButtonTooltipText[]=
 {
-	L"|И|н|ф|о|р|м|а|ц|и|о|н|н|а|я |ч|а|с|т|ь:\n \nЗдесь вы сможете ознакомиться \nс общим описанием предмета.",
-	L"|П|а|р|а|м|е|т|р|ы:\n \nЗдесь вы сможете ознакомиться \nс индивидуальными свойствами и параметрами предмета.\n \nWeapons: Click again to see second page.",	// TODO.Translate
-	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|а|я| |и|н|ф|о|р|м|а|ц|и|я:\n \nЗдесь вы сможете ознакомиться \nс бонусами, дающимися данным предметом.",
+	L"|И|н|ф|о|р|м|а|ц|и|о|н|н|а|я |ч|а|с|т|ь:\n \nЗдесь вы сможете ознакомиться\nс общим описанием предмета.",
+	L"|П|а|р|а|м|е|т|р|ы:\n \nЗдесь вы сможете ознакомиться\nс индивидуальными свойствами и параметрами предмета.\n \nОружие: нажмите еще раз, чтобы открыть вторую страницу.",
+	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|а|я| |и|н|ф|о|р|м|а|ц|и|я:\n \nЗдесь вы сможете ознакомиться\nс бонусами, дающимися данным предметом.",
 };
 
 STR16 gzUDBHeaderTooltipText[]=
 {
-	L"|О|с|н|о|в|н|ы|е |п|а|р|а|м|е|т|р|ы:\n \nСвойства и данные этого предмета\n(Оружие / Броня / и другое).",
-	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|ы|е| |п|а|р|а|м|е|т|р|ы:\n \nДополнительные свойства \nи/или возможные вторичные характеристики.",
-	L"|З|а|т|р|а|т|ы| |О|Д:\n \nКоличество Очков Действия необходимых \nна стрельбу и другие действия с оружием.",
-	L"|С|т|р|е|л|ь|б|а| |о|ч|е|р|е|д|ь|ю| |- |п|а|р|а|м|е|т|р|ы|:\n \nПараметры данного оружия, \nкасающиеся стрельбы очередью.",
+	L"|О|с|н|о|в|н|ы|е |п|а|р|а|м|е|т|р|ы:\n \nСвойства и данные этого предмета\n(оружие, броня и т.д.).",
+	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|ы|е| |п|а|р|а|м|е|т|р|ы:\n \nДополнительные свойства и/или\nвозможные вторичные характеристики.",
+	L"|З|а|т|р|а|т|ы| |О|Д:\n \nКоличество очков действия, необходимых\nна стрельбу и другие действия с оружием.",
+	L"|С|т|р|е|л|ь|б|а| |о|ч|е|р|е|д|ь|ю| |- |п|а|р|а|м|е|т|р|ы|:\n \nПараметры данного оружия,\nкасающиеся стрельбы очередью.",
 };
 
 STR16 gzUDBGenIndexTooltipText[]=
 {
-	L"|С|и|м|в|о|л|ь|н|о|е| |о|б|о|з|н|а|ч|е|н|и|е| |п|а|р|а|м|е|т|р|о|в\n \nУкажите курсором на символ \nчтобы увидеть что он значит.",
-	L"|С|т|а|н|д|а|р|т|н|о|е |з|н|а|ч|е|н|и|е\n \nСтандартное значение праметров предмета \n(без штрафов и бонусов навески и аммуниции).",
-	L"|Б|о|н|у|с|ы| |н|а|в|е|с|к|и\n \nБонусы или штрафы, обусловленные \nнавеской, аммуницией или повреждениями вещи.",
-	L"|С|у|м|м|а|р|н|о|е| |з|н|а|ч|е|н|и|е\n \nСуммарное значение параметров предмета, \nучитывая все бонусы/штрафы навески и аммуниции.",
+	L"|С|и|м|в|о|л|ь|н|о|е| |о|б|о|з|н|а|ч|е|н|и|е| |п|а|р|а|м|е|т|р|о|в\n \nНаведите курсор на символ,\nчтобы увидеть, что он значит.",
+	L"|С|т|а|н|д|а|р|т|н|о|е |з|н|а|ч|е|н|и|е\n \nСтандартное значение праметров предмета\n(без штрафов и бонусов навески и боеприпасов).",
+	L"|Б|о|н|у|с|ы| |н|а|в|е|с|к|и\n \nБонусы или штрафы, обусловленные\nнавеской, боеприпасами или повреждениями вещи.",
+	L"|С|у|м|м|а|р|н|о|е| |з|н|а|ч|е|н|и|е\n \nСуммарное значение параметров предмета\nс учетом всех бонусов/штрафов навески и боеприпасов",
 };
 
 STR16 gzUDBAdvIndexTooltipText[]=
 {
-	L"Символьное обозначение параметров \n(укажите курсором на символ \nчтобы увидеть что он значит ).",
-	L"Бонус/штраф если |с|т|о|и|ш|ь.",
-	L"Бонус/штраф при |г|у|с|и|н|о|м| |ш|а|г|е.",
-	L"Бонус/штраф если |п|о|л|з|ё|ш|ь.",
-	L"Даден бонус/штраф",
+	L"Символьное обозначение параметров \n(наведите курсор на символ, \nчтобы увидеть что, он значит).",
+	L"Бонус/штраф в положении |с|т|о|я.",
+	L"Бонус/штраф в положении |с|и|д|я.",
+	L"Бонус/штраф в положении |л|ё|ж|а.",
+	L"Бонус/штраф",
 };
 
 STR16 szUDBGenWeaponsStatsTooltipText[]=
 {
-	L"|М|е|т|к|о|с|т|ь",
+	L"|Т|о|ч|н|о|с|т|ь",
 	L"|У|р|о|н", 
-	L"|Р|а|с|с|т|о|я|н|и|е",
-	L"|H|a|n|d|l|i|n|g |D|i|f|f|i|c|u|l|t|y",	// TODO.Translate
+	L"|Д|а|л|ь|н|о|с|т|ь",
+	L"|С|л|о|ж|н|о|с|т|ь |о|б|р|а|щ|е|н|и|я |с |о|р|у|ж|и|е|м",
 	L"|Д|о|с|т|у|п|н|ы|е |у|р|о|в|н|и |п|р|и|ц|е|л|и|в|а|н|и|я", 
-	L"|К|о|э|ф|ф|и|ц|и|е|н|т |у|в|е|л|и|ч|е|н|и|я |п|р|и|ц|е|л|а",   
-	L"|К|о|э|ф|ф|и|ц|и|е|н|т |п|р|о|е|к|т|о|р|а", 
-	L"|С|к|р|ы|т|а|я |в|с|р|ы|ш|к|а |в|ы|с|т|р|е|л|а", 
+	L"|К|р|а|т|н|о|с|т|ь |у|в|е|л|и|ч|е|н|и|я |п|р|и|ц|е|л|а",   
+	L"|Д|а|л|ь|н|о|с|т|ь |п|р|о|е|ц|и|р|о|в|а|н|и|я", 
+	L"|С|к|р|ы|т|а|я |в|с|п|ы|ш|к|а |в|ы|с|т|р|е|л|а", 
 	L"|Г|р|о|м|к|о|с|т|ь",
 	L"|Н|а|д|ё|ж|н|о|с|т|ь",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
-	L"|М|и|н|. |Р|а|с|с|т|о|я|н|и|е |д|л|я |б|о|н|у|с|н|о|г|о |п|р|и|ц|е|л|и|в|а|н|и|я", 
+	L"|М|и|н|. |р|а|с|с|т|о|я|н|и|е |д|л|я |б|о|н|у|с|а |п|р|и |п|р|и|ц|е|л|и|в|а|н|и|и", 
 	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|п|а|д|а|н|и|я", 	
-	L"|О|Д |н|а |в|с|к|и|д|к|у", 
+	L"|О|Д |н|а |в|с|к|и|д|ы|в|а|н|и|е", 
 	L"|О|Д |н|а |в|ы|с|т|р|е|л",
-	L"|О|Д |н|а |с|т|р|е|л|ь|б|у |о|ч|е|р|е|д|ю", 
-	L"|О|Д |н|а |а|в|т|о.|с|т|р|е|л|ь|б|у",
+	L"|О|Д |н|а |с|т|р|е|л|ь|б|у |о|ч|е|р|е|д|ь|ю", 
+	L"|О|Д |н|а |а|в|т|о|м|а|т|и|ч|е|с|к|у|ю |с|т|р|е|л|ь|б|у",
 	L"|О|Д |н|а |п|е|р|е|з|а|р|я|д|к|у", 
-	L"|О|Д |н|а |д|о|с|ы|л|а|н|и|я |п|а|т|р|о|н|ы",
+	L"|О|Д |н|а |д|о|с|ы|л|а|н|и|е |п|а|т|р|о|н|а",
 	L"|L|a|t|e|r|a|l |R|e|c|o|i|l",	// No longer used
-	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
-	L"|Р|а|с|х|о|д |п|а|т|р|о|н |н|а |к|а|ж|д|ы|е |5 |О|Д",
+	L"|П|о|л|н|а|я |о|т|д|а|ч|а",
+	L"|К|о|л|-|в|о |п|а|т|р|о|н|о|в |н|а |к|а|ж|д|ы|е |5 |О|Д",
 };
 
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
-	L"\n \nDetermines whether bullets fired by\nthis gun will stray far from where\nit is pointed.\n \nScale: 0-100.\nHigher is better.",
-	L"\n \nDetermines the average amount of damage done\nby bullets fired from this weapon, before\ntaking into account armor or armor-penetration.\n \nHigher is better.",
-	L"\n \nThe maximum distance (in tiles) that\nbullets fired from this gun will travel\nbefore they begin dropping towards the\nground.\n \nHigher is better.",
-	L"\n \nDetermines the difficulty of holding and firing\nthis gun.\n \nHigher Handling Difficulty results in lower\nchance-to-hit - when aimed and especially when\nunaimed.\n \nLower is better.",	// TODO.Translate
-	L"\n \nThis is the number of Extra Aiming\nLevels you can add when aiming this gun.\n \nThe FEWER aiming levels are allowed, the MORE\nbonus each aiming level gives you. Therefore,\nhaving FEWER levels makes the gun faster to aim,\nwithout making it any less accurate.\n \nLower is better.",
-	L"\n \nWhen greater than 1.0, will proportionally reduce\naiming errors at a distance.\n \nRemember that high scope magnification is detrimental\nwhen the target is too close!\n \nA value of 1.0 means no scope is installed.",
-	L"\n \nProportionally reduces aiming errors at a distance.\n \nThis effect works up to a given distance,\nthen begins to dissipate and eventually\ndisappears at sufficient range.\n \nHigher is better.",
-	L"\n \nWhen this property is in effect, the weapon\nproduces no visible flash when firing.\n \nEnemies will not be able to spot you\njust by your muzzle flash (but they\nmight still HEAR you).",
-	L"\n \nWhen firing this weapon, Loudness is the\ndistance (in tiles) that the sound of\ngunfire will travel.\n \nEnemies within this distance will probably\nhear the shot.\n \nLower is better.",
-	L"\n \nDetermines how quickly this weapon will degrade\nwith use.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
-	L"\n \nThe minimum range at which a scope can provide it's aimBonus.",
-	L"\n \nTo hit modifier granted by laser sights.",	
-	L"\n \nThe number of APs required to bring this\nweapon up to firing stance.\n \nOnce the weapon is raised, you may fire repeatedly\nwithout paying this cost again.\n \nA weapon is automatically 'Unreadied' if its\nwielder performs any action other than\nfiring or turning.\n \nLower is better.",
-	L"\n \nThe number of APs required to perform\na single attack with this weapon.\n \nFor guns, this is the cost of firing\na single shot without extra aiming.\n \nIf this icon is greyed-out, single-shots\n are not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to fire\na burst.\n \nThe number of bullets fired in each burst is\ndetermined by the weapon itself, and indicated\nby the number of bullets shown on this icon.\n \nIf this icon is greyed-out, burst fire\nis not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to fire\nan Autofire Volley of three bullets.\n \nIf you wish to fire more than 3 bullets,\nyou will need to pay extra APs.\n \nIf this icon is greyed-out, autofire\nis not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to reload\nthis weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to rechamber this weapon\nbetween each and every shot fired.\n \nLower is better.",
+	L"\n \nОпределяет, насколько пули, выпущенные\nиз этого оружия, будут отклоняться от\nточки прицеливания.\n \nДиапазон: 0-100.\nБольше - лучше.",
+	L"\n \nОпределяет средний урон от\nпуль, выпущенных из этого оружия,\nне учитывающий броню или ее пробитие.\n \nБольше - лучше.",
+	L"\n \nМаксимальное расстояние (в тайлах),\nна которое пролетит пуля из этого оружия,\nпрежде чем начнет падать на землю.\n \nБольше - лучше.",
+	L"\n \nОпределяет сложность обращения\nс оружием и стрельбы из него.\n \nБольшая сложность приводит к меньшему\nшансу попасть в цель при прицельной\nи особенно при неприцельной стрельбе.\n \nМеньше - лучше.",
+	L"\n \nЭто число доступных уровней прицеливания.\n \nЧем МЕНЬШЕ это число, тем БОЛЬШИЙ бонус\nдается за каждый уровень. То есть\nМЕНЬШЕЕ число уровней позволяет быстрее\nприцеливаться без потери точности.\n \nМеньше - лучше.",
+	L"\n \nПри значении больше 1.0 будет уменьшать кол-во\nошибок прицеливания на расстоянии.\n \nПомните, что сильное увеличение прицела снижает\nточность, если цель находится слишком близко.\n \nЗначение 1.0 означает, что оптический прицел не установлен.",
+	L"\n \nУменьшает кол-во ошибок прицеливания на расстоянии.\n \nЭтот эффект работает до данного расстояния,\nзатем начинает уменьшаться и, в конце концов,\nпропадает на значительном расстоянии.\n \nБольше - лучше.",
+	L"\n \nЕсли это свойство активно, то оружие\nне производит вспышку при выстреле.\n \nВраги не смогут обнаружить вас\nтолько по вспышке выстрела, но по-прежнему будут\nслышать вас.",
+	L"\n \nЭто расстояние в тайлах, на которое распространяется\nзвук стрельбы. В пределах этого расстояния\nвраги смогут услышать звук вашего выстрела.\n \nМеньше - лучше.",
+	L"\n \nОпределяет, как быстро состояние этого\nоружия ухудшается при использовании.\n \nБольше - лучше.",
+	L"\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
+	L"\n \nМинимальное расстояние, на котором прицел\nдает бонус к точности прицеливания.",
+	L"\n \nМодификатор попадания, дающийся лазерным целеуказателем.",	
+	L"\n \nЧисло ОД, необходимое для взятия этого\nоружия на изготовку. После взятия на\nизготовку более не требуется тратить\nэти ОД для всех последующих\nвыстрелов. Оружие автоматически снимается\nс изготовки, если его владелец выполняет\nлюбое другое действие, отличное от стрельбы\nили поворота.\n \nМеньше - лучше.",
+	L"\n \nЧисло ОД, необходимое для осуществления\nодиночной атаки этим оружием. Для\nстрелкового оружия - стоимость одиночного\nвыстрела без дополнительного\nприцеливания.\n \nЕсли эта иконка серого цвета, то одиночные\nатаки недоступны для этого оружия.\n \nМеньше - лучше.",
+	L"\n \nЧисло ОД, необходимых для стрельбы\nочередью.\n \nЧисло пуль в каждой очереди определяется\nсамим оружием и указано на этой иконке.\n \nЕсли эта иконка серого цвета, то стрельба\nочередью недоступна для этого оружия.\n \nМеньше - лучше.",
+	L"\n \nЧисло ОД, необходимых для автоматической\nстрельбы тремя пулями.\n \nЕсли вы хотите выстрелить большим\nчислом пуль, то вам необходимо затратить\nбольшее число ОД.\n \nЕсли эта иконка серого цвета, то автоматическая\nстрельба недоступна для этого оружия.\n \nМеньше - лучше.",
+	L"\n \nЧисло ОД, необходимых для перезарядки\nэтого оружия.\n \nМеньше - лучше.",
+	L"\n \nЧисло ОД, необходимых для досылания\nпатрона в патронник между выстрелами.\n \nМеньше - лучше.",
 	L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.", // No longer used
-	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
-	L"\n \nIndicates the number of bullets that will be added\nto an autofire volley for every extra 5 APs\nyou spend.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nРасстояние, на которое сдвинется ствол\nпри каждом выстреле в режиме очереди\nили автоматической стрельбы, если не задействуется\nсистема противодействия.\n \nМеньше - лучше.",
+	L"\n \nУказывает, какое количество пуль будет\nдобавлено к очереди или залпу при автоматической\nстрельбе за каждые 5 ОД.\n \nБольше - лучше.",
+	L"\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
 {
-	L"|З|а|щ|и|т|н|а|я |ц|е|н|н|о|с|т|ь",
-	L"|П|о|к|р|ы|в|а|е|м|о|с|т|ь",
+	L"|С|т|е|п|е|н|ь |з|а|щ|и|т|ы",
+	L"|П|о|к|р|ы|т|и|е",
 	L"|С|к|о|р|о|с|т|ь |у|х|у|д|ш|е|н|и|я",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis primary armor property defines how much\ndamage the armor will absorb from any attack.\n \nRemember that armor-piercing attacks and\nvarious randomal factors may alter the\nfinal damage reduction.\n \nHigher is better.",
-	L"\n \nDetermines how much of the protected\nbodypart is covered by the armor.\n \nIf coverage is below 100%, attacks have\na certain chance of bypassing the armor\ncompletely, causing maximum damage\nto the protected bodypart.\n \nHigher is better.",
-	L"\n \nIndicates how quickly this armor's condition\ndrops when it is struck, proportional to\nthe damage caused by the attack.\n \nLower is better.",
-	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nЭто основное качество брони определяет,\n какой урон при попадании будет заблокирован\nброней.\n \nПомните, что бронебойные атаки и различные\nслучайные факторы могут повлиять на\nокончательное снижение урона.\n \nБольше - лучше.",
+	L"\n \nОпределяет, какая часть защищаемой\nчасти тела покрыта броней. Если покрытие\nменьше 100%, то у любой атаки есть определенный\nшанс на попадание в незащищенную часть тела\nи нанесение ей максимального урона.\n \nБольше - лучше.",
+	L"\n \nОпределяет, как быстро состояние этой\nброни ухудшается при попадании в\nнее в зависимости от урона от атаки.\n \nМеньше - лучше.",
+	L"\n \nОпределяет сложность починки этой брони,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
+	L"\n \nОпределяет сложность починки этой брони,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
 {
-	L"|П|р|о|н|з|и|т|е|л|ь|н|о|с|т|ь |ч|е|р|е|з |б|р|о|н|ю",
-	L"|П|а|д|е|н|и|е |п|а|т|р|о|н|ы",
-	L"|П|р|е|д|в|а|р|и|т|е|л|ь|н|о|е |в|л|и|я|н|и|е |в|з|р|ы|в|а",
-	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|i|o|n",		// TODO.Translate
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
-	L"|D|i|r|t |M|o|d|i|f|i|c|a|t|i|o|n",	// TODO.Translate
+	L"|П|р|о|б|и|т|и|е |б|р|о|н|и",
+	L"|У|р|о|н |п|о|с|л|е |п|р|о|б|и|т|и|я",
+	L"|У|р|о|н |п|е|р|е|д |п|о|п|а|д|а|н|и|е|м",
+	L"|В|л|и|я|н|и|е |н|а |т|е|м|п|е|р|а|т|у|р|у",
+	L"|У|р|о|н |о|т |я|д|а",
+	L"|В|л|и|я|н|и|е |н|а |з|а|г|р|я|з|н|е|н|и|е",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen below 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen above 1.0, the bullet increases the\nprotection value of the armor instead.\n \nLower is better.",	// TODO.Translate
-	L"\n \nDetermines a proportional increase of damage\npotential once the bullet gets through the\ntarget's armor and hits the bodypart behind it.\n \nWhen above 1.0, the bullet's damage\nincreases after penetrating the armor.\n \nWhen below 1.0, the bullet's damage\npotential decreases after passing through armor.\n \nHigher is better.",
-	L"\n \nA multiplier to the bullet's damage potential\nthat is applied immediately before hitting the\ntarget.\n \nValues above 1.0 indicate an increase in damage,\nvalues below 1.0 indicate a decrease.\n \nHigher is better.",
-	L"\n \nAdditional heat generated by this ammunition.\n \nLower is better.",		// TODO.Translate
-	L"\n \nDetermines what percentage of a\nbullet's damage will be poisonous.",	// TODO.Translate
-	L"\n \nAdditional dirt generated by this ammunition.\n \nLower is better.",		// TODO.Translate
+	L"\n \nСпособность пули пробить броню\nцели. При значении меньше 1.0 пуля снижает\nстепень защиты брони, в которую она\nпопадет. При значении больше 1.0 пуля\nувеличивает степень защиты брони.\n \nМеньше - лучше.",
+	L"\n \nОпределяет, как будет изменяться урон\nот пули, пробившей броню.\n \nПри значении больше 1.0 урон увеличивается.\n \nПри значении меньше 1.0 урон уменьшается.\n \nБольше - лучше.",
+	L"\n \nМножитель, применяющийся к показателю\nурона непосредственно перед попаданием\nв цель.\n \nПри значении больше 1.0 урон увеличивается.\n \nПри значении меньше 1.0 урон уменьшается.\n \nБольше - лучше.",
+	L"\n \nДополнительное тепло, вырабатываемое этими\nбоеприпасами.\n \nМеньше - лучше.",
+	L"\n \nОпределяет, какой процент урона пули\nбудет ядовитым.",
+	L"\n \nДополнительное загрязнение, вырабатываемое\nэтими боеприпасами.\n \nМеньше - лучше.",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|У|р|о|н",
 	L"|У|р|о|н |о|г|л|у|ш|е|н|и|я",
-	L"|E|x|p|l|o|d|e|s |o|n| |I|m|p|a|c|t",		// HEADROCK HAM 5	// TODO.Translate
+	L"|В|з|в|р|ы|в |п|р|и |к|о|н|т|а|к|т|е",
 	L"|Р|а|д|и|у|с |в|з|р|ы|в|а",
-	L"|Р|а|д|и|у|с о|г|л|у|ш|и|т|е|л|ь|н|о|г|о |в|з|р|ы|в|а",
-	L"|Р|а|д|и|у|с |в|з|р|ы|в|н|о|г|о |ш|у|м|а", 
-	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |с|л|е|з|а|т|о|ч|и|в|о|г|о |г|а|з|а",
+	L"|Р|а|д|и|у|с |о|г|л|у|ш|е|н|и|я",
+	L"|Р|а|д|и|у|с |ш|у|м|а", 
+	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |с|л|е|з|о|т|о|ч|и|в|о|г|о |г|а|з|а",
 	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |г|о|р|ч|и|ч|н|о|г|о |г|а|з|а",
-	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |в|с|п|ы|ш|к|и",
+	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |с|в|е|т|а",
 	L"|Н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |д|ы|м|а",
-	L"|н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |з|а|ж|и|г|а|е|м|о|с|т|и",
+	L"|н|а|ч|а|л|ь|н|ы|й |р|а|д|и|у|с |о|г|н|я",
 	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |с|л|е|з|о|т|о|ч|и|в|о|г|о |г|а|з|а",
 	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |г|о|р|ч|и|ч|н|о|г|о |г|а|з|а",
 	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |с|в|е|т|а",
-	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |г|ы|м|а",
-	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |з|а|ж|и|г|а|е|м|о|с|т|и",
+	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |д|ы|м|а",
+	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |о|г|н|я",
 	L"|Д|л|и|т|е|л|ь|н|о|с|т|ь |э|ф|ф|е|к|т|а",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"|N|u|m|b|e|r |o|f |F|r|a|g|m|e|n|t|s",
-	L"|D|a|m|a|g|e |p|e|r |F|r|a|g|m|e|n|t",
-	L"|F|r|a|g|m|e|n|t |R|a|n|g|e",
-	// HEADROCK HAM 5: End Fragmentations
+	L"|Ч|и|с|л|о |о|с|к|о|л|к|о|в",
+	L"|У|р|о|н |о|т |о|с|к|о|л|к|о|в",
+	L"|Д|а|л|ь|н|о|с|т|ь |р|а|з|л|ё|т|а |о|с|к|о|л|к|о|в",
 	L"|Г|р|о|м|к|о|с|т|ь",
 	L"|Н|е|с|т|а|б|и|л|ь|н|о|с|т|ь",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
@@ -7597,31 +7590,29 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
-	L"\n \nThe amount of damage caused by this explosive.\n \nNote that blast-type explosives deliver this damage\nonly once (when they go off), while prolonged effect\nexplosives deliver this amount of damage every turn until the\neffect dissipates.\n \nHigher is better.",
-	L"\n \nThe amount of non-lethal (stun) damage caused\nby this explosive.\n \nNote that blast-type explosives deliver their damage\nonly once (when they go off), while prolonged effect\nexplosives deliver this amount of stun damage every\nturn until the effect dissipates.\n \nHigher is better.",
-	L"\n \nThis explosive will not bounce around -\nit will explode as soon as it hits any obstacle.",	// HEADROCK HAM 5	// TODO.Translate
-	L"\n \nThis is the radius of the explosive blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the explosion.\n \nHigher is better.",
-	L"\n \nThis is the radius of the stun-blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the blast.\n \nHigher is better.",
-	L"\n \nThis is the distance that the noise from this\ntrap will travel. Soldiers within this distance\nare likely to hear the noise and be alerted.\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the tear-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the mustard-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the light\nemitted by this explosive item.\n \nTiles close to the center of the effect will become\nvery bright, while tiles nearer the edge\nwill only be a little brighter than normal.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nAlso remember that unlike other explosives with\ntimed effects, the light effect gets SMALLER\nover time, until it disappears.\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the smoke\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn\n(if any), unless wearing a gas mask. More importantly,\nanyone inside the cloud becomes extremely difficult to spot,\nand also loses a large chunk of sight-range themselves.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the flames\ncaused by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn.\n \nAlso note the end radius and duration of the effect\n(displayed below).\n \nHigher is better.",
-	L"\n \nThis is the final radius of the tear-gas released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the mustard-gas released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the light emitted\nby this explosive item before it dissipates.\n \nTiles close to the center of the effect will become\nvery bright, while tiles nearer the edge\nwill only be a little brighter than normal.\n \nAlso note the start radius and duration\nof the effect.\n \nAlso remember that unlike other explosives with\ntimed effects, the light effect gets SMALLER\nover time, until it disappears.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the smoke released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn\n(if any), unless wearing a gas mask. More importantly,\nanyone inside the cloud becomes extremely difficult to spot,\nand also loses a large chunk of sight-range themselves.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the flames caused\nby this explosive item before they dissipate.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn.\n \nAlso note the start radius and duration of the effect.\n \nHigher is better.",
-	L"\n \nThis is the duration of the explosive effect.\n \nEach turn, the radius of the effect will grow by\none tile in every direction, until reaching\nthe listed End Radius.\n \nOnce the duration has been reached, the effect\ndissipates completely.\n \nNote that light-type explosives become SMALLER\nover time, unlike other effects.\n \nHigher is better.",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"\n \nThis is the number of fragments that will\nbe ejected from the explosion.\n \nFragments are similar to bullets, and may hit\nanyone who's close enough to the explosion.\n \nHigher is better.",
-	L"\n \nThe potential amount of damage caused by each\nfragment ejected from the explosion.\n \nHigher is better.",
-	L"\n \nThis is the average range to which fragments\nfrom this explosion will fly.\n \nSome fragments may end up further away, or fail\nto cover the distance altogether.\n \nHigher is better.",
-	// HEADROCK HAM 5: End Fragmentations
-	L"\n \nThis is the distance (in Tiles) within which\nsoldiers and mercs will hear the explosion when\nit goes off.\n \nEnemies hearing the explosion will be alerted to your\npresence.\n \nLower is better.",
-	L"\n \nThis value represents a chance (out of 100) for this\nexplosive to spontaneously explode whenever it is damaged\n(for instance, when other explosions go off nearby).\n \nCarrying highly-volatile explosives into combat\nis therefore extremely risky and should be avoided.\n \nScale: 0-100.\nLower is better.",
-	L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nУрон, наносимый взрывом.\n \nОбратите внимание, что бризантная взрывчатка\nнаносит этот урон только один раз (при взрыве),\nа взрывчатка с длительным эффектом наносит\nурон каждый ход, до тех пор, пока эффект\nне закончится.\n \nБольше - лучше.",
+	L"\n \nОглушающий урон, наносимый взрывом.\n \nОбратите внимание, что бризантная взрывчатка\nнаносит этот урон только один раз (при взрыве),\nа взрывчатка с длительным эффектом наносит\nурон каждый ход, до тех пор, пока эффект\nне закончится.\n \nБольше - лучше.",
+	L"\n \nЭта взрывчатка не будет отскакивать от\nпрепятствий, а взорвется при контакте с ними.",
+	L"\n \nРадиус взрывной волны.\n \nЦели будут получать тем меньший урон,\nчем дальше они от эпицентра взрыва.\n \nБольше - лучше.",
+	L"\n \nРадиус оглушающей волны.\n \nЦели будут получать тем меньший урон,\nчем дальше они от эпицентра взрыва.\n \nБольше - лучше.",
+	L"\n \nРасстояние, которое преодолеет шум от\nэтой ловушки. Солдаты в пределах этого расстояния\nсмогут услышать шум и поднять тревогу.\n \nБольше - лучше.",
+	L"\n \nНачальный радиус действия слезоточивого газа.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nесли только на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nНачальный радиус действия горчичного газа.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nесли только на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nНачальный радиус области света.\n \nТайлы ближе к центру будут очень\nяркими, а тайлы ближе к краю - лишь слегка\nярче обычного.\n \nЭффект со временем тускнеет.\n \nБольше - лучше.",
+	L"\n \nНачальный радиус облака дыма.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход (при наличии),\nесли только на них не будет противогаза.\n Любого, кто окажется в этом облаке, будет\nчрезвычайно трудно заметить, и сам он\nтакже ограничит свое поле зрения.\n \nБольше - лучше.",
+	L"\n \nНачальный радиус пожара.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nесли только на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nКонечный радиус действия слезоточивого газа.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nесли только на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nКонечный радиус действия горчичного газа.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nесли только на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nКонечный радиус области света.\n \nТайлы ближе к центру будут очень\nяркими, а тайлы ближе к краю - лишь слегка\nярче обычного.\n \nЭффект со временем тускнеет.\n \nБольше - лучше.",
+	L"\n \nКонечный радиус облака дыма.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход (при наличии),\nесли только на них не будет противогаза.\n Любого, кто окажется в этом облаке, будет\nчрезвычайно трудно заметить, и сам он\nтакже ограничит свое поле зрения.\n \nБольше - лучше.",
+	L"\n \nКонечный радиус пожара.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nеслитолько на них не будет противогаза.\n \nБольше - лучше.",
+	L"\n \nДлительность эффекта.\n \nКаждый ход радиус эффекта увеличивается\nна один тайл в каждом направлении, пока не\nдостигнет конечного радиуса. По окончании\nвремени действия эффект полностью\nисчезает.\n \nБольше - лучше.",
+	L"\n \nЧисло осколков при взрыве.\n \nОсколки действуют по принципу пуль, и они могут\nпопасть в любого, кто стоит достаточно близко\nк взрыву.\n \nБольше - лучше.",
+	L"\n \nПотенциальный урон от каждого осколка,\nобразовавшегося при взрыве.\n \nБольше - лучше.",
+	L"\n \nСреднее расстояние, на которое полетят осколки\nот взрыва. Некоторые могут пролететь\nгораздо дальше, а некоторые - ближе среднего.\n \nБольше - лучше.",
+	L"\n \nРасстояние в тайлах, в пределах которого\nсолдаты и наемники услышат звук взрыва.\n \nВраги, услышавшие его, поймут, что вы в\nсекторе.\n \nМеньше - лучше.",
+	L"\n \nЭто значение определяет вероятность в\nпроцентах, что эта взрывчатка спонтанно взорвется\nпри ее повреждении (например, при близком взрыве).\n \nНошение с собой в бою нестабильной\nвзрывчатки крайне опасно и не\nрекомендуется.\n \nДиапазон: 0-100.\nМеньше - лучше. ",
+	L"\n \nОпределяет сложность починки взрывчатки,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16 szUDBGenCommonStatsTooltipText[]=
@@ -7631,48 +7622,48 @@ STR16 szUDBGenCommonStatsTooltipText[]=
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
-	L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nОпределяет сложность починки этого предмета,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
 {
-	L"|Т|р|а|с|с|и|р|у|ю|щ|и|е|с|я |п|а|т|р|о|н|ы",
+	L"|Т|р|а|с|с|и|р|у|ю|щ|и|е |п|а|т|р|о|н|ы",
 	L"|П|р|о|т|и|в|о|т|а|н|к|о|в|ы|е |п|а|т|р|о|н|ы",
-	L"|П|р|о|х|о|д|и|т |ч|е|р|е|з |б|р|о|н|ю",
+	L"|И|г|н|о|р|и|р|у|е|т |б|р|о|н|ю",
 	L"|К|и|с|л|о|т|н|ы|е |п|а|т|р|о|н|ы",
 	L"|Р|а|з|р|у|ш|а|ю|щ|и|е |з|а|м|к|и |п|а|т|р|о|н|ы",
 	L"|У|с|т|о|й|ч|и|в|ы|й |к|о |в|з|р|ы|в|а|м",
 	L"|В|о|д|о|н|е|п|р|о|н|и|ц|а|е|м|ы|й",
-	L"|Э|л|е|к|т|р|о|н|н|ы|й",
+	L"|Э|л|е|к|т|р|о|н|и|к|а",
 	L"|П|р|о|т|и|в|о|г|а|з",
 	L"|Н|у|ж|д|а|е|т|с|я |в |б|а|т|а|р|е|й|к|а|х",
 	L"|М|о|ж|е|т |в|з|л|а|м|ы|в|а|т|ь |з|а|м|к|и",
 	L"|М|о|ж|е|т |р|е|з|а|т|ь |п|р|о|в|о|л|о|к|у",
 	L"|М|о|ж|е|т |р|а|з|р|у|ш|а|т|ь |з|а|м|к|и",
 	L"|М|е|т|а|л|л|о|и|с|к|а|т|е|л|ь",
-	L"|У|д|а|л|ё|н|н|ы|й |с|п|у|с|к|а|в|о|й |к|р|ю|ч|о|к",
-	L"|Д|и|с|т|а|н|ц|и|о|н|н|ы|й |д|е|т|а|н|а|т|о|р",
-	L"|Д|е|т|о|н|а|т|о|р|-|т|а|й|м|е|р",
+	L"|П|у|л|ь|т |д|и|с|т|а|н|ц|и|о|н|н|о|г|о |у|п|р|а|в|л|е|н|и|я",
+	L"|Д|и|с|т|а|н|ц|и|о|н|н|ы|й |д|е|т|о|н|а|т|о|р",
+	L"|Д|е|т|о|н|а|т|о|р |с |т|а|й|м|е|р|о|м",
 	L"|С|о|д|е|р|ж|и|т |т|о|п|л|и|в|о",
 	L"|Н|а|б|о|р |и|н|с|т|р|у|м|е|н|т|о|в",
-	L"|Т|е|р|м|а|л|ь|н|а|я |о|п|т|и|к|а",
-	L"|Р|е|н|т|г|е|н|о|в|ы|й |п|р|и|б|о|р",
-	L"|С|о|д|е|р|ж|т|ь |п|и|т|ь|е|в|у|ю |в|о|д|у",
+	L"|Т|е|п|л|о|в|а|я |о|п|т|и|к|а",
+	L"|Р|е|н|т|г|е|н|-|п|р|и|б|о|р",
+	L"|С|о|д|е|р|ж|и|т |п|и|т|ь|е|в|у|ю |в|о|д|у",
 	L"|С|о|д|е|р|ж|и|т |а|л|к|о|г|о|л|ь",
-	L"|А|п|т|е|ч к|а |п|е|р|в|о|й |п|о|м|о|щ|и",
-	L"|М|е|д|и|ц|и|нс|к|и|й |н|а|б|о|р",
+	L"|А|п|т|е|ч|к|а |п|е|р|в|о|й |п|о|м|о|щ|и",
+	L"|М|е|д|и|ц|и|н|с|к|и|й |н|а|б|о|р",
 	L"|Б|о|м|б|а |д|л|я |з|а|м|к|о|в",
-	L"|D|r|i|n|k",// TODO.Translate
-	L"|M|e|a|l",
-	L"|A|m|m|o |B|e|l|t",
-	L"|A|m|m|o |V|e|s|t",
-	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
-	L"|C|a|n|n|o|t |b|e |d|a|m|a|g|e|d",
-	L"|M|a|d|e |o|f |M|e|t|a|l",
-	L"|S|i|n|k|s",
-	L"|T|w|o|-|H|a|n|d|e|d",
-	L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
+	L"|Н|а|п|и|т|о|к",
+	L"|П|и|щ|а",
+	L"|П|а|т|р|о|н|н|а|я |л|е|н|т|а",
+	L"|Ж|и|л|е|т |д|л|я |п|а|т|р|о|н|о|в",
+	L"|Н|а|б|о|р |д|л|я |р|а|з|м|и|н|и|р|о|в|а|н|и|я",
+	L"|С|к|р|ы|т|ы|й |п|р|е|д|м|е|т",
+	L"|Н|е|в|о|з|м|о|ж|н|о |п|о|в|р|е|д|и|т|ь",
+	L"|С|д|е|л|а|н|о |и|з |м|е|т|а|л|л|а",
+	L"|Т|о|н|е|т",
+	L"|Д|в|у|р|у|ч|н|о|е",
+	L"|Б|л|о|к|и|р|у|е|т |о|т|к|р|ы|т|ы|й |п|р|и|ц|е|л",
 	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
 	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
@@ -7680,43 +7671,43 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis ammo creates a tracer effect when fired in\nfull-auto or burst mode.\n \nTracer fire helps keep the volley accurate\nand thus deadly despite the gun's recoil.\n \nAlso, tracer bullets create paths of light that\ncan reveal a target in darkness. However, they\nalso reveal the shooter to the enemy!\n \nTracer Bullets automatically disable any\nMuzzle Flash Suppression items installed on the\nsame weapon.",
-	L"\n \nThis ammo can damage the armor on a tank.\n \nAmmo WITHOUT this property will do no damage\nat all to tanks.\n \nEven with this property, remember that most guns\ndon't cause enough damage anyway, so don't\nexpect too much.",
-	L"\n \nThis ammo ignores armor completely.\n \nWhen fired at an armored target, it will behave\nas though the target is completely unarmored,\nand thus transfer all its damage potential to the target!",
-	L"\n \nWhen this ammo strikes the armor on a target,\nit will cause that armor to degrade rapidly.\n \nThis can potentially strip a target of its\narmor!",
-	L"\n \nThis type of ammo is exceptional at breaking locks.\n \nFire it directly at a locked door or container\nto cause massive damage to the lock.",
-	L"\n \nThis armor is three times more resistant\nagainst explosives than it should be, given\nits Protection value.\n \nWhen an explosion hits the armor, its Protection\nvalue is considered three times higher than\nthe listed value.",
-	L"\n \nThis item is impervious to water. It does not\nreceive damage from being submerged.\n \nItems WITHOUT this property will gradually deteriorate\nif the person carrying them goes for a swim.",
-	L"\n \nThis item is electronic in nature, and contains\ncomplex circuitry.\n \nElectronic items are inherently more difficult\nto repair, at least without the ELECTRONICS skill.",
-	L"\n \nWhen this item is worn on a character's face,\nit will protect them from all sorts of noxious gasses.\n \nNote that some gases are corrosive, and might eat\nright through the mask...",
-	L"\n \nThis item requires batteries. Without batteries,\nyou cannot activate its primary abilities.\n \nTo use a set of batteries, attach them to\nthis item as you would a scope to a rifle.",
-	L"\n \nThis item can be used to pick open locked\ndoors or containers.\n \nLockpicking is silent, although it requires\nsubstantial mechanical skill to pick anything\nbut the simplest locks. This item modifies\nthe lockpicking chance by ", //JMich_SkillsModifiers: needs to be followed by a number		// TODO.Translate
-	L"\n \nThis item can be used to cut through wire fences.\n \nThis allows a character to rapidly move through\nfenced areas, possibly outflanking the enemy!",
-	L"\n \nThis item can be used to smash open locked\ndoors or containers.\n \nLock-smashing requires substantial strength,\ngenerates a lot of noise, and can easily\ntire a character out. However, it is a good\nway to get through locks without superior skills or\ncomplicated tools. This item improves \nyour chance by ", //JMich_SkillsModifiers: needs to be followed by a number		// TODO.Translate
-	L"\n \nThis item can be used to detect metallic objects\nunder the ground.\n \nNaturally, its primary function is to detect\nmines without the necessary skills to spot them\nwith the naked eye.\n \nMaybe you'll find some buried treasure too.",
-	L"\n \nThis item can be used to detonate a bomb\nwhich has been set with a remote detonator.\n \nPlant the bomb first, then use the\nRemote Trigger item to set it off when the\ntime is right.",
-	L"\n \nWhen attached to an explosive device and set up\nin the right position, this detonator can be triggered\nby a (separate) remote device.\n \nRemote Detonators are great for setting traps,\nbecause they only go off when you tell them to.\n \nAlso, you have plenty of time to get away!",
-	L"\n \nWhen attached to an explosive device and set up\nin the right position, this detonator will count down\nfrom the set amount of time, and explode once the\ntimer expires.\n \nTimer Detonators are cheap and easy to install,\nbut you'll need to time them just right to give\nyourself enough chance to get away!",
-	L"\n \nThis item contains gasoline (fuel).\n \nIt might come in handy if you ever\nneed to fill up a gas tank...",
-	L"\n \nThis item contains various tools that can\nbe used to repair other items.\n \nA toolkit item is always required when setting\na character to repair duty. This item modifies\nthe effectiveness of repair by ", //JMich_SkillsModifiers: need to be followed by a number		// TODO.Translate
-	L"\n \nWhen worn in a face-slot, this item provides\nthe ability to spot enemies through walls,\nthanks to their heat signature.",
-	L"\n \nThis powerful device can be used to scan\nfor enemies using X-rays.\n \nIt will reveal all enemies within a certain radius\nfor a short period of time.\n \nKeep away from reproductive organs!",
-	L"\n \nThis item contains fresh drinking water.\nUse when thirsty.",
-	L"\n \nThis item contains liquor, alcohol, booze,\nwhatever you fancy calling it.\n \nUse with caution. Do not drink and drive.\nMay cause cirrhosis of the liver.",
-	L"\n \nThis is a basic field medical kit, containing\nitems required to provide basic medical aid.\n \nIt can be used to bandage wounded characters\nand prevent bleeding.\n \nFor actual healing, use a proper Medical Kit\nand/or plenty of rest.",
-	L"\n \nThis is a proper medical kit, which can\nbe used in surgery and other serious medicinal\npurposes.\n \nMedical Kits are always required when setting\na character to Doctoring duty.",
-	L"\n \nThis item can be used to blast open locked\ndoors and containers.\n \nExplosives skill is required to avoid\npremature detonation.\n \nBlowing locks is a relatively easy way of quickly\ngetting through locked doors. However,\nit is very loud, and dangerous to most characters.",
-	L"\n \nThis item will still your thirst\nif you drink it.",// TODO.Translate
-	L"\n \nThis item will still your hunger\nif you eat it.",
-	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
-	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
-	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
-	L"\n \nThis item cannot be damaged.",
-	L"\n \nThis item is made of metal.\nIt takes less damage than other items.",
-	L"\n \nThis item sinks when put in water.",
-	L"\n \nThis item requires both hands to be used.",
-	L"\n \nThis item will block your iron sights\nso you cannot use them.",
+	L"\n \nЭти боеприпасы создают трассирующий\nэффект при стрельбе очередью или в режиме\nавтоматической стрельбы.\n \nТрассеры помогают точнее стрелять.\n \nТакже трассеры создают области света,\nкоторые освещают цель в темноте. Но они\nтакже выдают врагу положение стрелка.\n \nТрассирующие патроны автоматически отменяют\nдействие любых навесок по гашению вспышки\nвыстрела, установленных на том же оружии.",
+	L"\n \nЭти боеприпасы могут повредить танковую\nброню. Патроны БЕЗ этого свойства не\nнанесут никакого урона никакому танку.\n \nДаже с этим свойством большинство видов\nоружия не нанесут большого урона, так что\nне ожидайте чего-то особенного.",
+	L"\n \nЭти боеприпасы полностью игнорируют\nброню.\n \nПри стрельбе по бронированной цели патроны\nбудут вести себя так, как будто цель\nабсолютно не защищена, и нанесут максимально большой\nурон цели.",
+	L"\n \nПри попадании этих боеприпасов в броню\nпоследняя очень быстро будет разрушаться.\n \nПотенциально с их помощью можно полностью\nлишить цель брони.",
+	L"\n \nЭти боеприпасы отлично работают\nпри разрушении замков.\n \nСтрельба ими по запертым дверям или контейнерам\nнанесет огромный урон замку.",
+	L"\n \nЭта броня в три раза более устойчива\nко взрывам.\n \nКогда взрыв попадет в броню, степень защиты\nпоследней будет считаться утроенной\nпо сравнению со стандартным значением.",
+	L"\n \nЭта вещь водонепронимаема. Она не\nполучает повреждений при погружении под воду.\n \nСостояние вещей БЕЗ этого свойства постепенно\n ухудшается, если их владелец плывет.",
+	L"\n \nЭта вещь содержит сложную\nэлектронику.\n \nТакие вещи сложнее чинить, по крайней\nмере без навыков электронщика.",
+	L"\n \nКогда эта вещь находится на лице\nперсонажа, она защищает его ото всех\nвидов ядовитых газов.\n \nУчтите, что некоторые газы имеют коррозийный\nэффект, так что будут разъедать и маску.",
+	L"\n \nЭтому предмету требуются батарейки.\nБез них вы не сможете включить данный предмет.\n \nВставляются батарейки так же, как прицел\nприкрепляется к оружию.",
+	L"\n \nЭтот предмет можно использовать\nдля вскрытия запертых дверей и контейнеров.\n \nВзлом не производит шума, но требует\nзначительных навыков механика, без которых\nвозможно вскрыть лишь самые простые\nзамки. Эта вещь улучшает шанс\nвзлома на ", //JMich_SkillsModifiers: needs to be followed by a number
+	L"\n \nПри помощи этой вещи можно делать\nпроходы в проволочных заграждениях.\n \nЭто может дать быстрый доступ к\nфлангам или тылу врага.",
+	L"\n \nЭтой вещью можно разбивать запертые\nдвери или контейнеры. Разбивание требует\nнедюжинной силы, производит много шума и быстро\nтратит энергию персонажа. Однако это отличный\nспособ вскрыть замок без подходящих\nнавыков или отмычек. Эта вещь улучшает\nшанс взлома на ", //JMich_SkillsModifiers: needs to be followed by a number
+	L"\n \nЭтот предмет используется для нахождения\nобъектов под землей.\n \nОсновное назначение - поиск установленных мин.",
+	L"\n \nС помощью этого предмета можно\nвзрывать бомбы, на которых установлен\nдистанционный детонатор.\n \nСначала установите бомбу, затем\nвоспользуйтесь дистанционным детонатором для\nвзрыва в нужное вам время.",
+	L"\n \nЕсли этот детонатор присоединить\nк взрывчатке, то его можно будет взорвать\nпри помощи пульта дистанционного\nуправления.\n \nВзрывчатка с таким детонатором полезна в качестве\nловушки, потому как взрывается только по\nвашему приказу.",
+	L"\n \nПосле присоединения этого детонатора к\nвзрывчатке и взвода его начинется обратный\nотсчет. По достижении нуля взрывчатка\nвзрывается.",
+	L"\n \nЭтот предмет содержит в себе\nбензин.\n \nОн может пригодиться, если вам необходимо\nбудет заправить машину.",
+	L"\n \nЭтот предмет содержит в себе\nразличные инструменты, при помощи которых\nможно чинить другие вещи.\n \nТакой набор необходим, если вы\nхотите дать задание наемникам чинить\nвещи. Эта вещь изменяет эффективность\nремонта на ", //JMich_SkillsModifiers: need to be followed by a number
+	L"\n \nЕсли надеть этот предмет, то с его\nпомощью вы сможете увидеть врагов\nчерез стены благодаря выделяемому\nими теплу.",
+	L"\n \nЭто устройство можно использовать\nдля нахождения врагов при помощи\nрентгеновских лучей.\n \nОно покажет местонахождение всех\nврагов в определенном радиусе на короткое\nвремя.\n \nДержите подальше от репродуктивных органов!",
+	L"\n \nВ этом предмете находится свежая\nпитьевая вода.\n \nИспользуйте, когда появится жажда.",
+	L"\n \nВ этом предмете находится огненная вода,\nалкоголь, бухло - называйте как хотите.\n \nПрименять с осторожностью. Не пейте за рулем.\n \nМожет вызвать цирроз печени.",
+	L"\n \nЭто базовый набор для оказания\nпервой медицинской помощи.\n \nИспользуйте, чтобы перевязать ваших бойцов\nи не дать им истечь кровью.\n \nДля настоящего лечения используйте\nмедицинский набор и/или продолжительный\nотдых.",
+	L"\n \nЭто настоящий медицинский набор,\nкоторый можно использовать для проведения\nхирургических операций.\n \nТакой набор необходим, если вы\nхотите дать задание наемникам заниматься\nлечением.",
+	L"\n \nС помощью этой вещи можно\nвзрывать запертые двери и контейнеры.\n \nДля правильного использования требуется\nнавык обращения со взрывчаткой.\n \nВзрыв очень громкий, и он опасен\nдля большинства персонажей.",
+	L"\n \nЭтот предмет утолит вашу жажду,\nесли вы выпьете его.",
+	L"\n \nЭтот предмет утолит ваш голод\n,если вы съедите его.",
+	L"\n \nВы сможете питать патронами\nчей-нибудь пулемет, если будете держать\nэту ленту в руках.",
+	L"\n \nВ этом жилет можно хранить\nпатронные ленты для боепитания вашего\nпулемета.",
+	L"\n \nЭтот предмет улучшает шанс\nобезвреживания ловушки на ",
+	L"\n \nЭтот предмет и все, что к нему\nприсоединено или находится внутри\nнего, скрыто от посторонних глаз.",
+	L"\n \nЭтот предмет нельзя повредить.",
+	L"\n \nЭтот предмет сделан из металла.\nОн получает меньше урона, чем\nдругие вещи.",
+	L"\n \nЭтот предмет тонет в воде.",
+	L"\n \nДля использования этого предмета\nтребуются обе руки.",
+	L"\n \nЭтот предмет блокирует открытые\nприцельные приспособления оружия, так что вы не\nсможете воспользоваться ими.",
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
 	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
@@ -7724,199 +7715,199 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 
 STR16 szUDBAdvStatsTooltipText[]=
 {
-	L"|М|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |с|т|р|е|л|ь|б|ы |с |к|р|ы|ш",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |с|т|р|е|л|ь|б|ы |с |к|р|ы|ш |в |%",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я |с |к|р|ы|ш",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я |в |%",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |т|о|ч|н|о|с|т|и",
+	L"|Ф|и|к|с|и|р|о|в|а|н|н|ы|й |м|о|д|и|ф|и|к|а|т|о|р |с|т|р|е|л|ь|б|ы",
+	L"|П|р|о|ц|е|н|т|н|ы|й |м|о|д|и|ф|и|к|а|т|о|р |с|т|р|е|л|ь|б|ы",
+	L"|Ф|и|к|с|и|р|о|в|а|н|н|ы|й |м|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я",
+	L"|П|р|о|ц|е|н|т|н|ы|й |м|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |д|о|с|т|у|п|н|ы|х |у|р|о|в|н|е|й |п|р|и|ц|е|л|и|в|а|н|и|я",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я |с |ш|а|п|к|о|й",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |р|у|к|о|я|т|к|и ",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |п|а|д|е|н|и|я |в|е|щ|е|й",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |о|т|с|л|е|ж|к|и |ц|е|л|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|р|о|г|а |п|р|и|ц|е|л|и|в|а|н|и|я",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |о|б|р|а|щ|е|н|и|я |с |о|р|у|ж|и|е|м ",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|а|д|е|н|и|я |п|у|л|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |о|т|с|л|е|ж|и|в|а|н|и|я |ц|е|л|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |у|р|о|н|а",	
 	L"|М|о|д|и|ф|и|к|а|т|о|р |р|у|к|о|п|а|ш|н|о|г|о |у|р|о|н|а",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |р|а|с|с|т|о|я|н|и|я",
-	L"|Ф|а|к|т|о|р |у|в|е|л|и|ч|е|н|и|я |с |п|р|и|ц|е|л|о|м",
-	L"|Ф|а|к|т|о|р| |п|р|о|е|к|ц|и|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |д|а|л|ь|н|о|с|т|и",
+	L"|К|р|а|т|н|о|с|т|ь |у|в|е|л|и|ч|е|н|и|я |п|р|и|ц|е|л|а",
+	L"|Д|а|л|ь|н|о|с|т|ь |п|р|о|е|ц|и|р|о|в|а|н|и|я",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |б|о|к|о|в|о|й |о|т|д|а|ч|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |в|е|р|т|и|к|а|л|ь|н|о|й |о|т|д|а|ч|и",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |м|а|к|с|и|м|а|л|ь|н|о|й |к|о|н|т|р|-|с|и|л|ы",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |к|о|н|т|р|-|с|и|л|ы |м|е|т|к|о|с|т|и",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |ч|а|с|т|о|т|ы |к|о|н|т|р|-|с|и|л|ы",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |м|а|к|с|и|м|а|л|ь|н|о|г|о |п|р|о|т|и|в|о|д|е|й|с|т|в|и|я",
+	L"|М|о|д|и|ф|и|к|а|т|о|р т|о|ч|н|о|с|т|и |п|р|и |п|р|о|т|и|в|о|д|е|й|с|т|в|и|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |ч|а|с|т|о|т|ы |п|р|о|т|и|в|о|д|е|й|с|т|в|и|я",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |в|с|е|х |О|Д",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |н|а |в|с|к|и|д|к|у",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |н|а |в|с|к|и|д|ы|в|а|н|и|е",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |о|д|н|о|й |а|т|а|к|и", 
 	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |о|ч|е|р|е|д|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |а|в|т|о|м|а|т|и|ч|е|с|к|о|й |с|т|р|е|л|ь|б|ы",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |О|Д |п|е|р|е|з|а|р|я|д|к|и",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |р|а|з|м|е|р|а |о|б|о|й|м|ы",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |р|а|з|м|е|р|а |м|а|г|а|з|и|н|а",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |р|а|з|м|е|р|а |о|ч|е|р|е|д|и",
 	L"|С|к|р|ы|т|а|я |в|с|п|ы|ш|к|а |в|ы|с|т|р|е|л|а",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |г|р|о|м|к|о|с|т|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |р|а|з|м|е|р|а |п|р|е|д|м|е|т|а",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |н|а|р|ё|ж|н|о|с|т|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |н|а|д|ё|ж|н|о|с|т|и",
 	L"|Л|е|с|н|о|й |к|а|м|у|ф|л|я|ж",
 	L"|Г|о|р|о|д|с|к|о|й |к|а|м|у|ф|л|я|ж",
 	L"|П|у|с|т|ы|н|н|ы|й |к|а|м|у|ф|л|я|ж",
-	L"|С|н|е|ж|н|ы|й |к|а|м|у|ф|л|я|ж",
+	L"|З|и|м|н|и|й |к|а|м|у|ф|л|я|ж",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |с|к|р|ы|т|н|о|с|т|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |с|л|ы|ш|и|м|о|с|т|и",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |в|и|д|и|м|о|с|т|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |о|б|ы|ч|н|о|й |в|и|д|и|м|о|с|т|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |н|о|ч|н|о|й |в|и|д|и|м|о|с|т|и",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |д|н|е|в|н|о|й |в|и|д|и|м|o|с|т|и",
-	L"|М|о|д|и|ф|и|к|а|т|о|р |в|и|д|и|м|о|с|т|и |я|р|к|о|г|о |с|в|е|т|а",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |в|и|д|и|м|о|с|т|и |п|р|и |я|р|к|о|м |с|в|е|т|е",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |п|е|щ|е|р|н|о|й |в|и|д|и|м|о|с|т|и",
-	L"|П|р|и|ц|е|л|ь|н|а|я |в|и|д|и|м|о|с|т|ь",
-	L"|М|а|к|с|и|м|а л|ь|н|а|я |к|о|н|т|р|-|с|и|л|а",
-	L"|Ч|а|с|т|о|т|а |к|о|н|т|р|-|с|и|л|ы",
+	L"|Т|у|н|н|е|л|ь|н|о|е |з|р|е|н|и|е",
+	L"|М|а|к|с|и|м|а|л|ь|н|о|е |п|р|о|т|и|в|о|д|е|й|с|т|в|и|е",
+	L"|Ч|а|с|т|о|т|а |п|р|о|т|и|в|о|д|е|й|с|т|в|и|я",
 	L"|Б|о|н|у|с| |п|о|п|а|д|а|н|и|я",
 	L"|Б|о|ну|с |п|р|и|ц|е|л|и|в|а|н|и|я",
-	L"|S|i|n|g|l|e |S|h|o|t |T|e|m|p|e|r|a|t|u|r|e",		// TODO.Translate
-	L"|C|o|o|l|d|o|w|n |F|a|c|t|o|r",
-	L"|J|a|m |T|h|r|e|s|h|o|l|d",
-	L"|D|a|m|a|g|e |T|h|r|e|s|h|o|l|d",
-	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|e|r",
-	L"|C|o|o|l|d|o|w|n |M|o|d|i|f|i|e|r",
-	L"|J|a|m |T|h|r|e|s|h|o|l|d |M|o|d|i|f|i|e|r",
-	L"|D|a|m|a|g|e |T|h|r|e|s|h|o|l|d |M|o|d|i|f|i|e|r",
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
-	L"|D|i|r|t |M|o|d|i|f|i|e|r",			// TODO.Translate
-	L"|P|o|i|s|o|n |M|o|d|i|f|i|e|r",// TODO.Translate
-	L"|F|o|o|d| |P|o|i|n|t|s",// TODO.Translate
-	L"|D|r|i|n|k |P|o|i|n|t|s",// TODO.Translate
-	L"|P|o|r|t|i|o|n |S|i|z|e",// TODO.Translate
-	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",// TODO.Translate
-	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",// TODO.Translate
-	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",// TODO.Translate
-	L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65	// TODO.Translate
+	L"|Т|е|м|п|е|р|а|т|у|р|а |о|д|н|о|г|о |в|ы|с|т|р|е|л|а",
+	L"|С|к|о|р|о|с|т|ь |о|с|т|ы|в|а|н|и|я",
+	L"|П|о|р|о|г |о|с|е|ч|к|и",
+	L"|П|о|р|о|г |п|о|в|р|е|ж|д|е|н|и|я",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |т|е|м|п|е|р|а|т|у|р|ы",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |о|с|т|ы|в|а|н|и|я",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|р|о|г|а |о|с|е|ч|к|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|р|о|г|а |п|о|в|р|е|ж|д|е|н|и|я",
+	L"|У|р|о|в|е|н|ь |я|д|а",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |з|а|г|р|я|з|н|е|н|и|я",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |я|д|а",
+	L"|У|т|о|л|е|н|и|е |г|о|л|о|д|а",
+	L"|У|т|о|л|е|н|и|е |ж|а|ж|д|ы",
+	L"|Р|а|з|м|е|р |п|о|р|ц|и|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |м|о|р|а|л|и",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|р|ч|и",
+	L"|О|п|т|и|м|а|л|ь|н|а|я |д|а|л|ь|н|о|с|т|ь |л|а|з|е|р|а",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |о|т|д|а|ч|и |в |%",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's Accuracy value.\n \nIncreased accuracy allows the gun to hit targets\nat longer ranges more often, assuming it is\nalso well-aimed.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis item modifies the shooter's accuracy\nfor ANY shot with a ranged weapon by the\nlisted amount.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis item modifies the shooter's accuracy\nfor ANY shot with a ranged weapon by the\nlisted percentage, based on their original accuracy.\n \nHigher is better.",
-	L"\n \nThis item modifies the accuracy gained from each\nextra aiming level you pay for, when aiming\na ranged weapon, by the\nlisted amount.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis item modifies the accuracy gained from each\nextra aiming level you pay for, when aiming\na ranged weapon, by the\nlisted percentage based on the original value.\n \nHigher is better.",
-	L"\n \nThis item modifies the number of extra aiming\nlevels this gun can take.\n \nReducing the number of allowed aiming levels\nmeans that each level adds proportionally\nmore accuracy to the shot.\nTherefore, the FEWER aiming levels are allowed,\nthe faster you can aim this gun, without losing\naccuracy!\n \nLower is better.",
-	L"\n \nThis item modifies the shooter's maximum accuracy\nwhen using ranged weapons, as a percentage\nof their original maximum accuracy.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's Handling difficulty.\n \nBetter handling makes the gun more accurate to fire,\nwith or without extra aiming.\n \nNote that this is based on the gun's original\nGun Handling factor, which is higher for rifles and\nheavy weapons, and lower for pistols and small\nweapons.\n \nLower is better.",
-	L"\n \nThis item modifies the difficulty of\ncompensating for shots beyond a weapon's range.\n \nA high bonus here can increase a weapon's\nnatural Maximum Range by at least a few tiles.\n \nHigher is better.",
-	L"\n \nThis item modifies the difficulty of hitting\na moving target with a ranged weapon.\n \nA high bonus here can help hitting\nfast-moving targets, even at a distance.\n \nHigher is better.",
-	L"\n \nThis item modifies the damage output of\nyour weapon, by the listed amount.\n \nHigher is better.",
-	L"\n \nThis item modifies the damage output of\nyour melee weapon, by the listed amount.\n \nThis applies only to melee weapons, both sharp\nand blunt.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies its maximum effective range.\n \nMaximum Range mainly dictates how far a bullet\nfired from the weapon can fly before it begins\ndropping sharply towards the ground.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nprovides extra magnification, making shots at a distance\ncomparatively easier to make.\n \nNote that a high Magnification Factor is detrimental\nwhen used at targets CLOSER than the\noptimal distance.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nprojects a dot on the target, making it easier to hit.\n \nThe projection effect is only useful up to a given\ndistance, beyond which it begins to diminish and\neventually disappears.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Horizontal Recoil\nby the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Vertical Recoil\nby the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
-	L"\n \nThis item modifies the shooter's ability to\ncope with recoil during Burst or Autofire volleys.\n \nWhen high, this can help a shooter to control\nguns with powerful recoil, even if the shooter\nhas low Strength.\n \nHigher is better.",
-	L"\n \nThis item modifies the shooter's ability to\naccurately apply counter-force against a gun's\nrecoil, during Burst or Autofire volleys.\n \nA high bonus helps the shooter bring the gun's muzzle\nprecisely towards the target, even at longer ranges,\nmaking volleys more accurate as a result.\n \nHigher is better.",
-	L"\n \nThis item modifies the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil, during Burst\nor Autofire volleys.\n \nHigher frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nHigher is better.",
-	L"\n \nThis item directly modifies the amount of\nAPs the character gets at the start of each turn.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifiest the AP cost to bring the weapon to\n'Ready' mode.\n \nLower is better.",
-	L"\n \nWhen attached to any weapon, this item\nmodifies the AP cost to make a single attack with\nthat weapon.\n \nNote that for Burst/Auto-capable weapons, the\ncost of using these modes is directly influenced\nby this modifier as well!\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon capable of\nBurst-fire mode, this item modifies the AP cost\nof firing a Burst.\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon capable of\nAuto-fire mode, this item modifies the AP cost\nof firing an Autofire Volley.\n \nNote that it does NOT modify the extra AP\ncost for adding bullets to the volley, only\nthe initial cost for starting the volley.\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the AP cost of reloading the weapon.\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nchanges the size of magazines that can be loaded\ninto the weapon.\n \nThat weapon will now accept larger or smaller\nmagazines of the same caliber.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the amount of bullets fired\nby the weapon in Burst mode.\n \nIf the weapon was not initially Burst-Capable, and the\nmodifier is positive, attaching it to the weapon\nwill enable burst-fire mode.\n \nConversely, if the weapon is initially Burst-Capable,\na high-enough negative modifier here can disable\nburst mode completely.\n \nHigher is USUALLY better. Of course, part of the\npoint in Burst Mode is to conserve bullets...",
-	L"\n \nWhen attached to a ranged weapon, this item\nwill hide the weapon's muzzle flash.\n \nThis makes sure that enemies cannot spot the shooter\nif he is firing while hidden, and is especially\nimportant at night.",
-	L"\n \nWhen attached to a weapon, this item modifies\nthe range at which firing the weapon can be\nheard by both enemies and mercs.\n \nIf this modifier drops the weapon's Loudness value\nto 0, the weapon becomes completely silent.\n \nLower is better.",
-	L"\n \nThis item modifies the size of any item it\nis attached to.\n \nSize is important when using the New Inventory system,\nwhere pockets only accept items of specific sizes and shapes.\n \nIncreasing an item's size makes it too big for some pockets\nit used to fit into.\n \nConversely, making an item smaller means it will fit into\nmore pockets, and pockets will be able to contain\nmore of it.\n \nLower is generall better.",
-	L"\n \nWhen attached to any weapon, this item modifies\nthat weapon's Reliability value.\n \nIf positive, the weapon's condition will deteriorate\nslower when used in combat. Otherwise, the\nweapon deteriorates faster.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's camouflage in\nwoodland backgrounds.\n \nTo make good on a positive Woodland Camo modifier, the\nwearer needs to stay close to trees or tall grass.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's camouflage in\nurban backgrounds.\n \nTo make good on a positive Urban Camo modifier, the\nwearer needs to stay close to asphalt or concrete.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's camouflage in\ndesert backgrounds.\n \nTo make good on a positive Desert Camo modifier, the\nwearer needs to stay close to sand, gravel, or\ndesert vegetation.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's camouflage in\nsnowy backgrounds.\n \nTo make good on a positive Snow Camo modifier, the\nwearer needs to stay close to snowy tiles.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's stealth ability by\nmaking it more difficult to HEAR the character moving\nwhile in Sneaking mode.\n \nNote that this does NOT change a character's visibility,\nonly the amount of noise they make while sneaking.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Hearing Range by the\nlisted percent.\n \nA positive bonus makes it possible to hear noises\nfrom a greater distance.\n \nConversely, a negative modifier impairs the wearer's hearing.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis General modifier works in all conditions.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Night-Vision modifier works only when light\nlevels are sufficiently low.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Day-Vision modifier works only when light\nlevels are average or higher.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it changes the wearer's field-of-view.\n \nNarrowing the field of view shortens sightrange to\neither side.\n \nLower is better.",
-	L"\n \nThis is the shooter's ability to\ncope with recoil during Burst or Autofire volleys.\n \n\n \nHigher is better.",
-	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil, during Burst\nor Autofire volleys.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's CTH value.\n \nIncreased CTH allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
-	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's Aim Bonus.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
-	L"\n \nA single shot causes this much heat.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",					// TODO.Translate
-	L"\n \nEvery turn, the temperature is lowered\nby this amount.\n \nHigher is better.",
-	L"\n \nIf an item's temperature is above this,\nit will jam more frequently.\n \nHigher is better.",
-	L"\n \nIf an item's temperature is above this,\nit will be damaged more easily.\n \nHigher is better.",
-	L"\n \nA gun's single shot temperature is\nincreased by this percentage.\n \nLower is better.",
-	L"\n \nA gun's cooldown factor is\nincreased by this percentage.\n \nHigher is better.",
-	L"\n \nA gun's jam threshold is\nincreased by this percentage.\n \nHigher is better.",
-	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
-	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
-	L"\n \nA single shot causes this much dirt.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",	// TODO.Translate
-	L"\n \nWhen this item is eaten\nit causes that much poison.\n \nLower is better.",	// TODO.Translate
-	L"\n \nAmount of energy in kcal.\n \nHigher is better.",	// TODO.Translate
-	L"\n \nAmount of water in liter.\n \nHigher is better.",	// TODO.Translate
-	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",	// TODO.Translate
-	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",	// TODO.Translate
-	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",	// TODO.Translate
-	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",	// TODO.Translate
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет значение его точности.\n \nПовышенная точность оружия позволяет\nчаще попадать из него по более удаленным\nцелям.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет точность,\nс которой стрелок совершает ЛЮБОЙ\nвыстрел, на указанное значение.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет точность,\nс которой стрелок совершает ЛЮБОЙ\nвыстрел, на указанный процент.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет точность,\nдающуюся за каждый дополнительный\nуровень прицеливания, на указанное значение.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет точность,\nдающуюся за каждый дополнительный\nуровень прицеливания, на указанный процент.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет число\nдоступных уровней прицеливания.\n \nЧем МЕНЬШЕ это число, тем БОЛЬШИЙ бонус\nдается за каждый уровень. То есть\nМЕНЬШЕЕ число уровней позволяет быстрее\nприцеливаться без потери точности.\n \nМеньше - лучше.",
+	L"\n \nЭтот предмет изменяет максимальную\nточность стрелка при использовании огнестрельного\nоружия на указанный процент.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет сложность обращения\nс ним.\n \nНизкая сложность означает, что с оружием\nлегче управляться независимо от уровня\nприцеливания.\n \nЭтот модификатор основан на изначальной\nсложности обращения с оружием, высокой у винтовок\nи тяжелого вооружения и низкой у пистолетов и ПП.\n \nМеньше - лучше.",
+	L"\n \nЭтот предмет изменяет вероятность\nпули пролететь дальше максимальной\nдальности выстрела для данного оружия.\n \nВысокий бонус может заставить пулю\nпролететь дальше максимальной дальности\nкак минимум на пару тайлов.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет вероятность\nпопадания по бегущей цели.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет урон от данного\nоружия на указанное значение.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет урон от данного\nоружия ближнего боя на указанное значение.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет максимальную дальность\nвыстрела.\n \nМаксимальная дальность - это расстояние, пролетев которое,\nпуля начнет падать на землю.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет дает возможность оптического\nприближения удаленных целей.\n \nПомните, что сильное увеличение прицела снижает\nточность, если цель находится слишком близко.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет проецирует точку на цели,\nчто облегчает прицеливание.\n \nЭтот эффект работает до данного расстояния,\nзатем начинает уменьшаться и, в конце концов,\nпропадает на значительном расстоянии.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести огонь очередями, этот\nпредмет изменяет горизонтальную отдачу\nпри такой стрельбе на указанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести огонь очередями, этот\nпредмет изменяет вертикальную отдачу\nпри такой стрельбе на указанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
+	L"\n \nЭтот предмет изменяет способность\nстрелка справляться с отдачей оружия\nпри стрельбе очередями.\n \nВысокое значение позволяет уверенно\nконтролировать оружие с сильной отдачей\nдаже персонажам с малым значением силы.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет способность\nстрелка при стрельбе очередями\nудерживать ствол оружия направленным\nна цель.\n \nВысокое значение позволяет попадать\nв цель при стрельбе очередями\nдаже на дальних дистанциях.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет изменяет частоту,\nс которой стрелок при стрельбе очередями\nоценивает, сколько ему нужно приложить сил\nдля противодействия отдаче.\n \nБольшая частота означает, что при правильном \nприложении силы очередь в целом будет точнее.\n \nБольше - лучше.",
+	L"\n \nЭтот предмет напрямую изменяет\nколичество ОД, доступных персонажу\nв начале каждого хода.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет количество ОД,\nтребуемых для взятия оружия на изготовку.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к любому оружию,\nэтот предмет изменяет количество ОД,\nтребуемых для совершения одной атаки.\n \nОбратите внимание, что для оружия,\nспособного вести огонь очередями,\nэтот модификатор влияет и на этот режим\nстрельбы тоже.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести огонь очередями, этот\nпредмет изменяет количество ОД,\nтребуемых для такой стрельбы.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести автоматический огонь,\nэтот предмет изменяет количество ОД,\nтребуемых для такой стрельбы.\n \nОбратите внимание, что этот модификатор\nне влияет на стоимость добавления одной\nпули к очереди, а только на начальную стоимость\nочереди.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет количество ОД,\nтребуемых для перезарядки этого оружия.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет количество пуль в\nмагазине, который можно зарядить в это оружие.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет количество пуль,\nвыпускаемых очередью.\n \nЕсли изначально у оружия не было режима\nстрельбы очередью, то после присоединения\nэтого предмета указанный режим появится.\n \nИ наоборот, большое отрицательное значение\nданного параметра может полностью\nвыключить этот режим.\n \nБольше ОБЫЧНО лучше, но одной из\nзадач стрельбы очередью является\nэкономия патронов...",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет будет скрывать вспышку\nвыстрела.\n \nБлагодаря этому враги не смогут обнаружить\nстрелка по вспышке, что особенно важно\nночью.",
+	L"\n \nПрисоединенный к оружию, этот предмет\nизменяет расстояние, с которого звук выстрела\nэтого оружия слышен врагами и наемниками.\n \nЕсли этот модификатор опускает\nзначение громкости оружия до 0,\nто оружие считается совершенно бесшумным.\n \nМеньше - лучше.",
+	L"\n \nЭтот предмет изменяет размер\nлюбой другой вещи, к которой\nон присоединен.\n \nРазмер вещей важен в новой\nсистеме инвентаря, в которой в слоты\nможно поместить вещи определенных\nразмеров и форм.\n \nУвеличив размер вещи, вы уже не сможете\nпоместить ее в слот, в который\nона раньше спокойно вмещалась.\n \nУменьшив размер вещи, вы сможете\nпоместить ее в слот меньшего размера\nили же поместить больше таких вещей\nв тот же слот.\n \nВ целом, меньше - лучше.",
+	L"\n \nПрисоединенный к любому оружию,\nэтот предмет изменяет надежность этого\nоружия.\n \nПри положительном значении состояние оружия\nбудет ухудшаться медленнее, и наоборот.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет значение\nлесного камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться возле\nдеревьев или в высокой траве.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет значение\nгородского камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nасфальте или бетоне.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет значение\nпустынного камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nпеске, гравии или среди пустынной растительности.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет значение\nзимнего камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nснежной поверхности.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет показатель\nскрытности владельца, что влияет на возможность\nврагов УСЛЫШАТЬ его передвижение в режиме\nскрытности.\n \nЭтот модификатор меняет НЕ видимость\nвладельца, а лишь производимый им шум.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень слуха\nвладельца на указанный процент.\n \nПри положительном значении владелец\nсможет услышать шум с более дальних\nрасстояний, и наоборот.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень зрения\nвладельца на указанный процент.\n \nЭтот модификатор работает для всех\nусловий.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень зрения\nвладельца на указанный процент.\n \nЭтот модификатор работает для ночных\nусловий.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень зрения\nвладельца на указанный процент.\n \nЭтот модификатор работает для условий,\nкогда освещенность средняя или выше.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень зрения\nвладельца на указанный процент.\n \nЭтот модификатор работает для условий,\nкогда освещенность очень высока, например\nпри использовании осветителя или в полдень.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет уровень зрения\nвладельца на указанный процент.\n \nЭтот модификатор работает только в темноте\nи только под землей.\n \nБольше - лучше.",
+	L"\n \nНадевание этой вещи или прикрепление\nее к носимой вещи изменяет поле зрения\nвладельца.\n \nБольшее значение означает более выраженный\nэффект туннельного зрения.\n \nМеньше - лучше.",
+	L"\n \nСпособность стрелка справляться с\nотдачей при стрельбе очередями или автоматической\nстрельбе.\n \nБольше - лучше.",
+	L"\n \nСпособность стрелка чаще оценивать,\nсколько ему нужно приложить сил\nдля противодействия отдаче.\n \nБольшая частота означает, что при правильном\nприложении силы очередь в целом будет точнее.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет шанс попадания из\nэтого оружия.\n \nПри условии точного прицеливания\nповышенный шанс позволяет чаще попадать\nиз оружия.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет бонус прицеливания для\nэтого оружия.\n \nПри условии точного прицеливания\nэтот бонус позволяет чаще попадать из\nоружия на дальних дистанциях.\n \nБольше - лучше.",
+	L"\n \nОдиночный выстрел повышает температуру\nна это значение.\n \nРазличные типы боеприпасов и навесок\nвлияют на это значение.\n \nМеньше - лучше.",
+	L"\n \nКаждый ход температура снижается\nна это значение.\n \nБольше - лучше.",
+	L"\n \nЕсли температура выше этого значения,\nто оружие будет давать осечки чаще.\n \nБольше - лучше.",
+	L"\n \nЕсли температура предмета выше этого\nзначения, то его состояние будет ухудшаться\nбыстрее.\n \nБольше - лучше.",
+	L"\n \nОдиночный выстрел из оружия будет\nповышать температуру на этот процент.\n \nМеньше - лучше. ",
+	L"\n \nСкорость остывания оружия изменяется\nна этот процент.\n \nБольше - лучше.",
+	L"\n \nПорог осечки для оружия изменяется\nна этот процент.\n \nБольше - лучше.",
+	L"\n \nПорог повреждения оружия изменяется\nна этот процент.\n \nБольше - лучше.",
+	L"\n \nОпределяет, какой процент от нанесенного\nурона будет ядовитым.\n \nЭффективность определяется степенью защиты\nили поглощения яда у врага.",
+	L"\n \nОдиночный выстрел загрязняет оружие\nна это значение.\n \nРазличные типы боеприпасов и навесок\nвлияют на это значение.\n \nМеньше - лучше.",
+	L"\n \nКоличество энергии в килокалориях.\n \nБольше - лучше.",
+	L"\n \nОбъем воды в литрах.\n \nБольше - лучше.",
+	L"\n \nОпределяет, какой процент\nбудет съеден за раз.\n \nМеньше - лучше.",
+	L"\n \nМораль изменяется на это значение.\n \nБольше - лучше.",
+	L"\n \nПища портится со временем.\nЕсли она на 50% покрыта плесенью,\nто она становится ядовитой.\nЭтот модификатор определяет, с какой\nскоростью будет портиться еда.\n \nМеньше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет проецирует точку на цели,\nчто облегчает прицеливание.\n \nЭтот эффект работает до данного расстояния,\nзатем начинает уменьшаться и, в конце концов,\nпропадает на значительном расстоянии.\n \nБольше - лучше.",
+	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести огонь очередями, этот\nпредмет изменяет отдачу оружия на\nуказанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 {
-	L"\n \nThis weapon's accuracy is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased accuracy allows the gun to hit targets\nat longer ranges more often, assuming it is\nalso well-aimed.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis weapon modifies its shooter's accuracy\nwith ANY shot by the listed amount.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis weapon modifies its shooter's accuracy\nwith ANY shot by the listed percentage\nbased on the shooter's original accuracy.\n \nHigher is better.",
-	L"\n \nThis weapon modifies the amount of accuracy\ngained from each extra aiming level you\npay for by the listed amount.\n \nScale: -100 to +100.\nHigher is better.",
-	L"\n \nThis weapon modifies the amount of accuracy\ngained from each extra aiming level you\npay for by the listed percentage, based\non the shooter's original accuracy.\n \nHigher is better.",
-	L"\n \nThe number of Extra Aiming Levels allowed\nfor this gun has been modified by its ammo,\nattachments, or built-in attributes.\nIf the number of levels is being reduced, the gun is\nfaster to aim without being any less accurate.\n \nConversely, if the number of levels is increased,\nthe gun becomes slower to aim without being\nmore accurate.\n \nLower is better.",
-	L"\n \nThis weapon modifies the shooter's maximum\naccuracy, as a percentage of the shooter's original\nmaximum accuracy.\n \nHigher is better.",
-	L"\n \nThis weapon's attachments or inherent abilities\nmodify the weapon's Handling difficulty.\n \nBetter handling makes the gun more accurate to fire,\nwith or without extra aiming.\n \nNote that this is based on the gun's original\nGun Handling factor, which is higher for rifles and\nheavy weapons, and lower for pistols and small\nweapons.\n \nLower is better.",
-	L"\n \nThis weapon's ability to compensate for shots\nbeyond its maximum range is being modified by\nattachments or the weapon's inherent abilities.\n \nA high bonus here can increase a weapon's\nnatural Maximum Range by at least a few tiles.\n \nHigher is better.",
-	L"\n \nThis weapon's ability to hit moving targets\nat a distance is being modified by attachments\nor the weapon's inherent abilities.\n \nA high bonus here can help hitting\nfast-moving targets, even at a distance.\n \nHigher is better.",
-	L"\n \nThis weapon's damage output is being modified\nby its ammo, attachments, or inherent abilities.\n \nHigher is better.",
-	L"\n \nThis weapon's melee-combat damage output is being\nmodified by its ammo, attachments, or inherent abilities.\n \nThis applies only to melee weapons, both sharp\nand blunt.\n \nHigher is better.",
-	L"\n \nThis weapon's maximum range has been increased\nor decreased thanks to its ammo, attachments,\nor inherent abilities.\n \nMaximum Range mainly dictates how far a bullet\nfired from the weapon can fly before it begins\ndropping sharply towards the ground.\n \nHigher is better.",
-	L"\n \nThis weapon is equipped with optical magnification,\nmaking shots at a distance comparatively easier to make.\n \nNote that a high Magnification Factor is detrimental\nwhen used at targets CLOSER than the\noptimal distance.\n \nHigher is better.",
-	L"\n \nThis weapon is equipped with a projection device\n(possibly a laser), which projects a dot on\nthe target, making it easier to hit.\n \nThe projection effect is only useful up to a given\ndistance, beyond which it begins to diminish and\neventually disappears.\n \nHigher is better.",
-	L"\n \nThis weapon's horizontal recoil strength is being\nmodified by its ammo, attachments, or inherent\nabilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
-	L"\n \nThis weapon's vertical recoil strength is being\nmodified by its ammo, attachments, or inherent\nabilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
-	L"\n \nThis weapon modifies the shooter's ability to\ncope with recoil during Burst or Autofire volleys,\ndue to its attachments, ammo, or inherent abilities.\n \nWhen high, this can help a shooter to control\nguns with powerful recoil, even if the shooter\nhas low Strength.\n \nHigher is better.",
-	L"\n \nThis weapon modifies the shooter's ability to\naccurately apply counter-force against its\nrecoil, due to its attachments, ammo, or inherent abilities.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nA high bonus helps the shooter bring the gun's muzzle\nprecisely towards the target, even at longer ranges,\nmaking volleys more accurate as a result.\n \nHigher is better.",
-	L"\n \nThis weapon modifies the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil, due to its\nattachments, ammo, or inherent abilities.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nHigher frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nHigher is better.",
-	L"\n \nWhen held in hand, this weapon modifies the amount of\nAPs its user gets at the start of each turn.\n \nHigher is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe AP cost to bring this weapon to 'Ready' mode has\nbeen modified.\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe AP cost to make a single attack with this\nweapon has been modified.\n \nNote that for Burst/Auto-capable weapons, the\ncost of using these modes is directly influenced\nby this modifier as well!\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe AP cost to fire a Burst with this weapon has\nbeen modified.\n \nNaturally, this has no effect if the weapon is not\ncapable of Burst fire.\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe AP cost to fire an Autofire Volley with this weapon\nhas been modified.\n \nNaturally, this has no effect if the weapon is not\ncapable of Auto Fire.\n \nNote that it does NOT modify the extra AP\ncost for adding bullets to the volley, only\nthe initial cost for starting the volley.\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe AP cost of reloading this weapon has been modified.\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe size of magazines that can be loaded into this\nweapon has been modified.\n \nThe weapon will now accept larger or smaller\nmagazines of the same caliber.\n \nHigher is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthe amount of bullets fired by this weapon in Burst mode\nhas been modified.\n \nIf the weapon was not initially Burst-Capable, and the\nmodifier is positive, then this is what\ngives the weapon its burst-fire capability.\n \nConversely, if the weapon was initially Burst-Capable,\na high-enough negative modifier here may have\ndisabled burst mode entirely for this weapon.\n \nHigher is USUALLY better. Of course, part of the\npoint in Burst Mode is to conserve bullets...",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthis weapon produces no muzzle flash.\n \nThis makes sure that enemies cannot spot the shooter\nif he is firing while hidden, and is especially\nimportant at night.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthis weapon's loudness has been modified. The distance\nat which enemies and mercs can hear the weapon being\nused has subsequently changed.\n \nIf this modifier drops the weapon's Loudness value\nto 0, the weapon becomes completely silent.\n \nLower is better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthis weapon's size category has changed.\n \nSize is important when using the New Inventory system,\nwhere pockets only accept items of specific sizes and shapes.\n \nIncreasing an item's size makes it too big for some pockets\nit used to fit into.\n \nConversely, making an item smaller means it will fit into\nmore pockets, and pockets will be able to contain\nmore of it.\n \nLower is generall better.",
-	L"\n \nDue to its attachments, ammo or inherent abilities,\nthis weapon's reliability has been modified.\n \nIf positive, the weapon's condition will deteriorate\nslower when used in combat. Otherwise, the\nweapon deteriorates faster.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's camouflage in woodland backgrounds.\n \nTo make good on a positive Woodland Camo modifier, the\nwearer needs to stay close to trees or tall grass.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's camouflage in urban backgrounds.\n \nTo make good on a positive Urban Camo modifier, the\nwearer needs to stay close to asphalt or concrete.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's camouflage in desert backgrounds.\n \nTo make good on a positive Desert Camo modifier, the\nwearer needs to stay close to sand, gravel, or\ndesert vegetation.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's camouflage in snowy backgrounds.\n \nTo make good on a positive Snow Camo modifier, the\nwearer needs to stay close to snowy tiles.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's stealth ability by making it\nmore or less difficult to HEAR the character moving\nwhile in Sneaking mode.\n \nNote that this does NOT change a character's visibility,\nonly the amount of noise they make while sneaking.\n \nHigher is better.",
-	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's Hearing Range by the listed percent.\n \nA positive bonus makes it possible to hear noises\nfrom a greater distance.\n \nConversely, a negative modifier impairs the wearer's hearing.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis General modifier works in all conditions.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Night-Vision modifier works only when light\nlevels are sufficiently low.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Day-Vision modifier works only when light\nlevels are average or higher.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
-	L"\n \nWhen this weapon is raised to the shooting position,\nit changes the wearer's field-of-view.\n \nNarrowing the field of view shortens sightrange to\neither side.\n \nHigher is better.",
-	L"\n \nThis is the shooter's ability to\ncope with recoil during Burst or Autofire volleys.\n \nHigher is better.",
-	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
-	L"\n \nThis weapon's to-hit is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased To-Hit allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
-	L"\n \nThis weapon's Aim Bonus is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
-	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
-	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
-	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
-	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",
-	L"\n \nThis weapon's recoil strength is being\nmodified by this percentage value by its ammo,\nattachments, or inherent abilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",	// TODO.Translate
+	L"\n \nТочность этого оружия изменена\nбоеприпасами, навеской или внутренними\nсвойствами.\n \nПовышенная точность оружия позволяет\nчаще попадать из него по более удаленным\nцелям.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭто оружие изменяет точность,\nс которой стрелок совершает ЛЮБОЙ\nвыстрел, на указанное значение.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭто оружие изменяет точность,\nс которой стрелок совершает ЛЮБОЙ\nвыстрел, на указанный процент.\n \nБольше - лучше.",
+	L"\n \nЭто оружие изменяет точность,\nдающуюся за каждый дополнительный\nуровень прицеливания, на указанное значение.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЭто оружие изменяет точность,\nдающуюся за каждый дополнительный\nуровень прицеливания, на указанный процент.\n \nДиапазон: -100..+100.\nБольше - лучше.",
+	L"\n \nЧисло доступных уровней прицеливания\n для этого оружия изменено боеприпасами,\nнавеской или внутренними свойствами.\n \nЧем МЕНЬШЕ это число, тем БОЛЬШИЙ бонус\nдается за каждый уровень. То есть\nМЕНЬШЕЕ число уровней позволяет быстрее\nприцеливаться без потери точности.\n \nМеньше - лучше.",
+	L"\n \nЭто оружие изменяет максимальную\nточность стрелка на указанный процент.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменяют сложность\nобращения с ним.\n \nНизкая сложность означает, что с оружием\nлегче управляться независимо от уровня\nприцеливания.\n \nЭтот модификатор основан на изначальной\nсложности обращения с оружием, высокой у винтовок\nитяжелого вооружения и низкой у пистолетов и ПП.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменили вероятность\nпули пролететь дальше максимальной\nдальности выстрела для данного оружия.\n \nВысокий бонус может увеличить максимальную\nдальность как минимум на пару тайлов.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменили вероятность\nпопадания по бегущей цели.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили урон от данного\nоружия на указанное значение.\n \nБольше - лучше.",
+	L"\n \nНавеска или внутренние свойства данного\nоружия ближнего боя изменили урон\nна указанное значение.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили максимальную дальность выстрела.\n \nМаксимальная дальность - это расстояние, пролетев которое,\n пуля начнет падать на землю.\n \nБольше - лучше.",
+	L"\n \nЭто оружие оборудовано оптическим\nприцелом, что позволяет уверенно поражать\nудаленные цели.\n \nПомните, что сильное увеличение прицела снижает\nточность, если цель находится слишком близко.\n \nБольше - лучше.",
+	L"\n \nЭто оружие оборудовано устройством,\nкоторое проецирует точку на цели,\nчто облегчает прицеливание.\n \nЭтот эффект работает до данного расстояния,\nзатем начинает уменьшаться и, в конце концов,\nпропадает на значительном расстоянии.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили силу горизонтальной отдачи.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили силу вертикальной отдачи.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменяют способность\nстрелка справляться с отдачей\nпри стрельбе очередями.\n \nВысокое значение позволяет уверенно\nконтролировать оружие с сильной отдачей\nдаже персонажам с малым значением силы.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменяют способность\nстрелка при стрельбе очередями\nудерживать ствол оружия направленным\nна цель.\n \nВысокое значение позволяет попадать\nв цель при стрельбе очередями\nдаже на дальних дистанциях.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия или его\nвнутренние свойства изменяют частоту,\nс которой стрелок при стрельбе очередями\nоценивает, сколько ему нужно приложить сил\nдля противодействия отдаче.\n \nБольшая частота означает, что при правильном \nприложении силы очередь в целом будет точнее.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит количество ОД,\nдоступных его владельцу на начало\nкаждого хода.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили стоимость ОД, требуемых для\nвзятия оружия на изготовку.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили стоимость ОД, требуемых для\nсовершения одной атаки.\n \nОбратите внимание, что для оружия,\nспособного вести огонь очередями,\nэтот модификатор влияет и на эти режимы\nстрельбы тоже.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили стоимость ОД, требуемых для\nстрельбы очередями.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили стоимость ОД, требуемых для\nавтоматической стрельбы.\n \nОбратите внимание, что этот модификатор\nне влияет на стоимость добавления одной\nпули к очереди, а только на начальную стоимость\nочереди.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили стоимость ОД, требуемых для\nперезарядки оружия.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили количество пуль в\nмагазине, который можно зарядить в это оружие.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили количество пуль,\nвыпускаемых очередью.\n \nЕсли изначально у оружия не было режима\nстрельбы очередью, то после присоединения\nэтого предмета указанный режим появится.\n \nИ наоборот, большое отрицательное значение\nданного параметра может полностью\nвыключить этот режим.\n \nБольше ОБЫЧНО лучше, но одной из\nзадач стрельбы очередью является\nэкономия патронов...",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nскрывают вспышку\nвыстрела.\n \nБлагодаря этому враги не смогут обнаружить\nстрелка по вспышке, что особенно важно\nночью.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили расстояние, с которого звук выстрела\nэтого оружия слышен врагами и наемниками.\n \nЕсли этот модификатор опускает\nзначение громкости оружия до 0,\nто оружие считается совершенно бесшумным.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили размер\nэтого оружия.\n \nРазмер вещей важен в новой\nсистеме инвентаря, в которой в слоты\nможно поместить вещи определенных\nразмеров и форм.\n \nУвеличив размер вещи, вы уже не сможете\nпоместить ее в слот, в который\nона раньше помещалась.\n \nУменьшив размер вещи, вы сможете\nпоместить ее в слот меньшего размера\nили же поместить больше таких вещей\nв тот же слот.\n \nВ целом, меньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили надежность этого оружия.\n \nПри положительном значении состояние оружия\nбудет ухудшаться медленнее, и наоборот.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит значение\nлесного камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться возле\nдеревьев или в высокой траве.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит значение\nгородского камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nасфальте или бетоне.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит значение\nпустынного камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nпеске, гравии или среди пустынной растительности.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит значение\nзимнего камуфляжа владельца.\n \nЧтобы этот камуфляж сработал,\nвладельцу необходимо находиться на\nснежной поверхности.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит показатель\nскрытности владельца, что влияет на возможность\nврагов УСЛЫШАТЬ его передвижение в режиме\nскрытности.\n \nЭтот модификатор меняет НЕ видимость\nвладельца, а лишь производимый им шум.\n \nБольше - лучше.",
+	L"\n \nЕсли это оружие держать в руках,\nто оно изменит уровень слуха\nвладельца на указанный процент.\n \nПри положительном значении владелец\nсможет услышать шум с более дальних\nрасстояний, и наоборот.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку, оно изменит\nуровень зрения его владельца на\nуказанный процент благодаря навеске\nили внутренним свойствам оружия.\n \nЭтот модификатор работает для всех\nусловий.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку, оно изменит\nуровень зрения его владельца на\nуказанный процент благодаря навеске\nили внутренним свойствам оружия.\n \nЭтот модификатор работает для ночных\nусловий.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку, оно изменит\nуровень зрения его владельца на\nуказанный процент благодаря навеске\nили внутренним свойствам оружия.\n \nЭтот модификатор работает для условий,\nкогда освещенность средняя или выше.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку, оно изменит\nуровень зрения его владельца на\nуказанный процент благодаря навеске\nили внутренним свойствам оружия.\n \nЭтот модификатор работает для условий,\nкогда освещенность очень высока, например\nпри использовании осветителя или в полдень.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку, оно изменит\nуровень зрения его владельца на\nуказанный процент благодаря навеске\nили внутренним свойствам оружия.\n \nЭтот модификатор работает только в темноте\nи только под землей.\n \nБольше - лучше.",
+	L"\n \nЕсли взять это оружие на изготовку,\nоно изменит поле зрения владельца.\n \nБольшее значение означает более выраженный\nэффект туннельного зрения.\n \nМеньше - лучше.",
+	L"\n \nСпособность стрелка справляться с\nотдачей при стрельбе очередями или автоматической\nстрельбе.\n \nБольше - лучше.",
+	L"\n \nСпособность стрелка чаще оценивать\nсколько ему нужно приложить сил\nдля противодействия отдаче.\n \nМеньшая частота означает, что при правильном\nприложении силы очередь в целом будет точнее.\n \nМеньше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили шанс попадания из\nэтого оружия.\n \nПри условии точного прицеливания\nповышенный шанс позволяет чаще попадать\nиз оружия.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили бонус прицеливания для\nэтого оружия.\n \nПри условии точного прицеливания\nэтот бонус позволяет чаще попадать из\nоружия на дальних дистанциях.\n \nБольше - лучше.",
+	L"\n \nОдиночный выстрел повышает температуру\nна это значение.\n \nРазличные типы боеприпасов\nвлияют на это значение.\n \nМеньше - лучше.",
+	L"\n \nКаждый ход температура снижается\nна это значение.\n \nБольше - лучше.",
+	L"\n \nЕсли температура выше этого значения,\nто оружие будет давать осечки чаще.\n \nБольше - лучше.",
+	L"\n \nЕсли температура предмета выше этого\nзначения, то его состояние будет ухудшаться\nбыстрее.\n \nБольше - лучше.",
+	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили отдачу оружия на\nуказанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7946,7 +7937,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Взрывчатка",
 	L"Холодное оружие",
 	L"Броня",
-	L"Рузгруз. системы",
+	L"Разгруз. системы",
 	L"Наборы",
 	L"Прочие предметы",
 	L"Скрыть всё",
@@ -7982,7 +7973,7 @@ STR16 gFoodDesc[] =
 };
 
 CHAR16* ranks[] = 
-{	L"",			//ExpLevel 0// TODO.Translate
+{	L"",			//ExpLevel 0
 	L"Рядовой ",		//ExpLevel 1
 	L"Ефрейтор ",		//ExpLevel 2
 	L"Мл. сержант ",		//ExpLevel 3
@@ -7990,7 +7981,7 @@ CHAR16* ranks[] =
 	L"Лейтенант ",		//ExpLevel 5
 	L"Капитан ",		//ExpLevel 6
 	L"Майор ",		//ExpLevel 7
-	L"Подполк. ",	//ExpLevel 8
+	L"Подполк. ",		//ExpLevel 8
 	L"Полковник ",		//ExpLevel 9
 	L"Генерал "		//ExpLevel 10
 };
@@ -8033,55 +8024,55 @@ STR16	zNewTacticalMessages[]=
 	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
-// The_bob : pocket popup text defs	// TODO.Translate
+// The_bob : pocket popup text defs	
 STR16	gszPocketPopupText[]=
 {
 	L"Гранатомёты",	// POCKET_POPUP_GRENADE_LAUNCHERS,
-	L"Рокетницы",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"Ракетницы",	// POCKET_POPUP_ROCKET_LAUNCHERS
 	L"Холодное и метательное оружие",	// POCKET_POPUP_MEELE_AND_THROWN
-	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
-	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
+	L"- нет подходящих патронов -",	//POCKET_POPUP_NO_AMMO
+	L"- нет оружия в инвентаре -",	//POCKET_POPUP_NO_GUNS
 	L"ещё...",		//POCKET_POPUP_MOAR
 };
 
-// Flugente: externalised texts for some features	// TODO.Translate
+// Flugente: externalised texts for some features
 STR16	szCovertTextStr[]=
 {
-	L"%s has camo!",
-	L"%s has a backpack!",
-	L"%s is seen carrying a corpse!",
-	L"%s's %s is suspicious!",
-	L"%s's %s is considered military hardware!",
-	L"%s carries too many guns!",
-	L"%s's %s is too advanced for an %s soldier!",
-	L"%s's %s has too many attachments!",
-	L"%s was seen performing suspicious activities!",
-	L"%s does not look like a civilian!",
-	L"%s bleeding was discovered!",
-	L"%s is drunk and doesn't behave like a soldier!",
-	L"On closer inspection, %s's disguise does not hold!",
-	L"%s isn't supposed to be here!",
-	L"%s isn't supposed to be here at this time!",
-	L"%s was seen near a fresh corpse!",
-	L"%s equipment raises a few eyebrows!",
-	L"%s is seen targetting %s!",
-	L"%s has seen through %s's disguise!",
-	L"No clothes item found in Items.xml!",
-	L"This does not work with the old trait system!",
-	L"Not enough APs!",
-	L"Bad palette found!",
-	L"You need the covert skill to do this!",
-	L"No uniform found!",
-	L"%s is now disguised as a civilian.",
-	L"%s is now disguised as a soldier.",
-	L"%s wears a disorderly uniform!",
-	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
-	L"%s was uncovered!",
-	L"%s's disguise seems to be ok...",
-	L"%s's disguise will not hold.",
-	L"%s was caught stealing!",
-	L"%s tried to manipulate %s's inventory.",
-	L"%s is too close to an elite soldier!",	// TODO.Translate
+	L"%s одет в камуфляж!",
+	L"%s несет рюкзак!",
+	L"%s несет труп!",
+	L"%s: %s выглядит подозрительно!",
+	L"%s: %s - это военное оборудование!",
+	L"%s несет слишком много оружия!",
+	L"%s: %s слишком круто для солдата %s!",
+	L"%s: Слишком много навески на %s!",
+	L"%s занимается подозрительной деятельностью!",
+	L"%s не выглядит как гражданский!",
+	L"%s имеет кровотечение!",
+	L"%s пьян и ведет себя не как солдат!",
+	L"При ближайшем рассмотрении, маскировка %s не выдерживает проверки!",
+	L"%s не должен находиться здесь!",
+	L"%s не должен находиться здесь в данное время!",
+	L"%s был замечен около свежего трупа!",
+	L"%s имеет нестандартную экипировку!",
+	L"%s целится в %s!",
+	L"%s сумел разоблачить маскировку %s!",
+	L"В Items.xml нет предметов одежды!",
+	L"Не работает со старой системой (OAS)!",
+	L"Недостаточно ОД!",
+	L"Обнаружена неверная палитра!",
+	L"Вам необходим навык шпиона для этого!",
+	L"Не найдена униформа!",
+	L"%s переоделся в гражданского.",
+	L"%s переоделся в солдата.",
+	L"%s носит униформу неправильного образца!",
+	L"Требовать сдачи в плен, будучи переодетым, было не очень осмотрительно...",
+	L"%s был разоблачен!",
+	L"%s: маскировка выглядит нормально...",
+	L"%s: маскировка не выдержит проверки.",
+	L"%s был пойман на краже!",
+	L"%s пытался залезть в инвентарь %s.",
+	L"%s слишком близко к элитному солдату!",
 };
 
 STR16	szCorpseTextStr[]=
@@ -8093,7 +8084,7 @@ STR16	szCorpseTextStr[]=
 	L"Снимать с тела нечего!",
 	L"%s не может снять одежду с этого трупа!",
 	L"Это тело невозможно забрать с собой!", //This corpse cannot be taken!
-	L"Освободите руки чтобы тянуть тело!", //No free hand to carry corpse
+	L"Освободите руки, чтобы тянуть тело!", //No free hand to carry corpse
 	L"Предметов тела не найдено в Items.xml!", //No corpse item found in Items.xml
 	L"Неверный ID тела!", //Invalid corpse ID
 };
@@ -8104,213 +8095,215 @@ STR16	szFoodTextStr[]=
 	L"%s не хочет пить %s",
 	L"%s ест %s",
 	L"%s пьёт %s",
-	L"%s's strength was damaged due to being overfed!",
-	L"%s's strength was damaged due to lack of nutrition!",
-	L"%s's health was damaged due to being overfed!",
-	L"%s's health was damaged due to lack of nutrition!",
-	L"%s's strength was damaged due to excessive drinking!",
-	L"%s's strength was damaged due to lack of water!",
-	L"%s's health was damaged due to excessive drinking!",
-	L"%s's health was damaged due to lack of water!",
-	L"Sectorwide canteen filling not possible, Food System is off!"
+	L"%s ослабел от переедания!",
+	L"%s ослабел от голода!",
+	L"%s потерял здоровье от переедания!",
+	L"%s потерял здоровье от голода!",
+	L"%s ослабел от того, что выпил слишком много воды!",
+	L"%s ослабел от жажды!",
+	L"%s потерял здоровье от того, что выпил слишком много воды!",
+	L"%s потерял здоровье от жажды!",
+	L"Наполнение фляжек в секторе невозможно, Система Еды отключена!"
 };
 
-// TODO.Translate
+
 STR16	szPrisonerTextStr[]=
 {
-	L"%d officers, %d elites, %d regulars and %d admins were interrogated.",
-	L"%d prisoners paid ransom money.",
-	L"%d prisoners revealed enemy positions.",
-	L"%d officers, %d elites, %d regulars and %d admins joined our cause.",
-	L"Prisoners start a massive riot in %s!",
-	L"%d prisoners were sent to %s!",
-	L"Prisoners have been released!",
-	L"The army now occupies the prison in %s, the prisoners were freed!",
-	L"The enemy refuses to surrender!",
-	L"The enemy refuses to take you as prisoners - they prefer you dead!",
-	L"This behaviour is set OFF in your ini settings.",
-	L"%s has freed %s!",
+	L"%d офицеров, %d элитных солдат, %d рядовых и %d полицейских были допрошены.",
+	L"%d пленных заплатили выкуп.",
+	L"%d пленных выдали расположение отрядов армии.",
+	L"%d офицеров, %d элитных солдат, %d рядовых и %d полицейских решили присоединиться к нам.",
+	L"Пленные устроили бунт в %s!",
+	L"%d пленные были отправлены в %s!",
+	L"Пленные были отпущены!",
+	L"Армия контролирует тюрьму %s, все пленные были освобождены!",
+	L"Противник отказывается сдаться!",
+	L"Противник отказывается взять вас в плен - они предпочли бы видеть вас мертвыми!",
+	L"Этот режим отключен в настройках.",
+	L"%s освободил %s!",
 	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
 };
 
-STR16	szMTATextStr[]=	// TODO.Translate
+STR16	szMTATextStr[]=	
 {
-	L"nothing",
-	L"building a fortification",
-	L"removing a fortification",
-	L"filling sandbags",
-	L"%s had to stop %s.",
-	L"The selected barricade cannot be built in this sector",	// TODO.Translate
+	L"ничего",
+	L"укрепление строится",
+	L"укрепление убирается",
+	L"наполнение мешков",
+	L"%s был вынужден прекратить %s.",
+	L"Выбранное укрепление не может быть построено в этом секторе",
 };
 
-STR16	szInventoryArmTextStr[]= // TODO.Translate
+STR16	szInventoryArmTextStr[]= 
 {
-	L"Blow up (%d AP)",
-	L"Blow up",
-	L"Arm (%d AP)",
-	L"Arm",
-	L"Disarm (%d AP)",
-	L"Disarm",
+	L"Взорвать (%d ОД)",
+	L"Взорвать",
+	L"Активировать (%d ОД)",
+	L"Активировать",
+	L"Обезвредить (%d ОД)",
+	L"Обезвредить",
 };
 
-// TODO.Translate
+
 STR16		szBackgroundText_Flags[]=
 {
-	L" might consume drugs in inventory\n",
-	L" disregard for all other backgrounds\n",
-	L" +1 level in  underground sectors\n",
-	L" might steal items\n",
+	L" может употреблять наркотики из инвентаря\n",
+	L" вне зависимости от других особенностей биографии\n",
+	L" +1 уровень в подземных секторах\n",
+	L" может красть предметы\n",
 
-	L" +1 traplevel to planted bombs\n",
-	L" spreads corruption to nearby mercs\n",
-	L" female only",							// won't show up, text exists for compatibility reasons
-	L" male only",								// won't show up, text exists for compatibility reasons
+	L" +1 уровень ловушек при установке мин\n",
+	L" разлагает других наемников\n",
+	L" только женский",							// won't show up, text exists for compatibility reasons
+	L" только мужской",								// won't show up, text exists for compatibility reasons
 
 	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
 
-// TODO.Translate
+
 STR16	szBackgroundText_Value[]=
 {
-	L" %s%d%% APs in polar sectors\n",
-	L" %s%d%% APs in desert sectors\n",	
-	L" %s%d%% APs in swamp sectors\n",
-	L" %s%d%% APs in urban sectors\n",
-	L" %s%d%% APs in river sectors\n",
-	L" %s%d%% APs in tropical sectors\n",
-	L" %s%d%% APs in coastal sectors\n",
-	L" %s%d%% APs in mountainous sectors\n",
+	L" %s%d%% ОД в холодных секторах\n",
+	L" %s%d%% ОД в пустынных секторах\n",	
+	L" %s%d%% ОД в болотных секторах\n",
+	L" %s%d%% ОД в городских секторах\n",
+	L" %s%d%% ОД в речных секторах\n",
+	L" %s%d%% ОД в тропических секторах\n",
+	L" %s%d%% ОД в секторах на побережье\n",
+	L" %s%d%% ОД в горных секторах\n",
 
-	L" %s%d%% agility stat\n",
-	L" %s%d%% dexterity stat\n",
-	L" %s%d%% strength stat\n",
-	L" %s%d%% leadership stat\n",
-	L" %s%d%% marksmanship stat\n",
-	L" %s%d%% mechanical stat\n",	
-	L" %s%d%% explosives stat\n",
-	L" %s%d%% medical stat\n",
-	L" %s%d%% wisdom stat\n",
+	L" %s%d%% подвижность\n",
+	L" %s%d%% ловкость\n",
+	L" %s%d%% сила\n",
+	L" %s%d%% лидерство\n",
+	L" %s%d%% меткость\n",
+	L" %s%d%% маханика\n",	
+	L" %s%d%% взрывчатка\n",
+	L" %s%d%% медицина\n",
+	L" %s%d%% мудрость\n",
 
-	L" %s%d%% APs on rooftops\n",
-	L" %s%d%% APs needed to swim\n",
-	L" %s%d%% APs needed for fortification actions\n",
-	L" %s%d%% APs needed for mortars\n",
-	L" %s%d%% APs needed to access inventory\n",
-	L" looks in other direction on airdrops\n %s%d%% APs after airdrop\n",
-	L" %s%d%% APs on first turn when assaulting a sector\n",
+	L" %s%d%% ОД на крышах\n",
+	L" %s%d%% ОД для плавания\n",
+	L" %s%d%% ОД для строительства укреплений\n",
+	L" %s%d%% ОД для стрельбы из минометов\n",
+	L" %s%d%% ОД для доступа к инвентарю\n",
+	L" смотрит в разных направлениях при высадке\n %s%d%% APs после высадки\n",
+	L" %s%d%% ОД на первом ходу при штурме сектора\n",
 		
-	L" %s%d%% travel speed on foot\n",
-	L" %s%d%% travel speed on land vehicles\n",
-	L" %s%d%% travel speed on air vehicles\n",
-	L" %s%d%% travel speed on water vehicles\n",
+	L" %s%d%% скорость движения пешком\n",
+	L" %s%d%% скорость движения на машине\n",
+	L" %s%d%% скорость движения на воздушном транспорте\n",
+	L" %s%d%% скорость движения на водном транспорте\n",
 
-	L" %s%d%% poison resistance\n",
-	L" %s%d%% fear resistance\n",
-	L" %s%d%% suppression resistance\n",
-	L" %s%d%% physical resistance\n",
-	L" %s%d%% alcohol resistance\n",
+	L" %s%d%% сопротивление яду\n",
+	L" %s%d%% сопротивление страху\n",
+	L" %s%d%% сопротивление подавлению\n",
+	L" %s%d%% физическое сопротивление\n",
+	L" %s%d%% сопротивление алкогол.\n",
 	L" %s%d%% disease resistance\n",	// TODO.Translate
 
-	L" %s%d%% interrogation effectiveness\n",
-	L" %s%d%% prison guard strength\n",
-	L" %s%d%% better prices when trading guns and ammo\n",
-	L" %s%d%% better prices when trading armour, lbe, blades, kits etc.\n",
-	L" %s%d%% team capitulation strength if we lead negotiations\n",
-	L" %s%d%% faster running\n",
-	L" %s%d%% bandaging speed\n",
-	L" drinking restores %s%d%% energy\n",
-	L" %s%d%% strength to carry items\n",
-	L" %s%d%% food consumption\n",
-	L" %s%d%% water consumption\n",
-	L" %s%d need for sleep\n",
-	L" %s%d%% melee damage\n",	
-	L" %s%d%% cth with blades\n",
-	L" %s%d%% camo effectiveness\n",
-	L" %s%d%% stealth\n",
-	L" %s%d%% max CTH\n",
-	L" %s%d hearing range during the night\n",
-	L" %s%d hearing range during the day\n",
-	L" %s%d effectivity at disarming traps\n",	// TODO.Translate
 
-	L" %s%d%% effectiveness to friendly approach\n",
-	L" %s%d%% effectiveness to direct approach\n",
-	L" %s%d%% effectiveness to threaten approach\n",
-	L" %s%d%% effectiveness to recruit approach\n",
+	L" %s%d%% эффективность ведения допроса\n",
+	L" %s%d%% эффективность тюремной охраны\n",
+	L" %s%d%% лучше цены при торговле оружием и патронами\n",
+	L" %s%d%% лучшие цены при торговле броней, разгрузками, ножами, наборам и др.\n",
+	L" %s%d%% к силе капитуляции при ведении переговоров\n",
+	L" %s%d%% быстрее бег\n",
+	L" %s%d%% скорость перевязки\n",
+	L" питье восстанавливает %s%d%% энергии\n",
+	L" %s%d%% сила для переноски вещей\n",
+	L" %s%d%% потребление еды\n",
+	L" %s%d%% потребление воды\n",
+	L" %s%d потребность в сне\n",
+	L" %s%d%% урон от ножей\n",	
+	L" %s%d%% точность атаки ножами\n",
+	L" %s%d%% эффективность камуфляжа\n",
+	L" %s%d%% скрытность\n",
+	L" %s%d%% макс. CTH\n",
+	L" %s%d дальность слуха ночью\n",
+	L" %s%d дальность слуха днем\n",
+	L" %s%d эффективность при разминировании ловушек\n",
 
-	L" %s%d%% chance of success with door breaching charges\n",
-	L" %s%d%% cth with firearms against creatures\n",
-	L" %s%d%% insurance cost\n",
-	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
+	L" %s%d%% эффективность дружеского обращения\n",
+	L" %s%d%% эффективность прямого обращении\n",
+	L" %s%d%% эффективность угроз\n",
+	L" %s%d%% эффективность найма\n",
+
+	L" %s%d%% CTH с вышибными зарядами\n",
+	L" %s%d%% CTH с оружием против животных\n",
+	L" %s%d%% стоимость страховки\n",
+	L" %s%d%% эффективность наблюдателя в снайперской паре\n",
+
 	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
 	L" %s%d%% effectiveness at treating population against diseases\n",
 
 	L" dislikes some other backgrounds",	// TODO.Translate
 };
 
-STR16		szBackgroundTitleText[] =	// TODO.Translate
+STR16		szBackgroundTitleText[] =	
 {
-	L"I.M.P. Background",
+	L"I.M.P. Биография",
 };
 
 // Flugente: personality
-STR16		szPersonalityTitleText[] =	// TODO.Translate
+STR16		szPersonalityTitleText[] =
 {
-	L"I.M.P. Prejudices",
+	L"I.M.P. Предубеждения",
 };
 
-STR16		szPersonalityDisplayText[]=	// TODO.Translate
+STR16		szPersonalityDisplayText[]=
 {
-	L"You look",
-	L"and appearance is",
-	L"important to you.",
-	L"You have",
-	L"and care",
-	L"about that.",
-	L"You are",
-	L"and hate everyone",
+	L"Вы выглядите",
+	L"и ваша внешность",
+	L"важно для вас.",
+	L"У вас есть",
+	L"и беспокоитесь",
+	L"об этом.",
+	L"Вы",
+	L"и ненавидите всех",
 	L".",
-	L"racist against non-",
-	L"people.",
+	L"расист по отношению к не-",
+	L"людям.",
 };
 
 // texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
 STR16		szPersonalityHelpText[]=
 {
-	L"How do you look?",
-	L"How important are the looks of others to you?",
-	L"What are your manners?",
-	L"How important are the manners of other people to you?",
-	L"What is your nationality?",
-	L"What nation o you dislike?",
-	L"How much do you dislike that nation?",
-	L"How racist are you?",
-	L"What is your race? You will be\nracist against all other races.",
-	L"How sexist are you against the other gender?",
+	L"Как вы выглядите?",
+	L"Насколько для вас важен внешний вид других?",
+	L"Ваша манера поведения?",
+	L"Насколько для вас важна манера поведения других?",
+	L"Ваша национальность?",
+	L"Какая национальность вам неприятна?",
+	L"Насколько вам неприятна эта национальность?",
+	L"насколько вы расист?",
+	L"Ваша раса? Вы будете\nотноситься плохо к другим расам.",
+	L"Насколько вы сексист по отношению к другим полам?",
 };
 
 STR16		szRaceText[]=
 {
-	L"white",
-	L"black",
-	L"asian",
-	L"eskimo",
-	L"hispanic",
+	L"белый",
+	L"черный",
+	L"азиат",
+	L"эскимос",
+	L"испанец",
 };
 
 STR16		szAppearanceText[]=
 {
-	L"average",
-	L"ugly",
-	L"homely",
-	L"attractive",
-	L"like a babe",
+	L"средний",
+	L"уродливый",
+	L"невзрачный",
+	L"привлекательный",
+	L"как ребенок",
 };
 
 STR16		szRefinementText[]=
 {
-	L"average manners",
-	L"manners of a slob",
-	L"manners of a snob",
+	L"обычное поведение",
+	L"хамское поведение",
+	L"снобское поведение",
 };
 
 STR16		szRefinementTextTypes[] =	// TODO.Translate
@@ -8320,54 +8313,55 @@ STR16		szRefinementTextTypes[] =	// TODO.Translate
 	L"snobs",
 };
 
+
 STR16		szNationalityText[]=
 {
-	L"American",		// 0
-	L"Arab",
-	L"Australian",
-	L"British",
-	L"Canadian",
-	L"Cuban",			// 5
-	L"Danish",
-	L"French",
-	L"Russian",
-	L"Nigerian",
-	L"Swiss",			// 10
-	L"Jamaican",
-	L"Polish",
-	L"Chinese",
-	L"Irish",
-	L"South African",	// 15
-	L"Hungarian",
-	L"Scottish",
-	L"Arulcan",
-	L"German",
-	L"African",			// 20
-	L"Italian",
-	L"Dutch",
-	L"Romanian",
-	L"Metaviran",
+	L"Американец",		// 0
+	L"Араб",
+	L"Австралиец",
+	L"Британец",
+	L"Канадец",
+	L"Кубинец",			// 5
+	L"Датчанин",
+	L"Француз",
+	L"Русский",
+	L"Нигериец",
+	L"Швейцарец",			// 10
+	L"Ямаец",
+	L"Поляк",
+	L"Китаец",
+	L"Ирладец",
+	L"Южноафриканец",	// 15
+	L"Венгр",
+	L"Шотландец",
+	L"Арулькец",
+	L"Немец",
+	L"Африканец",			// 20
+	L"Итальянец",
+	L"Голландец",
+	L"Румын",
+	L"Метавирец",
 
 	// newly added from here on
-	L"Greek",			// 25
-	L"Estonian",
-	L"Venezuelan",
-	L"Japanese",
-	L"Turkish",
-	L"Indian",			// 30
-	L"Mexican",
-	L"Norwegian",
-	L"Spanish",
-	L"Brasilian",
-	L"Finnish",			// 35
-	L"Iranian",
-	L"Israeli",
-	L"Bulgarian",
-	L"Swedish",
-	L"Iraqi",			// 40
-	L"Syrian",
-	L"Belgian",
-	L"Portoguese",
+	L"Грек",			// 25
+	L"Эстонец",
+	L"Венесуэлец",
+	L"Японец",
+	L"Турок",
+	L"Индиец",			// 30
+	L"Мексиканец",
+	L"Норвежец",
+	L"Испанец",
+	L"Бразилец",
+	L"Финн",			// 35
+	L"Иранец",
+	L"Израильтянин",
+	L"Болгарин",
+	L"Швед",
+	L"Иракец",			// 40
+	L"Сириец",
+	L"Бельгиец",
+	L"Португалец",
 };
 
 STR16		szNationalityTextAdjective[] = // TODO.Translate
@@ -8423,41 +8417,41 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 // special text used if we do not hate any nation (value of -1)
 STR16		szNationalityText_Special[]=
 {
-	L"and do not hate any other nationality.",		// used in personnel.cpp
-	L"of no origin",		// used in IMP generation
+	L"нормально относится к другим национальностям.",		// used in personnel.cpp
+	L"неизвестно",		// used in IMP generation
 };
 
 STR16		szCareLevelText[]=
 {
-	L"not",
-	L"somewhat",
-	L"extremely",
+	L"не",
+	L"немного",
+	L"очень",
 };
 
 STR16		szRacistText[]=
 {
-	L"not",
-	L"somewhat",
-	L"very",
+	L"не",
+	L"немного",
+	L"очень",
 };
 
 STR16		szSexistText[]=
 {
-	L"no sexist",
-	L"somewhat sexist",
-	L"very sexist",
-	L"a Gentleman",
+	L"не сексист",
+	L"сексист",
+	L"убежденный сексист",
+	L"джентльмен",
 };
 
 // Flugente: power pack texts
 STR16 gPowerPackDesc[] =
 {
-	L"Batteries are ",
-	L"full",
-	L"good",
-	L"at half",
-	L"low",
-	L"depleted",
+	L"Батарейки: ",
+	L"заряжены",
+	L"хороший заряд",
+	L"половина заряда",
+	L"низкий заряд",
+	L"разряжены",
 	L"."
 };
 
@@ -8468,166 +8462,164 @@ STR16 sSpecialCharacters[] =
 	L"%",		// Percentage character
 };
 
-STR16	szSoldierClassName[]=	// TODO.Translate
+STR16	szSoldierClassName[]=
 {
-	L"Mercenary",
-	L"Green militia",
-	L"Regular militia",
-	L"Elite militia",
+	L"Наемник",
+	L"Ополченец",
+	L"Рядовой ополченец",
+	L"Элитный ополченец",
 
-	L"Civilian",
+	L"Гражданский",
 
-	L"Administrator",
-	L"Army Soldier",
-	L"Elite Soldier",
-	L"Tank",
+	L"Полицейский",
+	L"Солдат",
+	L"Спецназ",
+	L"Танк",
 
-	L"Creature",
-	L"Zombie",
+	L"Тварь",
+	L"Зомби",
 };
 
 STR16	szCampaignHistoryWebSite[]=
 {
-	L"%s Press Council",
-	L"Ministry for %s Information Distribution",
-	L"%s Revolutionary Movement",
+	L"Пресс-служба Арулько",
+	L"Министерство распространения информации Арулько",
+	L"Революционное движение Арулько",
 	L"The Times International",
 	L"International Times",
-	L"R.I.S. (Recon Intelligence Service)",
+	L"R.I.S. (Служба информационной разведки)",
 
-	L"A collection of press sources from %s",
-	L"We are a neutral source of information. We collect different news articles from %s. We do not judge these sources - we merely publish them, so you can judge yourself. We post articles from various sources, among them",
+	L"Информация от %s",
+	L"Мы - нейтральный источник информации. Мы собираем различные новостные статьи от %s. Мы не оцениваем эти источники - мы просто публикуем их, так что вы сами можете составить свое мнение. Мы публикуем статьи из раличных источников, среди них ",
 	
-	L"Conflict Summary",
-	L"Battle reports",
-	L"News",
-	L"About us",
+	L"Сводка",
+	L"Отчеты",
+	L"Новости",
+	L"О нас",
 };
 
 STR16	szCampaignHistoryDetail[]=
 {
 	L"%s, %s %s %s in %s.",
 
-	L"rebel forces",
-	L"the army",
+	L"повстанцы",
+	L"армия",
 
-	L"attacked",
-	L"ambushed",
-	L"airdropped",
+	L"атакован",
+	L"попал в засаду",
+	L"высадился",
 
-	L"The attack came from %s.",
-	L"%s were reinforced from %s.",
-	L"The attack came from %s, %s were reinforced from %s.",
-	L"north",
-	L"east",
-	L"south",
-	L"west",
-	L"and",
-	L"an unknown location",	// TODO.Translate
+	L"Атака осуществлена с %s.",
+	L"%s подкрепления пришли с %s.",
+	L"Атакованы с %s, %s получили подкрепления с %s.",
+	L"севера",
+	L"востока",
+	L"юга",
+	L"запада",
+	L"и",
+	L"неизвестно",
 
-	L"Buildings in the sector were damaged.",	// TODO.Translate
-	L"In the fighting, buildings in the sector were damaged, and %d civilians were killed and %d wounded.",
-	L"During the attack, %s and %s called reinforcements.",
-	L"During the attack, %s called reinforcements.",
-	L"Eyewitnesses report the use of chemical weapons from both sides.",
-	L"Chemical weapons were used by %s.",
-	L"In a serious escalation of the conflict, both sides deployed tanks.",
-	L"%d tanks were used by %s, %d of them were destroyed in the fierce fighting.",
-	L"Both sides are said to have used snipers.",
-	L"Unverified reports indicate %s snipers were involved in the firefight.",
-	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
-	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
-	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
+	L"Здания в секторе получили повреждения.",
+	L"Во время боя здания в секторе получили повреждения, %d гражданских были убиты и %d ранены.",
+	L"Во время атаки %s и %s вызвали подкрепления.",
+	L"Во время атаки %s вызвали подкрепления.",
+	L"Очевидцы отмечают использование химического оружия обеими сторонами.",
+	L"Химическое оружие было использовано %s.",
+	L"В результате серьезной эскалации конфликта отмечается использование танков обеими сторонами.",
+	L"%d танков было использовано %s, %d было уничтожено в ожесточенном бою.",
+	L"Обе стороны утверждают, что использовали снайперов.",
+	L"По непроверенным данным, в столкновении участвовало %s снайперов.",
+	L"Этот сектор имеет большое стратегическое значение, поскольку в нем расположена одна из батарей ПВО, которыми располагает армия %s. Аэрофотосьемка показывает, что центр управления получил серьезные повреждения. В результате воздушное пространство над %s некоторое время будет незащищенным.",
+	L"Ситуация становится все более запутанной, так как, судя по всему, разногласия между повстанцами достигли серьезного уровня. У нас есть подтверждение, что между повстанцами и иностранными наемниками произошел бой.",
+	L"Положение правительственных войск оказалось более шатким, чем представлялось ранее. Есть свидетельства раскола и стрельбы между армейскими подразделениями.",
 };
 
 STR16	szCampaignHistoryTimeString[]=
 {
-	L"Deep in the night",		// 23 - 3
-	L"At dawn",					// 3 - 6
-	L"Early in the morning",	// 6 - 8
-	L"In the morning hours",	// 8 - 11
-	L"At noon",					// 11 - 14
-	L"On the afternoon",		// 14 - 18
-	L"On the evening",			// 18 - 21
-	L"During the night",		// 21 - 23
+	L"Глубокой ночью",		// 23 - 3
+	L"На рассвете",					// 3 - 6
+	L"Рано утром",	// 6 - 8
+	L"В утренние часы",	// 8 - 11
+	L"В полдень",					// 11 - 14
+	L"После полудня",		// 14 - 18
+	L"Вечером",			// 18 - 21
+	L"Ночью",		// 21 - 23
 };
 
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
-	L"Initial funding",
-	L"Mine income",
-	L"Trade",
-	L"Other sources",
+	L"Начальные финансы",
+	L"Доход от шахт",
+	L"Торговля",
+	L"Другие источники",
 };
 
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
-	L"Ammunition",
-	L"Explosives",
-	L"Food",
-	L"Medical gear",
-	L"Item maintenance",
+	L"Патроны",
+	L"Взрывчатка",
+	L"Еда",
+	L"Медикаменты",
+	L"Обслуживание",
 };
 
 STR16	szCampaignHistoryResultString[]=
 {
-	L"In an extremely one-sided battle, the army force was wiped out without much resistance.",
+	L"Армейские силы были уничтожены без особого сопротивления.",
 
-	L"The rebels easily defeated the army, inflicting heavy losses.",
-	L"Without much effort, the rebels inflicted heavy losses upon the army and took several prisoners.",
-
-	L"In a bloody fight, the rebels finally overcame the opposition. The army had severe losses.",
-	L"The rebels had losses but defeated the royalists. Unverified information says several soldiers might have been taken prisoner.",
-
-	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Wether they will be able to hold this position against continued attacks is doubtful.",
+	L"Повстанцы легко сокрушили противника, нанеся тяжелый урон.",	
+	L"Повстанцы без особых усилий нанесли противнику тяжелый урон и захватили несколько пленных.",
 	
-	L"The army's superiority in numbers came into full play. The rebels never had a chance and had to either retreat or be killed or captured.",
-	L"Despite the high number of rebels in this sector, the army easily dispatched them.",
-
-	L"The rebels were clearly unprepared against the army's superiority in numbers an equipment. They were easily defeated.",
-	L"Even though the rebels had more boots on the ground, the army was better equipped. The rebels clearly lost.",
-
-	L"Fierce fighting saw significant losses on both sides, but in the end, the army's higher number of bodies decided the battle. The rebel force was destroyed. There might have been survivors, but we cannot verify this at this point.",
-	L"In an intense firefight, the superior training of the armed forces tipped the scales. The rebels had to retreat.",
+	L"Повстанцы сумели победить противника в результате тяжелого боя. Армия понесла потери.",
+	L"Повстанцы понесли потери, но смогли нанести поражение правительственным войскам. По непроверенным данным, несколько солдат могли попасть в плен.",
+	L"Повстанцы сумели нанести поражение правительственным войскам, но из-за высоких потерь эта победа может оказаться пирровой. Неизвестно, сумеют ли они удержать завоеванные позиции под непрерывными атаками противника.",
 	
-	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
+	L"Численное превосходство армии принесло свои плоды. Повстанцы не имели ни единого шанса и вынуждены были отступить, чтобы избежать гибели или плена.",	
+	L"Несмотря на численное превосходство повстанцев в этом секторе, армия легко разделалась с ними.",
+	
+	L"Повстанцы не были готовы противостоять правительственным войскам, которые превосходили их в численности и вооружении, и были разбиты армией с легкостью.",	
+	L"Несмотря на то, что на стороне повстанцев было численное преимущество, армия оказалась лучше вооружена. Повстанцы потерпели поражение",
+
+	L"В результате ожесточенного боя обе стороны понесли существенные потери, но в итоге сказалось численное преимущество армии. Повстанцы были разгромлены. Возможно, часть из них сумела выжить, но в настоящий момент мы не можем проверить эту информацию.",	
+	L"В произошедшей интенсивной перестрелке сказалась лучшая подготовка армии, и повстанцы были вынуждены отступить.",
+	L"Ни одна из сторон не собиралась уступать. Несмотря на то, что армия устранила угрозу восстания в районе, понесенные потери означают, что армейское подразделение существует только формально. Однако, если армия может позволить себе воевать с таким уровнем потерь, повстанцы очень скоро физически закончатся.",
 };
 
 STR16	szCampaignHistoryImportanceString[]=
 {
-	L"Irrelevant",
-	L"Insignificant",
-	L"Notable",
-	L"Noteworthy",
-	L"Significant",
-	L"Interesting",
-	L"Important",
-	L"Very important",
-	L"Grave",
-	L"Major",
-	L"Momentous",
+	L"Неприменимый",
+	L"Неважный",
+	L"Заметный",
+	L"Примечательный",
+	L"Существенный",
+	L"Интересный",
+	L"Важный",
+	L"Очень важный",
+	L"Серьезный",
+	L"Значительный",
+	L"Важнейший",
 };
 
 STR16	szCampaignHistoryWebpageString[]=
 {
-	L"Killed",
-	L"Wounded",
-	L"Prisoners",
-	L"Shots fired",
+	L"Убито",
+	L"Ранено",
+	L"Пленных",
+	L"Выстрелов",
 
-	L"Money earned",
-	L"Consumption",
-	L"Losses",
-	L"Participants",
+	L"Денег",
+	L"Издержки",
+	L"Потери",
+	L"Участники",
 
-	L"Promotions",
-	L"Summary",
-	L"Detail",
-	L"Previous",
+	L"Повышеный",
+	L"Общий",
+	L"Детальный",
+	L"Предыдущий",
 
-	L"Next",
-	L"Incident",
-	L"Day",
+	L"Следующий",
+	L"Эпизод",
+	L"День",
 };
 
 STR16	szMercCompareWebSite[] =	// TODO.Translate
@@ -8671,7 +8663,7 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
 
-STR16	szMercCompareEventText[]=
+STR16	szMercCompareEventText[]=		// TODO.Translate
 {
 	L"%s shot at me!",
 	L"%s is scheming behind my back",
@@ -8713,7 +8705,7 @@ STR16	szMercCompareEventText[]=
 	L"%s treated my diseases",
 };
 
-STR16	szWHOWebSite[] =
+STR16	szWHOWebSite[] =		// TODO.Translate
 {
 	// main page
 	L"World Health Organization",
@@ -8752,22 +8744,22 @@ STR16	szWHOWebSite[] =
 
 STR16   szTacticalInventoryDialogString[]=
 {
-        L"Inventory Manipulations",
+        L"Команды инвентаря",
 
-        L"NVG",
-        L"Reload All",
-        L"Move",		// TODO.Translate
+        L"ПНВ",
+        L"Перезар.",
+        L"Собрать",
         L"",
 
-        L"Sort",
-        L"Merge",
-        L"Separate",
-        L"Organize",
+        L"Сортиров",
+        L"Объед.",
+        L"Отдел.",
+        L"Организ.",
 
-        L"Crates",
-        L"Boxes",
-        L"Drop B/P",
-        L"Pickup B/P",
+        L"Ящики",
+        L"Коробки",
+        L"Сбросить",
+        L"Поднять",
 
         L"",
         L"",
@@ -8777,35 +8769,35 @@ STR16   szTacticalInventoryDialogString[]=
 
 STR16   szTacticalCoverDialogString[]=
 {
-        L"Cover Display Mode",
+        L"Режим отображения",
 
-        L"Off",
-        L"Enemy",
-        L"Merc",
-        L"",
-
-        L"Roles",	// TODO.Translate
-        L"",
-        L"",
+        L"Выкл",
+        L"Укрытие",
+        L"Обзор",
         L"",
 
-        L"Traps",
-        L"Network",
-        L"Detector",
+        L"Roles",		// TODO.Translate
+        L"",
+        L"",
         L"",
 
-        L"Net A",
-        L"Net B",
-        L"Net C",
-        L"Net D",
+        L"Ловушки",
+        L"Сеть",
+        L"Детект.",
+        L"",
+
+        L"Сеть A",
+        L"Сеть B",
+        L"Сеть C",
+        L"Сеть D",
 };
 
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
-        L"Turning off cover/traps display",
-        L"Showing danger zones",
-        L"Showing merc view",
+        L"Отображение выключено",
+        L"Показываются укрытия",
+        L"Показывается область видимости",
         L"",
 
         L"",
@@ -8813,15 +8805,15 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"",
         L"",
 
-        L"Display trap network",
-        L"Display trap network colouring",
-        L"Display nearby traps",
+        L"Показываеются сети",
+        L"Показываются уровени сети",
+        L"Показываются ловушки",
         L"",
 
-        L"Display trap network A",
-        L"Display trap network B",
-        L"Display trap network C",
-        L"Display trap network D",
+        L"Показывается сеть A",
+        L"Показывается сеть B",
+        L"Показывается сеть C",
+        L"Показывается сеть D",
 };
 
 // TODO.Translate
@@ -8867,6 +8859,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[] =
 	L"Thanks, $CAUSE$. I'm already feeling better.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
 	L"What?!",
@@ -8895,6 +8888,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"Lies, lies, lies...",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
 	L"Ha!",
@@ -8913,7 +8907,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 	L"What $INTERJECTOR$ said.",
 };
 
-
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
 {
 	L"What? Me? No way, I'm shooting at the enemy!",
@@ -8956,6 +8950,7 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
 	L"How did you get that in the first place? Did you forget to wash your hands again?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
 {
 	L"Oops.",
@@ -8998,6 +8993,7 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
 	L"No problem, we can't have you running around coughing blood, right? Riiight?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
 {
 	L"What?!",
@@ -9028,6 +9024,7 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
 	L"I know what I saw.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[] =
 {
 	L"Ha!",
@@ -9046,6 +9043,7 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[] =
 	L"What $INTERJECTOR$ said.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
 {
 	L"$CAUSE$ has shot $VICTIM$. What do you do?",
@@ -9088,6 +9086,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
 	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
 {
 	L"Nah, that must have been enemy fire!",
@@ -9130,6 +9129,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
 	L"Where did you get that stuff from in the first place?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
 {
 	L"Yeah, I saw it too!",
@@ -9172,6 +9172,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
 	L"Great. Are you sure it's fully treated now?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
 {
 	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
@@ -9214,6 +9215,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
 	L"The important thing is that it's gone now... It is, right?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
 {
 	L"I saw it, it was clearly enemy fire!",
@@ -9256,6 +9258,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
 	L"I told you pople before... this country a dirty place, so beware of what you touch.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
 {
 	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
@@ -9298,6 +9301,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
 	L"We have to be careful. The army isn't the only thing that wants us dead.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
 {
 	L"This is war! People get shot all the time! Speaking of... engage!",
@@ -9340,6 +9344,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
 	L"Great. Everything done? Then let's get back to shooting stuff!",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
 	L"That's right!",
@@ -9361,6 +9366,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 	L"I couldn't have said it better myself.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
 	L"Now wait a minute...",
@@ -9382,6 +9388,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 	L"Me and $CAUSE$ would never do such a thing.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"Keep silent",
@@ -9391,6 +9398,7 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 	L"Shut them up",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_GenderText[] =
 {
 	L"he",
@@ -9399,6 +9407,7 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"her",
 };
 
+// TODO.Translate
 STR16	szDiseaseText[] =
 {
 	L" %s%d%% agility stat\n",
@@ -9418,5 +9427,6 @@ STR16	szDiseaseText[] =
 	L"%s was diagnosed with %s!",
 	L"%s is cured of %s!",
 };
+
 
 #endif //RUSSIAN
