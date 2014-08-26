@@ -13672,4 +13672,52 @@
 		<szBRName>TT Modular Pack</szBRName>
 		<szBRDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szBRDesc>		
 	</ITEM>
+  <ITEM>
+    <uiIndex>1709</uiIndex>
+    <szItemName>Sleeping bag</szItemName>
+    <szLongItemName>Sleeping bag</szLongItemName>
+    <szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+    <szBRName>Sleeping bag</szBRName>
+    <szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1710</uiIndex>
+    <szItemName>Surgical mask</szItemName>
+    <szLongItemName>Surgical mask</szLongItemName>
+    <szItemDesc>This simple mask protects you somewhat from infection by airborne diseases.</szItemDesc>
+    <szBRName>Surgical mask</szBRName>
+    <szBRDesc>If you are doctor or live in an asian megacity, you will need these.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1711</uiIndex>
+    <szItemName>Surgical gloves</szItemName>
+    <szLongItemName>Surgical gloves</szLongItemName>
+    <szItemDesc>These simple gloves protect you from infection by contact with infected persons.</szItemDesc>
+    <szBRName>Surgical gloves</szBRName>
+    <szBRDesc>Useful for doctors. Not useful in snow.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1712</uiIndex>
+    <szItemName>Plague medicine</szItemName>
+    <szLongItemName>Plague medicine</szLongItemName>
+    <szItemDesc>It may look unimportant, but this little pill can cure the plague. Who would've thought that possible?</szItemDesc>
+    <szBRName>Plague medicine</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1713</uiIndex>
+    <szItemName>Tetanus medicine</szItemName>
+    <szLongItemName>Tetanus medicine</szLongItemName>
+    <szItemDesc>This injection cures tetanus. Might sting a bit.</szItemDesc>
+    <szBRName>Tetanus medicine</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1714</uiIndex>
+    <szItemName>Cholera medicine</szItemName>
+    <szLongItemName>Cholera medicine</szLongItemName>
+    <szItemDesc>A cure for cholera.</szItemDesc>
+    <szBRName>Cholera medicine</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
