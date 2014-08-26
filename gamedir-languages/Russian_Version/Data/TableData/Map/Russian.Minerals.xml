@@ -2,12 +2,12 @@
 <MINERALS>
   <TYPE>
 	<uiIndex>0</uiIndex>
-	<sNameType>Kopalnia</sNameType>
-    <sMineral>Srebro</sMineral>
+	<sNameType>Шахта</sNameType>
+    <sMineral>Серебро</sMineral>
   </TYPE>
   <TYPE>
 	<uiIndex>1</uiIndex>
-	<sNameType>Kopalnia</sNameType>
-    <sMineral>Złoto</sMineral>
+	<sNameType>Шахта</sNameType>
+    <sMineral>Золото</sMineral>
   </TYPE>
 </MINERALS>

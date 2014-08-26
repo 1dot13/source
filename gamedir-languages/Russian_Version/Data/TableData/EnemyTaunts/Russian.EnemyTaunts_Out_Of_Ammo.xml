@@ -2,26 +2,26 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>What the hell am I going to do now?</szText>
+    <szText>Какого чёрта мне теперь делать?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'm all out!</szText>
+    <szText>Патроны кончились!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I'm running dry over here!</szText>
+    <szText>У меня патроны кончились!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Need more ammo!</szText>
+    <szText>Нужны патроны!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>I'm out of bullets!</szText>
+    <szText>Патронов нет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Need supplies!</szText>
+    <szText>Срочно нужны патроны!</szText>
   </TAUNT>
 </TAUNTS>

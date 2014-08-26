@@ -2,286 +2,288 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Killing time!</szText>
+    <szText>Время убивать!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'll kill you!</szText>
+    <szText>Я убью тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Show me what you've got!</szText>
+    <szText>Покажи мне, из чего ты сделан!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Take this, you maggot!</szText>
+    <szText>Получи, мразь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Here is your freedom, you son of a bitch!</szText>
+    <szText>Свободы захотел, сукин сын?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'll break you!</szText>
+    <szText>Я замочу тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Dying ain't much of a living, boy!</szText>
+    <szText>Умирать не страшнее, чем жить, мужик!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Dying ain't much of a living, girl!</szText>
+    <szText>Умирать не страшнее, чем жить!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Trust me. I'm a professional!</szText>
+    <szText>Доверься мне. Я профессионал!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You're the disease and I'm the cure.</szText>
+    <szText>Ты - болезнь, а я - лекарство.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Sucker!</szText>
+    <szText>Сосунок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Suck on this!</szText>
+    <szText>Сосни!</szText>
+	<szTextCensored>Получи!</szTextCensored> 
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Come get some!</szText>
+    <szText>Подойди и отгреби!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>You're mine!</szText>
+    <szText>Ты мой!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Die!</szText>
+    <szText>Умри!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>You scared, motherfucker?</szText>
-    <szTextCensored>You scared, bastard?</szTextCensored>
+    <szText>Боишься, твою мать?</szText>
+    <szTextCensored>Боишься, ублюдок?</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>This is gonna hurt!</szText>
+    <szText>Будет больно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Eat shit and die!</szText>
+    <szText>Сожри говна и сдохни!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Send me a postcard from hell!</szText>
+    <szText>Пришли мне открытку из ада!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>I think you'll enjoy this.</szText>
+    <szText>Думаю, тебе понравится!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Come to daddy!</szText>
+    <szText>Иди к папочке!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Come to momma!</szText>
+    <szText>Иди к мамочке!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>This is for the Queen!</szText>
+    <szText>За королеву!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>You'll be six feet under in no time!</szText>
+    <szText>Скоро ты окажешься в могиле!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Gonna send ya home in a pine box, loser!</szText>
+    <szText>Домой поедешь в ящике, неудачник!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Hey, wanna play?</szText>
+    <szText>Эй, хочешь поиграть?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Viva la revolution!</szText>
+    <szText>Да здравствует революция!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Your move, creep!</szText>
+    <szText>Твоя очередь, урод!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>You should have stayed home, bitch!</szText>
+    <szText>Тебе следовало остаться дома, сука!</szText>
+	<szTextCensored>Тебе следовало остаться дома!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>You should have stayed home, fucker!</szText>
-    <szTextCensored>You should have stayed home, sucker!</szTextCensored>
+    <szText>Сидел бы дома, мудила!</szText>
+    <szTextCensored>Тебе следовало остаться дома, мразь!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Die, vermin!</szText>
+    <szText>Сдохни, сволочь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Feeling scared?</szText>
+    <szText>Боишься?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Dance for me!</szText>
+    <szText>Спляши для меня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>How fun!</szText>
+    <szText>До чего же весело!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Dakka-dakka-dakka!</szText>
+    <szText>Тыщь-Тыщь-Тыщь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>Guns don't kill people, I do!</szText>
+    <szText>Пушки не убивают людей, я убиваю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>I'm the best!</szText>
+    <szText>Я лучший!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Kneel before me, loser!</szText>
+    <szText>На колени, неудачник!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Come on! I don't got all day!</szText>
+    <szText>Ну давай же! Я не собираюсь ждать весь день!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>Eat lead!</szText>
+    <szText>Поешь свинца!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>I'm better than you!</szText>
+    <szText>Я лучше тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>You fucked with the wrong man!</szText>
-    <szTextCensored>You messed with the wrong man!</szTextCensored>
+    <szText>Не до того доебались!</szText>
+    <szTextCensored>Вы не с тем связались!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>You fucked with the wrong woman!</szText>
-    <szTextCensored>You messed with the wrong woman!</szTextCensored>
+    <szText>Не до той доебались!</szText>
+    <szTextCensored>Вы не с той связались!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Stop wasting my time!</szText>
+    <szText>Прекрати тратить мое время!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>You deserve it!</szText>
+    <szText>Вы заслужили это!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Yeah!</szText>
+    <szText>Да!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>That's right!</szText>
+    <szText>Так тебе!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>You're dead.</szText>
+    <szText>Ты - труп.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>How ya like it?</szText>
+    <szText>Как тебе это нравится?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>You had it coming!</szText>
+    <szText>Ну вот вы и дождались!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>Why, hello there!</szText>
+    <szText>Ну, привет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Say "cheese"!</szText>
+    <szText>Скажи "сыр"!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Yippie ki-yay, mister Falcon!</szText>
+    <szText>Еппи ка-эй, мистер Фалкон!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Could you just please die?</szText>
+    <szText>Не могли бы вы просто умереть?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Garbage day!</szText>
+    <szText>Плохой день!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>I'm doing world a favor getting rid of your ugly face!</szText>
+    <szText>Я окажу всему миру большую услугу, избавив его от твоей рожи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Hey babe, give me your number, and I'll stop shooting!</szText>
+    <szText>Эй, детка, дай мне свой номер, и я перестану стрелять!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Hey handsome, give me your number, and I'll stop shooting!</szText>
+    <szText>Эй, красавчик, дай мне свой номер, и я перестану стрелять!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>I will destroy you!</szText>
+    <szText>Я порву тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>Dead or alive, you're coming with me.</szText>
+    <szText>Ты пойдешь со мной живым или мёртвым.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>I looked for you, I've found you and now I will kill you!</szText>
+    <szText>Я тебя искал, я нашёл тебя, и теперь я тебя убью!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <szText>Кому-то будет больно. И это буду не я!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Your life is over, asshole!</szText>
+    <szText>Твоя жизнь закончилась, задница!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>I deliver justice... one bullet at a time!</szText>
+    <szText>Я несу справедливость... По пуле за раз!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>Viva la revolution!</szText>
+    <szText>Да здравствует революция!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>Your move, creep!</szText>
+    <szText>Твоя очередь, урод!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>I'm gonna blow your head off!</szText>
+    <szText>Я тебе голову снесу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>You cowboys are finished!</szText>
+    <szText>Конец вам, ковбои!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Long live the queen!</szText>
+    <szText>Да здравствует королева!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>The Queen says: Die!</szText>
+    <szText>Королева просила передать: Сдохните!</szText>
   </TAUNT>
 </TAUNTS>

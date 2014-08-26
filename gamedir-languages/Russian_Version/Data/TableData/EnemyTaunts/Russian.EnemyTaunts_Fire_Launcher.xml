@@ -2,122 +2,123 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Say hello to my lil' friend!</szText>
+    <szText>Скажи "привет" моему маленькому другу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Barbecue time!</szText>
+    <szText>Самое время для барбекю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Suck it down!</szText>
+    <szText>Сосни!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Bam!</szText>
+    <szText>Бум!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Kaboom!</szText>
+    <szText>Бум!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Dodge this!</szText>
+    <szText>Попробуй это!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>I like it!</szText>
+    <szText>Как же я это люблю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Hahaha!</szText>
+    <szText>Ха-ха-ха!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Die in fire, bitch!</szText>
+    <szText>Сгори, сука!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Die in fire, son of a bitch!</szText>
+    <szText>Умри в огне, сукин сын!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Say your prayers!</szText>
+    <szText>Молись!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Hell yeah!</szText>
+    <szText>Да, чёрт возьми!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>There's no kill like overkill!</szText>
+    <szText>Ничто с этим не сравнится!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>My gun's bigger than yours!</szText>
+    <szText>Моя пушка больше твоей!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>I got a present for ya!</szText>
+    <szText>У меня для тебя подарок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Watch and learn.</szText>
+    <szText>Смотри и учись.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Special delivery!</szText>
+    <szText>Спец доставка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>You should see your face now!</szText>
+    <szText>Видел бы сейчас своё лицо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Didn't see THAT coming, huh?</szText>
+    <szText>Поняли уже, что сейчас будет, да?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Check mate!</szText>
+    <szText>Шах и мат!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>I always wanted to do this.</szText>
+    <szText>Всегда хотел это сделать.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Peace through power!</szText>
+    <szText>Принуждение к миру!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>This job ain't that bad.</szText>
+    <szText>Эта работа не такая уж и плохая.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Now I remember why I joined army!</szText>
+    <szText>Вот из-за чего я пошёл в армию!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Ooh, somebody stop me!</szText>
+    <szText>Ох, кто-нибудь остановите меня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>You're welcome!</szText>
+    <szText>Добро пожаловать!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>There goes the neighborhood!</szText>
+    <szText>Собирать вас теперь по всей округе!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Denied!</szText>
+    <szText>Отказано!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Hold my beer and watch this!</szText>
+    <szText>Подержи моё пиво и смотри!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>If I had a dick, this is when I would tell you to suck it!</szText>
+    <szText>Если бы у меня был член, я бы предложила отсосать!</szText>
+	<szTextCensored>Зацени, говна кусок!</szTextCensored>
   </TAUNT>
 </TAUNTS>

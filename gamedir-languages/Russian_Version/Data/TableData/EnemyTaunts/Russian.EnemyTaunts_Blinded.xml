@@ -2,43 +2,44 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Fuck, my eyeballs!</szText>
-    <szTextCensored>Crap, my eyeballs!</szTextCensored>
+    <szText>Блять, мои глаза!</szText>
+    <szTextCensored>Дерьмо, мои глаза!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I can't see shit!</szText>
+    <szText>Я нихрена не вижу!</szText>
+	<szTextCensored>Я ничего не вижу!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Who turned off the lights?!</szText>
+    <szText>Кто выключил свет?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Oh, my eyes!</szText>
+    <szText>О, мои глаза!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Oh God, I'm blind!</szText>
+    <szText>Боже, я ослеп!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Holy shit, priest was right! It DOES make you blind!</szText>
+    <szText>Срань господня, священик был прав! ЭТО действительно приводит к слепоте!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Somebody help me! I can't see!</szText>
+    <szText>Кто-нибудь, на помощь! Я ничего не вижу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>You think I won't get you 'cause I'm blind? I can smell your fear!</szText>
+    <szText>Думаешь, я не смогу тебя найти, потому что ослеп? Я чувствую твой страх!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>My eyes are on fire!</szText>
+    <szText>У меня глаза горят!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Hello darkness, my old friend.</szText>
+    <szText>Привет, тьма, мой старый друг.</szText>
   </TAUNT>
 </TAUNTS>

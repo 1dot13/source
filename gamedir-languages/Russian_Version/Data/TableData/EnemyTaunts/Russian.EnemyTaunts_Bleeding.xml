@@ -2,50 +2,50 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>I'm leaking!</szText>
+    <szText>У меня кровотечение!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'm bleeding!</szText>
+    <szText>Я теряю кровь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Everyone, throw whatever you're doing and help me!</szText>
+    <szText>Бросайте всё и помогите мне!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Mmmm... blood.</szText>
+    <szText>Мммм... кровь.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>I need medical attention!</szText>
+    <szText>Мне требуется медицинская помощь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'm spilling blood!</szText>
+    <szText>Я истекаю кровью!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Hey! It DOES taste like iron!</szText>
+    <szText>Эй! На вкус это как железо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Oh, I'm getting light-headed!</szText>
+    <szText>Ох, у меня кружится голова!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Does it count toward my Honorary Donor card?</szText>
+    <szText>Я могу теперь рассчитывать на карточку почетного донора?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'm bleeding... It was supposed to be them, not me!</szText>
+    <szText>У меня кровотечение... Это должно происходить с ними, а не со мной!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Gonna need some sewing!</szText>
+    <szText>Это нужно зашить!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Oh no... my precious fluids!</szText>
+    <szText>О, нет... У меня кровотечение!</szText>
   </TAUNT>
 </TAUNTS>

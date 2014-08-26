@@ -2,60 +2,60 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>OK, I think it's pretty safe to assume he's dead.</szText>
+    <szText>Ладно, думаю теперь он точно мёртв.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>OK, I think it's pretty safe to assume she's dead.</szText>
+    <szText>Ладно, думаю теперь она точно мертва.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I think I'll skip a lunch today.</szText>
+    <szText>Думаю сегодня я откажусь от обеда.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Hahaha! Fucking awesome!</szText>
-    <szTextCensored>Hahaha! Freaking awesome!</szTextCensored>
+    <szText>Хахаха! Да, сука, да!</szText>
+    <szTextCensored>Хахаха! Шикарно!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Fuck yeah! I love this job!</szText>
-    <szTextCensored>Hell yeah! I love this job!</szTextCensored>
+    <szText>Да, блять! Как же я люблю эту работу!</szText>
+    <szTextCensored>Да, чёрт возьми! Как же я люблю эту работу!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>It's OK, you weren't using it anyway.</szText>
+    <szText>Всё в порядке, голова всё равно была тебе не очень нужна.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Boom, head shot!</szText>
+    <szText>Бум, прямо в голову!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Wow!</szText>
+    <szText>Вау!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Mind blown!</szText>
+    <szText>Снесло крышу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I wasn't even trying.</szText>
+    <szText>Я даже не особо старался.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Did somebody take a picture?</szText>
+    <szText>Кто-нибудь успел сфоткать?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Pop goes the zit!</szText>
+    <szText>Прямо в репу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Somebody call an ambulance!</szText>
+    <szText>Кто-нибудь вызовите скорую!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Does it mean I can read minds now?</szText>
+    <szText>Интересно, это значит, что я теперь могу читать мысли?</szText>
   </TAUNT>
 </TAUNTS>

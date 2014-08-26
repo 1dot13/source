@@ -2,235 +2,235 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Oh, Foxy. I didn't even have a time to read you my poem....</szText>
+    <szText>Ох, Лиска. У меня даже не было времени прочитать тебе свою поэму...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Serves you right, you slut!</szText>
+    <szText>Так тебе и надо, шлюха!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>What can I say, I'm a better draw.</szText>
+    <szText>Что я могу сказать, просто я лучше.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>I'm gonna miss your cinematography...</szText>
+    <szText>Я буду скучать по твоим фильмам...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Ashes to ashes, dust to dust.</szText>
+    <szText> Кесарю кесарево, а Богу богово.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Go to hell, Hellar!</szText>
+    <szText>Отправляйся к чёрту!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>That door revolved one time too many...</szText>
+    <szText>Ты слишком часто менял сторону...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Rot in hell, you backstabbing bastard.</szText>
+    <szText>Гори в аду, предатель.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Take a hike, Mike! Damn, that sounded better in my head...</szText>
+    <szText>Отдыхай, Майк! Чёрт, мне казалось, что это будет хорошо звучать...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'll give you my autograph, Gillitt... in your condolence book!</szText>
+    <szText>Я дам тебе свой автограф, Конрад... в книге соболезнований!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I knew I was better than you, Gillitt!</szText>
+    <szText>Я знал, что я лучше тебя, Конрад!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I just whacked Miguel Cordona! Finally, Queen will hear about me!</szText>
+    <szText>Я только что замочил Мигеля Кордону! Наконец-то, королева услышит обо мне!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Wanna see a magic trick? Bam, he's gone!</szText>
+    <szText>Хочешь увидеть фокус? Бам, его нет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Oh no, he's going down! Prepare for the shockwave!</szText>
+    <szText>О нет, он сейчас упадёт! Приготовиться к землетрясению!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>You are a sad, strange, little man, and you have my pity!</szText>
+    <szText>Ты грустный, странный, маленький человек, мне тебя жаль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Hey, Cordona! Queen Dee Dee says hi!</szText>
+    <szText>Эй, Кордона! Королева Ди Ди шлёт привет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>I'll get promotion for killing you, rebel scum!</szText>
+    <szText>Меня повысят за твоё убийство, повстанческая мразь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Bang-bang! Just like in 'Attack of the Clydesdales'!</szText>
+    <szText>Бэнг-бэнг! Прямо как в 'Атаке на Клайдсдейл'!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Much Dust, Many Bullets!</szText>
+    <szText>Много пыли, много пуль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Get back on your Honda, and travel away!</szText>
+    <szText>Садись в свою Хонду, и проваливай обратно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Forgive me, for I have sinned!</szText>
+    <szText>Прости мне мои грехи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Get back to your grave, you freakin' zombie!</szText>
+    <szText>Возвращайся в свою могилу, чёртов зомби!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Please, tell us the story about Gettysburg battle again!</szText>
+    <szText>Давай, расскажи нам о битве при Геттисберге ещё раз!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Now that's an easy target!</szText>
+    <szText>Лёгкая мишень!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Nice ears, Jumbo! They'll look fine on my necklace!</szText>
+    <szText>Милые ушки, Джимбо! Закопчу и повешу на шею!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Where's your God now?!</szText>
+    <szText>И где теперь твой бог?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Father, what about the fifth commandment? You damn hypocrite!</szText>
+    <szText>Отец, а как же пятая заповедь? Чёртов лицемер!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Who's that psycho chick?</szText>
+    <szText>Кто эта психопатка?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Aren't you a bit old for this, geezer?</szText>
+    <szText>А ты не староват для такого?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>All the fat didn't protect internal organs?</szText>
+    <szText>Разве весь этот жир не защищает внутренние органы?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>No, not you Lynx! I wanted to hang your head over the chimney!</szText>
+    <szText>Нет, только не ты, Рысь! Как я теперь засуну твою голову в твою задницу?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>This one's delusional - he thinks he's a killer whale!</szText>
+    <szText>Да у нас тут псих - он думает, что он касатка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>How appropriate, you fight like a big fat cow!</szText>
+    <szText>Ты сражаешься, как жирная корова!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Stop shaking! I can't hit you!</szText>
+    <szText>Перестань дрожать! Я не могу попасть в тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Stop moving! I can't aim when the ground is shaking!</szText>
+    <szText>Перестань двигаться! Я не могу целиться, когда земля так трясётся!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>Holy shit, it's Gus Tarballs! We're fucked!</szText>
-    <szTextCensored>Holy shit, it's Gus Tarballs! We're screwed!</szTextCensored>
+    <szText>Срань господня, это же Гас Тарболс! Нам пиздец!</szText>
+    <szTextCensored>Срань господня, это же Гас Тарболс! Нам конец!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Hey, it's a guy from 'Wild, Wild East'! I'm your biggest fan!</szText>
+    <szText>Эй, это же парень из 'Дикого, дикого Востока'! Я ваш самый большой поклонник!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Enemy detected! Damn, he's hard to miss...</szText>
+    <szText>Враг обнаружен! Чёрт, по нему будет трудно промахнуться...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Howdy, pardner!</szText>
+    <szText>Здорова, партнёр!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>You remind me of my Chinese friend... Ug Lee!</szText>
+    <szText>Ты мне напомнил одного моего друга китайца... Уга Ли!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>Well, if it ain't my favourite celebrity! I have all the posters with you back in the barracks...</szText>
+    <szText>Да это же просто праздник какой-то! У меня вся стена в бараках обклеина вашими постерами...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>You know, I could slap you right now, but I don't want a slut on my hand!</szText>
+    <szText>Знаешь, я бы могла тебя выпороть, но не хочу пачкать руки об такую шлюху, как ты!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>Nice guns you've got there! Are they real, or just replicas?</szText>
+    <szText>Классные у тебя пушки! Они настоящие или макеты?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Guys, don't shoot the cushions!</szText>
+    <szText>Парни, не стреляйте в сиськи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>Hey guys, I think this one's pregnant!</szText>
+    <szText>Чуваки, этот по ходу беременный!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Quickly, someone call Captain Ahab!</szText>
+    <szText>Скорее, кто-нибудь, вызывайте капитана Ахаба!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Are you lost? The auditions for 'Free Willy' are that way!</szText>
+    <szText>Ты заблудился? Тренинг по снижению веса проходит в той стороне!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>Please, don't eat me!</szText>
+    <szText>Пожалуйста, не ешь меня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>Hey honey, what are you doing here? You couldn't handle the washing machine?</szText>
+    <szText>Детка, что ты здесь делаешь? Не можешь сладить со стиральной машиной?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Look guys, I've found fossils!</szText>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Look guys, dinosaurs are still alive!</szText>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>Wow, you've got nice... personality.</szText>
+    <szText>Вау, а у тебя красивые... личные качества.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>You remind me of a younger, dumber Schwarzenegger!</szText>
+    <szText>Ты прямо, как если бы Шварценеггер был моложе и тупее!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Hey, asshole! Eighties called, say they want their haircut back!</szText>
+    <szText>Эй, задница! Звонили 80ые, сказали, что хотят свою причёску назад!</szText>
   </TAUNT>
 </TAUNTS>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <POCKETLIST>
 	<POCKET>
 		<pIndex>0</pIndex>
@@ -6,11 +6,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>1</pIndex>
-		<pName>Ружейный ремень</pName>
+		<pName>Руж. ремень</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>Нож </pName>
+		<pName>Нож</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
@@ -26,11 +26,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Патрон. лента </pName>
+		<pName>Патрон. лента</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>7</pIndex>
-		<pName>Кобура ПП </pName>
+		<pName>Кобура ПП</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
@@ -38,39 +38,39 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>9</pIndex>
-		<pName>Подс. маг. </pName>
+		<pName>Маг. подс.</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>Штурм. маг. </pName>
+		<pName>Штурм. маг.</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>Пист. кобура </pName>
+		<pName>Пист. кобура</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
-		<pName>ПП маг. </pName>
+		<pName>Маг. ПП</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Ружейная гр. </pName>
+		<pName>Подств. гран.</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>14</pIndex>
-		<pName>Граната </pName>
+		<pName>Граната</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>15</pIndex>
-		<pName>Пист. маг. </pName>
+		<pName>Пист. маг.</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>16</pIndex>
-		<pName>Мелкий слот </pName>
+		<pName>Мелкий слот</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>17</pIndex>
-		<pName>Малый слот </pName>
+		<pName>Малый слот</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
@@ -78,11 +78,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>Б. обойма </pName>
+		<pName>Б. обойма</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>Мед. карман </pName>
+		<pName>Мед. карман</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
@@ -94,135 +94,135 @@
 	</POCKET>
   <POCKET>
     <pIndex>23</pIndex>
-    <pName>Large Pistol Holster</pName>
+    <pName>Б. пист. кобура</pName>
   </POCKET>
   <POCKET>
     <pIndex>24</pIndex>
-    <pName>Shotgun Shells</pName>
+    <pName>Патр. дроб.</pName>
   </POCKET>
   <POCKET>
     <pIndex>25</pIndex>
-    <pName>Shotgun Holster</pName>
+    <pName>Кобура дроб.</pName>
   </POCKET>
   <POCKET>
     <pIndex>26</pIndex>
-    <pName>Throwing Knife</pName>
+    <pName>Мет. нож</pName>
   </POCKET>
   <POCKET>
     <pIndex>27</pIndex>
-    <pName>General Misc</pName>
+    <pName>Унив. слот</pName>
   </POCKET>
   <POCKET>
     <pIndex>28</pIndex>
-    <pName>Small Explosive</pName>
+    <pName>Мал. взрыв.</pName>
   </POCKET>
   <POCKET>
     <pIndex>29</pIndex>
-    <pName>Short Rifle Mag x2</pName>
+    <pName>Винт. маг. x2</pName>
   </POCKET>
   <POCKET>
     <pIndex>30</pIndex>
-    <pName>Revolver Holster</pName>
+    <pName>Револ. кобура</pName>
   </POCKET>
   <POCKET>
     <pIndex>31</pIndex>
-    <pName>Combat Pack Gun Sling</pName>
+    <pName>Руж. ремень вещм.</pName>
   </POCKET>
   <POCKET>
     <pIndex>32</pIndex>
-    <pName>Combat Pack Small</pName>
+    <pName>Мал. сумка</pName>
   </POCKET>
   <POCKET>
     <pIndex>33</pIndex>
-    <pName>Explosives</pName>
+    <pName>Взрывчатка</pName>
   </POCKET>
   <POCKET>
     <pIndex>34</pIndex>
-    <pName>Sniper Mag</pName>
+    <pName>Снайп. маг.</pName>
   </POCKET>
   <POCKET>
     <pIndex>35</pIndex>
-    <pName>Canteen</pName>
+    <pName>Фляга</pName>
   </POCKET>
   <POCKET>
     <pIndex>36</pIndex>
-    <pName>First Aid Pocket</pName>
+    <pName>Перв. пом.</pName>
   </POCKET>
   <POCKET>
     <pIndex>37</pIndex>
-    <pName>Carabiner Face</pName>
+    <pName>Мед. набор</pName>
   </POCKET>
   <POCKET>
     <pIndex>38</pIndex>
-    <pName>Carabiner Ring</pName>
+    <pName>Карабин</pName>
   </POCKET>
   <POCKET>
     <pIndex>39</pIndex>
-    <pName>Grenadex3</pName>
+    <pName>Граната x3</pName>
   </POCKET>
   <POCKET>
     <pIndex>40</pIndex>
-    <pName>Pistol Magx2</pName>
+    <pName>Пист. маг. x2</pName>
   </POCKET>
   <POCKET>
     <pIndex>41</pIndex>
-    <pName>Rifle Grenadex2</pName>
+    <pName>Подств. гран. x2</pName>
   </POCKET>
   <POCKET>
     <pIndex>42</pIndex>
-    <pName>7 RD Shotgun Shells</pName>
+    <pName>7 патр. дроб.</pName>
   </POCKET>
   <POCKET>
     <pIndex>43</pIndex>
-    <pName>SMG Magx2</pName>
+    <pName>Маг. ПП х2</pName>
   </POCKET>
   <POCKET>
     <pIndex>44</pIndex>
-    <pName>Kits</pName>
+    <pName>Набор</pName>
   </POCKET>
   <POCKET>
     <pIndex>45</pIndex>
-    <pName>AR Magx2</pName>
+    <pName>Авт. маг. x2</pName>
   </POCKET>
   <POCKET>
     <pIndex>46</pIndex>
-    <pName>AR Magx1</pName>
+    <pName>Авт. маг.</pName>
   </POCKET>
   <POCKET>
     <pIndex>47</pIndex>
-    <pName>Flash Bang</pName>
+    <pName>Светош. гран.</pName>
   </POCKET>
   <POCKET>
     <pIndex>48</pIndex>
-    <pName>Pistol Magx3</pName>
+    <pName>Пист. маг. x3</pName>
   </POCKET>
   <POCKET>
     <pIndex>49</pIndex>
-    <pName>AR Magx3</pName>
+    <pName>Авт. маг. x3</pName>
   </POCKET>
   <POCKET>
     <pIndex>50</pIndex>
-    <pName>Mini Grenade</pName>
+    <pName>Минигран.</pName>
   </POCKET>
   <POCKET>
     <pIndex>51</pIndex>
-    <pName>SMG Magx3</pName>
+    <pName>ПП маг x3</pName>
   </POCKET>
   <POCKET>
     <pIndex>52</pIndex>
-    <pName>Small Knife</pName>
+    <pName>Малый нож</pName>
   </POCKET>
   <POCKET>
     <pIndex>53</pIndex>
-    <pName>Sniper Rifle Gun Sling</pName>
+    <pName>Ремень снайп. винт.</pName>
   </POCKET>
   <POCKET>
     <pIndex>54</pIndex>
-    <pName>Flash Bang</pName>
+    <pName>Светош. гран.</pName>
   </POCKET>
   <POCKET>
     <pIndex>55</pIndex>
-    <pName>Grenadex2</pName>
+    <pName>Граната x2</pName>
   </POCKET>
   <POCKET>
     <pIndex>56</pIndex>

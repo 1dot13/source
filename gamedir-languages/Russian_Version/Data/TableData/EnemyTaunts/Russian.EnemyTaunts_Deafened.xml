@@ -2,22 +2,22 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>What? Hello? I can't hear anything!</szText>
+    <szText>Что такое? Я ничего не слышу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Argh! My ears are bleeding!</szText>
+    <szText>Ааа! У меня кровь из ушей идет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>What's this ringing?</szText>
+    <szText>Что это за звон?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Huh? It's all silent now...</szText>
+    <szText>Эээ? Как-то тихо...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Suddenly all went quiet. What the hell?</szText>
+    <szText>Вдруг всё стихло. Что за чёрт?</szText>
   </TAUNT>
 </TAUNTS>

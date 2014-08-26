@@ -2,394 +2,394 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Marry me!</szText>
+    <szText>Женись на мне!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Pathetic!</szText>
+    <szText>Ты жалок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Try again, I dare ya.</szText>
+    <szText>Попробуй снова, я подыграю тебе.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Don't make me go over there!</szText>
+    <szText>Не заставляй меня подходить ближе!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>You've just made a huge mistake!</szText>
+    <szText>Ты только что сделал большую ошибку!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>I'll take that gun out of your cold hands!</szText>
+    <szText>Я заберу эту пушку из твоих холодных рук!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>You'll regret missing!</szText>
+    <szText>Ты пожалеешь о промахе!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Who were you shootin' at?</szText>
+    <szText>В кого это ты стрелял?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Who learned you to shoot?</szText>
+    <szText>Кто учил тебя стрелять?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You'll pay for that!</szText>
+    <szText>Ты заплатишь за это!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Son of a bitch!</szText>
+    <szText>Сукин сын!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>You suck!</szText>
+    <szText>Ты жалок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Lame!</szText>
+    <szText>Мазила!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Are you even trying?</szText>
+    <szText>Ты хоть старался?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Ha, you wish!</szText>
+    <szText>Ха, мечтай!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Learn how to shoot, rookie!</szText>
+    <szText>Стрелять сначала научись!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>In your dreams!</szText>
+    <szText>Мечтай дальше!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Not impressed!</szText>
+    <szText>Не впечатляет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>That ain't gonna happen.</szText>
+    <szText>Это никогда не случится.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Booooo!</szText>
+    <szText>Фу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Children shouldn't play with guns!</szText>
+    <szText>Дети не должны играть с оружием!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Nice try!</szText>
+    <szText>Хорошая попытка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>My grandma's a better shot!</szText>
+    <szText>Моя бабка лучше стреляет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>That shot was bad and you should feel bad!</szText>
+    <szText>И это выстрел?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Close enough.</szText>
+    <szText>Близко.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Can't touch this!</szText>
+    <szText>Не попал!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Oh, don't let the disappointment get to you.</szText>
+    <szText>Ох, только не расстраивайся.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Get back in the kitchen where you belong, woman!</szText>
+    <szText>Возвращайся назад на кухню, женщина!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>That was close.</szText>
+    <szText>Это было близко.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Try harder!</szText>
+    <szText>В следующий раз старайся лучше!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Whew!</szText>
+    <szText>Воу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Hell no!</szText>
+    <szText>Нет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Maybe next time!</szText>
+    <szText>Может в следующий раз!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Not today!</szText>
+    <szText>Не сегодня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Close, but no cigar.</szText>
+    <szText>Близко, но нет.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>That woke me up.</szText>
+    <szText>Это меня взбодрило.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Is that the best you can do?</szText>
+    <szText>И это всё на что ты способен?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Very pretty, but can you fight?</szText>
+    <szText>Очень мило, а сражаться ты умеешь?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Shit, shit, shit...</szText>
+    <szText>Дерьмо, дерьмо, дерьмо...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>We're all gonna die.</szText>
+    <szText>Вы все умрёте.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>God help me.</szText>
+    <szText>Боже, помоги мне.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>We're in some real pretty shit right now!</szText>
+    <szText>Мы все по уши в дерьме!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>It ain't a dream! This is really happening!</szText>
+    <szText>Это не сон! Это действительно происходит!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Where is the goddamn cavalry?</szText>
+    <szText>Где эта чёртова кавалерия?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>Don't make me angry!</szText>
+    <szText>Не зли меня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>Is that the best you can do?</szText>
+    <szText>И это всё на что ты способен?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Very pretty, but can you fight?</szText>
+    <szText>Очень мило, а сражаться ты умеешь?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>Oh, I'm laughing at your superior skills!</szText>
+    <szText>О, да я просто смеюсь над твоими навыками!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>Is that your best?</szText>
+    <szText>И это всё на что ты способен?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>It's official: YOU SUCK!</szText>
+    <szText>Теперь оффициально: ТЫ - ГОВНО!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>You cannot hurt me!</szText>
+    <szText>Ты не можешь в меня попасть!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Aw, come on, why so serious? Can't you take a joke?</szText>
+    <szText>Оу, да ладно тебе, чего такой серьёзный? Шуток не понимаешь?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Let's not make a big deal out of nothing!</szText>
+    <szText>Давайте не делать из мухи слона!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Are you trying to piss me off?</szText>
+    <szText>Ты пытаешься меня разозлить?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Do you want to hurt me on purpose?</szText>
+    <szText>Ты пытаешься давить на жалость?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>Oh... I'd love to smack you right now!</szText>
+    <szText>Ох... Я с радостью замочу тебя прямо сейчас!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Wow, you're even dumber than you look.</szText>
+    <szText>Воу, да ты еще тупее, чем выглядешь.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Idiots! Idiots everywhere!</szText>
+    <szText>Идиоты! Везде идиоты!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>You fight so badly you make even onions cry.</szText>
+    <szText>Говна поешь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>I guess the only fan you have is the one on the ceiling.</szText>
+    <szText>Я убью тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>Do you always take yourself so seriously?</szText>
+    <szText>Ты всегда такой серьёзный?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>Hey clown, have you came here to amuse me?</szText>
+    <szText>Эй, клоун, ты здесь чтобы рассмешить меня?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Next time try shooting with open eyes!</szText>
+    <szText>В следующий раз целься с открытыми глазами!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>Are you always this stupid or is it a special occasion?</szText>
+    <szText>Ты всегда такой тупой или сегодня особый день?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>Now, you've got my attention!</szText>
+    <szText>Теперь я тобой займусь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>You're so cute when you're trying to shoot!</szText>
+    <szText>Я тебе эту пушку в задницу затолкаю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>You're so cute when you're trying to shoot!</szText>
+    <szText>Я тебе эту пушку в задницу затолкаю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>Hey babe, you should have known how to please me by now...</szText>
+    <szText>Детка, ты знаешь, как меня порадовать...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Blast it! You've spent so much bullets, you've got me confused!</szText>
+    <szText>Промахиваешься ты, а стыдно мне!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>How about that? I've got a superpower and I didn't even know about it - I can dodge bullets!</szText>
+    <szText>Как вам такой поворот? По ходу я умею уворачиваться от пуль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>70</uiIndex>
-    <szText>You think shooting me is gonna solve your problems?</szText>
+    <szText>Вы действительно считаете, что вся эта пальба решит ваши проблемы?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>71</uiIndex>
-    <szText>Bored! Bored! Bored! You're boring...</szText>
+    <szText>Ты уныл...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>72</uiIndex>
-    <szText>Are you trying to shoot me or did your gun just fart?</szText>
+    <szText>Это был случайный выстрел или ты действительно целился?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>73</uiIndex>
-    <szText>Don't ever stop trying, who knows, maybe a miracle will happen!</szText>
+    <szText>Продолжай палить, возможно случится чудо, и ты даже попадешь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>74</uiIndex>
-    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <szText>Попробуй еще раз, детка! Я здесь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>75</uiIndex>
-    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <szText>Попробуй еще раз, детка! Я здесь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>76</uiIndex>
-    <szText>OK, keep shooting, I'll yawn when you hit something!</szText>
+    <szText>Продолжай стрелять, я дам знать, если хоть во что-нибудь попадешь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>77</uiIndex>
-    <szText>Hey, stop shooting! I'm on the phone with my mom!</szText>
+    <szText>Эй, хорош палить! Я с мамой по телефону разговариваю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>78</uiIndex>
-    <szText>Ouch, I'm hit, I'm hit... No, just kiddin'!</szText>
+    <szText>Ааа! Я ранен, я ранен... Нет, просто шучу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>79</uiIndex>
-    <szText>Guys, what should we do with this one, shoot him or starve him to death?</szText>
+    <szText>Чуваки, что с ними сделаем - просто пристрелем или замучаем до смерти?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>80</uiIndex>
-    <szText>Guys, what should we do with this one, shoot her or starve her to death?</szText>
+    <szText>Чуваки, что с этим сделаем - просто пристрелем или замучаем до смерти?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>81</uiIndex>
-    <szText>Oh my god, my heart almost stopped beating!</szText>
+    <szText>Господи, у меня чуть сердце не остановилось!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>82</uiIndex>
-    <szText>I'm scared to death!</szText>
+    <szText>Я чуть не обосрался!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>83</uiIndex>
-    <szText>Gee, that gave me goose bumps!</szText>
+    <szText>Что-то это дело мне начинает нравится всё меньше и меньше!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>84</uiIndex>
-    <szText>Speak of the devil!</szText>
+    <szText>Чёрт!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>85</uiIndex>
-    <szText>Frankly, my dear, I don't give a damn!</szText>
+    <szText>Честно, дорогуша, мне плевать!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>86</uiIndex>
-    <szText>Where did that come from?</szText>
+    <szText>Откуда это прилетело?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>87</uiIndex>
-    <szText>That's what I thought. You're a gutless turd!</szText>
+    <szText>Ты - дерьмо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>88</uiIndex>
-    <szText>Need a scope on that blade?</szText>
+    <szText>Тебе не помешал бы прицел на этот нож?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>89</uiIndex>
-    <szText>Give me that, I'll do it myself!</szText>
+    <szText>Отдай мне эту штуку, я сам всё сделаю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>90</uiIndex>
-    <szText>I ain't your punching bag, boy!</szText>
+    <szText>Я тебе не груша для битья, парень!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>91</uiIndex>
-    <szText>I ain't your punching bag, girl!</szText>
+    <szText>Я тебе не груша для битья, женщина!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>92</uiIndex>
-    <szText>Well, if it ain't Muhammad Ali... Drunk!</szText>
+    <szText>О, да ты просто Мухаммед Али... После ящика пива!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>93</uiIndex>
-    <szText>Boxing... not your strongest suit, huh?</szText>
+    <szText>Бокс твоя не самая сильная сторона, да?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>94</uiIndex>
-    <szText>You fight like a girl!</szText>
+    <szText>Ты дерёшься как девчонка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>95</uiIndex>
-    <szText>You fight like a girl... Oh, nevermind.</szText>
+    <szText>Ты дерёшься как девчонка... А, ну да.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>96</uiIndex>
-    <szText>Not sure if that's the best moment - but you really should invest in some Mentos!</szText>
+    <szText>Сейчас, наверное, не лучший момент - но тебе стоило бы освежить дыхание!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>97</uiIndex>
-    <szText>I love it when they try to fight back!</szText>
+    <szText>Как же я люблю, когда всякие слабаки пытаются дать сдачи!</szText>
   </TAUNT>
 </TAUNTS>

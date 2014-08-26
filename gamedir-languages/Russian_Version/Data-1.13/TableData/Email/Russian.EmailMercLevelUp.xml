@@ -910,19 +910,19 @@
 		<!-- Spooky -->
 		<uiIndex>178</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Пожалуйста, примите к сведению, что повышение боевых навыков Spooky влечёт за собой повышение его гонорара. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Пожалуйста, примите к сведению, что повышение боевых навыков Спуки влечёт за собой повышение его гонорара. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Skitz-->
 		<uiIndex>179</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note. Due to the improved performance of Skitz влечёт за собой повышение его гонорара. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков 'Шутника', его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Weasel -->
 		<uiIndex>180</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note. Due to the improved performance of Weasel his wages for services rendered have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков 'Куницы', его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- It -->
@@ -934,25 +934,25 @@
 	<!-- Bernie -->
 		<uiIndex>182</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Bernie's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Берни, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Pops -->
 		<uiIndex>183</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Pops's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков 'Папаши', его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Wally -->
 		<uiIndex>184</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Wally's extraordinary battlefield experience requires more equitable compensation. His wages for services rendered have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Уолли, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Eli -->
 		<uiIndex>185</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Eli's outstanding performance warrants an increase in salary. His wages have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Эли, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>186</uiIndex>
@@ -968,25 +968,25 @@
 	<!-- Lance -->
 		<uiIndex>188</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Lance's progressively better performance no the battlefield deserves an increase in salary. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Ланса, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Raffi -->
 		<uiIndex>189</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please consider yourself informed that Dr. Leevon's exceptional service entitles him to more equitable compensation. His wages have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Ливона, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Wink -->
 		<uiIndex>190</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Due to Wink's outstanding performance and massive gain in experience his salary has been recalculated. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Винка, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Speck -->
 		<uiIndex>191</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Due to my outstanding performance on the battlefield, I feel obliged to inform you that my salary has been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения моих боевых навыков, арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>192</uiIndex>
@@ -1007,25 +1007,25 @@
 		<!-- John Kulba -->
 		<uiIndex>195</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Due to John Kulba's outstanding performance and massive gain in experience his salary has been recalculated. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Кульбы, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Elio -->
 		<uiIndex>196</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Elio's progressively better performance no the battlefield deserves an increase in salary. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Элио, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Juan -->
 		<uiIndex>197</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please consider yourself informed that Juan's exceptional service entitles him to more equitable compensation. His wages have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Жуан, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Wahan -->
 		<uiIndex>198</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note. Due to the improved performance of Wahan his wages for services rendered have been increased. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Вахана, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>199</uiIndex>
@@ -1135,43 +1135,43 @@
 	<EMAIL>
 		<uiIndex>220</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note. As of this moment, Postie's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Пости, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note, due to the improvement in Reuban's performance his compensation for services render has undergone a revaluation.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Реубана, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note, due to the improvement in Leon's performance his compensation for services render has undergone a revaluation.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Леона, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please do not answer. Following Gary's personal improvement, his fees for services rendered have been reestimated.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Гари, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please take note of this notification. Due to Sparky's significantly improved performance her salary has been increased.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Спарки, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please consider yourself informed that Beth's improved performance entitles her to wages' reconsideration.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Бэт, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>This notice is to inform you that due to Sam's exemplary performance his fees have been revised. Effective immediately there will be an increase to his salary.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Сэма, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Hurl -->
 		<uiIndex>227</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>This notice is to inform you that due to Hurl's exceptional effectiveness his salary has undergone a significant recalculation.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Харла, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>228</uiIndex>
@@ -1256,7 +1256,7 @@
 	<EMAIL>
 		<uiIndex>244</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that Elroy's substantial experience gain entitles him to adequately substantial salary raise. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Элроя, его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>245</uiIndex>
@@ -1271,7 +1271,7 @@
 	<EMAIL>
 		<uiIndex>247</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be informed that Reverend's wages have been increased due to exceptional improvement in his abilities. ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков 'Преподобного', его арендная плата увеличилась. ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>248</uiIndex>
@@ -1281,7 +1281,7 @@
 	<EMAIL>
 		<uiIndex>249</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please consider yourself legally informed that due to improvement in Ears' perfomance his honorarium has been raised.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Эарса, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>250</uiIndex>
@@ -1297,13 +1297,13 @@
 		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please consider yourself informed that due to improvement in Dyno's performance his salary requires reconsideration.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков Дино, его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
 		<Subject>Извещение о повышении цен на услуги</Subject>
-		<Message>Please be advised that due to Turtle's exceptional performance his wages have been recalculated.  ± ± Спек Т. Кляйн ± </Message>
+		<Message>Примите к сведению. Из-за повышения боевых навыков 'Тартла', его арендная плата увеличилась.  ± ± Спек Т. Кляйн ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>

@@ -2,171 +2,171 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Aaaggh!</szText>
+    <szText>Ааа!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I see red...</szText>
+    <szText>Я вижу что-то красное...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Damn, I'm barely conscious.</szText>
+    <szText>Черт, я почти потерял сознание.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Ugh!</szText>
+    <szText>Ух!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>This... hurts!</szText>
+    <szText>Это... больно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>You will regret... uhh... this.</szText>
+    <szText>Ты заплатишь... ух... за это.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Crap!</szText>
+    <szText>Дерьмо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>What the...!</szText>
+    <szText>Что за...!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Ouch!</szText>
+    <szText>Ауч!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You fuck!</szText>
-    <szTextCensored>You bastard!</szTextCensored>
+    <szText>Блять!</szText>
+    <szTextCensored>Ублюдок!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Oh, you little piece of shit!</szText>
-    <szTextCensored>Oh, you little piece of...</szTextCensored>
+    <szText>Ох, ты маленький кусок говна!</szText>
+    <szTextCensored>Ох, ты маленький кусок...</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Fuck, you'll pay for that!</szText>
-    <szTextCensored>Damn, you'll pay for that!</szTextCensored>
+    <szText>Блять, ты заплатишь за это!</szText>
+    <szTextCensored>Чёрт, ты заплатишь за это!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>You fucked with the wrong guy!</szText>
-    <szTextCensored>You messed with the wrong guy!</szTextCensored>
+    <szText>Не до того доебались!</szText>
+    <szTextCensored>Не с тем связались!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Now you have... pissed me off.</szText>
+    <szText>Теперь я... действительно в ярости.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>It was nothing!</szText>
+    <szText>Фигня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>I'm still here!</szText>
+    <szText>Я всё еще здесь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Didn't feel a thing!</szText>
+    <szText>Даже ничего не почувствовал!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Pain is just a weakness leaving my body!</szText>
+    <szText>Боль это всего лишь слабость, которая покидает моё тело!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Pain is just an illusion!</szText>
+    <szText>Боль это всего лишь иллюзия!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Who do you think you are?</szText>
+    <szText>Ты кем себя возомнил?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Oh, come on!</szText>
+    <szText>Ох, да ладно тебе!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Why me?!</szText>
+    <szText>Почему я?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>This hurts you more then it hurts me.</szText>
+    <szText>Тебе будет больнее, чем мне.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>I'm allergic to pain!</szText>
+    <szText>У меня аллергия на боль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>You son of a bitch!</szText>
+    <szText>Ты - сукин сын!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>It's a goddamn commando squad!</szText>
+    <szText>Это чёртовы коммандос!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Why is this shit always happening to me!?</szText>
+    <szText>Почему это дерьмо всегда случается со мной!?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Oh no, how could this happen?</szText>
+    <szText>О, нет, как это могло произойти?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>I'm not angry! You will know when I'm angry!</szText>
+    <szText>Я не зол! Ты узнаешь когда я действительно разозлюсь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Oh... I'd love to smack you right now!</szText>
+    <szText>Ох... Я с радостью замочу тебя прямо сейчас!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>I'm going to beat the crap out of you!</szText>
+    <szText>Я из тебя всё дерьмо выбью!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>That's it, you're fucking dead!</szText>
-    <szTextCensored>That's it, you're freaking dead!</szTextCensored>
+    <szText>Ну всё, считай, что ты уже, блять, сдох!</szText>
+    <szTextCensored>Ну всё, считай, что ты уже сдох!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>I'll punch you, I'll stab you, I'll strangle you! You know... that's what friends do!</szText>
+    <szText>Я буду тебя бить, я буду тебя пинать, я буду тебя душить! Знаешь... друзья иногда так делают!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>God will find a way to get back at you, and it ain't gonna be pretty.</szText>
+    <szText>Бог найдет способ воздать тебе за это, и возмездие легким тебе не покажется.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Little enemies... little wounds!</szText>
+    <szText>Мелкие враги... мелкие раны!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>I really hate needless violence.</szText>
+    <szText>Ненавижу бессмысленное насилие.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>If you shoot me again, I'll wrap your gun around your neck!</szText>
+    <szText>Если ты еще раз меня подстрелешь, я закручу твой ствол вокруг твоей шеи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Oh, poor thing ... she broke her nails!</szText>
+    <szText>Ох, какая жалость... она сломала ноготь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>I'll take that gun from you, stick it up your ass and pull the trigger till it goes click!</szText>
+    <szText>Я отниму у тебя твой ствол, засуну его тебе в задницу и буду стрелять, пока патроны не кончатся!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>This? This is nothing!</szText>
+    <szText>Это? Да это фигня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>It's OK! My face cushioned the fall!</szText>
+    <szText>Всё в порядке! Моё лицо смягчило падение!</szText>
   </TAUNT>
 </TAUNTS>

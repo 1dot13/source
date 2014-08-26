@@ -2,115 +2,115 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Catch!</szText>
+    <szText>Лови!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Here ya go!</szText>
+    <szText>Получай!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Pop goes the weasel.</szText>
+    <szText>Лови подарочек.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>This one's for you.</szText>
+    <szText>Это тебе.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Muahaha!</szText>
+    <szText>Мухаха!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Catch this, swine!</szText>
+    <szText>Получай, свинья!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Snack on that!</szText>
+    <szText>Подавись!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>How 'bout some acupuncture?</szText>
+    <szText>Как на счёт иглоукалывания?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Here's a token of my gratitude!</szText>
+    <szText>Получай!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Do you like shiny things?</szText>
+    <szText>Любишь блестящие штучки?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Here, keep it!</szText>
+    <szText>Лови!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>No returns!</szText>
+    <szText>Сдачи не надо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Have more where it came from!</szText>
+    <szText>Мало будет - добавлю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Jerk on this, you cocky shit licker!</szText>
-    <szTextCensored>erk on this, you cocky bastard!</szTextCensored>
+    <szText>Подавись, говноед!</szText>
+    <szTextCensored>Подавись, говноед!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Take this, you maggot!</szText>
+    <szText>Получай, мразь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>It's Christmas! And you've been VERY naughty!</szText>
+    <szText>Сегодня рождество! И вы ОЧЕНЬ плохо себя вели в этом году!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Choke on this!</szText>
+    <szText>Сдохни!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Incoming!</szText>
+    <szText>Лови!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Take cover!</szText>
+    <szText>В укрытие!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Grenade!</szText>
+    <szText>Граната!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Fire in the hole!</szText>
+    <szText>Граната!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <szText>Кому-то будет больно. И это буду не я!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Your life is over, asshole!</szText>
+    <szText>Твоей жизни конец, придурок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Shit, for a moment I thought I threw a pin...</szText>
+    <szText>Дерьмо, в какой-то момент мне показалось, что я бросил чеку...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Someone hold my beer and watch this!</szText>
+    <szText>Зацените!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Special offer! Two in price of one!</szText>
+    <szText>Спец предложение!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>Special delivery!</szText>
+    <szText>Спец доставка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Here's a free sample of our products, sir!</szText>
+    <szText>Пожалуйста, примите этот скромный дар!</szText>
   </TAUNT>
 </TAUNTS>

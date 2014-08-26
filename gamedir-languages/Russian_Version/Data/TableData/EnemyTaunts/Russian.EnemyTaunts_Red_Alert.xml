@@ -2,130 +2,130 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>They're here!</szText>
+    <szText>Они здесь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Now the fun can start!</szText>
+    <szText>Веселье начинается!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I've waited for this looong time.</szText>
+    <szText>Я очень долго этого ждал.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Sucker with the lowest body count buys drinks!</szText>
+    <szText>Ну всё!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>They have no idea what they are in for...</szText>
+    <szText>Они даже не знают, во что ввязались...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Everyone get ready!</szText>
+    <szText>Всем приготовиться!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Killing time!</szText>
+    <szText>Время убивать!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>I call dibs on any rocket launchers we loot from corpses!</szText>
+    <szText>Плачу за каждый гранатомёт, снятый с трупа!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Finally! Some carnage!</szText>
+    <szText>Наконец-то! Хоть какое-то действие!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Oh, I can't wait to get my hands on them!</szText>
+    <szText>Не могу дождаться, когда они попадут ко мне в руки!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Finally, my training will pay off.</szText>
+    <szText>Наконец-то, я смогу показать, что умею.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Everybody, wake up!</szText>
+    <szText>Все, подъём!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Time to earn my paycheck...</szText>
+    <szText>Время зарплату отрабатывать...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Now I'll be able to prove myself.</szText>
+    <szText>Время проявить себя.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>We have tactical advantage!</szText>
+    <szText>У нас тактическое преимущество!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Maybe I'll get a medal!</szText>
+    <szText>Возможно, я заслужу медаль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>We're under attack!</szText>
+    <szText>Нас атакуют!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Oh, ain't that just great?</szText>
+    <szText>Ну разве это не чудесно?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Can't guy get a nap around here?</szText>
+    <szText>Тревога!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Enemy attack. That's something new.</szText>
+    <szText>Вражеская атака. Это что-то новенькое.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Yay. 'Cause nobody saw that coming.</szText>
+    <szText>Чужие, плохо.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>I'm totally gonna desert as soon as we start losing.</szText>
+    <szText>Я свалю отсюда сразу же, как только мы начнём проигрывать.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Thanks for turning my shitty day into complete disaster, assholes!</szText>
+    <szText>Спасибо за то, что сделали дерьмовый день ещё дерьмовее, уроды!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Take positions!</szText>
+    <szText>Всем занять позиции!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>I hoped this would never happen...</szText>
+    <szText>Я надеялся, что это никогда не произойдёт...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Fire at will!</szText>
+    <szText>Огонь по готовности!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>It was bound to happen eventually.</szText>
+    <szText>Рано или поздно это должно было случиться.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Alert! Alert!</szText>
+    <szText>Тревога! Тревога!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Intruders!</szText>
+    <szText>Нарушители!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>We've got company!</szText>
+    <szText>У нас гости!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Enemy detected!</szText>
+    <szText>Враг обнаружен!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Enemy over here!</szText>
+    <szText>Здесь враг!</szText>
   </TAUNT>
 </TAUNTS>

@@ -2,454 +2,454 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>And I've made contact with you! Prepare to die!</szText>
+    <szText>Готовься к смерти, ошибка природы!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Couple? We're not married!</szText>
+    <szText>Как ты не крути, нам не по пути, мы с тобой не пара, прости!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>I don't know, maybe I'll send them my CV after I kill you!</szText>
+    <szText>Может быть, я пришлю в A.I.M. свое резюме после того, как убью тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>PX? What the fuck does it even mean?</szText>
-    <szTextCensored>PX? What the hell does it even mean?</szTextCensored>
+    <szText>Что, блять, это вообще значит?</szText>
+    <szTextCensored>Что это вообще значит?</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>No shit, Sherlock!</szText>
+    <szText>Штирлиц! А вас я попрошу остаться.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>It will be one-way trip for you!</szText>
+    <szText>Для тебя это будет путешествие в один конец!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Oh yes, by all means! Move out in the open!</szText>
+    <szText>Ах, да, конечно! Деревянный макинтош ждёт тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Luck is for wusses, real professionals depend on their skill!</szText>
+    <szText>Удача для придурков, настоящий профессионал полагается на себя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>What? I can SEE you and HEAR you, you moron!</szText>
+    <szText>Эй ты, придурок, я не только слышу тебя, но и вижу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>Yeah, and don't even think about a lunch break!</szText>
+    <szText>Сейчас я убью тебя и пойду обедать.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I'm  sorry, didn't catch the name!</szText>
+    <szText>Мне очень жаль, что мы незнакомы.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Doesn't matter, you'll be dead soon enough.</szText>
+    <szText>Говори что хочешь, жить тебе недолго!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>So THAT'S why she didn't get my postcard.</szText>
+    <szText>Буду бить аккуратно, но сильно.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Indeed I do!</szText>
+    <szText>Руссо туристо, облико морале, ферштейн?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>You know there's no such animal, right?</szText>
+    <szText>Вы знаете, что кошки-убийцы занесены в красную книгу?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Not yet. But soon you'll meet him!</szText>
+    <szText>Ведь на небе только и разговоров, что о море.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Trouble is my second name!</szText>
+    <szText>Я твоя Совесть, и я буду тебя мучить!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Like a bulldog!</szText>
+    <szText>После первой не закусывают.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>You should be!</szText>
+    <szText>Попрошу факт продажи родины зафиксировать в протоколе.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>Your wish is my order!</szText>
+    <szText>Закон и порядок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Nobody ever does.</szText>
+    <szText>Чудак же ты, Колька, на букву «мэ».</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Just wait, and this trouble will run into YOU!.</szText>
+    <szText>Ты за большевиков али за коммунистов?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Scoundrel? I'll make you eat those words!</szText>
+    <szText>Сволочь? Я заставлю тебя съесть эти слова!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>No, thank you!</szText>
+    <szText>Нет, спасибо. Только после вас!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Will see who's about to teach whom!</szText>
+    <szText>Сейчас посмотрим, кто кого научит!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>You're right!</szText>
+    <szText>Ты прав, мне тебя жаль.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>You don't deserve a chance!</szText>
+    <szText>Ты не заслужил этот шанс!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Horoscopes lie!</szText>
+    <szText>Гороскоп врёт.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Ding dong!</szText>
+    <szText>Динь-дилинь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>It's still not too late!</szText>
+    <szText>Ещё не слишком поздно, вызовите ему врача!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>We'll check ourselves!</szText>
+    <szText>Сейчас мы проверим тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Need bubbles, sir?</szText>
+    <szText>Ещё кофе, сэр?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Did you just call me an ass!?</szText>
+    <szText>Ты кого назвал козлом? За козла ответишь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Whatever.</szText>
+    <szText>Мне всё равно.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>I didn't understand a single word!</szText>
+    <szText>Сплошное ко-ко-ко, я не понимаю тебя.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>It will only get closer!</szText>
+    <szText>Это было слишком близко!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>I'm not really evil... just misunderstood.</szText>
+    <szText>Я почему раньше злой был, потому что у меня велосипеда не было.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>It's about to turn into full tournee!</szText>
+    <szText>Белые пришли - грабют, красные пришли – грабют, ну куда крестьянину податься?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>"Stupid fools"? Are you even trying?</szText>
+    <szText>Красиво идут! – Интеллигенция.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>As you wish!</szText>
+    <szText>Как пожелаешь.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>Hey! I'm a lady!</szText>
+    <szText>Эй ты, соплячка, подь сюда!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>I'll dig you one! Six feet under!</szText>
+    <szText>Я академиев не проходил, я их не закончил.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>Don't worry, I'll send you some!</szText>
+    <szText>Не волнуйся, я брошу цветок тебе в могилу.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>I'll show you!</szText>
+    <szText>Шоу начинается!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>You'll wish you wouldn't ask!</szText>
+    <szText>Митьку били. Митька ухи просит.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>You got it wrong, let me educate you!</szText>
+    <szText>Да кто так стреляет? Иди сюда, я покажу, как надо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Was that a rhetorical question?</szText>
+    <szText>Это риторический вопрос?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>Now, whose fault is it, if your cocksucker boss buys second hand guns?</szText>
-    <szTextCensored>Now, whose fault is it, if your cheap ass boss buys second hand guns?</szTextCensored>
+    <szText>Ну и кто виноват, если ваш босс-членосос покупает подержанное оружие?</szText>
+    <szTextCensored>Ну и кто виноват, если ваш босс покупает подержанное оружие?</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>And soon so will be you!</szText>
+    <szText>Все вы будете в земле.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>The only thing layin' low here, is you bitch!</szText>
+    <szText>Иди сюда, сын шлюхи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>Yeah right, that's why you're sweating!</szText>
+    <szText>От тебя потом разит за милю!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Advice for today: avoid long travels, new relationships and BULLETS!</szText>
+    <szText>Гороскоп на сегодня: избежать новых знакомств, долгих путешествий и пуль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>Mine said I will kill a lot of people today! I hope it will come true too!</szText>
+    <szText>Я загадал убить много людей сегодня, надеюсь, моё желание сбудется.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Do people seriously believe in these things? Pathetic.</szText>
+    <szText>Вы действительно верите в эту чушь? Мне жалко вас.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Tough? I could make that shot with eyes closed.</szText>
+    <szText>Говоришь, невозможно? Да я попал бы с закрытыми глазами!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>And that's just the beginning!</szText>
+    <szText>И это только начало!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>He loves you no more!</szText>
+    <szText>Но он тебя больше не любит!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>OK, this one's out. Next!</szText>
+    <szText>Ок, этот полный, выносите.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>You'll be sorry for saying that!</szText>
+    <szText>Ты ещё пожалеешь об этом!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>Well, now we can play hide and seek!</szText>
+    <szText>Что ж, теперь мы можем поиграть в прятки!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>You're right! It's the whole company here!</szText>
+    <szText>Вы правы! Вся наша компания здесь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>You should have used the plural! Guys, lot's of guys!</szText>
+    <szText>Вы должны были использовать множественное число! Я здесь не один, нас тут о-очень много!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>Will see about that...</szText>
+    <szText>Увидимся чуть позже...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>No, it doesn't, but don't worry, we'll be gentle!</szText>
+    <szText>Нет, это не так, но не волнуйтесь, мы будем нежными!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>Nice grammar, asshole!</szText>
+    <szText>Отличная грамматика, мудак!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>Need supplies, wacko?</szText>
+    <szText>Нужно подкрепление?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>Here, I'll give you some!</szText>
+    <szText>Сейчас получишь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>No, you just suck, that's it! No air involved!</szText>
+    <szText>Нет, сосёте только Вы. Я не участвую!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Never got this - why bring a knife to a gun fight?</szText>
+    <szText>Никогда не понимал, зачем приносить нож на перестрелку?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>Funny indeed, we had so much fun with him as a target practice!</szText>
+    <szText>А ты забавный, я не прочь потренироваться в стрельбе по "бегущему кабанчику".</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>70</uiIndex>
-    <szText>I know some jokes too. For example: you're a joke!</szText>
+    <szText>Я отлично разбираюсь в шутках, например, "ты - гей!" Отличная шутка! </szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>71</uiIndex>
-    <szText>Hey man, the gun isn't stupid, you are!</szText>
+    <szText>Эй парень, у тебя пистолет на предохранителе.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>72</uiIndex>
-    <szText>Suits you fine, huh?</szText>
+    <szText>Неплохой костюмчик.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>73</uiIndex>
-    <szText>Relax! Why make such a fuss?</szText>
+    <szText>Расслабьтесь! Зачем столько шума?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>74</uiIndex>
-    <szText>The only thing you're gonna get is your butt kicked!</szText>
+    <szText>Единственное, что ты получишь, это прикладом в голову!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>75</uiIndex>
-    <szText>Oh yeah? Wait for the next one!</szText>
+    <szText>Ах да? Дождитесь следующего!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>76</uiIndex>
-    <szText>It was just a warning shot!</szText>
+    <szText>Это был просто предупредительный выстрел!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>77</uiIndex>
-    <szText>I'll scratch you to death!</szText>
+    <szText>Я поцарапаю тебя до смерти!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>78</uiIndex>
-    <szText>That's not a scratch. It's a fucking canyon!</szText>
-    <szTextCensored>That's not a scratch. It's a freaking canyon!</szTextCensored>
+    <szText>Это не царапина. Это ёбаный каньон!</szText>
+    <szTextCensored>Это не царапина. Это чертовский каньон!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>79</uiIndex>
-    <szText>No. You need to die!</szText>
+    <szText>Нет. Ты умрёшь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>80</uiIndex>
-    <szText>I'll dig you one too with it!</szText>
+    <szText>И что это я в тебя такой влюбленный?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>81</uiIndex>
-    <szText>Kiss my ass!</szText>
+    <szText>Поцелуй меня в зад.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>82</uiIndex>
-    <szText>Fireball? What the fuck do you think this is, some kind of video game?</szText>
-    <szTextCensored>Fireball? What the hell do you think this is, some kind of video game?</szTextCensored>
+    <szText>Огненный шар? Какого хуя, вы думаете, это своего рода видеоигры?</szText>
+    <szTextCensored>Огненный шар? Какого черта, вы думаете, это своего рода видеоигры?</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>83</uiIndex>
-    <szText>It's OK, I'm here. Follow my voice!</szText>
+    <szText>Все в порядке, я здесь. Следуйте за мной!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>84</uiIndex>
-    <szText>That's what she said!</szText>
+    <szText>Вот что она сказала!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>85</uiIndex>
-    <szText>Please, let it be a close encounter of the sexy kind!</szText>
+    <szText>Пожалуйста, пусть это будет близкая и сексуальная встреча!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>86</uiIndex>
-    <szText>I'm ready any time you are!</szText>
+    <szText>Я готов в любое время!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>87</uiIndex>
-    <szText>Now, now, you're hurting our feelings!</szText>
+    <szText>Сейчас, сейчас, тебе не будет больно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>88</uiIndex>
-    <szText>Come on, there's always a room to try something new!</szText>
+    <szText>Давай, всегда есть шнас попробовать что-то новое!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>89</uiIndex>
-    <szText>Come over here, I'll give you some.</szText>
+    <szText>А казачок-то засланный.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>90</uiIndex>
-    <szText>Is that how it's called these days?</szText>
+    <szText>Ты нервный, у тебя "эти" дни?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>91</uiIndex>
-    <szText>That must the first time ever you're saying that!</szText>
+    <szText>Всё бывает в первый раз.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>92</uiIndex>
-    <szText>Oh, now I'm getting jelous.</szText>
+    <szText>Ларису Ивановну хочу... </szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>93</uiIndex>
-    <szText>I can help you to deal with the grief, if you want!</szText>
+    <szText>Я могу помочь вам справиться с горем, если вы хотите!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>94</uiIndex>
-    <szText>Where? Where?</szText>
+    <szText>Где? Где?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>95</uiIndex>
-    <szText>Maybe I could help you with that?</szText>
+    <szText>Может быть, я мог бы помочь вам в этом?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>96</uiIndex>
-    <szText>You need to empty the chamber...</szText>
+    <szText>Вам нужно освободить камеру...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>97</uiIndex>
-    <szText>But that's nothing new for you, eh?</szText>
+    <szText>Но в этом нет ничего нового для вас, да?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>98</uiIndex>
-    <szText>Damn, that doesn't even deserve a witty response!</szText>
+    <szText>Черт, это даже не самый остроумный ответ!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>99</uiIndex>
-    <szText>Are you even listening what you're saying?</szText>
+    <szText>Вы сами понимаете, что вы говорите?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>100</uiIndex>
-    <szText>Oh, I'll give you one! Just you wait!</szText>
+    <szText>О, я дам тебе один! Ну, погоди!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>101</uiIndex>
-    <szText>You should consider changing your masseur. I volunteer!</szText>
+    <szText>Вы должны рассмотреть вопрос об смене вашего массажиста. Я могу помочь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>102</uiIndex>
-    <szText>Yeah, I bet you did. God.</szText>
+    <szText>Боже, да я вижу, как тебе плохо. </szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>103</uiIndex>
-    <szText>Oooh. Not today!</szText>
+    <szText>О-ох, не сегодня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>104</uiIndex>
-    <szText>No!</szText>
+    <szText>Нет!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>105</uiIndex>
-    <szText>Anything for you, princess.</szText>
+    <szText>Всё что угодно для принцессы.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>106</uiIndex>
-    <szText>I work this way on women.</szText>
+    <szText>Я всю свою жизнь работаю на женщин.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>107</uiIndex>
-    <szText>Are you doing this on purpose?</szText>
+    <szText>Ты делаешь это нарочно?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>108</uiIndex>
-    <szText>Pffft.</szText>
+    <szText>Пфффф.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>109</uiIndex>
-    <szText>Pffft.</szText>
+    <szText>Пфффф.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>110</uiIndex>
-    <szText>I'm just going to pretend I didn't hear that.</szText>
+    <szText>Я просто сделаю вид, что ничего не слышал и не видел.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>111</uiIndex>
-    <szText>Hold on! I'll just drop my clothes, get my rescue tube and I'm coming to save you!</szText>
+    <szText>Держись, спасатели Малибу уже выехали!</szText>
   </TAUNT>
 </TAUNTS>

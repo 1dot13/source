@@ -2,78 +2,78 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Let's see what's inside this pinata!</szText>
+    <szText>Посмотрим, что у тебя внутри!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>When I'm finished with you, you'll sing soprano!</szText>
+    <szText>Когда я с тобой закончу, ты сможешь петь сопрано!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Hey, you've got untied shoelace!</szText>
+    <szText>Эй, у тебя шнурок развязался.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>There's a mustard on your shirt!</szText>
+    <szText>У тебя горчица на майке!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>I'll break every single bone in your body!</szText>
+    <szText>Я сломаю каждую кость в твоём теле!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Need a nose job?</szText>
+    <szText>Поправить твой нос?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Normally, I wouldn't hit a woman... oh, who am I kidding!</szText>
+    <szText>Обычно я не бью женщин... да кого я обманываю?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>Punish!</szText>
+    <szText>Наказание!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>I think you'll enjoy this.</szText>
+    <szText>Думаю, тебе понравится.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'll squash you like a bug!</szText>
+    <szText>Я раздавлю тебя, как жука!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>I'll stab you until you say 'ouch, I'm dead'!</szText>
+    <szText>Я буду резать тебя, пока ты не скажешь: 'ой, я мёртв'!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>I'll carve ya up like a chicken!</szText>
+    <szText>Я порублю тебя, как цыпленка!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Bleed for me!</szText>
+    <szText>Пора пустить кровь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>I can't believe they're paying me for that!</szText>
+    <szText>Не могу поверить, что они платят мне за такое!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Chop chop chop!</szText>
+    <szText>Резать, резать, резать!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>I'll gut you like a fish!</szText>
+    <szText>Я выпотрошу тебя, как рыбу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>You could use some shave!</szText>
+    <szText>Тебе пора немножко побриться!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Time for harakiri, asshole!</szText>
+    <szText>Время харакири, задница!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>I'm going to cut out your living guts!</szText>
+    <szText>Я тебе кишки выпущу!</szText>
   </TAUNT>
 </TAUNTS>

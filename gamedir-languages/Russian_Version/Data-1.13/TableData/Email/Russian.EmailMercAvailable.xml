@@ -1,1350 +1,1349 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <EMAIL_MERC_AVAILABLE>
-  <EMAIL>
-    <!-- Barry -->
-    <uiIndex>0</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Барри Унгера</Subject>
-    <Message>Привет. Это электронное сообщение от Барри Унгера в ответ на Ваше сообщение на моем автоответчике. ± ± Я вернулся с задания и, если Вас интересуют мои услуги, я в настоящее время свободен и доступен на Web-странице A.I.M. ± ± Спасибо. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Blood -->
-    <uiIndex>1</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Кейта Гансона</Subject>
-    <Message>Эй, приятель, это Блад. Я получил твое сообщение. Если нужен, я тут. ± ± Звони. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Lynx -->
-    <uiIndex>2</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Руди Робертса</Subject>
-    <Message>Приветствую Вас. Это Руди Робертс. Вы оставили сообщение на моем автоответчике, и я, как и обещал, сообщаю Вам, что свободен. ± ± Но поторопитесь. Я регулярно получаю предложения, так что уж постарайтесь связаться со мной как можно быстрее. ± ± Спасибо. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Grizzly -->
-    <uiIndex>3</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Стива Борнелла</Subject>
-    <Message>Это Стив Борнелл, Гризли. Вы мне сообщение оставили на этой штуке в A.I.M. Я вернулся. Свяжитесь, как сможете. Ненавижу это техно дерьмо. EXIT exit Send sned help stoip stop SEND \\http:stop //http:stop send. send /send ?help stop. SEND Send. //http.send отправить его, бл... ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Vicki -->
-    <uiIndex>4</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Виктории Вотерс</Subject>
-    <Message>Получила твое сообщение, приятель. Если тебе все еще интересно, я в A.I.M. Приходи, поговорим. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Trevor -->
-    <uiIndex>5</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Тревора Колби</Subject>
-    <Message>Хай. Получил твое сообщение. Мы с Шейлой вернулись, но как я понял, ты меня искал, если, конечно, Шейла от меня ничего не скрывает. ± ± Заваливайся в A.I.M. и мы все обсудим. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Grunty -->
-    <uiIndex>6</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Гельмута Грунтера</Subject>
-    <Message>Привет. Это Хряп. Вы оставили мне сообщение. Теперь я Вам тоже оставляю сообщение. Я вернулся с задания. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Ivan -->
-    <uiIndex>7</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Ивана Долвича</Subject>
-    <Message>Здорово. Я дома. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Steroid -->
-    <uiIndex>8</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Бобби Гонтарски</Subject>
-    <Message>Это соабщение от Бобби Гонтарски для вас. Соопщаю, что я вирнулся в A.I.M. и могу служить вам. Щелкни по моему лице на сайте. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Igor -->
-    <uiIndex>9</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Игоря Долвича</Subject>
-    <Message>Привет! Это Игорь Долвич, племянник легендарного Ивана Долвича, в ответ на Ваш запрос. Я готов обсудить Ваше предложение о работе. ± ± Также я ищу спонсоров в лице ликеро-водочных компаний, чью торговую марку я бы носил на стволе своего автомата в обмен на их продукцию. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Shadow -->
-    <uiIndex>10</uiIndex>
-    <Subject>FW с сервера A.I.M.: [MVdMZ ]VSVW_V</Subject>
-    <Message>>>ЭТО СООБЩЕНИЕ ПОСЛАНО НА СЕРВЕР A.I.M. С АНОНИМНОГО АДРЕСА. Вы искали Тень. Возможно, Вы сможете найти меня на сайте A.I.M в течение короткого времени. Никогда не знаешь наверняка. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Red -->
-    <uiIndex>11</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Эрни Спрагга</Subject>
-    <Message>Привет, друг! Мне жаль, что я не поговорил с тобой по телефону, но я был круто занят, знаешь, как бывает... Звякни Рыжему. Конечно, я буду в A.I.M. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Reaper -->
-    <uiIndex>12</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Карла Шеппардcа</Subject>
-    <Message>Вы оставили сообщение. Похоже, нам есть о чем поговорить. Вы знаете, где меня найти. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Fidel -->
-    <uiIndex>13</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Фиделя Дахана</Subject>
-    <Message>Извини, что не связаться раньше. Они забрали компьютер Фиделя. Они сказать они нашли файлы с плохими картинки. Это неправда. Не знаю, как они попасть ко мне. Самое время поработать подальше отсюда. Ты приходить в A.I.M. - мы говорить. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Fox -->
-    <uiIndex>14</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Синтии Газмен</Subject>
-    <Message>Привет. Оставлял сообщение? Давай поговорим, может, найдем чем заняться вместе. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Sidney -->
-    <uiIndex>15</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Сиднея Неттельсона</Subject>
-    <Message>Благодарю за проявленный интерес. Полагаю, Вы уже знаете, что я один из лучших специалистов A.I.M. Если Вас заинтересуют мои услуги, обсудим условия при личном контакте. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Gus -->
-    <uiIndex>16</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Гаса Тарболса</Subject>
-    <Message>Оп-па! Думал, ты уже никогда и не позвонишь! Когда ты мне звонил, я играл в гольф на Ближнем Востоке. ± ± Сейчас я совсем не занят. Может, у тебя работенка найдется. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Buns -->
-    <uiIndex>17</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Моники Зондергад</Subject>
-    <Message>Привет. Я уже вернулась в A.I.M. Если хотите, можем обсудить новый контракт. (И, Хоббит, если это был ты с одним из своих бесплатных адресов из журналов, я твой модем засуну тебе туда, где солнце не светит). ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Ice -->
-    <uiIndex>18</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Айса Уильямса</Subject>
-    <Message>Это Айс. Я слышал, ты про меня спрашивал, и сообщение твое получил. Если хочешь встретиться, я выкрою время. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Spider -->
-    <uiIndex>19</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от доктора Донны Хьюстон</Subject>
-    <Message>Спасибо за то, что связались со мной. Это доктор Донна Хьюстон. Я только что закончила смену, и есть минутка на разговор. Я не знаю, буду ли я свободна, потому что работаю по вызову. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Cliff -->
-    <uiIndex>20</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от доктора Клиффорда Хайбола</Subject>
-    <Message>Доктор Клиффорд Хайбол свободен. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Bull -->
-    <uiIndex>21</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Джона Питерса</Subject>
-    <Message>Вернулся. ± ± Бык. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Hitman -->
-    <uiIndex>22</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Фрэнка Хеннеси</Subject>
-    <Message>Эй, Ас. Я получил твое сообщение. Я пока свободен, если хочешь поговорить по делу. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Buzz -->
-    <uiIndex>23</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Луизы Гарно</Subject>
-    <Message>Если надо кого-нибудь прикончить, звоните. Иначе, это не ко мне. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Raider -->
-    <uiIndex>24</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Рона Хиггенса</Subject>
-    <Message>Это Рон Хиггенс. Я получил Ваше сообщение. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Raven -->
-    <uiIndex>25</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Шарлен Хиггенс</Subject>
-    <Message>Хай. Это Шарлен. Если мне не предложат другой контракт, я дома. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Static -->
-    <uiIndex>26</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Кирка Стивенсона</Subject>
-    <Message>Я тебе нужен? Я тут. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Len -->
-    <uiIndex>27</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от капрала Лена Андерсона</Subject>
-    <Message>Спасибо за то, что обратились ко мне. Если хотите предложить мне контракт, я в A.I.M. ± ± Спасибо. ± ± Капрал Лен Андерсон. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Danny -->
-    <uiIndex>28</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от доктора Дэниеля Квинтена</Subject>
-    <Message>Рад Вас слышать. Если Вам по-прежнему нужен квалифицированный медицинский персонал, я с радостью встречусь с Вами и внимательно выслушаю Ваше предложение. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Magic -->
-    <uiIndex>29</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Эрла Уокера</Subject>
-    <Message>Я тут. Хотите поговорить? Вы знаете, где меня искать. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Stephen -->
-    <uiIndex>30</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Стефана Ротмана</Subject>
-    <Message>Спасибо за то, что связались со мной. Как Вы уже знаете, среди новых членов A.I.M. я признан одним из лучших, и поэтому меня часто вызывают на сложные и опасные задания. ± ± В настоящее время я свободен, однако сомневаюсь, что это продлится долго. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Scully -->
-    <uiIndex>31</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Роберта Джеймса Салливана</Subject>
-    <Message>Хорошо, что позвонил, друг. Я вернулся в A.I.M. и жду нового задания. Разыщи меня и мы поговорим о деле. Не думаю, что нам что-то помешает, но как знать. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Malice -->
-    <uiIndex>32</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Жана-Пьера Вийо</Subject>
-    <Message>Злобный в офисе. Жду. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Dr. Q -->
-    <uiIndex>33</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от доктора К. Хуаонга</Subject>
-    <Message>Ваше сообщение получено. Если у Вас по-прежнему есть вопросы, которые вы хотели бы обсудить со мной лично, я буду рад встретиться. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Nails -->
-    <uiIndex>34</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Эдгара Сморфа</Subject>
-    <Message>Получил вызов. Я тебе нужен? Подваливай. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Thor -->
-    <uiIndex>35</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Тора Кауфмана</Subject>
-    <Message>Привет. Извините, что не смог с Вами поговорить. Я был очень занят. ± ± А сейчас я свободен, и, если это еще необходимо, мы можем поговорить. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Scope -->
-    <uiIndex>36</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Шейлы Стерлинг</Subject>
-    <Message>Приветствую. Это Стрелка Стерлинг, и я, как обещала, отвечаю на Ваше сообщение. Если у Вас есть, что мне предложить, обращайтесь в A.I.M. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Wolf -->
-    <uiIndex>37</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Питера Сандерсона</Subject>
-    <Message>Это ты звонил? Я был в сортире. Перезвони мне. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- MD -->
-    <uiIndex>38</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от доктора Майкла Доусона</Subject>
-    <Message>Отлично! Я получил Ваше сообщение и с нетерпением ожидаю предложения о работе. ± ± Спасибо! ± ± Майкл Доусон, ЭмДи. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Meltdown -->
-    <uiIndex>39</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Нормы Джессоп</Subject>
-    <Message>Я получила твое душераздирающее сообщение. Ты знаешь, где меня найти, но учти - мое время дорого стоит. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>40</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>41</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>42</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>43</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>44</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>45</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>46</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>47</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>48</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>49</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>50</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>51</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>52</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>53</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>54</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>55</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>56</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>57</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>58</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>59</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>60</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>61</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>62</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>63</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>64</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>65</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>66</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>67</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>68</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>69</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>70</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>71</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>72</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>73</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>74</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>75</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>76</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>77</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>78</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>79</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>80</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>81</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>82</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>83</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>84</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>85</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>86</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>87</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>88</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>89</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>90</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>91</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>92</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>93</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>94</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>95</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>96</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>97</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>98</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>99</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>100</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>101</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>102</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>103</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>104</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>105</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>106</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>107</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>108</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>109</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>110</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>111</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>112</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>113</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>114</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>115</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>116</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>117</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>118</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>119</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>120</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>121</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>122</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>123</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>124</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>125</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>126</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>127</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>128</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>129</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>130</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>131</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>132</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>133</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>134</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>135</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>136</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>137</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>138</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>139</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>140</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>141</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>142</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>143</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>144</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>145</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>146</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>147</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>148</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>149</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>150</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>151</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>152</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>153</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>154</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>155</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>156</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>157</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>158</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>159</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>160</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>161</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>162</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>163</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>164</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>165</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>166</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>167</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>168</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>169</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Monk -->
-    <uiIndex>170</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Виктора Колесникова</Subject>
-    <Message>Привет. Это Монк. Получил твое сообщение. Я вернулся, так что можешь со мной связаться. ± ± Жду звонка. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Brain -->
-    <uiIndex>171</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Янно Аллика</Subject>
-    <Message>Я готов обсудить задания. Для всего есть свое время и место. ± ± Янно Аллик ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Scream -->
-    <uiIndex>172</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Леннарта Вильде</Subject>
-    <Message>Леннарт Вильде вернулся!</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Henning -->
-    <uiIndex>173</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Хеннинга фон Браница</Subject>
-    <Message>Получил твое сообщение, спасибо. Если хочешь обсудить работу, свяжись со мной на сайте A.I.M. До встречи! ± ± Хеннинг фон Браниц ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Luc -->
-    <uiIndex>174</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Люка Фабра</Subject>
-    <Message>Послание получил, мерси! С удовольствием рассмотрю ваши предложения. Вы знаете, где меня найти. ± ± Жду с нетерпением ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Laura -->
-    <uiIndex>175</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Лоры Колин</Subject>
-    <Message>Привет! Спасибо, что оставили сообщение. Звучит интересно. ± ± Зайдите снова в A.I.M. Хотелось бы услышать больше. ± ± С уважением! ± ± Др. Лора Колин ± ± P.S. Надеюсь, Монк уже в вашей команде? ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Grace -->
-    <uiIndex>176</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Грациеллы Джирелли</Subject>
-    <Message>Вы хотели связаться со мной, но неудачно.± ± Семейное собрание. Думаю, вы понимаете. Я уже устала от семьи и буду рада. Если вы снова свяжетесь со мной через сайт A.I.M. ± ± Чао! ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Rudolf -->
-    <uiIndex>177</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Рудольфа Штайгера</Subject>
-    <Message>Ты знаешь, сколько звонков я получаю каждый день? Любой придурок считает, что может позвонить мне. ± ± Но я вернулся, если тебе есть чем меня заинтересовать.±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>178</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>179</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>180</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>181</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>182</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>183</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>184</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>185</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Mitch -->
-    <uiIndex>186</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Dr. Mitch Shudlem</Subject>
-    <Message>Только вернулся с прошлого задания. Готов обсудить ваше предложение. И да, если вы ищете дешёвый труд, то вы тратите свое время зря. ± ± Забудь про покой, идти в ногу с лучшими! ± Dr. Mitch Shudlem ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Carp -->
-    <uiIndex>187</uiIndex>
-    <Subject>FW с сервера A.I.M.: Письмо от Говард Мэлфилд</Subject>
-    <Message>Привет, пацан! Только что получил твое сообщение. Если ты все ещё заинтересован, свяжись со мной через наш сайт. ± ± Говард Мэлфилд ± Заведующий подразделения A.I.M. по здоровью и безопасности ± Глава комитета A.I.M по Рождественским вечеринкам ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>188</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>189</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>190</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>191</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>192</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>193</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>194</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>195</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>196</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>197</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>198</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>199</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>200</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>201</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>202</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>203</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>204</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>205</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>206</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>207</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>208</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>209</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>210</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>211</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>212</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>213</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>214</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>215</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>216</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>217</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>218</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>219</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>220</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>221</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>222</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Gary -->
-    <uiIndex>223</uiIndex>
-    <Subject>FW from AIM Server: Message from Gary Roachburn</Subject>
-    <Message>Hi, I'm free at the moment. ± ± Contact me. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>224</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>225</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>226</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>227</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <!-- Doc -->
-    <uiIndex>228</uiIndex>
-    <Subject>FW from AIM Server: Message from Dr. Ahmad Koolhan</Subject>
-    <Message>Dr. Koolhan here. I just returned from a mission in Libya. ± ± You can contact me on AIM. ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>229</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
+	<EMAIL>
+		<!-- Barry -->
+		<uiIndex>0</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Барри Унгера</Subject>
+		<Message>Привет. Это электронное сообщение от Барри Ангера в ответ на Ваше сообщение на моем автоответчике. ± ± Я вернулся с задания и, если Вас интересуют мои услуги, я в настоящее время свободен и доступен на Web-странице A.I.M. ± ± Спасибо. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Blood -->
+		<uiIndex>1</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Кейта Гансона</Subject>
+		<Message>Эй, приятель, это Блад. Я получил твое сообщение. Если нужен, я тут. ± ± Звони. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Lynx -->
+		<uiIndex>2</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Руди Робертса</Subject>
+		<Message>Приветствую Вас. Это Руди Робертс. Вы оставили сообщение на моем автоответчике, и я, как и обещал, сообщаю Вам, что свободен. ± ± Но поторопитесь. Я регулярно получаю предложения, так что уж постарайтесь связаться со мной как можно быстрее. ± ± Спасибо. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grizzly -->
+		<uiIndex>3</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Стива Борнелла</Subject>
+		<Message>Это Стив Борнелл, Гризли. Вы мне сообщение оставили на этой штуке в A.I.M. Я вернулся. Свяжитесь, как сможете. Ненавижу это техно дерьмо. EXIT exit Send sned help stoip stop SEND \\http:stop //http:stop send. send /send ?help stop. SEND Send. //http.send отправить его, бл... ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Vicki -->
+		<uiIndex>4</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Виктории Вотерс</Subject>
+		<Message>Получила твое сообщение, приятель. Если тебе все еще интересно, я в A.I.M. Приходи, поговорим. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Trevor -->
+		<uiIndex>5</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Тревора Колби</Subject>
+		<Message>Хай. Получил твое сообщение. Мы с Шейлой вернулись, но как я понял, ты меня искал, если, конечно, Шейла от меня ничего не скрывает. ± ± Заваливайся в A.I.M. и мы все обсудим. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grunty -->
+		<uiIndex>6</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Гельмута Грунтера</Subject>
+		<Message>Привет. Это Хряп. Вы оставили мне сообщение. Теперь я Вам тоже оставляю сообщение. Я вернулся с задания. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Ivan -->
+		<uiIndex>7</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Ивана Долвича</Subject>
+		<Message>Здорово. Я дома. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Steroid -->
+		<uiIndex>8</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Бобби Гонтарски</Subject>
+		<Message>Это соабщение от Бобби Гонтарски для вас. Соопщаю, что я вирнулся в A.I.M. и могу служить вам. Щелкни по моему лице на сайте. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Igor -->
+		<uiIndex>9</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Игоря Долвича</Subject>
+		<Message>Привет! Это Игорь Долвич, племянник легендарного Ивана Долвича, в ответ на Ваш запрос. Я готов обсудить Ваше предложение о работе. ± ± Также я ищу спонсоров в лице ликеро-водочных компаний, чью торговую марку я бы носил на стволе своего автомата в обмен на их продукцию. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Shadow -->
+		<uiIndex>10</uiIndex>
+		<Subject>FW с сервера A.I.M.: [MVdMZ ]VSVW_V</Subject>
+		<Message>>>ЭТО СООБЩЕНИЕ ПОСЛАНО НА СЕРВЕР A.I.M. С АНОНИМНОГО АДРЕСА. Вы искали Тень. Возможно, Вы сможете найти меня на сайте A.I.M в течение короткого времени. Никогда не знаешь наверняка. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Red -->
+		<uiIndex>11</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Эрни Спрагга</Subject>
+		<Message>Привет, друг! Мне жаль, что я не поговорил с тобой по телефону, но я был круто занят, знаешь, как бывает... Звякни Рыжему. Конечно, я буду в A.I.M. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Reaper -->
+		<uiIndex>12</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Карла Шеппардcа</Subject>
+		<Message>Вы оставили сообщение. Похоже, нам есть о чем поговорить. Вы знаете, где меня найти. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Fidel -->
+		<uiIndex>13</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Фиделя Дахана</Subject>
+		<Message>Извини, что не связаться раньше. Они забрали компьютер Фиделя. Они сказать они нашли файлы с плохими картинки. Это неправда. Не знаю, как они попасть ко мне. Самое время поработать подальше отсюда. Ты приходить в A.I.M. - мы говорить. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Fox -->
+		<uiIndex>14</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Синтии Газмен</Subject>
+		<Message>Привет. Оставлял сообщение? Давай поговорим, может, найдем чем заняться вместе. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Sidney -->
+		<uiIndex>15</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Сиднея Неттельсона</Subject>
+		<Message>Благодарю за проявленный интерес. Полагаю, Вы уже знаете, что я один из лучших специалистов A.I.M. Если Вас заинтересуют мои услуги, обсудим условия при личном контакте. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Gus -->
+		<uiIndex>16</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Гаса Тарболса</Subject>
+		<Message>Оп-па! Думал, ты уже никогда и не позвонишь! Когда ты мне звонил, я играл в гольф на Ближнем Востоке. ± ± Сейчас я совсем не занят. Может, у тебя работенка найдется. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Buns -->
+		<uiIndex>17</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Моники Зондергад</Subject>
+		<Message>Привет. Я уже вернулась в A.I.M. Если хотите, можем обсудить новый контракт. (И, Хоббит, если это был ты с одним из своих бесплатных адресов из журналов, я твой модем засуну тебе туда, где солнце не светит). ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Ice -->
+		<uiIndex>18</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Айса Уильямса</Subject>
+		<Message>Это Айс. Я слышал, ты про меня спрашивал, и сообщение твое получил. Если хочешь встретиться, я выкрою время. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Spider -->
+		<uiIndex>19</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от доктора Донны Хьюстон</Subject>
+		<Message>Спасибо за то, что связались со мной. Это доктор Донна Хьюстон. Я только что закончила смену, и есть минутка на разговор. Я не знаю, буду ли я свободна, потому что работаю по вызову. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Cliff -->
+		<uiIndex>20</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от доктора Клиффорда Хайбола</Subject>
+		<Message>Доктор Клиффорд Хайбол свободен. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Bull -->
+		<uiIndex>21</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Джона Питерса</Subject>
+		<Message>Вернулся. ± ± Бык. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Hitman -->
+		<uiIndex>22</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Фрэнка Хеннеси</Subject>
+		<Message>Эй, Ас. Я получил твое сообщение. Я пока свободен, если хочешь поговорить по делу. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Buzz -->
+		<uiIndex>23</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Луизы Гарно</Subject>
+		<Message>Если надо кого-нибудь прикончить, звоните. Иначе, это не ко мне. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Raider -->
+		<uiIndex>24</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Рона Хиггенса</Subject>
+		<Message>Это Рон Хиггенс. Я получил Ваше сообщение. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Raven -->
+		<uiIndex>25</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Шарлен Хиггенс</Subject>
+		<Message>Хай. Это Шарлен. Если мне не предложат другой контракт, я дома. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Static -->
+		<uiIndex>26</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Кирка Стивенсона</Subject>
+		<Message>Я тебе нужен? Я тут. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Len -->
+		<uiIndex>27</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от капрала Лена Андерсона</Subject>
+		<Message>Спасибо за то, что обратились ко мне. Если хотите предложить мне контракт, я в A.I.M. ± ± Спасибо. ± ± Капрал Лен Андерсон. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Danny -->
+		<uiIndex>28</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от доктора Дэниеля Квинтена</Subject>
+		<Message>Рад Вас слышать. Если Вам по-прежнему нужен квалифицированный медицинский персонал, я с радостью встречусь с Вами и внимательно выслушаю Ваше предложение. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Magic -->
+		<uiIndex>29</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Эрла Уокера</Subject>
+		<Message>Я тут. Хотите поговорить? Вы знаете, где меня искать. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Stephen -->
+		<uiIndex>30</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Стефана Ротмана</Subject>
+		<Message>Спасибо за то, что связались со мной. Как Вы уже знаете, среди новых членов A.I.M. я признан одним из лучших, и поэтому меня часто вызывают на сложные и опасные задания. ± ± В настоящее время я свободен, однако сомневаюсь, что это продлится долго. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scully -->
+		<uiIndex>31</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Роберта Джеймса Салливана</Subject>
+		<Message>Хорошо, что позвонил, друг. Я вернулся в A.I.M. и жду нового задания. Разыщи меня и мы поговорим о деле. Не думаю, что нам что-то помешает, но как знать. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Malice -->
+		<uiIndex>32</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Жана-Пьера Вийо</Subject>
+		<Message>Злобный в офисе. Жду. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Dr. Q -->
+		<uiIndex>33</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от доктора К. Хуаонга</Subject>
+		<Message>Ваше сообщение получено. Если у Вас по-прежнему есть вопросы, которые вы хотели бы обсудить со мной лично, я буду рад встретиться. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Nails -->
+		<uiIndex>34</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Эдгара Сморфа</Subject>
+		<Message>Получил вызов. Я тебе нужен? Подваливай. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Thor -->
+		<uiIndex>35</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Тора Кауфмана</Subject>
+		<Message>Привет. Извините, что не смог с Вами поговорить. Я был очень занят. ± ± А сейчас я свободен, и, если это еще необходимо, мы можем поговорить. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scope -->
+		<uiIndex>36</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Шейлы Стерлинг</Subject>
+		<Message>Приветствую. Это Стрелка Стерлинг, и я, как обещала, отвечаю на Ваше сообщение. Если у Вас есть, что мне предложить, обращайтесь в A.I.M. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Wolf -->
+		<uiIndex>37</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Питера Сандерсона</Subject>
+		<Message>Это ты звонил? Я был в сортире. Перезвони мне. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- MD -->
+		<uiIndex>38</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от доктора Майкла Доусона</Subject>
+		<Message>Отлично! Я получил Ваше сообщение и с нетерпением ожидаю предложения о работе. ± ± Спасибо! ± ± Майкл Доусон, ЭмДи. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Meltdown -->
+		<uiIndex>39</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Нормы Джессоп</Subject>
+		<Message>Я получила твое душераздирающее сообщение. Ты знаешь, где меня найти, но учти - мое время дорого стоит. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>40</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>41</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>42</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>43</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>44</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>45</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>46</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>47</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>48</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>49</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>50</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>51</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>52</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>53</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>54</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>55</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>56</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>57</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>58</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>59</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>60</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>61</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>62</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>63</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>64</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>65</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>66</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>67</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>68</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>69</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>70</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>71</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>72</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>73</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>74</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>75</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>76</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>77</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>78</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>79</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>80</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>81</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>82</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>83</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>84</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>85</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>86</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>87</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>88</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>89</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>90</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>91</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>92</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>93</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>94</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>95</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>96</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>97</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>98</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>99</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>100</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>101</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>102</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>103</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>104</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>105</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>106</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>107</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>108</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>109</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>110</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>111</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>112</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>113</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>114</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>115</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>116</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>117</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>118</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>119</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>120</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>121</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>122</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>123</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>124</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>125</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>126</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>127</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>128</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>129</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>130</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>131</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>132</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>133</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>134</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>135</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>136</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>137</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>138</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>139</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>140</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>141</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>142</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>143</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>144</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>145</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>146</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>147</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>148</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>149</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>150</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>151</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>152</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>153</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>154</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>155</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>156</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>157</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>158</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>159</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>160</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>161</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>162</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>163</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>164</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>165</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>166</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>167</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>168</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>169</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Monk -->
+		<uiIndex>170</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Виктора Колесникова</Subject>
+		<Message>Привет. Это Монк. Получил твое сообщение. Я вернулся, так что можешь со мной связаться. ± ± Жду звонка. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Brain -->
+		<uiIndex>171</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Янно Аллика</Subject>
+		<Message>Я готов обсудить задания. Для всего есть свое время и место. ± ± Янно Аллик ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Scream -->
+		<uiIndex>172</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Леннарта Вильде</Subject>
+		<Message>Леннарт Вильде вернулся!</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Henning -->
+		<uiIndex>173</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Хеннинга фон Браница</Subject>
+		<Message>Получил твое сообщение, спасибо. Если хочешь обсудить работу, свяжись со мной на сайте A.I.M. До встречи! ± ± Хеннинг фон Браниц ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Luc -->
+		<uiIndex>174</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Люка Фабра</Subject>
+		<Message>Послание получил, мерси! С удовольствием рассмотрю ваши предложения. Вы знаете, где меня найти. ± ± Жду с нетерпением ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Laura -->
+		<uiIndex>175</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Лоры Колин</Subject>
+		<Message>Привет! Спасибо, что оставили сообщение. Звучит интересно. ± ± Зайдите снова в A.I.M. Хотелось бы услышать больше. ± ± С уважением! ± ± Др. Лора Колин ± ± P.S. Надеюсь, Монк уже в вашей команде? ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Grace -->
+		<uiIndex>176</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Грациеллы Джирелли</Subject>
+		<Message>Вы хотели связаться со мной, но неудачно.± ± Семейное собрание. Думаю, вы понимаете. Я уже устала от семьи и буду рада. Если вы снова свяжетесь со мной через сайт A.I.M. ± ± Чао! ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Rudolf -->
+		<uiIndex>177</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Рудольфа Штайгера</Subject>
+		<Message>Ты знаешь, сколько звонков я получаю каждый день? Любой придурок считает, что может позвонить мне. ± ± Но я вернулся, если тебе есть чем меня заинтересовать.±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>178</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>179</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>180</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>181</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>182</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>183</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>184</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>185</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Mitch -->
+		<uiIndex>186</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Dr. Mitch Shudlem</Subject>
+		<Message>Только вернулся с прошлого задания. Готов обсудить ваше предложение. И да, если вы ищете дешёвый труд, то вы тратите свое время зря. ± ± Забудь про покой, идти в ногу с лучшими! ± Dr. Mitch Shudlem ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<!-- Carp -->
+		<uiIndex>187</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Говард Мэлфилд</Subject>
+		<Message>Привет, пацан! Только что получил твое сообщение. Если ты все ещё заинтересован, свяжись со мной через наш сайт. ± ± Говард Мэлфилд ± Заведующий подразделения A.I.M. по здоровью и безопасности ± Глава комитета A.I.M по Рождественским вечеринкам ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>188</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>189</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>190</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>191</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>192</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>193</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>194</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>195</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>196</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>197</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>198</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>199</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>200</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>201</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>202</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>203</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>204</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>205</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>206</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>207</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>208</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>209</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>210</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>211</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>212</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>213</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>214</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>215</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>216</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>217</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>218</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>219</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>220</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>221</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>222</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>223</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>224</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>225</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>226</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>227</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+	<!-- Doc -->
+		<uiIndex>228</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Д-р Ахмад Кулхан</Subject>
+		<Message>Привет, я свободен и готов действовать.</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>229</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Boss -->
-    <uiIndex>230</uiIndex>
-    <Subject>FW from AIM Server: Message from Glen Hatchet</Subject>
-    <Message>Here, the King of DIY. You need me? ± ± Hell, you know where to find me. ± Boss ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>230</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Глен Хэтчет</Subject>
+		<Message>Хай, это Босс, что надо?</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Snake -->
-    <uiIndex>231</uiIndex>
-    <Subject>FW from AIM Server: Message from Johnny Edwards</Subject>
-    <Message>Hi, I finished my internship in Guyana. ± ± Call me. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>231</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Джонни Эдварда</Subject>
+		<Message>Я готов помочь, за умеренное вознаграждение.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Spam -->
-    <uiIndex>232</uiIndex>
-    <Subject>FW from AIM Server: Message from Alan Webster</Subject>
-    <Message>Hello, I just listened to your message. ± ± If you still want me... I'm up for it! ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>232</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Алан Вебстер.</Subject>
+		<Message>Это Алан, так что ты там хотел?</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Spike -->
-    <uiIndex>233</uiIndex>
-    <Subject>FW from AIM Server: Message from Maj. Spike Scallion</Subject>
-    <Message>Major Scallion, I await your call, boy! ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>233</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Спайка Скаллиона.</Subject>
+		<Message>Я свободен и готов зарабатывать хорошие деньги.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Jimmy -->
-    <uiIndex>234</uiIndex>
-    <Subject>FW from AIM Server: Message from Jimmy Upton</Subject>
-    <Message>OK, I am willing to work for you. ± ± But I have to know my destination... Because I cannot go in certain countries. ± Good day. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>234</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Джимми Аптон</Subject>
+		<Message>Я откинулся, легавые потеряли мой след.Ты платишь - я делаю дело, деньги вперёд.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Leech -->
-    <uiIndex>235</uiIndex>
-    <Subject>FW from AIM Server: Message from Timothy Jenkins</Subject>
-    <Message>Hi, if you need a good marksman. ± ± Feel free to contact me. ± Greets. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>235</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Тимоти Дженкинс.</Subject>
+		<Message>Пиявка в деле, кому попасть в глаз?</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Bob -->
-    <uiIndex>236</uiIndex>
-    <Subject>FW from AIM Server: Message from Capt. Bob Adams</Subject>
-    <Message>Hello, you have a mission for me? ± ± Contact me to give me more details. ± Cpt. Adams ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>236</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Боб Адамс.</Subject>
+		<Message>Готов к службе по контракту.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Kelly -->
-    <uiIndex>237</uiIndex>
-    <Subject>FW from AIM Server: Message from Col. Leo Kelly</Subject>
-    <Message>Colonel Kelly here, I'd be happy to help you in your mission. My gear is for work. ± Col. Kelly ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>237</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Лео Келли</Subject>
+		<Message>Сделал дело, гуляю смело. Но всякий полковник не прочь заработать, я свободен и готов к найму.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Vince -->
-    <uiIndex>238</uiIndex>
-    <Subject>FW from AIM Server: Message from Vincenzo Massimo</Subject>
-    <Message>Ciao, I have received your message. ± ± If you have a contract for me... I's free now. ± Arrivederci. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>238</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Винченцо Массимо</Subject>
+		<Message>Винни может вскрыть любой замок или починить твою рухлядь, только плати.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Kaboom -->
-    <uiIndex>239</uiIndex>
-    <Subject>FW from AIM Server: Message from Marty Moffat</Subject>
-    <Message>Hi boss, I'm back on AIM. ± ± Badaboum. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>239</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Марти Моффат</Subject>
+		<Message>Я...это как его, БАБАААХ ...ахаха, короче да, я это...тут... свободен!</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Bud -->
-    <uiIndex>240</uiIndex>
-    <Subject>FW from AIM Server: Message from Lt. Bud Hellar</Subject>
-    <Message>Hello sir, I would be delighted to work for you. ± ± You can contact me at any time. ± Respectfully yours, ± Lt. Hellar ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>240</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Бад Хеллар</Subject>
+		<Message>Всегда причёсан и готов выполнить задание.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Rusty -->
-    <uiIndex>241</uiIndex>
-    <Subject>FW from AIM Server: Message from Russel Hunter</Subject>
-    <Message>I received your message. I am an explosives expert and a pro at night operations. ± ± See you soon on the net. ± Russel Hunter. ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>241</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Рассел Хантер</Subject>
+		<Message>Я здесь. Требуется помощь в разминировании? Я готов.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Needle -->
-    <uiIndex>242</uiIndex>
-    <Subject>FW from AIM Server: Message from Dr. Mark Kranhuim</Subject>
-    <Message>Sir, it is a pleasure for me receiving your message. ± ± My handicap is compensated with my knowledge in medicine. ± ± You know my address and phone number. ± ± Best regards, ± Dr. Kranhium ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>242</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Д-р Марк Краниум</Subject>
+		<Message>Свободен.Заштопаем и подлатаем, будешь как новый.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Screw -->
-    <uiIndex>243</uiIndex>
-    <Subject>FW from AIM Server: Message from Patrick Phillips</Subject>
-    <Message>Hi, I'm on the AIM site. ± ± I'm waiting... But do not delay, because patience is not one of my virtues. ± ± Regards, ± Artiste ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>244</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>243</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Патрик Филипс</Subject>
+		<Message>Свободен, что от меня требуется?</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>244</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Mouse -->
-    <uiIndex>245</uiIndex>
-    <Subject>FW from AIM Server: Message from Anita Backman</Subject>
-    <Message>Hello! *silence* I am ready to join you... ± ± **long silence** ± ± Yours Faithfully, ± Anita *** very long silence *** ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>245</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Анита Бэкмен</Subject>
+		<Message>Я освободилась, слушаю.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Hector -->
-    <uiIndex>246</uiIndex>
-    <Subject>FW from AIM Server: Message from Hector Alvarez</Subject>
-    <Message>Hello, thank you for giving me a chance to prove what I'm worth. I am very impatient... ± ± Call me when you want. ± ± Respectfully, ± Hector ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>247</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>246</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Гектор Альварез</Subject>
+		<Message>гектор здесь, мачете отточен и блестит.</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>247</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Stella -->
-    <uiIndex>248</uiIndex>
-    <Subject>FW from AIM Server: Message from Dr. Margaret Trammel</Subject>
-    <Message>Hello, I received your message. ± ± I like action, but not the sweet talkers. If you seek an adventure with me... Forget me! ± Dr. Trammel ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>249</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>248</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Д-р Маргарет Траммел</Subject>
+		<Message>Булочки испекла, теперь я свободна.</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>249</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Moses -->
-    <uiIndex>250</uiIndex>
-    <Subject>FW from AIM Server: Message from Murray Ebstern</Subject>
-    <Message>What is this regarding? ± ± Oh yes, don't listen to those rumors on my memory and my state health. ± ± I'm in shape and ready to conquer the world... I joke, junior. ± ± In any case, you will not be disappointed if you hire me. ± ± Best regard, ± Moses ±</Message>
-  </EMAIL>
-  <EMAIL>
+		<uiIndex>250</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Мюррей Эбстерн</Subject>
+		<Message>Я здесь.</Message>
+	</EMAIL>
+	<EMAIL>
     <!-- Smoke -->
-    <uiIndex>251</uiIndex>
-    <Subject>FW from AIM Server: Message from Lesley Petersen</Subject>
-    <Message>I saw that you tried to contact me, eh. ± ± If you look for an expert on explosives, I am connected to the AIM, eh. ± Smoke ±</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>252</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>253</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
-  <EMAIL>
-    <uiIndex>254</uiIndex>
-    <Subject>Subject : None</Subject>
-    <Message>Message : None</Message>
-  </EMAIL>
+		<uiIndex>251</uiIndex>
+		<Subject>FW с сервера A.I.M.: Письмо от Лесли Петерсен</Subject>
+		<Message>Уже свободен.</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>252</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>253</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
+	<EMAIL>
+		<uiIndex>254</uiIndex>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
+	</EMAIL>
 </EMAIL_MERC_AVAILABLE>

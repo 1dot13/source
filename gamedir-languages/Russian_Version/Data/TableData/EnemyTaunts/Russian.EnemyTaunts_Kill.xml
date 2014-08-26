@@ -2,183 +2,183 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Viva la revolution!</szText>
+    <szText>Да здравствует революция!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Keep a place in hell for your Queen!</szText>
+    <szText>Займи место в аду для королевы!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Aaand you're dead.</szText>
+    <szText>И вот ты уже мёртв.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Next!</szText>
+    <szText>Следующий!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>That's just a beginning, fuckers!</szText>
-    <szTextCensored>That's just a beginning, bastards!</szTextCensored>
+    <szText>Это только начало, уёбки!</szText>
+    <szTextCensored>Это только начало, ублюдки!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Time to loot a corpse, I guess.</szText>
+    <szText>Полагаю, самое время обыскать труп.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Nice job getting yourself killed.</szText>
+    <szText>Чисто сработанно.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>You OK? You look kinda... dead!</szText>
+    <szText>Ты в порядке? Ты выглядешь каким-то... мёртвым!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Another one to my collection.</szText>
+    <szText>Ещё один на моём счету.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>You could at least TRY to die with some dignity.</szText>
+    <szText>Ты бы мог хотя бы попробывать умереть достойно.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Pathetic.</szText>
+    <szText>Это было так жалко.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Amateur.</szText>
+    <szText>Неудачник.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>Let this be a lesson for all of you!</szText>
+    <szText>Это будет всем вам уроком!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>You asked for it.</szText>
+    <szText>Вы это заслужили.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>Your luck ran out.</szText>
+    <szText>Удача отвернулась от вас.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Time to pay the piper!</szText>
+    <szText>Пришло время расплаты!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>Someone, go check his pulse.</szText>
+    <szText>Кто-нибудь, проверьте его пульс.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Someone, go check her pulse.</szText>
+    <szText>Кто-нибудь, проверьте её пульс.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>Adios!</szText>
+    <szText>Пока!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>In the name of all male population around the globe: we're going to miss you.</szText>
+    <szText>От имени всех мужиков Земли: мы будем скучать по тебе.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>Oh, too bad. She was kinda cute.</szText>
+    <szText>Как жаль. Она была такой милой.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>Goodnight sweet prince.</szText>
+    <szText>Спокойной ночи.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Diagnosis: negative!</szText>
+    <szText>Диагноз: смерть!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>It didn't have end up like this!</szText>
+    <szText>Это не должно было так закончиться!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>Yeah! See ya!</szText>
+    <szText>Да! Ещё увидимся!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Look what you've made me do...</szText>
+    <szText>Только посмотрите, что я только что сделал...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>That's one way to skin a cat!</szText>
+    <szText>Это был единственный способ!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Struggle is the enemy, but lead is the remedy!</szText>
+    <szText>Враг - болезнь, свинец - лекарство!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Cause of death: acute lead poisoning!</szText>
+    <szText>Причина смерти: повышенное содержание свинца в организме!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Everyone deserves a happy ending, except you!</szText>
+    <szText>Все заслуживают хорошего конца, кроме тебя!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Hahaha! Jesus, he fell funny!</szText>
+    <szText>Хахаха! Боже, до чего же забавно он упал!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>Hahaha! Jesus, she fell funny!</szText>
+    <szText>Хахаха! Боже, до чего же забавно она упала!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Now I have to wash my hands!</szText>
+    <szText>Теперь мне надо помыть руки!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Look at my shirt, how am I going to explain this to my wife?</szText>
+    <szText>Посмотри на мою одежду, как я это объясню своей жене?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>Bullseye!</szText>
+    <szText>В яблочко!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>I'm the best!</szText>
+    <szText>Я лучший!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>It's all in the reflexes!</szText>
+    <szText>Всё дело в рефлексах!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>Neutralised!</szText>
+    <szText>Нейтрализован!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Target eliminated!</szText>
+    <szText>Цель нейтрализована!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>Another one bites the dust!</szText>
+    <szText>Ещё один повержен в прах!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>I like to look in their eyes...</szText>
+    <szText>Как же я люблю смотреть им в глаза...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>One out, six billions to go...</szText>
+    <szText>Минус один...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>Close and personal. Just how I like it!</szText>
+    <szText>Это было очень лично. Прям как я люблю !</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Looks like a bad case of... split personality!</szText>
+    <szText>Пример того, что означает фраза "раздвоение личности" в плохом смысле!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>Did your parents have any children that lived?</szText>
+    <szText>У твоих родителей есть ещё живые дети?</szText>
   </TAUNT>
 </TAUNTS>

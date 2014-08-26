@@ -2,38 +2,38 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Hey, who touched me?</szText>
+    <szText>"Эй, кто меня тронул?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Hey, didn't your momma buy your own toys?</szText>
+    <szText>Эй, разве мама не покупала тебе собственные игрушки?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Damn, this one was swift!</szText>
+    <szText>Черт, а ты шустрый!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Stealing stuff will only get you killed!</szText>
+    <szText>Ворованное барахло приведёт тебя в могилу!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Hey! That's mine!</szText>
+    <szText>Эй! Это моё!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Get yourself own stuff, you cheapskate!</szText>
+    <szText>Сам себе заработай на вещи, нищеброд!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>Meh... keep it, it's a junk anyway!</szText>
+    <szText>Ха... Можешь оставить это себе - всё равно это хлам!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>I'll cut off your hands for that, you bastard!</szText>
+    <szText>Я тебе руки оторву за это, ублюдок!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>I'll show you how we treat thieves in these parts!</szText>
+    <szText>Я покажу тебе, что мы делаем с ворами в наших краях!</szText>
   </TAUNT>
 </TAUNTS>

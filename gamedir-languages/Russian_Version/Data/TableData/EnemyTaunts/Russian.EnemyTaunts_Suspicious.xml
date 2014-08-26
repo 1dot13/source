@@ -2,26 +2,26 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Attention, everyone! We've got possible contact!</szText>
+    <szText>Внимание всем! У нас, возможно, контакт!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>Listen everyone, there's some wierd shit going on.</szText>
+    <szText>Слушайте все, здесь какая-то странная хрень творится.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Can someone check out these noises?</szText>
+    <szText>Кто-нибудь может проверить, что здесь?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Possible contact! Oh, I hope it's them. I didn't kill anything in a long time.</szText>
+    <szText>Возможный контакт! Надеюсь, это они. Давно никого не убивал.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Let me guess, another false alarm.</szText>
+    <szText>Дай-ка угадаю, ещё одна ложная тревога?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Can someone else check it out, please?</szText>
+    <szText>Пожалуйста, кто-нибудь ещё, проверьте, что происходит.</szText>
   </TAUNT>
 </TAUNTS>

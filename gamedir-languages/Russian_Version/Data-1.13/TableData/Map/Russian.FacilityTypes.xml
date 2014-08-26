@@ -19,7 +19,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
-      <szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
+      <szTooltipText>Пропустите стаканчик в баре... Ага, разбежались! Просто покупайте другим выпивку и немедленно сообщайте все, что они разболтают.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -28,11 +28,11 @@
     <szFacilityShortName>Тюрьма</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-      <szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+      <szTooltipText>Здесь вы можете допрашивать пленных. Они могут перейти на сторону повстанцев, или выдать важную информаци..</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Выдайте себя за одного из заключенных, чтобы втереться к ним в доверие и выведать информацию или предотвратить мятежs.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -72,12 +72,8 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
-      <szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
+      <szTooltipText>Возьмите под контроль местные информационные каналы и управляйте потоком новостей во всем регионе.</szTooltipText>
     </ASSIGNMENT>
-    <ASSIGNMENT>
-			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
-			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>			
-		</ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
     <ubIndex>8</ubIndex>
@@ -98,7 +94,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
-      <szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
+      <szTooltipText>Превратите этот маленький офис в хорошо смазанную машину пропаганды, введите цензуру на плохие новости и представляйте действия вашей команды в самом лучшем свете.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -204,7 +200,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Выдайте себя за одного из заключенных, чтобы втереться к ним в доверие и выведать информацию или предотвратить мятеж.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
 
@@ -218,7 +214,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+      <szTooltipText>Выдайте себя за одного из заключенных, чтобы втереться к ним в доверие и выведать информацию.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
 

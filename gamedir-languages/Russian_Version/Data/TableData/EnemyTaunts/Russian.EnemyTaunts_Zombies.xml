@@ -2,287 +2,287 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Is this some kind of a joke?</szText>
+    <szText>Это что шутка?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>There's no more room in hell!</szText>
+    <szText>Место в аду закончилось?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>They're coming to get us!</szText>
+    <szText>Они пришли за нами!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Great, that's exactly what this country needs. A fucking zombie apocalypse!</szText>
-    <szTextCensored>Great, that's exactly what this country needs. A freaking zombie apocalypse!</szTextCensored>
+    <szText>Отлично, именно это нужно этой стране. Ебучий зомби-апокалипсис!</szText>
+    <szTextCensored>Отлично, именно это нужно этой стране. Сраный зомби-апокалипсис!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Remember, aim for the head, aim for the head...</szText>
+    <szText>Помните, целиться в голову, целиться в голову...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>5</uiIndex>
-    <szText>Really? I mean.. c'mon!</szText>
+    <szText>Серьезно? Да ладно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>6</uiIndex>
-    <szText>That's just fucked up!</szText>
-    <szTextCensored>That's just messed up!!</szTextCensored>
+    <szText>Что за хуйня!</szText>
+    <szTextCensored>Что за фигня!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>7</uiIndex>
-    <szText>What's next? Werewolves? Vampires?</szText>
+    <szText>Кто следующий? Оборотни? Вампиры?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Come for me! Come on, you rotting corpse!</szText>
+    <szText>Иди сюда! Сюда иди, сраный труп!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
-    <szText>I'll send you back to hell!</szText>
+    <szText>Я отправлю тебя назад в ад!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>10</uiIndex>
-    <szText>Send them more paramedics!</szText>
+    <szText>В аду сегодня выходной?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>11</uiIndex>
-    <szText>Oh shit! It can smell my brain!</szText>
+    <szText>Блин! Я могу почуствовать свой мозг!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>12</uiIndex>
-    <szText>It's not zombie! Technically, they're just infected...</szText>
+    <szText>Это не зомби! Фактически, они просто инфицированы...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>13</uiIndex>
-    <szText>Is this running one or walking one? I'm confused...</szText>
+    <szText>Я даже не знаю, это они так бегут или идут?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>14</uiIndex>
-    <szText>It's alive!</szText>
+    <szText>Оно живое!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>15</uiIndex>
-    <szText>Maybe it's friendly.</szText>
+    <szText>Может, они не хотят ничего плохого.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>16</uiIndex>
-    <szText>It's alive... ish.</szText>
+    <szText>Оно живое!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>17</uiIndex>
-    <szText>Nothing's ever real until it's real.</szText>
+    <szText>Никогда бы не поверил.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>18</uiIndex>
-    <szText>They live!</szText>
+    <szText>Они живые!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>19</uiIndex>
-    <szText>There must be some rational explanation. Virus, space radiation, maybe a meteor...</szText>
+    <szText>Должно быть какое-то логическое объяснение. Какой-то вирус, влияние радиации, может метеора...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>20</uiIndex>
-    <szText>I will not negotiate with undead!</szText>
+    <szText>Я не буду вести переговоры с дохлятиной!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>21</uiIndex>
-    <szText>So there IS a life after death!</szText>
+    <szText>Это и есть жизнь после смерти?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>22</uiIndex>
-    <szText>Holy shit. Plot twist!</szText>
+    <szText>Срань господня!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>23</uiIndex>
-    <szText>Fuck, I think I forgot to take my pills.</szText>
-    <szTextCensored>Crap, I think I forgot to take my pills.</szTextCensored>
+    <szText>Блять, я уж подумал, что забыл принять свои таблетки.</szText>
+    <szTextCensored>Блин, я уж подумал, что забыл принять свои таблетки.</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>24</uiIndex>
-    <szText>That's it, no more drugs for me.</szText>
+    <szText>Всё, больше никаких наркотиков.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>I knew that movie was based on a true story!</szText>
+    <szText>Я знал, что тот фильм основывался на настоящих фактах!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>
-    <szText>You're one spooky motherfucker, man.</szText>
-    <szTextCensored>You're one spooky dude, man.</szTextCensored>
+    <szText>Ну и жуткое же ты уёбище.</szText>
+    <szTextCensored>Ну и жуткое же ты чучело.</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>27</uiIndex>
-    <szText>Oooh. Zombies. How original.</szText>
+    <szText>Зомби. Как это оригинально...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>28</uiIndex>
-    <szText>Zombie over here!</szText>
+    <szText>Здесь зомби!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>29</uiIndex>
-    <szText>Fuck global warming, we've got real problems here!</szText>
-    <szTextCensored>Screw global warming, we've got real problems here!</szTextCensored>
+    <szText>Ебучее глобальное потепление, из-за него у нас теперь здесь проблемы!</szText>
+    <szTextCensored>Сраное глобальное потепление, из-за него у нас теперь здесь проблемы!</szTextCensored>
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Undead!</szText>
+    <szText>Нежить!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
-    <szText>This is a bad dream!</szText>
+    <szText>Это просто плохой сон!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>32</uiIndex>
-    <szText>Blasphemy!</szText>
+    <szText>Что за богомерзкая фигня?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>33</uiIndex>
-    <szText>Come on! It wasn't even 17 seconds!</szText>
+    <szText>Да что же это такое?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>34</uiIndex>
-    <szText>At a certain point in your life you realize you know more dead people than living.</szText>
+    <szText>Я ловлю себя на мысли, что мёртвых знакомых у меня гораздо больше, чем живых.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>35</uiIndex>
-    <szText>I'm scared to pieces!</szText>
+    <szText>У меня почему-то намокли штаны!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>It's amazing how fast the world can go from bad to total shit storm.</szText>
+    <szText>Удивительно, как быстро жизнь может стать не просто плохой, а полнейшим дерьмом.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>
-    <szText>It could be worse. They could be nazi!</szText>
+    <szText>Могло быть и хуже. Например, они могли быть ещё и нацистами!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>38</uiIndex>
-    <szText>Where's my lawnmower when I need it?</szText>
+    <szText>Где моя газонокосилка, когда она так нужна?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>39</uiIndex>
-    <szText>It's against the nature, you freak!</szText>
+    <szText>Это противоестественно!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>40</uiIndex>
-    <szText>Hmmm... I bet I would make a cool zombie myself.</szText>
+    <szText>Хмм... Я бы мог стать крутым зомби.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>41</uiIndex>
-    <szText>No! I don't want to become one of you!</szText>
+    <szText>Нет! Я не стану одним из вас!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>42</uiIndex>
-    <szText>Stay away from my precious gray matter!</szText>
+    <szText>Держись подальше от моих мозгов!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>43</uiIndex>
-    <szText>Please, don't eat me! I'm fat and have too much sugar in my blood!</szText>
+    <szText>Пожалуйста, не ешьте меня! Я жирный, и у меня слишком много сахара в крови!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>44</uiIndex>
-    <szText>Aaaah! Should I cut it off now?!</szText>
+    <szText>Ааа! И что мне теперь это отрезать?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>45</uiIndex>
-    <szText>They're gonna eat me! Oh my GOOOOOOD!</szText>
+    <szText>Они сожрут меня! Боже!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>46</uiIndex>
-    <szText>Not my face! My beautiful face!</szText>
+    <szText>Только не лицо!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>47</uiIndex>
-    <szText>Oh, the PAIN!</szText>
+    <szText>Какая боль!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>48</uiIndex>
-    <szText>Suddenly, I'm getting a real hankering for brains!</szText>
+    <szText>Что-то меня начинает тянуть на мозги!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>And stay dead! This time!</szText>
+    <szText>В этот раз сдохни навсегда!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
-    <szText>You're dead... again.</szText>
+    <szText>Ты сдох... опять.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>51</uiIndex>
-    <szText>Rest in pieces!</szText>
+    <szText>Покойся с миром!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>52</uiIndex>
-    <szText>If it stands up again, I'm gonna piss myself.</szText>
+    <szText>Я обоссусь, если это снова поднимется.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>53</uiIndex>
-    <szText>Stay down!</szText>
+    <szText>Лежи не дёргайся!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>54</uiIndex>
-    <szText>Get back where you came from!</szText>
+    <szText>Отправляйся, откуда пришёл!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>55</uiIndex>
-    <szText>Zed is dead.</szText>
+    <szText>Зед сдох.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Looks like someone here had a bad morning.</szText>
+    <szText>Похоже у кого-то утро не заладилось.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
-    <szText>Now that's what I call a genre shift!</szText>
+    <szText>Вот что я называю сдвигом жанра!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>58</uiIndex>
-    <szText>You know what could come in handy right now? A freaking chainsaw!</szText>
+    <szText>Знаете, что сейчас бы пригодилось? Бензопила!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>59</uiIndex>
-    <szText>Quickly, someone distract them with fireworks or something!</szText>
+    <szText>Кто-нибудь, подожгите их скорее или сделайте ещё что-нибудь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>60</uiIndex>
-    <szText>*whistles* It's a dead man's party! Who could ask for more...</szText>
+    <szText>*свистит* Вечеринка мертвецов! Зачем меня пригласили...</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>61</uiIndex>
-    <szText>It's time to kick some zombie ass!</szText>
+    <szText>Время надирать мёртвые задницы!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>62</uiIndex>
-    <szText>If it bleeds, I can kill it!</szText>
+    <szText>Если у чего-то есть кровь, я могу убить это!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>63</uiIndex>
-    <szText>Men, women, children, zombies... I'll kill all of you!</szText>
+    <szText>Мужчины, женщины, дети, зомби... Я всех вас убью!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>64</uiIndex>
-    <szText>It lives... again!</szText>
+    <szText>Они живые!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>65</uiIndex>
-    <szText>Hey! That's an insurance scam!</szText>
+    <szText>Что за фигня?!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>66</uiIndex>
-    <szText>OK, that's just ridiculous.</szText>
+    <szText>Это просто возмутительно.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>67</uiIndex>
-    <szText>Looks like someone got out of the wrong side of the grave!</szText>
+    <szText>Похоже, кто-то встал не с той ноги из могилы!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>68</uiIndex>
-    <szText>Yup, that should work. Unless it's one of these modern zombies, that are actually infected or some other bullshit.</szText>
+    <szText>Это должно сработать.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>69</uiIndex>
-    <szText>Either it's dead for good, or about to grow two new ones. Let's hope for the former.</szText>
+    <szText>Хороший, плохой... Главное у кого ружьё.</szText>
   </TAUNT>
 </TAUNTS>

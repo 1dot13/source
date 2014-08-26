@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>                                                                                                
+﻿<?xml version="1.0" encoding="utf-8"?>                                                                                                
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 190 chars max
@@ -10,531 +10,531 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>
-    <szName>Most machineguns have replaceable barrels. Use this to rapidly cool down your gun during combat.</szName>
+    <szName>Для большинства пулеметов существуют сменные стволы. Используйте их, чтобы быстро охладить ваш пулемет в бою.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>2</uiIndex>
-    <szName>Use your knife on a corpse to retrieve its uniform, or pick up the corpse.</szName>
+    <szName>Используйте нож на трупе, чтобы получить его униформу или поднять труп.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>3</uiIndex>
-    <szName>Spies can use enemy uniforms to disguise as soldiers.</szName>
+    <szName>Шпионы могут использовать униформу врагов, чтобы выдавать себя за солдат.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>4</uiIndex>
-    <szName>You can toggle between different scopes and sights by pressing [.].</szName>
+    <szName>Можно переключать различные режимы прицеливания при помощи кнопки [.].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>Leaving food around for a few days will spoil it, making it unhealthy.</szName>
+    <szName>Еда, пролежавшая в секторе несколько дней, портится. Ее употребление может вызвать болезнь.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
-    <szName>You can clean poisoning by taking an antidote, or the DOCTOR assignment.</szName>
+    <szName>Заражение можно устранить принятием антидота или лечением у доктора.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
+    <szName>Если на иконке вашего оружия появилась буква 'M', это значит, что наемник поставил оружие на какую-то опору. Это повышает стабильность стрельбы.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>Press [CTRL]+[Z] to lock/release mouse cursor in windowed mode. Useful when exiting sector in tactical screen.</szName>
+    <szName>Не забудьте посетить страничку Jagged Alliance: Flashback на Kickstarter!</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Doorway blocked? Press [X] when beside someone to swap places.</szName>
+    <szName>Дверной проем заблокирован? Нажмите [X], когда находитесь вплотную с кем-либо, чтобы поменяться с ним местами.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.bears-pit.com</szName>
+    <szName>Нужна помощь? Нажмите [H] на стратегическом экране для получения подсказок. Также можете обратиться за помощью на сайты www.ja-galaxy-forum.com (на английском) и ja2.su (на русском).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets size of auto-fire volley.</szName>
+    <szName>Вращением колесика мыши можно увеличивать или уменьшать шанс на попадание. Вращение колесика с зажатой кнопкой [ALT] меняет количество пуль, выпускаемых при стрельбе очередью.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategic screen. Tool tips hinting at facility's function appear when assigning a merc.</szName>
+    <szName>В некоторых секторах есть заведения, к примеру, бары и шахты. Наемников можно назначать на работу в эти заведения. Подсказки, сообщающие о функциях заведений, появляются при назначении наемников на работу в них.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off everything.</szName>
+    <szName>Зажав [CTRL] и щелкнув левой кнопкой мыши по врагу, вы можете украсть его оружие. У лежащего, не умирающего врага можно стащить все до последней нитки.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
-    <szName>EOD flag signals. Mind you, the blue flag you may put in a tile on ground to mark a mine or trap you've spotted is also seen and reacted to by the enemy.</szName>
+    <szName>Имейте в виду, что на голубой флажок, который ставится для обозначения обнаруженной мины, будут обращать внимание как ваши наемники, так и солдаты врага.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (cannot spot anyone) to green (spot even somebody lying in the grass).</szName>
+    <szName>Зажав кнопку [END] на тактическом экране, вы сможете увидеть поле зрения выделенного в данный момент наемника. Красная зона означает, что он не заметит никого, зеленая - заметит даже лежащего в траве человека.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical screen shows enemies you know of may see currently selected merc, ranging from red (will be seen even on prone) to green (perfect concealment).</szName>
+    <szName>Зажав кнопку [DEL] на тактическом экране, вы сможете понять, насколько заметны ваши наемники для врагов, которых вы видите. Красная зона означает, что наемника увидят даже лежащим, зеленая - наемник в идеальном укрытии.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Jagged windowing. Shoot the glass (where necessary), face the open window and climb through it with [SHIFT]+[J].</szName>
+    <szName>Наемники могут прыгать сквозь окна, даже застекленные. Во втором случае при прыжке они получат повреждения. Чтобы прыгнуть, встаньте лицом к окну и нажмите [SHIFT]+[J].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>18</uiIndex>
-    <szName>While in sector inventory, click merc's empty inventory slots for a list of items to be put there.</szName>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот вызовет список вещей, которые вы можете поместить в этот слот.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>19</uiIndex>
-    <szName>While in sector inventory, click item's empty attachment slots for a list of compatible attachments.</szName>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот навесок для оружия вызовет список совместимых навесок.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [CTRL]+[LEFT-MOUSE-BUTTON] on merc's empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот с зажатой кнопкой [CTRL] вызовет список вещей этого сектора по категориям.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), the least damaged item will be chosen.</szName>
+    <szName>При выборе вещей из выпадающего списка (после нажатия на пустой слот инвентаря или пустой слот навесок для оружия) используются наименее поврежденные экземпляры.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[X] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
+    <szName>Нажмите [CTRL]+[SHIFT]+[X] для включения скрытности в реальном времени. В этом режиме не произойдет перехода в пошаговый режим при обнаружении вами врагов, пока они сами не заметят вас.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
+    <szName>Нажмите [CTRL]+[X] для перехода в пошаговый режим со включенной скрытностью в реальном времени. Работает только если ваши наемники видят врага.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>24</uiIndex>
-    <szName>Illuminate night time enemies with flares to increase your chance of shooting them.</szName>
+    <szName>Освещайте поле боя ночью при помощи фальшфейеров, чтобы увеличить шанс попадания по врагу.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>25</uiIndex>
-    <szName>Your merc is under fire and can't fall back? Cover them with smoke grenades.</szName>
+    <szName>Ваш наемник под огнем и не может выбраться? Прикройте его при помощи дымовых гранат.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>26</uiIndex>
-    <szName>Depending on your settings, fully repairing a gun cleans it as well.</szName>
+    <szName>В зависимости от настроек полная починка оружия также будет или не будет чистить его.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>27</uiIndex>
-    <szName>Shops not only sell, but also buy some of your gear. They are quite picky though.</szName>
+    <szName>В магазинах не только продают, но и покупают некоторые ваши вещи. Правда, они довольно придирчивы.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
-    <szName>Afraid enemy will interrupt you? Shoot their legs and hope they fall.</szName>
+    <szName>Боитесь, что враг прервет ваш ход? Стреляте по ногам и надейтесь, что он упадет.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>29</uiIndex>
-    <szName>It is harder to hit a running enemy.</szName>
+    <szName>В бегущего врага труднее попасть.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>Open a useful sector menu with [CTRL]+[.].</szName>
+    <szName>Нажатие на  [CTRL]+[.] откроет удобное меню сектора.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
-    <szName>Increase the number of bullets on automatic fire with [RIGHT-MOUSE-BUTTON].</szName>
+    <szName>Увеличить количество пуль, выпускаемых в режиме автоматического огня, можно нажатием на правую кнопку мыши.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
-    <szName>Merge alcohol with rag to create a molotov cocktail.</szName>
+    <szName>Объедините алкоголь с тряпкой для создания коктейля Молотова.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
-    <szName>Some NPCs can be bribed...</szName>
+    <szName>Некоторых NPC можно подкупить.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
-    <szName>Sneaking while running seems unintuitive, but it works.</szName>
+    <szName>Бег в режиме скрытности кажется глупостью, но это работает.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>35</uiIndex>
-    <szName>You can quickly kill a prone enemy with a knife.</szName>
+    <szName>Можно моментально убить лежащего врага при помощи ножа.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>36</uiIndex>
-    <szName>If the enemy is alerted, they might call in reinforcements...</szName>
+    <szName>Если врагами была поднята тревога, то они могут вызвать подкрепление.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
-    <szName>Bobby Ray's website will be available if you progress.</szName>
+    <szName>Сайт Бобби Рея станет доступным по мере продвижения в игре.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
-    <szName>Sneaking near unaware enemies trains your agility, but is risky.</szName>
+    <szName>Скрытное перемещение возле ничего не подозревающих врагов тренирует вашу ловкость, однако это весьма рискованно.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>39</uiIndex>
-    <szName>Punching increases your dexterity and strength.</szName>
+    <szName>Рукопашный бой увеличивает проворность и силу.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>40</uiIndex>
-    <szName>Doctoring and arming bombs will increase your wisdom.</szName>
+    <szName>Оказание первой помощи и установка взрывчатки повышают вашу мудрость.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
-    <szName>Remote bombs can be detonated with a remote detonator - put it in your hands and press [RIGHT-MOUSE-BUTTON].</szName>
+    <szName>Взрывчатка с дистанционным управлением может быть взорвана с помощью дистанционного детонатора - возьмите детонатор в руки и нажмите правую кнопку мыши.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
-    <szName>If you want to manually move items, you can use the MOVEITEM-assignment within cities.</szName>
+    <szName>Если вы хотите вручную перемещать предметы, можете дать такое задание вашему наемнику, находящемуся в городе.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>43</uiIndex>
-    <szName>You can toggle firemodes with [B].</szName>
+    <szName>Вы можете переключать режимы стрельбы из оружия (включая возможность атаки присоединенным к оружию штыком) при помощи клавиши [B].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
-    <szName>Pressing [SHIFT]+[R] in tactical screen orders your entire team to reload.</szName>
+    <szName>Нажмите [SHIFT]+[R] на тактическом экране, чтобы весь отряд перезарядил оружие.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>45</uiIndex>
-    <szName>Press [S] to stand, [C] to crouch, [P] to go prone and [R] to stand and run.</szName>
+    <szName>Нажатие [S] заставит вашего наемника встать, [C] - присесть, [P] - лечь, а [R] - встать и бежать.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>46</uiIndex>
-    <szName>Press [Z] to toggle sneak mode.</szName>
+    <szName>Нажмите [Z] для включения режима скрытности для одного наемника, а [ALT]+[Z] - для всего отряда.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>47</uiIndex>
-    <szName>Throwing knives can instantly kill an enemy if he is not alerted.</szName>
+    <szName>Метание ножей в ничего не подозревающего врага может моментально его убить.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
-    <szName>You can open a useful description box by clicking [RIGHT-MOUSE-BUTTON] on an item.</szName>
+    <szName>Щелкнув правой кнопкой мыши на каком-нибудь предмете, вы откроете удобное меню с описанием.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
-    <szName>Long-term mercenary contracts are cheaper... in the long term.</szName>
+    <szName>Долговременные контракты с наемниками выходят дешевле. В дальней перспективе.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
-    <szName>Not paying M.E.R.C. bills might have consequences...</szName>
+    <szName>Неуплата счетов M.E.R.C. может вызвать определенные последствия.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>51</uiIndex>
-    <szName>If the enemy conquers your sectors, they might take your stuff.</szName>
+    <szName>Если враг завоюет принадлежащий вам сектор, он может забрать ваши вещи.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
-    <szName>Doctors can instantly restore some life lost via surgery - this will drain your medical supplies a lot.</szName>
+    <szName>Доктора могут моментально восстановить часть потерянной жизни при помощи хирургии. Это действие, однако, быстро расходует ваши медицинские запасы.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>53</uiIndex>
-    <szName>Taking too many drugs has consequences.</szName>
+    <szName>Принятие большого числа наркотиков не проходит бесследно.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>54</uiIndex>
-    <szName>If you'll ever get airborne, those SAM sites might come in handy.</szName>
+    <szName>Если вы собираетесь высаживать десант, то нелишним будет захватить базы ПВО.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>55</uiIndex>
-    <szName>At the start of the combat use [SHIFT]+[B] shortcut to drop all backpacks your mercs carry. At the end of combat use [CTRL]+[SHIFT]+[F] shortcut to pick them all back up.</szName>
+    <szName>В начале боя нажмите [SHIFT]+[B], чтобы все наемники сбросили свои рюкзаки. В конце боя нажмите [CTRL]+[SHIFT]+[F], чтобы наемники подняли их обратно.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>56</uiIndex>
-    <szName>You can destroy blue flags on mines by throwing grenades on them. Enemy may step on unflagged mine. Then again, you may as well.</szName>
+    <szName>Можно уничтожать голубые флажки на минах, бросая на них гранаты. Враг (равно как и ваши наемники) может наступить на не помеченную флажком мину.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Press [L] to look at direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
+    <szName>Нажмите [L], чтобы повернуться в сторону курсора. Нажмите [L] еще раз, чтобы взять оружие на изготовку и смотреть в указанном направлении через прицел (если он есть).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
-    <szName>Always try to end turn with your mercs at least crouched. It protects you from unintentional friendly fire.</szName>
+    <szName>Постарайтесь заканчивать свой ход в положении как минимум лежа. Это поможет защитить от непреднамеренного дружественного огня.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on first target and drag it around the desired area.</szName>
+    <szName>Можно вести автоматический огонь по площади. Для этого в режиме автоматического огня нажмите и удерживайте ЛКМ на том месте, откуда хотите начать стрельбу, затем ведите мышь вдоль линии стрельбы, а в конце отпустите ЛКМ.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
-    <szName>Cambria has hospital where you can heal your mercs.</szName>
+    <szName>В Камбрии есть госпиталь, где вы можете вылечить ваших наемников.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
-    <szName>Bipods only give bonuses if you are lying prone or when gun is mounted.</szName>
+    <szName>Сошки дают бонус только если ваш наемник лежит или установил свое оружие на опору.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>62</uiIndex>
-    <szName>Heavy weapons take a lot of energy if you fire or even hold them ready while standing. Go prone to save energy.</szName>
+    <szName>Тяжелое оружие отнимает много энергии при стрельбе или даже если оно просто взято на изготовку. Для сохранения энергии лучше дать команду наемнику лечь.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>63</uiIndex>
-    <szName>Whenever you can, always use cover.</szName>
+    <szName>При первой же возможности постарайтесь занять укрытие.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>64</uiIndex>
-    <szName>Rebel militia can take away some enemy fire from your mercs. Don't count on them to do all the work though.</szName>
+    <szName>Местное ополчение может отвлечь вражеский огонь от ваших бойцов. Однако не стоит рассчитывать, что они смогут выполнить всю работу самостоятельно.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>Mobile militia can follow mercs while travelling on map as long as merc group is 1 sector distance to them. Wait for them to arrive to your position.</szName>
+    <szName>Мобильное ополчение может следовать за наемниками при перемещении по карте до тех пор, пока между ними будет не более 1 сектора. Дождитесь, пока они прибудут в ваш сектор.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>66</uiIndex>
-    <szName>In the militia redistribution menu, holding [CTRL] will move 5 militia. [SHIFT] will move all in a sector.</szName>
+    <szName>В меню распределения ополчения, зажав [CTRL], можно переместить 5 человек, а зажав [SHIFT], - всех людей.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>67</uiIndex>
-    <szName>Mobile militia can help you when you attack a town if you keep them with you and call them as reinforcements before battle.</szName>
+    <szName>Мобильное ополчение может помочь вам атаковать города, если оно будет находиться в одном с вами секторе и вы выберете их в качестве подкреплений перед битвой.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
-    <szName>On top of the sector inventory screen, there are buttons that help sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
+    <szName>Сверху экрана инвентаря сектора есть много кнопок, которые помогают сортировать и фильтровать вещи. Наведите на эти кнопки курсор, чтобы получить их описание.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>69</uiIndex>
-    <szName>HP ammo does great damage but is easily stopped by body armor. AP ammo can penetrate body armor but does less damage.</szName>
+    <szName>Экспансивные боеприпасы наносят большой урон, но легко останавливаются нательной броней. Бронебойные боеприпасы могут пробивать эту броню, но наносят меньше урона.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
-    <szName>Use HP ammo to kill bloodcats.</szName>
+    <szName>Используйте экспансивные боеприпасы, чтобы убить котов-убийц.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>71</uiIndex>
-    <szName>Helping locals will boost their loyalty. Talking to them may sometimes reveal some useful information as well.</szName>
+    <szName>Помощь местным жителям повышает уровень лояльности города. Кроме того, из разговора с ними иногда можно узнать разную полезную информацию.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>72</uiIndex>
-    <szName>You need to have enough loyalty in town before you can train militia there.</szName>
+    <szName>В городе должен быть определенный уровень лояльности, прежде чем вы сможете тренировать там ополчение.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
-    <szName>Mercs with teaching skill train militia faster.</szName>
+    <szName>Наемники с навыками обучения быстрее тренируют ополчение.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
-    <szName>Press [O] opens up options menu in game.</szName>
+    <szName>Нажмите [O], чтобы открыть меню настроек.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
-    <szName>Press [ALT]+[S] will quicksave game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
+    <szName>При помощи [ALT]+[S] делается быстрое сохранение в собственный слот, при помощи [ALT]+[L] осуществляется загрузка из этого слота.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>76</uiIndex>
-    <szName>Press [CTRL]+[S] will open up save menu instantly.</szName>
+    <szName>[CTRL]+[S] открывает меню сохранения игры, [CTRL]+[L] - меню загрузки игры.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
-    <szName>In the main menu holding [ALT] while clicking 'Continue saved game' option will instantly load last saved game.</szName>
+    <szName>Выбор в главном меню пункта "Продолжить" с зажатой кнопкой [ALT] приведет к автоматической загрузке последней сохраненной игры.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
-    <szName>Yellow shirts are admin enemies that have worst equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
+    <szName>Солдаты в желтых футболках - самый слабый тип врагов с самым плохим оружием. Их сменяют регулярные войска вскоре после вашего прибытия в Арулько.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
-    <szName>Red shirts are Deidranna's regular army and will face you most of the game.</szName>
+    <szName>Солдаты в красных футболах - регулярная армия Дейдранны, с ними вы будете сталкиваться большую часть игры.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
-    <szName>Black shirts are mercenaries hired by Deidranna. They have the best equipment and weapons and are toughest of enemies. Higher difficulty levels increase their numbers.</szName>
+    <szName>Солдаты в черных футболках - наемники Дейдранны. У них лучшее вооружение, они самые трудные враги. Высокие уровни сложности увеличивают их численность.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
-    <szName>Green militia can be trained further to become regular militia. Regular militia is more useful but costs more to train and maintain.</szName>
+    <szName>Зеленых ополченцев можно тренировать до уровня регулярного ополчения. Они более эффективны в бою, но их дороже тренировать и содержать.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
-    <szName>Veteran militia can't be trained. Militia can become veteran after combat if they performed well.</szName>
+    <szName>Ополченцев-ветеранов нельзя тренировать. Ветеранами ополченцы могуть стать после успешного боя.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
-    <szName>Try to bandage dying merc as soon as possible, or otherwise the merc may bleed to death.</szName>
+    <szName>Постарайтесь перевязать умирающего наемника как можно быстрее, иначе он может истечь кровью до смерти.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>84</uiIndex>
-    <szName>Always try to give a sidearm to your snipers. Snipers are of limited use in close combat situations.</szName>
+    <szName>Старайтесь, чтобы у вашего снайпера всегда был в запасе пистолет или пистолет-пулемет. Снайперы не очень эффективны на ближних дистанциях.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
-    <szName>Stun grenades can help you render enemy helpless. You can steal equipment from helpless enemies.</szName>
+    <szName>Оглушающие гранаты могут вывести ваших врагов из строя. У них можно красть вооружение.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>86</uiIndex>
-    <szName>Try to stun or suppress enemies before throwing tear gas grenade at them. That will prevent them from getting out of tear gas range.</szName>
+    <szName>Постарайтесь оглушить или прижать врагов к земле перед броском в них гранат со слезоточивым или перцовым газом. Это не позволит врагу покинуть область действия газа.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
-    <szName>Always check if enemy has gas mask before using tear gas on him. Hold [ALT] key while targeting enemy to see his details. Amount of details depend on the distance from selected merc.</szName>
+    <szName>Прежде чем бросать во врага гранаты с газом, убедитесь, что у врага нет противогаза. Для проверки наведите курсор на врага и зажмите кнопку [ALT]. Количество полученной информации зависит от расстояния до врага.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
-    <szName>Make sure you have your gun fully loaded at all times with [ALT]+[R].</szName>
+    <szName>Держите магазины ваших наемников всегда заряженными - пользуйтесь комбинацией кнопок [ALT]+[R].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>89</uiIndex>
-    <szName>Don't forget to use cover.</szName>
+    <szName>Не забывайте использовать укрытия.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
-    <szName>If trees get in your LOS (line of sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
+    <szName>Если деревья мешают вашему обзору, нажмите [T], чтобы убрать их верхушки. Также можно зажать кнопку [DELETE], чтобы лучше представлять, что окружает ваших наемников.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
-    <szName>L.B.E. stands for Load Bearing Equipment.</szName>
+    <szName>Чтобы быстро натренировать силу ваших наемников, вы можете заставить бегать их с нагрузкой, значительно превышающую 100 процентов.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
-    <szName>Switch between ground and rooftop targets with the [TAB] key.</szName>
+    <szName>Переключайтесь между целями на земле и на крышах при помощи кнопки [TAB].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>93</uiIndex>
-    <szName>Shoot from behind cover and know how many AP's it takes to get your butt back down again.</szName>
+    <szName>Рассчитывайте наперед, сколько ОД необходимо потратить, чтобы встать из-за укрытия, выстрелить и спрятаться обратно за укрытие.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
-    <szName>Pay attention to what mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
+    <szName>Обращайте внимание на то, что слышат ваши наемники, особенно ночью - зачастую вы раньше услышите приближение врага, чем увидите его.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>95</uiIndex>
-    <szName>You'll see a white "Ping" blink on the location of any overheard sounds.</szName>
+    <szName>Любой звук, который услышит ваш наемник, отображается белыми кругами.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
-    <szName>Firing your weapon can draw some heat away from an injured merc or someone who's in it knee deep!</szName>
+    <szName>Сделав где-нибудь в отдалении несколько выстрелов "в никуда", вы сможете отвлечь внимание от наемника, попавшего в переплет.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>
-    <szName>Stay away from light sources at night and try to use them to your advantage.</szName>
+    <szName>Ночью держитесь подальше от источников света и постарайтесь использовать их так, чтобы получить преимущество.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
-    <szName>Press [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
+    <szName>Наемников можно выбирать, нажимая кнопки [F1]...[F6]. Выбрать их всех можно, нажав на кнопку [=].</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
-    <szName>Relying on sound is even more important at night. Without the proper equipment, you'll hear more than you can see.</szName>
+    <szName>Без надлежащего оборудования (приборов ночного видения хорошего качества) стоит больше полагаться на слух и средства его усиления.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
-    <szName>Night Ops is probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
+    <szName>Навык ночных операций больше подходит для раннего этапа игры, когда вы полагаетесь на пистолеты и пистолеты-пулеметы.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [G] to toggle on/off the artificial light around the mercs.</szName>
+    <szName>Нажмите [G], чтобы включить и выключить искусственную подсветку ваших наемников.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
-    <szName>If you get caught in a thunder storm, be on your toes, a flash of lightning can give away your position and the rain makes it harder to see.</szName>
+    <szName>При сражении в грозу необходимо быть начеку, так как молния может выдать ваше (и ваших врагов) местоположение, а дождь сильно ухудшает видимость.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>103</uiIndex>
-    <szName>Don't stay bunched together either, a stray bullet or grenade can do serious damage to your whole squad.</szName>
+    <szName>Не стойте плотной толпой, так как автоматная очередь или граната могут нанести серьезный урон всему отряду.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>104</uiIndex>
-    <szName>Every move you make, determines how the battle unfolds.</szName>
+    <szName>Любой ваш шаг повлияет на то, как будет дальше развиваться бой.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
-    <szName>Always deal with the present threat before carrying out another plan.</szName>
+    <szName>Всегда устраняйте текущую угрозу, прежде чем начать выполнять свой план.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
-    <szName>When moving on a roof top, try to move in straight lines, moving diagonally can slow you down.</szName>
+    <szName>Находясь на крыше, постарайтесь двигаться по прямым линиям, так как движение по горизонтали может замедлить вас.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>107</uiIndex>
-    <szName>Marbles can be surprisingly useful in a fist fight.</szName>
+    <szName>Камешки могут быть удивительно полезными в кулачном бою.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on the mercs. It will slow the squad down.</szName>
+    <szName>Постарайтесь не превышать 100-процентную нагрузку для ваших наемников, так как это заставляет их уставать гораздо быстрее.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
-    <szName>Counting bullets during a fight is tough. Don't be surprised when the mercs forget how many they have left.</szName>
+    <szName>Подсчет пуль в бою - сложная штука. Не удивляйтесь, если ваш наемник забыл, сколько точно пуль осталось в его магазане.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
-    <szName>Each mercenary has different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <szName>Каждый наемник эффективен в разных способах убеждения, пытаясь добиться чего-то от других. Не ожидайте, что Биф сможет удачно запугать кого-либо.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
-    <szName>Each mercenary has different sleeping pattern ranging from 3 to 12 hours to fully restore energy. "Night Ops" trait allows to reduce this time even further.</szName>
+    <szName>У каждого наемника свои потребности во сне - им требуется от 3 до 12 часов сна, чтобы полностью восполнить запасы энергии. Навык ночных операций позволяет снизить это время еще больше.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>112</uiIndex>
-    <szName>Each mercenary has different tolerance on the number of merc deaths and on your overall reputation in Arulco.</szName>
+    <szName>У каждого наемника свой порог смертей в вашем отряде и вашей общей репутации в Арулько.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>113</uiIndex>
-    <szName>Avoid keeping two people in team who don't like each other in the same sector for more than an hour.</szName>
+    <szName>Если в вашей команде находятся два человека, которые не любят друг друга, постарайтесь не держать их в одном секторе больше одного часа.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>114</uiIndex>
-    <szName>Certain mercenaries cannot gain stats at all. You can't teach an old dog new tricks.</szName>
+    <szName>Некоторые наемники вообще не смогут повысить свои характеристики.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
-    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <szName>Много полезной информации можно найти в папке "Docs" в месте установки JA2.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>Game resolution and playing of movie intro can be tweaked in "Ja2.ini".</szName>
+    <szName>Будьте осторожны при использовании реактивных гранатометов - реактивная струя от выстрела может здорово навредить вашим наемникам, стоящим за спиной гранатометчика.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
-    <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try 1.13 multiplayer mode.</szName>
+    <szName>Хотите сражаться против реальных игроков? Или же играть вместе со своими друзьями? Попробуйте многопользовательский режим 1.13.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <szName>Нажав [CTRL]+[SHIFT]+[G], вы отдадите своим наемникам приказ держать строй при передвижении (если будет выбрано больше одного наемника).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in current sector inventory at once.</szName>
+    <szName>Нажмите [CTRL]+[SHIFT]+[S], чтобы разом продать все вещи в текущем секторе.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[E] will load vehicle with as much items as possible from current sector. [SHIFT]+[E] will unload all items from vehicle to current sector.</szName>
+    <szName>[CTRL]+[SHIFT]+[E] загрузит вашу машину как можно большим количеством вещей из текущего сектора. [SHIFT]+[E] выгрузит все вещи из машины в текущий сектор.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>121</uiIndex>
-    <szName>If merc can't hit a target from current location, try to suppress with auto fire and then change to a better position.</szName>
+    <szName>Не можете попасть в цель со своей текущей позиции? Попробуйте огнем прижать врагов к земле и перебраться на лучшую позицию.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
-    <szName>Exploring the farms and city sectors can uncover lots of useful items, like gas for vehicle.</szName>
+    <szName>Исследование ферм и городских секторов может помочь вам обзавестись разными полезными предметами, например, бензином для машины.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over merc will open up merc's menu similar to the one on strategic screen map.</szName>
+    <szName>Нажав и зажав правую кнопку мыши на вашем наемнике на тактическом экране, вы откроете такое же меню наемника, что и на стратегическом экране.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>124</uiIndex>
-    <szName>Press [CTRL]+[C] to open Cover Display Menu.</szName>
+    <szName>Нажмите [CTRL]+[C], чтобы открыть меню показа укрытий.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>125</uiIndex>
-    <szName>Press [CTRL]+[V] to open useful Inventory Manipulations Menu.</szName>
+    <szName>Нажмите [CTRL]+[V], чтобы открыть удобное меню управления инвентарем.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>126</uiIndex>
-    <szName>Press [D] to enter turn-based mode immediately, if there is enemy in sector.</szName>
+    <szName>Если в секторе присутствует враг, то нажатие [D] немедленно передет игру в пошаговый режим.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>127</uiIndex>
-    <szName>Press [CTRL]+[D] to end your interrupt, and there will be no interrupts until next turn.</szName>
+    <szName>Нажмите [CTRL]+[D], чтобы закончить ваш перерыв хода; больше перерывов хода до конца хода противника не будет.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where reinforcements or order artillery strike can be called by the radio operator.</szName>
+    <szName>Нажатие правой кнопки мыши с зажатой кнопкой [ALT] откроет меню навыков, откуда вы можете по радио вызвать подкрепление или вызвать артиллерийский удар.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
-    <szName>Defensive minefields can be safely placed in captured towns and SAMs as mercs and militia will avoid them.</szName>
+    <szName>Вы можете спокойно устанавливать минные поля в захваченных городах и базах ПВО - ваши наемники и ополчение будут их избегать.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
-    <szName>You can inspect trap before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
+    <szName>Вы можете исследовать ловушку перед тем, как попытаетесь ее обезвредить.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Click with hand cursor on a blue flag, and flag can be removed or trap inspected with the useful Disarm Menu.</szName>
+    <szName>Нажав курсоров в виде руки на голубой флажок, вы попадете в удобное меню разминирования.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
-    <szName>Placing mines, concertina or sandbags is more convenient with holding [SHIFT] key, relieving the need to manually take new item from merc's inventory.</szName>
+    <szName>Установку мин, колючей проволоки или мешков с песком удобнее осуществлять с зажатой кнопкой [SHIFT] - при этом из вашего инвентаря автоматически возьмется аналогичный предмет.</szName>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>

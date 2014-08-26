@@ -2,22 +2,22 @@
 <TAUNTS>
   <TAUNT>
     <uiIndex>0</uiIndex>
-    <szText>Cover me, I'm reloading!</szText>
+    <szText>Прикройте, перезаряжаюсь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>1</uiIndex>
-    <szText>I'm out, reloading!</szText>
+    <szText>Патроны кончились, перезаряжаюсь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>2</uiIndex>
-    <szText>Gotta reload!</szText>
+    <szText>Надо перезарядиться!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>3</uiIndex>
-    <szText>Reloading!</szText>
+    <szText>Перезаряжаюсь!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>4</uiIndex>
-    <szText>Gotta put new batteries in my kill machine!</szText>
+    <szText>Пора сменить батарейки в моей машине для убийства.</szText>
   </TAUNT>
 </TAUNTS>
