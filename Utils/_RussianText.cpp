@@ -3686,7 +3686,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть наборы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать наборы", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать прочие предметы",	// HEADROCK HAM 5: Filter Button
-	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Переключить отображение перемещения предметов",											// Flugente: move item display
+	L"Переключить отображение перемещения предметов",											// Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =

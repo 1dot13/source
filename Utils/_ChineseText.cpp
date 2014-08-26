@@ -3690,7 +3690,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示套装包\n|R|i|g|h|t |C|l|i|c|k: 只显示套装包", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示杂项物品\n|R|i|g|h|t |C|l|i|c|k: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换搬运中的物品", // Flugente: move item display
+	L"切换搬运中的物品", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =

@@ -3364,8 +3364,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 'G':
 				if( fCtrl )
-				{
-					HandleTBToggleFormation();
+				{				
 				}
 				else if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] )
 				{
@@ -3379,8 +3378,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 			case 'g':
-
-				if( fCtrl )
+				if( fCtrl && fAlt )
+				{
+					HandlePlayerTogglingLightEffects( TRUE );
+				}
+				else if( fCtrl )
 				{
 #ifdef GERMAN
 					if ( gubCheatLevel == 1 )
@@ -3414,7 +3416,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					HandlePlayerTogglingLightEffects( TRUE );
+					HandleTBToggleFormation();
 				}
 				break;
 
@@ -3467,8 +3469,20 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'i':
-
-				if( fAlt )
+				if ( fCtrl && fAlt )
+				{
+					if ( gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] )
+					{
+						gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] = FALSE;
+						ToggleItemGlow( FALSE );
+					}
+					else
+					{
+						gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] = TRUE;
+						ToggleItemGlow( TRUE );
+					}
+				}
+				else if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
@@ -3500,16 +3514,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					if ( gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] )
-					{
-						gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] = FALSE;
-						ToggleItemGlow( FALSE );
-					}
-					else
-					{
-						gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] = TRUE;
-						ToggleItemGlow( TRUE );
-					}
+					// freed, use this only for a frequently-used new function
 				}
 				break;
 
@@ -4060,6 +4065,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						{
 							ReloadWeapon( MercPtrs[ gusSelectedSoldier ], MercPtrs[ gusSelectedSoldier ]->ubAttackingHand );
 						}
+						else
+							HandleTBReload();
 					}
 					else if( fCtrl )
 					{
@@ -4070,8 +4077,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					else
 					{
 						HandleTBSoldierRun();
-							}
-							}
+					}
+				}
 				break;
 
 			case 'S':
@@ -4173,7 +4180,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						TeleportSelectedSoldier();
 					}
 				}
-				else if( fCtrl )
+				else if( fCtrl && !is_networked)// ary-05/05/2009 : add forced turn mode
+				{
+					ToggleTurnMode();
+				}
+				else
+					ToggleTreeTops();
+				break;
+
+			case 'T':	
+				if ( fCtrl && fShift && fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
@@ -4181,15 +4197,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 						//EnterCombatMode( gbPlayerNum );
 					}
-				}
-				else
-					ToggleTreeTops();
-				break;
-
-			case 'T':	
-				if ( fCtrl && fShift && fAlt && !is_networked)// ary-05/05/2009 : add forced turn mode
-				{
-					ToggleTurnMode();
 				}
 				else if ( fCtrl && fShift )
 				{
@@ -4298,7 +4305,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'w':
-				if( fAlt )
+				if ( fCtrl && fAlt )
+				{
+					ToggleWireFrame();
+				}
+				else if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
@@ -4326,7 +4337,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				else
-					ToggleWireFrame();
+				{
+					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+					if ( ( gpItemPointer == NULL ) &&
+						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ LOOK_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+					{
+						*puiNewEvent = LC_CHANGE_TO_LOOK;
+					}
+				}
 				break;
 
 			case 'W':
@@ -4361,6 +4379,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						pSoldier1 = MercPtrs[ gusSelectedSoldier ];
 
+						BOOLEAN fFoundGoodTarget = FALSE;
 						if ( gfUIFullTargetFound )
 						{
 							// Get soldier...
@@ -4389,11 +4408,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 												DeductPoints( pSoldier2, APBPConstants[AP_EXCHANGE_PLACES], 0 );
 											}
 										}
+										fFoundGoodTarget = TRUE;
 									}
 								}
 							}
 						}
-
+						if( !fFoundGoodTarget )
+						{
+							HandleStanceChangeFromUIKeys( ANIM_PRONE );
+						}
 					}
 				}
 				else if ( fCtrl )	// The_Bob - real time sneaking, 01-06-09

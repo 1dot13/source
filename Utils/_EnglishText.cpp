@@ -3689,7 +3689,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display
+	L"Toggle Move Item Display", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =

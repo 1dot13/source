@@ -3697,7 +3697,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|C|l|i|c |G|. : Avec/sans kits\n|C|l|i|c |D|. : Voir que les kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|C|l|i|c |G|. : Avec/sans objets divers\n|C|l|i|c |D|. : Voir que les objets divers", // HEADROCK HAM 5: Filter Button
-	L"|C|l|i|c |G|. : Pour afficher ou non les objets déplacés.", // Flugente: move item display
+	L"Pour afficher ou non les objets déplacés.", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =
