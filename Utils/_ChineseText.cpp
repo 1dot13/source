@@ -5693,7 +5693,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用公制系统，否则使用英制系统。",
 
 	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。",
+	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。(|C|t|r|l+|A|l|t+|G)",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -5702,13 +5702,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，光标靠近门时会自动定位到门上。",
 
 	//glow items
-	L"打开时，物品会不断的闪烁。(|I)",
+	L"打开时，物品会不断的闪烁。(|C|t|r|l+|A|l|t+|I)",
 
 	//toggle tree tops
 	L"打开时，显示树冠。(|T)",
 
 	//toggle wireframe
-	L"打开时，显示未探明的墙的轮廓。(|W)",
+	L"打开时，显示未探明的墙的轮廓。(|C|t|r|l+|A|l|t+|W)",
 
 	L"打开时，移动时的光标为3D式样。(|H|o|m|e)",
 
@@ -5728,7 +5728,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，游戏将在玩家回合后自动存盘",
 	L"打开时，Skyrider保持沉默。",
 	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
-	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T) 来控制打开或关闭强制回合制模式）",
+	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 (|C|t|r|l+|T) 来控制打开或关闭强制回合制模式）",
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时, 战略地图将会根据探索状态显示不同的着色。",
 	L"打开时, 当你射击时会显示间隔子弹图像。",
@@ -5748,7 +5748,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
-	L"当选择了多个佣兵，他们在前进时会保持彼此的间距。(|C|t|r|l+|S|h|i|f|t+|G)",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
+	L"当选择了多个佣兵，他们在前进时会保持彼此的间距。(|G)",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

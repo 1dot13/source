@@ -5705,7 +5705,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
 	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires. (|G)\nDésactivez-la, si votre machine n'est pas suffisamment puissante.",
+	L"Activez cette option pour éclairer les environs des mercenaires. (|C|T|R|L+|A|L|T+|G)\nDésactivez-la, si votre machine n'est pas suffisamment puissante.",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",
@@ -5714,13 +5714,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le curseur se positionne directement sur une porte quand il est à proximité.",
 
 	//glow items 
-	L"Activez cette option pour mettre les objets en évidence. (|I)",
+	L"Activez cette option pour mettre les objets en évidence. (|C|T|R|L+|A|L|T+||I)",
 
 	//toggle tree tops
 	L"Activez cette option pour afficher la cime des arbres. (|T)",
 
 	//toggle wireframe
-	L"Activez cette option pour afficher les murs en fil de fer. (|W)",
+	L"Activez cette option pour afficher les murs en fil de fer. (|C|T|R|L+|A|L|T+||W)",
 
 	L"Activez cette option pour afficher le curseur toit. (|Début)",
 
@@ -5740,7 +5740,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, le jeu est sauvegardé à chaque nouveau tour du joueur.",
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
-	L"Si cette option est activée et que des ennemis sont présents,\nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|M|A|J+|A|L|T+|T).",	// add forced turn mode
+	L"Si cette option est activée et que des ennemis sont présents,\nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|T).",	// add forced turn mode
 	L"Si activé, affiche une barre de progression sur chaque compétence",
 	L"Si activé, la carte stratégique sera colorée différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
@@ -5759,7 +5759,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.",
 	L"Si activé, inverse le sens de la molette de la souris.",
-	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|C|T|R|L+|M|A|J|+|G)",
+	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

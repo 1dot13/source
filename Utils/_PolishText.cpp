@@ -5702,7 +5702,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, gra będzie używała systemu metrycznego.",
 
 	//Merc Lighted movement
-	L"Jeśli WŁĄCZONE, teren wokół najemnika będzie oświetlony podczas ruchu. Może spowolnić działanie gry.",
+	L"Jeśli WŁĄCZONE, teren wokół najemnika będzie oświetlony podczas ruchu. Może spowolnić działanie gry. ( |C|t|r|l+|A|l|t+|G )",
 
 	//Smart cursor
 	L"Jeśli WŁĄCZONE, kursor będzie automatycznie ustawiał się na najemnikach gdy znajdzie się w ich pobliżu.",
@@ -5711,13 +5711,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, kursor będzie automatycznie ustawiał się na drzwiach gdy znajdzie się w ich pobliżu.",
 
 	//glow items 
-	L"Jeśli WŁĄCZONE, przedmioty będą pulsować. ( |I )",
+	L"Jeśli WŁĄCZONE, przedmioty będą pulsować. ( |C|t|r|l+|A|l|t+|I )",
 
 	//toggle tree tops
 	L"Jeśli WŁĄCZONE, wyświetlane będą korony drzew. ( |T )",
 
 	//toggle wireframe
-	L"Jeśli WŁĄCZONE, wyświetlane będą zarysy niewidocznych ścian. ( |W )",
+	L"Jeśli WŁĄCZONE, wyświetlane będą zarysy niewidocznych ścian. ( |C|t|r|l+|A|l|t+|W )",
 
 	L"Jeśli WŁĄCZONE, kursor ruchu wyświetlany będzie w 3D. (|H|o|m|e)",
 
@@ -5737,7 +5737,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, gra będzie zapisywana każdorazowo po zakończeniu tury gracza.",
 	L"Jeśli WŁĄCZONE, Skyrider nie będzie nic mówił.",
 	L"Jeśli WŁĄCZONE, gra będzie obciążała procesor w mniejszym stopniu.",
-	L"Jeśli WŁĄCZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",	// add forced turn mode
+	L"Jeśli WŁĄCZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|t|r|l+|T).",	// add forced turn mode
 	L"Jeśli WŁĄCZONE, pokazuje postęp w doświadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Jeśli WŁĄCZONE, zastępuje starą animację pocisku nową.",
@@ -5757,7 +5757,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  // TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", // TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
-	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

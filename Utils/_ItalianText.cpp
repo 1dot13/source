@@ -5680,7 +5680,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
 
 	//Merc Lighted movement
-	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.",
+	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce. (|C|t|r|l+|A|l|t+|G)",
 
 	//Smart cursor
 	L"Se attivata, muovendo il cursore vicino ai vostri mercenari li evidenzierà automaticamente.",
@@ -5689,13 +5689,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Se attivata, muovendo il cursore vicino a una porta farà posizionare automaticamente il cursore sopra di questa.",
 
 	//glow items 
-	L"Se attivata, l'opzione evidenzierà gli |Oggetti automaticamente.",
+	L"Se attivata, l'opzione evidenzierà gli Oggetti automaticamente. (|C|t|r|l+|A|l|t+|I)",
 
 	//toggle tree tops
-	L"Se attivata, mostra le |fronde degli alberi.",
+	L"Se attivata, mostra le fronde degli alberi. (|T)",
 
 	//toggle wireframe
-	L"Se attivata, visualizza le |Strutture dei muri nascosti.",
+	L"Se attivata, visualizza le |Strutture dei muri nascosti. (|C|t|r|l+|A|l|t+|W)",
 
 	L"Se attivata, il cursore di movimento verrà mostrato in 3D. (|H|o|m|e)",
 
@@ -5715,7 +5715,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will be saved in 2 alternate save slots after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",	// add forced turn mode
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|t|r|l+|T).",	// add forced turn mode
 	L"When ON, shows character progress towards gaining levels.",	// TODO.Translate
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.", // TODO.Translate
@@ -5735,7 +5735,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  // TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", // TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
-	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

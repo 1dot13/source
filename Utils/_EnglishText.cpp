@@ -5665,7 +5665,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"If Subtitles are ON, turn this on also to be able to take your time reading NPC dialogue.",
 
 	//Toggle smoke animation
-	L"Turn off this option if animating smoke slows down your game's framerate.",
+	L"Turn this option OFF if animating smoke slows down your game's framerate.",
 
 	//Blood n Gore
 	L"Turn this option OFF if blood offends you.",
@@ -5692,7 +5692,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
 
 	//Merc Lighted movement
-	L"When ON, the merc will light the ground while walking (|G). Turn OFF for faster frame rate.",
+	L"When ON, the merc will light the ground while walking (|C|t|r|l+|A|l|t+|G). Turn OFF for faster frame rate.",
 
 	//Smart cursor
 	L"When ON, moving the cursor near your mercs will automatically highlight them.",
@@ -5701,13 +5701,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, moving the cursor near a door will automatically position the cursor over the door.",
 
 	//glow items 
-	L"When ON, |Items continuously glow",
+	L"When ON, Items continuously glow. (|C|t|r|l+|A|l|t+|I)",
 
 	//toggle tree tops
 	L"When ON, shows the |Tree tops.",
 
 	//toggle wireframe
-	L"When ON, displays |Wireframes for obscured walls.",
+	L"When ON, displays Wireframes for obscured walls. (|C|t|r|l+|A|l|t+|W)",
 
 	L"When ON, the movement cursor is shown in 3D. (|H|o|m|e)",
 
@@ -5727,7 +5727,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will be saved in 2 alternate save slots after each player's turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	L"When ON and enemy present, turn base mode persists untill sector is free. (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T)",	// add forced turn mode
+	L"When ON and enemy present, turn-based mode persists until sector is free. (|C|t|r|l+|T)",	// add forced turn mode
 	L"When ON, shows character progress towards gaining levels.",
 	L"When ON, the strategic map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.",
@@ -5747,7 +5747,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector will be highlighted.",
 	L"When ON, will show the contents of an LBE item; otherwise, regular NAS interface will be shown.",
 	L"When ON, inverts mouse wheel directions.",
-	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
