@@ -198,9 +198,9 @@ extern BOOLEAN		fClientReceivedAllFiles;
 // Add basic version checking, will only work from now on
 // note: this cannot be longer than char[30]
 #ifdef JA2UB
-#define MPVERSION	"MP v2.0(UB)"
+#define MPVERSION	"MP v3.0(UB)"
 #else
-#define MPVERSION	"MP v2.0"
+#define MPVERSION	"MP v3.0"
 #endif
 
 // OJW - 2009128 - inline funcs for working with soldiers and teams

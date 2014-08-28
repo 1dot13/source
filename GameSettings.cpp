@@ -1180,7 +1180,7 @@ void LoadGameExternalOptions()
 	//################# Tactical Vision Settings #################
 
 	// Sight range
-	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("Tactical Vision Settings","BASE_SIGHT_RANGE",13, 5, 100);
+	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("Tactical Vision Settings","BASE_SIGHT_RANGE",14, 5, 100);
 
 	gGameExternalOptions.ubBrightnessVisionMod[0]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_0", 80, 1, 100);
 	gGameExternalOptions.ubBrightnessVisionMod[1]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_1", 86, 1, 100);
