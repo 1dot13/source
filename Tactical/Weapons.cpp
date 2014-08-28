@@ -2081,7 +2081,14 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			{
 				CreateItem( Item[usItemNum].discardedlauncheritem , (*pObjHand)[0]->data.objectStatus, pObjHand );
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
+				{
+					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, Item[usUBItem].usBuddyItem, pSoldier->pathing.bLevel );
+				}
+				else
+				{
+					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+				}
 			}
 			else
 			{
@@ -2830,7 +2837,14 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			{
 				CreateItem( Item[usUBItem].discardedlauncheritem , (*pObjUsed)[0]->data.objectStatus, pObjUsed );
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
+				{
+					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+				}
+				else
+				{
+					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+				}
 			}
 			else
 			{
@@ -4470,8 +4484,15 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 		if ( Item[usWeaponIndex].rocketlauncher || AmmoTypes[ubAmmoType].explosionSize > 1 )
 		{
 			if ( Item[usWeaponIndex].singleshotrocketlauncher )
-			{
-				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos ), C1, pTargetSoldier->pathing.bLevel );
+			{	
+				if ( Item[usWeaponIndex].usBuddyItem != 0 && Item[Item[usWeaponIndex].usBuddyItem].usItemClass & IC_EXPLOSV )
+				{
+					IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos ), Item[usWeaponIndex].usBuddyItem, pTargetSoldier->pathing.bLevel );
+				}
+				else
+				{
+					IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos ), C1, pTargetSoldier->pathing.bLevel );
+				}
 			}
 			// changed rpg type to work only with two flags matching
 			else if ( pSoldier && !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
@@ -4630,8 +4651,16 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			{
 				if ( Item[usWeaponIndex].singleshotrocketlauncher )
 				{
-					// HEADROCK HAM 5 TODO: C1!!!
-					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, (INT8)( sZPos >= WALL_HEIGHT ) );
+					if ( Item[usWeaponIndex].usBuddyItem != 0 && Item[Item[usWeaponIndex].usBuddyItem].usItemClass & IC_EXPLOSV )
+					{
+						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, Item[usWeaponIndex].usBuddyItem, (INT8)( sZPos >= WALL_HEIGHT ) );
+					}
+					else
+					{
+						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, (INT8)( sZPos >= WALL_HEIGHT ) );
+					}
+					
+						
 				}
 				// changed too to use 2 flag to determine
 				else if ( ubAttackerID != NOBODY && !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
