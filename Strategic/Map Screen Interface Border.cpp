@@ -335,6 +335,11 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
 	{
 		giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 31, -1, 32, -1 );
+
+		// if the button image cannot be created, this is likely to a custom sti replacement that isn't up to date to this feature - just use some other images then
+		if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] < 0 )
+			giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
+
 		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], MAP_BORDER_DISEASE_BTN_X, MAP_BORDER_DISEASE_BTN_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnDiseaseCallback );
@@ -1023,7 +1028,7 @@ void TurnOnAirSpaceMode( void )
 
 		if ( fShowStrategicDiseaseFlag )
 		{
-			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			fShowStrategicDiseaseFlag = MAPMODE_OFF;
 			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 
@@ -1248,7 +1253,7 @@ void TurnOnMobileFilterMode( void )
 
 		if ( fShowStrategicDiseaseFlag )
 		{
-			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+			fShowStrategicDiseaseFlag = MAPMODE_OFF;
 			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 
