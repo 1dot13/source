@@ -1,0 +1,1390 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: mpe-en\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.6.5\n"
+
+#: teditprofform.bitbtn1.caption
+msgid "Zmień"
+msgstr "Change"
+
+#: teditprofform.button1.caption
+msgid "Więcej opcji"
+msgstr "More options..."
+
+#: teditprofform.buttonpanel1.cancelbutton.caption
+msgid "Anuluj"
+msgstr "Cancel"
+
+#: teditprofform.buttonpanel1.closebutton.caption
+msgid "Z&amknij"
+msgstr "Close"
+
+#: teditprofform.buttonpanel1.helpbutton.caption
+msgid "P&omoc"
+msgstr "H&elp"
+
+#: teditprofform.buttonpanel1.okbutton.caption
+msgid "&Change"
+msgstr "&Change"
+
+#: teditprofform.caption
+msgctxt "teditprofform.caption"
+msgid "Edytuj"
+msgstr "Edit"
+
+#: teditprofform.label1.caption
+msgid "Gear"
+msgstr "Gear"
+
+#: teditprofform.label2.caption
+msgid "Uwaga! Imiona i ksywki są tu wyświetlane tylko dla angielskiej wersji."
+msgstr "Names and nick are displayed only for the English version."
+
+#: teditprofform.listview1.columns[0].caption
+msgid "Parametr"
+msgstr "Parameter"
+
+#: teditprofform.listview1.columns[1].caption
+msgid "Wartosc"
+msgstr "Value"
+
+#: teditprofform.listview1.hint
+msgctxt "teditprofform.listview1.hint"
+msgid "Kliknij by edytować wartość."
+msgstr "Click to edit the value."
+
+#: teditprofform.menuitem1.caption
+msgid "Dodaj rekord"
+msgstr "Add record"
+
+#: teditprofform.menuitem10.caption
+msgctxt "TEDITPROFFORM.MENUITEM10.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: teditprofform.menuitem2.caption
+msgid "Usuń rekord"
+msgstr "Delete record"
+
+#: teditprofform.menuitem3.caption
+msgid "Edycja nazw"
+msgstr "The edition of names"
+
+#: teditprofform.menuitem4.caption
+msgid "Dodaj nowy parametr"
+msgstr "Add the new parameter"
+
+#: teditprofform.menuitem9.caption
+msgctxt "TEDITPROFFORM.MENUITEM9.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tedycjapliku.caption
+msgid "Edycja\\Podgląd pliku"
+msgstr "View\\Edit file"
+
+#: teksportform.caption
+msgid "Eksportuj plik"
+msgstr "Export file"
+
+#: teksportform.label1.caption
+msgctxt "teksportform.label1.caption"
+msgid "Wybierz plik"
+msgstr "File"
+
+#: tform1.bitbtn1.caption
+msgctxt "tform1.bitbtn1.caption"
+msgid "RPCFacesSmall"
+msgstr "RPCFacesSmall"
+
+#: tform1.bitbtn2.caption
+msgid "Shop Inventory"
+msgstr "Shop Inventory"
+
+#: tform1.caption
+#| msgid "MPE 2.0 Beta 2"
+msgid "MPE 2.0"
+msgstr "MPE 2.0"
+
+#: tform1.checkbox1.caption
+msgid "HiddenNames"
+msgstr "HiddenNames"
+
+#: tform1.checkbox2.caption
+msgid "Sounds Enabled"
+msgstr "Sounds Enabled"
+
+#: tform1.checkbox3.caption
+msgid "AIMAvailability"
+msgstr "AIMAvailability"
+
+#: tform1.groupbox1.caption
+msgid "Loading..."
+msgstr "Loading..."
+
+#: tform1.label1.caption
+msgid "Aim BIO"
+msgstr "Aim BIO"
+
+#: tform1.label2.caption
+msgid "Typ"
+msgstr "Typ"
+
+#: tform1.label3.caption
+msgid "Label3"
+msgstr "Label3"
+
+#: tform1.label4.caption
+msgid "Label4"
+msgstr "Label4"
+
+#: tform1.label5.caption
+msgid "Wait...."
+msgstr "Wait...."
+
+#: tform1.label6.caption
+msgctxt "tform1.label6.caption"
+msgid "Name"
+msgstr "Name"
+
+#: tform1.menuitem1.caption
+msgid "Plik"
+msgstr "File"
+
+#: tform1.menuitem10.caption
+msgctxt "TFORM1.MENUITEM10.CAPTION"
+msgid "O programie"
+msgstr "About"
+
+#: tform1.menuitem11.caption
+msgid "XML"
+msgstr "XML"
+
+#: tform1.menuitem12.caption
+msgid "CivGroupNames.xml"
+msgstr "CivGroupNames.xml"
+
+#: tform1.menuitem13.caption
+msgid "IMPPortraits.xml"
+msgstr "IMPPortraits.xml"
+
+#: tform1.menuitem14.caption
+msgid "OldAIMArchive.xml"
+msgstr "OldAIMArchive.xml"
+
+#: tform1.menuitem15.caption
+msgid "EmailSenderNameList.xml"
+msgstr "EmailSenderNameList.xml"
+
+#: tform1.menuitem16.caption
+msgid "MercAvailability.xml"
+msgstr "MercAvailability.xml"
+
+#: tform1.menuitem17.caption
+msgid "RPCFacesSmall.xml"
+msgstr "RPCFacesSmall.xml"
+
+#: tform1.menuitem18.caption
+msgid "EmailMercAvailable.xml"
+msgstr "EmailMercAvailable.xml"
+
+#: tform1.menuitem19.caption
+msgid "EmailMercLevelUp.xml"
+msgstr "EmailMercLevelUp.xml"
+
+#: tform1.menuitem2.caption
+msgctxt "tform1.menuitem2.caption"
+msgid "Edytuj"
+msgstr "Edit"
+
+#: tform1.menuitem20.caption
+msgid "Vehicles Names (Vehicles.xml)"
+msgstr "Vehicles Names (Vehicles.xml)"
+
+#: tform1.menuitem21.caption
+msgctxt "tform1.menuitem21.caption"
+msgid "Nowy"
+msgstr "New"
+
+#: tform1.menuitem22.caption
+msgid "Eksportuj do.."
+msgstr "Export to..."
+
+#: tform1.menuitem23.caption
+msgctxt "TFORM1.MENUITEM23.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem24.caption
+msgid "TableData.7z"
+msgstr "TableData.7z"
+
+#: tform1.menuitem25.caption
+msgctxt "TFORM1.MENUITEM25.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem26.caption
+msgctxt "TFORM1.MENUITEM26.CAPTION"
+msgid "NPCInventory"
+msgstr "NPCInventory"
+
+#: tform1.menuitem27.caption
+msgctxt "tform1.menuitem27.caption"
+msgid "Edytuj"
+msgstr "Edit"
+
+#: tform1.menuitem28.caption
+msgctxt "TFORM1.MENUITEM28.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem29.caption
+msgctxt "tform1.menuitem29.caption"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem3.caption
+msgctxt "tform1.menuitem3.caption"
+msgid "Importuj pliki XML"
+msgstr "Import XMLs"
+
+#: tform1.menuitem30.caption
+msgctxt "TFORM1.MENUITEM30.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem31.caption
+msgid "Indeks..."
+msgstr "Index..."
+
+#: tform1.menuitem32.caption
+msgid "Backgrounds.xml"
+msgstr "Backgrounds.xml"
+
+#: tform1.menuitem33.caption
+msgid "Merchants.xml"
+msgstr "Merchants.xml"
+
+#: tform1.menuitem34.caption
+msgctxt "tform1.menuitem34.caption"
+msgid "Logi"
+msgstr "Logs"
+
+#: tform1.menuitem35.caption
+msgid "Ekportuj plik..."
+msgstr "Export file..."
+
+#: tform1.menuitem36.caption
+msgid "Importuj plik do projektu"
+msgstr "Import file to project"
+
+#: tform1.menuitem37.caption
+msgctxt "TFORM1.MENUITEM37.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem39.caption
+msgctxt "TFORM1.MENUITEM39.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem4.caption
+msgctxt "TFORM1.MENUITEM4.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tform1.menuitem5.caption
+msgctxt "tform1.menuitem5.caption"
+msgid "Opcje programu"
+msgstr "Settings"
+
+#: tform1.menuitem6.caption
+msgctxt "tform1.menuitem6.caption"
+msgid "Eksportuj do XML"
+msgstr "Export to XMLs<"
+
+#: tform1.menuitem7.caption
+msgctxt "tform1.menuitem7.caption"
+msgid "Wyjście"
+msgstr "Exit"
+
+#: tform1.menuitem8.caption
+msgid "New Item8"
+msgstr "New Item8"
+
+#: tform1.menuitem9.caption
+msgid "Pomoc"
+msgstr "Help"
+
+#: tform1.openprojects.caption
+msgctxt "tform1.openprojects.caption"
+msgid "Otwórz projekt"
+msgstr "Open project"
+
+#: tform1.panel2.caption
+msgid "Panel2"
+msgstr "Panel2"
+
+#: tform1.panel3.caption
+msgid "Panel3"
+msgstr "Panel3"
+
+#: tform1.speedbutton1.caption
+msgctxt "tform1.speedbutton1.caption"
+msgid "MercProfiles"
+msgstr "MercProfiles"
+
+#: tform1.speedbutton1.hint
+msgctxt "TFORM1.SPEEDBUTTON1.HINT"
+msgid "MercProfiles"
+msgstr "MercProfiles"
+
+#: tform1.speedbutton10.caption
+msgctxt "tform1.speedbutton10.caption"
+msgid "RandomStats"
+msgstr "RandomStats"
+
+#: tform1.speedbutton10.hint
+msgctxt "TFORM1.SPEEDBUTTON10.HINT"
+msgid "RandomStats"
+msgstr "RandomStats"
+
+#: tform1.speedbutton11.caption
+msgctxt "tform1.speedbutton11.caption"
+msgid "Nazwy pojazdów"
+msgstr "Vehicles Names"
+
+#: tform1.speedbutton11.hint
+msgctxt "tform1.speedbutton11.hint"
+msgid "Nazwy pojazdów"
+msgstr "Vehicles Names"
+
+#: tform1.speedbutton2.caption
+msgid "?"
+msgstr "?"
+
+#: tform1.speedbutton3.caption
+msgctxt "tform1.speedbutton3.caption"
+msgid "MercOpinions"
+msgstr "MercOpinions"
+
+#: tform1.speedbutton3.hint
+msgctxt "TFORM1.SPEEDBUTTON3.HINT"
+msgid "MercOpinions"
+msgstr "MercOpinions"
+
+#: tform1.speedbutton4.caption
+msgctxt "tform1.speedbutton4.caption"
+msgid "MercStartingGear"
+msgstr "MercStartingGear"
+
+#: tform1.speedbutton4.hint
+msgctxt "TFORM1.SPEEDBUTTON4.HINT"
+msgid "MercStartingGear"
+msgstr "MercStartingGear"
+
+#: tform1.speedbutton5.caption
+msgctxt "tform1.speedbutton5.caption"
+msgid "MercQuote"
+msgstr "MercQuote"
+
+#: tform1.speedbutton5.hint
+msgctxt "TFORM1.SPEEDBUTTON5.HINT"
+msgid "MercQuote"
+msgstr "MercQuote"
+
+#: tform1.speedbutton6.caption
+msgid "Merc"
+msgstr "Merc"
+
+#: tform1.speedbutton8.caption
+msgctxt "tform1.speedbutton8.caption"
+msgid "Vehicles"
+msgstr "Vehicles"
+
+#: tform1.speedbutton8.hint
+msgctxt "TFORM1.SPEEDBUTTON8.HINT"
+msgid "Vehicles"
+msgstr "Vehicles"
+
+#: tform1.speedbutton9.caption
+msgctxt "tform1.speedbutton9.caption"
+msgid "Nazwy"
+msgstr "Names"
+
+#: tform1.speedbutton9.hint
+msgctxt "tform1.speedbutton9.hint"
+msgid "Nazwy"
+msgstr "Names"
+
+#: tform1.statusbar1.panels[0].text
+msgid "Index"
+msgstr "Index"
+
+#: tform1.tabsheet1.caption
+msgctxt "tform1.tabsheet1.caption"
+msgid "Narzędzia"
+msgstr "Tools"
+
+#: tform1.tabsheet10.caption
+msgid "Lookup"
+msgstr "Lookup"
+
+#: tform1.tabsheet11.caption
+msgctxt "tform1.tabsheet11.caption"
+msgid "Map"
+msgstr "Map"
+
+#: tform1.tabsheet12.caption
+msgid "MapAction"
+msgstr "MapAction"
+
+#: tform1.tabsheet13.caption
+msgid "Multiplayer"
+msgstr "Multiplayer"
+
+#: tform1.tabsheet14.caption
+msgctxt "tform1.tabsheet14.caption"
+msgid "NPCInventory"
+msgstr "NPCInventory"
+
+#: tform1.tabsheet15.caption
+msgid "Profiles"
+msgstr "Profiles"
+
+#: tform1.tabsheet16.caption
+msgctxt "tform1.tabsheet16.caption"
+msgid "Sounds"
+msgstr "Sounds"
+
+#: tform1.tabsheet2.caption
+msgctxt "tform1.tabsheet2.caption"
+msgid "Edycja"
+msgstr "Edit"
+
+#: tform1.tabsheet3.caption
+msgid "XML1"
+msgstr "XML1"
+
+#: tform1.tabsheet4.caption
+msgctxt "tform1.tabsheet4.caption"
+msgid "TableData"
+msgstr "TableData"
+
+#: tform1.tabsheet5.caption
+msgid "Army"
+msgstr "Army"
+
+#: tform1.tabsheet6.caption
+msgid "BriefingRoom"
+msgstr "BriefingRoom"
+
+#: tform1.tabsheet7.caption
+msgctxt "tform1.tabsheet7.caption"
+msgid "Email"
+msgstr "Email"
+
+#: tform1.tabsheet8.caption
+msgctxt "tform1.tabsheet8.caption"
+msgid "Inventory"
+msgstr "Inventory"
+
+#: tform1.tabsheet9.caption
+msgid "Layout"
+msgstr "Layout"
+
+#: tform1.toolbar1.caption
+msgctxt "tform1.toolbar1.caption"
+msgid "ToolBar1"
+msgstr "ToolBar1"
+
+#: tform1.toolbar3.caption
+msgctxt "tform1.toolbar3.caption"
+msgid "ToolBar2"
+msgstr "ToolBar2"
+
+#: tform1.toolbar5.caption
+msgctxt "TFORM1.TOOLBAR5.CAPTION"
+msgid "ToolBar2"
+msgstr "ToolBar2"
+
+#: tform1.toolbaremail.caption
+msgid "ToolBarEmail"
+msgstr "ToolBarEmail"
+
+#: tform1.toolbarnpcinventory.caption
+msgid "ToolBar"
+msgstr "ToolBar"
+
+#: tform1.toolbartabledata.caption
+msgctxt "TFORM1.TOOLBARTABLEDATA.CAPTION"
+msgid "ToolBar2"
+msgstr "ToolBar2"
+
+#: tform1.toolbutton1.caption
+msgctxt "tform1.toolbutton1.caption"
+msgid "Importuj pliki XML"
+msgstr "Import XMLs"
+
+#: tform1.toolbutton1.hint
+msgctxt "tform1.toolbutton1.hint"
+msgid "Importuj pliki XML"
+msgstr "Import XMLs"
+
+#: tform1.toolbutton10.caption
+msgid "OldAIMArchive"
+msgstr "OldAIMArchive"
+
+#: tform1.toolbutton11.caption
+msgid "Wytnij"
+msgstr "Cut"
+
+#: tform1.toolbutton12.caption
+msgid "Wklej"
+msgstr "Paste"
+
+#: tform1.toolbutton13.caption
+msgctxt "tform1.toolbutton13.caption"
+msgid "Kopiuj"
+msgstr "Copy"
+
+#: tform1.toolbutton14.caption
+msgctxt "tform1.toolbutton14.caption"
+msgid "Usuń"
+msgstr "Delete"
+
+#: tform1.toolbutton15.caption
+msgid "MercAvailability"
+msgstr "MercAvailability"
+
+#: tform1.toolbutton16.caption
+msgctxt "tform1.toolbutton16.caption"
+msgid "Opcje programu"
+msgstr "Settings"
+
+#: tform1.toolbutton16.hint
+msgctxt "TFORM1.TOOLBUTTON16.HINT"
+msgid "Opcje programu"
+msgstr "Settings"
+
+#: tform1.toolbutton17.caption
+msgid "ToolButton17"
+msgstr "ToolButton17"
+
+#: tform1.toolbutton18.caption
+msgctxt "tform1.toolbutton18.caption"
+msgid "Nowy"
+msgstr "New"
+
+#: tform1.toolbutton19.caption
+msgid "ToolButton19"
+msgstr "ToolButton19"
+
+#: tform1.toolbutton2.caption
+msgctxt "tform1.toolbutton2.caption"
+msgid "Eksportuj do XML"
+msgstr "Export to XMLs"
+
+#: tform1.toolbutton2.hint
+msgctxt "tform1.toolbutton2.hint"
+msgid "Eksportuj do XML"
+msgstr "Export to XMLs"
+
+#: tform1.toolbutton20.caption
+msgid "ToolButton20"
+msgstr "ToolButton20"
+
+#: tform1.toolbutton21.caption
+msgctxt "tform1.toolbutton21.caption"
+msgid "RPCFacesSmall"
+msgstr "RPCFacesSmall"
+
+#: tform1.toolbutton22.caption
+msgid "EmailSenderNameList"
+msgstr "EmailSenderNameList"
+
+#: tform1.toolbutton23.caption
+msgid "EmailMercAvailable"
+msgstr "EmailMercAvailable"
+
+#: tform1.toolbutton24.caption
+msgctxt "tform1.toolbutton24.caption"
+msgid "Biblioteka"
+msgstr "Library"
+
+#: tform1.toolbutton24.hint
+msgctxt "TFORM1.TOOLBUTTON24.HINT"
+msgid "Biblioteka"
+msgstr "Library"
+
+#: tform1.toolbutton25.caption
+msgctxt "tform1.toolbutton25.caption"
+msgid "Opcje projektu"
+msgstr "Project options"
+
+#: tform1.toolbutton25.hint
+msgctxt "TFORM1.TOOLBUTTON25.HINT"
+msgid "Opcje projektu"
+msgstr "Project options"
+
+#: tform1.toolbutton26.caption
+msgid "ToolButton26"
+msgstr "ToolButton26"
+
+#: tform1.toolbutton27.caption
+#| msgid "ToolButton27"
+msgctxt "tform1.toolbutton27.caption"
+msgid "Nazwy"
+msgstr "Names"
+
+#: tform1.toolbutton28.caption
+#| msgid "ToolButton28"
+msgctxt "tform1.toolbutton28.caption"
+msgid "Nazwy pojazdów"
+msgstr "Vehicles Names"
+
+#: tform1.toolbutton29.caption
+msgid "EmailMercLevelUp"
+msgstr "EmailMercLevelUp"
+
+#: tform1.toolbutton3.caption
+msgid "CivGroupNames"
+msgstr "CivGroupNames"
+
+#: tform1.toolbutton30.caption
+msgctxt "TFORM1.TOOLBUTTON30.CAPTION"
+msgid "NPCInventory"
+msgstr "NPCInventory"
+
+#: tform1.toolbutton31.caption
+msgid "Backgrounds"
+msgstr "Backgrounds"
+
+#: tform1.toolbutton32.caption
+msgid "CampaignStatsEvents"
+msgstr "CampaignStatsEvents"
+
+#: tform1.toolbutton33.caption
+msgid "Merchants"
+msgstr "Merchants"
+
+#: tform1.toolbutton34.caption
+msgid "LoadScreenHints"
+msgstr "LoadScreenHints"
+
+#: tform1.toolbutton35.caption
+msgid "EnemyNames"
+msgstr "EnemyNames"
+
+#: tform1.toolbutton36.caption
+msgid "EnemyRank"
+msgstr "EnemyRank"
+
+#: tform1.toolbutton37.caption
+msgid "FaceGear.xml"
+msgstr "FaceGear.xml"
+
+#: tform1.toolbutton38.caption
+msgid "SquadNames.xml"
+msgstr "SquadNames.xml"
+
+#: tform1.toolbutton39.caption
+msgctxt "tform1.toolbutton39.caption"
+msgid "Podgląd pliku"
+msgstr "View file"
+
+#: tform1.toolbutton39.hint
+msgctxt "TFORM1.TOOLBUTTON39.HINT"
+msgid "Podgląd pliku"
+msgstr "View file"
+
+#: tform1.toolbutton4.caption
+msgctxt "tform1.toolbutton4.caption"
+msgid "Info"
+msgstr "Info"
+
+#: tform1.toolbutton4.hint
+msgctxt "TFORM1.TOOLBUTTON4.HINT"
+msgid "Info"
+msgstr "Info"
+
+#: tform1.toolbutton40.caption
+msgctxt "tform1.toolbutton40.caption"
+msgid "Importuj plik..."
+msgstr "Import file..."
+
+#: tform1.toolbutton40.hint
+msgctxt "TFORM1.TOOLBUTTON40.HINT"
+msgid "Importuj plik..."
+msgstr "Import file..."
+
+#: tform1.toolbutton41.caption
+msgctxt "tform1.toolbutton41.caption"
+msgid "Eksportuj plik..."
+msgstr "Export file..."
+
+#: tform1.toolbutton41.hint
+msgctxt "TFORM1.TOOLBUTTON41.HINT"
+msgid "Eksportuj plik..."
+msgstr "Export file..."
+
+#: tform1.toolbutton5.caption
+msgctxt "tform1.toolbutton5.caption"
+msgid "Kreator"
+msgstr "Wizard"
+
+#: tform1.toolbutton5.hint
+msgctxt "TFORM1.TOOLBUTTON5.HINT"
+msgid "Kreator"
+msgstr "Wizard"
+
+#: tform1.toolbutton6.caption
+msgctxt "tform1.toolbutton6.caption"
+msgid "Otwórz projekt"
+msgstr "Open project"
+
+#: tform1.toolbutton6.hint
+msgctxt "TFORM1.TOOLBUTTON6.HINT"
+msgid "Otwórz projekt"
+msgstr "Open project"
+
+#: tform1.toolbutton7.caption
+msgctxt "tform1.toolbutton7.caption"
+msgid "Wyjście"
+msgstr "Exit"
+
+#: tform1.toolbutton7.hint
+msgctxt "tform1.toolbutton7.hint"
+msgid "Wyjście"
+msgstr "Exit"
+
+#: tform1.toolbutton8.caption
+msgid "ToolButton8"
+msgstr "ToolButton8"
+
+#: tform1.toolbutton9.caption
+msgid "IMPPortraits"
+msgstr "IMPPortraits"
+
+#: tform11.button1.caption
+msgid "Add"
+msgstr "Add"
+
+#: tform11.button2.caption
+msgctxt "TFORM11.BUTTON2.CAPTION"
+msgid "Exit"
+msgstr "Exit"
+
+#: tform11.button3.caption
+msgid "Delete"
+msgstr "Delete"
+
+#: tform11.button4.caption
+msgid "import"
+msgstr "import"
+
+#: tform11.caption
+msgid "IMP Portraits (IMPPortraits.xml)"
+msgstr "IMP Portraits (IMPPortraits.xml)"
+
+#: tform15.button1.caption
+msgid "Ok"
+msgstr "Ok"
+
+#: tform15.caption
+msgid "MERCAvailability.xml"
+msgstr "MERCAvailability.xml"
+
+#: tform15.label89.caption
+msgid "StartMercsAvailable"
+msgstr "StartMercsAvailable"
+
+#: tform15.label90.caption
+msgid "NewMercsAvailable"
+msgstr "NewMercsAvailable"
+
+#: tform15.label91.caption
+msgid "MoneyPaid"
+msgstr "MoneyPaid"
+
+#: tform15.label92.caption
+msgid "Day"
+msgstr "Day"
+
+#: tform15.label93.caption
+msgid "Drunk"
+msgstr "Drunk"
+
+#: tform15.label94.caption
+msgid "AlternateIndex"
+msgstr "AlternateIndex"
+
+#: tform15.label95.caption
+msgid "MERC Bio ID (MERCBIOS.EDT)"
+msgstr "MERC Bio ID (MERCBIOS.EDT)"
+
+#: tform15.listview2.columns[0].caption
+msgid "Profil ID"
+msgstr "Profil ID"
+
+#: tform15.listview2.columns[1].caption
+msgid "MERC ID"
+msgstr "MERC ID"
+
+#: tform15.listview2.columns[2].caption
+msgid "Nick"
+msgstr "Nick"
+
+#: tform2.caption
+msgctxt "TFORM2.CAPTION"
+msgid "Edit"
+msgstr "Edit"
+
+#: tform2.checkbox1.caption
+msgid "CheckBox1"
+msgstr "CheckBox1"
+
+#: tform2.combobox1.text
+msgid "ComboBox1"
+msgstr "ComboBox1"
+
+#: tform2.edit1.text
+msgid "Edit1"
+msgstr "Edit1"
+
+#: tform2.label1.caption
+msgctxt "TFORM2.LABEL1.CAPTION"
+msgid "Label1"
+msgstr "Label1"
+
+#: tform4.buttonpanel1.okbutton.caption
+msgctxt "tform4.buttonpanel1.okbutton.caption"
+msgid "&Akceptuj"
+msgstr "&Accept"
+
+#: tform4.caption
+msgctxt "TFORM4.CAPTION"
+msgid "Edycja"
+msgstr "Edition"
+
+#: tform4.checkbox1.caption
+msgid "Zmień i zapisz we wszytkich plikach lokalizacyjnych."
+msgstr "Change and write down in all translational files."
+
+#: tform4.checkbox2.caption
+msgid "CheckBox2"
+msgstr "CheckBox2"
+
+#: tform4.checkbox3.caption
+msgctxt "tform4.checkbox3.caption"
+msgid "CheckBox3"
+msgstr "CheckBox3"
+
+#: tform4.checkbox4.caption
+msgid "CheckBox4"
+msgstr "CheckBox4"
+
+#: tform4.label1.caption
+msgctxt "TFORM4.LABEL1.CAPTION"
+msgid "Label1"
+msgstr "Label1"
+
+#: tform4.label2.caption
+msgctxt "TFORM4.LABEL2.CAPTION"
+msgid "Label2"
+msgstr "Label2"
+
+#: tform4.labelededit1.editlabel.caption
+msgctxt "TFORM4.LABELEDEDIT1.EDITLABEL.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tform4.labelededit2.editlabel.caption
+msgctxt "tform4.labelededit2.editlabel.caption"
+msgid "NickName"
+msgstr "NickName"
+
+#: tform4.labelededit3.editlabel.caption
+msgctxt "TFORM4.LABELEDEDIT3.EDITLABEL.CAPTION"
+msgid "NickName"
+msgstr "NickName"
+
+#: tform5.caption
+msgid "Form5"
+msgstr "Form5"
+
+#: tform5.label1.caption
+msgid "Load"
+msgstr "Load"
+
+#: tform5.label2.caption
+msgid "v2.0 Beta 2"
+msgstr "v2.0"
+
+#: tform6.button1.caption
+msgid "OK"
+msgstr "OK"
+
+#: tform6.button2.caption
+msgid "Cancel"
+msgstr "Cancel"
+
+#: tform6.button3.caption
+msgid "Delete face"
+msgstr "Delete face"
+
+#: tform6.caption
+msgid "RPC\\EPC Small Face (RPCFacesSmall.xml)"
+msgstr "RPC\\EPC Small Face (RPCFacesSmall.xml)"
+
+#: tform6.label1.caption
+msgid "FaceIndex"
+msgstr "FaceIndex"
+
+#: tform6.label3.caption
+msgid "EyesX"
+msgstr "EyesX"
+
+#: tform6.label4.caption
+msgid "EyesY"
+msgstr "EyesY"
+
+#: tform6.label5.caption
+msgid "MouthX"
+msgstr "MouthX"
+
+#: tform6.label6.caption
+msgid "MouthY"
+msgstr "MouthY"
+
+#: tform6.listview1.hint
+msgctxt "TFORM6.LISTVIEW1.HINT"
+msgid "Kliknij by edytować wartość."
+msgstr "Click to edit the value."
+
+#: tformbrakujacepliki.caption
+msgctxt "TFORMBRAKUJACEPLIKI.CAPTION"
+msgid "Info"
+msgstr "Info"
+
+#: tformbrakujacepliki.label1.caption
+msgid "Dodawanie nowych plików do projektu..."
+msgstr "The addition of new files to the project..."
+
+#: tformcopy.buttonpanel1.okbutton.caption
+msgctxt "TFORMCOPY.BUTTONPANEL1.OKBUTTON.CAPTION"
+msgid "Kopiuj"
+msgstr "Copy"
+
+#: tformcopy.caption
+msgid "Kopiuj zawartosc"
+msgstr "Copy content"
+
+#: tformcopy.label1.caption
+msgid "Z"
+msgstr "From"
+
+#: tformcopy.label2.caption
+msgid "Do"
+msgstr "To"
+
+#: tformemail.buttonpanel1.cancelbutton.caption
+msgid "Wyjdź"
+msgstr "Exit"
+
+#: tformemail.buttonpanel1.okbutton.caption
+msgid "&Zapisz"
+msgstr "&Save"
+
+#: tformemail.caption
+msgctxt "TFORMEMAIL.CAPTION"
+msgid "Email"
+msgstr "Email"
+
+#: tformemail.listview1.hint
+msgctxt "TFORMEMAIL.LISTVIEW1.HINT"
+msgid "Kliknij by edytować wartość."
+msgstr "Click to edit the value."
+
+#: tformemail.menuitem1.caption
+msgid "Kopiowanie z \"pliku1\" do \"pliku2\""
+msgstr "Copies from \"file1\" to \"file2\""
+
+#: tformemail.toolbar3.caption
+msgctxt "TFORMEMAIL.TOOLBAR3.CAPTION"
+msgid "ToolBar2"
+msgstr "ToolBar2"
+
+#: tformemail.toolbutton1.caption
+msgid "ToolButton1"
+msgstr "ToolButton1"
+
+#: tformemail.toolbutton11.caption
+msgctxt "TFORMEMAIL.TOOLBUTTON11.CAPTION"
+msgid "Narzędzia"
+msgstr "Tools"
+
+#: tformemail.toolbutton2.caption
+msgid "Dodaj"
+msgstr "Add"
+
+#: tformemail.toolbutton3.caption
+msgctxt "TFORMEMAIL.TOOLBUTTON3.CAPTION"
+msgid "Usuń"
+msgstr "Delete"
+
+#: tformlog.bitbtn1.caption
+msgctxt "TFORMLOG.BITBTN1.CAPTION"
+msgid "Zapisz"
+msgstr "Save"
+
+#: tformlog.caption
+msgctxt "TFORMLOG.CAPTION"
+msgid "Logi"
+msgstr "Logs"
+
+#: tformnew.buttonpanel1.okbutton.caption
+msgctxt "TFORMNEW.BUTTONPANEL1.OKBUTTON.CAPTION"
+msgid "&Akceptuj"
+msgstr "&Accept"
+
+#: tformnew.caption
+msgctxt "TFORMNEW.CAPTION"
+msgid "Projekt"
+msgstr "Projekt"
+
+#: tformnew.checkbox1.caption
+msgctxt "tformnew.checkbox1.caption"
+msgid "Pliki językowe"
+msgstr "Pliki językowe"
+
+#: tformnew.checkbox2.caption
+msgid "UB Files"
+msgstr "UB Files"
+
+#: tformnew.label1.caption
+msgctxt "tformnew.label1.caption"
+msgid ""
+"Jeżeli niechcesz zapisać projektu, zostaw to pole puste. Edycja tych plików "
+"będzie mozliwa tylko dla tej sesji."
+msgstr ""
+"If you do not want to write down the project, leave this empty field. The "
+"edition of these files will be possible only for this session."
+
+#: tformnew.label2.caption
+msgctxt "tformnew.label2.caption"
+msgid "Edytuj pliki"
+msgstr "Edit files"
+
+#: tformnew.labelededit1.editlabel.caption
+msgctxt "tformnew.labelededit1.editlabel.caption"
+msgid ""
+"Nazwa projektu. Jeżeli chcesz wrócić w przyszłości do edycji tych plików, "
+"zapisz wszystko jako projekt."
+msgstr ""
+"The name of the project. If you want to come back in the future to the "
+"edition of these files, write down all as the project."
+
+#: tformnew.listview1.columns[0].caption
+msgctxt "TFORMNEW.LISTVIEW1.COLUMNS[0].CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tformnew.listview1.columns[1].caption
+msgid "Dir"
+msgstr "Dir"
+
+#: tformnew.listview1.columns[2].caption
+msgid "UB"
+msgstr "UB"
+
+#: tformnew.speedbutton1.caption
+msgctxt "tformnew.speedbutton1.caption"
+msgid "Zaznacz\\odznacz wszystkie pliki"
+msgstr "Select\\UnSelect all files"
+
+#: tformnew.tabsheet1.caption
+msgctxt "TFORMNEW.TABSHEET1.CAPTION"
+msgid "Opcje projektu"
+msgstr "Project options"
+
+#: tformnew.tabsheet2.caption
+msgid "Nowy projekt"
+msgstr "New Project"
+
+#: tformopcje.buttonpanel1.closebutton.caption
+msgid "&Close"
+msgstr "&Close"
+
+#: tformopcje.buttonpanel1.okbutton.caption
+msgid "&Ok"
+msgstr "&Ok"
+
+#: tformopcje.caption
+msgctxt "TFORMOPCJE.CAPTION"
+msgid "Opcje programu"
+msgstr "Settings"
+
+#: tformopcje.label1.caption
+msgctxt "tformopcje.label1.caption"
+msgid "Język"
+msgstr "Language"
+
+#: tformopcje.labelededit1.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT1.EDITLABEL.CAPTION"
+msgid "TableData"
+msgstr "TableData"
+
+#: tformopcje.labelededit1.text
+msgid "LabeledEdit1"
+msgstr "LabeledEdit1"
+
+#: tformopcje.labelededit2.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT2.EDITLABEL.CAPTION"
+msgid "Email"
+msgstr "Email"
+
+#: tformopcje.labelededit2.text
+msgid "LabeledEdit2"
+msgstr "LabeledEdit2"
+
+#: tformopcje.labelededit3.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT3.EDITLABEL.CAPTION"
+msgid "NPCInventory"
+msgstr "NPCInventory"
+
+#: tformopcje.labelededit3.text
+msgid "LabeledEdit3"
+msgstr "LabeledEdit3"
+
+#: tformopcje.labelededit4.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT4.EDITLABEL.CAPTION"
+msgid "Map"
+msgstr "Map"
+
+#: tformopcje.labelededit4.text
+msgid "LabeledEdit4"
+msgstr "LabeledEdit4"
+
+#: tformopcje.labelededit5.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT5.EDITLABEL.CAPTION"
+msgid "Sounds"
+msgstr "Sounds"
+
+#: tformopcje.labelededit5.text
+msgid "LabeledEdit5"
+msgstr "LabeledEdit5"
+
+#: tformopcje.labelededit6.editlabel.caption
+msgid "Items"
+msgstr "Items"
+
+#: tformopcje.labelededit6.text
+msgid "LabeledEdit6"
+msgstr "LabeledEdit6"
+
+#: tformopcje.labelededit7.editlabel.caption
+msgctxt "TFORMOPCJE.LABELEDEDIT7.EDITLABEL.CAPTION"
+msgid "Inventory"
+msgstr "Inventory"
+
+#: tformopcje.labelededit7.text
+msgid "LabeledEdit7"
+msgstr "LabeledEdit7"
+
+#: tformopcje.panel1.caption
+msgctxt "TFORMOPCJE.PANEL1.CAPTION"
+msgid "Panel1"
+msgstr "Panel1"
+
+#: tformopcje.tabsheet1.caption
+msgctxt "tformopcje.tabsheet1.caption"
+msgid "Język"
+msgstr "Language"
+
+#: tformopcje.tabsheet3.caption
+msgctxt "tformopcje.tabsheet3.caption"
+msgid "Katalogi"
+msgstr "Folders"
+
+#: tformopcje.toolbar1.caption
+msgctxt "TFORMOPCJE.TOOLBAR1.CAPTION"
+msgid "ToolBar1"
+msgstr "ToolBar1"
+
+#: tformopcje.toolbutton1.caption
+msgid "Zapisz zmiany"
+msgstr "Save changes"
+
+#: tformopcje.toolbutton2.caption
+msgid "ToolButton2"
+msgstr "ToolButton2"
+
+#: tformopcjeprojektu.buttonpanel1.okbutton.caption
+msgctxt "TFORMOPCJEPROJEKTU.BUTTONPANEL1.OKBUTTON.CAPTION"
+msgid "&Akceptuj"
+msgstr "&Accept"
+
+#: tformopcjeprojektu.caption
+msgctxt "TFORMOPCJEPROJEKTU.CAPTION"
+msgid "Opcje projektu"
+msgstr "Project options"
+
+#: tformopcjeprojektu.checkbox1.caption
+msgctxt "TFORMOPCJEPROJEKTU.CHECKBOX1.CAPTION"
+msgid "Używaj plików lokalizacyjnych"
+msgstr "Use translational files"
+
+#: tformopcjeprojektu.label1.caption
+msgctxt "TFORMOPCJEPROJEKTU.LABEL1.CAPTION"
+msgid "Czytaj, zapisuj oraz edytuj pliki :"
+msgstr "Allow save, load and edit file:"
+
+#: tformopcjeprojektu.label2.caption
+#| msgid ""
+#| "Jeżeli odznaczysz plik z edycji i nacisniesz przycisk \"Akceptuj\", to "
+#| "cała zawartość odznaczonego pliku zostanie usunięta!Jeżeli odznaczysz "
+#| "plik(i) z edycji i naciśniesz przycisk \"Akceptuj\", to cała zawartość "
+#| "odznaczonego pliku zostanie usunięta!"
+msgid ""
+"Jeżeli odznaczysz plik(i) z edycji i naciśniesz przycisk \"Akceptuj\", to "
+"cała zawartość odznaczonego pliku zostanie usunięta!"
+msgstr ""
+"If you honour the file(s) from the edition and you will press the button "
+"\"Accept \", then the whole content of the file will be removed!"
+
+#: tformopcjeprojektu.tabsheet1.caption
+msgid "Pliki XML"
+msgstr "Files XML"
+
+#: tformopcjeprojektu.tabsheet2.caption
+msgctxt "tformopcjeprojektu.tabsheet2.caption"
+msgid "Pliki lokalizacyjne"
+msgstr "Translational files"
+
+#: tinfoform.caption
+msgctxt "TINFOFORM.CAPTION"
+msgid "Info"
+msgstr "Info"
+
+#: tinfoform.label1.caption
+msgid "Merc Profiles Editor 2.0"
+msgstr "Merc Profiles Editor 2.0"
+
+#: tinfoform.label2.caption
+#| msgid "by Jazz 2010/2013"
+msgid "by Jazz 2010/2014"
+msgstr "by Jazz 2010/2014"
+
+#: tinfoform.label4.caption
+msgid "sourceforge.net/users/jazzmb1"
+msgstr "sourceforge.net/users/jazzmb1"
+
+#: topendir.buttonpanel1.okbutton.caption
+msgid "&Importuj"
+msgstr "&Import"
+
+#: topendir.caption
+msgctxt "TOPENDIR.CAPTION"
+msgid "Importuj pliki XML z katalogu"
+msgstr "Open directory"
+
+#: topendir.checkbox1.caption
+msgctxt "topendir.checkbox1.caption"
+msgid "Pliki językowe"
+msgstr "Translational files"
+
+#: topendir.checkbox2.caption
+msgid "Wczytaj pliki UB"
+msgstr "Load UB files"
+
+#: topendir.checkbox3.caption
+#| msgid "CheckBox3"
+msgctxt "topendir.checkbox3.caption"
+msgid "Używaj plików lokalizacyjnych items.xml i Cities.xml"
+msgstr "Use files translational items.xml and Cities.xml."
+
+#: topendir.checkbox3.hint
+msgid ""
+"Zaznacz jeżeli chcesz używać plików lokalizacyjnych XYZ.Items.xml oraz XYZ."
+"Cities.Xml. Opcja    zadziała tylko jeżeli pliki istnieją."
+msgstr ""
+"Mark if you want to use files translational XYZ.Items.xml and XYZ.Cities."
+"Xml. The option will work only if files they exist."
+
+#: topendir.checkgroup1.caption
+msgctxt "topendir.checkgroup1.caption"
+msgid "Edytuj pliki"
+msgstr "Edit files"
+
+#: topendir.label1.caption
+#| msgid ""
+#| "Jeżeli niechcesz zapisać projektu, zostaw to pole puste. Edycja tych "
+#| "plików będzie mozliwa tylko dla tej sesji."
+msgctxt "TOPENDIR.LABEL1.CAPTION"
+msgid ""
+"Jeżeli nie chcesz zapisać projektu, zostaw to pole puste. Edycja tych plików "
+"będzie możliwa tylko dla tej sesji."
+msgstr ""
+"If you do not want to write down the project, leave this empty field. The "
+"edition of these files will be possible only for this session."
+
+#: topendir.labelededit1.editlabel.caption
+msgctxt "TOPENDIR.LABELEDEDIT1.EDITLABEL.CAPTION"
+msgid ""
+"Nazwa projektu. Jeżeli chcesz wrócić w przyszłości do edycji tych plików, "
+"zapisz wszystko jako projekt."
+msgstr ""
+"The name of the project. If you want to come back in the future to the "
+"edition of these files, write down all as the project."
+
+#: topendir.menuitem1.caption
+msgctxt "topendir.menuitem1.caption"
+msgid "Ostatnio importowane"
+msgstr "Imported recently"
+
+#: topendir.radiobutton1.caption
+msgid "Katalog"
+msgstr "Folder"
+
+#: topendir.radiobutton2.caption
+msgctxt "topendir.radiobutton2.caption"
+msgid "Katalogi"
+msgstr "Folders"
+
+#: topendir.speedbutton1.caption
+msgctxt "TOPENDIR.SPEEDBUTTON1.CAPTION"
+msgid "Zaznacz\\odznacz wszystkie pliki"
+msgstr "Select\\UnSelect all files"
+
+#: topendir.speedbutton2.hint
+msgctxt "topendir.speedbutton2.hint"
+msgid "Ostatnio importowane"
+msgstr "Imported recently"
+
+#: topenprojectform.caption
+msgctxt "TOPENPROJECTFORM.CAPTION"
+msgid "Otwórz projekt"
+msgstr "Open project"
+
+#: tsaveform.buttonpanel1.okbutton.caption
+msgid "&Eksportuj"
+msgstr "&Exportuj"
+
+#: tsaveform.caption
+msgctxt "TSAVEFORM.CAPTION"
+msgid "Eksportuj do XML"
+msgstr "Export to XML"
+
+#: tsaveform.label1.caption
+msgid "Podaj katalog do zapisu"
+msgstr "The folder to writes"

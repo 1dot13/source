@@ -1,0 +1,1 @@
+Use translator editor Poedit -> http://poedit.net/

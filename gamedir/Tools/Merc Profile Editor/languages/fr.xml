@@ -1,0 +1,644 @@
+﻿?????<?xml version="1.0" encoding="utf-8"?>
+<LANGUAGE>
+	<MENU>
+	
+		<!-- Form 1 -->
+		
+		<Form1_Message1>Read</Form1_Message1>
+		<Form1_Message2>Read </Form1_Message2>
+		<Form1_Message3>The folder was created $NewProjects. Temporary files required by the editor are kept in the folder. Can the folder delete after finishing the project safely and the closing of the programme.</Form1_Message3>
+ 		<Form1_Message4>The language was not defined</Form1_Message4>
+		<Form1_Message5>Read...</Form1_Message5>
+		<Form1_Message6>Save...</Form1_Message6>
+		<Form1_Message7>Read...</Form1_Message7>
+		<Form1_Message8>Additional files</Form1_Message8>
+		<Form1_Message9>Files of translations</Form1_Message9>
+		<Form1_Message10>Required file</Form1_Message10>
+		<Form1_Message11>Create the file(s)</Form1_Message11>
+		<Form1_Message12>Files</Form1_Message12>
+		<Form1_Message13>OK</Form1_Message13>
+		<Form1_Message14>missing file</Form1_Message14>
+		<Form1_Message15>**NPCInventory**</Form1_Message15>	
+		<Form1_Message16>One can not copy. Some of languages is not turned on in the options of the project.</Form1_Message16>
+		<Form1_Message17>One can not copy to the same places!</Form1_Message17>   
+		<Form1_Message18>To close the current project and put new ?</Form1_Message18>  
+		<Form1_Message19>To close the current project and import new files ?</Form1_Message19> 
+		<Form1_Message20>Deleted ID </Form1_Message20> 
+		
+		<!-- Form4 -->
+		
+		<Form4_LabeledEdit1_Caption>Name</Form4_LabeledEdit1_Caption>
+		<Form4_LabeledEdit2_Caption>NickName</Form4_LabeledEdit2_Caption>
+		<Form4_LabeledEdit3_Caption>ShortName</Form4_LabeledEdit3_Caption>
+		<Form4_LabeledEdit2a_Caption>LongName</Form4_LabeledEdit2a_Caption>
+		<Form4_LabeledEdit2b_Caption>Subject</Form4_LabeledEdit2b_Caption>
+		<Form4_LabeledEdit2c_Caption>Message</Form4_LabeledEdit2c_Caption>
+		<Form4_LabeledEdit2d_Caption>Bio</Form4_LabeledEdit2d_Caption>
+		<Form4_Label1_Caption>sItemIndex</Form4_Label1_Caption>
+		<Form4_Label2_Caption>ubOptimalNumber</Form4_Label2_Caption>
+		
+		<!-- Form Eksport -->
+		
+		<EksportForm_Caption1>Export file</EksportForm_Caption1>
+		<EksportForm_Caption2>View\Edit file</EksportForm_Caption2>
+		
+		<!-- Form CivGroup -->
+		
+		<FormCivGroup_Caption>CivGroupNames.xml</FormCivGroup_Caption>
+
+		<!-- Form EditProf -->
+		
+		<FormEditProf_ButtonPanel1_OKButton_Caption>Change</FormEditProf_ButtonPanel1_OKButton_Caption>
+		
+		<!-- Form EmailSenderName -->
+		
+		<FormEmailSenderName_Caption>EmailSenderName.xml</FormEmailSenderName_Caption>
+		
+		<!-- Form NPCInventory -->
+
+		<FormNPCInventory_Caption>NPCInventory</FormNPCInventory_Caption>
+		
+		<!-- Form OldAIMArchive -->
+
+		<FormOldAIMArchive_Caption>OldAIMArchive.xml</FormOldAIMArchive_Caption>
+		
+		<!-- Form EmailMercAvailable -->
+
+		<FormEmailMercAvailable_Caption>EmailMercAvailable.xml</FormEmailMercAvailable_Caption>
+		
+		<!-- Form EmailMercLevelUp -->
+
+		<FormEmailMercLevelUp_Caption>EmailMercLevelUp.xml</FormEmailMercLevelUp_Caption>
+		
+		<!-- Form Vehicles -->
+
+		<FormVehiclesNames_Caption>Vehicles Names</FormVehiclesNames_Caption>
+		
+		<!-- Form MercProfiles -->
+
+		<FormMercProfiles_Caption>MercProfiles Names</FormMercProfiles_Caption>
+
+	<IdList1>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>GREENPANTS</Item1>
+			<Item2>BLACKPANTS</Item2>
+			<Item3>BEIGEPANTS</Item3>
+			<Item4>TANPANTS</Item4>
+			<Item5>JEANPANTS</Item5>
+			<Item6>BLUEPANTS</Item6>
+		</Items>
+		<flags>
+		</flags>
+	</IdList1>
+
+	<IdList2>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>YELLOWVEST</Item1>
+			<Item2>BLACKSHIRT</Item2>
+			<Item3>REDVEST</Item3>
+			<Item4>GREENVEST</Item4>
+			<Item5>JEANVEST</Item5>
+			<Item6>BLUEVEST</Item6>
+			<Item7>greyVEST</Item7>
+			<Item8>GYELLOWSHIRT</Item8>
+			<Item9>WHITEVEST</Item9>
+			<Item10>PURPLESHIRT</Item10>
+			<Item11>BLUEVEST</Item11>
+			<Item12>BROWNVEST</Item12>
+		</Items>
+		<flags>
+		</flags>
+	</IdList2>
+
+	<IdList3>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>PINKSKIN</Item1>
+			<Item2>TANSKIN</Item2>
+			<Item3>DARKSKIN</Item3>
+			<Item4>BLACKSKIN</Item4>
+		</Items>
+		<flags>
+		</flags>
+	</IdList3>
+
+	<IdList4>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>BROWNHEAD</Item1>
+			<Item2>BLACKHEAD</Item2>
+			<Item3>WHITEHEAD</Item3>
+			<Item4>BLONDEHEAD</Item4>
+			<Item5>REDHEAD</Item5>
+		</Items>
+		<flags>
+		</flags>
+	</IdList4>
+		
+	<IdList5>
+		<Items>
+			<Item0>None (not used)</Item0>
+			<Item1>AIM</Item1>
+			<Item2>MERC</Item2>
+			<Item3>RPC</Item3>
+			<Item4>NPC</Item4>
+			<Item5>Vehicle</Item5>
+			<Item6>IMP</Item6>
+		</Items>
+		<flags>
+		</flags>
+	</IdList5>
+
+	<IdList6>
+		<Items>
+			<Item0>Male</Item0>
+			<Item1>Female</Item1>
+		</Items>
+		<flags>
+		</flags>
+	</IdList6>
+
+	<IdList7>
+		<Items>
+			<Item0>Reg Male</Item0>
+			<Item1>Big Male</Item1>
+			<Item2>Stocky Male</Item2>
+			<Item3>Reg Female</Item3>
+			<Item4>Adt F Monster</Item4>
+			<Item5>Adt M Monster</Item5>
+			<Item6>Yng F Monster</Item6>
+			<Item7>Yng M Monster</Item7>
+			<Item8>Larvae</Item8>
+			<Item9>Infant</Item9>
+			<Item10>Queen Monster</Item10>
+			<Item11>Fat Civilian</Item11>
+			<Item12>M Civilian</Item12>
+			<Item13>Miniskirt</Item13>
+			<Item14>F Civilian</Item14>
+			<Item15>Kid w/ Hat</Item15>
+			<Item16>Kid Civilian</Item16>
+			<Item17>Cripple</Item17>
+			<Item18>Cow</Item18>
+			<Item19>Crow</Item19>
+			<Item20>Bloodcat</Item20>
+			<Item21>Unarmed Robot</Item21>
+			<Item22>Humvee</Item22>
+			<Item23>NW Tank</Item23>
+			<Item24>NE Tank</Item24>
+			<Item25>Eldorado</Item25>
+			<Item26>Icecream Truck</Item26>
+			<Item27>Jeep</Item27>
+		</Items>
+		<flags>
+		</flags>
+	</IdList7>
+
+	<IdList8>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>BadAss</Item1>
+		</Items>
+		<flags>
+		</flags>
+	</IdList8>
+
+	<IdList9>
+		<Items>
+			<Item0>Normal</Item0>
+			<Item1>Friendly</Item1>
+			<Item2>Loner</Item2>
+			<Item3>Optimist</Item3>
+			<Item4>Pessimist</Item4>
+			<Item5>Aggressive</Item5>
+			<Item6>Arrogant</Item6>
+			<Item7>Big shot</Item7>
+			<Item8>Asshole</Item8>
+			<Item9>Coward</Item9>
+		</Items>
+		<flags>
+		</flags>
+	</IdList9>
+
+	<IdList10>
+		<Items>
+			<Item0>Normal</Item0>
+			<Item1>Sociable</Item1>
+			<Item2>Loner</Item2>
+			<Item3>Optimist</Item3>
+			<Item4>Assertive</Item4>
+			<Item5>Intellectual</Item5>
+			<Item6>Primitive</Item6>
+			<Item7>Aggressive</Item7>
+			<Item8>Phlegmatic</Item8>
+			<Item9>Dauntless</Item9>
+			<Item10>Pacifist</Item10>
+			<Item11>Malicious</Item11>
+			<Item12>Showoff</Item12>
+		</Items>
+		<flags>
+		</flags>
+	</IdList10>
+
+	<IdList11>
+		<Items>
+			<Item0>Normal</Item0>
+			<Item1>None</Item1>
+			<Item2>Devolve</Item2>
+		</Items>
+		<flags>
+		</flags>
+	</IdList11>
+
+	<IdList12>
+		<Items>
+			<Item0>No Skill</Item0>
+			<Item1>Lock Picking</Item1>
+			<Item2>Hand to Hand</Item2>
+			<Item3>Electronics</Item3>
+			<Item4>Night Operations</Item4>
+			<Item5>Throwing</Item5>
+			<Item6>Teaching</Item6>
+			<Item7>Heavy Weapons</Item7>
+			<Item8>Auto Weapons</Item8>
+			<Item9>Stealthy</Item9>
+			<Item10>Ambidextrous</Item10>
+			<Item11>Thief</Item11>
+			<Item12>Martial Arts</Item12>
+			<Item13>Knifing</Item13>
+			<Item14>Sniper</Item14>
+			<Item15>Camouflage</Item15>
+		</Items>
+		<flags>
+		</flags>
+	</IdList12>
+
+	<IdList13>
+		<Items>
+			<Item0>No Skill</Item0>
+			<Item1>Lock Picking</Item1>
+			<Item2>Hand to Hand</Item2>
+			<Item3>Electronics</Item3>
+			<Item4>Night Operations</Item4>
+			<Item5>Throwing</Item5>
+			<Item6>Teaching</Item6>
+			<Item7>Heavy Weapons</Item7>
+			<Item8>Auto Weapons</Item8>
+			<Item9>Stealthy</Item9>
+			<Item10>Ambidextrous</Item10>
+			<Item11>Thief</Item11>
+			<Item12>Martial Arts</Item12>
+			<Item13>Knifing</Item13>
+			<Item14>Sniper</Item14>
+			<Item15>Camouflage</Item15>
+		</Items>
+		<flags>
+		</flags>
+	</IdList13>
+
+	<IdList14>
+		<Items>
+			<Item0>No Skill</Item0>
+			<Item1>Auto Weapons/Machinegunner</Item1>
+			<Item2>Heavy Weapons/Bombardier</Item2>
+			<Item3>Marksman/Sniper</Item3>
+			<Item4>Hunter/Ranger</Item4>
+			<Item5>Gunslinger/Gunfighter</Item5>
+			<Item6>Hand-to-Hand/Martial Arts</Item6>
+			<Item7>Deputy/Squadleader</Item7>
+			<Item8>Technician/Engineer</Item8>
+			<Item9>Paramedic/Doctor</Item9>
+			<Item10>Ambidex</Item10>
+			<Item11>Melee</Item11>
+			<Item12>Throwing</Item12>
+			<Item13>Night Ops</Item13>
+			<Item14>Stealthy</Item14>
+			<Item15>Athletics</Item15>
+			<Item16>Bodybuilding</Item16>
+			<Item17>Demolitions</Item17>
+			<Item18>Teaching</Item18>
+			<Item19>Scouting</Item19>
+		</Items>
+		<flags>
+		</flags>
+	</IdList14>
+
+	<IdList15>
+		<Items>
+			<Item0>No Skill</Item0>
+			<Item1>Auto Weapons/Machinegunner</Item1>
+			<Item2>Heavy Weapons/Bombardier</Item2>
+			<Item3>Marksman/Sniper</Item3>
+			<Item4>Hunter/Ranger</Item4>
+			<Item5>Gunslinger/Gunfighter</Item5>
+			<Item6>Hand-to-Hand/Martial Arts</Item6>
+			<Item7>Deputy/Squadleader</Item7>
+			<Item8>Technician/Engineer</Item8>
+			<Item9>Paramedic/Doctor</Item9>
+			<Item10>Ambidex</Item10>
+			<Item11>Melee</Item11>
+			<Item12>Throwing</Item12>
+			<Item13>Night Ops</Item13>
+			<Item14>Stealthy</Item14>
+			<Item15>Athletics</Item15>
+			<Item16>Bodybuilding</Item16>
+			<Item17>Demolitions</Item17>
+			<Item18>Teaching</Item18>
+			<Item19>Scouting</Item19>
+		</Items>
+		<flags>
+		</flags>
+	</IdList15>
+
+	<IdList16>
+		<Items>
+			<Item0>No Skill</Item0>
+			<Item1>Auto Weapons/Machinegunner</Item1>
+			<Item2>Heavy Weapons/Bombardier</Item2>
+			<Item3>Marksman/Sniper</Item3>
+			<Item4>Hunter/Ranger</Item4>
+			<Item5>Gunslinger/Gunfighter</Item5>
+			<Item6>Hand-to-Hand/Martial Arts</Item6>
+			<Item7>Deputy/Squadleader</Item7>
+			<Item8>Technician/Engineer</Item8>
+			<Item9>Paramedic/Doctor</Item9>
+			<Item10>Ambidex</Item10>
+			<Item11>Melee</Item11>
+			<Item12>Throwing</Item12>
+			<Item13>Night Ops</Item13>
+			<Item14>Stealthy</Item14>
+			<Item15>Athletics</Item15>
+			<Item16>Bodybuilding</Item16>
+			<Item17>Demolitions</Item17>
+			<Item18>Teaching</Item18>
+			<Item19>Scouting</Item19>
+		</Items>
+		<flags>
+		</flags>
+	</IdList16>
+
+	<IdList17>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>Heat Intolerant</Item1>
+			<Item2>Nervous</Item2>
+			<Item3>Claustrophobic</Item3>
+			<Item4>Non Swimmer</Item4>
+			<Item5>Fear of Insects</Item5>
+			<Item6>Forgetful</Item6>
+			<Item7>Psycho</Item7>
+		</Items>
+		<flags>
+		</flags>
+	</IdList17>
+
+	<IdList32>
+		<Items>
+			<Item0>0</Item0>
+			<Item1>A</Item1>
+			<Item2>B</Item2>
+			<Item3>C</Item3>
+			<Item4>D</Item4>
+			<Item5>E</Item5>
+			<Item6>F</Item6>
+			<Item7>G</Item7>
+			<Item8>H</Item8>
+			<Item9>I</Item9>
+			<Item10>J</Item10>
+			<Item11>K</Item11>
+			<Item12>L</Item12>
+			<Item13>M</Item13>
+			<Item14>N</Item14>
+			<Item15>O</Item15>
+			<Item16>P</Item16>
+		</Items>
+		<flags>
+		</flags>
+	</IdList32>
+	
+	<IdList33>
+		<Items>
+			<Item0>White</Item0>
+			<Item1>Black</Item1>
+			<Item2>Asian</Item2>
+			<Item3>Eskimo</Item3>
+			<Item4>Hispanic</Item4>
+		</Items>
+		<flags>
+		</flags>
+	</IdList33>
+	
+	<IdList34>
+		<Items>
+		    <Item0>-1</Item0>
+			<Item1>AMERICAN</Item1>
+			<Item2>ARAB</Item2>
+			<Item3>AUSTRALIAN</Item3>
+			<Item4>BRITISH</Item4>
+			<Item5>CANADIAN</Item5>
+			<Item6>CUBAN</Item6>
+			<Item7>DANISH</Item7>
+			<Item8>FRENCH</Item8>
+			<Item9>RUSSIAN</Item9>
+			<Item10>NIGERIAN</Item10>
+			<Item11>SWISS</Item11>
+			<Item12>JAMAICAN</Item12>
+			<Item13>POLISH</Item13>
+			<Item14>CHINESE</Item14>
+			<Item15>IRISH</Item15>
+			<Item16>SOUTH_AFRICAN</Item16>
+			<Item17>HUNGARIAN</Item17>
+			<Item18>SCOTTISH</Item18>
+			<Item19>ARULCAN</Item19>
+			<Item20>GERMAN</Item20>
+			<Item21>AFRICAN</Item21>
+			<Item22>ITALIAN</Item22>
+			<Item23>DUTCH</Item23>
+			<Item24>ROMANIAN</Item24>
+			<Item25>METAVIRAN</Item25>
+			<Item26>GREEK</Item26>
+			<Item27>ESTONIAN</Item27>
+			<Item28>VENEZUELAN</Item28>
+			<Item29>JAPANESE</Item29>
+			<Item30>TURKISH</Item30>
+			<Item31>INDIAN</Item31>
+			<Item32>MEXICAN</Item32>
+			<Item33>NORWEGIAN</Item33>
+			<Item34>SPANISH</Item34>
+			<Item35>BRASILIAN</Item35>
+			<Item36>FINNISH</Item36>
+			<Item37>IRANIAN</Item37>
+			<Item38>ISRAELI</Item38>
+			<Item39>BULGARIAN</Item39>
+			<Item40>SWEDISH</Item40>
+			<Item41>IRAQI</Item41>
+			<Item42>SYRIAN</Item42>
+			<Item43>BELGIAN</Item43>
+			<Item44>PORTOGUESE</Item44>
+		</Items>
+		<flags>
+		</flags>
+	</IdList34>
+
+	<IdList35>
+		<Items>
+			<Item0>Average</Item0>
+			<Item1>Ugly</Item1>
+			<Item2>Homely</Item2>
+			<Item3>Attractive</Item3>
+			<Item4>Babe</Item4>
+		</Items>
+		<flags>
+		</flags>
+	</IdList35>
+	
+	<IdList36>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>Some</Item1>
+			<Item2>Extreme</Item2>
+		</Items>
+		<flags>
+		</flags>
+	</IdList36>
+	
+	<IdList37>
+		<Items>
+			<Item0>Average</Item0>
+			<Item1>Slob</Item1>
+			<Item2>Snob</Item2>
+		</Items>
+		<flags>
+		</flags>
+	</IdList37>
+
+	<IdList38>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>Some</Item1>
+			<Item2>Very</Item2>
+		</Items>
+		<flags>
+		</flags>
+	</IdList38>
+	
+	<IdList39>
+		<Items>
+			<Item0>Not</Item0>
+			<Item1>Somewhat</Item1>
+			<Item2>Very</Item2>
+			<Item3>Genleman</Item3>
+		</Items>
+		<flags>
+		</flags>
+	</IdList39>
+	
+	<IdList41>
+		<Items>
+			<Item0>ARMS_DEALER_BUYS_SELLS</Item0>
+			<Item1>ARMS_DEALER_SELLS_ONLY</Item1>
+			<Item2>ARMS_DEALER_BUYS_ONLY</Item2>
+			<Item3>ARMS_DEALER_REPAIRS</Item3>
+		</Items>
+		<flags>
+		</flags>
+	</IdList41>
+	
+	<IdList42>
+		<Items>
+			<Item0>ARMS_DEALER_ONLY_USED_ITEMS</Item0>
+			<Item1>ARMS_DEALER_GIVES_CHANGE</Item1>
+			<Item2>ARMS_DEALER_ACCEPTS_GIFTS</Item2>
+			<Item3>ARMS_DEALER_SOME_USED_ITEMS</Item3>
+			<Item4>ARMS_DEALER_HAS_NO_INVENTORY</Item4>
+			<Item5>402653184</Item5>
+			<Item6>2415919104</Item6>
+		</Items>
+		<flags>
+			<flags0>1342177280</flags0>
+			<flags1>268435456</flags1>
+			<flags2>536870912</flags2>
+			<flags3>1073741824</flags3>
+			<flags4>2147483648</flags4>
+			<flags5>402653184</flags5>
+			<flags6>2415919104</flags6>
+		</flags>
+	</IdList42>
+	
+	<IdList43>
+		<Items>
+			<Item0>unused</Item0>
+			<Item1>back</Item1>
+			<Item2>front</Item2>
+			<Item3>gas mask</Item3>
+			<Item4>NVG</Item4>
+		</Items>
+		<flags>
+		</flags>
+	</IdList43>
+	
+	<IdList300>
+		<Items>
+			<Item0>FOOT</Item0>
+			<Item1>CAR</Item1>
+			<Item2>TRUCK</Item2>
+			<Item3>TRACKED</Item3>
+			<Item4>AIR</Item4>
+		</Items>
+		<flags>
+		</flags>
+	</IdList300>
+
+	<Default_Group>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>Rebel</Item1>
+			<Item2>KingPin</Item2>
+			<Item3>Sanmona Arms</Item3>
+			<Item4>Angels</Item4>
+			<Item5>Beggars</Item5>
+			<Item6>Tourists</Item6>
+			<Item7>Alma Militia</Item7>
+			<Item8>Doctors</Item8>
+			<Item9>Couple1</Item9>
+			<Item10>Hicks</Item10>
+			<Item11>Warden</Item11>
+			<Item12>Junkyard</Item12>
+			<Item13>Factory Kids</Item13>
+			<Item14>Queens</Item14>
+			<Item15>Joey, Martha</Item15>
+			<Item16>Devin</Item16>
+			<Item17>Hamous</Item17>
+			<Item18>Terry</Item18>
+			<Item19>Dynamo, Shank</Item19>
+		</Items>
+	</Default_Group>
+
+	<Default_Town>
+		<Items>
+			<Item0>None</Item0>
+			<Item1>Omerta</Item1>
+			<Item2>Drassen</Item2>
+			<Item3>Alma</Item3>
+			<Item4>Grumm</Item4>
+			<Item5>Tixa</Item5>
+			<Item6>Cambria</Item6>
+			<Item7>San Mona</Item7>
+			<Item8>Estoni</Item8>
+			<Item9>Orta</Item9>
+			<Item10>Balime</Item10>
+			<Item11>Meduna</Item11>
+			<Item12>Chitzena</Item12>
+		</Items>
+	</Default_Town>
+
+	<Imp5>
+		<Items>
+			<Item0>no</Item0>
+			<Item1>yes</Item1>
+		</Items>
+	</Imp5>
+	
+	</MENU>
+</LANGUAGE>
