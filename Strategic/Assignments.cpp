@@ -5824,10 +5824,10 @@ void HandleDiseaseSectorTreatment()
 	UINT32 uiCnt = 0;
 	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, pSoldier++ )
 	{
-		MakeSureMedKitIsInHand( pSoldier );
-
 		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DOCTOR_SECTOR && CanCharacterTreatSectorDisease( pSoldier ) && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 		{
+			MakeSureMedKitIsInHand( pSoldier );
+
 			// get available healing pts
 			UINT16 max = 0;
 			UINT16 ptsavailable = CalculateHealingPointsForDoctor( pSoldier, &max, TRUE );
