@@ -6611,8 +6611,8 @@ void HandleWWWSubSites( void )
 		fLoadPendingFlag = FALSE;
 
 		// set fact we were here
-		gfWWWaitSubSitesVisitedFlags[ LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX ] = TRUE;
-		gfWWWaitSubSitesVisitedFlags[ LAPTOP_MODE_AIM_MEMBERS ] = TRUE;
+		gfWWWaitSubSitesVisitedFlags[LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX] = TRUE;
+		gfWWWaitSubSitesVisitedFlags[LAPTOP_MODE_AIM_MEMBERS] = TRUE;
 	}
 }
 
@@ -6620,7 +6620,7 @@ void HandleWWWSubSites( void )
 void UpdateStatusOfDisplayingBookMarks( void )
 {
 	// this function will disable showing of bookmarks if in process of download or if we miniming web browser
-	if( ( fLoadPendingFlag == TRUE ) || ( guiCurrentLaptopMode < LAPTOP_MODE_WWW )	)
+	if ( (fLoadPendingFlag == TRUE) || (guiCurrentLaptopMode < LAPTOP_MODE_WWW) )
 	{
 		gfShowBookmarks = FALSE;
 	}
@@ -6630,9 +6630,9 @@ void UpdateStatusOfDisplayingBookMarks( void )
 void InitalizeSubSitesList( void )
 {
 	// init all subsites list to not visited
-	for( INT32 iCounter = LAPTOP_MODE_WWW + 1 ; iCounter <= LAPTOP_MODE_MAX; ++iCounter )
+	for ( INT32 iCounter = LAPTOP_MODE_WWW + 1; iCounter < LAPTOP_MODE_MAX; ++iCounter )
 	{
-		gfWWWaitSubSitesVisitedFlags[ iCounter ] = FALSE;
+		gfWWWaitSubSitesVisitedFlags[iCounter] = FALSE;
 	}
 }
 
