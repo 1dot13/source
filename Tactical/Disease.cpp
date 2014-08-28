@@ -55,7 +55,7 @@ FLOAT GetSectorDiseaseOverFlowThreshold( )
 	if ( Disease[0].sInfectionPtsGainPerHour > 0 )
 		return GetCivPopulationDoctorRate( ) * GetPopulationDoctorPoints( ) / (FLOAT)Disease[0].sInfectionPtsGainPerHour;
 
-	return 0.3;
+	return 0.3f;
 }
 
 void HandleDisease()

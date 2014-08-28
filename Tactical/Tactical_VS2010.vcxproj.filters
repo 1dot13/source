@@ -632,7 +632,7 @@
     <ClCompile Include="XML_ItemAdjustments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-     <ClCompile Include="XML_Disease.cpp">
+    <ClCompile Include="XML_Disease.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_Drugs.cpp">
@@ -684,6 +684,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DynamicDialogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_FoodOpinions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

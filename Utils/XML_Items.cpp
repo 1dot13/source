@@ -1292,7 +1292,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 		}
 
-		// Flugente FTW 1.2
+		// Flugente
 		else if(strcmp(name, "barrel")	 == 0)
 		{
 			pData->curElement = ELEMENT;

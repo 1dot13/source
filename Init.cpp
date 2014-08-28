@@ -365,6 +365,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, FOODFILENAME);
 	SGP_THROW_IFFALSE(ReadInFoodStats(fileName),FOODFILENAME);
 
+	strcpy(fileName, directoryName);
+	strcat(fileName, FOODOPINIONFILENAME);
+	SGP_THROW_IFFALSE(ReadInFoodOpinionStats(fileName),FOODOPINIONFILENAME);
+
 	strcpy( fileName, directoryName );
 	strcat( fileName, DISEASEFILENAME );
 	SGP_THROW_IFFALSE( ReadInDiseaseStats( fileName ), DISEASEFILENAME );

@@ -219,6 +219,7 @@
     <ClCompile Include="XML_EnemyWeaponDrops.cpp" />
     <ClCompile Include="XML_Explosive.cpp" />
     <ClCompile Include="XML_Food.cpp" />
+    <ClCompile Include="XML_FoodOpinions.cpp" />
     <ClCompile Include="XML_HiddenNames.cpp" />
     <ClCompile Include="XML_IMPItemChoices.cpp" />
     <ClCompile Include="XML_IncompatibleAttachments.cpp" />

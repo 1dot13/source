@@ -1129,6 +1129,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_FoodOpinions.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_HiddenNames.cpp"
 				>
 			</File>

@@ -32,6 +32,8 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+FOODOPINIONS FoodOpinions[NUM_PROFILES];
+
 extern MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS];
 
 extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
@@ -40,7 +42,6 @@ extern BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier);
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 #define FOOD_BAD_THRESHOLD							0.5f		// must be > 0 !!!!!
-#define FOOD_BAD_THRESHOLD_INVERSE					1.0f/FOOD_BAD_THRESHOLD
 
 #define FOOD_MORALE_DRINK_TO_FOOD_RATIO				1.0f
 #define FOOD_FACILITY_WATER_FACTOR					3.0f		// in a facility that serves food, only the food value is specified in the xml. drink value is food value multiplied by this
@@ -196,41 +197,41 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	AddFoodpoints(pSoldier->bDrinkLevel, drinkpts);
 
 	/////////////////// MORALE //////////////////////
-	INT8 moralemod = Food[foodtype].bMoraleMod;
+	// morale can now be defined for each profile and food individually - default value is always 0
+	INT8 moralemod = 0;
+	if ( pSoldier->ubProfile != NO_PROFILE )
+		moralemod = FoodOpinions[pSoldier->ubProfile].sFoodOpinion[foodtype];
+
+	// if food is rotting, we get a morale penalty
+	if ( foodcondition < FOOD_BAD_THRESHOLD )
+		moralemod -= (FOOD_BAD_THRESHOLD - foodcondition) * 10;
 	
 	if ( moralemod > 0 )
-		// morale is lower if food is rotten, can even become negative
-		moralemod = (INT8) ( moralemod * (FOOD_BAD_THRESHOLD_INVERSE*foodcondition - 1.0f) );
-	else
-		// if we hate the food anyway, give even lower morale if its rotten
-		moralemod = (INT8) ( moralemod * (2.0f - foodcondition) );
-
-	if ( moralemod > 0 )
 	{
-		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_GOOD_FOOD] )//gbMoraleEvent[MORALE_GOOD_FOOD].bChange )
+		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_GOOD_FOOD] )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_GOOD_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gMoraleSettings.bValues[MORALE_GOOD_FOOD];//gbMoraleEvent[MORALE_GOOD_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_GOOD_FOOD];
 		}
 
-		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_FOOD] )//gbMoraleEvent[MORALE_FOOD].bChange )
+		while ( moralemod > 0 && moralemod >= gMoraleSettings.bValues[MORALE_FOOD] )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gMoraleSettings.bValues[MORALE_FOOD];//gbMoraleEvent[MORALE_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_FOOD];
 		}
 	}
 	else if ( moralemod < 0 )
 	{
-		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD] )//gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange )
+		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD] )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_LOATHSOME_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD];//gbMoraleEvent[MORALE_LOATHSOME_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD];
 		}
 
-		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_BAD_FOOD] )//gbMoraleEvent[MORALE_BAD_FOOD].bChange )
+		while ( moralemod < 0 && moralemod <= gMoraleSettings.bValues[MORALE_BAD_FOOD] )
 		{
 			HandleMoraleEvent( pSoldier, MORALE_BAD_FOOD, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-			moralemod -= gMoraleSettings.bValues[MORALE_BAD_FOOD];//gbMoraleEvent[MORALE_BAD_FOOD].bChange;
+			moralemod -= gMoraleSettings.bValues[MORALE_BAD_FOOD];
 		}
 	}
 	/////////////////// MORALE //////////////////////

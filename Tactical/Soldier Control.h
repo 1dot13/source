@@ -27,7 +27,7 @@
 #define PTR_PRONE	 (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
 
 #define DRUG_TYPE_MAX	32
-#define FOOD_TYPE_MAX	128
+#define FOOD_TYPE_MAX	500
 
 // TEMP VALUES FOR NAMES
 #define MAXCIVLASTNAMES		30

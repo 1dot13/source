@@ -1,7 +1,8 @@
 #ifndef __FOOD_H
 #define __FOOD_H
 
-#include "soldier control.h"
+#include "Soldier Control.h"
+#include "soldier profile type.h"
 
 #define FOOD_MIN									- 20000
 #define FOOD_MAX									20000
@@ -52,12 +53,19 @@ typedef struct
 	INT32		bFoodPoints;			// points that will be added to our drink level
 	INT32		bDrinkPoints;			// points that will be added to our drink level
 	UINT16		ubPortionSize;			// how much is 'eaten' as a portion (percentage)
-	INT8		bMoraleMod;				// morale modificator for eating this
 	FLOAT		usDecayRate;			// rate at which food decays
 } FOODTYPE;
 
 //GLOBALS
 extern FOODTYPE Food[FOOD_TYPE_MAX];
+
+// mercs can have different opinions on food
+typedef struct
+{
+	INT8		sFoodOpinion[FOOD_TYPE_MAX];
+} FOODOPINIONS;
+
+extern FOODOPINIONS FoodOpinions[NUM_PROFILES];
 
 // for determining the type of water source a sector has
 typedef enum

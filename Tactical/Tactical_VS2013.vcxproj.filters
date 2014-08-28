@@ -644,6 +644,9 @@
     <ClCompile Include="XML_Food.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_FoodOpinions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XML_Clothes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
