@@ -16,4 +16,12 @@
 		<id>3</id>
 		<name>All Molle</name>
 	</AttachmentPoint>
+		<AttachmentPoint>
+		<id>4</id>
+		<name>Hydration Carrier</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>7</id>
+		<name>All Molle and Carrier</name>
+	</AttachmentPoint>
 </JA2Data>

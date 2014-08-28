@@ -319,4 +319,13 @@
 		<ubPortionSize>5</ubPortionSize>
 		<usDecayRate>0.0</usDecayRate>
 	</FOOD>
+		<FOOD>
+		<uiIndex>40</uiIndex>
+		<szName>bladder</szName>
+		<bFoodPoints>0</bFoodPoints>
+		<bDrinkPoints>4000</bDrinkPoints>
+		<ubPortionSize>20</ubPortionSize>
+		<bMoraleMod>1</bMoraleMod>
+		<usDecayRate>0</usDecayRate>
+	</FOOD>
 </FOODSLIST>

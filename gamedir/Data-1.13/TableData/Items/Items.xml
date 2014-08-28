@@ -49935,7 +49935,7 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>177</ubGraphicNum>
+		<ubGraphicNum>234</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>30</usPrice>
@@ -50184,7 +50184,7 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>72</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>196</ubGraphicNum>
+		<ubGraphicNum>232</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>110</usPrice>
@@ -50411,7 +50411,7 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>79</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>187</ubGraphicNum>
+		<ubGraphicNum>228</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
@@ -51167,7 +51167,7 @@
 		<szBRDesc>The ILBE system consists of three main parts, the Main Pack, the Hydration System, and the Assault Pack.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>7</AvailableAttachmentPoint>
 		<ubClassIndex>98</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>220</ubGraphicNum>
@@ -51225,7 +51225,7 @@
 		<szBRDesc>The largest of our Operator series packs is the Extended Range Operator Pack. It's large size and extensive list of features make it essential for longer missions.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>7</AvailableAttachmentPoint>
 		<ubClassIndex>100</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>221</ubGraphicNum>
@@ -51277,7 +51277,7 @@
 		<uiIndex>1709</uiIndex>
 		<szItemName>Sleeping bag</szItemName>
 		<szLongItemName>Sleeping bag</szLongItemName>
-		<szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
+		<szItemDesc>A basic sleeping bag. Beats the bare floor.</szItemDesc>
 		<szBRName>Sleeping bag</szBRName>
 		<szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -51410,6 +51410,194 @@
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
 		<DrugType>16777216</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1715</uiIndex>
+		<szItemName>Bladder</szItemName>
+		<szLongItemName>Hydration Bladder</szLongItemName>
+		<szItemDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.</szItemDesc>
+		<szBRName>Bladder</szBRName>
+		<szBRDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.The ideal solution for long expeditions.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>227</ubGraphicNum>
+		<ubWeight>20</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>23</ItemSize>
+		<usPrice>60</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>5</BR_NewInventory>
+		<Hardware>1</Hardware>
+		<Canteen>1</Canteen>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>40</FoodType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1716</uiIndex>
+		<szItemName>ArmorBak</szItemName>
+		<szLongItemName>ArmorBak Carrier</szLongItemName>
+		<szItemDesc>Lightweight and simple to use hydration system.</szItemDesc>
+		<szBRName>ArmorBak Hydration Carrier</szBRName>
+		<szBRDesc>Lightweight and simple to use hydration system.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>4</AttachmentPoint>
+		<AttachToPointAPCost>15</AttachToPointAPCost>
+		<ubClassIndex>102</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>226</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ItemSize>22</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>3</CamoBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1717</uiIndex>
+		<szItemName>Sp. Loader</szItemName>
+		<szLongItemName>Speed Loader</szLongItemName>
+		<szItemDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szItemDesc>
+		<szBRName>Speed Loader Pouch</szBRName>
+		<szBRDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>1</AttachmentPoint>
+		<AttachToPointAPCost>10</AttachToPointAPCost>
+		<ubClassIndex>103</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>177</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ItemSize>22</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<UrbanCamoBonus>1</UrbanCamoBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1718</uiIndex>
+        <szItemName>Single Rifle Pouch</szItemName>
+		<szLongItemName>Single Rifle Pouch</szLongItemName>
+		<szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
+		<szBRName>Single Rifle Pouch</szBRName>
+		<szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>1</AttachmentPoint>
+		<AttachToPointAPCost>10</AttachToPointAPCost>
+		<ubClassIndex>104</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>196</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ItemSize>22</ItemSize>
+		<usPrice>45</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>1</CamoBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1719</uiIndex>
+		<szItemName>Drum Pouch</szItemName>
+		<szLongItemName>Drum Ammo Pouch</szLongItemName>
+		<szItemDesc>Perfect for carrying Drum shaped ammo.</szItemDesc>
+		<szBRName>Drum Ammo Pouch</szBRName>
+		<szBRDesc>Perfect for carrying Drum shaped ammo.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>2</AttachmentPoint>
+		<AttachToPointAPCost>10</AttachToPointAPCost>
+		<ubClassIndex>105</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>230</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ItemSize>22</ItemSize>
+		<usPrice>80</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<DesertCamoBonus>2</DesertCamoBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1720</uiIndex>
+		<szItemName>Tactical Sling</szItemName>
+		<szLongItemName>Tactical Sling</szLongItemName>
+		<szItemDesc>This single point sling allows weapons to be carried in a secure but flexible fashion.</szItemDesc>
+		<szBRName>Rifle Sling</szBRName>
+		<szBRDesc>This single point sling allows weapons to be carried in a secure but flexible fashion. Adjustable length to accommodate all sizes.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentPoint>0</AttachmentPoint>
+		<AttachToPointAPCost>0</AttachToPointAPCost>
+		<ubClassIndex>106</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>218</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>80</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

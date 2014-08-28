@@ -370,7 +370,7 @@
 		<pSilhouette>23</pSilhouette>
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
-		<pVolume>2</pVolume>
+		<pVolume>3</pVolume>
 		<ItemCapacityPerSize14>1</ItemCapacityPerSize14>
 	</POCKET>
 	<POCKET>
@@ -452,16 +452,13 @@
 		<pType>2</pType>
 		<pRestriction>2</pRestriction>
 		<pVolume>20</pVolume>
-		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
-		<ItemCapacityPerSize1>1</ItemCapacityPerSize1>
-		<ItemCapacityPerSize2>1</ItemCapacityPerSize2>
-		<ItemCapacityPerSize3>1</ItemCapacityPerSize3>
 		<ItemCapacityPerSize4>1</ItemCapacityPerSize4>
+		<ItemCapacityPerSize5>1</ItemCapacityPerSize5>
 	</POCKET>
 	<POCKET>
 		<pIndex>26</pIndex>
 		<pName>Throwing Knife</pName>
-		<pSilhouette>11</pSilhouette>
+		<pSilhouette>53</pSilhouette>
 		<pType>1</pType>
 		<pRestriction>8</pRestriction>
 		<pVolume>2</pVolume>
@@ -490,12 +487,12 @@
 		<pRestriction>512</pRestriction>
 		<pVolume>10</pVolume>
 		<ItemCapacityPerSize17>1</ItemCapacityPerSize17>
-		<ItemCapacityPerSize17>1</ItemCapacityPerSize17>
+		<ItemCapacityPerSize17>22</ItemCapacityPerSize17>
 	</POCKET>
 	<POCKET>
 		<pIndex>29</pIndex>
 		<pName>Rifle Mag x1</pName>
-		<pSilhouette>50</pSilhouette>
+		<pSilhouette>54</pSilhouette>
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>3</pVolume>
@@ -504,7 +501,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>30</pIndex>
-		<pName>Revolver Holster</pName>
+		<pName>Big Revolver Holster</pName>
 		<pSilhouette>30</pSilhouette>
 		<pType>2</pType>
 		<pRestriction>2</pRestriction>
@@ -541,7 +538,7 @@
 		<pSilhouette>31</pSilhouette>
 		<pType>2</pType>
 		<pRestriction>512</pRestriction>
-		<pVolume>10</pVolume>
+		<pVolume>20</pVolume>
 		<ItemCapacityPerSize17>2</ItemCapacityPerSize17>
 		<ItemCapacityPerSize22>2</ItemCapacityPerSize22>
 	</POCKET>
@@ -557,6 +554,7 @@
 		<ItemCapacityPerSize12>4</ItemCapacityPerSize12>
 		<ItemCapacityPerSize13>2</ItemCapacityPerSize13>
 		<ItemCapacityPerSize17>2</ItemCapacityPerSize17>
+		<ItemCapacityPerSize21>1</ItemCapacityPerSize21>
 	</POCKET>
 	<POCKET>
 		<pIndex>35</pIndex>
@@ -783,11 +781,42 @@
 		<POCKET>
 		<pIndex>57</pIndex>
 		<pName>Rifle Magx2</pName>
-		<pSilhouette>50</pSilhouette>
+		<pSilhouette>28</pSilhouette>
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>6</pVolume>
 		<ItemCapacityPerSize12>4</ItemCapacityPerSize12>
 		<ItemCapacityPerSize13>2</ItemCapacityPerSize13>
 	</POCKET>
+			<POCKET>
+		<pIndex>58</pIndex>
+		<pName>Bladder</pName>
+		<pSilhouette>51</pSilhouette>
+		<pType>3</pType>
+		<pRestriction>268435456</pRestriction>
+		<pVolume>9</pVolume>
+		<ItemCapacityPerSize23>1</ItemCapacityPerSize23>
+	</POCKET>
+		<POCKET>
+		<pIndex>59</pIndex>
+		<pName>Tactical Gun Sling</pName>
+		<pSilhouette>32</pSilhouette>
+		<pType>3</pType>
+		<pRestriction>2</pRestriction>
+		<pVolume>25</pVolume>
+		<ItemCapacityPerSize5>1</ItemCapacityPerSize5>
+		<ItemCapacityPerSize6>1</ItemCapacityPerSize6>
+		<ItemCapacityPerSize7>1</ItemCapacityPerSize7>
+		<ItemCapacityPerSize8>1</ItemCapacityPerSize8>
+		<ItemCapacityPerSize9>1</ItemCapacityPerSize9>
+	</POCKET>
+		<POCKET>
+		<pIndex>60</pIndex>
+		<pName>Drum Ammo</pName>
+		<pSilhouette>52</pSilhouette>
+		<pType>2</pType>
+		<pRestriction>1024</pRestriction>
+		<pVolume>11</pVolume>
+		<ItemCapacityPerSize22>1</ItemCapacityPerSize22>
+		</POCKET>
 </POCKETLIST>
