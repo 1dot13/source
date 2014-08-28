@@ -61,6 +61,10 @@
 //extern JA25_SECTOR_AI	*gJa25AiSectorStruct;
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -4877,6 +4881,19 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 	{ //no ambushes underground (no bloodcats either)
 		return FALSE;
 	}
+	
+	#ifdef DIFFICULTY_SETTING
+		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+			ubDifficulty = 0;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+			ubDifficulty = 1;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+			ubDifficulty = 2;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+			ubDifficulty = 3;	
+		else
+			ubDifficulty = 0;
+	#endif
 
 	ubSectorID = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
 	pSector = &SectorInfo[ ubSectorID ];

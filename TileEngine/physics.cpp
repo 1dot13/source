@@ -39,6 +39,10 @@
 
 #include "connect.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1950,8 +1954,11 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		}
 		fGLauncher = TRUE;
 		sMinRange	= MIN_MORTAR_RANGE/2;
-
+		#ifdef DIFFICULTY_SETTING
+		if ( (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] && pSoldier->bTeam == OUR_TEAM) || ( pSoldier->bTeam == ENEMY_TEAM && ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD || gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE ) ) )
+		#else
 		if ( (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] && pSoldier->bTeam == OUR_TEAM) || ( pSoldier->bTeam == ENEMY_TEAM && gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD ) )
+		#endif
 			dDegrees *= 2;
 		//fLauncher = TRUE;
 	}

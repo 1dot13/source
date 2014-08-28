@@ -84,6 +84,10 @@
 #include "Map Screen Interface Bottom.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include "PostalService.h"
 extern CPostalService gPostalService;
 
@@ -558,6 +562,10 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	AutoSaveToSlot[3] = FALSE;
 	AutoSaveToSlot[4] = FALSE;
 	
+	#ifdef DIFFICULTY_SETTING
+		gGameExternalOptions.gfAllowReinforcements = zDeffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcements;
+	#endif
+	
 
 #ifdef JA2UB
 //Ja25 no meanwhiles
@@ -740,6 +748,9 @@ fFirstTimeInMapScreen = TRUE;
 		}
 
 		// ATE: Set starting cash....
+		#ifdef DIFFICULTY_SETTING
+			iStartingCash = zDeffSetting[gGameOptions.ubDifficultyLevel].iStartingCash;
+		#else
 		switch( gGameOptions.ubDifficultyLevel )
 		{
 			case DIF_LEVEL_EASY:
@@ -770,6 +781,7 @@ fFirstTimeInMapScreen = TRUE;
 				Assert(0);
 				return( FALSE );
 		}
+		#endif
 
 		// Setup initial money
  		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );

@@ -261,6 +261,7 @@
     <ClCompile Include="SCREENS.cpp" />
     <ClCompile Include="Sys Globals.cpp" />
     <ClCompile Include="ub_config.cpp" />
+    <ClCompile Include="XML_DifficultySettings.cpp" />
     <ClCompile Include="XML_IntroFiles.cpp" />
     <ClCompile Include="XML_Layout_MainMenu.cpp" />
   </ItemGroup>

@@ -58,6 +58,10 @@
 #include "Explosion Control.h"
 #include "ub_config.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 //*******************************************************************
 //
 // Local Defines
@@ -1547,6 +1551,31 @@ void HandleJa25EnemyExpLevelModifier( )
 				}
 			}
 			break;
+		#ifdef DIFFICULTY_SETTING
+			default:
+			//Get the 2nd highest player exp level
+			bPlayerExpLevel = JA25SecondHighestExpLevelOnPlayersTeam( );
+
+			//get the enemies exp level
+			bEnemyExpLevel = JA25SecondHighestExpLevelOnEnemiesTeam( );
+
+			//get the difference b/n the 2
+			bDifference = bPlayerExpLevel - bEnemyExpLevel;
+			
+			//if the players exp level is less then enemies
+			if( bDifference < 0 )
+			{
+				//if the difference 
+				if( bDifference < JA25__MAX_EXP_DECREASE )
+				{
+					bDifference = JA25__MAX_EXP_DECREASE;
+				}
+
+				//Degrade all the enemies exp levels by difference
+				Ja25ScaleAllEnemiesByValue( bDifference );
+			}			
+			break;
+		#endif
 	}
 }
 
@@ -1798,7 +1827,10 @@ void HandleInitialEventsInHeliCrash()
 UINT32 GetNumberOfTurnsPowerGenFanWillBeStoppedFor()
 {
 	UINT32 uiNumTurns = PGF__NUM_TURNS_TILL_START_FAN_BACK_UP_EASY;
-
+	
+	#ifdef DIFFICULTY_SETTING
+		uiNumTurns = zDeffSetting[gGameOptions.ubDifficultyLevel].iGetNumberOfTurnsPowerGenFanWillBeStoppedFor;
+	#else
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1811,7 +1843,7 @@ UINT32 GetNumberOfTurnsPowerGenFanWillBeStoppedFor()
 			uiNumTurns = PGF__NUM_TURNS_TILL_START_FAN_BACK_UP_HARD;
 			break;
 	}
-
+	#endif
 	return( uiNumTurns );
 }
 

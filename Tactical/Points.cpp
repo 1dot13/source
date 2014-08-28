@@ -41,6 +41,11 @@
 	#include "CampaignStats.h"		// added by Flugente
 #endif
 #include "connect.h"
+
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 //rain
 //#define BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY 25
 //end rain
@@ -1387,6 +1392,11 @@ void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 					case DIF_LEVEL_INSANE:
 						sBreathPerAP *= 6/5; // +20%
 						break;
+					#ifdef DIFFICULTY_SETTING
+						default:
+						sBreathPerAP *= 9/10; // -10%
+						break;
+					#endif
 				}
 			}
 			// SANDRO: this simple thing is the correct calculation
@@ -4312,6 +4322,11 @@ INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate 
 			case DIF_LEVEL_INSANE:
 				iBPcost /= 2; // -50%
 				break;
+			#ifdef DIFFICULTY_SETTING
+				default:
+				iBPcost = (iBPcost * 9)/10; // -10%
+				break;
+			#endif
 		}
 	}
 
@@ -4476,6 +4491,11 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 			case DIF_LEVEL_INSANE:
 				iKickPower /= 2; // -50%
 				break;
+			#ifdef DIFFICULTY_SETTING
+				default:
+				iKickPower = (iKickPower * 9)/10; // -10%
+				break;
+			#endif
 		}
 	}
 	

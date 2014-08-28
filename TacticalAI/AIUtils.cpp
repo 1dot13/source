@@ -26,6 +26,10 @@
 	#include "Vehicles.h" // added by silversurfer
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
 //			On the bottom here, there are these functions made
@@ -2290,7 +2294,11 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	bMoraleCategory = MORALE_WORRIED;
 
  // SANDRO - on Insane difficulty enemy morale cannot go below worried
+ #ifdef DIFFICULTY_SETTING
+ if (bMoraleCategory == MORALE_HOPELESS && zDeffSetting[gGameOptions.ubDifficultyLevel].bEnemyMoraleWorried == TRUE )
+ #else
  if (bMoraleCategory == MORALE_HOPELESS && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+ #endif
 	bMoraleCategory = MORALE_WORRIED;
 
 #ifdef DEBUGDECISIONS

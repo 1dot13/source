@@ -45,6 +45,10 @@
 #include "Music Control.h"
 #include "NPC.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
@@ -80,6 +84,8 @@ extern UINT32 iStringToUseLua;
 extern INT8 Test;
 
 static int l_HireMerc (lua_State *L);
+
+static int l_SetStartingCashDifLevel (lua_State *L);
 
 //Briefing room
 static int l_SetEndMission(lua_State *L);
@@ -932,6 +938,8 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 {
 
 	lua_register(L, "HireMerc", l_HireMerc);
+	
+	lua_register(L, "SetStartingCashDifLevel", l_SetStartingCashDifLevel);
 
 	lua_register(L, "SetLaptopBroken", l_SetLaptopBroken);
 	//------Briefing Room------
@@ -12951,3 +12959,41 @@ BOOLEAN LoadLuaGlobalFromLoadGameFile( HWFILE hFile )
 	return( TRUE );
 }
 //--------------------------------------------------------------
+
+
+static int l_SetStartingCashDifLevel (lua_State *L)
+{
+	if ( lua_gettop(L) >= 1 )
+	{
+		INT32 DifficultyLevel = lua_tointeger(L,1);
+		INT32 iStartingCash = 0;
+		
+		#ifdef DIFFICULTY_SETTING	
+			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDeffSetting[DifficultyLevel].iStartingCash );	
+		#else
+		switch( DifficultyLevel )
+		{
+			case DIF_LEVEL_EASY:
+				iStartingCash = gGameExternalOptions.iStartingCashNovice;
+				break;
+
+			case DIF_LEVEL_MEDIUM:
+				iStartingCash = gGameExternalOptions.iStartingCashExperienced;
+				break;
+
+			case DIF_LEVEL_HARD:
+				iStartingCash = gGameExternalOptions.iStartingCashExpert;
+				break;
+
+			case DIF_LEVEL_INSANE:
+				iStartingCash = gGameExternalOptions.iStartingCashInsane; 
+				break;
+
+			default:
+				iStartingCash = 4500; 
+		}
+		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
+		#endif
+	}	
+return 0;
+}

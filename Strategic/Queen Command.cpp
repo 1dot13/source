@@ -64,6 +64,10 @@
 #include "Arms Dealer Init.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include <vector>
 
 //The sector information required for the strategic AI.  Contains the number of enemy troops,
@@ -569,7 +573,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 		// Reinforcement groups?  Bring it on!
 		if( gGameExternalOptions.gfAllowReinforcements &&
+				#ifdef DIFFICULTY_SETTING
+				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA ) ) )
+				#else
 				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
+				#endif
 		{
 			UINT16 pusMoveDir[4][3];
 			UINT8 ubDirNumber = 0;

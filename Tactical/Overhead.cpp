@@ -134,6 +134,9 @@
 #endif
 
 #include "XML.h"
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
 
 // OJW - 20090419
 UINT8   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
@@ -4352,9 +4355,25 @@ SOLDIERTYPE * CivilianGroupMemberChangesSides( SOLDIERTYPE * pAttacked )
     }
 
     // HEADROCK HAM 3.6: If this sector has affiliated bloodcats, make them all hostile.
+	#ifdef DIFFICULTY_SETTING
+		UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+    if ( gBloodcatPlacements[SECTOR(pNewAttacked->sSectorX,pNewAttacked->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
+            gBloodcatPlacements[SECTOR(pNewAttacked->sSectorX,pNewAttacked->sSectorY)][ DiffLevel-1 ].ubFactionAffiliation == pNewAttacked->ubCivilianGroup )	
+	#else
     if ( gBloodcatPlacements[SECTOR(pNewAttacked->sSectorX,pNewAttacked->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
             gBloodcatPlacements[SECTOR(pNewAttacked->sSectorX,pNewAttacked->sSectorY)][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == pNewAttacked->ubCivilianGroup )
-    {
+    #endif
+	{
         MakeBloodcatsHostile();
     }
 
@@ -8853,13 +8872,47 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
         // Attacked a bloodcat.
         MakeBloodcatsHostile();
         // Are bloodcats in this sector affiliated with a faction?
+		#ifdef DIFFICULTY_SETTING
+		UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+		
+        if ( gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
+                gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ DiffLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP )		
+		#else
         if ( gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
                 gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP )
-        {
+        #endif
+		{
             // Temporarily change bloodcat's civilian group
             UINT8 ubFaction = pTarget->ubCivilianGroup;
+			
+			#ifdef DIFFICULTY_SETTING	
+			UINT8 DiffLevel2;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel2 = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel2 = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel2 = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel2 = 4;	
+			else
+				DiffLevel2 = 1;
+			
+            pTarget->ubCivilianGroup = gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ DiffLevel2-1 ].ubFactionAffiliation;			
+			#else
             pTarget->ubCivilianGroup = gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation;
-            // Make entire faction hostile
+            #endif
+			// Make entire faction hostile
             CivilianGroupMembersChangeSidesWithinProximity( pTarget );
             // Change back
             pTarget->ubCivilianGroup = ubFaction;
@@ -8909,9 +8962,26 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
             CivilianGroupMembersChangeSidesWithinProximity( pTarget );
 
             // HEADROCK HAM 3.6: If there are bloodcats affiliated with his group...
+			#ifdef DIFFICULTY_SETTING
+			UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+			
+            if ( gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
+                    gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ DiffLevel-1 ].ubFactionAffiliation == pTarget->ubCivilianGroup )			
+			#else
             if ( gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][0].PlacementType == BLOODCAT_PLACEMENT_STATIC &&
                     gBloodcatPlacements[SECTOR(pTarget->sSectorX,pTarget->sSectorY)][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == pTarget->ubCivilianGroup )
-            {
+            #endif
+			{
                 // Make them hostile.
                 MakeBloodcatsHostile();
             }

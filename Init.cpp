@@ -1455,6 +1455,25 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 			LetLuaMusicControl(0);
 		}
 		#endif
+		
+		
+		#ifdef DIFFICULTY_SETTING
+		strcpy(fileName, directoryName);
+		strcat(fileName, DIFFICULTYFILENAME);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,FALSE), DIFFICULTYFILENAME);
+	
+			#ifndef ENGLISH
+				AddLanguagePrefix(fileName);
+				if ( FileExists(fileName) )
+				{
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+					SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,TRUE), fileName);
+				}
+			#endif
+		#endif
+		
+		
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization

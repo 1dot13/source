@@ -103,6 +103,10 @@
 #include "Ja25 Strategic Ai.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include "fresh_header.h"
 
 #include "Dialogue Control.h"
@@ -2061,7 +2065,10 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	//if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
 	if ( this->bTeam == ENEMY_TEAM )
 	{
-		switch ( gGameOptions.ubDifficultyLevel )
+		#ifdef DIFFICULTY_SETTING
+			ubPoints += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
+		#else
+		switch( gGameOptions.ubDifficultyLevel )
 		{
 		case DIF_LEVEL_EASY:
 
@@ -2086,6 +2093,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 		default:
 			ubPoints += 0;
 		}
+		#endif
 	}
 	// Bonus to Militia APs
 	else if ( this->bTeam == MILITIA_TEAM )
@@ -2194,7 +2202,10 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 		}
 		if ( this->bTeam == ENEMY_TEAM )
 		{
-			switch ( gGameOptions.ubDifficultyLevel )
+			#ifdef DIFFICULTY_SETTING
+			usMaxActionPnts += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
+			#else
+			switch( gGameOptions.ubDifficultyLevel )
 			{
 			case DIF_LEVEL_EASY:
 				usMaxActionPnts += gGameExternalOptions.iEasyAPBonus;
@@ -2209,6 +2220,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 				usMaxActionPnts += gGameExternalOptions.iInsaneAPBonus;
 				break;
 			}
+			#endif
 		}
 		// Bonus to Militia APs
 		else if ( this->bTeam == MILITIA_TEAM )

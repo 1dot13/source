@@ -54,6 +54,10 @@
 #include "ub_config.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 extern void InitializeTacticalStatusAtBattleStart();
 extern BOOLEAN gfDelayAutoResolveStart;
 extern BOOLEAN gfTransitionMapscreenToAutoResolve;
@@ -652,6 +656,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							iChance -= (2 * ((ubNumMobileEnemies + ubNumStationaryEnemies) - 6)); // -2% adjustment per enemy beyond 6
 
 						// adjust the chance for difficulty setting
+						
+						#ifdef DIFFICULTY_SETTING
+							iChance = iChance + (zDeffSetting[gGameOptions.ubDifficultyLevel].iChanceOfEnemyAmbushes);
+						#else
 						if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 							iChance -= 15;
 						else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
@@ -660,6 +668,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							iChance += 12;
 						else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
 							iChance += 25;
+						#endif
 
 						// adjust the chance for what we know about the sector
 						if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )

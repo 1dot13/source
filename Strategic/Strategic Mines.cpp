@@ -24,6 +24,10 @@
 	#include "Facilities.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include "Strategic Mines LUA.h"
 #include <vector>
 
@@ -194,7 +198,11 @@ void InitializeMines( void )
 			ubMineProductionIncreases = 15;
 			break;
 		default:
+			#ifdef DIFFICULTY_SETTING
+			ubMineProductionIncreases = 25;
+			#else
 			Assert( 0 );
+			#endif
 			return;
 	}
 

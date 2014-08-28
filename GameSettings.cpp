@@ -47,6 +47,10 @@
 
 #include "Map Information.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/File/vfs_file.h>
@@ -4041,8 +4045,20 @@ void DisplayGameSettings( )
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S)", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 
 	//Display the difficulty level
+	#ifdef DIFFICULTY_SETTING
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDeffSetting[gGameOptions.ubDifficultyLevel].szDeffName );
+	#else
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], gzGIOScreenText[ gGameOptions.ubDifficultyLevel + GIO_EASY_TEXT - 1 ] );
-
+	#endif
+	
+	#ifdef DIFFICULTY_SETTING
+	//Test Settings
+	if ( gGameExternalOptions.gfAllowReinforcements == TRUE )
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"YES");
+	else
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"NO");
+	#endif
+	
 	//Bobby Ray option 1
 	if ( gGameOptions.ubBobbyRayQuality >= BR_GOOD && gGameOptions.ubBobbyRayQuality < BR_GREAT )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ], BR_GOOD );

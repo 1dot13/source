@@ -257,6 +257,10 @@ typedef PARSE_STAGE;
 
 #define HISTORYNAMEFILENAME						"History.xml"
 
+#ifdef DIFFICULTY_SETTING
+#define DIFFICULTYFILENAME							"DifficultySettings.xml"
+#endif
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -553,4 +557,7 @@ extern BOOLEAN ReadInLanguageLocation(STR fileName, BOOLEAN localizedVersion, LA
 extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInHistorys(STR fileName, BOOLEAN localizedVersion );
+#ifdef DIFFICULTY_SETTING
+extern BOOLEAN ReadInDifficultySettings(STR fileName, BOOLEAN localizedVersion);
+#endif
 #endif

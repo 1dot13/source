@@ -569,6 +569,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_DifficultySettings.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_IntroFiles.cpp"
 				>
 			</File>

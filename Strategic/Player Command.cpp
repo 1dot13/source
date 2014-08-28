@@ -32,6 +32,10 @@
 
 #include "postalservice.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 extern BOOLEAN fMapScreenBottomDirty;
 extern CPostalService gPostalService;
 
@@ -326,7 +330,11 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				if ( !SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
 				{
 					// grant grace period
+					#ifdef DIFFICULTY_SETTING
+						UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + zDeffSetting[gGameOptions.ubDifficultyLevel].iUpdateLastDayOfPlayerActivity ) );
+					#else
 					if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
+					
 					{
 						UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 2 ) );
 					}
@@ -334,6 +342,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 					{
 						UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 1 ) );
 					}
+					#endif
 				}
 			}
 

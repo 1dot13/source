@@ -38,6 +38,10 @@
 	#include "Random.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #define MAX_MEANWHILE_PROFILES	10
 
 INT8 gzMeanwhileStr[][30] =
@@ -697,7 +701,12 @@ void ProcessImplicationsOfMeanwhile( void )
 	switch( gCurrentMeanwhileDef.ubMeanwhileID )
 	{
 		case END_OF_PLAYERS_FIRST_BATTLE:
+		
+			#ifdef DIFFICULTY_SETTING
+			if( zDeffSetting[gGameOptions.ubDifficultyLevel].bStrategicAiActionWakeQueen == TRUE )
+			#else
 			if( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
+			#endif
 			{ //Wake up the queen earlier to punish the good players!
 				ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
 			}

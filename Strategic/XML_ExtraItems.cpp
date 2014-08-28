@@ -10,6 +10,9 @@
 #include "Debug Control.h"
 #include "GameSettings.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
 
 typedef enum
 {
@@ -187,6 +190,59 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 	int baseFNLength = strlen(fileName);
 
 	// Append a suffix based on the difficulty
+	#ifdef DIFFICULTY_SETTING
+	switch (gGameOptions.ubDifficultyLevel) {
+		case DIF_LEVEL_ZERO:
+			break;
+		case DIF_LEVEL_EASY:
+			strcat(fileName, "_Novice");
+			break;
+		case DIF_LEVEL_MEDIUM:
+			strcat(fileName, "_Experienced");
+			break;
+		case DIF_LEVEL_HARD:
+			strcat(fileName, "_Expert");
+			break;
+		case DIF_LEVEL_INSANE:
+			strcat(fileName, "_Insane");
+			break;
+		case DIF_LEVEL_FIVE:
+			strcat(fileName, "_Diff_5");
+			break;
+		case 6:
+			strcat(fileName, "_Diff_6");
+			break;
+		case 7:
+			strcat(fileName, "_Diff_7");
+			break;
+		case 8:
+			strcat(fileName, "_Diff_8");
+			break;
+		case 9:
+			strcat(fileName, "_Diff_9");
+			break;
+		case 10:
+			strcat(fileName, "_Diff_10");
+			break;
+		case 11:
+			strcat(fileName, "_Diff_11");
+			break;
+		case 12:
+			strcat(fileName, "_Diff_12");
+			break;
+		case 13:
+			strcat(fileName, "_Diff_13");
+			break;
+		case 14:
+			strcat(fileName, "_Diff_14");
+			break;
+		case 15:
+			strcat(fileName, "_Diff_15");
+			break;
+		default:
+			break;
+	}
+	#else
 	switch (gGameOptions.ubDifficultyLevel) {
 		case DIF_LEVEL_ZERO:
 			break;
@@ -207,6 +263,7 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 		default:
 			break;
 	}
+	#endif
 
 	strcat(fileName, ".xml");
 	if(!FileExists(fileName))//dnl ch75 261013 just to avoid sdd::exception under debug from VFS when file not exist

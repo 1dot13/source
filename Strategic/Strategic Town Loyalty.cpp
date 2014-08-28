@@ -44,6 +44,10 @@
 #include "LuaInitNPCs.h"
 #include "Interface.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 // the max loyalty rating for any given town
 #define MAX_LOYALTY_VALUE 100
 
@@ -1874,7 +1878,12 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 		}
 
 		// even taking over non-trainable "towns" like Orta/Tixa for the first time should count as "player activity"
+		
+		#ifdef DIFFICULTY_SETTING
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD || gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE)
+		#else
 		if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
+		#endif
 		{
 			UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 4 ) );
 		}
@@ -2053,7 +2062,25 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 	{
 		// if not worse than 2:1 odds, then penalize morale
 		// SANDRO - Set the odds based on difficulty level
+		
+		
+		#ifdef DIFFICULTY_SETTING
+		UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+				
+		if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + DiffLevel)) >= EnemyStrength() ) )
+		#else
 		if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + gGameOptions.ubDifficultyLevel)) >= EnemyStrength() ) )
+		#endif	
 		{
 			HandleMoraleEvent( NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ );
 		}

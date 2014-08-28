@@ -24,6 +24,10 @@
 
 #include "UndergroundInit.h"
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 extern BOOLEAN InitStrategicMovementCosts();
 void InitKnowFacilitiesFlags( );
 
@@ -428,6 +432,9 @@ void BuildUndergroundSectorInfoList()
 
 	//J9
 	curr = NewUndergroundNode( 9, 10, 1 );
+	#ifdef DIFFICULTY_SETTING
+	curr->ubNumTroops = zDeffSetting[gGameOptions.ubDifficultyLevel].iJ9B1NumTroops;
+	#else
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -443,22 +450,47 @@ void BuildUndergroundSectorInfoList()
 			curr->ubNumTroops = 20;
 			break;
 	}
+	#endif
 	//J9 feeding zone
 	curr = NewUndergroundNode( 9, 10, 2 );
+	#ifdef DIFFICULTY_SETTING
+	curr->ubNumCreatures = (UINT8)(2 + zDeffSetting[gGameOptions.ubDifficultyLevel].iJ9B2NumCreatures*2 + Random( 2 ));
+	#else
 	curr->ubNumCreatures = (UINT8)(2 + gGameOptions.ubDifficultyLevel*2 + Random( 2 ));
-
+	#endif
+	
 	//K4
 	curr = NewUndergroundNode( 4, 11, 1 );
+	#ifdef DIFFICULTY_SETTING
+	curr->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iK4B1NumTroops*2 + Random( 3 ));
+	curr->ubNumElites = (UINT8)(4 + zDeffSetting[gGameOptions.ubDifficultyLevel].iK4B1NumElites + Random( 2 ));
+	#else
 	curr->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel*2 + Random( 3 ));
 	curr->ubNumElites = (UINT8)(4 + gGameOptions.ubDifficultyLevel + Random( 2 ));
-
+	#endif
+	
 	//O3
 	curr = NewUndergroundNode( 3, 15, 1 );
+	#ifdef DIFFICULTY_SETTING
+	curr->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iO3B1NumTroops*2 + Random( 3 ));
+	curr->ubNumElites = (UINT8)(4 + zDeffSetting[gGameOptions.ubDifficultyLevel].iO3B1NumElites + Random( 2 ));
+	#else
 	curr->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel*2 + Random( 3 ));
 	curr->ubNumElites = (UINT8)(4 + gGameOptions.ubDifficultyLevel + Random( 2 ));
-
+	#endif
+	
 	//P3
 	curr = NewUndergroundNode( 3, 16, 1 );
+	#ifdef DIFFICULTY_SETTING
+	if (gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+	   curr->ubNumElites = (UINT8)(zDeffSetting[gGameOptions.ubDifficultyLevel].iP3B1NumElites + Random( 3 ));
+	else if (gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+		curr->ubNumElites = (UINT8)(zDeffSetting[gGameOptions.ubDifficultyLevel].iP3B1NumElites + Random( 5 ));
+	else if (gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+		curr->ubNumElites = (UINT8)(zDeffSetting[gGameOptions.ubDifficultyLevel].iP3B1NumElites + Random( 6 ));
+	else 
+		curr->ubNumElites = zDeffSetting[gGameOptions.ubDifficultyLevel].iP3B1NumElites;
+	#else
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -474,7 +506,7 @@ void BuildUndergroundSectorInfoList()
 			curr->ubNumElites = 20;
 			break;
 	}
-
+	#endif
 	//Do all of the mandatory underground mine sectors
 
 	//Drassen's mine

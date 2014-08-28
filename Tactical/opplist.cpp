@@ -55,6 +55,10 @@
 #include "Ja25_Tactical.h"
 #endif
 
+#ifdef DIFFICULTY_SETTING
+#include "GameInitOptionsScreen.h"
+#endif
+
 #include "Music Control.h"
 
 #include "connect.h"
@@ -931,7 +935,11 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 				RevealRoofsAndItems(pSoldier,TRUE, TRUE, pSoldier->pathing.bLevel, FALSE );
 		}
 		// unless in easy mode allow alerted enemies to radio
+		#ifdef DIFFICULTY_SETTING		
+		else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings == TRUE )
+		#else
 		else if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_MEDIUM )
+		#endif
 		{
 			// don't allow admins to radio
 			//Madd: Huh?	why not admins?	removed.
@@ -978,7 +986,11 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 						RadioSightings(pThem,pSoldier->ubID, pThem->bTeam);
 				}
 				// unless in easy mode allow alerted enemies to radio
+				#ifdef DIFFICULTY_SETTING		
+				else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings2 == TRUE )
+				#else
 				else if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_MEDIUM )
+				#endif
 				{
 					// don't allow admins to radio
 					if ( pThem->bTeam == ENEMY_TEAM && gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition && pThem->ubSoldierClass != SOLDIER_CLASS_ADMINISTRATOR )
@@ -2503,10 +2515,28 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		else if ( pOpponent->ubBodyType == BLOODCAT && pOpponent->aiData.bNeutral)
 		{
 			// HEADROCK HAM 3.6: If bloodcats are set as affiliated with civilians, do not trigger hostilities.
+			#ifdef DIFFICULTY_SETTING
+			UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+				
+			if ( gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ 0 ].PlacementType != BLOODCAT_PLACEMENT_STATIC ||
+				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ DiffLevel - 1 ].ubFactionAffiliation == NON_CIV_GROUP ||
+				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ DiffLevel - 1 ].ubFactionAffiliation == QUEENS_CIV_GROUP )			
+			#else
 			if ( gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ 0 ].PlacementType != BLOODCAT_PLACEMENT_STATIC ||
 				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ gGameOptions.ubDifficultyLevel - 1 ].ubFactionAffiliation == NON_CIV_GROUP ||
 				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ gGameOptions.ubDifficultyLevel - 1 ].ubFactionAffiliation == QUEENS_CIV_GROUP )
-			{			
+			#endif
+			{
 				MakeBloodcatsHostile();
 			}
 			/*
@@ -6020,9 +6050,27 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				UINT8 ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
 				UINT8 PlacementType = gBloodcatPlacements[ ubSectorID ][0].PlacementType;
 				
+			#ifdef DIFFICULTY_SETTING
+			UINT8 DiffLevel;
+			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+				DiffLevel = 1;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+				DiffLevel = 2;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+				DiffLevel = 3;
+			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+				DiffLevel = 4;	
+			else
+				DiffLevel = 1;
+			#endif
+				
 				if (PlacementType == BLOODCAT_PLACEMENT_STATIC)
 				{
-					if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)
+					#ifdef DIFFICULTY_SETTING
+					if (gBloodcatPlacements[ ubSectorID ][ DiffLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)
+					#else
+					if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)					
+					#endif
 					{
 						// skip noises between army & bloodcats
 						if ( pSoldier->bTeam == ENEMY_TEAM && MercPtrs[ ubNoiseMaker ]->ubBodyType == BLOODCAT && MercPtrs[ ubNoiseMaker ]->bTeam == CREATURE_TEAM )
@@ -6034,7 +6082,11 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 							continue;
 						}
 					}
+					#ifdef DIFFICULTY_SETTING					
+					else if (gBloodcatPlacements[ ubSectorID ][ DiffLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
+					#else
 					else if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
+					#endif
 					{
 						if ( MercPtrs[ ubNoiseMaker ]->ubBodyType == BLOODCAT && MercPtrs[ ubNoiseMaker ]->bTeam == CREATURE_TEAM && pSoldier->bSide != gbPlayerNum)
 						{
