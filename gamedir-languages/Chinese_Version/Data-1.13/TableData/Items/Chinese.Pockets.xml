@@ -232,4 +232,16 @@
 		<pIndex>57</pIndex>
 		<pName>Rifle Magx2</pName>
 	</POCKET>
+  <POCKET>
+    <pIndex>58</pIndex>
+    <pName>Bladder</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>59</pIndex>
+    <pName>Tactical Gun Sling</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>60</pIndex>
+    <pName>Drum Ammo</pName>
+  </POCKET>
 </POCKETLIST>

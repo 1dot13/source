@@ -13720,4 +13720,52 @@
     <szBRName>Cholera medicine</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
+  <ITEM>
+    <uiIndex>1715</uiIndex>
+    <szItemName>Bladder</szItemName>
+    <szLongItemName>Hydration Bladder</szLongItemName>
+    <szItemDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.</szItemDesc>
+    <szBRName>Bladder</szBRName>
+    <szBRDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.The ideal solution for long expeditions.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1716</uiIndex>
+    <szItemName>ArmorBak</szItemName>
+    <szLongItemName>ArmorBak Carrier</szLongItemName>
+    <szItemDesc>Lightweight and simple to use hydration system.</szItemDesc>
+    <szBRName>ArmorBak Hydration Carrier</szBRName>
+    <szBRDesc>Lightweight and simple to use hydration system.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1717</uiIndex>
+    <szItemName>Sp. Loader</szItemName>
+    <szLongItemName>Speed Loader</szLongItemName>
+    <szItemDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szItemDesc>
+    <szBRName>Speed Loader Pouch</szBRName>
+    <szBRDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1718</uiIndex>
+    <szItemName>Single Rifle Pouch</szItemName>
+    <szLongItemName>Single Rifle Pouch</szLongItemName>
+    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
+    <szBRName>Single Rifle Pouch</szBRName>
+    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1719</uiIndex>
+    <szItemName>Drum Pouch</szItemName>
+    <szLongItemName>Drum Ammo Pouch</szLongItemName>
+    <szItemDesc>Perfect for carrying Drum shaped ammo.</szItemDesc>
+    <szBRName>Drum Ammo Pouch</szBRName>
+    <szBRDesc>Perfect for carrying Drum shaped ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1720</uiIndex>
+    <szItemName>Tactical Sling</szItemName>
+    <szLongItemName>Tactical Sling</szLongItemName>
+    <szItemDesc>This single point sling allows weapons to be carried in a secure but flexible fashion.</szItemDesc>
+    <szBRName>Rifle Sling</szBRName>
+    <szBRDesc>This single point sling allows weapons to be carried in a secure but flexible fashion. Adjustable length to accommodate all sizes.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
