@@ -102,8 +102,8 @@ So 9 actually means 90% of whatever APs have been calculated.
           <Description_POL></Description_POL>
 		  <Description_CHI>这是百分比数值。
 例：9指有90%的 AP 值被计算。15 = 150%，如此。</Description_CHI>
-		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour un monstre fou furieux.
-9 = Un jeune crépitus aura 90 % de ses PA normaux. 
+		  <Description_FRE>Cette valeur est l'ajustement en pourcentage qui détermine le nombre de PA pour un monstre fou furieux. 
+9 = Un crépitus furieux aura 90 % de ses PA normaux. 
 15 = 150 %.
 Etc.</Description_FRE>
         </Property>
@@ -473,7 +473,7 @@ It adjusts how many AP per damage point taken are lost.</Description_ENG>
           <Description_RUS>Определяет количество АР, теряющихся при падении, в результате наступания на шарики или получения большого урона</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>摔倒（踩到弹球或被菊爆）时造成的 AP 损失。</Description_CHI>
-		  <Description_FRE>Cette valeur est le nombre de PA qui sont perdus en marchant sur des billes ou en recevant un coup très fort.</Description_FRE>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont perdus en tombant au sol après avoir marché sur des billes ou reçu un coup très fort.</Description_FRE>
         </Property>
         <Property name="AP_OPEN_DOOR" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
           <Description_ENG>AP-costs involved in opening doors.</Description_ENG>
@@ -1205,7 +1205,7 @@ valeurs valides = 100 à 1000 (par défaut 125).
           <Description_RUS>Определяет расход энергии при изымании предметов у противника.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
-		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour voler un ennemi.
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour voler un ennemi.
 (NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_START_FIRST_AID" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
@@ -1241,7 +1241,7 @@ valeurs valides = 100 à 1000 (par défaut 125).
           <Description_RUS>Определяет расход энергии при падении.</Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
-		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont perdus en marchant sur des billes ou en recevant un coup très fort.
+		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont perdus en tombant au sol après avoir marché sur des billes ou reçu un coup très fort.
 (NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
         </Property>
         <Property name="BP_OPEN_DOOR" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="30" interval="5">

@@ -515,7 +515,12 @@ function InitNewGame()
 			AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1, -1)
 		end
 	end
-		
+	
+	-- Get starting cash from DifficultySettings.xml
+	SetStartingCashDifLevel(newDIFFICULTY_LEVEL)
+	
+	--	Get starting cash from JA2Options.ini
+	--[[	
 	if ( newDIFFICULTY_LEVEL == DIF_LEVEL_EASY ) then
 		iStartingCash = GetStartingCashNovice()
 	elseif ( newDIFFICULTY_LEVEL == DIF_LEVEL_MEDIUM ) then
@@ -525,6 +530,6 @@ function InitNewGame()
 	elseif ( newDIFFICULTY_LEVEL == DIF_LEVEL_INSANE ) then
 		iStartingCash = GetStartingCashInsane()
 	end
-	
 	AddTransactionToPlayersBook( Fincances.ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash )
+	]]
 end
