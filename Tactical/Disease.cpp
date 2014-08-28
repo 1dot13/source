@@ -573,7 +573,7 @@ void PopulationMove( INT16 sXA, INT16 sYA, INT16 sXB, INT16 sYB, UINT16 usAmount
 
 						FLOAT infectedpercentage = 0;
 						if ( populationB )
-							(FLOAT)pSectorInfoB->usInfected / (FLOAT)(populationB);
+							infectedpercentage = (FLOAT)pSectorInfoB->usInfected / (FLOAT)(populationB);
 
 						if ( infectedpercentage >= GetSectorDiseaseOverFlowThreshold() || pSectorInfoB->fInfectionSeverity > ((FLOAT)Disease[0].sInfectionPtsOutbreak / (FLOAT)Disease[0].sInfectionPtsFull) )
 							pSectorInfoB->usInfectionFlag |= (SECTORDISEASE_OUTBREAK | SECTORDISEASE_DIAGNOSED_WHO);

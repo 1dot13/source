@@ -168,6 +168,8 @@ enum
 	LAPTOP_MODE_BRIEFING_ROOM_ENTER,
 	
 	LAPTOP_MODE_AIM_MEMBERS_ARCHIVES_NEW,
+
+	LAPTOP_MODE_MAX,
 };
 
 // bookamrks for WWW bookmark list
