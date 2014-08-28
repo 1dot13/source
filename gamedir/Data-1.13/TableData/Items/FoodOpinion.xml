@@ -1,0 +1,13 @@
+﻿<FOODOPINIONSLIST>
+	<FOODOPINION>
+		<uProfile>1</uProfile><!--Blood-->
+		<PROFILE_OPINION>
+			<FoodNumber>4</FoodNumber><!--Wine-->
+			<MoraleMod>1</MoraleMod>
+		</PROFILE_OPINION>
+		<PROFILE_OPINION>
+			<FoodNumber>18</FoodNumber><!--Cat food-->
+			<MoraleMod>-2</MoraleMod>
+		</PROFILE_OPINION>
+	</FOODOPINION>
+</FOODOPINIONSLIST>
