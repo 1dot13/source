@@ -715,6 +715,12 @@ FLOAT GetWorkforceEffectivenessWithDisease( INT8 bTownId, UINT8 usTeam )
 					// workforce effectivity in a sector is population minus cumulated effectivity loss of all infected, divided by entire population
 					val += (population - min( pSectorInfo->usInfected, population ) * pSectorInfo->fInfectionSeverity ) / population;
 				}
+				// if no population is here, then there is no part of te population that is not working, so retrun 1.0 here :-)
+				// this is basically a fix for players using this feature who have faulty xmls with population 0
+				else
+				{
+					val += 1.0f;
+				}
 
 				++sectors;
 			}
