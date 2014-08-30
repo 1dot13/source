@@ -101,6 +101,7 @@
 		<szFacilityName>Small Airport</szFacilityName>
 		<szFacilityShortName>Airport</szFacilityShortName>
 		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<pmcentrypoint>1</pmcentrypoint>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRACTICE_STRENGTH</ubAssignmentType>
 			<szTooltipText>Spend some time loading and unloading aircraft. Increases the efficiency of STRENGTH practice.</szTooltipText>
