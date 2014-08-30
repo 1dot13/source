@@ -101,6 +101,7 @@
     <ClInclude Include="mercs No Account.h" />
     <ClInclude Include="mercs.h" />
     <ClInclude Include="personnel.h" />
+    <ClInclude Include="PMC.h" />
     <ClInclude Include="PostalService.h" />
     <ClInclude Include="sirtech.h" />
     <ClInclude Include="Speck Quotes.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="mercs No Account.cpp" />
     <ClCompile Include="mercs.cpp" />
     <ClCompile Include="personnel.cpp" />
+    <ClCompile Include="PMC.cpp" />
     <ClCompile Include="PostalService.cpp" />
     <ClCompile Include="sirtech.cpp" />
     <ClCompile Include="Store Inventory.cpp" />
@@ -194,7 +196,7 @@
     <ClCompile Include="XML_Email.cpp" />
     <ClCompile Include="XML_EmailMercAvailable.cpp" />
     <ClCompile Include="XML_EmailMercLevelUp.cpp" />
-	<ClCompile Include="XML_History.cpp" />
+    <ClCompile Include="XML_History.cpp" />
     <ClCompile Include="XML_IMPPortraits.cpp" />
     <ClCompile Include="XML_OldAIMArchive.cpp" />
     <ClCompile Include="XML_ShippingDestinations.cpp" />

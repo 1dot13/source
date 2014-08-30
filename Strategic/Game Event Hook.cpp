@@ -45,6 +45,7 @@
 	#include "Campaign.h"
 	#include "PostalService.h"
 	#include "MilitiaSquads.h"
+	#include "PMC.h"			// added by Flugente
 #endif
 
 #include "connect.h"
@@ -508,6 +509,16 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 #endif
 		case EVENT_MILITIA_MOVEMENT_ORDER:
 			MilitiaMovementOrder( (UINT8) pEvent->uiParam );
+			break;
+
+		case EVENT_PMC_EMAIL:
+			// only send the email if we hven't already visited the site, otherwise continue to spam ;-)
+			if ( !IsBookMarkSet(PMC_BOOKMARK) )
+				AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			break;
+
+		case EVENT_PMC_REINFORCEMENT_ARRIVAL:
+			HandlePMCArrival( (UINT8)pEvent->uiParam );
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

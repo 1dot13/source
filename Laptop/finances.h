@@ -55,6 +55,7 @@ enum
 	MILITIA_UPKEEP, // HEADROCK HAM 3.6: Militia Upkeep Costs (daily payment)
 	PRISONER_RANSOM,		// Flugente: ransom for released prisoners
 	WHO_SUBSCRIPTION,		// Flugente: subscription do WHO data
+	PMC_CONTRACT,			// Flugente: hired militia from a PMC
 	TEXT_NUM_FINCANCES
 };
 

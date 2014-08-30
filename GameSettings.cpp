@@ -1894,8 +1894,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDynamicOpinionsShowChange			= iniReader.ReadBoolean("Dynamic Opinion Settings", "DYNAMIC_OPINIONS_SHOWCHANGE", TRUE );
 	gGameExternalOptions.fDynamicWageFactor					= iniReader.ReadFloat("Dynamic Opinion Settings","WAGE_ACCEPTANCE_FACTOR", 1.5f, 0.1f, 10.0f );
 
-	gGameExternalOptions.fDynamicDialogue					= iniReader.ReadBoolean("Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE", TRUE );
-	gGameExternalOptions.usDynamicDialogueTimeOffset		= iniReader.ReadInteger("Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE_TIME_OFFSET", 3000, 500, 10000 );
+	gGameExternalOptions.fDynamicDialogue					= iniReader.ReadBoolean("Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE", FALSE );
+	gGameExternalOptions.sDynamicDialogueTimeOffset			= iniReader.ReadInteger( "Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE_TIME_OFFSET", 3000, 500, 10000 );
+
+	gGameExternalOptions.fPMC								= iniReader.ReadBoolean( "PMC Settings", "PMC", TRUE );
+	gGameExternalOptions.usPMCMaxRegulars					= iniReader.ReadInteger( "PMC Settings", "PMC_MAX_REGULARS", 35, 5, 100 );
+	gGameExternalOptions.usPMCMaxVeterans					= iniReader.ReadInteger( "PMC Settings", "PMC_MAX_VETERANS", 20, 5, 100 );
 	
 	//################# Laptop Settings ##################
 

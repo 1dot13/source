@@ -115,6 +115,7 @@
 	#include "Encyclopedia_new.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"	// added by Flugente
+	#include "PMC.h"				// added by Flugente
 #endif
 
 #include		"BobbyR.h"
@@ -4305,6 +4306,9 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Campaign Stats");
 		goto FAILED_TO_SAVE;
+#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "Campaign Stats" );
+#endif	
 	}
 
 	// Flugente: dynamic dialogue
@@ -4314,9 +4318,12 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 
-#ifdef JA2BETAVERSION
-	SaveGameFilePosition( FileGetPos( hFile ), "Campaign Stats" );
-#endif	
+	// Flugente: PMC
+	if ( !SavePMC( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing PMC data" );
+		goto FAILED_TO_SAVE;
+	}
 
 	//Close the saved game file
 	FileClose( hFile );
@@ -5995,6 +6002,18 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			FileClose( hFile );
 			return(FALSE);
 		}
+	}
+		
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load PMC data ..." );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
+
+	if ( !LoadPMC( hFile ) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "PMC data failed" ) );
+		FileClose( hFile );
+		return(FALSE);
 	}
 
 	//

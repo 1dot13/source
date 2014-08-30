@@ -22,6 +22,7 @@ void			DrawButtonText();
 void			InitBookMarkList();
 void			SetBookMark(INT32 iBookId);
 void			RemoveBookmark(INT32 iBookId);
+BOOLEAN			IsBookMarkSet( INT32 iBookId );
 BOOLEAN		LeaveLapTopScreen( );
 void			SetLaptopExitScreen( UINT32 uiExitScreen );
 void			SetLaptopNewGameFlag( );
@@ -155,6 +156,11 @@ enum
 	LAPTOP_MODE_WHO_MAIN,
 	LAPTOP_MODE_WHO_CONTRACT,
 	LAPTOP_MODE_WHO_TIPS,
+
+	// Flugente: PMC
+	LAPTOP_MODE_PMC_MAIN,
+	LAPTOP_MODE_PMC_CONTRACT_MILITIA,
+	LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL,
 	
 	LAPTOP_MODE_BOBBYR_SHIPMENTS,
 	
@@ -234,6 +240,7 @@ enum{
 	CAMPAIGNHISTORY_BOOKMARK,	// added by Flugente
 	MERCCOMPARE_BOOKMARK,		// added by Flugente
 	WHO_BOOKMARK,				// added by Flugente
+	PMC_BOOKMARK,				// added by Flugente
 	TEXT_NUM_LAPTOP_BOOKMARKS
 };
 

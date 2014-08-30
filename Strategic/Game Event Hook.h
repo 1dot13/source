@@ -112,7 +112,9 @@ enum
 	EVENT_HELICOPTER_HOVER_FOR_A_MINUTE,
 	EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE,
 
-	EVENT_MILITIA_MOVEMENT_ORDER,				// Flugente: timed event: militia was ordered to move, at this time they should arrive
+	EVENT_MILITIA_MOVEMENT_ORDER,				// Flugente: militia was ordered to move, at this time they should arrive
+	EVENT_PMC_EMAIL,							// Flugente: pmc will send us an introduction email
+	EVENT_PMC_REINFORCEMENT_ARRIVAL,			// Flugente: pmc hired militia arrives
 
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1

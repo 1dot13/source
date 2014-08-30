@@ -3682,18 +3682,18 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 			break;
 		//Dealtar's Airport Externalization
 		case BOBBYR_SHIPMENT_ARRIVED:
-			wstring wstrMail;
-			wstring::size_type index;
-			CHAR16 szMail[MAIL_STRING_SIZE];
-
 			if (!pMessageRecordList)
 			{
+				wstring wstrMail;
+				wstring::size_type index;
+				CHAR16 szMail[MAIL_STRING_SIZE];
+
 				// WANNE.MAIL: Fix
 				gusCurShipmentDestinationID = -1;	// Reset
 				gusCurShipmentDestinationID = pMail->iCurrentShipmentDestinationID;
 
 				// Loop through each line of the shipment EDT-file
-				for (int i = 0; i < BOBBYR_SHIPMENT_ARRIVED_LENGTH; i++)
+				for (int i = 0; i < BOBBYR_SHIPMENT_ARRIVED_LENGTH; ++i)
 				{
 					wstrMail.clear();
 					LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", szMail, MAIL_STRING_SIZE *usMessageId, MAIL_STRING_SIZE);
@@ -3724,11 +3724,16 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 
 					AddEmailRecordToList((STR16)wstrMail.c_str());
 
-					usMessageId++;
+					++usMessageId;
 				}
 			}
 			giPrevMessageId = giMessageId;
 		break;
+
+		case(PMC_INTRO) :
+			SetBookMark( PMC_BOOKMARK );
+			fReDrawScreenFlag = TRUE;
+			break;
 
 #endif
 	}

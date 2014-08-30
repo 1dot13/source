@@ -281,6 +281,9 @@ typedef struct FACILITYASSIGNMENTTYPE
 
 } FACILITYASSIGNMENTTYPE;
 
+// Flugente: facilitytype properties
+#define FACILITYTYPE_PMCENTRYPOINT		0x00000001				// militia hired from the PMC can only enter Arulco in sectors with facilites with this property
+
 // HEADROCK HAM 3.5: Facility Type
 typedef struct FACILITYTYPE
 {
@@ -294,6 +297,8 @@ typedef struct FACILITYTYPE
 	UINT8 ubMobileMilitiaTrainersAllowed;	// Number of Mobile Militia trainers allowed simultaneously
 	UINT16 usMilitiaTraining;				// Percentage effectiveness of Militia training (100 = normal)
 	UINT16 usMobileMilitiaTraining;			// Percentage effectiveness of Mobile Militia training (100 = normal)
+
+	UINT32 usFacilityFlags;					// flagmask for various facility properties
 
 	FACILITYASSIGNMENTTYPE AssignmentData[ NUM_FACILITY_ASSIGNMENTS ];		// Data about possible assignments that can be done here
 

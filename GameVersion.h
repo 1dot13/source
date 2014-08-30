@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			PMC_WEBSITE										160	// Flugente: a new PMC allows us to hire trained militia
 #define			DISEASE_SYSTEM									159	// Flugente: mercs can get diseases
 #define			PRISONER_EXPANSION								158	// Flugente: more types of prisoners
 #define			DYNAMIC_DIALOGUE								157 // Flugente: mercs have dynamic dialogue depending on newly formed opinions, an the player can interact with them
@@ -78,7 +79,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								DISEASE_SYSTEM
+#define			SAVE_GAME_VERSION								PMC_WEBSITE
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

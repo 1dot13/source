@@ -201,6 +201,9 @@
     <ClInclude Include="personnel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PMC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="PostalService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -441,6 +444,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="personnel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PostalService.cpp">

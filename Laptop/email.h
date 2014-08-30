@@ -363,6 +363,9 @@
 	#define JOHN_KULBA_MISSED_FLIGHT_3			( JOHN_KULBA_MISSED_FLIGHT_2 + JOHN_KULBA_MISSED_FLIGHT_2_LENGTH )
 	#define JOHN_KULBA_MISSED_FLIGHT_3_LENGTH	3
 
+	#define PMC_INTRO				(JOHN_KULBA_MISSED_FLIGHT_3 + JOHN_KULBA_MISSED_FLIGHT_3_LENGTH)
+	#define PMC_INTRO_LENGTH		3
+
 #endif
 
 // WANNE: New 1.13 MERC merc mail text for level up that Speck sends
@@ -507,6 +510,7 @@ enum {
 #ifdef JA2UB
 	MAIL_MIGUEL,
 #endif
+	PMC,
 };
 
 // the length of the subject in char

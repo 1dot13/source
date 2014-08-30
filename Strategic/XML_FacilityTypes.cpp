@@ -179,7 +179,9 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 				strcmp(name, "ubMilitiaTrainersAllowed") == 0 ||
 				strcmp(name, "ubMobileMilitiaTrainersAllowed") == 0 ||
 				strcmp(name, "usMilitiaTraining") == 0 ||
-				strcmp(name, "usMobileMilitiaTraining") == 0 ))
+				strcmp(name, "usMobileMilitiaTraining") == 0 ||
+
+				strcmp( name, "pmcentrypoint" ) == 0 ))
 		{
 			pData->curElement = FACILITYTYPE_ELEMENT;
 
@@ -426,8 +428,10 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
 						gFacilityTypes[pData->curIndex].usMobileMilitiaTraining = pData->curFacilityTypeData.usMobileMilitiaTraining;
 
+						gFacilityTypes[pData->curIndex].usFacilityFlags = pData->curFacilityTypeData.usFacilityFlags;
+
 						// Set assignment-specific data
-						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)
+						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; ++cnt)
 						{
 							// Performance and limits
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usPerformance = pData->curFacilityTypeData.AssignmentData[cnt].usPerformance;
@@ -472,7 +476,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLoyaltyHere = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLoyaltyHere;
 
 							// Set risks associated with this assignment
-							for (UINT16 cntB = 0; cntB < NUM_RISKS; cntB++)
+							for (UINT16 cntB = 0; cntB < NUM_RISKS; ++cntB)
 							{
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].usChance = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].usChance;
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].bBaseEffect = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].bBaseEffect;
@@ -485,7 +489,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
 						wcscpy(gFacilityTypes[pData->curIndex].szFacilityShortName, pData->curFacilityTypeData.szFacilityShortName);
 					
-						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)
+						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; ++cnt)
 						{
 							wcscpy(gFacilityTypes[pData->curIndex].AssignmentData[cnt].szTooltipText, pData->curFacilityTypeData.AssignmentData[cnt].szTooltipText);
 						}
@@ -539,23 +543,27 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.ubMilitiaTrainersAllowed = (UINT8) atol(pData->szCharData);
 		}
-
 		else if(strcmp(name, "ubMobileMilitiaTrainersAllowed") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed = (UINT8) atol(pData->szCharData);
 		}
-
 		else if(strcmp(name, "usMilitiaTraining") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.usMilitiaTraining = (UINT8) atol(pData->szCharData);
 		}
-
 		else if(strcmp(name, "usMobileMilitiaTraining") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.usMobileMilitiaTraining = (UINT8) atol(pData->szCharData);
+		}
+
+		else if ( strcmp( name, "pmcentrypoint" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_TYPE;
+			if ( (UINT8)atol( pData->szCharData ) )
+				pData->curFacilityTypeData.usFacilityFlags |= FACILITYTYPE_PMCENTRYPOINT;
 		}
 
 		///////////////////////////////////////////////////////

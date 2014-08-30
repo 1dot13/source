@@ -651,6 +651,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PMC.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PostalService.h"
 				>
 			</File>
@@ -968,6 +972,10 @@
 			</File>
 			<File
 				RelativePath="personnel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PMC.cpp"
 				>
 			</File>
 			<File

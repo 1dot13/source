@@ -103,6 +103,8 @@ enum definedDropDowns
 	DROPDOWNNR_MERCCOMPARE1,
 	DROPDOWNNR_MERCCOMPARE2,
 	DROPDOWNNR_MERCCOMPARE_SQUADSELECTION,
+
+	DROPDOWNNR_PMC_LOCATION,
 };
 
 /*
@@ -209,6 +211,11 @@ public:
 	* Do we have data to display?
 	*/
 	BOOLEAN HasEntries( )				{ return !mEntryVector.empty(); }
+
+	/*
+	* Remove all entries
+	*/
+	void ClearEntries( )				{ mSelectedEntry = 0; mEntryVector.clear( ); }
 
 	// call to open/close the drop down
 	void OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );

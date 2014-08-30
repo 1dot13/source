@@ -1423,7 +1423,12 @@ typedef struct
 
 	// Flugente: dynamic dialogue
 	BOOLEAN fDynamicDialogue;
-	UINT32	usDynamicDialogueTimeOffset;
+	INT32	sDynamicDialogueTimeOffset;
+
+	// Flugente: PMC
+	BOOLEAN fPMC;
+	UINT8	usPMCMaxRegulars;
+	UINT8	usPMCMaxVeterans;
 
 	// Flugente: enemy roles
 	BOOLEAN fEnemyRoles;

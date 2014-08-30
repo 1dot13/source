@@ -29,6 +29,8 @@
 	#include "Map Screen Interface Border.h"
 	#include "interface control.h"
 	#include "Map Screen Interface Map.h"
+	#include "laptop.h"							// added by Flugente
+	#include "Game Event Hook.h"				// added by Flugente
 #endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
@@ -126,6 +128,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	UINT8 iTrainingSquadSize = __min(iMaxMilitiaPerSector, CalcNumMilitiaTrained(ubTrainerEffectiveLeadership, FALSE));
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia1");
+
 	// get town index
 	ubTownId = StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].bNameId;
 
@@ -133,7 +136,6 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	{
 		Assert( IsThisSectorASAMSector( sMapX, sMapY, 0 ) );
 	}
-
 
 	// force tactical to update militia status
 	gfStrategicMilitiaChangesMade = FALSE;
@@ -221,7 +223,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 					}
 					else
 					{
-					if( ubTownId != BLANK_SECTOR )
+						if( ubTownId != BLANK_SECTOR )
 						{
 							// dammit! Last chance - try to find other eligible sectors in the same town with a Green guy to be promoted
 							InitFriendlyTownSectorServer(ubTownId, sMapX, sMapY);
@@ -246,9 +248,9 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							}
 						}
 
-							// Kaiden: Veteran militia training
-							// This is essentially copy/pasted from above
-							// But the names have been changed to protect the innocent
+						// Kaiden: Veteran militia training
+						// This is essentially copy/pasted from above
+						// But the names have been changed to protect the innocent
 						if ((!fFoundOne) && (gGameExternalOptions.gfTrainVeteranMilitia)
 							&& (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay))
 						{
@@ -305,7 +307,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			}
 
 			// next, please!
-			ubMilitiaTrained++;
+			++ubMilitiaTrained;
 		}
 
 		if (gfStrategicMilitiaChangesMade)
@@ -332,12 +334,16 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			RecordNumMilitiaTrainedForMercs( sMapX, sMapY, pTrainer->bSectorZ, ubMilitiaTrained, FALSE );
 		}
 
-	// the trainer announces to player that he's finished his assignment.	Make his sector flash!
-	AssignmentDone( pTrainer, TRUE, FALSE );
+		// the trainer announces to player that he's finished his assignment.	Make his sector flash!
+		AssignmentDone( pTrainer, TRUE, FALSE );
 
-	// handle completion of town by training group
+		// handle completion of town by training group
 		HandleCompletionOfTownTrainingByGroupWithTrainer( pTrainer, TOWN_MILITIA );
 	}
+
+	// Flugente: if we trained militia, the PMC notices us and offers their services
+	if ( gGameExternalOptions.fPMC )
+		AddStrategicEvent( EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0 );
 }
 
 

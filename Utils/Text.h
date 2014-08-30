@@ -2744,7 +2744,7 @@ enum
 extern STR16		szCampaignHistoryWebpageString[];
 
 // Flugente: merc compare website
-#define TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS		6	// number of customer quotes, each with an additional short character name
+#define TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS		7	// number of customer quotes, each with an additional short character name
 
 enum
 {
@@ -2804,6 +2804,41 @@ enum
 };
 
 extern STR16		szWHOWebSite[];
+
+// Flugente: PMC website
+enum
+{
+	// main page
+	TEXT_PMC_WEBSITENAME,
+	TEXT_PMC_SLOGAN,
+
+	// links to other pages
+	TEXT_PMC_SUBSITE1,
+
+	TEXT_PMC_MAIN1 = TEXT_PMC_SUBSITE1 + 3,
+
+	// team contracts
+	TEXT_PMC_CONTRACT_TEAM_INTRO = TEXT_PMC_MAIN1 + 7,
+	TEXT_PMC_CONTRACT_DROPDOWNTEXT,
+	TEXT_PMC_REGULAR,
+	TEXT_PMC_VETERAN,
+
+	TEXT_PMC_DETAIL,
+
+	TEXT_PMC_SELECTAREA = TEXT_PMC_DETAIL + 3,
+	TEXT_PMC_TOTALCOST,
+	TEXT_PMC_ETA,
+	TEXT_PMC_CONTRACTBUTTON,
+
+	TEXT_PMC_CONFIRMATION,
+	TEXT_PMC_ARRIVAL,
+	TEXT_PMC_NEXTDEPLOYMENT,
+	TEXT_PMC_NODROPOFF,
+
+	TEXT_PMC_MAX,
+};
+
+extern STR16		szPMCWebSite[];
 
 extern STR16   szTacticalInventoryDialogString[];
 extern STR16   szTacticalCoverDialogString[];

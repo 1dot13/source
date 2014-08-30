@@ -304,7 +304,7 @@ BOOLEAN LoadDynamicDialogue( HWFILE hwFile )
 		for ( UINT32 i = 0; i < size; ++i )
 		{
 			DynamicOpinionSpeechEvent event;
-			numBytesRead = ReadFieldByField( hwFile, &event, sizeof(event), sizeof(DynamicOpinionSpeechEvent), numBytesRead );
+			numBytesRead = ReadFieldByField( hwFile, &event, sizeof(event), sizeof(DynamicOpinionSpeechEvent), 0 );
 
 			gDynamicOpinionSpeechEventArchiveVector.push_back( event );
 		}
@@ -312,7 +312,7 @@ BOOLEAN LoadDynamicDialogue( HWFILE hwFile )
 		UINT32 safetycheck2 = 0;
 		numBytesRead = ReadFieldByField( hwFile, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead );
 
-		if ( gDynDiaSaveCheck != gDynDiaSaveCheck || gDynDiaSaveCheck != gDynDiaSaveCheck )
+		if ( safetycheck1 != gDynDiaSaveCheck || safetycheck2 != gDynDiaSaveCheck )
 		{
 			ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading dynamic dialogue events!" );
 			return FALSE;
@@ -383,7 +383,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 	// that way, if several opinon events regarding the same thing are set, we will have dialogue over all of that
 
 	UINT8 cnt = 0;
-	aEvent.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+	aEvent.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 	UINT8 queuenumber = aEvent.usQueueNumber + 1;
 
@@ -449,7 +449,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 			response.usQueueNumber = queuenumber++;
 			response.usSide = DOST_POSITION_LEFT;
 			response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-			response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+			response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 			gDynamicOpinionSpeechEventVector.push_back( response );
 			gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
@@ -464,7 +464,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 			response.usQueueNumber = queuenumber++;
 			response.usSide = DOST_POSITION_RIGHT;
 			response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-			response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+			response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 			gDynamicOpinionSpeechEventVector.push_back( response );
 			gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
@@ -606,7 +606,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 					{
 						impaction.usQueueNumber = queuenumber++;
 						impaction.usNumonside = (UINT8)GetSidePosition( impaction.usSide );
-						impaction.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+						impaction.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 						gDynamicOpinionSpeechEventVector.push_back( impaction );
 						gDynamicOpinionSpeechInCurrentDialogue.push_back( impaction );
@@ -626,7 +626,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 									response.usQueueNumber = queuenumber++;
 									response.usSide = DOST_POSITION_LEFT;
 									response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 									gDynamicOpinionSpeechEventVector.push_back( response );
 									gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
@@ -642,7 +642,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 									response.usQueueNumber = queuenumber++;
 									response.usSide = DOST_POSITION_RIGHT;
 									response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 									gDynamicOpinionSpeechEventVector.push_back( response );
 									gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
@@ -682,7 +682,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 		}
 
 		impinterference.usNumonside = (UINT8)GetSidePosition( impinterference.usSide );
-		impinterference.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.usDynamicDialogueTimeOffset;
+		impinterference.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
 
 		gDynamicOpinionSpeechEventVector.push_back( impinterference );
 		gDynamicOpinionSpeechInCurrentDialogue.push_back( impinterference );
@@ -1085,7 +1085,7 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 	pDDBox->SetStartTime( aEvent.usStarttime );
 
 	// delay destruction of all current boxes - as long as new dialogue comes in, they will be kept
-	DelayBoxDestruction( aEvent.usStarttime + gGameExternalOptions.usDynamicDialogueTimeOffset * 3.5f );
+	DelayBoxDestruction( aEvent.usStarttime + gGameExternalOptions.sDynamicDialogueTimeOffset * 3.5f );
 
 	// on certain dialogues, we can choose an answer
 	if ( aEvent.ubEventType == DOST_INTERJECTOR_DIALOGUESELECTION )
@@ -1115,7 +1115,7 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 		IMPDialogueChooseBox_Static::getInstance( ).SetHelpText( szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[aEvent.data.event.ubEventId] );
 		IMPDialogueChooseBox_Static::getInstance( ).Create( sX, sY + 60 );
 		IMPDialogueChooseBox_Static::getInstance( ).SetStartTime( aEvent.usStarttime );
-		IMPDialogueChooseBox_Static::getInstance( ).SetEndTime( aEvent.usStarttime + 2 * gGameExternalOptions.usDynamicDialogueTimeOffset );
+		IMPDialogueChooseBox_Static::getInstance( ).SetEndTime( aEvent.usStarttime + 2 * gGameExternalOptions.sDynamicDialogueTimeOffset );
 	}
 
 	return TRUE;

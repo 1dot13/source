@@ -60,6 +60,7 @@
 	#include "MilitiaSquads.h"
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "CampaignStats.h"						// added by Flugente
+	#include "PMC.h"								// added by Flugente
 #endif
 
 #include "Vehicles.h"
@@ -713,6 +714,9 @@ fFirstTimeInMapScreen = TRUE;
 
 		// Flugente campaign stats
 		gCampaignStats.clear();
+
+		// Flugente: PMC
+		GameInitPMC();
 
 		InitStrategicLayer();
 

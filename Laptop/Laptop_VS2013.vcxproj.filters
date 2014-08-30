@@ -258,6 +258,9 @@
     <ClInclude Include="WHO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PMC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -527,7 +530,10 @@
     <ClCompile Include="WHO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="XML_History.cpp">
+    <ClCompile Include="XML_History.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

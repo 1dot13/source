@@ -1455,7 +1455,6 @@ void IncrementCurrentPageFinancialDisplay( void )
 
 void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 {
-
 	switch( pFinance->ubCode)
 	{
 		case ACCRUED_INTEREST:
@@ -1595,9 +1594,12 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 		case WHO_SUBSCRIPTION:
 			swprintf( pString, L"%s", pTransactionText[WHO_SUBSCRIPTION] );
 			break;
+
+		// Flugente: a contract with a PMC
+		case PMC_CONTRACT:
+			swprintf( pString, L"%s", pTransactionText[PMC_CONTRACT] );
+			break;
 	}
-
-
 }
 
 

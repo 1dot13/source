@@ -89,6 +89,7 @@
 	#include "CampaignHistory_Summary.h"	// added by Flugente
 	#include "MercCompare.h"				// added by Flugente
 	#include "WHO.h"						// added by Flugente
+	#include "PMC.h"						// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1485,6 +1486,18 @@ void RenderLaptop()
 		case LAPTOP_MODE_WHO_TIPS:
 			RenderWHOTips( );
 			break;
+
+		case LAPTOP_MODE_PMC_MAIN:
+			RenderPMCMain( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_MILITIA:
+			RenderPMCContract( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
+			RenderPMCContract( );
+			break;
 	}
 
 	if( guiCurrentLaptopMode >= LAPTOP_MODE_WWW )
@@ -1930,6 +1943,17 @@ void EnterNewLaptopMode()
 			EnterWHOTips( );
 			break;
 
+		case LAPTOP_MODE_PMC_MAIN:
+			EnterPMCMain( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_MILITIA:
+			EnterPMCContract( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
+			EnterPMCContract( );
+			break;
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2190,6 +2214,18 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_WHO_TIPS:
 			HandleWHOTips( );
+			break;
+
+		case LAPTOP_MODE_PMC_MAIN:
+			HandlePMCMain( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_MILITIA:
+			HandlePMCContract( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
+			HandlePMCContract( );
 			break;
 	}
 
@@ -2760,6 +2796,18 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_WHO_TIPS:
 			ExitWHOTips( );
+			break;
+
+		case LAPTOP_MODE_PMC_MAIN:
+			ExitPMCMain( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_MILITIA:
+			ExitPMCContract( );
+			break;
+
+		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
+			ExitPMCContract( );
 			break;
 	}
 
@@ -3748,6 +3796,24 @@ void SetBookMark(INT32 iBookId)
 	}
 }
 
+BOOLEAN	IsBookMarkSet( INT32 iBookId )
+{
+	INT32 iCounter = 0;
+	while ( LaptopSaveInfo.iBookMarkList[iCounter] != -1 )
+	{
+		// move through list until empty
+		if ( LaptopSaveInfo.iBookMarkList[iCounter] == iBookId )
+		{
+			// found it, return
+			return TRUE;
+		}
+
+		++iCounter;
+	}
+
+	return FALSE;
+}
+
 
 BOOLEAN RemoveBookMark( INT32 iBookId )
 {
@@ -4347,6 +4413,27 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 				{
 					// reset flag and set load pending flag
 					LaptopSaveInfo.fVisitedBookmarkAlready[WHO_BOOKMARK] = TRUE;
+					fLoadPendingFlag = TRUE;
+				}
+				else
+				{
+					// fast reload
+					fLoadPendingFlag = TRUE;
+					fFastLoadFlag = TRUE;
+				}
+			}
+			break;
+
+		case PMC_BOOKMARK:
+			{
+				guiCurrentWWWMode = LAPTOP_MODE_PMC_MAIN;
+				guiCurrentLaptopMode = LAPTOP_MODE_PMC_MAIN;
+
+				// do we have to have a World Wide Wait
+				if ( LaptopSaveInfo.fVisitedBookmarkAlready[PMC_BOOKMARK] == FALSE )
+				{
+					// reset flag and set load pending flag
+					LaptopSaveInfo.fVisitedBookmarkAlready[PMC_BOOKMARK] = TRUE;
 					fLoadPendingFlag = TRUE;
 				}
 				else

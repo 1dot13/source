@@ -1724,7 +1724,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			// Flugente: speed up dynamic dialogue boxes
 			// Note that this will behave oddly on the morning of January 1st 1970 :-)
-			DelayBoxDestructionBy( - gGameExternalOptions.usDynamicDialogueTimeOffset );
+			DelayBoxDestructionBy( -gGameExternalOptions.sDynamicDialogueTimeOffset );
 		}
 #endif
 

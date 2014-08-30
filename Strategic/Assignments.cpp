@@ -66,9 +66,10 @@
 	#include "Tactical Save.h"		// added by Flugente
 	#include "Campaign Types.h"		// added by Flugente
 	#include "Strategic Town Loyalty.h"
-	#include "DynamicDialogue.h"			// added by Flugente
+	#include "DynamicDialogue.h"	// added by Flugente
 	#include "Disease.h"			// added by Flugente
 	#include "Queen Command.h"		// added by Flugente
+	#include "PMC.h"				// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -2539,6 +2540,9 @@ void UpdateAssignments()
 	HandleDisease();
 	HandleDiseaseDiagnosis();	// this must come after HandleDisease() so we discover fresh infections
 	HandleDiseaseSectorTreatment();
+
+	// Flugente: PMC recruits new personnel
+	HourlyUpdatePMC();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );

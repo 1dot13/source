@@ -3874,6 +3874,7 @@ STR16 pTransactionText[] =
 	L"Unterhaltskosten für Miliz",		// HEADROCK HAM 3.6
 	L"Lösegeld erpresst",	// Flugente: prisoner system
 	L"WHO data subscription",	// Flugente: disease TODO.Translate
+	L"Payment to Kerberus",	// Flugente: PMC
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4295,6 +4296,7 @@ STR16 pBookMarkStrings[] =
 	L"Geschichte",
 	L"MeLoDY",
 	L"WHO",
+	L"Kerberus",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4406,6 +4408,9 @@ STR16 pWebPagesTitles[] =
 	L"WHO - About WHO",
 	L"WHO - Disease in Arulco",
 	L"WHO - Helpful Tips",
+	L"Kerberus - About Us",
+	L"Kerberus - Hire a Team",
+	L"Kerberus - Individual Contracts",
 	L"Bobby Rays - Letzte Lieferungen",
 	L"Enzyklopädie",
 	L"Enzyklopädie - Daten",
@@ -6096,6 +6101,7 @@ STR16 gzLaptopHelpText[] =
 	L"Geschichte",
 	L"Mercenaries Love or Dislike You",	// TODO.Translate
 	L"World Health Organization",
+	L"Kerberus - Excellence In Security",
 };
 
 STR16 gzHelpScreenText[] =
@@ -8486,7 +8492,9 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 	L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
 	L"-Michael C., NASA-",
 	L"I fully recommend this site!",
-	L"-Kasper H., H&C logistic incorporated-",
+	L"-Kasper H., H&C logistic Inc-",
+	L"Our training process has to be very quick, so we need to know whom we're dealing with. MeLoDY were the logical choice for this.",
+	L"-Stan Duke, Kerberus Inc-",
 
 	// analyze
 	L"Choose your employee",
@@ -8573,6 +8581,49 @@ STR16	szWHOWebSite[] =
 	L"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
 	L"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
 	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
+};
+
+STR16	szPMCWebSite[] =
+{
+	// main page
+	L"Kerberus",
+	L"Experience In Security",
+
+	// links to other pages
+	L"What is Kerberus?",
+	L"Team Contracts",
+	L"Individual Contracts",
+
+	// text on the main page
+	L"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
+	L"Our extensively trained personnel provides security for over 30 governments areound the world. This includes several conflict zones.",
+	L"We have several training centres around the globe, including in Indonesia, Colombia, Katar, South Africa and Romania. As a result, we can usually fulfil your contract requirements within 24 hours.",
+	L"Under 'Individual Contracts', we offer individual contracts with experienced veterans in the field of security.",
+	L"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
+	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
+	L"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
+
+	// militia contract page
+	L"You can select the type and number of personnel you want to hire here:",
+	L"Initial deployment",
+	L"Regular personnel",
+	L"Veteran personnel",
+
+	L"%d available, %d$ each",
+	L"Hire: %d",
+	L"Cost: %d$",
+
+	L"Select the initial operational area:",
+	L"Total Cost: %d$",
+	L"ETA: %02d:%02d",
+	L"Close Contract",
+
+	L"Thank you! Our personnel will be on site on %02d:%02d tomorrow.",
+	L"Kerberus reinforcements have arrived in %s.",
+	L"Next deployment: %d regulars and %d veterans at %s on %02d:%02d, day %d.",
+	L"You do not control any location through which we could insert troops!",
+
+	// individual contract page
 };
 
 STR16   szTacticalInventoryDialogString[]=

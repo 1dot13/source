@@ -1163,7 +1163,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 		else if( usRandom < 8 )
 			pSoldier = TacticalCreateArmyTroop();
 		else
-			pSoldier = TacticalCreateEliteEnemy();
+			pSoldier = TacticalCreateEliteEnemy( );
 
 		//Add soldier strategic info, so it doesn't break the counters!
 		if( pSoldier )
