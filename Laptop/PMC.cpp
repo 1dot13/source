@@ -662,7 +662,7 @@ void RenderPMCContract( )
 	swprintf( sText, szPMCWebSite[TEXT_PMC_DETAIL + 1], pmcdata[1].usToHire );
 	usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 
-	swprintf( sText, szPMCWebSite[TEXT_PMC_DETAIL + 2], pmcdata[1].usToHire * GetMilitiaCostPMC( REGULAR_MILITIA ) );
+	swprintf( sText, szPMCWebSite[TEXT_PMC_DETAIL + 2], pmcdata[1].usToHire * GetMilitiaCostPMC( ELITE_MILITIA ) );
 	usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		
 	usPosX = LAPTOP_SCREEN_UL_X;
