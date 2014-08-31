@@ -1462,7 +1462,7 @@ void InitMapScreenFlags( void )
 	fShowMobileRestrictionsFlag = FALSE;
 
 	// Flugente
-	fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
+	fShowStrategicDiseaseFlag = MAPMODE_OFF;
 }
 
 
