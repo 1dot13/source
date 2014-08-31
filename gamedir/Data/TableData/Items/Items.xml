@@ -2469,7 +2469,7 @@
 		<szBRDesc>These 15 rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>5</ubClassIndex>
+		<ubClassIndex>3</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>363</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2494,7 +2494,7 @@
 		<szBRDesc>This SMG magazine contains 30 rounds of Fiocchi round tip ammunition. This round is a popular purchase among seasoned mercenaries and up-and-coming soldiers of fortune.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>8</ubClassIndex>
+		<ubClassIndex>6</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -2519,7 +2519,7 @@
 		<szBRDesc>They've got Kevlar? Have no fear with this magazine; it's brimming with 15 rounds of hardened steel. This low power pistol round is your best bet against Kevlar.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>7</ubClassIndex>
+		<ubClassIndex>5</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>365</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2544,7 +2544,7 @@
 		<szBRDesc>We searched far and wide for this round; the Armor Piercing ability of the 30-round magazine makes it the bane of all unwelcome law enforcement personnel.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>10</ubClassIndex>
+		<ubClassIndex>8</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>36</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -2569,7 +2569,7 @@
 		<szBRDesc>This 15-round magazine of COR-BON 9mm Jacketed Hollow Point ammunition is truly the top of the line. It's a definite deterrent against any unarmored assailant.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>6</ubClassIndex>
+		<ubClassIndex>4</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>364</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2594,7 +2594,7 @@
 		<szBRDesc>This 30-round mag of 115 grain Jacketed Hollow Point ammunition is a special buy straight from COR-BON. We guarantee it will make your MP-5 the envy of any SWAT team.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>9</ubClassIndex>
+		<ubClassIndex>7</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>37</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -2619,7 +2619,7 @@
 		<szBRDesc>This 6-round speed loader comes filled with 158 grain Winchester standard .38 Special round tip ammunition. For countless years, it has been the tried and true round in law enforcement.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1</ubClassIndex>
+		<ubClassIndex>0</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>24</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2644,7 +2644,7 @@
 		<szBRDesc>Turn your classic .38 into a force to be reckoned with. Our own custom loaded .38 Full Metal Jacket round guarantees to stop any armored attacker dead in his tracks.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>4</ubClassIndex>
+		<ubClassIndex>2</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>25</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2669,7 +2669,7 @@
 		<szBRDesc>The latest deal from Cor-Bon brought us this 6-round package of .38 Special +P 158 grain ammunition. It packs a punch few will live to forget. Warning: its continuous use in alloy frame revolvers is highly inadvisable.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>3</ubClassIndex>
+		<ubClassIndex>1</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>26</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2694,7 +2694,7 @@
 		<szBRDesc>No collection would be complete without this classic man-stopper: a 7-round magazine of 230 grain UMC .45 ACP.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>14</ubClassIndex>
+		<ubClassIndex>12</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>14</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2719,7 +2719,7 @@
 		<szBRDesc>Our Pre-Ban 30-round magazines come complete with a full load of UMC .45 ACP.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>17</ubClassIndex>
+		<ubClassIndex>15</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>4</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -2744,7 +2744,7 @@
 		<szBRDesc>These hardened steel Armor Piercing rounds tear through Kevlar like it was butter. This 7-round magazine is known for leaving wide wound cavities.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>16</ubClassIndex>
+		<ubClassIndex>14</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>15</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2769,7 +2769,7 @@
 		<szBRDesc>Some of the best pistol ammunition money can buy is our 30 rounds of hand-loaded Armor Piercing ammunition. It will quickly send a Kevlar vest to the scrap heap.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>19</ubClassIndex>
+		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>5</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -2794,7 +2794,7 @@
 		<szBRDesc>If you are serious about your .45 ammo, this 7-round magazine of Golden Sabre Jacketed Hollow Point ammunition is a sure-fire way to prove it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>15</ubClassIndex>
+		<ubClassIndex>13</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>16</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2819,7 +2819,7 @@
 		<szBRDesc>Turns your sub machine gun into a lean mean killing machine. This magazine is jam packed with 30 rounds of our high quality Remington .45 Gold Sabre ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>18</ubClassIndex>
+		<ubClassIndex>16</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>6</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -2844,7 +2844,7 @@
 		<szBRDesc>Splatter your troubles against a wall with a little help from our 6-round speed loaders of Federal Hydra-Shok .357 Magnum ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>20</ubClassIndex>
+		<ubClassIndex>18</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>11</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2869,7 +2869,7 @@
 		<szBRDesc>We offer the finest quality rust resistant 9-round magazines, filled with Federal 158 grain .357 ammunition. These babies are a great way to finish off a problem that just won't kick it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>23</ubClassIndex>
+		<ubClassIndex>21</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>17</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2894,7 +2894,7 @@
 		<szBRDesc>They said the White Hippos were a hoax but Bobby Ray's has the real thing that are just itchin' to be fired off by you. This 6-round speed loader is packed with the lastest in Armor Piercing technology.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>22</ubClassIndex>
+		<ubClassIndex>20</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>12</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2919,7 +2919,7 @@
 		<szBRDesc>Satisfy your insatiable desire to punch holes through a bullet proof vest with these 9 rounds of White Hippo Armor Piercing ammo. It's exactly what the doctor ordered.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>25</ubClassIndex>
+		<ubClassIndex>23</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>18</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2944,7 +2944,7 @@
 		<szBRDesc>These 6 rounds of Federal's own Hydra-Shok Jacketed Hollow Point comes complete with a complimentary speed loader when purchasing through this site.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>21</ubClassIndex>
+		<ubClassIndex>19</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>13</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -2969,7 +2969,7 @@
 		<szBRDesc>Want that last gunfight to go out with a bang? Then we've got the deal for you. The Federal's own .357 Jacketed Hollow Point Hydra-Shok guarantees to deliver.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>24</ubClassIndex>
+		<ubClassIndex>22</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>19</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -2994,7 +2994,7 @@
 		<szBRDesc>One of our hottest commodities is this 30-round mag of 'acquired' Russian 5.45mm Armor Piercing ammunition. This round is guaranteed to make you the death of any party.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>31</ubClassIndex>
+		<ubClassIndex>29</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>9</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -3019,7 +3019,7 @@
 		<szBRDesc>Need a quick sure-shot way to collect on a life insurance policy? These 30 rounds of 5.45mm Hollow Point ammunition will show you the money in no time at all.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>30</ubClassIndex>
+		<ubClassIndex>28</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>10</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -3044,7 +3044,7 @@
 		<szBRDesc>This 30-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>37</ubClassIndex>
+		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>7</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3069,7 +3069,7 @@
 		<szBRDesc>This is the economical choice for target shooting, hunting, or stopping potential long-range muggings. These 30 rounds of 50 grain .223 JHP can save your life and your pocket book.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>36</ubClassIndex>
+		<ubClassIndex>34</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>8</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3094,7 +3094,7 @@
 		<szBRDesc>Packaged especially for the aspiring sharpshooter, these 10 rounds of Chinese 7.62mm Armor Piercing ammo is sure to provide you with the 'One Shot, One Kill' that'll make headlines the world over.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>47</ubClassIndex>
+		<ubClassIndex>45</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>22</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -3119,7 +3119,7 @@
 		<szBRDesc>Looking for the perfect gift for the terrorist who has it all? Try a magazine of our surplus 7.62mm Warsaw Pact AP. It's the gift to end all gift giving.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>49</ubClassIndex>
+		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>29</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -3144,7 +3144,7 @@
 		<szBRDesc>When killing them is simply not enough. A small 10-round box of 7.62mm Hollow Point is a great way to send the point home in true brain splattering style.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>46</ubClassIndex>
+		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>23</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -3169,7 +3169,7 @@
 		<szBRDesc>Ever get the urge to turn a person into a bloody sausage with legs? We recommend reaching for 30 rounds of our 7.62mm Hollow Point ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>48</ubClassIndex>
+		<ubClassIndex>46</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>30</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -3194,7 +3194,7 @@
 		<szBRDesc>This Armor Piercing 7.62x51mm ammunition offers an ideal combination of range, penetration and damage that professional snipers demand.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>41</ubClassIndex>
+		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>3</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -3219,7 +3219,7 @@
 		<szBRDesc>This 7.62mm 20-round magazine is simply brimming with death, especially when it's filled with a surplus of Full Metal Jacketed rounds. This magazine makes armor more or less moot.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>43</ubClassIndex>
+		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>27</ubGraphicNum>
 		<ubWeight>7</ubWeight>
@@ -3244,7 +3244,7 @@
 		<szBRDesc>Take advantage of our limited time offer on a price-reduced 5-round sampler box of .308 Winchester Hollow Point ammunition. Whether you're out hunting or sniping, this round will be your one-shot stopper.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>40</ubClassIndex>
+		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>2</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -3269,7 +3269,7 @@
 		<szBRDesc>If power is what you demand, more power is what you'll get with these 20 rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round. It's more than enough power to put any problem 6-feet under.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>42</ubClassIndex>
+		<ubClassIndex>40</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>28</ubGraphicNum>
 		<ubWeight>7</ubWeight>
@@ -3294,7 +3294,7 @@
 		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 45-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>50</ubClassIndex>
+		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>31</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3319,7 +3319,7 @@
 		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 50-round magazine of 5.7mm pistol ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>52</ubClassIndex>
+		<ubClassIndex>50</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>20</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3344,7 +3344,7 @@
 		<szBRDesc>Get the job done right the first time. You're kill-rate will be the best around if you use this 50-round magazine of 5.7mm Hollow Point ammunition. Your victim's chance at survival: roughly zero per cent, give or take a few points.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>51</ubClassIndex>
+		<ubClassIndex>49</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>21</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3369,7 +3369,7 @@
 		<szBRDesc>This is definitely the ammunition for real men only. This magazine contains 7 rounds of 12 gauge PolyCore slugs. Each round tears through body armor as though it were tissue paper.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>26</ubClassIndex>
+		<ubClassIndex>24</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>64</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3395,7 +3395,7 @@
 		<szBRDesc>The ideal short-range man-stopper round. This 12 gauge magazine holds 7 rounds of '00' SSG ammunition. Law enforcement personnel worldwide favor this round for its effectiveness in urban firefights against unarmored opponents.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>27</ubClassIndex>
+		<ubClassIndex>25</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>57</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -3420,7 +3420,7 @@
 		<szBRDesc>This 10 round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>28</ubClassIndex>
+		<ubClassIndex>26</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>6</ubPerPocket>
@@ -3444,7 +3444,7 @@
 		<szBRDesc>Have you ever wanted to kill an unwanted intruder and expand your study by knocking down a wall at the same time? Our 10 round magazine of tungsten buckshot ammo allows you to do just that, and much, much more.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>29</ubClassIndex>
+		<ubClassIndex>27</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>1</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -3469,7 +3469,7 @@
 		<szBRDesc>Cutting edge technology means cutting edge killing. These armor piercing rockets inflict such spectacular wounds, they would be the envy of any Hollywood special effects artist.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>53</ubClassIndex>
+		<ubClassIndex>51</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>110</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -3494,7 +3494,7 @@
 		<szBRDesc>If the Four Horsemen carried pieces, this would be their ammo of choice. These 5 highly explosive minirockets could deliver Armageddon faster than any rock from space.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>54</ubClassIndex>
+		<ubClassIndex>52</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>115</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -3519,7 +3519,7 @@
 		<szBRDesc>Blow open your opposition with high explosive armor piercing minirockets, and watch them fry.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>55</ubClassIndex>
+		<ubClassIndex>53</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>114</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -3544,7 +3544,7 @@
 		<szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>56</ubClassIndex>
+		<ubClassIndex>54</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>119</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -3568,7 +3568,7 @@
 		<szBRDesc>NO DESCRIPTION NECESSARY!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>57</ubClassIndex>
+		<ubClassIndex>55</ubClassIndex>
 		<ubGraphicNum>49</ubGraphicNum>
 		<ubWeight>26</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
@@ -3589,7 +3589,7 @@
 		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>58</ubClassIndex>
+		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>138</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -3614,7 +3614,7 @@
 		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>59</ubClassIndex>
+		<ubClassIndex>57</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>139</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -3639,7 +3639,7 @@
 		<szBRDesc>9mm bullets for a Calico model. A 50-pack for when you know it's gonna be a long night.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>11</ubClassIndex>
+		<ubClassIndex>9</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>140</ubGraphicNum>
 		<ubWeight>7</ubWeight>
@@ -3664,7 +3664,7 @@
 		<szBRDesc>A 50 round magazine of 9mm AP. ammo for the Calico model.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>13</ubClassIndex>
+		<ubClassIndex>11</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>141</ubGraphicNum>
 		<ubWeight>7</ubWeight>
@@ -3689,7 +3689,7 @@
 		<szBRDesc>A 50 round magazine of 9mm HP. ammo for the Calico model.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>12</ubClassIndex>
+		<ubClassIndex>10</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>142</ubGraphicNum>
 		<ubWeight>7</ubWeight>
@@ -3714,7 +3714,7 @@
 		<szBRDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>33</ubClassIndex>
+		<ubClassIndex>31</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>538</ubGraphicNum>
 		<ubWeight>15</ubWeight>
@@ -3739,7 +3739,7 @@
 		<szBRDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>32</ubClassIndex>
+		<ubClassIndex>30</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>537</ubGraphicNum>
 		<ubWeight>15</ubWeight>
@@ -3764,7 +3764,7 @@
 		<szBRDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>39</ubClassIndex>
+		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>145</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3788,7 +3788,7 @@
 		<szBRDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>38</ubClassIndex>
+		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>146</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3813,7 +3813,7 @@
 		<szBRDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>45</ubClassIndex>
+		<ubClassIndex>43</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>164</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3837,7 +3837,7 @@
 		<szBRDesc>This heavy machine gun belt holds 100 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>44</ubClassIndex>
+		<ubClassIndex>42</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>165</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3862,7 +3862,7 @@
 		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>2</ubClassIndex>
+		<ubClassIndex>62</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>289</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -3901,7 +3901,7 @@
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>60</ubClassIndex>
+		<ubClassIndex>58</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>450</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -3926,6 +3926,7 @@
 		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>59</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>451</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -9018,7 +9019,7 @@
 		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>35</ubClassIndex>
+		<ubClassIndex>33</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>388</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -9044,7 +9045,7 @@
 		<szBRDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>34</ubClassIndex>
+		<ubClassIndex>32</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>389</ubGraphicNum>
 		<ubWeight>2</ubWeight>
