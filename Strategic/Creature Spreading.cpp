@@ -348,24 +348,7 @@ void InitCreatureQuest()
 	giHabitatedDistance = 0;
 	
 	giPopulationModifier = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreaturePopulationModifier;
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			giPopulationModifier = EASY_POPULATION_MODIFIER;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			giPopulationModifier = NORMAL_POPULATION_MODIFIER;
-			break;
-		case DIF_LEVEL_HARD:
-			giPopulationModifier = HARD_POPULATION_MODIFIER;
-			break;
-		case DIF_LEVEL_INSANE:
-			giPopulationModifier = INSANE_POPULATION_MODIFIER;
-			break;
-	}
-	*/
-	
+		
 	//Determine which of the maps are infectible by creatures.	Infectible mines
 	//are those that are player controlled and unlimited.	We don't want the creatures to
 	//infect the mine that runs out.
@@ -410,7 +393,7 @@ void InitCreatureQuest()
 	*/
 	
 	// determine mine infectible status in initmines.lua script
-	for (x = 0; x < MAX_NUMBER_OF_MINES; x++)
+	for (x = 0; x < MAX_NUMBER_OF_MINES; ++x)
 	{
 		if( gMineStatus[ x ].fInfectible )
 		{
@@ -436,7 +419,7 @@ void InitCreatureQuest()
 	//iNumMinesInfectible = fMineInfectible[0] + fMineInfectible[1] + fMineInfectible[2] + fMineInfectible[3];
 	
 	//count actual infectible sites, use min of infectible sites defined in xml and initmines.lua script in case they do not tally
-	for (x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); x++)
+	for (x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); ++x)
 	{
 		iNumMinesInfectible += fMineInfectible[x];
 	}
@@ -455,14 +438,14 @@ void InitCreatureQuest()
 
 	iChosenMine = 0;
 
-	for( x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); x++ )
+	for( x = 0; x < min( NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA ); ++x )
 	{
 		if( iRandom )
 		{
 			iChosenMine++;
 			if( fMineInfectible[x] )
 			{
-				iRandom--;
+				--iRandom;
 			}
 		}
 	}
@@ -514,30 +497,9 @@ void InitCreatureQuest()
 
 	//Now determine how often we will spread the creatures.
 	
-		i = zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenInitBonusSpread;
-		AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureSpreadTime, 0 );
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			i = EASY_QUEEN_INIT_BONUS_SPREADS;
-			AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, EASY_SPREAD_TIME_IN_MINUTES, 0 );
-			break;
-		case DIF_LEVEL_MEDIUM:
-			i = NORMAL_QUEEN_INIT_BONUS_SPREADS;
-			AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, NORMAL_SPREAD_TIME_IN_MINUTES, 0 );
-			break;
-		case DIF_LEVEL_HARD:
-			i = HARD_QUEEN_INIT_BONUS_SPREADS;
-			AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, HARD_SPREAD_TIME_IN_MINUTES, 0 );
-			break;
-		case DIF_LEVEL_INSANE:
-			i = INSANE_QUEEN_INIT_BONUS_SPREADS;
-			AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, INSANE_SPREAD_TIME_IN_MINUTES, 0 );
-			break;
-	}
-	*/
-
+	i = zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenInitBonusSpread;
+	AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureSpreadTime, 0 );
+	
 	//Set things up so that the creatures can plan attacks on helpless miners and civilians while
 	//they are sleeping.	They do their planning at 10PM every day, and decide to attack sometime
 	//during the night.
@@ -686,8 +648,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 
 void SpreadCreatures()
 {
-	UINT16 usNewCreatures=0;
-
 	if( giLairID == -1 )
 	{
 		DecayCreatures();
@@ -695,25 +655,8 @@ void SpreadCreatures()
 	}
 
 	//queen just produced a litter of creature larvae.	Let's do some spreading now.
-		usNewCreatures = (UINT16)( zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBase + Random( 1 +  zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBonus ));
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			usNewCreatures = (UINT16)(EASY_QUEEN_REPRODUCTION_BASE + Random( 1 + EASY_QUEEN_REPRODUCTION_BONUS ));
-			break;
-		case DIF_LEVEL_MEDIUM:
-			usNewCreatures = (UINT16)(NORMAL_QUEEN_REPRODUCTION_BASE + Random( 1 + NORMAL_QUEEN_REPRODUCTION_BONUS ));
-			break;
-		case DIF_LEVEL_HARD:
-			usNewCreatures = (UINT16)(HARD_QUEEN_REPRODUCTION_BASE + Random( 1 + HARD_QUEEN_REPRODUCTION_BONUS ));
-			break;
-		case DIF_LEVEL_INSANE:
-			usNewCreatures = (UINT16)(INSANE_QUEEN_REPRODUCTION_BASE + Random( 1 + INSANE_QUEEN_REPRODUCTION_BONUS ));
-			break;
-	}
-	*/
-
+	UINT16 usNewCreatures = (UINT16)(zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBase + Random( 1 + zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBonus ));
+	
 	while( usNewCreatures-- )
 	{
 		//Note, this function can and will fail if the population gets dense.	This is a necessary
@@ -1721,81 +1664,17 @@ BOOLEAN PrepareCreaturesForBattle()
 void CreatureNightPlanning()
 {
 	//Check the populations of the mine exits, and factor a chance for them to attack at night.
-	UINT8 ubNumCreatures;
-	INT32 i;
-	
-	/* // externalize to xml data
-	ubNumCreatures = CreaturesInUndergroundSector( SEC_H3, 1 );
-	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
-	{ //10% chance for each creature to decide it's time to attack.
-		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), SEC_H3 );
-	}
-	ubNumCreatures = CreaturesInUndergroundSector( SEC_D13, 1 );
-	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
-	{ //10% chance for each creature to decide it's time to attack.
-		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), SEC_D13 );
-	}
-	ubNumCreatures = CreaturesInUndergroundSector( SEC_I14, 1 );
-	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
-	{ //10% chance for each creature to decide it's time to attack.
-		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), SEC_I14 );
-	}
-	ubNumCreatures = CreaturesInUndergroundSector( SEC_H8, 1 );
-	if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
-	{ //10% chance for each creature to decide it's time to attack.
-		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 +PreRandom( 429 ), SEC_H8 );
-	}
-	*/
-	
+			
 	UINT8 ubSectorID = SECTOR( gCreaturePlacements[ giLairID ].sAttackSourceX, gCreaturePlacements[ giLairID ].sAttackSourceY );
 
 	// Attacksource B1 underground sector must be a valid creature habitat!
-	ubNumCreatures = CreaturesInUndergroundSector( ubSectorID , 1 );
+	UINT8 ubNumCreatures = CreaturesInUndergroundSector( ubSectorID, 1 );
 
-	//10% chance for each creature with difficulty modifier to decide it's time to attack.
-	
-	i = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness;
-	if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
+	//10% chance for each creature with difficulty modifier to decide it's time to attack.	
+	if ( ubNumCreatures > 1 && ubNumCreatures * 10 + zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness > (INT32)PreRandom( 100 ) )
 	{
 		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
 	}
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			i = EASY_CREATURE_TOWN_AGGRESSIVENESS;
-			if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
-			{
-				AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-			}
-			break;
-		case DIF_LEVEL_MEDIUM:
-			i = NORMAL_CREATURE_TOWN_AGGRESSIVENESS;
-			if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
-			{
-				AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-			}
-			break;
-		case DIF_LEVEL_HARD:
-			i = HARD_CREATURE_TOWN_AGGRESSIVENESS;
-			if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
-			{
-				AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-			}
-			break;
-		case DIF_LEVEL_INSANE:
-			i = INSANE_CREATURE_TOWN_AGGRESSIVENESS;
-			if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
-			{
-				AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-			}
-			break;
-	}
-	*/
-	//if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
-	//{ //10% chance for each creature to decide it's time to attack.
-	//	AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-	//}
 }
 
 

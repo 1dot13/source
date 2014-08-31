@@ -5934,7 +5934,6 @@ else
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
 		iBaseModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsBASE_DIFFICULTY;
-		//iBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 
 	// Percentage based-modifier from the weapon and its attachments
@@ -6268,7 +6267,6 @@ else
 		if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 		{
 			iAimModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsAIM_DIFFICULTY;
-			//iAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 		}
 				
 		// Percent modifier from the weapon and its attachments
@@ -12869,7 +12867,6 @@ FLOAT CalcNewChanceToHitBaseSpecialBonus(SOLDIERTYPE *pSoldier)
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
 		fBaseModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsBASE_DIFFICULTY;
-		//fBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 
 	return fBaseModifier;
@@ -13169,7 +13166,6 @@ FLOAT CalcNewChanceToHitAimSpecialBonus(SOLDIERTYPE *pSoldier)
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
 		fAimModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsAIM_DIFFICULTY;
-		//fAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 	
 	return fAimModifier;

@@ -2063,34 +2063,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	//if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
 	if ( this->bTeam == ENEMY_TEAM )
 	{
-			ubPoints += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
-		/*
-		switch( gGameOptions.ubDifficultyLevel )
-		{
-		case DIF_LEVEL_EASY:
-
-			ubPoints += gGameExternalOptions.iEasyAPBonus;
-			break;
-
-		case DIF_LEVEL_MEDIUM:
-
-			ubPoints += gGameExternalOptions.iExperiencedAPBonus;
-			break;
-
-		case DIF_LEVEL_HARD:
-
-			ubPoints += gGameExternalOptions.iExpertAPBonus;
-			break;
-
-		case DIF_LEVEL_INSANE:
-
-			ubPoints += gGameExternalOptions.iInsaneAPBonus;
-			break;
-
-		default:
-			ubPoints += 0;
-		}
-		*/
+		ubPoints += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
 	}
 	// Bonus to Militia APs
 	else if ( this->bTeam == MILITIA_TEAM )
@@ -2197,26 +2170,10 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 			// +5% APs per trait (+15% is max)
 			usMaxActionPnts += (usMaxActionPnts * gSkillTraitValues.ubSLBonusAPsPercent * GetSquadleadersCountInVicinity( this, FALSE, FALSE ) / 100);
 		}
+
 		if ( this->bTeam == ENEMY_TEAM )
 		{
 			usMaxActionPnts += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
-			/*
-			switch( gGameOptions.ubDifficultyLevel )
-			{
-			case DIF_LEVEL_EASY:
-				usMaxActionPnts += gGameExternalOptions.iEasyAPBonus;
-				break;
-			case DIF_LEVEL_MEDIUM:
-				usMaxActionPnts += gGameExternalOptions.iExperiencedAPBonus;
-				break;
-			case DIF_LEVEL_HARD:
-				usMaxActionPnts += gGameExternalOptions.iExpertAPBonus;
-				break;
-			case DIF_LEVEL_INSANE:
-				usMaxActionPnts += gGameExternalOptions.iInsaneAPBonus;
-				break;
-			}
-			*/
 		}
 		// Bonus to Militia APs
 		else if ( this->bTeam == MILITIA_TEAM )

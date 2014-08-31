@@ -12964,33 +12964,9 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 	if ( lua_gettop(L) >= 1 )
 	{
 		INT32 DifficultyLevel = lua_tointeger(L,1);
-		INT32 iStartingCash = 0;
 		
-			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDeffSetting[DifficultyLevel].iStartingCash );	
-		/*
-		switch( DifficultyLevel )
-		{
-			case DIF_LEVEL_EASY:
-				iStartingCash = gGameExternalOptions.iStartingCashNovice;
-				break;
+		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDeffSetting[DifficultyLevel].iStartingCash );
+	}
 
-			case DIF_LEVEL_MEDIUM:
-				iStartingCash = gGameExternalOptions.iStartingCashExperienced;
-				break;
-
-			case DIF_LEVEL_HARD:
-				iStartingCash = gGameExternalOptions.iStartingCashExpert;
-				break;
-
-			case DIF_LEVEL_INSANE:
-				iStartingCash = gGameExternalOptions.iStartingCashInsane; 
-				break;
-
-			default:
-				iStartingCash = 4500; 
-		}
-		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
-		*/
-	}	
-return 0;
+	return 0;
 }

@@ -700,9 +700,9 @@ void ProcessImplicationsOfMeanwhile( void )
 	{
 		case END_OF_PLAYERS_FIRST_BATTLE:
 		
-			if( zDeffSetting[gGameOptions.ubDifficultyLevel].bStrategicAiActionWakeQueen == TRUE )
-			//if( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
-			{ //Wake up the queen earlier to punish the good players!
+			if( zDeffSetting[gGameOptions.ubDifficultyLevel].bStrategicAiActionWakeQueen )
+			{
+				//Wake up the queen earlier to punish the good players!
 				ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
 			}
 			//HandleNPCDoAction( QUEEN, NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, 0 );

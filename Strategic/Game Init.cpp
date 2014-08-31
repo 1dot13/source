@@ -747,40 +747,8 @@ fFirstTimeInMapScreen = TRUE;
 		}
 
 		// ATE: Set starting cash....
-			iStartingCash = zDeffSetting[gGameOptions.ubDifficultyLevel].iStartingCash;
-		/*
-		switch( gGameOptions.ubDifficultyLevel )
-		{
-			case DIF_LEVEL_EASY:
-
-				iStartingCash = gGameExternalOptions.iStartingCashNovice;
-				//iStartingCash	= 45000;
-				break;
-
-			case DIF_LEVEL_MEDIUM:
-
-				iStartingCash = gGameExternalOptions.iStartingCashExperienced;
-				//iStartingCash	= 35000;
-				break;
-
-			case DIF_LEVEL_HARD:
-
-				iStartingCash = gGameExternalOptions.iStartingCashExpert;
-				//iStartingCash	= 30000;
-				break;
-
-			case DIF_LEVEL_INSANE:
-
-				iStartingCash = gGameExternalOptions.iStartingCashInsane; 
-				// iStartingCash	= 15000;
-				break;
-
-			default:
-				Assert(0);
-				return( FALSE );
-		}
-		*/
-
+		iStartingCash = zDeffSetting[gGameOptions.ubDifficultyLevel].iStartingCash;
+		
 		// Setup initial money
  		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
 		#endif

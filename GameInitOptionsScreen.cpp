@@ -288,21 +288,8 @@
 #define		JA2SP_UB_RPC_TEX_AND_JOHN				"RPC_TEX_AND_JOHN"
 #define		JA2SP_UB_RANDOM_MANUEL_TEXT				"RANDOM_MANUEL_TEXT"
 
-//#define NUM_DIFF_SETTINGS 4
 DIFFICULTY_SETTINGS_VALUES zDeffSetting[15];
 UINT8 MaxDifficultySettingsValues; 
-
-//Difficulty settings
-enum
-{
-	GIO_DIFF_EASY,
-	GIO_DIFF_MED,
-	GIO_DIFF_HARD,
-	GIO_DIFF_INSANE,
-	GIO_DIFF_NEW = GIO_DIFF_INSANE + 245,
-//	NUM_DIFF_SETTINGS,
-
-};
 
 enum
 {
@@ -1427,12 +1414,11 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{	
-		if ( iCurrentDifficulty < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 ) 	
-	//	if ( iCurrentDifficulty < MaxDifficultySettingsValues /*2*/ )	
+		if ( iCurrentDifficulty < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 ) 
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentDifficulty++;
+			++iCurrentDifficulty;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
@@ -1444,12 +1430,11 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 )  //2				
-		//if ( iCurrentDifficulty < MaxDifficultySettingsValues /*2*/ )	
+		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 )  //2	
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentDifficulty++;
+			++iCurrentDifficulty;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
@@ -2688,7 +2673,6 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_DIF_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDeffSetting[ iCurrentDifficulty + 1].szDeffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-//	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentDifficulty + 9 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	//Display the IMP number Title Text
 	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
@@ -3060,7 +3044,6 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameUBOptions.fRandomManuelText = GetCurrentTextStyleButtonSetting();
 	
 	gGameOptions.ubDifficultyLevel = min( MaxDifficultySettingsValues-1, ( max( 1, (iCurrentDifficulty + 1)) )); 
-	//gGameOptions.ubDifficultyLevel = min( NUM_DIFF_SETTINGS-1, ( max( 1, (iCurrentDifficulty + 1)) )); 
 	
 	gGameOptions.fTurnTimeLimit = FALSE;
 		
@@ -3168,26 +3151,7 @@ BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DisplayMessageToUserAboutGameDifficulty()
 {
-	UINT8 ubDiffLevel = iCurrentDifficulty;
-
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[ubDiffLevel + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-/*
-	switch( ubDiffLevel )
-	{
-		case 0:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_NOVICE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 1:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERIENCED], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 2:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERT], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 3:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_INSANE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-	}
-*/
+	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[ubDiffLevel + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 }
 
 
@@ -3426,21 +3390,8 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_BACKGROUNDS						"BACKGROUNDS"
 #define		JA2SP_FOODSYSTEM						"FOOD_SYSTEM"
 
-//#define NUM_DIFF_SETTINGS 3
-DIFFICULTY_SETTINGS_VALUES zDeffSetting[15];
+DIFFICULTY_SETTINGS_VALUES zDeffSetting[MAX_DIF_LEVEL];
 UINT8 MaxDifficultySettingsValues; 
-
-//Difficulty settings
-enum
-{
-	GIO_DIFF_EASY,
-	GIO_DIFF_MED,
-	GIO_DIFF_HARD,
-	GIO_DIFF_INSANE,
-	GIO_DIFF_NEW = GIO_DIFF_INSANE + 245,
-//	NUM_DIFF_SETTINGS,
-
-};
 
 enum
 {
@@ -4530,11 +4481,10 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 1 )  //3
-		//if ( iCurrentDifficulty < 3 )
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentDifficulty++;
+			++iCurrentDifficulty;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
@@ -4547,11 +4497,10 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 1 )  //2	
-		//if ( iCurrentDifficulty < 3 )
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentDifficulty++;
+			++iCurrentDifficulty;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
@@ -5757,7 +5706,6 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_DIF_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDeffSetting[ iCurrentDifficulty + 1].szDeffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	//DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentDifficulty + 9 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	//Display the IMP number Title Text
 	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
@@ -6114,7 +6062,6 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.ubGameStyle = GetCurrentGameStyleButtonSetting();
 	
 	gGameOptions.ubDifficultyLevel = min( MaxDifficultySettingsValues, ( max( 1, (iCurrentDifficulty + 1)) ));
-	//gGameOptions.ubDifficultyLevel = min( NUM_DIFF_SETTINGS, ( max( 1, (iCurrentDifficulty + 1)) ));
 	
 	gGameOptions.fTurnTimeLimit = FALSE;
 		
@@ -6213,26 +6160,7 @@ BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DisplayMessageToUserAboutGameDifficulty()
 {
-	UINT8 ubDiffLevel = iCurrentDifficulty;
-
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[ubDiffLevel + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-/*
-	switch( ubDiffLevel )
-	{
-		case 0:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_NOVICE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 1:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERIENCED], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 2:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERT], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-		case 3:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_INSANE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
-			break;
-	}
-*/
+	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 }
 
 

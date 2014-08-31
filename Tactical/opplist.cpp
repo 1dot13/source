@@ -933,8 +933,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 				RevealRoofsAndItems(pSoldier,TRUE, TRUE, pSoldier->pathing.bLevel, FALSE );
 		}
 		// unless in easy mode allow alerted enemies to radio	
-		else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings == TRUE )
-		//else if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_MEDIUM )
+		else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings )
 		{
 			// don't allow admins to radio
 			//Madd: Huh?	why not admins?	removed.
@@ -981,8 +980,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 						RadioSightings(pThem,pSoldier->ubID, pThem->bTeam);
 				}
 				// unless in easy mode allow alerted enemies to radio		
-				else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings2 == TRUE )
-				//else if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_MEDIUM )
+				else if ( zDeffSetting[gGameOptions.ubDifficultyLevel].bRadioSightings2 )
 				{
 					// don't allow admins to radio
 					if ( pThem->bTeam == ENEMY_TEAM && gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition && pThem->ubSoldierClass != SOLDIER_CLASS_ADMINISTRATOR )

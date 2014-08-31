@@ -175,29 +175,7 @@ enum
 	ATTACHMENT_NEW = 1,
 };
 
-
-//Enums for the difficulty levels
-enum
-{
-	DIF_LEVEL_ZERO,
-	DIF_LEVEL_EASY,
-	DIF_LEVEL_MEDIUM,
-	DIF_LEVEL_HARD,
-	DIF_LEVEL_INSANE,
-	DIF_LEVEL_FIVE,
-	DIF_LEVEL_6,
-	DIF_LEVEL_7,
-	DIF_LEVEL_8,
-	DIF_LEVEL_9,
-	DIF_LEVEL_10,
-	DIF_LEVEL_11,
-	DIF_LEVEL_12,
-	DIF_LEVEL_13,
-	DIF_LEVEL_14,
-	DIF_LEVEL_15,
-};
-
-//Enums for the difficulty levels
+//Enums for game styles
 enum
 {
 	STYLE_REALISTIC = 0, //the specific indices are there to keep compartibility wiht old saves (back when there were only 2 styles)

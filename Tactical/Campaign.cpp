@@ -1288,7 +1288,6 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 	INT16 sChance;
 	MERCPROFILESTRUCT *pProfile = &(gMercProfiles[ iProfileID ]);
 
-
 	// if the player has never yet had the chance to hire this merc
 	if ( !( pProfile->ubMiscFlags3 & PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE) )
 	{
@@ -1296,35 +1295,13 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 		return;
 	}
 	
-		ubMaxDeaths = zDeffSetting[gGameOptions.ubDifficultyLevel].iMaxMercDeaths;
-	/*
-	// how many in total can be killed like this depends on player's difficulty setting
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:  //Kaiden Externalized ubMaxDeaths Values
-			ubMaxDeaths = gGameExternalOptions.giEasyMercDeaths;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			ubMaxDeaths = gGameExternalOptions.giExperiencedMercDeaths;
-			break;
-		case DIF_LEVEL_HARD:
-			ubMaxDeaths = gGameExternalOptions.giExpertMercDeaths;
-			break;
-		case DIF_LEVEL_INSANE:
-			ubMaxDeaths = gGameExternalOptions.giInsaneMercDeaths;
-			break;
-		default:
-			Assert(FALSE);
-			ubMaxDeaths = 0;
-			break;
-	}
-	*/
+	ubMaxDeaths = zDeffSetting[gGameOptions.ubDifficultyLevel].iMaxMercDeaths;
+
 	// if we've already hit the limit in this game, skip these checks
 	if (gStrategicStatus.ubUnhiredMercDeaths >= ubMaxDeaths)
 	{
 		return;
 	}
-
 
 	// calculate this merc's (small) chance to get killed today (out of 1000)
 	sChance = 10 - pProfile->bExpLevel;
@@ -1617,28 +1594,8 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// kills per point depends on difficulty, and should match the ratios of starting enemy populations (730/1050/1500)
 	// HEADROCK HAM 3: Externalized all four Kills-per-point ratios.
-		ubKillsPerPoint = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumKillsPerProgressPoint;
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointNovice;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointExperienced;
-			break;
-		case DIF_LEVEL_HARD:
-			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointExpert;
-			break;
-		case DIF_LEVEL_INSANE:
-			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointInsane;
-			break;
-		default:
-			Assert(FALSE);
-			ubKillsPerPoint = 10;
-			break;
-	}
-	*/
+	ubKillsPerPoint = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumKillsPerProgressPoint;
+
 	usKillsProgress = gStrategicStatus.usPlayerKills / ubKillsPerPoint;
 	if (usKillsProgress > usMaxKillsProgress)
 	{

@@ -1821,11 +1821,8 @@ void HandleInitialEventsInHeliCrash()
 
 
 UINT32 GetNumberOfTurnsPowerGenFanWillBeStoppedFor()
-{
-	UINT32 uiNumTurns = PGF__NUM_TURNS_TILL_START_FAN_BACK_UP_EASY;
-	uiNumTurns = zDeffSetting[gGameOptions.ubDifficultyLevel].iGetNumberOfTurnsPowerGenFanWillBeStoppedFor;
-	
-	return( uiNumTurns );
+{	
+	return( zDeffSetting[gGameOptions.ubDifficultyLevel].iGetNumberOfTurnsPowerGenFanWillBeStoppedFor );
 }
 
 

@@ -3924,13 +3924,9 @@ void DisplayGameSettings( )
 
 	//Display the difficulty level
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDeffSetting[gGameOptions.ubDifficultyLevel].szDeffName );
-	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], gzGIOScreenText[ gGameOptions.ubDifficultyLevel + GIO_EASY_TEXT - 1 ] );
 	
 	//Test Settings
-	if ( gGameExternalOptions.gfAllowReinforcements == TRUE )
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"YES");
-	else
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"NO");
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", gGameExternalOptions.gfAllowReinforcements ? L"YES" : L"NO" );
 	
 	//Bobby Ray option 1
 	if ( gGameOptions.ubBobbyRayQuality >= BR_GOOD && gGameOptions.ubBobbyRayQuality < BR_GREAT )

@@ -512,8 +512,7 @@ void AirRaidLookForDive( )
 	{
 		// If we are are beginning game, only do gun dives..
 		
-		if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && zDeffSetting[gGameOptions.ubDifficultyLevel].bAirRaidLookForDive == FALSE)
-		//if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && gGameOptions.ubDifficultyLevel < DIF_LEVEL_HARD )
+		if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && !zDeffSetting[gGameOptions.ubDifficultyLevel].bAirRaidLookForDive )
 		{
 			if ( gbNumDives == 0 )
 			{

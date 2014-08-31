@@ -1185,68 +1185,20 @@ void InitStrategicAI()
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
 
-		giReinforcementPool		= zDeffSetting[gGameOptions.ubDifficultyLevel].iQueensInitialPoolOfTroops; 
-		giForcePercentage		= zDeffSetting[gGameOptions.ubDifficultyLevel].iInitialGarrisonPercentages; 
-		giArmyAlertness			= zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyStartingAlertLevel; 
-		giArmyAlertnessDecay	= zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAlertDecay; 
-		gubMinEnemyGroupSize	= zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize; 
-		gubHoursGracePeriod		= zDeffSetting[gGameOptions.ubDifficultyLevel].iGracePeriodInHoursAfterSectorLiberation; 
-		gfUnlimitedTroops		= zDeffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops; 
-		gfAggressiveQueen		= zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
-		// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
-		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance )), 0 );
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolNovice;
-			giForcePercentage		= gGameExternalOptions.iForcePercentageNovice;
-			giArmyAlertness			= gGameExternalOptions.ubEasyEnemyStartingAlertLevel;
-			giArmyAlertnessDecay	= gGameExternalOptions.ubEasyEnemyStartingAlertDecay;
-			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeNovice;
-			gubHoursGracePeriod		= gGameExternalOptions.ubEasyGracePeriodInHours;
-			gfUnlimitedTroops		= gGameExternalOptions.gfEasyUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfEasyAggressiveQueen;
-			// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance )), 0 );
-			break;
-		case DIF_LEVEL_MEDIUM:
-			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExperienced;
-			giForcePercentage		= gGameExternalOptions.iForcePercentageExperienced;
-			giArmyAlertness			= gGameExternalOptions.ubNormalEnemyStartingAlertLevel;
-			giArmyAlertnessDecay	= gGameExternalOptions.ubNormalEnemyStartingAlertDecay;
-			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeExperienced;
-			gubHoursGracePeriod		= gGameExternalOptions.ubNormalGracePeriodInHours;
-			gfUnlimitedTroops		= gGameExternalOptions.gfNormalUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfNormalAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance )), 0);
-			break;
-		case DIF_LEVEL_HARD:
-			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExpert;
-			giForcePercentage		= gGameExternalOptions.iForcePercentageExpert;
-			giArmyAlertness			= gGameExternalOptions.ubHardEnemyStartingAlertLevel;
-			giArmyAlertnessDecay	= gGameExternalOptions.ubHardEnemyStartingAlertDecay;
-			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeExpert;
-			gubHoursGracePeriod		= gGameExternalOptions.ubHardGracePeriodInHours;
-			gfUnlimitedTroops		= gGameExternalOptions.gfHardUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfHardAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance )), 0);
-			break;
-		case DIF_LEVEL_INSANE:
-			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolInsane;
-			giForcePercentage		= gGameExternalOptions.iForcePercentageInsane;
-			giArmyAlertness			= gGameExternalOptions.ubInsaneEnemyStartingAlertLevel;
-			giArmyAlertnessDecay	= gGameExternalOptions.ubInsaneEnemyStartingAlertDecay;
-			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeInsane;
-			gubHoursGracePeriod		= gGameExternalOptions.ubInsaneGracePeriodInHours;
-			gfUnlimitedTroops		= gGameExternalOptions.gfInsaneUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfInsaneAggressiveQueen;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance )), 0);
-			break;
-	}
-	*/
+	giReinforcementPool		= zDeffSetting[gGameOptions.ubDifficultyLevel].iQueensInitialPoolOfTroops; 
+	giForcePercentage		= zDeffSetting[gGameOptions.ubDifficultyLevel].iInitialGarrisonPercentages; 
+	giArmyAlertness			= zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyStartingAlertLevel; 
+	giArmyAlertnessDecay	= zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAlertDecay; 
+	gubMinEnemyGroupSize	= zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize; 
+	gubHoursGracePeriod		= zDeffSetting[gGameOptions.ubDifficultyLevel].iGracePeriodInHoursAfterSectorLiberation; 
+	gfUnlimitedTroops		= zDeffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops; 
+	gfAggressiveQueen		= zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
+
+	// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
+	AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance )), 0 );
+	
 	//Initialize the sectorinfo structure so all sectors don't point to a garrisonID.
-	for( i = 0; i <= 255; i++ )
+	for( i = 0; i <= 255; ++i )
 	{
 		SectorInfo[ i ].ubGarrisonID = NO_GARRISON;
 	}
@@ -1271,16 +1223,16 @@ void InitStrategicAI()
 	
 	if (zDeffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL3 == FALSE && zDeffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL3 == FALSE) 
 	{	
-			for( i = 0; i < NUM_ARMY_COMPOSITIONS; i++ )
+		for( i = 0; i < NUM_ARMY_COMPOSITIONS; ++i )
+		{
+			if ( i != OMERTA_WELCOME_WAGON )
 			{
-				if ( i != OMERTA_WELCOME_WAGON )
-				{
-					iPercentElitesBonus = zDeffSetting[gGameOptions.ubDifficultyLevel].iPercentElitesBonus;
-					gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
-					gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
-					gArmyComp[ i ].bAdminPercentage = 0;
-				}
+				iPercentElitesBonus = zDeffSetting[gGameOptions.ubDifficultyLevel].iPercentElitesBonus;
+				gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
+				gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
+				gArmyComp[ i ].bAdminPercentage = 0;
 			}
+		}
 	}
 	/*
 	switch( gGameOptions.ubDifficultyLevel )
@@ -1650,8 +1602,7 @@ void InitStrategicAI()
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;					
-						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);				
-						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);	
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1670,7 +1621,6 @@ void InitStrategicAI()
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
-						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1689,7 +1639,6 @@ void InitStrategicAI()
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
-						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1708,7 +1657,6 @@ void InitStrategicAI()
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
-						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1727,7 +1675,6 @@ void InitStrategicAI()
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
-						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -3425,32 +3372,16 @@ void EvaluateQueenSituation()
 	{
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
-		uiOffset += dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance ));
-			break;
-		case DIF_LEVEL_MEDIUM:
-			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance ));
-			break;
-		case DIF_LEVEL_HARD:
-			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance ));
-			break;
-		case DIF_LEVEL_INSANE:
-			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance ));
-			break;
-	}
-	*/
-
+	
+	uiOffset += dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
+	
 	if( !giReinforcementPool )
-	{ //Queen has run out of reinforcements.	Simulate recruiting and training new troops
+	{
+		//Queen has run out of reinforcements.	Simulate recruiting and training new troops
 		uiOffset *= 10;
 		//Madd: don't need an unlimited troops check here, since they can never run out like this
 		
-		giReinforcementPool += ( zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;		
-		//giReinforcementPool += ( gGameExternalOptions.guiBaseQueenPoolIncrement * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;
+		giReinforcementPool += ( zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;	
 		
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
 		return;
@@ -3711,27 +3642,6 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 
 	gfUnlimitedTroops = zDeffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops;
 	gfAggressiveQueen = zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			gfUnlimitedTroops		= gGameExternalOptions.gfEasyUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfEasyAggressiveQueen;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			gfUnlimitedTroops		= gGameExternalOptions.gfNormalUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfNormalAggressiveQueen;
-			break;
-		case DIF_LEVEL_HARD:
-			gfUnlimitedTroops		= gGameExternalOptions.gfHardUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfHardAggressiveQueen;
-			break;
-		case DIF_LEVEL_INSANE:
-			gfUnlimitedTroops		= gGameExternalOptions.gfInsaneUnlimitedTroops;
-			gfAggressiveQueen		= gGameExternalOptions.gfInsaneAggressiveQueen;
-			break;
-	}
-	*/
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic6");
 	FileRead( hFile, gbPadding2,							3, &uiNumBytesRead );
@@ -5477,23 +5387,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 		case NPC_ACTION_GIVE_KNOWLEDGE_OF_ALL_MERCS:
 			//temporarily make the queen's forces more aware (high alert)
 			gubNumAwareBattles = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumAwareBattles;
-			/*
-			switch( gGameOptions.ubDifficultyLevel )
-			{
-				case DIF_LEVEL_EASY:
-					gubNumAwareBattles = gGameExternalOptions.ubEasyNumAwareBattles;
-					break;
-				case DIF_LEVEL_MEDIUM:
-					gubNumAwareBattles = gGameExternalOptions.ubNormalNumAwareBattles;
-					break;
-				case DIF_LEVEL_HARD:
-					gubNumAwareBattles = gGameExternalOptions.ubHardNumAwareBattles;
-					break;
-				case DIF_LEVEL_INSANE:
-					gubNumAwareBattles = gGameExternalOptions.ubInsaneNumAwareBattles;
-					break;
-			}
-			*/
 			break;
 
 		default:
@@ -5911,8 +5804,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 			if (value9 == 0) value9 = 1;
 		}
 	
-	if( pSector->ubInvestigativeState >= ( 4 * value9 ) && zDeffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector == FALSE )
-	//if( pSector->ubInvestigativeState >= ( 4 * gGameOptions.ubDifficultyLevel ) && gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+	if( pSector->ubInvestigativeState >= ( 4 * value9 ) && !zDeffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector )
 	{
 		//This is the 4th time the player has conquered this sector.	We won't pester the player with probing attacks here anymore.
 		return;
@@ -6470,8 +6362,7 @@ void UpgradeAdminsToTroops()
 				while ( ubAdminsToCheck > 0)
 				{
 					// chance to upgrade at each check is random, and also dependant on the garrison's priority
-					if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops == TRUE ) 
-					//if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel > DIF_LEVEL_HARD ) // Madd: Always happens on Insane
+					if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops ) 
 					{
 						pSector->ubNumAdmins--;
 						pSector->ubNumTroops++;
@@ -6526,8 +6417,7 @@ void UpgradeAdminsToTroops()
 					while ( ubAdminsToCheck > 0)
 					{
 						// chance to upgrade at each check is random, and also dependant on the group's priority
-						if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops2 == TRUE ) 
-						//if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )// Madd: Always happens on Expert and Insane
+						if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops2 ) 
 						{
 							pGroup->pEnemyGroup->ubNumAdmins--;
 							pGroup->pEnemyGroup->ubNumTroops++;
@@ -6767,23 +6657,7 @@ void TagSAIGroupWithGracePeriod( GROUP *pGroup )
 
 		if( iPatrolID != -1 )
 		{
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + zDeffSetting[gGameOptions.ubDifficultyLevel].iGracePeriodInDaysAfterPatrolDestroyed) % 100);		
-			/*
-			switch( gGameOptions.ubDifficultyLevel )			{
-				case DIF_LEVEL_EASY:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubEasyPatrolGracePeriodInDays) % 100);
-					break;
-				case DIF_LEVEL_MEDIUM:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubNormalPatrolGracePeriodInDays) % 100);
-					break;
-				case DIF_LEVEL_HARD:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubHardPatrolGracePeriodInDays) % 100);
-					break;
-				case DIF_LEVEL_INSANE:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubInsanePatrolGracePeriodInDays) % 100);
-					break;
-			}
-			*/
+			gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + zDeffSetting[gGameOptions.ubDifficultyLevel].iGracePeriodInDaysAfterPatrolDestroyed) % 100);
 		}
 	}
 }

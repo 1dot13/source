@@ -5656,29 +5656,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( range < 1 )
 		return;
 
-	UINT8 normalgroupsize = 0;
-	
-		 normalgroupsize = zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeNovice;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeExperienced;
-			break;
-		case DIF_LEVEL_HARD:
-			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeExpert;
-			break;
-		case DIF_LEVEL_INSANE:
-			default:
-			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeInsane;
-			break;
-	}
-	*/
-
-	normalgroupsize *= 2;
+	UINT16 normalgroupsize = 2 * zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
 
 	FLOAT detect_basechance = 1.0f - pow(0.5f, numberofradiooperators);
 	FLOAT detect_rangefactor = .0f;
@@ -6006,28 +5984,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 		}
 	}
 
-	UINT16 usNormalGroupSize = 0;
-	
-		 usNormalGroupSize = zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
-	/*
-	switch( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			usNormalGroupSize = gGameExternalOptions.ubMinEnemyGroupSizeNovice;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			usNormalGroupSize = gGameExternalOptions.ubMinEnemyGroupSizeExperienced;
-			break;
-		case DIF_LEVEL_HARD:
-			usNormalGroupSize = gGameExternalOptions.ubMinEnemyGroupSizeExpert;
-			break;
-		case DIF_LEVEL_INSANE:
-		default:
-			usNormalGroupSize = gGameExternalOptions.ubMinEnemyGroupSizeInsane;
-			break;
-	}
-	*/
-	usNormalGroupSize *= 2;
+	UINT16 usNormalGroupSize = 2 * zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
 
 	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier) * 10 ) / 3000.0f;
 

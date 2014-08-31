@@ -8,6 +8,17 @@ UINT32	GameInitOptionsScreenShutdown( void );
 
 BOOLEAN	SpIniExists();
 
+// Flugente: moved enums
+//Enums for the difficulty levels
+enum
+{
+	DIF_LEVEL_EASY = 1,
+	DIF_LEVEL_MEDIUM,
+	DIF_LEVEL_HARD,
+	DIF_LEVEL_INSANE,
+	MAX_DIF_LEVEL = 15,
+};
+
 typedef struct
 {
 	UINT16		uiIndex;
@@ -79,6 +90,6 @@ typedef struct
 	
 } DIFFICULTY_SETTINGS_VALUES;
 extern UINT8 MaxDifficultySettingsValues; 
-extern DIFFICULTY_SETTINGS_VALUES zDeffSetting[15];
+extern DIFFICULTY_SETTINGS_VALUES zDeffSetting[MAX_DIF_LEVEL];
 
 #endif

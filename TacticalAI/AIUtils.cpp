@@ -2266,13 +2266,13 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	bMoraleCategory++;
 
 
- // if adjustments made it outside the allowed limits
- if (bMoraleCategory < MORALE_HOPELESS)
-	bMoraleCategory = MORALE_HOPELESS;
- else
+	// if adjustments made it outside the allowed limits
+	if (bMoraleCategory < MORALE_HOPELESS)
+		bMoraleCategory = MORALE_HOPELESS;
+	else
 	{
-	if (bMoraleCategory > MORALE_FEARLESS)
-	 bMoraleCategory = MORALE_FEARLESS;
+		if (bMoraleCategory > MORALE_FEARLESS)
+			bMoraleCategory = MORALE_FEARLESS;
 	}
 
  // if only 1/4 of side left, reduce morale
@@ -2286,24 +2286,21 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
  }
  */
 
- // brave guys never get hopeless, at worst they get worried
- if (bMoraleCategory == MORALE_HOPELESS &&
-	 (pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID))
-	bMoraleCategory = MORALE_WORRIED;
-
- // SANDRO - on Insane difficulty enemy morale cannot go below worried
- if (bMoraleCategory == MORALE_HOPELESS && zDeffSetting[gGameOptions.ubDifficultyLevel].bEnemyMoraleWorried == TRUE )
- //if (bMoraleCategory == MORALE_HOPELESS && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-	bMoraleCategory = MORALE_WORRIED;
+	// brave guys never get hopeless, at worst they get worried
+	// SANDRO - on Insane difficulty enemy morale cannot go below worried
+	 if ( bMoraleCategory == MORALE_HOPELESS )
+	 {
+		 if ( pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID || zDeffSetting[gGameOptions.ubDifficultyLevel].bEnemyMoraleWorried )
+			 bMoraleCategory = MORALE_WORRIED;
+	 }
 
 #ifdef DEBUGDECISIONS
-		STR tempstr;
-		 sprintf( tempstr, "Morale = %d (category %d)\n",
-		pSoldier->aiData.bMorale,bMoraleCategory);
+	STR tempstr;
+	sprintf( tempstr, "Morale = %d (category %d)\n", pSoldier->aiData.bMorale,bMoraleCategory);
 	DebugAI (tempstr);
 #endif
 
- return(bMoraleCategory);
+	return(bMoraleCategory);
 }
 
 INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForCover, SOLDIERTYPE * pMe )

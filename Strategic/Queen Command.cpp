@@ -570,10 +570,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		HandleArrivalOfReinforcements( gpBattleGroup );
 
 		// Reinforcement groups?  Bring it on!
+		// only if not Omerta on a non-insane difficulty level
 		if( gGameExternalOptions.gfAllowReinforcements &&
-				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA ) ) )	
-				//!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
-				
+			!( ( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA) && (gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE) ) )				
 		{
 			UINT16 pusMoveDir[4][3];
 			UINT8 ubDirNumber = 0;
@@ -585,7 +584,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 			GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir,	FALSE, TRUE );
 
-			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 			{
 				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
 				{
