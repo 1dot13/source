@@ -56,9 +56,7 @@
 #include "Ja25 Strategic Ai.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 // THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 #define DIFF_FACTOR_PLAYER_PROGRESS			50
@@ -2218,12 +2216,10 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 				bDiffModifier += (INT8)(DIFF_FACTOR_GAME_DIFFICULTY * 1.5);
 			}
 			break;
-		#ifdef DIFFICULTY_SETTING
 		default:
 			// equally strong militia, enemies, creatures, bloodcats (+10)
 			bDiffModifier += ( DIFF_FACTOR_GAME_DIFFICULTY / 2 );		
 		break;
-		#endif
 	}
 
 
@@ -2483,7 +2479,6 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 					if( PlacementType == BLOODCAT_PLACEMENT_LAIR )
 					{
 					
-					#ifdef DIFFICULTY_SETTING
 					UINT8 DiffLevel;
 					if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 						DiffLevel = 1;
@@ -2499,9 +2494,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 						if (DiffLevel == 0) DiffLevel = 1;
 					}	
 						pp->bExpLevel += DiffLevel;
-					#else
-						pp->bExpLevel += gGameOptions.ubDifficultyLevel;
-					#endif
+						//pp->bExpLevel += gGameOptions.ubDifficultyLevel;
 					}
 					break;
 			}
@@ -2528,7 +2521,6 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	ubStatsLevel = pp->bExpLevel + bStatsModifier;
 	
-	#ifdef DIFFICULTY_SETTING
 		UINT8 DiffLevel;
 		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 			DiffLevel = 1;
@@ -2544,9 +2536,8 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			if (DiffLevel == 0) DiffLevel = 1;
 		}	
 	ubStatsLevel = max( DiffLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level
-	#else
-	ubStatsLevel = max( gGameOptions.ubDifficultyLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level
-	#endif
+	//ubStatsLevel = max( gGameOptions.ubDifficultyLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level
+	
 	if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
 		ubStatsLevel = max( 6, ubStatsLevel );	//minimum stats level of 6 in insane
 

@@ -49,9 +49,7 @@
 #include "ub_config.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include "email.h"
 #include "mercs.h"
@@ -1297,9 +1295,9 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 		// then we're not allowed to kill him (to avoid really pissing off player by killing his very favorite merc)
 		return;
 	}
-	#ifdef DIFFICULTY_SETTING
+	
 		ubMaxDeaths = zDeffSetting[gGameOptions.ubDifficultyLevel].iMaxMercDeaths;
-	#else
+	/*
 	// how many in total can be killed like this depends on player's difficulty setting
 	switch( gGameOptions.ubDifficultyLevel )
 	{
@@ -1320,7 +1318,7 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 			ubMaxDeaths = 0;
 			break;
 	}
-	#endif
+	*/
 	// if we've already hit the limit in this game, skip these checks
 	if (gStrategicStatus.ubUnhiredMercDeaths >= ubMaxDeaths)
 	{
@@ -1619,9 +1617,8 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// kills per point depends on difficulty, and should match the ratios of starting enemy populations (730/1050/1500)
 	// HEADROCK HAM 3: Externalized all four Kills-per-point ratios.
-	#ifdef DIFFICULTY_SETTING
 		ubKillsPerPoint = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumKillsPerProgressPoint;
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1641,7 +1638,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 			ubKillsPerPoint = 10;
 			break;
 	}
-	#endif
+	*/
 	usKillsProgress = gStrategicStatus.usPlayerKills / ubKillsPerPoint;
 	if (usKillsProgress > usMaxKillsProgress)
 	{

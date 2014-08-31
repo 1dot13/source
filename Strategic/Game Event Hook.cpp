@@ -511,11 +511,15 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			MilitiaMovementOrder( (UINT8) pEvent->uiParam );
 			break;
 
+#ifdef JA2UB
+		// No PCM in UB
+#else
 		case EVENT_PMC_EMAIL:
 			// only send the email if we hven't already visited the site, otherwise continue to spam ;-)
 			if ( !IsBookMarkSet(PMC_BOOKMARK) )
 				AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
+#endif
 
 		case EVENT_PMC_REINFORCEMENT_ARRIVAL:
 			HandlePMCArrival( (UINT8)pEvent->uiParam );

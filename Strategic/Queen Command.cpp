@@ -64,9 +64,7 @@
 #include "Arms Dealer Init.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include <vector>
 
@@ -573,11 +571,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 		// Reinforcement groups?  Bring it on!
 		if( gGameExternalOptions.gfAllowReinforcements &&
-				#ifdef DIFFICULTY_SETTING
-				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA ) ) )
-				#else
-				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
-				#endif
+				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA ) ) )	
+				//!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
+				
 		{
 			UINT16 pusMoveDir[4][3];
 			UINT8 ubDirNumber = 0;

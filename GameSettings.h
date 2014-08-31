@@ -4,11 +4,7 @@
 #include "Types.h"
 #include "Strategic Status.h"
 #include "Morale.h"
-
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
-
 
 #define				GAME_INI_FILE					"Ja2.ini"
 
@@ -189,7 +185,6 @@ enum
 	DIF_LEVEL_HARD,
 	DIF_LEVEL_INSANE,
 	DIF_LEVEL_FIVE,
-	#ifdef DIFFICULTY_SETTING
 	DIF_LEVEL_6,
 	DIF_LEVEL_7,
 	DIF_LEVEL_8,
@@ -200,7 +195,6 @@ enum
 	DIF_LEVEL_13,
 	DIF_LEVEL_14,
 	DIF_LEVEL_15,
-	#endif
 };
 
 //Enums for the difficulty levels

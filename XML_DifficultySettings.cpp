@@ -10,8 +10,6 @@
 	#include "GameInitOptionsScreen.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
-
 struct
 {
 	PARSE_STAGE	curElement;
@@ -593,4 +591,3 @@ BOOLEAN ReadInDifficultySettings( STR fileName, BOOLEAN localizedVersion)
 	
 	return( TRUE );
 }
-#endif

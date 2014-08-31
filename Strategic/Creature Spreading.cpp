@@ -36,9 +36,7 @@
 #include "Strategic Mines.h"
 #include "connect.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #ifdef JA2BETAVERSION
 	BOOLEAN gfClearCreatureQuest = FALSE;
@@ -349,9 +347,8 @@ void InitCreatureQuest()
 #endif
 	giHabitatedDistance = 0;
 	
-	#ifdef DIFFICULTY_SETTING
 	giPopulationModifier = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreaturePopulationModifier;
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -367,7 +364,7 @@ void InitCreatureQuest()
 			giPopulationModifier = INSANE_POPULATION_MODIFIER;
 			break;
 	}
-	#endif
+	*/
 	
 	//Determine which of the maps are infectible by creatures.	Infectible mines
 	//are those that are player controlled and unlimited.	We don't want the creatures to
@@ -517,10 +514,9 @@ void InitCreatureQuest()
 
 	//Now determine how often we will spread the creatures.
 	
-	#ifdef DIFFICULTY_SETTING
 		i = zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenInitBonusSpread;
 		AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureSpreadTime, 0 );
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -540,7 +536,7 @@ void InitCreatureQuest()
 			AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, INSANE_SPREAD_TIME_IN_MINUTES, 0 );
 			break;
 	}
-	#endif
+	*/
 
 	//Set things up so that the creatures can plan attacks on helpless miners and civilians while
 	//they are sleeping.	They do their planning at 10PM every day, and decide to attack sometime
@@ -651,11 +647,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 				case DIF_LEVEL_INSANE: //200%
 					iAbsoluteMaxPopulation *= 2;
 					break;
-				#ifdef DIFFICULTY_SETTING
-					default:
+				default:
 					iAbsoluteMaxPopulation /= 2; //Half
 					break;
-				#endif
 			}
 
 			//Calculate the desired max population percentage based purely on current distant to creature range.
@@ -701,9 +695,8 @@ void SpreadCreatures()
 	}
 
 	//queen just produced a litter of creature larvae.	Let's do some spreading now.
-	#ifdef DIFFICULTY_SETTING
 		usNewCreatures = (UINT16)( zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBase + Random( 1 +  zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBonus ));
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -719,7 +712,7 @@ void SpreadCreatures()
 			usNewCreatures = (UINT16)(INSANE_QUEEN_REPRODUCTION_BASE + Random( 1 + INSANE_QUEEN_REPRODUCTION_BONUS ));
 			break;
 	}
-	#endif
+	*/
 
 	while( usNewCreatures-- )
 	{
@@ -1761,13 +1754,12 @@ void CreatureNightPlanning()
 
 	//10% chance for each creature with difficulty modifier to decide it's time to attack.
 	
-	#ifdef DIFFICULTY_SETTING
-			i = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness;
-			if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
-			{
-				AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
-			}
-	#else
+	i = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness;
+	if( ubNumCreatures > 1 && ubNumCreatures * 10 + i > (INT32)PreRandom( 100 ) )
+	{
+		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
+	}
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1799,7 +1791,7 @@ void CreatureNightPlanning()
 			}
 			break;
 	}
-	#endif
+	*/
 	//if( ubNumCreatures > 1 && ubNumCreatures * 10 > (INT32)PreRandom( 100 ) )
 	//{ //10% chance for each creature to decide it's time to attack.
 	//	AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );

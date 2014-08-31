@@ -9,10 +9,7 @@
 #include "MemMan.h"
 #include "Debug Control.h"
 #include "GameSettings.h"
-
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 typedef enum
 {
@@ -190,7 +187,6 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 	int baseFNLength = strlen(fileName);
 
 	// Append a suffix based on the difficulty
-	#ifdef DIFFICULTY_SETTING
 	switch (gGameOptions.ubDifficultyLevel) {
 		case DIF_LEVEL_ZERO:
 			break;
@@ -242,7 +238,7 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 		default:
 			break;
 	}
-	#else
+	/*
 	switch (gGameOptions.ubDifficultyLevel) {
 		case DIF_LEVEL_ZERO:
 			break;
@@ -263,7 +259,7 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 		default:
 			break;
 	}
-	#endif
+	*/
 
 	strcat(fileName, ".xml");
 	if(!FileExists(fileName))//dnl ch75 261013 just to avoid sdd::exception under debug from VFS when file not exist

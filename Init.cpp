@@ -1460,8 +1460,6 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 		}
 		#endif
 		
-		
-		#ifdef DIFFICULTY_SETTING
 		strcpy(fileName, directoryName);
 		strcat(fileName, DIFFICULTYFILENAME);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -1474,9 +1472,7 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 					SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,TRUE), fileName);
 				}
-			#endif
-		#endif
-		
+			#endif	
 		
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());

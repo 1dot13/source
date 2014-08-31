@@ -8,7 +8,6 @@ UINT32	GameInitOptionsScreenShutdown( void );
 
 BOOLEAN	SpIniExists();
 
-#ifdef DIFFICULTY_SETTING
 typedef struct
 {
 	UINT16		uiIndex;
@@ -81,6 +80,5 @@ typedef struct
 } DIFFICULTY_SETTINGS_VALUES;
 extern UINT8 MaxDifficultySettingsValues; 
 extern DIFFICULTY_SETTINGS_VALUES zDeffSetting[15];
-#endif
 
 #endif

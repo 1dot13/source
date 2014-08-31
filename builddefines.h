@@ -11,11 +11,6 @@
 // https://ja2svn.dyndns.org/source/ja2/trunk/Documents/1.13%20Modding/Modding%20Examples
 #define ENABLE_BRIEFINGROOM
 
-//----- Externalized difficulty settings to "TableData\DifficultySettings.xml" - by Jazz -----
-// Once enabled here, the game reads up to 15 difficulty settings from the xml file
-// INFO: Some INI Settings (ja2_options.ini, CTHConstants.ini and Creature_Settings.ini moved to the xml file)
-#define DIFFICULTY_SETTING
-
 // -----------------------------
 // *****************************
 // WANNE: Enable those 2 defines, if you want to build UB-Version!!

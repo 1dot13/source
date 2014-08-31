@@ -73,9 +73,7 @@
 #include "Ja25Update.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include "ub_config.h" //legion2
 #include "Campaign Types.h"
@@ -147,7 +145,7 @@ UINT8 ubNumTanks = 0;
 				ubNumTroops = 10 + Random( 5 );
 				ubNumElites = Random( 4 );			
 				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
-				break
+				break;
 			}
 		}
 	}

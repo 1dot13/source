@@ -76,9 +76,7 @@
 
 #include "Vehicles.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -5660,9 +5658,8 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	UINT8 normalgroupsize = 0;
 	
-	#ifdef DIFFICULTY_SETTING
 		 normalgroupsize = zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -5679,7 +5676,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			normalgroupsize = gGameExternalOptions.ubMinEnemyGroupSizeInsane;
 			break;
 	}
-	#endif
+	*/
 
 	normalgroupsize *= 2;
 
@@ -6011,9 +6008,8 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 
 	UINT16 usNormalGroupSize = 0;
 	
-	#ifdef DIFFICULTY_SETTING
 		 usNormalGroupSize = zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -6030,7 +6026,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 			usNormalGroupSize = gGameExternalOptions.ubMinEnemyGroupSizeInsane;
 			break;
 	}
-	#endif
+	*/
 	usNormalGroupSize *= 2;
 
 	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier) * 10 ) / 3000.0f;

@@ -18,9 +18,7 @@
 	#include "SaveLoadGame.h"		// added by Flugente
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 STRATEGIC_STATUS	gStrategicStatus;
 
@@ -220,21 +218,15 @@ void UpdateLastDayOfPlayerActivity( UINT16 usDay )
 
 UINT8 LackOfProgressTolerance( void )
 {
-#ifdef DIFFICULTY_SETTING
 UINT8 iTolerance;
-#endif
 
-	#ifdef DIFFICULTY_SETTING
 	if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD || gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-	#else
-	if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
-	#endif
+	//if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )
 	{
 		// give an EXTRA day over normal
 		return( 7 - DIF_LEVEL_MEDIUM + gStrategicStatus.ubHighestProgress / 42 );
 	}
 	
-	#ifdef DIFFICULTY_SETTING
 		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 			iTolerance = 1;
 		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
@@ -247,10 +239,9 @@ UINT8 iTolerance;
 			iTolerance = 1;
 			
 	return( 6 - iTolerance + gStrategicStatus.ubHighestProgress / 42 );
-		
-	#else
-	return( 6 - gGameOptions.ubDifficultyLevel + gStrategicStatus.ubHighestProgress / 42 );
-	#endif
+
+	//return( 6 - gGameOptions.ubDifficultyLevel + gStrategicStatus.ubHighestProgress / 42 );
+	
 }
 
 

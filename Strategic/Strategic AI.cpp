@@ -37,9 +37,7 @@
 	#include "interface dialogue.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #define SAI_VERSION		29
 
@@ -551,9 +549,7 @@ void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySi
 //returns the number of reinforcements permitted to be sent.	Will increased if the denied counter is non-zero.
 INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinforcements )
 {
-	#ifdef DIFFICULTY_SETTING
 	INT32 iExtraReinforcements;
-	#endif
 	
 	INT32 iReinforcementsRequested;
 	INT32 iExistingForces;
@@ -569,7 +565,7 @@ INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinfor
 
 	//Record how many of the reinforcements are additionally provided due to being denied in the past.	This will grow
 	//until it is finally excepted or an absolute max is made.
-	#ifdef DIFFICULTY_SETTING
+	
 		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 			iExtraReinforcements = 1;
 		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
@@ -585,9 +581,8 @@ INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinfor
 		}
 		
 	*pubExtraReinforcements = (UINT8)(gubGarrisonReinforcementsDenied[ iGarrisonID ] / (6 - iExtraReinforcements));
-	#else
-	*pubExtraReinforcements = (UINT8)(gubGarrisonReinforcementsDenied[ iGarrisonID ] / (6 - gGameOptions.ubDifficultyLevel));
-	#endif
+	//*pubExtraReinforcements = (UINT8)(gubGarrisonReinforcementsDenied[ iGarrisonID ] / (6 - gGameOptions.ubDifficultyLevel));
+	
 	//Make sure the number of extra reinforcements don't bump the force size past the max of MAX_STRATEGIC_TEAM_SIZE.
 	*pubExtraReinforcements = (UINT16)min( (INT32)*pubExtraReinforcements, min( (INT32)(*pubExtraReinforcements), iMaxEnemyGroupSize - iReinforcementsRequested ) );
 
@@ -1190,8 +1185,6 @@ void InitStrategicAI()
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
 
-	
-	#ifdef DIFFICULTY_SETTING
 		giReinforcementPool		= zDeffSetting[gGameOptions.ubDifficultyLevel].iQueensInitialPoolOfTroops; 
 		giForcePercentage		= zDeffSetting[gGameOptions.ubDifficultyLevel].iInitialGarrisonPercentages; 
 		giArmyAlertness			= zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyStartingAlertLevel; 
@@ -1202,7 +1195,7 @@ void InitStrategicAI()
 		gfAggressiveQueen		= zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
 		// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance )), 0 );
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1251,8 +1244,7 @@ void InitStrategicAI()
 			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance )), 0);
 			break;
 	}
-	#endif
-
+	*/
 	//Initialize the sectorinfo structure so all sectors don't point to a garrisonID.
 	for( i = 0; i <= 255; i++ )
 	{
@@ -1264,7 +1256,6 @@ void InitStrategicAI()
 	memcpy( gArmyComp, gOrigArmyComp, sizeof( gArmyComp ) );
 
 	//Eliminate more perimeter defenses on the easier levels.
-	#ifdef DIFFICULTY_SETTING
 	
 	if (zDeffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL2 == FALSE) 
 	{
@@ -1291,7 +1282,7 @@ void InitStrategicAI()
 				}
 			}
 	}
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -1354,7 +1345,8 @@ void InitStrategicAI()
 			}
 			break;
 	}
-	#endif
+	*/
+	
 	//initialize the patrol group definitions
 	giPatrolArraySize = iOrigPatrolArraySize;
 	if( gPatrolGroup )
@@ -1529,7 +1521,6 @@ void InitStrategicAI()
 
 		//Now post an event which allows them to check adjacent sectors periodically.
 		//Spread them out so that they process at different times.
-		#ifdef DIFFICULTY_SETTING
 			UINT32 val;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				val = 1;
@@ -1546,9 +1537,8 @@ void InitStrategicAI()
 			}
 				
 		AddPeriodStrategicEventWithOffset( EVENT_CHECK_ENEMY_CONTROLLED_SECTOR, 140 - 20 * val + Random( 4 ), 475 + i, gGarrisonGroup[ i ].ubSectorID );
-		#else
-		AddPeriodStrategicEventWithOffset( EVENT_CHECK_ENEMY_CONTROLLED_SECTOR, 140 - 20 * gGameOptions.ubDifficultyLevel + Random( 4 ), 475 + i, gGarrisonGroup[ i ].ubSectorID );
-		#endif
+		//AddPeriodStrategicEventWithOffset( EVENT_CHECK_ENEMY_CONTROLLED_SECTOR, 140 - 20 * gGameOptions.ubDifficultyLevel + Random( 4 ), 475 + i, gGarrisonGroup[ i ].ubSectorID );
+
 	}
 
 	//Now, initialize each of the patrol groups
@@ -1565,7 +1555,6 @@ void InitStrategicAI()
 			if( ubNumTroops && gGameExternalOptions.fArmyUsesTanksInPatrols )
 			{
 			
-		#ifdef DIFFICULTY_SETTING
 			UINT32 val2;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				val2 = 1;
@@ -1582,9 +1571,9 @@ void InitStrategicAI()
 			}
 			
 				if( Random( 10 ) < val2 && i != 3 && i != 4)
-				#else
-				if( Random( 10 ) < gGameOptions.ubDifficultyLevel && i != 3 && i != 4)
-				#endif
+				
+				//if( Random( 10 ) < gGameOptions.ubDifficultyLevel && i != 3 && i != 4)
+				
 				{
 					ubNumTroops--;
 					ubNumTanks++;
@@ -1660,12 +1649,9 @@ void InitStrategicAI()
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
-						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-						#ifdef DIFFICULTY_SETTING
-						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
-						#else
-						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-						#endif
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;					
+						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);				
+						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1683,11 +1669,8 @@ void InitStrategicAI()
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-						#ifdef DIFFICULTY_SETTING
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
-						#else
-						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-						#endif
+						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1705,11 +1688,8 @@ void InitStrategicAI()
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-						#ifdef DIFFICULTY_SETTING
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
-						#else
-						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-						#endif
+						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1727,11 +1707,8 @@ void InitStrategicAI()
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-						#ifdef DIFFICULTY_SETTING
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
-						#else
-						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-						#endif
+						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1749,11 +1726,8 @@ void InitStrategicAI()
 					{
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-						#ifdef DIFFICULTY_SETTING
 						pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
-						#else
-						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-						#endif
+						//pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
 							ubPicked[0] = ubSector;
 						else if (ubPicked[1] == 0)
@@ -1775,7 +1749,6 @@ void InitStrategicAI()
 	}
 	else
 	{
-		#ifdef DIFFICULTY_SETTING
 		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
@@ -1796,7 +1769,7 @@ void InitStrategicAI()
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + zDeffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);		
 		
-		#else
+		/*
 		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
@@ -1816,7 +1789,7 @@ void InitStrategicAI()
 		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
-		#endif
+		*/
 	}
 
 	ValidateWeights( 1 );
@@ -3452,9 +3425,8 @@ void EvaluateQueenSituation()
 	{
 		dEnemyGeneralsSpeedupFactor = max( 0.5f, dEnemyGeneralsSpeedupFactor - gStrategicStatus.usVIPsLeft * gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus );
 	}
-	#ifdef DIFFICULTY_SETTING
 		uiOffset += dEnemyGeneralsSpeedupFactor * (zDeffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDeffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
-	#else
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -3470,18 +3442,15 @@ void EvaluateQueenSituation()
 			uiOffset += dEnemyGeneralsSpeedupFactor * (gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance ));
 			break;
 	}
-	#endif
+	*/
 
 	if( !giReinforcementPool )
 	{ //Queen has run out of reinforcements.	Simulate recruiting and training new troops
 		uiOffset *= 10;
 		//Madd: don't need an unlimited troops check here, since they can never run out like this
 		
-		#ifdef DIFFICULTY_SETTING
 		giReinforcementPool += ( zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;		
-		#else
-		giReinforcementPool += ( gGameExternalOptions.guiBaseQueenPoolIncrement * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;
-		#endif
+		//giReinforcementPool += ( gGameExternalOptions.guiBaseQueenPoolIncrement * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;
 		
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
 		return;
@@ -3740,10 +3709,9 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	UINT8 ubSAIVersion;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 
-	#ifdef DIFFICULTY_SETTING
-		gfUnlimitedTroops = zDeffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops;
-		gfAggressiveQueen = zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
-	#else
+	gfUnlimitedTroops = zDeffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops;
+	gfAggressiveQueen = zDeffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
+	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
@@ -3763,7 +3731,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 			gfAggressiveQueen		= gGameExternalOptions.gfInsaneAggressiveQueen;
 			break;
 	}
-	#endif
+	*/
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic6");
 	FileRead( hFile, gbPadding2,							3, &uiNumBytesRead );
@@ -4098,12 +4066,10 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 				SectorInfo[ SEC_N5	].bBloodCatPlacements = 12;
 				SectorInfo[ SEC_N5	].bBloodCats = 15;
 				break;
-			#ifdef DIFFICULTY_SETTING
 			default:
 				SectorInfo[ SEC_N5	].bBloodCatPlacements = 8;
 				SectorInfo[ SEC_N5	].bBloodCats = 10;		
 			break;
-			#endif
 		}
 	}
 	if( ubSAIVersion < 23 )
@@ -4408,7 +4374,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 		if( gfExtraElites && iFactor >= 15 && gArmyComp[ i ].bElitePercentage )
 		{
 		
-		#ifdef DIFFICULTY_SETTING
 		INT32 val;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				val = 1;
@@ -4424,9 +4389,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 				if (val == 0) val = 1;
 			}		
 			iChange = val * 5;
-		#else
-			iChange = gGameOptions.ubDifficultyLevel * 5;
-		#endif
+
+			//iChange = gGameOptions.ubDifficultyLevel * 5;
 		
 			//increase elite % (max 100)
 			iNew = gArmyComp[ i ].bElitePercentage + iChange;
@@ -4607,7 +4571,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 			}
 
-			#ifdef DIFFICULTY_SETTING
 			UINT8 val;
 				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 					val = 1;
@@ -4623,10 +4586,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if (val == 0) val = 1;
 				}	
 				
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + val * 3);
-			#else
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
-			#endif
+			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + val * 3);	
+			//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 			// anv: replace one of soldiers with tank
 			for( UINT8 ubCounter = 0; ubCounter < 4; ubCounter++ )
 			{
@@ -4634,28 +4595,24 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				grouptanks[ubCounter] = 0;
 				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 				{
-					#ifdef DIFFICULTY_SETTING
 					if( Random(10) < val )
-					#else
-					if( Random(10) < gGameOptions.ubDifficultyLevel )
-					#endif
+					//if( Random(10) < gGameOptions.ubDifficultyLevel )
 					{
 						grouptroops[ubCounter]--;
 						grouptanks[ubCounter]++;
 					}
 				}
 			}
-			#ifdef DIFFICULTY_SETTING
 			pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[0], grouptroops[0] - grouptroops[0] / val, grouptanks[0] );
 			pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[1], grouptroops[1] - grouptroops[1] / val, grouptanks[1] );
 			pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[2], grouptroops[2] - grouptroops[2] / val, grouptanks[2] );
 			pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[3], grouptroops[3] - grouptroops[3] / val, grouptanks[3] );
-			#else
+			/*
 			pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[0], grouptroops[0] - grouptroops[0] / gGameOptions.ubDifficultyLevel, grouptanks[0] );
 			pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[1], grouptroops[1] - grouptroops[1] / gGameOptions.ubDifficultyLevel, grouptanks[1] );
 			pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[2], grouptroops[2] - grouptroops[2] / gGameOptions.ubDifficultyLevel, grouptanks[2] );
 			pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops[3], grouptroops[3] - grouptroops[3] / gGameOptions.ubDifficultyLevel, grouptanks[3] );
-			#endif
+			*/
 			if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 			{
 				pGroup0->pEnemyGroup->ubIntention = STAGE;
@@ -4699,7 +4656,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					break;
 				}
 
-				#ifdef DIFFICULTY_SETTING
 				UINT8 value;
 					if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 						value = 1;
@@ -4716,10 +4672,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					}
 						
 				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value * 3);
-				
-				#else
-				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
-				#endif
+				//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 				// anv: replace one of soldiers with tank
 				for( UINT8 ubCounter = 0; ubCounter < 4; ubCounter++ )
 				{
@@ -4727,24 +4680,18 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					grouptanks[ubCounter] = 0;
 					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 					{
-						#ifdef DIFFICULTY_SETTING
 						if( Random(10) < gGameOptions.ubDifficultyLevel )
-						#else
-						if( Random(10) < value )						
-						#endif
+					//	if( Random(10) < value )						
 						{
 							grouptroops[ubCounter]--;
 							grouptanks[ubCounter]++;
 						}
 					}
 					groupelites[ubCounter] = 0;
-					#ifdef DIFFICULTY_SETTING
 					if ( value > 0 )
 						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / value;
-					#else
-					if ( gGameOptions.ubDifficultyLevel > 0 )
-						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / gGameOptions.ubDifficultyLevel;
-					#endif
+					//if ( gGameOptions.ubDifficultyLevel > 0 )
+					//	groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / gGameOptions.ubDifficultyLevel;
 				}
 			
 				//UINT32 totalusedsoldiers = 4 * min(grouptroops + groupelites + ubNumTanks, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
@@ -4923,7 +4870,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				BOOLEAN fAttack_Balime		= !(SectorInfo[ SEC_L11 ].ubNumTroops > 0);
 				BOOLEAN fAttack_Chitzena	= !(SectorInfo[ SEC_L11 ].ubNumTroops > 0);
 			
-				#ifdef DIFFICULTY_SETTING
 				UINT8 value2;
 				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 					value2 = 1;
@@ -4939,9 +4885,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if (value2 == 0) value2 = 1;
 				}					
 				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value2 * 3);
-				#else
-				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
-				#endif
+				//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 				// anv: replace one of soldiers with tank
 				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 				{
@@ -4951,16 +4895,10 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 				UINT32 grouptroops = ubNumSoldiers;
 				UINT32 groupelites = 0;
-				#ifdef DIFFICULTY_SETTING
 				if ( value2 > 0 )
-				#else
-				if ( gGameOptions.ubDifficultyLevel > 0 )
-				#endif
-				#ifdef DIFFICULTY_SETTING	
+				//if ( gGameOptions.ubDifficultyLevel > 0 )
 					groupelites = ubNumSoldiers - ubNumSoldiers / value2;
-				#else
-					groupelites = ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel;
-				#endif
+					//groupelites = ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel;
 				UINT32 totalusedsoldiers = 0;
 
 				if ( fAttack_Grumm )
@@ -5196,7 +5134,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle );
 			pSector = &SectorInfo[ ubSectorID ];
 
-			#ifdef DIFFICULTY_SETTING
 				UINT8 value4;
 				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 					value4 = 1;
@@ -5212,17 +5149,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if (value4 == 0) value4 = 1;
 				}
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value4 * 4);
-			#else
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 4);
-			#endif
+			//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 4);
 			// anv: replace one of soldiers with tank
 			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 			{
-				#ifdef DIFFICULTY_SETTING
 				if( Random( 10 ) < value4 )
-				#else
-				if( Random( 10 ) < gGameOptions.ubDifficultyLevel )
-				#endif
+				//if( Random( 10 ) < gGameOptions.ubDifficultyLevel )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;
@@ -5275,7 +5207,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				unsigned intention = (unsigned) option2;
 				Assert(intention < NUM_ENEMY_INTENTIONS);
 				
-				#ifdef DIFFICULTY_SETTING
 				UINT8 value5;
 				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 					value5 = 1;
@@ -5296,13 +5227,13 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 								  Random(HighestPlayerProgressPercentage() / 5) +
 								  Random(option1 / 5)
 								 );
-				#else
+				/*
 				ubNumSoldiers = ( gubMinEnemyGroupSize + 
 					              gGameOptions.ubDifficultyLevel * 3 + 
 								  Random(HighestPlayerProgressPercentage() / 5) +
 								  Random(option1 / 5)
 								 );
-				#endif
+				*/
 
 				if ( !gfUnlimitedTroops )
 					giReinforcementPool -= ubNumSoldiers;
@@ -5350,11 +5281,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 					{
 					
-						#ifdef DIFFICULTY_SETTING
 						if( Random( 10 * 100 ) < value5 * direness )
-						#else
-						if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * direness )
-						#endif
+						//if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * direness )
 						{
 							elitesThisSquad--;
 							tanksThisSquad++;
@@ -5446,7 +5374,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 		case NPC_ACTION_SEND_SOLDIERS_TO_OMERTA:
 		
-			#ifdef DIFFICULTY_SETTING
 			UINT8 value6;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				value6 = 1;
@@ -5462,9 +5389,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				if (value6 == 0) value6 = 1;
 			}			
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value6 * 6); //6, 12, or 18 based on difficulty.	
-			#else
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
-			#endif
+		//	ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, ubNumSoldiers, (UINT8)(ubNumSoldiers/7), 0 ); //add 1 elite to normal, and 2 for hard
 			ubNumSoldiers = (UINT8)(ubNumSoldiers + ubNumSoldiers / 7);
 
@@ -5489,7 +5414,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 		case NPC_ACTION_SEND_TROOPS_TO_SAM:
 			ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
-			#ifdef DIFFICULTY_SETTING
 			UINT8 value7;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				value7 = 1;
@@ -5505,9 +5429,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				if (value7 == 0) value7 = 1;
 			}	
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value7 + HighestPlayerProgressPercentage() / 15 );
-			#else
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel + HighestPlayerProgressPercentage() / 15 );
-			#endif
+		//	ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel + HighestPlayerProgressPercentage() / 15 );
 			//Madd: unlimited reinforcements?
 			if ( !gfUnlimitedTroops )
 				giReinforcementPool -= ubNumSoldiers;
@@ -5515,11 +5437,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			// anv: replace one of soldiers with tank
 			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
 			{
-				#ifdef DIFFICULTY_SETTING
 				if( Random( 10 * 100 ) < value7 * HighestPlayerProgressPercentage() )
-				#else
-				if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * HighestPlayerProgressPercentage() )
-				#endif
+				//if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * HighestPlayerProgressPercentage() )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;
@@ -5557,9 +5476,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 		case NPC_ACTION_GIVE_KNOWLEDGE_OF_ALL_MERCS:
 			//temporarily make the queen's forces more aware (high alert)
-			#ifdef DIFFICULTY_SETTING
 			gubNumAwareBattles = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumAwareBattles;
-			#else
+			/*
 			switch( gGameOptions.ubDifficultyLevel )
 			{
 				case DIF_LEVEL_EASY:
@@ -5575,7 +5493,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					gubNumAwareBattles = gGameExternalOptions.ubInsaneNumAwareBattles;
 					break;
 			}
-			#endif
+			*/
 			break;
 
 		default:
@@ -5841,7 +5759,6 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	//Keep track of victories and wake up the queen after x number of battles.
 	gusPlayerBattleVictories++;
 	
-	#ifdef DIFFICULTY_SETTING
 		UINT8 value8;
 		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 			value8 = 1;
@@ -5857,9 +5774,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 			if (value8 == 0) value8 = 1;
 		}
 	if( gusPlayerBattleVictories == 5 - value8 )
-	#else
-	if( gusPlayerBattleVictories == 5 - gGameOptions.ubDifficultyLevel )
-	#endif
+	//if( gusPlayerBattleVictories == 5 - gGameOptions.ubDifficultyLevel )
 	{ //4 victories for easy, 3 for normal, 2 for hard
 		WakeUpQueen();
 	}
@@ -5981,7 +5896,6 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	}
 
 	//Madd: tweaked to increase attacks for experienced and expert to 8 and 12, and unlimited for insane
-	#ifdef DIFFICULTY_SETTING
 		UINT8 value9;
 		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 			value9 = 1;
@@ -5998,9 +5912,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 		}
 	
 	if( pSector->ubInvestigativeState >= ( 4 * value9 ) && zDeffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector == FALSE )
-	#else
-	if( pSector->ubInvestigativeState >= ( 4 * gGameOptions.ubDifficultyLevel ) && gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
-	#endif
+	//if( pSector->ubInvestigativeState >= ( 4 * gGameOptions.ubDifficultyLevel ) && gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
 	{
 		//This is the 4th time the player has conquered this sector.	We won't pester the player with probing attacks here anymore.
 		return;
@@ -6558,11 +6470,8 @@ void UpgradeAdminsToTroops()
 				while ( ubAdminsToCheck > 0)
 				{
 					// chance to upgrade at each check is random, and also dependant on the garrison's priority
-					#ifdef DIFFICULTY_SETTING
 					if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops == TRUE ) 
-					#else
-					if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel > DIF_LEVEL_HARD ) // Madd: Always happens on Insane
-					#endif
+					//if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel > DIF_LEVEL_HARD ) // Madd: Always happens on Insane
 					{
 						pSector->ubNumAdmins--;
 						pSector->ubNumTroops++;
@@ -6617,11 +6526,8 @@ void UpgradeAdminsToTroops()
 					while ( ubAdminsToCheck > 0)
 					{
 						// chance to upgrade at each check is random, and also dependant on the group's priority
-						#ifdef DIFFICULTY_SETTING
 						if ( Chance ( bPriority ) || zDeffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops2 == TRUE ) 
-						#else
-						if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )// Madd: Always happens on Expert and Insane
-						#endif
+						//if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )// Madd: Always happens on Expert and Insane
 						{
 							pGroup->pEnemyGroup->ubNumAdmins--;
 							pGroup->pEnemyGroup->ubNumTroops++;
@@ -6861,9 +6767,8 @@ void TagSAIGroupWithGracePeriod( GROUP *pGroup )
 
 		if( iPatrolID != -1 )
 		{
-			#ifdef DIFFICULTY_SETTING
 					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + zDeffSetting[gGameOptions.ubDifficultyLevel].iGracePeriodInDaysAfterPatrolDestroyed) % 100);		
-			#else
+			/*
 			switch( gGameOptions.ubDifficultyLevel )			{
 				case DIF_LEVEL_EASY:
 					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubEasyPatrolGracePeriodInDays) % 100);
@@ -6878,7 +6783,7 @@ void TagSAIGroupWithGracePeriod( GROUP *pGroup )
 					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubInsanePatrolGracePeriodInDays) % 100);
 					break;
 			}
-			#endif
+			*/
 		}
 	}
 }

@@ -55,9 +55,7 @@
 #include "CampaignStats.h"		// added by Flugente
 #include "AIInternals.h"//dnl ch61 180813
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2221,7 +2219,6 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	if (PlacementType == BLOODCAT_PLACEMENT_STATIC)
 	{
 		// Are bloodcats set to forgo attacking enemies?
-		#ifdef DIFFICULTY_SETTING
 		UINT8 DiffLev;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				DiffLev = 1;
@@ -2234,10 +2231,8 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 			else
 				DiffLev = 1;
 				
-		if (gBloodcatPlacements[ ubSectorID ][ DiffLev-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)		
-		#else				
-		if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)
-		#endif
+		if (gBloodcatPlacements[ ubSectorID ][ DiffLev-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)						
+		//if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)	
 		{
 			// skip sight between army & bloodcats
 			if ( pStartSoldier->bTeam == ENEMY_TEAM && pEndSoldier->bTeam == CREATURE_TEAM && pEndSoldier->ubBodyType == BLOODCAT )
@@ -2249,11 +2244,8 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 				return( 0 );
 			}
 		}
-		#ifdef DIFFICULTY_SETTING
 		else if (gBloodcatPlacements[ ubSectorID ][ DiffLev-1 ].ubFactionAffiliation > NON_CIV_GROUP)
-		#else
-		else if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
-		#endif
+		//else if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
 		{
 			// Bloodcats in this sector belong to a faction. They adhere to certain rules as a result.
 			if ( pEndSoldier->bTeam == CREATURE_TEAM && pEndSoldier->ubBodyType == BLOODCAT && pStartSoldier->bSide != gbPlayerNum)

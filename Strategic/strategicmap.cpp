@@ -109,9 +109,7 @@
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #ifdef JA2UB
 #include "SaveLoadGame.h"
@@ -7322,12 +7320,9 @@ void CreateAndAddMoneyObjectToGround( UINT32 sGridNo, INT32 iEasyAmount, INT32 i
 			break;
 
 		default:
-		#ifdef DIFFICULTY_SETTING
 			iCash = iNormalAmount;
-		break;
-		#else
-			Assert(0);
-		#endif
+			//Assert(0);
+		break;	
 	}
 
 	CreateMoney( iCash, &Object );
@@ -7524,12 +7519,10 @@ void HandleMovingEnemiesOntoRoofs()
 				MoveEnemyFromGridNoToRoofGridNo( 15446, 13993 );
 				MoveEnemyFromGridNoToRoofGridNo( 15436, 14006 );
 				break;
-			#ifdef DIFFICULTY_SETTING
 			default:
 				MoveEnemyFromGridNoToRoofGridNo( 15446, 13993 );
 				MoveEnemyFromGridNoToRoofGridNo( 15436, 14006 );
 				break;
-			#endif
 		}
 	}
 
@@ -7544,11 +7537,9 @@ void HandleMovingEnemiesOntoRoofs()
 			case DIF_LEVEL_HARD:
 				MoveEnemyFromGridNoToRoofGridNo( 8711, 5521 );
 				break;
-			#ifdef DIFFICULTY_SETTING
 			default:
 				MoveEnemyFromGridNoToRoofGridNo( 8711, 5521 );
 				break;
-			#endif
 		}
 	}
 }

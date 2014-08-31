@@ -45,9 +45,7 @@
 #include "Music Control.h"
 #include "NPC.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
@@ -12968,9 +12966,8 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 		INT32 DifficultyLevel = lua_tointeger(L,1);
 		INT32 iStartingCash = 0;
 		
-		#ifdef DIFFICULTY_SETTING	
 			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDeffSetting[DifficultyLevel].iStartingCash );	
-		#else
+		/*
 		switch( DifficultyLevel )
 		{
 			case DIF_LEVEL_EASY:
@@ -12993,7 +12990,7 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 				iStartingCash = 4500; 
 		}
 		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
-		#endif
+		*/
 	}	
 return 0;
 }

@@ -29,9 +29,7 @@
 #include "network.h"
 #include "saveloadscreen.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
@@ -848,11 +846,8 @@ void BtnMPHDifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	#ifdef DIFFICULTY_SETTING
 		if ( iMPHDifficulty < MaxDifficultySettingsValues - 1)
-	#else
-		if ( iMPHDifficulty < 3 )
-	#endif	
+		//if ( iMPHDifficulty < 3 )
 		{
 			PlayButtonSound( giMPHDifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -2674,11 +2669,8 @@ BOOLEAN		RenderMPHScreen()
 	RenderMPHSmallSelectionFrame( (MPH_DIFFICULTY_SETTING_X + 36), (MPH_DIFFICULTY_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_DIFFICULTY_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	#ifdef DIFFICULTY_SETTING
 	DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_DIFFICULTY_SETTING_Y+6), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, zDeffSetting[ iMPHDifficulty + 1].szDeffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	#else
-	DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_DIFFICULTY_SETTING_Y+6), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iMPHDifficulty + 9 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	#endif
+	//DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_DIFFICULTY_SETTING_Y+6), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iMPHDifficulty + 9 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	// ---------------
 
 	// ---------------

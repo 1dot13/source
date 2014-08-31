@@ -24,9 +24,7 @@
 	#include "Inventory Choosing.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include "connect.h"
 #include "Reinforcement.h"
@@ -53,13 +51,10 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
 
-	#ifdef DIFFICULTY_SETTING
 	if ( ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA )&&( zDeffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcementsOmerta == FALSE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
 		return;
-	#else
-	if ( ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
-		return;
-	#endif
+	//if ( ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
+	//	return;
 	
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 

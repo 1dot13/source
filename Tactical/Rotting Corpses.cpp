@@ -51,9 +51,7 @@
 
 #include "Animation Control.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -980,7 +978,6 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	{
 		gTacticalStatus.fLockItemLocators = FALSE;
 
-		#ifdef DIFFICULTY_SETTING
 		UINT8 DiffLevel;
 			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
 				DiffLevel = 1;
@@ -993,9 +990,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			else
 				DiffLevel = 1;
 		ubNumGoo = 6 - ( DiffLevel - DIF_LEVEL_EASY );
-		#else
-		ubNumGoo = 6 - ( gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY );
-		#endif
+		//ubNumGoo = 6 - ( gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY );
 		
 		sNewGridNo = pSoldier->sGridNo + ( WORLD_COLS * 2 );
 

@@ -61,9 +61,7 @@ class SOLDIERTYPE;
 // anv: for taunts on miss
 #include "Civ Quotes.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 //rain
 //#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
@@ -5935,11 +5933,8 @@ else
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
-	#ifdef DIFFICULTY_SETTING
 		iBaseModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsBASE_DIFFICULTY;
-	#else
-		iBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
-	#endif
+		//iBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 
 	// Percentage based-modifier from the weapon and its attachments
@@ -6272,11 +6267,8 @@ else
 		// GAME DIFFICULTY
 		if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 		{
-		#ifdef DIFFICULTY_SETTING
 			iAimModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsAIM_DIFFICULTY;
-		#else
-			iAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
-		#endif
+			//iAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 		}
 				
 		// Percent modifier from the weapon and its attachments
@@ -12876,11 +12868,8 @@ FLOAT CalcNewChanceToHitBaseSpecialBonus(SOLDIERTYPE *pSoldier)
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
-		#ifdef DIFFICULTY_SETTING
 		fBaseModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsBASE_DIFFICULTY;
-		#else
-		fBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
-		#endif
+		//fBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 
 	return fBaseModifier;
@@ -13179,11 +13168,8 @@ FLOAT CalcNewChanceToHitAimSpecialBonus(SOLDIERTYPE *pSoldier)
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
-	#ifdef DIFFICULTY_SETTING	
 		fAimModifier += zDeffSetting[gGameOptions.ubDifficultyLevel].NewDifficualtySetingsAIM_DIFFICULTY;
-	#else
-		fAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
-	#endif	
+		//fAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 	}
 	
 	return fAimModifier;

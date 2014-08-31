@@ -47,9 +47,7 @@
 
 #include "Map Information.h"
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
@@ -868,14 +866,8 @@ void LoadGameExternalOptions()
 	//tais: mercs can go on assignment; 0 = default behaviour, 1 = all mercs available at start, 2 = no mercs go on other assignments... period!
 	gGameExternalOptions.fMercsOnAssignment			= iniReader.ReadInteger("Recruitment Settings","MERCS_CAN_BE_ON_ASSIGNMENT",0,0,2);
 
-
-
 	//Merc Death Settings:
 	gGameExternalOptions.gfMercsDieOnAssignment			= iniReader.ReadBoolean("Recruitment Settings","MERCS_CAN_DIE_ON_ASSIGNMENT",TRUE);
-	gGameExternalOptions.giEasyMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EASY",1, 0, 10);
-	gGameExternalOptions.giExperiencedMercDeaths		= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EXPERIENCED",2, 0, 10);
-	gGameExternalOptions.giExpertMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EXPERT",3, 0, 10);
-	gGameExternalOptions.giInsaneMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_INSANE",4, 0, 10);
 
 	// CHRISL: New setting to allow Slay to remain as a hired PC
 	gGameExternalOptions.fEnableSlayForever				= iniReader.ReadBoolean("Recruitment Settings", "SLAY_STAYS_FOREVER", FALSE);
@@ -1083,12 +1075,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubShowSuppressionScaleAsterisk		= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_SCALE_ASTERISK", FALSE);
 
 	//################# Tactical Difficulty Settings #################
-
-	// Enemy AP settings
-	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_NOVICE",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_EXPERIENCED",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_EXPERT",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_INSANE",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
 
 	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
 
@@ -1763,12 +1749,6 @@ void LoadGameExternalOptions()
 	// Flat modifier to Current Progress.
 	gGameExternalOptions.bGameProgressModifier					= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MODIFIER", 0, -100, 100);
 
-	// HEADROCK HAM 3: Four INI settings to control the number of kills you must accumulate to win one progress point, one setting per difficulty level
-	gGameExternalOptions.usNumKillsPerProgressPointNovice		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_NOVICE", 7, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointExperienced	= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERIENCED", 10, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointExpert		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERT", 15, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointInsane		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_INSANE", 60, 1, 1000);
-
 	//Global game events 
 	gGameExternalOptions.ubGameProgressStartMadlabQuest			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 0, 100);
 	gGameExternalOptions.ubGameProgressMikeAvailable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 0, 100);
@@ -1981,75 +1961,8 @@ void LoadGameExternalOptions()
 	// WDS - New AI
 	gGameExternalOptions.useNewAI							= iniReader.ReadBoolean("Strategic Enemy AI Settings","NEW_AGGRESSIVE_AI",FALSE);
 
-	gGameExternalOptions.iForcePercentageNovice				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_NOVICE",70, 1, 200);
-	gGameExternalOptions.iForcePercentageExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_EXPERIENCED",100, 1, 300);
-	gGameExternalOptions.iForcePercentageExpert				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_EXPERT",150, 1, 400);
-	gGameExternalOptions.iForcePercentageInsane				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_INSANE",200, 1, 600);
-
-	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_NOVICE",3, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_EXPERIENCED",4, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_EXPERT",6, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_INSANE",12, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-
-	gGameExternalOptions.iPercentElitesBonusExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_EXPERIENCED",0, 0, 100);
-	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_EXPERT",25, 0, 100);
-	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_INSANE",50, 0, 100);
-
-	gGameExternalOptions.gfEasyUnlimitedTroops				= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_NOVICE",FALSE);
-	gGameExternalOptions.gfNormalUnlimitedTroops			= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_EXPERIENCED",FALSE);
-	gGameExternalOptions.gfHardUnlimitedTroops				= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_EXPERT",FALSE);
-	gGameExternalOptions.gfInsaneUnlimitedTroops			= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_INSANE",TRUE);
-
-	gGameExternalOptions.iReinforcementPoolNovice			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_NOVICE",150, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_EXPERIENCED",200, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolExpert			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_EXPERT",400, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolInsane			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_INSANE",8000, 25, 1000000);
-
-	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60, 1, 100);
-
-	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_NOVICE", 5, 1, 100);
-	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_EXPERIENCED", 20, 1, 100);
-	gGameExternalOptions.ubHardEnemyStartingAlertLevel		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_EXPERT", 60, 1, 100);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertLevel	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_INSANE", 80, 1, 100);
-
-	gGameExternalOptions.ubEasyEnemyStartingAlertDecay		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_NOVICE", 75, 1, 100);
-	gGameExternalOptions.ubNormalEnemyStartingAlertDecay	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_EXPERIENCED", 50, 1, 100);
-	gGameExternalOptions.ubHardEnemyStartingAlertDecay		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_EXPERT", 25, 1, 100);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertDecay	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_INSANE", 10, 1, 100);
-
-	gGameExternalOptions.ubEasyNumAwareBattles				= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_NOVICE", 1, 1, 10);
-	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_EXPERIENCED", 2, 1, 10);
-	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_EXPERT", 3, 1, 10);
-	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_INSANE", 4, 1, 10);
-
-	gGameExternalOptions.ubEasyTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_NOVICE", 480, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubNormalTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_EXPERIENCED", 360, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubHardTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_EXPERT", 180, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_INSANE", 90, 10, NUM_MIN_IN_DAY);
-
-	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_NOVICE", 240, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_EXPERIENCED", 180, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_EXPERT", 120, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_INSANE", 60, 10, NUM_MIN_IN_DAY);
-
-	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_NOVICE", 144, 1, 288);
-	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_EXPERIENCED", 96, 1, 288);
-	gGameExternalOptions.ubHardGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_EXPERT", 48, 1, 288);
-	gGameExternalOptions.ubInsaneGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_INSANE", 6, 1, 288);
-
-	gGameExternalOptions.ubEasyPatrolGracePeriodInDays		= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_NOVICE", 16, 1, 100);
-	gGameExternalOptions.ubNormalPatrolGracePeriodInDays	= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_EXPERIENCED", 12, 1, 100);
-	gGameExternalOptions.ubHardPatrolGracePeriodInDays		= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_EXPERT", 8, 1, 100);
-	gGameExternalOptions.ubInsanePatrolGracePeriodInDays	= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_INSANE", 2, 1, 100);
-
-	gGameExternalOptions.gfEasyAggressiveQueen				= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_NOVICE",FALSE);
-	gGameExternalOptions.gfNormalAggressiveQueen			= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_EXPERIENCED",FALSE);
-	gGameExternalOptions.gfHardAggressiveQueen				= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_EXPERT",FALSE);
-	gGameExternalOptions.gfInsaneAggressiveQueen			= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_INSANE",TRUE);
-
 	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("Strategic Enemy AI Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
 	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("Strategic Enemy AI Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
-
 	
 	//################# Militia Training Settings ##################
 
@@ -3366,10 +3279,6 @@ void LoadCTHConstants()
 	gGameCTHConstants.BASE_HEAVY_WEAPON		= iniReader.ReadFloat("Base CTH","BASE_HEAVY_WEAPON",2.0, -1000.0, 1000.0);
 
 	gGameCTHConstants.BASE_DIFFICULTY[0]	= -100.0;
-	gGameCTHConstants.BASE_DIFFICULTY[1]	= iniReader.ReadFloat("Base CTH","BASE_DIFFICULTY_NOVICE",-30.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_DIFFICULTY[2]	= iniReader.ReadFloat("Base CTH","BASE_DIFFICULTY_EXPERIENCED",0.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_DIFFICULTY[3]	= iniReader.ReadFloat("Base CTH","BASE_DIFFICULTY_EXPERT",20.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_DIFFICULTY[4]	= iniReader.ReadFloat("Base CTH","BASE_DIFFICULTY_INSANE",50.0, -1000.0, 1000.0);
 	gGameCTHConstants.BASE_DIFFICULTY[5]	= 100.0;
 
 	////////////////////////////////////////////////////////////
@@ -3410,10 +3319,6 @@ void LoadCTHConstants()
 	gGameCTHConstants.AIM_HEAVY_WEAPON  	= iniReader.ReadFloat("Aiming CTH","AIM_HEAVY_WEAPON",2.0, -1000.0, 1000.0);
 
 	gGameCTHConstants.AIM_DIFFICULTY[0]		= -100.0;
-	gGameCTHConstants.AIM_DIFFICULTY[1]	  	= iniReader.ReadFloat("Aiming CTH","AIM_DIFFICULTY_NOVICE",-30.0, -1000.0, 1000.0);
-	gGameCTHConstants.AIM_DIFFICULTY[2]	  	= iniReader.ReadFloat("Aiming CTH","AIM_DIFFICULTY_EXPERIENCED",0.0, -1000.0, 1000.0);
-	gGameCTHConstants.AIM_DIFFICULTY[3]	  	= iniReader.ReadFloat("Aiming CTH","AIM_DIFFICULTY_EXPERT",20.0, -1000.0, 1000.0);
-	gGameCTHConstants.AIM_DIFFICULTY[4]	  	= iniReader.ReadFloat("Aiming CTH","AIM_DIFFICULTY_INSANE",50.0, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_DIFFICULTY[5]		= 100.0;
 
 	////////////////////////////////////////////////////////////
@@ -3708,37 +3613,6 @@ void LoadCreaturesSettings()
 	gCreaturesSettings.ubCrepitusFeedingSectorX					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_X", 9);
 	gCreaturesSettings.ubCrepitusFeedingSectorY					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Y", 10);
 	gCreaturesSettings.ubCrepitusFeedingSectorZ					= iniReader.ReadInteger("Creatures Settings", "CREPITUS_FEEDING_SECTOR_Z", 2);
-
-	gCreaturesSettings.usCreatureSpreadTimeNovice				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_NOVICE", 510, 5, 14400);
-	gCreaturesSettings.usCreatureSpreadTimeExperienced			= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_EXPERIENCED", 450, 5, 14400);
-	gCreaturesSettings.usCreatureSpreadTimeExpert				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_EXPERT", 390, 5, 14400);
-	gCreaturesSettings.usCreatureSpreadTimeInsane				= iniReader.ReadInteger("Creatures Settings","CREATURE_SPREAD_TIME_INSANE", 150, 5, 14400);
-
-	gCreaturesSettings.ubQueenReproductionBaseNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_NOVICE", 6, 1, 30);
-	gCreaturesSettings.ubQueenReproductionBaseExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_EXPERIENCED", 7, 1, 30);
-	gCreaturesSettings.ubQueenReproductionBaseExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_EXPERT", 9, 1, 30);
-	gCreaturesSettings.ubQueenReproductionBaseInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BASE_INSANE", 15, 1, 30);
-
-	gCreaturesSettings.ubQueenReproductionBonusNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_NOVICE", 1, 0, 10);
-	gCreaturesSettings.ubQueenReproductionBonusExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_EXPERIENCED", 2, 0, 10);
-	gCreaturesSettings.ubQueenReproductionBonusExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_EXPERT", 3, 0, 10);
-	gCreaturesSettings.ubQueenReproductionBonusInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_REPRODUCTION_BONUS_INSANE", 5, 0, 10);
-
-	gCreaturesSettings.ubQueenInitBonusSpreadsNovice			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_NOVICE", 1, 0, 10);
-	gCreaturesSettings.ubQueenInitBonusSpreadsExperienced		= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_EXPERIENCED", 2, 0, 10);
-	gCreaturesSettings.ubQueenInitBonusSpreadsExpert			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_EXPERT", 3, 0, 10);
-	gCreaturesSettings.ubQueenInitBonusSpreadsInsane			= iniReader.ReadInteger("Creatures Settings","QUEEN_INIT_BONUS_SPREAD_INSANE", 5, 0, 10);
-
-	gCreaturesSettings.bCreaturePopulationModifierNovice		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_NOVICE", 0, -5, 5);
-	gCreaturesSettings.bCreaturePopulationModifierExperienced	= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_EXPERIENCED", 0, -5, 5);
-	gCreaturesSettings.bCreaturePopulationModifierExpert		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_EXPERT", 0, -5, 5);
-	gCreaturesSettings.bCreaturePopulationModifierInsane		= iniReader.ReadInteger("Creatures Settings","CREATURE_POPULATION_MODIFIER_INSANE", 0, -5, 5);
-
-	gCreaturesSettings.bCreatureTownAggressivenessNovice		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_NOVICE", -10, -100, 100);
-	gCreaturesSettings.bCreatureTownAggressivenessExperienced	= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_EXPERIENCED", 0, -100, 100);
-	gCreaturesSettings.bCreatureTownAggressivenessExpert		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_EXPERT", 10, -100, 100);
-	gCreaturesSettings.bCreatureTownAggressivenessInsane		= iniReader.ReadInteger("Creatures Settings","CREATURE_TOWN_AGGRESSIVENESS_INSANE", 50, -100, 100);
-
 }
 
 void FreeGameExternalOptions()
@@ -4049,19 +3923,14 @@ void DisplayGameSettings( )
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S)", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 
 	//Display the difficulty level
-	#ifdef DIFFICULTY_SETTING
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDeffSetting[gGameOptions.ubDifficultyLevel].szDeffName );
-	#else
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], gzGIOScreenText[ gGameOptions.ubDifficultyLevel + GIO_EASY_TEXT - 1 ] );
-	#endif
+	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], gzGIOScreenText[ gGameOptions.ubDifficultyLevel + GIO_EASY_TEXT - 1 ] );
 	
-	#ifdef DIFFICULTY_SETTING
 	//Test Settings
 	if ( gGameExternalOptions.gfAllowReinforcements == TRUE )
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"YES");
 	else
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", L"NO");
-	#endif
 	
 	//Bobby Ray option 1
 	if ( gGameOptions.ubBobbyRayQuality >= BR_GOOD && gGameOptions.ubBobbyRayQuality < BR_GREAT )

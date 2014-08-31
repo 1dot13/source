@@ -33,9 +33,7 @@
 	#include "meanwhile.h"
 #endif
 
-#ifdef DIFFICULTY_SETTING
 #include "GameInitOptionsScreen.h"
-#endif
 
 #define		SCRIPT_DELAY													10
 #define		AIR_RAID_SAY_QUOTE_TIME								3000
@@ -514,11 +512,8 @@ void AirRaidLookForDive( )
 	{
 		// If we are are beginning game, only do gun dives..
 		
-		#ifdef DIFFICULTY_SETTING
 		if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && zDeffSetting[gGameOptions.ubDifficultyLevel].bAirRaidLookForDive == FALSE)
-		#else
-		if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && gGameOptions.ubDifficultyLevel < DIF_LEVEL_HARD )
-		#endif
+		//if ( gAirRaidDef.uiFlags & AIR_RAID_BEGINNING_GAME && gGameOptions.ubDifficultyLevel < DIF_LEVEL_HARD )
 		{
 			if ( gbNumDives == 0 )
 			{
