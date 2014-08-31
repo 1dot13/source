@@ -2656,7 +2656,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 			else
 			{	
 				newX = ((UsingNewInventorySystem() == false)) ? (14 + xResOffset) : (6 + xResOffset);
-				newY = ((UsingNewInventorySystem() == false)) ? 218 : 217;
+				newY = ((UsingNewInventorySystem() == false)) ? (218 + yResOffset) : (217 + yResOffset);
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiMapInvSecondHandBlockout, UsingNewInventorySystem(), newX, newY, VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( newX, newY, 102, 24 );
 			}
