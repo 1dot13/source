@@ -3151,7 +3151,7 @@ BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DisplayMessageToUserAboutGameDifficulty()
 {
-	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[ubDiffLevel + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 }
 
 
