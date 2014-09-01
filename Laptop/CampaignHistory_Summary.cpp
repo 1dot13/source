@@ -435,7 +435,7 @@ void RenderCampaignHistory_MostImportant()
 	SetFontShadow( CAMPHIS_FONT_SHADOW );
 	
 	usPosX = LAPTOP_SCREEN_UL_X;
-	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 80;
+	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 70;
 
 	// return if there are no incidents yet
 	if ( !gCampaignStats.usNumIncidents )
@@ -453,7 +453,8 @@ void RenderCampaignHistory_MostImportant()
 	UINT32 hour		= ( incident.usTime - ( day * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
 	UINT32 minute	= ( incident.usTime - ( ( day * NUM_SEC_IN_DAY ) + ( hour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;
 
-	UINT8 importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_MOMENTOUS;
+	// a funny operation name might be more entertaining than a simple number
+	/*UINT8 importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_MOMENTOUS;
 	if ( incident.usInterestRating < 500  )
 		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_IRRELEVANT;
 	else if ( incident.usInterestRating < 1000  )
@@ -476,9 +477,18 @@ void RenderCampaignHistory_MostImportant()
 		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_MAJOR;
 
 	swprintf(sText, L"%s %s #%d - %s, %s %d, %02d:%02d", szCampaignHistoryImportanceString[importancenr], szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_INCIDENT], incident.usID, wSectorName_Target, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_DAY], day, hour, minute);
+	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );*/
+	
+	UINT32 prefix = (incident.usTime + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_PREFIX;
+	UINT32 suffix = (incident.usTime + incident.usShots[CAMPAIGNHISTORY_SD_MERC] + 7 * incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_SUFFIX;
+
+	CHAR16 operationame[200];
+	swprintf( operationame, szCampaignStatsOperationPrefix[prefix], szCampaignStatsOperationSuffix[suffix] );
+
+	swprintf( sText, L"Operation %s - %s, %s %d, %02d:%02d", operationame, wSectorName_Target, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_DAY], day, hour, minute );
 	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	
-	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 110;
+	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 90;
 
 	if ( gusMostImportantMode == 0 )
 	{

@@ -2743,6 +2743,14 @@ enum
 
 extern STR16		szCampaignHistoryWebpageString[];
 
+// Flugente: wacky operation names for campaign stats
+#define		CAMPAIGNSTATS_OPERATION_NUM_PREFIX		100
+#define		CAMPAIGNSTATS_OPERATION_NUM_SUFFIX		100
+
+extern STR16		szCampaignStatsOperationPrefix[];
+extern STR16		szCampaignStatsOperationSuffix[];
+
+
 // Flugente: merc compare website
 #define TEXT_MERCCOMPARE_CUSTOMERSTATEMENTS		7	// number of customer quotes, each with an additional short character name
 

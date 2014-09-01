@@ -8640,6 +8640,274 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Day",
 };
 
+STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
+{
+	L"Glorious %s",
+	L"Mighty %s",
+	L"Awesome %s",
+	L"Intimidating %s",
+
+	L"Powerful %s",
+	L"Earth-Shattering %s",
+	L"Insidious %s",
+	L"Swift %s",
+
+	L"Violent %s",
+	L"Brutal %s",
+	L"Relentless %s",
+	L"Merciless %s",
+
+	L"Cannibalistic %s",
+	L"Gorgeous %s",
+	L"Rogue %s",
+	L"Dubious %s",
+
+	L"Sexually Ambigious %s",
+	L"Burning %s",
+	L"Enraged %s",
+	L"Visonary %s",
+
+	// 20
+	L"Gruseome %s",
+	L"International-law-ignoring %s",
+	L"Provoked %s",
+	L"Ceaseless %s",
+
+	L"Inflexible %s",
+	L"Unyielding %s",
+	L"Regretless %s",
+	L"Remorseless %s",
+
+	L"Choleric %s",
+	L"Unexpected %s",
+	L"Democratic %s",
+	L"Bursting %s",
+
+	L"Bipartisan %s",
+	L"Bloodstained %s",
+	L"Rouge-wearing %s",
+	L"Innocent %s",
+
+	L"Hateful %s",
+	L"Underwear-staining %s",
+	L"Civilian-devouring %s",
+	L"Unflinching %s",
+
+	// 40
+	L"Expect No Mercy From Our %s",
+	L"Very Mad %s",
+	L"Ultimate %s",
+	L"Furious %s",
+
+	L"Its best to Avoid Our %s",
+	L"Fear the %s",
+	L"All Hail the %s!",
+	L"Protect the %s",
+
+	L"Beware the %s",
+	L"Crush the %s",
+	L"Backstabbing %s",
+	L"Vicious %s",
+
+	L"Sadistic %s",
+	L"Burning %s",
+	L"Wrathful %s",
+	L"Invincible %s",
+
+	L"Guilt-ridden %s",
+	L"Rotting %s",
+	L"Sanitized %s",
+	L"Self-doubting %s",
+
+	// 60
+	L"Ancient %s",
+	L"Very Hungry %s",
+	L"Sleepy %s",
+	L"Demotivated %s",
+
+	L"Cruel %s",
+	L"Annoying %s",
+	L"Huffy %s",
+	L"Bisexual %s",
+
+	L"Screaming %s",
+	L"Hideous %s",
+	L"Praying %s",
+	L"Stalking %s",
+
+	L"Cold-blooded %s",
+	L"Fearsome %s",
+	L"Trippin' %s",
+	L"Damned %s",
+
+	L"Vegetarian %s",
+	L"Grotesque %s",
+	L"Backward %s",
+	L"Superior %s",
+
+	// 80
+	L"Inferior %s",
+	L"Okay-ish %s",
+	L"Porn-consuming %s",
+	L"Poisoned %s",
+
+	L"Spontaneous %s",
+	L"Lethargic %s",
+	L"Tickled %s",
+	L"The %s is a dupe!",
+
+	L"%s on Steroids",
+	L"%s vs. Predator",
+	L"A %s with a twist",
+	L"Self-Pleasuring %s",
+
+	L"Man-%s hybrid",
+	L"Inane %s",
+	L"Overpriced %s",
+	L"Midnight %s",
+
+	L"Capitalist %s",
+	L"Communist %s",
+	L"Intense %s",
+	L"Steadfast %s",
+
+	// 100
+};
+
+STR16	szCampaignStatsOperationSuffix[] =
+{
+	L"Dragon",
+	L"Mountain Lion",
+	L"Copperhead Snake",
+	L"Jack Russell Terrier",
+
+	L"Arch-Nemesis",
+	L"Basilisk",
+	L"Blade",
+	L"Shield",
+
+	L"Hammer",
+	L"Spectre",
+	L"Congress",
+	L"Oilfield",
+
+	L"Boyfriend",
+	L"Girlfriend",
+	L"Husband",
+	L"Stepmother",
+
+	L"Sand Lizard",
+	L"Bankers",
+	L"Anaconda",
+	L"Kitten",
+
+	// 20
+	L"Congress",
+	L"Senate",
+	L"Cleric",
+	L"Badass",
+
+	L"Bayonet",
+	L"Wolverine",
+	L"Soldier",
+	L"Tree Frog",
+
+	L"Weasel",
+	L"Shrubbery",
+	L"Tar pit",
+	L"Sunset",
+
+	L"Hurricane",
+	L"Ocelot",
+	L"Tiger",
+	L"Defense Industry",
+
+	L"Snow Leopard",
+	L"Megademon",
+	L"Dragonfly",
+	L"Rottweiler",
+
+	// 40
+	L"Cousin",
+	L"Grandma",
+	L"Newborn",
+	L"Cultist",
+
+	L"Disinfectant",
+	L"Democracy",
+	L"Warlord",
+	L"Doomsday Device",
+
+	L"Minister",
+	L"Beaver",
+	L"Assassin",
+	L"Rain of Burning Death",
+
+	L"Prophet",
+	L"Interloper",
+	L"Crusader",
+	L"Administration",
+
+	L"Supernova",
+	L"Liberty",
+	L"Explosion",
+	L"Bird of Prey",
+
+	// 60
+	L"Manticore",
+	L"Frost Giant",
+	L"Celebrity",
+	L"Middle Class",
+
+	L"Loudmouth",
+	L"Scape Goat",
+	L"Warhound",
+	L"Vengeance",
+
+	L"Fortress",
+	L"Mime",
+	L"Conductor",
+	L"Job-Creator",
+
+	L"Frenchman",
+	L"Superglue",
+	L"Newt",
+	L"Incompetency",
+
+	L"Steppenwolf",
+	L"Iron Anvil",
+	L"Grand Lord",
+	L"Supreme Ruler",
+
+	// 80
+	L"Dictator",
+	L"Old Man Death",
+	L"Shredder",
+	L"Vacuum Cleaner",
+
+	L"Hamster",
+	L"Hypno-Toad",
+	L"Discjockey",
+	L"Undertaker",
+
+	L"Gorgon",
+	L"Child",
+	L"Mob",
+	L"Raptor",
+
+	L"Goddess",
+	L"Gender Inequality",
+	L"Mole",
+	L"Baby Jesus",
+
+	L"Gunship",
+	L"Citizen",
+	L"Lover",
+	L"Mutual Fund",
+
+	// 100
+};
+
 STR16	szMercCompareWebSite[] =	// TODO.Translate
 {
 	// main page
