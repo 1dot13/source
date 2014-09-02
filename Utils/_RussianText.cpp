@@ -245,7 +245,7 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"Фабр.",
 	L"Госп.",
 	L"Тюрьм.",
-	L"Аэро.",
+	L"Аэроп.",
 };
 
 STR16	pEncyclopediaFilterLocationText[] =
@@ -255,7 +255,7 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"Города",
 	L"ПВО",
 	L"Шахты",
-	L"Аэропор.",
+	L"Аэроп.",
 	L"Дик.мес",
 	L"Подзем.",
 	L"Завед.",
@@ -483,7 +483,7 @@ STR16			BoxFilter[] =
 	L"Наборы",
 	L"Лицо",
 	L"Разгр.",
-	L"Разное.", //34
+	L"Разное", //34
 };
 //-----------
 
@@ -1626,7 +1626,7 @@ CHAR16 WeaponType[MAXITEMS][30] =
 	L"Сн.винтовка",		//Sniper rifle
 	L"Шт.винтовка",		//Assault rifle
 	L"Ручной пулемёт",	//LMG
-	L"Ружьё",		//Shotgun
+	L"Дробовик",		//Shotgun
 };
 
 CHAR16 TeamTurnString[][STRING_LENGTH] =
@@ -2449,12 +2449,12 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Попаданий в засады: %d\n",
 	L"Крупнейшая битва: %d врагов\n",
 
-	L"Стреляных ран: %d\n",
+	L"Огнестрельных ран: %d\n",
 	L"Ножевых ран: %d\n",
 	L"Пропущенных ударов: %d\n",
 	L"Подорвался: %d\n",
 	L"Ухудшений параметров: %d\n",
-	L"Перенёс мед. вмешательств: %d\n",	//Surgeries undergone
+	L"Перенёс хир. операций: %d\n",	//Surgeries undergone
 	L"Травм на производстве: %d\n",	//Facility Accidents
 
 	L"Характер:",
@@ -2892,22 +2892,21 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
-	// TODO.Translate
-	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
-	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
-	L"|A|c|c|u|r|a|c|y\n \nThis is an innate Chance-to-Hit Bonus (or\npenalty!) given by this gun due to its\nparticular good (or bad) design.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |L|e|v|e|l|s\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |M|o|d|i|f|i|e|r\n \nA flat modifier, which alters the effectiveness\nof each aiming click you make while using this\nweapon.\n \nHigher is better.",
-	L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s\n \nThe minimum range-to-target required before this\nweapon can make use of its Aiming Modifier.\n \nIf the target is closer than this many tiles,\naiming clicks will stay at their default\neffectiveness.\n \nLower is better.",
-	L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r\n \nA flat modifier to Chance-to-Hit with any\nattack made using this weapon.\n \nHigher is better.",
-	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e\n \nThe range (in tiles) at which the laser installed\non this weapon will be at its full effectiveness.\n \nWhen attacking a target beyond this range, the\nlaser will provide a smaller bonus or none at all.\n \nHigher is better.",
-	L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
-	L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
-	L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
-	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"|Д|а|л|ь|н|о|с|т|ь\n \nФактическая дальность стрельбы из этого оружия.\nСтрельба с расстояний, превышающих данный показатель,\nбудет осуществляться со значительными штрафами\nна точность.\n \nБольше - лучше.",
+	L"|У|р|о|н\n \nПоказатель потенциального урона оружия.\nПопадание в незащищенную цель нанесет ей\nпримерно столько единиц урона.\n \nБольше - лучше.",
+	L"|Т|о|ч|н|о|с|т|ь\n \nПоказатель исходного бонуса (или штрафа!)\nк точности, присущего этому оружию благодаря\nего удачному (или неудачному) дизайну.\n \nБольше - лучше.",
+	L"|У|р|о|в|н|и |п|р|и|ц|е|л|и|в|а|н|и|я\n \nМаксимальное число кликов прицеливания,\nвозможных при использовании этого оружия.\n \nС каждым кликом прицеливания атака\nстановится более точной.\n \nБольше - лучше.",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|р|и|ц|е|л|и|в|а|н|и|я\n \nФиксированный модификатор, меняющий\nэффективность каждого клика прицеливания\nпри использовании этого оружия.\n \nБольше - лучше.",
+	L"|М|и|н|. |р|а|с|с|т|о|я|н|и|е |д|л|я |б|о|н|у|с|а |п|р|и |п|р|и|ц|е|л|и|в|а|н|и|и\n \nМинимальное расстояние до цели, при котором\nк этому оружию может применяться\nмодификатор прицеливания.\n \nЕсли цель находится ближе, чем\nэтот показатель, то эффективность каждого\nклика прицеливания будет неизменной.\n \nМеньше - лучше.",
+	L"|М|о|д|и|ф|и|к|а|т|о|р |п|о|п|а|д|а|н|и|я\n \nФиксированный модификатор шанса попадания\nпри любой атаке из этого оружия.\n \nБольше - лучше.",
+	L"|О|п|т|и|м|а|л|ь|н|а|я |д|а|л|ь|н|о|с|т|ь |л|а|з|е|р|а\n \nДальность (в тайлах), в пределах которой\nлазерный целеуказатель, установленный на оружии,\nбудет работать с максимальной эффективностью.\n \nПри стрельбе с расстояний, превышающих данный показатель,\nцелеуказатель будет давать меньший бонус или\nне будет давать его вовсе.\n \nБольше - лучше.",
+	L"|С|к|р|ы|т|а|я |в|с|п|ы|ш|к|а |в|ы|с|т|р|е|л|а\n \nПоявление этой иконки означает, что\nоружие не производит вспышки при выстреле.\nЭто позволяет стрелку оставаться незамеченным.",
+	L"|Г|р|о|м|к|о|с|т|ь\n \nЭто расстояние в тайлах, на которое распространяется\nзвук стрельбы. В пределах этого расстояния\nвраги смогут услышать звук вашего выстрела.\n \nМеньше - лучше.",
+	L"|Н|а|д|ё|ж|н|о|с|т|ь\n \nОпределяет, как быстро состояние этого\nоружия ухудшается при использовании.\n \nБольше - лучше.",
+	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 	L"",	//12
-	L"ОД на вскидку",						//APs to ready
-	L"ОД на 1 выстрел",						//APs to fire Single
+	L"ОД на вскидывание",						//APs to ready
+	L"ОД на 1 выстрел",							//APs to fire Single
 	L"ОД на огонь с отсечкой",					//APs to fire Burst
 	L"ОД на огонь очередью",					//APs to fire Auto
 	L"ОД на замену магазина",					//APs to Reload
@@ -2924,33 +2923,33 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"Нет отсечки патрона!",					//No Burst Mode!
 	L"Нет автоматического режима!",					//No Auto Mode!
 	L"ОД на удар",							//APs to Bash
-    L"",
-	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+    	L"",
+	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
-	L"Модификатор размера предмета\n(меньше - лучше)",		//Item Size Modifier (Lower is better)
-	L"Модификатор надёжности",						//Reliability Modifier
-	L"Модификатор шумности\n(меньше - лучше)",			//Loudness Modifier (Lower is better)
-	L"Скрывает вспышку",							//Hides Muzzle Flash
-	L"Модификатор сошек",							//Bipod Modifier
-	L"Модификатор дальнобойности",						//Range Modifier
-	L"Модификатор точности",						//To-Hit Modifier
-	L"Радиус наилучшей видимости\nточки прицеливания",			//Best Laser Range
-	L"Модификатор бонусов оптики",						//Aiming Bonus Modifier
-	L"Модификатор очереди с отсечкой",					//Burst Size Modifier
+	L"Модификатор размера предмета\n(меньше - лучше)",							//Item Size Modifier (Lower is better)
+	L"Модификатор надёжности",												//Reliability Modifier
+	L"Модификатор шумности\n(меньше - лучше)",									//Loudness Modifier (Lower is better)
+	L"Скрывает вспышку",														//Hides Muzzle Flash
+	L"Модификатор сошек",														//Bipod Modifier
+	L"Модификатор дальности",													//Range Modifier
+	L"Модификатор точности",													//To-Hit Modifier
+	L"Оптимальная дальность лазера",											//Best Laser Range
+	L"Модификатор бонусов оптики",												//Aiming Bonus Modifier
+	L"Модификатор очереди с отсечкой",											//Burst Size Modifier
 	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(больше - лучше)",	//Burst Penalty Modifier (Higher is better)
 	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(больше - лучше)",	//Auto-Fire Penalty Modifier (Higher is better)
-	L"Модификатор ОД",							//AP Modifier
-	L"Модификатор ОД\nна очередь с отсечкой\n(меньше - лучше)",	//AP to Burst Modifier (Lower is better)
-	L"Модификатор ОД\nна очередь без отсечки\n(меньше - лучше)",	//AP to Auto-Fire Modifier (Lower is better)
-	L"Модификатор ОД на вскидку\n(меньше - лучше)",			//AP to Ready Modifier (Lower is better)
-	L"Модификатор ОД\nна замену магазина\n(меньше - лучше)",		//AP to Reload Modifier (Lower is better)
-	L"Модификатор объёма магазина",						//Magazine Size Modifier
-	L"Модификатор ОД на выстрел\n(меньше - лучше)",			//AP to Attack Modifier (Lower is better)
-	L"Модификатор урона",							//Damage Modifier
-	L"Модификатор урона\nв ближнем бою", 					//Melee Damage Modifier
+	L"Модификатор ОД",														//AP Modifier
+	L"Модификатор ОД\nна очередь с отсечкой\n(меньше - лучше)",					//AP to Burst Modifier (Lower is better)
+	L"Модификатор ОД\nна очередь без отсечки\n(меньше - лучше)",					//AP to Auto-Fire Modifier (Lower is better)
+	L"Модификатор ОД на вскидывание\n(меньше - лучше)",						//AP to Ready Modifier (Lower is better)
+	L"Модификатор ОД\nна замену магазина\n(меньше - лучше)",					//AP to Reload Modifier (Lower is better)
+	L"Модификатор размера магазина",											//Magazine Size Modifier
+	L"Модификатор ОД на выстрел\n(меньше - лучше)",							//AP to Attack Modifier (Lower is better)
+	L"Модификатор урона",														//Damage Modifier
+	L"Модификатор урона\nв ближнем бою", 										//Melee Damage Modifier
 	L"Камуфляж 'Лес'",
 	L"Камуфляж 'Город'",
 	L"Камуфляж 'Пустыня'",
@@ -2962,9 +2961,9 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Модификатор диапазона\nвидимости ночью",
 	L"Модификатор диапазона\nвидимости при ярком освещении", //30
 	L"Модификатор диапазона\nвидимости в пещере",
-	L"Сужение сектора обзора\n(меньше - лучше)",		//Tunnel Vision Percentage (Lower is better)
-	L"Минимальная эффективная\nдальность оптики",			//Minimum Range for Aiming Bonus
-	L"Зажмите |C|t|r|l для сравнения предметов",			// item compare help text 
+	L"Туннельное зрение\n(меньше - лучше)",										//Tunnel Vision Percentage (Lower is better)
+	L"Минимальное расстояние\nдля бонуса при прицеливании",					//Minimum Range for Aiming Bonus
+	L"Зажмите |C|t|r|l для сравнения предметов",									// item compare help text 
 };
 
 // HEADROCK: End new tooltip text
@@ -3602,7 +3601,7 @@ STR16 pMapInventoryErrorString[] =
 	L"%s вне этого сектора, и не может подобрать предмет.",
 	L"Во время боя вам придется подбирать вещи с земли.",
 	L"Во время боя вам придется выкладывать вещи на землю на тактической карте.",
-	L"%s вне этого сектора, и не может оставить предмет.",
+	L"%s вне этого сектора и не может оставить предмет.",
 	L"Во время битвы вы не можете заряжать оружие патронами из короба.",
 };
 
@@ -3869,7 +3868,7 @@ STR16 pTransactionText[] =
 	L"Оплата счета M.E.R.C.",
 	L"%s: страховка.", 		// medical deposit for merc
 	L"I.M.P.: Анализ профиля", 		// IMP is the acronym for International Mercenary Profiling
-	L"%s: куплена страховка.", 
+	L"%s: куплена страховка", 
 	L"%s: Страховка уменьшена",
 	L"%s: Продление страховки", 				// johnny contract extended
 	L"для %s: Страховка аннулирована", 
@@ -4297,8 +4296,8 @@ STR16 pHistoryStrings[] =
 	//76-80
 	L"Убийца ушёл.",
 	L"%s убит(а) вашим отрядом.",
-	L"Met Waldo - aircraft mechanic.",
-	L"Helicopter repairs started. Estimated time: %d hour(s).",
+	L"Встретили Вальдо, авиатехника.",
+	L"Начат ремонт вертолета. Будет закончен через %d часов.",
 };
 */
 
@@ -4729,7 +4728,7 @@ STR16			MercHomePageText[] =
 
 STR16	sFuneralString[] =
 {
-	L"Похоронное агентство Макгилликатти: скорбим вместе с семьями усопших с 1983.",
+	L"Похоронное агентство Макгилликатти: скорбим вместе с семьями усопших с 1983 г.",
 	L"Директор по похоронам и бывший наемник А.I.М. - Мюррэй Макгилликатти \"Папаша\", специалист по части похорон.",
 	L"Всю жизнь Папашу сопровождали смерть и утраты, поэтому он, как никто, познал их тяжесть.",
 	L"Похоронное агентство Макгилликатти предлагает широкий спектр ритуальных услуг - от жилетки, в которую можно поплакать, до восстановления сильно поврежденных останков.",
@@ -4884,7 +4883,7 @@ STR16			BobbyRFilter[] =
 	L"Сн.винтовки",
 	L"Шт.винтовки",
 	L"Пулеметы",
-	L"Ружья",
+	L"Дробовики",
 	L"Тяжелое",
 
 	// Ammo
@@ -4895,7 +4894,7 @@ STR16			BobbyRFilter[] =
 	L"Сн.винтовки",
 	L"Шт.винтовки",
 	L"Пулеметы",
-	L"Ружья",
+	L"Дробовики",
 
 	// Used
 	L"Оружие",
@@ -5435,7 +5434,7 @@ STR16			zSaveLoadText[] =
 
 	L"Это сохранение было сделано иной версией игры. Скорее всего, загрузить его не удастся. Все равно продолжить?",
 
-	L"Возможно файлы сохранений повреждены. Желаете их удалить?",
+	L"Возможно, файлы сохранений повреждены. Желаете их удалить?",
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
@@ -5519,7 +5518,7 @@ STR16		zMarksMapScreenText[] =
 	L"В %s максимальное количество ополченцев.",
 	L"У наемника ограниченный контракт.", 
 	L"Контракт наемника не застрахован",
-	L"Стратегическая Карта",
+	L"Стратегическая карта",
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Сейчас у вас нет мобильных групп ополчения. Включите этот режим в следующий раз, когда наберёте их.",
 	L"Здесь показано, куда ваши мобильные отряды могут пройти, и куда нет. СЕРЫЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Правым щелчком кнопки мыши можно менять цветовой статус сектора.",
@@ -5996,7 +5995,7 @@ STR16 pDeliveryLocationStrings[] =
 STR16 pSkillAtZeroWarning[] =
 { //This string is used in the IMP character generation.  It is possible to select 0 ability
 	//in a skill meaning you can't use it.  This text is confirmation to the player.
-	L"Вы уверены? Значение ноль - означает отсутствие этого навыка вообще.",
+	L"Вы уверены? Значение ноль означает отсутствие этого навыка вообще.",
 };
 
 STR16 pIMPBeginScreenStrings[] =
@@ -6146,7 +6145,7 @@ STR16 pMessageStrings[] =
 	L"%s прибудет в точку назначения (сектор %s) в %dй день, примерно в %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"В журнал добавлена запись!",
 	L"Очереди из гранат используют курсор стрельбы очередями (стрельба по площадям возможна)",
-	L"Очереди из гранат используют курсор метания (стрельба по площадям не возможна)",
+	L"Очереди из гранат используют курсор метания (стрельба по площадям невозможна)",
 	L"Включены подписи к солдатам", // Changed from Drop All On (Enabled Soldier Tooltips)
 	L"Отключены подписи к солдатам", 	// 80	// Changed from Drop All Off (Disabled Soldier Tooltips)
 	L"Гранатометы стреляют под обычным углом",
@@ -6625,7 +6624,7 @@ STR16 gzTooltipStrings[] =
 	L"Пистолет-пулемет",
 	L"Винтовка",
 	L"Ручной пулемет",
-	L"Ружье",
+	L"Дробовик",
 	L"Нож",
 	L"Тяжелое оружие",
 	L"без каски",
@@ -6670,7 +6669,7 @@ STR16 New113Message[] =
 	L"Проверьте, что вашим бойцам мешает лучше видеть.",	//You should check your goggles
 	// Real Time Mode messages
 	L"Уже в бою.",	//In combat already
-	L"В приделах видимости нет врагов.",	//No enemies in sight
+	L"В пределах видимости нет врагов.",	//No enemies in sight
 	L"Красться в режиме реального времени ОТКЛ.",	//Real-time sneaking OFF
 	L"Красться в режиме реального времени ВКЛ.",	//Real-time sneaking ON
 	//L"Enemy spotted! (Ctrl + x to enter turn based)",
@@ -6692,7 +6691,7 @@ STR16 New113Message[] =
 	L"%s восстановил(а) %d единиц потерянного %s.",	//%s has regained %d points of lost %s
 	L"Ваши навыки разведчика сорвали засаду противника.",
 	L"Благодаря вашим навыкам разведчика вы успешно избежали встречи с кошками-убицами!",	
-	L"%s получает удар в пах и падает на землю в адской боли!",
+	L"%s получает удар в пах и падает на землю от адской боли!",
 /////
 	L"Внимание: враг обнаружил труп!!!",
 	L"%s [%d патр.]\n%s %1.1f %s",
@@ -6843,7 +6842,7 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Gunslinger
 	L"Ковбой: С одним револьвером или с двумя - вы так же опасны, как Билли Кид! ± ",	//Gunslinger: With one handgun or two, you can be as lethal as Billy the Kid!
 	// Squadleader
-	L"Командир: Прирождённый лидер, солдаты просто боготворят вас! ± ",	//Squadleader: A natural leader, your squadmates look to you for inspiration!
+	L"Командир: Вы прирождённый лидер, солдаты просто боготворят вас! ± ",	//Squadleader: A natural leader, your squadmates look to you for inspiration!
 	// Technician
 	L"Механик: Ангус МакГайвер по сравнению с вами просто никто! Механика, электроника или взрывчатка - вы отремонтируете что угодно! ± ",	//Technician: MacGyver's got nothing on you! Mechanical, electronic or explosive, you can fix it!
 	// Doctor
