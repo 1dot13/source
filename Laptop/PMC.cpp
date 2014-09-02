@@ -37,6 +37,7 @@
 #include "Game Event Hook.h"
 #include "militia control.h"
 #include "Town Militia.h"
+#include "Strategic Town Loyalty.h"
 #endif
 
 extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
@@ -564,7 +565,9 @@ void PMCTeamHireCallback( GUI_BUTTON *btn, INT32 reason )
 
 		gPMCHiringEvents.push_back( hiringevent );
 
-		AddStrategicEvent( EVENT_PMC_REINFORCEMENT_ARRIVAL, hiringevent.usTimeToArrive, hiringevent.usId );
+		// The ETA is, well, just an ETA - randomise it a bit
+		UINT32 realarrivaltime = hiringevent.usTimeToArrive - 60 + Random(180);
+		AddStrategicEvent( EVENT_PMC_REINFORCEMENT_ARRIVAL, realarrivaltime, hiringevent.usId );
 		
 		gPMCData.usRegularsAvailable -= pmcdata[0].usToHire;
 		pmcdata[0].usToHire = 0;
@@ -750,9 +753,14 @@ void HandlePMCArrival( UINT8 usId )
 			// if this is in the current sector, militia will be updated
 			ResetMilitia( );
 
+			// notify the player that his reinforcements have arrived
 			GetSectorIDString( SECTORX( (*it).usSectorToArrive ), SECTORY( (*it).usSectorToArrive ), 0, gPMCSectorNamesstr[0], TRUE );
 
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPMCWebSite[TEXT_PMC_ARRIVAL], gPMCSectorNamesstr[0] );
+
+			// there is a chance that loyalty in cities will be lowered - townsfolk might dislike massive rise in foreign mercenaries
+			// note: this is the decrease in hundreths of loyalty points, and one basic town loyalty point is worth 500 hundreths
+			DecrementTownLoyaltyEverywhere( 50 * (*it).usRegulars + 75 * (*it).usVeterans );
 
 			// delete event, we're done here
 			gPMCHiringEvents.erase( it );
