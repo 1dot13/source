@@ -54,7 +54,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>В некоторых секторах есть заведения, к примеру, бары и шахты. Наемников можно назначать на работу в эти заведения. Подсказки, сообщающие о функциях заведений, появляются при назначении наемников на работу в них.</szName>
+    <szName>В некоторых секторах есть заведения, к примеру, бары и шахты. Наемников можно назначать на работу в эти заведения.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
@@ -66,11 +66,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Зажав кнопку [END] на тактическом экране, вы сможете увидеть поле зрения выделенного в данный момент наемника. Красная зона означает, что он не заметит никого, зеленая - заметит даже лежащего в траве человека.</szName>
+    <szName>Зажав кнопку [END] на тактическом экране, вы сможете увидеть поле зрения выделенного в данный момент наемника.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Зажав кнопку [DEL] на тактическом экране, вы сможете понять, насколько заметны ваши наемники для врагов, которых вы видите. Красная зона означает, что наемника увидят даже лежащим, зеленая - наемник в идеальном укрытии.</szName>
+    <szName>Зажав кнопку [DEL] на тактическом экране, вы сможете понять, насколько заметны ваши наемники для врагов, которых вы видите.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
@@ -114,7 +114,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>27</uiIndex>
-    <szName>В магазинах не только продают, но и покупают некоторые ваши вещи. Правда, они довольно придирчивы.</szName>
+    <szName>В магазинах не только продают, но и покупают некоторые ваши вещи. Правда, продавцы в них довольно придирчивы.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
@@ -126,7 +126,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>30</uiIndex>
-    <szName>Нажатие на  [CTRL]+[.] откроет удобное меню сектора.</szName>
+    <szName>Нажатие на [CTRL]+[.] откроет удобное меню сектора.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
@@ -242,7 +242,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>Можно вести автоматический огонь по площади. Для этого в режиме автоматического огня нажмите и удерживайте ЛКМ на том месте, откуда хотите начать стрельбу, затем ведите мышь вдоль линии стрельбы, а в конце отпустите ЛКМ.</szName>
+    <szName>Можно вести автоматический огонь по площади. Для этого в режиме автоматического огня нажмите и удерживайте ЛКМ, затем ведите мышь вдоль линии стрельбы, а в конце отпустите ЛКМ.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>60</uiIndex>
@@ -287,7 +287,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
-    <szName>Используйте экспансивные боеприпасы, чтобы убить котов-убийц.</szName>
+    <szName>Используйте экспансивные боеприпасы, чтобы убить кошек-убийц.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>71</uiIndex>
@@ -355,7 +355,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
-    <szName>Прежде чем бросать во врага гранаты с газом, убедитесь, что у врага нет противогаза. Для проверки наведите курсор на врага и зажмите кнопку [ALT]. Количество полученной информации зависит от расстояния до врага.</szName>
+    <szName>Прежде чем бросать во врага гранаты с газом, убедитесь, что у врага нет противогаза. Для проверки наведите курсор на врага и зажмите [ALT]. Чем ближе враг, тем больше информации вы узнаете.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
@@ -427,7 +427,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>105</uiIndex>
-    <szName>Всегда устраняйте текущую угрозу, прежде чем начать выполнять свой план.</szName>
+    <szName>Всегда устраняйте текущую угрозу, прежде чем начать выполнять свой новый план.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
@@ -443,7 +443,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>109</uiIndex>
-    <szName>Подсчет пуль в бою - сложная штука. Не удивляйтесь, если ваш наемник забыл, сколько точно пуль осталось в его магазане.</szName>
+    <szName>Подсчет пуль в бою - сложная штука. Не удивляйтесь, если ваш наемник забыл, сколько точно пуль осталось в его магазине.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
@@ -531,7 +531,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Нажав курсоров в виде руки на голубой флажок, вы попадете в удобное меню разминирования.</szName>
+    <szName>Нажав курсором в виде руки на голубой флажок, вы попадете в удобное меню разминирования.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>

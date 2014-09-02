@@ -28,11 +28,11 @@
     <szFacilityShortName>Тюрьма</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-      <szTooltipText>Здесь вы можете допрашивать пленных. Они могут перейти на сторону повстанцев, или выдать важную информаци..</szTooltipText>
+      <szTooltipText>Здесь вы можете допрашивать пленных. Они могут перейти на сторону повстанцев или выдать важную информацию.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Выдайте себя за одного из заключенных, чтобы втереться к ним в доверие и выведать информацию или предотвратить мятежs.</szTooltipText>
+      <szTooltipText>Выдайте себя за одного из заключенных, чтобы втереться к ним в доверие и выведать информацию или предотвратить мятеж.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -50,7 +50,7 @@
     <szFacilityShortName>Завод</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
-      <szTooltipText>На станках этого завода можно изготовить любые запчасти. Такая возможность значительно увеличит вашу эффективность при ремонте вещей, если конечно вы умеете обращаться с инструментами.</szTooltipText>
+      <szTooltipText>На станках этого завода можно изготовить любые запчасти. Такая возможность значительно увеличит вашу эффективность при ремонте вещей, если, конечно, вы умеете обращаться с инструментами.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -59,7 +59,7 @@
     <szFacilityShortName>Казармы</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REST</ubAssignmentType>
-      <szTooltipText>Обычная казарма, ничего лишнего: кровати, кровати и ещё раз кровати. Однако, всё равно, это лучше ночёвки на улице!</szTooltipText>
+      <szTooltipText>Обычная казарма, ничего лишнего: кровати, кровати и ещё раз кровати. Однако, всё равно это лучше ночёвки на улице!</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -68,7 +68,7 @@
     <szFacilityShortName>Штаб</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>STAFF</ubAssignmentType>
-      <szTooltipText>Штаб оснащён всевозможным электронным оборудованием, разработанным для концентрации и обработки стратегической информации по всей стране. Это поможет вам организовать свою защиту, а так же сбор информации о вражеских передвижениях вне городов.</szTooltipText>
+      <szTooltipText>Штаб оснащён всевозможным электронным оборудованием, разработанным для концентрации и обработки стратегической информации по всей стране. Это поможет вам организовать свою защиту, а также сбор информации о вражеских передвижениях вне городов.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
@@ -108,16 +108,16 @@
     <szFacilityShortName>Шахта</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
-      <szTooltipText>Любого, кто знает как установить взрывчатку, шахтёры примут с распростёртыми объятиями. Увеличивает эффективность обучения взрывному делу.</szTooltipText>
+      <szTooltipText>Любого, кто знает, как установить взрывчатку, шахтёры примут с распростёртыми объятиями. Увеличивает эффективность обучения взрывному делу.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
     <ubIndex>12</ubIndex>
-    <szFacilityName>Малая Церковь</szFacilityName>
+    <szFacilityName>Малая церковь</szFacilityName>
     <szFacilityShortName>Церковь</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REST</ubAssignmentType>
-      <szTooltipText>Торжественный час молитвы и преданности вере в тихой небольшой церкви может помочь поднять чей-то дух. А так же, это могло бы убедить местных жителей, что вы уважаете их образ жизни.</szTooltipText>
+      <szTooltipText>Торжественный час молитвы и преданности вере в тихой небольшой церкви может помочь поднять чей-то дух. А также это могло бы убедить местных жителей, что вы уважаете их образ жизни.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -126,7 +126,7 @@
     <szFacilityShortName>Клуб</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
-      <szTooltipText>Здесь имеется много гимнастического оборудования, которое только и ждёт чтобы им воспользовались. Отличный способ получить комплексную разминку, которая могла бы значительно улучшить вашу физическую форму. Увеличивает эффективность практики здоровья.</szTooltipText>
+      <szTooltipText>Здесь имеется много гимнастического оборудования, которое только и ждёт, чтобы им воспользовались. Отличный способ получить комплексную разминку, которая могла бы значительно улучшить вашу физическую форму. Увеличивает эффективность практики здоровья.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -145,15 +145,15 @@
     <szFacilityShortName>Свалка</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
-      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто паражают - как можно было выбросить такую нужную хрень?! Такое обилие комплектующих значительно ускорит ремонт ваших вещей.</szTooltipText>
+      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто поражают - как можно было выбросить такую нужную хрень?! Такое обилие комплектующих значительно ускорит любые ремонтные работы.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
-      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто паражают - как можно было выбросить такую нужную хрень?! Такое обилие комплектующих значительно ускорит ремонт ваших вещей.</szTooltipText>
+      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто поражают - как можно было выбросить такую нужную хрень?! Такое обилие комплектующих значительно ускорит любые ремонтные работы.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
-      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто паражают - как можно было выбросить такую нужную хрень?!. Такое обилие комплектующих значительно ускорит ремонт ваших вещей.</szTooltipText>
+      <szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто поражают - как можно было выбросить такую нужную хрень?!. Такое обилие комплектующих значительно ускорит любые ремонтные работы.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -196,7 +196,7 @@
     <szFacilityShortName>Тюрьма</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-      <szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам, или сообщить полезную информацию.</szTooltipText>
+      <szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам или сообщить полезную информацию.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
@@ -210,7 +210,7 @@
     <szFacilityShortName>Тюрьма</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-      <szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам, или сообщить полезную информацию.</szTooltipText>
+      <szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам или сообщить полезную информацию.</szTooltipText>
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>

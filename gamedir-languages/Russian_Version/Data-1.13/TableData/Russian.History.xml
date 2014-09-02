@@ -86,7 +86,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>21</uiIndex>
-    <sHistory>%s ушла, чтобы выйти замуж за Дерила Хика.</sHistory>
+    <sHistory>%s ушла, чтобы выйти замуж за Деррила Хикса.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>22</uiIndex>
@@ -134,7 +134,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>33</uiIndex>
-    <sHistory>Королева Дейдрана нашла применение трупам.</sHistory>
+    <sHistory>Королева Дейдранна нашла применение трупам.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>34</uiIndex>
@@ -314,10 +314,10 @@
   </TEXT>
   <TEXT>
 	<uiIndex>78</uiIndex>
-    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+    <sHistory>Встретили Вальдо, авиамеханика.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>79</uiIndex>
-    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+    <sHistory>Начат ремонт вертолета. Будет закончен через %d часов.</sHistory>
   </TEXT>
 </STRINGS>
