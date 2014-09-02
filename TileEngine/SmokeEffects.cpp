@@ -558,7 +558,7 @@ void DecaySmokeEffects( UINT32 uiTime )
 	INT8	bLevel;
 	UINT16	usNumUpdates = 1;
 
-	for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
+	for ( cnt = 0; cnt < guiNumMercSlots; ++cnt )
 	{
 		if ( MercSlots[ cnt ] )
 		{
@@ -571,7 +571,7 @@ void DecaySmokeEffects( UINT32 uiTime )
 	// all the deleting has to be done first///
 
 	// age all active tear gas clouds, deactivate those that are just dispersing
-	for ( cnt = 0; cnt < guiNumSmokeEffects; cnt++ )
+	for ( cnt = 0; cnt < guiNumSmokeEffects; ++cnt )
 	{
 		fSpreadEffect = TRUE;
 
@@ -608,7 +608,7 @@ void DecaySmokeEffects( UINT32 uiTime )
 			{
 				pSmoke->uiTimeOfLastUpdate = uiTime;
 
-				for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
+				for ( cnt2 = 0; cnt2 < usNumUpdates; ++cnt2 )
 				{
 					pSmoke->bAge++;
 	
@@ -660,24 +660,24 @@ void DecaySmokeEffects( UINT32 uiTime )
 		}
 	}
 
-	for ( cnt = 0; cnt < guiNumSmokeEffects; cnt++ )
+	for ( cnt = 0; cnt < guiNumSmokeEffects; ++cnt )
 	{
 		pSmoke = &gSmokeEffectData[ cnt ];
 
 		if ( pSmoke->fAllocated )
 		{
-			if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
-			{
-				bLevel = 1;
-			}
-			else
-			{
-				bLevel = 0;
-			}
-
 			// if this cloud remains effective (duration not reached)
 			if ( pSmoke->bFlags & SMOKE_EFFECT_MARK_FOR_UPDATE )
 			{
+				if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
+				{
+					bLevel = 1;
+				}
+				else
+				{
+					bLevel = 0;
+				}
+
 				SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, TRUE, bLevel, cnt );
 				pSmoke->bFlags &= (~SMOKE_EFFECT_MARK_FOR_UPDATE);
 			}

@@ -207,11 +207,13 @@ void DecayLightEffects( UINT32 uiTime )
 {
 	LIGHTEFFECT *pLight;
 	UINT32 cnt, cnt2;
+	BOOLEAN fUpdate = FALSE;
 	BOOLEAN	fDelete = FALSE;
+	BOOLEAN fAnyUpdate = FALSE;
 	UINT16	usNumUpdates = 1;
 
 	// age all active tear gas clouds, deactivate those that are just dispersing
-	for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
+	for ( cnt = 0; cnt < guiNumLightEffects; ++cnt )
 	{
 		pLight = &gLightEffectData[ cnt ];
 
@@ -219,19 +221,32 @@ void DecayLightEffects( UINT32 uiTime )
 
 		if ( pLight->fAllocated )
 		{
-			// ATE: Do this every so ofte, to acheive the effect we want...
-			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 10 )
-			{
-				usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 10 );
+			usNumUpdates = 1;
 
+			// Do things differently for combat /vs realtime
+			// always try to update during combat
+			if ( gTacticalStatus.uiFlags & INCOMBAT )
+			{
+				fUpdate = TRUE;
+			}
+			// ATE: Do this every so ofte, to acheive the effect we want...
+			else if ( (uiTime - pLight->uiTimeOfLastUpdate) > 10 )
+			{
+				fUpdate = TRUE;
+				usNumUpdates = (UINT16)((uiTime - pLight->uiTimeOfLastUpdate) / 10);
+			}
+
+			if ( fUpdate )
+			{
 				pLight->uiTimeOfLastUpdate = uiTime;
 
-				for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
+				for ( cnt2 = 0; cnt2 < usNumUpdates; ++cnt2 )
 				{
-					pLight->bAge++;
+					++pLight->bAge;
 
 					if ( pLight->ubDuration <= 0 )
 						fDelete = TRUE;
+
 					// if this cloud remains effective (duration not reached)
 					if ( pLight->bAge < pLight->ubDuration)
 					{
@@ -239,7 +254,7 @@ void DecayLightEffects( UINT32 uiTime )
 						// cloud expands by 1 every turn outdoors, and every other turn indoors
 						if ( ( pLight->bAge % 2 ) )
 						{
-							pLight->bRadius--;
+							--pLight->bRadius;
 						}
 
 						if ( pLight->bRadius == 0 )
@@ -270,11 +285,16 @@ void DecayLightEffects( UINT32 uiTime )
 					}
 				}
 
-
-				// Handle sight here....
-				AllTeamsLookForAll( FALSE );
+				// we have to update sight later on if any light was updated
+				fAnyUpdate = TRUE;
 			}
 		}
+	}
+
+	if ( fAnyUpdate )
+	{
+		// Handle sight here....
+		AllTeamsLookForAll( FALSE );
 	}
 }
 
