@@ -15231,7 +15231,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						checkslot = VESTPOCKPOS;
 						break;
 					case 4:
-						if ( bLoop == 23 || bLoop == 35 || bLoop == 36 || bLoop == 37 || bLoop == 38 )
+						if ( bLoop == MEDPOCK3POS ||  bLoop == SMALLPOCK11POS ||  bLoop == SMALLPOCK12POS ||  bLoop == SMALLPOCK13POS ||  bLoop == SMALLPOCK14POS )
 							checkslot = LTHIGHPOCKPOS;
 						else
 							checkslot = RTHIGHPOCKPOS;
@@ -15410,7 +15410,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						checkslot = VESTPOCKPOS;
 						break;
 					case 4:
-						if ( bLoop == 23 || bLoop == 35 || bLoop == 36 || bLoop == 37 || bLoop == 38 )
+						if ( bLoop == MEDPOCK3POS ||  bLoop == SMALLPOCK11POS ||  bLoop == SMALLPOCK12POS ||  bLoop == SMALLPOCK13POS ||  bLoop == SMALLPOCK14POS )
 							checkslot = LTHIGHPOCKPOS;
 						else
 							checkslot = RTHIGHPOCKPOS;

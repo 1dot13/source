@@ -6613,13 +6613,14 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 
 		else if (IsSlotAnLBESlot(bPos) == true && Item[pObj->usItem].usItemClass == IC_LBEGEAR)
 		{
-			/*CHRISL: If we're trying to swap LBE items between IC pockets, we have to be careful that items are moved
-			into active pockets or that an LBENODE is properly created.*/
+			/* Buggler: Code commented due to weird results when swapping filled LBE items that has pockets of the same size
+			//CHRISL: If we're trying to swap LBE items between IC pockets, we have to be careful that items are moved
+			into active pockets or that an LBENODE is properly created.
 			if(pObj->HasAnyActiveLBEs(pSoldier) == false && !(_KeyDown(SHIFT))){
 				std::vector<INT8> LBESlots;
 				GetLBESlots(bPos, LBESlots);
 				MoveItemsToActivePockets(pSoldier, LBESlots, bPos, pObj);
-			}
+			}*/
 			pInSlot->MoveThisObjectTo(gTempObject, -1, pSoldier, bPos);
 			pObj->MoveThisObjectTo(*pInSlot, -1, pSoldier, bPos);
 			//CHRISL: We need to make sure there are no items left in pObj or we'll lose them
