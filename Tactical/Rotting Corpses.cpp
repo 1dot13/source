@@ -3105,3 +3105,15 @@ BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse )
 
 	return FALSE;
 }
+
+// Flugente: how rotten is this corpse? values from 0 to 1, 1 as soon as it is rotting
+FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse )
+{
+	if ( !pCorpse )
+		return 0.0f;
+
+	if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+		return 1.0f;
+
+	return (GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) / DELAY_UNTIL_ROTTING;
+}

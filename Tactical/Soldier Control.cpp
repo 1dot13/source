@@ -18668,6 +18668,9 @@ void	SOLDIERTYPE::DeleteBoxingFlag( )
 // Flugente: disease
 void	SOLDIERTYPE::Infect( UINT8 aDisease )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return;
+
 	// we are getting infected. Raise our disease points, but not over the level of an infection
 	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] < Disease[aDisease].sInfectionPtsInitial )
 	{
@@ -18692,13 +18695,15 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 		}
 				
 		// remove later on, for testing only
-		if ( 1 )
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was infected with %s", gMercProfiles[this->ubProfile].zNickname, Disease[aDisease].szName );
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was infected with %s", gMercProfiles[this->ubProfile].zNickname, Disease[aDisease].szName );
 	}
 }
 
 void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return;
+
 	if ( aDisease < NUM_DISEASES )
 	{
 		this->sDiseasePoints[aDisease] = min( Disease[aDisease].sInfectionPtsFull, max( this->sDiseasePoints[aDisease] + aVal, -Disease[aDisease].sInfectionPtsOutbreak ) );
@@ -18740,6 +18745,9 @@ void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
 // do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed
 BOOLEAN SOLDIERTYPE::HasDisease( BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, BOOLEAN fSymbolOnly )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return FALSE;
+
 	for ( int i = 0; i < NUM_DISEASES; ++i )
 	{
 		// disease is relevant if we are infected and are not looking for symbols only while the disease has no symbol
@@ -18774,6 +18782,9 @@ FLOAT	SOLDIERTYPE::GetDiseaseMagnitude( UINT8 aDisease )
 
 void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return;
+
 	// only for living mercs with a profile with a valid infection method
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
 		return;

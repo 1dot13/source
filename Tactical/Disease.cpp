@@ -390,6 +390,9 @@ void HandleDisease()
 // chance gets modified by aModifier (contextual modifier)
 void HandlePossibleInfection( SOLDIERTYPE *pSoldier, SOLDIERTYPE* pOtherSoldier, UINT8 aInfectionType, FLOAT aModifier, BOOLEAN fStrategicOnly )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return;
+	
 	// only for living mercs with a profile with a valid infection method
 	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || pSoldier->ubProfile == NO_PROFILE || aInfectionType >= INFECTION_TYPE_MAX )
 		return;

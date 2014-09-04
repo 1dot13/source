@@ -236,4 +236,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
 // Flugente: can we take the clothes of this corpse?
 BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse );
 
+// Flugente: how rotten is this corpse? values from 0 to 1, 1 as soon as it is rotting
+FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse );
+
 #endif
