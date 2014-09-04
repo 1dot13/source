@@ -18771,6 +18771,9 @@ BOOLEAN SOLDIERTYPE::HasDisease( BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, 
 // get the magnitude os a disease we might have, used to determine wether there are any effects
 FLOAT	SOLDIERTYPE::GetDiseaseMagnitude( UINT8 aDisease )
 {
+	if ( !gGameExternalOptions.fDisease )
+		return 0.0f;
+
 	// diseases only have effects once they have broken out (otherwise stuff happens without the player having any clue as to why)
 	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] > 0 && (this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_OUTBREAK) )
 	{
