@@ -5769,6 +5769,14 @@
 		<APCost>20</APCost>
 	</MERGE>
 	<MERGE>
+		<firstItemIndex>1542</firstItemIndex>
+		<secondItemIndex>1542</secondItemIndex>
+		<firstResultingItemIndex>1542</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>1</mergeType>
+		<APCost>32</APCost>
+	</MERGE>
+	<MERGE>
 		<firstItemIndex>1546</firstItemIndex>
 		<secondItemIndex>1546</secondItemIndex>
 		<firstResultingItemIndex>1546</firstResultingItemIndex>
@@ -5823,5 +5831,53 @@
 		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
 		<APCost>32</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1721</firstItemIndex>
+		<secondItemIndex>1721</secondItemIndex>
+		<firstResultingItemIndex>1722</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>10</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1722</firstItemIndex>
+		<secondItemIndex>1722</secondItemIndex>
+		<firstResultingItemIndex>1723</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>	
+	<MERGE>
+		<firstItemIndex>1722</firstItemIndex>
+		<secondItemIndex>1726</secondItemIndex>
+		<firstResultingItemIndex>1724</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>90</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1723</firstItemIndex>
+		<secondItemIndex>1726</secondItemIndex>
+		<firstResultingItemIndex>1725</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>90</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1726</firstItemIndex>
+		<secondItemIndex>1722</secondItemIndex>
+		<firstResultingItemIndex>1724</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>90</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1726</firstItemIndex>
+		<secondItemIndex>1723</secondItemIndex>
+		<firstResultingItemIndex>1725</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>90</APCost>
 	</MERGE>
 </MERGELIST>

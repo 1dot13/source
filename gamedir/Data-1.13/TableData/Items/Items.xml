@@ -46527,6 +46527,7 @@
 		<BR_NewInventory>15</BR_NewInventory>
 		<BR_UsedInventory>10</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<buddyitem>1541</buddyitem>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46540,7 +46541,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>2</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>892</ubGraphicNum>
 		<ubWeight>200</ubWeight>
@@ -46563,13 +46563,12 @@
 		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>893</ubGraphicNum>
-		<ubWeight>5</ubWeight>
+		<ubWeight>50</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>18</ItemSize>
-		<usPrice>75</usPrice>
+		<usPrice>200</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<WaterDamages>1</WaterDamages>
 		<BR_NewInventory>10</BR_NewInventory>
@@ -51598,6 +51597,147 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1721</uiIndex>
+		<szItemName>Wooden Planks, small</szItemName>
+		<szLongItemName>Wooden Planks, small</szLongItemName>
+		<szItemDesc>Wooden Planks. 1x1</szItemDesc>
+		<szBRName>Wooden Planks, small</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>235</ubGraphicNum>
+		<ubWeight>60</ubWeight>
+		<ItemSize>949</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<TwoHanded>1</TwoHanded>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1722</uiIndex>
+		<szItemName>Wooden Planks, medium</szItemName>
+		<szLongItemName>Wooden Planks, medium</szLongItemName>
+		<szItemDesc>Wooden Planks. 2x1</szItemDesc>
+		<szBRName>Wooden Planks, medium</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>236</ubGraphicNum>
+		<ubWeight>90</ubWeight>
+		<ItemSize>949</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<TwoHanded>1</TwoHanded>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1723</uiIndex>
+		<szItemName>Wooden Planks, large</szItemName>
+		<szLongItemName>Wooden Planks, large</szLongItemName>
+		<szItemDesc>Wooden Planks. 2x2</szItemDesc>
+		<szBRName>Wooden Planks, large</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>237</ubGraphicNum>
+		<ubWeight>120</ubWeight>
+		<ItemSize>949</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<TwoHanded>1</TwoHanded>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1724</uiIndex>
+		<szItemName>Wooden Wall, small</szItemName>
+		<szLongItemName>Wooden Wall, small</szLongItemName>
+		<szItemDesc>A small wooden wall, used for construction.</szItemDesc>
+		<szBRName>Wooden Wall, small</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>238</ubGraphicNum>
+		<ubWeight>80</ubWeight>
+		<ItemSize>949</ItemSize>
+		<usPrice>40</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<TwoHanded>1</TwoHanded>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1725</uiIndex>
+		<szItemName>Wooden Wall, large</szItemName>
+		<szLongItemName>Wooden Wall, large</szLongItemName>
+		<szItemDesc>A large wooden wall, used for construction.</szItemDesc>
+		<szBRName>Wooden Wall, large</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>239</ubGraphicNum>
+		<ubWeight>150</ubWeight>
+		<ItemSize>949</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<TwoHanded>1</TwoHanded>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1726</uiIndex>
+		<szItemName>Nails</szItemName>
+		<szLongItemName>Pack of Nails</szLongItemName>
+		<szItemDesc>A pack of eight inch nails. Useful for building stuff made of wood.</szItemDesc>
+		<szBRName>Pack of Nails</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>240</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ItemSize>916</ItemSize>
+		<usPrice>5</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<HiddenAttachment>1</HiddenAttachment>
+		<Hardware>1</Hardware>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

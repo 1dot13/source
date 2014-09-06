@@ -544,4 +544,72 @@
 		<szMenuRowText>OFF</szMenuRowText>
 		<szTooltipText>Switch off flashlight.</szTooltipText>
 	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1722</usItem>
+		<usResult1>1721</usResult1>
+		<usResult2>1721</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Seperate Stacks</szMenuRowText>
+		<szTooltipText>seperate into 2 small stacks</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1723</usItem>
+		<usResult1>1722</usResult1>
+		<usResult2>1722</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Seperate Stacks</szMenuRowText>
+		<szTooltipText>seperate into 2 medium stacks</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1723</usItem>
+		<usResult1>1722</usResult1>
+		<usResult2>1721</usResult2>
+		<usResult3>1721</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Seperate Stacks</szMenuRowText>
+		<szTooltipText>seperates into 1 medium and 2 small stacks</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1723</usItem>
+		<usResult1>1721</usResult1>
+		<usResult2>1721</usResult2>
+		<usResult3>1721</usResult3>
+		<usResult4>1721</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Seperate Stacks</szMenuRowText>
+		<szTooltipText>seperate into 4 small stacks</szTooltipText>
+	</TRANSFORM>
 </TRANSFORMATIONS_LIST>
