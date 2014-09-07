@@ -79,6 +79,33 @@ typedef struct
 
 } ITEM_POOL_LOCATOR;
 
+// Flugente: we can construct and deconstruct map structures via items.
+typedef struct {
+	UINT16 usDeconstructItem;					// the item that has to be used to deconstruct the structure
+	UINT16 usItemToCreate;						// the item that will be created when we deconstruct a structure
+	UINT8  usCreatedItemStatus;					// status of the item to create
+	char szTileSetName[20];						// name of the tileset
+	std::vector<UINT8> tilevector;				// structures in the tileset that we can deconstruct
+} STRUCTURE_DECONSTRUCT;
+
+#define STRUCTURE_DECONSTRUCT_MAX		200
+
+extern STRUCTURE_DECONSTRUCT gStructureDeconstruct[STRUCTURE_DECONSTRUCT_MAX];
+
+typedef struct {
+	UINT16	usCreationItem;						// the item that will be consumed when creating the structure
+	UINT8	usItemStatusLoss;					// item will lose this number of status points
+	char	szTileSetName[20];					// name of the tileset
+	std::vector<UINT8> northtilevector;			// structures in the tileset we can create while facing north
+	std::vector<UINT8> southtilevector;			// structures in the tileset we can create while facing south
+	std::vector<UINT8> easttilevector;			// structures in the tileset we can create while facing east
+	std::vector<UINT8> westtilevector;			// structures in the tileset we can create while facing west
+} STRUCTURE_CONSTRUCT;
+
+#define STRUCTURE_CONSTRUCT_MAX		200
+
+extern STRUCTURE_CONSTRUCT gStructureConstruct[STRUCTURE_CONSTRUCT_MAX];
+
 class SOLDIERTYPE;
 INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
 void SoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo, INT8 bZLevel );
@@ -180,8 +207,11 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 BOOLEAN MarblesExistAtLocation( INT32 sGridNo, UINT8 ubLevel, INT32 * piItemIndex );
 
-BOOLEAN BuildFortification( INT32 sGridNo , UINT32 flag = FULL_SANDBAG );	// Flugente: build a structure, return true if sucessful
-BOOLEAN RemoveFortification( INT32 sGridNo );
+// Flugente: build an deconstruct structures
+BOOLEAN IsStructureConstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier );	// can we construct a structure with this item?
+BOOLEAN IsStructureDeconstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier );	// can we remove a structure with this item?
+BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );		// build a structure, return true if sucessful
+BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );		// remove a structure, return true if sucessful
 
 extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 

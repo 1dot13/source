@@ -1241,6 +1241,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_StructureConstruct.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_StructureDeconstruct.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Taunts.cpp"
 				>
 			</File>

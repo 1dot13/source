@@ -4512,7 +4512,7 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 				// check if we have a shovel in our second hand
 				OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
 
-				if ( pShovelObj && (pShovelObj->exists()) && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+				if ( pShovelObj && pShovelObj->exists() && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
 				{
 					INT8 bOverTerrainType = GetTerrainType( usMapPos );
 					if( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
@@ -4521,18 +4521,19 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 					}
 				}
 			}
-			else if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
+			
+			if ( IsFortificationPossibleAtGridNo( usMapPos ) && IsStructureConstructItem( pSoldier->inv[HANDPOS].usItem, usMapPos, pSoldier ) )
 			{
-				STRUCTURE* pStruct = FindStructure(usMapPos, STRUCTURE_GENERIC);
+				return(TRUE);
+			}
+			else if ( IsStructureDeconstructItem( pSoldier->inv[HANDPOS].usItem, usMapPos, pSoldier ) )
+			{
+				STRUCTURE* pStruct = FindStructure( usMapPos, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE) );
 
 				if ( pStruct )
 				{
-					return( TRUE );
+					return(TRUE);
 				}
-			}
-			else if ( IsFortificationPossibleAtGridNo( usMapPos ) )
-			{
-				return( TRUE );
 			}
 		}
 

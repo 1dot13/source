@@ -66,6 +66,8 @@ typedef PARSE_STAGE;
 #define DRUGSFILENAME							"Items\\Drugs.xml"
 #define FOODFILENAME							"Items\\Food.xml"
 #define FOODOPINIONFILENAME						"Items\\FoodOpinion.xml"
+#define STRUCTUREDECONSTRUCTFILENAME			"Items\\StructureDeconstruct.xml"
+#define STRUCTURECONSTRUCTFILENAME				"Items\\StructureConstruct.xml"
 #define CLOTHESFILENAME							"Items\\Clothes.xml"
 #define RANDOMITEMFILENAME						"Items\\RandomItem.xml"
 #define	AMMOFILENAME							"Items\\AmmoStrings.xml"
@@ -321,6 +323,13 @@ extern BOOLEAN WriteFoodOpinionStats();
 // Flugente: disease
 extern BOOLEAN ReadInDiseaseStats( STR fileName );
 extern BOOLEAN WriteDiseaseStats( );
+
+// Flugente: structure (de-)construct
+extern BOOLEAN ReadInStructureDeconstructStats(STR fileName);
+extern BOOLEAN WriteStructureDeconstructStats();
+
+extern BOOLEAN ReadInStructureConstructStats(STR fileName);
+extern BOOLEAN WriteStructureConstructStats();
 
 // Flugente: merchants
 extern BOOLEAN ReadInMerchantStats(STR fileName);

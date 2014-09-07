@@ -3162,8 +3162,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 			case 766:
 
-				// Say COOL quote
-				pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				// Flugente: if doing this action a lot, this gets annoying - only play sound sometimes
+				if ( Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+				{
+					// Say COOL quote
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				}
 				break;
 
 			case 767:

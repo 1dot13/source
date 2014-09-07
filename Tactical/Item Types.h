@@ -731,9 +731,9 @@ extern OBJECTTYPE gTempObject;
 // flags used for various item properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 #define EMPTY_SANDBAG			0x00000001	//1
-#define FULL_SANDBAG			0x00000002	//2
+//#define FULL_SANDBAG			0x00000002	//2
 #define SHOVEL					0x00000004	//4			// a shovel is used for filling sandbags and other building-related tasks
-#define CONCERTINA				0x00000008	//8
+//#define CONCERTINA				0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
 #define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
@@ -765,7 +765,7 @@ extern OBJECTTYPE gTempObject;
 #define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
 #define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
 
-#define SPOTTERITEM				0x10000000	//268435456	// binocular
+//#define WOODENPLANK				0x10000000	//268435456	// wooden planks
 #define DISEASEPROTECTION_FACE	0x20000000	//536870912		// this item protects us from getting diseases by human contact if worn in a face slot
 #define DISEASEPROTECTION_HAND	0x40000000	//1073741824	// this item protects us from getting diseases by human contact if kept in inventory
 /*#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/

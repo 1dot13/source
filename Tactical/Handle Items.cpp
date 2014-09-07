@@ -86,6 +86,9 @@ UINT8 gubLastTripwire = 0;
 // set to TRUE if shift+click was pressed for planting bomb - will use for Improved Bomb Planting feature
 BOOLEAN gfShiftBombPlant = FALSE;
 
+// Flugente: (de-)construct structures
+STRUCTURE_DECONSTRUCT gStructureDeconstruct[STRUCTURE_DECONSTRUCT_MAX];
+STRUCTURE_CONSTRUCT gStructureConstruct[STRUCTURE_CONSTRUCT_MAX];
 
 LEVELNODE *AddItemGraphicToWorld( INVTYPE *pItem, INT32 sGridNo, UINT8 ubLevel );
 INT8 GetListMouseHotSpot( INT16 sLargestLineWidth, INT8 bNumItemsListed, INT16 sFontX, INT16 sFontY, INT8 bCurStart );
@@ -1148,13 +1151,20 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	// Flugente: sandbag stuff
-	if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
+	// Flugente: (de-)construct structures
+	if ( HasItemFlag( usHandItem, EMPTY_SANDBAG ) || IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) || IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
 	{
 		// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
-		if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG)) )
+		if ( HasItemFlag(usHandItem, EMPTY_SANDBAG) )
 		{
 			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FILL_SANDBAG );
+
+			// we can only do this on certain terraintypes
+			INT8 bOverTerrainType = GetTerrainType( sGridNo );
+			if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
+			{
+				return(ITEM_HANDLE_REFUSAL);
+			}
 
 			// check if we have a shovel in our second hand
 			OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
@@ -1163,39 +1173,40 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			{
 				return( ITEM_HANDLE_REFUSAL );
 			}
-
-			// we can only do this on certain terraintypes
-			INT8 bOverTerrainType = GetTerrainType( sGridNo );
-			if( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
-			{
-				return( ITEM_HANDLE_REFUSAL );
-			}
-		}
-		// if we have a shovel in our hands, the targeted gridno must be a fortification (debris will do for this check)
-		else if ( HasItemFlag(usHandItem, (SHOVEL)) )
-		{
-			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_REMOVE_FORTIFY );
-
-			STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
-
-			if ( !pStruct )
-			{
-				return( ITEM_HANDLE_REFUSAL );
-			}
-		}
+		}		
 		else
 		{
-			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FORTIFY );
+			// if there is a structure, see if we can deconstruct it, if not, see if we can construct something
+			STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE) );
+
+			if ( pStruct )
+			{
+				if ( !IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) )
+					return(ITEM_HANDLE_REFUSAL);
+
+				sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_REMOVE_FORTIFY );
+			}
+			else
+			{
+				if ( !IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
+					return(ITEM_HANDLE_REFUSAL);
+
+				sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FORTIFY );
+			}
 		}
 
-		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+		// we are at pSoldier->sGridNo and the action takes place at sGridNo
+		// we need to find out in which direction we need to look
+		// sActionGridNo is the gridno we are supposed to sit
+		ubDirection = GetDirectionToGridNoFromGridNo( sGridNo, pSoldier->sGridNo );
+			
+		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, FALSE, FALSE );
 
-		if ( sActionGridNo != -1 )
+		if ( !TileIsOutOfBounds( sActionGridNo ) )
 		{			
 			// Calculate AP costs...
-			sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+			sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
-			//if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 			if ( pSoldier->bActionPoints > 0 )
 			{
 				// CHECK IF WE ARE AT THIS GRIDNO NOW
@@ -1203,7 +1214,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				{
 					// SEND PENDING ACTION
 					pSoldier->aiData.ubPendingAction = MERC_BUILD_FORTIFICATION;
-					pSoldier->aiData.sPendingActionData2	= sAdjustedGridNo;
+					pSoldier->aiData.sPendingActionData2	= sGridNo;
 					pSoldier->aiData.bPendingActionData3	= ubDirection;
 					pSoldier->aiData.ubPendingActionAnimCount = 0;
 
@@ -1212,7 +1223,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				}
 				else
 				{
-					pSoldier->EVENT_SoldierBuildStructure( sAdjustedGridNo, ubDirection );
+					pSoldier->EVENT_SoldierBuildStructure( sGridNo, ubDirection );
 				}
 
 				// OK, set UI
@@ -6693,7 +6704,37 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );
 }
 
-BOOLEAN BuildFortification( INT32 sGridNo, UINT32 flag )
+// can we construct a structure with this item?
+BOOLEAN IsStructureConstructItem(UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier)
+{
+	if ( !usItem || TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	for ( UINT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+	{
+		if ( usItem == gStructureConstruct[i].usCreationItem )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+// can we remove a structure with this item?
+BOOLEAN IsStructureDeconstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier )
+{
+	if ( !usItem || TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	for ( UINT16 i = 0; i < STRUCTURE_DECONSTRUCT_MAX; ++i )
+	{
+		if ( usItem == gStructureDeconstruct[i].usDeconstructItem )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {	
 	UINT32				fHeadType;
 	UINT16				usUseIndex;
@@ -6702,146 +6743,202 @@ BOOLEAN BuildFortification( INT32 sGridNo, UINT32 flag )
 	BOOLEAN				fOkayToAdd;
 	UINT8				ubDirection;
 
-	if ( gusSelectedSoldier == NOBODY )
+	// we need a valid soldier and a valid object
+	if ( !pSoldier || !pObj )
 		return FALSE;
 
-	if( gbWorldSectorZ > 0 || gsInterfaceLevel > 0)
-	{
+	// no building on roofs
+	if( gsInterfaceLevel > 0 )
 		return FALSE;
-	}
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
 	
-	if( InARoom( sGridNo, NULL ) )
-		return FALSE;
+	//if( InARoom( sGridNo, NULL ) )
+		//return FALSE;
 
+	// don't build in water
 	INT8 bOverTerrainType = GetTerrainType( sGridNo );
 	if( bOverTerrainType == MED_WATER || bOverTerrainType == DEEP_WATER || bOverTerrainType == LOW_WATER )
 		return FALSE;
 
-	UINT16				CurrentStruct = NO_TILE;
-			
-	if ( sGridNo < 0x80000000 )
+	ubDirection = pSoldier->ubDirection;
+	
+	// we'll check wether this item is in our index of known creation items
+	BOOLEAN indexfound = FALSE;
+	INT16 structureconstructindex = -1;
+	for (UINT16 i = 0; i < STRUCTURE_DECONSTRUCT_MAX; ++i)
 	{
-		ubDirection = MercPtrs[ gusSelectedSoldier ]->ubDirection;
+		if ( indexfound )
+			break;
 
-		if ( (flag & CONCERTINA) != 0 )
+		if ( pObj->usItem == gStructureConstruct[i].usCreationItem )
 		{
-			// concertina wire
 			switch ( ubDirection )
 			{
 			case NORTH:
-			case SOUTH:
-				usUseIndex = 2 + 2*Random(2);
-				break;
-			case WEST:
-			case EAST:
-				usUseIndex = 3 + 2*Random(2);
-				break;
-			case NORTHEAST:
-				usUseIndex = 9;
-				break;
-			case SOUTHWEST:
-				usUseIndex = 8;
-				break;
-			case NORTHWEST:
-				usUseIndex = 7;
-				break;
-			case SOUTHEAST:
-			default:
-				usUseIndex = 6;
-				break;
-			}
-		}
-		else
-		{
-			// sandbags
-			switch ( ubDirection )
-			{
-			case NORTH:
-			case SOUTH:
-				usUseIndex = 3 + Random(2);
-				break;
-			case WEST:
-			case EAST:
-				usUseIndex = 8 + Random(2);
-				break;
-			case NORTHEAST:
-			case SOUTHWEST:
-			case NORTHWEST:
-			case SOUTHEAST:
-			default:
-				usUseIndex = 5;
-				break;
-			}
-
-			//usUseObjIndex = (UINT16)THIRDOSTRUCT;//SelOStructs2[ iRandSelIndex ].uiObject;
-		}
-
-		// search wether structure exists in the current tilesets. If not, well, too bad
-		UINT32 uiType = 0;
-
-		for(uiType = 0; uiType < giNumberOfTileTypes; ++uiType)
-		{
-			if( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
-			{
-				if( (flag & CONCERTINA) != 0 )
+				if ( !gStructureConstruct[i].northtilevector.empty( ) )
 				{
-					if ( (_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], "spot_1.sti", 10) == 0) )
-					{
-						usUseObjIndex = uiType;
-						break;
-					}
+					usUseIndex = gStructureConstruct[i].northtilevector[Random( gStructureConstruct[i].northtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
 				}
-				else if( (_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], "sandbag.sti", 11) == 0) )
+				break;
+			case SOUTH:
+				if ( !gStructureConstruct[i].southtilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].southtilevector[Random( gStructureConstruct[i].southtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+				break;
+			case WEST:
+				if ( !gStructureConstruct[i].westtilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].westtilevector[Random( gStructureConstruct[i].westtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+				break;
+			case EAST:
+				if ( !gStructureConstruct[i].easttilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].easttilevector[Random( gStructureConstruct[i].easttilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+				break;
+
+			default:
+				// for all other directions, just pick one tile, it doesn not matter from which direction
+				if ( !gStructureConstruct[i].northtilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].northtilevector[Random( gStructureConstruct[i].northtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+
+				if ( !indexfound && !gStructureConstruct[i].southtilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].southtilevector[Random( gStructureConstruct[i].southtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+
+				if ( !indexfound && !gStructureConstruct[i].westtilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].westtilevector[Random( gStructureConstruct[i].westtilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+
+				if ( !indexfound && !gStructureConstruct[i].easttilevector.empty( ) )
+				{
+					usUseIndex = gStructureConstruct[i].easttilevector[Random( gStructureConstruct[i].easttilevector.size( ) )];
+					structureconstructindex = i;
+					indexfound = TRUE;
+				}
+				break;
+			}
+		}
+	}
+
+	if ( structureconstructindex < 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANNOT_BUILD] );
+		return FALSE;
+	}
+
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for (UINT32 uiType = 0; uiType < giNumberOfTileTypes; ++uiType)
+	{
+		if( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
+		{
+			if ( structureconstructindex >= 0 )
+			{
+				if ( !_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], gStructureConstruct[structureconstructindex].szTileSetName, 10) )
 				{
 					usUseObjIndex = uiType;
 					break;
 				}
 			}
 		}
+	}
 
-		if ( !usUseObjIndex )
+	if ( !usUseObjIndex )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[ STR_MTA_CANNOT_BUILD ] );
+		return FALSE;
+	}
+
+	// consumables are removed on creation
+	if ( structureconstructindex >= 0 && gStructureConstruct[structureconstructindex].usItemStatusLoss )
+	{
+		if ( (*pObj)[0]->data.objectStatus <= gStructureConstruct[structureconstructindex].usItemStatusLoss )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[ STR_MTA_CANNOT_BUILD ] );
-			return FALSE;
+			UINT16 usItem = pObj->usItem;
+
+			// Erase 'material' item from our hand - we 'use' it to build the structure
+			DeleteObj( &(pSoldier->inv[HANDPOS]) );
+
+			// sevenfm: auto-taking of items
+			if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
+			{
+				pSoldier->TakeNewItemFromInventory( pObj->usItem );
+			}
 		}
-
-		// Check with Structure Database (aka ODB) if we can put the object here!
-		fOkayToAdd = OkayToAddStructureToWorld( sGridNo, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
-		if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
+		else
 		{
-			// Remove old graphic
-			ApplyMapChangesToMapTempFile( TRUE );
-
-			//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
-			RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
-			// Actual structure info is added by the functions below
-			AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
-			// For now, adjust to shadows by a hard-coded amount,
-
-			// Add mask if in long grass
-			GetLandHeadType( sGridNo, &fHeadType	);
-
-			RecompileLocalMovementCosts(sGridNo);
-
-			// Turn off permanent changes....
-			ApplyMapChangesToMapTempFile( FALSE );
-			SetRenderFlags( RENDER_FLAG_FULL );
-
-			return TRUE;
+			(*pObj)[0]->data.objectStatus -= gStructureConstruct[structureconstructindex].usItemStatusLoss;
 		}
 	}
-	else if ( CurrentStruct == ERASE_TILE && sGridNo < 0x80000000 )
+
+	// TODO: if we create an earth pile, create a decal (signifiying the 'hole' we created at our position)
+
+	// Check with Structure Database (aka ODB) if we can put the object here!
+	fOkayToAdd = OkayToAddStructureToWorld( sGridNo, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
 	{
-		RemoveAllStructsOfTypeRange( sGridNo, FIRSTOSTRUCT, LASTOSTRUCT );
-		RemoveAllShadowsOfTypeRange( sGridNo, FIRSTSHADOW, LASTSHADOW );
+		// Remove old graphic
+		ApplyMapChangesToMapTempFile( TRUE );
+
+		//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
+		RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
+		// Actual structure info is added by the functions below
+		AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
+		// For now, adjust to shadows by a hard-coded amount,
+
+		// Add mask if in long grass
+		GetLandHeadType( sGridNo, &fHeadType );
+
+		RecompileLocalMovementCosts(sGridNo);
+
+		// Turn off permanent changes....
+		ApplyMapChangesToMapTempFile( FALSE );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		return TRUE;
 	}
 
 	return FALSE;
 }
 
-BOOLEAN RemoveFortification( INT32 sGridNo )
+BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
-	STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
+	// we need a valid soldier and a valid object
+	if ( !pSoldier || !pObj )
+		return FALSE;
+
+	// not on roofs
+	if ( gsInterfaceLevel > 0 )
+		return FALSE;
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE) );
 
 	if ( pStruct != NULL )
 	{
@@ -6850,34 +6947,58 @@ BOOLEAN RemoveFortification( INT32 sGridNo )
 
 		if ( pNode )
 		{
+			UINT16 usIndex = pNode->usIndex;
 			UINT32 uiTileType = 0;
-			if ( GetTileType( pNode->usIndex, &uiTileType ) )
+			if ( GetTileType( usIndex, &uiTileType ) )
 			{
-				UINT16 usIndex = pNode->usIndex;
-
-				// Check if we are a sandbag
-				if ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "sandbag.sti", 11) == 0 )
+				for (UINT16 i = 0; i < STRUCTURE_DECONSTRUCT_MAX; ++i)
 				{
-					// Remove old graphic
-					ApplyMapChangesToMapTempFile( TRUE );
-
-					RemoveStruct( sGridNo, pNode->usIndex );
-					if ( !GridNoIndoors( sGridNo ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
+					// item we have in our hand must be one with which we can deconstruct this
+					if ( pObj->usItem == gStructureDeconstruct[i].usDeconstructItem )
 					{
-						RemoveShadow( sGridNo, gTileDatabase[ usIndex ].sBuddyNum );
+						// Check if we are a sandbag or a earth pile
+						if ( !_strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], gStructureDeconstruct[i].szTileSetName, 11) )
+						{
+							// we have to check wether this specific structure can be removed. Just checking the tileset name won't be enough.
+							// For example, we could have a set consisting of crates and piles of earth, which we want to remove via applying a shovel on it.
+							// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
+							UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
+
+							UINT8 size = gStructureDeconstruct[i].tilevector.size();
+							for ( UINT8 j = 0; j < size; ++j)
+							{
+								if ( gStructureDeconstruct[i].tilevector[j] == numbertofind )
+								{
+									// Remove old graphic
+									ApplyMapChangesToMapTempFile( TRUE );
+
+									RemoveStruct( sGridNo, pNode->usIndex );
+
+									if ( !GridNoIndoors( sGridNo ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
+									{
+										RemoveShadow( sGridNo, gTileDatabase[ usIndex ].sBuddyNum );
+									}
+
+									RecompileLocalMovementCosts(sGridNo);
+
+									// Turn off permanent changes....
+									ApplyMapChangesToMapTempFile( FALSE );
+									SetRenderFlags( RENDER_FLAG_FULL );
+
+									// eventually create item
+									if ( gStructureDeconstruct[i].usItemToCreate && gStructureDeconstruct[i].usCreatedItemStatus )
+									{
+										// when creating the object, make it have at least 1% status
+										CreateItem( gStructureDeconstruct[i].usItemToCreate, max(1, gStructureDeconstruct[i].usCreatedItemStatus), &gTempObject );
+
+										AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
+									}
+
+									return TRUE;
+								}
+							}
+						}
 					}
-
-					// Add mask if in long grass
-					UINT32 fHeadType = 0;
-					GetLandHeadType( sGridNo, &fHeadType );
-
-					RecompileLocalMovementCosts(sGridNo);
-
-					// Turn off permanent changes....
-					ApplyMapChangesToMapTempFile( FALSE );
-					SetRenderFlags( RENDER_FLAG_FULL );
-
-					return TRUE;
 				}
 			}
 		}

@@ -689,5 +689,11 @@
     <ClCompile Include="XML_FoodOpinions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_StructureDeconstruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_StructureConstruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

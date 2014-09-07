@@ -16188,10 +16188,10 @@ UINT8	SOLDIERTYPE::GetMultiTurnAction( )
 	return usMultiTurnAction;
 }
 
-void	SOLDIERTYPE::StartMultiTurnAction( UINT8 usActionType )
+void	SOLDIERTYPE::StartMultiTurnAction( UINT8 usActionType, INT32 asGridNo )
 {
 	// check wether we can perform any action at all
-	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds( this->sGridNo ) || this->bCollapsed )
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds( asGridNo ) || this->bCollapsed )
 		return;
 
 	// wether an action is possible or not depends on action itself (there are actions without a gridno)
@@ -16200,7 +16200,7 @@ void	SOLDIERTYPE::StartMultiTurnAction( UINT8 usActionType )
 	case MTA_FORTIFY:
 	case MTA_REMOVE_FORTIFY:
 	case MTA_FILL_SANDBAG:
-		if ( this->pathing.bLevel != 0 || gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE || gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
+		if ( this->pathing.bLevel != 0 )
 			return;
 		break;
 	}
@@ -16213,8 +16213,8 @@ void	SOLDIERTYPE::StartMultiTurnAction( UINT8 usActionType )
 	usMultiTurnAction = usActionType;
 
 	// the action shall be performed on the gridno directly in front of us
-	sMTActionGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
-
+	sMTActionGridNo = asGridNo;
+	
 	// for now, adding and removing a structure has the same AP cost - that might change in the future
 	bOverTurnAPS = GetAPsForMultiTurnAction( this, usMultiTurnAction );
 
@@ -16248,24 +16248,31 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		CancelMultiTurnAction( FALSE );
 		return FALSE;
 	}
-
+	
 	// wether an action is possible or not depends on action itself (there are actions without a gridno)
 	switch ( usMultiTurnAction )
 	{
 	case MTA_FORTIFY:
 	case MTA_REMOVE_FORTIFY:
 	case MTA_FILL_SANDBAG:
-		if ( this->pathing.bLevel != 0 || gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE || gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
+		// building on a roof is forbidden! stopt his!
+		if ( this->pathing.bLevel != 0 )
 		{
 			CancelMultiTurnAction( FALSE );
 			return FALSE;
 		}
+
+		// we have to be crouched, get out of here, set us to be crouched first
+		if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
+		{
+			return TRUE;
+		}
 		break;
 	default:	// default: exit
-	{
-					CancelMultiTurnAction( FALSE );
-					return FALSE;
-	}
+		{
+			CancelMultiTurnAction( FALSE );
+			return FALSE;
+		}
 		break;
 	}
 
@@ -16289,56 +16296,54 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		CancelMultiTurnAction( FALSE );
 		return FALSE;
 	}
-
-	// a static variable that is the item number of sandbags. Hardcoding item numbers is bad, that's why we will search for it.
-	static UINT16 fullsandbagnr = 1541;
-
+	
 	INT16 entireapcost = 0;
 	INT16 entirebpcost = 0;
 	switch ( usMultiTurnAction )
 	{
-	case MTA_FORTIFY:
-	{
-						entireapcost = GetAPsForMultiTurnAction( this, MTA_FORTIFY );
-						entirebpcost = APBPConstants[BP_FORTIFICATION];
+		case MTA_FORTIFY:
+		{
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_FORTIFY );
+			entirebpcost = APBPConstants[BP_FORTIFICATION];
 
-						if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
-							fActionStillValid = FALSE;
-						else if ( !HasItemFlag( this->inv[HANDPOS].usItem, (FULL_SANDBAG | CONCERTINA) ) )
-							fActionStillValid = FALSE;
-	}
-		break;
-	case MTA_REMOVE_FORTIFY:
-	{
-							   entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
-							   entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
-
-							   if ( !HasItemFlag( this->inv[HANDPOS].usItem, (SHOVEL) ) )
-								   fActionStillValid = FALSE;
-	}
+			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
+				fActionStillValid = FALSE;
+			else if ( !IsStructureConstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
+				fActionStillValid = FALSE;
+		}
 		break;
 
-	case MTA_FILL_SANDBAG:
-	{
-							 entireapcost = GetAPsForMultiTurnAction( this, MTA_FILL_SANDBAG );
-							 entirebpcost = APBPConstants[BP_FILL_SANDBAG];
+		case MTA_REMOVE_FORTIFY:
+		{
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
+			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
 
-							 if ( !HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
-								 fActionStillValid = FALSE;
-							 else
-							 {
-								 INT8 bOverTerrainType = GetTerrainType( sGridNo );
-								 if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
-									 fActionStillValid = FALSE;
-								 else
-								 {
-									 // check if we have a shovel in our second hand
-									 OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
-									 if ( !pShovelObj || !(pShovelObj->exists( )) || !HasItemFlag( this->inv[SECONDHANDPOS].usItem, SHOVEL ) )
-										 fActionStillValid = FALSE;
-								 }
-							 }
-	}
+			if ( !IsStructureDeconstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
+				fActionStillValid = FALSE;
+		}
+		break;
+
+		case MTA_FILL_SANDBAG:
+		{
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_FILL_SANDBAG );
+			entirebpcost = APBPConstants[BP_FILL_SANDBAG];
+
+			if ( !HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
+				fActionStillValid = FALSE;
+			else
+			{
+				INT8 bOverTerrainType = GetTerrainType( sGridNo );
+				if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
+					fActionStillValid = FALSE;
+				else
+				{
+					// check if we have a shovel in our second hand
+					OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
+					if ( !pShovelObj || !(pShovelObj->exists( )) || !HasItemFlag( this->inv[SECONDHANDPOS].usItem, SHOVEL ) )
+						fActionStillValid = FALSE;
+				}
+			}
+		}
 		break;
 	}
 
@@ -16351,25 +16356,25 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	// refresh animations
 	switch ( usMultiTurnAction )
 	{
-	case MTA_FORTIFY:
-	case MTA_REMOVE_FORTIFY:
-	case MTA_FILL_SANDBAG:
-	{
-							 // if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
-							 if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
-								 bOverTurnAPS = 0;
-							 // otherwise this might take longer, so we refresh our animation
-							 else
-							 {
-								 if ( !is_networked )
-									 this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
-								 else
-									 this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+		case MTA_FORTIFY:
+		case MTA_REMOVE_FORTIFY:
+		case MTA_FILL_SANDBAG:
+		{
+			// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
+			if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+				bOverTurnAPS = 0;
+			// otherwise this might take longer, so we refresh our animation
+			else
+			{
+				if ( !is_networked )
+					this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
+				else
+					this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
-								 // as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
-								 this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
-							 }
-	}
+				// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
+				this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+			}
+		}
 		break;
 	}
 
@@ -16378,73 +16383,59 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	{
 		switch ( usMultiTurnAction )
 		{
-		case MTA_FORTIFY:
-		{
-							// Build the thing
-							if ( BuildFortification( this->sMTActionGridNo, Item[pObj->usItem].usItemFlag ) )
-							{
-								UINT16 usItem = pObj->usItem;
-								// Erase 'material' item from our hand - we 'use' it to build the structure
-								DeleteObj( &(this->inv[HANDPOS]) );
-								// sevenfm: auto-taking of items
-								if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
-								{
-									TakeNewItemFromInventory( usItem );
-								}
+			case MTA_FORTIFY:
+			{
+				// Build the thing
+				if ( BuildFortification( this->sMTActionGridNo, this, pObj ) )
+				{
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 4, TRUE );
+					StatChange( this, HEALTHAMT, 2, TRUE );
+				}
+			}
+				break;
 
-								// we gain a bit of experience...
-								StatChange( this, STRAMT, 4, TRUE );
-								StatChange( this, HEALTHAMT, 2, TRUE );
-							}
-		}
-			break;
+			case MTA_REMOVE_FORTIFY:
+			{
+				if ( RemoveFortification( this->sMTActionGridNo, this, pObj ) )
+				{
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 3, TRUE );
+					StatChange( this, HEALTHAMT, 2, TRUE );
+				}
+			}
+				break;
 
-		case MTA_REMOVE_FORTIFY:
-		{
-								   if ( RemoveFortification( this->sMTActionGridNo ) )
-								   {
-									   // eventually search for the number of a sandbag item
-									   if ( HasItemFlag( fullsandbagnr, FULL_SANDBAG ) || GetFirstItemWithFlag( &fullsandbagnr, FULL_SANDBAG ) )
-									   {
-										   CreateItem( fullsandbagnr, 100, &gTempObject );
+			case MTA_FILL_SANDBAG:
+			{
+				// eventually search for the number of a sandbag item
+				UINT16 fullsandbagnr = Item[this->inv[HANDPOS].usItem].usBuddyItem;
+				if ( fullsandbagnr )
+				{
+					INT8 bObjSlot = HANDPOS;
+					UINT16 usItem = pObj->usItem;
 
-										   AddItemToPool( this->sMTActionGridNo, &gTempObject, 1, 0, 0, -1 );
+					CreateItem( fullsandbagnr, 100, &gTempObject );
+					if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
+					{
+						// sevenfm: drop filled sandbag to the ground and take new empty from inventory
+						AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+						DeleteObj( &(this->inv[HANDPOS]) );
+						TakeNewItemFromInventory( usItem );
+					}
+					else
+					{
+						SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+					}
 
-										   // we gain a bit of experience...
-										   StatChange( this, STRAMT, 3, TRUE );
-										   StatChange( this, HEALTHAMT, 2, TRUE );
-									   }
-								   }
-		}
-			break;
+					// sevenfm: added this to correctly update interface
+					DirtyMercPanelInterface( this, DIRTYLEVEL2 );
 
-		case MTA_FILL_SANDBAG:
-		{
-								 // eventually search for the number of a sandbag item
-								 if ( HasItemFlag( fullsandbagnr, FULL_SANDBAG ) || GetFirstItemWithFlag( &fullsandbagnr, FULL_SANDBAG ) )
-								 {
-									 INT8 bObjSlot = HANDPOS;
-									 UINT16 usItem = pObj->usItem;
-
-									 CreateItem( fullsandbagnr, 100, &gTempObject );
-									 if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
-									 {	// sevenfm: drop filled sandbag to the ground and take new empty from inventory
-										 AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
-										 DeleteObj( &(this->inv[HANDPOS]) );
-										 TakeNewItemFromInventory( usItem );
-									 }
-									 else
-									 {
-										 SwapObjs( this, bObjSlot, &gTempObject, TRUE );
-									 }
-									 // sevenfm: added this to correctly update interface
-									 DirtyMercPanelInterface( this, DIRTYLEVEL2 );
-
-									 // we gain a bit of experience...
-									 StatChange( this, STRAMT, 1, TRUE );
-									 StatChange( this, HEALTHAMT, 1, TRUE );
-								 }
-		}
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 1, TRUE );
+					StatChange( this, HEALTHAMT, 1, TRUE );
+				}
+			}
 			break;
 		}
 
@@ -19742,19 +19733,16 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 		}
 	}
 
+	// CHANGE DIRECTION AND GOTO ANIMATION NOW
+	this->EVENT_SetSoldierDesiredDirection( ubDirection );
+	this->EVENT_SetSoldierDirection( ubDirection );
+	
 	// do checks here...
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
 
-	if ( pObj && pObj->exists( ) && HasItemFlag( this->inv[HANDPOS].usItem, (EMPTY_SANDBAG | FULL_SANDBAG | SHOVEL | CONCERTINA) ) )
+	if ( pObj && pObj->exists( ) && (HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) || IsStructureConstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) || IsStructureDeconstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) ) )
 	{
-		if ( HasItemFlag( this->inv[HANDPOS].usItem, (FULL_SANDBAG | CONCERTINA) ) )
-		{
-			// Build the thing
-			this->StartMultiTurnAction( MTA_FORTIFY );
-
-			fSuccess = TRUE;
-		}
-		else if ( HasItemFlag( this->inv[HANDPOS].usItem, (EMPTY_SANDBAG) ) )
+		if ( HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
 		{
 			INT8 bOverTerrainType = GetTerrainType( sGridNo );
 			if ( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
@@ -19762,19 +19750,33 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 				// check if we have a shovel in our second hand
 				OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
 
-				if ( pShovelObj && pShovelObj->exists( ) && HasItemFlag( this->inv[SECONDHANDPOS].usItem, (SHOVEL) ) )
+				if ( pShovelObj && pShovelObj->exists( ) && HasItemFlag( this->inv[SECONDHANDPOS].usItem, SHOVEL ) )
 				{
-					this->StartMultiTurnAction( MTA_FILL_SANDBAG );
+					this->StartMultiTurnAction( MTA_FILL_SANDBAG, sGridNo );
 
 					fSuccess = TRUE;
 				}
 			}
 		}
-		else if ( HasItemFlag( this->inv[HANDPOS].usItem, (SHOVEL) ) )
+		else
 		{
-			this->StartMultiTurnAction( MTA_REMOVE_FORTIFY );
+			// it is possible that an item is used in both constructing and deconstructing. We thus check wether a structure already exists at sGridNo to dedcut the players intention
+			// if there is a structure, we will remove this fortification. If there isn't, then we will dig and create a earth pile
+			STRUCTURE* pStruct = FindStructure( sGridNo, STRUCTURE_GENERIC );
 
-			fSuccess = TRUE;
+			if ( !pStruct && IsStructureConstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) )
+			{
+				// Build the thing
+				this->StartMultiTurnAction( MTA_FORTIFY, sGridNo );
+
+				fSuccess = TRUE;
+			}
+			else if ( IsStructureDeconstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) )
+			{
+				this->StartMultiTurnAction( MTA_REMOVE_FORTIFY, sGridNo );
+
+				fSuccess = TRUE;
+			}
 		}
 	}
 
@@ -19785,10 +19787,6 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 	}
 	else
 	{
-		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
-
 		if ( !is_networked )
 			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
 		else

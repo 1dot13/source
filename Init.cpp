@@ -374,6 +374,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE( ReadInDiseaseStats( fileName ), DISEASEFILENAME );
 
 	strcpy(fileName, directoryName);
+	strcat(fileName, STRUCTUREDECONSTRUCTFILENAME);
+	SGP_THROW_IFFALSE(ReadInStructureDeconstructStats(fileName),STRUCTUREDECONSTRUCTFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, STRUCTURECONSTRUCTFILENAME);
+	SGP_THROW_IFFALSE(ReadInStructureConstructStats(fileName),STRUCTURECONSTRUCTFILENAME);
+
+	strcpy(fileName, directoryName);
 	strcat(fileName, MERCHANTSFILENAME);
 	SGP_THROW_IFFALSE(ReadInMerchantStats(fileName),MERCHANTSFILENAME);
 

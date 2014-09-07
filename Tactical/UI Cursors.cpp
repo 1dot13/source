@@ -2209,12 +2209,12 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 		return( FORTIFICATION_RED_UICURSOR );
 
 	// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
-	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (EMPTY_SANDBAG)) )
+	if ( HasItemFlag( pSoldier->inv[HANDPOS].usItem, EMPTY_SANDBAG) )
 	{
 		// check if we have a shovel in our second hand
 		OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
 
-		if ( pShovelObj && (pShovelObj->exists()) && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+		if ( pShovelObj && (pShovelObj->exists()) && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, SHOVEL) )
 		{
 			INT8 bOverTerrainType = GetTerrainType( sGridNo );
 			if( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
@@ -2225,23 +2225,19 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 
 		return( FORTIFICATION_RED_UICURSOR );
 	}
-
-	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
+	
+	if ( IsFortificationPossibleAtGridNo( sGridNo ) && IsStructureConstructItem( pSoldier->inv[HANDPOS].usItem, sGridNo, pSoldier ) )
 	{
-		STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
+		return( FORTIFICATION_GREY_UICURSOR );
+	}
+	else if ( IsStructureDeconstructItem( pSoldier->inv[HANDPOS].usItem, sGridNo, pSoldier ) )
+	{
+		STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE));
 
 		if ( pStruct )
 		{
-			return( FORTIFICATION_GREY_UICURSOR );
+			return(FORTIFICATION_GREY_UICURSOR);
 		}
-		else
-			return( FORTIFICATION_RED_UICURSOR );
-	}
-
-	// can we build something here?
-	if ( IsFortificationPossibleAtGridNo( sGridNo ) )
-	{		
-		return( FORTIFICATION_GREY_UICURSOR );
 	}
 
 	return( FORTIFICATION_RED_UICURSOR );
@@ -2741,7 +2737,7 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 
 UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 {
-	UINT8					ubCursor;
+	UINT8				ubCursor;
 	UINT16				usInHand;
 
 	// If we are an EPC, do nothing....
@@ -2772,7 +2768,6 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL )
 	{
 		// Flugente: if using a rifle grenade, only allow firing if there is a bullet in the gun's magazine (required for firing)
@@ -2787,6 +2782,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 		return( TRAJECTORYCURS );
 	}
+
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || ( pSoldier->bWeaponMode == WM_BURST && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
 	{
 		if ( gGameSettings.fOptions [ TOPTION_GL_BURST_CURSOR ] )
@@ -2824,8 +2820,9 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	// Flugente: cursor for building fortifications
-	if ( HasItemFlag(usInHand, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
+	// Flugente: cursor for constructing/deconstructing
+	// at the moment the gridno is not required in these functions, thus 1 suffices
+	if ( HasItemFlag( usInHand, EMPTY_SANDBAG ) || IsStructureConstructItem( usInHand, 1, pSoldier ) || IsStructureDeconstructItem( usInHand, 1, pSoldier ) )
 		ubCursor = FORTICURS;
 
 	// Flugente: cursor for handcuffs
@@ -2836,7 +2833,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	if ( ItemCanBeAppliedToOthers( usInHand ) )
 	{
 		// if item is a bomb, only allow apply if hovering over a soldier (otherwise we cannot mine anymore)
-		if ( Item[ usInHand ].usItemClass == IC_BOMB )
+		if ( Item[ usInHand ].usItemClass & IC_BOMB )
 		{
 			INT32 usMapPos = NOWHERE;
 			if ( GetMouseMapPos( &usMapPos ) )

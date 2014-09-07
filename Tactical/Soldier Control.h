@@ -1775,7 +1775,7 @@ public:
 
 	// Flugente: multi-turn actions
 	UINT8		GetMultiTurnAction();
-	void		StartMultiTurnAction(UINT8 usActionType);
+	void		StartMultiTurnAction( UINT8 usActionType, INT32 asGridNo );
 	void		CancelMultiTurnAction(BOOLEAN fFinished);
 	BOOLEAN		UpdateMultiTurnAction();
 
