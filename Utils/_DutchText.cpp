@@ -1749,8 +1749,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s's wood camouflage has worn off.",
 	L"%s's wood camouflage has washed off.",
 	
-	L"%s's urban camouflage urban has worn off.",
-	L"%s's urban camouflage urban has washed off.",
+	L"%s's urban camouflage has worn off.",
+	L"%s's urban camouflage has washed off.",
 	
 	L"%s's snow camouflage snow has worn off.",
 	L"%s's snow camouflage has washed off.",

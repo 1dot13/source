@@ -1292,6 +1292,8 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->bCamo = 0;
 						camoWoreOff = TRUE;
+						// ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1319,6 +1321,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->urbanCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1346,6 +1349,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->desertCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1373,6 +1377,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->snowCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1395,6 +1400,8 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->bCamo = 0;
 						camoWoreOff = TRUE;
+						// ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1412,6 +1419,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->urbanCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1429,6 +1437,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->desertCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1446,6 +1455,7 @@ void HourlyCamouflageUpdate( void )
 					{
 						pSoldier->snowCamo = 0;
 						camoWoreOff = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WORN_OFF], pSoldier->name );
 
 						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 						{
@@ -1465,38 +1475,6 @@ void HourlyCamouflageUpdate( void )
 				{
 					pSoldier->CreateSoldierPalettes( );
 				}
-
-					if ( pSoldier->bCamo <= 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );// remove face
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WORN_OFF], pSoldier->name );
-					}
-					else if ( pSoldier->urbanCamo <= 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );// remove face
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WORN_OFF], pSoldier->name );
-					}
-					else if ( pSoldier->snowCamo <= 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );// remove face
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WORN_OFF], pSoldier->name );
-					}
-					else if ( pSoldier->desertCamo <= 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );// remove face
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WORN_OFF], pSoldier->name );
-					}
-						
-				//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
-				
 				
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 				camoWoreOff = FALSE;

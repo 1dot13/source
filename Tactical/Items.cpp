@@ -9031,6 +9031,8 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->bCamo = 0;
 				camoWoreOff = TRUE;
+				// ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->GetName() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WASHED_OFF], pSoldier->GetName() );
 			}
 		}
 		if ( pSoldier->urbanCamo > 0 )
@@ -9059,6 +9061,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->urbanCamo = 0;
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WASHED_OFF], pSoldier->GetName() );
 			}
 		}
 		if ( pSoldier->desertCamo > 0 )
@@ -9087,6 +9090,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->desertCamo = 0;
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WASHED_OFF], pSoldier->GetName() );
 			}
 		}
 		if ( pSoldier->snowCamo > 0 )
@@ -9115,6 +9119,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->snowCamo = 0;
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WASHED_OFF], pSoldier->GetName() );
 			}
 		}
 	}
@@ -9130,7 +9135,11 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			//	pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
 
 			if ( (pSoldier->bCamo)== 0)
+			{
 				camoWoreOff = TRUE;
+				// ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->GetName() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WASHED_OFF], pSoldier->GetName() );
+			}
 		}
 		if ( pSoldier->urbanCamo > 0 )
 		{
@@ -9140,7 +9149,10 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			//	pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
 			
 			if ( (pSoldier->urbanCamo)== 0)
+			{
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WASHED_OFF], pSoldier->GetName() );
+			}
 		}
 		if ( pSoldier->desertCamo > 0 )
 		{
@@ -9150,7 +9162,10 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			//	pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
 			
 			if ( (pSoldier->desertCamo)== 0)
+			{
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WASHED_OFF], pSoldier->GetName() );
+			}
 		}
 		if ( pSoldier->snowCamo > 0 )
 		{
@@ -9160,7 +9175,10 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			//	pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
 			
 			if ( (pSoldier->snowCamo)== 0)
+			{
 				camoWoreOff = TRUE;
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WASHED_OFF], pSoldier->GetName() );
+			}
 		}	
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -9172,30 +9190,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			pSoldier->CreateSoldierPalettes( );
 		}
-	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->GetName() );
-	
-			if ( pSoldier->bCamo <= 0 )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WASHED_OFF], pSoldier->GetName() );
-			}
-			else if ( pSoldier->urbanCamo <= 0 )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WASHED_OFF], pSoldier->GetName() );
-			}
-			else if ( pSoldier->snowCamo <= 0 )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WASHED_OFF], pSoldier->GetName() );
-			}
-			else if ( pSoldier->desertCamo <= 0 )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WASHED_OFF], pSoldier->GetName() );
-			}
 	}
-
-
-
-
-
 
 	if ( pSoldier->bTeam == gbPlayerNum && pSoldier->aiData.bMonsterSmell > 0 )
 	{
