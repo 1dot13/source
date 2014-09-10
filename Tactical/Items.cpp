@@ -15160,7 +15160,7 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	return( FALSE );
 }
 
-#define RANDOM_ITEM_MAX_NUMBER 1000
+#define RANDOM_ITEM_MAX_NUMBER 2000
 #define RANDOM_TABOO_MAX		 50
 #define	RANDOM_XML_LENGTH		 10
 
