@@ -3226,6 +3226,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_SCOPE", 0.0f, 0.0f, 50.0f);
 	gGameCTHConstants.DEGREES_MAXIMUM_APERTURE			= iniReader.ReadFloat("General", "DEGREES_MAXIMUM_APERTURE", 15.0, 0.0, 22.5);
 	gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT	= iniReader.ReadBoolean("General", "IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT", FALSE);
+	gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER	= iniReader.ReadFloat("General", "IRON_SIGHTS_MAX_APERTURE_MODIFIER", 3.0f, 2.0f, 5.0f);
 	gGameCTHConstants.RANGE_COEFFICIENT					= iniReader.ReadFloat("General", "RANGE_COEFFICIENT", 2.0, 0.001f, 100.0);
 	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 1.0, 0.001f, 100.0);
 	gGameCTHConstants.VERTICAL_BIAS						= iniReader.ReadFloat("General", "VERTICAL_BIAS", 1.0f, 0.01f, 2.0f);
