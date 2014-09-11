@@ -7163,6 +7163,15 @@ void SOLDIERTYPE::SoldierGotoStationaryStance( void )
 			{
 				this->EVENT_InitNewSoldierAnim( START_COWER, 0, FALSE );
 			}
+			// Flugente: if we walk with our gun raised, we should still have it raised once we stop walking
+			else if ( this->usAnimState == WALKING_WEAPON_RDY || this->usAnimState == AIM_RIFLE_STAND )
+			{
+				this->EVENT_InitNewSoldierAnim( AIM_RIFLE_STAND, 0, FALSE );
+			}
+			else if ( this->usAnimState == WALKING_DUAL_RDY || this->usAnimState == AIM_DUAL_STAND )
+			{
+				this->EVENT_InitNewSoldierAnim( AIM_DUAL_STAND, 0, FALSE );
+			}
 			else
 			{
 				this->EVENT_InitNewSoldierAnim( STANDING, 0, FALSE );
