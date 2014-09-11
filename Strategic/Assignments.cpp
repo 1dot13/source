@@ -21057,7 +21057,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 	}
 	
 	// cancel
-	AddMonoString((UINT32 *)&hStringHandle, L"Cancel" );
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_CANCEL] );
 
 	SetBoxFont(ghMoveItemBox, MAP_SCREEN_FONT);
 	SetBoxHighLight(ghMoveItemBox, FONT_WHITE);
@@ -21385,11 +21385,11 @@ BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 	CreateDiseaseBox( );
 	SetCurrentBox( ghDiseaseBox );
 
-	AddMonoString( (UINT32 *)&hStringHandle, L"Diagnosis" );
-	AddMonoString( (UINT32 *)&hStringHandle, L"Treatment" );
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_DIAGNOSIS] );
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_TREATMENT] );
 
 	// cancel
-	AddMonoString( (UINT32 *)&hStringHandle, L"Cancel" );
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_CANCEL] );
 
 	SetBoxFont( ghDiseaseBox, MAP_SCREEN_FONT );
 	SetBoxHighLight( ghDiseaseBox, FONT_WHITE );

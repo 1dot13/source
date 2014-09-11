@@ -2894,6 +2894,11 @@ enum
 	// text when diagnosed
 	TEXT_DISEASE_DIAGNOSE_GENERAL,
 	TEXT_DISEASE_CURED,
+
+	// menu entries
+	TEXT_DISEASE_DIAGNOSIS,
+	TEXT_DISEASE_TREATMENT,
+	TEXT_DISEASE_CANCEL,
 };
 
 extern STR16	szDiseaseText[];

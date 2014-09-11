@@ -9732,6 +9732,10 @@ STR16	szDiseaseText[] =
 
 	L"%s was diagnosed with %s!",
 	L"%s is cured of %s!",
+
+	L"Diagnosis",
+	L"Treatment",
+	L"Cancel",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
