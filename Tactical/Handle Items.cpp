@@ -2398,7 +2398,6 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 					}
 					}
 					*/
-					RemoveItemFromPool( sGridNo, iItemIndex, pSoldier->pathing.bLevel );
 
 					// Flugente: if we allow militia to use sector equipment, then mark gear they pick up, so that they drop it too.
 					if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory )
@@ -2433,7 +2432,7 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 						if ( gWorldItems[ iItemIndex ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
 							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;
 					}
-
+					
 					if ( !AutoPlaceObject( pSoldier, &(gWorldItems[ iItemIndex ].object ), TRUE ) )
 					{
 						//ADB well we made an animation, should we still use up points?
@@ -2444,8 +2443,11 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 					{
 						fItemTaken = TRUE;
 					}
-				}
 
+					// Flugente: if we remove an object, we basically give it free to overwriting. Thus it is very, VERY bad to theninteract with it, as the code might jsut do that - 
+					// the object data may be overwritten at any moment! Better remove it after manipulation is finished.
+					RemoveItemFromPool( sGridNo, iItemIndex, pSoldier->pathing.bLevel );
+				}
 			}
 		}
 	}
