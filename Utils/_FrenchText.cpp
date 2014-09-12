@@ -2219,12 +2219,12 @@ STR16 pTraitSkillsDenialStrings[] =
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate
 {
-	L"Militia",
-	L"Other Squads",
-	L"Cancel",
-	L"%d Militia",
+	L"Milice",
+	L"Autre escouade",
+	L"Annuler",
+	L"%d miliciens",
 
-	L"All Militia",
+	L"Tous",
 };
 
 STR16 pSnitchMenuStrings[] =
