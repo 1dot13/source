@@ -391,9 +391,9 @@ enum
 #define SOLDIER_ENEMY_OBSERVEDTHISTURN		0x08000000	//134217728 // enemy soldier was seen by the player this turn
 
 #define SOLDIER_VIP							0x10000000	//268435456	// soldier is a VIP - the player will likely try to assassinate him
-#define SOLDIER_BODYGUARD					0x20000000	//536870912 // soldier is a bodyguard for a VIP
-/*#define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
-#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
+#define SOLDIER_BODYGUARD					0x20000000	//536870912 // soldier is a bodyguard for a VIP/*
+#define SOLDIER_COVERT_TEMPORARY_OVERT		0x40000000	//1073741824	// we are covert, but just performed a obviously suspicious task. For a short time, we can be uncovered more easily
+//#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
 // ----------------------------------------------------------------
 
 // ------------------- more flags for soldiers --------------------
@@ -595,6 +595,9 @@ enum {
 
 // Flugente: certain skills/traits/taints require a cooldown timer 
 enum {
+	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS = 0,
+	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS,
+
 	SOLDIER_COOLDOWN_MAX = 20,				// enough space for fillers
 };
 
@@ -1746,7 +1749,7 @@ public:
 
 	// is our equipment too good for a soldier?
 	BOOLEAN		EquipmentTooGood( BOOLEAN fCloselook );
-
+	
 	// does soldier ubObserverID recognize us as his enemy?
 	BOOLEAN		SeemsLegit( UINT8 ubObserverID );
 
@@ -2010,6 +2013,7 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 BOOLEAN SectorJammed();
 BOOLEAN PlayerTeamIsScanning();
 UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam);				// bonus for snipers firing at this location (we get this if there are spotters)
+UINT16	GetSuspiciousAnimationAPDuration( UINT16 usAnimation );			// get overt penalty duration in AP for using an animation
 
 //typedef struct
 class OLDSOLDIERTYPE_101

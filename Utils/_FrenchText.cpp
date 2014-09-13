@@ -8086,7 +8086,8 @@ STR16	szCovertTextStr[]=
 	L"Le déguisement de %s ne marchera pas...",
 	L"%s a été pris en train de voler !",
 	L"%s a essayé d'accéder à l'inventaire de %s.",
-	L"%s est trop près d'un soldat d'élite !",
+	L"An elite soldier did not recognize %s!",	// TODO.Translate
+	L"A officer knew %s was unfamiliar!",
 };
 
 STR16	szCorpseTextStr[]=

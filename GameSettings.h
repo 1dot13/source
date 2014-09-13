@@ -1888,7 +1888,7 @@ typedef struct
 	INT16	sCODisguiseAPReduction;
 	INT16	sCOCloseDetectionRange;
 	INT16	sCOCloseDetectionRangeSoldierCorpse;
-	BOOLEAN fCOElitesDetectNextTile;
+	UINT16	usCOEliteUncoverRadius;
 	BOOLEAN fCODetectIfBleeding;					// will we be discovered if we are bleeding?
 
 	// RADIO OPERATOR

@@ -4260,6 +4260,24 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		}
 	}
 
+	// Flugente: if we are covert and perform a suspicious action, we will be easier to uncover for a short time
+	if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
+	{
+		// if e perform a suspicious action, we are easier to identify 
+		UINT16 appenalty = GetSuspiciousAnimationAPDuration( this->usAnimState );
+
+		if ( appenalty )
+		{
+			// mark us a easily identifiable
+			this->usSoldierFlagMask |= SOLDIER_COVERT_TEMPORARY_OVERT;
+
+			// in realtime mode, remember the second when this event happened. Once suspicion is checked, we are either uncovered or, if enough time has passed, no longer suspicious
+			// in turnbase mode, remember our current APs. If a new turn has started or enough APs have been used, remove the flag
+			this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS] = GetWorldTotalSeconds( ) + max( 1, appenalty / 25 );
+			this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] = appenalty;
+		}
+	}
+
 	// If our own guy...
 	if ( this->bTeam == gbPlayerNum )
 	{
@@ -15584,52 +15602,21 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	if ( !(this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER)) )
 		return FALSE;
 
-	// if we are in a suspicious activity: not covert
-	if ( this->usAnimState == NINJA_SPINKICK ||
-		 this->usAnimState == NINJA_PUNCH ||
-		 this->usAnimState == NINJA_LOWKICK ||
-		 this->usAnimState == PUNCH_LOW ||
-		 this->usAnimState == DECAPITATE ||
-		 this->usAnimState == CROWBAR_ATTACK ||
-		 this->usAnimState == THROW_GRENADE_STANCE ||
-		 this->usAnimState == SHOOT_ROCKET_CROUCHED ||
-		 this->usAnimState == LOB_GRENADE_STANCE ||
-		 this->usAnimState == THROW_KNIFE ||
-		 this->usAnimState == CUTTING_FENCE ||
-		 this->usAnimState == HELIDROP ||
-		 this->usAnimState == THROW_KNIFE_SP_BM ||
-		 this->usAnimState == DODGE_ONE ||
-		 this->usAnimState == SLICE ||
-		 this->usAnimState == STAB ||
-		 this->usAnimState == CROUCH_STAB ||
-		 this->usAnimState == PUNCH ||
-		 this->usAnimState == PUNCH_BREATH ||
-		 this->usAnimState == KICK_DOOR ||
-		 this->usAnimState == CUTTING_FENCE ||
-		 this->usAnimState == PLANT_BOMB ||
-		 this->usAnimState == USE_REMOTE ||
-		 this->usAnimState == STEAL_ITEM ||
-		 this->usAnimState == SHOOT_ROCKET ||
-		 this->usAnimState == TAKE_BLOOD_FROM_CORPSE ||
-		 this->usAnimState == PICK_LOCK ||
-		 this->usAnimState == LOCKPICK_CROUCHED ||
-		 this->usAnimState == STEAL_ITEM_CROUCHED ||
-		 this->usAnimState == JUMPWINDOWS ||
-		 this->usAnimState == FOCUSED_PUNCH ||
-		 this->usAnimState == FOCUSED_STAB ||
-		 this->usAnimState == HTH_KICK ||
-		 this->usAnimState == FOCUSED_HTH_KICK ||
-		 this->usAnimState == LONG_JUMP ||
-		 this->usAnimState == THROW_GRENADE_STANCE ||
-		 this->usAnimState == LOB_GRENADE_STANCE ||
-		 this->usAnimState == THROW_ITEM ||
-		 this->usAnimState == LOB_ITEM ||
-		 this->usAnimState == THROW_ITEM_CROUCHED ||
-		 this->usAnimState == SHOOT_ROCKET_CROUCHED
-		 )
+	// if we perform suspicious actions, we are easier to uncover for a short time (but not by ourselves if we test the disguise)
+	if ( ubObserverID != this->ubID && this->usSoldierFlagMask & SOLDIER_COVERT_TEMPORARY_OVERT )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName( ) );
-		return FALSE;
+		// if enough time ha passed, or we have spend enough AP, lose the flag
+		if ( this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] == 0 || GetWorldTotalSeconds( ) >= this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS] )
+		{
+			this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS] = 0;
+			this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] = 0;
+			this->usSoldierFlagMask &= ~SOLDIER_COVERT_TEMPORARY_OVERT;
+		}
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName( ) );
+			return FALSE;
+		}
 	}
 
 	// if we are trying to dress like a civilian, but aren't sucessful: not covert
@@ -15652,7 +15639,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	// if we have the skill, our cover will blow if we dress up as a soldier, but not if we are dressed like a civilian
 	INT32 discoverrange = gSkillTraitValues.sCOCloseDetectionRange;
 
-	if ( distance < discoverrange )
+	if ( ubObserverID != this->ubID && distance < discoverrange )
 	{
 		switch ( covertlevel )
 		{
@@ -15704,10 +15691,18 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			break;
 		}
 
-		// if we are a soldier, elites can uncover us if we are VERY close, and more experienced
-		if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && gSkillTraitValues.fCOElitesDetectNextTile && distance < 2 && EffectiveExpLevel( pSoldier ) > EffectiveExpLevel( this ) + covertlevel )
+		// if we are disguised as a soldier, elites and officers can uncover us if they are close
+		if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && distance < gSkillTraitValues.usCOEliteUncoverRadius && EffectiveExpLevel( pSoldier ) >= EffectiveExpLevel( this ) + covertlevel )
 		{
-			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
+			// officers can uncover us even if we are disguised as an elite
+			if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE_TO_OFFICER], this->GetName( ) );
+				return FALSE;
+			}
+			
+			// elites uncover us if we a disguised as an admin or regular
+			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && GetUniformType() < UNIFORM_ENEMY_ELITE )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE_TO_ELITE], this->GetName( ) );
 				return FALSE;
@@ -16381,7 +16376,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 					this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
 				// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
-				this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+				bOverTurnAPS = max( 0, bOverTurnAPS - APBPConstants[AP_USEWIRECUTTERS] );
 			}
 		}
 		break;
@@ -22326,6 +22321,68 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam )
 	bestvalue = min( gGameExternalOptions.usSpotterMaxCTHBoost, max( 0, bestvalue ) );
 
 	return bestvalue;
+}
+
+// get overt penalty duration in AP for using an animation
+UINT16	GetSuspiciousAnimationAPDuration( UINT16 usAnimation )
+{
+	switch ( usAnimation )
+	{
+	case NINJA_PUNCH:
+	case NINJA_LOWKICK:
+	case PUNCH_LOW:
+	case CROWBAR_ATTACK:
+	case DODGE_ONE:
+	case SLICE:
+	case STAB:
+	case CROUCH_STAB:
+	case PUNCH:
+	case PUNCH_BREATH:
+	case KICK_DOOR:
+	case FOCUSED_PUNCH:
+	case FOCUSED_STAB:
+	case HTH_KICK:
+	case FOCUSED_HTH_KICK:
+		return 60; break;
+
+	case THROW_GRENADE_STANCE:
+	case LOB_GRENADE_STANCE:
+	case THROW_KNIFE:
+	case THROW_KNIFE_SP_BM:
+	case THROW_ITEM:
+	case LOB_ITEM:
+	case THROW_ITEM_CROUCHED:
+		return 50; break;
+
+	case PICKUP_ITEM:
+	case DROP_ITEM:
+		return 30; break;
+
+	case DECAPITATE:
+	case TAKE_BLOOD_FROM_CORPSE:
+		return 50; break;
+
+	case PLANT_BOMB:
+	case USE_REMOTE:
+	case STEAL_ITEM:
+	case PICK_LOCK:
+	case LOCKPICK_CROUCHED:
+	case STEAL_ITEM_CROUCHED:
+		return 50; break;
+
+	case SHOOT_ROCKET_CROUCHED:
+	case SHOOT_ROCKET:
+	case HELIDROP:
+	case NINJA_SPINKICK:
+		return 100; break;
+
+	case CUTTING_FENCE:
+	case JUMPWINDOWS:
+	case LONG_JUMP:
+		return 60; break;
+	}
+
+	return 0;
 }
 
 void SetDamageDisplayCounter( SOLDIERTYPE* pSoldier )

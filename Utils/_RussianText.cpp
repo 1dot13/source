@@ -8077,7 +8077,8 @@ STR16	szCovertTextStr[]=
 	L"%s: маскировка не выдержит проверки.",
 	L"%s был пойман на краже!",
 	L"%s пытался залезть в инвентарь %s.",
-	L"%s слишком близко к элитному солдату!",
+	L"An elite soldier did not recognize %s!",	// TODO.Translate
+	L"A officer knew %s was unfamiliar!",
 };
 
 STR16	szCorpseTextStr[]=

@@ -873,9 +873,16 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 	INT16 sNewAP = 0;
 	INT8	bNewBreath;
 
-	// Flugente: if we spend AP, then spotter status ends
-	if ( sAPCost > 0)
+	// Flugente: if we spend AP...
+	if ( sAPCost > 0 )
+	{
+		// ... then spotter status ends
 		pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER] = 0;
+
+		// if we are temporarily overt
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_COVERT_TEMPORARY_OVERT && pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] > 0 )
+			pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] = max( 0, (INT16)(pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] - sAPCost) );
+	}
 
 	// in real time, there IS no AP cost, (only breath cost)
 	if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )

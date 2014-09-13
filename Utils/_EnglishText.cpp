@@ -8084,7 +8084,8 @@ STR16	szCovertTextStr[]=
 	L"%s's disguise will not hold.",
 	L"%s was caught stealing!",
 	L"%s tried to manipulate %s's inventory.",
-	L"%s is too close to an elite soldier!",
+	L"An elite soldier did not recognize %s!",
+	L"A officer knew %s was unfamiliar!",
 };
 
 STR16	szCorpseTextStr[]=
