@@ -879,6 +879,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubRecruitableJohnKulbaDelay	= iniReader.ReadInteger("Recruitment Settings", "RECRUITABLE_JOHN_KULBA_DELAY", 14, 0, 255);
 	// anv: enable JA1 natives as MERC mercs
 	gGameExternalOptions.fEnableRecruitableJA1Natives	= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_JA1_NATIVES", TRUE);
+	gGameExternalOptions.usMERCBankruptWarning			= iniReader.ReadInteger("Recruitment Settings", "MERC_BANKRUPT_WARNING", 5000, 5000, 50000 );
 
 	// Buggler: setting to show/hide skills/traits in AIM & MERC hiring page
 	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
@@ -2483,7 +2484,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.sCODisguiseAPReduction				= iniReader.ReadInteger("Covert Ops","COVERT_DISGUISE_PERCENT_AP_REDUCTION", 20, 0, 50);
 	gSkillTraitValues.sCOCloseDetectionRange				= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE", 10, 0, 100);
 	gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse	= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE_SOLDIER_CORPSE", 5, 0, 100);
-	gSkillTraitValues.usCOEliteUncoverRadius				= iniReader.ReadInteger("Covert Ops","COVERT_ELITES_UNCOVER_RADIUS", 6 );
+	gSkillTraitValues.usCOEliteUncoverRadius				= iniReader.ReadInteger("Covert Ops","COVERT_ELITES_UNCOVER_RADIUS", 6, 0, 20 );
 	gSkillTraitValues.fCODetectIfBleeding					= iniReader.ReadBoolean("Covert Ops","COVERT_DETECTEDIFBLEEDING", FALSE );
 
 	// Flugente: RADIO OPERATOR

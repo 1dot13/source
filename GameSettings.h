@@ -772,6 +772,7 @@ typedef struct
 	UINT16  ubRecruitableJohnKulbaDelay;
 	// anv: enable JA1 natives as MERC mercs
 	BOOLEAN fEnableRecruitableJA1Natives;
+	UINT32	usMERCBankruptWarning;	// Flugente: if outstanding debt exceeds this, Speck will complain about player's outstanding debts
 
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	BOOLEAN fSectorDesc;

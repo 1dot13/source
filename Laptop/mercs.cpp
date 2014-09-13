@@ -2081,7 +2081,7 @@ BOOLEAN	GetSpeckConditionalOpening( BOOLEAN fJustEnteredScreen )
 #ifdef JA2UB
 //JA25: not using quote quote
 #else
-		else if( CalculateHowMuchPlayerOwesSpeck() > 5000 )
+		else if ( CalculateHowMuchPlayerOwesSpeck( ) > gGameExternalOptions.usMERCBankruptWarning )
 		{
 			StartSpeckTalking( SPECK_QUOTE_ALTERNATE_OPENING_6_PLAYER_OWES_SPECK_ALMOST_BANKRUPT_1 );
 			StartSpeckTalking( SPECK_QUOTE_ALTERNATE_OPENING_6_PLAYER_OWES_SPECK_ALMOST_BANKRUPT_2 );
