@@ -1848,7 +1848,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
-	L"MoveItem",	// move items
+	L"GetItem",	// move items
 	L"Staff", // operating a strategic facility
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Rest", // Resting at a facility
@@ -1946,7 +1946,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// Missing
 	L"Trainer",
 	L"Student",
-	L"Move item",	// move items
+	L"Get item",	// move items
 	L"Facility Staff",	// Missing
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Resting at Facility",		// Missing
@@ -2004,7 +2004,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",	// Missing
 	L"Train Teammate",
 	L"Student",
-	L"Move Item",	// move items
+	L"Get Item",	// move items
 	L"Staff Facility",	// Missing
 	L"Rest at Facility",	// Missing
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners
@@ -2141,7 +2141,7 @@ STR16 pAssignMenuStrings[] =
 	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Snitch", // anv: snitch actions
 	L"Train", // the merc is training
-	L"Move Item",	// move items
+	L"Get Item",	// move items
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
@@ -3689,7 +3689,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
-	L"Toggle Move Item Display", // Flugente: move item display
+	L"Toggle Get Item Display", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -8764,6 +8764,32 @@ STR16	szCampaignStatsOperationPrefix[] =
 	L"Steadfast %s",
 
 	// 100
+	L"Narcoleptic %s",
+	L"Bleached %s",
+	L"Nail-biting %s",
+	L"Smite the %s",
+
+	L"Bloodthirsty %s",
+	L"Obese %s",
+	L"Scheming %s",
+	L"Tree-Humping %s",
+
+	L"Cheaply made %s",
+	L"Sanctified %s",
+	L"Falsely accused %s",
+	L"%s to the rescue",
+
+	L"Crab-people vs. %s",
+	L"%s in Space!!!",
+	L"%s vs. Godzilla",
+	L"Untamed %s",
+
+	L"Durable %s",
+	L"Brazen %s",
+	L"Greedy %s",
+	L"Midnight %s",
+
+	// 120
 };
 
 STR16	szCampaignStatsOperationSuffix[] =
@@ -8898,6 +8924,32 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Mutual Fund",
 
 	// 100
+	L"Uniform",
+	L"Saber",
+	L"Snow Leopard",
+	L"Panther",
+
+	L"Centaur",
+	L"Scorpion",
+	L"Serpent",
+	L"Black Widow",
+
+	L"Tarantula",
+	L"Vulture",
+	L"Heretic",
+	L"Zombie",
+
+	L"Role-Model",
+	L"Hellhound",
+	L"Mongoose",
+	L"Nurse",
+
+	L"Nun",
+	L"",
+	L"",
+	L"",
+
+	// 120
 };
 
 STR16	szMercCompareWebSite[] =

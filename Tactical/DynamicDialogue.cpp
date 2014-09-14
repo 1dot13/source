@@ -2069,12 +2069,18 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				if ( !pTeamSoldier->iTotalContractLength || (pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC && pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__MERC && pTeamSoldier->ubWhatKindOfMercAmI != MERC_TYPE__NPC_WITH_UNEXTENDABLE_CONTRACT) )
 					continue;
 
+				// A gets offended of B if
+				// mean wage(B) >= ( WAGE_ACCEPTANCE_FACTOR  * level(B) / level(A) ) * mean wage(A)
+				// which equals
+				// mean wage(B) / level(B) >= WAGE_ACCEPTANCE_FACTOR * mean wage(A) / level(A)
+
 				// their wage
 				UINT32 theirmeanwage = gMercProfiles[pTeamSoldier->ubProfile].uiTotalCostToDate / pTeamSoldier->iTotalContractLength;
 
 				// adjust this for experience levels
 				FLOAT explevelfactor = gGameExternalOptions.fDynamicWageFactor * pTeamSoldier->stats.bExpLevel / explevel;
 
+				// abort if their mean wage isn't that high
 				if ( theirmeanwage < explevelfactor * meanwage )
 					continue;
 			}

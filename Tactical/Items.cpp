@@ -15410,3 +15410,23 @@ void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments)/
 		}
 	}
 }
+
+// Flugente: is this object useable by militia?
+BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj )
+{
+	if ( !pObj )
+		return FALSE;
+
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		if ( Item[pObj->usItem].usItemClass & IC_ARMOUR && gGameExternalOptions.fMilitiaUseSectorInventory_Armour )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & IC_FACE && gGameExternalOptions.fMilitiaUseSectorInventory_Face )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & (IC_BLADE | IC_PUNCH) && gGameExternalOptions.fMilitiaUseSectorInventory_Melee )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & IC_GRENADE && gGameExternalOptions.fMilitiaUseSectorInventory_Grenade )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & (IC_GUN | IC_AMMO) && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & IC_LAUNCHER && gGameExternalOptions.fMilitiaUseSectorInventory_Launcher )	return TRUE;
+		if ( Item[pObj->usItem].usItemClass & IC_AMMO && gGameExternalOptions.fMilitiaUseSectorInventory_Ammo )	return TRUE;
+	}
+
+	return FALSE;
+}

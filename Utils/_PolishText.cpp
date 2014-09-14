@@ -1856,7 +1856,7 @@ STR16 pAssignmentStrings[] =
 	L"R.Samoobr.", //training moving militia units
 	L"Instruk.", // training a teammate
 	L"Uczeń", // being trained by someone else 
-	L"Move Item",	// move items // TODO.Translate
+	L"Get Item",	// get items	// TODO.Translate
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
@@ -1954,7 +1954,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// TODO.Translate
 	L"Instruktor",
 	L"Uczeń",
-	L"Move item",	// move items // TODO.Translate
+	L"Get Item",	// get items	// TODO.Translate
 	L"Facility Staff",			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Resting at Facility",		// TODO.Translate
@@ -2012,7 +2012,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",		// TODO.Translate
 	L"Trenuj oddział",
 	L"Uczeń",
-	L"Move Item",	// move items // TODO.Translate
+	L"Get Item",	// get items	// TODO.Translate
 	L"Staff Facility",		// TODO.Translate
 	L"Rest at Facility",	// TODO.Translate
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
@@ -2149,7 +2149,7 @@ STR16 pAssignMenuStrings[] =
 	L"Nasłuch", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Kapuś", // anv: snitch actions
 	L"Szkolenie", // the merc is training
-	L"Move Item",	// move items	// TODO.Translate
+	L"Get Item",	// get items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Anuluj", // cancel this menu
 };
@@ -3699,7 +3699,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
-	L"Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
+	L"Toggle Get Item Display", // Flugente: move item display	// TODO.Translate
 };
 
 STR16 pMapScreenBottomFastHelp[] =

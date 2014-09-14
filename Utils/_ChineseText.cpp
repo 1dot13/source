@@ -1847,7 +1847,7 @@ STR16 pAssignmentStrings[] =
 	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
-	L"搬运物品",	// move items
+	L"Get Item",	// get items	// TODO.Translate
 	L"兼职", // L"Staff", // operating a strategic facility //ham3.6
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
@@ -1945,7 +1945,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练游击队",
 	L"教练",
 	L"学员",
-	L"搬运物品",	// move items
+	L"Get Item",	// get items	// TODO.Translate
 	L"兼职",
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休养",
@@ -2003,7 +2003,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练游击队", //L"Train Mobiles",
 	L"训练队友",
 	L"学员",
-	L"搬运物品",	// move items
+	L"Get Item",	// get items	// TODO.Translate
 	L"兼职",  //L"Staff Facility",
 	L"休养",  //L"Rest at Facility",
 	L"审讯俘虏", // L"Interrogate prisoners",
@@ -2140,7 +2140,7 @@ STR16 pAssignMenuStrings[] =
 	L"无线电扫描", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"告发", // anv: snitch actions
 	L"训练",
-	L"搬运物品",	// move items
+	L"Get Item",	// get items	// TODO.Translate
 	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };

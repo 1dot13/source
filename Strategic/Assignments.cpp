@@ -133,16 +133,8 @@ enum{
 };
 
 enum{
-	MOVEITEM_MENU_1 = 0,
-	MOVEITEM_MENU_2,
-	MOVEITEM_MENU_3,
-	MOVEITEM_MENU_4,
-	MOVEITEM_MENU_5,
-	MOVEITEM_MENU_6,
-	MOVEITEM_MENU_7,
-	MOVEITEM_MENU_8,
-	MOVEITEM_MENU_9,
-	MOVEITEM_MENU_10,
+	MOVEITEM_MAX_SECTORS = 10,
+	MOVEITEM_MAX_SECTORS_WITH_MODIFIER = 2 * MOVEITEM_MAX_SECTORS,
 	MOVEITEM_MENU_CANCEL,
 };
 
@@ -232,8 +224,7 @@ MOUSE_REGION	gRepairMenuRegion[ 20 ];
 MOUSE_REGION	gMoveItem[ 20 ];
 MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
 
-#define			MOVEITEM_MAX_SECTORS	10
-UINT8			usMoveItemSectors[MOVEITEM_MAX_SECTORS];
+UINT8			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
 
 // mouse region for vehicle menu
 MOUSE_REGION		gVehicleMenuRegion[ 20 ];
@@ -7279,7 +7270,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		return;
 
 	// we loop over all mercs with this assignment in this sector, and then do a separate loop over each target sector
-	std::map<UINT8, UINT8> sectormercmap;		// this map uses the sectors we take stuff from as keys and the number of mercs as elements
+	std::map<UINT8, std::pair<UINT8, UINT8> > sectormercmap;		// this map uses the sectors we take stuff from as keys and the number of mercs as elements
 
 	// we need a gridno to which we drop stuff
 	INT32 sDropOffGridNo = gMapInformation.sCenterGridNo;
@@ -7298,11 +7289,26 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			{
 				// which sector do we want to move stuff to?
 				UINT8 targetsector = pSoldier->usItemMoveSectorID;
+				
+				if ( sectormercmap.find( targetsector ) != sectormercmap.end() )
+				{
+					sectormercmap[targetsector].first++;
 
-				if ( sectormercmap[targetsector] )
-					sectormercmap[targetsector]++;
+					// it is possible that this guy only moves stuff that is not reserved for the militia
+					if ( pSoldier->usSoldierFlagMask & SOLDIER_MOVEITEM_RESTRICTED )
+						sectormercmap[targetsector].second++;
+				}
 				else
-					sectormercmap[targetsector] = 1;
+				{
+					std::pair<UINT8, UINT8> pair;
+					pair.first = 1;
+
+					// it is possible that this guy only moves stuff that is not reserved for the militia
+					if ( pSoldier->usSoldierFlagMask & SOLDIER_MOVEITEM_RESTRICTED )
+						pair.second = 1;
+
+					sectormercmap[targetsector] = pair;
+				}
 
 				if ( pSoldier->sGridNo != NOWHERE )
 					sDropOffGridNo = pSoldier->sGridNo;
@@ -7320,10 +7326,11 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	std::vector<WORLDITEM> pWorldItem_Target;//dnl ch75 271013
 
 	// now loop over all sectors from which we take stuff, and move the equipment
-	std::map<UINT8, UINT8>::iterator itend = sectormercmap.end();
-	for (std::map<UINT8, UINT8>::iterator it = sectormercmap.begin(); it != itend; ++it)
+	std::map<UINT8, std::pair<UINT8, UINT8> >::iterator itend = sectormercmap.end( );
+	for ( std::map<UINT8, std::pair<UINT8, UINT8> >::iterator it = sectormercmap.begin( ); it != itend; ++it )
 	{
 		UINT8 sector = (*it).first;
+		std::pair<UINT8, UINT8> pair = (*it).second;
 
 		INT16 targetX = SECTORX(sector);
 		INT16 targetY = SECTORY(sector);
@@ -7340,8 +7347,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			continue;
 
 		// each soldier can carry 40 items or 40 kg, and needs 10 minutes (two way walk) per sector distance, thereby 6 / distance runs possible per hour
-		UINT16 maxitems  =  40 * (*it).second * 6 / distance;
-		UINT16 maxweight = 400 * (*it).second * 6 / distance;
+		UINT16 maxitems  = 40  * pair.first * 6 / distance;
+		UINT16 maxweight = 400 * pair.first * 6 / distance;
+
+		// we have to differentiate between items that the militia might use and all other items, as there is an option to only move non-militia gear
+		UINT16 maxitems_militiagear  = 40  * (pair.first - pair.second) * 6 / distance;
+		UINT16 maxweight_militiagear = 400 * (pair.first - pair.second) * 6 / distance;
 		
 		// open the inventory of the sector we are taking stuff from
 		SECTORINFO *pSectorInfo_Target = &( SectorInfo[ SECTOR(targetX, targetY) ] );
@@ -7375,6 +7386,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// move items from Target to Here
 		UINT16 moveditems = 0;
 		UINT32 movedweight = 0;
+		UINT16 moveditems_militiagear = 0;
+		UINT32 movedweight_militiagear = 0;
 		OBJECTTYPE* pObjectToMove = new OBJECTTYPE[uiTotalNumberOfRealItems_Target];
 		UINT8 moveobjectcounter = 0;
 
@@ -7389,6 +7402,19 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 					if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
 					{
+						// can this object can be used by militia?
+						if ( ObjectIsMilitiaRelevant( pObj ) )
+						{
+							// if we can still move militia gear, do so. Otherwise ignore this object.
+							if ( moveditems_militiagear < maxitems_militiagear && movedweight_militiagear < maxweight_militiagear )
+							{
+								moveditems_militiagear += pObj->ubNumberOfObjects;
+								movedweight_militiagear += CalculateObjectWeight( pObj );
+							}
+							else
+								continue;
+						}
+
 						moveditems  += pObj->ubNumberOfObjects;
 						movedweight += CalculateObjectWeight(pObj);
 												
@@ -7476,8 +7502,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		}
 
 		// award a bit of experience to the movers
-		UINT16  itemsperperson = moveditems  / (*it).second;
-		UINT16 weightperperson = movedweight / (*it).second;
+		UINT16  itemsperperson = moveditems  / pair.first;
+		UINT16 weightperperson = movedweight / pair.first;
 		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
@@ -21018,7 +21044,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 	SetCurrentBox(ghMoveItemBox);
 	
 	// delete old sectors
-	for (UINT8 i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
+	for ( UINT8 i = 0; i < MOVEITEM_MAX_SECTORS_WITH_MODIFIER; ++i )
 	{
 		usMoveItemSectors[i] = 0;
 	}
@@ -21049,8 +21075,19 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 				AddMonoString( (UINT32 *)&hStringHandle, wSectorName );
 
+				if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+				{
+					usMoveItemSectors[iCount + 10] = (UINT8)X;
+
+					// Set string for generic button
+					CHAR16 bla[64];
+					swprintf( bla, L"%s - No militia gear", wSectorName );
+					
+					AddMonoString( (UINT32 *)&hStringHandle, bla );
+				}
+
 				++iCount;
-				if ( iCount >= MOVEITEM_MAX_SECTORS )
+				if ( iCount >= MOVEITEM_MENU_CANCEL )
 					break;
 			}
 		}
@@ -21076,64 +21113,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 void HandleShadingOfLinesForMoveItemMenu( void )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	INT32 iVehicleIndex = 0;
-	INT32 iCount = 0;
-	
-	if( ( fShowMoveItemMenu == FALSE ) || ( ghMoveItemBox == -1 ) )
-	{
-		return;
-	}
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
-	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
-
-	// we now have to show every sector of the town we are in
-	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
-
-	// only in towns
-	if ( bTownId != BLANK_SECTOR && pSoldier->bSectorZ == 0 )
-	{
-		for(UINT i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
-		{
-			UINT8 sector = usMoveItemSectors[i];
-
-			if ( sector > 0 )
-			{
-				INT16 sectorX = SECTORX(sector);
-				INT16 sectorY = SECTORY(sector);
-
-				UINT32 uiTotalNumberOfRealItems = 0;
-				GetNumberOfWorldItemsFromTempItemFile( sectorX, sectorY, 0, &( uiTotalNumberOfRealItems ), FALSE );
-
-				if ( uiTotalNumberOfRealItems > 0 )
-				{
-					// unshade vehicle line
-					UnShadeStringInBox( ghMoveItemBox, iCount );
-				}
-				else
-				{
-					// shade vehicle line
-					ShadeStringInBox( ghMoveItemBox, iCount );
-				}
-			}
-		}
-	}
-
-	if ( 1 )
-	{
-		// unshade items line
-		UnShadeStringInBox( ghMoveItemBox, iCount );
-	}
-	else
-	{
-		// shade items line
-		ShadeStringInBox( ghMoveItemBox, iCount );
-	}
-
-	++iCount;
+	// we only select those sectors from which we can take anything anyway - so nothing to be done here
 }
 
 
@@ -21190,22 +21170,23 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		// only in towns
 		if ( bTownId != BLANK_SECTOR && pSoldier->bSectorZ == 0 )
 		{
-			for(UINT i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
+			for ( UINT i = 0; i < MOVEITEM_MAX_SECTORS_WITH_MODIFIER; ++i )
 			{
 				UINT8 sector = usMoveItemSectors[i];
 
 				if ( sector > 0 )
 				{
 					// add mouse region for each line of text..and set user data
-					MSYS_DefineRegion( &gMoveItem[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-								MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
+					MSYS_DefineRegion( &gMoveItem[ iCount ], 
+									   ( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), 
+									   MSYS_PRIORITY_HIGHEST - 4 ,	MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
-					MSYS_SetRegionUserData( &gMoveItem[ iCount ], 0, iCount );
-					// 2nd user data is the vehicle index, which can easily be different from the region index!
-					MSYS_SetRegionUserData( &gMoveItem[ iCount ], 1, iCount );
-					iCount++;
+					// first data is for entry in usMoveItemSectors, second is for regiondate number
+					MSYS_SetRegionUserData( &gMoveItem[iCount], 0, i );
+					MSYS_SetRegionUserData( &gMoveItem[iCount], 1, iCount );
+					++iCount;
 
-					if ( iCount >= MOVEITEM_MAX_SECTORS )
+					if ( iCount >= MOVEITEM_MENU_CANCEL )
 						break;
 				}
 			}
@@ -21215,9 +21196,8 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		MSYS_DefineRegion( &gMoveItem[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
 							MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
-		MSYS_SetRegionUserData( &gMoveItem[ iCount ], 0, iCount );
-		MSYS_SetRegionUserData( &gMoveItem[ iCount ], 1, MOVEITEM_MENU_CANCEL );
-
+		MSYS_SetRegionUserData( &gMoveItem[iCount], 0, MOVEITEM_MENU_CANCEL );
+		MSYS_SetRegionUserData( &gMoveItem[iCount], 1, iCount );
 
 		PauseGame( );
 
@@ -21231,7 +21211,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		fCreated = FALSE;
 
 		// remove these regions
-		for( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghMoveItemBox ); uiCounter++ )
+		for( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghMoveItemBox ); ++uiCounter )
 		{
 			MSYS_RemoveRegion( &gMoveItem[ uiCounter ] );
 		}
@@ -21254,10 +21234,6 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 
 void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	// btn callback handler for assignment region
-	SOLDIERTYPE *pSoldier = NULL;
-	INT32 iWhat;
-
 	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	// ignore clicks on disabled lines
@@ -21265,15 +21241,12 @@ void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		return;
 	}
-
-	// WHAT is being repaired is stored in the second user data argument
-	iWhat = MSYS_GetRegionUserData( pRegion, 1 );
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
+	
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	if ( pSoldier && pSoldier->bActive && ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP ) )
 	{
-		if( iWhat < MOVEITEM_MENU_CANCEL )
+		if ( iValue < MOVEITEM_MENU_CANCEL )
 		{
 			pSoldier->bOldAssignment = pSoldier->bAssignment;
 
@@ -21292,8 +21265,19 @@ void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			ChangeSoldiersAssignment( pSoldier, MOVE_EQUIPMENT );
 
-			if ( iWhat < MOVEITEM_MAX_SECTORS )
-				pSoldier->usItemMoveSectorID = usMoveItemSectors[iWhat];
+			// depending on exact setting, add or remove the flag that controls wether we ignore stuff the militia might use
+			if ( iValue < MOVEITEM_MAX_SECTORS )
+			{
+				pSoldier->usItemMoveSectorID = usMoveItemSectors[iValue];
+
+				pSoldier->usSoldierFlagMask &= ~SOLDIER_MOVEITEM_RESTRICTED;
+			}
+			else if ( iValue < MOVEITEM_MAX_SECTORS_WITH_MODIFIER )
+			{				
+				pSoldier->usItemMoveSectorID = usMoveItemSectors[iValue];
+
+				pSoldier->usSoldierFlagMask |= SOLDIER_MOVEITEM_RESTRICTED;
+			}
 
 			// assign to a movement group
 			AssignMercToAMovementGroup( pSoldier );
@@ -21321,22 +21305,17 @@ void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 1 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
 		if( iValue < MOVEITEM_MENU_CANCEL )
 		{
-			if( GetBoxShadeFlag( ghMoveItemBox, iValue ) == FALSE )
+			if( !GetBoxShadeFlag( ghMoveItemBox, iValue ) )
 			{
 				// highlight choice
 				HighLightBoxLine( ghMoveItemBox, iValue );
 			}
-		}
-		else
-		{
-			// highlight cancel line
-			HighLightBoxLine( ghMoveItemBox, GetNumberOfLinesOfTextInBox( ghMoveItemBox ) - 1 );
 		}
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )

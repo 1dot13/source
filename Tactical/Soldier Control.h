@@ -393,7 +393,7 @@ enum
 #define SOLDIER_VIP							0x10000000	//268435456	// soldier is a VIP - the player will likely try to assassinate him
 #define SOLDIER_BODYGUARD					0x20000000	//536870912 // soldier is a bodyguard for a VIP/*
 #define SOLDIER_COVERT_TEMPORARY_OVERT		0x40000000	//1073741824	// we are covert, but just performed a obviously suspicious task. For a short time, we can be uncovered more easily
-//#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
+#define SOLDIER_MOVEITEM_RESTRICTED			0x80000000	//2147483648	// when moving item, this soldier will not pick up equipment the militia might use
 // ----------------------------------------------------------------
 
 // ------------------- more flags for soldiers --------------------

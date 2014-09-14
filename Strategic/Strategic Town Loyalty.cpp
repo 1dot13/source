@@ -2058,20 +2058,11 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 		// if not worse than 2:1 odds, then penalize morale
 		// SANDRO - Set the odds based on difficulty level
 		
-		UINT8 DiffLevel;
-			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-				DiffLevel = 1;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-				DiffLevel = 2;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-				DiffLevel = 3;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-				DiffLevel = 4;	
-			else
-				DiffLevel = 1;
+		UINT8 DiffLevel = gGameOptions.ubDifficultyLevel;
+		if ( DiffLevel > DIF_LEVEL_INSANE )
+			DiffLevel = 1;
 				
 		if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + DiffLevel)) >= EnemyStrength() ) )
-		//if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + gGameOptions.ubDifficultyLevel)) >= EnemyStrength() ) )
 		{
 			HandleMoraleEvent( NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ );
 		}
