@@ -27,7 +27,7 @@
         <Property name="VFS_NO_UNICODE" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Only set this to "TRUE" for compatibility reason, if you are running JA2 1.13 on a Windows 98 operating system.</Description_ENG>
           <Description_GER>Setzen Sie diesen Wert nur auf "TRUE", falls Sie JA2 1.13 auf einem Windows 98 Betriebssystem spielen.</Description_GER>
-          <Description_RUS>Используйте значение "TRUE" лишь если вы запускаете JA2 1.13 под Windows 98.</Description_RUS>
+          <Description_RUS>Используйте значение "TRUE", только если вы запускаете JA2 1.13 под Windows 98.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>如果你在用 Windows 98 系统请把这个选项设置为 true。</Description_CHI>
 		  <Description_FRE>Mettre "TRUE", si vous jouez JA2 1.13 sous windows 98.</Description_FRE>
@@ -61,7 +61,7 @@
         <Property name="EDITOR_SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor. Resolutions marked with * have an optimized screen layout.</Description_ENG>
           <Description_GER>Die Bildschirmauflösung für den Jagged Alliance 2 v1.13 Karten Editor. Auflösungen die mit * gekennzeichnet sind haben ein optimiertes Layout.</Description_GER>
-          <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13. Les résolutions marquées d'un * ont un agencement optimisé.</Description_RUS>
+          <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13. В разрешениях, помеченных звездочкой, оптимизировано расположение элементов интерфейса.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>地图编辑器运行的屏幕分辨率设定。</Description_CHI>
 		  <Description_FRE>La résolution de votre écran pour l'éditeur de carte de Jagged Alliance 2 v1.13. Les résolutions marquées d'un * ont un agencement optimisé.</Description_FRE>
@@ -69,7 +69,7 @@
 		<Property name="CUSTOM_SCREEN_RESOLUTION_X" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
           <Description_GER></Description_GER>
-          <Description_RUS></Description_RUS>
+          <Description_RUS>Разрешение по горизонтали. Будет работать, только если выбрано Custom Resolution (настраиваемое разрешение экрана), минимум 800х600 с шагом 2. Удостоверьтесь, что монитор поддерживает выставленное вами разрешение при игре на весь экран</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
 		  <Description_FRE>Applicable uniquement lorsque "Custom Resolution" (résolution personnalisée) a été sélectionnée (Dans Game Screen Resolution ou Editor Screen Resolution), valeurs de 800x600 minimum et multiples de 2 uniquement.
@@ -78,7 +78,7 @@ Assurez-vous que votre moniteur prend en charge la résolution personnalisée en
 		<Property name="CUSTOM_SCREEN_RESOLUTION_Y" datatype="numeric" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Applicable only when set to Custom Resolution (Game Screen Resolution / Editor Screen Resolution), minimum 800x600 in multiples of 2. Make sure monitor supports the custom resolution if playing in full screen mode</Description_ENG>
           <Description_GER></Description_GER>
-          <Description_RUS></Description_RUS>
+          <Description_RUS>Разрешение по вертикали. Будет работать, только если выбрано Custom Resolution (настраиваемое разрешение экрана), минимум 800х600 с шагом 2. Удостоверьтесь, что монитор поддерживает выставленное вами разрешение при игре на весь экран</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
 		  <Description_FRE>Applicable uniquement lorsque "Custom Resolution" (résolution personnalisée) a été sélectionnée (Dans Game Screen Resolution ou Editor Screen Resolution), valeurs de 800x600 minimum et multiples de 2 uniquement.
@@ -87,8 +87,7 @@ Assurez-vous que votre moniteur prend en charge la résolution personnalisée en
         <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
           <Description_GER>Wollen Sie das Spiel Jagged Alliance 2 v1.13 bzw. den Karten Editor im Fenstermodus spielen?</Description_GER>
-          <Description_RUS>Здесь вы можете выбрать полноэкранный
-либо оконный режим для игры Jagged Alliance 2 v1.13
+          <Description_RUS>Здесь вы можете выбрать полноэкранный либо оконный режим для игры Jagged Alliance 2 v1.13
 и для редактора карт.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>是否窗口化运行游戏和地图编辑器。</Description_CHI>
@@ -97,8 +96,7 @@ Assurez-vous que votre moniteur prend en charge la résolution personnalisée en
         <Property name="PLAY_INTRO" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Should the intro be played after starting a new game?</Description_ENG>
           <Description_GER>Soll das Intro nach dem Start eines neuen Spiels angezeigt werden?</Description_GER>
-          <Description_RUS>Здесь вы можете включить,
-либо выключить показ игрового ролика после старта игры.</Description_RUS>
+          <Description_RUS>Здесь вы можете включить либо выключить показ игрового ролика после старта игры.</Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI>游戏开始时是否播放开头动画。</Description_CHI>
 		  <Description_FRE>Pour activer ou désactiver l'intro au lancement d'une nouvelle partie.</Description_FRE>
