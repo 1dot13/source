@@ -4660,7 +4660,12 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 								(*pObj)[i]->data.ubShotsLeft -= takeammo;
 
 								if ( !(*pObj)[i]->data.ubShotsLeft )
-									pWorldItem[ uiCount ].object.MoveThisObjectTo(gTempObject, 1 );
+								{
+									pWorldItem[uiCount].object.RemoveObjectAtIndex( i );
+
+									// we removed an item from the stack - set back the loop variable so we don't miss an object
+									--i;
+								}
 							}
 							
 							if ( pWorldItem[ uiCount ].object.ubNumberOfObjects < 1 )
@@ -4668,7 +4673,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 								if ( pWorldItem[ uiCount ].sGridNo != NOWHERE )
 									RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
 
-								pWorldItem[ uiCount ].fExists = FALSE;
+								pWorldItem[uiCount].fExists = FALSE;
 							}
 						}
 					}
@@ -4700,7 +4705,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 								if ( pWorldItem[ uiCount ].sGridNo != NOWHERE )
 									RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
 
-								pWorldItem[ uiCount ].fExists = FALSE;
+								pWorldItem[uiCount].fExists = FALSE;
 							}
 						}
 					}
