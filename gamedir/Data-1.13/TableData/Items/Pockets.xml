@@ -632,6 +632,8 @@
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>5</pVolume>
+		<ItemCapacityPerSize10>3</ItemCapacityPerSize10>
+		<ItemCapacityPerSize11>1</ItemCapacityPerSize11>
 		<ItemCapacityPerSize15>1</ItemCapacityPerSize15>
 	</POCKET>
 	<POCKET>
@@ -744,8 +746,8 @@
 		<pType>3</pType>
 		<pRestriction>2</pRestriction>
 		<pVolume>25</pVolume>
-		<ItemCapacityPerSize9>1</ItemCapacityPerSize9>
 		<ItemCapacityPerSize8>1</ItemCapacityPerSize8>
+		<ItemCapacityPerSize9>1</ItemCapacityPerSize9>
 	</POCKET>
 		<POCKET>
 		<pIndex>54</pIndex>
