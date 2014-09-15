@@ -368,7 +368,7 @@ enum
 #define SOLDIER_DAMAGED_PANTS				0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
 #define SOLDIER_HEADSHOT					0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
 #define SOLDIER_POW							0x00000400	//1024		// we are a prisoner of war
-#define SOLDIER_ASSASSIN					0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
+#define SOLDIER_ASSASSIN					0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies (not set on Kingpin's assassins intentionally)
 
 #define SOLDIER_POW_PRISON					0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
 #define SOLDIER_EQUIPMENT_DROPPED			0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that.

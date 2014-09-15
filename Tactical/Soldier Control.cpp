@@ -15806,7 +15806,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 
 		// even as a soldier, we will be caught around fresh corpses
 		// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
-		if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !(this->usSoldierFlagMask & SOLDIER_ASSASSIN) )
+		if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !this->IsAssassin() )
 		{
 			// check wether we are around a fresh corpse - this will make us much more suspicious
 			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
