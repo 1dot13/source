@@ -17421,6 +17421,15 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 	{
 		// radio operator
 	case SKILLS_RADIO_ARTILLERY:
+		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE )) && CanUseRadio() )
+		{
+			// we also have to check wether we can really order a strike from a sector
+			UINT32 sector = 0;
+			if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
+				canuse = TRUE;
+		}
+		break;
+
 	case SKILLS_RADIO_JAM:
 	case SKILLS_RADIO_SCAN_FOR_JAM:
 	case SKILLS_RADIO_LISTEN:
@@ -17460,13 +17469,13 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 		// radio operator
 		// the call for SKILLS_RADIO_ARTILLERY is only used by the AI
 	case SKILLS_RADIO_ARTILLERY:
-	{
-								   UINT32 sector = 0;
-								   if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
-								   {
-									   return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
-								   }
-	}
+		{
+			UINT32 sector = 0;
+			if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
+			{
+				return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
+			}
+		}
 		break;
 
 	case SKILLS_RADIO_JAM:
@@ -17535,10 +17544,10 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 		switch ( iSkill )
 		{
 			// radio operator
-		case SKILLS_RADIO_ARTILLERY:
-		case SKILLS_RADIO_JAM:
-		case SKILLS_RADIO_SCAN_FOR_JAM:
-		case SKILLS_RADIO_LISTEN:
+	case SKILLS_RADIO_ARTILLERY:
+	case SKILLS_RADIO_JAM:
+	case SKILLS_RADIO_SCAN_FOR_JAM:
+	case SKILLS_RADIO_LISTEN:
 		case SKILLS_RADIO_CALLREINFORCEMENTS:
 		case SKILLS_RADIO_TURNOFF:
 
@@ -17548,7 +17557,7 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[MSG113_WORKING_RADIO_SET] );
 			wcscat( skilldescarray, atStr );
 
-			break;
+		break;
 
 		case SKILLS_SPOTTER:
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_SPOTTER] );
@@ -22126,16 +22135,23 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 	if ( bSectorZ > 0 || sSectorX < 1 || sSectorX >= MAP_WORLD_X - 1 || sSectorY < 1 || sSectorY >= MAP_WORLD_Y - 1 )
 		return FALSE;
 
-	BOOLEAN fEnemies = (NumEnemiesInAnySector( sSectorX, sSectorY, bSectorZ )  > 0);
-	BOOLEAN fMilitia = (GetNumberOfMilitiaInSector( sSectorX, sSectorY, (INT16)bSectorZ ) > 0);
-	BOOLEAN fMercs = (PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ ) > 0);
+	UINT16 usEnemies = (UINT16)NumEnemiesInAnySector( sSectorX, sSectorY, bSectorZ );
+	UINT16 usMilitia = (UINT16)GetNumberOfMilitiaInSector( sSectorX, sSectorY, (INT16)bSectorZ );
+	UINT16 usMercs   = (UINT16)PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ );
 
 	SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sSectorX, sSectorY )]);
 
 	// sector must be free of members of an opposing team
 	if ( bTeam == ENEMY_TEAM )
 	{
-		if ( !fEnemies || fMilitia || fMercs )
+		if ( !usEnemies || usMilitia || usMercs )
+			return FALSE;
+
+		// there have to be enough guys here to fire at least one shot
+		if ( usEnemies < gSkillTraitValues.usVOMortarCountDivisor )
+			return FALSE;
+
+		if ( (usEnemies * gSkillTraitValues.usVOMortarPointsAdmin) < (gSkillTraitValues.usVOMortarShellDivisor * (usEnemies / gSkillTraitValues.usVOMortarCountDivisor)) )
 			return FALSE;
 
 		// cannot fire if artillery was used recently
@@ -22144,7 +22160,14 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 	}
 	else if ( bTeam == MILITIA_TEAM )
 	{
-		if ( fEnemies || !fMilitia )
+		if ( usEnemies || !usMilitia )
+			return FALSE;
+
+		// there have to be enough guys here to fire at least one shot
+		if ( usMilitia < gSkillTraitValues.usVOMortarCountDivisor )
+			return FALSE;
+
+		if ( (usMilitia * gSkillTraitValues.usVOMortarPointsAdmin) < (gSkillTraitValues.usVOMortarShellDivisor * (usMilitia / gSkillTraitValues.usVOMortarCountDivisor)) )
 			return FALSE;
 
 		// cannot fire if artillery was used recently
@@ -22153,7 +22176,7 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 	}
 	else if ( bTeam == OUR_TEAM )
 	{
-		if ( fEnemies || !fMercs )
+		if ( usEnemies || !usMercs )
 			return FALSE;
 
 		// we can relay orders only if someone in the sector has a working radio set and a mortar
