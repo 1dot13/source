@@ -129,6 +129,12 @@
     <ClInclude Include="IMP Finish.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="IMP Gear Entrance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="IMP Gear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="IMP HomePage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -381,6 +387,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IMP Finish.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="IMP Gear Entrance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="IMP Gear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IMP HomePage.cpp">

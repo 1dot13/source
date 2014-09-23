@@ -547,6 +547,14 @@
 				>
 			</File>
 			<File
+				RelativePath="IMP Gear Entrance.h"
+				>
+			</File>			
+			<File
+				RelativePath="IMP Gear.h"
+				>
+			</File>
+			<File
 				RelativePath="IMP HomePage.h"
 				>
 			</File>
@@ -880,6 +888,14 @@
 			</File>
 			<File
 				RelativePath="IMP Finish.cpp"
+				>
+			</File>
+			<File
+				RelativePath="IMP Gear Entrance.cpp"
+				>
+			</File>			
+			<File
+				RelativePath="IMP Gear.cpp"
 				>
 			</File>
 			<File

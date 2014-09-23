@@ -89,5 +89,7 @@ BOOLEAN ImpExists ( STR fileName );
 
 INT32 iGetProfileCost( void ); // added by SANDRO
 
+void MakeProfileInvItemAnySlot( MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubStatus, UINT8 ubHowMany );
+
 #endif
 

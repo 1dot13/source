@@ -2926,45 +2926,50 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 		//	bMaxMajorTraits++;
 		//}
 		
-		for ( INT8 bCnt = 0; bCnt < bMaxTraits; bCnt++ )
+		if ( TwoStagedTrait( bSkillTrait ) )
 		{
-			if ( TwoStagedTrait(bSkillTrait) )
+			for ( INT8 bCnt = 0; bCnt < bMaxTraits; ++bCnt )
 			{
-				if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] == bSkillTrait )
+				if ( gMercProfiles[ubProfileID].bSkillTraits[bCnt] == bSkillTrait )
 				{
-					bNumTraits++;
-					bNumMajorTraitsCounted++;
+					++bNumTraits;
+					++bNumMajorTraitsCounted;
 				}
-				else if ( TwoStagedTrait(gMercProfiles[ubProfileID].bSkillTraits[ bCnt ]) )
+				else if ( TwoStagedTrait( gMercProfiles[ubProfileID].bSkillTraits[bCnt] ) )
 				{
-					bNumMajorTraitsCounted++;
+					++bNumMajorTraitsCounted;
 				}
+
 				// if we exceeded the allowed number of major traits, ignore the rest of them
 				if ( bNumMajorTraitsCounted >= bMaxMajorTraits )
 				{
 					break;
 				}
 			}
-			else
+
+			// cannot have more than 2 grades of a major traits
+			return (min( 2, bNumTraits ));
+		}
+		else
+		{
+			for ( INT8 bCnt = 0; bCnt < bMaxTraits; ++bCnt )
 			{
-				if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] == bSkillTrait )
+				if ( gMercProfiles[ubProfileID].bSkillTraits[bCnt] == bSkillTrait )
 				{
-					bNumTraits++;
+					++bNumTraits;
 				}
 			}
+
+			// cannot have more than 1 grade of minor traits
+			return (min( 1, bNumTraits ));
 		}
-		// cannot have more than 1 rade of minor traits or 2 grades of a major traits
-		if( bSkillTrait > DOCTOR_NT && bSkillTrait != COVERT_NT )
-			return ( min(1, bNumTraits) );
-		else
-			return ( min(2, bNumTraits) );
 	}
 	else
 	{
 		if (gMercProfiles[ubProfileID].bSkillTraits[ 0 ] == bSkillTrait)
-			bNumTraits++;
+			++bNumTraits;
 		if (gMercProfiles[ubProfileID].bSkillTraits[ 1 ] == bSkillTrait)
-			bNumTraits++;	
+			++bNumTraits;	
 
 		// Electronics, Ambidextrous and Camouflaged can only be of one grade
 		if( bSkillTrait == ELECTRONICS_OT || 

@@ -261,6 +261,12 @@
     <ClInclude Include="PMC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMP Gear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IMP Gear Entrance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -534,6 +540,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PMC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMP Gear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMP Gear Entrance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

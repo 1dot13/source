@@ -75,6 +75,8 @@
     <ClInclude Include="IMP Confirm.h" />
     <ClInclude Include="IMP Disability Trait.h" />
     <ClInclude Include="IMP Finish.h" />
+	<ClInclude Include="IMP Gear Entrance.h" />
+	<ClInclude Include="IMP Gear.h" />
     <ClInclude Include="IMP HomePage.h" />
     <ClInclude Include="IMP MainPage.h" />
     <ClInclude Include="IMP Minor Trait.h" />
@@ -160,6 +162,8 @@
     <ClCompile Include="IMP Confirm.cpp" />
     <ClCompile Include="IMP Disability Trait.cpp" />
     <ClCompile Include="IMP Finish.cpp" />
+	<ClCompile Include="IMP Gear Entrance.cpp" />
+	<ClCompile Include="IMP Gear.cpp" />
     <ClCompile Include="IMP HomePage.cpp" />
     <ClCompile Include="IMP MainPage.cpp" />
     <ClCompile Include="IMP Minor Trait.cpp" />

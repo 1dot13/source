@@ -103,6 +103,8 @@ enum{
 	// added by Flugente
 	IMP_BACKGROUND,
 	IMP_PREJUDICE,
+	IMP_GEAR_ENTRANCE,
+	IMP_GEAR,
 
 	IMP_NUM_PAGES,
 };

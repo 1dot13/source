@@ -2904,6 +2904,10 @@ enum
 
 extern STR16	szDiseaseText[];
 
+extern STR16	szIMPGearWebSiteText[];
+extern STR16	szIMPGearDropDownText[];
+extern STR16	szIMPGearDropDownNoneText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

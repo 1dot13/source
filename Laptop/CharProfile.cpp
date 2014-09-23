@@ -33,6 +33,8 @@
 	#include "IMP Minor Trait.h"
 	#include "IMP Background.h"		// added by Flugente
 	#include "IMP Prejudice.h"		// added by Flugente
+	#include "IMP Gear Entrance.h"	// added by Flugente
+	#include "IMP Gear.h"			// added by Flugente
 #endif
 
 
@@ -163,9 +165,8 @@ void HandleCharProfile()
 	if( fReDrawCharProfile )
 	{
 		// re draw
-	RenderCharProfile( );
+		RenderCharProfile( );
 		fReDrawCharProfile = FALSE;
-
 	}
 
 	// button pending, but not changing mode, still need a rernder, but under different circumstances
@@ -181,8 +182,7 @@ void HandleCharProfile()
 		{
 			//make sure we are not hosing memory
 			Assert( iCurrentImpPage < IMP_NUM_PAGES );
-
-
+			
 			fFastLoadFlag = HasTheCurrentIMPPageBeenVisited( );
 			fVisitedIMPSubPages[ iCurrentImpPage ] = TRUE;
 			fConnectingToSubPage = TRUE;
@@ -197,36 +197,30 @@ void HandleCharProfile()
 			{
 				fDoneLoadPending = TRUE;
 			}
-
-
 		}
 
 		fVisitedIMPSubPages[ iCurrentImpPage ] = TRUE;
 
 		if( fButtonPendingFlag == TRUE )
 		{
-		// render screen
-		RenderCharProfile( );
-		return;
+			// render screen
+			RenderCharProfile( );
+			return;
 		}
 
 		// exity old mode
-	ExitOldIMPMode( );
+		ExitOldIMPMode( );
 
 		// set previous page
 		iPreviousImpPage = iCurrentImpPage;
 
 		// enter new
-	EnterNewIMPMode( );
-
+		EnterNewIMPMode( );
 
 		// render screen
-	RenderCharProfile( );
+		RenderCharProfile( );
 
 		// render title bar
-
-
-
 	}
 
 	// handle
@@ -296,9 +290,13 @@ void HandleCharProfile()
 		case( IMP_PREJUDICE ):
 			HandleIMPPrejudice( );
 		break;
+		case IMP_GEAR_ENTRANCE:
+			HandleIMPGearEntrance( );
+			break;
+		case IMP_GEAR:
+			HandleIMPGear( );
+			break;
 	}
-
-	return;
 }
 
 void RenderCharProfile()
@@ -378,6 +376,12 @@ void RenderCharProfile()
 		case( IMP_PREJUDICE ):
 			RenderIMPPrejudice( );
 		break;
+		case IMP_GEAR_ENTRANCE:
+			RenderIMPGearEntrance( );
+			break;
+		case IMP_GEAR:
+			RenderIMPGear( );
+			break;
 	}
 
 	// render title bar
@@ -491,9 +495,15 @@ void ExitOldIMPMode( void )
 			DestroyIMPButtons( );
 			ExitIMPPrejudice( );
 		break;
+		case IMP_GEAR_ENTRANCE:
+			DestroyIMPButtons( );
+			ExitIMPGearEntrance( );
+			break;
+		case IMP_GEAR:
+			DestroyIMPButtons( );
+			ExitIMPGear( );
+			break;
 	}
-
-	return;
 }
 
 
@@ -586,11 +596,15 @@ void EnterNewIMPMode( void )
 			CreateIMPButtons( );
 			EnterIMPPrejudice( );
 		break;
+		case IMP_GEAR_ENTRANCE:
+			CreateIMPButtons( );
+			EnterIMPGearEntrance( );
+			break;
+		case IMP_GEAR:
+			CreateIMPButtons( );
+			EnterIMPGear( );
+			break;
 	}
-
-
-
-	return;
 }
 
 

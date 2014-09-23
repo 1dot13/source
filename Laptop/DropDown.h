@@ -105,6 +105,34 @@ enum definedDropDowns
 	DROPDOWNNR_MERCCOMPARE_SQUADSELECTION,
 
 	DROPDOWNNR_PMC_LOCATION,
+
+	DROPDOWNNR_IMPGEAR_LBE1,
+	DROPDOWNNR_IMPGEAR_LBE2,
+	DROPDOWNNR_IMPGEAR_LBE3,
+	DROPDOWNNR_IMPGEAR_LBE4,
+	DROPDOWNNR_IMPGEAR_LBE5,
+
+	DROPDOWNNR_IMPGEAR_GUN_1,
+	DROPDOWNNR_IMPGEAR_AMMO_1,
+	DROPDOWNNR_IMPGEAR_GUN_2,
+	DROPDOWNNR_IMPGEAR_AMMO_2,
+	DROPDOWNNR_IMPGEAR_MELEE,
+		
+	DROPDOWNNR_IMPGEAR_HELMET,
+	DROPDOWNNR_IMPGEAR_VEST,
+	DROPDOWNNR_IMPGEAR_LEGS,
+	DROPDOWNNR_IMPGEAR_FACE1,
+	DROPDOWNNR_IMPGEAR_FACE2,
+
+	DROPDOWNNR_IMPGEAR_MISC_1,
+	DROPDOWNNR_IMPGEAR_MISC_2,
+	DROPDOWNNR_IMPGEAR_MISC_3,
+	DROPDOWNNR_IMPGEAR_MISC_4,
+	DROPDOWNNR_IMPGEAR_MISC_5,
+	DROPDOWNNR_IMPGEAR_MISC_6,
+	DROPDOWNNR_IMPGEAR_MISC_7,
+
+	DROPDOWNNR_IMPGEAR_MAX = DROPDOWNNR_IMPGEAR_MISC_7,
 };
 
 /*
@@ -185,12 +213,23 @@ public:
 	/*
 	 * Get key of selected entry
 	 */
-	INT16	GetSelectedEntryKey()		{ return mEntryVector[mSelectedEntry].first; }
+	INT16	GetSelectedEntryKey()
+	{ 
+		if ( mEntryVector.empty() )
+			return -1;
+		
+		return mEntryVector[mSelectedEntry].first;
+	}
 
 	/*
 	* If aKey exists among our keys, set it as the current one 
 	*/
 	void	SetSelectedEntryKey( INT16 aKey );
+
+	/*
+	* set the nth entry as the selected one
+	*/
+	void	SetNthEntry( UINT8 aNr );
 
 	/*
 	 * Get width of entire DropDownBase
@@ -297,6 +336,8 @@ private:
 	UINT8	mSelectedEntry;				// keeps track of the currently selected city
 	UINT8	mFirstShownEntry;			// top entry of the dropped region
 	UINT8	mNumDisplayedEntries;		// number of entries displayed. Calculated internally, no need to change by user
+
+	BOOLEAN mfDropScrollBar;			// do we need a scrollbar and a down arrow?
 };
 
 template<int N>
