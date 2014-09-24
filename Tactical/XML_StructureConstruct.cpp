@@ -85,6 +85,8 @@ structureconstructCharacterDataHandle(void *userData, const XML_Char *str, int l
 static void XMLCALL
 structureconstructEndElementHandle(void *userData, const XML_Char *name)
 {
+	static std::vector<UINT8> staticnorthtilevector, staticsouthtilevector, staticeasttilevector, staticwesttilevector;
+
 	structureconstructParseData * pData = (structureconstructParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -100,7 +102,21 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 			// we do NOT want to read the first entry -> move stuff by 1
 			if(structureconstructcnt < pData->maxArraySize)
 			{
-				pData->curArray[structureconstructcnt] = pData->curFood; //write the data into the table
+				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
+				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
+				// for now, copy over the content by hand
+				pData->curArray[structureconstructcnt].usCreationItem = pData->curFood.usCreationItem;
+				pData->curArray[structureconstructcnt].usItemStatusLoss= pData->curFood.usItemStatusLoss;
+				strncpy(pData->curArray[structureconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20);
+				pData->curArray[structureconstructcnt].northtilevector = staticnorthtilevector;
+				pData->curArray[structureconstructcnt].southtilevector = staticsouthtilevector;
+				pData->curArray[structureconstructcnt].easttilevector = staticeasttilevector;
+				pData->curArray[structureconstructcnt].westtilevector = staticwesttilevector;
+
+				staticnorthtilevector.clear();
+				staticsouthtilevector.clear();
+				staticeasttilevector.clear();
+				staticwesttilevector.clear();
 			}
 
 			++structureconstructcnt;
@@ -124,22 +140,22 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "northfacingtile") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.northtilevector.push_back( (UINT8) atol(pData->szCharData) );
+			staticnorthtilevector.push_back( (UINT8) atol(pData->szCharData) );
 		}
 		else if(strcmp(name, "southfacingtile") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.southtilevector.push_back( (UINT8) atol(pData->szCharData) );
+			staticsouthtilevector.push_back( (UINT8) atol(pData->szCharData) );
 		}
 		else if ( strcmp( name, "eastfacingtile" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.easttilevector.push_back( (UINT8)atol( pData->szCharData ) );
+			staticeasttilevector.push_back( (UINT8)atol( pData->szCharData ) );
 		}
 		else if ( strcmp( name, "westfacingtile" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.westtilevector.push_back( (UINT8)atol( pData->szCharData ) );
+			staticwesttilevector.push_back( (UINT8)atol( pData->szCharData ) );
 		}
 		
 		pData->maxReadDepth--;

@@ -83,6 +83,8 @@ structuredeconstructCharacterDataHandle(void *userData, const XML_Char *str, int
 static void XMLCALL
 structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 {
+	static std::vector<UINT8> statictilevector;
+
 	structuredeconstructParseData * pData = (structuredeconstructParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -97,7 +99,16 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 
 			if(structuredeconstructcnt < pData->maxArraySize)
 			{
-				pData->curArray[structuredeconstructcnt] = pData->curFood; //write the data into the table
+				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
+				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
+				// for now, copy over the content by hand
+				pData->curArray[structuredeconstructcnt].usDeconstructItem = pData->curFood.usDeconstructItem;
+				pData->curArray[structuredeconstructcnt].usItemToCreate= pData->curFood.usItemToCreate;
+				pData->curArray[structuredeconstructcnt].usCreatedItemStatus = pData->curFood.usCreatedItemStatus;
+				strncpy(pData->curArray[structuredeconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20);
+				pData->curArray[structuredeconstructcnt].tilevector = statictilevector;
+
+				statictilevector.clear();
 			}
 
 			++structuredeconstructcnt;
@@ -126,7 +137,7 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "allowedtile") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.tilevector.push_back( (UINT8) atol(pData->szCharData) );
+			statictilevector.push_back( (UINT8) atol(pData->szCharData) );
 		}
 		
 		pData->maxReadDepth--;
