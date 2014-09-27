@@ -3582,6 +3582,9 @@ void LoadMoraleSettings()
 	gDynamicOpinionEvent[OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD", -3, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_DISEASE_DISGUSTING].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DISEASE_DISGUSTING", -3, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_DISEASE_TREATMENT].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_DISEASE_TREATMENT", 1, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_BRUTAL_GOOD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BRUTAL_GOOD", 1, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_BRUTAL_BAD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BRUTAL_BAD", -3, -50, 0 );
+	gDynamicOpinionEvent[OPINIONEVENT_TEACHER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_TEACHER", 1, 0, 50 );
 }
 
 void LoadReputationSettings()

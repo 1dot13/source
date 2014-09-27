@@ -36,6 +36,7 @@
 	#include "Tactical Save.h"
 	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
+	#include "DynamicDialogue.h"
 #endif
 
 #ifdef JA2UB
@@ -832,12 +833,12 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 			if (fChangeSalary)
 			{
 				// increase all salaries and medical deposits, once for each level gained
-				for (uiLevelCnt = 0; uiLevelCnt < (UINT32) sPtsChanged; uiLevelCnt++)
+				for (uiLevelCnt = 0; uiLevelCnt < (UINT32) sPtsChanged; ++uiLevelCnt)
 				{
-					pProfile->sSalary								= (INT16) CalcNewSalary(pProfile->sSalary,								fChangeTypeIncrease, MAX_DAILY_SALARY);
-					pProfile->uiWeeklySalary				=					CalcNewSalary(pProfile->uiWeeklySalary,					fChangeTypeIncrease, MAX_LARGE_SALARY);
-					pProfile->uiBiWeeklySalary			=					CalcNewSalary(pProfile->uiBiWeeklySalary,				fChangeTypeIncrease, MAX_LARGE_SALARY);
-					pProfile->sTrueSalary						= (INT16) CalcNewSalary(pProfile->sTrueSalary,						fChangeTypeIncrease, MAX_DAILY_SALARY);
+					pProfile->sSalary				= (INT16) CalcNewSalary(pProfile->sSalary,					fChangeTypeIncrease, MAX_DAILY_SALARY);
+					pProfile->uiWeeklySalary		=		  CalcNewSalary(pProfile->uiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY);
+					pProfile->uiBiWeeklySalary		=	      CalcNewSalary(pProfile->uiBiWeeklySalary,			fChangeTypeIncrease, MAX_LARGE_SALARY);
+					pProfile->sTrueSalary			= (INT16) CalcNewSalary(pProfile->sTrueSalary,				fChangeTypeIncrease, MAX_DAILY_SALARY);
 					pProfile->sMedicalDepositAmount = (INT16) CalcNewSalary(pProfile->sMedicalDepositAmount,	fChangeTypeIncrease, MAX_DAILY_SALARY);
 
 					//if (pSoldier != NULL)
@@ -846,9 +847,11 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 				}
 			}
 		}
-	}
 
-	return;
+		// Flugente: dynamic opinions
+		if ( FROM_TRAINING == ubReason )
+			HandleDynamicOpinionTeaching( pSoldier, ubStat );
+	}
 }
 
 
@@ -1071,8 +1074,6 @@ void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UIN
 			ChangeStat( pProfile, pSoldier, ubStat, sPtsChanged, ubReason );
 		}
 	}
-
-	return;
 }
 
 

@@ -27,6 +27,7 @@
 #include "random.h"
 #include "strategicmap.h"
 #include "connect.h"
+#include "Campaign.h"
 
 extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
 
@@ -400,44 +401,34 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 	{
 		// cause either denies or agrees with complainant
 
-		// if multiple persons causes/complainants are involved, we always have to disagree - otherwise this thing is over before it gets interesting
-		UINT32 chancetoagree = 0;
-		BOOLEAN fMultiplePeopleAction = FALSE;
+		UINT32 chancetoagree = 0;	
 
-		for ( UINT8 i = 0; i < DOST_INTERJECTORS_MAX; ++i )
+		// the more we dislike the other guy, the higher the chance we disagree
+		// personality also influences this
+		INT8 agreemodifier_personal = SoldierRelation( aEvent.data.event.ubProfileCause, aEvent.data.event.ubProfileComplainant );
+
+		switch ( gMercProfiles[aEvent.data.event.ubProfileCause].bCharacterTrait )
 		{
-			if ( aEvent.data.ubProfileSideCause[i] != NO_PROFILE || aEvent.data.ubProfileSideComplainant[i] != NO_PROFILE )
-			{
-				fMultiplePeopleAction = TRUE;
-				break;
-			}
+		case(CHAR_TRAIT_NORMAL) : agreemodifier_personal += 0; break;
+		case(CHAR_TRAIT_SOCIABLE) : agreemodifier_personal += 10; break;
+		case(CHAR_TRAIT_LONER) : agreemodifier_personal += -3; break;
+		case(CHAR_TRAIT_OPTIMIST) : agreemodifier_personal += 5; break;
+		case(CHAR_TRAIT_ASSERTIVE) : agreemodifier_personal += -5; break;
+		case(CHAR_TRAIT_INTELLECTUAL) : agreemodifier_personal += 2; break;
+		case(CHAR_TRAIT_PRIMITIVE) : agreemodifier_personal += -4; break;
+		case(CHAR_TRAIT_AGGRESSIVE) : agreemodifier_personal += -10; break;
+		case(CHAR_TRAIT_PHLEGMATIC) : agreemodifier_personal += -20; break;
+		case(CHAR_TRAIT_DAUNTLESS) : agreemodifier_personal += -10; break;
+		case(CHAR_TRAIT_PACIFIST) : agreemodifier_personal += 20; break;
+		case(CHAR_TRAIT_MALICIOUS) : agreemodifier_personal += -8; break;
+		case(CHAR_TRAIT_SHOWOFF) : agreemodifier_personal += -3; break;
 		}
 
-		if ( !fMultiplePeopleAction )
-		{
-			// the more we dislike the other guy, the higher the chance we disagree
-			// personality also influences this
-			INT8 agreemodifier_personal = SoldierRelation( aEvent.data.event.ubProfileCause, aEvent.data.event.ubProfileComplainant );
+		// if the event is positive, then we are much more likely to agree
+		if ( gDynamicOpinionEvent[aEvent.data.event.ubEventId].sOpinionModifier > 0 )
+			agreemodifier_personal += 50;
 
-			switch ( gMercProfiles[aEvent.data.event.ubProfileCause].bCharacterTrait )
-			{
-			case(CHAR_TRAIT_NORMAL) : agreemodifier_personal += 0; break;
-			case(CHAR_TRAIT_SOCIABLE) : agreemodifier_personal += 10; break;
-			case(CHAR_TRAIT_LONER) : agreemodifier_personal += -3; break;
-			case(CHAR_TRAIT_OPTIMIST) : agreemodifier_personal += 5; break;
-			case(CHAR_TRAIT_ASSERTIVE) : agreemodifier_personal += -5; break;
-			case(CHAR_TRAIT_INTELLECTUAL) : agreemodifier_personal += 2; break;
-			case(CHAR_TRAIT_PRIMITIVE) : agreemodifier_personal += -4; break;
-			case(CHAR_TRAIT_AGGRESSIVE) : agreemodifier_personal += -10; break;
-			case(CHAR_TRAIT_PHLEGMATIC) : agreemodifier_personal += -20; break;
-			case(CHAR_TRAIT_DAUNTLESS) : agreemodifier_personal += -10; break;
-			case(CHAR_TRAIT_PACIFIST) : agreemodifier_personal += 20; break;
-			case(CHAR_TRAIT_MALICIOUS) : agreemodifier_personal += -8; break;
-			case(CHAR_TRAIT_SHOWOFF) : agreemodifier_personal += -3; break;
-			}
-
-			chancetoagree = min( 0, 25 + agreemodifier_personal );
-		}
+		chancetoagree = max( 0, 25 + agreemodifier_personal );
 
 		// if he agrees, then this dialogue will soon be over - interjector won't have to play his part
 		if ( Chance( chancetoagree ) )
@@ -501,7 +492,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 						else if ( gMercProfiles[aEvent.data.ubProfileINTERJECTOR].bCharacterTrait == CHAR_TRAIT_LONER )
 							chance_nothing += 20;
 
-						if ( !fMultiplePeopleAction && Chance( chance_nothing ) )
+						if ( Chance( chance_nothing ) )
 						{
 							// say nothing...
 							impaction.ubEventType = DOST_INTERJECTOR_NOTHING;
@@ -611,47 +602,44 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 						gDynamicOpinionSpeechEventVector.push_back( impaction );
 						gDynamicOpinionSpeechInCurrentDialogue.push_back( impaction );
 						++cnt;
-
-						// if other people are involved too, they can speak too
-						if ( fMultiplePeopleAction )
-						{
-							for ( UINT8 i = 0; i < DOST_INTERJECTORS_MAX; ++i )
-							{
-								if ( aEvent.data.ubProfileSideComplainant[i] != NO_PROFILE )
-								{
-									DynamicOpinionSpeechEvent response;
-									response.data = aEvent.data;
-									response.ubEventType = DOST_SIDEWITH_VICTIM;
-									response.usSpeaker = aEvent.data.ubProfileSideComplainant[i];
-									response.usQueueNumber = queuenumber++;
-									response.usSide = DOST_POSITION_LEFT;
-									response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
-
-									gDynamicOpinionSpeechEventVector.push_back( response );
-									gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
-									++cnt;
-								}
-
-								if ( aEvent.data.ubProfileSideCause[i] != NO_PROFILE )
-								{
-									DynamicOpinionSpeechEvent response;
-									response.data = aEvent.data;
-									response.ubEventType = DOST_SIDEWITH_CAUSE;
-									response.usSpeaker = aEvent.data.ubProfileSideCause[i];
-									response.usQueueNumber = queuenumber++;
-									response.usSide = DOST_POSITION_RIGHT;
-									response.usNumonside = (UINT8)GetSidePosition( response.usSide );
-									response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
-
-									gDynamicOpinionSpeechEventVector.push_back( response );
-									gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
-									++cnt;
-								}
-							}
-						}
 					}
 				}
+			}
+		}
+
+		// if other people are involved too, they can speak too
+		for ( UINT8 i = 0; i < DOST_INTERJECTORS_MAX; ++i )
+		{
+			if ( aEvent.data.ubProfileSideComplainant[i] != NO_PROFILE )
+			{
+				DynamicOpinionSpeechEvent response;
+				response.data = aEvent.data;
+				response.ubEventType = DOST_SIDEWITH_VICTIM;
+				response.usSpeaker = aEvent.data.ubProfileSideComplainant[i];
+				response.usQueueNumber = queuenumber++;
+				response.usSide = DOST_POSITION_LEFT;
+				response.usNumonside = (UINT8)GetSidePosition( response.usSide );
+				response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
+
+				gDynamicOpinionSpeechEventVector.push_back( response );
+				gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
+				++cnt;
+			}
+
+			if ( aEvent.data.ubProfileSideCause[i] != NO_PROFILE )
+			{
+				DynamicOpinionSpeechEvent response;
+				response.data = aEvent.data;
+				response.ubEventType = DOST_SIDEWITH_CAUSE;
+				response.usSpeaker = aEvent.data.ubProfileSideCause[i];
+				response.usQueueNumber = queuenumber++;
+				response.usSide = DOST_POSITION_RIGHT;
+				response.usNumonside = (UINT8)GetSidePosition( response.usSide );
+				response.usStarttime = GetJA2Clock( ) + cnt * gGameExternalOptions.sDynamicDialogueTimeOffset;
+
+				gDynamicOpinionSpeechEventVector.push_back( response );
+				gDynamicOpinionSpeechInCurrentDialogue.push_back( response );
+				++cnt;
 			}
 		}
 	}
@@ -850,7 +838,7 @@ void StartDynamicOpinionDialogue( )
 	CleanDynamicOpinionSpeechEvents( );
 }
 
-// TODO: if possible, merge events if possible, thereby creating fewer but deeper dialogues
+// if possible, merge events if possible, thereby creating fewer but deeper dialogues
 void PerformPossibleDynamicOpinionEventMerges( )
 {
 	for ( std::vector<DynamicOpinionSpeechEvent>::iterator it = gDynamicOpinionSpeechEventArchiveVector.begin( ); it != gDynamicOpinionSpeechEventArchiveVector.end( ); )	// not having ++it here is intentional!
@@ -872,8 +860,8 @@ void PerformPossibleDynamicOpinionEventMerges( )
 				// if cause are the same
 				if ( event1.data.event.ubProfileCause == event2.data.event.ubProfileCause )
 				{
-					// if there is still room, add to the lsit of complainants and delete this event
-					for ( UINT8 i = 0; i < 4; ++i )
+					// if there is still room, add to the list of complainants and delete this event
+					for ( UINT8 i = 0; i < DOST_INTERJECTORS_MAX; ++i )
 					{
 						if ( event1.data.ubProfileSideComplainant[i] == NO_PROFILE )
 						{
@@ -977,76 +965,23 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 
 	switch ( aEvent.ubEventType )
 	{
-		// victim begins dialogue
-	case DOST_VICTIM_INITIATE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_VICTIM_INITIATE[aEvent.data.event.ubEventId] );
-		break;
-
 		// victim denies what INTERJECTOR said
 	case DOST_VICTIM_TO_INTERJECTOR_DENY:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[Random( 20 )] );
+		// cause denies what imp said
+	case DOST_CAUSE_TO_INTERJECTOR_DENY:
+		// yep, same dialogue
+		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[Random( 28 )] );
 		break;
 
 		// victim agrees what imp said
 	case DOST_VICTIM_TO_INTERJECTOR_AGREE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[Random( 12 )] );
-		break;
-
-		// cause denies victim's accusation
-	case DOST_CAUSE_TO_VICTIM_DENY:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[aEvent.data.event.ubEventId] );
-		break;
-
-		// cause accepts responsibility to victim
-	case DOST_CAUSE_TO_VICTIM_AGREE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[aEvent.data.event.ubEventId] );
-		break;
-
-		// cause denies what imp said
-	case DOST_CAUSE_TO_INTERJECTOR_DENY:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[Random(21)] );
-		break;
-
 		// cause agrees what imp said
 	case DOST_CAUSE_TO_INTERJECTOR_AGREE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[Random(12)] );
+		// yep, same dialogue
+		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[Random( 17 )] );
 		break;
-
-		// special: creates the imp dialogue selection
-	case DOST_INTERJECTOR_DIALOGUESELECTION:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp denies victim's accusation
-	case DOST_INTERJECTOR_TO_VICTIM_DENY:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp agrees to victim that cause is to blame
-	case DOST_INTERJECTOR_TO_VICTIM_AGREE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp denies victim denial
-	case DOST_INTERJECTOR_TO_CAUSE_DENY:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp agrees that victim is not to blame
-	case DOST_INTERJECTOR_TO_CAUSE_AGREE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp tries to solve the situation peacefully
-	case DOST_INTERJECTOR_SOLVE_REASON:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[aEvent.data.event.ubEventId] );
-		break;
-
-		// imp tries to solve the situation aggressively
-	case DOST_INTERJECTOR_SOLVE_AGGRESSIVE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[aEvent.data.event.ubEventId] );
-		break;
-
+		
+		
 		// interjector decides to say nothing
 	case DOST_INTERJECTOR_NOTHING:
 		wcscpy( gzQuoteStr, L"I don't want to say anything, but a bug forces me to! Help! Inform Flugente!" );
@@ -1054,16 +989,16 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 
 		// another person sides with victim
 	case DOST_SIDEWITH_VICTIM:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_SIDEWITH_VICTIM[Random( 14 )] );
+		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_SIDEWITH_VICTIM[Random( 19 )] );
 		break;
 
 		// another person sides with cause
 	case DOST_SIDEWITH_CAUSE:
-		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_SIDEWITH_CAUSE[Random( 14 )] );
+		wcscpy( gzQuoteStr, szDynamicDialogueText_DOST_SIDEWITH_CAUSE[Random( 18 )] );
 		break;
 
 	default:
-		wcscpy( gzQuoteStr, L"I am a missing text. Help me!" );
+		wcscpy( gzQuoteStr, szDynamicDialogueText[aEvent.data.event.ubEventId][aEvent.ubEventType] );
 		break;
 	}
 
@@ -1078,6 +1013,8 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 	ReplaceTextWithOtherText( gzQuoteStr, L"$VICTIM_PRONOUN$", (gMercProfiles[aEvent.data.event.ubProfileComplainant].bSex == MALE) ? szDynamicDialogueText_GenderText[2] : szDynamicDialogueText_GenderText[3] );
 	ReplaceTextWithOtherText( gzQuoteStr, L"$CAUSE_GENDER$", (gMercProfiles[aEvent.data.event.ubProfileCause].bSex == MALE) ? szDynamicDialogueText_GenderText[0] : szDynamicDialogueText_GenderText[1] );
 	ReplaceTextWithOtherText( gzQuoteStr, L"$CAUSE_PRONOUN$", (gMercProfiles[aEvent.data.event.ubProfileCause].bSex == MALE) ? szDynamicDialogueText_GenderText[2] : szDynamicDialogueText_GenderText[3] );
+	ReplaceTextWithOtherText( gzQuoteStr, L"$INTERJECTOR_GENDER$", (gMercProfiles[aEvent.data.ubProfileINTERJECTOR].bSex == MALE) ? szDynamicDialogueText_GenderText[0] : szDynamicDialogueText_GenderText[1] );
+	ReplaceTextWithOtherText( gzQuoteStr, L"$INTERJECTOR_PRONOUN$", (gMercProfiles[aEvent.data.ubProfileINTERJECTOR].bSex == MALE) ? szDynamicDialogueText_GenderText[2] : szDynamicDialogueText_GenderText[3] );
 	
 	pDDBox->SetText( gzQuoteStr );
 	pDDBox->SetEvent( aEvent );
@@ -1112,7 +1049,7 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 
 		IMPDialogueChooseBox_Static::getInstance( ).SetEvent( aEvent );
 		IMPDialogueChooseBox_Static::getInstance( ).SetEntries( entryvec );
-		IMPDialogueChooseBox_Static::getInstance( ).SetHelpText( szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[aEvent.data.event.ubEventId] );
+		IMPDialogueChooseBox_Static::getInstance( ).SetHelpText( szDynamicDialogueText[aEvent.data.event.ubEventId][DOST_INTERJECTOR_DIALOGUESELECTION] );
 		IMPDialogueChooseBox_Static::getInstance( ).Create( sX, sY + 60 );
 		IMPDialogueChooseBox_Static::getInstance( ).SetStartTime( aEvent.usStarttime );
 		IMPDialogueChooseBox_Static::getInstance( ).SetEndTime( aEvent.usStarttime + 2 * gGameExternalOptions.sDynamicDialogueTimeOffset );
@@ -1168,7 +1105,6 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	pSoldier = FindSoldierByProfileID( usProfileB, TRUE );
 	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		return;
-
 
 	UINT32 ustmpFlagmask[OPINION_FLAGMASKS_NUMBER];
 	for ( UINT8 i = 0; i < OPINION_FLAGMASKS_NUMBER; ++i )
@@ -1251,6 +1187,10 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	case OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD:	gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_BAD;	break;
 	case OPINIONEVENT_DISEASE_DISGUSTING:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_DISEASE_DISGUSTING;	break;
 	case OPINIONEVENT_DISEASE_TREATMENT:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_DISEASE_TREATMENT;	break;
+	case OPINIONEVENT_BRUTAL_GOOD:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] |= OPINIONFLAG_STAGE1_BRUTAL_GOOD;	break;
+
+	case OPINIONEVENT_BRUTAL_BAD:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BRUTAL_BAD;	break;
+	case OPINIONEVENT_TEACHER:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_TEACHER;	break;
 
 	default:		break;
 	}
@@ -1561,6 +1501,27 @@ INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE4_DISEASE_TREATMENT )	++numflags;
 		break;
 
+	case OPINIONEVENT_BRUTAL_GOOD:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE1_BRUTAL_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE2_BRUTAL_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE3_BRUTAL_GOOD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][3] & OPINIONFLAG_STAGE4_BRUTAL_GOOD )	++numflags;
+		break;
+
+	case OPINIONEVENT_BRUTAL_BAD:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_BRUTAL_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BRUTAL_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BRUTAL_BAD )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BRUTAL_BAD )	++numflags;
+		break;
+
+	case OPINIONEVENT_TEACHER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_TEACHER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_TEACHER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_TEACHER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_TEACHER )	++numflags;
+		break;
+
 	default:
 		break;
 	}
@@ -1808,6 +1769,51 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 	}
 }
 
+void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat )
+{
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE  )
+		return;
+
+	// because this code is as annoying as it is, ubStat has a different numbering than bTrainStat. The only reasonable explanation for that is that the designers decided to be jerks on purpose
+	// we have to get the correct bTrainStat
+	INT8 trainstat = 0;
+	switch ( ubStat )
+	{
+	case STRAMT:		trainstat = STRENGTH; break;
+	case DEXTAMT:		trainstat = DEXTERITY; break;
+	case AGILAMT:		trainstat = AGILITY; break;
+	case HEALTHAMT:		trainstat = HEALTH; break;
+	case LDRAMT:		trainstat = LEADERSHIP; break;
+	case MARKAMT:		trainstat = MARKSMANSHIP; break;
+	case EXPLODEAMT:	trainstat = EXPLOSIVE_ASSIGN; break;
+	case MEDICALAMT:	trainstat = MEDICAL; break;
+	case MECHANAMT:		trainstat = MECHANICAL; break;
+
+	default:
+		// other stats cannot be trained (including wisdom), so get out of here
+		return;
+		break;
+	}
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// award event for every trainer in this sector
+		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
+			 pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
+			  !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			// if he's training teammates in this stat
+			if ( (pTeamSoldier->bAssignment == TRAIN_TEAMMATE) && (pTeamSoldier->bTrainStat == trainstat) && (EnoughTimeOnAssignment( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
+			{
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_TEACHER );
+			}
+		}
+	}
+}
+
 
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly )
 {
@@ -1948,6 +1954,9 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 	case OPINIONEVENT_WORSTCOMMANDEREVER:
 	case OPINIONEVENT_DISEASE_DISGUSTING:
 	case OPINIONEVENT_DISEASE_TREATMENT:
+	case OPINIONEVENT_BRUTAL_GOOD:
+	case OPINIONEVENT_BRUTAL_BAD:
+	case OPINIONEVENT_TEACHER:
 		break;
 
 	case OPINIONEVENT_SLOWSUSDOWN:
@@ -1987,13 +1996,14 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 		break;
 	}
 
+	UINT8				usEventUsed;		// it is possible that the individaul event is switched
 	SOLDIERTYPE*		pTeamSoldier = NULL;
 	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
 	{
 		// we test several conditions before we allow adding an opinion
-		// other merc must be active, have a profile be someone else and not travel or be dead
+		// other merc must be active, have a profile, be someone else and not be in transit or dead
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
 			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
 		{
@@ -2013,8 +2023,10 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 			if ( gDynamicOpinionEvent[usEvent].fSquadsOnly && pTeamSoldier->bAssignment >= ON_DUTY )
 				continue;
 
+			usEventUsed = usEvent;
+
 			// event-specific checks
-			switch ( usEvent )
+			switch ( usEventUsed )
 			{
 			case OPINIONEVENT_CONTRACTEXTENSION:
 				break;
@@ -2107,6 +2119,26 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 			case OPINIONEVENT_DISEASE_TREATMENT:
 				break;
 
+			case OPINIONEVENT_BRUTAL_GOOD:
+			case OPINIONEVENT_BRUTAL_BAD:
+				// if we are a good guy or a pacifist, then we dislike excessive violence
+				if ( gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ||
+					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+					usEventUsed = OPINIONEVENT_BRUTAL_GOOD;
+				// if we are malicious, agressive or a psycho, then we like it
+				else if ( gMercProfiles[pTeamSoldier->ubProfile].bDisability == PSYCHO || MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_PSYCHO ) ||
+					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE ||
+					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+					usEventUsed = OPINIONEVENT_BRUTAL_GOOD;
+				else
+					continue;
+				break;
+
+			case OPINIONEVENT_TEACHER:
+				// other guy needs to be a trainer
+
+				break;
+
 			default:
 				// either unknown event, or event is handled elsewhere - exit
 				return;
@@ -2114,9 +2146,9 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 			}
 
 			if ( fOffender )
-				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, usEvent, fStartDialogue );
+				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, usEventUsed, fStartDialogue );
 			else
-				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, usEvent, fStartDialogue );
+				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, usEventUsed, fStartDialogue );
 		}
 	}
 }

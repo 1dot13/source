@@ -2853,21 +2853,14 @@ extern STR16   szTacticalInventoryDialogString[];
 extern STR16   szTacticalCoverDialogString[];
 extern STR16   szTacticalCoverDialogPrintString[];
 
+// OPINIONEVENT_MAX is 34
+// DOST_MAX is 17
+
+extern STR16	szDynamicDialogueText[34][17];
+
 // Flugente: dynamic dialogue
-extern STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[];
 extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[];
 extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[];
-extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[];
-extern STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[];
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[];
 extern STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[];
 extern STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[];
 

@@ -410,7 +410,7 @@ void RenderMercCompareAnalyze()
 	usPosX = LAPTOP_SCREEN_UL_X;
 	usPosY = MCA_START_CONTENT_Y;
 		
-	if ( DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::getInstance().HasEntries() )
+	if ( DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).HasEntries( ) && DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).HasEntries( ) )
 	{
 		gMercCompareProfile1 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE1>::getInstance( ).GetSelectedEntryKey( );
 		gMercCompareProfile2 = (UINT8)DropDownTemplate<DROPDOWNNR_MERCCOMPARE2>::getInstance( ).GetSelectedEntryKey( );

@@ -6558,6 +6558,11 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		if ( pSoldier->ubBodyType < 4 )
 		{
 			pSoldier->ChangeToFlybackAnimation( (UINT8)bDirection );
+
+			// Flugente: dynamic opinions
+			if ( ubAttackerID != NOBODY )
+				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
+
 			return;
 		}
 	}
@@ -6568,12 +6573,16 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		if ( pSoldier->ubBodyType < 4 || pSoldier->ubBodyType == HATKIDCIV || pSoldier->ubBodyType == KIDCIV )
 		{
 			pSoldier->EVENT_InitNewSoldierAnim( JFK_HITDEATH, 0, FALSE );
+
+			// Flugente: dynamic opinions
+			if ( ubAttackerID != NOBODY )
+				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
+
 			return;
 		}
 	}
 
 	DoGenericHit( pSoldier, ubSpecial, bDirection );
-
 }
 
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )

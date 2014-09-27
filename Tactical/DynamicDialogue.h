@@ -56,6 +56,10 @@ enum
 	OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD,		// other guy attempted to solve the conflict agressively, and we thought that was bad
 	OPINIONEVENT_DISEASE_DISGUSTING,	// we have a disease, which others might find disgusting
 	OPINIONEVENT_DISEASE_TREATMENT,		// someone treated our diseases
+	OPINIONEVENT_BRUTAL_GOOD,		// other guy killed someone in a brutal fashion, and we like that
+
+	OPINIONEVENT_BRUTAL_BAD,		// other guy killed someone in a brutal fashion, and we dislike that
+	OPINIONEVENT_TEACHER,			// other guy taught us and we are grateful
 
 	OPINIONEVENT_MAX
 };
@@ -235,10 +239,51 @@ extern DynamicOpinionEvent gDynamicOpinionEvent[OPINIONEVENT_MAX];
 #define OPINIONFLAG_STAGE3_DISEASE_TREATMENT						0x04000000	//67108864
 #define OPINIONFLAG_STAGE4_DISEASE_TREATMENT						0x08000000	//134217728
 
-/*#define OPINIONFLAG_STAGE1_AGAINST_ENEMY							0x10000000	//268435456	// was against our dialogue enemy in dialogue
-#define OPINIONFLAG_STAGE2_AGAINST_ENEMY							0x20000000	//536870912
-#define OPINIONFLAG_STAGE3_AGAINST_ENEMY							0x40000000	//1073741824
-#define OPINIONFLAG_STAGE4_AGAINST_ENEMY							0x80000000	//2147483648*/
+#define OPINIONFLAG_STAGE1_BRUTAL_GOOD								0x10000000	//268435456	// other guy killed someone in a brutal fashion, and we like that
+#define OPINIONFLAG_STAGE2_BRUTAL_GOOD								0x20000000	//536870912
+#define OPINIONFLAG_STAGE3_BRUTAL_GOOD								0x40000000	//1073741824
+#define OPINIONFLAG_STAGE4_BRUTAL_GOOD								0x80000000	//2147483648
+
+// flagmask 5
+#define OPINIONFLAG_STAGE1_BRUTAL_BAD								0x00000001	//1			// other guy killed someone in a brutal fashion, and we dislike that
+#define OPINIONFLAG_STAGE2_BRUTAL_BAD								0x00000002	//2
+#define OPINIONFLAG_STAGE3_BRUTAL_BAD								0x00000004	//4
+#define OPINIONFLAG_STAGE4_BRUTAL_BAD								0x00000008	//8
+
+#define OPINIONFLAG_STAGE1_TEACHER									0x00000010	//16		// other guy taught us and we are grateful
+#define OPINIONFLAG_STAGE2_TEACHER									0x00000020	//32
+#define OPINIONFLAG_STAGE3_TEACHER  								0x00000040	//64
+#define OPINIONFLAG_STAGE4_TEACHER									0x00000080	//128
+
+/*#define OPINIONFLAG_STAGE1_SOLVECONFLICT_REASON_BAD					0x00000100	//256		// attempted to solve the conflict reasonably, and we thought that was bad
+#define OPINIONFLAG_STAGE2_SOLVECONFLICT_REASON_BAD					0x00000200	//512
+#define OPINIONFLAG_STAGE3_SOLVECONFLICT_REASON_BAD					0x00000400	//1024
+#define OPINIONFLAG_STAGE4_SOLVECONFLICT_REASON_BAD					0x00000800	//2048
+
+#define OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_GOOD			0x00001000	//4096		// attempted to solve the conflict agressively, and we thought that was good
+#define OPINIONFLAG_STAGE2_SOLVECONFLICT_AGGRESSIVE_GOOD			0x00002000	//8192
+#define OPINIONFLAG_STAGE3_SOLVECONFLICT_AGGRESSIVE_GOOD			0x00004000	//16384
+#define OPINIONFLAG_STAGE4_SOLVECONFLICT_AGGRESSIVE_GOOD			0x00008000	//32768
+
+#define OPINIONFLAG_STAGE1_SOLVECONFLICT_AGGRESSIVE_BAD				0x00010000	//65536		// attempted to solve the conflict agressively, and we thought that was bad
+#define OPINIONFLAG_STAGE2_SOLVECONFLICT_AGGRESSIVE_BAD				0x00020000	//131072
+#define OPINIONFLAG_STAGE3_SOLVECONFLICT_AGGRESSIVE_BAD				0x00040000	//262144
+#define OPINIONFLAG_STAGE4_SOLVECONFLICT_AGGRESSIVE_BAD				0x00080000	//524288
+
+#define OPINIONFLAG_STAGE1_DISEASE_DISGUSTING						0x00100000	//1048576	// is diseased, which we find disgusting
+#define OPINIONFLAG_STAGE2_DISEASE_DISGUSTING						0x00200000	//2097152
+#define OPINIONFLAG_STAGE3_DISEASE_DISGUSTING						0x00400000	//4194304
+#define OPINIONFLAG_STAGE4_DISEASE_DISGUSTING						0x00800000	//8388608
+
+#define OPINIONFLAG_STAGE1_DISEASE_TREATMENT						0x01000000	//16777216	// treated our disease, which we like
+#define OPINIONFLAG_STAGE2_DISEASE_TREATMENT						0x02000000	//33554432
+#define OPINIONFLAG_STAGE3_DISEASE_TREATMENT						0x04000000	//67108864
+#define OPINIONFLAG_STAGE4_DISEASE_TREATMENT						0x08000000	//134217728
+
+#define OPINIONFLAG_STAGE1_BRUTAL_GOOD								0x10000000	//268435456	// other guy killed someone in a brutal fashion, and we like that
+#define OPINIONFLAG_STAGE2_BRUTAL_GOOD								0x20000000	//536870912
+#define OPINIONFLAG_STAGE3_BRUTAL_GOOD								0x40000000	//1073741824
+#define OPINIONFLAG_STAGE4_BRUTAL_GOOD								0x80000000	//2147483648*/
 
 #define OPINIONFLAG_STAGE1_ALL										0x11111111				// flags of all first stages, used when rolling over
 #define OPINIONFLAG_STAGE4_ALL										0x88888888				// flags of all final stages, used when rolling over
@@ -421,6 +466,7 @@ void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile );
 void HandleDynamicOpinionBattleLosses( );
 void HandleDynamicOpinionRetreat( );
 void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier );
+void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat );
 
 // get id of a random merc in a sector, provided one exists
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly );

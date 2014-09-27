@@ -8979,6 +8979,10 @@ STR16	szMercCompareEventText[]=		// TODO.Translate
 	L"%s is way too impulsive",
 	L"%s is disease-ridden",
 	L"%s treated my diseases",
+	L"%s does not hold back in combat",
+
+	L"%s enjoys combat a bit too much",
+	L"%s is a good teacher",
 };
 
 STR16	szWHOWebSite[] =		// TODO.Translate
@@ -9136,184 +9140,657 @@ STR16   szTacticalCoverDialogPrintString[]=
 };
 
 // TODO.Translate
-STR16	szDynamicDialogueText_DOST_VICTIM_INITIATE[] =
+STR16	szDynamicDialogueText[34][17] =	// TODO.Translate
 {
-	L"What the hell! $CAUSE$ shot me!",	
-	L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
-	L"$CAUSE$ is bullying me again!",
-	L"Hmpf. Typical $CAUSE$, figured $CAUSE_GENDER$ would hang out with the wrong crowd!",
-
-	L"Yeah, sure. My contract's about to end, but no, gotta take care of $CAUSE$ first.",
-	L"Nice command, $CAUSE$! Why would you order retreat?",
-	L"What the hell is wrong with you, $CAUSE$? You just killed an innocent!",
-	L"Can we get rid of $CAUSE$, please? That slowpoke is holding us back.",
-
-	L"Damn $CAUSE$, $CAUSE_GENDER$ is keeping all that tasty food to $CAUSE_PRONOUN$self...",
-	L"Oh, come on, $CAUSE$. It's not a good moment!",
-	L"$CAUSE$ is high like a zeppelin! How am I supposed to work with that junkie?",
-	L"What the... Hey! $CAUSE$! Give it back, you damn thief!",
-
-	L"What a disaster. That was worst command ever, $CAUSE$!",
-	L"How can $CAUSE$ earn this much? It's not fair!",
-	L"$CAUSE$ is stocking the good gear for $CAUSE_PRONOUN$self. Not fair!",
-	L"Do I look like a bipod? Get that thing off me, $CAUSE$!",
-
-	L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
-	L"Yeah, $CAUSE$! You get it! How 'bout next round?",
-	L"$CAUSE$... you're... you are... hic... you're the best!",
-	L"Damn, $CAUSE$! You... you got enough... Learn to keep your liquor...",
-
-	L"What the hell, $CAUSE$! Ugh... I'm never drinking with you again, you sicko.",
-	L"I knew I couldn't depend on you, $CAUSE$!",
-	L"Ha! See? $CAUSE$ agrees with me.",
-	L"Yeah, even $CAUSE$ saw you do it!",
-
-	L"I can't believe you wouldn't agree with me on this, $CAUSE$.",
-	L"Yeah... you're right, $CAUSE$. Peace?",
-	L"No. This is a matter of principle.",
-	L"Alright alright. Jeez. I'm over it, okay?",
-
-	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
-	L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
-	L"Thanks, $CAUSE$. I'm already feeling better.",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
-{
-	L"What?!",
-	L"No!",
-	L"That is false!",
-	L"That is not true!",
-
-	L"Lies, lies, lies. Nothing but lies!",
-	L"Liar!",
-	L"Traitor!",
-	L"You watch your mouth!",
-
-	L"This is none of your business.",
-	L"Who ever invited you?",
-	L"Nobody asked for your opinion, $INTERJECTOR$.",
-	L"You stay away from me.",
-
-	L"Why are you all against me?",
-	L"Why are you against me, $INTERJECTOR$?",
-	L"I knew it! $CAUSE$ and $INTERJECTOR$ are in cahoots!",
-	L"Not listening...!",
-
-	L"I hate this psycho circus.",
-	L"I hate this freak show.",
-	L"Back off!",
-	L"Lies, lies, lies...",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
-{
-	L"Ha!",
-	L"See?",
-	L"I knew you'd back me, $INTERJECTOR$",
-	L"I knew $INTERJECTOR$ would back me.",
-
-	L"Thanks, $INTERJECTOR$!",
-	L"Once again I'm right!",
-	L"See, $CAUSE$? I am right!",
-	L"Once again $SPEAKER$ is right!",
-
-	L"Indeed.",
-	L"Yup.",
-	L"Aye.",
-	L"What $INTERJECTOR$ said.",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_DENY[] =
-{
+	// OPINIONEVENT_FRIENDLYFIRE
+	L"What the hell! $CAUSE$ shot me!",
+	L"",
+	L"",
 	L"What? Me? No way, I'm shooting at the enemy!",
+	L"Oops.",
+	L"",
+	L"",
+	L"$CAUSE$ has shot $VICTIM$. What do you do?",
+	L"Nah, that must have been enemy fire!",
+	L"Yeah, I saw it too!",
+	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
+	L"I saw it, it was clearly enemy fire!",
+	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
+	L"This is war! People get shot all the time! Speaking of... shoot more people, people!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SNITCHSOLDMEOUT
+	L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
+	L"",
+	L"",
 	L"I would if you weren't such a wussy!",
+	L"You heard that? Dammit.",
+	L"",
+	L"",
+	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
+	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
+	L"Yeah, mind your own business, $CAUSE$!",
+	L"This isn't girls college, keep your snickerin to yourself, &CAUSE$.",
+	L"Yeah. Man up!",
+	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"This again? Keep your bickering to yourself, we have no time for this!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SNITCHINTERFERENCE
+	L"$CAUSE$ is bullying me again!",
+	L"",
+	L"",
 	L"You're jeopardising the entire mission, and I won't let that stand any longer!",
+	L"Hey, it's for your own good. You'll thank me later.",
+	L"",
+	L"",
+	L"$CAUSE$ has stopped $VICTIM$ from misbehaving, and $VICTIM_GENDER$ is out for revenge. What do you do?",
+	L"Then stop giving reasons for that!",
+	L"Drop it, $CAUSE$, who are you to tell us hat to do?!",
+	L"You won't let that stand? Cute. Who ever made you the boss?",
+	L"Agreed. We can't let our guard down for a single moment!",
+	L"Can't you two sort this out?",
+	L"Meh meh meh. Have any of you losers lost their bib? You're pathetic. ",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_FRIENDSWITHHATED
+	L"Hmpf. Typical $CAUSE$, figured $CAUSE_GENDER$ would hang out with the wrong crowd!",
+	L"",
+	L"",
 	L"My friends are none of your business!",
+	L"Can't you two all get along, $VICTIM$?",
+	L"",
+	L"",
+	L"$VICTIM$ doesn't like $CAUSE$'s friend. What do you do?",
+	L"Everybody can hang out with whom $CAUSE_GENDER$ wants!",
+	L"Yeah, you guys are ugly!",
+	L"Then you should change your business. 'Cause its bad.",
+	L"What's that to you, $VICTIM$?",
+	L"Yeah yeah, terrible business, that. Are you sure that is the MOST PRESSING issue right now?",
+	L"Nobody wants to hear all this crap...",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_CONTRACTEXTENSION
+	L"Yeah, sure. My contract's about to end, but no, gotta take care of $CAUSE$ first.",
+	L"",
+	L"",
 	L"Oh yeah? I'm actually useful. Perhaps that's why you didn't get an extension.",
+	L"I'm sure you'll get your extension soon. You know how odd online banking can be.",
+	L"",
+	L"",
+	L"$VICTIM$ is jealous as we extended $CAUSE$'s contract early. What do you do?",
+	L"You are still getting paid, no? What does it matter as long as you get the money?",
+	L"And your contract ends so soon, $CAUSE$... I hope you get an extension.",
+	L"Yeah. All that worth hasn't shown yet though.",
+	L"Aww, that burns, doesn't it, $VICTIM$?",
+	L"We have limited funds. Someone needs to get paid first, right?",
+	L"You'll all get paid in time. Unless you continue like this. I'm sure there are less annoying mercs out there.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_ORDEREDRETREAT
+	L"Nice command, $CAUSE$! Why would you order retreat?",
+	L"",
+	L"",
 	L"I just got us out of that hellhole, you should thank me for saving your life.",
+	L"They were flanking us, there was no other way!",
+	L"",
+	L"",
+	L"$VICTIM$ dislikes the retreat command $CAUSE$ gave. What do you do?",
+	L"You know you can go back if you want... nobody's stopping you.",
+	L"We were rockin' it until that point.",
+	L"Oh, now YOU got us out? By being the first to leave? How noble of you.",
+	L"I sure did, $CAUSE$. Man, I don't want to go back THERE again.",
+	L"We're still alive, this is what counts.",
+	L"The more pressing issue is when will we go back, and finish the job?",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_CIVKILLER
+	L"What the hell is wrong with you, $CAUSE$? You just killed an innocent!",
+	L"",
+	L"",
 	L"He had a gun, I saw it!",
+	L"Oh god. No! What have I done?",
+	L"",
+	L"",
+	L"$VICTIM$ is furious: $CAUSE$ killed a civilian. What do you do?",
+	L"Better safe than sorry I say...",
+	L"Yeah. The poor sod never had a chance. Damn.",
+	L"Don't talk crap. That was an unarmed civilian. We are here to protect these people!",
+	L"And you took him down nice and clean, good job!",
+	L"This is war. People die all the time... though I'd prefer it if it were less obvious that we are so, ehm, proactive.",
+	L"Who cares? Can't make a cake without breaking a few eggs.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SLOWSUSDOWN
+	L"Can we get rid of $CAUSE$, please? That slowpoke is holding us back.",
+	L"",
+	L"",
 	L"I wouldn't if you would carry your fair share of the gear, $VICTIM$!",
+	L"It's all this stuff, it's so heavy!",
+	L"",
+	L"",
+	L"$VICTIM$ feels $CAUSE$ slows down the team. What do you do?",
+	L"We leave nobody behind, not even $CAUSE$!",
+	L"We have to move fast, the enemy isn't far behind!",
+	L"Everybody carries his gear. How do you expect to fight if you can't even carry your gun?",
+	L"Aye, stop complaining. We go through this together or we don't do it at all.",
+	L"If you are so annoyed that $CAUSE$ is slow, $VICTIM$, maybe you could lend a hand.",
+	L"If you still have enough breath left to complain, $VICTIM$, you should lend $CAUSE_GENDER$ a hand.",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_NOSHARINGFOOD
+	L"Damn $CAUSE$, $CAUSE_GENDER$ is keeping all that tasty food to $CAUSE_PRONOUN$self...",
+	L"",
+	L"",
 	L"Not my problem if you already ate all your rations.",
-	L"Just what I need. Good advice. Thanks, $VICTIM$, you are a big help.",
-	L"Taking the stick out of your butt would be a starter, jeez...",
-	L"Have you been drinking? What the hell is your problem?",
+	L"Oh $VICTIM$, why didn't you say something then?",
+	L"",
+	L"",
+	L"$VICTIM$ wants $CAUSE$'s food. What do you do?",
+	L"We all get the same. If you used up yours already that's your problem.",
+	L"If $CAUSE$ shares, I want some too!",
+	L"Why do you have so much food anyway? Do I smell extra rations there?.",
+	L"Right, everyone got enough back at the base...",
+	L"There's enough food left at the base, so no need to fight, ok?",
+	L"I wouldn't call that stuff 'tasty', but if you ladies wanna fight about it, fine by me.",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_ANNOYINGDISABILITY
+	L"Oh, come on, $CAUSE$. It's not a good moment!",
+	L"",
+	L"",
+	L"Just what I need. Good advice. Thanks, $VICTIM$, you are a big help.",
+	L"It's my only weakness, I can't help it!",
+	L"",
+	L"",
+	L"$CAUSE$' tick is getting on $VICTIM$'s nerves. What do you do?",
+	L"What does it even matter to you? Don't you have something to do?",
+	L"Really $CAUSE$. This is a military organization and not a ward.",
+	L"Well, we are pros, an you're not, $CAUSE$.",
+	L"Don't be such a snob, $VICTIM$.",
+	L"Uhm. Is $CAUSE_GENDER$ okay?",
+	L"Bla bla blah. Another notable moment of the crazies squad.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_ADDICT
+	L"$CAUSE$ is high like a zeppelin! How am I supposed to work with that junkie?",
+	L"",
+	L"",
+	L"Taking the stick out of your butt would be a starter, jeez...",
+	L"I've seen things man. And some... stuff!",
+	L"",
+	L"",
+	L"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
+	L"Hey, $CAUSE$ needs to ease the stress, ok?",
+	L"How unprofessional.",
+	L"This is war and not a stoner party. Cut it out, $CAUSE$!",
+	L"Hehe. So true.",
+	L"I am sure there is a good explanation for this. Am I right, $CAUSE$?",
+	L"You can inject yourself with whatever you like, but only after the battle is over.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_THIEF
+	L"What the... Hey! $CAUSE$! Give it back, you damn thief!",
+	L"",
+	L"",
+	L"Have you been drinking? What the hell is your problem?",
+	L"You noticed? Dammit... 50/50?",
+	L"",
+	L"",
+	L"$VICTIM$ saw $CAUSE$ steal an item. What do you do?",
+	L"If you don't have any proof, don't throw around accusations, $VICTIM$.",
+	L"So that's the kind of people were stuck with, $VICIM$? I better watch my wallet then.",
+	L"HEY! You put that back right now!",
+	L"No idea. All of a sudden $VICTIM$ is all drama.",
+	L"Perhaps we could get a raise to resolve this... issue?",
+	L"Shut up! There is more than enough loot for all of us!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_WORSTCOMMANDEREVER
+	L"What a disaster. That was worst command ever, $CAUSE$!",
+	L"",
+	L"",
 	L"I don't have to take that from a grunt like you!",
 	L"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
-	L"Contrary to you, I actually know how to use them.",
-	L"Don't be such a wuss. This is war!",
+	L"",
+	L"",
+	L"$CAUSE$ does not trust $VICTIM$'s orders. What do you do?",
+	L"Someone had take the lead and $CAUSE$ did it. Did you have a better plan?",
+	L"Well, we sure aren't going to win the war at this rate...",
+	L"Then take it from me... that wasn't 'commanding' as much as 'handwaving'.",
+	L"We have a clear chain of command, and you sure as hell aren't on top, $VICTIM$!",
+	L"We will not forget their sacrifice. They died so we could fight on.",
+	L"What? This is the business. Screw up and you're dead. They knew the risks. Move on.",
+	L"",
+	L"",
+	L"",
 
-	L"I'm doing my job. Get back to yours!",
-	L"Pah. I think you've had enough.",
-	L"Tehehe. $VICTIM$, you are soooo wasted. You.. hic. You need to restrain yourself. Discipline, you know? Like me!",
-	L"Cut it out, $VICTIM$! You clearly don't know when to stop!",
-
-	L"Oh SHUT UP $VICTIM$! You don't know how to beh.. beha... beha? Ehm... You make no sense. At all. Yeah. You're no fun.",
-	L"Depend? It was all your fault!",
-	L"'Even'? What does that mean?",
-	L"No I did not!",
-
-	L"It's because you're wrong, that's why.",
-	L"No. I won't let this go.",
-	L"As if you had any to start with.",
-	L"Cut it, drama queen.",
-
-	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
-	L"Oh yeah? Back off, before I cough on you!",
-	L"How did you get that in the first place? Did you forget to wash your hands again?",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_CAUSE_TO_VICTIM_AGREE[] =
-{
-	L"Oops.",
-	L"You heard that? Dammit.",
-	L"Hey, it's for your own good. You'll thank me later.",
-	L"Can't you two all get along, $VICTIM$?",
-
-	L"I'm sure you'll get your extension soon. You know how odd online banking can be.",
-	L"They were flanking us, there was no other way!",
-	L"Oh god. No! What have I done?",
-	L"It's all this stuff, it's so heavy!",
-
-	L"Oh $VICTIM$, why didn't you say something then?",
-	L"It's my only weakness, I can't help it!",
-	L"Hey, I've seen some things man. And some stuff!",
-	L"You noticed? Dammit... 50/50?",
-
-	L"Well, yeah, NOW that's obvious. Back then it wasn't.",
+	// OPINIONEVENT_RICHGUY
+	L"How can $CAUSE$ earn this much? It's not fair!",
+	L"",
+	L"",
+	L"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
 	L"You don't expect me to complain, do you?",
+	L"",
+	L"",
+	L"$CAUSE$ is jealous of $VICTIM$'s paycheck. What do you do?",
+	L"Quit whining about the money, you get more than enough yourself!",
+	L"In all honesty, $VICTIM$, I think you should adjust your rate!",
+	L"Worth it? All you do is pose!",
+	L"Relax. At least some of us appreciate your service, $CAUSE$.",
+	L"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
+	L"Everybody gets what the deserve. If you complain, you deserve less.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_BETTERGEAR
+	L"$CAUSE$ is stocking the good gear for $CAUSE_PRONOUN$self. Not fair!",
+	L"",
+	L"",
+	L"Contrary to you, I actually know how to use them.",
 	L"Well, someone has to use it, right? Better luck next time!",
+	L"",
+	L"",
+	L"$CAUSE$ is jealous of $VICTIM$'s equipment. What do you do?",
+	L"You're just making up an excuse for your poor marksmanship.",
+	L"Yeah, this smells of cronyism to me.",
+	L"If by 'use' you mean 'waste a lot bullets', then yeah, you are a pro.",
+	L"I'll second that!",
+	L"Is that so? Well, I expect superior marksmanship from $CAUSE_GENDER$ from now on.",
+	L"Did it ever occur to you that our supplies are limited? We can't ALL get the one good gun.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS
+	L"Do I look like a bipod? Get that thing off me, $CAUSE$!",
+	L"",
+	L"",
+	L"Don't be such a wuss. This is war!",
 	L"Oh. Didn't see you for a minute there.",
+	L"",
+	L"",
+	L"$CAUSE$ used $VICTIM$'s chest as a gun rack. How odd. What do you do?",
+	L"Don't be such a wuss. This is war!",
+	L"Wow. Are you trying to be a jerk, $CAUSE$, or is this normal for you?",
+	L"You are and always will be an insensitive jerk, $CAUSE$.",
+	L"Sometimes you just have to use your surroundings!",
+	L"Ehm... what are you two DOING?",
+	L"This is hardly the time to fondle each other, dammit.",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_BANDAGED
+	L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
+	L"",
+	L"",
+	L"I'm doing my job. Get back to yours!",
 	L"Hey, we have to look after each other. You'd do the same, $VICTIM$.",
+	L"",
+	L"",
+	L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
+	L"Patched together again? Good, now move!",
+	L"You're welcome.",
+	L"Jeez. Woken up on the wrong foot today?",
+	L"Talk about a no-nonsense approach...",
+	L"How did you even get wounded? Where did the attack come from?",
+	L"You need to be more careful. Now, where did the attack come from?",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_DRINKBUDDIES_GOOD
+	L"Yeah, $CAUSE$! You get it! How 'bout next round?",
+	L"",
+	L"",
+	L"Pah. I think you've had enough.",
 	L"Sure. Bring it on!",
+	L"",
+	L"",
+	L"Drunk $VICTIM$ likes $CAUSE$. What do you do?",
+	L"Yeah, enough booze for you today.",
+	L"Hoho, party!",
+	L"Party pooper!",
+	L"You sure like to keep a cool head, $CAUSE$.",
+	L"Alright, ladies, party's over, move on!",
+	L"Who told you to slack off? You have a job to do!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_DRINKBUDDIES_SUPER
+	L"$CAUSE$... you're... you are... hic... you're the best!",
+	L"",
+	L"",
+	L"Tehehe. $VICTIM$, you are soooo wasted. You.. hic. You need to restrain yourself. Discipline, you know? Like me!",
 	L"Hic... yeah. You too, $VICTIM$. You. hic.. too!",
+	L"",
+	L"",
+	L"Drunk $VICTIM$ dislikes $CAUSE$. What do you do?",
+	L"Whatever. We still have a job to do, so this party is over for you, $VICTIM$.",
+	L"Heeeey... this is actually kinda nice for a change.",
+	L"'I know discipline', said the clueless drunk...",
+	L"Yeargh. Dis... gulp! Disciplined like... ehm... us!",
+	L"Drink one for me too! But not now, because war.",
+	L"You celebrate already ? This in't over yet. Not by a longshot!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_DRINKBUDDIES_BAD
+	L"Damn, $CAUSE$! You... you got enough... Learn to keep your liquor...",
+	L"",
+	L"",
+	L"Cut it out, $VICTIM$! You clearly don't know when to stop!",
 	L"Tehehe. You are RIGHT. Hehe. Always right. Hic!",
+	L"",
+	L"",
+	L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
+	L"Relax, it's just a bit of booze.",
+	L"Hey keep it down over there, okay?",
+	L"You're just as drunk. Beat it, &CAUSE$!",
+	L"Leave alcohol to the big ones, okay?",
+	L"Later, ok?",
+	L"We might've won this battle, but not this godamn war. So move it, soldier!",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_DRINKBUDDIES_WORSE
+	L"What the hell, $CAUSE$! Ugh... I'm never drinking with you again, you sicko.",
+	L"",
+	L"",
+	L"Oh SHUT UP $VICTIM$! You don't know how to beh.. beha... beha? Ehm... You make no sense. At all. Yeah. You're no fun.",
 	L"Well you're no fu... fu... fu? Fun! You are not. Hic!. No.",
+	L"",
+	L"",
+	L"$VICTIM$ is wasted and wants to tear $VICTIM$ a new one. What do you do?",
+	L"Jeez $VICTIM$, why so uptight all of a sudden? Anything happened?",
+	L"This party was cool until $CAUSE$ ruined it!",
+	L"$CAUSE$! Shut it! You are a disgrace for this unit. Get out and sober up!",
+	L"Word!",
+	L"Why don't you two sober up? You're pretty wasted...",
+	L"Both of you, shut up! You are a disgrace to this unit!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_AGAINST_US
+	L"I knew I couldn't depend on you, $CAUSE$!",
+	L"",
+	L"",
+	L"Depend? It was all your fault!",
 	L"Touched a nerve there, didn't I?",
+	L"",
+	L"",
+	L"$VICTIM$ does not like was $CAUSE$ has to say. What do you do?",
+	L"So you depend on others to do your job? Then what good are you?!",
+	L"Indeed. Way to let $VICTIM$ hang!",
+	L"This isn't some schoolyard sympathy crap. It WAS your fault!",
+	L"Yeah, what's with the attitude?",
+	L"Zip it, both of you!",
+	L"Silence, now!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_FOR_US
+	L"Ha! See? Even $CAUSE$ agrees with me.",
+	L"",
+	L"",
+	L"'Even'? What does that mean?",
 	L"Yeah. I'm 100%% with $VICTIM$ on this.",
+	L"",
+	L"",
+	L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
+	L"Don't let it go to your head.",
+	L"Hey, don't forget about me!",
+	L"Apparently, sometimes even $CAUSE$ is deemed important...",
+	L"Do I smell trouble here??",
+	L"This is pointless! Discuss that in private, but not now.",
+	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_AGAINST_ENEMY
+	L"Yeah, $CAUSE$ saw you do it!",
+	L"",
+	L"",
+	L"No I did not!",
 	L"And we won't be quiet about it, no sir!",
+	L"",
+	L"",
+	L"$VICTIM$ likes what $CAUSE$ said about the others. What do you do?",
+	L"I don't think so...",
+	L"Yeah, totally!",
+	L"Hu? You said you did.",
+	L"Yeah, don't twist what happened!",
+	L"Who cares? We have a job to do.",
+	L"If you ladies keep this on, we're going to have a real problem soon.",
+	L"",
+	L"",
+	L"",
 
-	L"I'm surpried too, but that's how it is.",
+	// OPINIONEVENT_FOR_ENEMY
+	L"I can't believe you wouldn't agree with me on this, $CAUSE$.",
+	L"",
+	L"",
+	L"It's because you're wrong, that's why.",
+	L"I'm surprised too, but that's how it is.",
+	L"",
+	L"",
+	L"$VICTIM$ does not like $CAUSE$ siding with the others. What do you do?",
+	L"Ugh. What now...",
+	L"Hum. Never saw that coming.",
+	L"Oh come down from your high horse, $CAUSE$.",
+	L"Yeah, you are wrong, $VICTIM$!",
+	L"Can I shut down squad radio, so I don't have to listen to you?",
+	L"Yes, very melodramatic. How is any of this relevant?",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SOLVECONFLICT_REASON_GOOD
+	L"Yeah... you're right, $CAUSE$. Peace?",
+	L"",
+	L"",
+	L"No. I won't let this go.",
 	L"Hmm... ok!",
-	L"Suit yourself then..",
-	L"As long as it does not happen again.",
+	L"",
+	L"",
+	L"$VICTIM$ appreciates $CAUSE$'s conflict resolution. What do you do?",
+	L"You're not getting away this easy.",
+	L"Glad you guys are not angry anymore.",
+	L"Oh come on. $VICTIM$ is letting it go, what's your issue now?",
+	L"You tell 'em, $CAUSE$!",
+	L"*Sigh* Shake hands or whatever you people do, and then back to business.",
+	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
+	L"",
+	L"",
+	L"",
 
+	// OPINIONEVENT_SOLVECONFLICT_REASON_BAD
+	L"No. This is a matter of principle.",
+	L"",
+	L"",
+	L"As if you had any to start with.",
+	L"Suit yourself then..",
+	L"",
+	L"",
+	L"$VICTIM$ does not like $CAUSE$'s appeal. What do you do?",
+	L"You're just asking for trouble, right?",
+	L"Guess you're not getting away that easy, $CAUSE$.",
+	L"Don't be so flippant.",
+	L"Who needs principles anyway?",
+	L"Now that this is out of the way, perhaps we could continue?",
+	L"Shut up, both of you!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD
+	L"Alright alright. Jeez. I'm over it, okay?",
+	L"",
+	L"",
+	L"Cut it, drama queen.",
+	L"As long as it does not happen again.",
+	L"",
+	L"",
+	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
+	L"No reason to be so stiff about it.",
+	L"Yeah, keep it down, will ya?",
+	L"Pah. You're the one making all the fuss about it...",
+	L"Yeah, drop that attitude, $VICTIM$.",
+	L"*Sigh* More of this?",
+	L"Why am I even listening to you people...",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD
+	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
+	L"",
+	L"",
+	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
 	L"The two of us are going to have real problem soon, $VICTIM$.",
+	L"",
+	L"",
+	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
+	L"Pfft. Don't make a fuss out of it.",
+	L"Yeah, you won't boss us around anymore!",
+	L"You are certainly nobodies superior!",
+	L"Not sure about that, but yep!",
+	L"Hey. Hey! Both of you, cut it out! What are you doing?",
+	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_DISEASE_DISGUSTING
+	L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
+	L"",
+	L"",
+	L"Oh yeah? Back off, before I cough on you!",
 	L"It really is. I... *cough* don't feel so well...",
+	L"",
+	L"",
+	L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
+	L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
+	L"This does look unhealthy. That better not be contagious!",
+	L"Stop it!  We don't need more of whatever it is you have!",
+	L"Yeah, there's nothing you can do against this stuff, right?",
+	L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
+	L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_DISEASE_TREATMENT
+	L"Thanks, $CAUSE$. I'm already feeling better.",
+	L"",
+	L"",
+	L"How did you get that in the first place? Did you forget to wash your hands again?",
 	L"No problem, we can't have you running around coughing blood, right? Riiight?",
+	L"",
+	L"",
+	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
+	L"Where did you get that stuff from in the first place?",
+	L"Great. Are you sure it's fully treated now?",
+	L"The important thing is that it's gone now... It is, right?",
+	L"I told you people before... this country a dirty place, so beware of what you touch.",
+	L"We have to be careful. The army isn't the only thing that wants us dead.",
+	L"Great. Everything done? Then let's get back to shooting stuff!",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_BRUTAL_GOOD
+	L"Nice one, $CAUSE$!",
+	L"",
+	L"",
+	L"Whoa. Are you really getting off on that?",
+	L"Now THIS is action!",
+	L"",
+	L"",
+	L"$VICTIM$ applauds $CAUSE$'s excessive violence. Does that seem good to you?",
+	L"This isn't a video game, kid...",
+	L"That was so wicked!",
+	L"What are you apologizing for? That was awesome!",
+	L"You are sick, $VICTIM$.",
+	L"Killing them is enough. No need to make a show out of it.",
+	L"Cross us, and this is what you get. Waste the rest of these guys.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_BRUTAL_BAD
+	L"Dammit, $CAUSE$, your supposed to kill them, not evaporate them!",
+	L"",
+	L"",
+	L"Is there a difference?",
+	L"Oops. This thing is powerful!",
+	L"",
+	L"",
+	L"$VICTIM$ is appalled by $CAUSE$'s excessive violence. What do you think?",
+	L"Don't tell me you've never seen blood before...",
+	L"That was a bit excessive...",
+	L"Does that mean you aren't even remotely familiar with your gun?",
+	L"On the plus side, I doubt this guy is going to complain.",
+	L"Don't waste ammunition, $CAUSE$.",
+	L"They put up a fight, we put them in a bag. End of story.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_TEACHER
+	L"Thanks for giving me a few pointers, $CAUSE$. I've learned a lot from you.",
+	L"",
+	L"",
+	L"About that... you still have a lot to learn, $VICTIM$.",
+	L"You're welcome!",
+	L"",
+	L"",
+	L"$CAUSE$ is unimpressed by $VICTIM$'s progress. what do you think?",
+	L"At some point you'll have to do on your own though.",
+	L"Yeah, you better stick to $CAUSE$.",
+	L"Nah, $VICTIM_GENDER$ is doing fine.",
+	L"Yes, $VICTIM_GENDER$ still needs training.",
+	L"This training is a good preparation, keep up the good work.",
+	L"We need everybody at full capacity if we're going to win this campaign, so keep it up.",
+	L"",
+	L"",
+	L"",
 };
 
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
+
+STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
 	L"What?!",
 	L"No!",
@@ -9340,330 +9817,42 @@ STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_DENY[] =
 	L"Back off!",
 	L"Lies, lies, lies...",
 
+	L"No way!",
+	L"So not true.",
+	L"That is so not true.",
 	L"I know what I saw.",
+
+	L"I don't know what $INTERJECTOR_GENDER$ is talking off.",
+	L"Don't listen to $INTERJECTOR_PRONOUN$!",
+	L"Nope.",
+	L"You are mistaken.",
 };
 
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_CAUSE_TO_INTERJECTOR_AGREE[] =
+STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
-	L"Ha!",
-	L"See?",
 	L"I knew you'd back me, $INTERJECTOR$",
 	L"I knew $INTERJECTOR$ would back me.",
+	L"What $INTERJECTOR$ said.",
+	L"What $INTERJECTOR_GENDER$ said.",
 
 	L"Thanks, $INTERJECTOR$!",
 	L"Once again I'm right!",
-	L"See, $VICTIM$? I am right!",
+	L"See, $CAUSE$? I am right!",
 	L"Once again $SPEAKER$ is right!",
 
-	L"Indeed.",
-	L"Yup.",
 	L"Aye.",
-	L"What $INTERJECTOR$ said.",
+	L"Yup.",
+	L"Yep",
+	L"Yes.",
+
+	L"Indeed.",
+	L"True.",
+	L"Ha!",
+	L"See?",
+
+	L"Exactly!",
 };
 
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION[] =
-{
-	L"$CAUSE$ has shot $VICTIM$. What do you do?",
-	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
-	L"$CAUSE$ has stopped $VICTIM$ from misbehaving, and $VICTIM_GENDER$ is out for revenge. What do you do?",
-	L"$VICTIM$ doesn't like $CAUSE$'s friend. What do you do?",
-
-	L"$VICTIM$ is jealous as we extended $CAUSE$'s contract early. What do you do?",
-	L"$VICTIM$ dislikes the retreat command $CAUSE$ gave. What do you do?",
-	L"$VICTIM$ is furious: $CAUSE$ killed a civilian. What do you do?",
-	L"$VICTIM$ feels $CAUSE$ slows down the team. What do you do?",
-
-	L"$VICTIM$ wants $CAUSE$'s food. What do you do?",
-	L"$CAUSE$' tick is getting on $VICTIM$'s nerves. What do you do?",
-	L"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
-	L"$VICTIM$ saw $CAUSE$ steal an item. What do you do?",
-
-	L"$CAUSE$ does not trust $VICTIM$'s orders. What do you do?",
-	L"$CAUSE$ is jealous of $VICTIM$'s paycheck. What do you do?",
-	L"$CAUSE$ is jealous of $VICTIM$'s equipment. What do you do?",
-	L"$CAUSE$ used $VICTIM$'s chest as a gun rack. How odd. What do you do?",
-
-	L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
-	L"Drunk $VICTIM$ likes $CAUSE$. What do you do?",
-	L"Drunk $VICTIM$ dislikes $CAUSE$. What do you do?",
-	L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
-
-	L"$VICTIM$ is wasted and wants to tear $VICTIM$ a new one. What do you do?",
-	L"$VICTIM$ does not like was $CAUSE$ has to say. What do you do?",
-	L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
-	L"$VICTIM$ likes what $CAUSE$ said about the others. What do you do?",
-
-	L"$VICTIM$ does not like $CAUSE$ siding with the others. What do you do?",
-	L"$VICTIM$ appreciates $CAUSE$'s conflict resolution. What do you do?",
-	L"$VICTIM$ does not like $CAUSE$'s appeal. What do you do?",
-	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
-
-	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
-	L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
-	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_DENY[] =
-{
-	L"Nah, that must have been enemy fire!",
-	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
-	L"Then stop giving reasons for that!",
-	L"Everybody can hang out with whom $CAUSE_GENDER$ wants!",
-
-	L"You are still getting paid, no? What does it matter as long as you get the money?",
-	L"You know you can go back if you want... nobody's stopping you.",
-	L"Better safe than sorry I say...",
-	L"We leave nobody behind, not even $CAUSE$!",
-
-	L"We all get the same. If you used up yours already that's your problem.",
-	L"What does it even matter to you? Don't you have something to do?",
-	L"Hey, $CAUSE$ needs to ease the stress, ok?",
-	L"If you don't have any proof, don't throw around accusations, $VICTIM$.",
-
-	L"Someone had take the lead and $CAUSE$ did it. Did you have a better plan?",
-	L"Quit whining about the money, you get more than enough yourself!",
-	L"You're just making up an excuse for your poor marksmanship.",
-	L"Don't be such a wuss. This is war!",
-
-	L"Patched together again? Good, now move!",
-	L"Yeah, enough booze for you today.",
-	L"Whatever. We still have a job to do, so this party is over for you, $VICTIM$.",
-	L"Relax, it's just a bit of booze",
-
-	L"Jeez $VICTIM$, why so uptight all of a sudden? Anything happened?",
-	L"So you depend on others to do your job? Then what good are you?!",
-	L"Don't let it go to your head.",
-	L"I don't think so...",
-
-	L"Ugh. What now...",
-	L"You're not getting away this easy.",
-	L"You're just asking for trouble, right?",
-	L"No reason to be so stiff about it.",
-
-	L"Pfft. Don't make a fuss out of it.",
-	L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
-	L"Where did you get that stuff from in the first place?",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_VICTIM_AGREE[] =
-{
-	L"Yeah, I saw it too!",
-	L"Yeah, mind your own business, $CAUSE$!",
-	L"Drop it, $CAUSE$, who are you to tell us hat to do?!",
-	L"Yeah, you guys are ugly!",
-
-	L"And your contract ends so soon, $CAUSE$... I hope you get an extension.",
-	L"We were rockin' it until that point.",
-	L"Yeah. The poor sod never had a chance. Damn.",
-	L"We have to move fast, the enemy won't wait for us!",
-
-	L"If $CAUSE$ shares, I want some too!",
-	L"Really $CAUSE$. This is a military organization and not a ward.",
-	L"How unprofessional.",
-	L"So thats the kind of people were stuck with, $VICIM$? I better watch my wallet then.",
-
-	L"Well, we aren't going to win this war at this rate...",
-	L"In all honesty, $VICTIM$, I think you should adjust your rate!",
-	L"Yeah, this smells of cronyism to me.",
-	L"Wow. Are you trying to be a jerk, $CAUSE$, or is this normal for you?",
-
-	L"It'S good to have someone watching your back. That's what teamwork is all about.",
-	L"Hoho, party!",
-	L"Heeeey... this is actually kinda nice for a change.",
-	L"Hey keep it down over there, okay?",
-
-	L"This party was cool until $CAUSE$ ruined it!",
-	L"Indeed. Way to let $VICTIM$ hang!",
-	L"Hey, don't forget about me!",
-	L"Yeah, totally!",
-
-	L"Hum. Never saw that coming.",
-	L"Glad you guys are not angry anymore.",
-	L"Guess you're not getting away that easy, $CAUSE$.",
-	L"Yeah, keep it down, will ya?",
-
-	L"Yeah, you won't boss us around anymore!",
-	L"This does look unhealthy. That better not be contagious!",
-	L"Great. Are you sure it's fully treated now?",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_DENY[] =
-{
-	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
-	L"This isn't girls college, keep your snickerin to yourself, &CAUSE$.",
-	L"You won't let that stand? Cute. Who ever made you the boss?",
-	L"Then you should change your business. 'Cause its bad.",
-
-	L"Yeah. All that worth hasn't shown yet though.",
-	L"Oh, now YOU got us out? By being the first to leave? How noble of you.",
-	L"Don't talk crap. That was an unarmed civillian. We are here to protect these people!",
-	L"Everybody carries his gear. How do you expect to fight if you can't even carry your gun?",
-
-	L"Why do you have so much food anyway? Do I smell extra rations there?.",
-	L"Well, we are pros, an you're not, $CAUSE$.",
-	L"This is war and not a stoner party. Cut it out, $CAUSE$!",
-	L"HEY! You put that back right now!",
-
-	L"Then take it from me... that wasn't 'commanding' as much as 'handwaving'.",
-	L"Worth it? All you do is pose!",
-	L"If by 'use' you mean 'waste a lot bullets', then yeah, you are a pro.",
-	L"You are and always will be an insensitive jerk, $CAUSE$.",
-
-	L"Jeez. Woken up on the wrong foot today?",
-	L"Party pooper!",
-	L"'I know discipline', said the clueless drunk...",
-	L"You're just as drunk. Beat it, &CAUSE$!",
-
-	L"$CAUSE$! Shut it! You are a disgrace for this unit. Get out and sober up!",
-	L"This isn't some schoolyard sympathy crap. It WAS your fault!",
-	L"Apparently, sometimes even $CAUSE$ is deemed important...",
-	L"Hu? You said you did.",
-
-	L"Oh come down from your high horse, $CAUSE$.",
-	L"Oh come on. $VICTIM$ is letting it go, what's your issue now?",
-	L"Don't be so flippant.",
-	L"Pah. You're the one making all the fuss about it...",
-
-	L"You are certainly nobodies superior!",
-	L"Stop it!  We don't need more of whatever it is you have!",
-	L"The important thing is that it's gone now... It is, right?",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_TO_CAUSE_AGREE[] =
-{
-	L"I saw it, it was clearly enemy fire!",
-	L"Yeah. Man up!",
-	L"Agreed. We can't let our guard down for a single moment!",
-	L"What's that to you, $VICTIM$?",
-
-	L"Aww, that burns, doesn't it, $VICTIM$?",
-	L"I sure di, $CAUSE$. Man, I don't want to go back THERE again.",
-	L"An you took him down nice and clean, good job!",
-	L"Aye, stop complaining. We go through this together or we don't do it at all.",
-
-	L"Right, everyone got enough back at the base...",
-	L"Don't be such a snob, $VICTIM$.",
-	L"Hehe. So true.",
-	L"No idea. All of a sudden $VICTIM$ is all drama.",
-
-	L"We have a clear chain of command, and you sure as hell aren't on top, $VICTIM$!",
-	L"Relax. At least some of us appreciate your service, $CAUSE$.",
-	L"I'll second that!",
-	L"Sometimes you just have to use your surroundings!",
-
-	L"Talk about a no-nonsense approach...",
-	L"You sure like to keep a cool head, $CAUSE$.",
-	L"Yeargh. Dis... gulp! Disciplined like... ehm... us!",
-	L"Leave alcohol to the big ones, okay?",
-
-	L"Word!",
-	L"Yeah, what's with the attitude?",
-	L"Do I smell trouble here??",
-	L"Yeah, don't twist what happened!",
-
-	L"Yeah, you are wrong, $VICTIM$!",
-	L"You tell 'em, $CAUSE$!",
-	L"Who needs principles anyway?",
-	L"Yeah, drop that attitude, $VICTIM$.",
-
-	L"Not sure about that, but yep!",
-	L"Yeah, there's nothing you can do against this stuff, right?",
-	L"I told you pople before... this country a dirty place, so beware of what you touch.",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_REASON[] =
-{
-	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
-	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
-	L"Can't you two sort this out?",
-	L"Yeah yeah, very dramatic. Are you sure that is the MOST PRESSING issue right now?",
-
-	L"We have limited funds. Someone needs to get paid first, right?",
-	L"We're still alive, this is what counts.",
-	L"This is war. People die all the time... though I'd prefer it if it were less obvious that we are so, ehm, proactive.",
-	L"If you are so annoyed that $CAUSE$ is slow, $VICTIM$, maybe you could lend a hand.",
-
-	L"There's enough food left at the base, so no need to fight, ok?",
-	L"Uhm. Is $CAUSE_GENDER$ okay?",
-	L"I am sure there is a good explanation for this. Am I right, $CAUSE$?",
-	L"Perhaps we could get a raise to resolve this... issue?",
-
-	L"We will not forget their sacrifice. They died so we could fight on.",
-	L"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
-	L"Is that so? Well, I expect superior marksmanship from $CAUSE_GENDER$ in the next battle then.",
-	L"Ehm... what are you two DOING?",
-
-	L"How did you even get wounded? Where did the attack come from?",
-	L"Alright, ladies, party's over, move on!",
-	L"Drink one for me too! But not now, because war.",
-	L"Later, ok?",
-
-	L"Why don#t you two sober up? You're pretty wasted...",
-	L"Zip it, both of you!",
-	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
-	L"Who cares? We have a job to do.",
-
-	L"Can I shut down squad radio, so I don't have to listen to you?",
-	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
-	L"Shut up, both of you!",
-	L"Sigh. More of this?",
-
-	L"Hey. Hey! Both of you, cut it out! What are you doing?",
-	L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
-	L"We have to be careful. The army isn't the only thing that wants us dead.",
-};
-
-// TODO.Translate
-STR16	szDynamicDialogueText_DOST_INTERJECTOR_SOLVE_AGGRESSIVE[] =
-{
-	L"This is war! People get shot all the time! Speaking of... engage!",
-	L"This again? Keep your bickering to yourself, we have no time for this!",
-	L"Meh meh meh. Have any of you losers lsot their bib? You're pathetic. ",
-	L"Nobody wants to hear all this crap...",
-
-	L"You'll all get paid in time. Unless you continue like this. I'm sure there are less annoying mercs out there.",
-	L"The more pressing issue is when will we go back, and finish the job?",
-	L"Who cares? Can't make a cake without breaking a few eggs.",
-	L"If you still have enough breath left to complain, $VICTIM$, you should lend $CAUSE_GENDER$ a hand.",
-
-	L"I wouldn't call that stuff 'tasty', but if you ladies wanna fight about it, fine by me.",
-	L"Bla bla blah. Another notable moment of the crazies squad.",
-	L"You can inject yourself with whatever you like, but only after the battle is over.",
-	L"Shut up! There is more than enough loot for all of us!",
-
-	L"What? This is the business. Screw up and you're dead. They knew the risks. Move on.",
-	L"Everybody gets what the deserve. If you complain, you deserve less.",
-	L"Did it ever occur to you that our supplies are limited? We can't ALL get the one good gun.",
-	L"This is hardly the time to fondle each other, dammit.",
-
-	L"How did you even get wounded? Where did the attack come from?",
-	L"Alright, ladies, party's over, move on!",
-	L"You celebrate already? This in't over yet. Not by a longshot!",
-	L"We might've won this battle, but not this godamn war. So move it, soldier!",
-
-	L"Both of you, shut up! You are a disgrace to this unit!",
-	L"Zip it, both of you!",
-	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
-	L"Who cares? We have a job to do.",
-
-	L"Can I shut down squad radio, so I don't have to listen to you?",
-	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
-	L"shut up, both of you!",
-	L"Sigh. More of this?",
-
-	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
-	L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
-	L"Great. Everything done? Then let's get back to shooting stuff!",
-};
-
-// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
 	L"That's right!",
@@ -9683,9 +9872,14 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 
 	L"Once again, $CAUSE$ is to blame.",
 	L"I couldn't have said it better myself.",
+	L"That is exactly what happened.",
+	L"Agreed!",
+
+	L"Yup.",
+	L"True.",
+	L"Bingo.",
 };
 
-// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
 	L"Now wait a minute...",
@@ -9705,9 +9899,13 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 
 	L"You are wrong!",
 	L"Me and $CAUSE$ would never do such a thing.",
+	L"Nah, can't be.",
+	L"I don't think so.",
+
+	L"Why bring that up now?",
+	L"Really, $VICTIM$? Is this necessary?",
 };
 
-// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"Keep silent",
