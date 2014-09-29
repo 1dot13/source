@@ -6927,7 +6927,7 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	UINT8 ubGroupID = pSoldier->ubGroupID;
 	INT8 bOldPosition = GetTeamSlotFromPlayerID ( MercPtrs[ ubSourceMerc ]->ubID );
 	INT8 bNewPosition = bOldPosition + bDirection;
-	SOLDIERTYPE *TempMercPtr = MercPtrs[ ubSourceMerc ];
+	SOLDIERTYPE TempMenptr = Menptr[ ubSourceMerc ];
 
 	// anv: vehicle passengers are swapped differently
 	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
@@ -6958,15 +6958,15 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		FACETYPE TempFace = gFacesData[ iSourceFace ];
 
 		// swap the data
-		MercPtrs[ ubSourceMerc ] = MercPtrs[ ubTargetMerc ];
-		MercPtrs[ ubTargetMerc ] = TempMercPtr; 
+		Menptr[ ubSourceMerc ] = Menptr[ ubTargetMerc ];
+		Menptr[ ubTargetMerc ] = TempMenptr; 
 		// also swap face data, otherwise face gear, opp count etc won't update
 		gFacesData[ iSourceFace ] = gFacesData[ iTargetFace ];
 		gFacesData[ iTargetFace ] = TempFace;
 
 		// update IDs in the data so they match array index again
-		MercPtrs[ ubSourceMerc ]->ubID = ubSourceMerc;
-		MercPtrs[ ubTargetMerc ]->ubID = ubTargetMerc;
+		Menptr[ ubSourceMerc ].ubID = ubSourceMerc;
+		Menptr[ ubTargetMerc ].ubID = ubTargetMerc;
 		gFacesData[ iSourceFace ].iID = iSourceFace;
 		gFacesData[ iTargetFace ].iID = iTargetFace;
 
@@ -6975,8 +6975,8 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		gFacesData[ iTargetFace ].ubSoldierID = ubTargetMerc;
 
 		// update face index in merc data
-		MercPtrs[ ubSourceMerc ]->iFaceIndex = iSourceFace;
-		MercPtrs[ ubTargetMerc ]->iFaceIndex = iTargetFace;
+		Menptr[ ubSourceMerc ].iFaceIndex = iSourceFace;
+		Menptr[ ubTargetMerc ].iFaceIndex = iTargetFace;
 
 		// update group info
 		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
