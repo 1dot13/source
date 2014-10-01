@@ -1450,22 +1450,24 @@ void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer, UI
 		}
 
 		// HEADROCK HAM 3.6: Separated Mobiles from Garrisons.
-		if ( ubMilitiaType == TOWN_MILITIA)
+		// silversurfer: We only want to set assignments done if it's the SAME assignment as the trainer's.
+		//if ( ubMilitiaType == TOWN_MILITIA)
+		if ( pTrainer->bAssignment == pSoldier->bAssignment )
 		{
-			if( ( pSoldier->bAssignment == TRAIN_TOWN ) && ( pSoldier->sSectorX == sSectorX )&&( pSoldier->sSectorY == sSectorY )&&( pSoldier->bSectorZ == bSectorZ ) )
+			if( /*( pSoldier->bAssignment == TRAIN_TOWN ) &&*/ ( pSoldier->sSectorX == sSectorX )&&( pSoldier->sSectorY == sSectorY )&&( pSoldier->bSectorZ == bSectorZ ) )
 			{
 				// done assignment
 				AssignmentDone( pSoldier, FALSE, FALSE );
 			}
 		}
-		else
+/*		else
 		{
 			if( ( pSoldier->bAssignment == TRAIN_MOBILE ) && ( pSoldier->sSectorX == sSectorX )&&( pSoldier->sSectorY == sSectorY )&&( pSoldier->bSectorZ == bSectorZ ) )
 			{
 				// done assignment
 				AssignmentDone( pSoldier, FALSE, FALSE );
 			}
-		}
+		}*/
 	}
 
 
@@ -1490,7 +1492,8 @@ void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE
 		sCurrentSector = pCurrentSoldier->sSectorX + pCurrentSoldier->sSectorY * MAP_WORLD_X;
 
 		// is the merc's sector already in the list?
-		if( sCurrentSector == sSector )
+		// silversurfer: Doesn't matter if it's the same sector. We can have different assignments in the same sector so add the soldier to the list if he's on a different assignment.
+		if( sCurrentSector == sSector && pCurrentSoldier->bAssignment == pSoldier->bAssignment )
 		{
 			// already here
 			return;
