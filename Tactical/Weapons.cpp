@@ -9934,7 +9934,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 									if (pTarget->name[0] && pTarget->bVisible == TRUE)
 									{
 										// make stat RED for a while...
-										pTarget->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+										pTarget->timeChanges.uiChangeHealthTime = GetJA2Clock();
 										pTarget->usValueGoneUp &= ~( HEALTH_INCREASE );
 
 										if (bStatLoss == 1)

@@ -1386,19 +1386,19 @@ void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 				switch( gGameOptions.ubDifficultyLevel )
 				{
 					case DIF_LEVEL_EASY:
-						sBreathPerAP *= 9/10; // -10%
+						sBreathPerAP = sBreathPerAP * 9/10; // -10%
 						break;
 					case DIF_LEVEL_MEDIUM:
-						sBreathPerAP *= 1; // normal
+						sBreathPerAP = sBreathPerAP; // normal
 						break;
 					case DIF_LEVEL_HARD:
-						sBreathPerAP *= 11/10; // +10%
+						sBreathPerAP = sBreathPerAP * 11/10; // +10%
 						break;
 					case DIF_LEVEL_INSANE:
-						sBreathPerAP *= 6/5; // +20%
+						sBreathPerAP = sBreathPerAP * 6/5; // +20%
 						break;
 						default:
-						sBreathPerAP *= 9/10; // -10%
+						sBreathPerAP = sBreathPerAP * 9/10; // -10%
 						break;
 				}
 			}

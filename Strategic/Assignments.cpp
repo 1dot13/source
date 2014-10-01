@@ -7542,7 +7542,7 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	// check for teaching bonuses
 	if( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO 
 	{
-		sTrainingBonus -= gSkillTraitValues.bSpeedModifierTrainingMilitia; // penalty for untrained mercs
+		sTrainingBonus += gSkillTraitValues.bSpeedModifierTrainingMilitia; // penalty for untrained mercs
 
 		// bonus for teching trait
 		if ( HAS_SKILL_TRAIT( pTrainer, TEACHING_NT) )

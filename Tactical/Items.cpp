@@ -10171,8 +10171,7 @@ INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier )
 		{
 			OBJECTTYPE* pObj = &pSoldier->inv[j];
 
-			attachmentList::iterator iterend = (*pObj)[0]->attachments.begin();
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 			{
 				if(iter->exists())
 				{
