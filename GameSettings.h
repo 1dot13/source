@@ -253,11 +253,6 @@ BOOLEAN IsNIVModeValid(bool checkRes = true);
 // Snap: Options read from an INI file in the default of custom Data directory
 typedef struct
 {
-	INT32	iStartingCashNovice;
-	INT32	iStartingCashExperienced;
-	INT32	iStartingCashExpert;
-	INT32	iStartingCashInsane;
-
 	UINT32 iGameStartingTime; //Lalien: game starting time	
 	UINT32 iFirstArrivalDelay; 
 
@@ -294,25 +289,6 @@ typedef struct
 
 	INT32 iMaxEnemyGroupSize;
 
-	INT32 iReinforcementPoolNovice;
-	INT32 iReinforcementPoolExperienced;
-	INT32 iReinforcementPoolExpert;
-	INT32 iReinforcementPoolInsane;
-
-	INT32 iForcePercentageNovice;
-	INT32 iForcePercentageExperienced;
-	INT32 iForcePercentageExpert;
-	INT32 iForcePercentageInsane;
-
-	INT32 iPercentElitesBonusExpert;
-	INT32 iPercentElitesBonusInsane;
-	INT32 iPercentElitesBonusExperienced;
-
-	UINT8 ubMinEnemyGroupSizeNovice;
-	UINT8 ubMinEnemyGroupSizeExperienced;
-	UINT8 ubMinEnemyGroupSizeExpert;
-	UINT8 ubMinEnemyGroupSizeInsane;
-
 	BOOLEAN fMercDayOne;
 	BOOLEAN fAllMercsAvailable;
 	
@@ -321,10 +297,6 @@ typedef struct
 	// tais: Soldiers wear any armour
 	UINT8 fSoldiersWearAnyArmour;
 
-	INT8 iEasyAPBonus;
-	INT8 iExperiencedAPBonus;
-	INT8 iExpertAPBonus;
-	INT8 iInsaneAPBonus;
 	INT8 iPlayerAPBonus;
 
 	////////////////////////////////////
@@ -471,7 +443,6 @@ typedef struct
 	
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
-	UINT32	guiBaseQueenPoolIncrement;
 	
 	UINT32	guiAllowMilitiaGroupsDelay;
 	UINT32	guiTrainVeteranMilitiaDelay;
@@ -607,53 +578,8 @@ typedef struct
 	INT32 iGunRangeModifier;
 	INT32 iMeleeDamageModifier;
 
-	UINT32 ubEasyEnemyStartingAlertLevel;
-	UINT32 ubNormalEnemyStartingAlertLevel;
-	UINT32 ubHardEnemyStartingAlertLevel;
-	UINT32 ubInsaneEnemyStartingAlertLevel;
-
-	UINT32 ubEasyEnemyStartingAlertDecay;
-	UINT32 ubNormalEnemyStartingAlertDecay;
-	UINT32 ubHardEnemyStartingAlertDecay;
-	UINT32 ubInsaneEnemyStartingAlertDecay;
-
-	UINT32 ubEasyTimeEvaluateInMinutes;
-	UINT32 ubNormalTimeEvaluateInMinutes;
-	UINT32 ubHardTimeEvaluateInMinutes;
-	UINT32 ubInsaneTimeEvaluateInMinutes;
-
-	UINT32 ubEasyTimeEvaluateVariance;
-	UINT32 ubNormalTimeEvaluateVariance;
-	UINT32 ubHardTimeEvaluateVariance;
-	UINT32 ubInsaneTimeEvaluateVariance;
-
-	UINT32 ubEasyGracePeriodInHours;
-	UINT32 ubNormalGracePeriodInHours;
-	UINT32 ubHardGracePeriodInHours;
-	UINT32 ubInsaneGracePeriodInHours;
-
-	UINT32 ubEasyPatrolGracePeriodInDays;
-	UINT32 ubNormalPatrolGracePeriodInDays;
-	UINT32 ubHardPatrolGracePeriodInDays;
-	UINT32 ubInsanePatrolGracePeriodInDays;
-
-	UINT32 ubEasyNumAwareBattles;
-	UINT32 ubNormalNumAwareBattles;
-	UINT32 ubHardNumAwareBattles;
-	UINT32 ubInsaneNumAwareBattles;
-
 	// WDS - New AI
 	BOOLEAN useNewAI;
-
-	BOOLEAN gfEasyUnlimitedTroops;
-	BOOLEAN gfNormalUnlimitedTroops;
-	BOOLEAN gfHardUnlimitedTroops;
-	BOOLEAN gfInsaneUnlimitedTroops;
-
-	BOOLEAN gfEasyAggressiveQueen;
-	BOOLEAN gfNormalAggressiveQueen;
-	BOOLEAN gfHardAggressiveQueen;
-	BOOLEAN gfInsaneAggressiveQueen;
 
 	BOOLEAN gfInvestigateSector;
 	BOOLEAN gfReassignPendingReinforcements;
@@ -751,10 +677,6 @@ typedef struct
 
 	//Kaiden MERC Deaths Externalized:
 	BOOLEAN gfMercsDieOnAssignment;
-	INT32 giEasyMercDeaths;
-	INT32 giExperiencedMercDeaths;
-	INT32 giExpertMercDeaths;
-	INT32 giInsaneMercDeaths;
 
 	// Lesh: slow enemy items choice progress
 	BOOLEAN fSlowProgressForEnemyItemsChoice;
@@ -1047,12 +969,6 @@ typedef struct
 
 	// HEADROCK HAM 3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
 	UINT8 ubReqLeadershipForFullTraining;
-
-	// HEADROCK HAM 3: Four INI settings to control the number of kills you must accumulate to win one progress point, one setting per difficulty level
-	UINT16 usNumKillsPerProgressPointNovice;
-	UINT16 usNumKillsPerProgressPointExperienced;
-	UINT16 usNumKillsPerProgressPointExpert;
-	UINT16 usNumKillsPerProgressPointInsane;
 
 	// HEADROCK HAM 3: If enabled, changes the way the game calculates progress. It will look at each progress control separately (Kills/Income/Control/Visited) and set the progress to the HIGHEST scoring control.
 	BOOLEAN fAlternateProgressCalculation;
@@ -1595,38 +1511,6 @@ typedef struct
 	UINT8 ubCrepitusFeedingSectorX;
 	UINT8 ubCrepitusFeedingSectorY;
 	UINT8 ubCrepitusFeedingSectorZ;
-	
-	UINT16 usCreatureSpreadTimeNovice;
-	UINT16 usCreatureSpreadTimeExperienced;
-	UINT16 usCreatureSpreadTimeExpert;
-	UINT16 usCreatureSpreadTimeInsane;
-
-	UINT8 ubQueenReproductionBaseNovice;
-	UINT8 ubQueenReproductionBaseExperienced;
-	UINT8 ubQueenReproductionBaseExpert;
-	UINT8 ubQueenReproductionBaseInsane;
-
-	UINT8 ubQueenReproductionBonusNovice;
-	UINT8 ubQueenReproductionBonusExperienced;
-	UINT8 ubQueenReproductionBonusExpert;
-	UINT8 ubQueenReproductionBonusInsane;
-
-	UINT8 ubQueenInitBonusSpreadsNovice;
-	UINT8 ubQueenInitBonusSpreadsExperienced;
-	UINT8 ubQueenInitBonusSpreadsExpert;
-	UINT8 ubQueenInitBonusSpreadsInsane;
-
-	INT8 bCreaturePopulationModifierNovice;
-	INT8 bCreaturePopulationModifierExperienced;
-	INT8 bCreaturePopulationModifierExpert;
-	INT8 bCreaturePopulationModifierInsane;
-
-	INT8 bCreatureTownAggressivenessNovice;
-	INT8 bCreatureTownAggressivenessExperienced;
-	INT8 bCreatureTownAggressivenessExpert;
-	INT8 bCreatureTownAggressivenessInsane;
-	
-	
 } CREATURES_SETTINGS;
 
 typedef struct
@@ -1972,7 +1856,6 @@ typedef struct
 	FLOAT BASE_CROUCHING_STANCE;	// Gun Difficulty Multiplier for shooting from a crouched stance
 	FLOAT BASE_PRONE_STANCE;		// Gun Difficulty Multiplier for shooting from a prone stance
 	FLOAT BASE_HEAVY_WEAPON;		// Gun Difficulty Multiplier for shooting a launcher
-	FLOAT BASE_DIFFICULTY[6];		// Applied for game difficulty
 
 	FLOAT AIM_EXP;				// Importance of Experience for AIMING CTH
 	FLOAT AIM_MARKS;				// Importance of Marksmanship for AIMING CTH
@@ -2002,7 +1885,6 @@ typedef struct
 	FLOAT AIM_TWO_GUNS;			// Gun Difficulty multiplier for shooting two guns (halved for each Ambidextrous level)
 	FLOAT AIM_ONE_HANDED;			// Gun Difficulty multiplier for firing a pistol with one hand.
 	FLOAT AIM_HEAVY_WEAPON;		// Gun Difficulty multiplier for shooting a launcher (halved for each Heavy Weapons level)
-	FLOAT AIM_DIFFICULTY[6];		// Applied for game difficulty
 
 	FLOAT MOVEMENT_MRK;
 	FLOAT MOVEMENT_WIS;

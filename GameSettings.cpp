@@ -894,11 +894,6 @@ void LoadGameExternalOptions()
 
 	//################# Financial Settings #################
 
-	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_NOVICE",45000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_EXPERIENCED",35000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_EXPERT",30000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_INSANE",15000, 2000, 0x0FFFFFFF);
-
 	// HEADROCK HAM B1: Set % of mine income, where 100% = normal
 	gGameExternalOptions.usMineIncomePercentage		= iniReader.ReadInteger("Financial Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
 
@@ -3280,9 +3275,6 @@ void LoadCTHConstants()
 	gGameCTHConstants.BASE_PRONE_STANCE		= iniReader.ReadFloat("Base CTH","BASE_PRONE_STANCE",4.0, -1000.0, 1000.0);
 	gGameCTHConstants.BASE_HEAVY_WEAPON		= iniReader.ReadFloat("Base CTH","BASE_HEAVY_WEAPON",2.0, -1000.0, 1000.0);
 
-	gGameCTHConstants.BASE_DIFFICULTY[0]	= -100.0;
-	gGameCTHConstants.BASE_DIFFICULTY[5]	= 100.0;
-
 	////////////////////////////////////////////////////////////
 	// Coefficients for factors affecting Aiming CTH
 	////////////////////////////////////////////////////////////
@@ -3319,9 +3311,6 @@ void LoadCTHConstants()
 	gGameCTHConstants.AIM_TWO_GUNS  		= iniReader.ReadFloat("Aiming CTH","AIM_TWO_GUNS",4.0, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_ONE_HANDED  		= iniReader.ReadFloat("Aiming CTH","AIM_ONE_HANDED",2.5, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_HEAVY_WEAPON  	= iniReader.ReadFloat("Aiming CTH","AIM_HEAVY_WEAPON",2.0, -1000.0, 1000.0);
-
-	gGameCTHConstants.AIM_DIFFICULTY[0]		= -100.0;
-	gGameCTHConstants.AIM_DIFFICULTY[5]		= 100.0;
 
 	////////////////////////////////////////////////////////////
 	// Coefficients for factors affecting the Shooting Mechanism

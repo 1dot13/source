@@ -61,18 +61,18 @@
 //This is how often the creatures spread, once the quest begins.	The smaller the gap,
 //the faster the creatures will advance.	This is also directly related to the reproduction
 //rates which are applied each time the creatures spread.
-#define EASY_SPREAD_TIME_IN_MINUTES					gCreaturesSettings.usCreatureSpreadTimeNovice	//easy spreads every 8.5 hours
-#define NORMAL_SPREAD_TIME_IN_MINUTES				gCreaturesSettings.usCreatureSpreadTimeExperienced	//normal spreads every 7.5 hours
-#define HARD_SPREAD_TIME_IN_MINUTES					gCreaturesSettings.usCreatureSpreadTimeExpert	//hard spreads every 6.5 hours
-#define INSANE_SPREAD_TIME_IN_MINUTES				gCreaturesSettings.usCreatureSpreadTimeInsane	//insane spreads every 2.5 hours
+//#define EASY_SPREAD_TIME_IN_MINUTES					gCreaturesSettings.usCreatureSpreadTimeNovice	//easy spreads every 8.5 hours
+//#define NORMAL_SPREAD_TIME_IN_MINUTES				gCreaturesSettings.usCreatureSpreadTimeExperienced	//normal spreads every 7.5 hours
+//#define HARD_SPREAD_TIME_IN_MINUTES					gCreaturesSettings.usCreatureSpreadTimeExpert	//hard spreads every 6.5 hours
+//#define INSANE_SPREAD_TIME_IN_MINUTES				gCreaturesSettings.usCreatureSpreadTimeInsane	//insane spreads every 2.5 hours
 
 //Once the queen is added to the game, we can instantly let her spread x number of times
 //to give her a head start.	This can also be a useful tool for having slow reproduction rates
 //but quicker head start to compensate to make the creatures less aggressive overall.
-#define EASY_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsNovice //1
-#define NORMAL_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsExperienced //2
-#define HARD_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsExpert //3
-#define INSANE_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsInsane //5
+//#define EASY_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsNovice //1
+//#define NORMAL_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsExperienced //2
+//#define HARD_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsExpert //3
+//#define INSANE_QUEEN_INIT_BONUS_SPREADS				gCreaturesSettings.ubQueenInitBonusSpreadsInsane //5
 
 //This value modifies the chance to populate a given sector.	This is different from the previous definition.
 //This value gets applied to a potentially complicated formula, using the creature habitat to modify
@@ -80,30 +80,30 @@
 //population increases), etc.	I would recommend not tweaking the value too much in either direction from
 //zero due to the fact that this can greatly effect spread times and maximum populations.	Basically, if the
 //creatures are spreading too quickly, increase the value, otherwise decrease it to a negative value
-#define EASY_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierNovice //0
-#define NORMAL_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierExperienced //0
-#define HARD_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierExpert //0
-#define INSANE_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierInsane //0
+//#define EASY_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierNovice //0
+//#define NORMAL_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierExperienced //0
+//#define HARD_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierExpert //0
+//#define INSANE_POPULATION_MODIFIER					gCreaturesSettings.bCreaturePopulationModifierInsane //0
 
 //Augments the chance that the creatures will attack a town.	The conditions for attacking a town
 //are based strictly on the occupation of the creatures in each of the four mine exits.	For each creature
 //there is a base chance of 10% that the creatures will feed sometime during the night.
-#define EASY_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessNovice //-10
-#define NORMAL_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessExperienced //0
-#define HARD_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessExpert //10
-#define INSANE_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessInsane //50
+//#define EASY_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessNovice //-10
+//#define NORMAL_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessExperienced //0
+//#define HARD_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessExpert //10
+//#define INSANE_CREATURE_TOWN_AGGRESSIVENESS		gCreaturesSettings.bCreatureTownAggressivenessInsane //50
 
 
 //This is how many creatures the queen produces for each cycle of spreading.	The higher
 //the numbers the faster the creatures will advance.
-#define EASY_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseNovice //6 //6-7
-#define EASY_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusNovice //1
-#define NORMAL_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseExperienced //7 //7-9
-#define NORMAL_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusExperienced //2
-#define HARD_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseExpert //9 //9-12
-#define HARD_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusExpert //3
-#define INSANE_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseInsane //15 //15-20
-#define INSANE_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusInsane //5
+//#define EASY_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseNovice //6 //6-7
+//#define EASY_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusNovice //1
+//#define NORMAL_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseExperienced //7 //7-9
+//#define NORMAL_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusExperienced //2
+//#define HARD_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseExpert //9 //9-12
+//#define HARD_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusExpert //3
+//#define INSANE_QUEEN_REPRODUCTION_BASE				gCreaturesSettings.ubQueenReproductionBaseInsane //15 //15-20
+//#define INSANE_QUEEN_REPRODUCTION_BONUS				gCreaturesSettings.ubQueenReproductionBonusInsane //5
 
 //When either in a cave level with blue lights or there is a creature presence, then
 //we override the normal music with the creature music.	The conditions are maintained

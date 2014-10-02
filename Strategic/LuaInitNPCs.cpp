@@ -581,11 +581,6 @@ static int  l_GetMidnightOfFutureDayInMinutes (lua_State *L);
 static int l_DayTime (lua_State *L);
 static int l_NightTime (lua_State *L);
 
-static int l_GetStartingCashNovice (lua_State *L);
-static int l_GetStartingCashExperienced (lua_State *L);
-static int l_GetStartingCashExpert (lua_State *L);
-static int l_GetStartingCashInsane (lua_State *L);
-
 static int l_DeleteTalkingMenu (lua_State *L);
 
 static int l_PlayerMercsInSector (lua_State *L);
@@ -1341,10 +1336,6 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	
 	lua_register(L, "SetInvestigateSector", l_SetInvestigateSector );
 	lua_register(L, "CheckInvestigateSector", l_CheckInvestigateSector );
-	lua_register(L, "GetStartingCashNovice", l_GetStartingCashNovice );
-	lua_register(L, "GetStartingCashExperienced", l_GetStartingCashExperienced );
-	lua_register(L, "GetStartingCashExpert", l_GetStartingCashExpert );
-	lua_register(L, "GetStartingCashInsane", l_GetStartingCashInsane );
 	lua_register(L, "GetFirstArrivalDelay", l_GetiFirstArrivalDelay);
 	lua_register(L, "GetDefaultArrivalSectorX", l_GetubDefaultArrivalSectorX);
 	lua_register(L, "GetDefaultArrivalSectorY", l_GetubDefaultArrivalSectorY);
@@ -5208,46 +5199,6 @@ static int l_GetubDefaultArrivalSectorX (lua_State *L)
 {
 	
 	UINT32 val = gGameExternalOptions.ubDefaultArrivalSectorX;
-	
-	lua_pushinteger(L, val);
-	
-return 1;
-}
-
-static int l_GetStartingCashInsane (lua_State *L)
-{
-	
-	UINT32 val = gGameExternalOptions.iStartingCashInsane;
-	
-	lua_pushinteger(L, val);
-	
-return 1;
-}
-
-static int l_GetStartingCashExpert (lua_State *L)
-{
-	
-	UINT32 val = gGameExternalOptions.iStartingCashExpert;
-	
-	lua_pushinteger(L, val);
-	
-return 1;
-}
-
-static int l_GetStartingCashExperienced (lua_State *L)
-{
-
-	UINT32 val = gGameExternalOptions.iStartingCashExperienced;
-	
-	lua_pushinteger(L, val);
-	
-return 1;
-}
-
-static int l_GetStartingCashNovice (lua_State *L)
-{
-	
-	UINT32 val = gGameExternalOptions.iStartingCashNovice;
 	
 	lua_pushinteger(L, val);
 	

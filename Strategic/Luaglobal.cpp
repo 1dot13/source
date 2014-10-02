@@ -89,18 +89,6 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushinteger(L, gGameExternalOptions.ubChanceTonyAvailable);
 	lua_setglobal(L, "iniCHANCE_TONY_AVAILABLE");
 
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashNovice);
-	lua_setglobal(L, "iniSTARTING_CASH_NOVICE");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashExperienced);
-	lua_setglobal(L, "iniSTARTING_CASH_EXPERIENCED");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashExpert);
-	lua_setglobal(L, "iniSTARTING_CASH_EXPERT");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashInsane);
-	lua_setglobal(L, "iniSTARTING_CASH_INSANE");
-	
 	// WANNE: Currently not used
 	lua_pushinteger(L, gGameExternalOptions.fCanTrueCiviliansBecomeHostile);
 	lua_setglobal(L, "iniCAN_TRUE_CIVILIANS_BECOME_HOSTILE");
@@ -525,18 +513,6 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushinteger(L, gGameOptions.ubDifficultyLevel);
 	lua_setglobal(L, "difficultyLevel");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashNovice);
-	lua_setglobal(L, "startingCashNovice");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashExperienced);
-	lua_setglobal(L, "startingCashExperienced");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashExpert);
-	lua_setglobal(L, "startingCashExpert");
-	
-	lua_pushinteger(L, gGameExternalOptions.iStartingCashInsane);
-	lua_setglobal(L, "startingCashInsane");
 	
 	lua_pushinteger(L, gGameExternalOptions.fCanTrueCiviliansBecomeHostile);
 	lua_setglobal(L, "fCanTrueCiviliansBecomeHostile");
