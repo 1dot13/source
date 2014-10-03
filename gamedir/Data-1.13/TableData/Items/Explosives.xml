@@ -73,12 +73,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>40</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>5</ubFragDamage>
+		<ubFragRange>50</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>4</uiIndex>
@@ -93,12 +93,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>20</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>10</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>5</uiIndex>
@@ -193,12 +193,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>150</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>12</ubFragDamage>
+		<ubFragRange>100</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>10</uiIndex>
@@ -207,18 +207,18 @@
 		<ubStunDamage>30</ubStunDamage>
 		<ubRadius>2</ubRadius>
 		<ubVolume>30</ubVolume>
-		<ubVolatility>2</ubVolatility>
+		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
 		<ubDuration>0</ubDuration>
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>20</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>6</ubFragDamage>
+		<ubFragRange>40</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>11</uiIndex>
@@ -333,12 +333,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>150</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>7</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>17</uiIndex>
@@ -433,12 +433,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>100</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>14</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>22</uiIndex>
@@ -673,12 +673,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>6</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>100</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>5</ubFragDamage>
+		<ubFragRange>70</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>34</uiIndex>
@@ -793,12 +793,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>6</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>125</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>6</ubFragDamage>
+		<ubFragRange>70</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>40</uiIndex>
@@ -913,12 +913,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>6</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>150</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>7</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>46</uiIndex>
@@ -1043,7 +1043,7 @@
 	<EXPLOSIVE>
 		<uiIndex>52</uiIndex>
 		<ubType>0</ubType>
-		<ubDamage>27</ubDamage>
+		<ubDamage>32</ubDamage>
 		<ubStunDamage>7</ubStunDamage>
 		<ubRadius>4</ubRadius>
 		<ubVolume>27</ubVolume>
@@ -1154,11 +1154,11 @@
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
 		<usNumFragments>200</usNumFragments>
-		<ubFragType>13</ubFragType>
-		<ubFragDamage>6</ubFragDamage>
-		<ubFragRange>200</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>10</ubFragDamage>
+		<ubFragRange>100</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>58</uiIndex>
@@ -1233,19 +1233,19 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>100</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>8</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>62</uiIndex>
 		<ubType>0</ubType>
 		<ubDamage>30</ubDamage>
 		<ubStunDamage>5</ubStunDamage>
-		<ubRadius>8</ubRadius>
+		<ubRadius>4</ubRadius>
 		<ubVolume>25</ubVolume>
 		<ubVolatility>1</ubVolatility>
 		<ubAnimationID>2</ubAnimationID>
@@ -1255,10 +1255,10 @@
 		<fExplodeOnImpact>0</fExplodeOnImpact>
 		<usNumFragments>200</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>6</ubFragDamage>
+		<ubFragDamage>8</ubFragDamage>
 		<ubFragRange>80</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>63</uiIndex>
@@ -1293,12 +1293,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>3</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>150</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>7</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>65</uiIndex>
@@ -1813,12 +1813,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>40</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>5</ubFragDamage>
+		<ubFragRange>50</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>91</uiIndex>
@@ -1833,12 +1833,12 @@
 		<ubStartRadius>0</ubStartRadius>
 		<ubMagSize>1</ubMagSize>
 		<fExplodeOnImpact>0</fExplodeOnImpact>
-		<usNumFragments>0</usNumFragments>
+		<usNumFragments>20</usNumFragments>
 		<ubFragType>0</ubFragType>
-		<ubFragDamage>0</ubFragDamage>
-		<ubFragRange>0</ubFragRange>
-		<ubHorizontalDegree>0</ubHorizontalDegree>
-		<ubVerticalDegree>0</ubVerticalDegree>
+		<ubFragDamage>10</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>92</uiIndex>

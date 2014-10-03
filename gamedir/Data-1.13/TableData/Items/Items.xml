@@ -4166,6 +4166,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -4197,6 +4198,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -4337,6 +4339,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -4346,9 +4349,9 @@
 		<uiIndex>141</uiIndex>
 		<szItemName>Mine</szItemName>
 		<szLongItemName>Land Mine</szLongItemName>
-		<szItemDesc>This anti-personnel mine is a fragmentation weapon that becomes activated when stepped on. It includes an anti-disturbance device to inhibit clearance, and a sensor that neutralizes the mine after a specified time.</szItemDesc>
+		<szItemDesc>This anti-personnel mine is a blast mine that becomes activated when stepped on. It includes an anti-disturbance device to inhibit clearance, and a sensor that neutralizes the mine after a specified time.</szItemDesc>
 		<szBRName>Land Mine</szBRName>
-		<szBRDesc>Designed to stop enemies dead in their tracks, or at least slow them up a while. This anti-personnel mine is a fragmentation weapon that blows up when stepped on. It includes a built-in anti-disturbance device to inhibit clearance, and a sensor that neutralizes the minefield after a while.</szBRDesc>
+		<szBRDesc>Designed to stop enemies dead in their tracks, or at least slow them up a while. This anti-personnel mine is a blast mine that blows up when stepped on. It includes a built-in anti-disturbance device to inhibit clearance, and a sensor that neutralizes the minefield after a while.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>10</ubClassIndex>
@@ -4368,6 +4371,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -4541,6 +4545,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -4696,6 +4701,7 @@
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -29624,6 +29630,7 @@
 		<SciFi>1</SciFi>
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -29804,6 +29811,7 @@
 		<SciFi>1</SciFi>
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -29985,6 +29993,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -30356,6 +30365,7 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -30480,6 +30490,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -30515,6 +30526,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -30578,6 +30590,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46273,6 +46286,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Mine>1</Mine>
+		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -46303,6 +46317,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Mine>1</Mine>
+		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
