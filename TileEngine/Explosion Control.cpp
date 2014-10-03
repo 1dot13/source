@@ -5066,7 +5066,8 @@ void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, 
 		FLOAT dDeltaY = (dRandomY * ubFragRange);
 		FLOAT dDeltaZ = ((dRandomZ * 25.6f) * 50 );
 
-		FLOAT dRangeMultiplier = 10; // Arbitrary, but gives good results.
+		// silversurfer: changed that from 10 to 1 because ubFragRange is already in tiles * 10. A Claymore for example has ubFragRange = 100. Multiplying again by 10 means 100 tiles range!
+		FLOAT dRangeMultiplier = 1; // Arbitrary, but gives good results.
 
 		FLOAT dEndX = (FLOAT)(sX + (dDeltaX * dRangeMultiplier));
 		FLOAT dEndY = (FLOAT)(sY + (dDeltaY * dRangeMultiplier));
@@ -5157,7 +5158,8 @@ void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECT
 		FLOAT dDeltaY = (dRandomY * ubFragRange);
 		FLOAT dDeltaZ = ((dRandomZ * 25.6f) * 50 );
 
-		FLOAT dRangeMultiplier = 10; // Arbitrary, but gives good results.
+		// silversurfer: changed that from 10 to 1 because ubFragRange is already in tiles * 10. A Claymore for example has ubFragRange = 100. Multiplying again by 10 means 100 tiles range!
+		FLOAT dRangeMultiplier = 1; // Arbitrary, but gives good results.
 
 		FLOAT dEndX = (FLOAT)(sX + (dDeltaX * dRangeMultiplier));
 		FLOAT dEndY = (FLOAT)(sY + (dDeltaY * dRangeMultiplier));
