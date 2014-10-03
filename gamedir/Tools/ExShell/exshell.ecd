@@ -1,0 +1,166 @@
+~ EssenceUCS: uoconfig.ecd														  =====
+~ Encoding: only UTF-8 without BOM !!!						 					  =====
+$unknown: OFF	~ !! Don't remove this...										  =====
+~ =====================================================================================
+
+~ Using sections (exshell will look for walues in this sections in left-to right order)
+$LoadProfile: { "ShellOptions", "EXSProfile01", "DefaultConf" }
+~$LoadProfile: { "ShellOptions", "EXSProfile02", "DefaultConf" }
+
+~ WARNING: This version supported only DirectDraw2 with screen mode 16 bpp (555 or 565).
+
+~ =====================================================================================
+[EXSProfile01]		~ Jagged Alliance 2: 1.13 									  =====
+~ =====================================================================================
+
+$StartPEPath: "C:\Jagged Alliance 2 1.13\ja2.exe"
+$StartPEArgs: ""
+
+
+~ =====================================================================================
+[DefaultConf]		~ Default configuration for all profiles					  =====
+~ =====================================================================================
+
+$StartPEPath: "game.exe"
+$StartPEArgs: "-nomovie"
+
+~ 0 - OFF, value is bit mask for allowed CPU cores, use to solve problems with multi core.
+~ (i.e. #0001 - 1st core, #0002 - 2nd core, #0004 - 3rd core, #0008 - 4yh core and so on)
+$CPUAffinity: #0001
+
+~ Offset to application entry point (WinMain procedure, it's not same for PE entry point)
+~ use "no" or #00000000 value to allow exshell found it itself. Using incorrect offset will
+~ cause problems with exshell loading or application crashing. If you get such problems 
+~ try to set offset manually (it's rather easy to find it throw disassembler, like IDA).
+~ Note: take attention that this offset usually differs for each executable file, so if
+~ you get it from somewhere check executable version and checksum to be sure that it's 
+~ really extracted from same executable file.
+$WinMainOffs: NO
+
+~ By default exshell capture image from 1st created window. But as few applications create 
+~ several windows (notice that they can be invisible) you possibly will be required to use
+~ another one. To do this you will need caption text. Notice, that it can be not constant 
+~ value, so in this case better use window class name. 1st argument - window class name, 
+~ 2nd - window caption. If both of them are defined then exshell will search window that 
+~ satisfy both conditions. You can set 1st or\and 2rd parameter to NO to disable filter.
+~ 3rd parameter - new window caption, if you want to replace original one. To keep original
+~ one use value NO.
+~ NOTE: To get list of creating window classes and captions run your application and look 
+~ in console output (See keys $UseDebugMod, $ShowConsole, $ConsoleWPal, $ConsoleWait).
+$ApplCaption: { NO, NO, NO }
+
+~ 0 - OFF, value in ms for pause (normally values more 1 ms not recommended to use, though 
+~ in some cases can be used for slowing game). Use it if application always load 100% cpu.
+$MainLoopLow: 1
+
+~ If true use mouse cursor clipper inside game window client area. This means that it will
+~ be impossible to move cursor out of window until it has focus. 
+$ClipMCursor: YES							~ NOTE: NOT IMPLEMENTED !!
+
+~ Set limit for screen update, use this to reduce CPU usage. Value NO or 0 means that there
+~ are no limitation in exshell, but notice that running application can have own FPS limit. 
+~ Set value to YES to use VSYNC (Only for DirectDraw, for GDI it will be same as NO value)
+$FPSMaxLimit: 60
+
+~ 1st and 2nd parameters - Original full screen game mode (it's not real window size) 
+~ 3rd parameter - color mode (for 16 bit commonly used 555 or 565, for 24\32 - 888, 
+~ for 256 color mode use value 0).
+$FScreenMode: { 800, 600, 555 }				~ NOTE: 8\24\32 BIT MODES NOT IMPLEMENTED !!
+
+~ Real window settings (it can be larger then application resolution):
+~ 1st parameter - if TRUE window will have border, if FALSE then it will be created without it.
+~ 2nd and 3rd parameters - window client area size (width and height). NOTE: if you use border,
+~ real window sizes will be larger. Exactly border sizes depending on OS version and used theme. 
+~ 4th and 5th parameters - initial position for top-left corner of a window (X, Y) 
+~ 6th parameter - window background color (in R8G8B8 format)
+$WindowFrame: { YES, 1600, 1200, 0, 0, #008080 }
+
+~ 1st parameter - Bliter type (render method):
+~ 1 - GDI
+~ 2 - Direct2D 									~ NOTE: NOT IMPLEMENTED !!
+~ 2nd parameter - Interpolation method:
+~ 0 - None 
+~ 3rd parameter - Image position (in case if it occupies only part of the screen)
+~ 1 - draw image at bottom-left corner of the screen
+~ 2 - draw image at screen bottom, on the center for width
+~ 3 - draw image at bottom-right corner of the screen
+~ 4 - draw image at screen left, on the center for height
+~ 5 - align image on screen center (recommended) 
+~ 6 - draw image at screen right, on the center for height
+~ 7 - draw image at top-left corner of the screen
+~ 8 - draw image at screen top, on the center for width
+~ 9 - draw image at top-right corner of the screen
+~ 4th parameter - Output source image scaling type:
+~ 0 - don't change size (it doesn't influence size change by the scaletype filter)
+~ 1 - stretch with saving aspect ratio.
+~ 2 - stretch to window size with saving aspect ratio (cutting sides).
+~ 3 - stretch to window size.
+$UsingBliter: { 1, 0, 	5, 1 }
+
+~ Using filters for capture image. You can use any number of filters you want, they will be
+~ applied in order they are declared. The output result of filter will become input data for
+~ next filter. At least one filter must be declared (if you want get original image use "None"
+~ filter). Note: all filters must be declare in one section, otherwise they will be skipped.
+~ Don't declare filters before $UsingBliter key, otherwise they will be skipped.
+~ 1st parameter - upscale type (add #2000 for 2x, #3000 for 3x, #4000 for 4x, if supported):
+~ #00 - None			[        ]	- don't use upscale filter (1x)
+~ #01 - Simple			[2x 3x 4x]	- fastest, no smoothing, no filtering
+~ #02 - Pixelate		[2x 3x 4x]	- retro style
+~ #03 - Scanlines		[2x      ]	- retro style
+~ #04 - ScanlinesTV		[2x      ]	- retro style
+~ #05 - MotionBlur		[2x      ]	- blur effect for screen update
+~ #10 - 2xSaI			[2x      ]
+~ #11 - SuperEagle		[2x      ]
+~ #12 - Super2xSaI		[2x      ]
+~ #13 - AdMame			[2x      ]	- RECOMENDED! (best speed for good quality)
+~ #20 - lq				[2x      ]
+~ #21 - hq				[2x      ]
+~ #22 - xbra			[2x 3x 4x]
+~ #23 - xbrb			[2x 3x 4x]
+~ #24 - xbrc			[2x 3x 4x]
+~ #01 - GrayScale		[-  -  - ]	- Convert colors to gray tons.
+~ ??? - Scale2xSaI, Bilinear, BilinearPlus
+~ NOTE: keys can contain addition parameters, depending on using filter (see description above).
+~ $ImageFilter: #0001
+$ImageFilter: #2022
+
+
+~ =====================================================================================
+[ShellOptions]		~ EXShell global options									  =====
+~ =====================================================================================
+
+$UseLanguage: "RU"	~ LangCode from entries in Localisation section 
+
+$UseDebugMod: YES	~ Disable all debug staff (OSD, console and other)
+
+~ enable, toffx, toffy, font, lfWeight [1..9, 4 -default, 7 - bold], lfHeight, texth, tcolr,    fsize, fcolr
+$ShowOSDMenu: { YES, 30, 60,  "Courier", 7, 	18, 20, 	#B4B4B4,  	TRUE, #000000 }
+
+~ enable, x, y, width, height, buggerW, buggerH, font, family, fontW, fontH, CP
+$ShowConsole: { YES, 0, 0, #C0DE, 1006,        87, 4096, "Consolas", #00,  9, 26, 1251 }
+
+$ConsoleWPal: {	~ 16 color RGB palette
+~				#000000, #000080, #008000, #008080, #800000, #800080, #808000, #C0C0C0,	~ Default Windows
+~				#808080, #0000FF, #00FF00, #00FFFF, #FF0000, #FF00FF, #FFFF00, #FFFFFF
+			
+				#000000, #000080, #008000, #008080, #800000, #800080, #808000, #C0C0C0,	~ Essence Theme
+				#808080, #0000FF, #00FF00, #00FFFF, #FF0000, #FF00FF, #FFFF00, #FFFFFF	
+}
+
+$ConsoleWait: NO	~ Pause console log at process termination
+
+
+~ =====================================================================================
+[Localisation]		~ List for known locals										  =====
+~ =====================================================================================
+~ Note: Don't rename this section and never use localised strings here!!!
+~ format: LangCode (2 chars only), ANSI_CP, OEM_CP, Charset
+~         for default values, 1st argument is missed.
+
+$elangcodepage:{		1251, 850,   0	}	~ Default
+$elangcodepage:{ "EN",	1250, 850,   0	}	~ English
+$elangcodepage:{ "RU",	1251, 866, 204	}	~ Русский
+$elangcodepage:{ "SP",	1252, 850,   0	}	~ Espanol
+$elangcodepage:{ "GE",	1252, 850,   0	}	~ Deutsch
+$elangcodepage:{ "IT",	1253, 850,   0	}	~ Italiano
+$elangcodepage:{ "FR",	1253, 850,   0	}	~ Francais
