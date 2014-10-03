@@ -7832,8 +7832,8 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
-		<ubAimLevels>39</ubAimLevels>
-		<Handling>1</Handling>
+		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>

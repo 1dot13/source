@@ -18075,7 +18075,7 @@
 		<bAttitude>9</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>2</bDisability>
-		<ubNeedForSleep>0</ubNeedForSleep>
+		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
 		<bDeathRate>101</bDeathRate>
 		<bLifeMax>76</bLifeMax>
@@ -24227,7 +24227,7 @@
 		<bAttitude>7</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>4</bDisability>
-		<ubNeedForSleep>0</ubNeedForSleep>
+		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
 		<bDeathRate>101</bDeathRate>
 		<bLifeMax>53</bLifeMax>
