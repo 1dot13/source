@@ -1504,7 +1504,7 @@ void InitStrategicAI()
 			ubNumTroops = (UINT8)max( gubMinEnemyGroupSize, min( iMaxEnemyGroupSize, ubNumTroops ) );
 			ubNumTanks = 0;
 
-			if( ubNumTroops && gGameExternalOptions.fArmyUsesTanksInPatrols )
+			if( ubNumTroops && gGameExternalOptions.fArmyUsesTanksInPatrols && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 			{
 			
 			UINT32 val2;
@@ -4503,7 +4503,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			{
 				grouptroops[ubCounter] = ubNumSoldiers;
 				grouptanks[ubCounter] = 0;
-				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 				{
 					if( Random(10) < val )
 					//if( Random(10) < gGameOptions.ubDifficultyLevel )
@@ -4588,7 +4588,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				{
 					grouptroops[ubCounter] = ubNumSoldiers;			
 					grouptanks[ubCounter] = 0;
-					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 					{
 						if( Random(10) < gGameOptions.ubDifficultyLevel )
 					//	if( Random(10) < value )						
@@ -4797,7 +4797,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value2 * 3);
 				//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 				// anv: replace one of soldiers with tank
-				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;
@@ -5061,7 +5061,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value4 * 4);
 			//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 4);
 			// anv: replace one of soldiers with tank
-			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 			{
 				if( Random( 10 ) < value4 )
 				//if( Random( 10 ) < gGameOptions.ubDifficultyLevel )
@@ -5188,7 +5188,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					}
 					Assert(adminsThisSquad + troopsThisSquad + elitesThisSquad == soldiersThisSquad);
 					// anv: replace one of soldiers with tank
-					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 					{
 					
 						if( Random( 10 * 100 ) < value5 * direness )
@@ -5345,7 +5345,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				giReinforcementPool -= ubNumSoldiers;
 
 			// anv: replace one of soldiers with tank
-			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks )
+			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 			{
 				if( Random( 10 * 100 ) < value7 * HighestPlayerProgressPercentage() )
 				//if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * HighestPlayerProgressPercentage() )

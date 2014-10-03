@@ -773,6 +773,7 @@ typedef struct
 
 	BOOLEAN fArmyUsesTanksInAttacks;
 	BOOLEAN fArmyUsesTanksInPatrols;
+	UINT8 usTankMinimumProgress;
 
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
