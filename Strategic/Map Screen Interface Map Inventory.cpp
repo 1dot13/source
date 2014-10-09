@@ -2535,7 +2535,7 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 }
 
 
-BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo )
+BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo, INT8 ubLevel )
 {
 	OBJECTTYPE *pInventorySlot;
 	INT32		cnt = 0;
@@ -2563,6 +2563,7 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo )
 			{
 				pInventoryPoolList[cnt].sGridNo = sGridNo;
 				pInventoryPoolList[cnt].usFlags |= WORLD_ITEM_REACHABLE;
+				pInventoryPoolList[cnt].ubLevel = ubLevel;
 				pInventoryPoolList[cnt].bVisible = 1;
 				pInventoryPoolList[cnt].fExists = TRUE;
 			}
