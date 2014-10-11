@@ -137,5 +137,20 @@ ExShell was tested for compatibility with this games:
 	* Intial realise
 	
 	
+(2014.10.09) ver 0.02 rev 018  build 14282 
+------------------------------------------	
+
+	* Fixed: FPS limit ignored after minimize\restore application
+	* Fixed: SuperEagle filter crashed application.
+	* Fixed: Related paths for $StartPEPath: don't work.
+	* Change startup initialization for more safety
+	* Change using instruction sets: MMX, SSE, SSE2, AVX
+	* Added: EPX upscale filter
+	* Added: info about selected filters and game mode in OSD
+	* Added: saving screenshots by PrntScr hotkey (Ctrl+PrntScr to save original image)
+	* Added: separating FPS limit for focused and unfocused application window
+	* Added: sending customise keyboard keys scancode at lose and get focus.
+	* Added: minor checks and validations
+	
 	
 	
