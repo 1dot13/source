@@ -6653,13 +6653,18 @@ void SeperateItems()
 						//	from AddItemToPool, resets gWorldItems when it increases it's size.  This means
 						//	iter loses it's relationship which causes a CTD if we use this hotkey and there
 						//	aren't enough open WorldItems to accomodate all the attachments we're seperating.
-						UINT8 cnt = 0, uiLoopCnt = 0;
+						UINT8 size = 0, cnt = 0, uiLoopCnt = 0;
 						// uiLoopCnt is an extra failsafe.  I think I've already managed to eliminate the
 						//	infinite loop, but just in case, we'll use uiLoopCnt to force a break after a
 						//	certain point.
-						while(gWorldItems[uiLoop].object[x]->attachments.size() != cnt)
+
+						// Iterate backwards through attachments in order to detach grenades from underbarrel
+						// launchers before detaching the launchers (and their grenade slots) themselves.
+						// Since the size of the attachmentList remains constant under NAS but decrements by one
+						// under OAS, recheck the list size every iteration in order to calculate an rindex.
+						while((size = gWorldItems[uiLoop].object[x]->attachments.size()) != cnt)
 						{
-							gTempObject = *gWorldItems[uiLoop].object[x]->GetAttachmentAtIndex(cnt);
+							gTempObject = *gWorldItems[uiLoop].object[x]->GetAttachmentAtIndex(size - 1 - cnt);
 
 							//WarmSteel - This actually still works with NAS, be it by accident
 							if (gWorldItems[ uiLoop ].object.RemoveAttachment(&gTempObject,0,x))

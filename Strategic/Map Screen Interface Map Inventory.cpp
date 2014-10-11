@@ -4931,11 +4931,15 @@ void SortSectorInventorySeparateAttachments()
 			// Iterate through stacks
 			for (int x = 0; x < pInventoryPoolList[uiLoop].object.ubNumberOfObjects; ++x) 
 			{
-				UINT8 cnt = 0, uiLoopCnt = 0;
+				UINT8 size = 0, cnt = 0, uiLoopCnt = 0;
 
-				while(pInventoryPoolList[uiLoop].object[x]->attachments.size() != cnt)
+				// Iterate backwards through attachments in order to detach grenades from underbarrel
+				// launchers before detaching the launchers (and their grenade slots) themselves.
+				// Since the size of the attachmentList remains constant under NAS but decrements by one
+				// under OAS, recheck the list size every iteration in order to calculate an rindex.
+				while((size = pInventoryPoolList[uiLoop].object[x]->attachments.size()) != cnt)
 				{
-					gTempObject = *(pInventoryPoolList[uiLoop].object[x]->GetAttachmentAtIndex(cnt));
+					gTempObject = *(pInventoryPoolList[uiLoop].object[x]->GetAttachmentAtIndex(size - 1 - cnt));
 
 					//WarmSteel - This actually still works with NAS, be it by accident
 					if (pInventoryPoolList[uiLoop].object.RemoveAttachment(&gTempObject,0,x))
