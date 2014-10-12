@@ -2193,6 +2193,7 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 					uiNumberOfUnSeenItems++;
 				}
 				pipl->fExists = FALSE;
+				pipl->usFlags = 0;
 				pipl->object.usItem = NONE;
 				pipl->object.ubNumberOfObjects = 0;
 			}
@@ -2204,6 +2205,7 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	for(i=uiNumberOfSeenItems; i<uiNumOfSlots; i++, pipl++)
 	{
 		pipl->fExists = FALSE;
+		pipl->usFlags = 0;
 		pipl->object.usItem = NONE;
 		pipl->object.ubNumberOfObjects = 0;
 	}
