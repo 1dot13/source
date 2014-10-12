@@ -1718,7 +1718,8 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeat
 			}
 
 			// OK, add....
-			AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, ubSeatIndex );
+			if ( !AddSoldierToVehicle( pSoldier, pVehicle->bVehicleID, ubSeatIndex) )
+				return( FALSE);
 
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 			{

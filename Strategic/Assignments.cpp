@@ -8392,7 +8392,7 @@ void VehicleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 18 ], zVehicleName[ pVehicleList[ iVehicleID ].ubVehicleType ] );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 18 ], gNewVehicle[ pVehicleList[ iVehicleID ].ubVehicleType ].NewVehicleStrings );
 		}
 
 		fShowAssignmentMenu = FALSE;
