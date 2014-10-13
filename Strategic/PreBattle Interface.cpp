@@ -383,6 +383,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		gubPBSectorZ = 0;
 	}
 
+	pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 
 	if( !gfPersistantPBI )
 	{ //calculate the non-persistant situation
@@ -398,7 +399,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 		else if( gbWorldSectorZ > 0 )
 		{ //We are underground, so no autoresolve allowed
-			pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 			if( pSector->ubCreaturesInBattle )
 			{
 				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
@@ -627,7 +627,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						// Basic chance - progress level/2 minus highest merc exp level*2, and 10% on top
 						iChance = (UINT8)( ((CurrentPlayerProgressPercentage() / 2 ) - bBestExpLevel*2 ) + 15 );
 
-						pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 						if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
 							iChance += 20;
 
@@ -695,24 +694,12 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		else
 		{ //Are enemies invading a town, or just encountered the player.
 			if( GetTownIdForSector( gubPBSectorX, gubPBSectorY ) )
-			{
 				gubEnemyEncounterCode = ENEMY_INVASION_CODE;
-			}
+			//SAM sites not in towns will also be considered to be important
+			else if( pSector->uiFlags & SF_SAM_SITE )
+				gubEnemyEncounterCode = ENEMY_INVASION_CODE;	
 			else
-			{
-				switch( SECTOR( gubPBSectorX, gubPBSectorY ) )
-				{
-					case SEC_D2:
-					case SEC_D15:
-					case SEC_G8:
-						//SAM sites not in towns will also be considered to be important
-						gubEnemyEncounterCode = ENEMY_INVASION_CODE;
-						break;
-					default:
-						gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
-						break;
-				}
-			}
+				gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 		}
 	}
 
@@ -771,7 +758,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	if( gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE )
 	{ //we know how many enemies are here, so until we leave the sector, we will continue to display the value.
 		//the flag will get cleared when time advances after the fEnemyInSector flag is clear.
-		pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 
 		// ALWAYS use these 2 statements together, without setting the boolean, the flag will never be cleaned up!
 		pSector->uiFlags |= SF_PLAYER_KNOWS_ENEMIES_ARE_HERE;

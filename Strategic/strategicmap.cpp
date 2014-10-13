@@ -3660,6 +3660,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 					if ( fSamSiteFound[ x ] )
 					{
 						fSAMSiteKnown = TRUE;
+						break;
 					}
 				}
 			}

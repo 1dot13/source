@@ -327,6 +327,7 @@ void AddTextToTownBox( void )
 				if ( fSamSiteFound[ x ] )
 				{
 					fSAMSiteKnown = TRUE;
+					break;
 				}
 			}
 		}
@@ -644,6 +645,7 @@ void AddTextToBlankSectorBox( void )
 				if ( fSamSiteFound[ x ] )
 				{
 					fSAMSiteKnown = TRUE;
+					break;
 				}
 			}
 		}
@@ -751,7 +753,10 @@ void AddCommonInfoToBox(void)
 			if ( pSamList[x] == usSectorValue )
 			{
 				if ( fSamSiteFound[ x ] )
+				{
 					fKnownSite = TRUE;
+					break;
+				}
 			}
 		}
 	}
