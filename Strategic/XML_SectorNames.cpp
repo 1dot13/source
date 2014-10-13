@@ -61,32 +61,9 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 		{
 			pData->curElement = ELEMENT_LIST;
 			pData->maxReadDepth++; //we are not skipping this element
-			// Initiate Array by setting first character to 0.
+			// Initiate gzSectorNames Array by setting first character to 0.
 			for (UINT16 x = 0; x < 256; x++)
 			{
-				SectorExternalData[x][0].usWaterType = 0;				
-				SectorExternalData[x][1].usWaterType = 0;
-				SectorExternalData[x][2].usWaterType = 0;
-				SectorExternalData[x][3].usWaterType = 0;
-
-				SectorExternalData[x][0].usNaturalDirt = 0;
-				SectorExternalData[x][1].usNaturalDirt = 0;
-				SectorExternalData[x][2].usNaturalDirt = 0;
-				SectorExternalData[x][3].usNaturalDirt = 0;
-
-				SectorExternalData[x][0].usCurfewValue = 0;
-				SectorExternalData[x][1].usCurfewValue = 0;
-				SectorExternalData[x][2].usCurfewValue = 0;
-				SectorExternalData[x][3].usCurfewValue = 0;
-
-				for(UINT8 i = 0; i <MAX_PRISON_ROOMS; ++i)
-				{
-					SectorExternalData[x][0].usPrisonRoomNumber[i] = 0;				
-					SectorExternalData[x][1].usPrisonRoomNumber[i] = 0;
-					SectorExternalData[x][2].usPrisonRoomNumber[i] = 0;
-					SectorExternalData[x][3].usPrisonRoomNumber[i] = 0;
-				}
-							
 				if (Sector_Level == 0 )
 				{
 					gzSectorNames[x][0][0]=0;
@@ -203,6 +180,46 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][2], pData->szCurExploredName);
 					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][3], pData->szCurDetailedExploredName);
 					//}
+
+					SectorExternalData[ubSectorId][0].usWaterType = pData->sectordata.usWaterType;
+					SectorExternalData[ubSectorId][1].usWaterType = pData->sectordata.usWaterType;
+					SectorExternalData[ubSectorId][2].usWaterType = pData->sectordata.usWaterType;
+					SectorExternalData[ubSectorId][3].usWaterType = pData->sectordata.usWaterType;
+
+					SectorExternalData[ubSectorId][0].usNaturalDirt = pData->sectordata.usNaturalDirt;
+					SectorExternalData[ubSectorId][1].usNaturalDirt = pData->sectordata.usNaturalDirt;
+					SectorExternalData[ubSectorId][2].usNaturalDirt = pData->sectordata.usNaturalDirt;
+					SectorExternalData[ubSectorId][3].usNaturalDirt = pData->sectordata.usNaturalDirt;
+
+					SectorExternalData[ubSectorId][0].usCurfewValue = pData->sectordata.usCurfewValue;
+					SectorExternalData[ubSectorId][1].usCurfewValue = pData->sectordata.usCurfewValue;
+					SectorExternalData[ubSectorId][2].usCurfewValue = pData->sectordata.usCurfewValue;
+					SectorExternalData[ubSectorId][3].usCurfewValue = pData->sectordata.usCurfewValue;
+
+					INT8 radioscanmod = max( -3, pData->sectordata.sRadioScanModifier );
+					radioscanmod = min( 3, pData->sectordata.sRadioScanModifier );
+					SectorExternalData[ubSectorId][0].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
+					SectorExternalData[ubSectorId][1].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
+					SectorExternalData[ubSectorId][2].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
+					SectorExternalData[ubSectorId][3].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
+
+					SectorExternalData[ubSectorId][0].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
+					SectorExternalData[ubSectorId][1].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
+					SectorExternalData[ubSectorId][2].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
+					SectorExternalData[ubSectorId][3].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
+					
+					for(UINT8 i = 0; i <MAX_PRISON_ROOMS; ++i)
+					{
+						SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] = pData->sectordata.usPrisonRoomNumber[i];
+						pData->sectordata.usPrisonRoomNumber[i] = 0;
+					}
+
+					// clean up values afterwards
+					pData->sectordata.usWaterType = 0;
+					pData->sectordata.usNaturalDirt = 100;
+					pData->sectordata.usCurfewValue = 0;
+					pData->sectordata.sRadioScanModifier = 0;
+					pData->sectordata.usCivilianPopulation = 0;
 				}
 				else
 				{
@@ -214,46 +231,6 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);												
 					}
 				}
-
-				SectorExternalData[ubSectorId][0].usWaterType = pData->sectordata.usWaterType;
-				SectorExternalData[ubSectorId][1].usWaterType = pData->sectordata.usWaterType;
-				SectorExternalData[ubSectorId][2].usWaterType = pData->sectordata.usWaterType;
-				SectorExternalData[ubSectorId][3].usWaterType = pData->sectordata.usWaterType;
-
-				SectorExternalData[ubSectorId][0].usNaturalDirt = pData->sectordata.usNaturalDirt;
-				SectorExternalData[ubSectorId][1].usNaturalDirt = pData->sectordata.usNaturalDirt;
-				SectorExternalData[ubSectorId][2].usNaturalDirt = pData->sectordata.usNaturalDirt;
-				SectorExternalData[ubSectorId][3].usNaturalDirt = pData->sectordata.usNaturalDirt;
-
-				SectorExternalData[ubSectorId][0].usCurfewValue = pData->sectordata.usCurfewValue;
-				SectorExternalData[ubSectorId][1].usCurfewValue = pData->sectordata.usCurfewValue;
-				SectorExternalData[ubSectorId][2].usCurfewValue = pData->sectordata.usCurfewValue;
-				SectorExternalData[ubSectorId][3].usCurfewValue = pData->sectordata.usCurfewValue;
-
-				INT8 radioscanmod = max( -3, pData->sectordata.sRadioScanModifier );
-				radioscanmod = min( 3, pData->sectordata.sRadioScanModifier );
-				SectorExternalData[ubSectorId][0].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-				SectorExternalData[ubSectorId][1].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-				SectorExternalData[ubSectorId][2].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-				SectorExternalData[ubSectorId][3].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-
-				SectorExternalData[ubSectorId][0].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-				SectorExternalData[ubSectorId][1].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-				SectorExternalData[ubSectorId][2].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-				SectorExternalData[ubSectorId][3].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-				
-				for(UINT8 i = 0; i <MAX_PRISON_ROOMS; ++i)
-				{
-					SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] = pData->sectordata.usPrisonRoomNumber[i];
-					pData->sectordata.usPrisonRoomNumber[i] = 0;
-				}
-
-				// clean up values afterwards
-				pData->sectordata.usWaterType = 0;
-				pData->sectordata.usNaturalDirt = 100;
-				pData->sectordata.usCurfewValue = 0;
-				pData->sectordata.sRadioScanModifier = 0;
-				pData->sectordata.usCivilianPopulation = 0;
 			}	
 		}
 
