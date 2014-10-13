@@ -18739,10 +18739,11 @@ void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
 		// if disease is cured, remove traces of it
 		if ( this->sDiseasePoints[aDisease] <= 0 )
 		{
-			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK);
-
-			if ( this->bTeam == gbPlayerNum )
+			// if disease was known and this guy is under player control, let the player know the good news
+			if ( this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_DIAGNOSED && this->bTeam == gbPlayerNum)
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_CURED], this->GetName( ), Disease[aDisease].szName );
+
+			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK);
 		}
 	}
 }
@@ -21504,13 +21505,13 @@ UINT8 GetSquadleadersCountInVicinity( SOLDIERTYPE * pSoldier, BOOLEAN fWithHighe
 UINT16 NumberOfDamagedStats( SOLDIERTYPE * pSoldier )
 {
 	UINT16 ubTotalStatsDamaged = 0;
-	for ( UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++ )
+	for ( UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; ++cnt )
 	{
 		if ( pSoldier->ubCriticalStatDamage[cnt] > 0 )
 			ubTotalStatsDamaged += pSoldier->ubCriticalStatDamage[cnt];
 	}
 
-	// Flugente: stats can also be damaged
+	// Flugente: stats can also be damaged by lack of food
 	ubTotalStatsDamaged += pSoldier->usStarveDamageHealth;
 	ubTotalStatsDamaged += pSoldier->usStarveDamageStrength;
 

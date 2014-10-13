@@ -3560,7 +3560,9 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 				if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_THIS_HOUR, FALSE, FALSE, FALSE ) == TRUE )
 				{
 					// can heal and is patient, heal them
-					usRemainingHealingPts -= HealPatient( pTeamSoldier, pDoctor, usEvenHealingAmount );
+					UINT16 healingdone = HealPatient( pTeamSoldier, pDoctor, usEvenHealingAmount );
+
+					usRemainingHealingPts = max( 0, usRemainingHealingPts - healingdone );
 				}
 			}
 		}
@@ -3602,7 +3604,9 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 				{
 					// heal the worst hurt guy
 					usOldLeftOvers = usRemainingHealingPts;
-					usRemainingHealingPts -= HealPatient( pWorstHurtSoldier, pDoctor, usRemainingHealingPts );
+					UINT16 healingdone = HealPatient( pWorstHurtSoldier, pDoctor, usRemainingHealingPts );
+
+					usRemainingHealingPts = max( 0, usRemainingHealingPts - healingdone );
 
 					// couldn't expend any pts, leave
 					if( usRemainingHealingPts == usOldLeftOvers )
@@ -3822,304 +3826,243 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 {
 	//////////////////////////////////////////////////////////////////////////////
 	// SANDRO - this whole procedure was heavily changed
+	// Flugente: what he said
 	////////////////////////////////////////////////////
-	UINT16 usHealingPtsLeft = 0;
-	UINT16 usTotalHundredthsUsed = 0;
-	UINT16 usHundredthsHealed = 0;
-	INT16 sPointsToUse = 0;
-	INT8 bPointsHealed = 0;
-	INT8 bMedFactor = 1;	// basic medical factor
-	BOOLEAN fWillRepiarStats = FALSE;
-	BOOLEAN fWillHealLife = TRUE;	
-	UINT16 usTotalMedPoints = 0;
-	UINT16 ubReturnDamagedStatRate = 0;
+	
+	INT16	bPointsHealed = 0;
+	UINT16  ubReturnDamagedStatRate = 0;
 
-	// usPointsLeftToCurePoison will measure how much Hundreths will be left to cure poison
-	INT16 usPointsLeftToCurePoison = usHealAmount;
+	// for determining what medical actions will be taken
+	BOOLEAN fWillHealLife		= FALSE;
+	BOOLEAN fWillRepairStats	= FALSE;
+	BOOLEAN fWillCurePoison		= FALSE;
+	BOOLEAN fWillCureDisease	= FALSE;
 
+	// how much has to be used to completely heal?
+	INT32	sHundredsToHeal			= 0;
+	INT32	sHundredsToRepair		= 0;
+	INT32	sHundredsToPoisonCure	= 0;
+	INT32	sHundredsToDiseaseCure  = 0;
+
+	// how much do we actually use?
+	INT32	sHundredsToHeal_Used		= 0;
+	INT32	sHundredsToRepair_Used		= 0;
+	INT32	sHundredsToPoisonCure_Used	= 0;
+	INT32	sHundredsToDiseaseCure_Used = 0;
+
+	INT8	bMedFactor = 1;	// basic medical factor
+	// Added a penalty for not experienced mercs, they consume the bag faster
+	// if healing an repairing stat at the same time, this is increased again, but we wont recalculate for now
+	if ( gGameOptions.fNewTraitSystem && !HAS_SKILL_TRAIT( pDoctor, DOCTOR_NT ) && (pDoctor->stats.bMedical < 50) )
+		bMedFactor += 1;
+
+	// calculate how much total points we have in all medical bags - this ultimately limits how much we can heal
+	UINT16 usTotalMedPoints = TotalMedicalKitPoints( pDoctor );
+	
+	// we are limited by our supplies
+	UINT16 ptsleft = min( usHealAmount, (usTotalMedPoints * 100) / bMedFactor );
+	
+	//////// DETERMINE LIFE HEAL ////////////////////
 	// Look how much life do we need to heal
-	sPointsToUse = ( pPatient->stats.bLifeMax - pPatient->stats.bLife );
-	if ( sPointsToUse <= 0 )
-		fWillHealLife = FALSE;
-	else if ( pPatient->stats.bLife < OKLIFE )
-		sPointsToUse += ((OKLIFE - pPatient->stats.bLife )* gGameExternalOptions.ubPointCostPerHealthBelowOkLife);
+	sHundredsToHeal = (pPatient->stats.bLifeMax - pPatient->stats.bLife) * 100;
 
-	// Look how much stats do we need to repair
-	if ( gGameOptions.fNewTraitSystem && ( NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) > 0 ) && (NumberOfDamagedStats( pPatient ) > 0) )
+	// negative life hundreds also need to be healed
+	if ( pPatient->sFractLife < 0 )
+		sHundredsToHeal += -pPatient->sFractLife;
+
+	if ( pPatient->stats.bLife < OKLIFE )
+		sHundredsToHeal += 100 * ((OKLIFE - pPatient->stats.bLife) * gGameExternalOptions.ubPointCostPerHealthBelowOkLife);
+
+	if ( sHundredsToHeal > 0 )
+		fWillHealLife = TRUE;
+
+	//////// DETERMINE STAT REPAIR ////////////////////
+	if ( gGameOptions.fNewTraitSystem && (NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) > 0) && (NumberOfDamagedStats( pPatient ) > 0) )
 	{
-		fWillRepiarStats = TRUE;
-		sPointsToUse += NumberOfDamagedStats( pPatient );
+		fWillRepairStats = TRUE;
+		sHundredsToRepair = 100 * NumberOfDamagedStats( pPatient );
 
 		ubReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT )));
+
 		// reduce rate if we are going to heal at the same time
 		if ( fWillHealLife )
-			ubReturnDamagedStatRate -= ((ubReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing ) / 100);
+			ubReturnDamagedStatRate -= ((ubReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing) / 100);
 	}
 
-	// Start
-	if ( sPointsToUse > 0 && ( fWillHealLife || fWillRepiarStats ))
+	//////// DETERMINE POISON CURE ////////////////////
+	if ( pPatient->bPoisonSum && pDoctor->stats.bMedical >= gGameExternalOptions.ubPoisonBaseMedicalSkillToCure )
 	{
-		// here is our maximum, we can heal this time
-		usHealingPtsLeft = max( 1, ((pPatient->sFractLife + usHealAmount) / 100));
-
-		// if guy is hurt more than points we have...heal only what we have
-		if( sPointsToUse > usHealingPtsLeft )
-		{
-			sPointsToUse = ( INT8 )usHealingPtsLeft;
-		}
-
-		// if we will heal life and stats at the same time, increases the medical cost
-		if (fWillRepiarStats && fWillHealLife)
-		{
-			bMedFactor += 1;
-		}
-		// Added a penalty for not experienced mercs, they consume the bag faster
-		if ( gGameOptions.fNewTraitSystem && !HAS_SKILL_TRAIT( pDoctor, DOCTOR_NT ) && (pDoctor->stats.bMedical < 50) )
-		{
-			bMedFactor += 1;
-		}
-		/*if ( pPatient->stats.bLife < OKLIFE )
-		{
-			bMedFactor += 1;			
-		}*/
-
-		// calculate how much total points we have in all medical bags
-		usTotalMedPoints = TotalMedicalKitPoints(pDoctor);
-
-		// if having enough, no problem
-		if (usTotalMedPoints >= (sPointsToUse * bMedFactor))
-		{
-			usTotalHundredthsUsed = sPointsToUse * 100;
-			usTotalMedPoints = (sPointsToUse * bMedFactor);
-		}
-		else
-		{
-			// only heal what we have
-			usTotalHundredthsUsed = (usTotalMedPoints * 100 / bMedFactor) ;
-		}
-
-		// calculate points for healing life (it has priority)
-		if ( fWillHealLife )
-		{
-			// if we haven't accumulated any full points yet
-			if ((pPatient->sFractLife + usTotalHundredthsUsed) < 100)
-			{
-				pPatient->sFractLife += usTotalHundredthsUsed;
-				fWillHealLife = FALSE;
-				usHundredthsHealed = usTotalHundredthsUsed;
-			}
-			// if we would heal more than we need
-			else if ( !fWillRepiarStats && (pPatient->stats.bLifeMax < pPatient->stats.bLife + bPointsHealed) )
-			{
-				usHundredthsHealed = max( 1, (usHealAmount - usTotalHundredthsUsed));
-			}
-			else
-			{
-				usHundredthsHealed = usHealAmount;
-			}
-
-			usHealAmount = max(0, usHealAmount - usHundredthsHealed);
-		}
-
-		// repair our stats here!!
-		if ( fWillRepiarStats && (ubReturnDamagedStatRate > 0) ) 
-		{
-			// always at least one point if repairing stats only
-			if ( !fWillHealLife )
-				bPointsHealed = max( 1, (usTotalHundredthsUsed / 100));
-			else
-				bPointsHealed = (usTotalHundredthsUsed / 100);
-
-			// reduce remaining points for upcoming healing
-			if ( RegainDamagedStats( pPatient, (bPointsHealed * ubReturnDamagedStatRate) ) != 0 )
-			{
-				usTotalHundredthsUsed -= ((usTotalHundredthsUsed * gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair ) / 100);
-			}
-		}
-		
-		// if we are actually here to heal life
-		if ( fWillHealLife )
-		{
-			pPatient->sFractLife += usTotalHundredthsUsed;
-
-			bPointsHealed = 0;
-			if (pPatient->sFractLife >= 100 && pPatient->stats.bLife >= OKLIFE)  
-			{
-				// convert fractions into full points
-				bPointsHealed = (pPatient->sFractLife / 100);
-				pPatient->sFractLife %= 100;
-
-				pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed));
-
-				// potentially increase bPoisonLife: as life points are healed, unhealed poison points become healed poison points
-				if ( pPatient->bPoisonSum > 0 )
-				{
-					// check if there are unhealed poison points
-					if ( pPatient->bPoisonLife < pPatient->bPoisonSum ) 
-					{
-						pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + bPointsHealed));
-					}
-				}
-			}
-			else if (((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) >= 100) && (pPatient->stats.bLife < OKLIFE))
-			{
-				bPointsHealed = ((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) / 100);
-				pPatient->sFractLife %= 100;
-
-				pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed));
-
-				// potentially increase bPoisonLife: as life points are healed, unhealed poinson points become healed poison points
-				if ( pPatient->bPoisonSum > 0 )
-				{
-					// check if there are unhealed poison points
-					if ( pPatient->bPoisonLife < pPatient->bPoisonSum ) 
-					{
-						pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + bPointsHealed));
-					}
-				}
-			}
-			
-			// when being healed normally, reduce insta-healable HPs value 
-			if ( pPatient->iHealableInjury > 0 && bPointsHealed > 0 ) 
-			{
-				pPatient->iHealableInjury -= (bPointsHealed * 100);
-				if (pPatient->iHealableInjury < 0)
-					pPatient->iHealableInjury = 0;
-			}
-		}
-
-		// Finaly use all kit points (we are sure, we have that much)
-		if (UseTotalMedicalKitPoints( pDoctor, usTotalMedPoints ) == FALSE )
-		{
-			// throw message if this went wrong for feedback on debugging
-#ifdef JA2TESTVERSION
-		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
-#endif
-		}
+		fWillCurePoison = TRUE;
+		sHundredsToPoisonCure = 100 * pPatient->bPoisonSum * gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator;
 	}
 
-	// As curing poison happens only when there is no more life to heal or stats to repair, we don't have to edit the above function - we simply cure afterwards
-	// Look how much poison needs to be cured. Conversion of fresh life points to poison points has already taken place
-	if ( pPatient->bPoisonSum > 0 || pPatient->sFractLife < 0 )
+	//////// DETERMINE DISEASE CURE ////////////////////
+	if ( pPatient->HasDisease( TRUE, TRUE ) )
 	{
-		if ( fWillHealLife || fWillRepiarStats )
-			usPointsLeftToCurePoison = max(0, usPointsLeftToCurePoison - usHealAmount);
+		fWillCureDisease = TRUE;
 
-		if ( usPointsLeftToCurePoison > 0 )
-		{
-			INT8 usPoisontoCure = pPatient->bPoisonSum;
-
-			if ( (INT8) (usPointsLeftToCurePoison/100) < usPoisontoCure )
-				usPoisontoCure = (INT8) (usPointsLeftToCurePoison/100);
-
-			// calculate how much total points we have in all medical bags
-			UINT16 usTotalMedPointsLeft = TotalMedicalKitPoints(pDoctor);
-
-			if ( usTotalMedPointsLeft > 0 )
-			{
-				UINT16 usTotalHundredthsUsedToCurePoison = 0;
-				// if having enough, no problem
-				// gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator alters the amount needed for curing poison
-				if (usTotalMedPointsLeft >= ( (UINT16)(gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator * usPoisontoCure * bMedFactor)))
-				{
-					usTotalHundredthsUsedToCurePoison = usPoisontoCure * 100;
-					usTotalMedPointsLeft = ( (UINT16)(gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator * usPoisontoCure * bMedFactor));
-				}
-				else
-				{
-					// only heal what we have
-					usTotalHundredthsUsedToCurePoison = (usTotalMedPointsLeft * 100 / bMedFactor) ;
-				}
-
-				pPatient->sFractLife += usTotalHundredthsUsedToCurePoison;
-				usHundredthsHealed += (UINT16)(usTotalHundredthsUsedToCurePoison * gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator);
-
-				if (pPatient->sFractLife >= 100)  
-				{
-					// convert fractions into full points
-					INT8 bPoisonPointsHealed = (pPatient->sFractLife / 100);
-					pPatient->sFractLife %= 100;
-
-					pPatient->bPoisonSum = max( 0, (pPatient->bPoisonSum - bPoisonPointsHealed));
-					pPatient->bPoisonLife = max( 0, (pPatient->bPoisonLife - bPoisonPointsHealed));
-				}
-
-				// Finally use all kit points (we are sure, we have that much)
-				if (UseTotalMedicalKitPoints( pDoctor, usTotalMedPointsLeft ) == FALSE )
-				{
-					// throw message if this went wrong for feedback on debugging
-#ifdef JA2TESTVERSION
-					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
-#endif
-				}
-			}
-		}
-	}
-
-	// Flugente: heal diseases if we know of them and they can be cured
-	if ( pPatient->HasDisease( TRUE, TRUE ) && usHealAmount > 0)
-	{
-		// loop over all diseases and determine how much we can heal for every one
-		INT32 totaldiseasepoints = 0;
+		// loop over all diseases and determine how much we can heal
 		for ( int i = 0; i < NUM_DISEASES; ++i )
 		{
-			if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED ) )
+			if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
 			{
-				totaldiseasepoints += pPatient->sDiseasePoints[i];
+				sHundredsToDiseaseCure += pPatient->sDiseasePoints[i];
+			}
+		}
+	}
+
+	// if we will heal life and stats at the same time, increases the medical cost
+	if ( fWillHealLife && fWillRepairStats )
+		bMedFactor += 1;
+		
+	/////////////////////////// LIFE HEAL ////////////////////////////////////
+	// heal life points
+	if ( fWillHealLife && ptsleft > 0 )
+	{
+		// determine how many points we use on life healing
+		if ( ptsleft < sHundredsToHeal )
+			sHundredsToHeal_Used = ptsleft;
+		else
+			sHundredsToHeal_Used = sHundredsToHeal;
+
+		// use up points
+		ptsleft -= sHundredsToHeal_Used;
+
+		INT32 sHundredsToHeal_Used_withmodifier = sHundredsToHeal_Used;
+
+		// if we also repair stats AND will spend points on that, we get a healing speed penalty (but the points will still all be consumed)
+		if ( fWillRepairStats && ptsleft - sHundredsToHeal_Used_withmodifier > 0 )
+			sHundredsToHeal_Used_withmodifier -= ((sHundredsToHeal_Used_withmodifier * gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair) / 100);
+
+		//  add life points to sFractLife. Add a lifepoint for every 100 hundreds
+		pPatient->sFractLife += sHundredsToHeal_Used_withmodifier;
+		
+		if ( pPatient->stats.bLife >= OKLIFE && pPatient->sFractLife >= 100 )
+		{
+			// convert fractions into full points
+			bPointsHealed = (pPatient->sFractLife / 100);
+			pPatient->sFractLife %= 100;
+
+			pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed) );
+		}
+		else if ( pPatient->stats.bLife < OKLIFE && ((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) >= 100) )
+		{
+			bPointsHealed = ((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) / 100);
+			pPatient->sFractLife %= 100;
+
+			pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed) );
+		}
+
+		// potentially increase bPoisonLife: as life points are healed, unhealed poison points become healed poison points
+		if ( pPatient->bPoisonSum > 0 )
+		{
+			// check if there are unhealed poison points
+			if ( pPatient->bPoisonLife < pPatient->bPoisonSum )
+			{
+				pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + bPointsHealed) );
 			}
 		}
 
-		// we cannot cure more than we have
-		INT32 curablepoints = min( totaldiseasepoints, usHealAmount );
+		// when being healed normally, reduce insta-healable HPs value 
+		if ( pPatient->iHealableInjury > 0 && bPointsHealed > 0 )
+		{
+			pPatient->iHealableInjury -= (bPointsHealed * 100);
+			if ( pPatient->iHealableInjury < 0 )
+				pPatient->iHealableInjury = 0;
+		}
+	}
+
+	/////////////////////////// STAT REPAIR ////////////////////////////////////
+	if ( fWillRepairStats && ptsleft > 0 && ubReturnDamagedStatRate > 0 )
+	{
+		// determine how many points we use on stat repair
+		if ( ptsleft < sHundredsToRepair )
+			sHundredsToRepair_Used = ptsleft;
+		else
+			sHundredsToRepair_Used = sHundredsToRepair;
+
+		// use up points
+		ptsleft -= sHundredsToRepair_Used;
+		
+		RegainDamagedStats( pPatient, (sHundredsToRepair_Used * ubReturnDamagedStatRate / 100) );
+	}
+	
+	/////////////////////////// POISON CURE ////////////////////////////////////
+	if ( fWillCurePoison && ptsleft > 0 )
+	{
+		// determine how many points we use on stat repair
+		if ( ptsleft < sHundredsToPoisonCure )
+			sHundredsToPoisonCure_Used = ptsleft;
+		else
+			sHundredsToPoisonCure_Used = sHundredsToPoisonCure;
+
+		// use up points
+		ptsleft -= sHundredsToPoisonCure_Used;
+
+		pPatient->sFractLife += sHundredsToPoisonCure_Used / gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator;
+
+		if ( pPatient->sFractLife >= 100 )
+		{
+			// convert fractions into full points
+			INT8 bPoisonPointsHealed = (pPatient->sFractLife / 100);
+			pPatient->sFractLife %= 100;
+
+			pPatient->bPoisonSum = max( 0, (pPatient->bPoisonSum - bPoisonPointsHealed) );
+			pPatient->bPoisonLife = max( 0, (pPatient->bPoisonLife - bPoisonPointsHealed) );
+		}
+	}
+	
+	/////////////////////////// DISEASE CURE ////////////////////////////////////
+	if ( fWillCureDisease && ptsleft > 0 )
+	{
+		// determine how many points we use on stat repair
+		if ( ptsleft < sHundredsToDiseaseCure )
+			sHundredsToDiseaseCure_Used = ptsleft;
+		else
+			sHundredsToDiseaseCure_Used = sHundredsToDiseaseCure;
+
+		// use up points
+		ptsleft -= sHundredsToDiseaseCure_Used;
+
+		INT32 curablepoints = sHundredsToDiseaseCure_Used;
 
 		if ( curablepoints > 0 )
 		{
-			// calculate how much total points we have in all medical bags
-			UINT16 usTotalMedPointsLeft = TotalMedicalKitPoints( pDoctor );
-
-			if ( usTotalMedPointsLeft > 0 )
+			// now apply healing: reduce disease points for each disease by the determined factor
+			UINT16 healingdone = 0;
+			for ( int i = 0; i < NUM_DISEASES; ++i )
 			{
-				UINT16 useablepoints = min( 100 * usTotalMedPointsLeft, curablepoints );
-
-				useablepoints /= bMedFactor;
-
-				// now apply healing: reduce disease points for each disease by the determined factor
-				UINT16 healingdone = 0;
-				for ( int i = 0; i < NUM_DISEASES; ++i )
+				if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
 				{
-					if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
+					// amount cured is fraction of disease to total disease times fraction of healing done
+					INT32 cured = (sHundredsToDiseaseCure_Used * pPatient->sDiseasePoints[i]) / (FLOAT)(sHundredsToDiseaseCure);
+
+					if ( cured > 0 )
 					{
-						// amount cured is fraction of disease to total disease times fraction of healing done
-						INT32 cured = (useablepoints * useablepoints * pPatient->sDiseasePoints[i]) / (FLOAT)(curablepoints * totaldiseasepoints);
-
-						if ( cured > 0 )
-						{
-							healingdone += cured;
-							usHundredthsHealed += cured;
-
-							usHealAmount = max( 0, usHealAmount - cured);
-
-							pPatient->AddDiseasePoints( i, -cured );
-						}
+						pPatient->AddDiseasePoints( i, -cured );
 					}
 				}
-
-				// Finally use all kit points (we are sure, we have that much)
-				if ( UseTotalMedicalKitPoints( pDoctor, healingdone / 100 ) == FALSE )
-				{
-					// throw message if this went wrong for feedback on debugging
-	#ifdef JA2TESTVERSION
-					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
-	#endif
-				}
-
-				// patient expresses his gratitude
-				AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
 			}
+
+			// patient expresses his gratitude
+			AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
 		}
 	}
+	
+	// Finally use all kit points (we are sure, we have that much)
+	if ( UseTotalMedicalKitPoints( pDoctor, max(1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100) ) == FALSE )
+	{
+		// throw message if this went wrong for feedback on debugging
+#ifdef JA2TESTVERSION
+		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalMedicalKitPoints returned false, not all points were probably used." );
+#endif
+	}
 
-	return ( usHundredthsHealed );
+	// if ouput > input, then something's awry...
+	if ( (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used) > usHealAmount )
+		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! HealPatient uses more points than it should!" );
+
+	return (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used);
 }
 
 
@@ -7941,7 +7884,7 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 		sAddedLife += sPoisonAbsorped;
 
 		// if we're not fully poisoned, we are now poisoned a bit more, even if we won life thanks to absorption
-		if ( 0 && pSoldier->bPoisonSum < pSoldier->stats.bLifeMax ) 
+		if ( pSoldier->bPoisonSum < pSoldier->stats.bLifeMax ) 
 		{
 			pSoldier->bPoisonSum += abs(sAddedLife);
 		}
