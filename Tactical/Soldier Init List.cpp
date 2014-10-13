@@ -1476,6 +1476,13 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 
 		if( curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM )
 		{
+			// silversurfer: Militia is not supposed to reuse tanks, especially enemy tanks that have been destroyed in combat.
+			// The player would get free tanks to drive around with. Not good...
+			// Set the SoldierClass to None so this spot is no longer considered. We do not want to put militia here because it could get stuck in the tank body.
+			if( curr->pDetailedPlacement )
+				if( curr->pDetailedPlacement->bBodyType == TANK_NE || curr->pDetailedPlacement->bBodyType == TANK_NW )
+					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_NONE;
+
 			//Matching team (kindof), now check the soldier class...
 			if( ubNumElites && curr->pBasicPlacement->ubSoldierClass == SOLDIER_CLASS_ELITE )
 			{
@@ -1540,7 +1547,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	// Flugente: changed the order of the classes, as we want to ahve elites first (relevant if militia takes equipment from the sector)
+	// Flugente: changed the order of the classes, as we want to have elites first (relevant if militia takes equipment from the sector)
 	UINT8 reorder[3];
 	reorder[0] = SOLDIER_CLASS_ELITE;
 	reorder[1] = SOLDIER_CLASS_ARMY;
@@ -1628,7 +1635,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 	curr = gSoldierInitHead;
 	while( curr && ubFreeSlots && ubMaxNum )
 	{
-		if( !curr->pSoldier && (curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM) )
+		if( !curr->pSoldier && (curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM) && curr->pBasicPlacement->ubSoldierClass != SOLDIER_CLASS_NONE )
 		{
 			//Randomly determine if we will use this slot; the more available slots in proportion to
 			//the number of enemies, the lower the chance of accepting the slot.
