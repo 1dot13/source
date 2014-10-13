@@ -17820,7 +17820,8 @@ BOOLEAN SOLDIERTYPE::CanAnyArtilleryStrikeBeOrdered( UINT32* pSectorID )		// can
 		if ( loopX < 1 || loopX >= MAP_WORLD_X - 1 || loopY < 1 || loopY >= MAP_WORLD_Y - 1 )
 			continue;
 
-		if ( IsValidArtilleryOrderSector( loopX, loopY, this->bSectorZ, this->bTeam ) )
+		// as the player team can order artillery from the militia, we have to check that too.
+		if ( IsValidArtilleryOrderSector( loopX, loopY, this->bSectorZ, this->bTeam ) || (this->bTeam == gbPlayerNum && IsValidArtilleryOrderSector( loopX, loopY, this->bSectorZ, MILITIA_TEAM )) )
 		{
 			*pSectorID = (UINT32)SECTOR( loopX, loopY );
 			return TRUE;
