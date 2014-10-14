@@ -23967,7 +23967,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<DefaultAttachment>1007</DefaultAttachment>
+		<DefaultAttachment>1180</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>13</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>

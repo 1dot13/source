@@ -59,7 +59,7 @@
 	<IMPITEMCHOICES>
 		<uiIndex>1</uiIndex>
 		<name>Random Items</name>
-		<ubChoices>11</ubChoices>
+		<ubChoices>8</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>201</bItemNo1>
 		<bItemNo2>838</bItemNo2>
@@ -67,11 +67,11 @@
 		<bItemNo4>1008</bItemNo4>
 		<bItemNo5>1009</bItemNo5>
 		<bItemNo6>201</bItemNo6>
-		<bItemNo7>214</bItemNo7>
-		<bItemNo8>214</bItemNo8>
-		<bItemNo9>214</bItemNo9>
-		<bItemNo10>214</bItemNo10>
-		<bItemNo11>201</bItemNo11>
+		<bItemNo7>201</bItemNo7>
+		<bItemNo8>1576</bItemNo8>
+		<bItemNo9>0</bItemNo9>
+		<bItemNo10>0</bItemNo10>
+		<bItemNo11>0</bItemNo11>
 		<bItemNo12>0</bItemNo12>
 		<bItemNo13>0</bItemNo13>
 		<bItemNo14>0</bItemNo14>
@@ -115,12 +115,12 @@
 	<IMPITEMCHOICES>
 		<uiIndex>2</uiIndex>
 		<name>Wisdom</name>
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
+		<ubChoices>4</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>285</bItemNo1>
+		<bItemNo2>281</bItemNo2>
+		<bItemNo3>176</bItemNo3>
+		<bItemNo4>302</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -171,10 +171,10 @@
 	<IMPITEMCHOICES>
 		<uiIndex>3</uiIndex>
 		<name>Dexterity</name>
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>1546</bItemNo1>
+		<bItemNo2>1545</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -227,13 +227,13 @@
 	<IMPITEMCHOICES>
 		<uiIndex>4</uiIndex>
 		<name>Agility</name>
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
+		<ubChoices>5</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>214</bItemNo1>
+		<bItemNo2>214</bItemNo2>
+		<bItemNo3>214</bItemNo3>
+		<bItemNo4>1570</bItemNo4>
+		<bItemNo5>1570</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
@@ -283,13 +283,13 @@
 	<IMPITEMCHOICES>
 		<uiIndex>5</uiIndex>
 		<name>Strength</name>
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
+		<ubChoices>5</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>1709</bItemNo1>
+		<bItemNo2>1632</bItemNo2>
+		<bItemNo3>1632</bItemNo3>
+		<bItemNo4>1713</bItemNo4>
+		<bItemNo5>1713</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
@@ -787,10 +787,10 @@
 	<IMPITEMCHOICES>
 		<uiIndex>14</uiIndex>
 		<name>Sniper</name>
-		<ubChoices>1</ubChoices>
-		<ubNumItems>1</ubNumItems>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
 		<bItemNo1>209</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>1029</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1571,14 +1571,14 @@
 	<IMPITEMCHOICES>
 		<uiIndex>28</uiIndex>
 		<name>Demolitions</name>
-		<ubChoices>5</ubChoices>
+		<ubChoices>6</ubChoices>
 		<ubNumItems>3</ubNumItems>
 		<bItemNo1>134</bItemNo1>
 		<bItemNo2>134</bItemNo2>
 		<bItemNo3>135</bItemNo3>
 		<bItemNo4>135</bItemNo4>
 		<bItemNo5>223</bItemNo5>
-		<bItemNo6>0</bItemNo6>
+		<bItemNo6>137</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -1963,11 +1963,11 @@
 	<IMPITEMCHOICES>
 		<uiIndex>35</uiIndex>
 		<name>Heavy Weapons Exp</name>
-		<ubChoices>2</ubChoices>
-		<ubNumItems>2</ubNumItems>
+		<ubChoices>3</ubChoices>
+		<ubNumItems>3</ubNumItems>
 		<bItemNo1>40</bItemNo1>
 		<bItemNo2>147</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<bItemNo3>51</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -2019,11 +2019,11 @@
 	<IMPITEMCHOICES>
 		<uiIndex>36</uiIndex>
 		<name>Sniper Exp</name>
-		<ubChoices>2</ubChoices>
-		<ubNumItems>2</ubNumItems>
-		<bItemNo1>1029</bItemNo1>
-		<bItemNo2>209</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<ubChoices>3</ubChoices>
+		<ubNumItems>3</ubNumItems>
+		<bItemNo1>784</bItemNo1>
+		<bItemNo2>477</bItemNo2>
+		<bItemNo3>478</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -2133,8 +2133,8 @@
 		<name>Gunslinger Exp</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
-		<bItemNo1>887</bItemNo1>
-		<bItemNo2>1200</bItemNo2>
+		<bItemNo1>721</bItemNo1>
+		<bItemNo2>1091</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -2355,12 +2355,12 @@
 	<IMPITEMCHOICES>
 		<uiIndex>42</uiIndex>
 		<name>Doctor Exp</name>
-		<ubChoices>3</ubChoices>
-		<ubNumItems>3</ubNumItems>
+		<ubChoices>4</ubChoices>
+		<ubNumItems>4</ubNumItems>
 		<bItemNo1>201</bItemNo1>
 		<bItemNo2>202</bItemNo2>
 		<bItemNo3>235</bItemNo3>
-		<bItemNo4>0</bItemNo4>
+		<bItemNo4>1711</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -2523,11 +2523,11 @@
 	<IMPITEMCHOICES>
 		<uiIndex>45</uiIndex>
 		<name>Night Ops Exp</name>
-		<ubChoices>2</ubChoices>
-		<ubNumItems>2</ubNumItems>
+		<ubChoices>3</ubChoices>
+		<ubNumItems>3</ubNumItems>
 		<bItemNo1>211</bItemNo1>
 		<bItemNo2>1189</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<bItemNo3>1636</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
