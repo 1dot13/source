@@ -4789,31 +4789,36 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 			}
 		}
 
-		if ( this->bTeam == gbPlayerNum && this->bStealthMode )
+		// Flugente: award agility stat increase if we sneak upon an enemy undetected
+		// do NOT award this bonus if we are currently loading a game - otherwise one could increase agility by repeatedly saving and reloading the game
+		if ( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
 		{
-			// Merc got to a new tile by "sneaking". Did we theoretically sneak
-			// past an enemy?
-
-			if ( this->aiData.bOppCnt > 0 )		// opponents in sight
+			if ( this->bTeam == gbPlayerNum && this->bStealthMode )
 			{
-				// check each possible enemy
-				for ( cnt = 0; cnt < MAX_NUM_SOLDIERS; cnt++ )
+				// Merc got to a new tile by "sneaking". Did we theoretically sneak
+				// past an enemy?
+
+				if ( this->aiData.bOppCnt > 0 )		// opponents in sight
 				{
-					pEnemy = MercPtrs[cnt];
-					// if this guy is here and alive enough to be looking for us
-					if ( pEnemy->bActive && pEnemy->bInSector && (pEnemy->stats.bLife >= OKLIFE) )
+					// check each possible enemy
+					for ( cnt = 0; cnt < MAX_NUM_SOLDIERS; ++cnt )
 					{
-						// no points for sneaking by the neutrals & friendlies!!!
-						if ( !pEnemy->aiData.bNeutral && (this->bSide != pEnemy->bSide) && (pEnemy->ubBodyType != COW && pEnemy->ubBodyType != CROW) )
+						pEnemy = MercPtrs[cnt];
+						// if this guy is here and alive enough to be looking for us
+						if ( pEnemy->bActive && pEnemy->bInSector && (pEnemy->stats.bLife >= OKLIFE) )
 						{
-							// if we SEE this particular oppponent, and he DOESN'T see us... and he COULD see us...
-							if ( (this->aiData.bOppList[cnt] == SEEN_CURRENTLY) &&
-								 pEnemy->aiData.bOppList[this->ubID] != SEEN_CURRENTLY &&
-								 PythSpacesAway( this->sGridNo, pEnemy->sGridNo ) < pEnemy->GetMaxDistanceVisible( this->sGridNo, this->pathing.bLevel ) )
+							// no points for sneaking by the neutrals & friendlies!!!
+							if ( !pEnemy->aiData.bNeutral && (this->bSide != pEnemy->bSide) && (pEnemy->ubBodyType != COW && pEnemy->ubBodyType != CROW) )
 							{
-								// AGILITY (5):  Soldier snuck 1 square past unaware enemy
-								StatChange( this, AGILAMT, 5, FALSE );
-								// Keep looping, we'll give'em 1 point for EACH such enemy!
+								// if we SEE this particular oppponent, and he DOESN'T see us... and he COULD see us...
+								if ( (this->aiData.bOppList[cnt] == SEEN_CURRENTLY) &&
+									 pEnemy->aiData.bOppList[this->ubID] != SEEN_CURRENTLY &&
+									 PythSpacesAway( this->sGridNo, pEnemy->sGridNo ) < pEnemy->GetMaxDistanceVisible( this->sGridNo, this->pathing.bLevel ) )
+								{
+									// AGILITY (5):  Soldier snuck 1 square past unaware enemy
+									StatChange( this, AGILAMT, 5, FALSE );
+									// Keep looping, we'll give'em 1 point for EACH such enemy!
+								}
 							}
 						}
 					}
@@ -4823,11 +4828,6 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 
 		// Adjust speed based on terrain, etc
 		SetSoldierAniSpeed( this );
-
-	}
-	else
-	{
-		//int breakpoint = 0;
 	}
 }
 
