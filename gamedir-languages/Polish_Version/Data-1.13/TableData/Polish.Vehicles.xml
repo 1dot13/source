@@ -1215,9 +1215,9 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>199</uiIndex>
-		<Name>Brak</Name>
-		<LongName></LongName>
-		<ShortName></ShortName>
+		<Name>Jeep</Name>
+		<LongName>Jeep</LongName>
+		<ShortName>Jeep</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>200</uiIndex>
