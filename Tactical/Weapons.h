@@ -541,6 +541,6 @@ FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
 
-BOOLEAN ArtilleryStrike( UINT16 usItem, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
+BOOLEAN ArtilleryStrike( UINT16 usItem, UINT8 ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
 
 #endif

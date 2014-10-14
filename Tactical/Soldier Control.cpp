@@ -17935,7 +17935,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		// send a signal shell at first. This marks the area that the shells will come in
 		static UINT16 usSignalShellIndex = 1700;
 		if ( HasItemFlag( usSignalShellIndex, SIGNAL_SHELL ) || GetFirstItemWithFlag( &usSignalShellIndex, SIGNAL_SHELL ) )
-			ArtilleryStrike( usSignalShellIndex, sStartingGridNo, sTargetGridNo );
+			ArtilleryStrike( usSignalShellIndex, this->ubID, sStartingGridNo, sTargetGridNo );
 		else
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NO_SIGNAL_SHELL] );

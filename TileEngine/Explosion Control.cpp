@@ -4053,7 +4053,7 @@ void HandleExplosionQueue( void )
 				if ( GetRandomSignalSmokeGridNo(&sTargetGridNo) || GetRadioOperatorSignal((*pObj)[0]->data.misc.ubBombOwner, &sTargetGridNo) || (sTargetGridNo = RandomGridNo()) )
 				{
 					for ( UINT8 i = 0; i < cnt; ++i)
-						ArtilleryStrike(pObj->usItem, sGridNo, sTargetGridNo);
+						ArtilleryStrike( pObj->usItem, (*pObj)[0]->data.misc.ubBombOwner, sGridNo, sTargetGridNo );
 				}
 
 				// not needed anymore

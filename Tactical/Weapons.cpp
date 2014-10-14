@@ -13324,7 +13324,7 @@ FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fAimCap, FLOA
 extern BOOLEAN	IsRoofPresentAtGridNo( INT32 sGridNo );
 
 // Flugente: fire item from A to B (intended for mortarshells and launchable grenades)
-BOOLEAN ArtilleryStrike( UINT16 usItem, UINT32 usStartingGridNo, UINT32 usTargetMapPos )
+BOOLEAN ArtilleryStrike( UINT16 usItem, UINT8 ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos )
 {
 	FLOAT				dForce, dDegrees;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
@@ -13385,8 +13385,8 @@ BOOLEAN ArtilleryStrike( UINT16 usItem, UINT32 usStartingGridNo, UINT32 usTarget
 	{
 		PlayJA2Sample( Weapon[ usItem ].sSound, RATE_11025, SoundVolume( HIGHVOLUME, usStartingGridNo ), 1, SoundDir( usStartingGridNo ) );
 	}
-	
-	INT32 iID = CreatePhysicalObject( &shellobj, -1,  dX, dY, dZ, dForceX, dForceY, dForceZ, 0, THROW_ARM_ITEM, 0, FALSE );
+		
+	INT32 iID = CreatePhysicalObject( &shellobj, -1, dX, dY, dZ, dForceX, dForceY, dForceZ, ubOwnerID, THROW_ARM_ITEM, 0, FALSE );
 
 	// OJW - 20091002 - Explosives
 	/*if (is_networked && is_client)
