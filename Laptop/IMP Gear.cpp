@@ -547,11 +547,11 @@ void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY )
 		//blt the item
 		BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, PosX, PosY, 0, FALSE );
 	}
-	else
+	/*else
 	{
-		// if there is not item to display, sue a different colour for the box
+		// if there is not item to display, use a different colour for the box
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX + IMP_GEAR_ITEMDISPLAY_WIDTH, usPosY + IMP_GEAR_ITEMDISPLAY_HEIGHT, Get16BPPColor( FROMRGB( 230, 84, 43 ) ) );
-	}
+	}*/
 }
 
 void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )
