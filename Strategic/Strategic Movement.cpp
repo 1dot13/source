@@ -2497,45 +2497,74 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	Assert( pGroup );
 	i = pGroup->ubNextWaypointID;
 	wp = pGroup->pWaypoints;
-	while( i-- )
+	while ( i-- )
 	{
 		//Traverse through the waypoint list to the next waypoint ID
 		Assert( wp );
 		wp = wp->next;
 	}
 	Assert( wp );
+
+	// the sector we are currently in
+	ubSector = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
+
 	//We now have the correct waypoint.
 	//Analyse the group and determine which direction it will move from the current sector.
 	dx = wp->x - pGroup->ubSectorX;
 	dy = wp->y - pGroup->ubSectorY;
-	if( dx && dy )
-	{ //Shouldn't move diagonally!
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
-			pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ));
+	if ( dx && dy )
+	{
+		//Shouldn't move diagonally!
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
+			pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ) );
 		//AssertMsg( 0, String("Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
 		//	pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ) );
+
+		// Flugente: observed an instance where this happened (2,4) to (1,3) . The subsequent movement decision (WEST_STRATEGIC_MOVE) was bad, as this would be an illegal move
+		// solution: in a case like this, check wether the first movement is legal, otherwise use the second option
+		// check wether a east or west move works...
+		if ( dx > 0 )
+			ubDirection = EAST_STRATEGIC_MOVE;
+		else
+			ubDirection = WEST_STRATEGIC_MOVE;
+
+		// if the move does not work, try north or south. If that fails too, well, nothing we can do here... the error lies with whoever set up this order in the first place
+		// (remember, having both dx and dy be nonzero is an error in the first place, we are just trying to repair it)
+
+		// setting dx to 0, so we have to move north or south later on
+		if ( SectorInfo[ubSector].ubTraversability[ubDirection] == EDGEOFWORLD || SectorInfo[ubSector].ubTraversability[ubDirection] == GROUNDBARRIER )
+			dx = 0;
+		// this works, so do not do a north- or southmove instead
+		else
+			dy = 0;
 	}
-	if( !dx && !dy ) //Can't move to position currently at!
-		AssertMsg( 0, String("Attempting to move to waypoint %d, %d that you are already at!", wp->x, wp->y ) );
+
+	if ( !dx && !dy ) //Can't move to position currently at!
+		AssertMsg( 0, String( "Attempting to move to waypoint %d, %d that you are already at!", wp->x, wp->y ) );
+
 	//Clip dx/dy value so that the move is for only one sector.
-	if( dx >= 1 )
+	if ( dx >= 1 )
 	{
 		ubDirection = EAST_STRATEGIC_MOVE;
 		dx = 1;
+		dy = 0;
 	}
-	else if( dy >= 1 )
+	else if ( dy >= 1 )
 	{
 		ubDirection = SOUTH_STRATEGIC_MOVE;
+		dx = 0;
 		dy = 1;
 	}
-	else if( dx <= -1 )
+	else if ( dx <= -1 )
 	{
 		ubDirection = WEST_STRATEGIC_MOVE;
 		dx = -1;
+		dy = 0;
 	}
-	else if( dy <= -1 )
+	else if ( dy <= -1 )
 	{
 		ubDirection = NORTH_STRATEGIC_MOVE;
+		dx = 0;
 		dy = -1;
 	}
 	else
@@ -2543,28 +2572,33 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 		Assert( 0 );
 		return;
 	}
+
 	//All conditions for moving to the next waypoint are now good.
-	pGroup->ubNextX = (UINT8)( dx + pGroup->ubSectorX );
-	pGroup->ubNextY = (UINT8)( dy + pGroup->ubSectorY );
+	pGroup->ubNextX = (UINT8)(dx + pGroup->ubSectorX);
+	pGroup->ubNextY = (UINT8)(dy + pGroup->ubSectorY);
+
 	//Calc time to get to next waypoint...
-	ubSector = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
-	if( !pGroup->ubSectorZ )
+	if ( !pGroup->ubSectorZ )
 	{
 		BOOLEAN fCalcRegularTime = TRUE;
-		if( !pGroup->fPlayer )
-		{ //Determine if the enemy group is "sleeping".	If so, then simply delay their arrival time by the amount of time
+		if ( !pGroup->fPlayer )
+		{
+			//Determine if the enemy group is "sleeping". If so, then simply delay their arrival time by the amount of time
 			//they are going to be sleeping for.
-			if( GetWorldHour() >= 21 || GetWorldHour() <= 4 )
-			{ //It is definitely night time.
-				if( Chance( 67 ) )
-				{ //2 in 3 chance of going to sleep.
+			if ( GetWorldHour( ) >= 21 || GetWorldHour( ) <= 4 )
+			{
+				//It is definitely night time.
+				if ( Chance( 67 ) )
+				{
+					//2 in 3 chance of going to sleep.
 					pGroup->uiTraverseTime = GetSectorMvtTimeForGroup( ubSector, ubDirection, pGroup );
 					uiSleepMinutes = 360 + Random( 121 ); //6-8 hours sleep
 					fCalcRegularTime = FALSE;
 				}
 			}
 		}
-		if( fCalcRegularTime )
+
+		if ( fCalcRegularTime )
 		{
 			pGroup->uiTraverseTime = GetSectorMvtTimeForGroup( ubSector, ubDirection, pGroup );
 		}
@@ -2574,25 +2608,27 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 		pGroup->uiTraverseTime = 1;
 	}
 
-	if( pGroup->uiTraverseTime == 0xffffffff )
+	if ( pGroup->uiTraverseTime == 0xffffffff )
 	{
-		AssertMsg( 0, String("Group %d (%s) attempting illegal move from %c%d to %c%d (%s).",
-				pGroup->ubGroupID, ( pGroup->fPlayer ) ? "Player" : "AI",
-				pGroup->ubSectorY+'A'-1, pGroup->ubSectorX, pGroup->ubNextY+'A'-1, pGroup->ubNextX,
-				gszTerrain[SectorInfo[ubSector].ubTraversability[ubDirection]] ) );
+		AssertMsg( 0, String( "Group %d (%s) attempting illegal move from %c%d to %c%d (%s).",
+			pGroup->ubGroupID, (pGroup->fPlayer) ? "Player" : "AI",
+			pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX, pGroup->ubNextY + 'A' - 1, pGroup->ubNextX,
+			gszTerrain[SectorInfo[ubSector].ubTraversability[ubDirection]] ) );
 	}
 
 	// add sleep, if any
 	pGroup->uiTraverseTime += uiSleepMinutes;
 
-	if( gfTacticalTraversal && gpTacticalTraversalGroup == pGroup )
+	if ( gfTacticalTraversal && gpTacticalTraversalGroup == pGroup )
 	{
-		if( gfUndergroundTacticalTraversal )
-		{	//underground movement between sectors takes 1 minute.
+		if ( gfUndergroundTacticalTraversal )
+		{
+			//underground movement between sectors takes 1 minute.
 			pGroup->uiTraverseTime = 1;
 		}
 		else
-		{ //strategic movement between town sectors takes 5 minutes.
+		{
+			//strategic movement between town sectors takes 5 minutes.
 			pGroup->uiTraverseTime = 5;
 		}
 	}
@@ -2601,30 +2637,30 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	if ( !pGroup->fBetweenSectors )
 	{
 		// put group between sectors
-		pGroup->fBetweenSectors	= TRUE;
+		pGroup->fBetweenSectors = TRUE;
 		// and set it's arrival time
-		SetGroupArrivalTime( pGroup, GetWorldTotalMin() + pGroup->uiTraverseTime );
+		SetGroupArrivalTime( pGroup, GetWorldTotalMin( ) + pGroup->uiTraverseTime );
 	}
 	// NOTE: if the group is already between sectors, DON'T MESS WITH ITS ARRIVAL TIME!	THAT'S NOT OUR JOB HERE!!!
 
-
 	// special override for AI patrol initialization only
-	if( gfRandomizingPatrolGroup )
-	{ //We're initializing the patrol group, so randomize the enemy groups to have extremely quick and varying
+	if ( gfRandomizingPatrolGroup )
+	{
+		//We're initializing the patrol group, so randomize the enemy groups to have extremely quick and varying
 		//arrival times so that their initial positions aren't easily determined.
 		pGroup->uiTraverseTime = 1 + Random( pGroup->uiTraverseTime - 1 );
-		SetGroupArrivalTime( pGroup, GetWorldTotalMin() + pGroup->uiTraverseTime );
+		SetGroupArrivalTime( pGroup, GetWorldTotalMin( ) + pGroup->uiTraverseTime );
 	}
-	
-	if( pGroup->fVehicle == TRUE )
+
+	if ( pGroup->fVehicle == TRUE )
 	{
 		// vehicle, set fact it is between sectors too
-		if( ( iVehId = ( GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID ) ) ) != -1 )
+		if ( (iVehId = (GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID ))) != -1 )
 		{
-			pVehicleList[ iVehId ].fBetweenSectors = TRUE;
+			pVehicleList[iVehId].fBetweenSectors = TRUE;
 			pSoldier = GetSoldierStructureForVehicle( iVehId );
 
-			if( pSoldier )
+			if ( pSoldier )
 			{
 				pSoldier->flags.fBetweenSectors = TRUE;
 
@@ -2635,21 +2671,21 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	}
 
 	//Post the event!
-	if( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
+	if ( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
 		AssertMsg( 0, "Failed to add movement event." );
 
 	//For the case of player groups, we need to update the information of the soldiers.
-	if( pGroup->fPlayer )
+	if ( pGroup->fPlayer )
 	{
 		PLAYERGROUP *curr;
 
-		if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
+		if ( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 		{
 			AddStrategicEvent( EVENT_GROUP_ABOUT_TO_ARRIVE, pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY, pGroup->ubGroupID );
 		}
 
 		curr = pGroup->pPlayerList;
-		while( curr )
+		while ( curr )
 		{
 			curr->pSoldier->flags.fBetweenSectors = TRUE;
 
@@ -2658,11 +2694,12 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 
 			curr = curr->next;
 		}
-		CheckAndHandleUnloadingOfCurrentWorld();
+
+		CheckAndHandleUnloadingOfCurrentWorld( );
 
 		//If an enemy group will be crossing paths with the player group, delay the enemy group's arrival time so that
 		//the player will always encounter that group.
-		if( !pGroup->ubSectorZ )
+		if ( !pGroup->ubSectorZ )
 		{
 			DelayEnemyGroupsIfPathsCross( pGroup );
 		}
