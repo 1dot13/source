@@ -3358,10 +3358,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Leur reddition",
 	L"Votre reddition",
 	L"Parler",
-	L"Inspecter milice",
-	L"Rien",
 
-	
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"Désamorcer le piège",
     L"Vérifier le piège",
