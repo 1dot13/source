@@ -15,20 +15,6 @@
 		<allowedtile>8</allowedtile>
 		<allowedtile>9</allowedtile>
 	</STRUCTURE>
-	<STRUCTURE><!-- concertina wire -->
-		<usDeconstructItem>243</usDeconstructItem>
-		<usItemToCreate>1542</usItemToCreate>
-		<usCreatedItemStatus>1</usCreatedItemStatus>
-		<szTileSetName>spot_1.sti</szTileSetName>
-		<allowedtile>2</allowedtile>
-		<allowedtile>3</allowedtile>
-		<allowedtile>4</allowedtile>
-		<allowedtile>5</allowedtile>
-		<allowedtile>6</allowedtile>
-		<allowedtile>7</allowedtile>
-		<allowedtile>8</allowedtile>
-		<allowedtile>9</allowedtile>
-	</STRUCTURE>
 	<STRUCTURE><!-- wooden planks, small -->
 		<usDeconstructItem>1543</usDeconstructItem>
 		<usItemToCreate>1721</usItemToCreate>
