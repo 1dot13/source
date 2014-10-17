@@ -454,6 +454,9 @@ void ClearStrategicLog();
 void RecalculatePatrolWeight( INT32 iPatrolID );
 void RecalculateGarrisonWeight( INT32 iGarrisonID );
 
+extern INT8 GetTownAssociatedWithMine( INT8 bMineIndex );
+extern INT8 GetMineIndexForSector( INT16 sX, INT16 sY );
+
 
 INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinforcements );
 INT32 PatrolReinforcementsRequested( INT32 iPatrolID );
@@ -5712,81 +5715,21 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	//will cause them to avoid the sector.	Returns the number of redirected groups.
 	RedirectEnemyGroupsMovingThroughSector( (UINT8)sSectorX, (UINT8)sSectorY );
 
-	//For the purposes of a town being lost, we shall check to see if the queen wishes to investigate quickly after
-	//losing.	This is done in town sectors when the character first takes it.
-	switch( ubSectorID )
+	//For the purposes of a town being lost, we shall check to see if the queen wishes to investigate quickly after losing.
+	//This is done in town sectors when the character first takes it.
+	//Only town size greater than 1 will be investigated from other sectors of the same town
+	UINT8 ubTownId = GetTownIdForSector( sSectorX, sSectorY );
+	
+	if( ubTownId != BLANK_SECTOR && GetTownSectorSize( ubTownId ) != 1 )
 	{
-		case SEC_B13:
-		case SEC_C13:
-		case SEC_D13:
-			//Drassen
-			SectorInfo[ SEC_B13 ].ubInvestigativeState++;
-			SectorInfo[ SEC_C13 ].ubInvestigativeState++;
-			SectorInfo[ SEC_D13 ].ubInvestigativeState++;
-			break;
-		case SEC_A2:
-		case SEC_B2:
-			//Chitzena
-			SectorInfo[ SEC_A2 ].ubInvestigativeState++;
-			SectorInfo[ SEC_B2 ].ubInvestigativeState++;
-			break;
-		case SEC_G1:
-		case SEC_G2:
-		case SEC_H1:
-		case SEC_H2:
-		case SEC_H3:
-			//Grumm
-			SectorInfo[ SEC_G1 ].ubInvestigativeState++;
-			SectorInfo[ SEC_G2 ].ubInvestigativeState++;
-			SectorInfo[ SEC_H1 ].ubInvestigativeState++;
-			SectorInfo[ SEC_H2 ].ubInvestigativeState++;
-			SectorInfo[ SEC_H3 ].ubInvestigativeState++;
-			break;
-		case SEC_F8:
-		case SEC_F9:
-		case SEC_G8:
-		case SEC_G9:
-		case SEC_H8:
-			//Cambria
-			SectorInfo[ SEC_F8 ].ubInvestigativeState++;
-			SectorInfo[ SEC_F9 ].ubInvestigativeState++;
-			SectorInfo[ SEC_G8 ].ubInvestigativeState++;
-			SectorInfo[ SEC_G9 ].ubInvestigativeState++;
-			SectorInfo[ SEC_H8 ].ubInvestigativeState++;
-			break;
-		case SEC_H13:
-		case SEC_H14:
-		case SEC_I13:
-		case SEC_I14:
-			//Alma
-			SectorInfo[ SEC_H13 ].ubInvestigativeState++;
-			SectorInfo[ SEC_H14 ].ubInvestigativeState++;
-			SectorInfo[ SEC_I13 ].ubInvestigativeState++;
-			SectorInfo[ SEC_I14 ].ubInvestigativeState++;
-			break;
-		case SEC_L11:
-		case SEC_L12:
-			//Balime
-			SectorInfo[ SEC_L11 ].ubInvestigativeState++;
-			SectorInfo[ SEC_L12 ].ubInvestigativeState++;
-			break;
-		case SEC_N3:
-		case SEC_N4:
-		case SEC_N5:
-		case SEC_O3:
-		case SEC_O4:
-		case SEC_P3:
-			//Meduna
-			SectorInfo[ SEC_N3 ].ubInvestigativeState++;
-			SectorInfo[ SEC_N4 ].ubInvestigativeState++;
-			SectorInfo[ SEC_N5 ].ubInvestigativeState++;
-			SectorInfo[ SEC_O3 ].ubInvestigativeState++;
-			SectorInfo[ SEC_O4 ].ubInvestigativeState++;
-			SectorInfo[ SEC_P3 ].ubInvestigativeState++;
-			break;
-		default:
-			return;
+		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y + 1; i++ )
+		{
+			if( StrategicMap[ i ].bNameId == ubTownId )
+				SectorInfo[ STRATEGIC_INDEX_TO_SECTOR_INFO( i ) ].ubInvestigativeState++;
+		}	
 	}
+	else
+		return;
 
 	//Madd: tweaked to increase attacks for experienced and expert to 8 and 12, and unlimited for insane
 		UINT8 value9;
@@ -6080,32 +6023,18 @@ void RenderAIViewerGarrisonInfo( INT32 x, INT32 y, SECTORINFO *pSector )
 
 void StrategicHandleMineThatRanOut( UINT8 ubSectorID )
 {
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	// Queen will then have little interest in the town
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 
-	switch( ubSectorID )
+	UINT8 ubTownId = GetTownAssociatedWithMine( GetMineIndexForSector( SECTORX( ubSectorID ), SECTORY( ubSectorID ) ) );
+
+	if( ubTownId != BLANK_SECTOR )
 	{
-		case SEC_B2:
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_A2 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_B2 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			break;
-		case SEC_D13:
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_B13 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_C13 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_D13 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			break;
-		case SEC_H8:
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_F8 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_F9 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_G8 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_G9 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_H8 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			break;
-		case SEC_I14:
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_H13 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_H14 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_I13 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_I14 ].ubGarrisonID ].ubComposition ].bPriority /= 4;
-			break;
+		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y + 1; i++ )
+		{
+			if( StrategicMap[ i ].bNameId == ubTownId )
+				gArmyComp[ gGarrisonGroup[ SectorInfo[ STRATEGIC_INDEX_TO_SECTOR_INFO( i ) ].ubGarrisonID ].ubComposition ].bPriority /= 4;
+		}	
 	}
 }
 

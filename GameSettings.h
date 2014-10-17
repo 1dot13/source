@@ -2026,6 +2026,7 @@ typedef struct
 	UINT8 ubPornShopTonySectorX;
 	UINT8 ubPornShopTonySectorY;
 	UINT8 ubPornShopTonySectorZ;
+	INT32 iPornShopEntranceGridNo;
 
 	// Kyle Lemmons Leather Shop Deed Quest
 	INT32  iKyleMoneyGridNo;
@@ -2084,6 +2085,11 @@ typedef struct
 	//[Balime]
 
 	//[Meduna]
+	//Queen's new gridno instead of the map pre-placed gridno if basement sector is cleared
+	UINT8 ubQueenBasementSectorX;
+	UINT8 ubQueenBasementSectorY;
+	UINT8 ubQueenBasementSectorZ;
+	INT32 iQueenAlternateGridNo;
 
 	//[Chitzena]
 

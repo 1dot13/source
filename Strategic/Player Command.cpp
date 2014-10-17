@@ -269,17 +269,21 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				if ((bTownId != OMERTA) || (GetWorldDay() != 1))
 				{
 					ubSectorID = (UINT8)SECTOR( sMapX, sMapY );
-					if( !bMapZ && ubSectorID != SEC_J9 && ubSectorID != SEC_K4 )
+					if( !bMapZ )
 					{
 						HandleMoraleEvent( NULL, MORALE_TOWN_LIBERATED, sMapX, sMapY, bMapZ );
 
+						// single sector towns does not give global loyalty bonus
+						if( GetTownSectorSize( bTownId ) != 1 )
+						{
 #ifdef JA2UB
 //Ja25:	no loyalty
 #else
 						HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_TOWN_SECTOR, sMapX, sMapY, bMapZ );
 #endif
-						// liberation by definition requires that the place was enemy controlled in the first place
-						CheckIfEntireTownHasBeenLiberated( bTownId, sMapX, sMapY );
+						}
+					// liberation by definition requires that the place was enemy controlled in the first place
+					CheckIfEntireTownHasBeenLiberated( bTownId, sMapX, sMapY );
 					}
 				}
 			}
@@ -368,8 +372,9 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 //Ja25 No strategic ai
 #else
 
-		if( sMapX == 3 && sMapY == 16 && bMapZ == 1 )
-		{ //Basement sector (P3_b1)
+		if( sMapX == gModSettings.ubQueenBasementSectorX && sMapY == gModSettings.ubQueenBasementSectorY 
+			&& bMapZ == gModSettings.ubQueenBasementSectorZ )
+		{ //Basement sector
 			gfUseAlternateQueenPosition = TRUE;
 		}
 #endif

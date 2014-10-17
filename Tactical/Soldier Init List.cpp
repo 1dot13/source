@@ -661,7 +661,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: set quest overrides"));
 			// quest-related overrides
-			if ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C )
+			if ( gWorldSectorX == gModSettings.ubPornShopTonySectorX && gWorldSectorY == gModSettings.ubPornShopTonySectorY && gbWorldSectorZ == gModSettings.ubPornShopTonySectorZ )
 			{
 				//DBrot: More rooms
 				//UINT8	ubRoom;
@@ -673,7 +673,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					if (tempDetailedPlacement.ubProfile == NO_PROFILE)
 					{//dnl!!!
 						// these guys should be guarding Tony!
-						tempDetailedPlacement.sInsertionGridNo = 13531 +
+						tempDetailedPlacement.sInsertionGridNo = gModSettings.iPornShopEntranceGridNo +
 							(INT16) ( PreRandom( 8 ) * ( PreRandom( 1 ) ? -1 : 1)
 							+ PreRandom( 8 ) * ( PreRandom( 1 ) ? -1 : 1) * WORLD_ROWS );
 
@@ -694,7 +694,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					else if (tempDetailedPlacement.ubProfile == BILLY )
 					{//dnl!!!
 						// billy should now be able to roam around
-						tempDetailedPlacement.sInsertionGridNo = 13531 +
+						tempDetailedPlacement.sInsertionGridNo = gModSettings.iPornShopEntranceGridNo +
 							(INT16) ( PreRandom( 30 ) * ( PreRandom( 1 ) ? -1 : 1)
 							+ PreRandom( 30 ) * ( PreRandom( 1 ) ? -1 : 1) * WORLD_ROWS );
 						tempDetailedPlacement.bOrders = SEEKENEMY;
@@ -714,7 +714,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 #ifdef JA2UB
 //Ja25: no queen
 #else
-			else if ( !gfInMeanwhile && gWorldSectorX == 3 && gWorldSectorY == 16 && !gbWorldSectorZ )
+			else if ( !gfInMeanwhile && gWorldSectorX == gMercProfiles[ QUEEN ].sSectorX && gWorldSectorY == gMercProfiles[ QUEEN ].sSectorY && gbWorldSectorZ == gMercProfiles[ QUEEN ].bSectorZ )
 			{ //Special civilian setup for queen's palace.
 				if( gubFact[ FACT_QUEEN_DEAD ] )
 				{
@@ -727,7 +727,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 				{
 					if( gfUseAlternateQueenPosition && tempDetailedPlacement.ubProfile == QUEEN )
 					{
-						tempDetailedPlacement.sInsertionGridNo = 11448;//dnl!!!
+						tempDetailedPlacement.sInsertionGridNo = gModSettings.iQueenAlternateGridNo;//dnl!!!
 					}
 					if( tempDetailedPlacement.ubCivilianGroup != QUEENS_CIV_GROUP )
 					{ //The free civilians aren't added if queen is alive
@@ -746,7 +746,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					return( TRUE );
 				}
 			}
-			else if ( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0 )
+			else if ( gWorldSectorX == gMercProfiles[ DOREEN ].sSectorX && gWorldSectorY == gMercProfiles[ DOREEN ].sSectorY && gbWorldSectorZ == gMercProfiles[ DOREEN ].bSectorZ )
 			{
 				if ( CheckFact( FACT_KIDS_ARE_FREE, 0 ) )
 				{

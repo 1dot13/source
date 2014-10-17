@@ -2621,12 +2621,13 @@ void LoadModSettings(){
 
 	//[San Mona]
 	gModSettings.usPornShopRoomHans = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_HANS", 49);
-	gModSettings.iHansGridNo = iniReader.ReadInteger("San Mona", "HANS_POSTION", 13523);
+	gModSettings.iHansGridNo = iniReader.ReadInteger("San Mona", "HANS_POSITION", 13523);
 	gModSettings.usPornShopRoomBrenda = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_BRENDA", 47);
 	gModSettings.usPornShopRoomTony = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_TONY", 50);
 	gModSettings.ubPornShopTonySectorX = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_X", 5);
 	gModSettings.ubPornShopTonySectorY = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_Y", 3);
 	gModSettings.ubPornShopTonySectorZ = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_Z", 0);
+	gModSettings.iPornShopEntranceGridNo = iniReader.ReadInteger("San Mona", "PORN_SHOP_ENTRANCE_GRIDNO", 13531);
 
 	gModSettings.iKyleMoneyGridNo = iniReader.ReadInteger("San Mona", "KYLE_MONEY_POSITION", 14952);
 
@@ -2680,6 +2681,10 @@ void LoadModSettings(){
 	//[Balime]
 
 	//[Meduna]
+	gModSettings.ubQueenBasementSectorX = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_X", 3);
+	gModSettings.ubQueenBasementSectorY = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_Y", 16);
+	gModSettings.ubQueenBasementSectorZ = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_Z", 1);
+	gModSettings.iQueenAlternateGridNo = iniReader.ReadInteger("San Mona", "QUEEN_ALTERNATE_GRIDNO", 11448);
 
 	//[Chitzena]
 
