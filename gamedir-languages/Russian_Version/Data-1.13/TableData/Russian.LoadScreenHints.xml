@@ -411,7 +411,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Нажмите [G], чтобы включить и выключить искусственную подсветку ваших наемников.</szName>
+    <szName>Нажмите [CTRL]+[ALT]+[G], чтобы включить и выключить искусственную подсветку ваших наемников.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
@@ -479,7 +479,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Нажав [CTRL]+[SHIFT]+[G], вы отдадите своим наемникам приказ держать строй при передвижении (если будет выбрано больше одного наемника).</szName>
+    <szName>Нажав [G], вы отдадите своим наемникам приказ держать строй при передвижении (если будет выбрано больше одного наемника).</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>

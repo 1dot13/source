@@ -411,7 +411,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [G] to toggle on/off the artificial light around the mercs.</szName>
+    <szName>Press [CTRL]+[ALT]+[G] to toggle on/off the artificial light around the mercs.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
@@ -479,7 +479,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <szName>Press [G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>

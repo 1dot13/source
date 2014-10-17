@@ -410,7 +410,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Appuyez sur [G] pour activer/désactiver la zone éclairée autour de vos mercenaires.</szName>
+    <szName>Appuyez sur [CTRL]+[ALT]+[G] pour activer/désactiver la zone éclairée autour de vos mercenaires.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
@@ -478,7 +478,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Appuyez sur [CTRL]+[MAJ]+[G] pour (dés)activer le déplacement tactique. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
+    <szName>Appuyez sur [G] pour (dés)activer le déplacement tactique. Quand il est activé et que vous sélectionnez plusieurs mercenaires, ils garderont leur formation initiale.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>

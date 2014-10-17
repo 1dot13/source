@@ -411,7 +411,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>按 [G] 可以开关佣兵的自发光。</szName>
+    <szName>按 [CTRL]+[ALT]+[G] 可以开关佣兵的自发光。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
@@ -479,11 +479,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>按 [CTRL]+[SHIFT]+[G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
+    <szName>按 [G] 可以开关队伍行进队形功能。当功能开启时，队伍会保持当前队形行进。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>按 [CTRL]+[SHIFT]+[S]可以卖掉当前地区的所有物品。</szName>
+    <szName>按 [CTRL]+[SHIFT]+[S] 可以卖掉当前地区的所有物品。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
