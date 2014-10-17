@@ -531,7 +531,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [G] to toggle on/off the artificial light around the mercs.</szName>
+    <szName>Press [CTRL]+[ALT]+[G] to toggle on/off the artificial light around the mercs.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -616,7 +616,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <szName>Press [G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
