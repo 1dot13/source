@@ -7498,16 +7498,16 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 			// gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles (defined in OUR_TEAM_SIZE_NO_VEHICLE).
 			// As a result, this check isn't needed anymore, as the number stays fixed (it always stayed fixed, as one couldn't continue the game if one altered it, 
 			// which raises the question of why we even checked that...)
-			/*if ((cntFromFile[ idx ] > cntFromIni[ idx ]) || ((cntFromFile[ idx ] < cntFromIni[ idx ]) && (idx == OUR_TEAM)))
-			{
-				CHAR16 errorMessage[512];
-				swprintf(errorMessage, Additional113Text[1], errMsgTxt [ idx ], cntFromFile[ idx ], cntFromIni[ idx ]);
-				DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-				return FALSE;
-			}
-			else*/ if (idx != OUR_TEAM && cntFromFile[ idx ] < cntFromIni[ idx ])
+			if (idx != OUR_TEAM && cntFromFile[ idx ] < cntFromIni[ idx ])
 			{
 				needToRejigger = true;
+			}
+			else if (cntFromFile[ idx ] > cntFromIni[ idx ])
+			{
+				CHAR16 errorMessage[512];
+				swprintf(errorMessage, Additional113Text[ADDTEXT_WRONG_TEAM_SIZE], errMsgTxt [ idx ], cntFromFile[ idx ], cntFromIni[ idx ]);
+				DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+				return FALSE;
 			}
 		}
 
