@@ -1199,9 +1199,8 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt of AI by %s", TeamNameStrings[npSoldier->bTeam]);
 
 			}
-			else// pure client awarding interrupt resume //suspect it needs to be: else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
+			else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn//else// pure client awarding interrupt resume //its our turn
 			{
-				
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s", TeamNameStrings[npSoldier->bTeam]);//this can be simplified if above comment is implemented
 				//ClearIntList();
 				//hayden//may need more work.
@@ -2299,8 +2298,8 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				// INTERRUPT is calculated on the pure client
 				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
 				{																	
-					if (cGameType == MP_TYPE_COOP)
-					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
+					/*if (cGameType == MP_TYPE_COOP)
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);*/
 
 					send_interrupt( npSoldier );
 
