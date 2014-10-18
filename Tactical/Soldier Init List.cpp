@@ -1476,13 +1476,6 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 
 		if( curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM )
 		{
-			// silversurfer: Militia is not supposed to reuse tanks, especially enemy tanks that have been destroyed in combat.
-			// The player would get free tanks to drive around with. Not good...
-			// Set the SoldierClass to None so this spot is no longer considered. We do not want to put militia here because it could get stuck in the tank body.
-			if( curr->pDetailedPlacement )
-				if( curr->pDetailedPlacement->bBodyType == TANK_NE || curr->pDetailedPlacement->bBodyType == TANK_NW )
-					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_NONE;
-
 			//Matching team (kindof), now check the soldier class...
 			if( ubNumElites && curr->pBasicPlacement->ubSoldierClass == SOLDIER_CLASS_ELITE )
 			{
@@ -1507,6 +1500,16 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				curr->pBasicPlacement->bTeam = MILITIA_TEAM;
 				curr->pBasicPlacement->bOrders = STATIONARY;
 				curr->pBasicPlacement->bAttitude = (INT8) Random( MAXATTITUDES );
+				// silversurfer: Replace body type. Militia tanks are not allowed.
+				if( curr->pDetailedPlacement->bBodyType == TANK_NE || curr->pDetailedPlacement->bBodyType == TANK_NW 
+					|| curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+				{
+					curr->pBasicPlacement->bBodyType = PreRandom( REGFEMALE + 1 );
+					// check for better spot next to the tank so the militia doesn't get stuck in the tank
+					INT32 iNewSpot = FindNearestPassableSpot( curr->pBasicPlacement->usStartingGridNo );
+					if(  iNewSpot != NOWHERE)
+						curr->pBasicPlacement->usStartingGridNo = iNewSpot;
+				}
 				if( curr->pDetailedPlacement )
 				{ //delete the detailed placement information.
 					delete( curr->pDetailedPlacement );
@@ -1635,7 +1638,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 	curr = gSoldierInitHead;
 	while( curr && ubFreeSlots && ubMaxNum )
 	{
-		if( !curr->pSoldier && (curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM) && curr->pBasicPlacement->ubSoldierClass != SOLDIER_CLASS_NONE )
+		if( !curr->pSoldier && (curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM) )
 		{
 			//Randomly determine if we will use this slot; the more available slots in proportion to
 			//the number of enemies, the lower the chance of accepting the slot.
@@ -1663,6 +1666,15 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				curr->pBasicPlacement->bTeam = MILITIA_TEAM;
 				curr->pBasicPlacement->bOrders = STATIONARY;
 				curr->pBasicPlacement->bAttitude = (INT8) Random( MAXATTITUDES );
+				// silversurfer: Replace body type. Militia tanks are not allowed.
+				if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+				{
+					curr->pBasicPlacement->bBodyType = PreRandom( REGFEMALE + 1 );
+					// check for better spot next to the tank so the militia doesn't get stuck in the tank
+					INT32 iNewSpot = FindNearestPassableSpot( curr->pBasicPlacement->usStartingGridNo );
+					if(  iNewSpot != NOWHERE)
+						curr->pBasicPlacement->usStartingGridNo = iNewSpot;
+				}
 				if( curr->pDetailedPlacement )
 				{ //delete the detailed placement information.
 					delete( curr->pDetailedPlacement );

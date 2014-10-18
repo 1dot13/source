@@ -189,6 +189,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBe
 INT32 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT32 FindNearestEdgePoint( INT32 sGridNo );
+INT32 FindNearestPassableSpot( INT32 sGridNo, UINT8 usSearchRadius = 5 );
 
 //Kris:	Added these as I need specific searches on certain sides.
 enum

@@ -2907,5 +2907,40 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel
 	return DIRECTION_IRRELEVANT;
 }
 
+INT32 FindNearestPassableSpot( INT32 sGridNo, UINT8 usSearchRadius )
+{
+	INT32	sNearestSpot = NOWHERE;
+	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
+	INT32	sTestGridNo;
+	INT32	iDist, iClosestDist = 10;
 
+	// determine maximum horizontal limits
+	sMaxLeft  = min( usSearchRadius, (sGridNo % MAXCOL));
+	sMaxRight = min( usSearchRadius, MAXCOL - ((sGridNo % MAXCOL) + 1));
 
+	// determine maximum vertical limits
+	sMaxUp   = min( usSearchRadius, (sGridNo / MAXROW));
+	sMaxDown = min( usSearchRadius, MAXROW - ((sGridNo / MAXROW) + 1));
+
+	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
+	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+	{
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+		{
+			// calculate the next potential gridno
+			sTestGridNo = sGridNo + sXOffset + (MAXCOL * sYOffset);
+			// is this an empty tile (no structure on it) or is the structure passable?
+			if (gpWorldLevelData[sTestGridNo].pStructureHead == NULL || FindStructure( sTestGridNo, STRUCTURE_PASSABLE ) != NULL)
+			{
+				iDist = PythSpacesAway( sGridNo, sTestGridNo );
+				if (iDist < iClosestDist)
+				{
+					iClosestDist = iDist;
+					sNearestSpot = sTestGridNo;
+				}
+			}
+		}
+	}
+
+	return( sNearestSpot );
+}
