@@ -4470,13 +4470,21 @@ BOOLEAN CheckForImproperFireGunEnd( SOLDIERTYPE *pSoldier )
 
 	//dnl ch72 260913
 	OBJECTTYPE *pObjHand;
+	BOOLEAN outOfAmmo;
+
 	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)
 		pObjHand = FindAttachment_GrenadeLauncher(&pSoldier->inv[HANDPOS]);
 	else
 		pObjHand = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
 
+	// Extracted from EnoughAmmo() to avoid double calculation of pObjHand
+	if (Item[ pObjHand->usItem ].usItemClass & IC_LAUNCHER)
+		outOfAmmo = (FindAttachmentByClass( pObjHand, IC_GRENADE ) == NULL && FindAttachmentByClass( pObjHand, IC_BOMB ) == NULL);
+	else
+		outOfAmmo = (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0;
+
 	// Check single hand for jammed status, ( or ammo is out.. )
-	if ( (*pObjHand)[0]->data.gun.bGunAmmoStatus < 0 || (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0 )
+	if ( (*pObjHand)[0]->data.gun.bGunAmmoStatus < 0 || outOfAmmo )
 	{
 		// If we have 2 pistols, donot go back!
 		if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass != IC_GUN )
