@@ -620,19 +620,17 @@ void InitBobbyRayInventory()
 
 BOOLEAN InitBobbyRayNewInventory()
 {
-	UINT16	i;
 	UINT16	usBobbyrIndex = 0;
-
 
 	memset( LaptopSaveInfo.BobbyRayInventory, 0, sizeof(STORE_INVENTORY) * MAXITEMS);
 
 	// add all the NEW items he can ever sell into his possible inventory list, for now in order by item #
-	for( i = 0; i < MAXITEMS; i++ )
+	for( UINT16 i = 0; i < MAXITEMS; ++i )
 	{
 		//if Bobby Ray sells this, it can be sold, and it's allowed into this game (some depend on e.g. gun-nut option)
 //		if( ( StoreInventory[ i ][ BOBBY_RAY_NEW ] != 0) && !( Item[ i ].fFlags & ITEM_NOT_BUYABLE ) && ItemIsLegal( i ) )
 		LaptopSaveInfo.BobbyRayInventory[ usBobbyrIndex ].usItemIndex = i;
-		usBobbyrIndex++;
+		++usBobbyrIndex;
 	}
 
 	if ( usBobbyrIndex > 1 )
@@ -640,7 +638,6 @@ BOOLEAN InitBobbyRayNewInventory()
 		// sort this list by object category, and by ascending price within each category
 		qsort( LaptopSaveInfo.BobbyRayInventory, usBobbyrIndex, sizeof( STORE_INVENTORY ), BobbyRayItemQsortCompare );
 	}
-
 
 	// remember how many entries in the list are valid
 	LaptopSaveInfo.usInventoryListLength[ BOBBY_RAY_NEW ] = usBobbyrIndex;
@@ -653,14 +650,13 @@ BOOLEAN InitBobbyRayNewInventory()
 
 BOOLEAN InitBobbyRayUsedInventory()
 {
-	UINT16	i;
 	UINT16	usBobbyrIndex = 0;
 
 
 	memset( LaptopSaveInfo.BobbyRayUsedInventory, 0, sizeof(STORE_INVENTORY) * MAXITEMS);
 
 	// add all the NEW items he can ever sell into his possible inventory list, for now in order by item #
-	for( i = 0; i < MAXITEMS; i++ )
+	for( UINT16 i = 0; i < MAXITEMS; ++i )
 	{
 		//if Bobby Ray sells this, it can be sold, and it's allowed into this game (some depend on e.g. gun-nut option)
 //		if( ( StoreInventory[ i ][ BOBBY_RAY_USED ] != 0) && !( Item[ i ].fFlags & ITEM_NOT_BUYABLE ) && ItemIsLegal( i ) )
@@ -668,7 +664,7 @@ BOOLEAN InitBobbyRayUsedInventory()
 		if ( CanDealerItemBeSoldUsed( i ) )
 		{
 			LaptopSaveInfo.BobbyRayUsedInventory[ usBobbyrIndex ].usItemIndex = i;
-			usBobbyrIndex++;
+			++usBobbyrIndex;
 		}
 	}
 
@@ -700,7 +696,7 @@ void DailyUpdateOfBobbyRaysNewInventory()
 	SimulateBobbyRayCustomer(LaptopSaveInfo.BobbyRayInventory, BOBBY_RAY_NEW);
 
 	//loop through all items BR can stock to see what needs reordering
-	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[BOBBY_RAY_NEW]; i++)
+	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[BOBBY_RAY_NEW]; ++i)
 	{
 		// the index is NOT the item #, get that from the table
 		usItemIndex = LaptopSaveInfo.BobbyRayInventory[ i ].usItemIndex;
@@ -951,13 +947,11 @@ void SimulateBobbyRayCustomer(STORE_INVENTORY *pInventoryArray, BOOLEAN fUsed)
 
 void CancelAllPendingBRPurchaseOrders(void)
 {
-	INT16 i;
-
 	// remove all the BR-Order events off the event queue
 	DeleteAllStrategicEventsOfType( EVENT_UPDATE_BOBBY_RAY_INVENTORY );
 
 	// zero out all the quantities on order
-	for(i = 0; i < MAXITEMS; i++)
+	for( UINT16 i = 0; i < MAXITEMS; ++i)
 	{
 		LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder = 0;
 		LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder = 0;
@@ -967,11 +961,3 @@ void CancelAllPendingBRPurchaseOrders(void)
 	DailyUpdateOfBobbyRaysNewInventory();
 	DailyUpdateOfBobbyRaysUsedInventory();
 }
-
-
-
-
-
-
-
-

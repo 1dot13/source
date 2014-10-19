@@ -2519,7 +2519,7 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilte
 	gubCurPage = 0;
 
 	//First loop through to get the first and last index indexs
-	for(i=0; i<MAXITEMS; i++)
+	for(i=0; i<MAXITEMS; ++i)
 	{
 		//If we have some of the inventory on hand
 		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand != 0 )
@@ -2614,7 +2614,7 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilte
 //Loops through Bobby Rays Used Inventory to find the first and last index 
 void SetFirstLastPagesForUsed(INT32 iFilter)
 {
-	UINT16 i;
+	UINT16  i;
 	INT16	sFirst = -1;
 	INT16	sLast = -1;
 	UINT16	ubNumItems=0;
@@ -2623,9 +2623,8 @@ void SetFirstLastPagesForUsed(INT32 iFilter)
 	gubCurPage = 0;
 	BOOLEAN bCntNumItems = FALSE;
 
-
 	//First loop through to get the first and last index indexs
-	for(i=0; i<MAXITEMS; i++)
+	for(i=0; i<MAXITEMS; ++i)
 	{
 		//If we have some of the inventory on hand
 		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnHand != 0 )
@@ -3594,19 +3593,12 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 
 BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType)
 {
-	// usItemIndex == Ammo
-
 	BOOLEAN bRetValue = FALSE;
-
-	UINT32	i;
-
-	for (i = 0; i < MAXITEMS; i++)
+	
+	for ( UINT32 i = 0; i < gMAXITEMS_READ; ++i )
 	{
 		if (Item[i].usItemClass != IC_GUN )
 			continue;
-
-		if (Item[i].usItemClass == 0)
-			break; // out of items
 
 		// We found the Weapon that uses this Ammo
 		if (Magazine[ Item[ usItemIndex ].ubClassIndex ].ubCalibre == Weapon[i].ubCalibre)

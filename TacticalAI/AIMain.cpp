@@ -1573,18 +1573,15 @@ void AIDecideRadioAnimation( SOLDIERTYPE *pSoldier )
 
 UINT32 GetTankCannonIndex()
 {
-	UINT32 tankCannonIndex = 0;
-
-	for (UINT32 i = 0; i < MAXITEMS; i++)
+	for ( UINT32 i = 0; i < gMAXITEMS_READ; ++i )
 	{
 		if (Item[i].cannon)
 		{
-			tankCannonIndex = Item[i].uiIndex;
-			break;
+			return Item[i].uiIndex;
 		}
 	}
 
-	return tankCannonIndex;
+	return 0;
 }
 
 

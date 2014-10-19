@@ -971,15 +971,12 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 
 void LoadAllItemNames( void )
 {
-	UINT16 usLoop;
-
-	for (usLoop = 0; usLoop < MAXITEMS; usLoop++)
+	for ( UINT16 usLoop = 0; usLoop < gMAXITEMS_READ; ++usLoop )
 	{
 		LoadItemInfo( usLoop, ItemNames[usLoop], NULL );
 
 		// Load short item info
 		LoadShortNameItemInfo( usLoop, ShortItemNames[usLoop] );
-
 	}
 }
 

@@ -2054,10 +2054,10 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		// was temporay used to get #items in file, now count what actually is added
 		fNumTotal = 0;
 		// now run through list and copy reference
-		for(UINT32 i = 0; i < fWorldItems.size(); i++ )
+		for(UINT32 i = 0; i < fWorldItems.size(); ++i )
 		{
 			// TEST!!  If the item exists, and is NOT VALID, report it
-			if( fWorldItems[i].fExists &&  fWorldItems[ i ].object.usItem > MAXITEMS )
+			if( fWorldItems[i].fExists &&  fWorldItems[ i ].object.usItem > gMAXITEMS_READ )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"The %d item in the list is NOT valid (ID%d). Please send save.  DF 1.", i, fWorldItems[i].object.usItem );
 			}
@@ -4744,7 +4744,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 	while (ammoPresent && loopCount <= 10 )
 	{
 		// Start scanning through the entire Sector Inventory pool.
-		for(UINT32 iInvCounter = 0; iInvCounter < uiOrigInvSize; iInvCounter++)
+		for(UINT32 iInvCounter = 0; iInvCounter < uiOrigInvSize; ++iInvCounter)
 		{
 			// Set values
 			crateItem = 0;
@@ -4770,7 +4770,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 				// as possible into crates. 
 
 				// Look through all items in the game to try and find an ammocrate that can contain this kind of ammo.
-				for(int iCrateLoop = 0; iCrateLoop < MAXITEMS; iCrateLoop++)
+				for ( int iCrateLoop = 0; iCrateLoop < gMAXITEMS_READ; ++iCrateLoop )
 				{
 					// Is it the right ammo crate?
 					if( Item[iCrateLoop].usItemClass == IC_AMMO &&
@@ -4788,7 +4788,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 				if(crateItem != 0)
 				{
 					// Excellent. Let see if a crate like this already exists in the Sector Inventory.
-					for(UINT32 iInvCounter2=0; iInvCounter2 < pInventoryPoolList.size(); iInvCounter2++)
+					for(UINT32 iInvCounter2=0; iInvCounter2 < pInventoryPoolList.size(); ++iInvCounter2)
 					{
 						// Non-empty slots please...
 						if(pInventoryPoolList[iInvCounter2].object.exists() == true)

@@ -38,6 +38,9 @@
 	#include "store inventory.h"
 #endif
 
+// Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
+UINT32 gMAXITEMS_READ = 0;
+
 struct
 {
 	PARSE_STAGE	curElement;
@@ -381,6 +384,9 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 					InheritStanceModifiers( pData );
 
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
+
+					// Flugente: new item -> read items increase
+					gMAXITEMS_READ = pData->curItem.uiIndex;
 				}
 				else if ( sizeof(pData->curItem.szItemName)>0 && localizedTextOnly )
 				{
@@ -1477,10 +1483,10 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 				pData->curItem.usItemFlag |= DISEASEPROTECTION_HAND;
 		}
 										
-		pData->maxReadDepth--;
+		--pData->maxReadDepth;
 	}
 
-	pData->currentDepth--;
+	--pData->currentDepth;
 }
 
 
@@ -1519,18 +1525,15 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 	lpcBuffer[uiFSize] = 0; //add a null terminator
 
 	FileClose( hFile );
-
 	
 	XML_SetElementHandler(parser, itemStartElementHandle, itemEndElementHandle);
 	XML_SetCharacterDataHandler(parser, itemCharacterDataHandle);
-
 	
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = Item;
 	pData.maxArraySize = MAXITEMS; 
 	
 	XML_SetUserData(parser, &pData);
-
 
     if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
@@ -1542,20 +1545,13 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 		MemFree(lpcBuffer);
 		return FALSE;
 	}
+	
+	// item read was x -> x+1 items
+	++gMAXITEMS_READ;
 
 	MemFree(lpcBuffer);
 
-
 	XML_ParserFree(parser);
-
-
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("done reading item stats"));
-	//CHAR16	str[512];
-	//for (int i = 0; i < MAXITEMS; i++)
-	//{
-	//	swprintf(str, Item[i].szLongItemName);
-	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ReadInItemStats: long item name: %s", str));
-	//}
 
 	return( TRUE );
 }
@@ -1576,7 +1572,7 @@ BOOLEAN WriteItemStats()
 		CHAR16 strDesc[500];
 
 		FilePrintf(hFile,"<ITEMLIST>\r\n");
-		for(cnt = 0;cnt < 351;cnt++)//just do the old limit for now
+		for(cnt = 0;cnt < 351; ++cnt)//just do the old limit for now
 		{
 			LoadShortNameItemInfo( (UINT16)cnt, str );
 

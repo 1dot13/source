@@ -305,41 +305,35 @@ extern FLOAT Distance2D( FLOAT dDeltaX, FLOAT dDeltaY );
 // Flugente:  toggle display of enemy role indicators
 BOOLEAN gDisplayEnemyRoles = TRUE;
 
+#define SCSTI ".STI"
+#define SCSTI_IMP "_IMP.STI"
+
 BOOLEAN InitializeFaceGearGraphics()
 {
 	VOBJECT_DESC	VObjectDesc;
 
 	char fileName[500];
 
-	for(UINT32 iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
-	{
-		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
-
-		#define SCSTI ".STI"
-		
+	for ( UINT32 iCounter2 = 1; iCounter2 < gMAXITEMS_READ; ++iCounter2 )
+	{		
 		if ( zNewFaceGear[iCounter2].Type > 0 )
 		{
-			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-			strcat(fileName, SCSTI);
-			strcpy(VObjectDesc.ImageFile, fileName);
-			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
+			{
+				VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;
+				strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+				strcat(fileName, SCSTI);
+				strcpy(VObjectDesc.ImageFile, fileName);
+				CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
+			}
 
-		}
-	}
-	
-	for(UINT32 iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
-	{
-		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
-		
-		#define SCSTI_IMP "_IMP.STI"
-		
-		if ( zNewFaceGear[iCounter2].Type > 0 )
-		{
 			//IMP
-			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-			strcat(fileName, SCSTI_IMP);
-			strcpy(VObjectDesc.ImageFile, fileName);
-			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
+			{
+				VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;
+				strcpy( fileName, zNewFaceGear[iCounter2].szFile );
+				strcat( fileName, SCSTI_IMP );
+				strcpy( VObjectDesc.ImageFile, fileName );
+				CHECKF( AddVideoObject( &VObjectDesc, &zNewFaceGearIMP[iCounter2].uiIndex ) );
+			}
 		}
 	}
 
@@ -561,40 +555,6 @@ BOOLEAN InitializeTacticalInterface(	)
 	InitializeTacticalPortraits();
 
 	InitializeFaceGearGraphics();
-	
-	/*
-	for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
-	{
-		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
-
-		#define SCSTI ".STI"
-		
-		if ( zNewFaceGear[iCounter2].Type > 0 )
-		{
-			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-			strcat(fileName, SCSTI);
-			strcpy(VObjectDesc.ImageFile, fileName);
-			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
-
-		}
-	}
-	
-	for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
-	{
-		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
-		
-		#define SCSTI_IMP "_IMP.STI"
-		
-		if ( zNewFaceGear[iCounter2].Type > 0 )
-		{
-			//IMP
-			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-			strcat(fileName, SCSTI_IMP);
-			strcpy(VObjectDesc.ImageFile, fileName);
-			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
-		}
-	}
-	*/
 	
 	// LOAD RADIO
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;

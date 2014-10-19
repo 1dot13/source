@@ -1647,15 +1647,15 @@ void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 		{
 			if ( fDirtyLevel == DIRTYLEVEL2 )
 			{
-#       if defined( _DEBUG ) /* Sergeant_Kolja, to be removed later again */
-			if( pSoldier->inv[ cnt ][0]->data.gun.ubGunAmmoType >= MAXITEMS )
-        {
-         	DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("pObject (%S) corrupted! GetHelpTextForItem() can crash.", (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : L"???" ));
-    	    ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"pObject (%s) corrupted! GetHelpTextForItem() can crash.",    (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : L"???" );
-          DebugBreak();
-          AssertMsg( 0, "pObject corrupted! GetHelpTextForItem() can crash." );
-        }
-#       endif
+#if defined( _DEBUG ) /* Sergeant_Kolja, to be removed later again */
+				if ( pSoldier->inv[cnt][0]->data.gun.ubGunAmmoType >= gMAXITEMS_READ )
+				{
+					DebugMsg( TOPIC_JA2, DBG_LEVEL_1, String( "pObject (%S) corrupted! GetHelpTextForItem() can crash.",	(pSoldier->inv[cnt].usItem<gMAXITEMS_READ) ? Item[pSoldier->inv[cnt].usItem].szItemName : L"???" ) );
+					ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"pObject (%s) corrupted! GetHelpTextForItem() can crash.",			(pSoldier->inv[cnt].usItem<gMAXITEMS_READ) ? Item[pSoldier->inv[cnt].usItem].szItemName : L"???" );
+					DebugBreak();
+					AssertMsg( 0, "pObject corrupted! GetHelpTextForItem() can crash." );
+				}
+#endif
 
 				GetHelpTextForItem( pStr, &( pSoldier->inv[ cnt ] ), pSoldier );
 
@@ -2227,14 +2227,16 @@ void addFaceGearToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popu
 }
 
 
-void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
-
+void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup )
+{
 	// get the guns on current soldier
 	std::vector<OBJECTTYPE *> * guns = getSoldierGuns(pSoldier);
 
 	if( guns != NULL && guns->size() > 0)
 	{
 		INT16 lbePocket = pocketTypeInSlot(pSoldier, sPocket);
+
+		UINT32 poolsize = pInventoryPoolList.size( );
 		
 		for(std::vector<OBJECTTYPE*>::iterator gun=guns->begin(); gun != guns->end(); ++gun)
 		{
@@ -2245,16 +2247,16 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 			//o->color_background = COLOR_LTGREY;
 					
 			//find the ammo item we want to try and create
-			for(UINT32 loop = 0; loop < MAXITEMS; loop++)
+			for ( UINT32 loop = 0; loop < gMAXITEMS_READ; ++loop )
 			{
-				if(Item[loop].usItemClass == IC_AMMO)
+				if(Item[loop].usItemClass & IC_AMMO)
 				{
 					if(		Magazine[Item[loop].ubClassIndex].ubCalibre == Weapon[ (*gun)->usItem ].ubCalibre 
 						&&	Magazine[Item[loop].ubClassIndex].ubMagSize == GetMagSize((*gun)) 
 						&&	( lbePocket == -1 || LBEPocketType[lbePocket].ItemCapacityPerSize[ Item[loop].ItemSize ] > 0 )  )
-					{ // found ammo for gun, look for its ammo crate in sector.
-												
-						for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+					{
+						// found ammo for gun, look for its ammo crate in sector.
+						for ( UINT16 i = 0; i < poolsize; ++i )
 						{	// TODO: index ammo crates in sector, don't loop over entire inventory for each mag/gun
 
 							if(		Item[ pInventoryPoolList[i].object.usItem ].usItemClass == IC_AMMO	// really looking at ammo? Class indexes also exist for other item classes!
@@ -2265,10 +2267,11 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 									==	Magazine[ Item[loop].ubClassIndex ].ubCalibre 							//	as the mag we found?
 							) 
 							{	
-								ammoFound++;
+								++ammoFound;
 								UINT8 capacity = 0;
 
-								if( lbePocket != -1 ){
+								if( lbePocket != -1 )
+								{
 									UINT16 ammoLeft = pInventoryPoolList[i].object.objectStack.begin()->data.ubShotsLeft;
 									UINT16 magSize = Magazine[ Item[loop].ubClassIndex ].ubMagSize;
 
@@ -2276,9 +2279,12 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 										
 									capacity = min( maxPerPocket, UINT8(ammoLeft/magSize) );
 								}
-								else if( CanItemFitInPosition(pSoldier, &pInventoryPoolList[i].object, sPocket, FALSE) ){
+								else if( CanItemFitInPosition(pSoldier, &pInventoryPoolList[i].object, sPocket, FALSE) )
+								{
 									capacity = 1;
-								} else {
+								}
+								else
+								{
 									continue;
 								}
 										
@@ -2307,7 +2313,6 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 		POPUP_OPTION * o = popup->addOption( &std::wstring( gszPocketPopupText[POCKET_POPUP_NO_GUNS] ), NULL );
 		o->color_shade = COLOR_RED;
 	}
-
 }
 
 POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
@@ -2505,8 +2510,10 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	// CHRISL: Only run if we're looking at a legitimate pocket
 	if((UsingNewInventorySystem() == false) && !oldInv[sPocket])
 		return;
+
 	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
 		return;
+
 	INT16 sX, sY, newX, newY;
 	INT16	sBarX, sBarY;
 	OBJECTTYPE  *pObject;
@@ -2516,7 +2523,6 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	BOOLEAN fHatchItOut = FALSE;
 	UINT32		iClass;
 
-
 	//Assign the screen
 	guiCurrentItemDescriptionScreen = guiCurrentScreen;
 
@@ -2525,7 +2531,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	sX = gSMInvData[ sPocket ].sX;
 	sY = gSMInvData[ sPocket ].sY;
 
-	if((UsingNewInventorySystem() == true) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+	if ( UsingNewInventorySystem() && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
 		// If sPocket is not an equiped pocket, gather pocket information
 		if(icClass[sPocket] != ITEM_NOT_FOUND)
@@ -2536,29 +2542,35 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 				case VEST_PACK:
 				case COMBAT_PACK:
 				case BACKPACK:
-					 
-						if(pSoldier->inv[icLBE[sPocket]].exists() == false){
-							lbePocket =	LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
-						}else{
-							lbePocket = LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
-							if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[sPocket])){
-								lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[sPocket]], icPocket[sPocket]);
-							}
-						}
-					iClass = Item[pSoldier->inv[sPocket].usItem].usItemClass;
-					if(icLBE[sPocket] == BPACKPOCKPOS && !(pSoldier->flags.ZipperFlag) && (gTacticalStatus.uiFlags & INCOMBAT))
+
+					if ( icLBE[sPocket] == BPACKPOCKPOS && !(pSoldier->flags.ZipperFlag) && (gTacticalStatus.uiFlags & INCOMBAT) )
 						lbePocket = 0;
+					else if( !pSoldier->inv[icLBE[sPocket]].exists() )
+					{
+						lbePocket =	LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+					}
+					else
+					{
+						lbePocket = LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+						if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[sPocket]))
+						{
+							lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[sPocket]], icPocket[sPocket]);
+						}
+					}
+
+					iClass = Item[pSoldier->inv[sPocket].usItem].usItemClass;
+					
 					if (lbePocket == 0)	// Deactivate Pocket
 					{
 						fHatchItOut = TRUE;
 					}
-					else if ( pObject->exists() == false )	// Nothing in sPocket.  Display silouhette.
+					else if ( !pObject->exists() )	// Nothing in sPocket.  Display silouhette.
 					{
 						INVRenderSilhouette( guiSAVEBUFFER, lbePocket, 0, sX, sY, gSMInvData[ sPocket ].sWidth, gSMInvData[ sPocket ].sHeight);
 					}
 					break;
 				case LBE_POCKET:
-					if ( pObject->exists() == false )
+					if ( !pObject->exists() )
 					{
 						if ( sPocket == VESTPOCKPOS )
 							lbePocket = 0;
@@ -2574,14 +2586,13 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 							INVRenderSilhouette( guiSAVEBUFFER, ITEM_NOT_FOUND, lbePocket, sX, sY, gSMInvData[ sPocket ].sWidth, gSMInvData[ sPocket ].sHeight);
 					}
 					// Removed backpack/gunsling restrictions
-					if ( CheckActivationStatus(pSoldier, CPACKPOCKPOS, BPACKPOCKPOS, sPocket)/* ||
-						(sPocket == BPACKPOCKPOS && pSoldier->inv[GUNSLINGPOCKPOS].exists() == true)*/)
+					if ( CheckActivationStatus(pSoldier, CPACKPOCKPOS, BPACKPOCKPOS, sPocket) )
 					{
 						fHatchItOut = TRUE;
 					}
 					break;
 				case OTHER_POCKET:
-					if ( pObject->exists() == false )
+					if ( !pObject->exists() )
 					{
 						if ( sPocket == GUNSLINGPOCKPOS ) // Gun Sling
 							lbePocket = 1;
@@ -2591,10 +2602,10 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 					}
 					break;
 				default:
-					if ( pObject->exists() == false )
+					/*if ( pObject->exists() == false )
 					{
 						// Display appropriate silouhette
-					}
+					}*/
 					break;
 			}
 		}
@@ -2642,21 +2653,20 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 		}
 
 		// IF it's the second hand and this hand cannot contain anything, remove the second hand position graphic
-//		if (sPocket == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].fFlags & ITEM_TWO_HANDED)
 		if (sPocket == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].twohanded )
 		{
 			// CHRISL: Change coords for STI that covers 2nd hand location when carrying a 2handed weapon
 			if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
 			{
-				newX = ((UsingNewInventorySystem() == false)) ? (xResOffset + 217) : ((SCREEN_WIDTH - xResSize)/2 + 114);
-				newY = ((UsingNewInventorySystem() == false)) ? sY : (sY - 1);
+				newX = !UsingNewInventorySystem() ? (xResOffset + 217) : ((SCREEN_WIDTH - xResSize)/2 + 114);
+				newY = !UsingNewInventorySystem() ? sY : (sY - 1);
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiSecItemHiddenVO, UsingNewInventorySystem(), newX, newY, VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( newX, newY, 72, 28 );
 			}
 			else
 			{	
-				newX = ((UsingNewInventorySystem() == false)) ? (14 + xResOffset) : (6 + xResOffset);
-				newY = ((UsingNewInventorySystem() == false)) ? (218 + yResOffset) : (217 + yResOffset);
+				newX = !UsingNewInventorySystem( ) ? (14 + xResOffset) : (6 + xResOffset);
+				newY = !UsingNewInventorySystem( ) ? (218 + yResOffset) : (217 + yResOffset);
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiMapInvSecondHandBlockout, UsingNewInventorySystem(), newX, newY, VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( newX, newY, 102, 24 );
 			}
@@ -2675,43 +2685,55 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	}
 
 	//Now render as normal
-	//INVRenderItem( guiSAVEBUFFER, pObject, (INT16)(sX + gSMInvData[ sPocket ].sSubX), (INT16)(sY + gSMInvData[ sPocket ].sSubY), gSMInvData[ sPocket ].sWidth, gSMInvData[ sPocket ].sHeight, fDirtyLevel, &(gfSM_HandInvDispText[ sPocket ] ) );
 	INVRenderItem( guiSAVEBUFFER, pSoldier, pObject, sX, sY, gSMInvData[ sPocket ].sWidth, gSMInvData[ sPocket ].sHeight, fRenderDirtyLevel, NULL, 0, fOutline, sOutlineColor );
+	
+	// Flugente: decide whether we want to draw a hatch on the object. The old code was inefficient, as we did a number of costly checks and later decided differently regardless
+	// We thus change the order of the statements
 
-	// CHRISL: Display pocket capacity if we're holding something in the cursor
-	if (!gfSMDisableForItems && (UsingNewInventorySystem() == true) && gpItemPointer != NULL)
+	//if we are in the shop keeper interface
+	if ( (guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && !gbInvalidPlacementSlot[sPocket] && ShouldSoldierDisplayHatchOnItem( pSoldier->ubProfile, sPocket ) )
 	{
-		UINT8 itemSlotLimit = ItemSlotLimit(gpItemPointer, sPocket, pSoldier);
-		RenderPocketItemCapacity( guiSAVEBUFFER, itemSlotLimit, sPocket, pSoldier, &pSoldier->inv[sPocket], sX, sY );
-		if(itemSlotLimit == 0 && !CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)sPocket, FALSE)) {
-			fHatchItOut = TRUE;
-		}
+		fHatchItOut = TRUE;
 	}
-
-	// CHRISL: Change whether we hatch a pocket to be dependant on the current item
-	if(gpItemPointer != NULL)
+	// CHRISL: Don't hatch second hand position if we're holding a two handed item
+	else if ( sPocket == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].twohanded )
 	{
-		if(!gfSMDisableForItems && !CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)sPocket, FALSE)){
-			if((UsingNewAttachmentSystem()==false && !ValidAttachment(gpItemPointer->usItem, pObject )) ||
-				(UsingNewAttachmentSystem()==true && !ValidItemAttachmentSlot(pObject, gpItemPointer->usItem, FALSE, FALSE))){
+		fHatchItOut = FALSE;
+	}
+	else if ( !gfSMDisableForItems )
+	{
+		if ( gpItemPointer != NULL && !CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)sPocket, FALSE ) )
+		{
+			// CHRISL: Display pocket capacity if we're holding something in the cursor
+			if ( UsingNewInventorySystem( ) )
+			{
+				UINT8 itemSlotLimit = ItemSlotLimit( gpItemPointer, sPocket, pSoldier );
+				RenderPocketItemCapacity( guiSAVEBUFFER, itemSlotLimit, sPocket, pSoldier, &pSoldier->inv[sPocket], sX, sY );
+
+				if ( itemSlotLimit == 0 )
+				{
+					fHatchItOut = TRUE;
+				}
+			}
+
+			// CHRISL: Change whether we hatch a pocket to be dependant on the current item
+			if ( (!UsingNewAttachmentSystem( ) && !ValidAttachment( gpItemPointer->usItem, pObject )) ||
+				 (UsingNewAttachmentSystem( ) && !ValidItemAttachmentSlot( pObject, gpItemPointer->usItem, FALSE, FALSE )) )
+			{
 				fHatchItOut = TRUE;
 			}
-			else{
+			else
+			{
 				fHatchItOut = FALSE;
 			}
 		}
+		else if ( pObject->exists( ) )
+		{
+			if ( !CanItemFitInPosition( pSoldier, pObject, (INT8)sPocket, FALSE ) )
+				fHatchItOut = TRUE;
+		}
 	}
-	else if(pObject->exists() == true)
-	{
-		if(!gfSMDisableForItems && !CanItemFitInPosition(pSoldier, pObject, (INT8)sPocket, FALSE))
-			fHatchItOut = TRUE;
-	}
-	// CHRISL: Don't hatch second hand position if we're holding a two handed item
-	if(sPocket == SECONDHANDPOS)
-	{
-		if(Item[pSoldier->inv[HANDPOS].usItem].twohanded)
-			fHatchItOut = FALSE;
-	}
+		
 #if 0
 	if ( gbInvalidPlacementSlot[ sPocket ] )
 	{
@@ -2726,15 +2748,6 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	}
 #endif
 
-	//if we are in the shop keeper interface
-	if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
-	{
-		if( ShouldSoldierDisplayHatchOnItem( pSoldier->ubProfile, sPocket ) && !gbInvalidPlacementSlot[ sPocket ] )
-		{
-			fHatchItOut = TRUE;
-		}
-	}
-
 	if ( fHatchItOut )
 	{
 		UINT32 uiWhichBuffer = ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) ? guiSAVEBUFFER : guiRENDERBUFFER;
@@ -2742,14 +2755,13 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	}
 
 	// if there's an item in there
-	if ( pObject->exists() == true )
+	if ( pObject->exists() )
 	{
 		// Add item status bar
 		sBarX = sX - gSMInvData[ sPocket ].sBarDx;
 		sBarY = sY + gSMInvData[ sPocket ].sBarDy;
 		DrawItemUIBarEx( pObject, 0, sBarX, sBarY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT,	Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER);
 	}
-
 }
 
 
@@ -2783,11 +2795,11 @@ BOOLEAN	CompatibleItemForApplyingOnMerc( OBJECTTYPE *pTestObject )
 {
 	UINT16 usItem = pTestObject->usItem;
 
-  // ATE: If in mapscreen, return false always....
+	// ATE: If in mapscreen, return false always....
 	if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
-  {
-     return( FALSE );
-  }
+	{
+		return( FALSE );
+	}
 
 	// ATE: Would be nice to have flag here to check for these types....
 	if ( Item[usItem].camouflagekit || usItem == ADRENALINE_BOOSTER || usItem == REGEN_BOOSTER ||
@@ -2796,10 +2808,8 @@ BOOLEAN	CompatibleItemForApplyingOnMerc( OBJECTTYPE *pTestObject )
 	{
 		return( TRUE );
 	}
-	else
-	{
-		return( FALSE );
-	}
+	
+	return( FALSE );
 }
 
 
@@ -2852,7 +2862,7 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 		return;
 	}
 
-	for( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounter++ )
+	for( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++iCounter )
 	{
 		if(  Squad[ iCurrentTacticalSquad ][ iCounter ] != NULL )
 		{
@@ -2870,7 +2880,6 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 			}
 		}
 	}
-
 }
 
 BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl ch76 091113
@@ -2880,7 +2889,7 @@ BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//
 	{
 		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem || Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem)
 			return(TRUE);
-		uiLoop++;
+		++uiLoop;
 	}
 	return(FALSE);
 }
@@ -2926,10 +2935,8 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 				// IT's an OK calibere ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
-
 			}
 		}
-
 
 		if ( gpItemPointer != NULL )
 		{
@@ -3002,7 +3009,6 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 		}
 	}
 
-
 	if ( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
 		UINT32 invsize = pSoldier->inv.size();
@@ -3044,8 +3050,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 			}
 		}
 	}
-
-
+	
 	return( fFound );
 }
 
@@ -3075,7 +3080,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 	}
 
 	// First test attachments, which almost any type of item can have....
-	for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; cnt++ )
+	for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt )
 	{
 		pObject = &( pInventoryPoolList[ iStartSlotNumber + cnt ].object );
 
@@ -3110,7 +3115,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 
 	if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
-		for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; cnt++ )
+		for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt )
 		{
 			pObject = &( pInventoryPoolList[ iStartSlotNumber + cnt ].object );
 
@@ -3129,7 +3134,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 	}
 	else if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 	{
-		for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; cnt++ )
+		for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt )
 		{
 			pObject = &( pInventoryPoolList[ iStartSlotNumber + cnt ].object );
 
@@ -3143,11 +3148,9 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 				// IT's an OK calibere ammo, do something!
 				// Render Item with specific color
 				fMapInventoryItemCompatable[ cnt ] = fOn;
-
 			}
 		}
 	}
-
 
 	return( fFound );
 }
@@ -3155,10 +3158,10 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 
 BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTestObject, BOOLEAN fOn  )
 {
-	BOOLEAN			fFound = FALSE;
-	UINT32				cnt;
+	BOOLEAN		fFound = FALSE;
+	UINT32		cnt;
 	OBJECTTYPE  *pObject;
-	BOOLEAN			fFoundAttachment = FALSE;
+	BOOLEAN		fFoundAttachment = FALSE;
 
 	//Moa 09/26/2013: this is a hack to avoid frequent recalc and rerender of screen when mouse is over an item, its less work and less error prone then rewriting several functions (various mousecallbacks, >4 renderfunctions and probalby some others too)
 	static OBJECTTYPE* previousObject = NULL;
@@ -3198,10 +3201,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 				// IT's an OK calibere ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
-
 			}
 		}
-
 
 		if ( gpItemPointer != NULL )
 		{
@@ -3272,7 +3273,6 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 	//{
 		if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 		{
-			UINT32 invsize = pSoldier->inv.size();
 			for ( cnt = 0; cnt < invsize; ++cnt )
 			{
 				pObject = &(pSoldier->inv[ cnt ]);
@@ -3290,10 +3290,8 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 				}
 			}
 		}
-
 		else if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 		{
-			UINT32 invsize = pSoldier->inv.size();
 			for ( cnt = 0; cnt < invsize; ++cnt )
 			{
 				pObject = &(pSoldier->inv[ cnt ]);
@@ -3312,10 +3310,10 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 				}
 			}
 		}
-		else if ( CompatibleItemForApplyingOnMerc( pTestObject ) )
+		//If we are currently NOT in the Shopkeeper interface
+		else if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) )
 		{
-			//If we are currently NOT in the Shopkeeper interface
-			if( !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+			if ( CompatibleItemForApplyingOnMerc( pTestObject ) )
 			{
 				fFound = TRUE;
 				gbCompatibleApplyItem = fOn;
@@ -3326,7 +3324,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 
 	if ( !fFound )
 	{
-		for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+		for ( cnt = 0; cnt < NUM_INV_SLOTS; ++cnt )
 		{
 			if ( gbCompatibleAmmo[ cnt ] )
 			{
@@ -3354,9 +3352,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 
 void ResetCompatibleItemArray( )
 {
-	INT32 cnt = 0;
-
-	for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+	for ( INT32 cnt = 0; cnt < NUM_INV_SLOTS; ++cnt )
 	{
 		if ( gbCompatibleAmmo[ cnt ] )
 		{
@@ -3392,7 +3388,7 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 			{
 				gpHighLightedItemObject = NULL;
 
-				for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+				for ( cnt = 0; cnt < NUM_INV_SLOTS; ++cnt )
 				{
 					if ( gbCompatibleAmmo[ cnt ] )
 					{
@@ -3432,11 +3428,9 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 		{
 			pTestObject = &(pSoldier->inv[ bInvPos ]);
 		}
-
 	}
 
 	return( InternalHandleCompatibleAmmoUI( pSoldier, pTestObject, fOn ) );
-
 }
 
 void GetSlotInvXY( UINT8 ubPos, INT16 *psX, INT16 *psY )
@@ -3471,23 +3465,20 @@ void HandleNewlyAddedItems( SOLDIERTYPE *pSoldier, BOOLEAN *fDirtyLevel )
 			*fDirtyLevel = DIRTYLEVEL2;
 			pSoldier->inv.bNewItemCount[ cnt ] = 0;
 		}
-
-		if ( pSoldier->inv.bNewItemCount[ cnt ] > 0 )
+		else if ( pSoldier->inv.bNewItemCount[ cnt ] > 0 )
 		{
-
 			sX = gSMInvData[ cnt ].sX;
 			sY = gSMInvData[ cnt ].sY;
 
 			pObject = &(pSoldier->inv[ cnt ]);
 
-			if ( pObject->exists() == false )
+			if ( !pObject->exists() )
 			{
 				gbNewItem[ cnt ] = 0;
 				continue;
 			}
 
 			INVRenderItem( guiSAVEBUFFER, pSoldier, pObject, sX, sY, gSMInvData[ cnt ].sWidth, gSMInvData[ cnt ].sHeight, DIRTYLEVEL2, NULL, 0, TRUE, us16BPPItemCyclePlacedItemColors[ pSoldier->inv.bNewItemCycleCount[ cnt ] ] );
-
 		}
 	}
 }
@@ -3561,11 +3552,10 @@ void InitItemInterface( )
 {
 	UINT32 cnt, cnt2;
 
-	for ( cnt = 0, cnt2 = 0; cnt2 < 20; cnt+=3, cnt2++ )
+	for ( cnt = 0, cnt2 = 0; cnt2 < 20; cnt+=3, ++cnt2 )
 	{
 		us16BPPItemCyclePlacedItemColors[ cnt2 ] = Get16BPPColor( FROMRGB( ubRGBItemCyclePlacedItemColors[ cnt ], ubRGBItemCyclePlacedItemColors[ cnt + 1 ], ubRGBItemCyclePlacedItemColors[ cnt + 2] ) );
 	}
-
 }
 
 // CHRISL: Function to display pocket inventory quantity based on object in cursor
@@ -3574,8 +3564,9 @@ void RenderPocketItemCapacity( UINT32 uiWhichBuffer, INT8 pCapacity, INT16 bPos,
 	static CHAR16		pStr[ 100 ];
 
 	// Can pocket hold the item in the cursor?
-	if(InItemDescriptionBox( ))
+	if( InItemDescriptionBox( ) )
 		return;
+
 	if(pSoldier != NULL && !CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)bPos, FALSE ))
 	{
 		// Further check to see if the cursor item is valid ammo or a valid attachment
@@ -3622,10 +3613,11 @@ void RenderPocketItemCapacity( UINT32 uiWhichBuffer, INT8 pCapacity, INT16 bPos,
 	{
 		RestoreExternBackgroundRect( sX, sY, 15, 15 );
 	}
+
 	mprintf( sX, sY, pStr );
 	gprintfinvalidate( sX, sY, pStr );
-	return;
 }
+
 // CHRISL: New function to render silhouettes
 void INVRenderSilhouette( UINT32 uiBuffer, INT16 PocketIndex, INT16 SilIndex, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight)
 {
@@ -3636,8 +3628,10 @@ void INVRenderSilhouette( UINT32 uiBuffer, INT16 PocketIndex, INT16 SilIndex, IN
 	
 	if(gfSMDisableForItems)
 		return;
+
 	SetFont( ITEM_FONT );
 	GetVideoObject( &hVObject, guiSILHOUETTE );
+
 	if ( PocketIndex != ITEM_NOT_FOUND )
 		SilIndex = LBEPocketType[PocketIndex].pSilhouette;
 
@@ -3663,7 +3657,7 @@ void INVRenderSilhouette( UINT32 uiBuffer, INT16 PocketIndex, INT16 SilIndex, IN
 	}
 }
 
-// Flugente FTW 1: Function to get the number of the item condition string
+// Flugente: Function to get the number of the item condition string
 UINT8 GetTemperatureString( FLOAT overheatpercentage, UINT32* apRed, UINT32* apGreen, UINT32* abBlue )
 {
 	*apRed   = (UINT32) ( gGameExternalOptions.ubOverheatThermometerRedOffset + (255 - gGameExternalOptions.ubOverheatThermometerRedOffset) * ( (max(1.0, overheatpercentage) - 1.0)/(max(1.0, overheatpercentage)) ) );
@@ -3695,7 +3689,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 {
 	UINT16								uiStringLength;
 	INVTYPE								*pItem;
-  ETRLEObject						*pTrav;
+	ETRLEObject						*pTrav;
 	UINT32								usHeight, usWidth;
 	INT16									sCenX, sCenY, sNewY, sNewX;
 	HVOBJECT							hVObject;
@@ -3705,7 +3699,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 	static CHAR16					pStr[ 100 ], pStr2[ 100 ];
 
-	if ( pObject->exists() == false )
+	if ( !pObject->exists() )
 	{
 		return;
 	}
@@ -3728,18 +3722,16 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		usHeight				= (UINT32)pTrav->usHeight;
 		usWidth					= (UINT32)pTrav->usWidth;
 
-
-
 		// CENTER IN SLOT!
 		// CANCEL OFFSETS!
 		sCenX =  sX + (INT16)( abs( sWidth - (double)usWidth ) / 2 ) - pTrav->sOffsetX;
 		sCenY =  sY + (INT16)( abs( sHeight - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
 
 		// Shadow area
-		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX - 2, sCenY + 2 );
+		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ])
+			BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX - 2, sCenY + 2 );
 
 		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
-
 
 		if ( uiBuffer == FRAME_BUFFER )
 		{
@@ -3749,6 +3741,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		{
 			RestoreExternBackgroundRect( sX, sY, sWidth, sHeight );
 		}
+
 		//Moa: set encyclopedia item visibility
 		EncyclopediaSetItemAsVisible( pItem->uiIndex, ENC_ITEM_DISCOVERED );
 	}
@@ -3757,10 +3750,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 	if ( fDirtyLevel != DIRTYLEVEL0 )
 	{
-
 		if ( ubStatusIndex < RENDER_ITEM_ATTACHMENT1 )
 		{
-
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_DKGRAY );
 #if 1
@@ -3787,7 +3778,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					mprintf( sNewX, sNewY, pStr );
 					gprintfinvalidate( sNewX, sNewY, pStr );
 				}
-
 			}
 #endif
 			
@@ -3951,8 +3941,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
-			// Flugente
-			if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
+			// Flugente: overheating
+			if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel ) )
 			{	
 				OBJECTTYPE*	pObjShown = pObject;
 
@@ -3969,10 +3959,11 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				DrawItemUIBarEx( pObjShown, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER );								
 			}
 
-			// Flugente: display condition of food if it can decay
-			if ( gGameOptions.fFoodSystem == TRUE && Item[pObject->usItem].foodtype > 0 )
+			// Flugente: heat displays
+			if ( OVERHEATING_MAX_TEMPERATURE > 0 )
 			{
-				if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+				// Flugente: display condition of food if it can decay
+				if ( gGameOptions.fFoodSystem && Item[pObject->usItem].foodtype > 0 )
 				{
 					FLOAT condition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
 
@@ -3984,12 +3975,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 					DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, (INT16)((sHeight-1)*(1-condition)), colour, colour, TRUE, guiSAVEBUFFER);
 				}
-			}
-
-			// Flugente: display energy level of power packs
-			if ( HasItemFlag(pObject->usItem, POWER_PACK) )
-			{
-				if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+				// Flugente: display energy level of power packs
+				else if ( HasItemFlag(pObject->usItem, POWER_PACK) )
 				{
 					FLOAT energylevel = (*pObject)[0]->data.bTemperature / (FLOAT)OVERHEATING_MAX_TEMPERATURE;
 
@@ -4033,7 +4020,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 				// added by Flugente
 				// HEADROCK HAM 4: Advanced Icons
-				if (guiItemInfoAdvancedIcon == 0)
+				if ( !guiItemInfoAdvancedIcon )
 				{
 					// added by Flugente
 					// HEADROCK HAM 4: Advanced Icons
@@ -4119,7 +4106,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}								
 			}
 
-			if((UsingNewInventorySystem() == true))
+			if ( UsingNewInventorySystem() )
 			{
 				// CHRISL: Display astrisk when LBENODE active
 				if ( pObject->HasAnyActiveLBEs(pSoldier, iter) )
@@ -4144,7 +4131,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 			}
 
-			if ( pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && pSoldier->bWeaponMode != WM_NORMAL && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+			if ( pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && pSoldier->bWeaponMode != WM_NORMAL && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN )
 			{
 				sNewY = sY + 13; // rather arbitrary
 				if ( pSoldier->bWeaponMode == WM_BURST )
@@ -4209,7 +4196,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			// SANDRO - display BRST/AUTO on the second weapon too, if we are going to fire dual bursts
 			if ( pSoldier && pObject == &(pSoldier->inv[SECONDHANDPOS] ) && 
 				(pSoldier->bWeaponMode == WM_BURST || pSoldier->bWeaponMode == WM_AUTOFIRE) && 
-				Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN &&
+				Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN &&
 				!(Item[ pSoldier->inv[HANDPOS ].usItem ].twohanded ) &&
 				pSoldier->IsValidSecondHandBurst() )
 			{
@@ -4316,10 +4303,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
-
-				//sNewX = sX + 1;
-
-				//SetFontForeground( FONT_MCOLOR_DKGRAY );
 			}
 		}
 	}
@@ -4455,7 +4438,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 
 	static CHAR16					pStr[ 100 ], pStr2[ 100 ];
 
-	if ( pObject->exists() == false )
+	if ( !pObject->exists() )
 	{
 		return;
 	}
@@ -4527,7 +4510,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 	}
 
 	//////////////////// GUN DATA //////////////////
-	if ( pItem->usItemClass == IC_GUN && !Item[pObject->usItem].rocketlauncher )
+	if ( pItem->usItemClass & IC_GUN && !Item[pObject->usItem].rocketlauncher )
 	{
 		//////////////// AMMO REMAINING
 
@@ -4705,7 +4688,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 				break;
 		}
 
-		for(unsigned int cnt=0; cnt<pocketKey.size(); cnt++)
+		for(unsigned int cnt=0; cnt<pocketKey.size(); ++cnt)
 		{
 			if(pLBE->inv[cnt].exists() == true)
 				usCountLBEItems++;
@@ -4721,8 +4704,8 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 		sNewY = sY + 4;
 		BltVideoObject( uiBuffer , hVObject, 3, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
 
-		usCountLBEItems--;
-		for (INT16 x = 0; x < usCountLBEItems; x++)
+		--usCountLBEItems;
+		for (INT16 x = 0; x < usCountLBEItems; ++x )
 		{
 			// Draw small blue asterisk
 			pTrav = &(hVObject->pETRLEObject[ 4 ] );
@@ -4919,34 +4902,34 @@ INT16 CycleItems( INT16 usOldItem )
 {
 	if ( _KeyDown( SHIFT ) )
 	{
-		usOldItem--;
+		--usOldItem;
 		if ( usOldItem < 1 )
 		{
-			usOldItem = MAXITEMS-1;
+			usOldItem = gMAXITEMS_READ - 1;
 		}
 		while ( usOldItem > 0 && ( Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
 		{
-			usOldItem--;
+			--usOldItem;
 			if(usOldItem < 1)
-				usOldItem = MAXITEMS-1;
+				usOldItem = gMAXITEMS_READ - 1;
 		}
 	}
 	else
 	{
-		usOldItem++;
-		if ( usOldItem > MAXITEMS )
+		++usOldItem;
+		if ( usOldItem > gMAXITEMS_READ )
 		{
 			usOldItem = 0;
 		}
-		while (usOldItem < MAXITEMS && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
+		while ( usOldItem < gMAXITEMS_READ && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0) )
 		{
-			usOldItem++;
-			if(usOldItem >= MAXITEMS)
+			++usOldItem;
+			if ( usOldItem >= gMAXITEMS_READ )
 				usOldItem = 1;
 		}
 	}
 
-	if ( usOldItem > MAXITEMS )
+	if ( usOldItem > gMAXITEMS_READ )
 	{
 		usOldItem = 0;
 	}
@@ -5623,7 +5606,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 	//dnl ch76 081113
 	std::vector<UINT16> attachedList;
-	for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)// attached item list rather create here then inside loop to gain performance
+	UINT8 size = (*pObject)[ubStatusIndex]->attachments.size( );
+	for ( UINT8 x = 0; x < size; ++x )// attached item list rather create here then inside loop to gain performance
 	{
 		OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
 		if(pAttachment2->exists())
@@ -5633,7 +5617,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	//start by deleting the currently defined regions if they exist
 	//BOB : also, clean up the popup boxes (in case they're still around)
 	//		and init them to NULL in case they contain garbage
-	for (INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
+	for (INT32 cnt = 0; cnt < MAX_ATTACHMENTS; ++cnt )
 	{
 		if( gItemDescAttachmentRegions[cnt].IDNumber != 0 )
 			MSYS_RemoveRegion( &gItemDescAttachmentRegions[cnt]);
@@ -5646,7 +5630,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	gItemDescAttachmentPopupsInitialized = TRUE;
 
 	//now, create new regions
-	for (slotCount = 0; ;++slotCount )
+	for (slotCount = 0; ; ++slotCount )
 	{
 		//stopping conditions, not inside the for loop because it is different depending on the attachment system.
 		if (UsingNewAttachmentSystem()==true)	{
@@ -5690,8 +5674,9 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 				UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
 				attachList.clear();
+
 				//Print all attachments that fit on this item.
-				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
+				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; ++usLoop)
 				{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
 					usAttachment = 0;
 					//Madd: Common Attachment Framework
@@ -5769,7 +5754,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 				}
 
-				if(attachList.size()>0){
+				if( !attachList.empty() )
+				{
 					parseList = attachList;
 					for(std::vector<UINT16>::iterator pIter=parseList.begin(); pIter != parseList.end(); ++pIter){
 						BOOLEAN fDuplicate = FALSE;
@@ -6811,21 +6797,27 @@ void RenderItemDescriptionBox( )
 			//		- the item is a grenade
 			//		- the item is a bomb and has a detonator or remote detonator attached				
 			BOOLEAN renderTransformIcon = FALSE;
-			if ( ( (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1 ) &&
-						( (Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) || 
-						( (Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) ) ) )
+			if ( ((guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1) &&
+						((Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) ||
+						((Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ))) )
+			{
 				renderTransformIcon = TRUE;
-			if (!renderTransformIcon)
-				for (UINT16 x = 0; x < MAXITEMS; x++)
+			}
+			else
+			{
+				for ( UINT16 x = 0; x < gMAXITEMS_READ; ++x )
 				{
 					if (Transform[x].usItem == (UINT16)-1)
 						break;
+
 					else if ( Transform[x].usItem == gpItemDescObject->usItem )
 					{
 						renderTransformIcon = TRUE;
 						break;
 					}
 				}
+			}
+
 			if (renderTransformIcon)
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
@@ -12002,16 +11994,16 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
    Remove when fixed!
  */
 # if defined( _DEBUG )
-	if ( ((*pObject)[0]->data.gun.ubGunAmmoType >= MAXITEMS) )
-  {
-    DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%S) found in GetHelpTextForItem()", (usItem<MAXITEMS) ? Item[usItem].szItemName : L"???" ));
-  	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"corrupted pObject (%s) found in GetHelpTextForItem()"    , (usItem<MAXITEMS) ? Item[usItem].szItemName : L"???" );
-    DebugBreak();
-    AssertMsg( 0, "GetHelpTextForItem() would crash" );
-  }
+	if ( ((*pObject)[0]->data.gun.ubGunAmmoType >= gMAXITEMS_READ) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%S) found in GetHelpTextForItem()",	(usItem<gMAXITEMS_READ) ? Item[usItem].szItemName : L"???" ) );
+		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"corrupted pObject (%s) found in GetHelpTextForItem()",		(usItem<gMAXITEMS_READ) ? Item[usItem].szItemName : L"???" );
+		DebugBreak();
+		AssertMsg( 0, "GetHelpTextForItem() would crash" );
+	}
 #endif
     
-	if ( pObject->exists() == true )
+	if ( pObject->exists() )
 	{
 		// Retrieve the status of the items
 		//CHRISL: If looking at an item in stack popup, show just that item
@@ -12022,7 +12014,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				(*pObject)[0]->data.objectStatus = __min((*pObject)[0]->data.objectStatus, 100);
 			sValue = (*pObject)[0]->data.objectStatus;
 
-			for(INT16 i = 1; i < pObject->ubNumberOfObjects; i++){
+			for(INT16 i = 1; i < pObject->ubNumberOfObjects; ++i){
 				if(Item[pObject->usItem].usItemClass != IC_AMMO)
 					(*pObject)[ i ]->data.objectStatus = __min((*pObject)[ i ]->data.objectStatus, 100);
 				if((*pObject)[ i ]->data.objectStatus < sValue)
@@ -13270,7 +13262,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 				if (fShowMapInventoryPool)
 				{
 					// Is our object currently in the pool?
-					for (UINT32 x = 0; x < pInventoryPoolList.size(); x++)
+					for (UINT32 x = 0; x < pInventoryPoolList.size(); ++x)
 					{
 						if (pInventoryPoolList[x].object.exists())
 						{
@@ -13287,7 +13279,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 
 				if (fCrateInPool)
 				{
-					for (UINT16 x = 0; x < MAXITEMS; x++)
+					for ( UINT16 x = 0; x < gMAXITEMS_READ; ++x )
 					{
 						if ( Item[x].usItemClass & IC_AMMO )
 						{
@@ -13329,7 +13321,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 			{
 				if ( Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) )
 				{
-					iTransformIndex++;
+					++iTransformIndex;
 					
 					UINT16 usAPCost = APBPConstants[AP_INVENTORY_ARM];
 
@@ -13377,7 +13369,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 				}
 				else if ( Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE )
 				{
-					iTransformIndex++;
+					++iTransformIndex;
 
 					UINT16 usAPCost = APBPConstants[AP_INVENTORY_ARM];
 
@@ -13406,7 +13398,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 			// onyl allow transformations if the item is not an armed bomb
 			if ( !fHaveToDisarm )
 			{
-				for (INT32 x = 0; x < MAXITEMS; x++)
+				for ( INT32 x = 0; x < gMAXITEMS_READ; ++x )
 				{
 					if (Transform[x].usItem == (UINT16)-1)
 					{
@@ -13414,7 +13406,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 					}
 					if (Transform[x].usItem == gpItemDescObject->usItem)
 					{
-						iTransformIndex++;
+						++iTransformIndex;
 
 						CHAR16 MenuRowText[300];
 						if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
@@ -13472,7 +13464,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 		// Now that the popup is initialized, lets set the help text for each line. Note that we have to do it here
 		// (rather than before) because only now are the MOUSE_REGIONs ready to receive help text at all!!
 		INT32 iNumOptions = 0;
-		for (INT32 x = 0; x < MAXITEMS; x++)
+		for ( INT32 x = 0; x < gMAXITEMS_READ; ++x )
 		{
 			if (Transform[x].usItem == (UINT16)-1)
 			{
@@ -13481,10 +13473,9 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 			if (Transform[x].usItem == gpItemDescObject->usItem)
 			{
 				SetRegionFastHelpText( &(gItemDescTransformPopup->MenuRegion[iNumOptions]), Transform[x].szTooltipText );
-				iNumOptions++;
+				++iNumOptions;
 			}
 		}
-
 	}
 	else if (reason == MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
@@ -14150,7 +14141,7 @@ void TransformationMenuPopup_SplitCrateInInventory( )
 			UINT32 uiBestRoundCapacity = 0;
 			UINT16 usBestItem = 0;
 
-			for (UINT16 x = 0; x < MAXITEMS; x++)
+			for ( UINT16 x = 0; x < gMAXITEMS_READ; ++x )
 			{
 				if (Item[x].usItemClass & IC_AMMO)
 				{

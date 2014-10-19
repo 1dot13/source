@@ -21,7 +21,7 @@
 	#include "GameSettings.h"
 #endif
 
-#define			LIFE_BAR_SHADOW							FROMRGB( 108, 12, 12 )
+#define			LIFE_BAR_SHADOW						FROMRGB( 108, 12, 12 )
 #define			LIFE_BAR							FROMRGB( 200, 0, 0 )
 #define			BANDAGE_BAR_SHADOW					FROMRGB( 156, 60, 60 )
 #define			BANDAGE_BAR							FROMRGB( 222, 132, 132 )
@@ -81,7 +81,6 @@ STR pbCarPortraitFileNames[ ]={
 // load int he portraits for the car faces that will be use in mapscreen
 BOOLEAN LoadCarPortraitValues( void )
 {
-	INT32 iCounter = 0;
 	VOBJECT_DESC	 VObjectDesc;
 	
 	/*
@@ -91,15 +90,15 @@ BOOLEAN LoadCarPortraitValues( void )
 	}
 	*/
 	
-	for( iCounter = 0; iCounter < NUM_PROFILES; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < NUM_PROFILES; ++iCounter )
 	{
 		// silversurfer: fixed to make sure that we only create objects for vehicles that have a face defined
 		// otherwise CHECKF will fail and return FALSE breaking the for loop and ignoring any further vehicles
 		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter && gNewVehicle[ iCounter ].szIconFace[0] != 0 )
 		{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		strcpy( VObjectDesc.ImageFile, gNewVehicle[ iCounter ].szIconFace );
-		CHECKF( AddVideoObject( &VObjectDesc, (UINT32 *)&giCarPortraits[ iCounter ] ) );
+			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			strcpy( VObjectDesc.ImageFile, gNewVehicle[ iCounter ].szIconFace );
+			CHECKF( AddVideoObject( &VObjectDesc, (UINT32 *)&giCarPortraits[ iCounter ] ) );
 		}
 	}
 	
@@ -116,8 +115,6 @@ BOOLEAN LoadCarPortraitValues( void )
 // get rid of the images we loaded for the mapscreen car portraits
 void UnLoadCarPortraits( void )
 {
-	INT32 iCounter = 0;
-
 	// car protraits loaded?
 	/*
 	if( giCarPortraits[ 0 ] == -1 )
@@ -132,15 +129,13 @@ void UnLoadCarPortraits( void )
 	}
 	*/
 	
-	for( iCounter = 0; iCounter < NUM_PROFILES; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < NUM_PROFILES; ++iCounter )
 	{
 		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter )
 		{
 			DeleteVideoObjectFromIndex( giCarPortraits[ iCounter ] );
 		}
 	}
-	
-	return;
 }
 
 
@@ -281,19 +276,18 @@ void DrawLifeUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWi
 	}
 
 	UnLockVideoSurface( uiBuffer );
-
 }
 
 
 void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, BOOLEAN fErase, UINT32 uiBuffer )
 {
-	FLOAT											dStart, dEnd, dPercentage;
+	FLOAT										dStart, dEnd, dPercentage;
 	//UINT16										usLineColor;
 
 	UINT32										uiDestPitchBYTES;
-	UINT8											*pDestBuf;
+	UINT8										*pDestBuf;
 	UINT16										usLineColor;
-	HVOBJECT hHandle;
+	HVOBJECT									hHandle;
 
 	// Erase what was there
 	if ( fErase )
@@ -307,12 +301,10 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 		return;
 	}
 
-
-
 	//	DO MAX MAX BREATH
 	dPercentage = 1.;
-	dEnd				=	dPercentage * sHeight;
-	dStart			= sYPos;
+	dEnd		= dPercentage * sHeight;
+	dStart		= sYPos;
 
 	// brown guy
 	GetVideoObject( &hHandle, guiBrownBackgroundForTeamPanel );
@@ -323,21 +315,18 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 		if( gusSelectedSoldier == pSoldier->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC( pSoldier ) )
 		{
 			// gold, the second entry in the .sti
-		BltVideoObject( uiBuffer , hHandle, 1, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
-
+			BltVideoObject( uiBuffer , hHandle, 1, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 		else
 		{
 			// brown, first entry
-		BltVideoObject( uiBuffer , hHandle, 0, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
-
+			BltVideoObject( uiBuffer , hHandle, 0, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 	}
 	else
 	{
 		// brown, first entry
-	BltVideoObject( uiBuffer , hHandle, 0, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
-
+		BltVideoObject( uiBuffer , hHandle, 0, sXPos, ( INT16 )( sYPos - sHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	pDestBuf = LockVideoSurface( uiBuffer, &uiDestPitchBYTES );
@@ -360,9 +349,6 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 		RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
 	}
 
-
-
-
 	dPercentage = (FLOAT)pSoldier->bBreathMax / (FLOAT)100;
 	dEnd				=	dPercentage * sHeight;
 	dStart			= sYPos;
@@ -375,7 +361,6 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 
 	usLineColor = Get16BPPColor( CURR_MAX_BREATH_SHADOW );
 	RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-
 
 	// NOW DO BREATH
 	dPercentage = (FLOAT)pSoldier->bBreath / (FLOAT)100;
@@ -390,10 +375,8 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 
 	usLineColor = Get16BPPColor( CURR_BREATH_BAR_SHADOW );
 	RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-
-
+	
 	UnLockVideoSurface( uiBuffer );
-
 }
 
 void DrawMoraleUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, BOOLEAN fErase, UINT32 uiBuffer )
@@ -420,7 +403,6 @@ void DrawMoraleUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 	pDestBuf = LockVideoSurface( uiBuffer, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
-
 	// FIRST DO BREATH
 	dPercentage = (FLOAT)pSoldier->aiData.bMorale / (FLOAT)100;
 	dEnd				=	dPercentage * sHeight;
@@ -434,24 +416,21 @@ void DrawMoraleUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 
 	usLineColor = Get16BPPColor( MORALE_BAR_SHADOW );
 	RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-
-
+	
 	UnLockVideoSurface( uiBuffer );
-
 }
 
 
 void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, INT16 sColor1, INT16 sColor2, BOOLEAN fErase, UINT32 uiBuffer, UINT8 iter )
 {
-	FLOAT											dStart, dEnd, dPercentage;
+	FLOAT										dStart, dEnd, dPercentage;
 	//UINT16										usLineColor;
 
 	UINT32										uiDestPitchBYTES;
-	UINT8											*pDestBuf;
+	UINT8										*pDestBuf;
 	UINT16										usLineColor;
-	INT16											sValue;
-
-
+	INT16										sValue;
+	
 	if ( ubStatus >= DRAW_ITEM_STATUS_ATTACHMENT1 )
 	{
 		sValue = 0;	
@@ -469,18 +448,15 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	}
 	else
 	{
-		if (ubStatus < pObject->ubNumberOfObjects) {
+		if (ubStatus < pObject->ubNumberOfObjects)
 			sValue = (*pObject)[ ubStatus ]->data.objectStatus;
-		}
-		else {
+		else
 			sValue = 0;
-		}
 	}
 
 	// Adjust for ammo, other thingys..
 	if( Item[ pObject->usItem ].usItemClass & IC_AMMO )
 	{
-
 		sValue = sValue * 100 / Magazine[ Item[ pObject->usItem ].ubClassIndex ].ubMagSize;
 
 		if ( sValue < 0 )
@@ -488,17 +464,13 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 			sValue = (*pObject)[iter]->data.ubShotsLeft * 100 / Magazine[ Item[ pObject->usItem ].ubClassIndex ].ubMagSize;
 			DebugMsg ( TOPIC_JA2, DBG_LEVEL_3, String("Ammo status: shots left %d * 100 / Mag Size %d = value %d",(*pObject)[iter]->data.ubShotsLeft,Magazine[ Item[ pObject->usItem ].ubClassIndex ].ubMagSize,sValue ));
 		}
-		if ( sValue > 100 )
-		{
-			sValue = 100;
-		}
 
+		if ( sValue > 100 )
+			sValue = 100;
 	}
 
 	if( Item[ pObject->usItem ].usItemClass & IC_KEY )
-	{
 		sValue =100;
-	}
 
 	// Flugente
 	if ( ubStatus == DRAW_ITEM_TEMPERATURE )
@@ -531,14 +503,14 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	// ATE: Subtract 1 to exagerate bad status
 	if ( sValue < 100 && sValue > 1 )
 	{
-		sValue--;
+		--sValue;
 	}
 
 	// Erase what was there
-	if ( fErase )
+	/*if ( fErase )
 	{
-		//RestoreExternBackgroundRect( sXPos, (INT16)(sYPos - sHeight), sWidth, (INT16)(sHeight + 1 ) );
-	}
+		RestoreExternBackgroundRect( sXPos, (INT16)(sYPos - sHeight), sWidth, (INT16)(sHeight + 1 ) );
+	}*/
 
 	pDestBuf = LockVideoSurface( uiBuffer, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
@@ -560,13 +532,11 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 		RectangleDraw( TRUE, sXPos + 1, (INT32)(dStart - repairthresholdend), sXPos + 1, (INT32)( dStart - sHeight ) , usLineColor, pDestBuf );
 	}
 
-	//usLineColor = Get16BPPColor( STATUS_BAR );
 	usLineColor = sColor1;
 	RectangleDraw( TRUE, sXPos, (INT32)dStart, sXPos, (INT32)( dStart - dEnd ) , usLineColor, pDestBuf );
 
 	usLineColor = sColor2;
 	RectangleDraw( TRUE, sXPos+ 1, (INT32)dStart, sXPos + 1, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-
 
 	UnLockVideoSurface( uiBuffer );
 
@@ -578,7 +548,6 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	{
 		InvalidateRegion( sXPos, (INT16)(sYPos - sHeight), sXPos + sWidth, (INT16)(sYPos + 1 ) );
 	}
-
 }
 
 void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLEAN fAutoFace )
@@ -586,10 +555,8 @@ void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLE
 	BOOLEAN fDoFace = FALSE;
 //	UINT8 ubVehicleType = 0;
 
-
 	if ( pSoldier->bActive )
 	{
-
 		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			// get the type of vehicle
@@ -641,7 +608,6 @@ void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLE
 		//}
 		RestoreExternBackgroundRect( sFaceX, sFaceY, FACE_WIDTH, FACE_HEIGHT );
 	}
-
 }
 
 // HEADROCK HAM 5: This function draws a rectangle around the item image in the zoomed inventory

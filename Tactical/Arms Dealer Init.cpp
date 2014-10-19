@@ -197,8 +197,7 @@ void InitAllArmsDealers()
 void InitializeOneArmsDealer( UINT8 ubArmsDealer )
 {
 	UINT16	usItemIndex;
-	UINT8		ubNumItems=0;
-
+	UINT8	ubNumItems=0;
 
 	memset( &( gArmsDealerStatus[ ubArmsDealer ] ), 0, sizeof( ARMS_DEALER_STATUS ) );
 	gArmsDealersInventory.resize(gArmsDealersInventory.size() + 1);
@@ -212,9 +211,8 @@ void InitializeOneArmsDealer( UINT8 ubArmsDealer )
 		return;
 	}
 
-
 	//loop through all the item types
-	for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+	for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
 		if ( Item[usItemIndex].usItemClass	== 0 )
 			break;
@@ -332,14 +330,14 @@ void DailyUpdateOfArmsDealersInventory()
 // Once a day, loop through each dealer's inventory items and possibly sell some
 void SimulateArmsDealerCustomer()
 {
-	UINT8		ubArmsDealer=0;
+	UINT8	ubArmsDealer=0;
 	UINT16	usItemIndex;
 	UINT8	ubItemsSold=0;
 
 	static int numPerfectItems[MAXITEMS];
 
 	//loop through all the arms dealers
-	for( ubArmsDealer=0;ubArmsDealer<NUM_ARMS_DEALERS;ubArmsDealer++ )
+	for( ubArmsDealer=0;ubArmsDealer<NUM_ARMS_DEALERS; ++ubArmsDealer )
 	{
 		if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 			continue;
@@ -350,15 +348,17 @@ void SimulateArmsDealerCustomer()
 
 		memset (&numPerfectItems, 0, sizeof(numPerfectItems));
 
-		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
-			iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
-			if (iter->ItemIsInInventory() == true && iter->bItemCondition == 100) {
+		DealerItemList::iterator iterend = gArmsDealersInventory[ubArmsDealer].end( );
+		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != iterend; ++iter )
+		{
+			if (iter->ItemIsInInventory() == true && iter->bItemCondition == 100)
+			{
 				numPerfectItems[iter->object.usItem] += iter->object.ubNumberOfObjects;
 			}
 		}
 
 		//loop through all items of the same type
-		for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+		for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 		{
 			if ( Item[usItemIndex].usItemClass	== 0 )
 				break;
@@ -389,19 +389,21 @@ void SimulateArmsDealerCustomer()
 			}
 		}
 
-		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
-			iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
+		iterend = gArmsDealersInventory[ubArmsDealer].end();
+		for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != iterend; ++iter )
+		{
 			// next, try to sell all the used ones, gotta do these one at a time so we can remove them by element
 			// don't worry about negative condition, repairmen can't come this far, they don't sell!
-			if (iter->bItemCondition < 100 && iter->bItemCondition > 0) {
-				if ( iter->ItemIsInInventory() == true) {
+			if (iter->bItemCondition < 100 && iter->bItemCondition > 0)
+			{
+				if ( iter->ItemIsInInventory() == true)
+				{
 					// try selling just this one
 					if (HowManyItemsAreSold( ubArmsDealer, iter->object.usItem, 1, TRUE) > 0)
 					{
 						iter = gArmsDealersInventory[ ubArmsDealer ].erase(iter);
-						if (iter == gArmsDealersInventory[ ubArmsDealer ].end()) {
+						if (iter == gArmsDealersInventory[ ubArmsDealer ].end() )
 							break;
-						}
 					}
 				}
 			}
@@ -424,7 +426,7 @@ void DailyCheckOnItemQuantities()
 
 
 	//loop through all the arms dealers
-	for( ubArmsDealer=0;ubArmsDealer<NUM_ARMS_DEALERS;ubArmsDealer++ )
+	for( ubArmsDealer=0;ubArmsDealer<NUM_ARMS_DEALERS; ++ubArmsDealer )
 	{
 		if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
 			continue;
@@ -469,10 +471,8 @@ void DailyCheckOnItemQuantities()
 		}
 
 		//loop through all items of the same type
-		for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+		for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 		{
-			if ( Item[usItemIndex].usItemClass	== 0 )
-				break;
 			//if the dealer can sell the item type
 			if( CanDealerTransactItem( ubArmsDealer, usItemIndex, FALSE ) )
 			{
@@ -701,10 +701,8 @@ void LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uiDealerItemType, UIN
 	std::vector<int> usAvailableItems;
 	std::vector<UINT32> ubNumberOfAvailableItem;
 	//loop through all items of the same class and count the number in stock
-	for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+	for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
-		if ( Item[usItemIndex].usItemClass	== 0 )
-			break;
 		//if there is some items in stock
 		if( numTotalItems[usItemIndex] > 0)
 		{
@@ -838,10 +836,8 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 	std::vector<UINT16> usAvailableItems;
 	std::vector<UINT8> ubChanceForAvailableItem;
 	//loop through all items of the same type
-	for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+	for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
-		if ( Item[usItemIndex].usItemClass	== 0 )
-			break;
 		//if the item is of the same dealer item type
 		if( uiDealerItemType & GetArmsDealerItemTypeFromItemNumber( usItemIndex ) )
 		{
@@ -1447,7 +1443,6 @@ bool ItemIsSpecial(DEALER_SPECIAL_ITEM& item)
 
 UINT16 CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer )
 {
-	UINT16	usItemIndex;
 	UINT16	usHowManyInForRepairs = 0;
 
 	//if the dealer is not a repair dealer, no need to count, return 0
@@ -1455,10 +1450,8 @@ UINT16 CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer )
 		return( 0 );
 
 	//loop through the dealers inventory and count the number of items in for repairs
-	for( usItemIndex=0; usItemIndex < MAXITEMS; usItemIndex++ )
+	for ( UINT16 usItemIndex = 0; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 	{
-		if ( Item[usItemIndex].usItemClass	== 0 )
-			break;
 		usHowManyInForRepairs += CountSpecificItemsRepairDealerHasInForRepairs( ubArmsDealer, usItemIndex );
 	}
 
@@ -1474,13 +1467,12 @@ UINT8 CountSpecificItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer, UINT16 
 	if( !DoesDealerDoRepairs( ubArmsDealer ) )
 		return( 0 );
 
-
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
 		iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
 		if (iter->object.exists() == true && iter->object.usItem == usItemIndex) {
 			if( iter->IsUnderRepair() == true )
 			{
-				ubHowManyInForRepairs++;
+				++ubHowManyInForRepairs;
 			}
 		}
 	}
@@ -1697,11 +1689,13 @@ void RemoveItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, 
 	{
 		return;
 	}
-	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != gArmsDealersInventory[ ubArmsDealer ].end(); iter++){
-		if (iter->ItemIsInInventory() == true && iter->object.usItem == usItemIndex) {
+	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin(); iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter)
+	{
+		if (iter->ItemIsInInventory() == true && iter->object.usItem == usItemIndex)
+		{
 			if(pObj != 0)
 			{
-				for(unsigned int i = 0; i < ubHowMany; i++)
+				for(unsigned int i = 0; i < ubHowMany; ++i)
 				{
 					if((*pObj)[i]->operator == (*iter->object[i]))
 						match = TRUE;

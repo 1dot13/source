@@ -3457,10 +3457,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if(CHEATER_CHEAT_LEVEL())
 					{
-						for(UINT16 i=FIRST_WEAPON; i<MAXITEMS; i++)
+						for ( UINT16 i = FIRST_WEAPON; i<gMAXITEMS_READ; ++i )
 						{
 							if(i == 1580 || Item[i].ubWeight == 0 && !(i == 257 || i == 1006 || i == 1026 || i == 1183))//dnl!!! items 257, 1006, 1026, 1183 had weight 0 which need to be changed in xml
 								continue;
+
 							CreateItem(i, 100, &gTempObject);
 							AddItemToPool(usMapPos, &gTempObject, VISIBLE , 0, WORLD_ITEM_REACHABLE, 0);
 						}
@@ -4904,7 +4905,6 @@ void CycleSelectedMercsItem()
 		pSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, pSoldier->inv[HANDPOS].usItem );
 
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-
 	}
 }
 
@@ -8039,11 +8039,8 @@ void HandleTacticalAmmoCrates( UINT8 magType )
 
 				//we have a valid, ammo item.  Look through Items.xml and see if we have an ammo crate for
 				//	this ammo type
-				for(int iLoop = 0; iLoop < MAXITEMS; iLoop++)
+				for ( int iLoop = 0; iLoop < gMAXITEMS_READ; ++iLoop )
 				{
-					if (Item[iLoop].usItemClass == 0)
-						break; //no more valid items after this point
-
 					//if ammo crate && calibers match && Ammo Types match
 					if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == magType && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
 					{
@@ -8056,7 +8053,7 @@ void HandleTacticalAmmoCrates( UINT8 magType )
 				if(crateItem != 0)
 				{
 					//look through world items first
-					for(unsigned int loop=0; loop < guiNumWorldItems; loop++)
+					for(unsigned int loop=0; loop < guiNumWorldItems; ++loop)
 					{
 						if(gWorldItems[loop].object.usItem == crateItem)
 						{
@@ -8121,7 +8118,7 @@ void HandleTacticalAmmoCrates( UINT8 magType )
 
 		//MM: loop through ammo multiple times, as boxes and crates may take a few passes to fill
 		ammoPresent = false;
-		for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
+		for(unsigned int wItem = 0; wItem < guiNumWorldItems; ++wItem)
 		{
 			if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
 			{
@@ -8142,7 +8139,7 @@ void HandleTacticalAmmoCrates( UINT8 magType )
 
 void HandleTacticalInventoryMenu( void )
 {
-	for( INT32 cnt = 0; cnt < TACTICAL_INVENTORY_DIALOG_NUM; cnt++)
+	for( INT32 cnt = 0; cnt < TACTICAL_INVENTORY_DIALOG_NUM; ++cnt)
 	{
 		wcscpy( gzUserDefinedButton[cnt], szTacticalInventoryDialogString[cnt+1] );		
 		gzUserDefinedButtonColor[cnt] = 0;
@@ -8218,7 +8215,7 @@ void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue )
 
 void HandleTacticalCoverMenu( void )
 {
-	for( INT32 cnt = 0; cnt < TACTICAL_COVER_DIALOG_NUM; cnt++)
+	for( INT32 cnt = 0; cnt < TACTICAL_COVER_DIALOG_NUM; ++cnt)
 	{
 		wcscpy( gzUserDefinedButton[cnt], szTacticalCoverDialogString[cnt+1] );		
 		gzUserDefinedButtonColor[cnt] = 0;
@@ -8363,7 +8360,7 @@ void HandleTacticalTransformItem( void )
 BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation )
 {
 	// find transformation
-	for (INT32 x = 0; x < MAXITEMS; x++)
+	for ( INT32 x = 0; x < gMAXITEMS_READ; ++x )
 	{
 		if ( Transform[x].usItem == (UINT16)-1 )
 		{
@@ -8389,7 +8386,7 @@ void HandleTacticalMoveItems( void )
 		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 		{
 
-			for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ ) //for all items in sector
+			for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop ) //for all items in sector
 			{
 				if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) && (gWorldItems[ uiLoop ].sGridNo != pSoldier->sGridNo) )//item exists and is reachable and is not already on soldiers tile
 				{

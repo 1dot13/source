@@ -816,7 +816,7 @@ BOOLEAN WriteWeaponStats()
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<WEAPONLIST>\r\n");
-		for(cnt = 0;cnt < MAXITEMS;cnt++)
+		for(cnt = 0;cnt < MAXITEMS; ++cnt)
 		{
 			CHAR8 * szRemainder = Weapon[cnt].szWeaponName; //the remaining string to be output (for making valid XML)
 

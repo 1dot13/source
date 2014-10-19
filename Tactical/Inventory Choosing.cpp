@@ -140,7 +140,7 @@ void InitArmyGunTypes(void)
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitArmyGunTypes mark weapons as not dropped");
 	// set all flags that track whether this weapon type has been dropped before to FALSE
-	for (ubWeapon = 0; ubWeapon < MAXITEMS; ubWeapon++)
+	for (ubWeapon = 0; ubWeapon < MAXITEMS; ++ubWeapon)
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("InitArmyGunTypes marking weapons %d", ubWeapon));
 		gStrategicStatus.fWeaponDroppedAlready[ubWeapon] = FALSE;
@@ -2627,7 +2627,7 @@ else
 				if (gGameExternalOptions.ubEnemiesItemDrop == 0)
 				{
 						// if it's a weapon (monster parts included - they won't drop due to checks elsewhere!)
-					if ((usItem > NONE) && (usItem < MAXITEMS )) // Madd -- this should be ok set to maxitems instead of max_Weapons
+					if ( (usItem > NONE) && (usItem < gMAXITEMS_READ) ) // Madd -- this should be ok set to maxitems instead of max_Weapons
 					{
 						// and we're allowed to change its flags
 						if(! (pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE ))

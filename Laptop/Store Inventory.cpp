@@ -796,10 +796,10 @@ void SetupStoreInventory( STORE_INVENTORY *pInventoryArray, BOOLEAN fUsed )
 	UINT8 ubNumBought;
 
 	//loop through all items BR can stock to init a starting quantity on hand
-	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[fUsed]; i++)
+	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[fUsed]; ++i)
 	{
 		usItemIndex = pInventoryArray[ i ].usItemIndex;
-		Assert(usItemIndex < MAXITEMS);
+		Assert( usItemIndex < MAXITEMS );
 
 		ubNumBought = DetermineInitialInvItems( -1, usItemIndex, StoreInventory[ usItemIndex ][ fUsed ], fUsed);
 		if ( ubNumBought > 0)
@@ -830,17 +830,14 @@ void SetupStoreInventory( STORE_INVENTORY *pInventoryArray, BOOLEAN fUsed )
 
 BOOLEAN DoesGunOfSameClassExistInInventory( UINT8 ubItemIndex, UINT8 ubDealerID )
 {
-	UINT16 i;
-
 	STORE_INVENTORY *pInventoryArray;
 
 	pInventoryArray = GetPtrToStoreInventory( ubDealerID );
 	if( pInventoryArray == NULL )
 		return( FALSE );
-
-
+	
 	//go through all of the guns
-	for(i=0; i<MAXITEMS; i++)
+	for ( UINT16 i = 0; i<gMAXITEMS_READ; ++i )
 	{
 		//if it's the class we are looking for
 		if( Weapon[ i ].ubWeaponClass == ubItemIndex )
@@ -856,6 +853,7 @@ BOOLEAN DoesGunOfSameClassExistInInventory( UINT8 ubItemIndex, UINT8 ubDealerID 
 			}
 		}
 	}
+
 	return(FALSE);
 }
 

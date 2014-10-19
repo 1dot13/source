@@ -92,7 +92,7 @@ void InitRandomMercs()
 												//	HLT		DEX		AGI		STR		WIS		MRK		LDR		MEC		EXP		MED
 
 	//populate random gear list
-	for (int i = 0;i < MAXITEMS; i++)
+	for ( int i = 0; i < gMAXITEMS_READ; ++i )
 	{
 		INVTYPE* item = &Item[i];
 

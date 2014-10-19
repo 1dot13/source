@@ -1437,7 +1437,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	//}
 
 	// WANNE: This fixes the stacking problem of silver nuggets!!
-	if (Item[usItem].usItemClass == IC_MONEY)
+	if (Item[usItem].usItemClass & IC_MONEY)
 	{
 		//need to have money "stackable" in all slots to trick it into merging
 		return 2;
@@ -1484,18 +1484,27 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	else if (bSlot == KNIFEPOCKPOS) {
 		pIndex = KNIFE_POCKET_TYPE;
 	}
-	else {
+	else
+	{
 		Assert(icLBE[bSlot] != -1 && icDefault[bSlot] != -1 && icPocket[bSlot] != -1);
 		//find the class of the LBE, then find what size the pocket of the slot in the LBE is
-		if (pSoldier == NULL || pSoldier->inv[icLBE[bSlot]].exists() == false) {
+		if (pSoldier == NULL || !pSoldier->inv[icLBE[bSlot]].exists() ) 
+		{
 			pIndex = LoadBearingEquipment[Item[icDefault[bSlot]].ubClassIndex].lbePocketIndex[icPocket[bSlot]];
 		}
-		else {
+		else
+		{
 			pIndex = LoadBearingEquipment[Item[pSoldier->inv[icLBE[bSlot]].usItem].ubClassIndex].lbePocketIndex[icPocket[bSlot]];
-			if( pIndex == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bSlot]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bSlot])){
+			if( pIndex == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bSlot]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bSlot]))
+			{
 				pIndex = GetPocketFromAttachment(&pSoldier->inv[icLBE[bSlot]], icPocket[bSlot]);
+			}
 		}
 	}
+
+	if ( LBEPocketType[pIndex].pRestriction != 0 && !(LBEPocketType[pIndex].pRestriction & Item[usItem].usItemClass) )
+	{
+		return 0;
 	}
 
 	//We need to actually check the size of the largest stored item as well as the size of the current item
@@ -1516,11 +1525,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 
 	//this could be changed, we know guns are physically able to stack
 	//if ( iSize < 10 && ubSlotLimit > 1)
-	//	ubSlotLimit = 1;
-
-	if(LBEPocketType[pIndex].pRestriction != 0 && !(LBEPocketType[pIndex].pRestriction & Item[usItem].usItemClass)) {
-		return 0;
-	}
+	//	ubSlotLimit = 1;	
 
 	return( ubSlotLimit );
 }
@@ -1994,31 +1999,43 @@ UINT16 FindLegalGrenade(UINT16 usItem)
 {
 	UINT16	newItem = 0;
 	UINT16	usClass = Item[usItem].ubClassIndex;
-	if(UsingNewAttachmentSystem()==false)
+
+	if ( !UsingNewAttachmentSystem() )
 		return usItem;
-	for(UINT16 loop = 0; loop < MAXITEMS+1; loop++){
+
+	for ( UINT16 loop = 0; loop < gMAXITEMS_READ + 1; ++loop )
+	{
 		if(loop == usClass)
 			continue;
+
 		if(Explosive[usClass].ubType == Explosive[loop].ubType && Explosive[usClass].ubDamage == Explosive[loop].ubDamage
 			&& Explosive[usClass].ubStunDamage == Explosive[loop].ubStunDamage && Explosive[usClass].ubRadius == Explosive[loop].ubRadius
 			&& Explosive[usClass].ubVolume == Explosive[loop].ubVolume && Explosive[usClass].ubVolatility == Explosive[loop].ubVolatility
 			&& Explosive[usClass].ubAnimationID == Explosive[loop].ubAnimationID && Explosive[usClass].ubDuration == Explosive[loop].ubDuration
-			&& Explosive[usClass].ubStartRadius == Explosive[loop].ubStartRadius && Explosive[loop].ubMagSize == 1){
+			&& Explosive[usClass].ubStartRadius == Explosive[loop].ubStartRadius && Explosive[loop].ubMagSize == 1)
+		{
 				newItem = loop;
 				break;
 		}
+
 		if(Explosive[loop].uiIndex == 0 && loop > 0)
 			break;
 	}
-	if(newItem > 0){
-		for(UINT16 loop = 1; loop < MAXITEMS+1; loop++){
+
+	if(newItem > 0)
+	{
+		for ( UINT16 loop = 1; loop < gMAXITEMS_READ; ++loop )
+		{
 			if(Item[loop].uiIndex == 0)
 				break;
-			if(Item[loop].usItemClass & IC_GRENADE && Item[loop].ubClassIndex == newItem){
+
+			if(Item[loop].usItemClass & IC_GRENADE && Item[loop].ubClassIndex == newItem)
+			{
 				return Item[loop].uiIndex;
 			}
 		}
 	}
+
 	return usItem;
 }
 
@@ -2184,16 +2201,11 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 
 BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCost, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
-	if (pObj->exists() == false) {
+	if ( !pObj->exists() )
 		return FALSE;
-	}
 
-	if(UsingNewAttachmentSystem()==true)
+	if( UsingNewAttachmentSystem() )
 	{
-		UINT16 usSlotIndex = 0;
-		BOOLEAN foundValidAttachment = FALSE;
-		UINT16 usLoop = 0;
-
 		//It's possible we've entered this function without being passed the usAttachmentSlotIndexVector parameter
 		if(usAttachmentSlotIndexVector.empty())
 			usAttachmentSlotIndexVector = GetItemSlots(pObj);
@@ -2201,29 +2213,35 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 		//Still no slots means nothing will ever be valid
 		if(usAttachmentSlotIndexVector.empty())
 			return FALSE;
-
+		
 		//Madd: Common Attachment Framework
-		foundValidAttachment = IsAttachmentPointAvailable(pObj, subObject, usAttachment);
-		if (foundValidAttachment && pubAPCost )
+		if ( pubAPCost && IsAttachmentPointAvailable( pObj, subObject, usAttachment ) )
+		{
 			*pubAPCost = Item[usAttachment].ubAttachToPointAPCost;
+
+			return TRUE;
+		}
 		else
 		{
 			//Check if the attachment is valid with the main item
-			foundValidAttachment = (ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem));
+			if ( ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem) )
+				return TRUE;
 
 			//Loop through all attachment points on the main item
-			for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end() && !foundValidAttachment; ++iter)
+			for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
 			{
-				if(iter->exists())
-					foundValidAttachment = (ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem));
+				if ( iter->exists() )
+				{
+					if ( ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem) )
+						return TRUE;
+				}
 			}
 		}
-		return ( foundValidAttachment );
+
+		return FALSE;
 	}
-	else
-	{
-		return( ValidAttachment(usAttachment, pObj->usItem, pubAPCost) );
-	}
+
+	return( ValidAttachment(usAttachment, pObj->usItem, pubAPCost) );
 }
 
 UINT8 AttachmentAPCost( UINT16 usAttachment, UINT16 usItem, SOLDIERTYPE * pSoldier ) // SANDRO - added argument
@@ -2880,24 +2898,29 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 		iSize = gGameExternalOptions.guiMaxItemSize;
 
 	//for each object in the stack, hopefully there is only 1
-	for (int numStacked = 0; numStacked < pObject->ubNumberOfObjects; ++numStacked) {
+	for (int numStacked = 0; numStacked < pObject->ubNumberOfObjects; ++numStacked)
+	{
 		//some weapon attachments can adjust the ItemSize of a weapon
-		if(iSize<gGameExternalOptions.guiMaxWeaponSize) {
-			for (attachmentList::iterator iter = (*pObject)[numStacked]->attachments.begin(); iter != (*pObject)[numStacked]->attachments.end(); ++iter) {
-				if (iter->exists() == true) {
+		if(iSize<gGameExternalOptions.guiMaxWeaponSize)
+		{
+			for (attachmentList::iterator iter = (*pObject)[numStacked]->attachments.begin(); iter != (*pObject)[numStacked]->attachments.end(); ++iter)
+			{
+				if ( iter->exists() )
+				{
 					iSize += Item[iter->usItem].itemsizebonus;
 					// CHRISL: This is to catch things if we try and reduce ItemSize when we're already at 0
 				}
 			}
-				if(iSize > gGameExternalOptions.guiMaxItemSize || iSize < 0) //JMich
+				
+			if(iSize > gGameExternalOptions.guiMaxItemSize || iSize < 0) //JMich
 				iSize = 0;
-				if(iSize > gGameExternalOptions.guiMaxWeaponSize) //JMich
-					iSize = gGameExternalOptions.guiMaxWeaponSize; //JMich
 
+			if(iSize > gGameExternalOptions.guiMaxWeaponSize) //JMich
+				iSize = gGameExternalOptions.guiMaxWeaponSize; //JMich
 		}
 
 		// LBENODE has it's ItemSize adjusted based on what it's storing
-		if(pObject->IsActiveLBE(numStacked) == true)
+		if( pObject->IsActiveLBE(numStacked) )
 		{
 			LBENODE* pLBE = pObject->GetLBEPointer(numStacked);
 			if(pLBE)
@@ -2921,7 +2944,7 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 				//Now, look through each active pocket
 				for(UINT16 x = 0; x < invsize; ++x)
 				{
-					if(pLBE->inv[x].exists() == true)
+					if ( pLBE->inv[x].exists() )
 					{
 						pIndex = LoadBearingEquipment[Item[pObject->usItem].ubClassIndex].lbePocketIndex[x];
 						testSize = CalculateItemSize(&pLBE->inv[x]);
@@ -3782,7 +3805,7 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 	}
 	else
 	{
-		for(int i=0;i<MAXITEMS;i++)
+		for ( int i = 0; i<gMAXITEMS_READ; ++i )
 		{
 			if ( Launchable[i][0] == 0 && Launchable[i][1] == 0)
 				break;
@@ -5481,32 +5504,37 @@ UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj){
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		if (Attachment[uiLoop][1] == pObj->usItem){
+		if (Attachment[uiLoop][1] == pObj->usItem)
+		{
 			fItem = Attachment[uiLoop][0];
 
 			if(fItem && ItemIsLegal(fItem, TRUE))	
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		if (Launchable[uiLoop][1] == pObj->usItem ){
+		if (Launchable[uiLoop][1] == pObj->usItem )
+		{
 			fItem = Launchable[uiLoop][0];
 
 			if(fItem && ItemIsLegal(fItem, TRUE))	
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		uiLoop++;
-		if (Attachment[uiLoop][0] == 0 && Launchable[uiLoop][0] == 0 && Item[uiLoop].usItemClass == 0 ){
+		++uiLoop;
+
+		if (Attachment[uiLoop][0] == 0 && Launchable[uiLoop][0] == 0 && Item[uiLoop].usItemClass == 0 )
+		{
 			// No more attachments to search
 			break;
 		}
 	}
-	return uiSlotFlag;
 
+	return uiSlotFlag;
 }
 
 //WarmSteel - This function returns the available item slot indexes in a vector.
-std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAttachment){
+std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAttachment)
+{
 	std::vector<UINT16> tempItemSlots;
 	std::vector<UINT16> tempAttachmentSlots;
 	std::vector<UINT16>	tempSlots;
@@ -5514,37 +5542,51 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	UINT16				magSize = 0;
 	UINT64				fItemSlots = 0; //MM: Bumped the NAS UINT32s to UINT64s
 	UINT64				fItemLayout = 0;
+	BOOLEAN				fIsLBE = FALSE;
 
-	if(UsingNewAttachmentSystem()==false || !pObj->exists())
+	if( !UsingNewAttachmentSystem() || !pObj->exists() )
 		return tempItemSlots;
 
 	//CHRISL: We no longer need the ItemSlotAssign.xml file but we do still need to figure out which slots an item can have
 	//Start by searching Attachments.xml and Launchables.xml for valid attachments for the primary object
 	fItemSlots = SetAttachmentSlotsFlag(pObj);
-	fItemLayout = Item[pObj->usItem].nasLayoutClass;
-	if(Item[pObj->usItem].grenadelauncher || Item[pObj->usItem].rocketlauncher)
-		magSize = GetMagSize(pObj);
-
+	
 	//Next, let's figure out which slots the item gives us access to
-	if(fItemSlots){	//We don't need to do anything if the item gets no slots
-		for(UINT8 sClass = 0; sClass < 64; sClass++){	//go through each attachment class and find the slots the item should have
+	if( fItemSlots )
+	{	
+		fItemLayout = Item[pObj->usItem].nasLayoutClass;
+		fIsLBE = (Item[pObj->usItem].usItemClass & IC_LBEGEAR);
+		if ( Item[pObj->usItem].grenadelauncher || Item[pObj->usItem].rocketlauncher )
+			magSize = GetMagSize( pObj );
+
+		//We don't need to do anything if the item gets no slots
+		for(UINT8 sClass = 0; sClass < 64; ++sClass)
+		{	
+			//go through each attachment class and find the slots the item should have
 			UINT64 uiClass = (UINT64)pow((double)2, (int)sClass);
 			UINT32 slotSize = tempItemSlots.size();
-			if(fItemSlots & uiClass){	//don't bother with this slot if it's not a valid class
-				for(UINT32 sCount = 1; sCount < MAXITEMS+1; sCount++)
+
+			if(fItemSlots & uiClass)
+			{
+				//don't bother with this slot if it's not a valid class
+				for ( UINT32 sCount = 1; sCount < gMAXITEMS_READ; ++sCount )
 				{
-					if(AttachmentSlots[sCount].uiSlotIndex == 0)
+					if( !AttachmentSlots[sCount].uiSlotIndex )
 						break;
+
 					if(AttachmentSlots[sCount].nasAttachmentClass & uiClass && AttachmentSlots[sCount].nasLayoutClass & fItemLayout)	//found a slot
 					{
-						if(magSize > 0 && AttachmentSlots[sCount].fMultiShot)
-							magSize--;
-						else if(AttachmentSlots[sCount].fMultiShot)
-							continue;
-
-						if(Item[pObj->usItem].usItemClass == IC_LBEGEAR && AttachmentSlots[sCount].ubPocketMapping > 0)
+						if ( AttachmentSlots[sCount].fMultiShot )
 						{
-							if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, AttachmentSlots[sCount].ubPocketMapping - 1))
+							if ( magSize )
+								--magSize;
+							else
+								continue;
+						}
+
+						if ( fIsLBE && AttachmentSlots[sCount].ubPocketMapping )
+						{
+							if ( LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, AttachmentSlots[sCount].ubPocketMapping - 1) )
 							{
 								tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
 							}
@@ -5555,12 +5597,19 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 						}
 					}
 				}
-				if(slotSize == tempItemSlots.size()){	//we didn't find a layout specific slot so try to find a default layout slot
-					for(UINT32 sCount = 1; sCount < MAXITEMS+1; sCount++){
-						if(AttachmentSlots[sCount].uiSlotIndex == 0)
+
+				if( slotSize == tempItemSlots.size() )
+				{	
+					//we didn't find a layout specific slot so try to find a default layout slot
+					for ( UINT32 sCount = 1; sCount < gMAXITEMS_READ; ++sCount )
+					{
+						if( !AttachmentSlots[sCount].uiSlotIndex )
 							break;
-						if(AttachmentSlots[sCount].nasAttachmentClass & uiClass && AttachmentSlots[sCount].nasLayoutClass == 1){	//found a default slot
-								tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
+
+						if ( AttachmentSlots[sCount].nasAttachmentClass & uiClass && AttachmentSlots[sCount].nasLayoutClass == 1 )
+						{	
+							//found a default slot
+							tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
 						}
 					}
 				}
@@ -5570,34 +5619,46 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 
 	//Now that we've setup tempItemSlots for the main item, let's look at the individual attachments
 	//Madd: Only record these extra slots if the item has its attachment flag set!
-	for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter){
-		if(iter->exists() && Item[iter->usItem].attachment && (*iter)[0]->attachments.size() > 0){
+	for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
+	{
+		if(iter->exists() && Item[iter->usItem].attachment && !(*iter)[0]->attachments.empty() )
+		{
 			OBJECTTYPE* pAttachment = &(*iter);
 			tempSlots = GetItemSlots(pAttachment,0,TRUE);
-			for(UINT8 x = 0; x < tempSlots.size(); x++)
+
+			for(UINT8 x = 0; x < tempSlots.size(); ++x)
 				tempAttachmentSlots.push_back(tempSlots[x]);
 		}
 	}
 
 	//Now that we have tempAttachmentSlots, put it all together, assuming we're woking on the main item
-	if(!fAttachment){
-		if(tempAttachmentSlots.size() > 0){	//Add attachmentSlots to itemSlots
-			for(UINT8 attachSlot = 0; attachSlot < tempAttachmentSlots.size(); attachSlot++){
+	if(!fAttachment)
+	{
+		if( !tempAttachmentSlots.empty() )
+		{	
+			//Add attachmentSlots to itemSlots
+			for(UINT8 attachSlot = 0; attachSlot < tempAttachmentSlots.size(); ++attachSlot)
+			{
 				tempItemSlots.push_back(tempAttachmentSlots[attachSlot]);
 			}
 		}
+
 		tempSlots = tempItemSlots;
-		for(std::vector<UINT16>::iterator iter1 = tempSlots.begin(); iter1 != tempSlots.end(); ++iter1){
+		for(std::vector<UINT16>::iterator iter1 = tempSlots.begin(); iter1 != tempSlots.end(); ++iter1)
+		{
 			BOOLEAN fSlotDuplicated = FALSE;
-			for(std::vector<UINT16>::iterator iter = tempItemSlots.begin(); iter != tempItemSlots.end();){
+			for(std::vector<UINT16>::iterator iter = tempItemSlots.begin(); iter != tempItemSlots.end();)
+			{
 				UINT16 i1 = *iter1;
 				UINT16 i = *iter;
-				if(i1 == i && !fSlotDuplicated){
+				if(i1 == i && !fSlotDuplicated)
+				{
 					fSlotDuplicated = TRUE;
 					++iter;
 					continue;
 				}
-				else if(i1 == i && fSlotDuplicated){
+				else if(i1 == i && fSlotDuplicated)
+				{
 					iter = tempItemSlots.erase(iter);
 					continue;
 				}
@@ -5605,9 +5666,11 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 					++iter;
 			}
 		}
+
 		//If we still have no attachment slots, look through Merges.xml to see if we have merges and use the 4 default slots if we do
 		//Should we throw on default slots regardless of whether there is an entry in Merges?  Ammo doesn't have Merges entries but we still need slots for them.
-		if(tempItemSlots.size() == 0){
+		if( tempItemSlots.empty() )
+		{
 //			INT32 iLoop = 0;
 //			while( 1 ){
 //				if (Merge[iLoop][1] == pObj->usItem)
@@ -6007,13 +6070,14 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 	UINT32					pRestrict=0;
 
 	// CHRISL: Only check valid pockets
-	if((UsingNewInventorySystem() == false) && !oldInv[bPos])
+	if ( UsingNewInventorySystem( ) )
+	{
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+			return ( CanItemFitInVehicle( pSoldier, pObj, bPos, fDoingPlacement ) );
+	}
+	else if ( !oldInv[bPos] )
 		return(FALSE);
-	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true)
-		return(CanItemFitInVehicle(pSoldier, pObj, bPos, fDoingPlacement));
-
-	ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier );
-
+	
 	switch( bPos )
 	{
 		case SECONDHANDPOS:
@@ -6025,10 +6089,10 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 		case HANDPOS:
 			if (Item[ pObj->usItem ].twohanded )
 			{
-				if (pSoldier->inv[HANDPOS].exists() == true && pSoldier->inv[SECONDHANDPOS].exists() == true)
+				if ( pSoldier->inv[HANDPOS].exists() && pSoldier->inv[SECONDHANDPOS].exists() )
 				{
 					// two items in hands; try moving the second one so we can swap
-					if (FitsInSmallPocket(&pSoldier->inv[SECONDHANDPOS]) == true)
+					if ( FitsInSmallPocket(&pSoldier->inv[SECONDHANDPOS]) )
 					{
 						bNewPos = FindEmptySlotWithin( pSoldier, BIGPOCKSTART, NUM_INV_SLOTS );
 					}
@@ -6125,10 +6189,10 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 			// Removed backpack/gunsling restrictions
 			//if(pSoldier->inv[GUNSLINGPOCKPOS].exists() == true)
 			//	return( FALSE );
-			if(pSoldier->inv[CPACKPOCKPOS].exists() == true)
+			if ( pSoldier->inv[CPACKPOCKPOS].exists() )
 			{
 				//DBrot: changed to bitwise comparison
-				if(((LoadBearingEquipment[Item[pSoldier->inv[CPACKPOCKPOS].usItem].ubClassIndex].lbeCombo & LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeCombo) ==0)||
+				if( ((LoadBearingEquipment[Item[pSoldier->inv[CPACKPOCKPOS].usItem].ubClassIndex].lbeCombo & LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeCombo) ==0) ||
 				LoadBearingEquipment[Item[pSoldier->inv[CPACKPOCKPOS].usItem].ubClassIndex].lbeCombo == 0)
 				{
 					return( FALSE );
@@ -6139,10 +6203,10 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 			//if (Item[pObj->usItem].usItemClass != IC_GUN && Item[pObj->usItem].usItemClass != IC_BLADE && Item[pObj->usItem].usItemClass != IC_LAUNCHER)
 			if(pObj->usItem == MONEY)
 				return( FALSE );
-			if(Item[pObj->usItem].usItemClass == IC_AMMO || Item[pObj->usItem].usItemClass == IC_GRENADE)
+
+			if ( Item[pObj->usItem].usItemClass & (IC_AMMO | IC_GRENADE) )
 				return(CompatibleAmmoForGun(pObj, &pSoldier->inv[GUNSLINGPOCKPOS]) || ValidAttachment(pObj->usItem, &(pSoldier->inv[GUNSLINGPOCKPOS]) ) || ValidLaunchable(pObj->usItem, pSoldier->inv[GUNSLINGPOCKPOS].usItem));
-			//recalc slot limit to exclude ItemSize attachment modifiers
-			ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier, FALSE );
+
 			// Removed backpack/gunsling restrictions
 			//if(pSoldier->inv[BPACKPOCKPOS].exists() == true)
 			//	return(CompatibleAmmoForGun(pObj, &pSoldier->inv[GUNSLINGPOCKPOS]));
@@ -6195,18 +6259,21 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 		case SMALLPOCK28POS:
 		case SMALLPOCK29POS:
 		case SMALLPOCK30POS:
-			if((UsingNewInventorySystem() == true))
+			if( UsingNewInventorySystem() )
 			{
 				if(icLBE[bPos] == BPACKPOCKPOS && (!(pSoldier->flags.ZipperFlag) || (pSoldier->flags.ZipperFlag && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)) && (gTacticalStatus.uiFlags & INCOMBAT))
 					return( FALSE );
-				lbePocket = (pSoldier->inv[icLBE[bPos]].exists() == false) ? LoadBearingEquipment[Item[icDefault[bPos]].ubClassIndex].lbePocketIndex[icPocket[bPos]] : LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketIndex[icPocket[bPos]];
-				if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bPos])){
+
+				lbePocket = ( !pSoldier->inv[icLBE[bPos]].exists() ) ? LoadBearingEquipment[Item[icDefault[bPos]].ubClassIndex].lbePocketIndex[icPocket[bPos]] : LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketIndex[icPocket[bPos]];
+				
+				if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bPos]))
+				{
 					lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[bPos]], icPocket[bPos]);
 				}
 				
 				pRestrict = LBEPocketType[lbePocket].pRestriction;
-				if(pRestrict != 0)
-					if(!(pRestrict & Item[pObj->usItem].usItemClass))
+				if ( pRestrict != 0)
+					if ( !(pRestrict & Item[pObj->usItem].usItemClass) )
 						lbePocket = 0;
 			}
 			break;
@@ -6214,23 +6281,39 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 			break;
 	}
 
-	if((UsingNewInventorySystem() == false))
+	if ( !UsingNewInventorySystem() )
 	{
-		if (ubSlotLimit == 0 && bPos >= SMALLPOCKSTART )
+		if ( bPos >= SMALLPOCKSTART )
 		{
+			// Flugente: we call this function a lot. As ItemSlotLimit is somewhat expensive, limiting the amount of calls helps avoid a fps drop if the inventory is open
+			if ( bPos == GUNSLINGPOCKPOS )
+				//recalc slot limit to exclude ItemSize attachment modifiers
+				ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier, FALSE );
+			else
+				ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier );
+
 			// doesn't fit!
-			return( FALSE );
+			if ( !ubSlotLimit )
+				return( FALSE );
 		}
 	}
 	else
 	{
 		// CHRISL: lbePocket==0 means pocket disabled.  ubSlotLimit==0 means pocket can't hold item
-		if ( lbePocket == 0 || ubSlotLimit == 0 )
+		if ( lbePocket == 0 )
 			return ( CompatibleAmmoForGun(pObj, &pSoldier->inv[bPos]) || ValidAttachment(pObj->usItem, &(pSoldier->inv[bPos]) ) || ValidLaunchable(pObj->usItem, pSoldier->inv[bPos].usItem) );
+		else
+		{
+			// Flugente: we call this function a lot. As ItemSlotLimit is somewhat expensive, limiting the amount of calls helps avoid a fps drop if the inventory is open
+			if ( bPos == GUNSLINGPOCKPOS )
+				//recalc slot limit to exclude ItemSize attachment modifiers
+				ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier, FALSE );
+			else
+				ubSlotLimit = ItemSlotLimit( pObj, bPos, pSoldier );
 
-		// CHRISL: Adjust parameters to include the new inventory system
-		if (ubSlotLimit == 0 && bPos >= BIGPOCKFINAL )
-			return( CompatibleAmmoForGun(pObj, &pSoldier->inv[bPos]) || ValidAttachment(pObj->usItem, &(pSoldier->inv[bPos]) ) || ValidLaunchable(pObj->usItem, pSoldier->inv[bPos].usItem) );
+			if ( !ubSlotLimit )
+				return (CompatibleAmmoForGun( pObj, &pSoldier->inv[bPos] ) || ValidAttachment( pObj->usItem, &(pSoldier->inv[bPos]) ) || ValidLaunchable( pObj->usItem, pSoldier->inv[bPos].usItem ));
+		}
 	}
 
 	return( TRUE );
@@ -6452,19 +6535,22 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 								UINT8		capacity=0;
 								UINT8		bLoop;
 								//find the ammo item we want to try and create
-								for(int loop = 0; loop < MAXITEMS; loop++)
+								for ( int loop = 0; loop < gMAXITEMS_READ; ++loop )
 								{
-									if(Item[loop].usItemClass == IC_AMMO)
+									if(Item[loop].usItemClass & IC_AMMO)
 									{
 										if(Magazine[Item[loop].ubClassIndex].ubCalibre == Weapon[pObjUsed->usItem].ubCalibre && Magazine[Item[loop].ubClassIndex].ubAmmoType == Magazine[Item[pObj->usItem].ubClassIndex].ubAmmoType && Magazine[Item[loop].ubClassIndex].ubMagSize == GetMagSize(pObjUsed) && Magazine[Item[loop].ubClassIndex].ubMagType < AMMO_BOX )
+										{
 											newItem = loop;
+											break;
+										}
 									}
 								}
 								//Create a stack of up to 5 "newItem" clips 
 								tempStack.initialize();
 								clipCreated = false;
 								ubShotsLeft = (*pObj)[0]->data.ubShotsLeft;
-								for(UINT8 clip = 0; clip < 5; clip++)
+								for(UINT8 clip = 0; clip < 5; ++clip)
 								{
 									magSize = GetMagSize(pObjUsed);
 									if(ubShotsLeft < magSize)
@@ -7486,8 +7572,6 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 
 UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 {
-	UINT16				usLoop;
-
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index usMagIndex
@@ -7495,13 +7579,8 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 	
 	// WANNE: Now ammo can be inserted anywhere in Items.xml (before only on index > 70 [FIRST_AMMO] (fix by Realist)
 	//for (usLoop = FIRST_AMMO; usLoop < MAXITEMS; usLoop++)
-	for (usLoop = 0; usLoop < MAXITEMS; usLoop++)
+	for ( UINT16 usLoop = 0; usLoop < gMAXITEMS_READ; ++usLoop )
 	{
-		if ( Item[usLoop].usItemClass  == 0 )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: breaking at index %d", usLoop ) );
-			break;
-		}
 		if (Item[usLoop].ubClassIndex == usMagIndex && Item[usLoop].usItemClass == IC_AMMO )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: return %d", usLoop ) );
@@ -7903,7 +7982,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateItem: usItem = %d",usItem));
 	BOOLEAN fRet;
 
-	if (usItem >= MAXITEMS)
+	if ( usItem >= gMAXITEMS_READ )
 	{
 		DebugBreakpoint();
 		return( FALSE );
@@ -9925,23 +10004,23 @@ void TurnOffXRayEffects( SOLDIERTYPE * pSoldier )
 #ifdef JA2TESTVERSION
 void DumpItemsList( void )
 {
-  CHAR8 zPrintFileName[60];
-  FILE *FDump;
+	CHAR8 zPrintFileName[60];
+	FILE *FDump;
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-  // open output file
+	// open output file
  	strcpy(zPrintFileName, "ItemDump.txt");
-  FDump = fopen(zPrintFileName, "wt");
+	FDump = fopen(zPrintFileName, "wt");
 
-  if (FDump == NULL)
-    return;
+	if (FDump == NULL)
+		return;
 
 	// print headings
 	fprintf(FDump, "            ITEM              COOLNESS  VALUE\n");
 	fprintf(FDump, "============================  ========  =====\n");
 
-	for( usItem = 0; usItem < MAXITEMS; usItem++ )
+	for ( usItem = 0; usItem < MAXITEMS; ++usItem )
 	{
 		pItem= &( Item[ usItem ] );
 
@@ -9951,7 +10030,7 @@ void DumpItemsList( void )
 		}
 	}
 
-  fclose(FDump);
+	fclose(FDump);
 }
 #endif // JA2TESTVERSION
 
@@ -10765,11 +10844,12 @@ INT16 GetRateOfFireBonus( OBJECTTYPE * pObj )
 {
 	INT16 bonus=0;
 
-	if (pObj->exists() == true) {
-		if( (MAXITEMS <= pObj->usItem) || (MAXITEMS <= (*pObj)[0]->data.gun.usGunAmmoItem) )
+	if ( pObj->exists() )
+	{
+		if ( (gMAXITEMS_READ <= pObj->usItem) || (gMAXITEMS_READ <= (*pObj)[0]->data.gun.usGunAmmoItem) )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("GetRateOfFireBonus would crash: pObj->usItem=%d or (*pObj)[0]->data.gun.usGunAmmoItem=%d ist higher than max %d", pObj->usItem, (*pObj)[0]->data.gun.usGunAmmoItem, MAXITEMS ));
-			ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"GetRateOfFireBonus would crash: pObj->usItem=%d or (*pObj)[0]->data.gun.usGunAmmoItem=%d ist higher than max %d", pObj->usItem, (*pObj)[0]->data.gun.usGunAmmoItem, MAXITEMS );
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_1, String( "GetRateOfFireBonus would crash: pObj->usItem=%d or (*pObj)[0]->data.gun.usGunAmmoItem=%d ist higher than max %d", pObj->usItem, (*pObj)[0]->data.gun.usGunAmmoItem, gMAXITEMS_READ ) );
+			ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"GetRateOfFireBonus would crash: pObj->usItem=%d or (*pObj)[0]->data.gun.usGunAmmoItem=%d ist higher than max %d", pObj->usItem, (*pObj)[0]->data.gun.usGunAmmoItem, gMAXITEMS_READ );
 			AssertMsg( 0, "GetRateOfFireBonus would crash" );
 			return 0; /* cannot calculate Bonus, this only happens sometimes in FULLSCREEN */
 		}
@@ -10777,8 +10857,10 @@ INT16 GetRateOfFireBonus( OBJECTTYPE * pObj )
 		bonus = BonusReduceMore( Item[pObj->usItem].rateoffirebonus, (*pObj)[0]->data.objectStatus );
 		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].rateoffirebonus ;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if(iter->exists()){
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if(iter->exists())
+			{
 				bonus += BonusReduceMore( Item[iter->usItem].rateoffirebonus, (*iter)[0]->data.objectStatus );
 			}
 		}
@@ -11982,15 +12064,18 @@ INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj )
 INT16 GetBulletSpeedBonus( OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
-	if (pObj->exists() == true) {
-		bonus = Item[pObj->usItem].bulletspeedbonus ;
-		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].bulletspeedbonus ;
+	if (pObj->exists() )
+	{
+		bonus = Item[pObj->usItem].bulletspeedbonus;
+		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].bulletspeedbonus;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
 			if(iter->exists())
 			bonus = bonus +Item[iter->usItem].bulletspeedbonus  ;
 		}
 	}
+
 	return( bonus );
 }
 
@@ -12205,9 +12290,10 @@ INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 
 INT8 FindWalkman( SOLDIERTYPE * pSoldier )
 {
-	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; bLoop++)
+	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; ++bLoop)
 	{
-		if (pSoldier->inv[bLoop].exists() == true) {
+		if (pSoldier->inv[bLoop].exists() )
+		{
 			if (Item[pSoldier->inv[bLoop].usItem].walkman  )
 			{
 				return( bLoop );
@@ -12252,16 +12338,14 @@ UINT16 LowestLaunchableCoolness(UINT16 launcherIndex)
 	UINT16 i = 0;
 	UINT16 lowestCoolness = 999;
 
-	for( i = 0; i < MAXITEMS; ++i )
+	for ( i = 0; i < gMAXITEMS_READ; ++i )
 	{
-		if ( Item[i].usItemClass  == 0 )
-			break;
-
 		if( ValidLaunchable( i, launcherIndex ) && ItemIsLegal(i) && Item[i].ubCoolness <= lowestCoolness )
 		{
 			lowestCoolness = Item[i].ubCoolness;
 		}
 	}
+
 	return lowestCoolness;
 }
 
@@ -12312,7 +12396,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	UINT16 maxcoolness = max( HighestPlayerProgressPercentage() / 10, lowestCoolness );
 
 	std::vector<UINT16> legalvec;
-	for ( UINT16 i = 0; i < MAXITEMS; ++i )
+	for ( UINT16 i = 0; i < gMAXITEMS_READ; ++i )
 	{
 		if ( Item[i].usItemClass == 0 )
 			break;
@@ -12338,6 +12422,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 
 	return 0;
 }
+
 INT16 GetCamoBonus( OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
@@ -12395,9 +12480,9 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 	{
-		if ( pSoldier->inv[bLoop].exists() == true )
+		if ( pSoldier->inv[bLoop].exists() )
 		{
 			ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
 			if ( UsingNewInventorySystem() )
@@ -12420,9 +12505,9 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 	}
 
 	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if((UsingNewInventorySystem() == true))
+	if( UsingNewInventorySystem() )
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
 		{
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetCamoBonus(&pSoldier->inv[bLoop]);
@@ -12444,9 +12529,9 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 	{
-		if ( pSoldier->inv[bLoop].exists() == true )
+		if ( pSoldier->inv[bLoop].exists() )
 		{
 			ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
 			if ( UsingNewInventorySystem() )
@@ -12469,9 +12554,9 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 	}
 
 	// CHRISL: Add additional loop for LBE items while using new inventory system
-	if((UsingNewInventorySystem() == true))
+	if( UsingNewInventorySystem() )
 	{
-		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; bLoop++)
+		for (bLoop = VESTPOCKPOS; bLoop <= BPACKPOCKPOS; ++bLoop)
 		{
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
@@ -12541,7 +12626,7 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 	INT8	bLoop;
 	INT16 ttl=0;
 
-	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 	{
 		if ( pSoldier->inv[bLoop].exists() == true )
 		{
@@ -12647,9 +12732,9 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 
 UINT16 GetFirstExplosiveOfType(UINT16 expType)
 {
-	for (int i=0;i<MAXITEMS;i++)
+	for ( int i = 0; i<gMAXITEMS_READ; ++i )
 	{
-		if ( (Item[i].usItemClass == IC_EXPLOSV || Item[i].usItemClass == IC_GRENADE) && Explosive[Item[i].ubClassIndex].ubType == expType )
+		if ( Item[i].usItemClass == (IC_EXPLOSV | IC_GRENADE) && Explosive[Item[i].ubClassIndex].ubType == expType )
 			return i;
 	}
 
@@ -13559,7 +13644,7 @@ INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
 
 	for (bLoop = HELMETPOS; bLoop <= LEGPOS; ++bLoop)
 	{
-		if ( pSoldier->inv[bLoop].exists() == true )
+		if ( pSoldier->inv[bLoop].exists() )
 			ttl += GetStealthBonus(&pSoldier->inv[bLoop]);
 	}
 
@@ -13734,9 +13819,7 @@ INT16 GetBestLaserRange( OBJECTTYPE * pObj )
 // HEADROCK: This function determines the bipod bonii of the gun or its attachments
 INT16 GetBipodBonus( OBJECTTYPE * pObj )
 {
-	INT16 bonus=0;
-
-	bonus = Item[pObj->usItem].bipod;
+	INT16 bonus = Item[pObj->usItem].bipod;
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter){
 		if(iter->exists())
@@ -13811,11 +13894,10 @@ INT16 GetItemVisionRangeBonus( OBJECTTYPE * pObj, INT16 VisionType )
 
 UINT8 GetItemPercentTunnelVision( OBJECTTYPE * pObj )
 {
-	UINT8 bonus = 0;
+	UINT8 bonus = Item[ pObj->usItem ].percenttunnelvision;
 
-	bonus += Item[ pObj->usItem ].percenttunnelvision;
-
-	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
 		if(iter->exists())
 			bonus += Item[iter->usItem].percenttunnelvision;
 	}
@@ -13832,7 +13914,8 @@ INT16 GetItemHearingRangeBonus( OBJECTTYPE * pObj )
 
 	bonus += Item[ pObj->usItem ].hearingrangebonus;
 
-	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
 		if(iter->exists())
 			bonus += Item[ iter->usItem ].hearingrangebonus;
 	}
@@ -13853,12 +13936,14 @@ BOOLEAN IsFlashSuppressorAlt( OBJECTTYPE * pObj )
 	if ( Item[(*pObj)[0]->data.gun.usGunAmmoItem].hidemuzzleflash )
 		return TRUE;
 
-	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].hidemuzzleflash && iter->exists() )
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if ( iter->exists( ) && Item[iter->usItem].hidemuzzleflash )
 		{
 			return( TRUE );
 		}
 	}
+
 	return( FALSE );
 }
 
@@ -13869,7 +13954,8 @@ INT16 GetBasicStealthBonus( OBJECTTYPE * pObj )
 	if ( pObj->exists() == true ) {
 		bonus = Item[pObj->usItem].stealthbonus;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
 			if(iter->exists())
 				bonus += (INT16) Item[iter->usItem].stealthbonus;
 		}
@@ -13889,11 +13975,11 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 		accuracyheatmultiplicator = max(0.0f, 1.0f - accuracymalus);
 	}
 
-	if(UsingNewCTHSystem() == false)
+	if ( !UsingNewCTHSystem() )
 		return( (INT32)(accuracyheatmultiplicator * Weapon[pObj->usItem].bAccuracy) );
 
 	INT32 bonus = 0;
-	if ( pObj->exists() == true )
+	if ( pObj->exists() )
 	{
 		bonus = (INT32)(accuracyheatmultiplicator * Weapon[Item[pObj->usItem].uiIndex].nAccuracy);
 		bonus = (bonus * (*pObj)[0]->data.gun.bGunStatus) / 100;
@@ -13922,7 +14008,7 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 INT32 GetAccuracyModifier( OBJECTTYPE *pObj )
 {
 	INT32 bonus = 0;
-	if ( pObj->exists() == true && UsingNewCTHSystem() == true )
+	if ( pObj->exists() && UsingNewCTHSystem() )
 	{
 		bonus += Item[ pObj->usItem ].percentaccuracymodifier;
 
@@ -13945,25 +14031,25 @@ INT32 GetAccuracyModifier( OBJECTTYPE *pObj )
 // CHRISL: Carrying an empty backpack in a none BACKPACKPOS location shoudln't be an issue.
 INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier )
 {
-	INT8	bLoop;
-
-	for (bLoop = 0; bLoop < NUM_INV_SLOTS ; bLoop++)
+	for ( INT8 bLoop = 0; bLoop < NUM_INV_SLOTS; ++bLoop )
 	{
 		if (pSoldier->inv[bLoop].exists())
 		{
 			if( bLoop == BPACKPOCKPOS )
 				return( bLoop );
-			if (Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_LBEGEAR &&
+
+			if (Item[pSoldier->inv[bLoop].usItem].usItemClass & IC_LBEGEAR &&
 				LoadBearingEquipment[Item[pSoldier->inv[bLoop].usItem].ubClassIndex].lbeClass == BACKPACK)
 			{
-				for (INT8 bLoop2 = 0; bLoop2 < pSoldier->inv[bLoop].ubNumberOfObjects; bLoop2++)
+				for (INT8 bLoop2 = 0; bLoop2 < pSoldier->inv[bLoop].ubNumberOfObjects; ++bLoop2)
 				{
-					if(pSoldier->inv[bLoop].IsActiveLBE(bLoop2) == true)
+					if ( pSoldier->inv[bLoop].IsActiveLBE(bLoop2) )
 						return( bLoop );
 				}
 			}
 		}
 	}
+
 	return( ITEM_NOT_FOUND );
 }
 
@@ -14060,7 +14146,7 @@ INT16 ReduceCamoFromSoldier( SOLDIERTYPE * pSoldier, INT16 iCamoToRemove, INT16 
 	if ( iCamoToRemovePart < 0 )
 		iCamoToRemovePart = 0;
 
-	for (i = 0; i < 4; i++ ) // 4 times should be enough, a little paranoya here
+	for (i = 0; i < 4; ++i ) // 4 times should be enough, a little paranoya here
 	{
 		// first, try to reduce jungle camo
 		if ( ((iCamoToRemove / (1 + iCamoToRemovePart)) <= pSoldier->bCamo) && (pSoldier->bCamo > 0) && (iCamoToSkip != 1) )
@@ -14372,50 +14458,59 @@ BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag )
 	return( FALSE );
 }
 //DBrot: calculate the volume already taken up by other pouches attached to this carrier
-UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj, INT16 exceptSlot){
+UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj, INT16 exceptSlot)
+{
 	UINT8 sum=0;
 	if ( pObj->exists() )
 	{
 		std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj);
 		OBJECTTYPE* pAttachment; 
-		UINT16 slotCount;
-		for (slotCount = 0; slotCount < usAttachmentSlotIndexVector.size(); slotCount++ ){
+		for ( UINT16 slotCount = 0; slotCount < usAttachmentSlotIndexVector.size( ); ++slotCount )
+		{
 			if( slotCount == exceptSlot)
 				continue;
 			
 			pAttachment = (*pObj)[0]->GetAttachmentAtIndex(slotCount);
-			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR){
+			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR)
+			{
 				sum += LBEPocketType[GetFirstPocketOnItem(pAttachment->usItem)].pVolume;
 			}
 		}
 	}
+
 	return sum;
 }
 //DBrot: search the attachments for a pocket
 INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap){
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj);
 	OBJECTTYPE* pAttachment; 
-	UINT16 slotCount;
-	for (slotCount = 0; slotCount < usAttachmentSlotIndexVector.size(); slotCount++ ){
-		if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1 == pMap){
+	for ( UINT16 slotCount = 0; slotCount < usAttachmentSlotIndexVector.size( ); ++slotCount )
+	{
+		if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1 == pMap)
+		{
 			pAttachment = (*pObj)[0]->GetAttachmentAtIndex(slotCount);
-			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR){
+			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR)
+			{
 				return(GetFirstPocketOnItem(pAttachment->usItem));
-				
 			}
 		}
 	}
+
 	return 0;
 }
-UINT8 GetFirstPocketOnItem(UINT16 usIndex){
-	UINT8 pPocket = 0;
-	for(UINT8 i = 0; i < LoadBearingEquipment[Item[usIndex].ubClassIndex].lbePocketIndex.size(); i++){
-		pPocket = LoadBearingEquipment[Item[usIndex].ubClassIndex].lbePocketIndex[i];
-		if(pPocket){
-			return pPocket;
+UINT8 GetFirstPocketOnItem(UINT16 usIndex)
+{
+	UINT8 pocket = 0;
+	for(UINT8 i = 0; i < LoadBearingEquipment[Item[usIndex].ubClassIndex].lbePocketIndex.size(); ++i)
+	{
+		pocket = LoadBearingEquipment[Item[usIndex].ubClassIndex].lbePocketIndex[i];
+		if ( pocket )
+		{
+			return pocket;
 		}
 	}
-	return pPocket;
+
+	return pocket;
 }
 
 extern void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags);
@@ -14473,7 +14568,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	}
 
 	// Read all result items for this transformation. Record them into an array.
-	for (UINT32 curResult = 0; curResult < MAX_NUM_TRANSFORMATION_RESULTS; curResult++)
+	for (UINT32 curResult = 0; curResult < MAX_NUM_TRANSFORMATION_RESULTS; ++curResult)
 	{
 		if (Transform->usResult[curResult] > 0)
 		{
@@ -14485,7 +14580,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 				usResult[curResult] = rdresult;
 
 			// Count the number of valid result items
-			iNumResults++;
+			++iNumResults;
 		}
 	}
 
@@ -14553,7 +14648,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	attachmentList unattachableList;
 	this->usItem = usResult[0];
 	// Repeat for each object in the stack.
-	for ( UINT8 x = 0; x < this->ubNumberOfObjects; x++ )
+	for ( UINT8 x = 0; x < this->ubNumberOfObjects; ++x )
 	{
 		unattachableList = ReInitMergedItem(pSoldier, this, usOldItem, x);
 	}
@@ -14568,7 +14663,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	UINT32 uiNewClass = Item[this->usItem].usItemClass;
 
 	// Flugente: if the new item is a food item (and the old one wasn't), we define it to be fresh, so adjust its temperature
-	if ( Item[usOldItem].foodtype == 0 &&  Item[this->usItem].foodtype > 0 )
+	if ( Item[usOldItem].foodtype == 0 && Item[this->usItem].foodtype > 0 )
 		(*this)[0]->data.bTemperature = OVERHEATING_MAX_TEMPERATURE;
 
 	// Make a clone of this object, so that we can point the DescBox to it later if we run into any problems.
@@ -14661,7 +14756,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	//if (uiOrigClass & IC_LBEGEAR || uiNewClass & IC_LBEGEAR )
 	if (!fItemInPool)
 	{
-		for (INT8 bPocket = HELMETPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		for (INT8 bPocket = HELMETPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 		{
 			if (pSoldier->inv[bPocket].exists())
 			{
@@ -14697,27 +14792,34 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	// sector pool.
 	
 	// Iterate through the results array we've constructed earlier.
-	for (UINT32 x = 1; x < iNumResults; x++)
+	for (UINT32 x = 1; x < iNumResults; ++x)
 	{
-		for (UINT32 y = 0; y < ubOrigNumObjects; y++)
+		for (UINT32 y = 0; y < ubOrigNumObjects; ++y)
 		{
 			// Create the result item. Set its condition to match that of the original.
 			CreateItem( usResult[x], ubOrigStatus, &gTempObject );
 
 			//Madd:  sometimes we have leftover attachments that couldn't fit on first result, so we try reattaching them here
 			// I am the prince of copy pasta ;)
-			for (attachmentList::iterator iter = unattachableList.begin(); iter != unattachableList.end();) {
-				if( ValidItemAttachmentSlot(&gTempObject, iter->usItem, TRUE, FALSE, ubStatusIndex )){
+			for (attachmentList::iterator iter = unattachableList.begin(); iter != unattachableList.end();)
+			{
+				if( ValidItemAttachmentSlot(&gTempObject, iter->usItem, TRUE, FALSE, ubStatusIndex ))
+				{
 					//This seems to be rather valid. Can't be 100% sure though.
 					OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
 					CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
-					if(gTempObject.AttachObject(NULL, &tempAttachment, FALSE, ubStatusIndex)){
+					if(gTempObject.AttachObject(NULL, &tempAttachment, FALSE, ubStatusIndex))
+					{
 						//remove this object from the list, so we don't try to attach it to the next result
 						iter = unattachableList.erase(iter);
-					} else {
+					}
+					else
+					{
 						++iter;
 					}
-				} else {
+				} 
+				else
+				{
 					++iter;
 				}
 			}
@@ -14794,7 +14896,7 @@ bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 a
 {
 	if (pObject)
 	{
-		if (Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment  || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)&& Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint(pObject, subObject))
+		if ( Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint( pObject, subObject ) )
 			return true;
 	}
 
@@ -14804,19 +14906,19 @@ bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 a
 //Madd: Common Attachment Framework - if we already know the point 
 bool IsAttachmentPointAvailable( UINT64 point, UINT32 attachmentID, BOOLEAN onlyCheckAttachments )
 {
-	if (point > 0 && (!onlyCheckAttachments || (Item[attachmentID].attachment || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)) && Item[attachmentID].ulAttachmentPoint & point)
+	if ( point > 0 && (!onlyCheckAttachments || (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) )) && Item[attachmentID].ulAttachmentPoint & point )
 		return true;
-	else
-		return false;
+	
+	return false;
 }
 
 //Madd: Common Attachment Framework, doesn't look at attachments
 bool IsAttachmentPointAvailable( UINT32 itemID, UINT32 attachmentID )
 {
-	if (Item[itemID].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB) && Item[attachmentID].ulAttachmentPoint & Item[itemID].ulAvailableAttachmentPoint) 
+	if ( Item[itemID].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & Item[itemID].ulAvailableAttachmentPoint )
 		return true;
-	else
-		return false;
+	
+	return false;
 }
 
 //Madd: Common Attachment Framework, get point value from object + attachments
@@ -14828,7 +14930,7 @@ UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
 		point = Item[pObject->usItem].ulAvailableAttachmentPoint;
 		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) 
 		{
-			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint > 0 && Item[iter->usItem].attachment )
+			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint && Item[iter->usItem].attachment )
 				point |= Item[iter->usItem].ulAvailableAttachmentPoint;
 		}
 	}
@@ -14862,7 +14964,7 @@ BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag )
 BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag )
 {
 	register UINT16 i;
-	for (i = 1; i < MAXITEMS; ++i)
+	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( HasItemFlag(i, aFlag) )
 		{
@@ -15122,13 +15224,13 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	if ( !GetPaletteRepIndexFromID(aPalPants, &filler) )
 		pantsok = TRUE;
 
-	// getting the best item isn't straightforward. As combo clothes can be found first, we will search for each item whose clothestype matches, and retreive the loest item that has
+	// getting the best item isn't straightforward. As combo clothes can be found first, we will search for each item whose clothestype matches, and retrieve the lowest item that has
 	// the lowest clothestype
 	UINT32 bestclothestype = 999999;
 	UINT16 bestitem = 0;
 
 	register UINT16 i;
-	for (i = 1; i < MAXITEMS; ++i)
+	for ( i = 1; i < gMAXITEMS_READ; ++i )
 	{
 		if ( Item[i].clothestype > 0 )
 		{

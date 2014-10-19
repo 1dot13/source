@@ -1459,14 +1459,13 @@ int CompareItemsForSorting( UINT16 usItem1Index, UINT16 usItem2Index, UINT16 ubI
 
 UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 {
-	UINT32	uiItemClass;
+	UINT32		uiItemClass;
 	UINT8		ubWeaponClass;
 	UINT8		ubCategory = 0;
 
-
 	uiItemClass  = Item[ usItemIndex ].usItemClass;
 
-	if ( usItemIndex < MAXITEMS && IsWeapon(usItemIndex) )
+	if ( usItemIndex < gMAXITEMS_READ && IsWeapon( usItemIndex ) )
 	{
 		ubWeaponClass = 0;// Madd: commented out so we can sort guns by name instead ... Weapon[ usItemIndex ].ubWeaponClass;
 	}
@@ -1475,7 +1474,6 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 		// not a weapon, so no weapon class, this won't be needed
 		ubWeaponClass = 0;
 	}
-
 
 	ubCategory = 0;
 
@@ -1502,7 +1500,7 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 		}
 
 		// check vs. next category in the list
-		ubCategory++;
+		++ubCategory;
 	}
 
 	// WANNE: commented the assert out, because we always get the assertion in debug mode!

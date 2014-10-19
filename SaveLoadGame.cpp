@@ -849,22 +849,20 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 		OLD_DEALER_SPECIAL_ITEM_101 oldSpecial;
 		DEALER_SPECIAL_ITEM loadedSpecial;
 		//loop through all the dealers inventories
-		for( ubArmsDealer=0; ubArmsDealer<uiDealersSaved; ubArmsDealer++ )
+		for( ubArmsDealer=0; ubArmsDealer<uiDealersSaved; ++ubArmsDealer )
 		{
 			gArmsDealerStatus[ubArmsDealer] = gOldArmsDealerStatus[ubArmsDealer];
 
 			//loop through this dealer's individual items
-			for(usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
+			for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
 			{
-				if ( Item[usItemIndex].usItemClass == 0 )
-					continue;
-
 				//some things are much much better stored in status now
 				gArmsDealerStatus[ubArmsDealer].fPreviouslyEligible[usItemIndex] = (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].fPreviouslyEligible;
 				gArmsDealerStatus[ubArmsDealer].ubStrayAmmo[usItemIndex] = (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubStrayAmmo;
 
 				//if there are any perfect items, insert them immediately
-				if ((*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubPerfectItems) {
+				if ((*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubPerfectItems)
+				{
 					gArmsDealersInventory[ubArmsDealer].push_back(DEALER_SPECIAL_ITEM());
 					DEALER_SPECIAL_ITEM* pPerfectItem = &gArmsDealersInventory[ubArmsDealer].back();
 					CreateObjectForDealer(usItemIndex, 100, (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubPerfectItems, &pPerfectItem->object);
@@ -873,14 +871,16 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 				}
 
 				//if there are any items on order, order them
-				if ((*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubQtyOnOrder) {
+				if ((*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubQtyOnOrder)
+				{
 					OrderDealerItems(ubArmsDealer, usItemIndex,
 						(*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubQtyOnOrder,
 						(*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].uiOrderArrivalTime);
 				}
 
 				//if there are any special elements allocated for this item, load them
-				for ( int x = 0; x < (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubElementsAlloced; ++x) {
+				for ( int x = 0; x < (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubElementsAlloced; ++x)
+				{
 					if (!FileRead( hFile, &oldSpecial, sizeof( OLD_DEALER_SPECIAL_ITEM_101 ), &uiNumBytesRead ))
 					{
 						return( FALSE );

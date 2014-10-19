@@ -3021,7 +3021,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 				// lets rearrange our skills to a temp array
 				// we also get the number of lines (skills) to be displayed 
-				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ++ubCnt )
 				{
 					if ( ProfileHasSkillTrait( gpSMCurrentMerc->ubProfile, ubCnt ) == 2 )
 					{
@@ -3041,7 +3041,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				}
 				else
 				{
-					for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+					for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ++ubCnt )
 					{
 						swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
 						wcscat( pStr, sTemp );

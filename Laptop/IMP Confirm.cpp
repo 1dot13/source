@@ -1683,11 +1683,11 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 	BOOLEAN ubItemsGiven[ 50 ]={FALSE};
 
 	// check how many legal items are in the choices list, this is to prevent infinite loop
-	for ( UINT8 cnt=0; cnt < ubNumChoices; cnt++ )
+	for ( UINT8 cnt=0; cnt < ubNumChoices; ++cnt )
 	{
 		usItem = gIMPItemChoices[ typeIndex ].bItemNo[ cnt ];
 		if ( ItemIsLegal(usItem) )
-			ubValidChoices++;
+			++ubValidChoices;
 	}
 
 	// if no valid items found, bail out
@@ -1702,7 +1702,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 		// give us the maximum possible
 		ubNumItemsToGive = gIMPItemChoices[typeIndex].ubNumItems;
 
-	for ( int i=0; i < ubNumItemsToGive ;i++ )
+	for ( int i=0; i < ubNumItemsToGive; ++i )
 	{
 		usItem = 0;
 		while (usItem == 0 )
@@ -1720,7 +1720,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
 
 		// give ammo for guns
-        Assert(usItem<MAXITEMS);
+		Assert( usItem < gMAXITEMS_READ );
 		if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 		{
 			usItem = DefaultMagazine(usItem);
@@ -1736,7 +1736,6 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,(2+Random(2)));
 		}
 	}
-
 }
 
 void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeIndex )

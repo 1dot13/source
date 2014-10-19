@@ -1166,9 +1166,6 @@ BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile )
 #ifdef ENABLE_BRIEFINGROOM
 	UINT32	uiNumBytesRead;
 	UINT32 i;
-#endif
-	
-#ifdef ENABLE_BRIEFINGROOM
 
 	// Flugente: compatibility fix
 	BOOLEAN briefingroomreadingdone = FALSE;
@@ -1189,7 +1186,7 @@ BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile )
 
 	if ( !briefingroomreadingdone )
 	{
-		for(i=0; i<NUM_MISSION; i++)
+		for(i=0; i<NUM_MISSION; ++i)
 		{
 			gBriefingRoomData[ i ].Hidden = saveBriefingRoomData[i].Hidden;
 			gBriefingRoomData[ i ].CheckMission = saveBriefingRoomData[i].CheckMission;
@@ -1202,7 +1199,7 @@ BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile )
 			return( FALSE );
 		}
 
-		for(i=0; i<NUM_MISSION; i++)
+		for(i=0; i<NUM_MISSION; ++i)
 		{
 			gBriefingRoomSpecialMissionData[ i ].Hidden = saveBriefingRoomSpecialMissionData[i].Hidden;
 			gBriefingRoomSpecialMissionData[ i ].CheckMission = saveBriefingRoomSpecialMissionData[i].CheckMission;
