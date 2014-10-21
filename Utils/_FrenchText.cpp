@@ -7685,7 +7685,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
 	L"\n \nCes munitions, en mode Auto ou rafale, ont la propriété d'être\ndes des balles traçantes.\n \nLa lumière qu'apporte les balles traçantes lors d'une rafale\npermet d'avoir une meilleur précision et d'être ainsi plus\nmortel malgré le recul de l'arme.\n \nDe plus, ces balles créent un halo lumineux permettant de\nrévéler l'ennemi pendant la nuit. Cependant, elles révèlent\naussi la position du tireur à l'ennemi !\n \nLes balles traçantes désactive automatiquement le\ncache-flamme installé sur l'arme utilisé.",
-	L"\n \nCes munitions peuvent faire des dégâts aux tanks.\n \nLes munitions SANS cette propriété ne feront aucun dégât quel que\nsoit le tank.\n \nMême avec cette propriété, n'oubliez pas que la plupart des armes\nne feront que peu de dégâts, donc n'en abusez pas.",
+	L"\n \nCes munitions peuvent faire des dégâts aux chars.\n \nLes munitions SANS cette propriété ne feront aucun dégât quel que\nsoit le char.\n \nMême avec cette propriété, n'oubliez pas que la plupart des armes\nne feront que peu de dégâts, donc n'en abusez pas.",
 	L"\n \nCes munitions ignorent complètement l'armure.\n \nQuand vous tirez sur un ennemi avec une armure, cela sera comme s'il\nn'en avait pas, permettant ainsi de faire un maximum de dégâts !",
 	L"\n \nLorsque cette munition frappe une cible avec une armure,\ncette dernière se dégradera très rapidement.\n \nCeci peut potentiellement retirer l'armure de la cible !",
 	L"\n \nCette munition est exceptionnelle pour casser les serrures.\n \nTirez directement sur la serrure de la porte ou du\ncoffre pour faire de lourds dégâts sur le mécanisme.",
