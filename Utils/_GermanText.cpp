@@ -5733,6 +5733,7 @@ STR16	gzMPJScreenText[] =
 STR16 gzMPJHelpText[] =
 {
 	L"Besuchen Sie http://webchat.quakenet.org/?channels=ja2-multiplayer um sich mit anderen Spielern zu treffen.",
+	L"Drücken Sie 'y' um das Chat-Fenster im Spiel zu öffnen, nachdem Sie mit dem Server verbunden sind.",
 
 	L"ERÖFFNEN",
 	L"Geben Sie '127.0.0.1' für die IP Adresse ein. Die Port Nummer sollte größer als 60000 sein.",

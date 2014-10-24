@@ -599,32 +599,35 @@ void DrawHelpText()
 
 	// Visit IRC
 	DrawTextToScreen( gzMPJHelpText[ 0 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 1 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// Host
 	y += 150;
 
 	y+= lineSpacing;
-	DrawTextToScreen( gzMPJHelpText[ 1 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( gzMPJHelpText[ 2 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	y+= lineSpacing + 5;
-	DrawTextToScreen( gzMPJHelpText[ 2 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-	y+= lineSpacing;
 	DrawTextToScreen( gzMPJHelpText[ 3 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	y+= lineSpacing;
 	DrawTextToScreen( gzMPJHelpText[ 4 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	y+= lineSpacing;
 	DrawTextToScreen( gzMPJHelpText[ 5 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 6 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Join
 	y += 20;
 
 	y += lineSpacing;
-	DrawTextToScreen( gzMPJHelpText[ 6 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( gzMPJHelpText[ 7 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	y += lineSpacing + 5;
-	DrawTextToScreen( gzMPJHelpText[ 7 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-	y += lineSpacing;
 	DrawTextToScreen( gzMPJHelpText[ 8 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	y += lineSpacing;
 	DrawTextToScreen( gzMPJHelpText[ 9 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y += lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 10 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 }
 
 BOOLEAN		RenderMPJScreen()

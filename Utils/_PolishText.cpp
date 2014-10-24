@@ -5897,6 +5897,7 @@ STR16	gzMPJScreenText[] =
 STR16 gzMPJHelpText[] =
 {
 	L"Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players.",
+	L"You can press 'y' to open the ingame chat window, after you have been connected to the server.",	// TODO.Translate
 
 	L"HOST",
 	L"Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.",

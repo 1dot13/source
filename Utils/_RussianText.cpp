@@ -5882,6 +5882,7 @@ STR16	gzMPJScreenText[] =
 STR16 gzMPJHelpText[] =
 {
 	L"Новых игроков можно найти здесь: http://webchat.quakenet.org/?channels=ja2-multiplayer",
+	L"Можно нажать 'у', чтобы открыть окно чата внутриигровой, после того как вы были подключены к серверу.",	// TODO.Translate
 
 	L"СОЗДАТЬ ИГРУ",
 	L"Введите '127.0.0.1' в поле IP и выберите номер порта начиная с 60000.",	//Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.

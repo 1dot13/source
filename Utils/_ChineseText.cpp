@@ -5887,11 +5887,14 @@ STR16	gzMPJScreenText[] =
 STR16 gzMPJHelpText[] =
 {
 	L"访问 http://webchat.quakenet.org/?channels=ja2-multiplayer 寻找其他玩家.",  //Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players
+	L"您可以按“Y”，打開遊戲中的聊天窗口，之後你一直連接到服務器.",	// TODO.Translate
+
 	L"HOST",
 	L"输入IP地址，端口号必须大于60000",  //Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.
 	L"确保(UDP, TCP)端口由你的路由器转发，更多信息请看http://portforward.com",   //Be sure that the Port (UDP, TCP) is forwarded on your Router. For more information see: http://portforward.com
 	L"你必须将你的外网IP通过QQ或者什么，告诉其他玩家",   //You have to send (via IRC, ICQ, etc) your external IP (http://www.whatismyip.com) and the Port number to the other players.
 	L"点击“Host”创建一个新的局域网游戏",   //Click on 'Host' to host a new Multiplayer Game.
+	
 	L"加入",  //JOIN
 	L"主机需要发送外网IP和端口",               //The host has to send (via IRC, ICQ, etc) you the external IP and the Port number
 	L"输入主机的外网IP和端口号",  //L"Enter the external IP and the Port number from the host.",
