@@ -1989,10 +1989,10 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 				}
 				if( gSkillTraitValues.ubRAAimClicksAdded != 0 )
 				{
-					if( gSkillTraitValues.ubRAAimClicksAdded == 1 && !fExpertLevel )
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], ( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1)));
+					if( (gSkillTraitValues.ubRAAimClicksAdded >= 2 && !fExpertLevel) || (gSkillTraitValues.ubRAAimClicksAdded == 1 && fExpertLevel) )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
 					else
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], ( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1)));
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
 
 					wcscat( apStr, atStr );
 				}
