@@ -3362,7 +3362,7 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
 						}
 
 						// SANDRO - merc records - locks breached
-						if ( pBullet->pFirer->ubProfile != NO_PROFILE )
+						if ( pBullet->pFirer && pBullet->pFirer->ubProfile != NO_PROFILE )
 							gMercProfiles[ pBullet->pFirer->ubProfile ].records.usLocksBreached++;
 					}
 				}
