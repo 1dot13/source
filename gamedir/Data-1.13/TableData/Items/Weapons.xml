@@ -1243,7 +1243,7 @@
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -1278,7 +1278,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>4</ubAimLevels>
 		<Handling>11</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -2642,7 +2642,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>4</ubAimLevels>
 		<Handling>11</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -2676,7 +2676,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -4015,7 +4015,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -6802,7 +6802,7 @@
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -6873,7 +6873,7 @@
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>4</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -8212,7 +8212,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>12</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -9082,7 +9082,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>9</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -9854,7 +9854,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>11</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -11188,7 +11188,7 @@
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
-		<ubAimLevels>4</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>8</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
@@ -11223,7 +11223,7 @@
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<ubAimLevels>5</ubAimLevels>
+		<ubAimLevels>3</ubAimLevels>
 		<Handling>10</Handling>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
