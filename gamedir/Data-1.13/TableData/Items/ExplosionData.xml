@@ -120,4 +120,14 @@
 		<BlastFilename>TILECACHE\shckwave.STI</BlastFilename>
 		<BlastSpeed>15</BlastSpeed>
 	</EXPDATA>
+	<EXPDATA>
+		<uiIndex>12</uiIndex>
+		<name>Roof Collapse</name>
+		<TransKeyFrame>28</TransKeyFrame>
+		<DamageKeyFrame>5</DamageKeyFrame>
+		<ExplosionSoundID>501</ExplosionSoundID>
+		<AltExplosionSoundID>-1</AltExplosionSoundID>
+		<BlastFilename>TILECACHE\roofdestbrown1x1.STI</BlastFilename>
+		<BlastSpeed>80</BlastSpeed>
+	</EXPDATA>
 </EXPDATALIST>
