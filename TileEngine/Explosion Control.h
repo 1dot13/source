@@ -58,6 +58,7 @@ enum EXPLOSION_TYPES
 	BURN_EXP,
 	THERMOBARIC_EXP,
 	FLASHBANG_EXP,		// Lesh: enum added
+	ROOF_COLLAPSE,		// Flugente: play an animation of roof tiles crashing down
 	NUM_EXP_TYPES=50
 
 } ;
@@ -171,4 +172,8 @@ void CheckForBuriedBombsAndRemoveFlags( INT32 sGridNo, INT8 bLevel );
 UINT16 CalcTotalVolatility(OBJECTTYPE * pObj);
 BOOLEAN FindBinderAttachment (OBJECTTYPE * pObj);
 BOOLEAN CheckExplosiveTypeAsDetonator(UINT16 ubType);
+
+// Flugente: destroy rooftops
+void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage );
+
 #endif

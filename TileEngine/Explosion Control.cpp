@@ -240,6 +240,12 @@ void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo );
 void HandleSeeingPowerGenFan( UINT32 sGridNo );
 #endif
 
+// Flugente: for roof destruction
+extern UINT8 gubMaterialArmour[];
+
+// defines how much of a roofs tiles armour partially counts for neighbouring tiles - this is used in calculating the 'structural integrity' of a roof
+#define WALLSTRENGTH_NEIGHBOURING_PER_TILE	0.75f
+
 INT32 GetFreeExplosion( void )
 {
 	UINT32 uiCount;
@@ -929,7 +935,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 					// Use tile database for this as apposed to stuct data
 					RemoveAllStructsOfTypeRange( pBase->sGridNo, FIRSTWALLDECAL, FOURTHWALLDECAL );
 					RemoveAllStructsOfTypeRange( pBase->sGridNo, FIFTHWALLDECAL, EIGTHWALLDECAL );
-
+										
 					// Alrighty, now do this
 					// Get orientation
 					// based on orientation, go either x or y dir
@@ -2342,6 +2348,24 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 				sStructDmgAmt = sWoundAmt;
 			}
 
+			// Flugente: walls are attributed to a gridno. As a result, sometimes the outer wall of a house is located at a gridno that does not 'belong' to the house.
+			// This gridno will then have no roof over it, which HandleRoofDestruction(..) requires.
+			// For this reason, we call it also at neighbouring gridnos.
+			// If the explosion, however, is on a roof itself, no need for these shenanigans.
+			if ( bLevel )
+			{
+				HandleRoofDestruction( sGridNo, sWoundAmt );
+			}
+			// Only do this at the source of the explosion (uiDist == 0).
+			else if ( !uiDist )
+			{
+				HandleRoofDestruction( sGridNo, sWoundAmt * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH )), sWoundAmt * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST )), sWoundAmt * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST )), sWoundAmt * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH )), sWoundAmt * 0.75f );
+			}
+			
 			ExplosiveDamageGridNo( sGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, FALSE, -1, 0 , ubOwner, bLevel );
 
 			// ATE: Look for damage to walls ONLY for next two gridnos
@@ -2359,7 +2383,6 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			{
 				ExplosiveDamageGridNo( sNewGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, TRUE, -1, 0, ubOwner, bLevel );
 			}
-
 		}
 
 		// Add burn marks to ground randomly....
@@ -4049,11 +4072,13 @@ void HandleExplosionQueue( void )
 
 				// determine gridno to attack - smoke signal required. Otherwise, it is assumed the radio operator ordered the bombing of his OWN position
 				// if we cannot even find a radio operator, all bets are off - target a random gridno
+				// the usual +/- 2 shenanigans
+				UINT16 usOwner = max( 0, (*pObj)[0]->data.misc.ubBombOwner - 2 );
 				INT32 sTargetGridNo = -1;
-				if ( GetRandomSignalSmokeGridNo(&sTargetGridNo) || GetRadioOperatorSignal((*pObj)[0]->data.misc.ubBombOwner, &sTargetGridNo) || (sTargetGridNo = RandomGridNo()) )
+				if ( GetRandomSignalSmokeGridNo( &sTargetGridNo ) || GetRadioOperatorSignal( usOwner, &sTargetGridNo ) || (sTargetGridNo = RandomGridNo( )) )
 				{
 					for ( UINT8 i = 0; i < cnt; ++i)
-						ArtilleryStrike( pObj->usItem, (*pObj)[0]->data.misc.ubBombOwner, sGridNo, sTargetGridNo );
+						ArtilleryStrike( pObj->usItem, usOwner, sGridNo, sTargetGridNo );
 				}
 
 				// not needed anymore
@@ -5616,4 +5641,388 @@ BOOLEAN CheckExplosiveTypeAsDetonator(UINT16 ubType)
 {
 	// attached explosives are allowed only for EXPLOSV_NORMAL, EXPLOSV_STUN and EXPLOSV_FLASHBANG types
 	return ( ubType == EXPLOSV_NORMAL || ubType == EXPLOSV_STUN || ubType == EXPLOSV_FLASHBANG );
+}
+
+typedef std::pair<INT32, UINT8> gridnoarmourpair;
+typedef std::vector< gridnoarmourpair > gridnoarmourvector;
+typedef std::map<UINT32, gridnoarmourvector> gridnoarmournetworkmap;
+
+void SoldierDropThroughRoof( SOLDIERTYPE* pSoldier, INT32 sGridNo )
+{
+	if ( !pSoldier || TileIsOutOfBounds( sGridNo ) )
+		return;
+
+	pSoldier->SetSoldierHeight( 0.0 );
+	TeleportSoldier( pSoldier, sGridNo, TRUE );
+	pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+
+	// if we play the animation of falling roof tiles over this, it will look like the merc fell really painful (there's even blood)
+	SoldierCollapse( pSoldier );
+
+	// take damage
+	UINT32 damage = 15 + Random( 5 ) + Random( 23 );
+	pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, 0, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+}
+
+gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo )
+{
+	gridnoarmourvector vec;
+
+	// this shouldn't even happen
+	if ( TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
+		return vec;
+
+	UINT8 armour = 0;
+	STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_WALL) );
+
+	if ( pStruct )
+		armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
+
+	vec.push_back( std::make_pair( sGridNo, armour ) );
+
+	// starting from sGridNo, we inspect neighbouring gridnos to detect tiles of the same roof, and detect wether there is a wall below them
+	// if there is indeed a wall, note its armour level
+	// if we already intersected a roof by deleting roof tiles, this function will only detect the connected roof part
+
+	UINT32 cnt = 0;
+	while ( cnt < vec.size( ) )
+	{
+		INT32 currentgridno = vec[cnt++].first;
+
+		// determine all neighbouring gridnos. If they have a roof, add them to the list
+		{
+			INT32 nextgridno = currentgridno + 1;
+			if ( !TileIsOutOfBounds( nextgridno ) && IsRoofPresentAtGridNo( nextgridno ) )
+			{
+				UINT8 armour = 0;
+				STRUCTURE* pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
+
+				if ( pStruct )
+					armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
+
+				gridnoarmourpair pair( nextgridno, armour );
+
+				if ( std::find( vec.begin( ), vec.end( ), pair ) == vec.end( ) )
+					vec.push_back( pair );
+			}
+		}
+
+		{
+			INT32 nextgridno = currentgridno - 1;
+			if ( !TileIsOutOfBounds( nextgridno ) && IsRoofPresentAtGridNo( nextgridno ) )
+			{
+				UINT8 armour = 0;
+				STRUCTURE* pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
+
+				if ( pStruct )
+					armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
+
+				std::pair<INT32, UINT8> pair( nextgridno, armour );
+
+				if ( std::find( vec.begin( ), vec.end( ), pair ) == vec.end( ) )
+					vec.push_back( pair );
+			}
+		}
+
+		{
+			INT32 nextgridno = currentgridno + WORLD_COLS;
+			if ( !TileIsOutOfBounds( nextgridno ) && IsRoofPresentAtGridNo( nextgridno ) )
+			{
+				UINT8 armour = 0;
+				STRUCTURE* pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
+
+				if ( pStruct )
+					armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
+
+				gridnoarmourpair pair( nextgridno, armour );
+
+				if ( std::find( vec.begin( ), vec.end( ), pair ) == vec.end( ) )
+					vec.push_back( pair );
+			}
+		}
+
+		{
+			INT32 nextgridno = currentgridno - WORLD_COLS;
+			if ( !TileIsOutOfBounds( nextgridno ) && IsRoofPresentAtGridNo( nextgridno ) )
+			{
+				UINT8 armour = 0;
+				STRUCTURE* pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
+
+				if ( pStruct )
+					armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
+
+				gridnoarmourpair pair( nextgridno, armour );
+
+				if ( std::find( vec.begin( ), vec.end( ), pair ) == vec.end( ) )
+					vec.push_back( pair );
+			}
+		}
+	}
+
+	return vec;
+}
+
+// after roof tiles have collapsed, the connected roof tile network can degenerate into several unconnected networks
+// we now collect all these networks
+gridnoarmournetworkmap GetConnectedRoofNetworks( gridnoarmourvector& arNetwork )
+{
+	gridnoarmournetworkmap map;
+
+	// we need a copy of the thing
+	gridnoarmourvector networkcpy = arNetwork;
+
+	UINT16 networkcounter = 0;
+
+	// at first, each nod is its own network. Ignore nodes that have already been destroyed (those that don't have a roof anymore)
+	for ( gridnoarmourvector::iterator it = networkcpy.begin( ); it != networkcpy.end( ); ++it )
+	{
+		gridnoarmourpair pair = (*it);
+
+		if ( IsRoofPresentAtGridNo( pair.first ) )
+		{
+			gridnoarmourvector vect = GetConnectedRoofGridnoArmours( pair.first );
+
+			// delete all nodes further down in networkcpy that are also present in vect
+			for ( gridnoarmourvector::iterator tmpit = vect.begin( ); tmpit != vect.end( ); ++tmpit )
+			{
+				networkcpy.erase( std::remove( it + 1, networkcpy.end( ), (*tmpit) ), networkcpy.end( ) );
+			}
+
+			map[networkcounter++] = vect;
+
+			if ( it == networkcpy.end( ) )
+				break;
+		}
+	}
+
+	return map;
+}
+
+// for a given network, return the same network with updated armour values: wall armour partially extends to neighbouring nodes
+gridnoarmourvector GetArmourSharedRoofNetwork( gridnoarmourvector& arNetwork )
+{
+	// we return a new network
+	gridnoarmourvector vec = arNetwork;
+
+	BOOLEAN fChangeApplied = TRUE;
+
+	while ( fChangeApplied )
+	{
+		fChangeApplied = FALSE;
+
+		gridnoarmourvector::iterator itend = vec.end( );
+		for ( gridnoarmourvector::iterator it1 = vec.begin( ); it1 != itend; ++it1 )
+		{
+			gridnoarmourpair& pair1 = (*it1);
+
+			if ( !IsRoofPresentAtGridNo( pair1.first ) )
+				continue;
+
+			// loop over all other nodes
+			for ( gridnoarmourvector::iterator it2 = vec.begin( ); it2 != itend; ++it2 )
+			{
+				gridnoarmourpair& pair2 = (*it2);
+
+				if ( !IsRoofPresentAtGridNo( pair2.first ) )
+					continue;
+
+				if ( PythSpacesAway( pair1.first, pair2.first ) == 1 )
+				{
+					UINT8 armour1 = pair1.second;
+					UINT8 armour2 = pair2.second;
+
+					UINT8 sharedarmour1 = max( armour1, armour2 * WALLSTRENGTH_NEIGHBOURING_PER_TILE );
+					UINT8 sharedarmour2 = max( armour1 * WALLSTRENGTH_NEIGHBOURING_PER_TILE, armour2 );
+
+					if ( armour1 < sharedarmour1 )
+					{
+						pair1.second = sharedarmour1;
+						fChangeApplied = TRUE;
+					}
+
+					if ( armour2 < sharedarmour2 )
+					{
+						pair2.second = sharedarmour2;
+						fChangeApplied = TRUE;
+					}
+				}
+			}
+		}
+	}
+
+	return vec;
+}
+
+
+// handle destroying if a single roof tile
+void RoofDestruction( INT32 sGridNo )
+{
+	SOLDIERTYPE* pSoldier = NULL;
+
+	if ( TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
+		return;
+
+	// any items on this roof drop to the floor below
+	// if there is already a structure here, we need to drop the gear next to it...
+	INT32 geardropoffgridno = sGridNo;
+	if ( !IsLocationSittableExcludingPeople( geardropoffgridno, FALSE ) )
+	{
+		for ( INT32 i = -1; i <= 1; ++i )
+		{
+			for ( INT32 j = -1; j <= 1; ++j )
+			{
+				INT32 tmpgridno = sGridNo + i + j * WORLD_COLS;
+
+				// if this gridno has place for gear, and is in the same room as the original sGridNo (or both are not in a room)
+				if ( IsLocationSittableExcludingPeople( tmpgridno, FALSE ) && gusWorldRoomInfo[sGridNo] == gusWorldRoomInfo[tmpgridno] )
+				{
+					geardropoffgridno = tmpgridno;
+					break;
+				}
+			}
+		}
+	}
+
+	MoveItemPools( sGridNo, geardropoffgridno, 1, 0 );
+
+	// if there is anybody at the floor level, damage them with the debris
+	// we have to do this BEFORE people drop down. It would otherwise be possible for a falling person to avoid this damage, depending on order of collapsing and possible gridno-shifts.
+	UINT16 ubId = WhoIsThere2( sGridNo, 0 );
+	if ( ubId != NOBODY )
+	{
+		pSoldier = MercPtrs[ubId];
+
+		pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+
+		// if we play the animation of falling roof tiles over this, it will look like the merc fell really painful (there's even blood)
+		SoldierCollapse( pSoldier );
+
+		// take damage
+		UINT32 damage = 10 + Random( 3 ) + Random( 10 );
+		pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, 0, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+	}
+
+	// if there is a person here, drop them to the ground...
+	ubId = WhoIsThere2( sGridNo, 1 );
+	if ( ubId != NOBODY )
+	{
+		pSoldier = MercPtrs[ubId];
+
+		INT32 soldierdropoffgridno = sGridNo;
+		if ( !IsLocationSittable( soldierdropoffgridno, FALSE ) )
+		{
+			for ( INT32 i = -1; i <= 1; ++i )
+			{
+				for ( INT32 j = -1; j <= 1; ++j )
+				{
+					INT32 tmpgridno = sGridNo + i + j * WORLD_COLS;
+
+					// if this gridno has place for gear, and is in the same room as the original sGridNo (or both are not in a room)
+					if ( IsLocationSittable( tmpgridno, FALSE ) && gusWorldRoomInfo[sGridNo] == gusWorldRoomInfo[tmpgridno] )
+					{
+						soldierdropoffgridno = tmpgridno;
+						break;
+					}
+				}
+			}
+		}
+
+		SoldierDropThroughRoof( pSoldier, soldierdropoffgridno );
+	}
+
+	// play an animation of falling roof tiles
+	// if we merely collected the tiles that collapse and then call them all together, it would be possible to have animations for multi-tile collapses
+	static UINT16 usRoofCollapseExplosionIndex = 1727;
+	if ( HasItemFlag( usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) || GetFirstItemWithFlag( &usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) )
+	{
+		InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
+	}
+
+	RemoveAllRoofsOfTypeRangeAdjustSaveFile( sGridNo, FIRSTTEXTURE, WIREFRAMES );
+}
+
+void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
+{
+	// only if there is significant damage done
+	if ( sDamage < 1 || TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
+		return;
+
+	ApplyMapChangesToMapTempFile( TRUE );
+
+	gridnoarmourvector floorarmourvector = GetConnectedRoofGridnoArmours( sGridNo );
+
+	INT16 bestarmour = 0;
+	gridnoarmourvector::iterator itend = floorarmourvector.end( );
+	for ( gridnoarmourvector::iterator it = floorarmourvector.begin( ); it != itend; ++it )
+		bestarmour = max( bestarmour, (INT16)(*it).second );
+
+	for ( gridnoarmourvector::iterator it = floorarmourvector.begin( ); it != itend; ++it )
+	{
+		INT32 sNewGridno = (*it).first;
+
+		INT16 distance = PythSpacesAway( sGridNo, sNewGridno );
+
+		// only remove tile if enough damage has been done
+		// it might be necessary to tweak the damage formula here
+		// armour above 127 is deemed indestructable
+		if ( bestarmour < 127 && sDamage > distance * bestarmour )
+		{
+			RoofDestruction( sNewGridno );
+			(*it).second = 0;
+		}
+	}
+
+	// Nodes might have been removed, and the roof might have degenerated into several networks
+	gridnoarmournetworkmap roofnetworkmap = GetConnectedRoofNetworks( floorarmourvector );
+
+	// for each remaining node, determine the distance to the closest node with a wall-connection inside the remaining network. If the distance is high enough, the roof will come down
+	gridnoarmournetworkmap::iterator roofnetworkitend = roofnetworkmap.end( );
+	for ( gridnoarmournetworkmap::iterator roofnetworkit = roofnetworkmap.begin( ); roofnetworkit != roofnetworkitend; ++roofnetworkit )
+	{
+		// sadly the calculating time is somewhat high if there are many nodes connected to the roof, like Alma prison.
+		// therefore this part is commented out. Can be commented in once the speed issues have been resolved
+		// properly done, this would simulat the 'structural integrity' of the building
+		/*// for each remaining node, determine the distance to the closest node with a wall-connection inside the remaining network. If the distance is high enough, the roof will come down
+		gridnoarmourvector roofarmoursharednetwork = GetArmourSharedRoofNetwork( (*roofnetworkit).second );
+
+		for ( gridnoarmourvector::iterator it = roofarmoursharednetwork.begin( ); it != roofarmoursharednetwork.end( ); ++it )
+		{
+		gridnoarmourpair pair = (*it);
+
+		// if it does not have a roof, ignore
+		if ( !IsRoofPresentAtGridNo( pair.first ) )
+		{
+		pair.second = 0;
+		continue;
+		}
+
+		if ( pair.second < 1 )
+		{
+		RoofDestruction( pair.first );
+		pair.second = 0;
+		}
+		}*/
+
+		// for now, determine the best armour for each remaining network, and collapse it if there is no armou - and thus no wall connection - left
+		gridnoarmourvector roofnetwork = (*roofnetworkit).second;
+
+		UINT8 bestarmour = 0;
+		for ( gridnoarmourvector::iterator it = roofnetwork.begin( ); it != roofnetwork.end( ); ++it )
+			bestarmour = max( bestarmour, (*it).second );
+
+		// if a network has no wall connection at all, collapse the entire thing
+		if ( bestarmour < 1 )
+		{
+			for ( gridnoarmourvector::iterator it = roofnetwork.begin( ); it != roofnetwork.end( ); ++it )
+			{
+				RoofDestruction( (*it).first );
+			}
+		}
+	}
+
+	ApplyMapChangesToMapTempFile( FALSE );
+
+	// FOR THE NEXT RENDER LOOP, RE-EVALUATE REDUNDENT TILES
+	InvalidateWorldRedundency( );
+	SetRenderFlags( RENDER_FLAG_FULL );
 }

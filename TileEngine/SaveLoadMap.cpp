@@ -366,7 +366,7 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 
 	uiNumberOfElements = uiFileSize / sizeof( MODIFY_MAP );
 
-	for( cnt=0; cnt< uiNumberOfElements; cnt++ )
+	for( cnt=0; cnt< uiNumberOfElements; ++cnt )
 	{
 		pMap = &pTempArrayOfMaps[ cnt ];
 
@@ -436,13 +436,29 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 				SaveModifiedMapStructToMapTempFile( pMap, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 				//Since the element is being saved back to the temp file, increment the #
-				uiNumberOfElementsSavedBackToFile++;
+				++uiNumberOfElementsSavedBackToFile;
 				break;
 			case SLM_REMOVE_SHADOW:
 				break;
 			case SLM_REMOVE_MERC:
 				break;
 			case SLM_REMOVE_ROOF:
+				if ( pMap->usImageType >= FIRSTTEXTURE && pMap->usImageType <= WIREFRAMES )
+				{
+					RemoveAllRoofsOfTypeRange( pMap->usGridNo, FIRSTTEXTURE, WIREFRAMES );
+				}
+				else
+				{
+					GetTileIndexFromTypeSubIndex( pMap->usImageType, pMap->usSubImageIndex, &usIndex );
+
+					RemoveRoofAdjustSavefile( pMap->usGridNo, usIndex );
+				}
+
+				// Save this struct back to the temp file
+				SaveModifiedMapStructToMapTempFile( pMap, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+				//Since the element is being saved back to the temp file, increment the #
+				++uiNumberOfElementsSavedBackToFile;
 				break;
 			case SLM_REMOVE_ONROOF:
 				break;
@@ -661,7 +677,33 @@ void RemoveStructFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	Map.ubType			= SLM_REMOVE_STRUCT;
 
 	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+}
 
+void RemoveRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
+{
+	MODIFY_MAP Map;
+	UINT32	uiType;
+	UINT16	usSubIndex;
+
+	if ( !gfApplyChangesToTempFile )
+		return;
+
+	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
+		return;
+
+	GetTileType( usIndex, &uiType );
+	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+
+	memset( &Map, 0, sizeof(MODIFY_MAP) );
+
+	Map.usGridNo = uiMapIndex;
+	//	Map.usIndex			= usIndex;
+	Map.usImageType = (UINT16)uiType;
+	Map.usSubImageIndex = usSubIndex;
+
+	Map.ubType = SLM_REMOVE_ROOF;
+
+	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 }
 
 
@@ -701,7 +743,7 @@ void SaveBloodSmellAndRevealedStatesFromMapToTempFile()
 	memset( gpRevealedMap, 0, NUM_REVEALED_BYTES );
 
 	//Loop though all the map elements
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	for ( cnt = 0; cnt < WORLD_MAX; ++cnt )
 	{
 		//if there is either blood or a smell on the tile, save it
 		if( gpWorldLevelData[cnt].ubBloodInfo || gpWorldLevelData[cnt].ubSmellInfo )

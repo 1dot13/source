@@ -1198,7 +1198,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// we are at pSoldier->sGridNo and the action takes place at sGridNo
 		// we need to find out in which direction we need to look
 		// sActionGridNo is the gridno we are supposed to sit
-		ubDirection = GetDirectionToGridNoFromGridNo( sGridNo, pSoldier->sGridNo );
+		ubDirection = (UINT8)GetDirectionToGridNoFromGridNo( sGridNo, pSoldier->sGridNo );
 			
 		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, FALSE, FALSE );
 
@@ -5164,9 +5164,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (gpTempSoldier)
 	{
-		INT32 nextGridNoinSight = gpTempSoldier->sGridNo;
-		nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( gpTempSoldier->ubDirection ) );
-
+		INT32 nextGridNoinSight = NewGridNo( gpTempSoldier->sGridNo, DirectionInc( gpTempSoldier->ubDirection ) );
 		INT8 level = gpTempSoldier->bTargetLevel;
 
 		switch (ubExitValue)
@@ -5175,8 +5173,8 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			SectorFillCanteens();
 			break;
 		case 2:
-       	// undisguise or take off custom clothes 
-       	Strip(gpTempSoldier);
+       		// undisguise or take off custom clothes 
+       		Strip(gpTempSoldier);
            break;
        case 3:
 			// clean weapons of selected merc

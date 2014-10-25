@@ -82,6 +82,9 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( );
 
 void RemoveStructFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex );
 
+// Flugente: permanently remove roof tiles
+void RemoveRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex );
+
 void AddRemoveObjectToMapTempFile( INT32 uiMapIndex, UINT16 usIndex );
 
 void SaveBloodSmellAndRevealedStatesFromMapToTempFile();
