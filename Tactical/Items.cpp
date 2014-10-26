@@ -12734,7 +12734,7 @@ UINT16 GetFirstExplosiveOfType(UINT16 expType)
 {
 	for ( int i = 0; i<gMAXITEMS_READ; ++i )
 	{
-		if ( Item[i].usItemClass == (IC_EXPLOSV | IC_GRENADE) && Explosive[Item[i].ubClassIndex].ubType == expType )
+		if ( Item[i].usItemClass & (IC_EXPLOSV | IC_GRENADE) && Explosive[Item[i].ubClassIndex].ubType == expType )
 			return i;
 	}
 
