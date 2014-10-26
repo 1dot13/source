@@ -6972,6 +6972,15 @@ BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *p
 									// Remove old graphic
 									ApplyMapChangesToMapTempFile( TRUE );
 
+									// if this is a wall, check wether the roof will collapse.
+									// Yes, the player can damage himself by collapsing the roof of the house he is currently in. Such stupidity has to be punished.
+									if ( pStruct->fFlags & STRUCTURE_WALL )
+									{
+										// this isn't an explosion, so the structural damage is moderate
+										HandleRoofDestruction( sGridNo, 50 );
+										HandleRoofDestruction( pSoldier->sGridNo, 50 );
+									}
+
 									RemoveStruct( sGridNo, pNode->usIndex );
 
 									if ( !GridNoIndoors( sGridNo ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
