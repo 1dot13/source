@@ -2348,22 +2348,26 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 				sStructDmgAmt = sWoundAmt;
 			}
 
-			// Flugente: walls are attributed to a gridno. As a result, sometimes the outer wall of a house is located at a gridno that does not 'belong' to the house.
-			// This gridno will then have no roof over it, which HandleRoofDestruction(..) requires.
-			// For this reason, we call it also at neighbouring gridnos.
-			// If the explosion, however, is on a roof itself, no need for these shenanigans.
-			if ( bLevel )
-			{
-				HandleRoofDestruction( sGridNo, sWoundAmt );
-			}
+			// Flugente: roof collapse
 			// Only do this at the source of the explosion (uiDist == 0).
-			else if ( !uiDist )
+			if ( !uiDist )
 			{
-				HandleRoofDestruction( sGridNo, sWoundAmt * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH )), sWoundAmt * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST )), sWoundAmt * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST )), sWoundAmt * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH )), sWoundAmt * 0.75f );
+				// walls are attributed to a gridno. As a result, sometimes the outer wall of a house is located at a gridno that does not 'belong' to the house.
+				// This gridno will then have no roof over it, which HandleRoofDestruction(..) requires.
+				// For this reason, we call it also at neighbouring gridnos.
+				// If the explosion, however, is on a roof itself, no need for these shenanigans.
+				if ( bLevel )
+				{
+					HandleRoofDestruction( sGridNo, sWoundAmt );
+				}
+				else
+				{
+					HandleRoofDestruction( sGridNo, sWoundAmt * 0.75f );
+					HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH )), sWoundAmt * 0.75f );
+					HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST )), sWoundAmt * 0.75f );
+					HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST )), sWoundAmt * 0.75f );
+					HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH )), sWoundAmt * 0.75f );
+				}
 			}
 			
 			ExplosiveDamageGridNo( sGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, FALSE, -1, 0 , ubOwner, bLevel );
@@ -5941,6 +5945,44 @@ void RoofDestruction( INT32 sGridNo )
 	RemoveAllRoofsOfTypeRangeAdjustSaveFile( sGridNo, FIRSTTEXTURE, WIREFRAMES );
 }
 
+// damage, or even destroy, a roof tile
+// return true if it roof was destroyed
+BOOLEAN DamageRoof( INT32 sGridNo, INT16 sDamage )
+{
+	// only if there is significant damage done
+	if ( sDamage < 1 || TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
+		return FALSE;
+
+	// sadly, pStruct->ubHitPoints of roof structures is shadowed by sBaseGridNo, so we cannot use it
+	// pStruct->pDBStructureRef->pDBStructure->ubHitPoints is always 0 for roof tiles, so we cannot use that either
+	// therefore roofs have no HP pool, and we have to outright destroy them
+	// should that ever be corrected, comment this part back in
+	// I could jut write something into pStruct->pDBStructureRef->pDBStructure->ubHitPoints, but knowing the code the 0 will also be used somewhere else - if you try that, be careful!
+	/*STRUCTURE* pStruct = FindStructure( sGridNo, STRUCTURE_ROOF );
+
+	if ( pStruct )
+	{
+		// if damage exceeds hitpoints, destroy the thing
+		if ( (UINT8)sDamage >= pStruct->pDBStructureRef->pDBStructure->ubHitPoints )
+		{
+			RoofDestruction( sGridNo );
+			return TRUE;
+		}
+		// otherwise just damage it
+		else
+		{
+			pStruct->pDBStructureRef->pDBStructure->ubHitPoints = (UINT8)max( 1, pStruct->ubHitPoints - sDamage );
+		}
+	}
+	
+	return FALSE;*/
+
+	// just destroy the thing
+	RoofDestruction( sGridNo );
+
+	return TRUE;
+}
+
 void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 {
 	// only if there is significant damage done
@@ -5962,13 +6004,16 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 
 		INT16 distance = PythSpacesAway( sGridNo, sNewGridno );
 
+		// for formula reasons, distance is at least 1
+		distance = max( distance, 1);
+
 		// only remove tile if enough damage has been done
 		// it might be necessary to tweak the damage formula here
 		// armour above 127 is deemed indestructable
 		if ( bestarmour < 127 && sDamage > distance * bestarmour )
 		{
-			RoofDestruction( sNewGridno );
-			(*it).second = 0;
+			if ( DamageRoof( sNewGridno, sDamage - distance * bestarmour ) )
+				(*it).second = 0;
 		}
 	}
 
@@ -5998,7 +6043,7 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 
 		if ( pair.second < 1 )
 		{
-		RoofDestruction( pair.first );
+		if ( DamageRoof(  pair.first, 255 ) )
 		pair.second = 0;
 		}
 		}*/
@@ -6015,7 +6060,8 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 		{
 			for ( gridnoarmourvector::iterator it = roofnetwork.begin( ); it != roofnetwork.end( ); ++it )
 			{
-				RoofDestruction( (*it).first );
+				if ( DamageRoof( (*it).first, 255 ) )
+					(*it).second = 0;
 			}
 		}
 	}

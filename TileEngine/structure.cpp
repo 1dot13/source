@@ -1789,7 +1789,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		// don't hurt this structure, it's used for hit detection only!
 		return( FALSE );
 	}
-
+	
 	if ( (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_INDESTRUCTABLE_METAL) || (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_INDESTRUCTABLE_STONE) )
 	{
 		return( FALSE );
@@ -1824,6 +1824,11 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 	{
 		ubDamage = 0;
 	}
+
+	// Flugente: is there a wall at the loation we are damaging?
+	BOOLEAN fWallHere = FALSE;	
+	if ( FindStructure( sGridNo, STRUCTURE_WALL ) )
+		fWallHere = TRUE;
 
 	// OK, Let's check our reason
 	if ( ubReason == STRUCTURE_DAMAGE_GUNFIRE || ubReason == STRUCTURE_DAMAGE_VEHICLE_TRAUMA )
@@ -1883,6 +1888,17 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+			// if we destroyed something, the roof might get damaged too
+			// recompile = TRUE means that we destroyed soemthing
+			if ( fWallHere && recompile )
+			{
+				HandleRoofDestruction( sGridNo, damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
+			}
 		}
 
 		// anv: if we ram something with vehicle we have to destroy it, or else vehicle and structure will be drawn at the same tile
