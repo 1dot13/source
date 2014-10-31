@@ -387,7 +387,7 @@ void KillOnePrisoner( SECTORINFO *pSectorInfo );
 
 // sevenfm: calc shock level with modifiers (traits, backgrounds, ...)
 INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier );
-
+BOOLEAN CoweringShockLevel( SOLDIERTYPE * pSoldier );
 // Flugente: enemy officers
 enum {
 	OFFICER_NONE = 0,

@@ -1351,10 +1351,10 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			IS_MERC_BODY_TYPE(pSoldier) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) && 
 			gGameExternalOptions.ubMaxSuppressionShock > 0 && sDistVisible > 0 )
 		{
-			INT8 bTolerance = CalcSuppressionTolerance( pSoldier );
+			
 
 			// Make sure character is cowering.
-			if ( pSoldier->aiData.bShock >= bTolerance )
+			if ( CoweringShockLevel(pSoldier) )
 			{
 				sDistVisible = __max(1,(sDistVisible * (gGameExternalOptions.ubMaxSuppressionShock - pSoldier->aiData.bShock)) / gGameExternalOptions.ubMaxSuppressionShock);
 			}

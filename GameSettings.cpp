@@ -1573,7 +1573,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubAimPenaltyPerTargetShock				= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_PER_TARGET_SHOCK", 5, 0, 100 );
 
 	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target's shock value.
-	gGameExternalOptions.usMaxShooterCoweringPenalty			= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FOR_TARGET_SHOCK", 0, 0, 250 );
+	gGameExternalOptions.usMaxShooterCoweringPenalty			= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FROM_SHOCK", 0, 0, 250 );
 
 	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
 	gGameExternalOptions.ubCoweringPenaltyDivisorProne			= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_PRONE_SHOCKED_TARGET", 1, 1, 100 );
@@ -1584,7 +1584,7 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
 	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= iniReader.ReadInteger("Tactical Suppression Fire Settings","MIN_RANGE_FOR_FULL_TARGET_SHOCK_PENALTY", 300, 10, 10000 );
 
-	gGameExternalOptions.usMaxTargetCoweringPenalty				= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FROM_SHOCK", 0, 0, 250 );
+	gGameExternalOptions.usMaxTargetCoweringPenalty				= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FOR_TARGET_SHOCK", 0, 0, 250 );
 
 	// HEADROCK HAM 3.2: This enabled reduced sight for cowering characters. 0 = disabled. 2 = Reduced Sightrange. 3 = Tunnel-vision. 1 = Both.
 	gGameExternalOptions.ubCoweringReducesSightRange			= iniReader.ReadInteger("Tactical Suppression Fire Settings","SHOCK_REDUCES_SIGHTRANGE", 0, 0, 3); 

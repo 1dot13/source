@@ -11640,10 +11640,10 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 	if ((gGameExternalOptions.ubCoweringReducesSightRange == 1 || gGameExternalOptions.ubCoweringReducesSightRange == 3) &&
 		IS_MERC_BODY_TYPE(pSoldier) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
 	{
-		INT8 bTolerance = CalcSuppressionTolerance( pSoldier );
+		
 
 		// Make sure character is cowering.
-		if ( pSoldier->aiData.bShock >= bTolerance && gGameExternalOptions.ubMaxSuppressionShock > 0 && 
+		if ( CoweringShockLevel(pSoldier) && gGameExternalOptions.ubMaxSuppressionShock > 0 && 
 			bonus < 100 )
 		{
 			// Calculates a "Flat" tunnel vision percentage
