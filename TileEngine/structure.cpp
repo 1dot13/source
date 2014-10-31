@@ -2460,6 +2460,44 @@ BOOLEAN FiniStructureDB( void )
 	return( TRUE );
 }
 
+STRUCTURE* GetTallestStructureOnGridno( INT32 sGridNo, INT8 bLevel )
+{
+	STRUCTURE*		pCurrent	= NULL;
+	STRUCTURE*		pStruct		= NULL;
+	INT8			bestheight = -1;
+	INT16			sDesiredLevel = STRUCTURE_ON_GROUND;
+
+	if ( bLevel )
+		sDesiredLevel = STRUCTURE_ON_ROOF;
+
+	pCurrent = gpWorldLevelData[sGridNo].pStructureHead;
+
+	while ( pCurrent != NULL )
+	{
+		// Check level!
+		if ( pCurrent->sCubeOffset == sDesiredLevel )
+		{
+			if ( pCurrent->fFlags & (STRUCTURE_CORPSE | STRUCTURE_PERSON | STRUCTURE_ROOF) )
+			{
+				// we are interested in building tiles, not people
+				pCurrent = pCurrent->pNext;
+				continue;
+			}
+
+			INT8 height = StructureHeight( pCurrent );
+			if ( height > bestheight )
+			{
+				bestheight = height;
+				pStruct = pCurrent;
+			}
+		}
+
+		pCurrent = pCurrent->pNext;
+	}
+
+	return pStruct;
+}
+
 
 INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLevel, INT8 *pStructHeight, STRUCTURE ** ppTallestStructure, BOOLEAN fWallsBlock )
 {

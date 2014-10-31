@@ -1429,7 +1429,7 @@ BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex )
 			if ( pOldStruct == NULL )
 			{
 				// It's the head
-				gpWorldLevelData[ iMapIndex ].pStructHead = pStruct->pNext;
+				gpWorldLevelData[iMapIndex].pStructHead = pStruct->pNext;
 			}
 			else
 			{
@@ -1462,7 +1462,7 @@ BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex )
 				}
 			}
 			MemFree( pStruct );
-			guiLevelNodes--;
+			--guiLevelNodes;
 
 			return( TRUE );
 		}
@@ -1476,10 +1476,75 @@ BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex )
 	RemoveWorldFlagsFromNewNode( iMapIndex, usIndex );
 
 	return( FALSE );
-
 }
 
-// Flugente: permanently remove roof tiles
+// same as RemoveStruct(...), except that this focuses on .pOnRoofHead instead of .pStructHead
+BOOLEAN RemoveOnRoofStruct( INT32 iMapIndex, UINT16 usIndex )
+{
+	LEVELNODE	*pStruct	= NULL;
+	LEVELNODE	*pOldStruct = NULL;
+
+	pStruct = gpWorldLevelData[iMapIndex].pOnRoofHead;
+
+	// Look through all structs and remove index if found
+	while ( pStruct != NULL )
+	{
+		if ( pStruct->usIndex == usIndex )
+		{
+			// OK, set links
+			// Check for head or tail
+			if ( pOldStruct == NULL )
+			{
+				// It's the head
+				gpWorldLevelData[iMapIndex].pOnRoofHead = pStruct->pNext;
+			}
+			else
+			{
+				pOldStruct->pNext = pStruct->pNext;
+			}
+
+			//Check for special flag to stop burn-through on same-tile structs...
+			if ( pStruct->pStructureData != NULL )
+			{
+				// If we are NOT a wall and NOT multi-tiles, set mapelement flag...
+				//if ( !( pStruct->pStructureData->fFlags & STRUCTURE_WALLSTUFF ) && pStruct->pStructureData->pDBStructureRef->pDBStructure->ubNumberOfTiles == 1 )
+				//{
+				// UNSet flag...
+				//	gpWorldLevelData[ iMapIndex ].ubExtFlags[0] &= ( ~MAPELEMENT_EXT_NOBURN_STRUCT );
+				//}
+			}
+
+			// Delete memory assosiated with item
+			DeleteStructureFromWorld( pStruct->pStructureData );
+
+			//If we have to, make sure to remove this node when we reload the map from a saved game
+			RemoveOnRoofFromMapTempFile( iMapIndex, usIndex );
+
+			if ( usIndex < giNumberOfTiles )
+			{
+				// Check flags for tiledat and set a shadow if we have a buddy
+				if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[usIndex].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[usIndex].sBuddyNum != -1 )
+				{
+					RemoveShadow( iMapIndex, gTileDatabase[usIndex].sBuddyNum );
+				}
+			}
+			MemFree( pStruct );
+			--guiLevelNodes;
+
+			return(TRUE);
+		}
+
+		pOldStruct = pStruct;
+		pStruct = pStruct->pNext;
+	}
+
+	// Could not find it, return FALSE
+	RemoveWorldFlagsFromNewNode( iMapIndex, usIndex );
+
+	return(FALSE);
+}
+
+// Flugente: permanently remove structures
 BOOLEAN RemoveRoofAdjustSavefile( INT32 iMapIndex, UINT16 usIndex )
 {
 	LEVELNODE	*pStruct = NULL;
@@ -1510,6 +1575,53 @@ BOOLEAN RemoveRoofAdjustSavefile( INT32 iMapIndex, UINT16 usIndex )
 
 			//If we have to, make sure to remove this node when we reload the map from a saved game
 			RemoveRoofFromMapTempFile( iMapIndex, usIndex );
+
+			MemFree( pStruct );
+			--guiLevelNodes;
+
+			return(TRUE);
+		}
+
+		pOldStruct = pStruct;
+		pStruct = pStruct->pNext;
+	}
+
+	// Could not find it, return FALSE
+	RemoveWorldFlagsFromNewNode( iMapIndex, usIndex );
+
+	return(FALSE);
+}
+
+BOOLEAN RemoveOnRoofAdjustSavefile( INT32 iMapIndex, UINT16 usIndex )
+{
+	LEVELNODE	*pStruct = NULL;
+	LEVELNODE	*pOldStruct = NULL;
+
+	pStruct = gpWorldLevelData[iMapIndex].pOnRoofHead;
+
+	// Look through all structs and remove index if found
+
+	while ( pStruct != NULL )
+	{
+		if ( pStruct->usIndex == usIndex )
+		{
+			// OK, set links
+			// Check for head or tail
+			if ( pOldStruct == NULL )
+			{
+				// It's the head
+				gpWorldLevelData[iMapIndex].pOnRoofHead = pStruct->pNext;
+			}
+			else
+			{
+				pOldStruct->pNext = pStruct->pNext;
+			}
+
+			// Delete memory assosiated with item
+			DeleteStructureFromWorld( pStruct->pStructureData );
+
+			//If we have to, make sure to remove this node when we reload the map from a saved game
+			RemoveOnRoofFromMapTempFile( iMapIndex, usIndex );
 
 			MemFree( pStruct );
 			--guiLevelNodes;
@@ -1632,7 +1744,7 @@ BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 	return fRetVal;
 }
 
-// Flugente: permanently remove roof tiles
+// Flugente: permanently remove structures
 BOOLEAN RemoveAllRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType )
 {
 	LEVELNODE	*pStruct = NULL;
@@ -1663,6 +1775,45 @@ BOOLEAN RemoveAllRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartT
 				if ( pOldRoof->usIndex < giNumberOfTiles )
 				{
 					RemoveRoofAdjustSavefile( iMapIndex, pOldRoof->usIndex );
+					fRetVal = TRUE;
+				}
+			}
+		}
+	}
+
+	return fRetVal;
+}
+
+BOOLEAN RemoveAllOnRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType )
+{
+	LEVELNODE	*pStruct = NULL;
+	LEVELNODE	*pOldStruct = NULL;
+	UINT32		fTileType;
+	BOOLEAN		fRetVal = FALSE;
+
+	LEVELNODE	*pRoof = NULL;
+	LEVELNODE	*pOldRoof = NULL;
+
+	pRoof = gpWorldLevelData[iMapIndex].pOnRoofHead;
+
+	// Look through all Roofs and Search for type
+
+	if ( pRoof != NULL )
+	{
+		if ( pRoof->usIndex != NO_TILE )
+		{
+			GetTileType( pRoof->usIndex, &fTileType );
+
+			// Advance to next
+			pOldRoof = pRoof;
+			pRoof = pRoof->pNext;
+
+			if ( fTileType >= fStartType && fTileType <= fEndType )
+			{
+				// Remove Item
+				if ( pOldRoof->usIndex < giNumberOfTiles )
+				{
+					RemoveOnRoofAdjustSavefile( iMapIndex, pOldRoof->usIndex );
 					fRetVal = TRUE;
 				}
 			}
@@ -2741,9 +2892,9 @@ void AdjustAllRoofShadeLevels( INT32 iMapIndex, INT8 bShadeDiff )
 BOOLEAN RemoveAllRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType )
 {
 	LEVELNODE	*pRoof		= NULL;
-	LEVELNODE	*pOldRoof		= NULL;
-	UINT32				fTileType;
-	BOOLEAN fRetVal = FALSE;
+	LEVELNODE	*pOldRoof	= NULL;
+	UINT32		fTileType;
+	BOOLEAN		fRetVal		= FALSE;
 
 	pRoof = gpWorldLevelData[ iMapIndex ].pRoofHead;
 
@@ -2751,10 +2902,8 @@ BOOLEAN RemoveAllRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fE
 
 	while( pRoof != NULL )
 	{
-
 		if ( pRoof->usIndex != NO_TILE )
 		{
-
 			GetTileType( pRoof->usIndex, &fTileType );
 
 			// Advance to next
@@ -2767,15 +2916,12 @@ BOOLEAN RemoveAllRoofsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fE
 				RemoveRoof( iMapIndex, pOldRoof->usIndex );
 				fRetVal = TRUE;
 			}
-
 		}
-
 	}
 
 	// Could not find it, return FALSE
 
 	return fRetVal;
-
 }
 
 void RemoveRoofIndexFlagsFromTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  )

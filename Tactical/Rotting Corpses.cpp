@@ -1935,6 +1935,30 @@ BOOLEAN DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 	return FALSE;
 }
 
+void ShiftCorpse( INT32 sGridNo, INT8 bLevel )
+{
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+	{
+		ROTTING_CORPSE* pCorpse = &(gRottingCorpse[cnt]);
+
+		if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubType != 0 && pCorpse->def.sGridNo == sGridNo && pCorpse->def.bLevel == 1 )
+		{
+			ROTTING_CORPSE_DEFINITION CorpseDef;
+
+			// Copy corpse definition...
+			memcpy( &CorpseDef, &(pCorpse->def), sizeof(ROTTING_CORPSE_DEFINITION) );
+
+			// Remove old one...
+			RemoveCorpse( pCorpse->iID );
+
+			// move corpse to the other level
+			CorpseDef.bLevel = 1 - bLevel;
+
+			AddRottingCorpse( &CorpseDef );
+		}
+	}
+}
+
 // Flugente: can this corpse be gutted?
 BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse )
 {

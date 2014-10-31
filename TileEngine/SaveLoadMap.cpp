@@ -461,6 +461,22 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 				++uiNumberOfElementsSavedBackToFile;
 				break;
 			case SLM_REMOVE_ONROOF:
+				if ( pMap->usImageType >= FIRSTTEXTURE && pMap->usImageType <= WIREFRAMES )
+				{
+					RemoveAllOnRoofsOfTypeRange( pMap->usGridNo, FIRSTTEXTURE, WIREFRAMES );
+				}
+				else
+				{
+					GetTileIndexFromTypeSubIndex( pMap->usImageType, pMap->usSubImageIndex, &usIndex );
+
+					RemoveOnRoofAdjustSavefile( pMap->usGridNo, usIndex );
+				}
+
+				// Save this struct back to the temp file
+				SaveModifiedMapStructToMapTempFile( pMap, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+				//Since the element is being saved back to the temp file, increment the #
+				++uiNumberOfElementsSavedBackToFile;
 				break;
 			case SLM_REMOVE_TOPMOST:
 				break;
@@ -702,6 +718,33 @@ void RemoveRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	Map.usSubImageIndex = usSubIndex;
 
 	Map.ubType = SLM_REMOVE_ROOF;
+
+	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+}
+
+void RemoveOnRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
+{
+	MODIFY_MAP Map;
+	UINT32	uiType;
+	UINT16	usSubIndex;
+
+	if ( !gfApplyChangesToTempFile )
+		return;
+
+	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
+		return;
+
+	GetTileType( usIndex, &uiType );
+	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+
+	memset( &Map, 0, sizeof(MODIFY_MAP) );
+
+	Map.usGridNo = uiMapIndex;
+	//	Map.usIndex			= usIndex;
+	Map.usImageType = (UINT16)uiType;
+	Map.usSubImageIndex = usSubIndex;
+
+	Map.ubType = SLM_REMOVE_ONROOF;
 
 	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 }

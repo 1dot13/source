@@ -201,6 +201,9 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo , INT8 bLevel );
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse );
 BOOLEAN DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 
+// Flugente: move all corpses on sGridNo level bLevel to level 1 - bLevel
+void ShiftCorpse( INT32 sGridNo, INT8 bLevel );
+
 // Flugente: actions for the covert opts trait
 BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse );
 BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );

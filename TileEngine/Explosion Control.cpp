@@ -5934,6 +5934,32 @@ void RoofDestruction( INT32 sGridNo )
 		SoldierDropThroughRoof( pSoldier, soldierdropoffgridno );
 	}
 
+	// there can be non-roof structures on roofs. In order to collapse those, check for all structures who are above a certain height, and destroy them
+	STRUCTURE* pStruct = GetTallestStructureOnGridno( sGridNo, 1 );
+	while ( pStruct )
+	{
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			if ( RemoveOnRoofStruct( sGridNo, pNode->usIndex ) )
+				pStruct = GetTallestStructureOnGridno( sGridNo, 1 );
+			else
+				break;
+		}
+		else
+			break;
+	}
+
+	// very important: if applying changes to map files is turned on, adding corpses will corrupt the map (only noticeable if you reload it)
+	// for this reason we turn this off and on again
+	ApplyMapChangesToMapTempFile( FALSE );
+
+	// if there is a corpse here, drop that down as well
+	ShiftCorpse( sGridNo , 1);
+
+	ApplyMapChangesToMapTempFile( TRUE );
+
 	// play an animation of falling roof tiles
 	// if we merely collected the tiles that collapse and then call them all together, it would be possible to have animations for multi-tile collapses
 	static UINT16 usRoofCollapseExplosionIndex = 1727;
@@ -6016,7 +6042,7 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 				(*it).second = 0;
 		}
 	}
-
+		
 	// Nodes might have been removed, and the roof might have degenerated into several networks
 	gridnoarmournetworkmap roofnetworkmap = GetConnectedRoofNetworks( floorarmourvector );
 

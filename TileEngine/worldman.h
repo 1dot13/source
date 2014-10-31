@@ -69,9 +69,11 @@ BOOLEAN WaterTooDeepForAttacks( INT32 sGridNo );
 
 // Structure manipulation routines
 BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex );
+BOOLEAN RemoveOnRoofStruct( INT32 iMapIndex, UINT16 usIndex );
 
-// Flugente: permanently remove roof tiles
+// Flugente: permanently remove structures
 BOOLEAN RemoveRoofAdjustSavefile( INT32 iMapIndex, UINT16 usIndex );
+BOOLEAN RemoveOnRoofAdjustSavefile( INT32 iMapIndex, UINT16 usIndex );
 
 LEVELNODE *AddStructToTail( INT32 iMapIndex, UINT16 usIndex );
 LEVELNODE *AddStructToTailCommon( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fAddStructDBInfo );
@@ -81,8 +83,9 @@ BOOLEAN AddStructToHead( INT32 iMapIndex, UINT16 usIndex );
 BOOLEAN TypeExistsInStructLayer( INT32 iMapIndex, UINT32 fType, UINT16 *pusStructIndex );
 BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
 
-// Flugente: permanently remove roof tiles
+// Flugente: permanently remove structures
 BOOLEAN RemoveAllRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
+BOOLEAN RemoveAllOnRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
 
 BOOLEAN AddWallToStructLayer( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fReplace );
 BOOLEAN ReplaceStructIndex( INT32 iMapIndex, UINT16 usOldIndex, UINT16 usNewIndex );
