@@ -6847,58 +6847,58 @@ void SoldierGotHitVehicle( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		return;
 	}
 
-	if( pSoldier->flags.fTryingToFall )
+	if ( pSoldier->flags.fTryingToFall )
 	{
 		return;
 	}
 
-	switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+	switch ( gAnimControl[pSoldier->usAnimState].ubEndHeight )
 	{
-		case ANIM_STAND:
+	case ANIM_STAND:
 
-			sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection  ) );//DirectionInc( gOppositeDirection[ bDirection ] ) );
-			if( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, bDirection, FLYBACK_HIT ) )
-			{
-				pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[ bDirection ] );
-				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
-				pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[ bDirection ] );
-			}
-			else if( IS_MERC_BODY_TYPE( pSoldier ) )
-			{
-				pSoldier->EVENT_SetSoldierDirection( bDirection );
-				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
-				pSoldier->BeginTyingToFall( );
-				pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
-			}
-			else
-			{
-				SoldierCollapse( pSoldier );
-			}
-			break;
-
-
-		case ANIM_CROUCH:
-
-			pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[ bDirection ] );
+		sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection ) );//DirectionInc( gOppositeDirection[ bDirection ] ) );
+		if ( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, bDirection, FLYBACK_HIT ) )
+		{
+			pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[bDirection] );
 			pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
-
-			// Check behind us!
-			sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection  ) );
-
-			if( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ pSoldier->ubDirection ], FLYBACK_HIT ) )
-			{
-				pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[ bDirection ] );
-			}
-			else
-			{
-				SoldierCollapse( pSoldier );
-			}
-			break;
-
-		case ANIM_PRONE:
-
+			pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[bDirection] );
+		}
+		else if ( IS_MERC_BODY_TYPE( pSoldier ) )
+		{
+			pSoldier->EVENT_SetSoldierDirection( bDirection );
+			pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
+			pSoldier->BeginTyingToFall( );
+			pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+		}
+		else
+		{
 			SoldierCollapse( pSoldier );
-			break;
+		}
+		break;
+
+
+	case ANIM_CROUCH:
+
+		pSoldier->EVENT_SetSoldierDirection( (INT8)gOppositeDirection[bDirection] );
+		pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
+
+		// Check behind us!
+		sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection ) );
+
+		if ( IS_MERC_BODY_TYPE( pSoldier ) && OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[pSoldier->ubDirection], FLYBACK_HIT ) )
+		{
+			pSoldier->ChangeToFallbackAnimation( (UINT8)gOppositeDirection[bDirection] );
+		}
+		else
+		{
+			SoldierCollapse( pSoldier );
+		}
+		break;
+
+	case ANIM_PRONE:
+
+		SoldierCollapse( pSoldier );
+		break;
 	}
 
 }
@@ -7907,7 +7907,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 }
 
 // UTILITY FUNCTIONS CALLED BY OVERHEAD.H
-UINT8		gDirectionFrom8to2[] = { 0, 0, 1, 1, 0, 1, 1, 0 };
+UINT8		gDirectionFrom8to2[] = {0, 0, 1, 1, 0, 1, 1, 0};
 
 
 BOOLEAN SOLDIERTYPE::ConvertAniCodeToAniFrame( UINT16 usAniFrame )
@@ -9568,8 +9568,8 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 		BOOLEAN fEnoughPlace = TRUE;
 		STRUCTURE_FILE_REF		*pStructureFileRef;
 		if ( IS_MERC_BODY_TYPE( this ) )
-		{	
-			switch( this->usAnimState )
+		{
+			switch ( this->usAnimState )
 			{
 			case FALLOFF_FORWARD_STOP:
 			case PRONE_LAYFROMHIT_STOP:
@@ -9589,13 +9589,13 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 			default:
 				pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, ANIM_CROUCH ), ANIM_CROUCH );
 				break;
-			}	
-			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &( pStructureFileRef->pDBStructureRef[ gOneCDirection[ this->ubDirection ] ] ), this->ubID, FALSE, NOBODY );
+			}
+			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
 		}
 		else
 		{
 			pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, END_COWER ), END_COWER );
-			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &( pStructureFileRef->pDBStructureRef[ gOneCDirection[ this->ubDirection ] ] ), this->ubID, FALSE, NOBODY );
+			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
 		}
 		if ( this->stats.bLife >= OKLIFE && this->bBreath >= OKBREATH && (this->bSleepDrugCounter == 0) && fEnoughPlace )
 		{
@@ -10078,10 +10078,10 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 
 		if ( sLifeDeduct > 0 && ubReason == TAKE_DAMAGE_GUNFIRE )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GUNSHOT );
-		else if ( sLifeDeduct > 0 && ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
-			 || ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION || ubReason == TAKE_DAMAGE_TENTACLES ) )
+		else if ( sLifeDeduct > 0 && (ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
+			|| ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION || ubReason == TAKE_DAMAGE_TENTACLES) )
 		{
-			FLOAT modifier = 0.5f + sLifeDeduct/100;
+			FLOAT modifier = 0.5f + sLifeDeduct / 100;
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_OPEN, modifier );
 		}
 
@@ -11245,7 +11245,7 @@ BOOLEAN GetDirectionChangeAmount( INT32 sGridNo, SOLDIERTYPE *pSoldier, UINT8 ui
 	//	the indicated sGrinNo into our facing is greater then uiTurnAmount
 	UINT8	ubDirection = GetDirectionFromGridNo( sGridNo, pSoldier );
 	UINT8	subDirection = pSoldier->ubDirection + 3;
-	UINT8	uiDirArray[16] = { 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4 };
+	UINT8	uiDirArray[16] = {5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4};
 
 	//Failsafe; just check to make sure we actually have to turn.
 	if ( ubDirection == pSoldier->ubDirection )
@@ -11307,7 +11307,7 @@ UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
 #if 0
 UINT8  atan8( INT16 x1, INT16 y1, INT16 x2, INT16 y2 )
 {
-	static int trig[8] = { 2, 3, 4, 5, 6, 7, 8, 1 };
+	static int trig[8] = {2, 3, 4, 5, 6, 7, 8, 1};
 	// returned values are N=1, NE=2, E=3, SE=4, S=5, SW=6, W=7, NW=8
 	double dx = (x2 - x1);
 	double dy = (y2 - y1);
@@ -14380,12 +14380,12 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		return(FALSE);
 
 	// anv: passengers who can shoot can rest their guns
-	if ( this->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	if ( this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER) )
 	{
-		if( !gNewVehicle[pVehicleList[this->iVehicleId].ubVehicleType].VehicleSeats[GetSeatIndexFromSoldier(this)].fBlockedShots )
-			return( TRUE );
+		if ( !gNewVehicle[pVehicleList[this->iVehicleId].ubVehicleType].VehicleSeats[GetSeatIndexFromSoldier( this )].fBlockedShots )
+			return(TRUE);
 		else
-			return( FALSE );
+			return(FALSE);
 	}
 
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
@@ -14419,12 +14419,12 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
 
 					// anv: vehicles don't mind
-					if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+					if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 					{
 						applybipod = TRUE;
 					}
 					// if the other person is an ally and prone
-					else if ( this->bSide == pSoldier->bSide && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+					else if ( this->bSide == pSoldier->bSide && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE )
 					{
 						// if we are facing the other guy in a 90 degree angle, we can mount our gun on his back
 						// Once merc's relationship allows angering mercs through actions of others, add a penalty here
@@ -14490,7 +14490,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 					SOLDIERTYPE* pSoldier = MercPtrs[usPersonID];
 
 					// anv: vehicles don't mind
-					if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+					if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 					{
 						applybipod = TRUE;
 					}
@@ -15267,7 +15267,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						checkslot = VESTPOCKPOS;
 						break;
 					case 4:
-						if ( bLoop == MEDPOCK3POS ||  bLoop == SMALLPOCK11POS ||  bLoop == SMALLPOCK12POS ||  bLoop == SMALLPOCK13POS ||  bLoop == SMALLPOCK14POS )
+						if ( bLoop == MEDPOCK3POS || bLoop == SMALLPOCK11POS || bLoop == SMALLPOCK12POS || bLoop == SMALLPOCK13POS || bLoop == SMALLPOCK14POS )
 							checkslot = LTHIGHPOCKPOS;
 						else
 							checkslot = RTHIGHPOCKPOS;
@@ -15446,7 +15446,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						checkslot = VESTPOCKPOS;
 						break;
 					case 4:
-						if ( bLoop == MEDPOCK3POS ||  bLoop == SMALLPOCK11POS ||  bLoop == SMALLPOCK12POS ||  bLoop == SMALLPOCK13POS ||  bLoop == SMALLPOCK14POS )
+						if ( bLoop == MEDPOCK3POS || bLoop == SMALLPOCK11POS || bLoop == SMALLPOCK12POS || bLoop == SMALLPOCK13POS || bLoop == SMALLPOCK14POS )
 							checkslot = LTHIGHPOCKPOS;
 						else
 							checkslot = RTHIGHPOCKPOS;
@@ -15709,9 +15709,9 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE_TO_OFFICER], this->GetName( ) );
 				return FALSE;
 			}
-			
+
 			// elites uncover us if we a disguised as an admin or regular
-			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && GetUniformType() < UNIFORM_ENEMY_ELITE )
+			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && GetUniformType( ) < UNIFORM_ENEMY_ELITE )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE_TO_ELITE], this->GetName( ) );
 				return FALSE;
@@ -15815,7 +15815,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 
 		// even as a soldier, we will be caught around fresh corpses
 		// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
-		if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !this->IsAssassin() )
+		if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !this->IsAssassin( ) )
 		{
 			// check wether we are around a fresh corpse - this will make us much more suspicious
 			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
@@ -15882,6 +15882,10 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT8 ubTargetID )
 
 	if ( !pSoldier )
 		return TRUE;
+
+	// brutal fix: robots cannot be disguised
+	if ( AM_A_ROBOT( pSoldier ) && pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL) )
+		pSoldier->LooseDisguise( );
 
 	// zombies don't care about disguises
 	if ( IsZombie( ) )
@@ -16227,7 +16231,7 @@ void	SOLDIERTYPE::StartMultiTurnAction( UINT8 usActionType, INT32 asGridNo )
 
 	// the action shall be performed on the gridno directly in front of us
 	sMTActionGridNo = asGridNo;
-	
+
 	// for now, adding and removing a structure has the same AP cost - that might change in the future
 	bOverTurnAPS = GetAPsForMultiTurnAction( this, usMultiTurnAction );
 
@@ -16261,7 +16265,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		CancelMultiTurnAction( FALSE );
 		return FALSE;
 	}
-	
+
 	// wether an action is possible or not depends on action itself (there are actions without a gridno)
 	switch ( usMultiTurnAction )
 	{
@@ -16282,10 +16286,10 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		}
 		break;
 	default:	// default: exit
-		{
-			CancelMultiTurnAction( FALSE );
-			return FALSE;
-		}
+	{
+					CancelMultiTurnAction( FALSE );
+					return FALSE;
+	}
 		break;
 	}
 
@@ -16309,54 +16313,54 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		CancelMultiTurnAction( FALSE );
 		return FALSE;
 	}
-	
+
 	INT16 entireapcost = 0;
 	INT16 entirebpcost = 0;
 	switch ( usMultiTurnAction )
 	{
-		case MTA_FORTIFY:
-		{
-			entireapcost = GetAPsForMultiTurnAction( this, MTA_FORTIFY );
-			entirebpcost = APBPConstants[BP_FORTIFICATION];
+	case MTA_FORTIFY:
+	{
+						entireapcost = GetAPsForMultiTurnAction( this, MTA_FORTIFY );
+						entirebpcost = APBPConstants[BP_FORTIFICATION];
 
-			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
-				fActionStillValid = FALSE;
-			else if ( !IsStructureConstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
-				fActionStillValid = FALSE;
-		}
+						if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
+							fActionStillValid = FALSE;
+						else if ( !IsStructureConstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
+							fActionStillValid = FALSE;
+	}
 		break;
 
-		case MTA_REMOVE_FORTIFY:
-		{
-			entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
-			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
+	case MTA_REMOVE_FORTIFY:
+	{
+							   entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
+							   entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
 
-			if ( !IsStructureDeconstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
-				fActionStillValid = FALSE;
-		}
+							   if ( !IsStructureDeconstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
+								   fActionStillValid = FALSE;
+	}
 		break;
 
-		case MTA_FILL_SANDBAG:
-		{
-			entireapcost = GetAPsForMultiTurnAction( this, MTA_FILL_SANDBAG );
-			entirebpcost = APBPConstants[BP_FILL_SANDBAG];
+	case MTA_FILL_SANDBAG:
+	{
+							 entireapcost = GetAPsForMultiTurnAction( this, MTA_FILL_SANDBAG );
+							 entirebpcost = APBPConstants[BP_FILL_SANDBAG];
 
-			if ( !HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
-				fActionStillValid = FALSE;
-			else
-			{
-				INT8 bOverTerrainType = GetTerrainType( sGridNo );
-				if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
-					fActionStillValid = FALSE;
-				else
-				{
-					// check if we have a shovel in our second hand
-					OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
-					if ( !pShovelObj || !(pShovelObj->exists( )) || !HasItemFlag( this->inv[SECONDHANDPOS].usItem, SHOVEL ) )
-						fActionStillValid = FALSE;
-				}
-			}
-		}
+							 if ( !HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
+								 fActionStillValid = FALSE;
+							 else
+							 {
+								 INT8 bOverTerrainType = GetTerrainType( sGridNo );
+								 if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
+									 fActionStillValid = FALSE;
+								 else
+								 {
+									 // check if we have a shovel in our second hand
+									 OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
+									 if ( !pShovelObj || !(pShovelObj->exists( )) || !HasItemFlag( this->inv[SECONDHANDPOS].usItem, SHOVEL ) )
+										 fActionStillValid = FALSE;
+								 }
+							 }
+	}
 		break;
 	}
 
@@ -16369,25 +16373,25 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	// refresh animations
 	switch ( usMultiTurnAction )
 	{
-		case MTA_FORTIFY:
-		case MTA_REMOVE_FORTIFY:
-		case MTA_FILL_SANDBAG:
-		{
-			// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
-			if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
-				bOverTurnAPS = 0;
-			// otherwise this might take longer, so we refresh our animation
-			else
-			{
-				if ( !is_networked )
-					this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
-				else
-					this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+	case MTA_FORTIFY:
+	case MTA_REMOVE_FORTIFY:
+	case MTA_FILL_SANDBAG:
+	{
+							 // if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
+							 if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+								 bOverTurnAPS = 0;
+							 // otherwise this might take longer, so we refresh our animation
+							 else
+							 {
+								 if ( !is_networked )
+									 this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
+								 else
+									 this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
-				// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
-				bOverTurnAPS = max( 0, bOverTurnAPS - APBPConstants[AP_USEWIRECUTTERS] );
-			}
-		}
+								 // as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
+								 bOverTurnAPS = max( 0, bOverTurnAPS - APBPConstants[AP_USEWIRECUTTERS] );
+							 }
+	}
 		break;
 	}
 
@@ -16396,59 +16400,59 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	{
 		switch ( usMultiTurnAction )
 		{
-			case MTA_FORTIFY:
-			{
-				// Build the thing
-				if ( BuildFortification( this->sMTActionGridNo, this, pObj ) )
-				{
-					// we gain a bit of experience...
-					StatChange( this, STRAMT, 4, TRUE );
-					StatChange( this, HEALTHAMT, 2, TRUE );
-				}
-			}
-				break;
+		case MTA_FORTIFY:
+		{
+							// Build the thing
+							if ( BuildFortification( this->sMTActionGridNo, this, pObj ) )
+							{
+								// we gain a bit of experience...
+								StatChange( this, STRAMT, 4, TRUE );
+								StatChange( this, HEALTHAMT, 2, TRUE );
+							}
+		}
+			break;
 
-			case MTA_REMOVE_FORTIFY:
-			{
-				if ( RemoveFortification( this->sMTActionGridNo, this, pObj ) )
-				{
-					// we gain a bit of experience...
-					StatChange( this, STRAMT, 3, TRUE );
-					StatChange( this, HEALTHAMT, 2, TRUE );
-				}
-			}
-				break;
+		case MTA_REMOVE_FORTIFY:
+		{
+								   if ( RemoveFortification( this->sMTActionGridNo, this, pObj ) )
+								   {
+									   // we gain a bit of experience...
+									   StatChange( this, STRAMT, 3, TRUE );
+									   StatChange( this, HEALTHAMT, 2, TRUE );
+								   }
+		}
+			break;
 
-			case MTA_FILL_SANDBAG:
-			{
-				// eventually search for the number of a sandbag item
-				UINT16 fullsandbagnr = Item[this->inv[HANDPOS].usItem].usBuddyItem;
-				if ( fullsandbagnr )
-				{
-					INT8 bObjSlot = HANDPOS;
-					UINT16 usItem = pObj->usItem;
+		case MTA_FILL_SANDBAG:
+		{
+								 // eventually search for the number of a sandbag item
+								 UINT16 fullsandbagnr = Item[this->inv[HANDPOS].usItem].usBuddyItem;
+								 if ( fullsandbagnr )
+								 {
+									 INT8 bObjSlot = HANDPOS;
+									 UINT16 usItem = pObj->usItem;
 
-					CreateItem( fullsandbagnr, 100, &gTempObject );
-					if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
-					{
-						// sevenfm: drop filled sandbag to the ground and take new empty from inventory
-						AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
-						DeleteObj( &(this->inv[HANDPOS]) );
-						TakeNewItemFromInventory( usItem );
-					}
-					else
-					{
-						SwapObjs( this, bObjSlot, &gTempObject, TRUE );
-					}
+									 CreateItem( fullsandbagnr, 100, &gTempObject );
+									 if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && gfShiftBombPlant )
+									 {
+										 // sevenfm: drop filled sandbag to the ground and take new empty from inventory
+										 AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+										 DeleteObj( &(this->inv[HANDPOS]) );
+										 TakeNewItemFromInventory( usItem );
+									 }
+									 else
+									 {
+										 SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+									 }
 
-					// sevenfm: added this to correctly update interface
-					DirtyMercPanelInterface( this, DIRTYLEVEL2 );
+									 // sevenfm: added this to correctly update interface
+									 DirtyMercPanelInterface( this, DIRTYLEVEL2 );
 
-					// we gain a bit of experience...
-					StatChange( this, STRAMT, 1, TRUE );
-					StatChange( this, HEALTHAMT, 1, TRUE );
-				}
-			}
+									 // we gain a bit of experience...
+									 StatChange( this, STRAMT, 1, TRUE );
+									 StatChange( this, HEALTHAMT, 1, TRUE );
+								 }
+		}
 			break;
 		}
 
@@ -17430,7 +17434,7 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 	{
 		// radio operator
 	case SKILLS_RADIO_ARTILLERY:
-		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE )) && CanUseRadio() )
+		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE )) && CanUseRadio( ) )
 		{
 			// we also have to check wether we can really order a strike from a sector
 			UINT32 sector = 0;
@@ -17478,13 +17482,13 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 		// radio operator
 		// the call for SKILLS_RADIO_ARTILLERY is only used by the AI
 	case SKILLS_RADIO_ARTILLERY:
-		{
-			UINT32 sector = 0;
-			if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
-			{
-				return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
-			}
-		}
+	{
+								   UINT32 sector = 0;
+								   if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
+								   {
+									   return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
+								   }
+	}
 		break;
 
 	case SKILLS_RADIO_JAM:
@@ -17553,10 +17557,10 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 		switch ( iSkill )
 		{
 			// radio operator
-	case SKILLS_RADIO_ARTILLERY:
-	case SKILLS_RADIO_JAM:
-	case SKILLS_RADIO_SCAN_FOR_JAM:
-	case SKILLS_RADIO_LISTEN:
+		case SKILLS_RADIO_ARTILLERY:
+		case SKILLS_RADIO_JAM:
+		case SKILLS_RADIO_SCAN_FOR_JAM:
+		case SKILLS_RADIO_LISTEN:
 		case SKILLS_RADIO_CALLREINFORCEMENTS:
 		case SKILLS_RADIO_TURNOFF:
 
@@ -17566,7 +17570,7 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[MSG113_WORKING_RADIO_SET] );
 			wcscat( skilldescarray, atStr );
 
-		break;
+			break;
 
 		case SKILLS_SPOTTER:
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_SPOTTER] );
@@ -18707,7 +18711,7 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 
 			this->AnnounceDisease( aDisease );
 		}
-				
+
 		// remove later on, for testing only
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was infected with %s", gMercProfiles[this->ubProfile].zNickname, Disease[aDisease].szName );
 	}
@@ -18741,7 +18745,7 @@ void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
 		if ( this->sDiseasePoints[aDisease] <= 0 )
 		{
 			// if disease was known and this guy is under player control, let the player know the good news
-			if ( this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_DIAGNOSED && this->bTeam == gbPlayerNum)
+			if ( this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_DIAGNOSED && this->bTeam == gbPlayerNum )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_CURED], this->GetName( ), Disease[aDisease].szName );
 
 			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK);
@@ -18823,7 +18827,7 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 				swprintf( atStr, L"%s\n", Disease[i].szDescription );
 				wcscat( apStr, atStr );
 
-				FLOAT magnitude = GetDiseaseMagnitude(i);
+				FLOAT magnitude = GetDiseaseMagnitude( i );
 
 				for ( int j = 0; j < INFST_MAX; ++j )
 				{
@@ -18916,8 +18920,8 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 	FLOAT val = 0.0f;
 
 	// if we wear special equipment, lower our chances of being infected
-	FLOAT bestfacegear			= 0.0f;
-	FLOAT bestprotectivegear	= 0.0f;
+	FLOAT bestfacegear = 0.0f;
+	FLOAT bestprotectivegear = 0.0f;
 	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
 	{
@@ -18925,7 +18929,7 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 		{
 			OBJECTTYPE* pObj = &(inv[bLoop]);
 
-			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE  )
+			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE )
 			{
 				if ( (bLoop == HEAD1POS || bLoop == HEAD2POS) )
 				{
@@ -18949,7 +18953,7 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 	return min( val, 1.0f );
 }
 
-INT16	SOLDIERTYPE::GetDiseaseResistance()
+INT16	SOLDIERTYPE::GetDiseaseResistance( )
 {
 	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
 	INT16 val = 0;
@@ -19760,11 +19764,11 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
 	this->EVENT_SetSoldierDesiredDirection( ubDirection );
 	this->EVENT_SetSoldierDirection( ubDirection );
-	
+
 	// do checks here...
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
 
-	if ( pObj && pObj->exists( ) && (HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) || IsStructureConstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) || IsStructureDeconstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) ) )
+	if ( pObj && pObj->exists( ) && (HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) || IsStructureConstructItem( this->inv[HANDPOS].usItem, sGridNo, this ) || IsStructureDeconstructItem( this->inv[HANDPOS].usItem, sGridNo, this )) )
 	{
 		if ( HasItemFlag( this->inv[HANDPOS].usItem, EMPTY_SANDBAG ) )
 		{
@@ -22148,7 +22152,7 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 
 	UINT16 usEnemies = (UINT16)NumEnemiesInAnySector( sSectorX, sSectorY, bSectorZ );
 	UINT16 usMilitia = (UINT16)GetNumberOfMilitiaInSector( sSectorX, sSectorY, (INT16)bSectorZ );
-	UINT16 usMercs   = (UINT16)PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ );
+	UINT16 usMercs = (UINT16)PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ );
 
 	SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sSectorX, sSectorY )]);
 
