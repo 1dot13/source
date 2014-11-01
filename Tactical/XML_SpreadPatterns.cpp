@@ -123,7 +123,7 @@ spreadpatternStartElementHandle(void *userData, const XML_Char *name, const XML_
 				|| strcmp(name, "y") == 0
 				|| strcmp(name, "xspread") == 0
 				|| strcmp(name, "yspread") == 0
-				|| strcmp(name, "Name") == 0
+				|| strcmp(name, "NAME") == 0
 				|| strcmp(name, "method") == 0
 				))
 				
@@ -204,7 +204,7 @@ spreadpatternEndElementHandle(void *userData, const XML_Char *name)
 			d = fabs( atof(pData->szCharData) );
 			gpSpreadPattern[giSpreadPatternCount-1].yspread = d;
 		}
-		else if(strcmp(name, "Name") == 0)
+		else if(strcmp(name, "NAME") == 0)
 		{
 			pData->curElement = ELEMENT;
 			//Trim whitespace.
