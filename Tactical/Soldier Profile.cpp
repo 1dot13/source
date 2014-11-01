@@ -2031,8 +2031,11 @@ BOOLEAN RecruitEPC( UINT8 ubCharNum )
 	// Set whatkind of merc am i
 	pNewSoldier->ubWhatKindOfMercAmI = MERC_TYPE__EPC;
 
-	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert when recruited. Of course, this is not for the rebels...
-	pNewSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_CIV|SOLDIER_COVERT_NPC_SPECIAL);
+	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert when recruited. Of course, this is not for the rebels/vehicles/robots
+	if ( !(pNewSoldier->flags.uiStatusFlags & (SOLDIER_ROBOT | SOLDIER_VEHICLE) ) )
+	{
+		pNewSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_CIV | SOLDIER_COVERT_NPC_SPECIAL);
+	}
 
 	UpdateTeamPanelAssignments( );
 

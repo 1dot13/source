@@ -15960,7 +15960,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT8 ubTargetID )
 void	SOLDIERTYPE::LooseDisguise( void )
 {
 	// loose any covert flags
-	this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER);
+	this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL);
 
 	// rehandle sight for everybody
 	SOLDIERTYPE*		pSoldier;
@@ -17413,7 +17413,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	{
 		this->usSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
 	}
-}
+	}
 
 // check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
 BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
