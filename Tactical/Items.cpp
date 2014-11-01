@@ -5555,7 +5555,7 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	if( fItemSlots )
 	{	
 		fItemLayout = Item[pObj->usItem].nasLayoutClass;
-		fIsLBE = (Item[pObj->usItem].usItemClass & IC_LBEGEAR);
+		fIsLBE = (Item[pObj->usItem].usItemClass == IC_LBEGEAR);
 		if ( Item[pObj->usItem].grenadelauncher || Item[pObj->usItem].rocketlauncher )
 			magSize = GetMagSize( pObj );
 
