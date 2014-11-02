@@ -3870,6 +3870,7 @@ STR16 pTransactionText[] =
 	L"Miliz in %s ausbilden",		// initial cost to equip a town's militia
 	L"Gegenstände von %s gekauft.",	//is used for the Shop keeper interface. The dealers name will be appended to the end of the string.
 	L"%s hat Geld angelegt.",
+	L"Gegenstände an Bevölkerung verkauft",
 	L"Betriebskosten",			// HEADROCK HAM 3.6
 	L"Unterhaltskosten für Miliz",		// HEADROCK HAM 3.6
 	L"Lösegeld erpresst",	// Flugente: prisoner system

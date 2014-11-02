@@ -3893,6 +3893,7 @@ STR16 pTransactionText[] =
 	L"Rust militie uit in %s",			// initial cost to equip a town's militia
 	L"Items gekocht van %s.",		//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s heeft geld gestort.",
+	L"Sold Item(s) to the Locals",
 	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
 	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
 	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate

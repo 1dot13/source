@@ -3889,6 +3889,7 @@ STR16 pTransactionText[] =
 	L"Equipaggiamento esercito in %s", // initial cost to equip a town's militia
 	L"Oggetti acquistati da%s.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s soldi depositati.",
+	L"Sold Item(s) to the Locals",
 	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
 	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
 	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
