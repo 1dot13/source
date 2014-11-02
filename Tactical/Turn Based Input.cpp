@@ -6957,6 +6957,13 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	{
 		ubTargetMerc = gTeamPanel[ bNewPosition ].ubID;
 
+		// Hey, you're dead. I don't want to swap with you.
+		if ( MercPtrs[ubTargetMerc]->stats.bLife <= 0 )
+		{
+			RebuildCurrentSquad( );
+			return;
+		}
+
 		// store face indexes
 		iSourceFace = MercPtrs[ ubSourceMerc ]->iFaceIndex;
 		iTargetFace = MercPtrs[ ubTargetMerc ]->iFaceIndex;
