@@ -105,8 +105,10 @@ BOOLEAN IsGroupInARightSectorToReinforce( GROUP *pGroup, INT16 sSectorX, INT16 s
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber = 0, ubIndex;
 
-	if( pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
-		return TRUE;  //Well, it's in the same sector, so allow to reinforce
+	// silversurfer: A group that is already in the right sector is not reinforcement. It's either stationary or mobile. Reinforcements have to come from different sectors.
+	// If we allow groups here that are already in the sector we will assign them twice (stationary/mobile + reinforcement)! Not good.
+/*	if( pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		return TRUE;  //Well, it's in the same sector, so allow to reinforce*/
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
