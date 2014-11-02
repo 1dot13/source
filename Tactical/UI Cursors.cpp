@@ -2253,11 +2253,9 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 	{
 		// is there a person here?
 		UINT8 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
-		if ( usSoldierIndex != NOBODY )
+		if ( usSoldierIndex != NOBODY && MercPtrs[usSoldierIndex]->CanBeHandcuffed( ) )
 		{
-			// no handcuffing if the guy is already caught...
-			if ( !(MercPtrs[usSoldierIndex]->usSoldierFlagMask & SOLDIER_POW) )
-				return( HANDCUFF_GREY_UICURSOR );
+			return( HANDCUFF_GREY_UICURSOR );
 		}
 	}
 

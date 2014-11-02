@@ -1769,6 +1769,7 @@ public:
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();
 	BOOLEAN		FreePrisoner();					// used for an enemy liberating fellow prisoners 
+	BOOLEAN		CanBeHandcuffed();				// can this guy be handcuffed?
 
 	// Flugente: scuba gear
 	BOOLEAN		UsesScubaGear();

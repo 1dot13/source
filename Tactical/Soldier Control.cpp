@@ -16170,6 +16170,16 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner( )
 	return FALSE;
 }
 
+// can this guy be handcuffed?
+BOOLEAN		SOLDIERTYPE::CanBeHandcuffed( )
+{
+	// if this is an enemy that has not already been captured, and is not a NPC, we can handcuff and thus capture him
+	if ( this->bTeam == ENEMY_TEAM && !(this->usSoldierFlagMask & SOLDIER_POW) && this->ubProfile == NO_PROFILE )
+		return TRUE;
+
+	return FALSE;
+}
+
 // Flugente: scuba gear
 BOOLEAN		SOLDIERTYPE::UsesScubaGear( )
 {
@@ -19829,7 +19839,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
-	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->bTeam == ENEMY_TEAM && !(MercPtrs[ubPerson]->usSoldierFlagMask & SOLDIER_POW) )
+	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->CanBeHandcuffed( ) )
 	{
 		// we found someone we can handcuff
 		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
