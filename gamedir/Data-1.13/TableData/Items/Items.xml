@@ -196,7 +196,6 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
-			<PercentCounterForceFrequency>0</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
@@ -209,7 +208,6 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
-			<PercentCounterForceFrequency>0</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
@@ -222,7 +220,6 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
-			<PercentCounterForceFrequency>0</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</PRONE_MODIFIERS>
 	</ITEM>
