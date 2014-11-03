@@ -10386,9 +10386,6 @@ INT32 GetItemModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 	case ITEMMODIFIER_COUNTERFORCEACCURACY:
 		iModifier += BonusReduceMore( Item[pObj->usItem].counterforceaccuracymodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
-	case ITEMMODIFIER_COUNTERFORCEFREQUENCY:
-		iModifier += BonusReduceMore( Item[pObj->usItem].counterforcefrequencymodifier[ubRef], (*pObj)[0]->data.objectStatus );
-		break;
 	case ITEMMODIFIER_TRACKING:
 		iModifier += BonusReduceMore( Item[pObj->usItem].targettrackingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;

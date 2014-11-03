@@ -103,7 +103,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				pData->curItem.percentdropcompensationmodifier[X] = -10000;
 				pData->curItem.maxcounterforcemodifier[X] = -10000;
 				pData->curItem.counterforceaccuracymodifier[X] = -10000;
-				pData->curItem.counterforcefrequencymodifier[X] = -10000;
 				pData->curItem.aimlevelsmodifier[X] = -10000;
 			}
 
@@ -1278,11 +1277,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT_SUBLIST;
 			pData->curItem.counterforceaccuracymodifier[pData->curStance] = (INT16) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "PercentCounterForceFrequency") == 0)
-		{
-			pData->curElement = ELEMENT_SUBLIST;
-			pData->curItem.counterforcefrequencymodifier[pData->curStance] = (INT16) atol(pData->szCharData);
-		}
 		else if(strcmp(name, "AimLevels") == 0)
 		{
 			pData->curElement = ELEMENT_SUBLIST;
@@ -2038,7 +2032,6 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[0]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[0]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[0]    );
-			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[0]    );
 			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[0]    );
 			FilePrintf(hFile,"\t\t</STAND_MODIFIERS>\r\n");
 
@@ -2052,7 +2045,6 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[1]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[1]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[1]    );
-			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[1]    );
 			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[1]    );
 			FilePrintf(hFile,"\t\t</CROUCH_MODIFIERS>\r\n");
 
@@ -2066,7 +2058,6 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[2]    );
-			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[2]    );
 			FilePrintf(hFile,"\t\t</PRONE_MODIFIERS>\r\n");
 
@@ -2138,7 +2129,7 @@ void InheritStanceModifiers( itemParseData *pData )
 {
 
 	// Create a two-dimensional temp array to hold all the data about stance modifiers.
-	INT16 TempArray[12][3];
+	INT16 TempArray[11][3];
 	INT8 count = 0;
 	INT8 arrcount = 0;
 
@@ -2155,11 +2146,10 @@ void InheritStanceModifiers( itemParseData *pData )
 		TempArray[7][count] = pData->curItem.percentdropcompensationmodifier[count];
 		TempArray[8][count] = pData->curItem.maxcounterforcemodifier[count];
 		TempArray[9][count] = pData->curItem.counterforceaccuracymodifier[count];
-		TempArray[10][count] = pData->curItem.counterforcefrequencymodifier[count];
-		TempArray[11][count] = pData->curItem.aimlevelsmodifier[count];
+		TempArray[10][count] = pData->curItem.aimlevelsmodifier[count];
 	}
 
-	for (arrcount = 0; arrcount < 12; arrcount++)
+	for (arrcount = 0; arrcount < 11; arrcount++)
 	{
 		if (TempArray[arrcount][2] == -10000)
 		{
@@ -2199,8 +2189,7 @@ void InheritStanceModifiers( itemParseData *pData )
 		pData->curItem.percentdropcompensationmodifier[count] = TempArray[7][count];
 		pData->curItem.maxcounterforcemodifier[count] = TempArray[8][count];
 		pData->curItem.counterforceaccuracymodifier[count] = TempArray[9][count];
-		pData->curItem.counterforcefrequencymodifier[count] = TempArray[10][count];
-		pData->curItem.aimlevelsmodifier[count] = TempArray[11][count];
+		pData->curItem.aimlevelsmodifier[count] = TempArray[10][count];
 	}
 
 }

@@ -3324,32 +3324,6 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
-		// HEADROCK HAM 5: This is gone now.
-		/*
-		///////////////////// COUNTER FORCE FREQUENCY MODIFIER
-		if (GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
-		{
-			if( UsingNewCTHSystem() == true )
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 19 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 19 ]);
-					}
-					else
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 19 ], szUDBAdvStatsExplanationsTooltipText[ 19 ]);
-					}
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
- 				}
-				cnt++;
-			}
-		}*/
-
 		///////////////////// AP MODIFIER
 		if (GetAPBonus( gpItemDescObject ) != 0 )
 		{
@@ -3902,32 +3876,6 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  			}
 			cnt++;
 		}
-
-		// HEADROCK HAM 5: This no longer exists.
-		/*
-		///////////////////// COUNTER FORCE FREQUENCY
-		if ((GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 ) )
-		{
-			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 45 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 45 ]);
-					}
-					else
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 45 ], szUDBAdvStatsExplanationsTooltipText[ 45 ]);
-					}
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
- 				}
-				cnt++;
-			}
-		}*/
 
 		// Moa: used to check if general Indexes (Prop., 0, +-, =) should be shown
 		INT16 fDrawGenIndexes = FALSE;
@@ -5384,24 +5332,6 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 
-	///////////////////// COUNTER FORCE FREQUENCY MODIFIER
-	if ( ( GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
-		|| GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
-		|| GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 ) ||
-		( fComparisonMode && ( GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
-		|| GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_CROUCH, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 
-		|| GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_PRONE, ITEMMODIFIER_COUNTERFORCEFREQUENCY ) != 0 ) ) )
-	{
-		if( UsingNewCTHSystem() == true )
-		{
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 19, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
-			cnt++;
-		}
-	}
-
 	///////////////////// AP MODIFIER
 	if ( (GetAPBonus( gpItemDescObject ) != 0 ) ||
 		( fComparisonMode && GetAPBonus( gpComparedItemDescObject ) != 0 ) )
@@ -5668,22 +5598,6 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		cnt++;
 	}
 
-	// HEADROCK HAM 5: Counter-Force Frequency has been removed from the game in favour of a more realistic system.
-	/*
-	///////////////////// COUNTER FORCE FREQUENCY
-	if (CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject ) != 0 )
-	{
-		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
-		{
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 19, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
-			cnt++;
-		}
-	}
-	*/
-	
 	// Flugente
 	// new line is necessary (Moa: only if needed)
 	INT16 fDrawGenIndexes = FALSE;
@@ -11397,75 +11311,6 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
-	///////////////////// COUNTER FORCE FREQUENCY MODIFIER
-	iModifier[0] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-	iModifier[1] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-	iModifier[2] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-	if( fComparisonMode )
-	{
-		iComparedModifier[0] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-		iComparedModifier[1] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_CROUCH, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-		iComparedModifier[2] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_PRONE, ITEMMODIFIER_COUNTERFORCEFREQUENCY );
-	}
-	if ( ( (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) || ( fComparisonMode && (iComparedModifier[0] != 0 || iComparedModifier[1] != 0 || iComparedModifier[2] != 0) ) )
-		&& UsingNewCTHSystem() == true )
-	{
-		if (cnt >= sFirstLine && cnt < sLastLine)
-		{
-			// Set Y coordinates
-			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
-
-			// Print Values
-			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
-			{
-				SetFontForeground( 5 );
-				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
-				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if( fComparisonMode )
-				{
-					iModifier[cnt2] = iComparedModifier[cnt2] - iModifier[cnt2];
-				}
-				if (iModifier[cnt2] > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iModifier[cnt2] );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else if (iModifier[cnt2] < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					wcscat( pStr, L"%" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else if( fComparisonMode )
-				{
-					swprintf( pStr, L"=" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				mprintf( usX, usY, pStr );
-			}
-		}
-		cnt++;
-	}
-
 	///////////////////// AP MODIFIER
 	iModifier[0] = GetAPBonus( gpItemDescObject );
 	iModifier[1] = iModifier[0];
@@ -13081,50 +12926,6 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		}
 		cnt++;
 	}
-	
-	// HEADROCK HAM 5: Counter-Force Frequency has been removed from the game in favour of a more realistic system.
-	/*
-	///////////////////// COUNTER FORCE FREQUENCY
-	iModifier[0] = CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject );
-	iModifier[1] = iModifier[0];
-	iModifier[2] = iModifier[0];
-	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
-	{
-		if (cnt >= sFirstLine && cnt < sLastLine)
-		{
-			// Set Y coordinates
-			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
-
-			// Print Values
-			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
-			{
-				SetFontForeground( 5 );
-				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
-				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iModifier[cnt2] > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else if (iModifier[cnt2] < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				mprintf( usX, usY, pStr );
-			}
-		}
-		cnt++;
-	}
-	*/
 	
 	// Flugente: draw a new description line 
 	// Moa: only if required

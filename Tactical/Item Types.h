@@ -1096,7 +1096,6 @@ typedef struct
 	INT16 percentdropcompensationmodifier[3];
 	INT16 maxcounterforcemodifier[3];
 	INT16 counterforceaccuracymodifier[3];
-	INT16 counterforcefrequencymodifier[3];
 	INT16 targettrackingmodifier[3];
 	INT16 aimlevelsmodifier[3];
 	// HEADROCK HAM 4: New modifiers that do not require a stance array, since they affect the gun objectively, not
