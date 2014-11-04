@@ -390,6 +390,9 @@ typedef struct
 	// Flugente: fortification settings
 	BOOLEAN fFortificationAllowInHostileSector;
 
+	// Flugente: can roofs collapse?
+	BOOLEAN fRoofCollapse;
+
 	// Flugente: food settings
 	UINT16	usFoodDigestionHourlyBaseFood;
 	UINT16	usFoodDigestionHourlyBaseDrink;

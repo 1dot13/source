@@ -6012,7 +6012,7 @@ BOOLEAN DamageRoof( INT32 sGridNo, INT16 sDamage )
 void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 {
 	// only if there is significant damage done
-	if ( sDamage < 1 || TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
+	if ( sDamage < 1 || !gGameExternalOptions.fRoofCollapse  || TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
 		return;
 
 	ApplyMapChangesToMapTempFile( TRUE );
