@@ -499,6 +499,11 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 				swprintf( atStr, szBackgroundText_Value[i] );
 				wcscat( apStr, atStr );
 			}
+			else if ( BG_TRACKER_ABILITY == i && zBackground[ubNumber].value[i] )
+			{
+				swprintf( atStr, szBackgroundText_Value[i], (UINT16)((gSkillTraitValues.usTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
+				wcscat( apStr, atStr );
+			}
 			else if ( zBackground[ ubNumber ].value[i] )
 			{
 				swprintf(atStr, szBackgroundText_Value[ i ], zBackground[ ubNumber ].value[i] > 0 ? L"+" : L"", zBackground[ ubNumber ].value[i] );

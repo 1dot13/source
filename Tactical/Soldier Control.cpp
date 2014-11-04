@@ -17372,6 +17372,8 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 	return bonus;
 }
 
+extern void DisplayCover( const BOOLEAN& forceUpdate );
+
 void SOLDIERTYPE::SoldierPropertyUpkeep( )
 {
 	// these effects last only one turn
@@ -17427,7 +17429,12 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	{
 		this->usSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
 	}
+
+	if ( this->bInSector && this->bTeam == gbPlayerNum && !this->bCollapsed )
+	{
+		DisplayCover( TRUE );
 	}
+}
 
 // check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
 BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )

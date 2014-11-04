@@ -7444,6 +7444,13 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[11], ( gSkillTraitValues.ubRACamoWornountSpeedReduction * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
+
+				if ( gSkillTraitValues.usTrackerMaxRange && gSkillTraitValues.usTrackerAbility )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[12], (gSkillTraitValues.usTrackerAbility * (fExpertLevel ? 2 : 1) * gSkillTraitValues.usTrackerMaxRange / 100) );
+					wcscat( apStr, atStr );
+				}
+
 				break;
 			}
 			case GUNSLINGER_NT:

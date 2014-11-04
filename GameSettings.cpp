@@ -2313,6 +2313,8 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubRAWeatherPenaltiesReduction = iniReader.ReadInteger("Ranger","WEATHER_PENALTIES_REDUCTION", 50, 0, 100);
 	//gSkillTraitValues.ubRACamoEffectivenessBonus = iniReader.ReadInteger("Ranger","CAMO_EFFECTIVENESS_BONUS_PERCENT", 10, 0, 100);
 	gSkillTraitValues.ubRACamoWornountSpeedReduction = iniReader.ReadInteger("Ranger","CAMO_WORNOUT_SPEED_REDUCTION", 50, 0, 100);
+	gSkillTraitValues.usTrackerMaxRange = iniReader.ReadInteger( "Ranger", "TRACKER_MAX_RANGE", 30, 0, 50 );
+	gSkillTraitValues.usTrackerAbility = iniReader.ReadInteger( "Ranger", "TRACKER_ABILITY", 30, 0, 50 );
 
 	// GUNSLINGER
 	gSkillTraitValues.ubGSFiringSpeedBonusPistols = iniReader.ReadInteger("Gunslinger","FIRING_SPEED_BONUS_PISTOLS", 15, 0, 45);

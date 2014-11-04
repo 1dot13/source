@@ -1608,6 +1608,8 @@ typedef struct
 	UINT8 ubRACamoWornountSpeedReduction;
 	UINT8 ubRAFiringSpeedBonusShotguns;
 	UINT8 ubRAAimClicksAdded;
+	UINT16 usTrackerMaxRange;
+	UINT8 usTrackerAbility;
 
 	// GUNSLINGER
 	UINT8 ubGSFiringSpeedBonusPistols;

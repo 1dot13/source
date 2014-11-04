@@ -63,19 +63,19 @@
 UINT8 ubBloodGraphicLUT [ ] = {	3, 3,	2,	2,	1,	1,	0, 0 };
 
 
-#define SMELL_STRENGTH_MAX		63
-#define BLOOD_STRENGTH_MAX		7
-#define BLOOD_DELAY_MAX		3
+#define SMELL_STRENGTH_MAX			63
+#define BLOOD_STRENGTH_MAX			7
+#define BLOOD_DELAY_MAX				3
 
-#define SMELL_TYPE_BITS( s )	(s & 0x03)
+#define SMELL_TYPE_BITS( s )		(s & 0x03)
 
-#define BLOOD_ROOF_TYPE( s )	(s & 0x02)
-#define BLOOD_FLOOR_TYPE( s )	(s & 0x01)
+#define BLOOD_ROOF_TYPE( s )		(s & 0x02)
+#define BLOOD_FLOOR_TYPE( s )		(s & 0x01)
 
 #define BLOOD_ROOF_STRENGTH( b )	(b & 0xE0)
-#define BLOOD_FLOOR_STRENGTH( b )		( (b & 0x1C) >> 2 )
-#define BLOOD_DELAY_TIME( b )				(b & 0x03)
-#define NO_BLOOD_STRENGTH( b )			((b & 0xFC) == 0)
+#define BLOOD_FLOOR_STRENGTH( b )	( (b & 0x1C) >> 2 )
+#define BLOOD_DELAY_TIME( b )		(b & 0x03)
+#define NO_BLOOD_STRENGTH( b )		((b & 0xFC) == 0)
 
 #define DECAY_SMELL_STRENGTH( s ) \
 { \
@@ -150,17 +150,13 @@ void RemoveBlood( INT32 sGridNo, INT8 bLevel )
 	UpdateBloodGraphics( sGridNo, bLevel );
 }
 
-
 void DecaySmells( void )
 {
 	INT32					uiLoop;
 	MAP_ELEMENT *		pMapElement;
 
-	//return;
-
-	for (uiLoop = 0, pMapElement = gpWorldLevelData; uiLoop < WORLD_MAX; uiLoop++, pMapElement++)
+	for ( uiLoop = 0, pMapElement = gpWorldLevelData; uiLoop < WORLD_MAX; ++uiLoop, ++pMapElement )
 	{
-
 		if (pMapElement->ubSmellInfo)
 		{
 			// decay smell strength!
@@ -174,13 +170,12 @@ void DecaySmells( void )
 	}
 }
 
-
 void DecayBlood()
 {
 	INT32					uiLoop;
 	MAP_ELEMENT *		pMapElement;
 
-	for (uiLoop = 0, pMapElement = gpWorldLevelData; uiLoop < WORLD_MAX; uiLoop++, pMapElement++)
+	for (uiLoop = 0, pMapElement = gpWorldLevelData; uiLoop < WORLD_MAX; ++uiLoop, ++pMapElement)
 	{
 		if (pMapElement->ubBloodInfo)
 		{
@@ -274,10 +269,10 @@ void DecayBloodAndSmells( UINT32 uiTime )
 void DropSmell( SOLDIERTYPE * pSoldier )
 {
 	MAP_ELEMENT *		pMapElement;
-	UINT8						ubOldSmell;
-	UINT8						ubOldStrength;
-	UINT8						ubSmell;
-	UINT8						ubStrength;
+	UINT8				ubOldSmell;
+	UINT8				ubOldStrength;
+	UINT8				ubSmell;
+	UINT8				ubStrength;
 
 	/*
 	*	Here we are creating a new smell on the ground.	If there is blood in
@@ -354,7 +349,6 @@ void DropSmell( SOLDIERTYPE * pSoldier )
 	// otherwise skip dropping smell
 }
 
-
 void InternalDropBlood( INT32 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStrength, INT8 bVisible )
 {
 	CHAR tmpMPDbgString[512];
@@ -381,9 +375,9 @@ void InternalDropBlood( INT32 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 	// ATE: Send warning if dropping blood nowhere....	
 	if (TileIsOutOfBounds(sGridNo))
 	{
-		#ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Attempting to drop blood NOWHERE" );
-		#endif
+#ifdef JA2BETAVERSION
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Attempting to drop blood NOWHERE" );
+#endif
 		return;
 	}
 
@@ -469,9 +463,7 @@ void InternalDropBlood( INT32 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 	{
 		UpdateBloodGraphics( sGridNo, bLevel );
 	}
-
 }
-
 
 void DropBlood( SOLDIERTYPE * pSoldier, UINT8 ubStrength, INT8 bVisible )
 {
@@ -485,30 +477,23 @@ void DropBlood( SOLDIERTYPE * pSoldier, UINT8 ubStrength, INT8 bVisible )
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER )
 	{
 		if ( pSoldier->pathing.bLevel == 0 )
-		{
 			ubType = CREATURE_ON_FLOOR;
-		}
 		else
-		{
 			ubType = CREATURE_ON_ROOF;
-		}
 	}
 	else
 	{
-		ubType = 0;
+		ubType = HUMAN;
 	}
-
 
 	InternalDropBlood( pSoldier->sGridNo, pSoldier->pathing.bLevel, ubType, ubStrength, bVisible );
 }
 
-
-
 void UpdateBloodGraphics( INT32 sGridNo, INT8 bLevel )
 {
 	MAP_ELEMENT *		pMapElement;
-	INT8						bValue;
-	UINT16					usIndex, usNewIndex;
+	INT8				bValue;
+	UINT16				usIndex, usNewIndex;
 
 	// OK, based on level, type, display graphics for blood
 	pMapElement = &(gpWorldLevelData[ sGridNo ]);
@@ -521,7 +506,6 @@ void UpdateBloodGraphics( INT32 sGridNo, INT8 bLevel )
 
 	if ( pMapElement->uiFlags & MAPELEMENT_REEVALUATEBLOOD )
 	{
-
 		// Turn off flag!
 		pMapElement->uiFlags &= ( ~MAPELEMENT_REEVALUATEBLOOD );
 
@@ -567,17 +551,14 @@ void UpdateBloodGraphics( INT32 sGridNo, INT8 bLevel )
 
 				//ApplyMapChangesToMapTempFile( FALSE );
 
-
 				// Update rendering!
 				pMapElement->uiFlags|=MAPELEMENT_REDRAW;
 				SetRenderFlags(RENDER_FLAG_MARKED);
-
 			}
 		}
 		// Roof
 		else
 		{
-
 
 		}
 	}

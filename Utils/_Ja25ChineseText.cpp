@@ -155,6 +155,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
 	L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
 	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=

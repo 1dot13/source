@@ -128,6 +128,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "spotter") == 0 ||
 				strcmp(name, "disease_diagnose" ) == 0 ||
 				strcmp(name, "disease_treatment" ) == 0 ||
+				strcmp(name, "tracker_ability" ) == 0 ||
 				strcmp(name, "dislikebackground" ) == 0 ||
 				strcmp(name, "druguse") == 0 ||
 				strcmp(name, "xenophobic") == 0 ||				
@@ -137,7 +138,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "traplevel") == 0 ||
 				strcmp(name, "no_male") == 0 ||
 				strcmp(name, "no_female") == 0 ||
-				strcmp( name, "loyalitylossondeath" ) == 0 ))
+				strcmp(name, "loyalitylossondeath" ) == 0 ))
 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -537,6 +538,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_PERC_DISEASE_TREAT] = min( 50, max( -50, (INT16)atol( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "tracker_ability" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_TRACKER_ABILITY] = min( 40, max( 0, (INT16)atol( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "dislikebackground" ) == 0 )
 		{

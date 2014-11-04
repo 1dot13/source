@@ -156,6 +156,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s de pénalités du temps\n",
 	L"+%d%s d'efficacité du camouflage\n",
 	L"-%d%s de l'usure du camouflage due au temps ou à l'eau\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=

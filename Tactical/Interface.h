@@ -189,6 +189,7 @@ enum {
 	BG_PERC_SPOTTER,
 	BG_PERC_DISEASE_DIAGNOSE,
 	BG_PERC_DISEASE_TREAT,
+	BG_TRACKER_ABILITY,
 
 	BG_DISLIKEBG,			// dislike any other background that has the negative of this value set
 

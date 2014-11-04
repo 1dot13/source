@@ -2691,6 +2691,7 @@ void HandleJohnArrival( SOLDIERTYPE * pSoldier )
     }
 }
 
+extern void DisplayCover( const BOOLEAN& forceUpdate );
 
 BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 {
@@ -2940,6 +2941,11 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 
     HandleSystemNewAISituation( pSoldier, FALSE );
 
+	// Flugente: tracker...
+	if ( pSoldier->bInSector && gusSelectedSoldier == pSoldier->ubID && !pSoldier->bCollapsed )
+	{
+		DisplayCover( TRUE );
+	}
 
 #ifdef LUA_OVERHEAD
     LetLuaMyCustomHandleAtNewGridNo(NULL,pSoldier->ubProfile, 0);

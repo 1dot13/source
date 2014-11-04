@@ -8231,6 +8231,7 @@ void HandleTacticalCoverMenu( void )
 	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTYELLOW;
 	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;
 	gzUserDefinedButtonColor[4] = gDisplayEnemyRoles ? FONT_MCOLOR_LTGREEN : FONT_LTRED;
+	gzUserDefinedButtonColor[6] = (gubDrawModeTracker == TRACKER_DRAW_OFF) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
 	gzUserDefinedButtonColor[8] = FONT_ORANGE;
 	gzUserDefinedButtonColor[9] = FONT_ORANGE;
 	gzUserDefinedButtonColor[10] = FONT_ORANGE;
@@ -8244,22 +8245,18 @@ void HandleTacticalCoverMenu( void )
 
 void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 {
-	gubDrawModeMine = MINES_DRAW_OFF;
-	gubDrawMode = COVER_DRAW_OFF;
 	switch( ubExitValue )
 	{
 	case 1:
-		gubDrawModeMine = MINES_DRAW_OFF;
-		gubDrawMode = COVER_DRAW_OFF;
-		DisplayMines(TRUE);
+		ResetOverlayModes( );
 		break;
 	case 2:
+		ResetOverlayModes( );
 		gubDrawMode = COVER_DRAW_ENEMY_VIEW;
-		DisplayCover(TRUE);
 		break;
 	case 3:
+		ResetOverlayModes( );
 		gubDrawMode = COVER_DRAW_MERC_VIEW;
-		DisplayCover(TRUE);
 		break;
 	case 4:
 		break;
@@ -8269,40 +8266,52 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 	case 6:		
 		break;
 	case 7:
+		if ( gubDrawModeTracker == TRACKER_DRAW_SMELL )
+		{
+			ResetOverlayModes( );
+		}
+		else
+		{
+			ResetOverlayModes( );
+			gubDrawModeTracker = TRACKER_DRAW_SMELL;
+		}
 		break;
 	case 8:
 		break;
 	case 9:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
-		DisplayMines(TRUE);
 		break;
 	case 10:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_NETWORKCOLOURING;
-		DisplayMines(TRUE);
 		break;
 	case 11:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
-		DisplayMines(TRUE);
 		break;
 	case 12:
 		break;
 	case 13:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_NET_A;
-		DisplayMines(TRUE);
 		break;
 	case 14:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_NET_B;
-		DisplayMines(TRUE);
 		break;
 	case 15:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_NET_C;
-		DisplayMines(TRUE);
 		break;
 	case 16:
+		ResetOverlayModes( );
 		gubDrawModeMine = MINES_DRAW_NET_D;
-		DisplayMines(TRUE);
 		break;
 	}
+
+	DisplayCover( TRUE );
+
 	if( ubExitValue <= TACTICAL_COVER_DIALOG_NUM )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTacticalCoverDialogPrintString[ubExitValue-1]);
 }

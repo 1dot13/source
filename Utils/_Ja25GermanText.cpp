@@ -155,6 +155,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s Einfluss durch schlechtes Wetter\n",
 	L"+%d%s Tarnungs-Effektivität\n",
 	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=

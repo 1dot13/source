@@ -8260,6 +8260,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
 	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
 	L" %s%d%% effectiveness at treating population against diseases\n",
+	L"Can spot tracks up to %d tiles away\n",
 
 	L" dislikes some other backgrounds",	// TODO.Translate
 };
@@ -9120,7 +9121,7 @@ STR16   szTacticalCoverDialogString[]=
 
         L"Roles",	// TODO.Translate
         L"",
-        L"",
+		L"Tracker",
         L"",
 
         L"Traps",

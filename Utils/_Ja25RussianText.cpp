@@ -155,6 +155,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s к штрафам от погодных условий\n",
 	L"+%d%s к эффективности камуфляжа\n",
 	L"-%d%s на скорость ухудшения камуфляжа от воды и времени\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
