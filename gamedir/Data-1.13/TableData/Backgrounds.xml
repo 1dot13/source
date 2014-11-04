@@ -69,8 +69,8 @@
 		<stealth>0</stealth>                              <!-- +- effectiveness, -20 to 20 -->
 		<increased_maxcth>0</increased_maxcth>            <!-- +- max possible cth, -5 to 5 -->
 		<hearing_night>0</hearing_night>                  <!-- +- hearing range, -5 to 2 -->
-    <hearing_day>0</hearing_day>                      <!-- +- hearing range, -5 to 2 -->
-    <disarm_trap>0</disarm_trap>                      <!-- +- trap disarm ability (10 equals 1 LVL/5 DEX/10 MEC/1.6 EXP), -50 to 50 -->
+		<hearing_day>0</hearing_day>                      <!-- +- hearing range, -5 to 2 -->
+		<disarm_trap>0</disarm_trap>                      <!-- +- trap disarm ability (10 equals 1 LVL/5 DEX/10 MEC/1.6 EXP), -50 to 50 -->
 
 		<!-- +- % approach effectiveness, -50 to 20 -->
 		<approach_friendly>0</approach_friendly>
@@ -79,13 +79,14 @@
 		<approach_recruit>0</approach_recruit>
 
 		<breachingcharge>0</breachingcharge>              <!-- +- success chance with door braching charges, -100 to 100 -->
-    <cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
-    <insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
-    <spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
-    <disease_diagnose>0</disease_diagnose>            <!-- +- % effectiveness on diagnosing disease, -50 to 50 -->
-    <disease_treatment>0</disease_treatment>          <!-- +- % effectiveness on treating civilians against disease, -50 to 50 -->
+		<cth_vs_creatures>0</cth_vs_creatures>            <!-- +- cth with firearms when aiming at creatures, -10 to 10 -->
+		<insurance>0</insurance>                          <!-- +- % insurance cost, -50 to 200 -->
+		<spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
+		<disease_diagnose>0</disease_diagnose>            <!-- +- % effectiveness on diagnosing disease, -50 to 50 -->
+		<disease_treatment>0</disease_treatment>          <!-- +- % effectiveness on treating civilians against disease, -50 to 50 -->
+		<tracker_ability>0</tracker_ability>			  <!-- +- % range on tracking ability, see [Ranger] in Skills_Setings.ini, 0 to 40 -->
     
-    <dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
+		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
 		<!-- on/off properties: 1 for on, 0 for off -->      
 		<druguse>0</druguse>                              <!-- might use drugs from inventory (the 'Larry'-behaviour) -->
@@ -119,13 +120,14 @@
 		<szShortName>Big Game Hunter</szShortName>
 		<szDescription>Travel to virgin soil, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
 		<ap_desert>1</ap_desert>
-    <ap_swamp>2</ap_swamp>
-    <ap_urban>-3</ap_urban>
-    <ap_tropical>3</ap_tropical>
-    <travel_foot>3</travel_foot>
-    <carrystrength>4</carrystrength>
-    <stealth>6</stealth>
-    <cth_vs_creatures>10</cth_vs_creatures>
+		<ap_swamp>2</ap_swamp>
+		<ap_urban>-3</ap_urban>
+		<ap_tropical>3</ap_tropical>
+		<travel_foot>3</travel_foot>
+		<carrystrength>4</carrystrength>
+		<stealth>6</stealth>
+		<cth_vs_creatures>10</cth_vs_creatures>
+		<tracker_ability>20</tracker_ability>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -137,9 +139,9 @@
 		<szDescription>An imposing sight on the battlefield, Grizzly is never one to shy away from taking the enemy head-on.</szDescription>
 		<ap_assault>2</ap_assault>
 		<resistance_fear>5</resistance_fear>
-    <resistance_suppression>5</resistance_suppression>
-    <approach_direct>8</approach_direct>
-    <approach_threaten>4</approach_threaten>
+		<resistance_suppression>5</resistance_suppression>
+		<approach_direct>8</approach_direct>
+		<approach_threaten>4</approach_threaten>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1649,10 +1651,10 @@
 		<uiIndex>123</uiIndex>
 		<szName>Placeholder</szName>
 		<szName>B-Movie Star</szName>
-    <szShortName>B-Movie Star</szShortName>
-    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
-    <approach_friendly>20</approach_friendly>
-    <capitulation>5</capitulation>
+		<szShortName>B-Movie Star</szShortName>
+		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
+		<approach_friendly>20</approach_friendly>
+		<capitulation>5</capitulation>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1660,9 +1662,9 @@
 	<BACKGROUND>
 		<uiIndex>124</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
-    <betterprices>10</betterprices>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
+		<betterprices>10</betterprices>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1670,10 +1672,10 @@
 	<BACKGROUND>
 		<uiIndex>125</uiIndex>
 		<szName>Apothecary</szName>
-    <szShortName>Apothecary</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
-    <medical>10</medical>
-    <betterprices>10</betterprices>
+		<szShortName>Apothecary</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
+		<medical>10</medical>
+		<betterprices>10</betterprices>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1681,10 +1683,10 @@
 	<BACKGROUND>
 		<uiIndex>126</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
-    <mechanical>7</mechanical>
-    <betterprices>10</betterprices>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
+		<mechanical>7</mechanical>
+		<betterprices>10</betterprices>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1693,7 +1695,7 @@
 		<uiIndex>127</uiIndex>
 		<szName>WWII Veteran</szName>
 		<szShortName>Veteran</szShortName>
-		<szDescription>In hsi prime, he'd have put all you youngsters to shame.</szDescription>
+		<szDescription>In his prime, he'd have put all you youngsters to shame.</szDescription>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1712,10 +1714,10 @@
 	<BACKGROUND>
 		<uiIndex>129</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
-    <resistance_suppression>-20</resistance_suppression>
-    <betterprices>10</betterprices>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
+		<resistance_suppression>-20</resistance_suppression>
+		<betterprices>10</betterprices>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1723,9 +1725,9 @@
 	<BACKGROUND>
 		<uiIndex>130</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
-    <betterprices>10</betterprices>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
+		<betterprices>10</betterprices>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1742,11 +1744,11 @@
 	<BACKGROUND>
 		<uiIndex>132</uiIndex>
 		<szName>Nurse</szName>
-    <szShortName>Nurse</szShortName>
-    <szDescription>While not full-blown doctors, nurses are still in high demand&#10; in warzones, due to the grim business.</szDescription>
-    <medical>7</medical>
-    <speed_bandaging>20</speed_bandaging>
-    <approach_friendly>10</approach_friendly>
+		<szShortName>Nurse</szShortName>
+		<szDescription>While not full-blown doctors, nurses are still in high demand&#10; in warzones, due to the grim business.</szDescription>
+		<medical>7</medical>
+		<speed_bandaging>20</speed_bandaging>
+		<approach_friendly>10</approach_friendly>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1806,10 +1808,10 @@
 	<BACKGROUND>
 		<uiIndex>138</uiIndex>
 		<szName>Helicopter Mechanic</szName>
-    <szShortName>Mechanic</szShortName>
-    <szDescription>The best (and likely only) heli mechanic in Arulco.</szDescription>
-    <mechanical>8</mechanical>
-    <travel_air>5</travel_air>
+		<szShortName>Mechanic</szShortName>
+		<szDescription>The best (and likely only) heli mechanic in Arulco.</szDescription>
+		<mechanical>8</mechanical>
+		<travel_air>5</travel_air>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1904,12 +1906,12 @@
 	<BACKGROUND>
 		<uiIndex>146</uiIndex>
 		<szName>Academic</szName>
-    <szShortName>Academic</szShortName>
-    <szDescription>Most of your knowledge comes from the books and secondhand reports - &#10;and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
-    <wisdom>5</wisdom>
-    <resistance_fear>-5</resistance_fear>
-    <resistance_suppression>-15</resistance_suppression>
-    <speed_run>-5</speed_run>
+		<szShortName>Academic</szShortName>
+		<szDescription>Most of your knowledge comes from the books and secondhand reports - &#10;and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
+		<wisdom>5</wisdom>
+		<resistance_fear>-5</resistance_fear>
+		<resistance_suppression>-15</resistance_suppression>
+		<speed_run>-5</speed_run>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2166,6 +2168,7 @@
 		<resistance_suppression>10</resistance_suppression>
 		<speed_run>-5</speed_run>
 		<insurance>-20</insurance>
+		<tracker_ability>20</tracker_ability>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2189,6 +2192,7 @@
 		<resistance_fear>10</resistance_fear>
 		<resistance_alcohol>20</resistance_alcohol>
 		<drink_energyregen>15</drink_energyregen>
+		<tracker_ability>30</tracker_ability>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2444,9 +2448,9 @@
 		<szShortName>Athlete</szShortName>
 		<szDescription>If your team ever needs someone to throw grenades on an even field, you'll be the man.</szDescription>
 		<agility>2</agility>
-    <strength>2</strength>
-    <dexterity>3</dexterity>
-    <meleedamage>4</meleedamage>
+		<strength>2</strength>
+		<dexterity>3</dexterity>
+		<meleedamage>4</meleedamage>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2542,6 +2546,7 @@
 		<medical>10</medical>
 		<resistance_poison>17</resistance_poison>
 		<resistance_disease>30</resistance_disease>
+		<tracker_ability>30</tracker_ability>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2929,6 +2934,7 @@
 		<marksmanship>2</marksmanship>
 		<resistance_suppression>8</resistance_suppression>
 		<travel_foot>5</travel_foot>
+		<tracker_ability>10</tracker_ability>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3436,6 +3442,7 @@
     <ap_swamp>3</ap_swamp>
     <ap_tropical>4</ap_tropical>
     <camo>5</camo>
+	<tracker_ability>10</tracker_ability>
     <traplevel>1</traplevel>
   </BACKGROUND>
   <BACKGROUND>
@@ -3506,6 +3513,7 @@
     <travel_foot>5</travel_foot>
     <food>-5</food>
     <water>-20</water>
+	<tracker_ability>15</tracker_ability>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>288</uiIndex>
@@ -3766,6 +3774,7 @@
    <carrystrength>4</carrystrength>
    <stealth>6</stealth>
    <cth_vs_creatures>15</cth_vs_creatures>
+   <tracker_ability>20</tracker_ability>
   </BACKGROUND> 
   <BACKGROUND>
    <uiIndex>314</uiIndex>
@@ -3773,30 +3782,31 @@
    <szShortName>Spotter</szShortName>
    <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
    <spotter>30</spotter>
+   <tracker_ability>20</tracker_ability>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>315</uiIndex>
-		<szName>Bomb Disposal Unit</szName>
-		<szShortName>BDU</szShortName>
-		<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
-		<dexterity>5</dexterity>
-		<resistance_fear>8</resistance_fear>
-		<breachingcharge>15</breachingcharge>
-		<insurance>50</insurance>
-		<disarm_trap>40</disarm_trap>
-	</BACKGROUND>
-	<BACKGROUND>
+	<szName>Bomb Disposal Unit</szName>
+	<szShortName>BDU</szShortName>
+	<szDescription>Displaying nerves of steel, you thrive at a job &#10;where every mistake can be the last one.</szDescription>
+	<dexterity>5</dexterity>
+	<resistance_fear>8</resistance_fear>
+	<breachingcharge>15</breachingcharge>
+	<insurance>50</insurance>
+	<disarm_trap>40</disarm_trap>
+  </BACKGROUND>
+  <BACKGROUND>
     <uiIndex>316</uiIndex>
-		<szName>Aid worker</szName>
-		<szShortName>Aid worker</szShortName>
-		<szDescription>You've been in much, MUCH worse situations for several well-known aid organisations.</szDescription>
-		<medical>2</medical>
-		<leadership>2</leadership>
-		<resistance_disease>10</resistance_disease>
-		<food>-5</food>                                    <!-- +- % need for food, -50 to 100 -->
-		<approach_friendly>5</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<disease_diagnose>30</disease_diagnose>
+	<szName>Aid worker</szName>
+	<szShortName>Aid worker</szShortName>
+	<szDescription>You've been in much, MUCH worse situations for several well-known aid organisations.</szDescription>
+	<medical>2</medical>
+	<leadership>2</leadership>
+	<resistance_disease>10</resistance_disease>
+	<food>-5</food>                                    <!-- +- % need for food, -50 to 100 -->
+	<approach_friendly>5</approach_friendly>
+	<approach_direct>5</approach_direct>
+	<disease_diagnose>30</disease_diagnose>
     <disease_treatment>25</disease_treatment>
 	</BACKGROUND>
 </BACKGROUNDS>
