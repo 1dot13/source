@@ -5799,7 +5799,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			}
 
 			// Flugente: if the blade is infected, infect the victim
-			if ( *&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag & INFECTED )
+			if ( *&(MercPtrs[ubAttackerID]->inv[HANDPOS])[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
 			{
 				// infect us with the first disease
 				this->Infect( 0 );

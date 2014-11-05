@@ -2628,7 +2628,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 
 	// Flugente: if bullet is infected, give us disease (this is intended for throwing knifes)
-	if ( pBullet->usFlags & BULLET_FLAG_INFECTED )
+	if ( pBullet->usFlags & BULLET_FLAG_INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
 	{
 		// infect us with the first disease
 		pTarget->Infect( 0 );

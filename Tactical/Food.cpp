@@ -246,7 +246,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	if ( pSoldier->sDiseasePoints[0] > 0 )
 		(*pObject)[0]->data.sObjectFlag |= INFECTED;
 	// if object is infected, infect the victim
-	else if ( (*pObject)[0]->data.sObjectFlag & INFECTED )
+	else if ( (*pObject)[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
 		pSoldier->Infect( 0 );
 	
 	// now remove a portion of the food item (or the whole item altogether)

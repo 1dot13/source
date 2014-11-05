@@ -414,6 +414,7 @@ typedef struct
 	BOOLEAN fDisease;
 	BOOLEAN fDiseaseStrategic;
 	INT32	sDiseaseWHOSubscriptionCost;
+	BOOLEAN fDiseaseContaminatesItems;
 	
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;

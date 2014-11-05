@@ -1681,6 +1681,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDisease										= iniReader.ReadBoolean( "Disease Settings", "DISEASE", FALSE );
 	gGameExternalOptions.fDiseaseStrategic								= iniReader.ReadBoolean( "Disease Settings", "DISEASE_STRATEGIC", FALSE );
 	gGameExternalOptions.sDiseaseWHOSubscriptionCost					= iniReader.ReadInteger( "Disease Settings", "DISEASE_WHO_SUBSCRIPTIONCOST", 2000, 1000, 10000 );
+	gGameExternalOptions.fDiseaseContaminatesItems						= iniReader.ReadBoolean( "Disease Settings", "DISEASE_CONTAMINATES_ITEMS", TRUE );
 		
 	//################# Strategic Gamestart Settings ##################
 
