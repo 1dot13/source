@@ -24,7 +24,12 @@
 		<SectorGrid>D13</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
-	</FACILITY>		
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>D15</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>	
 	
 	<!-- ALMA -->	
 	<FACILITY>
@@ -58,7 +63,12 @@
 		<SectorGrid>B2</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
-	</FACILITY>	
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>D2</SectorGrid>
+		<FacilityType>10</FacilityType>
+		<ubHidden>1</ubHidden>
+	</FACILITY>
 
 	<!-- CAMBRIA -->	
 	<FACILITY>
@@ -85,6 +95,11 @@
 		<SectorGrid>H8</SectorGrid>
 		<FacilityType>1</FacilityType>
 		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>I8</SectorGrid>
+		<FacilityType>10</FacilityType>
+		<ubHidden>1</ubHidden>
 	</FACILITY>
 		
 	<!-- GRUMM -->
