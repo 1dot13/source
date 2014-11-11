@@ -17372,8 +17372,6 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 	return bonus;
 }
 
-extern void DisplayCover( const BOOLEAN& forceUpdate );
-
 void SOLDIERTYPE::SoldierPropertyUpkeep( )
 {
 	// these effects last only one turn
@@ -17428,11 +17426,6 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	else
 	{
 		this->usSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
-	}
-
-	if ( this->bInSector && this->bTeam == gbPlayerNum && !this->bCollapsed )
-	{
-		DisplayCover( TRUE );
 	}
 }
 

@@ -2691,7 +2691,7 @@ void HandleJohnArrival( SOLDIERTYPE * pSoldier )
     }
 }
 
-extern void DisplayCover( const BOOLEAN& forceUpdate );
+extern void DisplayCover( BOOLEAN forceUpdate );
 
 BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 {

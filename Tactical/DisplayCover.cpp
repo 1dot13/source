@@ -478,7 +478,7 @@ BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius )
 	return( FALSE );
 }
 
-void DisplayCover( const BOOLEAN& forceUpdate )
+void DisplayCover( BOOLEAN forceUpdate )
 {
 	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == (UINT16)-1 )
 		return;
