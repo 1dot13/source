@@ -4709,8 +4709,9 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 						{
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
 
-							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( pAttacker->pSoldier, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+							// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
+							if ( pTarget->pSoldier->aiData.bNeutral || pTarget->pSoldier->bSide == pAttacker->pSoldier->bSide )
+								HandleDynamicOpinionChange( pAttacker->pSoldier, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 						}
 						break;
 				}

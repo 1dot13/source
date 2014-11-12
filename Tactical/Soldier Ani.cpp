@@ -3943,8 +3943,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 								{
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
 
-									// Flugente: dynamic opinions
-									HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
+									if ( pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide )
+										HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
 								}
 								break;
 						}
