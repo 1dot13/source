@@ -454,16 +454,16 @@ void HandleTimedAtmModes( void );
 // SANDRO - added variables for popup help text windows
 MOUSE_REGION	gSkillTraitHelpTextRegion[13];
 BOOLEAN fAddedTraitRegion[13] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE };
-void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 IMercId, INT8 bRegionNumber );
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 ubProfile, INT8 bRegionNumber );
 void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber );
 void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber );
-void AssignPersonnelKillsHelpText( INT32 IMercId );
-void AssignPersonnelAssistsHelpText( INT32 IMercId );
-void AssignPersonnelHitPercentageHelpText( INT32 IMercId );
-void AssignPersonnelBattlesHelpText( INT32 IMercId );
-void AssignPersonnelAchievementsHelpText( INT32 IMercId );
-void AssignPersonnelWoundsHelpText( INT32 IMercId );
-INT8 CalculateMercsAchievemntPercentage( INT32 IMercId );
+void AssignPersonnelKillsHelpText( INT32 ubProfile );
+void AssignPersonnelAssistsHelpText( INT32 ubProfile );
+void AssignPersonnelHitPercentageHelpText( INT32 ubProfile );
+void AssignPersonnelBattlesHelpText( INT32 ubProfile );
+void AssignPersonnelAchievementsHelpText( INT32 ubProfile );
+void AssignPersonnelWoundsHelpText( INT32 ubProfile );
+INT8 CalculateMercsAchievementPercentage( INT32 ubProfile );
 
 // Flugente: personality info
 void AssignPersonalityHelpText( SOLDIERTYPE* pSoldier, MOUSE_REGION* pMouseregion );
@@ -5075,7 +5075,7 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 		case 16:
 			// shots/hits
 			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[22].y - 8),pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
-			uiHits = ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].records.usShotsHit;
+			uiHits = ( UINT32 )gMercProfiles[iId].records.usShotsHit;
 			uiHits *= 100;
 
 			// check we have shot at least once
@@ -5117,7 +5117,7 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 		case 17:
 			// Achievements
 			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y - 6),pPersonnelScreenStrings[PRSNL_TXT_ACHIEVEMNTS]);
-			swprintf(sString, L"%d %%%%",CalculateMercsAchievemntPercentage( iId ));
+			swprintf(sString, L"%d %%%%",CalculateMercsAchievementPercentage( iId ));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			sX += StringPixLength( sSpecialCharacters[0],	PERS_FONT );
 			mprintf(sX,(pPersonnelScreenPoints[23].y - 6),sString);
@@ -7038,7 +7038,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[7] );
 			fAddedTraitRegion[7] = TRUE;
 			// Assign the text
-			AssignPersonnelKillsHelpText( iId );
+			AssignPersonnelKillsHelpText( Menptr[iId].ubProfile );
 
 		break;
 		case 15:
@@ -7062,7 +7062,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[8] );
 			fAddedTraitRegion[8] = TRUE;
 			// Assign the text
-			AssignPersonnelAssistsHelpText( iId );
+			AssignPersonnelAssistsHelpText( Menptr[iId].ubProfile );
 
 		break;
 		case 16:
@@ -7104,13 +7104,13 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[9] );
 			fAddedTraitRegion[9] = TRUE;
 			// Assign the text
-			AssignPersonnelHitPercentageHelpText( iId );
+			AssignPersonnelHitPercentageHelpText( Menptr[iId].ubProfile );
 
 		break;
 		case 17:
 			// Achievements
 			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y - 6),pPersonnelScreenStrings[PRSNL_TXT_ACHIEVEMNTS]);
-			swprintf(sString, L"%d %%%%", CalculateMercsAchievemntPercentage( Menptr[iId].ubProfile ));
+			swprintf(sString, L"%d %%%%", CalculateMercsAchievementPercentage( Menptr[iId].ubProfile ));
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			sX += StringPixLength( sSpecialCharacters[0],	PERS_FONT );
 			mprintf(sX,(pPersonnelScreenPoints[23].y - 6),sString);
@@ -7129,7 +7129,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[10] );
 			fAddedTraitRegion[10] = TRUE;
 			// Assign the text
-			AssignPersonnelAchievementsHelpText( iId );
+			AssignPersonnelAchievementsHelpText( Menptr[iId].ubProfile );
 
 		break;
 		case 18:
@@ -7153,7 +7153,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[11] );
 			fAddedTraitRegion[11] = TRUE;
 			// Assign the text
-			AssignPersonnelBattlesHelpText( iId );
+			AssignPersonnelBattlesHelpText( Menptr[iId].ubProfile );
 
 		break;
 		case 19:
@@ -7177,7 +7177,7 @@ DEF:3/19/99:
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[12] );
 			fAddedTraitRegion[12] = TRUE;
 			// Assign the text
-			AssignPersonnelWoundsHelpText( iId );
+			AssignPersonnelWoundsHelpText( Menptr[iId].ubProfile );
 
 		break;
 
@@ -7220,7 +7220,7 @@ INT32 CalcTimeLeftOnMercContract( SOLDIERTYPE *pSoldier )
 }
 
 // SANDRO - Popup text windows for traits
-void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 IMercId, INT8 bRegionNumber )
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 ubProfile, INT8 bRegionNumber )
 {
 	CHAR16	apStr[ 5000 ];
 	CHAR16	atStr[ 1500 ];
@@ -7554,7 +7554,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.usMAAimedPunchDamageBonus != 0 )
 				{
-					if (gMercProfiles[ IMercId ].ubBodyType != REGMALE  || (gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && !fExpertLevel))
+					if (gMercProfiles[ ubProfile ].ubBodyType != REGMALE  || (gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && !fExpertLevel))
 						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[12], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					else
 						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[13], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
@@ -7627,8 +7627,8 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[25], ( gSkillTraitValues.ubMAChanceToCkickDoors * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
-				//if (gMercProfiles[ IMercId ].ubBodyType == REGMALE && 
-				if (gMercProfiles[ IMercId ].ubBodyType == REGMALE && 
+				//if (gMercProfiles[ ubProfile ].ubBodyType == REGMALE && 
+				if (gMercProfiles[ ubProfile ].ubBodyType == REGMALE && 
 					((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && fExpertLevel) ||
 					!gSkillTraitValues.fPermitExtraAnimationsOnlyToMA ))
 				{
@@ -8489,58 +8489,58 @@ void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber )
 	return;
 }
 
-void AssignPersonnelKillsHelpText( INT32 IMercId )
+void AssignPersonnelKillsHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 1000 ];
 	CHAR16	atStr[ 150 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsElites > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsElites > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 0 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsElites );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 0 ], gMercProfiles[ubProfile].records.usKillsElites );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsRegulars > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsRegulars > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 1 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsRegulars );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 1 ], gMercProfiles[ubProfile].records.usKillsRegulars );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsAdmins > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsAdmins > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 2 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsAdmins );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 2 ], gMercProfiles[ubProfile].records.usKillsAdmins );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsHostiles > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsHostiles > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 3 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsHostiles );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 3 ], gMercProfiles[ubProfile].records.usKillsHostiles );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsCreatures > 0 || fShowRecordsIfZero)
 	{
 		// WANNE: Only display the monster info, when we play with monsters!
 		if (gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus)
 		{
-			swprintf(atStr, pPersonnelRecordsHelpTexts[ 4 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures );
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 4 ], gMercProfiles[ubProfile].records.usKillsCreatures );
 			wcscat( apStr, atStr );
 		}
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsTanks > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsTanks > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 5 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsTanks );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 5 ], gMercProfiles[ubProfile].records.usKillsTanks );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsOthers > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKillsOthers > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 6 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsOthers );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 6 ], gMercProfiles[ubProfile].records.usKillsOthers );
 		wcscat( apStr, atStr );
 	}
 
 #ifdef ENABLE_ZOMBIES 
 	if (gGameSettings.fOptions[TOPTION_ZOMBIES] )
 	{
-		if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsZombies > 0 || fShowRecordsIfZero)
+		if (gMercProfiles[ubProfile].records.usKillsZombies > 0 || fShowRecordsIfZero)
 		{
-			swprintf(atStr, pPersonnelRecordsHelpTexts[ 46 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsZombies );
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 46 ], gMercProfiles[ubProfile].records.usKillsZombies );
 			wcscat( apStr, atStr );
 		}
 	}
@@ -8553,25 +8553,25 @@ void AssignPersonnelKillsHelpText( INT32 IMercId )
 	return;
 }
 
-void AssignPersonnelAssistsHelpText( INT32 IMercId )
+void AssignPersonnelAssistsHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 350 ];
 	CHAR16	atStr[ 80 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMercs > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usAssistsMercs > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 7 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMercs );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 7 ], gMercProfiles[ubProfile].records.usAssistsMercs );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMilitia > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usAssistsMilitia > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 8 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMilitia );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 8 ], gMercProfiles[ubProfile].records.usAssistsMilitia );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsOthers > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usAssistsOthers > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 9 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsOthers );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 9 ], gMercProfiles[ubProfile].records.usAssistsOthers );
 		wcscat( apStr, atStr );
 	}
 
@@ -8582,45 +8582,45 @@ void AssignPersonnelAssistsHelpText( INT32 IMercId )
 	return;
 }
 
-void AssignPersonnelHitPercentageHelpText( INT32 IMercId )
+void AssignPersonnelHitPercentageHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 1000 ];
 	CHAR16	atStr[ 150 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsFired > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usShotsFired > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 10 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsFired );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 10 ], gMercProfiles[ubProfile].records.usShotsFired );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMissilesLaunched > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usMissilesLaunched > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 11 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMissilesLaunched );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 11 ], gMercProfiles[ubProfile].records.usMissilesLaunched );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usGrenadesThrown > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usGrenadesThrown > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 12 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usGrenadesThrown );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 12 ], gMercProfiles[ubProfile].records.usGrenadesThrown );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKnivesThrown > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usKnivesThrown > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 13 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKnivesThrown );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 13 ], gMercProfiles[ubProfile].records.usKnivesThrown );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBladeAttacks > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usBladeAttacks > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 14 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBladeAttacks );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 14 ], gMercProfiles[ubProfile].records.usBladeAttacks );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usHtHAttacks > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usHtHAttacks > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 15 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usHtHAttacks );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 15 ], gMercProfiles[ubProfile].records.usHtHAttacks );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsHit > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usShotsHit > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 16 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsHit );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 16 ], gMercProfiles[ubProfile].records.usShotsHit );
 		wcscat( apStr, atStr );
 	}
 
@@ -8631,78 +8631,78 @@ void AssignPersonnelHitPercentageHelpText( INT32 IMercId )
 	return;
 }
 
-void AssignPersonnelAchievementsHelpText( INT32 IMercId )
+void AssignPersonnelAchievementsHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 1000 ];
 	CHAR16	atStr[ 80 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksPicked > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usLocksPicked > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 17 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksPicked );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 17 ], gMercProfiles[ubProfile].records.usLocksPicked );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksBreached > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usLocksBreached > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 18 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksBreached );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 18 ], gMercProfiles[ubProfile].records.usLocksBreached );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTrapsRemoved > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTrapsRemoved > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 19 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTrapsRemoved );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 19 ], gMercProfiles[ubProfile].records.usTrapsRemoved );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usExpDetonated > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usExpDetonated > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 20 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usExpDetonated );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 20 ], gMercProfiles[ubProfile].records.usExpDetonated );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsRepaired > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usItemsRepaired > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 21 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsRepaired );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 21 ], gMercProfiles[ubProfile].records.usItemsRepaired );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsCombined > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usItemsCombined > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 22 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsCombined );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 22 ], gMercProfiles[ubProfile].records.usItemsCombined );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsStolen > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usItemsStolen > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 23 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsStolen );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 23 ], gMercProfiles[ubProfile].records.usItemsStolen );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMilitiaTrained > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usMilitiaTrained > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 24 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMilitiaTrained );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 24 ], gMercProfiles[ubProfile].records.usMilitiaTrained );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMercsBandaged > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usMercsBandaged > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 25 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMercsBandaged );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 25 ], gMercProfiles[ubProfile].records.usMercsBandaged );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usSurgeriesMade > 0 || fShowRecordsIfZero)
 	{
 		if ( gGameOptions.fNewTraitSystem )
 		{
 			switch( gSkillTraitValues.ubDONumberTraitsNeededForSurgery )
 			{
 				case 0: 
-					swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+					swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[ubProfile].records.usSurgeriesMade );
 					wcscat( apStr, atStr );
 					break;
 				case 1: 
-					if ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, DOCTOR_NT ) > 0 )
+					if ( ProfileHasSkillTrait( ubProfile, DOCTOR_NT ) > 0 )
 					{
-						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[ubProfile].records.usSurgeriesMade );
 						wcscat( apStr, atStr );
 					}
 					break;
 				case 2: 
-					if ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, DOCTOR_NT ) > 1 )
+					if ( ProfileHasSkillTrait( ubProfile, DOCTOR_NT ) > 1 )
 					{
-						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[ubProfile].records.usSurgeriesMade );
 						wcscat( apStr, atStr );
 					}
 					break;
@@ -8711,27 +8711,27 @@ void AssignPersonnelAchievementsHelpText( INT32 IMercId )
 			}
 		}
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usNPCsDiscovered > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usNPCsDiscovered > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 27 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usNPCsDiscovered );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 27 ], gMercProfiles[ubProfile].records.usNPCsDiscovered );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usSectorsDiscovered > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usSectorsDiscovered > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 28 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSectorsDiscovered );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 28 ], gMercProfiles[ubProfile].records.usSectorsDiscovered );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
 	{
-		if ( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, SCOUTING_NT ) > 0 ) )
+		if ( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( ubProfile, SCOUTING_NT ) > 0 ) )
 		{
-			swprintf(atStr, pPersonnelRecordsHelpTexts[ 29 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced );
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 29 ], gMercProfiles[ubProfile].records.usAmbushesExperienced );
 			wcscat( apStr, atStr );
 		}
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.ubQuestsHandled > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.ubQuestsHandled > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 30 ], gMercProfiles[Menptr[IMercId].ubProfile].records.ubQuestsHandled );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 30 ], gMercProfiles[ubProfile].records.ubQuestsHandled );
 		wcscat( apStr, atStr );
 	}
 
@@ -8742,38 +8742,38 @@ void AssignPersonnelAchievementsHelpText( INT32 IMercId )
 	return;
 }
 
-void AssignPersonnelBattlesHelpText( INT32 IMercId )
+void AssignPersonnelBattlesHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 400 ];
 	CHAR16	atStr[ 80 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesTactical > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usBattlesTactical > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 31 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesTactical );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 31 ], gMercProfiles[ubProfile].records.usBattlesTactical );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesAutoresolve > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usBattlesAutoresolve > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 32 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesAutoresolve );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 32 ], gMercProfiles[ubProfile].records.usBattlesAutoresolve );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesRetreated > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usBattlesRetreated > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 33 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesRetreated );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 33 ], gMercProfiles[ubProfile].records.usBattlesRetreated );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
 	{		
-		if (!( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, SCOUTING_NT ) > 0 ) ))
+		if (!( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( ubProfile, SCOUTING_NT ) > 0 ) ))
 		{
-			swprintf(atStr, pPersonnelRecordsHelpTexts[ 34 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced );
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 34 ], gMercProfiles[ubProfile].records.usAmbushesExperienced );
 			wcscat( apStr, atStr );
 		}
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLargestBattleFought > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usLargestBattleFought > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 35 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLargestBattleFought );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 35 ], gMercProfiles[ubProfile].records.usLargestBattleFought );
 		wcscat( apStr, atStr );
 	}
 
@@ -8784,52 +8784,52 @@ void AssignPersonnelBattlesHelpText( INT32 IMercId )
 	return;
 }
 
-void AssignPersonnelWoundsHelpText( INT32 IMercId )
+void AssignPersonnelWoundsHelpText( INT32 ubProfile )
 {
 	CHAR16	apStr[ 500 ];
 	CHAR16	atStr[ 80 ];
 
 	swprintf( apStr, L"" );
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedShot > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesWoundedShot > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 36 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedShot );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 36 ], gMercProfiles[ubProfile].records.usTimesWoundedShot );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedStabbed > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesWoundedStabbed > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 37 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedStabbed );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 37 ], gMercProfiles[ubProfile].records.usTimesWoundedStabbed );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedPunched > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesWoundedPunched > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 38 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedPunched );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 38 ], gMercProfiles[ubProfile].records.usTimesWoundedPunched );
 		wcscat( apStr, atStr );
 	}
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedBlasted > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesWoundedBlasted > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 39 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedBlasted );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 39 ], gMercProfiles[ubProfile].records.usTimesWoundedBlasted );
 		wcscat( apStr, atStr );
 	}
 	
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesSurgeryUndergoed > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesSurgeryUndergoed > 0 || fShowRecordsIfZero)
 	{
 		if ( gGameOptions.fNewTraitSystem )
 		{
-			swprintf(atStr, pPersonnelRecordsHelpTexts[ 41 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesSurgeryUndergoed );
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 41 ], gMercProfiles[ubProfile].records.usTimesSurgeryUndergoed );
 			wcscat( apStr, atStr );
 		}
 	}
 
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usFacilityAccidents > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usFacilityAccidents > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 42 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usFacilityAccidents );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 42 ], gMercProfiles[ubProfile].records.usFacilityAccidents );
 		wcscat( apStr, atStr );
 	}
 
 	// WANNE: Moved to the end
-	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesStatDamaged > 0 || fShowRecordsIfZero)
+	if (gMercProfiles[ubProfile].records.usTimesStatDamaged > 0 || fShowRecordsIfZero)
 	{
-		swprintf(atStr, pPersonnelRecordsHelpTexts[ 40 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesStatDamaged );
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 40 ], gMercProfiles[ubProfile].records.usTimesStatDamaged );
 		wcscat( apStr, atStr );
 	}
 
@@ -8840,7 +8840,7 @@ void AssignPersonnelWoundsHelpText( INT32 IMercId )
 	return;
 }
 
-INT8 CalculateMercsAchievemntPercentage( INT32 IMercId )
+INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt=0;
@@ -8890,31 +8890,31 @@ INT8 CalculateMercsAchievemntPercentage( INT32 IMercId )
 
 	// Now get points of our mercs
 	uiMercPoints = 
-		( gMercProfiles[ IMercId ].records.usLocksPicked )
+		( gMercProfiles[ ubProfile ].records.usLocksPicked )
 		+ 
-		( gMercProfiles[ IMercId ].records.usLocksBreached )
+		( gMercProfiles[ ubProfile ].records.usLocksBreached )
 		+ 
-		( gMercProfiles[ IMercId ].records.usTrapsRemoved *3/2)
+		( gMercProfiles[ ubProfile ].records.usTrapsRemoved *3/2)
 		+ 
-		( gMercProfiles[ IMercId ].records.usExpDetonated *3/2)
+		( gMercProfiles[ ubProfile ].records.usExpDetonated *3/2)
 		+ 
-		( gMercProfiles[ IMercId ].records.usItemsRepaired /2)
+		( gMercProfiles[ ubProfile ].records.usItemsRepaired /2)
 		+ 
-		( gMercProfiles[ IMercId ].records.usItemsCombined *2)
+		( gMercProfiles[ ubProfile ].records.usItemsCombined *2)
 		+ 
-		( gMercProfiles[ IMercId ].records.usItemsStolen )
+		( gMercProfiles[ ubProfile ].records.usItemsStolen )
 		+ 
-		( gMercProfiles[ IMercId ].records.usMercsBandaged *3/4)
+		( gMercProfiles[ ubProfile ].records.usMercsBandaged *3/4)
 		+ 
-		( gMercProfiles[ IMercId ].records.usSurgeriesMade *3/2)
+		( gMercProfiles[ ubProfile ].records.usSurgeriesMade *3/2)
 		+ 
-		( gMercProfiles[ IMercId ].records.usNPCsDiscovered *4/3)
+		( gMercProfiles[ ubProfile ].records.usNPCsDiscovered *4/3)
 		+ 
-		( gMercProfiles[ IMercId ].records.usSectorsDiscovered )
+		( gMercProfiles[ ubProfile ].records.usSectorsDiscovered )
 		+ 
-		( gMercProfiles[ IMercId ].records.usMilitiaTrained /4)
+		( gMercProfiles[ ubProfile ].records.usMilitiaTrained /4)
 		+ 
-		( gMercProfiles[ IMercId ].records.ubQuestsHandled *2);
+		( gMercProfiles[ ubProfile ].records.ubQuestsHandled *2);
 
 	// Calculate percentage
 	if( ulTotalMercPoints != 0 )
