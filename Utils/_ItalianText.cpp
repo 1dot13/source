@@ -3477,7 +3477,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Skyrider",
 	L"Arrivi",
 	L"Helicopter is seriously damaged and must land in hostile territory!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->	// TODO.Translate
-	L"Helicopter will now return straight to base, do you want to drop down passengers before?"	// TODO.Translate
+	L"Helicopter will now return straight to base, do you want to drop down passengers before?",	// TODO.Translate
 	L"Remaining Fuel:",	// TODO.Translate
 	L"Dist. To Refuel Site:",	// TODO.Translate
 };
