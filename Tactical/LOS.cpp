@@ -3570,7 +3570,7 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 		iCurrCubesAboveLevelZ = CONVERT_HEIGHTUNITS_TO_INDEX( iCurrAboveLevelZ );
 
 		DebugLOS(String("CalcChanceToGetThrough: while pStructure"));
-		while( pStructure )
+		while ( pStructure && iNumLocalStructures < MAX_LOCAL_STRUCTURES - 1 )
 		{
 			if (pStructure->fFlags & ALWAYS_CONSIDER_HIT)
 			{
