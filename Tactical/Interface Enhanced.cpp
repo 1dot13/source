@@ -4097,6 +4097,18 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 			
+			////////////////////// MORAL MODIFIER
+			if ( FoodOpinions[gpItemDescSoldier->ubProfile].sFoodOpinion[foodtype] != 0 )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 62 ], szUDBAdvStatsExplanationsTooltipText[ 62 ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+				}
+				cnt++;
+			}
+
 			////////////////////// DECAY RATE
 			if ( Food[foodtype].usDecayRate != 0 )
 			{
@@ -5779,7 +5791,18 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 				}
 				cnt++;
 			}
-			
+
+			if ( ( FoodOpinions[gpItemDescSoldier->ubProfile].sFoodOpinion[Item[gpItemDescObject->usItem].foodtype] != 0 ) ||
+				( fComparisonMode && FoodOpinions[gpItemDescSoldier->ubProfile].sFoodOpinion[Item[gpComparedItemDescObject->usItem].foodtype] != 0 ) )
+			{
+				//////////////////// MORAL MODIFIER
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 60, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				}
+				cnt++;
+			}
+
 			if ( ( Food[Item[gpItemDescObject->usItem].foodtype].usDecayRate > 0 ) ||
 				( fComparisonMode && Food[Item[gpComparedItemDescObject->usItem].foodtype].usDecayRate > 0 ) )
 			{
@@ -14032,7 +14055,51 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				}
 				cnt++;
 			}
-						
+
+			////////////////////////// MORALE MODIFIER
+			iModifier[0] = FoodOpinions[gpItemDescSoldier->ubProfile].sFoodOpinion[fFoodtype];
+			if( fComparisonMode )
+			{
+				iComparedModifier[0] = FoodOpinions[gpItemDescSoldier->ubProfile].sFoodOpinion[fComparedFoodtype];
+				iModifier[0] = iComparedModifier[0] - iModifier[0];
+			}
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
+			if ( iModifier[0] != 0 || ( fComparisonMode && iComparedModifier[0] != 0 ) )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if( fComparisonMode )
+					{					
+						if ( iModifier[0] > 0 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
+						else
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					}
+					else if ( iModifier[0] > 0 )
+						SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					else
+						SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					for ( UINT8 cnt2 = 0; cnt2 < 3; cnt2++ )
+					{
+						sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+						sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+						if ( fComparisonMode && iModifier[0] > 0 )
+							swprintf( pStr, L"+%d", iModifier[0] );
+						else if ( fComparisonMode && iModifier[0] < 0 )
+							swprintf( pStr, L"%d", iModifier[0] );
+						else if ( fComparisonMode )
+							swprintf( pStr, L"=" );	
+						else
+							swprintf( pStr, L"%d", iModifier[0] );
+
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );
+						mprintf( usX, usY, pStr );
+					}
+				}
+				cnt++;
+			}
+
 			////////////////////////// DECAY RATE
 			iFloatModifier[0] = Food[fFoodtype].usDecayRate;
 			if( fComparisonMode )
