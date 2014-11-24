@@ -64,7 +64,7 @@
     <uiIndex>10</uiIndex>
     <szName>Priest</szName>
     <szShortName>Priest</szShortName>
-    <szDescription>Many devout followers of any religion or cult area surprisingly&#10; violent and zealous if pushed in the right (or wrong) direction.</szDescription>
+    <szDescription>Many devout followers of any religion or cult area are surprisingly&#10; violent and zealous if pushed in the right (or wrong) direction.</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>11</uiIndex>
@@ -118,7 +118,7 @@
     <uiIndex>19</uiIndex>
     <szName>Bodyguard</szName>
     <szShortName>Bodyguard</szShortName>
-    <szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?.</szDescription>
+    <szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?</szDescription>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>20</uiIndex>

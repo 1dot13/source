@@ -527,7 +527,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
-    <szName>You can inspect trap before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
+    <szName>You can inspect traps before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
