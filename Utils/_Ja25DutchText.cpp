@@ -174,11 +174,11 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"-%d%s AP for hand to hand attacks(bare hands or with brass knuckles)\n",
+	L"-%d%s AP for hand to hand attacks (bare hands or with brass knuckles)\n",
 	L"+%d%s CtH with hand to hand attacks with bare hands\n",
 	L"+%d%s CtH with hand to hand attacks with brass knuckles\n",
-	L"+%d%s damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"+%d%s breath damage of hand to hand attacks(bare hands or with brass knuckles)\n",
+	L"+%d%s damage of hand to hand attacks (bare hands or with brass knuckles)\n",
+	L"+%d%s breath damage of hand to hand attacks (bare hands or with brass knuckles)\n",
 	L"Enemy knocked out due to your HtH attacks takes slightly longer to recuperate\n",
 	L"Enemy knocked out due to your HtH attacks takes longer to recuperate\n",
 	L"Enemy knocked out due to your HtH attacks takes much longer to recuperate\n",
@@ -261,7 +261,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
 {
-	L"Can use communications equipment\n", 
+	L"Can use communications equipment.\n", 
 	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
 	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
 	L"Communications can be jammed sector-wide.\n",

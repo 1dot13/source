@@ -174,11 +174,11 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"格斗攻击所需行动点 -%d%s(空手或戴铜指套)\n",// L"-%d%s AP cost of hand to hand attacks(bare hands or with brass knuckles)\n",
+	L"格斗攻击所需行动点 -%d%s(空手或戴铜指套)\n",// L"-%d%s AP cost of hand to hand attacks (bare hands or with brass knuckles)\n",
 	L"格斗命中率 +%d%s\n",// L"+%d%s chance to hit with hand to hand attacks with bare hands\n",
 	L"铜指套命中率 +%d%s\n",// L"+%d%s chance to hit with hand to hand attacks with brass knuckles\n",
-	L"格斗攻击伤害 +%d%s(空手或戴指拳套)\n",// L"+%d%s damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"格斗攻击的体力伤害 +%d%s(空手或戴指拳套)\n",// L"+%d%s breath damage of hand to hand attacks(bare hands or with brass knuckles)\n",
+	L"格斗攻击伤害 +%d%s(空手或戴指拳套)\n",// L"+%d%s damage of hand to hand attacks (bare hands or with brass knuckles)\n",
+	L"格斗攻击的体力伤害 +%d%s(空手或戴指拳套)\n",// L"+%d%s breath damage of hand to hand attacks (bare hands or with brass knuckles)\n",
 	L"被你徒手击倒的敌人要喘息片刻才能站起来\n",// L"Enemy knocked out due to your HtH attacks takes slightly longer to recuperate\n",
 	L"被你徒手击倒的敌人要休息片刻才能回过神来\n",// L"Enemy knocked out due to your HtH attacks takes longer to recuperate\n",
 	L"被你徒手击倒的敌人要一泡尿的功夫才能爬起来\n",// L"Enemy knocked out due to your HtH attacks takes much longer to recuperate\n",

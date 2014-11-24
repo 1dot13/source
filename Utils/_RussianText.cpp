@@ -4157,7 +4157,7 @@ STR16 pExtraIMPStrings[] =
 	L"Теперь, когда формирование внешности и личных качеств завершено, укажите ваши способности.",	//With your character traits chosen, it is time to select your skills.
 	L"Для завершения выберите свои характеристики.",	//To complete the process, select your attributes.
 	L"Для начала подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
-	L"Теперь, когда вы завершили формирование своей внешности, перейдём к анализу ваших личных качеств.",	//Now that you have completed your appearence choice, procced to character analysis.
+	L"Теперь, когда вы завершили формирование своей внешности, перейдём к анализу ваших личных качеств.",	//Now that you have completed your appearence choice, proceed to character analysis.
 };
 
 STR16 pFilesTitle[] =

@@ -4161,7 +4161,7 @@ STR16 pExtraIMPStrings[] =
 	L"With your character traits chosen, it is time to select your skills.",
 	L"To complete the process, select your attributes.",
 	L"To commence actual profiling, select portrait, voice and colors.",
-	L"Now that you have completed your appearence choice, procced to character analysis.",
+	L"Now that you have completed your appearence choice, proceed to character analysis.",
 };
 
 STR16 pFilesTitle[] =
@@ -7081,7 +7081,7 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"On the next page, you are going to choose your skill traits according to your proffessional specialization as a mercenary. No more than two different traits or one expert trait can be selected.",
 	L"You can also choose only one or even no traits, which will give you a bonus to your attribute points as a compensation. Note that Electronics, Ambidextrous and Camouflage traits cannot be achieved at expert levels.",
 	// For new major/minor traits
-	L"Next stage is about choosing your skill traits according to your professional specialization as a mercenary. On first page you can select up to %d potential major traits, which mostly represent your main role in a team. While on second page is list of possible minor traits, which represent personal feats.",
+	L"Next stage is about choosing your skill traits according to your professional specialization as a mercenary. On first page you can select up to %d potential major traits, which mostly represent your main role in a team. While on second page is a list of possible minor traits, which represent personal feats.",
 	L"No more then %d choices altogether are possible. This means that if you choose no major traits, you can choose %d minor traits. If you choose two major traits (or one enhanced), you can then choose only %d minor trait(s)...",
 };
 
