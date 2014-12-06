@@ -5708,7 +5708,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
 	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires. (|C|T|R|L+|A|L|T+|G)\nDésactivez-la, si votre machine n'est pas suffisamment puissante.",
+	L"Activez cette option pour éclairer les environs des mercenaires.Désactivez-la, si votre machine n'est pas suffisamment puissante.\nBasculera éclairage du mercenaire. (|C|T|R|L+|A|L|T+|G)",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",

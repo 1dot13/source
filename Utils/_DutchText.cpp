@@ -5699,7 +5699,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wanneer INGESCHAKELD wordt het metrieke stelsel gebruikt, anders het Imperiale stelsel.",
 
 	//Merc Lighted movement
-	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen. (|C|t|r|l+|A|l|t+|G)",
+	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
 
 	//Smart cursor
 	L"Wanneer INGESCHAKELD zullen huurlingen dichtbij de cursor automatisch oplichten.",

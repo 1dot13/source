@@ -5687,7 +5687,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
 
 	//Merc Lighted movement
-	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce. (|C|t|r|l+|A|l|t+|G)",
+	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.\nToggle artificial merc light. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
 
 	//Smart cursor
 	L"Se attivata, muovendo il cursore vicino ai vostri mercenari li evidenzierà automaticamente.",
