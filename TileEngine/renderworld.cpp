@@ -1844,7 +1844,11 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 								if ( TileElem != NULL )
 								{
 									// If we are a roof and have SHOW_ALL_ROOFS on, turn off hidden tile check!
-									if ( ( TileElem->uiFlags & ROOF_TILE ) && ( gTacticalStatus.uiFlags&SHOW_ALL_ROOFS ) )
+									//if ( ( TileElem->uiFlags & ROOF_TILE ) && ( gTacticalStatus.uiFlags&SHOW_ALL_ROOFS ) )
+									// anv: commented out TileElem->uiFlags & ROOF_TILE because:
+									// 1. only roof tiles get hidden in this manner anyway
+									// 2. we might want to his and reveal again other stuff (most importantly - on roof structures)
+									if ( ( gTacticalStatus.uiFlags&SHOW_ALL_ROOFS ) )
 									{
 										// Turn off
 										fHiddenTile = FALSE;

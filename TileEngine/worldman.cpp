@@ -2022,20 +2022,35 @@ BOOLEAN HideStructOfGivenType(INT32 iMapIndex, UINT32 fType, BOOLEAN fHide)//dnl
 {
 	if(fHide)
 	{
+		/*
 		if(fType >= FIRSTONROOF && fType <= LASTONROOF)
 			SetOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 		else
 			SetRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+		*/
+
+		// Buggler: set all tiles to their proper roof index flags
+		if(fType >= FIRSTROOF && fType <= SECONDSLANTROOF)
+			SetRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+		else
+			SetOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 	}
 	else
 	{
-		// ONLY UNHIDE IF NOT REAVEALED ALREADY
+		// ONLY UNHIDE IF NOT REVEALED ALREADY
 		if(!(gpWorldLevelData[iMapIndex].uiFlags & MAPELEMENT_REVEALED))
 		{
+			/*
 			if(fType >= FIRSTONROOF && fType <= LASTONROOF)
 				RemoveOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 			else
 				RemoveRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+			*/
+
+			if(fType >= FIRSTROOF && fType <= SECONDSLANTROOF)
+				RemoveRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
+			else
+				RemoveOnRoofIndexFlagsFromTypeRange(iMapIndex, fType, fType, LEVELNODE_HIDDEN);
 		}
 	}
 	return(TRUE);

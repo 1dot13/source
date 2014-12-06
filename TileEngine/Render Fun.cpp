@@ -121,7 +121,12 @@ void SetGridNoRevealedFlag( INT32 sGridNo )
 	STRUCTURE					*pStructure, *pBase;
 
 	// Set hidden flag, for any roofs
-	SetRoofIndexFlagsFromTypeRange( sGridNo, FIRSTROOF, FOURTHROOF, LEVELNODE_HIDDEN	);
+	//SetRoofIndexFlagsFromTypeRange( sGridNo, FIRSTROOF, FOURTHROOF, LEVELNODE_HIDDEN	);
+	// anv: we possibly can put other things on roof
+	SetRoofIndexFlagsFromTypeRange( sGridNo, FIRSTTEXTURE, FIRSTSWITCHES, LEVELNODE_HIDDEN );
+	// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
+	if( gGameExternalOptions.fHideExploredRoomRoofStructures )
+		SetOnRoofIndexFlagsFromTypeRange( sGridNo, FIRSTTEXTURE, FIRSTSWITCHES, LEVELNODE_HIDDEN );
 
 	// ATE: Do this only if we are in a room...
 	if ( gusWorldRoomInfo[ sGridNo ] != NO_ROOM )
@@ -280,7 +285,13 @@ void RemoveRoomRoof( INT32 sGridNo, UINT16 usRoomNum, SOLDIERTYPE *pSoldier )
 
 			SetGridNoRevealedFlag( cnt );//dnl ch56 141009
 
-			RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTROOF, SECONDSLANTROOF, LEVELNODE_REVEAL );
+			//RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTROOF, SECONDSLANTROOF, LEVELNODE_REVEAL );
+			// anv: we possibly can put other things on roof
+			RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTTEXTURE, FIRSTSWITCHES, LEVELNODE_REVEAL );
+			// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
+			if( gGameExternalOptions.fHideExploredRoomRoofStructures )
+				RemoveOnRoofIndexFlagsFromTypeRange( cnt, FIRSTTEXTURE, FIRSTSWITCHES, LEVELNODE_REVEAL );
+			//RemoveAllOnRoofsOfTypeRange( cnt, FIRSTTEXTURE, FIRSTSWITCHES );
 
 			// Reveal any items if here!
 			if ( GetItemPoolFromGround( cnt, &pItemPool ) )

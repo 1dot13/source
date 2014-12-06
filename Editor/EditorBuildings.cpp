@@ -58,13 +58,23 @@ void GameInitEditorBuildingInfo()
 //BEGINNING OF BUILDING UTILITY FUNCTIONS
 void UpdateRoofsView()//dnl ch80 011213
 {
-	INT32 x, cnt;
+	INT32 x, cnt, tiletypecnt;
+	/* // hide roof structures only
 	UINT16 usType[12] = {FIRSTROOF, SECONDROOF, THIRDROOF, FOURTHROOF, FIRSTSLANTROOF, SECONDSLANTROOF, FIRSTONROOF, SECONDONROOF, FIRSTWALL, SECONDWALL, THIRDWALL, FOURTHWALL};
 	for(cnt=0; cnt<WORLD_MAX; cnt++)
 	{
 		x = 12;
 		while(x--)
 			HideStructOfGivenType(cnt, usType[x], !fBuildingShowRoofs);
+	}
+	*/
+	
+	// Buggler: hide all tiles on roof
+	x = FIRSTSWITCHES + 1;
+	for(cnt=0; cnt<WORLD_MAX; cnt++)
+	{
+		for(tiletypecnt=0; tiletypecnt<x; tiletypecnt++)
+			HideStructOfGivenType(cnt, tiletypecnt, !fBuildingShowRoofs);
 	}
 	gfRenderWorld = TRUE;
 }

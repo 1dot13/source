@@ -974,6 +974,9 @@ void LoadGameExternalOptions()
 	// New setting to allow thin progressbar
 	gGameExternalOptions.fSmallSizeProgressbar				= iniReader.ReadBoolean("Graphics Settings", "SMALL_SIZE_PB", FALSE);
 	
+	// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
+	gGameExternalOptions.fHideExploredRoomRoofStructures	= iniReader.ReadBoolean("Graphics Settings", "HIDE_EXPLORED_ROOM_ROOF_STRUCTURES", TRUE);
+
 	//################# Sound Settings #################
 	
 	gGameExternalOptions.guiWeaponSoundEffectsVolume		= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME", 0, 0, 1000 /*1000 = 10x?*/);
