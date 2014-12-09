@@ -33,6 +33,11 @@ extern STR16 wszSelType[6];
 
 extern BOOLEAN gfCurrentSelectionWithRightButton;
 
+//Used for offseting cursor to show that it is on the roof rather than on the ground.
+//This can be conveniently executed by moving the cursor up and right 3 gridnos for a
+//total of -483	-(160*3)-(1*3)
+#define ROOF_OFFSET		-(WORLD_COLS*3)-(1*3)
+
 #endif
 
 #endif

@@ -55,7 +55,7 @@ UINT16			CurrentStruct = NO_TILE;
 UINT32			gDoBanks = NO_BANKS;
 UINT32			gDoCliffs = NO_CLIFFS;
 
-
+extern BOOLEAN FlatRoofAboveGridNo( INT32 iMapIndex );
 
 //---------------------------------------------------------------------------------------------------------------
 //	QuickEraseMapTile
@@ -255,7 +255,7 @@ void PasteDebris( INT32 iMapIndex )
 		AddToUndoList( iMapIndex );
 
 		// anv: add anything on the roof, cause why not
-		if ( _KeyDown(17) )
+		if ( ( gfRoofPlacement && FlatRoofAboveGridNo( iMapIndex ) ) )
 		{
 			// Add debris to the world
 			usUseIndex = pSelList[ iCurBank ].usIndex;
@@ -395,7 +395,7 @@ void PasteSingleWallCommon( INT32 iMapIndex )
 		usUseObjIndex = (UINT16)pSelList[ iCurBank ].uiObject;
 
 		// TEMP STUFF FOR ONROOF THINGS!
-		if ( ( (usUseObjIndex >= FIRSTONROOF) && (usUseObjIndex <= SECONDONROOF ) ) || _KeyDown(17) )
+		if ( ( (usUseObjIndex >= FIRSTONROOF) && (usUseObjIndex <= SECONDONROOF ) ) || ( gfRoofPlacement && FlatRoofAboveGridNo( iMapIndex ) ) )
 		{
 			// WANNE: Disabled the next line, because if makes placing sandbags on rooftops impossible!
 			//dnl Remove all onroof things before placing new one to avoid stacking problems of same element
@@ -602,7 +602,7 @@ void PasteStructureCommon( INT32 iMapIndex )
 */
 
 		// anv: add anything on the roof, cause why not
-		if ( _KeyDown(17) )
+		if ( ( gfRoofPlacement && FlatRoofAboveGridNo( iMapIndex ) ) )
 		{
 			if ( /*fDoPaste &&*/ iMapIndex < 0x80000000 )
 			{

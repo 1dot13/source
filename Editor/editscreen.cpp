@@ -774,6 +774,8 @@ BOOLEAN DrawTempMouseCursorObject(void)
 	{
 		if ( (iCurBankMapIndex = MAPROWCOLTOPOS( sMouseY_M, sMouseX_M )) < 0x80000000 )
 		{
+			if( gfRoofPlacement && FlatRoofAboveGridNo( iCurBankMapIndex ) )
+				iCurBankMapIndex += ROOF_OFFSET;
 
 			//Hook into the smart methods to override the selection window methods.
 			if( iDrawMode == DRAW_MODE_SMART_WALLS )
@@ -1707,6 +1709,29 @@ void HandleKeyboardShortcuts( )
 					//if ( iDrawMode == DRAW_MODE_SHOW_TILESET )
 					//	iCurrentAction = ACTION_MLIST_UP;
 					iCurrentAction = ACTION_SHADE_DWN;
+					break;
+
+				case '`':
+					// Buggler: Swap Cursor Level
+					if( !gfRoofPlacement )
+					{
+						gfRoofPlacement = TRUE;
+						if( !fBuildingShowRoofs )
+						{
+							fBuildingShowRoofs = TRUE;
+							ClickEditorButton( BUILDING_TOGGLE_ROOF_VIEW );
+						}
+					}
+					else
+					{
+						gfRoofPlacement = FALSE;
+						if( fBuildingShowRoofs )
+						{
+							fBuildingShowRoofs = FALSE;
+							UnclickEditorButton( BUILDING_TOGGLE_ROOF_VIEW );
+						}
+					}
+					UpdateRoofsView();
 					break;
 
 				case '0':

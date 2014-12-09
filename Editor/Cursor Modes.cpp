@@ -51,10 +51,6 @@ void ForceAreaSelectionWidth();
 BOOLEAN HandleAreaSelection();
 void EnsureSelectionType();
 
-//Used for offseting cursor to show that it is on the roof rather than on the ground.
-//This can be conveniently executed by moving the cursor up and right 3 gridnos for a
-//total of -483	-(160*3)-(1*3)
-#define ROOF_OFFSET		(-483)
 BOOLEAN gfUsingOffset;
 
 //Based on the density level setting and the selection type, this test will
@@ -112,7 +108,7 @@ void RemoveCursors()
 			pNode = gpWorldLevelData[ iMapIndex ].pTopmostHead;
 			while( pNode )
 			{
-				if( pNode->usIndex == FIRSTPOINTERS1 || pNode->usIndex == FIRSTPOINTERS5 )
+				if( pNode->usIndex == FIRSTPOINTERS1 || pNode->usIndex == FIRSTPOINTERS5 || pNode->usIndex == BADMARKER1 )
 				{
 					RemoveTopmost( iMapIndex, pNode->usIndex );
 					break;
@@ -193,11 +189,12 @@ void UpdateCursorAreas()
 	//Draw all of the area cursors here.
 	if( fValidCursor )
 	{
-		if( iDrawMode == DRAW_MODE_ENEMY || iDrawMode == DRAW_MODE_CREATURE ||
+		if( gfRoofPlacement || iDrawMode == DRAW_MODE_ENEMY || iDrawMode == DRAW_MODE_CREATURE ||
 				iDrawMode == DRAW_MODE_REBEL || iDrawMode == DRAW_MODE_CIVILIAN ||
 				iDrawMode == DRAW_MODE_SCHEDULEACTION )
 		{
 			iMapIndex = gSelectRegion.iTop * WORLD_COLS + gSelectRegion.iLeft;
+
 			if( !IsLocationSittable( iMapIndex, gfRoofPlacement ) && iDrawMode != DRAW_MODE_SCHEDULEACTION ||
 				!IsLocationSittableExcludingPeople( iMapIndex, gfRoofPlacement ) && iDrawMode == DRAW_MODE_SCHEDULEACTION )
 			{
@@ -207,7 +204,8 @@ void UpdateCursorAreas()
 					if( gfRoofPlacement && FlatRoofAboveGridNo( iMapIndex ) )
 					{
 						AddTopmostToTail( iMapIndex + ROOF_OFFSET, BADMARKER1 );
-						sBadMarker = iMapIndex + ROOF_OFFSET ;
+						sBadMarker = iMapIndex + ROOF_OFFSET;
+						gfUsingOffset = TRUE;
 					}
 					else
 					{
