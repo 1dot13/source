@@ -267,46 +267,43 @@ void CreateIMPVoicesButtons( void )
 
 void DestroyIMPVoicesButtons( void )
 {
-
 	// will destroy buttons created for IMP Voices screen
 
 	// the next button
-	RemoveButton(giIMPVoicesButton[ 0 ] );
-	UnloadButtonImage(giIMPVoicesButtonImage[ 0 ] );
+	RemoveButton( giIMPVoicesButton[0] );
+	UnloadButtonImage( giIMPVoicesButtonImage[0] );
 
 	// the previous button
-	RemoveButton(giIMPVoicesButton[ 1 ] );
-	UnloadButtonImage(giIMPVoicesButtonImage[ 1 ] );
+	RemoveButton( giIMPVoicesButton[1] );
+	UnloadButtonImage( giIMPVoicesButtonImage[1] );
 
 	// the done button
-	RemoveButton(giIMPVoicesButton[ 2 ] );
-	UnloadButtonImage(giIMPVoicesButtonImage[ 2 ] );
-
-	return;
+	RemoveButton( giIMPVoicesButton[2] );
+	UnloadButtonImage( giIMPVoicesButtonImage[2] );
 }
 
 
-void BtnIMPVoicesNextCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnIMPVoicesNextCallback( GUI_BUTTON *btn, INT32 reason )
 {
 
 	// btn callback for IMP attrbite begin button
-	if (!(btn->uiFlags & BUTTON_ENABLED))
+	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
 
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
 	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if ( btn->uiFlags & BUTTON_CLICKED_ON )
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
 
 			// next voice!!
 			IncrementVoice( );
 			// play voice
-			if( ! SoundIsPlaying( uiVocVoiceSound ) )
+			if ( !SoundIsPlaying( uiVocVoiceSound ) )
 			{
 				uiVocVoiceSound = PlayVoice( );
 			}
@@ -316,35 +313,34 @@ void BtnIMPVoicesNextCallback(GUI_BUTTON *btn,INT32 reason)
 				uiVocVoiceSound = PlayVoice( );
 			}
 
-
 			fReDrawVoicesScreenFlag = TRUE;
 		}
 	}
 }
 
-void BtnIMPVoicesPreviousCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnIMPVoicesPreviousCallback( GUI_BUTTON *btn, INT32 reason )
 {
 
 	// btn callback for IMP attrbite begin button
-	if (!(btn->uiFlags & BUTTON_ENABLED))
+	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
 
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
 	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if ( btn->uiFlags & BUTTON_CLICKED_ON )
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
 
 			// previous voice, please!!!
 			DecrementVoice( );
 			// play voice
-			if( ! SoundIsPlaying( uiVocVoiceSound ) )
+			if ( !SoundIsPlaying( uiVocVoiceSound ) )
 			{
-		uiVocVoiceSound = PlayVoice( );
+				uiVocVoiceSound = PlayVoice( );
 			}
 			else
 			{
@@ -357,22 +353,22 @@ void BtnIMPVoicesPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnIMPVoicesDoneCallback( GUI_BUTTON *btn, INT32 reason )
 {
 
 	// btn callback for IMP attrbite begin button
-	if (!(btn->uiFlags & BUTTON_ENABLED))
+	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
 
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags |= (BUTTON_CLICKED_ON);
 	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if ( btn->uiFlags & BUTTON_CLICKED_ON )
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
 
 			// Changed to continue to color choosing - SANDRO
 			iCurrentImpPage = IMP_COLOR_CHOICE_PAGE;
@@ -388,83 +384,76 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-BOOLEAN CameBackToVoicePageButNotFinished()
+BOOLEAN CameBackToVoicePageButNotFinished( )
 {
 	//if we are in a page that comes after this one
-	if( iCurrentProfileMode == IMP__PERSONALITY ||
-			iCurrentProfileMode == IMP__ATTRIBUTES )
+	if ( iCurrentProfileMode == IMP__PERSONALITY || iCurrentProfileMode == IMP__ATTRIBUTES )
 	{
-		return( TRUE );
+		return(TRUE);
 	}
-	else
-	{
-		return( FALSE );
-	}
+
+	return(FALSE);
 }
 
 
 UINT32 PlayVoice( void )
 {
+	CHAR8 zFileName[164];
+
 	INT32 iSlot = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
-	char caVoiceSample[] = "Speech\\%03d_001.wav";
+	Assert( (iSlot >= 0) && (iSlot <= 999) );
 
-	Assert((iSlot >= 0) && (iSlot <= 999));
-	sprintf(caVoiceSample, "Speech\\%03d_001.wav", iSlot);
+	sprintf( zFileName, "Speech\\%03d_001.ogg", iSlot );
+	if ( !FileExists( zFileName ) )
+	{
+		sprintf( zFileName, "Speech\\%03d_001.wav", iSlot );
+	}
 
-	return( PlayJA2SampleFromFile( caVoiceSample, RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );
+	return(PlayJA2SampleFromFile( zFileName, RATE_11025, MIDVOLUME, 1, MIDDLEPAN ));
 }
 
 
 void CreateIMPVoiceMouseRegions( void )
 {
 	// will create mouse regions needed for the IMP voices page
-	MSYS_DefineRegion( &gVoicePortraitRegion, LAPTOP_SCREEN_UL_X + 200, LAPTOP_SCREEN_WEB_UL_Y + 176 ,LAPTOP_SCREEN_UL_X + 200 + 100, LAPTOP_SCREEN_WEB_UL_Y + 176 + 100,MSYS_PRIORITY_HIGH,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, IMPPortraitRegionButtonCallback );
-
+	MSYS_DefineRegion( &gVoicePortraitRegion, LAPTOP_SCREEN_UL_X + 200, LAPTOP_SCREEN_WEB_UL_Y + 176, LAPTOP_SCREEN_UL_X + 200 + 100, LAPTOP_SCREEN_WEB_UL_Y + 176 + 100, MSYS_PRIORITY_HIGH,
+					   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, IMPPortraitRegionButtonCallback );
 
 	MSYS_AddRegion( &gVoicePortraitRegion );
-
-	return;
 }
 
 void DestroyIMPVoiceMouseRegions( void )
 {
 	// will destroy already created mouse reiogns for IMP voices page
 	MSYS_RemoveRegion( &gVoicePortraitRegion );
-
-	return;
 }
 
 
-void IMPPortraitRegionButtonCallback(MOUSE_REGION * pRegion, INT32 iReason )
+void IMPPortraitRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// callback handler for imp portrait region button events
 
-	if (iReason & MSYS_CALLBACK_REASON_INIT)
+	if ( iReason & MSYS_CALLBACK_REASON_INIT )
 	{
- 	return;
+		return;
 	}
-	if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if( ! SoundIsPlaying( uiVocVoiceSound ) )
+		if ( !SoundIsPlaying( uiVocVoiceSound ) )
 		{
-		uiVocVoiceSound = PlayVoice( );
+			uiVocVoiceSound = PlayVoice( );
 		}
-
 	}
-
-	return;
 }
 
 
 void RenderVoiceIndex( void )
 {
-
-	CHAR16 sString[ 32 ];
+	CHAR16 sString[32];
 	INT16 sX, sY;
 
 	// render the voice index value on the the blank portrait
-	swprintf( sString, L"%s %d", pIMPVoicesStrings[ 0 ], GetVoiceCountFromVoiceSlot(iCurrentVoice));
+	swprintf( sString, L"%s %d", pIMPVoicesStrings[0], GetVoiceCountFromVoiceSlot( iCurrentVoice ) );
 
 	FindFontCenterCoordinates( 290 + LAPTOP_UL_X, 0, 100, 0, sString, FONT12ARIAL, &sX, &sY );
 
@@ -473,6 +462,4 @@ void RenderVoiceIndex( void )
 	SetFontBackground( FONT_BLACK );
 
 	mprintf( sX, iScreenHeightOffset + 320, sString );
-
-	return;
 }
