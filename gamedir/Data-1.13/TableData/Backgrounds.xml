@@ -386,7 +386,7 @@
 	<!-- Hitman -->
 	<BACKGROUND>
 		<uiIndex>22</uiIndex>
-		<szName>Combat instructor</szName>
+		<szName>Combat Instructor</szName>
 		<szShortName>Combat instructor</szShortName>
 		<szDescription>This might be Frank's last tour - there are several private &#10;organisations that are interested in recruiting him to train their staff.</szDescription>
 		<agility>-5</agility>
@@ -577,8 +577,8 @@
 	<!-- Thor -->
 	<BACKGROUND>
 		<uiIndex>35</uiIndex>
-		<szName>New Age Spiritualist</szName>
-		<szShortName>New Age Spiritualist</szShortName>
+		<szName>Spiritualist</szName>
+		<szShortName>Spiritualist</szShortName>
 		<szDescription>Who needs an exam to be a practicing healer?</szDescription>
 		<speed_bandaging>10</speed_bandaging>              
 		<approach_friendly>10</approach_friendly>

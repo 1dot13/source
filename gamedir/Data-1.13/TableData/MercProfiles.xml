@@ -349,12 +349,12 @@
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>8</bLearnToHateTime>
 		<bRace>1</bRace>
-		<bNationality>0</bNationality>
+		<bNationality>15</bNationality>
 		<bAppearance>2</bAppearance>
 		<bAppearanceCareLevel>0</bAppearanceCareLevel>
 		<bRefinement>0</bRefinement>
 		<bRefinementCareLevel>0</bRefinementCareLevel>
-		<bHatedNationality>15</bHatedNationality>
+		<bHatedNationality>0</bHatedNationality>
 		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
 		<bRacist>0</bRacist><bSexist>0</bSexist><bRacist>0</bRacist>
 		<bSexist>0</bSexist>
