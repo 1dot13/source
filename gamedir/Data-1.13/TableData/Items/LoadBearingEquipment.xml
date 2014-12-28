@@ -828,10 +828,10 @@
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>15</lbePocketIndex1>
-		<lbePocketIndex2>15</lbePocketIndex2>
+		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>15</lbePocketIndex3>
-		<lbePocketIndex4>23</lbePocketIndex4>
-		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex4>15</lbePocketIndex4>
+		<lbePocketIndex5>23</lbePocketIndex5>
 		<lbePocketIndex6>0</lbePocketIndex6>
 		<lbePocketIndex7>0</lbePocketIndex7>
 		<lbePocketIndex8>0</lbePocketIndex8>
