@@ -2504,7 +2504,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Ковбой",	//Gunslinger
 	L"Боксёр",	//Hand to Hand
 	L"Старшина",	//Deputy
-	L"Механик-электронщик",	//Technician
+	L"Механик",	//Technician
 	L"Санитар",	//Paramedic
 	// Minor traits
 	L"Ловкач",	//Ambidextrous
@@ -3471,7 +3471,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Безопасно:  ", 			// distance to travel to destination
 	L"Опасно:", 			// distance to return from destination to airport
 	L"Итого:", 		// total cost of trip by helicopter
-	L"ОВП:", 			// ETA is an acronym for "estimated time of arrival" 
+	L"РВП:", 			// ETA is an acronym for "estimated time of arrival" 
 	L"У вертолета закончилось топливо. Придется совершить посадку на вражеской территории!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
 	L"Пассажиры:",
 	L"Выбрать вертолет или точку высадки?",
@@ -3480,7 +3480,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Вертолет серьезно поврежден и идет на вынужденную посадку во вражеской территории!",	// warning that the sector the helicopter is going to use for refueling is under enemy control ->
 	L"Вертолет возвращается на базу, высадить сначала пассажиров?",
 	L"Остаток топлива:",
-	L"Расстояние до места дозаправки:",
+	L"Расст. до заправки:",
 };
 
 STR16 pHelicopterRepairRefuelStrings[]=
