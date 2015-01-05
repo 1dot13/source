@@ -1393,15 +1393,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	return( TRUE );
 }
 
-enum { PINKSKIN, TANSKIN, DARKSKIN, BLACKSKIN, NUMSKINS };
-enum {
-	WHITEHEAD, BLACKHEAD, //black skin (only this line )
-	BROWNHEAD,						//dark skin (this line plus all above)
-	BLONDEHEAD, REDHEAD,	//pink/tan skin (this line plus all above )
-	NUMHEADS
-};
-
-INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
+INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin )
 {
 	INT32 iRandom;
 	INT32 hair = 0;
@@ -1429,11 +1421,11 @@ INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
 			else
 			{
 				hair = WHITEHEAD;
-				if( pSoldier->ubBodyType == REGFEMALE ||
-					pSoldier->ubBodyType == MINICIV ||
-						pSoldier->ubBodyType == DRESSCIV ||
-						pSoldier->ubBodyType == HATKIDCIV ||
-						pSoldier->ubBodyType == KIDCIV )
+				if ( usBodyType == REGFEMALE ||
+					 usBodyType == MINICIV ||
+					 usBodyType == DRESSCIV ||
+					 usBodyType == HATKIDCIV ||
+					 usBodyType == KIDCIV )
 				{
 					hair = Random( NUMHEADS - 1 ) + 1;
 				}
@@ -1452,11 +1444,11 @@ INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
 			else
 			{
 				hair = WHITEHEAD;
-				if( pSoldier->ubBodyType == REGFEMALE ||
-					pSoldier->ubBodyType == MINICIV ||
-						pSoldier->ubBodyType == DRESSCIV ||
-						pSoldier->ubBodyType == HATKIDCIV ||
-						pSoldier->ubBodyType == KIDCIV )
+				if ( usBodyType == REGFEMALE ||
+					 usBodyType == MINICIV ||
+					 usBodyType == DRESSCIV ||
+					 usBodyType == HATKIDCIV ||
+					 usBodyType == KIDCIV )
 				{
 					hair = Random( 2 ) + 1;
 				}
@@ -1470,11 +1462,11 @@ INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
 			else
 			{
 				hair = WHITEHEAD;
-				if( pSoldier->ubBodyType == REGFEMALE ||
-					pSoldier->ubBodyType == MINICIV ||
-						pSoldier->ubBodyType == DRESSCIV ||
-						pSoldier->ubBodyType == HATKIDCIV ||
-						pSoldier->ubBodyType == KIDCIV )
+				if ( usBodyType == REGFEMALE ||
+					 usBodyType == MINICIV ||
+					 usBodyType == DRESSCIV ||
+					 usBodyType == HATKIDCIV ||
+					 usBodyType == KIDCIV )
 				{
 					hair = BLACKHEAD;
 				}
@@ -1484,13 +1476,15 @@ INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
 			AssertMsg( 0, "Skin type not accounted for." );
 			break;
 	}
-	if( pSoldier->ubBodyType == CRIPPLECIV )
+
+	if ( usBodyType == CRIPPLECIV )
 	{
 		if( Chance( 50 ) )
 		{
 			hair = WHITEHEAD;
 		}
 	}
+
 	return hair;
 }
 
@@ -1508,7 +1502,7 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UIN
 	skin = (INT8)Random( NUMSKINS );
 
 	//Choose hair color which uses the skin color to limit choices
-	hair = ChooseHairColor( pSoldier, skin );
+	hair = ChooseHairColor( pSoldier->ubBodyType, skin );
 
 	if ( pSoldier->usSoldierProfile )
 	{

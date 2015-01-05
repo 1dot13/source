@@ -30,6 +30,25 @@ class _OLD_SOLDIERCREATE_STRUCT;//dnl ch42 250909
 //Total			148
 #define MAX_INDIVIDUALS											TOTAL_SOLDIERS
 
+enum 
+{ 
+	PINKSKIN, 
+	TANSKIN, 
+	DARKSKIN, 
+	BLACKSKIN, 
+	NUMSKINS
+};
+
+enum
+{
+	WHITEHEAD,
+	BLACKHEAD, //black skin (only this line )
+	BROWNHEAD,						//dark skin (this line plus all above)
+	BLONDEHEAD,
+	REDHEAD,	//pink/tan skin (this line plus all above )
+	NUMHEADS
+};
+
 //Kris:	SERIALIZING INFORMATION
 //All maps must have:
 //	-MAPCREATE_STRUCT
@@ -535,5 +554,7 @@ BOOLEAN TranslateArrayFields(void* out, const void* inp, int len, int cmd);
 
 void ResetNumSquadleadersInArmyGroup( void ); // added by SANDRO
 BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct ); // Added a function to add traits to soldiers - SANDRO
+
+INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin );
 
 #endif
