@@ -136,7 +136,7 @@ extern BOOLEAN fNewIMPGearMethodUsed;
 
 
 void		IMPGearDisplay( );
-void		DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY );
+void		DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround );
 void		BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason );
 
 // determine all items that are selectable according to xml and choices
@@ -482,7 +482,7 @@ void IMPGearDisplay( )
 
 			INT16 sItem = (UINT16)pIMPGEARDropDown[i]->GetSelectedEntryKey( );
 
-			DisplayGear( (UINT16)sItem, pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH, pIMPGEARDropDown[i]->GetY( ) );
+			DisplayGear( (UINT16)sItem, pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH, pIMPGEARDropDown[i]->GetY( ), TRUE );
 
 			if ( sItem > 0 )
 			{
@@ -511,12 +511,15 @@ void IMPGearDisplay( )
 	DrawTextToScreen( wTemp, LAPTOP_SCREEN_UL_X + 180, LAPTOP_SCREEN_WEB_UL_Y + 360, LAPTOP_TEXT_WIDTH, FONT14ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 }
 
-void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY )
+void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround )
 {
 	if ( usItem )
 	{
-		// draw background 'box' for an item
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX + IMP_GEAR_ITEMDISPLAY_WIDTH, usPosY + IMP_GEAR_ITEMDISPLAY_HEIGHT, Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+		if ( fWithBackGround )
+		{
+			// draw background 'box' for an item
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX + IMP_GEAR_ITEMDISPLAY_WIDTH, usPosY + IMP_GEAR_ITEMDISPLAY_HEIGHT, Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+		}
 
 		HVOBJECT		hVObject;
 		ETRLEObject		*pTrav;
