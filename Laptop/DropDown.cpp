@@ -20,6 +20,8 @@
 #define		CITY_NAME_OFFSET							6
 #define		STATIC_TEXT_COLOR							145
 
+UINT32	guGoldArrowImages = 0;
+
 // helpful draw functions, as adding sti objects to paint boundaries is... lets say, inefficient
 void DisplaySmallLine( UINT16 usStartX, UINT16 usStartY, UINT16 EndX, UINT16 EndY, UINT16 usColor )
 {
@@ -138,7 +140,7 @@ DropDownBase::Create(UINT16 sX, UINT16 sY)
 	// Gold Arrow for the scroll area
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "LAPTOP\\GoldArrows.sti", VObjectDesc.ImageFile );
-	if ( !AddVideoObject( &VObjectDesc, &muiGoldArrowImages ) )
+	if ( !AddVideoObject( &VObjectDesc, &guGoldArrowImages ) )
 		return;
 
 	gDropObj = (void*) this;
@@ -240,7 +242,7 @@ DropDownBase::Destroy()
 	MSYS_RemoveRegion( &mSelectedCloseDropDownRegion);
 	MSYS_RemoveRegion( &mBubbleHelpRegion);
 
-	DeleteVideoObjectFromIndex(muiGoldArrowImages);
+	DeleteVideoObjectFromIndex( guGoldArrowImages );
 
 	SetRefresh();
 }
@@ -304,7 +306,7 @@ DropDownBase::Display()
 	DrawTopEntry();
 
 	//get and display the up and down arrows
-	GetVideoObject(&hArrowHandle, muiGoldArrowImages);
+	GetVideoObject( &hArrowHandle, guGoldArrowImages );
 	//top arrow
 	BltVideoObject(FRAME_BUFFER, hArrowHandle, 0, musUpArrowX, musUpArrowY, VO_BLT_SRCTRANSPARENCY,NULL);
 		
@@ -351,7 +353,7 @@ DropDownBase::Display_Drop()
 	DrawSelectedCity();
 	
 	//get and display the up and down arrows
-	GetVideoObject(&hArrowHandle, muiGoldArrowImages);
+	GetVideoObject( &hArrowHandle, guGoldArrowImages );
 	// top arrow
 	BltVideoObject(FRAME_BUFFER, hArrowHandle, 1, musUpArrowX, musUpArrowY, VO_BLT_SRCTRANSPARENCY,NULL);
 

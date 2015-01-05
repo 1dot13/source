@@ -326,9 +326,7 @@ private:
 	MOUSE_REGION	mDropDownRegion[DROPDOWN_REGIONS];
 	MOUSE_REGION	mgSelectedUpDownArrowOnScrollAreaRegion[2];
 	MOUSE_REGION	mSelectedScrollAreaDropDownRegion[DROPDOWN_REGIONS];
-
-	UINT32	muiGoldArrowImages;
-
+		
 	std::vector<std::pair<INT16, STR16> > mEntryVector;
 
 	CHAR16	mHelpText[200];
