@@ -1583,9 +1583,14 @@ INT32 LeadershipRequiredDueToMajorSkills( void )
 	{
 		return (35);
 	}
+	else if ( gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
+	{
+		return (30);
+	}
 
 	return(0);
 }
+
 INT32 WisdomRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1605,9 +1610,9 @@ INT32 WisdomRequiredDueToMajorSkills( void )
 	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_COVERT ])
 	{
 		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_COVERT ])
-			return (70);
+			return (75);
 		else
-			return (65);
+			return (60);
 	}
 	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
 	{
