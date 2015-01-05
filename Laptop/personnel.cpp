@@ -454,7 +454,7 @@ void HandleTimedAtmModes( void );
 // SANDRO - added variables for popup help text windows
 MOUSE_REGION	gSkillTraitHelpTextRegion[13];
 BOOLEAN fAddedTraitRegion[13] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE };
-void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 ubProfile, INT8 bRegionNumber );
+
 void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber );
 void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber );
 void AssignPersonnelKillsHelpText( INT32 ubProfile );
@@ -1878,8 +1878,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
 							fAddedTraitRegion[0] = TRUE;
+
 							// Assign the text
-							AssignPersonnelSkillTraitHelpText( 0, FALSE, iId, 0 );
+							CHAR16	apStr[5000];
+							swprintf( apStr, L"" );
+							AssignPersonnelSkillTraitHelpText( 0, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+
+							// Set region help text
+							SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+							SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
 						}
 						else
 						{
@@ -1946,7 +1953,13 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 									if ( fExpert )
 										traitnr -= NEWTRAIT_MERCSKILL_EXPERTOFFSET;
 
-									AssignPersonnelSkillTraitHelpText( traitnr, fExpert, Menptr[iId].ubProfile, ubCnt );
+									CHAR16	apStr[5000];
+									swprintf( apStr, L"" );
+									AssignPersonnelSkillTraitHelpText( traitnr, fExpert, (gMercProfiles[Menptr[iId].ubProfile].ubBodyType == REGMALE), apStr );
+
+									// Set region help text
+									SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[ubCnt]), apStr );
+									SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[ubCnt], MSYS_NO_CALLBACK );
 								}
 							}
 
@@ -2013,9 +2026,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
 							fAddedTraitRegion[0] = TRUE;
-							// Assign the text
-							AssignPersonnelSkillTraitHelpText( bSkill1, TRUE, iId, 0 );
 
+							// Assign the text
+							CHAR16	apStr[5000];
+							swprintf( apStr, L"" );
+							AssignPersonnelSkillTraitHelpText( bSkill1, TRUE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+
+							// Set region help text
+							SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+							SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
 						}
 						else
 						{
@@ -2041,10 +2060,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
 								fAddedTraitRegion[0] = TRUE;
+
 								// Assign the text
-								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, iId, 0 );
+								CHAR16	apStr[5000];
+								swprintf( apStr, L"" );
+								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 	
-								bScreenLocIndex++;
+								// Set region help text
+								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
+	
+								++bScreenLocIndex;
 							}
 
 							//Display the second skill
@@ -2069,10 +2095,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 								MSYS_AddRegion( &gSkillTraitHelpTextRegion[1] );
 								fAddedTraitRegion[1] = TRUE;
+
 								// Assign the text
-								AssignPersonnelSkillTraitHelpText( bSkill2, FALSE, iId, 1 );
+								CHAR16	apStr[5000];
+								swprintf( apStr, L"" );
+								AssignPersonnelSkillTraitHelpText( bSkill2, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 	
-								bScreenLocIndex++;
+								// Set region help text
+								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[1]), apStr );
+								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[1], MSYS_NO_CALLBACK );
+	
+								++bScreenLocIndex;
 							}
 
 							//if no skill was displayed
@@ -2093,8 +2126,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
 								fAddedTraitRegion[0] = TRUE;
+
 								// Assign the text
-								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, iId, 0 );
+								CHAR16	apStr[5000];
+								swprintf( apStr, L"" );
+								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+
+								// Set region help text
+								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
 							}
 						}
 					}
@@ -2107,7 +2147,6 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			break;
 		}
 	}
-	return;
 }
 
 
@@ -7220,9 +7259,9 @@ INT32 CalcTimeLeftOnMercContract( SOLDIERTYPE *pSoldier )
 }
 
 // SANDRO - Popup text windows for traits
-void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 ubProfile, INT8 bRegionNumber )
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, BOOLEAN fRegMale, STR16 apStr )
 {
-	CHAR16	apStr[ 5000 ];
+	//CHAR16	apStr[ 5000 ];
 	CHAR16	atStr[ 1500 ];
 
 	if( gGameOptions.fNewTraitSystem )
@@ -7554,7 +7593,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.usMAAimedPunchDamageBonus != 0 )
 				{
-					if (gMercProfiles[ ubProfile ].ubBodyType != REGMALE  || (gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && !fExpertLevel))
+					if ( !fRegMale || (gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && !fExpertLevel) )
 						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[12], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					else
 						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[13], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
@@ -7627,8 +7666,8 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[25], ( gSkillTraitValues.ubMAChanceToCkickDoors * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
-				//if (gMercProfiles[ ubProfile ].ubBodyType == REGMALE && 
-				if (gMercProfiles[ ubProfile ].ubBodyType == REGMALE && 
+
+				if ( fRegMale &&
 					((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && fExpertLevel) ||
 					!gSkillTraitValues.fPermitExtraAnimationsOnlyToMA ))
 				{
@@ -8451,13 +8490,8 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 			}
 		}
 	}
-
-	// Set region help text
-	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[bRegionNumber]), apStr );
-	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[bRegionNumber], MSYS_NO_CALLBACK );
-
-	return;
 }
+
 // SANDRO - Popup text windows for character 
 void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber )
 {
@@ -8469,8 +8503,6 @@ void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber )
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[5]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[5], MSYS_NO_CALLBACK );
-
-	return;
 }
 
 
@@ -8485,8 +8517,6 @@ void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber )
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[6]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[6], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 void AssignPersonnelKillsHelpText( INT32 ubProfile )

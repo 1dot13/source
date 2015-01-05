@@ -79,10 +79,6 @@ BOOLEAN TransferFundsFromBankToMerc( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 
 BOOLEAN RemoveNewlyHiredMercFromPersonnelDepartedList( UINT8 ubProfile );
 
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, BOOLEAN fRegMale, STR16 apStr );
+
 #endif
-
-
-
- 
-
-

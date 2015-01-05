@@ -21,6 +21,7 @@
 	#include "soldier profile type.h"
 	#include "IMP Compile Character.h"
 	#include "GameSettings.h"
+	#include "personnel.h"		// added by Flugente
 #endif
 
 
@@ -58,6 +59,23 @@
 
 #define	IMP_MINOR_TRAIT__GREY_BOX_OFFSET_X									5
 #define	IMP_MINOR_TRAIT__GREY_BOX_OFFSET_Y									7
+
+// Flugente: Due to the unfortunate nature of our enums, they do not match the trait numbers. We thus have to remap them when obtining their description
+UINT8 gusNewMinorTraitRemap[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS] =
+{
+	AMBIDEXTROUS_NT,	// IMP_SKILL_TRAITS_NEW_AMBIDEXTROUS
+	MELEE_NT,			// IMP_SKILL_TRAITS_NEW_MELEE
+	THROWING_NT,		// IMP_SKILL_TRAITS_NEW_THROWING
+	NIGHT_OPS_NT,		// IMP_SKILL_TRAITS_NEW_NIGHT_OPS
+	STEALTHY_NT,		// IMP_SKILL_TRAITS_NEW_STEALTHY
+	ATHLETICS_NT,		// IMP_SKILL_TRAITS_NEW_ATHLETICS
+	BODYBUILDING_NT,	// IMP_SKILL_TRAITS_NEW_BODYBUILDING
+	DEMOLITIONS_NT,		// IMP_SKILL_TRAITS_NEW_DEMOLITIONS
+	TEACHING_NT,		// IMP_SKILL_TRAITS_NEW_TEACHING
+	SCOUTING_NT,		// IMP_SKILL_TRAITS_NEW_SCOUTING
+	RADIO_OPERATOR_NT,	// IMP_SKILL_TRAITS_NEW_RADIO_OPERATOR
+	NO_SKILLTRAIT_NT,	// IMP_SKILL_TRAITS_NEW_MINOR_NONE
+};
 
 //*******************************************************************
 //
@@ -101,7 +119,6 @@ void HandleLastSelectedMinorTrait( INT8 bNewTrait );
 INT8 GetLastSelectedMinorTrait( void );
 INT8		NumAvailableMinorTraits();
 
-void AssignMinorTraitHelpText( UINT8 ubNumber );
 //ppp
 
 //*******************************************************************
@@ -465,7 +482,13 @@ void IMPMinorTraitDisplaySkills()
 		//draw the text to the screenx
 		DrawTextToScreen( gzIMPSkillTraitsTextNewMinor[ uiCnt ], usPosX, usPosY, 0, IMP_MINOR_TRAIT__FONT, IMP_MINOR_TRAIT__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		
-		AssignMinorTraitHelpText( uiCnt );
+		CHAR16	apStr[5000];
+		swprintf( apStr, L"" );
+		AssignPersonnelSkillTraitHelpText( gusNewMinorTraitRemap[uiCnt], FALSE, FALSE, apStr );
+
+		// Set region help text
+		SetRegionFastHelpText( &(gMR_MinorTraitHelpTextRegions[uiCnt]), apStr );
+		SetRegionHelpEndCallback( &gMR_MinorTraitHelpTextRegions[uiCnt], MSYS_NO_CALLBACK );
 
 		//Determine the next x location
 		if( uiCnt < IMP_MINOR_TRAIT__TRAITS_TO_START_RIGHT_COL )
@@ -1050,414 +1073,4 @@ UINT8 ExplosivesRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 	}
 
 	return( 0 );
-}
-
-void AssignMinorTraitHelpText( UINT8 ubNumber )
-{
-	CHAR16	apStr[ 5000 ];
-	CHAR16	atStr[ 1500 ];
-
-	switch( ubNumber )
-	{
-		case IMP_SKILL_TRAITS_NEW_AMBIDEXTROUS:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubAMPenaltyDoubleReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[0], gSkillTraitValues.ubAMPenaltyDoubleReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMReloadSpeedMagazines != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[1], gSkillTraitValues.ubAMReloadSpeedMagazines, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMReloadSpeedLoose != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[2], gSkillTraitValues.ubAMReloadSpeedLoose, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMPickItemsAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[3], gSkillTraitValues.ubAMPickItemsAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMWorkBackpackAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[4], gSkillTraitValues.ubAMWorkBackpackAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMHandleDoorsAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[5], gSkillTraitValues.ubAMHandleDoorsAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMHandleBombsAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[6], gSkillTraitValues.ubAMHandleBombsAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubAMAttachingItemsAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[7], gSkillTraitValues.ubAMAttachingItemsAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_MELEE:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubMEBladesAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[0], gSkillTraitValues.ubMEBladesAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMECtHBladesBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[1], gSkillTraitValues.ubMECtHBladesBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMECtHBluntBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[2], gSkillTraitValues.ubMECtHBluntBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMEDamageBonusBlades != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[3], gSkillTraitValues.ubMEDamageBonusBlades, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMEDamageBonusBlunt != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[4], gSkillTraitValues.ubMEDamageBonusBlunt, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.usMEAimedMeleeAttackDamageBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[5], gSkillTraitValues.usMEAimedMeleeAttackDamageBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMEDodgeBladesBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[6], gSkillTraitValues.ubMEDodgeBladesBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMECtDBladesOnTopWithBladeInHands != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[7], gSkillTraitValues.ubMECtDBladesOnTopWithBladeInHands, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMEDodgeBluntBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[8], gSkillTraitValues.ubMEDodgeBluntBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubMECtDBluntOnTopWithBladeInHands != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[9], gSkillTraitValues.ubMECtDBluntOnTopWithBladeInHands, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_THROWING:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubTHBladesAPsReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[0], gSkillTraitValues.ubTHBladesAPsReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesMaxRange != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[1], gSkillTraitValues.ubTHBladesMaxRange, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesCtHBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[2], gSkillTraitValues.ubTHBladesCtHBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesCtHBonusPerClick != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[3], gSkillTraitValues.ubTHBladesCtHBonusPerClick, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesDamageBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[4], gSkillTraitValues.ubTHBladesDamageBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesDamageBonusPerClick != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[5], gSkillTraitValues.ubTHBladesDamageBonusPerClick, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesSilentCriticalHitChance != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[6], gSkillTraitValues.ubTHBladesSilentCriticalHitChance, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[7], gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTHBladesAimClicksAdded != 0 )
-			{
-				if( gSkillTraitValues.ubTHBladesAimClicksAdded == 1 )
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[8], gSkillTraitValues.ubTHBladesAimClicksAdded );
-				else
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[9], gSkillTraitValues.ubTHBladesAimClicksAdded );
-
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_NIGHT_OPS:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubNOeSightRangeBonusInDark != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[0], gSkillTraitValues.ubNOeSightRangeBonusInDark, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubNOHearingRangeBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[1], gSkillTraitValues.ubNOHearingRangeBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubNOHearingRangeBonusInDark != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[2], gSkillTraitValues.ubNOHearingRangeBonusInDark, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubNOIterruptsBonusInDark != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[3], gSkillTraitValues.ubNOIterruptsBonusInDark, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubNONeedForSleepReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[4], gSkillTraitValues.ubNONeedForSleepReduction);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_STEALTHY:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubSTStealthModeSpeedBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[0], gSkillTraitValues.ubSTStealthModeSpeedBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubSTBonusToMoveQuietly != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[1], gSkillTraitValues.ubSTBonusToMoveQuietly, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubSTStealthBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameOptions.fImprovedInterruptSystem )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubSTStealthPenaltyForMovingReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[3], gSkillTraitValues.ubSTStealthPenaltyForMovingReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_ATHLETICS:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubATAPsMovementReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAthletics[0], gSkillTraitValues.ubATAPsMovementReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubATBPsMovementReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsAthletics[1], gSkillTraitValues.ubATBPsMovementReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_BODYBUILDING:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubBBDamageResistance != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[0], gSkillTraitValues.ubBBDamageResistance, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubBBCarryWeightBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[1], gSkillTraitValues.ubBBCarryWeightBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubBBBreathLossForHtHImpactReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[2], gSkillTraitValues.ubBBBreathLossForHtHImpactReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.usBBIncreasedNeededDamageToFallDown != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[3], gSkillTraitValues.usBBIncreasedNeededDamageToFallDown, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_DEMOLITIONS:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[0], gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEMaxRangeToThrowGrenades != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[1], gSkillTraitValues.ubDEMaxRangeToThrowGrenades, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDECtHWhenThrowingGrenades != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[2], gSkillTraitValues.ubDECtHWhenThrowingGrenades, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEDamageOfBombsAndMines != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[3], gSkillTraitValues.ubDEDamageOfBombsAndMines, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEAttachDetonatorCheckBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[4], gSkillTraitValues.ubDEAttachDetonatorCheckBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[5], gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEPlacedBombLevelBonus != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[6], gSkillTraitValues.ubDEPlacedBombLevelBonus);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubDEShapedChargeDamageMultiplier != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[7], gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_TEACHING:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubTGBonusToTrainMilitia != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[0], gSkillTraitValues.ubTGBonusToTrainMilitia, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[1], gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTGBonusToTeachOtherMercs != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[2], gSkillTraitValues.ubTGBonusToTeachOtherMercs, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTGEffectiveSkillValueForTeaching != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[3], gSkillTraitValues.ubTGEffectiveSkillValueForTeaching);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubTGBonusOnPractising != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[4], gSkillTraitValues.ubTGBonusOnPractising, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_SCOUTING:
-		{
-			swprintf( apStr, L"" );
-			if( gSkillTraitValues.ubSCSightRangebonusWithScopes != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[0], gSkillTraitValues.ubSCSightRangebonusWithScopes, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.usSCSightRangebonusWithBinoculars != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[1], gSkillTraitValues.usSCSightRangebonusWithBinoculars, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.ubSCTunnelVisionReducedWithBinoculars != 0 )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[2], gSkillTraitValues.ubSCTunnelVisionReducedWithBinoculars, sSpecialCharacters[0]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.fSCCanDetectEnemyPresenseAround  )
-			{
-				if( gSkillTraitValues.fSCCanDetermineEnemyNumbersAround )
-				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[3]);
-					wcscat( apStr, atStr );
-				}
-				else
-				{
-					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[4]);
-					wcscat( apStr, atStr );
-				}
-			}
-			if( gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[5]);
-				wcscat( apStr, atStr );
-			}
-			if( gSkillTraitValues.fSCPreventsBloodcatsAmbushes )
-			{
-				swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[6]);
-				wcscat( apStr, atStr );
-			}
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_RADIO_OPERATOR:
-		{
-			swprintf( apStr, L"" );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[0]);
-			wcscat( apStr, atStr );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[1]);
-			wcscat( apStr, atStr );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[2]);
-			wcscat( apStr, atStr );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[3]);
-			wcscat( apStr, atStr );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[4]);
-			wcscat( apStr, atStr );
-			swprintf( atStr, gzIMPMajorTraitsHelpTextsRadioOperator[5]);
-			wcscat( apStr, atStr );
-			break;
-		}
-		case IMP_SKILL_TRAITS_NEW_MINOR_NONE:
-		{
-			swprintf( apStr, gzIMPMinorTraitsHelpTextsNone[0] );
-			break;
-		}
-	}
-
-	// Set region help text
-	SetRegionFastHelpText( &(gMR_MinorTraitHelpTextRegions[ubNumber]), apStr );
-	SetRegionHelpEndCallback( &gMR_MinorTraitHelpTextRegions[ubNumber], MSYS_NO_CALLBACK );
-
-	return;
 }
