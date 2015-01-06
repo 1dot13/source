@@ -3485,7 +3485,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 }
 
 // HEADROCK HAM 5.1: Show enemy group destinations.
-void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
+void ShowNonPlayerGroupsInMotion( INT16 sX, INT16 sY, UINT8 usTeam )
 {
 	INT32 sExiting = 0;
 	INT32 sEntering = 0;
@@ -3501,9 +3501,7 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 	INT32 iDeltaXForError = 0, iDeltaYForError = 0;
 	
 	if( iCurrentMapSectorZ != 0 )
-	{
 		return;
-	}
 
 	// show the icons for people in motion from this sector to the next guy over
 
@@ -3511,7 +3509,7 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 	curr = gpGroupList;
 	while( curr->next )
 	{
-		if ( curr->usGroupTeam != OUR_TEAM && curr->ubSectorX == sX && curr->ubSectorY == sY && curr->ubSectorZ == 0 )
+		if ( curr->usGroupTeam != OUR_TEAM && curr->usGroupTeam == usTeam && curr->ubSectorX == sX && curr->ubSectorY == sY && curr->ubSectorZ == 0 )
 		{
 			if (curr->ubNextX != sX || curr->ubNextY != sY)
 			{
@@ -3533,6 +3531,7 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 						// Group moving diagonally? Abort.
 						continue;
 					}
+					
 					if (sDeltaY < 0)
 					{
 						ubDirection = 0;
@@ -3571,6 +3570,11 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 					
 					iX = MAP_VIEW_START_X+( sX * MAP_GRID_X ) + sOffsetX + iconOffsetX;
 					iY = MAP_VIEW_START_Y + ( sY * MAP_GRID_Y ) + sOffsetY + iconOffsetY;
+
+					// Flugente: depending on which team's direction we show there is an offset to the images
+					// Note that we also need a x or y offset if multiple teamsare moving in the same sector, but currently that won't happen
+					if ( curr->usGroupTeam == MILITIA_TEAM )
+						ubDirection += 4;
 		
 					BltVideoObject(guiSAVEBUFFER, hIconHandle, ubDirection , ( INT16 ) iX, ( INT16 ) iY , VO_BLT_SRCTRANSPARENCY, NULL );
 				
@@ -6366,7 +6370,6 @@ BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubIconPosition )
 {
 	INT16 sNumberOfEnemies = 0;
-	UINT16 usNumTanks = 0;
 
 	// ATE: If game has just started, don't do it!
 	if ( DidGameJustStart() )
@@ -6380,63 +6383,72 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 		return;
 	}
 
-	// Flugente: show militia in motion
-	ShowMilitiaInMotion( sSectorX, sSectorY );
-
-	// get total number of badguys here
-	sNumberOfEnemies = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ENEMY_TEAM );
-
-	// Flugente: tanks get a special icon, so we need to count them separately
-	usNumTanks = NumEnemyTanksInSector( sSectorX, sSectorY );
-
 	// Flugente: note if we have detected a VIP here
 	if ( PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
 		ShowVIPSymbol( sSectorX, sSectorY );
 
-	// silversurfer: disabled this for now as it always leads to false positives with scouting trait and
-	// gSkillTraitValues.fSCCanDetectEnemyPresenseAround == true and gSkillTraitValues.fSCCanDetermineEnemyNumbersAround == false. 
-	// If someone comes up with a good and believable way to implement a certain probability for false reports please go ahead and implement that instead of a 100 percent chance.
-	// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,
-	// so every sector gets a red question mark. In that case, get out of here
-	// anv: probability of false enemy reports!
-	// anyone here?
-	if( !sNumberOfEnemies ) // && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon )
+	// Flugente: show militia in motion
+	if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
 	{
-		// nope - display nothing
-		return;
+		ShowMilitiaInMotion( sSectorX, sSectorY );
+
+		// replace the above function with this once militia movement is properly GROUP-based
+		//ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, MILITIA_TEAM );
 	}
 
-	switch ( WhatPlayerKnowsAboutEnemiesInSector( sSectorX, sSectorY ) )
+	// get total number of badguys here
+	sNumberOfEnemies = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ENEMY_TEAM );
+
+	if ( sNumberOfEnemies )
 	{
-		// HEADROCK HAM 5: New cases below for showing enemy group heading.
-		case KNOWS_NOTHING:
-			// display nothing
-			break;
+		// silversurfer: disabled this for now as it always leads to false positives with scouting trait and
+		// gSkillTraitValues.fSCCanDetectEnemyPresenseAround == true and gSkillTraitValues.fSCCanDetermineEnemyNumbersAround == false. 
+		// If someone comes up with a good and believable way to implement a certain probability for false reports please go ahead and implement that instead of a 100 percent chance.
+		// Flugente: snitch reports can be false - we assume an enemy patrol where there is none. Unfortunately, that would always be the case if fNoEnemyDetectionWithoutReconis false - we detect something everywhere,
+		// so every sector gets a red question mark. In that case, get out of here
+		// anv: probability of false enemy reports!
+		// anyone here?
+		/*if( !sNumberOfEnemies ) // && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon )
+		{
+			// nope - display nothing
+			return;
+		}*/
 
-		case KNOWS_THEYRE_THERE:
-			// display a question mark
-			ShowUncertainNumberEnemiesInSector( sSectorX, sSectorY );
-			break;
+		// Flugente: tanks get a special icon, so we need to count them separately
+		UINT16 usNumTanks = NumEnemyTanksInSector( sSectorX, sSectorY );
 
-		case KNOWS_THEYRE_THERE_AND_WHERE_GOING:
-			// display a question mark
-			ShowUncertainNumberEnemiesInSector( sSectorX, sSectorY );
-			// display their direction of movement, if valid.
-			ShowEnemyGroupsInMotion( sSectorX, sSectorY );
-			break;
+		switch ( WhatPlayerKnowsAboutEnemiesInSector( sSectorX, sSectorY ) )
+		{
+			// HEADROCK HAM 5: New cases below for showing enemy group heading.
+			case KNOWS_NOTHING:
+				// display nothing
+				break;
 
-		case KNOWS_HOW_MANY:
-			// display individual icons for each enemy, starting at the received icon position index
-			ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
-			break;
+			case KNOWS_THEYRE_THERE:
+				// display a question mark
+				ShowUncertainNumberEnemiesInSector( sSectorX, sSectorY );
+				break;
 
-		// HEADROCK HAM 5: New case for showing enemy groups AND where the are headed.
-		case KNOWS_HOW_MANY_AND_WHERE_GOING:
-			// display individual icons for each enemy, starting at the received icon position index
-			ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
-			// display their direction of movement, if valid.
-			ShowEnemyGroupsInMotion( sSectorX, sSectorY );
-			break;
+			case KNOWS_THEYRE_THERE_AND_WHERE_GOING:
+				// display a question mark
+				ShowUncertainNumberEnemiesInSector( sSectorX, sSectorY );
+				// display their direction of movement, if valid.
+				ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );
+				break;
+
+			case KNOWS_HOW_MANY:
+				// display individual icons for each enemy, starting at the received icon position index
+				ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+				break;
+
+			// HEADROCK HAM 5: New case for showing enemy groups AND where the are headed.
+			case KNOWS_HOW_MANY_AND_WHERE_GOING:
+				// display individual icons for each enemy, starting at the received icon position index
+				ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+				// display their direction of movement, if valid.
+				ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );
+				break;
+		}
 	}
 }
 

@@ -144,7 +144,7 @@ void RestoreClipRegionToFullScreenForRectangle( UINT32 uiDestPitchBYTES );
 
 // show the icons for people in motion
 void ShowPeopleInMotion( INT16 sX, INT16 sY );
-void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY);
+void ShowNonPlayerGroupsInMotion( INT16 sX, INT16 sY, UINT8 usTeam );
 void ShowMilitiaInMotion( INT16 sX, INT16 sY);	// added by Flugente
 
 // last sector in helicopter's path
