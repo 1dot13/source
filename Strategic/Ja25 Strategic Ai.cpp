@@ -2617,7 +2617,7 @@ void HandleSayingDontStayToLongWarningInSectorH8()
 	} 
 	
 	//if there are no enemies in the sector, leave
-	if( NumEnemiesInSector( 8, 8 ) > 0 )
+	if ( NumNonPlayerTeamMembersInSector( 8, 8, ENEMY_TEAM ) > 0 )
 	{
 		return;
 	}

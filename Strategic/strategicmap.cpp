@@ -1890,7 +1890,7 @@ UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 
 			if( ( StrategicMap[ usSector ].bNameId == bTownId ) &&
 					( StrategicMap[ usSector ].fEnemyControlled == FALSE ) &&
-					( NumEnemiesInSector( ( INT16 )iCounterA, ( INT16 )iCounterB ) == 0 ) )
+					(NumNonPlayerTeamMembersInSector( (INT16)iCounterA, (INT16)iCounterB, ENEMY_TEAM ) == 0) )
 			{
 				++ubSectorsControlled;
 			}
@@ -4006,7 +4006,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 			pValidSoldier->ubNumTraversalsAllowedToMerge = 2;
 			pGroup = GetGroup( ubPrevGroupID );
 			Assert( pGroup );
-			Assert( pGroup->fPlayer );
+			Assert( pGroup->usGroupTeam == OUR_TEAM );
 			Assert( pGroup->ubGroupSize );
 			pPlayer = pGroup->pPlayerList;
 			while( pPlayer )
@@ -4085,8 +4085,9 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 	}
 
 	// Give guy(s) orders to walk off sector...
-	if( pGroup->fPlayer )
-	{	//For player groups, update the soldier information
+	if ( pGroup->usGroupTeam == OUR_TEAM )
+	{
+		//For player groups, update the soldier information
 		PLAYERGROUP *curr;
 		INT32 sGridNo;
 		UINT8				ubNum = 0;
@@ -4120,33 +4121,33 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 					}
 
 					curr->pSoldier->EVENT_GetNewSoldierPath( sGridNo, WALKING );
-
 				}
 				else
 				{
-						// Here, get closest location for exit grid....
-						sGridNo = FindGridNoFromSweetSpotCloseToExitGrid( curr->pSoldier, sAdditionalData, 10, &ubDirection );
+					// Here, get closest location for exit grid....
+					sGridNo = FindGridNoFromSweetSpotCloseToExitGrid( curr->pSoldier, sAdditionalData, 10, &ubDirection );
 												
-						if (!TileIsOutOfBounds(sGridNo))
-						{
-							// Save wait code - this will make buddy walk off screen into oblivion
-						//	curr->pSoldier->ubWaitActionToDo = 2;
-						}
-						else
-						{
-							AssertMsg( 0, String( "Failed to get good exit location for adjacentmove" ) );
-						}
+					if (!TileIsOutOfBounds(sGridNo))
+					{
+						// Save wait code - this will make buddy walk off screen into oblivion
+					//	curr->pSoldier->ubWaitActionToDo = 2;
+					}
+					else
+					{
+						AssertMsg( 0, String( "Failed to get good exit location for adjacentmove" ) );
+					}
 
-						// Don't worry about walk off screen, just stay at gridno...
-						curr->pSoldier->ubWaitActionToDo = 1;
+					// Don't worry about walk off screen, just stay at gridno...
+					curr->pSoldier->ubWaitActionToDo = 1;
 
-						// Set buddy go!
-						gfPlotPathToExitGrid = TRUE;
-						curr->pSoldier->EVENT_GetNewSoldierPath( sGridNo, WALKING );
-						gfPlotPathToExitGrid = FALSE;
+					// Set buddy go!
+					gfPlotPathToExitGrid = TRUE;
+					curr->pSoldier->EVENT_GetNewSoldierPath( sGridNo, WALKING );
+					gfPlotPathToExitGrid = FALSE;
 
 				}
-				ubNum++;
+
+				++ubNum;
 			}
 			else
 			{
@@ -4519,7 +4520,7 @@ void AllMercsHaveWalkedOffSector( )
 			//of the tactical placement gui to get into better position.  Additionally, if there are any
 			//enemies in this sector that are part of a movement group, reset that movement group so that they
 			//are "in" the sector rather than 75% of the way to the next sector if that is the case.
-			ResetMovementForEnemyGroupsInLocation( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY );
+			ResetMovementForNonPlayerGroupsInLocation( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY );
 
 			if( guiAdjacentTraverseTime > 5 )
 			{
@@ -4612,7 +4613,7 @@ void DoneFadeOutAdjacentSector( )
 	}
 
 	// OK, give our guys new orders...
-	if( gpAdjacentGroup->fPlayer )
+	if ( gpAdjacentGroup->usGroupTeam == OUR_TEAM )
 	{
 		//For player groups, update the soldier information
 		PLAYERGROUP *curr;

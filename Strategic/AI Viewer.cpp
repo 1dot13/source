@@ -574,7 +574,7 @@ void RenderMovingGroupsAndMercs()
 			}
 
 
-			if( pGroup->fPlayer )
+			if ( pGroup->usGroupTeam == OUR_TEAM )
 			{
 				ubIconType = (UINT8) (( pGroup->uiTraverseTime ) ? ICON_TYPE_ASSAULT : ICON_TYPE_STOPPED);
 				ubIconColor = ICON_COLOR_GREEN;
@@ -625,7 +625,7 @@ void RenderMovingGroupsAndMercs()
 			SetFontForeground( ubFontColor );
 
 			//Print the group size
-			if( pGroup->fPlayer && !pGroup->uiTraverseTime )
+			if ( pGroup->usGroupTeam == OUR_TEAM && !pGroup->uiTraverseTime )
 				// stationary player - count all mercs there, not just the group
 				mprintf( x+11, y+11, L"%d", PlayerMercsInSector( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ ) );
 			else
@@ -731,7 +731,7 @@ void RenderInfoInSector()
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
-			if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY )
+			if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY )
 			{
 				ubNumTroops += pGroup->pEnemyGroup->ubNumTroops;
 				ubNumElites += pGroup->pEnemyGroup->ubNumElites;
@@ -1570,7 +1570,7 @@ void PrintEnemyPopTable()
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( !pGroup->fPlayer && !pGroup->fDebugGroup )
+		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fDebugGroup )
 		{
 			Assert( pGroup->pEnemyGroup != NULL );
 
@@ -1952,7 +1952,7 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( !pGroup->fPlayer && !pGroup->fVehicle )
+		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle )
 		{
 			if ( ( pGroup->ubSectorX == ubSectorX ) && ( pGroup->ubSectorY == ubSectorY ) )
 			{

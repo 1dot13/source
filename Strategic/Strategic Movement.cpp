@@ -175,7 +175,7 @@ UINT8 CreateNewPlayerGroupDepartingFromSector( UINT8 ubSectorX, UINT8 ubSectorY 
 	pNew->ubSectorX = pNew->ubNextX = ubSectorX;
 	pNew->ubSectorY = pNew->ubNextY = ubSectorY;
 	pNew->ubOriginalSector = (UINT8)SECTOR( ubSectorX, ubSectorY );
-	pNew->fPlayer = TRUE;
+	pNew->usGroupTeam = OUR_TEAM;
 	pNew->ubMoveType = ONE_WAY;
 	pNew->ubNextWaypointID = 0;
 	pNew->ubFatigueLevel = 100;
@@ -206,7 +206,7 @@ UINT8 CreateNewVehicleGroupDepartingFromSector( UINT8 ubSectorX, UINT8 ubSectorY
 	pNew->ubFatigueLevel = 100;
 	pNew->ubRestAtFatigueLevel = 0;
 	pNew->fVehicle = TRUE;
-	pNew->fPlayer = TRUE;
+	pNew->usGroupTeam = OUR_TEAM;
 	pNew->pPlayerList = NULL;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;
 	pNew->ubSectorIDOfLastReassignment = 255;
@@ -226,7 +226,7 @@ BOOLEAN AddPlayerToGroup( UINT8 ubGroupID, SOLDIERTYPE *pSoldier )
 	Assert( pGroup );
 	pPlayer = (PLAYERGROUP*)MemAlloc( sizeof( PLAYERGROUP ) );
 	Assert( pPlayer );
-	AssertMsg( pGroup->fPlayer, "Attempting AddPlayerToGroup() on an ENEMY group!");
+	AssertMsg( pGroup->usGroupTeam == OUR_TEAM, "Attempting AddPlayerToGroup() on an ENEMY group!" );
 	pPlayer->pSoldier = pSoldier;
 	pPlayer->ubProfileID = pSoldier->ubProfile;
 	pPlayer->ubID = pSoldier->ubID;
@@ -289,7 +289,7 @@ BOOLEAN RemoveAllPlayersFromPGroup( GROUP *pGroup )
 {
 	PLAYERGROUP *curr;
 
-	AssertMsg( pGroup->fPlayer, "Attempting RemovePlayerFromGroup() on an ENEMY group!");
+	AssertMsg( pGroup->usGroupTeam == OUR_TEAM, "Attempting RemovePlayerFromGroup() on an ENEMY group!" );
 
 	curr = pGroup->pPlayerList;
 	while( curr )
@@ -320,7 +320,7 @@ BOOLEAN RemoveAllPlayersFromPGroup( GROUP *pGroup )
 BOOLEAN RemovePlayerFromPGroup( GROUP *pGroup, SOLDIERTYPE *pSoldier )
 {
 	PLAYERGROUP *prev, *curr;
-	AssertMsg( pGroup->fPlayer, "Attempting RemovePlayerFromGroup() on an ENEMY group!" );
+	AssertMsg( pGroup->usGroupTeam == OUR_TEAM, "Attempting RemovePlayerFromGroup() on an ENEMY group!" );
 
 	curr = pGroup->pPlayerList;
 
@@ -430,7 +430,7 @@ BOOLEAN GroupReversingDirectionsBetweenSectors( GROUP *pGroup, UINT8 ubSectorX, 
 	pGroup->ubSectorX = pGroup->ubPrevX;
 	pGroup->ubSectorY = pGroup->ubPrevY;
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		// ARM: because we've changed the group's ubSectoryX and ubSectorY, we must now also go and change the sSectorX and
 		// sSectorY of all the soldiers in this group so that they stay in synch.	Otherwise pathing and movement problems
@@ -451,7 +451,7 @@ BOOLEAN GroupReversingDirectionsBetweenSectors( GROUP *pGroup, UINT8 ubSectorX, 
 		//Post the replacement event to move back to the previous sector!
 		AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
 
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			if( ( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY ) > GetWorldTotalMin( ) )
 			{
@@ -551,7 +551,7 @@ BOOLEAN AddWaypointToPGroup( GROUP* pGroup, UINT8 ubSectorX, UINT8 ubSectorY ) /
 	{
 		if( GroupReversingDirectionsBetweenSectors( pGroup, ubSectorX, ubSectorY, TRUE ) )
 		{
-			if( pGroup->fPlayer )
+			if ( pGroup->usGroupTeam == OUR_TEAM )
 			{
 				// because we reversed, we must add the new current sector back at the head of everyone's mercpath
 				AddSectorToFrontOfMercPathForAllSoldiersInGroup( pGroup, pGroup->ubSectorX, pGroup->ubSectorY );
@@ -640,7 +640,7 @@ BOOLEAN AddWaypointToPGroup( GROUP* pGroup, UINT8 ubSectorX, UINT8 ubSectorY ) /
 		}
 	}
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		PLAYERGROUP *curr;
 		//Also, nuke any previous "tactical traversal" information.
@@ -731,7 +731,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	pNew->ubSectorX = (UINT8)SECTORX( uiSector );
 	pNew->ubSectorY = (UINT8)SECTORY( uiSector );
 	pNew->ubOriginalSector = (UINT8)uiSector;
-	pNew->fPlayer = FALSE;
+	pNew->usGroupTeam = ENEMY_TEAM;
 	pNew->ubMoveType = CIRCULAR;
 	pNew->ubNextWaypointID = 0;
 	pNew->ubFatigueLevel = 100;
@@ -979,7 +979,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 	if( gfTacticalTraversal && pInitiatingBattleGroup == gpTacticalTraversalGroup ||
-			pInitiatingBattleGroup && !pInitiatingBattleGroup->fPlayer &&
+		pInitiatingBattleGroup && pInitiatingBattleGroup->usGroupTeam != OUR_TEAM &&
 			pInitiatingBattleGroup->ubSectorX == gWorldSectorX &&
 		pInitiatingBattleGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 	{	// At least say quote....
@@ -1058,12 +1058,15 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 	BOOLEAN fBloodCatAmbush = FALSE;
 
 	if( gfWorldLoaded )
-	{ //look for people arriving in the currently loaded sector.	This handles reinforcements.
-		curr = FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, TRUE );
+	{
+		//look for people arriving in the currently loaded sector.	This handles reinforcements.
+		curr = FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, OUR_TEAM );
+
 		if( !gbWorldSectorZ && PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, gbWorldSectorZ ) &&
 				pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY &&
 				curr )
-		{ //Reinforcements have arrived!
+		{
+			//Reinforcements have arrived!
 			#ifdef JA2BETAVERSION
 			if( guiCurrentScreen == AIVIEWER_SCREEN )
 			{
@@ -1088,7 +1091,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 	curr = gpGroupList;
 	while( curr )
 	{
-		if( curr->fPlayer && curr->ubGroupSize )
+		if ( curr->usGroupTeam == OUR_TEAM && curr->ubGroupSize )
 		{
 			if( !curr->fBetweenSectors )
 			{
@@ -1134,11 +1137,11 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		curr = curr->next;
 	}
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		pPlayerDialogGroup = pGroup;
 
-		if( NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) &&
+		if ( NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM ) &&
 			(!IsGroupTheHelicopterGroup( pGroup ) || (gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE)))
 		{
 			fBattlePending = TRUE;
@@ -1276,7 +1279,7 @@ void TriggerPrebattleInterface( UINT8 ubResult )
 void DeployGroupToSector( GROUP *pGroup )
 {
 	Assert( pGroup );
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		//Update the sector positions of the players...
 		return;
@@ -1384,7 +1387,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 	return FALSE;
 #if 0
 	//First, make sure that we have a player group that isn't empty
-	if( !pGroup->fPlayer || !pGroup->ubGroupSize )
+	if( pGroup->usGroupTeam != OUR_TEAM || !pGroup->ubGroupSize )
 		return FALSE;
 	//If our group doesn't have any traversals left to be allowed to merge, then no chance.
 	if( !pGroup->pPlayerList->pSoldier->ubNumTraversalsAllowedToMerge )
@@ -1417,7 +1420,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 	{ //This group is looking for another group to merge with.
 		while( curr )
 		{
-			if( curr != pGroup && curr->fPlayer && curr->ubGroupSize )
+			if( curr != pGroup && curr->usGroupTeam == OUR_TEAM && curr->ubGroupSize )
 			{ //We have a player group with members
 				if( curr->pPlayerList->pSoldier->ubNumTraversalsAllowedToMerge )
 				{ //This group is allowed to merge
@@ -1473,10 +1476,11 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 		}
 	}
 	else if( pGroup->ubGroupSize < NUMBER_OF_SOLDIERS_PER_SQUAD )
-	{ //Search for other groups looking to join our group.
+	{
+		//Search for other groups looking to join our group.
 		while( curr )
 		{
-			if( curr != pGroup && curr->fPlayer && curr->ubGroupSize )
+			if( curr != pGroup && curr->usGroupTeam == OUR_TEAM && curr->ubGroupSize )
 			{ //We have a player group with members
 				if( curr->pPlayerList->pSoldier->ubNumTraversalsAllowedToMerge )
 				{ //This group is allowed to merge
@@ -1540,7 +1544,7 @@ void AwardExperienceForTravelling( GROUP * pGroup )
 	UINT32				uiPoints;
 	UINT32				uiCarriedPercent;
 
-	if ( !pGroup || !pGroup->fPlayer )
+	if ( !pGroup || pGroup->usGroupTeam != OUR_TEAM )
 	{
 		return;
 	}
@@ -1674,7 +1678,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		return;
 	}
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		//Set the fact we have visited the	sector
 		curr = pGroup->pPlayerList;
@@ -1721,7 +1725,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	//Check for exception cases which
 	if( gTacticalStatus.bBoxingState != NOT_BOXING )
 	{
-		if( !pGroup->fPlayer && pGroup->ubNextX == 5 && pGroup->ubNextY == 4 && pGroup->ubSectorZ == 0 )
+		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubNextX == 5 && pGroup->ubNextY == 4 && pGroup->ubSectorZ == 0 )
 		{
 			fExceptionQueue = TRUE;
 		}
@@ -1730,7 +1734,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	//First check if the group arriving is going to queue another battle.
 	//NOTE:	We can't have more than one battle ongoing at a time.
 	if( fExceptionQueue || fCheckForBattle && gTacticalStatus.fEnemyInSector &&
-			FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, TRUE ) &&
+			FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, OUR_TEAM ) &&
 		(pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) ||
 		#ifdef JA2UB
 			//Ja25: NO meanwhiles		
@@ -1764,7 +1768,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		if( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
 			AssertMsg( 0, "Failed to add movement event." );
 
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 			{
@@ -1776,7 +1780,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	}
 
 	// Flugente: disease
-	if ( !pGroup->fPlayer )
+	if ( pGroup->usGroupTeam != OUR_TEAM )
 	{
 		PopulationMove( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, pGroup->ubGroupSize );
 	}
@@ -1789,11 +1793,11 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	pGroup->ubNextX = 0;
 	pGroup->ubNextY = 0;
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		if( pGroup->ubSectorZ == 0 )
 		{
-			SectorInfo[ SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) ].bLastKnownEnemies = NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY );
+			SectorInfo[SECTOR( pGroup->ubSectorX, pGroup->ubSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
 		}
 
 		// award life 'experience' for travelling, based on travel time!
@@ -1835,7 +1839,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	fMapScreenBottomDirty = TRUE;
 
 	// if a player group
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		// if this is the last sector along player group's movement path (no more waypoints)
 		if ( GroupAtFinalDestination( pGroup ) )
@@ -2115,7 +2119,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 #ifdef JA2UB
 /*
 //if the enemy group is at its final destination
-	if( !pGroup->fPlayer && GroupAtFinalDestination( pGroup ) )
+	if( pGroup->usGroupTeam != OUR_TEAM && GroupAtFinalDestination( pGroup ) )
 	{
 		// Check to see if this is an AI sector
 		INT16 sJa25SaiSectorValue = GetJA25SectorID( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ );
@@ -2165,7 +2169,7 @@ void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNe
 	}
 #endif
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		//The group will always exist after the AI was processed.
 
@@ -2271,7 +2275,7 @@ void PrepareGroupsForSimultaneousArrival()
 	while( pGroup )
 	{ //For all of the groups that haven't arrived yet, determine which one is going to take the longest.
 		if( pGroup != gpPendingSimultaneousGroup
-			&& pGroup->fPlayer
+			&& pGroup->usGroupTeam == OUR_TEAM
 				&& pGroup->fBetweenSectors
 				&& pGroup->ubNextX == gpPendingSimultaneousGroup->ubSectorX
 				&& pGroup->ubNextY == gpPendingSimultaneousGroup->ubSectorY &&
@@ -2295,7 +2299,7 @@ void PrepareGroupsForSimultaneousArrival()
 			SetGroupArrivalTime( pGroup, uiLatestArrivalTime );
 			AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
 
-			if( pGroup->fPlayer )
+			if ( pGroup->usGroupTeam == OUR_TEAM )
 			{
 				if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 				{
@@ -2338,7 +2342,7 @@ void PrepareGroupsForSimultaneousArrival()
 
 	AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 		{
@@ -2373,7 +2377,7 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup != pFirstGroup && pGroup->fPlayer && pGroup->fBetweenSectors &&
+		if ( pGroup != pFirstGroup && pGroup->usGroupTeam == OUR_TEAM && pGroup->fBetweenSectors &&
 			pGroup->ubNextX == pFirstGroup->ubSectorX && pGroup->ubNextY == pFirstGroup->ubSectorY &&
 				!(pGroup->uiFlags & GROUPFLAG_SIMULTANEOUSARRIVAL_CHECKED) &&
 				!IsGroupTheHelicopterGroup( pGroup ) )
@@ -2454,7 +2458,7 @@ void DelayEnemyGroupsIfPathsCross( GROUP *pPlayerGroup )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( !pGroup->fPlayer )
+		if ( pGroup->usGroupTeam != OUR_TEAM )
 		{
 			//then check to see if this group will arrive in next sector before the player group.
 			if( pGroup->uiArrivalTime < pPlayerGroup->uiArrivalTime )
@@ -2581,7 +2585,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	if ( !pGroup->ubSectorZ )
 	{
 		BOOLEAN fCalcRegularTime = TRUE;
-		if ( !pGroup->fPlayer )
+		if ( pGroup->usGroupTeam != OUR_TEAM )
 		{
 			//Determine if the enemy group is "sleeping". If so, then simply delay their arrival time by the amount of time
 			//they are going to be sleeping for.
@@ -2611,7 +2615,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	if ( pGroup->uiTraverseTime == 0xffffffff )
 	{
 		AssertMsg( 0, String( "Group %d (%s) attempting illegal move from %c%d to %c%d (%s).",
-			pGroup->ubGroupID, (pGroup->fPlayer) ? "Player" : "AI",
+			pGroup->ubGroupID, (pGroup->usGroupTeam == OUR_TEAM) ? "Player" : "AI",
 			pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX, pGroup->ubNextY + 'A' - 1, pGroup->ubNextX,
 			gszTerrain[SectorInfo[ubSector].ubTraversability[ubDirection]] ) );
 	}
@@ -2675,7 +2679,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 		AssertMsg( 0, "Failed to add movement event." );
 
 	//For the case of player groups, we need to update the information of the soldiers.
-	if ( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		PLAYERGROUP *curr;
 
@@ -2803,7 +2807,7 @@ void RemovePGroup( GROUP *pGroup )
 	DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
 
 	//Determine what type of group we have (because it requires different methods)
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{ //Remove player group
 		PLAYERGROUP *pPlayer;
 		while( pGroup->pPlayerList )
@@ -3084,7 +3088,7 @@ INT32 FindTravelTimeBetweenWaypoints( WAYPOINT * pSource, WAYPOINT * pDest,	GROU
 		if( iThisCostInTime == 0xffffffff )
 		{
 			AssertMsg( 0, String("Group %d (%s) attempting illegal move from sector %d, dir %d (%s).",
-					pGroup->ubGroupID, ( pGroup->fPlayer ) ? "Player" : "AI",
+				pGroup->ubGroupID, (pGroup->usGroupTeam == OUR_TEAM) ? "Player" : "AI",
 					ubCurrentSector, ubDirection,
 					gszTerrain[SectorInfo[ubCurrentSector].ubTraversability[ubDirection]] ) );
 		}
@@ -3164,7 +3168,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		if( iTraverseTime < iBestTraverseTime )
 			iBestTraverseTime = iTraverseTime;
 
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			curr = pGroup->pPlayerList;
 			while( curr )
@@ -3248,7 +3252,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 
 	///////////////////////////////////////////////////////////////////////////////
 	// SANDRO - STOMP traits - ranger reduces time needed for travelling around
-	if( pGroup->fPlayer && !fAir && gGameOptions.fNewTraitSystem)
+	if ( pGroup->usGroupTeam == OUR_TEAM && !fAir && gGameOptions.fNewTraitSystem )
 	{
 		// see if we have any ranger here
 		UINT8 ubRangerHere = 0;
@@ -3302,7 +3306,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			}
 		}
 	}
-	else if ( !pGroup->fPlayer )
+	else if ( pGroup->usGroupTeam == ENEMY_TEAM )
 	{
 		// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if theay are around, the army is more efficient)
 		FLOAT dEnemyGeneralsSpeedupFactor = 1.0f;
@@ -3329,7 +3333,7 @@ UINT8 PlayerMercsInSector( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer && !pGroup->fBetweenSectors)
+		if ( pGroup->usGroupTeam == OUR_TEAM && !pGroup->fBetweenSectors )
 		{
 			if ( pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && pGroup->ubSectorZ == ubSectorZ )
 			{
@@ -3359,7 +3363,7 @@ UINT8 PlayerGroupsInSector( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer && !pGroup->fBetweenSectors)
+		if ( pGroup->usGroupTeam == OUR_TEAM && !pGroup->fBetweenSectors )
 		{
 			if ( pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && pGroup->ubSectorZ == ubSectorZ )
 			{
@@ -3442,8 +3446,9 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 	INT32 iNumEnemiesInSector;
 	INT32	cnt;
 
-	if( pGroup->fPlayer )
-	{ //We don't have to worry about filling up the player slots, because it is impossible
+	if ( pGroup->usGroupTeam == OUR_TEAM )
+	{
+		//We don't have to worry about filling up the player slots, because it is impossible
 		//to have more players in the game than the number of slots available for the player.
 		PLAYERGROUP *pPlayer;
 		UINT8 ubStrategicInsertionCode;
@@ -3490,9 +3495,10 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
 	}
+
 	//Update the known number of enemies in the sector.
 	pSector = &SectorInfo[ SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) ];
-	iNumEnemiesInSector = NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY );
+	iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
 	if( iNumEnemiesInSector )
 	{
 		if( pSector->bLastKnownEnemies >= 0 )
@@ -3539,7 +3545,7 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 	while( curr )
 	{
 		// if player group
-		if( curr->fPlayer == TRUE )
+		if ( curr->usGroupTeam == OUR_TEAM )
 		{
 			fHelicopterGroup = IsGroupTheHelicopterGroup( curr );
 
@@ -3618,7 +3624,7 @@ void MoveAllGroupsInCurrentSectorToSector( UINT8 ubSectorX, UINT8 ubSectorY, UIN
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY &&
+		if ( pGroup->usGroupTeam == OUR_TEAM && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY &&
 			pGroup->ubSectorZ == gbWorldSectorZ && !pGroup->fBetweenSectors )
 		{ //This player group is in the currently loaded sector...
 			pGroup->ubSectorX = ubSectorX;
@@ -3697,7 +3703,7 @@ void SetGroupPosition( UINT8 ubNextX, UINT8 ubNextY, UINT8 ubPrevX, UINT8 ubPrev
 
 	AddWaypointToPGroup( pGroup, pGroup->ubNextX, pGroup->ubNextY );
 	//now, if player group set all grunts in the group to be between secotrs
-	if( pGroup->fPlayer == TRUE )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		pPlayer = pGroup->pPlayerList;
 		while( pPlayer )
@@ -3749,7 +3755,7 @@ BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile )
 		//
 
 		// If its a player group
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			//if there is a player list, add it
 			if( pGroup->ubGroupSize )
@@ -3784,7 +3790,8 @@ BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-
+#include "SaveLoadGame.h"
+#include "GameVersion.h"
 
 BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 {
@@ -3813,9 +3820,9 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 	}
 
 	pGroup = gpGroupList;
-
+	
 	//loop through all the nodes and add them to the LL
-	for( cnt=0; cnt< uiNumberOfGroups; cnt++ )
+	for( cnt=0; cnt< uiNumberOfGroups; ++cnt )
 	{
 		//allocate memory for the node
 		pTemp = (GROUP *) MemAlloc( sizeof( GROUP ));
@@ -3831,11 +3838,28 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 			return( FALSE );
 		}
 
+		// Flugente: Up to now, GROUPs were either player-controlled (fPlayer = TRUE) or enemy-controlled (fPlayer = FALSE).
+		// As a result, no other team could have any travelling groups (militia, civilians, creatures...)
+		// I've changed this - instead of BOOLEAN fPlayer; there now is UINT8 usGroupTeam;
+		// This doesn't mess with the struct size, as BOOLEAN has the same size as UINT8 here.
+		// However, 
+		if ( guiCurrentSaveGameVersion < STRATEGIC_TEAM_GROUPS )
+		{
+			// TODO
+			if ( pTemp->usGroupTeam == 0 )
+				pTemp->usGroupTeam = ENEMY_TEAM;
+			else if ( pTemp->usGroupTeam == 1 )
+				pTemp->usGroupTeam = OUR_TEAM;
+			//this shouldn't be happening...
+			else
+				Assert( 0 );
+		}
+
 		//
 		// Add either the pointer or the linked list.
 		//
 
-		if( pTemp->fPlayer )
+		if ( pTemp->usGroupTeam == OUR_TEAM )
 		{
 			//if there is a player list, add it
 			if( pTemp->ubGroupSize )
@@ -3878,7 +3902,7 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			if( pGroup->ubGroupSize )
 			{
@@ -4097,7 +4121,7 @@ void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier )
 	}
 
 	// player controlled group?
-	if( pGroup->fPlayer == FALSE )
+	if ( pGroup->usGroupTeam != OUR_TEAM )
 	{
 		return;
 	}
@@ -4271,8 +4295,9 @@ void CalculateGroupRetreatSector( GROUP *pGroup )
 		return;
 	}
 
-	if( pGroup->fPlayer )
-	{ //update the previous sector for the mercs
+	if ( pGroup->usGroupTeam == OUR_TEAM )
+	{
+		//update the previous sector for the mercs
 		PLAYERGROUP *pPlayer;
 		pPlayer = pGroup->pPlayerList;
 		while( pPlayer )
@@ -4327,7 +4352,7 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 	if( pGroup->uiTraverseTime == 0xffffffff )
 	{
 		AssertMsg( 0, String("Group %d (%s) attempting illegal move from %c%d to %c%d (%s).",
-				pGroup->ubGroupID, ( pGroup->fPlayer ) ? "Player" : "AI",
+			pGroup->ubGroupID, (pGroup->usGroupTeam == OUR_TEAM) ? "Player" : "AI",
 				pGroup->ubSectorY+'A', pGroup->ubSectorX, pGroup->ubNextY+'A', pGroup->ubNextX,
 				gszTerrain[SectorInfo[ubSector].ubTraversability[ubDirection]] ) );
 	}
@@ -4355,7 +4380,7 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 		AssertMsg( 0, "Failed to add movement event." );
 
 	//For the case of player groups, we need to update the information of the soldiers.
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		PLAYERGROUP *curr;
 		curr = pGroup->pPlayerList;
@@ -4377,26 +4402,29 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 	}
 }
 
-GROUP* FindMovementGroupInSector( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fPlayer )
+GROUP* FindMovementGroupInSector( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubTeam )
 {
 	GROUP *pGroup;
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == ubTeam && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && !pGroup->ubSectorZ )
 		{
-			// NOTE: These checks must always match the INVOLVED group checks in PBI!!!
-			if( fPlayer && pGroup->ubGroupSize && !pGroup->fBetweenSectors &&
-					pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && !pGroup->ubSectorZ &&
-					!GroupHasInTransitDeadOrPOWMercs( pGroup ) &&
-				( !IsGroupTheHelicopterGroup( pGroup ) ||	!fHelicopterIsAirBorne ) )
+			// special checks for player groups
+			if ( ubTeam == OUR_TEAM )
 			{
-				return pGroup;
+				// NOTE: These checks must always match the INVOLVED group checks in PBI!!!
+				if ( pGroup->ubGroupSize && !pGroup->fBetweenSectors &&
+					 !GroupHasInTransitDeadOrPOWMercs( pGroup ) &&
+					 (!IsGroupTheHelicopterGroup( pGroup ) || !fHelicopterIsAirBorne) )
+				{
+					return pGroup;
+				}
 			}
+			else
+				return pGroup;
 		}
-		else if( !fPlayer && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && !pGroup->ubSectorZ )
-			return pGroup;
-
+				
 		pGroup = pGroup->next;
 	}
 	return NULL;
@@ -4449,8 +4477,8 @@ WAYPOINT *GetFinalWaypoint( GROUP *pGroup )
 
 
 //The sector supplied resets ALL enemy groups in the sector specified.	See comments in
-//ResetMovementForEnemyGroup() for more details on what the resetting does.
-void ResetMovementForEnemyGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY )
+//ResetMovementForNonPlayerGroup() for more details on what the resetting does.
+void ResetMovementForNonPlayerGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY )
 {
 	GROUP *pGroup, *next;
 	INT16 sSectorX, sSectorY, sSectorZ;
@@ -4460,11 +4488,11 @@ void ResetMovementForEnemyGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY )
 	while( pGroup )
 	{
 		next = pGroup->next;
-		if( !pGroup->fPlayer )
+		if ( pGroup->usGroupTeam != OUR_TEAM )
 		{
 			if( pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
 			{
-				ResetMovementForEnemyGroup( pGroup );
+				ResetMovementForNonPlayerGroup( pGroup );
 			}
 		}
 		pGroup = next;
@@ -4477,13 +4505,14 @@ void ResetMovementForEnemyGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY )
 //then after this function is called, then that group would be 0% of the way from
 //sector A10 to A11.	In no way does this function effect the strategic path for
 //the group.
-void ResetMovementForEnemyGroup( GROUP *pGroup )
+void ResetMovementForNonPlayerGroup( GROUP *pGroup )
 {
 	//Validate that the group is an enemy group and that it is moving.
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		return;
 	}
+
 	if( !pGroup->fBetweenSectors || !pGroup->ubNextX || !pGroup->ubNextY )
 	{ //Reset the group's assignment by moving it to the group's original sector as it's pending group.
 	
@@ -4527,7 +4556,7 @@ void UpdatePersistantGroupsFromOldSave( UINT32 uiSavedGameVersion )
 			// create mvt groups
 			pGroup = GetGroup( (UINT8)cnt );
 
-			if( pGroup != NULL && pGroup->fPlayer )
+			if ( pGroup != NULL && pGroup->usGroupTeam == OUR_TEAM )
 			{
 				pGroup->fPersistant = TRUE;
 			}
@@ -4826,7 +4855,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 
 	//return; //disabled for now
 
-	Assert( !pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam != OUR_TEAM );
 	Assert( pGroup->ubMoveType == ENDTOEND_FORWARDS );
 	Assert( pGroup->pEnemyGroup->ubIntention == PATROL );
 
@@ -5012,7 +5041,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 
 	// An ambush is occuring?
 	if( !fAlreadyAmbushed && PlacementType != BLOODCAT_PLACEMENT_STATIC && pSector->bBloodCats > 0 &&
-			!pGroup->fVehicle && !NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
+		!pGroup->fVehicle && !NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM ) )
 	{
 		///////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - STOMP traits - Scouting prevents the ambush of bloodcats
@@ -5206,7 +5235,7 @@ void PlayerGroupArrivedSafelyInSector( GROUP *pGroup, BOOLEAN fCheckForNPCs )
 
 
 	Assert( pGroup );
-	Assert( pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam == OUR_TEAM );
 
 
 	// if we haven't already checked for NPCs, and the group isn't empty
@@ -5257,7 +5286,7 @@ BOOLEAN HandlePlayerGroupEnteringSectorToCheckForNPCsOfNote( GROUP *pGroup )
 
 
 	Assert( pGroup );
-	Assert( pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam == OUR_TEAM );
 
 	// nobody in the group (perfectly legal with the chopper)
 	if ( pGroup->pPlayerList == NULL )
@@ -5514,7 +5543,7 @@ BOOLEAN ValidateGroups( GROUP *pGroup )
 		ValidatePlayersAreInOneGroupOnly();
 	#endif
 
-	if( !pGroup->fPlayer && !pGroup->ubGroupSize )
+	if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->ubGroupSize )
 	{
 		isValid = FALSE;
 
@@ -5585,7 +5614,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8
 	pNew->ubSectorY = (UINT8)SECTORY( uiSector );
 	pNew->ubSectorZ = ubSectorZ;
 	pNew->ubOriginalSector = (UINT8)uiSector;
-	pNew->fPlayer = FALSE;
+	pNew->usGroupTeam = ENEMY_TEAM;
 	pNew->ubMoveType = CIRCULAR;
 	pNew->ubNextWaypointID = 0;
 	pNew->ubFatigueLevel = 100;

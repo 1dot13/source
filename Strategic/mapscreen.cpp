@@ -15228,7 +15228,7 @@ void HandleNewDestConfirmation( INT16 sMapX, INT16 sMapY )
 	if( fPlotForHelicopter )
 	{
 		// if there are no enemies in destination sector, or we don't know
-		if ( ( NumEnemiesInSector( sMapX, sMapY ) == 0 ) ||
+		if ( (NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) == 0) ||
 				(	WhatPlayerKnowsAboutEnemiesInSector( sMapX, sMapY ) == KNOWS_NOTHING ) )
 		{
 			// no problem

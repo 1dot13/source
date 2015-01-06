@@ -924,7 +924,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 					pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
 					// if sector has enemies or hasn't already been taken at least once, then
 					if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-						NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+						NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 					{
 						// skip the rest. This sector cannot generate militia anyway. 
 						iCounter++;
@@ -981,7 +981,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 
 					// if sector has enemies or hasn't already been taken at least once, then
 					if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-						NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+						 NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 					{
 						// skip the rest. This sector cannot generate militia anyway. 
 						iCounter++;

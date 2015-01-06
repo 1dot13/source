@@ -1808,7 +1808,7 @@ void CancelPathForGroup( GROUP *pGroup )
 	INT32 iVehicleId;
 
 	// if it's the chopper, but player can't redirect it
-	if ( pGroup->fPlayer && IsGroupTheHelicopterGroup( pGroup ) && ( CanHelicopterFly( ) == FALSE ) )
+	if ( pGroup->usGroupTeam == OUR_TEAM && IsGroupTheHelicopterGroup( pGroup ) && (CanHelicopterFly( ) == FALSE) )
 	{
 		// explain & ignore
 		ExplainWhySkyriderCantFly();
@@ -1816,7 +1816,7 @@ void CancelPathForGroup( GROUP *pGroup )
 	}
 
 	// is it a non-vehicle group?
-	if( ( pGroup->fPlayer ) && ( pGroup->fVehicle == FALSE ) )
+	if ( (pGroup->usGroupTeam == OUR_TEAM) && (pGroup->fVehicle == FALSE) )
 	{
 		if( pGroup->pPlayerList )
 		{
@@ -3031,7 +3031,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 					// If so, is any of the groups in the sector able to retreat in the current direction?
 					while (curr)
 					{
-						if (curr->fPlayer == TRUE && // Player group
+						if ( curr->usGroupTeam == OUR_TEAM && // Player group
 							curr->ubSectorX == sX && curr->ubSectorY == sY && // Group is in the battle sector
 							curr->ubPrevX == tXD && curr->ubPrevY == tYD) // Group came from the examined destination
 						{
@@ -3052,7 +3052,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 					curr = gpGroupList;
 					while (curr)
 					{
-						if (curr->fPlayer == TRUE && // Player group
+						if ( curr->usGroupTeam == OUR_TEAM && // Player group
 							curr->ubSectorX == tXD && curr->ubSectorY == tYD && // Group is in the battle sector
 							curr->ubPrevX == sX && curr->ubPrevY == sY) // Group came from the examined source
 						{
@@ -3073,7 +3073,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 				curr = gpGroupList;
 				while (curr)
 				{
-					if (curr->fPlayer == TRUE &&	// Player group
+					if ( curr->usGroupTeam == OUR_TEAM &&	// Player group
 						curr->ubNextX == tXS && curr->ubNextY == tYS && // Heading into this sector
 						!IsGroupTheHelicopterGroup( curr ) )	// Not a helicopter group!
 					{
@@ -3227,7 +3227,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 					curr = gpGroupList;
 					while( curr )
 					{
-						if (curr->fPlayer == TRUE &&	// Player group
+						if ( curr->usGroupTeam == OUR_TEAM &&	// Player group
 							curr->fBetweenSectors == TRUE && // Currently in motion
 							SECTOR(curr->ubSectorX, curr->ubSectorY) == sSourceSector && // Heading out of this sector
 							SECTOR(curr->ubNextX, curr->ubNextY) == sDestSector ) // Heading to the destination we're examining
@@ -3339,7 +3339,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 					dLastTravelProgress = 10000.0f;
 					while( curr )
 					{
-						if (curr->fPlayer == TRUE &&	// Player group
+						if ( curr->usGroupTeam == OUR_TEAM &&	// Player group
 							curr->fBetweenSectors == TRUE && // Currently in motion
 							SECTOR(curr->ubSectorX, curr->ubSectorY) == sSourceSector && // Heading out of this sector
 							SECTOR(curr->ubNextX, curr->ubNextY) == sDestSector ) // Heading to the destination we're examining
@@ -3499,8 +3499,7 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 	INT16 sTextYOffset = 0;
 	INT32 iWidth = 0, iHeight = 0;
 	INT32 iDeltaXForError = 0, iDeltaYForError = 0;
-
-
+	
 	if( iCurrentMapSectorZ != 0 )
 	{
 		return;
@@ -3512,7 +3511,7 @@ void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY )
 	curr = gpGroupList;
 	while( curr->next )
 	{
-		if (!curr->fPlayer && curr->ubSectorX == sX && curr->ubSectorY == sY && curr->ubSectorZ == 0)
+		if ( curr->usGroupTeam != OUR_TEAM && curr->ubSectorX == sX && curr->ubSectorY == sY && curr->ubSectorZ == 0 )
 		{
 			if (curr->ubNextX != sX || curr->ubNextY != sY)
 			{
@@ -6385,7 +6384,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	ShowMilitiaInMotion( sSectorX, sSectorY );
 
 	// get total number of badguys here
-	sNumberOfEnemies = NumEnemiesInSector( sSectorX, sSectorY );
+	sNumberOfEnemies = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ENEMY_TEAM );
 
 	// Flugente: tanks get a special icon, so we need to count them separately
 	usNumTanks = NumEnemyTanksInSector( sSectorX, sSectorY );

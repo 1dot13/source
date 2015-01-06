@@ -480,7 +480,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 		//Remove the mobile forces here, but only if battle is over.
 		while( pGroup )
 		{
-			if( !pGroup->fPlayer && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY )
+			if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY )
 			{
 				ClearPreviousAIGroupAssignment( pGroup );
 				pDeleteGroup = pGroup;
@@ -826,7 +826,7 @@ void AssociateEnemiesWithStrategicGroups()
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( !pGroup->fPlayer && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
+		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
 		{
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
@@ -874,8 +874,9 @@ void AssociateEnemiesWithStrategicGroups()
 
 	pGroup = gpGroupList;
 	while( pGroup )
-	{	// Don't process road block. It'll be processed as static
-		if( pGroup->ubGroupID &&	!pGroup->fPlayer && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
+	{
+		// Don't process road block. It'll be processed as static
+		if ( pGroup->ubGroupID && pGroup->usGroupTeam != OUR_TEAM && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
 		{
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
@@ -2871,7 +2872,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		}
 		else
 		{ //The enemy won, so repoll movement.
-			ResetMovementForEnemyGroupsInLocation( gpAR->ubSectorX, gpAR->ubSectorY );
+			ResetMovementForNonPlayerGroupsInLocation( gpAR->ubSectorX, gpAR->ubSectorY );
 		}
 	}
 	//Physically delete the soldiers now.
@@ -3607,7 +3608,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 							{
 								PlayAutoResolveSample( EXPLOSION_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 								// this is not very accurate, any enemies already dead will be counted as killed twice
-								gStrategicStatus.usPlayerKills += NumEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY );
+								gStrategicStatus.usPlayerKills += NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, ENEMY_TEAM );
 								EliminateAllEnemies( gpAR->ubSectorX, gpAR->ubSectorY );
 							}
 						}
@@ -4166,9 +4167,9 @@ void CalculateAttackValues()
 			pCell->usNextAttack += (UINT32)( ( i - 4 ) * 1000 );
 		}
 
-		if(i >= NumEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY	) && !(pCell->uiFlags & CELL_CREATURE) )
+		if ( i >= NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, ENEMY_TEAM ) && !(pCell->uiFlags & CELL_CREATURE) )
 		{ //Extra delay if it's a reinforcement
-			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * NumEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY	);
+			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, ENEMY_TEAM );
 		}
 
 
@@ -5659,7 +5660,7 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 	for(int sX = 1; sX < ( MAP_WORLD_X - 1 ); sX++ ) {
 		for(int sY = 1; sY < ( MAP_WORLD_Y - 1); sY++ ) {
 			// Check if there is a sector where enemies retreated to and there are also militia present
-			if ((NumEnemiesInSector(sX, sY) > 0) &&
+			if ( (NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) > 0) &&
 				(CountAllMilitiaInSector(sX, sY) > 0) &&
 				(!gTacticalStatus.fEnemyInSector)) {
 				unsigned mercCnt = 0;

@@ -17914,7 +17914,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			GROUP *pGroup = gpGroupList;
 			while ( pGroup )
 			{
-				if ( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+				if ( pGroup->usGroupTeam == bTeam && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
 				{
 					nummortars += pGroup->ubGroupSize;
 					numshells += gSkillTraitValues.usVOMortarPointsTroop * pGroup->ubGroupSize;

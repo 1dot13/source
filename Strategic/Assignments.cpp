@@ -840,7 +840,7 @@ BOOLEAN CanCharacterDoctorButDoesntHaveMedKit( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -1143,7 +1143,7 @@ BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -1254,7 +1254,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -1348,7 +1348,7 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -1676,7 +1676,7 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -1857,7 +1857,7 @@ BOOLEAN CanCharacterOnDuty( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				if( gGameExternalOptions.ubSkyriderHotLZ == 0 )
 					return( FALSE );
@@ -1940,7 +1940,7 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -2191,7 +2191,7 @@ BOOLEAN CanCharacterVehicle( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -5615,7 +5615,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 			detect_rangefactor = 1.01f - detect_rangefactor;
 
-			patrolsize = NumEnemiesInSector( sX, sY );
+			patrolsize = NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM );
 
 			// no or single enemies -> skip this
 			if ( patrolsize < 2 )
@@ -5957,7 +5957,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 				// only passable sectors matter
 				continue;
 			}
-			usPatrolSize = NumEnemiesInSector( sX, sY );
+			usPatrolSize = NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM );
 
 			// no enemies
 			if ( usPatrolSize < 1 )
@@ -11333,7 +11333,7 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
 
 				// silversurfer: This guy was in the heli and gets out in a hostile sector. Everyone else get out of the heli and start combat!
-				if ( pSoldier->bOldAssignment == VEHICLE && pSoldier->iVehicleId == iHelicopterVehicleId && NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+				if ( pSoldier->bOldAssignment == VEHICLE && pSoldier->iVehicleId == iHelicopterVehicleId && NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 				{
 					UINT8 ubGroupID = MoveAllInHelicopterToFootMovementGroup( iValue );
 					CheckConditionsForBattle( GetGroup( ubGroupID ) );
@@ -16220,10 +16220,9 @@ BOOLEAN AnyMercInGroupCantContinueMoving( GROUP *pGroup )
 	SOLDIERTYPE *pSoldier;
 	BOOLEAN fMeToo = FALSE;
 	BOOLEAN fGroupMustStop = FALSE;
-
-
+	
 	AssertNotNIL( pGroup );
-	AssertT( pGroup->fPlayer );
+	AssertT( pGroup->usGroupTeam == OUR_TEAM );
 
 	pPlayer = pGroup->pPlayerList;
 
@@ -18119,7 +18118,7 @@ BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}
@@ -18285,7 +18284,7 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 				pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
 				// if sector has enemies or hasn't already been taken at least once, then
 				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+					NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 				{
 					// skip the rest. This sector cannot generate militia anyway. 
 					iCounter++;
@@ -18630,7 +18629,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 				pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
 				// if sector has enemies or hasn't already been taken at least once, then
 				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+					NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 				{
 					// skip the rest. This sector cannot generate militia anyway. 
 					iCounter++;
@@ -18685,7 +18684,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 				// if sector has enemies or hasn't already been taken at least once, then
 				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+					 NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 				{
 					// skip the rest. This sector cannot generate militia anyway. 
 					iCounter++;
@@ -18806,7 +18805,7 @@ BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier )
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
 			// enemies in sector
-			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
 				return( FALSE );
 			}

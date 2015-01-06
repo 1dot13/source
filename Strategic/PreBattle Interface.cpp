@@ -219,7 +219,7 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
-			if( !pGroup->fPlayer )
+			if ( pGroup->usGroupTeam != OUR_TEAM )
 			{
 				if( pGroup->ubSectorX == pLocGroup->ubSectorX && pGroup->ubSectorY == pLocGroup->ubSectorY )
 				{
@@ -373,7 +373,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		gubPBSectorZ = gpBattleGroup->ubSectorZ;
 
 		// get number of enemies thought to be here
-		SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
+		SectorInfo[SECTOR( gubPBSectorX, gubPBSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 		fMapPanelDirty = TRUE;
 	}
 	else if( gfPersistantPBI )
@@ -408,7 +408,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
 			}
 		}
-		else if (pBattleGroup && !pBattleGroup->fPlayer && CountAllMilitiaInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY ) > 0)
+		else if ( pBattleGroup && pBattleGroup->usGroupTeam != OUR_TEAM && CountAllMilitiaInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY ) > 0 )
 		{
 			gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 		}
@@ -572,7 +572,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{ //creature's attacking!
 			gubEnemyEncounterCode = CREATURE_ATTACK_CODE;
 		}
-		else if( gpBattleGroup->fPlayer )
+		else if ( gpBattleGroup->usGroupTeam == OUR_TEAM )
 		{
 			if( gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE && gubEnemyEncounterCode != ENTERING_BLOODCAT_LAIR_CODE )
 			{
@@ -1256,7 +1256,7 @@ void RenderPreBattleInterface()
 		else
 		{
 			// know exactly how many
-			i = NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
+			i = NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 			swprintf( str, L"%d", i );
 			SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = (INT8)i;
 		}
@@ -1419,7 +1419,7 @@ void AutoResolveBattleCallback( GUI_BUTTON *btn, INT32 reason )
 						return;
 					}
 					PlayJA2Sample( EXPLOSION_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-					gStrategicStatus.usPlayerKills += NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
+					gStrategicStatus.usPlayerKills += NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 					EliminateAllEnemies( gubPBSectorX, gubPBSectorY );
 					SetMusicMode( MUSIC_TACTICAL_VICTORY );
 					btn->uiFlags &= ~BUTTON_CLICKED_ON;
@@ -1455,7 +1455,7 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 						return;
 					}
 					PlayJA2Sample( EXPLOSION_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-					gStrategicStatus.usPlayerKills += NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
+					gStrategicStatus.usPlayerKills += NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
 					EliminateAllEnemies( gubPBSectorX, gubPBSectorY );
 					SetMusicMode( MUSIC_TACTICAL_VICTORY );
 					btn->uiFlags &= ~BUTTON_CLICKED_ON;
@@ -1469,7 +1469,7 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 					SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					return;
 				}
-			if( gfPersistantPBI && gpBattleGroup && gpBattleGroup->fPlayer &&
+				if ( gfPersistantPBI && gpBattleGroup && gpBattleGroup->usGroupTeam == OUR_TEAM &&
 					gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
 					gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
 					gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE )
@@ -1541,7 +1541,7 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 
 			//Warp time by 5 minutes so that player can't just go back into the sector he left.
 			//WarpGameTime( 300, WARPTIME_NO_PROCESSING_OF_EVENTS );
-			ResetMovementForEnemyGroupsInLocation( gubPBSectorX, gubPBSectorY );
+			ResetMovementForNonPlayerGroupsInLocation( gubPBSectorX, gubPBSectorY );
 
 			btn->uiFlags &= ~BUTTON_CLICKED_ON;
 			DrawButton( btn->IDNum );
@@ -1728,7 +1728,7 @@ SOLDIERTYPE* UninvolvedSoldier( INT32 index )
 	pGroup = gpGroupList;
 	while( pGroup && !fFound )
 	{
-		if ( pGroup->fPlayer && !PlayerGroupInvolvedInThisCombat( pGroup ) )
+		if ( pGroup->usGroupTeam == OUR_TEAM && !PlayerGroupInvolvedInThisCombat( pGroup ) )
 		{
 			pPlayer = pGroup->pPlayerList;
 			while( pPlayer )
@@ -2056,7 +2056,7 @@ BOOLEAN PlayerGroupInvolvedInThisCombat( GROUP *pGroup )
 
 	// player group, non-empty, not between sectors, in the right sector, isn't a group of in transit, dead, or POW mercs,
 	// and either not the helicopter group, or the heli is on the ground
-	if( pGroup->fPlayer && pGroup->ubGroupSize &&
+	if ( pGroup->usGroupTeam == OUR_TEAM && pGroup->ubGroupSize &&
 			!pGroup->fBetweenSectors &&
 			!GroupHasInTransitDeadOrPOWMercs( pGroup ) &&
 			( !IsGroupTheHelicopterGroup( pGroup ) ||	!fHelicopterIsAirBorne ) )

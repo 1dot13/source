@@ -235,7 +235,7 @@ GROUP* GetEnemyGroupInSector( INT16 sMapX, INT16 sMapY )
 	curr = gpGroupList;
 	while( curr )
 	{
-		if( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && !curr->fPlayer && curr->ubGroupID )
+		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam != OUR_TEAM && curr->ubGroupID )
 			return curr;
 		curr = curr->next;
 	}
@@ -284,7 +284,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	{
 		ubIndex = Random(ubDirNumber);
 
-		if( NumEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) > gubReinforcementMinEnemyStaticGroupSize )
+		if ( NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) > gubReinforcementMinEnemyStaticGroupSize )
 		{
 			pSector = &SectorInfo[ pusMoveDir[ ubIndex ][ 0 ] ];
 
@@ -412,10 +412,10 @@ void AddPossiblePendingMilitiaToBattle()
 	}
 
 	//	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
-	//		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
+	//		|| !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) ) return;
 	if( (PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) == 0) 
 		|| !(gTacticalStatus.uiFlags & WANT_MILITIA_REINFORCEMENTS)
-		|| (NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) == 0)
+		|| (NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) == 0)
 		) 
 		return;
 	//gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );

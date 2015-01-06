@@ -883,9 +883,10 @@ void AddCommonInfoToBox(void)
 	AddMonoString( &hStringHandle, wString );
 
 	// how many are there, really?
-	ubNumEnemies = NumEnemiesInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
-	AssertGE(gGameExternalOptions.ubGameMaximumNumberOfEnemies, NumFreeEnemySlots());
-	unsigned numEnemiesOnMap = gGameExternalOptions.ubGameMaximumNumberOfEnemies - NumFreeEnemySlots();
+	ubNumEnemies = NumNonPlayerTeamMembersInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, ENEMY_TEAM );
+	UINT8 enemyfreeslots = NumFreeSlots( ENEMY_TEAM );
+	AssertGE( gGameExternalOptions.ubGameMaximumNumberOfEnemies, enemyfreeslots );
+	unsigned numEnemiesOnMap = gGameExternalOptions.ubGameMaximumNumberOfEnemies - enemyfreeslots;
 
 	switch ( WhatPlayerKnowsAboutEnemiesInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
 	{

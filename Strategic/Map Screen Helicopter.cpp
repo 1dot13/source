@@ -662,9 +662,6 @@ BOOLEAN RemoveSoldierFromHelicopter( SOLDIERTYPE *pSoldier )
 
 BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 {
-	UINT8 ubNumEnemies;
-
-
 	// check for SAM attack upon the chopper.	If it's destroyed by the attack, do nothing else here
 	if( HandleSAMSiteAttackOfHelicopterInSector( sX, sY ) == TRUE )
 	{
@@ -672,9 +669,8 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 		return( TRUE );
 	}
 
-
 	// count how many enemies are camped there or passing through
-	ubNumEnemies = NumEnemiesInSector( sX, sY );
+	UINT8 ubNumEnemies = NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM );
 
 	// any baddies?
 	if( ubNumEnemies > 0 )
@@ -780,7 +776,7 @@ BOOLEAN CheckIfHelicopterHasEnoughFuelToReturn( INT16 sX, INT16 sY )
 		HeliCharacterDialogue( pSkyRider, RETURN_TO_BASE );
 
 		// If the sector is safe
-		if ( NumEnemiesInSector( pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY ) == 0 )
+		if ( NumNonPlayerTeamMembersInSector( pVehicleList[iHelicopterVehicleId].sSectorX, pVehicleList[iHelicopterVehicleId].sSectorY, ENEMY_TEAM ) == 0 )
 		{
 			// kick everyone out!
 			// anv: possibly show prompt, if option is on, and heli has any passengers
@@ -1399,7 +1395,7 @@ void HandleHeliHoverTooLong( void )
 	HeliCharacterDialogue( pSkyRider, RETURN_TO_BASE );
 
 	// If the sector is safe
-	if ( NumEnemiesInSector( pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY ) == 0 )
+	if ( NumNonPlayerTeamMembersInSector( pVehicleList[iHelicopterVehicleId].sSectorX, pVehicleList[iHelicopterVehicleId].sSectorY, ENEMY_TEAM ) == 0 )
 	{
 		// anv: possibly show prompt, if option is on, and heli has any passengers
 		if( gHelicopterSettings.fAskBeforeKickingPassengersOut == FALSE || GetNumberInVehicle( iHelicopterVehicleId ) == 0 )

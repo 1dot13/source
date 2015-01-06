@@ -12,14 +12,16 @@
 extern BOOLEAN gfPendingEnemies;
 
 
-UINT8 NumFreeEnemySlots();
+UINT8 NumFreeSlots( UINT8 ubTeam );
 
 //Counts enemies and crepitus, but not bloodcats.
 UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
-UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
+// returns how many members of a team are in a sector - not intended for OUR_TEAM!
+UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam );
+
 UINT16 NumEnemyTanksInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );

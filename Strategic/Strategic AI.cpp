@@ -727,7 +727,7 @@ void ValidatePendingGroups()
 			if( ubGroupID )
 			{
 				pGroup = GetGroup( ubGroupID );
-				if( !pGroup || pGroup->fPlayer )
+				if( !pGroup || pGroup->usGroupTeam == OUR_TEAM )
 				{
 					iErrorsForInvalidPendingGroup++;
 					gPatrolGroup[ i ].ubPendingGroupID = 0;
@@ -740,7 +740,7 @@ void ValidatePendingGroups()
 			if( ubGroupID )
 		{
 			pGroup = GetGroup( ubGroupID );
-			if( !pGroup || pGroup->fPlayer )
+			if ( !pGroup || pGroup->usGroupTeam == OUR_TEAM )
 				{
 					iErrorsForInvalidPendingGroup++;
 				gGarrisonGroup[ i ].ubPendingGroupID = 0;
@@ -824,7 +824,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
 	}
 	if( !pGroup->ubNextX || !pGroup->ubNextY )
 	{
-		if( !pGroup->fPlayer && pGroup->pEnemyGroup->ubIntention != STAGING
+		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->pEnemyGroup->ubIntention != STAGING
 												&& pGroup->pEnemyGroup->ubIntention != REINFORCEMENTS )
 		{
 			#ifdef JA2BETAVERSION
@@ -874,7 +874,7 @@ void RemovePlayersFromAllMismatchGroups( SOLDIERTYPE *pSoldier )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			pPlayer = pGroup->pPlayerList;
 			while( pPlayer )
@@ -938,7 +938,7 @@ void ValidatePlayersAreInOneGroupOnly()
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
-			if( pGroup->fPlayer )
+			if ( pGroup->usGroupTeam == OUR_TEAM )
 			{
 				pPlayer = pGroup->pPlayerList;
 				while( pPlayer )
@@ -976,7 +976,7 @@ void ValidatePlayersAreInOneGroupOnly()
 					pOtherGroup = NULL;
 					while( pGroup )
 					{
-						if( pGroup->fPlayer )
+						if ( pGroup->usGroupTeam == OUR_TEAM )
 						{
 							pPlayer = pGroup->pPlayerList;
 							while( pPlayer )
@@ -1023,7 +1023,7 @@ void ValidatePlayersAreInOneGroupOnly()
 					pOtherGroup = NULL;
 					while( pGroup )
 					{
-						if( pGroup->fPlayer )
+						if ( pGroup->usGroupTeam == OUR_TEAM )
 						{
 							pPlayer = pGroup->pPlayerList;
 							while( pPlayer )
@@ -2208,7 +2208,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	{
 		return FALSE;
 	}
-	Assert( !pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam != OUR_TEAM );
 	if( pGroup->pEnemyGroup->ubIntention == PURSUIT )
 	{ //Lost the player group that he was going to attack.	Return to original position.
 		SetThisSectorAsEnemyControlled( pGroup->ubSectorX, pGroup->ubSectorY, 0, TRUE );
@@ -2412,9 +2412,9 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 	UINT8 ubNumEnemies;
 	UINT8 ubSectorID;
 	if( !gfQueenAIAwake )
-	{ //The queen isn't aware the player's presence yet, so she is oblivious to any situations.
+	{//The queen isn't aware the player's presence yet, so she is oblivious to any situations.
 
-		if( !pGroup->fPlayer )
+		if ( pGroup->usGroupTeam == ENEMY_TEAM )
 		{
 			//Exception case!
 			//In the beginning of the game, a group is sent to A9 after the first battle.	If you leave A9, when they arrive,
@@ -2441,8 +2441,10 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			return FALSE;
 		}
 	}
-	if( !pGroup->fPlayer )
-	{	//The enemy group has arrived at a new sector and now controls it.
+
+	if ( pGroup->usGroupTeam == ENEMY_TEAM )
+	{
+		//The enemy group has arrived at a new sector and now controls it.
 		//Look in each of the four directions, and the alertness rating will
 		//determine the chance to detect any players that may exist in that sector.
 		pEnemyGroup = pGroup;
@@ -2451,9 +2453,10 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			return EvaluateGroupSituation( pEnemyGroup );
 		}
 		ubSectorID = (UINT8)SECTOR( pEnemyGroup->ubSectorX, pEnemyGroup->ubSectorY );
+
 		if( pEnemyGroup && pEnemyGroup->ubSectorY > 1 && EnemyPermittedToAttackSector( &pEnemyGroup, (UINT8)(ubSectorID - 16) ) )
 		{
-			pPlayerGroup = FindMovementGroupInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY-1), TRUE );
+			pPlayerGroup = FindMovementGroupInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY - 1), OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2468,9 +2471,10 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				return HandleEmptySectorNoticedByPatrolGroup( pEnemyGroup, (UINT8)(ubSectorID-16) );
 			}
 		}
+
 		if( pEnemyGroup && pEnemyGroup->ubSectorX > 1 && EnemyPermittedToAttackSector( &pEnemyGroup, (UINT8)(ubSectorID - 1) ) )
 		{
-			pPlayerGroup = FindMovementGroupInSector( (UINT8)(pEnemyGroup->ubSectorX-1), pEnemyGroup->ubSectorY, TRUE );
+			pPlayerGroup = FindMovementGroupInSector( (UINT8)(pEnemyGroup->ubSectorX - 1), pEnemyGroup->ubSectorY, OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2485,9 +2489,10 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				return HandleEmptySectorNoticedByPatrolGroup( pEnemyGroup, (UINT8)(ubSectorID-1) );
 			}
 		}
+
 		if( pEnemyGroup && pEnemyGroup->ubSectorY < 16 && EnemyPermittedToAttackSector( &pEnemyGroup, (UINT8)(ubSectorID + 16) ) )
 		{
-			pPlayerGroup = FindMovementGroupInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY+1), TRUE );
+			pPlayerGroup = FindMovementGroupInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY + 1), OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2502,9 +2507,10 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				return HandleEmptySectorNoticedByPatrolGroup( pEnemyGroup, (UINT8)(ubSectorID+16) );
 			}
 		}
+
 		if( pEnemyGroup && pEnemyGroup->ubSectorX < 16 && EnemyPermittedToAttackSector( &pEnemyGroup, (UINT8)(ubSectorID + 1) ) )
 		{
-			pPlayerGroup = FindMovementGroupInSector( (UINT8)(pEnemyGroup->ubSectorX+1), pEnemyGroup->ubSectorY, TRUE );
+			pPlayerGroup = FindMovementGroupInSector( (UINT8)(pEnemyGroup->ubSectorX + 1), pEnemyGroup->ubSectorY, OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2519,13 +2525,16 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				return HandleEmptySectorNoticedByPatrolGroup( pEnemyGroup, (UINT8)(ubSectorID+1) );
 			}
 		}
+
 		if( !pEnemyGroup )
-		{ //group deleted.
+		{
+			//group deleted.
 			return TRUE;
 		}
 	}
-	else
-	{ //The player group has arrived at a new sector and now controls it.
+	else if ( pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		//The player group has arrived at a new sector and now controls it.
 		//Look in each of the four directions, and the enemy alertness rating will
 		//determine if the enemy notices that the player is here.
 		//Additionally, there are also stationary enemy groups that may also notice the
@@ -2540,7 +2549,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 		// WDS BAD BUG FIX - 12/25/2008 - some of the +1/-1 in the following were goofed up
 		if( pPlayerGroup->ubSectorY > 1 )
 		{
-			pEnemyGroup = FindMovementGroupInSector( pPlayerGroup->ubSectorX, (UINT8)(pPlayerGroup->ubSectorY-1), FALSE );
+			pEnemyGroup = FindMovementGroupInSector( pPlayerGroup->ubSectorX, (UINT8)(pPlayerGroup->ubSectorY - 1), ENEMY_TEAM );
 			if( pEnemyGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2556,7 +2565,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 		}
 		if( pPlayerGroup->ubSectorX < 16 )
 		{
-			pEnemyGroup = FindMovementGroupInSector( (UINT8)(pPlayerGroup->ubSectorX+1), pPlayerGroup->ubSectorY, FALSE );
+			pEnemyGroup = FindMovementGroupInSector( (UINT8)(pPlayerGroup->ubSectorX + 1), pPlayerGroup->ubSectorY, ENEMY_TEAM );
 			if( pEnemyGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2572,7 +2581,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 		}
 		if( pPlayerGroup->ubSectorY < 16 )
 		{
-			pEnemyGroup = FindMovementGroupInSector( pPlayerGroup->ubSectorX, (UINT8)(pPlayerGroup->ubSectorY+1), FALSE );
+			pEnemyGroup = FindMovementGroupInSector( pPlayerGroup->ubSectorX, (UINT8)(pPlayerGroup->ubSectorY + 1), ENEMY_TEAM );
 			if( pEnemyGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2588,7 +2597,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 		}
 		if( pPlayerGroup->ubSectorX > 1 )
 		{
-			pEnemyGroup = FindMovementGroupInSector( (UINT8)(pPlayerGroup->ubSectorX-1), pPlayerGroup->ubSectorY, FALSE );
+			pEnemyGroup = FindMovementGroupInSector( (UINT8)(pPlayerGroup->ubSectorX-1), pPlayerGroup->ubSectorY, ENEMY_TEAM );
 			if( pEnemyGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
@@ -2668,7 +2677,7 @@ void CheckEnemyControlledSector( UINT8 ubSectorID )
 		if( ubSectorY > 1 && EnemyPermittedToAttackSector( NULL, (UINT8)(ubSectorID - 16) ) )
 		{
 			/*
-			pPlayerGroup = FindMovementGroupInSector( ubSectorX, (UINT8)(ubSectorY-1), TRUE );
+			pPlayerGroup = FindMovementGroupInSector( ubSectorX, (UINT8)(ubSectorY-1), OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, ubSectorID );
@@ -2685,7 +2694,7 @@ void CheckEnemyControlledSector( UINT8 ubSectorID )
 		if( ubSectorX < 16 && EnemyPermittedToAttackSector( NULL, (UINT8)(ubSectorID + 1) ) )
 		{
 			/*
-			pPlayerGroup = FindMovementGroupInSector( (UINT8)(ubSectorX+1), ubSectorY, TRUE );
+			pPlayerGroup = FindMovementGroupInSector( (UINT8)(ubSectorX+1), ubSectorY, OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, ubSectorID );
@@ -2702,7 +2711,7 @@ void CheckEnemyControlledSector( UINT8 ubSectorID )
 		if( ubSectorY < 16 && EnemyPermittedToAttackSector( NULL, (UINT8)(ubSectorID + 16) ) )
 		{
 			/*
-			pPlayerGroup = FindMovementGroupInSector( ubSectorX, (UINT8)(ubSectorY+1), TRUE );
+			pPlayerGroup = FindMovementGroupInSector( ubSectorX, (UINT8)(ubSectorY+1), OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, ubSectorID );
@@ -2719,7 +2728,7 @@ void CheckEnemyControlledSector( UINT8 ubSectorID )
 		if( ubSectorX > 1 && EnemyPermittedToAttackSector( NULL, (UINT8)(ubSectorID - 1) ) )
 		{
 			/*
-			pPlayerGroup = FindMovementGroupInSector( (UINT8)(ubSectorX-1), ubSectorY, TRUE );
+			pPlayerGroup = FindMovementGroupInSector( (UINT8)(ubSectorX-1), ubSectorY, OUR_TEAM );
 			if( pPlayerGroup && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, ubSectorID );
@@ -3842,7 +3851,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
-			if( !pGroup->fPlayer && pGroup->ubGroupSize >= 16 )
+			if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubGroupSize >= 16 )
 			{ //accident in patrol groups being too large
 				UINT8	ubGetRidOfXTroops = pGroup->ubGroupSize - 10;
 				if( gbWorldSectorZ || pGroup->ubSectorX != gWorldSectorX || pGroup->ubSectorY != gWorldSectorY )
@@ -4112,7 +4121,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 			while( pGroup )
 			{
 				pNext = pGroup->next;
-				if( !pGroup->fPlayer )
+				if ( pGroup->usGroupTeam != OUR_TEAM )
 				{
 					if( pGroup->ubSectorX == gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY == gModSettings.ubSAISpawnSectorY && !pGroup->ubPrevX && !pGroup->ubPrevY )
 					{
@@ -4141,7 +4150,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	while( pGroup )
 	{
 		next = pGroup->next; //store the next node as pGroup could be deleted!
-		if( !pGroup->fPlayer )
+		if ( pGroup->usGroupTeam != OUR_TEAM )
 		{
 			if( !pGroup->fBetweenSectors )
 			{
@@ -5087,7 +5096,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			//enemies will simply check it out, then leave.
 			if( pSector->ubGarrisonID != NO_GARRISON )
 			{ //sector has a garrison
-				if( !NumEnemiesInSector( (INT16)SECTORX( ubSectorID ), (INT16)SECTORY( ubSectorID ) ) )
+				if ( !NumNonPlayerTeamMembersInSector( (INT16)SECTORX( ubSectorID ), (INT16)SECTORY( ubSectorID ), ENEMY_TEAM ) )
 				{ //no enemies are here
 					if( gArmyComp[ !gGarrisonGroup[ pSector->ubGarrisonID ].ubComposition ].bPriority )
 					{ //the garrison is important
@@ -6308,7 +6317,7 @@ void UpgradeAdminsToTroops()
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->ubGroupSize && !pGroup->fPlayer && !pGroup->fVehicle)
+		if ( pGroup->ubGroupSize && pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle )
 		{
 			Assert ( pGroup->pEnemyGroup );
 
@@ -6603,9 +6612,9 @@ BOOLEAN PermittedToFillPatrolGroup( INT32 iPatrolID )
 void RepollSAIGroup( GROUP *pGroup )
 {
 	INT32 i;
-	Assert( !pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam != OUR_TEAM );
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 	if( GroupAtFinalDestination( pGroup ) )
 	{
 		EvaluateGroupSituation( pGroup );
@@ -6701,7 +6710,7 @@ void CalcNumTroopsBasedOnComposition( UINT8 *pubNumTroops, UINT8 *pubNumElites, 
 void ConvertGroupTroopsToComposition( GROUP *pGroup, INT32 iCompositionID )
 {
 	Assert( pGroup );
-	Assert( !pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam != OUR_TEAM );
 	CalcNumTroopsBasedOnComposition( &pGroup->pEnemyGroup->ubNumTroops, &pGroup->pEnemyGroup->ubNumElites, pGroup->ubGroupSize, iCompositionID );
 	pGroup->pEnemyGroup->ubNumAdmins = 0;
 	pGroup->ubGroupSize = pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites;
@@ -6843,8 +6852,9 @@ UINT8 RedirectEnemyGroupsMovingThroughSector( UINT8 ubSectorX, UINT8 ubSectorY )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( !pGroup->fPlayer && pGroup->ubMoveType == ONE_WAY )
-		{ //check the waypoint list
+		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubMoveType == ONE_WAY )
+		{
+			//check the waypoint list
 			if( GroupWillMoveThroughSector( pGroup, ubSectorX, ubSectorY ) )
 			{
 				//extract the group's destination.

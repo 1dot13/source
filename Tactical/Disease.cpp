@@ -361,7 +361,7 @@ void HandleDisease()
 					}
 
 					// the bulk of doctoring will come from the military
-					doctors += NumEnemiesInSector( sX, sY ) * GetMilitaryPopulationDoctorRate( );
+					doctors += NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) * GetMilitaryPopulationDoctorRate( );
 
 					UINT32 doctorpower = doctors * GetPopulationDoctorPoints( );
 
@@ -479,8 +479,7 @@ UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary )
 	if ( fWithMilitary )
 	{
 		// add number of enemies...
-		UINT16 sNumberOfEnemies = NumEnemiesInSector( sX, sY );
-		population += sNumberOfEnemies;
+		population += NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM );
 	}
 
 	return population;

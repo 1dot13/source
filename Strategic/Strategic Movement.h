@@ -95,7 +95,7 @@ typedef struct ENEMYGROUP
 typedef struct GROUP
 {
 	BOOLEAN fDebugGroup;					//for testing purposes -- handled differently in certain cases.
-	BOOLEAN fPlayer;							//set if this is a player controlled group.
+	UINT8 usGroupTeam;							// the team that controls this group - 0 for OUR_TEAM, 1 for ENEMY_TEAM..
 	BOOLEAN fVehicle;							//vehicle controlled group?
 	BOOLEAN fPersistant;					//This flag when set prevents the group from being automatically deleted when it becomes empty.
 	UINT8 ubGroupID;							//the unique ID of the group (used for hooking into events and SOLDIERTYPE)
@@ -266,7 +266,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 //blindly determines where to move the group.
 void RetreatGroupToPreviousSector( GROUP *pGroup );
 
-GROUP* FindMovementGroupInSector( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fPlayer );
+GROUP* FindMovementGroupInSector( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubTeam );
 
 BOOLEAN GroupAtFinalDestination( GROUP *pGroup );
 
@@ -280,8 +280,8 @@ void RemoveGroupFromList( GROUP *pGroup );
 
 WAYPOINT *GetFinalWaypoint( GROUP *pGroup );
 
-void ResetMovementForEnemyGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY );
-void ResetMovementForEnemyGroup( GROUP *pGroup );
+void ResetMovementForNonPlayerGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY );
+void ResetMovementForNonPlayerGroup( GROUP *pGroup );
 
 //Determines if any particular group WILL be moving through a given sector given it's current
 //position in the route and TREATS the pGroup->ubMoveType as ONE_WAY EVEN IF IT ISN'T.	If the 

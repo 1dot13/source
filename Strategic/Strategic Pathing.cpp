@@ -210,7 +210,7 @@ INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOO
 
 	// for player groups only!
 	pGroup = GetGroup( ( UINT8 )sMvtGroupNumber );
-	if ( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		// if player is holding down SHIFT key, find the shortest route instead of the quickest route!
 		if ( _KeyDown( SHIFT ) )
@@ -1569,7 +1569,7 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 	RemoveGroupWaypoints( ( UINT8 )sMvtGroup );
 
 
-	if( pGroup->fPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 #ifdef BETA_VERSION
 	VerifyAllMercsInGroupAreOnSameSquad( pGroup );
@@ -1592,7 +1592,7 @@ void RebuildWayPointsForGroupPath( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 	{
 		// and it's a player group, and it's between sectors
 		// NOTE: AI groups never reverse direction between sectors, Kris cheats & teleports them back to their current sector!
-		if( pGroup->fPlayer && pGroup->fBetweenSectors )
+		if ( pGroup->usGroupTeam == OUR_TEAM && pGroup->fBetweenSectors )
 		{
 			// send the group right back to its current sector by reversing directions
 			GroupReversingDirectionsBetweenSectors( pGroup, pGroup->ubSectorX, pGroup->ubSectorY, FALSE );
@@ -1916,7 +1916,7 @@ PathStPtr GetGroupMercPathPtr( GROUP *pGroup )
 	Assert( pGroup );
 
 	// must be a player group!
-	Assert( pGroup->fPlayer );
+	Assert( pGroup->usGroupTeam == OUR_TEAM );
 
 	if( pGroup->fVehicle )
 	{

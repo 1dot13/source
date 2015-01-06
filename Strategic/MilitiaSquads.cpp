@@ -102,7 +102,7 @@ BOOLEAN PlayerMercsInSector_MSE( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fDont
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if( pGroup->fPlayer )// && !pGroup->fBetweenSectors)
+		if ( pGroup->usGroupTeam == OUR_TEAM )// && !pGroup->fBetweenSectors)
 		{
 			if ( ( pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && pGroup->ubSectorZ == 0 ) ||
 				( !fDontConsiderNextSector && ( pGroup->ubNextX == ubSectorX && pGroup->ubNextY == ubSectorY && pGroup->ubSectorZ == 0 ) ) )
@@ -134,7 +134,7 @@ UINT8 GetEnemyGroupIdInSector( INT16 sMapX, INT16 sMapY )
 	curr = gpGroupList;
 	while( curr )
 	{
-		if( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && !curr->fPlayer )
+		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam != OUR_TEAM )
 			if( !curr->ubGroupID )
 				return curr->ubGroupID;
 			else
@@ -865,7 +865,7 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 		for( sLMY = MINIMUM_VALID_Y_COORDINATE; sLMY <= MAXIMUM_VALID_Y_COORDINATE ; ++sLMY )
 	{
 //		SECTORINFO *pSectorInfo = &( SectorInfo[ uiSector ] );
-		UINT8 uiSumOfEnemyTroops = NumEnemiesInSector( sLMX, sLMY );
+		UINT8 uiSumOfEnemyTroops = NumNonPlayerTeamMembersInSector( sLMX, sLMY, ENEMY_TEAM );
 			//pSectorInfo->ubNumAdmins + pSectorInfo->ubNumTroops + pSectorInfo->ubNumElites;
 
 		// there's an enemy
@@ -935,7 +935,7 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 
 	UINT16 usSourceEnemiesInFiveSectors = NumEnemiesInFiveSectors( sMapX, sMapY );
 	UINT16 usTargetEnemiesInFiveSectors = NumEnemiesInFiveSectors( sDMapX, sDMapY );
-	UINT8 ubTargetEnemies = NumEnemiesInSector( sDMapX, sDMapY );
+	UINT8 ubTargetEnemies = NumNonPlayerTeamMembersInSector( sDMapX, sDMapY, ENEMY_TEAM );
 
 	UINT16 usSourceMilitiaInFiveSectors = CountAllMilitiaInFiveSectors( sMapX, sMapY );
 	UINT16 usTargetMilitiaInFiveSectors = CountAllMilitiaInFiveSectors( sDMapX, sDMapY );
@@ -1030,7 +1030,7 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 		}
 	}
 
-//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"M %ld, E%ld,%ld %ld, Diff %ld", CountAllMilitiaInSector( sMapX, sMapY ), sDMapX, sDMapY, NumEnemiesInSector( sDMapX, sDMapY ), ((INT32)CountAllMilitiaInSector( sMapX, sMapY )) - ((INT32)NumEnemiesInSector( sDMapX, sDMapY )) );
+//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"M %ld, E%ld,%ld %ld, Diff %ld", CountAllMilitiaInSector( sMapX, sMapY ), sDMapX, sDMapY, NumNonPlayerTeamMembersInSector( sDMapX, sDMapY, ENEMY_TEAM ), ((INT32)CountAllMilitiaInSector( sMapX, sMapY )) - ((INT32)NumNonPlayerTeamMembersInSector( sDMapX, sDMapY, ENEMY_TEAM )) );
 
 	return iRes;
 }
@@ -1089,7 +1089,7 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 	// If militia aren't set-up for battle, they can't move into an enemy sector. This prevents combat ever
 	// being instigated by militia unless specifically requested to do so by setting all the appropriate "ready!" 
 	// flags earlier in the code.
-	if( !fForBattle && gfMSBattle && NumEnemiesInSector( sMapX, sMapY ) ) 
+	if ( !fForBattle && gfMSBattle && NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) )
 	{
 		fReadyForBattle = FALSE;
 	}
@@ -1253,7 +1253,7 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 			// Wilderness->Sam/Town.
 			else
 			{
-				if (!NumEnemiesInSector( sMapX, sMapY ) && // Is the sector under our control at the moment?
+				if ( !NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) && // Is the sector under our control at the moment?
 					pTargetSector->fSurfaceWasEverPlayerControlled && // Has it ever been under control?
 					CountMilitia(pTargetSector) < gGameExternalOptions.iMaxMilitiaPerSector ) // Is there room here for more militia?
 				{
@@ -1288,7 +1288,7 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 		{
 			// This should ONLY be possible if we are explicitly training new militia groups.
 			// Also, militia can no longer spawn directly into enemy-controlled territory.
-			if (fForTraining && !(NumEnemiesInSector( sMapX, sMapY )))
+			if ( fForTraining && !NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) )
 			{
 				fCanSimpleMove = TRUE;
 			}
@@ -1493,7 +1493,7 @@ void MilitiaMovementOrder(UINT8 sector)
 	if ( gfStrategicMilitiaChangesMade)
 		ResetMilitia();
 
-	if( NumEnemiesInSector( targetX, targetY ) )
+	if ( NumNonPlayerTeamMembersInSector( targetX, targetY, ENEMY_TEAM ) )
 	{
 		//Moa: handle deserters before moving in hostile territory
 		MobileMilitiaDeserters( targetX, targetY, TRUE, TRUE );
@@ -1641,7 +1641,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 					ResetMilitia();
 				}
 
-				if( NumEnemiesInSector( targetX, targetY ) )
+				if ( NumNonPlayerTeamMembersInSector( targetX, targetY, ENEMY_TEAM ) )
 				{
 					extern GROUP *gpBattleGroup;
 					gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
@@ -1751,10 +1751,10 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 				// if sector has enemies or hasn't already been taken at least once, then
 				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+					 NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 				{
 					// skip the rest. Generate no militia from this sector. 
-					iCounter++;
+					++iCounter;
 					continue;
 				}
 
@@ -1802,7 +1802,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			AddToBlockMoveList( sTMapX, sTMapY );
 	
 			// Check for enemies in target sector
-			if(	NumEnemiesInSector( sTMapX, sTMapY ) )
+			if ( NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, ENEMY_TEAM ) )
 			{
 				// Initiave battle
 				gfMSBattle = TRUE;
@@ -1819,7 +1819,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			AddToBlockMoveList( sTMapX, sTMapY );
 
 			// Check for enemies in target sector
-			if( NumEnemiesInSector( sTMapX, sTMapY ) )
+			if ( NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, ENEMY_TEAM ) )
 			{
 				// Initiave battle
 				gfMSBattle = TRUE;
@@ -2309,7 +2309,7 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector )
 		// HEADROCK HAM 4: Take player restrictions into account
 		if ( gubManualRestrictMilitia[ uiSector ] == MANUAL_MOBILE_NO_ENTER )
 		{
-			if ( !NumEnemiesInSector( SECTORX(uiSector), SECTORY(uiSector) ) )
+			if ( !NumNonPlayerTeamMembersInSector( SECTORX( uiSector ), SECTORY( uiSector ), ENEMY_TEAM ) )
 			{
 				// The player has disallowed movement into this sector, manually. As the condition above
 				// dictates, this only takes effect if there are no enemies in the target sector. Otherwise,

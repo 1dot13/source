@@ -4460,7 +4460,7 @@ void MilitiaChangesSides( )
     {
         if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife)
         {
-            if ( (gWorldSectorX ==0 && gWorldSectorY == 0) || !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
+			if ( (gWorldSectorX == 0 && gWorldSectorY == 0) || !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) )
                 MakeCivHostile( pSoldier, 2 );
             RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
         }
@@ -7070,7 +7070,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
     {
         if( !gbWorldSectorZ )
         {
-            SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY) ].bLastKnownEnemies = NumEnemiesInSector( gWorldSectorX, gWorldSectorY );
+			SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM );
         }
 
 		// Flugente: note number of wounded for campaign stats
@@ -10906,7 +10906,7 @@ BOOLEAN GetRandomEnemyTownSector(INT8 bTownId, UINT16& aSector)
 		{
 			usSector = CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
 
-			if ( StrategicMap[usSector].bNameId == bTownId && NumEnemiesInSector( iCounterA, iCounterB ) > 0 && !SectorHasVIP( iCounterA, iCounterB ) )
+			if ( StrategicMap[usSector].bNameId == bTownId && NumNonPlayerTeamMembersInSector( iCounterA, iCounterB, ENEMY_TEAM ) > 0 && !SectorHasVIP( iCounterA, iCounterB ) )
 			{
 				possiblesectors.push_back( usSector );
 			}
