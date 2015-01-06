@@ -2814,8 +2814,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			{
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 				StrategicRemoveMilitiaFromSector( gpCivs[ i ].pSoldier->sSectorX, gpCivs[ i ].pSoldier->sSectorY, ubCurrentRank, 1 );
-//				ARRemoveMilitiaMan( gpAR->ubSectorX, gpAR->ubSectorY, ubCurrentRank );
-				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_NATIVE_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+
+				if( ProcessLoyalty() )
+					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_NATIVE_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 			}
 			else
 			{

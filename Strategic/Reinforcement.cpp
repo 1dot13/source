@@ -156,25 +156,6 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 	return ubResult;
 }
 
-UINT8 MilitiaInFiveSectorsOfRank( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
-{
-	UINT8 ubResult = 0;
-	UINT16 pusMoveDir[4][3];
-	UINT8 ubDirNumber, ubIndex;
-	
-	ubResult = MilitiaInSectorOfRank( sMapX, sMapY, ubRank );
-
-	if( !gGameExternalOptions.gfAllowReinforcements )
-		return ubResult;
-
-	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
-
-	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
-		ubResult += MilitiaInSectorOfRank( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ), ubRank );
-
-	return ubResult;
-}
-
 BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 {
 	UINT16 pusMoveDir[4][3];
@@ -196,37 +177,6 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 		ubRandom = Random( ubDirNumber );
 
 	return TRUE;
-}
-
-BOOLEAN ARRemoveMilitiaMan( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
-{
-	UINT16 pusMoveDir[4][3];
-	UINT8 ubDirNumber, ubRandom;
-
-	if( MilitiaInSectorOfRank( sMapX, sMapY, ubRank ) )
-	{
-		StrategicRemoveMilitiaFromSector( sMapX, sMapY, ubRank, 1 );
-		ARMoveBestMilitiaManFromAdjacentSector( sMapX, sMapY );
-		return TRUE;
-	}
-
-	if( !gGameExternalOptions.gfAllowReinforcements )
-		return FALSE;
-
-	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
-
-	for( ; ;  )
-	{
-		ubRandom = Random( ubDirNumber );
-		if( MilitiaInSectorOfRank( SECTORX( pusMoveDir[ ubRandom ][ 0 ] ), SECTORY( pusMoveDir[ ubRandom ][ 0 ] ), ubRank ) )
-		{
-			StrategicRemoveMilitiaFromSector( SECTORX( pusMoveDir[ ubRandom ][ 0 ] ), SECTORY( pusMoveDir[ ubRandom ][ 0 ] ), ubRank, 1 );
-			return TRUE;
-		}
-	}
-
-
-	return FALSE;
 }
 
 GROUP* GetEnemyGroupInSector( INT16 sMapX, INT16 sMapY )
