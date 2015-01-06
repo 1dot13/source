@@ -9,8 +9,8 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY);
 UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY );
 
 //For Tactical
-UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY );
+UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam );
 void AddPossiblePendingMilitiaToBattle();
-GROUP* GetEnemyGroupInSector( INT16 sMapX, INT16 sMapY );
+GROUP* GetNonPlayerGroupInSector( INT16 sMapX, INT16 sMapY, UINT8 usTeam );
 
 #endif

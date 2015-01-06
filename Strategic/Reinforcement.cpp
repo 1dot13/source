@@ -179,13 +179,13 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 	return TRUE;
 }
 
-GROUP* GetEnemyGroupInSector( INT16 sMapX, INT16 sMapY )
+GROUP* GetNonPlayerGroupInSector( INT16 sMapX, INT16 sMapY, UINT8 usTeam )
 {
 	GROUP *curr;
 	curr = gpGroupList;
 	while( curr )
 	{
-		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam != OUR_TEAM && curr->ubGroupID )
+		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam == usTeam && curr->ubGroupID )
 			return curr;
 		curr = curr->next;
 	}
@@ -193,7 +193,7 @@ GROUP* GetEnemyGroupInSector( INT16 sMapX, INT16 sMapY )
 }
 
 
-UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
+UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam )
 {
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber = 0, ubIndex;
@@ -204,16 +204,16 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return 255;
 
-	if ( ( GetTownIdForSector( sMapX, sMapY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
+	if ( usTeam == ENEMY_TEAM && ( GetTownIdForSector( sMapX, sMapY ) == OMERTA ) && (gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE) ) //Madd: skip Omerta //Lal: but not on insane ;-)
 		return 255;
 
 	pThisSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 
-	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+	for( ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 	{
-		while ((pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) ) != NULL)
+		while ( (pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam )) != NULL )
 		{
 			// Flugente: disease
 			PopulationMove( pGroup->ubSectorX, pGroup->ubSectorY, sMapX, sMapY, pGroup->ubGroupSize );
@@ -224,9 +224,16 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 			pGroup->ubSectorX = pGroup->ubNextX = (UINT8)sMapX;
 			pGroup->ubSectorY = pGroup->ubNextY = (UINT8)sMapY;
 
-			gfPendingEnemies = TRUE;
-			ResetMortarsOnTeamCount();
-			ResetNumSquadleadersInArmyGroup(); // added by SANDRO						
+			if ( usTeam == ENEMY_TEAM )
+			{
+				gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
+				ResetMortarsOnTeamCount();
+				ResetNumSquadleadersInArmyGroup(); // added by SANDRO	
+			}
+			else if ( usTeam == MILITIA_TEAM )
+			{
+				gfPendingNonPlayerTeam[MILITIA_TEAM] = TRUE;
+			}
 		}
 	}
 
@@ -234,7 +241,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	{
 		ubIndex = Random(ubDirNumber);
 
-		if ( NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) > gubReinforcementMinEnemyStaticGroupSize )
+		if ( usTeam == ENEMY_TEAM && NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam ) > gubReinforcementMinEnemyStaticGroupSize )
 		{
 			pSector = &SectorInfo[ pusMoveDir[ ubIndex ][ 0 ] ];
 
@@ -244,19 +251,22 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 				(pSector->ubNumElites)--;
 				(pThisSector->ubElitesInBattle)++;
 				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, 0, FALSE );
-			}else if( pSector->ubNumTroops )
+			}
+			else if( pSector->ubNumTroops )
 			{
 				(pThisSector->ubNumTroops)++;
 				(pSector->ubNumTroops)--;
 				(pThisSector->ubTroopsInBattle)++;
 				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, 0, FALSE );
-			}else if( pSector->ubNumAdmins )
+			}
+			else if( pSector->ubNumAdmins )
 			{
 				(pThisSector->ubNumAdmins)++;
 				(pSector->ubNumAdmins)--;
 				(pThisSector->ubAdminsInBattle)++;
 				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, 0, FALSE );
-			}else if( pSector->ubNumTanks )
+			}
+			else if( pSector->ubNumTanks )
 			{
 				(pThisSector->ubNumTanks)++;
 				(pSector->ubNumTanks)--;
@@ -265,6 +275,32 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 			}
 
 			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
+		}
+		// no required min size on militia groups
+		else if ( usTeam == MILITIA_TEAM && NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam ) )
+		{
+			pSector = &SectorInfo[pusMoveDir[ubIndex][0]];
+
+			if ( pSector->ubNumberOfCivsAtLevel[ELITE_MILITIA] )
+			{
+				(pThisSector->ubNumberOfCivsAtLevel[ELITE_MILITIA])++;
+				(pSector->ubNumberOfCivsAtLevel[ELITE_MILITIA])--;
+				AddMilitiaToBattle( NULL, (UINT8)pusMoveDir[ubIndex][2], 0, 0, 1, FALSE );
+			}
+			else if ( pSector->ubNumberOfCivsAtLevel[REGULAR_MILITIA] )
+			{
+				(pThisSector->ubNumberOfCivsAtLevel[REGULAR_MILITIA])++;
+				(pSector->ubNumberOfCivsAtLevel[REGULAR_MILITIA])--;
+				AddMilitiaToBattle( NULL, (UINT8)pusMoveDir[ubIndex][2], 0, 1, 0, FALSE );
+			}
+			else if ( pSector->ubNumberOfCivsAtLevel[GREEN_MILITIA] )
+			{
+				(pThisSector->ubNumberOfCivsAtLevel[GREEN_MILITIA])++;
+				(pSector->ubNumberOfCivsAtLevel[GREEN_MILITIA])--;
+				AddMilitiaToBattle( NULL, (UINT8)pusMoveDir[ubIndex][2], 1, 0, 0, FALSE );
+			}
+
+			return (UINT8)pusMoveDir[ubIndex][2];
 		}
 		else
 		{
@@ -391,9 +427,27 @@ void AddPossiblePendingMilitiaToBattle()
 			guiMilitiaReinforceTurn = guiMilitiaArrived = 0;
 //SendFmtMsg("Militia reinforcements: guiTurnCnt=%d guiReinforceTurn=%d guiArrived=%d", guiTurnCnt, guiMilitiaReinforceTurn, guiMilitiaArrived);
 	}
+
 	if( !ubSlots )
-	{ //no available slots to add militia  to.  Try again later...
+	{
+		//no available slots to add militia  to.  Try again later...
 		return;
+	}
+
+	if ( !gfPendingNonPlayerTeam[MILITIA_TEAM] )
+	{
+		//Optimization.  No point in checking for group reinforcements if we know that there aren't any more enemies that can
+		//be added to this battle.  This changes whenever a new enemy group arrives at the scene.
+		while ( ubSlots )
+		{
+			UINT8 ubInsertionCode = DoReinforcementAsPendingNonPlayer( gWorldSectorX, gWorldSectorY, MILITIA_TEAM );
+
+			if ( ubInsertionCode == 255 )
+				break;
+
+			// Assume we added one since there are supposedly more available and room for them
+			--ubSlots;
+		}
 	}
 
 	if( ubPredefinedInsertionCode != 255 && ubPredefinedRank != 255 &&
@@ -437,6 +491,13 @@ void AddPossiblePendingMilitiaToBattle()
 			AddPossiblePendingMilitiaToBattle();
 			gfStrategicMilitiaChangesMade = FALSE; // Handled them here
 		}
+	}
+	
+	if ( ubSlots )
+	{
+		//After going through the process, we have finished with some free slots and no more enemies to add.
+		//So, we can turn off the flag, as this check is no longer needed.
+		gfPendingNonPlayerTeam[MILITIA_TEAM] = FALSE;
 	}
 }
 

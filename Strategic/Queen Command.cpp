@@ -75,7 +75,7 @@ std::vector<SECTORINFO> SectorInfo (256);
 
 UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead = NULL;
 extern UNDERGROUND_SECTORINFO* gpUndergroundSectorInfoTail;
-BOOLEAN gfPendingEnemies = FALSE;
+BOOLEAN gfPendingNonPlayerTeam[PLAYER_PLAN] = {FALSE, FALSE, FALSE, FALSE, FALSE};
 UINT32 guiTurnCnt = 0, guiReinforceTurn = 0, guiArrived = 0;//dnl ch68 080913
 extern void BuildUndergroundSectorInfoList();
 
@@ -572,7 +572,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	unsigned totalCountOfMobileEnemies = 0;
 	int sNumSlots;
 
-	gfPendingEnemies = FALSE;
+	gfPendingNonPlayerTeam[ENEMY_TEAM] = FALSE;
 
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
@@ -601,9 +601,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 			{
-				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
+				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ) ) && GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM ) )
 				{
-					pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) );
+					pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM );
 
 					pGroup->ubPrevX = pGroup->ubSectorX;
 					pGroup->ubPrevY = pGroup->ubSectorY;
@@ -653,7 +653,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	if (mapMaximumNumberOfEnemies > gGameExternalOptions.ubGameMaximumNumberOfEnemies)
 		mapMaximumNumberOfEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 
-	gfPendingEnemies = (NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) > mapMaximumNumberOfEnemies);
+	gfPendingNonPlayerTeam[ENEMY_TEAM] = (NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) > mapMaximumNumberOfEnemies);
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 
@@ -798,7 +798,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{ //adjust the value to zero
 					ubNumAdmins += sNumSlots;
 					sNumSlots = 0;
-					gfPendingEnemies = TRUE;
+					gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 				}
 				pGroup->pEnemyGroup->ubAdminsInBattle += ubNumAdmins;
 				ubTotalAdmins += ubNumAdmins;
@@ -812,7 +812,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{ //adjust the value to zero
 					ubNumTroops += sNumSlots;
 					sNumSlots = 0;
-					gfPendingEnemies = TRUE;
+					gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 				}
 				pGroup->pEnemyGroup->ubTroopsInBattle += ubNumTroops;
 				ubTotalTroops += ubNumTroops;
@@ -826,7 +826,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{ //adjust the value to zero
 					ubNumElites += sNumSlots;
 					sNumSlots = 0;
-					gfPendingEnemies = TRUE;
+					gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 				}
 				pGroup->pEnemyGroup->ubElitesInBattle += ubNumElites;
 				ubTotalElites += ubNumElites;
@@ -840,7 +840,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{ //adjust the value to zero
 					ubNumTanks += sNumSlots;
 					sNumSlots = 0;
-					gfPendingEnemies = TRUE;
+					gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 				}
 				pGroup->pEnemyGroup->ubTanksInBattle += ubNumTanks;
 				ubTotalTanks += ubNumTanks;
@@ -1159,7 +1159,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
-						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumElites != pGroup->pEnemyGroup->ubElitesInBattle && !gfPendingEnemies ||
+						if ( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumElites != pGroup->pEnemyGroup->ubElitesInBattle && !gfPendingNonPlayerTeam[ENEMY_TEAM] ||
 								pGroup->ubGroupSize > iMaxEnemyGroupSize /* || pGroup->pEnemyGroup->ubNumElites > 50 || pGroup->pEnemyGroup->ubElitesInBattle > 50*/ )
 						{
 							DoScreenIndependantMessageBox( L"Group elite counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
@@ -1185,7 +1185,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
-						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumTroops != pGroup->pEnemyGroup->ubTroopsInBattle && !gfPendingEnemies ||
+						if ( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumTroops != pGroup->pEnemyGroup->ubTroopsInBattle && !gfPendingNonPlayerTeam[ENEMY_TEAM] ||
 								pGroup->ubGroupSize > iMaxEnemyGroupSize /*|| pGroup->pEnemyGroup->ubNumTroops > 50 || pGroup->pEnemyGroup->ubTroopsInBattle > 50*/ )
 						{
 							// haydent
@@ -1216,7 +1216,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
-						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumAdmins != pGroup->pEnemyGroup->ubAdminsInBattle && !gfPendingEnemies ||
+						if ( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumAdmins != pGroup->pEnemyGroup->ubAdminsInBattle && !gfPendingNonPlayerTeam[ENEMY_TEAM] ||
 						pGroup->ubGroupSize > iMaxEnemyGroupSize /*|| pGroup->pEnemyGroup->ubNumAdmins > 50 || pGroup->pEnemyGroup->ubAdminsInBattle > 50*/ )
 						{
 							DoScreenIndependantMessageBox( L"Group admin counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
@@ -1580,7 +1580,7 @@ void AddPossiblePendingEnemiesToBattle()
 		return;
 	}
 
-	if( !gfPendingEnemies )
+	if ( !gfPendingNonPlayerTeam[ENEMY_TEAM] )
 	{
 		//Optimization.  No point in checking for group reinforcements if we know that there aren't any more enemies that can
 		//be added to this battle.  This changes whenever a new enemy group arrives at the scene.
@@ -1590,7 +1590,7 @@ void AddPossiblePendingEnemiesToBattle()
 			UINT8 ubInsertionCode = 255;
 
 			if( gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition == TRUE )
-				ubInsertionCode = DoReinforcementAsPendingEnemy( gWorldSectorX, gWorldSectorY );
+				ubInsertionCode = DoReinforcementAsPendingNonPlayer( gWorldSectorX, gWorldSectorY, ENEMY_TEAM );
 
 			if (ubInsertionCode == 255)
 			{
@@ -1693,7 +1693,7 @@ void AddPossiblePendingEnemiesToBattle()
 				ubStrategicInsertionCode = INSERTION_CODE_NORTH + Random( 4 );
 
 			AddEnemiesToBattle( 0, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, FALSE );
-			gfPendingEnemies = TRUE;
+			gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 		}
 	}
 
@@ -1817,9 +1817,10 @@ void AddPossiblePendingEnemiesToBattle()
 	MemFree( pGroupInSectorList);
 
 	if( ubSlots )
-	{ //After going through the process, we have finished with some free slots and no more enemies to add.
-    //So, we can turn off the flag, as this check is no longer needed.
-		gfPendingEnemies = FALSE;
+	{
+		//After going through the process, we have finished with some free slots and no more enemies to add.
+		//So, we can turn off the flag, as this check is no longer needed.
+		gfPendingNonPlayerTeam[ENEMY_TEAM] = FALSE;
 	}
 }
 
@@ -1886,11 +1887,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	UINT8 ubCurrSlot;
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
-
-#ifdef JA2UB
-	UINT8	ubCnt;
-#endif
-
+	
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -1899,9 +1896,9 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		case INSERTION_CODE_WEST:		bDesiredDirection = NORTHEAST;										break;
 		default:  AssertMsg( 0, "Illegal direction passed to AddEnemiesToBattle()" );	break;
 	}
-	#ifdef JA2TESTVERSION
-		ScreenMsg( FONT_RED, MSG_INTERFACE, L"Enemy reinforcements have arrived!  (%d admins, %d troops, %d elite)", ubNumAdmins, ubNumTroops, ubNumElites );
-	#endif
+#ifdef JA2TESTVERSION
+	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Enemy reinforcements have arrived!  (%d admins, %d troops, %d elite)", ubNumAdmins, ubNumTroops, ubNumElites );
+#endif
 
 	if( fMagicallyAppeared )
 	{ //update the strategic counters
@@ -1938,14 +1935,12 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 
 	ubTotalSoldiers = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
 	
-	#ifdef JA2UB
+#ifdef JA2UB
 	if( gsGridNoForMapEdgePointInfo != -1 )
 	{
 		ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 	}
-	#endif
-	
-	#ifdef JA2UB
+
 	if( ubStrategicInsertionCode == INSERTION_CODE_GRIDNO )
 	{
 		if( gsGridNoForMapEdgePointInfo == -1 )
@@ -1954,7 +1949,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			gsGridNoForMapEdgePointInfo=0;
 		}
 
-		for( ubCnt=0; ubCnt<32;ubCnt++)
+		for( UINT8 ubCnt=0; ubCnt<32; ++ubCnt)
 		{
 			MapEdgepointInfo.sGridNo[ ubCnt ] = gsGridNoForMapEdgePointInfo;
 		}
@@ -1964,12 +1959,11 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	}
 	else
 	{
-		ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumAdmins+ubNumElites+ubNumTroops+ubNumTanks) );
+		ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, ubTotalSoldiers );
 	}
-	#else
-	    ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumAdmins+ubNumElites+ubNumTroops+ubNumTanks) );
-	#endif
-	
+#else
+	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, ubTotalSoldiers );
+#endif	
 	
 	ubCurrSlot = 0;
 	while( ubTotalSoldiers )
@@ -2082,12 +2076,173 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		}
 	}
 	
-	#ifdef JA2UB
-		gsGridNoForMapEdgePointInfo = -1;
-	#endif
+#ifdef JA2UB
+	gsGridNoForMapEdgePointInfo = -1;
+#endif
 }
 
+void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumGreens, UINT8 ubNumRegulars, UINT8 ubNumElites, BOOLEAN fMagicallyAppeared )
+{
+	SOLDIERTYPE *pSoldier;
+	MAPEDGEPOINTINFO MapEdgepointInfo;
+	UINT8 ubCurrSlot;
+	UINT8 ubTotalSoldiers;
+	UINT8 bDesiredDirection = 0;
 
+	switch ( ubStrategicInsertionCode )
+	{
+	case INSERTION_CODE_NORTH:		bDesiredDirection = SOUTHEAST;					break;
+	case INSERTION_CODE_EAST:		bDesiredDirection = SOUTHWEST;					break;
+	case INSERTION_CODE_SOUTH:		bDesiredDirection = NORTHWEST;					break;
+	case INSERTION_CODE_WEST:		bDesiredDirection = NORTHEAST;					break;
+	default:  AssertMsg( 0, "Illegal direction passed to AddEnemiesToBattle()" );	break;
+	}
+#ifdef JA2TESTVERSION
+	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Militia reinforcements have arrived!  (%d greens, %d regulars, %d elite)", ubNumGreens, ubNumRegulars, ubNumElites );
+#endif
+
+	if ( fMagicallyAppeared )
+	{
+		//update the strategic counters
+		if ( !gbWorldSectorZ )
+		{
+			SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+			pSector->ubNumberOfCivsAtLevel[GREEN_MILITIA] += ubNumGreens;
+			pSector->ubNumberOfCivsAtLevel[REGULAR_MILITIA] += ubNumRegulars;
+			pSector->ubNumberOfCivsAtLevel[ELITE_MILITIA] += ubNumElites;
+		}
+		else
+		{
+			// there are no underground militia... error if this ever happens
+			AssertMsg( 0, "Tried to add militia to an underground sector" );
+		}
+	}
+
+	ubTotalSoldiers = ubNumGreens + ubNumRegulars + ubNumElites;
+
+#ifdef JA2UB
+	if ( gsGridNoForMapEdgePointInfo != -1 )
+	{
+		ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	}
+
+	if ( ubStrategicInsertionCode == INSERTION_CODE_GRIDNO )
+	{
+		if ( gsGridNoForMapEdgePointInfo == -1 )
+		{
+			Assert( 0 );
+			gsGridNoForMapEdgePointInfo = 0;
+		}
+
+		for ( UINT8 ubCnt = 0; ubCnt<32; ++ubCnt )
+		{
+			MapEdgepointInfo.sGridNo[ubCnt] = gsGridNoForMapEdgePointInfo;
+		}
+
+		MapEdgepointInfo.ubNumPoints = 32;
+		MapEdgepointInfo.ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	}
+	else
+	{
+		ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, ubTotalSoldiers );
+	}
+#else
+	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (ubTotalSoldiers) );
+#endif	
+
+	ubCurrSlot = 0;
+	while ( ubTotalSoldiers )
+	{
+		if ( ubNumElites && Random( ubTotalSoldiers ) < ubNumElites )
+		{
+			ubNumElites--;
+			ubTotalSoldiers--;
+			Assert( pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_ELITE_MILITIA, gWorldSectorX, gWorldSectorY ) );
+			if ( pGroup )
+			{
+				pSoldier->ubGroupID = pGroup->ubGroupID;
+			}
+
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+			//Setup the position
+			if ( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ubCurrSlot++];
+			}
+			else
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		else if ( ubNumRegulars && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumRegulars) )
+		{
+			ubNumRegulars--;
+			ubTotalSoldiers--;
+			Assert( pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_REG_MILITIA, gWorldSectorX, gWorldSectorY ) );
+			if ( pGroup )
+			{
+				pSoldier->ubGroupID = pGroup->ubGroupID;
+			}
+
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+			//Setup the position
+			if ( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ubCurrSlot++];
+			}
+			else
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		else if ( ubNumGreens && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumRegulars + ubNumGreens) )
+		{
+			ubNumGreens--;
+			ubTotalSoldiers--;
+			Assert( pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_GREEN_MILITIA, gWorldSectorX, gWorldSectorY ) );
+			if ( pGroup )
+			{
+				pSoldier->ubGroupID = pGroup->ubGroupID;
+			}
+
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+			//Setup the position
+			if ( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ubCurrSlot++];
+			}
+			else
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+
+		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.
+		if ( gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2 )
+		{
+			pSoldier->bActionPoints = 0;
+
+			// Flugente: due to a fix, also note here that the reinforcements get no APs.
+			pSoldier->usSoldierFlagMask |= SOLDIER_NO_AP;
+
+			// Flugente: campaign stats
+			if ( IsOurSoldier( pSoldier ) )
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_PLAYERSIDE;
+			else
+				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_ENEMY;
+		}
+	}
+
+#ifdef JA2UB
+	gsGridNoForMapEdgePointInfo = -1;
+#endif
+}
 
 
 BOOLEAN SaveUnderGroundSectorInfoToSaveGame( HWFILE hFile )
@@ -2627,21 +2782,42 @@ BOOLEAN OnlyHostileCivsInSector()
 	return TRUE;
 }
 
-BOOLEAN CheckPendingEnemies()
+// Flugente check whether a team has nearby members that can be added to the current battle
+// Note that this requires separate counts of teammembers in the sector and those that are actually fighting
+// This currently does not exist for MILITIA_TEAM, making such a check relatively useless
+BOOLEAN CheckPendingNonPlayerTeam( UINT8 usTeam )
 {
-	if( gbWorldSectorZ ) return FALSE;
-	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-	if( (pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks) > ( pSector->ubElitesInBattle + pSector->ubTroopsInBattle + pSector->ubAdminsInBattle + pSector->ubTanksInBattle) )
-		return TRUE;
-	for (GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
+	if( gbWorldSectorZ )
+		return FALSE;
+
+	SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+
+	if ( usTeam == ENEMY_TEAM )
 	{
-		if ( pGroup->usGroupTeam != OUR_TEAM
-			&& !pGroup->fVehicle 
-			&& pGroup->ubSectorX == gWorldSectorX 
-			&& pGroup->ubSectorY == gWorldSectorY
-			&& pGroup->ubGroupSize > pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle + pGroup->pEnemyGroup->ubTanksInBattle)
+		if( (pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks) > ( pSector->ubElitesInBattle + pSector->ubTroopsInBattle + pSector->ubAdminsInBattle + pSector->ubTanksInBattle) )
 			return TRUE;
 	}
+
+	for (GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
+	{
+		if ( pGroup->usGroupTeam == usTeam
+			&& !pGroup->fVehicle 
+			&& pGroup->ubSectorX == gWorldSectorX 
+			&& pGroup->ubSectorY == gWorldSectorY )
+		{
+			if ( usTeam == ENEMY_TEAM )
+			{
+				if ( pGroup->ubGroupSize > pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle + pGroup->pEnemyGroup->ubTanksInBattle )
+					return TRUE;
+			}
+			else if ( usTeam == MILITIA_TEAM )
+			{
+				if ( pGroup->ubGroupSize > pSector->ubNumberOfCivsAtLevel[GREEN_MILITIA] + pSector->ubNumberOfCivsAtLevel[REGULAR_MILITIA] + pSector->ubNumberOfCivsAtLevel[ELITE_MILITIA] )
+					return TRUE;
+			}
+		}
+	}
+
 	return FALSE;
 }
 

@@ -3489,12 +3489,16 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ScreenMsg( FONT_YELLOW, MSG_INTERFACE, Message[ STR_PLAYER_REINFORCEMENTS ] );
 
 	}
-	else
+	else if ( pGroup->usGroupTeam == ENEMY_TEAM )
 	{
-		gfPendingEnemies = TRUE;
+		gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 		ResetMortarsOnTeamCount();
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
+	}
+	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		gfPendingNonPlayerTeam[MILITIA_TEAM] = TRUE;
 		AddPossiblePendingMilitiaToBattle( );
 	}
 

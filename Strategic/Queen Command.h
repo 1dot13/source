@@ -9,7 +9,7 @@
 
 
 
-extern BOOLEAN gfPendingEnemies;
+extern BOOLEAN gfPendingNonPlayerTeam[PLAYER_PLAN];
 
 
 UINT8 NumFreeSlots( UINT8 ubTeam );
@@ -37,6 +37,7 @@ BOOLEAN PrepareEnemyForSectorBattle();
 BOOLEAN PrepareEnemyForUndergroundBattle();
 
 void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, BOOLEAN fMagicallyAppeared );
+void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumGreens, UINT8 ubNumRegulars, UINT8 ubNumElites, BOOLEAN fMagicallyAppeared );
 void AddPossiblePendingEnemiesToBattle();
 void EndTacticalBattleForEnemy();
 
@@ -64,7 +65,10 @@ BOOLEAN OnlyHostileCivsInSector();
 extern	INT32		gsGridNoForMapEdgePointInfo;
 #endif
 
-BOOLEAN CheckPendingEnemies();
+// Flugente check whether a team has nearby members that can be added to the current battle
+// Note that this requires separate counts of teammembers in the sector and those that are actually fighting
+// This currently does not exist for MILITIA_TEAM, making such a check relatively useless
+BOOLEAN CheckPendingNonPlayerTeam(UINT8 usTeam);
 
 extern UINT32 guiTurnCnt, guiReinforceTurn, guiMilitiaReinforceTurn;//dnl ch68 080913
 

@@ -7055,12 +7055,13 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
     //NEW (Nov 24, 98)  by Kris
     if( !gbWorldSectorZ && fBattleWon )
-    { //Check to see if more enemy soldiers exist in the strategic layer
+    {
+		//Check to see if more enemy soldiers exist in the strategic layer
         //It is possible to have more than 20 enemies in a sector.  By failing here,
         //it gives the engine a chance to add these soldiers as reinforcements. This
         //is naturally handled.
         AddPossiblePendingEnemiesToBattle();
-        if( gfPendingEnemies )
+		if ( gfPendingNonPlayerTeam[ENEMY_TEAM] )
         {
             fBattleWon = FALSE;
         }
