@@ -142,7 +142,7 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
 	
-	ubResult = CountAllMilitiaInSector( sMapX, sMapY );
+	ubResult = NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM );
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return ubResult;
@@ -150,7 +150,7 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 
 	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
-		ubResult += CountAllMilitiaInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) );
+		ubResult += NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), MILITIA_TEAM );
 
 
 	return ubResult;
@@ -184,8 +184,8 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
 
-	if( CountAllMilitiaInSector( sMapX, sMapY ) >= gGameExternalOptions.iMaxMilitiaPerSector ||
-		CountAllMilitiaInFiveSectors( sMapX, sMapY ) - CountAllMilitiaInSector( sMapX, sMapY ) == 0 )
+	if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) >= gGameExternalOptions.iMaxMilitiaPerSector ||
+		CountAllMilitiaInFiveSectors( sMapX, sMapY ) - NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) == 0 )
 		return FALSE;
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
@@ -356,7 +356,7 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 
-	if( CountAllMilitiaInFiveSectors( sMapX, sMapY ) - CountAllMilitiaInSector( sMapX, sMapY ) == 0 )
+	if ( CountAllMilitiaInFiveSectors( sMapX, sMapY ) - NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) == 0 )
 	{
 		*pubRank = 255;
 		return 255;
@@ -364,7 +364,7 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 		for(;;)
 		{
 			ubIndex = Random(ubDirNumber);
-			if( CountAllMilitiaInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
+			if ( NumNonPlayerTeamMembersInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), MILITIA_TEAM ) )
 			{
 				pSector = &SectorInfo[ pusMoveDir[ ubIndex ][ 0 ] ];
 
@@ -460,7 +460,7 @@ void AddPossiblePendingMilitiaToBattle()
 	}
 
 	if( ubPredefinedInsertionCode != 255 && ubPredefinedRank != 255 &&
-		CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
+		NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, MILITIA_TEAM ) )
 	{
 		ubNumElites = ubNumRegulars = ubNumGreens = 0;
 

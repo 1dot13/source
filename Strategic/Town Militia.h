@@ -47,7 +47,6 @@ UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8
 // call this if the player attacks his own militia
 void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY);
 
-UINT8 CountAllMilitiaInSector(INT16 sMapX, INT16 sMapY);
 UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank);
 
 // Returns TRUE if sector is under player control, has no enemies in it, and isn't currently in combat mode

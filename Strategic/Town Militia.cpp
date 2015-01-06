@@ -168,7 +168,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 		while (ubMilitiaTrained < iTrainingSquadSize)
 		{
 			// is there room for another militia in the training sector itself?
-			if (CountAllMilitiaInSector(sMapX, sMapY) < iMaxMilitiaPerSector)
+			if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) < iMaxMilitiaPerSector )
 			{
 				// great! Create a new GREEN militia guy in the training sector
 				StrategicAddMilitiaToSector(sMapX, sMapY, GREEN_MILITIA, 1);
@@ -189,7 +189,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 					while( ServeNextFriendlySectorInTown( &sNeighbourX, &sNeighbourY ) )
 					{
 						// is there room for another militia in this neighbouring sector ?
-						if (CountAllMilitiaInSector(sNeighbourX, sNeighbourY) < iMaxMilitiaPerSector)
+						if ( NumNonPlayerTeamMembersInSector( sNeighbourX, sNeighbourY, MILITIA_TEAM ) < iMaxMilitiaPerSector )
 						{
 							// great! Create a new GREEN militia guy in the neighbouring sector
 							StrategicAddMilitiaToSector(sNeighbourX, sNeighbourY, GREEN_MILITIA, 1);
@@ -546,21 +546,6 @@ void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 			}
 		}
 	}
-}
-
-
-UINT8 CountAllMilitiaInSector(INT16 sMapX, INT16 sMapY)
-{
-	UINT8 ubMilitiaTotal = 0;
-	UINT8 ubRank;
-
-	// find out if there are any town militia in this SECTOR (don't care about other sectors in same town)
-	for( ubRank = 0; ubRank < MAX_MILITIA_LEVELS; ubRank++ )
-	{
-		ubMilitiaTotal += MilitiaInSectorOfRank(sMapX, sMapY, ubRank);
-	}
-
-	return(ubMilitiaTotal);
 }
 
 

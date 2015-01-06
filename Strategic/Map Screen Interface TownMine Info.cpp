@@ -800,7 +800,7 @@ void AddCommonInfoToBox(void)
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 11 ] );
 		AddMonoString( &hStringHandle, wString );
 
-		ubMilitiaTotal = CountAllMilitiaInSector(bCurrentTownMineSectorX, bCurrentTownMineSectorY);
+		ubMilitiaTotal = NumNonPlayerTeamMembersInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, MILITIA_TEAM );
 		if (ubMilitiaTotal > 0)
 		{
 			// some militia, show total & their breakdown by level

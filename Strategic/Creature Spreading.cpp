@@ -31,6 +31,7 @@
 	#include "Strategic AI.h"
 	#include "MessageBoxScreen.h"
 	#include "Map Information.h"
+	#include "Queen Command.h"
 #endif
 
 #include "Strategic Mines.h"
@@ -1115,9 +1116,10 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			gubCreatureBattleCode = CREATURE_BATTLE_CODE_PREBATTLEINTERFACE;
 		}
 	}
-	else if( CountAllMilitiaInSector( ubSectorX, ubSectorY ) )
-	{ //we have militia in the sector
-	gubCreatureBattleCode = CREATURE_BATTLE_CODE_AUTORESOLVE;
+	else if ( NumNonPlayerTeamMembersInSector( ubSectorX, ubSectorY, MILITIA_TEAM ) )
+	{
+		//we have militia in the sector
+		gubCreatureBattleCode = CREATURE_BATTLE_CODE_AUTORESOLVE;
 	}
 	else if( !StrategicMap[ ubSectorX + MAP_WORLD_X * ubSectorY ].fEnemyControlled )
 	{ //player controlled sector -- eat some civilians

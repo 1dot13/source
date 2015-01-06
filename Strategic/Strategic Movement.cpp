@@ -749,7 +749,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 #ifdef JA2BETAVERSION
 	{
 		CHAR16 str[ 512 ];
-		if( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || CountAllMilitiaInSector( pNew->ubSectorX, pNew->ubSectorY ) )
+		if ( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || NumNonPlayerTeamMembersInSector( pNew->ubSectorX, pNew->ubSectorY, MILITIA_TEAM ) )
 		{
 			swprintf( str, L"Attempting to send enemy troops from player occupied location.	"
 										L"Please ALT+TAB out of the game before doing anything else and send 'Strategic Decisions.txt' "
@@ -1173,7 +1173,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 	}
 	else
 	{
-		if( CountAllMilitiaInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
+		if ( NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, MILITIA_TEAM ) )
 		{
 			fMilitiaPresent = TRUE;
 			fBattlePending = TRUE;

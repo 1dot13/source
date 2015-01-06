@@ -2015,7 +2015,7 @@ BOOLEAN IsThereMilitiaInAdjacentSector( INT16 sMapX, INT16 sMapY )
 	GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, TRUE );
 
 	for( x = 0; x < uiDirNumber ; ++x )
-		if( CountAllMilitiaInSector( SECTORX( pMoveDir[ x ][ 0 ] ), SECTORY( pMoveDir[ x ][ 0 ] ) ) )
+	if ( NumNonPlayerTeamMembersInSector( SECTORX( pMoveDir[x][0] ), SECTORY( pMoveDir[x][0] ), MILITIA_TEAM ) )
 			fResult = TRUE;
 
 	return fResult;

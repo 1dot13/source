@@ -2461,7 +2461,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 			}
-			else if( CountAllMilitiaInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY-1) ) &&
+			else if ( NumNonPlayerTeamMembersInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY - 1), MILITIA_TEAM ) &&
 							AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandleMilitiaNoticedByPatrolGroup( (UINT8)SECTOR( pEnemyGroup->ubSectorX, pEnemyGroup->ubSectorY-1 ), pEnemyGroup );
@@ -2479,7 +2479,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 			}
-			else if( CountAllMilitiaInSector( (UINT8)(pEnemyGroup->ubSectorX-1), pEnemyGroup->ubSectorY ) &&
+			else if ( NumNonPlayerTeamMembersInSector( (UINT8)(pEnemyGroup->ubSectorX - 1), pEnemyGroup->ubSectorY, MILITIA_TEAM ) &&
 							AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandleMilitiaNoticedByPatrolGroup( (UINT8)SECTOR( pEnemyGroup->ubSectorX-1, pEnemyGroup->ubSectorY ), pEnemyGroup );
@@ -2497,7 +2497,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 			}
-			else if( CountAllMilitiaInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY+1) ) &&
+			else if ( NumNonPlayerTeamMembersInSector( pEnemyGroup->ubSectorX, (UINT8)(pEnemyGroup->ubSectorY + 1), MILITIA_TEAM ) &&
 							AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandleMilitiaNoticedByPatrolGroup( (UINT8)SECTOR( pEnemyGroup->ubSectorX, pEnemyGroup->ubSectorY+1 ), pEnemyGroup );
@@ -2515,7 +2515,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			{
 				return HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 			}
-			else if( CountAllMilitiaInSector( (UINT8)(pEnemyGroup->ubSectorX+1), pEnemyGroup->ubSectorY ) &&
+			else if ( NumNonPlayerTeamMembersInSector( (UINT8)(pEnemyGroup->ubSectorX + 1), pEnemyGroup->ubSectorY, MILITIA_TEAM ) &&
 							AttemptToNoticeAdjacentGroupSucceeds() )
 			{
 				return HandleMilitiaNoticedByPatrolGroup( (UINT8)SECTOR( pEnemyGroup->ubSectorX+1, pEnemyGroup->ubSectorY ), pEnemyGroup );
@@ -6067,7 +6067,7 @@ BOOLEAN GarrisonCanProvideMinimumReinforcements( INT32 iGarrisonID )
 		//If so, do not provide reinforcements from here.
 		ubSectorX = (UINT8)SECTORX( gGarrisonGroup[ iGarrisonID ].ubSectorID );
 		ubSectorY = (UINT8)SECTORY( gGarrisonGroup[ iGarrisonID ].ubSectorID );
-		if( PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) || CountAllMilitiaInSector( ubSectorX, ubSectorY ) )
+		if ( PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) || NumNonPlayerTeamMembersInSector( ubSectorX, ubSectorY, MILITIA_TEAM ) )
 		{
 			return FALSE;
 		}

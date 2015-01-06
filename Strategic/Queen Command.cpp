@@ -1528,7 +1528,7 @@ void AddPossiblePendingEnemiesToBattle()
 		}
 	}
 
-	if( ( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
+	if ( (!PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, MILITIA_TEAM ))
 		|| !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) )
 		return;
 
@@ -1673,13 +1673,13 @@ void AddPossiblePendingEnemiesToBattle()
 
 			if( ubStrategicInsertionCode == 255 )
 			{
-				if( !CountAllMilitiaInSector( gWorldSectorX + 1, gWorldSectorY ) )
+				if ( !NumNonPlayerTeamMembersInSector( gWorldSectorX + 1, gWorldSectorY, MILITIA_TEAM ) )
 					ubStrategicInsertionCode = INSERTION_CODE_EAST;
-				else if( !CountAllMilitiaInSector( gWorldSectorX - 1, gWorldSectorY ) )
+				else if ( !NumNonPlayerTeamMembersInSector( gWorldSectorX - 1, gWorldSectorY, MILITIA_TEAM ) )
 					ubStrategicInsertionCode = INSERTION_CODE_WEST;
-				else if( !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY + 1 ) )
+				else if ( !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY + 1, MILITIA_TEAM ) )
 					ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
-				else if( !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY - 1 ) )
+				else if ( !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY - 1, MILITIA_TEAM ) )
 					ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 			}
 

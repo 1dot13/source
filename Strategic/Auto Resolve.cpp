@@ -4103,10 +4103,11 @@ void CalculateAttackValues()
 			pCell->usNextAttack += (UINT32)(( i - 4 ) * 2000 );
 		}
 
-
-		if( i >= CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY	) )
-		{ //Extra delay if soldier's from reinforcement
-			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY	);
+		UINT8 militiainsector = NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, MILITIA_TEAM );
+		if ( i >= militiainsector )
+		{
+			//Extra delay if soldier's from reinforcement
+			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * militiainsector;
 		}
 
 
@@ -5661,7 +5662,7 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 		for(int sY = 1; sY < ( MAP_WORLD_Y - 1); sY++ ) {
 			// Check if there is a sector where enemies retreated to and there are also militia present
 			if ( (NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) > 0) &&
-				(CountAllMilitiaInSector(sX, sY) > 0) &&
+				 (NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) > 0) &&
 				(!gTacticalStatus.fEnemyInSector)) {
 				unsigned mercCnt = 0;
 				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ ) {

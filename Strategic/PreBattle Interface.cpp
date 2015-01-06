@@ -408,7 +408,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
 			}
 		}
-		else if ( pBattleGroup && pBattleGroup->usGroupTeam != OUR_TEAM && CountAllMilitiaInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY ) > 0 )
+		else if ( pBattleGroup && pBattleGroup->usGroupTeam != OUR_TEAM && NumNonPlayerTeamMembersInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY, MILITIA_TEAM ) > 0 )
 		{
 			gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 		}
@@ -1268,7 +1268,7 @@ void RenderPreBattleInterface()
 		x = 142 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
 		mprintf( x + xResOffset, y + yResOffset, str );
 		//militia
-		swprintf( str, L"%d", CountAllMilitiaInSector( gubPBSectorX, gubPBSectorY ) );
+		swprintf( str, L"%d", NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, MILITIA_TEAM ) );
 		x = 227 + (27 - StringPixLength( str, FONT14ARIAL )) / 2;
 		mprintf( x + xResOffset, y + yResOffset, str );
 		SetFontShadow( FONT_NEARBLACK );
@@ -1533,8 +1533,10 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 
 			// NOTE: this code assumes you can never retreat while underground
 			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_PBI, gubPBSectorX, gubPBSectorY, 0 );
-			if( CountAllMilitiaInSector( gubPBSectorX, gubPBSectorY ) )
-			{ //Mercs retreat, but enemies still need to fight the militia
+
+			if ( NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, MILITIA_TEAM ) )
+			{
+				//Mercs retreat, but enemies still need to fight the militia
 				gfEnterAutoResolveMode = TRUE;
 				return;
 			}

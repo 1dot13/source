@@ -3487,7 +3487,7 @@ BOOLEAN GetFarthestOpponent(SOLDIERTYPE *pSoldier, UINT8* puID, INT16 sRange)
 BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY, INT8 aZ)
 {
 	UINT16 enemyteam = NumEnemiesInFiveSectors(aX, aY) - NumEnemiesInAnySector(aX, aY, aZ);
-	UINT16 militiateam = CountAllMilitiaInFiveSectors(aX, aY) - CountAllMilitiaInSector(aX, aY);
+	UINT16 militiateam = CountAllMilitiaInFiveSectors( aX, aY ) - NumNonPlayerTeamMembersInSector( aX, aY, MILITIA_TEAM );
 
 	if ( ausTeam == ENEMY_TEAM )
 		return (enemyteam > militiateam);

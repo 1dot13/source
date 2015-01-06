@@ -10,6 +10,7 @@
 #include "Isometric Utils.h"
 #include "DisplayCover.h"
 #include "worldman.h"
+#include "Queen Command.h"
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
@@ -459,8 +460,6 @@ ArtilleryTeam::Functions( UINT32 aVal )
 /////////////////////////////// Artillery Team Selection ////////////////////////////////////////////
 
 /////////////////////////////// Reinforcement Sector Selection ////////////////////////////////////////////
-extern UINT8 CountAllMilitiaInSector(INT16 sMapX, INT16 sMapY);
-
 void
 ReinforcementSector::Setup( UINT32 aVal )
 {
@@ -502,7 +501,7 @@ ReinforcementSector::Setup( UINT32 aVal )
 			pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Setup_ReinforcementNumber, sectornr ) );
 
 			// grey out if no reinforcements can be called from this sector
-			if( !CountAllMilitiaInSector( loopX, loopY ) )
+			if ( !NumNonPlayerTeamMembersInSector( loopX, loopY, MILITIA_TEAM ) )
 			{
 				// Set this option off.
 				pOption->setAvail(new popupCallbackFunction<bool,void*>( &Popup_OptionOff, NULL ));
@@ -544,7 +543,7 @@ ReinforcementNumber::Setup( UINT32 aVal )
 
 		CHAR16 pStr[300];
 		
-		UINT8 numberofmilitia = CountAllMilitiaInSector( SECTORX(usSector), SECTORY(usSector) );
+		UINT8 numberofmilitia = NumNonPlayerTeamMembersInSector( SECTORX( usSector ), SECTORY( usSector ), MILITIA_TEAM );
 		
 		// 5 militia option
 		swprintf( pStr, pSkillMenuStrings[SKILLMENU_X_MILITIA], 5 );

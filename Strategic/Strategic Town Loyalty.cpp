@@ -2047,7 +2047,7 @@ UINT32 EnemyStrength( void )
 //as a serious loyalty penalty.
 void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
-	if( CountAllMilitiaInSector( sSectorX, sSectorY ) )
+	if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
 	{ //Big morale penalty!
 		HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ABANDON_MILITIA, sSectorX, sSectorY, (INT8)sSectorZ );
 	}
