@@ -277,22 +277,6 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	return 255;
 }
 
-
-UINT8 NumFreeMilitiaSlots()
-{
-	UINT8 ubNumFreeSlots = 0;
-	INT32 i;
-	SOLDIERTYPE *pSoldier;
-	//Count the number of free militia slots.  It is possible to have multiple groups exceed the maximum.
-	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM].bLastID; i++ )
-	{
-		pSoldier = &Menptr[ i ];
-		if( !pSoldier->bActive )
-			ubNumFreeSlots++;
-	}
-	return max( 0 , ubNumFreeSlots - ( gGameExternalOptions.ubGameMaximumNumberOfRebels - gGameExternalOptions.iMaxMilitiaPerSector ) );
-}
-
 UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank )
 {
 	UINT16 pusMoveDir[4][3];
@@ -310,7 +294,9 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 	{
 		*pubRank = 255;
 		return 255;
-	}else
+	}
+	else
+	{
 		for(;;)
 		{
 			ubIndex = Random(ubDirNumber);
@@ -338,6 +324,7 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 				return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 			}
 		}
+	}
 }
 
 
@@ -369,7 +356,7 @@ void AddPossiblePendingMilitiaToBattle()
 		) 
 		return;
 	//gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );
-	ubSlots = NumFreeMilitiaSlots();
+	ubSlots = NumFreeSlots( MILITIA_TEAM );
 	if(gGameExternalOptions.sMinDelayMilitiaReinforcements)//dnl ch68 090913
 	{
 		if(gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition == TRUE)

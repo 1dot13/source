@@ -548,6 +548,12 @@ UINT8 NumFreeSlots( UINT8 ubTeam )
 			++ubNumFreeSlots;
 	}
 
+	// the militia team size can be restricted by the ini
+	if ( ubTeam == MILITIA_TEAM )
+	{
+		ubNumFreeSlots = (UINT8)max( 0, (INT8)ubNumFreeSlots - (INT8)(gGameExternalOptions.ubGameMaximumNumberOfRebels - gGameExternalOptions.iMaxMilitiaPerSector) );
+	}
+
 	return ubNumFreeSlots;
 }
 

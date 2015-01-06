@@ -48,6 +48,7 @@
 	#include "GameSettings.h"
 	#include "Quests.h"
 	#include "Interface.h"		// added by Flugente for zBackground
+	#include "Reinforcement.h"	// added by Flugente for AddPossiblePendingMilitiaToBattle()
 #endif
 
 #include "MilitiaSquads.h"
@@ -3494,6 +3495,7 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 		ResetMortarsOnTeamCount();
 		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
+		AddPossiblePendingMilitiaToBattle( );
 	}
 
 	//Update the known number of enemies in the sector.
