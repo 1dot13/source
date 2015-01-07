@@ -7320,8 +7320,8 @@ STR16 gzFacilityAssignmentStrings[]=
 
 STR16 Additional113Text[]=
 {
-	L"Jagged Alliance 2 v1.13 trybie okienkowym wymaga głębi koloru 16-bitowego lub mniej.",
-	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",	// TODO.Translate
+	L"Jagged Alliance 2 v1.13 trybie okienkowym wymaga głębi koloru 16-bitowego.",
+	L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",	// TODO.Translate
 	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	// TODO.Translate
 	// TODO.Translate
 	// WANNE: Savegame slots validation against INI file

@@ -7301,8 +7301,8 @@ STR16 gzFacilityAssignmentStrings[]=
 };
 STR16 Additional113Text[]=
 {
-	L"Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.",
-	L"Jagged Alliance 2 v1.13 fullscreen mode requires to run at your desktop resolution (%d x %d) or less.",
+	L"Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp.",
+	L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16 bpp windowed mode.",
 	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"Mercenary (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 

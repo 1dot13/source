@@ -7305,8 +7305,8 @@ STR16 gzFacilityAssignmentStrings[]=
 };
 STR16 Additional113Text[]=
 {
-	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit ou moins.",
-	L"Jagged Alliance 2 v1.13 mode plein écran nécessite pour fonctionner la résolution du bureau de votre ordinateur (%d x %d) ou moins.",
+	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit.",
+	L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",	// TODO.Translate
 	L"Erreur interne en lisant %s emplacements depuis la sauvegarde : Le nombre d'emplacements dans la sauvegarde (%d) diffère des emplacements définis dans les paramètres de ja2_options.ini (%d)",
 	// WANNE: Savegame slots validation against INI file
 	L"Mercenaires (MAX_NUMBER_PLAYER_MERCS) / Véhicule (MAX_NUMBER_PLAYER_VEHICLES)", 

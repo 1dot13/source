@@ -288,14 +288,22 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	}
 	else	// fullscreen mode
 	{
-		// Buggler: Get Primary Desktop Resolution
-		DWORD	dwScreenWidth	= ::GetSystemMetrics(SM_CXSCREEN);
-		DWORD	dwScreenHeight	= ::GetSystemMetrics(SM_CYSCREEN);
-		
-		if (SCREEN_WIDTH > dwScreenWidth || SCREEN_HEIGHT > dwScreenHeight )
+		// Buggler: Get Primary Screen Supported Resolutions
+		DEVMODE DevMode;
+		BOOLEAN fResSupported = FALSE;
+		for( INT32 iModeNum = 0; EnumDisplaySettings( 0, iModeNum, &DevMode ) != 0; iModeNum++ )
+		{
+			if (SCREEN_WIDTH == DevMode.dmPelsWidth && SCREEN_HEIGHT == DevMode.dmPelsHeight )
+			{
+				fResSupported = TRUE;
+				break;
+			}
+		}
+
+		if ( !fResSupported )
 		{
 			CHAR16 sString[ 256 ];
-			swprintf( sString, Additional113Text[ADDTEXT_LOWERRES_REQUIRED], dwScreenWidth, dwScreenHeight );
+			swprintf( sString, Additional113Text[ADDTEXT_DIFFRES_REQUIRED], SCREEN_WIDTH, SCREEN_HEIGHT );
 			MessageBoxW( NULL, sString, APPLICATION_NAMEW, MB_ICONEXCLAMATION);
 			PostQuitMessage(1);
 			return FALSE;
