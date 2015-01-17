@@ -14387,6 +14387,10 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		else
 			return(FALSE);
 	}
+	// a gun can only be mounted if it's ready. The bonus is only relevant when this is true anyway (firing cth calculations require us to aim).
+	// Drawback is that we do not know whether we will the bonus until we raise our gun - but then again the entire 'get behind a rock and then look over it' system isn't exactly complicated to understand.
+	else if ( !WeaponReady( this ) )
+		return FALSE;
 
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 	INT32 nextGridNoinSight = this->sGridNo;
