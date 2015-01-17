@@ -15113,8 +15113,8 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT8* pubId1, UINT16* pGunSlot1, UINT1
 	return(isFeeding);
 }
 
-// Flugente: return a cleaning kit from our inventory
-OBJECTTYPE* SOLDIERTYPE::GetCleaningKit( )
+// Flugente: return first found object with a specific flag from our inventory
+OBJECTTYPE* SOLDIERTYPE::GetObjectWithFlag( UINT32 aFlag )
 {
 	OBJECTTYPE* pObj = NULL;
 
@@ -15123,7 +15123,7 @@ OBJECTTYPE* SOLDIERTYPE::GetCleaningKit( )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
 	{
 		// ... if Item exists and is canteen (that can have drink points) ...
-		if ( inv[bLoop].exists( ) == true && HasItemFlag( inv[bLoop].usItem, CLEANING_KIT ) )
+		if ( inv[bLoop].exists( ) == true && HasItemFlag( inv[bLoop].usItem, aFlag ) )
 		{
 			pObj = &(inv[bLoop]);							// ... get pointer for this item ...
 
@@ -15146,7 +15146,7 @@ void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 			return;
 	}
 
-	OBJECTTYPE* pCleaningKit = GetCleaningKit( );
+	OBJECTTYPE* pCleaningKit = GetObjectWithFlag( CLEANING_KIT );
 
 	if ( pCleaningKit )
 	{
@@ -15165,7 +15165,7 @@ void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 						if ( (*pObj)[i]->data.bDirtLevel > DIRT_MIN_TO_CLEAN )		// ... if weapon is at least a bit dirty ...
 						{
 							// have to recheck for a cleaning kit, as we might have used it up if cleaning a stack of weapons
-							pCleaningKit = GetCleaningKit( );
+							pCleaningKit = GetObjectWithFlag( CLEANING_KIT );
 
 							if ( pCleaningKit )
 							{
@@ -17603,10 +17603,6 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 
 BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 {
-	// new inventory system required, as the radio set has to be in a specific slot
-	if ( !UsingNewInventorySystem( ) )
-		return FALSE;
-
 	// only radio operators can use this equipment
 	if ( !NUM_SKILL_TRAITS( this, RADIO_OPERATOR_NT ) )
 		return FALSE;
@@ -17615,57 +17611,28 @@ BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 	if ( fCheckForAP && !EnoughPoints( this, APBPConstants[AP_RADIO], 0, FALSE ) )
 		return FALSE;
 
-	// only player mercs use new inventory system
-	if ( this->bTeam == OUR_TEAM )
-	{
-		OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
-
-		if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-		{
-			//search power pack
-			attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
-			for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
-			{
-				// do we have a power pack on our armor?
-				if ( iter->exists( ) && HasItemFlag( iter->usItem, POWER_PACK ) )
-				{
-					// Hack (or clever use of unused memory, depending on your view):
-					// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
-					// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
-					// The cooling down represents its energy depleting.
-					if ( (*iter)[0]->data.bTemperature > 0.0f )
-						return(TRUE);
-				}
-			}
-		}
-	}
+	// if we use the new inventory system and we are a player character, the radio set has to be in a specific slot
+	OBJECTTYPE* pObj = NULL;
+	if ( this->bTeam == OUR_TEAM && UsingNewInventorySystem() )
+		pObj = &(inv[CPACKPOCKPOS]);
 	else
-	{
-		INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
-		{
-			if ( inv[bLoop].exists( ) )
-			{
-				OBJECTTYPE* pObj = &(inv[bLoop]);
+		pObj = GetObjectWithFlag( RADIO_SET );
 
-				if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-				{
-					//search power pack
-					attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
-					for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
-					{
-						// do we have a power pack on our armor?
-						if ( iter->exists( ) && HasItemFlag( iter->usItem, POWER_PACK ) )
-						{
-							// Hack (or clever use of unused memory, depending on your view):
-							// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
-							// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
-							// The cooling down represents its energy depleting.
-							if ( (*iter)[0]->data.bTemperature > 0.0f )
-								return(TRUE);
-						}
-					}
-				}
+	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
+	{
+		//search power pack
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
+		for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
+		{
+			// do we have a power pack?
+			if ( iter->exists( ) && HasItemFlag( iter->usItem, POWER_PACK ) )
+			{
+				// Hack (or clever use of unused memory, depending on your view):
+				// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
+				// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
+				// The cooling down represents its energy depleting.
+				if ( (*iter)[0]->data.bTemperature > 0.0f )
+					return(TRUE);
 			}
 		}
 	}
@@ -17677,42 +17644,17 @@ BOOLEAN SOLDIERTYPE::UseRadio( )
 {
 	BOOLEAN success = FALSE;
 
-	// new inventory system required, as the radio set has to be in a specific slot
-	if ( UsingNewInventorySystem( ) )
+	OBJECTTYPE* pObj = NULL;
+	if ( this->bTeam == OUR_TEAM && UsingNewInventorySystem( ) )
+		pObj = &(inv[CPACKPOCKPOS]);
+	else
+		pObj = GetObjectWithFlag( RADIO_SET );
+
+	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
 	{
-		// only player mercs use new inventory system
-		if ( this->bTeam == OUR_TEAM )
-		{
-			// check for fail depending on status of radio set
-			OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
-
-			if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-			{
-				// status % chance of success
-				if ( Chance( (*pObj)[0]->data.objectStatus ) )
-					success = TRUE;
-			}
-		}
-		else
-		{
-			INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
-			{
-				if ( inv[bLoop].exists( ) )
-				{
-					OBJECTTYPE* pObj = &(inv[bLoop]);
-
-					if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-					{
-						// status % chance of success
-						if ( Chance( (*pObj)[0]->data.objectStatus ) )
-							success = TRUE;
-
-						break;
-					}
-				}
-			}
-		}
+		// status % chance of success
+		if ( Chance( (*pObj)[0]->data.objectStatus ) )
+			success = TRUE;
 	}
 
 	// even if we fail, we still use up AP, use animation an use up batteries
@@ -18443,7 +18385,11 @@ void SOLDIERTYPE::DepleteActiveRadioSetEnergy( BOOLEAN fActivation, BOOLEAN fAss
 		// nothing to do here..
 		return;
 
-	OBJECTTYPE* pObj = &(inv[CPACKPOCKPOS]);
+	OBJECTTYPE* pObj = NULL;
+	if ( this->bTeam == OUR_TEAM && UsingNewInventorySystem( ) )
+		pObj = &(inv[CPACKPOCKPOS]);
+	else
+		pObj = GetObjectWithFlag( RADIO_SET );
 
 	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
 	{

@@ -1730,8 +1730,8 @@ public:
 	// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
 	BOOLEAN		IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
 
-	// Flugente: return a cleaning kit from our inventory
-	OBJECTTYPE* GetCleaningKit();
+	// Flugente: return first found object with a specific flag from our inventory
+	OBJECTTYPE* GetObjectWithFlag( UINT32 aFlag );
 
 	// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all weapons found, otherwise just the first one
 	void	CleanWeapon( BOOLEAN fCleanAll );
