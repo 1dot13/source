@@ -3724,6 +3724,11 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 						TacticalCharacterDialogue( pKillerSoldier, QUOTE_SATISFACTION_WITH_GUN_AFTER_KILL );
 						pKillerSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_LIKESGUN;
 					}
+					else if ( pKillerSoldier->bSide == pKilledSoldier->bSide )
+					{
+						// if the attacker was from the same side, play a curse
+						pKillerSoldier->DoMercBattleSound( (INT8)(BATTLE_SOUND_CURSE1) );
+					}
 					else
 						// Randomize between laugh, quote...
 					{
@@ -3896,7 +3901,11 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						// We were a visible enemy, say laugh!
 						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( MercPtrs[ ubAttacker ] ) )
 						{
-							MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
+							// if the attacker was from the same team, play a curse, otherwise play a laugh
+							if ( MercPtrs[ubAttacker]->bSide == pSoldier->bSide )
+								MercPtrs[ubAttacker]->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							else
+								MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 						}
 					}					
 				}
