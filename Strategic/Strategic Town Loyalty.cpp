@@ -710,15 +710,12 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 		}
 	}
 
+	// Flugente: if a civilian's group has Loyalty set to 0, there will be no morale penalty/loyalty change if he is killed. Pretty odd, but at least not as bugged as it was before. 
 	// if civilian belongs to a civilian group
-	if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP )
+	if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP && pSoldier->ubCivilianGroup < NUM_CIV_GROUPS )
 	{
-		//New Group by Jazz
-		for( iCounter2 = REBEL_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )	
-			{	
-				if (zCivGroupName[iCounter2].Loyalty == FALSE)
-					return;					
-			}
+		if ( !zCivGroupName[pSoldier->ubCivilianGroup].Loyalty )
+			return;
 	}
 	
 	/*
