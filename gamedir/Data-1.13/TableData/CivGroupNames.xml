@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Enabled: if set to 1, civilians of that group will use szGroup as their name in tactical
+     AddToBattle: If a battle with that group occurs, all members are counted (no, this doesn't make a lot of sense)
+	 Loyalty: if set to 0, no loyalty/morale penalty if a civilian of that group is killed
+-->
 <CIV_GROUP_NAMES>
 	<NAME>
 		<uiIndex>0</uiIndex>
