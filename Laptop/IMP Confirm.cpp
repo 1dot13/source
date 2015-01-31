@@ -623,6 +623,8 @@ void GiveItemsToPC( UINT8 ubProfileId )
 
 		GiveIMPItems(pProfile, 100, IMP_DEFAULT);
 		GiveIMPRandomItems(pProfile, IMP_RANDOMDEFAULT);
+		// silversurfer: added sidearm selection
+		GiveIMPRandomItems(pProfile, IMP_SIDEARM);
 
 		GiveIMPItems (pProfile,pProfile->bWisdom,IMP_WISDOM);
 		GiveIMPItems (pProfile,pProfile->bMarksmanship,IMP_MARKSMANSHIP);
@@ -1686,7 +1688,8 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 	for ( UINT8 cnt=0; cnt < ubNumChoices; ++cnt )
 	{
 		usItem = gIMPItemChoices[ typeIndex ].bItemNo[ cnt ];
-		if ( ItemIsLegal(usItem) )
+		// allow guns no matter if Tons of Guns was selected so the merc doesn't have to start without a weapon
+		if ( ItemIsLegal(usItem) || Item[usItem].usItemClass == IC_GUN )
 			++ubValidChoices;
 	}
 
@@ -1710,7 +1713,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 				iChoice = Random( ubNumChoices );
 				usItem = gIMPItemChoices[ typeIndex ].bItemNo[ iChoice ];
 				// is this legal and we don't have it already?
-				if (ItemIsLegal(usItem) && !ubItemsGiven[iChoice] )
+				if ( (ItemIsLegal(usItem) || Item[usItem].usItemClass == IC_GUN) && !ubItemsGiven[iChoice] )
 					ubItemsGiven[iChoice] = TRUE;
 				else
 					usItem=0;

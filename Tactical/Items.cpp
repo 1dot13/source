@@ -1266,6 +1266,18 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
 		return FALSE;
 
+	// silversurfer: no food items if the food system is off
+	if ( !gGameOptions.fFoodSystem && Item[ usItemIndex ].foodtype > 0 )
+	{
+		// Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
+		if ( Food[Item[usItemIndex].foodtype].bFoodPoints > 0 )
+			return FALSE;
+	}
+
+	// silversurfer: we don't need cleaning kits if the dirt system is off
+	if ( !gGameExternalOptions.fDirtSystem && HasItemFlag(usItemIndex, CLEANING_KIT) )
+		return FALSE;
+
 	//if the user has selected the reduced gun list
 	if( !gGameOptions.fGunNut )
 	{
