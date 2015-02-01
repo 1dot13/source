@@ -378,11 +378,14 @@ BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 				pCharacter->bOldAssignment = bSquadValue;
 			}
 
-			// if current tactical sqaud...upadte panel
+			// if current tactical squad...update panel
 			if( NumberOfPeopleInSquad( ( INT8 )iCurrentTacticalSquad ) == 0 )
 			{
 				SetCurrentSquad( bSquadValue, TRUE );
 			}
+
+			// silversurfer: We need to sort the squad here. Otherwise it will have a random sort order when we force exit a vehicle in an enemy sector.
+			SortSquadByID(bSquadValue);
 
 			if( bSquadValue == ( INT8 ) iCurrentTacticalSquad )
 			{

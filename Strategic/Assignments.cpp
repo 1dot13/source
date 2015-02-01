@@ -17094,7 +17094,9 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 	//CHRISL: When setting mercs to a squad, resort the Squad list so we're in ubID order so team panel appears the same
 	//	when switching between squads
-	switch( bAssignment )
+	// silversurfer: Shouldn't be necessary anymore because SortSquadByID() is now called whenever a merc is added to a squad by function AddCharacterToSquad().
+	// This is necessary because mercs can be added to squads by other functions as well and we always want to sort.
+/*	switch( bAssignment )
 	{
 		case( SQUAD_1 ):
 		case( SQUAD_2 ):
@@ -17118,7 +17120,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 		case( SQUAD_20 ):
 			SortSquadByID(bAssignment);
 			break;
-	}
+	}*/
 
 
 	// check if we should start/stop flashing any mercs' assignment strings after these changes
