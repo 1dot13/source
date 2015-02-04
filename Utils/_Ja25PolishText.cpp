@@ -265,7 +265,7 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
 	L"Can call in artillery strikes from allies in neighbouring sectors.\n",
 	L"Via Frequency Scan assignment, enemy patrols can be located.\n",
 	L"Communications can be jammed sector-wide.\n",
-	L"If communications are jammed, a operator can scan for the jamming device.\n",
+	L"If communications are jammed, an operator can scan for the jamming device.\n",
 	L"Can call in militia reinforcements from neighbouring sectors.\n",
 };
 

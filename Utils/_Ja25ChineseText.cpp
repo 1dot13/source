@@ -264,7 +264,7 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"可以呼叫临区盟友进行火炮攻击。\n", //L"Can call in artillery strikes from allies in neighbouring sectors.\n",
 	L"可以通过通讯频率扫描任务定位敌军巡逻队。\n", //L"Via Frequency Scan assignment, enemy patrols can be located.\n",
 	L"可以在分区范围内干扰通讯设备。\n", //L"Communications can be jammed sector-wide.\n",
-	L"如果通讯受到干扰，操作员可以扫描到那个干扰设备。\n", //L"If communications are jammed, a operator can scan for the jamming device.\n",
+	L"如果通讯受到干扰，操作员可以扫描到那个干扰设备。\n", //L"If communications are jammed, an operator can scan for the jamming device.\n",
 	L"可以呼叫临区军队进行支援。\n", //L"Can call in militia reinforcements from neighbouring sectors.\n",
 };
 

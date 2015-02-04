@@ -7095,7 +7095,7 @@ STR16 sgAttributeSelectionText[] =
 	L"Starting Level",
 	// New strings for new traits
 	L"On the next page you are going to specify your physical attributes and skills. As 'attributes' are called: health, dexterity, agility, strength and wisdom. Attributes cannot go lower than %d.",
-	L"The rest are called 'skills' and unlike attributes skills can be set to zero meaning you have absolutely no proficieny in it.",
+	L"The rest are called 'skills' and unlike attributes skills can be set to zero, meaning you have absolutely no proficiency in it.",
 	L"All scores are set to a minimum at the beginning. Note that certain attributes are set to specific values according to skill traits you have selected. You cannot set those attributes lower than that.",
 };
 
