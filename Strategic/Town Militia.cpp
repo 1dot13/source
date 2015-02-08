@@ -414,15 +414,45 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	// damn well better have that many around to promote!
 	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] >= ubHowMany);
 
+	UINT8 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubCurrentRank );
+	UINT8 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubCurrentRank );
+
 	//KM : July 21, 1999 patch fix
-	if( pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] < ubHowMany )
+	if ( ubCurrentRank >= ELITE_MILITIA || stationary + ingroups < ubHowMany )
 	{
 		return;
 	}
 
-	pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank	 ] -= ubHowMany;
-	pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank + 1 ] += ubHowMany;
+	// determine how many static and  - if necessary - group-based militia we have to remove
+	UINT8 reducestatic = min( stationary, ubHowMany );
+	UINT8 reducegroups = min( ingroups, ubHowMany - reducestatic );
+	
+	pSectorInfo->ubNumberOfCivsAtLevel[ubCurrentRank] -= reducestatic;
+	pSectorInfo->ubNumberOfCivsAtLevel[ubCurrentRank + 1] += reducestatic;
 
+	GROUP *pGroup = gpGroupList;
+	while ( pGroup && reducegroups )
+	{
+		if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == sMapX && pGroup->ubSectorY == sMapY )
+		{
+			if ( ubCurrentRank == GREEN_MILITIA )
+			{
+				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumAdmins );
+				pGroup->pEnemyGroup->ubNumAdmins -= reduced;
+				pGroup->pEnemyGroup->ubNumTroops += reduced;
+				reducegroups -= reduced;
+			}
+			else if ( ubCurrentRank == REGULAR_MILITIA )
+			{
+				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumTroops );
+				pGroup->pEnemyGroup->ubNumTroops -= reduced;
+				pGroup->pEnemyGroup->ubNumElites += reduced;
+				reducegroups -= reduced;
+			}
+		}
+		pGroup = pGroup->next;
+	}
+	
 	if (ubHowMany && sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 	{
 		gfStrategicMilitiaChangesMade = TRUE;
@@ -441,18 +471,67 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 	// damn well better have that many around to remove!
 	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] >= ubHowMany);
 
+	UINT8 stationary = MilitiaInSectorOfRankStationary( sMapX, sMapY, ubRank );
+	UINT8 ingroups = MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubRank );
+
 	//KM : July 21, 1999 patch fix
-	if( pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] < ubHowMany )
+	if ( stationary + ingroups < ubHowMany )
 	{
 		return;
 	}
 
-	pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] -= ubHowMany;
+	// determine how many static and  - if necessary - group-based militia we have to remove
+	UINT8 reducestatic = min( stationary, ubHowMany );
+	UINT8 reducegroups = min( ingroups, ubHowMany - reducestatic );
+
+	pSectorInfo->ubNumberOfCivsAtLevel[ubRank] -= reducestatic;
+
+	GROUP *pGroup = gpGroupList;
+	while ( pGroup && reducegroups )
+	{
+		if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == sMapX && pGroup->ubSectorY == sMapY )
+		{
+			if ( ubRank == GREEN_MILITIA )
+			{
+				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumAdmins );
+				pGroup->pEnemyGroup->ubNumAdmins -= reduced;
+				pGroup->ubGroupSize -= reduced;
+				reducegroups -= reduced;
+			}
+			else if ( ubRank == REGULAR_MILITIA )
+			{
+				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumTroops );
+				pGroup->pEnemyGroup->ubNumTroops -= reduced;
+				pGroup->ubGroupSize -= reduced;
+				reducegroups -= reduced;
+			}
+			else if ( ubRank == ELITE_MILITIA )
+			{
+				UINT8 reduced = min( reducegroups, pGroup->pEnemyGroup->ubNumElites );
+				pGroup->pEnemyGroup->ubNumElites -= reduced;
+				pGroup->ubGroupSize -= reduced;
+				reducegroups -= reduced;
+			}
+		}
+		pGroup = pGroup->next;
+	}
 
 	if (ubHowMany && sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 	{
 		gfStrategicMilitiaChangesMade = TRUE;
 	}
+
+	// update the screen display
+	fMapPanelDirty = TRUE;
+}
+
+void StrategicRemoveAllStaticMilitiaFromSector( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
+{
+	if ( ubRank < MAX_MILITIA_LEVELS )
+		SectorInfo[SECTOR( sMapX, sMapY )].ubNumberOfCivsAtLevel[ubRank] = 0;
+	
+	if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+		gfStrategicMilitiaChangesMade = TRUE;
 
 	// update the screen display
 	fMapPanelDirty = TRUE;
@@ -488,21 +567,25 @@ UINT8 CheckOneMilitiaForPromotion(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank,
 
 	}
 	// roll the bones, and see if he makes it
-	if (Random(100) < uiChanceToLevel)
+	if ( Chance( uiChanceToLevel ) )
 	{
 		StrategicPromoteMilitiaInSector(sMapX, sMapY, ubCurrentRank, 1);
 		if( ubCurrentRank == GREEN_MILITIA )
-		{ //Attempt yet another level up if sufficient points
+		{
+			//Attempt yet another level up if sufficient points
 			if( ubRecentKillPts > 2 )
 			{
 				if( CheckOneMilitiaForPromotion( sMapX, sMapY, REGULAR_MILITIA, (UINT8)(ubRecentKillPts - 2) ) )
-				{ //success, this militia was promoted twice
+				{
+					//success, this militia was promoted twice
 					return 2;
 				}
 			}
 		}
+
 		return 1;
 	}
+
 	return 0;
 }
 
@@ -510,39 +593,37 @@ UINT8 CheckOneMilitiaForPromotion(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank,
 // call this if the player attacks his own militia
 void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 {
-	UINT8 ubRank;
 	UINT8 ubMilitiaCnt;
-	UINT8 ubCount;
 	UINT32 uiChanceToDefect;
 
-	for( ubRank = 0; ubRank < MAX_MILITIA_LEVELS; ubRank++ )
+	for ( UINT8 ubRank = 0; ubRank < MAX_MILITIA_LEVELS; ++ubRank )
 	{
 		ubMilitiaCnt = MilitiaInSectorOfRank(sMapX, sMapY, ubRank);
 
-		// check each guy at each rank to see if he defects
-		for (ubCount = 0; ubCount < ubMilitiaCnt; ubCount++)
+		if ( ubMilitiaCnt )
 		{
-			switch( ubRank )
+			switch ( ubRank )
 			{
-				case GREEN_MILITIA:
-					uiChanceToDefect = 50;
-					break;
-				case REGULAR_MILITIA:
-					uiChanceToDefect = 75;
-					break;
-				case ELITE_MILITIA:
-					uiChanceToDefect = 90;
-					break;
-				default:
-					Assert( 0 );
-					return;
+			case GREEN_MILITIA:
+				uiChanceToDefect = 50;
+				break;
+			case REGULAR_MILITIA:
+				uiChanceToDefect = 75;
+				break;
+			case ELITE_MILITIA:
+				uiChanceToDefect = 90;
+				break;
 			}
 
-			// roll the bones; should I stay or should I go now?	(for you music fans out there)
-			if (Random(100) < uiChanceToDefect)
+			// check each guy at each rank to see if he defects
+			for ( UINT8 ubCount = 0; ubCount < ubMilitiaCnt; ++ubCount )
 			{
-				//B'bye!	(for you SNL fans out there)
-				StrategicRemoveMilitiaFromSector(sMapX, sMapY, ubRank, 1);
+				// roll the bones; should I stay or should I go now?	(for you music fans out there)
+				if ( Chance( uiChanceToDefect ) )
+				{
+					//B'bye!	(for you SNL fans out there)
+					StrategicRemoveMilitiaFromSector(sMapX, sMapY, ubRank, 1);
+				}
 			}
 		}
 	}
@@ -551,7 +632,36 @@ void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 
 UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank)
 {
-	unsigned count = SectorInfo[ SECTOR( sMapX, sMapY ) ].ubNumberOfCivsAtLevel[ ubRank ];
+	return MilitiaInSectorOfRankStationary( sMapX, sMapY, ubRank ) + MilitiaInSectorOfRankInGroups( sMapX, sMapY, ubRank );
+}
+
+UINT8 MilitiaInSectorOfRankStationary( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
+{
+	if ( ubRank < MAX_MILITIA_LEVELS )
+		return SectorInfo[SECTOR( sMapX, sMapY )].ubNumberOfCivsAtLevel[ubRank];
+
+	return 0;
+}
+
+UINT8 MilitiaInSectorOfRankInGroups( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
+{
+	UINT8 count = 0;
+
+	GROUP *pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == sMapX && pGroup->ubSectorY == sMapY )
+		{
+			if ( ubRank == GREEN_MILITIA )
+				count += pGroup->pEnemyGroup->ubNumAdmins;
+			else if ( ubRank == REGULAR_MILITIA )
+				count += pGroup->pEnemyGroup->ubNumTroops;
+			else if ( ubRank == ELITE_MILITIA )
+				count += pGroup->pEnemyGroup->ubNumElites;
+		}
+		pGroup = pGroup->next;
+	}
+
 	return count;
 }
 
@@ -1179,13 +1289,12 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 	INT16 sCounterA = 0, sCounterB = 0;
 	UINT8 ubScoutingRange = 1;
 
-
 	// get the sector value
 	sSector = sSectorX + sSectorY * MAP_WORLD_X;
 
-	for( sCounterA = sSectorX - ubScoutingRange; sCounterA <= sSectorX + ubScoutingRange; sCounterA++ )
+	for( sCounterA = sSectorX - ubScoutingRange; sCounterA <= sSectorX + ubScoutingRange; ++sCounterA )
 	{
-		for( sCounterB = sSectorY - ubScoutingRange; sCounterB <= sSectorY + ubScoutingRange; sCounterB++ )
+		for( sCounterB = sSectorY - ubScoutingRange; sCounterB <= sSectorY + ubScoutingRange; ++sCounterB )
 		{
 			// skip out of bounds sectors
 			if ( ( sCounterA < 1 ) || ( sCounterA > 16 ) || ( sCounterB < 1 ) || ( sCounterB > 16 ) )
@@ -1213,15 +1322,7 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 			else
 			{
 				// check if any sort of militia here
-				if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] )
-				{
-					return( TRUE );
-				}
-				else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] )
-				{
-					return( TRUE );
-				}
-				else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] )
+				if ( NumNonPlayerTeamMembersInSector( sCounterA, sCounterB, MILITIA_TEAM ) )
 				{
 					return( TRUE );
 				}
@@ -1253,7 +1354,6 @@ BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType )
 			// if sector is ours get number of militia here
 			if( SectorOursAndPeaceful( sSectorX, sSectorY, 0 ) )
 			{
-
 				//Kaiden: Checking for Price Hikes.
 				if (iMilitiaType == GREEN_MILITIA)
 				{
@@ -1262,7 +1362,7 @@ BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType )
 					iNumberOfMilitia += MilitiaInSectorOfRank( sSectorX, sSectorY, ELITE_MILITIA );
 					iMaxNumber += iMaxMilitiaPerSector;
 
-				if (MilitiaInSectorOfRank( sSectorX, sSectorY, GREEN_MILITIA ) > 0)
+					if (MilitiaInSectorOfRank( sSectorX, sSectorY, GREEN_MILITIA ) > 0)
 						fIncreaseCost = TRUE;
 				}
 				else if (iMilitiaType == REGULAR_MILITIA)
@@ -1297,26 +1397,24 @@ BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType )
 			}
 		}
 
-		iCounter++;
+		++iCounter;
 	}
 
-		if (iMilitiaType == GREEN_MILITIA)
-		{
-			if (( iNumberOfMilitia == iMaxNumber	) && (fIncreaseCost))
-				return( TRUE );
-			else
-				return( FALSE );
+	if (iMilitiaType == GREEN_MILITIA)
+	{
+		if (( iNumberOfMilitia == iMaxNumber ) && fIncreaseCost )
+			return( TRUE );
+		else
+			return( FALSE );
 
-		}
-		else if (iMilitiaType == REGULAR_MILITIA)
-		{
-			if (( iNumberOfMilitia == iMaxNumber ) && (fIncreaseCost))
-				return( TRUE );
-			else
-				return( FALSE );
-		}
-
-
+	}
+	else if (iMilitiaType == REGULAR_MILITIA)
+	{
+		if (( iNumberOfMilitia == iMaxNumber ) && fIncreaseCost)
+			return( TRUE );
+		else
+			return( FALSE );
+	}
 
 	// now check the number of militia
 	if ( iMaxNumber > iNumberOfMilitia )
@@ -2122,7 +2220,7 @@ void HandleMilitiaUpkeepPayment( void )
 				MILITIA_LIST_TYPE MilitiaList[256];
 
 				// Go through every sector and count how many militia we've got in total.
-				for (UINT16 cnt = 0; cnt < 256; cnt++)
+				for (UINT16 cnt = 0; cnt < 256; ++cnt)
 				{
 					SECTORINFO *pSectorInfo = &( SectorInfo[ cnt ] );
 					UINT8 sMapX = SECTORX(cnt);
@@ -2134,18 +2232,18 @@ void HandleMilitiaUpkeepPayment( void )
 					if ((ubTownId != BLANK_SECTOR && MilitiaTrainingAllowedInTown(ubTownId)) || // Major Town
 						IsThisSectorASAMSector( sMapX, sMapY, 0 ) ) // SAM Site
 					{
-						MilitiaList[cnt].ubNumTownGreens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
-						MilitiaList[cnt].ubNumTownRegulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
-						MilitiaList[cnt].ubNumTownElites = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+						MilitiaList[cnt].ubNumTownGreens = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+						MilitiaList[cnt].ubNumTownRegulars = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
+						MilitiaList[cnt].ubNumTownElites = MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
 						MilitiaList[cnt].ubNumMobileGreens = 0;
 						MilitiaList[cnt].ubNumMobileRegulars = 0;
 						MilitiaList[cnt].ubNumMobileElites = 0;
 					}
 					else
 					{
-						MilitiaList[cnt].ubNumMobileGreens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
-						MilitiaList[cnt].ubNumMobileRegulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
-						MilitiaList[cnt].ubNumMobileElites = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+						MilitiaList[cnt].ubNumMobileGreens = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+						MilitiaList[cnt].ubNumMobileRegulars = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
+						MilitiaList[cnt].ubNumMobileElites = MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
 						MilitiaList[cnt].ubNumTownGreens = 0;
 						MilitiaList[cnt].ubNumTownRegulars = 0;
 						MilitiaList[cnt].ubNumTownElites = 0;
@@ -2169,53 +2267,54 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid = 0;
 					}
 
-					SECTORINFO *pSectorInfo = &( SectorInfo[ MilitiaList[0].ubSectorId ] );
+					INT16 sX = SECTORX( MilitiaList[0].ubSectorId );
+					INT16 sY = SECTORY( MilitiaList[0].ubSectorId );
 
 					if (MilitiaList[0].ubNumMobileElites > 0)
 					{
 						// Remove one militia from sector
-						pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, ELITE_MILITIA, 1 );
 						// Adjust list entry
 						MilitiaList[0].ubNumMobileElites--;
 						// Reduce debt appropriately
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileElite;
 						// Increase tally of militia removed
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}
 					else if (MilitiaList[0].ubNumMobileRegulars > 0)
 					{
-						pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, REGULAR_MILITIA, 1 );
 						MilitiaList[0].ubNumMobileRegulars--;
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileRegular;
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}
 					else if (MilitiaList[0].ubNumMobileGreens > 0)
 					{
-						pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, GREEN_MILITIA, 1 );
 						MilitiaList[0].ubNumMobileGreens--;
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileGreen;
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}							
 					else if (MilitiaList[0].ubNumTownElites > 0)
 					{
-						pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, ELITE_MILITIA, 1 );
 						MilitiaList[0].ubNumTownElites--;
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownElite;
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}
 					else if (MilitiaList[0].ubNumTownRegulars > 0)
 					{
-						pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, REGULAR_MILITIA, 1 );
 						MilitiaList[0].ubNumTownRegulars--;
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownRegular;
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}
 					else if (MilitiaList[0].ubNumTownGreens > 0)
 					{
-						pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA]--;
+						StrategicRemoveMilitiaFromSector( sX, sY, GREEN_MILITIA, 1 );
 						MilitiaList[0].ubNumTownGreens--;
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownGreen;
-						uiNumMilitiaDisbanded++;
+						++uiNumMilitiaDisbanded;
 					}
 					else
 					{
@@ -2306,7 +2405,7 @@ UINT32 CalcMilitiaUpkeep( void )
 {
 	UINT32 uiTotalPayment = 0;
 
-	for (UINT16 cnt = 0; cnt < 256; cnt++)
+	for (UINT16 cnt = 0; cnt < 256; ++cnt)
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ cnt ] );
 		UINT8 sMapX = SECTORX(cnt);
@@ -2316,15 +2415,15 @@ UINT32 CalcMilitiaUpkeep( void )
 		if ((ubTownId != BLANK_SECTOR && MilitiaTrainingAllowedInTown(ubTownId)) || // Major Town
 			IsThisSectorASAMSector( sMapX, sMapY, 0 ) ) // SAM Site
 		{
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] * gGameExternalOptions.usDailyCostTownGreen;
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] * gGameExternalOptions.usDailyCostTownRegular;
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] * gGameExternalOptions.usDailyCostTownElite;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * gGameExternalOptions.usDailyCostTownGreen;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) * gGameExternalOptions.usDailyCostTownRegular;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) * gGameExternalOptions.usDailyCostTownElite;
 		}
 		else
 		{
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] * gGameExternalOptions.usDailyCostMobileGreen;
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] * gGameExternalOptions.usDailyCostMobileRegular;
-			uiTotalPayment += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] * gGameExternalOptions.usDailyCostMobileElite;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * gGameExternalOptions.usDailyCostMobileGreen;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) * gGameExternalOptions.usDailyCostMobileRegular;
+			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) * gGameExternalOptions.usDailyCostMobileElite;
 		}
 	}
 

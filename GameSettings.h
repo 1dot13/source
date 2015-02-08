@@ -444,6 +444,9 @@ typedef struct
 	BOOLEAN gfAllowMilitiaSpread;				//Moa: TRUE spread normal, FALSE fill up to max
 	UINT8	gbMobileMilitiaMaxActiveMode;		//Moa: Used to check if the maximum of mobile militia is reached (for training/deserting). THIS IS A MODE
 	FLOAT	gfpMobileMilitiaMaxActiveModifier;	//Moa: const multiplier for the mode used (precalculated with MOBILE_MILITIA_MAX_ACTIVE_MODIFIER * MAX_MILITIA_PER_SECTOR).
+
+	// Flugente: militia movement
+	BOOLEAN fMilitiaStrategicCommand;
 	
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;

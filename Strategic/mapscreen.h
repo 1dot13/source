@@ -119,4 +119,46 @@ enum
 	NUM_MANUAL_MOBILE_STATES,
 };
 
+// Flugente: militia movement
+extern BOOLEAN fPlotForMilitia;
+extern UINT32 gMilitiaPlotStartSector;
+
+BOOLEAN RequestGiveMilitiaNewDestination( void );
+
+void SetUpMilitiaForMovement();
+
+INT32 GetGroundTravelTimeOfMilitia( );
+
+typedef struct
+{
+	INT16		sGroupid;		// group ids are normally UINT8 - we use -1 to indicate that it hasn't been used
+	PathStPtr	path;			// the path of a militia group that travels
+} MILITIA_PATH;
+
+#define MILITIA_PATROLS_MAX	30
+
+extern MILITIA_PATH gMilitiaPath[MILITIA_PATROLS_MAX];
+
+// upon starting a game/loading from an old version, set up the data
+void MilitiaPlotInit();
+
+// when starting to plot, set up things
+BOOLEAN MilitiaPlotStart();
+
+// when finished plotting, set up other things
+void MilitiaplotFinish();
+
+// if this group is a militia travel group, return its slot, othewise return -1
+INT16 GetMilitiaPathSlot(UINT8 uGroupId);
+
+void DeleteAllMilitiaPaths();
+
+// if a militia group is in this sector, return TRUE, group id will be stored in arId
+BOOLEAN GetMilitiaGroupInSector( INT16 sMapX, INT16 sMapY, UINT8& arId );
+
+BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY );
+
+void ConvertMinTimeToDayHourMinString( UINT32 uiTimeInMin, STR16 sString );
+void ConvertMinTimeToETADayHourMinString( UINT32 uiTimeInMin, STR16 sString );
+
 #endif

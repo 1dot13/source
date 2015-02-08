@@ -19,7 +19,8 @@
 	#include "militiasquads.h"		// added by Flugente
 	#include "Game Event Hook.h"	// added by Flugente
 	#include "message.h"			// added by Flugente
-	#include "Text.h"			// added by Flugente
+	#include "Text.h"				// added by Flugente
+	#include "Queen Command.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -171,11 +172,9 @@ BOOLEAN SetMilitiaMovementOrder(INT16 sX, INT16 sY, INT8 sZ, UINT32 dir)
 	// militia can only move on the surface
 	if ( sZ )
 		return FALSE;
-
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sX, sY ) ] );
-
+	
 	// militia needs to be here...
-	if ( !CountMilitia(pSectorInfo) )
+	if ( !NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) )
 		return FALSE;
 
 	// in order to give movement orders, we need a merc to staff a military headquarter

@@ -648,9 +648,9 @@ BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *
 
 	// SANDRO - EVALUATE THE STRENGTH OF MILITIA BASED ON INI SETTING
 	*pusDefencePoints = PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) * 5;
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength )/100);
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength)/100);
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength)/100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, GREEN_MILITIA ) * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength) / 100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, REGULAR_MILITIA ) * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength) / 100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, ELITE_MILITIA ) * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength) / 100);
 
 	if( *pusDefencePoints > usOffensePoints )
 	{
@@ -661,11 +661,9 @@ BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *
 
 void RequestAttackOnSector( UINT8 ubSectorID, UINT16 usDefencePoints )
 {
-	INT32 i;
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
-
- for( i = 0; i < giGarrisonArraySize; i++ )
+	for ( INT32 i = 0; i < giGarrisonArraySize; ++i )
 	{
 		if( gGarrisonGroup[ i ].ubSectorID == ubSectorID && !gGarrisonGroup[ i ].ubPendingGroupID )
 		{
@@ -824,7 +822,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
 	}
 	if( !pGroup->ubNextX || !pGroup->ubNextY )
 	{
-		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->pEnemyGroup->ubIntention != STAGING
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubIntention != STAGING
 												&& pGroup->pEnemyGroup->ubIntention != REINFORCEMENTS )
 		{
 			#ifdef JA2BETAVERSION
@@ -2147,33 +2145,30 @@ BOOLEAN ReinforcementsApproved( INT32 iGarrisonID, UINT16 *pusDefencePoints )
 {
 	SECTORINFO *pSector;
 	UINT16 usOffensePoints;
+	UINT16 usDefencePoints;
 	UINT8 ubSectorX, ubSectorY;
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	pSector = &SectorInfo[ gGarrisonGroup[ iGarrisonID ].ubSectorID ];
 	ubSectorX = (UINT8)SECTORX( gGarrisonGroup[ iGarrisonID ].ubSectorID );
 	ubSectorY = (UINT8)SECTORY( gGarrisonGroup[ iGarrisonID ].ubSectorID );
 
 	// SANDRO - EVALUATE THE MILITIA STRENGTH REGARDING THE GAME SETTINGS
-	*pusDefencePoints = PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) * 5;
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength )/100);
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength)/100);
-	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength)/100);
+	usOffensePoints = gArmyComp[gGarrisonGroup[iGarrisonID].ubComposition].bAdminPercentage * 2 +
+		gArmyComp[gGarrisonGroup[iGarrisonID].ubComposition].bTroopPercentage * 3 +
+		gArmyComp[gGarrisonGroup[iGarrisonID].ubComposition].bElitePercentage * 4 +
+		gubGarrisonReinforcementsDenied[iGarrisonID];
+	usOffensePoints = usOffensePoints * gArmyComp[gGarrisonGroup[iGarrisonID].ubComposition].bDesiredPopulation / 100;
 
-	usOffensePoints = gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bAdminPercentage * 2 +
-										gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bTroopPercentage * 3 +
-										gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bElitePercentage * 4 +
-										gubGarrisonReinforcementsDenied[ iGarrisonID ];
-	usOffensePoints = usOffensePoints * gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bDesiredPopulation / 100;
-
-	if( usOffensePoints > *pusDefencePoints )
+	if ( PlayerForceTooStrong( gGarrisonGroup[iGarrisonID].ubSectorID, usOffensePoints, &usDefencePoints ) )
 	{
 		return TRUE;
 	}
+
 	//Before returning false, determine if reinforcements have been denied repeatedly.	If so, then
 	//we might send an augmented force to take it back.
-	if( gubGarrisonReinforcementsDenied[ iGarrisonID ] + usOffensePoints > *pusDefencePoints )
+	if ( gubGarrisonReinforcementsDenied[iGarrisonID] + usOffensePoints > usDefencePoints )
 	{
 		#ifdef JA2BETAVERSION
 			LogStrategicEvent( "Sector %c%d will now recieve an %d extra troops due to multiple denials for reinforcements in the past for strong player presence.",
@@ -2209,16 +2204,22 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 		return FALSE;
 	}
 	Assert( pGroup->usGroupTeam != OUR_TEAM );
+
+	// for now, nothing to do for militia groups
+	if ( pGroup->usGroupTeam == MILITIA_TEAM )
+		return FALSE;
+
 	if( pGroup->pEnemyGroup->ubIntention == PURSUIT )
-	{ //Lost the player group that he was going to attack.	Return to original position.
+	{
+		//Lost the player group that he was going to attack.	Return to original position.
 		SetThisSectorAsEnemyControlled( pGroup->ubSectorX, pGroup->ubSectorY, 0, TRUE );
 		ReassignAIGroup( &pGroup );
 		return TRUE;
 	}
 	else if( pGroup->pEnemyGroup->ubIntention == REINFORCEMENTS )
 	{
-	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
-	//The group has arrived at the location where he is supposed to reinforce.
+		Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+		//The group has arrived at the location where he is supposed to reinforce.
 		//Step 1 -- Check for matching garrison location
 		for( i = 0; i < giGarrisonArraySize; i++ )
 		{
@@ -3851,8 +3852,9 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
-			if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubGroupSize >= 16 )
-			{ //accident in patrol groups being too large
+			if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->ubGroupSize >= 16 )
+			{
+				//accident in patrol groups being too large
 				UINT8	ubGetRidOfXTroops = pGroup->ubGroupSize - 10;
 				if( gbWorldSectorZ || pGroup->ubSectorX != gWorldSectorX || pGroup->ubSectorY != gWorldSectorY )
 				{ //don't modify groups in the currently loaded sector.
@@ -3866,6 +3868,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 			pGroup = pGroup->next;
 		}
 	}
+
 	if( ubSAIVersion < 13 )
 	{
 		for( i = 0; i < 255; i++ )
@@ -4037,7 +4040,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	if( ubSAIVersion < 26 )
 	{
 		INT32 i;
-		for( i = 0; i < 255; i++ )
+		for( i = 0; i < 255; ++i )
 		{
 			if( SectorInfo[ i ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] +
 					SectorInfo[ i ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] +
@@ -6141,7 +6144,7 @@ void EliminateSurplusTroopsForGarrison( GROUP *pGroup, SECTORINFO *pSector )
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic8");
 
-iTotal = pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTanks +
+	iTotal = pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTanks +
 					pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumAdmins + pSector->ubNumTanks;
 	if( iTotal <= iMaxEnemyGroupSize )
 	{
@@ -6270,12 +6273,12 @@ void UpgradeAdminsToTroops()
 	GROUP *pGroup;
 	INT16 sPatrolIndex;
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 	// on normal, AI evaluates approximately every 10 hrs.	There are about 130 administrators seeded on the map.
 	// Some of these will be killed by the player.
 
 	// check all garrisons for administrators
-	for( i = 0; i < giGarrisonArraySize; i++ )
+	for( i = 0; i < giGarrisonArraySize; ++i )
 	{
 		// skip sector if it's currently loaded, we'll never upgrade guys in those
 		if ( (gWorldSectorX != 0) && (gWorldSectorY != 0) &&
@@ -6306,18 +6309,17 @@ void UpgradeAdminsToTroops()
 						pSector->ubNumTroops++;
 					}
 
-					ubAdminsToCheck--;
+					--ubAdminsToCheck;
 				}
 			}
 		}
 	}
-
-
+	
 	// check all moving enemy groups for administrators
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if ( pGroup->ubGroupSize && pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle )
+		if ( pGroup->ubGroupSize && pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle )
 		{
 			Assert ( pGroup->pEnemyGroup );
 
@@ -6482,7 +6484,7 @@ void ReassignAIGroup( GROUP **pGroup )
 	//go through garrisons first and begin considering where the random value dictates.	If that garrison doesn't require
 	//reinforcements, it'll continue on considering all subsequent garrisons till the end of the array.	If it fails at that
 	//point, it'll restart the loop at zero, and consider all garrisons to the index that was first considered by the random value.
-	for( i = 0; i < giGarrisonArraySize; i++ )
+	for( i = 0; i < giGarrisonArraySize; ++i )
 	{
 		RecalculateGarrisonWeight( i );
 		iWeight = gGarrisonGroup[ i ].bWeight;
@@ -6710,7 +6712,7 @@ void CalcNumTroopsBasedOnComposition( UINT8 *pubNumTroops, UINT8 *pubNumElites, 
 void ConvertGroupTroopsToComposition( GROUP *pGroup, INT32 iCompositionID )
 {
 	Assert( pGroup );
-	Assert( pGroup->usGroupTeam != OUR_TEAM );
+	Assert( pGroup->usGroupTeam == ENEMY_TEAM );
 	CalcNumTroopsBasedOnComposition( &pGroup->pEnemyGroup->ubNumTroops, &pGroup->pEnemyGroup->ubNumElites, pGroup->ubGroupSize, iCompositionID );
 	pGroup->pEnemyGroup->ubNumAdmins = 0;
 	pGroup->ubGroupSize = pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites;
@@ -6815,10 +6817,12 @@ void MoveSAIGroupToSector( GROUP **pGroup, UINT8 ubSectorID, UINT32 uiMoveCode, 
 	(*pGroup)->ubMoveType = ONE_WAY;
 
 	if( (*pGroup)->ubSectorX == ubDstSectorX && (*pGroup)->ubSectorY == ubDstSectorY )
-	{ //The destination sector is the current location.	Instead of causing code logic problems,
+	{
+		//The destination sector is the current location.	Instead of causing code logic problems,
 		//simply process them as if they just arrived.
 		if( EvaluateGroupSituation( *pGroup ) )
-		{ //The group was deleted.
+		{
+			//The group was deleted.
 			*pGroup = NULL;
 			return;
 		}
@@ -6852,7 +6856,7 @@ UINT8 RedirectEnemyGroupsMovingThroughSector( UINT8 ubSectorX, UINT8 ubSectorY )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubMoveType == ONE_WAY )
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->ubMoveType == ONE_WAY )
 		{
 			//check the waypoint list
 			if( GroupWillMoveThroughSector( pGroup, ubSectorX, ubSectorY ) )

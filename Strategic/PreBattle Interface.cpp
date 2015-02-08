@@ -225,7 +225,7 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 				{
 					if( pGroup->pEnemyGroup->ubAdminsInBattle || pGroup->pEnemyGroup->ubTroopsInBattle || pGroup->pEnemyGroup->ubElitesInBattle || pGroup->pEnemyGroup->ubTanksInBattle )
 					{
-						ubInvalidGroups++;
+						++ubInvalidGroups;
 						pGroup->pEnemyGroup->ubAdminsInBattle = 0;
 						pGroup->pEnemyGroup->ubTroopsInBattle = 0;
 						pGroup->pEnemyGroup->ubElitesInBattle = 0;
@@ -279,7 +279,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	BOOLEAN fScoutPresent = FALSE; // Added by SANDRO
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -305,18 +305,18 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		gfBlitBattleSectorLocator = TRUE;
 		gfBlinkHeader = FALSE;
 
-		#ifdef JA2BETAVERSION
-			if( pBattleGroup )
-			{
-				ValidateAndCorrectInBattleCounters( pBattleGroup );
-			}
-		#endif
+#ifdef JA2BETAVERSION
+		if( pBattleGroup )
+		{
+			ValidateAndCorrectInBattleCounters( pBattleGroup );
+		}
+#endif
 
 		//	InitializeTacticalStatusAtBattleStart();
 		// CJC, Oct 5 98: this is all we should need from InitializeTacticalStatusAtBattleStart()
 		if( gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE && gubEnemyEncounterCode != ENTERING_BLOODCAT_LAIR_CODE )
 		{
-			if ( CheckFact( FACT_FIRST_BATTLE_FOUGHT, 0 ) == FALSE )
+			if ( !CheckFact( FACT_FIRST_BATTLE_FOUGHT, 0 ) )
 			{
 				SetFactTrue( FACT_FIRST_BATTLE_BEING_FOUGHT );
 			}
@@ -324,17 +324,17 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 		//If we are currently in the AI Viewer development utility, then remove it first.	It automatically
 		//returns to the mapscreen upon removal, which is where we want to go.
-		#ifdef JA2BETAVERSION
-			if( guiCurrentScreen == AIVIEWER_SCREEN )
-			{
-				gfExitViewer = TRUE;
-				gpBattleGroup = pBattleGroup;
-				gfEnteringMapScreen = TRUE;
-				gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
-				gfUsePersistantPBI = TRUE;
-				return;
-			}
-		#endif
+#ifdef JA2BETAVERSION
+		if( guiCurrentScreen == AIVIEWER_SCREEN )
+		{
+			gfExitViewer = TRUE;
+			gpBattleGroup = pBattleGroup;
+			gfEnteringMapScreen = TRUE;
+			gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
+			gfUsePersistantPBI = TRUE;
+			return;
+		}
+#endif
 
 		// ATE: Added check for fPersistantPBI = TRUE if pBattleGroup == NULL
 		// Searched code and saw that this condition only happens for creatures
@@ -386,19 +386,23 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 
 	if( !gfPersistantPBI )
-	{ //calculate the non-persistant situation
+	{
+		//calculate the non-persistant situation
 		gfBlinkHeader = TRUE;
 
 		if( HostileCiviliansPresent() )
-		{ //There are hostile civilians, so no autoresolve allowed.
+		{
+			//There are hostile civilians, so no autoresolve allowed.
 			gubExplicitEnemyEncounterCode = HOSTILE_CIVILIANS_CODE;
 		}
 		else if( HostileBloodcatsPresent() )
-		{ //There are bloodcats in the sector, so no autoresolve allowed
+		{
+			//There are bloodcats in the sector, so no autoresolve allowed
 			gubExplicitEnemyEncounterCode = HOSTILE_BLOODCATS_CODE;
 		}
 		else if( gbWorldSectorZ > 0 )
-		{ //We are underground, so no autoresolve allowed
+		{
+			//We are underground, so no autoresolve allowed
 			if( pSector->ubCreaturesInBattle )
 			{
 				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
@@ -507,7 +511,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	// ARM: this must now be set before any calls utilizing the GetCurrentBattleSectorXYZ() function
 	gfPreBattleInterfaceActive = TRUE;
 
-
 	CheckForRobotAndIfItsControlled();
 
 	// wake everyone up
@@ -516,7 +519,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//Count the number of players involved or not involved in this battle
 	guiNumUninvolved = 0;
 	guiNumInvolved = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
@@ -524,7 +527,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			{
 				// involved
 				if( !ubGroupID )
-				{ //Record the first groupID.	If there are more than one group in this battle, we
+				{
+					//Record the first groupID.	If there are more than one group in this battle, we
 					//can detect it by comparing the first value with future values.	If we do, then
 					//we set a flag which determines whether to use the singular help text or plural version
 					//for the retreat button.
@@ -546,7 +550,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				{
 					fUsePluralVersion = TRUE;
 				}
-				guiNumInvolved ++;
+
+				++guiNumInvolved;
 
 				// SANDRO - added check if we have a scout in group, needed later
 				if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
@@ -554,8 +559,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					fScoutPresent = TRUE;
 				}
 			}
-			else {
-				guiNumUninvolved++;
+			else
+			{
+				++guiNumUninvolved;
 			}
 		}
 	}
@@ -569,7 +575,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	if( gfPersistantPBI )
 	{
 		if( !pBattleGroup )
-		{ //creature's attacking!
+		{
+			//creature's attacking!
 			gubEnemyEncounterCode = CREATURE_ATTACK_CODE;
 		}
 		else if ( gpBattleGroup->usGroupTeam == OUR_TEAM )
@@ -709,7 +716,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	// SANDRO - merc records - ambush experienced
 	if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || fAmbushPrevented )
 	{
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
 			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{

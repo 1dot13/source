@@ -1349,7 +1349,7 @@ void JumpToLevel( INT32 iLevel )
 		return;
 
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2640,7 +2640,7 @@ void GoToNextCharacterInList( void )
 		return;
 	}
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if( ( bSelectedDestChar != -1 ) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2655,7 +2655,7 @@ void GoToNextCharacterInList( void )
 		iCount = bSelectedInfoChar + 1;
 	}
 
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
@@ -2664,7 +2664,7 @@ void GoToNextCharacterInList( void )
 		}
 		else
 		{
-			iCount++;
+			++iCount;
 
 			if( iCount >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS )
 			{
@@ -2684,7 +2684,7 @@ void GoToFirstCharacterInList( void )
 		return;
 	}
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2710,7 +2710,7 @@ void GoToLastCharacterInList( void )
 		return;
 	}
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2736,7 +2736,7 @@ void GoToPrevCharacterInList( void )
 		return;
 	}
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -4636,7 +4636,6 @@ void HandleSettingTheSelectedListOfMercs( void )
 	SOLDIERTYPE *pSoldier = NULL;
 	BOOLEAN fSelected;
 
-
 	// reset the selected character
 	bSelectedDestChar = -1;
 
@@ -6060,16 +6059,13 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	INT16 sSector = 0;
 	BOOLEAN fProblemExists = FALSE;
 
-
 	// valid soldier?
 	Assert( pSoldier );
 	Assert( pSoldier->bActive);
-
-
+	
 	// NOTE: Check for the most permanent conditions first, and the most easily remedied ones last!
 	// In case several cases apply, only the reason found first will be given, so make it a good one!
-
-
+	
 	// still in transit?
 	if( IsCharacterInTransit( pSoldier ) == TRUE )
 	{
@@ -6084,14 +6080,12 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		return( FALSE );
 	}
 
-
 	// underground? (can't move strategically, must use tactical traversal )
 	if( pSoldier->bSectorZ != 0 )
 	{
 		*pbErrorNumber = 1;
 		return( FALSE );
 	}
-
 
 	// vehicle checks
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -6135,8 +6129,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			return( FALSE );
 		}
 	}
-
-
+	
 	// if merc is in a particular sector, not somewhere in between
 	if ( pSoldier->flags.fBetweenSectors == FALSE )
 	{
@@ -6178,7 +6171,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		}
 	}
 
-
 	// if in L12 museum, and the museum alarm went off, and Eldin still around?
 	if ( ( pSoldier->sSectorX == 12 ) && ( pSoldier->sSectorY == MAP_ROW_L ) && ( pSoldier->bSectorZ == 0 ) &&
 			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
@@ -6190,7 +6182,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 
 		if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom >= 22 && usRoom <= 41 )
 		{
-
 			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 			for ( pSoldier2 = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier2++)
@@ -6206,7 +6197,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			}
 		}
 	}
-
 
 	// on assignment, other than just in a VEHICLE?
 	if( ( pSoldier->bAssignment >= ON_DUTY ) && ( pSoldier->bAssignment != VEHICLE ) )
@@ -6224,7 +6214,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		*pbErrorNumber = -99;	// customized error message!
 		return( FALSE );
 	}
-
 
 	// a robot?
 	if ( AM_A_ROBOT( pSoldier ) )
@@ -6259,7 +6248,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		}
 	}
 
-
 	// assume there's no problem
 	fProblemExists = FALSE;
 
@@ -6285,7 +6273,6 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		return( FALSE );
 	}
 
-
 	// passed all checks - this character may move strategically!
 	return( TRUE );
 }
@@ -6298,15 +6285,13 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 	UINT8 ubGroup = 0;
 	UINT8 ubCurrentGroup = 0;
 
-
 	// first check the requested character himself
 	if( CanCharacterMoveInStrategic( pSoldier, pbErrorNumber ) == FALSE )
 	{
 		// failed no point checking anyone else
 		return( FALSE );
 	}
-
-
+	
 	// now check anybody who would be travelling with him
 
 	// does character have group?
@@ -6375,7 +6360,6 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 			}
 		}
 	}
-
 
 	// everybody can move...	Yey!	:-)
 	return( TRUE );

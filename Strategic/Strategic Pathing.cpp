@@ -24,6 +24,7 @@
 	#include "Map Screen Interface.h"
 	#include "Game Event Hook.h"
 	#include "Strategic AI.h"
+	#include "Queen Command.h"		// added by Flugente
 #endif
 
 
@@ -210,7 +211,7 @@ INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOO
 
 	// for player groups only!
 	pGroup = GetGroup( ( UINT8 )sMvtGroupNumber );
-	if ( pGroup->usGroupTeam == OUR_TEAM )
+	if ( pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM )
 	{
 		// if player is holding down SHIFT key, find the shortest route instead of the quickest route!
 		if ( _KeyDown( SHIFT ) )
@@ -314,7 +315,7 @@ INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOO
 				{
 					continue;
 				}
-				if( GetNumberOfMilitiaInSector( sSectorX, sSectorY, 0 ) )
+				if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
 				{
 					continue;
 				}
@@ -478,78 +479,82 @@ INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOO
 
 PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEndSectorNum, INT16 sMvtGroupNumber, BOOLEAN fTacticalTraversal /*, BOOLEAN fTempPath */ )
 {
+	INT32 iCurrentSectorNum;
+	 INT32 iDelta=0;
+	 INT32 iPathLength;
+	 INT32 iCount=0;
+	 PathStPtr pNode=NULL;
+	 PathStPtr pDeleteNode=NULL;
+	 PathStPtr pHeadOfPathList = pPath;
+	 INT32 iOldDelta = 0;
+	 iCurrentSectorNum=iStartSectorNum;
 
- INT32 iCurrentSectorNum;
- INT32 iDelta=0;
- INT32 iPathLength;
- INT32 iCount=0;
- PathStPtr pNode=NULL;
- PathStPtr pDeleteNode=NULL;
- PathStPtr pHeadOfPathList = pPath;
- INT32 iOldDelta = 0;
- iCurrentSectorNum=iStartSectorNum;
+	 if(iEndSectorNum < MAP_WORLD_X-1)
+		 return NULL;
 
- if(iEndSectorNum < MAP_WORLD_X-1)
-	 return NULL;
+	 if (pNode==NULL)
+	 {
+		// start new path list
+		pNode = (PathStPtr) MemAlloc(sizeof(PathSt));
+	/*
+		if ( _KeyDown( CTRL ))
+			pNode->fSpeed=SLOW_MVT;
+		else
+	*/
+			pNode->fSpeed=NORMAL_MVT;
+		pNode->uiSectorId=iStartSectorNum;
+		pNode->pNext=NULL;
+		pNode->pPrev=NULL;
+		pNode->uiEta = GetWorldTotalMin( );
+		pHeadOfPathList = pNode;
+	 }
 
- if (pNode==NULL)
- {
-	// start new path list
-	pNode = (PathStPtr) MemAlloc(sizeof(PathSt));
-/*
-	if ( _KeyDown( CTRL ))
-		pNode->fSpeed=SLOW_MVT;
-	else
-*/
-		pNode->fSpeed=NORMAL_MVT;
-	pNode->uiSectorId=iStartSectorNum;
-	pNode->pNext=NULL;
-	pNode->pPrev=NULL;
-	pNode->uiEta = GetWorldTotalMin( );
-	pHeadOfPathList = pNode;
- }
-
- iPathLength=((INT32)FindStratPath(((INT16)iStartSectorNum),((INT16)iEndSectorNum), sMvtGroupNumber, fTacticalTraversal ));
- while(iPathLength > iCount)
- {
-	switch(gusMapPathingData[iCount])
-	{
+	 iPathLength=((INT32)FindStratPath(((INT16)iStartSectorNum),((INT16)iEndSectorNum), sMvtGroupNumber, fTacticalTraversal ));
+	 while(iPathLength > iCount)
+	 {
+		switch(gusMapPathingData[iCount])
+		{
 		case(NORTH):
 			iDelta=NORTH_MOVE;
-		break;
+			break;
 		case(SOUTH):
 			iDelta=SOUTH_MOVE;
-	 break;
+			break;
 		case(EAST):
 			iDelta=EAST_MOVE;
-	 break;
+			break;
 		case(WEST):
 			iDelta=WEST_MOVE;
-	 break;
-	}
-	iCount++;
-	// create new node
-	iCurrentSectorNum+=iDelta;
+			break;
+		}
 
-	if(!AddSectorToPathList(pHeadOfPathList, (UINT16)iCurrentSectorNum))
-	{
-		pNode=pHeadOfPathList;
-		// intersected previous node, delete path to date
-		if(!pNode)
-			return NULL;
-		while(pNode->pNext)
+		++iCount;
+
+		// create new node
+		iCurrentSectorNum+=iDelta;
+
+		if(!AddSectorToPathList(pHeadOfPathList, (UINT16)iCurrentSectorNum))
+		{
+			pNode=pHeadOfPathList;
+
+			// intersected previous node, delete path to date
+			if(!pNode)
+				return NULL;
+
+			while(pNode->pNext)
 				pNode=pNode->pNext;
+
 			// start backing up
 			while(pNode->uiSectorId!=(UINT32)iStartSectorNum)
-					{
-					pDeleteNode=pNode;
-					pNode=pNode->pPrev;
-					pNode->pNext=NULL;
-					MemFree(pDeleteNode);
-					}
-	 return NULL;
-	}
-
+			{
+				pDeleteNode=pNode;
+				pNode=pNode->pPrev;
+				pNode->pNext=NULL;
+				MemFree(pDeleteNode);
+			}
+	 
+			return NULL;
+		}
 
 	// for strategic mvt events
 	// we are at the new node, check if previous node was a change in deirection, ie change in delta..add waypoint
@@ -568,16 +573,16 @@ PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEn
 		}
 	}
 	*/
-	iOldDelta = iDelta;
+		iOldDelta = iDelta;
 
+		pHeadOfPathList = pNode;
 
-	pHeadOfPathList = pNode;
-	if(!pNode)
-		return NULL;
-	while(pNode->pNext)
-		pNode=pNode->pNext;
+		if(!pNode)
+			return NULL;
 
- }
+		while(pNode->pNext)
+			pNode=pNode->pNext;
+	}
 
 	pNode=pHeadOfPathList;
 
@@ -591,7 +596,7 @@ PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEn
 		MemFree(pNode);
 		pHeadOfPathList = NULL;
 		pPath = pHeadOfPathList;
-	return FALSE;
+		return FALSE;
 	}
 
 	/*
@@ -604,8 +609,8 @@ PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEn
 	*/
 
 	pPath=pHeadOfPathList;
-	return pPath;
 
+	return pPath;
 }
 
 
@@ -623,12 +628,12 @@ BOOLEAN AddSectorToPathList( PathStPtr pPath ,UINT16 uiSectorNum )
 		return FALSE;
 
 	if (pNode==NULL)
-		{
+	{
 		pNode = (PathStPtr) MemAlloc(sizeof(PathSt));
 
 		// Implement EtaCost Array as base EtaCosts of sectors
 		// pNode->uiEtaCost=EtaCost[uiSectorNum];
-	 pNode->uiSectorId=uiSectorNum;
+		pNode->uiSectorId=uiSectorNum;
 		pNode->uiEta= GetWorldTotalMin( );
 		pNode->pNext=NULL;
 		pNode->pPrev=NULL;
@@ -639,37 +644,37 @@ BOOLEAN AddSectorToPathList( PathStPtr pPath ,UINT16 uiSectorNum )
 */
 		pNode->fSpeed=NORMAL_MVT;
 
-
 		return TRUE;
-		}
+	}
 	else
-		{
+	{
 		//if (pNode->uiSectorId==uiSectorNum)
 			//	return FALSE;
-			while(pNode->pNext)
-			{
+		while(pNode->pNext)
+		{
 		//	if (pNode->uiSectorId==uiSectorNum)
 			//	return FALSE;
-				pNode=pNode->pNext;
+			pNode=pNode->pNext;
+		}
 
-			}
-
-			pTempNode = (PathStPtr) MemAlloc(sizeof(PathSt));
-			pTempNode->uiEta=0;
-			pNode->pNext=pTempNode;
-			pTempNode->uiSectorId=uiSectorNum;
-			pTempNode->pPrev=pNode;
-			pTempNode->pNext=NULL;
+		pTempNode = (PathStPtr) MemAlloc(sizeof(PathSt));
+		pTempNode->uiEta=0;
+		pNode->pNext=pTempNode;
+		pTempNode->uiSectorId=uiSectorNum;
+		pTempNode->pPrev=pNode;
+		pTempNode->pNext=NULL;
 /*
 		if ( _KeyDown( CTRL ))
 		pTempNode->fSpeed=SLOW_MVT;
 		else
 */
-			pTempNode->fSpeed=NORMAL_MVT;
+		pTempNode->fSpeed=NORMAL_MVT;
 		pNode=pTempNode;
 
 	}
+
 	pPath = pHeadOfList;
+
 	return TRUE;
 }
 
@@ -891,8 +896,8 @@ PathStPtr ClearStrategicPathList( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 
 	if( ( sMvtGroup != -1 ) && ( sMvtGroup != 0 ) )
 	{
-	// clear this groups mvt pathing
-	RemoveGroupWaypoints( ( UINT8 )sMvtGroup );
+		// clear this groups mvt pathing
+		RemoveGroupWaypoints( ( UINT8 )sMvtGroup );
 	}
 
 	return( pNode );

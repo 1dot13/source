@@ -37,6 +37,7 @@
 	#include "Auto Resolve.h"
 	#include "Strategic Status.h"
 	#include "wordwrap.h"
+	#include "Town Militia.h"	// added by Flugente
 #endif
 
 #ifdef JA2BETAVERSION
@@ -452,27 +453,29 @@ void RenderStationaryGroups()
 {
 	HVOBJECT hVObject;
 	SECTORINFO *pSector;
-	INT32 x, y, xp, yp;
+	INT32 xp, yp;
 	CHAR16 str[20];
 	INT32 iSector = 0;
 	UINT8 ubIconColor = 0;
 	UINT8 ubGroupSize = 0;
 
-
 	SetFont( FONT10ARIAL );
 	SetFontShadow( FONT_NEARBLACK );
 
 	GetVideoObject( &hVObject, guiMapIconsID );
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize ); /* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize ); /* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	//Render groups that are stationary...
-	for( y = 0; y < 16; y++ )
+	for ( INT32 y = 0; y < 16; ++y )
 	{
 		yp = VIEWER_TOP + VIEWER_CELLH * y + 1;
-		for( x = 0; x < 16; x++ )
+		for ( INT32 x = 0; x < 16; ++x )
 		{
 			SetFontForeground( FONT_YELLOW );
 			xp = VIEWER_LEFT + VIEWER_CELLW * x + 1;
+
+			iSector = SECTOR(x, y);
+
 			pSector = &SectorInfo[ iSector ];
 
 			if( pSector->uiFlags & SF_MINING_SITE )
@@ -480,20 +483,21 @@ void RenderStationaryGroups()
 
 			if( pSector->uiFlags & SF_SAM_SITE )
 				BltVideoObject( FRAME_BUFFER, hVObject, SAM_ICON, xp + 20, yp + 4, VO_BLT_SRCTRANSPARENCY, NULL );
+			
+			UINT8 nummilitia = NumNonPlayerTeamMembersInSector( x, y, MILITIA_TEAM );
 
-
-			if( pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2] )
+			if ( nummilitia )
 			{
 				// show militia
 				ubIconColor = ICON_COLOR_BLUE;
-				ubGroupSize = pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2];
+				ubGroupSize = nummilitia;
 			}
-			else
-			if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks )
+			else if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks )
 			{
 				// show enemies
 				ubIconColor = ChooseEnemyIconColor( pSector->ubNumAdmins, pSector->ubNumTroops, pSector->ubNumElites, pSector->ubNumTanks );
 				ubGroupSize = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks;
+
 				if( pSector->ubGarrisonID != NO_GARRISON )
 				{
 					if( gGarrisonGroup[ pSector->ubGarrisonID ].ubPendingGroupID )
@@ -527,7 +531,7 @@ void RenderStationaryGroups()
 				mprintf( xp + 2, yp + 2, str );
 			}
 
-			iSector++;
+			++iSector;
 		}
 	}
 }
@@ -753,8 +757,8 @@ void RenderInfoInSector()
 			ubMercs, ubActive, ubUnconcious, ubCollapsed );
 		yp += 10;
 		SetFontForeground( FONT_LTBLUE );
-		mprintf( 280, yp, L"Militia:	(%d Green, %d Regular, %d Elite)",
-			pSector->ubNumberOfCivsAtLevel[0], pSector->ubNumberOfCivsAtLevel[1], pSector->ubNumberOfCivsAtLevel[2] );
+		mprintf( 280, yp, L"Militia:	(%d Green, %d Regular, %d Elite)", 
+				 MilitiaInSectorOfRank( ubSectorX, ubSectorY, GREEN_MILITIA ), MilitiaInSectorOfRank( ubSectorX, ubSectorY, REGULAR_MILITIA ), MilitiaInSectorOfRank( ubSectorX, ubSectorY, ELITE_MILITIA ) );
 		yp += 10;
 		SetFontForeground( FONT_ORANGE );
 		mprintf( 280, yp, L"Garrison:	(%d:%d Admins, %d:%d Troops, %d:%d Elites, %d:%d Tanks)",
@@ -967,19 +971,17 @@ void HandleViewerInput()
 						pSector = NULL;
 						if( gsSelSectorX && gsSelSectorY )
 						{
-							pSector = &SectorInfo[ SECTOR( gsSelSectorX, gsSelSectorY ) ];
-							pSector->ubNumberOfCivsAtLevel[0] = 15;
-							pSector->ubNumberOfCivsAtLevel[1] = 4;
-							pSector->ubNumberOfCivsAtLevel[2]	= 1;
+							StrategicAddMilitiaToSector( gsSelSectorX, gsSelSectorY, GREEN_MILITIA, 15 );
+							StrategicAddMilitiaToSector( gsSelSectorX, gsSelSectorY, REGULAR_MILITIA, 4 );
+							StrategicAddMilitiaToSector( gsSelSectorX, gsSelSectorY, ELITE_MILITIA, 1 );
 							gfRenderMap = TRUE;
 							EliminateAllEnemies( (UINT8)gsSelSectorX, (UINT8)gsSelSectorY );
 						}
 						else if( gsHiSectorX && gsHiSectorY )
 						{
-							pSector = &SectorInfo[ SECTOR( gsHiSectorX, gsHiSectorY ) ];
-							pSector->ubNumberOfCivsAtLevel[0] = 15;
-							pSector->ubNumberOfCivsAtLevel[1] = 4;
-							pSector->ubNumberOfCivsAtLevel[2]	= 1;
+							StrategicAddMilitiaToSector( gsHiSectorX, gsHiSectorY, GREEN_MILITIA, 15 );
+							StrategicAddMilitiaToSector( gsHiSectorX, gsHiSectorY, REGULAR_MILITIA, 4 );
+							StrategicAddMilitiaToSector( gsHiSectorX, gsHiSectorY, ELITE_MILITIA, 1 );
 							gfRenderMap = TRUE;
 							EliminateAllEnemies( (UINT8)gsHiSectorX, (UINT8)gsHiSectorY );
 						}

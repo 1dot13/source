@@ -10029,6 +10029,18 @@ STR16 szIMPGearDropDownNoneText[] =
 	L"No additional items",
 };
 
+STR16 szMilitiaStrategicMovementText[] =
+{
+	L"We cannot relay orders to this sector, militia command not possible.",
+	L"Unassigned",
+	L"Group No.",
+	L"Next",
+
+	L"ETA",
+	L"Group %d (new)",
+	L"Group %d",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

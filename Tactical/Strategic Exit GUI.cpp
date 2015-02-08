@@ -34,6 +34,7 @@
 	#include "MessageBoxScreen.h"
 	#include "Quests.h"
 	#include "Creature Spreading.h"
+	#include "Queen Command.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -307,12 +308,14 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//
 	if( gTacticalStatus.fEnemyInSector )
 	{
 		if( gExitDialog.fMultipleSquadsInSector )
-		{ //We have multiple squads in a hostile sector.	That means that we can't load the adjacent sector.
+		{
+			//We have multiple squads in a hostile sector.	That means that we can't load the adjacent sector.
 			gExitDialog.fGotoSectorDisabled = TRUE;
 			gExitDialog.fGotoSector = FALSE;
 		}
-		else if( GetNumberOfMilitiaInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
-		{ //Leaving this sector will result in militia being forced to fight the battle, can't load adjacent sector.
+		else if ( gbWorldSectorZ <= 0 && NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, MILITIA_TEAM ) )
+		{
+			//Leaving this sector will result in militia being forced to fight the battle, can't load adjacent sector.
 			gExitDialog.fGotoSectorDisabled = TRUE;
 			gExitDialog.fGotoSector = FALSE;
 		}

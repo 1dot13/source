@@ -10040,4 +10040,16 @@ STR16 szIMPGearDropDownNoneText[] =
 	L"No additional items",
 };
 
+STR16 szMilitiaStrategicMovementText[] =
+{
+	L"We cannot relay orders to this sector, militia command not possible.",
+	L"Unassigned",
+	L"Group No.",
+	L"Next",
+
+	L"ETA",
+	L"Group %d (new)",
+	L"Group %d",
+};
+
 #endif //DUTCH

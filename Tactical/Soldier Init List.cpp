@@ -55,6 +55,7 @@
 #include "Map Edgepoints.h"
 #include "Campaign.h"			// added by Flugente for HighestPlayerProgressPercentage()
 #include "CampaignStats.h"		// added by Flugente
+#include "Town Militia.h"		// added by Flugente
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -2825,17 +2826,13 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	if ( sMapZ > 0 )
 		return;
 
-	SECTORINFO *pSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];
-	if ( !pSector )
-		return;
-
 	// does not work atm, time gets reset too early
 	// not if we have recently been in this sector
 	//if ( pSector->uiTimeCurrentSectorWasLastLoaded + 10 > GetWorldTotalMin() )
 		//return;
 
 	// do not spawn if militia size is very small (we will be spotted much easier by the player)
-	UINT32 totalmilitia = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	UINT32 totalmilitia = NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM );
 	if ( totalmilitia < gGameExternalOptions.usAssassinMinimumMilitia )
 		return;
 
@@ -2856,16 +2853,16 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		return;
 
 	// now count militia, and which type (green, regular, elite) is most numerous - that will be the best type to blend in	
-	UINT8 militiacnt = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+	UINT8 militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
 	UINT8 militiadisguise = GREEN_MILITIA;
-	if ( pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] > militiacnt )
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) > militiacnt )
 	{
-		militiacnt = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+		militiacnt = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
 		militiadisguise = REGULAR_MILITIA;
 	}
-	if ( pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] > militiacnt )
+
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) > militiacnt )
 	{
-		militiacnt = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 		militiadisguise = ELITE_MILITIA;
 	}
 		

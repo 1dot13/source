@@ -3992,11 +3992,21 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing vehicle info");
 		goto FAILED_TO_SAVE;
 	}
-	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
-	#endif
 
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
+#endif
 
+	// Flugente: militia movement
+	if ( !SaveMilitiaMovementInformationToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing militia movement" );
+		goto FAILED_TO_SAVE;
+	}
+
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "Militia Movement" );
+#endif
 
 	if( !SaveBulletStructureToSaveGameFile( hFile ) )
 	{
@@ -4017,10 +4027,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	#ifdef JA2BETAVERSION
 		SaveGameFilePosition( FileGetPos( hFile ), "Physics Table" );
 	#endif
-
-
-
-
+		
 
 	if( !SaveAirRaidInfoToSaveGameFile( hFile ) )
 	{
@@ -5268,15 +5275,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 
-
-
-
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Vehicle Information..." );
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
-
-
 
 	if( guiCurrentSaveGameVersion	>= 22 )
 	{
@@ -5286,19 +5288,32 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			FileClose( hFile );
 			return(FALSE);
 		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
-		#endif
+
+#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
+#endif
 	}
 
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Militia Movement..." );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
 
+	if ( !LoadMilitiaMovementInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadMilitiaMovementInformationFromSavedGameFile failed" ) );
+		FileClose( hFile );
+		return(FALSE);
+	}
+
+#ifdef JA2BETAVERSION
+	LoadGameFilePosition( FileGetPos( hFile ), "Militia Movement" );
+#endif
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Bullet Information..." );
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
-
-
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
@@ -6520,9 +6535,8 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 	UINT8		ubZero = 0;
 
 	//Loop through all the soldier structs to save
-	for( cnt=0; cnt< TOTAL_SOLDIERS; cnt++)
+	for( cnt=0; cnt< TOTAL_SOLDIERS; ++cnt)
 	{
-
 		//if the soldier isnt active, dont add them to the saved game file.
 		if( !Menptr[ cnt ].bActive )
 		{
@@ -6533,7 +6547,6 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 				return(FALSE);
 			}
 		}
-
 		else
 		{
 			// Save the byte specifing to load the soldiers 
@@ -6587,6 +6600,7 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 			}
 		}
 	}
+
 	return( TRUE );
 }
 
@@ -6661,8 +6675,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			// Load the pMercPath
 			if( !LoadMercPathToSoldierStruct( hFile, ubId ) )
 				return( FALSE );
-
-
+			
 			//
 			//do we have a 	KEY_ON_RING									*pKeyRing;
 			//
@@ -6694,7 +6707,6 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 						return(FALSE);
 					}
 				}
-
 			}
 			else
 			{
@@ -6869,13 +6881,13 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 	HWFILE	hSrcFile=NULL;
 	UINT8	*pData;
 	UINT32	uiNumBytesRead;
-
-
+	
 	if(FileExists(pSrcFileName))
 	{
 		//open the file
 		hSrcFile = FileOpen( pSrcFileName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 	}
+
 	if( !hSrcFile )
 	{
 		// Write the the size of the file to the saved game file
@@ -6888,11 +6900,10 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 		return( TRUE );
 	}
 
-	#ifdef JA2BETAVERSION
-	guiNumberOfMapTempFiles++;		//Increment counter:	To determine where the temp files are crashing
-	#endif
-
-
+#ifdef JA2BETAVERSION
+	++guiNumberOfMapTempFiles;		//Increment counter:	To determine where the temp files are crashing
+#endif
+	
 	//Get the file size of the source data file
 	uiFileSize = FileGetSize( hSrcFile );
 	if( uiFileSize == 0 )
@@ -6904,8 +6915,6 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 	{
 		return(FALSE);
 	}
-
-
 
 	//Allocate a buffer to read the data into
 	pData = (UINT8 *) MemAlloc( uiFileSize );
@@ -6923,8 +6932,6 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 		return(FALSE);
 	}
 
-
-
 	// Write the buffer to the saved game file
 	FileWrite( hFile, pData, uiFileSize, &uiNumBytesWritten );
 	if( uiNumBytesWritten != uiFileSize )
@@ -6941,10 +6948,10 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 	//Clsoe the source data file
 	FileClose( hSrcFile );
 
-	#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
 	//Write out the name of the temp file so we can track whcih ones get loaded, and saved
-		WriteTempFileNameToFile( pSrcFileName, uiFileSize, hFile );
-	#endif
+	WriteTempFileNameToFile( pSrcFileName, uiFileSize, hFile );
+#endif
 
 	return( TRUE );
 }
@@ -6957,9 +6964,7 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 	HWFILE	hSrcFile;
 	UINT8		*pData;
 	UINT32	uiNumBytesRead;
-
-
-
+		
 	//If the source file exists, delete it
 	if( FileExists( pSrcFileName ) )
 	{
@@ -6970,9 +6975,9 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 		}
 	}
 
-	#ifdef JA2BETAVERSION
-	guiNumberOfMapTempFiles++;		//Increment counter:	To determine where the temp files are crashing
-	#endif
+#ifdef JA2BETAVERSION
+	++guiNumberOfMapTempFiles;		//Increment counter:	To determine where the temp files are crashing
+#endif
 
 	//open the destination file to write to
 	hSrcFile = FileOpen( pSrcFileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
@@ -6982,7 +6987,6 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 		return( FALSE );
 	}
 
-
 	// Read the size of the data 
 	FileRead( hFile, &uiFileSize, sizeof( UINT32 ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( UINT32 ) )
@@ -6991,7 +6995,6 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 
 		return(FALSE);
 	}
-
 
 	//if there is nothing in the file, return;
 	if( uiFileSize == 0 )
@@ -7022,8 +7025,6 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 		return(FALSE);
 	}
 
-
-
 	// Write the buffer to the new file
 	FileWrite( hSrcFile, pData, uiFileSize, &uiNumBytesWritten );
 	if( uiNumBytesWritten != uiFileSize )
@@ -7042,9 +7043,9 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 	//Close the source data file
 	FileClose( hSrcFile );
 
-	#ifdef JA2BETAVERSION
-		WriteTempFileNameToFile( pSrcFileName, uiFileSize, hFile );
-	#endif
+#ifdef JA2BETAVERSION
+	WriteTempFileNameToFile( pSrcFileName, uiFileSize, hFile );
+#endif
 
 	return( TRUE );
 }
@@ -7079,10 +7080,9 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 		return(FALSE);
 	}
 
-
 	//loop trhough all the emails, add each one individually
 	pEmail = pEmailList;
-	for( cnt=0; cnt<uiNumOfEmails; cnt++)
+	for( cnt=0; cnt<uiNumOfEmails; ++cnt)
 	{
 		//Get the strng length of the subject
 		uiStringLength = ( wcslen( pEmail->pSubject ) + 1 ) * 2;
@@ -7100,7 +7100,6 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 		{
 			return(FALSE);
 		}
-
 
 		//Get the current emails data and asign it to the 'Saved email' struct
 		SavedEmail.usOffset = pEmail->usOffset;
@@ -7891,14 +7890,12 @@ BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT8	ubID )
 	PathStPtr	pTempPath = Menptr[ ubID ].pMercPath;
 	UINT32	uiNumBytesWritten=0;
 
-
 	//loop through to get all the nodes
 	while( pTempPath )
 	{
-		uiNumOfNodes++;
+		++uiNumOfNodes;
 		pTempPath = pTempPath->pNext;
 	}
-
 
 	//Save the number of the nodes
 	FileWrite( hFile, &uiNumOfNodes, sizeof( UINT32 ), &uiNumBytesWritten );
@@ -7910,8 +7907,7 @@ BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT8	ubID )
 	//loop through all the nodes and add them
 	pTempPath = Menptr[ ubID ].pMercPath;
 
-
-	//loop through nodes and save all the nodes
+		//loop through nodes and save all the nodes
 	while( pTempPath )
 	{
 		//Save the number of the nodes
@@ -7923,8 +7919,6 @@ BOOLEAN SaveMercPathFromSoldierStruct( HWFILE hFile, UINT8	ubID )
 
 		pTempPath = pTempPath->pNext;
 	}
-
-
 
 	return( TRUE );
 }
@@ -7938,9 +7932,7 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 	PathStPtr	pTemp = NULL;
 	UINT32	uiNumBytesRead=0;
 	UINT32	cnt;
-
-
-
+	
 	//The list SHOULD be empty at this point
 /*
 	//if there is nodes, loop through and delete them
@@ -7968,7 +7960,7 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 	}
 
 	//load all the nodes
-	for( cnt=0; cnt<uiNumOfNodes; cnt++ )
+	for( cnt=0; cnt<uiNumOfNodes; ++cnt )
 	{
 		//Allocate memory for the new node
 		pTemp = (PathStPtr) MemAlloc( sizeof( PathSt ) );
@@ -7978,9 +7970,9 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 			ClearStrategicPathList( pTempPath, -1 );
  			return( FALSE );
 		}
+
 		memset( pTemp, 0 , sizeof( PathSt ) );
-
-
+		
 		//Load the node
 		FileRead( hFile, pTemp, sizeof( PathSt ), &uiNumBytesRead );
 		if( uiNumBytesRead != sizeof( PathSt ) )
@@ -9367,10 +9359,12 @@ void UnPauseAfterSaveGame( void )
 
 void ValidateStrategicGroups()
 {
-	SECTORINFO *pSector;
-	INT32 i;
+	// Flugente:this function doesn't do anything, no need to loop here
+	return;
 
-	for( i = SEC_A1; i < SEC_P16; i++ )
+	SECTORINFO *pSector;
+
+	for ( INT32 i = SEC_A1; i < SEC_P16; ++i )
 	{
 		pSector = &SectorInfo[ i ];
 		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks > gGameExternalOptions.iMaxEnemyGroupSize )

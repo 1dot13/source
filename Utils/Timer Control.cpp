@@ -124,6 +124,7 @@ extern INT32 giFlashHighlightedItemBaseTime;
 //extern INT32 giCompatibleItemBaseTime;//Moa:removed (see HandleMouseInCompatableItemForMapSectorInventory)
 extern INT32 giAnimateRouteBaseTime;
 extern INT32 giPotHeliPathBaseTime;
+extern INT32 giPotMilitiaPathBaseTime;
 extern INT32 giClickHeliIconBaseTime;
 extern INT32 giExitToTactBaseTime;
 extern UINT32 guiSectorLocatorBaseTime;
@@ -540,12 +541,12 @@ void ResetJA2ClockGlobalTimers( void )
 {
 	UINT32 uiCurrentTime = GetJA2Clock();
 
-
 	guiCompressionStringBaseTime = uiCurrentTime;
 	giFlashHighlightedItemBaseTime = uiCurrentTime;
 	//giCompatibleItemBaseTime = uiCurrentTime;//Moa: removed (see HandleMouseInCompatableItemForMapSectorInventory)
 	giAnimateRouteBaseTime = uiCurrentTime;
 	giPotHeliPathBaseTime = uiCurrentTime;
+	giPotMilitiaPathBaseTime = uiCurrentTime;
 	giClickHeliIconBaseTime = uiCurrentTime;
 	giExitToTactBaseTime = uiCurrentTime;
 	guiSectorLocatorBaseTime = uiCurrentTime;

@@ -49,6 +49,7 @@
 	#include "Quests.h"
 	#include "Interface.h"		// added by Flugente for zBackground
 	#include "Reinforcement.h"	// added by Flugente for AddPossiblePendingMilitiaToBattle()
+	#include "Militia Control.h"	// added by Flugente for ResetMilitia()
 #endif
 
 #include "MilitiaSquads.h"
@@ -778,6 +779,84 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	return NULL;
 }
 
+GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+{
+	GROUP *pNew;
+	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewMilitiaGroupDepartingFromSector with out of range value of %d", uiSector ) );
+	pNew = (GROUP*)MemAlloc( sizeof(GROUP) );
+	AssertMsg( pNew, "MemAlloc failure during CreateNewEnemyGroup." );
+	memset( pNew, 0, sizeof(GROUP) );
+	pNew->pEnemyGroup = (ENEMYGROUP*)MemAlloc( sizeof(ENEMYGROUP) );
+	AssertMsg( pNew->pEnemyGroup, "MemAlloc failure during enemy group creation." );
+	memset( pNew->pEnemyGroup, 0, sizeof(ENEMYGROUP) );
+
+	// Make sure group is not bigger than allowed!
+	while ( ubNumAdmins + ubNumTroops + ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize )
+	{
+		if ( ubNumTroops )
+		{
+			ubNumTroops--;
+		}
+		else if ( ubNumAdmins )
+		{
+			ubNumAdmins--;
+		}
+		else if ( ubNumElites )
+		{
+			ubNumElites--;
+		}
+	}
+
+	pNew->pWaypoints = NULL;
+	pNew->ubSectorX = (UINT8)SECTORX( uiSector );
+	pNew->ubSectorY = (UINT8)SECTORY( uiSector );
+	pNew->ubOriginalSector = (UINT8)uiSector;
+	pNew->usGroupTeam = MILITIA_TEAM;
+	pNew->ubMoveType = ONE_WAY;		// we don't set up patrols...
+	pNew->ubNextWaypointID = 0;
+	pNew->ubFatigueLevel = 100;
+	pNew->ubRestAtFatigueLevel = 0;
+	pNew->pEnemyGroup->ubNumAdmins = ubNumAdmins;
+	pNew->pEnemyGroup->ubNumTroops = ubNumTroops;
+	pNew->pEnemyGroup->ubNumElites = ubNumElites;
+	pNew->ubGroupSize = (UINT8)(ubNumAdmins + ubNumTroops + ubNumElites);
+	pNew->ubTransportationMask = FOOT;
+	pNew->fVehicle = FALSE;
+	pNew->ubCreatedSectorID = pNew->ubOriginalSector;
+	pNew->ubSectorIDOfLastReassignment = 255;
+
+#ifdef JA2BETAVERSION
+	{
+		/*CHAR16 str[512];
+		if ( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || NumNonPlayerTeamMembersInSector( pNew->ubSectorX, pNew->ubSectorY, MILITIA_TEAM ) )
+		{
+			swprintf( str, L"Attempting to send enemy troops from player occupied location.	"
+					  L"Please ALT+TAB out of the game before doing anything else and send 'Strategic Decisions.txt' "
+					  L"and this message.	You'll likely need to revert to a previous save.	If you can reproduce this "
+					  L"with a save close to this event, that would really help me! -- KM:0" );
+			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+		}*/
+		/*
+		* Not valid
+		else if( pNew->ubGroupSize > 25 )
+		{
+		swprintf( str, L"Strategic AI warning:	Creating an enemy group containing %d soldiers "
+		L"(%d admins, %d troops, %d elites) in sector %c%d.	This message is a temporary test message "
+		L"to evaluate a potential problems with very large enemy groups.",
+		pNew->ubGroupSize, ubNumAdmins, ubNumTroops, ubNumElites,
+		pNew->ubSectorY + 'A' - 1, pNew->ubSectorX );
+		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+		}
+		*/
+	}
+#endif
+
+	if ( AddGroupToList( pNew ) )
+		return pNew;
+
+	return NULL;
+}
+
 //INTERNAL LIST MANIPULATION FUNCTIONS
 
 //When adding any new group to the list, this is what must be done:
@@ -1150,7 +1229,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		}
 
 		if( pGroup->uiFlags & GROUPFLAG_HIGH_POTENTIAL_FOR_AMBUSH && fBattlePending )
-		{ //This group has just arrived in a new sector from an adjacent sector that he retreated from
+		{
+			//This group has just arrived in a new sector from an adjacent sector that he retreated from
 			//If this battle is an encounter type battle, then there is a 90% chance that the battle will
 			//become an ambush scenario.
 			gfHighPotentialForAmbush = TRUE;
@@ -1172,26 +1252,37 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 			}
 		}
 	}
-	else
+	else if ( pGroup->usGroupTeam == ENEMY_TEAM )
 	{
 		if ( NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, MILITIA_TEAM ) )
 		{
 			fMilitiaPresent = TRUE;
 			fBattlePending = TRUE;
 		}
-		if( fAliveMerc )
+
+		if ( fAliveMerc )
 		{
+			fBattlePending = TRUE;
+		}
+	}
+	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		if ( NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM ) )
+		{
+			fMilitiaPresent = TRUE;
 			fBattlePending = TRUE;
 		}
 	}
 
 	if( !fAliveMerc && !fMilitiaPresent )
-	{ //empty vehicle, everyone dead, don't care.	Enemies don't care.
+	{
+		//empty vehicle, everyone dead, don't care.	Enemies don't care.
 		return FALSE;
 	}
 
 	if( fBattlePending )
-	{	//A battle is pending, but the players could be all unconcious or dead.
+	{
+		//A battle is pending, but the players could be all unconcious or dead.
 		//Go through every group until we find at least one concious merc.	The looping will determine
 		//if there are any live mercs and/or concious ones.	If there are no concious mercs, but alive ones,
 		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
@@ -1206,7 +1297,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		StopTimeCompression();
 
 		if( gubNumGroupsArrivedSimultaneously )
-		{ //Because this is a battle case, clear all the group flags
+		{
+			//Because this is a battle case, clear all the group flags
 			curr = gpGroupList;
 			while( curr && gubNumGroupsArrivedSimultaneously )
 			{
@@ -1228,14 +1320,16 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		}
 
 		if( !fCombatAbleMerc )
-		{ //Prepare for instant autoresolve.
+		{
+			//Prepare for instant autoresolve.
 			gfDelayAutoResolveStart = TRUE;
 			gfUsePersistantPBI = TRUE;
 			if( fMilitiaPresent )
 			{
 				NotifyPlayerOfInvasionByEnemyForces( pGroup->ubSectorX, pGroup->ubSectorY, 0, TriggerPrebattleInterface );
 
-				if( GetTownIdForSector( pGroup->ubSectorX, pGroup->ubSectorY ) == BLANK_SECTOR)
+				// trigger autoresolve if not in city, or this is a militia group
+				if ( pGroup->usGroupTeam == MILITIA_TEAM || GetTownIdForSector( pGroup->ubSectorX, pGroup->ubSectorY ) == BLANK_SECTOR )
 				{
 //					CHAR16 str[ 256 ];
 //					UINT16 uiSectorC = L'A' + pGroup->ubSectorY - 1;
@@ -1254,10 +1348,10 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 			}
 		}
 
-		#ifdef JA2BETAVERSION
-			if( guiCurrentScreen == AIVIEWER_SCREEN )
-				gfExitViewer = TRUE;
-		#endif
+#ifdef JA2BETAVERSION
+		if( guiCurrentScreen == AIVIEWER_SCREEN )
+			gfExitViewer = TRUE;
+#endif
 
 		if( pPlayerDialogGroup )
 		{
@@ -1679,6 +1773,23 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		return;
 	}
 
+	// Flugente: militia groups
+	if ( pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		// if the group would move from the current sector...
+		if ( gWorldSectorX == pGroup->ubSectorX && gWorldSectorY == pGroup->ubSectorY && !gbWorldSectorZ )
+		{
+			// if there is a fight going on in the sector where the group currently is, then we do not move them - erase the group instead
+			if ( gTacticalStatus.uiFlags & INCOMBAT )
+			{
+				// once militia have arrived, move them from the group to the sector
+				DissolveMilitiaGroup( pGroup->ubGroupID );
+
+				return;
+			}
+		}
+	}
+
 	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		//Set the fact we have visited the	sector
@@ -1764,7 +1875,6 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		{
 			pGroup->uiArrivalTime += Random(3) + 3;
 		}
-
 
 		if( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
 			AssertMsg( 0, "Failed to add movement event." );
@@ -2080,6 +2190,9 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		fCharacterInfoPanelDirty = TRUE;
 	}
 
+	// in case we start a battle, we do not yet destroy militia groups
+	BOOLEAN fBattlePending = FALSE;
+
 	if ( !fGroupDestroyed )
 	{
 		//Determine if a battle should start.
@@ -2107,13 +2220,80 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			}
 		}
 		else
-		{ //Handle cases for pre battle conditions
+		{
+			//Handle cases for pre battle conditions
 			pGroup->uiFlags = 0;
+
 			if( gubNumAwareBattles )
-			{ //When the AI is looking for the players, and a battle is initiated, then
+			{
+				//When the AI is looking for the players, and a battle is initiated, then
 				//decrement the value, otherwise the queen will continue searching to infinity.
-				gubNumAwareBattles--;
+				--gubNumAwareBattles;
 			}
+
+			fBattlePending = TRUE;
+		}
+	}
+
+	// Flugente: if a militia group has reached its final destination, add them to the current sector
+	if ( pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		// if they arrive in the sector we have currently loaded, let them join from the edge
+		// this will always remove them from the group - if you want them to continue moving, issue a new order
+		if ( pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && pGroup->ubSectorZ == gbWorldSectorZ )
+		{
+			MilitiaGroupEntersCurrentSector( pGroup->ubGroupID, pGroup->ubSectorX, pGroup->ubSectorY );
+
+			if ( !fBattlePending && GroupAtFinalDestination( pGroup ) )
+			{
+				// once militia have arrived, move them from the group to the sector
+				DissolveMilitiaGroup( pGroup->ubGroupID );
+			}
+		}
+		// if we have currently loaded the sector they are moving from, we have to remove them from tactical
+		else if ( pGroup->ubPrevX == gWorldSectorX && pGroup->ubPrevY == gWorldSectorY && pGroup->ubSectorZ == gbWorldSectorZ )
+		{
+			// first, let them (and all other militia) drop their gear
+			if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+				TeamDropAll( MILITIA_TEAM );
+
+			// we now force a resetting of militia - they will be removed and recreated
+			// as the group's coordinates have alreay 'moved' to the next sector, the group militia will now be gone
+			gfStrategicMilitiaChangesMade = TRUE;
+			if ( gfStrategicMilitiaChangesMade )
+				ResetMilitia( );
+
+			// now restock the remaining militia
+			if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+				TeamRestock( MILITIA_TEAM );
+
+			// move the gear along to the next sector
+			MoveMilitiaEquipment( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->pEnemyGroup->ubNumElites, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumAdmins );
+
+			// if this is the last sector along the path, destroy the group after this and make the militia static
+			if ( !fBattlePending &&GroupAtFinalDestination( pGroup ) )
+			{
+				// once militia have arrived, move them from the group to the sector
+				DissolveMilitiaGroup( pGroup->ubGroupID );
+			}
+
+			// for safety, reset if necessary
+			ResetMilitia( );
+		}
+		else
+		{
+			// move the gear along to the next sector
+			MoveMilitiaEquipment( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->pEnemyGroup->ubNumElites, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumAdmins );
+
+			// if this is the last sector along the path, destroy the group after this and make the militia static
+			if ( !fBattlePending && GroupAtFinalDestination( pGroup ) )
+			{
+				// once militia have arrived, move them from the group to the sector
+				DissolveMilitiaGroup( pGroup->ubGroupID );
+			}
+
+			// for safety, reset if necessary
+			ResetMilitia( );
 		}
 	}
 	
@@ -2586,7 +2766,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	if ( !pGroup->ubSectorZ )
 	{
 		BOOLEAN fCalcRegularTime = TRUE;
-		if ( pGroup->usGroupTeam != OUR_TEAM )
+		if ( pGroup->usGroupTeam == ENEMY_TEAM )
 		{
 			//Determine if the enemy group is "sleeping". If so, then simply delay their arrival time by the amount of time
 			//they are going to be sleeping for.
@@ -2596,17 +2776,21 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 				if ( Chance( 67 ) )
 				{
 					//2 in 3 chance of going to sleep.
-					pGroup->uiTraverseTime = GetSectorMvtTimeForGroup( ubSector, ubDirection, pGroup );
 					uiSleepMinutes = 360 + Random( 121 ); //6-8 hours sleep
-					fCalcRegularTime = FALSE;
 				}
 			}
 		}
-
-		if ( fCalcRegularTime )
+		else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 		{
-			pGroup->uiTraverseTime = GetSectorMvtTimeForGroup( ubSector, ubDirection, pGroup );
+			// As the player orders militia to move, a chance-based system is ill-advised - the player would simply cancel and reassign the order, leading to bypassing the mechanci in a tedious way
+			// so instead, we always add a penalty, but it will be lower
+			if ( GetWorldHour( ) >= 21 || GetWorldHour( ) <= 4 )
+			{
+				uiSleepMinutes = 280;
+			}
 		}
+
+		pGroup->uiTraverseTime = GetSectorMvtTimeForGroup( ubSector, ubDirection, pGroup );
 	}
 	else
 	{
@@ -2713,8 +2897,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 
 void RemoveGroupWaypoints( UINT8 ubGroupID )
 {
-	GROUP *pGroup;
-	pGroup = GetGroup( ubGroupID );
+	GROUP* pGroup = GetGroup( ubGroupID );
 	Assert( pGroup );
 	RemovePGroupWaypoints( pGroup );
 }
@@ -4861,7 +5044,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 
 	//return; //disabled for now
 
-	Assert( pGroup->usGroupTeam != OUR_TEAM );
+	Assert( pGroup->usGroupTeam == ENEMY_TEAM );
 	Assert( pGroup->ubMoveType == ENDTOEND_FORWARDS );
 	Assert( pGroup->pEnemyGroup->ubIntention == PATROL );
 
@@ -4874,7 +5057,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 	{
 		if( wp->next )
 		{
-			ubMaxWaypointID++;
+			++ubMaxWaypointID;
 		}
 		wp = wp->next;
 	}
@@ -4902,7 +5085,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 	wp = pGroup->pWaypoints;
 	while( wp && ubChosen )
 	{
-		ubChosen--;
+		--ubChosen;
 		wp = wp->next;
 	}
 
@@ -4922,7 +5105,6 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 
 	//Immediately turn off the flag once finished.
 	gfRandomizingPatrolGroup = FALSE;
-
 }
 
 //Whenever a player group arrives in a sector, and if bloodcats exist in the sector,

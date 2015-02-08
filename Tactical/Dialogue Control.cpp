@@ -1074,7 +1074,14 @@ void HandleDialogue( )
 		if( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_TRIGGERPREBATTLEINTERFACE )
 		{
 			UnLockPauseState();
+
+			// Flugente: what hideous idiocy is this? We cast a UINT32 as GROUP*? This is likely to return garbage.
+			// Why the hell not use the id instead?
 			InitPreBattleInterface( (GROUP*)QItem->uiSpecialEventData, TRUE );
+
+			/*GROUP* pGroup = GetGroup( (UINT8)QItem->uiSpecialEventData );
+			if ( pGroup )
+				InitPreBattleInterface( pGroup, TRUE );*/
 		}
 		if( QItem->uiSpecialEventFlag & DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX )
 		{

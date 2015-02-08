@@ -93,6 +93,8 @@
 #include "LOS.h" // added by SANDRO
 #include "CampaignStats.h"		// added by Flugente
 #include "Interface Panels.h"
+#include "Queen Command.h"		// added by Flugente
+#include "Town Militia.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -17874,8 +17876,12 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 		}
 		else if ( bTeam == MILITIA_TEAM )
 		{
-			nummortars = (SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[GREEN_MILITIA] + SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[REGULAR_MILITIA] + SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ELITE_MILITIA]) / gSkillTraitValues.usVOMortarCountDivisor;
-			numshells = gSkillTraitValues.usVOMortarPointsAdmin * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[GREEN_MILITIA] + gSkillTraitValues.usVOMortarPointsTroop * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[REGULAR_MILITIA] + gSkillTraitValues.usVOMortarPointsElite * SectorInfo[usSectorNr].ubNumberOfCivsAtLevel[ELITE_MILITIA];
+			UINT8 militia_green = MilitiaInSectorOfRank( sSectorX, sSectorY, GREEN_MILITIA );
+			UINT8 militia_troop = MilitiaInSectorOfRank( sSectorX, sSectorY, REGULAR_MILITIA );
+			UINT8 militia_elite = MilitiaInSectorOfRank( sSectorX, sSectorY, ELITE_MILITIA );
+
+			nummortars = (militia_green + militia_troop + militia_elite) / gSkillTraitValues.usVOMortarCountDivisor;
+			numshells = gSkillTraitValues.usVOMortarPointsAdmin * militia_green + gSkillTraitValues.usVOMortarPointsTroop * militia_troop + gSkillTraitValues.usVOMortarPointsElite * militia_elite;
 		}
 
 		if ( gSkillTraitValues.usVOMortarShellDivisor * nummortars < 1 )
@@ -22110,8 +22116,8 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 	if ( bSectorZ > 0 || sSectorX < 1 || sSectorX >= MAP_WORLD_X - 1 || sSectorY < 1 || sSectorY >= MAP_WORLD_Y - 1 )
 		return FALSE;
 
-	UINT16 usEnemies = (UINT16)NumEnemiesInAnySector( sSectorX, sSectorY, bSectorZ );
-	UINT16 usMilitia = (UINT16)GetNumberOfMilitiaInSector( sSectorX, sSectorY, (INT16)bSectorZ );
+	UINT16 usEnemies = (UINT16)NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ENEMY_TEAM );
+	UINT16 usMilitia = (UINT16)NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
 	UINT16 usMercs = (UINT16)PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ );
 
 	SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sSectorX, sSectorY )]);

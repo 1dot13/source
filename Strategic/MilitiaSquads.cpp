@@ -125,33 +125,28 @@ BOOLEAN PlayerMercsInSector_MSE( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fDont
 	return ubNumMercs;
 }
 
-
 // get any enemy group id in the sector (if no group, will return 0 )
-UINT8 GetEnemyGroupIdInSector( INT16 sMapX, INT16 sMapY )
+UINT8 GetEnemyGroupIdInSector( INT16 sMapX, INT16 sMapY, UINT8 usTeam )
 {
 	UINT8 ubRes = 0;
-	GROUP *curr;
-	curr = gpGroupList;
+	GROUP *curr = gpGroupList;
+
 	while( curr )
 	{
-		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam != OUR_TEAM )
+		if ( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && curr->usGroupTeam == usTeam )
+		{
 			if( !curr->ubGroupID )
 				return curr->ubGroupID;
 			else
 				ubRes = curr->ubGroupID;
+		}
+
 		curr = curr->next;
 	}
+
 	return ubRes;
 }
 
-
-// Count all militia in the sector
-UINT8 CountMilitia(SECTORINFO *pSectorInfo)
-{
-	return pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA]+
-	pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA]+
-	pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
-}
 
 // Creates militia at destination sector. The type and amount of militia depends on current sector's miltia type and amount
 // HEADROCK HAM 3.4: Added Leadership argument.
@@ -169,8 +164,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	SECTORINFO *pTargetSector = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
 
 	//HEADROCK HAM B2.7: Track the number of militia at the source.
-	UINT16 usTotalMilitiaAtSource = pSourceSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pSourceSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pSourceSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
-	UINT16 usTotalMilitiaAtTarget = pTargetSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pTargetSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pTargetSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	UINT16 usTotalMilitiaAtTarget = NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM );
 	// Desired number of Greens, Regulars and Elites to create.
 	UINT8 ubTargetGreen, ubTargetRegular, ubTargetElite;
 	// Upgrade points for replacing militia with better ones.
@@ -353,7 +347,6 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				ubMilitiaToTrain = 0;
 			}
 		}
-
 		// Full militia group? See if you can upgrade some.
 		else
 		{
@@ -437,10 +430,9 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	if( ubActualyAdded > 0 )
 		RecordNumMilitiaTrainedForMercs( sMapX, sMapY, 0, ubActualyAdded, TRUE );
 
-
 	// This reduces the group back to "maximum" size. It starts by eliminating extra greens, then regulars, then elites.
 	// That produces a group of max size, with only the best troops remaining.
-	while( CountMilitia(pTargetSector) > gGameExternalOptions.iMaxMilitiaPerSector )
+	while ( NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) > gGameExternalOptions.iMaxMilitiaPerSector )
 	{
 		if(pTargetSector->ubNumberOfCivsAtLevel[GREEN_MILITIA])
 		{
@@ -541,14 +533,14 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// Both sectors not threatened. 
 			// Alter spreadout chance based on number of troops in Source and destination sectors.
 
-			if ( CountMilitia(pSectorInfo) >= gGameExternalOptions.iMaxMilitiaPerSector &&
-				CountMilitia(pTSectorInfo) == 0 )
+			if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) >= gGameExternalOptions.iMaxMilitiaPerSector &&
+				 NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) == 0 )
 			{
 				// Source group is full, target sector is empty. The source group gets 30% chance to 
 				// spread out to that empty sector.
 				ubChanceToSpreadOut = 30;
 			}
-			else if ( CountMilitia(pSectorInfo) && CountMilitia(pTSectorInfo) )
+			else if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) && NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) )
 			{
 				// Source and destination groups both exist. 50% chance to spread out evenly between them.
 				ubChanceToSpreadOut = 50;
@@ -565,7 +557,6 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			{
 				ubChanceToSpreadOut = 0;
 			}
-
 			
 			if (!gGameExternalOptions.gfAllowMilitiaSpread )
 			{
@@ -584,7 +575,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	// Should we spread out into the target sector, or move en-masse?
 	if (PreRandom(100) < ubChanceToSpreadOut)
 	{
-		if ( CountMilitia(pSectorInfo) && CountMilitia(pTSectorInfo) )
+		if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) && NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) )
 		{
 			// Source and Target sectors both have groups in them. Source group will attempt to spread out, 
 			// averaging the size and composition of both groups.
@@ -675,8 +666,8 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	{
 		// Source team moves En-Masse to target sector.
 
-		bNewDestGroupSize = __min((CountMilitia(pTSectorInfo) + CountMilitia(pSectorInfo)), (UINT8)gGameExternalOptions.iMaxMilitiaPerSector);
-		bNewSourceGroupSize = __max(0,(CountMilitia(pTSectorInfo) + CountMilitia(pSectorInfo)) - gGameExternalOptions.iMaxMilitiaPerSector);
+		bNewDestGroupSize = __min( (NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) + NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM )), (UINT8)gGameExternalOptions.iMaxMilitiaPerSector );
+		bNewSourceGroupSize = __max( 0, (NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) + NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM )) - gGameExternalOptions.iMaxMilitiaPerSector );
 
 		// If there are still going to be two teams after the transfer
 		if ( bNewSourceGroupSize > 0 )
@@ -778,7 +769,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 		}
 	}
 
-	while( !fAlternativeMax && CountMilitia(pTSectorInfo) > gGameExternalOptions.iMaxMilitiaPerSector )
+	while ( !fAlternativeMax && NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM ) > gGameExternalOptions.iMaxMilitiaPerSector )
 	{
 		if(pTSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA])
 		{
@@ -805,27 +796,27 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY)
 {
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
-//	SECTORINFO *pTSectorInfo = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
-
-	if( pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] )
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) )
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, 1 );
 		return TRUE;
 	}
-	if( pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] )
+
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) )
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, 1 );
 		return TRUE;
 	}
-	if( pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] )
+
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) )
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, 1 );
 		return TRUE;
 	}
+
 	return FALSE;
 }
 
@@ -1242,8 +1233,8 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 		{
 			// Flags to store INI option settings.
 
-			BOOLEAN fAllowReinforceCities = ( gGameExternalOptions.fAllowMobileReinforceCities && gGameExternalOptions.gfmusttrainroaming && gGameExternalOptions.gfAllowMilitiaGroups );
-			BOOLEAN fAllowReinforceSAM = ( gGameExternalOptions.fAllowMobileReinforceSAM && gGameExternalOptions.gfmusttrainroaming && gGameExternalOptions.gfAllowMilitiaGroups );
+			BOOLEAN fAllowReinforceCities = (gGameExternalOptions.fAllowMobileReinforceCities && gGameExternalOptions.gfmusttrainroaming && gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand );
+			BOOLEAN fAllowReinforceSAM = (gGameExternalOptions.fAllowMobileReinforceSAM && gGameExternalOptions.gfmusttrainroaming && gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand );
 
 			// Town->Town, Town->SAM, SAM->Town and SAM->SAM are disallowed for peaceful movement.
 			if ( fSourceIsMajorTown || fSourceIsSamSite )
@@ -1255,7 +1246,7 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 			{
 				if ( !NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) && // Is the sector under our control at the moment?
 					pTargetSector->fSurfaceWasEverPlayerControlled && // Has it ever been under control?
-					CountMilitia(pTargetSector) < gGameExternalOptions.iMaxMilitiaPerSector ) // Is there room here for more militia?
+					NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) < gGameExternalOptions.iMaxMilitiaPerSector ) // Is there room here for more militia?
 				{
 					if (fTargetIsSamSite && fAllowReinforceSAM)
 					{
@@ -1523,7 +1514,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 	// If we don't want roaming militia
 	// We shouldn't be here.
-	if( !gGameExternalOptions.gfAllowMilitiaGroups )
+	if ( !gGameExternalOptions.gfAllowMilitiaGroups || gGameExternalOptions.fMilitiaStrategicCommand )
 		return;
 
 	if( sMapX == 1 && sMapY == 1 )
@@ -1535,7 +1526,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	if( CheckInBlockMoveList( sMapX, sMapY ) )
 		return;
 
-	uiMilitiaCount = CountMilitia(pSectorInfo);
+	uiMilitiaCount = NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM );
 
 	if( !uiMilitiaCount )
 		return;
@@ -1644,7 +1635,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 				if ( NumNonPlayerTeamMembersInSector( targetX, targetY, ENEMY_TEAM ) )
 				{
 					extern GROUP *gpBattleGroup;
-					gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
+					gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY, ENEMY_TEAM ) );
 	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
 
 					if(pEnemyGroup && pEnemyGroup->ubGroupID)
@@ -1703,7 +1694,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	UINT8 ubBestLeadership = FindBestMilitiaTrainingLeadershipInSector ( sMapX, sMapY, 0, MOBILE_MILITIA );
 
 	// If we're not allowing roaming groups, then we're not creating them either.
-	if( !gGameExternalOptions.gfAllowMilitiaGroups )
+	if ( !gGameExternalOptions.gfAllowMilitiaGroups || gGameExternalOptions.fMilitiaStrategicCommand )
 		return;
 
 	// Reset block move list. Does this cause issues with training in A1? Probably not.
@@ -1857,7 +1848,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	guiDirNumber = uiDirNumber	+ 1;
 
 	x = 0;
-	while( CountMilitia(pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector &&
+	while ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) < gGameExternalOptions.iMaxMilitiaPerSector &&
 		( fMoreTroopsLeft[0] || fMoreTroopsLeft[1] || fMoreTroopsLeft[2] || fMoreTroopsLeft[3] || fFirstLoop ) )
 	{
 		fMoreTroopsLeft[ x ] = MoveOneBestMilitiaMan( SECTORX( pMoveDir[ x ][0] ), SECTORY( pMoveDir[ x ][0] ), sMapX, sMapY );
@@ -1946,25 +1937,33 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 		
 	ZeroMemory( gpAttackDirs, sizeof( gpAttackDirs ) );
 
-	gpAttackDirs[ guiDirNumber ][0] = uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
-	gpAttackDirs[ guiDirNumber ][1] = uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
-	gpAttackDirs[ guiDirNumber ][2] = uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
-	gpAttackDirs[ guiDirNumber ][3] = INSERTION_CODE_CENTER;
+	gpAttackDirs[guiDirNumber][0] = uiNumGreen = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, GREEN_MILITIA );
+	gpAttackDirs[guiDirNumber][1] = uiNumReg = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, REGULAR_MILITIA );
+	gpAttackDirs[guiDirNumber][2] = uiNumElite = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, ELITE_MILITIA );
+	gpAttackDirs[guiDirNumber][3] = INSERTION_CODE_CENTER;
 
 	guiDirNumber = insertioncode + 1;
+
+	// we can't move more than we are told, and can't add more than would fit into the sector
+	UINT16 possibletomove = min( sNumber, gGameExternalOptions.iMaxMilitiaPerSector - NumNonPlayerTeamMembersInSector( sTargetMapX, sTargetMapY, MILITIA_TEAM ) );
+
 	UINT16 sMilitiaMoved = 0;
-	while ( sMilitiaMoved < sNumber && CountMilitia(pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector && MoveOneBestMilitiaMan( sSrcMapX, sSrcMapY, sTargetMapX, sTargetMapY ) )
+	while ( sMilitiaMoved < possibletomove && MoveOneBestMilitiaMan( sSrcMapX, sSrcMapY, sTargetMapX, sTargetMapY ) )
 	{
 		++sMilitiaMoved;
 
-		gpAttackDirs[ guiDirNumber ][0] += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] - uiNumGreen;
-		gpAttackDirs[ guiDirNumber ][1] += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] - uiNumReg;
-		gpAttackDirs[ guiDirNumber ][2] += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] - uiNumElite;
-		gpAttackDirs[ guiDirNumber ][3] = insertioncode;
+		UINT8 militia_green = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, GREEN_MILITIA );
+		UINT8 militia_troop = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, REGULAR_MILITIA );
+		UINT8 militia_elite = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, ELITE_MILITIA );
 
-		uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
-		uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
-		uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+		gpAttackDirs[guiDirNumber][0] += militia_green - uiNumGreen;
+		gpAttackDirs[guiDirNumber][1] += militia_troop - uiNumReg;
+		gpAttackDirs[guiDirNumber][2] += militia_elite - uiNumElite;
+		gpAttackDirs[guiDirNumber][3] = insertioncode;
+
+		uiNumGreen = militia_green;
+		uiNumReg = militia_troop;
+		uiNumElite = militia_elite;
 	}
 
 	guiDirNumber = 5;
@@ -1972,7 +1971,7 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 	if ( !sMilitiaMoved )
 		return FALSE;
 
-	// we need to se this falg. If it wasn't set prior to this, we remove it again afterwards, otherwise all militia will join us if we are in combat
+	// we need to use this flag. If it wasn't set prior to this, we remove it again afterwards, otherwise all militia will join us if we are in combat
 	BOOLEAN wantreinforcements = (gTacticalStatus.uiFlags & WANT_MILITIA_REINFORCEMENTS);
 	gTacticalStatus.uiFlags |= WANT_MILITIA_REINFORCEMENTS;
 
@@ -1993,6 +1992,88 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 	
 	gfStrategicMilitiaChangesMade = FALSE;
 
+	return TRUE;
+}
+
+BOOLEAN MilitiaGroupEntersCurrentSector( UINT8 usGroupId, INT16 sMapX, INT16 sMapY )
+{
+	GROUP* pGroup = GetGroup( usGroupId );
+
+	if ( !pGroup || pGroup->usGroupTeam != MILITIA_TEAM )
+		return FALSE;
+
+	INT16 sSrcMapX = pGroup->ubPrevX;
+	INT16 sSrcMapY = pGroup->ubPrevY;
+	
+	UINT8 insertioncode = INSERTION_CODE_CENTER;
+	UINT8 movetype = THROUGH_STRATEGIC_MOVE;
+
+	// determine from which direction militia should enter (and exit if this isn't possible)
+	if ( sMapX == sSrcMapX + 1 && sMapY == sSrcMapY )
+	{
+		insertioncode = INSERTION_CODE_WEST;
+		movetype = EAST_STRATEGIC_MOVE;
+	}
+	else if ( sMapX == sSrcMapX - 1 && sMapY == sSrcMapY )
+	{
+		insertioncode = INSERTION_CODE_EAST;
+		movetype = WEST_STRATEGIC_MOVE;
+	}
+	else if ( sMapX == sSrcMapX && sMapY == sSrcMapY + 1 )
+	{
+		insertioncode = INSERTION_CODE_NORTH;
+		movetype = SOUTH_STRATEGIC_MOVE;
+	}
+	else if ( sMapX == sSrcMapX && sMapY == sSrcMapY - 1 )
+	{
+		insertioncode = INSERTION_CODE_SOUTH;
+		movetype = NORTH_STRATEGIC_MOVE;
+	}
+	else
+	{
+		// no proper direction here... get out
+		return FALSE;
+	}
+
+	// test wether travel from src to target is possible ( we cannot open the src map information, we'll rely on the xml data instead
+	if ( SectorInfo[SECTOR( sSrcMapX, sSrcMapY )].ubTraversability[movetype] == GROUNDBARRIER || SectorInfo[SECTOR( sSrcMapX, sSrcMapY )].ubTraversability[movetype] == EDGEOFWORLD )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia cannot traverse to this sector due to the terrain." );
+		return FALSE;
+	}
+	
+	ZeroMemory( gpAttackDirs, sizeof(gpAttackDirs) );
+		
+	guiDirNumber = insertioncode + 1;
+
+	gpAttackDirs[guiDirNumber][0] = pGroup->pEnemyGroup->ubNumAdmins;
+	gpAttackDirs[guiDirNumber][1] = pGroup->pEnemyGroup->ubNumTroops;
+	gpAttackDirs[guiDirNumber][2] = pGroup->pEnemyGroup->ubNumElites;
+	gpAttackDirs[guiDirNumber][3] = insertioncode;
+		
+	guiDirNumber = 5;
+
+	// we need to use this flag. If it wasn't set prior to this, we remove it again afterwards, otherwise all militia will join us if we are in combat
+	BOOLEAN wantreinforcements = (gTacticalStatus.uiFlags & WANT_MILITIA_REINFORCEMENTS);
+	gTacticalStatus.uiFlags |= WANT_MILITIA_REINFORCEMENTS;
+
+	if ( is_networked )
+	{
+		if ( gfStrategicMilitiaChangesMade )
+		{
+			RemoveMilitiaFromTactical( );
+			if ( is_server && gMilitiaEnabled == 1 )
+				PrepareMilitiaForTactical( FALSE );
+		}
+	}
+	else
+		PrepareMilitiaForTactical( FALSE );
+
+	if ( !wantreinforcements )
+		gTacticalStatus.uiFlags &= ~WANT_MILITIA_REINFORCEMENTS;
+
+	gfStrategicMilitiaChangesMade = FALSE;
+	
 	return TRUE;
 }
 
@@ -2152,15 +2233,13 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 	// Check north
 	if( sMapY > MINIMUM_VALID_Y_COORDINATE )
 	{
-		pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY - 1 ) ] );
-
 		// Are militia allowed to travel in that direction from the current sector, for training purposes?
 		if ( CheckStandardConditionsForDirection( sMapX, sMapY, sMapX, sMapY - 1, TRUE, FALSE ) )
 		{
 			// Count free slots. Each slot is worth 3 points.
-			usMilitiaCapacity = 3 * (ubMaxMilitia - CountMilitia( pSectorInfo ));
+			usMilitiaCapacity = 3 * (ubMaxMilitia - NumNonPlayerTeamMembersInSector( sMapX, sMapY - 1, MILITIA_TEAM ));
 			// Count militia that can be upgraded. Regular = 1 point, Green = 2 points.
-			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( pSectorInfo );
+			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( sMapX, sMapY - 1 );
 
 			// Found at least one slot here?
 			if (usUpgradeCapacity || usMilitiaCapacity)
@@ -2170,9 +2249,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_NORTH;
 	
-				#ifdef DEBUG_SHOW_RATINGS
-						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-				#endif
+#ifdef DEBUG_SHOW_RATINGS
+				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+#endif
 	
 				++(*uiDirNumber);
 			}
@@ -2182,15 +2261,13 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 	// Check west
 	if( sMapX > MINIMUM_VALID_X_COORDINATE )
 	{
-		pSectorInfo = &( SectorInfo[ SECTOR( sMapX - 1, sMapY ) ] );
-
 		// Are militia allowed to travel in that direction from the current sector, for training purposes?
 		if ( CheckStandardConditionsForDirection( sMapX, sMapY, sMapX - 1, sMapY, TRUE, FALSE ) )
 		{
 			// Count free slots. Each slot is worth 3 points.
-			usMilitiaCapacity = 3 * (ubMaxMilitia - CountMilitia( pSectorInfo ));
+			usMilitiaCapacity = 3 * (ubMaxMilitia - NumNonPlayerTeamMembersInSector( sMapX - 1, sMapY, MILITIA_TEAM ));
 			// Count militia that can be upgraded. Regular = 1 point, Green = 2 points.
-			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( pSectorInfo );
+			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( sMapX - 1, sMapY );
 
 			// Found at least one slot here?
 			if (usUpgradeCapacity || usMilitiaCapacity)
@@ -2200,9 +2277,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_WEST;
 
-				#ifdef DEBUG_SHOW_RATINGS
-						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-				#endif
+#ifdef DEBUG_SHOW_RATINGS
+				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+#endif
 
 				++(*uiDirNumber);
 			}
@@ -2212,15 +2289,13 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 	// Check south
 	if( sMapY < MAXIMUM_VALID_Y_COORDINATE )
 	{
-		pSectorInfo = &( SectorInfo[ SECTOR( sMapX , sMapY + 1 ) ] );
-
 		// Are militia allowed to travel in that direction from the current sector, for training purposes?
 		if ( CheckStandardConditionsForDirection( sMapX, sMapY, sMapX, sMapY + 1, TRUE, FALSE ) )
 		{
 			// Count free slots. Each slot is worth 3 points.
-			usMilitiaCapacity = 3 * (ubMaxMilitia - CountMilitia( pSectorInfo ));
+			usMilitiaCapacity = 3 * (ubMaxMilitia - NumNonPlayerTeamMembersInSector( sMapX, sMapY + 1, MILITIA_TEAM ));
 			// Count militia that can be upgraded. Regular = 1 point, Green = 2 points.
-			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( pSectorInfo );
+			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( sMapX, sMapY + 1 );
 
 			// Found at least one slot here?
 			if (usUpgradeCapacity || usMilitiaCapacity)
@@ -2230,9 +2305,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_SOUTH;
 
-				#ifdef DEBUG_SHOW_RATINGS
-						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-				#endif
+#ifdef DEBUG_SHOW_RATINGS
+				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+#endif
 
 				++(*uiDirNumber);
 			}
@@ -2242,15 +2317,13 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 	// Check east
 	if( sMapX < MAXIMUM_VALID_X_COORDINATE )
 	{
-		pSectorInfo = &( SectorInfo[ SECTOR( sMapX + 1 , sMapY ) ] );
-
 		// Are militia allowed to travel in that direction from the current sector, for training purposes?
 		if ( CheckStandardConditionsForDirection( sMapX, sMapY, sMapX +1 , sMapY, TRUE, FALSE ) )
 		{
 			// Count free slots. Each slot is worth 3 points.
-			usMilitiaCapacity = 3 * (ubMaxMilitia - CountMilitia( pSectorInfo ));
+			usMilitiaCapacity = 3 * (ubMaxMilitia - NumNonPlayerTeamMembersInSector( sMapX + 1, sMapY, MILITIA_TEAM ) );
 			// Count militia that can be upgraded. Regular = 1 point, Green = 2 points.
-			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( pSectorInfo );
+			usUpgradeCapacity = MilitiaUpgradeSlotsCheck( sMapX + 1, sMapY );
 
 			// Found at least one slot here?
 			if (usUpgradeCapacity || usMilitiaCapacity)
@@ -2260,9 +2333,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_EAST;
 
-				#ifdef DEBUG_SHOW_RATINGS
-						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-				#endif
+#ifdef DEBUG_SHOW_RATINGS
+				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+#endif
 
 				++(*uiDirNumber);
 			}
@@ -2325,13 +2398,13 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector )
 // HEADROCK HAM 3.6: Function returns the number of "upgrade slots" available at target sector. Basically, every GREEN
 // Militia at the target sector counts as 2 upgrade slots, while every regular counts as 1.
 
-UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo )
+UINT16 MilitiaUpgradeSlotsCheck( INT16 sMapX, INT16 sMapY )
 {
 	// Result variables
 	UINT16 usNumUpgradeSlots = 0;
 
 	// Target sector full of elites?	
-	if (pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] >= gGameExternalOptions.iMaxMilitiaPerSector)
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) >= gGameExternalOptions.iMaxMilitiaPerSector )
 	{
 		// Militia cannot be placed or moved here at all.
 		return 0;
@@ -2342,21 +2415,21 @@ UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo )
 		(GetWorldDay( ) < gGameExternalOptions.guiTrainVeteranMilitiaDelay)) // Not yet allowed.
 	{
 		// If sector full of Regulars and Elites?
-		if (pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA]+pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] >= gGameExternalOptions.iMaxMilitiaPerSector) // Target sector full of regular+elite militia
+		if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) + MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) >= gGameExternalOptions.iMaxMilitiaPerSector ) // Target sector full of regular+elite militia
 		{
 			// Can't upgrade Regulars to Elites, so the sector is already full.
 			return 0;
 		}
 
 		// Each Green we can convert to Regular counts as 2 slots.
-		usNumUpgradeSlots = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] * 2;
+		usNumUpgradeSlots = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * 2;
 
 		return (usNumUpgradeSlots);
 	}
 
 	// Allowed to train Green->Regular, and Regular->Elite
-	usNumUpgradeSlots = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] * 2;
-	usNumUpgradeSlots += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+	usNumUpgradeSlots = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * 2;
+	usNumUpgradeSlots += MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
 
 	return (usNumUpgradeSlots);
 }
@@ -2482,26 +2555,20 @@ UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage )
 			{
 				// we have found a town (no sam site)
 
-				if ( StrategicMap[ iStrategicMapID ].fEnemyControlled == FALSE )
-					iTownSectorsUnderPlayerControl++;								// remember player currently controls that town sector
+				if ( !StrategicMap[ iStrategicMapID ].fEnemyControlled )
+					++iTownSectorsUnderPlayerControl;								// remember player currently controls that town sector
 
-				if ( pSectorInfo->fSurfaceWasEverPlayerControlled == TRUE )
-					iTownSectorsLiberatedAtLeastOnce++;								// remember player had allready liberated that town sector once
+				if ( pSectorInfo->fSurfaceWasEverPlayerControlled )
+					++iTownSectorsLiberatedAtLeastOnce;								// remember player had allready liberated that town sector once
 
 				if ( MilitiaTrainingAllowedInTown( iCurrT_ID ) == FALSE )	// considered as mobile only if in that town training is taboo (Tixa, Omerta..)
-					iActiveMobiles += CountMilitia( pSectorInfo );
-					//for ( UINT8 militiaLevel = 0; militiaLevel < MAX_MILITIA_LEVELS; militiaLevel++ )
-					//	iActiveMobiles += pSectorInfo->ubNumberOfCivsAtLevel[ militiaLevel ];	// remember number of roaming militia in that town sector (green, regular, elite, ..)
-			}
-			
+					iActiveMobiles += NumNonPlayerTeamMembersInSector( SECTORX( iSectorInfoID ), SECTORY( iSectorInfoID ), MILITIA_TEAM );
+			}			
 			//else if ( StrategicMap[ iStrategicMapID ].bSAMCondition > 0 ) //faster then below, but not safe
 			else if ( MilitiaTrainingAllowedInSector( SECTORX(iSectorInfoID), SECTORY(iSectorInfoID), 0 ) == FALSE ) 
 			{
 				// we are in wilderness
-
-				//for ( UINT8 militiaLevel = 0; militiaLevel < MAX_MILITIA_LEVELS; militiaLevel++ )
-				//		iActiveMobiles += pSectorInfo->ubNumberOfCivsAtLevel[ militiaLevel ];	// remember number of roaming militia in that sector (green, regular, elite, ..)
-				iActiveMobiles += CountMilitia( pSectorInfo );
+				iActiveMobiles += NumNonPlayerTeamMembersInSector( SECTORX( iSectorInfoID ), SECTORY( iSectorInfoID ), MILITIA_TEAM );
 			}
 		}
 		
@@ -2698,39 +2765,33 @@ void MobileMilitiaDeserters(INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOL
 	///////////////////////
 	// check enemy presence to decide if mobiles are threatened and some will desert.
 	// Note: cant use NumEnemiesInFiveSectors() as it does not work for omerta or when reinforcements are deactivated, also it uses generateDirectionInfo(), which is used for militia movement.
-	UINT8 eAdmins = 0, eTroops = 0, eElites = 0, eTanks = 0;
 	
 	//enemies in current sector
-	GetNumberOfEnemiesInSector( sMapX, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
-	if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) )
+	if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, ENEMY_TEAM ) )
 		enemiesNear = TRUE;
 
 	if ( ( sMapX > MINIMUM_VALID_X_COORDINATE ) && !enemiesNear )
 	{
 		//left side
-		GetNumberOfEnemiesInSector( sMapX - 1, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
+		if ( NumNonPlayerTeamMembersInSector( sMapX - 1, sMapY, ENEMY_TEAM ) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapX < MAXIMUM_VALID_X_COORDINATE ) && !enemiesNear)
 	{
 		//right side
-		GetNumberOfEnemiesInSector( sMapX + 1, sMapY, &eAdmins, &eTroops, &eElites, &eTanks );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
+		if ( NumNonPlayerTeamMembersInSector( sMapX + 1, sMapY, ENEMY_TEAM ) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapY > MINIMUM_VALID_Y_COORDINATE ) && !enemiesNear )
 	{
 		//top side
-		GetNumberOfEnemiesInSector( sMapX, sMapY - 1, &eAdmins, &eTroops, &eElites, &eTanks );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
+		if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY - 1, ENEMY_TEAM ) )
 			enemiesNear = TRUE;
 	}
 	if ( ( sMapY < MAXIMUM_VALID_Y_COORDINATE ) && !enemiesNear)
 	{
 		//bottom side
-		GetNumberOfEnemiesInSector( sMapX, sMapY + 1, &eAdmins, &eTroops, &eElites, &eTanks );
-		if ( (eAdmins > 0) || (eTroops > 0) ||(eElites > 0) || (eTanks > 0) )
+		if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY + 1, ENEMY_TEAM ) )
 			enemiesNear = TRUE;
 	}
 
@@ -2742,8 +2803,8 @@ void MobileMilitiaDeserters(INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOL
 
 		if (quota > 100)	//more active then allowed
 		{
-			UINT8 militiaGreen = SectorInfo[ SECTOR( sMapX, sMapY) ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
-			UINT8 militiaRegular = SectorInfo[ SECTOR( sMapX, sMapY) ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+			UINT8 militiaGreen = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+			UINT8 militiaRegular = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
 
 			desertersGreen = (quota - 100) * militiaGreen / 100;
 			desertersGreen = Random( min( militiaGreen, desertersGreen ) );//cant remove more then actually exist in that group
@@ -2797,5 +2858,190 @@ void MobileMilitiaDeserters(INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOL
 	if (gfStrategicMilitiaChangesMade)
 	{
 		ResetMilitia();
+	}
+}
+
+
+#include "mapscreen.h"
+#include "Strategic Pathing.h"
+#include "GameVersion.h"
+
+// Flugente: militia movement
+BOOLEAN SaveMilitiaMovementInformationToSaveGameFile( HWFILE hFile )
+{
+	UINT32		uiNumBytesWritten = 0;
+
+	UINT8 number = MILITIA_PATROLS_MAX;
+
+	//Save the number of elements
+	FileWrite( hFile, &number, sizeof(UINT8), &uiNumBytesWritten );
+	if ( uiNumBytesWritten != sizeof(UINT8) )
+	{
+		return(FALSE);
+	}
+
+	for ( UINT8 cnt = 0; cnt < MILITIA_PATROLS_MAX; ++cnt )
+	{
+		UINT32		uiNumOfNodes = 0;
+		PathStPtr	pTempPath = gMilitiaPath[cnt].path;
+		
+		uiNumBytesWritten = 0;
+
+		//loop through to get all the nodes
+		while ( pTempPath )
+		{
+			++uiNumOfNodes;
+			pTempPath = pTempPath->pNext;
+		}
+
+		//Save the number of the nodes
+		FileWrite( hFile, &uiNumOfNodes, sizeof(UINT32), &uiNumBytesWritten );
+		if ( uiNumBytesWritten != sizeof(UINT32) )
+		{
+			return(FALSE);
+		}
+
+		//loop through all the nodes and add them
+		pTempPath = gMilitiaPath[cnt].path;
+
+		//loop through nodes and save all the nodes
+		while ( pTempPath )
+		{
+			//Save the number of the nodes
+			FileWrite( hFile, pTempPath, sizeof(PathSt), &uiNumBytesWritten );
+			if ( uiNumBytesWritten != sizeof(PathSt) )
+			{
+				return(FALSE);
+			}
+
+			pTempPath = pTempPath->pNext;
+		}
+
+		//Save the group id
+		FileWrite( hFile, &gMilitiaPath[cnt].sGroupid, sizeof(INT16), &uiNumBytesWritten );
+		if ( uiNumBytesWritten != sizeof(INT16) )
+		{
+			return(FALSE);
+		}
+	}
+
+	return(TRUE);
+}
+
+BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGameVersion )
+{
+	UINT32		uiNumBytesRead;
+	UINT32		uiTotalNodeCount = 0;
+	UINT8		cnt;
+	UINT32		uiNodeCount = 0;
+	PathSt		*pPath = NULL;
+	UINT8		ubPassengerCnt = 0;
+	PathSt		*pTempPath;
+	UINT8		numpaths = 0;
+
+	DeleteAllMilitiaPaths( );
+
+	// if this is an older savegame, nothing to read
+	if ( uiSavedGameVersion < MILITIA_PATH_PLOTTING )
+		return TRUE;
+
+	//Load the number of elements
+	FileRead( hFile, &numpaths, sizeof(UINT8), &uiNumBytesRead );
+	if ( uiNumBytesRead != sizeof(UINT8) )
+	{
+		return(FALSE);
+	}
+
+	if ( numpaths != MILITIA_PATROLS_MAX )
+		return(FALSE);
+	
+	for ( UINT32 cnt = 0; cnt < MILITIA_PATROLS_MAX; ++cnt )
+	{
+		UINT32		uiNumOfNodes = 0;
+		PathStPtr	pTempPath = NULL;
+		PathStPtr	pTemp = NULL;
+		UINT32		uiNumBytesRead = 0;
+		INT16		groupid = 0;
+			
+		//Load the number of the nodes
+		FileRead( hFile, &uiNumOfNodes, sizeof(UINT32), &uiNumBytesRead );
+		if ( uiNumBytesRead != sizeof(UINT32) )
+		{
+			return(FALSE);
+		}
+
+		//load all the nodes
+		for ( UINT32 cnt2 = 0; cnt2 < uiNumOfNodes; ++cnt2 )
+		{
+			//Allocate memory for the new node
+			pTemp = (PathStPtr)MemAlloc( sizeof(PathSt) );
+			if ( pTemp == NULL )
+			{
+				pTempPath = MoveToBeginningOfPathList( pTempPath );
+				ClearStrategicPathList( pTempPath, -1 );
+				return(FALSE);
+			}
+
+			memset( pTemp, 0, sizeof(PathSt) );
+
+			//Load the node
+			FileRead( hFile, pTemp, sizeof(PathSt), &uiNumBytesRead );
+			if ( uiNumBytesRead != sizeof(PathSt) )
+			{
+				MemFree( pTemp );
+				pTempPath = MoveToBeginningOfPathList( pTempPath );
+				ClearStrategicPathList( pTempPath, -1 );
+				return(FALSE);
+			}
+
+			//Put the node into the list 
+			if ( cnt2 == 0 )
+			{
+				pTempPath = pTemp;
+				pTemp->pPrev = NULL;
+			}
+			else
+			{
+				pTempPath->pNext = pTemp;
+				pTemp->pPrev = pTempPath;
+
+				pTempPath = pTempPath->pNext;
+			}
+
+			pTemp->pNext = NULL;
+		}
+
+		//move to beginning of list
+		pTempPath = MoveToBeginningOfPathList( pTempPath );
+
+		gMilitiaPath[cnt].path = pTempPath;
+		if ( gMilitiaPath[cnt].path )
+			gMilitiaPath[cnt].path->pPrev = NULL;
+
+		//Load the number of the nodes
+		FileRead( hFile, &groupid, sizeof(INT16), &uiNumBytesRead );
+		if ( uiNumBytesRead != sizeof(INT16) )
+		{
+			return(FALSE);
+		}
+
+		gMilitiaPath[cnt].sGroupid = groupid;
+	}
+
+	return(TRUE);
+}
+
+// delete a militia group and transfer its militia to the sector they are in
+void DissolveMilitiaGroup( UINT8 uGroupId )
+{
+	GROUP* pGroup = GetGroup( uGroupId );
+
+	if ( pGroup && pGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, GREEN_MILITIA, pGroup->pEnemyGroup->ubNumAdmins );
+		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, REGULAR_MILITIA, pGroup->pEnemyGroup->ubNumTroops );
+		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, ELITE_MILITIA, pGroup->pEnemyGroup->ubNumElites );
+
+		RemovePGroup( pGroup );
 	}
 }

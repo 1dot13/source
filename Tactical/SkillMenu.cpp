@@ -11,6 +11,7 @@
 #include "DisplayCover.h"
 #include "worldman.h"
 #include "Queen Command.h"
+#include "strategicmap.h"
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
@@ -501,7 +502,7 @@ ReinforcementSector::Setup( UINT32 aVal )
 			pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Setup_ReinforcementNumber, sectornr ) );
 
 			// grey out if no reinforcements can be called from this sector
-			if ( !NumNonPlayerTeamMembersInSector( loopX, loopY, MILITIA_TEAM ) )
+			if ( !CanRequestMilitiaReinforcements( pSoldier->sSectorX, pSoldier->sSectorY, loopX, loopY ) )
 			{
 				// Set this option off.
 				pOption->setAvail(new popupCallbackFunction<bool,void*>( &Popup_OptionOff, NULL ));

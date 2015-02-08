@@ -206,23 +206,24 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 	SECTORINFO *pSector;
 	INT32 x;
 	UINT8 ubGreen, ubRegs, ubElites;
+
 	if( gbWorldSectorZ > 0 )
 		return;
 
 	// Do we have a loaded sector?
-	if ( gWorldSectorX ==0 && gWorldSectorY == 0 )
+	if ( gWorldSectorX == 0 && gWorldSectorY == 0 )
 		return;
 
-	for (int i=0; i<TOTAL_SOLDIERS; i++)
+	//for (int i=0; i<TOTAL_SOLDIERS; i++)
 	{
 		//CHRISL: What's this assert for?
 		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds(MercPtrs[i]->sGridNo));
 	}
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-	ubGreen = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
-	ubRegs = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
-	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	ubGreen = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, GREEN_MILITIA );
+	ubRegs = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, REGULAR_MILITIA );
+	ubElites = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, ELITE_MILITIA );
 
 	// Prevent militia from just waiting on the border
 	gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition = (pSector->uiFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE) != 0;
@@ -270,7 +271,7 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 //		}
 //	}
 
-	for (int i=0; i<TOTAL_SOLDIERS; i++)
+	//for (int i=0; i<TOTAL_SOLDIERS; i++)
 	{
 		//CHRISL: What's this assert for?
 		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds(MercPtrs[i]->sGridNo));
@@ -279,10 +280,10 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 
 void HandleMilitiaPromotions( void )
 {
-	UINT8						cnt;
-	UINT8						ubMilitiaRank;
-	SOLDIERTYPE *		pTeamSoldier;
-	UINT8						ubPromotions;
+	UINT8				cnt;
+	UINT8				ubMilitiaRank;
+	SOLDIERTYPE*		pTeamSoldier;
+	UINT8				ubPromotions;
 
 	gbGreenToElitePromotions = 0;
 	gbGreenToRegPromotions = 0;
@@ -291,7 +292,7 @@ void HandleMilitiaPromotions( void )
 
 	cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt, ++pTeamSoldier)
 	{
 		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
 		{
@@ -303,18 +304,18 @@ void HandleMilitiaPromotions( void )
 				{
 					if( ubPromotions == 2 )
 					{
-						gbGreenToElitePromotions++;
-						gbMilitiaPromotions++;
+						++gbGreenToElitePromotions;
+						++gbMilitiaPromotions;
 					}
 					else if( pTeamSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
 					{
-						gbGreenToRegPromotions++;
-						gbMilitiaPromotions++;
+						++gbGreenToRegPromotions;
+						++gbMilitiaPromotions;
 					}
 					else if( pTeamSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
 					{
-						gbRegToElitePromotions++;
-						gbMilitiaPromotions++;
+						++gbRegToElitePromotions;
+						++gbMilitiaPromotions;
 					}
 				}
 
@@ -322,6 +323,7 @@ void HandleMilitiaPromotions( void )
 			}
 		}
 	}
+
 	if( gbMilitiaPromotions )
 	{
     // ATE: Problems here with bringing up message box...

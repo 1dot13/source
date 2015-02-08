@@ -1857,24 +1857,6 @@ UINT8 GetTownSectorSize( INT8 bTownId )
 	return( ubSectorSize );
 }
 
-UINT8 GetMilitiaCountAtLevelAnywhereInTown( UINT8 ubTownValue, UINT8 ubLevelValue )
-{
-	INT32 iCounter = 0;
-	UINT8 ubCount =0;
-
-	while( pTownNamesList[ iCounter ] != 0 )
-	{
-		if( StrategicMap[ pTownLocationsList[ iCounter ] ].bNameId == ubTownValue )
-		{
-			// match.  Add the number of civs at this level
-			ubCount += SectorInfo[ STRATEGIC_INDEX_TO_SECTOR_INFO( pTownLocationsList[ iCounter ] ) ].ubNumberOfCivsAtLevel[ ubLevelValue ];
-		}
-
-		iCounter++;
-	}
-	return( ubCount );
-}
-
 
 // return number of sectors under player control for this town
 UINT8 GetTownSectorsUnderControl( INT8 bTownId )
@@ -1882,14 +1864,13 @@ UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 	INT8 ubSectorsControlled = 0;
 	UINT16 usSector = 0;
 
-	for ( INT32 iCounterA = 0; iCounterA < (INT32)(MAP_WORLD_X - 1); iCounterA++ )
+	for ( INT32 iCounterA = 0; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
 	{
-		for ( INT32 iCounterB = 0; iCounterB < (INT32)(MAP_WORLD_Y - 1); iCounterB++ )
+		for ( INT32 iCounterB = 0; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
 		{
 			usSector = (UINT16)CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB );
 
-			if( ( StrategicMap[ usSector ].bNameId == bTownId ) &&
-					( StrategicMap[ usSector ].fEnemyControlled == FALSE ) &&
+			if( ( StrategicMap[ usSector ].bNameId == bTownId ) && !StrategicMap[ usSector ].fEnemyControlled &&
 					(NumNonPlayerTeamMembersInSector( (INT16)iCounterA, (INT16)iCounterB, ENEMY_TEAM ) == 0) )
 			{
 				++ubSectorsControlled;
@@ -1902,14 +1883,13 @@ UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 
 void InitializeSAMSites( void )
 {
-	UINT32 cnt;
 	// move the landing zone over to Omerta
 	// HEADROCK HAM 3.5: Externalized coordinates
 	gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
 	gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 	// all SAM sites start game in perfect working condition
-	for ( cnt = 0; cnt < NUMBER_OF_SAMS; cnt++ )
+	for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
 	{
 		StrategicMap[ gpSamSectorX[cnt] + ( MAP_WORLD_X * gpSamSectorY[cnt] ) ].bSAMCondition = 100;
 	};
@@ -1927,8 +1907,6 @@ void GetShortSectorString( INT16 sMapX,INT16 sMapY, STR16 sString )
 {
 	// OK, build string id like J11
 	swprintf( sString, L"%S%S",pVertStrings[ sMapY ], pHortStrings[ sMapX ] );
-
-	return;
 }
 
 
@@ -2140,7 +2118,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				}
 			}
 
-			for (int i=0; i<TOTAL_SOLDIERS; i++)
+			for (int i=0; i<TOTAL_SOLDIERS; ++i)
 			{
 				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
 				//	GridNo = NOWHERE, which causes this assertion to fail
@@ -2780,7 +2758,7 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 	// note it as stolen
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt,pSoldier++)
 	{
 		if ( pSoldier->bActive )
 		{
@@ -2791,7 +2769,7 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 		}
 	}
 	
-	if ( (gubQuest[ QUEST_KINGPIN_MONEY ] == QUESTINPROGRESS) && CheckFact( FACT_KINGPIN_CAN_SEND_ASSASSINS, 0 ) && (GetTownIdForSector( sNewSectorX, sNewSectorY ) != BLANK_SECTOR) && Random( 10 + GetNumberOfMilitiaInSector( sNewSectorX, sNewSectorY, bNewSectorZ ) ) < 3 )
+	if ( (gubQuest[QUEST_KINGPIN_MONEY] == QUESTINPROGRESS) && CheckFact( FACT_KINGPIN_CAN_SEND_ASSASSINS, 0 ) && (GetTownIdForSector( sNewSectorX, sNewSectorY ) != BLANK_SECTOR) && !bNewSectorZ && Random( 10 + NumNonPlayerTeamMembersInSector( sNewSectorX, sNewSectorY, MILITIA_TEAM ) ) < 3 )
 	{
 		DecideOnAssassin();
 	}
@@ -2998,8 +2976,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 	{
 		SetSectorFlag( sSectorX, sSectorY, bSectorZ, SF_ALREADY_VISITED );
 	}
-
-
+	
 	GetMapFileName( sSectorX, sSectorY, bSectorZ,  bFilename, TRUE, TRUE );
 
 	//Load the placeholder map if the real map doesn't exist.
@@ -3086,8 +3063,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 	
 	//Save to tempfile
 	SaveWorldItemsToTempItemFile( sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems );
-
-
+	
 	return TRUE; //because the map was loaded.
 }
 
@@ -3124,7 +3100,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 	//if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
-		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt < MAX_NUM_SOLDIERS; cnt++, pSoldier++)
+		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt < MAX_NUM_SOLDIERS; ++cnt, ++pSoldier)
 		{
 			if ( gfRestoringEnemySoldiersFromTempFile &&
 					cnt >= gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID &&
@@ -3198,9 +3174,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 								// Do action
 								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
-
 							}
-
 						}
 					}
 				}
@@ -3219,7 +3193,6 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 		// Set to false
 		fUsingEdgePointsForStrategicEntry = FALSE;
 	}
-
 }
 
 void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
@@ -3809,7 +3782,6 @@ UINT8 SetInsertionDataFromAdjacentMoveDirection( SOLDIERTYPE *pSoldier, UINT8 ub
 	UINT8				ubDirection;
 	EXITGRID		ExitGrid;
 
-
 	// Set insertion code
 	switch( ubTacticalDirection )
 	{
@@ -3853,24 +3825,20 @@ UINT8 SetInsertionDataFromAdjacentMoveDirection( SOLDIERTYPE *pSoldier, UINT8 ub
 	}
 
 	return( ubDirection );
-
 }
 
 UINT8 GetInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirection, INT32 sAdditionalData  )//dnl ch56 151009
 {
 	UINT8				ubDirection;
-
-
+	
 	// Set insertion code
 	switch( ubTacticalDirection )
 	{
 		// OK, we are using an exit grid - set insertion values...
 
 		case 255:
-
 			ubDirection = 255;
 			break;
-
 		case NORTH:
 			ubDirection = NORTH_STRATEGIC_MOVE;
 			break;
@@ -3893,13 +3861,11 @@ UINT8 GetInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirection, INT3
 	}
 
 	return( ubDirection );
-
 }
 
 UINT8 GetStrategicInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirection, INT32 sAdditionalData  )//dnl ch56 151009
 {
 	UINT8				ubDirection;
-
 
 	// Set insertion code
 	switch( ubTacticalDirection )
@@ -3907,10 +3873,8 @@ UINT8 GetStrategicInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirect
 		// OK, we are using an exit grid - set insertion values...
 
 		case 255:
-
 			ubDirection = 255;
 			break;
-
 		case NORTH:
 			ubDirection = INSERTION_CODE_SOUTH;
 			break;
@@ -3925,15 +3889,14 @@ UINT8 GetStrategicInsertionDataFromAdjacentMoveDirection( UINT8 ubTacticalDirect
 			break;
 		default:
 			// Wrong direction given!
-			#ifdef JA2BETAVERSION
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Improper insertion direction %d given to SetInsertionDataFromAdjacentMoveDirection", ubTacticalDirection ) );
-				ScreenMsg( FONT_RED, MSG_ERROR, L"Improper insertion direction %d given to GetStrategicInsertionDataFromAdjacentMoveDirection", ubTacticalDirection );
-			#endif
+#ifdef JA2BETAVERSION
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Improper insertion direction %d given to SetInsertionDataFromAdjacentMoveDirection", ubTacticalDirection ) );
+			ScreenMsg( FONT_RED, MSG_ERROR, L"Improper insertion direction %d given to GetStrategicInsertionDataFromAdjacentMoveDirection", ubTacticalDirection );
+#endif
 			ubDirection = EAST_STRATEGIC_MOVE;
 	}
 
 	return( ubDirection );
-
 }
 
 
@@ -4177,8 +4140,7 @@ BEGINNING_LOOP:
 			}
 			curr = curr->next;
 		}
-
-
+		
 		// OK, setup TacticalOverhead polling system that will notify us once everybody
 		// has made it to our destination.
 		if ( ubTacticalDirection != 255 )
@@ -4202,7 +4164,6 @@ void HandleSoldierLeavingSectorByThemSelf( SOLDIERTYPE *pSoldier )
 {
 	// soldier leaving thier squad behind, will rejoin later
 	// if soldier in a squad, set the fact they want to return here
-	UINT8 ubGroupId;
 
 	if( pSoldier->bAssignment < ON_DUTY )
 	{
@@ -4233,11 +4194,9 @@ void HandleSoldierLeavingSectorByThemSelf( SOLDIERTYPE *pSoldier )
 	if( pSoldier->ubGroupID == 0 )
 	{
 	  // create independant group
-	  ubGroupId = CreateNewPlayerGroupDepartingFromSector( ( UINT8 )pSoldier->sSectorX, ( UINT8 )pSoldier->sSectorY );
+		UINT8 ubGroupId = CreateNewPlayerGroupDepartingFromSector( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY );
 	  AddPlayerToGroup( ubGroupId , pSoldier );
 	}
-
-	return;
 }
 
 void AllMercsWalkedToExitGrid()
@@ -4826,7 +4785,7 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
   // look for all mercs on the same team,
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pSoldier)
 	{
 		// If we are controllable
 		//if ( OK_CONTROLLABLE_MERC( pSoldier) && pSoldier->bAssignment == CurrentSquad( ) )
@@ -4990,12 +4949,10 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 
 void SetupNewStrategicGame( )
 {
-	INT16 sSectorX, sSectorY;
-
 	// Set all sectors as enemy controlled
-	for ( sSectorX = 0; sSectorX < MAP_WORLD_X; sSectorX++ )
+	for ( INT16 sSectorX = 0; sSectorX < MAP_WORLD_X; ++sSectorX )
 	{
-		for ( sSectorY = 0; sSectorY < MAP_WORLD_Y; sSectorY++ )
+		for ( INT16 sSectorY = 0; sSectorY < MAP_WORLD_Y; ++sSectorY )
 		{
 			StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyControlled = TRUE;
 		}
@@ -5041,8 +4998,7 @@ void SetupNewStrategicGame( )
 	// Daily checks for E-mail from Enrico
 	AddEveryDayStrategicEvent( EVENT_ENRICO_MAIL, ENRICO_MAIL_TIME , 0 );
 #endif
-
-
+	
 //	if ( gGameOptions.fAirStrikes )
 //	{
 //		//Daily check for an air raid
@@ -5055,10 +5011,7 @@ void SetupNewStrategicGame( )
 
 	//Clear any possible battle locator
 	gfBlitBattleSectorLocator = FALSE;
-
-
-
-
+	
 	StrategicTurnsNewGame( );
 }
 
@@ -5066,9 +5019,6 @@ void SetupNewStrategicGame( )
 // a -1 will be returned upon failure
 INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT8 bCounter = 0;
-	INT16 sSectorValue = 0;
-
 	// check if valid sector
 	if( bSectorZ != 0 )
 	{
@@ -5076,17 +5026,16 @@ INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	}
 
 	// get the sector value
-	sSectorValue = SECTOR( sSectorX, sSectorY );
+	INT16 sSectorValue = SECTOR( sSectorX, sSectorY );
 
 	// run through list of sam sites
-	for( bCounter = 0; bCounter < NUMBER_OF_SAMS; bCounter++ )
+	for ( INT8 bCounter = 0; bCounter < NUMBER_OF_SAMS; ++bCounter )
 	{
 		if( pSamList[ bCounter ] == sSectorValue )
 		{
 			return( bCounter );
 		}
 	}
-
 
 	return( -1 );
 }
@@ -5131,14 +5080,14 @@ BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 
 INT32 GetNumberOfSAMSitesUnderPlayerControl( void )
 {
-	INT32 iNumber = 0, iCounter = 0;
+	INT32 iNumber = 0;
 
 	// if the sam site is under player control, up the number
-	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < NUMBER_OF_SAMS; ++iCounter )
 	{
 		if( StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ iCounter ] ) ].fEnemyControlled == FALSE )
 		{
-			iNumber++;
+			++iNumber;
 		}
 	}
 
@@ -5148,8 +5097,7 @@ INT32 GetNumberOfSAMSitesUnderPlayerControl( void )
 INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY )
 {
 	BOOLEAN fSamSiteUnderControl = FALSE;
-
-
+	
 	// is this sector a SAM sector?
 	if( IsThisSectorASAMSector( sX, sY, 0 ) == TRUE )
 	{
@@ -5167,15 +5115,13 @@ INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY )
 
 void UpdateAirspaceControl( void )
 {
-	INT32 iCounterA = 0, iCounterB = 0;
 	UINT8 ubControllingSAM;
 	StrategicMapElement *pSAMStrategicMap = NULL;
 	BOOLEAN fEnemyControlsAir;
 
-
-	for( iCounterA = 1; iCounterA < ( INT32 )( MAP_WORLD_X - 1 ); iCounterA++ )
+	for ( INT32 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
 	{
-		for( iCounterB = 1; iCounterB < ( INT32 )( MAP_WORLD_Y - 1 ); iCounterB++ )
+		for ( INT32 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
 		{
 			// IMPORTANT: B and A are reverse here, since the table is stored transposed
 			ubControllingSAM = ubSAMControlledSectors[ iCounterB ][ iCounterA ];
@@ -5211,7 +5157,6 @@ void UpdateAirspaceControl( void )
 		}
 	}
 
-
 	// check if currently selected arrival sector still has secure airspace
 
 	// if it's not enemy air controlled
@@ -5232,9 +5177,9 @@ void UpdateAirspaceControl( void )
 		}
 		else
 		{
-			for (UINT8 ubSectorX = 1; ubSectorX <= 16; ubSectorX++)
+			for (UINT8 ubSectorX = 1; ubSectorX <= 16; ++ubSectorX)
 			{
-				for (UINT8 ubSectorY = 1; ubSectorY <=16; ubSectorY++)
+				for (UINT8 ubSectorY = 1; ubSectorY <=16; ++ubSectorY)
 				{
 					if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY ) ].fEnemyAirControlled == FALSE && !sBadSectorsList[ ubSectorX ][ ubSectorY ] )
 					{
@@ -5264,8 +5209,7 @@ void UpdateAirspaceControl( void )
 		// update destination column for any mercs in transit
 		fTeamPanelDirty = TRUE;
 	}
-
-
+	
 	// ARM: airspace control now affects refueling site availability, so update that too with every change!
 	UpdateRefuelSiteAvailability( );
 }
@@ -7574,3 +7518,20 @@ BOOLEAN MoveEnemyFromGridNoToRoofGridNo( UINT32 sSourceGridNo, UINT32 sDestGridN
 	return( FALSE );
 }
 #endif
+
+// Flugente: militia movement: can we order militia reinforcements from( sSrcMapX, sSrcMapY ) to( sMapX, sMapY ) ?
+BOOLEAN CanRequestMilitiaReinforcements( INT16 sMapX, INT16 sMapY, INT16 sSrcMapX, INT16 sSrcMapY )
+{
+	if ( !gGameExternalOptions.gfAllowReinforcements )
+		return FALSE;
+
+	// we can request reinforcements only inside towns
+	if ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR && GetTownIdForSector( sMapX, sMapY ) != GetTownIdForSector( sSrcMapX, sSrcMapY ) )
+		return FALSE;
+
+	// not possible of nobody is there
+	if ( !NumNonPlayerTeamMembersInSector( sSrcMapX, sSrcMapY, MILITIA_TEAM ) )
+		return FALSE;
+
+	return TRUE;
+}

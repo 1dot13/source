@@ -32,6 +32,7 @@
 	// HEADROCK HAM 5: Required for inventory filter popup
 	#include "popup_callback.h"
 	#include "popup_class.h"
+	#include "Queen Command.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -167,10 +168,7 @@ void DeleteMapBorderGraphics( void )
 	// procedure will delete graphics loaded for map border
 
 	DeleteVideoObjectFromIndex( guiMapBorder );
-
-	return;
 }
-
 
 
 void RenderMapBorder( void )
@@ -201,7 +199,7 @@ void RenderMapBorder( void )
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
 	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 	{
 		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
@@ -214,8 +212,6 @@ void RenderMapBorder( void )
 
 	// show the level marker
 	DisplayCurrentLevelMarker( );
-
-	return;
 }
 
 
@@ -229,7 +225,7 @@ void RenderMapBorderEtaPopUp( void )
 		return;
 	}
 
-	if( fPlotForHelicopter == TRUE )
+	if( fPlotForHelicopter )
 	{
 		DisplayDistancesForHelicopter( );
 		return;
@@ -250,8 +246,6 @@ void RenderMapBorderEtaPopUp( void )
 		BltVideoObject( FRAME_BUFFER , hHandle, 2, xVal, yVal, VO_BLT_SRCTRANSPARENCY,NULL );
 
 	InvalidateRegion( xVal, yVal, xVal + 100 , yVal + 19);
-
-	return;
 }
 
 BOOLEAN CreateButtonsForMapBorder( void )
@@ -302,7 +296,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 
 	// WANNE: Only display the buton when mobile militia is allowed!
 	// HEADROCK HAM 4: Mobile Restrictions Button
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 	{
 		giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,20,-1,21,-1 );
 		giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ], MAP_BORDER_MOBILE_BTN_X, MAP_BORDER_MOBILE_BTN_Y,
@@ -318,7 +312,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_ITEM_BTN ] );
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MILITIA_BTN ] );
 		
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 		SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4: Mobile Militia button
 	
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_TOWN_BTN ], MSYS_NO_CURSOR );
@@ -328,7 +322,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], MSYS_NO_CURSOR );
 
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 		SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], MSYS_NO_CURSOR ); // HEADROCK HAM 4: Mobile Militia button
 	
 	// Flugente: disease
@@ -438,7 +432,7 @@ void DeleteMapBorderButtons( void )
 	RemoveButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]);
 
 	// WANNE: Only remove if we added the button
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 		RemoveButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]); // HEADROCK HAM 4
 
 	if ( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] != -1 )
@@ -454,7 +448,7 @@ void DeleteMapBorderButtons( void )
 	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] );
 
 	// WANNE: Only unload if we added the button
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 		UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4
 
 	if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] != -1 )
@@ -771,7 +765,7 @@ void ToggleAirspaceMode( void )
 		fShowAircraftFlag = FALSE;
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 
-		if( fPlotForHelicopter == TRUE )
+		if( fPlotForHelicopter )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1121,7 +1115,7 @@ void TurnOnItemFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		}
 
-		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1189,7 +1183,7 @@ void TurnOnDiseaseFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		}
 
-		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1257,7 +1251,7 @@ void TurnOnMobileFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 
-		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1375,15 +1369,12 @@ void InitializeMapBorderButtonStates( void )
 
 BOOLEAN DoesPlayerHaveAnyMilitia( void )
 {
-	INT16 sX, sY;
-
 	// run through list of towns that might have militia..if any return TRUE..else return FALSE
-	for( sX = 1; sX < MAP_WORLD_X - 1; sX++ )
+	for ( INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for( sY = 1; sY < MAP_WORLD_Y - 1; sY++ )
+		for ( INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
-			if( ( SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] +	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]
-					+ SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] ) > 0 )
+			if ( NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) > 0 )
 			{
 				// found at least one
 				return( TRUE );
@@ -1398,25 +1389,22 @@ BOOLEAN DoesPlayerHaveAnyMilitia( void )
 // HEADROCK HAM 4: Check for Mobile Militia
 UINT8 DoesPlayerHaveAnyMobileMilitia( void )
 {
-	INT16 sX, sY;
-
-	if (!gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( !gGameExternalOptions.gfAllowMilitiaGroups || gGameExternalOptions.fMilitiaStrategicCommand )
 	{
 		// Mobile Militia not allowed at all.
 		return (0);
 	}
 
 	// run through list of towns that might have militia..if any return TRUE..else return FALSE
-	for( sX = 1; sX < MAP_WORLD_X - 1; sX++ )
+	for ( INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for( sY = 1; sY < MAP_WORLD_Y - 1; sY++ )
+		for ( INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			// Look only in sectors where Militia Training is not allowed at all. If any militia are found there,
 			// it means that they had to MOVE there, hence mobile militia.
 			if (!MilitiaTrainingAllowedInSector( sX, sY, 0 ))
 			{
-				if( ( SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] +	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]
-						+ SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] ) > 0 )
+				if ( NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) > 0 )
 				{
 					// found at least one
 					return( 2 );
@@ -1535,7 +1523,7 @@ void InitMapBorderButtonCoordinates()
 	MAP_LEVEL_MARKER_DELTA 		= 8;
 	MAP_LEVEL_MARKER_WIDTH 		= 55;
 
-	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
 	{
 		// Mobile button appears next to Militia button.
 		MAP_BORDER_MOBILE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 16;

@@ -1339,7 +1339,7 @@ BOOLEAN AllowedToTimeCompress( void )
 	}
 
 	// moving / confirming movement
-	if( ( bSelectedDestChar != -1 ) || fPlotForHelicopter || gfInConfirmMapMoveMode || fShowMapScreenMovementList )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia || gfInConfirmMapMoveMode || fShowMapScreenMovementList )
 	{
 		return( FALSE );
 	}
@@ -1680,7 +1680,7 @@ BOOLEAN CommonTimeCompressionChecks( void )
 		return( TRUE );
 	}
 
-	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		// abort plotting movement
 		AbortMovementPlottingMode( );
@@ -1699,7 +1699,6 @@ BOOLEAN AnyUsableRealMercenariesOnTeam( void )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iCounter = 0, iNumberOnTeam = 0;
-
 
 	// this is for speed, this runs once/frame
 	iNumberOnTeam = gTacticalStatus.Team[ OUR_TEAM ].bLastID;

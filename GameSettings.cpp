@@ -2059,6 +2059,10 @@ void LoadGameExternalOptions()
 	// Moa: If enabled militia will spread when following or set to FALSE to fill up the destination group to maximum.
 	gGameExternalOptions.gfAllowMilitiaSpreadWhenFollowing		= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_SPREAD_WHEN_FOLLOWING", FALSE);
 
+	//################# Militia Strategic Movement Settings ##################
+	gGameExternalOptions.fMilitiaStrategicCommand				= iniReader.ReadBoolean("Militia Strategic Movement Settings", "ALLOW_MILITIA_STRATEGIC_COMMAND", FALSE );
+
+
 	// SANDRO - added several bonuses for militia 
 	//################# Militia Strength Settings ##################
 

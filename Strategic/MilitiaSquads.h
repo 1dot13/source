@@ -56,12 +56,10 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector );
 
 // HEADROCK HAM 3.6: New upgrade check returns the amount of militia that can be upgraded at target sector, in
 // "upgrade points"
-UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo );
+UINT16 MilitiaUpgradeSlotsCheck( INT16 sMapX, INT16 sMapY );
 
 // HEADROCK HAM 3.6: This needs to be accessible.
 void AddToBlockMoveList(INT16 sMapX, INT16 sMapY);
-// And this:
-UINT8 CountMilitia(SECTORINFO *pSectorInfo);
 
 // HEADROCK HAM 4: Returns whether sector is allowed for militia roaming, taking into account player-set restrictions.
 UINT8 ManualMobileMovementAllowed( UINT8 ubSector );
@@ -72,5 +70,14 @@ void InitManualMobileRestrictions();
 //Moa: for mobile militia: militia deserters and maximum allowed
 extern void MobileMilitiaDeserters( INT16 sMapX, INT16 sMapY, BOOLEAN fDeleteEquip, BOOLEAN fPrintMessage );
 extern UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage );
+
+// Flugente: militia movement
+BOOLEAN SaveMilitiaMovementInformationToSaveGameFile( HWFILE hFile );
+BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGameVersion );
+
+// delete a militia group and transfer its militia to the sector they are in
+void DissolveMilitiaGroup( UINT8 uGroupId );
+
+BOOLEAN MilitiaGroupEntersCurrentSector( UINT8 usGroupId, INT16 sMapX, INT16 sMapY );
 
 #endif

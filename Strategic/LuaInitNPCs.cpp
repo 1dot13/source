@@ -2701,9 +2701,8 @@ BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN
 	if ( Init == 0 )
 	{
 		LuaFunction(_LS.L, "InternalEndQuest" ).Param<int>(ubQuest).Param<int>(sSectorX).Param<int>(sSectorY).Param<bool>(fUpdateHistory).Call(4);
-	}
-	
-	if ( Init == 1 )
+	}	
+	else if ( Init == 1 )
 	{
 		LuaFunction(_LS.L, "InternalStartQuest" ).Param<int>(ubQuest).Param<int>(sSectorX).Param<int>(sSectorY).Param<bool>(fUpdateHistory).Call(4);
 	}

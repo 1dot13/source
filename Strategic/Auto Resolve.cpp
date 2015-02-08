@@ -608,7 +608,7 @@ void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 	CreateDestroyMapInvButton();
 	RenderButtons();
 
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
     // WDS - make number of mercenaries, etc. be configurable
 	//Allocate memory for all the globals while we are in this mode.
 	gpAR = (AUTORESOLVE_STRUCT*)MemAlloc( sizeof( AUTORESOLVE_STRUCT ) );
@@ -784,7 +784,7 @@ void AssociateEnemiesWithStrategicGroups()
 
 	//Now go through our enemies in the autoresolve array, and assign the ubGroupID to the soldier
 	//Stationary groups have a group ID of 0
-	for( i = 0; i < gpAR->ubEnemies; i++ )
+	for( i = 0; i < gpAR->ubEnemies; ++i )
 	{
 		if( gpEnemies[ i ].uiFlags & CELL_ELITE && ubNumElites )
 		{
@@ -826,7 +826,7 @@ void AssociateEnemiesWithStrategicGroups()
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if ( pGroup->usGroupTeam != OUR_TEAM && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
 		{
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
@@ -876,7 +876,7 @@ void AssociateEnemiesWithStrategicGroups()
 	while( pGroup )
 	{
 		// Don't process road block. It'll be processed as static
-		if ( pGroup->ubGroupID && pGroup->usGroupTeam != OUR_TEAM && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
+		if ( pGroup->ubGroupID && pGroup->usGroupTeam == ENEMY_TEAM && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
 		{
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
 			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
@@ -919,12 +919,11 @@ void AssociateEnemiesWithStrategicGroups()
 		}
 		pGroup = pGroup->next;
 	}
-
-
-// Set GroupID = 0 for the rest
+	
+	// Set GroupID = 0 for the rest
 	ubDirAmount = GetAdjacentSectors( pSectors, gpAR->ubSectorX, gpAR->ubSectorY );
 
-	for( ubCurrSI = 0; ubCurrSI < ubDirAmount; ubCurrSI++ )
+	for( ubCurrSI = 0; ubCurrSI < ubDirAmount; ++ubCurrSI )
 	{
 		pSector = &SectorInfo[ pSectors[ ubCurrSI ] ];
 
@@ -933,7 +932,7 @@ void AssociateEnemiesWithStrategicGroups()
 		ubISNumElites = pSector->ubNumElites;
 		ubISNumTanks = pSector->ubNumTanks;
 
-		for( i = 0; i < gpAR->ubEnemies; i++ )
+		for( i = 0; i < gpAR->ubEnemies; ++i )
 		{
 			if( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks <= gubReinforcementMinEnemyStaticGroupSize ) break;
 
@@ -978,7 +977,6 @@ void AssociateEnemiesWithStrategicGroups()
 			}
 		}
 	}
-
 }
 
 
@@ -2790,11 +2788,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	gbGreenToRegPromotions = 0;
 	gbRegToElitePromotions = 0;
 	gbMilitiaPromotions = 0;
-	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; ++i )
 	{
 		if( gpCivs[ i ].pSoldier )
 		{
-			ubCurrentRank = MAX_AR_TEAM_SIZE;
+			ubCurrentRank = GREEN_MILITIA;
 			switch( gpCivs[ i ].pSoldier->ubSoldierClass )
 			{
 				case SOLDIER_CLASS_GREEN_MILITIA:		ubCurrentRank = GREEN_MILITIA;		break;
@@ -2829,18 +2827,24 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 					{
 						if( ubPromotions == 2 )
 						{
-							gbGreenToElitePromotions++;
-							gbMilitiaPromotions++;
+							++gbGreenToElitePromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = ELITE_MILITIA;
 						}
 						else if( gpCivs[ i ].pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
 						{
-							gbGreenToRegPromotions++;
-							gbMilitiaPromotions++;
+							++gbGreenToRegPromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = REGULAR_MILITIA;
 						}
 						else if( gpCivs[ i ].pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
 						{
-							gbRegToElitePromotions++;
-							gbMilitiaPromotions++;
+							++gbRegToElitePromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = ELITE_MILITIA;
 						}
 					}
 				}
@@ -2850,8 +2854,27 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		}
 	}
 
+	// Flugente: after we fought, move any militia in groups into the sector garrison - the player will likely want to rethink orders for the survivors
+	// Flugente: in case militia died we have to lower the group sizes
+	// loop over all militia groups that are in this sector and alter their size. If a group has size 0 delete it. If any militia are left place them into this sector
+	{
+		GROUP* pGroup = gpGroupList;
+		while ( pGroup )
+		{
+			if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == gpAR->ubSectorX && pGroup->ubSectorY == gpAR->ubSectorY )
+			{
+				GROUP* pDeleteGroup = pGroup;
+				pGroup = pGroup->next;
+
+				DissolveMilitiaGroup( pDeleteGroup->ubGroupID );
+			}
+			else
+				pGroup = pGroup->next;
+		}
+	}
+
 	//Record and process all enemy deaths
-	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; ++i )
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
@@ -2877,7 +2900,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		}
 	}
 	//Physically delete the soldiers now.
-	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; ++i )
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
@@ -2886,14 +2909,15 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		}
 	}
 
-	for( i = 0; i < NUM_AR_BUTTONS; i++ )
+	for( i = 0; i < NUM_AR_BUTTONS; ++i )
 	{
 		UnloadButtonImage( gpAR->iButtonImage[ i ] );
 		RemoveButton( gpAR->iButton[ i ] );
 	}
-	if( fDeleteForGood )
-	{ //Warp the game time accordingly
 
+	if( fDeleteForGood )
+	{
+		//Warp the game time accordingly
 		WarpGameTime( gpAR->uiTotalElapsedBattleTimeInMilliseconds/1000, WARPTIME_NO_PROCESSING_OF_EVENTS );
 
 		//Deallocate all of the global memory.
@@ -2909,7 +2933,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 
 		MemFree( gpEnemies );
 		gpEnemies = NULL;
-
 	}
 
 	//KM : Aug 09, 1999 Patch fix -- Would break future dialog while time compressing

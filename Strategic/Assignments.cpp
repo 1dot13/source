@@ -3026,7 +3026,6 @@ UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT32 prisonguardvalue = 0;	
 
 	// count any mercs found here, and sum up their guard values
@@ -3036,7 +3035,7 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
 	{
-		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && !pSoldier->flags.fMercAsleep )
 		{
 			UINT16 tmp;
 			prisonguardvalue += CalculatePrisonGuardValue(pSoldier, &tmp );
@@ -3044,14 +3043,13 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// add militia strength		
-	prisonguardvalue += 100 * pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + 150 * pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + 200 * pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	prisonguardvalue += 100 * MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) + 150 * MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) + 200 * MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
 
 	return( prisonguardvalue );
 }
 
 UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT32 prisonguardvalue = 0;	
 
 	// count any mercs found here, and sum up their guard values
@@ -3069,14 +3067,13 @@ UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ
 	}
 
 	// add militia strength		
-	prisonguardvalue += 100 * pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + 150 * pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + 200 * pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	prisonguardvalue += 100 * MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) + 150 * MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) + 200 * MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
 
 	return( prisonguardvalue );
 }
 
 UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 numprisonguards = 0;
 
 	// count any mercs found here
@@ -3095,7 +3092,7 @@ UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// add militia strength		
-	numprisonguards += pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	numprisonguards += NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM );
 
 	return( numprisonguards );
 }
@@ -18074,6 +18071,10 @@ BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 		// No Mobile Militia training allowed!
 		return ( FALSE );
 	}
+
+	// Flugente: not allowed if we can move militia in strategic, as this then becomes pointless
+	if ( gGameExternalOptions.fMilitiaStrategicCommand )
+		return FALSE;
 
 	// Is character dead or unconscious?
 	if( pSoldier->stats.bLife < OKLIFE )

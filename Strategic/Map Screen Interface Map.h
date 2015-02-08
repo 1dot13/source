@@ -87,6 +87,12 @@ void PlotPathForHelicopter( INT16 sX, INT16 sY );
 // the temp path, where the helicopter could go
 void PlotATemporaryPathForHelicopter( INT16 sX, INT16 sY );
 
+// plot path for helicopter
+void PlotPathForMilitia( INT16 sX, INT16 sY );
+
+// the temp path, where the helicopter could go
+void PlotATemporaryPathForMilitia( INT16 sX, INT16 sY );
+
 // trace a route for a passed path...doesn't require dest char - most more general
 BOOLEAN TracePathRoute( BOOLEAN fCheckFlag, BOOLEAN fForceUpDate, PathStPtr pPath );
 
@@ -108,6 +114,8 @@ void DisplaySoldierPath( SOLDIERTYPE *pCharacter );
 void DisplaySoldierTempPath( SOLDIERTYPE *pCharacter );
 void DisplayHelicopterPath( void );
 void DisplayHelicopterTempPath( void );
+void DisplayMilitiaPath( void );
+void DisplayMilitiaTempPath( void );
 
 
 // clear path after this sector
@@ -118,11 +126,17 @@ void CancelPathForCharacter( SOLDIERTYPE *pCharacter );
 void CancelPathForVehicle( VEHICLETYPE *pVehicle, BOOLEAN fAlreadyReversed );
 void CancelPathForGroup( GROUP *pGroup );
 
+void CancelPathForMilitiaGroup( UINT8 uGroupId );
+
 // check if we have waited long enought object update temp path
 void DisplayThePotentialPathForHelicopter(INT16 sMapX, INT16 sMapY );
 
+void DisplayThePotentialPathForMilitia( INT16 sMapX, INT16 sMapY );
+
 // clear out helicopter list after this sector
 UINT32 ClearPathAfterThisSectorForHelicopter( INT16 sX, INT16 sY );
+
+UINT32 ClearPathAfterThisSectorForMilitia( INT16 sX, INT16 sY );
 
 
 // check to see if sector is highlightable
@@ -150,6 +164,8 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY);	// added by Flugente
 // last sector in helicopter's path
 INT16 GetLastSectorOfHelicoptersPath( void );
 
+INT16 GetLastSectorOfMilitiaPath( void );
+
 // display info about helicopter path
 void DisplayDistancesForHelicopter( void );
 
@@ -168,10 +184,6 @@ void RemoveMilitiaPopUpBox( void );
 
 // check if anyone left behind, if not, move selected cursor along with movement group
 //void CheckIfAnyoneLeftInSector( INT16 sX, INT16 sY, INT16 sNewX, INT16 sNewY, INT8 bZ );
-
-// grab the total number of militia in sector
-INT32 GetNumberOfMilitiaInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
-
 
 // create destroy
 void CreateDestroyMilitiaPopUPRegions( void );
@@ -332,6 +344,8 @@ extern SGPRect MapScreenRect;
 // draw temp path
 extern BOOLEAN fDrawTempHeliPath;
 
+extern BOOLEAN fDrawTempMilitiaPath;
+
 // selected destination char
 extern INT8 bSelectedDestChar;
 
@@ -383,5 +397,9 @@ extern POINT pTownPoints[ MAX_TOWNS ];
 #ifdef JA2UB
 extern void SetUpValidCampaignSectors( void );
 #endif
+
+void CreateMilitiaGroupBox( );
+void DestroyMilitiaGroupBox( );
+void DisplayMilitiaGroupBox( );
 
 #endif

@@ -2902,6 +2902,9 @@ extern STR16	szIMPGearWebSiteText[];
 extern STR16	szIMPGearDropDownText[];
 extern STR16	szIMPGearDropDownNoneText[];
 
+// Flugente: militia movement
+extern STR16	szMilitiaStrategicMovementText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 
