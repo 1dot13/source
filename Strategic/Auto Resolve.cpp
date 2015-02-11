@@ -788,7 +788,13 @@ void AssociateEnemiesWithStrategicGroups()
 	//Stationary groups have a group ID of 0
 	for( i = 0; i < gpAR->ubEnemies; ++i )
 	{
-		if( gpEnemies[ i ].uiFlags & CELL_ELITE && ubNumElites )
+		if ( gpEnemies[i].uiFlags & CELL_TANK && ubNumTanks )
+		{
+			gpEnemies[i].pSoldier->ubGroupID = 0;
+			gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+			ubNumTanks--;
+		}
+		else if ( gpEnemies[i].uiFlags & CELL_ELITE && ubNumElites )
 		{
 			gpEnemies[ i ].pSoldier->ubGroupID = 0;
 			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
@@ -805,12 +811,6 @@ void AssociateEnemiesWithStrategicGroups()
 			gpEnemies[ i ].pSoldier->ubGroupID = 0;
 			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 			ubNumAdmins--;
-		}
-		else if( gpEnemies[ i ].uiFlags & CELL_TANK && ubNumTanks )
-		{
-			gpEnemies[ i ].pSoldier->ubGroupID = 0;
-			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
-			ubNumTanks--;
 		}
 	}
 
@@ -838,7 +838,14 @@ void AssociateEnemiesWithStrategicGroups()
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 				{
-					if( ubNumElites && ubNumElitesInGroup )
+					if( ubNumTanks && ubNumTanksInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumTanks--;
+						ubNumTanksInGroup--;
+					}
+					else if( ubNumElites && ubNumElitesInGroup )
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
@@ -858,14 +865,7 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
-					}
-					else if( ubNumTanks && ubNumTanksInGroup )
-					{
-						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
-						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
-						ubNumTanks--;
-						ubNumTanksInGroup--;
-					}
+					}			
 				}
 			}
 		}
@@ -888,7 +888,14 @@ void AssociateEnemiesWithStrategicGroups()
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 				{
-					if( ubNumElites && ubNumElitesInGroup )
+					if ( ubNumTanks && ubNumTanksInGroup )
+					{
+						gpEnemies[i].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+						ubNumTanks--;
+						ubNumTanksInGroup--;
+					}
+					else if ( ubNumElites && ubNumElitesInGroup )
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
@@ -908,13 +915,6 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
-					}
-					else if( ubNumTanks && ubNumTanksInGroup )
-					{
-						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
-						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
-						ubNumTanks--;
-						ubNumTanksInGroup--;
 					}
 				}
 			}
@@ -940,7 +940,16 @@ void AssociateEnemiesWithStrategicGroups()
 
 			if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 			{
-				if( gpEnemies[ i ].uiFlags & CELL_ELITE && ubISNumElites && ubNumElites )
+				if ( gpEnemies[i].uiFlags & CELL_TANK && ubISNumTanks && ubNumTanks )
+				{
+					gpEnemies[i].pSoldier->ubGroupID = 0;
+					gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[i].pSoldier->sSectorX = SECTORX( pSectors[ubCurrSI] );
+					gpEnemies[i].pSoldier->sSectorY = SECTORY( pSectors[ubCurrSI] );
+					ubISNumTanks--;
+					ubNumTanks--;
+				}
+				else if ( gpEnemies[i].uiFlags & CELL_ELITE && ubISNumElites && ubNumElites )
 				{
 					gpEnemies[ i ].pSoldier->ubGroupID = 0;
 					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
@@ -966,15 +975,6 @@ void AssociateEnemiesWithStrategicGroups()
 					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
 					ubISNumAdmins--;
 					ubNumAdmins--;
-				}
-				else if( gpEnemies[ i ].uiFlags & CELL_TANK && ubISNumTanks && ubNumTanks )
-				{
-					gpEnemies[ i ].pSoldier->ubGroupID = 0;
-					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
-					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
-					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
-					ubISNumTanks--;
-					ubNumTanks--;
 				}
 			}
 		}
@@ -3231,7 +3231,7 @@ void CalculateAutoResolveInfo()
 //		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY,
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
 																&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubTanks );
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks, MAX_AR_TEAM_SIZE );
 	}
 	else
 	{
@@ -4620,7 +4620,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fCannon = TRUE;
 
 		// cannons have a huge splash zone, so they are much more likely to hit
-		usAttack *= 1.25;
+		usAttack *= 1.5;
 	}
 	// if our target is a tank, we use heavy weapons if we have any
 	else if ( TANK( pTarget->pSoldier ) && FireAntiTankWeapon( pAttacker ) )
@@ -4742,7 +4742,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		}
 
 		// tanks might do splash damage to other troops as well...
-		UINT8 numtries = min(3, Random( gpAR->ubMercs + gpAR->ubCivs ) );
+		UINT8 numtries = min(4, Random( gpAR->ubMercs + gpAR->ubCivs ) );
 		for ( int tries = 0; tries < numtries; ++tries )
 		{
 			SOLDIERCELL* pAnotherTarget = ChooseTarget( pAttacker );
