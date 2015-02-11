@@ -273,6 +273,7 @@ enum
 	ADMIN_FACE,
 	TROOP_FACE,
 	ELITE_FACE,
+	TANK_FACE,
 	MILITIA1_FACE,
 	MILITIA2_FACE,
 	MILITIA3_FACE,
@@ -281,6 +282,7 @@ enum
 	YF_CREATURE_FACE,
 	AF_CREATURE_FACE,
 	HUMAN_SKULL,
+	TANK_WRECK,
 	CREATURE_SKULL,
 	ELITEF_FACE,
 	MILITIA1F_FACE,
@@ -1085,12 +1087,14 @@ void CalculateSoldierCells( BOOLEAN fReset )
 
 			if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 			{
-				if( index < gpAR->ubElites )
+				if ( index < gpAR->ubTanks )
+					gpEnemies[index].uiFlags = CELL_TANK;
+				else if ( index < gpAR->ubTanks + gpAR->ubElites )
 					gpEnemies[ index ].uiFlags = CELL_ELITE;
-				else if( index < gpAR->ubElites + gpAR->ubTroops )
+				else if ( index < gpAR->ubTanks + gpAR->ubElites + gpAR->ubTroops )
 					gpEnemies[ index ].uiFlags = CELL_TROOP;
 				else
-					gpEnemies[ index ].uiFlags = CELL_ADMIN;
+					gpEnemies[index].uiFlags = CELL_ADMIN;
 			}
 			else
 			{
@@ -1165,10 +1169,13 @@ void RenderSoldierCell( SOLDIERCELL *pCell )
 	if( !pCell->pSoldier->stats.bLife )
 	{
 		SetObjectHandleShade( pCell->uiVObjectID, 0 );
-		if( !(pCell->uiFlags & CELL_CREATURE) )
-			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, HUMAN_SKULL, pCell->xp+3+x, pCell->yp+3, VO_BLT_SRCTRANSPARENCY, NULL );
+
+		if ( (pCell->uiFlags & CELL_CREATURE) )
+			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, CREATURE_SKULL, pCell->xp + 3 + x, pCell->yp + 3, VO_BLT_SRCTRANSPARENCY, NULL );
+		else if ( (pCell->uiFlags & CELL_TANK) )
+			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, TANK_WRECK, pCell->xp + 3 + x, pCell->yp + 3, VO_BLT_SRCTRANSPARENCY, NULL );
 		else
-			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, CREATURE_SKULL, pCell->xp+3 + x, pCell->yp+3, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, HUMAN_SKULL, pCell->xp+3+x, pCell->yp+3, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 	else
 	{
@@ -2493,7 +2500,7 @@ void CreateAutoResolveInterface()
 	}
 	if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 	{
-		for( i = 0, index = 0; i < gpAR->ubElites; i++, index++ )
+		for( i = 0, index = 0; i < gpAR->ubElites; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateEliteEnemy();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
@@ -2509,7 +2516,7 @@ void CreateAutoResolveInterface()
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ELITE_NAME ] );
 		}
-		for( i = 0; i < gpAR->ubTroops; i++, index++ )
+		for( i = 0; i < gpAR->ubTroops; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateArmyTroop();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
@@ -2518,7 +2525,7 @@ void CreateAutoResolveInterface()
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_TROOP_NAME ] );
 		}
-		for( i = 0; i < gpAR->ubAdmins; i++, index++ )
+		for ( i = 0; i < gpAR->ubAdmins; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateAdministrator();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
@@ -2527,20 +2534,20 @@ void CreateAutoResolveInterface()
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
 		}
-		for( i = 0; i < gpAR->ubTanks; i++, index++ )
+		for ( i = 0; i < gpAR->ubTanks; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateEnemyTank();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = ELITE_FACE;
+			gpEnemies[index].usIndex = TANK_FACE;
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			//swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_AR_TANK_NAME] );
 		}
 		AssociateEnemiesWithStrategicGroups();
 	}
 	else
 	{
-		for( i = 0, index = 0; i < gpAR->ubAFCreatures; i++, index++ )
+		for ( i = 0, index = 0; i < gpAR->ubAFCreatures; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateCreature( ADULTFEMALEMONSTER );
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
@@ -3310,7 +3317,7 @@ void ResetAutoResolveInterface()
 
 	//Make sure the number of enemy portraits is the same as needed.
 	//The debug keypresses may add or remove more than one at a time.
-	while( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops > gpAR->ubEnemies )
+	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks > gpAR->ubEnemies )
 	{
 		switch( PreRandom( 5 ) )
 		{
@@ -3319,7 +3326,7 @@ void ResetAutoResolveInterface()
 			case 3: case 4: if( gpAR->ubTroops ) { gpAR->ubTroops--; break; }
 		}
 	}
-	while( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops < gpAR->ubEnemies )
+	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks < gpAR->ubEnemies )
 	{
 		switch( PreRandom( 5 ) )
 		{
@@ -4298,7 +4305,8 @@ SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
 		}
 	}
 	else
-	{ //player team attacking an enemy
+	{
+		//player team attacking an enemy
 		iAvailableTargets = gpAR->ubEnemies;
 		index = 0;
 		usSavedDefence = gpAR->usEnemyDefence;
@@ -4332,7 +4340,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 	SOLDIERTYPE *pSoldier;
 
 	pSoldier = pAttacker->pSoldier;
-
+	
 	if( pAttacker->uiFlags & CELL_MALECREATURE )
 	{
 		PlayAutoResolveSample( ACR_SPIT, RATE_11025, 50, 1, MIDDLEPAN );
@@ -4361,7 +4369,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 					PlayAutoResolveSample( Weapon[ pItem->usItem ].sLocknLoadSound, RATE_11025, 50, 1, MIDDLEPAN );
 				}
 			}
-			if( (*pItem)[0]->data.gun.ubGunShotsLeft )
+			if ( (*pItem)[0]->data.gun.ubGunShotsLeft )
 			{
 				PlayAutoResolveSample( Weapon[ pItem->usItem ].sSound, RATE_11025, 50, 1, MIDDLEPAN );
 				if( pAttacker->uiFlags & CELL_MERC )
@@ -4376,6 +4384,103 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 			}
 		}
 	}
+	pAttacker->bWeaponSlot = -1;
+	return FALSE;
+}
+
+BOOLEAN FireTankCannon( SOLDIERCELL *pAttacker )
+{
+	OBJECTTYPE *pItem;
+	SOLDIERTYPE *pSoldier;
+
+	pSoldier = pAttacker->pSoldier;
+
+	// we need to be a tank to do this...
+	if ( !pSoldier || (pAttacker->uiFlags & CELL_TANK) == 0 || pSoldier->ubSoldierClass != SOLDIER_CLASS_TANK )
+		return FALSE;
+
+	// a tank has several guns, don't fire the main gun all the time
+	//if ( Chance(33) )
+		//return FALSE;
+	
+	UINT8 invsize = pSoldier->inv.size();
+	for ( UINT8 i = 0; i < invsize; ++i )
+	{
+		pItem = &pSoldier->inv[i];
+
+		if ( Item[pItem->usItem].cannon )
+		{
+			PlayAutoResolveSample( Weapon[pItem->usItem].sSound, RATE_11025, 50, 1, MIDDLEPAN );
+
+			if ( pAttacker->uiFlags & CELL_MERC )
+			{
+				gMercProfiles[pAttacker->pSoldier->ubProfile].records.usShotsFired++;
+				// MARKSMANSHIP GAIN: Attacker fires a shot
+
+				StatChange( pAttacker->pSoldier, MARKAMT, 3, FALSE );
+			}
+
+			pAttacker->bWeaponSlot = (INT8)i;
+
+			return TRUE;			
+		}
+	}
+
+	pAttacker->bWeaponSlot = -1;
+	return FALSE;
+}
+
+BOOLEAN FireAntiTankWeapon( SOLDIERCELL *pAttacker )
+{
+	OBJECTTYPE *pItem;
+	SOLDIERTYPE *pSoldier;
+
+	pSoldier = pAttacker->pSoldier;
+	
+	UINT8 invsize = pSoldier->inv.size( );
+	for ( UINT8 i = 0; i < invsize; ++i )
+	{
+		pItem = &pSoldier->inv[i];
+
+		if ( Item[pItem->usItem].usItemClass == IC_LAUNCHER || Item[pItem->usItem].cannon )
+		{
+			pAttacker->bWeaponSlot = (INT8)i;
+			if ( gpAR->fUnlimitedAmmo )
+			{
+				PlayAutoResolveSample( Weapon[pItem->usItem].sSound, RATE_11025, 50, 1, MIDDLEPAN );
+				return TRUE;
+			}
+
+			if ( FindLaunchable( pSoldier, pSoldier->inv[pAttacker->bWeaponSlot].usItem ) == NO_SLOT )
+				continue;
+
+			DeductAmmo( pSoldier, pAttacker->bWeaponSlot );
+
+			if ( !(*pItem)[0]->data.gun.ubGunShotsLeft )
+			{
+				INT8 ammoslot = FindAmmoToReload( pSoldier, pAttacker->bWeaponSlot, NO_SLOT );
+
+				BOOLEAN fRet = ReloadGun( pSoldier, pItem, &(pSoldier->inv[ammoslot]) );
+
+				if ( fRet && ( *pItem )[0]->data.gun.ubGunShotsLeft && Weapon[pItem->usItem].sLocknLoadSound )
+				{
+					PlayAutoResolveSample( Weapon[pItem->usItem].sLocknLoadSound, RATE_11025, 50, 1, MIDDLEPAN );
+				}
+			}
+			
+			PlayAutoResolveSample( Weapon[pItem->usItem].sSound, RATE_11025, 50, 1, MIDDLEPAN );
+			if ( pAttacker->uiFlags & CELL_MERC )
+			{
+				gMercProfiles[pAttacker->pSoldier->ubProfile].records.usShotsFired++;
+				// MARKSMANSHIP GAIN: Attacker fires a shot
+
+				StatChange( pAttacker->pSoldier, MARKAMT, 3, FALSE );
+			}
+				
+			return TRUE;
+		}
+	}
+
 	pAttacker->bWeaponSlot = -1;
 	return FALSE;
 }
@@ -4430,6 +4535,8 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	BOOLEAN fMelee = FALSE;
 	BOOLEAN fKnife = FALSE;
 	BOOLEAN fClaw = FALSE;
+	BOOLEAN fCannon = FALSE;
+	BOOLEAN fAntiTank = FALSE;
 	INT8	bAttackIndex = -1;
 
 	pAttacker->uiFlags |= CELL_FIREDATTARGET | CELL_DIRTY;
@@ -4507,14 +4614,33 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		fMelee = TRUE;
 		fClaw = TRUE;
 	}
+	// Flugente: if we are a tank, we might fire the main cannon...
+	else if ( FireTankCannon( pAttacker ) )
+	{
+		fCannon = TRUE;
+
+		// cannons have a huge splash zone, so they are much more likely to hit
+		usAttack *= 1.25;
+	}
+	// if our target is a tank, we use heavy weapons if we have any
+	else if ( TANK( pTarget->pSoldier ) && FireAntiTankWeapon( pAttacker ) )
+	{
+		fAntiTank = TRUE;
+
+		// hitting a tank with an rpg isn't easy
+		usAttack *= 0.8;
+	}
 	else if( !FireAShot( pAttacker ) )
-	{ //Maybe look for a weapon, such as a knife or grenade?
+	{
+		//Maybe look for a weapon, such as a knife or grenade?
 		fMelee = TRUE;
 		fKnife = AttackerHasKnife( pAttacker );
 		if( TargetHasLoadedGun( pTarget->pSoldier ) )
-		{ //Penalty to attack with melee weapons against target with loaded gun.
+		{
+			//Penalty to attack with melee weapons against target with loaded gun.
 			if( !(pAttacker->uiFlags & CELL_CREATURE ) )
-			{ //except for creatures
+			{
+				//except for creatures
 				if( fKnife )
 					usAttack = usAttack * 6 / 10;
 				else
@@ -4522,6 +4648,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			}
 		}
 	}
+
 	//Set up a random delay for the hit or miss.
 	if( !fMelee )
 	{
@@ -4537,17 +4664,25 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{
 			bAttackIndex = 2;
 		}
+
 		if ( bAttackIndex != -1 )
 		{
-			pTarget->usNextHit[ bAttackIndex ] = (UINT16)( 50 + PreRandom( 400 ) );
+			if ( fAntiTank )
+				pTarget->usNextHit[ bAttackIndex ] = (UINT16)( 200 + PreRandom( 400 ) );
+			else
+				pTarget->usNextHit[bAttackIndex] = (UINT16)(50 + PreRandom( 400 ));
+
 			pTarget->pAttacker[ bAttackIndex ] = pAttacker;
 		}
 	}
+
 	if( usAttack < usDefence )
 	{
 		if( pTarget->pSoldier->stats.bLife >= OKLIFE || !PreRandom( 5 ) )
-		{	//Attacker misses -- use up a round of ammo.	If target is unconcious, then 80% chance of hitting.
+		{
+			//Attacker misses -- use up a round of ammo.	If target is unconcious, then 80% chance of hitting.
 			pTarget->uiFlags |= CELL_DODGEDATTACK | CELL_DIRTY;
+
 			if( fMelee )
 			{
 				if( fKnife )
@@ -4565,15 +4700,126 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				}
 				else
 					PlayAutoResolveSample( SWOOSH_1 + PreRandom( 6 ), RATE_11025, 50, 1, MIDDLEPAN );
+
 				if( pTarget->uiFlags & CELL_MERC )
 					// AGILITY GAIN: Target "dodged" an attack
 					StatChange( pTarget->pSoldier, AGILAMT, 5, FALSE );
 			}
+
 			return;
 		}
 	}
+
+	// hit with a tank
+	if ( fCannon )
+	{
+		ubImpact = (UINT8)GetDamage( &pAttacker->pSoldier->inv[pAttacker->bWeaponSlot] ); 
+		
+		ubLocation = AIM_SHOT_TORSO;
+
+		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - increased mercs' offense/deffense rating
+		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
+		{
+			ubImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
+		}
+		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3) )
+		{
+			ubImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if ( bAttackIndex == -1 )
+		{
+			// tack damage on to end of last hit
+			pTarget->usHitDamage[2] += (UINT16)ubImpact;
+		}
+		else
+		{
+			pTarget->usHitDamage[bAttackIndex] = (UINT16)ubImpact;
+		}
+
+		// tanks might do splash damage to other troops as well...
+		UINT8 numtries = min(3, Random( gpAR->ubMercs + gpAR->ubCivs ) );
+		for ( int tries = 0; tries < numtries; ++tries )
+		{
+			SOLDIERCELL* pAnotherTarget = ChooseTarget( pAttacker );
+
+			if ( pAnotherTarget != pTarget )
+			{
+				INT8 bNewAttackIndex = -1;
+
+				if ( !pTarget->usNextHit[0] )
+				{
+					bNewAttackIndex = 0;
+				}
+				else if ( !pTarget->usNextHit[1] )
+				{
+					bNewAttackIndex = 1;
+				}
+				else if ( !pTarget->usNextHit[2] )
+				{
+					bNewAttackIndex = 2;
+				}
+
+				if ( bAttackIndex != -1 )
+				{
+					pAnotherTarget->usNextHit[bNewAttackIndex] = pTarget->usNextHit[bAttackIndex];
+					pAnotherTarget->pAttacker[bNewAttackIndex] = pAttacker;
+
+					pAnotherTarget->usHitDamage[bNewAttackIndex] = ubImpact / (numtries + 1) + Random( 20 );
+				}
+			}
+		}
+	}
+	// attack a tank with heavy weapons
+	else if ( fAntiTank )
+	{
+		ubImpact = (UINT8)GetDamage( &pAttacker->pSoldier->inv[pAttacker->bWeaponSlot] ) / 3;
+
+		UINT8 ubAmmoType = Magazine[Item[(&pAttacker->pSoldier->inv[pAttacker->bWeaponSlot])->usItem].ubClassIndex].ubAmmoType;
+				
+		if ( AmmoTypes[ubAmmoType].antiTank )
+		{
+			ubImpact *= 2;
+		}
+
+		iRandom = Random( 100 );
+		if ( iRandom < 15 )
+			ubLocation = AIM_SHOT_HEAD;
+		else if ( iRandom < 50 )
+			ubLocation = AIM_SHOT_LEGS;
+		else
+			ubLocation = AIM_SHOT_TORSO;
+
+		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence )) / 10);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - increased mercs' offense/deffense rating
+		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
+		{
+			iImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
+		}
+		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3) )
+		{
+			iImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if ( bAttackIndex == -1 )
+		{
+			// tack damage on to end of last hit
+			pTarget->usHitDamage[2] += (UINT16)ubImpact;
+		}
+		else
+		{
+			pTarget->usHitDamage[bAttackIndex] = (UINT16)ubImpact;
+		}
+	}
 	//Attacker hits
-	if( !fMelee )
+	else if( !fMelee )
 	{
 		// silversurfer: We want to use the function instead of the raw value because it applies the modifiers that we configured in the ini.
 		ubImpact = (UINT8) GetDamage(&pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ]);
@@ -4585,6 +4831,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			ubLocation = AIM_SHOT_LEGS;
 		else
 			ubLocation = AIM_SHOT_TORSO;
+
 		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
 		// HEADROCK HAM 5: Added argument
 		iImpact = BulletImpact( pAttacker->pSoldier, NULL, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
@@ -4609,7 +4856,6 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{
 			pTarget->usHitDamage[ bAttackIndex ] = (UINT16) iImpact;
 		}
-
 	}
 	else
 	{
@@ -4826,7 +5072,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		return;
 	}
 	pAttacker = pTarget->pAttacker[ index ];
-
+	
 	//creatures get damage reduction bonuses
 	switch( pTarget->pSoldier->ubBodyType )
 	{
@@ -4871,18 +5117,24 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	}
 
 	//bullet hit -- play an impact sound and a merc hit sound
-	PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
+	if ( TANK( pTarget->pSoldier ) )
+		PlayAutoResolveSample( (UINT8)(S_METAL_IMPACT1 + PreRandom( 3 )), RATE_11025, 50, 1, MIDDLEPAN );
+	else	
+		PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
 
 	if( pTarget->pSoldier->stats.bLife >= CONSCIOUSNESS )
 	{
 		if( gpAR->fSound )
 			pTarget->pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + PreRandom( 2 ) ) );
 	}
+
 	if( iNewLife < OKLIFE && pTarget->pSoldier->stats.bLife >= OKLIFE )
-	{ //the hit caused the merc to fall.	Play the falling sound
+	{
+		//the hit caused the merc to fall.	Play the falling sound
 		PlayAutoResolveSample( (UINT8)FALL_1, RATE_11025, 50, 1, MIDDLEPAN );
 		pTarget->uiFlags &= ~CELL_RETREATING;
 	}
+
 	if( iNewLife <= 0 )
 	{
 		// Flugente: campaign stats
@@ -5022,7 +5274,10 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		{ //Normal death
 			if( gpAR->fSound )
 			{
-				pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
+				if ( TANK( pTarget->pSoldier ) )
+					PlayAutoResolveSample( (UINT8)(S_RAID_TB_BOMB), RATE_11025, 50, 1, MIDDLEPAN );
+				else
+					pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 			}
 		}
 		#ifdef INVULNERABILITY
@@ -5496,7 +5751,7 @@ void ProcessBattleFrame()
 			//Apply damage and play miss/hit sounds if delay between firing and hit has expired.
 			if( !(pAttacker->uiFlags & CELL_RETREATED ) )
 			{
-				for( cnt = 0; cnt < 3; cnt++ )
+				for( cnt = 0; cnt < 3; ++cnt )
 				{ //Check if any incoming bullets have hit the target.
 					if( pAttacker->usNextHit[ cnt ] )
 					{

@@ -2851,6 +2851,8 @@ STR16 gpStrategicString[] =
 	// Flugente: militia movement forbidden due to limited roaming
 	L"La milice ne peut pas se déplacer (RESTRICT_ROAMING = TRUE).",
 	L"La salle d'opérations n'est pas ouverte... Le mouvement de la milice a avorté !",
+
+	L"Tank",								//STR_AR_TANK_NAME,	// TODO.Translate
 };
 
 STR16 gpGameClockString[] = 

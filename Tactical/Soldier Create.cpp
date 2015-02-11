@@ -3126,7 +3126,7 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
-		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_TANK );
 		if( pSoldier ) return pSoldier;
 	}
 

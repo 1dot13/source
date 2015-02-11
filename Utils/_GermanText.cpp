@@ -2854,6 +2854,8 @@ STR16 gpStrategicString[] =
 	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
 	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 	L"War room isn't staffed - militia move aborted!",
+
+	L"Panzer",								//STR_AR_TANK_NAME,
 };
 
 STR16 gpGameClockString[] = 
