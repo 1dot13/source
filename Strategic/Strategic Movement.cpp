@@ -2784,9 +2784,13 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 		{
 			// As the player orders militia to move, a chance-based system is ill-advised - the player would simply cancel and reassign the order, leading to bypassing the mechanci in a tedious way
 			// so instead, we always add a penalty, but it will be lower
+			// however, do not give such a penalty for movement inside a town - the player might just want to redistribute his troops, and this would be tedious
 			if ( GetWorldHour( ) >= 21 || GetWorldHour( ) <= 4 )
 			{
-				uiSleepMinutes = 280;
+				if ( GetTownIdForSector( pGroup->ubSectorX, pGroup->ubSectorY ) != GetTownIdForSector( pGroup->ubNextX, pGroup->ubNextY ) )
+				{
+					uiSleepMinutes = 280;
+				}
 			}
 		}
 
