@@ -6576,7 +6576,7 @@ UINT32 HandleMapUI( )
 					if( SectorInfo[ ( SECTOR( sMapX, sMapY ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER )
 					{
 						// if it's not enemy air controlled
-						if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sMapX, sMapY ) ].fEnemyAirControlled == FALSE )
+						if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
 						{
 							CHAR16 sMsgString[ 128 ], sMsgSubString[ 64 ];
 

@@ -5,6 +5,14 @@
 #include "mapscreen.h"
 #include "soldier control.h"
 
+// different states for airspace control
+enum
+{
+	AIRSPACE_PLAYER_ACTIVE,		// controlled by player and active
+	AIRSPACE_ENEMY_ACTIVE,		// controlled by enemy and active
+	AIRSPACE_PLAYER_INACTIVE,	// controlled by player but not active
+	AIRSPACE_ENEMY_INACTIVE,	// controlled by enemy but not active
+};
 
 struct strategicmapelement{
 	UINT8 UNUSEDuiFootEta[4];			// eta/mvt costs for feet 
@@ -13,7 +21,7 @@ struct strategicmapelement{
 	UINT8 uiBadVehicleSector[4];		// blocking mvt from vehicles
 	INT8	bNameId;
 	BOOLEAN fEnemyControlled;			// enemy controlled or not
-	BOOLEAN fEnemyAirControlled;
+	UINT8 usAirType;
 	BOOLEAN UNUSEDfLostControlAtSomeTime;
 	INT8 bSAMCondition;					// SAM Condition .. 0 - 100, just like an item's status
 

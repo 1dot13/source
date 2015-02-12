@@ -1126,7 +1126,7 @@ INT32 GetCostOfPassageForHelicopter( INT16 sX, INT16 sY )
 	INT32 iBaseCostPerRedTile = gGameExternalOptions.usHelicopterBaseCostPerRedTile;
 
 	// if they don't control it
-	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sX, sY ) ].fEnemyAirControlled == FALSE )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
 	{
 		iCost = iBaseCostPerGreenTile;
 	}
@@ -1337,7 +1337,7 @@ void HandleHeliHoverForAMinute( void )
 		gubHelicopterHoverTime = 0;
 
 		iTotalHeliDistanceSinceRefuel++;
-		if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sX, sY ) ].fEnemyAirControlled == FALSE )
+		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
 		{
 			iTotalAccumulatedCostByPlayer += gGameExternalOptions.usHelicopterHoverCostOnGreenTile;
 		}
@@ -1567,18 +1567,15 @@ BOOLEAN IsRefuelSiteInSector( INT16 sMapX, INT16 sMapY )
 
 void UpdateRefuelSiteAvailability( void )
 {
-	INT32 iCounter = 0;
-
 	// Generally, only Drassen is initially available for refuelling
 	// Estoni must first be captured (although player may already have it when he gets Skyrider!)
 	// anv: Estoni should only available after Jake-Shank quest
 	// site availability should not be dependent on SAM zones, or weird things will happen after controlling Estoni (like inability to land in base if it's in SAM zone)
 
-	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; ++iCounter )
 	{
 		// if enemy controlled sector (ground OR air, don't want to fly into enemy air territory)
 		if( ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyControlled == TRUE ) ||
-				//( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ] ) ].fEnemyAirControlled == TRUE ) ||
 				( ( iCounter == ESTONI_REFUELING_SITE ) && ( CheckFact( FACT_ESTONI_REFUELLING_POSSIBLE, 0 ) == FALSE ) ) )
 		{
 			// mark refueling site as unavailable
@@ -2378,9 +2375,9 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 	UINT8 ubChance;
 
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: enemy air controlled = %d",StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyAirControlled));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "WillAirRaidBeStopped: enemy air controlled = %d", StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType ) );
 	// if enemy controls this SAM site, then it can't stop an air raid
-	if( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyAirControlled == TRUE )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType != AIRSPACE_PLAYER_ACTIVE )
 	{
 		return( FALSE );
 	}
@@ -2449,7 +2446,7 @@ BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY 
 	UINT8 ubChance;
 
 	// if this sector is in friendly airspace, we're safe
-	if( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyAirControlled == FALSE )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
 	{
 		// no problem, friendly airspace
 		return( FALSE );
@@ -2741,10 +2738,10 @@ INT16 GetNumSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-		if ( !StrategicMap[ uiLocation ].fEnemyAirControlled )
-		{
-		uiCount++;
-		}
+			if ( StrategicMap[uiLocation].usAirType != AIRSPACE_ENEMY_ACTIVE )
+			{
+				++uiCount;
+			}
 
 			pNode = pNode->pNext;
 		}
@@ -2769,10 +2766,10 @@ INT16 GetNumSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-		if ( !StrategicMap[ uiLocation ].fEnemyAirControlled )
-		{
-		uiCount++;
-		}
+			if ( StrategicMap[uiLocation].usAirType != AIRSPACE_ENEMY_ACTIVE )
+			{
+				++uiCount;
+			}
 
 			pNode = pNode->pNext;
 		}
@@ -2823,10 +2820,10 @@ INT16 GetNumUnSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-		if ( StrategicMap[ uiLocation ].fEnemyAirControlled )
-		{
-		uiCount++;
-		}
+			if ( StrategicMap[uiLocation].usAirType == AIRSPACE_ENEMY_ACTIVE )
+			{
+				++uiCount;
+			}
 
 			pNode = pNode->pNext;
 		}
@@ -2850,10 +2847,10 @@ INT16 GetNumUnSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-		if ( StrategicMap[ uiLocation ].fEnemyAirControlled )
-		{
-		uiCount++;
-		}
+			if ( StrategicMap[uiLocation].usAirType == AIRSPACE_ENEMY_ACTIVE )
+			{
+				++uiCount;
+			}
 
 			pNode = pNode->pNext;
 		}

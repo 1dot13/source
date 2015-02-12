@@ -5117,50 +5117,53 @@ void UpdateAirspaceControl( void )
 {
 	UINT8 ubControllingSAM;
 	StrategicMapElement *pSAMStrategicMap = NULL;
-	BOOLEAN fEnemyControlsAir;
 
 	for ( INT32 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
 	{
 		for ( INT32 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
 		{
+			// if networked, disable SAM airspace restrictions...
+			if ( is_networked )
+			{
+				StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
+				continue;
+			}
+
 			// IMPORTANT: B and A are reverse here, since the table is stored transposed
 			ubControllingSAM = ubSAMControlledSectors[ iCounterB ][ iCounterA ];
 
-			if ( ( ubControllingSAM >= 1 ) && ( ubControllingSAM <= NUMBER_OF_SAMS ) )
+			if ( ubControllingSAM >= 1 && ubControllingSAM <= NUMBER_OF_SAMS )
 			{
-				pSAMStrategicMap = &( StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ ubControllingSAM - 1 ] ) ] );
+				pSAMStrategicMap = &( StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ubControllingSAM - 1] ) ] );
 
-				// if the enemies own the controlling SAM site, and it's in working condition
-				if( ( pSAMStrategicMap->fEnemyControlled ) && ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK ) )
+				// different status depending on who controls the SAM sector, and whether the SAM is operational
+				if ( pSAMStrategicMap->fEnemyControlled )
 				{
-					if (is_networked)
-					{
-						fEnemyControlsAir = FALSE; // disable SAM airspace restrictions...
-					}
+					if ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
+						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_ACTIVE;
 					else
-					{
-						fEnemyControlsAir = TRUE;
-					}
+						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
 				}
 				else
 				{
-					fEnemyControlsAir = FALSE;
+					if ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
+						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_PLAYER_ACTIVE;
+					else
+						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_PLAYER_INACTIVE;
 				}
 			}
 			else
 			{
 				// no controlling SAM site
-				fEnemyControlsAir = FALSE;
+				StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
 			}
-
-			StrategicMap[ CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB ) ].fEnemyAirControlled = fEnemyControlsAir;
 		}
 	}
 
 	// check if currently selected arrival sector still has secure airspace
 
 	// if it's not enemy air controlled
-	if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( gsMercArriveSectorX, gsMercArriveSectorY ) ].fEnemyAirControlled == TRUE )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gsMercArriveSectorX, gsMercArriveSectorY )].usAirType == AIRSPACE_ENEMY_ACTIVE )
 	{
 		// NOPE!
 		CHAR16 sMsgString[ 256 ], sMsgSubString1[ 64 ], sMsgSubString2[ 64 ];
@@ -5170,7 +5173,7 @@ void UpdateAirspaceControl( void )
 
 		// move the landing zone over to Omerta
 		// HEADROCK HAM 3.5: Externalized coordinates
-		if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyAirControlled == FALSE )
+		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
 		{
 			gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
 			gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
@@ -5181,7 +5184,7 @@ void UpdateAirspaceControl( void )
 			{
 				for (UINT8 ubSectorY = 1; ubSectorY <=16; ++ubSectorY)
 				{
-					if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY ) ].fEnemyAirControlled == FALSE && !sBadSectorsList[ ubSectorX ][ ubSectorY ] )
+					if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE && !sBadSectorsList[ubSectorX][ubSectorY] )
 					{
 						gsMercArriveSectorX = ubSectorX;
 						gsMercArriveSectorY = ubSectorY;

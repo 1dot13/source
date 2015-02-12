@@ -746,15 +746,20 @@ UINT32 DrawMap( void )
 							{
 								if( fShowAircraftFlag )
 								{
-									if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
 									{
-										// sector not visited, not air controlled
+										// sector not visited but air controlled
 										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+									}
+									else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
+									{
+										// sector not visited and not air controlled
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
 									}
 									else
 									{
-										// sector not visited, controlled and air not
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+										// sector not visited, currently nobody controls the airspace
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_BLUE );
 									}
 								}
 								else if ( fShowStrategicDiseaseFlag )
@@ -780,15 +785,20 @@ UINT32 DrawMap( void )
 							{
 								if( fShowAircraftFlag )
 								{
-									if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
 									{
 										// sector visited and air controlled
 										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
 									}
-									else
+									else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
 									{
 										// sector visited but not air controlled
 										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+									}
+									else
+									{
+										// sector visited, currently nobody controls the airspace
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_BLUE );
 									}
 								}
 								else if ( fShowStrategicDiseaseFlag )
