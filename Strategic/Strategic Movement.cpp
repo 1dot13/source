@@ -1025,6 +1025,17 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 		return;
 	}
 
+	// if this is a militia group, don't say anything, jsut start the battle interface
+	if ( pPlayerDialogGroup->usGroupTeam == MILITIA_TEAM )
+	{
+		// force direct transition to autoresolve
+		gfDelayAutoResolveStart = TRUE;
+
+		// We MUST start combat, but donot play quote...
+		InitPreBattleInterface( pInitiatingBattleGroup, TRUE );
+		return;
+	}
+
 	// Pipe up with quote...
 	AssertMsg( pPlayerDialogGroup, "Didn't get a player dialog group for prebattle interface." );
 
@@ -1271,6 +1282,14 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		{
 			fMilitiaPresent = TRUE;
 			fBattlePending = TRUE;
+		}
+
+		if ( fBattlePending )
+		{
+			if ( PossibleToCoordinateSimultaneousGroupArrivals( pGroup ) )
+			{
+				return FALSE;
+			}
 		}
 	}
 
@@ -2456,7 +2475,7 @@ void PrepareGroupsForSimultaneousArrival()
 	while( pGroup )
 	{ //For all of the groups that haven't arrived yet, determine which one is going to take the longest.
 		if( pGroup != gpPendingSimultaneousGroup
-			&& pGroup->usGroupTeam == OUR_TEAM
+			&& (pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM)
 				&& pGroup->fBetweenSectors
 				&& pGroup->ubNextX == gpPendingSimultaneousGroup->ubSectorX
 				&& pGroup->ubNextY == gpPendingSimultaneousGroup->ubSectorY &&
@@ -2480,7 +2499,7 @@ void PrepareGroupsForSimultaneousArrival()
 			SetGroupArrivalTime( pGroup, uiLatestArrivalTime );
 			AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
 
-			if ( pGroup->usGroupTeam == OUR_TEAM )
+			if ( pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM )
 			{
 				if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 				{
@@ -2523,7 +2542,7 @@ void PrepareGroupsForSimultaneousArrival()
 
 	AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
 
-	if ( pGroup->usGroupTeam == OUR_TEAM )
+	if ( pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM )
 	{
 		if( pGroup->uiArrivalTime - ABOUT_TO_ARRIVE_DELAY > GetWorldTotalMin( ) )
 		{
@@ -2558,7 +2577,7 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		if ( pGroup != pFirstGroup && pGroup->usGroupTeam == OUR_TEAM && pGroup->fBetweenSectors &&
+		if ( pGroup != pFirstGroup && (pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM) && pGroup->fBetweenSectors &&
 			pGroup->ubNextX == pFirstGroup->ubSectorX && pGroup->ubNextY == pFirstGroup->ubSectorY &&
 				!(pGroup->uiFlags & GROUPFLAG_SIMULTANEOUSARRIVAL_CHECKED) &&
 				!IsGroupTheHelicopterGroup( pGroup ) )
