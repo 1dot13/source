@@ -1711,35 +1711,30 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	pSoldier->ubSoldierClass				= pCreateStruct->ubSoldierClass;
 
 	// Flugente: soldier profiles
-	if ( 1 )
+	// silversurfer: Don't replace tanks!
+	if ( pCreateStruct->bBodyType != TANK_NE && pCreateStruct->bBodyType != TANK_NW )
 	{
-		INT8 type = -1;
+		// We have a function for this
+		INT8 type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
 
-		// silversurfer: Don't replace tanks!
-		if ( pCreateStruct->bBodyType != TANK_NE && pCreateStruct->bBodyType != TANK_NW )
+		if ( type > -1 )
 		{
-			// We have a function for this
-			type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
+			INT16 availablenames[NUM_SOLDIER_PROFILES];
+			UINT16 cnt = 0;
 
-			if ( type > -1 )
+			for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
 			{
-				INT16 availablenames[NUM_SOLDIER_PROFILES];
-				UINT16 cnt = 0;
+				// make sure the name isn't already currently in use!
+				if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
+					availablenames[cnt++] = i;
+			}
 
-				for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
-				{
-					// make sure the name isn't already currently in use!
-					if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
-						availablenames[cnt++] = i;
-				}
-
-				if ( cnt > 0 )
-				{
-					pSoldier->usSoldierProfile = availablenames[Random(cnt)];
+			if ( cnt > 0 )
+			{
+				pSoldier->usSoldierProfile = availablenames[Random(cnt)];
 								
-					if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
-						pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
-				}
+				if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
+					pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
 			}
 		}
 	}

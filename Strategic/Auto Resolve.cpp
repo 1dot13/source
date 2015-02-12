@@ -284,6 +284,8 @@ enum
 	HUMAN_SKULL,
 	TANK_WRECK,
 	CREATURE_SKULL,
+	ADMINF_FACE,
+	TROOPF_FACE,
 	ELITEF_FACE,
 	MILITIA1F_FACE,
 	MILITIA2F_FACE,
@@ -2520,7 +2522,14 @@ void CreateAutoResolveInterface()
 		{
 			gpEnemies[index].pSoldier = TacticalCreateArmyTroop();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = TROOP_FACE;
+			if ( gpEnemies[i].pSoldier->ubBodyType == REGFEMALE )
+			{
+				gpEnemies[index].usIndex = TROOPF_FACE;
+			}
+			else
+			{
+				gpEnemies[index].usIndex = TROOP_FACE;
+			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_TROOP_NAME ] );
@@ -2529,7 +2538,14 @@ void CreateAutoResolveInterface()
 		{
 			gpEnemies[index].pSoldier = TacticalCreateAdministrator();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = ADMIN_FACE;
+			if ( gpEnemies[i].pSoldier->ubBodyType == REGFEMALE )
+			{
+				gpEnemies[index].usIndex = ADMINF_FACE;
+			}
+			else
+			{
+				gpEnemies[index].usIndex = ADMIN_FACE;
+			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
 			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
