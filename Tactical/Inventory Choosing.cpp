@@ -4471,15 +4471,25 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	// we investigate the launchers we found, and their ammo.
 	if ( gGameExternalOptions.fMilitiaUseSectorInventory_Launcher && !si[SI_LAUNCHER].done )
 	{
+		// remember the best ammo count we found
+		UINT16 bestammocount = 0;
+
 		LauncherHelpMap::iterator itend = launcherhelpmap.end();
 		for (LauncherHelpMap::iterator it = launcherhelpmap.begin(); it != itend; ++it)
 		{
-			// we pick the first launcher that needs no ammo or has enough ammo
-			if ( !(*it).second.fNeedsAmmo || (*it).second.ammocount > 3 )
+			// if a launcher does not need ammo, take that one
+			if ( !(*it).second.fNeedsAmmo )
+			{
+				usLauncherItem = (*it).first;
+				usLauncherAmmoLeftToTake = 0;
+				break;
+			}
+			// otherwise pick the one with the highest ammo count (but not higher than 3, we don't want to hoard all the ammo)
+			else if ( (*it).second.ammocount > bestammocount )
 			{
 				usLauncherItem = (*it).first;
 				usLauncherAmmoLeftToTake = (*it).second.ammocount ? 3 : 0;
-				break;
+				bestammocount = usLauncherAmmoLeftToTake;
 			}
 		}
 	}
