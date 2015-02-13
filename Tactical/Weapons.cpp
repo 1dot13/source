@@ -2078,7 +2078,15 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			if ( Item[usUBItem].singleshotrocketlauncher  )
 			{
 				CreateItem( Item[usItemNum].discardedlauncheritem , (*pObjHand)[0]->data.objectStatus, pObjHand );
+				
+				// Flugente: why would we keep a piece of scrap in our ahnds in the first place? just drop it to the ground
+				AddItemToPool( pSoldier->sGridNo, pObjHand, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+				// Delete object
+				DeleteObj( pObjHand );
+
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+
 				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
 				{
 					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, Item[usUBItem].usBuddyItem, pSoldier->pathing.bLevel );
@@ -2250,6 +2258,13 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		if ( Item[usUBItem].singleshotrocketlauncher )
 		{
 			CreateItem( Item[usUBItem].discardedlauncheritem, (*pObjHand)[0]->data.objectStatus, pObjHand );
+			
+			// Flugente: why would we keep a piece of scrap in our ahnds in the first place? just drop it to the ground
+			AddItemToPool( pSoldier->sGridNo, pObjHand, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+			// Delete object
+			DeleteObj( pObjHand );
+
 			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 		}
 
@@ -2834,7 +2849,15 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			if ( Item[usUBItem].singleshotrocketlauncher  )
 			{
 				CreateItem( Item[usUBItem].discardedlauncheritem , (*pObjUsed)[0]->data.objectStatus, pObjUsed );
+				
+				// Flugente: why would we keep a piece of scrap in our ahnds in the first place? just drop it to the ground
+				AddItemToPool( pSoldier->sGridNo, pObjUsed, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+				// Delete object
+				DeleteObj( pObjUsed );
+
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+
 				if ( Item[usUBItem].usBuddyItem != 0 && Item[Item[usUBItem].usBuddyItem].usItemClass & IC_EXPLOSV )
 				{
 					IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
@@ -2894,6 +2917,13 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		if ( Item[usUBItem].singleshotrocketlauncher )
 		{
 			CreateItem( Item[usUBItem].discardedlauncheritem, (*pObjUsed)[0]->data.objectStatus, pObjUsed );
+
+			// Flugente: why would we keep a piece of scrap in our ahnds in the first place? just drop it to the ground
+			AddItemToPool( pSoldier->sGridNo, pObjUsed, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+			// Delete object
+			DeleteObj( pObjUsed );
+
 			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 		}
 
