@@ -966,6 +966,10 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			continue;			// next merc
 		}
 
+		// silversurfer: ignore empty vehicles
+		if ( pOpp->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpp->bVehicleID ) == 0 )
+			continue;
+
 		pbPersOL = pSoldier->aiData.bOppList + pOpp->ubID;
 		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pOpp->ubID;
 		psLastLoc = gsLastKnownOppLoc[pSoldier->ubID] + pOpp->ubID;

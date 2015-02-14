@@ -2664,6 +2664,7 @@ void LoadModSettings(){
 	gModSettings.ubKingpinHouseSectorZ = iniReader.ReadInteger("San Mona", "KINGPIN_HOUSE_SECTOR_Z", 0);
 	gModSettings.usKingpinRoomRangeStart = iniReader.ReadInteger("San Mona", "FIRST_ROOM_IN_KINGPIN_HOUSE", 30);
 	gModSettings.usKingpinRoomRangeEnd = iniReader.ReadInteger("San Mona", "LAST_ROOM_IN_KINGPIN_HOUSE", 39);
+	gModSettings.iKingpinRingTile = iniReader.ReadInteger("San Mona", "KINGPIN_RING_TILE", 10763);
 
 	gModSettings.ubKingpinMoneySectorX = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_X", 5);
 	gModSettings.ubKingpinMoneySectorY = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Y", 4);

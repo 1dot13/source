@@ -2065,6 +2065,7 @@ typedef struct
 	UINT8 ubKingpinHouseSectorZ;
 	UINT16 usKingpinRoomRangeStart;
 	UINT16 usKingpinRoomRangeEnd;
+	INT32 iKingpinRingTile;
 	
 	//Kingpin Private Stash
 	UINT8 ubKingpinMoneySectorX;
