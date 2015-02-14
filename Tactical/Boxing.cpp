@@ -184,6 +184,7 @@ void TriggerEndOfBoxingRecord( SOLDIERTYPE * pSoldier )
 	}
 
 	SetBoxingState( NOT_BOXING );
+	ClearAllBoxerFlags();
 }
 
 UINT8 CountPeopleInBoxingRing( void )
