@@ -7050,6 +7050,8 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			FLOAT iScopeMagModifier = GetHighestScopeMagnificationFactor( gpItemDescObject );
 			// Get final Magnification value
 			FLOAT iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
+			// get the real effective mag factor for this soldier
+			iFinalScopeMagValue = CalcEffectiveMagFactor(gpItemDescSoldier, iFinalScopeMagValue);
 
 			if( !fComparisonMode )
 			{
@@ -7074,6 +7076,8 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				FLOAT iComparedScopeMagModifier = GetHighestScopeMagnificationFactor( gpComparedItemDescObject );
 				// Get final Magnification value
 				FLOAT iComparedFinalScopeMagValue = __max( iComparedScopeMagValue, iComparedScopeMagModifier );
+				// get the real effective mag factor for this soldier
+				iComparedFinalScopeMagValue = CalcEffectiveMagFactor(gpItemDescSoldier, iComparedFinalScopeMagValue);
 
 				// Print difference in base value
 				DrawPropertyValueInColourFloat( iComparedScopeMagValue - iScopeMagValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
@@ -7092,6 +7096,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			FLOAT iScopeMagModifier = GetHighestScopeMagnificationFactor( gpComparedItemDescObject );
 			// Get final Magnification value
 			FLOAT iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
+			// get the real effective mag factor for this soldier
+			iFinalScopeMagValue = CalcEffectiveMagFactor(gpItemDescSoldier, iFinalScopeMagValue);
+
 			// Print base value
 			if( iScopeMagValue > 1.0f )
 				DrawPropertyValueInColourFloat( iScopeMagValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
