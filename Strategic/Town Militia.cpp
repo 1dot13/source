@@ -1288,13 +1288,14 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 	INT16 sSectorValue = 0, sSector = 0;
 	INT16 sCounterA = 0, sCounterB = 0;
 	UINT8 ubScoutingRange = 1;
+	BOOLEAN bScout = FALSE;
 
 	// get the sector value
 	sSector = sSectorX + sSectorY * MAP_WORLD_X;
 
-	for( sCounterA = sSectorX - ubScoutingRange; sCounterA <= sSectorX + ubScoutingRange; ++sCounterA )
+	for( sCounterA = sSectorX - ubScoutingRange; (sCounterA <= sSectorX + ubScoutingRange && !bScout); ++sCounterA )
 	{
-		for( sCounterB = sSectorY - ubScoutingRange; sCounterB <= sSectorY + ubScoutingRange; ++sCounterB )
+		for( sCounterB = sSectorY - ubScoutingRange; (sCounterB <= sSectorY + ubScoutingRange && !bScout); ++sCounterB )
 		{
 			// skip out of bounds sectors
 			if ( ( sCounterA < 1 ) || ( sCounterA > 16 ) || ( sCounterB < 1 ) || ( sCounterB > 16 ) )
@@ -1304,6 +1305,11 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 
 			sSectorValue = SECTOR( sCounterA, sCounterB );
 
+			// check if any sort of militia here
+			if ( NumNonPlayerTeamMembersInSector( sCounterA, sCounterB, MILITIA_TEAM ) )
+			{
+				return( TRUE );
+			}
 			// SANDRO - STOMP traits - Scouting check
 			if (fScoutTraitCheck && gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( sCounterA, sCounterB ))
 			{
@@ -1314,23 +1320,17 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 					 (sCounterA + 1 == sSectorX && sCounterB + 1 == sSectorY) ||
 					 (sCounterA + 1 == sSectorX && sCounterB - 1 == sSectorY))) 
 				{
-					return( FALSE );
+					continue;
 				}
 				else
-					return( TRUE );
-			}
-			else
-			{
-				// check if any sort of militia here
-				if ( NumNonPlayerTeamMembersInSector( sCounterA, sCounterB, MILITIA_TEAM ) )
 				{
-					return( TRUE );
+					bScout = TRUE;
 				}
 			}
 		}
 	}
 
-	return( FALSE );
+	return( bScout );
 }
 
 BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType )
