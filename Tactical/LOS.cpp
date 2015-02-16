@@ -4438,6 +4438,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	UINT8		ubShots=0;
 	UINT8		ubImpact=0;
 	INT8		bCTGT = 0;
+	INT8		bTempCTGT = 0;
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n=0;
@@ -4858,7 +4859,13 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 		{
 			bCTGT = FireBullet( pFirer->ubID, pBullet, TRUE );
 			RemoveBullet( iBullet );
-			return( bCTGT );
+			bTempCTGT = __max( bTempCTGT, bCTGT);
+			if ( ubLoop + 1 < ubShots && bTempCTGT < 100 )
+			{
+				continue;
+			}
+			else
+				return( bTempCTGT );
 		}
 		else
 		{
