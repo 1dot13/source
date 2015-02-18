@@ -153,8 +153,8 @@ INT16 GetMilitiaPathSlot(UINT8 uGroupId);
 
 void DeleteAllMilitiaPaths();
 
-// if a militia group is in this sector, return TRUE, group id will be stored in arId
-BOOLEAN GetMilitiaGroupInSector( INT16 sMapX, INT16 sMapY, UINT8& arId );
+// return the last militia group in this sector, group id will be stored in arId. return FALSE if none found
+BOOLEAN GetLastMilitiaGroupInSector( INT16 sMapX, INT16 sMapY, UINT8& arId );
 
 BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY );
 

@@ -16474,26 +16474,31 @@ BOOLEAN RequestGiveMilitiaNewDestination( void )
 		return FALSE;
 	}
 
-	// if there is already a travelling group in this sector, pick them up instead
-	/*UINT8 groupid = 0;
+	// if there are no more static militia in this sector, but a group is, select the last group
 	BOOLEAN fGroupAlreadyExists = FALSE;
-	if ( GetMilitiaGroupInSector( sSelMapX, sSelMapY, groupid ) )
+	if ( MilitiaInSectorOfRankStationary( sSelMapX, sSelMapY, GREEN_MILITIA ) + MilitiaInSectorOfRankStationary( sSelMapX, sSelMapY, REGULAR_MILITIA ) + MilitiaInSectorOfRankStationary( sSelMapX, sSelMapY, ELITE_MILITIA ) == 0 )
 	{
-		INT16 internalslot = GetMilitiaPathSlot( groupid );
-
-		if ( internalslot > -1 )
+		UINT8 groupid = 0;		
+		if ( GetLastMilitiaGroupInSector( sSelMapX, sSelMapY, groupid ) )
 		{
-			fGroupAlreadyExists = TRUE;
+			INT16 internalslot = GetMilitiaPathSlot( groupid );
 
-			gMilitiaGroupId = internalslot;
+			if ( internalslot > -1 )
+			{
+				fGroupAlreadyExists = TRUE;
+
+				gMilitiaGroupId = internalslot;
+
+				gNewMilitiaGroupId = gMilitiaPath[gMilitiaGroupId].sGroupid;
 				
-			// yes, we intentionally use a different sector number here
-			gMilitiaPlotStartSector = (INT16)(sSelMapX + sSelMapY*(MAP_WORLD_X));
+				// yes, we intentionally use a different sector number here
+				gMilitiaPlotStartSector = (INT16)(sSelMapX + sSelMapY*(MAP_WORLD_X));
+			}
 		}
-	}*/
+	}
 
-	// we can actually fail here if there aren't any slots left
-	if ( !MilitiaPlotStart( ) )
+	// if we don't use a previously existing group and can't creae a new one, abort
+	if ( !fGroupAlreadyExists && !MilitiaPlotStart( ) )
 	{
 		return FALSE;
 	}
@@ -16679,19 +16684,24 @@ void DeleteAllMilitiaPaths()
 	}
 }
 
-// if a militia group is in this sector, return TRUE, group id will be stored in arId
-BOOLEAN GetMilitiaGroupInSector( INT16 sMapX, INT16 sMapY, UINT8& arId )
+// return the last militia group in this sector, group id will be stored in arId. return FALSE if none found
+BOOLEAN GetLastMilitiaGroupInSector( INT16 sMapX, INT16 sMapY, UINT8& arId )
 {
+	BOOLEAN fFound = FALSE;
+
 	GROUP *pGroup = gpGroupList;
 	while ( pGroup )
 	{
 		if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == sMapX && pGroup->ubSectorY == sMapY )
 		{
 			arId = pGroup->ubGroupID;
-			return TRUE;
+			fFound = TRUE;
 		}
 		pGroup = pGroup->next;
 	}
+
+	if ( fFound )
+		return TRUE;
 
 	return FALSE;
 }
