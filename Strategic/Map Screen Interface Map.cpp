@@ -960,7 +960,8 @@ UINT32 DrawMap( void )
 
 	RestoreClipRegionToFullScreen( );
 
-	CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
+	// Flugente: this function does not do anything... so I'm commenting its use out
+	//CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
 
 	return( TRUE );
 }
@@ -7688,7 +7689,7 @@ void DisplayMilitiaGroupBox()
 
 	UINT16 MILITIAGROUPBOX_HEIGHT_LINE = 14;
 
-	UINT16 MILITIAGROUPBOX_WIDTH = MILITIAGROUPBOX_WIDTH_NAME + 3 * MILITIAGROUPBOX_WIDTH_TYPEBOX + MILITIAGROUPBOX_WIDTH_SECTOR + MILITIAGROUPBOX_WIDTH_ETA;
+	UINT16 MILITIAGROUPBOX_WIDTH = MILITIAGROUPBOX_WIDTH_NAME + 3 * MILITIAGROUPBOX_WIDTH_TYPEBOX + 2 * MILITIAGROUPBOX_WIDTH_SECTOR + MILITIAGROUPBOX_WIDTH_ETA;
 
 	// we need a header line, one for the sector, and one for each group present
 	UINT8 usMapX = GET_X_FROM_STRATEGIC_INDEX( gMilitiaPlotStartSector );
@@ -7750,6 +7751,11 @@ void DisplayMilitiaGroupBox()
 
 	swprintf( sString, szMilitiaStrategicMovementText[4] );
 	mprintf( dispX, dispY, sString );
+	dispX += MILITIAGROUPBOX_WIDTH_ETA;
+
+	swprintf( sString, szMilitiaStrategicMovementText[7] );
+	mprintf( dispX, dispY, sString );
+	dispX += MILITIAGROUPBOX_WIDTH_SECTOR;
 
 	dispX = gMilitiaGroupBoxX;
 	dispY += MILITIAGROUPBOX_HEIGHT_LINE;
@@ -7783,6 +7789,11 @@ void DisplayMilitiaGroupBox()
 
 	swprintf( sString, L"--:--" );
 	mprintf( dispX, dispY, sString );
+	dispX += MILITIAGROUPBOX_WIDTH_ETA;
+
+	swprintf( sString, L"--" );
+	mprintf( dispX, dispY, sString );
+	dispX += MILITIAGROUPBOX_WIDTH_SECTOR;
 
 	dispY += MILITIAGROUPBOX_HEIGHT_LINE;
 
@@ -7807,6 +7818,22 @@ void DisplayMilitiaGroupBox()
 
 			CHAR16 wSectorName[64];
 			GetShortSectorString( pGroup->ubNextX, pGroup->ubNextY, wSectorName );
+
+			CHAR16 wFinalSectorName[64];
+			swprintf( sString, L"--" );
+
+			// determine the final destination of this group
+			{
+				INT16 finalsector = GetLastSectorIdInMilitiaGroupPath( pGroup->ubGroupID );
+				if ( finalsector > -1 )
+				{
+					GetShortSectorString( SECTORX( finalsector ), SECTORY( finalsector ), wFinalSectorName );
+				}
+				else
+				{
+					GetShortSectorString( pGroup->ubNextX, pGroup->ubNextY, wFinalSectorName );
+				}
+			}
 
 			// show ETA
 			CHAR16 timestring[64];
@@ -7920,6 +7947,11 @@ void DisplayMilitiaGroupBox()
 
 			swprintf( sString, L"%s", timestring );
 			mprintf( dispX, dispY, sString );
+			dispX += MILITIAGROUPBOX_WIDTH_ETA;
+
+			swprintf( sString, L"%s", wFinalSectorName );
+			mprintf( dispX, dispY, sString );
+			dispX += MILITIAGROUPBOX_WIDTH_SECTOR;
 			
 			dispY += MILITIAGROUPBOX_HEIGHT_LINE;
 

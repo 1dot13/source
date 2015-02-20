@@ -10048,6 +10048,7 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"ETA",
 	L"Group %d (new)",
 	L"Group %d",
+	L"Final",
 };
 
 #endif //ITALIAN

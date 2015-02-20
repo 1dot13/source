@@ -2637,10 +2637,13 @@ void CreateAutoResolveInterface()
 	gpAR->iButton[ RETREAT_BUTTON ] =
 		QuickCreateButton( gpAR->iButtonImage[ RETREAT_BUTTON ], (INT16)(gpAR->sCenterStartX+51), (INT16)(iScreenHeightOffset + 274+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, RetreatButtonCallback );
-	if( !gpAR->ubMercs )
+
+	// no retreat possible if no mercs are present and militia isn't present or cannot be commanded
+	if ( !gpAR->ubMercs && (!gpAR->ubCivs || !CanGiveStrategicMilitiaMoveOrder( gpAR->ubSectorX, gpAR->ubSectorY )) )
 	{
 		DisableButton( gpAR->iButton[ RETREAT_BUTTON ] );
 	}
+
 	SpecifyGeneralButtonTextAttributes( gpAR->iButton[ RETREAT_BUTTON ], gpStrategicString[STR_AR_RETREAT_BUTTON], BLOCKFONT2, 169, FONT_NEARBLACK );
 
 	gpAR->iButton[ BANDAGE_BUTTON ] =
@@ -2841,11 +2844,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			}
 			else
 			{
-				UINT8 ubPromotions;
 				// this will check for promotions and handle them for you
 				if( fDeleteForGood && ( gpCivs[ i ].pSoldier->ubMilitiaKills > 0) && ( ubCurrentRank < ELITE_MILITIA ) )
 				{
-					ubPromotions = CheckOneMilitiaForPromotion( gpCivs[ i ].pSoldier->sSectorX, gpCivs[ i ].pSoldier->sSectorY, ubCurrentRank, gpCivs[ i ].pSoldier->ubMilitiaKills );
+					UINT8 ubPromotions = CheckOneMilitiaForPromotion( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, gpCivs[i].pSoldier->ubMilitiaKills );
 					if( ubPromotions )
 					{
 						if( ubPromotions == 2 )
@@ -3025,7 +3027,7 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		INT32 i;
-		for( i = 0; i < gpAR->ubMercs; i++ )
+		for ( i = 0; i < gpAR->ubMercs; ++i )
 		{
 			if( !(gpMercs[ i ].uiFlags & (CELL_RETREATING|CELL_RETREATED)) )
 			{
@@ -3036,8 +3038,26 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				gpMercs[ i ].usAttack = 0;
 			}
 		}
+
+		// Flugente: militia can be ordered to retreat
+		if ( gGameExternalOptions.fMilitiaStrategicCommand )
+		{
+			for ( INT32 i = 0; i < gpAR->ubCivs; ++i )
+			{
+				if ( !(gpCivs[i].uiFlags & (CELL_RETREATING | CELL_RETREATED)) )
+				{
+					gpCivs[i].uiFlags |= CELL_RETREATING | CELL_DIRTY;
+					//Gets to retreat after a total of 2 attacks.
+					gpCivs[i].usNextAttack = (UINT16)((1000 + gpCivs[i].usNextAttack * 2 + PreRandom( 2000 - gpCivs[i].usAttack )) * 2);
+					gpAR->usPlayerAttack -= gpCivs[i].usAttack;
+					gpCivs[i].usAttack = 0;
+				}
+			}
+		}
+
 		if( gpAR->pRobotCell )
-		{ //if robot is retreating, set the retreat time to be the same as the robot's controller.
+		{
+			//if robot is retreating, set the retreat time to be the same as the robot's controller.
 			UINT8 ubRobotControllerID;
 
 			ubRobotControllerID = gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID;
@@ -3049,10 +3069,12 @@ void RetreatButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				gpAR->pRobotCell->usNextAttack = 0xffff;
 				return;
 			}
-			for( i = 0; i < gpAR->ubMercs; i++ )
+
+			for( i = 0; i < gpAR->ubMercs; ++i )
 			{
 				if( ubRobotControllerID == gpMercs[ i ].pSoldier->ubID )
-				{ //Found the controller, make the robot's retreat time match the contollers.
+				{
+					//Found the controller, make the robot's retreat time match the contollers.
 					gpAR->pRobotCell->usNextAttack = gpMercs[ i ].usNextAttack;
 					return;
 				}
@@ -4560,11 +4582,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usAttack = (UINT16)(pAttacker->usAttack + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pAttacker->usAttack ));
 	else
 		usAttack = (UINT16)(950 + PreRandom( 50 ));
+
 	if( pTarget->uiFlags & CELL_RETREATING && !(pAttacker->uiFlags & CELL_FEMALECREATURE) )
-	{ //Attacking a retreating merc is harder.	Modify the attack value to 70% of it's value.
+	{
+		//Attacking a retreating merc is harder.	Modify the attack value to 70% of it's value.
 		//This allows retreaters to have a better chance of escaping.
 		usAttack = usAttack * 7 / 10;
 	}
+
 	if( pTarget->usDefence < 950 )
 		usDefence = (UINT16)(pTarget->usDefence + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pTarget->usDefence ));
 	else
@@ -4739,11 +4764,11 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		// SANDRO - increased mercs' offense/deffense rating
 		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
 		{
-			ubImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
+			ubImpact += (ubImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
 		}
-		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3) )
+		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (ubImpact > 3) )
 		{
-			ubImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
+			ubImpact = max( 3, ((ubImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4816,11 +4841,11 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		// SANDRO - increased mercs' offense/deffense rating
 		if ( pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0 )
 		{
-			iImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
+			ubImpact += (ubImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus / 150);
 		}
-		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3) )
+		else if ( pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (ubImpact > 3) )
 		{
-			iImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
+			ubImpact = max( 3, ((ubImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) / 100) );
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4950,12 +4975,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				pTarget->pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + PreRandom( 2 ) ) );
 		}
 		if( !(pTarget->uiFlags & CELL_CREATURE) && iNewLife < OKLIFE && pTarget->pSoldier->stats.bLife >= OKLIFE )
-		{ //the hit caused the merc to fall.	Play the falling sound
+		{
+			//the hit caused the merc to fall.	Play the falling sound
 			PlayAutoResolveSample( (UINT8)FALL_1, RATE_11025, 50, 1, MIDDLEPAN );
 			pTarget->uiFlags &= ~CELL_RETREATING;
 		}
 		if( iNewLife <= 0 )
-		{ //soldier has been killed
+		{
+			//soldier has been killed
 
 			// Flugente: campaign stats
 			gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
@@ -5368,34 +5395,56 @@ BOOLEAN IsBattleOver()
 	INT32 i;
 	INT32 iNumInvolvedMercs = 0;
 	INT32 iNumMercsRetreated = 0;
+	INT32 iNumInvolvedMilitia = 0;
+	INT32 iNumMilitiaRetreated = 0;
 	BOOLEAN fOnlyEPCsLeft = TRUE;
+
 	if( gpAR->ubBattleStatus != BATTLE_IN_PROGRESS )
 		return TRUE;
-	for( i = 0; i < gpAR->ubMercs; i++ )
+
+	for( i = 0; i < gpAR->ubMercs; ++i )
 	{
 		if( !(gpMercs[ i ].uiFlags & CELL_RETREATED) && gpMercs[ i ].pSoldier->stats.bLife )
 		{
 			if( !(gpMercs[ i ].uiFlags & CELL_EPC) )
 			{
 				fOnlyEPCsLeft = FALSE;
-				iNumInvolvedMercs++;
+				++iNumInvolvedMercs;
 			}
 		}
+
 		if( gpMercs[ i ].uiFlags & CELL_RETREATED )
 		{
-			iNumMercsRetreated++;
+			++iNumMercsRetreated;
 		}
 	}
+
+	for ( i = 0; i < gpAR->ubCivs; ++i )
+	{
+		if ( !(gpCivs[i].uiFlags & CELL_RETREATED) && gpCivs[i].pSoldier->stats.bLife )
+		{
+			++iNumInvolvedMilitia;
+		}
+		else if ( gpCivs[i].uiFlags & CELL_RETREATED )
+		{
+			++iNumMilitiaRetreated;
+		}
+	}
+
 	if( gpAR->pRobotCell )
-	{ //Do special robot checks
+	{
+		//Do special robot checks
 		SOLDIERTYPE *pRobot;
 		pRobot = gpAR->pRobotCell->pSoldier;
 		if( pRobot->ubRobotRemoteHolderID == NOBODY )
-		{ //Robot can't fight anymore.
+		{
+			//Robot can't fight anymore.
 			gpAR->usPlayerAttack -= gpAR->pRobotCell->usAttack;
 			gpAR->pRobotCell->usAttack = 0;
+
 			if( iNumInvolvedMercs == 1 && !gpAR->ubAliveCivs )
-			{ //Robot is the only one left in battle, so instantly kill him.
+			{
+				//Robot is the only one left in battle, so instantly kill him.
 				pRobot->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 				pRobot->stats.bLife = 0;
 				gpAR->ubAliveMercs--;
@@ -5403,8 +5452,10 @@ BOOLEAN IsBattleOver()
 			}
 		}
 	}
+
 	if( !gpAR->ubAliveCivs && !iNumInvolvedMercs && iNumMercsRetreated )
-	{ //RETREATED
+	{
+		//RETREATED
 		gpAR->ubBattleStatus = BATTLE_RETREAT;
 
 		// wake everyone up
@@ -5412,22 +5463,36 @@ BOOLEAN IsBattleOver()
 
 		RetreatAllInvolvedPlayerGroups( );
 	}
+	else if ( !iNumInvolvedMercs && !iNumInvolvedMilitia && iNumMilitiaRetreated && gGameExternalOptions.fMilitiaStrategicCommand )
+	{
+		//RETREATED
+		gpAR->ubBattleStatus = BATTLE_RETREAT;
+
+		// wake everyone up
+		WakeUpAllMercsInSectorUnderAttack( );
+
+		RetreatAllInvolvedMilitiaGroups( );
+	}
 	else if( !gpAR->ubAliveCivs && !iNumInvolvedMercs )
-	{ //DEFEAT
+	{
+		//DEFEAT
+
 		if( fOnlyEPCsLeft )
-		{ //Kill the EPCs.
-			for( i = 0; i < gpAR->ubMercs; i++ )
+		{
+			//Kill the EPCs.
+			for( i = 0; i < gpAR->ubMercs; ++i )
 			{
 				if( gpMercs[ i ].uiFlags & CELL_EPC )
 				{
 					gpMercs[ i ].pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 					gpMercs[ i ].pSoldier->stats.bLife = 0;
 					gpMercs[ i ].pSoldier->iHealableInjury = 0; // added by SANDRO
-					gpAR->ubAliveMercs--;
+					--gpAR->ubAliveMercs;
 				}
 			}
 		}
-		for( i = 0; i < gpAR->ubEnemies; i++ )
+
+		for( i = 0; i < gpAR->ubEnemies; ++i )
 		{
 			if( gpEnemies[ i ].pSoldier->stats.bLife )
 			{
@@ -5445,14 +5510,17 @@ BOOLEAN IsBattleOver()
 		gpAR->ubBattleStatus = BATTLE_DEFEAT;
 	}
 	else if( !gpAR->ubAliveEnemies )
-	{ //VICTORY
+	{
+		//VICTORY
 		gpAR->ubBattleStatus = BATTLE_VICTORY;
 	}
 	else
 	{
 		return FALSE;
 	}
+
 	SetupDoneInterface();
+
 	return TRUE;
 }
 
@@ -5953,26 +6021,108 @@ BOOLEAN ProcessLoyalty()
 
 void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
 {
-	for(int sX = 1; sX < ( MAP_WORLD_X - 1 ); sX++ ) {
-		for(int sY = 1; sY < ( MAP_WORLD_Y - 1); sY++ ) {
+	for( int sX = 1; sX < ( MAP_WORLD_X - 1 ); ++sX )
+	{
+		for( int sY = 1; sY < ( MAP_WORLD_Y - 1); ++sY )
+		{
 			// Check if there is a sector where enemies retreated to and there are also militia present
 			if ( (NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) > 0) &&
 				 (NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) > 0) &&
-				(!gTacticalStatus.fEnemyInSector)) {
+				(!gTacticalStatus.fEnemyInSector))
+			{
 				unsigned mercCnt = 0;
-				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ ) {
+				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
+				{
 					if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
-					{ //Merc is active and alive, and not a vehicle or robot
-						if ((MercPtrs[ i ]->sSectorX == sX) &&(MercPtrs[ i ]->sSectorY == sY) && (MercPtrs[ i ]->bSectorZ == 0)) {
+					{
+						//Merc is active and alive, and not a vehicle or robot
+						if ((MercPtrs[ i ]->sSectorX == sX) &&(MercPtrs[ i ]->sSectorY == sY) && (MercPtrs[ i ]->bSectorZ == 0))
+						{
 							++mercCnt;
 						}
 					}
 				}
+
 				// If there are PC mercs here the player will have to handle the battle
-				if (mercCnt == 0) {
+				if (mercCnt == 0)
+				{
 //					EnterAutoResolveMode ((UINT8)sX, (UINT8)sY);
 				}
 			}
+		}
+	}
+}
+
+// Flugente: have all militia in autoresolve drop their gear and be promoted in necessary
+void AutoResolveMilitiaDropAndPromote()
+{
+	gbGreenToElitePromotions = 0;
+	gbGreenToRegPromotions = 0;
+	gbRegToElitePromotions = 0;
+	gbMilitiaPromotions = 0;
+	for ( INT32 i = 0; i < MAX_AR_TEAM_SIZE; ++i )
+	{
+		if ( gpCivs[i].pSoldier )
+		{
+			UINT8 ubCurrentRank = GREEN_MILITIA;
+			switch ( gpCivs[i].pSoldier->ubSoldierClass )
+			{
+			case SOLDIER_CLASS_GREEN_MILITIA:		ubCurrentRank = GREEN_MILITIA;		break;
+			case SOLDIER_CLASS_REG_MILITIA:			ubCurrentRank = REGULAR_MILITIA;	break;
+			case SOLDIER_CLASS_ELITE_MILITIA:		ubCurrentRank = ELITE_MILITIA;		break;
+			default:
+#ifdef JA2BETAVERSION
+				ScreenMsg( FONT_RED, MSG_ERROR, L"Removing autoresolve militia with invalid ubSoldierClass %d.", gpCivs[i].pSoldier->ubSoldierClass );
+#endif
+				break;
+			}
+
+			// Flugente: drop sector equipment
+			gpCivs[i].pSoldier->DropSectorEquipment( );
+
+			if ( gpCivs[i].pSoldier->stats.bLife < OKLIFE / 2 )
+			{
+				StrategicRemoveMilitiaFromSector( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, 1 );
+			}
+			else if ( gpCivs[i].pSoldier->stats.bLife >= OKLIFE / 2 )
+			{
+				// this will check for promotions and handle them for you
+				if ( gpCivs[i].pSoldier->ubMilitiaKills && ubCurrentRank < ELITE_MILITIA )
+				{
+					UINT8 ubPromotions = CheckOneMilitiaForPromotion( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, gpCivs[i].pSoldier->ubMilitiaKills );
+					if ( ubPromotions )
+					{
+						if ( ubPromotions == 2 )
+						{
+							++gbGreenToElitePromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = ELITE_MILITIA;
+						}
+						else if ( gpCivs[i].pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
+						{
+							++gbGreenToRegPromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = REGULAR_MILITIA;
+						}
+						else if ( gpCivs[i].pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+						{
+							++gbRegToElitePromotions;
+							++gbMilitiaPromotions;
+
+							ubCurrentRank = ELITE_MILITIA;
+						}
+					}
+				}
+
+				// in any case, we had our chance to be promoted, clear the counter
+				gpCivs[i].pSoldier->ubMilitiaKills = 0;
+			}
+
+			// DO NOT DELETE HERE!!!!
+			//TacticalRemoveSoldierPointer( gpCivs[i].pSoldier, FALSE );
+			//memset( &gpCivs[i], 0, sizeof(SOLDIERCELL) );
 		}
 	}
 }

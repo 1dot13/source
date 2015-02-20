@@ -21,4 +21,7 @@ BOOLEAN GetCurrentBattleSectorXYZ( INT16 *psSectorX, INT16 *psSectorY, INT16 *ps
 
 void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
 
+// Flugente: have all militia in autoresolve drop their gear and be promoted in necessary
+void AutoResolveMilitiaDropAndPromote();
+
 #endif

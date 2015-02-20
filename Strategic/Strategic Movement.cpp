@@ -3091,16 +3091,19 @@ void SetGroupSectorValue( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT8 
 	pGroup->ubOriginalSector = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
 	DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
 
-	// set all of the mercs in the group so that they are in the new sector too.
-	pPlayer = pGroup->pPlayerList;
-	while( pPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
-		pPlayer->pSoldier->sSectorX = sSectorX;
-		pPlayer->pSoldier->sSectorY = sSectorY;
-		pPlayer->pSoldier->bSectorZ = (UINT8)sSectorZ;
-		pPlayer->pSoldier->flags.fBetweenSectors = FALSE;
-		pPlayer->pSoldier->flags.uiStatusFlags &= ~SOLDIER_SHOULD_BE_TACTICALLY_VALID;
-		pPlayer = pPlayer->next;
+		// set all of the mercs in the group so that they are in the new sector too.
+		pPlayer = pGroup->pPlayerList;
+		while( pPlayer )
+		{
+			pPlayer->pSoldier->sSectorX = sSectorX;
+			pPlayer->pSoldier->sSectorY = sSectorY;
+			pPlayer->pSoldier->bSectorZ = (UINT8)sSectorZ;
+			pPlayer->pSoldier->flags.fBetweenSectors = FALSE;
+			pPlayer->pSoldier->flags.uiStatusFlags &= ~SOLDIER_SHOULD_BE_TACTICALLY_VALID;
+			pPlayer = pPlayer->next;
+		}
 	}
 
 	CheckAndHandleUnloadingOfCurrentWorld();

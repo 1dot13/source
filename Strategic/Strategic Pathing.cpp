@@ -1221,10 +1221,28 @@ INT16 GetLastSectorIdInVehiclePath( INT32 iId )
 	}
 
 	return sLastSector;
-
-
 }
 
+// get id of last sector in group'S path list
+INT16 GetLastSectorIdInMilitiaGroupPath( UINT8 uGroupId )
+{
+	INT16 sLastSector = -1;
+
+	INT16 militiapathslot = GetMilitiaPathSlot( uGroupId );
+
+	if ( militiapathslot > -1 )
+	{
+		PathStPtr pNode = gMilitiaPath[militiapathslot].path;
+
+		while ( pNode )
+		{
+			sLastSector = (INT16)(pNode->uiSectorId);
+			pNode = pNode->pNext;
+		}
+	}
+
+	return sLastSector;
+}
 
 
 PathStPtr CopyPaths( PathStPtr pSourcePath,	PathStPtr pDestPath )
@@ -1974,32 +1992,44 @@ void ClearMercPathsAndWaypointsForAllInGroup( GROUP *pGroup )
 	PLAYERGROUP *pPlayer = NULL;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	pPlayer = pGroup->pPlayerList;
-	while( pPlayer )
+	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
-		pSoldier = pPlayer->pSoldier;
-
-		if ( pSoldier != NULL )
+		pPlayer = pGroup->pPlayerList;
+		while( pPlayer )
 		{
-			ClearPathForSoldier( pSoldier );
+			pSoldier = pPlayer->pSoldier;
+
+			if ( pSoldier != NULL )
+			{
+				ClearPathForSoldier( pSoldier );
+			}
+
+			pPlayer = pPlayer->next;
 		}
 
-		pPlayer = pPlayer->next;
+		// if it's a vehicle
+		if ( pGroup->fVehicle )
+		{
+			INT32 iVehicleId = -1;
+			VEHICLETYPE *pVehicle = NULL;
+
+			iVehicleId = GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID );
+			Assert ( iVehicleId != -1 );
+
+			pVehicle = &( pVehicleList[ iVehicleId ] );
+
+			// clear the path for that vehicle
+			pVehicle->pMercPath = ClearStrategicPathList( pVehicle->pMercPath, pVehicle->ubMovementGroup );
+		}
 	}
-
-	// if it's a vehicle
-	if ( pGroup->fVehicle )
+	else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 	{
-		INT32 iVehicleId = -1;
-		VEHICLETYPE *pVehicle = NULL;
+		INT16 militiapathslot = GetMilitiaPathSlot( pGroup->ubGroupID );
 
-		iVehicleId = GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID );
-		Assert ( iVehicleId != -1 );
-
-		pVehicle = &( pVehicleList[ iVehicleId ] );
-
-		// clear the path for that vehicle
-		pVehicle->pMercPath = ClearStrategicPathList( pVehicle->pMercPath, pVehicle->ubMovementGroup );
+		if ( militiapathslot > -1 )
+		{
+			gMilitiaPath[militiapathslot].path = ClearStrategicPathList( gMilitiaPath[militiapathslot].path, pGroup->ubGroupID );
+		}
 	}
 
 	// clear the waypoints for this group too - no mercpath = no waypoints!

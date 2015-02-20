@@ -48,6 +48,7 @@
 	#include "Tactical Save.h"
 	#include "message.h"
 	#include "CampaignStats.h"				// added by Flugente
+	#include "militiasquads.h"				// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -2011,7 +2012,6 @@ void RetreatAllInvolvedPlayerGroups( void )
 {
 	GROUP *pGroup;
 
-
 	// make sure guys stop their off duty assignments, like militia training!
 	// but don't exit vehicles - drive off in them!
 	PutNonSquadMercsInBattleSectorOnSquads( FALSE );
@@ -2030,6 +2030,123 @@ void RetreatAllInvolvedPlayerGroups( void )
 		}
 		pGroup = pGroup->next;
 	}
+}
+
+void RetreatAllInvolvedMilitiaGroups()
+{
+	// first, determine in which sector we are
+	// pick the non-hostile-occupied, reachable adjacent sector with the shortest travel time
+	INT16 sBattleSectorX, sBattleSectorY, sBattleSectorZ;
+	if ( !GetCurrentBattleSectorXYZ( &sBattleSectorX, &sBattleSectorY, &sBattleSectorZ ) )
+	{
+		// well... this sucks. We are in retreat code, but no battle is on... abort this
+		return;
+	}
+
+	// as we move the militia to another sector, anything that modifies them has to be done now - RemoveAutoResolveInterface is too late
+	// as we don't want to make the location of that dependend on some state, we use a trick:
+	// we drop their gear here, and promote them right now. They can then be properly deleted later on.
+	AutoResolveMilitiaDropAndPromote();
+	
+	// dissolve all militia groups here
+	INT16 newX = 0;
+	INT16 newY = 0;
+	BOOLEAN found = FALSE;
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( MilitiaGroupInvolvedInThisCombat( pGroup ) )
+		{
+			// if a group's previous sector was different, pick it
+			if ( pGroup->ubPrevX != 0 && pGroup->ubPrevY != 0 && ( pGroup->ubPrevX != pGroup->ubSectorX || pGroup->ubPrevY != pGroup->ubSectorY ) )
+			{
+				newX = pGroup->ubPrevX;
+				newY = pGroup->ubPrevY;
+				found = TRUE;
+			}
+
+			GROUP* pDeleteGroup = pGroup;
+			pGroup = pGroup->next;
+
+			ClearMercPathsAndWaypointsForAllInGroup( pDeleteGroup );
+			DissolveMilitiaGroup( pDeleteGroup->ubGroupID );
+		}
+		else
+			pGroup = pGroup->next;
+	}
+
+	// create new group and instantly place it in new sector
+	SECTORINFO *pSector = &SectorInfo[SECTOR( sBattleSectorX, sBattleSectorY )];
+
+	if ( !pSector )
+		return;
+
+	pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sBattleSectorX, sBattleSectorY ), pSector->ubNumberOfCivsAtLevel[0], pSector->ubNumberOfCivsAtLevel[1], pSector->ubNumberOfCivsAtLevel[2] );
+
+	pSector->ubNumberOfCivsAtLevel[0] = 0;
+	pSector->ubNumberOfCivsAtLevel[1] = 0;
+	pSector->ubNumberOfCivsAtLevel[2] = 0;
+
+	// if we haven't found a good direction yet, we have to pick the best adjacent sector we can find
+	if ( !found )
+	{
+		INT32 besttime = 1000000;
+		UINT8 usDirection = NORTH_STRATEGIC_MOVE;
+		for ( UINT8 i = 0; i < 4; ++i )
+		{
+			INT16 loopX = sBattleSectorX;
+			INT16 loopY = sBattleSectorY;
+
+			if ( i == 0 )
+			{
+				++loopY;
+				usDirection = SOUTH_STRATEGIC_MOVE;
+			}
+			else if ( i == 1 )
+			{
+				++loopX;
+				usDirection = EAST_STRATEGIC_MOVE;
+			}
+			else if ( i == 2 )
+			{
+				--loopY;
+				usDirection = NORTH_STRATEGIC_MOVE;
+			}
+			else if ( i == 3 )
+			{
+				--loopX;
+				usDirection = WEST_STRATEGIC_MOVE;
+			}
+
+			if ( loopX < 1 || loopX >= MAP_WORLD_X - 1 || loopY < 1 || loopY >= MAP_WORLD_Y - 1 )
+				continue;
+
+			// don't retreat into an occupied sector!
+			if ( NumNonPlayerTeamMembersInSector( loopX, loopY, ENEMY_TEAM ) > 0 )
+				continue;
+
+			INT32 uiTraverseTime = GetSectorMvtTimeForGroup( (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), usDirection, pGroup );
+			if ( uiTraverseTime < besttime )
+			{
+				besttime = uiTraverseTime;
+				newX = loopX;
+				newY = loopY;
+				found = TRUE;
+			}
+		}
+	}
+
+	// if we found a good direction, move the group
+	if ( found )
+	{
+		// while militia groups travel, they are not between sectors. As a result, when we retreat a militia group, we have to move them to the next sector immediately
+		// do NOT check for a new battle - when calling this function, we are likely still in autoresolve, so this would cause hiccups
+		PlaceGroupInSector( pGroup->ubGroupID, pGroup->ubSectorX, pGroup->ubSectorY, newX, newY, 0, FALSE );
+	}
+
+	// delete group afterwards, if it hasn't been deleted already - the militia will become static
+	if ( pGroup )
+		DissolveMilitiaGroup( pGroup->ubGroupID );
 }
 
 
@@ -2079,6 +2196,26 @@ BOOLEAN PlayerGroupInvolvedInThisCombat( GROUP *pGroup )
 
 	// not involved
 	return( FALSE );
+}
+
+BOOLEAN MilitiaGroupInvolvedInThisCombat( GROUP *pGroup )
+{
+	Assert( pGroup );
+
+	// player group, non-empty, not between sectors, in the right sector, isn't a group of in transit, dead, or POW mercs,
+	// and either not the helicopter group, or the heli is on the ground
+	if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubGroupSize &&
+		 !pGroup->fBetweenSectors )
+	{
+		if ( CurrentBattleSectorIs( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ ) )
+		{
+			// involved
+			return(TRUE);
+		}
+	}
+
+	// not involved
+	return(FALSE);
 }
 
 

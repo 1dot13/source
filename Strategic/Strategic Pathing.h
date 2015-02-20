@@ -73,6 +73,9 @@ INT16 GetLastSectorIdInCharactersPath( SOLDIERTYPE *pCharacter );
 // get id of last sector in mercs path list
 INT16 GetLastSectorIdInVehiclePath( INT32 iId );
 
+// get id of last sector in group'S path list
+INT16 GetLastSectorIdInMilitiaGroupPath( UINT8 uGroupId );
+
 // copy paths
 PathStPtr CopyPaths( PathStPtr pSourcePath,	PathStPtr pDestPath );
 

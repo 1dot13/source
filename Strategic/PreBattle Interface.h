@@ -85,8 +85,10 @@ void WakeUpAllMercsInSectorUnderAttack( void );
 
 void ClearMovementForAllInvolvedPlayerGroups( void );
 void RetreatAllInvolvedPlayerGroups( void );
+void RetreatAllInvolvedMilitiaGroups( void );
 
 BOOLEAN PlayerGroupInvolvedInThisCombat( GROUP *pGroup );
+BOOLEAN MilitiaGroupInvolvedInThisCombat( GROUP *pGroup );
 BOOLEAN PlayerMercInvolvedInThisCombat( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CurrentBattleSectorIs( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
