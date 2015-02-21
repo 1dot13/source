@@ -4491,10 +4491,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubSourceSectorID = SEC_H13;
 			ubTargetSectorID = SEC_D13;
 
-			if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
-			{
+			if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 				ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
-			}
 
 			UINT8 val;
 				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
@@ -4514,7 +4512,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + val * 3);	
 			//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 			// anv: replace one of soldiers with tank
-			for( UINT8 ubCounter = 0; ubCounter < 4; ubCounter++ )
+			for( UINT8 ubCounter = 0; ubCounter < 4; ++ubCounter )
 			{
 				grouptroops[ubCounter] = ubNumSoldiers;
 				grouptanks[ubCounter] = 0;
@@ -4599,14 +4597,13 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value * 3);
 				//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 				// anv: replace one of soldiers with tank
-				for( UINT8 ubCounter = 0; ubCounter < 4; ubCounter++ )
+				for( UINT8 ubCounter = 0; ubCounter < 4; ++ubCounter )
 				{
 					grouptroops[ubCounter] = ubNumSoldiers;			
 					grouptanks[ubCounter] = 0;
 					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 					{
-						if( Random(10) < gGameOptions.ubDifficultyLevel )
-					//	if( Random(10) < value )						
+						if( Random(10) < value )						
 						{
 							grouptroops[ubCounter]--;
 							grouptanks[ubCounter]++;
@@ -4627,8 +4624,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					case NPC_ACTION_SEND_SOLDIERS_TO_CHITZENA:
 						ubSourceSectorID = SEC_H3;
 						ubTargetSectorID = SEC_B2;
-
-						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
@@ -4646,13 +4643,19 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubSourceSectorID = SEC_M3;
 						ubTargetSectorID = SEC_H3;
 
-						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = SEC_M2;
 						stagesector1 = ubSourceSectorID;
 						stagesector2 = ubSourceSectorID;
 						stagesector3 = SEC_M6;
+
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( stagesector0 ), SECTORY( stagesector0 ), ENEMY_TEAM ) )
+							stagesector0 = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
+
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( stagesector3 ), SECTORY( stagesector3 ), ENEMY_TEAM ) )
+							stagesector3 = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						assaultsector0 = SEC_H4;
 						assaultsector1 = SEC_I3;
@@ -4664,7 +4667,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubSourceSectorID = SEC_M6;
 						ubTargetSectorID = SEC_H8;
 
-						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
@@ -4672,12 +4675,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						stagesector2 = ubSourceSectorID;
 						stagesector3 = SEC_L11;
 
-						if ( !(SectorInfo[ stagesector3 ].ubNumTroops > 0) )
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( stagesector3 ), SECTORY( stagesector3 ), ENEMY_TEAM ) )
 						{
-							ubSourceSectorID = SEC_N9;
+							stagesector3 = SEC_N9;
 
-							if ( !(SectorInfo[ stagesector3 ].ubNumTroops > 0) )
-									ubSourceSectorID = ubSourceSectorID;
+							if ( !NumNonPlayerTeamMembersInSector( SECTORX( stagesector3 ), SECTORY( stagesector3 ), ENEMY_TEAM ) )
+								stagesector3 = ubSourceSectorID;
 						}
 
 						assaultsector0 = SEC_I8;
@@ -4690,12 +4693,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubSourceSectorID = SEC_G9;
 						ubTargetSectorID = SEC_H13;
 
-						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 						{
 							ubSourceSectorID = SEC_J9;
 							ubTargetSectorID = SEC_I13;
 
-							if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+							if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 								ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 						}
 
@@ -4724,7 +4727,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						ubSourceSectorID = SEC_N5;
 						ubTargetSectorID = SEC_L11;
 
-						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 							ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
 						stagesector0 = ubSourceSectorID;
