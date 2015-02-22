@@ -166,7 +166,10 @@ typedef struct
 	BOOLEAN							bJohnEscorted;// and if they were at all
 	UINT8							ubJohnPossibleMissedFlights;// and how many flights he already missed
 
-	UINT8 bPadding[ 77 ];			// Flugente: 86->77
+	// Flugente: militia volunteer pool. No relation to the laptop whatsoever, but I'm not creating a new struct for one variable
+	FLOAT							dMilitiaVolunteerPool;
+
+	UINT8 bPadding[ 72 ];
 
 } LaptopSaveInfoStruct;
 

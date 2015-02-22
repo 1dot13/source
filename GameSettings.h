@@ -287,6 +287,12 @@ typedef struct
 	INT32 iVeteranCostModifier;
 	INT32 iMinLoyaltyToTrain;
 
+	// Flugente: militia volunteer pool
+	BOOLEAN fMilitiaVolunteerPool;
+	FLOAT dMilitiaVolunteerGainFactorHourly;
+	FLOAT dMilitiaVolunteerGainFactorLiberation;
+	FLOAT dMilitiaVolunteerMultiplierFarm;
+
 	INT32 iMaxEnemyGroupSize;
 
 	BOOLEAN fMercDayOne;

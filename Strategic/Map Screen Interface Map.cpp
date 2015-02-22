@@ -7667,6 +7667,25 @@ void MilitiaGroupBoxButtonCallback( GUI_BUTTON *btn, INT32 reason )
 
 void DisplayMilitiaGroupBox()
 {
+	// if we play with a limited militia pool, show us how many we have
+	if ( fShowMilitia && gGameExternalOptions.fMilitiaVolunteerPool )
+	{
+		CHAR16 sVolunteerString[200];
+
+		SetFont( FONT12ARIAL );
+
+		if ( GetVolunteerPool() >= 2 * gGameExternalOptions.iTrainingSquadSize )
+			SetFontForeground( FONT_FCOLOR_GREEN );
+		else if ( GetVolunteerPool( ) >= gGameExternalOptions.iTrainingSquadSize )
+			SetFontForeground( FONT_FCOLOR_YELLOW );
+		else
+			SetFontForeground( FONT_FCOLOR_RED );
+
+		// header
+		swprintf( sVolunteerString, szMilitiaStrategicMovementText[8], GetVolunteerPool( ), CalcHourlyVolunteerGain( ) );
+		mprintf( MapScreenRect.iLeft + 20, MapScreenRect.iBottom - 10, sVolunteerString );
+	}
+
 	if ( !gMilitiaGroupBoxCreated )
 		return;
 
@@ -7678,6 +7697,8 @@ void DisplayMilitiaGroupBox()
 		gMilitiaGroupBoxCreated = FALSE;
 		return;
 	}
+
+	SetFontForeground( FONT_FCOLOR_WHITE );
 
 	CreateMilitiaGroupBoxVideoObjects();
 
@@ -7715,7 +7736,7 @@ void DisplayMilitiaGroupBox()
 	SetFontForeground( FONT_FCOLOR_WHITE );
 	SetFontBackground( FONT_MCOLOR_BLACK );
 	
-	//Display the background for the drop down window
+	//Display the background
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, gMilitiaGroupBoxX, gMilitiaGroupBoxY, gMilitiaGroupBoxX + MILITIAGROUPBOX_WIDTH, gMilitiaGroupBoxY + MILITIAGROUPBOX_HEIGHT, Get16BPPColor( FROMRGB( 50, 50, 50 ) ) );
 
 	// mouse region - clicking on a group name selects that group

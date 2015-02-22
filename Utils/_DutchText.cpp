@@ -10053,6 +10053,8 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Group %d (new)",
 	L"Group %d",
 	L"Final",
+
+	L"Militia Volunteers: %d (+%5.3f)",
 };
 
 #endif //DUTCH

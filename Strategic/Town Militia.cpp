@@ -127,6 +127,9 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	UINT8 ubTrainerEffectiveLeadership = FindBestMilitiaTrainingLeadershipInSector ( sMapX, sMapY, pTrainer->bSectorZ, TOWN_MILITIA );
 	UINT8 iTrainingSquadSize = __min(iMaxMilitiaPerSector, CalcNumMilitiaTrained(ubTrainerEffectiveLeadership, FALSE));
 
+	// Flugente: our pool of volunteers limits how many militia can be created
+	iTrainingSquadSize = min( iTrainingSquadSize, GetVolunteerPool( ) );
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia1");
 
 	// get town index
@@ -309,6 +312,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			// next, please!
 			++ubMilitiaTrained;
 		}
+
+		AddVolunteers( -ubMilitiaTrained );
 
 		if (gfStrategicMilitiaChangesMade)
 		{
@@ -2142,7 +2147,7 @@ UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile)
 			ubMilitiaToTrain = __max(3, ubMilitiaToTrain);
 		}
 	}
-
+	
 	return (ubMilitiaToTrain);
 }
 
@@ -2428,4 +2433,66 @@ UINT32 CalcMilitiaUpkeep( void )
 	}
 
 	return (uiTotalPayment);
+}
+
+// Flugente: our militia volunteer pool is limited
+INT32 GetVolunteerPool()
+{
+	// if this feature is off, we simply assume we have reserves
+	if ( !gGameExternalOptions.fMilitiaVolunteerPool )
+		return 999999;
+
+	// the pool is actually a float number, only return full volunteers though
+	return (INT32)LaptopSaveInfo.dMilitiaVolunteerPool;
+}
+
+// add/remove volunteers from pool
+void AddVolunteers( FLOAT asNum )
+{
+	LaptopSaveInfo.dMilitiaVolunteerPool = max( 0, LaptopSaveInfo.dMilitiaVolunteerPool + asNum );
+}
+
+FLOAT CalcHourlyVolunteerGain()
+{
+	FLOAT loyalpopulation = 0.0f;					// the number of loyal citizens, from which we derive the hourly volunteer gain
+	FLOAT populationmodifier = 1.0f;				// certain sectors/facilities under our control increase the volunteer gain
+
+	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			// not if the enemy controls this sector
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].fEnemyControlled )
+				continue;
+
+			UINT8 sector = SECTOR( sX, sY );
+
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+			if ( !pSectorInfo )
+				continue;
+
+			// TODO: modifier increase for every farm we control
+			if ( pSectorInfo->ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND || pSectorInfo->ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND_ROAD )
+				populationmodifier += gGameExternalOptions.dMilitiaVolunteerMultiplierFarm;
+
+			UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;
+			if ( ubTownID != BLANK_SECTOR )
+			{
+				UINT16 population = GetSectorPopulation( sX, sY );
+
+				loyalpopulation += gTownLoyalty[ubTownID].ubRating * population / 100;
+			}
+		}
+	}
+
+	FLOAT hourlygain = loyalpopulation * populationmodifier * gGameExternalOptions.dMilitiaVolunteerGainFactorHourly;
+
+	return hourlygain;
+}
+
+// every hour, controlled sectors add to our volunteer pool
+void UpdateVolunteers()
+{	
+	AddVolunteers( CalcHourlyVolunteerGain() );
 }

@@ -112,4 +112,16 @@ typedef struct MILITIA_LIST_TYPE
 // HEADROCK HAM 3.6: Calculate upkeep costs for militia
 UINT32 CalcMilitiaUpkeep( void );
 
+// Flugente: militia volunteer pool
+// how many volunteers do we currently have?
+INT32 GetVolunteerPool();
+
+// add/remove volunteers from pool
+void AddVolunteers( FLOAT asNum );
+
+FLOAT CalcHourlyVolunteerGain();
+
+// every hour, controlled sectors add to our volunteer pool
+void UpdateVolunteers();
+
 #endif

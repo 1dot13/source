@@ -1994,6 +1994,11 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3: Define effect of "TEACHER" trait in increasing effective leadership, for purposes of eligibility for training militia. This is a percentage value. HAM Default would be 200 = double effective leadership for each TEACHING level.
 	gGameExternalOptions.usTeacherTraitEffectOnLeadership	= iniReader.ReadInteger("Militia Training Settings","TEACHER_TRAIT_EFFECT_ON_LEADERSHIP", 100, 1, 10000);
 
+	//################# Militia Volunteer Pool Settings ###################
+	gGameExternalOptions.fMilitiaVolunteerPool					= iniReader.ReadBoolean( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL", FALSE );
+	gGameExternalOptions.dMilitiaVolunteerGainFactorHourly		= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_GAINFACTOR_HOURLY", 0.001f, 0.0f, 1.0f );
+	gGameExternalOptions.dMilitiaVolunteerGainFactorLiberation	= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_GAINFACTOR_LIBERATION", 0.2f, 0.0f, 1.0f );
+	gGameExternalOptions.dMilitiaVolunteerMultiplierFarm		= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM", 0.05f, 0.0f, 1.0f );
 
 	//################# Mobile Militia Training Settings ##################
 

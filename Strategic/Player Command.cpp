@@ -28,6 +28,7 @@
 	// HEADROCK HAM 3.6: Added for facility string printing...
 	#include "PopUpBox.h"
 	#include "CampaignStats.h"	// added by Flugente
+	#include "Town Militia.h"	// added by Flugente
 #endif
 
 #include "postalservice.h"
@@ -391,10 +392,18 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 
 		//if ( ubTraverseType ==  )
 
-		if ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
+		UINT8 townid = GetTownIdForSector( sMapX, sMapY );
+		if ( townid != BLANK_SECTOR )
 		{
 			// first liberation of a town sector -> special texts
 			gCurrentIncident.usIncidentFlags |= INCIDENT_FIRST_LIBERATION;
+
+			// liberating a town sector for the first time grants us an initial wave of volunteers
+			UINT16 population = GetSectorPopulation( sMapX, sMapY );
+
+			FLOAT loyalpopulation = gTownLoyalty[townid].ubRating * population / 100;
+			
+			AddVolunteers( loyalpopulation * gGameExternalOptions.dMilitiaVolunteerGainFactorLiberation );
 		}
 	}
 

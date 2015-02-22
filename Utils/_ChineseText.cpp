@@ -10042,6 +10042,8 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Group %d (new)",
 	L"Group %d",
 	L"Final",
+
+	L"Militia Volunteers: %d (+%5.3f)",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

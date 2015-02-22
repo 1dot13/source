@@ -1412,6 +1412,10 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
+	// Flugente: militia volunteer pool
+	if ( !GetVolunteerPool() )
+		return FALSE;
+
 	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
 	if( !BasicCanCharacterTrainMilitia( pSoldier ) )
 	{
@@ -2479,6 +2483,9 @@ void UpdateAssignments()
 
 	// reset scan flags in all sectors
 	ClearSectorScanResults();
+
+	// update militia volunteer count
+	UpdateVolunteers();
 
 	// run through sectors and handle each type in sector
 	for(sX = 0 ; sX < MAP_WORLD_X; ++sX )
@@ -18373,6 +18380,13 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		// Report "Enemies present!"
 		DoScreenIndependantMessageBox( New113HAMMessage[5], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
+	}
+
+	if ( !GetVolunteerPool() )
+	{
+		swprintf( sString, L"There are no volunteers for militia left!" );
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
 	}
 
 	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )

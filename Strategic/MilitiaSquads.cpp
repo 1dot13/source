@@ -191,6 +191,9 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		ubMilitiaToTrain = CalcNumMilitiaTrained(ubBestLeadership, TRUE);
 	}
 
+	// Flugente: our pool of volunteers limits how many militia can be created
+	ubMilitiaToTrain = min( ubMilitiaToTrain, GetVolunteerPool( ) );
+
 	// HEADROCK HAM 3.4: Composition of new Mobile Militia groups is now dictated by two INI settings controlling
 	// the percentage of Elites and Regulars within the group. If the percentage for either is above 0, at least
 	// one militia of that type will be created every time. Green militia are created based on whatever remains.
@@ -301,6 +304,9 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		// No elites/regulars - reduce target green!
 		ubTargetGreen--;
 	}
+
+	// Flugente: substract volunteers
+	AddVolunteers( -ubMilitiaToTrain );
 
 	while (ubMilitiaToTrain > 0)
 	{
@@ -447,7 +453,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 			--pTargetSector->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 		}
 	}
-
+	
 	// Update the militia if the current sector is affected
 	if (gfStrategicMilitiaChangesMade)
 	{
