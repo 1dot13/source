@@ -79,7 +79,7 @@ CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
 // sevenfm: added color for buttons
 UINT16	gzUserDefinedButtonColor[ NUM_CUSTOM_BUTTONS ];
 
-INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect, UINT8 ubDefaultButton )
 {
 	VSURFACE_DESC		vs_desc;
 	UINT16	usTextBoxWidth;
@@ -326,10 +326,67 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		{
 			SimulateMouseMovement( ( gMsgBox.sX + ( usTextBoxWidth / 2 ) + 27 ), ( gMsgBox.sY + ( usTextBoxHeight - 10 ) ) );
 		}
-		else
+		// silversurfer: new mouse positions over a default button
+		// This can be expanded for other message box types if the need arises.
+		else if( ubDefaultButton != MSG_BOX_DEFAULT_BUTTON_NONE )
 		{
-			SimulateMouseMovement( gMsgBox.sX + usTextBoxWidth / 2 , gMsgBox.sY + usTextBoxHeight - 4 );
+			if( usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS ) // 4 rows, 1 column, medium button size
+			{
+				sButtonX = usTextBoxWidth / 2;
+				sButtonY = usTextBoxHeight - ( (4 - ubDefaultButton) * (MSGBOX_BUTTON_HEIGHT + MSGBOX_SMALL_BUTTON_X_SEP + 5) + 35 );
+			}
+			else if( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
+			{
+				if( ubStyle == MSG_BOX_BASIC_MEDIUM_BUTTONS ) // 4 rows, 2 columns, medium button size
+				{
+					// left or right
+					if( ubDefaultButton % 2)
+						sButtonX = usTextBoxWidth / 2 - MSGBOX_BUTTON_WIDTH;
+					else
+						sButtonX = usTextBoxWidth / 2 + MSGBOX_BUTTON_WIDTH;
+
+					sButtonY = usTextBoxHeight - ( (4 - (UINT8)(ubDefaultButton / 2.0f + 0.6f) ) * (MSGBOX_BUTTON_HEIGHT + MSGBOX_SMALL_BUTTON_X_SEP + 5) + 35 );
+				}
+				else // 2 rows, 4 columns, small button size
+				{
+					// left or right
+					if( (UINT8)(ubDefaultButton / 2.0f + 0.6f) % 2 )
+						sButtonX = usTextBoxWidth / 2 - MSGBOX_SMALL_BUTTON_WIDTH / 2 - (ubDefaultButton % 2) * MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+					else
+						sButtonX = usTextBoxWidth / 2 + MSGBOX_SMALL_BUTTON_WIDTH / 2 + (1 - ubDefaultButton % 2) * MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+
+					sButtonY = usTextBoxHeight - ( (2 - (UINT8)(ubDefaultButton / 4.0f + 0.8f) ) * (MSGBOX_BUTTON_HEIGHT + 10) + 30 );
+				}
+			}
+			else if( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
+			{
+				if( ubStyle == MSG_BOX_BASIC_STYLE ) // 4x4 medium button size
+				{
+					// left or right
+					if( (UINT8)(ubDefaultButton / 2.0f + 0.6f) % 2 )
+						sButtonX = usTextBoxWidth / 2 - MSGBOX_BUTTON_WIDTH / 2 - (ubDefaultButton % 2) * MSGBOX_BUTTON_WIDTH;
+					else
+						sButtonX = usTextBoxWidth / 2 + MSGBOX_BUTTON_WIDTH / 2 + (1 - ubDefaultButton % 2) * MSGBOX_BUTTON_WIDTH;
+
+					sButtonY = usTextBoxHeight - ( (4 - (UINT8)(ubDefaultButton / 4.0f + 0.8f) ) * (MSGBOX_BUTTON_HEIGHT + 5) + 30 );
+				}
+				else // 4x4 small button size
+				{
+					// left or right
+					if( (UINT8)(ubDefaultButton / 2.0f + 0.6f) % 2 )
+						sButtonX = usTextBoxWidth / 2 - MSGBOX_SMALL_BUTTON_WIDTH / 2 - (ubDefaultButton % 2) * MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+					else
+						sButtonX = usTextBoxWidth / 2 + MSGBOX_SMALL_BUTTON_WIDTH / 2 + (1 - ubDefaultButton % 2) * MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+
+					sButtonY = usTextBoxHeight - ( (4 - (UINT8)(ubDefaultButton / 4.0f + 0.8f) ) * (MSGBOX_BUTTON_HEIGHT + 10) + 20 );
+				}
+			}
+
+			SimulateMouseMovement( gMsgBox.sX + sButtonX , gMsgBox.sY + sButtonY );
 		}
+		// old default mouse position at bottom center of message box
+		else
+			SimulateMouseMovement( gMsgBox.sX + usTextBoxWidth / 2 , gMsgBox.sY + usTextBoxHeight - 4 );
 	}
 
 	// Add region

@@ -43,6 +43,27 @@ enum
 	MSG_BOX_BASIC_MEDIUM_BUTTONS,
 };
 
+enum
+{
+	MSG_BOX_DEFAULT_BUTTON_NONE = 0,
+
+	MSG_BOX_DEFAULT_BUTTON_1,
+	MSG_BOX_DEFAULT_BUTTON_2,
+	MSG_BOX_DEFAULT_BUTTON_3,
+	MSG_BOX_DEFAULT_BUTTON_4,
+	MSG_BOX_DEFAULT_BUTTON_5,
+	MSG_BOX_DEFAULT_BUTTON_6,
+	MSG_BOX_DEFAULT_BUTTON_7,
+	MSG_BOX_DEFAULT_BUTTON_8,
+	MSG_BOX_DEFAULT_BUTTON_9,
+	MSG_BOX_DEFAULT_BUTTON_10,
+	MSG_BOX_DEFAULT_BUTTON_11,
+	MSG_BOX_DEFAULT_BUTTON_12,
+	MSG_BOX_DEFAULT_BUTTON_13,
+	MSG_BOX_DEFAULT_BUTTON_14,
+	MSG_BOX_DEFAULT_BUTTON_15,
+	MSG_BOX_DEFAULT_BUTTON_16,
+};
 
 typedef void (*MSGBOX_CALLBACK)( UINT8 bExitValue );	
 
@@ -106,7 +127,7 @@ extern		CHAR16							gszMsgBoxInputString[255];
 // pCenteringRect	Rect to send if MSG_BOX_FLAG_USE_CENTERING_RECT set. Can be NULL 
 ////////////////////////////////
 
-INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect );
+INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect, UINT8 ubDefaultButton = MSG_BOX_DEFAULT_BUTTON_NONE );
 void DoScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void DoUpperScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 
