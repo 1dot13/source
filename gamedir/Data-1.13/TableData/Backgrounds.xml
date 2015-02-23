@@ -3120,8 +3120,11 @@
 		<uiIndex>247</uiIndex>
 		<szName>Priest</szName>
 		<szShortName>Priest</szShortName>
-		<szDescription>Many devout followers of any religion or cult area are surprisingly&#10; violent and zealous if pushed in the right (or wrong) direction.</szDescription>
-		<approach_recruit>10</approach_recruit>
+		<szDescription>The honourable reverend has convinced more than one foe to lay down their arms,&#10; both to repent and to escape his droning sermons.</szDescription>
+		<interrogation>50</interrogation>
+		<prisonguard>-20</prisonguard>
+		<capitulation>10</capitulation>
+		<approach_recruit>4</approach_recruit>		
 		<scrounging>1</scrounging>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3300,7 +3303,10 @@
     <szName>Priest</szName>
     <szShortName>Priest</szShortName>
     <szDescription>Many devout followers of any religion or cult area surprisingly&#10; violent and zealous if pushed in the right (or wrong) direction.</szDescription>
-    <approach_recruit>10</approach_recruit>
+    <interrogation>40</interrogation>
+	<prisonguard>-20</prisonguard>
+	<capitulation>8</capitulation>
+	<approach_recruit>5</approach_recruit>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>266</uiIndex>
