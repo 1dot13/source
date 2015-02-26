@@ -42,6 +42,7 @@
 	#include "Facilities.h"
 	#include "Debug Control.h"
 	#include "expat.h"
+	#include "merc entering.h"	// added by Flugente
 #endif
 
 #include "Vehicles.h"
@@ -1692,11 +1693,41 @@ UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad )
 				pSoldier->ubStrategicInsertionCode = ubInsertionCode;
 				pSoldier->usStrategicInsertionData = usInsertionData;
 			}
-
+				
 			// Flugente: we are leaving the helicopter and instantly deploy into combat - this must be an airdrop
 			pSoldier->usSoldierFlagMask |= (SOLDIER_AIRDROP_TURN|SOLDIER_AIRDROP);
 		}
 	}
+
+	//Flugente:  we need to determine what direction th heli came from, so that we can play the correct animation
+	UINT8 usDirection = NORTH;
+
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == OUR_TEAM && IsGroupTheHelicopterGroup( pGroup ) ) // Group came from the examined source
+		{
+			if ( pGroup->ubSectorX == pGroup->ubPrevX - 1 && pGroup->ubSectorY == pGroup->ubPrevY )
+			{
+				usDirection = EAST;
+			}
+			else if ( pGroup->ubSectorX == pGroup->ubPrevX + 1 && pGroup->ubSectorY == pGroup->ubPrevY )
+			{
+				usDirection = WEST;
+			}
+			else if ( pGroup->ubSectorX == pGroup->ubPrevX && pGroup->ubSectorY == pGroup->ubPrevY - 1 )
+			{
+				usDirection = SOUTH;
+			}
+
+			SetHelicopterDropDirection( usDirection );
+
+			break;
+		}
+		pGroup = pGroup->next;
+	}
+
+	SetHelicopterDropDirection( usDirection );
 
 	if ( fAnyoneAboard )
 	{

@@ -375,6 +375,9 @@ INT8			gbCurDrop;
 INT8			gbExitCount;
 INT8			gbHeliRound;
 
+// Flugente: direction of helicopter approach
+UINT8 gHeliEnterDirection = NORTH;
+
 BOOLEAN		fFadingHeliIn = FALSE;
 BOOLEAN		fFadingHeliOut = FALSE;
 
@@ -393,12 +396,10 @@ void ResetHeliSeats( )
 
 void AddMercToHeli( UINT8 ubID )
 {
-	INT32 cnt;
-
 	if ( gbNumHeliSeatsOccupied < MAX_MERC_IN_HELI )
 	{
 		// Check if it already exists!
-		for ( cnt = 0; cnt < gbNumHeliSeatsOccupied; cnt++ )
+		for ( INT32 cnt = 0; cnt < gbNumHeliSeatsOccupied; ++cnt )
 		{
 			if ( gusHeliSeats[ cnt ] == ubID )
 			{
@@ -407,7 +408,7 @@ void AddMercToHeli( UINT8 ubID )
 		}
 
 		gusHeliSeats[ gbNumHeliSeatsOccupied ] = ubID;
-		gbNumHeliSeatsOccupied++;
+		++gbNumHeliSeatsOccupied;
 	}
 }
 
@@ -415,6 +416,11 @@ void AddMercToHeli( UINT8 ubID )
 void SetHelicopterDroppoint( INT32 sGridNo )
 {
 	gsGridNoSweetSpot = sGridNo;
+}
+
+void SetHelicopterDropDirection( UINT8 usDirection )
+{
+	gHeliEnterDirection = usDirection;
 }
 
 void StartHelicopterRun()
@@ -432,10 +438,27 @@ void StartHelicopterRun()
 
 	ConvertGridNoToCenterCellXY( gsGridNoSweetSpot, &sX, &sY );
 
-	gsHeliXPos					= sX - ( 2 * CELL_X_SIZE );
-	gsHeliYPos					= sY - ( 10 * CELL_Y_SIZE );
-	//gsHeliXPos					= sX - ( 3 * CELL_X_SIZE );
-	//gsHeliYPos					= sY + ( 4 * CELL_Y_SIZE );
+	if ( gHeliEnterDirection == SOUTH )
+	{
+		gsHeliXPos = sX - (2 * CELL_X_SIZE);
+		gsHeliYPos = sY + (10 * CELL_Y_SIZE);
+	}
+	else if ( gHeliEnterDirection == EAST )
+	{
+		gsHeliXPos = sX + (10 * CELL_X_SIZE);
+		gsHeliYPos = sY + (2 * CELL_Y_SIZE);
+	}
+	else if ( gHeliEnterDirection == WEST )
+	{
+		gsHeliXPos = sX - (10 * CELL_X_SIZE);
+		gsHeliYPos = sY - (2 * CELL_Y_SIZE);
+	}
+	else
+	{
+		gsHeliXPos = sX - (2 * CELL_X_SIZE);
+		gsHeliYPos = sY - (10 * CELL_Y_SIZE);
+	}
+
 	gdHeliZPos					= 0;
 	gsHeliScript				= 0;
 	gbCurDrop						= 0;
@@ -533,11 +556,11 @@ void HandleHeliDrop( )
 			for ( cnt = gbCurDrop; cnt < gbNumHeliSeatsOccupied; cnt++ )
 			{
 				// Add merc to sector
-				#ifdef JA2UB
+#ifdef JA2UB
 				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
-				#else
+#else
 				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
@@ -549,7 +572,6 @@ void HandleHeliDrop( )
 				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
 
 				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->GetName() );
-
 			}
 
 			// Remove heli
@@ -569,7 +591,6 @@ void HandleHeliDrop( )
 			UnLockPauseState();
 			UnPauseGame();
 
-
 			// Select our first guy
 			SelectSoldier( gusHeliSeats[ 0 ], FALSE, TRUE );
 
@@ -580,7 +601,6 @@ void HandleHeliDrop( )
 
 			HandleFirstHeliDropOfGame( );
 			return;
-
 		}
 #endif
 		gfIgnoreScrolling = TRUE;
@@ -673,7 +693,7 @@ void HandleHeliDrop( )
 					if ( gbCurDrop < bEndVal )
 					{
 						// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
-						// In the worst case, this can cause the game to be unable to finsih the airdrop. For that reason, we set all those soldier to the STANDING aniamtion. 
+						// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldier to the STANDING aniamtion. 
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
 
 						//sWorldX = CenterX( gsGridNoSweetSpot );
@@ -696,7 +716,7 @@ void HandleHeliDrop( )
 						}
 						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->GetName() );
 
-						gbCurDrop++;
+						++gbCurDrop;
 
 						gfIngagedInDrop = TRUE;
 					}
@@ -755,12 +775,46 @@ void HandleHeliDrop( )
 
 				case HELI_MOVEY:
 
-					gpHeli->sRelativeY += 4;
+					if ( gHeliEnterDirection == SOUTH )
+					{
+						gpHeli->sRelativeY -= 4;
+					}
+					else if ( gHeliEnterDirection == EAST )
+					{
+						gpHeli->sRelativeX -= 4;
+						gpHeli->sRelativeY -= 1;
+					}
+					else if ( gHeliEnterDirection == WEST )
+					{
+						gpHeli->sRelativeX += 4;
+						gpHeli->sRelativeY += 1;
+					}
+					else
+					{
+						gpHeli->sRelativeY += 4;
+					}
 					break;
 
 				case HELI_MOVELARGERY:
 
-					gpHeli->sRelativeY += 6;
+					if ( gHeliEnterDirection == SOUTH )
+					{
+						gpHeli->sRelativeY -= 6;
+					}
+					else if ( gHeliEnterDirection == EAST )
+					{
+						gpHeli->sRelativeX -= 6;
+						gpHeli->sRelativeY -= 1;
+					}
+					else if ( gHeliEnterDirection == WEST )
+					{
+						gpHeli->sRelativeX += 6;
+						gpHeli->sRelativeY += 1;
+					}
+					else
+					{
+						gpHeli->sRelativeY += 6;
+					}
 					break;
 
 				case HELI_GOTO_BEGINDROP:
@@ -781,7 +835,23 @@ void HandleHeliDrop( )
 					AniParams.sX									= gsHeliXPos;
 					AniParams.sY									= gsHeliYPos;
 					AniParams.sZ									= (INT16)gdHeliZPos;
-					strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH.STI" );
+
+					if ( gHeliEnterDirection == SOUTH )
+					{
+						strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_SOUTH.STI" );
+					}
+					else if ( gHeliEnterDirection == EAST )
+					{
+						strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_EAST.STI" );
+					}
+					else if ( gHeliEnterDirection == WEST )
+					{
+						strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_WEST.STI" );
+					}
+					else
+					{
+						strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH.STI" );
+					}
 
 					gpHeli = CreateAnimationTile( &AniParams );
 					break;
@@ -818,13 +888,32 @@ void HandleHeliDrop( )
 
 						ConvertGridNoToCenterCellXY( gsGridNoSweetSpot, &sX, &sY );
 
-						gsHeliXPos					= sX - ( 2 * CELL_X_SIZE );
-						gsHeliYPos					= sY - ( 10 * CELL_Y_SIZE );
+						if ( gHeliEnterDirection == SOUTH )
+						{
+							gsHeliXPos = sX - (2 * CELL_X_SIZE);
+							gsHeliYPos = sY + (10 * CELL_Y_SIZE);
+						}
+						else if ( gHeliEnterDirection == EAST )
+						{
+							gsHeliXPos = sX + (10 * CELL_X_SIZE);
+							gsHeliYPos = sY + (2 * CELL_Y_SIZE);
+						}
+						else if ( gHeliEnterDirection == WEST )
+						{
+							gsHeliXPos = sX - (10 * CELL_X_SIZE);
+							gsHeliYPos = sY - (2 * CELL_Y_SIZE);
+						}
+						else
+						{
+							gsHeliXPos = sX - (2 * CELL_X_SIZE);
+							gsHeliYPos = sY - (10 * CELL_Y_SIZE);
+						}
+
 						gdHeliZPos					= 0;
 						gsHeliScript				= 0;
 						gbExitCount					= 0;
 						gubHeliState				= HELI_APPROACH;
-						gbHeliRound++;
+						++gbHeliRound;
 
 						// Ahh, but still delete the heli!
 						DeleteAniTile( gpHeli );
@@ -858,8 +947,7 @@ void HandleHeliDrop( )
 					break;
 			}
 
-			gsHeliScript++;
-
+			++gsHeliScript;
 		}
 	}
 }
@@ -933,6 +1021,3 @@ void HandleFirstHeliDropOfGame( )
 	// Send message to turn on ai again....
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
 }
-
-
-

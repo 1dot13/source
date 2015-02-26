@@ -1220,6 +1220,8 @@ void InitHelicopterEntranceByMercs( void )
 		SetHelicopterDroppoint( gGameExternalOptions.iInitialMercArrivalLocation );
 #endif
 
+		SetHelicopterDropDirection(NORTH);
+
 		gTacticalStatus.fDidGameJustStart = FALSE;
 	}
 }
