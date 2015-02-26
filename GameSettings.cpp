@@ -3456,8 +3456,8 @@ void LoadHelicopterRepairRefuelSettings()
 	gHelicopterSettings.usHelicopterSeriousRepairCostMax					= iniReader.ReadInteger("Helicopter Repair Settings","HELICOPTER_SERIOUS_REPAIR_COST_MAX", 25000, 0, 100000);
 
 	gHelicopterSettings.ubHelicopterDistanceWithoutRefuel			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 25, 0, 255);
-	gHelicopterSettings.ubHelicopterHoverTimePerFuelUnit			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 10, 0, 255);
-	gHelicopterSettings.ubHelicopterRefuelTime						= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_DISTANCE_WITHOUT_REFUEL", 30, 0, 255);
+	gHelicopterSettings.ubHelicopterHoverTimePerFuelUnit			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_HOVER_TIME_PER_FUEL_UNIT", 10, 0, 255);
+	gHelicopterSettings.ubHelicopterRefuelTime						= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_REFUEL_TIME", 30, 0, 255);
 	gHelicopterSettings.ubHelicopterTimeDelayForHoverWait			= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_TIME_DELAY_FOR_HOVER_WAIT", 10, 0, 255);
 	gHelicopterSettings.ubHelicopterTimeDelayForHoverWaitTooLong	= iniReader.ReadInteger("Helicopter Refuel Settings","HELICOPTER_TIME_DELAY_FOR_HOVER_WAIT_TOO_LONG", 20, 0, 255);
 

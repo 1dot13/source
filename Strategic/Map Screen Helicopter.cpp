@@ -937,6 +937,12 @@ void ReFuelHelicopter( void )
 		// reset hover time
 		gubHelicopterHoverTime = 0;
 	}
+	else
+	{
+		// refuel instantly
+		iTotalHeliDistanceSinceRefuel = 0;
+		AddStrategicEvent( EVENT_HELICOPTER_REFUEL_FOR_A_MINUTE, GetWorldTotalMin(), 0 );
+	}
 
 	return;
 }
