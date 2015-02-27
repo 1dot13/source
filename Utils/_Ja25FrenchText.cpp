@@ -89,6 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Instructeur",
 	L"Reconnaissance",
 	L"Opérateur radio",
+	L"Survival",	//TODO.Translate
 
 	L"Personne",
 	L"IMP : Traits mineurs",
@@ -150,14 +151,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s PA pour tirer avec les fusils à pompe\n",
 	L"Ajoute un niveau de visée pour les fusils à pompe\n",
 	L"Ajoute %d niveaux de visée pour les fusils à pompe\n",
-	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont à pied\n",
-	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont dans un véhicule (sauf l'hélicoptère)\n",
-	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",
-	L"-%d%s de pénalités du temps\n",
-	L"+%d%s d'efficacité du camouflage\n",
-	L"-%d%s de l'usure du camouflage due au temps ou à l'eau\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
-
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
@@ -385,6 +378,18 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Augmente votre réputation de %d tous les jours si le moral est bon.\n",
 	L"+ %d de portée auditive\n",
 };
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+{
+	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont à pied\n",
+	L"+%d%s de vitesse de déplacement du groupe entre les secteurs, s'ils sont dans un véhicule (sauf l'hélicoptère)\n",
+	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",
+	L"-%d%s de pénalités du temps\n",
+	//L"+%d%s d'efficacité du camouflage\n",
+	L"-%d%s de l'usure du camouflage due au temps ou à l'eau\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
+};
+
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Pas de bonus",

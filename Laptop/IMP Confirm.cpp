@@ -799,6 +799,10 @@ void GiveItemsToPC( UINT8 ubProfileId )
 			{
 				GiveIMPRandomItems(pProfile,IMP_RADIO_OPERATOR);
 			}
+			if ( PROFILE_HAS_SKILL_TRAIT( ubProfileId, SURVIVAL_NT ) )
+			{
+				GiveIMPRandomItems( pProfile, IMP_SURVIVAL );
+			}
 		}
 		else
 		{

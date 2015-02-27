@@ -9159,24 +9159,15 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		// and 0% //1% for medium water
 		if ( pSoldier->bCamo > 0 )
 		{
-			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-				{
-					pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					//pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
-/*				else
-				{
-					pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}*/
+					pSoldier->bCamo -= (Chance( __max( 0, 100 - gSkillTraitValues.ubSVCamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) ) ? 1 : 0);
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
 					pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );	// 2
-				//else
-				//	pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
 			}
 
 			if ( pSoldier->bCamo <= 0 )
@@ -9189,24 +9180,15 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		}
 		if ( pSoldier->urbanCamo > 0 )
 		{
-			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-				{
-					pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					//pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
-/*				else
-				{
-					pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}*/
+					pSoldier->urbanCamo -= (Chance( __max( 0, 100 - gSkillTraitValues.ubSVCamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) ) ? 1 : 0);
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
 					pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);	// 2
-				//else
-				//	pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
 			}
 
 			if ( pSoldier->urbanCamo <= 0 )
@@ -9218,17 +9200,10 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		}
 		if ( pSoldier->desertCamo > 0 )
 		{
-			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-				{
-					pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					//pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
-/*				else
-				{
-					pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}*/
+					pSoldier->desertCamo -= (Chance( __max( 0, 100 - gSkillTraitValues.ubSVCamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) ) ? 1 : 0);
 			}
 			else
 			{
@@ -9247,24 +9222,15 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		}
 		if ( pSoldier->snowCamo > 0 )
 		{
-			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 			{
 				if ( pSoldier->MercInDeepWater( ) )
-				{
-					pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-					//pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}
-/*				else
-				{
-					pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
-				}*/
+					pSoldier->snowCamo -= (Chance( __max( 0, 100 - gSkillTraitValues.ubSVCamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) ) ? 1 : 0);
 			}
 			else
 			{
 				if ( pSoldier->MercInDeepWater( ) )
 					pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);	// 2
-				//else
-				//	pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
 			}
 
 			if ( pSoldier->snowCamo <= 0 )
@@ -9283,8 +9249,6 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
 				pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );	// 2
-			//else
-			//	pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
 
 			if ( (pSoldier->bCamo)== 0)
 			{
@@ -9297,8 +9261,6 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
 				pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);	// 2
-			//else
-			//	pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1);
 			
 			if ( (pSoldier->urbanCamo)== 0)
 			{
@@ -9310,8 +9272,6 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
 				pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);	// 2
-			//else
-			//	pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1);
 			
 			if ( (pSoldier->desertCamo)== 0)
 			{
@@ -9323,8 +9283,6 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			if ( pSoldier->MercInDeepWater( ) )
 				pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);	// 2
-			//else
-			//	pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1);
 			
 			if ( (pSoldier->snowCamo)== 0)
 			{

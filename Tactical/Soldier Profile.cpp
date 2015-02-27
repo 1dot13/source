@@ -2929,48 +2929,29 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 		//	bMaxMajorTraits++;
 		//}
 		
+		for ( INT8 bCnt = 0; bCnt < bMaxTraits; ++bCnt )
+		{
+			if ( gMercProfiles[ubProfileID].bSkillTraits[bCnt] == bSkillTrait )
+				++bNumTraits;
+				
+			if ( MajorTrait( gMercProfiles[ubProfileID].bSkillTraits[bCnt] ) )
+				++bNumMajorTraitsCounted;
+
+			// if we exceeded the allowed number of major traits, ignore the rest of them
+			if ( bNumMajorTraitsCounted > bMaxMajorTraits )
+				break;
+		}
+
 		if ( TwoStagedTrait( bSkillTrait ) )
-		{
-			for ( INT8 bCnt = 0; bCnt < bMaxTraits; ++bCnt )
-			{
-				if ( gMercProfiles[ubProfileID].bSkillTraits[bCnt] == bSkillTrait )
-				{
-					++bNumTraits;
-					++bNumMajorTraitsCounted;
-				}
-				else if ( TwoStagedTrait( gMercProfiles[ubProfileID].bSkillTraits[bCnt] ) )
-				{
-					++bNumMajorTraitsCounted;
-				}
-
-				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= bMaxMajorTraits )
-				{
-					break;
-				}
-			}
-
-			// cannot have more than 2 grades of a major traits
 			return (min( 2, bNumTraits ));
-		}
-		else
-		{
-			for ( INT8 bCnt = 0; bCnt < bMaxTraits; ++bCnt )
-			{
-				if ( gMercProfiles[ubProfileID].bSkillTraits[bCnt] == bSkillTrait )
-				{
-					++bNumTraits;
-				}
-			}
 
-			// cannot have more than 1 grade of minor traits
-			return (min( 1, bNumTraits ));
-		}
+		return (min( 1, bNumTraits ));
 	}
 	else
 	{
 		if (gMercProfiles[ubProfileID].bSkillTraits[ 0 ] == bSkillTrait)
 			++bNumTraits;
+
 		if (gMercProfiles[ubProfileID].bSkillTraits[ 1 ] == bSkillTrait)
 			++bNumTraits;	
 
@@ -2979,7 +2960,7 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 			 bSkillTrait == AMBIDEXT_OT ||
 			  bSkillTrait == CAMOUFLAGED_OT )
 			return ( min(1, bNumTraits) );
-		else
-			return ( bNumTraits );
+		
+		return ( bNumTraits );
 	}
 }

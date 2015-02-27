@@ -501,7 +501,7 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 			}
 			else if ( BG_TRACKER_ABILITY == i && zBackground[ubNumber].value[i] )
 			{
-				swprintf( atStr, szBackgroundText_Value[i], (UINT16)((gSkillTraitValues.usTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
+				swprintf( atStr, szBackgroundText_Value[i], (UINT16)((gSkillTraitValues.usSVTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
 				wcscat( apStr, atStr );
 			}
 			else if ( zBackground[ ubNumber ].value[i] )
@@ -611,7 +611,7 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 	}
 
-	if ( SkillsList[0] == RANGER_NT || SkillsList[1] == RANGER_NT || SkillsList[2] == RANGER_NT )
+	if ( SkillsList[0] == SURVIVAL_NT || SkillsList[1] == SURVIVAL_NT || SkillsList[2] == SURVIVAL_NT )
 	{
 		if ( zBackground[ ubNumber ].value[BG_PERC_CAMO] < 0 )
 			return FALSE;

@@ -5261,9 +5261,9 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	if( gGameOptions.fNewTraitSystem )
 	{
 		// bonus for ranger travelling between sectors
-		if ( pSoldier->flags.fBetweenSectors && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+		if ( pSoldier->flags.fBetweenSectors && HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 		{
-			bMaxBreathLoss = (bMaxBreathLoss * (100 - gSkillTraitValues.ubRABreathForTravellingReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100); 
+			bMaxBreathLoss = (bMaxBreathLoss * (100 - gSkillTraitValues.ubSVBreathForTravellingReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT )) / 100);
 		}
 		// primitive people get exhausted slower
 		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )

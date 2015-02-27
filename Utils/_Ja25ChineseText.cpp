@@ -89,6 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"教学",// L"Teaching",
 	L"侦察",// L"Scouting",
 	L"无线电操作员", //L"Radio Operator",
+	L"Survival",	//TODO.Translate
 
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
@@ -149,14 +150,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"使用散弹枪时-%d%s APs\n",	//L"-%d%s APs to fire Shotguns\n",
 	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim click for Shotguns\n",
 	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim clicks for Shotguns\n",
-	L"队伍在区域间步行移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
-	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
-	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
-	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
-	L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
-	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
-
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
@@ -385,6 +378,17 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"可以在监狱当卧底。\n",
 	L"如果士气好的话可以每天为你增加%d声誉。\n",
 	L"+%d有效听觉范围\n",
+};
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+{
+	L"队伍在区域间步行移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
+	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
+	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
+	//L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
+	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

@@ -4695,6 +4695,12 @@ void HandleIMPCharProfileResultsMessage( void)
 			wcscpy(pString, MissingIMPSkillsDescriptions[12]);
 			AddEmailRecordToList( pString );
 		}
+		// Survival
+		if ( ProfileHasSkillTrait( iCurrentIMPSlot, SURVIVAL_NT ) > 0 )
+		{
+			wcscpy( pString, MissingIMPSkillsDescriptions[13] );
+			AddEmailRecordToList( pString );
+		}
 	}
 	else
 	{

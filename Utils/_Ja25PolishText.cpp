@@ -89,6 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Nauczanie",
 	L"Zwiad",
 	L"Radio Operator",
+	L"Survival",	//TODO.Translate
 
 	L"Brak",
 	L"Pomniejsze cechy I.M.P",
@@ -149,13 +150,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s APs to fire Shotguns\n",
 	L"Adds %d more aim click for Shotguns\n",
 	L"Adds %d more aim clicks for Shotguns\n",
-	L"+%d%s group traveling speed between sectors if traveling by foot\n",
-	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
-	L"-%d%s less energy spent for travelling between sectors\n",
-	L"-%d%s weather penalties\n",
-	L"+%d%s camouflage effectiveness\n",
-	L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
@@ -385,9 +379,19 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Może zbierać plotki w miastach.\n",
 	L"Może zostać umieszczony w więzieniu jako tajniak.\n",
 	L"Jeżeli w dobrym nastroju, poprawia twoją reputację o %d każdego dnia.\n",
-	L"+%d zasięg słuchu\n",
-	
+	L"+%d zasięg słuchu\n",	
 };
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+{
+	L"+%d%s group traveling speed between sectors if traveling by foot\n",
+	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"-%d%s less energy spent for travelling between sectors\n",
+	L"-%d%s weather penalties\n",
+	L"-%d%s worn out speed of camouflage by water or time\n",
+	L"Can spot tracks up to %d tiles away\n",
+};
+
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"No bonuses",

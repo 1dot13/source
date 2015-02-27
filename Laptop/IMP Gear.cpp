@@ -718,6 +718,7 @@ void CalculatePossibleItems()
 				case IMP_SKILL_TRAITS_NEW_TEACHING:			AddItemCategoryToPossibleGear( IMP_TEACHING );	break;
 				case IMP_SKILL_TRAITS_NEW_SCOUTING:			AddItemCategoryToPossibleGear( IMP_SCOUTING );	break;
 				case IMP_SKILL_TRAITS_NEW_RADIO_OPERATOR:	AddItemCategoryToPossibleGear( IMP_RADIO_OPERATOR );	break;
+				case IMP_SKILL_TRAITS_NEW_SURVIVAL:			AddItemCategoryToPossibleGear( IMP_SURVIVAL );	break;
 					
 				default:
 					break;

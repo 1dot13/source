@@ -2530,9 +2530,10 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"Opérateur radio",	// 21
 	L"Infiltré",	// 22
+	L"Survival",
 
 	// second names for major skills
-	L"Mitrailleur",
+	L"Mitrailleur",		// 24
 	L"Bombardier",
 	L"Sniper",
 	L"Ranger",
@@ -2542,7 +2543,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingénieur",
 	L"Chirurgien",
 	// placeholders for minor traits
-	L"Placeholder",		// 32
+	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
@@ -2555,7 +2556,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Espion",			// 42
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"Plus...",         // 45
+	L"Placeholder",		// for survival (minor trait)
+	L"Plus...",         // 47
 	L"Divers",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
@@ -6870,6 +6872,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Déguisement : Vous ferez passer 007 pour un amateur ! ± ",
 	// Radio Operator
 	L"Opérateur radio : Votre maitrise des appareils de communication élargit le champs des compétences tactiques et stratégiques de votre équipe. ± ",
+	// Survival
+	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 

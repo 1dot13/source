@@ -21264,7 +21264,7 @@ BOOLEAN DoesSoldierWearGasMask( SOLDIERTYPE *pSoldier )//dnl ch40 200909
 BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 {
 	if ( pSoldier == NULL )
-		return(FALSE);
+		return FALSE;
 
 	// Flugente: compatibility with skills
 	if ( uiSkillTraitNumber == VARIOUSSKILLS )
@@ -21284,40 +21284,28 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 		//	bMaxMajorTraits++;
 		//}
 
-		for ( INT8 bCnt = 0; bCnt < min( 30, bMaxTraits ); bCnt++ )
+		for ( INT8 bCnt = 0; bCnt < min( 30, bMaxTraits ); ++bCnt )
 		{
-			if ( TwoStagedTrait( uiSkillTraitNumber ) )
-			{
-				if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
-				{
-					return(TRUE);
-				}
-				else if ( TwoStagedTrait( pSoldier->stats.ubSkillTraits[bCnt] ) )
-				{
-					bNumMajorTraitsCounted++;
-				}
-				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= min( 20, bMaxMajorTraits ) )
-				{
-					break;
-				}
-			}
-			else
-			{
-				if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
-				{
-					return(TRUE);
-				}
-			}
+			if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
+				return(TRUE);
+
+			if ( MajorTrait( pSoldier->stats.ubSkillTraits[bCnt] ) )
+				++bNumMajorTraitsCounted;
+
+			// if we exceeded the allowed number of major traits, ignore the rest of them
+			if ( bNumMajorTraitsCounted > min( 20, bMaxMajorTraits ) )
+				break;
 		}
 	}
 	else
 	{
 		if ( pSoldier->stats.ubSkillTraits[0] == uiSkillTraitNumber )
 			return(TRUE);
+
 		if ( pSoldier->stats.ubSkillTraits[1] == uiSkillTraitNumber )
 			return(TRUE);
 	}
+
 	return(FALSE);
 }
 
@@ -21341,53 +21329,40 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 		//	bMaxMajorTraits++;
 		//}
 
-		for ( INT8 bCnt = 0; bCnt < min( 30, bMaxTraits ); bCnt++ )
+		for ( INT8 bCnt = 0; bCnt < min( 30, bMaxTraits ); ++bCnt )
 		{
-			if ( TwoStagedTrait( uiSkillTraitNumber ) )
-			{
-				if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
-				{
-					bNumberOfTraits++;
-					bNumMajorTraitsCounted++;
-				}
-				else if ( TwoStagedTrait( pSoldier->stats.ubSkillTraits[bCnt] ) )
-				{
-					bNumMajorTraitsCounted++;
-				}
-				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= min( 20, bMaxMajorTraits ) )
-				{
-					break;
-				}
-			}
-			else
-			{
-				if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
-				{
-					bNumberOfTraits++;
-				}
-			}
+			if ( pSoldier->stats.ubSkillTraits[bCnt] == uiSkillTraitNumber )
+				++bNumberOfTraits;
+				
+			if ( MajorTrait( pSoldier->stats.ubSkillTraits[bCnt] ) )
+				++bNumMajorTraitsCounted;
+
+			// if we exceeded the allowed number of major traits, ignore the rest of them
+			if ( bNumMajorTraitsCounted > min( 20, bMaxMajorTraits ) )
+				break;
 		}
+
 		// cannot have more than one same minor trait
 		if ( !TwoStagedTrait( uiSkillTraitNumber ) )
 			return (min( 1, bNumberOfTraits ));
-		else
-			return (min( 2, bNumberOfTraits ));
+		
+		return (min( 2, bNumberOfTraits ));
 	}
 	else
 	{
 		if ( pSoldier->stats.ubSkillTraits[0] == uiSkillTraitNumber )
-			bNumberOfTraits++;
+			++bNumberOfTraits;
+
 		if ( pSoldier->stats.ubSkillTraits[1] == uiSkillTraitNumber )
-			bNumberOfTraits++;
+			++bNumberOfTraits;
 
 		// Electronics, Ambidextrous and Camouflaged can only be of one grade
 		if ( uiSkillTraitNumber == ELECTRONICS_OT ||
 			 uiSkillTraitNumber == AMBIDEXT_OT ||
 			 uiSkillTraitNumber == CAMOUFLAGED_OT )
 			 return (min( 1, bNumberOfTraits ));
-		else
-			return (bNumberOfTraits);
+
+		return (bNumberOfTraits);
 	}
 }
 
@@ -22068,7 +22043,47 @@ BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier )
 
 BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber )
 {
-	return(uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT));
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		if ( uiSkillTraitNumber > 0 )
+		{
+			// covert ops is a major trait that is in a different location
+			if ( uiSkillTraitNumber == COVERT_NT )
+				return TRUE;
+
+			// other traits below NUM_ORIGINAL_MAJOR_TRAITS are all major
+			if ( uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS )
+				return TRUE;
+		}
+	}
+	else
+	{
+		if ( uiSkillTraitNumber == IMP_SKILL_TRAITS__ELECTRONICS ||
+			 uiSkillTraitNumber == IMP_SKILL_TRAITS__AMBIDEXTROUS ||
+			 uiSkillTraitNumber == IMP_SKILL_TRAITS__CAMO )
+			return(FALSE);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+// determine if this is a major trait (no longer all two-staged)
+BOOLEAN MajorTrait( UINT8 uiSkillTraitNumber )
+{
+	if ( uiSkillTraitNumber > 0 )
+	{
+		// covert ops is a major trait that is in a different location
+		if ( uiSkillTraitNumber == COVERT_NT )
+			return TRUE;
+
+		// other traits below NUM_ORIGINAL_MAJOR_TRAITS are all major
+		if ( uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS )
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 BOOLEAN GetRadioOperatorSignal( UINT8 usOwner, INT32* psTargetGridNo )
@@ -22309,7 +22324,7 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam )
 				// -> value between 0 and 2000
 				value = (value * effectivity) / 100;
 
-				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4600
+				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4000
 				value = (value * min( pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER], 2 * gGameExternalOptions.usSpotterPreparationTurns )) / gGameExternalOptions.usSpotterPreparationTurns;
 
 				// reasonable values: 0 to gGameExternalOptions.usSpotterMaxCTHBoost

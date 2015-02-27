@@ -2524,32 +2524,34 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"无线电操作员",	// 21
 	L"告发",	// 22
+	L"Survival",
 
 	// second names for major skills
-	L"机枪手",
+	L"机枪手",		// 24
 	L"掷弹兵",
 	L"狙击手",
-	L"游骑兵",		// 26
+	L"游骑兵",
 	L"枪斗术",
 	L"武术家",
 	L"班长",
 	L"工兵",
 	L"军医",
 	// placeholders for minor traits
-	L"Placeholder",		// 32
+	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 41
-	L"间谍",				// 42
+	L"Placeholder",
+	L"Placeholder",		// 42
+	L"间谍",				// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"更多...",
+	L"Placeholder",		// for survival (minor trait)
+	L"更多...",			// 47
 	L"多种技能",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
@@ -6868,6 +6870,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"特工: 你让詹姆斯邦德甘拜下风！ ± ",		// L"Covert Operations: You make 007 look like an amateur! ± ",
 	// Radio Operator
 	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ",	//L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
+	// Survival
+	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 

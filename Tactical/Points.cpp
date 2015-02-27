@@ -1541,10 +1541,10 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		if( sBreathPerAP < 0 && ( pSoldier->pathing.bLevel  || !FindStructure( pSoldier->sGridNo, STRUCTURE_ROOF )  )  && pSoldier->bBreath > 1)
 		{
 			// Added a feature to reduce rain effect on regaining breath with Ranger trait - SANDRO
-			if( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) && ( gGameOptions.fNewTraitSystem ))
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) && (gGameOptions.fNewTraitSystem) )
 			{
 				INT16 sBreathGainPenalty = 0;
-				sBreathGainPenalty = (INT16)((gGameExternalOptions.ubBreathGainReductionPerRainIntensity * (100 - gSkillTraitValues.ubRAWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) / 100);
+				sBreathGainPenalty = (INT16)((gGameExternalOptions.ubBreathGainReductionPerRainIntensity * (100 - gSkillTraitValues.ubSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ))) / 100);
 				sBreathGainPenalty = min( max( 0, sBreathGainPenalty ), 100); // keep it 0-100%
 				sBreathPerAP -= (INT16)( sBreathPerAP * gbCurrentRainIntensity * sBreathGainPenalty /100 );
 			}

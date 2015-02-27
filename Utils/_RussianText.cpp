@@ -2522,6 +2522,7 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"Радист",	// 21
 	L"Осведомитель",	// 22
+	L"Survival",
 
 	// second names for major skills
 	L"Пулемётчик",	//Machinegunner
@@ -2533,20 +2534,22 @@ STR16 gzMercSkillTextNew[] =
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
-	L"Placeholder",		// 32
+	// placeholders for minor traits
+	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 37
+	L"Placeholder",	
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 41
-	L"Шпион",			// 42
+	L"Placeholder",		// 42
+	L"Шпион",			// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch(minor trait)
-	L"Ещё...",
+	L"Placeholder",		// for survival (minor trait)
+	L"Ещё...",			// 47
 	L"различные",		// for VARIOUSSKILLS	
 };
 //////////////////////////////////////////////////////////
@@ -6863,6 +6866,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Шпион: Агент 007 по сравнению с вами - дилетант! ± ",
 	// Radio Operator
 	L"Радист: Использование вами средств связи позволяет расширить тактические и стратегические возможности команды. ± ",
+	// Survival
+	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 

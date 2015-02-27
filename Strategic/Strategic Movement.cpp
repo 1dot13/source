@@ -3465,7 +3465,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 	if ( pGroup->usGroupTeam == OUR_TEAM && !fAir && gGameOptions.fNewTraitSystem )
 	{
 		// see if we have any ranger here
-		UINT8 ubRangerHere = 0;
+		UINT8 ubSurvivalistHere = 0;
 		UINT8 ustravelbackground_foot = 0;
 		UINT8 ustravelbackground_car = 0;
 		UINT8 ustravelbackground_air = 0;
@@ -3474,8 +3474,8 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		while( curr )
 		{
 			pSoldier = curr->pSoldier;
-			if( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-				ubRangerHere += NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+			
+			ubSurvivalistHere += NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT );
 			
 			// Flugente: backgrounds
 			ustravelbackground_foot = max(ustravelbackground_foot, pSoldier->GetBackgroundValue(BG_TRAVEL_FOOT));
@@ -3485,16 +3485,16 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			curr = curr->next;
 		}
 		// yes, we have...
-		if( ubRangerHere || ustravelbackground_foot || ustravelbackground_car || ustravelbackground_air )
+		if ( ubSurvivalistHere || ustravelbackground_foot || ustravelbackground_car || ustravelbackground_air )
 		{
 			// no more than certain number of simultaneous bonuses
-			ubRangerHere = min( gSkillTraitValues.ubRAMaxBonusesToTravelSpeed, ubRangerHere );
+			ubSurvivalistHere = min( gSkillTraitValues.ubSVMaxBonusesToTravelSpeed, ubSurvivalistHere );
 
 			// on foot, the bonus should be higher
 			if( fFoot )
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot )) / 100));
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot)) / 100) );
 
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_foot) / 100));
 			}
@@ -3502,7 +3502,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			else if ( fAir )
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle )) / 100));
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
 
 				// yes, this background allows us to fly faster :-)
 				iBestTraverseTime = max( 9,  (iBestTraverseTime * (100 - ustravelbackground_air) / 100));
@@ -3510,7 +3510,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			else
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle )) / 100));
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
 
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_car) / 100));
 			}

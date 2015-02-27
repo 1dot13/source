@@ -2538,9 +2538,10 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"Funker",	// 21
 	L"Snitch",	// 22	// TODO.Translate
+	L"Survival",
 
 	// second names for major skills
-	L"MG-Veteran",
+	L"MG-Veteran",		// 24
 	L"Artillerist",
 	L"Scharfschütze",
 	L"Jäger",
@@ -2550,20 +2551,21 @@ STR16 gzMercSkillTextNew[] =
 	L"Ingenieur",
 	L"Arzt",
 	// placeholders for minor traits
-	L"Placeholder",		// 32
+	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 37
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 41
-	L"Spion",			// 42
+	L"Placeholder",
+	L"Placeholder",		// 42
+	L"Spion",			// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch(minor trait)
-	L"Mehr...",
+	L"Placeholder",		// for survival (minor trait)
+	L"Mehr...",			//47
 	L"diverse",			// for VARIOUSSKILLS
 };
 
@@ -6697,6 +6699,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Geheimagent: Neben Ihnen schaut 007 wie der reinste Amateur aus! ± ",
 	// Radio Operator
 	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
+	// Survival
+	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 

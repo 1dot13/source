@@ -2519,34 +2519,36 @@ STR16 gzMercSkillTextNew[] =
 	L"Covert Ops",		// 20
 	// new minor traits
 	L"Radio Operator",	// 21
-	L"Snitch",	// 22	// TODO.Translate
+	L"Snitch",	// 22
+	L"Survival",
 
 	// second names for major skills
-	L"Machinegunner",	// 23
+	L"Machinegunner",	// 24
 	L"Bombardier",
 	L"Sniper",
 	L"Ranger",
-	L"Gunfighter",		// 27
+	L"Gunfighter",
 	L"Martial Arts",
 	L"Squadleader",
 	L"Engineer",
-	L"Doctor",			// 31	
+	L"Doctor",
 	// placeholders for minor traits
-	L"Placeholder",		// 32
+	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 37
+	L"Placeholder",		// 38
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",		// 41
-	L"Spy",				// 42
+	L"Placeholder",		// 42
+	L"Spy",				// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"More...",
-	L"various",			// for VARIOUSSKILLS	// TODO.Translate
+	L"Placeholder",		// for survival (minor trait)
+	L"More...",			// 47
+	L"various",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
 
@@ -6872,6 +6874,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 	// Radio Operator
 	L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",	// TOO.Translate
+	// Survival
+	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 

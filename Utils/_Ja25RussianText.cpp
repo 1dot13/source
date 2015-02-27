@@ -88,7 +88,8 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Подрывник",	//Demolitions
 	L"Инструктор",	//Teaching
 	L"Разведчик",	//Scouting
-	L"Радист",
+	L"Радист",		//Radio Operator
+	L"Survival",	//TODO.Translate
 
 	L"Нет",
 	L"I.M.P.: Дополнительные навыки",	//I.M.P. Minor Traits
@@ -149,14 +150,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s ОД на выстрел из дробовика\n",
 	L"+%d клик прицеливания для дробовиков\n",
 	L"+%d кликов прицеливания для дробовиков\n",
-	L"+%d%s к скорости передвижения группы между секторами, если идти пешком\n",
-	L"+%d%s к скорости передвижения группы между секторами, \nесли передвигаться на транспорте (за исключением вертолёта)\n",
-	L"-%d%s к затрате энергии при переходе между секторами\n",	//меньше тратит сил
-	L"-%d%s к штрафам от погодных условий\n",
-	L"+%d%s к эффективности камуфляжа\n",
-	L"-%d%s на скорость ухудшения камуфляжа от воды и времени\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
-
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
@@ -265,6 +258,17 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"Радиопереговоры могут быть подавлены во всем секторе.\n",
 	L"Если радиопереговоры подавлены, то радист может искать подавляющее устройство.\n",
 	L"Может вызывать подкрепления из отрядов ополченцев из соседних секторов.\n",
+};
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
+{
+	L"+%d%s к скорости передвижения группы между секторами, если идти пешком\n",
+	L"+%d%s к скорости передвижения группы между секторами, \nесли передвигаться на транспорте (за исключением вертолёта)\n",
+	L"-%d%s к затрате энергии при переходе между секторами\n",	//меньше тратит сил
+	L"-%d%s к штрафам от погодных условий\n",
+	//L"+%d%s к эффективности камуфляжа\n",
+	L"-%d%s на скорость ухудшения камуфляжа от воды и времени\n",
+	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
@@ -381,9 +385,19 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Может собирать слухи в городах.\n",
 	L"Можно засылать в качестве доносчика в тюрьмы.\n",
 	L"Увеличивает вашу репутацию на %d каждый день, если его боевой дух высок.\n",
-	L"+%d фактической дальности слуха.\n",
-	
+	L"+%d фактической дальности слуха.\n",	
 };
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+{
+	L"+%d%s group traveling speed between sectors if traveling by foot\n",
+	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"-%d%s less energy spent for travelling between sectors\n",
+	L"-%d%s weather penalties\n",
+	L"-%d%s worn out speed of camouflage by water or time\n",
+	L"Can spot tracks up to %d tiles away\n",
+};
+
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Нет преимуществ",

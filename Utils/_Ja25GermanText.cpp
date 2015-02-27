@@ -89,6 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Ausbilden",				// alt. "Lehren"
 	L"Aufklären",				// alt. "Spähen"
 	L"Funktechnik",				// Alternative: Funk, Funkkommunikation [Leonidas]
+	L"Survival",	//TODO.Translate
 
 	L"Keine",
 	L"B.S.E. Nebenfertigkeiten",
@@ -149,13 +150,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s APs benötigt um Flinten abzufeuern\n",
 	L"Gibt Flinten einen weiteren Zielklick\n",
 	L"%d weitere Zielklicks für Flinten\n",
-	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren zu Fuß\n",
-	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
-	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
-	L"-%d%s Einfluss durch schlechtes Wetter\n",
-	L"+%d%s Tarnungs-Effektivität\n",
-	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
@@ -387,6 +381,17 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Kann als Informant in Gefängnisse eingeschleust werden\n",
 	L"Kann bei guter Moral den allgemeinen Ruf jeden Tag um %d verbessern\n",
 	L"Erhält +%d auf die Hörweite",
+};
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
+{
+	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren zu Fuß\n",
+	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
+	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
+	L"-%d%s Einfluss durch schlechtes Wetter\n",
+	//L"+%d%s Tarnungs-Effektivität\n",
+	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
+	L"Kann Spuren bis zu %d Felder weit erkennen\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

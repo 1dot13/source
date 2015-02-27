@@ -1614,17 +1614,8 @@ typedef struct
 	UINT8 ubRABonusCtHRifles;
 	UINT8 ubRABonusCtHShotguns;
 	UINT8 ubRAPumpShotgunsAPsReduction;
-	UINT8 ubRAGroupTimeSpentForTravellingFoot;
-	UINT8 ubRAGroupTimeSpentForTravellingVehicle;
-	UINT8 ubRAMaxBonusesToTravelSpeed;
-	UINT8 ubRABreathForTravellingReduction;
-	UINT8 ubRAWeatherPenaltiesReduction;
-	//UINT8 ubRACamoEffectivenessBonus;
-	UINT8 ubRACamoWornountSpeedReduction;
 	UINT8 ubRAFiringSpeedBonusShotguns;
 	UINT8 ubRAAimClicksAdded;
-	UINT16 usTrackerMaxRange;
-	UINT8 usTrackerAbility;
 
 	// GUNSLINGER
 	UINT8 ubGSFiringSpeedBonusPistols;
@@ -1809,8 +1800,7 @@ typedef struct
 	INT8  sVOListeningHearingBonus;
 	BOOLEAN fVOJammingBlocksRemoteBombs;
 	BOOLEAN fVOEnemyVOSetsOffRemoteBombs;
-
-
+	
 	// SNITCH
 	UINT8 ubSNTBaseChance;						// Base chance that snitch will inform about certain event (in percents)
 	FLOAT fSNTMercOpinionAboutSnitchBonusModifier;	// How much chance is influenced by relation between snitch and target
@@ -1824,6 +1814,16 @@ typedef struct
 	UINT8 ubSNTHearingRangeBonus;				// Hearing range bonus
 	FLOAT fSNTPrisonSnitchInterrogationMultiplier;	// Undercover snitch interrogation effectivness multiplier (compared to normal interrogation)
 	FLOAT fSNTPrisonSnitchGuardStrengthMultiplier;	// Undercover snitch guarding effectivness multiplier (compared to normal guards)
+
+	// SURVIVAL
+	UINT8 ubSVGroupTimeSpentForTravellingFoot;
+	UINT8 ubSVGroupTimeSpentForTravellingVehicle;
+	UINT8 ubSVMaxBonusesToTravelSpeed;
+	UINT8 ubSVBreathForTravellingReduction;
+	UINT8 ubSVWeatherPenaltiesReduction;
+	UINT8 ubSVCamoWornountSpeedReduction;
+	UINT16 usSVTrackerMaxRange;
+	UINT8 usSVTrackerAbility;
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

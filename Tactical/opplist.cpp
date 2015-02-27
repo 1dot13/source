@@ -349,9 +349,9 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 		//Added a feature reducing weather penalty for ranger trait - SANDRO
 		INT16 sWeatherPenalty = 0; // percent vision reduction 0-100%
 		sWeatherPenalty = min( (max( 0, (gGameExternalOptions.ubVisDistDecreasePerRainIntensity * gbCurrentRainIntensity))), 100) ;
-		if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
 		{
-			sWeatherPenalty = (sWeatherPenalty * ( 100 - (gSkillTraitValues.ubRAWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ) / 100;
+			sWeatherPenalty = (sWeatherPenalty * (100 - (gSkillTraitValues.ubSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT )))) / 100;
 			sWeatherPenalty = min( (max( 0, sWeatherPenalty)), 100 ); // keep it in 0-100 range
 		}
 

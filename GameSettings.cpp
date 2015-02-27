@@ -2320,16 +2320,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubRAPumpShotgunsAPsReduction = iniReader.ReadInteger("Ranger","PUMP_SHOTGUNS_APS_REDUCTION", 25, 0, 45);
 	gSkillTraitValues.ubRAFiringSpeedBonusShotguns = iniReader.ReadInteger("Ranger","FIRING_SPEED_BONUS_SHOTGUNS", 10, 0, 45);
 	gSkillTraitValues.ubRAAimClicksAdded = iniReader.ReadInteger("Ranger","POSSIBLE_AIM_CLICK_ADDED_SHOTGUNS", 1, 0, 3);
-	gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot = iniReader.ReadInteger("Ranger","GROUP_TIME_SPENT_FOR_TRAVELLING_BY_FOOT_REDUCTION", 20, 0, 100);
-	gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle = iniReader.ReadInteger("Ranger","GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 10, 0, 100);
-	gSkillTraitValues.ubRAMaxBonusesToTravelSpeed = iniReader.ReadInteger("Ranger","MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20);
-	gSkillTraitValues.ubRABreathForTravellingReduction = iniReader.ReadInteger("Ranger","ENERGY_SPENT_TRAVEL_REDUCTION", 30, 0, 100);
-	gSkillTraitValues.ubRAWeatherPenaltiesReduction = iniReader.ReadInteger("Ranger","WEATHER_PENALTIES_REDUCTION", 50, 0, 100);
-	//gSkillTraitValues.ubRACamoEffectivenessBonus = iniReader.ReadInteger("Ranger","CAMO_EFFECTIVENESS_BONUS_PERCENT", 10, 0, 100);
-	gSkillTraitValues.ubRACamoWornountSpeedReduction = iniReader.ReadInteger("Ranger","CAMO_WORNOUT_SPEED_REDUCTION", 50, 0, 100);
-	gSkillTraitValues.usTrackerMaxRange = iniReader.ReadInteger( "Ranger", "TRACKER_MAX_RANGE", 30, 0, 50 );
-	gSkillTraitValues.usTrackerAbility = iniReader.ReadInteger( "Ranger", "TRACKER_ABILITY", 30, 0, 50 );
-
+	
 	// GUNSLINGER
 	gSkillTraitValues.ubGSFiringSpeedBonusPistols = iniReader.ReadInteger("Gunslinger","FIRING_SPEED_BONUS_PISTOLS", 15, 0, 45);
 	gSkillTraitValues.ubGSEffectiveRangeBonusPistols = iniReader.ReadInteger("Gunslinger","FEFFECTIVE_RANGE_BONUS_PISTOLS", 10, 0, 100);
@@ -2531,6 +2522,16 @@ void LoadSkillTraitsExternalSettings()
 
 	gSkillTraitValues.fSNTPrisonSnitchInterrogationMultiplier	= iniReader.ReadFloat("Snitch","PRISON_SNITCH_INTERROGATION_MULTIPLIER", 3.0, 0.0, 10.0);
 	gSkillTraitValues.fSNTPrisonSnitchGuardStrengthMultiplier	= iniReader.ReadFloat("Snitch","PRISON_SNITCH_GUARD_STRENGTH_MULTIPLIER", 3.0, 0.0, 10.0);
+
+	// Flugente: SURVIVAL
+	gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot = iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_BY_FOOT_REDUCTION", 20, 0, 100 );
+	gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle = iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 10, 0, 100 );
+	gSkillTraitValues.ubSVMaxBonusesToTravelSpeed = iniReader.ReadInteger( "Survival", "MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20 );
+	gSkillTraitValues.ubSVBreathForTravellingReduction = iniReader.ReadInteger( "Survival", "ENERGY_SPENT_TRAVEL_REDUCTION", 30, 0, 100 );
+	gSkillTraitValues.ubSVWeatherPenaltiesReduction = iniReader.ReadInteger( "Survival", "WEATHER_PENALTIES_REDUCTION", 50, 0, 100 );
+	gSkillTraitValues.ubSVCamoWornountSpeedReduction = iniReader.ReadInteger( "Survival", "CAMO_WORNOUT_SPEED_REDUCTION", 50, 0, 100 );
+	gSkillTraitValues.usSVTrackerMaxRange = iniReader.ReadInteger( "Survival", "TRACKER_MAX_RANGE", 30, 0, 50 );
+	gSkillTraitValues.usSVTrackerAbility = iniReader.ReadInteger( "Survival", "TRACKER_ABILITY", 30, 0, 50 );
 }
 //DBrot: Grids
 void LoadModSettings(){

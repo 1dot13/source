@@ -4349,7 +4349,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2] > 0 )
 			{
 				// we have to make sure that not all 3 traits are major traits - if that happens, we ignore the third one
-				if ( TwoStagedTrait( pSoldier->stats.ubSkillTraits[0] ) && TwoStagedTrait( pSoldier->stats.ubSkillTraits[1] ) && TwoStagedTrait( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2] ) )
+				if ( MajorTrait( pSoldier->stats.ubSkillTraits[0] ) && MajorTrait( pSoldier->stats.ubSkillTraits[1] ) && MajorTrait( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2] ) )
 					;
 				else
 				{

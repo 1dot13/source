@@ -89,6 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Teaching",
 	L"Scouting",
 	L"Radio Operator",
+	L"Survival",
 
 	L"None",
 	L"I.M.P. Minor Traits",
@@ -149,13 +150,6 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s APs to fire Shotguns\n",
 	L"Adds %d more aim click for Shotguns\n",
 	L"Adds %d more aim clicks for Shotguns\n",
-	L"+%d%s group traveling speed between sectors if traveling by foot\n",
-	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
-	L"-%d%s less energy spent for travelling between sectors\n",
-	L"-%d%s weather penalties\n",
-	L"+%d%s camouflage effectiveness\n",
-	L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
@@ -386,6 +380,17 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Can be put undercover in prisons.\n",
 	L"Increases your reputation by %d every day if in good morale.\n",
 	L"+%d to effective hearing range\n",
+};
+
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
+{
+	L"+%d%s group traveling speed between sectors if traveling by foot\n",
+	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"-%d%s less energy spent for travelling between sectors\n",
+	L"-%d%s weather penalties\n",
+	//L"+%d%s camouflage effectiveness\n",
+	L"-%d%s worn out speed of camouflage by water or time\n",
+	L"Can spot tracks up to %d tiles away\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

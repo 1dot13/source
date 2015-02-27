@@ -245,7 +245,7 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 		// SANDRO - old/new traits check (I am not sure if this is used at all)
 		if ( gGameOptions.fNewTraitSystem )
 		{
-			if ( ProfileHasSkillTrait( TEX_UB, RANGER_NT ) > 0 )
+			if ( ProfileHasSkillTrait( TEX_UB, SURVIVAL_NT ) > 0 )
 			{
 				sprintf( VObjectDesc.ImageFile, "FACES\\B%dc.sti", TEX_UB );
 			}
@@ -668,7 +668,7 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 
   		if ( gGameOptions.fNewTraitSystem )
 		{
-			if( usMercProfileID == TEX_UB && ( gMercProfiles[ TEX_UB ].bSkillTraits[0] == RANGER_NT || gMercProfiles[ TEX_UB ].bSkillTraits[1] == RANGER_NT ) )
+			if( usMercProfileID == TEX_UB && ( gMercProfiles[ TEX_UB ].bSkillTraits[0] == SURVIVAL_NT || gMercProfiles[ TEX_UB ].bSkillTraits[1] == SURVIVAL_NT ) )
 			{
 			usEyesX				= 13;
 			usEyesY				= 34;

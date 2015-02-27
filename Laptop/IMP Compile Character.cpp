@@ -301,24 +301,20 @@ void AddSkillToSkillList( INT8 bSkill )
 		SkillsList[ iLastElementInSkillsList ] = ( INT32 )bSkill;
 
 		// increment attitude list counter
-		iLastElementInSkillsList++;
+		++iLastElementInSkillsList;
 	}
-
-	return;
 }
 
 // Kaiden : Added to clear the list when first visiting the IMP homepage,
 // Or for each visit there after.
 void ClearAllSkillsList( void )
 {
-	INT32		iLoop;
-
-	for ( iLoop = 0; iLoop < ATTITUDE_LIST_SIZE; iLoop++ ) // SANDRO - better clear everything to be sure
+	for ( INT32 iLoop = 0; iLoop < ATTITUDE_LIST_SIZE; ++iLoop ) // SANDRO - better clear everything to be sure
 	{
 		SkillsList[ iLoop ] = 0;
 	}
+
 	iLastElementInSkillsList = 0;
-	return;
 }
 
 

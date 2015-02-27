@@ -63,7 +63,7 @@
 
 #define NEWTRAIT_EXPERT_OFFSET												12	// Flugente: offset between normal and expert trait strings
 
-// Flugente: Due to the unfortunate nature of our enums, they do not match the trait numbers. We thus have to remap them when obtining their description
+// Flugente: Due to the unfortunate nature of our enums, they do not match the trait numbers. We thus have to remap them when obtaining their description
 UINT8 gusNewMajorTraitRemap[IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS] =
 {
 	AUTO_WEAPONS_NT,	// IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS
@@ -121,13 +121,11 @@ void		AddImpSkillTraitButtons();
 void		HandleSkillTraitButtonStates( );
 void		HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait );
 void		IMPSkillTraitDisplaySkills();
-BOOLEAN ShouldTraitBeSkipped( UINT32 uiTrait );
+BOOLEAN		ShouldTraitBeSkipped( UINT32 uiTrait );
 //void		AddSelectedSkillsToSkillsList(); // SANDRO - second declaration not needed
 void		HandleLastSelectedTraits( INT8 bNewTrait );
-INT8 GetLastSelectedSkill( void );
-BOOLEAN CameBackToSpecialtiesPageButNotFinished();
-
-BOOLEAN DoesSkillHaveExpertLevel( UINT32 uiSkillTrait );
+INT8		GetLastSelectedSkill( void );
+BOOLEAN		CameBackToSpecialtiesPageButNotFinished();
 
 MOUSE_REGION	gMR_SkillTraitHelpTextRegions[IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS];
 //ppp
@@ -157,9 +155,7 @@ void EnterIMPSkillTrait( void )
 		Assert( 0 );
 		return;
 	}
-
-
-
+	
 	giIMPSkillTraitFinsihButtonImage =	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 	giIMPSkillTraitFinsihButton = CreateIconAndTextButton( giIMPSkillTraitFinsihButtonImage, pImpButtonText[ 24 ], FONT12ARIAL,
 																FONT_WHITE, DEFAULT_SHADOW,
@@ -167,9 +163,7 @@ void EnterIMPSkillTrait( void )
 																TEXT_CJUSTIFIED,
 																LAPTOP_SCREEN_UL_X +	( 350 ), LAPTOP_SCREEN_WEB_UL_Y + ( 340 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 																BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPSkillTraitFinishCallback );
-
-
-
+	
 	SetButtonCursor( giIMPSkillTraitFinsihButton, CURSOR_WWW);
 
 	//if we are not DONE and are just reviewing
@@ -193,7 +187,7 @@ void EnterIMPSkillTrait( void )
 	// add regions for help texts
 	UINT16 usPosX = IMP_SKILL_TRAIT__LEFT_COLUMN_START_X + 62;
 	UINT16 usPosY = IMP_SKILL_TRAIT__LEFT_COLUMN_START_Y + 8;
-	for( UINT32 uiCnt=0; uiCnt < (UINT8)( gGameOptions.fNewTraitSystem ? IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS : IMP_SKILL_TRAITS__NUMBER_SKILLS ); uiCnt++ )
+	for( UINT32 uiCnt=0; uiCnt < (UINT8)( gGameOptions.fNewTraitSystem ? IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS : IMP_SKILL_TRAITS__NUMBER_SKILLS ); ++uiCnt )
 	{
 		if( ShouldTraitBeSkipped( uiCnt ) )
 		{
@@ -327,7 +321,7 @@ void AddImpSkillTraitButtons()
 	usPosX = IMP_SKILL_TRAIT__LEFT_COLUMN_START_X;
 	usPosY = IMP_SKILL_TRAIT__LEFT_COLUMN_START_Y;
 
-	for(iCnt = 0; iCnt < (iCntMax); iCnt++)
+	for(iCnt = 0; iCnt < iCntMax; ++iCnt)
 	{
 		//reset
 		giIMPSkillTraitAnswerButton[iCnt] = -1;
@@ -392,7 +386,7 @@ void AddImpSkillTraitButtons()
 	usPosX = IMP_SKILL_TRAIT__LEFT_COLUMN_START_X + 26;
 	usPosY = IMP_SKILL_TRAIT__LEFT_COLUMN_START_Y;
 
-	for(iCnt = 0; iCnt < (iCntMax); iCnt++)
+	for(iCnt = 0; iCnt < iCntMax; ++iCnt)
 	{
 		//reset
 		giIMPSkillTraitAnswerButton2[iCnt] = -1;
@@ -527,7 +521,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 			}
 		}
 		// if cannot have expert level of skill, don't continue
-		else if ( gfSkillTraitQuestions2[ uiSkillPressed ] && !DoesSkillHaveExpertLevel( uiSkillPressed ) )
+		else if ( gfSkillTraitQuestions2[uiSkillPressed] && !TwoStagedTrait( uiSkillPressed ) )
 		{
 			//dont need to do anything
 			return;
@@ -559,7 +553,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 					if ( gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP == 2 )
 					{
 						//loop through all the skill and reset them
-						for( uiCnt=0; uiCnt<uiCntMax; uiCnt++ )
+						for( uiCnt=0; uiCnt<uiCntMax; ++uiCnt )
 						{
 							gfSkillTraitQuestions[ uiCnt ] = FALSE;
 						}
@@ -629,7 +623,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 			gfSkillTraitQuestions2[ uiSkillPressed ] = FALSE;
 
 			BOOLEAN fNoSkillSelected = TRUE;
-			for ( uiCnt=0; uiCnt<(uiCntMax-1); uiCnt++ )
+			for ( uiCnt=0; uiCnt<(uiCntMax-1); ++uiCnt )
 			{
 				if ( gfSkillTraitQuestions2[ uiCnt ] == TRUE )
 					fNoSkillSelected = FALSE;
@@ -641,7 +635,7 @@ void HandleIMPSkillTraitAnswers( UINT32 uiSkillPressed, BOOLEAN fSecondTrait )
 			}
 		}
 		// if cannot have expert level of skill, don't continue
-		else if ( gfSkillTraitQuestions[ uiSkillPressed ] && !DoesSkillHaveExpertLevel( uiSkillPressed ) )
+		else if ( gfSkillTraitQuestions[uiSkillPressed] && !TwoStagedTrait( uiSkillPressed ) )
 		{
 			//dont need to do anything
 			return;
@@ -753,7 +747,7 @@ INT8	CountNumSkillTraitsSelected( BOOLEAN fIncludeNoneSkill )
 	else
 		uiCntMax = IMP_SKILL_TRAITS__NUMBER_SKILLS;
 
-	for( uiCnt=0; uiCnt < uiCntMax; uiCnt++ )
+	for( uiCnt=0; uiCnt < uiCntMax; ++uiCnt )
 	{
 		if( !fIncludeNoneSkill && (uiCnt == (uiCntMax-1)) )
 			continue;
@@ -761,11 +755,11 @@ INT8	CountNumSkillTraitsSelected( BOOLEAN fIncludeNoneSkill )
 		//if the skill is selected ( ie depressed )
 		if( gfSkillTraitQuestions[ uiCnt ] )
 		{
-			iNumberSkills++;
+			++iNumberSkills;
 		}
 		if( gfSkillTraitQuestions2[ uiCnt ] )
 		{
-			iNumberSkills++;
+			++iNumberSkills;
 		} 
 	}
 
@@ -775,9 +769,7 @@ INT8	CountNumSkillTraitsSelected( BOOLEAN fIncludeNoneSkill )
 
 void HandleSkillTraitButtonStates( )
 {
-	INT32 uiCnt;
-
-	for( uiCnt=0; uiCnt<(gGameOptions.fNewTraitSystem ? IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS : IMP_SKILL_TRAITS__NUMBER_SKILLS); uiCnt++ )
+	for ( INT32 uiCnt = 0; uiCnt<(gGameOptions.fNewTraitSystem ? IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS : IMP_SKILL_TRAITS__NUMBER_SKILLS); ++uiCnt )
 	{
 			//if the merc is a FEMALE, skip this skill cause there isnt any fenmal martial artists
 		if( ShouldTraitBeSkipped( uiCnt ) )
@@ -1014,34 +1006,6 @@ BOOLEAN ShouldTraitBeSkipped( UINT32 uiTrait )
 		else
 			return( FALSE );
 	}
-}
-
-BOOLEAN DoesSkillHaveExpertLevel( UINT32 uiSkillTrait )
-{
-	if( gGameOptions.fNewTraitSystem )
-	{
-		// WANNE: Yes we have no animation, but the Trait bonus also works with the missing animations.
-		/*
-		// WANNE: No material arts allowed for big body types and females, because we don't have a material art animation on big body types!
-		if (uiSkillTrait == IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS && (!fCharacterIsMale || bBigBodySelected()))
-			return (FALSE);
-		*/
-		
-		return( TRUE );
-	}
-	else
-	{
-		if (uiSkillTrait == IMP_SKILL_TRAITS__ELECTRONICS || 
-			uiSkillTrait == IMP_SKILL_TRAITS__AMBIDEXTROUS || 
-			uiSkillTrait == IMP_SKILL_TRAITS__CAMO )
-		{
-			return( FALSE );
-		}
-		
-		return( TRUE );		
-	}
-
-	return( TRUE );
 }
 
 void AddSelectedSkillsToSkillsList()
@@ -1346,44 +1310,36 @@ INT32 StrengthRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-			return (70);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
+			minreq = max( minreq, 70 );
 		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-			return (60);
-		else
-			return (45);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-			return (55);
-		else
-			return (40);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		return (45);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		return (40);
+			minreq = max( minreq, 55 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+			minreq = max( minreq, 55 );
+		else
+			minreq = max( minreq, 40 );
+	}
+
+	return minreq;
 }
+
 INT32 AgilityRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1392,44 +1348,36 @@ INT32 AgilityRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-			return (70);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
+			minreq = max( minreq, 70 );
 		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		return (45);
+			minreq = max( minreq, 55 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }
+
 INT32 DexterityRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1438,88 +1386,68 @@ INT32 DexterityRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-			return (70);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
+			minreq = max( minreq, 70 );
 		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-			return (70);
-		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		return (45);
+			minreq = max( minreq, 55 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
+			minreq = max( minreq, 70 );
+		else
+			minreq = max( minreq, 55 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }
+
 INT32 HealthRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1528,44 +1456,36 @@ INT32 HealthRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_RANGER ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-			return (70);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+			minreq = max( minreq, 70 );
 		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-			return (60);
-		else
-			return (45);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		return (45);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS ])
-	{
-		return (45);
+			minreq = max( minreq, 55 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }
+
 INT32 LeadershipRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1574,43 +1494,34 @@ INT32 LeadershipRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
-			return (65);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER] )
+			minreq = max( minreq, 65 );
 		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-			return (50);
-		else
-			return (35);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_COVERT ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_COVERT ])
-			return (45);
-		else
-			return (30);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		return (35);
-	}
-	else if ( gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
-	{
-		return (30);
+			minreq = max( minreq, 50 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+			minreq = max( minreq, 50 );
+		else
+			minreq = max( minreq, 35 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_COVERT] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_COVERT] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
+			minreq = max( minreq, 45 );
+		else
+			minreq = max( minreq, 30 );
+	}
+
+	return minreq;
 }
 
 INT32 WisdomRequiredDueToMajorSkills( void )
@@ -1621,73 +1532,60 @@ INT32 WisdomRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
-			return (75);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_SQUADLEADER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_SQUADLEADER] )
+			minreq = max( minreq, 75 );
 		else
-			return (60);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_COVERT ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_COVERT ])
-			return (75);
-		else
-			return (60);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-			return (70);
-		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-			return (70);
-		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-			return (65);
-		else
-			return (50);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_SQUADLEADER ])
-	{
-		return (60);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-	{
-		return (50);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		return (45);
+			minreq = max( minreq, 60 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_COVERT] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_COVERT] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_COVERT] )
+			minreq = max( minreq, 75 );
+		else
+			minreq = max( minreq, 60 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+			minreq = max( minreq, 70 );
+		else
+			minreq = max( minreq, 55 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
+			minreq = max( minreq, 70 );
+		else
+			minreq = max( minreq, 55 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
+			minreq = max( minreq, 65 );
+		else
+			minreq = max( minreq, 50 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }
+
 INT32 MarksmanshipRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1696,55 +1594,44 @@ INT32 MarksmanshipRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-			return (80);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_PROF_SNIPER] )
+			minreq = max( minreq, 80 );
 		else
-			return (65);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-			return (70);
-		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-			return (70);
-		else
-			return (55);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_PROF_SNIPER ])
-	{
-		return (65);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_RANGER ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_GUNSLINGER ])
-	{
-		return (55);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS ])
-	{
-		return (45);
+			minreq = max( minreq, 65 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_RANGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_RANGER] )
+			minreq = max( minreq, 70 );
+		else
+			minreq = max( minreq, 55 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_GUNSLINGER] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_GUNSLINGER] )
+			minreq = max( minreq, 70 );
+		else
+			minreq = max( minreq, 55 );
+	}
+
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }
+
 INT32 MechanicalRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1753,22 +1640,20 @@ INT32 MechanicalRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-			return (60);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+			minreq = max( minreq, 60 );
 		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		return (45);
+			minreq = max( minreq, 45 );
 	}
 
-	return(0);
+	return minreq;
 }
+
 INT32 MedicalRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1777,22 +1662,20 @@ INT32 MedicalRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-			return (60);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_DOCTOR] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_DOCTOR] )
+			minreq = max( minreq, 60 );
 		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_DOCTOR ])
-	{
-		return (45);
+			minreq = max( minreq, 45 );
 	}
 
-	return(0);
+	return minreq;
 }
+
 INT32 ExplosivesRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
@@ -1801,30 +1684,24 @@ INT32 ExplosivesRequiredDueToMajorSkills( void )
 		return 0;
 	}
 
+	INT32 minreq = 0;
+
 	// Check first skill trait (plus second for double trait)
-	if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
 	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-			return (60);
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS] )
+			minreq = max( minreq, 60 );
 		else
-			return (45);
-	}
-	else if (gfSkillTraitQuestions[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-			return (60);
-		else
-			return (45);
-	}
-	// Check the second skill trait
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS ])
-	{
-		return (45);
-	}
-	else if (gfSkillTraitQuestions2[ IMP_SKILL_TRAITS_NEW_TECHNICIAN ])
-	{
-		return (45);
+			minreq = max( minreq, 45 );
 	}
 
-	return(0);
+	if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] || gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+	{
+		if ( gfSkillTraitQuestions[IMP_SKILL_TRAITS_NEW_TECHNICIAN] && gfSkillTraitQuestions2[IMP_SKILL_TRAITS_NEW_TECHNICIAN] )
+			minreq = max( minreq, 60 );
+		else
+			minreq = max( minreq, 45 );
+	}
+
+	return minreq;
 }

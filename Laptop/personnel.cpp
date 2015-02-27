@@ -7453,42 +7453,6 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot != 0 )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle != 0 )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[7], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				if( gSkillTraitValues.ubRABreathForTravellingReduction != 0 )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[8], ( gSkillTraitValues.ubRABreathForTravellingReduction * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				if( gSkillTraitValues.ubRAWeatherPenaltiesReduction != 0 )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[9], ( gSkillTraitValues.ubRAWeatherPenaltiesReduction * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-				//if( gSkillTraitValues.ubRACamoEffectivenessBonus != 0 )
-				//{
-				//	swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[10], ( gSkillTraitValues.ubRACamoEffectivenessBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-				//	wcscat( apStr, atStr );
-				//}
-				if( gSkillTraitValues.ubRACamoWornountSpeedReduction != 0 )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[11], ( gSkillTraitValues.ubRACamoWornountSpeedReduction * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
-					wcscat( apStr, atStr );
-				}
-
-				if ( gSkillTraitValues.usTrackerMaxRange && gSkillTraitValues.usTrackerAbility )
-				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[12], (gSkillTraitValues.usTrackerAbility * (fExpertLevel ? 2 : 1) * gSkillTraitValues.usTrackerMaxRange / 100) );
-					wcscat( apStr, atStr );
-				}
 
 				break;
 			}
@@ -8294,6 +8258,44 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				if( gSkillTraitValues.ubSNTHearingRangeBonus )
 				{
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsSnitch[6],gSkillTraitValues.ubSNTHearingRangeBonus);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case SURVIVAL_NT:
+			{
+				swprintf( apStr, L"" );
+
+				if ( gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[0], gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot, sSpecialCharacters[0] );
+					wcscat( apStr, atStr );
+				}
+				if ( gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[1], gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle, sSpecialCharacters[0] );
+					wcscat( apStr, atStr );
+				}
+				if ( gSkillTraitValues.ubSVBreathForTravellingReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[2], gSkillTraitValues.ubSVBreathForTravellingReduction, sSpecialCharacters[0] );
+					wcscat( apStr, atStr );
+				}
+				if ( gSkillTraitValues.ubSVWeatherPenaltiesReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[3], gSkillTraitValues.ubSVWeatherPenaltiesReduction, sSpecialCharacters[0] );
+					wcscat( apStr, atStr );
+				}
+
+				if ( gSkillTraitValues.ubSVCamoWornountSpeedReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[4], gSkillTraitValues.ubSVCamoWornountSpeedReduction, sSpecialCharacters[0] );
+					wcscat( apStr, atStr );
+				}
+
+				if ( gSkillTraitValues.usSVTrackerMaxRange && gSkillTraitValues.usSVTrackerAbility )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[5], (gSkillTraitValues.usSVTrackerAbility * gSkillTraitValues.usSVTrackerMaxRange / 100) );
 					wcscat( apStr, atStr );
 				}
 				break;

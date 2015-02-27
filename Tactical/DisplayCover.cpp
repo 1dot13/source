@@ -1456,12 +1456,12 @@ void CalculateTrackerRange( )
 	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) ||  !pSoldier->bInSector )
 		return;
 
-	FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) * gSkillTraitValues.usTrackerAbility + pSoldier->GetBackgroundValue( BG_TRACKER_ABILITY )) / 100.0f;
+	FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) * gSkillTraitValues.usSVTrackerAbility + pSoldier->GetBackgroundValue( BG_TRACKER_ABILITY )) / 100.0f;
 	
 	if ( trackerskill < 0.01f )
 		return;
 
-	UINT16 range = gSkillTraitValues.usTrackerMaxRange * trackerskill;
+	UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 
 	const INT32& sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
 
