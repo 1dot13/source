@@ -2152,7 +2152,7 @@
 		<szShortName>B-Movie Star</szShortName>
 		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
 		<approach_friendly>20</approach_friendly>
-		<camo>10</camo>
+		<camo>20</camo>
 		<capitulation>5</capitulation>
 		<no_male>1</no_male>
 		<no_female>1</no_female>

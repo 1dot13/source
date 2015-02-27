@@ -68,6 +68,7 @@
 <!-- minor Skill (19)	Scouting					-->
 <!-- minor Skill (21)	Radio Operator				-->
 <!-- minor Skill (22)	Snitch						-->
+<!-- minor Skill (23)	Survival					-->
 
 <!-- STOMP Character Traits -->
 
@@ -1089,7 +1090,7 @@
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>14</bNewSkillTrait1>
-		<bNewSkillTrait2>4</bNewSkillTrait2>
+		<bNewSkillTrait2>23</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>7</bBuddy1>
 		<bBuddy2>6</bBuddy2>
@@ -1184,8 +1185,8 @@
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait3>23</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -16100,7 +16101,7 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
@@ -16385,9 +16386,9 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>1</bNewSkillTrait3>
+		<bNewSkillTrait3>23</bNewSkillTrait3>
 		<bBuddy1>175</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -17145,9 +17146,9 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>15</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>4</bNewSkillTrait2>
-		<bNewSkillTrait3>11</bNewSkillTrait3>
+		<bNewSkillTrait1>11</bNewSkillTrait1>
+		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait3>23</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -21967,7 +21968,7 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>9</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>23</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>59</bBuddy1>
