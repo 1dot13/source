@@ -151,7 +151,12 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s PA pour tirer avec les fusils à pompe\n",
 	L"Ajoute un niveau de visée pour les fusils à pompe\n",
 	L"Ajoute %d niveaux de visée pour les fusils à pompe\n",
+	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
+	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
+	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
+	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
 };
+
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"-%d%s du nombre de PA nécessaire pour tirer avec un pistolet ou un revolver\n",

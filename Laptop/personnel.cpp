@@ -7444,13 +7444,30 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[3], ( gSkillTraitValues.ubRAFiringSpeedBonusShotguns * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
+				if( gSkillTraitValues.ubRAReloadSpeedShotgunsManual != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[7], ( gSkillTraitValues.ubRAReloadSpeedShotgunsManual * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
 				if( gSkillTraitValues.ubRAAimClicksAdded != 0 )
 				{
-					if( (gSkillTraitValues.ubRAAimClicksAdded >= 2 && !fExpertLevel) || (gSkillTraitValues.ubRAAimClicksAdded == 1 && fExpertLevel) )
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
+					if( gSkillTraitValues.ubRAAimClicksAdded == 1 && !fExpertLevel )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) ) );
 					else
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) ) );
 
+					wcscat( apStr, atStr );
+					// half of the above bonus also applies to rifles
+					if( (gSkillTraitValues.ubRAAimClicksAdded >= 2 && !fExpertLevel) || (gSkillTraitValues.ubRAAimClicksAdded == 1 && fExpertLevel) )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[8], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[9], (UINT8)( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1) / 2.0f));
+
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRAEffectiveRangeBonusShotguns != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRAEffectiveRangeBonusShotguns * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
 

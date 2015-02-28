@@ -150,6 +150,10 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s ОД на выстрел из дробовика\n",
 	L"+%d клик прицеливания для дробовиков\n",
 	L"+%d кликов прицеливания для дробовиков\n",
+	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
+	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
+	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
+	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {

@@ -144,12 +144,16 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
-	L"+%d%s Trefferchance mit Büchsen\n",
-	L"+%d%s Trefferchance mit Flinten\n",
-	L"-%d%s APs benötigt um Flinten zu repetieren\n",
-	L"-%d%s APs benötigt um Flinten abzufeuern\n",
-	L"Gibt Flinten einen weiteren Zielklick\n",
-	L"%d weitere Zielklicks für Flinten\n",
+	L"+%d%s Trefferchance mit Gewehren\n",
+	L"+%d%s Trefferchance mit Schrotflinten\n",
+	L"-%d%s APs benötigt, um Schrotflinten zu repetieren\n",
+	L"-%d%s APs benötigt, um Schrotflinten abzufeuern\n",
+	L"Gibt Schrotflinten einen weiteren Zielklick\n",
+	L"%d weitere Zielklicks für Schrotflinten\n",
+	L"+%d%s effektive Reichweite mit Schrotflinten\n",
+	L"-%d%s APs benötigt, um einzelne Schrotpatronen zu laden\n",
+	L"Gibt Gewehren einen weiteren Zielklick\n",
+	L"%d weitere Zielklicks für Gewehre\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=

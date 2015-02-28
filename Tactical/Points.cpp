@@ -3008,20 +3008,33 @@ INT16 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJEC
 		// individually loaded guns
 		int reload = 0;
 		int rounds = __min((GetMagSize(pGun)-(*pGun)[0]->data.gun.ubGunShotsLeft), Magazine[Item[pAmmo->usItem].ubClassIndex].ubMagSize);
+		FLOAT fSpeedBonus = 1.0;
+
+		// Ambidextrous check
+		if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
+			fSpeedBonus *= (FLOAT)(100 - gSkillTraitValues.ubAMReloadSpeedLoose) / 100.0;
+
+		// Ranger bonus to reload shotgun shells manually
+		if( Weapon[ pGun->usItem ].ubWeaponType == GUN_SHOTGUN && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			fSpeedBonus *= (FLOAT)(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100.0;
+
+		// limit bonus to proper values
+		fSpeedBonus = __min( 1.0, __max( 0.1, fSpeedBonus ) );
+
 		if(!((*pGun)[0]->data.gun.ubGunState & GS_WEAPON_BEING_RELOADED))
 		{
-			reload = GetAPsToReload(pGun);
-			// SANDRO - added Ambidextrous check
+			reload = GetAPsToReload(pGun) * fSpeedBonus;
+/*			// SANDRO - added Ambidextrous check
 			if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 			{
 				reload = (INT16)(reload * (100 - gSkillTraitValues.ubAMReloadSpeedMagazines)/100);
-			}
+			}*/
 		}
 		if(usAllAPs == 1)
 		{
 			for(int i = 1; i <= rounds; i++)
 			{
-				// SANDRO - added Ambidextrous check
+/*				// SANDRO - added Ambidextrous check
 				if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 				{
 					if(EnoughPoints(pSoldier,(reload + (i * (INT16)((APBPConstants[AP_RELOAD_LOOSE]*(100 - gSkillTraitValues.ubAMReloadSpeedLoose)/100) + 0.5))),0,FALSE) == FALSE)
@@ -3031,23 +3044,23 @@ INT16 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJEC
 					}
 				}
 				else
-				{
-					if(EnoughPoints(pSoldier,(reload + (i * APBPConstants[AP_RELOAD_LOOSE])),0,FALSE) == FALSE)
+				{*/
+					if(EnoughPoints(pSoldier,(reload + (i * (INT16)(APBPConstants[AP_RELOAD_LOOSE] * fSpeedBonus + 0.5))),0,FALSE) == FALSE)
 					{
 						rounds = i-1;
 						break;
 					}
-				}
+//				}
 			}
 		}
 		else if (usAllAPs == 2)
 			rounds = 1;
 
-		// SANDRO - added Ambidextrous check
+/*		// SANDRO - added Ambidextrous check
 		if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 			return (reload + ((INT16) (rounds * (APBPConstants[AP_RELOAD_LOOSE]*(100 - gSkillTraitValues.ubAMReloadSpeedLoose)/100) + 0.5)));
-		else
-			return (reload + (rounds * APBPConstants[AP_RELOAD_LOOSE]));
+		else*/
+			return (reload + (rounds * (INT16)(APBPConstants[AP_RELOAD_LOOSE] * fSpeedBonus + 0.5)));
 	}
 
 	return GetAPsToReload(pGun); // added by SANDRO - safety check

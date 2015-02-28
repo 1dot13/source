@@ -963,13 +963,20 @@ UINT16 GunRange( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier ) // SANDRO - added a
 		rng = (usRange * GetPercentRangeBonus(pObj))/10000; 
 		rng += GetRangeBonus(pObj);
 
-		// SANDRO - STOMP traits - Gunslinger bonus range with pistols
+		// SANDRO - STOMP traits
 		if ( pSoldier != NULL && Item[ pObj->usItem ].usItemClass & IC_GUN )
 		{
+			//  Gunslinger bonus range with pistols
 			if ((Weapon[ pObj->usItem ].ubWeaponType == GUN_PISTOL || Weapon[ pObj->usItem ].ubWeaponType == GUN_M_PISTOL) &&
 				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
 			{
 				rng += (rng * gSkillTraitValues.ubGSEffectiveRangeBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) / 100 );
+			}
+			// Ranger bonus range with shotguns
+			else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_SHOTGUN &&
+				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			{
+				rng += (rng * gSkillTraitValues.ubRAEffectiveRangeBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 100 );
 			}
 		}
 

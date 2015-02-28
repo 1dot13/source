@@ -1240,9 +1240,9 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 
 	if( fCursorLockedToArea == TRUE )
 	{
-		GetMousePos( &pPosition );
-
-		if( ( pPosition.iX > MessageBoxRestrictedCursorRegion.iRight ) || ( pPosition.iX > MessageBoxRestrictedCursorRegion.iLeft ) && ( pPosition.iY < MessageBoxRestrictedCursorRegion.iTop ) && ( pPosition.iY > MessageBoxRestrictedCursorRegion.iBottom ) )
+		// silversurfer: Why would we only reset cursor position if it is outside of some boundary? If "fCursorLockedToArea" is set we put the cursor back to its old position no matter where it is!
+		//GetMousePos( &pPosition );
+		//if( ( pPosition.iX > MessageBoxRestrictedCursorRegion.iRight ) || ( pPosition.iX > MessageBoxRestrictedCursorRegion.iLeft ) && ( pPosition.iY < MessageBoxRestrictedCursorRegion.iTop ) && ( pPosition.iY > MessageBoxRestrictedCursorRegion.iBottom ) )
 		{
 			SimulateMouseMovement( pOldMousePosition.iX , pOldMousePosition.iY );
 		}

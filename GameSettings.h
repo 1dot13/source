@@ -1616,6 +1616,8 @@ typedef struct
 	UINT8 ubRAPumpShotgunsAPsReduction;
 	UINT8 ubRAFiringSpeedBonusShotguns;
 	UINT8 ubRAAimClicksAdded;
+	UINT8 ubRAEffectiveRangeBonusShotguns;
+	UINT8 ubRAReloadSpeedShotgunsManual;
 
 	// GUNSLINGER
 	UINT8 ubGSFiringSpeedBonusPistols;

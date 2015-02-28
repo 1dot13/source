@@ -2320,10 +2320,12 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubRAPumpShotgunsAPsReduction = iniReader.ReadInteger("Ranger","PUMP_SHOTGUNS_APS_REDUCTION", 25, 0, 45);
 	gSkillTraitValues.ubRAFiringSpeedBonusShotguns = iniReader.ReadInteger("Ranger","FIRING_SPEED_BONUS_SHOTGUNS", 10, 0, 45);
 	gSkillTraitValues.ubRAAimClicksAdded = iniReader.ReadInteger("Ranger","POSSIBLE_AIM_CLICK_ADDED_SHOTGUNS", 1, 0, 3);
+	gSkillTraitValues.ubRAEffectiveRangeBonusShotguns = iniReader.ReadInteger("Ranger","EFFECTIVE_RANGE_BONUS_SHOTGUNS", 10, 0, 100);
+	gSkillTraitValues.ubRAReloadSpeedShotgunsManual = iniReader.ReadInteger("Ranger","RELOAD_SPEED_SHOTGUNS_MANUAL", 15, 0, 30);
 	
 	// GUNSLINGER
 	gSkillTraitValues.ubGSFiringSpeedBonusPistols = iniReader.ReadInteger("Gunslinger","FIRING_SPEED_BONUS_PISTOLS", 15, 0, 45);
-	gSkillTraitValues.ubGSEffectiveRangeBonusPistols = iniReader.ReadInteger("Gunslinger","FEFFECTIVE_RANGE_BONUS_PISTOLS", 10, 0, 100);
+	gSkillTraitValues.ubGSEffectiveRangeBonusPistols = iniReader.ReadInteger("Gunslinger","EFFECTIVE_RANGE_BONUS_PISTOLS", 10, 0, 100);
 	gSkillTraitValues.ubGSBonusCtHPistols = iniReader.ReadInteger("Gunslinger","BONUS_CTH_PISTOLS", 10, 0, 100);
 	gSkillTraitValues.ubGSBonusCtHMachinePistols = iniReader.ReadInteger("Gunslinger","BONUS_CTH_MACHINE_PISTOLS", 5, 0, 100);
 	gSkillTraitValues.ubGSCtHMPExcludeAuto = iniReader.ReadBoolean("Gunslinger","CTH_MP_EXCLUDE_AUTOFIRE", TRUE);

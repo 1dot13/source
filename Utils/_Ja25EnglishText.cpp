@@ -150,6 +150,10 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s APs to fire Shotguns\n",
 	L"Adds %d more aim click for Shotguns\n",
 	L"Adds %d more aim clicks for Shotguns\n",
+	L"+%d%s effective range with Shotguns\n",
+	L"-%d%s APs to reload single Shotgun shells\n",
+	L"Adds %d more aim click for Rifles\n",
+	L"Adds %d more aim clicks for Rifles\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=

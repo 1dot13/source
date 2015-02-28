@@ -150,6 +150,10 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"使用散弹枪时-%d%s APs\n",	//L"-%d%s APs to fire Shotguns\n",
 	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim click for Shotguns\n",
 	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim clicks for Shotguns\n",
+	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
+	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
+	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
+	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {

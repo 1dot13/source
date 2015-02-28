@@ -10482,8 +10482,10 @@ INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 		if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_PISTOL || Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_M_PISTOL )
 			ubSkillModifier -= gSkillTraitValues.ubGSAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
 		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN )
-			ubSkillModifier -= (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f);
-		else
+			ubSkillModifier -= gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE )
+			ubSkillModifier -= __max( (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f), gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) );
+		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
 			ubSkillModifier -= gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
 	}
 	else
@@ -13339,9 +13341,9 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 				// silversurfer added this - STOMP traits - Ranger bonus aim clicks
 				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
 				{
-					maxAimForType += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f);
-					aimLevels += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f);
-					maxAimWithoutBipod += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f);
+					maxAimForType += gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+					aimLevels += gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+					maxAimWithoutBipod += gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
 				}
 			}
 			else if (weaponType == GUN_LMG || (weaponType == GUN_SMG && fTwoHanded == 1))
@@ -13356,12 +13358,12 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 				aimLevels = 2;
 				maxAimWithoutBipod = 3;
 
-				// SANDRO - STOMP traits - Sniper bonus aim clicks
-				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) )
+				// SANDRO - STOMP traits - Sniper and Ranger bonus aim clicks
+				if ( gGameOptions.fNewTraitSystem && weaponType == GUN_RIFLE )
 				{
-					maxAimForType += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
-					aimLevels += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
-					maxAimWithoutBipod += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+					maxAimForType += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+					aimLevels += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+					maxAimWithoutBipod += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
 				}
 			}
 			else if (((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE) && weaponRange > 500) || 
@@ -13370,12 +13372,22 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 				maxAimForType = 6;
 				aimLevels = 3;
 				maxAimWithoutBipod = 4;
-				// SANDRO - STOMP traits - Sniper bonus aim clicks
-				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) )
+				// SANDRO - STOMP traits - Sniper and Ranger bonus aim clicks
+				if ( gGameOptions.fNewTraitSystem )
 				{
-					maxAimForType += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
-					aimLevels += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
-					maxAimWithoutBipod += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+					if( weaponType == GUN_RIFLE )
+					{
+						maxAimForType += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+						aimLevels += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+						maxAimWithoutBipod += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+					}
+					else if( weaponType == GUN_SN_RIFLE )
+					{
+						maxAimForType += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+						aimLevels += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+						maxAimWithoutBipod += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+
+					}
 				}
 			}
 			else if (weaponType == GUN_SN_RIFLE && weaponRange > 500)
@@ -13520,11 +13532,13 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 					aimLevels += 2;
 				}
 
-				// SANDRO - STOMP traits - Sniper bonus aim clicks
-				if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE || weaponType == GUN_SN_RIFLE) &&
-					gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) )
+				// SANDRO - STOMP traits - Sniper and Ranger bonus aim clicks
+				if (gGameOptions.fNewTraitSystem )
 				{
-					aimLevels += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
+					if( weaponType == GUN_RIFLE )
+						aimLevels += __max( (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )), (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f) );
+					else if( weaponType == GUN_SN_RIFLE )
+						aimLevels += (gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ));
 				}
 			}
 			// SANDRO - STOMP traits - Gunslinger bonus aim clicks
@@ -13538,7 +13552,7 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 			if ( weaponType == GUN_SHOTGUN &&
 				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
 			{
-				aimLevels += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f);
+				aimLevels += gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
 			}
 
 			// SANDRO - if using alternative weapon holding, we reduce the aim levels available

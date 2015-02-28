@@ -6737,7 +6737,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
 
 			// Get Final Range value
-			UINT16 iFinalRangeValue = GunRange( gpItemDescObject, NULL );
+			UINT16 iFinalRangeValue = GunRange( gpItemDescObject, gpItemDescSoldier );
 
 			// Get difference
 			INT16 iRangeModifier = iFinalRangeValue - iRangeValue;
@@ -6761,7 +6761,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 					iComparedRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
 				// Get Final Range value
-				UINT16 iComparedFinalRangeValue = GunRange( gpComparedItemDescObject, NULL );
+				UINT16 iComparedFinalRangeValue = GunRange( gpComparedItemDescObject, gpItemDescSoldier );
 				// Get difference
 				INT16 iComparedRangeModifier = iComparedFinalRangeValue - iComparedRangeValue;
 				// Print difference in base value
@@ -7709,6 +7709,16 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get final Draw Cost
 			INT16 iFinalDrawAPCost = (Weapon[ gpItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpItemDescObject)) / 100);
+			// final draw cost modified by traits
+			if( gGameOptions.fNewTraitSystem )
+			{
+				// LMGs
+				if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_LMG && HAS_SKILL_TRAIT(gpItemDescSoldier, AUTO_WEAPONS_NT) )
+					iFinalDrawAPCost = (FLOAT)iFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubAWPercentReadyLMGReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, AUTO_WEAPONS_NT) ) / 100.0 );
+				// Pistols and Revolvers
+				else if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT(gpItemDescSoldier, GUNSLINGER_NT) )
+					iFinalDrawAPCost = (FLOAT)iFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubGSPercentReadyPistolsReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, GUNSLINGER_NT) ) / 100.0 );
+			}
 
 			// Get base Draw Cost
 			INT16 iDrawAPCost = Weapon[ gpItemDescObject->usItem ].ubReadyTime;
@@ -7729,6 +7739,17 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				// Get final Draw Cost
 				INT16 iComparedFinalDrawAPCost = (Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpComparedItemDescObject)) / 100);
+				// final draw cost modified by traits
+				if( gGameOptions.fNewTraitSystem )
+				{
+					// LMGs
+					if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_LMG && HAS_SKILL_TRAIT(gpItemDescSoldier, AUTO_WEAPONS_NT) )
+						iComparedFinalDrawAPCost = (FLOAT)iComparedFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubAWPercentReadyLMGReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, AUTO_WEAPONS_NT) ) / 100.0 );
+					// Pistols and Revolvers
+					else if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT(gpItemDescSoldier, GUNSLINGER_NT) )
+						iComparedFinalDrawAPCost = (FLOAT)iComparedFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubGSPercentReadyPistolsReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, GUNSLINGER_NT) ) / 100.0 );
+				}
+
 				// Get base Draw Cost
 				INT16 iComparedDrawAPCost = Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime;
 				// Get Draw Cost Modifier
@@ -7746,6 +7767,17 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			ubNumLine = 13;
 			// Get final Draw Cost
 			INT16 iFinalDrawAPCost = (Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(gpComparedItemDescObject)) / 100);
+			// final draw cost modified by traits
+			if( gGameOptions.fNewTraitSystem )
+			{
+				// LMGs
+				if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_LMG && HAS_SKILL_TRAIT(gpItemDescSoldier, AUTO_WEAPONS_NT) )
+					iFinalDrawAPCost = (FLOAT)iFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubAWPercentReadyLMGReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, AUTO_WEAPONS_NT) ) / 100.0 );
+				// Pistols and Revolvers
+				else if( Weapon[gpItemDescObject->usItem].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT(gpItemDescSoldier, GUNSLINGER_NT) )
+					iFinalDrawAPCost = (FLOAT)iFinalDrawAPCost * __max(0, (FLOAT)(100 - gSkillTraitValues.ubGSPercentReadyPistolsReduction * NUM_SKILL_TRAITS(gpItemDescSoldier, GUNSLINGER_NT) ) / 100.0 );
+			}
+
 			// Get base Draw Cost
 			INT16 iDrawAPCost = Weapon[ gpComparedItemDescObject->usItem ].ubReadyTime;
 			// Get Draw Cost Modifier
