@@ -16176,13 +16176,28 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner( )
 	return FALSE;
 }
 
-// can this guy be handcuffed?
-BOOLEAN		SOLDIERTYPE::CanBeHandcuffed( )
+// can this guy be captured (by handcuffing or asking him to surrender)?
+BOOLEAN		SOLDIERTYPE::CanBeCaptured( )
 {
-	// if this is an enemy that has not already been captured, and is not a NPC, we can handcuff and thus capture him
-	if ( this->bTeam == ENEMY_TEAM && !(this->usSoldierFlagMask & SOLDIER_POW) && this->ubProfile == NO_PROFILE )
-		return TRUE;
+	// if this guy is not already handcuffed, and is not an NPC
+	if ( !(this->usSoldierFlagMask & SOLDIER_POW) && this->ubProfile == NO_PROFILE )
+	{
+		// tanks cannot be captured
+		if ( this->ubSoldierClass == SOLDIER_CLASS_TANK )
+			return FALSE;
 
+		// enemies can be captured
+		if ( this->bTeam == ENEMY_TEAM )
+			return TRUE;
+
+		// civilians can be captured if their faction can, and if they are hostile
+		if ( this->bTeam == CIV_TEAM && zCivGroupName[this->ubCivilianGroup].fCanBeCaptured )
+		{
+			if ( !this->aiData.bNeutral && this->bSide == 1 )
+				return TRUE;
+		}
+	}
+	
 	return FALSE;
 }
 
@@ -19795,7 +19810,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
-	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->CanBeHandcuffed( ) )
+	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->CanBeCaptured( ) )
 	{
 		// we found someone we can handcuff
 		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
@@ -20390,8 +20405,9 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 			apsDeducted = TRUE;
 
-			// Flugente: if we are talking to an enemy, we have the option to offer them surrendering... but not on y levels >= 16 (no surrendering in the palace, as we have to kill, not capture, the queen)
-			if ( pTSoldier->bTeam == ENEMY_TEAM && (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && gWorldSectorY < WORLD_MAP_X - 2 )
+			// Flugente: if we are talking to an enemy, we have the option to offer them surrender...
+			if ( (pTSoldier->bTeam == ENEMY_TEAM || (pTSoldier->bTeam == CIV_TEAM && zCivGroupName[pTSoldier->ubCivilianGroup].fCanBeCaptured) ) 
+				 && (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) )
 			{
 				HandleSurrenderOffer( pTSoldier );
 				return(FALSE);

@@ -82,6 +82,7 @@ typedef struct
 	BOOLEAN		Enabled; //add
 	BOOLEAN Loyalty;
 	BOOLEAN AddToBattle;
+	BOOLEAN		fCanBeCaptured;		// Flugente: if TRUE, members of this faction can be captured
 	CHAR16	szCurGroup[MAX_ENEMY_NAMES_CHARS];
 
 } CIV_NAMES_VALUES;

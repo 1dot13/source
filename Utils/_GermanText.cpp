@@ -2280,16 +2280,18 @@ STR16 pPrisonerMenuStrings[] =	// TODO.Translate
 	L"Interrogate elites",
 	L"Interrogate officers",
 	L"Interrogate generals",
+	L"Interrogate civilians",
 	L"Cancel",
 };
 
 STR16 pPrisonerMenuDescStrings[] =
 {
 	L"Administrators are easy to process, but give only poor results",
-	L"Regular troops are common an don't give you high rewards.",
+	L"Regular troops are common and don't give you high rewards.",
 	L"If elite troops defect to you, they can become veteran militia.",
 	L"Interrogating enemy officers can lead you to find enemy generals.",
 	L"Generals cannot join your militia, but lead to high ransoms.",
+	L"Civilians don't offer much resistance, but are second-rate troops at best.",
 	L"Cancel",
 };
 
@@ -3562,8 +3564,18 @@ STR16 pwTownInfoStrings[] =
 	L"Zivilistentraining",				// 10 // state of civilian training in town
 	L"Miliz", 					// the state of the trained civilians in the town
 	L"Mobile M. Training",				// HEADROCK HAM 3.6: The stat of Mobile militia training in town
-	L"Prisoners",				// Flugente: display number of prisoners	// TODO.Translate
-	L"%d/%d - %dA %dR %dE %dO %dG",	// TODO.Translate	//	Info: Total # of prisoners/capacity - # of Admins # of Regulars # of Elites # of Officers # of Generals
+	
+	// Flugente: prisoner texts
+	L"Gefangene",
+	L"%d (max. %d)",
+	L"%d Hilfssoldaten",
+	L"%d Truppen",
+	L"%d Elite",
+	L"%d Offiziere",
+	L"%d Generele",
+	L"%d Zivilisten",
+	L"%d Special1",
+	L"%d Special2",
 };
 
 // Mine strings
@@ -7959,7 +7971,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d Offiziere, %d Elite-, %d Reguläre und %d Hilfssoldaten wurden verhört.",
+	L"%d Offiziere, %d Elite-, %d Reguläre, %d Hilfssoldaten, %d Generäle und %d Zivilisten wurden verhört.",
 	L"%d Gefangene wurden gegen Lösegeld freigelassen.",
 	L"%d Gefangene haben uns Truppenstandorte verraten.",
 	L"%d Offiziere, %d Elite-, %d Reguläre und %d Hilfssoldaten laufen zu uns über.",
@@ -7971,7 +7983,9 @@ STR16	szPrisonerTextStr[]=
 	L"Der Feind weigert sich, Sie als Gefangenen zu nehmen - Er möchte Sie tod sehen!",
 	L"Dieses Verhalten ist ausgeschaltet in der ja2_options.ini Datei.",
 	L"%s hat %s befreit!",
-	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
+	L"Ein Gefangener hat den Aufenthaltsort eines hochrangigen Offiziers in %s enthüllt!",
+	L"Der feindliche Anführer denkt nicht mal an Kapitulation!",
+	L"%d Gefangene sind uns als Freiwillige beigetreten.",
 };
 
 STR16	szMTATextStr[]=

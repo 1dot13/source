@@ -6789,7 +6789,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	for ( pTeamSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pTeamSoldier, ++cnt )
 	{
 		// Kill those not already dead.,...
-		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == ENEMY_TEAM )
+		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 		{
 			// Only pows that are not dead yet
 			if ( (pTeamSoldier->usSoldierFlagMask & SOLDIER_POW) && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_DEAD) )
@@ -6802,7 +6802,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 						++sNumPrisoner[PRISONER_GENERAL];
 					else if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 						++sNumPrisoner[PRISONER_OFFICER];
-					else
+					else if ( pTeamSoldier->bTeam == ENEMY_TEAM )
 					{
 						switch ( pTeamSoldier->ubSoldierClass )
 						{
@@ -6814,6 +6814,10 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 							continue;
 							break;
 						}
+					}
+					else //if ( pTeamSoldier->bTeam == CIV_TEAM )
+					{
+						++sNumPrisoner[PRISONER_CIVILIAN];
 					}
 
 					// Flugente: VIPs
@@ -10427,6 +10431,12 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		// if the merc asking for surrender is experienced in capitulation negotiations, we get a bonus to our strength
 		if ( pSoldier )
 			playersidestrength = (playersidestrength * (100 + pSoldier->GetBackgroundValue(BG_PERC_CAPITULATION))) / 100;
+
+		// Capturing profile-based NPCs would be desirable, but is a good way to break quests. Due to this, we don't allow capturing them.
+		// As it would be odd if the entire enemy team surrenders apart from one guy, we don't allow surrender, no matter the surrender strength, if a hostile profile-based NPC is around.
+		// We also don't allow surrender if the enemy has a tank.
+		// We justify this storywise by these soldiers being very determined leaders who don't allow surrender categorically.
+		BOOLEAN fNoSurrender = FALSE;
 		
         // enemy team
         firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
@@ -10436,6 +10446,9 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
             {
                 enemysidestrength += pSoldier->GetSurrenderStrength();
+
+				if ( pSoldier->ubProfile != NO_PROFILE || pSoldier->ubSoldierClass == SOLDIER_CLASS_TANK )
+					fNoSurrender = TRUE;
             }
         }
 
@@ -10447,8 +10460,14 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
             {
 				// if a civilian is not neutral and on the enemy side, add his strength to the team
-				if ( !pSoldier->aiData.bNeutral && pSoldier->bSide == 1 )
-					enemysidestrength += pSoldier->GetSurrenderStrength();
+				if ( !pSoldier->aiData.bNeutral && pSoldier->bSide == 1 && zCivGroupName[pSoldier->ubCivilianGroup].fCanBeCaptured && pSoldier->ubProfile != NO_PROFILE )
+					fNoSurrender = TRUE;
+
+				// a civilian can only be captured if his faction is allowed to. This should prevent the player from exploiting a huge numerical superiority against small enemy groups, like lone assassins.
+				if ( !pSoldier->CanBeCaptured() )
+					continue;
+
+				enemysidestrength += pSoldier->GetSurrenderStrength( );
             }
         }
 
@@ -10464,7 +10483,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SURRENDER_VALUES], playersidestrength, gGameExternalOptions.fSurrenderMultiplier * enemysidestrength );
 
         // perhaps this can be fleshed out more, for now, let's see if this is acceptable behaviour
-        if ( playersidestrength >= gGameExternalOptions.fSurrenderMultiplier * enemysidestrength )
+		if ( !fNoSurrender && playersidestrength >= gGameExternalOptions.fSurrenderMultiplier * enemysidestrength )
         {
             // it is enough to simply set all soldiers to captured
             firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
@@ -10473,8 +10492,12 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             {
                 if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
                 {
-                    // only if not dying, and if not a NPC (Mike...)
-                    if( pSoldier->stats.bLife >= OKLIFE && pSoldier->ubProfile == NO_PROFILE )
+					// can this guy be captured?
+					if ( !pSoldier->CanBeCaptured( ) )
+						continue;
+
+                    // only if not dying
+                    if( pSoldier->stats.bLife >= OKLIFE )
                     {
                         pSoldier->usSoldierFlagMask |= SOLDIER_POW;
 
@@ -10483,10 +10506,34 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
                     }
                 }
             }
+
+			firstid = gTacticalStatus.Team[CIV_TEAM].bFirstID;
+			lastid  = gTacticalStatus.Team[CIV_TEAM].bLastID;
+			for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+			{
+				if ( pSoldier->bActive && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
+				{
+					// can this guy be captured?
+					if ( !pSoldier->CanBeCaptured() )
+						continue;
+
+					// only if not dying
+					if ( pSoldier->stats.bLife >= OKLIFE )
+					{
+						pSoldier->usSoldierFlagMask |= SOLDIER_POW;
+
+						// Remove as target
+						RemoveManAsTarget( pSoldier );
+					}
+				}
+			}
         }
         else
         {
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER] );
+			if ( fNoSurrender )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER_LEADER] );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER] );
 
             // if asking for surrender while undercover and the enemy refuses, he learns who you are, so he uncovers you
             if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
@@ -10561,8 +10608,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 {
-    // only against enemies...
-    if ( !pSoldier || pSoldier->bTeam != ENEMY_TEAM )
+    // abort if bad pointer, or not an enemy and not a capturable civilian
+	if ( !pSoldier || !pSoldier->CanBeCaptured( ) )
         return;
 
     // remember the target's ID

@@ -6764,6 +6764,11 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 						++numinterrogators[PRISONER_GENERAL];
 						interrogationpoints[PRISONER_GENERAL] += points;
 					}
+					else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_CIVILIAN )
+					{
+						++numinterrogators[PRISONER_CIVILIAN];
+						interrogationpoints[PRISONER_CIVILIAN] += points;
+					}
 					// admin is default
 					else
 					{
@@ -6846,16 +6851,18 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		return;
 
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_PROCESSED], 
-			   interrogatedprisoners[PRISONER_OFFICER], interrogatedprisoners[PRISONER_ELITE], interrogatedprisoners[PRISONER_REGULAR], interrogatedprisoners[PRISONER_ADMIN] );
+			   interrogatedprisoners[PRISONER_OFFICER], interrogatedprisoners[PRISONER_ELITE], interrogatedprisoners[PRISONER_REGULAR], 
+			   interrogatedprisoners[PRISONER_ADMIN], interrogatedprisoners[PRISONER_GENERAL], interrogatedprisoners[PRISONER_CIVILIAN] );
 		
 	UINT16 turnedmilitia[PRISONER_MAX] = { 0 };
+	UINT16 volunteers = 0;
 	UINT32 revealedpositions = 0;
 	UINT32 ransomscollected = 0;
 	UINT32 ransommoney = 0;
 	for ( UINT32 i = 0; i < prisonersinterrogated; ++i )
 	{
 		// what kind of a prisoner is this?
-		UINT8 prisonertype = PRISONER_THUG;
+		UINT8 prisonertype = PRISONER_CIVILIAN;
 		if ( i < interrogatedprisoners[PRISONER_ADMIN] )
 			prisonertype = PRISONER_ADMIN;
 		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] )
@@ -6877,8 +6884,9 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( prisonertype == PRISONER_GENERAL )
 			chances[PRISONER_INTERROGATION_DEFECT] = 0;
 
-		if ( prisonertype == PRISONER_THUG )
-			chances[PRISONER_INTERROGATION_DEFECT] = 0;
+		// civilians know nothing about army movement
+		if ( prisonertype == PRISONER_CIVILIAN )
+			chances[PRISONER_INTERROGATION_INFO] = 0;
 
 		// for normalisation, get sum of chances
 		UINT16 sumchance = 0;
@@ -6903,14 +6911,21 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( result < chances[PRISONER_INTERROGATION_DEFECT] )
 		{
 			// troops are converted to militia, but there is a chance that they will be demoted in the process
-			if ( prisonertype >= PRISONER_OFFICER && Chance( 80 ) )
+
+			// civilians need to receive basic training - these are volunteers
+			if ( prisonertype == PRISONER_CIVILIAN )
+				++volunteers;
+			else if ( prisonertype >= PRISONER_OFFICER && Chance( 80 ) )
 				++turnedmilitia[PRISONER_OFFICER];
 			else if ( prisonertype >= PRISONER_ELITE && Chance( 80 ) )
 				++turnedmilitia[PRISONER_ELITE];
 			else if ( prisonertype >= PRISONER_REGULAR && Chance( 80 ) )
 				++turnedmilitia[PRISONER_REGULAR];
-			else
+			else if ( prisonertype >= PRISONER_ADMIN && Chance( 80 ) )
 				++turnedmilitia[PRISONER_ADMIN];
+			else
+				// some might even fail to qualify as admins, these are volunteers - we have to 'retrain' them
+				++volunteers;
 
 			// we continue so that this guy cannot also run back to the queen
 			continue;
@@ -6918,30 +6933,8 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// chance that prisoner will give us random info about enemy positions
 		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] )
 		{
-			// if this guy is an elite or a special prisoner, there is a chance he might tell us about high-value targets!
-			BOOLEAN fGetInfoOnHiddenVIPs = FALSE;
-			if ( prisonertype == PRISONER_ADMIN )
-			{
-				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN] ) )
-					fGetInfoOnHiddenVIPs = TRUE;
-			}
-			else if ( prisonertype == PRISONER_REGULAR )
-			{
-				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR] ) )
-					fGetInfoOnHiddenVIPs = TRUE;
-			}
-			else if ( prisonertype == PRISONER_ELITE )
-			{
-				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE] ) )
-					fGetInfoOnHiddenVIPs = TRUE;
-			}
-			else if ( prisonertype == PRISONER_OFFICER )
-			{
-				if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER] ) )
-					fGetInfoOnHiddenVIPs = TRUE;
-			}
-
-			if ( fGetInfoOnHiddenVIPs )
+			// there is a chance this guy might tell us about high-value targets!
+			if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[prisonertype] ) )
 			{
 				UINT16 unknownvipector = 0;
 				if ( GetRandomUnknownVIPSector( unknownvipector ) )
@@ -7006,8 +6999,8 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				ransom *= 3;
 			else if ( prisonertype == PRISONER_GENERAL )
 				ransom *= 10;
-			else if ( prisonertype == PRISONER_THUG )
-				ransom *= 0.7f;
+			else if ( prisonertype == PRISONER_CIVILIAN )
+				ransom *= 0.5f;
 
 			ransommoney += ransom;
 						
@@ -7021,7 +7014,11 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 		// there is a chance that escaped prisoners may return to the queen...
 		if ( Random( 100 ) < gGameExternalOptions.ubPrisonerReturntoQueenChance )
-			++giReinforcementPool;
+		{
+			// but not for civilians
+			if ( prisonertype != PRISONER_CIVILIAN )
+				++giReinforcementPool;
+		}
 	}
 		
 	if ( turnedmilitia[PRISONER_ADMIN] + turnedmilitia[PRISONER_REGULAR] + turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] )
@@ -7032,6 +7029,15 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		StrategicAddMilitiaToSector( sMapX, sMapY, ELITE_MILITIA,   turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] );
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_MILITIA], turnedmilitia[PRISONER_OFFICER], turnedmilitia[PRISONER_ELITE], turnedmilitia[PRISONER_REGULAR], turnedmilitia[PRISONER_ADMIN] );
+	}
+
+	if ( volunteers )
+	{
+		AddVolunteers( volunteers );
+
+		// we add the volunteers anyway, but only show the message if this feature is on
+		if ( gGameExternalOptions.fMilitiaVolunteerPool )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_VOLUNTEER], volunteers );
 	}
 
 	if ( revealedpositions )
@@ -7046,7 +7052,12 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		
 	// give experience rewards to the interrogators
 	// exp gained depends on prisoner type
-	FLOAT totalexp = (FLOAT)(4 * interrogatedprisoners[PRISONER_ADMIN] + 5 * interrogatedprisoners[PRISONER_REGULAR] + 7 * interrogatedprisoners[PRISONER_ELITE] + 10 * interrogatedprisoners[PRISONER_OFFICER]);
+	FLOAT totalexp = (FLOAT)(4 * interrogatedprisoners[PRISONER_ADMIN] 
+							  + 5 * interrogatedprisoners[PRISONER_REGULAR] 
+							  + 7 * interrogatedprisoners[PRISONER_ELITE] 
+							  + 10 * interrogatedprisoners[PRISONER_OFFICER] 
+							  + 30 * interrogatedprisoners[PRISONER_GENERAL] 
+							  + 3 * interrogatedprisoners[PRISONER_CIVILIAN]);
 	FLOAT expratio = totalexp / sum_points;
 
 	// award experience
@@ -7165,7 +7176,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		fBeginRiot = TRUE;
 
 	// we now have to determine the combined strength of the prisoners
-	UINT32 prisonerriotvalue = 100 * aPrisoners[PRISONER_THUG]
+	UINT32 prisonerriotvalue = 60 * aPrisoners[PRISONER_CIVILIAN]
 		+ 200 * aPrisoners[PRISONER_GENERAL]
 		+ 200 * aPrisoners[PRISONER_OFFICER] 
 		+ 125 * aPrisoners[PRISONER_ELITE] 
@@ -7189,8 +7200,8 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		for (int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
 			escapedprisoners[i] = min( Random( aPrisoners[i] * prisonertoguardratio ), aPrisoners[i] );
 
-		// add enemies
-		pSectorInfo->ubNumTroops = min( 512, pSectorInfo->ubNumTroops + escapedprisoners[PRISONER_REGULAR] + escapedprisoners[PRISONER_THUG] );
+		// add enemies (PRISONER_CIVILIAN just flee)
+		pSectorInfo->ubNumTroops = min( 512, pSectorInfo->ubNumTroops + escapedprisoners[PRISONER_REGULAR] );
 		pSectorInfo->ubNumElites = min( 512, pSectorInfo->ubNumElites + escapedprisoners[PRISONER_ELITE] + escapedprisoners[PRISONER_OFFICER] + escapedprisoners[PRISONER_GENERAL] );
 		pSectorInfo->ubNumAdmins = min( 512, pSectorInfo->ubNumAdmins + escapedprisoners[PRISONER_ADMIN] );
 
@@ -12066,6 +12077,14 @@ void PrisonerMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			fShowAssignmentMenu = FALSE;
 			giAssignHighLine = -1;
 		}
+		else if ( iValue == PRISONER_MENU_CIVILIAN )
+		{
+			pSoldier->usSoldierFlagMask2 &= ~SOLDIER_INTERROGATE_ALL;
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_INTERROGATE_CIVILIAN;
+			fShowPrisonerMenu = FALSE;
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+		}
 
 		// rerender tactical stuff
 		gfRenderPBInterface = TRUE;
@@ -15959,6 +15978,7 @@ void HandleShadingOfLinesForPrisonerMenu( void )
 	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_ELITE );
 	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_OFFICER );
 	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_GENERAL );
+	UnShadeStringInBox( ghPrisonerBox, PRISONER_MENU_CIVILIAN );
 
 	if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_ADMIN )
 	{
@@ -15979,6 +15999,10 @@ void HandleShadingOfLinesForPrisonerMenu( void )
 	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_GENERAL )
 	{
 		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_GENERAL );
+	}
+	else if ( pSoldier->usSoldierFlagMask2 & SOLDIER_INTERROGATE_CIVILIAN )
+	{
+		ShadeStringInBox( ghPrisonerBox, PRISONER_MENU_CIVILIAN );
 	}
 }
 

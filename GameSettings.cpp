@@ -1830,7 +1830,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ELITE",    80, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR], 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_OFFICER", 150, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ELITE], 1000 );
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_GENERAL]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_GENERAL", 250, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_OFFICER], 1000 );
-	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_THUG]		= 100;
+	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_CIVILIAN]	= iniReader.ReadInteger("Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_CIVILIAN", 25, 10, 1000 );
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET1]	= 100;
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET2]	= 100;
 
@@ -1839,7 +1839,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ELITE",   10, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR], 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_OFFICER", 60, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE], 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_GENERAL]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_GENERAL", 80, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER], 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_THUG]		= 0;
+	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_CIVILIAN]   = iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_CIVILIAN", 0, 0, 100 );
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET1]	= 0;
 	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET2]	= 0;
 						

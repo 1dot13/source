@@ -407,7 +407,9 @@ enum
 #define SOLDIER_INTERROGATE_OFFICER			0x00000040	//64			// interrogate officers
 #define SOLDIER_INTERROGATE_GENERAL			0x00000080	//128			// interrogate generals
 
-#define SOLDIER_INTERROGATE_ALL				0x000000F8					// all interrogation flags
+#define SOLDIER_INTERROGATE_CIVILIAN		0x00000100	//256			// interrogate civilian
+
+#define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: disease property flags --------
@@ -1769,7 +1771,7 @@ public:
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();
 	BOOLEAN		FreePrisoner();					// used for an enemy liberating fellow prisoners 
-	BOOLEAN		CanBeHandcuffed();				// can this guy be handcuffed?
+	BOOLEAN		CanBeCaptured();				// can this guy be captured (by handcuffing or asking him to surrender)?
 
 	// Flugente: scuba gear
 	BOOLEAN		UsesScubaGear();

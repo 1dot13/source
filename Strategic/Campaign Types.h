@@ -432,7 +432,7 @@ typedef enum
 	PRISONER_OFFICER,
 
 	PRISONER_GENERAL,	// generals can be captured too, interogating them gives special rewards
-	PRISONER_THUG,		// captured enemies not affiliated to the army fall into this category
+	PRISONER_CIVILIAN,	// captured civilians (Kingpin, Hicks...)
 	PRISONER_SECRET1,	// tbA
 	PRISONER_SECRET2,	// tbA
 	PRISONER_MAX,

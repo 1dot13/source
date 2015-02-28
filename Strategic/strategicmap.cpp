@@ -5367,11 +5367,11 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 		if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
 		{
 			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_GENERAL] = 0;
-			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_THUG] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_CIVILIAN] = 0;
 			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET1] = 0;
 			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
 			SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
-			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_THUG];
+			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_CIVILIAN];
 		}
 	}
 //	uiSize = sizeof( SECTORINFO ) * 256;

@@ -2284,16 +2284,18 @@ STR16 pPrisonerMenuStrings[] =	// TODO.Translate
 	L"Interrogate elites",
 	L"Interrogate officers",
 	L"Interrogate generals",
+	L"Interrogate civilians",
 	L"Cancel",
 };
 
 STR16 pPrisonerMenuDescStrings[] =
 {
 	L"Administrators are easy to process, but give only poor results",
-	L"Regular troops are common an don't give you high rewards.",
+	L"Regular troops are common and don't give you high rewards.",
 	L"If elite troops defect to you, they can become veteran militia.",
 	L"Interrogating enemy officers can lead you to find enemy generals.",
 	L"Generals cannot join your militia, but lead to high ransoms.",
+	L"Civilians don't offer much resistance, but are second-rate troops at best.",
 	L"Cancel",
 };
 
@@ -3568,8 +3570,18 @@ STR16 pwTownInfoStrings[] =
 	L"Formation ",				// 10 // state of civilian training in town
 	L"Milice ", 					// the state of the trained civilians in the town
 	L"Formation mobile ",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
-	L"Prisonnier ",				// Flugente: display number of prisoners
-	L"%d/%d = %dA %dR %dÉ %dO %dG",	// TODO.Translate	//	Info: Total # of prisoners/capacity - # of Admins # of Regulars # of Elites # of Officers # of Generals
+
+	// Flugente: prisoner texts	// TODO.Translate
+	L"Prisonnier ",
+	L"%d (capacity %d)",
+	L"%d Admins",
+	L"%d Regulars",
+	L"%d Elites",
+	L"%d Officers",
+	L"%d Generals",
+	L"%d Civilians",
+	L"%d Special1",
+	L"%d Special2",
 };
 
 // Mine strings
@@ -8128,7 +8140,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"Prisonnier(s) ayant été interrogé(s) : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",
+	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",	// TODO.Translate
 	L"Prisonnier(s) ayant payé une rançon : %d.", 
 	L"Prisonnier(s) ayant révélé les positions ennemies : %d.",
 	L"Prisonnier(s) ayant rejoint notre cause : %d officiers, %d élite(s), %d régulier(s) et %d administratif(s).",
@@ -8141,6 +8153,8 @@ STR16	szPrisonerTextStr[]=
 	L"Ce comportement est désactivé dans vos fichiers ini.",
 	L"%s a libéré %s !",
 	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
+	L"The enemy leader refuses to even consider surrender!",
+	L"%d prisoners volunteered to join our forces.",
 };
 
 STR16	szMTATextStr[]=

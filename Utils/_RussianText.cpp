@@ -2277,16 +2277,18 @@ STR16 pPrisonerMenuStrings[] =	// TODO.Translate
 	L"Interrogate elites",
 	L"Interrogate officers",
 	L"Interrogate generals",
+	L"Interrogate civilians",
 	L"Cancel",
 };
 
 STR16 pPrisonerMenuDescStrings[] =	// TODO.Translate
 {
 	L"Administrators are easy to process, but give only poor results",
-	L"Regular troops are common an don't give you high rewards.",
+	L"Regular troops are common and don't give you high rewards.",
 	L"If elite troops defect to you, they can become veteran militia.",
 	L"Interrogating enemy officers can lead you to find enemy generals.",
 	L"Generals cannot join your militia, but lead to high ransoms.",
+	L"Civilians don't offer much resistance, but are second-rate troops at best.",
 	L"Cancel",
 };
 
@@ -3561,8 +3563,18 @@ STR16 pwTownInfoStrings[] =
 	L"Тренировка ополчения",		// 10 // state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
 	L"Тренинг мобильных групп",		// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
-	L"Заключенные",					// Flugente: display number of prisoners
-	L"%d/%d - %dA %dR %dE %dO %dG",	// TODO.Translate	//	Info: Total # of prisoners/capacity - # of Admins # of Regulars # of Elites # of Officers # of Generals
+
+	// Flugente: prisoner texts	// TODO.Translate
+	L"Заключенные",
+	L"%d (capacity %d)",
+	L"%d Admins",
+	L"%d Regulars",
+	L"%d Elites",
+	L"%d Officers",
+	L"%d Generals",
+	L"%d Civilians",
+	L"%d Special1",
+	L"%d Special2",
 };
 
 // Mine strings
@@ -8124,7 +8136,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d офицеров, %d элитных солдат, %d рядовых и %d полицейских были допрошены.",
+	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",	// TODO.Translate
 	L"%d пленных заплатили выкуп.",
 	L"%d пленных выдали расположение отрядов армии.",
 	L"%d офицеров, %d элитных солдат, %d рядовых и %d полицейских решили присоединиться к нам.",
@@ -8137,6 +8149,8 @@ STR16	szPrisonerTextStr[]=
 	L"Этот режим отключен в настройках.",
 	L"%s освободил %s!",
 	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
+	L"The enemy leader refuses to even consider surrender!",
+	L"%d prisoners volunteered to join our forces.",
 };
 
 STR16	szMTATextStr[]=	

@@ -2278,16 +2278,18 @@ STR16 pPrisonerMenuStrings[] =
 	L"Interrogate elites",
 	L"Interrogate officers",
 	L"Interrogate generals",
+	L"Interrogate civilians",
 	L"Cancel",
 };
 
 STR16 pPrisonerMenuDescStrings[] =
 {
 	L"Administrators are easy to process, but give only poor results",
-	L"Regular troops are common an don't give you high rewards.",
+	L"Regular troops are common and don't give you high rewards.",
 	L"If elite troops defect to you, they can become veteran militia.",
 	L"Interrogating enemy officers can lead you to find enemy generals.",
 	L"Generals cannot join your militia, but lead to high ransoms.",
+	L"Civilians don't offer much resistance, but are second-rate troops at best.",
 	L"Cancel",
 };
 
@@ -3564,8 +3566,18 @@ STR16 pwTownInfoStrings[] =
 	L"Civilian Training",				// 10 // state of civilian training in town
 	L"Militia", 					// the state of the trained civilians in the town
 	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
-	L"Prisoners",				// Flugente: display number of prisoners
-	L"%d/%d - %dA %dR %dE %dO %dG",	//	Info: Total # of prisoners/capacity - # of Admins # of Regulars # of Elites # of Officers # of Generals
+
+	// Flugente: prisoner texts
+	L"Prisoners",
+	L"%d (capacity %d)",
+	L"%d Admins",
+	L"%d Regulars",
+	L"%d Elites",
+	L"%d Officers",
+	L"%d Generals",
+	L"%d Civilians",
+	L"%d Special1",
+	L"%d Special2",
 };
 
 // Mine strings
@@ -8129,7 +8141,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d officers, %d elites, %d regulars and %d admins were interrogated.",
+	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
 	L"%d officers, %d elites, %d regulars and %d admins joined our cause.",
@@ -8142,6 +8154,8 @@ STR16	szPrisonerTextStr[]=
 	L"This behaviour is set OFF in your ini settings.",
 	L"%s has freed %s!",
 	L"A prisoner revealed the location of a high-ranking army officer in %s!",
+	L"The enemy leader refuses to even consider surrender!",
+	L"%d prisoners volunteered to join our forces.",
 };
 
 STR16	szMTATextStr[]=
