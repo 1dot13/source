@@ -6951,7 +6951,7 @@ STR16 MPClientMessage[] =
 	L"'%s' (client %d - '%S') a été tué par '%s' (client %d - '%S')",
 	L"Client kické #%d - '%S'",
 	// 30
-	L"Début de manche pour les numéros de clients : #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
+	L"Début de manche pour les numéros de clients : #1: <Annuler>, #2: %S, #3: %S, #4: %S",
 	L"Début de manche pour le client #%d",
 	L"Requête pour le realtime...",
 	L"Commutation en mode realtime.",

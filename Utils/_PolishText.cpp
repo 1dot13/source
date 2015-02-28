@@ -6961,7 +6961,7 @@ STR16 MPClientMessage[] =
 	L"'%s' (klient %d - '%S') zabity przez '%s' (client %d - '%S')",
 	L"Wyrzucono #%d - '%S'",
 	// 30
-	L"Zacząć turę dla klientów. #1: %S, #2: %S, #3: %S, #4: %S",
+	L"Zacząć turę dla klientów. #1: <Anulować>, #2: %S, #3: %S, #4: %S",
 	L"Początek tury dla #%d",
 	L"Żądanie trybu realtime…",
 	L"Zmieniono w tryb realtime.",
