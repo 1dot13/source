@@ -17240,7 +17240,7 @@ INT8 SOLDIERTYPE::GetSuppressionResistanceBonus( )
 	if ( this->bTeam == ENEMY_TEAM )
 	{
 		// bonus if we have an officer around
-		BOOL officertype = OFFICER_NONE;
+		UINT8 officertype = OFFICER_NONE;
 		if ( HighestEnemyOfficersInSector( officertype ) )
 		{
 			bonus += gGameExternalOptions.sEnemyOfficerSuppressionResistanceBonus * officertype;
@@ -17348,7 +17348,7 @@ FLOAT	SOLDIERTYPE::GetMoraleModifier( )
 {
 	FLOAT mod = 1.0f;
 
-	BOOL officertype = OFFICER_NONE;
+	UINT8 officertype = OFFICER_NONE;
 	if ( HighestEnemyOfficersInSector( officertype ) )
 	{
 		mod += gGameExternalOptions.dEnemyOfficerMoraleModifier * officertype;

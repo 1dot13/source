@@ -398,7 +398,7 @@ enum {
 };
 
 // Flugente: return number of enemy officers and highest rank found
-UINT8 HighestEnemyOfficersInSector(BOOL& aType);
+UINT8 HighestEnemyOfficersInSector(UINT8& aType);
 
 // count all soldiers in the current sector that have a specific flag set
 UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);

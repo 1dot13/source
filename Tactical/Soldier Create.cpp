@@ -1760,7 +1760,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 		if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT) )
 		{
 			UINT8 numenemies  = NumEnemyInSector();
-			BOOL officertype  = OFFICER_NONE;
+			UINT8 officertype = OFFICER_NONE;
 			UINT8 numofficers = HighestEnemyOfficersInSector( officertype );
 
 			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers

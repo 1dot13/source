@@ -10453,7 +10453,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         }
 
 		// enemy team gets a bonus if it has officers around
-		BOOL officertype = OFFICER_NONE;
+		UINT8 officertype = OFFICER_NONE;
 		if ( HighestEnemyOfficersInSector( officertype ) )
 		{
 			enemysidestrength = enemysidestrength * (1.0f + gGameExternalOptions.dEnemyOfficerSurrenderStrengthBonus * officertype);
@@ -10807,7 +10807,7 @@ INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
 }
 
 // Flugente: count number of enemy officers
-UINT8 HighestEnemyOfficersInSector( BOOL& aType )
+UINT8 HighestEnemyOfficersInSector( UINT8& aType )
 {
     SOLDIERTYPE*		pSoldier;
     INT32               cnt = 0;
@@ -10818,7 +10818,8 @@ UINT8 HighestEnemyOfficersInSector( BOOL& aType )
     {
         if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
         {
-			if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+			// count officers, but do not count those that we have already captured
+			if ( (pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER) && !(pSoldier->usSoldierFlagMask & SOLDIER_POW) )
             {
 				// officers with double squadleader trait are captains, otherwise lieutnant
                 aType = max( aType, NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT) );
