@@ -2,6 +2,7 @@
 <!-- Enabled: if set to 1, civilians of that group will use szGroup as their name in tactical
      AddToBattle: If a battle with that group occurs, all members are counted (no, this doesn't make a lot of sense)
 	 Loyalty: if set to 0, no loyalty/morale penalty if a civilian of that group is killed
+	 fCanBeCaptured: if set to 1 we can capture and interrogate hostile members of this group
 -->
 <CIV_GROUP_NAMES>
 	<NAME>
@@ -10,6 +11,7 @@
 		<szGroup>None</szGroup>
 		<AddToBattle>0</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>1</uiIndex>
@@ -24,6 +26,7 @@
 		<szGroup>KingPin</szGroup>
 		<AddToBattle>1</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>3</uiIndex>
@@ -80,6 +83,7 @@
 		<szGroup>Hicks</szGroup>
 		<AddToBattle>1</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>11</uiIndex>
@@ -87,6 +91,7 @@
 		<szGroup>Warden</szGroup>
 		<AddToBattle>0</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>12</uiIndex>
