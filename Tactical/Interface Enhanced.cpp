@@ -6485,7 +6485,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		return;
 
 	// ShotsPer4Turns -> ubAttackAPs, used later for all shot AP values
-	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, NULL );
+	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, gpItemDescSoldier );
 	INT16 ubBasicAttackAPs = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -6732,12 +6732,12 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// apply Ini modifiers
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
-				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] );
+				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
+				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
 
 			// Get Final Range value
-			UINT16 iFinalRangeValue = GunRange( gpItemDescObject, gpItemDescSoldier );
+			UINT16 iFinalRangeValue = (UINT16)( GunRange( gpItemDescObject, gpItemDescSoldier ) / 10.0f );
 
 			// Get difference
 			INT16 iRangeModifier = iFinalRangeValue - iRangeValue;
@@ -6745,11 +6745,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			if( !fComparisonMode )
 			{
 				// Print base value
-				DrawPropertyValueInColour( iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				DrawPropertyValueInColour( iRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
 				// Print modifier
-				DrawPropertyValueInColour( iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				DrawPropertyValueInColour( iRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
 				// Print final value
-				DrawPropertyValueInColour( iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				DrawPropertyValueInColour( iFinalRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
 			}
 			else
 			{
@@ -6757,19 +6757,19 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				UINT16 iComparedRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
 				// apply Ini modifiers
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
-					iComparedRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] );
+					iComparedRangeValue = (UINT16)( (FLOAT)iComparedRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-					iComparedRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
+					iComparedRangeValue = (UINT16)( (FLOAT)iComparedRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
 				// Get Final Range value
-				UINT16 iComparedFinalRangeValue = GunRange( gpComparedItemDescObject, gpItemDescSoldier );
+				UINT16 iComparedFinalRangeValue = (UINT16)( GunRange( gpComparedItemDescObject, gpItemDescSoldier ) / 10.0f );
 				// Get difference
 				INT16 iComparedRangeModifier = iComparedFinalRangeValue - iComparedRangeValue;
 				// Print difference in base value
-				DrawPropertyValueInColour( iComparedRangeValue / 10 - iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+				DrawPropertyValueInColour( iComparedRangeValue - iRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
 				// Print difference in modifier
-				DrawPropertyValueInColour( iComparedRangeModifier / 10 - iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+				DrawPropertyValueInColour( iComparedRangeModifier - iRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
 				// Print difference in final value
-				DrawPropertyValueInColour( iComparedFinalRangeValue / 10 - iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+				DrawPropertyValueInColour( iComparedFinalRangeValue - iFinalRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
 			}
 		}
 		else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
@@ -6782,19 +6782,19 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			UINT16 iRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
 			// apply Ini modifiers
 			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
-				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] );
+				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-				iRangeValue *= ( (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher);
+				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
 			// Get Final Range value
-			UINT16 iFinalRangeValue = GunRange( gpComparedItemDescObject, NULL );
+			UINT16 iFinalRangeValue = (UINT16)( GunRange( gpComparedItemDescObject, NULL ) / 10.0f );
 			// Get difference
 			INT16 iRangeModifier = iFinalRangeValue - iRangeValue;
 			// Print base value
-			DrawPropertyValueInColour( iRangeValue / 10, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			DrawPropertyValueInColour( iRangeValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 			// Print modifier
-			DrawPropertyValueInColour( iRangeModifier / 10, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+			DrawPropertyValueInColour( iRangeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
 			// Print final value
-			DrawPropertyValueInColour( iFinalRangeValue / 10, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+			DrawPropertyValueInColour( iFinalRangeValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
 		}
 
 		/////////////// GUN HANDLING
@@ -7804,7 +7804,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			ubNumLine = 14;
 
 			// Get final Attack Cost
-			INT16 iFinalSingleAPCost = ubAttackAPs;
+			INT16 iFinalSingleAPCost = (INT16)(ubAttackAPs * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpItemDescObject, WM_NORMAL ) + 0.5);
 
 			// Get base Attack Cost
 			INT16 iSingleAPCost = ubBasicAttackAPs;
@@ -7824,7 +7824,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			else if( !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
 			{
 				// Get final Attack Cost
-				INT16 iComparedFinalSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+				INT16 iComparedFinalSingleAPCost = (INT16)(BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier ) * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpItemDescObject, WM_NORMAL ) + 0.5);
 				// Get base Attack Cost
 				INT16 iComparedSingleAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
 				// Get Attack Cost Modifier
@@ -7848,7 +7848,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Set line to draw into
 			ubNumLine = 14;
 			// Get final Attack Cost
-			INT16 iFinalSingleAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+			INT16 iFinalSingleAPCost = (INT16)(BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier ) * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpItemDescObject, WM_NORMAL ) + 0.5);
 			// Get base Attack Cost
 			INT16 iSingleAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
 			// Get Attack Cost Modifier
@@ -7868,7 +7868,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			ubNumLine = 15;
 
 			// Get final Burst Cost
-			INT16 iFinalBurstAPCost = ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject, NULL );
+			INT16 iFinalBurstAPCost = (INT16)( (FLOAT)ubAttackAPs * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpItemDescObject, WM_BURST ) + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject, gpItemDescSoldier ) + 0.5f );
 
 			// Get base Burst Cost
 			INT16 iBurstAPCost = ubBasicAttackAPs + CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpItemDescObject );
@@ -7888,8 +7888,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			else if( GetShotsPerBurst(gpComparedItemDescObject) > 0 )
 			{
 				// Get final Burst Cost
-				INT16 iComparedFinalBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					 + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, NULL );
+				INT16 iComparedFinalBurstAPCost = (INT16)( (FLOAT)BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier )
+					 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_BURST )
+					 + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, gpItemDescSoldier ) + 0.5f );
 				// Get base Burst Cost
 				INT16 iComparedBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 					+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );
@@ -7913,8 +7914,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 15;
-			INT16 iFinalBurstAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					+ CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, NULL );
+			INT16 iFinalBurstAPCost = (INT16)( (FLOAT)BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier )
+				 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_BURST )
+				 + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, gpItemDescSoldier ) + 0.5f );
 			// Get base Burst Cost
 			INT16 iBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
 				+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );
@@ -7935,7 +7937,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			ubNumLine = 16;
 
 			// Get final Autofire Cost
-			INT16 iFinalAutoAPCost = ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3, NULL );
+			INT16 iFinalAutoAPCost = (INT16)( (FLOAT)ubAttackAPs * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpItemDescObject, WM_AUTOFIRE ) + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3, gpItemDescSoldier ) + 0.5f );
 
 			// Get base Autofire Cost
 			INT16 iAutoAPCost = ubBasicAttackAPs + CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 );
@@ -7955,8 +7957,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			else if( GetAutofireShotsPerFiveAPs(gpComparedItemDescObject) > 0 )
 			{
 				// Get final Autofire Cost
-				INT16 iComparedFinalAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					 + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, NULL );
+				INT16 iComparedFinalAutoAPCost = (INT16)( (FLOAT)BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier )
+					 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_AUTOFIRE )
+					 + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, gpItemDescSoldier ) + 0.5f );
 				// Get base Autofire Cost
 				INT16 iComparedAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 					+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
@@ -7981,8 +7984,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Set line to draw into
 			ubNumLine = 16;
 			// Get final Autofire Cost
-			INT16 iFinalAutoAPCost = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL )
-					+ CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, NULL );
+			INT16 iFinalAutoAPCost = (INT16)( (FLOAT)BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, gpItemDescSoldier )
+				 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_AUTOFIRE )
+				 + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, gpItemDescSoldier ) + 0.5f );
 			// Get base Autofire Cost
 			INT16 iAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
 				+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
@@ -8004,6 +8008,25 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get final Reload Cost
 			INT16 iFinalReloadAPCost = GetAPsToReload( gpItemDescObject );
+			if( gGameOptions.fNewTraitSystem && !(Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+			{
+				// pistols and revolvers
+				if( Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_PISTOL || Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_M_PISTOL )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost 
+										* max(0,( 100 - gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus * NUM_SKILL_TRAITS( gpItemDescSoldier, GUNSLINGER_NT )
+										- gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0f + 0.5f );
+				// shotguns
+				else if( Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN && Weapon[gpItemDescObject->usItem].swapClips != 1 )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost 
+										* max(0,(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ) 
+										- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
+				// ambidextrous reload bullets
+				else if( Weapon[gpItemDescObject->usItem].swapClips != 1 )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+				// ambidextrous reload magazines
+				else
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+			}
 
 			// Get base Reload Cost
 			INT16 iReloadAPCost = Weapon[ gpItemDescObject->usItem ].APsToReload;
@@ -8029,6 +8052,27 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				// Get final Reload Cost
 				INT16 iComparedFinalReloadAPCost = GetAPsToReload( gpComparedItemDescObject );
+
+				if( gGameOptions.fNewTraitSystem && !(Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+				{
+					// pistols and revolvers
+					if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_PISTOL || Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_M_PISTOL )
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost 
+											* max(0,( 100 - gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus * NUM_SKILL_TRAITS( gpItemDescSoldier, GUNSLINGER_NT )
+											- gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0f + 0.5f );
+					// shotguns
+					else if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN && Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost 
+											* max(0,(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ) 
+											- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
+					// ambidextrous reload bullets
+					else if( Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+					// ambidextrous reload magazines
+					else
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+				}
+
 				// Get base Reload Cost
 				INT16 iComparedReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReload;
 				// modify by ini values
@@ -8057,7 +8101,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			ubNumLine = 17;
 			// Get final Reload Cost
 			INT16 iFinalReloadAPCost = GetAPsToReload( gpComparedItemDescObject );
-			// Get base Reload Cost
+
+			if( gGameOptions.fNewTraitSystem && !(Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+			{
+				// pistols and revolvers
+				if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_PISTOL || Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_M_PISTOL )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost 
+										* max(0,( 100 - gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus * NUM_SKILL_TRAITS( gpItemDescSoldier, GUNSLINGER_NT )
+										- gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0f + 0.5f );
+				// shotguns
+				else if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN && Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost 
+										* max(0,(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ) 
+										- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
+				// ambidextrous reload bullets
+				else if( Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+				// ambidextrous reload magazines
+				else
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+			}
+
+				// Get base Reload Cost
 			INT16 iReloadAPCost = Weapon[ gpComparedItemDescObject->usItem ].APsToReload;
 			// modify by ini values
 			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_GUN )

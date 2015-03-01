@@ -15573,3 +15573,83 @@ BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj )
 
 	return FALSE;
 }
+
+FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8 ubMode )
+{
+	FLOAT fMultiplier = 1.0;
+
+	// we shouldn't be here...
+	if( !pSoldier || !pObj || !gGameOptions.fNewTraitSystem )
+		return fMultiplier;
+
+	if( ubMode == WM_NORMAL )
+	{
+		if( Weapon[ pObj->usItem ].ubWeaponType == GUN_PISTOL )
+		{
+			fMultiplier = ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) ) / 100.0f;
+		}
+		else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_SHOTGUN )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubRAFiringSpeedBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100.0f;
+		}
+		else if( Item[ pObj->usItem ].usItemClass == IC_BLADE )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubMEBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, MELEE_NT ) ) / 100.0f;
+		}
+		else if( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubTHBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, THROWING_NT ) ) / 100.0f;
+		}
+		// grenade launchers
+		else if( (Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[ pObj->usItem ].grenadelauncher) && !(Item[ pObj->usItem ].rocketlauncher) && !(Item[ pObj->usItem ].mortar) )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100.0f;
+		}
+		// rocket launchers
+		else if( (Item[ pObj->usItem ].rocketlauncher || Item[ pObj->usItem ].singleshotrocketlauncher) && !(Item[ pObj->usItem ].mortar) )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubHWRocketLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100.0f;
+		}
+		// mortar
+		else if( Item[ pObj->usItem ].mortar )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) + pSoldier->GetBackgroundValue(BG_ARTILLERY) ) / 100.0f;
+		}
+	}
+	else if( ubMode == WM_BURST )
+	{
+		if( Weapon[ pObj->usItem ].ubWeaponType == GUN_PISTOL )
+		{
+			fMultiplier = ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) ) / 100.0f;
+		}
+		else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_SHOTGUN )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubRAFiringSpeedBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100.0f;
+		}
+		else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_LMG )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ) ) / 100.0f;
+		}
+	}
+	else if( ubMode == WM_AUTOFIRE )
+	{
+		if( Weapon[ pObj->usItem ].ubWeaponType == GUN_PISTOL )
+		{
+			fMultiplier = ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) ) / 100.0f;
+		}
+		else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_SHOTGUN )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubRAFiringSpeedBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100.0f;
+		}
+		else if ( Weapon[ pObj->usItem ].ubWeaponType == GUN_LMG )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ) ) / 100.0f;
+		}
+	}
+	else if( ubMode == WM_ATTACHED_GL || ubMode == WM_ATTACHED_GL_BURST || ubMode == WM_ATTACHED_GL_AUTO )
+	{
+		fMultiplier = (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100.0f;
+	}
+
+	return fMultiplier;
+}

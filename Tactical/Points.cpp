@@ -2289,7 +2289,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	{		
 		usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-		// Flugente: we need a secon temnr in case we are using an underbarrel weapon. Not all checks should apply for that one, as aiming is still done with the main weapon
+		// Flugente: we need a second item in case we are using an underbarrel weapon. Not all checks should apply for that one, as aiming is still done with the main weapon
 		usUBItem = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[HANDPOS]);
 	}
 	if(Item[usUBItem].usItemClass == IC_PUNCH || Item[usUBItem].usItemClass == IC_BLADE || Item[usUBItem].usItemClass == IC_TENTACLES)//dnl ch73 021013 punch and stub generally use identical logic so put all necessary stuff to MinAPsToPunch
@@ -2345,30 +2345,33 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		// SANDRO - STOMP traits - reduced APs needed to fire underbarrel grenade launchers for Heavy Weapons trait
 		if ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) && gGameOptions.fNewTraitSystem )
 		{
-			bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5); 
+//			bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5); 
+			bAPCost = (INT16)(bAPCost * GetAttackAPTraitMultiplier( pSoldier, pObjUsed, pSoldier->bWeaponMode ) + 0.5);
 		}
 	}
 	else if ( pSoldier->IsValidSecondHandShot( ) )
 	{
+		OBJECTTYPE* pSecondObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
+
 		// SANDRO - gunslinger check for firing speed
-		if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && gGameOptions.fNewTraitSystem )
-		{
-			INT16 bcst1 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]), pSoldier );
-			INT16 bcst2 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]), pSoldier );
-			if ( Weapon[ usItem ].ubWeaponType == GUN_PISTOL )
-				bcst1 = (INT16)((bcst1 * ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols) / 100)+ 0.5);
-			if ( Weapon[ pSoldier->inv[SECONDHANDPOS].usItem ].ubWeaponType == GUN_PISTOL ) 
-				bcst2 = (INT16)((bcst2 * ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols) / 100)+ 0.5);
+//		if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && gGameOptions.fNewTraitSystem )
+//		{
+			INT16 bcst1 = (INT16)(BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]), pSoldier ) * GetAttackAPTraitMultiplier( pSoldier, pObjUsed, pSoldier->bWeaponMode ) + 0.5);
+			INT16 bcst2 = (INT16)(BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]), pSoldier ) * GetAttackAPTraitMultiplier( pSoldier, pSecondObjUsed, pSoldier->bWeaponMode ) + 0.5);
+//			if ( Weapon[ usItem ].ubWeaponType == GUN_PISTOL )
+//				bcst1 = (INT16)((bcst1 * ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols) / 100)+ 0.5);
+//			if ( Weapon[ pSoldier->inv[SECONDHANDPOS].usItem ].ubWeaponType == GUN_PISTOL ) 
+//				bcst2 = (INT16)((bcst2 * ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols) / 100)+ 0.5);
 
 			bAPCost += __max( bcst1, bcst2 );
-		}
+/*		}
 		else
 		{		
 			// charge the maximum of the two	
 			bAPCost += __max(
 				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]), pSoldier ),
 				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]), pSoldier ) );
-		}
+		}*/
 	}
 	else
 	{
@@ -2391,7 +2394,10 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		////////////////////////////////////////////////////
 		if ( gGameOptions.fNewTraitSystem )
 		{
-			// Decreased APs needed for LMG - Auto Weapons
+			// silversurfer: new function to handle all modifiers
+			bAPCost = (INT16)(bAPCost * GetAttackAPTraitMultiplier( pSoldier, pObjUsed, pSoldier->bWeaponMode ) + 0.5);
+
+/*			// Decreased APs needed for LMG - Auto Weapons
 			if (Weapon[usUBItem].ubWeaponType == GUN_LMG && (pSoldier->bDoBurst || pSoldier->bDoAutofire) && ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs ) / 100)+ 0.5);
@@ -2432,7 +2438,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			else if (Weapon[ usUBItem ].ubWeaponType == GUN_SHOTGUN && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubRAFiringSpeedBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100)+ 0.5);
-			}
+			}*/
 		}
 		/////////////////////////////////////////////////////////////////////////////////////
 	}
@@ -2557,7 +2563,8 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 			bAPCost += BaseAPsToShootOrStab(bFullAPs, bAimSkill, pObjUsed, pSoldier);
 			// Decreased APs needed for melee attacks - Melee (Blade only)
 			if(Item[usItem].usItemClass == IC_BLADE && (HAS_SKILL_TRAIT(pSoldier, MELEE_NT)))
-				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction) / 100) + 0.5);
+//				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction) / 100) + 0.5);
+				bAPCost = (INT16)(bAPCost * GetAttackAPTraitMultiplier( pSoldier, pObjUsed, pSoldier->bWeaponMode ) + 0.5);
 		}
 		UINT16 usTargID = WhoIsThere2(sGridNo, pSoldier->bTargetLevel);
 		// Given a gridno here, check if we are on a guy - if so - get his gridno

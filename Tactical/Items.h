@@ -542,6 +542,8 @@ void AttachDefaultAttachments(OBJECTTYPE *pObj, BOOLEAN fAllDefaultAttachments=T
 // Flugente: is this object useable by militia?
 BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj );
 
+FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8 ubMode);
+
 #endif
 
 
