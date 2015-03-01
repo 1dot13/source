@@ -6709,7 +6709,7 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT32>& arSectorIDVector )
         }
     }
 
-    return ( arSectorIDVector.size() > 0 );
+    return ( !arSectorIDVector.empty() );
 }
 
 extern INT32 giReinforcementPool;
@@ -6933,6 +6933,23 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				gsNumPrisoner[i] = sNumPrisoner[i];
 
             DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
+		}
+		// if we control no prison, we have to let them go...
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[PRISONER_NO_PRISONS_STR] );
+
+			// some prisoners volunteer to work for us
+			UINT16 volunteers = Random( ubNumPrisoners / 3 );
+
+			if ( volunteers )
+			{
+				AddVolunteers( volunteers );
+
+				// we add the volunteers anyway, but only show the message if this feature is on
+				if ( gGameExternalOptions.fMilitiaVolunteerPool )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_VOLUNTEER], volunteers );
+			}
 		}
 	}
 }
