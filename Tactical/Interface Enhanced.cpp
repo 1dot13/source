@@ -8157,12 +8157,26 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get base Manual Reload Cost
 			INT16 iManualReloadAPCost = iFinalManualReloadAPCost;
 
+			// trait bonuses
+			if( gGameOptions.fNewTraitSystem && !(Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+			{
+				// rifles and sniper rifles
+				if( Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_SN_RIFLE || Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_RIFLE )
+					iFinalManualReloadAPCost = (INT16)( (FLOAT)iFinalManualReloadAPCost * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, SNIPER_NT )) / 100.0f + 0.5 );
+				// shotguns
+				else if( Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN )
+					iFinalManualReloadAPCost = (INT16)( (FLOAT)iFinalManualReloadAPCost * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ))  /100.0f + 0.5);
+			}
+
+			// Get manual reload cost modifier
+			INT16 iManualReloadAPCostModifier = iFinalManualReloadAPCost - iManualReloadAPCost;
+
 			if( !fComparisonMode )
 			{
 				// Print base value
 				DrawPropertyValueInColour( iManualReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
 				// Print modifier
-				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				DrawPropertyValueInColour( iManualReloadAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
 				// Print final value
 				DrawPropertyValueInColour( iFinalManualReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
 			}
@@ -8176,12 +8190,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 					iComparedFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
 					iComparedFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+
 				// Get base Manual Reload Cost
 				INT16 iComparedManualReloadAPCost = iComparedFinalManualReloadAPCost;
+
+				// trait bonuses
+				if( gGameOptions.fNewTraitSystem && !(Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+				{
+					// rifles and sniper rifles
+					if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SN_RIFLE || Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_RIFLE )
+						iComparedFinalManualReloadAPCost = (INT16)( (FLOAT)iComparedFinalManualReloadAPCost * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, SNIPER_NT )) / 100.0f + 0.5 );
+					// shotguns
+					else if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN )
+						iComparedFinalManualReloadAPCost = (INT16)( (FLOAT)iComparedFinalManualReloadAPCost * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ))  /100.0f + 0.5);
+				}
+
+				// Get manual reload cost modifier
+				INT16 iComparedManualReloadAPCostModifier = iComparedFinalManualReloadAPCost - iComparedManualReloadAPCost;
+
 				// Print difference in base value
 				DrawPropertyValueInColour( iComparedManualReloadAPCost - iManualReloadAPCost, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
 				// Print modifier
-				DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+				DrawPropertyValueInColour( iComparedManualReloadAPCostModifier - iManualReloadAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
 				// Print difference in final value
 				DrawPropertyValueInColour( iComparedFinalManualReloadAPCost - iFinalManualReloadAPCost, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
 			}
@@ -8203,12 +8233,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ];
 			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
 				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+
 			// Get base Manual Reload Cost
 			INT16 iManualReloadAPCost = iFinalManualReloadAPCost;
+
+			// trait bonuses
+			if( gGameOptions.fNewTraitSystem && !(Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER) )
+			{
+				// rifles and sniper rifles
+				if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SN_RIFLE || Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_RIFLE )
+					iFinalManualReloadAPCost = (INT16)( (FLOAT)iFinalManualReloadAPCost * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, SNIPER_NT )) / 100.0f + 0.5 );
+				// shotguns
+				else if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN )
+					iFinalManualReloadAPCost = (INT16)( (FLOAT)iFinalManualReloadAPCost * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ))  /100.0f + 0.5);
+			}
+
+			// Get manual reload cost modifier
+			INT16 iManualReloadAPCostModifier = iFinalManualReloadAPCost - iManualReloadAPCost;
+
 			// Print base value
 			DrawPropertyValueInColour( iManualReloadAPCost, ubNumLine, 1, FALSE, FALSE, FALSE,ITEMDESC_FONTNEGATIVE );
 			// Print modifier
-			DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+			DrawPropertyValueInColour( iManualReloadAPCostModifier, ubNumLine, 2, FALSE, TRUE, FALSE );
 			// Print final value
 			DrawPropertyValueInColour( iFinalManualReloadAPCost, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTNEGATIVE );
 		}
