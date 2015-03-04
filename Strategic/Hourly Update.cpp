@@ -481,7 +481,9 @@ void HourlyLarryUpdate()
 					if ( fBar )
 					{
 						// take $ from player's account
-						usCashAmount = Item[ ALCOHOL ].usPrice;
+						// silversurfer: changed the price to reflect the changed amount of 25% below
+						//usCashAmount = Item[ ALCOHOL ].usPrice;
+						usCashAmount = (UINT16)(Item[ ALCOHOL ].usPrice / 4.0f );
 						AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin() , -( usCashAmount ) );
 						// give Larry some booze and set slot etc values appropriately
 						// CHRISL: Change final parameter to allow dynamic control of inventory slots
@@ -489,7 +491,10 @@ void HourlyLarryUpdate()
 						if ( bBoozeSlot != NO_SLOT )
 						{
 							// give Larry booze here
-							CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
+							// silversurfer: only give the merc a 25% bottle. This fixes the problem that the bottle of alcohol can go to any inventory slot even one that isn't available.
+							// Now the bottle will be fully consumed below and vanishes from inventory before the player even gets to see it. This simulates going to a bar to have a drink there.
+							//CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
+							CreateItem( ALCOHOL, 25, &(pSoldier->inv[bBoozeSlot]) );
 						}
 						bSlot = bBoozeSlot;
 						bLarryItemLoop = 1;
