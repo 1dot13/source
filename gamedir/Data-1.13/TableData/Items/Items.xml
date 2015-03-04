@@ -16602,7 +16602,7 @@
 		<ubGraphicNum>520</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>28</ItemSize>
+		<ItemSize>24</ItemSize>
 		<usPrice>130</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
@@ -16812,7 +16812,7 @@
 		<ubGraphicNum>187</ubGraphicNum>
 		<ubWeight>11</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>28</ItemSize>
+		<ItemSize>24</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bReliability>2</bReliability>
