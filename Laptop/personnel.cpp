@@ -8315,6 +8315,31 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[5], (gSkillTraitValues.usSVTrackerAbility * gSkillTraitValues.usSVTrackerMaxRange / 100) );
 					wcscat( apStr, atStr );
 				}
+
+				if ( gGameExternalOptions.fDisease )
+				{
+					if ( gSkillTraitValues.usSVDiseaseResistance != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[6], gSkillTraitValues.usSVDiseaseResistance > 0 ? L"+" : L"", gSkillTraitValues.usSVDiseaseResistance );
+						wcscat( apStr, atStr );
+					}
+				}
+
+				if ( gGameOptions.fFoodSystem )
+				{
+					if ( gSkillTraitValues.sSVFoodConsumption != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[7], gSkillTraitValues.sSVFoodConsumption > 0 ? L"+" : L"", gSkillTraitValues.sSVFoodConsumption );
+						wcscat( apStr, atStr );
+					}
+
+					if ( gSkillTraitValues.sSVDrinkConsumption != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[8], gSkillTraitValues.sSVDrinkConsumption > 0 ? L"+" : L"", gSkillTraitValues.sSVDrinkConsumption );
+						wcscat( apStr, atStr );
+					}
+				}
+
 				break;
 			}
 			case NO_SKILLTRAIT_NT:

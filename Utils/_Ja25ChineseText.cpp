@@ -393,6 +393,10 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	//L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
 	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
 	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
+
+	L" %s%d%% disease resistance\n",
+	L" %s%d%% food consumption\n",
+	L" %s%d%% water consumption\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

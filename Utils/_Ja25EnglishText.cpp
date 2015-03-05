@@ -395,6 +395,10 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	//L"+%d%s camouflage effectiveness\n",
 	L"-%d%s worn out speed of camouflage by water or time\n",
 	L"Can spot tracks up to %d tiles away\n",
+
+	L" %s%d%% disease resistance\n",
+	L" %s%d%% food consumption\n",
+	L" %s%d%% water consumption\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

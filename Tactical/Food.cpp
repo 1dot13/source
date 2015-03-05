@@ -384,8 +384,14 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 
 	FLOAT  temperaturemodifier  = (FLOAT)(3 + sectortemperaturemod)/3;
 	
-	FLOAT specialfoodmodifier  = 100.0 + pSoldier->GetBackgroundValue(BG_PERC_FOOD);
-	FLOAT specialdrinkmodifier = 100.0 + pSoldier->GetBackgroundValue(BG_PERC_WATER);
+	FLOAT specialfoodmodifier  = 100.0 + pSoldier->GetBackgroundValue( BG_PERC_FOOD );
+	FLOAT specialdrinkmodifier = 100.0 + pSoldier->GetBackgroundValue( BG_PERC_WATER );
+
+	if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
+	{
+		specialfoodmodifier  += gSkillTraitValues.sSVFoodConsumption;
+		specialdrinkmodifier += gSkillTraitValues.sSVDrinkConsumption;
+	}
 
 	for ( int i = 0; i < NUM_DISEASES; ++i )
 	{

@@ -1826,6 +1826,9 @@ typedef struct
 	UINT8 ubSVCamoWornountSpeedReduction;
 	UINT16 usSVTrackerMaxRange;
 	UINT8 usSVTrackerAbility;
+	UINT8 usSVDiseaseResistance;
+	INT8 sSVFoodConsumption;					// alters food consumption rate
+	INT8 sSVDrinkConsumption;
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

@@ -18939,6 +18939,9 @@ INT16	SOLDIERTYPE::GetDiseaseResistance( )
 	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
 	INT16 val = 0;
 
+	if ( HAS_SKILL_TRAIT( this, SURVIVAL_NT ) )
+		val += gSkillTraitValues.usSVDiseaseResistance;
+
 	val += this->GetBackgroundValue( BG_RESI_DISEASE );
 
 	val = max( -100, val );

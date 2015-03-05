@@ -2526,15 +2526,19 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.fSNTPrisonSnitchGuardStrengthMultiplier	= iniReader.ReadFloat("Snitch","PRISON_SNITCH_GUARD_STRENGTH_MULTIPLIER", 3.0, 0.0, 10.0);
 
 	// Flugente: SURVIVAL
-	gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot = iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_BY_FOOT_REDUCTION", 20, 0, 100 );
-	gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle = iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 10, 0, 100 );
-	gSkillTraitValues.ubSVMaxBonusesToTravelSpeed = iniReader.ReadInteger( "Survival", "MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20 );
-	gSkillTraitValues.ubSVBreathForTravellingReduction = iniReader.ReadInteger( "Survival", "ENERGY_SPENT_TRAVEL_REDUCTION", 30, 0, 100 );
-	gSkillTraitValues.ubSVWeatherPenaltiesReduction = iniReader.ReadInteger( "Survival", "WEATHER_PENALTIES_REDUCTION", 50, 0, 100 );
-	gSkillTraitValues.ubSVCamoWornountSpeedReduction = iniReader.ReadInteger( "Survival", "CAMO_WORNOUT_SPEED_REDUCTION", 50, 0, 100 );
-	gSkillTraitValues.usSVTrackerMaxRange = iniReader.ReadInteger( "Survival", "TRACKER_MAX_RANGE", 30, 0, 50 );
-	gSkillTraitValues.usSVTrackerAbility = iniReader.ReadInteger( "Survival", "TRACKER_ABILITY", 30, 0, 50 );
+	gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot		= iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_BY_FOOT_REDUCTION", 30, 0, 100 );
+	gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle	= iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 15, 0, 100 );
+	gSkillTraitValues.ubSVMaxBonusesToTravelSpeed				= iniReader.ReadInteger( "Survival", "MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20 );
+	gSkillTraitValues.ubSVBreathForTravellingReduction			= iniReader.ReadInteger( "Survival", "ENERGY_SPENT_TRAVEL_REDUCTION", 50, 0, 100 );
+	gSkillTraitValues.ubSVWeatherPenaltiesReduction				= iniReader.ReadInteger( "Survival", "WEATHER_PENALTIES_REDUCTION", 35, 0, 100 );
+	gSkillTraitValues.ubSVCamoWornountSpeedReduction			= iniReader.ReadInteger( "Survival", "CAMO_WORNOUT_SPEED_REDUCTION", 75, 0, 100 );
+	gSkillTraitValues.usSVTrackerMaxRange						= iniReader.ReadInteger( "Survival", "TRACKER_MAX_RANGE", 30, 0, 50 );
+	gSkillTraitValues.usSVTrackerAbility						= iniReader.ReadInteger( "Survival", "TRACKER_ABILITY", 30, 0, 50 );
+	gSkillTraitValues.usSVDiseaseResistance						= iniReader.ReadInteger( "Survival", "DISEASE_RESISTANCE", 10, 0, 100 );
+	gSkillTraitValues.sSVFoodConsumption						= iniReader.ReadInteger( "Survival", "FOOD_CONSUMPTION", -20, -100, 100 );
+	gSkillTraitValues.sSVDrinkConsumption						= iniReader.ReadInteger( "Survival", "DRINK_CONSUMPTION", -10, -100, 100 );
 }
+
 //DBrot: Grids
 void LoadModSettings(){
 	CIniReader iniReader(MOD_SETTINGS_FILE);
