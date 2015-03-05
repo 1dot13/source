@@ -114,6 +114,98 @@ int MilitiaListQsortCompare(const void *pArg1, const void *pArg2);
 void VerifyTownTrainingIsPaidFor( void );
 #endif
 
+// handle promoting a militia during militia training. return TRUE if militia could be promoted
+BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
+{
+	INT16 sNeighbourX, sNeighbourY;
+	UINT8 ubTownId = StrategicMap[sMapX + sMapY * MAP_WORLD_X].bNameId;
+
+	// alrighty, then.	We'll have to *promote* guys instead.
+
+	// are there any GREEN militia men in the training sector itself?
+	if ( MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) > 0 )
+	{
+		// great! Promote a GREEN militia guy in the training sector to a REGULAR
+		StrategicPromoteMilitiaInSector( sMapX, sMapY, GREEN_MILITIA, 1 );
+
+		if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+			gfStrategicMilitiaChangesMade = TRUE;
+
+		return TRUE;
+	}
+	else
+	{
+		if ( ubTownId != BLANK_SECTOR )
+		{
+			// dammit! Last chance - try to find other eligible sectors in the same town with a Green guy to be promoted
+			InitFriendlyTownSectorServer( ubTownId, sMapX, sMapY );
+
+			// check other eligible sectors in this town for room for another militia
+			while ( ServeNextFriendlySectorInTown( &sNeighbourX, &sNeighbourY ) )
+			{
+				// are there any GREEN militia men in the neighbouring sector ?
+				if ( MilitiaInSectorOfRank( sNeighbourX, sNeighbourY, GREEN_MILITIA ) > 0 )
+				{
+					// great! Promote a GREEN militia guy in the neighbouring sector to a REGULAR
+					StrategicPromoteMilitiaInSector( sNeighbourX, sNeighbourY, GREEN_MILITIA, 1 );
+
+					if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
+						gfStrategicMilitiaChangesMade = TRUE;
+
+					return TRUE;
+				}
+			}
+		}
+
+		// Kaiden: Veteran militia training
+		// This is essentially copy/pasted from above
+		// But the names have been changed to protect the innocent
+		if ( gGameExternalOptions.gfTrainVeteranMilitia && (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay) )
+		{
+			// are there any REGULAR militia men in the training sector itself?
+			if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) > 0 )
+			{
+				// great! Promote a REGULAR militia guy in the training sector to a VETERAN
+				StrategicPromoteMilitiaInSector( sMapX, sMapY, REGULAR_MILITIA, 1 );
+
+				if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+					gfStrategicMilitiaChangesMade = TRUE;
+
+				return TRUE;
+			}
+			else
+			{
+				if ( ubTownId != BLANK_SECTOR )
+				{
+					// dammit! Last chance - try to find other eligible sectors in the same town with a Regular guy to be promoted
+					InitFriendlyTownSectorServer( ubTownId, sMapX, sMapY );
+
+					// check other eligible sectors in this town for room for another militia
+					while ( ServeNextFriendlySectorInTown( &sNeighbourX, &sNeighbourY ) )
+					{
+						// are there any REGULAR militia men in the neighbouring sector ?
+						if ( MilitiaInSectorOfRank( sNeighbourX, sNeighbourY, REGULAR_MILITIA ) > 0 )
+						{
+							// great! Promote a Regular militia guy in the neighbouring sector to a Veteran
+							StrategicPromoteMilitiaInSector( sNeighbourX, sNeighbourY, REGULAR_MILITIA, 1 );
+
+							if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
+								gfStrategicMilitiaChangesMade = TRUE;
+
+							return TRUE;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// if we still haven't been able to train anyone
+	// Well, that's it.	All eligible sectors of this town are full of REGULARs or ELITEs.
+	// The training goes to waste in this situation.
+	return FALSE;
+}
+
 void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY )
 {
 	UINT8 ubMilitiaTrained = 0;
@@ -126,9 +218,13 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	// HEADROCK HAM 3.6: Leadership may affect the resulting squad size.
 	UINT8 ubTrainerEffectiveLeadership = FindBestMilitiaTrainingLeadershipInSector ( sMapX, sMapY, pTrainer->bSectorZ, TOWN_MILITIA );
 	UINT8 iTrainingSquadSize = __min(iMaxMilitiaPerSector, CalcNumMilitiaTrained(ubTrainerEffectiveLeadership, FALSE));
+	UINT8 promotionstodo = 0;
 
 	// Flugente: our pool of volunteers limits how many militia can be created
+	// if we can't train as many militia as we should due to lack of volunteers, the excess training goes into promoting militia
+	UINT8 promotionsfromvolunteers = iTrainingSquadSize;
 	iTrainingSquadSize = min( iTrainingSquadSize, GetVolunteerPool( ) );
+	promotionsfromvolunteers -= iTrainingSquadSize;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia1");
 
@@ -149,8 +245,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	// 3) If not enough room anywhere in town, promote a number of GREENs in this sector into regulars
 	// 4) If not enough GREENS there to promote, promote GREENs in other sectors.
 	// 5) If all friendly sectors of this town are completely filled with REGULAR militia, then training effect is wasted
-
-
+	
 	// Kaiden: Roaming Militia Training:
 	// If we're not training roaming militia,
 	// then we will handle everything as normal.
@@ -168,17 +263,20 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	}
 	else
 	{
-		while (ubMilitiaTrained < iTrainingSquadSize)
+		// we either create new militia or promote existing ones if no space is left
+		while ( ubMilitiaTrained + promotionstodo < iTrainingSquadSize )
 		{
 			// is there room for another militia in the training sector itself?
 			if ( NumNonPlayerTeamMembersInSector( sMapX, sMapY, MILITIA_TEAM ) < iMaxMilitiaPerSector )
 			{
 				// great! Create a new GREEN militia guy in the training sector
 				StrategicAddMilitiaToSector(sMapX, sMapY, GREEN_MILITIA, 1);
+
 				if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
-				{
 					gfStrategicMilitiaChangesMade = TRUE;
-				}
+
+				// next, please!
+				++ubMilitiaTrained;
 			}
 			else
 			{
@@ -198,9 +296,10 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							StrategicAddMilitiaToSector(sNeighbourX, sNeighbourY, GREEN_MILITIA, 1);
 
 							if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
-							{
 								gfStrategicMilitiaChangesMade = TRUE;
-							}
+
+							// next, please!
+							++ubMilitiaTrained;
 
 							fFoundOne = TRUE;
 							break;
@@ -211,109 +310,18 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 				// if we still haven't been able to train anyone
 				if (!fFoundOne)
 				{
-					// alrighty, then.	We'll have to *promote* guys instead.
+					// we need to promote militia then
+					++promotionstodo;
 
-					// are there any GREEN militia men in the training sector itself?
-					if (MilitiaInSectorOfRank(sMapX, sMapY, GREEN_MILITIA) > 0)
-					{
-						// great! Promote a GREEN militia guy in the training sector to a REGULAR
-						StrategicPromoteMilitiaInSector(sMapX, sMapY, GREEN_MILITIA, 1);
-						fFoundOne = TRUE;
-						if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
-						{
-							gfStrategicMilitiaChangesMade = TRUE;
-						}
-					}
-					else
-					{
-						if( ubTownId != BLANK_SECTOR )
-						{
-							// dammit! Last chance - try to find other eligible sectors in the same town with a Green guy to be promoted
-							InitFriendlyTownSectorServer(ubTownId, sMapX, sMapY);
-
-							// check other eligible sectors in this town for room for another militia
-							while( ServeNextFriendlySectorInTown( &sNeighbourX, &sNeighbourY ) )
-							{
-								// are there any GREEN militia men in the neighbouring sector ?
-								if (MilitiaInSectorOfRank(sNeighbourX, sNeighbourY, GREEN_MILITIA) > 0)
-								{
-									// great! Promote a GREEN militia guy in the neighbouring sector to a REGULAR
-									StrategicPromoteMilitiaInSector(sNeighbourX, sNeighbourY, GREEN_MILITIA, 1);
-
-									if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
-									{
-										gfStrategicMilitiaChangesMade = TRUE;
-									}
-
-									fFoundOne = TRUE;
-									break;
-								}
-							}
-						}
-
-						// Kaiden: Veteran militia training
-						// This is essentially copy/pasted from above
-						// But the names have been changed to protect the innocent
-						if ((!fFoundOne) && (gGameExternalOptions.gfTrainVeteranMilitia)
-							&& (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay))
-						{
-							// are there any REGULAR militia men in the training sector itself?
-							if (MilitiaInSectorOfRank(sMapX, sMapY, REGULAR_MILITIA) > 0)
-							{
-								// great! Promote a REGULAR militia guy in the training sector to a VETERAN
-								StrategicPromoteMilitiaInSector(sMapX, sMapY, REGULAR_MILITIA, 1);
-								if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
-								{
-									gfStrategicMilitiaChangesMade = TRUE;
-								}
-
-								fFoundOne = TRUE;
-							}
-							else
-							{
-								if( ubTownId != BLANK_SECTOR )
-								{
-									// dammit! Last chance - try to find other eligible sectors in the same town with a Regular guy to be promoted
-									InitFriendlyTownSectorServer(ubTownId, sMapX, sMapY);
-
-									// check other eligible sectors in this town for room for another militia
-									while( ServeNextFriendlySectorInTown( &sNeighbourX, &sNeighbourY ) )
-									{
-										// are there any REGULAR militia men in the neighbouring sector ?
-										if (MilitiaInSectorOfRank(sNeighbourX, sNeighbourY, REGULAR_MILITIA) > 0)
-										{
-											// great! Promote a Regular militia guy in the neighbouring sector to a Veteran
-											StrategicPromoteMilitiaInSector(sNeighbourX, sNeighbourY, REGULAR_MILITIA, 1);
-
-											if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
-											{
-												gfStrategicMilitiaChangesMade = TRUE;
-											}
-
-											fFoundOne = TRUE;
-											break;
-										}
-									}
-								}
-							}
-						}
-
-						// if we still haven't been able to train anyone
-						if (!fFoundOne)
-						{
-							// Well, that's it.	All eligible sectors of this town are full of REGULARs or ELITEs.
-							// The training goes to waste in this situation.
-							break; // the main while loop
-						}
-					}
+					fFoundOne = TRUE;
 				}
 			}
-
-			// next, please!
-			++ubMilitiaTrained;
 		}
 
-		AddVolunteers( -ubMilitiaTrained );
+		// handle promotions
+		UINT8 promotions = 0;
+		while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sMapX, sMapY ) )
+			++promotions;
 
 		if (gfStrategicMilitiaChangesMade)
 		{
@@ -323,6 +331,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 		// if anyone actually got trained
 		if (ubMilitiaTrained > 0)
 		{
+			AddVolunteers( -ubMilitiaTrained );
+
 			// update the screen display
 			fMapPanelDirty = TRUE;
 

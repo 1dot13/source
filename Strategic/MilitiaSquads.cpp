@@ -176,8 +176,12 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	UINT8 ubTargetRegularPercent = 0;
 	UINT8 ubTempLeadership = ubBestLeadership;
 
-	UINT8 ubActualyAdded = 0; // Added by SANDRO
+	UINT8 trained = 0;
+	UINT8 promoted = 0;
+	UINT8 promotionstodo = 0;
 
+	INT16 numcreated[MAX_MILITIA_LEVELS] = {0};
+	
 	// Does trainer have enough leadership to train a squad?
 	if ( ubBestLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia )
 	{
@@ -192,7 +196,10 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	}
 
 	// Flugente: our pool of volunteers limits how many militia can be created
+	// if we can't train as many militia as we should due to lack of volunteers, the excess training goes into promoting militia
+	UINT8 promotionsfromvolunteers = ubMilitiaToTrain;
 	ubMilitiaToTrain = min( ubMilitiaToTrain, GetVolunteerPool( ) );
+	promotionsfromvolunteers -= ubMilitiaToTrain;
 
 	// HEADROCK HAM 3.4: Composition of new Mobile Militia groups is now dictated by two INI settings controlling
 	// the percentage of Elites and Regulars within the group. If the percentage for either is above 0, at least
@@ -292,149 +299,92 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		// Reduce target elite count first.
 		if (ubTargetElite > 0)
 		{
-			ubTargetElite--;
+			--ubTargetElite;
 			continue;
 		}
+
 		// If no more elites but still over the allowed value, then reduce one regular.
 		if (ubTargetRegular > 0)
 		{
-			ubTargetRegular--;
+			--ubTargetRegular;
 			continue;
 		}
+
 		// No elites/regulars - reduce target green!
-		ubTargetGreen--;
+		--ubTargetGreen;
 	}
-
-	// Flugente: substract volunteers
-	AddVolunteers( -ubMilitiaToTrain );
-
-	while (ubMilitiaToTrain > 0)
+	
+	while ( trained + promotionstodo < ubMilitiaToTrain )
 	{
-
 		////////////////////////////////
 		// Create Heterogenous Group
 		//
 		// As of HAM 3.4, homogenous groups are not treated any differently than these.
 		////////////////////////////////		
 
+		BOOLEAN fFoundOne = FALSE;
+
 		// Do we have room in the target sector?
-		if ( usTotalMilitiaAtTarget < gGameExternalOptions.iMaxMilitiaPerSector )
+		if ( usTotalMilitiaAtTarget + trained < gGameExternalOptions.iMaxMilitiaPerSector )
 		{
-			if (ubTargetElite > 0)
+			if ( ubTargetElite > 0 )
 			{
 				// Add elite.
-				StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
-				ubTargetElite--;
-				ubMilitiaToTrain--;
-				ubActualyAdded++;
-				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, ELITE_MILITIA);
+				++numcreated[ELITE_MILITIA];
+				--ubTargetElite;
+
+				++trained;
+				fFoundOne = TRUE;
 			}
-			else if (ubTargetRegular > 0)
+			else if ( ubTargetRegular > 0 )
 			{
 				// Add regular.
-				StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
-				ubTargetRegular--;
-				ubMilitiaToTrain--;
-				ubActualyAdded++;
-				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, REGULAR_MILITIA);
+				++numcreated[REGULAR_MILITIA];
+				--ubTargetRegular;
+
+				++trained;
+				fFoundOne = TRUE;
 			}
-			else if (ubTargetGreen > 0)
+			else if ( ubTargetGreen > 0 )
 			{
 				// Add green.
-				StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, 1);
-				ubTargetGreen--;
-				ubMilitiaToTrain--;
-				ubActualyAdded++;
-				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, GREEN_MILITIA);
-			}
-			else
-			{
-				// No one to add? Break the cycle.
-				ubMilitiaToTrain = 0;
+				++numcreated[GREEN_MILITIA];
+				--ubTargetGreen;
+
+				++trained;
+				fFoundOne = TRUE;
 			}
 		}
-		// Full militia group? See if you can upgrade some.
-		else
-		{
-			// Are we dealing with a full-size militia group that ISN'T full-quality yet? 
-			if (pTargetSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < usTotalMilitiaAtTarget &&
-				pTargetSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < gGameExternalOptions.iMaxMilitiaPerSector) // failsafe
-			{
-				// Have we got any Elites to add?
-				if (ubTargetElite > 0)
-				{
-					// Add elite. This will effectively replace one lower class militia
-					StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
-					ubTargetElite--;
-					ubMilitiaToTrain--;
-					ubActualyAdded++;
-				}
-				else if (ubTargetRegular > 0 && // Got a regular
-					(!gGameExternalOptions.gfTrainVeteranMilitia || // Not allowed to train Elites
-					GetWorldDay( ) < gGameExternalOptions.guiTrainVeteranMilitiaDelay )) // Or not YET allowed to train elites
-				{
-					// Add a regular. This will effectively replace one Green militia
-					StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
-					ubTargetElite--;
-					ubMilitiaToTrain--;	
-					ubActualyAdded++;
-				}
-				// Else, we've got more men to train but no room for them. In this case, upgrade existing
-				// militia to the next class, using our remainder men as "upgrade points".
-				else
-				{
-					// Calculate upgrade points. 1 point per Green, 2 per Regular.
-					ubUpgradePoints = ubTargetGreen + (2 * ubTargetRegular);
 
-					// Is Elite training allowed?
-					if ( gGameExternalOptions.gfTrainVeteranMilitia && // Elite training allowed
-						(GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay) // Elite training allowed (time based)
-						&& ubUpgradePoints >= 2) // Enough upgrade points to create an elite
-					{
-						// Add one elite
-						StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
-						if (ubTargetRegular > 0)
-						{
-							// Comes at a cost of one regular that we were supposed to train.
-							ubTargetRegular--;
-							ubMilitiaToTrain--;
-							ubActualyAdded++;
-						}
-						else
-						{
-							// No regulars to train? Remove two greens instead.
-							ubTargetGreen -= 2;
-							ubMilitiaToTrain -= 2;
-							ubActualyAdded += 2;
-						}
-					}
-					// Else elite training was not allowed or we simply did not have enough points to add an elite
-					else if (ubUpgradePoints >= 1)
-					{
-						// Add one regular instead of a green.
-						StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
-						ubTargetGreen--;
-						ubMilitiaToTrain--;
-						ubActualyAdded++;
-					}
-					else
-					{
-						// No more men to train. Break the cycle.
-						ubMilitiaToTrain = 0;
-					}
-				}
-			}
-			else
-			{
-				// Sector is full-sized and full-quality. Break the cycle.
-				ubMilitiaToTrain = 0;
-			}
+		// Full militia group? See if you can upgrade some.
+		if( !fFoundOne )
+		{			
+			// we need to promote militia then
+			++promotionstodo;
+
+			fFoundOne = TRUE;
 		}
 	}
 
+	StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, numcreated[ELITE_MILITIA] );
+	StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, numcreated[REGULAR_MILITIA] );
+	StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, numcreated[GREEN_MILITIA] );
+
+	MoveMilitiaEquipment( sMapX, sMapY, sTMapX, sTMapY, numcreated[ELITE_MILITIA], numcreated[REGULAR_MILITIA], numcreated[GREEN_MILITIA] );
+	
+	// handle promotions
+	UINT8 promotions = 0;
+	while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sTMapX, sTMapY ) )
+		++promotions;
+
 	// SANDRO - merc records (num militia trained)
-	if( ubActualyAdded > 0 )
-		RecordNumMilitiaTrainedForMercs( sMapX, sMapY, 0, ubActualyAdded, TRUE );
+	if ( trained > 0 )
+	{
+		RecordNumMilitiaTrainedForMercs( sMapX, sMapY, 0, trained, TRUE );
+
+		// Flugente: substract volunteers
+		AddVolunteers( -trained );
+	}
 
 	// This reduces the group back to "maximum" size. It starts by eliminating extra greens, then regulars, then elites.
 	// That produces a group of max size, with only the best troops remaining.
@@ -2217,7 +2167,6 @@ void AdjustRoamingRestrictions( BOOLEAN fRecheck )
 
 void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3] )
 {
-	SECTORINFO *pSectorInfo;
 	UINT8 ubMaxMilitia = gGameExternalOptions.iMaxMilitiaPerSector;
 
 	*uiDirNumber = 0;
@@ -2938,11 +2887,9 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 ui
 {
 	UINT32		uiNumBytesRead;
 	UINT32		uiTotalNodeCount = 0;
-	UINT8		cnt;
 	UINT32		uiNodeCount = 0;
 	PathSt		*pPath = NULL;
 	UINT8		ubPassengerCnt = 0;
-	PathSt		*pTempPath;
 	UINT8		numpaths = 0;
 
 	DeleteAllMilitiaPaths( );

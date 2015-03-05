@@ -20,6 +20,8 @@
 //#define MIN_RATING_TO_TRAIN_TOWN 20
 
 
+// handle promoting a militia during militia training. return TRUE if militia could be promoted
+BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY );
 
 // this handles what happens when a new militia unit is finishes getting trained
 void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY );

@@ -685,9 +685,6 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	INT8 bKillerTeam = 0;
 	BOOLEAN fIncrement = FALSE;
 	
-	UINT16 iCounter2;
-
-
 	// ubAttacker CAN be NOBODY...	Don't treat is as murder if NOBODY killed us...
 	if ( pSoldier->ubAttackerID == NOBODY )
 	{

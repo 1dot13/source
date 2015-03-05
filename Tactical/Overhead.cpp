@@ -6663,7 +6663,7 @@ void DeathNoMessageTimerCallback( )
                 ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
             }
             else 
-                ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
+				ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPClientMessage[74] );
 
             teamwiped();
         }
@@ -9816,7 +9816,7 @@ void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
             ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
         }
         else 
-            ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
+			ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPClientMessage[74] );
 
         teamwiped();
     }

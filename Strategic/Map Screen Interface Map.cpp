@@ -7674,15 +7674,17 @@ void DisplayMilitiaGroupBox()
 
 		SetFont( FONT12ARIAL );
 
-		if ( GetVolunteerPool() >= 2 * gGameExternalOptions.iTrainingSquadSize )
+		INT32 volunteers = GetVolunteerPool();
+
+		if ( volunteers >= 2 * gGameExternalOptions.iTrainingSquadSize )
 			SetFontForeground( FONT_FCOLOR_GREEN );
-		else if ( GetVolunteerPool( ) >= gGameExternalOptions.iTrainingSquadSize )
+		else if ( volunteers >= gGameExternalOptions.iTrainingSquadSize )
 			SetFontForeground( FONT_FCOLOR_YELLOW );
 		else
 			SetFontForeground( FONT_FCOLOR_RED );
 
 		// header
-		swprintf( sVolunteerString, szMilitiaStrategicMovementText[8], GetVolunteerPool( ), CalcHourlyVolunteerGain( ) );
+		swprintf( sVolunteerString, szMilitiaStrategicMovementText[8], volunteers, CalcHourlyVolunteerGain( ) );
 		mprintf( MapScreenRect.iLeft + 20, MapScreenRect.iBottom - 10, sVolunteerString );
 	}
 
