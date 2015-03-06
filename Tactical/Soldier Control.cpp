@@ -10073,22 +10073,22 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 		this->usSoldierFlagMask |= SOLDIER_FRESHWOUND;
 
 	// Flugente we might get a disease from this...
-	if ( gGameExternalOptions.fDisease )
+	if ( gGameExternalOptions.fDisease && sLifeDeduct > 0 )
 	{
 		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && CREATURE_OR_BLOODCAT( MercPtrs[ubAttacker] ) )
 			HandlePossibleInfection( this, MercPtrs[ubAttacker], INFECTION_TYPE_WOUND_ANIMAL );
 
-		if ( sLifeDeduct > 0 && ubReason == TAKE_DAMAGE_GUNFIRE )
+		if ( ubReason == TAKE_DAMAGE_GUNFIRE && sLifeDeduct > 20 )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GUNSHOT );
-		else if ( sLifeDeduct > 0 && (ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
-			|| ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION || ubReason == TAKE_DAMAGE_TENTACLES) )
+		else if ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
+			|| ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION || ubReason == TAKE_DAMAGE_TENTACLES )
 		{
 			FLOAT modifier = 0.5f + sLifeDeduct / 100;
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_OPEN, modifier );
 		}
 
-		// possibly get traumatized if we're hit really bad
-		if ( this->stats.bLife < OKLIFE )
+		// possibly get traumatized if damage gets close to killing us (not if we're slowly bleeding)
+		if ( this->stats.bLife < OKLIFE && ubReason != TAKE_DAMAGE_BLOODLOSS )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_TRAUMATIC );
 	}
 

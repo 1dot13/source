@@ -55,21 +55,21 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 				  strcmp( name, "sInfectionPtsOutbreak" ) == 0 ||
 				  strcmp( name, "sInfectionPtsFull" ) == 0 ||
 				  strcmp( name, "sInfectionPtsGainPerHour" ) == 0 ||
-				  strcmp( name, "usInfectionChance_SWAMP" ) == 0 ||
-				  strcmp( name, "usInfectionChance_TROPICS" ) == 0 ||
-				  strcmp( name, "usInfectionChance_SEX" ) == 0 ||
-				  strcmp( name, "usInfectionChance_CONTACT_HUMAN" ) == 0 ||
-				  strcmp( name, "usInfectionChance_CONTACT_CORPSE" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_ANIMAL" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_OPEN" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_GUNSHOT" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_AGI" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_DEX" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_STR" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_WIS" ) == 0 ||
-				  strcmp( name, "usInfectionChance_WOUND_TRAUMATIC" ) == 0 ||
-				  strcmp( name, "usInfectionChance_BADFOOD" ) == 0 ||
-				  strcmp( name, "usInfectionChance_BADWATER" ) == 0 ||
+				  strcmp( name, "InfectionChance_SWAMP" ) == 0 ||
+				  strcmp( name, "InfectionChance_TROPICS" ) == 0 ||
+				  strcmp( name, "InfectionChance_SEX" ) == 0 ||
+				  strcmp( name, "InfectionChance_CONTACT_HUMAN" ) == 0 ||
+				  strcmp( name, "InfectionChance_CONTACT_CORPSE" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_ANIMAL" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_OPEN" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_GUNSHOT" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_AGI" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_DEX" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_STR" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_WIS" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_TRAUMATIC" ) == 0 ||
+				  strcmp( name, "InfectionChance_BADFOOD" ) == 0 ||
+				  strcmp( name, "InfectionChance_BADWATER" ) == 0 ||
 				  strcmp( name, "fCanBeCured" ) == 0 ||
 				  strcmp( name, "fReverseOnFull" ) == 0 ||
 				  strcmp( name, "fCanReInfect" ) == 0 ||
@@ -180,80 +180,80 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			pData->curElement = ELEMENT;
 			pData->curItem.sInfectionPtsGainPerHour = (INT32)atol( pData->szCharData );
 		}
-		else if ( strcmp( name, "usInfectionChance_SWAMP" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_SWAMP" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_SWAMP] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_SWAMP] = max(0.0f, min(100.0f, atof( pData->szCharData )));
 		}
-		else if ( strcmp( name, "usInfectionChance_TROPICS" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_TROPICS" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_TROPICS] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_TROPICS] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_SEX" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_SEX" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_SEX] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_SEX] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_CONTACT_HUMAN" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_CONTACT_HUMAN" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_CONTACT_CORPSE" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_CONTACT_CORPSE" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_ANIMAL" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_ANIMAL" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_ANIMAL] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_ANIMAL] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_OPEN" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_OPEN" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_OPEN] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_OPEN] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_GUNSHOT" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_GUNSHOT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_AGI" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_AGI" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_AGI] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_AGI] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_DEX" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_DEX" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_DEX] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_DEX] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_STR" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_STR" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_STR] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_STR] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_WIS" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_WIS" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_WOUND_WIS] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_WIS] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_WOUND_TRAUMATIC" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_WOUND_TRAUMATIC" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_TRAUMATIC] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_TRAUMATIC] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_BADFOOD" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_BADFOOD" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_BADFOOD] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_BADFOOD] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
-		else if ( strcmp( name, "usInfectionChance_BADWATER" ) == 0 )
+		else if ( strcmp( name, "InfectionChance_BADWATER" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usInfectionChance[INFECTION_TYPE_BADWATER] = (UINT8)atol( pData->szCharData );
+			pData->curItem.dInfectionChance[INFECTION_TYPE_BADWATER] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "fCanBeCured" ) == 0 )
 		{
@@ -436,21 +436,21 @@ BOOLEAN WriteDiseaseStats( )
 			FilePrintf( hFile, "\t\t<sInfectionPtsOutbreak>%d</sInfectionPtsOutbreak>\r\n", Disease[cnt].sInfectionPtsOutbreak );
 			FilePrintf( hFile, "\t\t<sInfectionPtsFull>%d</sInfectionPtsFull>\r\n", Disease[cnt].sInfectionPtsFull );
 			FilePrintf( hFile, "\t\t<sInfectionPtsGainPerHour>%d</sInfectionPtsGainPerHour>\r\n", Disease[cnt].sInfectionPtsGainPerHour );
-			FilePrintf( hFile, "\t\t<usInfectionChance_SWAMP>%d</usInfectionChance_SWAMP>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_SWAMP] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_TROPICS>%d</usInfectionChance_TROPICS>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_TROPICS] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_SEX>%d</usInfectionChance_SEX>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_SEX] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_CONTACT_HUMAN>%d</usInfectionChance_CONTACT_HUMAN>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_CONTACT_CORPSE>%d</usInfectionChance_CONTACT_CORPSE>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_ANIMAL>%d</usInfectionChance_WOUND_ANIMAL>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_ANIMAL] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_OPEN>%d</usInfectionChance_WOUND_OPEN>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_OPEN] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_GUNSHOT>%d</usInfectionChance_WOUND_GUNSHOT>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_AGI>%d</usInfectionChance_WOUND_AGI>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_AGI] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_DEX>%d</usInfectionChance_WOUND_DEX>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_DEX] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_STR>%d</usInfectionChance_WOUND_STR>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_STR] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_WOUND_WIS>%d</usInfectionChance_WOUND_WIS>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_WOUND_WIS] );			
-			FilePrintf( hFile, "\t\t<usInfectionChance_TRAUMATIC>%d</usInfectionChance_TRAUMATIC>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_TRAUMATIC] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_BADFOOD>%d</usInfectionChance_BADFOOD>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_BADFOOD] );
-			FilePrintf( hFile, "\t\t<usInfectionChance_BADWATER>%d</usInfectionChance_BADWATER>\r\n", Disease[cnt].usInfectionChance[INFECTION_TYPE_BADWATER] );
+			FilePrintf( hFile, "\t\t<InfectionChance_SWAMP>%3.2f</InfectionChance_SWAMP>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_SWAMP] );
+			FilePrintf( hFile, "\t\t<InfectionChance_TROPICS>%3.2f</InfectionChance_TROPICS>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_TROPICS] );
+			FilePrintf( hFile, "\t\t<InfectionChance_SEX>%3.2f</InfectionChance_SEX>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_SEX] );
+			FilePrintf( hFile, "\t\t<InfectionChance_CONTACT_HUMAN>%3.2f</InfectionChance_CONTACT_HUMAN>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] );
+			FilePrintf( hFile, "\t\t<InfectionChance_CONTACT_CORPSE>%3.2f</InfectionChance_CONTACT_CORPSE>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_ANIMAL>%3.2f</InfectionChance_WOUND_ANIMAL>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_ANIMAL] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_OPEN>%3.2f</InfectionChance_WOUND_OPEN>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_OPEN] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_GUNSHOT>%3.2f</InfectionChance_WOUND_GUNSHOT>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_AGI>%3.2f</InfectionChance_WOUND_AGI>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_AGI] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_DEX>%3.2f</InfectionChance_WOUND_DEX>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_DEX] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_STR>%3.2f</InfectionChance_WOUND_STR>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_STR] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_WIS>%3.2f</InfectionChance_WOUND_WIS>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_WIS] );
+			FilePrintf( hFile, "\t\t<InfectionChance_TRAUMATIC>%3.2f</InfectionChance_TRAUMATIC>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_TRAUMATIC] );
+			FilePrintf( hFile, "\t\t<InfectionChance_BADFOOD>%3.2f</InfectionChance_BADFOOD>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_BADFOOD] );
+			FilePrintf( hFile, "\t\t<InfectionChance_BADWATER>%3.2f</InfectionChance_BADWATER>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_BADWATER] );
 			FilePrintf( hFile, "\t\t<fCanBeCured>%d</fCanBeCured>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fReverseOnFull>%d</fReverseOnFull>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_REVERSEONFULL) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fCanReInfect>%d</fCanReInfect>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_CANREINFECT) ? 1 : 0 );

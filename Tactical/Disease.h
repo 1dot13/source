@@ -86,7 +86,7 @@ typedef struct
 	INT32		sInfectionPtsGainPerHour;			// extra points gained every hour if infected
 
 	// infection chances and behaviour
-	UINT8		usInfectionChance[INFECTION_TYPE_MAX];		// percentage chance of being infected this way if conditions are fulfilled
+	FLOAT		dInfectionChance[INFECTION_TYPE_MAX];		// percentage chance of being infected this way if conditions are fulfilled
 	UINT32		usDiseaseProperties;				// properties of the disease
 
 	// effects of disease (effect at sInfectionPtsFull points), scaled

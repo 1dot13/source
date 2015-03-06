@@ -133,7 +133,7 @@ void HandleDisease()
 						if ( pSectorInfo->usInfected )
 						{
 							// infection is also possible by human contact
-							UINT32 usChance = Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
+							FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
 
 							// if disease is known, mercs will avoid the infected, lowering the chance of them being infected
 							UINT16 max = min(20, pSectorInfo->usInfected);
@@ -142,7 +142,8 @@ void HandleDisease()
 
 							for ( UINT16 i = 0; i < max; ++i )
 							{
-								if ( Chance( usChance ) )
+								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+								if ( Random( 10000 ) < dChance * 100 )
 									HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_CONTACT_HUMAN, 1.0f, TRUE );
 							}
 						}
@@ -152,13 +153,14 @@ void HandleDisease()
 						{
 							if ( pSectorInfo->usInfected < population )
 							{
-								if ( Chance( Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] ) )
+								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+								if ( Random( 10000 ) < Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] * 100 )
 								{
 									FLOAT infectedseverity = (FLOAT)Disease[0].sInfectionPtsInitial / (FLOAT)Disease[0].sInfectionPtsFull;
 
 									pSectorInfo->fInfectionSeverity = (pSectorInfo->fInfectionSeverity * pSectorInfo->usInfected + infectedseverity * 1) / (pSectorInfo->usInfected + 1);
 									++pSectorInfo->usInfected;
-								}
+								}																								
 							}
 						}
 					}
@@ -183,7 +185,7 @@ void HandleDisease()
 		if ( pSoldier->bActive )
 		{
 			UINT8 ubSector = (UINT8)SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
-			UINT8 ubTraverseType = SectorInfo[ubSector].ubTraversability[pSoldier->ubDirection];
+			UINT8 ubTraverseType = SectorInfo[ubSector].ubTraversability[THROUGH_STRATEGIC_MOVE];
 
 			switch ( ubTraverseType )
 			{
@@ -244,10 +246,11 @@ void HandleDisease()
 						case TROPICS:
 						case TROPICS_ROAD:
 						{
-							UINT32 usChance = Disease[0].usInfectionChance[INFECTION_TYPE_TROPICS];
+											 FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_TROPICS];
 							for ( UINT16 i = 0; i < lefttoinfect; ++i )
 							{
-								if ( Chance( usChance) )
+								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+								if ( Random( 10000 ) < dChance * 100 )
 									++newinfected;
 							}
 						}
@@ -255,10 +258,11 @@ void HandleDisease()
 						case SWAMP:
 						case SWAMP_ROAD:
 						{
-							UINT32 usChance = Disease[0].usInfectionChance[INFECTION_TYPE_SWAMP];
+							FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_SWAMP];
 							for ( UINT16 i = 0; i < lefttoinfect; ++i )
 							{
-								if ( Chance( usChance ) )
+								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+								if ( Random( 10000 ) < dChance * 100 )
 									++newinfected;
 							}
 						}
@@ -270,11 +274,12 @@ void HandleDisease()
 					if ( lefttoinfect - newinfected > 1 && pSectorInfo->usInfected )
 					{
 						// infection is also possible by human contact
-						UINT32 usChance = Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
+						FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
 						UINT16 max = sqrt( (FLOAT) min( lefttoinfect - newinfected, pSectorInfo->usInfected ) );
 						for ( UINT16 i = 0; i < max; ++i )
 						{
-							if ( Chance( usChance ) )
+							// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+							if ( Random( 10000 ) < dChance * 100 )
 								++newinfected;
 						}
 					}
@@ -286,17 +291,18 @@ void HandleDisease()
 						FLOAT populationpercentage = (FLOAT)(lefttoinfect - newinfected) / (FLOAT)(population);
 						FLOAT basechance = sqrt( (FLOAT) min( lefttoinfect, pSectorInfo->usInfected + newinfected ) ) * 0.5f;
 
-						FLOAT chance_sex = Disease[0].usInfectionChance[INFECTION_TYPE_SEX] * basechance * populationpercentage;
+						FLOAT chance_sex = Disease[0].dInfectionChance[INFECTION_TYPE_SEX] * basechance * populationpercentage;
 						FLOAT chance_corpse = 0;
 
 						// if there was a fight here in the last 48 hours, then corpses will still be here - increase chance of infection
 						if ( pSectorInfo->uiTimeLastPlayerLiberated && pSectorInfo->uiTimeLastPlayerLiberated + (48 * 3600) > GetWorldTotalSeconds( ) )
-							chance_corpse = Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] * populationpercentage;
+							chance_corpse = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] * populationpercentage;
 						
-						if ( Chance( chance_sex ) )
+						// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+						if ( Random( 10000 ) < chance_sex * 100 )
 							++newinfected;
 
-						if ( Chance( chance_corpse ) )
+						if ( Random( 10000 ) < chance_corpse * 100 )
 							++newinfected;
 					}
 
@@ -318,9 +324,10 @@ void HandleDisease()
 
 									if ( infectedothersector > DISEASE_STRATEGIC_ADJACENTINFECTION )
 									{
-										FLOAT percentage = (FLOAT)((lefttoinfect - newinfected) * Disease[0].usInfectionChance[INFECTION_TYPE_CONTACT_HUMAN]) / (FLOAT)(100 * population);
+										FLOAT percentage = (FLOAT)((lefttoinfect - newinfected) * Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN]) / (FLOAT)(100 * population);
 
-										if ( Chance( 100 * percentage ) )
+										// chances can be smaller than 1%, so we use a trick here by altering ou 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+										if ( Random( 10000 ) < percentage * 100 * 100 )
 											++newinfected;
 									}
 								}
@@ -405,33 +412,34 @@ void HandlePossibleInfection( SOLDIERTYPE *pSoldier, SOLDIERTYPE* pOtherSoldier,
 			continue;
 
 		// chance of infection by insects
-		UINT32 usChance = Disease[i].usInfectionChance[aInfectionType];
+		FLOAT dChance = Disease[i].dInfectionChance[aInfectionType];
 
 		// alter chance by modifier and disease resistance
-		usChance = usChance * aModifier * ( 100 - pSoldier->GetDiseaseResistance( ) ) / 100;
+		dChance = dChance * aModifier * (100 - pSoldier->GetDiseaseResistance( )) / 100;
 
 		if ( aInfectionType == INFECTION_TYPE_TROPICS || aInfectionType == INFECTION_TYPE_SWAMP )
 		{
 			// if we are afraid of insects, we will be more careful around them - lower chance to be infected
 			if ( gMercProfiles[pSoldier->ubProfile].bDisability == FEAR_OF_INSECTS )
-				usChance *= 0.7f;
+				dChance *= 0.7f;
 		}
 		else if ( aInfectionType == INFECTION_TYPE_CONTACT_HUMAN )
 		{
 			// if we check a specific soldier, he must have the disease himself
 			if ( pOtherSoldier && pOtherSoldier->sDiseasePoints[i] <= 0 )
-					usChance = 0;
+				dChance = 0;
 
 			// if we wear face or hand protection, lower chance of infection
-			usChance *= (1.0f - pSoldier->GetDiseaseContactProtection( ));
+			dChance *= (1.0f - pSoldier->GetDiseaseContactProtection( ));
 		}
 		else if ( aInfectionType == INFECTION_TYPE_CONTACT_CORPSE )
 		{
 			// if we wear face or hand protection, lower chance of infection
-			usChance *= (1.0f - pSoldier->GetDiseaseContactProtection( ));
+			dChance *= (1.0f - pSoldier->GetDiseaseContactProtection( ));
 		}
 
-		if ( Chance( usChance ) )
+		// chances ca be smaller than 1%, so we use a trick here by altering ou 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+		if ( Random( 10000 ) < dChance * 100 )
 		{
 			// infect us
 			pSoldier->Infect( i );
