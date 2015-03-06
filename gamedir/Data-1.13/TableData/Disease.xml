@@ -8,21 +8,21 @@
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>400</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>5</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>6</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>3</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>2</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>10</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>30</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>20</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>15</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>5</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0.5</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0.25</InfectionChance_TROPICS>
+		<InfectionChance_SEX>2</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>5</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>10</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>20</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>15</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>5</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -50,21 +50,21 @@
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>1000</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>7</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>25</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>5</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>15</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>3</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>25</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>1.0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0.2</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>5</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>3</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>25</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -92,21 +92,21 @@
 		<sInfectionPtsOutbreak>400</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>800</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>4</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>25</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>20</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>2</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>5</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>35</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>1.0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>20</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>1</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>2</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>35</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>1</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -134,21 +134,21 @@
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>700</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>4</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>13</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>20</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>30</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>5</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>20</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>30</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -176,21 +176,21 @@
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>800</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>3</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>15</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>10</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>14</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>6</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>3</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>3</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>3</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>15</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>5</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>7</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>6</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>3</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>3</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>3</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -218,21 +218,21 @@
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>800</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>5</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>20</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>2</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>1</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>10</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>2</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>35</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>1.25</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>2</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>1</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>4</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>2</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>35</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>1</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -260,21 +260,21 @@
 		<sInfectionPtsOutbreak>300</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>360</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>3</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>5</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>12</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>6</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0.7</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>12</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>1</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -302,21 +302,21 @@
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>1000</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>6</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>20</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>20</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>2</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>8</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>2</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>2</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>2</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>8</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>1</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -344,21 +344,21 @@
 		<sInfectionPtsOutbreak>120</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>120</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>5</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>50</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>50</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>1</fReverseOnFull>
 		<fCanReInfect>1</fCanReInfect>
@@ -386,21 +386,21 @@
 		<sInfectionPtsOutbreak>300</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>600</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>3</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>30</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>1</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>4</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>30</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>1</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>1.2</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>1</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -428,21 +428,21 @@
 		<sInfectionPtsOutbreak>20</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>100</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>-4</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>30</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>30</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>1</fCanReInfect>
@@ -470,21 +470,21 @@
 		<sInfectionPtsOutbreak>20</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>100</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>0</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>50</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>10</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>50</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>10</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>0</fCanReInfect>
@@ -512,21 +512,21 @@
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>200</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>-2</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>75</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>75</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>1</fCanReInfect>
@@ -554,21 +554,21 @@
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>200</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>-2</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>75</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>0</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>75</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>1</fCanReInfect>
@@ -596,21 +596,21 @@
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>200</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>-2</sInfectionPtsGainPerHour>		
-		<usInfectionChance_SWAMP>0</usInfectionChance_SWAMP>
-		<usInfectionChance_TROPICS>0</usInfectionChance_TROPICS>
-		<usInfectionChance_SEX>0</usInfectionChance_SEX>
-		<usInfectionChance_CONTACT_HUMAN>0</usInfectionChance_CONTACT_HUMAN>
-		<usInfectionChance_CONTACT_CORPSE>0</usInfectionChance_CONTACT_CORPSE>
-		<usInfectionChance_WOUND_ANIMAL>0</usInfectionChance_WOUND_ANIMAL>
-		<usInfectionChance_WOUND_OPEN>0</usInfectionChance_WOUND_OPEN>
-		<usInfectionChance_WOUND_GUNSHOT>0</usInfectionChance_WOUND_GUNSHOT>
-		<usInfectionChance_WOUND_AGI>0</usInfectionChance_WOUND_AGI>
-		<usInfectionChance_WOUND_DEX>0</usInfectionChance_WOUND_DEX>
-		<usInfectionChance_WOUND_STR>75</usInfectionChance_WOUND_STR>
-		<usInfectionChance_WOUND_WIS>0</usInfectionChance_WOUND_WIS>
-		<usInfectionChance_WOUND_TRAUMATIC>0</usInfectionChance_WOUND_TRAUMATIC>
-		<usInfectionChance_BADFOOD>0</usInfectionChance_BADFOOD>
-		<usInfectionChance_BADWATER>0</usInfectionChance_BADWATER>
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>75</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
 		<fCanReInfect>1</fCanReInfect>
