@@ -95,6 +95,7 @@
 #include "Interface Panels.h"
 #include "Queen Command.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
+#include "Auto Bandage.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -10092,14 +10093,18 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_TRAUMATIC );
 	}
 
+	// Flugente: bandaging during retreat
+	if ( gGameExternalOptions.fAllowBandagingDuringTravel && ubReason == TAKE_DAMAGE_BLOODLOSS && this->flags.fBetweenSectors && GetBestRetreatingMercDoctor( this ) != NOBODY )
+	{
+		SetRetreatBandaging( TRUE );
+	}
+	
 	// Calculate damage to our items if from an explosion!
 	if ( ubReason == TAKE_DAMAGE_EXPLOSION || ubReason == TAKE_DAMAGE_STRUCTURE_EXPLOSION )
 	{
 		CheckEquipmentForDamage( this, sLifeDeduct );
 	}
-
-
-
+	
 	// Calculate bleeding
 	if ( ubReason != TAKE_DAMAGE_GAS && !AM_A_ROBOT( this ) )
 	{
@@ -22449,3 +22454,347 @@ void SetDamageDisplayCounter( SOLDIERTYPE* pSoldier )
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - This whole procedure was merged with the surgery ability of the doctor trait
+UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery )
+{
+	UINT32 uiDressSkill, uiPossible, uiActual, uiMedcost, uiDeficiency, uiAvailAPs, uiUsedAPs;
+	UINT8 bBelowOKlife, bPtsLeft;
+	INT8 bInitialBleeding;
+
+	if ( pVictim->bBleeding < 1 && !fOnSurgery )
+		return 0;		// nothing to do, shouldn't have even been called!
+	if ( pVictim->stats.bLife == 0 )
+		return 0;
+	if ( fOnSurgery && pVictim->ubID == pSoldier->ubID ) // cannot make surgery on self
+		return 0;
+
+	bInitialBleeding = pVictim->bBleeding;
+
+	if ( !gGameOptions.fNewTraitSystem && fOnSurgery ) // cannot make surgery if not new traits
+		fOnSurgery = FALSE;
+
+	// calculate wound-dressing skill (3x medical, 2x equip, 1x level, 1x dex)
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		uiDressSkill = ((7 * EffectiveMedical( pSoldier )) +					// medical knowledge
+						 (sStatus)+ 																// state of medical kit
+						 (10 * EffectiveExpLevel( pSoldier )) +					// battle injury experience
+						 EffectiveDexterity( pSoldier, FALSE )) / 10;		// general "handiness"
+	}
+	else
+	{
+		uiDressSkill = ((3 * EffectiveMedical( pSoldier )) +					// medical knowledge
+						 (2 * sStatus) + 																// state of medical kit
+						 (10 * EffectiveExpLevel( pSoldier )) +					// battle injury experience
+						 EffectiveDexterity( pSoldier, FALSE )) / 7;		// general "handiness"
+	}
+
+	// try to use every AP that the merc has left
+	uiAvailAPs = pSoldier->bActionPoints;
+
+	// OK, If we are in real-time, use another value...
+	if ( !(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT) )
+	{	// Set to a value which looks good based on out tactical turns duration
+		uiAvailAPs = RT_FIRST_AID_GAIN_MODIFIER;
+	}
+
+	// calculate how much bandaging CAN be done this turn
+	uiPossible = (uiAvailAPs * uiDressSkill) / 50;	// max rate is 2 * fullAPs
+
+	// if no healing is possible (insufficient APs or insufficient dressSkill)
+	if ( !uiPossible )
+		return 0;
+
+	if ( Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery) )		// using the GOOD medic stuff
+		uiPossible += (uiPossible / 2);			// add extra 50 %
+
+	// Doctor trait improves basic bandaging ability
+	if ( !(fOnSurgery) && gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT ) )
+	{
+		uiPossible = uiPossible * (100 - gSkillTraitValues.bSpeedModifierBandaging) / 100;
+		uiPossible += (uiPossible * gSkillTraitValues.ubDOBandagingSpeedPercent * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) + pSoldier->GetBackgroundValue( BG_PERC_BANDAGING )) / 100;
+	}
+
+	uiActual = uiPossible;		// start by assuming maximum possible
+
+	// figure out how far below OKLIFE the victim is
+	if ( pVictim->stats.bLife >= OKLIFE )
+		bBelowOKlife = 0;
+	else
+		bBelowOKlife = OKLIFE - pVictim->stats.bLife;
+
+	// figure out how many healing pts we need to stop dying (2x cost)
+	uiDeficiency = (2 * bBelowOKlife);
+
+	// if, after that, the patient will still be bleeding
+	if ( (pVictim->bBleeding - bBelowOKlife) > 0 )
+	{ // then add how many healing pts we need to stop bleeding (1x cost)
+		uiDeficiency += (pVictim->bBleeding - bBelowOKlife);
+	}
+	// On surgery, alter this by amount of life we can heal
+	if ( fOnSurgery )
+	{
+		uiDeficiency += (pVictim->iHealableInjury / 100);
+	}
+	// now, make sure we weren't going to give too much
+	if ( uiActual > uiDeficiency )	// if we were about to apply too much
+		uiActual = uiDeficiency;	// reduce actual not to waste anything
+
+	// now make sure we HAVE that much
+	if ( Item[pKit->usItem].medicalkit )
+	{
+		if ( fOnSurgery )
+			uiMedcost = (uiActual * gSkillTraitValues.usDOSurgeryMedBagConsumption) / 100;		// surgery drains the kit a lot
+		else
+			uiMedcost = (uiActual + 1) / 2;		// cost is only half, rounded up
+
+		if ( uiMedcost == 0 && uiActual > 0 )
+			uiMedcost = 1;
+		if ( uiMedcost > (UINT32)sKitPts )     		// if we can't afford this
+		{
+			uiMedcost = sKitPts;		// what CAN we afford?
+			if ( fOnSurgery ) // surgery check
+				uiActual = (uiMedcost * 100) / gSkillTraitValues.usDOSurgeryMedBagConsumption;
+			else
+				uiActual = uiMedcost * 2;		// give double this as aid
+		}
+	}
+	else
+	{
+		uiMedcost = uiActual;
+		if ( uiMedcost == 0 && uiActual > 0 )
+			uiMedcost = 1;
+		if ( uiMedcost > (UINT32)sKitPts )		// can't afford it
+			uiMedcost = uiActual = sKitPts;		// recalc cost AND aid
+	}
+
+	bPtsLeft = (INT8)uiActual;
+	// heal real life points first (if below OKLIFE) because we don't want the
+	// patient still DYING if bandages run out, or medic is disabled/distracted!
+	// NOTE: Dressing wounds for life below OKLIFE now costs 2 pts/life point!
+	if ( bPtsLeft && pVictim->stats.bLife < OKLIFE )
+	{
+		// if we have enough points to bring him all the way to OKLIFE this turn
+		if ( bPtsLeft >= (2 * bBelowOKlife) )
+		{
+			// insta-healable injury check
+			if ( pVictim->iHealableInjury > 0 )
+			{
+				pVictim->iHealableInjury -= ((OKLIFE - pVictim->stats.bLife) * 100);
+				if ( pVictim->iHealableInjury < 0 )
+					pVictim->iHealableInjury = 0;
+			}
+			// raise life to OKLIFE
+			pVictim->stats.bLife = OKLIFE;
+			// reduce bleeding by the same number of life points healed up
+			pVictim->bBleeding -= bBelowOKlife;
+
+			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
+			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + bBelowOKlife );
+			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - bBelowOKlife );
+
+			// use up appropriate # of actual healing points
+			bPtsLeft -= (2 * bBelowOKlife);
+		}
+		else
+		{
+			// insta-healable injury check
+			if ( pVictim->iHealableInjury > 0 )
+			{
+				pVictim->iHealableInjury -= ((bPtsLeft / 2) * 100);
+				if ( pVictim->iHealableInjury < 0 )
+					pVictim->iHealableInjury = 0;
+			}
+			pVictim->stats.bLife += (bPtsLeft / 2);
+			pVictim->bBleeding -= (bPtsLeft / 2);
+
+			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
+			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + (bPtsLeft / 2) );
+			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (bPtsLeft / 2) );
+
+			bPtsLeft = bPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
+		}
+
+		// this should never happen any more, but make sure bleeding not negative
+		if ( pVictim->bBleeding < 0 )
+		{
+			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
+		}
+
+		// if this healing brought the patient out of the worst of it, cancel dying
+		if ( pVictim->stats.bLife >= OKLIFE )
+		{ // turn off merc QUOTE flags
+			pVictim->flags.fDyingComment = FALSE;
+		}
+
+		if ( pVictim->bBleeding <= MIN_BLEEDING_THRESHOLD )
+		{
+			pVictim->flags.fWarnedAboutBleeding = FALSE;
+		}
+	}
+
+	// SURGERY 
+	// first return the real life back, then bandage the rest if possible
+	if ( fOnSurgery && gGameOptions.fNewTraitSystem ) // double check for new traits
+	{
+		INT32 iLifeReturned = 0;
+		UINT16 usReturnDamagedStatRate = 0;
+		// find out if we will repair any stats...
+		if ( NumberOfDamagedStats( pVictim ) > 0 )
+		{
+			usReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )));
+			usReturnDamagedStatRate -= max( 0, ((usReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing) / 100) );
+
+			// ... in which case, reduce the points
+			bPtsLeft = max( 0, ((bPtsLeft * (100 - gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair)) / 100) );
+		}
+
+		// Important note! : HealableInjury is always stores the total HPs the victim is missing, not the amount which we will heal,
+		// so we always take a portion of patient's damage here, reduce the HealableInjury by this portion, while only healing a portion of this portion in actual HPs;
+		// this means the rest of HPs will remain as "unhealable", the patient will miss X HPs but has no HealableInjury on self..
+		if ( bPtsLeft >= (pVictim->iHealableInjury / 100) )
+		{
+			iLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 100;
+
+			pVictim->iHealableInjury = 0;
+			// keep the rest of the points to bandaging if neccessary
+			if ( pVictim->bBleeding > 0 )
+			{
+				bPtsLeft = max( 0, (bPtsLeft - (iLifeReturned / 100)) );
+				bPtsLeft += (bPtsLeft / 2); // we use medical bag so add the bonus for that.
+			}
+			else
+			{
+				bPtsLeft = 0;
+			}
+
+			// add to record - another surgery undergoed
+			if ( pVictim->ubProfile != NO_PROFILE && iLifeReturned >= 100 )
+				gMercProfiles[pVictim->ubProfile].records.usTimesSurgeryUndergoed++;
+
+			// add to record - another surgery made
+			if ( pSoldier->ubProfile != NO_PROFILE && iLifeReturned >= 100 )
+				gMercProfiles[pSoldier->ubProfile].records.usSurgeriesMade++;
+		}
+		else
+		{
+			iLifeReturned = bPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ));
+
+			pVictim->iHealableInjury -= (bPtsLeft * 100);
+			bPtsLeft = 0;
+		}
+		// repair the stats here!
+		if ( usReturnDamagedStatRate > 0 )
+		{
+			RegainDamagedStats( pVictim, (iLifeReturned * usReturnDamagedStatRate / 100) );
+		}
+
+		// some paranoya checks for sure
+		if ( (pVictim->stats.bLife + (iLifeReturned / 100)) <= pVictim->stats.bLifeMax )
+		{
+			pVictim->stats.bLife += (iLifeReturned / 100);
+			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + (iLifeReturned / 100) );
+			if ( pVictim->bBleeding >= (iLifeReturned / 100) )
+			{
+				pVictim->bBleeding -= (iLifeReturned / 100);
+				pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (iLifeReturned / 100) );
+				uiMedcost += (iLifeReturned / 200); // add medkit points cost for unbandaged part
+			}
+			else
+			{
+				pVictim->bBleeding = 0;
+				pVictim->bPoisonBleeding = 0;
+				uiMedcost += max( 0, (((iLifeReturned / 100) - pVictim->bBleeding) / 2) ); // add medkit points cost for unbandaged part
+			}
+		}
+		else // this shouldn't even happen, but we still want to have it here for sure
+		{
+			pVictim->stats.bLife = pVictim->stats.bLifeMax;
+			pVictim->bPoisonLife = pVictim->bPoisonSum;
+			pVictim->iHealableInjury = 0;
+			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
+		}
+		// Reduce max breath based on life returned
+		if ( (pVictim->bBreathMax - (((iLifeReturned / 100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss) / 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
+		{
+			pVictim->bBreathMax = BREATHMAX_ABSOLUTE_MINIMUM;
+		}
+		else
+		{
+			pVictim->bBreathMax -= (((iLifeReturned / 100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss) / 100);
+		}
+
+		if ( pVictim->iHealableInjury > ((pVictim->stats.bLifeMax - pVictim->stats.bLife) * 100) )
+			pVictim->iHealableInjury = ((pVictim->stats.bLifeMax - pVictim->stats.bLife) * 100);
+		else if ( pVictim->iHealableInjury < 0 )
+			pVictim->iHealableInjury = 0;
+
+		// Flugente: campaign stats
+		gCurrentIncident.usIncidentFlags |= INCIDENT_SURGERY;
+	}
+
+	// if any healing points remain, apply that to any remaining bleeding (1/1)
+	// DON'T spend any APs/kit pts to cure bleeding until merc is no longer dying
+	//if ( bPtsLeft && pVictim->bBleeding && !pVictim->dying)
+	if ( bPtsLeft && pVictim->bBleeding )
+	{ // if we have enough points to bandage all remaining bleeding this turn
+		if ( bPtsLeft >= pVictim->bBleeding )
+		{
+			bPtsLeft -= pVictim->bBleeding;
+			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
+		}
+		else		// bandage what we can
+		{
+			pVictim->bBleeding -= bPtsLeft;
+			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - bPtsLeft );
+			bPtsLeft = 0;
+		}
+	}
+
+	//CHRISL: If by some chance ubPtsLeft ends up being higher then uiActual, we'll end up with a huge value since uiActual is an unsigned variable.
+	// if there are any ptsLeft now, then we didn't actually get to use them
+	uiActual = max( 0, (INT32)(uiActual - bPtsLeft) );
+
+	// usedAPs equals (actionPts) * (%of possible points actually used)
+	uiUsedAPs = (uiActual * uiAvailAPs) / uiPossible;
+
+	if ( Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery) )	// using the GOOD medic stuff
+		uiUsedAPs = (uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
+
+	// surgery is harder so cost more BPs
+	if ( fOnSurgery )
+		DeductPoints( pSoldier, (INT16)uiUsedAPs, (INT16)(uiUsedAPs * 15) );
+	else
+		DeductPoints( pSoldier, (INT16)uiUsedAPs, (INT16)((uiUsedAPs * APBPConstants[BP_PER_AP_LT_EFFORT])) );
+
+	// surgery is harder so gives more exp
+	if ( fOnSurgery )
+	{
+		// MEDICAL GAIN   (actual / 2):  Helped someone by giving first aid
+		StatChange( pSoldier, MEDICALAMT, (UINT16)(uiActual + 2), FALSE );
+
+		// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
+		StatChange( pSoldier, DEXTAMT, (UINT16)((uiActual / 3) + 2), FALSE );
+	}
+	else
+	{
+		if ( uiActual / 2 )
+			// MEDICAL GAIN (actual / 2):	Helped someone by giving first aid
+			StatChange( pSoldier, MEDICALAMT, ((UINT16)(uiActual / 2)), FALSE );
+
+		if ( uiActual / 4 )
+			// DEXTERITY GAIN (actual / 4):	Helped someone by giving first aid
+			StatChange( pSoldier, DEXTAMT, (UINT16)((uiActual / 4)), FALSE );
+	}
+
+	// merc records - bandaging
+	if ( bInitialBleeding > 1 && pVictim->bBleeding == 0 && pSoldier->ubProfile != NO_PROFILE )
+		gMercProfiles[pSoldier->ubProfile].records.usMercsBandaged++;
+
+	return uiMedcost;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////

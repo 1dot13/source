@@ -110,6 +110,7 @@
 	#include "Facilities.h"
 	// HEADROCK HAM 4: Include Militia Squads for Manual Militia Restrictions toggle.
 	#include "MilitiaSquads.h"
+	#include "Auto Bandage.h"	// added by Flugente
 #endif
 
 #include "connect.h" //hayden
@@ -5243,8 +5244,7 @@ UINT32 MapScreenHandle(void)
 			// now do the warning box
 			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		}
-
-
+		
 		fFirstTimeInMapScreen = FALSE;
 
 		if( gpCurrentTalkingFace != NULL )
@@ -5312,6 +5312,13 @@ UINT32 MapScreenHandle(void)
 	HandleRebuildingOfMapScreenCharacterList( );
 
 	HandleStrategicTurn( );
+
+	// Flugente: bandaging during retreat
+	if ( RetreatBandagingPending() )
+	{
+		// now do the warning box
+		DoScreenIndependantMessageBox( TacticalStr[ATTEMPT_BANDAGE_DURING_TRAVEL],  MSG_BOX_FLAG_OK, RetreatBandageCallback );
+	}
 
 
 /*
@@ -16773,4 +16780,10 @@ BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY )
 	}
 
 	return FALSE;
+}
+
+// Flugente: bandaging during retreat
+void RetreatBandageCallback( UINT8 ubResult )
+{
+	HandleRetreatBandaging( );
 }

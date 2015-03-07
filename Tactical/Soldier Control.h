@@ -2728,6 +2728,9 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 
 void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier);
 
+// SANDRO - This whole procedure was merged with the surgery ability of the doctor trait
+UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery );
+
 #endif
 
 

@@ -3389,6 +3389,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"没有空手来拿新物品",
     L"未发现物品",
     L"无法把物品转移到主手上",
+
+	L"Attempting to bandage travelling mercs...",	//TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

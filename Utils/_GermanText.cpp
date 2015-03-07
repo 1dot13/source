@@ -3394,6 +3394,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"No free hand for new item",
     L"Item not found",
     L"Cannot take item to main hand",
+
+	L"Attempting to bandage travelling mercs...",	//TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

@@ -637,6 +637,7 @@ typedef struct
 	INT32 ubBaseMedicalSkillToDealWithEmergency;
 	INT32 ubMultiplierForDifferenceInLifeValueForEmergency;
 	INT32 ubPointCostPerHealthBelowOkLife;//OKLIFE = 15
+	BOOLEAN fAllowBandagingDuringTravel;
 
 	INT32 ubRepairCostPerJam;
 	INT32 ubRepairRateDivisor;

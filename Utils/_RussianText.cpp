@@ -3385,6 +3385,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Нет свободной руки для предмета",
     L"Предмет не обнаружен",
     L"Невозможно взять предмет в руку",
+
+	L"Attempting to bandage travelling mercs...",	//TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

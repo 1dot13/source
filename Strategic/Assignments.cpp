@@ -599,8 +599,6 @@ extern BOOLEAN SectorIsImpassable( INT16 sSector );
 
 extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
 
-extern UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery ); // variable added by SANDRO
-
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector
 // HEADROCK HAM 3.6: Now takes an extra argument for Militia Type
 INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilitiaType );

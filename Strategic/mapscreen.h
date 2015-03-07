@@ -161,4 +161,7 @@ BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY );
 void ConvertMinTimeToDayHourMinString( UINT32 uiTimeInMin, STR16 sString );
 void ConvertMinTimeToETADayHourMinString( UINT32 uiTimeInMin, STR16 sString );
 
+// Flugente: bandaging during retreat
+void RetreatBandageCallback( UINT8 ubResult );
+
 #endif

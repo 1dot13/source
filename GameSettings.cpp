@@ -2160,6 +2160,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency				= iniReader.ReadInteger("Strategic Assignment Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20, 0, 100);
 	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency	= iniReader.ReadInteger("Strategic Assignment Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4, 1, 10);
 	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("Strategic Assignment Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2, 1, 5);//OKLIFE = 15
+	gGameExternalOptions.fAllowBandagingDuringTravel		= iniReader.ReadBoolean("Strategic Assignment Settings","ALLOW_BANDAGING_DURING_TRAVEL", FALSE );
 
 	////////// REPAIR //////////
 
