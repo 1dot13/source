@@ -6205,6 +6205,7 @@ STR16 pMessageStrings[] =
 	L"Move in Formation OFF",
 	L"Artificial Merc Light ON",
 	L"Artificial Merc Light OFF",
+	L"Squad %s active.",
 };
 
 

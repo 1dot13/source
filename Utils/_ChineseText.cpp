@@ -6206,6 +6206,7 @@ STR16 pMessageStrings[] =
 	L"保持佣兵间距关闭",
 	L"虚拟佣兵光照开启",
 	L"虚拟佣兵光照关闭",
+	L"Squad %s active.",	//TODO.Translate
 };
 
 

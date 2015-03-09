@@ -5515,7 +5515,7 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 			fAimModifier += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 
 		// Flugente: if we are a sniper and a spotter from our team spots the targetted location, we receive a powerful cth bonus
-		if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+		if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE || Weapon[usInHand].ubWeaponType == GUN_RIFLE )
 		{
 			fAimModifier += GridNoSpotterCTHBonus( pSoldier, sGridNo, pSoldier->bTeam);
 		}
@@ -5701,7 +5701,7 @@ else
 		iTraitModifier += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 
 	// Flugente: if we are a sniper and a spotter from our team spots the targetted location, we receive a powerful cth bonus
-	if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+	if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE || Weapon[usInHand].ubWeaponType == GUN_RIFLE )
 	{
 		iTraitModifier += (INT8)(GridNoSpotterCTHBonus( pSoldier, sGridNo, pSoldier->bTeam));
 	}
@@ -7289,7 +7289,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iChance += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 
 	// Flugente: if we are a sniper and a spotter from our team spots the targetted location, we receive a powerful cth bonus
-	if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+	if ( gGameOptions.fNewTraitSystem && Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE || Weapon[usInHand].ubWeaponType == GUN_RIFLE )
 	{
 		iChance += (INT32)(GridNoSpotterCTHBonus( pSoldier, sGridNo, pSoldier->bTeam));
 	}

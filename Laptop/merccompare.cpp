@@ -484,7 +484,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	}
 	else
 	{
-		sprintf( sTemp, "FACES\\%02d.sti", usProfileA );
+		sprintf( sTemp, "FACES\\%02d.sti", gMercProfiles[usProfileA].ubFaceIndex );
 		FilenameForBPP( sTemp, VObjectDesc.ImageFile );
 		CHECKF( AddVideoObject( &VObjectDesc, &uiInsMercFaceImage ) );
 	}
@@ -518,7 +518,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	}
 	else
 	{
-		sprintf( sTemp, "FACES\\%02d.sti", usProfileB );
+		sprintf( sTemp, "FACES\\%02d.sti", gMercProfiles[usProfileB].ubFaceIndex );
 		FilenameForBPP( sTemp, VObjectDesc.ImageFile );
 		CHECKF( AddVideoObject( &VObjectDesc, &uiInsMercFaceImage ) );
 	}

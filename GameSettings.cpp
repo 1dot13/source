@@ -1254,7 +1254,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fScopeModes						= iniReader.ReadBoolean("Tactical Gameplay Settings","USE_SCOPE_MODES", FALSE);
 	gGameExternalOptions.fDisplayScopeModes					= iniReader.ReadBoolean("Tactical Gameplay Settings","DISPLAY_SCOPE_MODES", FALSE);
 
-	gGameExternalOptions.usSpotterPreparationTurns			= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_PREPARATIONTURNS", 3, 3,  10);
+	gGameExternalOptions.usSpotterPreparationTurns			= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_PREPARATIONTURNS", 2, 2,  10);
 	gGameExternalOptions.usSpotterRange						= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_RANGE",			10, 0,  30);
 	gGameExternalOptions.usSpotterMaxCTHBoost				= iniReader.ReadInteger("Tactical Gameplay Settings","SPOTTER_MAX_CTHBOOST",	50, 0, 100);
 		

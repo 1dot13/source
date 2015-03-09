@@ -6051,6 +6051,7 @@ STR16 pMessageStrings[] =
 	L"In Formation bewegen - AUSGESCHALTET",
 	L"Artificial Merc Light ON",	// TODO.Translate
 	L"Artificial Merc Light OFF",
+	L"Squad %s active.",	//TODO.Translate
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =

@@ -96,6 +96,7 @@
 #include "teamturns.h"
 #include "Options Screen.h"
 #include "SaveLoadScreen.h"
+#include "Map Screen Interface.h"	// added by Flugente for SquadNames
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -1445,7 +1446,10 @@ UINT32 UIHandleSelectMerc( UI_EVENT *pUIEvent )
 		// If different, display message
 		if ( CurrentSquad( ) != iCurrentSquad )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
+			if ( gGameExternalOptions.fUseXMLSquadNames && CurrentSquad( ) + 1 < ON_DUTY )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], SquadNames[CurrentSquad( ) + 1].squadname );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 		}
 	}
 

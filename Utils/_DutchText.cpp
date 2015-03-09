@@ -6214,6 +6214,7 @@ STR16 pMessageStrings[] =
 	L"Move in Formation OFF",
 	L"Artificial Merc Light ON",	// TODO.Translate
 	L"Artificial Merc Light OFF",
+	L"Squad %s active.",	//TODO.Translate
 };
 
 

@@ -126,7 +126,7 @@ DDBox::Display( )
 		}
 		else
 		{
-			sprintf( sTemp, "FACES\\%02d.sti", mEvent.usSpeaker );
+			sprintf( sTemp, "FACES\\%02d.sti", gMercProfiles[mEvent.usSpeaker].ubFaceIndex );
 		}
 
 		FilenameForBPP( sTemp, VObjectDesc.ImageFile );

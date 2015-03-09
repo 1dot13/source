@@ -6216,6 +6216,7 @@ STR16 pMessageStrings[] =
 	L"Déplacement tactique désactivé",
 	L"Éclairage du mercenaire activé",
 	L"Éclairage du mercenaire désactivé",
+	L"Squad %s active.",	//TODO.Translate
 };
 
 

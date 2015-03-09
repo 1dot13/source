@@ -22342,18 +22342,18 @@ UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam )
 
 				// relation counts twice. Also account for special background. Effectivity cannot be lower than 0%!
 				effectivity = max( 0, effectivity + 2 * relation + pSoldier->GetBackgroundValue( BG_PERC_SPOTTER ) );
-
+				
 				// a good relation boosts value tremendously - a bad relation makes spotting useless
 				// the spotter background also alters effectiveness
-				// -> value between 0 and 2000
-				value = (value * effectivity) / 100;
+				// -> value between 0 and 2000, nominal 1000
+				value = (value * effectivity ) / 100;
 
-				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4000
-				value = (value * min( pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER], 2 * gGameExternalOptions.usSpotterPreparationTurns )) / gGameExternalOptions.usSpotterPreparationTurns;
-
+				// longer spotting gives a linear bonus - up to 100% -> value between 0 and 4000, nominal 2000
+				value = (value * min(pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER], 2 * gGameExternalOptions.usSpotterPreparationTurns)) / gGameExternalOptions.usSpotterPreparationTurns;
+				
 				// reasonable values: 0 to gGameExternalOptions.usSpotterMaxCTHBoost
-				value = (value * gGameExternalOptions.usSpotterMaxCTHBoost) / 4000;
-
+				value = (value * gGameExternalOptions.usSpotterMaxCTHBoost) / 2000;
+								
 				if ( value > bestvalue )
 					bestvalue = value;
 			}
