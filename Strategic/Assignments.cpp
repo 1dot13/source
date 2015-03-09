@@ -4861,7 +4861,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 
 			// repair items on self
 			// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
-			for( bLoop = 0; bLoop < 4; bLoop++ )
+			for( bLoop = 0; bLoop < 4; ++bLoop )
 			{
 				if ( bLoop == 0 )
 				{
@@ -4899,7 +4899,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 				}
 
 				// now repair objects running from left hand to small pocket
-				for( bPocket = bLoopStart; bPocket <= bLoopEnd; bPocket++ )
+				for( bPocket = bLoopStart; bPocket <= bLoopEnd; ++bPocket )
 				{
 					//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
 					//	still letting us repair the item in our offhand first.
@@ -4920,6 +4920,10 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 							break;
 					}
 				}
+
+				// quit looking if we're already out
+				if ( ubRepairPtsLeft == 0 )
+					break;
 			}
 
 			// if he fixed something of his, and now has no more of his own items to fix
@@ -4932,7 +4936,8 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			}
 
 			// repair items on others
-			RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
+			if ( ubRepairPtsLeft )
+				RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
 		}
 	}
 
@@ -17586,16 +17591,14 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 	SOLDIERTYPE * pBestOtherSoldier;
 	INT8 bPriority, bBestPriority = -1;
 	BOOLEAN fSomethingWasRepairedThisPass;
-
-
+	
 	// repair everyone's hands and armor slots first, then headgear, and pockets last
-	for ( ubPassType = REPAIR_HANDS_AND_ARMOR; ubPassType <= FINAL_REPAIR_PASS; ubPassType++ )
+	for ( ubPassType = REPAIR_HANDS_AND_ARMOR; ubPassType <= FINAL_REPAIR_PASS; ++ubPassType )
 	{
 		fSomethingWasRepairedThisPass = FALSE;
-
-
+		
 		// look for jammed guns on other soldiers in sector and unjam them
-		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop < gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop < gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 		{
 			pOtherSoldier = MercPtrs[ bLoop ];
 
@@ -17616,7 +17619,7 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 			pBestOtherSoldier = NULL;
 
 			// now look for items to repair on other mercs
-			for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop < gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+			for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop < gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 			{
 				pOtherSoldier = MercPtrs[ bLoop ];
 
