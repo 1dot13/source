@@ -16586,6 +16586,14 @@ BOOLEAN MilitiaPlotStart( )
 
 				gMilitiaPath[groupid].sGroupid = -1;
 			}
+			else
+			{
+				// otherwise, if this isn't a valid group, set the id to -1 nevertheless
+				if ( !pGroup )
+				{
+					gMilitiaPath[groupid].sGroupid = -1;
+				}
+			}
 		}
 
 		if ( !found && gMilitiaPath[groupid].sGroupid < 0 )
