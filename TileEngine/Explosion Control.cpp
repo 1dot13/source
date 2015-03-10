@@ -5032,6 +5032,10 @@ void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, 
 
 	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
 
+	// on some maps, the floor height is not 0 (example is Drassen D13). We have to account for that with an offset
+	INT32 gridno = GETWORLDINDEXFROMWORLDCOORDS( sY, sX );
+	UINT32 z_offset = CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[gridno].sHeight );
+
 	for (UINT16 x = 0; x < usNumFragments; ++x)
 	{
 		FLOAT dRandomX = 0;
@@ -5108,7 +5112,7 @@ void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, 
 		FLOAT dStartY = (FLOAT)sY + (dRandomY * ((FLOAT)Random(4)+1.0f));
 		FLOAT dStartZ = (FLOAT)sZ + (dRandomZ * ((FLOAT)Random(4)+1.0f));
 
-		FireFragmentGivenTarget( ubOwner, dStartX, dStartY, dStartZ, dEndX, dEndY, dEndZ, usItem );
+		FireFragmentGivenTarget( ubOwner, dStartX, dStartY, dStartZ + z_offset, dEndX, dEndY, dEndZ + z_offset, usItem );
 	}
 }
 
@@ -5126,13 +5130,16 @@ void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECT
 	UINT16 ubFragRange = GunRange( pObj, NULL );
 
 	// deviation arcs. A gun fired by tripping a wire isn't exactly precise
-	INT16 horizontalarc = 2;
-	INT16 verticalarc	= 2;
+	INT16 horizontalarc = 5;
+	INT16 verticalarc	= 0;
 
 	INT16 sX = CenterX(gridno);
 	INT16 sY = CenterY(gridno);
 
 	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
+
+	// on some maps, the floor height is not 0 (example is Drassen D13). We have to account for that with an offset
+	UINT32 z_offset = CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[gridno].sHeight );
 
 	for (UINT16 x = 0; x < usNumFragments; ++x)
 	{
@@ -5194,7 +5201,7 @@ void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECT
 		FLOAT dEndY = (FLOAT)(sY + (dDeltaY * dRangeMultiplier));
 		FLOAT dEndZ = (FLOAT)(sZ + (dDeltaZ * dRangeMultiplier));
 
-		FireBulletGivenTargetTrapOnly( pThrower, pObj, gridno, 150, dEndX, dEndY, dEndZ, 100 );
+		FireBulletGivenTargetTrapOnly( pThrower, pObj, gridno, 150 + z_offset, dEndX, dEndY, dEndZ + z_offset, 100 );
 	}
 }
 
