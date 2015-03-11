@@ -716,7 +716,7 @@ INT8 GetSightAdjustmentThroughMovement( SOLDIERTYPE* pSoldier, const INT8& bTile
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
 		bMovementAdjustment = max(0, (bMovementAdjustment * (100 - gSkillTraitValues.ubSTStealthPenaltyForMovingReduction) / 100) );
 
-	UINT8 ubBrightness = GetBrightness( ubLightLevel );
+	UINT8 ubBrightness = (100 - GetBrightness( ubLightLevel ));
 
 	return MINMAX100N( bMovementAdjustment * ubBrightness / 100 * gGameExternalOptions.ubMovementEffectiveness / 100 );
 }
@@ -798,7 +798,7 @@ INT8 GetSightAdjustmentStealthAtLightLevel( SOLDIERTYPE* pSoldier, const UINT8& 
 	UINT8 ubScaler = GetBrightness( ubLightLevel );
 
 	// last term corresponds to the maximum of ubScaler before
-	ubScaler *= gGameExternalOptions.ubStealthEffectiveness / 100;
+	ubScaler = (UINT8)( ubScaler * gGameExternalOptions.ubStealthEffectiveness / 100.0f );
 
 	INT8 ibStealthInPercent = GetStealth( pSoldier );
 
