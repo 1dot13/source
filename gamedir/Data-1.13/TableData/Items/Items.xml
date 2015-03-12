@@ -31238,8 +31238,6 @@
 		<ItemSize>12</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
@@ -33622,10 +33620,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>140</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>20</CamoBonus>
@@ -33651,10 +33645,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>180</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>3</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -33678,10 +33668,6 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -33705,10 +33691,6 @@
 		<ItemSize>21</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -33732,10 +33714,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>10</CamoBonus>
@@ -33760,10 +33738,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>135</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>15</CamoBonus>
@@ -33788,10 +33762,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>25</CamoBonus>
@@ -33816,10 +33786,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>145</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>20</CamoBonus>
@@ -33844,10 +33810,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>130</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>10</CamoBonus>
@@ -33872,10 +33834,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>140</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>20</CamoBonus>
@@ -33900,10 +33858,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>140</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>10</CamoBonus>
@@ -33928,10 +33882,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -33957,10 +33907,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -33984,10 +33930,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>110</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34011,10 +33953,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>130</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34038,10 +33976,6 @@
 		<ItemSize>27</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34065,10 +33999,6 @@
 		<ItemSize>27</ItemSize>
 		<usPrice>450</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34092,10 +34022,6 @@
 		<ItemSize>27</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34119,10 +34045,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34146,10 +34068,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -34173,10 +34091,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36736,10 +36650,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36763,10 +36673,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36790,10 +36696,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36817,10 +36719,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36844,10 +36742,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36871,10 +36765,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -36898,10 +36788,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -37625,10 +37511,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>146</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>10</CamoBonus>
@@ -37763,10 +37645,6 @@
 		<ItemSize>21</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -37854,9 +37732,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>185</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -37881,9 +37756,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -37907,9 +37779,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -37933,10 +37802,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -37960,10 +37825,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -37987,10 +37848,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -49250,10 +49107,6 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>3</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -49277,10 +49130,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -49304,10 +49153,6 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>3</UrbanCamoBonus>
@@ -49332,10 +49177,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>3</UrbanCamoBonus>
@@ -49360,10 +49201,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>3</CamoBonus>
@@ -49388,10 +49225,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>3</CamoBonus>
@@ -49416,10 +49249,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>95</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -49443,10 +49272,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
@@ -49472,10 +49297,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -49503,10 +49324,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49534,10 +49351,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>160</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -49565,10 +49378,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49598,10 +49407,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49631,10 +49436,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>65</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49664,10 +49465,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49697,10 +49494,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>45</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49729,10 +49522,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49762,10 +49551,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>40</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49795,10 +49580,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>50</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49828,10 +49609,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49861,10 +49638,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49894,10 +49667,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49927,10 +49696,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>50</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>3</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49959,10 +49724,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -49989,10 +49750,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>180</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -50017,10 +49774,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>195</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>3</CamoBonus>
@@ -50047,10 +49800,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>400</usPrice>
 		<ubCoolness>8</ubCoolness>
-		<bRepairEase>-1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<StealthBonus>10</StealthBonus>
@@ -50077,10 +49826,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>240</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>-1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>20</CamoBonus>
@@ -50109,10 +49854,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>40</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50142,10 +49883,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50175,10 +49912,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50208,10 +49941,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>110</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50241,10 +49970,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50274,10 +49999,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>-1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50306,10 +50027,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>210</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50337,10 +50054,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>140</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<DesertCamoBonus>3</DesertCamoBonus>
@@ -50369,10 +50082,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>125</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50402,10 +50111,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50435,10 +50140,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50468,10 +50169,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50501,10 +50198,6 @@
 		<ItemSize>19</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50531,10 +50224,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>15</CamoBonus>
@@ -50560,10 +50249,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>340</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<APBonus>5</APBonus>
@@ -50593,10 +50278,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50626,10 +50307,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>65</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50659,10 +50336,6 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>90</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50692,10 +50365,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>120</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50725,10 +50394,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>85</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50758,10 +50423,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50788,10 +50449,6 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>190</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>3</CamoBonus>
@@ -50816,10 +50473,6 @@
 		<ItemSize>32</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>6</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<StealthBonus>-10</StealthBonus>
@@ -50845,10 +50498,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>110</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -50873,10 +50522,6 @@
 		<ItemSize>29</ItemSize>
 		<usPrice>260</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>25</CamoBonus>
@@ -50902,10 +50547,6 @@
 		<ItemSize>23</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -50934,12 +50575,8 @@
 		<ItemSize>10</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -50969,10 +50606,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
 		<ubCoolness>4</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -51193,10 +50826,6 @@
 		<ItemSize>27</ItemSize>
 		<usPrice>700</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -51222,10 +50851,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -51251,10 +50876,6 @@
 		<ItemSize>30</ItemSize>
 		<usPrice>900</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -51279,10 +50900,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>550</usPrice>
 		<ubCoolness>7</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
@@ -51480,10 +51097,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -51513,10 +51126,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -51546,10 +51155,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>45</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -51579,10 +51184,6 @@
 		<ItemSize>22</ItemSize>
 		<usPrice>80</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
