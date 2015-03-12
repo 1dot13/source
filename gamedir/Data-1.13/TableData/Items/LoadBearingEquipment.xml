@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LOADBEARINGEQUIPMENTLIST>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>0</lbeIndex>
@@ -1920,7 +1920,7 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-		<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>96</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
@@ -1945,6 +1945,8 @@
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>16</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -1958,7 +1960,7 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-		<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>98</lbeIndex>
 		<lbeClass>4</lbeClass>
 		<lbeCombo>1</lbeCombo>
@@ -2038,7 +2040,7 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-			<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>102</lbeIndex>
 		<lbeClass>4</lbeClass>
 		<lbeCombo>1</lbeCombo>
@@ -2078,7 +2080,7 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-		<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>104</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
@@ -2118,7 +2120,7 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-			<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>106</lbeIndex>
 		<lbeClass>4</lbeClass>
 		<lbeCombo>1</lbeCombo>

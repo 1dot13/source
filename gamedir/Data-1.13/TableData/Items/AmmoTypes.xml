@@ -35,6 +35,7 @@
 		<temperatureModificator>0.0</temperatureModificator>
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -69,7 +70,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.17</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -104,7 +107,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.13</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -139,7 +144,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -174,7 +181,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>BuckshotSpread</spreadPattern>
 		<temperatureModificator>0.0</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -209,7 +218,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>FlechetteSpread</spreadPattern>
 		<temperatureModificator>0.03</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.25</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -244,7 +255,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.08</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -279,7 +292,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -314,7 +329,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -349,7 +366,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.15</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -384,7 +403,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -419,7 +440,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.5</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -454,7 +477,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.5</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.8</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -489,7 +514,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.35</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -524,7 +551,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.2</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.08</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -559,7 +588,9 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.25</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -594,7 +625,9 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.35</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.5</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -629,7 +662,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.08</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.15</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -664,7 +699,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.18</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -699,7 +736,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.15</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -734,7 +773,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.15</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.05</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -769,7 +810,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.04</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -804,7 +847,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.07</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -839,7 +884,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.05</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.1</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -874,7 +921,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.13</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.03</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -909,7 +958,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.06</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -944,7 +995,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.23</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.27</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>27</uiIndex>
@@ -979,7 +1032,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>DuplexSpread</spreadPattern>
 		<temperatureModificator>0.15</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>28</uiIndex>
@@ -1014,7 +1069,9 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.03</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
+		<ammoflag>0</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>29</uiIndex>
@@ -1049,6 +1106,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
+		<dirtModificator>0</dirtModificator>
 		<ammoflag>1</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
@@ -1084,6 +1143,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
+		<dirtModificator>0</dirtModificator>
 		<ammoflag>2</ammoflag>
 	</AMMOTYPE>
 	<AMMOTYPE>
@@ -1119,6 +1180,7 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>4</ammoflag>
 	</AMMOTYPE>

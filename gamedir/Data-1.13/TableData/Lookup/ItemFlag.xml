@@ -85,6 +85,10 @@
 		<name>Jumping Grenade</name>
 	</ItemFlag>
 	<ItemFlag>
+		<id>419430</id>
+		<name>Scuba Mask</name>
+	</ItemFlag>
+	<ItemFlag>
 		<id>524288</id>
 		<name>Handcuffs</name>
 	</ItemFlag>
@@ -95,10 +99,6 @@
 	<ItemFlag>
 		<id>2097152</id>
 		<name>Scuba Bottle</name>
-	</ItemFlag>
-	<ItemFlag>
-		<id>419430</id>
-		<name>Scuba Mask</name>
 	</ItemFlag>
 	<ItemFlag>
 		<id>8388608</id>
