@@ -11872,24 +11872,6 @@ BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier )
 	return( FALSE );
 }
 
-INT16 GetFlashSuppressorStatus( OBJECTTYPE * pObj )
-{
-	INT16 p=100;
-	if (pObj->exists() == true) {
-		if (Item[pObj->usItem].hidemuzzleflash )
-			p=(*pObj)[0]->data.objectStatus;
-
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].hidemuzzleflash && iter->exists() )
-			{
-				p =p+ (*iter)[0]->data.objectStatus;
-			}
-		}
-	}
-	p = min(p,100);
-	return p;
-}
-
 BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject )
 {
 	if (pObj->exists() == true)
@@ -11998,20 +11980,6 @@ UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj )
 	return( NONE );
 }
 
-INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj, UINT32 usFlag )
-{
-	if (pObj->exists() == true) {
-
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-		{
-			if (iter->exists() && Item[iter->usItem].usItemClass & usFlag )
-			{
-				return( (*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	return( ITEM_NOT_FOUND );
-}
 
 BOOLEAN IsWeaponAttached( OBJECTTYPE * pObj, UINT32 usFlag, UINT8 subObject )
 {
@@ -12058,22 +12026,6 @@ UINT16 GetAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag )
 	return( NONE );
 }
 
-INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj )
-{
-	INT16 bonus=0;
-
-	if (pObj->exists() == true) {
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if(iter->exists()){
-				bonus += BonusReduce( Armour[Item[iter->usItem].ubClassIndex].ubProtection,
-					(*iter)[0]->data.objectStatus );
-			}
-		}
-	}
-	return( bonus );
-}
-
-
 INT16 GetBulletSpeedBonus( OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
@@ -12109,21 +12061,6 @@ INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier )
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].rocketlauncher || Item[pSoldier->inv[bLoop].usItem].cannon )
-			{
-				return( bLoop );
-			}
-		}
-	}
-	return( NO_SLOT );
-}
-
-INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier )
-{
-	INT8 invsize = (INT8)pSoldier->inv.size();
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
-	{
-		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].rocketlauncher )
 			{
 				return( bLoop );
 			}

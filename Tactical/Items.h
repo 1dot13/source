@@ -362,12 +362,10 @@ UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj );
 
 // JMich & Flugente: functions for underbarrel weapons and bayonets
 // As we can have both underbarrel gun and a bayonet, use usFlag to specify (IC_GUN or IC_BLADE are used here, or both)
-INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj, UINT32 usFlag );
 BOOLEAN IsWeaponAttached( OBJECTTYPE * pObj, UINT32 usFlag, UINT8 subObject = 0 );
 OBJECTTYPE* FindAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag );
 UINT16 GetAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag );
 
-INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier );
 INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier );
 INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon );
 OBJECTTYPE* FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon );
@@ -377,7 +375,6 @@ bool BadGoggles(SOLDIERTYPE *pTeamSoldier);
 BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier );
 // HEADROCK: Declaration of new function to detect flash suppression without SOLDIERTYPE argument
 BOOLEAN IsFlashSuppressorAlt( OBJECTTYPE * pObj );
-INT16 GetFlashSuppressorStatus( OBJECTTYPE * pObj );
 BOOLEAN IsRemoteDetonator( OBJECTTYPE * pObj );
 BOOLEAN IsDetonator( OBJECTTYPE * pObj );
 BOOLEAN IsDuckbill( OBJECTTYPE * pObj );
@@ -386,7 +383,6 @@ BOOLEAN IsDuckbill( OBJECTTYPE * pObj );
 // Noise volume is then calculated as volume * GetPercentNoiseVolume / 100
 UINT16 GetPercentNoiseVolume( OBJECTTYPE * pObj );
 
-INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj );
 INT16 GetBulletSpeedBonus( OBJECTTYPE * pObj );
 INT8 FindGasMask( SOLDIERTYPE * pSoldier );
 INT8 FindLockBomb( SOLDIERTYPE * pSoldier );
