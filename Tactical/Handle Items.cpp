@@ -5542,6 +5542,26 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				}
 				else
 				{
+					// if this is a tripwire, it might have an attached gun, which we also have to spawn
+					if ( Item[gTempObject.usItem].tripwire )
+					{
+						// search for attached guns
+						OBJECTTYPE* pAttGun = NULL;
+
+						// check all attachments
+						attachmentList::iterator iterend = gTempObject[0]->attachments.end( );
+						for ( attachmentList::iterator iter = gTempObject[0]->attachments.begin( ); iter != iterend; ++iter )
+						{
+							if ( iter->exists( ) && Item[iter->usItem].usItemClass == IC_GUN )
+							{
+								pAttGun = &(*iter);
+
+								// add this gun to the floor
+								AddItemToPool( gsBoobyTrapGridNo, pAttGun, 1, gbBoobyTrapLevel, 0, -1 );
+							}
+						}
+					}
+
 					// switch action item to the real item type
 					// sevenfm: added check to only switch action items and not regular explosives
 					// this allows to keep all attachments
