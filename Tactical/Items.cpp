@@ -14443,14 +14443,15 @@ UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj, INT16 exceptSlot)
 	return sum;
 }
 //DBrot: search the attachments for a pocket
-INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap){
-	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj);
+INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap, int subObject)
+{
+	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj, subObject);
 	OBJECTTYPE* pAttachment; 
 	for ( UINT16 slotCount = 0; slotCount < usAttachmentSlotIndexVector.size( ); ++slotCount )
 	{
 		if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1 == pMap)
 		{
-			pAttachment = (*pObj)[0]->GetAttachmentAtIndex(slotCount);
+			pAttachment = (*pObj)[subObject]->GetAttachmentAtIndex(slotCount);
 			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR)
 			{
 				return(GetFirstPocketOnItem(pAttachment->usItem));

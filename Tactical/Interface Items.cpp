@@ -1042,7 +1042,8 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 BOOLEAN UseNASDesc(OBJECTTYPE *pObject){
 	if(pObject->exists() == FALSE)
 		return FALSE;
-	if(guiCurrentScreen == MAP_SCREEN && Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true && gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT])
+	// silversurfer: We allow it now but only in EDB.
+	if(guiCurrentScreen == MAP_SCREEN && !UsingEDBSystem() ) //Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true && gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT])
 		return FALSE;	// the map screen can't support NAS and LBEGEAR.
 	return (/*Item[pObject->usItem].usItemClass != IC_LBEGEAR && Item[pObject->usItem].usItemClass != IC_MONEY && */UsingNewAttachmentSystem()==true);
 }
@@ -6314,8 +6315,54 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					return;
 				}
 
+				// silversurfer: if the attachment is an LBE item we need to make sure that nothing is "inside" otherwise the contents will be lost
+				if( Item[pAttachment->usItem].usItemClass == IC_LBEGEAR )
+				{
+					std::vector<INT8> pocketKey;
+					switch( LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass )
+					{
+						case THIGH_PACK:
+							GetLBESlots( LTHIGHPOCKPOS, pocketKey );
+							break;
+						case VEST_PACK:
+							GetLBESlots( VESTPOCKPOS, pocketKey );
+							break;
+						case COMBAT_PACK:
+							GetLBESlots( CPACKPOCKPOS, pocketKey );
+							break;
+						case BACKPACK:
+							GetLBESlots( BPACKPOCKPOS, pocketKey );
+							break;
+						// this should never happen
+						default:
+							return;
+					}
+					UINT8 slotCount = 0;
+					for (std::list<OBJECTTYPE>::iterator iter = (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.begin(); iter != (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.end(); ++iter, ++slotCount)
+					{
+						// compare the adress
+						if( &(*iter) == pAttachment )
+						{
+							std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(gpItemDescObject);
+							// if the attachments pocket is not empty then do not allow to remove this attachment
+							if( gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex) ) // not worn by the soldier
+							{
+								LBENODE* pLBE = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex);
+								if( pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)].exists() )
+									return;
+							}
+							else // the soldier is wearing the LBE
+							{
+								if( gpItemDescSoldier->inv[pocketKey[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)]].exists() )
+									return;
+							}
+							break;
+						}
+					}
+				}
+
 				// Get attachment if there is one
-				// The follwing function will handle if no attachment is here
+				// The following function will handle if no attachment is here
 				if ( gpItemDescObject->RemoveAttachment( pAttachment, &gItemPointer, ubStatusIndex, gpItemDescSoldier ) )
 				{
 					gpItemPointer = &gItemPointer;
@@ -8101,7 +8148,13 @@ void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiAttachmentSlot, LBEInvPocketXY[cnt].fBigPocket, sX-7, sY-1, VO_BLT_SRCTRANSPARENCY, NULL );
 		lbePocket = LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketIndex[icPocket[pocketKey[cnt]]];
 		if( lbePocket == 0 && LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[pocketKey[cnt]]))
-			lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[pocketKey[cnt]]], icPocket[pocketKey[cnt]]);
+		{
+			if( wornItem )
+				lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[pocketKey[cnt]]], icPocket[pocketKey[cnt]], subObject);
+			else
+				lbePocket = GetPocketFromAttachment( pObj, icPocket[pocketKey[cnt]], subObject);
+		}
+
 		
 		pObject = NULL;
 		if(wornItem == true)

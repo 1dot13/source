@@ -780,11 +780,11 @@ void InitLBECoords()
 	{
 		if(UsingEDBSystem() > 0)
 		{
-			gLBEStats[0].sX = 65;	gLBEStats[0].sY = 367;	gLBEStats[0].sValDx = 0;	//Thigh 1
-			gLBEStats[1].sX = 101;	gLBEStats[1].sY = 367;	gLBEStats[1].sValDx = 0;	//Thigh 2
-			gLBEStats[2].sX = 65;	gLBEStats[2].sY = 391;	gLBEStats[2].sValDx = 0;	//Thigh 3
-			gLBEStats[3].sX = 101;	gLBEStats[3].sY = 391;	gLBEStats[3].sValDx = 0;	//Thigh 4
-			gLBEStats[4].sX = 77;	gLBEStats[4].sY = 415;	gLBEStats[4].sValDx = 0;	//Thigh 5
+			gLBEStats[0].sX = 65;	gLBEStats[0].sY = 123;	gLBEStats[0].sValDx = 0;	//Thigh 1
+			gLBEStats[1].sX = 101;	gLBEStats[1].sY = 123;	gLBEStats[1].sValDx = 0;	//Thigh 2
+			gLBEStats[2].sX = 65;	gLBEStats[2].sY = 147;	gLBEStats[2].sValDx = 0;	//Thigh 3
+			gLBEStats[3].sX = 101;	gLBEStats[3].sY = 147;	gLBEStats[3].sValDx = 0;	//Thigh 4
+			gLBEStats[4].sX = 137;	gLBEStats[4].sY = 147;	gLBEStats[4].sValDx = 0;	//Thigh 5
 			gLBEStats[5].sX = 0;	gLBEStats[5].sY = 0;	gLBEStats[5].sValDx = 0;	//Thigh 6
 			gLBEStats[6].sX = 0;	gLBEStats[6].sY = 0;	gLBEStats[6].sValDx = 0;	//Thigh 7
 			gLBEStats[7].sX = 0;	gLBEStats[7].sY = 0;	gLBEStats[7].sValDx = 0;	//Thigh 8
@@ -792,42 +792,42 @@ void InitLBECoords()
 			gLBEStats[9].sX = 0;	gLBEStats[9].sY = 0;	gLBEStats[9].sValDx = 0;	//Thigh 10
 			gLBEStats[10].sX = 0;	gLBEStats[10].sY = 0;	gLBEStats[10].sValDx = 0;	//Thigh 11
 			gLBEStats[11].sX = 0;	gLBEStats[11].sY = 0;	gLBEStats[11].sValDx = 0;	//Thigh 12
-			gLBEStats[12].sX = 22;	gLBEStats[12].sY = 417;	gLBEStats[12].sValDx = 0;	//Vest 1
-			gLBEStats[13].sX = 58;	gLBEStats[13].sY = 417;	gLBEStats[13].sValDx = 0;	//Vest 2
-			gLBEStats[14].sX = 94;	gLBEStats[14].sY = 417;	gLBEStats[14].sValDx = 0;	//Vest 3
-			gLBEStats[15].sX = 130;	gLBEStats[15].sY = 417;	gLBEStats[15].sValDx = 0;	//Vest 4
-			gLBEStats[16].sX = 166;	gLBEStats[16].sY = 417;	gLBEStats[16].sValDx = 0;	//Vest 5
-			gLBEStats[17].sX = 22;	gLBEStats[17].sY = 441;	gLBEStats[17].sValDx = 0;	//Vest 6
-			gLBEStats[18].sX = 58;	gLBEStats[18].sY = 441;	gLBEStats[18].sValDx = 0;	//Vest 7
-			gLBEStats[19].sX = 94;	gLBEStats[19].sY = 441;	gLBEStats[19].sValDx = 0;	//Vest 8
-			gLBEStats[20].sX = 130;	gLBEStats[20].sY = 441;	gLBEStats[20].sValDx = 0;	//Vest 9
-			gLBEStats[21].sX = 166;	gLBEStats[21].sY = 441;	gLBEStats[21].sValDx = 0;	//Vest 10
-			gLBEStats[22].sX = 202;	gLBEStats[22].sY = 417;	gLBEStats[22].sValDx = 0;	//Vest 11
-			gLBEStats[23].sX = 202;	gLBEStats[23].sY = 441;	gLBEStats[23].sValDx = 0;	//Vest 12
-			gLBEStats[24].sX = 66;	gLBEStats[24].sY = 341;	gLBEStats[24].sValDx = 0;	//CPack 1
-			gLBEStats[25].sX = 102;	gLBEStats[25].sY = 341;	gLBEStats[25].sValDx = 0;	//CPack 2
-			gLBEStats[26].sX = 66;	gLBEStats[26].sY = 365;	gLBEStats[26].sValDx = 0;	//CPack 3
-			gLBEStats[27].sX = 102;	gLBEStats[27].sY = 365;	gLBEStats[27].sValDx = 0;	//CPack 4
-			gLBEStats[28].sX = 69;	gLBEStats[28].sY = 389;	gLBEStats[28].sValDx = 0;	//CPack 5
-			gLBEStats[29].sX = 69;	gLBEStats[29].sY = 413;	gLBEStats[29].sValDx = 0;	//CPack 6
-			gLBEStats[30].sX = 69;	gLBEStats[30].sY = 437;	gLBEStats[30].sValDx = 0;	//CPack 7
+			gLBEStats[12].sX = 12;	gLBEStats[12].sY = 123;	gLBEStats[12].sValDx = 0;	//Vest 1
+			gLBEStats[13].sX = 48;	gLBEStats[13].sY = 123;	gLBEStats[13].sValDx = 0;	//Vest 2
+			gLBEStats[14].sX = 84;	gLBEStats[14].sY = 123;	gLBEStats[14].sValDx = 0;	//Vest 3
+			gLBEStats[15].sX = 120;	gLBEStats[15].sY = 123;	gLBEStats[15].sValDx = 0;	//Vest 4
+			gLBEStats[16].sX = 156;	gLBEStats[16].sY = 123;	gLBEStats[16].sValDx = 0;	//Vest 5
+			gLBEStats[17].sX = 12;	gLBEStats[17].sY = 147;	gLBEStats[17].sValDx = 0;	//Vest 6
+			gLBEStats[18].sX = 48;	gLBEStats[18].sY = 147;	gLBEStats[18].sValDx = 0;	//Vest 7
+			gLBEStats[19].sX = 84;	gLBEStats[19].sY = 147;	gLBEStats[19].sValDx = 0;	//Vest 8
+			gLBEStats[20].sX = 120;	gLBEStats[20].sY = 147;	gLBEStats[20].sValDx = 0;	//Vest 9
+			gLBEStats[21].sX = 156;	gLBEStats[21].sY = 147;	gLBEStats[21].sValDx = 0;	//Vest 10
+			gLBEStats[22].sX = 192;	gLBEStats[22].sY = 123;	gLBEStats[22].sValDx = 0;	//Vest 11
+			gLBEStats[23].sX = 192;	gLBEStats[23].sY = 147;	gLBEStats[23].sValDx = 0;	//Vest 12
+			gLBEStats[24].sX = 32;	gLBEStats[24].sY = 123;	gLBEStats[24].sValDx = 0;	//CPack 1
+			gLBEStats[25].sX = 68;	gLBEStats[25].sY = 123;	gLBEStats[25].sValDx = 0;	//CPack 2
+			gLBEStats[26].sX = 32;	gLBEStats[26].sY = 147;	gLBEStats[26].sValDx = 0;	//CPack 3
+			gLBEStats[27].sX = 68;	gLBEStats[27].sY = 147;	gLBEStats[27].sValDx = 0;	//CPack 4
+			gLBEStats[28].sX = 104;	gLBEStats[28].sY = 123;	gLBEStats[28].sValDx = 0;	//CPack 5
+			gLBEStats[29].sX = 104;	gLBEStats[29].sY = 147;	gLBEStats[29].sValDx = 0;	//CPack 6
+			gLBEStats[30].sX = 171;	gLBEStats[30].sY = 123;	gLBEStats[30].sValDx = 0;	//CPack 7
 			gLBEStats[31].sX = 0;	gLBEStats[31].sY = 0;	gLBEStats[31].sValDx = 0;	//CPack 8
 			gLBEStats[32].sX = 0;	gLBEStats[32].sY = 0;	gLBEStats[32].sValDx = 0;	//CPack 9
 			gLBEStats[33].sX = 0;	gLBEStats[33].sY = 0;	gLBEStats[33].sValDx = 0;	//CPack 10
 			gLBEStats[34].sX = 0;	gLBEStats[34].sY = 0;	gLBEStats[34].sValDx = 0;	//CPack 11
 			gLBEStats[35].sX = 0;	gLBEStats[35].sY = 0;	gLBEStats[35].sValDx = 0;	//CPack 12
-			gLBEStats[36].sX = 32;	gLBEStats[36].sY = 347;	gLBEStats[36].sValDx = 0;	//BPack 1
-			gLBEStats[37].sX = 32;	gLBEStats[37].sY = 371;	gLBEStats[37].sValDx = 0;	//BPack 2
-			gLBEStats[38].sX = 32;	gLBEStats[38].sY = 395;	gLBEStats[38].sValDx = 0;	//BPack 3
-			gLBEStats[39].sX = 32;	gLBEStats[39].sY = 419;	gLBEStats[39].sValDx = 0;	//BPack 4
-			gLBEStats[40].sX = 68;	gLBEStats[40].sY = 347;	gLBEStats[40].sValDx = 0;	//BPack 5
-			gLBEStats[41].sX = 68;	gLBEStats[41].sY = 371;	gLBEStats[41].sValDx = 0;	//BPack 6
-			gLBEStats[42].sX = 68;	gLBEStats[42].sY = 395;	gLBEStats[42].sValDx = 0;	//BPack 7
-			gLBEStats[43].sX = 68;	gLBEStats[43].sY = 419;	gLBEStats[43].sValDx = 0;	//BPack 8
-			gLBEStats[44].sX = 104;	gLBEStats[44].sY = 347;	gLBEStats[44].sValDx = 0;	//BPack 9
-			gLBEStats[45].sX = 104;	gLBEStats[45].sY = 371;	gLBEStats[45].sValDx = 0;	//BPack 10
-			gLBEStats[46].sX = 104;	gLBEStats[46].sY = 395;	gLBEStats[46].sValDx = 0;	//BPack 11
-			gLBEStats[47].sX = 104;	gLBEStats[47].sY = 419;	gLBEStats[47].sValDx = 0;	//BPack 12
+			gLBEStats[36].sX = 12;	gLBEStats[36].sY = 123;	gLBEStats[36].sValDx = 0;	//BPack 1
+			gLBEStats[37].sX = 12;	gLBEStats[37].sY = 147;	gLBEStats[37].sValDx = 0;	//BPack 2
+			gLBEStats[38].sX = 72;	gLBEStats[38].sY = 123;	gLBEStats[38].sValDx = 0;	//BPack 3
+			gLBEStats[39].sX = 72;	gLBEStats[39].sY = 147;	gLBEStats[39].sValDx = 0;	//BPack 4
+			gLBEStats[40].sX = 42;	gLBEStats[40].sY = 123;	gLBEStats[40].sValDx = 0;	//BPack 5
+			gLBEStats[41].sX = 42;	gLBEStats[41].sY = 147;	gLBEStats[41].sValDx = 0;	//BPack 6
+			gLBEStats[42].sX = 102;	gLBEStats[42].sY = 123;	gLBEStats[42].sValDx = 0;	//BPack 7
+			gLBEStats[43].sX = 102;	gLBEStats[43].sY = 147;	gLBEStats[43].sValDx = 0;	//BPack 8
+			gLBEStats[44].sX = 132;	gLBEStats[44].sY = 123;	gLBEStats[44].sValDx = 0;	//BPack 9
+			gLBEStats[45].sX = 132;	gLBEStats[45].sY = 147;	gLBEStats[45].sValDx = 0;	//BPack 10
+			gLBEStats[46].sX = 193;	gLBEStats[46].sY = 123;	gLBEStats[46].sValDx = 0;	//BPack 11
+			gLBEStats[47].sX = 193;	gLBEStats[47].sY = 147;	gLBEStats[47].sValDx = 0;	//BPack 12
 		}
 		else
 		{
