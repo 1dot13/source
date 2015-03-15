@@ -291,7 +291,7 @@
 		<szSlotName>MOLLE Leg Upper Row 1</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
-		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosX>65</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -302,7 +302,7 @@
 		<szSlotName>MOLLE Leg Upper Row 2</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
-		<usDescPanelPosX>226</usDescPanelPosX>
+		<usDescPanelPosX>101</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -313,7 +313,7 @@
 		<szSlotName>MOLLE Leg Lower Row 1</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
-		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosX>65</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -324,7 +324,7 @@
 		<szSlotName>MOLLE Leg Lower Row 2</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
-		<usDescPanelPosX>226</usDescPanelPosX>
+		<usDescPanelPosX>101</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -335,8 +335,8 @@
 		<szSlotName>MOLLE Leg Middle Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>4</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
-		<usDescPanelPosY>58</usDescPanelPosY>
+		<usDescPanelPosX>137</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>5</ubPocketMapping>
@@ -478,7 +478,7 @@
 		<szSlotName>MOLLE Combat Pack Upper Row 1 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosX>32</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -489,7 +489,7 @@
 		<szSlotName>MOLLE Combat Pack Upper Row 2 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosX>68</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -500,7 +500,7 @@
 		<szSlotName>MOLLE Combat Pack Lower Row 1 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosX>32</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -511,7 +511,7 @@
 		<szSlotName>MOLLE Combat Pack Lower Row 2 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosX>68</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -522,7 +522,7 @@
 		<szSlotName>MOLLE Combat Pack Upper Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
+		<usDescPanelPosX>104</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
@@ -533,7 +533,7 @@
 		<szSlotName>MOLLE Combat Pack Middle Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
+		<usDescPanelPosX>104</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
@@ -544,8 +544,8 @@
 		<szSlotName>MOLLE Combat Pack Lower Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>16</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
-		<usDescPanelPosY>58</usDescPanelPosY>
+		<usDescPanelPosX>171</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>7</ubPocketMapping>
@@ -555,7 +555,7 @@
 		<szSlotName>MOLLE Backpack 1st Row Left Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>40</usDescPanelPosX>
+		<usDescPanelPosX>12</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -566,7 +566,7 @@
 		<szSlotName>MOLLE Backpack 2nd Row Left Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>40</usDescPanelPosX>
+		<usDescPanelPosX>12</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -577,7 +577,7 @@
 		<szSlotName>MOLLE Backpack 3rd Row Left Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosX>72</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -588,7 +588,7 @@
 		<szSlotName>MOLLE Backpack 4th Row Left Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosX>72</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -599,7 +599,7 @@
 		<szSlotName>MOLLE Backpack 1st Row Right Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>76</usDescPanelPosX>
+		<usDescPanelPosX>42</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -610,7 +610,7 @@
 		<szSlotName>MOLLE Backpack 2nd Row Right Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>76</usDescPanelPosX>
+		<usDescPanelPosX>42</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -621,7 +621,7 @@
 		<szSlotName>MOLLE Backpack 3rd Row Right Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosX>102</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -632,7 +632,7 @@
 		<szSlotName>MOLLE Backpack 4th Row Right Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosX>102</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -643,7 +643,7 @@
 		<szSlotName>MOLLE Backpack 1st Row Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
+		<usDescPanelPosX>132</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
@@ -654,7 +654,7 @@
 		<szSlotName>MOLLE Backpack 2nd Row Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
-		<usDescPanelPosX>193</usDescPanelPosX>
+		<usDescPanelPosX>132</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
@@ -666,7 +666,7 @@
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
 		<usDescPanelPosX>193</usDescPanelPosX>
-		<usDescPanelPosY>58</usDescPanelPosY>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>11</ubPocketMapping>
@@ -677,7 +677,7 @@
 		<nasAttachmentClass>8192</nasAttachmentClass>
 		<nasLayoutClass>32</nasLayoutClass>
 		<usDescPanelPosX>193</usDescPanelPosX>
-		<usDescPanelPosY>82</usDescPanelPosY>
+		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>12</ubPocketMapping>
