@@ -7647,11 +7647,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
+	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",	// TODO.Translate
+	L"|V|o|l|u|m|e",	// TODO.Translate
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nОпределяет сложность починки этого предмета,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
+	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

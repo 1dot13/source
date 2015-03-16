@@ -2267,7 +2267,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			CHAR16 pStr[1000];
 
 			///////////////// PRIMARY DATA - ICONS
-			for (cnt = 0; cnt < 1; cnt++)
+			for (cnt = 0; cnt < 3; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -2290,6 +2290,24 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 0 ], szUDBGenCommonStatsExplanationsTooltipText[ 0 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 0 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 0 ] );
+			}
+			//////////////////// LBE Stuff
+			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+			{
+				//////////////////// LBE AVAILABLE VOLUME (for MOLLE carriers)
+				if ( LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume > 0 )
+				{
+					swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 1 ], szUDBGenCommonStatsExplanationsTooltipText[ 1 ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 1 ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 1 ] );
+				}
+				//////////////////// POCKET VOLUME (for MOLLE pockets)
+				if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+				{
+					swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 2 ], szUDBGenCommonStatsExplanationsTooltipText[ 2 ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				}
 			}
 		}
 	}
@@ -5853,6 +5871,20 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 			else
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+		}
+		//////////////////// LBE Stuff
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+		{
+			//////////////////// LBE AVAILABLE VOLUME (for MOLLE carriers)
+			if ( LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume > 0 )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 63, gItemDescGenRegions[1][0].sLeft + sOffsetX, gItemDescGenRegions[1][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			//////////////////// POCKET VOLUME (for MOLLE pockets)
+			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 64, gItemDescGenRegions[2][0].sLeft + sOffsetX, gItemDescGenRegions[2][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
 
@@ -14454,6 +14486,132 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 			swprintf( pStr, L"%d", iFinalRepairEaseValue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
+		}
+		//////////////////// LBE Stuff
+		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+		{
+			//////////////////// LBE AVAILABLE VOLUME (for MOLLE carriers)
+			if ( LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume > 0 )
+			{
+				// Set line to draw into
+				ubNumLine = 1;
+
+				// Get base available volume
+				INT16 iAvailableVolume = LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume;
+				// Get final available volume
+				INT16 iFinalAvailableVolume = iAvailableVolume - GetVolumeAlreadyTaken( gpItemDescObject, NO_SLOT );
+				// difference
+				INT16 iVolumeModifier = iFinalAvailableVolume - iAvailableVolume;
+
+				if( !fComparisonMode )
+				{
+					// Print base value
+					DrawPropertyValueInColour( iAvailableVolume, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print modifier
+					DrawPropertyValueInColour( iVolumeModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalAvailableVolume, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				}
+				else
+				{
+					INT16 iComparedAvailableVolume = 0;
+					INT16 iComparedFinalAvailableVolume = 0;
+					if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+					{
+						// Get base available volume
+						iComparedAvailableVolume = LoadBearingEquipment[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume;
+						// Get final available volume
+						iComparedFinalAvailableVolume = iComparedAvailableVolume - GetVolumeAlreadyTaken( gpComparedItemDescObject, NO_SLOT );
+					}
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedAvailableVolume - iAvailableVolume, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+					// Print difference in modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 ); 
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalAvailableVolume - iFinalAvailableVolume, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
+				}
+			}
+			else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+			{
+				if ( LoadBearingEquipment[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume > 0
+					&& LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume > 0)
+				{
+					// Set line to draw into
+					ubNumLine = 1;
+					// Get base available volume
+					INT16 iAvailableVolume = LoadBearingEquipment[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].lbeAvailableVolume;
+					// Get final available volume
+					INT16 iFinalAvailableVolume = iAvailableVolume - GetVolumeAlreadyTaken( gpComparedItemDescObject, NO_SLOT );
+					// difference
+					INT16 iVolumeModifier = iFinalAvailableVolume - iAvailableVolume;
+
+					// Print base value
+					DrawPropertyValueInColour( iAvailableVolume, ubNumLine, 1, FALSE, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+					// Print modifier
+					DrawPropertyValueInColour( iVolumeModifier, ubNumLine, 2, FALSE, TRUE, TRUE );
+					// Print final value
+					DrawPropertyValueInColour( iFinalAvailableVolume, ubNumLine, 3, FALSE, FALSE, TRUE, ITEMDESC_FONTPOSITIVE );
+				}
+			}
+			//////////////////// POCKET VOLUME (for MOLLE pockets)
+			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+			{
+				// Set line to draw into
+				ubNumLine = 2;
+
+				// Get base pocket volume
+				INT16 iPocketVolume = LBEPocketType[GetFirstPocketOnItem(gpItemDescObject->usItem)].pVolume;
+				// Get final pocket volume
+				INT16 iFinalPocketVolume = iPocketVolume;
+
+				if( !fComparisonMode )
+				{
+					// Print base value
+					DrawPropertyValueInColour( iPocketVolume, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+					// Print final value
+					DrawPropertyValueInColour( iFinalPocketVolume, ubNumLine, 3, fComparisonMode, FALSE, FALSE, FONT_MCOLOR_WHITE );
+				}
+				else
+				{
+					INT16 iComparedPocketVolume = 0;
+					INT16 iComparedFinalPocketVolume = 0;
+					if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LBEGEAR && Item[ gpComparedItemDescObject->usItem ].nasAttachmentClass != 0 )
+					{
+						// Get base available volume
+						iComparedPocketVolume = LBEPocketType[GetFirstPocketOnItem(gpComparedItemDescObject->usItem)].pVolume;
+						// Get final available volume
+						iComparedFinalPocketVolume = iComparedPocketVolume;
+					}
+					// Print difference in base value
+					DrawPropertyValueInColour( iComparedPocketVolume - iPocketVolume, ubNumLine, 1, fComparisonMode, FALSE, FALSE );
+					// Print difference in modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 ); 
+					// Print difference in final value
+					DrawPropertyValueInColour( iComparedFinalPocketVolume - iFinalPocketVolume, ubNumLine, 3, fComparisonMode, FALSE, FALSE );
+				}
+			}
+			else if( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LBEGEAR )
+			{
+				if ( Item[ gpComparedItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0
+					&& Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 )
+				{
+					// Set line to draw into
+					ubNumLine = 2;
+					// base available volume
+					INT16 iPocketVolume = LBEPocketType[GetFirstPocketOnItem(gpComparedItemDescObject->usItem)].pVolume;
+					// current available volume
+					INT16 iFinalPocketVolume = iPocketVolume;
+
+					// Print base value
+					DrawPropertyValueInColour( iPocketVolume, ubNumLine, 1, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
+					// Print modifier
+					DrawPropertyTextInColour( L"--", ubNumLine, 2 );
+					// Print final value
+					DrawPropertyValueInColour( iFinalPocketVolume, ubNumLine, 3, FALSE, FALSE, FALSE, ITEMDESC_FONTPOSITIVE );
+				}
+			}
 		}
 	}
 

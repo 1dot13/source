@@ -7657,11 +7657,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|R|e|p|a|i|r |E|a|s|e",
+	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",
+	L"|V|o|l|u|m|e",
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",
+	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

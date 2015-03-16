@@ -7655,11 +7655,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|修|理|难|度",
+	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",	// TODO.Translate
+	L"|V|o|l|u|m|e",	// TODO.Translate
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \n决定了修理难度以及谁可以完全修复其损坏值\n \n绿色 = 任何人都可以修理\n \n红色 = 这个物品不能被修理\n \n 越高越好", //L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

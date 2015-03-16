@@ -7654,11 +7654,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n",
+	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",	// TODO.Translate
+	L"|V|o|l|u|m|e",	// TODO.Translate
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nDétermine la difficulté à réparer complètement un objet.\n \nVert = N'importe qui peut le réparer.\n \nRouge = Il ne peut pas être réparé.\n \nValeur élevée recommandée.",
+	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

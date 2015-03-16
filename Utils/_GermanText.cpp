@@ -7484,11 +7484,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|R|e|p|a|r|i|e|r|f|ä|h|i|g|k|e|i|t",
+	L"|V|e|r|f|ü|g|b|a|r|e|r |P|l|a|t|z",
+	L"|P|l|a|t|z|b|e|d|a|r|f",
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nBestimmt, wie schwierig es ist, diesen Gegenstand zu reparieren.\n \ngrün = Jeder kann ihn reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wieviel Platz dieser MOLLE Träger für Taschen bietet.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wieviel Platz diese Tasche auf einem MOLLE Träger einnimmt.\n \nNiedriger ist besser.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
