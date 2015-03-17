@@ -6344,17 +6344,23 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						if( &(*iter) == pAttachment )
 						{
 							std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(gpItemDescObject);
-							// if the attachments pocket is not empty then do not allow to remove this attachment
+
 							if( gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex) ) // not worn by the soldier
 							{
 								LBENODE* pLBE = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex);
+								// we have an item in this pocket
 								if( pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)].exists() )
-									return;
+									// place item on the ground
+									AutoPlaceObjectToWorld(gpItemDescSoldier, &pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)], TRUE);
 							}
 							else // the soldier is wearing the LBE
 							{
+								// we have an item in this pocket
 								if( gpItemDescSoldier->inv[pocketKey[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)]].exists() )
-									return;
+									// place in soldiers inventory
+									if( !AutoPlaceObject(gpItemDescSoldier, &gpItemDescSoldier->inv[pocketKey[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)]], FALSE) )
+										// that didn't work. Place on ground instead.
+										AutoPlaceObjectToWorld(gpItemDescSoldier, &gpItemDescSoldier->inv[pocketKey[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)]], TRUE);
 							}
 							break;
 						}

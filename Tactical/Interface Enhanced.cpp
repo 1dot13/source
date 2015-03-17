@@ -2302,7 +2302,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 1 ] );
 				}
 				//////////////////// POCKET VOLUME (for MOLLE pockets)
-				if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+				if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && GetFirstPocketOnItem(gpItemDescObject->usItem) != 0 )
 				{
 					swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 2 ], szUDBGenCommonStatsExplanationsTooltipText[ 2 ]);
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
@@ -5882,7 +5882,7 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 63, gItemDescGenRegions[1][0].sLeft + sOffsetX, gItemDescGenRegions[1][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 			//////////////////// POCKET VOLUME (for MOLLE pockets)
-			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && GetFirstPocketOnItem(gpItemDescObject->usItem) != 0 )
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 64, gItemDescGenRegions[2][0].sLeft + sOffsetX, gItemDescGenRegions[2][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
@@ -14554,7 +14554,7 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 				}
 			}
 			//////////////////// POCKET VOLUME (for MOLLE pockets)
-			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && LoadBearingEquipment[ Item[ gpItemDescObject->usItem ].ubClassIndex ].lbePocketIndex[0] > 0 )
+			if ( Item[ gpItemDescObject->usItem ].nasAttachmentClass != 0 && GetFirstPocketOnItem(gpItemDescObject->usItem) != 0 )
 			{
 				// Set line to draw into
 				ubNumLine = 2;

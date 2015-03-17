@@ -4907,7 +4907,46 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
 				}
 			} else {
-				pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
+				// if this is an active LBE (holding an item) it must be a MOLLE pocket. We need to move the item out of this pocket or it will be invisible.
+				if ( pAttachment->IsActiveLBE(subObject) )
+				{
+					std::vector<INT8> LBESlots;
+					switch( LoadBearingEquipment[Item[pAttachment->usItem].ubClassIndex].lbeClass )
+					{
+						case THIGH_PACK:
+							GetLBESlots( LTHIGHPOCKPOS, LBESlots );
+							break;
+						case VEST_PACK:
+							GetLBESlots( VESTPOCKPOS, LBESlots );
+							break;
+						case COMBAT_PACK:
+							GetLBESlots( CPACKPOCKPOS, LBESlots );
+							break;
+						case BACKPACK:
+							GetLBESlots( BPACKPOCKPOS, LBESlots );
+							break;
+						// this should never happen
+						default:
+							return FALSE;
+					}
+
+					LBENODE* pLBE = pAttachment->GetLBEPointer(0);
+					for(unsigned int i=0; i<LBESlots.size(); i++)
+					{
+						// Is there an item in this LBE pocket?
+						if( pLBE->inv[i].exists() )
+						{
+							// place in soldiers inventory
+							if( !AutoPlaceObject(pSoldier, &pLBE->inv[i], FALSE) )
+								// that didn't work. Place it on the ground instead.
+								AutoPlaceObjectToWorld( pSoldier, &pLBE->inv[i], TRUE );
+						}
+					}
+					// finished removing items. Now attach the MOLLE pocket to its carrier.
+					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
+				}
+				else
+					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
 			}
 
 				//WarmSteel - Because we want every attachment to stay in place in NAS, we must first delete the "null" attachment, then insert the new one.
