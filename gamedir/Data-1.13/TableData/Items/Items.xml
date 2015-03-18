@@ -2116,6 +2116,11 @@
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
+		<CamoBonus>-5</CamoBonus>
+		<UrbanCamoBonus>-5</UrbanCamoBonus>
+		<DesertCamoBonus>-5</DesertCamoBonus>
+		<SnowCamoBonus>-5</SnowCamoBonus>
+		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -2419,6 +2424,11 @@
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
+		<CamoBonus>-5</CamoBonus>
+		<UrbanCamoBonus>-5</UrbanCamoBonus>
+		<DesertCamoBonus>-5</DesertCamoBonus>
+		<SnowCamoBonus>-5</SnowCamoBonus>
+		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -7239,6 +7249,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>100</BestLaserRange>
+		<CamoBonus>-5</CamoBonus>
+		<UrbanCamoBonus>-5</UrbanCamoBonus>
+		<DesertCamoBonus>-5</DesertCamoBonus>
+		<SnowCamoBonus>-5</SnowCamoBonus>
+		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -19681,6 +19696,11 @@
 		<ToHitBonus>19</ToHitBonus>
 		<BestLaserRange>100</BestLaserRange>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<CamoBonus>-5</CamoBonus>
+		<UrbanCamoBonus>-5</UrbanCamoBonus>
+		<DesertCamoBonus>-5</DesertCamoBonus>
+		<SnowCamoBonus>-5</SnowCamoBonus>
+		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -22616,6 +22636,11 @@
 		<VisionRangeBonus>50</VisionRangeBonus>
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
+		<CamoBonus>-6</CamoBonus>
+		<UrbanCamoBonus>-6</UrbanCamoBonus>
+		<DesertCamoBonus>-6</DesertCamoBonus>
+		<SnowCamoBonus>-6</SnowCamoBonus>
+		<StealthBonus>-6</StealthBonus>
 		<ProjectionFactor>1.4</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -29396,11 +29421,11 @@
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>140</BestLaserRange>
 		<PercentAPReduction>20</PercentAPReduction>
-		<CamoBonus>-10</CamoBonus>
-		<UrbanCamoBonus>-10</UrbanCamoBonus>
-		<DesertCamoBonus>-10</DesertCamoBonus>
-		<SnowCamoBonus>-10</SnowCamoBonus>
-		<StealthBonus>-10</StealthBonus>
+		<CamoBonus>-7</CamoBonus>
+		<UrbanCamoBonus>-7</UrbanCamoBonus>
+		<DesertCamoBonus>-7</DesertCamoBonus>
+		<SnowCamoBonus>-7</SnowCamoBonus>
+		<StealthBonus>-7</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<ScopeMagFactor>1.0</ScopeMagFactor>
@@ -29523,11 +29548,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>300</BestLaserRange>
-		<CamoBonus>-5</CamoBonus>
-		<UrbanCamoBonus>-5</UrbanCamoBonus>
-		<DesertCamoBonus>-5</DesertCamoBonus>
-		<SnowCamoBonus>-5</SnowCamoBonus>
-		<StealthBonus>-5</StealthBonus>
+		<CamoBonus>-15</CamoBonus>
+		<UrbanCamoBonus>-15</UrbanCamoBonus>
+		<DesertCamoBonus>-15</DesertCamoBonus>
+		<SnowCamoBonus>-15</SnowCamoBonus>
+		<StealthBonus>-15</StealthBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -31322,11 +31347,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>130</BestLaserRange>
-		<CamoBonus>-5</CamoBonus>
-		<UrbanCamoBonus>-5</UrbanCamoBonus>
-		<DesertCamoBonus>-5</DesertCamoBonus>
-		<SnowCamoBonus>-5</SnowCamoBonus>
-		<StealthBonus>-5</StealthBonus>
+		<CamoBonus>-6</CamoBonus>
+		<UrbanCamoBonus>-6</UrbanCamoBonus>
+		<DesertCamoBonus>-6</DesertCamoBonus>
+		<SnowCamoBonus>-6</SnowCamoBonus>
+		<StealthBonus>-6</StealthBonus>
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<ProjectionFactor>1.6</ProjectionFactor>
