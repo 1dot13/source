@@ -12511,7 +12511,7 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 			ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
-	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
+	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
 INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12560,7 +12560,7 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 			ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
-	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
+	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
 INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12608,7 +12608,7 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
 			ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
-	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
+	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
 INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 {
@@ -12656,7 +12656,7 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
 			ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
-	return __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) );
+	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
