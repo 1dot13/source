@@ -605,6 +605,7 @@ MOUSE_REGION gMPanelRegion;
 MOUSE_REGION gMapViewRegion;
 MOUSE_REGION gMapScreenMaskRegion;
 MOUSE_REGION gTrashCanRegion;
+MOUSE_REGION gMapMercCamoRegion;
 
 // mouse regions for team info panel
 MOUSE_REGION gTeamListNameRegion[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
@@ -1029,7 +1030,6 @@ void RequestContractMenu( void );
 void ChangeCharacterListSortMethod( INT32 iValue );
 
 void MapscreenMarkButtonsDirty();
-
 
 extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSectorY, INT8 bClickedTownId );
 
@@ -5152,6 +5152,9 @@ UINT32 MapScreenHandle(void)
 		MSYS_DefineRegion( &gMapScreenMaskRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_LOW,
 							CURSOR_NORMAL, MSYS_NO_CALLBACK, MapScreenMarkRegionBtnCallback);
 
+		// region for detailed merc camo
+		MSYS_DefineRegion( &gMapMercCamoRegion, ( MAP_CAMMO_X + 2), ( MAP_CAMMO_Y ), (MAP_CAMMO_X + 28), (MAP_CAMMO_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback );
+
 		// set help text for item glow region
 		SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 
@@ -5202,6 +5205,7 @@ UINT32 MapScreenHandle(void)
 		MSYS_AddRegion( &gMapViewRegion);
 		MSYS_AddRegion( &gCharInfoFaceRegion);
 		MSYS_AddRegion( &gMPanelRegion);
+		MSYS_AddRegion( &gMapMercCamoRegion );
 
 	if ( !gfFadeOutDone && !gfFadeIn )
 	{
@@ -8523,6 +8527,7 @@ INT32 iCounter2 = 0;
 	MSYS_RemoveRegion( &gCharInfoHandRegion );
 	MSYS_RemoveRegion( &gMPanelRegion);
 	MSYS_RemoveRegion( &gMapScreenMaskRegion );
+	MSYS_RemoveRegion( &gMapMercCamoRegion);
 	fInMapMode = FALSE;
 
 	// remove team panel sort button
@@ -9230,6 +9235,7 @@ void CreateDestroyMapInvButton()
 
 	InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
 	MSYS_EnableRegion(&gMPanelRegion);
+	MSYS_EnableRegion(&gMapMercCamoRegion);
 
 	// switch hand region help text to "Exit Inventory"
 	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
@@ -9250,6 +9256,7 @@ void CreateDestroyMapInvButton()
 	//UnloadButtonImage( giMapInvButtonImage );
 	fTeamPanelDirty=TRUE;
 	MSYS_DisableRegion(&gMPanelRegion);
+	MSYS_DisableRegion(&gMapMercCamoRegion);
 
 	// switch hand region help text to "Enter Inventory"
 	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
@@ -9270,7 +9277,6 @@ void BltCharInvPanel()
 	CHAR16 sString[ 32 ];
 	INT16 usX, usY;
 	UINT8 disOpt = 0;
-
 
 	// make sure we're here legally
 	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
@@ -9395,7 +9401,77 @@ void BltCharInvPanel()
 		// Display camo value
 		swprintf( sString, L"%3d", max(0, min(max((pSoldier->bCamo + pSoldier->wornCamo), max((pSoldier->urbanCamo+pSoldier->wornUrbanCamo), max((pSoldier->desertCamo+pSoldier->wornDesertCamo), (pSoldier->snowCamo+pSoldier->wornSnowCamo)))),100)) );
 		FindFontRightCoordinates(MAP_CAMMO_X, MAP_CAMMO_Y, MAP_PERCENT_WIDTH, MAP_PERCENT_HEIGHT, sString, BLOCKFONT2, &usX, &usY);
-		mprintf( usX, usY, sString ); 
+		mprintf( usX, usY, sString );
+
+		if( fCharacterInfoPanelDirty )
+		{
+			static CHAR16 pStr[ 200 ];
+
+			// detailed camo info popup
+			CHAR16 pStrCamo[400];
+			swprintf( pStrCamo, L"" );
+			swprintf( pStr, L"");
+			if ((pSoldier->bCamo + pSoldier->wornCamo) > 0 )
+			{
+				swprintf( pStrCamo, L"\n%d/%d%s %s", pSoldier->bCamo, pSoldier->wornCamo, L"%", gzMiscItemStatsFasthelp[ 21 ]);
+				wcscat( pStr, pStrCamo);
+				swprintf( pStrCamo, L"" );
+			}
+			if ((pSoldier->urbanCamo + pSoldier->wornUrbanCamo) > 0 )
+			{
+				swprintf( pStrCamo, L"\n%d/%d%s %s", pSoldier->urbanCamo, pSoldier->wornUrbanCamo, L"%", gzMiscItemStatsFasthelp[ 22 ]);
+				wcscat( pStr, pStrCamo);
+				swprintf( pStrCamo, L"" );
+			}
+			if ((pSoldier->desertCamo + pSoldier->wornDesertCamo) > 0 )
+			{
+				swprintf( pStrCamo, L"\n%d/%d%s %s", pSoldier->desertCamo, pSoldier->wornDesertCamo, L"%", gzMiscItemStatsFasthelp[ 23 ]);
+				wcscat( pStr, pStrCamo);
+				swprintf( pStrCamo, L"" );
+			}
+			if ((pSoldier->snowCamo + pSoldier->wornSnowCamo) > 0 )
+			{
+				swprintf( pStrCamo, L"\n%d/%d%s %s", pSoldier->snowCamo, pSoldier->wornSnowCamo, L"%", gzMiscItemStatsFasthelp[ 24 ] );
+				wcscat( pStr, pStrCamo);
+				swprintf( pStrCamo, L"" );
+			}
+		
+			// anv: display stealth together with camo
+			INT16 wornstealth = GetWornStealth(pSoldier) - pSoldier->GetBackgroundValue(BG_PERC_STEALTH);
+			INT16 bonusstealth = pSoldier->GetBackgroundValue(BG_PERC_STEALTH);
+			if ( pSoldier->ubBodyType == BLOODCAT )
+			{
+				bonusstealth += 50;
+			}
+			// SANDRO - new/old traits
+			else if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
+			{
+				bonusstealth += gSkillTraitValues.ubSTBonusToMoveQuietly;
+			}
+			else if ( !gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_OT ))
+			{
+				bonusstealth += 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+			}
+
+			if ( bonusstealth != 0 || wornstealth!= 0 )
+			{
+				CHAR16 pStrBonusStealth[400];
+				CHAR16 pStrWornStealth[400];
+				if( bonusstealth < 0 )
+				swprintf( pStrBonusStealth, L"%d", bonusstealth );
+				else
+					swprintf( pStrBonusStealth, L"+%d", bonusstealth );
+				if( wornstealth < 0 )
+					swprintf( pStrWornStealth, L"%d", wornstealth );
+				else
+					swprintf( pStrWornStealth, L"+%d", wornstealth );
+				swprintf( pStrCamo, L"\n%s/%s %s", pStrBonusStealth, pStrWornStealth, gzMiscItemStatsFasthelp[ 25 ] );
+				wcscat( pStr, pStrCamo);
+				swprintf( pStrCamo, L"" );
+			}
+
+			SetRegionFastHelpText( &(gMapMercCamoRegion), pStr );
+		}
 	}
 
 	if( InKeyRingPopup( ) )
