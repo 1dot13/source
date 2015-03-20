@@ -6778,7 +6778,7 @@ void NCTHDrawScopeModeIcon( SOLDIERTYPE* pSoldier, INT16 sNewX, INT16 sNewY )
 			AddVideoObject( &VObjectDesc, &uiItemInfoAdvancedIcon);
 
 			std::map<INT8, OBJECTTYPE*> ObjList;
-			GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+			GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
 
 			if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
 			{		

@@ -13663,7 +13663,7 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 			if ( (Item[inv[HANDPOS].usItem].usItemClass & IC_WEAPON) && (Item[inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON) )
 			{
 				std::map<INT8, OBJECTTYPE*> ObjList;
-				GetScopeLists( &inv[HANDPOS], ObjList );
+				GetScopeLists( this, &inv[HANDPOS], ObjList );
 
 				std::map<INT8, OBJECTTYPE*>::iterator itend = ObjList.end( );
 				for ( std::map<INT8, OBJECTTYPE*>::iterator it = ObjList.begin( ); it != itend; ++it )

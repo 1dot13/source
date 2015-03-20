@@ -179,7 +179,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	pSoldier->bWeaponMode = WM_NORMAL;
 #ifdef dnlCALCBESTSHOT//dnl ch69 130913 rather setup available scopes here then in later inside loop
 	std::map<INT8, OBJECTTYPE*> ObjList;
-	GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+	GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
 	pSoldier->bScopeMode = USE_BEST_SCOPE;
 	pSoldier->bDoBurst = 0;
 	pSoldier->bDoAutofire = 0;
@@ -349,7 +349,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			{
 				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 				std::map<INT8, OBJECTTYPE*> ObjList;
-				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+				GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
 				do
 				{
 					pSoldier->bScopeMode++;

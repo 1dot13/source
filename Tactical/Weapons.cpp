@@ -7264,7 +7264,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	if ( Item[(&(pSoldier->inv[pSoldier->ubAttackingHand]))->usItem].usItemClass == IC_GUN && !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
 	{
 		std::map<INT8, OBJECTTYPE*> ObjList;
-		GetScopeLists((&(pSoldier->inv[pSoldier->ubAttackingHand])), ObjList);
+		GetScopeLists(pSoldier, (&(pSoldier->inv[pSoldier->ubAttackingHand])), ObjList);
 		
 		if ( ObjList[pSoldier->bScopeMode] != NULL )
 		{
@@ -11379,7 +11379,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 		if ( (Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass & IC_WEAPON) && (Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass & IC_WEAPON) )
 		{
 			std::map<INT8, OBJECTTYPE*> ObjList;
-			GetScopeLists(&pSoldier->inv[ HANDPOS ], ObjList);
+			GetScopeLists(pSoldier, &pSoldier->inv[ HANDPOS ], ObjList);
 
 			std::map<INT8, OBJECTTYPE*>::iterator itend = ObjList.end();
 			for (std::map<INT8, OBJECTTYPE*>::iterator it = ObjList.begin(); it != itend; ++it)
@@ -11907,7 +11907,7 @@ void ChangeScopeMode( SOLDIERTYPE * pSoldier, INT32 iTrgGridNo )
 	else
 	{
 		std::map<INT8, OBJECTTYPE*> ObjList;
-		GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+		GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
 
 		do
 		{

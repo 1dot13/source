@@ -463,7 +463,7 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 // Flugente
 FLOAT GetItemCooldownModificator( OBJECTTYPE * pObj );
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
-void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
+void  GetScopeLists( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
 
 // check if item belongs to a specific attachment class
 BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag );
