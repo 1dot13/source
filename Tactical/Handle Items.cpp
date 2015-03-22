@@ -6094,6 +6094,11 @@ void AddBlueFlag( INT32 sGridNo ,INT8 bLevel )
 void RemoveBlueFlag( INT32 sGridNo, INT8 bLevel )
 {
 	ApplyMapChangesToMapTempFile( TRUE );
+
+	// player mine present
+	if( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+		RemoveMineFlagFromMapTempFile( sGridNo );
+
 	gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_PLAYER_MINE_PRESENT);
 
 	if ( bLevel == 0 )
