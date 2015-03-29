@@ -15446,6 +15446,10 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 					;
 				else
 				{
+					// if we're not that close, we wont even see this, so don't check
+					if ( !fCloselook )
+						continue;
+
 					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
 					UINT8 checkslot = 0;
 					switch ( uiNIVSlotType[bLoop] )
@@ -15525,9 +15529,9 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									}
 
 									++numberofattachments;
-
+									
 									// no ordinary soldier is allowed that many attachments -> not covert
-									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+									if ( fCloselook && numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 									{
 										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->GetName( ), Item[pObj->usItem].szItemName );
 										return TRUE;
@@ -15590,9 +15594,9 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 										++numberofattachments;
 									}
 								}
-
+								
 								// no ordinary soldier is allowed that many attachments > not covert
-								if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+								if ( fCloselook && numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 								{
 									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->GetName( ), Item[pObj->usItem].szItemName );
 									return TRUE;
@@ -15666,38 +15670,38 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		case 2:
 			// a covert ops expert can get as close as he wants, even dressed up as a soldier, without arousing suspicion
 			// exceptions: we are discovered if we are close and bleeding, or if we are drunk while dressed as a soldier
-		{
-				  // if we are openly bleeding: not covert
-				  if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
-				  {
-					  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName( ) );
-					  return FALSE;
-				  }
+			{
+				// if we are openly bleeding: not covert
+				if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName( ) );
+					return FALSE;
+				}
 
-				  if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
-				  {
-					  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->GetName( ) );
-					  return FALSE;
-				  }
-		}
+				if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->GetName( ) );
+					return FALSE;
+				}
+			}
 			break;
 		case 1:
 			// at lvl covert ops, we can be discovered if we are too close to the enemy and bleed or dressed up as a soldier
 			// however, if we are dressed up as a civilian, we can get as close as we like, we won't be discovered
-		{
-				  // if we are openly bleeding: not covert
-				  if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
-				  {
-					  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName( ) );
-					  return FALSE;
-				  }
+			{
+				// if we are openly bleeding: not covert
+				if ( gSkillTraitValues.fCODetectIfBleeding && this->bBleeding > 0 )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName( ) );
+					return FALSE;
+				}
 
-				  if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
-				  {
-					  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName( ) );
-					  return FALSE;
-				  }
-		}
+				if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName( ) );
+					return FALSE;
+				}
+			}
 			break;
 		case 0:
 		default:
