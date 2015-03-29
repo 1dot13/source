@@ -2712,6 +2712,17 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	// the sector we are currently in
 	ubSector = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
 
+	// Flugente: for unknown reasons, it is possible for waypoints to be filled with complete garbage. In this case we cannot use them.
+	// As we have no idea as to where this group was originally intended to go, and wandering around aimlessly would potentially be bad, we just stop moving...
+	if ( wp->x < 1 || wp->x > 16 || wp->y < 1 || wp->y > 16 )
+	{
+		ScreenMsg( FONT_YELLOW, MSG_ERROR, L"Group %d has corrupted waypoints. Cancelling movement!", pGroup->ubGroupID );
+		
+		RemovePGroupWaypoints( pGroup );
+
+		return;
+	}
+
 	//We now have the correct waypoint.
 	//Analyse the group and determine which direction it will move from the current sector.
 	dx = wp->x - pGroup->ubSectorX;
