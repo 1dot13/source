@@ -51404,4 +51404,207 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1728</uiIndex>
+		<szItemName>12g Shells 2 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 2 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 2 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>604</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>896</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>30</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1729</uiIndex>
+		<szItemName>12g Shells 4 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 4 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 4 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>605</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>897</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>11</ItemSize>
+		<usPrice>60</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1730</uiIndex>
+		<szItemName>12g Shells 7 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 7 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 7 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>606</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>898</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>15</ItemSize>
+		<usPrice>105</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1731</uiIndex>
+		<szItemName>12g Shells 12 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 12 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 12 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>607</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>899</ubGraphicNum>
+		<ubWeight>10</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>19</ItemSize>
+		<usPrice>180</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1732</uiIndex>
+		<szItemName>12g Drum 20 RS</szItemName>
+		<szLongItemName>12 Gauge Drum, 20 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 20 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>608</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>900</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>22</ItemSize>
+		<usPrice>300</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1733</uiIndex>
+		<szItemName>12g Crate RS</szItemName>
+		<szLongItemName>12 Gauge Ammo Crate, Rubber Slug</szLongItemName>
+		<szItemDesc>A really big box of ammunition. I don't think this will fit in your backpack...</szItemDesc>
+		<szBRName>12g Crate Rubber</szBRName>
+		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>609</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>730</ubGraphicNum>
+		<ubWeight>800</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>15000</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1734</uiIndex>
+		<szItemName>12g Box RS</szItemName>
+		<szLongItemName>12 Gauge Box, Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Box Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>610</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>93</ubGraphicNum>
+		<ubWeight>20</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>24</ItemSize>
+		<usPrice>125</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>6</BR_NewInventory>
+		<PercentNoiseReduction>30</PercentNoiseReduction>
+		<PercentRecoilModifier>-40</PercentRecoilModifier>
+		<RangeBonus>-10</RangeBonus>
+		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
