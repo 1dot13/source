@@ -171,6 +171,13 @@ BOOLEAN MAPCREATE_STRUCT::Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMin
 		pData = &OldMapCreateStruct;
 		uiBytesToWrite = sizeof(_OLD_MAPCREATE_STRUCT);
 	}
+
+	// a map without entry points would be fatal in a campaign, so print out a warning to the maper
+	if ( sNorthGridNo == NOWHERE && sEastGridNo == NOWHERE && sSouthGridNo == NOWHERE && sWestGridNo == NOWHERE && sCenterGridNo == NOWHERE )
+	{
+		ScreenMsg( MSG_FONT_YELLOW, MSG_ERROR, L"Map has no entry points - please fix this!" );
+	}
+
 	UINT32 uiBytesWritten = 0;
 	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
 	if(uiBytesToWrite == uiBytesWritten)

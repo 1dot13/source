@@ -6759,7 +6759,6 @@ void SetInterfaceHeightLevel( )
 {
 	INT16 sHeight;
 	static INT16 sOldHeight = 0;
-	INT32 sGridNo;
 
 	if( gfBasement || gfCaves )
 	{
@@ -6769,24 +6768,24 @@ void SetInterfaceHeightLevel( )
 		return;
 	}
 
-
 	// ATE: Use an entry point to determine what height to use....
 	if( gMapInformation.sNorthGridNo != NOWHERE )
-		sGridNo = gMapInformation.sNorthGridNo;
+		sHeight = gpWorldLevelData[gMapInformation.sNorthGridNo].sHeight;
 	else if( gMapInformation.sEastGridNo != NOWHERE )
-		sGridNo = gMapInformation.sEastGridNo;
+		sHeight = gpWorldLevelData[gMapInformation.sEastGridNo].sHeight;
 	else if( gMapInformation.sSouthGridNo != NOWHERE )
-		sGridNo = gMapInformation.sSouthGridNo;
+		sHeight = gpWorldLevelData[gMapInformation.sSouthGridNo].sHeight;
 	else if( gMapInformation.sWestGridNo != NOWHERE )
-		sGridNo = gMapInformation.sWestGridNo;
+		sHeight = gpWorldLevelData[gMapInformation.sWestGridNo].sHeight;
+	else if ( gMapInformation.sCenterGridNo != NOWHERE )
+		sHeight = gpWorldLevelData[gMapInformation.sCenterGridNo].sHeight;
 	else
 	{
-		Assert(0);
-		return;
+		// we're merely interested in the terrain height. If the map has no entry points at all, we will have other problems than rooftops, so just use height of 0 and be done with it
+		// however, print out a warning, so that a mapper can fix this!
+		ScreenMsg( MSG_FONT_YELLOW, MSG_ERROR, L"Map has no entry points - please fix this!" );
+		sHeight = 0;
 	}
-
-
-	sHeight = gpWorldLevelData[ sGridNo ].sHeight;
 
 	if ( sHeight != sOldHeight )
 	{
