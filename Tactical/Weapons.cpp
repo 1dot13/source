@@ -9604,6 +9604,9 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		pTarget->iLastArmourProtection += iTotalArmourProtection;
 	}
 
+	// Flugente: ammotype can alter the damage dealt
+	iImpact *= AmmoTypes[ubAmmoType].dDamageModifierLife;
+
 	// calc minimum damage
 	if ( AmmoTypes[ubAmmoType].zeroMinimumDamage )
 	{

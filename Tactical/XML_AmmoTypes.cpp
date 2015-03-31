@@ -82,7 +82,9 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "temperatureModificator") == 0 ||
 				strcmp(name, "PoisonPercentage") == 0 ||
 				strcmp(name, "dirtModificator") == 0 ||
-				strcmp(name, "ammoflag") == 0 ))
+				strcmp(name, "ammoflag" ) == 0 ||
+				strcmp(name, "dDamageModifierLife" ) == 0 ||
+				strcmp(name, "dDamageModifierBreath") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -304,6 +306,22 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.ammoflag	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
+		else if ( strcmp( name, "dDamageModifierLife" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierLife = (FLOAT)atof( pData->szCharData );
+
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierLife = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierLife ) );
+		}
+		else if ( strcmp( name, "dDamageModifierBreath" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierBreath = (FLOAT)atof( pData->szCharData );
+
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierBreath = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierBreath ) );
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -427,8 +445,10 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<tracerEffect>%d</tracerEffect>\r\n",													AmmoTypes[cnt].tracerEffect	);
 			FilePrintf(hFile,"\t\t<temperatureModificator>%4.2f</temperatureModificator>\r\n",							AmmoTypes[cnt].temperatureModificator	);
 			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",											AmmoTypes[cnt].poisonPercentage	);
-			FilePrintf(hFile,"\t\t<dirtModificator>%4.2f</dirtModificator>\r\n",							AmmoTypes[cnt].dirtModificator	);
+			FilePrintf(hFile,"\t\t<dirtModificator>%4.2f</dirtModificator>\r\n",										AmmoTypes[cnt].dirtModificator	);
 			FilePrintf(hFile,"\t\t<ammoflag>%d</ammoflag>\r\n",															AmmoTypes[cnt].ammoflag	);
+			FilePrintf(hFile,"\t\t<dDamageModifierLife>%4.2f</dDamageModifierLife>\r\n",								AmmoTypes[cnt].dDamageModifierLife );
+			FilePrintf(hFile,"\t\t<dDamageModifierBreath>%4.2f</dDamageModifierBreath>\r\n",							AmmoTypes[cnt].dDamageModifierBreath );
 
 			FilePrintf(hFile,"\t</AMMOTYPE>\r\n");
 		}

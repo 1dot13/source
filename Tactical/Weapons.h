@@ -269,6 +269,10 @@ typedef struct
 
 	// Flugente: item flag for various properties. Way easier than 32 boolean flags
 	UINT32	ammoflag;
+
+	// Flugente: modifiers for life and breath damage, 1.0 being the unmodified value
+	FLOAT dDamageModifierLife;
+	FLOAT dDamageModifierBreath;
 	
 } AMMOTYPE;
 
