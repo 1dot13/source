@@ -33,6 +33,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -67,6 +69,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -101,6 +105,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -135,6 +141,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -169,6 +177,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -203,6 +213,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -237,6 +249,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -271,6 +285,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -305,6 +321,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -339,6 +357,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -373,6 +393,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -407,6 +429,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -441,6 +465,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -475,6 +501,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -509,6 +537,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -543,6 +573,8 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -577,6 +609,8 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -611,6 +645,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -645,6 +681,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -679,6 +717,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -713,6 +753,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -747,6 +789,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -781,6 +825,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -815,6 +861,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -849,6 +897,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -883,6 +933,8 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -917,5 +969,7 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>1</temperatureModificator>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 </AMMOTYPELIST>

@@ -36,6 +36,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -73,6 +75,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -110,6 +114,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -147,6 +153,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -184,6 +192,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -221,6 +231,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.25</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -258,6 +270,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -295,6 +309,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -332,6 +348,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -369,6 +387,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -406,6 +426,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -443,6 +465,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.5</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -480,6 +504,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.8</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -517,6 +543,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -554,6 +582,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.08</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -591,6 +621,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -628,6 +660,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.5</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -665,6 +699,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.15</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -702,6 +738,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -739,6 +777,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.15</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -776,6 +816,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.05</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -813,6 +855,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -850,6 +894,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -887,6 +933,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -924,6 +972,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.03</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -961,6 +1011,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -998,6 +1050,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.27</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>27</uiIndex>
@@ -1035,6 +1089,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>28</uiIndex>
@@ -1072,6 +1128,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>29</uiIndex>
@@ -1109,6 +1167,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0</dirtModificator>
 		<ammoflag>1</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>30</uiIndex>
@@ -1146,6 +1206,8 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0</dirtModificator>
 		<ammoflag>2</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>31</uiIndex>
@@ -1183,5 +1245,7 @@
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>4</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>
 </AMMOTYPELIST>
