@@ -14356,10 +14356,12 @@ void  GetScopeLists( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, std::map<INT8, O
 		arScopeMap[i] = NULL;
 	}
 
-	// dual wielding only allows iron sights
+	// dual wielding only allows iron sights or similar attachments
+	BOOLEAN bDualWielding = FALSE;
+
 	if( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && !Item[pSoldier->inv[HANDPOS].usItem].twohanded)
 		&& (Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_GUN && !Item[pSoldier->inv[SECONDHANDPOS].usItem].twohanded) )
-		return;
+		bDualWielding = TRUE;
 
 	// certain attachments prohibit the use of an iron sight once they are installed (flip-up built-in sights)
 	BOOLEAN noironsight = ( Item[pObj->usItem].blockironsight == TRUE );
@@ -14374,6 +14376,10 @@ void  GetScopeLists( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, std::map<INT8, O
 
 			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 			{
+				// dual wielding only allows iron sights or similar attachments
+				if( bDualWielding && IsAttachmentClass(iter->usItem, AC_SCOPE) )
+					continue;
+
 				FLOAT magfactor = Item[iter->usItem].scopemagfactor;
 
 				// fix: if there is no scopemagfactor (or suspiciously small one), assume it to be 1.0f
