@@ -2224,17 +2224,17 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 			if( gubNumGroupsArrivedSimultaneously )
 			{
-				pGroup = gpGroupList;
-				while( gubNumGroupsArrivedSimultaneously && pGroup )
+				GROUP* pOtherGroup = gpGroupList;
+				while ( gubNumGroupsArrivedSimultaneously && pOtherGroup )
 				{
-					next = pGroup->next;
+					next = pOtherGroup->next;
 					// WDS - Fix bug with 0 size group arriving at 0,0,0
-					if( (pGroup->ubGroupSize > 0) && pGroup->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
+					if ( (pOtherGroup->ubGroupSize > 0) && pOtherGroup->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
 					{
-						gubNumGroupsArrivedSimultaneously--;
-						HandleNonCombatGroupArrival( pGroup, FALSE, FALSE );
+						--gubNumGroupsArrivedSimultaneously;
+						HandleNonCombatGroupArrival( pOtherGroup, FALSE, FALSE );
 					}
-					pGroup = next;
+					pOtherGroup = next;
 				}
 			}
 		}
@@ -2255,7 +2255,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	}
 
 	// Flugente: if a militia group has reached its final destination, add them to the current sector
-	if ( pGroup->usGroupTeam == MILITIA_TEAM )
+	if ( pGroup && pGroup->usGroupTeam == MILITIA_TEAM )
 	{
 		// if they arrive in the sector we have currently loaded, let them join from the edge
 		// this will always remove them from the group - if you want them to continue moving, issue a new order
