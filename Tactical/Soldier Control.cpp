@@ -14373,15 +14373,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	// we must be in a sector (not travelling)
 	if ( !bInSector )
 		return(FALSE);
-
-	// not possible if already prone
-	if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE )
-		return(FALSE);
-
-	// not possible to get this bonus on a roof, as there are no objects on the roof on which we could rest our gun
-	if ( this->pathing.bLevel == 1 )
-		return(FALSE);
-
+		
 	// this is odd - invalid GridNo... well, not mounted then
 	if ( TileIsOutOfBounds( this->sGridNo ) )
 		return(FALSE);
@@ -14398,6 +14390,14 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	// Drawback is that we do not know whether we will the bonus until we raise our gun - but then again the entire 'get behind a rock and then look over it' system isn't exactly complicated to understand.
 	else if ( !WeaponReady( this ) )
 		return FALSE;
+
+	// if we are prone, then we are 'mounting' our gun on the very floor we are laying upon, which always exist
+	if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE )
+		return TRUE;
+
+	// not possible to get this bonus on a roof, as there are no objects on the roof on which we could rest our gun
+	if ( this->pathing.bLevel == 1 )
+		return(FALSE);
 
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 	INT32 nextGridNoinSight = this->sGridNo;
