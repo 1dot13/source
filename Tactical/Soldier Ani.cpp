@@ -3961,6 +3961,23 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;
 						/////////////////////////////////////////////////////////////////////////////////////
 						gStrategicStatus.usPlayerKills++;
+
+						// Flugente: dynamic opinions: if this guy is a not-hostile civilian, then some mercs will complain about killing civilians
+						if ( pSoldier->bTeam == CIV_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+							HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+						else
+						{
+							// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
+							if ( pSoldier->ubTargetID != NOBODY && MercPtrs[pSoldier->ubTargetID]->bBleeding > 10 )
+							{
+								AddOpinionEvent( MercPtrs[pSoldier->ubTargetID]->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR );
+							}
+							else
+							{
+								// complain about a fragthief, or thank for assistance - correct event is chosen internally
+								HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_FRAGTHIEF, TRUE, TRUE );
+							}
+						}
 					}
 					else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
 					{

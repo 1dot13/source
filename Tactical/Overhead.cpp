@@ -10544,6 +10544,10 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 					}
 				}
 			}
+
+			// dynamic opinion: a merc caused the remaining enemies to give up
+			if ( gusSelectedSoldier != NOBODY )
+				HandleDynamicOpinionChange( MercPtrs[gusSelectedSoldier], OPINIONEVENT_BATTLE_TOOK_PRISONER, TRUE, TRUE );
         }
         else
         {

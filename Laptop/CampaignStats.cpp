@@ -713,10 +713,7 @@ void FinishIncident(INT16 sX, INT16 sY, INT8 sZ)
 			}
 		}
 	}
-
-	// dynamic opinions: if the playerside had a lot of losses, the mercs will blame one of their own
-	HandleDynamicOpinionBattleLosses();
-
+	
 	// due to odd coding, we do not know when an incident starts
 	// (checking for entering combat isn't enough, as we do that multiple times per battle)
 	// we thus set the relevant data when finishing an incident
@@ -731,6 +728,9 @@ void FinishIncident(INT16 sX, INT16 sY, INT8 sZ)
 	// if this is incident 1, we just landed - special text then
 	if ( gCampaignStats.usHighestID == 1 )
 		gCurrentIncident.usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_OMERTA;
+
+	// dynamic opinions
+	HandleDynamicOpinionBattleFinished( (gCurrentIncident.usIncidentFlags & INCIDENT_WIN) != 0 );
 
 	gCampaignStats.AddNewIncident(gCurrentIncident);
 	

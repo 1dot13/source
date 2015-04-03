@@ -3584,7 +3584,7 @@ void LoadMoraleSettings()
 	gDynamicOpinionEvent[OPINIONEVENT_ANNOYINGDISABILITY].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_ANNOYINGDISABILITY", -2, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_ADDICT].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_ADDICT", -6, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_THIEF].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_THIEF", -5, -50, 0 );
-	gDynamicOpinionEvent[OPINIONEVENT_WORSTCOMMANDEREVER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_WORSTCOMMANDEREVER", -7, -50, 0 );
+	gDynamicOpinionEvent[OPINIONEVENT_WORSTCOMMANDEREVER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_WORSTCOMMANDEREVER", -9, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_RICHGUY].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_RICHGUY", -1, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_BETTERGEAR].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BETTERGEAR", -2, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS", -3, -50, 0 );
@@ -3606,6 +3606,11 @@ void LoadMoraleSettings()
 	gDynamicOpinionEvent[OPINIONEVENT_BRUTAL_GOOD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BRUTAL_GOOD", 1, 0, 50 );
 	gDynamicOpinionEvent[OPINIONEVENT_BRUTAL_BAD].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BRUTAL_BAD", -3, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_TEACHER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_TEACHER", 1, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_BESTCOMMANDEREVER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BESTCOMMANDEREVER", 8, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_BATTLE_SAVIOUR].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BATTLE_SAVIOUR", 6, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_FRAGTHIEF].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_FRAGTHIEF", -2, -50, 0 );
+	gDynamicOpinionEvent[OPINIONEVENT_BATTLE_ASSIST].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BATTLE_ASSIST", 1, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_BATTLE_TOOK_PRISONER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BATTLE_TOOK_PRISONER", 3, 0, 50 );
 }
 
 void LoadReputationSettings()

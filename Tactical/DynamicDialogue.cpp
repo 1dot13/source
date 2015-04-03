@@ -28,6 +28,7 @@
 #include "strategicmap.h"
 #include "connect.h"
 #include "Campaign.h"
+#include "Points.h"
 
 extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
 
@@ -1021,6 +1022,9 @@ BOOLEAN DynamicOpinionTacticalCharacterDialogue( DynamicOpinionSpeechEvent& aEve
 	pDDBox->Create( sX, sY );
 	pDDBox->SetStartTime( aEvent.usStarttime );
 
+	// print out the dialogue to the log, too
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", pSoldier->GetName(), gzQuoteStr );
+
 	// delay destruction of all current boxes - as long as new dialogue comes in, they will be kept
 	DelayBoxDestruction( aEvent.usStarttime + gGameExternalOptions.sDynamicDialogueTimeOffset * 3.5f );
 
@@ -1191,7 +1195,12 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 
 	case OPINIONEVENT_BRUTAL_BAD:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BRUTAL_BAD;	break;
 	case OPINIONEVENT_TEACHER:						gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_TEACHER;	break;
-
+	case OPINIONEVENT_BESTCOMMANDEREVER:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BESTCOMMANDEREVER;	break;
+	case OPINIONEVENT_BATTLE_SAVIOUR:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BATTLE_SAVIOUR;	break;
+	case OPINIONEVENT_FRAGTHIEF:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_FRAGTHIEF;	break;
+	case OPINIONEVENT_BATTLE_ASSIST:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BATTLE_ASSIST;	break;
+	case OPINIONEVENT_BATTLE_TOOK_PRISONER:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BATTLE_TOOK_PRISONER;	break;
+		
 	default:		break;
 	}
 
@@ -1521,6 +1530,41 @@ INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_TEACHER )	++numflags;
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_TEACHER )	++numflags;
 		break;
+		
+	case OPINIONEVENT_BESTCOMMANDEREVER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_BESTCOMMANDEREVER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BESTCOMMANDEREVER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BESTCOMMANDEREVER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BESTCOMMANDEREVER )	++numflags;
+		break;
+
+	case OPINIONEVENT_BATTLE_SAVIOUR:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_BATTLE_SAVIOUR )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BATTLE_SAVIOUR )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BATTLE_SAVIOUR )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BATTLE_SAVIOUR )	++numflags;
+		break;
+
+	case OPINIONEVENT_FRAGTHIEF:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_FRAGTHIEF )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_FRAGTHIEF )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_FRAGTHIEF )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_FRAGTHIEF )	++numflags;
+		break;
+
+	case OPINIONEVENT_BATTLE_ASSIST:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_BATTLE_ASSIST )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BATTLE_ASSIST )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BATTLE_ASSIST )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BATTLE_ASSIST )	++numflags;
+		break;
+
+	case OPINIONEVENT_BATTLE_TOOK_PRISONER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_BATTLE_TOOK_PRISONER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BATTLE_TOOK_PRISONER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BATTLE_TOOK_PRISONER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BATTLE_TOOK_PRISONER )	++numflags;
+		break;
 
 	default:
 		break;
@@ -1699,27 +1743,51 @@ void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile )
 	}
 }
 
-void HandleDynamicOpinionBattleLosses( )
+// depending on what happened in the battle, our mercs might complain or celebrate
+void HandleDynamicOpinionBattleFinished( BOOLEAN fBattleWon )
 {
-	UINT32 badstuff = 0;
+	UINT32 ourlosses = 0;
+	UINT32 enemylosses = 0;
+	UINT32 oursidesize = 0;
+	UINT32 enemysidesize = 0;
+	
+	// pick the 'leader' who gets all the praise (or blame, depending on how this went)
+	UINT8 leaderid = GetBestMercLeaderInSector( SECTORX( gCurrentIncident.usSector ), SECTORY( gCurrentIncident.usSector ), (INT8)gCurrentIncident.usLevel );
 
-	for ( UINT16 i = 0; i < CAMPAIGNHISTORY_SD_CIV; ++i )
+	if ( leaderid != NOBODY )
 	{
-		badstuff += 5 * gCurrentIncident.usKills[i];
-		badstuff += gCurrentIncident.usWounds[i];
-		badstuff += 4 * gCurrentIncident.usPrisoners[i];
-	}
-
-	if ( badstuff > 100 )
-	{
-		// This was a disaster (Ignoring of how high the enemies losses were to create drama :-) )! Let's blame the player -> blame an IMP!
-		std::vector<UINT8> aTaboo;
-		UINT8 impid = GetRandomMercInSectorNotInList( SECTORX( gCurrentIncident.usSector ), SECTORY( gCurrentIncident.usSector ), (INT8)gCurrentIncident.usLevel, aTaboo, TRUE );
-
-		// we've found someone competent. Let's all blame him for this disaster!
-		if ( impid != NOBODY )
+		// while it would be logical to also take civilian losses into account, this would lead to mercs always disapproving engaging hostile civilain factions like Kingpin and the Hicks
+		for ( UINT16 i = 0; i < CAMPAIGNHISTORY_SD_CIV; ++i )
 		{
-			HandleDynamicOpinionChange( MercPtrs[impid], OPINIONEVENT_WORSTCOMMANDEREVER, TRUE, TRUE );
+			ourlosses += 10 * gCurrentIncident.usKills[i];
+			ourlosses += gCurrentIncident.usWounds[i];
+			ourlosses += 8 * gCurrentIncident.usPrisoners[i];		// having our side being captured is not quite as bad as having them killed
+
+			oursidesize += gCurrentIncident.usParticipants[i];
+		}
+
+		for ( UINT16 i = CAMPAIGNHISTORY_SD_ENEMY_ADMIN; i < CAMPAIGNHISTORY_SD_MAX; ++i )
+		{
+			enemylosses += 10 * gCurrentIncident.usKills[i];
+			enemylosses += gCurrentIncident.usWounds[i];
+			enemylosses += 12 * gCurrentIncident.usPrisoners[i];	// capturing the enemy is even better than killing them
+
+			enemysidesize += gCurrentIncident.usParticipants[i];
+		}
+
+		// complains only happen if there was a significant battle
+		if ( ourlosses > 100 || enemylosses > 100 )
+		{
+			// if we've taken more losses than the enemy, our mercs will complain - even if we won. Our mercs don't seem to like phyrric victories...
+			if ( ourlosses > enemylosses )
+			{
+				HandleDynamicOpinionChange( MercPtrs[leaderid], OPINIONEVENT_WORSTCOMMANDEREVER, TRUE, TRUE );
+			}
+			// if we won with our losses significantly lower than the enemies', while the enemy vastly outnumbered us, our mercs will be quite happy
+			else if ( fBattleWon && oursidesize < 2 * enemysidesize && 4 * ourlosses < enemylosses )
+			{
+				HandleDynamicOpinionChange( MercPtrs[leaderid], OPINIONEVENT_BESTCOMMANDEREVER, TRUE, TRUE );
+			}
 		}
 	}
 }
@@ -1728,7 +1796,7 @@ void HandleDynamicOpinionRetreat( )
 {
 	// This was a disaster (Ignoring of how high the enemies losses were to create drama :-) )! Let's blame the player -> blame an IMP!
 	std::vector<UINT8> aTaboo;
-	UINT8 impid = GetRandomMercInSectorNotInList( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, aTaboo, TRUE );
+	UINT8 impid = GetBestMercLeaderInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 	// we've found someone competent. Let's all blame him for this disaster!
 	if ( impid != NOBODY )
@@ -1814,14 +1882,59 @@ void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat )
 	}
 }
 
+// some events require a 'leader' -  merc the team will regard as the one being in charge, and subsequently being praised or damned for the way things develop
+UINT32 GetSoldierLeaderRating( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier )
+		return 0;
+
+	// rating is based on leadership, experience and the squad leader trait. IMPs get a higher rating, as they represent the player closest
+	UINT32 rating = 0;
+
+	rating += pSoldier->stats.bLeadership;
+	rating += 10 * pSoldier->stats.bExpLevel;
+	rating += 30 * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT );
+	rating += 50 * (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER);
+
+	return rating;
+}
+
+
+UINT8 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
+{
+	UINT32				highestrating = 0;
+	UINT8				bestid = NOBODY;
+
+	SOLDIERTYPE*		pSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+	{
+		// everybody other merc in the same sector gets annoyed
+		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
+			 pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && pSoldier->bSectorZ == sZ &&
+			 !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD) )
+		{
+			UINT32 rating = GetSoldierLeaderRating( pSoldier );
+
+			if ( rating > highestrating )
+			{
+				highestrating = rating;
+				bestid = bMercID;
+			}
+		}
+	}
+
+	return bestid;
+}
 
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly )
 {
-	std::vector<UINT8> resultvector;
+	std::vector<UINT8>	resultvector;
 	SOLDIERTYPE*		pTeamSoldier = NULL;
 	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pTeamSoldier )
 	{
 		// everybody other merc in the same sector gets annoyed
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE &&
@@ -1832,7 +1945,7 @@ UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<U
 		{
 			// only add if not already in list
 			if ( std::find( aTaboo.begin( ), aTaboo.end( ), pTeamSoldier->ubProfile ) == aTaboo.end( ) )
-				resultvector.push_back( pTeamSoldier->ubProfile );
+				resultvector.push_back( bMercID );
 		}
 	}
 
@@ -1841,7 +1954,7 @@ UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<U
 		return resultvector[Random( resultvector.size( ) )];
 	}
 
-	return NO_PROFILE;
+	return NOBODY;
 }
 
 UINT8 GetFittingInterjectorProfile( UINT8 usEvent, UINT8 usProfileVictim, UINT8 usProfileCause )
@@ -1957,6 +2070,11 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 	case OPINIONEVENT_BRUTAL_GOOD:
 	case OPINIONEVENT_BRUTAL_BAD:
 	case OPINIONEVENT_TEACHER:
+	case OPINIONEVENT_BESTCOMMANDEREVER:
+	case OPINIONEVENT_BATTLE_SAVIOUR:
+	case OPINIONEVENT_BATTLE_TOOK_PRISONER:
+	case OPINIONEVENT_FRAGTHIEF:
+	case OPINIONEVENT_BATTLE_ASSIST:
 		break;
 
 	case OPINIONEVENT_SLOWSUSDOWN:
@@ -2135,8 +2253,36 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				break;
 
 			case OPINIONEVENT_TEACHER:
-				// other guy needs to be a trainer
+			case OPINIONEVENT_BESTCOMMANDEREVER:
+				break;
+				
+			case OPINIONEVENT_FRAGTHIEF:
+				// we care if we were going for the same target at the same location
+				if ( pTeamSoldier->ubTargetID == pSoldier->ubTargetID && pTeamSoldier->sTargetGridNo == pSoldier->sTargetGridNo )
+				{
+					// are we ambitious enough to care about kill counts?
+					if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+					{
+						// did we have enough AP to claim we were about to finish them?
+						if ( !EnoughPoints( pTeamSoldier, 60, 0, FALSE ) )
+							continue;
+					}
+					else
+					{
+						// we are grateful for the assistance instead
+						usEventUsed = OPINIONEVENT_BATTLE_ASSIST;
+					}
+				}
+				else
+					continue;
+				break;
 
+			case OPINIONEVENT_BATTLE_TOOK_PRISONER:
+				// we only care if we prefer the enemy to be taken alive
+				if ( !(gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ||
+					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL ||
+					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST) )
+					 continue;
 				break;
 
 			default:

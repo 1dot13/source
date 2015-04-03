@@ -57,7 +57,7 @@ DDBox::Init( UINT16 sX, UINT16 sY )
 	SetY( sY );
 
 	SetX_Text( GetX( ) + MYBOX_FACE_OFFSET );
-	SetY_Text( GetY( ) );
+	SetY_Text( WidgetBase::GetY( ) );
 
 	musWidth = min( MYBOX_TEXT_MAXWIDTH, StringPixLength( mText, MYBOX_FONT_DEF ) );
 
@@ -157,7 +157,7 @@ DDBox::Display( )
 	}
 
 	//Display the background
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, GetX_Text( ), GetY( ), GetX_Text( ) + musWidth, GetY( ) + musFontHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, GetX_Text( ), GetY_Text( ), GetX_Text( ) + musWidth, GetY_Text( ) + musFontHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 	DrawTopEntry( );
 
@@ -420,7 +420,7 @@ IMPDialogueChooseBox::Init( UINT16 sX, UINT16 sY )
 	SetY( sY );
 
 	SetX_Text( GetX( ) + MYBOX_FACE_OFFSET );
-	SetY_Text( GetY( ) );
+	SetY_Text( WidgetBase::GetY( ) );
 
 	mSelectedEntry = 0;
 
