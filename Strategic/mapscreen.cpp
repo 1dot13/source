@@ -11210,7 +11210,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		CancelPathsOfAllSelectedCharacters();
 
-		if ( gMilitiaPath[gMilitiaGroupId].sGroupid > -1 )
+		if ( fPlotForMilitia && gMilitiaPath[gMilitiaGroupId].sGroupid > -1 )
 			CancelPathForMilitiaGroup( (UINT8)gMilitiaPath[gMilitiaGroupId].sGroupid );
 
 		// reset selected characters
