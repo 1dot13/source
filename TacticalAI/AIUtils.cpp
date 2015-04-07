@@ -2343,10 +2343,10 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 		iThreatValue += EffectiveExpLevel(pEnemy); // SANDRO - find precise effective exp level
 
 		// ADD man's total action points (10-35)
-		iThreatValue += pEnemy->CalcActionPoints();
+		iThreatValue += 25 * pEnemy->CalcActionPoints() / APBPConstants[AP_MAXIMUM];
 
 		// ADD 1/2 of man's current action points (4-17)
-		iThreatValue += (pEnemy->bActionPoints / 2);
+		iThreatValue += 25 * pEnemy->bActionPoints / APBPConstants[AP_MAXIMUM] / 2;
 
 		// ADD 1/10 of man's current health (0-10)
 		iThreatValue += (pEnemy->stats.bLife / 10);
@@ -3021,10 +3021,10 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 		iThreatValue += EffectiveExpLevel(pEnemy); // SANDRO - find precise effective exp level
 
 		// ADD man's total action points (10-35)
-		iThreatValue += pEnemy->CalcActionPoints();
+		iThreatValue += 25 * pEnemy->CalcActionPoints() / APBPConstants[AP_MAXIMUM];
 
 		// ADD 1/2 of man's current action points (4-17)
-		iThreatValue += (pEnemy->bActionPoints / 2);
+		iThreatValue += 25 * pEnemy->bActionPoints / APBPConstants[AP_MAXIMUM] / 2;
 
 		// ADD 1/10 of man's current health (0-10)
 		iThreatValue += (pEnemy->stats.bLife / 10);
