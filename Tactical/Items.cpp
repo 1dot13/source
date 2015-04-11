@@ -8338,6 +8338,7 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 		(*pObj).fFlags &= ~(OBJECT_DISABLED_BOMB);
 
 	(*pObj).fFlags |= OBJECT_ARMED_BOMB;
+	(*pObj).fFlags |= OBJECT_KNOWN_TO_BE_TRAPPED;
 	(*pObj)[0]->data.misc.usBombItem = pObj->usItem;
 	return( TRUE );
 }

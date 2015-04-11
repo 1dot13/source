@@ -13972,8 +13972,8 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 			if ( (*gpItemDescObject).fFlags & OBJECT_ARMED_BOMB )
 				gpItemDescObject->fFlags &= ~( OBJECT_ARMED_BOMB );
 
-			if ( (*gpItemDescObject).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
-				gpItemDescObject->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+			/*if ( (*gpItemDescObject).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
+				gpItemDescObject->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );*/
 		}
 		else
 		{
