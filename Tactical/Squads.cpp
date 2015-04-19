@@ -683,15 +683,14 @@ INT8 NumberOfPeopleInSquad( INT8 bSquadValue )
 	INT8 bCounter = 0;
 	INT8 bSquadCount = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( 0 );
 	}
 
 	// find number of characters in particular squad.
-	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter )
 	{
-
 		// valid slot?
 		if( Squad[ bSquadValue ][ bCounter ] != NULL )
 		{
@@ -709,20 +708,19 @@ INT8 NumberOfNonEPCsInSquad( INT8 bSquadValue )
 	INT8 bCounter = 0;
 	INT8 bSquadCount = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( 0 );
 	}
 
 	// find number of characters in particular squad.
-	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter )
 	{
-
 		// valid slot?
 		if( Squad[ bSquadValue ][ bCounter ] != NULL && !AM_AN_EPC( Squad[ bSquadValue ][ bCounter ] ) )
 		{
 			// yep
-			bSquadCount++;
+			++bSquadCount;
 		}
 	}
 
@@ -734,13 +732,13 @@ BOOLEAN IsRobotControllerInSquad( INT8 bSquadValue )
 {
 	INT8 bCounter = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( 0 );
 	}
 
 	// find number of characters in particular squad.
-	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; ++bCounter )
 	{
 		// valid slot?
 		if ( ( Squad[ bSquadValue ][ bCounter ] != NULL ) && Squad[ bSquadValue ][ bCounter ]->ControllingRobot( ) )
@@ -761,7 +759,7 @@ BOOLEAN SectorSquadIsIn(INT8 bSquadValue, INT16 *sMapX, INT16 *sMapY, INT16 *sMa
 
 	Assert( bSquadValue < ON_DUTY );
 
-	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; ++bCounter )
 	{
 		// if valid soldier, get current sector and return
 		if( Squad[ bSquadValue ][ bCounter ] != NULL )
@@ -772,7 +770,6 @@ BOOLEAN SectorSquadIsIn(INT8 bSquadValue, INT16 *sMapX, INT16 *sMapY, INT16 *sMa
 
 			return ( TRUE );
 		}
-
 	}
 
 	// return there is no squad
@@ -785,9 +782,7 @@ BOOLEAN CopyPathOfSquadToCharacter(	SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 	// copy path from squad to character
 	INT8 bCounter = 0;
 
-
-
-	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD ; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; ++bCounter )
 	{
 		if( ( Squad[ bSquadValue ][ bCounter ] != pCharacter ) &&( Squad[ bSquadValue ][ bCounter ] != NULL ) )
 		{
@@ -1529,7 +1524,7 @@ BOOLEAN SoldierIsDeadAndWasOnSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 {
 	INT32 iCounter = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( FALSE );
 	}
@@ -1599,7 +1594,7 @@ INT8 NumberOfPlayerControllableMercsInSquad( INT8 bSquadValue )
 	INT8 bCounter = 0;
 	INT8 bSquadCount = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( 0 );
 	}
@@ -1618,7 +1613,7 @@ INT8 NumberOfPlayerControllableMercsInSquad( INT8 bSquadValue )
 			//if ( !AM_AN_EPC( pSoldier ) && !AM_A_ROBOT( pSoldier ) &&
 			if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 			{
-				bSquadCount++;
+				++bSquadCount;
 			}
 		}
 	}
@@ -1633,7 +1628,7 @@ BOOLEAN DoesVehicleExistInSquad( INT8 bSquadValue )
 	SOLDIERTYPE *pSoldier;
 	INT8 bCounter = 0;
 
-	if( bSquadValue == NO_CURRENT_SQUAD )
+	if( bSquadValue >= NO_CURRENT_SQUAD )
 	{
 		return( FALSE );
 	}
