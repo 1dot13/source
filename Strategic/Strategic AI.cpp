@@ -462,8 +462,8 @@ INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinfor
 INT32 PatrolReinforcementsRequested( INT32 iPatrolID );
 INT32 ReinforcementsAvailable( INT32 iGarrisonID );
 BOOLEAN ReinforcementsApproved( INT32 iGarrisonID, UINT16 *pusDefencePoints );
-void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints, GROUP **pOptionalGroup );
-void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup );
+BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints, GROUP **pOptionalGroup );
+BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup );
 
 void ClearPreviousAIGroupAssignment( GROUP *pGroup );
 
@@ -671,7 +671,7 @@ void RequestAttackOnSector( UINT8 ubSectorID, UINT16 usDefencePoints )
 			LogStrategicEvent( "An attack has been requested in sector %c%d.",
 				SECTORY( ubSectorID ) + 'A' - 1, SECTORX( ubSectorID ) );
 #endif
-			SendReinforcementsForGarrison( i, usDefencePoints, NULL );
+			if ( SendReinforcementsForGarrison( i, usDefencePoints, NULL ) )
 				return;
 		}
 	}
@@ -3005,7 +3005,7 @@ INT32 ChooseSuitableGarrisonToProvideReinforcements( INT32 iDstGarrisonID, INT32
 	return -1;
 }
 
-void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints, GROUP **pOptionalGroup )
+BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints, GROUP **pOptionalGroup )
 {
 	SECTORINFO *pSector;
 	INT32 iChance, iRandom, iSrcGarrisonID;
@@ -3053,7 +3053,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 	if( iReinforcementsRequested <= 0 )
 	{
 		ValidateWeights( 9 );
-		return;
+		return FALSE;
 	}
 
 	ubDstSectorX = (UINT8)SECTORX( gGarrisonGroup[ iDstGarrisonID ].ubSectorID );
@@ -3077,7 +3077,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 
 		ValidateWeights( 10 );
 
-		return;
+		return TRUE;
 	}
 	iRandom = Random( giReinforcementPoints + giReinforcementPool );
 	if( iRandom < giReinforcementPool )
@@ -3088,14 +3088,15 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		//If the player owns sector P3, any troops that spawned there were causing serious problems, seeing battle checks
 		//were not performed!
 		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) ].fEnemyControlled )
-		{ //Queen can no longer send reinforcements from the palace if she doesn't control it!
-			return;
+		{
+			//Queen can no longer send reinforcements from the palace if she doesn't control it!
+			return FALSE;
 		}
 
 		if( !giReinforcementPool )
 		{
 			ValidateWeights( 11 );
-			return;
+			return FALSE;
 		}
 
 		iReinforcementsApproved = min( iReinforcementsRequested, giReinforcementPool );
@@ -3105,7 +3106,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			//The enemy force that would be sent would likely be decimated by the player forces.
 			gubGarrisonReinforcementsDenied[ iDstGarrisonID ] += (UINT8)(gArmyComp[ gGarrisonGroup[ iDstGarrisonID ].ubComposition ].bPriority / 2);
 			ValidateWeights( 12 );
-			return;
+			return FALSE;
 		}
 		else
 		{
@@ -3121,10 +3122,9 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			if( !Chance( iChance ) )
 			{
 				ValidateWeights( 13 );
-				return;
+				return FALSE;
 			}
-		}
-		
+		}		
 
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0, 0 );
 		ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
@@ -3158,7 +3158,8 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		}
 
 		ValidateWeights( 14 );
-		return;
+
+		return TRUE;
 	}
 	else
 	{
@@ -3180,7 +3181,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			if( iReinforcementsAvailable <= 0)
 			{
 				SAIReportError( L"Attempting to send reinforcements from a garrison that doesn't have any! -- KM:0 (with prior saved game and strategic decisions.txt)" );
-				return;
+				return FALSE;
 			}
 			//Send the lowest of the two:	number requested or number available
 
@@ -3195,7 +3196,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 				//The enemy force that would be sent would likely be decimated by the player forces.
 				gubGarrisonReinforcementsDenied[ iDstGarrisonID ] += (UINT8)(gArmyComp[ gGarrisonGroup[ iDstGarrisonID ].ubComposition ].bPriority / 2);
 				ValidateWeights( 17 );
-				return;
+				return FALSE;
 			}
 			else
 			{
@@ -3211,7 +3212,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 				if( !Chance( iChance ) )
 				{
 					ValidateWeights( 18 );
-					return;
+					return FALSE;
 				}
 			}
 
@@ -3250,14 +3251,16 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			#endif
 
 			ValidateWeights( 19 );
-			return;
+			return TRUE;
 		}
 	}
 
 	ValidateWeights( 20 );
+
+	return FALSE;
 }
 
-void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
+BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 {
 	GROUP *pGroup;
 	INT32 iRandom, iSrcGarrisonID, iWeight;
@@ -3271,7 +3274,7 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 	iReinforcementsRequested = PatrolReinforcementsRequested( iPatrolID );
 
 	if( iReinforcementsRequested <= 0)
-		return;
+		return FALSE;
 
 	ubDstSectorX = (gPatrolGroup[ iPatrolID ].ubSectorID[1] % 16) + 1;
 	ubDstSectorY = (gPatrolGroup[ iPatrolID ].ubSectorID[1] / 16) + 1;
@@ -3293,7 +3296,8 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 		MoveSAIGroupToSector( pOptionalGroup, gPatrolGroup[ iPatrolID ].ubSectorID[1], EVASIVE, REINFORCEMENTS );
 
 		ValidateWeights( 22 );
-		return;
+
+		return TRUE;
 	}
 
 	iRandom = Random( giReinforcementPoints + giReinforcementPool );
@@ -3320,26 +3324,39 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 		MoveSAIGroupToSector( &pGroup, gPatrolGroup[ iPatrolID ].ubSectorID[1], EVASIVE, REINFORCEMENTS );
 
 		ValidateWeights( 23 );
-		return;
+
+		return TRUE;
 	}
 	else
 	{
 		iRandom -= giReinforcementPool;
-		for( iSrcGarrisonID = 0; iSrcGarrisonID < giGarrisonArraySize; iSrcGarrisonID++ )
-		{ //go through the garrisons
+
+		for( iSrcGarrisonID = 0; iSrcGarrisonID < giGarrisonArraySize; ++iSrcGarrisonID )
+		{
+			//go through the garrisons
 			RecalculateGarrisonWeight( iSrcGarrisonID );
 			iWeight = -gGarrisonGroup[ iSrcGarrisonID ].bWeight;
 			if( iWeight > 0 )
-			{ //if group is able to provide reinforcements.
+			{
+				//if group is able to provide reinforcements.
 				if( iRandom < iWeight )
-				{ //This is the group that gets the reinforcements!
+				{
+					//This is the group that gets the reinforcements!
 					ubSrcSectorX = (UINT8)SECTORX(gGarrisonGroup[ iSrcGarrisonID ].ubSectorID );
 					ubSrcSectorY = (UINT8)SECTORY(gGarrisonGroup[ iSrcGarrisonID ].ubSectorID );
+
 					if( ubSrcSectorX != gWorldSectorX || ubSrcSectorY != gWorldSectorY || gbWorldSectorZ > 0 )
-					{ //The reinforcements aren't coming from the currently loaded sector!
+					{
+						//The reinforcements aren't coming from the currently loaded sector!
 						iReinforcementsAvailable = ReinforcementsAvailable( iSrcGarrisonID );
+
 						//Send the lowest of the two:	number requested or number available
 						iReinforcementsApproved = min( iReinforcementsRequested, iReinforcementsAvailable );
+
+						// if there are no reinforcements, then there is no reason to send an empty group
+						if ( !iReinforcementsApproved )
+							continue;
+
 						pGroup = CreateNewEnemyGroupDepartingFromSector( gGarrisonGroup[ iSrcGarrisonID ].ubSectorID, 0, (UINT8)iReinforcementsApproved, 0, 0 );
 						pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 						gPatrolGroup[ iPatrolID ].ubPendingGroupID = pGroup->ubGroupID;
@@ -3357,15 +3374,18 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 
 						ValidateWeights( 24 );
 
-						return;
+						return TRUE;
 					}
 				}
+
 				iRandom -= iWeight;
 			}
 		}
 	}
 
 	ValidateWeights( 25 );
+
+	return FALSE;
 }
 
 //Periodically does a general poll and check on each of the groups and garrisons, determines
@@ -3492,8 +3512,9 @@ void EvaluateQueenSituation()
 		iSumOfAllWeights += iWeight;	// debug only!
 		iWeight = gGarrisonGroup[ iApplicableGarrisonIds[i] ].bWeight;
 		if( iRandom < iWeight )
-		{ //This is the group that gets the reinforcements!
-			SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL );
+		{
+			//This is the group that gets the reinforcements!
+			if ( SendReinforcementsForGarrison( iApplicableGarrisonIds[i] , usDefencePoints, NULL ) )
 				return;
 		}
 		iRandom -= iWeight;
@@ -3505,8 +3526,9 @@ void EvaluateQueenSituation()
 		iSumOfAllWeights += iWeight;	// debug only!
 		iWeight = gPatrolGroup[ iApplicablePatrolIds[i] ].bWeight;
 		if( iRandom < iWeight )
-		{ //This is the group that gets the reinforcements!
-			SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL );
+		{
+			//This is the group that gets the reinforcements!
+			if ( SendReinforcementsForPatrol( iApplicablePatrolIds[i], NULL ) )
 				return;
 		}
 		iRandom -= iWeight;
@@ -6517,7 +6539,7 @@ void ReassignAIGroup( GROUP **pGroup )
 					//This is the group that gets the reinforcements!
 					if( ReinforcementsApproved( i, &usDefencePoints ) )
 					{
-						SendReinforcementsForGarrison( i, usDefencePoints, pGroup );
+						if ( SendReinforcementsForGarrison( i, usDefencePoints, pGroup ) )
 							return;
 					}
 				}
@@ -6551,7 +6573,7 @@ void ReassignAIGroup( GROUP **pGroup )
 					//This is the group that gets the reinforcements!
 					if( ReinforcementsApproved( i, &usDefencePoints ) )
 					{
-						SendReinforcementsForGarrison( i, usDefencePoints, pGroup );
+						if ( SendReinforcementsForGarrison( i, usDefencePoints, pGroup ) )
 							return;
 					}
 				}
@@ -6571,8 +6593,9 @@ void ReassignAIGroup( GROUP **pGroup )
 				if( iRandom < iWeight )
 				{
 					if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
-					{ //This is the group that gets the reinforcements!
-						SendReinforcementsForPatrol( i, pGroup );
+					{
+						//This is the group that gets the reinforcements!
+						if ( SendReinforcementsForPatrol( i, pGroup ) )
 							return;
 					}
 				}
@@ -6597,8 +6620,9 @@ void ReassignAIGroup( GROUP **pGroup )
 		if( iWeight > 0 )
 		{
 			if( !gPatrolGroup[ i ].ubPendingGroupID && PatrolRequestingMinimumReinforcements( i ) )
-			{ //This is the group that gets the reinforcements!
-				SendReinforcementsForPatrol( i, pGroup );
+			{
+				//This is the group that gets the reinforcements!
+				if ( SendReinforcementsForPatrol( i, pGroup ) )
 					return;
 			}
 		}
