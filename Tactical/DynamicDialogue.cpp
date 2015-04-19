@@ -1769,22 +1769,24 @@ void HandleDynamicOpinionBattleFinished( BOOLEAN fBattleWon )
 		for ( UINT16 i = CAMPAIGNHISTORY_SD_ENEMY_ADMIN; i < CAMPAIGNHISTORY_SD_MAX; ++i )
 		{
 			enemylosses += 10 * gCurrentIncident.usKills[i];
-			enemylosses += gCurrentIncident.usWounds[i];
-			enemylosses += 12 * gCurrentIncident.usPrisoners[i];	// capturing the enemy is even better than killing them
+			enemylosses += 11 * gCurrentIncident.usPrisoners[i];	// capturing the enemy is even better than killing them
 
 			enemysidesize += gCurrentIncident.usParticipants[i];
 		}
 
-		// complains only happen if there was a significant battle
-		if ( ourlosses > 100 || enemylosses > 100 )
+		// if we've taken more losses than the enemy, our mercs will complain - even if we won. Our mercs don't seem to like phyrric victories...
+		if ( ourlosses > enemylosses && ourlosses > 75 )
 		{
-			// if we've taken more losses than the enemy, our mercs will complain - even if we won. Our mercs don't seem to like phyrric victories...
-			if ( ourlosses > enemylosses )
-			{
-				HandleDynamicOpinionChange( MercPtrs[leaderid], OPINIONEVENT_WORSTCOMMANDEREVER, TRUE, TRUE );
-			}
-			// if we won with our losses significantly lower than the enemies', while the enemy vastly outnumbered us, our mercs will be quite happy
-			else if ( fBattleWon && oursidesize < 2 * enemysidesize && 4 * ourlosses < enemylosses )
+			HandleDynamicOpinionChange( MercPtrs[leaderid], OPINIONEVENT_WORSTCOMMANDEREVER, TRUE, TRUE );
+		}
+		else
+		{
+			// our mercs praise their leader if
+			// they won the battle
+			// the enemy outnumbered them at least 2:1
+			// the enemy had at least 4 times their losses
+			// the enemy patrol was of significant size (this is supposed to be given for huge battles only)
+			if ( fBattleWon && 2 * oursidesize < enemysidesize && 4 * ourlosses < enemylosses && enemylosses > 10 * gGameExternalOptions.iMaxEnemyGroupSize )
 			{
 				HandleDynamicOpinionChange( MercPtrs[leaderid], OPINIONEVENT_BESTCOMMANDEREVER, TRUE, TRUE );
 			}
@@ -2033,7 +2035,7 @@ UINT8 HighestInventoryCoolness( SOLDIERTYPE* pSoldier )
 	INT8 invsize = (INT8)pSoldier->inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )							// ... for all items in our inventory ...
 	{
-		// ... if Item exists and is food ...
+		// ... if Item exists
 		if ( pSoldier->inv[bLoop].exists( ) )
 		{
 			coolness = max( coolness, Item[pSoldier->inv[bLoop].usItem].ubCoolness );
