@@ -4681,7 +4681,11 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 							// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
 							if ( pTarget->pSoldier->aiData.bNeutral || pTarget->pSoldier->bSide == pAttacker->pSoldier->bSide )
-								HandleDynamicOpinionChange( pAttacker->pSoldier, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+							{
+								// not for killing animals though...
+								if ( pTarget->pSoldier->ubBodyType != CROW && pTarget->pSoldier->ubBodyType != COW )
+									HandleDynamicOpinionChange( pAttacker->pSoldier, OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+							}
 						}
 						break;
 				}

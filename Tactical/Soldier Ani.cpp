@@ -3954,7 +3954,11 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
 									if ( pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide )
-										HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+									{
+										// not for killing animals though...
+										if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
+											HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+									}
 								}
 								break;
 						}
@@ -3962,9 +3966,13 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						/////////////////////////////////////////////////////////////////////////////////////
 						gStrategicStatus.usPlayerKills++;
 
-						// Flugente: dynamic opinions: if this guy is a not-hostile civilian, then some mercs will complain about killing civilians
+						// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
 						if ( pSoldier->bTeam == CIV_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
-							HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+						{
+							// not for killing animals though...
+							if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
+								HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
+						}
 						else
 						{
 							// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
