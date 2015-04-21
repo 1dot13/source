@@ -2218,14 +2218,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iFastForwardKey			= ParseKeyString(sFFKeyBuffer);
 	gGameExternalOptions.iFastForwardPeriod			= (FLOAT)iniReader.ReadDouble("Clock Settings","FAST_FORWARD_PERIOD", 500, 1, 10000);
 	gGameExternalOptions.fClockSpeedPercent			= (FLOAT)iniReader.ReadDouble("Clock Settings","CLOCK_SPEED_PERCENT", 150, 100, 300);
-	gGameExternalOptions.fEnemyClockSpeedPercent	= (FLOAT)iniReader.ReadDouble("Clock Settings","ENEMY_CLOCK_SPEED_PERCENT", 150, 100, 300);
 	gGameExternalOptions.iNotifyFrequency			= iniReader.ReadInteger("Clock Settings","UPDATE_FREQUENCY", 16000, 1000, 20000);	
 
 	// sevenfm: improved auto fast forwarding
-	gGameExternalOptions.ubAutoFastForwardEnemies	= iniReader.ReadInteger("Clock Settings","AUTO_FAST_FORWARD_ENEMIES", 0, 0, 3);
-	gGameExternalOptions.ubAutoFastForwardMilitia	= iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_MILITIA", 0, 0, 2);
-	gGameExternalOptions.ubAutoFastForwardCivs		= iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_CIVS", 0, 0, 2);
-	gGameExternalOptions.ubAutoFastForwardCreatures = iniReader.ReadInteger("Clock Settings", "AUTO_FAST_FORWARD_CREATURES", 0, 0, 2);
+	gGameExternalOptions.fImprovedAutoFastForward		= iniReader.ReadBoolean("Clock Settings","IMPROVED_AUTO_FAST_FORWARD", TRUE);
 }
 
 

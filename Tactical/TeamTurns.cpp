@@ -528,8 +528,6 @@ void BeginTeamTurn( UINT8 ubTeam )
 			SetFastForwardMode( (ubTeam != OUR_TEAM) );
 		}		
 	}
-	if( !is_networked && ubTeam != OUR_TEAM )
-		SetClockSpeedPercent(gGameExternalOptions.fEnemyClockSpeedPercent);		// sevenfm: set clock speed for enemy turn
 
 	while( 1 )
 	{
@@ -1487,8 +1485,6 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			SetFastForwardMode( (gTacticalStatus.ubCurrentTeam != OUR_TEAM) );
 		}	
 	}
-	if( !is_networked && gTacticalStatus.ubCurrentTeam != OUR_TEAM )
-		SetClockSpeedPercent(gGameExternalOptions.fEnemyClockSpeedPercent);	// sevenfm: set clock speed for enemy turn
 }
 
 

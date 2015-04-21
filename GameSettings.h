@@ -1260,13 +1260,9 @@ typedef struct
 	INT32 iNotifyFrequency;
 	// Frequency that the screen is updated
 	FLOAT fClockSpeedPercent;
-	FLOAT fEnemyClockSpeedPercent;
 
 	// sevenfm: improved auto fast forwarding
-	UINT8 ubAutoFastForwardEnemies;
-	UINT8 ubAutoFastForwardMilitia;
-	UINT8 ubAutoFastForwardCivs;
-	UINT8 ubAutoFastForwardCreatures;
+	BOOLEAN fImprovedAutoFastForward;
 
 	// Flugente: Weapon Overheating
 	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
