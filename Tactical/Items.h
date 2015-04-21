@@ -494,7 +494,6 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
 
-#define MAX_PRISON_ROOMS 16
 // Flugente: additional xml data for sectors
 typedef struct
 {
@@ -502,7 +501,8 @@ typedef struct
 	UINT16		usNaturalDirt;			// extra dirt percentage when firing in this sector
 	UINT8		usCurfewValue;			// determines wether mercs disguising as civilian are automatically discovered (certain sectors are 'restricted' to civilians)
 	INT8		sRadioScanModifier;		// modifies the scan range of the radio scan assignment in this sector
-	UINT16		usPrisonRoomNumber[MAX_PRISON_ROOMS];		// room numbers of prisons
+
+	std::vector<UINT16>	prisonroomvector;	// room numbers of prisons
 
 	UINT16		usCivilianPopulation;	// total amount of civilians that are supposed to be in this sector. This does not have to be the number of civilians in tactical
 

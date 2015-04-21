@@ -43,6 +43,8 @@ typedef struct
 	UINT32			maxReadDepth;
 } SectorNameParseData;
 
+// for compliation reasons, this may not be a part of SectorNameParseData
+std::vector<UINT16> prisonroomvector;
 
 BOOLEAN SectorName_TextOnly;
 
@@ -90,22 +92,7 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "usNaturalDirt") == 0 ||
 				strcmp(name, "usCurfewValue") == 0 ||
 				strcmp(name, "sRadioScanModifier") == 0 ||
-				strcmp(name, "usPrisonRoomNumber00") == 0 ||
-				strcmp(name, "usPrisonRoomNumber01") == 0 ||
-				strcmp(name, "usPrisonRoomNumber02") == 0 ||
-				strcmp(name, "usPrisonRoomNumber03") == 0 ||
-				strcmp(name, "usPrisonRoomNumber04") == 0 ||
-				strcmp(name, "usPrisonRoomNumber05") == 0 ||
-				strcmp(name, "usPrisonRoomNumber06") == 0 ||
-				strcmp(name, "usPrisonRoomNumber07") == 0 ||
-				strcmp(name, "usPrisonRoomNumber08") == 0 ||
-				strcmp(name, "usPrisonRoomNumber09") == 0 ||
-				strcmp(name, "usPrisonRoomNumber10") == 0 ||
-				strcmp(name, "usPrisonRoomNumber11") == 0 ||
-				strcmp(name, "usPrisonRoomNumber12") == 0 ||
-				strcmp(name, "usPrisonRoomNumber13") == 0 ||
-				strcmp(name, "usPrisonRoomNumber14") == 0 ||
-				strcmp(name, "usPrisonRoomNumber15") == 0 ||
+				strcmp(name, "usPrisonRoomNumber" ) == 0 ||
 				strcmp(name, "usCivilianPopulation") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -198,21 +185,27 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 
 					INT8 radioscanmod = max( -3, pData->sectordata.sRadioScanModifier );
 					radioscanmod = min( 3, pData->sectordata.sRadioScanModifier );
-					SectorExternalData[ubSectorId][0].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-					SectorExternalData[ubSectorId][1].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-					SectorExternalData[ubSectorId][2].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
-					SectorExternalData[ubSectorId][3].sRadioScanModifier = pData->sectordata.sRadioScanModifier;
+					SectorExternalData[ubSectorId][0].sRadioScanModifier = radioscanmod;
+					SectorExternalData[ubSectorId][1].sRadioScanModifier = radioscanmod;
+					SectorExternalData[ubSectorId][2].sRadioScanModifier = radioscanmod;
+					SectorExternalData[ubSectorId][3].sRadioScanModifier = radioscanmod;
 
 					SectorExternalData[ubSectorId][0].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
 					SectorExternalData[ubSectorId][1].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
 					SectorExternalData[ubSectorId][2].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
 					SectorExternalData[ubSectorId][3].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-					
-					for(UINT8 i = 0; i <MAX_PRISON_ROOMS; ++i)
+										
+					if ( !prisonroomvector.empty( ) )
 					{
-						SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] = pData->sectordata.usPrisonRoomNumber[i];
-						pData->sectordata.usPrisonRoomNumber[i] = 0;
+						std::vector<UINT16>::iterator itend = prisonroomvector.end( );
+						std::vector<UINT16>::iterator it = prisonroomvector.begin( );
+						for ( ; it != itend; ++it )
+						{
+							SectorExternalData[ubSectorId][0].prisonroomvector.push_back( (*it) );
+						}
 					}
+
+					prisonroomvector.clear( );
 
 					// clean up values afterwards
 					pData->sectordata.usWaterType = 0;
@@ -300,86 +293,15 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->sectordata.sRadioScanModifier = (INT8)atoi( pData->szCharData );
 		}
-		else if(strcmp(name, "usPrisonRoomNumber00") == 0)
+		else if ( strcmp( name, "usPrisonRoomNumber" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[0] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber01") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[1] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber02") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[2] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber03") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[3] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber04") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[4] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber05") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[5] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber06") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[6] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber07") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[7] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber08") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[8] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber09") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[9] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber10") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[10] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber11") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[11] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber12") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[12] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber13") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[13] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber14") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[14] = (UINT8)atoi( pData->szCharData );
-		}
-		else if(strcmp(name, "usPrisonRoomNumber15") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->sectordata.usPrisonRoomNumber[15] = (UINT8)atoi( pData->szCharData );
-		}
+
+			UINT16 room = (UINT16)atoi( pData->szCharData );
+
+			if ( room )
+				prisonroomvector.push_back( room );
+		}		
 		else if(strcmp(name, "usCivilianPopulation") == 0)
 		{
 			pData->curElement = ELEMENT;

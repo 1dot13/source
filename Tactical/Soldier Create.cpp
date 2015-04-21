@@ -3465,8 +3465,6 @@ void CreateAssassin(UINT8 disguisetype)
 extern UINT16*	gusWorldRoomInfo;
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
-static UINT8 roomcnt = 0;
-
 // For now, this is only used for prison cells
 INT32 GetSittableGridNoInRoom(UINT16 usRoom, BOOLEAN fEnoughSpace)
 {
@@ -3502,6 +3500,8 @@ INT32 GetSittableGridNoInRoom(UINT16 usRoom, BOOLEAN fEnoughSpace)
 	return NOWHERE;
 }
 
+static UINT16 roomcnt = 0;
+
 void CreatePrisonerOfWar()
 {
 	INT32 insertiongridno = NOWHERE;
@@ -3510,25 +3510,16 @@ void CreatePrisonerOfWar()
 	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
 	if ( ubSectorId >= 0 && ubSectorId < 256  )
 	{
-		// We need to 'condense' the room numbers, as some might be empty in the xml
-		UINT16 realrooms[MAX_PRISON_ROOMS];
-
-		UINT8 numrooms = 0;
-		for(UINT8 i = 0; i < MAX_PRISON_ROOMS; ++i)
-		{
-			if ( SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] > 0)
-			{
-				realrooms[numrooms++] = SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i];
-			}
-		}
+		if ( SectorExternalData[ubSectorId][0].prisonroomvector.empty( ) )
+			return;
 
 		++roomcnt;
-		if ( roomcnt >= numrooms )
+		if ( roomcnt >= SectorExternalData[ubSectorId][0].prisonroomvector.size() )
 			roomcnt = 0;
 
-		UINT16 room = realrooms[roomcnt];
-				
-		insertiongridno = GetSittableGridNoInRoom(room, TRUE);
+		UINT16 room = SectorExternalData[ubSectorId][0].prisonroomvector[roomcnt];
+
+		insertiongridno = GetSittableGridNoInRoom( room, TRUE );
 
 		// invalid gridno? Get out of here
 		if ( TileIsOutOfBounds(insertiongridno) )
