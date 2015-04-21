@@ -760,7 +760,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	BOOLEAN fSexismDone = FALSE;
 	if ( (pProfileA->bSexist || pProfileB->bSexist) && pProfileA->bSex != pProfileB->bSex )
 	{
-		if ( pProfileA->bSexist )
+		if ( pProfileA->bSexist == SOMEWHAT_SEXIST || pProfileA->bSexist == VERY_SEXIST )
 		{
 			switch ( pProfileB->bAppearance )
 			{
@@ -783,7 +783,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 			}
 		}
 
-		if ( pProfileB->bSexist )
+		if ( pProfileB->bSexist == SOMEWHAT_SEXIST || pProfileB->bSexist == VERY_SEXIST )
 		{
 			switch ( pProfileA->bAppearance )
 			{
