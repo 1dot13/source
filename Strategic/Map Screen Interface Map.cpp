@@ -759,7 +759,7 @@ UINT32 DrawMap( void )
 									else
 									{
 										// sector not visited, currently nobody controls the airspace
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_BLUE );
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_BLUE );
 									}
 								}
 								else if ( fShowStrategicDiseaseFlag )
