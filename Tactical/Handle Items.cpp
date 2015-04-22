@@ -5280,7 +5280,7 @@ BOOLEAN HandItemWorks( SOLDIERTYPE *pSoldier, INT8 bSlot )
 	// shape to be usable, and doesn't break during use.
 	// Exception: land mines.	You can bury them broken, they just won't blow!
 	//	if ( (Item[ pObj->usItem ].fFlags & ITEM_DAMAGEABLE) && (pObj->usItem != MINE) && (Item[ pObj->usItem ].usItemClass != IC_MEDKIT) && pObj->usItem != GAS_CAN )
-	if ( (Item[ pObj->usItem ].damageable ) && (!Item[pObj->usItem].mine ) && (Item[ pObj->usItem ].usItemClass != IC_MEDKIT) && !Item[pObj->usItem].gascan )
+	if ( Item[pObj->usItem].damageable && !Item[pObj->usItem].mine && (Item[pObj->usItem].usItemClass != IC_MEDKIT) && !Item[pObj->usItem].gascan && !IsStructureConstructItem( pObj->usItem, pSoldier->sGridNo, NULL ) )
 	{
 		// if it's still usable, check whether it breaks
 		if ( (*pObj)[0]->data.objectStatus >= USABLE)

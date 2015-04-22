@@ -2704,9 +2704,11 @@ BOOLEAN TwoHandedItem( UINT16 usItem )
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 {
 	INT32 iLoop = 0;
+	// Flugente: as this would cause launchers to happily launch attachments around the landscape, we really have to check the list of launchables
+	// if a modder decides to define launchables via attachment points, slap him and tell him not to do that
 	//Madd: Common Attachment Framework
-	if ( IsAttachmentPointAvailable(usItem, usLaunchable) )
-		return TRUE;
+	//if ( IsAttachmentPointAvailable(usItem, usLaunchable) )
+		//return TRUE;
 
 	//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("ValidLaunchable: launchable=%d, item=%d",usLaunchable,usItem));
 	// look for the section of the array pertaining to this launchable item...
@@ -2716,7 +2718,7 @@ BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 		{
 			break;
 		}
-		iLoop++;
+		++iLoop;
 		if (Launchable[iLoop][0] == 0)
 		{
 			// the proposed item cannot be attached to anything!
@@ -2731,7 +2733,7 @@ BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 		{
 			break;
 		}
-		iLoop++;
+		++iLoop;
 		if (Launchable[iLoop][0] != usLaunchable)
 		{
 			// the proposed item cannot be attached to the item in question
