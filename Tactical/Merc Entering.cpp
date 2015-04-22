@@ -680,63 +680,63 @@ void HandleHeliDrop( )
 			{
 				if ( !gfIngagedInDrop )
 				{
-					INT8 bEndVal;
-
-					bEndVal = ( gbHeliRound * NUM_PER_HELI_RUN );
+					INT8 bEndVal = ( gbHeliRound * NUM_PER_HELI_RUN );
 
 					if ( bEndVal > gbNumHeliSeatsOccupied )
 					{
 						bEndVal = gbNumHeliSeatsOccupied;
 					}
 
-					// OK, Check if we have anybody left to send!
-					if ( gbCurDrop < bEndVal )
+					// Flugente: watching mercs rope down one by one gets boring fast. So we allow up to 3 mercs to rope down  at the same time
+					for ( int i = 0; i < 3; ++i )
 					{
-						// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
-						// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldier to the STANDING aniamtion. 
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
-
-						//sWorldX = CenterX( gsGridNoSweetSpot );
-						//sWorldY = CenterY( gsGridNoSweetSpot );
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
-
-						// Change insertion code
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gsGridNoSweetSpot;
-
-						// HEADROCK HAM 3.5: Externalized!
-						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
-						//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
-
-						// IF the first guy down, set squad!
-						if ( gfFirstGuyDown )
+						// OK, Check if we have anybody left to send!
+						if ( gbCurDrop < bEndVal )
 						{
-							gfFirstGuyDown = FALSE;
-							SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
-						}
-						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->GetName() );
+							// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
+							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING aniamtion. 
+							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
+							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
-						++gbCurDrop;
+							// Change insertion code
+							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gsGridNoSweetSpot;
 
-						gfIngagedInDrop = TRUE;
-					}
-					else
-					{
-						if( gbExitCount == 0 )
-						{
-							gbExitCount = 2;
+							// HEADROCK HAM 3.5: Externalized!
+							UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
+							//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
+
+							// IF the first guy down, set squad!
+							if ( gfFirstGuyDown )
+							{
+								gfFirstGuyDown = FALSE;
+								SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
+							}
+							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->GetName() );
+
+							++gbCurDrop;
+						
+							gfIngagedInDrop = TRUE;
 						}
 						else
 						{
-							gbExitCount--;
-
-							if ( gbExitCount == 1 )
+							if( gbExitCount == 0 )
 							{
-								// Goto leave
-								gsHeliScript				= -1;
-								gubHeliState				= HELI_ENDDROP;
-
+								gbExitCount = 2;
 							}
+							else
+							{
+								--gbExitCount;
+
+								if ( gbExitCount == 1 )
+								{
+									// Goto leave
+									gsHeliScript				= -1;
+									gubHeliState				= HELI_ENDDROP;
+								}
+							}
+
+							break;
 						}
 					}
 				}
