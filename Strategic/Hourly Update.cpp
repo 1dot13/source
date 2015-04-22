@@ -676,10 +676,11 @@ void HourlyStealUpdate()
 
 					if ( pTargetObj )
 					{
-						AutoPlaceObject( pSoldier, pTargetObj, TRUE );
-
-						// Flugente: dynamic opinion
-						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
+						if ( AutoPlaceObject( pSoldier, pTargetObj, TRUE ) )
+						{
+							// Flugente: dynamic opinion
+							HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
+						}
 					}
 
 					// save the changed inventory
