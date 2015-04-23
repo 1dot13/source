@@ -568,7 +568,7 @@ UINT16					us16BPPItemCyclePlacedItemColors[ 20 ];
 // Kaiden: Vehicle Inventory change - Increase this from 4-2 to 5-2
 UINT32					guiBodyInvVO[ 5 ][ 2 ];
 UINT32					guiGoldKeyVO;
-INT8						gbCompatibleApplyItem = FALSE;
+INT8					gbCompatibleApplyItem = FALSE;
 
 // HEADROCK HAM 4: New region coordinate tables for UDB
 INV_DESC_REGIONS gItemDescLBEBackground[4]; // Coordinates for displaying LBE background image
@@ -1471,8 +1471,10 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	// Add region
 	MSYS_AddRegion( &gSMInvCamoRegion );
 
+	UpdateMercBodyRegionHelpText();
+
 	// Add regions for inventory slots
-	for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < NUM_INV_SLOTS; ++cnt )
 	{
 		// set inventory pocket coordinates from the table passed in
 		gSMInvData[ cnt ].sX = pRegionDesc[ cnt ].sX;
@@ -14443,4 +14445,97 @@ BOOLEAN CheckPocketEmpty( SOLDIERTYPE *pSoldier, INT16 sPocket )
 		}
 	}
 	return bResult;
+}
+
+// Flugente: update merc info text on merc body silhouette in strategic view
+void UpdateMercBodyRegionHelpText( )
+{
+	if ( !(gSMInvCamoRegion.uiFlags & MSYS_REGION_EXISTS) )
+		return;
+
+	if ( (bSelectedInfoChar != -1) && (gCharactersList[bSelectedInfoChar].fValid == TRUE) )
+	{
+		CHAR16 sString[6000];
+		CHAR16 pMoraleStr[128];
+		SOLDIERTYPE *pSoldier = NULL;
+
+		wcscpy( sString, L"" );
+
+		// valid soldier selected
+		pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
+
+		// health/energy/morale
+		if ( pSoldier->bAssignment != ASSIGNMENT_POW )
+		{
+			if ( pSoldier->stats.bLife != 0 )
+			{
+				if ( AM_A_ROBOT( pSoldier ) )
+				{
+					// robot (condition only)
+					swprintf( sString, L"%s: %d/%d", pMapScreenStatusStrings[3], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
+				}
+				else if ( Menptr[gCharactersList[bSelectedInfoChar].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE )
+				{
+					// vehicle (condition/fuel)
+					swprintf( sString, L"%s: %d/%d, %s: %d/%d",
+							  pMapScreenStatusStrings[3], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+							  pMapScreenStatusStrings[4], pSoldier->bBreath, pSoldier->bBreathMax );
+				}
+				else
+				{
+					// person (health/energy/morale)
+					GetMoraleString( pSoldier, pMoraleStr );
+
+					if ( gGameOptions.fFoodSystem )
+					{
+						if ( pSoldier->bPoisonSum )
+						{
+							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+							swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s, %s: %d%s, %s: %d%s",
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr,
+									  pMapScreenStatusStrings[6], (INT32)(100 * (pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0],
+									  pMapScreenStatusStrings[7], (INT32)(100 * (pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0] );
+						}
+						else
+						{
+							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s, %s: %d%s, %s: %d%s",
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr,
+									  pMapScreenStatusStrings[6], (INT32)(100 * (pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0],
+									  pMapScreenStatusStrings[7], (INT32)(100 * (pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0] );
+						}
+					}
+					else
+					{
+						if ( pSoldier->bPoisonSum )
+						{
+							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+							swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr );
+						}
+						else
+						{
+							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr );
+						}
+					}
+
+					{
+						pSoldier->PrintDiseaseDesc( sString, TRUE );
+					}
+				}
+			}
+		}
+
+		SetRegionFastHelpText( &gSMInvCamoRegion, sString );
+	}
 }

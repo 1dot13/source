@@ -111,6 +111,8 @@
 	// HEADROCK HAM 4: Include Militia Squads for Manual Militia Restrictions toggle.
 	#include "MilitiaSquads.h"
 	#include "Auto Bandage.h"	// added by Flugente
+	#include "Food.h"				// added by Flugente
+	#include "Drugs And Alcohol.h"	// added by Flugente
 #endif
 
 #include "connect.h" //hayden
@@ -136,6 +138,8 @@
 // plot
 BOOLEAN fPlotForMilitia = FALSE;
 UINT32 gMilitiaPlotStartSector = 0;
+
+extern INT8			gbCompatibleApplyItem;
 
 #define MAX_SORT_METHODS					6
 
@@ -9514,8 +9518,104 @@ void HandleCursorOverRifleAmmo( )
 
 void MAPInvClickCamoCallback( MOUSE_REGION *pRegion, INT32 iReason )
 {
+	if ( iReason & MSYS_CALLBACK_REASON_INIT )
+	{
+		return;
+	}
 
+	if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		// Apply camo ( if we have something in cursor... )
+		// If we do not have an item in hand, start moving it
+		SOLDIERTYPE* pSoldier = NULL;
+		if( (bSelectedInfoChar != -1) && (gCharactersList[bSelectedInfoChar].fValid == TRUE) )
+		{
+			pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]; 
+		}
+			
+		if ( gpItemPointer && pSoldier )
+		{
+			BOOLEAN fGoodAPs = FALSE;
+			BOOLEAN fDoSound = FALSE;
 
+			// We are doing this ourselve, continue
+			if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
+			{
+				// Try to apply camo....
+				if ( ApplyCammo( pSoldier, gpItemPointer, &fGoodAPs ) )
+				{
+					if ( fGoodAPs )
+					{
+						fDoSound = TRUE;
+
+						// WANNE: We should only delete the face, if there was a camo we applied.
+						// This should fix the bug and crashes with missing faces
+						if ( gGameExternalOptions.fShowCamouflageFaces )
+						{
+							// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
+							SetCamoFace( pSoldier );
+							DeleteSoldierFace( pSoldier );// remove face
+							gpItemPointerSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+						}
+					}
+				}
+				else if ( !gGameOptions.fFoodSystem && ApplyCanteen( pSoldier, gpItemPointer, &fGoodAPs, TRUE ) )
+				{
+					;
+				}
+				else if ( ApplyElixir( pSoldier, gpItemPointer, &fGoodAPs ) )
+				{
+					fDoSound = TRUE;
+				}
+				else if ( ApplyDrugs( pSoldier, gpItemPointer ) )
+				{
+					fGoodAPs = TRUE;
+					fDoSound = TRUE;
+				}
+				else if ( gGameOptions.fFoodSystem && ApplyFood( pSoldier, gpItemPointer, FALSE, FALSE ) )
+				{
+					fGoodAPs = TRUE;
+				}
+				else if ( ApplyClothes( pSoldier, gpItemPointer ) )
+				{
+					fGoodAPs = TRUE;
+				}
+				else
+				{
+					// Send message
+					//Heinz: 23.02.09 BUGFIX: Don't send message when SKI is on
+					if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[CANNOT_DO_INV_STUFF_STR] );
+				}
+
+				// Check if it's the same now!
+				if ( !gpItemPointer->exists( ) )
+				{
+					gbCompatibleApplyItem = FALSE;
+					//EndItemPointer( );
+					MAPEndItemPointer( );
+				}
+
+				if ( fGoodAPs )
+				{
+					// Dirty
+					fInterfacePanelDirty = DIRTYLEVEL2;
+
+					UpdateMercBodyRegionHelpText( );
+				}
+
+				if ( fDoSound )
+				{
+					// Say OK acknowledge....
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				}
+			}
+		}
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+
+	}
 }
 
 void MAPInvMoveCamoCallback( MOUSE_REGION *pRegion, INT32 iReason )
@@ -13608,15 +13708,17 @@ void PrevInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&= ~(BUTTON_CLICKED_ON);
 			fResetMapCoords = TRUE;
 			GoToPrevCharacterInList( );
+
+			UpdateMercBodyRegionHelpText();
 		}
 	}
 }
@@ -13626,15 +13728,17 @@ void NextInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-	if (btn->uiFlags & BUTTON_CLICKED_ON)
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&= ~(BUTTON_CLICKED_ON);
 			fResetMapCoords = TRUE;
 			GoToNextCharacterInList( );
+
+			UpdateMercBodyRegionHelpText( );
 		}
 	}
 }

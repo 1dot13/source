@@ -3319,10 +3319,6 @@ void SMInvMoveCammoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	//UINT16 usNewItemIndex;
-	UINT8	ubSrcID, ubDestID;
-	BOOLEAN fGoodAPs;
-
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
@@ -3332,177 +3328,78 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		// Apply camo ( if we have something in cursor... )
 		// If we do not have an item in hand, start moving it
-
-		if ( gpItemPointer != NULL )
+		if ( gpItemPointer )
 		{
-			// ATE: OK, get source, dest guy if different... check for and then charge appropriate APs
-			ubSrcID	= gpSMCurrentMerc->ubID;
-			ubDestID = gpItemPointerSoldier->ubID;
+			BOOLEAN fGoodAPs = FALSE;
+			BOOLEAN fDoSound = FALSE;
 
-			//if ( ubSrcID == ubDestID )
+			// We are doing this ourselve, continue
+			if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 			{
-				// We are doing this ourselve, continue
-				if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
+				// Try to apply camo....
+				if ( ApplyCammo( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
 				{
-					//usNewItemIndex = gpItemPointer->usItem;
-
-					// Try to apply camo....
-					if ( ApplyCammo( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+					if ( fGoodAPs )
 					{
-						if ( fGoodAPs )
+						fDoSound = TRUE;
+
+						// WANNE: We should only delete the face, if there was a camo we applied.
+						// This should fix the bug and crashes with missing faces
+						if (gGameExternalOptions.fShowCamouflageFaces )
 						{
-							// WANNE: Old method for applying camo
-							/*
-							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
-							{
-								if ( gpSMCurrentMerc->bCamo > 0 )
-								{
-									gCamoFace[gpSMCurrentMerc->ubProfile].gCamoface = TRUE;
-									DeleteSoldierFace( gpSMCurrentMerc );// remove face
-									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-								}
-								if ( gpSMCurrentMerc->urbanCamo > 0 )
-								{
-									gCamoFace[gpSMCurrentMerc->ubProfile].gUrbanCamoface = TRUE;
-									DeleteSoldierFace( gpSMCurrentMerc );// remove face
-									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-								}
-								if ( gpSMCurrentMerc->desertCamo > 0)
-								{
-									gCamoFace[gpSMCurrentMerc->ubProfile].gDesertCamoface = TRUE;
-									DeleteSoldierFace( gpSMCurrentMerc );// remove face
-									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-								}							
-								if ( gpSMCurrentMerc->snowCamo > 0)
-								{
-									gCamoFace[gpSMCurrentMerc->ubProfile].gSnowCamoface = TRUE;
-									DeleteSoldierFace( gpSMCurrentMerc );// remove face
-									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-								}
-							}
-							*/
-
-							// WANNE: We should only delete the face, if there was a camo we applied.
-							// This should fix the bug and crashes with missing faces
-							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
-							{
-								// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
-								SetCamoFace( gpSMCurrentMerc );
-								DeleteSoldierFace( gpSMCurrentMerc );// remove face
-								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-							}
-							
-							
-							// Dirty
-							fInterfacePanelDirty = DIRTYLEVEL2;
-
-							// Check if it's the same now!
-							if ( gpItemPointer->exists() == false )
-							{
-								gbCompatibleApplyItem = FALSE;
-								EndItemPointer( );
-							}
-
-							// Say OK acknowledge....
-							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-						}
-					}					
-					else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs, TRUE ) )
-					{
-						// Dirty
-						if ( fGoodAPs )
-						{
-							fInterfacePanelDirty = DIRTYLEVEL2;
-
-							// Check if it's the same now!
-							if ( gpItemPointer->exists() == false )
-							{
-								gbCompatibleApplyItem = FALSE;
-								EndItemPointer( );
-							}
+							// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
+							SetCamoFace( gpSMCurrentMerc );
+							DeleteSoldierFace( gpSMCurrentMerc );// remove face
+							gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
 						}
 					}
-					else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
-					{
-						if ( fGoodAPs )
-						{
-							// Dirty
-							fInterfacePanelDirty = DIRTYLEVEL2;
+				}					
+				else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs, TRUE ) )
+				{
+					;
+				}
+				else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+				{
+					fDoSound = TRUE;
+				}
+				else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
+				{
+					fGoodAPs = TRUE;
+					fDoSound = TRUE;
+				}
+				else if ( gGameOptions.fFoodSystem && ApplyFood( gpSMCurrentMerc, gpItemPointer, FALSE, FALSE ) )
+				{
+					fGoodAPs = TRUE;
+				}
+				else if ( ApplyClothes( gpSMCurrentMerc, gpItemPointer ) )
+				{
+					fGoodAPs = TRUE;
+				}
+				else
+				{
+					// Send message
+					//Heinz: 23.02.09 BUGFIX: Don't send message when SKI is on
+					if( !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_DO_INV_STUFF_STR ] );
+				}
 
-							// Check if it's the same now!
-							if ( gpItemPointer->exists() == false )
-							{
-								gbCompatibleApplyItem = FALSE;
-								EndItemPointer( );
-							}
+				// Check if it's the same now!
+				if ( !gpItemPointer->exists( ) )
+				{
+					gbCompatibleApplyItem = FALSE;
+					EndItemPointer( );
+				}
 
-							// Say OK acknowledge....
-							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-						}
-					}
-					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
-					{
-						// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
+				if ( fGoodAPs )
+				{
+					// Dirty
+					fInterfacePanelDirty = DIRTYLEVEL2;
+				}
 
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
-						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
-						}
-
-						/*
-						// COMMENTED OUT DUE TO POTENTIAL SERIOUS PROBLEMS WITH STRATEGIC EVENT SYSTEM
-
-						if ( gpSMCurrentMerc->ubProfile == LARRY_NORMAL )
-						{
-							// Larry's taken something!
-							gpSMCurrentMerc = SwapLarrysProfiles( gpSMCurrentMerc );
-						}
-						*/
-
-
-						// Say OK acknowledge....
-						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-
-					}
-					else if ( gGameOptions.fFoodSystem && ApplyFood( gpSMCurrentMerc, gpItemPointer, FALSE, FALSE ) )
-					{
-						// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
-
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
-						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
-						}
-
-						// Say OK acknowledge....
-						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-					}
-					else if ( ApplyClothes( gpSMCurrentMerc, gpItemPointer ) )
-					{
-						// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
-
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
-						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
-						}
-
-						// Say OK acknowledge....
-						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-					}
-					else
-					{
-						// Send message
-						//Heinz: 23.02.09 BUGFIX: Don't send message when SKI is on
-						if( !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) ) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_DO_INV_STUFF_STR ] );
-					}
+				if ( fDoSound )
+				{
+					// Say OK acknowledge....
+					gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 				}
 			}
 		}

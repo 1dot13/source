@@ -364,4 +364,7 @@ void addRocketAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* po
 void addMiscToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
 void addKitsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
 
+// Flugente: update merc info text on merc body silhouette in strategic view
+void UpdateMercBodyRegionHelpText( );
+
 #endif
