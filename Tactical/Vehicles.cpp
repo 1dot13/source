@@ -2265,7 +2265,11 @@ void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 	INT16 pubDeducations = 0;
 	INT32 iCounter = 0;
 
-	(*pubPoints) += 35;
+	// Flugente: this is stupid. Why is the AP calculation for vehicles based on stats? Those are machines, dammit.
+	// and why a hardcoded bonus of 35?
+	// I've changed this - now a car always gets max AP, which can then be reduced by damage it received.
+	//(*pubPoints) += 35;
+	(*pubPoints) = gubMaxActionPoints[pSoldier->ubBodyType];
 
 	// check for state of critcals
 
