@@ -1,103 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <CAMPAIGNSTATSEVENTS>
   <EVENT>
-    <uiIndex>0</uiIndex><!-- beginning of campaign: landing in Omerta -->
-    <szText0>(Omerta/Arulco). Local unverified reports indicate that in today's early hours, unidentified helicopters have been seen in the recently pacified northern arulcan town of Omerta.</szText0>
-    <szText1>Eyewitnesses report a brief firefight between royal forces and the unidentified attackers. So far, the royal palace has neither denied or confirmed these reports.</szText1>
-    <szText2>Omerta, the traditional stronghold of the Cordona family, was the last rebel stronghold in Miguel Cordona's rebellion against Queen Deidranna.</szText2>
-    <szText3>It was finally overrun two months ago by armoured elements of the royal guard.</szText3>
-    <szText4>A resurgence of the rebellion cannot be ruled out at this point, given that the regime never openly acknowledged the deaths of Cordona and his inner circle.</szText4>
-    <szText5>However, it is unlikely a renewed uprising would</szText5>
-    <szText6>have any chance of success, given the significant military buildup of the arulcan armed forces in recent years. Another possibility that cannot be dismissed is the emergence of rift between Deidranna and the notorius crime syndicate of San Mona, which is said to be well equipped.</szText6>
-    <szText7>But given the obvious strength difference between these two factions, this seems just as unlikely.</szText7>
+    <uiIndex>0</uiIndex><!-- 初试身手：Omerta着陆 -->
+    <szText0>(Omerta/Arulco)当地未经证实的报告称，本日早间，不明身份的直升机在刚刚平定的北部小镇Omerta被目击到。</szText0>
+    <szText1>目击者证实不明身份的入侵者和皇家卫队发生了一次短暂的交火，但截至目前，皇宫对该报告只字未提。</szText1>
+    <szText2>作为Cordona家族代代相传的据点，Omerta镇是反对执政者Deidranna女王的Miguel Cordona叛军的最后一个据点。</szText2>
+    <szText3>两个月前，Omerta镇终于被皇家卫队的装甲军团收复。</szText3>
+    <szText4>但是到现在为止女王政权一直没有公开认定Cordona和他的亲信们已经死亡，所以叛军并不是完全没有可能东山再起。</szText4>
+    <szText5>不过由于近年来Arulco的持续大规模扩军，新的暴乱不太可能成功。</szText5>
+    <szText6>当然，女王Deidranna和盘踞在San Mona市的恶名昭著的武装犯罪集团之间的嫌隙也是一个不可忽视的因素，</szText6>
+    <szText7>但是考虑到这两个集团之间明显的武装力量差异，由犯罪集团挑起暴乱也是不可能的。</szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>1</uiIndex><!-- Death of Kingpin -->
-    <szText0>(San Mona/Arulco). Troubling reports arrive our correspondents out of the war-torn Arulco.</szText0>
-    <szText1>It seemed that the recently flared up conflict between the royal army and the strengthened rebels would be confined to the eastern and central regions. This assessment has violently been proven wrong.</szText1>
-    <szText2>A wave of violence engulfed the civilian town of San Mona. Since the local mining industry ran out of business a decade ago, San Mona had transformed to become the local trade hub.</szText2>
-    <szText3>Unusual for arulcan cities, which are normally under tight control of the royal army, the locals enjoyed an amount of personal freedom normally unheard of in Arulco.</szText3>
-    <szText4>Apart from a small civilian defense force formed by local business owners, there was no armed</szText4>
-    <szText5>presence here. Nevertheless, the rebels attacked the city with full force. It is unclear wether the insurgents expected to surprise the sporadic army patrols here, or if they fully intended to massacre the local population.</szText5>
-    <szText6>However, we can confirm that the mayor of San Mona, the widely respected businessman Peter Klaus, was wilfully targetted and killed along with most of his employees.</szText6>
-    <szText7>Reports of widespread loss of lives and destruction of private property paint a gruesome picture of the insurgent' actions. There are even rumors of locals being taken as hostages, but this cannot be confirmed at this point.</szText7>
-    <szText8>In his statement to the press, US deputy secretary of state Kenneth B. Hawkeburger again condemned the insurgent's actions. </szText8>
+    <uiIndex>1</uiIndex><!-- Kingpin之死 -->
+    <szText0>(San Mona/Arulco)我通讯社驻战时Arulco的记者讯，</szText0>
+    <szText1>虽然连日来得到增援的叛军与皇家卫队之间的争斗看似仅仅局限于Arulco中部和东部地区，但记者前日收到的一份令人担忧的报告推翻了这一假象。</szText1>
+    <szText2>报告称一波暴恐行为席卷了非军事区San Mona市。自从10年前当地的采矿工业破产以后，San Mona市通过经济转型成为了一个贸易集散地。</szText2>
+    <szText3>与被皇家卫队严格控制的Arulco其他城市不同，San Mona市的居民享有一般来说在Arulco其他地方从未听闻的个人自由。</szText3>
+    <szText4>除了一个由当地企业家建立的小规模民防部队以外，并没有皇家卫队驻扎于此.</szText4>
+    <szText5>可叛军仍然倾尽所有兵力进攻该市。还不清楚叛军这么做到底是为了引起附近零星的巡逻部队的注意，还是完全为了屠杀当地居民</szText5>
+    <szText6>但是可以确信，San Mona的市长，同时也是受人尊敬的企业家Peter Klaus先生已经和他的绝大部分雇员一起被谋杀。</szText6>
+    <szText7>与此同时还有大量无辜居民被杀，其私有财产或被破坏或被洗劫一空，这些凶残行为描绘了一幅叛军烧杀抢掠罪恶滔天的画面。另有谣言称某些居民被当做人质掳走，但是暂时未得到准确消息。</szText7>
+    <szText8>美国副国务卿Kenneth B. Hawkeburger在新闻发布会上再次对叛军的行为表示谴责。</szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>2</uiIndex><!-- Hicks massacre -->
-    <szText0>(Cambria/Arulco) Once again, what few news make it out of Arulco make for some dire reading. It appears an entire extended family was slaughtered today.</szText0>
-    <szText1>The precise course of events is unclear, but it seems the insurgents raided a farm east of Cambria, and wiped out every man, woman and child they found.</szText1>
-    <szText2>The farm, one of the few agricultural farms in Arulco that still operate, was also one of the biggest an most prosperous.</szText2>
-    <szText3>A business in sixth generation, the Hicks family provided Cambria with badly needed food (most of Arulco is underdeveloped, and the current conflict has increased the supply shortfall).</szText3>
-    <szText4>All across the farm, the bodies of family members can still be seen - they were left where they were shot, their property taken and their farm</szText4>
-    <szText5>looted. What the rebels hope to gain by this is not entirely clear. However, informed sources point out that until recently, the rebels themselves were said to be in desperate need of food.</szText5>
-    <szText6>It is also known that there was some tension between the business elite of Cambria and the local famers, and the local establishment seems to have thrown their lot in with the uprising.</szText6>
-    <szText7>In the increasingly divided battlefield of Arulco, this is yet another turn for the worse, as local factions use the pretext of an armed uprising to settle old scores.</szText7>
+    <uiIndex>2</uiIndex><!-- 剿灭Hicks家族 -->
+    <szText0>(Cambria/Arulco)从Arulco又传来一条耸人听闻的新闻，Hicks家族的所有家庭成员在今天被残忍的屠杀。</szText0>
+    <szText1>虽然我们并未掌握具体的细节，但是可以确信叛军袭击了一个位于Cambria市以东的农场，将所有在此居住的人残忍的杀害。</szText1>
+    <szText2>该农场是Arulco国内极少的几个仍在运作的农场之一，也是其中占地面积最大、收成最好的一个。</szText2>
+    <szText3>由Hicks家族经营了整整六代的农场为Cambria市提供了极其短缺的食物（Arulco全境已经开垦的农用地极少，当下的冲突局势让粮食短缺问题更加严重）</szText3>
+    <szText4>Hicks家族成员的尸体在农场里随处可见，他们被打死后，身上的财物和农场被洗劫一空，叛军此后没有移动或者处理尸体。</szText4>
+    <szText5>我们无法得知叛军原本希望从该屠杀中获得什么，但是，有知情人士透露，截至目前为止，叛军自己也处于粮食极其短缺的困境中。</szText5>
+    <szText6>另外，有准确消息称Cambria市的企业家和当地农民之间的关系一直比较紧张，并且Cambria城里的人也加入到了暴乱的行列。</szText6>
+    <szText7>在叛军实力快要和皇家卫队平分秋色的的Arulco，竟然有本地势力串联叛军并借用叛军的名义解决私人恩怨，这种借刀杀人的派系斗争是十分令人不齿的。</szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>3</uiIndex><!-- bloodcat lair cleared -->
-    <szText0>(Alma/Arulco) In another worrying development, it seems not even Arulco's fauna can escape the widening civil war.</szText0>
-    <szText1>According to local members of a UN conservation project, mercenary groups are increasingly targetting the local bloodcat population.</szText1>
-    <szText2>The arulcan bloodcat (panthera arulcanis) is one of the biggest predatory cats of the world and can only be found in Arulco. The small population has increasingly become under pressure from trophy hunters.</szText2>
-    <szText3>The teeth bloodcats are used in several traditional recipes of southeast-asian medicine.</szText3>
-    <szText4>It is feared that, in order to maintain their increasingly agressive campaign, the rebels have targetted the bloodcats as an alternative source of income.</szText4>
-    <szText5>While their main income is said to directly come from the mines of the towns they captured, these are still hotly contested, as the royal army has vowed to take back</szText5>
-    <szText6>those towns, and clashes with rebels almost every day. The shy bloodcats make for a much easier, uncontested target. Wether or not the cat's population can ever recover from this is doubtful, according to internationally acclaimed bloodcat expert Dr. Ernest Poppin.</szText6>
-    <szText7>"These cats live exclusively in Arulco, they cannot be found anywhere else in the world, an have never been bred in captivity. This is a tragedy. As a scientist, I am appalled by this senseless slaughter.</szText7>
-    <szText8>I can only urge the authorities in the strongest words possible to quickly end this conflict, before another species is lost beyond retrieval."</szText8>
+    <uiIndex>3</uiIndex><!-- 血猫巢穴大清洗 -->
+    <szText0>(Alma/Arulco)本社记者又传来另一个令人担忧的事态发展，看起来连Arulco的动物们都无法逃离被日益严重的内战侵袭的命运。</szText0>
+    <szText1>据常驻Arulco的联合国动物保护项目的观察员称，叛军的活动正进一步威胁在Arulco生活的保护动物——血猫的数量。</szText1>
+    <szText2>Arulco血猫（学名“panthera arulcanis”）是仅存于Arulco国内的保护动物，是世界上体型最大的食肉猫科动物之一。唯利是图的猎人们的滥捕行为早已对它们的族群数量造成了不小的压力。</szText2>
+    <szText3>血猫的牙齿是数种东南亚出产的药材的配方。</szText3>
+    <szText4>该观察员担忧为了支持日益扩大的战事和军费开支，叛军会将捕猎血猫作为另一个经济来源。</szText4>
+    <szText5>虽然据称叛军的军费主要来源于被他们占领的城镇里的矿山，但这种说法一直存在着很大争议，因为皇家卫队早就立誓夺回这些城镇，而城镇中几乎每天都发生着皇家卫队与叛军的交火。</szText5>
+    <szText6>相对于交战中的城镇里的矿山，不喜欢亲近人的血猫就无疑成为了一个相对简单的目标。世界著名的权威血猫学者Ernest Poppin博士对于血猫族群的数量能否从叛军的滥捕行为中恢复过来存疑。</szText6>
+    <szText7>对于这次大屠杀，他表示：“血猫仅存于Arulco，世界其他地方都没有，并且从来没有人工养殖的成功先例。这是一个悲剧。作为一个科学家，我被这一毫无人性的屠杀震惊了。</szText7>
+    <szText8>我只能呼吁相关部门采取最强硬的措施迅速的解决这一暴乱，以免导致其他物种的灭绝。”</szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>4</uiIndex><!-- army retakes a city -->
-    <szText0>(Ministry for Arulcan Information Distribution) Once again, Arulco's valiant defenders strike back against the thrice-cursed rebel scum.</szText0>
-    <szText1>In the last meeting of Arulco' security counci, our visionary military leadership proudly announced that the people's army has successfully reestablished law and order in a city previously taken by the traitors.</szText1>
-    <szText2>The so-called 'rebels', led by dangerous fugitive Miguel Cordona, had employed outside mercenaries provided to them by ill-meaning foreigners seeking to plunder our motherland.</szText2>
-    <szText3>But thanks to the visionary leadership of our beloved Queen Deidranna, the terrorist forces were smashed by our brothers and sisters of the royal arulcan armed forces.</szText3>
-    <szText4>While law enforcement officials still search the town for boobytraps and hiding traitors, citizens</szText4>    
-    <szText5>of Arulco can rest assured that the nightmare of armed struggle forced on us by ill-meaning foreigners will soon come to an end. </szText5>
-    <szText6>"Just as well", said our magnificent leader. "For death is the only acceptable punishment for the crimes these criminals committed. I will not rest until every one of those thugs has received the punishment he deserves."</szText6>
-    <szText7>So speaks Queen Deidranna, an so speaks every upstanding citizen of Arulco. Let us all work together to end this war now and send the aggressors back to where they came from. All hail Arulco!</szText7>
-    <szText8>All hail Deidranna!</szText8>
+    <uiIndex>4</uiIndex><!-- 皇家卫队夺回城市 -->
+    <szText0>（Arulco信息发布局讯）我们Arulco英勇的守卫者又一次有力的回击了叛军这群该死的渣滓们的嚣张气焰。</szText0>
+    <szText1>在上一次的Arulco安全会议中，我们有远见卓识的军队领导人气宇轩昂的发布了我们的人民军队成功的重新恢复了一个曾被叛军占领的城市的法律和秩序的消息。</szText1>
+    <szText2>虽然由危险的流亡者Miguel Cordona领导的所谓叛军雇佣了由怀着侵略我们祖国的野心的外国反对势力提供的佣兵，</szText2>
+    <szText3>但是多亏了我们敬爱的女王Deidranna的英明领导，暴乱分子被隶属于皇家卫队的我们人民的兄弟姐妹们消灭了。</szText3>
+    <szText4>执法官员此时仍然在城中搜寻暴乱分子留下的杀人陷阱和隐藏的叛军，</szText4>    
+    <szText5>但是Arulco的国民们请放宽心，我们保证由外国反对势力领导的叛军带来的噩梦会很快消散。</szText5>
+    <szText6>我们伟大的领袖这样说：“死刑是对于这些犯罪分子犯下的罪行的唯一适用刑罚。在所有的渣滓受到应有的惩罚之前，我将夜以继日，呕心沥血。”</szText6>
+    <szText7>我们每一个Arulco的国民，肯定也会说出与女王Deidranna同样的话语。让我们联合起来，就在现在，终结这场战争，让侵略者们从哪里来就滚回哪里去。</szText7>
+    <szText8>祖国Arulco万岁！女王Deidranna万岁！</szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>5</uiIndex><!-- Drassen liberated -->
-    <szText0>(Drassen/Arulco) In a stunning development from the small country of Arulco, as-of-yet unknown armed forces have captured the city of Drassen and its airport.</szText0>
-    <szText1>Against increasingly heavy resistance of the local law enforcement, the local garrison and qickly mobilised armed reinforcements, the insurgents took the city in three stages.</szText1>
-    <szText2>The royal forces, apparently unprepared for an attack on this scale, were defeated an had to retreat. The size and consistence of the rebel force is unkown.</szText2>
-    <szText3>Similarly, nothing is currently known about their motives or goals. Intelligence sources speculate this event might be tied to earlier reports of an ambush on a army patrol in the region of Omerta by unkown forces.</szText3>
-    <szText4>Drassen, located at Arulco's north-east lake,</szText4>
-    <szText5>contains of the 2 airports of Arulco, which would obviously make it prime target for anyone attempting to contest Queen Deidranna's tight grip on the country.</szText5>
-    <szText6>Furthermore, a significant portion of its inhabitants work in the local silver mines, and it also houses one of the very few factories that export products, bringing in much-needed currency.</szText6>
-    <szText7>This makes the inadequate response of the royal army even more unfathomable. Wether this shocking defeat was just a singular lapse in military judgement or a sign of systematic shortcomings in the arulcan military remains to be seen.</szText7>
+    <uiIndex>5</uiIndex><!-- 解放Drassen -->
+    <szText0>(Drassen/Arulco)来自于小国Arulco的爆炸性新闻，不明身份的武装攻占了该国Drassen市并占领了当地机场。</szText0>
+    <szText1>虽然政府一直以来不断扩充当地执法官员、城中驻军和城外的武装巡逻部队，叛军仍然逐步攻占了该市。</szText1>
+    <szText2>皇家卫队猝不及防，他们显然没有做好应对大规模强攻的准备，这直接导致了城市失守并被迫撤退。我们暂时没有得到叛军的人数和人员构成的准确消息，</szText2>
+    <szText3>同样，我们也并不知道他们的动机和目标。有知情人士将该起事件和早些时候在Omerta小镇发生的巡逻部队被未知武装伏击的事件联系了起来。</szText3>
+    <szText4>Drassen市位于Arulco东北部的湖滨，</szText4>
+    <szText5>Arulco仅有的两个机场之一坐落于该市，使它成为每一个试图反抗Deidranna女王暴政的势力的首要目标。</szText5>
+    <szText6>不仅如此，绝大部分该市居民在当地的矿山工作，当地还建有Arulco境内少数的几个具备生产和加工出口产品能力的工厂之一，这两个单位给Arulco带来了不少收入。</szText6>
+    <szText7>出于以上因素考虑，皇家卫队的反击不力显得更加难以置信、不明所以。到底这次的失守是一次罕见的战术失策，还是暴露出了Arulco皇家卫队军力的系统性不足暂时还难以定论，需要进一步观察事态发展。</szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>6</uiIndex><!-- Alma liberated -->
-    <szText0>(Arulco Revolutionary Movement) Citizens of Arulco!</szText0>
-    <szText1>The revolution has struck again! On this very day, the men and women of our movement have struck the heart of the oppressors. We have successfully attacked and taken the military fortress of Alma.</szText1>
-    <szText2>Even though the oppressor had heavily fortified the city, it was no match for our heroic storm. The city and the army training camp has been liberated.</szText2>
-    <szText3>We have also liberated our citizens imprisoned there. No longer will the righteous have to fear Deidranna's torture cells.</szText3>
-    <szText4>A huge stockpile of army material fell into our hands, we will use it to strike back at the oppressors.</szText4>
-    <szText5>Our revolutionary leader, Miguel Cordona, personally thanked the liberators on the battlefield.</szText5>
-    <szText6>"This once again proves that we can best the foul queen if we just work together. Every son and daughter of Arulco should join us now, so we can finish this once and for all. Join us, and free our homeland!"</szText6>
+    <uiIndex>6</uiIndex><!-- 解放Alma -->
+    <szText0>(Arulco解放阵线)Arulco的国民们</szText0>
+    <szText1>革命再一次成功了！在今天这个特殊的日子，我们解放阵线的子弟兵突袭了暴君的心脏地带，成功的攻占了军事重地Alma城。</szText1>
+    <szText2>虽然暴君大大强化了当地驻军，但我们英勇的子弟兵仍然风卷残云般将他们击败，解放了整个城市和建于此地的军事训练营。</szText2>
+    <szText3>我们同时解救了囚禁于此的无端承受冤狱之灾的国民们，大家再也不用担心因为维护正义而被女王Deidranna投进监牢了。</szText3>
+    <szText4>此外，我们还将存放在城中的大量军事物资和装备收归己用，以帮助我们更好的反抗暴君。</szText4>
+    <szText5>我们的革命领袖Miguel Cordona感谢了并肩作战的子弟兵们：</szText5>
+    <szText6>“只要我们团结起来，就能战胜愚蠢的女王。Arulco的儿女们，和我们并肩战斗吧，一起解放我们的祖国；Arulco的国民们，加入我们的行列吧，一起开创美好的明天。”</szText6>
     <szText7></szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>7</uiIndex><!-- Grumm liberated -->
-    <szText0>(Grumm/Arulco) After a long, bloody struggle, the industrial heart of Arulco has finally fallen to the rebels.</szText0>
-    <szText1>Grumm, seat of the arulcan gold mining industry and location of the only considerable industry in the country, was long assumed to be nearly impregnable.</szText1>
-    <szText2>But today, the Arulco revolutionary movement announced it has taken over the entire city. Wether or not this will be for long is unclear - correspondents on the ground report the rebels' grip isn't as strong as they would like it to be.</szText2>
-    <szText3>Given not only the economic, but also strategic location of Grumm, situated near one of the main roads to the capital Meduna, an heavy army response seems very likely.</szText3>
-    <szText4>As the rebel force would be hard-pressed to overcome the numeric superiority of the royal army in urban combat, it is most likely any decisive battle for Grumm would take place in the eastern mining district.</szText4>
+    <uiIndex>7</uiIndex><!-- 解放Grumm -->
+    <szText0>(Grumm/Arulco)在一场漫长而血腥的拉锯战之后，Arulco的工业心脏Grumm城最终陷落到了叛军手中。</szText0>
+    <szText1>Grumm城拥Arulco全国唯一的金矿矿山，也是Arulco全国唯一能称得上是工业重镇的城市，一直以来被认为是坚不可摧固若金汤的。</szText1>
+    <szText2>可就在今天，Arulco解放阵线表示他们已经占领了整个城市。不过根据我社前方记者观察，叛军对该城的戒严并不像当初预测的那么厉害，所以叛军到底是否打算长时间占领该城也无从得知。</szText2>
+    <szText3>不仅出于经济因素考量，出于战略位置考量，Grumm城位于通往首都Meduna的主干道上，皇家卫队无疑会派遣重兵进行夺还作战。</szText3>
+    <szText4>由于皇家卫队人数众多，叛军很难在巷战中占到便宜，所以Grumm城内最可能的决战场所是东部的矿区。</szText4>
     <szText5></szText5>
     <szText6></szText6>
     <szText7></szText7>
@@ -105,12 +105,12 @@
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>8</uiIndex><!-- Tixa liberated -->
-    <szText0>(Ministry for Arulcan Information Distribution) One again, the so-called 'liberators' of Arulco have sunk to a new low.</szText0>
-    <szText1>Insurgents forces overran the Tixa High security facility, butchered the entire guard force, including civilian contractors, and freed a number of dangerous criminals.</szText1>
-    <szText2>Tixa has no strategic value, apart from the inmates themselves. Not content enough with pressuring the entire country into open warfare, the insurgents are keen to broaden their ranks with other known terrorists, murderers and rapists.</szText2>
-    <szText3>This once again proves, without a doubt, the malicious intent of those that have united against Arulco. General Humphey, army chief of staff, has vowed a strict but measured retaliation against this unprovoked attack.</szText3>
-    <szText4>"We will not rest until the perpetrators have been brought to justice. These men were sentenced to lengthy prison in due course of justice, and that's where we'll return them once we've recaptured them."</szText4>
+    <uiIndex>8</uiIndex><!-- 解放Tixa -->
+    <szText0>（Arulco信息发布局讯）所谓的“Arulco解放者”再一次刷新了他们的下限。</szText0>
+    <szText1>大量暴乱分子破坏了Tixa的重犯监狱，杀害了所有守军、警备人员和民间合约雇员，并释放了一批极其危险的罪犯。</szText1>
+    <szText2>除了这些罪犯以外，攻陷Tixa监狱根本没有任何战略意义。从该事件上可以看出，暴乱分子并没有信心和实力在全国范围内与我们正面交战，而是招徕恶贯满盈的恐怖分子、杀人犯和强奸犯充军。</szText2>
+    <szText3>毫无疑问，该事件也再次的印证了那些联手对付我们祖国Arulco的阴谋家们的狼子野心。陆军参谋长Humphey将军严厉但是恰如其分的谴责了这次无端的攻击行为：</szText3>
+    <szText4>“在让这群罪犯接受应有的审判之前，我们会不眠不休的战斗。这些罪犯曾经在正义的审判下被判处了多年徒刑，他们虽然暂时从监狱里面出来了，但我们会重新把他们送回监狱里面去。”</szText4>
     <szText5></szText5>
     <szText6></szText6>
     <szText7></szText7>
@@ -118,12 +118,12 @@
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>9</uiIndex><!-- Cambria liberated -->
-    <szText0>(Cambria/Arulco) In another victory for the re-emerged followers of the notorious rebel leader Miguel Cordona, the central city of Cambria has fallen to the rebels.</szText0>
-    <szText1>In a speed unthinkable just a few months ago, when the rebels were thought to be wiped out in Omerta, the Arulcan Revolutionary Movement drove back the army in all sectors of the city and is now firmly in control.</szText1>
-    <szText2>It should be noted, however, that the army still maintains a strong presence in Arulco's heartland, including a military base in the southern desert.</szText2>
-    <szText3>For their part, the rebels seemed intent on holding the city. They wasted no time and have already begun the first steps to forming a local auxiliary militia.</szText3>
-    <szText4>Keeping in mind that the army practically has to retake the city if it does not want to lose control of the entire northern part of the country, continued clashes are all but guaranteed.</szText4>
+    <uiIndex>9</uiIndex><!-- 解放Cambria -->
+    <szText0>(Cambria/Arulco)臭名昭著的叛军领导人Miguel Cordona和他重新集结起来的随从们又偷走了一场胜利，Arulco中部城市Cambria陷落到了叛军手里。</szText0>
+    <szText1>一直以来被认为在几个月前收复Omerta镇时已经被完全剿灭的自称“Arulco解放阵线”的叛军，以不可思议的速度扫荡了城内的守军，将城市收入囊中并牢牢的控制起来。</szText1>
+    <szText2>当然，皇家卫队仍然在Arulco的腹地，包括一个位于南部沙漠地带的军事基地中，驻扎了重兵把守。</szText2>
+    <szText3>另一方面，从叛军的动向来看他们准备死守Cambria市，在攻下该市以后，他们马不停蹄的开始了征召当地人加入叛军的工作。</szText3>
+    <szText4>鉴于现在皇家卫队必须夺回Cambria市才能避免失去对整个Arulco北部地区的控制这个现状，在Cambria市附近肯定还会发生更多的拉锯战。</szText4>
     <szText5></szText5>
     <szText6></szText6>
     <szText7></szText7>
@@ -170,37 +170,37 @@
     <szText9>not used ingame</szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>13</uiIndex><!-- Balime liberated -->
-    <szText0>(Balime/Arulco) In a particular painful blow to the Deidranna regime, rebel forces have seized the southern coastal town of Balime.</szText0>
-    <szText1>Balime, heartland of Deidranna's followers, is one of the more advanced cities of Arulco, and had so far been spared of most of the violence of this conflict.</szText1>
-    <szText2>The city is home the rich and influential elite of Arulco tat forms the backbone of the regime, consequentially loyalty to Deidranna is still high.</szText2>
-    <szText3>The strategic value, however, is smaller than that of other cities, as this is a city of trade and culture, not of industry.</szText3>
-    <szText4>Given the local's unwillingness to to join the rebellion, it is unclear for how long the rebels can hold the city, especially as the army seems eager to retake it sooner or later.</szText4>
-    <szText5>It is feared that elements of the rebellion will use this opportunity to retaliate against those they perceive as oppressors here. Tensions are running high, and a high number of the population has fled the city to seek shelter in Meduna.</szText5>
-    <szText6>Reports that the museum, which houses unique artifacts of Arulco's history, has already been looted are widespread but cannot be confirmed at this time.</szText6>
+    <uiIndex>13</uiIndex><!-- 解放Balime -->
+    <szText0>(Balime/Arulco)据最新报告，叛军占领了南部海滨小镇Balime，这给了Deidranna女王的政权沉重的一击。</szText0>
+    <szText1>Balime镇是女王及其贵族随从们的腹地，也是Arulco国内一个相对比较现代化的城镇，一直免于被战火侵袭。</szText1>
+    <szText2>这个城镇的居民都是掌握Arulco实权的富人和政客们，所以虽然城镇陷落了，但是当地居民对女王的忠诚度仍然居高不下。</szText2>
+    <szText3>不过该城镇的战略意义也不及其他市镇，因为它并不是一个工业重镇，其经济主要依靠商业和文化。</szText3>
+    <szText4>鉴于当地居民并不愿意加入叛军，特别是在皇家卫队应该极其渴望收复该地的状况下，叛军能够坚守这个城镇多长时间还是个未知数。</szText4>
+    <szText5>由于惧怕叛军中某些人会迁怒于当地居民来报复他们口中所谓的暴政，当地的紧张情绪节节攀升，已经有大批居民从城中逃走，到Meduna城避难。</szText5>
+    <szText6>有传言称，陈列着很多反映Arulco历史的奇珍异宝的博物馆已经被叛军洗劫一空，但是截至目前该传言并没有被核实。</szText6>
     <szText7></szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>14</uiIndex><!-- Meduna liberated -->
-    <szText0>(Meduna/Arulco) The civil war in Arulco seems to be coming to an end. Rebel forces have taken over most of the city districts and are now in direct firefights with the royal elite bodyguard.</szText0>
-    <szText1>In brutal combat throughout the city, the rebels have driven back the last remnants of the royal army again and again.</szText1>
-    <szText2>Almost the entire arulcan mechanized infantry was stationed here.</szText2>
-    <szText3>While the rebels had no tanks of their own, the decision to force their armoured forces into urban combat, where the rebels could evade and destroy them one at a time, was clearly a severe strategic error on Deidranna's side.</szText3>
-    <szText4>Military intelligence had long urged the queen to use the few mechanized battalions in a devastating attack in the open against rebel positions against Cambria, but the queen had always decided otherwise.</szText4>
-    <szText5>In a highly agile combat, the rebels deployed many rpg-launchers and mortars. It seems they have been preparing for this moment during the entire campaign.</szText5>
-    <szText6>The current whereabouts of queen Deidranna and her inner circle are unknown. The city can no longer be accessed due to ongoing clashes, and the airport has fallen after intense fighting. It is rumoured that Elliot, the public face of the regime, is among the casualties.</szText6>
-    <szText7>This is the endgame of this civil war, and the rebels are on the verge of success.</szText7>
+    <uiIndex>14</uiIndex><!-- 解放Meduna -->
+    <szText0>(Meduna/Arulco)Arulco内战终于结束了。叛军在与皇家卫队的精英禁卫军们展开的巷战中，已经攻下了Meduna城的绝大多数街道。</szText0>
+    <szText1>在蔓延到了整个城内的战火中，叛军一次又一次的击退了已经所剩无几的皇家卫队无力的冲锋。</szText1>
+    <szText2>Arulco国内几乎所有的机械化部队都驻扎于此地，而叛军却连自己的坦克都没有。</szText2>
+    <szText3>但是显然Deidranna女王犯了一个极其严重的战略决策失误，她将装甲部队投入巷战，这就给了叛军游击并各个击破的机会。</szText3>
+    <szText4>虽然参谋部从很早开始就多次提案建议女王用为数不多的机械化部队给予对盘踞在Cambria市及附近空旷的平原地带的叛军一次毁灭性的打击，但是每次女王都忽略了这个提案。</szText4>
+    <szText5>在这次高机动性的游击战中，叛军消耗了数量巨大的反坦克火箭和迫击炮，看起来他们从暴乱伊始就一直在为这个时刻做准备。</szText5>
+    <szText6>我们目前并未收到Deidranna女王和她的亲信们到哪里避难的消息，但是整个城市的交通由于正在进行的战斗已经完全瘫痪，Meduna机场也在惨烈的战斗之后失守。另有传言Deidranna政权的新闻发言人Elliot也已经阵亡。</szText6>
+    <szText7>这场战斗应该是内战的终结，叛军是笑到最后的胜利者。</szText7>
     <szText8></szText8>
     <szText9></szText9>
   </EVENT>
   <EVENT>
-    <uiIndex>15</uiIndex><!-- Chitzena liberated -->
-    <szText0>(Chitzena/Arulco) Even remote regions of Arulco can no longer escape the violence. Chitzena has fallen to the rebels.</szText0>
-    <szText1>According to our analysts, this signifies that the rebels are no longer hoping to take the regime by surprise, but will instead try to remove the regime's troops from every single town.</szText1>
-    <szText2>The strategic value of Chitzena is low - it has no industry worth mentioning, apart fom very limited mining operation. It is, however, home to ancient ruins and thus has a moral value to arulcans.</szText2>
-    <szText3>How the rebels intend to hold such a remote settlement is unclear.</szText3>
+    <uiIndex>15</uiIndex><!-- 解放Chitzena -->
+    <szText0>(Chitzena/Arulco)Arulco边境地带也没能远离暴乱，有报告表明Chitzena镇已经陷落到了叛军手里。</szText0>
+    <szText1>据我社分析师分析，种种迹象表明叛军已经不仅仅满足于发动零星的突然袭击来打击暴政，而是试图将皇家卫队从所有的城镇中驱逐出去。</szText1>
+    <szText2>Chitzena的战略价值很低，当地并没有任何工业和矿产资源，但是当地的历史遗迹对于所有Arulco国民来说都有着重要的意义。</szText2>
+    <szText3>具体叛军会如何镇守这一偏远的居民区还是个未知数。</szText3>
     <szText4></szText4>
     <szText5></szText5>
     <szText6></szText6>
