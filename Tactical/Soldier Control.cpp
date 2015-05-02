@@ -1985,11 +1985,11 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	// HEADROCK HAM 3.6: This was the wrong place to put AP_MIN_LIMIT. The value here should be AP_MINIMUM, which is
 	// the minimum amount of APs a character can GAIN each turn on top of what he had last turn. AP_MIN_LIMIT has been
 	// moved to CalcNewActionPoints() where it belongs.
-	if ( ubPoints < APBPConstants[AP_MINIMUM] )
+	if (ubPoints < APBPConstants[AP_MINIMUM])
 		ubPoints = APBPConstants[AP_MINIMUM];
-
+	
 	// make sure action points doesn't exceed the permitted maximum
-	ubMaxAPs = gubMaxActionPoints[this->ubBodyType];
+	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
 
 	//if (GameOption[INCREASEDAP] % 2 == 1)
 	// maxAPs += APBPConstants[AP_INCREASE];
@@ -20078,18 +20078,18 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
 					}
-					else if ( Item[usItem].usItemClass == IC_BOMB )
+					else if ( Item[ usItem ].usItemClass == IC_BOMB )
 					{
-						success = AutoPlaceObjectAnywhere( pSoldier, pObj, FALSE );
+						success = AutoPlaceObject( pSoldier, pObj, FALSE );
 					}
-
-					this->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 				}
 
 				DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
 
 				if ( !success )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_COULD_NOT_APPLY], this->GetName( ), Item[usItem].szLongItemName, pSoldier->GetName( ) );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_COULD_NOT_APPLY ], this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
+				else
+					this->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 			}
 			else
 			{
