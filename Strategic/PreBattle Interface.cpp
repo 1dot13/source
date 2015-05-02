@@ -277,7 +277,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	INT8	bBestExpLevel = 0;
 	BOOLEAN fRetreatAnOption = TRUE;
 	SECTORINFO *pSector;
-	BOOLEAN fScoutPresent = FALSE; // Added by SANDRO
+	BOOLEAN fScoutPresent = FALSE;	// Added by SANDRO
+	BOOLEAN fAirDrop = FALSE;		// Added by Flugente
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
 	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
@@ -559,6 +560,11 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				{
 					fScoutPresent = TRUE;
 				}
+
+				if ( MercPtrs[i]->usSoldierFlagMask & SOLDIER_AIRDROP )
+				{
+					fAirDrop = TRUE;
+				}
 			}
 			else
 			{
@@ -592,10 +598,28 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				{
 					gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 
-					//Don't consider ambushes until the player has reached 25% (normal) progress
-					if( gfHighPotentialForAmbush )
+					// Flugente: no ambushes on an airdrop
+					if ( !fAirDrop )
 					{
-						if( Chance( 90 ) )
+						//Don't consider ambushes until the player has reached 25% (normal) progress
+						if( gfHighPotentialForAmbush )
+						{
+							if( Chance( 90 ) )
+							{
+								// SANDRO - Scout prevents ambushes no matter what
+								if ( !fScoutPresent )
+								{
+									gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+								}
+								else 
+								{
+									fAmbushPrevented = TRUE;
+									if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
+								}
+							}
+						}
+						else if( gfAutoAmbush && ubNumMobileEnemies > ubNumMercs )
 						{
 							// SANDRO - Scout prevents ambushes no matter what
 							if ( !fScoutPresent )
@@ -609,89 +633,75 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
 							}
 						}
-					}
-					else if( gfAutoAmbush && ubNumMobileEnemies > ubNumMercs )
-					{
-						// SANDRO - Scout prevents ambushes no matter what
-						if ( !fScoutPresent )
-						{
-							gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
-						}
-						else 
-						{
-							fAmbushPrevented = TRUE;
-							if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
-						}
-					}
-					// Madd:  
-					// WANNE: Added an ja2_options.ini Property "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT"
-					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-					// SANDRO - changed this a lot, now on any difficulty, the enemy can ambush your squad 
-					// based on difficulty level, number of mercs/enemies and other aspects
-					else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushes )
-					{ 					
-						INT32 iChance;
-						// Basic chance - progress level/2 minus highest merc exp level*2, and 10% on top
-						iChance = (UINT8)( ((CurrentPlayerProgressPercentage() / 2 ) - bBestExpLevel*2 ) + 15 );
+						// Madd:  
+						// WANNE: Added an ja2_options.ini Property "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT"
+						//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - changed this a lot, now on any difficulty, the enemy can ambush your squad 
+						// based on difficulty level, number of mercs/enemies and other aspects
+						else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushes )
+						{ 					
+							INT32 iChance;
+							// Basic chance - progress level/2 minus highest merc exp level*2, and 10% on top
+							iChance = (UINT8)( ((CurrentPlayerProgressPercentage() / 2 ) - bBestExpLevel*2 ) + 15 );
 
-						if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
-							iChance += 20;
+							if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
+								iChance += 20;
 
-						if( gfCantRetreatInPBI )
-							iChance += 20;
+							if( gfCantRetreatInPBI )
+								iChance += 20;
 
-						// adjust the chance for size of our squad
-						if( ubNumMercs == 1 ) // one person is almost invisible to an army group, so reduce the chance a lot
-							iChance -= 40;
-						else if ( ubNumMercs == 2 ) // 2 persons are still hardly detectable
-							iChance -= 25;
-						else if ( ubNumMercs <= 10 ) // 3 to 10 mercs
-							iChance -= (5 * (5 - ubNumMercs)); // -5% adjustment per merc (-10% to +25%)
-						else // more than 10 mercs
-							iChance += 30; // maximum of +30% per squad size
+							// adjust the chance for size of our squad
+							if( ubNumMercs == 1 ) // one person is almost invisible to an army group, so reduce the chance a lot
+								iChance -= 40;
+							else if ( ubNumMercs == 2 ) // 2 persons are still hardly detectable
+								iChance -= 25;
+							else if ( ubNumMercs <= 10 ) // 3 to 10 mercs
+								iChance -= (5 * (5 - ubNumMercs)); // -5% adjustment per merc (-10% to +25%)
+							else // more than 10 mercs
+								iChance += 30; // maximum of +30% per squad size
 
-						// the more enemies are there the lesser the chance to be ambushed
-						// (large groups of enemies can be seen from afar, so the chance is lesser)
-						if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 2 )
-							iChance += 20; // can make hunting retreated enemies easier
-						else if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 6 ) // smaller groups actually increase the chance
-							iChance += (3 * (6 - (ubNumMobileEnemies + ubNumStationaryEnemies))); // +3% adjustment per enemy
-						else
-							iChance -= (2 * ((ubNumMobileEnemies + ubNumStationaryEnemies) - 6)); // -2% adjustment per enemy beyond 6
+							// the more enemies are there the lesser the chance to be ambushed
+							// (large groups of enemies can be seen from afar, so the chance is lesser)
+							if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 2 )
+								iChance += 20; // can make hunting retreated enemies easier
+							else if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 6 ) // smaller groups actually increase the chance
+								iChance += (3 * (6 - (ubNumMobileEnemies + ubNumStationaryEnemies))); // +3% adjustment per enemy
+							else
+								iChance -= (2 * ((ubNumMobileEnemies + ubNumStationaryEnemies) - 6)); // -2% adjustment per enemy beyond 6
 
-						// adjust the chance for difficulty setting
-						iChance = iChance + (zDeffSetting[gGameOptions.ubDifficultyLevel].iChanceOfEnemyAmbushes);
+							// adjust the chance for difficulty setting
+							iChance = iChance + (zDeffSetting[gGameOptions.ubDifficultyLevel].iChanceOfEnemyAmbushes);
 
-						// adjust the chance for what we know about the sector
-						if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )
-							iChance += 20;
-						// HEADROCK HAM 5: Added new possible value...
-						else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE ||
-							WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE_AND_WHERE_GOING )
-							iChance += 5;
-						//if( GetSectorFlagStatus( gubPBSectorX, gubPBSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
-						//	iChance -= 10; // if we already visited this sector
+							// adjust the chance for what we know about the sector
+							if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )
+								iChance += 20;
+							// HEADROCK HAM 5: Added new possible value...
+							else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE ||
+								WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE_AND_WHERE_GOING )
+								iChance += 5;
+							//if( GetSectorFlagStatus( gubPBSectorX, gubPBSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
+							//	iChance -= 10; // if we already visited this sector
 
-						// there is always a little chance
-						if( iChance <= 0 )
-							iChance = 1;
+							// there is always a little chance
+							if( iChance <= 0 )
+								iChance = 1;
 							
-						// externalized modifier
-						if( gGameExternalOptions.bChanceModifierEnemyAmbushes != 0 )
-							iChance = ((iChance * (100 + gGameExternalOptions.bChanceModifierEnemyAmbushes)) / 100);
+							// externalized modifier
+							if( gGameExternalOptions.bChanceModifierEnemyAmbushes != 0 )
+								iChance = ((iChance * (100 + gGameExternalOptions.bChanceModifierEnemyAmbushes)) / 100);
 
-						if( (INT32)PreRandom( 100 ) < iChance )
-						{
-							if ( !fScoutPresent )
+							if( (INT32)PreRandom( 100 ) < iChance )
 							{
-								gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
-							}
-							else 
-							{
-								fAmbushPrevented = TRUE;
-								if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
+								if ( !fScoutPresent )
+								{
+									gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+								}
+								else 
+								{
+									fAmbushPrevented = TRUE;
+									if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
+								}
 							}
 						}
 					}
