@@ -865,32 +865,30 @@ at all.</szDescription>
 	<!-- Lora -->
 	<BACKGROUND>
 		<uiIndex>123</uiIndex>
-		<szName>Placeholder</szName>
 		<szName>B-Movie Star</szName>
-    <szShortName>B-Movie Star</szShortName>
-    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics 
-yet adored by loyal fans.</szDescription>
+		<szShortName>B-Movie Star</szShortName>
+		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics yet adored by loyal fans.</szDescription>
 	</BACKGROUND>
 	<!-- Franz -->
 	<BACKGROUND>
 		<uiIndex>124</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
 	</BACKGROUND>
 	<!-- Howard -->
 	<BACKGROUND>
 		<uiIndex>125</uiIndex>
 		<szName>Apothecary</szName>
-    <szShortName>Apothecary</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+		<szShortName>Apothecary</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
 	</BACKGROUND>
 	<!-- Sam -->
 	<BACKGROUND>
 		<uiIndex>126</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
 	</BACKGROUND>
 	<!-- Eldin -->
 	<BACKGROUND>
@@ -910,15 +908,15 @@ yet adored by loyal fans.</szDescription>
 	<BACKGROUND>
 		<uiIndex>129</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
 	</BACKGROUND>
 	<!-- Fredo -->
 	<BACKGROUND>
 		<uiIndex>130</uiIndex>
 		<szName>Shopkeeper</szName>
-    <szShortName>Shopkeeper</szShortName>
-    <szDescription>For many people, their trade IS trade.</szDescription>
+		<szShortName>Shopkeeper</szShortName>
+		<szDescription>For many people, their trade IS trade.</szDescription>
 	</BACKGROUND>
 	<!-- Walter -->
 	<BACKGROUND>
@@ -931,8 +929,8 @@ yet adored by loyal fans.</szDescription>
 	<BACKGROUND>
 		<uiIndex>132</uiIndex>
 		<szName>Nurse</szName>
-    <szShortName>Nurse</szShortName>
-    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
+		<szShortName>Nurse</szShortName>
+		<szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
 	</BACKGROUND>
 	<!-- Billy -->
 	<BACKGROUND>

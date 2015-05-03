@@ -865,11 +865,9 @@ at all.</szDescription>
 	<!-- Lora -->
 	<BACKGROUND>
 		<uiIndex>123</uiIndex>
-		<szName>Placeholder</szName>
 		<szName>B-Movie Star</szName>
-    <szShortName>B-Movie Star</szShortName>
-    <szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics 
-yet adored by loyal fans.</szDescription>
+		<szShortName>B-Movie Star</szShortName>
+		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics yet adored by loyal fans.</szDescription>
 	</BACKGROUND>
 	<!-- Franz -->
 	<BACKGROUND>
