@@ -19,6 +19,7 @@
 	#include "WCheck.h"
 	#include "Vehicles.h"
 	#include "GameSettings.h"
+	#include "Utilities.h"	// added by Flugente
 #endif
 
 #define			LIFE_BAR_SHADOW						FROMRGB( 108, 12, 12 )
@@ -308,6 +309,18 @@ void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 s
 
 	// brown guy
 	GetVideoObject( &hHandle, guiBrownBackgroundForTeamPanel );
+
+	// Flugente: for some reason, the image has sometimes been deleted. In that case, try again
+	if ( !hHandle )
+	{
+		VOBJECT_DESC	VObjectDesc;
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP( "INTERFACE\\Bars.sti", VObjectDesc.ImageFile );
+		CHECKV( AddVideoObject( &VObjectDesc, &guiBrownBackgroundForTeamPanel ) );
+
+		// brown guy
+		GetVideoObject( &hHandle, guiBrownBackgroundForTeamPanel );
+	}
 
 	// DO MAX BREATH
 	if( guiCurrentScreen != MAP_SCREEN )
