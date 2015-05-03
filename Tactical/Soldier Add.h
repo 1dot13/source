@@ -20,8 +20,13 @@ INT32 FindGridNoFromSweetSpotExcludingSweetSpotInQuardent( SOLDIERTYPE *pSoldier
 INT32 FindRandomGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, INT8 ubRadius, UINT8 *pubDirection );
 
 // Finds a sweetspot but excluding this one!
+// Flugente: I've altered this function in two ways:
+// 1. The gridno is now drawn from the entirety of the circle - not just for sX and sY being positive
+// 2. The direction now points to sSweetGridNo, center of the circle, instead of the map center
 INT32 FindRandomGridNoFromSweetSpotExcludingSweetSpot( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, INT8 ubRadius, UINT8 *pubDirection );
 
+// Flugente: returns random gridno in a circle around sCenterGridNo with radius uOuterRadius that is not inside the circle with radius uInnerRadius
+INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, UINT8 uOuterRadius, UINT8& urDirection );
 
 // Adds a soldier ( already created in mercptrs[] array )! 
 // Finds a good placement based on data in the loaded sector and if they are enemy's or not, etc...

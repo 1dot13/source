@@ -349,8 +349,16 @@ typedef struct
 	// changed/added these - SANDRO
 	UINT8 sMercsAutoresolveOffenseBonus;
 	UINT8 sMercsAutoresolveDeffenseBonus;
+
+	// Flugente: more ambush options
 	BOOLEAN fEnableChanceOfEnemyAmbushes; 
 	INT8 bChanceModifierEnemyAmbushes;
+	BOOLEAN fAmbushSpreadMercs;
+	UINT16 usAmbushSpreadRadiusMercs;
+	UINT8 uAmbushEnemyEncircle;
+	UINT16 usAmbushEnemyEncircleRadius1;
+	UINT16 usAmbushEnemyEncircleRadius2;
+
 	UINT8 usSpecialNPCStronger;
 
 	// Flugente: should kingpin's hitmen be disguised? This will make them have random clothes among other stuff

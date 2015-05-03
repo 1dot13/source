@@ -2625,7 +2625,7 @@ void PrepareLoadedSector()
 
 	if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
 	{
-		if( gMapInformation.sCenterGridNo != -1 )
+		if( gMapInformation.sCenterGridNo != NOWHERE )
 		{
 			CallAvailableEnemiesTo( gMapInformation.sCenterGridNo );
 		}
@@ -3118,11 +3118,25 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 			{
 				if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 				{
-					if( gMapInformation.sCenterGridNo != -1 && gfBlitBattleSectorLocator &&
+					if( gMapInformation.sCenterGridNo != NOWHERE && gfBlitBattleSectorLocator &&
 							(gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) && pSoldier->bTeam != CIV_TEAM )
 					{
-						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-						pSoldier->usStrategicInsertionData = gMapInformation.sCenterGridNo;
+						// Flugente: improved ambush
+						if ( gGameExternalOptions.fAmbushSpreadMercs )
+						{
+							UINT8 ubDirection;
+
+							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							pSoldier->usStrategicInsertionData = FindRandomGridNoFromSweetSpotExcludingSweetSpot( pSoldier, gMapInformation.sCenterGridNo, gGameExternalOptions.usAmbushSpreadRadiusMercs, &ubDirection );
+							
+							// have the merc look outward. We add + 100 because later on we use this to signify that we want really enforce this direction
+							pSoldier->ubInsertionDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, pSoldier->usStrategicInsertionData ) + 100;
+						}
+						else
+						{
+							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							pSoldier->usStrategicInsertionData = gMapInformation.sCenterGridNo;
+						}
 					}
 					else if( gfOverrideInsertionWithExitGrid )
 					{

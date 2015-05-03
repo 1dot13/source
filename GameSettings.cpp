@@ -1149,7 +1149,13 @@ void LoadGameExternalOptions()
 	// SANDRO - changed this so on any difficulty there is a chance to beambushed. Hoever this chance is calculated differently to not lead to instant load game like before
 	gGameExternalOptions.fEnableChanceOfEnemyAmbushes = iniReader.ReadBoolean("Tactical Difficulty Settings", "ENABLE_CHANCE_OF_ENEMY_AMBUSHES", TRUE);
 	gGameExternalOptions.bChanceModifierEnemyAmbushes = iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AMBUSHES_CHANCE_MODIFIER ", 0, -100, 100);
-	
+
+	gGameExternalOptions.fAmbushSpreadMercs			  = iniReader.ReadBoolean( "Tactical Difficulty Settings", "AMBUSH_MERCS_SPREAD", TRUE );
+	gGameExternalOptions.usAmbushSpreadRadiusMercs    = iniReader.ReadInteger( "Tactical Difficulty Settings", "AMBUSH_MERCS_SPREAD_RADIUS", 10, 1, 20 );
+	gGameExternalOptions.uAmbushEnemyEncircle		  = iniReader.ReadInteger( "Tactical Difficulty Settings", "AMBUSH_ENEMY_ENCIRCLEMENT", 2, 0, 2 );
+	gGameExternalOptions.usAmbushEnemyEncircleRadius1 = iniReader.ReadInteger( "Tactical Difficulty Settings", "AMBUSH_ENEMY_ENCIRCLEMENT_RADIUS1", 15, gGameExternalOptions.usAmbushSpreadRadiusMercs, 50 );
+	gGameExternalOptions.usAmbushEnemyEncircleRadius2 = iniReader.ReadInteger( "Tactical Difficulty Settings", "AMBUSH_ENEMY_ENCIRCLEMENT_RADIUS2", 30, gGameExternalOptions.usAmbushEnemyEncircleRadius1, 100 );
+		
 	// SANDRO - Special NPCs strength increased by percent
 	gGameExternalOptions.usSpecialNPCStronger = iniReader.ReadInteger("Tactical Difficulty Settings", "SPECIAL_NPCS_STRONGER",0, 0, 200);
 

@@ -56,6 +56,7 @@
 #include "Campaign.h"			// added by Flugente for HighestPlayerProgressPercentage()
 #include "CampaignStats.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
+#include "PreBattle Interface.h"	// added by Flugente
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -768,6 +769,33 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: set npcs to enemies"));
 			OkayToUpgradeEliteToSpecialProfiledEnemy( &tempDetailedPlacement );
+		}
+
+		// Flugente: if this is an enemy, and we are using ambush code, place us somewhat away from the map center, where the player will be
+		if ( (tempDetailedPlacement.bTeam == ENEMY_TEAM && gubEnemyEncounterCode == ENEMY_AMBUSH_CODE) || 
+			 (tempDetailedPlacement.bTeam == CREATURE_TEAM && gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) )
+		{
+			if ( ( gGameExternalOptions.uAmbushEnemyEncircle == 1 && PythSpacesAway( tempDetailedPlacement.sInsertionGridNo, gMapInformation.sCenterGridNo ) <= gGameExternalOptions.usAmbushEnemyEncircleRadius1 ) ||
+				 ( gGameExternalOptions.uAmbushEnemyEncircle == 2) )
+			{
+				// we simply look for a entry point inside a bigger circle, but not inside the merc deployment zone.
+				INT32 bettergridno = NOWHERE;
+				UINT16 counter = 0;
+				UINT8 ubDirection = DIRECTION_IRRELEVANT;
+
+				while ( counter < 100 && (bettergridno == NOWHERE || PythSpacesAway( bettergridno, gMapInformation.sCenterGridNo ) <= gGameExternalOptions.usAmbushEnemyEncircleRadius1) )
+				{
+					bettergridno = FindRandomGridNoBetweenCircles( gMapInformation.sCenterGridNo, gGameExternalOptions.usAmbushEnemyEncircleRadius1, gGameExternalOptions.usAmbushEnemyEncircleRadius2, ubDirection );
+				}
+
+				if ( bettergridno != NOWHERE )
+				{
+					tempDetailedPlacement.sInsertionGridNo = bettergridno;
+
+					// have the soldier look inward. We add + 100 because later on we use this to signify that we want really enforce this direction
+					tempDetailedPlacement.ubDirection = (UINT8)GetDirectionToGridNoFromGridNo( tempDetailedPlacement.sInsertionGridNo, gMapInformation.sCenterGridNo ) + 100;
+				}
+			}
 		}
 	}
 
