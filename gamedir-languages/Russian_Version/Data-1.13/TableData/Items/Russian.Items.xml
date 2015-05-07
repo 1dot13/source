@@ -13783,4 +13783,115 @@
     <szBRName>Rifle Sling</szBRName>
     <szBRDesc>This single point sling allows weapons to be carried in a secure but flexible fashion. Adjustable length to accommodate all sizes.</szBRDesc>
   </ITEM>
+  <ITEM>
+		<uiIndex>1721</uiIndex>
+		<szItemName>Wooden Planks, small</szItemName>
+		<szLongItemName>Wooden Planks, small</szLongItemName>
+		<szItemDesc>Wooden Planks. 1x1</szItemDesc>
+		<szBRName>Wooden Planks, small</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1722</uiIndex>
+		<szItemName>Wooden Planks, medium</szItemName>
+		<szLongItemName>Wooden Planks, medium</szLongItemName>
+		<szItemDesc>Wooden Planks. 2x1</szItemDesc>
+		<szBRName>Wooden Planks, medium</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1723</uiIndex>
+		<szItemName>Wooden Planks, large</szItemName>
+		<szLongItemName>Wooden Planks, large</szLongItemName>
+		<szItemDesc>Wooden Planks. 2x2</szItemDesc>
+		<szBRName>Wooden Planks, large</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1724</uiIndex>
+		<szItemName>Wooden Wall, small</szItemName>
+		<szLongItemName>Wooden Wall, small</szLongItemName>
+		<szItemDesc>A small wooden wall, used for construction.</szItemDesc>
+		<szBRName>Wooden Wall, small</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1725</uiIndex>
+		<szItemName>Wooden Wall, large</szItemName>
+		<szLongItemName>Wooden Wall, large</szLongItemName>
+		<szItemDesc>A large wooden wall, used for construction.</szItemDesc>
+		<szBRName>Wooden Wall, large</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1726</uiIndex>
+		<szItemName>Nails</szItemName>
+		<szLongItemName>Pack of Nails</szLongItemName>
+		<szItemDesc>A pack of eight inch nails. Useful for building stuff made of wood.</szItemDesc>
+		<szBRName>Pack of Nails</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1727</uiIndex>
+		<szItemName>Roof Collapse</szItemName>
+		<szLongItemName>Roof Collapse</szLongItemName>
+		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szBRName>Roof Collapse</szBRName>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1728</uiIndex>
+		<szItemName>12g Shells 2 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 2 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 2 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1729</uiIndex>
+		<szItemName>12g Shells 4 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 4 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 4 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1730</uiIndex>
+		<szItemName>12g Shells 7 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 7 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 7 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1731</uiIndex>
+		<szItemName>12g Shells 12 RS</szItemName>
+		<szLongItemName>12 Gauge Shells, 12 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 12 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1732</uiIndex>
+		<szItemName>12g Drum 20 RS</szItemName>
+		<szLongItemName>12 Gauge Drum, 20 Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Shells 20 Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1733</uiIndex>
+		<szItemName>12g Crate RS</szItemName>
+		<szLongItemName>12 Gauge Ammo Crate, Rubber Slug</szLongItemName>
+		<szItemDesc>A really big box of ammunition. I don't think this will fit in your backpack...</szItemDesc>
+		<szBRName>12g Crate Rubber</szBRName>
+		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1734</uiIndex>
+		<szItemName>12g Box RS</szItemName>
+		<szLongItemName>12 Gauge Box, Rubber Slug</szLongItemName>
+		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szBRName>12g Box Rubber</szBRName>
+		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+	</ITEM>
 </ITEMLIST>
