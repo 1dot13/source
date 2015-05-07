@@ -2,143 +2,143 @@
 <ATTACHMENTSLOTLIST>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>0</uiSlotIndex>
-		<szSlotName>Don't touch me</szSlotName>		
+		<szSlotName>Don't touch me</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>1</uiSlotIndex>
-		<szSlotName>默认延展槽1</szSlotName>		
+		<szSlotName>默认延展槽1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>2</uiSlotIndex>
-		<szSlotName>默认延展槽2</szSlotName>		
+		<szSlotName>默认延展槽2</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>3</uiSlotIndex>
-		<szSlotName>默认延展槽3</szSlotName>		
+		<szSlotName>默认延展槽3</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>4</uiSlotIndex>
-		<szSlotName>默认延展槽4</szSlotName>		
+		<szSlotName>默认延展槽4</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>5</uiSlotIndex>
-		<szSlotName>枪管附件</szSlotName>		
+		<szSlotName>枪管附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>6</uiSlotIndex>
-		<szSlotName>激光附件</szSlotName>		
+		<szSlotName>激光附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>7</uiSlotIndex>
-		<szSlotName>准星附件</szSlotName>		
+		<szSlotName>准星附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>8</uiSlotIndex>
-		<szSlotName>瞄准镜附件</szSlotName>		
+		<szSlotName>瞄准镜附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>9</uiSlotIndex>
-		<szSlotName>弹仓附件</szSlotName>		
+		<szSlotName>弹仓附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>10</uiSlotIndex>
-		<szSlotName>弹药附件</szSlotName>		
+		<szSlotName>弹药附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>11</uiSlotIndex>
-		<szSlotName>内部附件</szSlotName>		
+		<szSlotName>内部附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>12</uiSlotIndex>
-		<szSlotName>外部附件1</szSlotName>		
+		<szSlotName>外部附件1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>13</uiSlotIndex>
-		<szSlotName>枪管下附件</szSlotName>		
+		<szSlotName>枪管下附件</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>14</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>15</uiSlotIndex>
-		<szSlotName>火箭发射器槽</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>16</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>17</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>18</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>19</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>20</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>21</uiSlotIndex>
-		<szSlotName>步枪榴弹器</szSlotName>		
+		<szSlotName>步枪榴弹器</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>22</uiSlotIndex>
-		<szSlotName>火箭发射器槽</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>23</uiSlotIndex>
-		<szSlotName>火箭发射器槽</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>24</uiSlotIndex>
-		<szSlotName>火箭发射器槽</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>25</uiSlotIndex>
-		<szSlotName>火箭发射器槽</szSlotName>		
+		<szSlotName>火箭发射器槽</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>26</uiSlotIndex>
-		<szSlotName>MOLLE上排腿带1</szSlotName>		
+		<szSlotName>MOLLE上排腿带1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>27</uiSlotIndex>
-		<szSlotName>MOLLE上排腿带2</szSlotName>		
+		<szSlotName>MOLLE上排腿带2</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>28</uiSlotIndex>
-		<szSlotName>MOLLE下排腿带1</szSlotName>		
+		<szSlotName>MOLLE下排腿带1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>29</uiSlotIndex>
-		<szSlotName>MOLLE下排腿带2</szSlotName>		
+		<szSlotName>MOLLE下排腿带2</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>30</uiSlotIndex>
-		<szSlotName>MOLLE中间中型腿带</szSlotName>		
+		<szSlotName>MOLLE中间中型腿带</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>31</uiSlotIndex>
-		<szSlotName>MOLLE背心上层1排小</szSlotName>		
+		<szSlotName>MOLLE背心上层1排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>32</uiSlotIndex>
-		<szSlotName>MOLLE背心上层2排小</szSlotName>		
+		<szSlotName>MOLLE背心上层2排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>33</uiSlotIndex>
-		<szSlotName>MOLLE背心上层3排小</szSlotName>		
+		<szSlotName>MOLLE背心上层3排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>34</uiSlotIndex>
-		<szSlotName>MOLLE背心上层4排小</szSlotName>		
+		<szSlotName>MOLLE背心上层4排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>35</uiSlotIndex>
@@ -146,106 +146,106 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>36</uiSlotIndex>
-		<szSlotName>MOLLE背心下层1排小</szSlotName>		
+		<szSlotName>MOLLE背心下层1排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>37</uiSlotIndex>
-		<szSlotName>MOLLE背心下层2排小</szSlotName>		
+		<szSlotName>MOLLE背心下层2排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>38</uiSlotIndex>
-		<szSlotName>MOLLE背心下层3排小</szSlotName>		
+		<szSlotName>MOLLE背心下层3排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>39</uiSlotIndex>
-		<szSlotName>MOLLE背心下层4排小</szSlotName>		
+		<szSlotName>MOLLE背心下层4排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>40</uiSlotIndex>
-		<szSlotName>MOLLE背心下层5排小</szSlotName>		
+		<szSlotName>MOLLE背心下层5排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>41</uiSlotIndex>
-		<szSlotName>MOLLE背心上层6排中</szSlotName>		
+		<szSlotName>MOLLE背心上层6排中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>42</uiSlotIndex>
-		<szSlotName>MOLLE背心下层6排中</szSlotName>		
+		<szSlotName>MOLLE背心下层6排中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>43</uiSlotIndex>
-		<szSlotName>MOLLE战斗包上层1排小</szSlotName>		
+		<szSlotName>MOLLE战斗包上层1排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>44</uiSlotIndex>
-		<szSlotName>MOLLE战斗包上层2排小</szSlotName>		
+		<szSlotName>MOLLE战斗包上层2排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>45</uiSlotIndex>
-		<szSlotName>MOLLE战斗包下层1排小</szSlotName>		
+		<szSlotName>MOLLE战斗包下层1排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>46</uiSlotIndex>
-		<szSlotName>MOLLE战斗包下层2排小</szSlotName>		
+		<szSlotName>MOLLE战斗包下层2排小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>47</uiSlotIndex>
-		<szSlotName>MOLLE战斗包上层中</szSlotName>		
+		<szSlotName>MOLLE战斗包上层中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>48</uiSlotIndex>
-		<szSlotName>MOLLE战斗包中层中</szSlotName>		
+		<szSlotName>MOLLE战斗包中层中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>49</uiSlotIndex>
-		<szSlotName>MOLLE战斗包下层中</szSlotName>		
+		<szSlotName>MOLLE战斗包下层中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>50</uiSlotIndex>
-		<szSlotName>MOLLE背包第1排左侧小</szSlotName>		
+		<szSlotName>MOLLE背包第1排左侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>51</uiSlotIndex>
-		<szSlotName>MOLLE背包第2排左侧小</szSlotName>		
+		<szSlotName>MOLLE背包第2排左侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>52</uiSlotIndex>
-		<szSlotName>MOLLE背包第3排左侧小</szSlotName>		
+		<szSlotName>MOLLE背包第3排左侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>53</uiSlotIndex>
-		<szSlotName>MOLLE背包第4排左侧小</szSlotName>		
+		<szSlotName>MOLLE背包第4排左侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>54</uiSlotIndex>
-		<szSlotName>MOLLE背包第1排右侧小</szSlotName>		
+		<szSlotName>MOLLE背包第1排右侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>55</uiSlotIndex>
-		<szSlotName>MOLLE背包第2排右侧小</szSlotName>		
+		<szSlotName>MOLLE背包第2排右侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>56</uiSlotIndex>
-		<szSlotName>MOLLE背包第3排右侧小</szSlotName>		
+		<szSlotName>MOLLE背包第3排右侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>57</uiSlotIndex>
-		<szSlotName>MOLLE背包第4排右侧小</szSlotName>		
+		<szSlotName>MOLLE背包第4排右侧小</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>58</uiSlotIndex>
-		<szSlotName>MOLLE背包第1排中</szSlotName>		
+		<szSlotName>MOLLE背包第1排中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>59</uiSlotIndex>
-		<szSlotName>MOLLE背包第2排中</szSlotName>		
+		<szSlotName>MOLLE背包第2排中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>60</uiSlotIndex>
-		<szSlotName>MOLLE背包第3排中</szSlotName>		
+		<szSlotName>MOLLE背包第3排中</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>61</uiSlotIndex>
-		<szSlotName>MOLLE背包第4排中</szSlotName>		
+		<szSlotName>MOLLE背包第4排中</szSlotName>
 	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>

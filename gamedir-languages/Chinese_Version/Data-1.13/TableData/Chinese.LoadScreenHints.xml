@@ -2,11 +2,15 @@
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 190 chars max
+
+A hint can appear according to its flags. So a hint that only has the <food>-tag will only appear if playing with the food system. 
+
+The other tags determine in what category this hint falls, and will be displayed accordingly
 -->                                                                                                 
 <LOADSCREENHINTS>
   <LOADSCREENHINT>
     <uiIndex>0</uiIndex>
-    <szName>This template should never show up</szName>    
+    <szName>This template should never show up</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>1</uiIndex>

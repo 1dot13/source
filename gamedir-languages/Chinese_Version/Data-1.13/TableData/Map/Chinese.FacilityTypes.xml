@@ -9,6 +9,7 @@
 			<szTooltipText>用更好的设备给你的伤兵做手术，提高医疗效果。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>2</ubIndex>
 		<szFacilityName>小破酒吧</szFacilityName>
@@ -17,11 +18,12 @@
 			<ubAssignmentType>REST</ubAssignmentType>
 			<szTooltipText>在当地的酒吧灌一把！用你花的钱和灌倒的人来增加城镇的支持度。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
-      <szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
-    </ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
+			<szTooltipText>在哪个地方喝一杯好呢。对，跟你猜的一样！去给那些人买酒，报告他们泄密的情报。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>3</ubIndex>
 		<szFacilityName>监狱区</szFacilityName>
@@ -30,11 +32,12 @@
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
-    </ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>伪装成囚犯的一员，获取他们的信任来收集情报，并防止暴动袭击。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>4</ubIndex>
 		<szFacilityName>小型机场</szFacilityName>
@@ -44,6 +47,7 @@
 			<szTooltipText>去机场搬运货物来锻炼力量。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>5</ubIndex>
 		<szFacilityName>兵工厂</szFacilityName>
@@ -53,6 +57,7 @@
 			<szTooltipText>这里的设备能生产各种零件，更方便你修理物品。当然你首先得懂得怎么用这些设备。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>6</ubIndex>
 		<szFacilityName>军营</szFacilityName>
@@ -62,6 +67,7 @@
 			<szTooltipText>这里有很多床铺，虽然有点简陋，不过总比天当房地当床好！</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>7</ubIndex>
 		<szFacilityName>军事指挥中心</szFacilityName>
@@ -70,15 +76,12 @@
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>这个指挥所里有各种电子设备，用来监控各种战术战略信息，能帮助你有效的进行防御，获取野外敌人信息。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
-      <szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
-    </ASSIGNMENT>
-    <ASSIGNMENT>
-			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
-			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>			
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
+			<szTooltipText>控制当地的信息渠道，掌控全部区域新闻的流通。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>8</ubIndex>
 		<szFacilityName>射击靶场</szFacilityName>
@@ -88,6 +91,7 @@
 			<szTooltipText>为啥不花点时间来练习枪法？那些愚木的靶子在渴求被射。这肯定比在荒郊野地里射石头有趣得多。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>9</ubIndex>
 		<szFacilityName>A.C.A 派出所</szFacilityName>
@@ -96,16 +100,18 @@
 			<ubAssignmentType>STAFF</ubAssignmentType>
 			<szTooltipText>当地人可能会愿意帮你侦察周边地区的动向。你可以通过他们收集更多更细的有关这附近区域敌方的情报。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
-      <szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
-    </ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
+			<szTooltipText>将这个本地的小办事处纳入疯狂运作的宣传机器中，隔离任何传播到小镇的负面消息，并且在最好的一面展示我们的行为。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>10</ubIndex>
 		<szFacilityName>SAM 导弹基地</szFacilityName>
 		<szFacilityShortName>SAM 基地</szFacilityShortName>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>11</ubIndex>
 		<szFacilityName>矿场</szFacilityName>
@@ -115,6 +121,7 @@
 			<szTooltipText>矿场总是欢迎那些懂得爆破的人。这里可以更高的效率练习爆破。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>12</ubIndex>
 		<szFacilityName>小教堂</szFacilityName>
@@ -124,6 +131,7 @@
 			<szTooltipText>花点时间来祈祷可以提高大家的士气。这也在向当地人表达你尊重他们的生活方式。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>13</ubIndex>
 		<szFacilityName>拳击俱乐部</szFacilityName>
@@ -133,16 +141,19 @@
 			<szTooltipText>大量的健身器材在等着你去使用，想保持好身材一定要坚持锻炼。这里可以更高效的提高生命值。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>14</ubIndex>
 		<szFacilityName>国家博物馆</szFacilityName>
 		<szFacilityShortName>博物馆</szFacilityShortName>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>15</ubIndex>
 		<szFacilityName>实验室</szFacilityName>
 		<szFacilityShortName>实验室</szFacilityShortName>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>16</ubIndex>
 		<szFacilityName>垃圾场</szFacilityName>
@@ -160,6 +171,7 @@
 			<szTooltipText>用垃圾来造机器人也许不太容易，但是这里比其它地方更容易找到些东西来修理它。可以提高修理机器人的效率。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>17</ubIndex>
 		<szFacilityName>度假海滩</szFacilityName>
@@ -169,11 +181,13 @@
 			<szTooltipText>阳光、沙滩、冲浪，暂时忘记一下战争的硝烟来享受一下生活吧！</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+
 	<FACILITYTYPE>
 		<ubIndex>18</ubIndex>
 		<szFacilityName>军用训练场地遗迹</szFacilityName>
 		<szFacilityShortName>遗迹</szFacilityShortName>
 	</FACILITYTYPE>
+	
 	<FACILITYTYPE> 
 		<ubIndex>19</ubIndex>  
 		<szFacilityName>战地医院</szFacilityName>  
@@ -183,6 +197,7 @@
 			<szTooltipText>在战地对伤员进行抢救。提高医疗效果。</szTooltipText> 
 		</ASSIGNMENT> 
 	</FACILITYTYPE>
+	
 	<FACILITYTYPE>
 		<ubIndex>20</ubIndex>
 		<szFacilityName>军营酒吧</szFacilityName>
@@ -192,6 +207,7 @@
 			<szTooltipText>占领了敌军军营的同时，你也占领了他们的酒吧。你的佣兵们可以进去大吃大喝一番了。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
+	
 	<FACILITYTYPE>
 		<ubIndex>21</ubIndex>
 		<szFacilityName>军事监狱</szFacilityName>
@@ -200,11 +216,12 @@
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
-    </ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>伪装成囚犯的一员，获取他们的信任来收集情报，并防止暴动袭击。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
+	
 	<FACILITYTYPE>
 		<ubIndex>22</ubIndex>
 		<szFacilityName>城镇监狱</szFacilityName>
@@ -213,9 +230,10 @@
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>你的佣兵可以在这审问战俘。囚犯可能加入你们，也可能给你些有用的信息。</szTooltipText>
 		</ASSIGNMENT>
-    <ASSIGNMENT>
-      <ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-      <szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
-    </ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>伪装成囚犯的一员，获取他们的信任来收集情报，并防止暴动袭击。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
+	
 </FACILITYTYPES>

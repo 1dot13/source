@@ -1,217 +1,226 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<!--
+
+This file contains the email text for each merc (that is available on the M.E.R.C website), 
+when Speck sends us the mail, when the salary of a M.E.R.C merc increases.
+
+uiIndex:		This represents the merc index from MercProfiles.xml (Prof.dat)
+Subject:		The email subject
+Message:		The email message body
+
+-->
 
 <EMAIL_MERC_LEVEL_UP>
 	<EMAIL>
 		<uiIndex>0</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>1</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>2</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>3</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>4</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>5</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>6</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>7</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>8</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>9</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>10</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>11</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>12</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>13</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>14</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>15</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>16</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>17</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>18</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>19</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>20</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>21</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>22</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>23</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>24</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>25</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>26</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>27</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>28</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>29</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>30</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>31</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>32</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>33</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>34</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>35</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>36</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>37</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>38</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>39</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Biff -->
 		<uiIndex>40</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>由于Biff已往的优异表现，他的服务费用已经提高，特此通知。我个人对此并不惊讶。 ± ± Speck T. Kline ±</Message>
+		<Message>由于Biff以往优异的表现，他的服务费用已经有所提高，特此通知。我个人对此并不惊讶。 ± ± Speck T. Kline ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Haywire -->
 		<uiIndex>41</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>由于Haywire堪称典范的表现，他的服务费用已经做了调整。他的薪金上调，立即生效，特此通知。 ± ± Speck T. Kline ±</Message>
+		<Message>由于Haywire堪称典范的表现，他的服务费用已经做出了调整。他的薪金上调，立即生效，特此通知。 ± ± Speck T. Kline ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gasket -->
@@ -269,1026 +278,1045 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>51</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>52</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>53</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>54</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>55</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>56</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>57</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
-	<EMAIL>
-		<!-- Gaston -->
+	<EMAIL>		
 		<uiIndex>58</uiIndex>
-		<Subject>费用增加通知</Subject>
-		<Message>谨此通告，由于Gastons过去的表现，他有资格获得更高的报酬。就个人而言，我并不感到惊讶。 ± ± Speck T. Kline ± </Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
-	<EMAIL>
-		<!-- Stogie -->
+	<EMAIL>		
 		<uiIndex>59</uiIndex>
-		<Subject>费用增加通知</Subject>
-		<Message>请注意, 增加Stogies的报酬以配合他的能力上升。 ± ± Speck T. Kline ± </Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>61</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>62</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>63</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>64</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>65</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>66</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>67</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>68</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>69</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>70</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>71</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>72</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>73</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>74</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>75</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>76</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>77</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>78</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>79</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>80</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>81</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>82</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>83</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>84</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>85</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>86</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>87</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>88</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>89</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>90</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>91</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>92</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>93</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>94</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>95</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>96</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>97</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>98</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>99</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>100</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>101</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>102</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>103</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>104</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>105</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>106</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>107</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>108</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>109</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>110</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>111</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>112</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>113</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>114</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>115</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>116</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>117</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>118</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>119</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>120</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>121</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>122</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>123</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>124</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>125</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>126</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>127</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>128</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>129</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>130</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>131</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>132</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>133</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>134</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>135</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>136</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>137</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>138</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>139</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>140</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>141</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>142</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>143</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>144</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>145</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>146</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>147</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>148</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>149</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>150</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>151</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>152</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>153</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>154</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>155</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>156</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>157</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>158</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>159</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>160</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>161</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>162</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>163</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>164</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>特此告知，由于Gastons以往的表现，他的服务费用已经提高。就对我个人而言，我并不惊讶。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意， Stogies的服务费用已增加，以正确的反映出他的能力。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意Tex的经验使他有资格获得更公平的待遇。他的费用已经增加以便更准确地反映他的价值。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于各项能力的提高，Biggens的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>170</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>171</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>172</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>173</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>174</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>175</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>176</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>177</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Spooky -->
 		<uiIndex>178</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意。由于Spooky优异的表现，他的收费服务已提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Skitz-->
 		<uiIndex>179</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，Skitz的费用由于他的优异表现而提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Weasel -->
 		<uiIndex>180</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意。由于Weasel的优秀表现，他的工资和所提供的服务能力都得到了提高。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- It -->
 		<uiIndex>181</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意。由于综合能力的提升，It的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Bernie -->
 		<uiIndex>182</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，Bernie的经验使他有资格获得更公平的待遇。他的费用已经增加了，以便更准确地反映出他的价值。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Pops -->
 		<uiIndex>183</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，Pops的经验使他有资格获得更公平的待遇。他的费用已经增加以便更准确地反应他的价值。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wally -->
 		<uiIndex>184</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于Wally非凡的实战经验，他要求得到更公平的补偿，他的工资增加了，立即生效。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Eli -->
 		<uiIndex>185</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，Eli的出色表现十分值得加薪。他的工资增加了。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>186</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>187</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Lance -->
 		<uiIndex>188</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于Lance稳步提升的能力，值得加薪！特此通知。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Raffi -->
 		<uiIndex>189</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请考虑一下这份通知，由于leevon博士的卓越的服务，为使他能得到更公平的补偿。他的工资增加了。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wink -->
 		<uiIndex>190</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>由于Wink的优异的能力和丰富的经验，他的工资已经重新调整。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Speck -->
 		<uiIndex>191</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>由于我在战场上的出色表现，我不得不告诉你，我的工资增加了。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>192</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>193</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>194</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- John Kulba -->
 		<uiIndex>195</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>由于John Kulba最近优异的表现和丰富的经验，他的工资已经重新调整。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Elio -->
 		<uiIndex>196</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于Elio逐渐进步的能力，他的薪金已经上调，立即生效。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Juan -->
 		<uiIndex>197</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请考虑一下Juan卓越的服务，使他能得到更公平的补偿。他的工资增加了。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Wahan -->
 		<uiIndex>198</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意。虽然Wahan的工资提高了，但他所能提供的服务都得到了提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>199</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>200</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>201</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>202</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>203</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>204</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>205</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>206</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>207</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>208</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>209</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>210</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>211</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>212</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>213</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>214</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>215</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>216</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>217</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>218</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>219</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意。Postie的服务费用增加了，与他的能力同步提高。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于能力的提升，Reuban的服务费需要重新做一次评估。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于Leon良好的表现，他的服务费经历了一个重估。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请不要回复。Gary的个人进步使他的服务费已有所提高。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意这个通知。由于Sparky能力的显著提高，她的薪水增加了。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请考虑一下这份通知，Beth能力的提高赋予她工资提升的机会。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>这个通知是通知您，由于Sam的出色表现，他的费用已经修改。他的薪金上调，立即生效。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Hurl -->
 		<uiIndex>227</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>这个通知是通知您，由于Hurl能力的显著提升，他的工资已经重新进行了调整。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>228</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>231</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>232</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>233</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>234</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>235</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>236</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>237</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>238</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>239</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>240</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>241</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>242</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>243</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>244</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，Elroy的丰富经验使他有资格能获得更高的报酬。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>245</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>246</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>247</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请告知，Reverend的工资一直由于他出色的表现改进而提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>248</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>249</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请考虑一下这份通知，Ears的报酬由于他的优异表现而提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>250</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>251</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请考虑一下这份通知，由于Dyno进步表现，他要求加薪。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>费用增加通知</Subject>
+		<Message>请注意，由于Turtle的出色表现，他的工资已重新计算。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>主题: 无</Subject>
+		<Message>内容：无</Message>
 	</EMAIL>
 </EMAIL_MERC_LEVEL_UP>

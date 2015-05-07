@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -7962,7 +7962,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>40mm ILL</szItemName>
+		<szItemName>40mm Illumination</szItemName>
 		<szLongItemName>40mm照明榴弹</szLongItemName>
 		<szItemDesc>40mm照明榴弹，夜战专用。</szItemDesc>
 		<szBRName>40mm照明榴弹</szBRName>
@@ -8450,7 +8450,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1056</uiIndex>
-		<szItemName>5.56mm Mag 42 HP</szItemName>
+		<szItemName>5.56x45mm Mag 42 HP</szItemName>
 		<szLongItemName>5.56x45mm，42发空尖弹</szLongItemName>
 		<szItemDesc>5.56x45mm空尖弹是.223雷明顿的近亲，适合让无防护的猎物们流血倒死。</szItemDesc>
 		<szBRName>5.56x45mm，42发空尖</szBRName>
@@ -8458,7 +8458,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1057</uiIndex>
-		<szItemName>5.56mm Mag 42</szItemName>
+		<szItemName>5.56x45mm Mag 42 AP</szItemName>
 		<szLongItemName>5.56x45mm，42发普通弹</szLongItemName>
 		<szItemDesc>M16和其他北约小口径步兵枪械的专用弹药，号称毒弹，据说高速弹头能在人体内碎裂造成无法挽回的伤害，但在现今饱受杀伤力不足的批评。</szItemDesc>
 		<szBRName>5.56x45mm，42发普通弹</szBRName>
@@ -8466,7 +8466,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1058</uiIndex>
-		<szItemName>5.56mm Mag 42 G</szItemName>
+		<szItemName>5.56x45mm Mag 42 G</szItemName>
 		<szLongItemName>5.56x45mm，42发葛雷瑟弹</szLongItemName>
 		<szItemDesc>如果42发葛雷瑟弹都无法让您满意，那么根本就没有开始这次谈话的价值。</szItemDesc>
 		<szBRName>5.56x45mm，42发葛雷瑟弹</szBRName>
@@ -8474,7 +8474,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1059</uiIndex>
-		<szItemName>5.56mm Mag 42 T</szItemName>
+		<szItemName>5.56x45mm Mag 42 T</szItemName>
 		<szLongItemName>5.56x45mm，42发曳光弹</szLongItemName>
 		<szItemDesc>有了这42发曳光弹，点射的时候就不必瞎蒙了。</szItemDesc>
 		<szBRName>5.56x45mm，42发曳光弹</szBRName>
@@ -8482,7 +8482,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1060</uiIndex>
-		<szItemName>5.56mm Mag 42 M</szItemName>
+		<szItemName>5.56x45mm Mag 42 M</szItemName>
 		<szLongItemName>5.56x45mm，42发比赛弹</szLongItemName>
 		<szItemDesc>这些比赛弹会给予你的5.56mm口径突击步枪以额外的射程。</szItemDesc>
 		<szBRName>5.56x45mm，42发比赛弹</szBRName>
@@ -8490,7 +8490,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1061</uiIndex>
-		<szItemName>5.56mm Mag 42 HP C</szItemName>
+		<szItemName>5.56x45mm Mag 42 HP C</szItemName>
 		<szLongItemName>5.56x45mm，42发消音空尖弹</szLongItemName>
 		<szItemDesc>这42发弹药安静而且拥有额外的扩张能力。</szItemDesc>
 		<szBRName>5.56x45mm，42发消音空尖弹</szBRName>
@@ -8498,7 +8498,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1062</uiIndex>
-		<szItemName>5.56mm Mag 42 C</szItemName>
+		<szItemName>5.56x45mm Mag 42 C</szItemName>
 		<szLongItemName>5.56x45mm，42发消音弹</szLongItemName>
 		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。消音弹发射时要比普通弹药减少40％的噪音。</szItemDesc>
 		<szBRName>5.56x45mm，42发消音弹</szBRName>
@@ -9530,7 +9530,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1191</uiIndex>
-		<szItemName>Magpul PDR</szItemName>
+		<szItemName>Magpul PDR-D</szItemName>
 		<szLongItemName>Magpul PDR</szLongItemName>
 		<szItemDesc>另外一款新的6x35mm单兵自卫武器，非常有战斗力。</szItemDesc>
 		<szBRName>Magpul PDR</szBRName>
@@ -12672,8 +12672,9 @@
 		<szBRName>Bag of rice</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
+	<!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
 	<ITEM>
-		<uiIndex>1584</uiIndex>
+		<uiIndex>1584</uiIndex><!-->NORTHEAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12681,7 +12682,7 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1585</uiIndex>
+		<uiIndex>1585</uiIndex><!-->EAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12689,7 +12690,7 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1586</uiIndex>
+		<uiIndex>1586</uiIndex><!-->SOUTHEAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12697,7 +12698,7 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1587</uiIndex>
+		<uiIndex>1587</uiIndex><!-->SOUTH DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12705,7 +12706,7 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1588</uiIndex>
+		<uiIndex>1588</uiIndex><!-->SOUTHWEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12713,7 +12714,7 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1589</uiIndex>
+		<uiIndex>1589</uiIndex><!-->WEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
@@ -12721,13 +12722,14 @@
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1590</uiIndex>
+		<uiIndex>1590</uiIndex><!-->NORTHWEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷可以通过绊线远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
 		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
 	</ITEM>
+	<!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
 	<ITEM>
 		<uiIndex>1591</uiIndex>
 		<szItemName>Tripwire</szItemName>
@@ -13672,15 +13674,15 @@
 		<szBRName>TT Modular Pack</szBRName>
 		<szBRDesc>这个模块行动包是我们Operator品牌中TT背包系列的中档产品。和一般的TT背包相比体积差不多，但是有更多的功能。</szBRDesc>		
 	</ITEM>
-  <ITEM>
-    <uiIndex>1709</uiIndex>
-    <szItemName>Sleeping bag</szItemName>
-    <szLongItemName>Sleeping bag</szLongItemName>
-    <szItemDesc>A basic sleeeping bag. Beats the bare floor.</szItemDesc>
-    <szBRName>Sleeping bag</szBRName>
-    <szBRDesc>No more sleeping on the dirty floor! Sweet dreams, sugar.</szBRDesc>
-  </ITEM>
-  <ITEM>
+	<ITEM>
+		<uiIndex>1709</uiIndex>
+		<szItemName>Sleeping bag</szItemName>
+		<szLongItemName>睡袋</szLongItemName>
+		<szItemDesc>一个基本的睡袋，就像赤裸裸的躺在地板上.</szItemDesc>
+		<szBRName>Sleeping bag</szBRName>
+		<szBRDesc>不用再睡在肮脏的地面上！好梦.</szBRDesc>
+	</ITEM>
+	<ITEM>
     <uiIndex>1710</uiIndex>
     <szItemName>Surgical mask</szItemName>
     <szLongItemName>Surgical mask</szLongItemName>
