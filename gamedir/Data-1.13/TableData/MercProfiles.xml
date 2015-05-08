@@ -2461,7 +2461,7 @@
 		<bArmourAttractiveness>25</bArmourAttractiveness>
 		<bMainGunAttractiveness>29</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
+		<usApproachFactorFriendly>10</usApproachFactorFriendly>
 		<usApproachFactorDirect>100</usApproachFactorDirect>
 		<usApproachFactorThreaten>300</usApproachFactorThreaten>
 		<usApproachFactorRecruit>10</usApproachFactorRecruit>
@@ -4079,7 +4079,7 @@
 		<fGoodGuy>1</fGoodGuy>
 		<usApproachFactorFriendly>70</usApproachFactorFriendly>
 		<usApproachFactorDirect>50</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
+		<usApproachFactorThreaten>10</usApproachFactorThreaten>
 		<usApproachFactorRecruit>10</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
@@ -4175,7 +4175,7 @@
 		<usApproachFactorFriendly>10</usApproachFactorFriendly>
 		<usApproachFactorDirect>10</usApproachFactorDirect>
 		<usApproachFactorThreaten>350</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorRecruit>10</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -4362,7 +4362,7 @@
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>16</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
+		<usApproachFactorFriendly>10</usApproachFactorFriendly>
 		<usApproachFactorDirect>100</usApproachFactorDirect>
 		<usApproachFactorThreaten>300</usApproachFactorThreaten>
 		<usApproachFactorRecruit>10</usApproachFactorRecruit>
@@ -4459,7 +4459,7 @@
 		<fGoodGuy>1</fGoodGuy>
 		<usApproachFactorFriendly>80</usApproachFactorFriendly>
 		<usApproachFactorDirect>10</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
+		<usApproachFactorThreaten>10</usApproachFactorThreaten>
 		<usApproachFactorRecruit>60</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
@@ -5027,7 +5027,7 @@
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>16</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
+		<usApproachFactorFriendly>10</usApproachFactorFriendly>
 		<usApproachFactorDirect>100</usApproachFactorDirect>
 		<usApproachFactorThreaten>250</usApproachFactorThreaten>
 		<usApproachFactorRecruit>100</usApproachFactorRecruit>
