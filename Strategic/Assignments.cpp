@@ -5719,6 +5719,9 @@ void HandleDiseaseDiagnosis()
 							{
 								// doctor discovered a disease - make it known
 								pTeamSoldier->AnnounceDisease( i );
+
+								// if we detect a disease, we get a bit of experience
+								StatChange( pSoldier, WISDOMAMT, 2, FALSE );
 							}
 						}
 					}
@@ -5732,8 +5735,15 @@ void HandleDiseaseDiagnosis()
 
 				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
 
-				if ( pSectorInfo && pSectorInfo->usInfected && Chance( skill ) )
+				if ( pSectorInfo && pSectorInfo->usInfected && 
+					 !((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) &&
+					 Chance( skill ) )
+				{
 					pSectorInfo->usInfectionFlag |= SECTORDISEASE_DIAGNOSED_PLAYER;
+
+					// if we detect a disease, we get a bit of experience
+					StatChange( pSoldier, WISDOMAMT, 2, FALSE );
+				}
 			}
 		}
 	}
