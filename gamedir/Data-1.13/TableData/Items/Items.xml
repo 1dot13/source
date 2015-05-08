@@ -6275,6 +6275,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Hardware>1</Hardware>
 		<Toolkit>1</Toolkit>
+		<DisarmModifier>15</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -6591,7 +6592,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GasMask>1</GasMask>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<diseaseprotectionface>1</diseaseprotectionface>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7317,6 +7317,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
 		<WireCutters>1</WireCutters>
+		<DisarmModifier>10</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -8756,6 +8757,7 @@
 		<BR_ROF>30</BR_ROF>
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
+		<DisarmModifier>5</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -16638,6 +16640,7 @@
 		<BR_ROF>28</BR_ROF>
 		<ToHitBonus>-3</ToHitBonus>
 		<WireCutters>1</WireCutters>
+		<DisarmModifier>3</DisarmModifier>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
@@ -50966,7 +50969,7 @@
 		<szItemDesc>This simple mask protects you somewhat from infection by airborne diseases.</szItemDesc>
 		<szBRName>Surgical mask</szBRName>
 		<szBRDesc>If you are doctor or live in an asian megacity, you will need these.</szBRDesc>
-		<usItemClass>32768</usItemClass>
+		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>224</ubGraphicNum>
