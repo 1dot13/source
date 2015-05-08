@@ -12233,7 +12233,7 @@ INT8 FindDisarmKit( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( ( ( Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus ) / 100 ) > bonus )
 			{
-				bonus = Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100;;
+				bonus = Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100;
 				FoundKit = bLoop;
 			}
 		}

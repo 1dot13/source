@@ -1466,7 +1466,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
 
 			if ( val )
-				pData->curItem.usItemFlag |= DISEASEPROTECTION_FACE;
+				pData->curItem.usItemFlag |= DISEASEPROTECTION_1;
 		}
 		else if ( strcmp( name, "diseaseprotectionhand" ) == 0 )
 		{
@@ -1474,7 +1474,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			BOOLEAN val = (BOOLEAN)atol( pData->szCharData );
 
 			if ( val )
-				pData->curItem.usItemFlag |= DISEASEPROTECTION_HAND;
+				pData->curItem.usItemFlag |= DISEASEPROTECTION_2;
 		}
 										
 		--pData->maxReadDepth;
@@ -2109,9 +2109,9 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile, "\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
 			FilePrintf(hFile, "\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",							Item[cnt].fAllowClimbing);
 
-			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_FACE  )
+			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_1 )
 				FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
-			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_HAND )
+			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_2 )
 				FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");

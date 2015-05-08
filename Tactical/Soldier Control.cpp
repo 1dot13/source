@@ -18920,15 +18920,12 @@ FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 			OBJECTTYPE* pObj = &(inv[bLoop]);
 
 			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE )
-			{
-				if ( (bLoop == HEAD1POS || bLoop == HEAD2POS) )
+			{	
+				if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_1 ) )
 				{
-					if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_FACE ) )
-					{
-						bestfacegear = max( bestfacegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
-					}
+					bestfacegear = max( bestfacegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
 				}
-				else if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_HAND ) )
+				else if ( HasItemFlag( pObj->usItem, DISEASEPROTECTION_2 ) )
 				{
 					bestprotectivegear = max( bestprotectivegear, (FLOAT)((*pObj)[0]->data.objectStatus / 100) );
 				}
