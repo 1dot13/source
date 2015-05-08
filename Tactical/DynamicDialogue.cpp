@@ -2244,7 +2244,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				// if we are a good guy or a pacifist, then we dislike excessive violence
 				if ( gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ||
 					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST )
-					usEventUsed = OPINIONEVENT_BRUTAL_GOOD;
+					usEventUsed = OPINIONEVENT_BRUTAL_BAD;
 				// if we are malicious, agressive or a psycho, then we like it
 				else if ( gMercProfiles[pTeamSoldier->ubProfile].bDisability == PSYCHO || MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_PSYCHO ) ||
 					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE ||
