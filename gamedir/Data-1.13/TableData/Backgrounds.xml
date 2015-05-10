@@ -84,7 +84,8 @@
 		<spotter>0</spotter>                              <!-- +- % spotter skill effectiveness, -30 to 30 -->
 		<disease_diagnose>0</disease_diagnose>            <!-- +- % effectiveness on diagnosing disease, -50 to 50 -->
 		<disease_treatment>0</disease_treatment>          <!-- +- % effectiveness on treating civilians against disease, -50 to 50 -->
-		<tracker_ability>0</tracker_ability>			  <!-- +- % range on tracking ability, see [Ranger] in Skills_Setings.ini, 0 to 40 -->
+		<tracker_ability>0</tracker_ability>			  <!-- + % range on tracking ability, see [Ranger] in Skills_Setings.ini, 0 to 40 -->
+		<ambush_radius>0</ambush_radius>				  <!-- + % bonus on ambush range, see AMBUSH_MERCS_SPREAD_RADIUS in JA2_Options.ini, 0 to 50 -->
     
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -128,6 +129,7 @@
 		<stealth>6</stealth>
 		<cth_vs_creatures>10</cth_vs_creatures>
 		<tracker_ability>20</tracker_ability>
+		<ambush_radius>10</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -241,6 +243,7 @@
 		<speed_run>5</speed_run>
 		<food>-10</food>
 		<water>-10</water>
+		<ambush_radius>25</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -338,10 +341,10 @@
 	<BACKGROUND>
 		<uiIndex>18</uiIndex>
 		<szName>Paramilitary Instructor</szName>
-    <szShortName>Instructor</szShortName>
-    <szDescription>Just like boyscouts. But with violence. So not like boyscouts &#10;at all.</szDescription>
-    <leadership>8</leadership>
-    <approach_recruit>10</approach_recruit>
+		<szShortName>Instructor</szShortName>
+		<szDescription>Just like boyscouts. But with violence. So not like boyscouts &#10;at all.</szDescription>
+		<leadership>8</leadership>
+		<approach_recruit>10</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -467,6 +470,7 @@
 		<cth_blades>5</cth_blades>
 		<approach_threaten>10</approach_threaten>
 		<approach_recruit>-6</approach_recruit>
+		<ambush_radius>14</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -475,7 +479,7 @@
 		<uiIndex>28</uiIndex>
 		<szName>Extreme Athlete</szName>
 		<szShortName>Extreme Athlete</szShortName>
-		<szDescription>If you want to put your life to risk, might as well earn cash&#10; by it...</szDescription>
+		<szDescription>If you want to put your life to risk, might as well earn cash&#10; doing it...</szDescription>
 		<ap_polar>3</ap_polar>
 		<ap_desert>3</ap_desert>
 		<ap_swamp>3</ap_swamp>
@@ -605,6 +609,7 @@
 		<water>-10</water>
 		<sleep>-1</sleep>
 		<marksmanship>3</marksmanship>
+		<ambush_radius>12</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1074,8 +1079,8 @@
 		<resistance_alcohol>5</resistance_alcohol>
 		<betterprices>2</betterprices>
 		<speed_run>3</speed_run>
-    <carrystrength>3</carrystrength> 
-    <scrounging>1</scrounging>
+		<carrystrength>3</carrystrength> 
+		<scrounging>1</scrounging>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1189,9 +1194,9 @@
 		<marksmanship>5</marksmanship>
 		<ap_assault>6</ap_assault>
 		<resistance_suppression>15</resistance_suppression>
-    <resistance_physical>5</resistance_physical>
-    <approach_threaten>10</approach_threaten>
-    <xenophobic>1</xenophobic>
+		<resistance_physical>5</resistance_physical>
+		<approach_threaten>10</approach_threaten>
+		<xenophobic>1</xenophobic>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1366,6 +1371,7 @@
 		<carrystrength>4</carrystrength>
 		<stealth>6</stealth>
 		<cth_vs_creatures>15</cth_vs_creatures>
+		<ambush_radius>10</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2168,6 +2174,7 @@
 		<speed_run>-5</speed_run>
 		<insurance>-20</insurance>
 		<tracker_ability>20</tracker_ability>
+		<ambush_radius>8</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2291,11 +2298,12 @@
 		<uiIndex>178</uiIndex>
 		<szName>SOG Member</szName>
 		<szShortName>SOG</szShortName>
-		<szDescription>The Studies and Observations Group was a classified special forces &#10;unit conductong unconventional warfare in Vietnam.</szDescription>
+		<szDescription>The Studies and Observations Group was a classified special forces &#10;unit conducting unconventional warfare in Vietnam.</szDescription>
 		<ap_swamp>2</ap_swamp>
 		<ap_tropical>4</ap_tropical>
 		<cth_blades>3</cth_blades>   
 		<camo>5</camo>
+		<ambush_radius>30</ambush_radius>
 		<traplevel>1</traplevel>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -2514,6 +2522,7 @@
 		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
+		<ambush_radius>20</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2883,6 +2892,7 @@
 		<food>-10</food>
 		<water>-10</water>
 		<approach_direct>5</approach_direct>
+		<ambush_radius>5</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2934,6 +2944,7 @@
 		<resistance_suppression>8</resistance_suppression>
 		<travel_foot>5</travel_foot>
 		<tracker_ability>10</tracker_ability>
+		<ambush_radius>20</ambush_radius>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3144,7 +3155,7 @@
 		<uiIndex>249</uiIndex>
 		<szName>Surveillance Expert</szName>
 		<szShortName>Surveillance Expert</szShortName>
-		<szDescription>A expert in both legal and illegal observation methods. &#10;Curiously, his resume never said where he learned all this.</szDescription>
+		<szDescription>A expert in both legal and illegal observation methods. &#10;Curiously, his resume never states where he learned all this.</szDescription>
 		<stealth>3</stealth>
 		<hearing_night>2</hearing_night>   
 		<hearing_day>2</hearing_day>
@@ -3448,6 +3459,7 @@
     <ap_tropical>4</ap_tropical>
     <camo>5</camo>
 	<tracker_ability>10</tracker_ability>
+	<ambush_radius>20</ambush_radius>
     <traplevel>1</traplevel>
   </BACKGROUND>
   <BACKGROUND>
@@ -3519,6 +3531,7 @@
     <food>-5</food>
     <water>-20</water>
 	<tracker_ability>15</tracker_ability>
+	<ambush_radius>8</ambush_radius>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>288</uiIndex>
@@ -3780,14 +3793,16 @@
    <stealth>6</stealth>
    <cth_vs_creatures>15</cth_vs_creatures>
    <tracker_ability>20</tracker_ability>
+   <ambush_radius>10</ambush_radius>
   </BACKGROUND> 
   <BACKGROUND>
    <uiIndex>314</uiIndex>
    <szName>Spotter</szName>
    <szShortName>Spotter</szShortName>
-   <szDescription>Paired with a sniper, it is your job to make out targets and help in shot calculations</szDescription>
+   <szDescription>Paired with a sniper, it is your job to make out &#10;targets and help in trajectory calculations.</szDescription>
    <spotter>30</spotter>
    <tracker_ability>20</tracker_ability>
+   <ambush_radius>35</ambush_radius>
   </BACKGROUND>
   <BACKGROUND>
     <uiIndex>315</uiIndex>
@@ -3808,7 +3823,7 @@
 	<medical>2</medical>
 	<leadership>2</leadership>
 	<resistance_disease>10</resistance_disease>
-	<food>-5</food>                                    <!-- +- % need for food, -50 to 100 -->
+	<food>-5</food>
 	<approach_friendly>5</approach_friendly>
 	<approach_direct>5</approach_direct>
 	<disease_diagnose>30</disease_diagnose>
