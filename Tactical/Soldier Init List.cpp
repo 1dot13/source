@@ -576,6 +576,8 @@ void SortSoldierInitList()
 
 }
 
+extern FLOAT gAmbushRadiusModifier;
+
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 {
 	UINT8 ubProfile;
@@ -772,10 +774,10 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 		}
 
 		// Flugente: if this is an enemy, and we are using ambush code, place us somewhat away from the map center, where the player will be
-		if ( (tempDetailedPlacement.bTeam == ENEMY_TEAM && gubEnemyEncounterCode == ENEMY_AMBUSH_CODE) || 
+		if ( (tempDetailedPlacement.bTeam == ENEMY_TEAM && (gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE) ) ||
 			 (tempDetailedPlacement.bTeam == CREATURE_TEAM && gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) )
 		{
-			if ( ( gGameExternalOptions.uAmbushEnemyEncircle == 1 && PythSpacesAway( tempDetailedPlacement.sInsertionGridNo, gMapInformation.sCenterGridNo ) <= gGameExternalOptions.usAmbushEnemyEncircleRadius1 ) ||
+			if ( (gGameExternalOptions.uAmbushEnemyEncircle == 1 && PythSpacesAway( tempDetailedPlacement.sInsertionGridNo, gMapInformation.sCenterGridNo ) <= gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1) ||
 				 ( gGameExternalOptions.uAmbushEnemyEncircle == 2) )
 			{
 				// we simply look for a entry point inside a bigger circle, but not inside the merc deployment zone.
@@ -783,9 +785,9 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 				UINT16 counter = 0;
 				UINT8 ubDirection = DIRECTION_IRRELEVANT;
 
-				while ( counter < 100 && (bettergridno == NOWHERE || PythSpacesAway( bettergridno, gMapInformation.sCenterGridNo ) <= gGameExternalOptions.usAmbushEnemyEncircleRadius1) )
+				while ( counter < 100 && (bettergridno == NOWHERE || PythSpacesAway( bettergridno, gMapInformation.sCenterGridNo ) <= gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1) )
 				{
-					bettergridno = FindRandomGridNoBetweenCircles( gMapInformation.sCenterGridNo, gGameExternalOptions.usAmbushEnemyEncircleRadius1, gGameExternalOptions.usAmbushEnemyEncircleRadius2, ubDirection );
+					bettergridno = FindRandomGridNoBetweenCircles( gMapInformation.sCenterGridNo, gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1, gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius2, ubDirection );
 				}
 
 				if ( bettergridno != NOWHERE )

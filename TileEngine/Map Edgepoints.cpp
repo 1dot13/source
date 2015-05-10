@@ -17,6 +17,7 @@
 	#include "strategicmap.h"
 	#include "environment.h"
 	#include "worldman.h"
+	#include "PreBattle Interface.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1399,7 +1400,7 @@ INT32 SearchForClosestPrimaryMapEdgepoint(INT32 sGridNo, UINT8 ubInsertionCode, 
 		break;
 	}
 	// WANNE - MP: Center
-	if( (is_networked && ubInsertionCode == INSERTION_CODE_CENTER) || ubInsertionCode == INSERTION_CODE_CHOPPER )
+	if ( ( (is_networked || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ) && ubInsertionCode == INSERTION_CODE_CENTER) || ubInsertionCode == INSERTION_CODE_CHOPPER )
 	{
 		InitCenterEdgepoint( ubInsertionCode == INSERTION_CODE_CENTER );
 		psArray = gps1stCenterEdgepointArray;

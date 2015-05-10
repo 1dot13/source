@@ -265,6 +265,8 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 }
 #endif
 
+FLOAT gAmbushRadiusModifier = 1.0f;
+
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 {
 	VOBJECT_DESC	VObjectDesc;
@@ -279,6 +281,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	SECTORINFO *pSector;
 	BOOLEAN fScoutPresent = FALSE;	// Added by SANDRO
 	BOOLEAN fAirDrop = FALSE;		// Added by Flugente
+	UINT16  usDeploymentLeadership = 0;
+
+	gAmbushRadiusModifier = 0.0f;
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
 	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
@@ -424,7 +429,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						gubEnemyEncounterCode == ENEMY_INVASION_CODE ||
 						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
 						gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
-						gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
+						gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
+						gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 		{ //use same code
 			gubExplicitEnemyEncounterCode = gubEnemyEncounterCode;
 		}
@@ -565,6 +571,24 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				{
 					fAirDrop = TRUE;
 				}
+
+				UINT16 deploymentleadership = EffectiveLeadership( MercPtrs[i] );
+				FLOAT ambushradiusmodifier = 10 * EffectiveExpLevel( MercPtrs[i] ) + MercPtrs[i]->GetBackgroundValue( BG_AMBUSH_RADIUS );
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					deploymentleadership += 50 * NUM_SKILL_TRAITS( MercPtrs[i], SQUADLEADER_NT );
+
+					ambushradiusmodifier += 50 * NUM_SKILL_TRAITS( MercPtrs[i], SCOUTING_NT );
+				}
+				// bonus with old traits, so that the check can be won
+				else
+				{
+					deploymentleadership += 30;
+				}
+
+				usDeploymentLeadership = max( usDeploymentLeadership, deploymentleadership );
+
+				gAmbushRadiusModifier = max( gAmbushRadiusModifier, ambushradiusmodifier / 100 );
 			}
 			else
 			{
@@ -705,6 +729,12 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							}
 						}
 					}
+
+					// Flugente: improved ambush: if a real squadleader is present, we may deploy our mercs instead of having them being dropped into combat randomly
+					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE && usDeploymentLeadership > 120 )
+					{
+						gubEnemyEncounterCode = ENEMY_AMBUSH_DEPLOYMENT_CODE;
+					}
 					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				}
 			}
@@ -725,7 +755,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - merc records - ambush experienced
-	if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || fAmbushPrevented )
+	if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE || fAmbushPrevented )
 	{
 		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
@@ -733,7 +763,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			{
 				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
 				{
-					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
+					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
 					else if ( fAmbushPrevented && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) ) // Scouts actually get this as number of prevented ambushes
 						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
@@ -793,8 +823,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			SetButtonFastHelpText( iPBButton[ 0 ], gpStrategicString[ STR_PB_DISABLED_AUTORESOLVE_FASTHELP ] );
 		}
 		else if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
-						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
-		{ //Don't allow autoresolve for ambushes
+				 gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
+				 gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+		{
+			//Don't allow autoresolve for ambushes
 			DisableButton( iPBButton[ 0 ] );
 			SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 3 ] );
 		}
@@ -803,19 +835,24 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			SetButtonFastHelpText( iPBButton[ 0 ], gpStrategicString[ STR_PB_AUTORESOLVE_FASTHELP ] );
 		}
 		SetButtonFastHelpText( iPBButton[ 1 ], gpStrategicString[ STR_PB_GOTOSECTOR_FASTHELP ] );
+
 		if( gfAutomaticallyStartAutoResolve )
 		{
 			DisableButton( iPBButton[ 1 ] );
 		}
+
 		if( gfCantRetreatInPBI )
 		{
 			gfCantRetreatInPBI = FALSE;
 			fRetreatAnOption = FALSE;
 		}
+
 		if( gfAutomaticallyStartAutoResolve || !fRetreatAnOption ||
 				gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
 				gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-				gubEnemyEncounterCode == CREATURE_ATTACK_CODE || is_client)
+				gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
+				gubEnemyEncounterCode == CREATURE_ATTACK_CODE || 
+				is_client)
 		{
 			DisableButton( iPBButton[ 2 ] );
 			SetButtonFastHelpText( iPBButton[ 2 ], gzNonPersistantPBIText[ 9 ] );
@@ -851,6 +888,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 3 ] );
 				break;
 			case ENEMY_AMBUSH_CODE:
+			case ENEMY_AMBUSH_DEPLOYMENT_CODE:
 				DisableButton( iPBButton[ 0 ] );
 				SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 4 ] );
 				break;
@@ -1089,6 +1127,7 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 			swprintf( str, gpStrategicString[ STR_PB_ENEMYENCOUNTER_HEADER ] );
 			break;
 		case ENEMY_AMBUSH_CODE:
+		case ENEMY_AMBUSH_DEPLOYMENT_CODE:
 			swprintf( str, gpStrategicString[ STR_PB_ENEMYAMBUSH_HEADER ] );
 			gfBlinkHeader = TRUE;
 			break;
@@ -1462,38 +1501,41 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 	{
 		if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 		{
-			#ifdef JA2TESTVERSION
-				if( _KeyDown( ALT ) )
-			#else
-				if( _KeyDown( ALT ) && CHEATER_CHEAT_LEVEL() )
-			#endif
+#ifdef JA2TESTVERSION
+			if( _KeyDown( ALT ) )
+#else
+			if( _KeyDown( ALT ) && CHEATER_CHEAT_LEVEL() )
+#endif
+			{
+				if( !gfPersistantPBI )
 				{
-					if( !gfPersistantPBI )
-					{
-						return;
-					}
-					PlayJA2Sample( EXPLOSION_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-					gStrategicStatus.usPlayerKills += NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
-					EliminateAllEnemies( gubPBSectorX, gubPBSectorY );
-					SetMusicMode( MUSIC_TACTICAL_VICTORY );
-					btn->uiFlags &= ~BUTTON_CLICKED_ON;
-					DrawButton( btn->IDNum );
-					InvalidateRegion( btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY );
-					ExecuteBaseDirtyRectQueue();
-					EndFrameBufferRender( );
-					RefreshScreen( NULL );
-					KillPreBattleInterface();
-					StopTimeCompression();
-					SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					return;
 				}
-				if ( gfPersistantPBI && gpBattleGroup && gpBattleGroup->usGroupTeam == OUR_TEAM &&
-					gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
-					gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
-					gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE )
+
+				PlayJA2Sample( EXPLOSION_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+				gStrategicStatus.usPlayerKills += NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM );
+				EliminateAllEnemies( gubPBSectorX, gubPBSectorY );
+				SetMusicMode( MUSIC_TACTICAL_VICTORY );
+				btn->uiFlags &= ~BUTTON_CLICKED_ON;
+				DrawButton( btn->IDNum );
+				InvalidateRegion( btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY );
+				ExecuteBaseDirtyRectQueue();
+				EndFrameBufferRender( );
+				RefreshScreen( NULL );
+				KillPreBattleInterface();
+				StopTimeCompression();
+				SetMusicMode( MUSIC_TACTICAL_NOTHING );
+				return;
+			}
+
+			if ( gfPersistantPBI && gpBattleGroup && gpBattleGroup->usGroupTeam == OUR_TEAM &&
+				gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
+				gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
+				gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE )
 			{
 				gfEnterTacticalPlacementGUI = TRUE;
 			}
+
 			btn->uiFlags &= ~BUTTON_CLICKED_ON;
 			DrawButton( btn->IDNum );
 			InvalidateRegion( btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY );
@@ -2289,6 +2331,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_WONBATTLE, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_AMBUSH_CODE:
+			case ENEMY_AMBUSH_DEPLOYMENT_CODE:
 				AddHistoryToPlayersLog( HISTORY_WIPEDOUTENEMYAMBUSH, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -2317,6 +2360,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_LOSTBATTLE, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_AMBUSH_CODE:
+			case ENEMY_AMBUSH_DEPLOYMENT_CODE:
 				AddHistoryToPlayersLog( HISTORY_FATALAMBUSH, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -2348,6 +2392,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 			break;
 		case ENEMY_AMBUSH_CODE:
 		case BLOODCAT_AMBUSH_CODE:
+		case ENEMY_AMBUSH_DEPLOYMENT_CODE:
 			gCurrentIncident.usIncidentFlags |= (INCIDENT_ATTACK_ENEMY|INCIDENT_AMBUSH);
 			break;
 	}

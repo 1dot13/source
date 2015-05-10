@@ -39,6 +39,8 @@ enum
 	FIGHTING_CREATURES_CODE,
 	HOSTILE_CIVILIANS_CODE,
 	HOSTILE_BLOODCATS_CODE,
+
+	ENEMY_AMBUSH_DEPLOYMENT_CODE,	// Flugente: an ambush in which we can deploy our mercs (somewhat)
 };
 
 extern BOOLEAN gfAutoAmbush;

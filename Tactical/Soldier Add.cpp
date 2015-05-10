@@ -25,6 +25,7 @@
 	#include "renderworld.h"		// added by Flugente
 	#include "Vehicles.h"			// added by Flugente
 	#include "CampaignStats.h"		// added by Flugente
+	#include "worldman.h"			// added by Flugente for Water(...)
 #endif
 
 #ifdef JA2UB
@@ -1117,7 +1118,7 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 		
 		sGridNo = sCenterGridNo + (WORLD_COLS * sY) + sX;
 
-		if ( TileIsOutOfBounds( sGridNo ) || !IsLocationSittable( sGridNo, 0 ) || PythSpacesAway( sGridNo, sCenterGridNo ) <= uInnerRadius || PythSpacesAway( sGridNo, sCenterGridNo ) > uOuterRadius )
+		if ( TileIsOutOfBounds( sGridNo ) || Water( sGridNo ) || !IsLocationSittable( sGridNo, 0 ) || PythSpacesAway( sGridNo, sCenterGridNo ) <= uInnerRadius || PythSpacesAway( sGridNo, sCenterGridNo ) > uOuterRadius )
 			sGridNo = NOWHERE;
 		else
 			fFound = TRUE;

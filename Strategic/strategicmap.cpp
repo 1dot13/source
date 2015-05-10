@@ -2623,7 +2623,7 @@ void PrepareLoadedSector()
 		PostSchedules();
 	}
 
-	if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
+	if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 	{
 		if( gMapInformation.sCenterGridNo != NOWHERE )
 		{
@@ -2631,10 +2631,9 @@ void PrepareLoadedSector()
 		}
 		else
 		{
-			#ifdef JA2BETAVERSION
-				ScreenMsg( FONT_RED, MSG_ERROR, L"Ambush aborted in sector %c%d -- no center point in map.  LC:1",
-					gWorldSectorY + 'A' - 1, gWorldSectorX );
-			#endif
+#ifdef JA2BETAVERSION
+			ScreenMsg( FONT_RED, MSG_ERROR, L"Ambush aborted in sector %c%d -- no center point in map.  LC:1", gWorldSectorY + 'A' - 1, gWorldSectorX );
+#endif
 		}
 	}
 
@@ -3119,7 +3118,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 				if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 				{
 					if( gMapInformation.sCenterGridNo != NOWHERE && gfBlitBattleSectorLocator &&
-							(gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) && pSoldier->bTeam != CIV_TEAM )
+						(gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) && pSoldier->bTeam != CIV_TEAM )
 					{
 						// Flugente: improved ambush
 						if ( gGameExternalOptions.fAmbushSpreadMercs )
