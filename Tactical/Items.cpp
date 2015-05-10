@@ -14704,6 +14704,9 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 		// Test the parent now. See whether all attachments are still valid on it.
 		ReInitMergedItem(pSoldier, pParent, pParent->usItem, ubStatusIndex);
 
+		// Flugente: sometimes gpItemDescObject gets corrupted during ReInitMergedItem(...), so we have to repair that here
+		gpItemDescObject = &gCloneItemDescObject;
+
 		gpItemDescOrigAttachmentObject = NULL;
 
 		// After reiniting the attachments on the parent, "this" still exists, but the actual object is gone.
