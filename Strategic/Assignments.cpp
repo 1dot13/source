@@ -133,7 +133,7 @@ enum{
 };
 
 enum{
-	MOVEITEM_MAX_SECTORS = 10,
+	MOVEITEM_MAX_SECTORS = 20,
 	MOVEITEM_MAX_SECTORS_WITH_MODIFIER = 2 * MOVEITEM_MAX_SECTORS,
 	MOVEITEM_MENU_CANCEL,
 };
@@ -7312,6 +7312,16 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 		// the longer the distance, the less we can move
 		UINT8 distance = abs(sMapX - targetX) + abs(sMapY - targetY);
+
+		// if this sector is not a town sector, travel time will be much higher - we simulate that by increasing the distance. 
+		// Nope, not going to simulate exact travel time here, as that requires way too many new functions (as we don't have a group here)
+		if ( GetTownIdForSector( targetX, targetY ) == BLANK_SECTOR )
+		{
+			// in towns every move costs 5 minutes
+			// we assume it takes ~2 hours to travel to this sector
+			// so we add (12 + 11)
+			distance += 23;
+		}
 
 		// if distance is 0, somethings awry
 		if ( distance == 0 )
@@ -21048,41 +21058,106 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 	if ( bTownId != BLANK_SECTOR )
 	{
-		for (UINT16 X = 0; X < 256; ++X)
+		for ( UINT16 X = 0; X < 256; ++X )
 		{
-			INT16 sectorX = SECTORX(X);
-			INT16 sectorY = SECTORY(X);
+			INT16 sectorX = SECTORX( X );
+			INT16 sectorY = SECTORY( X );
 
 			// if sector not under our control, has enemies in it, or is currently in combat mode
-			if (!SectorOursAndPeaceful( sectorX, sectorY, 0 ) )
+			if ( !SectorOursAndPeaceful( sectorX, sectorY, 0 ) )
 				continue;
 
+			// not if we are already here
 			if ( sectorX == pSoldier->sSectorX && sectorY == pSoldier->sSectorY )
 				continue;
 
-			if ( GetTownIdForSector( sectorX, sectorY ) == bTownId )
-			{
-				usMoveItemSectors[iCount] = (UINT8)X;
+			// determine town sector we are running this assignemnt in
+			UINT8 townid = GetTownIdForSector( sectorX, sectorY );
 
-				CHAR16 wSectorName[ 64 ];
+			BOOLEAN goodsector = FALSE;
+
+			// same town?
+			if ( townid == bTownId )
+			{
+				goodsector = TRUE;
+			}
+			// we also allow this for sectors adjacent to a town
+			else if ( townid == BLANK_SECTOR )
+			{
+				// check whether adjacent sectors belong to the town we search for
+				if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == townid )	goodsector = TRUE;
+				if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == townid )				goodsector = TRUE;
+				if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == townid )	goodsector = TRUE;
+				if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == townid )				goodsector = TRUE;
+			}
+
+			if ( goodsector )
+			{
+				CHAR16 wSectorName[64];
 				GetShortSectorString( sectorX, sectorY, wSectorName );
 
 				AddMonoString( (UINT32 *)&hStringHandle, wSectorName );
 
-				if ( gGameExternalOptions.fMilitiaUseSectorInventory )
-				{
-					usMoveItemSectors[iCount + 10] = (UINT8)X;
-
-					// Set string for generic button
-					CHAR16 bla[64];
-					swprintf( bla, L"%s - No militia gear", wSectorName );
-					
-					AddMonoString( (UINT32 *)&hStringHandle, bla );
-				}
+				usMoveItemSectors[iCount] = (UINT8)X;
 
 				++iCount;
 				if ( iCount >= MOVEITEM_MENU_CANCEL )
 					break;
+			}
+		}
+
+		// a second run, this time the same sectors with the option to not take militia gear
+		if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			for ( UINT16 X = 0; X < 256; ++X )
+			{
+				INT16 sectorX = SECTORX( X );
+				INT16 sectorY = SECTORY( X );
+
+				// if sector not under our control, has enemies in it, or is currently in combat mode
+				if ( !SectorOursAndPeaceful( sectorX, sectorY, 0 ) )
+					continue;
+
+				if ( sectorX == pSoldier->sSectorX && sectorY == pSoldier->sSectorY )
+					continue;
+
+				// determine town sector we are running this assignemnt in
+				UINT8 townid = GetTownIdForSector( sectorX, sectorY );
+
+				BOOLEAN goodsector = FALSE;
+
+				// same town?
+				if ( townid == bTownId )
+				{
+					goodsector = TRUE;
+				}
+				// we also allow this for sectors adjacent to a town
+				else if ( townid == BLANK_SECTOR )
+				{
+					// check whether adjacent sectors belong to the town we search for
+					if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == townid )	goodsector = TRUE;
+					if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == townid )				goodsector = TRUE;
+					if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == townid )	goodsector = TRUE;
+					if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == townid )				goodsector = TRUE;
+				}
+
+				if ( goodsector )
+				{
+					CHAR16 wSectorName[64];
+					GetShortSectorString( sectorX, sectorY, wSectorName );
+
+					// Set string for generic button
+					CHAR16 bla[64];
+					swprintf( bla, L"%s - No militia gear", wSectorName );
+
+					AddMonoString( (UINT32 *)&hStringHandle, bla );
+
+					usMoveItemSectors[iCount + MOVEITEM_MAX_SECTORS] = (UINT8)X;
+
+					++iCount;
+					if ( iCount >= MOVEITEM_MENU_CANCEL )
+						break;
+				}
 			}
 		}
 	}

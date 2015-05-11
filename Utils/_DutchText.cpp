@@ -9855,7 +9855,7 @@ STR16	szDynamicDialogueText[39][17] =	// TODO.Translate
 	L"Well... it's not like $CAUSE_GENDER$ pulled that all by $CAUSE_PRONOUN$self...",
 	L"Agreed. $CAUSE$ is a fine squadleader.",
 	L"It's alright. You deserve this.",
-	L"You did everything right, $VICTIM$. Good work!",
+	L"You did everything right, $CAUSE$. Good work!",
 	L"Yeah. We're turning into quite the outfit, aren't we?",
 	L"We might have won this battle, but the war is far from over. We'll have to repeat victories like this.",
 	L"",
