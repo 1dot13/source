@@ -14486,52 +14486,26 @@ void UpdateMercBodyRegionHelpText( )
 					// person (health/energy/morale)
 					GetMoraleString( pSoldier, pMoraleStr );
 
-					if ( gGameOptions.fFoodSystem )
+					if ( pSoldier->bPoisonSum )
 					{
-						if ( pSoldier->bPoisonSum )
-						{
-							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-							swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s, %s: %d%s, %s: %d%s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr,
-									  pMapScreenStatusStrings[6], (INT32)(100 * (pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0],
-									  pMapScreenStatusStrings[7], (INT32)(100 * (pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0] );
-						}
-						else
-						{
-							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s, %s: %d%s, %s: %d%s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr,
-									  pMapScreenStatusStrings[6], (INT32)(100 * (pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0],
-									  pMapScreenStatusStrings[7], (INT32)(100 * (pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), sSpecialCharacters[0] );
-						}
+						INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+						swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
+									pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
+									pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									pMapScreenStatusStrings[2], pMoraleStr );
 					}
 					else
 					{
-						if ( pSoldier->bPoisonSum )
-						{
-							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-							swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr );
-						}
-						else
-						{
-							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr );
-						}
+						swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
+									pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									pMapScreenStatusStrings[2], pMoraleStr );
 					}
 
-					{
-						pSoldier->PrintDiseaseDesc( sString, TRUE );
-					}
+					pSoldier->PrintFoodDesc( sString, TRUE );
+
+					pSoldier->PrintDiseaseDesc( sString, TRUE );
 				}
 			}
 		}

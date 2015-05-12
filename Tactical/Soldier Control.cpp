@@ -18904,6 +18904,110 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	}
 }
 
+void SOLDIERTYPE::PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc )
+{
+	if ( !gGameOptions.fFoodSystem )
+		return;
+
+	// only for living mercs with a profile with a valid infection method
+	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
+		return;
+
+	CHAR16	atStr[500];
+	swprintf( atStr, L"" );
+
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( this, &foodsituation, &watersituation );
+
+	INT8 bMoraleModifier_Food  = FoodMoraleMods[foodsituation].bMoraleModifier;
+	INT8 bMoraleModifier_Water = FoodMoraleMods[watersituation].bMoraleModifier;
+
+	INT8 bSleepModifier_Food  = FoodMoraleMods[foodsituation].bSleepModifier;
+	INT8 bSleepModifier_Water = FoodMoraleMods[watersituation].bSleepModifier;
+
+	INT8 bBreathRegenModifier_Food  = FoodMoraleMods[foodsituation].bBreathRegenModifier;
+	INT8 bBreathRegenModifier_Water = FoodMoraleMods[watersituation].bBreathRegenModifier;
+
+	INT8 bAssignmentEfficiencyModifier_Food  = FoodMoraleMods[foodsituation].bAssignmentEfficiencyModifier;
+	INT8 bAssignmentEfficiencyModifier_Water = FoodMoraleMods[watersituation].bAssignmentEfficiencyModifier;
+
+	UINT8 ubStatDamageChance_Food  = FoodMoraleMods[foodsituation].ubStatDamageChance;
+	UINT8 ubStatDamageChance_Water = FoodMoraleMods[watersituation].ubStatDamageChance;
+	
+	swprintf( atStr, szFoodText[0], (INT32)(100 * (this->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE) );
+	wcscat( apStr, atStr );
+
+	if ( watersituation != FOOD_NORMAL )
+	{
+		if ( bMoraleModifier_Water )
+		{
+			swprintf( atStr, szFoodText[2], bMoraleModifier_Water > 0 ? L"+" : L"", bMoraleModifier_Water );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bSleepModifier_Water )
+		{
+			swprintf( atStr, szFoodText[3], bSleepModifier_Water > 0 ? L"+" : L"", bSleepModifier_Water );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bBreathRegenModifier_Water )
+		{
+			swprintf( atStr, szFoodText[4], bBreathRegenModifier_Water > 0 ? L"+" : L"", bBreathRegenModifier_Water );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bAssignmentEfficiencyModifier_Water )
+		{
+			swprintf( atStr, szFoodText[5], bAssignmentEfficiencyModifier_Water > 0 ? L"+" : L"", bAssignmentEfficiencyModifier_Water );
+			wcscat( apStr, atStr );
+		}
+
+		if ( ubStatDamageChance_Water )
+		{
+			swprintf( atStr, szFoodText[6], ubStatDamageChance_Water > 0 ? L"+" : L"", ubStatDamageChance_Water );
+			wcscat( apStr, atStr );
+		}
+	}
+
+	swprintf( atStr, szFoodText[1], (INT32)(100 * (this->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE) );
+	wcscat( apStr, atStr );
+
+	if ( foodsituation != FOOD_NORMAL )
+	{
+		if ( bMoraleModifier_Food )
+		{
+			swprintf( atStr, szFoodText[2], bMoraleModifier_Food > 0 ? L"+" : L"", bMoraleModifier_Food );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bSleepModifier_Food )
+		{
+			swprintf( atStr, szFoodText[3], bSleepModifier_Food > 0 ? L"+" : L"", bSleepModifier_Food );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bBreathRegenModifier_Food )
+		{
+			swprintf( atStr, szFoodText[4], bBreathRegenModifier_Food > 0 ? L"+" : L"", bBreathRegenModifier_Food );
+			wcscat( apStr, atStr );
+		}
+
+		if ( bAssignmentEfficiencyModifier_Food )
+		{
+			swprintf( atStr, szFoodText[5], bAssignmentEfficiencyModifier_Food > 0 ? L"+" : L"", bAssignmentEfficiencyModifier_Food );
+			wcscat( apStr, atStr );
+		}
+
+		if ( ubStatDamageChance_Food )
+		{
+			swprintf( atStr, szFoodText[6], ubStatDamageChance_Food > 0 ? L"+" : L"", ubStatDamageChance_Food );
+			wcscat( apStr, atStr );
+		}
+	}
+}
+
 // get percentage protection from infections via contact
 FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 {

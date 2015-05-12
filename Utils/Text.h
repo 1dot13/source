@@ -2905,6 +2905,7 @@ enum
 };
 
 extern STR16	szDiseaseText[];
+extern STR16	szFoodText[];
 
 extern STR16	szIMPGearWebSiteText[];
 extern STR16	szIMPGearDropDownText[];

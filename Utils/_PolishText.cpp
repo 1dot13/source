@@ -10109,6 +10109,18 @@ STR16	szDiseaseText[] =
 	L"Cancel",
 };
 
+STR16	szFoodText[] =
+{
+	L"\n\n|W|a|t|e|r: %d%%\n",
+	L"\n\n|F|o|o|d: %d%%\n",
+
+	L"max morale altered by %s%d\n",
+	L" %s%d need for sleep\n",
+	L" %s%d%% breath regeneration\n",
+	L" %s%d%% assignment efficiency\n",
+	L" %s%d%% chance to lose stats\n",
+};
+
 STR16 szIMPGearWebSiteText[] =	// TODO.Translate
 {
 	// IMP Gear Entrance

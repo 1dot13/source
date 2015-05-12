@@ -295,10 +295,10 @@ void GetFoodSituation( SOLDIERTYPE *pSoldier, UINT8* pFoodSituation, UINT8* pWat
 
 	for ( UINT8 i = FOOD_STUFFED; i < NUM_FOOD_MORALE_TYPES; ++i )
 	{
-		if ( pSoldier->bFoodLevel < FoodMoraleMods[i].bThreshold )
+		if ( pSoldier->bFoodLevel <= FoodMoraleMods[i].bThreshold )
 			*pFoodSituation = i;
 
-		if ( pSoldier->bDrinkLevel < FoodMoraleMods[i].bThreshold )
+		if ( pSoldier->bDrinkLevel <= FoodMoraleMods[i].bThreshold )
 			*pWaterSituation = i;
 	}
 }
