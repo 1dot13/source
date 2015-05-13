@@ -200,8 +200,11 @@ void InitEDBCoords(OBJECTTYPE * pObject)
 		// CONS text
 		gItemDescTextRegions[6].sLeft = 50 + UDBOffsetX;		gItemDescTextRegions[6].sTop = 292 + UDBOffsetY;		gItemDescTextRegions[6].sRight = 230 + UDBOffsetX;	gItemDescTextRegions[6].sBottom = 300 + UDBOffsetY;
 
-		// Flugente FTW 1: Temperature. Is displayed between Weight and the PROS label, so the indexes should be moved... but it is unclear if this description is needed, anyway
+		// silversurfer: spread patterns. Is displayed above the Pros label.
 		gItemDescTextRegions[7].sLeft = 20 + UDBOffsetX;		gItemDescTextRegions[7].sTop = 254 + UDBOffsetY;		gItemDescTextRegions[7].sRight = 230 + UDBOffsetX;	gItemDescTextRegions[7].sBottom = 262 + UDBOffsetY;
+
+		// Flugente FTW 1: Temperature. Is displayed between Weight and the PROS label, so the indexes should be moved... but it is unclear if this description is needed, anyway
+		gItemDescTextRegions[8].sLeft = 20 + UDBOffsetX;		gItemDescTextRegions[8].sTop = 266 + UDBOffsetY;		gItemDescTextRegions[8].sRight = 230 + UDBOffsetX;	gItemDescTextRegions[8].sBottom = 274 + UDBOffsetY;
 
 		////////////////// MONEY TEXT COORDINATES
 		gMoneyStats[0].sX = 20 + UDBOffsetX;		gMoneyStats[0].sY = 230 + UDBOffsetY;	// Money

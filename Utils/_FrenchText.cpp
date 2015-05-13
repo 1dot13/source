@@ -2875,7 +2875,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-CHAR16		gWeaponStatsDesc[][ 19 ] =
+CHAR16		gWeaponStatsDesc[][ 20 ] =
 {
 	// HEADROCK: Changed this for Extended Description project
 	L"État :",
@@ -2900,6 +2900,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
 	L"Encras. :",	// 18	//added by Flugente
 	L"Place :", // 19 //space left on Molle items
+	L"Spread Pattern:",	// 20	// TODO.Translate
 
 };
 

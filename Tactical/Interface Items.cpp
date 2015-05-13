@@ -576,7 +576,7 @@ INV_DESC_REGIONS gItemDescGenHeaderRegions[3]; // Header text regions for variou
 INV_DESC_REGIONS gItemDescGenIndexRegions[3][4]; // Index text regions for various parts of the General Tab
 INV_DESC_REGIONS gItemDescGenRegions[NUM_UDB_GEN_LINES * 2][4]; // Data regions, 4 sub-columns each
 INV_DESC_REGIONS gItemDescGenSecondaryRegions[26]; // Secondary data regions, 3x5
-INV_DESC_REGIONS gItemDescTextRegions[8]; // Main description regions
+INV_DESC_REGIONS gItemDescTextRegions[9]; // Main description regions
 INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
 INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each
 
@@ -7178,11 +7178,25 @@ void RenderItemDescriptionBox( )
 				////////// label
 				if (UsingEDBSystem())
 				{
+					// silversurfer: spread pattern for shotguns
+					if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN )
+					{
+						int regionindex = 7;
+						// print label
+						mprintf( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gWeaponStatsDesc[20] );
+
+						// print value
+						SetFontForeground( 5 );
+						MultiByteToWideChar( CP_UTF8, 0, gpSpreadPattern[GetSpreadPattern( gpItemDescObject )].Name, -1, pStr, sizeof(pStr)/sizeof(pStr[0]) );
+						FindFontRightCoordinates( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gItemDescTextRegions[regionindex].sRight - gItemDescTextRegions[regionindex].sLeft ,gItemDescTextRegions[regionindex].sBottom - gItemDescTextRegions[regionindex].sTop ,pStr, BLOCKFONT2, &usX, &usY);
+						mprintf( usX, usY, pStr );
+					}
+
 					// Flugente: display temperature string
 					if ( gGameExternalOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].barrel == TRUE ) )
 					{						
 						// UDB system displays a string with colored condition text.
-						int regionindex = 7;
+						int regionindex = 8;
 						SetFontForeground( ForegroundColor );
 						swprintf( pStr, L"%s", gTemperatureDesc[0] ); // "Temperature is "
 						mprintf( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, pStr );
@@ -14486,29 +14500,29 @@ void UpdateMercBodyRegionHelpText( )
 					// person (health/energy/morale)
 					GetMoraleString( pSoldier, pMoraleStr );
 
-					if ( pSoldier->bPoisonSum )
-					{
-						INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+						if ( pSoldier->bPoisonSum )
+						{
+							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
 						swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
-									pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
-									pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									pMapScreenStatusStrings[2], pMoraleStr );
-					}
-					else
-					{
-						swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
-									pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									pMapScreenStatusStrings[2], pMoraleStr );
-					}
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr );
+						}
+						else
+						{
+							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
+									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+									  pMapScreenStatusStrings[2], pMoraleStr );
+						}
 
 					pSoldier->PrintFoodDesc( sString, TRUE );
 
-					pSoldier->PrintDiseaseDesc( sString, TRUE );
+						pSoldier->PrintDiseaseDesc( sString, TRUE );
+					}
 				}
 			}
-		}
 
 		SetRegionFastHelpText( &gSMInvCamoRegion, sString );
 	}

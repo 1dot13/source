@@ -713,7 +713,7 @@ extern STR16		gFoodDesc[ 8 ];
 
 extern CHAR16		gMoneyStatsDesc[][ 14 ];
 // HEADROCK: Altered value to 16 //WarmSteel - And I need 17.	// Flugente: 17->19
-extern CHAR16		gWeaponStatsDesc[][ 19 ];
+extern CHAR16		gWeaponStatsDesc[][ 20 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
 extern STR16		gzWeaponStatsFasthelpTactical[ 33 ];

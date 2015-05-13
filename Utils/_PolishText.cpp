@@ -2877,7 +2877,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-CHAR16		gWeaponStatsDesc[][ 19 ] =
+CHAR16		gWeaponStatsDesc[][ 20 ] =
 {
 	// HEADROCK: Changed this for Extended Description project
 	L"Stan:",
@@ -2903,6 +2903,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"Domyślne:",	//17 //WarmSteel - So we can also display default attachments
 	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
 	L"Space:", // 19 //space left on Molle items // TODO.Translate
+	L"Spread Pattern:",	// 20	// TODO.Translate
 
 };
 
