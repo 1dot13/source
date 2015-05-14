@@ -187,7 +187,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
-		<spreadPattern>BuckshotSpread</spreadPattern>
+		<spreadPattern>Buckshot</spreadPattern>
 		<temperatureModificator>0.0</temperatureModificator>
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
@@ -226,7 +226,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
-		<spreadPattern>FlechetteSpread</spreadPattern>
+		<spreadPattern>Flechette</spreadPattern>
 		<temperatureModificator>0.03</temperatureModificator>
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.25</dirtModificator>
@@ -1084,7 +1084,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
-		<spreadPattern>DuplexSpread</spreadPattern>
+		<spreadPattern>Duplex</spreadPattern>
 		<temperatureModificator>0.15</temperatureModificator>
 		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>

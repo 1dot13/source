@@ -1378,7 +1378,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<spreadPattern>ChokeImpModSpread</spreadPattern>
+		<spreadPattern>Imp Mod Choke</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
@@ -7349,7 +7349,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RangeBonus>20</RangeBonus>
 		<Duckbill>1</Duckbill>
-		<spreadPattern>DuckbillSpread</spreadPattern>
+		<spreadPattern>Duckbill</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -9970,7 +9970,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>20</BR_ROF>
-		<spreadPattern>ChokeImpModSpread</spreadPattern>
+		<spreadPattern>Imp Mod Choke</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
@@ -21184,7 +21184,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
-		<spreadPattern>SawedoffSpread</spreadPattern>
+		<spreadPattern>Sawed off</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
@@ -22010,7 +22010,7 @@
 		<BR_ROF>28</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<spreadPattern>SawedoffSpread</spreadPattern>
+		<spreadPattern>Sawed off</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
@@ -40887,7 +40887,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<RangeBonus>30</RangeBonus>
-		<spreadPattern>ChokeImpModSpread</spreadPattern>
+		<spreadPattern>Imp Mod Choke</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -40917,7 +40917,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<RangeBonus>40</RangeBonus>
-		<spreadPattern>ChokeFullSpread</spreadPattern>
+		<spreadPattern>Full Choke</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -40948,7 +40948,7 @@
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<RangeBonus>60</RangeBonus>
 		<ToHitBonus>20</ToHitBonus>
-		<spreadPattern>ChokeRifledSpread</spreadPattern>
+		<spreadPattern>Rifled Choke</spreadPattern>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />

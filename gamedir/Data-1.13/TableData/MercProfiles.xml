@@ -4031,7 +4031,7 @@
 		<bExplosive>4</bExplosive>
 		<bLeadership>13</bLeadership>
 		<bMedical>24</bMedical>
-		<bMechanical>0</bMechanical>
+		<bMechanical>2</bMechanical>
 		<bExpLevel>2</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
@@ -4506,7 +4506,7 @@
 		<bExplosive>56</bExplosive>
 		<bLeadership>11</bLeadership>
 		<bMedical>9</bMedical>
-		<bMechanical>0</bMechanical>
+		<bMechanical>5</bMechanical>
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
@@ -17236,7 +17236,7 @@
 		<bExplosive>69</bExplosive>
 		<bLeadership>1</bLeadership>
 		<bMedical>0</bMedical>
-		<bMechanical>0</bMechanical>
+		<bMechanical>7</bMechanical>
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
@@ -24148,7 +24148,7 @@
 		<bExplosive>85</bExplosive>
 		<bLeadership>2</bLeadership>
 		<bMedical>31</bMedical>
-		<bMechanical>0</bMechanical>
+		<bMechanical>11</bMechanical>
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
