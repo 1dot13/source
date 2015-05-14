@@ -224,7 +224,10 @@ MOUSE_REGION	gRepairMenuRegion[ 20 ];
 MOUSE_REGION	gMoveItem[ 20 ];
 MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
 
-UINT8			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
+UINT16			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
+
+// when we add a sector to usMoveItemSectors, we add an offset, otherise we can't see the difference between 'no sector added' and 'sector 0'
+#define MOVEITEM_SECTOR_OFFSET	10
 
 // mouse region for vehicle menu
 MOUSE_REGION		gVehicleMenuRegion[ 20 ];
@@ -21098,7 +21101,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 				AddMonoString( (UINT32 *)&hStringHandle, wSectorName );
 
-				usMoveItemSectors[iCount] = (UINT8)X;
+				usMoveItemSectors[iCount] = X + MOVEITEM_SECTOR_OFFSET;
 
 				++iCount;
 				if ( iCount >= MOVEITEM_MENU_CANCEL )
@@ -21152,7 +21155,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 
 					AddMonoString( (UINT32 *)&hStringHandle, bla );
 
-					usMoveItemSectors[iCount + MOVEITEM_MAX_SECTORS] = (UINT8)X;
+					usMoveItemSectors[iCount + MOVEITEM_MAX_SECTORS] = X + MOVEITEM_SECTOR_OFFSET;
 
 					++iCount;
 					if ( iCount >= MOVEITEM_MENU_CANCEL )
@@ -21241,9 +21244,10 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		{
 			for ( UINT i = 0; i < MOVEITEM_MAX_SECTORS_WITH_MODIFIER; ++i )
 			{
-				UINT8 sector = usMoveItemSectors[i];
-
-				if ( sector > 0 )
+				// this includes MOVEITEM_SECTOR_OFFSET !
+				UINT16 val = usMoveItemSectors[i];
+				
+				if ( val > 0 )
 				{
 					// add mouse region for each line of text..and set user data
 					MSYS_DefineRegion( &gMoveItem[ iCount ], 
@@ -21337,13 +21341,13 @@ void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			// depending on exact setting, add or remove the flag that controls wether we ignore stuff the militia might use
 			if ( iValue < MOVEITEM_MAX_SECTORS )
 			{
-				pSoldier->usItemMoveSectorID = usMoveItemSectors[iValue];
+				pSoldier->usItemMoveSectorID = (UINT8)(usMoveItemSectors[iValue] - MOVEITEM_SECTOR_OFFSET);
 
 				pSoldier->usSoldierFlagMask &= ~SOLDIER_MOVEITEM_RESTRICTED;
 			}
 			else if ( iValue < MOVEITEM_MAX_SECTORS_WITH_MODIFIER )
 			{				
-				pSoldier->usItemMoveSectorID = usMoveItemSectors[iValue];
+				pSoldier->usItemMoveSectorID = (UINT8)(usMoveItemSectors[iValue] - MOVEITEM_SECTOR_OFFSET);
 
 				pSoldier->usSoldierFlagMask |= SOLDIER_MOVEITEM_RESTRICTED;
 			}
