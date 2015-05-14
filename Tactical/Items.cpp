@@ -10518,21 +10518,22 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
 	INT8 ubSkillModifier = 0;
+	INT8 iCTHSystem = UsingNewCTHSystem() ? -1 : 1;	// silversurfer: NCTH benefits from reduced levels, OCTH benefits from increased levels
 
 	if( gGameOptions.fNewTraitSystem )
 	{
 		if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_PISTOL || Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_M_PISTOL )
-			ubSkillModifier -= gSkillTraitValues.ubGSAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
+			ubSkillModifier += gSkillTraitValues.ubGSAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) * iCTHSystem;
 		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN )
-			ubSkillModifier -= gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+			ubSkillModifier += gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) * iCTHSystem;
 		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE )
-			ubSkillModifier -= __max( (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f), gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) );
+			ubSkillModifier += __max( (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) / 2.0f), gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) ) * iCTHSystem;
 		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE )
-			ubSkillModifier -= gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
+			ubSkillModifier += gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) * iCTHSystem;
 	}
 	else
 	{
-		ubSkillModifier -= NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT );
+		ubSkillModifier += NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT ) * iCTHSystem;
 	}
 
 	return (INT32)ubSkillModifier;
