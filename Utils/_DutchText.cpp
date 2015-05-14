@@ -9199,14 +9199,14 @@ STR16   szTacticalCoverDialogPrintString[]=
 STR16	szDynamicDialogueText[39][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
-	L"What the hell! $CAUSE$ shot me!",
+	L"What the hell! $CAUSE$ attacked me!",
 	L"",
 	L"",
-	L"What? Me? No way, I'm shooting at the enemy!",
+	L"What? Me? No way, I'm engaging at the enemy!",
 	L"Oops.",
 	L"",
 	L"",
-	L"$CAUSE$ has shot $VICTIM$. What do you do?",
+	L"$CAUSE$ has attacked $VICTIM$. What do you do?",
 	L"Nah, that must have been enemy fire!",
 	L"Yeah, I saw it too!",
 	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",

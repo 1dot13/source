@@ -8095,7 +8095,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		// Flugente: certain items get the maximum temperature when they are created
 		if ( HasItemFlag(usItem, POWER_PACK) )
 		{
-			(*pObj)[0]->data.bTemperature = (FLOAT)(OVERHEATING_MAX_TEMPERATURE);
+			(*pObj)[0]->data.bTemperature = OVERHEATING_MAX_TEMPERATURE;
 		}
 
 		//ADB ubWeight has been removed, see comments in OBJECTTYPE

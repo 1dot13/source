@@ -167,10 +167,12 @@ void HandleDisease()
 				}
 			}
 
-			// if we are infected, this might disgust other people
+			// if we are infected, this might disgust other people, but only if it's visisble to them (we assume doctors dont mention this to others)
 			for ( int i = 0; i < NUM_DISEASES; ++i )
 			{
-				if ( (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_DISGUSTING) && (pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) )
+				if ( (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_DISGUSTING) && 
+					 (pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && 
+					 (pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_OUTBREAK) )
 				{
 					HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_DISEASE_DISGUSTING, TRUE, TRUE );
 					break;

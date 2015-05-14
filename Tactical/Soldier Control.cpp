@@ -17647,9 +17647,13 @@ BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 		pObj = &(inv[CPACKPOCKPOS]);
 	else
 		pObj = GetObjectWithFlag( RADIO_SET );
-
+	
 	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
 	{
+		// if radio set doesn't need batteries, all is fine
+		if ( !Item[pObj->usItem].needsbatteries )
+			return TRUE;
+
 		//search power pack
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
 		for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
@@ -18427,6 +18431,10 @@ void SOLDIERTYPE::DepleteActiveRadioSetEnergy( BOOLEAN fActivation, BOOLEAN fAss
 
 	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
 	{
+		// if radio set doesn't need batteries, all is fine
+		if ( !Item[pObj->usItem].needsbatteries )
+			return;
+
 		//search power pack
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
 		for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
