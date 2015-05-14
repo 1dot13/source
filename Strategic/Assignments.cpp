@@ -21088,10 +21088,10 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 			else if ( townid == BLANK_SECTOR )
 			{
 				// check whether adjacent sectors belong to the town we search for
-				if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == townid )	goodsector = TRUE;
-				if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == townid )				goodsector = TRUE;
-				if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == townid )	goodsector = TRUE;
-				if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == townid )				goodsector = TRUE;
+				if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == bTownId )	goodsector = TRUE;
+				if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == bTownId )					goodsector = TRUE;
+				if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == bTownId )	goodsector = TRUE;
+				if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == bTownId )					goodsector = TRUE;
 			}
 
 			if ( goodsector )
@@ -21138,10 +21138,10 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 				else if ( townid == BLANK_SECTOR )
 				{
 					// check whether adjacent sectors belong to the town we search for
-					if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == townid )	goodsector = TRUE;
-					if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == townid )				goodsector = TRUE;
-					if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == townid )	goodsector = TRUE;
-					if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == townid )				goodsector = TRUE;
+					if ( GetTownIdForSector( min( sectorX + 1, MAP_WORLD_X - 2 ), sectorY ) == bTownId )	goodsector = TRUE;
+					if ( GetTownIdForSector( max( sectorX - 1, 1 ), sectorY ) == bTownId )					goodsector = TRUE;
+					if ( GetTownIdForSector( sectorX, min( sectorY + 1, MAP_WORLD_Y - 2 ) ) == bTownId )	goodsector = TRUE;
+					if ( GetTownIdForSector( sectorX, max( sectorY - 1, 1 ) ) == bTownId )					goodsector = TRUE;
 				}
 
 				if ( goodsector )
