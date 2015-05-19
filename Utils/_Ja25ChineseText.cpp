@@ -229,6 +229,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"机器人命中率 +%d%s, (由%s控制时)(翻译注：程序参数问题只能用这个语序)\n",// L"+%d%s CtH of robot controlled by the %s\n",
 	L"只有 %s 可以修理机器人\n",// L"%s trait grants you the ability to repair the robot\n",
 	L"修理机器人的速度惩罚 -%d%s\n",// L"Reduced penalty to repair speed of the robot by %d%s\n",
+	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
 };
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {

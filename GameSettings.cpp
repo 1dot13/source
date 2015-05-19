@@ -1811,7 +1811,6 @@ void LoadGameExternalOptions()
 	// Flugente: advanced repair/dirt system
 	gGameExternalOptions.fAdvRepairSystem					= iniReader.ReadBoolean("Strategic Gameplay Settings","ADVANCED_REPAIR", FALSE);
 	gGameExternalOptions.fOnlyRepairGunsArmour				= iniReader.ReadBoolean("Strategic Gameplay Settings","ONLY_REPAIR_GUNS_AND_ARMOUR", FALSE);
-	gGameExternalOptions.fMercsCanDoAdvancedRepairs			= iniReader.ReadBoolean("Strategic Gameplay Settings","MERCS_CAN_DO_ADVANCED_REPAIRS", FALSE);
 	gGameExternalOptions.fDirtSystem						= iniReader.ReadBoolean("Strategic Gameplay Settings","DIRT_SYSTEM", FALSE);
 	gGameExternalOptions.fFullRepairCleansGun				= iniReader.ReadBoolean("Strategic Gameplay Settings","FULL_REPAIR_CLEANS_GUN", FALSE);	
 	gGameExternalOptions.usSectorDirtDivider				= iniReader.ReadInteger("Strategic Gameplay Settings","SECTOR_DIRT_DIVIDER", 1000, 1, 100000);
@@ -2385,6 +2384,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTETraitsNumToRepairRobot = iniReader.ReadInteger("Technician","NUMBER_TRAITS_TO_BE_ABLE_TO_REPAIR_THE_ROBOT", 1, 0, 2);
 	gSkillTraitValues.ubTERepairRobotPenaltyReduction = iniReader.ReadInteger("Technician","REPAIR_SPEED_ROBOT_PENALTY_REDUCTION", 30, 0, 100);
 	if (gSkillTraitValues.ubTETraitsNumToRepairRobot == 2) {gSkillTraitValues.ubTERepairRobotPenaltyReduction /= 2; }
+	gSkillTraitValues.fTETraitsCanRestoreItemThreshold = iniReader.ReadBoolean( "Technician", "MERCS_CAN_DO_ADVANCED_REPAIRS", FALSE );
 
 	// DOCTOR
 	gSkillTraitValues.ubDONumberTraitsNeededForSurgery = iniReader.ReadInteger("Doctor","NUMBER_OF_TRAITS_NEEDED_FOR_SURGERY", 1, 0, 2);

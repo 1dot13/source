@@ -231,6 +231,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"+%d%s de chance de toucher avec le robot contrôlé par %s\n",
 	L"%s vous accorde la capacité de réparer le robot\n",
 	L"Pénalité réduite sur la vitesse à réparer le robot de %d%s\n",
+	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
 };
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {

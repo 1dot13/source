@@ -4608,7 +4608,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		INT16 threshold = 100;
 		if ( gGameExternalOptions.fAdvRepairSystem && (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) )
 		{
-			if ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+			if ( !gSkillTraitValues.fTETraitsCanRestoreItemThreshold || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
 			{
 				threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
 			}
@@ -4625,7 +4625,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 			// repairable, try to repair it
 			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
 
-			if ( gGameExternalOptions.fAdvRepairSystem && gGameExternalOptions.fMercsCanDoAdvancedRepairs && ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) ) && ( (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) ) )
+			if ( gGameExternalOptions.fAdvRepairSystem && gSkillTraitValues.fTETraitsCanRestoreItemThreshold && (HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT )) && ((Item[pObj->usItem].usItemClass & (IC_WEAPON | IC_ARMOUR))) )
 				(*pObj)[ubLoop]->data.sRepairThreshold = max((*pObj)[ubLoop]->data.sRepairThreshold, (*pObj)[ubLoop]->data.objectStatus);
 									
 			// if the item was repaired to full status and the repair wa at least 5%, add a point
@@ -5003,14 +5003,14 @@ BOOLEAN IsItemRepairable(SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, IN
 			if ( gGameExternalOptions.fOnlyRepairGunsArmour )
 			{
 				if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && ( bStatus < bThreshold
-					|| ( gGameExternalOptions.fMercsCanDoAdvancedRepairs && HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )) )
+					|| (gSkillTraitValues.fTETraitsCanRestoreItemThreshold && HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))) )
 					return ( TRUE );
 				else
 					return ( FALSE );
 			}
 
 			if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus >= bThreshold 
-				&& ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) ) )
+				 && (!gSkillTraitValues.fTETraitsCanRestoreItemThreshold  || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT )) )
 				// nay
 				return ( FALSE );
 		}

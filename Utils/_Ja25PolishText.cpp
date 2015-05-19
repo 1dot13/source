@@ -230,6 +230,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"+%d%s robot's CtH controlled by the %s\n",
 	L"%s trait grants ability to repair the robot\n",
 	L"Reduced penalty to repair speed of the robot by %d%s\n",
+	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=

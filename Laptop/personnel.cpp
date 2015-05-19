@@ -7781,6 +7781,11 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 						wcscat( apStr, atStr );
 					}
 				}
+				if ( gGameExternalOptions.fAdvRepairSystem && gSkillTraitValues.fTETraitsCanRestoreItemThreshold )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[10] );
+					wcscat( apStr, atStr );
+				}
 				break;
 			}
 			case DOCTOR_NT:
