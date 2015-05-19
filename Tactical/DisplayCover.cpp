@@ -989,9 +989,12 @@ void AddMinesObjectsToViewArea()
 				{
 					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 
-					TileDefines tile = GetOverlayIndex( bOverlayType );
-					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
+					if ( !TileIsOutOfBounds( sGridNo ) )
+					{
+						TileDefines tile = GetOverlayIndex( bOverlayType );
+						AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
+						fChanged = TRUE;
+					}
 				}
 			}
 		}

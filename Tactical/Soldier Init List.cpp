@@ -1569,8 +1569,10 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 		}
 		curr = curr->next;
 	}
+
 	if( !ubMaxNum )
 		return;
+
 	//Now count the number of nodes that are basic placements of desired team AND CLASS
 	//This information will be used to randomly determine which of these placements
 	//will be added based on the number of slots we can still add.
@@ -1615,6 +1617,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 			pCurrTotal = &ubNumRegs;
 			break;
 		}
+
 		//Now, loop through the basic placement of the list.
 		curr = mark; //mark is the marker where the basic placements start.
 		while( curr && !curr->pSoldier && ubMaxNum && *pCurrTotal && *pCurrSlots )
@@ -1656,8 +1659,10 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 			curr = curr->next;
 		}
 	}
+
 	if( !ubMaxNum )
 		return;
+
 	//If we are at this point, that means that there are some compatibility issues.	This is fine.	An example
 	//would be a map containing 1 elite placement, and 31 troop placements.	If we had 3 elites move into this
 	//sector, we would not have placements for two of them.	What we have to do is override the class information
@@ -1736,6 +1741,74 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 			//will be full by the time the end of the list comes up.
 		}
 		curr = curr->next;
+	}
+
+	// Flugente: it is possible that a sector has more militia than placements. In this case they would not be placed, thereby not joining any battle
+	// we solve this problem by adding them to a random gridno here, but only up to the minimum of MAX_MILITIA_PER_SECTOR, MAX_NUMBER_MILITIA_IN_TACTICAL and MAX_STRATEGIC_ENEMY_GROUP_SIZE
+	if ( ubMaxNum && ( ubNumElites || ubNumRegs || ubNumGreen ) )
+	{
+		// determine how many militia have already been created in this sector (this can also have happened in another function), so count all active ones
+		UINT16 tacticalmilitia = 0;
+		for ( UINT16 i = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; i <= gTacticalStatus.Team[MILITIA_TEAM ].bLastID; ++i )
+		{
+			if ( MercPtrs[i]->bInSector && MercPtrs[i]->bActive )
+				++tacticalmilitia;
+		}
+
+		// is there still room tom add more?
+		UINT16 militiamax = min( gGameExternalOptions.iMaxMilitiaPerSector, gGameExternalOptions.ubGameMaximumNumberOfRebels);
+		militiamax = min( militiamax, gGameExternalOptions.iMaxEnemyGroupSize );
+
+		while ( tacticalmilitia < militiamax )
+		{
+			SOLDIERTYPE* pSoldier = NULL;
+
+			if ( ubNumElites )
+			{
+				pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_ELITE_MILITIA, gWorldSectorX, gWorldSectorY );
+				--ubNumElites;
+			}
+			else if ( ubNumRegs )
+			{
+				pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_REG_MILITIA, gWorldSectorX, gWorldSectorY );
+				--ubNumRegs;
+			}
+			else if ( ubNumGreen )
+			{
+				pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_GREEN_MILITIA, gWorldSectorX, gWorldSectorY );
+				--ubNumGreen;
+			}
+
+			if ( pSoldier )
+			{
+				//no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = RandomGridNo();
+
+				pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
+
+				// Lesh: militia came from another sector can't reach opposite side of map in case of battle there
+				//		they are often stop at a half way. trying to fix this
+				if ( gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition )
+				{
+					pSoldier->aiData.bOrders = SEEKENEMY;
+					pSoldier->aiData.bAlertStatus = STATUS_RED;
+				}
+				else
+				{
+					pSoldier->aiData.bOrders = ONGUARD;
+					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
+					pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) * WORLD_COLS);
+					pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+				}
+
+				UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+
+				++tacticalmilitia;
+			}
+			else
+				return;
+		}
 	}
 }
 
