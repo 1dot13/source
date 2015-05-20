@@ -43,7 +43,6 @@
 		<travel_boat>0</travel_boat>                      <!-- no boats exist in the trunk -->
 
 		<!-- +-% resistances, -20 to 20-->
-		<resistance_poison>0</resistance_poison>
 		<resistance_fear>0</resistance_fear>
 		<resistance_suppression>0</resistance_suppression>
 		<resistance_physical>0</resistance_physical>
@@ -784,7 +783,6 @@
 		<szShortName>Punk</szShortName>
 		<szDescription>Living in the Urban jungle for quite a few years surely has its merits.</szDescription>
 		<ap_urban>5</ap_urban>
-		<resistance_poison>15</resistance_poison>
 		<resistance_disease>15</resistance_disease>
 		<speed_run>10</speed_run>
 		<meleedamage>2</meleedamage>
@@ -951,7 +949,6 @@
 		<ap_tropical>3</ap_tropical>
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
-		<resistance_poison>17</resistance_poison>
 		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
@@ -1365,7 +1362,6 @@
 		<ap_urban>-3</ap_urban>
 		<ap_tropical>3</ap_tropical>
 		<travel_foot>3</travel_foot>
-		<resistance_poison>15</resistance_poison>
 		<resistance_alcohol>20</resistance_alcohol>
 		<resistance_disease>10</resistance_disease>
 		<carrystrength>4</carrystrength>
@@ -1563,7 +1559,6 @@
 		<szName>Child</szName>
 		<szShortName>Child</szShortName>
 		<szDescription>And there goes the Geneva convention...</szDescription>
-		<resistance_poison>-20</resistance_poison>
 		<resistance_fear>-20</resistance_fear>
 		<resistance_suppression>-20</resistance_suppression>
 		<resistance_physical>-20</resistance_physical>
@@ -2360,7 +2355,6 @@
 		<speed_run>-10</speed_run>
 		<approach_friendly>-5</approach_friendly>
 		<approach_threaten>10</approach_threaten>
-		<resistance_poison>20</resistance_poison>
 		<resistance_disease>-10</resistance_disease>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -2518,7 +2512,6 @@
 		<ap_tropical>3</ap_tropical>
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
-		<resistance_poison>17</resistance_poison>
 		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
@@ -2536,7 +2529,6 @@
 		<ap_tropical>3</ap_tropical>
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
-		<resistance_poison>17</resistance_poison>
 		<resistance_disease>20</resistance_disease>
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
@@ -2552,7 +2544,6 @@
 		<ap_swamp>3</ap_swamp>
 		<ap_tropical>3</ap_tropical>
 		<medical>10</medical>
-		<resistance_poison>17</resistance_poison>
 		<resistance_disease>30</resistance_disease>
 		<tracker_ability>30</tracker_ability>
 		<no_male>1</no_male>
@@ -2860,7 +2851,6 @@
 		<szShortName>Hypochondriac</szShortName>
 		<szDescription>When you enter a ward, all medical personnel tries to look overly &#10;busy or hides around corners in a futile attempt to avoid you. &#10;The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
 		<medical>3</medical>
-		<resistance_poison>10</resistance_poison>
 		<resistance_fear>-10</resistance_fear>
 		<resistance_disease>-20</resistance_disease>
 		<no_male>1</no_male>
@@ -2954,7 +2944,6 @@
 		<szName>Convict</szName>
 		<szShortName>Convict</szShortName>
 		<szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
-		<resistance_poison>5</resistance_poison>
 		<resistance_physical>2</resistance_physical>
 		<resistance_disease>5</resistance_disease>
 		<meleedamage>2</meleedamage>
@@ -3094,7 +3083,6 @@
 		<approach_recruit>-10</approach_recruit>
 		<hearing_night>1</hearing_night>
 		<stealth>5</stealth>
-		<resistance_poison>5</resistance_poison>
 		<resistance_physical>2</resistance_physical>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3270,7 +3258,6 @@
     <szName>Convict</szName>
     <szShortName>Convict</szShortName>
     <szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
-    <resistance_poison>5</resistance_poison>
     <resistance_physical>2</resistance_physical>
     <resistance_disease>5</resistance_disease>
     <meleedamage>2</meleedamage>
@@ -3683,7 +3670,6 @@
    <szShortName>Hypochondriac</szShortName>
    <szDescription>When you enter a ward, all medical personnel tries to look overly &#10;busy or hides around corners in a futile attempt to avoid you. &#10;The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
    <medical>3</medical>
-   <resistance_poison>10</resistance_poison>
    <resistance_fear>-10</resistance_fear>
    <resistance_disease>-20</resistance_disease>
   </BACKGROUND>

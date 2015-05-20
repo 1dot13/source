@@ -33,7 +33,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -72,7 +71,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.17</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -111,7 +109,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.13</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -150,7 +147,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -189,7 +185,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>Buckshot</spreadPattern>
 		<temperatureModificator>0.0</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -228,7 +223,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>Flechette</spreadPattern>
 		<temperatureModificator>0.03</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.25</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -267,7 +261,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.08</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -306,7 +299,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -345,7 +337,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -384,7 +375,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.15</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.0</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -423,7 +413,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -462,7 +451,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.5</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -501,7 +489,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.5</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.8</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -540,7 +527,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.35</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -579,7 +565,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.2</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.08</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -618,7 +603,6 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.25</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.4</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -657,7 +641,6 @@
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.35</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.5</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -696,7 +679,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.08</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.15</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -735,7 +717,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.18</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -774,7 +755,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.15</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -813,7 +793,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.15</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.05</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -852,7 +831,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.04</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -891,7 +869,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.07</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -930,7 +907,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.05</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>-0.1</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -969,7 +945,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.13</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.03</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1008,7 +983,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.06</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.35</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1047,7 +1021,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.23</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.27</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1086,7 +1059,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>Duplex</spreadPattern>
 		<temperatureModificator>0.15</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.3</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1125,7 +1097,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.03</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1164,7 +1135,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0</dirtModificator>
 		<ammoflag>1</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1203,7 +1173,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0</dirtModificator>
 		<ammoflag>2</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1242,7 +1211,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.3</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.2</dirtModificator>
 		<ammoflag>4</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
@@ -1281,7 +1249,6 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>-0.2</temperatureModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<dirtModificator>0.15</dirtModificator>
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>0.3</dDamageModifierLife>

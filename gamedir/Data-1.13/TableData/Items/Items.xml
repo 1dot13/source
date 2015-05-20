@@ -169,7 +169,6 @@
 		<overheatCooldownModificator>0.0</overheatCooldownModificator>
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
-		<PoisonPercentage>0</PoisonPercentage>
 		<FoodType>0</FoodType>
 		<LockPickModifier>0</LockPickModifier>
 		<CrowbarModifier>0</CrowbarModifier>
@@ -46386,28 +46385,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1539</uiIndex>
-		<szItemName>Antidote</szItemName>
-		<szLongItemName>Antidote</szLongItemName>
-		<szItemDesc>This antidote can cure poison over time. WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
-		<szBRName>Antidote</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>70</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>150</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<Attachment>1</Attachment>
+		<ItemSize>34</ItemSize>
+		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<SciFi>1</SciFi>
-		<Unaerodynamic>1</Unaerodynamic>
-		<Medical>1</Medical>
-		<DrugType>1081344</DrugType>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
