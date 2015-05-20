@@ -3500,7 +3500,6 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	UINT32										uiDestPitchBYTES;
 	UINT8											*pDestBuf;
 	INT8											bBandage;
-	INT8											bPoisonBandage;
 	INT16		color8;
 	INT16		color16;
 
@@ -3535,10 +3534,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 
 	// get amt bandaged
 	bBandage = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
-
-	// get amount of poisoned bandage
-	bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-
+	
 	// NOW DO BLEEDING
 	if ( pSoldier->bBleeding )
 	{
@@ -3546,42 +3542,18 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		dWidth			=	dPercentage * sWidth;
 		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 240,	240, 20	) ), pDestBuf );
 	}
-
-	// poisoned bleeding
-	if ( pSoldier->bPoisonBleeding )
-	{
-		dPercentage = (FLOAT)( pSoldier->stats.bLifeMax - pSoldier->bBleeding +	pSoldier->bPoisonBleeding )/ (FLOAT)100;
-		dWidth			=	dPercentage * sWidth;
-		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 240, 20, 240	) ), pDestBuf );
-	}
-
+		
 	if( bBandage )
 	{
 		dPercentage = (FLOAT)( pSoldier->stats.bLife + bBandage ) / (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
 		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 222, 132, 132	) ), pDestBuf );
 	}
-
-	// poisoned bandage
-	if ( bPoisonBandage )
-	{
-		dPercentage = (FLOAT)( pSoldier->stats.bLife + bPoisonBandage )/ (FLOAT)100;
-		dWidth			=	dPercentage * sWidth;
-		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 132, 222, 132	) ), pDestBuf );
-	}
-
+		
 	dPercentage = (FLOAT)pSoldier->stats.bLife / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
 	DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_RED, Get16BPPColor( FROMRGB( 200, 0, 0	) ), pDestBuf );
-
-	// poisoned life
-	if ( pSoldier->bPoisonLife )
-	{
-		dPercentage = (FLOAT)( pSoldier->bPoisonLife )/ (FLOAT)100;
-		dWidth			=	dPercentage * sWidth;
-		DrawBar( sXPos + 3, sYPos + 1, (INT32)dWidth, sHeight, COLOR_GREEN, Get16BPPColor( FROMRGB( 0, 200, 0 ) ), pDestBuf );
-	}
-
+		
 	dPercentage = (FLOAT)( pSoldier->bBreathMax ) / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
 	DrawBar( sXPos + 3, sYPos + 1 + interval, (INT32)dWidth, sHeight, COLOR_BLUE, Get16BPPColor( FROMRGB( 20, 20, 150	) ), pDestBuf );

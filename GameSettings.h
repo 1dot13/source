@@ -394,13 +394,7 @@ typedef struct
 	BOOLEAN fZombieRiseWithArmour;
 	BOOLEAN fZombieOnlyHeadShotsPermanentlyKill;
 #endif
-	
-	// Flugente: poison settings
-	INT32	ubPoisonBaseMedicalSkillToCure;
-	FLOAT	sPoisonMedicalPtsToCureMultiplicator;
-	INT16	sZombiePoisonDamagePercentage;
-	FLOAT	sPoisonInfectionDamageMultiplier;
-
+		
 	// Flugente: fortification settings
 	BOOLEAN fFortificationAllowInHostileSector;
 
@@ -419,9 +413,7 @@ typedef struct
 		
 	BOOLEAN fFoodDecayInSectors;
 	FLOAT	sFoodDecayModificator;
-
-	UINT8	usFoodMaxPoisoning;
-
+	
 	BOOLEAN fFoodEatingSounds;
 
 	// Flugente: disease settings

@@ -3331,13 +3331,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
 	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
-
-	// added by Flugente to display health and poisoning		// TODO.Translate
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s",
-
+	
 	// added by Flugente to display food status
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 
 	// added by Flugente: selection of a function to call in tactical
 	L"What do you want to do?",
@@ -8262,7 +8258,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% travel speed on air vehicles\n",
 	L" %s%d%% travel speed on water vehicles\n",
 
-	L" %s%d%% poison resistance\n",
 	L" %s%d%% fear resistance\n",
 	L" %s%d%% suppression resistance\n",
 	L" %s%d%% physical resistance\n",

@@ -80,7 +80,6 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "tracerEffect") == 0 ||
 				strcmp(name, "monsterSpit") == 0 ||
 				strcmp(name, "temperatureModificator") == 0 ||
-				strcmp(name, "PoisonPercentage") == 0 ||
 				strcmp(name, "dirtModificator") == 0 ||
 				strcmp(name, "ammoflag" ) == 0 ||
 				strcmp(name, "dDamageModifierLife" ) == 0 ||
@@ -287,15 +286,6 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.temperatureModificator	= (FLOAT) atof(pData->szCharData);
 		}
-		else if(strcmp(name, "PoisonPercentage") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curAmmoType.poisonPercentage	= (INT16) atol(pData->szCharData);
-
-			// check: poisonPercentage must be between 0 and 100, fit bad values
-			pData->curAmmoType.poisonPercentage = max(0, pData->curAmmoType.poisonPercentage);
-			pData->curAmmoType.poisonPercentage = min(100, pData->curAmmoType.poisonPercentage);
-		}
 		else if(strcmp(name, "dirtModificator") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -444,7 +434,6 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<lockBustingPower>%d</lockBustingPower>\r\n",											AmmoTypes[cnt].lockBustingPower	);
 			FilePrintf(hFile,"\t\t<tracerEffect>%d</tracerEffect>\r\n",													AmmoTypes[cnt].tracerEffect	);
 			FilePrintf(hFile,"\t\t<temperatureModificator>%4.2f</temperatureModificator>\r\n",							AmmoTypes[cnt].temperatureModificator	);
-			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",											AmmoTypes[cnt].poisonPercentage	);
 			FilePrintf(hFile,"\t\t<dirtModificator>%4.2f</dirtModificator>\r\n",										AmmoTypes[cnt].dirtModificator	);
 			FilePrintf(hFile,"\t\t<ammoflag>%d</ammoflag>\r\n",															AmmoTypes[cnt].ammoflag	);
 			FilePrintf(hFile,"\t\t<dDamageModifierLife>%4.2f</dDamageModifierLife>\r\n",								AmmoTypes[cnt].dDamageModifierLife );

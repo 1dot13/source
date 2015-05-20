@@ -14499,30 +14499,20 @@ void UpdateMercBodyRegionHelpText( )
 				{
 					// person (health/energy/morale)
 					GetMoraleString( pSoldier, pMoraleStr );
-
-						if ( pSoldier->bPoisonSum )
-						{
-							INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-						swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[5], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr );
-						}
-						else
-						{
-							swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
-									  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-									  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
-									  pMapScreenStatusStrings[2], pMoraleStr );
-						}
+											
+					{
+						swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
+								  pMapScreenStatusStrings[0], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+								  pMapScreenStatusStrings[1], pSoldier->bBreath, pSoldier->bBreathMax,
+								  pMapScreenStatusStrings[2], pMoraleStr );
+					}
 
 					pSoldier->PrintFoodDesc( sString, TRUE );
 
-						pSoldier->PrintDiseaseDesc( sString, TRUE );
-					}
+					pSoldier->PrintDiseaseDesc( sString, TRUE );
 				}
 			}
+		}
 
 		SetRegionFastHelpText( &gSMInvCamoRegion, sString );
 	}

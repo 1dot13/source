@@ -3323,13 +3323,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"设置引爆频率 (1 - 4) 和拆除频率 (A - D):", //L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
 	L"设置引爆时间回合数 (1 - 4) 和拆除频率 (A - D):", //L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"选择绊线的分层 (1 - 4) 和网格 (A - D):", //L"Select tripwire hierarchy (1 - 4) and network (A - D):",
-
-	// added by Flugente to display health and poisoning
-	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s",
-
+	
 	// added by Flugente to display food status
 	L"生命: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
-	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 
 	// added by Flugente: selection of a function to call in tactical
 	L"你想要做的是什么？",
@@ -8237,7 +8233,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％坐飞机速度\n", //L" %s%d%% travel speed on air vehicles\n",
 	L" %s%d%％坐船速度\n", //L" %s%d%% travel speed on water vehicles\n",
 
-	L" %s%d%％中毒耐性\n", //L" %s%d%% poison resistance\n",
 	L" %s%d%％畏惧抵制\n", //L" %s%d%% fear resistance\n",
 	L" %s%d%％压制忍耐\n", //L" %s%d%% suppression resistance\n",
 	L" %s%d%％近战抗性\n", //L" %s%d%% physical resistance\n",

@@ -170,16 +170,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 		// determine the max nutritional value
 		INT32 maxpts = max(Food[foodtype].bFoodPoints, Food[foodtype].bDrinkPoints);
-
-		// divide by 100 (poison sum is in [0, 99]
-		// multiply with 0.25 for more reasonable values
-		INT8 poisonadd = (INT8)(maxpts * (1.0 - foodcondition) * 0.025 );
-
-		// added a max threshold to food poisoning
-		poisonadd = min(poisonadd, gGameExternalOptions.usFoodMaxPoisoning),
-
-		pSoldier->AddPoison(poisonadd);
-
+		
 		// we might get a disease from this...
 		FLOAT modifier = 1.0f - 2 * foodcondition;
 		HandlePossibleInfection( pSoldier, NULL, type == AP_EAT ? INFECTION_TYPE_BADFOOD : INFECTION_TYPE_BADWATER, modifier );
@@ -456,12 +447,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->stats.bLifeMax = max(2, pSoldier->stats.bLifeMax - numberofreduces);
 			pSoldier->stats.bLife = min(pSoldier->stats.bLife, pSoldier->stats.bLifeMax);
 			pSoldier->bBleeding = min(pSoldier->bBleeding, pSoldier->stats.bLifeMax);
-
-			// adjust poison values
-			pSoldier->bPoisonSum = min(pSoldier->bPoisonSum, pSoldier->stats.bLifeMax);
-			pSoldier->bPoisonLife = min(pSoldier->bPoisonLife, pSoldier->bPoisonSum);
-			pSoldier->bPoisonBleeding = min(pSoldier->bPoisonBleeding, pSoldier->bBleeding);
-
+			
 			pSoldier->usStarveDamageHealth += oldlife - pSoldier->stats.bLifeMax;
 
 			// Update Profile
@@ -542,12 +528,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->stats.bLifeMax = max(2, pSoldier->stats.bLifeMax - numberofreduces);
 			pSoldier->stats.bLife = min(pSoldier->stats.bLife, pSoldier->stats.bLifeMax);
 			pSoldier->bBleeding = min(pSoldier->bBleeding, pSoldier->stats.bLifeMax);
-
-			// adjust poison values
-			pSoldier->bPoisonSum = min(pSoldier->bPoisonSum, pSoldier->stats.bLifeMax);
-			pSoldier->bPoisonLife = min(pSoldier->bPoisonLife, pSoldier->bPoisonSum);
-			pSoldier->bPoisonBleeding = min(pSoldier->bPoisonBleeding, pSoldier->bBleeding);
-
+			
 			pSoldier->usStarveDamageHealth += oldlife - pSoldier->stats.bLifeMax;
 
 			// Update Profile

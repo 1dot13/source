@@ -359,7 +359,6 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->bRegenerationCounter > 0)
 	{
 		// increase life
-		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + pSoldier->stats.bLife - __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax ) );
 		pSoldier->stats.bLife = __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax );
 		
 		//SANDRO - Insta-healable injury reduction
@@ -371,14 +370,12 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 		{
 			pSoldier->bBleeding = 0;
-			pSoldier->bPoisonBleeding = 0;
 			pSoldier->iHealableInjury = 0;
 		}
 		else if ( pSoldier->bBleeding + pSoldier->stats.bLife > pSoldier->stats.bLifeMax )
 		{
 			// got to reduce amount of bleeding
 			pSoldier->bBleeding = (pSoldier->stats.bLifeMax - pSoldier->stats.bLife);
-			pSoldier->bPoisonBleeding = min(pSoldier->bPoisonBleeding, (pSoldier->stats.bLifeMax - pSoldier->stats.bLife));
 		}
 
 		// decrement counter
@@ -416,25 +413,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	{
 		pSoldier->EVENT_SoldierGotHit( 0, 10, 0, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, -1 );
 	}
-
-	// if we took an antidote, reduce poisoning
-	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_CUREPOISON ] > 0 )
-	{
-		if (  pSoldier->bPoisonSum > 0 )
-		{
-			if ( pSoldier->bPoisonBleeding > 0 )
-			{
-				pSoldier->bPoisonBleeding--;
-			}
-			else if ( pSoldier->bPoisonLife > 0 )
-			{
-				pSoldier->bPoisonLife--;
-			}
-
-			pSoldier->bPoisonSum--;
-		}
-	}
-
+	
 	// etorphine stuns while it lasts. It can also damage and possibly kill the target if overdosed. The dosage depends on our bodytype
 	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STUNANDKILL ] )
 	{

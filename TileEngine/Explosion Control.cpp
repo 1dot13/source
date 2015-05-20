@@ -2160,7 +2160,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ExpControl pSoldier->flags.fHitByGasFlags: %d", pSoldier->flags.fHitByGasFlags );
 
 		// a gas effect, take damage directly...
-		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, 0, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 
 		if (is_networked && is_client)
 		{
@@ -2635,7 +2635,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			break;
 			}
 			// a gas effect, take damage directly...
-			pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, 0, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 			if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
 			pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + Random( 2 ) ) );
@@ -5675,7 +5675,7 @@ void SoldierDropThroughRoof( SOLDIERTYPE* pSoldier, INT32 sGridNo )
 
 	// take damage
 	UINT32 damage = 15 + Random( 5 ) + Random( 23 );
-	pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, 0, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+	pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 }
 
 gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo )
@@ -5913,7 +5913,7 @@ void RoofDestruction( INT32 sGridNo )
 
 		// take damage
 		UINT32 damage = 10 + Random( 3 ) + Random( 10 );
-		pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, 0, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+		pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 	}
 
 	// if there is a person here, drop them to the ground...

@@ -1945,9 +1945,6 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 			}
 
-			//////////////////// POISON PERCENTAGE			
-			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
-
 			if ( gGameExternalOptions.fDirtSystem )	// Flugente
 			{	
 				//////////////////// DIRT MODIFICATOR
@@ -4037,21 +4034,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 			}
 		}
-
-		///////////////////// poison percentage
-		// only draw if item is poisoned in any way
-		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
-		{
-			if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// new index line here?
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{				
-				swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 56 ], szUDBAdvStatsExplanationsTooltipText[ 56 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
- 			}
-			cnt++;
-		}
-
+				
 		if ( gGameExternalOptions.fDirtSystem )
 		{
 			///////////////////// DIRT MODIFICATOR
@@ -4641,9 +4624,6 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 16, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
-
-		//////////////// POISON PERCENTAGE
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 0, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 		if ( gGameExternalOptions.fDirtSystem )	// Flugente
 		{
@@ -5737,20 +5717,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			}
 		}
 	}
-
-	///////////////////// poison percentage
-	// only draw if item is poisoned in any way
-	if ( ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) ) ||
-		( fComparisonMode && ( Item[gpComparedItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpComparedItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) ) ) )
-	{
-		if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt; // new index line here?
-		if (cnt >= sFirstLine && cnt < sLastLine)
-		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 0, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-		cnt++;
-	}
-
+	
 	if ( gGameExternalOptions.fDirtSystem )
 	{
 		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) ||
@@ -8998,42 +8965,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 				DrawPropertyValueInColourFloat( Comparedfinalvalue - finalvalue, ubNumLine, 3, fComparisonMode, FALSE, FALSE, 0, 0.0f, 2  );
 			}
 		}
-
-		///////////////////// POISON PERCENTAGE
-		// Set line to draw into
-		ubNumLine = 4;
-		// Set Y coordinates
-		sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-		sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-
-		// base modificator
-		INT16 basevalue = AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
-		INT16 modificator = 0;							// Does not exist (yet?)
-		INT16 finalvalue = basevalue - modificator;
-
-		if( !fComparisonMode )
-		{
-			// Print base value
-			DrawPropertyValueInColour( basevalue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
-			// Print modifier
-			DrawPropertyTextInColour( L"--", ubNumLine, 2, fComparisonMode );
-			// Print final value
-			DrawPropertyValueInColour( finalvalue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
-		}
-		else
-		{
-			// base modificator
-			INT16 Comparedbasevalue = AmmoTypes[Magazine[ Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
-			INT16 Comparedmodificator = 0;							// Does not exist (yet?)
-			INT16 Comparedfinalvalue = Comparedbasevalue - Comparedmodificator;
-			// Print difference in base value
-			DrawPropertyValueInColour( Comparedbasevalue - basevalue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
-			// Print difference in modifier
-			DrawPropertyTextInColour( L"=", ubNumLine, 2 );
-			// Print difference in final value
-			DrawPropertyValueInColour( Comparedfinalvalue - finalvalue, ubNumLine, 3, fComparisonMode, FALSE, TRUE );
-		}
-
+		
 		if ( gGameExternalOptions.fDirtSystem )	// Flugente
 		{
 			///////////////////// DIRT MODIFICATOR
@@ -13818,78 +13750,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			///////////////////// DAMAGE THRESHOLD MODIFIER
 		}
 	}
-
-	// Flugente Zombies
-	///////////////////// poison percentage
-	iModifier[0] = Item[gpItemDescObject->usItem].bPoisonPercentage;
-
-	UINT8 ammotype = (*gpItemDescObject)[0]->data.gun.ubGunAmmoType;			// ... get type of ammunition used ...
-
-	iModifier[1] = AmmoTypes[ammotype].poisonPercentage;
-	iModifier[2] = iModifier[0] + iModifier[1];
-
-	if( fComparisonMode )
-	{
-		iComparedModifier[0] = Item[gpComparedItemDescObject->usItem].bPoisonPercentage;
-
-		UINT8 comparedammotype = (*gpComparedItemDescObject)[0]->data.gun.ubGunAmmoType;
 		
-		iComparedModifier[1] = AmmoTypes[comparedammotype].poisonPercentage;
-		iComparedModifier[2] = iComparedModifier[0] + iComparedModifier[1];
-	}
-
-	// only draw if item is poisoned in any way
-	if ( ( iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 ) ||
-		( fComparisonMode && ( iComparedModifier[0] != 0 || iComparedModifier[1] != 0 || iComparedModifier[2] != 0 ) ) )
-	{
-		if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// insert Indexes here?
-		if (cnt >= sFirstLine && cnt < sLastLine)
-		{
-			// Set Y coordinates
-			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
-				
-			// Print Values
-			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
-			{
-				SetRGBFontForeground( 0, 255, 0 );
-				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
-				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if( fComparisonMode )
-				{
-					iModifier[cnt2] = iComparedModifier[cnt2] - iModifier[cnt2];
-				}
-				if (iModifier[cnt2] > 0)
-				{
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else if (iFloatModifier[cnt2] < 0)
-				{
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-					#ifdef CHINESE
-						wcscat( pStr, ChineseSpecString1 );
-					#else
-						wcscat( pStr, L"%" );
-					#endif
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				mprintf( usX, usY, pStr );
-			}
-		}
-		cnt++;
-	}
-
 	if ( gGameExternalOptions.fDirtSystem )
 	{	
 		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) ||
@@ -13997,7 +13858,6 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					if ( iFloatModifier[0] < 0.5f )
 					{
 						iModifier[1] = (INT16)( max( Food[fFoodtype].bFoodPoints, Food[fFoodtype].bDrinkPoints ) * (1.0 - iFloatModifier[0]) * 0.025 );//Poison formula coppied from food.cpp
-						iModifier[1] = min( iModifier[1], gGameExternalOptions.usFoodMaxPoisoning );
 					}
 					else
 						iModifier[1] = 0;
@@ -14010,7 +13870,6 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						if ( iComparedFloatModifier[0] < 0.5f )
 						{
 							iComparedModifier[1] = (INT16)( max( Food[fComparedFoodtype].bFoodPoints, Food[fComparedFoodtype].bDrinkPoints ) * (1.0 - iComparedFloatModifier[0]) * 0.025 );//Poison formula coppied from food.cpp
-							iComparedModifier[1] = min( iComparedModifier[1], gGameExternalOptions.usFoodMaxPoisoning );
 						}
 						else
 							iComparedModifier[1] = 0;

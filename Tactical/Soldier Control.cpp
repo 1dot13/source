@@ -1021,13 +1021,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->wornSnowCamo = __min( (100 - gGameExternalOptions.bCamoKitArea), src.wornSnowCamo );
 
 		this->bScopeMode = USE_BEST_SCOPE;
-
-		this->bPoisonBleeding = 0;
-		this->bPoisonLife = 0;
-		this->bPoisonSum = 0;
-		this->bPoisonResistance = 0;
-		this->bPoisonAbsorption = 0;
-
+		
 		this->bFoodLevel = 0;
 		this->bDrinkLevel = 0;
 		this->usStarveDamageHealth = 0;
@@ -1714,7 +1708,7 @@ void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
 UINT16 *CreateEnemyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscale, UINT32 gscale, BOOLEAN fAdjustGreen );
 UINT16 *CreateEnemyGreyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscale, UINT32 gscale, BOOLEAN fAdjustGreen );
 
-void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed, BOOLEAN fAllowPoisoning );
+void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed );
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier );
 
 void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState );
@@ -6027,16 +6021,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		this->SoldierTakeDamage( ANIM_CROUCH, sDamage, 0, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
+		this->SoldierTakeDamage( ANIM_CROUCH, sDamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
 		return;
 	}
 
-	INT16 poisondamage = 0;
-	if ( ubAttackerID != NOBODY )
-		poisondamage = (INT16)((sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage( )) / 100);
-
-	// DEDUCT LIFE
-	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, poisondamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
+		// DEDUCT LIFE
+	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
 
 	// ATE: OK, Let's check our ASSIGNMENT state,
 	// If anything other than on a squad or guard, make them guard....
@@ -9432,7 +9422,7 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 					WindowHit( sNewGridNo, pStructure->usStructureID, (this->ubDirection == SOUTH || this->ubDirection == EAST), TRUE );
 
 					// we get a bit of damage for jumping through a window
-					this->SoldierTakeDamage( 0, 2 + Random( 4 ), 0, 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sNewGridNo, 0, TRUE );
+					this->SoldierTakeDamage( 0, 2 + Random( 4 ), 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sNewGridNo, 0, TRUE );
 				}
 			}
 		}
@@ -9758,12 +9748,12 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 }
 
 
-UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPoisonAdd, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
+UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
 {
 #ifdef JA2BETAVERSION
 	if ( is_networked ) {
 		CHAR tmpMPDbgString[512];
-		sprintf( tmpMPDbgString, "SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sPoisonAdd : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight, sLifeDeduct, sPoisonAdd, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage );
+		sprintf( tmpMPDbgString, "SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight, sLifeDeduct, sBreathLoss, ubReason, ubAttacker, sSourceGrid, sSubsequent, fShowDamage );
 		MPDebugMsg( tmpMPDbgString );
 	}
 #endif
@@ -9776,13 +9766,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	UINT16		usItemFlags = 0; // Kaiden: Needed for the reveal all items after combat code from UB.
 
 	this->ubLastDamageReason = ubReason;
-
-	// check: poison damage cannot be higher than damage
-	sPoisonAdd = min( sPoisonAdd, sLifeDeduct );
-
-	// reduce poison damage by poison resistance
-	sPoisonAdd = (INT16)(sPoisonAdd * (100 - this->GetPoisonResistance( )) / 100);
-
+		
 	// Flugente: dynamic opinions
 	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
 	{
@@ -9821,12 +9805,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 
 	// Deduct life!, Show damage if we want!
 	bOldLife = this->stats.bLife;
-
-	// we need this to relation to decide how to redistribute poison points
-	FLOAT dpoisonliferelation = 1.0;
-	if ( bOldLife > 0 )
-		dpoisonliferelation = (FLOAT)(this->bPoisonLife / bOldLife);
-
+	
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -9950,41 +9929,14 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	if ( sLifeDeduct > this->stats.bLife )
 	{
 		this->stats.bLife = 0;
-
-		this->bPoisonSum = 0;
-		this->bPoisonLife = 0;
-		this->bPoisonBleeding = 0;
 	}
 	else
 	{
-		// we might have poison absorption
-		INT16 sLifeGainAbsorption = (INT16)((sPoisonAdd * this->GetPoisonAbsorption( )) / 100);
-
-		// life reduction gets reduced itself by life gained through absorption
-		sLifeDeduct -= sLifeGainAbsorption;
-
-		// poison points however get increased by absorped life points (poison was absorbed, not resisted)
-		INT16 poisongained = sPoisonAdd + sLifeGainAbsorption;
-
 		// Decrease Health
 		this->stats.bLife -= sLifeDeduct;
 
-		// life may increase by poison absorption, so make sure it doesn't rise too much
+		// make sure it doesn't rise too much
 		this->stats.bLife = min( this->stats.bLife, this->stats.bLifeMax );
-
-		// increase poisoning
-		this->bPoisonSum = min( this->stats.bLifeMax, this->bPoisonSum + poisongained );
-
-		// increase poison life if we gained life through absorption
-		if ( sLifeGainAbsorption > 0 )
-			this->bPoisonLife = min( this->bPoisonSum, this->bPoisonLife + sLifeGainAbsorption );
-
-		// if no life was lost, also add sPoisonAdd to bPoisonLife
-		if ( sLifeDeduct <= 0 )
-			this->bPoisonLife = min( this->bPoisonSum, this->bPoisonLife + sPoisonAdd );
-		else
-			// we reduce bPoisonLife according to old percentage of poison life to life
-			this->bPoisonLife -= (INT8)(dpoisonliferelation * sLifeDeduct);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10009,8 +9961,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 
 	// ATE: Put some logic in here to allow enemies to die quicker.....
 	// Are we an enemy?
-	// zombies don't die suddenly, as they regenerate health by bloodloss and poison. You have to make sure they die!
-	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE && !this->IsZombie( ) )
+	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE )
 	{
 		// ATE: Give them a chance to fall down...
 		if ( this->stats.bLife > 0 && this->stats.bLife < (OKLIFE - 1) )
@@ -10023,10 +9974,6 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 				{
 					// Kill!
 					this->stats.bLife = 0;
-
-					this->bPoisonSum = 0;
-					this->bPoisonLife = 0;
-					this->bPoisonBleeding = 0;
 				}
 			}
 			else
@@ -10036,10 +9983,6 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 				{
 					// Kill!
 					this->stats.bLife = 0;
-
-					this->bPoisonSum = 0;
-					this->bPoisonLife = 0;
-					this->bPoisonBleeding = 0;
 				}
 			}
 		}
@@ -10063,10 +10006,6 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	if ( this->stats.bLife < 0 )
 	{
 		this->stats.bLife = 0;
-
-		this->bPoisonSum = 0;
-		this->bPoisonLife = 0;
-		this->bPoisonBleeding = 0;
 	}
 
 	// Flugente: note we received a fresh wound
@@ -10114,28 +10053,20 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 			{
 				// HTH does 1 pt bleeding per hit
 				this->bBleeding = this->bBleeding + 1;
-
-				// add poison point according to poison/life relation
-				this->bPoisonBleeding += (INT8)(dpoisonliferelation);
 			}
 		}
 		else
 		{
-			// if we would actually bleed _less_ after applying the damage received (poison absorption), we reduce bleeding only if the new bBandage would be zero
+			// we reduce bleeding only if the new bBandage would be zero
 			// by this, we can continue bleeding, and eventually bleeding
-			// the normal behaviour is unchanged, as this case can't happen without poison absorption
 			if ( sLifeDeduct < 0 )
 			{
 				INT8 oldBleeding = this->bBleeding;
 				this->bBleeding = min( this->bBleeding, this->stats.bLifeMax - this->stats.bLife );
-				this->bPoisonBleeding = max( 0, this->bPoisonBleeding - (oldBleeding - this->bBleeding) );
 			}
 			else
 			{
 				this->bBleeding = this->stats.bLifeMax - (this->stats.bLife + bBandage);
-
-				// we increase bPoisonLife according to old percentage of poison life to life
-				this->bPoisonBleeding += (INT8)(dpoisonliferelation * sLifeDeduct);
 			}
 		}
 
@@ -11004,7 +10935,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 				//this->EVENT_InitNewSoldierAnim( FALLFORWARD_ROOF, 0 , FALSE );
 
 				// Deduct hitpoints/breath for falling!
-				this->SoldierTakeDamage( ANIM_CROUCH, 100, 0, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+				this->SoldierTakeDamage( ANIM_CROUCH, 100, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
 
@@ -11019,7 +10950,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 				this->usPendingAnimation = FALLOFF;
 
 				// Deduct hitpoints/breath for falling!
-				this->SoldierTakeDamage( ANIM_CROUCH, 100, 0, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+				this->SoldierTakeDamage( ANIM_CROUCH, 100, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
 			}
@@ -11881,9 +11812,6 @@ void SOLDIERTYPE::ReviveSoldier( void )
 
 		this->stats.bLife = this->stats.bLifeMax;
 		this->bBleeding = 0;
-		this->bPoisonBleeding = 0;
-		this->bPoisonLife = 0;
-		this->bPoisonSum = 0;
 		this->iHealableInjury = 0; // added by SANDRO
 		this->ubDesiredHeight = ANIM_STAND;
 
@@ -12396,11 +12324,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 					INT16 breathdamage = (INT16)(500 + Random( 1500 ));
 					if ( pTSoldier->bBreath - breathdamage < 0 )
 						breathdamage = pTSoldier->bBreath;
-
-					INT16 poisondamage = (INT16)((damage * this->GetPoisonDamagePercentage( )) / 100);
-
-					// zombies do ~50% poison damage
-					pTSoldier->SoldierTakeDamage( 0, damage, poisondamage, breathdamage, TAKE_DAMAGE_HANDTOHAND, this->ubID, pTSoldier->sGridNo, 0, TRUE );
+					
+					pTSoldier->SoldierTakeDamage( 0, damage, breathdamage, TAKE_DAMAGE_HANDTOHAND, this->ubID, pTSoldier->sGridNo, 0, TRUE );
 
 					if ( pTSoldier->stats.bLife == 0 )
 					{
@@ -13027,10 +12952,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 			// use up appropriate # of actual healing points
 			ubPtsLeft -= (2 * ubBelowOKlife);
-
-			// raise bPoisonLife, reduce bPoisonBleeding
-			pVictim->bPoisonLife = min( pVictim->bPoisonLife + ubBelowOKlife, pVictim->bPoisonSum );
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - ubBelowOKlife );
 		}
 		else
 		{
@@ -13046,17 +12967,12 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			pVictim->bBleeding -= (ubPtsLeft / 2);
 
 			ubPtsLeft = ubPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
-
-			// raise bPoisonLife, reduce bPoisonBleeding
-			pVictim->bPoisonLife = min( pVictim->bPoisonLife + (ubPtsLeft / 2), pVictim->bPoisonSum );
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (ubPtsLeft / 2) );
 		}
 
 		// this should never happen any more, but make sure bleeding not negative
 		if ( pVictim->bBleeding < 0 )
 		{
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 
 		// if this healing brought the patient out of the worst of it, cancel dying
@@ -13149,13 +13065,11 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			if ( pVictim->bBleeding >= (usLifeReturned / 100) )
 			{
 				pVictim->bBleeding -= (usLifeReturned / 100);
-				pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (usLifeReturned / 100) );
 				uiMedcost += (usLifeReturned / 200); // add medkit points cost for unbandaged part
 			}
 			else
 			{
 				pVictim->bBleeding = 0;
-				pVictim->bPoisonBleeding = 0;
 				uiMedcost += max( 0, (((usLifeReturned / 100) - pVictim->bBleeding) / 2) ); // add medkit points cost for unbandaged part 
 			}
 		}
@@ -13164,7 +13078,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 		// Reduce max breath based on life returned
 		if ( (pVictim->bBreathMax - (((usLifeReturned / 100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss) / 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
@@ -13195,12 +13108,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		{
 			ubPtsLeft -= pVictim->bBleeding;
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 		else		// bandage what we can
 		{
 			pVictim->bBleeding -= ubPtsLeft;
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - ubPtsLeft );
 			ubPtsLeft = 0;
 		}
 
@@ -14702,86 +14613,6 @@ BOOLEAN SOLDIERTYPE::IsZombie( void )
 #endif
 }
 
-INT16	SOLDIERTYPE::GetPoisonResistance( void )
-{
-	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
-	INT16 val = bPoisonResistance;
-
-	val += this->GetBackgroundValue( BG_RESI_POISON );
-
-	val = max( -100, val );
-	val = min( 100, val );
-
-	return(val);
-}
-
-INT16	SOLDIERTYPE::GetPoisonAbsorption( void )
-{
-	// Flugente: absorption can per definition only be >= 0 (at least that's my definition)
-	INT16 val = bPoisonAbsorption;
-
-#ifdef ENABLE_ZOMBIES
-	if ( IsZombie( ) )
-		val += 200;
-#endif
-
-	val = max( 0, val );
-
-	return(val);
-}
-
-
-INT16	SOLDIERTYPE::GetPoisonDamagePercentage( void )
-{
-	// Flugente: this percentage has to be between 0% and 100%
-	INT16 val = 0;
-
-	// zombies poison damage percentage is externalised
-	if ( IsZombie( ) )
-		val += gGameExternalOptions.sZombiePoisonDamagePercentage;
-
-	if ( this->usAttackingWeapon )
-	{
-		val += Item[this->usAttackingWeapon].bPoisonPercentage;
-
-		if ( Item[this->usAttackingWeapon].usItemClass == IC_GUN )
-		{
-			// check for modificators (attachments, poisoned ammunition)
-			// check for poisoned ammunition
-			UINT8 ammotype = this->inv[this->ubAttackingHand][0]->data.gun.ubGunAmmoType;
-			val += AmmoTypes[ammotype].poisonPercentage;
-
-			// check for attachments with a bonus to poison (currently, none exist)
-		}
-	}
-
-	val = max( 0, val );
-	val = min( 100, val );
-
-	return(val);
-}
-
-// add poison
-void	SOLDIERTYPE::AddPoison( INT8 sPoisonAmount )
-{
-	if ( sPoisonAmount < 1 )
-		return;
-
-	INT8 oldpoisonsum = this->bPoisonSum;
-	this->bPoisonSum = min( this->bPoisonSum + sPoisonAmount, this->stats.bLifeMax );
-
-	// recalc really added poison
-	sPoisonAmount = max( 0, this->bPoisonSum - oldpoisonsum );
-
-	INT8 oldpoisonlife = this->bPoisonLife;
-	this->bPoisonLife = min( this->bPoisonLife + sPoisonAmount, this->bPoisonSum );
-
-	INT8 poisontolife = max( 0, this->bPoisonLife - oldpoisonlife );
-
-	INT8 oldpoisonbleed = this->bPoisonBleeding;
-	this->bPoisonBleeding = min( this->bPoisonBleeding + (sPoisonAmount - poisontolife), this->bPoisonSum );
-}
-
 // reset the extra stat variables
 void	SOLDIERTYPE::ResetExtraStats( )
 {
@@ -14848,7 +14679,7 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 	// Play sound
 	PlayJA2SampleFromFile( "Sounds\\Explode1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
-	SoldierTakeDamage( 0, damage, 0, breathdamage, TAKE_DAMAGE_EXPLOSION, this->ubID, sGridNo, 0, TRUE );
+	SoldierTakeDamage( 0, damage, breathdamage, TAKE_DAMAGE_EXPLOSION, this->ubID, sGridNo, 0, TRUE );
 
 	if ( stats.bLife <= 0 )
 	{
@@ -17409,12 +17240,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
-
-	// Flugente: as pows received faulty poison values, we apply a very simple fix:
-	// remove in a few revisions - the code has already been fixed, so this won't be necessary anymore soon^^
-	this->bPoisonLife = min( this->bPoisonLife, this->bPoisonSum );
-	this->bPoisonBleeding = min( this->bPoisonBleeding, this->bBleeding );
-
+	
 	// if we are dead or dying, we cannot continue radio work
 	if ( this->stats.bLife < OKLIFE )
 		this->SwitchOffRadio( );
@@ -19077,8 +18903,7 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->stats.bLife != 0 )
 	{
 		// if merc is hurt beyond the minimum required to bleed, or he's dying
-		// Flugente: also allow bleeding if we would regenerate health through it, which happens when we have enough absorption and are poisoned enough (only guaranteed if fully poisoned)
-		if ( ((pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE) || (pSoldier->bPoisonSum == pSoldier->stats.bLifeMax && pSoldier->GetPoisonAbsorption( ) >= 200) )
+		if ( ((pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE) )
 		{
 			// if he's NOT in the process of being bandaged or DOCTORed
 			if ( (pSoldier->ubServiceCount == 0) && (AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER ) == NULL) )
@@ -19120,7 +18945,7 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 						// just bleeding through existing bandages
 						pSoldier->bBleeding++;
 
-						SoldierBleed( pSoldier, TRUE, TRUE );
+						SoldierBleed( pSoldier, TRUE );
 					}
 					else	// soldier is either not bandaged at all or is dying
 					{
@@ -19147,13 +18972,7 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 									// bleeding while "dying" costs a PERMANENT point of life each time!
 									pSoldier->stats.bLifeMax--;
 									pSoldier->bBleeding = max( 0, pSoldier->bBleeding - 1 );
-
-									// the lost point might be poisoned
-									pSoldier->bPoisonSum = max( 0, pSoldier->bPoisonSum - 1 );
-
-									// also adjust poisoned bleeding
-									pSoldier->bPoisonBleeding = max( 0, pSoldier->bPoisonBleeding - 1 );
-
+									
 									if ( pSoldier->iHealableInjury >= 100 ) // added check for insta-healable injury - SANDRO
 										pSoldier->iHealableInjury -= 100;
 								}
@@ -19162,16 +18981,15 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 					}
 
 					// either way, a point of life (health) is lost because of bleeding
-					// Flugente: not true anymore! We might be fully bandaged, not bleeding, but still receive poison damage that will lower our life. So check if we're bleeding!
 					if ( pSoldier->bBleeding )
 					{
 						// This will also update the life bar
-						SoldierBleed( pSoldier, FALSE, TRUE );
+						SoldierBleed( pSoldier, FALSE );
 					}
 					else
 					{
 						// just to update everything, like going unconscious or dying
-						pSoldier->SoldierTakeDamage( ANIM_CROUCH, 0, 0, 0, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+						pSoldier->SoldierTakeDamage( ANIM_CROUCH, 0, 0, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 					}
 
 
@@ -19195,7 +19013,7 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 }
 
 
-void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed, BOOLEAN fAllowPoisoning )
+void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed )
 {
 	// OK, here make some stuff happen for bleeding
 	// A banaged bleed does not show damage taken , just through existing bandages
@@ -19212,33 +19030,21 @@ void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed, BOOLEAN fAllow
 		{
 			SetInfoChar( pSoldier->ubID );
 		}
-	}
-
-	// if poisoning is allowed, if we are poisoned and we can be sure that we are really bleeding (safety reasons), there is a chance that the poisoning spreads
-	// this simply means that the new Bleeding point will also be a poisoned bleeding point
-	INT16 poisondamage = 0;
-	if ( fAllowPoisoning && pSoldier->bPoisonSum > 0 && pSoldier->bBleeding )
-	{
-		INT8 bleedingpercentagepoison = (INT8)(100 * pSoldier->bPoisonSum / pSoldier->stats.bLifeMax);
-
-		if ( (INT8)Random( 100 ) < bleedingpercentagepoison )
-			poisondamage = 1;
-	}
+	}	
 
 	// If we are already dead, don't show damage!
 	if ( !fBandagedBleed )
 	{
 		// SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
 		if ( pSoldier->ubAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubAttackerID, NOWHERE, 0, TRUE );
 		else if ( pSoldier->ubPreviousAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
 		else if ( pSoldier->ubNextToPreviousAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
 		else
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 	}
-
 }
 
 
@@ -22703,10 +22509,6 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			// reduce bleeding by the same number of life points healed up
 			pVictim->bBleeding -= bBelowOKlife;
 
-			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
-			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + bBelowOKlife );
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - bBelowOKlife );
-
 			// use up appropriate # of actual healing points
 			bPtsLeft -= (2 * bBelowOKlife);
 		}
@@ -22721,11 +22523,7 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			}
 			pVictim->stats.bLife += (bPtsLeft / 2);
 			pVictim->bBleeding -= (bPtsLeft / 2);
-
-			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
-			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + (bPtsLeft / 2) );
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (bPtsLeft / 2) );
-
+			
 			bPtsLeft = bPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
 		}
 
@@ -22733,7 +22531,6 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		if ( pVictim->bBleeding < 0 )
 		{
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 
 		// if this healing brought the patient out of the worst of it, cancel dying
@@ -22808,27 +22605,22 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		if ( (pVictim->stats.bLife + (iLifeReturned / 100)) <= pVictim->stats.bLifeMax )
 		{
 			pVictim->stats.bLife += (iLifeReturned / 100);
-			pVictim->bPoisonLife = min( pVictim->bPoisonSum, pVictim->bPoisonLife + (iLifeReturned / 100) );
 			if ( pVictim->bBleeding >= (iLifeReturned / 100) )
 			{
 				pVictim->bBleeding -= (iLifeReturned / 100);
-				pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - (iLifeReturned / 100) );
 				uiMedcost += (iLifeReturned / 200); // add medkit points cost for unbandaged part
 			}
 			else
 			{
 				pVictim->bBleeding = 0;
-				pVictim->bPoisonBleeding = 0;
 				uiMedcost += max( 0, (((iLifeReturned / 100) - pVictim->bBleeding) / 2) ); // add medkit points cost for unbandaged part
 			}
 		}
 		else // this shouldn't even happen, but we still want to have it here for sure
 		{
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
-			pVictim->bPoisonLife = pVictim->bPoisonSum;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 		// Reduce max breath based on life returned
 		if ( (pVictim->bBreathMax - (((iLifeReturned / 100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss) / 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
@@ -22853,17 +22645,16 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	// DON'T spend any APs/kit pts to cure bleeding until merc is no longer dying
 	//if ( bPtsLeft && pVictim->bBleeding && !pVictim->dying)
 	if ( bPtsLeft && pVictim->bBleeding )
-	{ // if we have enough points to bandage all remaining bleeding this turn
+	{
+		// if we have enough points to bandage all remaining bleeding this turn
 		if ( bPtsLeft >= pVictim->bBleeding )
 		{
 			bPtsLeft -= pVictim->bBleeding;
 			pVictim->bBleeding = 0;
-			pVictim->bPoisonBleeding = 0;
 		}
 		else		// bandage what we can
 		{
 			pVictim->bBleeding -= bPtsLeft;
-			pVictim->bPoisonBleeding = max( 0, pVictim->bPoisonBleeding - bPtsLeft );
 			bPtsLeft = 0;
 		}
 	}

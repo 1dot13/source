@@ -29,13 +29,6 @@
 #define			BLEEDING_BAR_SHADOW					FROMRGB( 128, 128, 60 )
 #define			BLEEDING_BAR						FROMRGB( 240, 240, 20 )
 
-#define			POISON_LIFE_BAR_SHADOW				FROMRGB( 12,  108, 12 )
-#define			POISON_LIFE_BAR						FROMRGB( 0,   200, 0 )
-#define			POISON_BANDAGE_BAR_SHADOW			FROMRGB( 80,  186, 80 )
-#define			POISON_BANDAGE_BAR					FROMRGB( 152, 252, 152 )
-#define			POISON_BLEEDING_BAR_SHADOW			FROMRGB( 128, 60, 128 )
-#define			POISON_BLEEDING_BAR					FROMRGB( 240, 20, 240 )
-
 #define			CURR_BREATH_BAR_SHADOW				FROMRGB( 17,	24, 170 ) // the lt blue current breath
 #define			CURR_BREATH_BAR						FROMRGB( 46,	51, 243 )
 #define			CURR_MAX_BREATH						FROMRGB( 0,		0,	0	) // the current max breath, black
@@ -183,24 +176,7 @@ void DrawLifeUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWi
 
 	usLineColor = Get16BPPColor( LIFE_BAR_SHADOW );
 	RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-
-	// poisoned life first
-	if ( pSoldier->bPoisonLife )
-	{
-		dPercentage = (FLOAT)pSoldier->bPoisonLife / (FLOAT)100;
-		FLOAT dpoisonStart				= (FLOAT)( dstart1  );
-		FLOAT dpoisonEnd				=	dPercentage * sHeight;
-		
-		usLineColor = Get16BPPColor( POISON_LIFE_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos, (INT32)dpoisonStart, sXPos, (INT32)( dpoisonStart - dpoisonEnd ) , usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_LIFE_BAR );
-		RectangleDraw( TRUE, sXPos+ 1, (INT32)dpoisonStart, sXPos + 1, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_LIFE_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos+ 2, (INT32)dpoisonStart, sXPos + 2, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
-	}
-
+	
 	// NOW DO BANDAGE
 		
 	// Calculate bandage
@@ -223,24 +199,6 @@ void DrawLifeUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWi
 		RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
 	}
 
-	// get amount of poisoned bandage
-	INT8 bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-	if ( bPoisonBandage )
-	{
-		dPercentage = (FLOAT)bPoisonBandage / (FLOAT)100;
-		FLOAT dpoisonStart				= (FLOAT)( dstart2 );
-		FLOAT dpoisonEnd				=	dPercentage * sHeight;
-		
-		usLineColor = Get16BPPColor( POISON_BANDAGE_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos, (INT32)dpoisonStart, sXPos, (INT32)( dpoisonStart - dpoisonEnd ) , usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_BANDAGE_BAR );
-		RectangleDraw( TRUE, sXPos+ 1, (INT32)dpoisonStart, sXPos + 1, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_BANDAGE_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos+ 2, (INT32)dpoisonStart, sXPos + 2, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
-	}
-
 	// NOW DO BLEEDING
 	FLOAT	dstart3		= dStart - dEnd;
 	if ( pSoldier->bBleeding )
@@ -257,23 +215,6 @@ void DrawLifeUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWi
 
 		usLineColor = Get16BPPColor( BLEEDING_BAR_SHADOW );
 		RectangleDraw( TRUE, sXPos+ 2, (INT32)dStart, sXPos + 2, (INT32)( dStart - dEnd ), usLineColor, pDestBuf );
-	}
-
-	// poisoned bleeding
-	if ( pSoldier->bPoisonBleeding )
-	{
-		dPercentage = (FLOAT)pSoldier->bPoisonBleeding / (FLOAT)100;
-		FLOAT dpoisonStart				= (FLOAT)( dstart3 );
-		FLOAT dpoisonEnd				=	dPercentage * sHeight;
-
-		usLineColor = Get16BPPColor( POISON_BLEEDING_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos, (INT32)dpoisonStart, sXPos, (INT32)( dpoisonStart - dpoisonEnd ) , usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_BLEEDING_BAR );
-		RectangleDraw( TRUE, sXPos+ 1, (INT32)dpoisonStart, sXPos + 1, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
-
-		usLineColor = Get16BPPColor( POISON_BLEEDING_BAR_SHADOW );
-		RectangleDraw( TRUE, sXPos+ 2, (INT32)dpoisonStart, sXPos + 2, (INT32)( dpoisonStart - dpoisonEnd ), usLineColor, pDestBuf );
 	}
 
 	UnLockVideoSurface( uiBuffer );

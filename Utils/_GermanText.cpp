@@ -3330,12 +3330,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Detonations-Zeit (in Züge) (1 - 4) und die Entschärfungs-Frequenz (A - D):",
 	L"Stolperdraht-Hierarchie (1 - 4) und das Netzwerk (A - D):",
 
-	// added by Flugente to display health and poisoning
-	L"Gesundheit: %d/%d\nGift: %d/%d\nAusdauer: %d/%d\nMoral: %s",
-
 	// added by Flugente to display food status
 	L"Gesundheit: %d/%d\nAusdauer: %d/%d\nMoral: %s\nWasser: %d%s\nEssen: %d%s",
-	L"Ges.: %d/%d\nGift: %d/%d\nAusd.: %d/%d\nMoral: %s\nWasser: %d%s\nEssen: %d%s",
 
 	// added by Flugente: selection of a function to call in tactical
 	L"Was möchten Sie tun?",
@@ -8067,7 +8063,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% travel speed on air vehicles\n",
 	L" %s%d%% travel speed on water vehicles\n",
 
-	L" %s%d%% poison resistance\n",
 	L" %s%d%% fear resistance\n",
 	L" %s%d%% suppression resistance\n",
 	L" %s%d%% physical resistance\n",

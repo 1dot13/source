@@ -260,7 +260,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "Directional") == 0 ||
 				strcmp(name, "DrugType") == 0 ||
 				strcmp(name, "BlockIronSight") == 0 ||
-				strcmp(name, "PoisonPercentage") == 0 ||
 				strcmp(name, "ItemFlag") == 0 ||
 				strcmp(name, "FoodType") == 0 ||
 				strcmp(name, "DamageChance") == 0 ||
@@ -1353,11 +1352,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.blockironsight   = (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "PoisonPercentage") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curItem.bPoisonPercentage = (INT16) atol(pData->szCharData);
-		}
 		else if(strcmp(name, "ItemFlag") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -2078,9 +2072,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype  );
 
 			FilePrintf(hFile,"\t\t<BlockIronSight>%d</BlockIronSight>\r\n",								Item[cnt].blockironsight  );
-
-			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",							Item[cnt].bPoisonPercentage    );
-
+			
 			FilePrintf(hFile,"\t\t<ItemFlag>%d</ItemFlag>\r\n",											Item[cnt].usItemFlag  );
 
 			FilePrintf(hFile,"\t\t<FoodType>%d</FoodType>\r\n",											Item[cnt].foodtype  );
@@ -2090,10 +2082,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile, "\t\t<CrowbarModifier>%d</CrowbarModifier>\r\n",							Item[cnt].CrowbarModifier );
 			FilePrintf(hFile, "\t\t<DisarmModifier>%d</DisarmModifier>\r\n",							Item[cnt].DisarmModifier );
 			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",							Item[cnt].RepairModifier );
-
-			// Flugente poison system
-			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",							Item[cnt].bPoisonPercentage    );
-
+			
 			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
 			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );
 

@@ -4173,7 +4173,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		{
 			// reduce bleeding by 1 point per AP (in RT, APs will get recalculated so it's okay)
 			pSoldier->bBleeding = __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) );
-			pSoldier->bPoisonBleeding = max(0, pSoldier->bPoisonBleeding - __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) ) );
 			return( AI_ACTION_NONE ); // will end-turn/wait depending on whether we're in TB or realtime
 		}
 #ifdef RECORDNET

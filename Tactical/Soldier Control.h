@@ -1442,14 +1442,13 @@ public:
 	INT8												bScopeMode;
 
 	///////////////////////////////////////////////////////
-	// Flugente Zombies: Added variables for the poison system
-	INT8	bPoisonBleeding;		// The number of bleeding points that are also poison points
-	//INT8	bPoisonBandaged;		// The number of bandaged lifepoints that are also poison points
-	INT8	bPoisonLife;			// The number of Lifepoints that are also poison points
-	INT8	bPoisonSum;				// The sum of poison points;
+	// Flugente: this was the location of required variables required for the now removed poison feature. They can be used again
+	INT8	bUnusedINT8_1;
+	INT8	bUnusedINT8_2;
+	INT8	bUnusedINT8_3;
 
-	INT16	bPoisonResistance;		// poison resistance reduces the amount of poison damage received. It is applied before poison absorption
-	INT16	bPoisonAbsorption;		// for x points of poison damage received, you gain x * (bPoisonAbsorption / 100) poison life points
+	INT16	bUnusedINT16_4;
+	INT16	bUnusedINT16_5;
 	///////////////////////////////////////////////////////
 
 	// Flugente: new variables for extra stats	
@@ -1600,8 +1599,7 @@ public:
 	void ChangeSoldierStance( UINT8 ubDesiredStance );
 	void StopSoldier( void );
 	void ReviveSoldier( void );
-	// Flugente: added poison damage, which should be smaller or equal than sLifeDeduct
-	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPoisonAdd, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
+	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
 
 	// Palette functions for soldiers
@@ -1712,17 +1710,7 @@ public:
 
 	// Flugente: Zombies
 	BOOLEAN IsZombie( void );
-	
-	// Flugente: poison system
-	// These functions might one day be modified by traits etc. We'll keep that in these functions and not clutter the rest of the code
-	INT16	GetPoisonResistance( void );
-	INT16	GetPoisonAbsorption( void );
-	// returns the poison percentage of the damage we will be doing with the weapon currently in our hand
-	INT16	GetPoisonDamagePercentage( void );
-
-	// add poison
-	void	AddPoison( INT8 sPoisonAmount );
-
+			
 	// reset the extra stat variables
 	void	ResetExtraStats();
 

@@ -92,7 +92,6 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "travel_car") == 0 ||
 				strcmp(name, "travel_air") == 0 ||
 				strcmp(name, "travel_boat") == 0 ||
-				strcmp(name, "resistance_poison") == 0 ||
 				strcmp(name, "resistance_fear") == 0 ||
 				strcmp(name, "resistance_suppression") == 0 ||
 				strcmp(name, "resistance_physical") == 0 ||
@@ -359,12 +358,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_TRAVEL_BOAT] = min(XML_BACKGROUND_TRAVEL_MAX, max(-XML_BACKGROUND_TRAVEL_MAX, (INT8) atol(pData->szCharData) ));
-		}
-		else if(strcmp(name, "resistance_poison") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_RESI_POISON] = min(XML_BACKGROUND_RESI_MAX, max(-XML_BACKGROUND_RESI_MAX, (INT8) atol(pData->szCharData) ));
-		}
+		}		
 		else if(strcmp(name, "resistance_fear") == 0)
 		{
 			pData->curElement = ELEMENT;

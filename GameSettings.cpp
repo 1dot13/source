@@ -1660,13 +1660,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fZombieRiseWithArmour							= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_RISE_WITH_ARMOUR", TRUE);
 	gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill			= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL", TRUE);
 #endif
-
-	//################# Tactical Poison Settings ##################
-	gGameExternalOptions.ubPoisonBaseMedicalSkillToCure					= iniReader.ReadInteger("Tactical Poison Settings", "POISON_BASE_MEDICAL_SKILL_TO_CURE", 50, 1, 100);
-	gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator			= iniReader.ReadFloat("Tactical Poison Settings", "POISON_MEDICAL_POINTS_TO_CURE_MULTIPLICATOR", 0.5f, 0.1f, 10.0f);
-	gGameExternalOptions.sZombiePoisonDamagePercentage					= iniReader.ReadInteger("Tactical Poison Settings", "ZOMBIE_POISON_DAMAGE_PERCENTAGE", 50, 0, 100);	
-	gGameExternalOptions.sPoisonInfectionDamageMultiplier				= iniReader.ReadFloat("Tactical Poison Settings", "POISON_INFECTION_DAMAGE_MULTIPLIER", 4.0, 1.0, 10.0);	
-
+	
 	//################# Tactical Fortification Settings ##################
 	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);
 	gGameExternalOptions.fRoofCollapse									= iniReader.ReadBoolean( "Tactical Fortification Settings", "ROOF_COLLAPSE", TRUE );
@@ -1683,7 +1677,6 @@ void LoadGameExternalOptions()
 	
 	gGameExternalOptions.fFoodDecayInSectors							= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_DECAY_IN_SECTORS", TRUE);
 	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0f, 0.1f, 10.0f);
-	gGameExternalOptions.usFoodMaxPoisoning								= iniReader.ReadInteger("Tactical Food Settings", "FOOD_MAX_POISONING",  5, 0, 100);
 	gGameExternalOptions.fFoodEatingSounds								= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_EATING_SOUNDS", TRUE);
 	
 	//################# Disease Settings ##################

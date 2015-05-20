@@ -1276,10 +1276,6 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	// Flugente: check if poisoned
-	if ( pSoldier->bPoisonSum > 0 )
-		return( TRUE );
-
 	if ( pSoldier->HasDisease( TRUE, TRUE ) )
 		return TRUE;
 
@@ -3286,13 +3282,13 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 						}
 					}
 					// instead of normal damage take breath damage
-					//pSoldier->SoldierTakeDamage( 0, 0, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
+					//pSoldier->SoldierTakeDamage( 0, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 					pSoldier->bBreath = max( 0, pSoldier->bBreath - usDamageTaken );
 					// he drowned?
 					if( pSoldier->bBreath = 0 )
 					{
 						// dead
-						pSoldier->SoldierTakeDamage( 0, 100, 0, 100, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
+						pSoldier->SoldierTakeDamage( 0, 100, 100, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 						ScreenMsg( FONT_DKRED, MSG_INTERFACE, pSnitchPrisonExposedStrings[ SNITCH_PRISON_EXPOSED_DEAD_DROWN], pSoldier->GetName() );
 					}
 					else
@@ -3317,7 +3313,7 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 						}
 					}
 					// he's dead?
-					pSoldier->SoldierTakeDamage( 0, usDamageTaken, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
+					pSoldier->SoldierTakeDamage( 0, usDamageTaken, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 					if( pSoldier->stats.bLife == 0 )
 					{
 						ScreenMsg( FONT_DKRED, MSG_INTERFACE, pSnitchPrisonExposedStrings[ SNITCH_PRISON_EXPOSED_DEAD_BEATEN], pSoldier->GetName() );
@@ -3343,7 +3339,7 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 								usDamageTaken += Random(10);
 						}
 					}
-					pSoldier->SoldierTakeDamage( 0, usDamageTaken, 0, usDamageTaken, TAKE_DAMAGE_BLADE, NOBODY, NOWHERE, 0, TRUE );
+					pSoldier->SoldierTakeDamage( 0, usDamageTaken, usDamageTaken, TAKE_DAMAGE_BLADE, NOBODY, NOWHERE, 0, TRUE );
 					// he's dead?
 					if( pSoldier->stats.bLife == 0 )
 					{		
@@ -3371,13 +3367,13 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 						}
 					}
 					// instead of normal damage take breath damage
-					//pSoldier->SoldierTakeDamage( 0, 0, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
+					//pSoldier->SoldierTakeDamage( 0, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 					pSoldier->bBreath = max( 0, pSoldier->bBreath - usDamageTaken );
 					// he's strangled?
 					if( pSoldier->bBreath == 0 )
 					{
 						// dead
-						pSoldier->SoldierTakeDamage( 0, 100, 0, 100, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
+						pSoldier->SoldierTakeDamage( 0, 100, 100, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 						ScreenMsg( FONT_DKRED, MSG_INTERFACE, pSnitchPrisonExposedStrings[ SNITCH_PRISON_EXPOSED_DEAD_STRANGLED], pSoldier->GetName() );
 					}
 					else
@@ -3508,7 +3504,7 @@ void UpdatePatientsWhoAreDoneHealing( void )
 		if( pTeamSoldier->bActive )
 		{
 			// patient who doesn't need healing or curing
-			if ( (pTeamSoldier->bAssignment == PATIENT) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && (pTeamSoldier->bPoisonSum == 0) && pTeamSoldier->HasDisease(TRUE, TRUE) )
+			if ( (pTeamSoldier->bAssignment == PATIENT) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && pTeamSoldier->HasDisease(TRUE, TRUE) )
 			{
 				// Flugente: stats can also be damaged
 				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
@@ -3787,21 +3783,8 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 	// if we have no damaged stat and don't need healing
 	if ( !fHealDamagedStat && !fDisease && (pSoldier->stats.bLife == pSoldier->stats.bLifeMax) )
 	{
-		// if we are poisoned
-		if ( pSoldier->bPoisonSum )
-		{
-			// if using the new trait system, Doctor skill is needed
-			if ( gGameOptions.fNewTraitSystem && ( NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) == 0 ) )
-			{
-				// we may have the medical stats, but we lack the skills!
-				return( FALSE );
-			}
-		}
-		else
-		{
-			// cannot be healed
-			return( FALSE );
-		}
+		// cannot be healed
+		return( FALSE );
 	}
 
 	return( TRUE );
@@ -3814,12 +3797,6 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient )
 	{
 		// less than ok life, return skill needed
 		return( gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency + ( gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency * ( OKLIFE - pPatient->stats.bLife ) ) );
-	}
-	// if at full life, only poison needs to be removed
-	else if ( pPatient->stats.bLife == pPatient->stats.bLifeMax && pPatient->bPoisonSum > 0 )
-	{
-		//	skill to remove poison needed
-		return( gGameExternalOptions.ubPoisonBaseMedicalSkillToCure );
 	}
 
 	// only need some skill
@@ -3840,19 +3817,16 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	// for determining what medical actions will be taken
 	BOOLEAN fWillHealLife		= FALSE;
 	BOOLEAN fWillRepairStats	= FALSE;
-	BOOLEAN fWillCurePoison		= FALSE;
 	BOOLEAN fWillCureDisease	= FALSE;
 
 	// how much has to be used to completely heal?
 	INT32	sHundredsToHeal			= 0;
 	INT32	sHundredsToRepair		= 0;
-	INT32	sHundredsToPoisonCure	= 0;
 	INT32	sHundredsToDiseaseCure  = 0;
 
 	// how much do we actually use?
 	INT32	sHundredsToHeal_Used		= 0;
 	INT32	sHundredsToRepair_Used		= 0;
-	INT32	sHundredsToPoisonCure_Used	= 0;
 	INT32	sHundredsToDiseaseCure_Used = 0;
 
 	INT8	bMedFactor = 1;	// basic medical factor
@@ -3893,14 +3867,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		if ( fWillHealLife )
 			ubReturnDamagedStatRate -= ((ubReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing) / 100);
 	}
-
-	//////// DETERMINE POISON CURE ////////////////////
-	if ( pPatient->bPoisonSum && pDoctor->stats.bMedical >= gGameExternalOptions.ubPoisonBaseMedicalSkillToCure )
-	{
-		fWillCurePoison = TRUE;
-		sHundredsToPoisonCure = 100 * pPatient->bPoisonSum * gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator;
-	}
-
+		
 	//////// DETERMINE DISEASE CURE ////////////////////
 	if ( pPatient->HasDisease( TRUE, TRUE ) )
 	{
@@ -3957,17 +3924,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 
 			pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed) );
 		}
-
-		// potentially increase bPoisonLife: as life points are healed, unhealed poison points become healed poison points
-		if ( pPatient->bPoisonSum > 0 )
-		{
-			// check if there are unhealed poison points
-			if ( pPatient->bPoisonLife < pPatient->bPoisonSum )
-			{
-				pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + bPointsHealed) );
-			}
-		}
-
+		
 		// when being healed normally, reduce insta-healable HPs value 
 		if ( pPatient->iHealableInjury > 0 && bPointsHealed > 0 )
 		{
@@ -3991,32 +3948,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		
 		RegainDamagedStats( pPatient, (sHundredsToRepair_Used * ubReturnDamagedStatRate / 100) );
 	}
-	
-	/////////////////////////// POISON CURE ////////////////////////////////////
-	if ( fWillCurePoison && ptsleft > 0 )
-	{
-		// determine how many points we use on stat repair
-		if ( ptsleft < sHundredsToPoisonCure )
-			sHundredsToPoisonCure_Used = ptsleft;
-		else
-			sHundredsToPoisonCure_Used = sHundredsToPoisonCure;
-
-		// use up points
-		ptsleft -= sHundredsToPoisonCure_Used;
-
-		pPatient->sFractLife += sHundredsToPoisonCure_Used / gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator;
-
-		if ( pPatient->sFractLife >= 100 )
-		{
-			// convert fractions into full points
-			INT8 bPoisonPointsHealed = (pPatient->sFractLife / 100);
-			pPatient->sFractLife %= 100;
-
-			pPatient->bPoisonSum = max( 0, (pPatient->bPoisonSum - bPoisonPointsHealed) );
-			pPatient->bPoisonLife = max( 0, (pPatient->bPoisonLife - bPoisonPointsHealed) );
-		}
-	}
-	
+		
 	/////////////////////////// DISEASE CURE ////////////////////////////////////
 	if ( fWillCureDisease && ptsleft > 0 )
 	{
@@ -4055,7 +3987,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	}
 	
 	// Finally use all kit points (we are sure, we have that much)
-	if ( UseTotalMedicalKitPoints( pDoctor, max(1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100) ) == FALSE )
+	if ( UseTotalMedicalKitPoints( pDoctor, max(1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100) ) == FALSE )
 	{
 		// throw message if this went wrong for feedback on debugging
 #ifdef JA2TESTVERSION
@@ -4064,10 +3996,10 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	}
 
 	// if ouput > input, then something's awry...
-	if ( (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used) > usHealAmount )
+	if ( (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) > usHealAmount )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! HealPatient uses more points than it should!" );
 
-	return (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToPoisonCure_Used + sHundredsToDiseaseCure_Used);
+	return (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used);
 }
 
 
@@ -4137,17 +4069,7 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 
 		// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
 		pPatient->stats.bLife += ( bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife );
-
-		// potentially increase bPoisonLife: as life points are healed, unhealed poinson points become healed poison points
-		if ( pPatient->bPoisonSum > 0 )
-		{
-			// check if there are unhealed poison points
-			if ( pPatient->bPoisonLife < pPatient->bPoisonSum ) 
-			{
-				pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + ( bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife ) ) );
-			}
-		}
-		
+						
 		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
 		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
 		{
@@ -4173,17 +4095,7 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 
 		// heal person the amount
 		pPatient->stats.bLife += bPointsToUse;
-
-		// potentially increase bPoisonLife: as life points are healed, unhealed poinson points become healed poison points
-		if ( pPatient->bPoisonSum > 0 )
-		{
-			// check if there are unhealed poison points
-			if ( pPatient->bPoisonLife < pPatient->bPoisonSum ) 
-			{
-				pPatient->bPoisonLife = min( pPatient->bPoisonSum, (pPatient->bPoisonLife + bPointsToUse) );
-			}
-		}
-		
+				
 		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
 		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
 		{
@@ -4192,22 +4104,9 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 				pPatient->iHealableInjury = 0;
 		}
 	}
-
-	// are here still points left to cure poison?
-	if ( usHealingPtsLeft > 0 )
-	{
-		UINT16 usPoisonToCure = pPatient->bPoisonSum;
-
-		if ( usPoisonToCure > usHealingPtsLeft )
-			usPoisonToCure = usHealingPtsLeft;
-
-		usHealingPtsLeft -= usPoisonToCure;
-
-		pPatient->bPoisonSum = max( 0, (pPatient->bPoisonSum - usPoisonToCure));
-	}
-
+	
 	// if this patient is fully healed and cured
-	if ( pPatient->stats.bLife == pPatient->stats.bLifeMax && pPatient->bPoisonSum == 0 )
+	if ( pPatient->stats.bLife == pPatient->stats.bLifeMax )
 	{
 		AssignmentDone( pPatient, TRUE, TRUE );
 	}
@@ -7782,7 +7681,6 @@ void HandleNaturalHealing( void )
 void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 {
 	UINT32 uiPercentHealth = 0;
-	UINT32 uiPercentPoison = 0;
 	INT8 bActivityLevelDivisor = 0;
 	UINT16 usFacilityModifier = 100;
 	UINT8 ubAssignmentType = 0;
@@ -7800,7 +7698,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	}
 
 	// lost any pts?
-	if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax && pSoldier->bPoisonLife == 0 && !pSoldier->HasDisease( FALSE, FALSE ) )
+	if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax && !pSoldier->HasDisease( FALSE, FALSE ) )
 	{
 		return;
 	}
@@ -7850,10 +7748,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 
 	// what percentage of health is he down to
 	uiPercentHealth = ( pSoldier->stats.bLife * 100 ) / pSoldier->stats.bLifeMax;
-
-	// how much is he poisoned?
-	uiPercentPoison = ( pSoldier->bPoisonSum * 100 ) / pSoldier->stats.bLifeMax;
-
+	
 	// SANDRO - experimental - increase health regeneration of soldiers when doctors are around
 	if ( gGameOptions.fNewTraitSystem )
 	{
@@ -7894,12 +7789,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 		// gain that many hundredths of life points back, divided by the activity level modifier
 		pSoldier->sFractLife += ( INT16 ) ((( uiPercentHealth / bActivityLevelDivisor ) * usFacilityModifier) / 100 );
 	}
-
-	// Flugente: reduce gained life because of poison
-	// poison resistance reduces poison damage
-	// a high activity level (stress) increases poisoning
-	pSoldier->sFractLife -= ( INT16 ) ( (uiPercentPoison * (100 - pSoldier->GetPoisonResistance())/100) * gGameExternalOptions.sPoisonInfectionDamageMultiplier * ((99 +  bActivityLevelDivisor)/100) );
-
+	
 	// Flugente: diseases can lower health regen
 	for ( int i = 0; i < NUM_DISEASES; ++i )
 	{
@@ -7915,26 +7805,11 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 {
 	// update soldier life, make sure we don't go out of bounds
 	INT8 sAddedLife		 = pSoldier->sFractLife/100;
-
-	// if sAddedLife, it must be poison damage
-	if ( sAddedLife < 0 )
-	{
-		// it is hereby possible to heal yourself through poison, if you have high absorption ( > 100%)
-		INT8 sPoisonAbsorped = - (INT8) ( sAddedLife * (pSoldier->GetPoisonAbsorption()/100) );
-
-		sAddedLife += sPoisonAbsorped;
-
-		// if we're not fully poisoned, we are now poisoned a bit more, even if we won life thanks to absorption
-		if ( pSoldier->bPoisonSum < pSoldier->stats.bLifeMax ) 
-		{
-			pSoldier->bPoisonSum += abs(sAddedLife);
-		}
-	}
-
+	
 	INT8 oldlife = pSoldier->stats.bLife;
 	pSoldier->stats.bLife += sAddedLife;
 
-	// if we fall below OKLIFE (can only be because of poison), we start bleeding again...
+	// if we fall below OKLIFE, we start bleeding again...
 	if ( pSoldier->stats.bLife < OKLIFE && oldlife >= OKLIFE && sAddedLife < 0 )
 	{
 		/*pSoldier->stats.bLife = 0;
@@ -7942,11 +7817,6 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 		HandleSoldierDeath( pSoldier, &fMadeCorpse );*/
 
 		pSoldier->bBleeding = pSoldier->stats.bLifeMax - pSoldier->stats.bLife;
-		pSoldier->bPoisonBleeding = pSoldier->bPoisonSum - pSoldier->bPoisonLife;
-
-		/*pSoldier->bPoisonSum = 0;
-		pSoldier->bPoisonLife = 0;
-		pSoldier->bPoisonBleeding = 0;*/
 	}
 
 	// SANDRO - when being healed normally, reduce insta-healable HPs value 
@@ -7967,7 +7837,7 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 		// reduce
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 
-		// only set sFractLife to be 0 if > 0, saving possible poison damage
+		// only set sFractLife to be 0 if > 0
 		if ( pSoldier->sFractLife > 0 )
 			pSoldier->sFractLife = 0;
 
@@ -14902,10 +14772,8 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 		case( ASSIGNMENT_HOSPITAL ):
 			if( CanCharacterPatient( pSoldier ) )
 			{
-
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
 				pSoldier->bBleeding = 0;
-				pSoldier->bPoisonBleeding = 0;
 
 				// set dirty flag
 				fTeamPanelDirty = TRUE;
@@ -14925,8 +14793,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
-
-
+				
 				RebuildCurrentSquad( );
 
 				ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_HOSPITAL );
@@ -16578,7 +16445,6 @@ void BandageBleedingDyingPatientsBeingTreated( )
 
 					// stop bleeding automatically
 					pSoldier->bBleeding = 0;
-					pSoldier->bPoisonBleeding = 0;
 
 					if ( pSoldier->stats.bLife < OKLIFE )
 					{
@@ -16588,13 +16454,7 @@ void BandageBleedingDyingPatientsBeingTreated( )
 							pSoldier->iHealableInjury -= ((OKLIFE - pSoldier->stats.bLife) * 100);
 						}
 
-						// convert poison points to poison life points
-						INT8 oldlife = pSoldier->stats.bLife;
-
 						pSoldier->stats.bLife = OKLIFE;
-
-						INT8 lifegained = OKLIFE - oldlife;
-						pSoldier->bPoisonLife = min(pSoldier->bPoisonSum, pSoldier->bPoisonLife + lifegained); 
 					}
 				}
 				else	// assigned to DOCTOR/PATIENT

@@ -261,7 +261,6 @@ typedef struct
 	INT16	lockBustingPower;
 	BOOLEAN tracerEffect;
 	FLOAT	temperatureModificator;	// Flugente: modificator for weapon temperature
-	INT16	poisonPercentage;	// Flugente: modificator for weapon temperature
 	FLOAT	dirtModificator;	// Flugente: modificator for dirt generation
 
 	//zilpin: pellet spread patterns externalized in XML

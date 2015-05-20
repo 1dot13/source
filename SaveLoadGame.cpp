@@ -2134,11 +2134,11 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->wornSnowCamo, sizeof(wornSnowCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sFacilityTypeOperated, sizeof(sFacilityTypeOperated), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bPoisonBleeding, sizeof(bPoisonBleeding), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bPoisonLife, sizeof(bPoisonLife), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bPoisonSum, sizeof(bPoisonSum), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bPoisonResistance, sizeof(bPoisonResistance), sizeof(INT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bPoisonAbsorption, sizeof(bPoisonAbsorption), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_1, sizeof(bUnusedINT8_1), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_2, sizeof(bUnusedINT8_2), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_5, sizeof(bUnusedINT16_5), sizeof(INT16), numBytesRead );
 				
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraStrength, sizeof(bExtraStrength), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraDexterity, sizeof(bExtraDexterity), sizeof(INT16), numBytesRead);

@@ -694,53 +694,30 @@ void RenderTacticalPlacementGUI()
 			BltVideoObjectFromIndex( FRAME_BUFFER, giMercPanelImage, 0, xp, yp, VO_BLT_SRCTRANSPARENCY, NULL );
 			BltVideoObjectFromIndex( FRAME_BUFFER, gMercPlacement[ i ].uiVObjectID, 0, xp+2, yp+2, VO_BLT_SRCTRANSPARENCY, NULL );
 			//HEALTH BAR
+
 			if( !pSoldier->stats.bLife )
 				continue;
+
 			//yellow one for bleeding
 			iStartY = yp + 29 - 27*pSoldier->stats.bLifeMax/100;
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 107, 107, 57 ) ) );
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 222, 181, 115 ) ) );
-
-			// poisoned bleeding in purple
-			if ( pSoldier->bPoisonBleeding )
-			{				
-				iStartY = yp + 29 - 27*(pSoldier->stats.bLifeMax - pSoldier->bBleeding + pSoldier->bPoisonBleeding)/100;
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 107, 57, 107 ) ) );
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 222, 115, 181 ) ) );
-			}
-
+						
 			//pink one for bandaged.
 			iStartY = yp + 29 - 27*(pSoldier->stats.bLifeMax - pSoldier->bBleeding)/100;
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 156, 57, 57 ) ) );
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 222, 132, 132 ) ) );
-
-			// get amount of poisoned bandage
-			INT8 bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
-			if ( bPoisonBandage )
-			{
-				// poisoned bandage in bright green
-				iStartY = yp + 29 - 27*(pSoldier->stats.bLife +  bPoisonBandage)/100;
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 57, 156, 57 ) ) );
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 132, 222, 132 ) ) );
-			}
-
+						
 			//red one for actual health
 			iStartY = yp + 29 - 27*pSoldier->stats.bLife/100;
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 107, 8, 8 ) ) );
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 206, 0, 0 ) ) );
-
-			// poisoned life
-			if ( pSoldier->bPoisonLife )
-			{
-				iStartY = yp + 29 - 27*pSoldier->bPoisonLife/100;
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+36, iStartY, xp+37, yp+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+37, iStartY, xp+38, yp+29, Get16BPPColor( FROMRGB( 0, 206, 0 ) ) );
-			}
-
+						
 			//BREATH BAR
 			iStartY = yp + 29 - 27*pSoldier->bBreathMax/100;
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+39, iStartY, xp+40, yp+29, Get16BPPColor( FROMRGB( 8, 8, 132 ) ) );
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+40, iStartY, xp+41, yp+29, Get16BPPColor( FROMRGB( 8, 8, 107 ) ) );
+
 			//MORALE BAR
 			iStartY = yp + 29 - 27*pSoldier->aiData.bMorale/100;
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, xp+42, iStartY, xp+43, yp+29, Get16BPPColor( FROMRGB( 8, 156, 8 ) ) );

@@ -1914,7 +1914,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			// handle structure revenge - damage to vehicle
 			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !TANK( MercPtrs[ubOwner] ) )
 			{
-				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
+				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
 			}
 		}
 

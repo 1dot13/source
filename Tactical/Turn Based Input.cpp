@@ -4174,7 +4174,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								// Get life back
 								pSoldier->stats.bLife									= pSoldier->stats.bLifeMax;
 								pSoldier->bBleeding							= 0;
-								pSoldier->bPoisonBleeding					= 0;
+
 								// SANDRO - erase insta-healable injury 
 								pSoldier->iHealableInjury = 0; 
 

@@ -2722,12 +2722,11 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 		MercCreateStruct.fOnRoof			= pCorpse->def.bLevel > 0 ? TRUE : FALSE;
 			
 		// add important stats according to difficulty level
-		// bLife is actually lower than bLifeMax. Because zombies have poison absorption, they can and will heal themselves over time, thereby gaining more life if they are not put down fast
 		switch( gGameExternalOptions.sZombieDifficultyLevel )
 		{
 			case 4:
 				MercCreateStruct.bLifeMax		= (INT8)( 70 + Random( 30 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(10 + Random(15));
+				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
 				MercCreateStruct.bAgility		= (INT8)( 50 + Random( 10 ) );
 				MercCreateStruct.bDexterity		= (INT8)( 60 + Random( 15 ) );
 				MercCreateStruct.bStrength		= (INT8)( 80 + Random( 20 ) );
@@ -2735,7 +2734,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 				
 			case 3:
 				MercCreateStruct.bLifeMax		= (INT8)( 60 + Random( 20 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(10 + Random(10));
+				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
 				MercCreateStruct.bAgility		= (INT8)( 40 + Random( 10 ) );
 				MercCreateStruct.bDexterity		= (INT8)( 45 + Random( 10 ) );
 				MercCreateStruct.bStrength		= (INT8)( 60 + Random( 20 ) );
@@ -2743,7 +2742,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 
 			case 2:
 				MercCreateStruct.bLifeMax		= (INT8)( 45 + Random( 15 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(5 + Random(10));
+				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
 				MercCreateStruct.bAgility		= (INT8)( 30 + Random(  5 ) );
 				MercCreateStruct.bDexterity		= (INT8)( 30 + Random( 10 ) );
 				MercCreateStruct.bStrength		= (INT8)( 45 + Random( 20 ) );
@@ -2752,7 +2751,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 			case 1:
 			default:
 				MercCreateStruct.bLifeMax		= (INT8)( 35 + Random( 10 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(5 + Random(5));
+				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
 				MercCreateStruct.bAgility		= (INT8)( 15 + Random(  5 ) );
 				MercCreateStruct.bDexterity		= (INT8)( 15 + Random(  5 ) );
 				MercCreateStruct.bStrength		= (INT8)( 30 + Random( 20 ) );
@@ -2803,21 +2802,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 			pNewSoldier->aiData.bOrders			= SEEKENEMY;
 			pNewSoldier->aiData.bAttitude		= AGGRESSIVE;
 
-			////////////// stuff for poisoning ///////////////////////////////////
-			// this is important - by declaring the gap between bLife and bLifeMax as bBleeding, the zombies will bleed (even more if they are damaged)
-			// all their lifepoints are also poisoned. Thereby all bleeding damage will be poisoned bleeding damage
-			// as they have bPoisonAbsorption of at least 200%, they will absorp this poison damage
-			// This leads to them GAINING life through bleeding
-			// They can thereby regain their health in battle (although not very fast)
-			pNewSoldier->bBleeding				= pNewSoldier->stats.bLifeMax - pNewSoldier->stats.bLife;
-
-			pNewSoldier->bPoisonSum				= pNewSoldier->stats.bLifeMax;
-			pNewSoldier->bPoisonLife			= pNewSoldier->stats.bLife;
-			pNewSoldier->bPoisonBleeding		= pNewSoldier->bPoisonSum - pNewSoldier->bPoisonLife;
-			// zombies get 200% poison absorption, but no resistance to it, as it would reduce their healing
-			pNewSoldier->bPoisonResistance		= 0;
-			pNewSoldier->bPoisonAbsorption		= 0;	// Flugente: Screw this, we use GetPoisonAbsorption() instead... I declare this variable dead until further notice
-			//////////////////////////////////////////////////////////////////////
+			pNewSoldier->bBleeding				= 0;
 
 #ifdef ENABLE_ZOMBIES
 			if (   !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MINER_NAME ], sizeof(pCorpse->name) ) 

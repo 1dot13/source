@@ -3327,13 +3327,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Régler la fréquence de détonation (1-4) et désamorçage (A-D) :",
 	L"Régler le nombre de tours avant l'explosion (1-4) et désamorçage (A-D) :",
 	L"Régler l'ordre des fils (1-4) et du réseau (A-D) :",
-
-	// added by Flugente to display health and poisoning
-	L"Santé : %d/%d\nPoison : %d/%d\nÉnergie : %d/%d\nMoral : %s",
-
+	
 	// added by Flugente to display food status
 	L"Santé : %d/%d\nÉnergie : %d/%d\nMoral : %s\nSoif : %d%s\nFaim : %d%s",
-	L"Santé : %d/%d\nPoison : %d/%d\nÉnergie : %d/%d\nMoral : %s\nSoif : %d%s\nFaim : %d%s",
 
 	// added by Flugente: selection of a function to call in tactical
 	L"Que voulez-vous faire ?",
@@ -8236,7 +8232,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% de vitesse dans les voyages aériens\n",
 	L" %s%d%% de vitesse dans les voyages sur l'eau\n",
 
-	L" %s%d%% de résistance au poison\n",
 	L" %s%d%% de résistance à la peur\n",
 	L" %s%d%% de résistance au tir de couverture\n",
 	L" %s%d%% de résistance physique\n",

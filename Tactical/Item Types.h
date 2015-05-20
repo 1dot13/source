@@ -1125,10 +1125,7 @@ typedef struct
 	UINT32	drugtype;								// this flagmask determines what different components are used in a drug, which results in different effects
 
 	BOOLEAN blockironsight;							// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
-
-	// Flugente poison system
-	INT16	bPoisonPercentage;
-
+	
 	UINT32	usItemFlag;								// bitflags to store various item properties (better than introducing 32 BOOLEAN values). If I only had thought of this earlier....
 
 	// Flugente: food type

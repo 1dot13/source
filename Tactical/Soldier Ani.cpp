@@ -1768,25 +1768,25 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 											fStarving = TRUE;
 
 										// If it's an injured animation and we are not in the threashold....
-										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && pSoldier->stats.bLife >= INJURED_CHANGE_THREASHOLD && pSoldier->bPoisonSum <= 0 && !fStarving )
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && pSoldier->stats.bLife >= INJURED_CHANGE_THREASHOLD && !fStarving )
 										{
 											continue;
 										}
 
 										// If we need to do an injured one, don't do any others...
-										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && (pSoldier->stats.bLife < INJURED_CHANGE_THREASHOLD || pSoldier->bPoisonSum > 0 || fStarving) )
+										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && (pSoldier->stats.bLife < INJURED_CHANGE_THREASHOLD || fStarving) )
 										{
 											continue;
 										}
 
 										// If it's a drunk animation and we are not in the threashold....
-										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && GetDrunkLevel( pSoldier ) < BORDERLINE && pSoldier->bPoisonSum <= 0 && !fStarving )
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && GetDrunkLevel( pSoldier ) < BORDERLINE && !fStarving )
 										{
 											continue;
 										}
 
 										// If we need to do an injured one, don't do any others...
-										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && (GetDrunkLevel( pSoldier ) >= BORDERLINE || pSoldier->bPoisonSum > 0 || fStarving) )
+										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && (GetDrunkLevel( pSoldier ) >= BORDERLINE || fStarving) )
 										{
 											continue;
 										}

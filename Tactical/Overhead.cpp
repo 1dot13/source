@@ -7398,12 +7398,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                         if (pTeamSoldier->iHealableInjury < 0)
                             pTeamSoldier->iHealableInjury = 0;
 
-                        pTeamSoldier->bPoisonLife = min(pTeamSoldier->bPoisonSum, pTeamSoldier->bPoisonLife + OKLIFE - pTeamSoldier->stats.bLife);
                         pTeamSoldier->stats.bLife = OKLIFE;
                     }
 
                     pTeamSoldier->bBleeding = 0; // let's think, the autobandage was done for the militia too
-                    pTeamSoldier->bPoisonBleeding = 0;
                 }
             }
             gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition = FALSE;
@@ -8137,13 +8135,13 @@ BOOLEAN KillIncompacitatedEnemyInSector( )
                 // KIll......
                 // SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
                 if ( pTeamSoldier->ubAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubAttackerID, NOWHERE, 0, TRUE );
                 else if ( pTeamSoldier->ubPreviousAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
                 else if ( pTeamSoldier->ubNextToPreviousAttackerID != NOBODY )
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
+                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
                 else 
-                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+                    pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 
                 fReturnVal = TRUE;
             }
