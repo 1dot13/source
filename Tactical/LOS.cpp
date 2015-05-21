@@ -2899,30 +2899,36 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		if ( UsingNewCTHSystem() && pBullet->ubFirerID != NOBODY && pFirer->bTeam == gbPlayerNum && pBullet->fAimed) // Only for single shot, first bullet in volley, or first bullet in spread.
 		{
 			UINT16 usExpGain = 10;
-			usExpGain = (usExpGain * pBullet->sHitBy) / 100;
 
-			if ( pTarget->ubBodyType == COW || pTarget->ubBodyType == CROW )
+			// Flugente: as pBullet->sHitBy can be negative, usExpGain would roll over - negative values become very high positive ones
+			// This will then cause absurd stat gains. So let'S not do that, okay?
+			if ( pBullet->sHitBy > 0.0 )
 			{
-				usExpGain /= 2;
-			}
-			else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTarget ) || TANK( pTarget ) )
-			{
-				// no exp from shooting a vehicle that you can't damage and can't move!
-				usExpGain = 0;
-			}
+				usExpGain = (usExpGain * pBullet->sHitBy) / 100;
 
-			if (!(pBullet->usFlags & BULLET_FLAG_KNIFE))
-			{
-				// MARKSMANSHIP/DEXTERITY GAIN: gun attack
-				StatChange( pFirer, MARKAMT, ( UINT16 )( (usExpGain * 2) / 3 ), FROM_SUCCESS );
-				StatChange( pFirer, DEXTAMT, ( UINT16 )( usExpGain / 3 ), FROM_SUCCESS );
-			}
-			else
-			{
-				// MARKSMANSHIP/DEXTERITY/AGILITY GAIN: throwing knife attack
-				StatChange( pFirer, MARKAMT, ( UINT16 )( usExpGain / 5 ), FROM_SUCCESS );
-				StatChange( pFirer, DEXTAMT, ( UINT16 )( (usExpGain * 2) / 5 ), FROM_SUCCESS );
-				StatChange( pFirer, AGILAMT, ( UINT16 )( (usExpGain * 2) / 5 ), FROM_SUCCESS );
+				if ( pTarget->ubBodyType == COW || pTarget->ubBodyType == CROW )
+				{
+					usExpGain /= 2;
+				}
+				else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTarget ) || TANK( pTarget ) )
+				{
+					// no exp from shooting a vehicle that you can't damage and can't move!
+					usExpGain = 0;
+				}
+			
+				if (!(pBullet->usFlags & BULLET_FLAG_KNIFE))
+				{
+					// MARKSMANSHIP/DEXTERITY GAIN: gun attack
+					StatChange( pFirer, MARKAMT, ( UINT16 )( (usExpGain * 2) / 3 ), FROM_SUCCESS );
+					StatChange( pFirer, DEXTAMT, ( UINT16 )( usExpGain / 3 ), FROM_SUCCESS );
+				}
+				else
+				{
+					// MARKSMANSHIP/DEXTERITY/AGILITY GAIN: throwing knife attack
+					StatChange( pFirer, MARKAMT, ( UINT16 )( usExpGain / 5 ), FROM_SUCCESS );
+					StatChange( pFirer, DEXTAMT, ( UINT16 )( (usExpGain * 2) / 5 ), FROM_SUCCESS );
+					StatChange( pFirer, AGILAMT, ( UINT16 )( (usExpGain * 2) / 5 ), FROM_SUCCESS );
+				}
 			}
 		}
 	}
