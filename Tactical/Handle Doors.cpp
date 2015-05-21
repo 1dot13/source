@@ -773,8 +773,9 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 							{
 								pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 								//ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ DOOR_LOCK_DESTROYED_STR ] );
-								// silversurfer: removed this so the merc can blow a lock without directly opening the door and remain helpless with no AP to do something
-								//fHandleDoor = TRUE;
+								// silversurfer: changed this so the merc can blow a lock without directly opening the door and remain helpless with no AP to do something. Doors have usKeyItem > 0.
+								if ( LockTable[ pDoor->ubLockID ].usKeyItem == 0 )
+									fHandleDoor = TRUE;
 							}
 							else
 							{
@@ -802,8 +803,9 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 							{
 								pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 								//ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ DOOR_LOCK_HAS_BEEN_PICKED_STR ] );
-								// silversurfer: removed this so the merc can pick a lock without directly opening the door and remain helpless with no AP to do something
-								//fHandleDoor = TRUE;
+								// silversurfer: changed this so the merc can pick a lock without directly opening the door and remain helpless with no AP to do something. Doors have usKeyItem > 0.
+								if ( LockTable[ pDoor->ubLockID ].usKeyItem == 0 )
+									fHandleDoor = TRUE;
 							}
 							else
 							{
@@ -892,8 +894,9 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 								pSoldier->ChangeSoldierState( GetAnimStateForInteraction( pSoldier, fDoor, END_OPEN_DOOR ), 0, FALSE );
 								UpdateDoorPerceivedValue( pDoor );
 
-								// silversurfer: removed this so the merc can unlock a door without directly opening it and remain helpless with no AP to do something
-								//fHandleDoor = TRUE;
+								// silversurfer: changed this so the merc can unlock a door without directly opening it and remain helpless with no AP to do something. Doors have usKeyItem > 0.
+								if ( LockTable[ pDoor->ubLockID ].usKeyItem == 0 )
+									fHandleDoor = TRUE;
 							}
 							else
 							{
