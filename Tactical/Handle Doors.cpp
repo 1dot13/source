@@ -771,9 +771,10 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 							// Attempt to force door
 							if ( AttemptToBlowUpLock( pSoldier, pDoor ) )
 							{
-								//pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+								pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 								//ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ DOOR_LOCK_DESTROYED_STR ] );
-								fHandleDoor = TRUE;
+								// silversurfer: removed this so the merc can blow a lock without directly opening the door and remain helpless with no AP to do something
+								//fHandleDoor = TRUE;
 							}
 							else
 							{
@@ -801,7 +802,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 							{
 								pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 								//ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ DOOR_LOCK_HAS_BEEN_PICKED_STR ] );
-								fHandleDoor = TRUE;
+								// silversurfer: removed this so the merc can pick a lock without directly opening the door and remain helpless with no AP to do something
+								//fHandleDoor = TRUE;
 							}
 							else
 							{
@@ -885,12 +887,13 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 							if ( AttemptToUnlockDoor( pSoldier, pDoor ) )
 							{
 								//ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ DOOR_LOCK_HAS_BEEN_UNLOCKED_STR ] );
-								//pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+								pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 
 								pSoldier->ChangeSoldierState( GetAnimStateForInteraction( pSoldier, fDoor, END_OPEN_DOOR ), 0, FALSE );
 								UpdateDoorPerceivedValue( pDoor );
 
-								fHandleDoor = TRUE;
+								// silversurfer: removed this so the merc can unlock a door without directly opening it and remain helpless with no AP to do something
+								//fHandleDoor = TRUE;
 							}
 							else
 							{
