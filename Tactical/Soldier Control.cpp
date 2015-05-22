@@ -9583,13 +9583,19 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 				pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, ANIM_CROUCH ), ANIM_CROUCH );
 				break;
 			}
-			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
+
+			if ( pStructureFileRef )
+				fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
 		}
-		else
+		// vehicles can't cower...
+		else if ( !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
 			pStructureFileRef = GetAnimationStructureRef( this->ubID, DetermineSoldierAnimationSurface( this, END_COWER ), END_COWER );
-			fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
+
+			if ( pStructureFileRef )
+				fEnoughPlace = OkayToAddStructureToWorld( this->sGridNo, this->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[this->ubDirection]]), this->ubID, FALSE, NOBODY );
 		}
+
 		if ( this->stats.bLife >= OKLIFE && this->bBreath >= OKBREATH && (this->bSleepDrugCounter == 0) && fEnoughPlace )
 		{
 			// get up you hoser!
@@ -9624,7 +9630,8 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 					break;
 				}
 			}
-			else
+			// vehicles can't cower...
+			else if ( !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
 				this->EVENT_InitNewSoldierAnim( END_COWER, 0, FALSE );
 			}
