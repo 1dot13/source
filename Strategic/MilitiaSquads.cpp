@@ -2991,6 +2991,8 @@ void DissolveMilitiaGroup( UINT8 uGroupId )
 
 	if ( pGroup && pGroup->usGroupTeam == MILITIA_TEAM )
 	{
+		ClearMercPathsAndWaypointsForAllInGroup( pGroup );
+
 		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, GREEN_MILITIA, pGroup->pEnemyGroup->ubNumAdmins );
 		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, REGULAR_MILITIA, pGroup->pEnemyGroup->ubNumTroops );
 		StrategicAddMilitiaToSector( pGroup->ubSectorX, pGroup->ubSectorY, ELITE_MILITIA, pGroup->pEnemyGroup->ubNumElites );

@@ -7850,7 +7850,7 @@ void DisplayMilitiaGroupBox()
 				INT16 finalsector = GetLastSectorIdInMilitiaGroupPath( pGroup->ubGroupID );
 				if ( finalsector > -1 )
 				{
-					GetShortSectorString( SECTORX( finalsector ), SECTORY( finalsector ), wFinalSectorName );
+					GetShortSectorString( finalsector % MAP_WORLD_X, finalsector / MAP_WORLD_X, wFinalSectorName );
 				}
 				else
 				{

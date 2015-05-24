@@ -2295,7 +2295,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 				SetThisSectorAsEnemyControlled( pGroup->ubSectorX, pGroup->ubSectorY, 0, TRUE );
 				RemovePGroup( pGroup );
 				RecalculateGarrisonWeight( i );
-
+				
 				return TRUE;
 			}
 		}
@@ -4198,8 +4198,15 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 						pGroup->ubSectorY != gWorldSectorY ||
 						gbWorldSectorZ )
 				{
+					UINT8 groupid = pGroup->ubGroupID;
+
 					RepollSAIGroup( pGroup );
-					ValidateGroup( pGroup );
+
+					// it is possible that the group gets destroyed inbetween, so recheck on that
+					pGroup = GetGroup( groupid );
+
+					if ( pGroup )
+						ValidateGroup( pGroup );
 				}
 			}
 		}

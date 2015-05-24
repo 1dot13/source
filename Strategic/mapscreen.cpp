@@ -16760,7 +16760,7 @@ BOOLEAN MilitiaPlotStart( )
 			// if this group exists, is indeed militia but has no members, erase it and its path
 			if ( pGroup && pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubGroupSize == 0 )
 			{
-				gMilitiaPath[groupid].path = ClearStrategicPathList( gMilitiaPath[groupid].path, groupid );
+				gMilitiaPath[groupid].path = ClearStrategicPathList( gMilitiaPath[groupid].path, (UINT8)gMilitiaPath[groupid].sGroupid );
 
 				RemovePGroup( pGroup );
 

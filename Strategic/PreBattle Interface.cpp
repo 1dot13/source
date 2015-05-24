@@ -2120,7 +2120,6 @@ void RetreatAllInvolvedMilitiaGroups()
 			GROUP* pDeleteGroup = pGroup;
 			pGroup = pGroup->next;
 
-			ClearMercPathsAndWaypointsForAllInGroup( pDeleteGroup );
 			DissolveMilitiaGroup( pDeleteGroup->ubGroupID );
 		}
 		else
