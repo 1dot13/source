@@ -7199,7 +7199,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	{
 		// penalty for amount that enemy has moved
 		// HEADROCK HAM B2.6: Externalized the value
-		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), 30 );
+		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), gGameExternalOptions.usMaxCTHPenaltyForMovingTarget );
 		///////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - fearless characters do not even take their head down no matter what
 		if ( gGameOptions.fNewTraitSystem && pTarget->ubProfile != NO_PROFILE )
