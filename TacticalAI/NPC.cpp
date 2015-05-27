@@ -3819,15 +3819,19 @@ void HandleVictoryInNPCSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		{
 			// we won over the hillbillies
 			// set fact they are dead
-			if( CheckFact( FACT_HILLBILLIES_KILLED, KEITH ) == FALSE )
+			// silversurfer: Only if Darren and Daryl are dead and we didn't just fight other opponents in their sector!
+			if ( gMercProfiles[DARREL].bMercStatus == MERC_IS_DEAD && gMercProfiles[DARYL].bMercStatus == MERC_IS_DEAD )
 			{
-				SetFactTrue( FACT_HILLBILLIES_KILLED );
-			}
+				if( CheckFact( FACT_HILLBILLIES_KILLED, KEITH ) == FALSE )
+				{
+					SetFactTrue( FACT_HILLBILLIES_KILLED );
+				}
 
-			// check if keith is out of business
-			if( CheckFact( FACT_KEITH_OUT_OF_BUSINESS, KEITH ) == TRUE )
-			{
-				SetFactFalse( FACT_KEITH_OUT_OF_BUSINESS );
+				// check if keith is out of business
+				if( CheckFact( FACT_KEITH_OUT_OF_BUSINESS, KEITH ) == TRUE )
+				{
+					SetFactFalse( FACT_KEITH_OUT_OF_BUSINESS );
+				}
 			}
 		}
 	}
