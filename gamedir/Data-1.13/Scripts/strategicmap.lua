@@ -169,6 +169,7 @@ Profil =
 	CARMEN = 78,
 	MADLAB = 146,
 	ROBOT = 62,
+	MIGUEL = 57,
 }
 local gsRobotGridNo
 
@@ -231,4 +232,32 @@ function HandleQuestCodeOnSectorExit( sOldSectorX, sOldSectorY, bOldSectorZ )
 	-- reset the state of the museum alarm for Eldin's quotes
 	SetFactFalse( Facts.FACT_MUSEUM_ALARM_WENT_OFF )
 	
+end
+
+-- this function is called whenever we liberate a sector. If fFirstTime is true, this is the first time we liberate this sector
+function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTime )
+
+	-- are we liberating this sector for the first time?
+	if ( fFirstTime ) then
+		-- we get a few volunteers for liberating prisons - we assume prisoners would be more than eager to fight against the regime
+		-- due to code limitations, fFirstTime is only used in surface sectors
+		if ( bNewSectorZ == 0 ) then
+			-- Tixa
+			if ( sNewSectorX == 9 and sNewSectorY == SectorY.MAP_ROW_J ) then
+				AddVolunteers( 30 )
+			-- Alma
+			elseif ( sNewSectorX == 13 and sNewSectorY == SectorY.MAP_ROW_I ) then
+				AddVolunteers( 10 )
+			end
+		end
+	end
+end
+
+-- this function is called whenever we recruit a RPC
+function RecruitRPCAdditionalHandling( usProfile )
+
+	-- if Miguel joins us, the rest of the rebels joins us too
+	if ( usProfile == Profil.MIGUEL ) then
+		AddVolunteers( 10 )
+	end
 end
