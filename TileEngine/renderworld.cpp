@@ -3882,7 +3882,10 @@ void InitRenderParams( UINT8 ubRestrictionID )
 				gBottomRightWorldLimitY = ( ( WORLD_ROWS / 2 ) * CELL_X_SIZE );
 				break;
 
-			case 1:		// BAEMENT LEVEL 1
+			/* // Buggler: Commented out restricted Scroll ID/viewport as viewport for A10_B1 map shifts around in non-640x480 resolutions
+			// no issue on having the usual scrollable viewport both during gameplay and in mapeditor
+			// code may served as reference for fixing viewport issues larger than standard-sized maps on very high resolutions, e.g. UHD.
+			case 1:		// BASEMENT LEVEL 1
 
 				gTopLeftWorldLimitX = ( 3 * WORLD_ROWS / 10 ) * CELL_X_SIZE;
 				gTopLeftWorldLimitY = ( WORLD_ROWS / 2 ) * CELL_X_SIZE;
@@ -3895,6 +3898,22 @@ void InitRenderParams( UINT8 ubRestrictionID )
 
 				gBottomRightWorldLimitX = ( 7 * WORLD_ROWS / 10 ) * CELL_X_SIZE;
 				gBottomRightWorldLimitY = ( WORLD_ROWS / 2 ) * CELL_X_SIZE;
+				break;
+			*/
+
+			default:		//Default!
+
+				gTopLeftWorldLimitX = CELL_X_SIZE;
+				gTopLeftWorldLimitY = ( WORLD_ROWS / 2 ) * CELL_X_SIZE;
+
+				gTopRightWorldLimitX = ( WORLD_COLS / 2 ) * CELL_Y_SIZE;
+				gTopRightWorldLimitY = CELL_X_SIZE;
+
+				gBottomLeftWorldLimitX = ( ( WORLD_COLS / 2 ) * CELL_Y_SIZE );
+				gBottomLeftWorldLimitY = ( WORLD_ROWS * CELL_Y_SIZE );
+
+				gBottomRightWorldLimitX = ( WORLD_COLS * CELL_Y_SIZE );
+				gBottomRightWorldLimitY = ( ( WORLD_ROWS / 2 ) * CELL_X_SIZE );
 				break;
 
 		}
