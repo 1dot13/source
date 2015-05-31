@@ -51,6 +51,7 @@
 	#include "strategicmap.h" // added by SANDRO
 	#include "drugs and alcohol.h" // added by Flugente
 	#include "Campaign.h"
+	#include "LuaInitNPCs.h"		// added by Flugente
 #endif
 
 #include "aim.h"
@@ -1984,6 +1985,10 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 	//If this is a special NPC, play a quote from the team mates
 	HandlePlayingQuoteWhenHiringNpc( pNewSoldier->ubProfile );
 #endif
+
+	// Flugente: external scripts might have extra functionality on recruiting someone
+	LuaRecruitRPCAdditionalHandling( ubCharNum );
+
 	return( TRUE );
 }
 

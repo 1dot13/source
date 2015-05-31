@@ -29,6 +29,7 @@
 	#include "PopUpBox.h"
 	#include "CampaignStats.h"	// added by Flugente
 	#include "Town Militia.h"	// added by Flugente
+	#include "LuaInitNPCs.h"	// added by Flugente
 #endif
 
 #include "postalservice.h"
@@ -387,11 +388,6 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 	// Flugente: campaign stats
 	if ( !SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
 	{
-		//UINT8 ubSector = (UINT8)SECTOR( sMapX, sMapY );
-		//UINT8 ubTraverseType = SectorInfo[ ubSector ].ubTraversability[ 4 ];
-
-		//if ( ubTraverseType ==  )
-
 		UINT8 townid = GetTownIdForSector( sMapX, sMapY );
 		if ( townid != BLANK_SECTOR )
 		{
@@ -406,6 +402,9 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 			AddVolunteers( loyalpopulation * gGameExternalOptions.dMilitiaVolunteerGainFactorLiberation );
 		}
 	}
+
+	// Flugente: if we take the surface sector for the first time, script-defined actions might happen
+	LuaHandleSectorLiberation( sMapX, sMapY, bMapZ, !SectorInfo[SECTOR( sMapX, sMapY )].fSurfaceWasEverPlayerControlled );
 
 	if ( bMapZ == 0 )
 	{

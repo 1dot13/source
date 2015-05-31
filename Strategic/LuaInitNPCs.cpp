@@ -839,6 +839,8 @@ static int l_ProfilesStrategicInsertionData (lua_State *L);
 
 static int l_ResetBoxers( lua_State *L );
 
+static int l_AddVolunteers( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1686,7 +1688,8 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	
 	lua_register(L,"EnvBeginRainStorm", l_EnvBeginRainStorm);
 	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
-	
+
+	lua_register( L, "AddVolunteers", l_AddVolunteers );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -2590,6 +2593,38 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	}
 	
 	return true;
+}
+
+void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L( ), "CheckFact", l_CheckFact );
+	lua_register( _LS.L( ), "AddVolunteers", l_AddVolunteers );
+	IniFunction( _LS.L( ), TRUE );
+	IniGlobalGameSetting( _LS.L( ) );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleSectorLiberation" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<bool>( fFirstTime ).Call( 4 );
+}
+
+void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L( ), "CheckFact", l_CheckFact );
+	lua_register( _LS.L( ), "AddVolunteers", l_AddVolunteers );
+	IniFunction( _LS.L( ), TRUE );
+	IniGlobalGameSetting( _LS.L( ) );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "RecruitRPCAdditionalHandling" ).Param<int>( usProfile ).Call( 1 );
 }
 
 BOOLEAN LetLuaGameInit(UINT8 Init)
@@ -12920,3 +12955,17 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 
 	return 0;
 }
+
+// add volunteers
+static int l_AddVolunteers( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		FLOAT num = lua_tointeger( L, 1 );
+
+		AddVolunteers( num );
+	}
+
+	return 0;
+}
+

@@ -58,6 +58,10 @@ extern BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init);
 extern BOOLEAN LuaCheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck, UINT8 Init);
 extern BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
 //extern BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
+
+void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime );
+void LuaRecruitRPCAdditionalHandling( UINT8 usProfile );
+
 extern BOOLEAN LuaHandleDelayedItemsArrival( UINT32 uiReason, UINT8 Init);
 extern BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init);
 
