@@ -11429,7 +11429,8 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 				else	// awake
 				{
 					// try to put him to sleep
-					if( SetMercAsleep( pSoldier, TRUE ) )
+					// Flugente: externalised option on whether messages on why merc cannot sleep appear
+					if ( SetMercAsleep( pSoldier, gGameExternalOptions.fSleepDisplayFailNotification ) )
 					{
 						// HEADROCK HAM B2.8: New feature sends all trainees/trainers to sleep automatically
 						HandleTrainingSleepSynchronize( pSoldier );

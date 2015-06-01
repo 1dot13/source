@@ -1868,8 +1868,12 @@ public:
 	FLOAT	GetDiseaseMagnitude( UINT8 aDisease );			// get the magnitude os a disease we might have, used to determine wether there are any effects
 	void	PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc = FALSE );
 	void	PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc = FALSE );
+	void	PrintSleepDesc( CHAR16* apStr );
 	FLOAT   GetDiseaseContactProtection();		// get percentage protection from infections via contact
 	INT16	GetDiseaseResistance();
+
+	// Flugente: hourly breath regen calculation
+	INT8	GetSleepBreathRegeneration();
 
 	//////////////////////////////////////////////////////////////////////////////
 

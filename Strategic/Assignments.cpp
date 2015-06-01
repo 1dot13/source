@@ -617,8 +617,6 @@ BOOLEAN PlayerSoldierTooTiredToTravel( SOLDIERTYPE *pSoldier );
 
 void AssignmentAborted( SOLDIERTYPE *pSoldier, UINT8 ubReason );
 
-UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier );
-
 UINT32 GetLastSquadListedInSquadMenu( void );
 
 BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier );
@@ -4969,84 +4967,8 @@ INT8 GetRegainDueToSleepNeeded( SOLDIERTYPE *pSoldier, INT32 iRateOfReGain )
 
 void RestCharacter( SOLDIERTYPE *pSoldier )
 {
-	// handle the sleep of this character, update bBreathMax based on sleep they have
-	INT8 bMaxBreathRegain = 0;
-	INT16 sSectorModifier = 100;
-	FLOAT bDivisor = 0;
-
-	// Determine how many hours a day this merc must sleep. Normally this would range between 6 and 12 hours.
-	// Injuries and/or martial arts trait can change the limits to between 3 and 18 hours a day.
-	bDivisor = CalcSoldierNeedForSleep( pSoldier );
-	
-	// HEADROCK HAM 3.6:
-	// Night ops specialists sleep better during the day. Others sleep better during the night.
-	// silversurfer: The code below did the complete opposite. A higher bDivisor means LESS regeneration. Fixed.
-	if (DayTime())	//if (NightTime())
-	{
-		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
-		{
-			if ( !HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
-				bDivisor += 3;
-		}
-		else
-			bDivisor += 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
-	}
-	else
-	{
-		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
-		{
-			if ( HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
-				bDivisor += 3;
-		}
-		else
-			bDivisor += (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
-	}
-
-	// HEADROCK HAM 3.5: Read adjustment from local sector facilities
-	if (pSoldier->bSectorZ == 0)
-	{
-		if (pSoldier->flags.fMercAsleep)
-		{
-			sSectorModifier = GetSectorModifier( pSoldier, FACILITY_SLEEP_MOD );
-		}
-		else
-		{
-			// Resting can be done at a facility now, and the program will automatically apply a performance bonus
-			// to this if the facility has one. If the character is simply resting ("On Duty", assigned to a squad),
-			// then only Ambient effects take place.
-			sSectorModifier = GetSectorModifier( pSoldier, FACILITY_PERFORMANCE_MOD );
-		}
-		bDivisor = (bDivisor * 100) / sSectorModifier;
-	}
-
-	// silversurfer: Items can provide a bonus to regeneration, sleeping bags for example.
-	// They will not provide such bonus if the merc is already using a bed in a facility.
-	if ( GetSoldierFacilityAssignmentIndex( pSoldier ) != FAC_PATIENT && GetSoldierFacilityAssignmentIndex( pSoldier ) != FAC_REST )
-	{
-		bDivisor = ( bDivisor * 100 ) / ( 100 + GetInventorySleepModifier( pSoldier ) );
-	}
-
-	// silversurfer: I moved all modifiers above this point because we don't want anybody to rest faster or slower than the already extreme thresholds.
-	// Re-enforce limits
-	bDivisor = __min(18, __max(3, bDivisor));
-
-	// round up so the bonuses above make more sense
-	bMaxBreathRegain = ( 50 / bDivisor + 0.5 );
-	
-	// Limit so that characters can't regain faster than 3 hours, ever
-	if (bMaxBreathRegain > 17)
-	{
-		bMaxBreathRegain = 17;
-	}
-
-	// if breath max is below the "really tired" threshold
-	if( pSoldier->bBreathMax < BREATHMAX_PRETTY_TIRED )
-	{
-		// real tired, rest rate is 50% higher (this is to prevent absurdly long sleep times for totally exhausted mercs)
-		bMaxBreathRegain = (UINT8)( bMaxBreathRegain * 3 / 2 );
-	}
-
-	pSoldier->bBreathMax += bMaxBreathRegain;
+	// handle the sleep of this character, update bBreathMax based on sleep they have	
+	pSoldier->bBreathMax += pSoldier->GetSleepBreathRegeneration( );
 
 	// Flugente: diseases can affect stat effectivity
 	UINT16 diseasemaxbreathreduction = 0;

@@ -14510,6 +14510,8 @@ void UpdateMercBodyRegionHelpText( )
 					pSoldier->PrintFoodDesc( sString, TRUE );
 
 					pSoldier->PrintDiseaseDesc( sString, TRUE );
+
+					pSoldier->PrintSleepDesc( sString );
 				}
 			}
 		}

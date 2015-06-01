@@ -1419,86 +1419,92 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			// health
 			if( Menptr[iId].bAssignment != ASSIGNMENT_POW )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bLifeDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bLifeDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_HEALTH]);
+
+				if ( change )
 				{
-					swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bLifeDelta);
-				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-				mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 				}
 
-			//else
-			//{
-				swprintf(sString, L"%d/%d",Menptr[iId].stats.bLife,Menptr[iId].stats.bLifeMax);
-			//}
+				swprintf( sString, L"%d/%d", Menptr[iId].stats.bLife, Menptr[iId].stats.bLifeMax );
 			}
 			else
 			{
 				swprintf( sString, pPOWStrings[ 1 ] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_HEALTH]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_HEALTH]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
 			break;
 		case 1:
 			// agility
 			if( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bAgilityDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bAgilityDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY]);
+
+				if ( change )
 				{
-					swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bAgilityDelta);
-					FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-					mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-					swprintf(sString, L"%d",Menptr[iId].stats.bAgility);
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bAgility );
 			}
 			else
 			{
 				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
 			break;
 		case 2:
 		// dexterity
-			if( !fAmIaRobot )
+			if ( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bDexterityDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bDexterityDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY]);
+
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bDexterityDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bDexterity);
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
+					mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+				}
+				
+				swprintf(sString, L"%d",Menptr[iId].stats.bDexterity);
 			}
 			else
 			{
 				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
 			break;
 		case 3:
 		// strength
 			if( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bStrengthDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bStrengthDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH]);
+
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bStrengthDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bStrength );
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bStrength );
 			}
 			else
 			{
@@ -1513,15 +1519,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 		// leadership
 			if( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bLeadershipDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bLeadershipDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_LEADERSHIP]);
+
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bLeadershipDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bLeadership );
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bLeadership );
 			}
 			else
 			{
@@ -1536,16 +1544,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 		// wisdom
 			if( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bWisdomDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bWisdomDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_WISDOM]);
+
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bWisdomDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 				}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bWisdom );
-				//}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bWisdom );
 			}
 			else
 			{
@@ -1586,98 +1595,102 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			//mrkmanship
 			if( !fAmIaRobot )
 			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bMarksmanshipDelta > 0 )
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMarksmanshipDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MARKSMANSHIP]);
+
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bMarksmanshipDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bMarksmanship);
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bMarksmanship );
 			}
 			else
 			{
 				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 			}
-
-
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
-	 case 8:
+			
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			break;
+		case 8:
 		// mech
 			if( !fAmIaRobot )
 			{
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMechanicDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MECHANICAL]);
 
-				if( gMercProfiles[Menptr[iId].ubProfile].bMechanicDelta > 0 )
+				if ( change )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bMechanicDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-					swprintf(sString, L"%d",Menptr[iId].stats.bMechanical);
-				//}
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bMechanical );
 			}
 			else
 			{
 				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 			}
-
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
-	 case 9:
-		// exp
-			if( !fAmIaRobot )
-			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bExplosivesDelta > 0 )
-				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bExplosivesDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bExplosive);
-				//}
-
-			}
-			else
-			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-			}
-
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
-		case 10:
-		// med
-			if( !fAmIaRobot )
-			{
-				if( gMercProfiles[Menptr[iId].ubProfile].bMedicalDelta > 0 )
-				{
-					swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bMedicalDelta);
-					FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-					mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);			}
-				//else
-				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bMedical);
-				//}
-			}
-			else
-			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-			}
-
 
 			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
+			break;
+		case 9:
+		// exp
+			if( !fAmIaRobot )
+			{
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bExplosivesDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES]);
+
+				if ( change )
+				{
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bExplosive );
+			}
+			else
+			{
+				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+			}
+
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			break;
+		case 10:
+		// med
+			if( !fAmIaRobot )
+			{
+				// Flugente: stats can have gone up or down, find out which 
+				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMedicalDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MEDICAL]);
+
+				if ( change )
+				{
+					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+				}
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bMedical );
+			}
+			else
+			{
+				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+			}
+			
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			break;
 
 		// Added by Flugente
 		case 16:

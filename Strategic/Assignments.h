@@ -479,6 +479,8 @@ BOOLEAN MercStaffsMilitaryHQ();
 
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
 
+UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier );
+
 #endif
 
 

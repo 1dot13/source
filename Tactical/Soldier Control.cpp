@@ -96,6 +96,7 @@
 #include "Queen Command.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
 #include "Auto Bandage.h"		// added by Flugente
+#include "Facilities.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -18750,7 +18751,7 @@ void SOLDIERTYPE::PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	if ( !gGameOptions.fFoodSystem )
 		return;
 
-	// only for living mercs with a profile with a valid infection method
+	// only for living mercs with a profile
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
 		return;
 
@@ -18849,6 +18850,19 @@ void SOLDIERTYPE::PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	}
 }
 
+void SOLDIERTYPE::PrintSleepDesc( CHAR16* apStr )
+{
+	// only for people
+	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		return;
+
+	CHAR16	atStr[100];
+	swprintf( atStr, L"" );
+
+	swprintf( atStr, gpStrategicString[STR_BREATH_REGEN_SLEEP], this->GetSleepBreathRegeneration( ) );
+	wcscat( apStr, atStr );
+}
+
 // get percentage protection from infections via contact
 FLOAT  SOLDIERTYPE::GetDiseaseContactProtection( )
 {
@@ -18899,6 +18913,89 @@ INT16	SOLDIERTYPE::GetDiseaseResistance( )
 	val = min( 100, val );
 
 	return(val);
+}
+
+// Flugente: hourly breath regen calculation
+INT8	SOLDIERTYPE::GetSleepBreathRegeneration( )
+{
+	// handle the sleep of this character, update bBreathMax based on sleep they have
+	INT8 bMaxBreathRegain = 0;
+	INT16 sSectorModifier = 100;
+	FLOAT bDivisor = 0;
+
+	// Determine how many hours a day this merc must sleep. Normally this would range between 6 and 12 hours.
+	// Injuries and/or martial arts trait can change the limits to between 3 and 18 hours a day.
+	bDivisor = CalcSoldierNeedForSleep( this );
+
+	// HEADROCK HAM 3.6:
+	// Night ops specialists sleep better during the day. Others sleep better during the night.
+	// silversurfer: The code below did the complete opposite. A higher bDivisor means LESS regeneration. Fixed.
+	if ( DayTime( ) )	//if (NightTime())
+	{
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( !HAS_SKILL_TRAIT( this, NIGHT_OPS_NT ) )
+				bDivisor += 3;
+		}
+		else
+			bDivisor += 4 - (2 * NUM_SKILL_TRAITS( this, NIGHTOPS_OT ));
+	}
+	else
+	{
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( HAS_SKILL_TRAIT( this, NIGHT_OPS_NT ) )
+				bDivisor += 3;
+		}
+		else
+			bDivisor += (2 * NUM_SKILL_TRAITS( this, NIGHTOPS_OT ));
+	}
+
+	// HEADROCK HAM 3.5: Read adjustment from local sector facilities
+	if ( this->bSectorZ == 0 )
+	{
+		if ( this->flags.fMercAsleep )
+		{
+			sSectorModifier = GetSectorModifier( this, FACILITY_SLEEP_MOD );
+		}
+		else
+		{
+			// Resting can be done at a facility now, and the program will automatically apply a performance bonus
+			// to this if the facility has one. If the character is simply resting ("On Duty", assigned to a squad),
+			// then only Ambient effects take place.
+			sSectorModifier = GetSectorModifier( this, FACILITY_PERFORMANCE_MOD );
+		}
+		bDivisor = (bDivisor * 100) / sSectorModifier;
+	}
+
+	// silversurfer: Items can provide a bonus to regeneration, sleeping bags for example.
+	// They will not provide such bonus if the merc is already using a bed in a facility.
+	if ( GetSoldierFacilityAssignmentIndex( this ) != FAC_PATIENT && GetSoldierFacilityAssignmentIndex( this ) != FAC_REST )
+	{
+		bDivisor = (bDivisor * 100) / (100 + GetInventorySleepModifier( this ));
+	}
+
+	// silversurfer: I moved all modifiers above this point because we don't want anybody to rest faster or slower than the already extreme thresholds.
+	// Re-enforce limits
+	bDivisor = __min( 18, __max( 3, bDivisor ) );
+
+	// round up so the bonuses above make more sense
+	bMaxBreathRegain = (50 / bDivisor + 0.5);
+
+	// Limit so that characters can't regain faster than 3 hours, ever
+	if ( bMaxBreathRegain > 17 )
+	{
+		bMaxBreathRegain = 17;
+	}
+
+	// if breath max is below the "really tired" threshold
+	if ( this->bBreathMax < BREATHMAX_PRETTY_TIRED )
+	{
+		// real tired, rest rate is 50% higher (this is to prevent absurdly long sleep times for totally exhausted mercs)
+		bMaxBreathRegain = (UINT8)(bMaxBreathRegain * 3 / 2);
+	}
+
+	return bMaxBreathRegain;
 }
 
 

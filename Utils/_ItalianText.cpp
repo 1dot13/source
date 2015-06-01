@@ -2844,6 +2844,8 @@ STR16 gpStrategicString[] =
 	L"War room isn't staffed - militia move aborted!",
 
 	L"Tank",								//STR_AR_TANK_NAME,
+
+	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };
 
 STR16 gpGameClockString[] = 

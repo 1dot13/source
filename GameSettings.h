@@ -612,6 +612,7 @@ typedef struct
 	//Merc Assignment settings
 	INT32 ubAssignmentUnitsPerDay;
 	INT32 ubMinutesForAssignmentToCount;
+	BOOLEAN fSleepDisplayFailNotification;
 
 	INT32 ubTrainingSkillMin;
 	INT32 ubTrainingSkillMax;

@@ -2857,6 +2857,8 @@ STR16 gpStrategicString[] =
 	L"La salle d'opérations n'est pas ouverte... Le mouvement de la milice a avorté !",
 
 	L"Tank",								//STR_AR_TANK_NAME,	// TODO.Translate
+
+	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };
 
 STR16 gpGameClockString[] = 

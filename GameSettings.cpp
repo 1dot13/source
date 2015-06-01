@@ -2127,6 +2127,7 @@ void LoadGameExternalOptions()
 	////////// ALL ASSIGNMENTS //////////
 
 	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("Strategic Assignment Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45, 1, NUM_MIN_IN_DAY);
+	gGameExternalOptions.fSleepDisplayFailNotification		= iniReader.ReadBoolean("Strategic Assignment Settings","NOTIFY_IF_SLEEP_FAILS", TRUE );
 
 	////////// PRACTICE/TRAIN/STUDY //////////
 

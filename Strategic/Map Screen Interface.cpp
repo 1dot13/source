@@ -2028,6 +2028,8 @@ void UpdateCharRegionHelpText( void )
 					pSoldier->PrintFoodDesc( sString, TRUE );
 
 					pSoldier->PrintDiseaseDesc( sString, TRUE );
+
+					pSoldier->PrintSleepDesc( sString );
 				}
 			}
 			else
