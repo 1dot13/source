@@ -14122,6 +14122,8 @@ UINT16 GetModifiedGunRange(UINT16 usWeaponIndex)
 		ubRange = (INT16)((FLOAT)( ubRange * gGameExternalOptions.iGunRangeModifier ) / 100 * gItemSettings.fRangeModifierGun[ Weapon[usWeaponIndex].ubWeaponType ] );
 	else if (Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_LAUNCHER )
 		ubRange = (INT16)((FLOAT)( ubRange * gGameExternalOptions.iGunRangeModifier ) / 100 * gItemSettings.fRangeModifierLauncher );
+	else if ( Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_THROWING_KNIFE )
+		ubRange = (INT16)((FLOAT)(ubRange * gGameExternalOptions.iGunRangeModifier) / 100 * gItemSettings.fRangeModifierThrowingKnife);
 
 	return (UINT16)ubRange;
 }

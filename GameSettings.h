@@ -2189,6 +2189,7 @@ typedef struct
 	// range modifiers
 	FLOAT fRangeModifierGun[9];
 	FLOAT fRangeModifierLauncher;
+	FLOAT fRangeModifierThrowingKnife;
 	FLOAT fRangeModifierGrenade;
 
 	// damage modifiers

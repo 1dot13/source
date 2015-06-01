@@ -6737,6 +6737,8 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
+			else if ( Item[gpItemDescObject->usItem].usItemClass & IC_THROWING_KNIFE )
+				iRangeValue = (UINT16)((FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierThrowingKnife / 10.0f);
 
 			// Get Final Range value
 			UINT16 iFinalRangeValue = (UINT16)( GunRange( gpItemDescObject, gpItemDescSoldier ) / 10.0f );
@@ -6757,11 +6759,15 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			{
 				// Get base Range value
 				UINT16 iComparedRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
+
 				// apply Ini modifiers
 				if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
 					iComparedRangeValue = (UINT16)( (FLOAT)iComparedRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 				else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 					iComparedRangeValue = (UINT16)( (FLOAT)iComparedRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
+				else if ( Item[gpComparedItemDescObject->usItem].usItemClass & IC_THROWING_KNIFE )
+					iComparedRangeValue = (UINT16)((FLOAT)iComparedRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierThrowingKnife / 10.0f);
+
 				// Get Final Range value
 				UINT16 iComparedFinalRangeValue = (UINT16)( GunRange( gpComparedItemDescObject, gpItemDescSoldier ) / 10.0f );
 				// Get difference
@@ -6780,13 +6786,18 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				ubNumLine = 2;
 			else
 				ubNumLine = 0;
+
 			// Get base Range value
 			UINT16 iRangeValue = Weapon[ gpComparedItemDescObject->usItem ].usRange;
+
 			// apply Ini modifiers
 			if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_GUN )
 				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierGun[ Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType ] / 10.0f );
 			else if ( Item[ gpComparedItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 				iRangeValue = (UINT16)( (FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierLauncher / 10.0f );
+			else if ( Item[gpComparedItemDescObject->usItem].usItemClass & IC_THROWING_KNIFE )
+				iRangeValue = (UINT16)((FLOAT)iRangeValue * (FLOAT)(gGameExternalOptions.iGunRangeModifier / 100) * gItemSettings.fRangeModifierThrowingKnife / 10.0f);
+
 			// Get Final Range value
 			UINT16 iFinalRangeValue = (UINT16)( GunRange( gpComparedItemDescObject, NULL ) / 10.0f );
 			// Get difference
