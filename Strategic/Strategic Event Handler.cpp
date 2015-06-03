@@ -824,6 +824,23 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 
 void HandleEarlyMorningEvents( void )
 {
+	// Flugente: no reason to put this into LUA
+	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			UINT8 sector = SECTOR( sX, sY );
+
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+			
+			// A flag prevents us from exploiting the civilian recruitment mechanic. Every x hours, we reset it
+			if ( pSectorInfo )
+			{
+				pSectorInfo->usSectorInfoFlag &= ~SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED;
+			}
+		}
+	}
+
 #ifdef LUA_STRATEGY_EVENT_HANDLER
 	LetLuaHandleEarlyMorningEvents(0);
 #else

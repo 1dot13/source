@@ -3839,6 +3839,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         // Flugente: if this was a prisoner of war, reduce their sector count by 1
         if ( pSoldierOld->usSoldierFlagMask & SOLDIER_POW_PRISON )
 			KillOnePrisoner( &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+
+		// If this was a volunteer, then we definetly reduce our volunteer pool
+		if ( pSoldierOld->bTeam == CIV_TEAM && pSoldierOld->ubCivilianGroup == VOLUNTEER_CIV_GROUP )
+			AddVolunteers( -1 );
     }
     else if ( pSoldierOld->bTeam == MILITIA_TEAM )
     {

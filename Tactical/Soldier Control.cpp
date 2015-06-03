@@ -118,6 +118,7 @@
 #include "Tactical Save.h"		// added by Flugente for AddItemsToUnLoadedSector()
 #include "LightEffects.h"		// added by Flugente for CreatePersonalLight()
 #include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
+#include "strategic town loyalty.h"		// added by Flugente for gTownLoyalty
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -20437,14 +20438,16 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			apsDeducted = TRUE;
 
 			// Flugente: if we are talking to an enemy, we have the option to offer them surrender...
-			if ( (pTSoldier->bTeam == ENEMY_TEAM || (pTSoldier->bTeam == CIV_TEAM && zCivGroupName[pTSoldier->ubCivilianGroup].fCanBeCaptured) ) 
-				 && (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) )
+			if ( (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && pTSoldier->CanBeCaptured( ) )
 			{
 				HandleSurrenderOffer( pTSoldier );
 				return(FALSE);
 			}
 			else
 			{
+				// Flugente: if this guy is a potential volunteer, we might be able to sway him
+				HandleVolunteerRecruitment( this, pTSoldier );
+
 				StartCivQuote( pTSoldier );
 				return(FALSE);
 			}
@@ -22806,3 +22809,77 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	return uiMedcost;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Flugente: decide whether pRecruiter can successfully recruit pTarget to be a volunteer
+void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
+{
+	if ( !pRecruiter || pRecruiter->bTeam != OUR_TEAM )
+		return;
+	
+	// potential recruit must be a civilain NPC of no other affilation, no kids
+	if ( !pTarget || pTarget->bTeam != CIV_TEAM || pTarget->ubProfile != NO_PROFILE || pTarget->ubCivilianGroup != NON_CIV_GROUP || pTarget->ubBodyType > DRESSCIV )
+		return;
+
+	// target must unharmed
+	if ( pTarget->bCollapsed || pTarget->bBreathCollapsed || pTarget->stats.bLife < pTarget->stats.bLifeMax )
+		return;
+
+	// target must be friendly
+	if ( !pTarget->aiData.bNeutral )
+		return;
+
+	// Set a flag in this sector. This flag is removed every x hours. As long as it exists, newly created civilians won't be potential volunteers
+	// this is simply there to prevent the exploit of reloading the sector repeatedly and 'harvesting' volunteers.
+	// we do this even if we do not recruit this guy - otherwise the player could reload the sector over and over again until he find a volunteer
+	UINT8 sector = SECTOR( pTarget->sSectorX, pTarget->sSectorY );
+
+	SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+	
+	if ( pSectorInfo )
+	{
+		pSectorInfo->usSectorInfoFlag |= SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED;
+	}
+
+	// can we recruit him in the first place?
+	if ( pTarget->usSoldierFlagMask2 & SOLDIER_POTENTIAL_VOLUNTEER )
+	{
+		// if sector not under our control, has enemies in it, or is currently in combat mode
+		if ( !SectorOursAndPeaceful( pTarget->sSectorX, pTarget->sSectorY, pTarget->bSectorZ ) )
+			return;
+		
+		// if this a town sector, min loyalty is required
+		// other sectors do not have a loyalty rating. This is okay here, as then the player has an incentive to try his luck outside of towns
+		UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( pTarget->sSectorX, pTarget->sSectorY )].bNameId;
+		if ( ubTownID != BLANK_SECTOR )
+		{
+			if ( gTownLoyalty[ubTownID].ubRating < gGameExternalOptions.iMinLoyaltyToTrain )
+				return;
+		}
+
+		// recruiter ability
+		FLOAT leadershipfactor = EffectiveLeadership( pRecruiter ) / 100.0;
+
+		// bonus for assertive characters
+		if ( gMercProfiles[pRecruiter->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+			leadershipfactor *= 1.05;
+
+		FLOAT recruitmodifier = (100 + pRecruiter->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT )) / 100.0;
+
+		FLOAT rating = leadershipfactor * recruitmodifier * gMercProfiles[pRecruiter->ubProfile].usApproachFactor[3];
+		
+		// hard check. We do not use Chance()-base functions, as then the player would have to repeat this over and over again to be sure that someone is not a volunteer
+		if ( rating > 70.0 )
+		{
+			// success! remove the flag, put this guy in a new group, and add one volunteer
+			pTarget->usSoldierFlagMask2 &= ~SOLDIER_POTENTIAL_VOLUNTEER;
+
+			pTarget->ubCivilianGroup = VOLUNTEER_CIV_GROUP;
+
+			AddVolunteers( 1 );
+
+			// the recruiter gets a bit of experience
+			StatChange( pRecruiter, LDRAMT, 8, TRUE );
+			StatChange( pRecruiter, EXPERAMT, 5, TRUE );
+		}
+	}
+}

@@ -438,6 +438,10 @@ typedef enum
 	PRISONER_MAX,
 } PrisonerType;
 
+// -------- added by Flugente: sector info flags --------
+// easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+#define SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED		0x01	//1				// we recruited volunteers here. Until this flag is removed, newly created civilians wont be potential volunteers anymore
+
 typedef struct SECTORINFO
 {
 	//information pertaining to this sector
@@ -495,7 +499,7 @@ typedef struct SECTORINFO
 	// HEADROCK HAM 3.6: Flag to determine whether enemy units in this sector can be seen, and whether their numbers
 	// should be displayed. One filler was replaced to make room.
 	UINT8	ubDetectionLevel;
-	UINT8	bFiller2;
+	UINT8	usSectorInfoFlag;			// a flagmask
 	UINT8	bFiller3;
 
 	UINT32	uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer;

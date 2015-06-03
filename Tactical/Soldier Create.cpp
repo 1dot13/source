@@ -1137,7 +1137,22 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			default:
 				Soldier.aiData.bNormalSmell = NORMAL_HUMAN_SMELL_STRENGTH;
 				break;
+		}
 
+		// Flugente: under certain conditions, we can recruit civilians
+		if ( Soldier.bTeam == CIV_TEAM && Soldier.ubProfile == NO_PROFILE && Soldier.ubCivilianGroup == NON_CIV_GROUP && Soldier.ubBodyType <= DRESSCIV )
+		{
+			// there has to officially be an outbreak in this sector - if we don't know of a disease, we cannot treat it!
+			UINT8 sector = SECTOR( Soldier.sSectorX, Soldier.sSectorY );
+
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+			// only allow us to be a volunteer if this isn't blocked
+			if ( pSectorInfo && !(pSectorInfo->usSectorInfoFlag & SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED) )
+			{
+				if ( Chance(10) )
+					Soldier.usSoldierFlagMask2 |= SOLDIER_POTENTIAL_VOLUNTEER;
+			}
 		}
 
 		if( guiCurrentScreen != AUTORESOLVE_SCREEN )

@@ -408,6 +408,7 @@ enum
 #define SOLDIER_INTERROGATE_GENERAL			0x00000080	//128			// interrogate generals
 
 #define SOLDIER_INTERROGATE_CIVILIAN		0x00000100	//256			// interrogate civilian
+#define SOLDIER_POTENTIAL_VOLUNTEER			0x00000200	//512			// this civilian _might_ join us as a volunteer if conditions are right
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -2723,6 +2724,9 @@ void SetDamageDisplayCounter(SOLDIERTYPE* pSoldier);
 
 // SANDRO - This whole procedure was merged with the surgery ability of the doctor trait
 UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery );
+
+// Flugente: decide whether pRecruiter can successfully recruit pTarget to be a volunteer
+void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget );
 
 #endif
 

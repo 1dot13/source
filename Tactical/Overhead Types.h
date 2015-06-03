@@ -361,7 +361,7 @@ enum
 	UNNAMED_CIV_GROUP_19,
 	ASSASSIN_CIV_GROUP,		// Flugente: enemy assassins belong to this group
 	POW_PRISON_CIV_GROUP,	// Flugente: prisoners of war the player caught are in this group
-	UNNAMED_CIV_GROUP_22,
+	VOLUNTEER_CIV_GROUP,	// Flugente: civilians that the player recruited
 	UNNAMED_CIV_GROUP_23,
 	UNNAMED_CIV_GROUP_24,
 	UNNAMED_CIV_GROUP_25,
