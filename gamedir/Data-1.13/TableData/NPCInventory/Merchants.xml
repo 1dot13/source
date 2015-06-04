@@ -616,19 +616,19 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
     <uiIndex>21</uiIndex>
-    <szName>additional dealer 2</szName>
+    <szName>Kyle</szName>
     <dBuyModifier>1.0</dBuyModifier>
     <dSellModifier>1.0</dSellModifier>
-    <ubShopKeeperID>255</ubShopKeeperID>
+    <ubShopKeeperID>95</ubShopKeeperID>
     <ubTypeOfArmsDealer>0</ubTypeOfArmsDealer>
-    <iInitialCash>800</iInitialCash>
+    <iInitialCash>1000</iInitialCash>
     <uiFlags>268435456</uiFlags>
-    <dailyIncrement>800</dailyIncrement>
-    <dailyMaximum>800</dailyMaximum>
-    <dailyRetained>0</dailyRetained>
+    <dailyIncrement>1000</dailyIncrement>
+    <dailyMaximum>2000</dailyMaximum>
+    <dailyRetained>1000</dailyRetained>
     <minCoolness>1</minCoolness>
     <maxCoolness>10</maxCoolness>
-    <addToCoolness>0</addToCoolness>
+    <addToCoolness>2</addToCoolness>
     <coolnessProgressRate>100</coolnessProgressRate>
     <daysDelayMin>1</daysDelayMin>
     <daysDelayMax>2</daysDelayMax>

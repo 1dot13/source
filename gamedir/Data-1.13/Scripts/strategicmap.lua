@@ -170,6 +170,7 @@ Profil =
 	MADLAB = 146,
 	ROBOT = 62,
 	MIGUEL = 57,
+	KYLE = 95,
 }
 local gsRobotGridNo
 
@@ -181,6 +182,13 @@ function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 		SetCharacterSectorY(Profil.MARIA, 0)
 		SetCharacterSectorX(Profil.ANGEL, 0)
 		SetCharacterSectorY(Profil.ANGEL, 0)
+	end
+	
+	if ( sNewSectorX == 6 and sNewSectorY == SectorY.MAP_ROW_C and gubQuest( Quests.QUEST_LEATHER_SHOP_DREAM ) == qStatus.QUESTDONE ) then
+		-- move Kyle to his shop
+		SetCharacterSectorX(Profil.KYLE, 6)
+		SetCharacterSectorY(Profil.KYLE, SectorY.MAP_ROW_C)
+		SetProfileStrategicInsertionData(Profil.KYLE, 12380)
 	end
 
 	if ( sNewSectorX == 5 and sNewSectorY == SectorY.MAP_ROW_D ) then
