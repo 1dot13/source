@@ -2577,6 +2577,7 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
 	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	lua_register(_LS.L(), "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData );
 	IniFunction( _LS.L(), TRUE );
 	IniGlobalGameSetting( _LS.L() );
 
@@ -4132,28 +4133,22 @@ int l_InitMapProfil (lua_State *L)
 
 static int l_ProfilesStrategicInsertionData (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-INT32 GridNo = 0;
-UINT8 ProfilID = NO_PROFILE;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) ProfilID = lua_tointeger(L,i);
-		if (i == 2 ) GridNo = lua_tointeger(L,i);
+		UINT8 ProfilID = lua_tointeger( L, 1 );
+		INT32 sGridNo  = lua_tointeger( L, 2 );
+	
+		if ( ProfilID != NO_PROFILE )
+		{
+			gMercProfiles[ ProfilID ].sGridNo = sGridNo;
+			gMercProfiles[ ProfilID ].fUseProfileInsertionInfo = TRUE;
+			gMercProfiles[ ProfilID ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+			gMercProfiles[ ProfilID ].usStrategicInsertionData = sGridNo;
+			gMercProfiles[ ProfilID ].ubMiscFlags3 = PROFILE_MISC_FLAG3_PERMANENT_INSERTION_CODE;
+		}
 	}
 	
-	if ( ProfilID != NO_PROFILE )
-	{
-		gMercProfiles[ ProfilID ].sGridNo =  GridNo;
-		gMercProfiles[ ProfilID ].fUseProfileInsertionInfo = TRUE;
-		gMercProfiles[ ProfilID ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		gMercProfiles[ ProfilID ].usStrategicInsertionData = GridNo;
-		gMercProfiles[ ProfilID ].ubMiscFlags3 = PROFILE_MISC_FLAG3_PERMANENT_INSERTION_CODE;
-	}
-	
- return 0;
+	return 0;
 }
 
 static int l_EnvBeginRainStorm (lua_State *L)

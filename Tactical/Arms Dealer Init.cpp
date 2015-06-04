@@ -1140,16 +1140,20 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 
 BOOLEAN IsMercADealer( UINT8 ubMercID )
 {
-	UINT8	cnt;
-
 	// Manny is not actually a valid dealer unless a particular event sets that fact
 	if( ( ubMercID == MANNY ) && !CheckFact( FACT_MANNY_IS_BARTENDER, 0 ) )
 	{
 		return( FALSE );
 	}
 
+	// Flugente: if we give Kyle the deed of the leather shop, he becomes a shop owner
+	if ( (ubMercID == KYLE) && gubQuest[QUEST_LEATHER_SHOP_DREAM] != QUESTDONE )
+	{
+		return(FALSE);
+	}
+	
 	//loop through the list of arms dealers
-	for( cnt=0; cnt<NUM_ARMS_DEALERS; cnt++ )
+	for ( UINT8 cnt = 0; cnt<NUM_ARMS_DEALERS; ++cnt )
 	{
 		if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
 			return( TRUE );
