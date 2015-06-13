@@ -65,4 +65,7 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 // Flugente: decide wether to create prisoners of war in a sector. Not to be confused with player POWs
 void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 
+// Flugente: add script-defined civilians if Lua functions say so
+void SectorAddLuaCivilians( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
+
 #endif

@@ -116,6 +116,10 @@ enum
 	EVENT_PMC_EMAIL,							// Flugente: pmc will send us an introduction email
 	EVENT_PMC_REINFORCEMENT_ARRIVAL,			// Flugente: pmc hired militia arrives
 
+	EVENT_KINGPIN_BOUNTY_INITIAL,				// Flugente: a new quest by Kingpin: kill the DaSilvas while fighting off the competition
+	EVENT_KINGPIN_BOUNTY_END_KILLEDTHEM,
+	EVENT_KINGPIN_BOUNTY_END_TIME_PASSED,
+
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1
 };

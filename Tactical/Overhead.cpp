@@ -3843,6 +3843,33 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 		// If this was a volunteer, then we definetly reduce our volunteer pool
 		if ( pSoldierOld->bTeam == CIV_TEAM && pSoldierOld->ubCivilianGroup == VOLUNTEER_CIV_GROUP )
 			AddVolunteers( -1 );
+
+		// if this was a bounty hunter, and no other bounty hunters exist in this sector, we must have wiped out a bounty hunter group
+		if ( pSoldierOld->bTeam == CIV_TEAM && pSoldierOld->ubCivilianGroup == BOUNTYHUNTER_CIV_GROUP )
+		{
+			if ( !IsCivFactionMemberAliveInSector( BOUNTYHUNTER_CIV_GROUP ) )
+			{
+				if ( SECTOR( pSoldierOld->sSectorX, pSoldierOld->sSectorY ) == GetFact( FACT_BOUNTYHUNTER_SECTOR_1 ) )
+					SetFactTrue( FACT_BOUNTYHUNTER_KILLED_1 );
+				
+				if ( SECTOR( pSoldierOld->sSectorX, pSoldierOld->sSectorY ) == GetFact( FACT_BOUNTYHUNTER_SECTOR_2 ) )
+					SetFactTrue( FACT_BOUNTYHUNTER_KILLED_2 );
+			}
+		}
+
+		// if Angel an Maria are dead and the bounty hunter quest is still ongoing, then finish it
+		if ( gubQuest[QUEST_KINGPIN_ANGEL_MARIA] == QUESTINPROGRESS )
+		{
+			if ( pSoldierOld->ubProfile == ANGEL && gMercProfiles[MARIA].bMercStatus == MERC_IS_DEAD ||
+					pSoldierOld->ubProfile == MARIA && gMercProfiles[ANGEL].bMercStatus == MERC_IS_DEAD )
+			{
+				// send Email from kingpin with a delay
+				AddStrategicEvent( EVENT_KINGPIN_BOUNTY_END_KILLEDTHEM, GetWorldTotalMin( ) + 60 * (1 + Random( 6 )), 0 );
+
+				// remove 'other
+				DeleteStrategicEvent( EVENT_KINGPIN_BOUNTY_END_TIME_PASSED, 0 );
+			}
+		}
     }
     else if ( pSoldierOld->bTeam == MILITIA_TEAM )
     {
@@ -11176,6 +11203,27 @@ BOOLEAN CoweringShockLevel( SOLDIERTYPE * pSoldier )
 	if (bShock >= bTolerance )
 	{
 		return TRUE;
+	}
+
+	return FALSE;
+}
+
+// Flugente: is any member of a specific civilian faction still alive in the current sector?
+BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup )
+{
+	SOLDIERTYPE *pSoldier = NULL;
+
+	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
+	UINT16 cnt = gTacticalStatus.Team[CIV_TEAM].bFirstID;
+
+	// look for all mercs on the same team,
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt, ++pSoldier )
+	{
+		if ( pSoldier->bActive && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
+		{
+			if ( pSoldier->ubCivilianGroup == usCivilianGroup && pSoldier->stats.bLife > 0 )
+				return TRUE;
+		}
 	}
 
 	return FALSE;

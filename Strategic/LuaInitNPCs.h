@@ -61,6 +61,7 @@ extern BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 
 
 void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime );
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile );
+void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 extern BOOLEAN LuaHandleDelayedItemsArrival( UINT32 uiReason, UINT8 Init);
 extern BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init);

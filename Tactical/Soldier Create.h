@@ -447,10 +447,14 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 SOLDIERTYPE* TacticalCreateEnemyTank();
 SOLDIERTYPE* TacticalCreateJeep();
 
+// Flugente: create an armed civilian
+SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass = SOLDIER_CLASS_ARMY );
+
 // Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);
 void CreateAssassin(UINT8 disguisetype);
 
+// create a prisoner (in a prison cell) in the current sector
 void CreatePrisonerOfWar();
 
 // randomly generates a relative level rating (attributes or equipment)
@@ -556,5 +560,8 @@ void ResetNumSquadleadersInArmyGroup( void ); // added by SANDRO
 BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct ); // Added a function to add traits to soldiers - SANDRO
 
 INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin );
+
+// Flugente: set palettes for vest/shirt
+void SetClothes(SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants);
 
 #endif

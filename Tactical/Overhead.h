@@ -424,5 +424,8 @@ BOOLEAN GetRandomUnknownVIPSector( UINT16& aSector );
 void DeleteVIP( INT16 sMapX, INT16 sMapY );
 void VIPFleesToMeduna();
 
+// Flugente: is any member of a specific civilian faction still alive in the current sector?
+BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
+
 #endif
 

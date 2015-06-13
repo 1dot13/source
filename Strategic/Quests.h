@@ -78,6 +78,8 @@ enum Quests
 	QUEST_23 = 23,
 	QUEST_24 = 24,
 	QUEST_KILL_DEIDRANNA = 25,
+
+	QUEST_KINGPIN_ANGEL_MARIA,		// Flugente: new quest: if the palyer rescued Maria without implicating himself, Kingpin hires bounty hunters to kill them
 #endif
 } ;
 /*
@@ -559,6 +561,11 @@ enum Facts
 	FACT_DISEASE_WHODATA_SUBSCRIBED,	// if we are currently subscripted, we will pay x$ per day
 	FACT_DISEASE_WHODATA_ACCESS,		// do we currently have access to the data
 
+	// Flugente: Kingpin bounty hunter quest
+	FACT_BOUNTYHUNTER_SECTOR_1,
+	FACT_BOUNTYHUNTER_SECTOR_2,
+	FACT_BOUNTYHUNTER_KILLED_1,
+	FACT_BOUNTYHUNTER_KILLED_2,
 
 #ifdef JA2UB	
 	//Ja25 UB
@@ -617,9 +624,12 @@ enum Facts
 extern UINT8 gubQuest[MAX_QUESTS];
 extern UINT8 gubFact[NUM_FACTS];
 
-extern void SetFactTrue( UINT16 usFact );
-extern void SetFactFalse( UINT16 usFact );
-extern BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID );
+void SetFactTrue( UINT16 usFact );
+void SetFactFalse( UINT16 usFact );
+BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID );
+
+void SetFact( UINT16 usFact, UINT8 aVal );
+UINT8 GetFact( UINT16 usFact );
 
 extern void StartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY );
 extern void EndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY );

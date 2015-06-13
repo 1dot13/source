@@ -735,6 +735,9 @@ static int l_GetTimeQuestWasStarted (lua_State *L);
 static int l_RepairmanIsFixingItemsButNoneAreDoneYet(lua_State *L);
 
 static int l_SECTOR(lua_State *L);
+static int l_SECTORX( lua_State *L );
+static int l_SECTORY( lua_State *L );
+
 static int l_SectorInfoBloodCats(lua_State *L);
 
 static int l_SpokenToHeadMiner(lua_State *L);
@@ -840,6 +843,11 @@ static int l_ProfilesStrategicInsertionData (lua_State *L);
 static int l_ResetBoxers( lua_State *L );
 
 static int l_AddVolunteers( lua_State *L );
+
+static int l_CreateArmedCivilain( lua_State *L );
+
+static int l_GetFact( lua_State *L );
+static int l_SetFact( lua_State *L );
 
 using namespace std;
 
@@ -1477,6 +1485,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "RepairmanIsFixingItemsButNoneAreDoneYet", l_RepairmanIsFixingItemsButNoneAreDoneYet);	
 
 	lua_register(L, "SECTOR", l_SECTOR);
+	lua_register(L, "SECTORX", l_SECTORX );
+	lua_register(L, "SECTORY", l_SECTORY );
+
 	lua_register(L, "GetSectorInfoBloodCats", l_SectorInfoBloodCats);	
 	
 	lua_register(L, "SpokenToHeadMiner", l_SpokenToHeadMiner);	
@@ -1690,6 +1701,11 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
 
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
+
+	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
+	
+	lua_register(L, "GetFact", l_GetFact );
+	lua_register(L, "SetFact", l_SetFact );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -2578,6 +2594,7 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 	lua_register(_LS.L(), "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData );
+	lua_register(_LS.L(), "CreateArmedCivilain", l_CreateArmedCivilain );
 	IniFunction( _LS.L(), TRUE );
 	IniGlobalGameSetting( _LS.L() );
 
@@ -2626,6 +2643,26 @@ void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
 	LuaFunction( _LS.L, "RecruitRPCAdditionalHandling" ).Param<int>( usProfile ).Call( 1 );
+}
+
+void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L( ), "CheckFact", l_CheckFact );
+	lua_register( _LS.L( ), "SECTORX", l_SECTORX );
+	lua_register( _LS.L( ), "SECTORY", l_SECTORY );
+	lua_register( _LS.L( ), "SECTOR", l_SECTOR );
+	lua_register( _LS.L( ), "GetFact", l_GetFact );
+	lua_register( _LS.L( ), "SetFact", l_SetFact );
+	IniFunction( _LS.L( ), TRUE );
+	IniGlobalGameSetting( _LS.L( ) );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleSectorTacticalEntry" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Call( 3 );
 }
 
 BOOLEAN LetLuaGameInit(UINT8 Init)
@@ -2729,6 +2766,7 @@ BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN
 	
 	LuaScopeState _LS(true);
 
+	lua_register( _LS.L( ), "CreateArmedCivilain", l_CreateArmedCivilain );
 	IniFunction( _LS.L(), FALSE );
 	IniGlobalGameSetting( _LS.L() );
 
@@ -4416,42 +4454,68 @@ UINT8 TANKS_ILOSC = 0;
 
 static int l_SECTOR(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT16 x,y;
-UINT8 val;
+	UINT8 val = 0;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) )
 	{
-		if (i == 1 ) x = lua_tointeger(L,i);
-		if (i == 2 ) y = lua_tointeger(L,i);
+		UINT16 x = lua_tointeger( L, 1 );
+		UINT16 y = lua_tointeger( L, 2 );
+
+		val = SECTOR( x, y );
 	}
-					
-			val = SECTOR(  x,  y );
-		
+	
 	lua_pushinteger(L, val);
 	
-return 1;
+	return 1;
+}
+
+static int l_SECTORX( lua_State *L )
+{
+	UINT8 val = 0;
+
+	if ( lua_gettop( L ) )
+	{
+		UINT8 sector = lua_tointeger( L, 1 );
+
+		val = SECTORX( sector );
+	}
+
+	lua_pushinteger( L, val );
+
+	return 1;
+}
+
+static int l_SECTORY( lua_State *L )
+{
+	UINT8 val = 0;
+
+	if ( lua_gettop( L ) )
+	{
+		UINT8 sector = lua_tointeger( L, 1 );
+
+		val = SECTORY( sector );
+	}
+
+	lua_pushinteger( L, val );
+
+	return 1;
 }
 
 static int l_CALCULATE_STRATEGIC_INDEX(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT16 x,y;
-UINT8 val;
+	UINT8 val = 0;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) )
 	{
-		if (i == 1 ) x = lua_tointeger(L,i);
-		if (i == 2 ) y = lua_tointeger(L,i);
+		UINT16 x = lua_tointeger( L, 1 );
+		UINT16 y = lua_tointeger( L, 2 );
+
+		val = CALCULATE_STRATEGIC_INDEX( x, y );
 	}
-					
-			val = CALCULATE_STRATEGIC_INDEX(  x,  y );
 		
 	lua_pushinteger(L, val);
 	
-return 1;
+	return 1;
 }
 
 static int l_SectorInfoBloodCats(lua_State *L)
@@ -12964,3 +13028,69 @@ static int l_AddVolunteers( lua_State *L )
 	return 0;
 }
 
+static int l_CreateArmedCivilain( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		UINT8 usCivilianGroup	= lua_tointeger( L, 1 );
+		UINT8 usSoldierClass	= lua_tointeger( L, 2 );
+		INT32 sGridNo			= lua_tointeger( L, 3 );
+		BOOLEAN fHostile		= lua_tointeger( L, 4 );
+
+		SOLDIERTYPE* pSoldier = TacticalCreateArmedCivilian( usSoldierClass );
+
+		if ( pSoldier )
+		{
+			if ( sGridNo != NOWHERE )
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->sInsertionGridNo = sGridNo;
+			}
+
+			AddSoldierToSector( pSoldier->ubID );
+
+			// So we can see them!
+			AllTeamsLookForAll( NO_INTERRUPTS );
+
+			// set correct civ group
+			if ( usCivilianGroup )
+			{
+				pSoldier->ubCivilianGroup = usCivilianGroup;
+
+				if ( fHostile )
+					gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] = CIV_GROUP_WILL_BECOME_HOSTILE;
+			}
+		}
+	}
+
+	return 0;
+}
+
+static int l_GetFact( lua_State *L )
+{
+	UINT8 val = 0;
+
+	if ( lua_gettop( L ) )
+	{
+		UINT16 fact = lua_tointeger( L, 1 );
+
+		val =  GetFact( fact );				
+	}
+
+	lua_pushinteger( L, val );
+
+	return 1;
+}
+
+static int l_SetFact( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		UINT16 fact = lua_tointeger( L, 1 );
+		UINT8  val  = lua_tointeger( L, 2 );
+
+		SetFact( fact, val );
+	}
+
+	return 0;
+}

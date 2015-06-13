@@ -1366,6 +1366,17 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 	return( gubFact[usFact] );
 }
 
+void SetFact( UINT16 usFact, UINT8 aVal )
+{
+	if ( usFact < NUM_FACTS )
+		gubFact[usFact] = aVal;
+}
+
+UINT8 GetFact( UINT16 usFact )
+{
+	return gubFact[usFact];
+}
+
 void StartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 {
 	InternalStartQuest( ubQuest, sSectorX, sSectorY, TRUE );

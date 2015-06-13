@@ -1339,70 +1339,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	{
 		pSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
 
-		UINT8 rnd = Random(11);
-
-		// Vest
-		switch ( rnd )
-		{
-		case 0:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BROWNVEST" );
-			break;
-		case 1:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"greyVEST" );
-			break;
-		case 2:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"GREENVEST" );
-			break;
-		case 3:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"JEANVEST" );
-			break;
-		case 4:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"REDVEST" );
-			break;
-		case 5:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BLUEVEST" );
-			break;
-		case 6:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"YELLOWVEST" );
-			break;
-		case 7:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"WHITEVEST" );
-			break;
-		case 8:
-			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BLACKSHIRT" );
-			break;
-		case 9:
-			SET_PALETTEREP_ID( pSoldier->VestPal,	"GYELLOWSHIRT" );
-			break;
-		default:
-			SET_PALETTEREP_ID( pSoldier->VestPal,	"PURPLESHIRT" );
-			break;
-		}
-
-		rnd = Random(6);
-
-		// Pants
-		switch ( rnd )
-		{
-		case 0:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"GREENPANTS" );
-			break;
-		case 1:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"JEANPANTS" );
-			break;
-		case 2:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"TANPANTS" );
-			break;
-		case 3:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BLACKPANTS" );
-			break;
-		case 4:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BLUEPANTS" );
-			break;
-		default:
-			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BEIGEPANTS" );
-			break;
-		}
+		SetClothes( pSoldier, Random( 11 ), Random( 6 ) );
 	}
 
 	return( TRUE );
@@ -1501,6 +1438,46 @@ INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin )
 	}
 
 	return hair;
+}
+
+// Flugente: set palettes for vest/shirt
+void SetClothes( SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants )
+{
+	if ( !pSoldier )
+		return;
+
+	// Vest
+	if ( aVest >= 0 && aVest < 11 )
+	{
+		switch ( aVest )
+		{
+		case 0:		SET_PALETTEREP_ID( pSoldier->VestPal, "BROWNVEST" );	break;
+		case 1:		SET_PALETTEREP_ID( pSoldier->VestPal, "greyVEST" );		break;
+		case 2:		SET_PALETTEREP_ID( pSoldier->VestPal, "GREENVEST" );	break;
+		case 3:		SET_PALETTEREP_ID( pSoldier->VestPal, "JEANVEST" );		break;
+		case 4:		SET_PALETTEREP_ID( pSoldier->VestPal, "REDVEST" );		break;
+		case 5:		SET_PALETTEREP_ID( pSoldier->VestPal, "BLUEVEST" );		break;
+		case 6:		SET_PALETTEREP_ID( pSoldier->VestPal, "YELLOWVEST" );	break;
+		case 7:		SET_PALETTEREP_ID( pSoldier->VestPal, "WHITEVEST" );	break;
+		case 8:		SET_PALETTEREP_ID( pSoldier->VestPal, "BLACKSHIRT" );	break;
+		case 9:		SET_PALETTEREP_ID( pSoldier->VestPal, "GYELLOWSHIRT" );	break;
+		default:	SET_PALETTEREP_ID( pSoldier->VestPal, "PURPLESHIRT" );	break;
+		}
+	}
+
+	// Pants
+	if ( aPants >= 0 && aPants < 6 )
+	{
+		switch ( aPants )
+		{
+		case 0:		SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS" );	break;
+		case 1:		SET_PALETTEREP_ID( pSoldier->PantsPal, "JEANPANTS" );	break;
+		case 2:		SET_PALETTEREP_ID( pSoldier->PantsPal, "TANPANTS" );	break;
+		case 3:		SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS" );	break;
+		case 4:		SET_PALETTEREP_ID( pSoldier->PantsPal, "BLUEPANTS" );	break;
+		default:	SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS" );	break;
+		}
+	}
 }
 
 void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UINT8 ubTeam )
@@ -3336,7 +3313,50 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	return TacticalCreateSoldier( &pp, &ubID );
 }
 
-// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwsie they just blend in
+// Flugente: create an armed civilian
+SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier = NULL;
+
+	// this needs the covert ops trait, and thus the new trait system
+	if ( !gGameOptions.fNewTraitSystem )
+		return NULL;
+
+	// not in autoresolve!
+	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
+		return NULL;
+	
+	memset( &bp, 0, sizeof(BASIC_SOLDIERCREATE_STRUCT) );
+	RandomizeRelativeLevel( &(bp.bRelativeAttributeLevel), usSoldierClass );
+	RandomizeRelativeLevel( &(bp.bRelativeEquipmentLevel), usSoldierClass );
+	bp.bTeam = CIV_TEAM;
+	bp.bOrders = FARPATROL;
+	bp.bAttitude = (INT8)Random( MAXATTITUDES );
+	bp.bBodyType = Random( 4 );
+	bp.ubSoldierClass = usSoldierClass;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+		// random clothes
+		SetClothes( pSoldier, Random( 11 ), Random( 6 ) );
+
+		pSoldier->CreateSoldierPalettes( );
+	}
+
+	return(pSoldier);
+}
+
+// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
@@ -3978,10 +3998,11 @@ UINT8 GetLocationModifier( UINT8 ubSoldierClass )
 	#endif
 	BOOLEAN fSuccess;
 
-
+	// Flugente: why do we always crash the game if something does not work?
 	// where is all this taking place?
-	fSuccess = GetCurrentBattleSectorXYZ( &sSectorX, &sSectorY, &sSectorZ );
-	Assert( fSuccess );
+	if ( !GetCurrentBattleSectorXYZ( &sSectorX, &sSectorY, &sSectorZ ) )
+		return 0;
+
 #ifdef JA2UB
 	//Ja25 UB
 	//switch on the sector, to determine modifer

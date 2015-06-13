@@ -46,6 +46,7 @@
 	#include "PostalService.h"
 	#include "MilitiaSquads.h"
 	#include "PMC.h"			// added by Flugente
+	#include "finances.h"		// added by Flugente
 #endif
 
 #include "connect.h"
@@ -524,11 +525,52 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_PMC_REINFORCEMENT_ARRIVAL:
 			HandlePMCArrival( (UINT8)pEvent->uiParam );
 			break;
+
+		case EVENT_KINGPIN_BOUNTY_INITIAL:
+			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
+			{
+				AddEmail( KINGPIN_BOUNTY_INITIAL, KINGPIN_BOUNTY_INITIAL_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			}
+			break;
+
+		case EVENT_KINGPIN_BOUNTY_END_KILLEDTHEM:
+			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
+			{
+				AddEmail( KINGPIN_BOUNTY_KINGPIN_REWARD, KINGPIN_BOUNTY_KINGPIN_REWARD_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+
+				// also authorise payment from kingpin to the player
+				AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin( ), 10000 );
+			}
+
+			// in any case, this quest is now over
+			EndQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
+
+			break;
+
+		case EVENT_KINGPIN_BOUNTY_END_TIME_PASSED:
+
+			// if we eliminated all bounty hunters and Angel & Maria are still alive, they send us an email
+			if ( gMercProfiles[MARIA].bMercStatus != MERC_IS_DEAD && gMercProfiles[ANGEL].bMercStatus != MERC_IS_DEAD
+				 && CheckFact( FACT_BOUNTYHUNTER_KILLED_1, NO_PROFILE ) && CheckFact( FACT_BOUNTYHUNTER_KILLED_2, NO_PROFILE ) )
+			{
+				AddEmail( KINGPIN_BOUNTY_ANGEL_THANKS, KINGPIN_BOUNTY_ANGEL_THANKS_LENGTH, ANGEL_DASILVA, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+
+				AddEmail( KINGPIN_BOUNTY_TARGET_GOTAWAY, KINGPIN_BOUNTY_TARGET_GOTAWAY_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			}
+			// we can assume that the bounty hunters for to them first - Kingpin sends an email and states that someone else finished the job
+			else if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
+			{
+				AddEmail( KINGPIN_BOUNTY_BH_GOTTARGET, KINGPIN_BOUNTY_BH_GOTTARGET_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			}
+
+			// in any case, this quest is now over
+			EndQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
+
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;
 }
-
 
 #ifdef CRIPPLED_VERSION
 void CrippledVersionEndGameCheck()

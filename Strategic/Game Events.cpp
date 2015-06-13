@@ -110,7 +110,11 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"HelicopterHoverForAMinute",
 	L"HelicopterRefuelForAMinute",
 	L"MilitiaMovementOrder",
+	L"PMCEmail",
 	L"PMCReinforcementArrival",
+	L"KingpinBounty1",
+	L"KingpinBounty2",
+	L"KingpinBounty3",
 };
 
 #endif

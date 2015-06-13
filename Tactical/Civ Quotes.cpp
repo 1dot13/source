@@ -494,7 +494,7 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 
 #else
 	INT8	bTownId;
-	INT8		bCivHint;
+	INT8	bCivHint;
 	INT8	bMineId;
 #endif
 
@@ -508,26 +508,25 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	(*pubCivHintToUse) = 0;
 
 	ubCivType = GetCivType( pCiv );
-	
-	
-	for( iCounter2 = NON_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
-		{	
+
+	if ( pCiv->ubCivilianGroup < NUM_CIV_GROUPS )
+	{
 #ifdef JA2UB
-			if (pCiv->ubCivilianGroup > UNNAMED_CIV_GROUP_19 && pCiv->ubCivilianGroup == iCounter2)
+		if ( pCiv->ubCivilianGroup > UNNAMED_CIV_GROUP_19 )
 #else
-			if (pCiv->ubCivilianGroup > QUEENS_CIV_GROUP && pCiv->ubCivilianGroup == iCounter2)
+		if ( pCiv->ubCivilianGroup > QUEENS_CIV_GROUP )
 #endif
+		{
+			if ( pCiv->aiData.bNeutral )
 			{
-				if ( pCiv->aiData.bNeutral )
-					{
-						return( FileEDTQUoteID = iCounter2*2 +10);
-					}
-					else
-					{
-						return( FileEDTQUoteID = iCounter2*2 + 11);
-					}
-			}	
+				return(FileEDTQUoteID = pCiv->ubCivilianGroup * 2 + 10);
+			}
+			else
+			{
+				return(FileEDTQUoteID = pCiv->ubCivilianGroup * 2 + 11);
+			}
 		}
+	}
 		
 #ifdef JA2UB		
 	if( ubCivType != CIV_TYPE_ENEMY )
@@ -747,7 +746,7 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	// If we are in medunna, and queen is dead, use these...
 	if ( bTownId == MEDUNA && CheckFact( FACT_QUEEN_DEAD, 0 ) )
 	{
-	return( CIV_QUOTE_DEIDRANNA_DEAD );
+		return( CIV_QUOTE_DEIDRANNA_DEAD );
 	}
 
 	// if in a town
@@ -767,44 +766,42 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 		}
 	}
 
-
 	// ATE: OK, check if we should look for a civ hint....
 	if ( fCanUseHints )
 	{
-	bCivHint = ConsiderCivilianQuotes( gWorldSectorX, gWorldSectorY, gbWorldSectorZ,	FALSE );
+		bCivHint = ConsiderCivilianQuotes( gWorldSectorX, gWorldSectorY, gbWorldSectorZ,	FALSE );
 	}
 	else
 	{
-	bCivHint = -1;
+		bCivHint = -1;
 	}
 
 	// ATE: check miners......
 	if ( pCiv->ubSoldierClass == SOLDIER_CLASS_MINER )
 	{
-	bMiners = TRUE;
+		bMiners = TRUE;
 
-	// If not a civ hint available...
-	if ( bCivHint == -1 )
-	{
-		// Check if they are under our control...
-
-		// Should I go talk to miner?
-		// Not done yet.
-
-		// Are they working for us?
-		bMineId = GetIdOfMineForSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-		if ( PlayerControlsMine( bMineId ) )
+		// If not a civ hint available...
+		if ( bCivHint == -1 )
 		{
-		return( CIV_QUOTE_MINERS_FOR_PLAYER );
-		}
-		else
-		{
-		return( CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+			// Check if they are under our control...
+
+			// Should I go talk to miner?
+			// Not done yet.
+
+			// Are they working for us?
+			bMineId = GetIdOfMineForSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+			if ( PlayerControlsMine( bMineId ) )
+			{
+				return( CIV_QUOTE_MINERS_FOR_PLAYER );
+			}
+			else
+			{
+				return( CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+			}
 		}
 	}
-	}
-
 
 	// Is one availible?
 	// If we are to say low loyalty, do chance
@@ -855,8 +852,7 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 			return( CIV_QUOTE_KIDS_HIGH_LOYALTY );
 		}
 	}
-
-
+	
 	// All purpose quote here....
 	if ( ubCivType == CIV_TYPE_ADULT )
 	{

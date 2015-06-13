@@ -656,9 +656,9 @@ UINT32 ProcessAndEnterAHistoryRecord( UINT8 ubCode, UINT32 uiDate, UINT8 ubSecon
 		pHistory = pHistory->Next;
 		pHistory->Next = NULL;
 		pHistory->ubCode = ubCode;
-	pHistory->ubSecondCode = ubSecondCode;
+		pHistory->ubSecondCode = ubSecondCode;
 		pHistory->uiDate = uiDate;
-	pHistory->uiIdNumber = uiId;
+		pHistory->uiIdNumber = uiId;
 		pHistory->sSectorX = sSectorX;
 		pHistory->sSectorY = sSectorY;
 		pHistory->bSectorZ = bSectorZ;
@@ -673,10 +673,10 @@ UINT32 ProcessAndEnterAHistoryRecord( UINT8 ubCode, UINT32 uiDate, UINT8 ubSecon
 		// setup info passed
 		pHistory->Next = NULL;
 		pHistory->ubCode = ubCode;
-	pHistory->ubSecondCode = ubSecondCode;
+		pHistory->ubSecondCode = ubSecondCode;
 		pHistory->uiDate = uiDate;
-	pHistory->uiIdNumber = uiId;
-	pHistoryListHead = pHistory;
+		pHistory->uiIdNumber = uiId;
+		pHistoryListHead = pHistory;
 		pHistory->sSectorX = sSectorX;
 		pHistory->sSectorY = sSectorY;
 		pHistory->bSectorZ = bSectorZ;
@@ -900,7 +900,7 @@ void DrawHistoryRecordsText( void )
 
 
 	// loop through record list
-	for(iCounter; iCounter <NUM_RECORDS_PER_PAGE; iCounter++)
+	for(iCounter; iCounter <NUM_RECORDS_PER_PAGE; ++iCounter)
 	{
 		if( pCurHistory->ubColor == 0 )
 		{
@@ -910,6 +910,7 @@ void DrawHistoryRecordsText( void )
 		{
 			SetFontForeground(FONT_RED);
 		}
+
 		// get and write the date
 		swprintf(sString, L"%d", ( pCurHistory->uiDate / ( 24 * 60 ) ) );
 		FindFontCenterCoordinates(RECORD_DATE_X + 5, 0, RECORD_DATE_WIDTH,0, sString, HISTORY_TEXT_FONT,&usX, &usY);
@@ -920,14 +921,13 @@ void DrawHistoryRecordsText( void )
 		ProcessHistoryTransactionString(sString, pCurHistory);
 //	mprintf(RECORD_DATE_X + RECORD_DATE_WIDTH + 25, RECORD_Y + ( iCounter * ( BOX_HEIGHT ) ) + 3, pHistoryStrings[pCurHistory->ubCode] );
 		mprintf(RECORD_DATE_X + RECORD_LOCATION_WIDTH +RECORD_DATE_WIDTH + 15, RECORD_Y + ( iCounter * ( BOX_HEIGHT ) ) + 3, sString );
-
-
+		
 		// no location
 		if( ( pCurHistory->sSectorX == -1 )||( pCurHistory->sSectorY == -1 ) )
 		{
 			FindFontCenterCoordinates( RECORD_DATE_X + RECORD_DATE_WIDTH, 0,RECORD_LOCATION_WIDTH + 10, 0,	pHistoryLocations[0] ,HISTORY_TEXT_FONT, &sX, &sY );
-		mprintf(sX, RECORD_Y + ( iCounter * ( BOX_HEIGHT ) ) + 3, pHistoryLocations[0] );
-	}
+			mprintf(sX, RECORD_Y + ( iCounter * ( BOX_HEIGHT ) ) + 3, pHistoryLocations[0] );
+		}
 		else
 		{
 			GetSectorIDString( pCurHistory->sSectorX, pCurHistory->sSectorY, pCurHistory->bSectorZ, sString, TRUE );
@@ -947,17 +947,14 @@ void DrawHistoryRecordsText( void )
 		// last page, no Historys left, return
 		if( ! pCurHistory )
 		{
-
 			// restore shadow
-		SetFontShadow(DEFAULT_SHADOW);
+			SetFontShadow(DEFAULT_SHADOW);
 			return;
 		}
-
 	}
 
 	// restore shadow
 	SetFontShadow(DEFAULT_SHADOW);
-	return;
 }
 
 
@@ -1268,6 +1265,9 @@ void ProcessHistoryTransactionString(STR16 pString, HistoryUnitPtr pHistory)
 		case HISTORY_HELICOPTER_REPAIR_STARTED:
 			//swprintf( pString, pHistoryStrings[ pHistory->ubCode ], pHistory->ubSecondCode );
 			swprintf( pString, HistoryName[ pHistory->ubCode ].sHistory, pHistory->ubSecondCode );
+			break;
+		default:
+			swprintf( pString, L"missing text, kinda" );
 			break;
 
 	}

@@ -57,6 +57,7 @@
 #include "CampaignStats.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
 #include "PreBattle Interface.h"	// added by Flugente
+#include "LuaInitNPCs.h"		// added by Flugente
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -951,7 +952,11 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 
 		// Flugente: spawn prisoners of war in prison sectors
 		if ( bTeam == CIV_TEAM )
+		{
 			SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
+			LuaHandleSectorTacticalEntry( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		}
 
 		//There aren't any basic placements of desired team, so exit.
 		return ubNumAdded;
@@ -1002,7 +1007,11 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 
 	// Flugente: spawn prisoners of war in prison sectors
 	if ( bTeam == CIV_TEAM )
+	{
 		SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
+		LuaHandleSectorTacticalEntry( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 
 	return ubNumAdded;
 }
