@@ -165,14 +165,13 @@
 		<AddToBattle>0</AddToBattle>
 		<Loyalty>0</Loyalty>
 	</NAME>
+	<!-- these slots stay empty for compatibility with UC/DL -->
 	<NAME>
-	<!-- Volunteers: civilians the player just recruited to one day be militia -->
 		<uiIndex>22</uiIndex>
-		<Enabled>1</Enabled>
-		<szGroup>Volunteer</szGroup>
-		<AddToBattle>1</AddToBattle>
-		<Loyalty>1</Loyalty>
-		<fCanBeCaptured>0</fCanBeCaptured>
+		<Enabled>0</Enabled>
+		<szGroup>Empty Slot22</szGroup>
+		<AddToBattle>0</AddToBattle>
+		<Loyalty>0</Loyalty>
 	</NAME>
 	<NAME>
 		<uiIndex>23</uiIndex>
@@ -182,18 +181,22 @@
 		<Loyalty>0</Loyalty>
 	</NAME>
 	<NAME>
+	<!-- Volunteers: civilians the player just recruited to one day be militia -->
 		<uiIndex>24</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot24</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Volunteer</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
+	<!-- These guys are hostile bounty hunters on the same quest as we are -->
 		<uiIndex>25</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot25</szGroup>
-		<AddToBattle>0</AddToBattle>
+		<Enabled>1</Enabled>
+		<szGroup>Bounty hunter</szGroup>
+		<AddToBattle>1</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>26</uiIndex>

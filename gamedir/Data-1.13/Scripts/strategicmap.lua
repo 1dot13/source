@@ -68,6 +68,7 @@ Quests =
 	QUEST_23 = 23,							-- Start quest 46, End quest 47 - No 23 Yet
 	QUEST_24 = 24,							-- Start quest 48, End quest 49 - No 24 Yet
 	QUEST_KILL_DEIDRANNA = 25,				-- Start quest 50, End quest 51 - Kill Deidranna
+	QUEST_KINGPIN_ANGEL_MARIA = 26,
 	
 	-- max Quests 254
 }
@@ -77,6 +78,10 @@ Facts = {
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_KINGPIN_DEAD = 308,
 	FACT_ALL_TERRORISTS_KILLED   =      156,
+	FACT_BOUNTYHUNTER_SECTOR_1 = 380,
+	FACT_BOUNTYHUNTER_SECTOR_2 = 381,
+	FACT_BOUNTYHUNTER_KILLED_1 = 382,
+	FACT_BOUNTYHUNTER_KILLED_2 = 383,
 }
 
 History = {
@@ -172,11 +177,26 @@ Profil =
 	MIGUEL = 57,
 	KYLE = 95,
 }
+
+SoldierClass = 
+{                   
+    SOLDIER_CLASS_NONE = 0,
+	SOLDIER_CLASS_ADMINISTRATOR = 1,
+	SOLDIER_CLASS_ELITE = 2,
+	SOLDIER_CLASS_ARMY = 3,
+}
+
+CivGroup =
+{
+	BOUNTYHUNTER_CIV_GROUP = 25,
+}
+
 local gsRobotGridNo
 
 function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 
-	if ( sNewSectorX == 6 and sNewSectorY == SectorY.MAP_ROW_C and gubQuest( Quests.QUEST_RESCUE_MARIA ) == qStatus.QUESTDONE ) then
+	if ( sNewSectorX == 6 and sNewSectorY == SectorY.MAP_ROW_C and gubQuest( Quests.QUEST_RESCUE_MARIA ) == qStatus.QUESTDONE 
+	and  not( gubQuest( Quests.QUEST_KINGPIN_ANGEL_MARIA ) == qStatus.QUESTINPROGRESS) ) then
 		-- make sure Maria and Angel are gone
 		SetCharacterSectorX(Profil.MARIA, 0)
 		SetCharacterSectorY(Profil.MARIA, 0)
@@ -259,6 +279,14 @@ function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTi
 			end
 		end
 	end
+	
+	-- extra volunteers on freeing Tixa underground. As enemy troops are not replenished underground, this only happens once
+	if ( bNewSectorZ == 1 ) then
+		-- Tixa
+		if ( sNewSectorX == 9 and sNewSectorY == SectorY.MAP_ROW_J ) then
+			AddVolunteers( 5 )	
+		end
+	end
 end
 
 -- this function is called whenever we recruit a RPC
@@ -267,5 +295,61 @@ function RecruitRPCAdditionalHandling( usProfile )
 	-- if Miguel joins us, the rest of the rebels joins us too
 	if ( usProfile == Profil.MIGUEL ) then
 		AddVolunteers( 10 )
+	end
+end
+
+-- this function is called whenever we enter a sector in tactical
+function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ )
+	
+	if ( gubQuest( Quests.QUEST_KINGPIN_ANGEL_MARIA ) == qStatus.QUESTINPROGRESS ) then
+	
+		-- Flugente: if the bounty hunter quest is active, add bounty hunters to sectors (location determined on quest start)
+		if ( (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_1, 0 ) == false) or (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_2, 0 ) == false) and (bSectorZ == 0) ) then
+			
+			sector 		   = SECTOR(sSectorX, sSectorY)
+			sector_hunter1 = GetFact( Facts.FACT_BOUNTYHUNTER_SECTOR_1 )
+			sector_hunter2 = GetFact( Facts.FACT_BOUNTYHUNTER_SECTOR_2 )
+			
+			if ( (sector == sector_hunter1) and (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_1, 0 ) == false)  ) then
+				
+				hostile = 0
+				if ( (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_2, 0 ) == true)  ) then
+					hostile = 1
+				end
+				
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ADMINISTRATOR, 	13000, hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			7447,  hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			13032, hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			19291, hostile)
+				
+				-- dont spawn in deep water
+				if (sSectorX == 14 and sSectorY == 2) then
+					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
+				else
+					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13557, hostile)
+				end
+			end
+			
+			if ( (sector == sector_hunter2) and (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_2, 0 ) == false) ) then
+				
+				hostile = 0
+				if ( (CheckFact( Facts.FACT_BOUNTYHUNTER_KILLED_1, 0 ) == true)  ) then
+					hostile = 1
+				end
+				
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ADMINISTRATOR, 	13000, hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			7447,  hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ARMY, 			13032, hostile)
+				CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			19291, hostile)
+				
+				-- dont spawn in deep water
+				if (sSectorX == 14 and sSectorY == 2) then
+					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			16533, hostile)
+				else
+					CreateArmedCivilain(CivGroup.BOUNTYHUNTER_CIV_GROUP, SoldierClass.SOLDIER_CLASS_ELITE, 			13557, hostile)
+				end
+			end
+		end
+		
 	end
 end
