@@ -193,10 +193,10 @@ function InternalEndQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 			-- start the quest
 			StartQuest( nQuests.QUEST_KINGPIN_ANGEL_MARIA, sSectorX, sSectorY )
 			
-			-- set email from kingpin with a small delay
-			-- also set up the end of the quest in 7 days
-			AddFutureDayStrategicEvent(nEvents.EVENT_KINGPIN_BOUNTY_INITIAL, 120, 0, 0)
-			AddFutureDayStrategicEvent(nEvents.EVENT_KINGPIN_BOUNTY_END_TIME_PASSED, 120, 0, 7)	
+			-- set email from kingpin to arrive on 9:00 the next day
+			-- also set up the end of the quest 7 days later
+			AddFutureDayStrategicEvent(nEvents.EVENT_KINGPIN_BOUNTY_INITIAL, 540, 0, 1)
+			AddFutureDayStrategicEvent(nEvents.EVENT_KINGPIN_BOUNTY_END_TIME_PASSED, 540, 0, 8)	
 
 			-- the silva siblings are placed in one of several sectors and hide there for a week
 			-- possible sectors: a11, b5, b6, b8, b12, b14, c3, d7
