@@ -5809,6 +5809,14 @@
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
+		<firstItemIndex>1576</firstItemIndex>
+		<secondItemIndex>1576</secondItemIndex>
+		<firstResultingItemIndex>1576</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>1</mergeType>
+		<APCost>32</APCost>
+	</MERGE>
+	<MERGE>
 		<firstItemIndex>1612</firstItemIndex>
 		<secondItemIndex>1619</secondItemIndex>
 		<firstResultingItemIndex>1577</firstResultingItemIndex>
