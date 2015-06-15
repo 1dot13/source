@@ -9780,6 +9780,15 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
 	{
 		AddOpinionEvent( this->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_FRIENDLYFIRE );
+
+		// if this is a civilian, other mercs can complain about mercs shooting innocents
+		// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
+		if ( this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide )
+		{
+			// not for killing animals though...
+			if ( this->ubBodyType != CROW && this->ubBodyType != COW )
+				HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE );
+		}
 	}
 
 	// CJC Jan 21 99: add check to see if we are hurting an enemy in an enemy-controlled
@@ -22856,7 +22865,7 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 				return;
 		}
 
-		// recruiter ability
+		// several factors determine whether we can successfully recruit this guy
 		FLOAT leadershipfactor = EffectiveLeadership( pRecruiter ) / 100.0;
 
 		// bonus for assertive characters

@@ -3608,6 +3608,7 @@ void LoadMoraleSettings()
 	gDynamicOpinionEvent[OPINIONEVENT_FRAGTHIEF].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_FRAGTHIEF", -2, -50, 0 );
 	gDynamicOpinionEvent[OPINIONEVENT_BATTLE_ASSIST].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BATTLE_ASSIST", 1, 0, 50 );
 	gDynamicOpinionEvent[OPINIONEVENT_BATTLE_TOOK_PRISONER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_BATTLE_TOOK_PRISONER", 3, 0, 50 );
+	gDynamicOpinionEvent[OPINIONEVENT_CIV_ATTACKER].sOpinionModifier = iniReader.ReadInteger( "Dynamic Opinion Modifiers Settings", "OPINIONEVENT_CIV_ATTACKER", -3, -50, 0 );
 }
 
 void LoadReputationSettings()

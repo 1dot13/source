@@ -1200,6 +1200,7 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	case OPINIONEVENT_FRAGTHIEF:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_FRAGTHIEF;	break;
 	case OPINIONEVENT_BATTLE_ASSIST:				gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BATTLE_ASSIST;	break;
 	case OPINIONEVENT_BATTLE_TOOK_PRISONER:			gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_BATTLE_TOOK_PRISONER;	break;
+	case OPINIONEVENT_CIV_ATTACKER:					gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] |= OPINIONFLAG_STAGE1_CIV_ATTACKER;	break;
 		
 	default:		break;
 	}
@@ -1564,6 +1565,13 @@ INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_BATTLE_TOOK_PRISONER )	++numflags;
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_BATTLE_TOOK_PRISONER )	++numflags;
 		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_BATTLE_TOOK_PRISONER )	++numflags;
+		break;
+
+	case OPINIONEVENT_CIV_ATTACKER:
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE1_CIV_ATTACKER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE2_CIV_ATTACKER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE3_CIV_ATTACKER )	++numflags;
+		if ( gMercProfiles[usProfileA].usDynamicOpinionFlagmask[usProfileB][4] & OPINIONFLAG_STAGE4_CIV_ATTACKER )	++numflags;
 		break;
 
 	default:
@@ -2077,6 +2085,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 	case OPINIONEVENT_BATTLE_TOOK_PRISONER:
 	case OPINIONEVENT_FRAGTHIEF:
 	case OPINIONEVENT_BATTLE_ASSIST:
+	case OPINIONEVENT_CIV_ATTACKER:
 		break;
 
 	case OPINIONEVENT_SLOWSUSDOWN:
@@ -2285,6 +2294,14 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL ||
 					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST) )
 					 continue;
+				break;
+
+			case OPINIONEVENT_CIV_ATTACKER:
+				// psychos or malicious characters dont care
+				if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_MALICIOUS ||
+					gMercProfiles[pTeamSoldier->ubProfile].bDisability == PSYCHO || 
+					MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_PSYCHO ) )
+					continue;
 				break;
 
 			default:

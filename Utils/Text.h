@@ -2865,7 +2865,7 @@ extern STR16   szTacticalCoverDialogPrintString[];
 // OPINIONEVENT_MAX is 39
 // DOST_MAX is 17
 
-extern STR16	szDynamicDialogueText[39][17];
+extern STR16	szDynamicDialogueText[40][17];
 
 // Flugente: dynamic dialogue
 extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[];

@@ -66,6 +66,7 @@ enum
 	OPINIONEVENT_FRAGTHIEF,			// other guy stole our kill
 	OPINIONEVENT_BATTLE_ASSIST,		// other guy assisted us in battle
 	OPINIONEVENT_BATTLE_TOOK_PRISONER,	// other guy chose to take prisoners instead of killing the enemy
+	OPINIONEVENT_CIV_ATTACKER,		// other guy attacks a non-hostile civilian
 
 	OPINIONEVENT_MAX
 };
@@ -286,10 +287,10 @@ extern DynamicOpinionEvent gDynamicOpinionEvent[OPINIONEVENT_MAX];
 #define OPINIONFLAG_STAGE3_BATTLE_TOOK_PRISONER						0x04000000	//67108864
 #define OPINIONFLAG_STAGE4_BATTLE_TOOK_PRISONER						0x08000000	//134217728
 
-/*#define OPINIONFLAG_STAGE1_BRUTAL_GOOD								0x10000000	//268435456	// other guy killed someone in a brutal fashion, and we like that
-#define OPINIONFLAG_STAGE2_BRUTAL_GOOD								0x20000000	//536870912
-#define OPINIONFLAG_STAGE3_BRUTAL_GOOD								0x40000000	//1073741824
-#define OPINIONFLAG_STAGE4_BRUTAL_GOOD								0x80000000	//2147483648*/
+#define OPINIONFLAG_STAGE1_CIV_ATTACKER								0x10000000	//268435456	// other guy attacks a non-hostile civilian
+#define OPINIONFLAG_STAGE2_CIV_ATTACKER								0x20000000	//536870912
+#define OPINIONFLAG_STAGE3_CIV_ATTACKER								0x40000000	//1073741824
+#define OPINIONFLAG_STAGE4_CIV_ATTACKER								0x80000000	//2147483648
 
 #define OPINIONFLAG_STAGE1_ALL										0x11111111				// flags of all first stages, used when rolling over
 #define OPINIONFLAG_STAGE4_ALL										0x88888888				// flags of all final stages, used when rolling over

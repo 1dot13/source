@@ -9205,7 +9205,7 @@ STR16   szTacticalCoverDialogPrintString[]=
 };
 
 // TODO.Translate
-STR16	szDynamicDialogueText[39][17] =	// TODO.Translate
+STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
 	L"What the hell! $CAUSE$ attacked me!",
@@ -9944,6 +9944,25 @@ STR16	szDynamicDialogueText[39][17] =	// TODO.Translate
 	L"Yeah, you can't trust these guys, they're totally reckless.",
 	L"We should move these guys to a prison ASAP. I'm sure they know what the army is up to.",
 	L"Pah. I'd have preferred from wasting these losers. They'll just slow us down.",
+	L"",
+	L"",
+	L"",
+
+	// OPINIONEVENT_CIV_ATTACKER
+	L"Watch it, $CAUSE$! They are on our side!",
+	L"",
+	L"",
+	L"That's just a scratch, they'll live.",
+	L"Oops.",
+	L"",
+	L"",
+	L"$VICTIM$ is angry: $CAUSE$ injured a civilian. What do you do?",
+	L"Well, this can happen. As long as they live it's okay.",
+	L"This won't look good in the after-action report.",
+	L"What are you doing? Watch it, $CAUSE$!",
+	L"Don't worry. Happens to me too all the time.",
+	L"Maintain fire discipline! After this is over, $VICTIM$ and $CAUSE$ will take care of the wounded.",
+	L"If $CAUSE$ had intended it, they would be dead, so no worries here.",
 	L"",
 	L"",
 	L"",
