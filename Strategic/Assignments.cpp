@@ -6789,7 +6789,40 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				}
 			}
 
-			BOOLEAN found = FALSE;
+			// mobile tanks are a serious threat. Learning of their location would be genuninely useful
+			// loop over all mobile enemy groups that have tanks that we don't yet know of, and pick one of them at random
+			std::vector<UINT8> sectorswithunknowntanksvector;
+			for ( GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next )
+			{
+				if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubNumTanks )
+				{
+					UINT8 tanksector = SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
+
+					// if we don't yet know that there are tanks here, this would be useful information
+					if ( !(SectorInfo[tanksector].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER) )
+					{
+						sectorswithunknowntanksvector.push_back( tanksector );
+					}
+				}
+			}
+
+			if ( !sectorswithunknowntanksvector.empty( ) )
+			{
+				UINT8 tanksector = sectorswithunknowntanksvector[ Random( sectorswithunknowntanksvector.size( ) ) ];
+
+				SectorInfo[tanksector].uiFlags |= (SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
+
+				if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
+				{
+					// we also learned the direction of the patrol
+					SectorInfo[tanksector].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+				}
+
+				++revealedpositions;
+
+				continue;
+			}
+
 			UINT8 maxtries = 20;
 			for(UINT8 infotry = 0; infotry < maxtries; ++infotry)
 			{
@@ -6820,7 +6853,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				}
 
 				++revealedpositions;
-				found = TRUE;
+
 				break;
 			}
 		}
