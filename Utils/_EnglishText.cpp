@@ -4670,6 +4670,7 @@ STR16			MercAccountText[] =
 	L"Charge",
 	L"Total:",
 	L"Are you sure you want to authorize the payment of %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
+	L"%s (+gear)",
 };
 
 // Merc Account Page buttons

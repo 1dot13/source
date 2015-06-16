@@ -501,7 +501,7 @@ void DisplayHiredMercs()
 {
 	UINT16	usPosY;
 	UINT32	uiContractCharge;
-	CHAR16	sTemp[20];
+	CHAR16	sTemp[40];
 	UINT8	i, usMercID;
 	UINT8	ubFontColor;
 	UINT8 usMercIDStart;
@@ -545,7 +545,16 @@ void DisplayHiredMercs()
 			uiContractCharge = 0;
 
 			//Display Mercs Name
-			DrawTextToScreen( gMercProfiles[ usMercID ].zName, MERC_AC_FIRST_COLUMN_X+5, usPosY, MERC_AC_FIRST_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+			if ( gMercProfiles[usMercID].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID )
+			{
+				swprintf( sTemp, MercAccountText[MERC_ACCOUNT_NAME_PLUSGEAR], gMercProfiles[usMercID].zName );
+			}
+			else
+			{
+				swprintf( sTemp, L"%s", gMercProfiles[usMercID].zName );
+			}
+
+			DrawTextToScreen( sTemp, MERC_AC_FIRST_COLUMN_X + 5, usPosY, MERC_AC_FIRST_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 			//Display The # of days the merc has worked since last paid
 
@@ -553,19 +562,21 @@ void DisplayHiredMercs()
 			DrawTextToScreen(sTemp, MERC_AC_SECOND_COLUMN_X, usPosY, MERC_AC_SECOND_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 			//Display the mercs rate
-			#ifdef JA2UB
+#ifdef JA2UB
 			swprintf(sTemp, L"$%6d",gMercProfiles[ usMercID ].uiWeeklySalary );
-			#else
+#else
 			swprintf(sTemp, L"$%6d",gMercProfiles[ usMercID ].sSalary );
-			#endif
+#endif
+
 			DrawTextToScreen(sTemp, MERC_AC_THIRD_COLUMN_X, usPosY, MERC_AC_THIRD_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 			//Display the total charge
-			#ifdef JA2UB
+#ifdef JA2UB
 			uiContractCharge = gMercProfiles[ usMercID ].uiWeeklySalary * gMercProfiles[ usMercID ].iMercMercContractLength;
-			#else
+#else
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
-			#endif
+#endif
+
 			//JMich_MMG: If gearkit unpaid for, add its cost
 			if ( gMercProfiles[ usMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)
 			{

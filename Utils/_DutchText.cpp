@@ -4671,6 +4671,7 @@ STR16			MercAccountText[] =
 	L"Prijs",
 	L"Totaal:",
 	L"Weet je zeker de betaling van %s te autoriseren?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
+	L"%s (+gear)",	// TODO.Translate
 };
 
 // Merc Account Page buttons

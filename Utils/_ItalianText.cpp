@@ -4662,6 +4662,7 @@ STR16			MercAccountText[] =
 	L"Costo",
 	L"Totale:",
 	L"Conferma il pagamento di %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
+	L"%s (+gear)",	// TODO.Translate
 };
 
 // Merc Account Page buttons

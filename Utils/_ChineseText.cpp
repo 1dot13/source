@@ -4671,6 +4671,7 @@ STR16			MercAccountText[] =
 	L"索价",
 	L"合计: ",
 	L"你确定要支付%s吗？",
+	L"%s (+gear)",	// TODO.Translate
 };
 
 // Merc Account Page buttons

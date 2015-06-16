@@ -4667,6 +4667,7 @@ STR16			MercAccountText[] =
 	L"Стоимость",
 	L"Всего:",
 	L"Вы подтверждаете платеж в размере %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
+	L"%s (+gear)",	// TODO.Translate
 };
 
 // Merc Account Page buttons
