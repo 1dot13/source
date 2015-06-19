@@ -527,8 +527,12 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 
 		case EVENT_KINGPIN_BOUNTY_INITIAL:
-			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
+			// if Kingpin, Angel and Maria are still alive, we can start the quest
+			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) && 
+				 gMercProfiles[MARIA].bMercStatus != MERC_IS_DEAD && gMercProfiles[ANGEL].bMercStatus != MERC_IS_DEAD )
 			{
+				StartQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
+
 				AddEmail( KINGPIN_BOUNTY_INITIAL, KINGPIN_BOUNTY_INITIAL_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			}
 			break;
