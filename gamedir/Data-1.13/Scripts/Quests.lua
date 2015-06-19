@@ -189,10 +189,7 @@ function InternalEndQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 		-- if the escape was not noticed, initiate 'bounty hunter' quest. Set a timer, at some point in the future, if we aren't hostile to him etc.,
 		if ( (CheckFact( Facts.FACT_MARIA_ESCAPE_NOTICED, 0 ) == false) and (CheckFact( Facts.FACT_KINGPIN_DEAD, 0 ) == false) and
 			(CheckFact( Facts.FACT_KINGPIN_IS_ENEMY, 0 ) == false) and (CheckMercIsDead ( Profiles.KINGPIN ) == false) ) then
-			
-			-- start the quest
-			StartQuest( nQuests.QUEST_KINGPIN_ANGEL_MARIA, sSectorX, sSectorY )
-			
+						
 			-- set email from kingpin to arrive on 9:00 the next day
 			-- also set up the end of the quest 7 days later
 			AddFutureDayStrategicEvent(nEvents.EVENT_KINGPIN_BOUNTY_INITIAL, 540, 0, 1)
