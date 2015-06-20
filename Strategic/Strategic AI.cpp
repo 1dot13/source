@@ -6511,7 +6511,7 @@ void ReassignAIGroup( GROUP **pGroup )
 
 	(*pGroup)->ubSectorIDOfLastReassignment = ubSectorID;
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 	ClearPreviousAIGroupAssignment( *pGroup );
 
 	//First thing to do, is teleport the group to be AT the sector he is currently moving from.	Otherwise, the
@@ -6634,7 +6634,9 @@ void ReassignAIGroup( GROUP **pGroup )
 			}
 		}
 	}
-	TransferGroupToPool( pGroup );
+
+	// Flugente: at least have them walk back correctly instead of just having them vanish
+	SendGroupToPool( pGroup );
 }
 
 //When an enemy AI group is eliminated by the player, apply a grace period in which the
