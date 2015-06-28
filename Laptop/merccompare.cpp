@@ -826,6 +826,27 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 		usPosY += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	}
 
+	// smoker
+	INT16 smokerA = GetBackgroundValue( usProfileA, BG_SMOKERTYPE );
+	INT16 smokerB = GetBackgroundValue( usProfileB, BG_SMOKERTYPE );
+	if ( smokerA && smokerB )
+	{
+		if ( smokerA != smokerB )
+			val = -2;
+		else
+			val = 1;
+
+		swprintf( sText, smokerA == 1 ? szBackgroundText_Value[BG_SMOKERTYPE] : szBackgroundText_Value[BG_SMOKERTYPE + 1] );
+		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+		swprintf( sText, L"%d", val );
+		DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+		swprintf( sText, smokerB == 1 ? szBackgroundText_Value[BG_SMOKERTYPE] : szBackgroundText_Value[BG_SMOKERTYPE + 1] );
+		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+		swprintf( sText, L"%d", val );
+		usPosY += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+	}
+
 	// after this, the lines are no longer synchronous - we just list each property on its own side
 	usPosY2 = usPosY;
 

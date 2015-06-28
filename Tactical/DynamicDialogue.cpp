@@ -198,6 +198,17 @@ INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB )
 		bOpinion -= 2;
 	}
 
+	// smoker
+	INT16 smokerA = pSoldierA->GetBackgroundValue( BG_SMOKERTYPE );
+	INT16 smokerB = pSoldierB->GetBackgroundValue( BG_SMOKERTYPE );
+	if ( smokerA && smokerB )
+	{
+		if ( smokerA != smokerB )
+			bOpinion -= 2;
+		else
+			bOpinion += 1;
+	}
+
 	if ( pSoldierA->HasBackgroundFlag( BACKGROUND_XENOPHOBIC ) && pSoldierB->ubProfile != NO_PROFILE && gMercProfiles[pSoldierA->ubProfile].usBackground != gMercProfiles[pSoldierB->ubProfile].usBackground )
 		bOpinion -= gGameExternalOptions.sMoraleModXenophobicBackGround;
 
@@ -1818,7 +1829,7 @@ void HandleDynamicOpinionRetreat( )
 void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 {
 	// need to be drunk for this
-	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || !MercUnderTheInfluence( pSoldier, DRUG_TYPE_ALCOHOL ) )
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || !pSoldier->newdrugs.drinkstaken <= 0.0 )
 		return;
 
 	SOLDIERTYPE*		pTeamSoldier = NULL;
@@ -1829,7 +1840,7 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 		// everybody other merc in the same sector can get updated if they are drugged too
 		if ( pTeamSoldier->bActive && pTeamSoldier->ubProfile != NO_PROFILE && pTeamSoldier->ubProfile != pSoldier->ubProfile &&
 			 pTeamSoldier->sSectorX == pSoldier->sSectorX && pTeamSoldier->sSectorY == pSoldier->sSectorY && pTeamSoldier->bSectorZ == pSoldier->bSectorZ &&
-			 MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_ALCOHOL ) &&
+			 pTeamSoldier->newdrugs.drinkstaken > 0.0 &&
 			 !(pTeamSoldier->bAssignment == IN_TRANSIT ||
 			 pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
 		{
@@ -2252,12 +2263,12 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 			case OPINIONEVENT_BRUTAL_BAD:
 				// if we are a good guy or a pacifist, then we dislike excessive violence
 				if ( gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ||
-					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+					 DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
 					usEventUsed = OPINIONEVENT_BRUTAL_BAD;
 				// if we are malicious, agressive or a psycho, then we like it
-				else if ( gMercProfiles[pTeamSoldier->ubProfile].bDisability == PSYCHO || MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_PSYCHO ) ||
-					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE ||
-					gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+				else if ( DoesMercHaveDisability( pTeamSoldier, PSYCHO ) ||
+						  DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_AGGRESSIVE ) ||
+						  DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_MALICIOUS ) )
 					usEventUsed = OPINIONEVENT_BRUTAL_GOOD;
 				else
 					continue;
@@ -2272,7 +2283,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				if ( pTeamSoldier->ubTargetID == pSoldier->ubTargetID && pTeamSoldier->sTargetGridNo == pSoldier->sTargetGridNo )
 				{
 					// are we ambitious enough to care about kill counts?
-					if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+					if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_ASSERTIVE ) || DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_SHOWOFF ) )
 					{
 						// did we have enough AP to claim we were about to finish them?
 						if ( !EnoughPoints( pTeamSoldier, 60, 0, FALSE ) )
@@ -2291,16 +2302,15 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 			case OPINIONEVENT_BATTLE_TOOK_PRISONER:
 				// we only care if we prefer the enemy to be taken alive
 				if ( !(gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ||
-					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL ||
-					 gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST) )
-					 continue;
+					DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_INTELLECTUAL ) ||
+					DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) ) )
+					continue;
 				break;
 
 			case OPINIONEVENT_CIV_ATTACKER:
 				// psychos or malicious characters dont care
-				if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_MALICIOUS ||
-					gMercProfiles[pTeamSoldier->ubProfile].bDisability == PSYCHO || 
-					MercUnderTheInfluence( pTeamSoldier, DRUG_TYPE_PSYCHO ) )
+				if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_MALICIOUS ) ||
+					 DoesMercHaveDisability( pTeamSoldier, PSYCHO ) )
 					continue;
 				break;
 

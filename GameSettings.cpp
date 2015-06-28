@@ -3543,8 +3543,6 @@ void LoadMoraleSettings()
 
 	gMoraleSettings.bModifiers[MORALE_MOD_MAX]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MOD_MAX", -1, 0, 100);
 
-	gMoraleSettings.sDrugAndAlcoholModifiers[DRUG_EFFECT_MORALE_MOD]	= iniReader.ReadInteger("Morale Modifiers Settings","DRUG_EFFECT_MORALE_MOD", 150, 0, 10000);
-	gMoraleSettings.sDrugAndAlcoholModifiers[ALCOHOL_EFFECT_MORALE_MOD]	= iniReader.ReadInteger("Morale Modifiers Settings","ALCOHOL_EFFECT_MORALE_MOD", 160, 0, 10000);
 	gMoraleSettings.bModifiers[PHOBIC_LIMIT]	= iniReader.ReadInteger("Morale Modifiers Settings","PHOBIC_LIMIT", 20, 0, 100);
 
 	gMoraleSettings.bModifiers[MORALE_MODIFIER_SOCIABLE_ONE_MERC_NEARBY]	= iniReader.ReadInteger("Morale Modifiers Settings","MORALE_MODIFIER_SOCIABLE_ONE_MERC_NEARBY", -2, -100, 100);

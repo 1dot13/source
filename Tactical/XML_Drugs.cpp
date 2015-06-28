@@ -14,12 +14,17 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
-	DRUGTYPE		curDrugs;
-	DRUGTYPE *		curArray;
-	UINT32			maxArraySize;
+	DRUG		curDrugs;
+	DRUG *		curArray;
+	UINT32		maxArraySize;
 
-	UINT32			currentDepth;
-	UINT32			maxReadDepth;
+	UINT32		currentDepth;
+	UINT32		maxReadDepth;
+
+	DRUG_EFFECT			drug_effects;
+	DISEASE_EFFECT		disease_effects;
+	DISABILITY_EFFECT	disability_effects;
+	PERSONALITY_EFFECT	personality_effects;
 }
 typedef drugsParseData;
 
@@ -34,7 +39,7 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(DRUGTYPE)*pData->maxArraySize);
+			memset(pData->curArray,0,sizeof(DRUG)*pData->maxArraySize);
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -42,27 +47,106 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		{
 			pData->curElement = ELEMENT;
 
-			memset(&pData->curDrugs,0,sizeof(DRUGTYPE));
+			memset( &pData->curDrugs, 0, sizeof(DRUG) );
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
-				(strcmp(name, "ubType") == 0 ||
-				strcmp(name, "name") == 0 ||
-				strcmp(name, "ubDrugTravelRate") == 0 ||
-				strcmp(name, "ubDrugWearoffRate") == 0 ||
-				strcmp(name, "ubDrugEffect") == 0 ||
-				strcmp(name, "ubDrugSideEffect") == 0 ||
-				strcmp(name, "ubDrugSideEffectRate") == 0 || 
-				strcmp(name, "ubMoralBacklash" ) == 0 ||
-				strcmp(name, "ubMoralBacklash" ) == 0 ||
-				strcmp(name, "ubDiseaseCure" ) == 0 ))
+				(strcmp(name, "uiIndex") == 0 ||
+				strcmp(name, "szName") == 0 ||
+				strcmp(name, "opinionevent" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
+		else if ( pData->curElement == ELEMENT &&
+				  (strcmp( name, "DRUG_EFFECT" ) == 0) )
+		{
+			pData->curElement = ELEMENT_DRUG_EFFECT;
 
+			// start of a new element: set default values
+			pData->drug_effects.effect = 0;
+			pData->drug_effects.duration = 0;
+			pData->drug_effects.size = 0;
+			pData->drug_effects.chance = 100;
+				
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == ELEMENT &&
+				  (strcmp( name, "DISEASE_EFFECT" ) == 0) )
+		{
+			pData->curElement = ELEMENT_DISEASE_EFFECT;
+
+			// start of a new element: set default values
+			pData->disease_effects.disease = 0;
+			pData->disease_effects.size = 0;
+			pData->disease_effects.chance = 100;
+
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == ELEMENT &&
+				  (strcmp( name, "DISABILITY_EFFECT" ) == 0) )
+		{
+			pData->curElement = ELEMENT_DISABILITY_EFFECT;
+
+			// start of a new element: set default values
+			pData->disability_effects.disability = 0;
+			pData->disability_effects.duration = 0;
+			pData->disability_effects.chance = 100;
+
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == ELEMENT &&
+				  (strcmp( name, "PERSONALITY_EFFECT" ) == 0) )
+		{
+			pData->curElement = ELEMENT_PERSONALITY_EFFECT;
+
+			// start of a new element: set default values
+			pData->personality_effects.personality = 0;
+			pData->personality_effects.duration = 0;
+			pData->personality_effects.chance = 100;
+
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == ELEMENT_DRUG_EFFECT &&
+				  (strcmp( name, "effect" ) == 0 ||
+				  strcmp( name, "duration" ) == 0 ||
+				  strcmp( name, "size" ) == 0 ||
+				  strcmp( name, "chance" ) == 0 ) )
+		{
+			pData->curElement = ELEMENT_DRUG_EFFECT_PROPERTY;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if ( pData->curElement == ELEMENT_DISEASE_EFFECT &&
+				  (strcmp( name, "disease" ) == 0 ||
+				  strcmp( name, "size" ) == 0 ||
+				  strcmp( name, "chance" ) == 0) )
+		{
+			pData->curElement = ELEMENT_DISEASE_EFFECT_PROPERTY;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if ( pData->curElement == ELEMENT_DISABILITY_EFFECT &&
+				  (strcmp( name, "disability" ) == 0 ||
+				  strcmp( name, "duration" ) == 0 ||
+				  strcmp( name, "chance" ) == 0) )
+		{
+			pData->curElement = ELEMENT_DISABILITY_EFFECT_PROPERTY;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if ( pData->curElement == ELEMENT_PERSONALITY_EFFECT &&
+				  (strcmp( name, "personality" ) == 0 ||
+				  strcmp( name, "duration" ) == 0 ||
+				  strcmp( name, "chance" ) == 0) )
+		{
+			pData->curElement = ELEMENT_PERSONALITY_EFFECT_PROPERTY;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+			
 		pData->szCharData[0] = '\0';
 	}
 
@@ -98,56 +182,127 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			// we do NOT want to read the first entry -> move stuff by 1
-			if(pData->curDrugs.ubType < pData->maxArraySize + 1 && pData->curDrugs.ubType > 0)	// do not write the first item into our array
-			{
-				pData->curArray[pData->curDrugs.ubType - 1] = pData->curDrugs; //write the drugs into the table
-			}
+			pData->curArray[pData->curDrugs.uiIndex] = pData->curDrugs; //write the drugs into the table
 		}
-		else if(strcmp(name, "ubType") == 0)
+		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubType	= (UINT8) atol(pData->szCharData);
+			pData->curDrugs.uiIndex = (UINT8)atol( pData->szCharData );
 		}
-		else if(strcmp(name, "name") == 0)
+		else if(strcmp(name, "szName") == 0)
 		{
 			pData->curElement = ELEMENT;
 			// not needed, but its there for informational purposes
+
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curDrugs.szName, sizeof(pData->curDrugs.szName) / sizeof(pData->curDrugs.szName[0]) );
+			pData->curDrugs.szName[sizeof(pData->curDrugs.szName) / sizeof(pData->curDrugs.szName[0]) - 1] = '\0';
 		}
-		else if(strcmp(name, "ubDrugTravelRate") == 0)
+		else if(strcmp(name, "opinionevent") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDrugTravelRate	= (UINT8) atol(pData->szCharData);
+			pData->curDrugs.opinionevent = (BOOLEAN)atol( pData->szCharData );
 		}
-		else if(strcmp(name, "ubDrugWearoffRate") == 0)
+
+		// Close opened Tags.
+		else if ( strcmp( name, "DRUG_EFFECT" ) == 0  )
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDrugWearoffRate = (UINT8) atol(pData->szCharData);
+
+			pData->curDrugs.drug_effects.push_back( pData->drug_effects );
 		}
-		else if(strcmp(name, "ubDrugEffect") == 0)
+		else if ( strcmp( name, "DISEASE_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDrugEffect	= (UINT8) atol(pData->szCharData);
+
+			pData->curDrugs.disease_effects.push_back( pData->disease_effects );
 		}
-		else if(strcmp(name, "ubDrugSideEffect") == 0)
+		else if ( strcmp( name, "DISABILITY_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDrugSideEffect	= (UINT8) atol(pData->szCharData);
+
+			pData->curDrugs.disability_effects.push_back( pData->disability_effects );
 		}
-		else if(strcmp(name, "ubDrugSideEffectRate") == 0)
+		else if ( strcmp( name, "PERSONALITY_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDrugSideEffectRate	= (UINT8) atol(pData->szCharData);
+
+			pData->curDrugs.personality_effects.push_back( pData->personality_effects );
 		}
-		else if(strcmp(name, "ubMoralBacklash") == 0)
+
+		else if ( pData->curElement == ELEMENT_DRUG_EFFECT_PROPERTY )
 		{
-			pData->curElement = ELEMENT;
-			pData->curDrugs.ubMoralBacklash	= (UINT8) atol(pData->szCharData);
+			if ( strcmp( name, "effect" ) == 0 )
+			{
+				pData->drug_effects.effect = (UINT8)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "duration" ) == 0 )
+			{
+				pData->drug_effects.duration = (UINT16)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "size" ) == 0 )
+			{
+				pData->drug_effects.size = (INT16)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "chance" ) == 0 )
+			{
+				pData->drug_effects.chance = (UINT8)atol( pData->szCharData );
+			}
+
+			pData->curElement = ELEMENT_DRUG_EFFECT;
 		}
-		else if ( strcmp( name, "ubDiseaseCure" ) == 0 )
+
+		else if ( pData->curElement == ELEMENT_DISEASE_EFFECT_PROPERTY )
 		{
-			pData->curElement = ELEMENT;
-			pData->curDrugs.ubDiseaseCure = (UINT8)atol( pData->szCharData );
+			if ( strcmp( name, "disease" ) == 0 )
+			{
+				pData->disease_effects.disease = (UINT8)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "size" ) == 0 )
+			{
+				pData->disease_effects.size = (INT32)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "chance" ) == 0 )
+			{
+				pData->disease_effects.chance = (UINT8)atol( pData->szCharData );
+			}
+
+			pData->curElement = ELEMENT_DISEASE_EFFECT;
+		}
+
+		else if ( pData->curElement == ELEMENT_DISABILITY_EFFECT_PROPERTY )
+		{
+			if ( strcmp( name, "disability" ) == 0 )
+			{
+				pData->disability_effects.disability = (UINT8)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "duration" ) == 0 )
+			{
+				pData->disability_effects.duration = (UINT16)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "chance" ) == 0 )
+			{
+				pData->disability_effects.chance = (UINT8)atol( pData->szCharData );
+			}
+
+			pData->curElement = ELEMENT_DISABILITY_EFFECT;
+		}
+
+		else if ( pData->curElement == ELEMENT_PERSONALITY_EFFECT_PROPERTY )
+		{
+			if ( strcmp( name, "personality" ) == 0 )
+			{
+				pData->personality_effects.personality = (UINT8)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "duration" ) == 0 )
+			{
+				pData->personality_effects.duration = (UINT16)atol( pData->szCharData );
+			}
+			else if ( strcmp( name, "chance" ) == 0 )
+			{
+				pData->personality_effects.chance = (UINT8)atol( pData->szCharData );
+			}
+
+			pData->curElement = ELEMENT_PERSONALITY_EFFECT;
 		}
 
 		pData->maxReadDepth--;
@@ -196,8 +351,8 @@ BOOLEAN ReadInDrugsStats(STR fileName)
 
 
 	memset(&pData,0,sizeof(pData));
-	pData.curArray = Drug;
-	pData.maxArraySize = DRUG_TYPE_MAX;
+	pData.curArray = NewDrug;
+	pData.maxArraySize = NEW_DRUGS_MAX;
 
 	XML_SetUserData(parser, &pData);
 
@@ -234,21 +389,42 @@ BOOLEAN WriteDrugsStats()
 		return( FALSE );
 
 	{
-		UINT32 cnt;
-
 		FilePrintf(hFile,"<DRUGSLIST>\r\n");
-		for(cnt = 0;cnt < DRUG_TYPE_MAX;cnt++)
+		for ( UINT32 cnt = 0; cnt < NEW_DRUGS_MAX; ++cnt )
 		{
 			FilePrintf(hFile,"\t<DRUG>\r\n");
 
-			FilePrintf(hFile,"\t\t<ubType>%d</ubType>\r\n",									cnt );
-			FilePrintf(hFile,"\t\t<ubDrugTravelRate>%d</ubDrugTravelRate>\r\n",				Drug[cnt].ubDrugTravelRate	);
-			FilePrintf(hFile,"\t\t<ubDrugWearoffRate>%d</ubDrugWearoffRate>\r\n",			Drug[cnt].ubDrugWearoffRate	);
-			FilePrintf(hFile,"\t\t<ubDrugEffect>%d</ubDrugEffect>\r\n",						Drug[cnt].ubDrugEffect	);
-			FilePrintf(hFile,"\t\t<ubDrugSideEffect>%d</ubDrugSideEffect>\r\n",				Drug[cnt].ubDrugSideEffect	);
-			FilePrintf(hFile,"\t\t<ubDrugSideEffectRate>%d</ubDrugSideEffectRate>\r\n",		Drug[cnt].ubDrugSideEffectRate	);
-			FilePrintf(hFile,"\t\t<ubMoralBacklash>%d</ubMoralBacklash>\r\n",				Drug[cnt].ubMoralBacklash	);
-			FilePrintf(hFile,"\t\t<ubDiseaseCure>%d</ubDiseaseCure>\r\n",					Drug[cnt].ubDiseaseCure );
+			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",									cnt );
+			FilePrintf(hFile,"\t\t<opinionevent>%d</opinionevent>\r\n",							NewDrug[cnt].opinionevent );
+
+			for ( std::vector<DRUG_EFFECT>::iterator it = NewDrug[cnt].drug_effects.begin( ); it != NewDrug[cnt].drug_effects.end( ); ++it )
+			{
+				FilePrintf( hFile, "\t\t<effect>%d</effect>\r\n",			(*it).effect );
+				FilePrintf( hFile, "\t\t<duration>%d</duration>\r\n",		(*it).duration );
+				FilePrintf( hFile, "\t\t<size>%d</size>\r\n",				(*it).size );
+				FilePrintf( hFile, "\t\t<chance>%d</chance>\r\n",			(*it).chance );
+			}
+
+			for ( std::vector<DISEASE_EFFECT>::iterator it = NewDrug[cnt].disease_effects.begin( ); it != NewDrug[cnt].disease_effects.end( ); ++it )
+			{
+				FilePrintf( hFile, "\t\t<disease>%d</disease>\r\n",			(*it).disease );
+				FilePrintf( hFile, "\t\t<size>%d</size>\r\n",				(*it).size );
+				FilePrintf( hFile, "\t\t<chance>%d</chance>\r\n",			(*it).chance );
+			}
+
+			for ( std::vector<DISABILITY_EFFECT>::iterator it = NewDrug[cnt].disability_effects.begin( ); it != NewDrug[cnt].disability_effects.end( ); ++it )
+			{
+				FilePrintf( hFile, "\t\t<disability>%d</disability>\r\n",	(*it).disability );
+				FilePrintf( hFile, "\t\t<duration>%d</duration>\r\n",		(*it).duration );
+				FilePrintf( hFile, "\t\t<chance>%d</chance>\r\n",			(*it).chance );
+			}
+
+			for ( std::vector<PERSONALITY_EFFECT>::iterator it = NewDrug[cnt].personality_effects.begin( ); it != NewDrug[cnt].personality_effects.end( ); ++it )
+			{
+				FilePrintf( hFile, "\t\t<personality>%d</personality>\r\n", (*it).personality );
+				FilePrintf( hFile, "\t\t<duration>%d</duration>\r\n",		(*it).duration );
+				FilePrintf( hFile, "\t\t<chance>%d</chance>\r\n",			(*it).chance );
+			}
 
 			FilePrintf(hFile,"\t</DRUG>\r\n");
 		}

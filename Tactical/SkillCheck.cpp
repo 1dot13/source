@@ -199,12 +199,12 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 	if (pSoldier->ubProfile != NO_PROFILE)
 	{
 		// Flugente: drugs can temporarily cause a merc to be claustrophobic
-		if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_CLAUSTROPHOBIC) ) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0)
+		if ( DoesMercHaveDisability( pSoldier, CLAUSTROPHOBIC ) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0 )
 		{
 			// claustrophobic!
 			iEffExpLevel -= 2;
 		}
-		else if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_FEAROFINSECTS) )&& MercIsInTropicalSector( pSoldier ) )
+		else if ( DoesMercHaveDisability( pSoldier, FEAR_OF_INSECTS ) && MercIsInTropicalSector( pSoldier ) )
 		{
 			// SANDRO - fear of insects, and we are in tropical sector
 			iEffExpLevel -= 1;
@@ -674,7 +674,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		iChance -= 15;
 	}
 	// also added a small penalty for fear of insects in tropical sectors
-	else if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_FEAROFINSECTS) ) && MercIsInTropicalSector( pSoldier ))
+	else if ( DoesMercHaveDisability( pSoldier, FEAR_OF_INSECTS ) && MercIsInTropicalSector( pSoldier ) )
 	{
 		// fear of insects, and we are in tropical sector
 		iChance -= 5;
@@ -682,7 +682,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 	// character traits influence
 	// Sociable - better performance in groups
-	if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_SOCIABLE ) )
 	{	
 		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
 		if ( bNumMercs > 2 )
@@ -691,7 +691,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iChance += 2;
 	}
 	// Loner - better performance when alone
-	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_LONER ) )
 	{	
 		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
 		if ( bNumMercs == 0 )
@@ -700,7 +700,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iChance += 2;
 	}
 	// Aggressive - penalty for actions needing patience
-	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 	{	
 		switch ( bReason )
 		{
@@ -717,7 +717,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		}
 	}
 	// Phlegmatic - bonus for actions needing patience
-	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
 	{	
 		switch ( bReason )
 		{
@@ -734,7 +734,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		}
 	}
 	// Show-off - better performance if some babes around to impress
-	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_SHOWOFF ) )
 	{	
 		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SHOWOFF );
 		if ( bNumMercs > 1 )
@@ -934,7 +934,7 @@ INT16 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
 		bDetectLevel += (INT8) PreRandom(bDetectLevel / 3 + 2);
 	}
 	// SANDRO - optimists just don't even think about the traps, randomly ignoring this all
-	else if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_OPTIMIST )
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_OPTIMIST ) )
 	{
 		if ( Chance(50) )
 			bDetectLevel = 1;

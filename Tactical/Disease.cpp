@@ -19,6 +19,7 @@
 #include "strategic.h"
 #include "DynamicDialogue.h"
 #include <math.h>
+#include "Drugs And Alcohol.h"	// for DoesMercHaveDisability( ... )
 
 //GLOBALS
 DISEASE Disease[NUM_DISEASES];
@@ -422,7 +423,7 @@ void HandlePossibleInfection( SOLDIERTYPE *pSoldier, SOLDIERTYPE* pOtherSoldier,
 		if ( aInfectionType == INFECTION_TYPE_TROPICS || aInfectionType == INFECTION_TYPE_SWAMP )
 		{
 			// if we are afraid of insects, we will be more careful around them - lower chance to be infected
-			if ( gMercProfiles[pSoldier->ubProfile].bDisability == FEAR_OF_INSECTS )
+			if ( DoesMercHaveDisability( pSoldier, FEAR_OF_INSECTS ) )
 				dChance *= 0.7f;
 		}
 		else if ( aInfectionType == INFECTION_TYPE_CONTACT_HUMAN )

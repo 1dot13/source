@@ -2810,7 +2810,7 @@ BOOLEAN	CompatibleItemForApplyingOnMerc( OBJECTTYPE *pTestObject )
 	// ATE: Would be nice to have flag here to check for these types....
 	if ( Item[usItem].camouflagekit || usItem == ADRENALINE_BOOSTER || usItem == REGEN_BOOSTER ||
 			 usItem == SYRINGE_3		 || usItem == SYRINGE_4 || usItem == SYRINGE_5 ||
-			 Item[usItem].alcohol  || Item[usItem].canteen || usItem == JAR_ELIXIR || (usItem == 1022 && gGameExternalOptions.fCamoRemoving)  ) // Added rag usable on self - SANDRO
+			 Item[usItem].alcohol > 0.0f || Item[usItem].canteen || usItem == JAR_ELIXIR || (usItem == 1022 && gGameExternalOptions.fCamoRemoving) ) // Added rag usable on self - SANDRO
 	{
 		return( TRUE );
 	}

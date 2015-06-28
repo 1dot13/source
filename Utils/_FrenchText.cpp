@@ -6217,6 +6217,7 @@ STR16 pMessageStrings[] =
 	L"Éclairage du mercenaire activé",
 	L"Éclairage du mercenaire désactivé",
 	L"Squad %s active.",	//TODO.Translate
+	L"%s smoked %s.",
 };
 
 
@@ -8277,6 +8278,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% initial distance to enemy in ambush\n",
 
 	L" dislikes some other backgrounds",	// TODO.Translate
+	L"Smoker",
+	L"Nonsmoker",
 };
 
 STR16		szBackgroundTitleText[] =

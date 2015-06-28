@@ -1829,7 +1829,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 											// enemy on sight, don't pretend we don't see him!
 											if ( pSoldier->ubProfile != NO_PROFILE )
 											{
-												if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait != CHAR_TRAIT_SHOWOFF && Random( 10 ) < 9 )
+												if ( Random( 10 ) < 9 && !DoesMercHavePersonality( pSoldier, CHAR_TRAIT_SHOWOFF ) )
 												{
 													continue;
 												}

@@ -165,23 +165,23 @@ BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier ); // Added by SANDRO
 
 INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 {
+	INT8 morale = 0;
+
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
 	{
 		if (pSoldier->aiData.bMorale > 50)
 		{
 			// give +1 at 55, +3 at 65, up to +5 at 95 and above
-			return( (pSoldier->aiData.bMorale - 45) / 10 );
+			morale = (pSoldier->aiData.bMorale - 45) / 10;
 		}
 		else
 		{
 			// give penalties down to -20 at 0 (-2 at 45, -4 by 40...)
-			return( (pSoldier->aiData.bMorale - 50) * 2 / 5 );
+			morale = (pSoldier->aiData.bMorale - 50) * 2 / 5;
 		}
 	}
 	else
 	{
-		INT8 morale = 0;
-
 		// use AI morale
 		switch( pSoldier->aiData.bAIMorale )
 		{
@@ -196,12 +196,12 @@ INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 			default:
 				morale = 0;
 		}
-
-		// Flugente: morale modifiers
-		morale = max(morale, morale * pSoldier->GetMoraleModifier());
-
-		return morale;
 	}
+
+	// Flugente: morale modifiers
+	morale = max( morale, morale * pSoldier->GetMoraleModifier( ) );
+
+	return morale;
 }
 
 void DecayTacticalMorale( SOLDIERTYPE * pSoldier )
@@ -259,19 +259,8 @@ void DecayTacticalMoraleModifiers( void )
 			{
 				continue;
 			}
-
-			// Flugente: drugs can temporarily cause a merc get a new disability
-			// therefore we change this routine
-			BOOLEAN isClaustrophobic	= gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC ? TRUE : FALSE;
-			BOOLEAN isNervous			= gMercProfiles[ pSoldier->ubProfile ].bDisability == NERVOUS ? TRUE : FALSE;
-			
-			if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_CLAUSTROPHOBIC) )
-				isClaustrophobic = TRUE;
-
-			if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_NERVOUS) )
-				isNervous = TRUE;
-
-			if ( isClaustrophobic )
+				
+			if ( DoesMercHaveDisability( pSoldier, CLAUSTROPHOBIC ) )
 			{
 				if ( pSoldier->bSectorZ > 0 )
 				{
@@ -283,7 +272,7 @@ void DecayTacticalMoraleModifiers( void )
 				}
 			}
 
-			if ( isNervous )
+			if ( DoesMercHaveDisability( pSoldier, NERVOUS ) )
 			{
 				if ( pSoldier->aiData.bMorale < 50 )
 				{
@@ -396,9 +385,8 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 	//iActualMorale = DEFAULT_MORALE + (INT32) pSoldier->aiData.bTeamMoraleMod + (INT32) pSoldier->aiData.bTacticalMoraleMod + (INT32) pSoldier->aiData.bStrategicMoraleMod + (INT32) (CurrentPlayerProgressPercentage() / 5);
 	iActualMorale = gMoraleSettings.ubDefaultMorale + (INT32) pSoldier->aiData.bTeamMoraleMod + (INT32) pSoldier->aiData.bTacticalMoraleMod + (INT32) pSoldier->aiData.bStrategicMoraleMod + (INT32) (CurrentPlayerProgressPercentage() / 5);
 
-	// ATE: Modify morale based on drugs....
-	iActualMorale	+= ( ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] * gMoraleSettings.sDrugAndAlcoholModifiers[DRUG_EFFECT_MORALE_MOD] ) / 100 );
-	iActualMorale	+= ( ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ALCOHOL ] * gMoraleSettings.sDrugAndAlcoholModifiers[ALCOHOL_EFFECT_MORALE_MOD] ) / 100 );
+	// Flugente: drug system has been redone
+	iActualMorale += pSoldier->newdrugs.size[DRUG_EFFECT_MORALE];
 
 	iActualMorale = __min( 100, iActualMorale );
 	iActualMorale = __max( 0, iActualMorale );
@@ -593,13 +581,14 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 						break;
 				}
 			}
+
 			// Check for character traits
-			if ( pProfile->bCharacterTrait == CHAR_TRAIT_OPTIMIST )
+			if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_OPTIMIST ) )
 			{
 				bMoraleMod += gMoraleSettings.bModifiers[MORALE_MODIFIER_OPTIMIST];//1;
 			}
 			// Fearless character does not suffer morale loss for these so much
-			else if( pProfile->bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+			else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_DAUNTLESS ) )
 			{
 				switch ( bMoraleEvent )
 				{
@@ -774,7 +763,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_BATTLE_WON );
 					}
 					// SANDRO - Assertive people don't care about actions of others
-					else if ( !gGameOptions.fNewTraitSystem || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_ASSERTIVE )
+					else if ( !gGameOptions.fNewTraitSystem || !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_ASSERTIVE ) )
 					{
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_WON );
 					}
@@ -799,10 +788,11 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( (pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0) )
 							{
 								// SANDRO - no penalty for pacifists to run away
-								if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_PACIFIST )
+								if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+
 								// Double morale drop for aggressive people
-								if  ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+								if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
 							}
 						}
@@ -825,7 +815,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 						}
 					}
 					// SANDRO - Assertive people don't care about actions of others
-					else if ( !gGameOptions.fNewTraitSystem || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_ASSERTIVE )
+					else if ( !gGameOptions.fNewTraitSystem || !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_ASSERTIVE ) )
 					{
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_LOST );
 					}
@@ -854,7 +844,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 					if ( gGameOptions.fNewTraitSystem && bMoraleEvent != MORALE_DEIDRANNA_KILLED)
 					{
 						if ( !SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) && ( gMoraleSettings.bValues[bMoraleEvent] > 0 ) && //( gbMoraleEvent[bMoraleEvent].bChange > 0 ) && 
-							gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+							 DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_ASSERTIVE ) )
 						{
 							// No morale gain for assertive people from actions of others
 						}
@@ -1270,11 +1260,13 @@ void HourlyMoraleUpdate( void )
 			{
 				bTeamMoraleModChange = 0;
 			}
+
 			// SANDRO - morale is going down faster if not fighting for malicious characters
-			if ( gGameOptions.fNewTraitSystem && pProfile->bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+			if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_MALICIOUS ) )
 			{
 				bTeamMoraleModChange += gMoraleSettings.bModifiers[MORALE_MODIFIER_MALICIOUS_HOURLY_DECAY];//-= 1;
 			}
+
 			pSoldier->aiData.bTeamMoraleMod += bTeamMoraleModChange;
 			pSoldier->aiData.bTeamMoraleMod = __min( pSoldier->aiData.bTeamMoraleMod, gMoraleSettings.bModifiers[MORALE_MOD_MAX] );
 			pSoldier->aiData.bTeamMoraleMod = __max( pSoldier->aiData.bTeamMoraleMod, -gMoraleSettings.bModifiers[MORALE_MOD_MAX] );
@@ -1567,18 +1559,22 @@ void RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProf
 				SoldierRelation( pSoldier, pSnitch )*gSkillTraitValues.fSNTMercOpinionAboutSnitchBonusModifier +
 				SoldierRelation( pSnitch, pSoldier )*gSkillTraitValues.fSNTSnitchOpinionAboutMercBonusModifier +
 				gMercProfiles[ubSnitchProfile].bLeadership*gSkillTraitValues.fSNTSnitchLeadershipBonusModifer);
+
 			if ( pSoldier->bAssignment == pSnitch->bAssignment )
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTSameAssignmentBonus;
 			}
-			if ( gMercProfiles[pSnitch->ubProfile].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+
+			if ( DoesMercHavePersonality( pSnitch, CHAR_TRAIT_SOCIABLE ) )
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTSociableMercBonus;
 			}
-			if ( gMercProfiles[pSnitch->ubProfile].bCharacterTrait == CHAR_TRAIT_LONER )
+
+			if ( DoesMercHavePersonality( pSnitch, CHAR_TRAIT_LONER ) )
 			{
 				sSnitchingChance += gSkillTraitValues.bSNTLonerMercBonus;
 			}
+
 			if ( ubEventType == SNITCH_HATED_PERSON )
 			{
 				if ( gSkillTraitValues.bSNTMercOpinionAboutMercTreshold != HATED_OPINION )
@@ -1588,7 +1584,7 @@ void RememberSnitchableEvent( UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProf
 						(FLOAT)(gSkillTraitValues.bSNTMercOpinionAboutMercTreshold - HATED_OPINION)));
 				}
 			}
-			if ( gMercProfiles[pSnitch->ubProfile].bDisability == DEAF )
+			if ( DoesMercHaveDisability( pSnitch, DEAF ) )
 			{
 				sSnitchingChance /= 2;
 			}
@@ -1686,13 +1682,13 @@ BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier )
 		}
 		// Are we from our team an dalive?
 		if ( pTeammate->bTeam == pSoldier->bTeam && pTeammate->stats.bLife >= OKLIFE && 
-			gMercProfiles[ pTeammate->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF && PythSpacesAway( pSoldier->sGridNo, pTeammate->sGridNo ) <= 15)
+			 DoesMercHavePersonality( pTeammate, CHAR_TRAIT_SHOWOFF ) && PythSpacesAway( pSoldier->sGridNo, pTeammate->sGridNo ) <= 15 )
 		{
 			if ( (pSoldier->ubBodyType <= STOCKYMALE && pTeammate->ubBodyType <= STOCKYMALE) || 
 				(pSoldier->ubBodyType == REGFEMALE && pTeammate->ubBodyType == REGFEMALE) ) 
 			{
 				// phlegmatic character can ignore one
-				if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC && !fOneException)
+				if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) && !fOneException )
 				{
 					fOneException = TRUE;			
 				}

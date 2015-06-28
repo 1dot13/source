@@ -2149,8 +2149,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				bNumRightIcons++;
 			}
 
-			// Flugente: add drug symbol if drugged (without alcohol 'drug')
-			if ( MercDruggedButNotDrunk( MercPtrs[ pFace->ubSoldierID ] ) )
+			// Flugente: add drug symbol if drugged (without alcohol)
+			if ( MercDrugged( MercPtrs[pFace->ubSoldierID] ) )
 			{
 				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
 				bNumRightIcons++;

@@ -355,7 +355,7 @@ enum
 
 // -------- added by Flugente: various flags for soldiers --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
-#define SOLDIER_DRUGGED						0x00000001	//1			// Soldier is on drugs
+#define SOLDIER_DRUGGED						0x00000001	//1			// Soldier is on (non-alcoholic) drugs
 #define SOLDIER_NO_AP						0x00000002	//2			// Soldier has no APs this turn (fix for reinforcement bug)
 #define SOLDIER_COVERT_CIV					0x00000004	//4			// Soldier is currently disguised as a civilian
 #define SOLDIER_COVERT_SOLDIER				0x00000008	//8			// Soldier is currently disguised as an enemy soldier
@@ -409,6 +409,7 @@ enum
 
 #define SOLDIER_INTERROGATE_CIVILIAN		0x00000100	//256			// interrogate civilian
 #define SOLDIER_POTENTIAL_VOLUNTEER			0x00000200	//512			// this civilian _might_ join us as a volunteer if conditions are right
+#define SOLDIER_HUNGOVER					0x00000400	//1024			// we drank alcohol recently, and are now hungover
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -911,6 +912,36 @@ public:
 	INT8			bTimesDrugUsedSinceSleep[DRUG_TYPE_MAX];			
 };
 
+// Flugente: everything drug-related has been redone
+enum {
+	DRUG_EFFECT_HP = 0,
+	DRUG_EFFECT_BP,
+	DRUG_EFFECT_AP,
+	DRUG_EFFECT_MORALE,
+	DRUG_EFFECT_PHYS_RES,
+	DRUG_EFFECT_STR,
+	DRUG_EFFECT_AGI,
+	DRUG_EFFECT_DEX,
+	DRUG_EFFECT_WIS,
+
+	DRUG_EFFECT_MAX = 20,
+};
+
+
+struct DRUGS
+{
+	UINT16			duration[DRUG_EFFECT_MAX];
+	INT16			size[DRUG_EFFECT_MAX];
+
+	UINT8			drugpersonality;
+	UINT16			drugpersonality_duration;
+
+	UINT8			drugdisability;
+	UINT16			drugdisability_duration;
+
+	FLOAT			drinkstaken;			// number of alcoholic drinks we habe in our system, lowered by 1 every hour
+};
+
 class STRUCT_TimeCounters//last edited at version 102
 {
 public:
@@ -1361,8 +1392,8 @@ public:
 	INT8												bGoodContPath;
 	UINT8												ubPendingActionInterrupted;
 	INT8												bNoiseLevel;
-	INT8												bRegenerationCounter;
-	INT8												bRegenBoostersUsedToday;
+	INT8												bRegenerationCounter;					// Flugente: not used anymore!
+	INT8												bRegenBoostersUsedToday;				// Flugente: not used anymore!
 	INT8												bNumPelletsHitBy;
 	INT32												sSkillCheckGridNo;
 	UINT8												ubLastEnemyCycledID;
@@ -1520,7 +1551,8 @@ public:
 	STRUCT_Flags									flags;
 	STRUCT_TimeChanges								timeChanges;
 	STRUCT_TimeCounters								timeCounters;
-	STRUCT_Drugs									drugs;
+	//STRUCT_Drugs									drugs;			// Flugente: drug values are now in newdrugs
+	DRUGS											newdrugs;
 	STRUCT_Statistics								stats;
 	STRUCT_Pathing									pathing;
 
@@ -1788,7 +1820,7 @@ public:
 
 	INT8		GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubTargetProfile );
 
-	void		AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect );
+	//void		AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect );
 
 	void		HandleFlashLights();
 	UINT8		GetBestEquippedFlashLightRange();
@@ -1876,6 +1908,8 @@ public:
 	// Flugente: hourly breath regen calculation
 	INT8	GetSleepBreathRegeneration();
 
+	// Flugente: assumed character weight (without any items)
+	FLOAT	GetBodyWeight();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	
@@ -2727,6 +2761,9 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 
 // Flugente: decide whether pRecruiter can successfully recruit pTarget to be a volunteer
 void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget );
+
+// Flugente: apply a consumable item on a soldier. Returns true if item was successfully interacted with
+BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fUseAPs );
 
 #endif
 

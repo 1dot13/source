@@ -2463,7 +2463,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                 else
                     // ATE; First check for profile
                     // Forgetful guy might forget his path
-                    if ( (pSoldier->bTeam == gbPlayerNum) && ( pSoldier->ubProfile != NO_PROFILE ) && gMercProfiles[pSoldier->ubProfile].bDisability == FORGETFUL )
+					if ( (pSoldier->bTeam == gbPlayerNum) && DoesMercHaveDisability( pSoldier, FORGETFUL ) )
                     {
                         if ( pSoldier->ubNumTilesMovesSinceLastForget < 255 )
                         {
@@ -3233,33 +3233,17 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
     // possibly say personality quote
     if ( (pSoldier->bTeam == gbPlayerNum) && (pSoldier->ubProfile != NO_PROFILE && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER) && !( pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
     {
-        switch ( gMercProfiles[ pSoldier->ubProfile ].bDisability )
-        {
-            case PSYCHO:
-                if ( Random( 50 ) == 0 )
-                {
-                    TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
-                    pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+		if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
+		{
+			if ( Random( 50 ) == 0 )
+			{
+				TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
+				pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
-					// Flugente: dynamic opinions
-					HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
-                }
-                break;
-            default:
-                // Flugente: drugs can temporarily cause a merc to go psycho
-                if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) )
-                {
-                    if ( Random( 50 ) == 0 )
-                    {
-                        TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
-                        pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
-
-						// Flugente: dynamic opinions
-						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
-                    }
-                }
-                break;
-        }
+				// Flugente: dynamic opinions
+				HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+			}
+		}
     }
 
     UpdateForContOverPortrait( pSoldier, TRUE );
@@ -8230,9 +8214,9 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
         // SANDRO - check for character traits
         if ( gGameOptions.fNewTraitSystem )
         {
-            if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+			if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_INTELLECTUAL ) )
                 bTolerance += -2;
-            else if  ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+			else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_DAUNTLESS ) )
                 bTolerance += 2;
         }
         else
@@ -10897,12 +10881,13 @@ INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
 		{
 			bShockForCower = (INT8)((bShockForCower * (100 - gSkillTraitValues.ubSLFearResistance * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) /100) + 0.5);
 		}
+
 		// Check for character traits
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_INTELLECTUAL ) )
 		{
 			bShockForCower = (INT8)((bShockForCower * 23 / 20 ) + 0.5); // +15% as shock
 		}
-		else if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+		else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_DAUNTLESS ) )
 		{
 			bShockForCower = (INT8)((bShockForCower * 17 / 20 ) + 0.5); // -15% as shock                
 		}
@@ -10910,6 +10895,7 @@ INT8 CalcEffectiveShockLevel( SOLDIERTYPE * pSoldier )
 		// Flugente: personal fear resistance
 		bShockForCower = (INT8)((bShockForCower * (100 - pSoldier->GetFearResistanceBonus()) / 100 ) + 0.5);
 	}
+
 	return bShockForCower;
 }
 

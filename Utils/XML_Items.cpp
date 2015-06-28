@@ -85,13 +85,16 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 			if ( !localizedTextOnly )
 				memset(&pData->curItem,0,sizeof(INVTYPE));
 
+			// Flugente: default value
+			pData->curItem.usPortionSize = 100;
+
 			// HEADROCK HAM 4: With the new stance-based variables, it is necessary to set vars to have an impossible
 			// value. That way when they are later recorded in the item structs, a parent->child inheritence can occur
 			// for children that do not have data put into them from XML.
 			// -10000 has been selected to pose as "no value". Modders should never even reduce the value of any of
 			// these tags below -100 anyway, and although it's not the best solution that's the only one I came up with.
 
-			for (INT8 X = 0; X < 3; X++)
+			for (INT8 X = 0; X < 3; ++X)
 			{
 				pData->curItem.flatbasemodifier[X] = -10000;
 				pData->curItem.percentbasemodifier[X] = -10000;
@@ -283,6 +286,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "usSpotting") == 0 ||
 				strcmp(name, "sBackpackWeightModifier") == 0 ||
 				strcmp(name, "fAllowClimbing") == 0 ||
+				strcmp(name, "cigarette" ) == 0 ||
+				strcmp(name, "usPortionSize" ) == 0 ||
 				strcmp(name, "diseaseprotectionface" ) == 0 ||
 				strcmp(name, "diseaseprotectionhand" ) == 0))
 		{
@@ -941,7 +946,9 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "Alcohol")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.alcohol  = (BOOLEAN) atol(pData->szCharData);
+			pData->curItem.alcohol  = (FLOAT) atof(pData->szCharData);
+
+			pData->curItem.alcohol = max( 0.0f, pData->curItem.alcohol );
 		}
 		else if(strcmp(name, "Hardware")	 == 0)
 		{
@@ -1452,6 +1459,16 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.fAllowClimbing = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if ( strcmp( name, "cigarette" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.cigarette = (BOOLEAN)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "usPortionSize" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usPortionSize = (UINT8)atol( pData->szCharData );
 		}
 		// Flugente: simple tags in the xml get translated into flags
 		else if ( strcmp( name, "diseaseprotectionface" ) == 0 )
@@ -1986,7 +2003,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<GasMask>%d</GasMask>\r\n",						Item[cnt].gasmask );
 
 
-			FilePrintf(hFile,"\t\t<Alcohol>%d</Alcohol>\r\n",						Item[cnt].alcohol  );
+			FilePrintf(hFile,"\t\t<Alcohol>%3.2f</Alcohol>\r\n",						Item[cnt].alcohol  );
 			FilePrintf(hFile,"\t\t<Hardware>%d</Hardware>\r\n",						Item[cnt].hardware   );
 			FilePrintf(hFile,"\t\t<Medical>%d</Medical>\r\n",						Item[cnt].medical  );
 			FilePrintf(hFile,"\t\t<CamouflageKit>%d</CamouflageKit>\r\n",						Item[cnt].camouflagekit  );
@@ -2095,8 +2112,10 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<buddyitem>%d</buddyitem>\r\n",										Item[cnt].usBuddyItem  );
 			FilePrintf(hFile,"\t\t<SleepModifier>%d</SleepModifier>\r\n",								Item[cnt].ubSleepModifier  );
 			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",										Item[cnt].usSpotting  );
-			FilePrintf(hFile, "\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
-			FilePrintf(hFile, "\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",							Item[cnt].fAllowClimbing);
+			FilePrintf(hFile,"\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
+			FilePrintf(hFile,"\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",								Item[cnt].fAllowClimbing);
+			FilePrintf(hFile, "\t\t<cigarette>%d</cigarette>\r\n",										Item[cnt].cigarette );
+			FilePrintf(hFile,"\t\t<usPortionSize>%d</usPortionSize>\r\n",								Item[cnt].usPortionSize );
 
 			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_1 )
 				FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );

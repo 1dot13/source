@@ -20,6 +20,7 @@
 	#include "Strategic AI.h"
 	#include "Tactical Save.h"		// added by Flugente
 	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
+	#include "Drugs And Alcohol.h"	// added by Flugente for HourlyDrugUpdate()
 #endif
 
 #include "Luaglobal.h"
@@ -41,6 +42,7 @@
 
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
+void HourlySmokerUpdate();
 void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
 void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
@@ -59,8 +61,6 @@ void HourlyHelicopterRepair();
 #endif
 
 void HourlyGatheringInformation();
-
-void UpdateRegenCounters( void );
 
 void HandleMinuteUpdate()
 {
@@ -117,6 +117,8 @@ CHAR16	zString[128];
 
 	HourlyLarryUpdate();
 
+	HourlySmokerUpdate( );
+
 	HourlyStealUpdate();
 
 	HourlySnitchUpdate();
@@ -139,10 +141,7 @@ CHAR16	zString[128];
 	HourlyHelicopterRepair();
 #endif
 	
-
-	if ( GetWorldHour() % 6 == 0 ) // 4 times a day
-	{		UpdateRegenCounters();
-	}
+	HourlyDrugUpdate();
 
 	// WANNE: This check should avoid the resaving of a loaded auto-save game, when entering tactical
 	BOOLEAN doAutoSave = TRUE;
@@ -251,19 +250,6 @@ CHAR16	zString[128];
 			gfSaveGame = TRUE;
 			guiPreviousOptionScreen = guiCurrentScreen;
 			SetPendingNewScreen( SAVE_LOAD_SCREEN );
-		}
-	}
-}
-
-void UpdateRegenCounters( void )
-{
-	UINT8	ubID;
-
-	for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubID++ )
-	{
-		if ( MercPtrs[ ubID ]->bRegenBoostersUsedToday > 0 )
-		{
-			MercPtrs[ ubID ]->bRegenBoostersUsedToday--;
 		}
 	}
 }
@@ -522,6 +508,39 @@ void HourlyLarryUpdate()
 					{
 						// goes sober!
 						SwapLarrysProfiles( pSoldier );
+					}
+				}
+			}
+		}
+	}
+}
+#include "Interface.h"
+// Flugente: mercs that are smokers occasionally consume smokes if they have some in their inventory
+void HourlySmokerUpdate( )
+{
+	SOLDIERTYPE *				pSoldier = NULL;
+	OBJECTTYPE*					pObj = NULL;
+
+	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	{
+		pSoldier = MercPtrs[cnt];
+
+		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep )
+		{
+			// if we are a smoker, there is a chance that we will look fo cigarettes in our inventory, and consume them if we find any
+			if ( Chance(33) && pSoldier->GetBackgroundValue( BG_SMOKERTYPE ) == 1 )
+			{
+				INT8 invsize = (INT8)pSoldier->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
+				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )									// ... for all items in our inventory ...
+				{
+					if ( pSoldier->inv[bLoop].exists( ) && Item[pSoldier->inv[bLoop].usItem].cigarette )
+					{
+						pObj = &(pSoldier->inv[bLoop]);
+
+						if ( ApplyConsumable( pSoldier, pObj, FALSE, FALSE ) )
+						{
+							break;
+						}
 					}
 				}
 			}

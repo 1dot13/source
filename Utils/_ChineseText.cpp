@@ -6207,6 +6207,7 @@ STR16 pMessageStrings[] =
 	L"虚拟佣兵光照开启",
 	L"虚拟佣兵光照关闭",
 	L"Squad %s active.",	//TODO.Translate
+	L"%s smoked %s.",
 };
 
 
@@ -8278,6 +8279,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% initial distance to enemy in ambush\n",
 
 	L" dislikes some other backgrounds",	// TODO.Translate
+	L"Smoker",
+	L"Nonsmoker",
 };
 
 STR16		szBackgroundTitleText[] =

@@ -309,7 +309,7 @@ typedef enum
 } RacistLevels;
 
 // Flugente: dynamic opinons: number of profile flagmasks
-#define OPINION_FLAGMASKS_NUMBER	5
+#define OPINION_FLAGMASKS_NUMBER	6
 
 //////////////////////////////////////////////////////////////////////
 

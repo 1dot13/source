@@ -3,18 +3,99 @@
 
 #include "Soldier Control.h"
 
-#define	SOBER										0
+class DRUG_EFFECT
+{
+	/*bool operator==(const DRUG_EFFECT& other)
+	{
+		return ( effect == other.effect &&
+				 duration == other.duration &&
+				 size == other.size &&
+				 chance == other.chance);
+	}
+
+	bool operator!=(const DRUG_EFFECT& other)
+	{
+		return !(*this == other);
+	}*/
+
+public:
+
+	UINT8		effect;
+	UINT16		duration;
+	INT16		size;
+	UINT8		chance;
+};
+
+typedef struct
+{
+	UINT8		disease;
+	INT32		size;
+	UINT8		chance;
+} DISEASE_EFFECT;
+
+typedef struct
+{
+	UINT8		disability;
+	UINT16		duration;
+	UINT8		chance;
+} DISABILITY_EFFECT;
+
+typedef struct
+{
+	UINT8		personality;
+	UINT16		duration;
+	UINT8		chance;
+} PERSONALITY_EFFECT;
+
+typedef struct
+{
+	UINT8		uiIndex;
+	CHAR16		szName[80];							// name, used for display
+	BOOLEAN		opinionevent;
+
+	std::vector<DRUG_EFFECT>		drug_effects;
+	std::vector<DISEASE_EFFECT>		disease_effects;
+	std::vector<DISABILITY_EFFECT>	disability_effects;
+	std::vector<PERSONALITY_EFFECT>	personality_effects;
+} DRUG;
+
+//GLOBALS
+#define NEW_DRUGS_MAX			100
+
+extern DRUG NewDrug[NEW_DRUGS_MAX];
+
+enum {
+	SOBER = 0,
+	FEELING_GOOD,
+	BORDERLINE,
+	DRUNK,
+	HUNGOVER,
+};
+
+BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed );
+
+void HandleEndTurnDrugAdjustments_New( SOLDIERTYPE *pSoldier );
+
+INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier );
+
+// does a merc have a disability/personality, or is he under drugs that simulate this?
+BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal );
+BOOLEAN DoesMercHavePersonality( SOLDIERTYPE *pSoldier, UINT8 aVal );
+
+//----------------------------------------------------------------------------------------
+
+/*#define	SOBER										0
 #define	FEELING_GOOD								1
 #define	BORDERLINE									2
 #define DRUNK										3
-#define	HUNGOVER									4 
+#define	HUNGOVER									4 */
 
-#define REGEN_POINTS_PER_BOOSTER					4
-#define LIFE_GAIN_PER_REGEN_POINT					10
+//#define REGEN_POINTS_PER_BOOSTER					4
+//#define LIFE_GAIN_PER_REGEN_POINT					10
 
-extern	UINT8	gbPlayerNum;
+//extern	UINT8	gbPlayerNum;
 
-enum {
+/*enum {
 	DRUG_TYPE_ADRENALINE = 0,
 	DRUG_TYPE_ALCOHOL,
 	DRUG_TYPE_REGENERATION,
@@ -73,9 +154,9 @@ enum {
 #define DRUG_MISC_15 	    	0x10000000	//268435456
 #define DRUG_MISC_16 	    	0x20000000	//536870912
 #define DRUG_MISC_17 	    	0x40000000	//1073741824
-#define DRUG_MISC_18 	    	0x80000000	//2147483648
+#define DRUG_MISC_18 	    	0x80000000	//2147483648*/
 
-typedef struct
+/*typedef struct
 {
 	UINT8		ubType;					// type of drug: bit field
 	UINT8		ubDrugTravelRate;		
@@ -89,19 +170,22 @@ typedef struct
 } DRUGTYPE;
 
 //GLOBALS
-extern DRUGTYPE Drug[DRUG_TYPE_MAX];
+extern DRUGTYPE Drug[DRUG_TYPE_MAX];*/
 
-BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject );
+//BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject );
 
-void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier );
+//void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier );
 void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints );
 void HandleBPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *psPoints );
-void HandleDamageResistanceEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT32 *psPoints );
+//void HandleDamageResistanceEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT32 *psPoints );
 
-INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier );
+//INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier );
 INT32 EffectStatForBeingDrunk( SOLDIERTYPE *pSoldier, INT32 iStat );
-BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier );
-BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier, UINT8 aDrugType );
-BOOLEAN MercDruggedButNotDrunk( SOLDIERTYPE *pSoldier );
+//BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier );
+BOOLEAN MercDruggedOrDrunk( SOLDIERTYPE *pSoldier );
+//BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier, UINT8 aDrugType );
+BOOLEAN MercDrugged( SOLDIERTYPE *pSoldier );
+
+void HourlyDrugUpdate();
 
 #endif

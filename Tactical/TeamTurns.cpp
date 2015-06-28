@@ -1914,8 +1914,9 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 				iPoints += gSkillTraitValues.ubNOIterruptsBonusInDark;
 			}
 		}
+
 		// Phlegmatics get a small penalty to interrupts
-		if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
 		{
 			iPoints -= 1;
 		}

@@ -2766,19 +2766,19 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				mprintf( SM_CAMMO_PERCENT_X, SM_CAMMO_PERCENT_Y, L"%%" );
 			#endif
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0 )) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_AGILITY)); // SANDRO
+				UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE ? TRUE : FALSE), (BOOLEAN)((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraAgility != 0 ); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bAgility + gpSMCurrentMerc->bExtraAgility );
 			FindFontRightCoordinates(SM_AGI_X, SM_AGI_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeDexterityTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] > 0 )) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_DEXTERITY)); // SANDRO
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeDexterityTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE ? TRUE : FALSE), (BOOLEAN)((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraDexterity != 0 ); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bDexterity + gpSMCurrentMerc->bExtraDexterity );
 			FindFontRightCoordinates(SM_DEX_X, SM_DEX_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ), ( BOOLEAN ) ( (( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || (gGameOptions.fFoodSystem && gpSMCurrentMerc->usStarveDamageStrength > 0) ) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_STRENGTH)); // SANDRO
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE ? TRUE : FALSE), (BOOLEAN)(((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0)) || (gGameOptions.fFoodSystem && gpSMCurrentMerc->usStarveDamageStrength > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraStrength != 0 ); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bStrength + gpSMCurrentMerc->bExtraStrength );
 			FindFontRightCoordinates(SM_STR_X, SM_STR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
@@ -2790,7 +2790,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			FindFontRightCoordinates(SM_CHAR_X, SM_CHAR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeWisdomTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] > 0 )) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_WISDOM)); // SANDRO
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeWisdomTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE ? TRUE : FALSE), (BOOLEAN)((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraWisdom != 0 ); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bWisdom + gpSMCurrentMerc->bExtraWisdom );
 			FindFontRightCoordinates(SM_WIS_X, SM_WIS_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
@@ -3093,7 +3093,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				}
 				else
 				{
-					if ( MercUnderTheInfluence( gpSMCurrentMerc ) )
+					if ( MercDruggedOrDrunk( gpSMCurrentMerc ) )
 					{
 						SetFontBackground( FONT_MCOLOR_BLACK );
 						//SetFontForeground( FONT_MCOLOR_LTBLUE );
@@ -3316,50 +3316,12 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// If we do not have an item in hand, start moving it
 		if ( gpItemPointer )
 		{
-			BOOLEAN fGoodAPs = FALSE;
-			BOOLEAN fDoSound = FALSE;
-
 			// We are doing this ourselve, continue
 			if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 			{
-				// Try to apply camo....
-				if ( ApplyCammo( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+				if ( ApplyConsumable( gpSMCurrentMerc, gpItemPointer, FALSE, TRUE ) )
 				{
-					if ( fGoodAPs )
-					{
-						fDoSound = TRUE;
 
-						// WANNE: We should only delete the face, if there was a camo we applied.
-						// This should fix the bug and crashes with missing faces
-						if (gGameExternalOptions.fShowCamouflageFaces )
-						{
-							// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
-							SetCamoFace( gpSMCurrentMerc );
-							DeleteSoldierFace( gpSMCurrentMerc );// remove face
-							gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-						}
-					}
-				}					
-				else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs, TRUE ) )
-				{
-					;
-				}
-				else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
-				{
-					fDoSound = TRUE;
-				}
-				else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
-				{
-					fGoodAPs = TRUE;
-					fDoSound = TRUE;
-				}
-				else if ( gGameOptions.fFoodSystem && ApplyFood( gpSMCurrentMerc, gpItemPointer, FALSE, FALSE ) )
-				{
-					fGoodAPs = TRUE;
-				}
-				else if ( ApplyClothes( gpSMCurrentMerc, gpItemPointer ) )
-				{
-					fGoodAPs = TRUE;
 				}
 				else
 				{
@@ -3374,18 +3336,6 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				{
 					gbCompatibleApplyItem = FALSE;
 					EndItemPointer( );
-				}
-
-				if ( fGoodAPs )
-				{
-					// Dirty
-					fInterfacePanelDirty = DIRTYLEVEL2;
-				}
-
-				if ( fDoSound )
-				{
-					// Say OK acknowledge....
-					gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 				}
 			}
 		}
@@ -5688,7 +5638,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 						}
 						else
 						{
-							if ( MercUnderTheInfluence( pSoldier ) )
+							if ( MercDruggedOrDrunk( pSoldier ) )
 							{
 								SetFontBackground( FONT_MCOLOR_BLACK );
 								//SetFontForeground( FONT_MCOLOR_LTBLUE );
@@ -7085,7 +7035,7 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 {
 	INT16	bMaxPoints;
 
-	if ( !(Item[ pObj->usItem ].usItemClass & IC_AMMO || Item[ pObj->usItem ].usItemClass & IC_KIT || Item[ pObj->usItem ].usItemClass & IC_MEDKIT  || Item[pObj->usItem].canteen || Item[pObj->usItem].gascan || Item[pObj->usItem].alcohol ) )
+	if ( !(Item[pObj->usItem].usItemClass & IC_AMMO || Item[pObj->usItem].usItemClass & IC_KIT || Item[pObj->usItem].usItemClass & IC_MEDKIT || Item[pObj->usItem].canteen || Item[pObj->usItem].gascan || Item[pObj->usItem].alcohol > 0.0f) )
 	{
 		return;
 	}

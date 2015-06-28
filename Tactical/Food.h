@@ -52,7 +52,6 @@ typedef struct
 	CHAR16		szName[80];				// name of this food
 	INT32		bFoodPoints;			// points that will be added to our drink level
 	INT32		bDrinkPoints;			// points that will be added to our drink level
-	UINT16		ubPortionSize;			// how much is 'eaten' as a portion (percentage)
 	FLOAT		usDecayRate;			// rate at which food decays
 } FOODTYPE;
 
@@ -76,9 +75,11 @@ typedef enum
 	WATER_POISONOUS			// there is water, but it is poisoned (swamps and polluted sectors)
 } FoodSectorWaterSupply;
 
+BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
+
 // eat a food object. if fForce = FALSE, the soldier can reject to eat this once
 // if fForceFromDrugs = TRUE, we HAVE to eat this, because we already got the effects from the ApplyDrugs-function (item is both drug and food)
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fForceFromDrugs );
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, UINT16 usPointsToUse );
 
 void GetFoodSituation( SOLDIERTYPE *pSoldier, UINT8* pFoodSituation, UINT8* pWaterSituation );
 void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale );

@@ -100,7 +100,64 @@ void AddFoodpoints( INT32& arCurrentFood, INT32 aVal )
 	arCurrentFood = max(arCurrentFood, FOOD_MIN);
 }
 
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fForceFromDrugs )
+BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
+{
+	if ( gGameOptions.fFoodSystem )
+	{
+		// static variables to remember the last food someone was forced to eat
+		static UINT8 lasteater = 0;
+		static UINT16 lastitem = 0;
+
+		UINT32 foodtype = Item[pObj->usItem].foodtype;
+
+		if ( !foodtype )
+			return FALSE;
+
+		// check if we are willing to eat this: if we're filled, the merc refuses
+		if ( ((Food[foodtype].bFoodPoints > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold) || Food[foodtype].bFoodPoints <= 0) &&
+			 ((Food[foodtype].bDrinkPoints > 0 && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold) || Food[foodtype].bDrinkPoints <= 0) )
+		{
+			// Say quote!
+			TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+
+			return TRUE;
+		}
+
+		// we have to determine wether the food is rotten, that might influence its condition and poison us
+		FLOAT foodcondition = (*pObj)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
+
+		// food in bad condition is harmful!
+		if ( foodcondition < FOOD_BAD_THRESHOLD )
+		{
+			// if we can choose to reject a food and haven't yet done so with this type of bad food, do so. Works only once
+			if ( (lasteater != pSoldier->ubID || lastitem != pObj->usItem) )
+			{
+				lasteater = pSoldier->ubID;
+				lastitem = pObj->usItem;
+
+				// notification
+				// do we eat or drink this stuff?
+				UINT8 type = AP_EAT;
+				if ( Food[foodtype].bDrinkPoints > Food[foodtype].bFoodPoints )
+					type = AP_DRINK;
+
+				if ( type == AP_EAT )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_EAT], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+				else
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_DRINK], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+
+				// Say quote!
+				TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, UINT16 usPointsToUse )
 {
 	// static variables to remember the last food someone was forced to eat
 	static UINT8 lasteater = 0;
@@ -128,46 +185,13 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	UINT8 type = AP_EAT;
 	if ( Food[foodtype].bDrinkPoints > Food[foodtype].bFoodPoints )
 		type = AP_DRINK;
-
-	// return if we don't have enough APs
-	if ( !fForceFromDrugs && !EnoughPoints( pSoldier, APBPConstants[type], 0, TRUE ) )
-	{
-		return( FALSE );
-	}
-	 
-	// check if we are willing to eat this: if we're filled, the merc refuses
-	if ( !fForceFromDrugs && ( ( Food[foodtype].bFoodPoints > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold ) || Food[foodtype].bFoodPoints <= 0 ) && ( ( Food[foodtype].bDrinkPoints > 0 && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold ) || Food[foodtype].bDrinkPoints <= 0 ) )
-	{
-		// Say quote!
-		TacticalCharacterDialogue( pSoldier, 61 );
-
-		return( FALSE);
-	}
-
+	
 	// we have to determine wether the food is rotten, that might influence its condition and poison us
 	FLOAT foodcondition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
 	
 	// food in bad condition is harmful!
-	if ( !fForceFromDrugs && foodcondition < FOOD_BAD_THRESHOLD )
-	{
-		// if we can choose to reject a food and haven't yet done so with this type of bad food, do so. Works only once
-		if ( !fForce && ( lasteater != pSoldier->ubID || lastitem != pObject->usItem) )
-		{
-			lasteater = pSoldier->ubID;
-			lastitem = pObject->usItem;
-
-			// notification
-			if ( type == AP_EAT )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_EAT], pSoldier->GetName(), Item[pObject->usItem].szItemName );
-			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_DRINK], pSoldier->GetName(), Item[pObject->usItem].szItemName );
-
-			// Say quote!
-			TacticalCharacterDialogue( pSoldier, 61 );
-
-			return( FALSE);
-		}
-
+	if ( foodcondition < FOOD_BAD_THRESHOLD )
+	{	
 		// determine the max nutritional value
 		INT32 maxpts = max(Food[foodtype].bFoodPoints, Food[foodtype].bDrinkPoints);
 		
@@ -178,7 +202,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 	FLOAT conditionmodifier = 0.5f * (1.0f + sqrt(foodcondition));
 
-	FLOAT percentualsize = min(Food[foodtype].ubPortionSize, (*pObject)[0]->data.objectStatus) / 100.0f;
+	FLOAT percentualsize = usPointsToUse / 100.0f;
 
 	INT32 foodpts  = (INT32) (Food[foodtype].bFoodPoints  * percentualsize * conditionmodifier );
 	INT32 drinkpts = (INT32) (Food[foodtype].bDrinkPoints * percentualsize * conditionmodifier );
@@ -240,17 +264,14 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	else if ( (*pObject)[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
 		pSoldier->Infect( 0 );
 	
-	// now remove a portion of the food item (or the whole item altogether)
-	UINT16 ptsconsumed = UseKitPoints( pObject, Food[foodtype].ubPortionSize, pSoldier );
-
 	INT32 sBPAdjustment = 0;
 	// if the food is more of a drink, we also restore breath points
 	if ( Food[foodtype].bDrinkPoints > Food[foodtype].bFoodPoints )
 	{
-		sBPAdjustment = 2 * ptsconsumed * -(100 - pSoldier->bBreath);
+		sBPAdjustment = 2 * usPointsToUse * -(100 - pSoldier->bBreath);
 	}
 
-	DeductPoints( pSoldier, APBPConstants[type], sBPAdjustment );
+	DeductPoints( pSoldier, 0, sBPAdjustment );
 
 	// let it be known that we are eating
 	if ( pSoldier->bTeam == gbPlayerNum && gGameExternalOptions.fFoodEatingSounds )
@@ -370,7 +391,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 	INT8 sectortemperaturemod = SectorTemperature( 0, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 
 	// if we are heat intolerant, increase modifier
-	if ( sectortemperaturemod > 0 && (gMercProfiles[ pSoldier->ubProfile ].bDisability == HEAT_INTOLERANT || MercUnderTheInfluence(pSoldier, DRUG_TYPE_HEATINTOLERANT) ) )
+	if ( sectortemperaturemod > 0 && DoesMercHaveDisability( pSoldier, HEAT_INTOLERANT ) )
 		++sectortemperaturemod;
 
 	FLOAT  temperaturemodifier  = (FLOAT)(3 + sectortemperaturemod)/3;
@@ -648,7 +669,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
 	{
 		// ... if Item exists and is food ...
-		if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
+		if ( pSoldier->inv[bLoop].exists() && Item[pSoldier->inv[bLoop].usItem].foodtype )
 		{
 			OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
 
@@ -680,14 +701,9 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 				// if we're thirsty or hungry, and this is nutritious, consume it
 				if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
 				{
-					while ( (*pObj)[0]->data.objectStatus > 1 )
+					// cannot reject to eat this, we chose to eat this ourself!
+					while ( (*pObj)[0]->data.objectStatus > 1 && ApplyConsumable( pSoldier, pObj, TRUE, FALSE ) )
 					{
-						// if food is also a drug, ApplyDrugs will also call ApplyFood
-						if ( Item[pObj->usItem].drugtype > 0 )
-							ApplyDrugs( pSoldier, pObj );
-						else
-							ApplyFood( pSoldier, pObj, TRUE, FALSE );		// cannot reject to eat this, we chose to eat this ourself!
-
 						// if we're full, finish
 						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
 							return;
@@ -701,7 +717,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
 	{
 		// ... if Item exists and is food ...
-		if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
+		if ( pSoldier->inv[bLoop].exists() && Item[pSoldier->inv[bLoop].usItem].foodtype )
 		{
 			OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
 
@@ -719,14 +735,9 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 				// if we're thirsty or hungry, and this is nutritious, consume it
 				if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
 				{
-					while ( (*pObj)[0]->data.objectStatus > 1 )
+					// cannot reject to eat this, we chose to eat this ourself!
+					while ( (*pObj)[0]->data.objectStatus > 1 && ApplyConsumable( pSoldier, pObj, TRUE, FALSE ) )
 					{
-						// if food is also a drug, ApplyDrugs will also call ApplyFood
-						if ( Item[pObj->usItem].drugtype > 0 )
-							ApplyDrugs( pSoldier, pObj );
-						else
-							ApplyFood( pSoldier, pObj, TRUE, FALSE );		// cannot reject to eat this, we chose to eat this ourself!
-
 						// if we're full, finish
 						if ( ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold || Food[foodtype].bFoodPoints == 0 ) && ( pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold|| Food[foodtype].bDrinkPoints == 0 ) )
 							return;

@@ -5561,7 +5561,7 @@ BOOLEAN HandleAttachedExplosions(UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, IN
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, GAS_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
 				fAttFound = TRUE;
 			}
-			if(Item[iter->usItem].alcohol)
+			if ( Item[iter->usItem].alcohol > 0.0f )
 			{
 				IgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, MOLOTOV_EXPLOSION, bLevel, DIRECTION_IRRELEVANT , NULL );
 				fAttFound = TRUE;

@@ -2297,7 +2297,7 @@ BOOLEAN MercIsHot( SOLDIERTYPE * pSoldier )
 {
 	// SANDRO - added argument
 	// Flugente: drugs can temporarily cause a merc to be heat intolerant
-	if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == HEAT_INTOLERANT || MercUnderTheInfluence(pSoldier, DRUG_TYPE_HEATINTOLERANT) ) && !pSoldier->MercInWater())
+	if ( !pSoldier->MercInWater( ) && DoesMercHaveDisability( pSoldier, HEAT_INTOLERANT ) )
 	{
 		if ((pSoldier->bSectorZ > 0) || (guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS )))
 		{
@@ -2859,18 +2859,18 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 				{
 					// Sociable - we are OK with everyone except those wicked malicious guys
 					case CHAR_TRAIT_SOCIABLE:
-						if( gMercProfiles[ pTeammate->ubProfile ].bCharacterTrait != CHAR_TRAIT_MALICIOUS )
-							bNumber++;
+						if ( !DoesMercHavePersonality( pTeammate, CHAR_TRAIT_MALICIOUS ) )
+							++bNumber;
 						break;
 					// Loner can tolerate one other loner around
 					case CHAR_TRAIT_LONER:
-						if ( gMercProfiles[ pTeammate->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER && !fOnlyOneException )
+						if ( !fOnlyOneException && DoesMercHavePersonality( pTeammate, CHAR_TRAIT_LONER ) )
 						{
 							fOnlyOneException = TRUE;	
 						}
 						else
 						{	
-							bNumber++;				
+							++bNumber;
 						}
 						break;
 					// Show-off, depends on gender and appearance of others
@@ -2885,9 +2885,9 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 									bNumber += 2;
 								// However remove one if ugly one
 								else if ( gMercProfiles[ pTeammate->ubProfile ].bAppearance == APPEARANCE_UGLY )
-									bNumber--;
+									--bNumber;
 								else 
-									bNumber++;
+									++bNumber;
 							}
 						}
 						// If we are female
@@ -2900,14 +2900,14 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 									bNumber += 2;
 								// However remove one if ugly one
 								else if ( gMercProfiles[ pTeammate->ubProfile ].bAppearance == APPEARANCE_UGLY )
-									bNumber--;
+									--bNumber;
 								else 
-									bNumber++;
+									++bNumber;
 							}
 						}
 						break;
 					default:
-						bNumber++;
+						++bNumber;
 						break;
 				}
 			}

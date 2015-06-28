@@ -51,7 +51,6 @@ foodStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "szName") == 0 ||
 				strcmp(name, "bFoodPoints") == 0 ||
 				strcmp(name, "bDrinkPoints") == 0 ||
-				strcmp(name, "ubPortionSize") == 0 ||
 				strcmp(name, "usDecayRate") == 0 )) 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -119,11 +118,6 @@ foodEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curFood.bDrinkPoints = (INT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "ubPortionSize") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curFood.ubPortionSize	= (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usDecayRate") == 0)
 		{
@@ -225,7 +219,6 @@ BOOLEAN WriteFoodStats()
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",				cnt );
 			FilePrintf(hFile,"\t\t<bFoodPoints>%d</bFoodPoints>\r\n",		Food[cnt].bFoodPoints	);
 			FilePrintf(hFile,"\t\t<bDrinkPoints>%d</bDrinkPoints>\r\n",		Food[cnt].bDrinkPoints	);
-			FilePrintf(hFile,"\t\t<ubPortionSize>%d</ubPortionSize>\r\n",	Food[cnt].ubPortionSize	);
 			FilePrintf(hFile,"\t\t<usDecayRate>%4.2f</usDecayRate>\r\n",	Food[cnt].usDecayRate	);
 
 			FilePrintf(hFile,"\t</FOOD>\r\n");

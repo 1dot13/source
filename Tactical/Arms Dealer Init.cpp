@@ -1013,7 +1013,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 			break;
 		case IC_MISC:
 		{
-			if ( Item [usItem].alcohol )
+			if ( Item [usItem].alcohol > 0.0f )
 				return( ARMS_DEALER_ALCOHOL );
 			else if ( Item [usItem].electronic )
 				return( ARMS_DEALER_ELECTRONICS );

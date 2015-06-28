@@ -6206,6 +6206,7 @@ STR16 pMessageStrings[] =
 	L"Artificial Merc Light ON",
 	L"Artificial Merc Light OFF",
 	L"Squad %s active.",
+	L"%s smoked %s.",
 };
 
 
@@ -8276,6 +8277,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% initial distance to enemy in ambush\n",
 
 	L" dislikes some other backgrounds",
+	L"Smoker",
+	L"Nonsmoker",
 };
 
 STR16		szBackgroundTitleText[] = 

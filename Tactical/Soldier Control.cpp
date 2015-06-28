@@ -636,7 +636,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		flags.ConvertFrom_101_To_102( src );
 		timeChanges.ConvertFrom_101_To_102( src );
 		timeCounters.ConvertFrom_101_To_102( src );
-		drugs.ConvertFrom_101_To_102( src );
+		//drugs.ConvertFrom_101_To_102( src );
 		stats.ConvertFrom_101_To_102( src );
 		pathing.ConvertFrom_101_To_102( src );
 		inv = src.inv;
@@ -1105,7 +1105,8 @@ void SOLDIERTYPE::initialize( )
 	memset( &flags, 0, sizeof(STRUCT_Flags) );
 	memset( &timeChanges, 0, sizeof(STRUCT_TimeChanges) );
 	memset( &timeCounters, 0, sizeof(STRUCT_TimeCounters) );
-	memset( &drugs, 0, sizeof(STRUCT_Drugs) );
+	//memset( &drugs, 0, sizeof(STRUCT_Drugs) );
+	memset( &newdrugs, 0, sizeof(DRUGS) );
 	memset( &stats, 0, sizeof(STRUCT_Statistics) );
 	memset( &pathing, 0, sizeof(STRUCT_Pathing) );
 }
@@ -2033,23 +2034,23 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	if ( this->ubProfile != NO_PROFILE )
 	{
 		// Flugente: drugs can temporarily cause a merc to be claustrophobic
-		if ( ((gMercProfiles[this->ubProfile].bDisability == CLAUSTROPHOBIC) || MercUnderTheInfluence( this, DRUG_TYPE_CLAUSTROPHOBIC )) && (gbWorldSectorZ > 0) )
+		if ( DoesMercHaveDisability( this, CLAUSTROPHOBIC ) && gbWorldSectorZ > 0 )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_CLAUSTROPHOBE]) / 10;
 		}
-		else if ( ((gMercProfiles[this->ubProfile].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence( this, DRUG_TYPE_FEAROFINSECTS )) && (MercSeesCreature( this )) )
+		else if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) && MercSeesCreature( this ) )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_AFRAID_OF_INSECTS]) / 10;
 		}
-		else if ( ((gMercProfiles[this->ubProfile].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence( this, DRUG_TYPE_FEAROFINSECTS )) && (MercIsInTropicalSector( this )) )
+		else if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) && MercIsInTropicalSector( this ) )
 		{
 			ubPoints = (ubPoints * 9) / 10;
 		}
 	}
 
-	// Adjusat APs due to drugs...
+	// Adjust APs due to drugs...
 	HandleAPEffectDueToDrugs( this, &ubPoints );
-
+	
 	//Madd
 	//	if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
 	//		ubPoints += 5; // everything and everyone moves a little faster against you on insane...
@@ -2153,7 +2154,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 		this->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 
 	// Don't max out if we are drugged....
-	if ( !MercUnderTheInfluence( this, DRUG_TYPE_ADRENALINE ) && !MercUnderTheInfluence( this, DRUG_TYPE_AGILITY ) )
+	if ( !this->newdrugs.size[DRUG_EFFECT_AP] && !this->newdrugs.size[DRUG_EFFECT_AGI] )
 	{
 		///////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - following code messed a bit
@@ -7600,7 +7601,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 	// ATE: Add decay effect sfor drugs...
 	//if ( fFromRealTime  ) //&& iRealTimeCounter % 300 )
 	{
-		HandleEndTurnDrugAdjustments( this );
+		HandleEndTurnDrugAdjustments_New( this );
 	}
 
 	// ATE: Don't bleed if in AUTO BANDAGE!
@@ -7760,26 +7761,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 			if ( (this->bTeam == gbPlayerNum) && (this->ubProfile != NO_PROFILE) )
 			{
-				// Flugente: drugs can temporarily cause a merc get a new disability
-				// therefore we change this routine
-				BOOLEAN isHeatIntolerant = gMercProfiles[this->ubProfile].bDisability == HEAT_INTOLERANT ? TRUE : FALSE;
-				BOOLEAN isFearOfInsects = gMercProfiles[this->ubProfile].bDisability == FEAR_OF_INSECTS ? TRUE : FALSE;
-				BOOLEAN isClaustrophobic = gMercProfiles[this->ubProfile].bDisability == CLAUSTROPHOBIC ? TRUE : FALSE;
-				BOOLEAN isNervous = gMercProfiles[this->ubProfile].bDisability == NERVOUS ? TRUE : FALSE;
-
-				if ( MercUnderTheInfluence( this, DRUG_TYPE_HEATINTOLERANT ) )
-					isHeatIntolerant = TRUE;
-
-				if ( MercUnderTheInfluence( this, DRUG_TYPE_FEAROFINSECTS ) )
-					isFearOfInsects = TRUE;
-
-				if ( MercUnderTheInfluence( this, DRUG_TYPE_CLAUSTROPHOBIC ) )
-					isClaustrophobic = TRUE;
-
-				if ( MercUnderTheInfluence( this, DRUG_TYPE_NERVOUS ) )
-					isNervous = TRUE;
-
-				if ( isHeatIntolerant )
+				if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) )
 				{
 					if ( MercIsHot( this ) )
 					{
@@ -7795,7 +7777,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 					}
 				}
 
-				if ( isFearOfInsects )
+				if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) )
 				{
 					if ( MercSeesCreature( this ) )
 					{
@@ -7811,7 +7793,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 					}
 				}
 
-				if ( isClaustrophobic )
+				if ( DoesMercHaveDisability( this, CLAUSTROPHOBIC ) )
 				{
 					if ( gbWorldSectorZ > 0 && Random( 6 - gbWorldSectorZ ) == 0 )
 					{
@@ -7828,7 +7810,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 					}
 				}
 
-				if ( isNervous )
+				if ( DoesMercHaveDisability( this, NERVOUS ) )
 				{
 					if ( DistanceToClosestFriend( this ) > NERVOUS_RADIUS )
 					{
@@ -8857,7 +8839,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	// If a moving animation and w/re on drugs, increase speed....
 	if ( gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_MOVING )
 	{
-		if ( MercUnderTheInfluence( pSoldier, DRUG_TYPE_ADRENALINE ) )
+		if ( pSoldier->newdrugs.size[DRUG_EFFECT_AP] )
 		{
 			pSoldier->sAniDelay = pSoldier->sAniDelay / 2;
 		}
@@ -12070,8 +12052,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 		if ( ubTargetID != NOBODY && ((MercPtrs[ubTargetID]->stats.bLife < OKLIFE && MercPtrs[ubTargetID]->stats.bLife > 0) || (MercPtrs[ubTargetID]->bBreath < OKBREATH && MercPtrs[ubTargetID]->bCollapsed)) )
 		{
 			this->aiData.uiPendingActionData4 = ubTargetID;
+
 			// add regen bonus
-			this->bRegenerationCounter++;
+			this->newdrugs.size[DRUG_EFFECT_HP] += 10;
+
 			this->EVENT_InitNewSoldierAnim( MONSTER_BEGIN_EATTING_FLESH, 0, FALSE );
 		}
 		else
@@ -12547,7 +12531,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 	DebugAttackBusy( String( "Begin knife throwing attack: ATB  %d\n", gTacticalStatus.ubAttackBusyCount ) );
 
 	// SANDRO - new animation for throwing for big mercs by PasHancock
-	if ( this->ubBodyType == BIGMALE && ((this->ubProfile != NO_PROFILE && gMercProfiles[this->ubProfile].bCharacterTrait == CHAR_TRAIT_SHOWOFF) || (HAS_SKILL_TRAIT( this, THROWING_NT ) && gGameOptions.fNewTraitSystem) || (HAS_SKILL_TRAIT( this, THROWING_OT ) && !gGameOptions.fNewTraitSystem)) )
+	if ( this->ubBodyType == BIGMALE && (DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) || (HAS_SKILL_TRAIT( this, THROWING_NT ) && gGameOptions.fNewTraitSystem) || (HAS_SKILL_TRAIT( this, THROWING_OT ) && !gGameOptions.fNewTraitSystem)))
 	{
 		this->EVENT_InitNewSoldierAnim( THROW_KNIFE_SP_BM, 0, FALSE );
 	}
@@ -14568,7 +14552,7 @@ INT32 SOLDIERTYPE::GetDamageResistance( BOOLEAN fAutoResolve, BOOLEAN fCalcBreat
 	////////////////////////////////////////////////////////////////////////////////////
 
 	// Flugente: drugs can now have an effect on damage resistance
-	HandleDamageResistanceEffectDueToDrugs( this, &resistance );
+	resistance += this->newdrugs.size[DRUG_EFFECT_PHYS_RES];
 
 	resistance += this->GetBackgroundValue( BG_RESI_PHYSICAL );
 
@@ -14590,7 +14574,7 @@ INT8	SOLDIERTYPE::GetHearingBonus( )
 		bonus += GetHearingRangeBonus( this );	// pSoldier->inv[bSlot][0]->data.objectStatus / 20 + 1;
 	}
 
-	if ( gMercProfiles[this->ubProfile].bDisability == DEAF )
+	if ( DoesMercHaveDisability( this, DEAF ) )
 		bonus -= 5;
 
 	if ( NightTime( ) )
@@ -14608,7 +14592,7 @@ INT16	SOLDIERTYPE::GetSightRangeBonus( )
 {
 	INT16 bonus = 0;
 
-	if ( gMercProfiles[this->ubProfile].bDisability == SHORTSIGHTED )
+	if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )
 		bonus -= 10;
 
 	return bonus;
@@ -16795,7 +16779,7 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 		if ( this->ubProfile != NO_PROFILE )
 		{
 			// Sociable - better performance in groups
-			if ( gMercProfiles[this->ubProfile].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+			if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )
 			{
 				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_SOCIABLE );
 				if ( bNumMercs > 2 )
@@ -16804,7 +16788,7 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 					modifier += 2;
 			}
 			// Loner - better performance when alone
-			else if ( gMercProfiles[this->ubProfile].bCharacterTrait == CHAR_TRAIT_LONER )
+			else if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )
 			{
 				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_LONER );
 				if ( bNumMercs == 0 )
@@ -16813,13 +16797,13 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 					modifier += 2;
 			}
 			// Aggressive - bonus on bursts/autofire
-			else if ( gMercProfiles[this->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+			else if ( DoesMercHavePersonality( this, CHAR_TRAIT_AGGRESSIVE ) )
 			{
 				if ( (this->bDoBurst || this->bDoAutofire) && !ubAimTime )
 					modifier += 10;
 			}
 			// Show-off - better performance if some babes around to impress
-			else if ( gMercProfiles[this->ubProfile].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+			else if ( DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) )
 			{
 				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_SHOWOFF );
 				if ( bNumMercs > 1 )
@@ -16837,15 +16821,16 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 				}
 				// Small penalty for fear of insects in tropical sectors
 				// Flugente: drugs can temporarily cause a merc get a new disability
-				else if ( ((gMercProfiles[this->ubProfile].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence( this, DRUG_TYPE_FEAROFINSECTS )) && MercIsInTropicalSector( this ) )
+				else if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) && MercIsInTropicalSector( this ) )
 				{
 					// fear of insects, and we are in tropical sector
 					modifier -= 5;
 				}
 			}
 		}
+
 		// Dauntless - penalty for not taking proper cover
-		if ( ubTargetProfile != NOBODY )
+		if ( ubTargetProfile != NO_PROFILE )
 		{
 			if ( gMercProfiles[ubTargetProfile].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
 				modifier += 5;
@@ -16854,7 +16839,7 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 	else
 	{
 		// this rather unlogical bonus for psychotic characters applies only with old traits
-		if ( this->ubProfile != NO_PROFILE && gMercProfiles[this->ubProfile].bDisability == PSYCHO || MercUnderTheInfluence( this, DRUG_TYPE_PSYCHO ) )
+		if ( DoesMercHaveDisability( this, PSYCHO ) )
 		{
 			modifier += AIM_BONUS_PSYCHO;
 		}
@@ -16863,14 +16848,14 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 	return modifier;
 }
 
-void SOLDIERTYPE::AddDrugValues( UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect )
+/*void SOLDIERTYPE::AddDrugValues( UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect )
 {
 	// in case of wrong inout, stay safe
 	if ( uDrugType >= DRUG_TYPE_MAX )
 		return;
 
 	// Flugente: backgrounds
-	if ( this->ubProfile != NOBODY && uDrugType == DRUG_TYPE_ALCOHOL )
+	if ( uDrugType == DRUG_TYPE_ALCOHOL )
 	{
 		usEffect = usEffect		* ((100 - this->GetBackgroundValue( BG_RESI_ALCOHOL )) / 100);
 		usSideEffect = usSideEffect	* ((100 - this->GetBackgroundValue( BG_RESI_ALCOHOL )) / 100);
@@ -16896,7 +16881,7 @@ void SOLDIERTYPE::AddDrugValues( UINT8 uDrugType, UINT8 usEffect, UINT8 usTravel
 
 	// set flag: we are on drugs
 	this->usSoldierFlagMask |= SOLDIER_DRUGGED;
-}
+}*/
 
 void SOLDIERTYPE::HandleFlashLights( )
 {
@@ -17222,9 +17207,21 @@ FLOAT	SOLDIERTYPE::GetMoraleModifier( )
 	FLOAT mod = 1.0f;
 
 	UINT8 officertype = OFFICER_NONE;
-	if ( HighestEnemyOfficersInSector( officertype ) )
+	if ( bTeam == ENEMY_TEAM && HighestEnemyOfficersInSector( officertype ) )
 	{
 		mod += gGameExternalOptions.dEnemyOfficerMoraleModifier * officertype;
+	}
+
+	// Flugente: disease
+	if ( gGameExternalOptions.fDisease )
+	{
+		FLOAT diseaseeffect = 1.0f;
+		for ( int i = 0; i < NUM_DISEASES; ++i )
+		{
+			diseaseeffect *= 1.0f - (1.0f - Disease[i].moralemodifier) * this->GetDiseaseMagnitude( i );
+		}
+
+		mod *= diseaseeffect;
 	}
 
 	return mod;
@@ -17234,11 +17231,11 @@ INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
 {
 	INT16 bonus = 0;
 
-	// drugs can alter our perception
+	/*// drugs can alter our perception
 	if ( this->drugs.bDrugEffect[DRUG_TYPE_PERCEPTION] )
 		bonus += 2;
 	else if ( this->drugs.bDrugSideEffect[DRUG_TYPE_PERCEPTION] )
-		bonus -= 2;
+		bonus -= 2;*/
 
 	// if we are listening on our radio, our mind will be somewhere else... we will be less focused
 	if ( this->IsRadioListening( ) )
@@ -19008,6 +19005,46 @@ INT8	SOLDIERTYPE::GetSleepBreathRegeneration( )
 	return bMaxBreathRegain;
 }
 
+// Flugente: assumed character weight (without any items)
+FLOAT	SOLDIERTYPE::GetBodyWeight()
+{
+	switch ( this->ubBodyType )
+	{
+	case REGMALE:
+	case MANCIV:
+		return 85.0f;
+		break;
+
+	case BIGMALE:
+	case STOCKYMALE:
+		return 110.0f;
+		break;
+
+	case REGFEMALE:
+		return 75.0f;
+		break;
+	
+	case FATCIV:
+		return 100.0f;
+		break;
+
+	case MINICIV:
+	case DRESSCIV:
+		return 60.0f;
+		break;
+
+	case HATKIDCIV:
+	case KIDCIV:
+		return 40.0f;
+		break;
+
+	case CRIPPLECIV:
+		return 75.0f;
+		break;
+	}
+
+	return 80.0f;
+}
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
@@ -20039,45 +20076,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 				if ( success )
 				{
-					if ( Item[usItem].canteen )
-					{
-						if ( !gGameOptions.fFoodSystem )
-						{
-							BOOLEAN tmp = FALSE;
-							success = ApplyCanteen( pSoldier, pObj, &tmp, FALSE );
-						}
-						else
-						{
-							success = ApplyFood( pSoldier, pObj, TRUE, TRUE );
-						}
-					}
-					else if ( Item[usItem].drugtype )
-					{
-						// applying drugs also handles food items
-						success = ApplyDrugs( pSoldier, pObj );
-					}
-					else if ( Item[usItem].camouflagekit )
-					{
-						BOOLEAN tmp = FALSE;
-						success = ApplyCammo( pSoldier, pObj, &tmp, FALSE );
-
-						if ( success )
-						{
-							// WANNE: We should only delete the face, if there was a camo we applied.
-							// This should fix the bug and crashes with missing faces
-							if ( gGameExternalOptions.fShowCamouflageFaces == TRUE )
-							{
-								// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
-								SetCamoFace( pSoldier );
-								DeleteSoldierFace( pSoldier );// remove face
-								pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-							}
-
-							// Dirty
-							fInterfacePanelDirty = DIRTYLEVEL2;
-						}
-					}
-					else if ( Item[usItem].gasmask )
+					if ( Item[usItem].gasmask )
 					{
 						// put this item into a (at best empty) faceslot if no gasmask is been worn
 						INT8 bSlot = FindGasMask( pSoldier );
@@ -20100,16 +20099,13 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 							}
 						}
 					}
-					else if ( Item[usItem].clothestype )
-					{
-						ApplyClothes( pSoldier, pObj, FALSE );
-
-						// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
-					}
-					else if ( Item[ usItem ].usItemClass == IC_BOMB )
+					else if ( Item[usItem].usItemClass == IC_BOMB )
 					{
 						success = AutoPlaceObject( pSoldier, pObj, FALSE );
+					}
+					else if ( ApplyConsumable( pSoldier, pObj, TRUE, TRUE ) )
+					{
+						success = TRUE;
 					}
 				}
 
@@ -21856,27 +21852,30 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 				iInjuryPenalty = (200 * (pInterrupter->stats.bLifeMax - pInterrupter->stats.bLife + ((pInterrupter->stats.bLifeMax - pInterrupter->stats.bLife - pInterrupter->bBleeding) / 2))) / (pInterrupter->stats.bLifeMax);
 				uiReactionTime = (uiReactionTime * (100 + iInjuryPenalty * (100 - (3 * EffectiveExpLevel( pInterrupter ))) / 100) / 100);
 			}
+
 			// adjust by breath down
 			if ( pSoldier->bBreath < 100 )
 			{
 				// +1% per 2 points of breath down
 				uiReactionTime = (uiReactionTime * (100 + ((100 - pSoldier->bBreath) / 2)) / 100);
 			}
+
 			// adjust for getting aid, being in gas or being in shock
 			if ( pInterrupter->flags.uiStatusFlags & SOLDIER_GASSED )
 				uiReactionTime = (uiReactionTime * (100 + AIM_PENALTY_GASSED) / 100);
+
 			if ( pInterrupter->ubServiceCount > 0 )
 				uiReactionTime = (uiReactionTime * (100 + AIM_PENALTY_GETTINGAID) / 100);
+
 			if ( pInterrupter->aiData.bShock )
 				uiReactionTime = (uiReactionTime * (100 + (pInterrupter->aiData.bShock * 20)) / 100); // this is severe, 20% per point
-			// Phlegmatic characters has slightly longer reaction time
-			if ( pSoldier->ubProfile != NO_PROFILE )
+
+			// Phlegmatic characters has slightly longer reaction time			
+			if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
 			{
-				if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
-				{
-					uiReactionTime = ((uiReactionTime * 110) / 100);
-				}
+				uiReactionTime = ((uiReactionTime * 110) / 100);
 			}
+
 			// finally divide back by 10 to get the needed result (round properly)
 			uiReactionTime = ((uiReactionTime + 5) / 10);
 
@@ -22869,7 +22868,7 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 		FLOAT leadershipfactor = EffectiveLeadership( pRecruiter ) / 100.0;
 
 		// bonus for assertive characters
-		if ( gMercProfiles[pRecruiter->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+		if ( DoesMercHavePersonality( pRecruiter, CHAR_TRAIT_ASSERTIVE ) )
 			leadershipfactor *= 1.05;
 
 		FLOAT recruitmodifier = (100 + pRecruiter->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT )) / 100.0;
@@ -22891,4 +22890,165 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 			StatChange( pRecruiter, EXPERAMT, 5, TRUE );
 		}
 	}
+}
+
+// Flugente: apply a consumable item on a soldier. Returns true if item was successfully interacted with
+BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce, BOOLEAN fUseAPs )
+{
+	if ( !pSoldier || !pObj )
+		return FALSE;
+
+	// if it's not a kit or a misc item, we cannot consume it
+	if ( !(Item[pObj->usItem].usItemClass & (IC_KIT | IC_MISC)) )
+		return FALSE;
+
+	BOOLEAN fDoSound = FALSE;
+
+	// use portionsize, if none was entered, use full item
+	UINT8 portionsize = Item[pObj->usItem].usPortionSize;
+	if ( !portionsize )
+		portionsize = 100;
+
+	// how much of this item do we use up
+	UINT16 statusused = min( portionsize, (*pObj)[0]->data.objectStatus );
+	if ( !statusused )
+		return FALSE;
+	
+	// if we check for APs, do so - if we don't have enough, stop
+	if ( fUseAPs )
+	{
+		// an object can be consumed in several ways (like food that is also a drug), but each consumption might have a different AP cost.
+		// as it would be very odd if an effect does not happen because the corresponding AP cost could not be met, we analyze the item first and determine the AP cost.
+		// We then either apply everything or nothing
+		UINT16 apcost = 0;
+		
+		if ( HasItemFlag( pObj->usItem, CAMO_REMOVAL ) && gGameExternalOptions.fCamoRemoving )
+		{
+			apcost = max( apcost, (APBPConstants[AP_CAMOFLAGE] / 2) );
+		}
+
+		if ( Item[pObj->usItem].camouflagekit )
+		{
+			apcost = max( apcost, APBPConstants[AP_CAMOFLAGE] );
+		}
+
+		if ( Item[pObj->usItem].canteen )
+		{
+			apcost = max( apcost, APBPConstants[AP_DRINK] );
+		}
+
+		if ( pObj->usItem == JAR_ELIXIR )
+		{
+			apcost = max( apcost, APBPConstants[AP_CAMOFLAGE] );
+		}
+
+		if ( Item[pObj->usItem].clothestype )
+		{
+			INT16 disguise_apcost = (APBPConstants[AP_DISGUISE] * (100 - gSkillTraitValues.sCODisguiseAPReduction * NUM_SKILL_TRAITS( pSoldier, COVERT_NT ))) / 100;
+
+			apcost = max( apcost, disguise_apcost );
+		}
+
+		if ( Item[pObj->usItem].drugtype )
+		{
+			apcost = max( apcost, APBPConstants[AP_DRINK] );
+		}
+
+		if ( Item[pObj->usItem].foodtype )
+		{
+			// do we eat or drink this stuff?
+			UINT8 apcost_type = AP_EAT;
+			if ( Food[Item[pObj->usItem].foodtype].bDrinkPoints > Food[Item[pObj->usItem].foodtype].bFoodPoints )
+				apcost_type = AP_DRINK;
+
+			apcost = max( apcost, APBPConstants[apcost_type] );
+		}
+	
+		if ( !fForce && !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
+		{
+			return FALSE;
+		}
+	}
+
+	// under certain conditions, a merc can but simply does not want to consume an item, and can refuse if not forced to.
+	if ( !fForce )
+	{
+		if ( DoesSoldierRefuseToEat( pSoldier, pObj ) )
+		{
+			return FALSE;
+		}
+
+		// some mercs will refuse to smoke
+		if ( Item[pObj->usItem].cigarette && pSoldier->GetBackgroundValue( BG_SMOKERTYPE ) == 2 )
+		{
+			// merc gets slightly pissed by the player even suggesting this
+			TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+			pSoldier->aiData.bMorale = max( 0, pSoldier->aiData.bMorale - 1 );
+
+			return FALSE;
+		}
+	}
+	
+	// Try to apply camo....
+	// this returns true if camo can be applied, but APs were only used, and the action happened, if *pfGoodAPs is TRUE
+	if ( ApplyCamo( pSoldier, pObj->usItem, statusused ) )
+	{
+		fDoSound = TRUE;
+
+		// WANNE: We should only delete the face, if there was a camo we applied.
+		// This should fix the bug and crashes with missing faces
+		if ( gGameExternalOptions.fShowCamouflageFaces )
+		{
+			// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
+			SetCamoFace( pSoldier );
+			DeleteSoldierFace( pSoldier );// remove face
+			pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+		}
+	}
+	
+	if ( ApplyCanteen( pSoldier, pObj->usItem, statusused ) )
+	{
+		fDoSound = FALSE;
+	}
+	
+	if ( ApplyElixir( pSoldier, pObj->usItem, statusused ) )
+	{
+		fDoSound = TRUE;
+	}
+	
+	if ( ApplyClothes( pSoldier, pObj->usItem, statusused ) )
+	{
+		
+	}
+	
+	if ( ApplyFood( pSoldier, pObj, statusused ) )
+	{
+		fDoSound = FALSE;
+	}
+	
+	if ( ApplyDrugs_New( pSoldier, pObj->usItem, statusused ) )
+	{
+		// no sound on consuming cigarettes, as that is very annoying
+		if ( !Item[pObj->usItem].cigarette )
+		{
+			fDoSound = TRUE;
+		}
+	}
+		
+	// use up object
+	UseKitPoints( pObj, statusused, pSoldier );
+	
+	if ( fUseAPs )
+	{
+		// Dirty
+		fInterfacePanelDirty = DIRTYLEVEL2;
+	}
+
+	if ( fDoSound )
+	{
+		// Say OK acknowledge....
+		pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+	}
+
+	return TRUE;
 }

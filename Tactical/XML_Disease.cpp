@@ -44,6 +44,9 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 
 			memset( &pData->curItem, 0, sizeof(DISEASE) );
 
+			// default value
+			pData->curItem.moralemodifier = 1.0f;
+
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if ( pData->curElement == ELEMENT &&
@@ -86,7 +89,8 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 				  strcmp( name, "sLifeRegenHundreds" ) == 0 ||
 				  strcmp( name, "sNeedToSleep" ) == 0 ||
 				  strcmp( name, "sDrinkModifier" ) == 0 ||
-				  strcmp( name, "sFoodModifier" ) == 0) )
+				  strcmp( name, "sFoodModifier" ) == 0 ||
+				  strcmp( name, "moralemodifier" ) == 0 ) ) 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -345,6 +349,11 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			pData->curElement = ELEMENT;
 			pData->curItem.sFoodModifier = (INT16)atol( pData->szCharData );
 		}
+		else if ( strcmp( name, "moralemodifier" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.moralemodifier = (FLOAT)atof( pData->szCharData );
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -468,6 +477,7 @@ BOOLEAN WriteDiseaseStats( )
 			FilePrintf( hFile, "\t\t<sNeedToSleep>%d</sNeedToSleep>\r\n", Disease[cnt].sNeedToSleep );
 			FilePrintf( hFile, "\t\t<sDrinkModifier>%d</sDrinkModifier>\r\n", Disease[cnt].sDrinkModifier );
 			FilePrintf( hFile, "\t\t<sFoodModifier>%d</sFoodModifier>\r\n", Disease[cnt].sFoodModifier );
+			FilePrintf( hFile, "\t\t<moralemodifier>%3.2f</moralemodifier>\r\n", Disease[cnt].moralemodifier );
 
 			FilePrintf( hFile, "\t</DISEASE>\r\n" );
 		}

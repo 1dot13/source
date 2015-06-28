@@ -474,7 +474,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
 			// Flugente: drugs can temporarily cause a merc to go psycho
-			if ( (pSoldier->ubProfile != NO_PROFILE) && ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
+			if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
 			{
 				// psychos might possibly switch to burst if they can
 				// Changed by ADB, rev 1513
@@ -549,7 +549,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 				// SANDRO - changed Random to PreRandom to avoid save-load mania
 				// Flugente: drugs can temporarily cause a merc to go psycho
-				if((pSoldier->ubProfile != NO_PROFILE) && ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) && PreRandom(100) < 20)
+				if ( DoesMercHaveDisability( pSoldier, PSYCHO ) && PreRandom( 100 ) < 20 )
 				{
 					chanceToMisfire = diceSides;
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 26 ], pSoldier->GetName() );

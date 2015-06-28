@@ -3471,16 +3471,12 @@ void CreateAssassin(UINT8 disguisetype)
 
 		if ( vestfound )
 		{
-			CreateItem( vestitem, 100, &gTempObject );
-
-			ApplyClothes(pSoldier, &gTempObject, FALSE);
+			ApplyClothes( pSoldier, vestitem, 100 );
 		}
 
 		if ( pantsfound )
 		{
-			CreateItem( pantsitem, 100, &gTempObject );
-
-			ApplyClothes(pSoldier, &gTempObject, FALSE);
+			ApplyClothes( pSoldier, vestitem, 100 );
 		}
 
 		// Dirty

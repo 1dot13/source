@@ -54,6 +54,7 @@
 	#include "BriefingRoom_Data.h"
 
 	#include "Map Screen Helicopter.h"
+	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHavePersonality( ... )
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -872,7 +873,7 @@ INT32 CalcThreateningEffectiveness( UINT8 ubMerc )
 	}
 
 	// SANDRO - bonus for threatening for assertive people
-	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+	if ( gGameOptions.fNewTraitSystem && DoesMercHavePersonality( pSoldier, CHAR_TRAIT_ASSERTIVE ) )
 	{
 		iDeadliness += 50;
 	}
@@ -899,10 +900,14 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	// SANDRO - bonus for communication with people for assertive people
 	if ( gGameOptions.fNewTraitSystem && bApproach != APPROACH_THREATEN)
 	{
-		if ( pMercProfile->bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
-			iPersonalVal += 50;
-		else if ( pMercProfile->bCharacterTrait == CHAR_TRAIT_MALICIOUS )
-			iPersonalVal -= 50;
+		INT16 id = GetSoldierIDFromMercID( ubMerc );
+		if ( id > -1 )
+		{
+			if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_ASSERTIVE ) )
+				iPersonalVal += 50;
+			else if ( DoesMercHavePersonality( MercPtrs[id], CHAR_TRAIT_MALICIOUS ) )
+				iPersonalVal -= 50;
+		}
 	}
 
 	// ARM: NOTE - for towns which don't use loyalty (San Mona, Estoni, Tixa, Orta )

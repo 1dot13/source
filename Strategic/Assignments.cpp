@@ -70,6 +70,7 @@
 	#include "Disease.h"			// added by Flugente
 	#include "Queen Command.h"		// added by Flugente
 	#include "PMC.h"				// added by Flugente
+	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
 #endif
 #include <vector>
 #include <queue>
@@ -2738,14 +2739,15 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 			usHealPts += usHealPts * gSkillTraitValues.usDODoctorAssignmentBonus * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) / 100;
 			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usDODoctorAssignmentBonus * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) / 100;
 		}
+
 		// penalty for aggressive people
-		if ( gMercProfiles[ pDoctor->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		if ( DoesMercHavePersonality( pDoctor, CHAR_TRAIT_AGGRESSIVE ) )
 		{	
 			usHealPts -= usHealPts / 10;
 			*pusMaxPts -= *pusMaxPts / 10;
 		}
 		// bonus for phlegmatic people
-		else if ( gMercProfiles[ pDoctor->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		else if ( DoesMercHavePersonality( pDoctor, CHAR_TRAIT_PHLEGMATIC ) )
 		{	
 			usHealPts += usHealPts / 20;
 			*pusMaxPts += *pusMaxPts / 20;
@@ -2831,14 +2833,15 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 			usRepairPts += usRepairPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
 			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
 		}
+
 		// Penalty for aggressive people
-		if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 		{	
 			usRepairPts -= usRepairPts / 10;	// -10%
 			*pusMaxPts -= *pusMaxPts / 10;
 		}
 		// Bonus for phlegmatic people
-		else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
 		{	
 			usRepairPts += usRepairPts / 20;	// +5%
 			*pusMaxPts += *pusMaxPts / 20;
@@ -3015,10 +3018,11 @@ UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 		usValue += 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
 	}
 		
-	if( gMercProfiles[ pSoldier->ubProfile ].bDisability == DEAF )
+	if ( DoesMercHaveDisability( pSoldier, DEAF ) )
 	{
 		usValue = usValue/2;
 	}
+
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usValue );
 
@@ -3136,7 +3140,7 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 
 	if ( gGameOptions.fNewTraitSystem )
 	{
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_ASSERTIVE ) )
 			friendlyvalue += 30;
 	}
 
@@ -5092,8 +5096,9 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		{
 			bMaxBreathLoss = (bMaxBreathLoss * (100 - gSkillTraitValues.ubSVBreathForTravellingReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT )) / 100);
 		}
+
 		// primitive people get exhausted slower
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PRIMITIVE ) )
 		{	
 			switch ( pSoldier->bAssignment )
 			{
@@ -5121,8 +5126,8 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 					break;
 			}
 		}
-		// Picifist actually gain morale, when on peaceful assignments
-		else if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+		// Pacifists actually gain morale, when on peaceful assignments
+		else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PACIFIST ) )
 		{
 			switch ( pSoldier->bAssignment )
 			{
@@ -5537,9 +5542,12 @@ void HandleDiseaseDiagnosis()
 					for ( int i = 0; i < NUM_DISEASES; ++i )
 					{
 						// if teammember has disease, but this is not yet known
-						if ( pTeamSoldier->sDiseasePoints[i] > 0 && !(pTeamSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) )
+						if ( pTeamSoldier->sDiseasePoints[i] > 0 && !(pTeamSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && Disease[i].sInfectionPtsOutbreak > 0 )
 						{
-							if ( Chance( skill ) )
+							// whether an infection is diagnosed also depends on how high it is compared to an outbreak
+							FLOAT infectedfraction = ((FLOAT)pTeamSoldier->sDiseasePoints[i] / (FLOAT)Disease[i].sInfectionPtsOutbreak);
+
+							if ( infectedfraction > 0.0f && Chance((UINT32)(100 * infectedfraction)) && Chance( skill ) )
 							{
 								// doctor discovered a disease - make it known
 								pTeamSoldier->AnnounceDisease( i );
@@ -5763,7 +5771,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 
 	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier) * 10 ) / 3000.0f;
 
-	if( gMercProfiles[ pSoldier->ubProfile ].bDisability == DEAF )
+	if ( DoesMercHaveDisability( pSoldier, DEAF ) )
 	{
 		fBaseChance /= 2.0;
 	}
@@ -6146,16 +6154,18 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 			bTrainingBonus += gSkillTraitValues.ubTGBonusOnPractising;
 			//sTrainingPts += (sTrainingPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
 		}
+
 		// bonus for practising for intellectuals
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_INTELLECTUAL ) )
 		{
 			// +10%
 			*pusMaxPts += (*pusMaxPts / 10);
 			bTrainingBonus += 10;
 			//sTrainingPts += (sTrainingPts / 10);
 		}
+
 		// bonus for practising for intellectuals
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 		{
 			switch (bTrainStat)
 			{
@@ -6268,16 +6278,18 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 			bTrainingBonus += gSkillTraitValues.ubTGBonusOnPractising;
 			//sTrainingPts += (sTrainingPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
 		}
+
 		// bonus for practising for intellectuals
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_INTELLECTUAL ) )
 		{
 			// +10%
 			*pusMaxPts += (*pusMaxPts / 10);
 			bTrainingBonus += 10;
 			//sTrainingPts += (sTrainingPts / 10);
 		}
+
 		// bonus for practising for intellectuals
-		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 		{
 			switch (bTrainStat)
 			{
@@ -7388,17 +7400,17 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 			sTrainingBonus += gSkillTraitValues.ubTGBonusToTrainMilitia;
 		}
 		// +10% for Assertive people
-		if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+		if ( DoesMercHavePersonality( pTrainer, CHAR_TRAIT_ASSERTIVE ) )
 		{
 			sTrainingBonus += 10;
 		}
 		// -5% for Aggressive people
-		else if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		else if ( DoesMercHavePersonality( pTrainer, CHAR_TRAIT_AGGRESSIVE ) )
 		{
 			sTrainingBonus -= 5;
 		}
 		// +5% for Phlegmatic people
-		else if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		else if ( DoesMercHavePersonality( pTrainer, CHAR_TRAIT_PHLEGMATIC ) )
 		{
 			sTrainingBonus += 5;
 		}

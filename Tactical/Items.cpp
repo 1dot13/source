@@ -1253,7 +1253,9 @@ std::map<UINT8,popupDef> LBEPocketPopup;
 //	{	/* Knife Pocket */			5,	0,	1,	{0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0} }
 //};
 
-DRUGTYPE Drug[DRUG_TYPE_MAX];
+//DRUGTYPE Drug[DRUG_TYPE_MAX];
+
+DRUG NewDrug[NEW_DRUGS_MAX];
 
 FOODTYPE Food[FOOD_TYPE_MAX];
 
@@ -9363,57 +9365,37 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 }
 
-BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs, BOOLEAN fUseAPs )
+BOOLEAN ApplyCamo( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16& usrPointsToUse )
 {
 	// Added - SANDRO
-	INT8		bPointsToUse;
-	UINT16	usTotalKitPoints;
-	UINT16 iRemainingCamoAfterRemoving; 
-
-	(*pfGoodAPs) = TRUE;
-
-	if (pObj->exists() == false)
-		return( FALSE );
-
+	INT8	bPointsToUse;
+	UINT16  iRemainingCamoAfterRemoving; 
+	
 	//////////////////////////////////////////////////////////////////////////////
 	// added possibility to remove all camo by using a rag on self - SANDRO
-	if ( HasItemFlag(pObj->usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving)
+	if ( HasItemFlag( usItem, CAMO_REMOVAL ) && gGameExternalOptions.fCamoRemoving )
 	{
-		if ( fUseAPs && !EnoughPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE]/2), 0, TRUE ) )
-		{
-			(*pfGoodAPs) = FALSE;
-			return( TRUE );
-		}
 		// 100 should be enough. The third value "0" means we will remove all types of camo
 		ReduceCamoFromSoldier( pSoldier, 100, 0 );
 
 		// damage the rag :) - actually you would need to flag it damagable in the items.XML
-		DamageItem( pObj, 22, FALSE );
-
-		if ( fUseAPs )
-			DeductPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE] / 2), 0 );
+		usrPointsToUse = min( 22, usrPointsToUse );
 
 		// Reload palettes....
 		if ( pSoldier->bInSector )
 		{
 			pSoldier->CreateSoldierPalettes( );
 		}
+
 		return( TRUE );
 	}
-	else if ( !Item[pObj->usItem].camouflagekit )
+	else if ( !Item[usItem].camouflagekit )
 	{
 		return( FALSE );
 	}
 	//////////////////////////////////////////////////////////////////////////////
-
-	if ( fUseAPs && !EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
-	{
-		(*pfGoodAPs) = FALSE;
-		return( TRUE );
-	}
-
-	usTotalKitPoints = TotalPoints( pObj );
-	if (usTotalKitPoints == 0)
+		
+	if ( usrPointsToUse == 0 )
 	{
 		// HUH???
 		return( FALSE );
@@ -9426,26 +9408,25 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	if (gGameExternalOptions.fCamoRemoving)
 	{
-
 		int totalCamo = pSoldier->bCamo + pSoldier->urbanCamo + pSoldier->desertCamo + pSoldier->snowCamo;
 
 		// First, check if we have an item with major JUNGLE camobonus
-		if ( (Item[pObj->usItem].camobonus > Item[pObj->usItem].urbanCamobonus) && 
-			 (Item[pObj->usItem].camobonus > Item[pObj->usItem].desertCamobonus) &&
-			 (Item[pObj->usItem].camobonus > Item[pObj->usItem].snowCamobonus) )
+		if ( (Item[usItem].camobonus > Item[usItem].urbanCamobonus) && 
+			 (Item[usItem].camobonus > Item[usItem].desertCamobonus) &&
+			 (Item[usItem].camobonus > Item[usItem].snowCamobonus) )
 		{
-			if ( pSoldier->bCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].camobonus == 0 )
+			if ( pSoldier->bCamo >= gGameExternalOptions.bCamoKitArea || Item[usItem].camobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
 			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->bCamo ) );
 			// check how much of the kit we need for that
-			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].camobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[usItem].camobonus / 100.0 ) );
 			// limit to what we have in the kit
-			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
+			bPointsToUse = __min( bPointsToUse, usrPointsToUse );
 
 			// determine how much we will add
-			int iJungleCamoAdded = (int)(Item[pObj->usItem].camobonus * bPointsToUse / 100 );
+			int iJungleCamoAdded = (int)(Item[usItem].camobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
 			if ( (totalCamo + iJungleCamoAdded) > gGameExternalOptions.bCamoKitArea )
@@ -9471,26 +9452,27 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 			{
 				pSoldier->bCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->bCamo + iJungleCamoAdded );
 			}
+
 			// update with amount that we really used
-			bPointsToUse = ( (FLOAT)iJungleCamoAdded / ( (FLOAT)Item[pObj->usItem].camobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)iJungleCamoAdded / ( (FLOAT)Item[usItem].camobonus / 100.0 ) );
 		}
 		// Second, check if we have an item with major URBAN camobonus
-		else if ( (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].camobonus) && 
-			 (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].desertCamobonus) &&
-			 (Item[pObj->usItem].urbanCamobonus > Item[pObj->usItem].snowCamobonus) )
+		else if ( (Item[usItem].urbanCamobonus > Item[usItem].camobonus) && 
+			 (Item[usItem].urbanCamobonus > Item[usItem].desertCamobonus) &&
+			 (Item[usItem].urbanCamobonus > Item[usItem].snowCamobonus) )
 		{
-			if ( pSoldier->urbanCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].urbanCamobonus == 0 )
+			if ( pSoldier->urbanCamo >= gGameExternalOptions.bCamoKitArea || Item[usItem].urbanCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
 			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->urbanCamo ) );
 			// check how much of the kit we need for that
-			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].urbanCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[usItem].urbanCamobonus / 100.0 ) );
 			// limit to what we have in the kit
-			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
+			bPointsToUse = __min( bPointsToUse, usrPointsToUse );
 
 			// determine how much we will add
-			int iUrbanCamoAdded = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / 100 );
+			int iUrbanCamoAdded = (int)(Item[usItem].urbanCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
 			if ( (totalCamo + iUrbanCamoAdded) > gGameExternalOptions.bCamoKitArea )
@@ -9517,25 +9499,25 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 				pSoldier->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->urbanCamo + iUrbanCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = ( (FLOAT)iUrbanCamoAdded / ( (FLOAT)Item[pObj->usItem].urbanCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)iUrbanCamoAdded / ( (FLOAT)Item[usItem].urbanCamobonus / 100.0 ) );
 		}
 		// Third, check if we have an item with major DESERT camobonus
-		else if ( (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].camobonus) && 
-			 (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].urbanCamobonus) &&
-			 (Item[pObj->usItem].desertCamobonus > Item[pObj->usItem].snowCamobonus) )
+		else if ( (Item[usItem].desertCamobonus > Item[usItem].camobonus) && 
+			 (Item[usItem].desertCamobonus > Item[usItem].urbanCamobonus) &&
+			 (Item[usItem].desertCamobonus > Item[usItem].snowCamobonus) )
 		{
-			if ( pSoldier->desertCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].desertCamobonus == 0 )
+			if ( pSoldier->desertCamo >= gGameExternalOptions.bCamoKitArea || Item[usItem].desertCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
 			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->desertCamo ) );
 			// check how much of the kit we need for that
-			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].desertCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[usItem].desertCamobonus / 100.0 ) );
 			// limit to what we have in the kit
-			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
+			bPointsToUse = __min( bPointsToUse, usrPointsToUse );
 
 			// determine how much we will add
-			int iDesertCamoAdded = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / 100 );
+			int iDesertCamoAdded = (int)(Item[usItem].desertCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
 			if ( (totalCamo + iDesertCamoAdded) > gGameExternalOptions.bCamoKitArea )
@@ -9562,25 +9544,25 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 				pSoldier->desertCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->desertCamo + iDesertCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = ( (FLOAT)iDesertCamoAdded / ( (FLOAT)Item[pObj->usItem].desertCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)iDesertCamoAdded / ( (FLOAT)Item[usItem].desertCamobonus / 100.0 ) );
 		}
 		// Fourth, check if we have an item with major SNOW camobonus
-		else if ( (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].camobonus) && 
-			 (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].urbanCamobonus) &&
-			 (Item[pObj->usItem].snowCamobonus > Item[pObj->usItem].desertCamobonus) )
+		else if ( (Item[usItem].snowCamobonus > Item[usItem].camobonus) && 
+			 (Item[usItem].snowCamobonus > Item[usItem].urbanCamobonus) &&
+			 (Item[usItem].snowCamobonus > Item[usItem].desertCamobonus) )
 		{
-			if ( pSoldier->snowCamo >= gGameExternalOptions.bCamoKitArea || Item[pObj->usItem].snowCamobonus == 0 )
+			if ( pSoldier->snowCamo >= gGameExternalOptions.bCamoKitArea || Item[usItem].snowCamobonus == 0 )
 				return( FALSE );
 
 			// determine how much we can add
 			bPointsToUse = __max( 0, ( gGameExternalOptions.bCamoKitArea - pSoldier->snowCamo ) );
 			// check how much of the kit we need for that
-			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[pObj->usItem].snowCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)bPointsToUse / ( (FLOAT)Item[usItem].snowCamobonus / 100.0 ) );
 			// limit to what we have in the kit
-			bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
+			bPointsToUse = __min( bPointsToUse, usrPointsToUse );
 
 			// determine how much we will add
-			int iSnowCamoAdded = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / 100 );
+			int iSnowCamoAdded = (int)(Item[usItem].snowCamobonus * bPointsToUse / 100 );
 
 			// if we have already too much different camo on ourselves, reduce some or all
 			if ( (totalCamo + iSnowCamoAdded) > gGameExternalOptions.bCamoKitArea )
@@ -9607,7 +9589,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 				pSoldier->snowCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->snowCamo + iSnowCamoAdded );
 			}
 			// update with amount that we really used
-			bPointsToUse = ( (FLOAT)iSnowCamoAdded / ( (FLOAT)Item[pObj->usItem].snowCamobonus / 100.0 ) );
+			bPointsToUse = ( (FLOAT)iSnowCamoAdded / ( (FLOAT)Item[usItem].snowCamobonus / 100.0 ) );
 		}
 		else // the item has no major camo, return
 			return( FALSE );
@@ -9627,13 +9609,13 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		}
 
 		bPointsToUse = (gGameExternalOptions.bCamoKitArea - iKitCamo);
-		bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
+		bPointsToUse = __min( bPointsToUse, usrPointsToUse );
 
 		//figure out proportions of each to be applied, one item can theoretically have more than one camouflage type this way
-		int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / 100 );
-		int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse / 100 );
-		int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / 100 );
-		int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / 100 );
+		int urban = (int)(Item[usItem].urbanCamobonus * bPointsToUse / 100 );
+		int jungle = (int)(Item[usItem].camobonus * bPointsToUse / 100 );
+		int desert = (int)(Item[usItem].desertCamobonus * bPointsToUse / 100 );
+		int snow = (int)(Item[usItem].snowCamobonus * bPointsToUse / 100 );
 
 		pSoldier->bCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->bCamo + jungle );
 		pSoldier->urbanCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->urbanCamo + urban );
@@ -9641,10 +9623,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		pSoldier->snowCamo = __min( gGameExternalOptions.bCamoKitArea, pSoldier->snowCamo + snow );
 	}
 
-	UseKitPoints( pObj, bPointsToUse, pSoldier );
-
-	if ( fUseAPs )
-		DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
+	usrPointsToUse = bPointsToUse;
 
 	// Reload palettes....
 	if ( pSoldier->bInSector )
@@ -9655,8 +9634,62 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	return( TRUE );
 }
 
+BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16 usPointsToUse )
+{
+	if ( !Item[usItem].canteen )
+	{
+		return(FALSE);
+	}
+
+	if ( usPointsToUse == 0 )
+	{
+		// HUH???
+		return(FALSE);
+	}
+	
+	if ( pSoldier->bTeam == gbPlayerNum )
+	{
+		if ( gMercProfiles[pSoldier->ubProfile].bSex == MALE )
+		{
+			PlayJA2Sample( DRINK_CANTEEN_MALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		}
+		else
+		{
+			PlayJA2Sample( DRINK_CANTEEN_FEMALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		}
+	}
+
+	// CJC Feb 9.  Canteens don't seem effective enough, so doubled return from them
+	DeductPoints( pSoldier, 0, (INT16)(2 * usPointsToUse * -(100 - pSoldier->bBreath)) );
+
+	return(TRUE);
+}
+
+#define MAX_HUMAN_CREATURE_SMELL (NORMAL_HUMAN_SMELL_STRENGTH - 1)
+
+BOOLEAN ApplyElixir( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16& usrPointsToUse )
+{
+	if ( usItem != JAR_ELIXIR )
+	{
+		return(FALSE);
+	}
+
+	if ( usrPointsToUse == 0 )
+	{
+		// HUH???
+		return(FALSE);
+	}
+		
+	INT16 sPointsToUse = (MAX_HUMAN_CREATURE_SMELL - pSoldier->aiData.bMonsterSmell) * 2;
+	usrPointsToUse = __min( sPointsToUse, usrPointsToUse );
+
+	pSoldier->aiData.bMonsterSmell += sPointsToUse / 2;
+
+	return(TRUE);
+}
+
 // Flugente: apply clothes, and eventually disguise
-BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs )
+BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16 usPointsToUse )
 {
 	// this will only work with the new trait system
 	if (!gGameOptions.fNewTraitSystem)
@@ -9665,20 +9698,13 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 		return FALSE;
 	}
 
-	if ( !pSoldier || pObj->exists() == false )
+	if ( !pSoldier )
 		return( FALSE );
 
 	UINT8 skilllevel = NUM_SKILL_TRAITS( pSoldier, COVERT_NT );
-
-	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( 100 - gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
-	if ( fUseAPs && !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
-		return( FALSE );
-	}
 			
 	// determine clothes type
-	UINT32 clothestype = Item[pObj->usItem].clothestype;
+	UINT32 clothestype = Item[usItem].clothestype;
 
 	// if not a clothes item, nothing to see here
 	if ( clothestype == 0 || clothestype > CLOTHES_MAX )
@@ -9760,11 +9786,6 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
 
 			pSoldier->CreateSoldierPalettes();
-
-			UseKitPoints( pObj, 100, pSoldier );
-
-			if ( fUseAPs )
-				DeductPoints( pSoldier, apcost, 0 );
 		}
 
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->usSoldierFlagMask & SOLDIER_NEW_PANTS )
@@ -9807,93 +9828,6 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 		}
 	}
 		
-	return( TRUE );
-}
-
-BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs, BOOLEAN fUseAPs )
-{
-	INT16		sPointsToUse;
-	UINT16	usTotalKitPoints;
-
-	(*pfGoodAPs) = TRUE;
-
-	if (!Item[pObj->usItem].canteen || pObj->exists() == false)
-	{
-		return( FALSE );
-	}
-
-	usTotalKitPoints = TotalPoints( pObj );
-	if (usTotalKitPoints == 0)
-	{
-		// HUH???
-		return( FALSE );
-	}
-
-	if ( fUseAPs && !EnoughPoints( pSoldier, APBPConstants[AP_DRINK], 0, TRUE ) )
-	{
-		(*pfGoodAPs) = FALSE;
-		return( TRUE );
-	}
-
-	if ( pSoldier->bTeam == gbPlayerNum )
-	{
-		if ( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
-		{
-			PlayJA2Sample( DRINK_CANTEEN_MALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-		}
-		else
-		{
-			PlayJA2Sample( DRINK_CANTEEN_FEMALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-		}
-	}
-
-	sPointsToUse = __min( 20, usTotalKitPoints );
-
-	// CJC Feb 9.  Canteens don't seem effective enough, so doubled return from them
-	if ( fUseAPs )
-		DeductPoints( pSoldier, APBPConstants[AP_DRINK], (INT16) (2 * sPointsToUse * -(100 - pSoldier->bBreath) ) );
-
-	UseKitPoints( pObj, sPointsToUse, pSoldier );
-
-	return( TRUE );
-}
-
-#define MAX_HUMAN_CREATURE_SMELL (NORMAL_HUMAN_SMELL_STRENGTH - 1)
-
-BOOLEAN ApplyElixir( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs )
-{
-	INT16		sPointsToUse;
-	UINT16	usTotalKitPoints;
-
-	(*pfGoodAPs) = TRUE;
-
-	if (pObj->usItem != JAR_ELIXIR || pObj->exists() == false)
-	{
-		return( FALSE );
-	}
-
-	usTotalKitPoints = TotalPoints( pObj );
-	if (usTotalKitPoints == 0)
-	{
-		// HUH???
-		return( FALSE );
-	}
-
-	if (!EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
-	{
-    (*pfGoodAPs) = FALSE;
-		return( TRUE );
-	}
-
-	DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
-
-	sPointsToUse = ( MAX_HUMAN_CREATURE_SMELL - pSoldier->aiData.bMonsterSmell ) * 2;
-	sPointsToUse = __min( sPointsToUse, usTotalKitPoints );
-
-	UseKitPoints( pObj, sPointsToUse, pSoldier );
-
-	pSoldier->aiData.bMonsterSmell += sPointsToUse / 2;
-
 	return( TRUE );
 }
 
@@ -11564,7 +11498,7 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		bonus += GetDayVisionRangeBonus(pSoldier, bLightLevel);
 	}
 
-	// Flugente: drugs can alter our sight
+	/*// Flugente: drugs can alter our sight
 	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_VISION ] )
 	{
 		bonus += 10;
@@ -11572,7 +11506,7 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_VISION ] )
 	{
 		bonus -= 10;
-	}
+	}*/
 
 	// Flugente: add sight range bonus due to disabilities, traits etc. (not equipment)
 	bonus += pSoldier->GetSightRangeBonus();
@@ -11713,11 +11647,11 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	// Flugente: drugs can alter our vision
+	/*// Flugente: drugs can alter our vision
 	if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_TUNNELVISION ] )
 	{
 		bonus = __min(100, bonus + 25);
-	} 
+	} */
 
 	if ( !PTR_OURTEAM ) // Madd: adjust tunnel vision by difficulty level
 		bonus /= gGameOptions.ubDifficultyLevel;

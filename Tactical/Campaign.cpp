@@ -183,8 +183,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 
 	if (usNumChances == 0)
 		return;
-
-
+	
 	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
 	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile->bExpLevel);
 
@@ -262,14 +261,12 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 		// training always affected by wisdom
 		fAffectedByWisdom = TRUE;
 	}
-
-
+	
 	// stats/skills of 0 can NEVER be improved!
 	if ( bCurrentRating < 0 )
 	{
 		return;
 	}
-
 
 	// loop once for each chance to improve
 	for (uiCnt = 0; uiCnt < usNumChances; uiCnt++)

@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			DRUG_SYSTEM_REDONE								163 // Flugente: reworked the drug system
 #define			MILITIA_PATH_PLOTTING							162 // Flugente: the player can plot militia paths in strategic, similar to player or helicopter travel
 #define			STRATEGIC_TEAM_GROUPS							161 // Flugente: a change to the GROUP-structure allows any team to have strategic movement groups
 #define			PMC_WEBSITE										160	// Flugente: a new PMC allows us to hire trained militia
@@ -81,7 +82,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								MILITIA_PATH_PLOTTING
+#define			SAVE_GAME_VERSION								DRUG_SYSTEM_REDONE
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

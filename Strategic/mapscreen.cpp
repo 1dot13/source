@@ -2351,7 +2351,7 @@ void DrawCharStats( INT16 sCharNum )
 	SetFontBackground(FONT_BLACK);
 
 	// strength
-	swprintf( sString, L"%d", pSoldier->stats.bStrength);
+	swprintf( sString, L"%d", pSoldier->stats.bStrength + pSoldier->bExtraStrength );
 
 	// SANDRO - if damaged stat we could regain, show in red until repaired
 	if ( ( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || (gGameOptions.fFoodSystem && pSoldier->usStarveDamageStrength > 0) )
@@ -2369,6 +2369,10 @@ void DrawCharStats( INT16 sCharNum )
 			SetFontForeground( FONT_RED );
 		}
 	}
+	else if ( pSoldier->bExtraStrength )
+	{
+		SetRGBFontForeground( 250, 5, 250 );
+	}
 	else
 	{
 		SetFontForeground(CHAR_TEXT_FONT_COLOR);
@@ -2379,7 +2383,7 @@ void DrawCharStats( INT16 sCharNum )
 	DrawString(sString,usX, STR_Y,CHAR_FONT );
 
 	// dexterity
-	swprintf( sString, L"%d", pSoldier->stats.bDexterity );
+	swprintf( sString, L"%d", pSoldier->stats.bDexterity + pSoldier->bExtraDexterity );
 
 	// SANDRO - if damaged stat we could regain, show in red until repaired
 	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] > 0 ))
@@ -2397,6 +2401,10 @@ void DrawCharStats( INT16 sCharNum )
 			SetFontForeground( FONT_RED );
 		}
 	}
+	else if ( pSoldier->bExtraDexterity )
+	{
+		SetRGBFontForeground( 250, 5, 250 );
+	}
 	else
 	{
 		SetFontForeground(CHAR_TEXT_FONT_COLOR);
@@ -2407,7 +2415,7 @@ void DrawCharStats( INT16 sCharNum )
 	DrawString(sString,usX, DEX_Y,CHAR_FONT );
 
 	// agility
-	swprintf( sString, L"%d", pSoldier->stats.bAgility );
+	swprintf( sString, L"%d", pSoldier->stats.bAgility + pSoldier->bExtraAgility );
 	
 	// SANDRO - if damaged stat we could regain, show in red until repaired
 	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0 ))
@@ -2425,6 +2433,10 @@ void DrawCharStats( INT16 sCharNum )
 			SetFontForeground( FONT_RED );
 		}
 	}
+	else if ( pSoldier->bExtraAgility )
+	{
+		SetRGBFontForeground( 250, 5, 250 );
+	}
 	else
 	{
 		SetFontForeground(CHAR_TEXT_FONT_COLOR);
@@ -2435,7 +2447,7 @@ void DrawCharStats( INT16 sCharNum )
 	DrawString(sString,usX, AGL_Y,CHAR_FONT );
 
 	// wisdom
-	swprintf( sString, L"%d", pSoldier->stats.bWisdom );
+	swprintf( sString, L"%d", pSoldier->stats.bWisdom + pSoldier->bExtraWisdom );
 	
 	// SANDRO - if damaged stat we could regain, show in red until repaired
 	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] > 0 ))
@@ -2452,6 +2464,10 @@ void DrawCharStats( INT16 sCharNum )
 		{
 			SetFontForeground( FONT_RED );
 		}
+	}
+	else if ( pSoldier->bExtraWisdom )
+	{
+		SetRGBFontForeground( 250, 5, 250 );
 	}
 	else
 	{
@@ -2491,7 +2507,7 @@ void DrawCharStats( INT16 sCharNum )
 	DrawString(sString,usX, LDR_Y,CHAR_FONT );
 
 	// experience level
-	swprintf( sString, L"%d", pSoldier->stats.bExpLevel );
+	swprintf( sString, L"%d", pSoldier->stats.bExpLevel + pSoldier->bExtraExpLevel );
 
 	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeLevelTime)&&( pSoldier->timeChanges.uiChangeLevelTime != 0 ) )
 	{
@@ -2503,6 +2519,10 @@ void DrawCharStats( INT16 sCharNum )
 		{
 			SetFontForeground( FONT_RED );
 		}
+	}
+	else if ( pSoldier->bExtraExpLevel )
+	{
+		SetRGBFontForeground( 250, 5, 250 );
 	}
 	else
 	{
@@ -9535,50 +9555,12 @@ void MAPInvClickCamoCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			
 		if ( gpItemPointer && pSoldier )
 		{
-			BOOLEAN fGoodAPs = FALSE;
-			BOOLEAN fDoSound = FALSE;
-
 			// We are doing this ourselve, continue
 			if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
-				// Try to apply camo....
-				if ( ApplyCammo( pSoldier, gpItemPointer, &fGoodAPs ) )
+				if ( ApplyConsumable( pSoldier, gpItemPointer, FALSE, TRUE ) )
 				{
-					if ( fGoodAPs )
-					{
-						fDoSound = TRUE;
-
-						// WANNE: We should only delete the face, if there was a camo we applied.
-						// This should fix the bug and crashes with missing faces
-						if ( gGameExternalOptions.fShowCamouflageFaces )
-						{
-							// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
-							SetCamoFace( pSoldier );
-							DeleteSoldierFace( pSoldier );// remove face
-							gpItemPointerSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
-						}
-					}
-				}
-				else if ( !gGameOptions.fFoodSystem && ApplyCanteen( pSoldier, gpItemPointer, &fGoodAPs, TRUE ) )
-				{
-					;
-				}
-				else if ( ApplyElixir( pSoldier, gpItemPointer, &fGoodAPs ) )
-				{
-					fDoSound = TRUE;
-				}
-				else if ( ApplyDrugs( pSoldier, gpItemPointer ) )
-				{
-					fGoodAPs = TRUE;
-					fDoSound = TRUE;
-				}
-				else if ( gGameOptions.fFoodSystem && ApplyFood( pSoldier, gpItemPointer, FALSE, FALSE ) )
-				{
-					fGoodAPs = TRUE;
-				}
-				else if ( ApplyClothes( pSoldier, gpItemPointer ) )
-				{
-					fGoodAPs = TRUE;
+					UpdateMercBodyRegionHelpText( );
 				}
 				else
 				{
@@ -9594,20 +9576,6 @@ void MAPInvClickCamoCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					gbCompatibleApplyItem = FALSE;
 					//EndItemPointer( );
 					MAPEndItemPointer( );
-				}
-
-				if ( fGoodAPs )
-				{
-					// Dirty
-					fInterfacePanelDirty = DIRTYLEVEL2;
-
-					UpdateMercBodyRegionHelpText( );
-				}
-
-				if ( fDoSound )
-				{
-					// Say OK acknowledge....
-					pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 				}
 			}
 		}

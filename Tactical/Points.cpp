@@ -1185,14 +1185,15 @@ INT32 AdjustBreathPts( SOLDIERTYPE * pSoldier , INT32 iBPCost )
 	{
 		sBreathFactor += 100;
 	}
+
 	// SANDRO - Less breath consumption for Primitive chars
-	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )
+	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PRIMITIVE ) )
 	{
 		sBreathFactor -= 15; // -15% breath consumption
 	}
 
- // if a non-swimmer type is thrashing around in deep water
-	if ( (pSoldier->ubProfile != NO_PROFILE ) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == NONSWIMMER) )
+	// if a non-swimmer type is thrashing around in deep water
+	if ( DoesMercHaveDisability( pSoldier, NONSWIMMER ) )
 	{
 		if ( pSoldier->usAnimState == DEEP_WATER_TRED || pSoldier->usAnimState == DEEP_WATER_SWIM)
 		{
@@ -1258,11 +1259,12 @@ void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 		// Adjust for on drugs
 		HandleBPEffectDueToDrugs( pSoldier, &sBreathChange );
 
-		if ( sBreathChange > 0 )
+		// Flugente: why would we forbid losing breath in realtime?
+		/*if ( sBreathChange > 0 )
 		{
 			sBreathChange = 0;
-		}
-		else
+		}*/
+		if ( sBreathChange < 0 )
 		{
 			// We have a gain, now limit this depending on what we were doing...
 			// OK for RT, look at how many tiles we have moved, our last move anim

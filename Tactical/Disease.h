@@ -98,6 +98,7 @@ typedef struct
 	INT8		sNeedToSleep;						// +/- need to sleep
 	INT16		sDrinkModifier;						// +/- % water consumption
 	INT16		sFoodModifier;						// +/- % water consumption
+	FLOAT		moralemodifier;						// a modifier to total morale
 } DISEASE;
 
 //GLOBALS

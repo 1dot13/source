@@ -492,23 +492,38 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 			}
 		}
 
+		UINT8 strused = 0;
 		for ( UINT8 i = 0; i < BG_MAX; ++i)
 		{
 			if ( BG_DISLIKEBG == i && zBackground[ubNumber].value[i] )
 			{
-				swprintf( atStr, szBackgroundText_Value[i] );
+				swprintf( atStr, szBackgroundText_Value[strused] );
 				wcscat( apStr, atStr );
 			}
 			else if ( BG_TRACKER_ABILITY == i && zBackground[ubNumber].value[i] )
 			{
-				swprintf( atStr, szBackgroundText_Value[i], (UINT16)((gSkillTraitValues.usSVTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
+				swprintf( atStr, szBackgroundText_Value[strused], (UINT16)((gSkillTraitValues.usSVTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
 				wcscat( apStr, atStr );
+			}
+			else if ( BG_SMOKERTYPE == i )
+			{
+				if ( zBackground[ubNumber].value[i] == 1 )
+					swprintf( atStr, szBackgroundText_Value[strused] );
+				else
+					swprintf( atStr, szBackgroundText_Value[strused + 1] );
+
+				wcscat( apStr, atStr );
+
+				// smoke has 2 texts, so extra increase of counter is needed
+				++strused;
 			}
 			else if ( zBackground[ ubNumber ].value[i] )
 			{
-				swprintf(atStr, szBackgroundText_Value[ i ], zBackground[ ubNumber ].value[i] > 0 ? L"+" : L"", zBackground[ ubNumber ].value[i] );
+				swprintf( atStr, szBackgroundText_Value[strused], zBackground[ubNumber].value[i] > 0 ? L"+" : L"", zBackground[ubNumber].value[i] );
 				wcscat( apStr, atStr );
 			}
+
+			++strused;
 		}
 	}
 	else

@@ -1840,9 +1840,13 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						}
 
 						// Add effects
-						pSoldier->AddDrugValues( DRUG_TYPE_ALCOHOL, Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect, Drug[DRUG_TYPE_ALCOHOL].ubDrugTravelRate, Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect );
+						CreateItem( ALCOHOL, Item[ALCOHOL].usPortionSize, &gTempObject );
+						
+						ApplyConsumable( pSoldier, &gTempObject, TRUE, FALSE );
 
-						// ATE: Make guy collapse from heart attack if too much stuff taken....
+						//pSoldier->AddDrugValues( DRUG_TYPE_ALCOHOL, Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect, Drug[DRUG_TYPE_ALCOHOL].ubDrugTravelRate, Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect );
+
+						/*// ATE: Make guy collapse from heart attack if too much stuff taken....
 						if ( pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] > (  Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect * 3 ) )
 						{
 							if ( pSoldier->ubProfile == LARRY_NORMAL )
@@ -1938,7 +1942,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-						}
+						}*/
 						break;
 					case RISK_LOYALTY_LOCAL:
 						Result *= GAIN_PTS_PER_LOYALTY_PT; // Transform points into actual loyalty.

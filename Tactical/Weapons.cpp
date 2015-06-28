@@ -6075,14 +6075,12 @@ else
 			//Give 60% the normal stomp modifier as the aim mod
 			iAimModifier += (FLOAT)iTraitModifier * 0.6f;
 		}
-		//else
-		//{
-			// Flugente: drugs can temporarily cause a merc to go psycho
-			if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
-			{
-				iAimModifier += gGameCTHConstants.AIM_PSYCHO;
-			}
-		//}
+
+		// Flugente: drugs can temporarily cause a merc to go psycho
+		if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
+		{
+			iAimModifier += gGameCTHConstants.AIM_PSYCHO;
+		}
 
 		//////////////////////////////////////////
 		// Gun Handling modifiers
@@ -7201,12 +7199,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// HEADROCK HAM B2.6: Externalized the value
 		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), gGameExternalOptions.usMaxCTHPenaltyForMovingTarget );
 		///////////////////////////////////////////////////////////////////////////////////
-		// SANDRO - fearless characters do not even take their head down no matter what
-		if ( gGameOptions.fNewTraitSystem && pTarget->ubProfile != NO_PROFILE )
-		{
-			if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
-				iPenalty -= (iPenalty * 2 / 3);	// two thirds only
-		}
+		// SANDRO - fearless characters do not even take their head down no matter what		
+		if ( DoesMercHavePersonality( pTarget, CHAR_TRAIT_DAUNTLESS ) )
+			iPenalty -= (iPenalty * 2 / 3);	// two thirds only
 		///////////////////////////////////////////////////////////////////////////////////
 		iChance -= iPenalty;
 
@@ -9496,11 +9491,14 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	INT32 sOrigGridNo = 0;
 	BOOLEAN fFragment = FALSE;
 	INT32 iTotalArmourProtection=0;
+	UINT16 ammoitem = NOTHING;
 
 	if (pBullet == NULL && pFirer )
 	{
 		usAttackingWeapon = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType;
 		sOrigGridNo = pFirer->sGridNo;
+
+		ammoitem = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.usGunAmmoItem;
 	}
 	else
 	{
@@ -9543,6 +9541,8 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		// Flugente: check for underbarrel weapons and use that object if necessary
 		OBJECTTYPE* pObj = pFirer->GetUsedWeapon( &pFirer->inv[pFirer->ubAttackingHand] );
 		ubAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
+
+		ammoitem = (*pObj)[0]->data.gun.usGunAmmoItem;
 	}
 	else
 	{
@@ -9637,21 +9637,31 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 
 	if ( iImpact > 0 && !TANK( pTarget ) )
 	{
-		// Flugente: ammo can now add the lifedamage drug effect. This will kill the target in a few turns.
+		// Flugente: any bullet can have drug effects it set so in the magazine item
+		if ( ammoitem != NOTHING )
+		{
+			ApplyDrugs_New( pTarget, ammoitem, 100 );
+		}
+
+		/*// Flugente: ammo can now add the lifedamage drug effect. This will kill the target in a few turns.
 		// this is intended to work on darts, but it is possible on any ammo
 		if ( AmmoTypes[ubAmmoType].ammoflag & AMMO_NEUROTOXIN )
 		{			
 			pTarget->usSoldierFlagMask |= SOLDIER_DRUGGED;
 
+			ApplyDrugs_New( pTarget, ammoitem, 100 );
+
 			// Add lifedamage effects
 			pTarget->AddDrugValues( DRUG_TYPE_LIFEDAMAGE, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugEffect, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugTravelRate, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugSideEffect );
 		}
-		else if ( AmmoTypes[ubAmmoType].dart && sHitBy > 20 )
+		else */
+		if ( AmmoTypes[ubAmmoType].dart && sHitBy > 20 )
 		{
 			if (pubSpecial)
 			{
 				*pubSpecial = FIRE_WEAPON_SLEEP_DART_SPECIAL;
 			}
+
 			return( iImpact );
 		}
 
@@ -9866,14 +9876,15 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 			}
 			BOOLEAN fMaliciousHit = FALSE;
 			// SANDRO - Malicious characters inflict stat loss more often
-			if ( gGameOptions.fNewTraitSystem && pFirer && pFirer->ubProfile != NO_PROFILE && !fFragment)
+			if ( pFirer && !fFragment)
 			{
-				if ( gMercProfiles[ pFirer->ubProfile ].bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+				if ( DoesMercHavePersonality( pFirer, CHAR_TRAIT_MALICIOUS ) )
 				{
 					uiCritChance += 8;
 					fMaliciousHit = TRUE;
 				}
 			}
+
 			// SANDRO - with new traits, the chance for stat loss is higher as we are now able to repair it
 			if ((PreRandom( uiCritChance ) + 1) > (UINT8)(gGameOptions.fNewTraitSystem ? gSkillTraitValues.ubDamageNeededToLoseStats : CRITICAL_HIT_THRESHOLD))
 			{
@@ -10374,7 +10385,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	}
 
 	// bonus damage for aggressive characters
-	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 	{
 		iBonus += 10; // +10%
 	}
@@ -10622,7 +10633,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 
 	// psycho bonus - only with old traits - SANDRO
 	// Flugente: drugs can temporarily cause a merc to go psycho
-	if ( !( gGameOptions.fNewTraitSystem ) && pAttacker->ubProfile != NO_PROFILE && (gMercProfiles[ pAttacker->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(pAttacker, DRUG_TYPE_PSYCHO) ) )
+	if ( !(gGameOptions.fNewTraitSystem) && DoesMercHaveDisability( pAttacker, PSYCHO ) )
 	{
 		iAttRating += AIM_BONUS_PSYCHO;
 	}
@@ -10767,7 +10778,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	if ( gGameOptions.fNewTraitSystem && pAttacker->ubProfile != NO_PROFILE )
 	{
 		// Sociable - better performance in groups
-		if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+		if ( DoesMercHavePersonality( pAttacker, CHAR_TRAIT_SOCIABLE ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_SOCIABLE );
 			if ( bNumMercs > 2 )
@@ -10776,7 +10787,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				iAttRating += 2;
 		}
 		// Loner - better performance when alone
-		else if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+		else if ( DoesMercHavePersonality( pAttacker, CHAR_TRAIT_LONER ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_LONER );
 			if ( bNumMercs == 0 )
@@ -10785,7 +10796,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				iAttRating += 2;
 		}
 		// Show-off - better performance if some babes around to impress
-		else if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+		else if ( DoesMercHavePersonality( pAttacker, CHAR_TRAIT_SHOWOFF ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_SHOWOFF );
 			if ( bNumMercs > 1 )
@@ -11028,7 +11039,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	if ( gGameOptions.fNewTraitSystem && pDefender->ubProfile != NO_PROFILE )
 	{
 		// Sociable - better performance in groups
-		if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+		if ( DoesMercHavePersonality( pDefender, CHAR_TRAIT_SOCIABLE ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_SOCIABLE );
 			if ( bNumMercs > 2 )
@@ -11037,7 +11048,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				iDefRating += 2;
 		}
 		// Loner - better performance when alone
-		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+		else if ( DoesMercHavePersonality( pDefender, CHAR_TRAIT_LONER ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_LONER );
 			if ( bNumMercs == 0 )
@@ -11046,7 +11057,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				iDefRating += 2;
 		}
 		// Show-off - better performance if some babes around to impress
-		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+		else if ( DoesMercHavePersonality( pDefender, CHAR_TRAIT_SHOWOFF ) )
 		{	
 			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_SHOWOFF );
 			if ( bNumMercs > 1 )
@@ -11054,7 +11065,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 			else if ( bNumMercs > 0 )
 				iDefRating += 2;
 		}
-		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+		else if ( DoesMercHavePersonality( pDefender, CHAR_TRAIT_DAUNTLESS ) )
 		{
 			iDefRating -= 5;
 		}
@@ -12330,7 +12341,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 
 	// Is this Soldier a psycho?
 	// Flugente: drugs can temporarily cause a merc to go psycho
-	if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
+	if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
 	{
 		fPsycho = TRUE;
 	}
@@ -13058,7 +13069,7 @@ FLOAT CalcNewChanceToHitAimEffectBonus(SOLDIERTYPE *pSoldier)
 	}
 
 	// Flugente: drugs can temporarily cause a merc to go psycho
-	if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
+	if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
 	{
 		fAimModifier += gGameCTHConstants.AIM_PSYCHO;
 	}

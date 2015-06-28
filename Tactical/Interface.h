@@ -191,8 +191,9 @@ enum {
 	BG_PERC_DISEASE_TREAT,
 	BG_TRACKER_ABILITY,
 	BG_AMBUSH_RADIUS,
-
+	
 	BG_DISLIKEBG,			// dislike any other background that has the negative of this value set
+	BG_SMOKERTYPE,			// 0: doesnt care about smoking 1: will consume cigarettes, dislikes non-smokers 2: will refuse to smoke, dislikes smokers
 
 	BG_MAX,
 };
@@ -204,7 +205,7 @@ typedef struct
 	CHAR16		szShortName[20];				// abbreviated name for laptop display
 	CHAR16		szDescription[256];				// description of background, should explain the abilities
 
-	UINT64		uiFlags;						// this flagmask defines what speial properties this background has (on/off behaviour)	
+	UINT64		uiFlags;						// this flagmask defines what special properties this background has (on/off behaviour)	
 	INT16		value[BG_MAX];					// property values
 } BACKGROUND_VALUES;
 

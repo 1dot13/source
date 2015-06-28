@@ -1510,7 +1510,6 @@ typedef struct
 	UINT8 ubHoursBetweenStrategicDelay;
 	INT8 bValues[64];
 	INT8 bModifiers[32];
-	INT16 sDrugAndAlcoholModifiers[2];
 } MORALE_SETTINGS;
 
 typedef struct

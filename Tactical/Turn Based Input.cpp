@@ -1575,6 +1575,10 @@ void CheatCreateItem( )
 	{
 		INT16 status = 100;
 		FLOAT temperature = 0.0;
+
+		if ( Item[usitem].foodtype )
+			temperature = OVERHEATING_MAX_TEMPERATURE;
+
 		// Flugente: spawn items while debugging
 		OBJECTTYPE newobj;
 		CreateItem( usitem, status, &newobj );

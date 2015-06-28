@@ -2571,7 +2571,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		//////////////////// ALCOHOL
-		if (Item[ gpItemDescObject->usItem ].alcohol)
+		if ( Item[gpItemDescObject->usItem].alcohol > 0.0f )
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 22 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 22 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -4090,7 +4090,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 			////////////////////// PORTION SIZE
-			if ( Food[foodtype].ubPortionSize != 0 )
+			if ( Item[gpItemDescObject->usItem].usPortionSize != 0 )
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -5769,8 +5769,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 				}
 				cnt++;
 			}
-			if ( ( Food[Item[gpItemDescObject->usItem].foodtype].ubPortionSize > 0 ) ||
-				( fComparisonMode && Food[Item[gpComparedItemDescObject->usItem].foodtype].ubPortionSize > 0 ) )
+			if ( (Item[gpItemDescObject->usItem].usPortionSize > 0) ||
+				 (fComparisonMode && Item[gpComparedItemDescObject->usItem].usPortionSize > 0) )
 			{
 				//////////////////// PORTION SIZE
 				if (cnt >= sFirstLine && cnt < sLastLine)
@@ -6129,8 +6129,8 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	//////////////////// ALCOHOL
-	if ( ( Item[ gpItemDescObject->usItem ].alcohol ) ||
-		( fComparisonMode && Item[ gpComparedItemDescObject->usItem ].alcohol ) )
+	if ( (Item[gpItemDescObject->usItem].alcohol > 0.0f) ||
+		 (fComparisonMode && Item[gpComparedItemDescObject->usItem].alcohol > 0.0f) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 22, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
@@ -14057,10 +14057,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				cnt++;
 			}
 			////////////////////////// PORTION SIZE
-			iModifier[0] = Food[fFoodtype].ubPortionSize;
+			iModifier[0] = Item[gpItemDescObject->usItem].usPortionSize;
 			if( fComparisonMode )
 			{
-				iComparedModifier[0] = Food[fComparedFoodtype].ubPortionSize;
+				iComparedModifier[0] = Item[gpItemDescObject->usItem].usPortionSize;
 				iModifier[0] = iComparedModifier[0] - iModifier[0];
 			}
 			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;

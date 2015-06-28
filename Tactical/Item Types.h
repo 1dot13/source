@@ -1047,7 +1047,7 @@ typedef struct
 	BOOLEAN camouflagekit;
 	BOOLEAN locksmithkit;
 	BOOLEAN mine;	
-	BOOLEAN alcohol;
+	FLOAT alcohol;
 	BOOLEAN hardware;
 	BOOLEAN medical;
 	BOOLEAN gascan;
@@ -1169,6 +1169,9 @@ typedef struct
 	//JMich.BackpackClimb 
 	INT16	sBackpackWeightModifier; //modifier to weight calculation to climb.
 	BOOLEAN fAllowClimbing; //does item allow climbing while wearing it
+
+	BOOLEAN cigarette;				// Flugenete: this item can be smoked
+	UINT8	usPortionSize;			// Flugente: for consumables: how much of this item is consumed at once	
 
 } INVTYPE;
 

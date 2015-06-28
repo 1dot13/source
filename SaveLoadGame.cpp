@@ -1554,9 +1554,34 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			{
 				if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
 				{
-					if ( !FileRead( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesRead ) )
+					if ( guiCurrentSaveGameVersion >= DRUG_SYSTEM_REDONE )
 					{
-						return(FALSE);
+						if ( !FileRead( hFile, &this->usDynamicOpinionFlagmask, sizeof(usDynamicOpinionFlagmask), &uiNumBytesRead ) )
+						{
+							return(FALSE);
+						}
+					}
+					else
+					{
+						UINT32 tmp[NUM_PROFILES][5];
+						if ( !FileRead( hFile, &tmp, sizeof(tmp), &uiNumBytesRead ) )
+						{
+							return(FALSE);
+						}
+
+						for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
+						{
+							UINT8 i = 0;
+							for ( i = 0; i < 5; ++i )
+							{
+								this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+							}
+
+							for ( ; i < OPINION_FLAGMASKS_NUMBER; ++i )
+							{
+								this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+							}
+						}
 					}
 
 					if ( !FileRead( hFile, &this->sDynamicOpinionLongTerm, sizeof(sDynamicOpinionLongTerm), &uiNumBytesRead ) )
@@ -1566,7 +1591,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 				}
 				else
 				{
-					UINT32 tmp[NUM_PROFILES][3];		
+					UINT32 tmp[NUM_PROFILES][3];
 					if ( !FileRead( hFile, &tmp, sizeof(tmp), &uiNumBytesRead ) )
 					{
 						return(FALSE);
@@ -1574,7 +1599,13 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 
 					for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
 					{
-						for ( UINT8 i = 0; i < 3; ++i )
+						UINT8 i = 0;
+						for ( i = 0; i < 3; ++i )
+						{
+							this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+						}
+
+						for ( ; i < OPINION_FLAGMASKS_NUMBER; ++i )
 						{
 							this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
 						}
@@ -1724,10 +1755,13 @@ BOOLEAN SOLDIERTYPE::Save(HWFILE hFile)
 	{
 		return(FALSE);
 	}
-	if ( !FileWrite( hFile, &this->drugs, sizeof(STRUCT_Drugs), &uiNumBytesWritten ) )
+
+	// Flugente: changed drug structure
+	if ( !FileWrite( hFile, &this->newdrugs, sizeof(DRUGS), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
 	}
+
 	if ( !FileWrite( hFile, &this->stats, sizeof(STRUCT_Statistics), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
@@ -2610,10 +2644,32 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		{
 			return(FALSE);
 		}
-		if ( !FileRead( hFile, &this->drugs, sizeof(STRUCT_Drugs), &uiNumBytesRead ) )
+
+		if ( guiCurrentSaveGameVersion < DRUG_SYSTEM_REDONE )
 		{
-			return(FALSE);
+			// read old drugs with a dummy structure of the old structs size (192)
+			UINT8 tmp[192];
+			if ( !FileRead( hFile, &tmp, sizeof(tmp), &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}
+			
+			/*if ( !FileRead( hFile, &this->drugs, sizeof(STRUCT_Drugs), &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}*/
+
+			// clear new drugs
+			memset( &this->newdrugs, 0, sizeof(DRUGS) );
 		}
+		else
+		{
+			if ( !FileRead( hFile, &this->newdrugs, sizeof(DRUGS), &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}
+		}
+
 		//Load STRUCT_Statistics
 		numBytesRead = 0;
 		buffer = 0;

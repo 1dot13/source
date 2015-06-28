@@ -4120,7 +4120,7 @@ void DebugSoldierPage1( )
 		gprintf( 350, LINE_HEIGHT * ubLine, L"%d", pSoldier->stats.bMedical);
 		ubLine++;
 
-		SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
+		/*SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 		gprintf( 200, LINE_HEIGHT * ubLine, L"Drug Effects:");
 		SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
 		gprintf( 400, LINE_HEIGHT * ubLine, L"%d", pSoldier->drugs.bDrugEffect[0] );
@@ -4142,7 +4142,7 @@ void DebugSoldierPage1( )
 		gprintf( 200, LINE_HEIGHT * ubLine, L"Hangover Side Effects:");
 		SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
 		gprintf( 400, LINE_HEIGHT * ubLine, L"%d", pSoldier->drugs.bDrugSideEffect[1] );
-		ubLine++;
+		ubLine++;*/
 
 		SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 		gprintf( 200, LINE_HEIGHT * ubLine, L"AI has Keys:");
@@ -5428,11 +5428,12 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 		iStealthSkill -= 20; // 20% penalty
 	}
 
-	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
+	// Flugente: deleting this
+	/*if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
 	{
 		// minus 3 percent per bonus AP from adrenaline
 		iStealthSkill -= 3 * pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ];
-	}
+	}*/
 
 /*
 	// if sneaker is too eager and impatient to "do it right"
