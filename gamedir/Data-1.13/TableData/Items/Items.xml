@@ -185,6 +185,8 @@
 		<SleepModifier>0</SleepModifier>
 		<sBackpackWeightModifier>0</sBackpackWeightModifier>
 		<fAllowClimbing>0</fAllowClimbing>
+		<cigarette>0</cigarette>
+		<usPortionSize>0</usPortionSize>
 		<diseaseprotectionface>0</diseaseprotectionface>
 		<diseaseprotectionhand>0</diseaseprotectionhand>
 		<STAND_MODIFIERS>
@@ -6618,6 +6620,7 @@
 		<Canteen>1</Canteen>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<FoodType>1</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7110,7 +7113,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>4</DrugType>
+		<DrugType>5</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7372,9 +7375,11 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
+		<Alcohol>192</Alcohol>		<!-- full bottle weighs 1000g - bottle weighs 400g - 40% alc, volume mass 0.8 -> 600 * 0.4 * 0.8 = 192g of alcohol -->
 		<DrugType>2</DrugType>
+		<FoodType>2</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7587,9 +7592,11 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
-		<DrugType>2</DrugType>
+		<Alcohol>61.6</Alcohol>	<!-- full bottle weighs 1200g - bottle weighs 500g - 11% alc, volume mass 0.8 -> 700 * 0.11 * 0.8 = 192g of alcohol -->
+		<DrugType>4</DrugType>
+		<FoodType>4</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7605,15 +7612,17 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>101</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>22</ItemSize>
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
-		<DrugType>2</DrugType>
+		<Alcohol>16.56</Alcohol>	<!-- full bottle weighs 600g - bottle weighs 300g - 6.9% alc, volume mass 0.8 -> 300 * 0.069 * 0.8 = 192g of alcohol -->
+		<DrugType>3</DrugType>
+		<FoodType>3</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7908,6 +7917,9 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>7</DrugType>
+		<cigarette>1</cigarette>
+		<usPortionSize>5</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -14255,6 +14267,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>8</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31782,7 +31795,7 @@
 		<uiIndex>1019</uiIndex>
 		<szItemName>Oil</szItemName>
 		<szLongItemName>Oil</szLongItemName>
-		<szItemDesc>A can of Esso brand oil.  Funny, you don't remember seeing any Esso stations around here.</szItemDesc>
+		<szItemDesc>A can of Esso brand oil. Funny, you don't remember seeing any Esso stations around here.</szItemDesc>
 		<szBRName>Oil</szBRName>
 		<szBRDesc>We believe it is safe to say that this oil can is uncontestably the best oil can on the market today. (One year warranty, void if tampered with)</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -31803,7 +31816,7 @@
 		<uiIndex>1020</uiIndex>
 		<szItemName>Medal</szItemName>
 		<szLongItemName>Medal</szLongItemName>
-		<szItemDesc>This medal seems to be what passes for a reward for service around here.  Maybe there's a chocolately centre?</szItemDesc>
+		<szItemDesc>This medal seems to be what passes for a reward for service around here. Maybe there's a chocolately centre?</szItemDesc>
 		<szBRName>Medal</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -31826,7 +31839,7 @@
 		<uiIndex>1021</uiIndex>
 		<szItemName>Laptop</szItemName>
 		<szLongItemName>Laptop</szLongItemName>
-		<szItemDesc>This thing just crashes with a blue screen when you boot it up.  It might be the humidity.  It might just be Windows.</szItemDesc>
+		<szItemDesc>This thing just crashes with a blue screen when you boot it up. It might be the humidity. It might just be Windows.</szItemDesc>
 		<szBRName>Laptop</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -31852,7 +31865,7 @@
 		<uiIndex>1022</uiIndex>
 		<szItemName>Rag</szItemName>
 		<szLongItemName>Rag</szLongItemName>
-		<szItemDesc>A torn scrap of cloth.  Completely devoid of snot.</szItemDesc>
+		<szItemDesc>A torn scrap of cloth. Completely devoid of snot.</szItemDesc>
 		<szBRName>Rag</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -31875,7 +31888,7 @@
 		<uiIndex>1023</uiIndex>
 		<szItemName>Cuban Cigars</szItemName>
 		<szLongItemName>Cuban Cigars</szLongItemName>
-		<szItemDesc>The finest in Central American cigars.  So how did they end up here?</szItemDesc>
+		<szItemDesc>The finest in Central American cigars. So how did they end up here?</szItemDesc>
 		<szBRName>Cuban Cigars</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -31889,6 +31902,9 @@
 		<ubCoolness>2</ubCoolness>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>7</DrugType>
+		<cigarette>1</cigarette>
+		<usPortionSize>8</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46275,7 +46291,7 @@
 		<uiIndex>1535</uiIndex>
 		<szItemName>Barrage</szItemName>
 		<szLongItemName>Barrage Drug</szLongItemName>
-		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Side effects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Side effects include greatly increased aggressiveness and the risk of heart attack.</szItemDesc>
 		<szBRName>Barrage Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -46293,7 +46309,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>66064</DrugType>
+		<DrugType>6</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46303,7 +46319,7 @@
 		<uiIndex>1536</uiIndex>
 		<szItemName>Reflex</szItemName>
 		<szLongItemName>Reflex Drug</szLongItemName>
-		<szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
+		<szItemDesc>This combat drug increases makes you feel more agile. Warning: your body temperature might rise.</szItemDesc>
 		<szBRName>Reflex Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -46321,7 +46337,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>1280</DrugType>
+		<DrugType>9</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46329,10 +46345,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1537</uiIndex>
-		<szItemName>Occulin</szItemName>
-		<szLongItemName>Occulin Drug</szLongItemName>
-		<szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
-		<szBRName>Occulin Drug</szBRName>
+		<szItemName>Stim Copy</szItemName>
+		<szLongItemName>Stim Drug (Copy)</szLongItemName>
+		<szItemDesc>This cheap knockoff has more nasty sideeffects than pure stim.</szItemDesc>
+		<szBRName>Stim Drug (Copy)</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -46341,15 +46357,15 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>10</ItemSize>
-		<usPrice>110</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<usPrice>80</usPrice>
+		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>425984</DrugType>
+		<DrugType>11</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46359,7 +46375,7 @@
 		<uiIndex>1538</uiIndex>
 		<szItemName>Stim</szItemName>
 		<szLongItemName>Stim Drug</szLongItemName>
-		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
+		<szItemDesc>The ultimate combat drug. Makes you stronger, tougher, faster and generally more unpleasant.</szItemDesc>
 		<szBRName>Stim Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -46369,7 +46385,7 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>10</ItemSize>
-		<usPrice>220</usPrice>
+		<usPrice>320</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
@@ -46377,7 +46393,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>30824</DrugType>
+		<DrugType>10</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46519,6 +46535,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>5</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46543,6 +46560,7 @@
 		<BR_NewInventory>25</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>6</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46567,6 +46585,7 @@
 		<BR_NewInventory>20</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>7</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46590,6 +46609,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>8</FoodType>
+		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46613,6 +46633,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>9</FoodType>
+		<usPortionSize>15</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46636,6 +46657,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>10</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46659,6 +46681,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>11</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46682,6 +46705,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>12</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46705,6 +46729,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>13</FoodType>
+		<usPortionSize>13</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46729,13 +46754,14 @@
 		<BR_NewInventory>15</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>14</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>1554</uiIndex>
-		<szItemName>Spam 2</szItemName>
+		<szItemName>More Spam</szItemName>
 		<szLongItemName>Spam in a can</szLongItemName>
 		<szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam, wonderful spam!</szItemDesc>
 		<szBRName>Spam 2</szBRName>
@@ -46753,6 +46779,7 @@
 		<BR_NewInventory>15</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>15</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46777,6 +46804,7 @@
 		<BR_NewInventory>18</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>16</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46799,9 +46827,9 @@
 		<ubCoolness>4</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>7</BR_NewInventory>
-		<DrugType>8192</DrugType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>17</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46825,6 +46853,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>18</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46848,6 +46877,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>19</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46856,7 +46886,7 @@
 		<uiIndex>1559</uiIndex>
 		<szItemName>Steak</szItemName>
 		<szLongItemName>Steak</szLongItemName>
-		<szItemDesc>The best arulcan steak you'll find in .. Arulco.</szItemDesc>
+		<szItemDesc>The best arulcan steak you'll find in ... Arulco.</szItemDesc>
 		<szBRName>Steak</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -46871,6 +46901,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>20</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46894,6 +46925,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>21</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46917,6 +46949,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>22</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46940,6 +46973,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>23</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46963,6 +46997,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>24</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46986,6 +47021,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>25</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47010,6 +47046,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>26</FoodType>
+		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47034,6 +47071,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>27</FoodType>
+		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47057,6 +47095,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>28</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47080,6 +47119,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>29</FoodType>
+		<usPortionSize>50</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47105,6 +47145,7 @@
 		<Canteen>1</Canteen>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>30</FoodType>
+		<usPortionSize>1</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47129,6 +47170,7 @@
 		<BR_NewInventory>30</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>31</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47153,6 +47195,7 @@
 		<BR_NewInventory>14</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>32</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47176,6 +47219,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>33</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47197,9 +47241,10 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
+		<DrugType>12</DrugType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>34</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47221,9 +47266,10 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
+		<DrugType>12</DrugType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>35</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47245,9 +47291,10 @@
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
+		<DrugType>13</DrugType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>36</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47463,6 +47510,7 @@
 		<Damageable>1</Damageable>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>38</FoodType>
+		<usPortionSize>8</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48877,7 +48925,7 @@
 		<uiIndex>1634</uiIndex>
 		<szItemName>M99</szItemName>
 		<szLongItemName>M99</szLongItemName>
-		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed, and you are not an elephant.</szItemDesc>
+		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed and you're no elephant.</szItemDesc>
 		<szBRName>M99</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -48891,7 +48939,7 @@
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
-		<DrugType>2097152</DrugType>
+		<DrugType>14</DrugType>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -51012,8 +51060,7 @@
 		<usPrice>400</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<Medical>1</Medical>
-		<DrugType>4194304</DrugType>
-		<FoodType>39</FoodType>
+		<DrugType>15</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51036,7 +51083,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
-		<DrugType>8388608</DrugType>
+		<DrugType>16</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51059,7 +51106,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
-		<DrugType>16777216</DrugType>
+		<DrugType>17</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51086,7 +51133,8 @@
 		<Hardware>1</Hardware>
 		<Canteen>1</Canteen>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<FoodType>40</FoodType>
+		<FoodType>39</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

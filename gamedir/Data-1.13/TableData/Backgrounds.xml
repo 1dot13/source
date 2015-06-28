@@ -85,6 +85,9 @@
 		<disease_treatment>0</disease_treatment>          <!-- +- % effectiveness on treating civilians against disease, -50 to 50 -->
 		<tracker_ability>0</tracker_ability>			  <!-- + % range on tracking ability, see [Ranger] in Skills_Setings.ini, 0 to 40 -->
 		<ambush_radius>0</ambush_radius>				  <!-- + % bonus on ambush range, see AMBUSH_MERCS_SPREAD_RADIUS in JA2_Options.ini, 0 to 50 -->
+		<smoker>0</smoker>								  <!-- 0: doesn't care about smoking 
+															   1: smoker: consumes cigarettes, dislikes anti-smokers 
+															   2: anti-smoker: refuses to smoke, dislikes smokers-->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -125,6 +128,7 @@
 		<drink_energyregen>10</drink_energyregen>
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -184,6 +188,7 @@
 		<carrystrength>3</carrystrength>
 		<approach_direct>8</approach_direct>
 		<approach_threaten>5</approach_threaten>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -229,6 +234,7 @@
 		<traplevel>1</traplevel>
 		<ap_inventory>-10</ap_inventory> 
 		<insurance>40</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -269,6 +275,7 @@
 		<drink_energyregen>15</drink_energyregen>
 		<capitulation>10</capitulation>
 		<spotter>3</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -319,6 +326,7 @@
 		<spotter>5</spotter>
 		<food>-20</food>
 		<water>-5</water>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -365,6 +373,7 @@
 		<traplevel>1</traplevel>
 		<spotter>3</spotter>
 		<insurance>50</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -392,6 +401,7 @@
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
 		<spotter>5</spotter>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -409,6 +419,7 @@
 		<resistance_suppression>10</resistance_suppression>
 		<insurance>40</insurance>
 		<spotter>3</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -448,6 +459,7 @@
 		<approach_recruit>10</approach_recruit>
 		<carrystrength>-5</carrystrength>
 		<spotter>3</spotter>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -475,6 +487,7 @@
 		<agility>-8</agility>
 		<spotter>5</spotter>
 		<capitulation>25</capitulation>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -502,6 +515,7 @@
 		<carrystrength>3</carrystrength>
 		<prisonguard>10</prisonguard>
 		<increased_maxcth>3</increased_maxcth>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -522,6 +536,7 @@
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
 		<xenophobic>1</xenophobic>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -540,6 +555,7 @@
 		<ap_assault>-5</ap_assault>
 		<cth_blades>5</cth_blades> 
 		<speed_bandaging>25</speed_bandaging>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -582,6 +598,7 @@
 		<carrystrength>50</carrystrength>
 		<spotter>3</spotter>
 		<prisonguard>300</prisonguard>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<dislikebackground>-1</dislikebackground>
@@ -608,6 +625,7 @@
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -636,6 +654,7 @@
 		<spotter>15</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -678,6 +697,7 @@
 		<prisonguard>75</prisonguard>
 		<breachingcharge>50</breachingcharge>
 		<spotter>15</spotter>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<dislikebackground>-2</dislikebackground>
@@ -706,6 +726,7 @@
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
 		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -772,6 +793,7 @@
 		<drink_energyregen>66</drink_energyregen>
 		<carrystrength>6</carrystrength>
 		<insurance>66</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -792,6 +814,7 @@
 		<breachingcharge>20</breachingcharge>
 		<spotter>3</spotter>
 		<scrounging>1</scrounging>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<dislikebackground>2</dislikebackground>
@@ -812,6 +835,7 @@
 		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -835,6 +859,7 @@
 		<spotter>5</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -849,6 +874,7 @@
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>3</resistance_fear>
 		<spotter>3</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -868,6 +894,7 @@
 		<resistance_alcohol>-20</resistance_alcohol>
 		<meleedamage>6</meleedamage>
 		<cth_blades>3</cth_blades>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -897,6 +924,7 @@
 		<capitulation>10</capitulation>
 		<spotter>3</spotter>
 		<insurance>40</insurance>
+		<smoker>1</smoker>
 		<druguse>1</druguse>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -917,6 +945,7 @@
 		<resistance_fear>5</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
 		<resistance_alcohol>10</resistance_alcohol>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -989,6 +1018,7 @@
 		<resistance_suppression>-10</resistance_suppression>
 		<spotter>-5</spotter>
 		<insurance>25</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1006,6 +1036,7 @@
 		<approach_threaten>10</approach_threaten>
 		<capitulation>10</capitulation>
 		<spotter>3</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1034,6 +1065,7 @@
 		<resistance_fear>-20</resistance_fear>
 		<resistance_suppression>-20</resistance_suppression>
 		<spotter>-10</spotter>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1056,6 +1088,7 @@
 		<spotter>2</spotter>
 		<druguse>1</druguse>
 		<insurance>15</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1087,6 +1120,7 @@
 		<traplevel>1</traplevel>
 		<drink_energyregen>10</drink_energyregen>
 		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>  
@@ -1134,7 +1168,7 @@
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>10</betterprices>
 		<resistance_alcohol>5</resistance_alcohol>
-		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1180,6 +1214,7 @@
 		<spotter>3</spotter>
 		<scrounging>1</scrounging>
 		<insurance>50</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1204,6 +1239,7 @@
 		<druguse>1</druguse>
 		<scrounging>1</scrounging>
 		<insurance>100</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1246,6 +1282,7 @@
 		<stealth>2</stealth>
 		<approach_recruit>-15</approach_recruit>
 		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>				
 	</BACKGROUND>
@@ -1342,6 +1379,7 @@
 		<capitulation>12</capitulation>
 		<travel_foot>5</travel_foot>
 		<approach_recruit>15</approach_recruit>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<loyalitylossondeath>1</loyalitylossondeath>
@@ -1367,6 +1405,7 @@
 		<travel_foot>5</travel_foot>
 		<approach_threaten>10</approach_threaten>
 		<level_underground>1</level_underground>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1394,6 +1433,7 @@
 		<spotter>9</spotter>
 		<disease_diagnose>30</disease_diagnose>
 		<disease_treatment>25</disease_treatment>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1436,6 +1476,7 @@
 		<resistance_alcohol>5</resistance_alcohol>
 		<insurance>60</insurance>
 		<stealth>4</stealth>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1539,6 +1580,7 @@
 		<hearing_night>2</hearing_night>
 		<druguse>1</druguse>
 		<level_underground>1</level_underground>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<dislikebackground>1</dislikebackground>
@@ -1587,6 +1629,7 @@
 		<speed_bandaging>20</speed_bandaging>
 		<betterprices>3</betterprices>
 		<approach_friendly>10</approach_friendly>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1647,6 +1690,7 @@
 		<drink_energyregen>20</drink_energyregen>
 		<scrounging>1</scrounging>
 		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3327,6 +3371,7 @@
 		<speed_bandaging>10</speed_bandaging>
 		<approach_friendly>4</approach_friendly>
 		<spotter>2</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3349,6 +3394,7 @@
 		<spotter>5</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3403,6 +3449,7 @@
 		<insurance>20</insurance>
 		<tracker_ability>20</tracker_ability>
 		<ambush_radius>8</ambush_radius>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3501,6 +3548,7 @@
 		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3515,6 +3563,7 @@
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>3</resistance_fear>
 		<spotter>3</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3558,6 +3607,7 @@
 		<cth_blades>4</cth_blades>
 		<resistance_fear>3</resistance_fear>
 		<insurance>10</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3598,6 +3648,7 @@
 		<ambush_radius>30</ambush_radius>
 		<traplevel>1</traplevel>
 		<spotter>5</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3625,6 +3676,7 @@
 		<approach_recruit>-50</approach_recruit>
 		<insurance>100</insurance>
 		<druguse>1</druguse>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3640,6 +3692,7 @@
 		<hearing_day>2</hearing_day>
 		<interrogation>50</interrogation>
 		<spotter>10</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3685,6 +3738,7 @@
 		<approach_friendly>-5</approach_friendly>
 		<approach_threaten>10</approach_threaten>
 		<resistance_disease>-20</resistance_disease>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3708,6 +3762,7 @@
 		<capitulation>15</capitulation>
 		<approach_friendly>7</approach_friendly>
 		<insurance>100</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3763,6 +3818,7 @@
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>20</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3791,6 +3847,7 @@
 		<spotter>-10</spotter>
 		<capitulation>-30</capitulation>
 		<insurance>20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3837,6 +3894,7 @@
 		<approach_recruit>3</approach_recruit>
 		<meleedamage>-3</meleedamage>
 		<xenophobic>1</xenophobic>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3862,6 +3920,7 @@
 		<water>-5</water>
 		<drink_energyregen>25</drink_energyregen>
 		<carrystrength>6</carrystrength>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4225,6 +4284,7 @@
 		<speed_run>2</speed_run>
 		<spotter>2</spotter>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>	
 	</BACKGROUND>
@@ -4285,6 +4345,7 @@
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4310,6 +4371,7 @@
 		<spotter>2</spotter>
 		<xenophobic>1</xenophobic>
 		<insurance>50</insurance>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4330,6 +4392,7 @@
 		<approach_friendly>20</approach_friendly>
 		<approach_threaten>-20</approach_threaten>
 		<disarm_trap>10</disarm_trap>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4355,6 +4418,7 @@
 		<hearing_night>1</hearing_night>
 		<hearing_day>1</hearing_day>
 		<spotter>3</spotter>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4405,6 +4469,7 @@
 		<resistance_fear>-10</resistance_fear>
 		<drink_energyregen>-10</drink_energyregen>
 		<scrounging>1</scrounging>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4473,6 +4538,7 @@
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<insurance>-20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4545,6 +4611,7 @@
 		<capitulation>15</capitulation>
 		<tracker_ability>10</tracker_ability>
 		<ambush_radius>20</ambush_radius>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4572,6 +4639,7 @@
 		<breachingcharge>20</breachingcharge>
 		<spotter>3</spotter>
 		<scrounging>1</scrounging>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 		<dislikebackground>1</dislikebackground>
@@ -4585,6 +4653,7 @@
 		<marksmanship>8</marksmanship>
 		<increased_maxcth>3</increased_maxcth>
 		<spotter>9</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4658,7 +4727,8 @@
 		<approach_recruit>10</approach_recruit>
 		<meleedamage>3</meleedamage>
 		<cth_blades>3</cth_blades>
-		<scrounging>1</scrounging> 
+		<scrounging>1</scrounging>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4723,6 +4793,7 @@
 		<disarm_trap>10</disarm_trap>
 		<traplevel>1</traplevel>
 		<insurance>20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4740,6 +4811,7 @@
 		<ap_airdrop>-5</ap_airdrop>
 		<cth_blades>5</cth_blades> 
 		<speed_bandaging>25</speed_bandaging>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>		
 	</BACKGROUND>
@@ -4799,6 +4871,7 @@
 		<interrogation>-15</interrogation>
 		<camo>10</camo>
 		<stealth>10</stealth>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4819,6 +4892,7 @@
 		<drink_energyregen>15</drink_energyregen>
 		<camo>5</camo>
 		<spotter>2</spotter>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4845,6 +4919,7 @@
 		<approach_threaten>-10</approach_threaten>
 		<approach_recruit>10</approach_recruit>
 		<scrounging>1</scrounging>
+		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4927,6 +5002,7 @@
 		<disarm_trap>10</disarm_trap>
 		<traplevel>1</traplevel>
 		<insurance>20</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4991,6 +5067,7 @@
 		<traplevel>1</traplevel>
 		<spotter>-5</spotter>
 		<insurance>50</insurance>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>

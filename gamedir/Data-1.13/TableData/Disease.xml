@@ -40,6 +40,7 @@
 		<sNeedToSleep>1</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>1</uiIndex>
@@ -82,6 +83,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>400</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>2</uiIndex>
@@ -124,6 +126,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>200</sDrinkModifier>
 		<sFoodModifier>200</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>3</uiIndex>
@@ -166,6 +169,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>4</uiIndex>
@@ -208,6 +212,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>5</uiIndex>
@@ -250,6 +255,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>400</sDrinkModifier>
 		<sFoodModifier>200</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>6</uiIndex>
@@ -292,6 +298,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>900</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>7</uiIndex>
@@ -334,6 +341,7 @@
 		<sNeedToSleep>1</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>8</uiIndex>
@@ -376,6 +384,7 @@
 		<sNeedToSleep>2</sNeedToSleep>
 		<sDrinkModifier>100</sDrinkModifier>
 		<sFoodModifier>100</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>	
 	<DISEASE>
 		<uiIndex>9</uiIndex>
@@ -418,6 +427,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>10</uiIndex>
@@ -460,6 +470,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>0.95</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>11</uiIndex>
@@ -502,6 +513,7 @@
 		<sNeedToSleep>1</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>0.9</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>12</uiIndex>
@@ -544,6 +556,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>13</uiIndex>
@@ -586,6 +599,7 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>14</uiIndex>
@@ -628,5 +642,136 @@
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
+	</DISEASE>
+	<DISEASE>
+		<uiIndex>15</uiIndex>
+		<szName>Drug Addiction</szName>
+		<szFatName>|D|r|u|g |A|d|d|i|c|t|i|o|n</szFatName>
+		<szDescription>You've become addicted to various substances. Until your body has removed all traces of drugs, you will suffer from withdrawal.</szDescription>
+		<sInfectionPtsInitial>100</sInfectionPtsInitial>
+		<sInfectionPtsOutbreak>1000</sInfectionPtsOutbreak>
+		<sInfectionPtsFull>2000</sInfectionPtsFull>
+		<sInfectionPtsGainPerHour>-20</sInfectionPtsGainPerHour>		
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
+		<fCanBeCured>0</fCanBeCured>
+		<fReverseOnFull>0</fReverseOnFull>
+		<fCanReInfect>1</fCanReInfect>
+		<fHideSymbol>1</fHideSymbol>
+		<fDisgusting>1</fDisgusting>
+		<sEffStatAGI>-20</sEffStatAGI>
+		<sEffStatDEX>-40</sEffStatDEX>
+		<sEffStatSTR>-20</sEffStatSTR>
+		<sEffStatWIS>-20</sEffStatWIS>
+		<sEffStatEXP>-2</sEffStatEXP>
+		<sEffAP>-20</sEffAP>
+		<usMaxBreath>6</usMaxBreath>
+		<sEffCarryStrength>0</sEffCarryStrength>
+		<sLifeRegenHundreds>-40</sLifeRegenHundreds>
+		<sNeedToSleep>1</sNeedToSleep>
+		<sDrinkModifier>200</sDrinkModifier>
+		<sFoodModifier>100</sFoodModifier>
+		<moralemodifier>0.3</moralemodifier>
+	</DISEASE>
+	<DISEASE>
+		<uiIndex>16</uiIndex>
+		<szName>Hungover</szName>
+		<szFatName>|H|u|n|g|o|v|e|r</szFatName>
+		<szDescription>That last beer was definitely spoiled.</szDescription>
+		<sInfectionPtsInitial>10</sInfectionPtsInitial>
+		<sInfectionPtsOutbreak>112</sInfectionPtsOutbreak>
+		<sInfectionPtsFull>280</sInfectionPtsFull>
+		<sInfectionPtsGainPerHour>-9</sInfectionPtsGainPerHour>		
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
+		<fCanBeCured>0</fCanBeCured>
+		<fReverseOnFull>0</fReverseOnFull>
+		<fCanReInfect>1</fCanReInfect>
+		<fHideSymbol>1</fHideSymbol>
+		<fDisgusting>0</fDisgusting>
+		<sEffStatAGI>-20</sEffStatAGI>
+		<sEffStatDEX>0</sEffStatDEX>
+		<sEffStatSTR>0</sEffStatSTR>
+		<sEffStatWIS>-20</sEffStatWIS>
+		<sEffStatEXP>-4</sEffStatEXP>
+		<sEffAP>-20</sEffAP>
+		<usMaxBreath>0</usMaxBreath>
+		<sEffCarryStrength>0</sEffCarryStrength>
+		<sLifeRegenHundreds>0</sLifeRegenHundreds>
+		<sNeedToSleep>4</sNeedToSleep>
+		<sDrinkModifier>40</sDrinkModifier>
+		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>0.5</moralemodifier>
+	</DISEASE>
+	<DISEASE>
+		<!-- As cancer grows over a long time, it does not grow on itself ingame, only by consuming cigarettes -->
+		<uiIndex>17</uiIndex>
+		<szName>Lung Cancer</szName>
+		<szFatName>|L|u|n|g |C|a|n|c|e|r</szFatName>
+		<szDescription>Lung cancer is a malignant lung tumor characterized by uncontrolled cell growth in tissues of the lung. If left untreated, this growth can spread beyond the lung.</szDescription>
+		<sInfectionPtsInitial>100</sInfectionPtsInitial>
+		<sInfectionPtsOutbreak>1000</sInfectionPtsOutbreak>
+		<sInfectionPtsFull>3000</sInfectionPtsFull>
+		<sInfectionPtsGainPerHour>0</sInfectionPtsGainPerHour>		
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
+		<fCanBeCured>0</fCanBeCured>
+		<fReverseOnFull>0</fReverseOnFull>
+		<fCanReInfect>1</fCanReInfect>
+		<fHideSymbol>1</fHideSymbol>
+		<fDisgusting>0</fDisgusting>
+		<sEffStatAGI>0</sEffStatAGI>
+		<sEffStatDEX>0</sEffStatDEX>
+		<sEffStatSTR>0</sEffStatSTR>
+		<sEffStatWIS>0</sEffStatWIS>
+		<sEffStatEXP>0</sEffStatEXP>
+		<sEffAP>-8</sEffAP>
+		<usMaxBreath>20</usMaxBreath>
+		<sEffCarryStrength>-10</sEffCarryStrength>
+		<sLifeRegenHundreds>-50</sLifeRegenHundreds>
+		<sNeedToSleep>0</sNeedToSleep>
+		<sDrinkModifier>0</sDrinkModifier>
+		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 </DISEASESLIST>
