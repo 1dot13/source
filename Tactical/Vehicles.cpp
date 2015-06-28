@@ -201,7 +201,8 @@ BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-void InitAVehicle(int index, int x, int y) {
+void InitAVehicle(int index, int x, int y)
+{
 	gubVehicleMovementGroups[ index ] = CreateNewVehicleGroupDepartingFromSector( x, y, index );
 
 	// Set persistent....
@@ -212,17 +213,19 @@ void InitAVehicle(int index, int x, int y) {
 
 
 // Loop through and create a few soldier squad ID's for vehicles
-void InitAllVehicles( ) {
-	for( int cnt = 0; cnt <	MAX_VEHICLES; cnt++ )
+void InitAllVehicles( )
+{
+	for( int cnt = 0; cnt <	MAX_VEHICLES; ++cnt )
 		InitAVehicle(cnt, 1, 1);
 }
 
 
 void SetVehicleValuesIntoSoldierType( SOLDIERTYPE *pVehicle )
 {
-//	wcscpy( pVehicle->name, zVehicleName[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ] );
-	wcscpy( pVehicle->name, gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].NewVehicleName );
-	
+	//wcscpy( pVehicle->name, zVehicleName[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ] );
+	//wcscpy( pVehicle->name, gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].NewVehicleName );
+	wcsncpy( pVehicle->name, gNewVehicle[pVehicleList[pVehicle->bVehicleID].ubVehicleType].NewVehicleName, (sizeof(pVehicle->name) / sizeof(pVehicle->name[0]) - 1) );
+
 	pVehicle->ubProfile = pVehicleList[ pVehicle->bVehicleID ].ubProfileID;
 
 	// Init fuel!
@@ -242,11 +245,10 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 	BOOLEAN fFoundEmpty = FALSE;
 	GROUP *pGroup;
 
-
 	if( pVehicleList != NULL )
 	{
 		// not the first, add to list
-		for( iCounter = 0; iCounter < ubNumberOfVehicles ; iCounter++ )
+		for( iCounter = 0; iCounter < ubNumberOfVehicles ; ++iCounter )
 		{
 			// might have an empty slot
 			if( pVehicleList[ iCounter ].fValid == FALSE )
@@ -254,7 +256,7 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 				iCount = iCounter;
 				iCounter = ubNumberOfVehicles;
 				fFoundEmpty = TRUE;
-			iVehicleIdValue = iCount;
+				iVehicleIdValue = iCount;
 			}
 		}
 	}
@@ -274,8 +276,7 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 		ubNumberOfVehicles = 1;
 		iVehicleIdValue		= 0;
 	}
-
-
+	
 	if( ( iVehicleIdValue == -1 ) && ( iCount != 0 ) && ( fFoundEmpty == FALSE ) )
 	{
 
@@ -300,9 +301,7 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 		// now get the index value
 		iVehicleIdValue = ubNumberOfVehicles;
 
-		ubNumberOfVehicles++;
-
-
+		++ubNumberOfVehicles;
 	}
 
 	// found a slot

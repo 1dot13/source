@@ -2696,6 +2696,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		pp->bOrders								= bp->bOrders;
 		pp->bAttitude							= bp->bAttitude;
 		pp->ubDirection						= bp->ubDirection;
+		pp->bBodyType						= bp->bBodyType;
 		pp->bPatrolCnt						= bp->bPatrolCnt;
 		memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 		pp->fHasKeys							= bp->fHasKeys;
