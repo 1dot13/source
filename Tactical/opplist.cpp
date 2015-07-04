@@ -3439,7 +3439,7 @@ void BetweenTurnsVisibilityAdjustments(void)
 
 void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirginSector, BOOLEAN fSeenJoey )
 {
-	SOLDIERTYPE *pTeamSoldier;
+	SOLDIERTYPE		*pTeamSoldier;
 	UINT8				ubNumEnemies = 0;
 	UINT8				ubNumAllies = 0;
 	UINT32			cnt;
@@ -3456,7 +3456,7 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 	{
 		// Get total enemies.
 		// Loop through all mercs in sector and count # of enemies
-		for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
+		for ( cnt = 0; cnt < guiNumMercSlots; ++cnt )
 		{
 			pTeamSoldier = MercSlots[ cnt ];
 
@@ -3464,13 +3464,13 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 			{
 				if ( OK_ENEMY_MERC( pTeamSoldier ) )
 				{
-					ubNumEnemies++;
+					++ubNumEnemies;
 				}
 			}
 		}
 
 		// OK, after this, check our guys
-		for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
+		for ( cnt = 0; cnt < guiNumMercSlots; ++cnt )
 		{
 			pTeamSoldier = MercSlots[ cnt ];
 
@@ -3480,7 +3480,7 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 				{
 					if ( pTeamSoldier->aiData.bOppCnt >= ( ubNumEnemies / 2 ) )
 					{
-							ubNumAllies++;
+						++ubNumAllies;
 					}
 				}
 			}
@@ -3496,13 +3496,10 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 
 			return;
 		}
-
 	}
-
 
 	if ( fSeenCreature == 1 )
 	{
-
 		// Is this our first time seeing them?
 		if ( gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags & PROFILE_MISC_FLAG_HAVESEENCREATURE )
 		{
@@ -3573,21 +3570,15 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 			// Flugente: no quotes on seeing enemy when covert
 			if ( (pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) == 0 )
 			{
-#ifdef ENGLISH
-				if ( Random( 100 ) < 30 )
+				// Flugente: apparently the goal was to have mercs only announce enemies shorter occasionally
+				if ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) )
 				{
-					pSoldier->DoMercBattleSound( BATTLE_SOUND_ENEMY );
+					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
 				}
 				else
 				{
-					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
-					//pSoldier->ubLastEnemyDetectedProvokingQuote = pSoldier->aiData.ubCaller;
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_ENEMY );
 				}
-#else
-				//ddd TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
-				if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
-					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
-#endif
 			}
 		}
 	}
