@@ -1,5 +1,5 @@
 ﻿<!--
-<uiIndex>				number referred to by DrugType in Items.xml
+<uiIndex>				number referred to by DrugType in Items.xml. 100 drugs may be defined.
 <szName>				name of drug
 <opinionevent>			if 1, other mercs will complain about drug use
 
@@ -473,20 +473,20 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 		<DRUG_EFFECT>
 			<effect>1</effect>
 			<duration>3</duration>
-			<size>-100</size>
+			<size>-300</size>
 		</DRUG_EFFECT>
 		
-		<!-- slightly increased morale breath -->
+		<!-- slightly increased morale -->
 		<DRUG_EFFECT>
 			<effect>3</effect>
 			<duration>3</duration>
-			<size>1</size>
+			<size>21</size>
 		</DRUG_EFFECT>
 		
 		<!-- lung cancer -->
 		<DISEASE_EFFECT>
 			<disease>17</disease>
-			<size>100</size>
+			<size>150</size>
 		</DISEASE_EFFECT>	
 	</DRUG>
 	<DRUG>
@@ -763,5 +763,14 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 			<disease>5</disease>
 			<size>-800</size>
 		</DISEASE_EFFECT>
+	</DRUG>
+	<DRUG>
+		<uiIndex>18</uiIndex>
+		<szName>Neurotoxin dart</szName>
+		<DRUG_EFFECT>
+			<effect>0</effect>
+			<duration>3</duration>
+			<size>-35</size>
+		</DRUG_EFFECT>
 	</DRUG>
 </DRUGSLIST>

@@ -1136,7 +1136,6 @@
 		<spreadPattern />
 		<temperatureModificator>-0.1</temperatureModificator>
 		<dirtModificator>0</dirtModificator>
-		<ammoflag>1</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 	</AMMOTYPE>

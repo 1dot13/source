@@ -47374,6 +47374,7 @@
 		<ubCoolness>8</ubCoolness>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>18</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48917,6 +48918,7 @@
 		<Sinks>1</Sinks>
 		<TwoHanded>1</TwoHanded>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DrugType>18</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
