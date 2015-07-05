@@ -652,7 +652,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 
 	AssertGE (mapMaximumNumberOfEnemies, 0);
-
+	
 	if (mapMaximumNumberOfEnemies > gGameExternalOptions.ubGameMaximumNumberOfEnemies)
 		mapMaximumNumberOfEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 
@@ -690,9 +690,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	else
 	{
 		if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
-		{ //count the number of enemy placements in a map and use those
+		{
+			//count the number of enemy placements in a map and use those
 			SOLDIERINITNODE *curr = gSoldierInitHead;
-			ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
+			ubTotalAdmins = ubTotalTroops = ubTotalElites = ubTotalTanks = 0;
 			while( curr )
 			{
 				if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
@@ -702,6 +703,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
 						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
 						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
+						case SOLDIER_CLASS_TANK:				ubTotalTanks++;		break;
 					}
 				}
 				curr = curr->next;
@@ -720,7 +722,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
 			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
 			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
-			ubTotalTanks = pSector->ubNumTanks - pSector->ubTanksInBattle;
+			ubTotalTanks  = pSector->ubNumTanks  - pSector->ubTanksInBattle;
 		}
 	}
 
@@ -876,7 +878,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	//Now, we have to go through all of the enemies in the new map, and assign their respective groups if
 	//in a mobile group, but only for the ones that were assigned from the
-	sNumSlots = mapMaximumNumberOfEnemies - totalCountOfStationaryEnemies;
+	//sNumSlots = mapMaximumNumberOfEnemies - totalCountOfStationaryEnemies;
+
+	// Flugente: at this point, soldiers have already been placed, thus enough slots for them exist
+	sNumSlots = max( mapMaximumNumberOfEnemies, NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) );
 
 	pGroup = gpGroupList;
 	while( pGroup && sNumSlots > 0 )
@@ -887,7 +892,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubNumAdmins = pGroup->pEnemyGroup->ubAdminsInBattle;
 			ubNumTroops = pGroup->pEnemyGroup->ubTroopsInBattle;
 			ubNumElites = pGroup->pEnemyGroup->ubElitesInBattle;
-			ubNumTanks = pGroup->pEnemyGroup->ubTanksInBattle;
+			ubNumTanks  = pGroup->pEnemyGroup->ubTanksInBattle;
 			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
 
 			unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
@@ -896,7 +901,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			AssertGE((int)slotsAvailable, sNumSlots);
 
 			for (unsigned slot = firstSlot;
-				(slot <= lastSlot) && (num > 0);
+				  (slot <= lastSlot) && num && sNumSlots;
 				++slot)
 			{
 				pSoldier = &Menptr[ slot ];
@@ -904,6 +909,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				// Skip inactive and already grouped soldiers
 				if (!pSoldier->bActive || pSoldier->ubGroupID)
 				{
+					// if this guy already has an ID, reduce the number of people who still need one
+					--num;
+					--sNumSlots;
+					
 					continue;
 				}
 
@@ -966,11 +975,13 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 			}
 
-			AssertEQ( ubNumElites , 0);
+			// Flugente: instead of just crashing the game without any explanation to the user, ignore this issue if it still exists.
+			// The worst that should happen is a warning that a soldier has no group id.
+			/*AssertEQ( ubNumElites , 0);
 			AssertEQ( ubNumTroops , 0);
 			AssertEQ( ubNumAdmins , 0);
 			AssertEQ( ubNumTanks , 0);
-			AssertEQ( num , 0);
+			AssertEQ( num , 0);*/
 		}
 		pGroup = pGroup->next;
 	}
