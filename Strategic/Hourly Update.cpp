@@ -21,6 +21,7 @@
 	#include "Tactical Save.h"		// added by Flugente
 	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
 	#include "Drugs And Alcohol.h"	// added by Flugente for HourlyDrugUpdate()
+	#include "Interface.h"			// added by Flugente
 #endif
 
 #include "Luaglobal.h"
@@ -514,7 +515,7 @@ void HourlyLarryUpdate()
 		}
 	}
 }
-#include "Interface.h"
+
 // Flugente: mercs that are smokers occasionally consume smokes if they have some in their inventory
 void HourlySmokerUpdate( )
 {

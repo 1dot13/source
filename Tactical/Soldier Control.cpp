@@ -22902,6 +22902,7 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	if ( !(Item[pObj->usItem].usItemClass & (IC_KIT | IC_MISC)) )
 		return FALSE;
 
+	BOOLEAN fSuccess = FALSE;
 	BOOLEAN fDoSound = FALSE;
 
 	// use portionsize, if none was entered, use full item
@@ -22993,6 +22994,7 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	// this returns true if camo can be applied, but APs were only used, and the action happened, if *pfGoodAPs is TRUE
 	if ( ApplyCamo( pSoldier, pObj->usItem, statusused ) )
 	{
+		fSuccess = TRUE;
 		fDoSound = TRUE;
 
 		// WANNE: We should only delete the face, if there was a camo we applied.
@@ -23008,47 +23010,57 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	
 	if ( ApplyCanteen( pSoldier, pObj->usItem, statusused ) )
 	{
+		fSuccess = TRUE;
 		fDoSound = FALSE;
 	}
 	
 	if ( ApplyElixir( pSoldier, pObj->usItem, statusused ) )
 	{
+		fSuccess = TRUE;
 		fDoSound = TRUE;
 	}
 	
 	if ( ApplyClothes( pSoldier, pObj->usItem, statusused ) )
 	{
-		
+		fSuccess = TRUE;
 	}
 	
 	if ( ApplyFood( pSoldier, pObj, statusused ) )
 	{
+		fSuccess = TRUE;
 		fDoSound = FALSE;
 	}
 	
 	if ( ApplyDrugs_New( pSoldier, pObj->usItem, statusused ) )
 	{
+		fSuccess = TRUE;
+
 		// no sound on consuming cigarettes, as that is very annoying
 		if ( !Item[pObj->usItem].cigarette )
 		{
 			fDoSound = TRUE;
 		}
 	}
-		
-	// use up object
-	UseKitPoints( pObj, statusused, pSoldier );
 	
-	if ( fUseAPs )
+	if ( fSuccess )
 	{
-		// Dirty
-		fInterfacePanelDirty = DIRTYLEVEL2;
+		// use up object
+		UseKitPoints( pObj, statusused, pSoldier );
+
+		if ( fUseAPs )
+		{
+			// Dirty
+			fInterfacePanelDirty = DIRTYLEVEL2;
+		}
+
+		if ( fDoSound )
+		{
+			// Say OK acknowledge....
+			pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+		}
+
+		return TRUE;
 	}
 
-	if ( fDoSound )
-	{
-		// Say OK acknowledge....
-		pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-	}
-
-	return TRUE;
+	return FALSE;
 }
