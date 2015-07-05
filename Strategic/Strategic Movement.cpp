@@ -4758,7 +4758,43 @@ void ResetMovementForNonPlayerGroup( GROUP *pGroup )
 #ifdef JA2UB
 		//Ja25 No strategic ai
 #else
-		RepollSAIGroup( pGroup );
+		// Flugente: instead of just running back to their original sector, enemy patrols on pursuit should follow player groups
+		// first, determine whether there are any player groups nearby
+		BOOLEAN sucess = FALSE;
+		GROUP* pOtherGroup = gpGroupList;
+		while ( pOtherGroup )
+		{
+			if ( pOtherGroup->usGroupTeam == OUR_TEAM )
+			{
+				if ( pGroup->ubSectorX == pOtherGroup->ubSectorX && pGroup->ubSectorY == pOtherGroup->ubSectorY )
+				{
+					MoveSAIGroupToSector( &pGroup, (UINT8)SECTOR( pOtherGroup->ubNextX, pOtherGroup->ubNextY ), DIRECT, PURSUIT );
+
+					// the group has to be delayed - otherwise they could arrive at the same time as the player, resulting in odd behaviour during insertion
+					DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
+
+					// NOTE: This can cause the arrival time to be > GetWorldTotalMin() + TraverseTime, so keep that in mind
+					// if you have any code that uses these 3 values to figure out how far along its route a group is!
+					SetGroupArrivalTime( pGroup, pOtherGroup->uiArrivalTime + 5 );
+
+					if ( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
+					{
+						AssertMsg( 0, "Failed to add movement event." );
+						break;
+					}
+
+					sucess = TRUE;
+
+					break;
+				}
+			}
+			pOtherGroup = pOtherGroup->next;
+		}
+
+		if ( !sucess )
+		{
+			RepollSAIGroup( pGroup );
+		}
 #endif
 
 		return;

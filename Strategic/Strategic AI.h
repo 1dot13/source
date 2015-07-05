@@ -59,6 +59,13 @@ INT16 FindGarrisonIndexForGroupIDPending( UINT8 ubGroupID );
 
 GROUP* FindPendingGroupInSector( UINT8 ubSectorID );
 
+enum SAIMOVECODE
+{
+	DIRECT,
+	EVASIVE,
+	STAGE,
+};
+void MoveSAIGroupToSector( GROUP **pGroup, UINT8 ubSectorID, UINT32 uiMoveCode, UINT8 ubIntention );
 
 void RepollSAIGroup( GROUP *pGroup );
 

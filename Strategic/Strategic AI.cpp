@@ -503,17 +503,6 @@ void SAIReportError( STR16 wErrorString );
 #define SAIReportError( a ) //define it out
 #endif
 
-enum SAIMOVECODE
-{
-	DIRECT,
-	EVASIVE,
-	STAGE,
-};
-void MoveSAIGroupToSector( GROUP **pGroup, UINT8 ubSectorID, UINT32 uiMoveCode, UINT8 ubIntention );
-
-
-
-
 /* This is only a dirty fix to prevent CTD:
  * when loading a game, sometimes I found that
  * 'gGarrisonGroup' was not allocated.
