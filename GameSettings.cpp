@@ -2230,10 +2230,10 @@ void LoadSkillTraitsExternalSettings()
 	CIniReader iniReader(STOMP_SETTINGS_FILE);
 
 	gSkillTraitValues.ubMaxNumberOfTraits = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS", 5, 2, 30);
-	gSkillTraitValues.ubNumberOfMajorTraitsAllowed = iniReader.ReadInteger("Generic Traits Settings","NUMBER_OF_MAJOR_TRAITS_ALLOWED", 3, 2, 20);
+	gSkillTraitValues.ubNumberOfMajorTraitsAllowed = iniReader.ReadInteger( "Generic Traits Settings", "NUMBER_OF_MAJOR_TRAITS_ALLOWED", 3, 2, gSkillTraitValues.ubMaxNumberOfTraits - 1);
 
 	gSkillTraitValues.ubMaxNumberOfTraitsForIMP = iniReader.ReadInteger("Generic Traits Settings","MAX_NUMBER_OF_TRAITS_FOR_IMP", 3, 2, 30);
-	gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP = iniReader.ReadInteger("Generic Traits Settings","NUMBER_OF_MAJOR_TRAITS_ALLOWED_FOR_IMP", 2, 2, 20);
+	gSkillTraitValues.ubNumberOfMajorTraitsAllowedForIMP = iniReader.ReadInteger( "Generic Traits Settings", "NUMBER_OF_MAJOR_TRAITS_ALLOWED_FOR_IMP", 2, 2, gSkillTraitValues.ubMaxNumberOfTraitsForIMP - 1 );
 
 	// Allow an exception in number of traits for Special Merc?
 	//gSkillTraitValues.fAllowSpecialMercTraitsException = iniReader.ReadBoolean("Generic Traits Settings","ALLOW_EXCEPTION_FOR_SPECIAL_MERC", TRUE); 
