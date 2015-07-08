@@ -4529,6 +4529,14 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 			{
 				if (fAllBombs || (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE)
 				{
+					// Flugente: if this is a anti-tank mine, only detonate it if the person triggering it is (in) a vehicle, or if we detonate everything unconditional
+					if ( !fAllBombs && ubID != NOBODY && Item[pObj->usItem].antitankmine )
+					{
+						// if this is not a vehicle, not a robot and not a tank, don't activate
+						if ( !(MercPtrs[ubID]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ubID] ) && !TANK( MercPtrs[ubID] ) )
+							continue;
+					}
+					
 					// Snap: if we do set off our own trap (e.g. by trying to disarm it), we pay!
 					/*if (!fAllBombs && MercPtrs[ ubID ]->bTeam != gbPlayerNum )
 					{

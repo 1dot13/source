@@ -1046,7 +1046,8 @@ typedef struct
 	BOOLEAN robotremotecontrol;
 	BOOLEAN camouflagekit;
 	BOOLEAN locksmithkit;
-	BOOLEAN mine;	
+	BOOLEAN mine;
+	BOOLEAN antitankmine;
 	FLOAT alcohol;
 	BOOLEAN hardware;
 	BOOLEAN medical;

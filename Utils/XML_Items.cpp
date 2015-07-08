@@ -209,6 +209,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "CamouflageKit") == 0 ||
 				strcmp(name, "LocksmithKit") == 0 ||
 				strcmp(name, "Mine") == 0 ||
+				strcmp(name, "antitankmine" ) == 0 ||
 				strcmp(name, "GasCan") == 0 ||
 				strcmp(name, "ContainsLiquid") == 0 ||
 				strcmp(name, "Rock") == 0 ||
@@ -1134,7 +1135,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.mine   = (BOOLEAN) atol(pData->szCharData);
-		}		
+		}
+		else if ( strcmp( name, "antitankmine" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.antitankmine = (BOOLEAN)atol( pData->szCharData );
+		}
 		else if(strcmp(name, "GasCan")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -1950,18 +1956,19 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<PercentAPReduction>%d</PercentAPReduction>\r\n",						Item[cnt].percentapreduction   );
 			FilePrintf(hFile,"\t\t<PercentStatusDrainReduction>%d</PercentStatusDrainReduction>\r\n",						Item[cnt].percentstatusdrainreduction   );
 
-			FilePrintf(hFile,"\t\t<DamageBonus>%d</DamageBonus>\r\n",						Item[cnt].damagebonus   );
+			FilePrintf(hFile,"\t\t<DamageBonus>%d</DamageBonus>\r\n",								Item[cnt].damagebonus   );
 			FilePrintf(hFile,"\t\t<MeleeDamageBonus>%d</MeleeDamageBonus>\r\n",						Item[cnt].meleedamagebonus  );
 			FilePrintf(hFile,"\t\t<GrenadeLauncher>%d</GrenadeLauncher>\r\n",						Item[cnt].grenadelauncher  );
-			FilePrintf(hFile,"\t\t<Duckbill>%d</Duckbill>\r\n",						Item[cnt].duckbill  );
-			FilePrintf(hFile,"\t\t<GLGrenade>%d</GLGrenade>\r\n",						Item[cnt].glgrenade  );
-			FilePrintf(hFile,"\t\t<Mine>%d</Mine>\r\n",						Item[cnt].mine  );			
-			FilePrintf(hFile,"\t\t<Mortar>%d</Mortar>\r\n",						Item[cnt].mortar  );
-			FilePrintf(hFile,"\t\t<RocketLauncher>%d</RocketLauncher>\r\n",						Item[cnt].rocketlauncher  );
-			FilePrintf(hFile,"\t\t<SingleShotRocketLauncher>%d</SingleShotRocketLauncher>\r\n",						Item[cnt].singleshotrocketlauncher  );
-			FilePrintf(hFile,"\t\t<DiscardedLauncherItem>%d</DiscardedLauncherItem>\r\n",						Item[cnt].discardedlauncheritem  );
-			FilePrintf(hFile,"\t\t<RocketRifle>%d</RocketRifle>\r\n",						Item[cnt].rocketrifle);
-			FilePrintf(hFile,"\t\t<Cannon>%d</Cannon>\r\n",						Item[cnt].cannon);
+			FilePrintf(hFile,"\t\t<Duckbill>%d</Duckbill>\r\n",										Item[cnt].duckbill  );
+			FilePrintf(hFile,"\t\t<GLGrenade>%d</GLGrenade>\r\n",									Item[cnt].glgrenade  );
+			FilePrintf(hFile,"\t\t<Mine>%d</Mine>\r\n",												Item[cnt].mine  );
+			FilePrintf(hFile,"\t\t<antitankmine>%d</antitankmine>\r\n",								Item[cnt].antitankmine );
+			FilePrintf(hFile,"\t\t<Mortar>%d</Mortar>\r\n",											Item[cnt].mortar  );
+			FilePrintf(hFile,"\t\t<RocketLauncher>%d</RocketLauncher>\r\n",							Item[cnt].rocketlauncher  );
+			FilePrintf(hFile,"\t\t<SingleShotRocketLauncher>%d</SingleShotRocketLauncher>\r\n",		Item[cnt].singleshotrocketlauncher  );
+			FilePrintf(hFile,"\t\t<DiscardedLauncherItem>%d</DiscardedLauncherItem>\r\n",			Item[cnt].discardedlauncheritem  );
+			FilePrintf(hFile,"\t\t<RocketRifle>%d</RocketRifle>\r\n",								Item[cnt].rocketrifle);
+			FilePrintf(hFile,"\t\t<Cannon>%d</Cannon>\r\n",											Item[cnt].cannon);
 			
 			for(UINT8 cnt2 = 0; cnt2 < MAX_DEFAULT_ATTACHMENTS; cnt2++){
 				if(Item[cnt].defaultattachments[cnt2] != 0){
