@@ -87,6 +87,7 @@
 		<Duckbill>0</Duckbill>
 		<GLGrenade>0</GLGrenade>
 		<Mine>0</Mine>
+		<antitankmine>0</antitankmine>
 		<Mortar>0</Mortar>
 		<RocketLauncher>0</RocketLauncher>
 		<SingleShotRocketLauncher>0</SingleShotRocketLauncher>
@@ -51643,6 +51644,38 @@
 		<RangeBonus>-10</RangeBonus>
 		<PercentAccuracyModifier>-10</PercentAccuracyModifier>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1735</uiIndex>
+		<szItemName>Anti-tank Mine</szItemName>
+		<szLongItemName>TM-62P2 anti-tank Mine</szLongItemName>
+		<szItemDesc>A soviet anti-tank mine. It can penetrate the hull of a battle tank. Might put a dent into an Icecream truck.</szItemDesc>
+		<szBRName>TM-62P2</szBRName>
+		<szBRDesc>Not even a tank is safe against these babies. The TM-62P2 uses a plastic casing, making it almost impossible to detect via metal detectors.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>100</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ItemFlag>131072</ItemFlag>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>46</ubGraphicNum>
+		<ubWeight>95</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>500</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>4</BR_NewInventory>
+		<Mine>1</Mine>
+		<antitankmine>1</antitankmine>
+		<Directional>1</Directional>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

@@ -2001,4 +2001,24 @@
 		<ubHorizontalDegree>0</ubHorizontalDegree>
 		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- anti-tank mine-->
+		<uiIndex>100</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>90</ubDamage>
+		<ubStunDamage>70</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>30</ubVolume>
+		<ubVolatility>2</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>10</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>6</ubFragDamage>
+		<ubFragRange>40</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>
