@@ -601,6 +601,9 @@ void CalculatePossibleItems()
 		AddItemCategoryToPossibleGear(i);
 	}
 
+	// always add sidearms
+	AddItemCategoryToPossibleGear(IMP_SIDEARM);
+
 	//loop through all the buttons and reset them
 	for ( UINT8 uiCnt = 0; uiCnt< (gGameOptions.fNewTraitSystem ? IMP_SKILL_TRAITS_NEW_MAJOR_NONE : IMP_SKILL_TRAITS__NONE); ++uiCnt )
 	{
