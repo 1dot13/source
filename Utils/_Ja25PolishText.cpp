@@ -515,11 +515,11 @@ STR16 gzDisplayCoverText[]=
 	L"Pustynia i miasto",
 	L"Pustynia i śnieg",
 	L"Miasto i śnieg",
-	L"-" // yes empty for now
-	L"Os&#322;ona: %d/100, O&#347;wietlenie: %d/100",
-	L"Odg&#322;os krok�w",
-	L"Trudno&#347;&#263; skradania",
-	L"Poziom pu&#322;apek",
+	L"-", // yes empty for now				// TODO.Translate
+	L"Cover: %d/100, Brightness: %d/100",
+	L"Footstep volume",
+	L"Stealth difficulty",
+	L"Trap level",
 };
 
 

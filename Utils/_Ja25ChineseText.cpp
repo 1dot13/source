@@ -516,7 +516,11 @@ STR16 gzDisplayCoverText[]=
 	L"沙漠和城市",
 	L"沙漠和雪地",
 	L"城市和雪地",
-	L"-" // yes empty for now
+	L"-", // yes empty for now				// TODO.Translate
+	L"Cover: %d/100, Brightness: %d/100",
+	L"Footstep volume",
+	L"Stealth difficulty",
+	L"Trap level",
 };
 
 #endif

@@ -515,7 +515,7 @@ STR16 gzDisplayCoverText[]=
 	L"Desert and Urban",
 	L"Desert and Snow",
 	L"Urban and Snow",
-	L"-", // yes empty for now
+	L"-", // yes empty for now				// TODO.Translate
 	L"Cover: %d/100, Brightness: %d/100",
 	L"Footstep volume",
 	L"Stealth difficulty",

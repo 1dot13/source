@@ -516,11 +516,11 @@ STR16 gzDisplayCoverText[]=
 	L"Désert et urbain",
 	L"Désert et neige",
 	L"Urbain et neige",
-	L"-", // yes empty for now
-	L"Contraste : %d/100, Luminosit� : %d/100",
-	L"Footstep volume",// TODO.Translate
-	L"Stealth difficulty",// TODO.Translate
-	L"Trap level",// TODO.Translate
+	L"-", // yes empty for now				// TODO.Translate
+	L"Cover: %d/100, Brightness: %d/100",
+	L"Footstep volume",
+	L"Stealth difficulty",
+	L"Trap level",
 };
 
 

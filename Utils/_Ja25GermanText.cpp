@@ -518,10 +518,10 @@ STR16 gzDisplayCoverText[]=
 	L"Wüste und Schnee",
 	L"Stadt und Schnee",
 	L"-", // yes empty for now
-	L"Deckung: %d/100, Helligkeit: %d/100",
-	L"Footstep volume",// TODO.Translate
-	L"Stealth difficulty",// TODO.Translate
-	L"Trap level",// TODO.Translate
+	L"Deckung: %d/100, Helligkeit: %d/100",			
+	L"Footstep volume",				// TODO.Translate			
+	L"Stealth difficulty",
+	L"Trap level",
 };
 
 
