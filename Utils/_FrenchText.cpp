@@ -8277,7 +8277,7 @@ STR16	szBackgroundText_Value[]=
 	L"Can spot tracks up to %d tiles away\n",
 	L" %s%d%% initial distance to enemy in ambush\n",
 
-	L" dislikes some other backgrounds",	// TODO.Translate
+	L" dislikes some other backgrounds\n",	// TODO.Translate
 	L"Smoker",
 	L"Nonsmoker",
 };
