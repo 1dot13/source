@@ -65,7 +65,7 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	Anytime you see a '|' symbol within the help text string, that means the following key is assigned
 	to activate the action which is usually a button.  
 
-	EX:  L"|Map Screen"
+	EX:  L"|Map Screen" 
 
 	This means the 'M' is the hotkey.  In the game, when somebody hits the 'M' key, it activates that
 	button.  When translating the text to another language, it is best to attempt to choose a word that
@@ -81,7 +81,7 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	text system.  \n notation doesn't need to be precisely placed within that string, but whereever you wish 
 	to start a new line. 
 
-	EX:  L"Clears all the mercs' positions,\nand allows you to re-enter them manually."
+	EX:  L"Clears all the mercs' positions,\nand allows you to re-enter them manually." 
 
 	Would appear as:
 
@@ -92,7 +92,7 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	       in the above example, we would see
 
 	WRONG WAY -- spaces before and after the \n
-	EX:  L"Clears all the mercs' positions, \n and allows you to re-enter them manually."
+	EX:  L"Clears all the mercs' positions, \n and allows you to re-enter them manually." 
 
 	Would appear as: (the second line is moved in a character)
 		
@@ -180,7 +180,7 @@ STR16	pSectorPageText[] =
 STR16	pEncyclopediaTypeText[] = 
 {
 	L"Неизвестно",// 0 - unknown
-	L"Город", //1 - cities
+	L"Город", //1 - city
 	L"База ПВО", //2 - SAM Site
 	L"Другое", //3 - other location
 	L"Шахты", //4 - mines 
@@ -189,7 +189,7 @@ STR16	pEncyclopediaTypeText[] =
 	L"Фабрика", //7 - factory complex 
 	L"Госпиталь", //8 - hospital 
 	L"Тюрьма", //9 - prison
-    	L"Аэропорт", //10 - air port 
+	L"Аэропорт", //10 - air port 
 };
 
 STR16	pEncyclopediaHelpCharacterText[] = 
@@ -285,7 +285,7 @@ STR16 pEncyclopediaSubFilterLocationText[] =
 	L"",//reserved. facility filter texts are dynamicly loaded, leave this marker empty!
 	L"",//reserved. Insert new other filters above!
 };
-// TODO.Translate
+
 STR16	pEncyclopediaFilterCharText[] =
 {//major char filter button text
 //..L"------v"
@@ -423,6 +423,7 @@ STR16 pEncyclopediaSubFilterQuestText[] =
 	L"",//reserved. insert new completed quest subfilters above!
 };
 
+
 STR16	pEncyclopediaShortInventoryText[] = 
 {
 	L"Все", //0
@@ -486,7 +487,6 @@ STR16			BoxFilter[] =
 	L"Разное", //34
 };
 //-----------
-
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -674,7 +674,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Leave Editor mode",
 	L"Exit game (|A|l|t+|X)",
 	L"Create radar map",
-	L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
+	L"When checked, the map will be saved in original JA2 map format. Items with ID > 350 will be lost.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
 	L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
@@ -706,7 +706,7 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Options",
 	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Terrain fasthelp text
 	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Buildings fasthelp text
-	L"|S|p|a|c|e: Select next item\n \n|C|t|r|l+|/: Place new item under mouse cursor\n|/: Place same item under mouse cursor", //Items fasthelp text
+	L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor", //Items fasthelp text
 	L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level", //Mercs fasthelp text
 	L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions", //Map Info fasthelp text
 	L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text
@@ -852,7 +852,7 @@ CHAR16 gszScheduleActions[ 11 ][20] =
 	L"Ignore this!"
 };
 
-STR16 zDiffNames[5] = 
+STR16 zDiffNames[5] =	// NUM_DIFF_LVLS = 5
 { 
 	L"Wimp", 
 	L"Easy", 
@@ -1183,7 +1183,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-/*CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
+/*CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
 {
 	L"Klaxon Mine",
 	L"Flare Mine",
@@ -1226,7 +1226,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"Toggle hide flag", //0
 	L"No item selected.",
 	L"Slot available for",
-	L"random generation.",
+	L"Random generation.",
 	L"Keys not editable.",
 	L"ProfileID of owner",
 	L"Item class not implemented.",
@@ -1419,7 +1419,7 @@ STR16 pRenderSummaryWindowText[] =
 	L", alternate B3 level",
 	
 	L"ITEM DETAILS -- sector %s",
-	L"Summary Information for sector %s:", //20
+	L"Summary Information for sector %s:",//20
 	
 	L"Summary Information for sector %s",
 	L"does not exist.",
@@ -1618,15 +1618,15 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 
 CHAR16 WeaponType[MAXITEMS][30] =
 {
-	L"",			//Other
-	L"Пистолет",		//Pistol
-	L"Авт.пистолет",	//MP 'Автоматический пистолет'
-	L"ПП",			//SMG 'Пистолет-пулемет'
-	L"Винтовка",		//Rifle
-	L"Сн.винтовка",		//Sniper rifle
-	L"Шт.винтовка",		//Assault rifle
-	L"Ручной пулемёт",	//LMG
-	L"Дробовик",		//Shotgun
+	L"",
+	L"Пистолет",
+	L"Авт.пистолет",
+	L"ПП",
+	L"Винтовка",
+	L"Сн.винтовка",
+	L"Шт.винтовка",
+	L"Ручной пулемёт",
+	L"Дробовик",
 };
 
 CHAR16 TeamTurnString[][STRING_LENGTH] =
@@ -1641,6 +1641,7 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Client №2",//hayden
 	L"Client №3",//hayden
 	L"Client №4",//hayden
+
 };
 
 CHAR16 Message[][STRING_LENGTH] =
@@ -1686,7 +1687,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"лёгкое",
 	L"тяжёлое",
 	L"компактное",
-	L"очередями",	//fast burst fire
+	L"очередями",
 	L"нет отсечки очереди",
 	L"бол.магазин",
 	L"мал.магазин",
@@ -1737,12 +1738,12 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Вам это надо?",
 	L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите \"Транспорт/Вертолёт\".",
 	L"%s успевает зарядить только одно оружие.",
-	L"Ход кошек-убийц", //Bloodcats' turn
-	L"автоматический", //full auto
-	L"неавтоматический", //no full auto
-	L"точный", //accurate
-	L"неточный", //inaccurate
-	L"нет одиночных", //no semi auto
+	L"Ход кошек-убийц",
+	L"автоматический",
+	L"неавтоматический",
+	L"точный",
+	L"неточный",
+	L"нет одиночных",
 	L"Враг обобран до нитки!",
 	L"У врага в руках ничего нет!",
 
@@ -1874,7 +1875,7 @@ STR16 pMilitiaString[] =
 	L"Ополчение", // the title of the militia box
 	L"Запас", //the number of unassigned militia troops
 	L"Нельзя перераспределять ополчение во время боя!",
-	L"Здесь присутствуют ополченцы из других секторов. Распустить их по своим прежним позициям?", //Some militia were not assigned to a sector. Would you like to disband them?
+	L"Здесь присутствуют ополченцы из других секторов. Распустить их по своим прежним позициям?",
 };
 
 
@@ -1882,7 +1883,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Авто", // auto place the militia troops for the player
 	L"Готово", // done placing militia troops
-	L"Распустить", // HEADROCK HAM 3.6: Disband militia	//Disband
+	L"Распустить", // HEADROCK HAM 3.6: Disband militia
 	L"Распустить всех", // move all milita troops to unassigned pool
 };
 
@@ -2045,7 +2046,7 @@ STR16 pPOWStrings[] =
 
 STR16 pLongAttributeStrings[] =
 {
-    	L"СИЛА", 
+  L"СИЛА", 
 	L"ЛОВКОСТЬ",  
 	L"ПРОВОРНОСТЬ", 
 	L"ИНТЕЛЛЕКТ", 
@@ -2141,7 +2142,7 @@ STR16 pAssignMenuStrings[] =
 	L"Осведомитель", // anv: snitch actions
 	L"Обучение", // the merc is training
 	L"Носильщик",	// move items
-	L"Занятия", // the merc is using/staffing a facility	//Facility
+	L"Занятия", // the merc is using/staffing a facility
 	L"Отмена", // cancel this menu
 };
 
@@ -2151,8 +2152,8 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"В атаку", // set militia to aggresive
 	L"Держать оборону", // set militia to stationary
 	L"Отступать", // retreat militia
-	L"За мной", // retreat militia
-	L"Ложись", // retreat militia	
+	L"За мной",
+	L"Ложись",
 	L"Присесть",
 	L"В укрытие",
 	L"Все в атаку", 
@@ -2340,7 +2341,7 @@ STR16 pTrainingMenuStrings[] =
 {
  L"Практика", // train yourself 
  L"Ополчение", // train the town 
- L"Мобил. группа",		//Mobile Militia
+ L"Мобил. группа",
  L"Тренер", // train your teammates 
  L"Ученик",  // be trained by an instructor 
  L"Отмена", // cancel this menu
@@ -2442,7 +2443,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Заданий: %d\n",
 	L"Встречено информаторов: %d\n",
 	L"Секторов разведано: %d\n",
-	L"Предотвращено засад: %d\n",	//Ambushes Prevented
+	L"Предотвращено засад: %d\n",
 	L"Заданий жителей выполнено: %d\n",
 
 	L"Тактических сражений: %d\n",
@@ -2456,13 +2457,13 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Пропущенных ударов: %d\n",
 	L"Подорвался: %d\n",
 	L"Ухудшений параметров: %d\n",
-	L"Перенёс хир. операций: %d\n",	//Surgeries undergone
-	L"Травм на производстве: %d\n",	//Facility Accidents
+	L"Перенёс хир. операций: %d\n",
+	L"Травм на производстве: %d\n",
 
 	L"Характер:",
 	L"Недостаток:",
 
-	L"По жизни:",	//Attitudes For old traits display instead of "Character:"!
+	L"По жизни:",	//Attitudes // WANNE: For old traits display instead of "Character:"!
 
 	L"Зомби: %d\n",
 
@@ -2474,6 +2475,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 //These string correspond to enums used in by the SkillTrait enums in SoldierProfileType.h
 STR16 gzMercSkillText[] = 
 {
+	// SANDRO - tweaked this
 	L"Нет навыка",
 	L"Взлом замков",
 	L"Рукопашный бой",
@@ -2492,64 +2494,64 @@ STR16 gzMercSkillText[] =
 	L"Камуфляж",
 	L"(Эксперт)",
 };
-
 //////////////////////////////////////////////////////////
 // SANDRO - added this
 STR16 gzMercSkillTextNew[] = 
 {
 	// Major traits
-	L"Нет навыка",	//No Skill
-	L"Автоматчик",	//Auto Weapons
-	L"Гренадёр",	//Heavy Weapons
-	L"Стрелок",	//Marksman
-	L"Охотник",	//Hunter
-	L"Ковбой",	//Gunslinger
-	L"Боксёр",	//Hand to Hand
-	L"Старшина",	//Deputy
-	L"Механик",	//Technician
-	L"Санитар",	//Paramedic
+	L"Нет навыка",	// 0
+	L"Автоматчик",	// 1
+	L"Гренадёр",
+	L"Стрелок",
+	L"Охотник",
+	L"Ковбой",	// 5
+	L"Боксёр",
+	L"Старшина",
+	L"Механик",
+	L"Санитар",
 	// Minor traits
-	L"Ловкач",	//Ambidextrous
-	L"Мастер клинка",	//Melee
-	L"Мастер по метанию",	//Throwing
-	L"Ночник",	//Night Ops
-	L"Бесшумный убийца",	//Stealthy
-	L"Спортсмен",	//Athletics
-	L"Культурист",	//Bodybuilding
-	L"Подрывник",	//Demolitions
-	L"Инструктор",	//Teaching
-	L"Разведчик",	//Scouting
+	L"Ловкач",	// 10
+	L"Мастер клинка",
+	L"Мастер по метанию",
+	L"Ночник",
+	L"Бесшумный убийца",
+	L"Спортсмен",
+	L"Культурист",
+	L"Подрывник",
+	L"Инструктор",
+	L"Разведчик",
 	// covert ops is a major trait that was added later
 	L"Лазутчик",		// 20
+
 	// new minor traits
 	L"Радист",	// 21
 	L"Осведомитель",	// 22
 	L"Survival",
 
 	// second names for major skills
-	L"Пулемётчик",	//Machinegunner
-	L"Артиллерист",	//Bombardier
-	L"Снайпер",	//Sniper
-	L"Рейнджер",	//Ranger
-	L"Пистолетчик",	//Gunfighter
-	L"Боевые искусства",	//Martial Arts
-	L"Командир",	//Squadleader
-	L"Инженер",	//Engineer
-	L"Доктор",	//Doctor
+	L"Пулемётчик",
+	L"Артиллерист",
+	L"Снайпер",
+	L"Рейнджер",
+	L"Пистолетчик",
+	L"Боевые искусства",
+	L"Командир",
+	L"Инженер",
+	L"Доктор",
 	// placeholders for minor traits
 	L"Placeholder",		// 33
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
-	L"Placeholder",	
+	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",
 	L"Placeholder",		// 42
 	L"Шпион",			// 43
 	L"Placeholder",		// for radio operator (minor trait)
-	L"Placeholder",		// for snitch(minor trait)
+	L"Placeholder",		// for snitch (minor trait)
 	L"Placeholder",		// for survival (minor trait)
 	L"Ещё...",			// 47
 	L"различные",		// for VARIOUSSKILLS	
@@ -2703,9 +2705,9 @@ STR16 pLandTypeStrings[] =
 	L"Логово тварей",	//Any mine sector with creatures in it
 	L"Подвалы Орты",	//The basement of Orta (K4)
 	L"Туннель",		//The tunnel access from the maze garden in Meduna 
-	//leading to the secret shelter underneath the palace
+										//leading to the secret shelter underneath the palace
 	L"Убежище",		//The shelter underneath the queen's palace
-	L"",			//Unused
+	L"",							//Unused
 };
 
 STR16 gpStrategicString[] =
@@ -2881,17 +2883,18 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 	L"ОД:",			// abbreviation for Action Points
 	L"=",
 	L"=",
-						//Lal: additional strings for tooltips
+					//Lal: additional strings for tooltips
 	L"Точность:",	//9
 	L"Дист:",		//10	
 	L"Урон:", 	//11
 	L"Вес:",		//12
 	L"Оглушение:",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
+	// HEADROCK HAM 3: Replaced #14 with string for Possible Attachments (BR's Tooltips Only)
+	// Obviously, THIS SHOULD BE DONE IN ALL LANGUAGES...
 	L"Навеска:",	//14	//Attachments
 	L"AUTO/5:",		//15
 	L"Осталось патрон:",		//16	//Remaining ammo
-
 	L"Предустановка:",	//17 //WarmSteel - So we can also display default attachments
 	L"Нагар:",	// 18
 	L"Место:", // 19 //space left on Molle items
@@ -2915,51 +2918,51 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|Н|а|д|ё|ж|н|о|с|т|ь\n \nОпределяет, как быстро состояние этого\nоружия ухудшается при использовании.\n \nБольше - лучше.",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 	L"",	//12
-	L"ОД на вскидывание",						//APs to ready
-	L"ОД на 1 выстрел",							//APs to fire Single
-	L"ОД на огонь с отсечкой",					//APs to fire Burst
-	L"ОД на огонь очередью",					//APs to fire Auto
-	L"ОД на замену магазина",					//APs to Reload
-	L"ОД на досылку патрона",					//APs to Reload Manually
-	L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(меньше - лучше)",	//19		//Burst Penalty (Lower is better)
-	L"Бонус от сошек\n(при стрельбе лёжа)",				//Bipod Modifier
-	L"Выстрелов в автоматическом\nрежиме за 5 ОД",			//Autofire shots per 5 AP
-	L"Штраф за отдачу при \nстрельбе очередью \n(меньше - лучше)",	//Autofire Penalty (Lower is better)
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (меньше - лучше)",	//Burst/Auto Penalty	//23
-	L"ОД на бросок",						//APs to Throw
-	L"ОД на выстрел",						//APs to Launch
-	L"ОД на удар ножом",						//APs to Stab
-	L"Не стреляет одиночными!",					//No Single Shot!
-	L"Нет отсечки патрона!",					//No Burst Mode!
-	L"Нет автоматического режима!",					//No Auto Mode!
-	L"ОД на удар",							//APs to Bash
-    	L"",
+	L"ОД на вскидывание",
+	L"ОД на 1 выстрел",
+	L"ОД на огонь с отсечкой",
+	L"ОД на огонь очередью",
+	L"ОД на замену магазина",
+	L"ОД на досылку патрона",
+	L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(меньше - лучше)",	//19
+	L"Бонус от сошек\n(при стрельбе лёжа)",
+	L"Выстрелов в автоматическом\nрежиме за 5 ОД",
+	L"Штраф за отдачу при \nстрельбе очередью \n(меньше - лучше)",
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (меньше - лучше)",	//23
+	L"ОД на бросок",
+	L"ОД на выстрел",
+	L"ОД на удар ножом",
+	L"Не стреляет одиночными!",
+	L"Нет отсечки патрона!",
+	L"Нет автоматического режима!",
+	L"ОД на удар",
+    L"",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
 STR16		gzMiscItemStatsFasthelp[ 35 ] =
 {
-	L"Модификатор размера предмета\n(меньше - лучше)",							//Item Size Modifier (Lower is better)
-	L"Модификатор надёжности",												//Reliability Modifier
-	L"Модификатор шумности\n(меньше - лучше)",									//Loudness Modifier (Lower is better)
-	L"Скрывает вспышку",														//Hides Muzzle Flash
-	L"Модификатор сошек",														//Bipod Modifier
-	L"Модификатор дальности",													//Range Modifier
-	L"Модификатор точности",													//To-Hit Modifier
-	L"Оптимальная дальность лазера",											//Best Laser Range
-	L"Модификатор бонусов оптики",												//Aiming Bonus Modifier
-	L"Модификатор очереди с отсечкой",											//Burst Size Modifier
-	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(больше - лучше)",	//Burst Penalty Modifier (Higher is better)
-	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(больше - лучше)",	//Auto-Fire Penalty Modifier (Higher is better)
-	L"Модификатор ОД",														//AP Modifier
-	L"Модификатор ОД\nна очередь с отсечкой\n(меньше - лучше)",					//AP to Burst Modifier (Lower is better)
-	L"Модификатор ОД\nна очередь без отсечки\n(меньше - лучше)",					//AP to Auto-Fire Modifier (Lower is better)
-	L"Модификатор ОД на вскидывание\n(меньше - лучше)",						//AP to Ready Modifier (Lower is better)
-	L"Модификатор ОД\nна замену магазина\n(меньше - лучше)",					//AP to Reload Modifier (Lower is better)
-	L"Модификатор размера магазина",											//Magazine Size Modifier
-	L"Модификатор ОД на выстрел\n(меньше - лучше)",							//AP to Attack Modifier (Lower is better)
-	L"Модификатор урона",														//Damage Modifier
-	L"Модификатор урона\nв ближнем бою", 										//Melee Damage Modifier
+	L"Модификатор размера предмета\n(меньше - лучше)", //0
+	L"Модификатор надёжности",
+	L"Модификатор шумности\n(меньше - лучше)",
+	L"Скрывает вспышку",
+	L"Модификатор сошек",
+	L"Модификатор дальности", //5
+	L"Модификатор точности",
+	L"Оптимальная дальность лазера",
+	L"Модификатор бонусов оптики",
+	L"Модификатор очереди с отсечкой",
+	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(больше - лучше)",	//10
+	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(больше - лучше)",
+	L"Модификатор ОД",
+	L"Модификатор ОД\nна очередь с отсечкой\n(меньше - лучше)",
+	L"Модификатор ОД\nна очередь без отсечки\n(меньше - лучше)",
+	L"Модификатор ОД на вскидывание\n(меньше - лучше)", //15
+	L"Модификатор ОД\nна замену магазина\n(меньше - лучше)",
+	L"Модификатор размера магазина",
+	L"Модификатор ОД на выстрел\n(меньше - лучше)",
+	L"Модификатор урона",
+	L"Модификатор урона\nв ближнем бою", //20
 	L"Камуфляж 'Лес'",
 	L"Камуфляж 'Город'",
 	L"Камуфляж 'Пустыня'",
@@ -2971,8 +2974,8 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Модификатор диапазона\nвидимости ночью",
 	L"Модификатор диапазона\nвидимости при ярком освещении", //30
 	L"Модификатор диапазона\nвидимости в пещере",
-	L"Туннельное зрение\n(меньше - лучше)",										//Tunnel Vision Percentage (Lower is better)
-	L"Минимальное расстояние\nдля бонуса при прицеливании",					//Minimum Range for Aiming Bonus
+	L"Туннельное зрение\n(меньше - лучше)",
+	L"Минимальное расстояние\nдля бонуса при прицеливании",
 	L"Зажмите |C|t|r|l для сравнения предметов",									// item compare help text 
 };
 
@@ -3150,7 +3153,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Еще...",
 
 	// In the next 2 strings, %s is an item name
-	
+
 	L"%s помещен(а) на землю.",
 	L"%s отдан(а) %s.",
 
@@ -3298,16 +3301,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"Вы согласны заплатить %s?",
 	L"Принять бесплатное лечение?",
-	L"Согласиться выйти замуж за %s?", //Дэррела
+	L"Согласиться выйти замуж за %s?",	//Daryl
 	L"Связка ключей",
 	L"С эскортируемыми этого сделать нельзя.",
-	L"Пощадить %s?", //сержанта
+	L"Пощадить %s?",	//Krott
 	L"За пределами прицельной дальности.",
 	L"Шахтер",
 	L"Машина может ездить только между секторами.",
 	L"Ни у кого из наемников нет аптечки",
 	L"Путь для %s заблокирован",
-	L"Ваши бойцы, захваченные армией %s, томятся здесь в плену!", //Дейдраны
+	L"Ваши бойцы, захваченные армией %s, томятся здесь в плену!", //Deidranna
 	L"Замок поврежден.",
 	L"Замок разрушен.",
 	L"Кто-то с другой стороны пытается открыть эту дверь.",
@@ -3316,7 +3319,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Навеска снята",
 	L"Вы не можете содержать еще одну машину, довольствуйтесь уже имеющимися двумя.",
 
-	// added by Flugente for defusing/setting up trap networks	
+	// added by Flugente for defusing/setting up trap networks
 	L"Выберите частоту активации (1 - 4) или частоту деактивации (A - D):",
 	L"Установите частоту деактивации:",
 	L"Установите частоту активации (1 - 4) и частоту деактивации (A - D):",
@@ -3326,7 +3329,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente to display food status
 	L"Здоровье: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s\nВода: %d%s\nПища: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical	
+	// added by Flugente: selection of a function to call in tactical
 	L"Что будем делать?",
 	L"Наполнить фляги",
 	L"Чистить (один)",
@@ -3372,7 +3375,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Рискованно",
     L"Опасно",
     L"Очень опасно!",
-        
+
     L"Маска",
     L"ПНВ",
     L"Предмет",
@@ -3445,7 +3448,7 @@ STR16 pRepairStrings[] =
 
 
 // NOTE: combine prestatbuildstring with statgain to get a line like the example below.
-// "John has gained 3 points of marksmanship skill."
+// "John has gained 3 points of marksmanship skill." 
 
 STR16 sPreStatBuildString[] =
 {
@@ -3552,7 +3555,7 @@ STR16 pMapPopUpInventoryText[] =
 STR16 pwTownInfoStrings[] =
 {
 	L"Размер",						// 0 // size of the town in sectors
-	L"", 							// blank line, required
+	L"", 						// blank line, required
 	L"Контроль", 					// how much of town is controlled
 	L"Нет", 						// none of this town
 	L"Шахта города", 				// mine associated with this town
@@ -3593,7 +3596,7 @@ STR16 pwMineStrings[] =
 	L"Идет добыча",
 	L"Статус",
 	L"Уровень добычи",
-	L"Ресурс",					// 10	L"Тип руды",
+	L"Ресурс",					// 10
 	L"Принадлежность",
 	L"Лояльность",
 };
@@ -3678,7 +3681,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Карта воздушного пространства (|A)",
 	L"Вещи (|I)",
 	L"Ополчение и враги (|Z)",
-	L"Мобильные группы ополченцев (|R)", //HAM 4: Show Mobile Militia Restrictions
+	L"Мобильные группы ополченцев (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Show Disease Data", // TODO.Translate
 };
 
@@ -3910,7 +3913,7 @@ STR16 pTransactionText[] =
 	L"Снаряжение продано населению",
 	L"Оснащение персонала", // HEADROCK HAM 3.6		//Facility Use
 	L"Содержание ополчения", // HEADROCK HAM 3.6		//Militia upkeep
-	L"Выкуп за освобожденных заключенных",	// Ransom for released prisoners
+	L"Выкуп за освобожденных заключенных",	// Flugente: prisoner system
 	L"WHO data subscription",	// Flugente: disease	// TODO.Translate
 	L"Payment to Kerberus",	// Flugente: PMC
 };
@@ -3953,8 +3956,8 @@ STR16 pMoralStrings[] =
 
 STR16 pLeftEquipmentString[] =
 { 
-	L"%s оставляет свою экипировку в Омерте (A9).", 	//%s может взять заказанную экипировку в Омерте (A9).
-	L"%s оставляет свою экипировку в Драссене (B13).",	//%s может взять заказанную экипировку в Драссене (B13).
+	L"%s оставляет свою экипировку в Омерте (A9).",
+	L"%s оставляет свою экипировку в Драссене (B13).",
 };
 
 // Status that appears on the Map Screen
@@ -3966,9 +3969,9 @@ STR16 pMapScreenStatusStrings[] =
 	L"Боевой дух",
 	L"Состояние",	// the condition of the current vehicle (its "health")
 	L"Бензин",	// the fuel level of the current vehicle (its "energy")
-	L"Яд",	// Poison
-	L"Вода",		// drink level 	//Water
-	L"Пища",		// food level		//Food
+	L"Яд",		// for display of poisoning
+	L"Вода",		// drink level
+	L"Пища",		// food level
 };
 
 
@@ -4006,7 +4009,7 @@ STR16 pMapErrorString[] =
 	L"нуждается в сопровождении, чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
 	L"Наёмник ещё не прибыл в %s!",
 	L"Кажется, сначала надо уладить проблемы с контрактом.",
-	L"Бежать от самолета? Только после вас!",	// Cannot give a movement order. Air raid is going on.
+	L"Бежать от самолета? Только после вас!",
 //11-15
 	L"Выступить на марш? Да у нас тут бой идет!",
 	L"Вы попали в засаду кошек-убийц в секторе %s!",
@@ -4667,7 +4670,7 @@ STR16			MercAccountText[] =
 	L"Стоимость",
 	L"Всего:",
 	L"Вы подтверждаете платеж в размере %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
-	L"%s (+gear)",	// TODO.Translate
+	L"%s (+снаряжение)",
 };
 
 // Merc Account Page buttons
@@ -4746,7 +4749,7 @@ STR16			MercHomePageText[] =
 
 // For use at MiGillicutty's Web Page.
 
-STR16	sFuneralString[] =
+STR16			sFuneralString[] =
 {
 	L"Похоронное агентство Макгилликатти: скорбим вместе с семьями усопших с 1983 г.",
 	L"Директор по похоронам и бывший наемник А.I.М. - Мюррэй Макгилликатти \"Папаша\", специалист по части похорон.",
@@ -5041,7 +5044,7 @@ STR16			BobbyRaysFrontText[] =
 
 STR16			AimSortText[] =
 {
-	L"А.I.M. Состав",		// Title
+	L"A.I.M. Состав",		// Title
 	// Title for the way to sort
 	L"Сортировка:",
 
@@ -5102,7 +5105,7 @@ STR16			AimMemberText[] =
 	L"связаться с бойцом.",
 	L"Правый щелчок - ",
 	L"фотографии бойцов.",
-};
+};					
 
 //Aim Member.c
 //The page in which the players hires AIM mercenaries
@@ -5380,7 +5383,7 @@ STR16	SkiAtmText[] =
 	L"7",
 	L"8",
 	L"9",
-	L"OK",					//Transfer the money
+	L"OK",						// Transfer the money
 	L"Взять",				//Take money from the player
 	L"Дать",				//Give money to the player
 	L"Отмена",				//Cancel the transfer
@@ -5591,7 +5594,7 @@ STR16	gzMoneyWithdrawMessageText[] =
 
 STR16	gzCopyrightText[] = 
 {
-	L"Авторские права (C) 1999 Sir-Tech Canada Ltd. Все права защищены.",
+	L"Авторские права (C) 1999 Sir-tech Canada Ltd. Все права защищены.",
 };
 
 //option Text
@@ -5662,10 +5665,10 @@ STR16		zOptionsToggleText[] =
 	L"Отладочные настройки везде",			//Debug Options in other builds		// allow debugging in release or mapeditor
 	L"Показать Отладочные настройки",		//DEBUG Render Option group	// an example option that will show/hide other options
 	L"Отображать Mouse Regions",		//Render Mouse Regions	// an example of a DEBUG build option
-	L"-----------------",					// an example options screen options divider (pure text)
+	L"-----------------",					// an example options screen options divider (pure text)	
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
-	L"Последняя_Строка_Настроек",	//THE_LAST_OPTION
+	L"THE_LAST_OPTION",
 };
 
 //This is the help text associated with the above toggles.
@@ -5706,7 +5709,7 @@ STR16	zOptionsScreenHelpText[] =
 	//Real Time Confirmation
 	L"Если включено, то для приказа на передвижение будет требоваться\nдополнительный подтверждающий щелчок мыши на месте назначения.",
 
-	//Display the enemy indicator
+	//Sleep/Wake notification
 	L"Если включено, то вы получите предупреждение,\nкогда наемники лягут спать или проснутся.",
 
 	//Use the metric system
@@ -6074,7 +6077,7 @@ STR16 pMessageStrings[] =
 	L"Нет описания.", //Save slots that don't have a description.
 	L"Игра сохранена.",
 	L"Игра сохранена.",
-	L"QuickSave", //The name of the quicksave file (filename, text reference)
+	L"QuickSave", //10	The name of the quicksave file (filename, text reference)
 	L"SaveGame",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.
@@ -6177,10 +6180,10 @@ STR16 pMessageStrings[] =
 	L"Выход из пошагового режима",	//Exit combat mode
 	L"Включен только пошаговый режим. Вступаем в бой!",	//Forced Turn Mode Active, Entering Combat
 	L"Игра сохранена в поле авто-сохранения.",
-	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
+	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved
 	L"Клиент",	//Client
 	L"Нельзя одновременно установить \"Старый\" инвентарь и \"Новую Систему Навески\".",	//You cannot use the Old Inventory and the New Attachment System at the same time.
-
+	
 	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
 	L"Этот слот зарезервирован для автоматической записи, которую можно включить/отключить (AUTO_SAVE_EVERY_N_HOURS) в файле ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
 	L"Пустой слот авто записи #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
@@ -6221,7 +6224,6 @@ STR16 pDoctorWarningString[] =
 	L"%s слишком далеко, чтобы подлечиться.",
 	L"Ваши медики не могут оказать первую помощь всем раненым.",
 };
-
 
 STR16 pMilitiaButtonsHelpText[] =
 {
@@ -6433,10 +6435,10 @@ STR16 sRepairsDoneString[] =
 	L"%s: завершён ремонт личных вещей.",
 	L"%s: завершён ремонт всего оружия и брони.",
 	L"%s: завершён ремонт всей экипировки отряда.",
-	L"%s: завершён ремонт всех крупных вещей отряда.",	//%s finished repairing everyone's large carried items
-	L"%s: завершён ремонт всех малых вещей отряда.",	//%s finished repairing everyone's medium carried items
-	L"%s: завершён ремонт всех мелких вещей отряда.",	//%s finished repairing everyone's small carried items
-	L"%s: завершён ремонт разгрузочных систем отряда.",	//%s finished repairing everyone's LBE gear
+	L"%s: завершён ремонт всех крупных вещей отряда.",
+	L"%s: завершён ремонт всех малых вещей отряда.",
+	L"%s: завершён ремонт всех мелких вещей отряда.",
+	L"%s: завершён ремонт разгрузочных систем отряда.",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -6506,7 +6508,7 @@ STR16 gzLateLocalizedString[] =
 	//Name can't speak right now.
 	L"%s сейчас не может говорить",
 
-	//22-24 plural versions @@@2 elite to veteran
+	//22-24 plural versions 
 	L"%d новобранца из ополчения произведены в элитные солдаты.",
 	L"%d новобранца из ополчения произведены в рядовые.",
 	L"%d рядовых ополченца произведены в элитные солдаты.",
@@ -6523,7 +6525,7 @@ STR16 gzLateLocalizedString[] =
 	L"Сейчас небезопасно включать сжатие времени - у вас есть наемники в секторе %s.",
 	L"Сейчас небезопасно включать сжатие времени - у вас есть наемники в пещерах с тварями.",
 
-	//29-31 singular versions @@@2 elite to veteran
+	//29-31 singular versions 
 	L"1 новобранец из ополчения стал элитным солдатом.",
 	L"1 новобранец из ополчения стал рядовым ополченцем.",
 	L"1 рядовой ополченец стал элитным солдатом.",
@@ -6589,7 +6591,7 @@ STR16 gzLateLocalizedString[] =
 
 	L"Сопроводить Джона и Мэри?",
 	
-	//60
+	// 60
 	L"Кнопка нажата.",
 
 	L"%s чувствует, что в бронежилете что-то треснуло!",
@@ -6597,7 +6599,7 @@ STR16 gzLateLocalizedString[] =
 	L"%s выпустил на одну пулю больше!",
 
 	L"Сперва закрой описание предмета!",
-
+		
 	L"Невозможно ускорить время - враждебные гражданские или кошки-убийцы в секторе.", // 65
 };
 
@@ -6658,7 +6660,7 @@ STR16 gzTooltipStrings[] =
 	L"%s|Навык 1: %s\n",	//%s|Skill 1: %s\n
 	L"%s|Навык 2: %s\n", 
 	L"%s|Навык 3: %s\n",
-    // Additional suppression effects
+    // Additional suppression effects - sevenfm
     L"%s|A|P потеряно от  |Подавления: %d\n",
     L"%s|Сопротивление |Подавлению: %d\n",
     L"%s|Эффективный |Уровень |Шока: %d\n",
@@ -6715,7 +6717,7 @@ STR16 New113Message[] =
 	L"Ваши навыки разведчика сорвали засаду противника.",
 	L"Благодаря вашим навыкам разведчика вы успешно избежали встречи с кошками-убицами!",	
 	L"%s получает удар в пах и падает на землю от адской боли!",
-/////
+	//////////////////////////////////////////////////////////////////////////////////////
 	L"Внимание: враг обнаружил труп!!!",
 	L"%s [%d патр.]\n%s %1.1f %s",
 	L"Недостаточно AP! Нужно %d, у вас есть %d.",
@@ -6955,7 +6957,7 @@ STR16 MPClientMessage[] =
 	L"Выберите, какую ступень игры принудительно запустить:  ('1' - открыть лэптоп/найм бойцов)  ('2' - запустить/загрузить уровень)  ('3' - разблокировать пользовательский интерфейс)  ('4' - завершить расстановку)",
 	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
 	// 25
-	L"",
+	L"",	//not used any more
 	L"Новый игрок: клиент №%d - '%S'.",
 	L"Команда: %d.",//not used any more
 	L"%s (клиент %d - '%S') был убит %s (клиент %d - '%S')",
@@ -7008,7 +7010,7 @@ STR16 MPClientMessage[] =
 	L"Вы убили вражеского солдата.",
 	L"Нельзя запустить игру потому что все команды одинаковые.",
 	L"Игра на сервере создана с Новым Инвентарём (NIV), а выбранное вами разрешение экрана не поддерживается NIV.",
-	// 70	
+	// 70
 	L"Невозможно сохранить принятый файл '%S'",
 	L"%s's бомба была разряжена %s",
 	L"Вы проиграли. Стыд и срам!",	// All over red rover
@@ -7610,9 +7612,11 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |д|ы|м|а",
 	L"|К|о|н|е|ч|н|ы|й |р|а|д|и|у|с |о|г|н|я",
 	L"|Д|л|и|т|е|л|ь|н|о|с|т|ь |э|ф|ф|е|к|т|а",
+	// HEADROCK HAM 5: Fragmentation
 	L"|Ч|и|с|л|о |о|с|к|о|л|к|о|в",
 	L"|У|р|о|н |о|т |о|с|к|о|л|к|о|в",
 	L"|Д|а|л|ь|н|о|с|т|ь |р|а|з|л|ё|т|а |о|с|к|о|л|к|о|в",
+	// HEADROCK HAM 5: End Fragmentations
 	L"|Г|р|о|м|к|о|с|т|ь",
 	L"|Н|е|с|т|а|б|и|л|ь|н|о|с|т|ь",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
@@ -7637,14 +7641,16 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \nКонечный радиус облака дыма.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход (при наличии),\nесли только на них не будет противогаза.\n Любого, кто окажется в этом облаке, будет\nчрезвычайно трудно заметить, и сам он\nтакже ограничит свое поле зрения.\n \nБольше - лучше.",
 	L"\n \nКонечный радиус пожара.\n \nВраги, попавшие в этот радиус, будут получать\nурон и оглушающий урон каждый ход,\nеслитолько на них не будет противогаза.\n \nБольше - лучше.",
 	L"\n \nДлительность эффекта.\n \nКаждый ход радиус эффекта увеличивается\nна один тайл в каждом направлении, пока не\nдостигнет конечного радиуса. По окончании\nвремени действия эффект полностью\nисчезает.\n \nБольше - лучше.",
+	// HEADROCK HAM 5: Fragmentation
 	L"\n \nЧисло осколков при взрыве.\n \nОсколки действуют по принципу пуль, и они могут\nпопасть в любого, кто стоит достаточно близко\nк взрыву.\n \nБольше - лучше.",
 	L"\n \nПотенциальный урон от каждого осколка,\nобразовавшегося при взрыве.\n \nБольше - лучше.",
 	L"\n \nСреднее расстояние, на которое полетят осколки\nот взрыва. Некоторые могут пролететь\nгораздо дальше, а некоторые - ближе среднего.\n \nБольше - лучше.",
+	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nРасстояние в тайлах, в пределах которого\nсолдаты и наемники услышат звук взрыва.\n \nВраги, услышавшие его, поймут, что вы в\nсекторе.\n \nМеньше - лучше.",
 	L"\n \nЭто значение определяет вероятность в\nпроцентах, что эта взрывчатка спонтанно взорвется\nпри ее повреждении (например, при близком взрыве).\n \nНошение с собой в бою нестабильной\nвзрывчатки крайне опасно и не\nрекомендуется.\n \nДиапазон: 0-100.\nМеньше - лучше. ",
 	L"\n \nОпределяет сложность починки взрывчатки,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
-
+	
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
@@ -8058,7 +8064,7 @@ STR16	zNewTacticalMessages[]=
 	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
 };
 
-// The_bob : pocket popup text defs	
+// The_bob : pocket popup text defs
 STR16	gszPocketPopupText[]=
 {
 	L"Гранатомёты",	// POCKET_POPUP_GRENADE_LAUNCHERS,
@@ -8141,7 +8147,6 @@ STR16	szFoodTextStr[]=
 	L"Наполнение фляжек в секторе невозможно, Система Еды отключена!"
 };
 
-
 STR16	szPrisonerTextStr[]=
 {
 	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",	// TODO.Translate
@@ -8161,7 +8166,7 @@ STR16	szPrisonerTextStr[]=
 	L"%d prisoners volunteered to join our forces.",
 };
 
-STR16	szMTATextStr[]=	
+STR16	szMTATextStr[]=
 {
 	L"ничего",
 	L"укрепление строится",
@@ -8171,7 +8176,7 @@ STR16	szMTATextStr[]=
 	L"Выбранное укрепление не может быть построено в этом секторе",
 };
 
-STR16	szInventoryArmTextStr[]= 
+STR16	szInventoryArmTextStr[]=
 {
 	L"Взорвать (%d ОД)",
 	L"Взорвать",
@@ -8180,7 +8185,6 @@ STR16	szInventoryArmTextStr[]=
 	L"Обезвредить (%d ОД)",
 	L"Обезвредить",
 };
-
 
 STR16		szBackgroundText_Flags[]=
 {
@@ -8196,7 +8200,6 @@ STR16		szBackgroundText_Flags[]=
 
 	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
 };
-
 
 STR16	szBackgroundText_Value[]=
 {
@@ -8238,7 +8241,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% сопротивление алкогол.\n",
 	L" %s%d%% disease resistance\n",	// TODO.Translate
 
-
 	L" %s%d%% эффективность ведения допроса\n",
 	L" %s%d%% эффективность тюремной охраны\n",
 	L" %s%d%% лучше цены при торговле оружием и патронами\n",
@@ -8269,7 +8271,6 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% CTH с оружием против животных\n",
 	L" %s%d%% стоимость страховки\n",
 	L" %s%d%% эффективность наблюдателя в снайперской паре\n",
-
 	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
 	L" %s%d%% effectiveness at treating population against diseases\n",
 	L"Can spot tracks up to %d tiles away\n",
@@ -8280,13 +8281,13 @@ STR16	szBackgroundText_Value[]=
 	L"Nonsmoker",
 };
 
-STR16		szBackgroundTitleText[] =	
+STR16		szBackgroundTitleText[] = 
 {
 	L"I.M.P. Биография",
 };
 
 // Flugente: personality
-STR16		szPersonalityTitleText[] =
+STR16		szPersonalityTitleText[] = 
 {
 	L"I.M.P. Предубеждения",
 };
@@ -8321,6 +8322,7 @@ STR16		szPersonalityHelpText[]=
 	L"Насколько вы сексист по отношению к другим полам?",
 };
 
+
 STR16		szRaceText[]=
 {
 	L"белый",
@@ -8352,7 +8354,6 @@ STR16		szRefinementTextTypes[] =	// TODO.Translate
 	L"slobs",
 	L"snobs",
 };
-
 
 STR16		szNationalityText[]=
 {
@@ -8548,7 +8549,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"атакован",
 	L"попал в засаду",
 	L"высадился",
-
+		
 	L"Атака осуществлена с %s.",
 	L"%s подкрепления пришли с %s.",
 	L"Атакованы с %s, %s получили подкрепления с %s.",
@@ -8557,7 +8558,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"юга",
 	L"запада",
 	L"и",
-	L"неизвестно",
+	L"неизвестно",  //an unknown location
 
 	L"Здания в секторе получили повреждения.",
 	L"Во время боя здания в секторе получили повреждения, %d гражданских были убиты и %d ранены.",
@@ -8609,9 +8610,10 @@ STR16	szCampaignHistoryResultString[]=
 
 	L"Повстанцы легко сокрушили противника, нанеся тяжелый урон.",	
 	L"Повстанцы без особых усилий нанесли противнику тяжелый урон и захватили несколько пленных.",
-	
+
 	L"Повстанцы сумели победить противника в результате тяжелого боя. Армия понесла потери.",
 	L"Повстанцы понесли потери, но смогли нанести поражение правительственным войскам. По непроверенным данным, несколько солдат могли попасть в плен.",
+
 	L"Повстанцы сумели нанести поражение правительственным войскам, но из-за высоких потерь эта победа может оказаться пирровой. Неизвестно, сумеют ли они удержать завоеванные позиции под непрерывными атаками противника.",
 	
 	L"Численное превосходство армии принесло свои плоды. Повстанцы не имели ни единого шанса и вынуждены были отступить, чтобы избежать гибели или плена.",	
@@ -8622,6 +8624,7 @@ STR16	szCampaignHistoryResultString[]=
 
 	L"В результате ожесточенного боя обе стороны понесли существенные потери, но в итоге сказалось численное преимущество армии. Повстанцы были разгромлены. Возможно, часть из них сумела выжить, но в настоящий момент мы не можем проверить эту информацию.",	
 	L"В произошедшей интенсивной перестрелке сказалась лучшая подготовка армии, и повстанцы были вынуждены отступить.",
+
 	L"Ни одна из сторон не собиралась уступать. Несмотря на то, что армия устранила угрозу восстания в районе, понесенные потери означают, что армейское подразделение существует только формально. Однако, если армия может позволить себе воевать с таким уровнем потерь, повстанцы очень скоро физически закончатся.",
 };
 
@@ -8794,6 +8797,32 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Steadfast %s",
 
 	// 100
+	L"Narcoleptic %s",
+	L"Bleached %s",
+	L"Nail-biting %s",
+	L"Smite the %s",
+
+	L"Bloodthirsty %s",
+	L"Obese %s",
+	L"Scheming %s",
+	L"Tree-Humping %s",
+
+	L"Cheaply made %s",
+	L"Sanctified %s",
+	L"Falsely accused %s",
+	L"%s to the rescue",
+
+	L"Crab-people vs. %s",
+	L"%s in Space!!!",
+	L"%s vs. Godzilla",
+	L"Untamed %s",
+
+	L"Durable %s",
+	L"Brazen %s",
+	L"Greedy %s",
+	L"Midnight %s",
+
+	// 120
 };
 
 STR16	szCampaignStatsOperationSuffix[] =
@@ -8928,6 +8957,32 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Mutual Fund",
 
 	// 100
+	L"Uniform",
+	L"Saber",
+	L"Snow Leopard",
+	L"Panther",
+
+	L"Centaur",
+	L"Scorpion",
+	L"Serpent",
+	L"Black Widow",
+
+	L"Tarantula",
+	L"Vulture",
+	L"Heretic",
+	L"Zombie",
+
+	L"Role-Model",
+	L"Hellhound",
+	L"Mongoose",
+	L"Nurse",
+
+	L"Nun",
+	L"",
+	L"",
+	L"",
+
+	// 120
 };
 
 STR16	szMercCompareWebSite[] =	// TODO.Translate
@@ -9023,6 +9078,7 @@ STR16	szMercCompareEventText[]=		// TODO.Translate
 	L"%s stole my kill",
 	L"%s and me fought well together",
 	L"%s made the enemy surrender",
+	L"%s injured civilians",
 };
 
 STR16	szWHOWebSite[] =		// TODO.Translate
@@ -9081,7 +9137,7 @@ STR16	szPMCWebSite[] =
 	L"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
 	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
 	L"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
-
+	
 	// militia contract page
 	L"You can select the type and number of personnel you want to hire here:",
 	L"Initial deployment",
@@ -9179,7 +9235,7 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Показывается сеть D",
 };
 
-// TODO.Translate
+
 STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
@@ -9827,7 +9883,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 	L"",
 	L"",
-
+	
 	// OPINIONEVENT_BESTCOMMANDEREVER
 	L"Yeah! Take that, losers! That was a mighty fine strategy, $CAUSE$!",
 	L"",
@@ -9999,7 +10055,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 	L"Yep",
 	L"Yes.",
 
-	L"Indeed.",
+	L"Indeed.",	
 	L"True.",
 	L"Ha!",
 	L"See?",
@@ -10069,17 +10125,15 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 	L"Shut them up",
 };
 
-// TODO.Translate
-STR16	szDynamicDialogueText_GenderText[] =
+STR16	szDynamicDialogueText_GenderText[] = 
 {
-	L"he",
-	L"she",
-	L"him",
-	L"her",
+	L"он",
+	L"она",
+	L"его",
+	L"её",
 };
 
-// TODO.Translate
-STR16	szDiseaseText[] =
+STR16	szDiseaseText[] =  // TODO.Translate
 {
 	L" %s%d%% agility stat\n",
 	L" %s%d%% dexterity stat\n",
@@ -10135,14 +10189,14 @@ STR16 szIMPGearDropDownText[] =
 	L"Select LBE combat pack",
 	L"Select LBE backpack",
 	L"Select LBE holster",
-	L"Select LBE holster",
-
+	L"Select LBE holster", 
+	
 	L"Select main gun",
 	L"Select ammo",
 	L"Select sidearm",
 	L"Select additional ammo",
 	L"Select melee weapon",
-
+	
 	L"Select helmet",
 	L"Select vest",
 	L"Select pants",
@@ -10164,14 +10218,14 @@ STR16 szIMPGearDropDownNoneText[] =
 	L"No LBE combat pack",
 	L"No LBE backpack",
 	L"No LBE holster",
-	L"No LBE holster",
-
+	L"No LBE holster", 
+	
 	L"No gun",
 	L"No ammo",
 	L"No gun",
 	L"No ammo",
 	L"No weapon",
-
+	
 	L"No helmet",
 	L"No vest",
 	L"No pants",
@@ -10201,6 +10255,5 @@ STR16 szMilitiaStrategicMovementText[] =
 
 	L"Militia Volunteers: %d (+%5.3f)",
 };
-
 
 #endif //RUSSIAN

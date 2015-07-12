@@ -19,7 +19,7 @@ void this_is_the_Ja25RussianText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
@@ -105,8 +105,8 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"-%d%s ОД на вскидывание ручного пулемёта\n",
 	L"Штраф на шанс попадания в автоматическом\nрежиме огня и в режиме очереди понижен на %d%s\n",
 	L"Понижен шанс лишних выстрелов при автоматической стрельбе\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"-%d%s ОД на стрельбу из гранатомёта\n",
@@ -117,8 +117,8 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"Понижен штраф на шанс попадания при стрельбе с миномёта на %d%s\n",
 	L"+%d%s к урону танкам от тяжёлого оружия, гранат и взрывчатки\n",
 	L"+%d%s к урону иным целям из тяжёлого оружия\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
 	L"+%d%s к шансу попадания из винтовки\n",
@@ -140,8 +140,8 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"+%d кликов прицеливания для оружия типа винтовок\n",
 	L"Прицеливание оружия типа винтовок быстрее на один клик прицеливания\n",
 	L"Прицеливание оружия типа винтовок быстрее на %d кликов прицеливания\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"+%d%s к шансу попадания из винтовки\n",
@@ -155,6 +155,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
 	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
 };
+
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"-%d%s ОД на выстрел из пистолетов и револьверов\n",
@@ -167,8 +168,8 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"-%d%s ОД на перезарядку пистолетов, автоматических пистолетов и револьверов\n",
 	L"+%d клик прицеливания для пистолетов, автоматических пистолетов и револьверов",
 	L"+%d кликов прицеливания для пистолетов, автоматических пистолетов и револьверов\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
 	L"-%d%s ОД на рукопашные атаки (кулаками и кастетом)\n",
@@ -199,8 +200,8 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"+%d%s к шансу выбить дверь ногой\n",
 	L"Вы получаете специальные движения для атак ближнего боя\n",
 	L"-%d%s к шансу перехвата вашего хода во время движения\n", //chance to be interrupted when moving
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"+%d%s ОД на каждый ход рядом находящимся наёмникам\n",
@@ -215,8 +216,8 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"+%d%s сопротивление страху у %s\n",
 	L"Недостаток: %dx кратное ухудшение боевого духа у наёмников, если погибает %s\n",
 	L"+%d%s к шансу получить перехват всем отрядом\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"+%d%s к скорости ремонта\n",
@@ -231,6 +232,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"Понижен штраф на скорость ремонта робота на %d%s\n",
 	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
 };
+
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
 	L"Может выполнять хирургические операции при наличии медицинской сумки\n",
@@ -244,6 +246,7 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s к природной скорости регенерации для всех солдат в том же секторе",
 	L" (максимум %d бонуса на находящихся в секторе)",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
 	L"Может переодеваться в гражданского или солдата, \nчтобы проникать в тыл врага.\n",
@@ -265,17 +268,6 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"Может вызывать подкрепления из отрядов ополченцев из соседних секторов.\n",
 };
 
-STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
-{
-	L"+%d%s к скорости передвижения группы между секторами, если идти пешком\n",
-	L"+%d%s к скорости передвижения группы между секторами, \nесли передвигаться на транспорте (за исключением вертолёта)\n",
-	L"-%d%s к затрате энергии при переходе между секторами\n",	//меньше тратит сил
-	L"-%d%s к штрафам от погодных условий\n",
-	//L"+%d%s к эффективности камуфляжа\n",
-	L"-%d%s на скорость ухудшения камуфляжа от воды и времени\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
-};
-
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"Нет преимуществ",
@@ -292,6 +284,7 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"-%d%s ОД, необходимых для установки/обезвреживания бомб и мин\n",
 	L"-%d%s ОД, необходимых на присоединение навески\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"-%d%s ОД на атаку клинковым оружием\n",
@@ -304,8 +297,8 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"+%d%s к шансу уклониться от атаки клинковым холодным оружием, если в руках нож\n",
 	L"+%d%s к шансу уклониться от атаки дробящим холодным оружием\n",
 	L"+%d%s к шансу уклониться от атаки дробящим холодным оружием, если в руках нож\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"-%d%s базовых ОД, нужных для броска ножа\n",
@@ -318,8 +311,8 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d к множителю критического урона при броске ножа\n",
 	L"+%d клик прицеливания для метательных ножей\n",
 	L"+%d кликов прицеливания для метательных ножей\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"+%d к зрению в темноте\n",
@@ -327,8 +320,8 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"+%d дополнительно к слуху в темноте\n",
 	L"+%d к вероятности перехвата хода в ночи\n",
 	L"-%d к нужде во сне\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s ОД, необходимых для бесшумного передвижения\n",
@@ -336,21 +329,22 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s к скрытности (быть 'невидимым', если вас не обнаружили)\n",
 	L"Штраф укрытия при передвижении уменьшен на %d%s\n",
 	L"-%d%s к шансу быть перехваченным\n", //chance to be interrupted
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"-%d%s ОД на передвижение (бег, шаг, шаг вприсядку, переползание, плавание и т.д.)\n",
 	L"-%d%s на затраты энергии при движении, вскарабкивание на крышу, прыжки через препятствия, плавание и т.д.\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"Имеет %d%s устойчивости к повреждениям\n",
 	L"+%d%s к силе для определения максимально допустимого веса\n",
 	L"Потеря сил при пропущенных ударах в ближнем бою уменьшена на %d%s\n",
 	L"Урон при ранении в ногу, при котором вы падаете на землю, должен быть больше на %d%s\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
 	L"-%d%s ОД для броска гранаты\n",
@@ -361,8 +355,8 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"+%d%s к установке/разминированию бомб\n",
 	L"Уменьшает шанс обнаружения противником установленных вами бомб и мин (+%d к уровню бомб)\n",
 	L"Повышает вероятность вскрытия замка формовым зарядом (урон увеличен на %d)\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"+%d%s к скорости обучения ополчения\n",
@@ -370,8 +364,8 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"+%d%s к скорости обучения других наёмников\n",
 	L"Значение уровня умения будет выше на +%d при обучении другого бойца этому умению\n",
 	L"+%d%s к скорости самостоятельного обучения/тренировке\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"+%d к эффективной прицельной видимости для оружия с оптическими прицелами\n",
@@ -399,6 +393,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"-%d%s less energy spent for travelling between sectors\n",
 	L"-%d%s weather penalties\n",
+	//L"+%d%s camouflage effectiveness\n",
 	L"-%d%s worn out speed of camouflage by water or time\n",
 	L"Can spot tracks up to %d tiles away\n",
 
@@ -454,7 +449,6 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
-//I.M.P. Character Traits help text
 	L"плюсы: Нет преимуществ.\n \nминусы: Без изъянов.",	//Neutral
 	L"плюсы: Лучше работает в команде.\n \nминусы: Боевой дух не растёт, когда наёмник работает один.",	//Sociable
 	L"плюсы: Лучше работает в одиночестве.\n \nминусы: Боевой дух не растёт в присутствии других бойцов.",	//Loner
@@ -483,8 +477,6 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Значительно пониженный слух.",
 	L"Сниженная дальность видимости.",
 };
-
-
 
 STR16 gzIMPProfileCostText[]=
 {
@@ -523,7 +515,11 @@ STR16 gzDisplayCoverText[]=
 	L"Пустыня и город",
 	L"Пустыня и снег",
 	L"Город и снег",
-	L"" // yes empty for now
+	L"-", // yes empty for now
+	L"Cover: %d/100, Brightness: %d/100",
+	L"Footstep volume",
+	L"Stealth difficulty",
+	L"Trap level",
 };
 
 #endif
