@@ -8404,6 +8404,9 @@ STR16		szNationalityText[]=
 	L"叙利亚人",
 	L"比利时人",
 	L"葡萄牙人",
+	L"Belarusian",		// TODO.Translate
+	L"Serbian",			// 45
+	L"Pakistani",
 };
 
 STR16		szNationalityTextAdjective[] = // TODO.Translate
@@ -8454,6 +8457,9 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 	L"syrians",
 	L"belgians",
 	L"portoguese",
+	L"belarusian",
+	L"serbians",		// 45
+	L"pakistanis",
 };
 
 

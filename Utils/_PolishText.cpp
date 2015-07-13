@@ -8429,6 +8429,9 @@ STR16		szNationalityText[]=
 	L"Syrian",
 	L"Belgian",
 	L"Portoguese",
+	L"Belarusian",		// TODO.Translate
+	L"Serbian",			// 45
+	L"Pakistani",
 };
 
 STR16		szNationalityTextAdjective[] = // TODO.Translate
@@ -8479,6 +8482,9 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 	L"syrians",
 	L"belgians",
 	L"portoguese",
+	L"belarusian",
+	L"serbians",		// 45
+	L"pakistanis",
 };
 
 // special text used if we do not hate any nation (value of -1)

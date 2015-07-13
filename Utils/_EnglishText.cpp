@@ -8403,6 +8403,9 @@ STR16		szNationalityText[]=
 	L"Syrian",
 	L"Belgian",
 	L"Portoguese",
+	L"Belarusian",
+	L"Serbian",			// 45
+	L"Pakistani",
 };
 
 STR16		szNationalityTextAdjective[] =
@@ -8453,6 +8456,9 @@ STR16		szNationalityTextAdjective[] =
 	L"syrians",
 	L"belgians",
 	L"portoguese",
+	L"belarusian",
+	L"serbians",		// 45
+	L"pakistanis",
 };
 
 // special text used if we do not hate any nation (value of -1)
