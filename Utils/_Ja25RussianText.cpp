@@ -56,9 +56,9 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Ковбой",	//Gunslinger
 	L"Боксёр",	//Hand to Hand
 	L"Старшина",	//Deputy
-	L"Механик-электронщик",	//Technician
+	L"Техник",	//Technician
 	L"Санитар",	//Paramedic
-	L"Тайные операции",	//Covert Ops
+	L"Диверсант",	//Covert Ops
 
 	L"Нет",
 	L"I.M.P.: Основные навыки",	//I.M.P. Major Traits
@@ -68,7 +68,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Снайпер",	//Sniper
 	L"Егерь",	//Ranger
 	L"Пистолетчик",	//Gunfighter
-	L"Боевые искусства",	//Martial Arts
+	L"Каратист",	//Martial Arts
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
@@ -88,8 +88,8 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Подрывник",	//Demolitions
 	L"Инструктор",	//Teaching
 	L"Разведчик",	//Scouting
-	L"Радист",		//Radio Operator
-	L"Survival",	//TODO.Translate
+	L"Радист",	//Radio Operator
+	L"Спец по выживанию",	//Survival
 
 	L"Нет",
 	L"I.M.P.: Дополнительные навыки",	//I.M.P. Minor Traits
@@ -150,10 +150,10 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"-%d%s ОД на выстрел из дробовика\n",
 	L"+%d клик прицеливания для дробовиков\n",
 	L"+%d кликов прицеливания для дробовиков\n",
-	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
-	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
-	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
-	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
+	L"+%d%s к эффективной дальности дробовиков\n",
+	L"-%d%s ОД на перезарядку однозарядного дробовика\n",
+	L"+%d клик прицеливания для винтовок\n",
+	L"+%d кликов прицеливания для винтовок\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
@@ -230,7 +230,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"+%d%s к шансу попадания по цели роботу, управляемому %s\n",
 	L"%s даёт возможность ремонтировать робота\n",
 	L"Понижен штраф на скорость ремонта робота на %d%s\n",
-	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
+	L"Возможность восстановить вещь при ремонте на все 100%%\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
@@ -243,8 +243,8 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L" обычным лечением.\n",
 	L"+%d%s к эффективности при связке доктор-пациент\n",
 	L"+%d%s к скорости перевязки\n",
-	L"+%d%s к природной скорости регенерации для всех солдат в том же секторе",
-	L" (максимум %d бонуса на находящихся в секторе)",
+	L"+%d%s к природной скорости регенерации для всех солдат в том же квадрате",
+	L" (максимум %d бонуса на находящихся в квадрате)",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
@@ -261,11 +261,11 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 {
 	L"Может использовать оборудование связи.\n", 
-	L"Может запрашивать артиллерийские удары у союзников в соседних секторах.\n",
+	L"Может запрашивать артиллерийские удары у союзников в соседних квадратах.\n",
 	L"Может обнаруживать вражеские патрули при сканировании частот.\n",
-	L"Радиопереговоры могут быть подавлены во всем секторе.\n",
+	L"Радиопереговоры могут быть подавлены во всем квадрате.\n",
 	L"Если радиопереговоры подавлены, то радист может искать подавляющее устройство.\n",
-	L"Может вызывать подкрепления из отрядов ополченцев из соседних секторов.\n",
+	L"Может вызывать подкрепление ополченцев из соседних квадратов.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
@@ -371,8 +371,8 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"+%d к эффективной прицельной видимости для оружия с оптическими прицелами\n",
 	L"+%d к эффективной дальности видимости для биноклей (и оптических прицелов, отсоединённых от оружия)\n",
 	L"-%d от туннельного зрения для биноклей (и оптических прицелов, отсоединённых от оружия)\n",
-	L"В секторах, смежных с вашим, будет показано точное количество врагов\n",
-	L"В секторах, смежных с вашим, будет показано наличие врагов\n",
+	L"В квадратах, смежных с вашим, будет показано точное количество врагов\n",
+	L"В квадратах, смежных с вашим, будет показано наличие врагов\n",
 	L"Предотвращает попадание отряда во вражеские засады\n",
 	L"Предотвращает попадание отряда в засады кошек-убийц\n",
 };
@@ -387,19 +387,19 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"+%d фактической дальности слуха.\n",	
 };
 
-STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 {
-	L"+%d%s group traveling speed between sectors if traveling by foot\n",
-	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
-	L"-%d%s less energy spent for travelling between sectors\n",
-	L"-%d%s weather penalties\n",
-	//L"+%d%s camouflage effectiveness\n",
-	L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",
+	L"+%d%s к скорости передвижения группы пешком между квадратами\n",
+	L"+%d%s к скорости передвижения группы на транспорте между квадратами (кроме вертолёта)\n",
+	L"-%d%s к потере сил при переходе в другой квадрат\n",
+	L"-%d%s к погодным трудностям\n",
+	//L"+%d%s к эффективности камуфляжа\n",
+	L"-%d%s к износу камуфляжного покрытия из-за воды и времени\n",
+	L"Может заметить следы за %d метров\n",
 
-	L" %s%d%% disease resistance\n",
-	L" %s%d%% food consumption\n",
-	L" %s%d%% water consumption\n",
+	L" %s%d%% к сопротивляемости заболеваниям\n",
+	L" %s%d%% к потреблению еды\n",
+	L" %s%d%% к потреблению воды\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
@@ -492,9 +492,9 @@ STR16 zGioNewTraitsImpossibleText[]=
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Ваш выбор позволит сохраняться лишь в \"мирное время\". Проходить игру станет гораздо сложнее, так как сохраняться вы сможете только между боями. После старта игры изменить эту настройку нельзя. Вы уверены, что готовы расстаться с возможностью сохраняться в бою?",
-	L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",// TODO.Translate
-	L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",// TODO.Translate
+	L"Вы выбрали режим СТАЛЬНЫЕ НЕРВЫ. Проходить игру станет гораздо сложнее, так как сохраняться можно будет только между боями. После старта игры изменить эту настройку нельзя.  Вы уверены, что сможете играть в таком режиме?",
+	L"Вы выбрали режим СТАЛЬНЫЕ НЕРВЫ +. Проходить игру станет немного сложнее, так как нельзя будет сохраняться в пошаговом режиме. После старта игры изменить эту настройку нельзя. Вы уверены, что сможете играть в таком режиме?",
+	L"Вы выбрали режим СТАЛЬНЫЕ НЕРВЫ ++. Проходить игру станет значительно сложнее, так как сохраняться можно будет только раз в день - в %02d:00. После старта игры изменить эту настройку нельзя. Вы уверены, что сможете играть в таком режиме?",
 };
 
 STR16 gzDisplayCoverText[]=
@@ -515,11 +515,11 @@ STR16 gzDisplayCoverText[]=
 	L"Пустыня и город",
 	L"Пустыня и снег",
 	L"Город и снег",
-	L"-", // yes empty for now				// TODO.Translate
-	L"Cover: %d/100, Brightness: %d/100",
-	L"Footstep volume",
-	L"Stealth difficulty",
-	L"Trap level",
+	L"-", // yes empty for now
+	L"Укрытие: %d/100, освещённость: %d/100",
+	L"Громкость шагов",
+	L"Сложность остаться незаметным",	//Stealth difficulty
+	L"Уровень ловушки",
 };
 
 #endif

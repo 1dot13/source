@@ -8456,7 +8456,7 @@ STR16		szNationalityTextAdjective[] =
 	L"syrians",
 	L"belgians",
 	L"portoguese",
-	L"belarusian",
+	L"belarusians",
 	L"serbians",		// 45
 	L"pakistanis",
 };
