@@ -9765,7 +9765,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 		// if this is a civilian, other mercs can complain about mercs shooting innocents
 		// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-		if ( this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide )
+		if ( (this->bTeam != OUR_TEAM) && (this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide) )
 		{
 			// not for killing animals though...
 			if ( this->ubBodyType != CROW && this->ubBodyType != COW )

@@ -3953,7 +3953,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
 
 									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-									if ( pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide )
+									if ( pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
 									{
 										// not for killing animals though...
 										if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
@@ -3967,7 +3967,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						gStrategicStatus.usPlayerKills++;
 
 						// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-						if ( pSoldier->bTeam == CIV_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+						if ( pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
 						{
 							// not for killing animals though...
 							if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )

@@ -1112,6 +1112,10 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 	if ( usEvent >= OPINIONEVENT_MAX )
 		return;
 
+	// don't use event if opinion modifier is off (thereby providing an easy way to turn off parts of this feature)
+	if ( !gDynamicOpinionEvent[usEvent].sOpinionModifier )
+		return;
+
 	// we don't want any events for people not on our team or vehicles
 	SOLDIERTYPE* pSoldier = FindSoldierByProfileID( usProfileA, TRUE );
 	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )

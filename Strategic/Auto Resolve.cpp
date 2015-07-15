@@ -4653,7 +4653,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
 
 							// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-							if ( pTarget->pSoldier->aiData.bNeutral || pTarget->pSoldier->bSide == pAttacker->pSoldier->bSide )
+							if ( (pTarget->pSoldier->bTeam != OUR_TEAM) && (pTarget->pSoldier->aiData.bNeutral || pTarget->pSoldier->bSide == pAttacker->pSoldier->bSide) )
 							{
 								// not for killing animals though...
 								if ( pTarget->pSoldier->ubBodyType != CROW && pTarget->pSoldier->ubBodyType != COW )
