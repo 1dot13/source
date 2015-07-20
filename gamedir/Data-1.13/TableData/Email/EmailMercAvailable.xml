@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 
 This file contains the email text for each merc (that is available on the A.I.M website), 
 when the merc contacts us back (now the merc is available to work with us).
@@ -73,7 +73,7 @@ Message:		The email message boy
   <EMAIL>
     <!-- Shadow -->
     <uiIndex>10</uiIndex>
-    <Subject>FW from AIM Server: ???d?? ???????</Subject>
+    <Subject>FW from AIM Server: [MVdMZ ]VSVW_V</Subject>
     <Message>>>THIS MESSAGE FORWARDED TO AIM SERVER VIA ANONYMOUS EMAIL. You asked for Shadow. I might be available at the AIM site for a bit. You never really can tell. ±</Message>
   </EMAIL>
   <EMAIL>
