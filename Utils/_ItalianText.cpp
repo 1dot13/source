@@ -6204,6 +6204,8 @@ STR16 pMessageStrings[] =
 	L"Artificial Merc Light OFF",
 	L"Squad %s active.",	//TODO.Translate
 	L"%s smoked %s.",
+	L"Activate cheats?",
+	L"Deactivate cheats?",
 };
 
 

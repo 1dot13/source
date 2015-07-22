@@ -6207,6 +6207,8 @@ STR16 pMessageStrings[] =
 	L"Подсветка наемника отключена",
 	L"Squad %s active.",	//TODO.Translate
 	L"%s smoked %s.",
+	L"Activate cheats?",
+	L"Deactivate cheats?",
 };
 
 

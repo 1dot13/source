@@ -6208,6 +6208,8 @@ STR16 pMessageStrings[] =
 	L"虚拟佣兵光照关闭",
 	L"Squad %s active.",	//TODO.Translate
 	L"%s smoked %s.",
+	L"Activate cheats?",
+	L"Deactivate cheats?",
 };
 
 

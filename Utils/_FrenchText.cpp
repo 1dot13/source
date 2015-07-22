@@ -6218,6 +6218,8 @@ STR16 pMessageStrings[] =
 	L"Éclairage du mercenaire désactivé",
 	L"Squad %s active.",	//TODO.Translate
 	L"%s smoked %s.",
+	L"Activate cheats?",
+	L"Deactivate cheats?",
 };
 
 
