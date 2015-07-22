@@ -260,10 +260,6 @@ void DumpSectorDifficultyInfo( void );
 
 void HandleStealthChangeFromUIKeys( );
 
-
-
-UINT8			gubCheatLevel		= STARTING_CHEAT_LEVEL;
-
 extern BOOLEAN CompatibleAmmoForGun( OBJECTTYPE *pTryObject, OBJECTTYPE *pTestObject );
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
 extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lalien
@@ -344,6 +340,7 @@ void HandleTacticalMoveItems( void );
 void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalCoverMenu( void );
 void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
+void ActivateCheatsMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalAmmoCrates( UINT8 magType );
 void HandleTacticalTransformItem( void );
 BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation );
@@ -1613,7 +1610,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 	static BOOLEAN	fShifted2 = FALSE;
 	static BOOLEAN	fAltDown = FALSE;
 	INT32 usMapPos;
-	BOOLEAN						fGoodCheatLevelKey = FALSE;
 	
 	CHAR16	zString[128]; 
 
@@ -3006,15 +3002,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				if ( fCtrl )
 				{
-					if ( gubCheatLevel == 1 )
-					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-					}
-					else
-					{
-						RESET_CHEAT_LEVEL();
-					}
+					// free to use
 				}
 				else if ( fAlt )
 				{
@@ -3059,25 +3047,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( fCtrl )
 				{
-					if ( gubCheatLevel == 2 )
-					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-					}
-					else if ( gubCheatLevel == 3 )
-					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-					}
-					else if ( gubCheatLevel == 5 )
-					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-					}
-					else
-					{
-						RESET_CHEAT_LEVEL( );
-					}
+					// free to use
 				}
 				else
 				{
@@ -3356,19 +3326,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( fCtrl )
 				{
-					if ( gubCheatLevel == 0 )
+					// Flugente: ask player whether he wants to activate cheats or not, but not in multiplayer
+					if ( !is_networked )
 					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-					}
-					else
-					{
-						RESET_CHEAT_LEVEL();
+						if ( CHEATER_CHEAT_LEVEL() )
+						{
+							DoScreenIndependantMessageBox( pMessageStrings[MSG_PROMPT_CHEATS_DEACTIVATE], MSG_BOX_FLAG_YESNO, ActivateCheatsMessageBoxCallBack );
+						}
+						else
+						{
+							DoScreenIndependantMessageBox( pMessageStrings[MSG_PROMPT_CHEATS_ACTIVATE], MSG_BOX_FLAG_YESNO, ActivateCheatsMessageBoxCallBack );
+						}
 					}
 				}
 				else if ( fAlt )
 				{
-
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
 						*puiNewEvent = I_NEW_MERC;
@@ -3452,18 +3424,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( fCtrl )
 				{
-					if ( gubCheatLevel == 4 )
-					{
-						gubCheatLevel++;
-						fGoodCheatLevelKey = TRUE;
-						// ATE; We're done.... start cheat mode....
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_CHEAT_LEVEL_TWO ] );
-						SetHistoryFact( HISTORY_CHEAT_ENABLED, 0, GetWorldTotalMin(), -1, -1 );
-					}
-					else
-					{
-						RESET_CHEAT_LEVEL();						
-					}
+					// free to use
 				}
 				else
 				{
@@ -4421,11 +4382,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'Z':
 				break;
 
-			}
-
-			if ( !fGoodCheatLevelKey && gubCheatLevel < 4 )
-			{
-				RESET_CHEAT_LEVEL( );
 			}
 		}
 	}
@@ -8230,6 +8186,25 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 
 	if( ubExitValue <= TACTICAL_COVER_DIALOG_NUM )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTacticalCoverDialogPrintString[ubExitValue-1]);
+}
+
+void ActivateCheatsMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if ( ubExitValue == MSG_BOX_RETURN_YES )
+	{
+		if ( CHEATER_CHEAT_LEVEL( ) )
+		{
+			RESET_CHEAT_LEVEL( );
+		}
+		else
+		{
+			ACTIVATE_CHEAT_LEVEL( );
+
+			// ATE; We're done.... start cheat mode....
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_CHEAT_LEVEL_TWO] );
+			SetHistoryFact( HISTORY_CHEAT_ENABLED, 0, GetWorldTotalMin( ), -1, -1 );
+		}
+	}
 }
 
 void HandleTacticalTransformItem( void )

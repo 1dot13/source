@@ -102,6 +102,7 @@ extern BOOLEAN gfGamePaused;
 
 extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
 
+UINT8			gubCheatLevel = STARTING_CHEAT_LEVEL;
 
 UINT8			gubScreenCount=0;
 
