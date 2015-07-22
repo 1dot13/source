@@ -12,22 +12,22 @@
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>1</uiIndex>
-		<Name>Novice</Name>
-		<ConfirmText>You have chosen NOVICE mode. This setting is appropriate for those new to Jagged Alliance, those new to strategy games in general, or those wishing shorter battles in the game. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Novice mode?</ConfirmText>
+		<Name>Новичок</Name>
+		<ConfirmText>Выбран уровень сложности НОВИЧОК. Режим подойдёт тем, кто не знаком с Jagged Alliance и с игровыми стратегиями вообще, а так же, любителям коротких боёв. Выбор сложности определит ход всей игры, выбирайте с головой. Хотите начать игру в режиме НОВИЧОК?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>2</uiIndex>
-		<Name>Experienced</Name>
-		<ConfirmText>You have chosen EXPERIENCED mode. This setting is suitable for those already familiar with Jagged Alliance or similar games. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Experienced mode?</ConfirmText>
+		<Name>Опытный</Name>
+		<ConfirmText>Выбран уровень сложности ОПЫТНЫЙ игрок. Этот режим подходит тем, кто уже знаком с Jagged Alliance или схожими играми. Ваш выбор определит ход всей игры, так что, выбирайте сложность с головой. В самом деле хотите начать игру на сложности ОПЫТНЫЙ?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>3</uiIndex>
-		<Name>Expert</Name>
-		<ConfirmText>You have chosen EXPERT mode. We warned you. Don't blame us if you get shipped back in a body bag. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Expert mode?</ConfirmText>
+		<Name>Эксперт</Name>
+		<ConfirmText>Выбран уровень сложности ЭКСПЕРТ. Мы предупреждали. Так что, не вините нас, если ваши тела вернутся обратно как груз 200. Ваш выбор определит ход всей игры, так что, выбирайте сложность с головой. В самом деле хотите начать игру на сложности ЭКСПЕРТ?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>4</uiIndex>
-		<Name>Insane</Name>
-		<ConfirmText>You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?</ConfirmText>	
+		<Name>Безумец</Name>
+		<ConfirmText>Выбран БЕЗУМНЫЙ уровень сложности. Не вините нас, если ваши тела вернут обратно по маленьким кусочкам... Дейдрана НАДЕРЁТ вам задницу... Жёстко. Выбор сложности определит ход всей игры, так что, выбирайте с головой. Хотите начать игру в режиме БЕЗУМЕЦ?</ConfirmText>
 	</DIFFICULTY>
 </DIFFICULTY_SETTINGS>

@@ -122,7 +122,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>30</uiIndex>
-    <szText>Воу!</szText>
+    <szText>Салага!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>31</uiIndex>
@@ -198,7 +198,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>49</uiIndex>
-    <szText>Теперь оффициально: ТЫ - ГОВНО!</szText>
+    <szText>Теперь официально: ТЫ - ГОВНО!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>50</uiIndex>
@@ -226,7 +226,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>56</uiIndex>
-    <szText>Воу, да ты еще тупее, чем выглядешь.</szText>
+    <szText>Парниша, да ты ещё тупее, чем выглядишь.</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>57</uiIndex>
@@ -318,11 +318,11 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>79</uiIndex>
-    <szText>Чуваки, что с ними сделаем - просто пристрелем или замучаем до смерти?</szText>
+    <szText>Чуваки, что с ними сделаем - просто пристрелим или замучаем до смерти?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>80</uiIndex>
-    <szText>Чуваки, что с этим сделаем - просто пристрелем или замучаем до смерти?</szText>
+    <szText>Чуваки, что с этим сделаем - просто пристрелим или замучаем до смерти?</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>81</uiIndex>

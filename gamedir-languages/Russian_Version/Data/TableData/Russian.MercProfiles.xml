@@ -33,7 +33,7 @@
 	<PROFILE>
 		<uiIndex>6</uiIndex>
 		<zName>Гельмут Грунтер</zName>
-		<zNickname>Грунти</zNickname>
+		<zNickname>Хряп</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>7</uiIndex>
@@ -97,12 +97,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>19</uiIndex>
-		<zName>Док. Донна Хьюстон "Паук"</zName>
+		<zName>Д-р Донна Хьюстон "Паук"</zName>
 		<zNickname>Паук</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>20</uiIndex>
-		<zName>Док. Клиффорд Хайбол</zName>
+		<zName>Д-р Клиффорд Хайбол</zName>
 		<zNickname>Клифф</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -112,7 +112,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>22</uiIndex>
-		<zName>Фрэнк Хеннесси "Стрелок"</zName>
+		<zName>Фрэнк Хеннеси "Стрелок"</zName>
 		<zNickname>Стрелок</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -137,12 +137,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>27</uiIndex>
-		<zName>Копрал Лен Андерсон</zName>
+		<zName>Капрал Лен Андерсон</zName>
 		<zNickname>Лен</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>28</uiIndex>
-		<zName>Док. Дэниел Квинтен</zName>
+		<zName>Д-р Дэниел Квинтен</zName>
 		<zNickname>Дэнни</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -167,8 +167,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>33</uiIndex>
-		<zName>Док. Кью Хуаонг</zName>
-		<zNickname>Док. Кью</zNickname>
+		<zName>Д-р Кью Хуаонг</zName>
+		<zNickname>Кью</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>34</uiIndex>
@@ -178,7 +178,7 @@
 	<PROFILE>
 		<uiIndex>35</uiIndex>
 		<zName>Тор Кауфман</zName>
-		<zNickname>Top</zNickname>
+		<zNickname>Тор</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>36</uiIndex>
@@ -192,7 +192,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>38</uiIndex>
-		<zName>Док. Майкл Доусон</zName>
+		<zName>Д-р Майкл Доусон</zName>
 		<zNickname>ЭмДи</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -347,12 +347,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>69</uiIndex>
-		<zName>Док. Винсент Воймонт</zName>
+		<zName>Д-р Винсент Воймонт</zName>
 		<zNickname>Винс</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>70</uiIndex>
-		<zName>Лейтенант Конрад Джиллит</zName>
+		<zName>Лейт. Конрад Джиллит</zName>
 		<zNickname>Конрад</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -402,7 +402,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>80</uiIndex>
-		<zName>Док. Стивен Виллис</zName>
+		<zName>Д-р Стивен Виллис</zName>
 		<zNickname>Стив</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -527,7 +527,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>105</uiIndex>
-		<zName>Док. Эрнест Поппин</zName>
+		<zName>Д-р Эрнест Поппин</zName>
 		<zNickname>Эрнест</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -732,7 +732,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>146</uiIndex>
-		<zName>Док. Натаниэль Кайрнс "Шиз"</zName>
+		<zName>Д-р Натаниэль Кайрнс "Шиз"</zName>
 		<zNickname>Шиз</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -817,13 +817,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Вертолёт</zName>
+		<zNickname>Вертолёт</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Танк</zName>
+		<zNickname>Танк</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -832,8 +832,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>166</uiIndex>
-		<zName>Лт. Хорг "Бычок"</zName>
-		<zNickname>Бычок</zNickname>
+		<zName>Лейт. Хорг "Сигара"</zName>
+		<zNickname>Сигара</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>167</uiIndex>
@@ -842,7 +842,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>168</uiIndex>
-		<zName>Плк. Фредерик Биггенс</zName>
+		<zName>Полк. Фредерик Биггенс</zName>
 		<zNickname>Биггенс</zNickname>
 	</PROFILE>
 	<PROFILE>

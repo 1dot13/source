@@ -1,23 +1,4 @@
-<!--
-
-uiIndex:			The profile index from BinaryData\prof.dat or from TableData\MercProfiles.xml
-Name:				The name of the vehicle, which is displayed for example in tactical, when hovering the mouse over the vehicle.
-					Max.: 9 characters
-LongName:			The long display name of the vehicle which is displayed when showing the inventory or assigning merc to the vehicle.
-					Max.: 40 characters
-ShortName:			The short name of the vehicle, which is displayed when showing the vehicle inventory or in the merc assignment column in strategy view when the merc uses the vehicle.
-					Max.: 8 characters
-MvtTypes:			0 - FOOT	
-					1 - CAR	
-					2 - TRUCK
-					3 - TRACKED			
-					4 - AIR
-Neutral:			Set to 1 for vehicles that should be neutral (friendly) when encountering. Set to 0 for enemy vehicles
-VehicleEnabled: 	Set to 1 if the vehicle should be available in the game. Otherwise 0
-Pilot:				Set to -1 for all vehicles and only to the skyrider (pilot) profile id for the helicopter	
-VehicleArmourType:  uiIndex from TableData\Items.xml
-
--->
+<?xml version="1.0" encoding="utf-8"?>
 <VEHICLES>
 	<VEHICLE>
 		<uiIndex>0</uiIndex>
@@ -1215,9 +1196,9 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>199</uiIndex>
-		<Name>Jeep</Name>
-		<LongName>Jeep</LongName>
-		<ShortName>Jeep</ShortName>
+		<Name>Джип</Name>
+		<LongName>Джип</LongName>
+		<ShortName>Джип</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>200</uiIndex>

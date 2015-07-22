@@ -10,7 +10,7 @@
       <mGearKitName>Механик</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -26,10 +26,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Рукопашный</mGearKitName>
+      <mGearKitName>Рукопашка</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -67,7 +67,7 @@
       <mGearKitName>Рукопашка</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -86,7 +86,7 @@
       <mGearKitName>Стрелок</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -105,10 +105,10 @@
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вынос двери</mGearKitName>
+      <mGearKitName>Прорыв</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -159,10 +159,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Инженер</mGearKitName>
@@ -219,10 +219,10 @@
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вынос двери</mGearKitName>
+      <mGearKitName>Прорыв</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -238,10 +238,10 @@
       <mGearKitName>Спецназ</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Авт.огонь</mGearKitName>
+      <mGearKitName>Авт.оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Снайпер</mGearKitName>
@@ -257,7 +257,7 @@
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -276,7 +276,7 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Врач</mGearKitName>
@@ -292,13 +292,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Стрелок</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -330,10 +330,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>В яблочко</mGearKitName>
+      <mGearKitName>Снайпер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -349,13 +349,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 1</mGearKitName>
+      <mGearKitName>Оружие 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 2</mGearKitName>
+      <mGearKitName>Оружие 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 3</mGearKitName>
+      <mGearKitName>Оружие 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -387,13 +387,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 1</mGearKitName>
+      <mGearKitName>Оружие 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 2</mGearKitName>
+      <mGearKitName>Оружие 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -466,10 +466,10 @@
       <mGearKitName>Взводный</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вынос двери</mGearKitName>
+      <mGearKitName>Прорыв</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -482,7 +482,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Ночник</mGearKitName>
@@ -501,7 +501,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Взломщик</mGearKitName>
@@ -520,7 +520,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Поддержка</mGearKitName>
@@ -545,7 +545,7 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -580,7 +580,7 @@
       <mGearKitName>Поддержка</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Ночник</mGearKitName>
@@ -596,10 +596,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Сапёр</mGearKitName>
@@ -615,13 +615,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 1</mGearKitName>
+      <mGearKitName>Оружие 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 2</mGearKitName>
+      <mGearKitName>Оружие 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 3</mGearKitName>
+      <mGearKitName>Оружие 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -634,7 +634,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Фельдшер</mGearKitName>
@@ -653,10 +653,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вынос двери</mGearKitName>
+      <mGearKitName>Прорыв</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Сапёр</mGearKitName>
@@ -672,7 +672,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Спец.опер.</mGearKitName>
@@ -691,13 +691,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>СКС-Рулит!</mGearKitName>
+      <mGearKitName>Караб. СКС</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Ночник</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>M1 Carbine</mGearKitName>
+      <mGearKitName>Караб. M1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -710,10 +710,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Ночник</mGearKitName>
@@ -729,13 +729,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -751,7 +751,7 @@
       <mGearKitName>Стрелок</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -764,323 +764,323 @@
     <mIndex>40</mIndex>
     <mName>Biff</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>41</mIndex>
     <mName>Haywire</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>42</mIndex>
     <mName>Gasket</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>43</mIndex>
     <mName>Razor</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>44</mIndex>
     <mName>Flo</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>45</mIndex>
     <mName>Gumpy</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>46</mIndex>
     <mName>Larry</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>47</mIndex>
     <mName>Larry</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>48</mIndex>
     <mName>Cougar</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>49</mIndex>
     <mName>Numb</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>50</mIndex>
     <mName>Bubba</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>51</mIndex>
     <mName>PGmale1</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>52</mIndex>
     <mName>PGmale2</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>53</mIndex>
     <mName>PGmale3</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>54</mIndex>
     <mName>PGLady1</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>55</mIndex>
     <mName>PGLady2</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>56</mIndex>
     <mName>PGLady3</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -3136,95 +3136,95 @@
     <mIndex>165</mIndex>
     <mName>Gaston</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>166</mIndex>
     <mName>Stogie</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>167</mIndex>
     <mName>Tex</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>168</mIndex>
     <mName>Biggins</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>169</mIndex>
     <mName>PGmale4</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -3253,13 +3253,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 1</mGearKitName>
+      <mGearKitName>Оружие 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вариант 2</mGearKitName>
+      <mGearKitName>Оружие 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -3291,7 +3291,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Авт.огонь</mGearKitName>
+      <mGearKitName>Авт.оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Патроны+</mGearKitName>
@@ -3313,7 +3313,7 @@
       <mGearKitName>Патроны+</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Патроны+</mGearKitName>
@@ -3332,7 +3332,7 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Врач</mGearKitName>
@@ -3383,152 +3383,152 @@
     <mIndex>178</mIndex>
     <mName>Spooky</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>179</mIndex>
     <mName>Skitz</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>180</mIndex>
     <mName>Weasel</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>181</mIndex>
     <mName>It</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>182</mIndex>
     <mName>Bernie</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>183</mIndex>
     <mName>Pops</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>184</mIndex>
     <mName>Wally</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>185</mIndex>
     <mName>Eli</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -3541,7 +3541,7 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Доктор</mGearKitName>
@@ -3560,7 +3560,7 @@
       <mGearKitName>Патроны+</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -3573,76 +3573,76 @@
     <mIndex>188</mIndex>
     <mName>Lance</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>189</mIndex>
     <mName>Raffi</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>190</mIndex>
     <mName>Wink</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>191</mIndex>
     <mName>Speck</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -3706,76 +3706,76 @@
     <mIndex>195</mIndex>
     <mName>John</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>196</mIndex>
     <mName>Elio</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>197</mIndex>
     <mName>Juan</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>198</mIndex>
     <mName>Wahan</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4181,57 +4181,57 @@
     <mIndex>220</mIndex>
     <mName>Postie</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>221</mIndex>
     <mName>Reuban</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>222</mIndex>
     <mName>Leon</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4257,76 +4257,76 @@
     <mIndex>224</mIndex>
     <mName>Sparky</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>225</mIndex>
     <mName>Beth</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>226</mIndex>
     <mName>Sam</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>227</mIndex>
     <mName>Hurl</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4339,10 +4339,10 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -4377,10 +4377,10 @@
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -4396,7 +4396,7 @@
       <mGearKitName>Спец.опер.</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -4450,13 +4450,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Взломщик</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -4469,7 +4469,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Снайпер</mGearKitName>
@@ -4488,7 +4488,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Патроны+</mGearKitName>
@@ -4526,7 +4526,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Взломщик</mGearKitName>
@@ -4548,7 +4548,7 @@
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -4583,13 +4583,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Сапёр</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -4605,7 +4605,7 @@
       <mGearKitName>Фельдшер</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Доктор</mGearKitName>
@@ -4621,7 +4621,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Взломщик</mGearKitName>
@@ -4637,19 +4637,19 @@
     <mIndex>244</mIndex>
     <mName>Elroy</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4681,7 +4681,7 @@
       <mGearKitName>Патроны+</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -4694,19 +4694,19 @@
     <mIndex>247</mIndex>
     <mName>Rev</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4716,7 +4716,7 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Врач</mGearKitName>
@@ -4732,19 +4732,19 @@
     <mIndex>249</mIndex>
     <mName>Ears</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
@@ -4754,13 +4754,13 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Вынос двери</mGearKitName>
+      <mGearKitName>Прорыв</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Элитный</mGearKitName>
@@ -4773,10 +4773,10 @@
       <mGearKitName>Стандарт</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Боевой</mGearKitName>
+      <mGearKitName>Боец</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Ул. оружие</mGearKitName>
+      <mGearKitName>Оружие</mGearKitName>
     </GEARKIT>
     <GEARKIT>
       <mGearKitName>Разгрузка</mGearKitName>
@@ -4789,38 +4789,38 @@
     <mIndex>252</mIndex>
     <mName>Dyno</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>
     <mIndex>253</mIndex>
     <mName>Turtle</mName>
     <GEARKIT>
-      <mGearKitName>Выбор 1</mGearKitName>
+      <mGearKitName>Комплект 1</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 2</mGearKitName>
+      <mGearKitName>Комплект 2</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 3</mGearKitName>
+      <mGearKitName>Комплект 3</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 4</mGearKitName>
+      <mGearKitName>Комплект 4</mGearKitName>
     </GEARKIT>
     <GEARKIT>
-      <mGearKitName>Выбор 5</mGearKitName>
+      <mGearKitName>Комплект 5</mGearKitName>
     </GEARKIT>
   </MERCGEAR>
   <MERCGEAR>

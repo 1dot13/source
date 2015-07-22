@@ -104,7 +104,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>25</uiIndex>
-    <szText>Я буду бить тебя, пока ты не скажешь "ой, я мёртв"!</szText>
+    <szText>Я буду бить тебя, пока ты не скажешь: "Ой, я мёртв"!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>26</uiIndex>

@@ -118,7 +118,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
-    <szName>Боитесь, что враг прервет ваш ход? Стреляте по ногам и надейтесь, что он упадет.</szName>
+    <szName>Боитесь, что враг прервёт ваш ход? Стреляйте по ногам и надейтесь, что он упадет.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>29</uiIndex>
@@ -154,7 +154,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>37</uiIndex>
-    <szName>Сайт Бобби Рея станет доступным по мере продвижения в игре.</szName>
+    <szName>Сайт Бобби Рэя станет доступным только после взятия под контроль одного из аэропортов.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>38</uiIndex>
@@ -323,11 +323,11 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>79</uiIndex>
-    <szName>Солдаты в красных футболах - регулярная армия Дейдранны, с ними вы будете сталкиваться большую часть игры.</szName>
+    <szName>Солдаты в красных футболах - регулярная армия Дейдраны, с ними вы будете сталкиваться большую часть игры.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>80</uiIndex>
-    <szName>Солдаты в черных футболках - наемники Дейдранны. У них лучшее вооружение, они самые трудные враги. Высокие уровни сложности увеличивают их численность.</szName>
+    <szName>Солдаты в черных футболках - наемники Дейдраны. У них лучшее вооружение, они самые трудные враги. Высокие уровни сложности увеличивают их численность.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>81</uiIndex>
@@ -335,7 +335,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>82</uiIndex>
-    <szName>Ополченцев-ветеранов нельзя тренировать. Ветеранами ополченцы могуть стать после успешного боя.</szName>
+    <szName>Ополченцев-ветеранов нельзя тренировать. Ветеранами ополченцы могут стать после успешного боя.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>83</uiIndex>
@@ -511,7 +511,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>126</uiIndex>
-    <szName>Если в секторе присутствует враг, то нажатие [D] немедленно передет игру в пошаговый режим.</szName>
+    <szName>Если в секторе присутствует враг, то нажатие [D] немедленно переведёт игру в пошаговый режим.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>127</uiIndex>

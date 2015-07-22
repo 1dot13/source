@@ -34,7 +34,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>8</uiIndex>
-    <szText>Ауч!</szText>
+    <szText>Ай!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>9</uiIndex>
@@ -151,7 +151,7 @@
   </TAUNT>
   <TAUNT>
     <uiIndex>36</uiIndex>
-    <szText>Если ты еще раз меня подстрелешь, я закручу твой ствол вокруг твоей шеи!</szText>
+    <szText>Если ты еще раз меня подстрелишь, я закручу твой ствол вокруг твоей шеи!</szText>
   </TAUNT>
   <TAUNT>
     <uiIndex>37</uiIndex>

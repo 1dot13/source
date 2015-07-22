@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
@@ -7,7 +7,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>1</uiIndex>
-		<zName>Кейт Гансон "Блад"</zName>
+		<zName>Кит Гансон "Блад"</zName>
 		<zNickname>Блад</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -112,7 +112,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>22</uiIndex>
-		<zName>Фрэнк Хеннесси "Стрелок"</zName>
+		<zName>Фрэнк Хеннеси "Стрелок"</zName>
 		<zNickname>Стрелок</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -147,7 +147,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>29</uiIndex>
-		<zName>Эрл Уолкер "Маг"</zName>
+		<zName>Эрл Уокер "Маг"</zName>
 		<zNickname>Маг</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -357,7 +357,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>RPC71</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -797,8 +797,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName>Шпик Т. Кляйн</zName>
-		<zNickname>Шпик</zNickname>
+		<zName>Спек Т. Кляйн</zName>
+		<zNickname>Спек...</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>160</uiIndex>
@@ -832,8 +832,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>166</uiIndex>
-		<zName>Лейт. Хорг "Бычок"</zName>
-		<zNickname>Бычок</zNickname>
+		<zName>Лейт. Хорг "Сигара"</zName>
+		<zNickname>Сигара</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>167</uiIndex>
@@ -897,13 +897,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<zName>Брюс Боннер "Шутник"</zName>
-		<zNickname>Шутник</zNickname>
+		<zName>Брюс Боннер "Весельчак"</zName>
+		<zNickname>Весельчак</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<zName>Вилли Августин "Куница"</zName>
-		<zNickname>Куница</zNickname>
+		<zName>Вилли Огустин "Проныра"</zName>
+		<zNickname>Проныра</zNickname>	<!--уизлом называют хитрых людей. В английской культуре ласка имеет такие черты как у нас лиса-->
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
@@ -912,12 +912,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>182</uiIndex>
-		<zName>Д-р Берни Гловлесс</zName>
+		<zName>Д-р Берни Главлес</zName>
 		<zNickname>Берни</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>183</uiIndex>
-		<zName>Мюррей МакГиликати "Папаша"</zName>
+		<zName>Мюррей Макгилликатти "Папаша"</zName>
 		<zNickname>Папаша</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -932,7 +932,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>186</uiIndex>
-		<zName>Д-р Митч Шудлем</zName>
+		<zName>Д-р Митч Шадлем</zName>
 		<zNickname>Митч</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -953,7 +953,7 @@
 	<PROFILE>
 		<uiIndex>190</uiIndex>
 		<zName>Винк Э. Дикерсон</zName>
-		<zNickname>Винк</zNickname>
+		<zNickname>Винк</zNickname>		<!-- идиома закрывать глаза-->
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
@@ -987,8 +987,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>197</uiIndex>
-		<zName>Хуан</zName>
-		<zNickname>Хуан</zNickname>
+		<zName>Цзюань</zName>
+		<zNickname>Цзюань</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>198</uiIndex>
@@ -1117,8 +1117,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>223</uiIndex>
-		<zName>Гэри Роачбёрн</zName>
-		<zNickname>Гэри</zNickname>
+		<zName>Гари Роачбёрн</zName>
+		<zNickname>Гари</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>224</uiIndex>
@@ -1138,7 +1138,7 @@
 	<PROFILE>
 		<uiIndex>227</uiIndex>
 		<zName>Харл Каттер</zName>
-		<zNickname>Харл</zNickname>
+		<zNickname>Харл</zNickname>		<!-- Бита -->
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>228</uiIndex>
@@ -1187,7 +1187,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>237</uiIndex>
-		<zName>Полковник Лео Келли</zName>
+		<zName>Полк. Лео Келли</zName>
 		<zNickname>Келли</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -1208,7 +1208,7 @@
 	<PROFILE>
 		<uiIndex>241</uiIndex>
 		<zName>Рассел Хантер</zName>
-		<zNickname>Расти</zNickname>
+		<zNickname>Ржавый</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>242</uiIndex>
@@ -1227,7 +1227,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>245</uiIndex>
-		<zName>Анита Бахман "Мышь"</zName>
+		<zName>Анита Бэкмен "Мышь"</zName>
 		<zNickname>Мышь</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -1257,8 +1257,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>251</uiIndex>
-		<zName>Лэсли Петерсон "Смоук"</zName>
-		<zNickname>Смоук</zNickname>
+		<zName>Лесли Питерсен "Дымок"</zName>
+		<zNickname>Дымок</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>

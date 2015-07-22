@@ -1,39 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<!--
-
-In this file you can specifiy the "Subject" text of emails.
-	
-	uiIndex = Each uiIndex represents a mail Subject
-			  The uiIndex are mapped to specific lines in the EMAIL.EDT file				  
-	Name	= The Name of the Subject
-	
-Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
-
--->
+<?xml version="1.0" encoding="utf-8"?>
 
 <SENDER_LIST>
 	<NAME>
+		<!-- Mails from Enrico -->
 		<uiIndex>0</uiIndex>
 		<Name>Энрико</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Psyich Pro Inc (IMP) -->
 		<uiIndex>1</uiIndex>
-		<Name>Psych Pro Inc.</Name>
+		<Name>Psych Pro Inc</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Help Desk -->
 		<uiIndex>2</uiIndex>
 		<Name>Помощь</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Psyich Pro Inc (IMP) -->
 		<uiIndex>3</uiIndex>
-		<Name>Psych Pro Inc.</Name>
+		<Name>Psych Pro Inc</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Speck -->
 		<uiIndex>4</uiIndex>
 		<Name>Спек</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from R.I.S -->
 		<uiIndex>5</uiIndex>
 		<Name>R.I.S.</Name>
 	</NAME>
@@ -199,32 +193,38 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 		<Name>None</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from M.I.S Insurance -->
 		<uiIndex>46</uiIndex>
 		<Name>M.I.S. Страховка</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Bobby Rays -->
 		<uiIndex>47</uiIndex>
 		<Name>Бобби Рэй</Name>
 	</NAME>	
 	<NAME>
+		<!-- Mails from Kingpin -->
 		<uiIndex>48</uiIndex>
 		<Name>Босс</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from John Kulba -->
 		<uiIndex>49</uiIndex>
 		<Name>Джон Кульба</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from A.I.M. -->
 		<uiIndex>50</uiIndex>
 		<Name>A.I.M.</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from the PMC -->
 		<uiIndex>51</uiIndex>
-		<Name>None</Name>
+		<Name>Корпорация Цербер</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>52</uiIndex>
-		<Name>None</Name>
+		<Name>Энжел Дасильва</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>53</uiIndex>

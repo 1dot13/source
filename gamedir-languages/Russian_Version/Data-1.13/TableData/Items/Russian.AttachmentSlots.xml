@@ -1,144 +1,144 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ATTACHMENTSLOTLIST>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>0</uiSlotIndex>
-		<szSlotName>Don't touch me</szSlotName>		
+		<szSlotName>Don't touch me</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>1</uiSlotIndex>
-		<szSlotName>Default slot 1</szSlotName>		
+		<szSlotName>Место для навески</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>2</uiSlotIndex>
-		<szSlotName>Default slot 2</szSlotName>		
+		<szSlotName>Место для навески</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>3</uiSlotIndex>
-		<szSlotName>Default slot 3</szSlotName>		
+		<szSlotName>Место для навески</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>4</uiSlotIndex>
-		<szSlotName>Default slot 4</szSlotName>		
+		<szSlotName>Место для навески</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>5</uiSlotIndex>
-		<szSlotName>Barrel Attachments</szSlotName>		
+		<szSlotName>Наствольная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>6</uiSlotIndex>
-		<szSlotName>Laser Attachments</szSlotName>		
+		<szSlotName>Лазерная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>7</uiSlotIndex>
-		<szSlotName>Sight Attachments</szSlotName>		
+		<szSlotName>Оптическая навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>8</uiSlotIndex>
-		<szSlotName>Scope Attachments</szSlotName>		
+		<szSlotName>Прицельная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>9</uiSlotIndex>
-		<szSlotName>Stock Attachments</szSlotName>		
+		<szSlotName>Стандартная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>10</uiSlotIndex>
-		<szSlotName>Ammo Attachments</szSlotName>		
+		<szSlotName>Боеприпасы</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>11</uiSlotIndex>
-		<szSlotName>Internal Attachments</szSlotName>		
+		<szSlotName>Встроенная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>12</uiSlotIndex>
-		<szSlotName>External Attachments 1</szSlotName>		
+		<szSlotName>Съёмная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>13</uiSlotIndex>
-		<szSlotName>Underbarrel Attachments</szSlotName>		
+		<szSlotName>Подствольная навеска</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>14</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>15</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>Навеска ракетницы</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>16</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>17</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>18</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>19</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>20</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>21</uiSlotIndex>
-		<szSlotName>Rifle Grenade</szSlotName>		
+		<szSlotName>Ружейная граната</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>22</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>Rocket Launcher Slot</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>23</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>Rocket Launcher Slot</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>24</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>Rocket Launcher Slot</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>25</uiSlotIndex>
-		<szSlotName>Rocket Launcher Slot</szSlotName>		
+		<szSlotName>Rocket Launcher Slot</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>26</uiSlotIndex>
-		<szSlotName>MOLLE Leg Upper Row 1</szSlotName>		
+		<szSlotName>MOLLE Leg Upper Row 1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>27</uiSlotIndex>
-		<szSlotName>MOLLE Leg Upper Row 2</szSlotName>		
+		<szSlotName>MOLLE Leg Upper Row 2</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>28</uiSlotIndex>
-		<szSlotName>MOLLE Leg Lower Row 1</szSlotName>		
+		<szSlotName>MOLLE Leg Lower Row 1</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>29</uiSlotIndex>
-		<szSlotName>MOLLE Leg Lower Row 2</szSlotName>		
+		<szSlotName>MOLLE Leg Lower Row 2</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>30</uiSlotIndex>
-		<szSlotName>MOLLE Leg Middle Medium</szSlotName>		
+		<szSlotName>MOLLE Leg Middle Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>31</uiSlotIndex>
-		<szSlotName>MOLLE Vest Upper Row 1 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Upper Row 1 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>32</uiSlotIndex>
-		<szSlotName>MOLLE Vest Upper Row 2 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Upper Row 2 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>33</uiSlotIndex>
-		<szSlotName>MOLLE Vest Upper Row 3 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Upper Row 3 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>34</uiSlotIndex>
-		<szSlotName>MOLLE Vest Upper Row 4 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Upper Row 4 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>35</uiSlotIndex>
@@ -146,106 +146,106 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>36</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 1 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 1 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>37</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 2 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 2 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>38</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 3 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 3 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>39</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 4 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 4 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>40</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 5 Small</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 5 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>41</uiSlotIndex>
-		<szSlotName>MOLLE Vest Upper Row 6 Medium</szSlotName>		
+		<szSlotName>MOLLE Vest Upper Row 6 Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>42</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 6 Medium</szSlotName>		
+		<szSlotName>MOLLE Vest Lower Row 6 Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>43</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Upper Row 1 Small</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Upper Row 1 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>44</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Upper Row 2 Small</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Upper Row 2 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>45</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Lower Row 1 Small</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Lower Row 1 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>46</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Lower Row 2 Small</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Lower Row 2 Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>47</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Upper Medium</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Upper Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>48</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Middle Medium</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Middle Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>49</uiSlotIndex>
-		<szSlotName>MOLLE Combat Pack Lower Medium</szSlotName>		
+		<szSlotName>MOLLE Combat Pack Lower Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>50</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 1st Row Left Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 1st Row Left Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>51</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 2nd Row Left Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 2nd Row Left Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>52</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 3rd Row Left Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 3rd Row Left Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>53</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 4th Row Left Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 4th Row Left Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>54</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 1st Row Right Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 1st Row Right Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>55</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 2nd Row Right Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 2nd Row Right Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>56</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 3rd Row Right Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 3rd Row Right Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>57</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 4th Row Right Small</szSlotName>		
+		<szSlotName>MOLLE Backpack 4th Row Right Small</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>58</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 1st Row Medium</szSlotName>		
+		<szSlotName>MOLLE Backpack 1st Row Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>59</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 2nd Row Medium</szSlotName>		
+		<szSlotName>MOLLE Backpack 2nd Row Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>60</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 3rd Row Medium</szSlotName>		
+		<szSlotName>MOLLE Backpack 3rd Row Medium</szSlotName>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>61</uiSlotIndex>
-		<szSlotName>MOLLE Backpack 4th Row Medium</szSlotName>		
+		<szSlotName>MOLLE Backpack 4th Row Medium</szSlotName>
 	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>

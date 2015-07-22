@@ -14,7 +14,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>3</uiIndex>
-    <sHistory>%s мертв(а).</sHistory>
+    <sHistory>%s мёртв(а).</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>4</uiIndex>
@@ -34,7 +34,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>8</uiIndex>
-    <sHistory>%s: cтраховой контракт аннулирован.</sHistory>
+    <sHistory>%s: страховой контракт аннулирован.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>9</uiIndex>
@@ -42,15 +42,15 @@
   </TEXT>
   <TEXT>
 	<uiIndex>10</uiIndex>
-    <sHistory>%s: контракт продлен на 1 день.</sHistory>
+    <sHistory>%s: контракт продлён на 1 день.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>11</uiIndex>
-    <sHistory>%s: контракт продлен на 7 дней.</sHistory>
+    <sHistory>%s: контракт продлён на 7 дней.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>12</uiIndex>
-    <sHistory>%s: контракт продлен на 14 дней.</sHistory>
+    <sHistory>%s: контракт продлён на 14 дней.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>13</uiIndex>
@@ -86,11 +86,11 @@
   </TEXT>
   <TEXT>
 	<uiIndex>21</uiIndex>
-    <sHistory>%s ушла, чтобы выйти замуж за Деррила Хикса.</sHistory>
+    <sHistory>%s ушла, чтобы выйти замуж за Дэррила Хикса.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>22</uiIndex>
-    <sHistory>Истек контракт у %s.</sHistory>
+    <sHistory>Истёк контракт у %s.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>23</uiIndex>
@@ -122,7 +122,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>30</uiIndex>
-    <sHistory>Получена информация о тюрьме Тикса.</sHistory>
+    <sHistory>Получена информация о тюрьме в Тиксе.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>31</uiIndex>
@@ -130,11 +130,11 @@
   </TEXT>
   <TEXT>
 	<uiIndex>32</uiIndex>
-    <sHistory>Ученый из Орты подарил вам ракетные винтовки.</sHistory>
+    <sHistory>Учёный из Орты подарил вам ракетные винтовки.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>33</uiIndex>
-    <sHistory>Королева Дейдранна нашла применение трупам.</sHistory>
+    <sHistory>Королева Дейдрана нашла применение трупам.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>34</uiIndex>
@@ -146,11 +146,11 @@
   </TEXT>
   <TEXT>
 	<uiIndex>36</uiIndex>
-    <sHistory>Встретили Дэвина - торговца взрывчаткой.</sHistory>
+    <sHistory>Встретили Девина - торговца взрывчаткой.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>37</uiIndex>
-    <sHistory>Пересеклись с бывшим наемником A.I.M., Майком!</sHistory>
+    <sHistory>Пересеклись с бывшим наёмником A.I.M., Майком!</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>38</uiIndex>
@@ -162,7 +162,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>40</uiIndex>
-    <sHistory>Документы на магазин Энджела переданы Кайлу.</sHistory>
+    <sHistory>Документы на магазин Энжела переданы Кайлу.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>41</uiIndex>
@@ -182,7 +182,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>45</uiIndex>
-    <sHistory>Встретили торговца Кита из Камбрии.</sHistory>
+    <sHistory>Встретили торговца Кита в Камбрии.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>46</uiIndex>
@@ -214,7 +214,7 @@
   </TEXT>
   <TEXT>
 	<uiIndex>53</uiIndex>
-    <sHistory>Встретили старьевщика Джейка.</sHistory>
+    <sHistory>Встретили старьёвщика Джейка.</sHistory>
   </TEXT>
   <TEXT>
 	<uiIndex>54</uiIndex>
@@ -318,6 +318,6 @@
   </TEXT>
   <TEXT>
 	<uiIndex>79</uiIndex>
-    <sHistory>Начат ремонт вертолета. Будет закончен через %d часов.</sHistory>
+    <sHistory>Начат ремонт вертолёта. Будет закончен через %d часов.</sHistory>
   </TEXT>
 </STRINGS>

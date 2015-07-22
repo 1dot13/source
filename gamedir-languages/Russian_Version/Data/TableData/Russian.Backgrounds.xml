@@ -28,7 +28,7 @@
 		<uiIndex>3</uiIndex>
 		<szName>Смельчак</szName>
 		<szShortName>Смельчак</szShortName>
-		<szDescription>Обладая внушительным видом, Гриззли никогда не стеснялся идти
+		<szDescription>Обладая внушительным видом, Гризли никогда не стеснялся идти
 в лобовую на врага.</szDescription>
 	</BACKGROUND>
 	<!-- Vicky -->
@@ -143,8 +143,8 @@
 	<BACKGROUND>
 		<uiIndex>18</uiIndex>
 		<szName>Инструктор военизированных формирований</szName>
-    <szShortName>Инструктор</szShortName>
-    <szDescription>Прямо как бойскауты. Но с насилием. То есть совершенно не как бойскауты.</szDescription>
+		<szShortName>Инструктор</szShortName>
+		<szDescription>Прямо как бойскауты. Но с насилием. То есть совершенно не как бойскауты.</szDescription>
 	</BACKGROUND>
 	<!-- Spider -->
 	<BACKGROUND>
@@ -333,7 +333,7 @@
 		<szShortName>Деревенщина</szShortName>
 		<szDescription>Внешний вид: солома, торчащая из ботинок, и неизменная травинка во рту. Не очень-то
 и солидная картинка, однако же жизнь на ферме нельзя назвать легкой.</szDescription>
-	</BACKGROUND>  
+	</BACKGROUND>	
 	<!-- Razor -->
 	<BACKGROUND>
 		<uiIndex>43</uiIndex>
@@ -459,7 +459,7 @@
 		<szDescription>Бывший сотрудник гуманитарной программы, ставший повстанцем, Айра делает
 все от нее зависящее, чтобы повстанцы выжили.</szDescription>
 	</BACKGROUND>
-	<!-- Dimitri -->   
+	<!-- Dimitri -->		
 	<BACKGROUND>
 		<uiIndex>60</uiIndex>
 		<szName>Повстанец</szName>
@@ -542,8 +542,8 @@
 	<BACKGROUND>
 		<uiIndex>70</uiIndex>
 		<szName>Военный советник</szName>
-    <szShortName>Военный советник</szShortName>
-    <szDescription>Направлять оружие в нужную сторону - хорошее начинание, но ведь должен быть
+		<szShortName>Военный советник</szShortName>
+		<szDescription>Направлять оружие в нужную сторону - хорошее начинание, но ведь должен быть
 кто-то, кто научит этих людей, как учить других людей, куда направлять оружие.</szDescription>
 	</BACKGROUND>
 	<!-- RPC 71 -->

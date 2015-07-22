@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <CITY_INFO>
 	<COUNTRY>
-		<countryName>Тракону</countryName>
+		<countryName>Тракона</countryName>
 		<countryNoun>Траконец</countryNoun>
 	</COUNTRY>
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>
-			<townName>Varrez</townName>
+			<townName>Варрез</townName>
 		</CITY>
 		<CITY>
 			<uiIndex>2</uiIndex>
