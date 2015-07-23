@@ -1156,11 +1156,13 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 			return( GAME_SCREEN );
 		}
 
-		usRandom = (UINT16)Random( 10 );
-		if( usRandom < 4 )
+		usRandom = (UINT16)Random( 12 );
+		if( usRandom < 3 )
 			pSoldier = TacticalCreateAdministrator();
-		else if( usRandom < 8 )
+		else if( usRandom < 6 )
 			pSoldier = TacticalCreateArmyTroop();
+		else  if ( usRandom < 9 )
+			pSoldier = TacticalCreateEnemyTank( );
 		else
 			pSoldier = TacticalCreateEliteEnemy( );
 
