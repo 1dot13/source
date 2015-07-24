@@ -421,7 +421,8 @@ DropDownBase::DrawGoldRectangle()
 {
 	UINT32 uiDestPitchBYTES;
 	UINT8	*pDestBuf;
-	UINT16 usWidth, usTempHeight, usHeight;
+	UINT16 usWidth, usTempHeight;
+	FLOAT dHeight = 0.0f;
 	UINT16 usPosX, usPosY;
 		
 	usPosX = musScrollAreaX;
@@ -433,32 +434,32 @@ DropDownBase::DrawGoldRectangle()
 
 		if ( mEntryVector.size( ) < DROPDOWN_REGIONS )
 		{
-			usHeight = usTempHeight;
+			dHeight = usTempHeight;
 			usPosY = musStartY_Drop;
 		}
 		else
 		{
-			usHeight = usTempHeight / (mEntryVector.size( ));
+			dHeight = (FLOAT)(usTempHeight) / (FLOAT)(mEntryVector.size( ));
 
-			usPosY = musStartY_Drop + (UINT16)((usHeight * mFirstShownEntry));
+			usPosY = musStartY_Drop + (UINT16)((dHeight * mFirstShownEntry));
 
-			usHeight *= mNumDisplayedEntries;
+			dHeight *= mNumDisplayedEntries;
 		}		
 		
 		if ( mfDropScrollBar )
 		{
-			if ( usPosY >= musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight )
-				usPosY = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - usHeight - 5;
+			if ( usPosY >= musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - dHeight )
+				usPosY = musStartY_Drop + musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - dHeight - 5;
 		}
 		else
 		{
-			if ( usPosY >= musStartY_Drop + musAreaHeight - usHeight )
-				usPosY = musStartY_Drop + musAreaHeight - usHeight - 5;
+			if ( usPosY >= musStartY_Drop + musAreaHeight - dHeight )
+				usPosY = musStartY_Drop + musAreaHeight - dHeight - 5;
 		}
 
 		// color everything black and then color the rectangle, that way we dont have to redraw the entire page
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, musStartY_Drop, musScrollAreaX + usWidth, musStartY_Drop + usTempHeight, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usPosY, musScrollAreaX + usWidth, usPosY + usHeight, GetColorMarked( ) );
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, musScrollAreaX, usPosY, musScrollAreaX + usWidth, usPosY + (UINT16)dHeight, GetColorMarked( ) );
 
 		//display the line
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -466,11 +467,11 @@ DropDownBase::DrawGoldRectangle()
 
 		// draw the gold highlite line on the top and left
 		LineDraw( FALSE, usPosX, usPosY, usPosX + usWidth, usPosY, GetColorHighLight( ), pDestBuf );
-		LineDraw( FALSE, usPosX, usPosY, usPosX, usPosY + usHeight, GetColorHighLight(), pDestBuf );
+		LineDraw( FALSE, usPosX, usPosY, usPosX, usPosY + (UINT16)dHeight, GetColorHighLight( ), pDestBuf );
 
 		// draw the shadow line on the bottom and right
-		LineDraw( FALSE, usPosX, usPosY + usHeight, usPosX + usWidth, usPosY + usHeight, GetColorLineShadow( ), pDestBuf );
-		LineDraw( FALSE, usPosX + usWidth, usPosY, usPosX + usWidth, usPosY + usHeight, GetColorLineShadow(), pDestBuf );
+		LineDraw( FALSE, usPosX, usPosY + (UINT16)dHeight, usPosX + usWidth, usPosY + (UINT16)dHeight, GetColorLineShadow( ), pDestBuf );
+		LineDraw( FALSE, usPosX + usWidth, usPosY, usPosX + usWidth, usPosY + (UINT16)dHeight, GetColorLineShadow( ), pDestBuf );
 	}
 
 	// unlock frame buffer
