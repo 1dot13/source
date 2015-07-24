@@ -3489,11 +3489,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
 							}
+
 							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
 							{
 								pjSoldier->BeginSoldierClimbDownRoof( );
+								return;
 							}
 						}
+
 						if ( fNearHeigherLevel )
 						{
 							// No climbing when wearing a backpack!
@@ -3505,9 +3508,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
 							}
+
 							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
 							{
 								pjSoldier->BeginSoldierClimbUpRoof(	);
+								return;
 							}
 						}
 
@@ -3534,6 +3539,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if ( EnoughPoints( pjSoldier, sAPCost, sBPCost, FALSE )	)
 							{
 								pjSoldier->BeginSoldierClimbFence(	);
+								return;
 							}	
 						}
 						
@@ -3549,11 +3555,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 								return;
 							}
+
 							if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 							{
 								if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
 								{
 									pjSoldier->BeginSoldierClimbWall(  );
+									return;
 								}
 							}
 						}

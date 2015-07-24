@@ -6998,7 +6998,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 				}
 				else
 				{
-					this->pathing.usPathDataSize++;
+					++this->pathing.usPathDataSize;
 				}
 			}
 
@@ -9339,6 +9339,10 @@ void SOLDIERTYPE::BeginSoldierClimbFence( void )
 	if ( FindFenceJumpDirection( this, this->sGridNo, bDirection, &bDirection ) )
 	{
 		this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc( bDirection ) );
+
+		// Flugente: we want to jump OVER the structure, not INTO it!
+		this->sTempNewGridNo = NewGridNo( this->sTempNewGridNo, (UINT16)DirectionInc( bDirection ) );
+
 		this->flags.fDontChargeTurningAPs = TRUE;
 		EVENT_InternalSetSoldierDesiredDirection( this, bDirection, FALSE, this->usAnimState );
 		this->flags.fTurningUntilDone = TRUE;
@@ -9346,7 +9350,6 @@ void SOLDIERTYPE::BeginSoldierClimbFence( void )
 		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
 		this->usPendingAnimation = HOPFENCE;
 	}
-
 }
 
 //---legion by JAzz---------------------------------------

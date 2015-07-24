@@ -958,15 +958,15 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				//CODE: BEGINHOPFENCE
 				// MOVE TWO FACGIN GRIDNOS
-				sNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );
-				//ddd window{
-					if ( gubWorldMovementCosts[ sNewGridNo ][ (UINT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ] ][ pSoldier->pathing.bLevel ] == TRAVELCOST_FENCE )
-						sNewGridNo = NewGridNo( sNewGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );
-				//ddd window}
+				// Flugente: the old complicaed method relied on pSoldier->pathing.usPathingData to be filled correctly - which it often wasn't. 
+				// This is unneccessary, as we've already filled sTempNewGridNo with the correct data
+				// we could fill sForcastGridno when initiating the jump, but lets keep this as a hook
+				if ( pSoldier->sTempNewGridNo != NOWHERE )
+					pSoldier->sForcastGridno = pSoldier->sTempNewGridNo;
+				else
+					// hey, it's better than nowhere
+					pSoldier->sForcastGridno = pSoldier->sGridNo;
 
-				//comm by ddd
-				//sNewGridNo = NewGridNo( sNewGridNo, (UINT16)( DirectionInc( pSoldier->ubDirection ) ) );
-				pSoldier->sForcastGridno = sNewGridNo;
 				break;
 
 

@@ -146,7 +146,7 @@ BOOLEAN	IsJumpableFencePresentAtGridNo( INT32 sGridNo )
 		{
 			return( TRUE );
 		}
-		if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_SANDBAG && StructureHeight( pStructure ) < 2 )
+		if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_SANDBAG && StructureHeight( pStructure ) <= 2 )
 		{
 			return( TRUE );
 		}
