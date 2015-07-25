@@ -512,7 +512,9 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 				else
 					swprintf( atStr, szBackgroundText_Value[strused + 1] );
 
+				wcscat( apStr, L" " );
 				wcscat( apStr, atStr );
+				wcscat( apStr, L"\n" );
 
 				// smoke has 2 texts, so extra increase of counter is needed
 				++strused;

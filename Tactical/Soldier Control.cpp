@@ -19049,6 +19049,57 @@ FLOAT	SOLDIERTYPE::GetBodyWeight()
 	return 80.0f;
 }
 
+// Flugente: are we crouched against cover from a specific direction? WARNING: This does not suffice to determine our cover!
+BOOLEAN	SOLDIERTYPE::IsCrouchedAgainstCoverFromDir( UINT8 aDirection )
+{
+	// we must be active
+	if ( !bActive )
+		return FALSE;
+
+	// only valid directions, please
+	if ( aDirection >= NUM_WORLD_DIRECTIONS )
+		return FALSE;
+
+	// only possible if crouched
+	if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
+		return FALSE;
+
+	// we must be in a sector
+	if ( !bInSector )
+		return FALSE;
+
+	// this is odd - invalid GridNo...
+	if ( TileIsOutOfBounds( this->sGridNo ) )
+		return FALSE;
+
+	// not in a car...
+	if ( this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER) )
+		return FALSE;
+
+	// we test whether we are crouched against cover in a specific direction, so determine the gridno to test
+	INT32 covergridno = NewGridNo( this->sGridNo, DirectionInc( aDirection ) );
+
+	// this is odd - invalid GridNo...
+	if ( TileIsOutOfBounds( covergridno ) )
+		return FALSE;
+
+	// people don't count
+	if ( WhoIsThere2( covergridno, this->pathing.bLevel ) != NOBODY )
+		return FALSE;
+
+	// if we can sit there, then it's obviously not dense enough to for us to cover againt it
+	if ( IsLocationSittable( covergridno, this->pathing.bLevel ) )
+		return FALSE;
+
+	INT8 adjacenttileheight = GetTallestStructureHeight( covergridno, this->pathing.bLevel );
+
+	if ( adjacenttileheight >= 2 )
+		return TRUE;
+
+	return FALSE;
+}
+
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;

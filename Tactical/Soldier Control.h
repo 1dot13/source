@@ -1910,6 +1910,9 @@ public:
 
 	// Flugente: assumed character weight (without any items)
 	FLOAT	GetBodyWeight();
+
+	// Flugente: are we crouched against cover from a specific direction? WARNING: This does not suffice to determine our cover!
+	BOOLEAN	IsCrouchedAgainstCoverFromDir( UINT8 aDirection );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

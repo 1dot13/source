@@ -8308,6 +8308,7 @@ STR16	szBackgroundText_Value[]=
 	L" dislikes some other backgrounds\n",	// TODO.Translate
 	L"Smoker",
 	L"Nonsmoker",
+	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate

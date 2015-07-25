@@ -7255,6 +7255,15 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		}
 	}
 
+	// Flugente: backgrounds
+	if ( pTarget && pTarget->GetBackgroundValue( BG_CROUCHEDDEFENSE ) )
+	{
+		if ( pTarget->IsCrouchedAgainstCoverFromDir( GetDirectionFromGridNo( pSoldier->sGridNo, pTarget ) ) )
+		{
+			iChance += pTarget->GetBackgroundValue( BG_CROUCHEDDEFENSE );
+		}
+	}
+
 	// Flugente: check for scope mode
 	if ( Item[(&(pSoldier->inv[pSoldier->ubAttackingHand]))->usItem].usItemClass == IC_GUN && !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
 	{
@@ -13023,6 +13032,15 @@ FLOAT CalcNewChanceToHitBaseTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTar
 		// Target has high Agility or Experience and is therefore harder to hit
 		FLOAT fTempPenalty = (FLOAT)__max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
 		fBaseModifier += (fTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
+
+		// Flugente: backgrounds
+		if ( pTarget->GetBackgroundValue( BG_CROUCHEDDEFENSE ) )
+		{
+			if ( pTarget->IsCrouchedAgainstCoverFromDir( GetDirectionFromGridNo( pSoldier->sGridNo, pTarget ) ) )
+			{
+				fBaseModifier += pTarget->GetBackgroundValue( BG_CROUCHEDDEFENSE );
+			}
+		}
 	}
 
 	// INVIS TARGET
