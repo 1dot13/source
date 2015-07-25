@@ -88,6 +88,7 @@
 		<smoker>0</smoker>								  <!-- 0: doesn't care about smoking 
 															   1: smoker: consumes cigarettes, dislikes anti-smokers 
 															   2: anti-smoker: refuses to smoke, dislikes smokers-->
+		<croucheddefense>0</croucheddefense>			  <!-- +- enemy cth if we are crouched against thick cover in their direction, -30 to 30-->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -1037,6 +1038,7 @@
 		<capitulation>10</capitulation>
 		<spotter>3</spotter>
 		<smoker>1</smoker>
+		<croucheddefense>-5</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1283,6 +1285,7 @@
 		<approach_recruit>-15</approach_recruit>
 		<druguse>1</druguse>
 		<smoker>1</smoker>
+		<croucheddefense>-5</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>				
 	</BACKGROUND>
@@ -1404,6 +1407,7 @@
 		<resistance_alcohol>6</resistance_alcohol>
 		<travel_foot>5</travel_foot>
 		<approach_threaten>10</approach_threaten>
+		<croucheddefense>-5</croucheddefense>
 		<level_underground>1</level_underground>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
@@ -1458,6 +1462,7 @@
 		<speed_bandaging>7</speed_bandaging>
 		<cth_blades>3</cth_blades>
 		<food>-10</food>
+		<croucheddefense>-5</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3152,6 +3157,7 @@
 		<spotter>5</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<croucheddefense>-15</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3395,6 +3401,7 @@
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
 		<smoker>1</smoker>
+		<croucheddefense>-5</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3450,6 +3457,7 @@
 		<tracker_ability>20</tracker_ability>
 		<ambush_radius>8</ambush_radius>
 		<smoker>2</smoker>
+		<croucheddefense>-7</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4346,6 +4354,7 @@
 		<spotter>5</spotter>
 		<insurance>-20</insurance>
 		<smoker>1</smoker>
+		<croucheddefense>-7</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4441,6 +4450,7 @@
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<insurance>-20</insurance>
+		<croucheddefense>-7</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4698,6 +4708,7 @@
 		<spotter>5</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<croucheddefense>-5</croucheddefense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -5568,6 +5579,7 @@
 		<travel_foot>5</travel_foot>
 		<speed_run>5</speed_run>
 		<capitulation>5</capitulation>
+		<croucheddefense>-2</croucheddefense>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>287</uiIndex>
@@ -5994,6 +6006,7 @@
 		<approach_threaten>10</approach_threaten>
 		<capitulation>10</capitulation>
 		<spotter>3</spotter>
+		<croucheddefense>-5</croucheddefense>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>312</uiIndex>
@@ -6013,6 +6026,7 @@
 		<spotter>5</spotter>
 		<capitulation>15</capitulation>
 		<insurance>-20</insurance>
+		<croucheddefense>-7</croucheddefense>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>313</uiIndex>
