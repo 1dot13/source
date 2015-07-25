@@ -145,17 +145,17 @@ DropDownBase::Create(UINT16 sX, UINT16 sY)
 
 	gDropObj = (void*) this;
 	
-	MSYS_DefineRegion( &mSelectedOpenDropDownRegion, GetX( ) + musWidth, GetY( ), GetX( ) + musWidth + musArrowWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
+	MSYS_DefineRegion( &mSelectedOpenDropDownRegion, GetX( ) + musWidth, GetY( ), GetX( ) + musWidth + musArrowWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGHEST,
 							CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_OPEN, &DropDownBase::Dummyfunc) );	
 	MSYS_AddRegion(&mSelectedOpenDropDownRegion);
 
 	//click anywhere on the screen to close the window( only when the drop down window is active)
-	MSYS_DefineRegion( &mSelectedCloseDropDownRegion, LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_WEB_UL_Y , LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y, MSYS_PRIORITY_HIGH-1,
+	MSYS_DefineRegion( &mSelectedCloseDropDownRegion, LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_WEB_UL_Y, LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y, MSYS_PRIORITY_HIGHEST,
 							CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_CLOSE, &DropDownBase::Dummyfunc) );
 	MSYS_AddRegion(&mSelectedCloseDropDownRegion);
 	MSYS_DisableRegion(&mSelectedCloseDropDownRegion);
 
-	MSYS_DefineRegion( &mBubbleHelpRegion, GetX( ), GetY( ), GetX( ) + musWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
+	MSYS_DefineRegion( &mBubbleHelpRegion, GetX( ), GetY( ), GetX( ) + musWidth, GetY( ) + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGHEST,
 							CURSOR_WWW, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );	
 	MSYS_AddRegion(&mBubbleHelpRegion);
 			
@@ -176,7 +176,7 @@ DropDownBase::Create_Drop()
 
 	for ( i = 0; i< mNumDisplayedEntries; ++i )
 	{
-		MSYS_DefineRegion( &mDropDownRegion[i], usPosX, (UINT16)(usPosY+4), (UINT16)(usPosX+musWidth-6), (UINT16)(usPosY+musFontHeight+7), MSYS_PRIORITY_HIGH,
+		MSYS_DefineRegion( &mDropDownRegion[i], usPosX, (UINT16)(usPosY + 4), (UINT16)(usPosX + musWidth - 6), (UINT16)(usPosY + musFontHeight + 7), MSYS_PRIORITY_HIGHEST,
 								CURSOR_WWW, CallBackWrapper((void*) this, DROPDOWN_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_REGION, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mDropDownRegion[i]);
 		MSYS_SetRegionUserData( &mDropDownRegion[ i ], 0, i);
@@ -191,7 +191,7 @@ DropDownBase::Create_Drop()
 	usPosY = musUpArrowY;
 	for(i=0; i<2; ++i)
 	{
-		MSYS_DefineRegion( &mgSelectedUpDownArrowOnScrollAreaRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), (UINT16)(usPosY+DEF_SCROLL_ARROW_HEIGHT), MSYS_PRIORITY_HIGH,
+		MSYS_DefineRegion( &mgSelectedUpDownArrowOnScrollAreaRegion[i], usPosX, usPosY, (UINT16)(usPosX + musWidth), (UINT16)(usPosY + DEF_SCROLL_ARROW_HEIGHT), MSYS_PRIORITY_HIGHEST,
 								CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_ARROW, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mgSelectedUpDownArrowOnScrollAreaRegion[i]);
 		MSYS_SetRegionUserData( &mgSelectedUpDownArrowOnScrollAreaRegion[ i ], 0, i);
@@ -209,7 +209,7 @@ DropDownBase::Create_Drop()
 		usHeight = ( musAreaHeight - DEF_SCROLL_ARROW_HEIGHT - 4 ) / (mNumDisplayedEntries);
 		for ( i = 0; i<mNumDisplayedEntries - 1; ++i )
 		{
-			MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGH+1,
+			MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX + musWidth), (UINT16)(usPosY + usHeight), MSYS_PRIORITY_HIGHEST + 1,
 									CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDownBase::Dummyfunc));
 			MSYS_AddRegion(&mSelectedScrollAreaDropDownRegion[i]);
 			MSYS_SetRegionUserData( &mSelectedScrollAreaDropDownRegion[ i ], 0, i);
@@ -217,7 +217,7 @@ DropDownBase::Create_Drop()
 		}
 
 		//put the last one down to cover the remaining area
-		MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), musDownArrowY, MSYS_PRIORITY_HIGH+1,
+		MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX + musWidth), musDownArrowY, MSYS_PRIORITY_HIGHEST + 1,
 								CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mSelectedScrollAreaDropDownRegion[i]);
 		MSYS_SetRegionUserData( &mSelectedScrollAreaDropDownRegion[ i ], 0, i);

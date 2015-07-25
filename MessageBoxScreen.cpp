@@ -21,6 +21,7 @@
 	#include "text.h"
 	#include "Text Input.h"
 	#include "overhead map.h"
+	#include "DropDown.h"
 #endif
 
 #define		MSGBOX_DEFAULT_WIDTH							300
@@ -79,7 +80,7 @@ CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
 // sevenfm: added color for buttons
 UINT16	gzUserDefinedButtonColor[ NUM_CUSTOM_BUTTONS ];
 
-INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect, UINT8 ubDefaultButton )
+INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect, UINT8 ubDefaultButton )
 {
 	VSURFACE_DESC		vs_desc;
 	UINT16	usTextBoxWidth;
@@ -203,8 +204,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			usCursor = CURSOR_NORMAL;
 			break;
 	}
-
-
+	
 	if ( usFlags & MSG_BOX_FLAG_USE_CENTERING_RECT && pCenteringRect != NULL )
 	{
 		aRect.iTop = 	pCenteringRect->iTop;
@@ -237,10 +237,14 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		if( ubStyle == MSG_BOX_BASIC_MEDIUM_BUTTONS )
 			heightincrease = 120;
 		else
-		heightincrease = 50;
+			heightincrease = 50;
 	}
+
 	if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 		heightincrease = 90;
+
+	if ( usFlags & MSG_BOX_FLAG_DROPDOWN )
+		heightincrease = 130;
 
 	UINT16 usMBWidth=MSGBOX_DEFAULT_WIDTH;
 	BOOLEAN bFixedWidth = FALSE;
@@ -262,9 +266,9 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	if( gMsgBox.iBoxId == -1 )
 	{
-		#ifdef JA2BETAVERSION
-			AssertMsg( 0, "Failed in DoMessageBox().	Probable reason is because the string was too large to fit in max message box size." );
-		#endif
+#ifdef JA2BETAVERSION
+		AssertMsg( 0, "Failed in DoMessageBox().	Probable reason is because the string was too large to fit in max message box size." );
+#endif
 		return 0;
 	}
 
@@ -287,7 +291,6 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		gfStartedFromMapScreen = TRUE;
 		fMapPanelDirty = TRUE;
 	}
-
 
 	// Set pending screen
 	SetPendingNewScreen( MSG_BOX_SCREEN);
@@ -315,10 +318,9 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	UnLockVideoSurface( gMsgBox.uiSaveBuffer );
 	UnLockVideoSurface( FRAME_BUFFER );
-
+		
 	// Create top-level mouse region
-	MSYS_DefineRegion( &(gMsgBox.BackRegion), 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST,
-						usCursor, MSYS_NO_CALLBACK, MsgBoxClickCallback );
+	MSYS_DefineRegion( &(gMsgBox.BackRegion), 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST - 1,	usCursor, MSYS_NO_CALLBACK, MsgBoxClickCallback );
 
 	if( gGameSettings.fOptions[ TOPTION_DONT_MOVE_MOUSE ] == FALSE )
 	{
@@ -510,38 +512,38 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		}
 		else
 		{
-		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
-		sButtonX = sBlankSpace / 2;
-		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease;
-		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
-
-		for ( INT8 i = 0; i < 2; ++i)
-		{
-			// new row
-			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH;
-
-			// begin from the front
+			sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
 			sButtonX = sBlankSpace / 2;
+			sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease;
+			sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 
-			for ( INT8 j = 0; j < 4; ++j)
+			for ( INT8 i = 0; i < 2; ++i)
 			{
-				INT8 k = 4*i + j;
+				// new row
+				sButtonY += MSGBOX_SMALL_BUTTON_WIDTH;
 
-				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
-														ubFontColor, ubFontShadowColor,
-														ubFontColor, ubFontShadowColor,
-														TEXT_CJUSTIFIED,
-														(INT16)(gMsgBox.sX + sButtonX ), (INT16)(gMsgBox.sY + sButtonY ), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
-														DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
-				MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
-				SetButtonCursor(gMsgBox.uiButton[k], usCursor);
-				ForceButtonUnDirty( gMsgBox.uiButton[k] );
+				// begin from the front
+				sButtonX = sBlankSpace / 2;
 
-				//sButtonX += 75 + MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
-				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+				for ( INT8 j = 0; j < 4; ++j)
+				{
+					INT8 k = 4*i + j;
+
+					gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
+															ubFontColor, ubFontShadowColor,
+															ubFontColor, ubFontShadowColor,
+															TEXT_CJUSTIFIED,
+															(INT16)(gMsgBox.sX + sButtonX ), (INT16)(gMsgBox.sY + sButtonY ), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
+															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
+					MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
+					SetButtonCursor(gMsgBox.uiButton[k], usCursor);
+					ForceButtonUnDirty( gMsgBox.uiButton[k] );
+
+					//sButtonX += 75 + MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+					sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
+				}
 			}
 		}
-	}
 	}
 	// Create sixteen numbered buttons
 	else if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
@@ -554,10 +556,10 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		}
 		else
 		{
-		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
-		sButtonX = sBlankSpace / 2;
-		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease - 6;
-		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+			sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
+			sButtonX = sBlankSpace / 2;
+			sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease - 6;
+			sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 		}
 				
 		for ( INT8 i = 0; i < 4; ++i)
@@ -572,9 +574,9 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			else
 			{
 				// new row
-			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH - 2;// + MSGBOX_SMALL_BUTTON_X_SEP;
-			// begin from the front
-			sButtonX = sBlankSpace / 2 -  MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+				sButtonY += MSGBOX_SMALL_BUTTON_WIDTH - 2;// + MSGBOX_SMALL_BUTTON_X_SEP;
+				// begin from the front
+				sButtonX = sBlankSpace / 2 -  MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 			}
 
 			for ( INT8 j = 0; j < 4; ++j)
@@ -645,11 +647,9 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	}
 	else
 	{
-
 		// Create text button
 		if ( usFlags & MSG_BOX_FLAG_OK )
 		{
-
 
 //			sButtonX = ( usTextBoxWidth - MSGBOX_BUTTON_WIDTH ) / 2;
 			sButtonX = ( usTextBoxWidth - GetMSgBoxButtonWidth( gMsgBox.iButtonImages ) ) / 2;
@@ -665,9 +665,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			SetButtonCursor(gMsgBox.uiOKButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiOKButton );
 		}
-
-
-
+		
 		// Create text button
 		if ( usFlags & MSG_BOX_FLAG_CANCEL )
 		{
@@ -734,7 +732,6 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NOMsgBoxCallback );
 			SetButtonCursor(gMsgBox.uiNOButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiNOButton );
-
 		}
 
 		if ( usFlags & MSG_BOX_FLAG_OKCONTRACT )
@@ -760,7 +757,6 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ContractMsgBoxCallback );
 			SetButtonCursor(gMsgBox.uiNOButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiNOButton );
-
 		}
 
 		if ( usFlags & MSG_BOX_FLAG_YESNOCONTRACT )
@@ -795,9 +791,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ContractMsgBoxCallback );
 			SetButtonCursor(gMsgBox.uiOKButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiOKButton );
-
 		}
-
 
 		if ( usFlags & MSG_BOX_FLAG_GENERICCONTRACT )
 		{
@@ -831,7 +825,6 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ContractMsgBoxCallback );
 			SetButtonCursor(gMsgBox.uiOKButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiOKButton );
-
 		}
 
 		if ( usFlags & MSG_BOX_FLAG_GENERIC_TWO_BUTTONS )
@@ -891,7 +884,6 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 															DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)LieMsgBoxCallback );
 			SetButtonCursor(gMsgBox.uiOKButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiOKButton );
-
 		}
 
 		if ( usFlags & MSG_BOX_FLAG_OKSKIP )
@@ -918,7 +910,11 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			SetButtonCursor(gMsgBox.uiNOButton, usCursor);
 			ForceButtonUnDirty( gMsgBox.uiNOButton );
 		}
+	}
 
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	{
+		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 30) );
 	}
 
 #if 0
@@ -942,6 +938,12 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	gfInMsgBox			= TRUE;
 
 	return( iId );
+}
+
+// this has to be defined. As the MessageBoxScreenHandle() runs all time, there is nothing to do here though
+template<>	void	DropDownTemplate<DROPDOWNNR_MSGBOX>::SetRefresh( )
+{
+	// for now, nothing needed, update happens automatically
 }
 
 
@@ -1186,7 +1188,11 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 			RemoveButton( gMsgBox.uiYESButton );
 			RemoveButton( gMsgBox.uiNOButton );
 		}
+	}
 
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	{
+		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Destroy( );
 	}
 
 	// Delete button images
@@ -1206,7 +1212,6 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 	// Restore mouse restriction region...
 	RestrictMouseCursor( &gOldCursorLimitRectangle );
 
-
 	gfInMsgBox = FALSE;
 
 	// Call done callback!
@@ -1214,8 +1219,7 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 	{
 		(*(gMsgBox.ExitCallback))( ubExitCode );
 	}
-
-
+	
 	//if ur in a non gamescreen and DONT want the msg box to use the save buffer, unset gfDontOverRideSaveBuffer in ur callback
 	if( ( ( gMsgBox.uiExitScreen != GAME_SCREEN ) || ( fRestoreBackgroundForMessageBox == TRUE ) ) && gfDontOverRideSaveBuffer )
 	{
@@ -1256,15 +1260,14 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 
 	// Remove save buffer!
 	DeleteVideoSurfaceFromIndex( gMsgBox.uiSaveBuffer );
-
-
+	
 	switch( gMsgBox.uiExitScreen )
 	{
 		case GAME_SCREEN:
 
 		if ( InOverheadMap( ) )
 		{
-		gfOverheadMapDirty = TRUE;
+			gfOverheadMapDirty = TRUE;
 		}
 		else
 		{
@@ -1278,8 +1281,8 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 
 	if ( gfFadeInitialized )
 	{
-	SetPendingNewScreen(FADE_SCREEN);
-	return( FADE_SCREEN );
+		SetPendingNewScreen(FADE_SCREEN);
+		return( FADE_SCREEN );
 	}
 
 	return( gMsgBox.uiExitScreen );
@@ -1591,6 +1594,11 @@ UINT32	MessageBoxScreenHandle( )
 				}
 			}
 		}
+	}
+
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	{
+		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Display( );
 	}
 
 	if ( gMsgBox.bHandled )
