@@ -6878,7 +6878,8 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 	// search wether structure exists in the current tilesets. If not, well, too bad
 	for (UINT32 uiType = 0; uiType < giNumberOfTileTypes; ++uiType)
 	{
-		if( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
 		{
 			if ( structureconstructindex >= 0 )
 			{
@@ -6887,6 +6888,15 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 					usUseObjIndex = uiType;
 					break;
 				}
+			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[uiType][0] )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiType], gStructureConstruct[structureconstructindex].szTileSetName, 10 ) )
+			{
+				usUseObjIndex = uiType;
+				break;
 			}
 		}
 	}
@@ -6981,8 +6991,21 @@ BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *p
 					// item we have in our hand must be one with which we can deconstruct this
 					if ( pObj->usItem == gStructureDeconstruct[i].usDeconstructItem )
 					{
-						// Check if we are a sandbag or a earth pile
-						if ( !_strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], gStructureDeconstruct[i].szTileSetName, 11) )
+						// if tileset is from the current tileset, check that
+						BOOLEAN found = FALSE;
+						if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+						{
+							if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[i].szTileSetName, 11 ) )
+								found = TRUE;
+						}
+						// otherwise, check first tileset (GENERIC 1)
+						else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
+						{
+							if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[i].szTileSetName, 11 ) )
+								found = TRUE;
+						}
+
+						if ( found )
 						{
 							// we have to check wether this specific structure can be removed. Just checking the tileset name won't be enough.
 							// For example, we could have a set consisting of crates and piles of earth, which we want to remove via applying a shovel on it.
