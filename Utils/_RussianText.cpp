@@ -5745,7 +5745,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, показываются\nтени предметов в инвентаре.",
 	L"Если включено, дальность оружия\nуказывается в игровых секторах.",
 	L"Если включено, трассирующий эффект\nсоздаётся и одиночным выстрелом.",	
-	L"Если включено, дождь будет\nсопровождаться жвуком.",
+	L"Если включено, дождь будет\nсопровождаться звуком.",
 	L"Если включено, вороны присутствуют в игре.",
 	L"Если включено, при нажатии кнопки |A|l|t\nи наведении курсора мыши на вражеского солдата\nбудет показана дополнительная информация.",
 	L"Если включено, игра будет автоматически\nсохраняться после каждого хода игрока.",
@@ -7742,7 +7742,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nЭтот предмет утолит вашу жажду,\nесли вы выпьете его.",
 	L"\n \nЭтот предмет утолит ваш голод\n,если вы съедите его.",
 	L"\n \nВы сможете питать патронами\nчей-нибудь пулемёт, если будете держать\nэту ленту в руках.",
-	L"\n \nВ этом жилет можно хранить\nпатронные ленты для боепитания вашего\nпулемёта.",
+	L"\n \nВ этом жилете можно хранить\nпатронные ленты для боепитания вашего\nпулемёта.",
 	L"\n \nЭтот предмет улучшает шанс\nобезвреживания ловушки на ",
 	L"\n \nЭтот предмет и все, что к нему\nприсоединено или находится внутри\nнего, скрыто от посторонних глаз.",
 	L"\n \nЭтот предмет нельзя повредить.",
@@ -10092,11 +10092,11 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 	L"Classic $CAUSE$.",
 	L"I couldn't have said it better myself.",
 	L"That is exactly what happened.",
-	L"Agreed!",
+	L"Согласен!",
 
-	L"Yup.",
-	L"True.",
-	L"Bingo.",
+	L"Ага.",
+	L"Верно.",
+	L"В точку.",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
@@ -10119,7 +10119,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 	L"You are wrong!",
 	L"Me and $CAUSE$ would never do such a thing.",
 	L"Nah, can't be.",
-	L"I don't think so.",
+	L"Я так не думаю.",
 
 	L"Why bring that up now?",
 	L"Really, $VICTIM$? Is this necessary?",
@@ -10127,7 +10127,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
-	L"Keep silent",
+	L"Тихо",
 	L"Support $VICTIM$",
 	L"Support $CAUSE$",
 	L"Appeal to reason",
@@ -10178,7 +10178,7 @@ STR16	szFoodText[] =
 	L" %s%d%% chance to lose stats\n",
 };
 
-STR16 szIMPGearWebSiteText[] =	// TODO.Translate
+STR16 szIMPGearWebSiteText[] =
 {
 	// IMP Gear Entrance
 	L"Как будет роздано снаряжение?",
