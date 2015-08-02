@@ -656,6 +656,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	if (mapMaximumNumberOfEnemies > gGameExternalOptions.ubGameMaximumNumberOfEnemies)
 		mapMaximumNumberOfEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 
+	//are there more enemies in the sector then we can actually place on map? 
 	gfPendingNonPlayerTeam[ENEMY_TEAM] = (NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) > mapMaximumNumberOfEnemies);
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
@@ -881,7 +882,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	//sNumSlots = mapMaximumNumberOfEnemies - totalCountOfStationaryEnemies;
 
 	// Flugente: at this point, soldiers have already been placed, thus enough slots for them exist
-	sNumSlots = max( mapMaximumNumberOfEnemies, NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) );
+	sNumSlots = min( mapMaximumNumberOfEnemies, NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) );
 
 	pGroup = gpGroupList;
 	while( pGroup && sNumSlots > 0 )
