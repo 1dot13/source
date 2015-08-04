@@ -527,58 +527,62 @@ void PMCTeamHireCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		AddTransactionToPlayersBook( PMC_CONTRACT, 0, GetWorldTotalMin( ), (-1) * (INT32)(pmcdata[0].usToHire * GetMilitiaCostPMC( REGULAR_MILITIA ) + pmcdata[1].usToHire * GetMilitiaCostPMC( ELITE_MILITIA )) );
-		
-		PMCReinforcesHireEvent hiringevent;
-
-		// look for a free ID
-		UINT8 id = 0;
-		BOOLEAN found = FALSE;
-		for ( UINT8 i = 0; i < 255; ++i )
+		// only proceed if we selected people
+		if ( pmcdata[0].usToHire || pmcdata[1].usToHire )
 		{
-			found = TRUE;
+			AddTransactionToPlayersBook( PMC_CONTRACT, 0, GetWorldTotalMin( ), (-1) * (INT32)(pmcdata[0].usToHire * GetMilitiaCostPMC( REGULAR_MILITIA ) + pmcdata[1].usToHire * GetMilitiaCostPMC( ELITE_MILITIA )) );
+		
+			PMCReinforcesHireEvent hiringevent;
 
-			std::vector<PMCReinforcesHireEvent>::iterator itend = gPMCHiringEvents.end();
-			for ( std::vector<PMCReinforcesHireEvent>::iterator it = gPMCHiringEvents.begin( ); it != itend; ++it )
+			// look for a free ID
+			UINT8 id = 0;
+			BOOLEAN found = FALSE;
+			for ( UINT8 i = 0; i < 255; ++i )
 			{
-				if ( (*it).usId == id )
+				found = TRUE;
+
+				std::vector<PMCReinforcesHireEvent>::iterator itend = gPMCHiringEvents.end();
+				for ( std::vector<PMCReinforcesHireEvent>::iterator it = gPMCHiringEvents.begin( ); it != itend; ++it )
 				{
-					++id;
-					found = FALSE;
-					break;
+					if ( (*it).usId == id )
+					{
+						++id;
+						found = FALSE;
+						break;
+					}
 				}
+
+				if ( found = TRUE )
+					break;
 			}
 
-			if ( found = TRUE )
-				break;
-		}
+			hiringevent.usId = id;
+			hiringevent.usRegulars = pmcdata[0].usToHire;
+			hiringevent.usVeterans = pmcdata[1].usToHire;
+			hiringevent.usSectorToArrive = (UINT8)DropDownTemplate<DROPDOWNNR_PMC_LOCATION>::getInstance( ).GetSelectedEntryKey( );
+			hiringevent.usTimeToArrive = GetWorldTotalMin() + 1440;
 
-		hiringevent.usId = id;
-		hiringevent.usRegulars = pmcdata[0].usToHire;
-		hiringevent.usVeterans = pmcdata[1].usToHire;
-		hiringevent.usSectorToArrive = (UINT8)DropDownTemplate<DROPDOWNNR_PMC_LOCATION>::getInstance( ).GetSelectedEntryKey( );
-		hiringevent.usTimeToArrive = GetWorldTotalMin() + 1440;
+			gPMCData.usRegularsHired += hiringevent.usRegulars;
+			gPMCData.usVeteransHired += hiringevent.usVeterans;
+			gPMCData.usTotalMoneyEarned += pmcdata[0].usToHire * GetMilitiaCostPMC( REGULAR_MILITIA ) + pmcdata[1].usToHire * GetMilitiaCostPMC( ELITE_MILITIA );
 
-		gPMCData.usRegularsHired += hiringevent.usRegulars;
-		gPMCData.usVeteransHired += hiringevent.usVeterans;
-		gPMCData.usTotalMoneyEarned += pmcdata[0].usToHire * GetMilitiaCostPMC( REGULAR_MILITIA ) + pmcdata[1].usToHire * GetMilitiaCostPMC( ELITE_MILITIA );
+			gPMCHiringEvents.push_back( hiringevent );
 
-		gPMCHiringEvents.push_back( hiringevent );
-
-		// The ETA is, well, just an ETA - randomise it a bit
-		UINT32 realarrivaltime = hiringevent.usTimeToArrive - 60 + Random(180);
-		AddStrategicEvent( EVENT_PMC_REINFORCEMENT_ARRIVAL, realarrivaltime, hiringevent.usId );
+			// The ETA is, well, just an ETA - randomise it a bit
+			UINT32 realarrivaltime = hiringevent.usTimeToArrive - 60 + Random(180);
+			AddStrategicEvent( EVENT_PMC_REINFORCEMENT_ARRIVAL, realarrivaltime, hiringevent.usId );
 		
-		gPMCData.usRegularsAvailable -= pmcdata[0].usToHire;
-		pmcdata[0].usToHire = 0;
+			gPMCData.usRegularsAvailable -= pmcdata[0].usToHire;
+			pmcdata[0].usToHire = 0;
 
-		gPMCData.usVeteransAvailable -= pmcdata[1].usToHire;
-		pmcdata[1].usToHire = 0;		
+			gPMCData.usVeteransAvailable -= pmcdata[1].usToHire;
+			pmcdata[1].usToHire = 0;		
 				
-		CHAR16 sString[256];
-		swprintf( sString, szPMCWebSite[TEXT_PMC_CONFIRMATION], ((GetWorldTotalMin( ) + 1440) % 1440) / 60, ((GetWorldTotalMin( ) + 1440) % 1440) % 60 );
+			CHAR16 sString[256];
+			swprintf( sString, szPMCWebSite[TEXT_PMC_CONFIRMATION], ((GetWorldTotalMin( ) + 1440) % 1440) / 60, ((GetWorldTotalMin( ) + 1440) % 1440) % 60 );
 
-		DoLowerScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, PMCConfirmationCallback );
+			DoLowerScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, PMCConfirmationCallback );
+		}
 	}
 }
 
