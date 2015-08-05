@@ -3012,7 +3012,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 
 				//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Explosion affects %d", uiNewSpot) );
 				// ok, do what we do here...
-       if ( ExpAffect( sGridNo, uiNewSpot, cnt / 2, usItem, ubOwner, fSubsequent, &fAnyMercHit, bLevel, iSmokeEffectID ) )
+				if ( ExpAffect( sGridNo, uiNewSpot, cnt / 2, usItem, ubOwner, fSubsequent, &fAnyMercHit, bLevel, iSmokeEffectID ) )
 				{
 					fRecompileMovement = TRUE;
 				}
@@ -3026,7 +3026,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 					uiBranchSpot = uiNewSpot;
 
 					// figure the branch direction - which is one dir clockwise
-					ubBranchDir = (ubDir + 1) % 8;
+					ubBranchDir = (ubDir + 1) % NUM_WORLD_DIRECTIONS;
 
 					if (ubBranchDir & 1)
 					{

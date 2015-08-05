@@ -2651,7 +2651,7 @@ INT8 CountAdjacentSpreadTargets( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT
 
 	bDir = (INT8) GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sFirstTarget );
 
-	for (bDirLoop = 0; bDirLoop < 8; bDirLoop++)
+	for ( bDirLoop = 0; bDirLoop < NUM_WORLD_DIRECTIONS; ++bDirLoop )
 	{
 		if (bDir % 2)
 		{
@@ -2659,37 +2659,37 @@ INT8 CountAdjacentSpreadTargets( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT
 			switch( bDirLoop )
 			{
 			case 0:
-				bCheckDir = (bDir + 6) % 8;
+				bCheckDir = (bDir + 6) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 0;
 				break;
 			case 1:
-				bCheckDir = (bDir + 5) % 8;
+				bCheckDir = (bDir + 5) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 2:
-				bCheckDir = (bDir + 7) % 8;
+				bCheckDir = (bDir + 7) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 3:
-				bCheckDir = (bDir + 3) % 8;
+				bCheckDir = (bDir + 3) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 4:
-				bCheckDir = (bDir + 1) % 8;
+				bCheckDir = (bDir + 1) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 5:
-				bCheckDir = (bDir + 2) % 8;
+				bCheckDir = (bDir + 2) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 4;
 				break;
 			case 6:
 				// check in front
-				bCheckDir = (bDir + 4) % 8;
+				bCheckDir = (bDir + 4) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 7:
 				// check behind
-				bCheckDir = (bDir) % 8;
+				bCheckDir = (bDir) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			}
@@ -2700,37 +2700,37 @@ INT8 CountAdjacentSpreadTargets( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT
 			switch( bDirLoop )
 			{
 			case 0:
-				bCheckDir = (bDir + 5) % 8;
+				bCheckDir = (bDir + 5) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 1:
-				bCheckDir = (bDir + 6) % 8;
+				bCheckDir = (bDir + 6) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 2:
-				bCheckDir = (bDir + 7) % 8;
+				bCheckDir = (bDir + 7) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 3:
-				bCheckDir = (bDir + 3) % 8;
+				bCheckDir = (bDir + 3) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 4:
-				bCheckDir = (bDir + 2) % 8;
+				bCheckDir = (bDir + 2) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 5:
-				bCheckDir = (bDir + 1) % 8;
+				bCheckDir = (bDir + 1) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 6:
 				// check in front
-				bCheckDir = (bDir + 4) % 8;
+				bCheckDir = (bDir + 4) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 7:
 				// check behind
-				bCheckDir = (bDir) % 8;
+				bCheckDir = (bDir) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 
@@ -2780,7 +2780,7 @@ INT16 CalcSpreadBurst( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT8 bTargetL
 
 	bDir = (INT8) GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sFirstTarget );
 
-	for (bDirLoop = 0; bDirLoop < 8; bDirLoop++)
+	for ( bDirLoop = 0; bDirLoop < NUM_WORLD_DIRECTIONS; ++bDirLoop )
 	{
 		if (bDir % 2)
 		{
@@ -2788,37 +2788,37 @@ INT16 CalcSpreadBurst( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT8 bTargetL
 			switch( bDirLoop )
 			{
 			case 0:
-				bCheckDir = (bDir + 6) % 8;
+				bCheckDir = (bDir + 6) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 0;
 				break;
 			case 1:
-				bCheckDir = (bDir + 5) % 8;
+				bCheckDir = (bDir + 5) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 2:
-				bCheckDir = (bDir + 7) % 8;
+				bCheckDir = (bDir + 7) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 3:
-				bCheckDir = (bDir + 3) % 8;
+				bCheckDir = (bDir + 3) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 4:
-				bCheckDir = (bDir + 1) % 8;
+				bCheckDir = (bDir + 1) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 5:
-				bCheckDir = (bDir + 2) % 8;
+				bCheckDir = (bDir + 2) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 4;
 				break;
 			case 6:
 				// check in front
-				bCheckDir = (bDir + 4) % 8;
+				bCheckDir = (bDir + 4) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 7:
 				// check behind
-				bCheckDir = (bDir) % 8;
+				bCheckDir = (bDir) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			}
@@ -2829,37 +2829,37 @@ INT16 CalcSpreadBurst( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT8 bTargetL
 			switch( bDirLoop )
 			{
 			case 0:
-				bCheckDir = (bDir + 5) % 8;
+				bCheckDir = (bDir + 5) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 1:
-				bCheckDir = (bDir + 6) % 8;
+				bCheckDir = (bDir + 6) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 2:
-				bCheckDir = (bDir + 7) % 8;
+				bCheckDir = (bDir + 7) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 3:
-				bCheckDir = (bDir + 3) % 8;
+				bCheckDir = (bDir + 3) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 4:
-				bCheckDir = (bDir + 2) % 8;
+				bCheckDir = (bDir + 2) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 5:
-				bCheckDir = (bDir + 1) % 8;
+				bCheckDir = (bDir + 1) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 			case 6:
 				// check in front
-				bCheckDir = (bDir + 4) % 8;
+				bCheckDir = (bDir + 4) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 1;
 				break;
 			case 7:
 				// check behind
-				bCheckDir = (bDir) % 8;
+				bCheckDir = (bDir) % NUM_WORLD_DIRECTIONS;
 				bTargetIndex = 3;
 				break;
 

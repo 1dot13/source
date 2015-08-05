@@ -2638,8 +2638,7 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 	}
 
 	// WANNE - BMP: FIX: Valid directions are only from 0-7!!
-	//for (cnt=0; cnt <= 8; cnt++)
-	for (cnt=0; cnt < 8; ++cnt)
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; ++cnt )
 	{
 		sGridNo = NewGridNo(pSoldier->sGridNo,DirectionInc(cnt));
 		if (sGridNo != pSoldier->sGridNo)

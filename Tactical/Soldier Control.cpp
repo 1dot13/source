@@ -5119,7 +5119,7 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 		return(TANK_SHOOT);
 	}
 
-	if ( pSoldier->ubBodyType == TANK_NW || pSoldier->ubBodyType == TANK_NE )
+	if ( TANK(pSoldier) )
 	{
 		return(TANK_BURST);
 	}
@@ -5471,7 +5471,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 		return(INVALID_ANIMATION);
 	}
 
-	if ( pSoldier->ubBodyType == TANK_NW || pSoldier->ubBodyType == TANK_NE )
+	if ( TANK(pSoldier) )
 	{
 		return(INVALID_ANIMATION);
 	}
@@ -8023,8 +8023,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 			if ( ((gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) &&
 				this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_OFF) ||
 				this->ubBodyType == ROBOTNOWEAPON ||
-				this->ubBodyType == TANK_NW ||
-				this->ubBodyType == TANK_NE )
+				TANK(this) )
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "TurnSoldier: EVENT_InitNewSoldierAnim" ) );
 				this->EVENT_InitNewSoldierAnim( SelectFireAnimation( this, gAnimControl[this->usAnimState].ubEndHeight ), 0, FALSE );
@@ -8104,7 +8103,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 	// Don't do anything if we are at dest direction!
 	if ( this->ubDirection == this->pathing.bDesiredDirection )
 	{
-		if ( this->ubBodyType == TANK_NW || this->ubBodyType == TANK_NE )
+		if ( TANK(this) )
 		{
 			if ( this->iTuringSoundID != NO_SAMPLE )
 			{
@@ -8241,7 +8240,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 		this->ubHiResDirection = (UINT8)sDirection;
 
 		// Are we at a multiple of a 'cardnal' direction?
-		for ( cnt = 0; cnt < 8; cnt++ )
+		for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; ++cnt )
 		{
 			if ( sDirection == ubExtDirection[cnt] )
 			{
@@ -8253,7 +8252,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 			}
 		}
 
-		if ( this->ubBodyType == TANK_NW || this->ubBodyType == TANK_NE )
+		if ( TANK(this) )
 		{
 			if ( this->iTuringSoundID == NO_SAMPLE )
 			{
@@ -9816,19 +9815,19 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		{
 			//sLifeDeduct = (sLifeDeduct * 2) / 3;
 		}
-		else
-		{
-			if ( ubReason == TAKE_DAMAGE_GUNFIRE )
+			else
 			{
+			if ( ubReason == TAKE_DAMAGE_GUNFIRE )
+				{
 				sLifeDeduct /= 3;
 			}
 			else if ( ubReason == TAKE_DAMAGE_EXPLOSION && sLifeDeduct > 50 )
 			{
-				// boom!
-				sLifeDeduct *= 2;
+					// boom!
+					sLifeDeduct *= 2;
+				}
 			}
-		}
-
+		
 		VehicleTakeDamage( this->bVehicleID, ubReason, sLifeDeduct, this->sGridNo, ubAttacker );
 		HandleTakeDamageDeath( this, bOldLife, ubReason );
 		return(0);

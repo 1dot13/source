@@ -294,7 +294,7 @@ INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOO
 
 
 		//contemplate a new path in each direction
-		for (iCnt=0; iCnt < 8; iCnt+=2)
+		for ( iCnt = 0; iCnt < NUM_WORLD_DIRECTIONS; iCnt += 2 )
 		{
 			newLoc = curLoc + diStratDelta[iCnt];
 

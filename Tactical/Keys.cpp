@@ -1423,7 +1423,7 @@ BOOLEAN AllMercsLookForDoor( INT32 sGridNo, BOOLEAN fUpdateValue )
 			}
 
 			// Now try other adjacent gridnos...
-			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
+			for ( cnt2 = 0; cnt2 < NUM_WORLD_DIRECTIONS; ++cnt2 )
 			{
 				usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 				// and we can trace a line of sight to his x,y coordinates?
@@ -1482,7 +1482,7 @@ BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 		}
 
 		// Now try other adjacent gridnos...
-		for ( cnt2 = 0; cnt2 < 8; cnt2++ )
+		for ( cnt2 = 0; cnt2 < NUM_WORLD_DIRECTIONS; ++cnt2 )
 		{
 			usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 			// and we can trace a line of sight to his x,y coordinates?

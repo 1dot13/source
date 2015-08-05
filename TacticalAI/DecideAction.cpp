@@ -1926,7 +1926,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		if ( pSoldier->flags.lastFlankLeft )
 		{
 			if ( origDir > currDir )
-				origDir -= 8;
+				origDir -= NUM_WORLD_DIRECTIONS;
 
 			if ( (currDir - origDir) >= 4 )
 			{
@@ -1944,7 +1944,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		else
 		{
 			if ( origDir < currDir )
-				origDir += 8;
+				origDir += NUM_WORLD_DIRECTIONS;
 
 			if ( (origDir - currDir) >= 4 )
 			{
@@ -3354,7 +3354,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			if ( pSoldier->flags.lastFlankLeft )
 			{
 				if ( origDir > currDir )
-					origDir -= 8;
+					origDir -= NUM_WORLD_DIRECTIONS;
 
 				if ( (currDir - origDir) >= 4 )
 				{
@@ -3373,7 +3373,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			else
 			{
 				if ( origDir < currDir )
-					origDir += 8;
+					origDir += NUM_WORLD_DIRECTIONS;
 
 				if ( (origDir - currDir) >= 4 )
 				{
@@ -7141,7 +7141,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 			if ( pSoldier->flags.lastFlankLeft )
 			{
 				if ( origDir > currDir )
-					origDir -= 8;
+					origDir -= NUM_WORLD_DIRECTIONS;
 
 				if ( (currDir - origDir) >= 4 )
 				{
@@ -7159,7 +7159,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 			else
 			{
 				if ( origDir < currDir )
-					origDir += 8;
+					origDir += NUM_WORLD_DIRECTIONS;
 
 				if ( (origDir - currDir) >= 4 )
 				{
@@ -7296,7 +7296,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->flags.lastFlankLeft )
 				{
 					if ( origDir > currDir )
-						origDir -= 8;
+						origDir -= NUM_WORLD_DIRECTIONS;
 
 					if ( (currDir - origDir) >= 4 )
 					{
@@ -7315,7 +7315,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 				else
 				{
 					if ( origDir < currDir )
-						origDir += 8;
+						origDir += NUM_WORLD_DIRECTIONS;
 
 					if ( (origDir - currDir) >= 4 )
 					{

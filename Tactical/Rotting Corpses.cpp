@@ -1759,7 +1759,7 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 					}
 					else
 					{
-						for( cnt3 = 0; cnt3 < 8; cnt3++ )
+						for ( cnt3 = 0; cnt3 < NUM_WORLD_DIRECTIONS; ++cnt3 )
 						{
 							if ( OkayToAddStructureToWorld( sGridNo, pDef->bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ cnt3 ]]), INVALID_STRUCTURE_ID ) )
 							{

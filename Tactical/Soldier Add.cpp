@@ -379,7 +379,7 @@ INT32 FindGridNoFromSweetSpotWithStructData( SOLDIERTYPE *pSoldier, UINT16 usAni
 					}
 
 					// Check each struct in each direction
-					for( cnt3 = 0; cnt3 < 8; cnt3++ )
+					for ( cnt3 = 0; cnt3 < NUM_WORLD_DIRECTIONS; ++cnt3 )
 					{
 						if (OkayToAddStructureToWorld( sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ cnt3 ]]), usOKToAddStructID ) )
 						{
@@ -501,7 +501,7 @@ INT32 FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( SOLDIERTYPE
 	{
 		leftmost = ( ( sSweetGridNo + ( WORLD_COLS * cnt1 ) )/ WORLD_COLS ) * WORLD_COLS;
 
-		for( cnt2 = sLeft; cnt2 <= sRight; cnt2++ )
+		for( cnt2 = sLeft; cnt2 <= sRight; ++cnt2 )
 		{
 			sGridNo = sSweetGridNo + ( WORLD_COLS * cnt1 ) + cnt2;
 			if( sGridNo >=0 && sGridNo < WORLD_MAX && sGridNo >= leftmost && sGridNo < ( leftmost + WORLD_COLS )
@@ -545,34 +545,34 @@ INT32 FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( SOLDIERTYPE
 					if (OkayToAddStructureToWorld( sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ bGivenDirection ]]), usOKToAddStructID ) )
 					{
 						fDirectionFound = TRUE;
-			cnt3 = bGivenDirection;
+						cnt3 = bGivenDirection;
 					}
-			else
-			{
-					// Check each struct in each direction
-					for( cnt3 = 0; cnt3 < 8; cnt3++ )
+					else
 					{
-				if ( cnt3 != bGivenDirection )
-				{
-						 if (OkayToAddStructureToWorld( sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ cnt3 ]]), usOKToAddStructID ) )
-						 {
-							 fDirectionFound = TRUE;
-							 break;
-						 }
-				}
+						// Check each struct in each direction
+						for( cnt3 = 0; cnt3 <NUM_WORLD_DIRECTIONS; ++cnt3 )
+						{
+							if ( cnt3 != bGivenDirection )
+							{
+								 if (OkayToAddStructureToWorld( sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ cnt3 ]]), usOKToAddStructID ) )
+								 {
+									 fDirectionFound = TRUE;
+									 break;
+								 }
+							}
+						}
 					}
-			}
 
 					if ( fDirectionFound )
 					{
 						if ( fClosestToMerc )
 						{
-						uiRange = FindBestPath( pSoldier, sGridNo, pSoldier->pathing.bLevel, pSoldier->usUIMovementMode, NO_COPYROUTE, 0 );
+							uiRange = FindBestPath( pSoldier, sGridNo, pSoldier->pathing.bLevel, pSoldier->usUIMovementMode, NO_COPYROUTE, 0 );
 
-				if (uiRange == 0 )
-				{
-				uiRange = 999;
-				}
+							if (uiRange == 0 )
+							{
+								uiRange = 999;
+							}
 						}
 						else
 						{
@@ -702,14 +702,13 @@ INT32 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, U
 						pStructureFileRef = GetAnimationStructureRef( pSoldier->ubID, usAnimSurface, usAnimState );
 
 						// Check each struct in each direction
-						for( cnt3 = 0; cnt3 < 8; cnt3++ )
+						for ( cnt3 = 0; cnt3 < NUM_WORLD_DIRECTIONS; ++cnt3 )
 						{
 							if (OkayToAddStructureToWorld( sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[ cnt3 ]]), usOKToAddStructID ) )
 							{
 								fDirectionFound = TRUE;
 								break;
 							}
-
 						}
 					}
 					else

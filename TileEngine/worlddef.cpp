@@ -900,13 +900,10 @@ void CompileTileMovementCosts( INT32 usGridNo )
 
 	UINT8			ubDirLoop;
 
-/*
-*/
-
 	if ( GridNoOnVisibleWorldTile( usGridNo ) )
 	{
 		// check for land of a different height in adjacent locations
-		for ( ubDirLoop = 0; ubDirLoop < 8; ubDirLoop++ )
+		for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 		{
 			if ( gpWorldLevelData[ usGridNo ].sHeight !=
 					 gpWorldLevelData[ usGridNo + DirectionInc( ubDirLoop ) ].sHeight )
@@ -918,21 +915,21 @@ void CompileTileMovementCosts( INT32 usGridNo )
 		// check for exit grids
 		if ( ExitGridAtGridNo( usGridNo ) )
 		{
-			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+			for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 			{
 				SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_EXITGRID );
 			}
 			// leave the roof alone, and continue, so that we can get values for the roof if traversable
 		}
-
 	}
 	else
 	{
-		for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+		for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 		{
 			SET_MOVEMENTCOST( usGridNo, ubDirLoop,  0, TRAVELCOST_OFF_MAP );
 			SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OFF_MAP );
 		}
+
 		if (gpWorldLevelData[usGridNo].pStructureHead == NULL)
 		{
 			return;
@@ -940,7 +937,8 @@ void CompileTileMovementCosts( INT32 usGridNo )
 	}
 
 	if (gpWorldLevelData[usGridNo].pStructureHead != NULL)
-	{ // structures in tile
+	{
+		// structures in tile
 		// consider the land
 		pLand = gpWorldLevelData[ usGridNo ].pLandHead;
 		if ( pLand != NULL )
@@ -952,7 +950,7 @@ void CompileTileMovementCosts( INT32 usGridNo )
 			// Get terrain type
 			ubTerrainID =	gpWorldLevelData[usGridNo].ubTerrainID; // = GetTerrainType( (INT16)usGridNo );
 
-			for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
+			for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop)
 			{
 				SET_CURRMOVEMENTCOST( ubDirLoop, gTileTypeMovementCost[ ubTerrainID ] );
 			}
@@ -1059,7 +1057,7 @@ void CompileTileMovementCosts( INT32 usGridNo )
 
 							default:
 								// corners aren't jumpable
-								for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
+								for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop)
 								{
 									SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_OBSTACLE );
 								}
@@ -1068,7 +1066,7 @@ void CompileTileMovementCosts( INT32 usGridNo )
  					}
 					else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_SANDBAG && StructureHeight( pStructure ) <= 2 )
 					{
-						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
+						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop)
 						{
 							SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_OBSTACLE );
 						}
@@ -1087,14 +1085,14 @@ void CompileTileMovementCosts( INT32 usGridNo )
 					}
 					else if ( (pStructure->fFlags & STRUCTURE_CAVEWALL ) )
 					{
-						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
+						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop)
 						{
 							SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_CAVEWALL );
 						}
 					}
 					else
 					{
-						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
+						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop)
 						{
 							SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_OBSTACLE );
 						}
@@ -1509,14 +1507,14 @@ void CompileTileMovementCosts( INT32 usGridNo )
 		{
 			if (!fStructuresOnRoof)
 			{
-				for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+				for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 				{
 					SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_FLAT );
 				}
 			}
 			else
 			{
-				for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+				for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 				{
 					SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 				}
@@ -1524,19 +1522,20 @@ void CompileTileMovementCosts( INT32 usGridNo )
 		}
 		else
 		{
-			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+			for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 			{
 				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 			}
 		}
 	}
 	else
-	{ // NO STRUCTURES IN TILE
+	{
+		// NO STRUCTURES IN TILE
 		// consider just the land
 
 		// Get terrain type
 		ubTerrainID =	gpWorldLevelData[usGridNo].ubTerrainID; // = GetTerrainType( (INT16)usGridNo );
-		for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+		for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 		{
 			SET_MOVEMENTCOST( usGridNo ,ubDirLoop, 0, gTileTypeMovementCost[ ubTerrainID ] );
 		}
@@ -1561,14 +1560,14 @@ void CompileTileMovementCosts( INT32 usGridNo )
 		// HIGHEST LEVEL
 		if (gpWorldLevelData[ usGridNo ].pRoofHead != NULL)
 		{
-			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+			for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 			{
 				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_FLAT );
 			}
 		}
 		else
 		{
-			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
+			for ( ubDirLoop = 0; ubDirLoop < NUM_WORLD_DIRECTIONS; ++ubDirLoop )
 			{
 				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 			}

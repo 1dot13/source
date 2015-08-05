@@ -117,6 +117,11 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 				staticsouthtilevector.clear();
 				staticeasttilevector.clear();
 				staticwesttilevector.clear();
+
+				staticnorthtilevector.resize(1);
+				staticsouthtilevector.resize(1);
+				staticeasttilevector.resize(1);
+				staticwesttilevector.resize(1);
 			}
 
 			++structureconstructcnt;

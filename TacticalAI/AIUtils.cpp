@@ -707,12 +707,12 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 			// should be close enough, try to find a legal->pathing.sDestination within 1 tile
 
 			// clear dirChecked flag for all 8 directions
-			for (ubDirection = 0; ubDirection < 8; ubDirection++)
+			for ( ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ++ubDirection )
 			{
 				fDirChecked[ubDirection] = FALSE;
 			}
 
-			ubDirsLeft = 8;
+			ubDirsLeft = NUM_WORLD_DIRECTIONS;
 
 			// examine all 8 spots around 'ubFriendID'
 			// keep looking while directions remain and a satisfactory one not found
@@ -721,7 +721,7 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 				// randomly select a direction which hasn't been 'checked' yet
 				do
 				{
-					ubDirection = (UINT8) Random(8);
+					ubDirection = (UINT8)Random( NUM_WORLD_DIRECTIONS );
 				}
 				while (fDirChecked[ubDirection]);
 
@@ -752,7 +752,7 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 
 		if (!fFound)
 		{
-			ubFriendCount--;
+			--ubFriendCount;
 
 			// if we hadn't already picked the last friend currently in the list
 			if (ubFriendCount != ubFriendID)

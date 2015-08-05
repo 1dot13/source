@@ -2543,16 +2543,16 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	}
 
 	if ( sDesiredDir < 0 )
-		sDesiredDir += 8;
+		sDesiredDir += NUM_WORLD_DIRECTIONS;
 
-	if ( sDesiredDir > 8 )
-		sDesiredDir -= 8;
+	if ( sDesiredDir > NUM_WORLD_DIRECTIONS )
+		sDesiredDir -= NUM_WORLD_DIRECTIONS;
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: direction to loc = %d, dir to flank = %d", sDir , sDesiredDir ));
 
-	for (sYOffset = -sMaxUp + 1; sYOffset <= sMaxDown - 1; sYOffset++)
+	for (sYOffset = -sMaxUp + 1; sYOffset <= sMaxDown - 1; ++sYOffset)
 	{
-		for (sXOffset = -sMaxLeft + 1; sXOffset <= sMaxRight - 1; sXOffset++)
+		for (sXOffset = -sMaxLeft + 1; sXOffset <= sMaxRight - 1; ++sXOffset)
 		{
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
@@ -2686,7 +2686,7 @@ INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 				if (gpWorldLevelData[ sGridNo].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
 				{
 					// Search for the destination climb point on the roof
-					for (ubTestDir=0; ubTestDir < 8; ubTestDir += 2)
+					for ( ubTestDir = 0; ubTestDir < NUM_WORLD_DIRECTIONS; ubTestDir += 2 )
 					{
 						INT32 sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
 						// And see if it or the ground location is occupied
@@ -2872,7 +2872,7 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel
 	{
 		if (gpWorldLevelData[ sGridNo].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
 		{
-			for (ubClimbDir=0; ubClimbDir<8; ubClimbDir+=2)
+			for ( ubClimbDir = 0; ubClimbDir < NUM_WORLD_DIRECTIONS; ubClimbDir += 2 )
 			{
 				sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
 				if (gpWorldLevelData[ sClimbSpot].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT &&
@@ -2893,7 +2893,7 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel
 			return DIRECTION_IRRELEVANT;
 		if (gpWorldLevelData[ sGridNo].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
 		{
-			for (ubClimbDir=0; ubClimbDir<8; ubClimbDir+=2)
+			for ( ubClimbDir = 0; ubClimbDir< NUM_WORLD_DIRECTIONS; ubClimbDir += 2 )
 			{
 				sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
 				if (gpWorldLevelData[ sClimbSpot].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT &&

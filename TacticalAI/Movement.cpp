@@ -557,14 +557,14 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 			// else look at the 8 nearest gridnos to sDesGrid for a valid destination
 
 			// clear ubDirChecked flag for all 8 directions
-			for (ubDirection = 0; ubDirection < 8; ubDirection++)
+			for ( ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ++ubDirection )
 				ubDirChecked[ubDirection] = FALSE;
 
-			ubDirsLeft = 8;
+			ubDirsLeft = NUM_WORLD_DIRECTIONS;
 
 			// examine all 8 spots around 'sDesGrid'
 			// keep looking while directions remain and a satisfactory one not found
-			for (ubDirsLeft = 8; ubDirsLeft != 0; ubDirsLeft--)
+			for ( ubDirsLeft = NUM_WORLD_DIRECTIONS; ubDirsLeft != 0; --ubDirsLeft )
 			{
 				if (fFound)
 				{
@@ -1137,7 +1137,7 @@ UINT16 RunAway( SOLDIERTYPE * pSoldier )
 		bOkayDir[ atan8( pSoldier->sX, pSoldier->sY, pOpponent->sX, pOpponent->sY ) ] = FALSE;
 	}
 
-	for (ubLoop = 0; ubLoop < 8; ubLoop += 2)
+	for (ubLoop = 0; ubLoop < NUM_WORLD_DIRECTIONS; ubLoop += 2)
 	{
 		if (bOkayDir[ubLoop])
 		{

@@ -193,7 +193,7 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 			// Found a climb point for this building
 			if (fClimbUp)
 			{
-				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
+				for (ubTestDir = 0; ubTestDir < NUM_WORLD_DIRECTIONS; ubTestDir += 2)
 				{
 					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
 					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
@@ -216,7 +216,7 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 			}
 			else
 			{
-				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
+				for (ubTestDir = 0; ubTestDir < NUM_WORLD_DIRECTIONS; ubTestDir += 2)
 				{
 					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
 					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)

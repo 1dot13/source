@@ -217,7 +217,7 @@ BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bSta
 	}
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		if (cnt != direction2)
 			continue;
@@ -284,7 +284,7 @@ BOOLEAN FindWallJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStart
 	}
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		// go out *2* tiles
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
@@ -333,7 +333,7 @@ BOOLEAN FindHeigherLevelOkno( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStarti
 	INT8			bMinDirection = 0;
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 
@@ -385,7 +385,7 @@ BOOLEAN FindHeigherLevelOkno( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStarti
 		return( FALSE );
 	} 
 	
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt+= 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 	
@@ -440,7 +440,7 @@ BOOLEAN FindHeigherLevelFence( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStart
 		return( FALSE );
 	} 
 	
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 	
@@ -485,7 +485,7 @@ BOOLEAN FindLowerLevelWall( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStarting
 	INT8			bMinDirection = 0;
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 	
@@ -1100,7 +1100,7 @@ BOOLEAN FindHeigherLevel( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDi
 	}
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 
@@ -1142,7 +1142,7 @@ BOOLEAN FindLowerLevel( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir,
 	INT8			bMinDirection = 0;
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 
@@ -1372,7 +1372,7 @@ BOOLEAN FindFenceJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStar
 	}
 
 	// LOOP THROUGH ALL 8 DIRECTIONS
-	for ( cnt = 0; cnt < 8; cnt+= 2 )
+	for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt += 2 )
 	{
 		// go out *2* tiles
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
