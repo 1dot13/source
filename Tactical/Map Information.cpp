@@ -469,10 +469,10 @@ void UpdateOldVersionMap()
 		while( curr )
 		{
 			//Bug 11) Convert all wheelchaired placement bodytypes to cows.	Result of change in the animation database.
-			if( curr->pDetailedPlacement && curr->pDetailedPlacement->bBodyType == CRIPPLECIV )
+			if( curr->pDetailedPlacement && curr->pDetailedPlacement->ubBodyType == CRIPPLECIV )
 			{
-				curr->pDetailedPlacement->bBodyType = COW;
-				curr->pBasicPlacement->bBodyType = COW;
+				curr->pDetailedPlacement->ubBodyType = COW;
+				curr->pBasicPlacement->ubBodyType = COW;
 			}
 			curr = curr->next;
 		}
@@ -614,7 +614,7 @@ void UpdateOldVersionMap()
 				if( curr->pBasicPlacement->bTeam == CIV_TEAM && !curr->pDetailedPlacement )
 				{
 					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_MINER;
-					curr->pBasicPlacement->bBodyType = -1;
+					curr->pBasicPlacement->ubBodyType = -1;
 				}
 				curr = curr->next;
 			}

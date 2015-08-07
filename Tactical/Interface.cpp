@@ -2023,7 +2023,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				swprintf( NameStr, zGrod[0] );
 			}
 			//Legion	
-			else if ( pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW )
+			else if ( TANK( pSoldier ) )
 			{
 				swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
 			}

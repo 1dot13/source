@@ -5068,27 +5068,27 @@ void RandomizeMercProfile()
 
 void CreateNextCivType()
 {
-	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT32 usMapPos;
-	static						INT8 bBodyType = FATCIV;
+	static						INT8 ubBodyType = FATCIV;
+
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
 		MercCreateStruct.ubProfile		= NO_PROFILE;
-		MercCreateStruct.sSectorX			= gWorldSectorX;
-		MercCreateStruct.sSectorY			= gWorldSectorY;
-		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.bBodyType		= bBodyType;
-		MercCreateStruct.ubDirection = SOUTH;
+		MercCreateStruct.sSectorX		= gWorldSectorX;
+		MercCreateStruct.sSectorY		= gWorldSectorY;
+		MercCreateStruct.bSectorZ		= gbWorldSectorZ;
+		MercCreateStruct.ubBodyType		= ubBodyType;
+		MercCreateStruct.ubDirection	= SOUTH;
 
-		bBodyType++;
+		++ubBodyType;
 
-		if ( bBodyType > KIDCIV )
+		if ( ubBodyType > KIDCIV )
 		{
-			bBodyType = FATCIV;
+			ubBodyType = FATCIV;
 		}
 
 		MercCreateStruct.bTeam					= CIV_TEAM;
@@ -5101,7 +5101,6 @@ void CreateNextCivType()
 
 			// So we can see them!
 			AllTeamsLookForAll(NO_INTERRUPTS);
-
 		}
 	}
 }
@@ -5126,21 +5125,21 @@ void ToggleCliffDebug()
 
 void CreateCow()
 {
-	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT32 usMapPos;
+
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
 		MercCreateStruct.ubProfile		= NO_PROFILE;
-		MercCreateStruct.sSectorX			= gWorldSectorX;
-		MercCreateStruct.sSectorY			= gWorldSectorY;
-		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.bBodyType		= COW;
+		MercCreateStruct.sSectorX		= gWorldSectorX;
+		MercCreateStruct.sSectorY		= gWorldSectorY;
+		MercCreateStruct.bSectorZ		= gbWorldSectorZ;
+		MercCreateStruct.ubBodyType		= COW;
 		//MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
-		MercCreateStruct.bTeam				= CIV_TEAM;
+		MercCreateStruct.bTeam			= CIV_TEAM;
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
@@ -5150,28 +5149,27 @@ void CreateCow()
 
 			// So we can see them!
 			AllTeamsLookForAll(NO_INTERRUPTS);
-
 		}
 	}
 }
 
 void CreateBloodCat()
 {
-	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT32 usMapPos;
+
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
 		MercCreateStruct.ubProfile		= NO_PROFILE;
-		MercCreateStruct.sSectorX			= gWorldSectorX;
-		MercCreateStruct.sSectorY			= gWorldSectorY;
-		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.bBodyType		= BLOODCAT;
+		MercCreateStruct.sSectorX		= gWorldSectorX;
+		MercCreateStruct.sSectorY		= gWorldSectorY;
+		MercCreateStruct.bSectorZ		= gbWorldSectorZ;
+		MercCreateStruct.ubBodyType		= BLOODCAT;
 		//MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
-		MercCreateStruct.bTeam				= CREATURE_TEAM;
+		MercCreateStruct.bTeam			= CREATURE_TEAM;
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
@@ -5181,29 +5179,28 @@ void CreateBloodCat()
 
 			// So we can see them!
 			AllTeamsLookForAll(NO_INTERRUPTS);
-
 		}
 	}
 }
 
 void CreatePlayerControlledCow()
 {
-	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT32 usMapPos;
+
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
 		MercCreateStruct.ubProfile		= 12;
-		MercCreateStruct.sSectorX			= gWorldSectorX;
-		MercCreateStruct.sSectorY			= gWorldSectorY;
-		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.bBodyType		= COW;
+		MercCreateStruct.sSectorX		= gWorldSectorX;
+		MercCreateStruct.sSectorY		= gWorldSectorY;
+		MercCreateStruct.bSectorZ		= gbWorldSectorZ;
+		MercCreateStruct.ubBodyType		= COW;
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
-		MercCreateStruct.bTeam					= SOLDIER_CREATE_AUTO_TEAM;
-		MercCreateStruct.fPlayerMerc		= TRUE;
+		MercCreateStruct.bTeam			= SOLDIER_CREATE_AUTO_TEAM;
+		MercCreateStruct.fPlayerMerc	= TRUE;
 
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
@@ -5267,9 +5264,8 @@ void GrenadeTest3()
 */
 void CreatePlayerControlledMonster()
 {
-	INT16							sWorldX, sWorldY;
 	INT32 usMapPos;
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		SOLDIERCREATE_STRUCT		MercCreateStruct;
 		INT8							iNewIndex;
@@ -5281,10 +5277,10 @@ void CreatePlayerControlledMonster()
 
 		//Note:	only gets called if Alt and/or Ctrl isn't pressed!
 		if ( _KeyDown( INSERT ) )
-			MercCreateStruct.bBodyType		= QUEENMONSTER;
-		//MercCreateStruct.bBodyType		= LARVAE_MONSTER;
+			MercCreateStruct.ubBodyType		= QUEENMONSTER;
+		//MercCreateStruct.ubBodyType		= LARVAE_MONSTER;
 		else
-			MercCreateStruct.bBodyType		= ADULTFEMALEMONSTER;
+			MercCreateStruct.ubBodyType		= ADULTFEMALEMONSTER;
 		MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
@@ -5372,8 +5368,7 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 	STRUCTURE					*pStructure = NULL;
 	ITEM_POOL					*pItemPool;
 	BOOLEAN						fIgnoreItems = FALSE;
-
-
+	
 	if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
 		// If we are out of breath, no cursor...
@@ -5877,8 +5872,6 @@ void TestMeanWhile( INT32 iID )
 				pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 			}
 		}
-
-
 	}
 
 	ScheduleMeanwhileEvent( &MeanwhileDef, 10 );

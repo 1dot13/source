@@ -534,27 +534,27 @@ void AddMercToWorld( INT32 iMapIndex )
 
 	memset( &gTempBasicPlacement, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
 
-	gTempBasicPlacement.bBodyType = -1;
+	gTempBasicPlacement.ubBodyType = -1;
 
 	//calculate specific information based on the team.
 	switch( iDrawMode )
 	{
 		case DRAW_MODE_ENEMY:
 			gTempBasicPlacement.bTeam = ENEMY_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			gTempBasicPlacement.ubSoldierClass = gubSoldierClass;
 			break;
 		case DRAW_MODE_CREATURE:
 			gTempBasicPlacement.bTeam = CREATURE_TEAM;
-			gTempBasicPlacement.bBodyType = gbCurrCreature;
+			gTempBasicPlacement.ubBodyType = gbCurrCreature;
 			break;
 		case DRAW_MODE_REBEL:
 			gTempBasicPlacement.bTeam = MILITIA_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			break;
 		case DRAW_MODE_CIVILIAN:
 			gTempBasicPlacement.bTeam = CIV_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			gTempBasicPlacement.ubCivilianGroup = gubCivGroup;
 			if( giCurrentTilesetID == 1 ) //caves
 			{
@@ -2119,10 +2119,10 @@ void ChangeBodyType( INT8 bOffset )	//+1 or -1 only
 	for( x = 0; x < iMax; x++ )
 	{
 		iIndex = pbArray[ x ];
-		if( iIndex == gpSelected->pBasicPlacement->bBodyType )
+		if( iIndex == gpSelected->pBasicPlacement->ubBodyType )
 			break;
 	}
-	Assert( iIndex == gpSelected->pBasicPlacement->bBodyType );
+	Assert( iIndex == gpSelected->pBasicPlacement->ubBodyType );
 	//now we have a match, so go to the next element (depending on offset value)
 	x += bOffset;
 	if( x >= iMax )
@@ -2168,10 +2168,10 @@ void ChangeBodyType( INT8 bOffset )	//+1 or -1 only
 		gpSelected->pSoldier->ConvertAniCodeToAniFrame( 0 );
 	}
 	//Update the placement's info as well.
-	gpSelected->pBasicPlacement->bBodyType = (INT8)iIndex;
+	gpSelected->pBasicPlacement->ubBodyType = (INT8)iIndex;
 	if( gpSelected->pDetailedPlacement )
 	{
-		gpSelected->pDetailedPlacement->bBodyType = (INT8)iIndex;
+		gpSelected->pDetailedPlacement->ubBodyType = (INT8)iIndex;
 	}
 	if( gpSelected->pSoldier->bTeam == CREATURE_TEAM )
 	{
@@ -2473,7 +2473,7 @@ void SetMercEditingMode( UINT8 ubNewMode )
 void DisplayBodyTypeInfo()
 {
 	CHAR16 str[20];
-	switch( gpSelected->pBasicPlacement->bBodyType )
+	switch( gpSelected->pBasicPlacement->ubBodyType )
 	{
 		case RANDOM:						swprintf( str, pDisplayBodyTypeInfoText[0] );	break;
 		case REGMALE:						swprintf( str, pDisplayBodyTypeInfoText[1] );	break;
@@ -3756,27 +3756,27 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 	memcpy( &gTempBasicPlacement, &gSaveBufferBasicPlacement, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
 
-	gTempBasicPlacement.bBodyType = -1;
+	gTempBasicPlacement.ubBodyType = -1;
 
 	//calculate specific information based on the team.
 	switch( iDrawMode )
 	{
 		case DRAW_MODE_ENEMY:
 			gTempBasicPlacement.bTeam = ENEMY_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			gTempBasicPlacement.ubSoldierClass = gubSoldierClass;
 			break;
 		case DRAW_MODE_CREATURE:
 			gTempBasicPlacement.bTeam = CREATURE_TEAM;
-			gTempBasicPlacement.bBodyType = gbCurrCreature;
+			gTempBasicPlacement.ubBodyType = gbCurrCreature;
 			break;
 		case DRAW_MODE_REBEL:
 			gTempBasicPlacement.bTeam = MILITIA_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			break;
 		case DRAW_MODE_CIVILIAN:
 			gTempBasicPlacement.bTeam = CIV_TEAM;
-			gTempBasicPlacement.bBodyType = RANDOM;
+			gTempBasicPlacement.ubBodyType = RANDOM;
 			gTempBasicPlacement.ubCivilianGroup = gubCivGroup;
 			if( giCurrentTilesetID == 1 ) //caves
 			{

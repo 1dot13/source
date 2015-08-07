@@ -19,6 +19,7 @@
 	#include "Game Clock.h"
 	#include "message.h"
 	#include "Tactical Save.h"	// added by Flugente
+	#include "Soldier macros.h"		// added by Flugente
 #endif
 
 /*
@@ -241,27 +242,23 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 	UINT32 i;
 	INT8 bEquipmentModifier;
 	UINT8 ubMaxSpecialWeaponRoll;
-
-
+	
 	Assert( pp );
 
 	// kids don't get anything 'cause they don't have any weapon animations and the rest is inappropriate
-	if ( ( pp->bBodyType == HATKIDCIV ) || ( pp->bBodyType == KIDCIV ) )
+	if ( ( pp->ubBodyType == HATKIDCIV ) || ( pp->ubBodyType == KIDCIV ) )
 	{
 		return;
 	}
-
-
-	if ( ( pp->bBodyType == TANK_NE ) || ( pp->bBodyType == TANK_NW ) )
+	
+	if ( TANK( pp ) )
 	{
 		EquipTank( pp );
 		return;
 	}
 
-
 	Assert( ( bSoldierClass >= SOLDIER_CLASS_NONE ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) || bSoldierClass == SOLDIER_CLASS_TANK );
 	Assert( ( bEquipmentRating >= 0 ) && ( bEquipmentRating <= 4 ) );
-
 
 	// equipment level is modified by 1/10 of the difficulty percentage, -5, so it's between -5 to +5
 	// (on normal, this is actually -4 to +4, easy is -5 to +3, and hard is -3 to +5)

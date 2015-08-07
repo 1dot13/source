@@ -76,7 +76,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 			MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
 			MercCreateStruct.ubProfile		= NO_PROFILE;
 			MercCreateStruct.fPlayerPlan	= TRUE;
-			MercCreateStruct.bBodyType		= gpUIPlannedSoldier->ubBodyType;
+			MercCreateStruct.ubBodyType		= gpUIPlannedSoldier->ubBodyType;
 			MercCreateStruct.sInsertionGridNo		= sGridNo;
 
 			// Get Grid Corrdinates of mouse
@@ -158,7 +158,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 				MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
 				MercCreateStruct.ubProfile		= NO_PROFILE;
 				MercCreateStruct.fPlayerPlan	= TRUE;
-				MercCreateStruct.bBodyType		= gpUIPlannedSoldier->ubBodyType;
+				MercCreateStruct.ubBodyType		= gpUIPlannedSoldier->ubBodyType;
 				MercCreateStruct.sInsertionGridNo		= sGridNo;
 
 				// Get Grid Corrdinates of mouse

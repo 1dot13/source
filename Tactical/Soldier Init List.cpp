@@ -58,6 +58,7 @@
 #include "Town Militia.h"		// added by Flugente
 #include "PreBattle Interface.h"	// added by Flugente
 #include "LuaInitNPCs.h"		// added by Flugente
+#include "Soldier macros.h"		// added by Flugente
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -227,7 +228,7 @@ BASIC_SOLDIERCREATE_STRUCT& BASIC_SOLDIERCREATE_STRUCT::operator=(const _OLD_BAS
 		ubDirection = src.ubDirection;
 		bOrders = src.bOrders;
 		bAttitude = src.bAttitude;
-		bBodyType = src.bBodyType;
+		ubBodyType = src.ubBodyType;
 		bPatrolCnt = src.bPatrolCnt;
 		fOnRoof = src.fOnRoof;
 		ubSoldierClass = src.ubSoldierClass;
@@ -268,7 +269,7 @@ BOOLEAN BASIC_SOLDIERCREATE_STRUCT::Save(HWFILE hFile, FLOAT dMajorMapVersion, U
 		OldBasicSoldierCreateStruct.ubDirection = ubDirection;
 		OldBasicSoldierCreateStruct.bOrders = bOrders;
 		OldBasicSoldierCreateStruct.bAttitude = bAttitude;
-		OldBasicSoldierCreateStruct.bBodyType = bBodyType;
+		OldBasicSoldierCreateStruct.ubBodyType = ubBodyType;
 		OldBasicSoldierCreateStruct.bPatrolCnt = bPatrolCnt;
 		OldBasicSoldierCreateStruct.fOnRoof = fOnRoof;
 		OldBasicSoldierCreateStruct.ubSoldierClass = ubSoldierClass;
@@ -342,7 +343,7 @@ BOOLEAN LoadSoldiersFromMap(INT8** hBuffer, FLOAT dMajorMapVersion, UINT8 ubMino
 				pNode->pBasicPlacement->ubCivilianGroup = gMercProfiles[tempDetailedPlacement.ubProfile].ubCivilianGroup;
 			}
 		}
-		if(tempBasicPlacement.bBodyType == COW)
+		if(tempBasicPlacement.ubBodyType == COW)
 			fCowInSector = TRUE;
 	}
 	if(fCowInSector)
@@ -590,8 +591,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	// First check if this guy has a profile and if so check his location such that it matches!
 	// Get profile from placement info
 
-	if (curr->pBasicPlacement->bBodyType == TANK_NW ||
-		curr->pBasicPlacement->bBodyType == TANK_NE)
+	if ( TANK( curr->pBasicPlacement ) )
 	{
 		while (1)
 		{
@@ -634,7 +634,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 			// CJC, August 18, 1999: don't do this code unless the ice cream truck is on our team
 			if ( FindSoldierByProfileID( ICECREAMTRUCK, TRUE ) != NULL )
 			{
-				if( curr->pDetailedPlacement->bBodyType == ICECREAMTRUCK )
+				if( curr->pDetailedPlacement->ubBodyType == ICECREAMTRUCK )
 				{ //Check to see if Hamous is here and not recruited.	If so, add truck
 					if( gMercProfiles[ HAMOUS ].sSectorX != gWorldSectorX ||
 						gMercProfiles[ HAMOUS ].sSectorY != gWorldSectorY ||
@@ -745,7 +745,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 			{
 				// Tixa prison, once liberated, should not have any civs without profiles unless
 				// they are kids
-				if( !StrategicMap[ TIXA_SECTOR_X + TIXA_SECTOR_Y * MAP_WORLD_X ].fEnemyControlled && tempDetailedPlacement.ubProfile == NO_PROFILE && tempDetailedPlacement.bBodyType != HATKIDCIV && tempDetailedPlacement.bBodyType != KIDCIV )
+				if( !StrategicMap[ TIXA_SECTOR_X + TIXA_SECTOR_Y * MAP_WORLD_X ].fEnemyControlled && tempDetailedPlacement.ubProfile == NO_PROFILE && tempDetailedPlacement.ubBodyType != HATKIDCIV && tempDetailedPlacement.ubBodyType != KIDCIV )
 				{
 					// not there
 					return( TRUE );
@@ -755,7 +755,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 			{
 				if ( CheckFact( FACT_KIDS_ARE_FREE, 0 ) )
 				{
-					if ( tempDetailedPlacement.bBodyType == HATKIDCIV || tempDetailedPlacement.bBodyType == KIDCIV )
+					if ( tempDetailedPlacement.ubBodyType == HATKIDCIV || tempDetailedPlacement.ubBodyType == KIDCIV )
 					{
 						// not there any more!	kids have been freeeeed!
 						return( TRUE );
@@ -804,12 +804,11 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: create soldier"));
 	
-	if(is_networked && (tempDetailedPlacement.bBodyType==23 || tempDetailedPlacement.bBodyType==24 || tempDetailedPlacement.fOnRoof==1))return TRUE;
-	
-	
+	if ( is_networked && ( TANK( (&tempDetailedPlacement) ) || tempDetailedPlacement.fOnRoof ) )
+		return TRUE;
+		
 	pSoldier = TacticalCreateSoldier( &tempDetailedPlacement, &ubID );
-
-
+	
 	if( pSoldier )
 	{
 		curr->pSoldier = pSoldier;
@@ -896,7 +895,7 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 			if( curr->pBasicPlacement->bTeam == CIV_TEAM && !curr->pDetailedPlacement )
 			{
 				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_MINER;
-				curr->pBasicPlacement->bBodyType = -1;
+				curr->pBasicPlacement->ubBodyType = -1;
 			}
 			curr = curr->next;
 		}
@@ -1094,7 +1093,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					ubTroopBSlots++;
 				break;
 			case SOLDIER_CLASS_TANK:
-				if( curr->pDetailedPlacement->bBodyType == TANK_NW ||curr->pDetailedPlacement->bBodyType == TANK_NE )
+				if ( TANK( curr->pDetailedPlacement ) )
 				{
 					if( curr->pBasicPlacement->fPriorityExistance && curr->pDetailedPlacement )
 						ubTankPDSlots++;
@@ -1315,7 +1314,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
 			{
 				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
-				curr->pBasicPlacement->bBodyType = TANK_NW;
+				curr->pBasicPlacement->ubBodyType = TANK_NW;
 				ubTotalTanks--;
 			}
 			else
@@ -1406,7 +1405,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		if( !curr->pSoldier && curr->pBasicPlacement->bTeam == ENEMY_TEAM && ubTotalTanks && !GridNoIndoors( curr->pBasicPlacement->usStartingGridNo ))
 		{
 			curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
-			curr->pBasicPlacement->bBodyType = TANK_NW;
+			curr->pBasicPlacement->ubBodyType = TANK_NW;
 			ubTotalTanks--;
 			if( AddPlacementToWorld( curr ) )
 			{
@@ -1450,7 +1449,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 				else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
 				{
 					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
-					curr->pBasicPlacement->bBodyType = TANK_NW;
+					curr->pBasicPlacement->ubBodyType = TANK_NW;
 					ubTotalTanks--;
 				}
 				else
@@ -1543,18 +1542,18 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				// silversurfer: Replace body type. Militia tanks are not allowed.
 				if( curr->pBasicPlacement->fDetailedPlacement )
 				{
-					if( curr->pDetailedPlacement->bBodyType == TANK_NE || curr->pDetailedPlacement->bBodyType == TANK_NW )
+					if ( TANK( curr->pDetailedPlacement ) )
 					{
-						curr->pBasicPlacement->bBodyType = PreRandom( REGFEMALE + 1 );
+						curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 						// check for better spot next to the tank so the militia doesn't get stuck in the tank
 						INT32 iNewSpot = FindNearestPassableSpot( curr->pBasicPlacement->usStartingGridNo );
 						if(  iNewSpot != NOWHERE)
 							curr->pBasicPlacement->usStartingGridNo = iNewSpot;
 					}
 				}
-				else if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+				else if ( TANK( curr->pBasicPlacement ) )
 				{
-					curr->pBasicPlacement->bBodyType = PreRandom( REGFEMALE + 1 );
+					curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 					// check for better spot next to the tank so the militia doesn't get stuck in the tank
 					INT32 iNewSpot = FindNearestPassableSpot( curr->pBasicPlacement->usStartingGridNo );
 					if(  iNewSpot != NOWHERE)
@@ -1721,10 +1720,11 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				curr->pBasicPlacement->bTeam = MILITIA_TEAM;
 				curr->pBasicPlacement->bOrders = STATIONARY;
 				curr->pBasicPlacement->bAttitude = (INT8) Random( MAXATTITUDES );
+
 				// silversurfer: Replace body type. Militia tanks are not allowed.
-				if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+				if ( TANK(curr->pBasicPlacement) )
 				{
-					curr->pBasicPlacement->bBodyType = PreRandom( REGFEMALE + 1 );
+					curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 					// check for better spot next to the tank so the militia doesn't get stuck in the tank
 					INT32 iNewSpot = FindNearestPassableSpot( curr->pBasicPlacement->usStartingGridNo );
 					if(  iNewSpot != NOWHERE)
@@ -1842,7 +1842,7 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 		curr = gSoldierInitHead;
 		while( curr	)
 		{
-			if( !curr->pSoldier && curr->pBasicPlacement->bTeam == CREATURE_TEAM && curr->pBasicPlacement->bBodyType == QUEENMONSTER )
+			if( !curr->pSoldier && curr->pBasicPlacement->bTeam == CREATURE_TEAM && curr->pBasicPlacement->ubBodyType == QUEENMONSTER )
 			{
 				if( !AddPlacementToWorld( curr ) )
 				{
@@ -1869,17 +1869,17 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 		if( curr->pBasicPlacement->bTeam == CREATURE_TEAM )
 		{
 			//Matching team, now check the soldier class...
-			if( ubNumLarvae && curr->pBasicPlacement->bBodyType == LARVAE_MONSTER )
+			if( ubNumLarvae && curr->pBasicPlacement->ubBodyType == LARVAE_MONSTER )
 				ubNumLarvae--;
-			else if( ubNumInfants && curr->pBasicPlacement->bBodyType == INFANT_MONSTER )
+			else if( ubNumInfants && curr->pBasicPlacement->ubBodyType == INFANT_MONSTER )
 				ubNumInfants--;
-			else if( ubNumYoungMales && curr->pBasicPlacement->bBodyType == YAM_MONSTER )
+			else if( ubNumYoungMales && curr->pBasicPlacement->ubBodyType == YAM_MONSTER )
 				ubNumYoungMales--;
-			else if( ubNumYoungFemales && curr->pBasicPlacement->bBodyType == YAF_MONSTER )
+			else if( ubNumYoungFemales && curr->pBasicPlacement->ubBodyType == YAF_MONSTER )
 				ubNumYoungFemales--;
-			else if( ubNumAdultMales && curr->pBasicPlacement->bBodyType == AM_MONSTER )
+			else if( ubNumAdultMales && curr->pBasicPlacement->ubBodyType == AM_MONSTER )
 				ubNumAdultMales--;
-			else if( ubNumAdultFemales && curr->pBasicPlacement->bBodyType == ADULTFEMALEMONSTER )
+			else if( ubNumAdultFemales && curr->pBasicPlacement->ubBodyType == ADULTFEMALEMONSTER )
 				ubNumAdultFemales--;
 			else
 				fDoPlacement = FALSE;
@@ -1924,32 +1924,32 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 				if( ubNumLarvae && iRandom < ubNumLarvae )
 				{
 					ubNumLarvae--;
-					curr->pBasicPlacement->bBodyType = LARVAE_MONSTER;
+					curr->pBasicPlacement->ubBodyType = LARVAE_MONSTER;
 				}
 				else if( ubNumInfants && iRandom < ubNumLarvae + ubNumInfants )
 				{
 					ubNumInfants--;
-					curr->pBasicPlacement->bBodyType = INFANT_MONSTER;
+					curr->pBasicPlacement->ubBodyType = INFANT_MONSTER;
 				}
 				else if( ubNumYoungMales && iRandom < ubNumLarvae + ubNumInfants + ubNumYoungMales )
 				{
 					ubNumYoungMales--;
-					curr->pBasicPlacement->bBodyType = YAM_MONSTER;
+					curr->pBasicPlacement->ubBodyType = YAM_MONSTER;
 				}
 				else if( ubNumYoungFemales && iRandom < ubNumLarvae + ubNumInfants + ubNumYoungMales + ubNumYoungFemales )
 				{
 					ubNumYoungFemales--;
-					curr->pBasicPlacement->bBodyType = YAF_MONSTER;
+					curr->pBasicPlacement->ubBodyType = YAF_MONSTER;
 				}
 				else if( ubNumAdultMales && iRandom < ubNumLarvae + ubNumInfants + ubNumYoungMales + ubNumYoungFemales + ubNumAdultMales )
 				{
 					ubNumAdultMales--;
-					curr->pBasicPlacement->bBodyType = AM_MONSTER;
+					curr->pBasicPlacement->ubBodyType = AM_MONSTER;
 				}
 				else if( ubNumAdultFemales && iRandom < ubNumLarvae + ubNumInfants + ubNumYoungMales + ubNumYoungFemales + ubNumAdultMales + ubNumAdultFemales )
 				{
 					ubNumAdultFemales--;
-					curr->pBasicPlacement->bBodyType = ADULTFEMALEMONSTER;
+					curr->pBasicPlacement->ubBodyType = ADULTFEMALEMONSTER;
 				}
 				else
 					Assert(0);
@@ -2219,7 +2219,7 @@ void AddSoldierInitListBloodcats()
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			if( curr->pBasicPlacement->bBodyType == BLOODCAT )
+			if( curr->pBasicPlacement->ubBodyType == BLOODCAT )
 			{
 				bBloodCatPlacements++;
 			}
@@ -2280,7 +2280,7 @@ void AddSoldierInitListBloodcats()
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			if( curr->pBasicPlacement->bBodyType == BLOODCAT && curr->pSoldier )
+			if( curr->pBasicPlacement->ubBodyType == BLOODCAT && curr->pSoldier )
 				ubNumAdded++;	//already one here!
 			curr = curr->next;
 		}
@@ -2290,7 +2290,7 @@ void AddSoldierInitListBloodcats()
 		//First fill up all of the priority existance slots...
 		while( curr && curr->pBasicPlacement->fPriorityExistance && ubNumAdded < ubMaxNum )
 		{
-			if( curr->pBasicPlacement->bBodyType == BLOODCAT )
+			if( curr->pBasicPlacement->ubBodyType == BLOODCAT )
 			{
 				//Matching team, so add this placement.
 				if( AddPlacementToWorld( curr ) )
@@ -2311,7 +2311,7 @@ void AddSoldierInitListBloodcats()
 		ubSlotsToFill = ubMaxNum - ubNumAdded;
 		while( curr && !curr->pSoldier && ubNumAdded < ubMaxNum )
 		{
-			if( curr->pBasicPlacement->bBodyType == BLOODCAT )
+			if( curr->pBasicPlacement->ubBodyType == BLOODCAT )
 				ubSlotsAvailable++;
 			curr = curr->next;
 		}
@@ -2327,7 +2327,7 @@ void AddSoldierInitListBloodcats()
 		//we have slots available, process the list to add new soldiers.
 		while( curr && !curr->pSoldier && ubNumAdded < ubMaxNum && ubSlotsAvailable )
 		{
-			if( curr->pBasicPlacement->bBodyType == BLOODCAT )
+			if( curr->pBasicPlacement->ubBodyType == BLOODCAT )
 			{
 				if( ubSlotsAvailable <= ubSlotsToFill || Random( ubSlotsAvailable ) < ubSlotsToFill )
 				{
@@ -2712,7 +2712,7 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 				curr->pDetailedPlacement = NULL;
 				curr->pBasicPlacement->fDetailedPlacement = FALSE;
 				curr->pBasicPlacement->fPriorityExistance = FALSE;
-				curr->pBasicPlacement->bBodyType = -1;
+				curr->pBasicPlacement->ubBodyType = -1;
 				RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeAttributeLevel ), curr->pBasicPlacement->ubSoldierClass );
 				RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeEquipmentLevel ), curr->pBasicPlacement->ubSoldierClass );
 			}

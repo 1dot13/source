@@ -2701,9 +2701,9 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 				{
 					if(priority.ubScheduleID)
 						pSummary->ubCivSchedules++;
-					if(priority.bBodyType == COW)
+					if(priority.ubBodyType == COW)
 						pSummary->ubCivCows++;
-					else if(priority.bBodyType == BLOODCAT)
+					else if(priority.ubBodyType == BLOODCAT)
 						pSummary->ubCivBloodcats++;
 				}
 			}
@@ -2751,7 +2751,7 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 			}
 			else if(basic.bTeam == CREATURE_TEAM)
 			{
-				if(basic.bBodyType == BLOODCAT)
+				if(basic.ubBodyType == BLOODCAT)
 					pTeam->ubNumAnimals++;
 			}
 			pTeam->ubTotal++;

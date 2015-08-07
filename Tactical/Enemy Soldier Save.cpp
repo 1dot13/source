@@ -32,6 +32,7 @@
 	#include "Game Clock.h"
 	#include "Queen Command.h"
 	#include "Scheduling.h"
+	#include "Soldier macros.h"		// added by Flugente
 #endif
 
 #include "GameVersion.h"
@@ -299,7 +300,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 						curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 						curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 						curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
-						curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
+						curr->pBasicPlacement->ubBodyType					= curr->pDetailedPlacement->ubBodyType;
 						curr->pBasicPlacement->fOnRoof						= curr->pDetailedPlacement->fOnRoof;
 						curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 						curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
@@ -349,9 +350,9 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 									}
 									break;
 								case SOLDIER_CLASS_TANK:
-									if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+									if ( TANK( curr->pBasicPlacement ) )
 									{
-										ubNumTanks++;
+										++ubNumTanks;
 										if( ubNumTanks < ubStrategicTanks )
 										{
 											AddPlacementToWorld( curr );
@@ -915,7 +916,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 					curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 					curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 					curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
-					curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
+					curr->pBasicPlacement->ubBodyType					= curr->pDetailedPlacement->ubBodyType;
 					curr->pBasicPlacement->fOnRoof						= curr->pDetailedPlacement->fOnRoof;
 					curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 					curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
@@ -959,9 +960,9 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 							}
 							break;
 						case SOLDIER_CLASS_TANK:
-							if( curr->pBasicPlacement->bBodyType == TANK_NE || curr->pBasicPlacement->bBodyType == TANK_NW )
+							if ( TANK( curr->pBasicPlacement ) )
 							{
-								ubNumTanks++;
+								++ubNumTanks;
 								if( ubNumTanks <= ubStrategicTanks )
 								{
 //def:								AddPlacementToWorld( curr );
@@ -1244,7 +1245,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 						curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 						curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 						curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
-						curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
+						curr->pBasicPlacement->ubBodyType					= curr->pDetailedPlacement->ubBodyType;
 						curr->pBasicPlacement->fOnRoof						= curr->pDetailedPlacement->fOnRoof;
 						curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 						curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
@@ -1610,20 +1611,16 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 	UINT8 ubSectorID;
 //	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0;
 //	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures;
-
-
-
+		
 	//make sure the variables are initialized
 	*pubNumElites = 0;
 	*pubNumRegulars = 0;
 	*pubNumAdmins = 0;
 	*pubNumTanks = 0;
 	*pubNumCreatures = 0;
-
-
+	
 	//STEP ONE:	Set up the temp file to read from.
-
-
+	
 	//Convert the current sector location into a file name
 //	GetMapFileName( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, zTempName, FALSE );
 
@@ -1697,8 +1694,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 		#endif
 		goto FAIL_LOAD;
 	}
-
-
+	
 	FileRead( hfile, &bSectorZ, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
 	{
@@ -1722,7 +1718,6 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 		FileClose( hfile );
 		return TRUE;
 	}
-
 
 	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 	{ //bad IO!
@@ -1759,7 +1754,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 	}
 */
 
-	for( i = 0; i < slots; i++ )
+	for( i = 0; i < slots; ++i )
 	{
 		if ( !tempDetailedPlacement.Load(hfile, gEnemyPreservedTempFileVersion[SECTOR( sSectorX,sSectorY)], true) )
 		{
@@ -1785,7 +1780,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 				(*pubNumCreatures)++;
 				break;
 			case SOLDIER_CLASS_TANK:
-				if( tempDetailedPlacement.bBodyType == TANK_NE || tempDetailedPlacement.bBodyType == TANK_NW )
+				if ( TANK( (&tempDetailedPlacement) ) )
 				{
 					(*pubNumTanks)++;
 				}
@@ -1810,7 +1805,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 					curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 					curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 					curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
-					curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
+					curr->pBasicPlacement->ubBodyType					= curr->pDetailedPlacement->ubBodyType;
 					curr->pBasicPlacement->fOnRoof						= curr->pDetailedPlacement->fOnRoof;
 					curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 					curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
@@ -1888,9 +1883,10 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 		//various checks failed for hacker validation.	If we reach this point, the "error: exit game"
 		//dialog would appear in a non-testversion.
 		FileClose( hfile );
-		#ifdef JA2TESTVERSION
-			AssertMsg( 0, zReason );
-		#endif
+#ifdef JA2TESTVERSION
+		AssertMsg( 0, zReason );
+#endif
+
 		return FALSE;
 }
 

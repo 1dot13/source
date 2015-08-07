@@ -45,6 +45,7 @@
 	#include "math.h"
 	#include "Game Clock.h" // added this one - SANDRO
 	#include "Interface.h"	// added by Flugente
+	#include "Soldier macros.h"		// added by Flugente
 #endif
 
 #include "connect.h"
@@ -136,7 +137,7 @@ OLD_SOLDIERCREATE_STRUCT_101& OLD_SOLDIERCREATE_STRUCT_101::operator=(SOLDIERCRE
 		this->bAgility = src.bAgility;
 		this->bAIMorale = src.bAIMorale;
 		this->bAttitude = src.bAttitude;
-		this->bBodyType = src.bBodyType;
+		this->ubBodyType = src.ubBodyType;
 		this->bDexterity = src.bDexterity;
 		this->ubDirection = src.ubDirection;
 		this->bExpLevel = src.bExpLevel;
@@ -209,7 +210,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const OLD_SOLDIERCREATE_ST
 		this->bAgility = src.bAgility;
 		this->bAIMorale = src.bAIMorale;
 		this->bAttitude = src.bAttitude;
-		this->bBodyType = src.bBodyType;
+		this->ubBodyType = src.ubBodyType;
 		this->bDexterity = src.bDexterity;
 		this->ubDirection = src.ubDirection;
 		this->bExpLevel = src.bExpLevel;
@@ -273,7 +274,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERTYPE& Soldier
 	this->bOrders								= Soldier.aiData.bOrders;
 	this->bMorale								= Soldier.aiData.bMorale;
 	this->bAIMorale							= Soldier.aiData.bAIMorale;
-	this->bBodyType							= Soldier.ubBodyType;
+	this->ubBodyType							= Soldier.ubBodyType;
 	this->ubCivilianGroup				= Soldier.ubCivilianGroup;
 	this->ubScheduleID					= Soldier.ubScheduleID;
 	this->fHasKeys							= Soldier.flags.bHasKeys;
@@ -322,7 +323,7 @@ UINT16 SOLDIERCREATE_STRUCT::GetChecksum()
 	this->bWisdom							* 11	+
 	this->bMorale							* 7		+
 	this->bAIMorale							* 3		-
-	this->bBodyType							* 7		+
+	this->ubBodyType							* 7		+
 	4										* 6		+
 	this->sSectorX							* 7		-
 	this->ubSoldierClass					* 4		+
@@ -370,7 +371,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const _OLD_SOLDIERCREATE_S
 		bAgility = src.bAgility;
 		bAIMorale = src.bAIMorale;
 		bAttitude = src.bAttitude;
-		bBodyType = src.bBodyType;
+		ubBodyType = src.ubBodyType;
 		bDexterity = src.bDexterity;
 		ubDirection = src.ubDirection;
 		bExpLevel = src.bExpLevel;
@@ -605,7 +606,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			pCreateStruct->fPlayerPlan = 0;
 		}
 
-		if ( is_networked && (pCreateStruct->bBodyType == TANK_NW || pCreateStruct->bBodyType == TANK_NE) )
+		if ( is_networked && TANK( pCreateStruct ) )
 		{
 			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
 			return NULL;
@@ -680,7 +681,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			else
 			{
 				// LOOK AT BODY TYPE!
-				switch ( pCreateStruct->bBodyType )
+				switch ( pCreateStruct->ubBodyType )
 				{
 					case REGMALE:
 					case BIGMALE:
@@ -1694,7 +1695,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	pSoldier->aiData.bMorale								= pCreateStruct->bMorale;
 	pSoldier->aiData.bAIMorale							= pCreateStruct->bAIMorale;
 	pSoldier->bVocalVolume					= MIDVOLUME;
-	pSoldier->ubBodyType						= pCreateStruct->bBodyType;
+	pSoldier->ubBodyType					= pCreateStruct->ubBodyType;
 	pSoldier->ubCivilianGroup				= pCreateStruct->ubCivilianGroup;
 
 	pSoldier->ubScheduleID					= pCreateStruct->ubScheduleID;
@@ -1703,7 +1704,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 	// Flugente: soldier profiles
 	// silversurfer: Don't replace tanks!
-	if ( pCreateStruct->bBodyType != TANK_NE && pCreateStruct->bBodyType != TANK_NW )
+	if ( !TANK( pCreateStruct ) )
 	{
 		// We have a function for this
 		INT8 type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
@@ -2271,7 +2272,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: choose body type"));
 	//Choose a body type randomly if none specified.
-	if( bp->bBodyType < 0 )
+	if( bp->ubBodyType < 0 )
 	{
 		switch ( bp->bTeam )
 		{
@@ -2280,10 +2281,10 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			case MILITIA_TEAM:
 				switch( Random( 4 ) )
 				{
-					case 0:	pp->bBodyType = REGMALE;		break;
-					case 1:	pp->bBodyType = BIGMALE;		break;
-					case 2:	pp->bBodyType = STOCKYMALE;	break;
-					case 3:	pp->bBodyType = REGFEMALE;	break;
+					case 0:	pp->ubBodyType = REGMALE;		break;
+					case 1:	pp->ubBodyType = BIGMALE;		break;
+					case 2:	pp->ubBodyType = STOCKYMALE;	break;
+					case 3:	pp->ubBodyType = REGFEMALE;	break;
 				}
 				break;
 			case CIV_TEAM:
@@ -2291,9 +2292,9 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 				{
 					switch( Random( 3 ) )
 					{ //only strong and fit men can be miners.
-						case 0:	pp->bBodyType = REGMALE;	break;
-						case 1:	pp->bBodyType = BIGMALE;	break;
-						case 2: pp->bBodyType = MANCIV;		break;
+						case 0:	pp->ubBodyType = REGMALE;	break;
+						case 1:	pp->ubBodyType = BIGMALE;	break;
+						case 2: pp->ubBodyType = MANCIV;		break;
 					}
 				}
 				else
@@ -2302,27 +2303,27 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 					iRandom = Random( 100 );
 					if( iRandom < 8 )
 					{ //8% chance FATCIV
-						pp->bBodyType = FATCIV;
+						pp->ubBodyType = FATCIV;
 					}
 					else if( iRandom < 38 )
 					{ //30% chance MANCIV
-						pp->bBodyType = MANCIV;
+						pp->ubBodyType = MANCIV;
 					}
 					else if( iRandom < 57 )
 					{ //19% chance MINICIV
-						pp->bBodyType = MINICIV;
+						pp->ubBodyType = MINICIV;
 					}
 					else if( iRandom < 76 )
 					{ //19% chance DRESSCIV
-						pp->bBodyType = DRESSCIV;
+						pp->ubBodyType = DRESSCIV;
 					}
 					else if( iRandom < 88 )
 					{ //12% chance HATKIDCIV
-						pp->bBodyType = HATKIDCIV;
+						pp->ubBodyType = HATKIDCIV;
 					}
 					else
 					{ //12% chance KIDCIV
-						pp->bBodyType = KIDCIV;
+						pp->ubBodyType = KIDCIV;
 					}
 				}
 				break;
@@ -2330,7 +2331,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	}
 	else
 	{
-		pp->bBodyType = bp->bBodyType;
+		pp->ubBodyType = bp->ubBodyType;
 	}
 
 	//Pass over mandatory information specified from the basic placement
@@ -2423,7 +2424,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			break;
 
 		case SOLDIER_CLASS_CREATURE:
-			switch( bp->bBodyType )
+			switch( bp->ubBodyType )
 			{
 				case LARVAE_MONSTER:
 					pp->bExpLevel = 1 + bExpLevelModifier;
@@ -2610,9 +2611,9 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 
 	//Only creatures have mandatory body types specified.
 	if( spp->bTeam == CREATURE_TEAM )
-		spp->bBodyType = bp->bBodyType;
+		spp->ubBodyType = bp->ubBodyType;
 	else
-		spp->bBodyType = -1;
+		spp->ubBodyType = -1;
 
 	//Set up all possible static values.
 	//By setting them all to -1, that signifies that the attribute isn't static.
@@ -2685,7 +2686,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		pp->bOrders								= bp->bOrders;
 		pp->bAttitude							= bp->bAttitude;
 		pp->ubDirection						= bp->ubDirection;
-		pp->bBodyType						= bp->bBodyType;
+		pp->ubBodyType						= bp->ubBodyType;
 		pp->bPatrolCnt						= bp->bPatrolCnt;
 		memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 		pp->fHasKeys							= bp->fHasKeys;
@@ -2867,7 +2868,7 @@ void UpdateStaticDetailedPlacementWithProfileInformation( SOLDIERCREATE_STRUCT *
 	spp->bMechanical							= pProfile->bMechanical;
 	spp->bExplosive								= pProfile->bExplosive;
 
-	spp->bBodyType								= pProfile->ubBodyType;
+	spp->ubBodyType								= pProfile->ubBodyType;
 
 	// Copy over inv if we want to
 	UINT32 invsize = pProfile->inv.size();
@@ -3002,7 +3003,7 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 	bp.bTeam = ENEMY_TEAM;
 	bp.bOrders = SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = -1;
+	bp.ubBodyType = -1;
 	bp.ubSoldierClass = SOLDIER_CLASS_ADMINISTRATOR;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
@@ -3035,7 +3036,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 	bp.bTeam = ENEMY_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = -1;
+	bp.ubBodyType = -1;
 	bp.ubSoldierClass = SOLDIER_CLASS_ARMY;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
@@ -3069,7 +3070,7 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	bp.bTeam = ENEMY_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = -1;
+	bp.ubBodyType = -1;
 	bp.ubSoldierClass = SOLDIER_CLASS_ELITE;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 
@@ -3113,7 +3114,7 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 	bp.bTeam = ENEMY_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = TANK_NW;
+	bp.ubBodyType = TANK_NW;
 	bp.ubSoldierClass = SOLDIER_CLASS_TANK;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	
@@ -3154,7 +3155,7 @@ SOLDIERTYPE* TacticalCreateJeep()
 	bp.bTeam = CIV_TEAM;
 	bp.bOrders	= STATIONARY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = JEEP;
+	bp.ubBodyType = JEEP;
 	bp.ubSoldierClass = SOLDIER_CLASS_NONE;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	pp.ubProfile = 199;
@@ -3191,7 +3192,7 @@ SOLDIERTYPE* TacticalCreateJeep()
 		bp.bTeam = CREATURE_TEAM;//ZOMBIE_TEAM;
 		bp.bOrders	= SEEKENEMY;
 		bp.bAttitude = AGGRESSIVE;
-		bp.bBodyType = -1;
+		bp.ubBodyType = -1;
 		bp.ubSoldierClass = SOLDIER_CLASS_ZOMBIE;
 		CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 		pSoldier = TacticalCreateSoldier( &pp, &ubID );
@@ -3268,7 +3269,7 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY )
 	bp.bOrders = STATIONARY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
 	//bp.bAttitude = AGGRESSIVE;
-	bp.bBodyType = -1;
+	bp.ubBodyType = -1;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp, sX, sY );
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 
@@ -3295,7 +3296,7 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	bp.ubSoldierClass = SOLDIER_CLASS_CREATURE;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = AGGRESSIVE;
-	bp.bBodyType = bCreatureBodyType;
+	bp.ubBodyType = bCreatureBodyType;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	return TacticalCreateSoldier( &pp, &ubID );
 }
@@ -3322,7 +3323,7 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 	bp.bTeam = CIV_TEAM;
 	bp.bOrders = FARPATROL;
 	bp.bAttitude = (INT8)Random( MAXATTITUDES );
-	bp.bBodyType = Random( 4 );
+	bp.ubBodyType = Random( 4 );
 	bp.ubSoldierClass = usSoldierClass;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 
@@ -3376,7 +3377,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 	bp.bTeam = CIV_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.bBodyType = Random(4);
+	bp.ubBodyType = Random(4);
 	bp.ubSoldierClass = SOLDIER_CLASS_ELITE;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 
@@ -3557,7 +3558,7 @@ void CreatePrisonerOfWar()
 	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
 	MercCreateStruct.sInsertionGridNo	= insertiongridno;
 	MercCreateStruct.ubDirection		= Random(NUM_WORLD_DIRECTIONS);
-	MercCreateStruct.bBodyType			= bPowBodyType;
+	MercCreateStruct.ubBodyType			= bPowBodyType;
 
 	++bPowBodyType;
 	if ( bPowBodyType > REGFEMALE )
@@ -5321,7 +5322,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		}
 
 		// MARTIAL ARTS - old traits
-		if ( (!ATraitAssigned || !BTraitAssigned) && !gGameOptions.fNewTraitSystem && (pCreateStruct->bBodyType == REGMALE) )
+		if ( (!ATraitAssigned || !BTraitAssigned) && !gGameOptions.fNewTraitSystem && (pCreateStruct->ubBodyType == REGMALE) )
 		{
 			// setup basic chances based on soldier type
 			if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )

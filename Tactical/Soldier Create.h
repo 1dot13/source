@@ -71,7 +71,7 @@ typedef struct
 	UINT8 ubDirection;								//1 of 8 values (always mandatory)
 	INT8 bOrders;										
 	INT8 bAttitude;									
-	INT8 bBodyType;									//up to 128 body types, -1 means random
+	INT8 ubBodyType;									//up to 128 body types, -1 means random
 	INT16 sPatrolGrid[OLD_MAXPATROLGRIDS];//dnl ch27 230909 Possible locations to visit, patrol, etc.
 	INT8 bPatrolCnt;
 	BOOLEAN fOnRoof;
@@ -93,7 +93,7 @@ public:
 	UINT8 ubDirection;					// 1 of 8 values (always mandatory)
 	INT8 bOrders;
 	INT8 bAttitude;
-	INT8 bBodyType;						// Up to 128 body types, -1 means random
+	INT8 ubBodyType;						// Up to 128 body types, -1 means random
 	INT32 sPatrolGrid[MAXPATROLGRIDS];	// Possible locations to visit, patrol, etc.
 	INT8 bPatrolCnt;
 	BOOLEAN fOnRoof;
@@ -148,7 +148,7 @@ public:
 
 	// Can force a team, but needs flag set
 	INT8							bTeam;
-	INT8							bBodyType;
+	INT8							ubBodyType;
 
 	//Orders and attitude settings
 	INT8							bAttitude;
@@ -268,7 +268,7 @@ public:
 
 	// Can force a team, but needs flag set
 	INT8							bTeam;
-	INT8							bBodyType;
+	INT8							ubBodyType;
 
 	//Orders and attitude settings
 	INT8							bAttitude;
@@ -354,7 +354,7 @@ public:
 
 	// Can force a team, but needs flag set
 	INT8							bTeam;
-	INT8							bBodyType;
+	INT8							ubBodyType;
 
 	//Orders and attitude settings
 	INT8							bAttitude;

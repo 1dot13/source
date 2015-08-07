@@ -1307,7 +1307,7 @@ void recieveAI (RPCParameters *rpcParameters)
 	new_standard_data.bAgility = send_inv->standard_data.bAgility;
 	new_standard_data.bAIMorale = send_inv->standard_data.bAIMorale;
 	new_standard_data.bAttitude = send_inv->standard_data.bAttitude;
-	new_standard_data.bBodyType = send_inv->standard_data.bBodyType;
+	new_standard_data.ubBodyType = send_inv->standard_data.ubBodyType;
 	new_standard_data.bDexterity = send_inv->standard_data.bDexterity;
 	new_standard_data.ubDirection = send_inv->standard_data.ubDirection;
 	new_standard_data.bExpLevel = send_inv->standard_data.bExpLevel;

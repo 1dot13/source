@@ -1703,7 +1703,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 	// Create a new one!
 	MercCreateStruct.bTeam							= ubTeam;
 	MercCreateStruct.ubProfile					= pSoldier->ubProfile;
-	MercCreateStruct.bBodyType					= pSoldier->ubBodyType;
+	MercCreateStruct.ubBodyType					= pSoldier->ubBodyType;
 	MercCreateStruct.sSectorX						= pSoldier->sSectorX;
 	MercCreateStruct.sSectorY						= pSoldier->sSectorY;
 	MercCreateStruct.bSectorZ						= pSoldier->bSectorZ;

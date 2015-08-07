@@ -1164,7 +1164,7 @@ INT16 FindNearestRottingCorpse( SOLDIERTYPE *pSoldier )
 void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT8										bBodyType = CROW;
+	INT8										ubBodyType = CROW;
 	UINT8										iNewIndex;
 	INT32 sGridNo;
 	UINT8										ubDirection;
@@ -1183,7 +1183,7 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 	MercCreateStruct.sSectorX			= gWorldSectorX;
 	MercCreateStruct.sSectorY			= gWorldSectorY;
 	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-	MercCreateStruct.bBodyType		= bBodyType;
+	MercCreateStruct.ubBodyType		= ubBodyType;
 	MercCreateStruct.ubDirection					= SOUTH;
 	MercCreateStruct.bTeam							= CIV_TEAM;
 	MercCreateStruct.sInsertionGridNo		= pCorpse->def.sGridNo;
@@ -2717,7 +2717,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 		MercCreateStruct.sSectorX			= gWorldSectorX;
 		MercCreateStruct.sSectorY			= gWorldSectorY;
 		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.bBodyType			= pCorpse->def.ubBodyType;
+		MercCreateStruct.ubBodyType			= pCorpse->def.ubBodyType;
 		MercCreateStruct.ubDirection		= pCorpse->def.ubDirection;
 		MercCreateStruct.fOnRoof			= pCorpse->def.bLevel > 0 ? TRUE : FALSE;
 			
@@ -2759,7 +2759,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 		}
 
 		// FIX: something's wrong with the FATCIV-bodytype when dying... this is to ensure they die absolutely fast
-		//if ( MercCreateStruct.bBodyType == FATCIV )
+		//if ( MercCreateStruct.ubBodyType == FATCIV )
 			//MercCreateStruct.bLifeMax		= OKLIFE;
 			
 		MercCreateStruct.bExpLevel		= 1;
