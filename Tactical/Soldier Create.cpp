@@ -591,13 +591,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			return NULL;
 		}
 
-		if(is_client && !is_server && (tbTeam >0 && tbTeam < 5) && tfPP==0)
+		if ( is_client && !is_server && (tbTeam > OUR_TEAM && tbTeam < PLAYER_PLAN) && tfPP == 0 )
 		{
-				return NULL; // pure client to not spawn AI unless from server, Hayden.
-				//gTacticalStatus.Team[ tbTeam ].bTeamActive=0;
+			return NULL; // pure client to not spawn AI unless from server, Hayden.
+			//gTacticalStatus.Team[ tbTeam ].bTeamActive=0;
 		}
-		//if(is_server && tbTeam>0 && tbTeam<5)
-		if(is_server && tbTeam>0 && tbTeam<5)
+		if ( is_server && tbTeam > OUR_TEAM && tbTeam < PLAYER_PLAN )
 		{
 			send_AI(pCreateStruct,pubID);
 		}
@@ -606,7 +605,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			pCreateStruct->fPlayerPlan = 0;
 		}
 
-		if(is_networked && (pCreateStruct->bBodyType==23 || pCreateStruct->bBodyType==24))
+		if ( is_networked && (pCreateStruct->bBodyType == TANK_NW || pCreateStruct->bBodyType == TANK_NE) )
 		{
 			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
 			return NULL;
@@ -779,7 +778,6 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			Soldier.ubID = (UINT8)cnt;
 			*pubID = Soldier.ubID;
 		}
-
 
 		// LOAD MERC's FACE!
 		if ( pCreateStruct->ubProfile != NO_PROFILE && Soldier.bTeam == OUR_TEAM )
@@ -1173,13 +1171,13 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		Soldier.iFaceIndex = -1;
 		Soldier.iFaceIndex = InitSoldierFace( &Soldier );
 
-	// ATE: Reset soldier's light value to -1....
-	Soldier.iLight = -1;
+		// ATE: Reset soldier's light value to -1....
+		Soldier.iLight = -1;
 
-		if ( Soldier.ubBodyType == HUMVEE || Soldier.ubBodyType == ICECREAMTRUCK )
-	{
-		Soldier.aiData.bNeutral = TRUE;
-	}
+			if ( Soldier.ubBodyType == HUMVEE || Soldier.ubBodyType == ICECREAMTRUCK )
+		{
+			Soldier.aiData.bNeutral = TRUE;
+		}
 
 		// Copy into merc struct
 		*MercPtrs[ Soldier.ubID ] = Soldier;
@@ -1194,8 +1192,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 //		Menptr[ Soldier.ubID ].usAnimState = Soldier.usAnimState;
 //		Menptr[ Soldier.ubID ].usAniFrame = Soldier.usAniFrame;
 	}
-
-
+	
 	if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 	{
 		if( pCreateStruct->fOnRoof && FlatRoofAboveGridNo( pCreateStruct->sInsertionGridNo ) )
@@ -1222,18 +1219,20 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		return MercPtrs[ Soldier.ubID ];
 	}
 	else
-	{ //We are creating a dynamically allocated soldier for autoresolve.
-		SOLDIERTYPE *pSoldier;
-		UINT8 ubSectorID;
-		ubSectorID = GetAutoResolveSectorID();
-		pSoldier = new SOLDIERTYPE(Soldier); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
+	{
+		//We are creating a dynamically allocated soldier for autoresolve.
+		SOLDIERTYPE* pSoldier = new SOLDIERTYPE( Soldier ); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
+
 		if( !pSoldier )
 			return NULL;
+
+		UINT8 ubSectorID = GetAutoResolveSectorID( );
 		pSoldier->ubID = NUM_PROFILES;
 		pSoldier->sSectorX = (INT16)SECTORX( ubSectorID );
 		pSoldier->sSectorY = (INT16)SECTORY( ubSectorID );
 		pSoldier->bSectorZ = 0;
 		*pubID = NUM_PROFILES;
+
 		return pSoldier;
 	}
 }
@@ -1283,7 +1282,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 //	pSoldier->bAssignment=ON_DUTY;
 
 	pSoldier->bOldAssignment = NO_ASSIGNMENT;
-	for ( INT8 bCnt = 0; bCnt < 30; bCnt++ )
+	for ( INT8 bCnt = 0; bCnt < 30; ++bCnt )
 	{
 		pSoldier->stats.ubSkillTraits[ bCnt ] = pProfile->bSkillTraits[ bCnt ];	
 	}
@@ -2050,8 +2049,7 @@ BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVeh
 
 		return( FALSE );
 	}
-
-
+	
 	// ATE: If this guy is our global selected dude, take selection off...
 	if ( gfUIFullTargetFound && gusUIFullTargetID == usSoldierIndex )
 	{
@@ -2092,7 +2090,6 @@ BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehi
 
 	if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 	{
-
 		// remove character from squad list.. if they are on one
 		RemoveCharacterFromSquads( pSoldier );
 
@@ -2159,11 +2156,9 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 		return( 50 );
 	}
 
-
 	// THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 	Assert( ( DIFF_FACTOR_PLAYER_PROGRESS	+ DIFF_FACTOR_PALACE_DISTANCE	+ DIFF_FACTOR_GAME_DIFFICULTY ) == 100 );
-
-
+	
 	// adjust for game difficulty level
 	switch( gGameOptions.ubDifficultyLevel )
 	{
@@ -2202,8 +2197,7 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 			bDiffModifier += ( DIFF_FACTOR_GAME_DIFFICULTY / 2 );		
 		break;
 	}
-
-
+	
 	// the progress returned ranges from 0 to 100
 	ubProgress = HighestPlayerProgressPercentage();
 
@@ -2220,17 +2214,14 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 		// -5
 		bDiffModifier += DIFF_MODIFIER_NO_INCOME;
 	}
-
-
+	
 	// adjust for progress level (0 to +50)
 	ubProgressModifier = ( ubProgress * DIFF_FACTOR_PLAYER_PROGRESS ) / 100;
 	bDiffModifier += ubProgressModifier;
 
-
 	// adjust for map location
 	bDiffModifier += GetLocationModifier( ubSoldierClass );
-
-
+	
 	// should be no way to go over 100, although it's possible to go below 0 when just starting on easy
 	// Assert( bDiffModifier <= 100 );
 
@@ -2260,8 +2251,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	INT8 bStatsModifier;
 	UINT8 ubStatsLevel;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo"));
-
-
+	
 	if( !pp || !bp )
 		return;
 	pp->fStatic								= FALSE;
@@ -2490,7 +2480,6 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			ubSoldierClass = SOLDIER_CLASS_NONE;
 			break;
 	}
-
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: set exp. level"));
 	pp->bExpLevel = max( gGameOptions.ubDifficultyLevel, pp->bExpLevel ); //minimum exp. level of 1 -- madd->= dif level
@@ -2929,7 +2918,6 @@ void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID )
 	SOLDIERCREATE_STRUCT CreateStruct;
 	CreateStruct.ubProfile = ubProfileID;
 
-
 	TacticalCopySoldierFromProfile( pSoldier, &CreateStruct );
 
 	// Delete face and re-create
@@ -2943,7 +2931,6 @@ void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID )
 
 	// Re-Create palettes
 	pSoldier->CreateSoldierPalettes( );
-
 }
 
 //dnl ch56 141009
@@ -3115,7 +3102,9 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
 		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_TANK );
-		if( pSoldier ) return pSoldier;
+
+		if( pSoldier )
+			return pSoldier;
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
@@ -3127,20 +3116,17 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 	bp.bBodyType = TANK_NW;
 	bp.ubSoldierClass = SOLDIER_CLASS_TANK;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
-
-	//SPECIAL!	Certain events in the game can cause profiled NPCs to become enemies.	The two cases are
-	//adding Mike and Iggy.	We will only add one NPC in any given combat and the conditions for setting
-	//the associated facts are done elsewhere.	There is also another place where NPCs can get added, which
-	//is in AddPlacementToWorld() used for inserting defensive enemies.
-	//NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
-	OkayToUpgradeEliteToSpecialProfiledEnemy( &pp );
-
+	
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 	if ( pSoldier )
 	{
 		// send soldier to centre of map, roughly
 		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+		// Flugente: why would a vehicle's armour depend on game progress? Always give them 100 HP
+		pSoldier->stats.bLifeMax = 100;
+		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 	}
 
 	return( pSoldier );
