@@ -3203,8 +3203,10 @@ INT32 CalculateTravelTimeOfGroup( GROUP *pGroup )
 	while ( i-- )
 	{
 		//Traverse through the waypoint list to the next waypoint ID
-		if( pNode );
-			pNode = pNode->next;
+		if( !pNode )
+			return uiEtaTime;
+
+		pNode = pNode->next;
 	}
 
 	if ( !pNode )
