@@ -889,7 +889,7 @@ INT32 NewGridNo(INT32 sGridNo, INT16 sDirInc)
 
 INT16 DirectionInc(UINT8 ubDirection)
 {
- if (ubDirection > 7)
+	if ( ubDirection > NORTHWEST )
 	{
 
 //#ifdef BETAVERSION
@@ -897,7 +897,7 @@ INT16 DirectionInc(UINT8 ubDirection)
 //#endif
 
 	//direction = random(8);	// replace garbage with random direction
-	 ubDirection = 0;
+		ubDirection = NORTH;
 	}
 
 
@@ -1049,18 +1049,17 @@ INT8 FindNumTurnsBetweenDirs( INT8 sDir1, INT8 sDir2 )
 
 	do
 	{
-
 		sDirection = sDirection + QuickestDirection( sDir1, sDir2 );
 
-		if (sDirection > 7)
+		if ( sDirection > NORTHWEST )
 		{
-			sDirection = 0;
+			sDirection = NORTH;
 		}
 		else
 		{
-			if ( sDirection < 0 )
+			if ( sDirection < NORTH )
 			{
-				sDirection = 7;
+				sDirection = NORTHWEST;
 			}
 		}
 
@@ -1146,27 +1145,26 @@ BOOLEAN FindLowerLevel( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir,
 	{
 		sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)cnt ) );
 
-			// Make sure there is NOT a roof here...
-			// Check OK destination
-			if ( NewOKDestination( pSoldier, sNewGridNo, TRUE, 0 ) )
+		// Make sure there is NOT a roof here...
+		// Check OK destination
+		if ( NewOKDestination( pSoldier, sNewGridNo, TRUE, 0 ) )
+		{
+			if ( FindStructure( sNewGridNo, STRUCTURE_ROOF ) == NULL )
 			{
-				if ( FindStructure( sNewGridNo, STRUCTURE_ROOF ) == NULL )
 				{
+					fFound = TRUE;
+
+					// FInd how many turns we should go to get here
+					bNumTurns =	FindNumTurnsBetweenDirs( (INT8)cnt, bStartingDir );
+
+					if ( bNumTurns < bMinNumTurns )
 					{
-						fFound = TRUE;
-
-						// FInd how many turns we should go to get here
-						bNumTurns =	FindNumTurnsBetweenDirs( (INT8)cnt, bStartingDir );
-
-						if ( bNumTurns < bMinNumTurns )
-						{
-							bMinNumTurns = bNumTurns;
-							bMinDirection = (INT8)cnt;
-						}
-
+						bMinNumTurns = bNumTurns;
+						bMinDirection = (INT8)cnt;
 					}
 				}
 			}
+		}
 	}
 
 	if ( fFound )

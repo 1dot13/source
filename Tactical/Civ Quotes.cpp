@@ -149,9 +149,8 @@ void CopyNumEntriesIntoQuoteStruct( ) //  Not used
 {
 	INT32	cnt;
 
-	for ( cnt = 0; cnt < NUM_CIV_QUOTES; cnt++ )
-	{	
-		
+	for ( cnt = 0; cnt < NUM_CIV_QUOTES; ++cnt )
+	{
 		if (cnt <= 50) 
 			gCivQuotes[ cnt ].ubNumEntries = gubNumEntries[ cnt ];
 		else 
@@ -168,15 +167,15 @@ BOOLEAN GetCivQuoteText(UINT16 ubCivQuoteID, UINT16 ubEntryID, STR16 zQuote )
 	// Build filename....
 	if ( ubCivQuoteID == CIV_QUOTE_HINT )
 	{
-	if ( gbWorldSectorZ > 0 )
-	{
-		//sprintf( zFileName, "NPCData\\miners.edt" );
-			sprintf( zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
-	}
-	else
-	{
-		sprintf( zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
-	}
+		if ( gbWorldSectorZ > 0 )
+		{
+			//sprintf( zFileName, "NPCData\\miners.edt" );
+				sprintf( zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+		}
+		else
+		{
+			sprintf( zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
+		}
 	}
 	else
 	{
@@ -217,14 +216,14 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			// Are we active and in sector.....
 			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 			{
-		if ( pTeamSoldier->stats.bLife != 0 )
+				if ( pTeamSoldier->stats.bLife != 0 )
 				{
 					EnemyCapturesPlayerSoldier( pTeamSoldier );
 
 					RemoveSoldierFromTacticalSector( pTeamSoldier, TRUE );
 				}
 			}
-	}
+		}
 
 		EndCaptureSequence( );
 
@@ -254,8 +253,8 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 		// Remove mouse region...
 		MSYS_RemoveRegion( &(gCivQuoteData.MouseRegion) );
 
-	RemoveMercPopupBoxFromIndex( gCivQuoteData.iDialogueBox );
-	gCivQuoteData.iDialogueBox = -1;
+		RemoveMercPopupBoxFromIndex( gCivQuoteData.iDialogueBox );
+		gCivQuoteData.iDialogueBox = -1;
 
 		gCivQuoteData.bActive = FALSE;
 #ifdef JA2UB
@@ -303,8 +302,8 @@ INT8 GetCivType( SOLDIERTYPE *pCiv )
 	// 1 ) check sector....
 	if ( gWorldSectorX == 10 && gWorldSectorY == 6 && gbWorldSectorZ == 0 )
 	{
-	// 2 ) the only female....
-	if ( pCiv->ubCivilianGroup == 0 && pCiv->bTeam != gbPlayerNum && pCiv->ubBodyType == REGFEMALE )
+		// 2 ) the only female....
+		if ( pCiv->ubCivilianGroup == 0 && pCiv->bTeam != gbPlayerNum && pCiv->ubBodyType == REGFEMALE )
 		{
 			// She's a ho!
 			return( CIV_TYPE_MARRIED_PC );
@@ -427,8 +426,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, IN
 	// Prepare text box
 	gCivQuoteData.iDialogueBox = PrepareMercPopupBox( gCivQuoteData.iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gzCivQuote, DIALOGUE_DEFAULT_WIDTH, 0, 0, 0, &gusCivQuoteBoxWidth, &gusCivQuoteBoxHeight );
 	//SET_USE_WINFONTS( FALSE );
-
-
+	
 	// OK, find center for box......
 	sX = sX - ( gusCivQuoteBoxWidth / 2 );
 	sY = sY - ( gusCivQuoteBoxHeight / 2 );
@@ -475,8 +473,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, IN
 						CURSOR_NORMAL, MSYS_NO_CALLBACK, QuoteOverlayClickCallback );
 	// Add region
 	MSYS_AddRegion( &(gCivQuoteData.MouseRegion) );
-
-
+	
 	gCivQuoteData.bActive = TRUE;
 
 	gCivQuoteData.uiTimeOfCreation = GetJA2Clock( );
@@ -484,7 +481,6 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, IN
 	gCivQuoteData.uiDelayTime = FindDelayForString( gzCivQuote ) + 500;
 
 	gCivQuoteData.pCiv = pCiv;
-
 }
 
 UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLEAN fCanUseHints )
@@ -622,8 +618,7 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	// Are we in a town sector?
 	// get town id
 	bTownId = GetTownIdForSector( gWorldSectorX, gWorldSectorY );
-
-
+	
 	// If a married PC...
 	if ( ubCivType == CIV_TYPE_MARRIED_PC )
 	{
@@ -953,7 +948,6 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 		ubCivQuoteID2 = ubCivQuoteID;
 		CivQuoteDelta = ubEntryID;
 		//pCiv->bCurrentCivQuoteDelta = ubEntryID;
-
 	}
 
 	// Flugente: if we are an assassin, we speak like the militia we emulate
@@ -996,9 +990,7 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 		if ( CivQuoteDelta == 2 )
 		{
 			CivQuoteDelta = 0;
-		}	
-		
-		
+		}
 	}
 }
 
@@ -1081,8 +1073,7 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 		return;
 	}
 	// only enemies and militia taunt
-	if( ( !( pCiv->bTeam == ENEMY_TEAM ) && !( pCiv->bTeam == MILITIA_TEAM ) )
-		&& ( !( pCiv->bTeam == ENEMY_TEAM ) && !( pCiv->bTeam == MILITIA_TEAM ) ) )
+	if ( pCiv->bTeam != ENEMY_TEAM && pCiv->bTeam != MILITIA_TEAM )
 	{
 		return;
 	}
@@ -1255,7 +1246,6 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 	}
 	
 	StartEnemyTaunt( pCiv, iTauntType, pTarget );
-
 }
 
 // SANDRO - soldier taunts 
@@ -1277,7 +1267,7 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 	//}
 
 	// anv: check all taunts, and remember those applicable
-	for(UINT16 i=0; i<num_found_taunt; i++)
+	for(UINT16 i=0; i<num_found_taunt; ++i)
 	{
 		// check if attitudes are ok
 		switch( pCiv->aiData.bAttitude )
@@ -1709,7 +1699,6 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		// target limitations
 		if( pTarget != NULL )
 		{
-
 			// target should be zombie
 			if( zTaunt[ i ].uiFlags2 & TAUNT_T_ZOMBIE )
 			{
@@ -1751,7 +1740,7 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 			if( zTaunt[ i ].value[TAUNT_TARGET_APPEARANCE] != -1 )
 			{
 				// check if pTarget has his own predefined profile (ubProfile = 200 for generated characters)
-				if( pTarget->ubProfile != 200 )
+				if( pTarget->ubProfile != NO_PROFILE )
 				{
 					if( gMercProfiles[pTarget->ubProfile].bAppearance != zTaunt[ i ].value[TAUNT_TARGET_APPEARANCE] )
 						continue;
@@ -2008,7 +1997,6 @@ void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote )
 						CURSOR_NORMAL, MSYS_NO_CALLBACK, QuoteOverlayClickCallback );
 	// Add region
 	MSYS_AddRegion( &(gCivQuoteData.MouseRegion) );
-
 
 	gCivQuoteData.bActive = TRUE;
 

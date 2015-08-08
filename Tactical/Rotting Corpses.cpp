@@ -932,7 +932,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 
 		if ( pSoldier->ubBodyType != ICECREAMTRUCK && pSoldier->ubBodyType != HUMVEE )
 		{
-			Corpse.ubDirection = 7;
+			Corpse.ubDirection = NORTHWEST;
 		}
 		else
 		{
@@ -942,9 +942,8 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 
 	if ( ubType == QUEEN_MONSTER_DEAD || ubType == BURNT_DEAD || ubType == EXPLODE_DEAD )
 	{
-		Corpse.ubDirection = 7;
+		Corpse.ubDirection = NORTHWEST;
 	}
-
 
 	// ATE: If bDirection, get opposite
 //	if ( ubType == SMERC_FALLF || ubType == MMERC_FALLF || ubType == FMERC_FALLF )

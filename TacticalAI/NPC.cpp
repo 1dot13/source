@@ -1888,10 +1888,7 @@ void ResetOncePerConvoRecordsForNPC( UINT8 ubNPC )
 }
 
 void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
-{
-	UINT8 ubLoop;
-	UINT8 IDnpc;
-	
+{	
 	if ( gWorldSectorX == 0 || gWorldSectorY == 0 )
 	{
 		return;
@@ -1899,24 +1896,18 @@ void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
 
 	//for ( ubLoop = FIRST_RPC; ubLoop < GASTON; ubLoop++ )
 	//new profiles by Jazz	
-	for ( IDnpc = 0; IDnpc < NUM_PROFILES; IDnpc++ )
-	{
-	
-	if ( gProfilesRPC[IDnpc].ProfilId == IDnpc || gProfilesNPC[IDnpc].ProfilId == IDnpc)
-	{
-		ubLoop = IDnpc;
-	
-	
-		if ( gMercProfiles[ ubLoop ].sSectorX == gWorldSectorX &&
-				 gMercProfiles[ ubLoop ].sSectorY == gWorldSectorY &&
-				 gMercProfiles[ ubLoop ].bSectorZ == gbWorldSectorZ &&
-				 gpNPCQuoteInfoArray[ ubLoop ] != NULL )
-		{
-			ResetOncePerConvoRecordsForNPC( ubLoop );
-		}
-
-	}
-	
+	for ( UINT8 IDnpc = 0; IDnpc < NUM_PROFILES; IDnpc++ )
+	{	
+		if ( gProfilesRPC[IDnpc].ProfilId == IDnpc || gProfilesNPC[IDnpc].ProfilId == IDnpc)
+		{	
+			if ( gMercProfiles[IDnpc].sSectorX == gWorldSectorX &&
+				 gMercProfiles[IDnpc].sSectorY == gWorldSectorY &&
+				 gMercProfiles[IDnpc].bSectorZ == gbWorldSectorZ &&
+				 gpNPCQuoteInfoArray[IDnpc] != NULL )
+			{
+				ResetOncePerConvoRecordsForNPC( IDnpc );
+			}
+		}	
 	}
 }
 

@@ -8265,19 +8265,18 @@ void SOLDIERTYPE::TurnSoldier( void )
 		// Get new direction
 		//sDirection = this->ubDirection + QuickestDirection( this->ubDirection, this->pathing.bDesiredDirection );
 		sDirection = this->ubDirection + this->bTurningIncrement;
-		if ( sDirection > 7 )
+		if ( sDirection > NORTHWEST )
 		{
-			sDirection = 0;
+			sDirection = NORTH;
 		}
 		else
 		{
-			if ( sDirection < 0 )
+			if ( sDirection < NORTH )
 			{
-				sDirection = 7;
+				sDirection = NORTHWEST;
 			}
 		}
 	}
-
 
 	// CHECK FOR A VALID TURN DIRECTION
 	// This is needed for prone animations as well as any multi-tiled structs
@@ -8498,7 +8497,6 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 		this->p8BPPPalette = NULL;
 	}
 
-
 	// Allocate mem for new palette
 	this->p8BPPPalette = (SGPPaletteEntry *)MemAlloc( sizeof(SGPPaletteEntry)* 256 );
 	memset( this->p8BPPPalette, 0, sizeof(SGPPaletteEntry)* 256 );
@@ -8547,7 +8545,6 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 		}
 	}
 
-
 	if ( this->p16BPPPalette != NULL )
 	{
 		MemFree( this->p16BPPPalette );
@@ -8557,7 +8554,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 	// -- BUILD 16BPP Palette from this
 	this->p16BPPPalette = Create16BPPPalette( this->p8BPPPalette );
 
-	for ( iWhich = 0; iWhich < NUM_SOLDIER_SHADES; iWhich++ )
+	for ( iWhich = 0; iWhich < NUM_SOLDIER_SHADES; ++iWhich )
 	{
 		if ( this->pShades[iWhich] != NULL )
 		{
@@ -8566,7 +8563,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 		}
 	}
 
-	for ( iWhich = 0; iWhich < NUM_SOLDIER_EFFECTSHADES; iWhich++ )
+	for ( iWhich = 0; iWhich < NUM_SOLDIER_EFFECTSHADES; ++iWhich )
 	{
 		if ( this->pEffectShades[iWhich] != NULL )
 		{
@@ -8575,7 +8572,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 		}
 	}
 
-	for ( iWhich = 0; iWhich < 20; iWhich++ )
+	for ( iWhich = 0; iWhich < 20; ++iWhich )
 	{
 		if ( this->pGlowShades[iWhich] != NULL )
 		{
@@ -8584,9 +8581,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 		}
 	}
 
-
 	CreateSoldierPaletteTables( this, HVOBJECT_GLOW_GREEN );
-
 
 	// Build a grayscale palette for testing grayout of mercs
 	//for(uiCount=0; uiCount < 256; uiCount++)
@@ -8602,14 +8597,14 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 
 	// First do visible guy
 	this->pGlowShades[0] = Create16BPPPaletteShaded( this->p8BPPPalette, 255, 255, 255, FALSE );
-	for ( cnt = 1; cnt < 10; cnt++ )
+	for ( cnt = 1; cnt < 10; ++cnt )
 	{
 		this->pGlowShades[cnt] = CreateEnemyGlow16BPPPalette( this->p8BPPPalette, gRedGlowR[cnt], 255, FALSE );
 	}
 
 	// Now for gray guy...
 	this->pGlowShades[10] = Create16BPPPaletteShaded( this->p8BPPPalette, 100, 100, 100, TRUE );
-	for ( cnt = 11; cnt < 19; cnt++ )
+	for ( cnt = 11; cnt < 19; ++cnt )
 	{
 		this->pGlowShades[cnt] = CreateEnemyGreyGlow16BPPPalette( this->p8BPPPalette, gRedGlowR[cnt], 0, FALSE );
 	}
@@ -8619,14 +8614,14 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 	// ATE: OK, piggyback on the shades we are not using for 2 colored lighting....
 	// ORANGE, VISIBLE GUY
 	this->pShades[20] = Create16BPPPaletteShaded( this->p8BPPPalette, 255, 255, 255, FALSE );
-	for ( cnt = 21; cnt < 30; cnt++ )
+	for ( cnt = 21; cnt < 30; ++cnt )
 	{
 		this->pShades[cnt] = CreateEnemyGlow16BPPPalette( this->p8BPPPalette, gOrangeGlowR[(cnt - 20)], gOrangeGlowG[(cnt - 20)], TRUE );
 	}
 
 	// ORANGE, GREY GUY
 	this->pShades[30] = Create16BPPPaletteShaded( this->p8BPPPalette, 100, 100, 100, TRUE );
-	for ( cnt = 31; cnt < 39; cnt++ )
+	for ( cnt = 31; cnt < 39; ++cnt )
 	{
 		this->pShades[cnt] = CreateEnemyGreyGlow16BPPPalette( this->p8BPPPalette, gOrangeGlowR[(cnt - 20)], gOrangeGlowG[(cnt - 20)], TRUE );
 	}
@@ -8984,7 +8979,7 @@ BOOLEAN LoadPaletteData( )
 	gubpNumReplacementsPerRange = (UINT8 *)MemAlloc( sizeof(UINT8)* guiNumPaletteSubRanges );
 
 	// Read # of types for each!
-	for ( cnt = 0; cnt < guiNumPaletteSubRanges; cnt++ )
+	for ( cnt = 0; cnt < guiNumPaletteSubRanges; ++cnt )
 	{
 		if ( !FileRead( hFile, &gubpNumReplacementsPerRange[cnt], sizeof(UINT8), (UINT32 *)NULL ) )
 		{
@@ -8993,7 +8988,7 @@ BOOLEAN LoadPaletteData( )
 	}
 
 	// Loop for each one, read in data
-	for ( cnt = 0; cnt < guiNumPaletteSubRanges; cnt++ )
+	for ( cnt = 0; cnt < guiNumPaletteSubRanges; ++cnt )
 	{
 		if ( !FileRead( hFile, &gpPaletteSubRanges[cnt].ubStart, sizeof(UINT8), (UINT32 *)NULL ) )
 		{
@@ -9005,7 +9000,6 @@ BOOLEAN LoadPaletteData( )
 		}
 	}
 
-
 	// Read # of palettes
 	if ( !FileRead( hFile, &guiNumReplacements, sizeof(guiNumReplacements), (UINT32 *)NULL ) )
 	{
@@ -9016,7 +9010,7 @@ BOOLEAN LoadPaletteData( )
 	gpPalRep = (PaletteReplacementType *)MemAlloc( sizeof(PaletteReplacementType)* guiNumReplacements );
 
 	// Read!
-	for ( cnt = 0; cnt < guiNumReplacements; cnt++ )
+	for ( cnt = 0; cnt < guiNumReplacements; ++cnt )
 	{
 		// type
 		if ( !FileRead( hFile, &gpPalRep[cnt].ubType, sizeof(gpPalRep[cnt].ubType), (UINT32 *)NULL ) )
@@ -9043,7 +9037,7 @@ BOOLEAN LoadPaletteData( )
 		gpPalRep[cnt].b = (UINT8 *)MemAlloc( gpPalRep[cnt].ubPaletteSize );
 		CHECKF( gpPalRep[cnt].b != NULL );
 
-		for ( cnt2 = 0; cnt2 < gpPalRep[cnt].ubPaletteSize; cnt2++ )
+		for ( cnt2 = 0; cnt2 < gpPalRep[cnt].ubPaletteSize; ++cnt2 )
 		{
 			if ( !FileRead( hFile, &gpPalRep[cnt].r[cnt2], sizeof(UINT8), (UINT32 *)NULL ) )
 			{
@@ -9058,7 +9052,6 @@ BOOLEAN LoadPaletteData( )
 				return(FALSE);
 			}
 		}
-
 	}
 
 	FileClose( hFile );
@@ -9077,7 +9070,7 @@ BOOLEAN	SetPaletteReplacement( SGPPaletteEntry *p8BPPPalette, PaletteRepID aPalR
 	// Get range type
 	ubType = gpPalRep[ubPalIndex].ubType;
 
-	for ( cnt2 = gpPaletteSubRanges[ubType].ubStart; cnt2 <= gpPaletteSubRanges[ubType].ubEnd; cnt2++ )
+	for ( cnt2 = gpPaletteSubRanges[ubType].ubStart; cnt2 <= gpPaletteSubRanges[ubType].ubEnd; ++cnt2 )
 	{
 		p8BPPPalette[cnt2].peRed = gpPalRep[ubPalIndex].r[cnt2 - gpPaletteSubRanges[ubType].ubStart];
 		p8BPPPalette[cnt2].peGreen = gpPalRep[ubPalIndex].g[cnt2 - gpPaletteSubRanges[ubType].ubStart];
@@ -9105,8 +9098,7 @@ BOOLEAN DeletePaletteData( )
 		gubpNumReplacementsPerRange = NULL;
 	}
 
-
-	for ( cnt = 0; cnt < guiNumReplacements; cnt++ )
+	for ( cnt = 0; cnt < guiNumReplacements; ++cnt )
 	{
 		// Free
 		if ( gpPalRep[cnt].r != NULL )
@@ -10401,7 +10393,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		{
 			return(FALSE);
 		}
-
 	}
 
 	// If a death sound, and we have already done ours...
@@ -10413,14 +10404,12 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		}
 	}
 
-
 	// Are we mute?
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_MUTE )
 	{
 		return(FALSE);
 	}
-
-
+	
 	//	uiTimeSameBattleSndDone
 
 	// If we are a creature, etc, pick a better sound...
@@ -10532,7 +10521,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 			uiSubSoundID = (UINT32)(EXPLOSION_1);
 			PlayJA2Sample( ROBOT_DEATH, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 			break;
-
 		}
 	}
 
@@ -10606,12 +10594,10 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		}
 	}
 
-
 	// Save this one we're doing...
 	pSoldier->bOldBattleSnd = ubBattleSoundID;
 	pSoldier->uiTimeSameBattleSndDone = GetJA2Clock( );
-
-
+	
 	// Adjust based on morale...
 	if ( ubBattleSoundID == BATTLE_SOUND_OK1 && pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
 	{
@@ -10652,9 +10638,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	if ( gBattleSndsData[ubSoundID].ubRandomVal != 0 )
 	{
 		ubSoundID = ubSoundID + (UINT8)Random( gBattleSndsData[ubSoundID].ubRandomVal );
-
 	}
-
 
 	// OK, build file and play!
 	if ( pSoldier->ubProfile != NO_PROFILE )
@@ -10783,7 +10767,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 	if ( gSoundProfileValue[pSoldier->ubProfile].EnabledSound == TRUE || pSoldier->ubProfile == NO_PROFILE )
 	{
-
 		if ( (uiSoundID = SoundPlay( zFilename, &spParms )) == SOUND_ERROR )
 		{
 			return(FALSE);
@@ -10806,7 +10789,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 			return(TRUE);
 		}
-
 	}
 	else
 	{
@@ -10877,8 +10859,6 @@ BOOLEAN PreloadSoldierBattleSounds( SOLDIERTYPE *pSoldier, BOOLEAN fRemove )
 	return(TRUE);
 }
 
-
-
 BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 {
 	// Check if we are near a lower level
@@ -10940,11 +10920,9 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 				this->SoldierTakeDamage( ANIM_CROUCH, 100, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
-
 			}
 			else
 			{
-
 				this->sTempNewGridNo = NewGridNo( this->sGridNo, (INT16)(-1 * DirectionInc( bNewDirection )) );
 				this->sTempNewGridNo = NewGridNo( this->sTempNewGridNo, (INT16)(-1 * DirectionInc( bNewDirection )) );
 				this->EVENT_SetSoldierDesiredDirection( bNewDirection );
@@ -10971,7 +10949,6 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 	INT8							bNewDirection;
 	UINT8	ubWhoIsThere;
 
-
 	if ( FindLowerLevel( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel > 0) )
 	{
 		if ( EnoughPoints( this, GetAPsToClimbRoof( this, TRUE ), 0, TRUE ) )
@@ -10984,7 +10961,6 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 			}
 			else
 			{
-
 				if ( this->bTeam == gbPlayerNum )
 				{
 					// OK, SET INTERFACE FIRST
@@ -11013,11 +10989,9 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 
 				this->InternalReceivingSoldierCancelServices( FALSE );
 				this->InternalGivingSoldierCancelServices( FALSE );
-
 			}
 		}
 	}
-
 }
 /*
 void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
@@ -11574,7 +11548,6 @@ void SendSoldierPositionEvent( SOLDIERTYPE *pSoldier, FLOAT dNewXPos, FLOAT dNew
 	SSetPosition.dNewYPos = dNewYPos;
 
 	AddGameEvent( S_SETPOSITION, 0, &SSetPosition );
-
 }
 
 void SendSoldierDestinationEvent( SOLDIERTYPE *pSoldier, UINT32 usNewDestination )
@@ -11587,7 +11560,6 @@ void SendSoldierDestinationEvent( SOLDIERTYPE *pSoldier, UINT32 usNewDestination
 	SChangeDest.uiUniqueId = pSoldier->uiUniqueSoldierIdValue;
 
 	AddGameEvent( S_CHANGEDEST, 0, &SChangeDest );
-
 }
 
 void SendSoldierSetDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usNewDirection )
@@ -11600,7 +11572,6 @@ void SendSoldierSetDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usNewDirection 
 	SSetDirection.uiUniqueId = pSoldier->uiUniqueSoldierIdValue;
 
 	AddGameEvent( S_SETDIRECTION, 0, &SSetDirection );
-
 }
 
 void SendSoldierSetDesiredDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usDesiredDirection )
@@ -11614,7 +11585,6 @@ void SendSoldierSetDesiredDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usDesire
 
 	AddGameEvent( S_SETDESIREDDIRECTION, 0, &SSetDesiredDirection );
 	if ( is_server || (is_client && pSoldier->ubID <20) ) send_dir( pSoldier, usDesiredDirection );
-
 }
 
 void SendGetNewSoldierPathEvent( SOLDIERTYPE *pSoldier, INT32 sDestGridNo, UINT16 usMovementAnim )
@@ -11668,7 +11638,6 @@ void SendBeginFireWeaponEvent( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	SBeginFireWeapon.uiUniqueId = pSoldier->uiUniqueSoldierIdValue;
 
 	AddGameEvent( S_BEGINFIREWEAPON, 0, &SBeginFireWeapon );
-
 }
 
 #if 0
@@ -11782,8 +11751,6 @@ BOOLEAN SOLDIERTYPE::MercInHighWater( void )
 	}
 }
 
-
-
 void RevivePlayerTeam( )
 {
 	INT32 cnt;
@@ -11797,7 +11764,6 @@ void RevivePlayerTeam( )
 	{
 		pSoldier->ReviveSoldier( );
 	}
-
 }
 
 
@@ -11835,9 +11801,7 @@ void SOLDIERTYPE::ReviveSoldier( void )
 
 		// Dirty INterface
 		fInterfacePanelDirty = DIRTYLEVEL2;
-
 	}
-
 }
 
 
@@ -11896,7 +11860,6 @@ void SOLDIERTYPE::HandleAnimationProfile( UINT16	usAnimState, BOOLEAN fRemove )
 					}
 				}
 			}
-
 		}
 	}
 
@@ -11935,7 +11898,6 @@ LEVELNODE *GetAnimProfileFlags( INT32 sGridNo, UINT16 *usFlags, SOLDIERTYPE **pp
 	//#endif
 
 	return(pNode);
-
 }
 
 
@@ -12003,7 +11965,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginGiveItem( void )
 
 		// begin animation
 		this->EVENT_InitNewSoldierAnim( GIVE_ITEM, 0, FALSE );
-
 	}
 	else
 	{
@@ -12046,10 +12007,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 	// GET POINTER TO TAREGT
 	if ( this->flags.uiStatusFlags & SOLDIER_MONSTER )
 	{
-		UINT8 ubTargetID;
-
 		// Is there an unconscious guy at gridno......
-		ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
+		UINT8 ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
 
 		if ( ubTargetID != NOBODY && ((MercPtrs[ubTargetID]->stats.bLife < OKLIFE && MercPtrs[ubTargetID]->stats.bLife > 0) || (MercPtrs[ubTargetID]->bBreath < OKBREATH && MercPtrs[ubTargetID]->bCollapsed)) )
 		{
@@ -12586,7 +12545,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginDropBomb( )
 		this->SoldierGotoStationaryStance( );
 		break;
 	}
-
 }
 
 void SOLDIERTYPE::EVENT_SoldierDefuseTripwire( INT32 sGridNo, INT32 sItem )
@@ -12783,7 +12741,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		return(0);		// nothing to do, shouldn't have even been called!
 	}
 
-	if ( pVictim->stats.bLife == 0 )
+	if ( pVictim->stats.bLife <= 0 )
 	{
 		return(0);
 	}
@@ -12866,7 +12824,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 	uiActual = uiPossible;		// start by assuming maximum possible
 
-
 	// figure out how far below OKLIFE the victim is
 	// SANDRO - only if we are actually here to bandage the target
 	if ( pVictim->bBleeding )
@@ -12931,7 +12888,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 	ubPtsLeft = (UINT8)uiActual;
 
-
 	// heal real life points first (if below OKLIFE) because we don't want the
 	// patient still DYING if bandages run out, or medic is disabled/distracted!
 	// NOTE: Dressing wounds for life below OKLIFE now costs 2 pts/life point!
@@ -12987,7 +12943,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 			// turn off merc QUOTE flags
 			pVictim->flags.fDyingComment = FALSE;
-
 		}
 
 		// update patient's entire panel (could have regained consciousness, etc.)
@@ -13355,7 +13310,6 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 		DirtyMercPanelInterface( this, DIRTYLEVEL2 );
 	}
 
-
 	// Kaiden: Added fix from UB for seeing new enemies when throwing Knives.
 	// ATE: Dave, don't kill me
 	// Here, we need to handle the situation when we're throweing a knife and we see somebody
@@ -13372,9 +13326,7 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 
 		DirtyMercPanelInterface( this, DIRTYLEVEL2 );
 	}
-
-
-
+	
 	if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
@@ -13401,7 +13353,6 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "@@@@@@@ Reducing attacker busy count..., ending fire because saw something" ) );
 			DebugAttackBusy( "@@@@@@@ Reducing attacker busy count..., ending fire because saw something\n" );
 			FreeUpAttacker( );
-
 		}
 
 		// OK, if we are stopped at our destination, cancel pending action...
@@ -13448,7 +13399,6 @@ void SOLDIERTYPE::EVENT_StopMerc( INT32 sGridNo, INT8 bDirection )
 	// Makesure center of tile
 	sX = CenterX( sGridNo );
 	sY = CenterY( sGridNo );
-
 
 	//Cancel pending events
 	if ( !this->flags.fDelayedMovement )
@@ -13501,7 +13451,6 @@ void SOLDIERTYPE::EVENT_StopMerc( INT32 sGridNo, INT8 bDirection )
 	UnSetUIBusy( this->ubID );
 
 	UnMarkMovementReserved( this );
-
 }
 
 
@@ -13621,7 +13570,6 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 		SetSoldierAnimationSurface( this, this->usAnimState );
 		break;
 	}
-
 }
 
 
@@ -13637,7 +13585,7 @@ UINT16 *CreateEnemyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscale, U
 
 	p16BPPPalette = (UINT16 *)MemAlloc( sizeof(UINT16)* 256 );
 
-	for ( cnt = 0; cnt < 256; cnt++ )
+	for ( cnt = 0; cnt < 256; ++cnt )
 	{
 		gmod = (pPalette[cnt].peGreen);
 		bmod = (pPalette[cnt].peBlue);
@@ -16849,41 +16797,6 @@ INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubT
 
 	return modifier;
 }
-
-/*void SOLDIERTYPE::AddDrugValues( UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect )
-{
-	// in case of wrong inout, stay safe
-	if ( uDrugType >= DRUG_TYPE_MAX )
-		return;
-
-	// Flugente: backgrounds
-	if ( uDrugType == DRUG_TYPE_ALCOHOL )
-	{
-		usEffect = usEffect		* ((100 - this->GetBackgroundValue( BG_RESI_ALCOHOL )) / 100);
-		usSideEffect = usSideEffect	* ((100 - this->GetBackgroundValue( BG_RESI_ALCOHOL )) / 100);
-	}
-
-	// Add effects
-	if ( (this->drugs.bFutureDrugEffect[uDrugType] + usEffect) < 127 )
-	{
-		this->drugs.bFutureDrugEffect[uDrugType] += usEffect;
-	}
-	this->drugs.bDrugEffectRate[uDrugType] = usTravelRate;
-
-	// Reset once we sleep...
-	this->drugs.bTimesDrugUsedSinceSleep[uDrugType]++;
-
-	// Increment side effects..
-	if ( (this->drugs.bDrugSideEffect[uDrugType] + usSideEffect) < 127 )
-	{
-		this->drugs.bDrugSideEffect[uDrugType] += usSideEffect;
-	}
-	// Stop side effects until were done....
-	this->drugs.bDrugSideEffectRate[uDrugType] = 0;
-
-	// set flag: we are on drugs
-	this->usSoldierFlagMask |= SOLDIER_DRUGGED;
-}*/
 
 void SOLDIERTYPE::HandleFlashLights( )
 {

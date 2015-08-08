@@ -3320,7 +3320,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			{
 				iHitChance = 100;
 			}
-			else if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
+			else if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
 			{
 				iHitChance = 0;
 			}
@@ -4226,8 +4226,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, roll %ld (range %d)", uiHitChance, uiDiceRoll, PythSpacesAway( pSoldier->sGridNo, sTargetGridNo ) );
 	}
 	#endif
-
-
+	
 	if ( Item[ usItemNum ].usItemClass == IC_LAUNCHER )
 	{
 		// Preserve gridno!
@@ -4241,7 +4240,6 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 			iBPCost = sAPCost * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
 		else 
 			iBPCost = 0;
-
 	}
 	else
 	{
@@ -4291,7 +4289,6 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	pObject = &( ObjectSlots[ iID ] );
   //pObject->fPotentialForDebug = TRUE;
-
 
 	OBJECTTYPE::DeleteMe( &pSoldier->pTempObject );
 
@@ -12325,7 +12322,6 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	UINT16 ubMagSize = Weapon[pObj->usItem].ubMagSize;
 	UINT16 usRealBulletCount = (*pObj)[0]->data.gun.ubGunShotsLeft;
 	UINT16 i = 0;
-	BOOLEAN fPsycho = FALSE;
 	INT16 sEffectiveSkill;
 	INT8 bDeviation = 0;
 
@@ -12337,24 +12333,17 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 		return;
 	}
 
-	usExpLevel = EffectiveExpLevel(pSoldier);
-	usDexterity = EffectiveDexterity(pSoldier, FALSE);
-	usWisdom = EffectiveWisdom(pSoldier);
-
 	if ( gGameExternalOptions.usBulletHideIntensity <= 0 )
 	{
 		// Feature is disabled. Print the real bullet count.
-		swprintf(gBulletCount, L"%d", usRealBulletCount);
+		swprintf( gBulletCount, L"%d", usRealBulletCount );
 		return;
 	}
 
-	// Is this Soldier a psycho?
-	// Flugente: drugs can temporarily cause a merc to go psycho
-	if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
-	{
-		fPsycho = TRUE;
-	}
-
+	usExpLevel = EffectiveExpLevel(pSoldier);
+	usDexterity = EffectiveDexterity(pSoldier, FALSE);
+	usWisdom = EffectiveWisdom(pSoldier);
+				
 	// High EXP Level, Wisdom and Dexterity required for any estimation to be possible.
 	// When Experience goes up, the required WIS+DEX goes down. 
 	// At ExpLevel 1 -> WIS+DEX must be > 180. A high requirement!
@@ -12381,6 +12370,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 			swprintf(gBulletCount, L"%d", usRealBulletCount);
 			return;
 		}
+
 		if (usRealBulletCount == 0)
 		{
 			// Magazine is empty, so it will also show as empty.
@@ -12411,8 +12401,13 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 
 	// Psychos are eligible for an estimate just the same as any other character. But the trait reduces 
 	// effective skill by 10, so It'll take them longer before they can get a good estimate.
-	sEffectiveSkill -= (fPsycho * (10));
-
+	// Is this Soldier a psycho?
+	// Flugente: drugs can temporarily cause a merc to go psycho
+	if ( DoesMercHaveDisability( pSoldier, PSYCHO ) )
+	{
+		sEffectiveSkill -= 10;
+	}
+	
 	sEffectiveSkill = __max(0, sEffectiveSkill);
 	sEffectiveSkill = __min(100, sEffectiveSkill);
 	
@@ -12438,17 +12433,16 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 		{
 			swprintf(gBulletCount, L"%s", L"?M");
 		}
-		else if (usRealBulletCount < ubMagSize/3)
+		else// if (usRealBulletCount < ubMagSize/3)
 		{
 			swprintf(gBulletCount, L"%s", L"?L");
 		}
+
 		return;
 	}
 
 	// Default - return true count.
 	swprintf(gBulletCount, L"%d", usRealBulletCount);
-	return;
-	
 }
 
 // HEADROCK HAM 4: Calculate the ratio between current Mag Factor and Target Factor. Used for the CTH bars.
@@ -12510,7 +12504,7 @@ void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 {
 	if ( gGameExternalOptions.fWeaponOverheating )
 	{
-		if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun pr launcher...
+		if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun or launcher...
 		{
 		  FLOAT guntemperature = (*pObj)[0]->data.bTemperature;									// ... get current temperature ...
 
@@ -13014,7 +13008,6 @@ FLOAT CalcNewChanceToHitBaseTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTar
 		{
 			iHeightDifference = 0;
 		}
-
 	}
 
 	// Height difference is mitigated by range. A LONGER range reduces this penalty!
