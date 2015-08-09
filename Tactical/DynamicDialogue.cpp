@@ -1675,6 +1675,10 @@ void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 	SOLDIERTYPE*							pOtherSoldier;
 	SOLDIERTYPE*							pThirdSoldier;
 
+	// make sure we ourselves aren't in transit
+	if ( !pSoldier->bActive || pSoldier->ubProfile == NO_PROFILE || pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD )
+		return;
+
 	bMercID = pSoldier->ubID;
 	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
@@ -1833,7 +1837,7 @@ void HandleDynamicOpinionRetreat( )
 void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 {
 	// need to be drunk for this
-	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || !pSoldier->newdrugs.drinkstaken <= 0.0 )
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || pSoldier->newdrugs.drinkstaken <= 0.0 )
 		return;
 
 	SOLDIERTYPE*		pTeamSoldier = NULL;
