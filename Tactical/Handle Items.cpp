@@ -146,6 +146,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 // added by Flugente
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 void CleanWeapons( BOOLEAN fEntireTeam );
+void UpdateGear();
 void Strip( SOLDIERTYPE * pSoldier );
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 
@@ -4950,33 +4951,40 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	gsTempGridNo = sGridNo;
 
     // sevenfm: reorganized buttons order for new dialog
-	wcscpy( gzUserDefinedButton[0], TacticalStr[ FILL_CANTEEN_STR ] );
-	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ONE_GUN_STR ] );
-	wcscpy( gzUserDefinedButton[3], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
-	
-	if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-       wcscpy( gzUserDefinedButton[1], TacticalStr[ TAKE_OFF_DISGUISE_STR ] );
-	else
-       wcscpy( gzUserDefinedButton[1], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
+	// fill canteens
+	wcscpy( gzUserDefinedButton[0], TacticalStr[FILL_CANTEEN_STR] );
 
+	// remove covert property/clothes
+	if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
+		wcscpy( gzUserDefinedButton[1], TacticalStr[TAKE_OFF_DISGUISE_STR] );
+	else
+		wcscpy( gzUserDefinedButton[1], TacticalStr[TAKE_OFF_CLOTHES_STR] );
+
+	// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
+	wcscpy( gzUserDefinedButton[2], (gTacticalStatus.uiFlags & INCOMBAT) ? TacticalStr[CLEAN_ONE_GUN_STR] : TacticalStr[CLEAN_ALL_GUNS_STR] );
+
+	wcscpy( gzUserDefinedButton[3], TacticalStr[IMPROVEGEARBUTTON_STR] );
+
+	// order militia to drop/pick up gear
 	if ( gGameExternalOptions.fMilitiaUseSectorInventory )
 	{
-		wcscpy( gzUserDefinedButton[4], TacticalStr[ MILITIA_DROP_EQ_STR ] );
-		wcscpy( gzUserDefinedButton[5], TacticalStr[ MILITIA_PICK_UP_EQ_STR ] );
+		wcscpy( gzUserDefinedButton[4], TacticalStr[MILITIA_DROP_EQ_STR] );
+		wcscpy( gzUserDefinedButton[5], TacticalStr[MILITIA_PICK_UP_EQ_STR] );
 	}
 	else
 	{
-		wcscpy( gzUserDefinedButton[4], TacticalStr[ UNUSED_STR ] );
-		wcscpy( gzUserDefinedButton[5], TacticalStr[ UNUSED_STR ] );
+		wcscpy( gzUserDefinedButton[4], TacticalStr[UNUSED_STR] );
+		wcscpy( gzUserDefinedButton[5], TacticalStr[UNUSED_STR] );
 	}
 
 	// if disguised, allow testing our disguise
-	if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-		wcscpy( gzUserDefinedButton[6], TacticalStr[ SPY_SELFTEST_STR ] );
+	if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
+		wcscpy( gzUserDefinedButton[6], TacticalStr[SPY_SELFTEST_STR] );
 	else
-		wcscpy( gzUserDefinedButton[6], TacticalStr[ UNUSED_STR ] );
+		wcscpy( gzUserDefinedButton[6], TacticalStr[UNUSED_STR] );
 
 	wcscpy( gzUserDefinedButton[7], TacticalStr[ UNUSED_STR ] );
+
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL, MSG_BOX_DEFAULT_BUTTON_1 );
 }
 
@@ -5015,6 +5023,169 @@ void CleanWeapons( BOOLEAN fEntireTeam )
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
 				pSoldier->CleanWeapon(TRUE);
+			}
+		}
+	}
+}
+
+// Flugente: on a key press, we loop over each team members' inventory and exchange it with world items that have a higher status
+// however, we ignore items that have inseparable attachments
+// the goal is to simulate the player manually changing items, as that is rather tedious
+OBJECTTYPE* GetBetterSectorObject( UINT16 usItem, INT16 status, UINT8& arIndex )
+{
+	OBJECTTYPE* pBestObj = NULL;
+
+	INT16	beststatus = status;
+	UINT32	slot = 0;
+	BOOLEAN	found = FALSE;
+
+	for ( UINT32 uiCount = 0; uiCount < guiNumWorldItems; ++uiCount )				// ... for all items in the world ...
+	{
+		if ( gWorldItems[uiCount].fExists && gWorldItems[uiCount].usFlags & WORLD_ITEM_REACHABLE &&
+			 !(gWorldItems[uiCount].usFlags & WORLD_ITEM_ARMED_BOMB) && gWorldItems[uiCount].bVisible == VISIBLE && 
+			 gWorldItems[uiCount].object.usItem == usItem )
+		{			
+			OBJECTTYPE* pObj = &(gWorldItems[uiCount].object);
+			
+			if ( pObj != NULL && pObj->exists() )
+			{					
+				for ( UINT8 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					if ( (*pObj)[i]->data.objectStatus > beststatus )
+					{
+						// ignore if there are inseparable attachments - we wouldn't be able to change those by hand
+						attachmentList::iterator iterend = (*pObj)[i]->attachments.end( );
+						for ( attachmentList::iterator iter = (*pObj)[i]->attachments.begin( ); iter != iterend; ++iter )
+						{
+							if ( iter->exists() && Item[iter->usItem].inseparable )
+							{
+								continue;
+							}
+						}
+
+						beststatus = (*pObj)[i]->data.objectStatus;
+						slot = uiCount;
+						arIndex = i;
+						found = TRUE;
+					}
+				}
+			}
+		}
+	}
+
+	if ( found )
+	{
+		OBJECTTYPE* pObj = &(gWorldItems[slot].object);
+
+		return pObj;
+	}
+
+	return NULL;
+}
+
+void UpdateGear()
+{
+	if ( gTacticalStatus.uiFlags & INCOMBAT )
+		return;
+
+	// no functionality if not in tactical or in combat, or nobody is here
+	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) )
+		return;
+		
+	UINT16									bMercID, bLastTeamID;
+	SOLDIERTYPE*							pSoldier = NULL;
+
+	bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+
+	// loop through all mercs
+	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+	{
+		//if the merc is in this sector
+		if ( pSoldier->bActive && pSoldier->bInSector && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
+		{
+			// loop over inventory
+			INT8 invsize = (INT8)pSoldier->inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+
+			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )								// ... for all items in our inventory ...
+			{
+				if ( pSoldier->inv[bLoop].exists( ) )
+				{
+					OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
+
+					if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+					{
+						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
+						{
+							// we could improve our gear by changing this object with another one
+							if ( (*pObj)[i]->data.objectStatus < 100 )
+							{
+								// ignore if there are inseparable attachments - we wouldn't be able to change those by hand
+								attachmentList::iterator iterend = (*pObj)[i]->attachments.end( );
+								for ( attachmentList::iterator iter = (*pObj)[i]->attachments.begin( ); iter != iterend; ++iter )
+								{
+									if ( iter->exists( ) && Item[iter->usItem].inseparable )
+									{
+										continue;
+									}
+								}
+
+								// see if we can find a better object in this sector
+								UINT8 index = 0;
+								OBJECTTYPE* pObj_Better = GetBetterSectorObject( pObj->usItem, (*pObj)[i]->data.objectStatus, index );
+
+								if ( pObj_Better )
+								{
+									// WARNING! The correct way of doing this would be to exchange both objects
+									// we are not doing this here on purpose, as we want to save time
+									// instead, we switch status and a few other properties
+									// Only do this if you know what you are doing - in the wrong location, we could do odd things to global pointers. Consider yourself warned!
+
+									// tmp data
+									INT16	objectStatus = (*pObj)[i]->data.objectStatus;
+									INT8	bTrap = (*pObj)[i]->data.bTrap;
+									UINT8	fUsed = (*pObj)[i]->data.fUsed;
+									UINT8	ubImprintID = (*pObj)[i]->data.ubImprintID;
+									FLOAT	bTemperature = (*pObj)[i]->data.bTemperature;
+									UINT8	ubDirection = (*pObj)[i]->data.ubDirection;
+									UINT32	ubWireNetworkFlag = (*pObj)[i]->data.ubWireNetworkFlag;
+									INT8	bDefuseFrequency = (*pObj)[i]->data.bDefuseFrequency;
+									INT16	sRepairThreshold = (*pObj)[i]->data.sRepairThreshold;
+									FLOAT	bDirtLevel = (*pObj)[i]->data.bDirtLevel;
+									UINT64	sObjectFlag = (*pObj)[i]->data.sObjectFlag;
+
+									// set data on our object
+									(*pObj)[i]->data.objectStatus = (*pObj_Better)[index]->data.objectStatus;
+									(*pObj)[i]->data.bTrap = (*pObj_Better)[index]->data.bTrap;
+									(*pObj)[i]->data.fUsed = (*pObj_Better)[index]->data.fUsed;
+									(*pObj)[i]->data.ubImprintID = (*pObj_Better)[index]->data.ubImprintID;
+									(*pObj)[i]->data.bTemperature = (*pObj_Better)[index]->data.bTemperature;
+									(*pObj)[i]->data.ubDirection = (*pObj_Better)[index]->data.ubDirection;
+									(*pObj)[i]->data.ubWireNetworkFlag = (*pObj_Better)[index]->data.ubWireNetworkFlag;
+									(*pObj)[i]->data.bDefuseFrequency = (*pObj_Better)[index]->data.bDefuseFrequency;
+									(*pObj)[i]->data.sRepairThreshold = (*pObj_Better)[index]->data.sRepairThreshold;
+									(*pObj)[i]->data.bDirtLevel = (*pObj_Better)[index]->data.bDirtLevel;
+									(*pObj)[i]->data.sObjectFlag = (*pObj_Better)[index]->data.sObjectFlag;
+
+									// set data on world object
+									(*pObj_Better)[index]->data.objectStatus = objectStatus;
+									(*pObj_Better)[index]->data.bTrap = bTrap;
+									(*pObj_Better)[index]->data.fUsed = fUsed;
+									(*pObj_Better)[index]->data.ubImprintID = ubImprintID;
+									(*pObj_Better)[index]->data.bTemperature = bTemperature;
+									(*pObj_Better)[index]->data.ubDirection = ubDirection;
+									(*pObj_Better)[index]->data.ubWireNetworkFlag = ubWireNetworkFlag;
+									(*pObj_Better)[index]->data.bDefuseFrequency = bDefuseFrequency;
+									(*pObj_Better)[index]->data.sRepairThreshold = sRepairThreshold;
+									(*pObj_Better)[index]->data.bDirtLevel = bDirtLevel;
+									(*pObj_Better)[index]->data.sObjectFlag = sObjectFlag;
+
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[IMPROVEGEARDESCRIBE_STR], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -5175,14 +5346,13 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 		case 2:
        		// undisguise or take off custom clothes 
        		Strip(gpTempSoldier);
-           break;
+			break;
        case 3:
-			// clean weapons of selected merc
-			CleanWeapons(FALSE);
+			// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
+		    CleanWeapons( gTacticalStatus.uiFlags & INCOMBAT );
 			break;
        case 4:
-			// clean weapons of entire team
-			CleanWeapons(TRUE);
+		    UpdateGear();
 			break;
 		case 5:
 			// militia drops all gear taken from sector inventory
@@ -5199,6 +5369,8 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 				gpTempSoldier->SpySelfTest();
 			break;
+
+		case 8:
 		default:
 			break;
 		}

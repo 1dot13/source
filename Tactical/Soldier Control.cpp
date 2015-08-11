@@ -22880,6 +22880,8 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	UINT16 statusused = min( portionsize, (*pObj)[0]->data.objectStatus );
 	if ( !statusused )
 		return FALSE;
+
+	INT16 apcost = 0;
 	
 	// if we check for APs, do so - if we don't have enough, stop
 	if ( fUseAPs )
@@ -22887,7 +22889,6 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 		// an object can be consumed in several ways (like food that is also a drug), but each consumption might have a different AP cost.
 		// as it would be very odd if an effect does not happen because the corresponding AP cost could not be met, we analyze the item first and determine the AP cost.
 		// We then either apply everything or nothing
-		UINT16 apcost = 0;
 		
 		if ( HasItemFlag( pObj->usItem, CAMO_REMOVAL ) && gGameExternalOptions.fCamoRemoving )
 		{
@@ -23015,6 +23016,8 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 
 		if ( fUseAPs )
 		{
+			DeductPoints( pSoldier, (INT16)apcost, 0, false );
+
 			// Dirty
 			fInterfacePanelDirty = DIRTYLEVEL2;
 		}

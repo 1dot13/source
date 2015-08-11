@@ -3393,6 +3393,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Vous ne pouvez pas prendre d'objet avec la main principale",
 
 	L"Attempting to bandage travelling mercs...",	//TODO.Translate
+
+	L"Improve gear",
+	L"%s changed %s for superior version",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -9224,7 +9227,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
 	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
 	L"Yeah, mind your own business, $CAUSE$!",
-	L"This isn't girls college, keep your snickerin to yourself, &CAUSE$.",
+	L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
 	L"Yeah. Man up!",
 	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
 	L"This again? Keep your bickering to yourself, we have no time for this!",
@@ -9566,7 +9569,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
 	L"Relax, it's just a bit of booze.",
 	L"Hey keep it down over there, okay?",
-	L"You're just as drunk. Beat it, &CAUSE$!",
+	L"You're just as drunk. Beat it, $CAUSE$!",
 	L"Leave alcohol to the big ones, okay?",
 	L"Later, ok?",
 	L"We might've won this battle, but not this godamn war. So move it, soldier!",
