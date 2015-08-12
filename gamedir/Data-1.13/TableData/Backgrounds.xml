@@ -636,16 +636,11 @@
 		<szName>Rejected Love/Snitch/Veteran Merc</szName>
 		<szShortName>Rejected/Snitch/Vet</szShortName>
 		<szDescription>Turned down by her big love, Buzz is currently filled with a lot of hatred. &#10;She chose the right job it seems.</szDescription>
-		<leadership>2</leadership>
-		<stealth>10</stealth>
-		<hearing_night>2</hearing_night>
-		<hearing_day>2</hearing_day>
 		<resistance_fear>15</resistance_fear>
 		<resistance_physical>3</resistance_physical>
 		<resistance_suppression>20</resistance_suppression>
 		<ap_assault>8</ap_assault>
 		<ap_inventory>-5</ap_inventory>
-		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
 		<interrogation>55</interrogation>
 		<carrystrength>3</carrystrength>
@@ -653,7 +648,7 @@
 		<approach_friendly>-25</approach_friendly>
 		<approach_threaten>15</approach_threaten>
 		<spotter>15</spotter>
-		<capitulation>15</capitulation>
+		<capitulation>-15</capitulation>
 		<insurance>-20</insurance>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
@@ -770,7 +765,7 @@
 		<ap_polar>3</ap_polar>
 		<ap_desert>3</ap_desert>
 		<ap_swamp>3</ap_swamp>
-		<ap_urban>3</ap_urban>
+		<ap_urban>-3</ap_urban>
 		<ap_river>3</ap_river>
 		<ap_coastal>3</ap_coastal>
 		<ap_tropical>3</ap_tropical>
@@ -780,9 +775,6 @@
 		<ap_height>6</ap_height>
 		<ap_swimming>6</ap_swimming>
 		<travel_foot>3</travel_foot>
-		<travel_car>3</travel_car>
-		<travel_air>3</travel_air>
-		<travel_boat>3</travel_boat>
 		<speed_run>6</speed_run>
 		<meleedamage>3</meleedamage>
 		<resistance_fear>12</resistance_fear>
