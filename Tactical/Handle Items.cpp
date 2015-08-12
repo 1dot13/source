@@ -1153,47 +1153,24 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	}
 
 	// Flugente: (de-)construct structures
-	if ( HasItemFlag( usHandItem, EMPTY_SANDBAG ) || IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) || IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
+	if ( IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) || IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
 	{
-		// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
-		if ( HasItemFlag(usHandItem, EMPTY_SANDBAG) )
+		// if there is a structure, see if we can deconstruct it, if not, see if we can construct something
+		STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE) );
+
+		if ( pStruct )
 		{
-			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FILL_SANDBAG );
-
-			// we can only do this on certain terraintypes
-			INT8 bOverTerrainType = GetTerrainType( sGridNo );
-			if ( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
-			{
+			if ( !IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) )
 				return(ITEM_HANDLE_REFUSAL);
-			}
 
-			// check if we have a shovel in our second hand
-			OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
-
-			if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
-			{
-				return( ITEM_HANDLE_REFUSAL );
-			}
-		}		
+			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_REMOVE_FORTIFY );
+		}
 		else
 		{
-			// if there is a structure, see if we can deconstruct it, if not, see if we can construct something
-			STRUCTURE* pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE) );
+			if ( !IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
+				return(ITEM_HANDLE_REFUSAL);
 
-			if ( pStruct )
-			{
-				if ( !IsStructureDeconstructItem( usHandItem, sGridNo, pSoldier ) )
-					return(ITEM_HANDLE_REFUSAL);
-
-				sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_REMOVE_FORTIFY );
-			}
-			else
-			{
-				if ( !IsStructureConstructItem( usHandItem, sGridNo, pSoldier ) )
-					return(ITEM_HANDLE_REFUSAL);
-
-				sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FORTIFY );
-			}
+			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FORTIFY );
 		}
 
 		// we are at pSoldier->sGridNo and the action takes place at sGridNo

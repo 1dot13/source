@@ -8006,7 +8006,6 @@ STR16	szMTATextStr[]=
 	L"nichts",
 	L"baue eine Befestigung",
 	L"entferne eine Befestigung",
-	L"Sandsäcke befüllen",
 	L"%s musste %s stoppen.",
 	L"The selected barricade cannot be built in this sector",	// TODO.Translate
 };

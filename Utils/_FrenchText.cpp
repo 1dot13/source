@@ -8175,7 +8175,6 @@ STR16	szMTATextStr[]=
 	L"rien, en fait.",
 	L"la construction d'une fortification",
 	L"le retrait d'une fortification",
-	L"le remplissage des sacs de sable",
 	L"%s a dû arrêter... %s",
 	L"Cette sorte de barricade ne peut pas être construite dans ce secteur",
 };

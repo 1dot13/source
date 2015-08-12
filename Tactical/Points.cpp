@@ -4004,12 +4004,9 @@ INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 	case MTA_REMOVE_FORTIFY:
 		sAPCost += APBPConstants[AP_REMOVE_FORTIFICATION];
 		break;
-	case MTA_FILL_SANDBAG:
-		sAPCost += APBPConstants[AP_FILL_SANDBAG];
-		break;
 	}
 
-	if ( usActionType == MTA_FORTIFY || usActionType == MTA_REMOVE_FORTIFY || usActionType == MTA_FILL_SANDBAG )
+	if ( usActionType == MTA_FORTIFY || usActionType == MTA_REMOVE_FORTIFY )
 	{
 		sAPCost = (sAPCost * (100 + pSoldier->GetBackgroundValue(BG_FORTIFY))) / 100;
 	}

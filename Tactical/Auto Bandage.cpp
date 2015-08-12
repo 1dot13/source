@@ -1296,7 +1296,7 @@ BOOLEAN RetreatBandagingPending()
 }
 
 // return the ID of best doctor that has a medkit and is travelling with pPatient
-UINT8 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient )
+UINT16 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient )
 {
 	// if this is a travelling, bleeding merc, can somebody who travels with him bandage him/her?
 	if ( pPatient && pPatient->bActive && pPatient->flags.fBetweenSectors && pPatient->bBleeding )
@@ -1341,7 +1341,7 @@ void HandleRetreatBandaging()
 	BOOLEAN needhelpinsector = FALSE;
 	INT16 sX = -1;
 	INT16 sY = -1;
-	UINT8 possiblepatient = NOBODY;
+	UINT16 possiblepatient = NOBODY;
 
 	UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
 	SOLDIERTYPE* pSoldier = NULL;

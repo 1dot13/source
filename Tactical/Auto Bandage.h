@@ -21,7 +21,7 @@ void SetRetreatBandaging( BOOLEAN aVal );
 BOOLEAN RetreatBandagingPending( );
 
 // return the ID of best doctor that has a medkit and is travelling with pPatient
-UINT8 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient );
+UINT16 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient );
 
 void HandleRetreatBandaging( );
 

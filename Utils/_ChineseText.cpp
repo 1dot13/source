@@ -8178,7 +8178,6 @@ STR16	szMTATextStr[]=
 	L"空无一物",
 	L"建造掩体", //L"building a fortification",
 	L"拆除掩体", //L"removing a fortification",
-	L"填满沙包", //L"filling sandbags",
 	L"%s必须停止%s", //L"%s had to stop %s.",
     L"所选的路障无法再该分区建造",
 };

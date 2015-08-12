@@ -2207,24 +2207,6 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 
 	if ( pSoldier->pathing.bLevel != 0 )
 		return( FORTIFICATION_RED_UICURSOR );
-
-	// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
-	if ( HasItemFlag( pSoldier->inv[HANDPOS].usItem, EMPTY_SANDBAG) )
-	{
-		// check if we have a shovel in our second hand
-		OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
-
-		if ( pShovelObj && (pShovelObj->exists()) && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, SHOVEL) )
-		{
-			INT8 bOverTerrainType = GetTerrainType( sGridNo );
-			if( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
-			{
-				return( FORTIFICATION_GREY_UICURSOR );
-			}
-		}
-
-		return( FORTIFICATION_RED_UICURSOR );
-	}
 	
 	if ( IsFortificationPossibleAtGridNo( sGridNo ) && IsStructureConstructItem( pSoldier->inv[HANDPOS].usItem, sGridNo, pSoldier ) )
 	{
@@ -2820,7 +2802,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 	// Flugente: cursor for constructing/deconstructing
 	// at the moment the gridno is not required in these functions, thus 1 suffices
-	if ( HasItemFlag( usInHand, EMPTY_SANDBAG ) || IsStructureConstructItem( usInHand, 1, pSoldier ) || IsStructureDeconstructItem( usInHand, 1, pSoldier ) )
+	if ( IsStructureConstructItem( usInHand, 1, pSoldier ) || IsStructureDeconstructItem( usInHand, 1, pSoldier ) )
 		ubCursor = FORTICURS;
 
 	// Flugente: cursor for handcuffs
