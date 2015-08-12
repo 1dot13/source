@@ -1853,15 +1853,22 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 			 pTeamSoldier->bAssignment == ASSIGNMENT_DEAD) )
 		{
 			// both mercs drink together, they opinion either improve or worsen
-			if ( Chance( 67 ) )
-				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD );
-			else
-				AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD );
+			// added a few chance calls, because this can lead to an absurd amount of events
+			if ( Chance( 50 ) )
+			{
+				if ( Chance( 67 ) )
+					AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD, Chance( 25 ) );
+				else
+					AddOpinionEvent( pTeamSoldier->ubProfile, pSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD, Chance( 25 ) );
+			}
 
-			if ( Chance( 67 ) )
-				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD );
-			else
-				AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD );
+			if ( Chance( 50 ) )
+			{
+				if ( Chance( 67 ) )
+					AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_GOOD, Chance( 25 ) );
+				else
+					AddOpinionEvent( pSoldier->ubProfile, pTeamSoldier->ubProfile, OPINIONEVENT_DRINKBUDDIES_BAD, Chance( 25 ) );
+			}
 		}
 	}
 }
