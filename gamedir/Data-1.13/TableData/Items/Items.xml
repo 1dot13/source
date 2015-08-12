@@ -46428,10 +46428,10 @@
 		<ItemFlag>1</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>891</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
+		<ubWeight>50</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>10</ItemSize>
-		<usPrice>2</usPrice>
+		<usPrice>150</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<BR_NewInventory>15</BR_NewInventory>
 		<BR_UsedInventory>10</BR_UsedInventory>
@@ -46443,21 +46443,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1541</uiIndex>
-		<szItemName>Sandbags</szItemName>
-		<szLongItemName>Sandbags, filled</szLongItemName>
-		<szItemDesc>Whenever you need fortification, flood control, or cheap weight lifting equipment, these come in handy.</szItemDesc>
-		<szBRName>Sandbags</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1541</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>892</ubGraphicNum>
-		<ubWeight>200</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>2</usPrice>
-		<ubCoolness>2</ubCoolness>
-		<WaterDamages>1</WaterDamages>
+		<ItemSize>34</ItemSize>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46496,7 +46491,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>4</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>197</ubGraphicNum>
 		<ubWeight>20</ubWeight>

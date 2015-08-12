@@ -1,8 +1,8 @@
 ﻿<STRUCTURESLIST>
 	<STRUCTURE><!-- sandbag -->
 		<usDeconstructItem>1543</usDeconstructItem>
-		<usItemToCreate>1541</usItemToCreate>
-		<usCreatedItemStatus>100</usCreatedItemStatus>
+		<usItemToCreate>1540</usItemToCreate>
+		<usCreatedItemStatus>1</usCreatedItemStatus>
 		<szTileSetName>sandbag.sti</szTileSetName>
 		<allowedtile>0</allowedtile>
 		<allowedtile>1</allowedtile>

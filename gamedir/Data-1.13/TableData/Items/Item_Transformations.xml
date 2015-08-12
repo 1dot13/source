@@ -205,23 +205,6 @@
 		<szTooltipText>Remove tripwire from smoke grenade.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
-		<usItem>1541</usItem>
-		<usResult1>1540</usResult1>
-		<usResult2>0</usResult2>
-		<usResult3>0</usResult3>
-		<usResult4>0</usResult4>
-		<usResult5>0</usResult5>
-		<usResult6>0</usResult6>
-		<usResult7>0</usResult7>
-		<usResult8>0</usResult8>
-		<usResult9>0</usResult9>
-		<usResult10>0</usResult10>
-		<usAPCost>50</usAPCost>
-		<iBPCost>20</iBPCost>
-		<szMenuRowText>Empty sandbag</szMenuRowText>
-		<szTooltipText>Empty sand from sandbag.</szTooltipText>
-	</TRANSFORM>
-	<TRANSFORM>
 		<usItem>1543</usItem>
 		<usResult1>1015</usResult1>
 		<usResult2>0</usResult2>
