@@ -462,9 +462,7 @@ void NewDest(SOLDIERTYPE *pSoldier, INT32 usGridNo)
 BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 {
 	INT16	bMinPointsNeeded = 0;
-	INT8 bAPForStandUp = 0;
-	INT8 bAPToLookAtWall = ( FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel ) == pSoldier->ubDirection ) ? 0 : 1;
-
+	
 	//NumMessage("AffordableAction - Guy#",pSoldier->ubID);
 
 	switch (pSoldier->aiData.bAction)
@@ -553,17 +551,22 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_CLIMB_ROOF:
-			// SANDRO - improved this a bit
-			if (pSoldier->pathing.bLevel == 0)
 			{
-				if( PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
-				if( PTR_PRONE ) bAPForStandUp = GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);
-				bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, FALSE ) + bAPForStandUp + bAPToLookAtWall;
-			}
-			else
-			{
-				if( !PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
-				bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, TRUE ) + bAPForStandUp + bAPToLookAtWall;
+				INT8 bAPForStandUp = 0;
+				INT8 bAPToLookAtWall = (FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel ) == pSoldier->ubDirection) ? 0 : GetAPsToLook( pSoldier );
+
+				// SANDRO - improved this a bit
+				if (pSoldier->pathing.bLevel == 0)
+				{
+					if( PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
+					else if( PTR_PRONE ) bAPForStandUp = GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);
+					bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, FALSE ) + bAPForStandUp + bAPToLookAtWall;
+				}
+				else
+				{
+					if( !PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
+					bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, TRUE ) + bAPForStandUp + bAPToLookAtWall;
+				}
 			}
 			break;
 
