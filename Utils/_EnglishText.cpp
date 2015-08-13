@@ -9142,11 +9142,11 @@ STR16	szPMCWebSite[] =
 
 	// text on the main page
 	L"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
-	L"Our extensively trained personnel provides security for over 30 governments areound the world. This includes several conflict zones.",
+	L"Our extensively trained personnel provides security for over 30 governments around the world. This includes several conflict zones.",
 	L"We have several training centres around the globe, including in Indonesia, Colombia, Katar, South Africa and Romania. As a result, we can usually fulfil your contract requirements within 24 hours.",
 	L"Under 'Individual Contracts', we offer individual contracts with experienced veterans in the field of security.",
 	L"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
-	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
+	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insertion via harbours or border posts is also possible.",
 	L"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
 	
 	// militia contract page

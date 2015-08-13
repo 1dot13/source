@@ -3890,7 +3890,7 @@ STR16 pTransactionText[] =
 	L"Перевод средств", 
 	L"Нанят", 				// Merc was hired
 	L"Покупки у Бобби Рэя", 		// Bobby Ray is the name of an arms dealer
-	L"Оплата счета M.E.R.C.",
+	L"Оплата счёта M.E.R.C.",
 	L"%s: страховка.", 		// medical deposit for merc
 	L"I.M.P.: Анализ профиля", 		// IMP is the acronym for International Mercenary Profiling
 	L"%s: куплена страховка", 
@@ -3908,17 +3908,17 @@ STR16 pTransactionText[] =
 	L"%s: Остаток мед. депозита",
 	L"%s: Мед. депозит удержан",
 	L"%s: оплата услуг.",		// %s is the name of the npc being paid
-	L"%s берет наличные.", 			// transfer funds to a merc
+	L"%s берёт наличные.", 			// transfer funds to a merc
 	L"%s: переводит деньги.", 		// transfer funds from a merc
-	L"%s: оружие ополчению.", // initial cost to equip a town's militia
+	L"%s: найм ополчения.", // initial cost to equip a town's militia
 	L"%s продал вам вещи.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
-	L"%s кладет наличные на счет.",
+	L"%s кладёт наличные на счет.",
 	L"Снаряжение продано населению",
 	L"Оснащение персонала", // HEADROCK HAM 3.6		//Facility Use
 	L"Содержание ополчения", // HEADROCK HAM 3.6		//Militia upkeep
 	L"Выкуп за освобожденных заключенных",	// Flugente: prisoner system
-	L"WHO data subscription",	// Flugente: disease	// TODO.Translate
-	L"Payment to Kerberus",	// Flugente: PMC
+	L"ВОЗ, подписка",	// Flugente: disease
+	L"Оплата услуг Цербер",	// Flugente: PMC
 };
 
 STR16 pTransactionAlternateText[] =
@@ -3939,7 +3939,7 @@ STR16 pSkyriderText[] =
 	L"",//unused
 	L"",//unused
 	L"Небесный Всадник готов к полету.", // Skyrider was grounded but has been freed
-	L"У Небесного Всадника нет пассажиров. Если вы хотите переправить бойцов в этот сектор, посадите их в вертолет (приказ \"Транспорт/Вертолёт\")."
+	L"У Небесного Всадника нет пассажиров. Если вы хотите переправить бойцов в этот сектор, посадите их в вертолёт (приказ \"Транспорт/Вертолёт\")."
 };
 
 
@@ -4362,8 +4362,8 @@ STR16 pBookMarkStrings[] =
 	L"Брифинг-зал",
 	L"Журнал",
 	L"MeLoDY",	// TODO.Translate
-	L"WHO",
-	L"Kerberus",
+	L"ВОЗ",
+	L"Цербер",
 };
 
 STR16 pBookmarkTitle[] =
@@ -4480,12 +4480,12 @@ STR16 pWebPagesTitles[] =
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
 	L"Mercs Love or Dislike You - About us",
-	L"WHO - About WHO",
-	L"WHO - Disease in Arulco",
-	L"WHO - Helpful Tips",
-	L"Kerberus - About Us",
-	L"Kerberus - Hire a Team",
-	L"Kerberus - Individual Contracts",
+	L"ВОЗ - О нас",
+	L"ВОЗ - Заболевания в Арулько",
+	L"ВОЗ - Полезно знать",
+	L"Цербер - О нас",
+	L"Цербер - Найм команды",
+	L"Цербер - Индивидуальные контракты",
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
@@ -6283,8 +6283,8 @@ STR16 gzLaptopHelpText[] =
 	L"Брифинг-зал",
 	L"Журнал кампании",
 	L"Mercenaries Love or Dislike You",	// TODO.Translate
-	L"World Health Organization",
-	L"Kerberus - Excellence In Security",
+	L"Всемирная организация здравоохранения",
+	L"Подготовка сотрудников службы безопасности",
 };
 
 
@@ -8517,9 +8517,9 @@ STR16 sSpecialCharacters[] =
 STR16	szSoldierClassName[]=
 {
 	L"Наёмник",
-	L"Ополченец",
-	L"Рядовой ополченец",
-	L"Элитный ополченец",
+	L"Новобранец",
+	L"Рядовой",
+	L"Элита",
 
 	L"Гражданский",
 
@@ -9132,42 +9132,42 @@ STR16	szWHOWebSite[] =		// TODO.Translate
 STR16	szPMCWebSite[] =
 {
 	// main page
-	L"Kerberus",
-	L"Experience In Security",
+	L"Цербер",
+	L"Ваше превосходство в безопасности",
 
 	// links to other pages
-	L"What is Kerberus?",
-	L"Team Contracts",
-	L"Individual Contracts",
+	L" Что есть Цербер?",
+	L" Нанять команду",
+	L" Нанять солдата",
 
 	// text on the main page
-	L"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
-	L"Our extensively trained personnel provides security for over 30 governments areound the world. This includes several conflict zones.",
-	L"We have several training centres around the globe, including in Indonesia, Colombia, Katar, South Africa and Romania. As a result, we can usually fulfil your contract requirements within 24 hours.",
-	L"Under 'Individual Contracts', we offer individual contracts with experienced veterans in the field of security.",
-	L"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
-	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
-	L"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
+	L"   Корпорация Цербер - хорошо известный международный частный военный подрядчик. Начиная с 1983 года, мы предоставляем свои услуги охраны и обучения подразделений боевого назначения по всему миру.",
+	L"   Наш профессионально обученный персонал обеспечивает безопасность более 30 правительств по всему миру. В том числе в нескольких горячих точках.",
+	L"   Наши тренировочные центры есть почти в каждой точке мира, включая Индонезию, Колумбию, Катар, Южную Африку и Румынию. Благодаря этому мы можем, как правило, выполнить свои обязательства по контракту в течение 24 часов.",
+	L"   В разделе \"Нанять солдата\" мы предлагаем индивидуальные договоры с опытными ветеранами в сфере безопасности.",
+	L"   Конечно же, вы можете нанять сразу целую роту солдат. В разделе \"Нанять команду\", вы можете указать количество солдат к найму, а так же, выбрать место, где необходимы их услуги. В связи с трагическим инцидентом в прошлом, мы доставляем своих контрактников лишь в зоны, которые находятся под вашим контролем.",
+	L"   Своих сотрудников мы можем доставить воздухом, в этом случае, в месте прибытия, конечно, должен быть аэропорт. В зависимости от региона прибытия также возможны внедрения/проникновения через порты или пограничные посты.",
+	L"   Работаем только по предоплате. Далее ежедневная оплата услуг наших сотрудников будет списываться с вашего счёта.",
 	
 	// militia contract page
-	L"You can select the type and number of personnel you want to hire here:",
+	L" Выберите уровень и количество ополченцев:",
 	L"Initial deployment",
-	L"Regular personnel",
-	L"Veteran personnel",
+	L"Рядовой солдат",
+	L"Элитный солдат",
 
-	L"%d available, %d$ each",
-	L"Hire: %d",
-	L"Cost: %d$",
+	L"%d чел., %d$ каждый",
+	L"К найму: %d",
+	L"Стоимость: %d$",
 
-	L"Select the initial operational area:",
-	L"Total Cost: %d$",
-	L"ETA: %02d:%02d",
-	L"Close Contract",
+	L" Выберите место высадки солдат:",
+	L" Общая стоимость: %d$",
+	L" Рассчётное время прибытия: %02d:%02d",
+	L"Оплатить",
 
-	L"Thank you! Our personnel will be on site on %02d:%02d tomorrow.",
-	L"Kerberus reinforcements have arrived in %s.",
-	L"Next deployment: %d regulars and %d veterans at %s on %02d:%02d, day %d.",
-	L"You do not control any location through which we could insert troops!",
+	L"Благодарим за сотрудничество! Наши солдаты прибудут в место назначения завтра в %02d:%02d.",
+	L"Подкрепление из Цербер прибыло в %s.",
+	L" Информация: рядовых - %d чел., элитных - %d чел. прибудут в %s,  время прибытия %02d:%02d, день %d.",
+	L"Под Вашим контролем нет мест, куда бы мы могли прислать своих солдат!",
 
 	// individual contract page
 };
