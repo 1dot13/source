@@ -12330,11 +12330,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1541</uiIndex>
-		<szItemName>Мешки</szItemName>
-		<szLongItemName>Мешки с песком</szLongItemName>
-		<szItemDesc>Нужно укрепление при наводнении или дешевое решение для перевеса на кран-балку - вот решение! Мешок с песком пригодится всегда.</szItemDesc>
-		<szBRName>Мешки с песком</szBRName>
-		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1541</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1542</uiIndex>

@@ -12330,11 +12330,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1541</uiIndex>
-		<szItemName>Sandbags</szItemName>
-		<szLongItemName>满沙袋</szLongItemName>
-		<szItemDesc>不管你是想加固驻防，挡住洪水还是练习举重，这袋便宜的家伙总是很好用。</szItemDesc>
-		<szBRName>Sandbags</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1541</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1542</uiIndex>
