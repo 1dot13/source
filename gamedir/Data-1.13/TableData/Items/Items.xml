@@ -46425,7 +46425,6 @@
 		<szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>1</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>891</ubGraphicNum>
 		<ubWeight>50</ubWeight>
@@ -46436,7 +46435,6 @@
 		<BR_NewInventory>15</BR_NewInventory>
 		<BR_UsedInventory>10</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<buddyitem>1541</buddyitem>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50687,7 +50685,7 @@
 		<ItemFlag>33554432</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>895</ubGraphicNum>
-		<ubWeight>85</ubWeight>
+		<ubWeight>97</ubWeight>
 		<ItemSize>23</ItemSize>
 		<usPrice>1500</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -50701,8 +50699,6 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DefaultAttachment>1698</DefaultAttachment>
-		<NeedsBatteries>1</NeedsBatteries>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50710,11 +50706,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1698</uiIndex>
-		<szItemName>Radio battery</szItemName>
-		<szLongItemName>Radio Set battery</szLongItemName>
-		<szItemDesc>A battery used in standard field equipment. Quite heavy, but can last for weeks if you conserve it.</szItemDesc>
-		<szBRName>Radio battery</szBRName>
-		<szBRDesc>A standard issue field battery for radio sets.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1541</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<ItemFlag>134217728</ItemFlag>
@@ -50723,13 +50719,9 @@
 		<ubWeight>12</ubWeight>
 		<ubPerPocket>6</ubPerPocket>
 		<ItemSize>10</ItemSize>
-		<usPrice>200</usPrice>
+		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
-		<Electronic>1</Electronic>
-		<BR_NewInventory>3</BR_NewInventory>
-		<Batteries>1</Batteries>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
