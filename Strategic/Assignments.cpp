@@ -5407,9 +5407,6 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			if( ( pSoldier->bAssignment == RADIO_SCAN ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
 			{
 				++numberofradiooperators;
-
-				// use up radio energy
-				pSoldier->DepleteActiveRadioSetEnergy(FALSE, TRUE);
 			}
 		}
 	}

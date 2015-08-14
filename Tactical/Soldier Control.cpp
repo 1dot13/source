@@ -17347,27 +17347,7 @@ BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 		pObj = GetObjectWithFlag( RADIO_SET );
 	
 	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-	{
-		// if radio set doesn't need batteries, all is fine
-		if ( !Item[pObj->usItem].needsbatteries )
-			return TRUE;
-
-		//search power pack
-		attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
-		for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
-		{
-			// do we have a power pack?
-			if ( iter->exists( ) && HasItemFlag( iter->usItem, POWER_PACK ) )
-			{
-				// Hack (or clever use of unused memory, depending on your view):
-				// data.bTemperature has to exist on all items, as it is used on weapons and certain attachments (barrels)
-				// It isn't used on armor... that's why we can use it now. The idea is that the temperature of the power pack represents its available energy.
-				// The cooling down represents its energy depleting.
-				if ( (*iter)[0]->data.bTemperature > 0.0f )
-					return(TRUE);
-			}
-		}
-	}
+		return TRUE;
 
 	return FALSE;
 }
@@ -17388,10 +17368,7 @@ BOOLEAN SOLDIERTYPE::UseRadio( )
 		if ( Chance( (*pObj)[0]->data.objectStatus ) )
 			success = TRUE;
 	}
-
-	// even if we fail, we still use up AP, use animation an use up batteries
-	DepleteActiveRadioSetEnergy( TRUE );
-
+	
 	if ( this->bInSector && (this->ubBodyType == REGMALE || this->ubBodyType == BIGMALE) )
 	{
 		switch ( gAnimControl[this->usAnimState].ubEndHeight )
@@ -18100,62 +18077,6 @@ SOLDIERTYPE::RadioFail( )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RADIO_ACTION_FAILED] );
 
 		PlayJA2SampleFromFile( "Sounds\\radioerror.wav", RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
-	}
-}
-
-void SOLDIERTYPE::DepleteActiveRadioSetEnergy( BOOLEAN fActivation, BOOLEAN fAssignment )
-{
-	if ( !CanUseRadio( FALSE ) )
-		return;
-
-	FLOAT cost = 0;
-	if ( fActivation )
-		cost = gItemSettings.energy_cost_radioset_activate;
-	else if ( fAssignment )
-		cost = gItemSettings.energy_cost_radioset_scan_assignment;
-	else if ( usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
-		cost = gItemSettings.energy_cost_radioset_jam;
-	else if ( usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING | SOLDIER_RADIO_OPERATOR_LISTENING) )
-		cost = gItemSettings.energy_cost_radioset_scan;
-	else
-		// nothing to do here..
-		return;
-
-	OBJECTTYPE* pObj = NULL;
-	if ( this->bTeam == OUR_TEAM && UsingNewInventorySystem( ) )
-		pObj = &(inv[CPACKPOCKPOS]);
-	else
-		pObj = GetObjectWithFlag( RADIO_SET );
-
-	if ( pObj && HasItemFlag( pObj->usItem, RADIO_SET ) )
-	{
-		// if radio set doesn't need batteries, all is fine
-		if ( !Item[pObj->usItem].needsbatteries )
-			return;
-
-		//search power pack
-		attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
-		for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
-		{
-			// do we have a power pack on our armor?
-			if ( iter->exists( ) && HasItemFlag( iter->usItem, POWER_PACK ) )
-			{
-				(*iter)[0]->data.bTemperature = max( 0.0f, (*iter)[0]->data.bTemperature - cost );
-
-				if ( (*iter)[0]->data.bTemperature <= 0.0f )
-				{
-					// destroy batteries
-					iter->RemoveObjectsFromStack( 1 );
-					if ( iter->exists( ) == false )
-						pObj->RemoveAttachment( &(*iter) );
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RADIO_NO_ENERGY], this->GetName( ) );
-				}
-
-				// there can only be one battery on a radio set
-				return;
-			}
-		}
 	}
 }
 

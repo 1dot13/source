@@ -2233,13 +2233,6 @@ typedef struct
 	FLOAT fDamageHealthMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 	FLOAT fDamageBreathMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 
-	// ------------ ENERGY MODIFIERS -----------------
-	// Flugente: energy consumption settings (energy-consumption of attached non-vanilla batteries)
-	FLOAT	energy_cost_radioset_activate;
-	FLOAT	energy_cost_radioset_jam;
-	FLOAT	energy_cost_radioset_scan;
-	FLOAT	energy_cost_radioset_scan_assignment;
-
 }ITEM_SETTINGS;
 
 extern MOD_SETTINGS gModSettings;

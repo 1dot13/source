@@ -1871,7 +1871,6 @@ public:
 	BOOLEAN RadioCallReinforcements( UINT32 usSector, UINT16 sNumber );
 	BOOLEAN SwitchOffRadio();
 	void	RadioFail();							// display and error sound used either when the radio set fails or the sector is jammed - the player knows of the error, but cannot be sure of the cause
-	void	DepleteActiveRadioSetEnergy(BOOLEAN fActivation = FALSE, BOOLEAN fAssignment = FALSE);
 
 	// Flugente: spotter
 	BOOLEAN IsSpotting();

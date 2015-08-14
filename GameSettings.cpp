@@ -2976,12 +2976,6 @@ void LoadItemSettings()
 	gItemSettings.fDamageBreathModifierExplosive					= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_EXPLOSIVE_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fDamageHealthMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
 	gItemSettings.fDamageBreathMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
-
-	// ------------ ENERGY MODIFIERS -----------------
-	gItemSettings.energy_cost_radioset_activate						= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_ACTIVATE",			  100.00f, 1.00f,  1000.0f);
-	gItemSettings.energy_cost_radioset_jam							= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_JAM",				   10.00f, 1.00f,  1000.0f);
-	gItemSettings.energy_cost_radioset_scan							= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_SCAN",					3.00f, 1.00f,  1000.0f);
-	gItemSettings.energy_cost_radioset_scan_assignment				= iniReader.ReadFloat	("Energy Settings","ENERGY_COST_RADIOSET_SCAN_ASSIGNMENT",	 3000.00f, 1.00f, 30000.0f);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
