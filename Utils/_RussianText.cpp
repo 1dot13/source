@@ -3800,7 +3800,7 @@ CHAR16 pSenderNameList[500][128] =
 	L"Бобби Рэй",
 	L"Босс",
 	L"Джон Кульба",
-	L"А.I.М.",
+	L"A.I.M.",
 };
 */
 
@@ -4361,7 +4361,7 @@ STR16 pBookMarkStrings[] =
 	L"Энциклопедия",
 	L"Брифинг-зал",
 	L"Журнал",
-	L"MeLoDY",	// TODO.Translate
+	L"БоЛТиК",
 	L"ВОЗ",
 	L"Цербер",
 };
@@ -4476,14 +4476,14 @@ STR16 pWebPagesTitles[] =
 	L"%s Пресс-служба - Боевые отчеты",
 	L"%s Пресс-служба - Последние новости",
 	L"%s Пресс-служба - О нас",
-	L"Mercs Love or Dislike You - Home",				// TODO.Translate
-	L"Mercs Love or Dislike You - Analyze a team",
-	L"Mercs Love or Dislike You - Pairwise comparison",
-	L"Mercs Love or Dislike You - About us",
-	L"ВОЗ - О нас",
+	L"\"Бойцы Любят Тебя или Клянут\"",
+	L"\"Бойцы Любят Тебя или Клянут\" Анализ команды",
+	L"\"Бойцы Любят Тебя или Клянут\" Парные сравнения",
+	L"\"Бойцы Любят Тебя или Клянут\" Комментарии",
+	L"ВОЗ",
 	L"ВОЗ - Заболевания в Арулько",
 	L"ВОЗ - Полезно знать",
-	L"Цербер - О нас",
+	L"Цербер",
 	L"Цербер - Найм команды",
 	L"Цербер - Индивидуальные контракты",
 	L"Бобби Рэй - последние поступления",
@@ -4496,7 +4496,7 @@ STR16 pWebPagesTitles[] =
 STR16 pShowBookmarkString[] =
 {
 	L"Подсказка",
-	L"Щелкните ещё раз по кнопке \"Сайты\" для открытия списка.",
+	L"Щёлкните ещё раз по кнопке \"Сайты\" для открытия списка.",
 };
 
 STR16 pLaptopTitles[] =
@@ -4755,7 +4755,7 @@ STR16			MercHomePageText[] =
 STR16			sFuneralString[] =
 {
 	L"Похоронное агентство Макгилликатти: скорбим вместе с семьями усопших с 1983 г.",
-	L"Директор по похоронам и бывший наёмник А.I.М. - Мюррей Макгилликатти \"Папаша\", специалист по части похорон.",
+	L"Директор по похоронам и бывший наёмник A.I.M. - Мюррей Макгилликатти \"Папаша\", специалист по части похорон.",
 	L"Всю жизнь Папашу сопровождали смерть и утраты, поэтому он, как никто, познал их тяжесть.",
 	L"Похоронное агентство Макгилликатти предлагает широкий спектр ритуальных услуг - от жилетки, в которую можно поплакать, до восстановления сильно поврежденных останков.",
 	L"Похоронное агентство Макгилликатти поможет вам и вашим родственникам покоиться с миром.",
@@ -6282,7 +6282,7 @@ STR16 gzLaptopHelpText[] =
 	L"Энциклопедия",
 	L"Брифинг-зал",
 	L"Журнал кампании",
-	L"Mercenaries Love or Dislike You",	// TODO.Translate
+	L"Бойцы Любят Тебя или Клянут",
 	L"Всемирная организация здравоохранения",
 	L"Подготовка сотрудников службы безопасности",
 };
@@ -8981,12 +8981,12 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Tarantula",
 	L"Vulture",
 	L"Heretic",
-	L"Zombie",
+	L"Зомби",
 
 	L"Role-Model",
 	L"Hellhound",
 	L"Mongoose",
-	L"Nurse",
+	L"Медсестра",
 
 	L"Nun",
 	L"",
@@ -8996,47 +8996,47 @@ STR16	szCampaignStatsOperationSuffix[] =
 	// 120
 };
 
-STR16	szMercCompareWebSite[] =	// TODO.Translate
+STR16	szMercCompareWebSite[] =
 {
 	// main page
-	L"Mercs Love or Dislike You",
-	L"Your #1 teambuilding experts on the web",
+	L"Бойцы Любят Тебя или Клянут",
+	L"Ваш эксперт №1 по сплочению комманды",
 
-	L"About us",
-	L"Analyse a team",
-	L"Pairwise comparison",
-	L"Customer voices",
+	L" Кто мы?",
+	L" Анализ команды",
+	L" Парные сравнения",
+	L" Отзывы клиентов",
 
-	L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
-	L"Your team struggles with itself.",
-	L"Your employees waste time working against each other.",
-	L"Your workforce experiences a high fluctuation rate.",
-	L"You constantly receive low marks on workplace satisfaction ratings.",	
-	L"If you can say 'yes' to one or more of these statements, then you might have a problem in your business. Your employees likely won't work at peak perfection. Thanks to our patented, easy-to-understand MeLoDY system, you can bring productivity back up in no time, and a happy smile on the faces all your staff!",
+	L"   Если выш бизнес предполагает инновационные решения для критических приложений, работающих в режиме реального времени, возможно некоторые из этих наблюдений будут вам знакомы:",
+	L"Ваша команда борется сама с собой.",
+	L"Ваши сотрудники тратят время мешая друг другу.",
+	L"В вашем коллективе большая текучесть кадров.",
+	L"Вы постоянно получаете низкие оценки по удовлетворенности персонала работой.",	
+	L"   Если вы столкнулись хотя бы с одной из этих ситуаций, то, возможно, в вашем бизнесе есть проблемы. И скорее всего, ваши сотрудники не станут работать в полную силу. Но благодаря нашей запатентованной и простой для понимания системе \"БоЛТиК\", вы сможете  вернуть производительность и счастливые улыбки на лицах всех ваших сотрудников в мгновение ока!",
 
 	// customer quotes
-	L"A few citations from our satisfied customers:",
-	L"My last relationship was terrible. I blamed myself... but now I know better. All men deserve a violent death! Thanks, MeLoDY, for enlightening me!",
-	L"-Louisa G., Novelist-",
-	L"I never got along with my brothers to start with, and recently its gotten worse. You've shown me that our trust problem with father is to blame. Thank you for that! I have to make a bold statement to open his eyes to the facts.",
-	L"-Konrad C., Corrective law enforcement-",
-	L"I've always been a loner, so joining a team was hard for me. Your insight showed me how to become part of a team. You've been a big help!",
-	L"-Grant W., Snake charmer-",
-	L"In my line of work, you need to trust every member of your team 100%. That's why we went to the experts - we went to MeLoDY.",
-	L"-Halle L., SPK-",
-	L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
-	L"-Michael C., NASA-",
-	L"I fully recommend this site!",
-	L"-Kasper H., H&C logistic Inc-",
-	L"Our training process has to be very quick, so we need to know whom we're dealing with. MeLoDY were the logical choice for this.",
-	L"-Stan Duke, Kerberus Inc-",
+	L"Несколько цитат наших довольных клиентов:",
+	L"Мои прошлые отношения были просто ужасны. Я винила во всём себя... но теперь то я знаю. Все мужчины заслуживают смерти! Спасибо тебе, \"БоЛТиК\", за моё прозрение!",
+	L"-Луиза Г., романист-",
+	L"Я никогда не ладили со своими братьями, а в последнее время отношения совсем стали из рук вон плохими. Вы показали мне, что постыдное недоверие к отцу виной всему. Спасибо вам за это! Я должен открыто всё сказать отцу.",
+	L"-Конрад C., Исправительное учреждение-",
+	L"Я одиночка по жизни и работа в команде для меня была просто пыткой. Ваши представления показали мне как стать частью команды. Ваш вклад просто неоценим!",
+	L"-Грант В., Заклинатель змей-",
+	L"В моей работе необходимо доверять каждому члену команды на все 100 процентов. Вот почему мы обратились к экспертам, вот почему мы обратились к компании \"БоЛТиК\".",
+	L"-Халлэ Л., СПК-",
+	L"Прежде всего хочу признать, что наш коллектив был весьма разношерстым, из-за чего были частые конфликты. Но мы научились уважать друг друга, и в настоящее время дополнем друг друга.",
+	L"-Майкл C., НАСА-",
+	L"Рекоммендую отдать предпочтение этому сайту!",
+	L"-Каспар Х., Логистическая компания H&C-",
+	L"Наш процесс тренировок должен быть максимально быстрым, по-этому мы должны знать, с кем имеем дело. Компания \"БоЛТиК\" стала очевидным выбором.",
+	L"-Стэнли Дюк, Корпорация Цербер-",
 
 	// analyze
-	L"Choose your employee",
-	L"Choose your squad",
+	L"Выберите наёмника",
+	L"Выберите отряд",
 
 	// error messages
-	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
+	L"В настоящее время у вас нет наёмников на службе. Боевой дух бойцов ниже нормы - основная причина частых увольнений среди персонала.",
 };
 
 STR16	szMercCompareEventText[]=		// TODO.Translate
@@ -9092,16 +9092,16 @@ STR16	szMercCompareEventText[]=		// TODO.Translate
 	L"%s injured civilians",
 };
 
-STR16	szWHOWebSite[] =		// TODO.Translate
+STR16	szWHOWebSite[] =
 {
 	// main page
-	L"World Health Organization",
-	L"Bringing health to life",
+	L"Всемирная организация здравоохранения",
+	L"Возвращаем здоровье в жизнь",
 
 	// links to other pages
-	L"About WHO",
-	L"Disease in Arulco",
-	L"About diseases",
+	L" О ВОЗ",
+	L" Заболевания в Арулько",
+	L" О заболеваниях",
 
 	// text on the main page
 	L"WHO is the directing and coordinating authority for health within the United Nations system.",
@@ -9208,7 +9208,7 @@ STR16   szTacticalCoverDialogString[]=
 
         L"Roles",		// TODO.Translate
         L"",
-		L"Tracker",
+	L"Tracker",
         L"",
 
         L"Ловушки",
