@@ -737,8 +737,8 @@ void ValidatePendingGroups()
 		if( iErrorsForInvalidPendingGroup )
 		{
 			CHAR16 str[256];
-			swprintf( str, L"Strategic AI:	Internal error -- %d pending groups were discovered to be invalid.	Please report error and send save."
-										L"You can continue playing, as this has been auto-corrected.	No need to send any debug files.", iErrorsForInvalidPendingGroup );
+			swprintf( str, L"Strategic AI: Internal error -- %d pending groups were discovered to be invalid. Please report error and send save."
+										L"You can continue playing, as this has been auto-corrected. No need to send any debug files.", iErrorsForInvalidPendingGroup );
 			SAIReportError( str );
 		}
 	#endif
@@ -772,8 +772,8 @@ void ValidateWeights( INT32 iID )
 		if( giReinforcementPoints != iSumReinforcementPoints || giRequestPoints != iSumRequestPoints )
 		{
 			CHAR16 str[256];
-			swprintf( str, L"Strategic AI:	Internal error #%02d (total request/reinforcement points).	Please report error including error#.	"
-										L"You can continue playing, as the points have been auto-corrected.	No need to send any save/debug files.", iID );
+			swprintf( str, L"Strategic AI: Internal error #%02d (total request/reinforcement points). Please report error including error#."
+										L"You can continue playing, as the points have been auto-corrected. No need to send any save/debug files.", iID );
 			//Correct the misalignment.
 			giReinforcementPoints = iSumReinforcementPoints;
 			giRequestPoints = iSumRequestPoints;
@@ -799,7 +799,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
 			#ifdef JA2BETAVERSION
 			{
 				CHAR16 str[256];
-				swprintf( str, L"Strategic AI:	Internal error (invalid enemy group #%d location at %c%d, destination %c%d).	Please send PRIOR save file and Strategic Decisions.txt.",
+				swprintf( str, L"Strategic AI: Internal error (invalid enemy group #%d location at %c%d, destination %c%d). Please send PRIOR save file and Strategic Decisions.txt.",
 											pGroup->ubGroupID, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX, pGroup->ubNextY + 'A' - 1, pGroup->ubNextX );
 				SAIReportError( str );
 			}
@@ -829,7 +829,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
 		if( pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumTanks != pGroup->ubGroupSize ||
 				pGroup->ubGroupSize > iMaxEnemyGroupSize )
 		{
-			SAIReportError( L"Strategic AI:	Internal error (bad group populations).	Please send PRIOR save file and Strategic Decisions.txt." );
+			SAIReportError( L"Strategic AI: Internal error (bad group populations). Please send PRIOR save file and Strategic Decisions.txt." );
 		}
 	#endif
 }
@@ -841,8 +841,8 @@ void ValidateLargeGroup( GROUP *pGroup )
 		if( pGroup->ubGroupSize > 25 )
 		{
 			CHAR16 str[ 512 ];
-			swprintf( str, L"Strategic AI warning:	Enemy group containing %d soldiers "
-									L"(%d admins, %d troops, %d elites) in sector %c%d.	This message is a temporary test message "
+			swprintf( str, L"Strategic AI warning: Enemy group containing %d soldiers "
+									L"(%d admins, %d troops, %d elites) in sector %c%d. This message is a temporary test message "
 									L"to evaluate a potential problems with very large enemy groups.",
 									pGroup->ubGroupSize, pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumElites,
 									pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX );
@@ -2313,7 +2313,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 						UINT8 ubCut;
 						#ifdef JA2BETAVERSION
 						CHAR16 str[512];
-						swprintf( str, L"Patrol group #%d in %c%d received too many reinforcements from group #%d that was created in %c%d.	Size truncated from %d to %d."
+						swprintf( str, L"Patrol group #%d in %c%d received too many reinforcements from group #%d that was created in %c%d. Size truncated from %d to %d."
 													L"Please send Strategic Decisions.txt and PRIOR save.",
 													pPatrolGroup->ubGroupID, pPatrolGroup->ubSectorY + 'A' - 1, pPatrolGroup->ubSectorX,
 													pGroup->ubGroupID, SECTORY( pGroup->ubCreatedSectorID ) + 'A' - 1, SECTORX( pGroup->ubCreatedSectorID ),
