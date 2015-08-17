@@ -2702,10 +2702,10 @@ void LoadModSettings(){
 	//[Balime]
 
 	//[Meduna]
-	gModSettings.ubQueenBasementSectorX = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_X", 3);
-	gModSettings.ubQueenBasementSectorY = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_Y", 16);
-	gModSettings.ubQueenBasementSectorZ = iniReader.ReadInteger("San Mona", "QUEEN_BASEMENT_SECTOR_Z", 1);
-	gModSettings.iQueenAlternateGridNo = iniReader.ReadInteger("San Mona", "QUEEN_ALTERNATE_GRIDNO", 11448);
+	gModSettings.ubQueenBasementSectorX = iniReader.ReadInteger("Meduna", "QUEEN_BASEMENT_SECTOR_X", 3);
+	gModSettings.ubQueenBasementSectorY = iniReader.ReadInteger("Meduna", "QUEEN_BASEMENT_SECTOR_Y", 16);
+	gModSettings.ubQueenBasementSectorZ = iniReader.ReadInteger("Meduna", "QUEEN_BASEMENT_SECTOR_Z", 1);
+	gModSettings.iQueenAlternateGridNo = iniReader.ReadInteger("Meduna", "QUEEN_ALTERNATE_GRIDNO", 11448);
 
 	//[Chitzena]
 
