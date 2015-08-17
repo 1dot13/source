@@ -2067,11 +2067,14 @@ BOOLEAN UnRecruitEPC( UINT8 ubCharNum )
 
 	if ( pSoldier->bAssignment < ON_DUTY )
 	{
-	ResetDeadSquadMemberList( pSoldier->bAssignment );
+		ResetDeadSquadMemberList( pSoldier->bAssignment );
 	}
 
 	// Rmeove from squad....
 	RemoveCharacterFromSquads( pSoldier );
+
+	//	Add to our 'departed' list
+	AddCharacterToOtherList( pSoldier );
 
 	// O< check if this is the only guy in the sector....
 	if ( gusSelectedSoldier == pSoldier->ubID )

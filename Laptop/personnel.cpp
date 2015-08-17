@@ -5437,14 +5437,11 @@ BOOLEAN DisplayHighLightBox( void )
 // add to dead list
 void AddCharacterToDeadList( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
-
-
-	for( iCounter = 0; iCounter < 256; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < 256; ++iCounter )
 	{
 		if( LaptopSaveInfo.ubDeadCharactersList[ iCounter ] == -1 )
 		{
-			// valid slot, merc not found yet, inset here
+			// valid slot, merc not found yet, insert here
 			LaptopSaveInfo.ubDeadCharactersList[ iCounter ] = pSoldier->ubProfile;
 
 			// leave
@@ -5454,7 +5451,6 @@ void AddCharacterToDeadList( SOLDIERTYPE *pSoldier )
 		// are they already in the list?
 		if( LaptopSaveInfo.ubDeadCharactersList[ iCounter ] == pSoldier->ubProfile )
 		{
-
 			return;
 		}
 	}
@@ -5463,10 +5459,7 @@ void AddCharacterToDeadList( SOLDIERTYPE *pSoldier )
 
 void AddCharacterToFiredList( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
-
-
-	for( iCounter = 0; iCounter < 256; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < 256; ++iCounter )
 	{
 		if( LaptopSaveInfo.ubLeftCharactersList[ iCounter ] == -1 )
 		{
@@ -5480,19 +5473,14 @@ void AddCharacterToFiredList( SOLDIERTYPE *pSoldier )
 		// are they already in the list?
 		if( LaptopSaveInfo.ubLeftCharactersList[ iCounter ] == pSoldier->ubProfile )
 		{
-
 			return;
 		}
 	}
 }
 
-
 void AddCharacterToOtherList( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
-
-
-	for( iCounter = 0; iCounter < 256; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < 256; ++iCounter )
 	{
 		if( LaptopSaveInfo.ubOtherCharactersList[ iCounter ] == -1 )
 		{
@@ -5506,7 +5494,6 @@ void AddCharacterToOtherList( SOLDIERTYPE *pSoldier )
 		// are they already in the list?
 		if( LaptopSaveInfo.ubOtherCharactersList[ iCounter ] == pSoldier->ubProfile )
 		{
-
 			return;
 		}
 	}
@@ -5518,9 +5505,7 @@ void AddCharacterToOtherList( SOLDIERTYPE *pSoldier )
 //to be on your team list, and departed list )
 BOOLEAN RemoveNewlyHiredMercFromPersonnelDepartedList( UINT8 ubProfile )
 {
-	INT32 iCounter = 0;
-
-	for( iCounter = 0; iCounter < 256; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < 256; ++iCounter )
 	{
 		// are they already in the Dead list?
 		if( LaptopSaveInfo.ubDeadCharactersList[ iCounter ] == ubProfile )

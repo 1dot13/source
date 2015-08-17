@@ -13031,13 +13031,22 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 				pVictim->bBleeding = 0;
 				uiMedcost += max( 0, (((usLifeReturned / 100) - pVictim->bBleeding) / 2) ); // add medkit points cost for unbandaged part 
 			}
+
+			// display healing done
+			pVictim->flags.fDisplayDamage = TRUE;
+			pVictim->sDamage -= (usLifeReturned / 100);
 		}
 		else // this shouldn't even happen, but we still want to have it here for sure
 		{
+			// display healing done
+			pVictim->flags.fDisplayDamage = TRUE;
+			pVictim->sDamage -= (pVictim->stats.bLifeMax - pVictim->stats.bLife);
+
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;
 		}
+
 		// Reduce max breath based on life returned
 		if ( (pVictim->bBreathMax - (((usLifeReturned / 100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss) / 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
 		{
@@ -22540,9 +22549,17 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 				pVictim->bBleeding = 0;
 				uiMedcost += max( 0, (((iLifeReturned / 100) - pVictim->bBleeding) / 2) ); // add medkit points cost for unbandaged part
 			}
+
+			// display healing done
+			pVictim->flags.fDisplayDamage = TRUE;
+			pVictim->sDamage -= (iLifeReturned / 100);
 		}
 		else // this shouldn't even happen, but we still want to have it here for sure
 		{
+			// display healing done
+			pVictim->flags.fDisplayDamage = TRUE;
+			pVictim->sDamage -= (pVictim->stats.bLifeMax - pVictim->stats.bLife);
+
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;

@@ -4975,7 +4975,7 @@ void CleanWeapons( BOOLEAN fEntireTeam )
 		return;
 
 	// if in combat, always only for selected merc
-	if ( !fEntireTeam || (gTacticalStatus.uiFlags & INCOMBAT) )
+	if ( !fEntireTeam )
 	{
 		if ( gusSelectedSoldier == NOBODY )
 			return;
@@ -4987,7 +4987,7 @@ void CleanWeapons( BOOLEAN fEntireTeam )
 	}
 	else	// perform action for every merc in this sector
 	{	
-		UINT8									bMercID, bLastTeamID;
+		UINT16									bMercID, bLastTeamID;
 		SOLDIERTYPE*							pSoldier = NULL;
 
 		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -5326,7 +5326,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
        case 3:
 			// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
-		    CleanWeapons( gTacticalStatus.uiFlags & INCOMBAT );
+		    CleanWeapons( !(gTacticalStatus.uiFlags & INCOMBAT) );
 			break;
        case 4:
 		    UpdateGear();
