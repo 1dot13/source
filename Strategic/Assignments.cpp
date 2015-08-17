@@ -222,7 +222,7 @@ MOUSE_REGION	gContractMenuRegion[ MAX_CONTRACT_MENU_STRING_COUNT ];
 MOUSE_REGION	gRemoveMercAssignRegion[ MAX_REMOVE_MERC_COUNT ];
 MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
-MOUSE_REGION	gMoveItem[ 20 ];
+MOUSE_REGION	gMoveItem[MOVEITEM_MAX_SECTORS_WITH_MODIFIER + 1];
 MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
 
 UINT16			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
@@ -20934,6 +20934,8 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 		}
 
 		// a second run, this time the same sectors with the option to not take militia gear
+		iCount = 0;
+
 		if ( gGameExternalOptions.fMilitiaUseSectorInventory )
 		{
 			for ( UINT16 X = 0; X < 256; ++X )
@@ -21066,7 +21068,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		// only in towns
 		if ( bTownId != BLANK_SECTOR && pSoldier->bSectorZ == 0 )
 		{
-			for ( UINT i = 0; i < MOVEITEM_MAX_SECTORS_WITH_MODIFIER; ++i )
+			for ( UINT8 i = 0; i < MOVEITEM_MAX_SECTORS_WITH_MODIFIER; ++i )
 			{
 				// this includes MOVEITEM_SECTOR_OFFSET !
 				UINT16 val = usMoveItemSectors[i];
@@ -21075,7 +21077,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 				{
 					// add mouse region for each line of text..and set user data
 					MSYS_DefineRegion( &gMoveItem[ iCount ], 
-									   ( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), 
+									   ( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMoveBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), 
 									   MSYS_PRIORITY_HIGHEST - 4 ,	MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
 					// first data is for entry in usMoveItemSectors, second is for regiondate number
@@ -21090,7 +21092,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		}
 		
 		// cancel
-		MSYS_DefineRegion( &gMoveItem[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+		MSYS_DefineRegion( &gMoveItem[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghMoveBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
 							MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gMoveItem[iCount], 0, MOVEITEM_MENU_CANCEL );
