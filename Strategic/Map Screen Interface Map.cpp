@@ -6588,10 +6588,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 			// nope - display nothing
 			return;
 		}*/
-
-		// Flugente: tanks get a special icon, so we need to count them separately
-		UINT16 usNumTanks = NumTanksInSector( sSectorX, sSectorY, ENEMY_TEAM );
-
+		
 		switch ( WhatPlayerKnowsAboutEnemiesInSector( sSectorX, sSectorY ) )
 		{
 			// HEADROCK HAM 5: New cases below for showing enemy group heading.
@@ -6612,16 +6609,27 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 				break;
 
 			case KNOWS_HOW_MANY:
-				// display individual icons for each enemy, starting at the received icon position index
-				ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+				{
+					// Flugente: tanks get a special icon, so we need to count them separately
+					UINT16 usNumTanks = NumTanksInSector( sSectorX, sSectorY, ENEMY_TEAM );
+
+					// display individual icons for each enemy, starting at the received icon position index
+					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+				}
 				break;
 
 			// HEADROCK HAM 5: New case for showing enemy groups AND where the are headed.
 			case KNOWS_HOW_MANY_AND_WHERE_GOING:
-				// display individual icons for each enemy, starting at the received icon position index
-				ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
-				// display their direction of movement, if valid.
-				ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );
+				{
+					// Flugente: tanks get a special icon, so we need to count them separately
+					UINT16 usNumTanks = NumTanksInSector( sSectorX, sSectorY, ENEMY_TEAM );
+
+					// display individual icons for each enemy, starting at the received icon position index
+					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+
+					// display their direction of movement, if valid.
+					ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );
+				}
 				break;
 		}
 	}
